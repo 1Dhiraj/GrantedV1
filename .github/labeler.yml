@@ -845,3 +845,19 @@
   - changed-files:
       - any-glob-to-any-file:
           - "extensions/zai/**"
+"extensions: desktop":
+  - changed-files:
+      - any-glob-to-any-file:
+          - "extensions/desktop/**"
+"extensions: kokoro":
+  - changed-files:
+      - any-glob-to-any-file:
+          - "extensions/kokoro/**"
+"extensions: piper":
+  - changed-files:
+      - any-glob-to-any-file:
+          - "extensions/piper/**"
+"extensions: task-router":
+  - changed-files:
+      - any-glob-to-any-file:
+          - "extensions/task-router/**"

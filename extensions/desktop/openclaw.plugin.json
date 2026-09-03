@@ -1,0 +1,23 @@
+{
+  "id": "desktop",
+  "name": "Desktop",
+  "description": "Windows desktop automation: UI Automation snapshots plus real mouse and keyboard control on the gateway host.",
+  "activation": {
+    "onStartup": true
+  },
+  "enabledByDefault": false,
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "maxSnapshotElements": {
+        "type": "number",
+        "description": "Maximum UI elements returned per snapshot (default 300)."
+      },
+      "maxSnapshotDepth": {
+        "type": "number",
+        "description": "Maximum UI Automation tree depth walked per snapshot (default 15)."
+      }
+    }
+  }
+}

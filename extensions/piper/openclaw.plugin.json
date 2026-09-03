@@ -1,0 +1,17 @@
+{
+  "id": "piper",
+  "name": "Piper (local TTS)",
+  "description": "Fully local neural text-to-speech with Piper: no network, no key, runs on the CPU.",
+  "activation": {
+    "onStartup": false
+  },
+  "enabledByDefault": true,
+  "contracts": {
+    "speechProviders": ["piper"]
+  },
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {}
+  }
+}

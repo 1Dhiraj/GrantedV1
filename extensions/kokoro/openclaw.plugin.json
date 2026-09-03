@@ -1,0 +1,17 @@
+{
+  "id": "kokoro",
+  "name": "Kokoro (local TTS)",
+  "description": "Local high-quality neural text-to-speech with Kokoro, served by an isolated resident worker process.",
+  "activation": {
+    "onStartup": false
+  },
+  "enabledByDefault": true,
+  "contracts": {
+    "speechProviders": ["kokoro"]
+  },
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {}
+  }
+}
