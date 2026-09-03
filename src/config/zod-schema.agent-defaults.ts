@@ -66,6 +66,7 @@ export const AgentDefaultsSchema = z
     model: AgentModelSchema.optional(),
     modelSelectionScope: z.enum(["session", "agent", "global"]).optional(),
     utilityModel: z.string().optional(),
+    economyModel: z.string().optional(),
     imageModel: AgentToolModelSchema.optional(),
     mediaModels: z
       .object({

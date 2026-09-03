@@ -10,6 +10,7 @@ import { resolveDefaultModel } from "../auto-reply/reply/directive-handling.defa
 import { normalizeChatType, type ChatType } from "../channels/chat-type.js";
 import { getChannelPlugin } from "../channels/plugins/index.js";
 import type { ChannelId, ChannelPlugin } from "../channels/plugins/types.public.js";
+import { resolveEconomyModelRef } from "../config/economy-model.js";
 import type { SessionEntry } from "../config/sessions/types.js";
 import type { OpenClawConfig } from "../config/types.openclaw.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";
@@ -122,6 +123,9 @@ function resolveHeartbeatModelRef(params: {
   const heartbeatRaw =
     normalizeOptionalString(params.heartbeat?.model) ??
     normalizeOptionalString(params.cfg.agents?.defaults?.heartbeat?.model) ??
+    // Heartbeats fire unattended on a schedule, so they are the clearest
+    // case for the economy model when no heartbeat model is set.
+    resolveEconomyModelRef(params.cfg) ??
     "";
   const heartbeatRef = heartbeatRaw
     ? resolveModelRefFromString({

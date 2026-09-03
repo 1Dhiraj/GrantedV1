@@ -7,6 +7,7 @@ import {
   normalizeThinkingCatalogProviders,
 } from "../../agents/thinking-runtime.js";
 import { normalizeThinkLevel, type ThinkLevel } from "../../auto-reply/thinking.js";
+import { resolveEconomyModelRef } from "../../config/economy-model.js";
 import { resolveAgentModelPrimaryValue } from "../../config/model-input.js";
 /** Resolves provider/model precedence for isolated cron runs. */
 import type { AgentConfig } from "../../config/types.agents.js";
@@ -234,7 +235,11 @@ export async function resolveCronModelSelection(
     agentId: ownerAgentId,
     agentConfigOverride: ownerAgentConfigOverride,
   });
-  const subagentModelRaw = normalizeModelSelection(subagentModelConfigSelection?.raw);
+  // Isolated cron runs are background work: fall back to the economy model
+  // when no subagent/agent model is configured.
+  const subagentModelRaw =
+    normalizeModelSelection(subagentModelConfigSelection?.raw) ??
+    normalizeModelSelection(resolveEconomyModelRef(owner.config));
   const subagentModelSource: CronModelSelectionSource =
     subagentModelConfigSelection?.source === "agent" ? "agent" : "subagent";
   if (subagentModelRaw) {

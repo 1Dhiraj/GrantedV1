@@ -133,6 +133,8 @@ export type AgentDefaultsConfig = {
   modelSelectionScope?: ModelSelectionScope;
   /** Optional lower-cost model for short internal tasks such as generated session titles. */
   utilityModel?: string;
+  /** Optional cheap model that background agent turns (heartbeat, sub-agents, cron, compaction) fall back to. */
+  economyModel?: string;
   /**
    * @deprecated Legacy raw config accepted only by doctor/migration repair.
    * Normal schema parsing rejects this key; use per-model agentRuntime instead.

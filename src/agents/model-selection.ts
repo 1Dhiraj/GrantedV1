@@ -5,6 +5,7 @@ import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
 } from "@openclaw/normalization-core/string-coerce";
+import { resolveEconomyModelRef } from "../config/economy-model.js";
 import { resolveAgentModelPrimaryValue } from "../config/model-input.js";
 import type { OpenClawConfig } from "../config/types.openclaw.js";
 import { DEFAULT_PROVIDER } from "./defaults.js";
@@ -262,6 +263,10 @@ export function resolveSubagentSpawnModelSelection(params: {
     return configured;
   }
   const raw =
+    // Spawned sub-agents are background work: fall back to the economy model
+    // (when configured) before the primary, so a swarm cannot drain the
+    // premium budget. An explicit subagents.model is resolved above.
+    resolveEconomyModelRef(params.cfg) ??
     resolveAgentModelPrimaryValue(params.cfg.agents?.defaults?.model) ??
     `${runtimeDefault.provider}/${runtimeDefault.model}`;
   const aliasIndex = buildModelAliasIndex({

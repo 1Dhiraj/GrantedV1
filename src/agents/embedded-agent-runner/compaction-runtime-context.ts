@@ -3,6 +3,7 @@
  */
 import type { ThinkLevel, ThinkingCatalogEntry } from "../../auto-reply/thinking.js";
 import type { ChatType } from "../../channels/chat-type.js";
+import { resolveEconomyModelRef } from "../../config/economy-model.js";
 import type { OpenClawConfig } from "../../config/types.openclaw.js";
 import type { ProviderRuntimeModel } from "../../plugins/provider-runtime-model.types.js";
 import { isDefaultAgentRuntimeId, normalizeOptionalAgentRuntimeId } from "../agent-runtime-id.js";
@@ -122,7 +123,10 @@ export function resolveEmbeddedCompactionTarget(params: {
   // summaries. Compaction-specific model overrides would cross that boundary.
   const override = params.modelSelectionLocked
     ? undefined
-    : params.config?.agents?.defaults?.compaction?.model?.trim();
+    : // Explicit compaction.model wins; otherwise summarize with the economy
+      // model (when configured), since compaction is background work.
+      params.config?.agents?.defaults?.compaction?.model?.trim() ||
+      resolveEconomyModelRef(params.config);
   const resolveTargetProviders = (
     targetProvider: string | undefined,
     authProfileId: string | undefined,
