@@ -7,6 +7,7 @@ import { describe, expect, it, vi } from "vitest";
 import type { OpenClawConfig } from "../config/config.js";
 import {
   applyLocalSetupWorkspaceConfig,
+  ONBOARDING_DEFAULT_SPEND_LIMIT_USD,
   resolveOnboardingWorkspaceConflict,
 } from "./onboard-config.js";
 
@@ -172,5 +173,48 @@ describe("applyLocalSetupWorkspaceConfig", () => {
     });
 
     expect(result.agents?.defaults?.workspace).toBe("/tmp/requested-workspace");
+  });
+});
+
+describe("applyLocalSetupWorkspaceConfig spend ceiling", () => {
+  it("gives a fresh install a default spend ceiling", () => {
+    // Unattended work bills a real key, so a new install must not start
+    // uncapped.
+    const result = applyLocalSetupWorkspaceConfig({}, "/tmp/workspace");
+
+    expect(result.agents?.defaults?.spendLimitUsd).toBe(ONBOARDING_DEFAULT_SPEND_LIMIT_USD);
+  });
+
+  it("keeps an existing ceiling instead of resetting it on re-run", () => {
+    const baseConfig: OpenClawConfig = { agents: { defaults: { spendLimitUsd: 250 } } };
+
+    const result = applyLocalSetupWorkspaceConfig(baseConfig, "/tmp/workspace");
+
+    expect(result.agents?.defaults?.spendLimitUsd).toBe(250);
+  });
+
+  it("respects a deliberate 0 as 'no ceiling'", () => {
+    // 0 is the documented opt-out. Re-running setup must not silently re-cap a
+    // user who turned the ceiling off on purpose.
+    const baseConfig: OpenClawConfig = { agents: { defaults: { spendLimitUsd: 0 } } };
+
+    const result = applyLocalSetupWorkspaceConfig(baseConfig, "/tmp/workspace");
+
+    expect(result.agents?.defaults?.spendLimitUsd).toBe(0);
+  });
+
+  it("still applies the ceiling when the workspace is preserved", () => {
+    // The ceiling lives outside the workspace branch on purpose: an install
+    // that keeps its workspace still needs a cap.
+    const baseConfig: OpenClawConfig = {
+      agents: { defaults: { workspace: "/tmp/current-workspace" }, list: [{ id: "main" }] },
+    };
+
+    const result = applyLocalSetupWorkspaceConfig(baseConfig, "/tmp/requested-workspace", {
+      preserveWorkspace: true,
+    });
+
+    expect(result.agents?.defaults?.workspace).toBe("/tmp/current-workspace");
+    expect(result.agents?.defaults?.spendLimitUsd).toBe(ONBOARDING_DEFAULT_SPEND_LIMIT_USD);
   });
 });

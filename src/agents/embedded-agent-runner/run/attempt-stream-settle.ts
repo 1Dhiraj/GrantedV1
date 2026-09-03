@@ -17,6 +17,7 @@ import { registerProviderStreamForModel } from "../../provider-stream.js";
 import type { AgentMessage } from "../../runtime/index.js";
 import type { SandboxContext } from "../../sandbox/types.js";
 import type { AgentSession, SessionManager, SettingsManager } from "../../sessions/index.js";
+import { wrapStreamFnSpendLimit } from "../../spend-limit-stream.js";
 import { hasNonzeroUsage, normalizeUsage, type NormalizedUsage } from "../../usage.js";
 import { isRunnerAbortError } from "../abort.js";
 import { isCacheTtlEligibleProvider, readLastCacheTtlTimestamp } from "../cache-ttl.js";
@@ -549,6 +550,14 @@ export async function prepareEmbeddedAttemptTransport(input: {
   session.agent.streamFn = wrapStreamFnWithProviderPromptState({
     streamFn: session.agent.streamFn,
     ...input.providerPromptState,
+  });
+  // Outside the transport wrappers: a refused call must not reach payload
+  // preparation, admission hashing, or the provider at all.
+  session.agent.streamFn = wrapStreamFnSpendLimit({
+    streamFn: session.agent.streamFn,
+    config: attempt.config,
+    agentId: input.sessionAgentId,
+    provider: attempt.provider,
   });
   const providerTextTransforms = resolveProviderTextTransforms({
     provider: attempt.provider,

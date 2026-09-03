@@ -522,7 +522,7 @@ export function mergeSessionCostSummaryInto(
   target.latency = mergeLatencyStats(target.latency, source.latency);
 }
 
-function usageBucketsInRange(
+export function usageBucketsInRange(
   rollup: SessionUsageRollupData,
   startMs: number,
   endMs: number,
@@ -687,23 +687,6 @@ export function buildSessionCostSummaryFromRollup(params: {
     latency: computeLatencyStats(allLatencies),
     ...totals,
   };
-}
-
-export function addRollupToCostUsageSummary(params: {
-  rollup: SessionUsageRollupData;
-  startMs: number;
-  endMs: number;
-  formatDay: UsageDayKeyFormatter;
-  daily: Map<string, CostUsageTotals>;
-  totals: CostUsageTotals;
-}): void {
-  for (const bucket of usageBucketsInRange(params.rollup, params.startMs, params.endMs)) {
-    const dayKey = params.formatDay(new Date(bucket.timestampMs));
-    const daily = params.daily.get(dayKey) ?? createEmptyCostUsageTotals();
-    addCostUsageTotals(daily, bucket.totals);
-    params.daily.set(dayKey, daily);
-    addCostUsageTotals(params.totals, bucket.totals);
-  }
 }
 
 export function cloneSessionUsageRollupData(

@@ -49,6 +49,12 @@ export type CostUsageSummary = {
   days: number;
   daily: CostUsageDailyEntry[];
   totals: CostUsageTotals;
+  /**
+   * Total cost in range keyed by lowercased provider id. Derived from the same
+   * per-model rollup buckets as `totals`, so it needs no extra I/O; used by the
+   * per-provider spend limit.
+   */
+  providerCosts?: Record<string, number>;
   cacheStatus?: {
     status: "fresh" | "partial" | "stale" | "refreshing";
     cachedFiles: number;

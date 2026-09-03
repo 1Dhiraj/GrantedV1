@@ -13,6 +13,18 @@ import { resolveUserPath } from "../utils.js";
 /** Default tool profile selected during local onboarding. */
 const ONBOARDING_DEFAULT_TOOLS_PROFILE: ToolProfileId = "coding";
 
+/**
+ * A fresh install runs unattended work against a key the user pays for:
+ * heartbeats, cron jobs, and model fallback retries. With no ceiling, a stuck
+ * job or a rate-limit cascade into a paid fallback bills them while nobody is
+ * watching, and the first they hear of it is the invoice. Ship a ceiling by
+ * default and let anyone who wants more raise it knowingly.
+ *
+ * Chosen to be generous for real use and still bounded: a runaway costs single
+ * digits, not a rent payment.
+ */
+export const ONBOARDING_DEFAULT_SPEND_LIMIT_USD = 10;
+
 export type OnboardingWorkspaceConflict = {
   currentWorkspaceDir: string;
   requestedWorkspaceDir: string;
@@ -90,17 +102,20 @@ export function applyLocalSetupWorkspaceConfig(
   // Workspace/gateway copies still belong to the owner selected by the config reader.
   return inheritLegacyDefaultAgentId(baseConfig, {
     ...baseConfig,
-    ...(shouldUpdateWorkspace
-      ? {
-          agents: {
-            ...baseConfig.agents,
-            defaults: {
-              ...baseConfig.agents?.defaults,
-              workspace: workspaceDir,
-            },
-          },
-        }
-      : {}),
+    agents: {
+      ...baseConfig.agents,
+      defaults: {
+        ...baseConfig.agents?.defaults,
+        // Applied outside the workspace branch on purpose: the ceiling is the
+        // point of the default, and an install that keeps its existing
+        // workspace still needs one. Only set when absent, so an existing
+        // choice (including a deliberate 0 meaning "no ceiling") is preserved
+        // when setup is re-run.
+        spendLimitUsd:
+          baseConfig.agents?.defaults?.spendLimitUsd ?? ONBOARDING_DEFAULT_SPEND_LIMIT_USD,
+        ...(shouldUpdateWorkspace ? { workspace: workspaceDir } : {}),
+      },
+    },
     gateway: {
       ...baseConfig.gateway,
       mode: "local",

@@ -73,6 +73,10 @@ export const AGENT_FIELD_HELP: Record<string, string> = {
     "Optional lower-cost model (provider/model or alias) for short internal tasks such as generated titles and progress narration. Unset derives the primary provider's declared small model when available (otherwise the primary model); set to an empty string to disable utility routing.",
   "agents.defaults.economyModel":
     "Optional cheap model (provider/model or alias) that background agent turns fall back to: heartbeats, spawned sub-agents, isolated cron runs, and compaction. Any per-role model (heartbeat.model, compaction.model, subagents.model) still wins. Unlike utilityModel, which handles short internal completions like titles, this covers full agent turns; leave unset to run background work on the primary model.",
+  "agents.defaults.spendLimitUsd":
+    "Cumulative USD ceiling across all model calls for this agent. When reached, every model call is blocked until the limit is raised or removed, so unattended work (heartbeats, cron, retries) cannot run up an unbounded bill. Spend is counted from recorded usage and persists across restarts. 0 or unset means no ceiling.",
+  "agents.defaults.spendLimitUsdByProvider":
+    'Per-provider cumulative USD ceilings keyed by provider id (for example {"anthropic": 20}). When one provider hits its ceiling only that provider is blocked, and model fallback moves on to the next configured provider; the global spendLimitUsd still applies on top.',
   "agents.entries.*.utilityModel":
     "Optional per-agent utility model override for short internal tasks. Overrides agents.defaults.utilityModel.",
   "agents.entries.*.models": "Per-agent model catalog overrides keyed by full provider/model IDs.",

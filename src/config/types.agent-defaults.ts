@@ -135,6 +135,10 @@ export type AgentDefaultsConfig = {
   utilityModel?: string;
   /** Optional cheap model that background agent turns (heartbeat, sub-agents, cron, compaction) fall back to. */
   economyModel?: string;
+  /** Cumulative USD ceiling for all model calls. 0 or unset means no ceiling. */
+  spendLimitUsd?: number;
+  /** Per-provider cumulative USD ceilings keyed by provider id. */
+  spendLimitUsdByProvider?: Record<string, number>;
   /**
    * @deprecated Legacy raw config accepted only by doctor/migration repair.
    * Normal schema parsing rejects this key; use per-model agentRuntime instead.

@@ -1,5 +1,5 @@
 // Shared arithmetic helpers for cost/usage token totals.
-import type { CostUsageTotals } from "./session-cost-usage.types.js";
+import type { CostUsageTotals, SessionModelUsage } from "./session-cost-usage.types.js";
 
 export function createEmptyCostUsageTotals(): CostUsageTotals {
   return {
@@ -64,4 +64,22 @@ export function formatMissingCostEntries(totals: CostUsageTotals): string {
     return String(totals.missingCostEntries);
   }
   return `${totals.missingCostEntries} (${byModel.map(([model, count]) => `${model} ${count}`).join(", ")})`;
+}
+
+/**
+ * Folds per-model spend into a per-provider tally. Providers are lowercased so
+ * config casing cannot split one provider's spend across two keys and let it
+ * run past its ceiling; entries with no provider attribution are skipped.
+ */
+export function addProviderCosts(
+  target: Map<string, number>,
+  models: readonly SessionModelUsage[],
+): void {
+  for (const model of models) {
+    const provider = model.provider?.trim().toLowerCase();
+    if (!provider) {
+      continue;
+    }
+    target.set(provider, (target.get(provider) ?? 0) + model.totals.totalCost);
+  }
 }

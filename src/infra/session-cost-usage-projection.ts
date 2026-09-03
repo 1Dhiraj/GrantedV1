@@ -7,8 +7,13 @@ import {
   type UsageCostStoredRollup,
 } from "./session-cost-usage-aggregation.js";
 import type { UsageCostTranscriptFile } from "./session-cost-usage-collection.js";
-import { addRollupToCostUsageSummary } from "./session-cost-usage-rollup.js";
-import { createEmptyCostUsageTotals as emptyTotals } from "./session-cost-usage-totals.js";
+import { type SessionUsageRollupData, usageBucketsInRange } from "./session-cost-usage-rollup.js";
+import {
+  addCostUsageTotals,
+  addProviderCosts,
+  createEmptyCostUsageTotals,
+  createEmptyCostUsageTotals as emptyTotals,
+} from "./session-cost-usage-totals.js";
 import type {
   CostUsageSummary,
   CostUsageTotals,
@@ -134,6 +139,34 @@ const countCalendarDays = (
   return Math.floor((endDayMs - startDayMs) / (24 * 60 * 60 * 1000)) + 1;
 };
 
+/**
+ * Folds one session's rollup buckets into the running summary: day buckets,
+ * grand totals, and (when the caller asks) per-provider spend.
+ */
+export function addRollupToCostUsageSummary(params: {
+  rollup: SessionUsageRollupData;
+  startMs: number;
+  endMs: number;
+  formatDay: UsageDayKeyFormatter;
+  daily: Map<string, CostUsageTotals>;
+  totals: CostUsageTotals;
+  /** Optional per-provider cost accumulator for the per-provider spend limit. */
+  providerCosts?: Map<string, number>;
+}): void {
+  for (const bucket of usageBucketsInRange(params.rollup, params.startMs, params.endMs)) {
+    const dayKey = params.formatDay(new Date(bucket.timestampMs));
+    const daily = params.daily.get(dayKey) ?? createEmptyCostUsageTotals();
+    addCostUsageTotals(daily, bucket.totals);
+    params.daily.set(dayKey, daily);
+    addCostUsageTotals(params.totals, bucket.totals);
+    if (params.providerCosts) {
+      // The bucket already carries a per-model breakdown, so provider spend is
+      // a fold over data this pass has in hand rather than a second query.
+      addProviderCosts(params.providerCosts, bucket.models);
+    }
+  }
+}
+
 export function buildCostUsageSummaryFromRollups(params: {
   rollups: Map<string, UsageCostStoredRollup>;
   files: UsageCostTranscriptFile[];
@@ -144,6 +177,7 @@ export function buildCostUsageSummaryFromRollups(params: {
 }): CostUsageSummary {
   const dailyMap = new Map<string, CostUsageTotals>();
   const totals = emptyTotals();
+  const providerCosts = new Map<string, number>();
   const dayFormatter = createUsageDayKeyFormatter(params.dayBucket);
   const staleFiles = getUsageCostStaleRollupFiles(params);
   const cachedFiles = countUsableUsageCostRollups(params);
@@ -159,6 +193,7 @@ export function buildCostUsageSummaryFromRollups(params: {
       formatDay: dayFormatter,
       daily: dailyMap,
       totals,
+      providerCosts,
     });
   }
   fillMissingDays(dailyMap, params.startMs, params.endMs, dayFormatter);
@@ -176,6 +211,7 @@ export function buildCostUsageSummaryFromRollups(params: {
       .map(([date, bucket]) => Object.assign({ date }, bucket))
       .toSorted((a, b) => a.date.localeCompare(b.date)),
     totals,
+    providerCosts: Object.fromEntries(providerCosts),
     cacheStatus: {
       status,
       cachedFiles,
