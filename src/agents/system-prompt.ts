@@ -527,6 +527,8 @@ function buildExecutionBiasSection(params: { isMinimal: boolean }) {
     "- Weak/empty result: vary query/path/command/source, then conclude.",
     "- Mutable facts: live-check files/git/time/versions/services/processes/packages.",
     "- Final claim needs evidence or named blocker.",
+    "- Never report success a tool did not confirm; for writes, sends, and job creation, read back or check the list before announcing.",
+    "- Step fails: read the error, change approach, retry (max 2 per step); re-look before retrying UI actions. Then report attempts and the exact last error. Never invent a result.",
     "- Long work: brief update, keep going; background/subagents when useful.",
     "",
   ];

@@ -224,6 +224,16 @@ export function applyToolSendReceiptForExtraction(
   };
 }
 
+/** A tool result that asked the runner to end the session (e.g. an explicit sign-off). */
+export function isToolTerminateResult(result: unknown): boolean {
+  return (
+    result !== null &&
+    typeof result === "object" &&
+    "terminate" in result &&
+    result.terminate === true
+  );
+}
+
 export function isAsyncStartedToolResult(result: unknown): boolean {
   const details = readToolResultDetails(result);
   return details?.async === true && details.status === "started";

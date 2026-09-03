@@ -225,6 +225,7 @@ export function prepareEmbeddedRunTerminal(input: {
         attempt.codexAppServerFailure?.kind === "turn_completion_idle_timeout"),
     didSendDeterministicApprovalPrompt: attempt.didSendDeterministicApprovalPrompt,
     heartbeatToolResponse: attempt.heartbeatToolResponse,
+    toolMetas: attempt.toolMetas,
   });
   const payloadsWithToolMedia = mergeAttemptToolMediaPayloads({
     payloads,

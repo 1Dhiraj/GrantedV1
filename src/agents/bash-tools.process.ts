@@ -281,6 +281,30 @@ export function createProcessTool(
   const isInScope = (session?: { scopeKey?: string } | null) =>
     !scopeKey || session?.scopeKey === scopeKey;
 
+  /**
+   * `exec` announces a backgrounded command as "session <name>, pid <number>",
+   * so callers reach for the pid, which is not the session id. A bare "No
+   * session found for X" names the bad value without saying what a good one
+   * looks like, and an agent can burn its whole remaining budget there. Name
+   * the live sessions instead so the next call can succeed. Scope-filtered, so
+   * this never reveals another agent's sessions.
+   */
+  const describeAvailableSessions = (): string => {
+    const entries = [...listRunningSessions(), ...listFinishedSessions()]
+      .filter((session) => isInScope(session))
+      .toSorted(compareProcessSessionStartOrder)
+      .slice(0, 8)
+      .map((session) => {
+        const state = session.terminalStatus ?? "running";
+        const pid = session.pid ? ` (pid ${session.pid})` : "";
+        return `${session.id}${pid} [${state}]`;
+      });
+    if (entries.length === 0) {
+      return " No sessions exist right now (use action=list to confirm).";
+    }
+    return ` Use the session id, not the pid. Available: ${entries.join(", ")}. action=list shows all.`;
+  };
+
   const describeRunningSession = (session: ProcessSession): RunningSessionRuntime => {
     const record = supervisor.getRecord(session.id);
     const lastOutputAt = record?.lastOutputAtMs ?? session.startedAt;
@@ -428,7 +452,9 @@ export function createProcessTool(
               return finishedPollResult(params.sessionId, scopedFinished, pollScope);
             }
             resetPollRetrySuggestion(params.sessionId);
-            return failText(`No session found for ${params.sessionId}`);
+            return failText(
+              `No session found for ${params.sessionId}.${describeAvailableSessions()}`,
+            );
           }
           if (!scopedSession.backgrounded) {
             return failText(`Session ${params.sessionId} is not backgrounded.`);
@@ -458,7 +484,9 @@ export function createProcessTool(
               return finishedPollResult(params.sessionId, scopedSession, pollScope);
             }
             resetPollRetrySuggestion(params.sessionId);
-            return failText(`No session found for ${params.sessionId}`);
+            return failText(
+              `No session found for ${params.sessionId}.${describeAvailableSessions()}`,
+            );
           }
           const delivery = prepareSessionPoll(scopedSession, pollScope);
           const { output: unreadOutput, outputDropped } = delivery;
@@ -491,7 +519,9 @@ export function createProcessTool(
         case "log": {
           const record = scopedSession ?? scopedFinished;
           if (!record) {
-            return failText(`No session found for ${params.sessionId}`);
+            return failText(
+              `No session found for ${params.sessionId}.${describeAvailableSessions()}`,
+            );
           }
           if (scopedSession && !scopedSession.backgrounded) {
             return failText(`Session ${params.sessionId} is not backgrounded.`);
@@ -650,7 +680,9 @@ export function createProcessTool(
             deleteSession(params.sessionId);
             return textResult(`Removed session ${params.sessionId}.`, { status: "completed" });
           }
-          return failText(`No session found for ${params.sessionId}`);
+          return failText(
+            `No session found for ${params.sessionId}.${describeAvailableSessions()}`,
+          );
         }
       }
 

@@ -54,6 +54,8 @@ import {
 import { isTimeoutErrorMessage } from "../../failover/classify.js";
 import type { PreparedProviderFailoverOwner } from "../../failover/provider-patterns.js";
 import type { ToolErrorSummary } from "../../tool-error-summary.js";
+import { describesUnappliedChange, UNAPPLIED_CHANGE_WARNING } from "../../unapplied-change.js";
+import { buildUnverifiedClaimWarning } from "../../verify-on-stop.js";
 import { buildSourceReplyPayloadState } from "./source-reply-payloads.js";
 import { buildFailureWarning } from "./tool-error-warning.js";
 
@@ -122,6 +124,38 @@ function resolveRawAssistantAnswerText(lastAssistant: AssistantMessage | undefin
  * errors, preserves directive metadata, and decides when tool failures must be
  * surfaced to the user.
  */
+type HonestyToolMeta = { toolName: string; meta?: string; isError?: boolean; mutating?: boolean };
+
+/**
+ * Turn-end honesty checks. A turn can mislead without any tool erroring: it
+ * can describe a fix it never applied, or claim a change it never read back.
+ * Neither rewrites the model's words; both append one short user-facing note.
+ */
+function buildHonestyWarning(params: {
+  assistantTexts: string[];
+  toolMetas: ReadonlyArray<HonestyToolMeta>;
+}): string | null {
+  const replyText = params.assistantTexts.join("\n");
+  if (
+    describesUnappliedChange({
+      replyText,
+      toolNames: params.toolMetas.map((entry) => entry.toolName),
+    })
+  ) {
+    return UNAPPLIED_CHANGE_WARNING;
+  }
+  return buildUnverifiedClaimWarning({
+    toolCalls: params.toolMetas.map((entry) => ({
+      name: entry.toolName,
+      action: entry.meta,
+      command: entry.meta,
+      isError: entry.isError,
+      mutating: entry.mutating,
+    })),
+    replyText,
+  });
+}
+
 export function buildEmbeddedRunPayloads(params: {
   assistantTexts: string[];
   assistantMessageIndex?: number;
@@ -156,6 +190,8 @@ export function buildEmbeddedRunPayloads(params: {
   deferAssistantTimeoutError?: boolean;
   didSendDeterministicApprovalPrompt?: boolean;
   heartbeatToolResponse?: HeartbeatToolResponse;
+  /** Per-call tool outcomes for the turn-end honesty checks (unverified claim, unapplied change). */
+  toolMetas?: ReadonlyArray<HonestyToolMeta>;
 }): ReplyPayload[] {
   const heartbeatTerminalToolFailure =
     params.isHeartbeatTrigger === true &&
@@ -400,6 +436,15 @@ export function buildEmbeddedRunPayloads(params: {
         }
         replyItems.push(warning);
       }
+    }
+  }
+  if (!suppressFailureArtifacts && !params.heartbeatToolResponse && params.toolMetas) {
+    const honestyWarning = buildHonestyWarning({
+      assistantTexts: params.assistantTexts,
+      toolMetas: params.toolMetas,
+    });
+    if (honestyWarning) {
+      replyItems.push({ text: honestyWarning, isError: true });
     }
   }
   if (heartbeatTerminalToolFailure && !replyItems.some((item) => item.isReasoning !== true)) {

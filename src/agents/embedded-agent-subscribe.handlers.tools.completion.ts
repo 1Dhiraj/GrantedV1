@@ -64,6 +64,7 @@ import {
   readMessagingText,
   readProgressCardPlanInput,
   resolveFallbackToolTerminalObserver,
+  isToolTerminateResult,
 } from "./embedded-agent-subscribe.handlers.tools.results.js";
 import {
   buildCommandItemId,
@@ -191,18 +192,14 @@ export async function handleToolExecutionEnd(
     !isToolError &&
     ctx.params.codeModeExecToolNames?.has(toolName) === true &&
     readToolResultDetails(sanitizedResult)?.status === "waiting";
-  const terminate =
-    result !== null &&
-    typeof result === "object" &&
-    "terminate" in result &&
-    result.terminate === true;
   ctx.state.toolMetas.push({
     toolName,
     toolCallId,
     meta,
     replaySafe: callSummary.replaySafe,
+    mutating: callSummary.mutatingAction,
     isError: observerIsError,
-    ...(terminate ? { terminate: true } : {}),
+    ...(isToolTerminateResult(result) ? { terminate: true } : {}),
     ...(asyncStarted ? { asyncStarted: true, ...asyncTaskIds } : {}),
     ...(codeModeSuspended ? { codeModeSuspended: true } : {}),
   });

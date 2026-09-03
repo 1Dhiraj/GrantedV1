@@ -79,6 +79,8 @@ export type EmbeddedAgentSubscribeState = {
     meta?: string;
     replaySafe?: boolean;
     isError?: boolean;
+    /** Argument-aware mutation verdict for the turn-end verification gate. */
+    mutating?: boolean;
     terminate?: boolean;
     asyncStarted?: boolean;
     asyncTaskRunId?: string;

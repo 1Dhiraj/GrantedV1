@@ -285,6 +285,11 @@ function formatConciseExecExitSuffix(error: string | undefined): string {
 function maybeWrapInlineCode(value: string, markdown: boolean): string {
   return markdown ? formatInlineCodeSpan(value) : value;
 }
+/** The model called a tool that does not exist, so the intended action never ran. */
+export function isUnknownToolError(error: string | undefined): boolean {
+  return /^tool\s+\S+\s+not found/iu.test(error?.trim() ?? "");
+}
+
 /** Warn only when a tool failure would otherwise leave the user with no reply. */
 export function buildFailureWarning(params: {
   lastToolError: ToolErrorSummary;
@@ -294,6 +299,16 @@ export function buildFailureWarning(params: {
   verboseLevel?: VerboseLevel;
   useMarkdown: boolean;
 }): string | undefined {
+  // A hallucinated tool name means the intended action never ran at all. That
+  // must reach the user even under a confident reply or suppressed warnings:
+  // the model needs correcting, not its false success confirmed.
+  if (isUnknownToolError(params.lastToolError.error)) {
+    return formatToolErrorWarningText({
+      lastToolError: params.lastToolError,
+      includeDetails: true,
+      useMarkdown: params.useMarkdown,
+    });
+  }
   if (
     params.hasUserFacingReply ||
     params.suppressToolErrors ||

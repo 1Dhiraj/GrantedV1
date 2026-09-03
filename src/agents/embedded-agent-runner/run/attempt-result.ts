@@ -173,6 +173,9 @@ function normalizeEmbeddedAttemptToolMetas(
       if (typeof entry.isError === "boolean") {
         normalized.isError = entry.isError;
       }
+      if (typeof entry.mutating === "boolean") {
+        normalized.mutating = entry.mutating;
+      }
       if (entry.terminate === true) {
         normalized.terminate = true;
       }

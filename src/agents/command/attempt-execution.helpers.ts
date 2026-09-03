@@ -311,7 +311,7 @@ export function resolveFallbackRetryPrompt(params: {
   // instruction from history alone, which is fragile and sometimes
   // impossible. Prepend the retry context to the original body instead so
   // the fallback model has both the recovery signal AND the task. (#65760)
-  const retryMarked = `[Retry after the previous model attempt failed or timed out]\n\n${params.body}`;
+  const retryMarked = `[Retry after the previous model attempt failed or timed out. Do not assume any earlier step succeeded; check the real current state before continuing]\n\n${params.body}`;
   return prelude ? `${prelude}\n\n${retryMarked}` : retryMarked;
 }
 

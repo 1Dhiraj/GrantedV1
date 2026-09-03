@@ -56,7 +56,9 @@ describe("resolveFallbackRetryPrompt", () => {
         isFallbackRetry: true,
         sessionHasHistory: true,
       }),
-    ).toBe(`[Retry after the previous model attempt failed or timed out]\n\n${originalBody}`);
+    ).toBe(
+      `[Retry after the previous model attempt failed or timed out. Do not assume any earlier step succeeded; check the real current state before continuing]\n\n${originalBody}`,
+    );
   });
 
   it("preserves original body for fallback retry when sessionHasHistory is undefined", () => {
@@ -97,7 +99,7 @@ describe("resolveFallbackRetryPrompt", () => {
       priorContextPrelude: prelude,
     });
     expect(result).toBe(
-      `${prelude}\n\n[Retry after the previous model attempt failed or timed out]\n\n${originalBody}`,
+      `${prelude}\n\n[Retry after the previous model attempt failed or timed out. Do not assume any earlier step succeeded; check the real current state before continuing]\n\n${originalBody}`,
     );
   });
 
@@ -110,7 +112,7 @@ describe("resolveFallbackRetryPrompt", () => {
       priorContextPrelude: prelude,
     });
     expect(result).toBe(
-      `${prelude}\n\n[Retry after the previous model attempt failed or timed out]\n\n${originalBody}`,
+      `${prelude}\n\n[Retry after the previous model attempt failed or timed out. Do not assume any earlier step succeeded; check the real current state before continuing]\n\n${originalBody}`,
     );
   });
 
@@ -351,7 +353,9 @@ describe("sessionTranscriptHasContent", () => {
     expect(sessionHasHistory).toBe(true);
     expect(
       resolveFallbackRetryPrompt({ body: "continue", isFallbackRetry: true, sessionHasHistory }),
-    ).toBe("[Retry after the previous model attempt failed or timed out]\n\ncontinue");
+    ).toBe(
+      "[Retry after the previous model attempt failed or timed out. Do not assume any earlier step succeeded; check the real current state before continuing]\n\ncontinue",
+    );
   });
 
   it("ignores abandoned assistants and clears history at reset boundaries", async () => {
