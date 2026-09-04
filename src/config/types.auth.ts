@@ -21,4 +21,20 @@ export type AuthConfig = {
   profiles?: Record<string, AuthProfileConfig>;
   /** Preferred profile order per provider id. */
   order?: Record<string, string[]>;
+  /** Failure-backoff policy shared by auth rotation and model fallback. */
+  cooldowns?: {
+    /**
+     * When true (the default), a rate limit escalates to the model fallback
+     * chain once auth-profile rotation is exhausted. Set false to never switch
+     * models on a 429: the run keeps the selected model and surfaces the error
+     * if the limit persists.
+     */
+    fallbackOnRateLimit?: boolean;
+    /**
+     * Provider ids that always wait and retry the same model on a rate limit,
+     * whatever `fallbackOnRateLimit` says. Use it for providers whose limits
+     * clear quickly, so a short wait beats paying a pricier fallback.
+     */
+    waitOnRateLimitProviders?: string[];
+  };
 };

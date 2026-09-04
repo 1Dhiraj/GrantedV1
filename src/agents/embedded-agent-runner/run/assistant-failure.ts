@@ -15,6 +15,7 @@ import {
 } from "../../embedded-agent-helpers.js";
 import type { PreparedProviderFailoverOwner } from "../../failover/provider-patterns.js";
 import { resolveRetryAfterMs } from "../../failover/retry-evidence.js";
+import { allowsRateLimitModelFallback } from "../../rate-limit-fallback.js";
 import {
   resolveSessionSuspensionReason,
   type SessionSuspensionParams,
@@ -276,6 +277,10 @@ export async function handleEmbeddedAssistantFailure(input: {
         failoverReason: assistantFailoverReason,
         harnessOwnsTransport: input.pluginHarnessOwnsTransport,
         profileRotated: false,
+        rateLimitModelFallback: allowsRateLimitModelFallback({
+          cfg: input.runParams.config,
+          provider: input.activeErrorContext.provider,
+        }),
       });
   const outcome = await handleAssistantFailover({
     initialDecision,

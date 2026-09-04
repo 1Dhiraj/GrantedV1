@@ -1,5 +1,6 @@
 import { projectAgentRunAttemptTerminal } from "../../agent-run-terminal-outcome.js";
 import { formatAssistantErrorText } from "../../embedded-agent-helpers.js";
+import { allowsRateLimitModelFallback } from "../../rate-limit-fallback.js";
 import { createAgentRunDirectAbortError } from "../../run-termination.js";
 import { normalizeUsage, type UsageLike } from "../../usage.js";
 import { hasOutboundDeliveryEvidence } from "../delivery-evidence.js";
@@ -214,6 +215,10 @@ export async function normalizeEmbeddedRunAttempt(input: {
           stage: "retry_limit",
           fallbackConfigured: runInput.fallbackConfigured,
           failoverReason: input.lastRetryFailoverReason,
+          rateLimitModelFallback: allowsRateLimitModelFallback({
+            cfg: params.config,
+            provider,
+          }),
         }),
         provider,
         model: modelId,

@@ -37,6 +37,8 @@ type RetryLimitDecisionParams = {
   stage: "retry_limit";
   fallbackConfigured: boolean;
   failoverReason: FailoverReason | null;
+  /** auth.cooldowns: when false, a 429 never switches models. Defaults to true. */
+  rateLimitModelFallback?: boolean;
 };
 
 type PromptDecisionParams = {
@@ -52,6 +54,8 @@ type PromptDecisionParams = {
   promptTimeoutFallbackSafe?: boolean;
   timedOutByRunBudget?: boolean;
   profileRotated: boolean;
+  /** auth.cooldowns: when false, a 429 never switches models. Defaults to true. */
+  rateLimitModelFallback?: boolean;
 };
 
 type AssistantDecisionParams = {
@@ -64,12 +68,26 @@ type AssistantDecisionParams = {
   failoverReason: FailoverReason | null;
   harnessOwnsTransport?: boolean;
   profileRotated: boolean;
+  /** auth.cooldowns: when false, a 429 never switches models. Defaults to true. */
+  rateLimitModelFallback?: boolean;
 };
 
 type RunFailoverDecisionParams =
   | RetryLimitDecisionParams
   | PromptDecisionParams
   | AssistantDecisionParams;
+
+/**
+ * A rate limit the operator asked us to wait out rather than pay to escape.
+ * Profile rotation still runs; only the model switch is withheld, so the run
+ * retries the selected model and surfaces the error if the limit persists.
+ */
+function withholdsModelSwitch(
+  reason: FailoverReason | null,
+  rateLimitModelFallback: boolean | undefined,
+): boolean {
+  return reason === "rate_limit" && rateLimitModelFallback === false;
+}
 
 function shouldEscalateRetryLimit(reason: FailoverReason | null): boolean {
   return Boolean(
@@ -165,7 +183,11 @@ export function resolveRunFailoverDecision(
  */
 export function resolveRunFailoverDecision(params: RunFailoverDecisionParams): RunFailoverDecision {
   if (params.stage === "retry_limit") {
-    if (params.fallbackConfigured && shouldEscalateRetryLimit(params.failoverReason)) {
+    if (
+      params.fallbackConfigured &&
+      shouldEscalateRetryLimit(params.failoverReason) &&
+      !withholdsModelSwitch(params.failoverReason, params.rateLimitModelFallback)
+    ) {
       const fallbackReason = params.failoverReason ?? "unknown";
       return {
         action: "fallback_model",
@@ -218,7 +240,12 @@ export function resolveRunFailoverDecision(params: RunFailoverDecisionParams): R
         reason: params.failoverReason,
       };
     }
-    if (params.fallbackConfigured && params.failoverFailure && !isTerminalFormatFailure(params)) {
+    if (
+      params.fallbackConfigured &&
+      params.failoverFailure &&
+      !isTerminalFormatFailure(params) &&
+      !withholdsModelSwitch(params.failoverReason, params.rateLimitModelFallback)
+    ) {
       return {
         action: "fallback_model",
         reason: params.failoverReason ?? "unknown",
@@ -264,7 +291,11 @@ export function resolveRunFailoverDecision(params: RunFailoverDecisionParams): R
       reason: params.failoverReason,
     };
   }
-  if (assistantShouldRotate && params.fallbackConfigured) {
+  if (
+    assistantShouldRotate &&
+    params.fallbackConfigured &&
+    !withholdsModelSwitch(params.failoverReason, params.rateLimitModelFallback)
+  ) {
     return {
       action: "fallback_model",
       reason: assistantFallbackReason(params),

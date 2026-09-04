@@ -610,6 +610,8 @@ export const FIELD_LABELS: Record<string, string> = {
   "agents.defaults.model.fallbacks": "Model Fallbacks",
   "agents.defaults.utilityModel": "Utility Model",
   "agents.defaults.economyModel": "Economy Model (Background Turns)",
+  "auth.cooldowns.fallbackOnRateLimit": "Switch Models on Rate Limit",
+  "auth.cooldowns.waitOnRateLimitProviders": "Always Wait on Rate Limit (Providers)",
   "agents.defaults.spendLimitUsd": "Spend Limit (USD)",
   "agents.defaults.spendLimitUsdByProvider": "Spend Limit by Provider (USD)",
   "agents.entries.*.utilityModel": "Agent Utility Model",

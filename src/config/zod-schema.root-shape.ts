@@ -271,6 +271,12 @@ export const OpenClawSchemaShape = {
         )
         .optional(),
       order: z.record(z.string(), z.array(z.string())).optional(),
+      cooldowns: z
+        .strictObject({
+          fallbackOnRateLimit: z.boolean().optional(),
+          waitOnRateLimitProviders: z.array(z.string()).optional(),
+        })
+        .optional(),
     })
     .optional(),
   accessGroups: AccessGroupsSchema,

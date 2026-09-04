@@ -73,6 +73,10 @@ export const AGENT_FIELD_HELP: Record<string, string> = {
     "Optional lower-cost model (provider/model or alias) for short internal tasks such as generated titles and progress narration. Unset derives the primary provider's declared small model when available (otherwise the primary model); set to an empty string to disable utility routing.",
   "agents.defaults.economyModel":
     "Optional cheap model (provider/model or alias) that background agent turns fall back to: heartbeats, spawned sub-agents, isolated cron runs, and compaction. Any per-role model (heartbeat.model, compaction.model, subagents.model) still wins. Unlike utilityModel, which handles short internal completions like titles, this covers full agent turns; leave unset to run background work on the primary model.",
+  "auth.cooldowns.fallbackOnRateLimit":
+    "When true (default), a rate-limited provider escalates to the model fallback chain after auth-profile rotation is exhausted. Set false to never switch models on a 429 — the run stays on the selected model, retries with backoff, and surfaces the error if the limit persists. Useful when the fallback model costs more than waiting.",
+  "auth.cooldowns.waitOnRateLimitProviders":
+    'Provider ids (for example ["google", "groq"]) that always wait and retry the same model on a rate limit, regardless of fallbackOnRateLimit. Use it for providers whose limits clear in seconds, where a short wait is cheaper than switching to a pricier model.',
   "agents.defaults.spendLimitUsd":
     "Cumulative USD ceiling across all model calls for this agent. When reached, every model call is blocked until the limit is raised or removed, so unattended work (heartbeats, cron, retries) cannot run up an unbounded bill. Spend is counted from recorded usage and persists across restarts. 0 or unset means no ceiling.",
   "agents.defaults.spendLimitUsdByProvider":

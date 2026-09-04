@@ -19,6 +19,7 @@ import {
 import { FailoverError, resolveFailoverStatus } from "../../failover-error.js";
 import type { PreparedProviderFailoverOwner } from "../../failover/provider-patterns.js";
 import { classifyRateLimitWindow, resolveRetryAfterMs } from "../../failover/retry-evidence.js";
+import { allowsRateLimitModelFallback } from "../../rate-limit-fallback.js";
 import {
   mergeRetryFailoverReason,
   resolveRunFailoverDecision,
@@ -267,6 +268,10 @@ export async function handleAssistantFailover(params: {
       failoverReason: params.failoverReason,
       harnessOwnsTransport: params.harnessOwnsTransport,
       profileRotated: true,
+      rateLimitModelFallback: allowsRateLimitModelFallback({
+        cfg: params.config,
+        provider: params.activeErrorContext.provider,
+      }),
     });
   }
 
