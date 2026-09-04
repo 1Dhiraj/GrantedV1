@@ -28,6 +28,7 @@ import {
   type UsageCostTranscriptFile,
 } from "./session-cost-usage-collection.js";
 import {
+  applyCacheSavings,
   applyCostBreakdown,
   applyCostTotal,
   applyUsageTotals,
@@ -312,6 +313,7 @@ async function scanJsonlRange(params: {
 function appendParsedEntryToRollup(
   rollup: SessionUsageRollupData,
   entry: ParsedTranscriptEntry,
+  resolveCost?: UsageCostResolver,
 ): { countedRecord: boolean; parsedRecord: boolean } {
   let usageTotals: CostUsageTotals | undefined;
   if (entry.usage) {
@@ -321,6 +323,15 @@ function appendParsedEntryToRollup(
       applyCostBreakdown(usageTotals, entry.costBreakdown);
     } else {
       applyCostTotal(usageTotals, entry.costTotal, entry.provider, entry.model);
+    }
+    // Needs the model's own rates, so it happens here rather than in
+    // applyCostBreakdown, which only ever sees already-priced dollars.
+    if (resolveCost) {
+      applyCacheSavings(
+        usageTotals,
+        entry.usage,
+        resolveCost({ provider: entry.provider, model: entry.model }),
+      );
     }
   }
   const timestamp = entry.timestamp?.getTime();
@@ -350,7 +361,7 @@ function scanRecordsIntoRollup(params: {
     if (!entry) {
       continue;
     }
-    const counted = appendParsedEntryToRollup(params.rollup, entry);
+    const counted = appendParsedEntryToRollup(params.rollup, entry, params.resolveCost);
     countedRecords += counted.countedRecord ? 1 : 0;
     parsedRecords += counted.parsedRecord ? 1 : 0;
   }

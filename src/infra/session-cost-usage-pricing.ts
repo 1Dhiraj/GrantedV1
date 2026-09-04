@@ -147,6 +147,41 @@ export const applyCostBreakdown = (
   totals.cacheWriteCost += costBreakdown.cacheWrite ?? 0;
 };
 
+/**
+ * Accumulate the USD prompt caching saved: what the cached tokens would have
+ * cost at the plain input rate, minus what they actually cost.
+ *
+ * Cache writes usually carry a premium over plain input, so they subtract from
+ * the total — reporting only the read side would overstate the benefit of
+ * caching for a session that keeps rewriting its prefix.
+ *
+ * Skipped entirely when the model's pricing is unknown. An all-zero cost
+ * config is indistinguishable from "no published price" (see
+ * isModelPricingKnown), and guessing there would invent savings that were
+ * never real.
+ */
+export const applyCacheSavings = (
+  totals: CostUsageTotals,
+  usage: NormalizedUsage | undefined,
+  cost: ReturnType<typeof resolveModelCostConfig>,
+): void => {
+  const cacheRead = usage?.cacheRead ?? 0;
+  const cacheWrite = usage?.cacheWrite ?? 0;
+  if (cacheRead === 0 && cacheWrite === 0) {
+    return;
+  }
+  if (!isModelPricingKnown(cost) || !cost) {
+    return;
+  }
+  const savings =
+    (cacheRead * (cost.input - cost.cacheRead) + cacheWrite * (cost.input - cost.cacheWrite)) /
+    1_000_000;
+  if (!Number.isFinite(savings)) {
+    return;
+  }
+  totals.cacheSavings = (totals.cacheSavings ?? 0) + savings;
+};
+
 // Legacy function for backwards compatibility (no cost breakdown available)
 export const applyCostTotal = (
   totals: CostUsageTotals,

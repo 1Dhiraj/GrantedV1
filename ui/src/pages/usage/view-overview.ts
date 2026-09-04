@@ -227,6 +227,10 @@ function renderCostWindowComparison(
       <div class="cost-window-grid">
         ${cards.map(({ label, summary, range: isRange }) => {
           const averageDailyCost = summary.totals.totalCost / summary.days;
+          // Shown only when caching actually saved money. Undefined means the
+          // window predates savings tracking; a negative figure means cache
+          // writes cost more than the reads gave back, which is not a saving.
+          const cacheSavings = summary.totals.cacheSavings;
           return html`
             <div class="cost-window-card ${isRange ? "cost-window-card--range" : ""}">
               <div class="cost-window-card__label">${label}</div>
@@ -236,6 +240,9 @@ function renderCostWindowComparison(
               <div class="cost-window-card__meta">
                 ${formatUsageTokens(summary.totals.totalTokens)} ${t("usage.metrics.tokens")} ·
                 ${formatAnalysisCost(averageDailyCost)} ${t("usage.costWindows.perDay")}
+                ${cacheSavings !== undefined && cacheSavings > 0
+                  ? html` · ${formatAnalysisCost(cacheSavings)} ${t("usage.costWindows.cacheSaved")}`
+                  : nothing}
               </div>
             </div>
           `;

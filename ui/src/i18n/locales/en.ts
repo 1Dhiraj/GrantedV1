@@ -4857,6 +4857,7 @@ export const en: TranslationMap & {
       selectedRange: "Selected Range",
       lastDays: "Last {count} days",
       perDay: "/ day",
+      cacheSaved: "saved by caching",
     },
     breakdown: {
       output: "Output",

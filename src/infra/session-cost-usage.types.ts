@@ -36,6 +36,16 @@ export type CostUsageTotals = {
   cacheReadCost: number;
   cacheWriteCost: number;
   missingCostEntries: number;
+  /**
+   * USD that prompt caching saved: what the cached tokens would have cost at
+   * the plain input rate, minus what they were actually billed. Cache-write
+   * premiums count against it, so a session that writes more cache than it
+   * reads can legitimately show a negative figure.
+   *
+   * Optional because rollups cached before this field existed have no value
+   * for it; treat undefined as "not measured", not as zero saved.
+   */
+  cacheSavings?: number;
   /** Missing-cost entry counts keyed by the raw `provider/model` attribution. */
   missingCostByModel?: Record<string, number>;
 };
