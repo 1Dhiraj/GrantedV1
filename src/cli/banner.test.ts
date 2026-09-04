@@ -1,5 +1,6 @@
 // Banner tests cover CLI banner rendering and suppression behavior.
 import { afterEach, describe, expect, it, vi } from "vitest";
+import { PRODUCT_DISPLAY_NAME } from "../compat/legacy-names.js";
 import { formatCliBannerLine } from "./banner.js";
 
 const stdoutIsTtyDescriptor = Object.getOwnPropertyDescriptor(process.stdout, "isTTY");
@@ -41,7 +42,7 @@ describe("formatCliBannerLine", () => {
       mode: "off",
     });
 
-    expect(line).toBe("🦞 OpenClaw 2026.3.7 (abc1234)");
+    expect(line).toBe(`🦞 ${PRODUCT_DISPLAY_NAME} 2026.3.7 (abc1234)`);
   });
 
   it("uses the default tagline when explicitly requested", () => {
@@ -54,7 +55,9 @@ describe("formatCliBannerLine", () => {
       mode: "default",
     });
 
-    expect(line).toBe("🦞 OpenClaw 2026.3.7 (abc1234) — All your chats, one OpenClaw.");
+    expect(line).toBe(
+      `🦞 ${PRODUCT_DISPLAY_NAME} 2026.3.7 (abc1234) — Your AI. Your keys. Your machine.`,
+    );
   });
 
   it("drops decorative emoji for generic Linux terminals", () => {
@@ -67,7 +70,7 @@ describe("formatCliBannerLine", () => {
       mode: "off",
     });
 
-    expect(line).toBe("OpenClaw 2026.3.7 (abc1234)");
+    expect(line).toBe(`${PRODUCT_DISPLAY_NAME} 2026.3.7 (abc1234)`);
   });
 });
 
@@ -104,7 +107,7 @@ describe("emitCliBanner", () => {
       richTty: false,
     });
 
-    expect(writeSpy).toHaveBeenCalledWith("\n🦞 OpenClaw 2026.3.7 (abc1234)\n\n");
+    expect(writeSpy).toHaveBeenCalledWith(`\n🦞 ${PRODUCT_DISPLAY_NAME} 2026.3.7 (abc1234)\n\n`);
     expect(hasEmittedCliBanner()).toBe(true);
   });
 
