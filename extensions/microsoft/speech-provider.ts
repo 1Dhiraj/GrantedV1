@@ -27,7 +27,13 @@ import {
 } from "openclaw/plugin-sdk/ssrf-runtime";
 import { asOptionalRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
 import { tempWorkspace, resolvePreferredOpenClawTmpDir } from "openclaw/plugin-sdk/temp-path";
-import { edgeTTS, inferEdgeExtension } from "./tts.js";
+import {
+  buildExpressiveSsml,
+  edgeTTS,
+  edgeTTSSSML,
+  humanizeToSsml,
+  inferEdgeExtension,
+} from "./tts.js";
 
 const DEFAULT_EDGE_VOICE = "en-US-MichelleNeural";
 const DEFAULT_EDGE_LANG = "en-US";
@@ -46,6 +52,12 @@ type MicrosoftProviderConfig = {
   saveSubtitles: boolean;
   proxy?: string;
   timeoutMs?: number;
+  /** Human-like SSML synthesis: emphasis, pauses, optional speaking style. */
+  expressive: boolean;
+  /** mstts express-as style (for example "chat"); needs a style-capable voice. */
+  style?: string;
+  /** express-as style intensity, 0.01 to 2. */
+  styleDegree?: string;
 };
 
 function normalizeMicrosoftProviderConfig(
@@ -69,6 +81,11 @@ function normalizeMicrosoftProviderConfig(
     saveSubtitles: asBoolean(raw.saveSubtitles) ?? false,
     proxy: trimToUndefined(raw.proxy),
     timeoutMs: asFiniteNumber(raw.timeoutMs),
+    // Default off: expressive mode uses our own socket sender rather than the
+    // vendored client, so an install opts into it deliberately.
+    expressive: asBoolean(raw.expressive) ?? false,
+    style: trimToUndefined(raw.style),
+    styleDegree: trimToUndefined(raw.styleDegree),
   };
 }
 
@@ -87,6 +104,9 @@ function readMicrosoftProviderConfig(config: SpeechProviderConfig): MicrosoftPro
     saveSubtitles: asBoolean(config.saveSubtitles) ?? defaults.saveSubtitles,
     proxy: trimToUndefined(config.proxy) ?? defaults.proxy,
     timeoutMs: asFiniteNumber(config.timeoutMs) ?? defaults.timeoutMs,
+    expressive: asBoolean(config.expressive) ?? defaults.expressive,
+    style: trimToUndefined(config.style) ?? defaults.style,
+    styleDegree: trimToUndefined(config.styleDegree) ?? defaults.styleDegree,
   };
 }
 
@@ -268,17 +288,36 @@ export function buildMicrosoftSpeechProvider(): SpeechProviderPlugin {
         const runEdge = async (format: string) => {
           const fileExtension = inferEdgeExtension(format);
           const outputPath = path.join(tempDir, `speech${fileExtension}`);
-          await edgeTTS({
-            text: req.text,
-            outputPath,
-            config: {
-              ...config,
-              voice,
-              lang,
+          if (config.expressive) {
+            // Same free endpoint, but SSML the vendored client cannot express.
+            await edgeTTSSSML({
+              ssml: buildExpressiveSsml({
+                innerSsml: humanizeToSsml(req.text),
+                voice,
+                lang,
+                rate: config.rate,
+                pitch: config.pitch,
+                volume: config.volume,
+                style: config.style,
+                styleDegree: config.styleDegree,
+              }),
+              outputPath,
               outputFormat: format,
-            },
-            timeoutMs: req.timeoutMs,
-          });
+              timeoutMs: req.timeoutMs,
+            });
+          } else {
+            await edgeTTS({
+              text: req.text,
+              outputPath,
+              config: {
+                ...config,
+                voice,
+                lang,
+                outputFormat: format,
+              },
+              timeoutMs: req.timeoutMs,
+            });
+          }
           const audioBuffer = readFileSync(outputPath);
           return {
             audioBuffer,

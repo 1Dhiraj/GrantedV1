@@ -325,6 +325,11 @@ describe("buildMicrosoftSpeechProvider", () => {
         saveSubtitles: false,
         proxy: undefined,
         timeoutMs: undefined,
+        // Expressive synthesis is off unless the install opts in, so the plain
+        // edgeTTS path still receives the request.
+        expressive: false,
+        style: undefined,
+        styleDegree: undefined,
       });
     });
   }
