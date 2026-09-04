@@ -548,7 +548,7 @@ export const en: TranslationMap & {
       "The update outcome is unknown. Run `openclaw triage` on the Gateway host and inspect the result before retrying.",
     triage: {
       hostHint:
-        "If Ask OpenClaw is unavailable, run `openclaw triage` on the Gateway host to open a local coding agent for diagnosis and repair. Diagnose the cause before retrying.",
+        "If Ask Granted is unavailable, run `openclaw triage` on the Gateway host to open a local coding agent for diagnosis and repair. Diagnose the cause before retrying.",
     },
     failureReasons: {
       dirty: "Commit or stash changes, then retry.",
@@ -2104,7 +2104,7 @@ export const en: TranslationMap & {
     back: "Back",
     forward: "Forward",
     settings: "Settings",
-    askOpenClaw: "Ask OpenClaw",
+    askOpenClaw: "Ask Granted",
     settingsGroupConnections: "Connections",
     settingsGroupAgents: "Agents & Tools",
     settingsGroupSecurity: "Privacy & Security",
@@ -2729,11 +2729,11 @@ export const en: TranslationMap & {
     unsupportedGateway: "Update the Gateway to continue setup with OpenClaw.",
     panel: {
       title: "OpenClaw",
-      toggle: "Toggle Ask OpenClaw",
-      close: "Close Ask OpenClaw",
-      resize: "Resize Ask OpenClaw",
-      dockBottom: "Dock Ask OpenClaw at bottom",
-      dockRight: "Dock Ask OpenClaw at right",
+      toggle: "Toggle Ask Granted",
+      close: "Close Ask Granted",
+      resize: "Resize Ask Granted",
+      dockBottom: "Dock Ask Granted at bottom",
+      dockRight: "Dock Ask Granted at right",
     },
     history: {
       button: "History",

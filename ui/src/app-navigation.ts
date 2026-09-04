@@ -4,6 +4,7 @@ import { isValidWorkboardBoardId } from "@openclaw/workboard-contract";
 import type { RouteId } from "./app-route-paths.ts";
 import type { IconName } from "./components/icons.ts";
 import { i18n, t } from "./i18n/index.ts";
+import { PRODUCT_DISPLAY_NAME } from "./lib/product-name.js";
 
 export type NavigationRouteId = RouteId;
 
@@ -443,16 +444,16 @@ export function titleForRoute(routeId: NavigationRouteId): string {
 /** Window/tab title, markers leftmost because tabs truncate from the right.
  * A disconnected Gateway replaces the approval count (a stale queue is not
  * actionable) and carries the pending-outbox total; titles already ending in the brand
- * ("Ask OpenClaw") skip the suffix so it never reads "… OpenClaw — OpenClaw". */
+ * ("Ask Granted") skip the suffix so it never reads "… Granted — Granted". */
 export function formatDocumentTitle(options: {
   context: string;
   attentionCount?: number;
   gatewayDisconnected?: boolean;
   queuedCount?: number;
 }): string {
-  const base = options.context.endsWith("OpenClaw")
+  const base = options.context.endsWith(PRODUCT_DISPLAY_NAME)
     ? options.context
-    : `${options.context} — OpenClaw`;
+    : `${options.context} — ${PRODUCT_DISPLAY_NAME}`;
   if (options.gatewayDisconnected) {
     const queued =
       options.queuedCount && options.queuedCount > 0

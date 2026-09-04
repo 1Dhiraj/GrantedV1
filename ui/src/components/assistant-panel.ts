@@ -215,7 +215,7 @@ export class OpenClawAssistantPanel extends OpenClawLightDomElement {
     };
   }
 
-  /** Ask OpenClaw hydrates lazily; only refresh when it actually becomes visible. */
+  /** Ask Granted hydrates lazily; only refresh when it actually becomes visible. */
   private refreshCustodianTranscript(becameVisible: boolean): void {
     if (becameVisible && this.destination === "custodian") {
       void this.store.refreshTranscriptIfIdle();

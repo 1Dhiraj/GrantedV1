@@ -10,6 +10,7 @@ import "../../../components/tooltip.ts";
 import { t } from "../../../i18n/index.ts";
 import type { SlashCommandDef } from "../../../lib/chat/commands.ts";
 import { resolveThinkingCommandArgOptionsForSession } from "../../../lib/chat/thinking.ts";
+import { PRODUCT_DISPLAY_NAME } from "../../../lib/product-name.js";
 import { areUiSessionKeysEquivalent } from "../../../lib/sessions/session-key.ts";
 import { detectTextDirection } from "../../../lib/text-direction.ts";
 import { ComposerDictationController, insertComposerDictation } from "../composer-dictation.ts";
@@ -149,7 +150,7 @@ export function renderChatComposer(props: ChatComposerProps) {
   const composerLeadControl = props.permissionPicker
     ? renderChatPermissionPicker(props.permissionPicker)
     : nothing;
-  const assistantName = props.assistantName || "OpenClaw";
+  const assistantName = props.assistantName || PRODUCT_DISPLAY_NAME;
   const inProgressLabel = props.waitingApproval
     ? t("chat.waitingForApproval")
     : submittedProgress?.sendState === "waiting-model"
