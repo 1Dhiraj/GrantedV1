@@ -1,5 +1,5 @@
 /** Resolves plugin config contract metadata for scanners and secret/config policy checks. */
-import { normalizeSortedUniqueStringEntries } from "@openclaw/normalization-core/string-normalization";
+import { normalizeSortedUniqueStringEntries } from "@granted/normalization-core/string-normalization";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import { findBundledPluginMetadataById } from "./bundled-plugin-metadata.js";
 import { getGatewayPluginMetadataSnapshot } from "./current-plugin-metadata-state.js";

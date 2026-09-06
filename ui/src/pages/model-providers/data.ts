@@ -1,5 +1,5 @@
-import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
-import { asNullableRecord as asRecord } from "@openclaw/normalization-core/record-coerce";
+import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
+import { asNullableRecord as asRecord } from "@granted/normalization-core/record-coerce";
 // Merges gateway provider signals (auth status, live usage/quota, local session
 // cost) into one card list for the Models settings page.
 import type {

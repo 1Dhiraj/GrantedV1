@@ -2,7 +2,7 @@
 // Control UI tests cover build chat items behavior.
 import { setImmediate } from "node:timers/promises";
 import { queryObjects } from "node:v8";
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { describe, expect, it, vi } from "vitest";
 import { markInboundContextLabel } from "../../../../src/auto-reply/reply/inbound-context-marker.js";

@@ -1,4 +1,4 @@
-import type { ControlUiSessionNamespace } from "@openclaw/session-url-contract";
+import type { ControlUiSessionNamespace } from "@granted/session-url-contract";
 
 type SessionPathDetails = {
   displayName?: string | null;
@@ -7,7 +7,7 @@ type SessionPathDetails = {
   shortIdLength?: number;
 };
 
-type SessionPathBuilder = typeof import("@openclaw/session-url-contract").buildControlUiSessionPath;
+type SessionPathBuilder = typeof import("@granted/session-url-contract").buildControlUiSessionPath;
 
 let builder: SessionPathBuilder | undefined;
 

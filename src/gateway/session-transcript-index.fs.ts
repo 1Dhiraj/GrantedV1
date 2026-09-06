@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import readline from "node:readline";
-import { asOptionalRecord } from "@openclaw/normalization-core/record-coerce";
+import { asOptionalRecord } from "@granted/normalization-core/record-coerce";
 import type { TranscriptDisplayPosition } from "../chat/transcript-display-position.js";
 import { SessionTranscriptProjectionUnavailableError } from "../config/sessions/session-transcript-projection-error.js";
 import { selectSessionTranscriptActiveEntries } from "../config/sessions/transcript-tree.js";

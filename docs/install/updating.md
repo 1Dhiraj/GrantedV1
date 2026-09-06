@@ -70,7 +70,7 @@ core is a correction release (for example, `YYYY.M.P-2` uses plugin
 Catalog installs created by current OpenClaw versions retain that default
 intent. Older records that contain only an exact version remain pinned because
 OpenClaw cannot safely distinguish an old automatic pin from a user pin. For npm
-installs, run `openclaw plugins update @openclaw/name` once on the extended-stable
+installs, run `openclaw plugins update @granted/name` once on the extended-stable
 channel to opt that plugin back into exact-core tracking.
 
 `--channel dev` gives a persistent moving GitHub `main` checkout. Package

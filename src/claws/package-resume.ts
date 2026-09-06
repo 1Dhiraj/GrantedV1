@@ -1,4 +1,4 @@
-import { stableStringify } from "@openclaw/normalization-core";
+import { stableStringify } from "@granted/normalization-core";
 import { normalizeClawHubSha256Integrity } from "../infra/clawhub-artifacts.js";
 import {
   openExistingOpenClawStateDatabaseReadOnly,

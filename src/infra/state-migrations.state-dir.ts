@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
+import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
 import { resolveProfileStateDir } from "../cli/profile-utils.js";
 import { resolveLegacyStateDirs, resolveNewStateDir, resolveStateDir } from "../config/paths.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";

@@ -1,4 +1,4 @@
-import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { redactToolPayloadTextWithConfig } from "../../logging/redact.js";
 import { getActivePluginRegistry } from "../../plugins/runtime.js";

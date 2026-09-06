@@ -4,8 +4,8 @@ import fs from "node:fs";
 import path from "node:path";
 import type { DatabaseSync } from "node:sqlite";
 import { isDeepStrictEqual } from "node:util";
-import { safeParseJsonRecord } from "@openclaw/normalization-core/json-coercion";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { safeParseJsonRecord } from "@granted/normalization-core/json-coercion";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import {
   noteCommittedSharedAuthStoreOwnership,
   resolveSharedAuthStoreOwnership,

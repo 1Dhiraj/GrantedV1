@@ -61,7 +61,7 @@ approval.
 ## Install
 
 ```bash
-openclaw plugins install @openclaw/buzz
+openclaw plugins install @granted/buzz
 ```
 
 Restart the Gateway after installing or updating the plugin.

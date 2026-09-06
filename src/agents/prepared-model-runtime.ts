@@ -1,5 +1,5 @@
 /** Lifecycle-owned auth/model discovery snapshots for agent runs. */
-import { toStringifiedError } from "@openclaw/normalization-core/error-coercion";
+import { toStringifiedError } from "@granted/normalization-core/error-coercion";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";
 import type { PluginMetadataSnapshot } from "../plugins/plugin-metadata-snapshot.types.js";

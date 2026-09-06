@@ -3,7 +3,7 @@ import {
   resolveMaxTokensParam,
   detectOpenAICompletionsCompat,
   resolveOpenAICompletionsCompat,
-} from "@openclaw/ai/transports";
+} from "@granted/ai/transports";
 import {
   type NativeWebSearchToolPolicyParams,
   isNativeWebSearchAllowedByToolPolicy,

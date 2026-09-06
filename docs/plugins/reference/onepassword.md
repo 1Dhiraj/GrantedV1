@@ -11,7 +11,7 @@ title: "Onepassword plugin"
 
 ## Distribution
 
-- Package: `@openclaw/onepassword`
+- Package: `@granted/onepassword`
 - Install route: included in OpenClaw
 
 ## Surface

@@ -2,9 +2,9 @@
 import { randomUUID } from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
-import { asSafeIntegerInRange } from "@openclaw/normalization-core/number-coercion";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
-import { readNonBlankString as optionalNonEmptyString } from "@openclaw/normalization-core/string-coerce";
+import { asSafeIntegerInRange } from "@granted/normalization-core/number-coercion";
+import { isRecord } from "@granted/normalization-core/record-coerce";
+import { readNonBlankString as optionalNonEmptyString } from "@granted/normalization-core/string-coerce";
 import {
   managedImageRecordFromRow,
   managedImageRecordsEqual,

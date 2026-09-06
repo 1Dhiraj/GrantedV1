@@ -1,7 +1,7 @@
 import { randomUUID } from "node:crypto";
-import { resolveTimerTimeoutMs } from "@openclaw/normalization-core/number-coercion";
-import { asOptionalObjectRecord, isRecord } from "@openclaw/normalization-core/record-coerce";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { resolveTimerTimeoutMs } from "@granted/normalization-core/number-coercion";
+import { asOptionalObjectRecord, isRecord } from "@granted/normalization-core/record-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import type { PendingSystemRunEvent } from "./node-registry.invoke-stream.js";
 
 export function resolvePendingSystemRunEvent(params: {

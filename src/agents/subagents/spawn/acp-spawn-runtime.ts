@@ -2,9 +2,9 @@ import fs from "node:fs/promises";
 import {
   resolveAcpSessionCwd,
   resolveAcpThreadSessionDetailLines,
-} from "@openclaw/acp-core/runtime/session-identifiers";
-import type { AcpRuntimeSessionMode } from "@openclaw/acp-core/runtime/types";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+} from "@granted/acp-core/runtime/session-identifiers";
+import type { AcpRuntimeSessionMode } from "@granted/acp-core/runtime/types";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { getAcpSessionManager } from "../../../acp/control-plane/manager.js";
 import type { AcpSpawnRuntimeCloseHandle } from "../../../acp/control-plane/spawn.js";
 import { formatThinkingLevels } from "../../../auto-reply/thinking.js";

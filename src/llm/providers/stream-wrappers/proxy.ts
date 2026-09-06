@@ -1,9 +1,9 @@
-import { parseStrictFiniteNumber } from "@openclaw/normalization-core/number-coercion";
+import { parseStrictFiniteNumber } from "@granted/normalization-core/number-coercion";
 // Proxy stream wrapper applies provider-specific wrappers around base stream functions.
 import {
   normalizeOptionalLowercaseString,
   readStringValue,
-} from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/string-coerce";
 import { resolveProviderRequestPolicy } from "../../../agents/provider-attribution.js";
 import {
   getModelProviderRequestRouteFacts,

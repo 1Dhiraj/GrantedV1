@@ -1,11 +1,11 @@
 // Discovers gateways over Bonjour and normalizes service records.
-import { expectDefined } from "@openclaw/normalization-core";
-import { parseStrictInteger } from "@openclaw/normalization-core/number-coercion";
-import { normalizeOptionalLowercaseString } from "@openclaw/normalization-core/string-coerce";
+import { expectDefined } from "@granted/normalization-core";
+import { parseStrictInteger } from "@granted/normalization-core/number-coercion";
+import { normalizeOptionalLowercaseString } from "@granted/normalization-core/string-coerce";
 import {
   normalizeStringEntries,
   uniqueStrings,
-} from "@openclaw/normalization-core/string-normalization";
+} from "@granted/normalization-core/string-normalization";
 import pLimit from "p-limit";
 import { runCommandWithTimeout } from "../process/exec.js";
 import { isTailnetIPv4 } from "./tailnet.js";

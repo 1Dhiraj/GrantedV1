@@ -3,7 +3,7 @@
  *
  * Manages scheduled jobs, wake/run actions, delivery context, and reminder-style payload normalization.
  */
-import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
+import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
 import { parseDurationMs } from "../../cli/parse-duration.js";
 import { getRuntimeConfig } from "../../config/config.js";
 import { resolveCronCreationDelivery } from "../../cron/delivery-context.js";

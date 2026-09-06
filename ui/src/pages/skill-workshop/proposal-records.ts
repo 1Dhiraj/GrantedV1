@@ -1,4 +1,4 @@
-import { parseDateStringTimestampMs } from "@openclaw/normalization-core/number-coercion";
+import { parseDateStringTimestampMs } from "@granted/normalization-core/number-coercion";
 import { formatBytes } from "../../lib/agents/display.ts";
 import type {
   SkillWorkshopEvaluation,

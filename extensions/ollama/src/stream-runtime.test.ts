@@ -1,4 +1,4 @@
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 // Ollama tests cover stream runtime plugin behavior.
 import { withProviderAcceptanceObserver } from "granted/plugin-sdk/provider-transport-runtime";
 import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";

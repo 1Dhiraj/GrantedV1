@@ -1,5 +1,5 @@
 /** Resolves the gateway token used when installing or updating the managed service. */
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { formatCliCommand } from "../cli/command-format.js";
 import { readConfigFileSnapshotForWrite, type ConfigWriteOptions } from "../config/io.js";
 import { replaceConfigFile } from "../config/mutate.js";

@@ -1,4 +1,4 @@
-import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
+import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
 import type { Command } from "commander";
 import { resolveAgentDir } from "../../agents/agent-scope.js";
 import { getRuntimeConfig } from "../../config/config.js";

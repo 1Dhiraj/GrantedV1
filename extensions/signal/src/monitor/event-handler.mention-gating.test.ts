@@ -1,5 +1,5 @@
 // Signal tests cover event handler.mention gating plugin behavior.
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { buildDispatchInboundCaptureMock } from "granted/plugin-sdk/channel-contract-testing";
 import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import type { HistoryMediaEntry } from "granted/plugin-sdk/reply-history";

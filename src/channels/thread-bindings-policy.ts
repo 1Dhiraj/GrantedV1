@@ -2,8 +2,8 @@
 import {
   asNonNegativeFiniteNumber,
   MAX_DATE_TIMESTAMP_MS,
-} from "@openclaw/normalization-core/number-coercion";
-import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/number-coercion";
+import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import { normalizeAccountId } from "../routing/session-key.js";
 import {

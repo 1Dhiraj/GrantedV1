@@ -1,8 +1,8 @@
 import {
   findLlamacppGbnfSchemaViolations,
   normalizeToolParameterSchema,
-} from "@openclaw/ai/internal/openai";
-import { MAX_DATE_TIMESTAMP_MS } from "@openclaw/normalization-core/number-coercion";
+} from "@granted/ai/internal/openai";
+import { MAX_DATE_TIMESTAMP_MS } from "@granted/normalization-core/number-coercion";
 // Cron tool schema tests cover the provider-facing parameter shape and runtime
 // validation compatibility for cron jobs.
 import { Value } from "typebox/value";

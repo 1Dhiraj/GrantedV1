@@ -8,9 +8,9 @@ import type {
   PromptResponse,
   StopReason,
 } from "@agentclientprotocol/sdk";
-import { readBool, readMetadataString, readNonNegativeInteger } from "@openclaw/acp-core/meta";
-import type { AcpSessionStore } from "@openclaw/acp-core/session";
-import type { AcpServerOptions } from "@openclaw/acp-core/types";
+import { readBool, readMetadataString, readNonNegativeInteger } from "@granted/acp-core/meta";
+import type { AcpSessionStore } from "@granted/acp-core/session";
+import type { AcpServerOptions } from "@granted/acp-core/types";
 import type { EventFrame } from "../../packages/gateway-protocol/src/index.js";
 import type { GatewayClient } from "../gateway/client.js";
 import { normalizeTerminalChatSendAckStatus } from "../shared/chat-send-ack-status.js";

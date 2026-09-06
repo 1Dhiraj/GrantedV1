@@ -22,7 +22,7 @@ export function writePublishablePluginFixture(
   options: PublishablePluginFixtureOptions,
 ) {
   const extensionId = options.extensionId ?? "demo-plugin";
-  const packageName = options.packageName ?? `@openclaw/${extensionId}`;
+  const packageName = options.packageName ?? `@granted/${extensionId}`;
   const packageDir = join(repoDir, "extensions", extensionId);
   const publishToNpm = options.publishTo === "npm" || options.publishTo === "both";
   const publishToClawHub = options.publishTo === "clawhub" || options.publishTo === "both";

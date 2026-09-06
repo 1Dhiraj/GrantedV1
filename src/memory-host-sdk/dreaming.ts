@@ -1,16 +1,16 @@
 // Memory host dreaming helpers record and load memory dreaming artifacts.
-import { parseBoolean } from "@openclaw/normalization-core/boolean-coercion";
+import { parseBoolean } from "@granted/normalization-core/boolean-coercion";
 import {
   parseStrictNonNegativeInteger,
   parseStrictPositiveInteger,
-} from "@openclaw/normalization-core/number-coercion";
-import { asNullableRecord } from "@openclaw/normalization-core/record-coerce";
+} from "@granted/normalization-core/number-coercion";
+import { asNullableRecord } from "@granted/normalization-core/record-coerce";
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalLowercaseString,
   normalizeOptionalString,
   normalizeStringifiedOptionalString,
-} from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/string-coerce";
 import {
   listAgentIds,
   resolveAgentWorkspaceDir,

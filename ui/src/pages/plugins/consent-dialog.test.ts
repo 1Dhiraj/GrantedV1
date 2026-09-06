@@ -54,11 +54,11 @@ describe("renderPluginConsentDialog", () => {
     {
       source: {
         kind: "clawhub",
-        packageName: "@openclaw/calendar-plus",
+        packageName: "@granted/calendar-plus",
         integrity: "sha256-0123456789abcdefghijklmnop",
         integrityKind: "ssri",
       },
-      provenance: "ClawHub · @openclaw/calendar-plus",
+      provenance: "ClawHub · @granted/calendar-plus",
       integrityLabel: "Integrity: sha256-0123456789abc…",
     },
     {
@@ -115,7 +115,7 @@ describe("renderPluginConsentDialog", () => {
         consent: {
           intent: {
             kind: "install",
-            request: { source: "clawhub", packageName: "@openclaw/calendar-plus" },
+            request: { source: "clawhub", packageName: "@granted/calendar-plus" },
             installIdentity: "plugin:calendar-runtime",
           },
           pluginId: "calendar-runtime",
@@ -130,7 +130,7 @@ describe("renderPluginConsentDialog", () => {
       for (const value of [
         "Calendar Plus",
         "v2.0.0",
-        "@openclaw/calendar-plus",
+        "@granted/calendar-plus",
         provenance,
         integrityLabel,
         "Review required",

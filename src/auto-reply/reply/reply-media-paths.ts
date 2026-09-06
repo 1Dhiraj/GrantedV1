@@ -1,10 +1,10 @@
 // Resolves media paths from reply payloads into runtime attachment metadata.
 import path from "node:path";
-import { mediaKindFromMime } from "@openclaw/media-core/constants";
-import { basenameFromAnyPath } from "@openclaw/media-core/file-name";
-import { isPassThroughRemoteMediaSource } from "@openclaw/media-core/media-source-url";
-import { mimeTypeFromFilePath } from "@openclaw/media-core/mime";
-import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+import { mediaKindFromMime } from "@granted/media-core/constants";
+import { basenameFromAnyPath } from "@granted/media-core/file-name";
+import { isPassThroughRemoteMediaSource } from "@granted/media-core/media-source-url";
+import { mimeTypeFromFilePath } from "@granted/media-core/mime";
+import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import { resolveSendableOutboundReplyParts } from "granted/plugin-sdk/reply-payload";
 import { resolveSessionAgentId } from "../../agents/agent-scope.js";
 import { resolvePathFromInput, toRelativeWorkspacePath } from "../../agents/path-policy.js";

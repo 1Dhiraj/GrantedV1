@@ -1,5 +1,5 @@
 // Builds Node startup environment variables for subprocess launches.
-import { readNonBlankString } from "@openclaw/normalization-core/string-coerce";
+import { readNonBlankString } from "@granted/normalization-core/string-coerce";
 import { type EnvMap, resolveAutoNodeExtraCaCerts } from "./node-extra-ca-certs.js";
 
 // Startup TLS environment defaults for child Node processes. macOS needs

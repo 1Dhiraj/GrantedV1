@@ -1,5 +1,5 @@
 {
-  "name": "@openclaw/cloudflare-ai-gateway-provider",
+  "name": "@granted/cloudflare-ai-gateway-provider",
   "version": "2026.8.1",
   "description": "OpenClaw Cloudflare AI Gateway provider plugin.",
   "repository": {
@@ -8,15 +8,15 @@
   },
   "type": "module",
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*"
+    "@granted/plugin-sdk": "workspace:*"
   },
   "openclaw": {
     "extensions": [
       "./index.ts"
     ],
     "install": {
-      "clawhubSpec": "clawhub:@openclaw/cloudflare-ai-gateway-provider",
-      "npmSpec": "@openclaw/cloudflare-ai-gateway-provider",
+      "clawhubSpec": "clawhub:@granted/cloudflare-ai-gateway-provider",
+      "npmSpec": "@granted/cloudflare-ai-gateway-provider",
       "defaultChoice": "npm",
       "minHostVersion": ">=2026.6.8"
     },

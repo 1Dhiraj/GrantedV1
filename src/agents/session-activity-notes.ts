@@ -1,6 +1,6 @@
-import { asFiniteNumber } from "@openclaw/normalization-core/number-coercion";
-import { readNonBlankString } from "@openclaw/normalization-core/string-coerce";
-import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+import { asFiniteNumber } from "@granted/normalization-core/number-coercion";
+import { readNonBlankString } from "@granted/normalization-core/string-coerce";
+import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import { HEARTBEAT_TRANSCRIPT_PROMPT } from "../auto-reply/heartbeat.js";
 import { HEARTBEAT_TOKEN, isSilentReplyPayloadText } from "../auto-reply/tokens.js";
 import { normalizeAgentPlanSteps } from "../channels/streaming.js";

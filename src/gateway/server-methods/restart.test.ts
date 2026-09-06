@@ -1,8 +1,8 @@
 // Restart method tests cover the read-only compatibility preview plus safe
 // restart scheduling, deferral flags, and request response payloads.
 
-import { expectDefined } from "@openclaw/normalization-core";
-import { MAX_TIMER_TIMEOUT_MS } from "@openclaw/normalization-core/number-coercion";
+import { expectDefined } from "@granted/normalization-core";
+import { MAX_TIMER_TIMEOUT_MS } from "@granted/normalization-core/number-coercion";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   getGatewaySuspendAdmissionPhase,

@@ -3,7 +3,7 @@ import {
   isRetryableGatewayStartupUnavailableError,
   readControlUiBuildMismatchId,
   resolveSafeTimeoutDelayMs,
-} from "@openclaw/gateway-client/browser";
+} from "@granted/gateway-client/browser";
 import { isGatewayRestartUnavailableError } from "../../../packages/gateway-protocol/src/restart-unavailable.js";
 import type { ControlUiBootstrapProfileHint } from "../../../src/gateway/control-ui-bootstrap-contract.js";
 // Control UI module owns the application gateway store: the reactive

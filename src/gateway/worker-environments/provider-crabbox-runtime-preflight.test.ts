@@ -1,5 +1,5 @@
 import { fileURLToPath } from "node:url";
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import type { GrantedPluginService, WorkerProvider } from "granted/plugin-sdk/plugin-entry";
 import { createTestPluginApi } from "granted/plugin-sdk/plugin-test-api";
 import * as processRuntime from "granted/plugin-sdk/process-runtime";

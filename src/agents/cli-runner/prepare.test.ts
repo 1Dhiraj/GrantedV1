@@ -3,8 +3,8 @@
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { SYSTEM_PROMPT_CACHE_BOUNDARY } from "@openclaw/ai/internal/shared";
-import { expectDefined } from "@openclaw/normalization-core";
+import { SYSTEM_PROMPT_CACHE_BOUNDARY } from "@granted/ai/internal/shared";
+import { expectDefined } from "@granted/normalization-core";
 import { Type } from "typebox";
 import { afterEach, beforeEach, describe, expect, it, vi, type MockInstance } from "vitest";
 import { createDeferred } from "../../../test/helpers/promise.js";

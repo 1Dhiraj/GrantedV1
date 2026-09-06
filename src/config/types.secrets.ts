@@ -1,6 +1,6 @@
-import { expectDefined } from "@openclaw/normalization-core";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { expectDefined } from "@granted/normalization-core";
+import { isRecord } from "@granted/normalization-core/record-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 // Defines secret reference and resolution configuration types.
 
 /** Supported secret reference backends in config. */

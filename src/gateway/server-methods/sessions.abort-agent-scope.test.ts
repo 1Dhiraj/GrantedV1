@@ -2,7 +2,7 @@
  * Tests that session abort requests stay scoped to the targeted agent.
  */
 
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { EmbeddedAgentQueueHandle } from "../../agents/embedded-agent-runner/run-state.js";
 import {

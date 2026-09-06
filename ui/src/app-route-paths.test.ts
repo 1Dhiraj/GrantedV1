@@ -2,7 +2,7 @@
 import {
   CONTROL_UI_RESERVED_ROUTE_SEGMENTS,
   isControlUiReservedRouteSegment,
-} from "@openclaw/session-url-contract";
+} from "@granted/session-url-contract";
 import { notFound, type RouteLocation, type RouterHistory } from "@openclaw/uirouter";
 import { describe, expect, it, vi } from "vitest";
 import {

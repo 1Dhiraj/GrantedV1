@@ -90,7 +90,7 @@ export function fullReleaseCandidateManifestFixture(
     },
     preparation: {
       planSha256: "d".repeat(64),
-      requiredPrepublishPluginPackages: ["@openclaw/codex"],
+      requiredPrepublishPluginPackages: ["@granted/codex"],
     },
     package: {
       artifact: fullReleaseCandidateArtifact("docker-e2e-package-77-1"),

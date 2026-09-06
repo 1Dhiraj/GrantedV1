@@ -1,4 +1,4 @@
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { stripPlainTextToolCallBlocks } from "../../../packages/tool-call-repair/src/index.js";
 import { resolveAgentIdentity, resolveResponsePrefix } from "../../agents/identity.js";
 import { readStringArrayParam, readToolStringParam } from "../../agents/tools/common.js";

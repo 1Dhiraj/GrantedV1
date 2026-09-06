@@ -1,11 +1,11 @@
 // Gateway run option resolution and local server startup command implementation.
 import fs from "node:fs";
-import { expectDefined } from "@openclaw/normalization-core";
-import { parseStrictPositiveInteger } from "@openclaw/normalization-core/number-coercion";
+import { expectDefined } from "@granted/normalization-core";
+import { parseStrictPositiveInteger } from "@granted/normalization-core/number-coercion";
 import {
   normalizeOptionalLowercaseString,
   normalizeOptionalString,
-} from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/string-coerce";
 import type {
   ConfigFileSnapshot,
   GatewayAuthMode,

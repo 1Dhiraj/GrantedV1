@@ -62,7 +62,7 @@ function writePreSplitSdkBridgeConsumerFixture() {
     path.join(pluginRoot, "package.json"),
     JSON.stringify(
       {
-        name: "@openclaw/sdk-bridge-consumer",
+        name: "@granted/sdk-bridge-consumer",
         version: "2026.7.2-beta.7",
         type: "module",
         openclaw: {

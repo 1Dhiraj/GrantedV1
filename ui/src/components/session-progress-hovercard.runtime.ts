@@ -1,4 +1,4 @@
-import type { ProgressCard } from "@openclaw/gateway-protocol";
+import type { ProgressCard } from "@granted/gateway-protocol";
 import { nothing, ReactiveElement, render } from "lit";
 import type { GatewayBrowserClient } from "../api/gateway.ts";
 import type { ApplicationContext } from "../app/context.ts";

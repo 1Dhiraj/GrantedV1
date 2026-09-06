@@ -24,7 +24,7 @@ export { buildDiscordComponentMessage } from "./src/components.js";
 type DiscordMessageActionHandler =
   typeof import("./src/channel-actions.runtime.js").handleDiscordMessageAction;
 
-// Deprecated compatibility surface for existing @openclaw/discord/api.js consumers.
+// Deprecated compatibility surface for existing @granted/discord/api.js consumers.
 export const handleDiscordMessageAction: DiscordMessageActionHandler = async (...args) =>
   (await import("./src/channel-actions.runtime.js")).handleDiscordMessageAction(...args);
 export {
@@ -126,7 +126,7 @@ export {
 } from "./src/monitor/timeouts.js";
 
 /**
- * @deprecated Shipped `@openclaw/discord/api` compatibility only. Use native
+ * @deprecated Shipped `@granted/discord/api` compatibility only. Use native
  * `AbortSignal.any` after filtering optional signals. Removal with the next
  * plugin-SDK major.
  */

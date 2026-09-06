@@ -1,7 +1,7 @@
-import { normalizeResolvedPricing } from "@openclaw/llm-core";
-import { normalizeConfiguredProviderCatalogModelId } from "@openclaw/model-catalog-core/provider-model-id-normalization";
-import { asOptionalRecord as readModelParams } from "@openclaw/normalization-core/record-coerce";
-import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
+import { normalizeResolvedPricing } from "@granted/llm-core";
+import { normalizeConfiguredProviderCatalogModelId } from "@granted/model-catalog-core/provider-model-id-normalization";
+import { asOptionalRecord as readModelParams } from "@granted/normalization-core/record-coerce";
+import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
 import { mergeModelCost } from "../../config/model-cost.js";
 import { projectConfigOntoRuntimeSourceSnapshot } from "../../config/runtime-source-projection.js";
 import type { GrantedConfig } from "../../config/types.openclaw.js";

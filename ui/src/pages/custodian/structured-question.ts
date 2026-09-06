@@ -1,5 +1,5 @@
-import type { SystemAgentChatQuestion } from "@openclaw/gateway-protocol";
-import { normalizeNullableString as nonEmptyString } from "@openclaw/normalization-core/string-coerce";
+import type { SystemAgentChatQuestion } from "@granted/gateway-protocol";
+import { normalizeNullableString as nonEmptyString } from "@granted/normalization-core/string-coerce";
 
 export type CustodianStructuredQuestion = {
   id: string;

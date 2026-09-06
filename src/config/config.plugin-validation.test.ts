@@ -1179,7 +1179,7 @@ describe("config plugin validation", () => {
         expect.objectContaining({
           path: "plugins.allow",
           message:
-            "plugin not installed: codex — install the official external plugin with: openclaw plugins install @openclaw/codex",
+            "plugin not installed: codex — install the official external plugin with: openclaw plugins install @granted/codex",
         }),
       );
     });
@@ -1297,7 +1297,7 @@ describe("config plugin validation", () => {
 
     expect(res.ok).toBe(true);
     const message =
-      "plugin not installed: brave — install the official external plugin with: openclaw plugins install @openclaw/brave-plugin";
+      "plugin not installed: brave — install the official external plugin with: openclaw plugins install @granted/brave-plugin";
     expectPathMessage(res.warnings, "plugins.entries.brave", message);
     expect((res.warnings ?? []).filter((warning) => warning.message === message)).toHaveLength(1);
     expect(
@@ -1331,9 +1331,9 @@ describe("config plugin validation", () => {
 
     expect(res.ok).toBe(true);
     const slotMessage =
-      "plugin not installed: memory-lancedb — gateway will run without persistent memory until installed; install the official external plugin with: openclaw plugins install @openclaw/memory-lancedb";
+      "plugin not installed: memory-lancedb — gateway will run without persistent memory until installed; install the official external plugin with: openclaw plugins install @granted/memory-lancedb";
     const entryMessage =
-      "plugin not installed: memory-lancedb — install the official external plugin with: openclaw plugins install @openclaw/memory-lancedb";
+      "plugin not installed: memory-lancedb — install the official external plugin with: openclaw plugins install @granted/memory-lancedb";
     expectPathMessage(res.warnings, "plugins.slots.memory", slotMessage);
     expectPathMessage(res.warnings, "plugins.entries.memory-lancedb", entryMessage);
   });
@@ -1361,7 +1361,7 @@ describe("config plugin validation", () => {
 
     expect(res.ok).toBe(true);
     const message =
-      "plugin not installed: memory-lancedb — install the official external plugin with: openclaw plugins install @openclaw/memory-lancedb";
+      "plugin not installed: memory-lancedb — install the official external plugin with: openclaw plugins install @granted/memory-lancedb";
     expectPathMessage(res.warnings, "plugins.entries.memory-lancedb", message);
     expect((res.warnings ?? []).filter((warning) => warning.message === message)).toHaveLength(1);
     expect(
@@ -1426,7 +1426,7 @@ describe("config plugin validation", () => {
     expectPathMessage(
       res.warnings,
       "plugins.entries.brave",
-      "plugin not installed: brave — install the official external plugin with: openclaw plugins install @openclaw/brave-plugin",
+      "plugin not installed: brave — install the official external plugin with: openclaw plugins install @granted/brave-plugin",
     );
   });
 
@@ -1785,7 +1785,7 @@ describe("config plugin validation", () => {
       {
         path: "plugins.allow",
         message:
-          "plugin not installed: discord — install the official external plugin with: openclaw plugins install @openclaw/discord",
+          "plugin not installed: discord — install the official external plugin with: openclaw plugins install @granted/discord",
       },
     ]);
   });

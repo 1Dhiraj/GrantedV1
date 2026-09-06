@@ -1,4 +1,4 @@
-import type { AgentMessage } from "@openclaw/agent-core";
+import type { AgentMessage } from "@granted/agent-core";
 import {
   extractToolCallsFromAssistant as extractPairingToolCalls,
   extractToolResultId as extractPairingToolResultId,

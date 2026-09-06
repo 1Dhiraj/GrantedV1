@@ -2,8 +2,8 @@ import { randomUUID } from "node:crypto";
 /**
  * Prepares stream subscription, tool execution, and the active run queue.
  */
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { isSilentReplyText, SILENT_REPLY_TOKEN } from "../../../auto-reply/tokens.js";
 import { runWithOwnedSessionTranscriptWrite } from "../../../config/sessions/transcript-write-context.js";
 import { captureAgentRunLifecycleGeneration } from "../../../infra/agent-events.js";

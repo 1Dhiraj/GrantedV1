@@ -2,8 +2,8 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import type { AcpRuntime } from "@openclaw/acp-core/runtime/types";
-import { expectDefined } from "@openclaw/normalization-core";
+import type { AcpRuntime } from "@granted/acp-core/runtime/types";
+import { expectDefined } from "@granted/normalization-core";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { AcpInitializeSessionInput } from "../../../acp/control-plane/manager.types.js";
 import {

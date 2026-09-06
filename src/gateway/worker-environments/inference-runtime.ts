@@ -1,5 +1,5 @@
-import { normalizeCodexResponsesBaseUrlForOpenAISdk } from "@openclaw/ai/transports";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { normalizeCodexResponsesBaseUrlForOpenAISdk } from "@granted/ai/transports";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import type { TSchema } from "typebox";
 import type {
   WorkerInferenceContext,

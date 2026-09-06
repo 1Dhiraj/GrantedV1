@@ -1,4 +1,4 @@
-import { coerceErrorMessage } from "@openclaw/normalization-core/error-coercion";
+import { coerceErrorMessage } from "@granted/normalization-core/error-coercion";
 import { getReplyPayloadMetadata } from "../../auto-reply/reply-payload.js";
 import type { FollowupRun } from "../../auto-reply/reply/queue.js";
 import { recordAgentRunTerminalOutcome } from "../../channels/turn/agent-run-terminal-outcome.js";

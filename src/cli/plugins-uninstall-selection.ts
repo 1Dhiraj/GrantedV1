@@ -1,5 +1,5 @@
 // Plugin uninstall id resolver for registry ids, display names, npm specs, and ClawHub specs.
-import { err as resultError, ok, type Result } from "@openclaw/normalization-core/result";
+import { err as resultError, ok, type Result } from "@granted/normalization-core/result";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import { parseClawHubPluginSpec } from "../infra/clawhub-spec.js";
 import type { PluginRecord } from "../plugins/registry.js";

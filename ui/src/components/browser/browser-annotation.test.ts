@@ -1,5 +1,5 @@
 import { runInNewContext } from "node:vm";
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { describe, expect, it, vi } from "vitest";
 import type { GatewayBrowserClient } from "../../api/gateway.ts";
 import { buildBrowserAnnotationContent, composeAnnotatedImage } from "./browser-annotation.ts";

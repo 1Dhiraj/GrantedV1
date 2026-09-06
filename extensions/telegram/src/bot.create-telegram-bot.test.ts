@@ -2,7 +2,7 @@
 import { mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { escapeRegExp, formatEnvelopeTimestamp } from "granted/plugin-sdk/channel-test-helpers";
 import type { TelegramGroupConfig } from "granted/plugin-sdk/config-contracts";
 import {

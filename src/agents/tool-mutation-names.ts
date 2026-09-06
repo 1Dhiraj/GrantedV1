@@ -1,4 +1,4 @@
-import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
+import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
 
 export type FileMutationToolName = "write" | "edit" | "apply_patch";
 

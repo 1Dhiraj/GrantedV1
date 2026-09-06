@@ -1,5 +1,5 @@
 // OpenAI-compatible speech provider tests cover speech request and file output.
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import type { SpeechProviderPlugin } from "../plugins/types.js";
 import { createOpenAiCompatibleSpeechProvider } from "./openai-compatible-speech-provider.js";

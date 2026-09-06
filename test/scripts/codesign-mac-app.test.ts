@@ -2,7 +2,7 @@
 import { existsSync, readFileSync } from "node:fs";
 import { chmod, link, mkdir, rm, symlink, writeFile } from "node:fs/promises";
 import path from "node:path";
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { describe, type TestContext } from "vitest";
 import {
   machoFixture,

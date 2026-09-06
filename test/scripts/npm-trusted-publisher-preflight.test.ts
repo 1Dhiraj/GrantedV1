@@ -32,7 +32,7 @@ describe("npm trusted-publisher preflight", () => {
     vi.stubGlobal("fetch", fetchMock);
     const log = vi.spyOn(console, "log").mockImplementation(() => undefined);
 
-    await preflightNpmTrustedPublisher("@openclaw/fish-audio-speech");
+    await preflightNpmTrustedPublisher("@granted/fish-audio-speech");
 
     expect(fetchMock).toHaveBeenCalledTimes(2);
     const githubCall = fetchMock.mock.calls[0];
@@ -61,7 +61,7 @@ describe("npm trusted-publisher preflight", () => {
       },
     });
     expect(log).toHaveBeenCalledWith(
-      "npm trusted-publisher OIDC exchange verified for @openclaw/fish-audio-speech.",
+      "npm trusted-publisher OIDC exchange verified for @granted/fish-audio-speech.",
     );
   });
 
@@ -69,7 +69,7 @@ describe("npm trusted-publisher preflight", () => {
     const fetchMock = vi.fn<typeof fetch>().mockResolvedValueOnce(jsonResponse({}, 403));
     vi.stubGlobal("fetch", fetchMock);
 
-    await expect(preflightNpmTrustedPublisher("@openclaw/fish-audio-speech")).rejects.toThrow(
+    await expect(preflightNpmTrustedPublisher("@granted/fish-audio-speech")).rejects.toThrow(
       "GitHub OIDC token request failed (HTTP 403).",
     );
     expect(fetchMock).toHaveBeenCalledTimes(1);
@@ -84,13 +84,13 @@ describe("npm trusted-publisher preflight", () => {
       );
     vi.stubGlobal("fetch", fetchMock);
 
-    const error = await preflightNpmTrustedPublisher("@openclaw/fish-audio-speech").catch(
+    const error = await preflightNpmTrustedPublisher("@granted/fish-audio-speech").catch(
       (cause: unknown) => cause,
     );
     expect(error).toBeInstanceOf(Error);
     const visibleError = error instanceof Error ? error.message : String(error);
     expect(visibleError).toBe(
-      "npm trusted-publisher exchange for @openclaw/fish-audio-speech failed (HTTP 404).",
+      "npm trusted-publisher exchange for @granted/fish-audio-speech failed (HTTP 404).",
     );
     expect(visibleError).not.toContain(githubRequestToken);
     expect(visibleError).not.toContain(githubOidcToken);
@@ -104,8 +104,8 @@ describe("npm trusted-publisher preflight", () => {
       .mockResolvedValueOnce(jsonResponse({ token: "" }));
     vi.stubGlobal("fetch", fetchMock);
 
-    await expect(preflightNpmTrustedPublisher("@openclaw/fish-audio-speech")).rejects.toThrow(
-      "npm trusted-publisher exchange for @openclaw/fish-audio-speech response is missing token.",
+    await expect(preflightNpmTrustedPublisher("@granted/fish-audio-speech")).rejects.toThrow(
+      "npm trusted-publisher exchange for @granted/fish-audio-speech response is missing token.",
     );
   });
 });

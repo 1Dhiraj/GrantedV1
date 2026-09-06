@@ -4,8 +4,8 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { stripVTControlCharacters } from "node:util";
-import { parseStrictPositiveInteger } from "@openclaw/normalization-core/number-coercion";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { parseStrictPositiveInteger } from "@granted/normalization-core/number-coercion";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { sanitizeTriageUpdateFailure } from "../../commands/triage-update.js";
 import { resolveStateDir } from "../../config/paths.js";
 import {

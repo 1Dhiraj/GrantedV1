@@ -9,7 +9,7 @@ import { writeJsonFile } from "../../../helpers/temp-repo.js";
 const CLAWHUB_CHECK = resolve("scripts/plugin-clawhub-release-check.ts");
 const NPM_CHECK = resolve("scripts/plugin-npm-release-check.ts");
 const REPOSITORY_URL = "https://github.com/openclaw/openclaw";
-const PACKAGE_NAME = "@openclaw/demo-plugin";
+const PACKAGE_NAME = "@granted/demo-plugin";
 const INITIAL_VERSION = "2026.8.3";
 const tsxImport = import.meta.resolve("tsx");
 const tempDirs: string[] = [];

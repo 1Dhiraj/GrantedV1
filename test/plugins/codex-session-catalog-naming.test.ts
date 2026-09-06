@@ -2,7 +2,7 @@ import { once } from "node:events";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { rawDataToString } from "@openclaw/gateway-client/websocket-data";
+import { rawDataToString } from "@granted/gateway-client/websocket-data";
 import { expect, it } from "vitest";
 import { WebSocketServer } from "ws";
 import plugin from "../../extensions/codex/index.js";

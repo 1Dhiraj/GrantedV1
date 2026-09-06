@@ -467,7 +467,7 @@ describe("renderSkills ClawHub", () => {
     await Promise.resolve();
 
     expect(normalizeText(container)).toContain("Review");
-    expect(normalizeText(container)).toContain("@openclaw/agentreceipt@1.2.3");
+    expect(normalizeText(container)).toContain("@granted/agentreceipt@1.2.3");
     expect(normalizeText(container)).toContain("security.suspicious");
     expect(
       container.querySelector<HTMLAnchorElement>('a[href*="security-audit"]')?.textContent?.trim(),

@@ -1,7 +1,7 @@
 /**
  * Resolves CLI runtime backends registered by plugins or setup metadata.
  */
-import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
+import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { ContextEngineHostCapability } from "../context-engine/types.js";
 import type {

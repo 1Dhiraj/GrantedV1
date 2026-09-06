@@ -1,6 +1,6 @@
 // Coverage for Google prompt-cache creation, reuse, and request rewriting.
 import crypto from "node:crypto";
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { describe, expect, it, vi } from "vitest";
 import { SessionTranscriptWriterClaimReboundError } from "../../config/sessions/transcript-write-context.js";
 import { isSecretValueRegisteredForRedaction } from "../../logging/secret-redaction-registry.js";

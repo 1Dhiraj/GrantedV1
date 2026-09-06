@@ -2,8 +2,8 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { normalizeModelCatalog } from "@openclaw/model-catalog-core/model-catalog-normalize";
-import { asOptionalRecord } from "@openclaw/normalization-core/record-coerce";
+import { normalizeModelCatalog } from "@granted/model-catalog-core/model-catalog-normalize";
+import { asOptionalRecord } from "@granted/normalization-core/record-coerce";
 import { describe, expect, it } from "vitest";
 import { buildManifestModelProviderConfig } from "../plugin-sdk/provider-catalog-shared.js";
 

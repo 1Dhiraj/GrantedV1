@@ -1,5 +1,5 @@
 {
-  "name": "@openclaw/voyage-provider",
+  "name": "@granted/voyage-provider",
   "version": "2026.8.1",
   "description": "OpenClaw Voyage embedding provider plugin.",
   "repository": {
@@ -8,15 +8,15 @@
   },
   "type": "module",
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*"
+    "@granted/plugin-sdk": "workspace:*"
   },
   "openclaw": {
     "extensions": [
       "./index.ts"
     ],
     "install": {
-      "clawhubSpec": "clawhub:@openclaw/voyage-provider",
-      "npmSpec": "@openclaw/voyage-provider",
+      "clawhubSpec": "clawhub:@granted/voyage-provider",
+      "npmSpec": "@granted/voyage-provider",
       "defaultChoice": "npm",
       "minHostVersion": ">=2026.7.2"
     },

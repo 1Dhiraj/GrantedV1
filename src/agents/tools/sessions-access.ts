@@ -4,8 +4,8 @@
  * Adds OpenClaw session-key alias normalization and sandbox requester scoping over SDK visibility contracts.
  */
 import { randomUUID } from "node:crypto";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { recordExecutionDecisionWork } from "../../audit/execution-decision-work.js";
 import { SESSION_LIFECYCLE_CHANGED_ERROR_REASON } from "../../config/sessions/lifecycle.js";
 import { resolveCanonicalMainSessionKey } from "../../config/sessions/main-session-key.js";

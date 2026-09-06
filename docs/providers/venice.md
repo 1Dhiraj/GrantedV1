@@ -26,7 +26,7 @@ Anonymized models are not fully private. Venice strips metadata before forwardin
 <Steps>
   <Step title="Install the plugin">
     ```bash
-    openclaw plugins install @openclaw/venice-provider
+    openclaw plugins install @granted/venice-provider
     ```
   </Step>
   <Step title="Get your API key">

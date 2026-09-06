@@ -1,8 +1,8 @@
 import { availableParallelism } from "node:os";
 import { parentPort, Worker, type Transferable, type WorkerOptions } from "node:worker_threads";
-import { toErrorObject } from "@openclaw/normalization-core/error-coercion";
-import { resolveTimerTimeoutMs } from "@openclaw/normalization-core/number-coercion";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { toErrorObject } from "@granted/normalization-core/error-coercion";
+import { resolveTimerTimeoutMs } from "@granted/normalization-core/number-coercion";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 
 type WorkerTaskInput<Input> = Input | (() => Input | Promise<Input>);
 type WorkerTaskOptions<Input> = {

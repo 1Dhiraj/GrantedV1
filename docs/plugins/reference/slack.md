@@ -11,7 +11,7 @@ OpenClaw Slack channel plugin for channels, DMs, commands, and app events.
 
 ## Distribution
 
-- Package: `@openclaw/slack`
+- Package: `@granted/slack`
 - Install route: npm; ClawHub
 
 ## Surface

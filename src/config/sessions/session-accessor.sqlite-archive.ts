@@ -2,7 +2,7 @@ import { createHash, randomUUID } from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import { Worker } from "node:worker_threads";
-import { toStringifiedError } from "@openclaw/normalization-core/error-coercion";
+import { toStringifiedError } from "@granted/normalization-core/error-coercion";
 import { syncDirectoryBestEffortSync } from "../../infra/directory-durability.js";
 import { runtimeProcessEntrypoints } from "../../infra/runtime-process-entrypoints.js";
 import { resolveRuntimeWorkerUrl } from "../../infra/runtime-worker-url.js";

@@ -2,7 +2,7 @@
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalLowercaseString,
-} from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/string-coerce";
 import { canonicalizePath } from "../../agents/utils/paths.js";
 import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { createDedupeCache } from "../../infra/dedupe.js";

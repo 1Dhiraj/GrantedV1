@@ -1,6 +1,6 @@
 import { randomUUID } from "node:crypto";
-import type { AssistantMessage, Context, Model, StreamFn } from "@openclaw/llm-core";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import type { AssistantMessage, Context, Model, StreamFn } from "@granted/llm-core";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import OpenAI, { AzureOpenAI } from "openai";
 import { getEnvApiKey } from "../env-api-keys.js";
 import { getAiTransportHost } from "../host.js";

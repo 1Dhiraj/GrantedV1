@@ -2,8 +2,8 @@
 import {
   resolveAcpSessionCwd,
   resolveAcpThreadSessionDetailLines,
-} from "@openclaw/acp-core/runtime/session-identifiers";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+} from "@granted/acp-core/runtime/session-identifiers";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { resolveChannelDefaultBindingPlacement } from "../../../channels/conversation-resolution.js";
 import { getChannelPlugin, normalizeChannelId } from "../../../channels/plugins/index.js";
 import {

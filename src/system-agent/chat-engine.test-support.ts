@@ -400,7 +400,7 @@ export function fakeOverviewLoader(
     }) as never;
 }
 
-export { expectDefined } from "@openclaw/normalization-core";
+export { expectDefined } from "@granted/normalization-core";
 export { hashSystemAgentOperation } from "./operator-approval.js";
 export type { GrantedConfig } from "../config/types.openclaw.js";
 export type { WizardPrompter } from "../wizard/prompts.js";

@@ -1,5 +1,5 @@
 /** Session self-service tool. */
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { Type } from "typebox";
 import type {
   SessionsAssignOwnerResult,

@@ -1,4 +1,4 @@
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import type { ResponseOutputItem } from "openai/resources/responses/responses.js";
 import {
   AZURE_RESPONSES_TEXT_CONTENT_PART_TYPE,

@@ -1,5 +1,5 @@
 {
-  "name": "@openclaw/mistral-provider",
+  "name": "@granted/mistral-provider",
   "version": "2026.8.1",
   "description": "OpenClaw Mistral provider plugin",
   "repository": {
@@ -8,15 +8,15 @@
   },
   "type": "module",
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*"
+    "@granted/plugin-sdk": "workspace:*"
   },
   "openclaw": {
     "extensions": [
       "./index.ts"
     ],
     "install": {
-      "clawhubSpec": "clawhub:@openclaw/mistral-provider",
-      "npmSpec": "@openclaw/mistral-provider",
+      "clawhubSpec": "clawhub:@granted/mistral-provider",
+      "npmSpec": "@granted/mistral-provider",
       "defaultChoice": "npm",
       "minHostVersion": ">=2026.7.2"
     },

@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import type { WorkboardExecution } from "@openclaw/workboard-contract";
+import type { WorkboardExecution } from "@granted/workboard-contract";
 import { describe, expect, it, vi } from "vitest";
 import { createWorkboardLifecycleService, syncWorkboardSubagentEnded } from "./lifecycle-sync.js";
 import { createWorkboardSqliteStores } from "./sqlite-store.js";

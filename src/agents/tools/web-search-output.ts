@@ -7,9 +7,9 @@
  * re-wrapped here unconditionally, so no provider-controlled metadata can
  * spoof the trust marker and transport-specific extras never reach the model.
  */
-import { asFiniteNumber as readFiniteNumber } from "@openclaw/normalization-core/number-coercion";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
-import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+import { asFiniteNumber as readFiniteNumber } from "@granted/normalization-core/number-coercion";
+import { isRecord } from "@granted/normalization-core/record-coerce";
+import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import type { Static } from "typebox";
 import { Type } from "typebox";
 import {

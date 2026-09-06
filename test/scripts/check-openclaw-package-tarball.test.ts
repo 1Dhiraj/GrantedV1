@@ -30,7 +30,7 @@ const FIRST_CODE_MODE_WORKER_VERSION = "2026.5.14-beta.2";
 const FLAT_PLUGIN_SDK_DECLARATION = "dist/plugin-sdk/provider-entry.d.ts";
 const DEEP_PLUGIN_SDK_DECLARATION = "dist/plugin-sdk/src/plugin-sdk/provider-entry.d.ts";
 const AI_RUNTIME_PACKAGE_JSON = JSON.stringify({
-  name: "@openclaw/ai",
+  name: "@granted/ai",
   version: "2026.6.11",
   exports: {
     ".": { import: "./dist/index.mjs" },
@@ -40,7 +40,7 @@ const AI_RUNTIME_PACKAGE_JSON = JSON.stringify({
   },
 });
 const LEGACY_AI_RUNTIME_PACKAGE_JSON = JSON.stringify({
-  name: "@openclaw/ai",
+  name: "@granted/ai",
   version: "2026.7.2-beta.4",
   exports: {
     ".": { import: "./dist/index.mjs" },
@@ -616,10 +616,10 @@ describe("check-openclaw-package-tarball", () => {
     {
       name: "rejects workspace protocol dependencies in package manifests",
       version: "2026.6.11",
-      options: { packageJson: { dependencies: { "@openclaw/ai": "workspace:*" } } },
+      options: { packageJson: { dependencies: { "@granted/ai": "workspace:*" } } },
       status: "nonzero",
       stderr: [
-        "package.json dependencies.@openclaw/ai must not use workspace protocol workspace:*",
+        "package.json dependencies.@granted/ai must not use workspace protocol workspace:*",
       ],
     },
     {
@@ -675,59 +675,59 @@ describe("check-openclaw-package-tarball", () => {
     {
       name: "accepts separately published private workspace dependencies by default",
       version: "2026.6.11",
-      options: { packageJson: { dependencies: { "@openclaw/ai": "2026.6.11" } } },
+      options: { packageJson: { dependencies: { "@granted/ai": "2026.6.11" } } },
       status: 0,
       successText: true,
     },
     {
       name: "rejects private workspace dependencies that are not bundled when strict packaging requires it",
       version: "2026.6.11",
-      options: { packageJson: { dependencies: { "@openclaw/ai": "2026.6.11" } } },
+      options: { packageJson: { dependencies: { "@granted/ai": "2026.6.11" } } },
       strict: true,
       status: "nonzero",
       stderr: [
-        "package.json dependencies.@openclaw/ai must be listed in bundleDependencies because it is private to the OpenClaw workspace",
-        "package.json dependencies.@openclaw/ai must be bundled in node_modules/@openclaw/ai",
+        "package.json dependencies.@granted/ai must be listed in bundleDependencies because it is private to the OpenClaw workspace",
+        "package.json dependencies.@granted/ai must be bundled in node_modules/@granted/ai",
       ],
     },
     {
       name: "rejects private workspace dependencies when only metadata is bundled",
       files: {
         "dist/index.js": "export {};\n",
-        "node_modules/@openclaw/ai/package.json": AI_RUNTIME_PACKAGE_JSON,
+        "node_modules/@granted/ai/package.json": AI_RUNTIME_PACKAGE_JSON,
       },
       version: "2026.6.11",
       options: {
         packageJson: {
-          dependencies: { "@openclaw/ai": "2026.6.11" },
-          bundleDependencies: ["@openclaw/ai"],
+          dependencies: { "@granted/ai": "2026.6.11" },
+          bundleDependencies: ["@granted/ai"],
         },
       },
       strict: true,
       status: "nonzero",
       stderr: [
-        "bundled @openclaw/ai is missing required runtime entry dist/index.mjs",
-        "bundled @openclaw/ai is missing required runtime entry dist/providers.mjs",
-        "bundled @openclaw/ai is missing required runtime entry dist/internal/runtime.mjs",
+        "bundled @granted/ai is missing required runtime entry dist/index.mjs",
+        "bundled @granted/ai is missing required runtime entry dist/providers.mjs",
+        "bundled @granted/ai is missing required runtime entry dist/internal/runtime.mjs",
       ],
     },
     {
       name: "accepts private workspace dependencies when their runtime is bundled",
       files: {
         "dist/index.js": "export {};\n",
-        "node_modules/@openclaw/ai/package.json": AI_RUNTIME_PACKAGE_JSON,
-        "node_modules/@openclaw/ai/dist/index.mjs": "export {};\n",
-        "node_modules/@openclaw/ai/dist/providers.mjs": "export {};\n",
-        "node_modules/@openclaw/ai/dist/transports.mjs": "export {};\n",
-        "node_modules/@openclaw/ai/dist/internal/openai-responses-payload-policy.mjs":
+        "node_modules/@granted/ai/package.json": AI_RUNTIME_PACKAGE_JSON,
+        "node_modules/@granted/ai/dist/index.mjs": "export {};\n",
+        "node_modules/@granted/ai/dist/providers.mjs": "export {};\n",
+        "node_modules/@granted/ai/dist/transports.mjs": "export {};\n",
+        "node_modules/@granted/ai/dist/internal/openai-responses-payload-policy.mjs":
           "export {};\n",
-        "node_modules/@openclaw/ai/dist/internal/runtime.mjs": "export {};\n",
+        "node_modules/@granted/ai/dist/internal/runtime.mjs": "export {};\n",
       },
       version: "2026.6.11",
       options: {
         packageJson: {
-          dependencies: { "@openclaw/ai": "2026.6.11" },
-          bundleDependencies: ["@openclaw/ai"],
+          dependencies: { "@granted/ai": "2026.6.11" },
+          bundleDependencies: ["@granted/ai"],
         },
       },
       strict: true,
@@ -738,16 +738,16 @@ describe("check-openclaw-package-tarball", () => {
       name: "accepts frozen AI runtimes that predate an optional exported subpath",
       files: {
         "dist/index.js": "export {};\n",
-        "node_modules/@openclaw/ai/package.json": LEGACY_AI_RUNTIME_PACKAGE_JSON,
-        "node_modules/@openclaw/ai/dist/index.mjs": "export {};\n",
-        "node_modules/@openclaw/ai/dist/providers.mjs": "export {};\n",
-        "node_modules/@openclaw/ai/dist/internal/runtime.mjs": "export {};\n",
+        "node_modules/@granted/ai/package.json": LEGACY_AI_RUNTIME_PACKAGE_JSON,
+        "node_modules/@granted/ai/dist/index.mjs": "export {};\n",
+        "node_modules/@granted/ai/dist/providers.mjs": "export {};\n",
+        "node_modules/@granted/ai/dist/internal/runtime.mjs": "export {};\n",
       },
       version: "2026.7.2-beta.4",
       options: {
         packageJson: {
-          dependencies: { "@openclaw/ai": "2026.7.2-beta.4" },
-          bundleDependencies: ["@openclaw/ai"],
+          dependencies: { "@granted/ai": "2026.7.2-beta.4" },
+          bundleDependencies: ["@granted/ai"],
         },
       },
       strict: true,
@@ -758,30 +758,30 @@ describe("check-openclaw-package-tarball", () => {
       name: "rejects a missing required bundled AI runtime entry",
       files: {
         "dist/index.js": "export {};\n",
-        "node_modules/@openclaw/ai/package.json": AI_RUNTIME_PACKAGE_JSON,
-        "node_modules/@openclaw/ai/dist/index.mjs": "export {};\n",
-        "node_modules/@openclaw/ai/dist/transports.mjs": "export {};\n",
-        "node_modules/@openclaw/ai/dist/internal/openai-responses-payload-policy.mjs":
+        "node_modules/@granted/ai/package.json": AI_RUNTIME_PACKAGE_JSON,
+        "node_modules/@granted/ai/dist/index.mjs": "export {};\n",
+        "node_modules/@granted/ai/dist/transports.mjs": "export {};\n",
+        "node_modules/@granted/ai/dist/internal/openai-responses-payload-policy.mjs":
           "export {};\n",
-        "node_modules/@openclaw/ai/dist/internal/runtime.mjs": "export {};\n",
+        "node_modules/@granted/ai/dist/internal/runtime.mjs": "export {};\n",
       },
       version: "2026.6.11",
       options: {
         packageJson: {
-          dependencies: { "@openclaw/ai": "2026.6.11" },
-          bundleDependencies: ["@openclaw/ai"],
+          dependencies: { "@granted/ai": "2026.6.11" },
+          bundleDependencies: ["@granted/ai"],
         },
       },
       strict: true,
       status: "nonzero",
-      stderr: ["bundled @openclaw/ai is missing required runtime entry dist/providers.mjs"],
+      stderr: ["bundled @granted/ai is missing required runtime entry dist/providers.mjs"],
     },
     {
       name: "rejects bundled AI entries that its manifest does not export",
       files: {
         "dist/index.js": "export {};\n",
-        "node_modules/@openclaw/ai/package.json": JSON.stringify({
-          name: "@openclaw/ai",
+        "node_modules/@granted/ai/package.json": JSON.stringify({
+          name: "@granted/ai",
           version: "2026.6.11",
           exports: {
             ".": "./dist/index.mjs",
@@ -789,47 +789,47 @@ describe("check-openclaw-package-tarball", () => {
             "./internal/*": "./dist/internal/*.mjs",
           },
         }),
-        "node_modules/@openclaw/ai/dist/index.mjs": "export {};\n",
-        "node_modules/@openclaw/ai/dist/providers.mjs": "export {};\n",
-        "node_modules/@openclaw/ai/dist/transports.mjs": "export {};\n",
-        "node_modules/@openclaw/ai/dist/internal/openai-responses-payload-policy.mjs":
+        "node_modules/@granted/ai/dist/index.mjs": "export {};\n",
+        "node_modules/@granted/ai/dist/providers.mjs": "export {};\n",
+        "node_modules/@granted/ai/dist/transports.mjs": "export {};\n",
+        "node_modules/@granted/ai/dist/internal/openai-responses-payload-policy.mjs":
           "export {};\n",
-        "node_modules/@openclaw/ai/dist/internal/runtime.mjs": "export {};\n",
+        "node_modules/@granted/ai/dist/internal/runtime.mjs": "export {};\n",
       },
       version: "2026.6.11",
       options: {
         packageJson: {
-          dependencies: { "@openclaw/ai": "2026.6.11" },
-          bundleDependencies: ["@openclaw/ai"],
+          dependencies: { "@granted/ai": "2026.6.11" },
+          bundleDependencies: ["@granted/ai"],
         },
       },
       strict: true,
       status: "nonzero",
-      stderr: ["bundled @openclaw/ai runtime specifier @openclaw/ai/providers is not resolvable"],
+      stderr: ["bundled @granted/ai runtime specifier @granted/ai/providers is not resolvable"],
     },
     {
       name: "rejects missing relative imports from bundled AI runtime entries",
       files: {
         "dist/index.js": "export {};\n",
-        "node_modules/@openclaw/ai/package.json": AI_RUNTIME_PACKAGE_JSON,
-        "node_modules/@openclaw/ai/dist/index.mjs": "export {};\n",
-        "node_modules/@openclaw/ai/dist/providers.mjs": "export {};\n",
-        "node_modules/@openclaw/ai/dist/transports.mjs": "export {};\n",
-        "node_modules/@openclaw/ai/dist/internal/openai-responses-payload-policy.mjs":
+        "node_modules/@granted/ai/package.json": AI_RUNTIME_PACKAGE_JSON,
+        "node_modules/@granted/ai/dist/index.mjs": "export {};\n",
+        "node_modules/@granted/ai/dist/providers.mjs": "export {};\n",
+        "node_modules/@granted/ai/dist/transports.mjs": "export {};\n",
+        "node_modules/@granted/ai/dist/internal/openai-responses-payload-policy.mjs":
           "export {};\n",
-        "node_modules/@openclaw/ai/dist/internal/runtime.mjs": 'export * from "./missing.mjs";\n',
+        "node_modules/@granted/ai/dist/internal/runtime.mjs": 'export * from "./missing.mjs";\n',
       },
       version: "2026.6.11",
       options: {
         packageJson: {
-          dependencies: { "@openclaw/ai": "2026.6.11" },
-          bundleDependencies: ["@openclaw/ai"],
+          dependencies: { "@granted/ai": "2026.6.11" },
+          bundleDependencies: ["@granted/ai"],
         },
       },
       strict: true,
       status: "nonzero",
       stderr: [
-        "bundled @openclaw/ai dist/internal/runtime.mjs imports missing dist/internal/missing.mjs",
+        "bundled @granted/ai dist/internal/runtime.mjs imports missing dist/internal/missing.mjs",
       ],
     },
     {

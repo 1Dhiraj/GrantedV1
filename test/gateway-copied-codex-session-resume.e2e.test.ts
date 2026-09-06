@@ -68,7 +68,7 @@ async function installCodexHarnessFixture(stateDir: string, config: GrantedConfi
   await fs.writeFile(
     path.join(pluginDir, "package.json"),
     JSON.stringify({
-      name: "@openclaw/codex",
+      name: "@granted/codex",
       version: "2026.8.1",
       type: "module",
       openclaw: { extensions: ["./index.js"] },

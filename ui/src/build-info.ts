@@ -1,5 +1,5 @@
 // Compile-time identity for the Control UI artifact.
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import { normalizeControlUiBuildInfo } from "./build-info-normalizers.ts";
 import type { ControlUiBuildInfo } from "./build-info-types.ts";
 

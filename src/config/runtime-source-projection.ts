@@ -1,4 +1,4 @@
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import { applyMergePatch, createMergePatch } from "./merge-patch.js";
 import { getRuntimeConfigSnapshot, getRuntimeConfigSourceSnapshot } from "./runtime-snapshot.js";
 import type { GrantedConfig } from "./types.js";

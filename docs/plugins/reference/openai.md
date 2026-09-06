@@ -11,7 +11,7 @@ Adds OpenAI model provider support to OpenClaw.
 
 ## Distribution
 
-- Package: `@openclaw/openai-provider`
+- Package: `@granted/openai-provider`
 - Install route: included in OpenClaw
 
 ## Surface

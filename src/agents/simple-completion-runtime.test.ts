@@ -1,6 +1,6 @@
 // Simple completion runtime tests cover model resolution, provider auth, and
 // one-shot completion wiring before requests reach the shared LLM stream path.
-import { createApiRegistry } from "@openclaw/ai";
+import { createApiRegistry } from "@granted/ai";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { Model } from "../llm/types.js";

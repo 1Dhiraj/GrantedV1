@@ -1,11 +1,11 @@
 // Audits gateway config for bind, auth, and exposure risks.
 import { isIP } from "node:net";
-import { parseStrictNonNegativeInteger } from "@openclaw/normalization-core/number-coercion";
+import { parseStrictNonNegativeInteger } from "@granted/normalization-core/number-coercion";
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalLowercaseString,
-} from "@openclaw/normalization-core/string-coerce";
-import { normalizeStringEntries } from "@openclaw/normalization-core/string-normalization";
+} from "@granted/normalization-core/string-coerce";
+import { normalizeStringEntries } from "@granted/normalization-core/string-normalization";
 import { hasUnresolvedConfigPath } from "../config/resolution-facts.js";
 import type { GatewayAuthConfig } from "../config/types.gateway.js";
 import type { GrantedConfig } from "../config/types.openclaw.js";

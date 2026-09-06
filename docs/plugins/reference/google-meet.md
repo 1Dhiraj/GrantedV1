@@ -11,7 +11,7 @@ OpenClaw Google Meet participant plugin for joining calls through Chrome or Twil
 
 ## Distribution
 
-- Package: `@openclaw/google-meet`
+- Package: `@granted/google-meet`
 - Install route: npm; ClawHub
 
 ## Surface

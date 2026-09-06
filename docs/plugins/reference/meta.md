@@ -11,8 +11,8 @@ Adds Meta model provider support to OpenClaw.
 
 ## Distribution
 
-- Package: `@openclaw/meta-provider`
-- Install route: npm; ClawHub: `clawhub:@openclaw/meta-provider`
+- Package: `@granted/meta-provider`
+- Install route: npm; ClawHub: `clawhub:@granted/meta-provider`
 
 ## Surface
 

@@ -1,7 +1,7 @@
 // Memory Wiki plugin module implements query behavior.
 import fs from "node:fs/promises";
 import path from "node:path";
-import { filterMemorySearchHitsBySessionVisibility } from "@openclaw/memory-core/api.js";
+import { filterMemorySearchHitsBySessionVisibility } from "@granted/memory-core/api.js";
 import { resolveSessionAgentIdStrict } from "granted/plugin-sdk/agent-scope-runtime";
 import { runTasksWithConcurrency } from "granted/plugin-sdk/concurrency-runtime";
 import type { MemorySearchResult } from "granted/plugin-sdk/memory-core-host-runtime-files";

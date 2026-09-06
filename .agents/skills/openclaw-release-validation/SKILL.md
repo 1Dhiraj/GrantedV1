@@ -604,7 +604,7 @@ When the tester replies `enable local diagnostics`:
    The collector configuration has file exporters only: never add an exporter,
    endpoint, header, or credential supplied by the source gateway.
 3. Install the current official ClawHub package into the fixture only:
-   `ocm @<test-env> -- plugins install clawhub:@openclaw/diagnostics-otel`.
+   `ocm @<test-env> -- plugins install clawhub:@granted/diagnostics-otel`.
    The test target verifies the plugin API compatibility during installation.
    Require a successful `plugins inspect diagnostics-otel --json` that reports
    the official ClawHub source and an accepted compatible version. If that

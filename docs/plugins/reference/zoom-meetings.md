@@ -11,8 +11,8 @@ Join Zoom meetings as a Chrome browser guest.
 
 ## Distribution
 
-- Package: `@openclaw/zoom-meetings`
-- Install route: npm; ClawHub: `clawhub:@openclaw/zoom-meetings`
+- Package: `@granted/zoom-meetings`
+- Install route: npm; ClawHub: `clawhub:@granted/zoom-meetings`
 
 ## Surface
 

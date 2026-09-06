@@ -514,7 +514,7 @@ describe("Dockerfile", () => {
           env: { ...process.env, GRANTED_BUNDLED_PLUGIN_DIR: "extensions" },
         });
         await mkdir(join(prod, "node_modules/@openclaw"), { recursive: true });
-        await symlink("../../packages/ai", join(prod, "node_modules/@openclaw/ai"));
+        await symlink("../../packages/ai", join(prod, "node_modules/@granted/ai"));
         await cp(prod, app, { recursive: true, verbatimSymlinks: true });
         for (const file of oldFiles) {
           await expect(access(join(app, file))).rejects.toThrow();
@@ -522,7 +522,7 @@ describe("Dockerfile", () => {
         for (const file of [...builtFiles, ...prodFiles]) {
           expect(await readFile(join(app, file), "utf8")).toBe(file);
         }
-        expect(await readFile(join(app, "node_modules/@openclaw/ai/dist/index.mjs"), "utf8")).toBe(
+        expect(await readFile(join(app, "node_modules/@granted/ai/dist/index.mjs"), "utf8")).toBe(
           "packages/ai/dist/index.mjs",
         );
       } finally {

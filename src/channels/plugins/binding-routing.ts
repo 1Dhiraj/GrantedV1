@@ -3,7 +3,7 @@
  *
  * Applies configured and runtime conversation bindings to agent route resolution.
  */
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { logVerbose } from "../../globals.js";
 import {

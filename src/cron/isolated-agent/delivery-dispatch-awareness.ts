@@ -1,6 +1,6 @@
 /** Session awareness and transcript mirroring for direct cron delivery. */
-import { isAudioFileName } from "@openclaw/media-core/mime";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { isAudioFileName } from "@granted/media-core/mime";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import type { ReplyPayload } from "../../auto-reply/reply-payload.js";
 import { resolveSessionWorkStartError } from "../../config/sessions/lifecycle.js";
 import {

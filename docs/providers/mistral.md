@@ -14,7 +14,7 @@ media understanding (Voxtral batch transcription), realtime STT for Voice Call
 | Property         | Value                                       |
 | ---------------- | ------------------------------------------- |
 | Provider id      | `mistral`                                   |
-| Plugin           | `@openclaw/mistral-provider`                |
+| Plugin           | `@granted/mistral-provider`                |
 | Auth env var     | `MISTRAL_API_KEY`                           |
 | Onboarding flag  | `--auth-choice mistral-api-key`             |
 | Direct CLI flag  | `--mistral-api-key <key>`                   |
@@ -30,7 +30,7 @@ media understanding (Voxtral batch transcription), realtime STT for Voice Call
 <Steps>
   <Step title="Install the plugin">
     ```bash
-    openclaw plugins install @openclaw/mistral-provider
+    openclaw plugins install @granted/mistral-provider
     openclaw gateway restart
     ```
   </Step>

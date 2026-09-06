@@ -6,8 +6,8 @@
 import {
   parseStrictPositiveInteger,
   resolveOptionalIntegerOption,
-} from "@openclaw/normalization-core/number-coercion";
-import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+} from "@granted/normalization-core/number-coercion";
+import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import { formatErrorMessage } from "../infra/errors.js";
 
 // Cleanup steps must not block run completion forever. This module bounds each

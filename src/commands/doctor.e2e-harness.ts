@@ -2,7 +2,7 @@
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
+import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
 import { afterEach, beforeEach, vi } from "vitest";
 import type { LegacyStateDetection } from "../infra/state-migrations.types.js";
 import { createEmptyPluginRegistry } from "../plugins/registry-empty.js";

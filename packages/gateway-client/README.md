@@ -1,4 +1,4 @@
-# `@openclaw/gateway-client`
+# `@granted/gateway-client`
 
 Reference WebSocket client for the OpenClaw Gateway protocol. It provides the
 connection state machine used by OpenClaw's own Node and browser clients:
@@ -28,7 +28,7 @@ separate from the Gateway's current wire protocol number reported in `hello-ok`.
 Use the verified stable release with exact pins:
 
 ```bash
-npm install --save-exact @openclaw/gateway-client@2026.8.1 @openclaw/gateway-protocol@2026.8.1
+npm install --save-exact @granted/gateway-client@2026.8.1 @granted/gateway-protocol@2026.8.1
 ```
 
 See the canonical [installation guide](https://docs.openclaw.ai/gateway/clients#install-the-packages)
@@ -48,23 +48,23 @@ local identity or credentials automatically.
 
 ## Entry points
 
-- `@openclaw/gateway-client` exports the Node `GatewayClient`, device-auth
+- `@granted/gateway-client` exports the Node `GatewayClient`, device-auth
   helpers, readiness helpers, and timeout utilities.
-- `@openclaw/gateway-client/browser` exports the browser-safe protocol client,
+- `@granted/gateway-client/browser` exports the browser-safe protocol client,
   browser device-auth lifecycle, reconnect policy, and lightweight protocol
   constants. Its module graph does not import Node built-ins or `ws`.
-- `@openclaw/gateway-client/readiness` exports helpers that delay client startup
+- `@granted/gateway-client/readiness` exports helpers that delay client startup
   until the event loop can process Gateway IO.
-- `@openclaw/gateway-client/timeouts` exports timeout constants and safe timer
+- `@granted/gateway-client/timeouts` exports timeout constants and safe timer
   resolution helpers.
-- `@openclaw/gateway-client/websocket-data` converts every Node `ws` raw-data
+- `@granted/gateway-client/websocket-data` converts every Node `ws` raw-data
   shape to UTF-8 text.
 
 ## Node quickstart
 
 ```ts
-import { GatewayClient } from "@openclaw/gateway-client";
-import { PROTOCOL_VERSION } from "@openclaw/gateway-protocol/version";
+import { GatewayClient } from "@granted/gateway-client";
+import { PROTOCOL_VERSION } from "@granted/gateway-protocol/version";
 
 const connected = Promise.withResolvers<void>();
 const client = new GatewayClient({
@@ -106,7 +106,7 @@ without transport security.
 
 ## Browser clients
 
-Import `@openclaw/gateway-client/browser` when the host owns the WebSocket
+Import `@granted/gateway-client/browser` when the host owns the WebSocket
 adapter and device-key storage. The browser entry includes
 `GatewayProtocolClient` and `GatewayBrowserDeviceAuthLifecycle`; it deliberately
 omits the Node transport, TLS fingerprint handling, and private-network address
@@ -142,15 +142,15 @@ wait for an event-loop probe before opening the socket.
 
 ## Bundled internals
 
-The retry supervisor and the small `@openclaw/net-policy/ip` implementation are
+The retry supervisor and the small `@granted/net-policy/ip` implementation are
 inlined into the published JavaScript and declarations. They are implementation
 details, not public exports or supported API surfaces. `ipaddr.js` remains an
 external dependency because the inlined IP helpers use its public runtime and
 types.
 
-`ws`, `@openclaw/gateway-protocol`, and `ipaddr.js` remain external in the
+`ws`, `@granted/gateway-protocol`, and `ipaddr.js` remain external in the
 published distribution. Consumers should import protocol types and constants
-from `@openclaw/gateway-protocol`, not from bundled implementation paths.
+from `@granted/gateway-protocol`, not from bundled implementation paths.
 
 ## Contract notes
 

@@ -11,7 +11,7 @@ Adds MiniMax, MiniMax Portal model provider support to OpenClaw.
 
 ## Distribution
 
-- Package: `@openclaw/minimax-provider`
+- Package: `@granted/minimax-provider`
 - Install route: included in OpenClaw
 
 ## Surface

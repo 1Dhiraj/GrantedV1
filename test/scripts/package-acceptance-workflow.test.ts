@@ -1927,7 +1927,7 @@ describe("package acceptance workflow", () => {
     const selected = runReleasePublishInputValidation({
       FULL_RELEASE_VALIDATION_RUN_ATTEMPT: "",
       FULL_RELEASE_VALIDATION_RUN_ID: "",
-      PLUGINS: "@openclaw/meta",
+      PLUGINS: "@granted/meta",
       PLUGIN_PUBLISH_SCOPE: "selected",
       PREFLIGHT_RUN_ID: "",
       PUBLISH_GRANTED_NPM: "false",
@@ -1957,7 +1957,7 @@ describe("package acceptance workflow", () => {
     const partialEvidence = runReleasePublishInputValidation({
       FULL_RELEASE_VALIDATION_RUN_ATTEMPT: "",
       FULL_RELEASE_VALIDATION_RUN_ID: "",
-      PLUGINS: "@openclaw/meta",
+      PLUGINS: "@granted/meta",
       PLUGIN_PUBLISH_SCOPE: "selected",
       PUBLISH_GRANTED_NPM: "false",
     });
@@ -3642,7 +3642,7 @@ printf 'core_failed=%s\n' "$failed"
     );
     expect(npmTelegramWorkflow).toContain('verify-upload "Prerelease plugin registry"');
     expect(npmTelegramWorkflow).toContain("Download prerelease plugin registry artifact");
-    expect(npmTelegramWorkflow).toContain("--required-packages-json '[\"@openclaw/codex\"]'");
+    expect(npmTelegramWorkflow).toContain("--required-packages-json '[\"@granted/codex\"]'");
     expect(packageTelegram.secrets).toEqual({
       OPENAI_API_KEY: "${{ secrets.OPENAI_API_KEY }}",
       GRANTED_QA_CONVEX_SECRET_CI: "${{ secrets.GRANTED_QA_CONVEX_SECRET_CI }}",
@@ -3761,7 +3761,7 @@ printf 'core_failed=%s\n' "$failed"
       expect(generated.result.status, generated.result.stderr).toBe(0);
       expect(generated.args).toContain("--plugin-registry-output-dir\n");
       expect(generated.args).toContain(".artifacts/package-acceptance-telegram-plugin-registry\n");
-      expect(generated.args).toContain('--required-plugin-packages-json\n["@openclaw/codex"]\n');
+      expect(generated.args).toContain('--required-plugin-packages-json\n["@granted/codex"]\n');
     }
 
     for (const source of ["npm", "url", "trusted-url"] as const) {
@@ -3867,7 +3867,7 @@ printf 'core_failed=%s\n' "$failed"
     expect(workflow).toContain("codex_plugin_spec:");
     expect(workflow).toContain('args+=(-f codex_plugin_spec="$CODEX_PLUGIN_SPEC")');
     expect(releaseChecksWorkflow).toContain(
-      'codex_plugin_spec="npm:@openclaw/codex@${BASH_REMATCH[1]}"',
+      'codex_plugin_spec="npm:@granted/codex@${BASH_REMATCH[1]}"',
     );
     expect(releaseChecksWorkflow.match(/run: pnpm build qaRuntime/gu)).toHaveLength(6);
     expect(releaseChecksWorkflow).not.toContain(

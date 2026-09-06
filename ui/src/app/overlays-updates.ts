@@ -1,4 +1,4 @@
-import { gatewayCredentialScope } from "@openclaw/gateway-client/browser";
+import { gatewayCredentialScope } from "@granted/gateway-client/browser";
 import type { GatewayUpdateAvailableEventPayload } from "../../../src/gateway/events.js";
 import type { UpdateHoldResult } from "../api/types.ts";
 import { controlUiBuildDiffersFrom } from "../build-info.ts";

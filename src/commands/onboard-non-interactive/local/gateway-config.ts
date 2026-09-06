@@ -4,8 +4,8 @@
  * This module owns port/bind/auth validation and existing-setting preservation
  * before the final config write happens.
  */
-import { validateDottedDecimalIPv4Input } from "@openclaw/net-policy/ipv4";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { validateDottedDecimalIPv4Input } from "@granted/net-policy/ipv4";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { formatCliCommand } from "../../../cli/command-format.js";
 import { formatInvalidPortOption } from "../../../cli/error-format.js";
 import type { GrantedConfig } from "../../../config/types.openclaw.js";

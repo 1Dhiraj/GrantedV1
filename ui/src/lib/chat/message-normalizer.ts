@@ -2,10 +2,10 @@
  * Message normalization utilities for chat rendering.
  */
 
-import { mediaKindFromMime } from "@openclaw/media-core/constants";
-import { asFiniteNumber } from "@openclaw/normalization-core/number-coercion";
-import { asOptionalRecord, readStringField } from "@openclaw/normalization-core/record-coerce";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { mediaKindFromMime } from "@granted/media-core/constants";
+import { asFiniteNumber } from "@granted/normalization-core/number-coercion";
+import { asOptionalRecord, readStringField } from "@granted/normalization-core/record-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { z } from "zod";
 import { stripInboundMetadata } from "../../../../src/auto-reply/reply/strip-inbound-meta.js";
 import {

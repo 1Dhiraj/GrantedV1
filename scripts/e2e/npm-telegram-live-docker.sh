@@ -529,7 +529,7 @@ done
 link_harness_dependency /app openclaw
 
 if [ -n "${OPENCLAW_PREPUBLISH_PLUGIN_REGISTRY_DIR:-}" ]; then
-  OPENCLAW_PREPUBLISH_PLUGIN_REGISTRY_REQUIRED_PACKAGES_JSON='["@openclaw/codex"]' \
+  OPENCLAW_PREPUBLISH_PLUGIN_REGISTRY_REQUIRED_PACKAGES_JSON='["@granted/codex"]' \
     openclaw_prepublish_plugin_registry_start \
     "$OPENCLAW_PREPUBLISH_PLUGIN_REGISTRY_DIR" \
     "${OPENCLAW_DOCKER_E2E_SELECTED_SHA:?missing selected SHA}" \
@@ -551,7 +551,7 @@ if [ "${OPENCLAW_NPM_TELEGRAM_SKIP_HOTPATH:-0}" != "1" ]; then
   hotpath_channel_value="$(printf '%s:%s' 123456 "$hotpath_placeholder")"
   # Non-interactive onboarding cannot approve plugin capabilities. This release
   # harness explicitly accepts the staged Codex artifact before testing setup.
-  openclaw_e2e_run_command "$sut_command" plugins install @openclaw/codex \
+  openclaw_e2e_run_command "$sut_command" plugins install @granted/codex \
     --accept-capabilities >/tmp/openclaw-npm-telegram-codex-install.log 2>&1 </dev/null
   OPENAI_API_KEY="$hotpath_model_value" openclaw_e2e_run_command "$sut_command" onboard \
     --non-interactive --accept-risk \

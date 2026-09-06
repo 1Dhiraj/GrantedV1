@@ -139,15 +139,15 @@ function bundledPluginSweepLane(index: number): ReturnType<typeof summarizeLane>
 
 describe("scripts/lib/docker-e2e-plan", () => {
   it.each([
-    ["codex-media-path", ["@openclaw/codex"]],
-    ["live-mcp-code-mode-gateway", ["@openclaw/codex"]],
-    ["release-typed-onboarding", ["@openclaw/codex"]],
-    ["npm-onboard-channel-agent", ["@openclaw/codex"]],
-    ["npm-onboard-discord-channel-agent", ["@openclaw/codex"]],
-    ["npm-onboard-slack-channel-agent", ["@openclaw/codex"]],
-    ["npm-onboard-discord-candidate-channel-agent", ["@openclaw/codex", "@openclaw/discord"]],
-    ["npm-onboard-slack-candidate-channel-agent", ["@openclaw/codex", "@openclaw/slack"]],
-    ["mcp-code-mode-gateway", ["@openclaw/codex"]],
+    ["codex-media-path", ["@granted/codex"]],
+    ["live-mcp-code-mode-gateway", ["@granted/codex"]],
+    ["release-typed-onboarding", ["@granted/codex"]],
+    ["npm-onboard-channel-agent", ["@granted/codex"]],
+    ["npm-onboard-discord-channel-agent", ["@granted/codex"]],
+    ["npm-onboard-slack-channel-agent", ["@granted/codex"]],
+    ["npm-onboard-discord-candidate-channel-agent", ["@granted/codex", "@granted/discord"]],
+    ["npm-onboard-slack-candidate-channel-agent", ["@granted/codex", "@granted/slack"]],
+    ["mcp-code-mode-gateway", ["@granted/codex"]],
   ] as const)("requests only the matching companions for %s", (name, packages) => {
     const plan = planFor({ selectedLaneNames: [name] });
     expect(plan.lanes.map((lane) => lane.name)).toEqual([name]);
@@ -1022,9 +1022,9 @@ describe("scripts/lib/docker-e2e-plan", () => {
       ]);
       if (scenario === "recovery-cleanup") {
         expect(explicitPlan.requiredPrepublishPluginPackages).toEqual([
-          "@openclaw/codex",
-          "@openclaw/discord",
-          "@openclaw/whatsapp",
+          "@granted/codex",
+          "@granted/discord",
+          "@granted/whatsapp",
         ]);
       }
 
@@ -1523,7 +1523,7 @@ describe("scripts/lib/docker-e2e-plan", () => {
     expect(lane.timeoutMs).toBe(1_800_000);
     expect(plan.needs.bareImage).toBe(true);
     expect(plan.needs.package).toBe(true);
-    expect(plan.requiredPrepublishPluginPackages).toEqual(["@openclaw/codex"]);
+    expect(plan.requiredPrepublishPluginPackages).toEqual(["@granted/codex"]);
     expect(plan.needs.prepublishPluginRegistry).toBe(true);
   });
 
@@ -1747,9 +1747,9 @@ describe("scripts/lib/docker-e2e-plan", () => {
     ]) {
       const plan = planFor({ selectedLaneNames: [laneName] });
       expect(plan.requiredPrepublishPluginPackages).toEqual([
-        "@openclaw/codex",
-        "@openclaw/discord",
-        "@openclaw/whatsapp",
+        "@granted/codex",
+        "@granted/discord",
+        "@granted/whatsapp",
       ]);
       expect(plan.needs.prepublishPluginRegistry).toBe(true);
     }
@@ -1760,10 +1760,10 @@ describe("scripts/lib/docker-e2e-plan", () => {
       upgradeSurvivorScenarios: "base feishu-channel",
     });
     expect(feishuPlan.requiredPrepublishPluginPackages).toEqual([
-      "@openclaw/codex",
-      "@openclaw/discord",
-      "@openclaw/feishu",
-      "@openclaw/whatsapp",
+      "@granted/codex",
+      "@granted/discord",
+      "@granted/feishu",
+      "@granted/whatsapp",
     ]);
     const legacyFeishuPlan = planFor({
       selectedLaneNames: ["published-upgrade-survivor"],
@@ -1771,9 +1771,9 @@ describe("scripts/lib/docker-e2e-plan", () => {
       upgradeSurvivorScenarios: "feishu-channel",
     });
     expect(legacyFeishuPlan.requiredPrepublishPluginPackages).toEqual([
-      "@openclaw/codex",
-      "@openclaw/discord",
-      "@openclaw/whatsapp",
+      "@granted/codex",
+      "@granted/discord",
+      "@granted/whatsapp",
     ]);
     const selfUpgradeLane = findLaneByName("update-run-package-self-upgrade");
     expect(selfUpgradeLane).toBeDefined();
@@ -1783,7 +1783,7 @@ describe("scripts/lib/docker-e2e-plan", () => {
   it.each([
     {
       baseline: "2026.4.23",
-      packages: ["@openclaw/acpx", "@openclaw/codex", "@openclaw/discord", "@openclaw/whatsapp"],
+      packages: ["@granted/acpx", "@granted/codex", "@granted/discord", "@granted/whatsapp"],
     },
     { baseline: "2026.4.15", packages: [] },
   ])(

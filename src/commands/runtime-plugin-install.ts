@@ -61,14 +61,14 @@ export const CODEX_RUNTIME_PLUGIN_ID = "codex";
 const CODEX_RUNTIME_PLUGIN_DESCRIPTOR = {
   pluginId: CODEX_RUNTIME_PLUGIN_ID,
   label: "Codex",
-  npmSpec: "@openclaw/codex",
+  npmSpec: "@granted/codex",
   warningLabel: "Codex",
   versionBoundToOpenClaw: true,
 };
 const COPILOT_RUNTIME_PLUGIN_DESCRIPTOR = {
   pluginId: "copilot",
   label: "GitHub Copilot agent runtime",
-  npmSpec: "@openclaw/copilot",
+  npmSpec: "@granted/copilot",
   warningLabel: "GitHub Copilot",
 };
 

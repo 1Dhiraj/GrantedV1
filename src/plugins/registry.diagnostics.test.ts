@@ -1,4 +1,4 @@
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { describe, expect, it } from "vitest";
 import {
   describeImageWithModel,

@@ -785,7 +785,7 @@ describe("release candidate checklist", () => {
     mkdirSync(packageDir, { recursive: true });
     writeFileSync(
       join(packageDir, "package.json"),
-      `${JSON.stringify({ name: "@openclaw/codex", version: "2026.7.1-beta.3" })}\n`,
+      `${JSON.stringify({ name: "@granted/codex", version: "2026.7.1-beta.3" })}\n`,
     );
     execFileSync("tar", ["-czf", tarballPath, "-C", sourceDir, "package"]);
     rmSync(sourceDir, { force: true, recursive: true });
@@ -795,7 +795,7 @@ describe("release candidate checklist", () => {
       schema: "openclaw.plugin-publication-artifact/v1",
       schemaVersion: 1,
       targetSha: "candidate-sha",
-      package: { name: "@openclaw/codex", version: "2026.7.1-beta.3" },
+      package: { name: "@granted/codex", version: "2026.7.1-beta.3" },
       artifact: {
         name: "plugin-npm-package-codex",
         tarball: tarballName,
@@ -811,7 +811,7 @@ describe("release candidate checklist", () => {
       }),
     ).toMatchObject({
       artifactName: "plugin-npm-package-codex",
-      packageName: "@openclaw/codex",
+      packageName: "@granted/codex",
       packageVersion: "2026.7.1-beta.3",
       tarballPath,
       tarballSha256,
@@ -819,7 +819,7 @@ describe("release candidate checklist", () => {
     mkdirSync(packageDir, { recursive: true });
     writeFileSync(
       join(packageDir, "package.json"),
-      `${JSON.stringify({ name: "@openclaw/matrix", version: "2026.7.1-beta.3" })}\n`,
+      `${JSON.stringify({ name: "@granted/matrix", version: "2026.7.1-beta.3" })}\n`,
     );
     execFileSync("tar", ["-czf", tarballPath, "-C", sourceDir, "package"]);
     rmSync(sourceDir, { force: true, recursive: true });
@@ -855,7 +855,7 @@ describe("release candidate checklist", () => {
       tarballSha256: "root-sha",
       dependencyTarballs: [
         {
-          packageName: "@openclaw/ai",
+          packageName: "@granted/ai",
           packageVersion: "2026.7.1-beta.3",
           tarballName: "openclaw-ai-2026.7.1-beta.3.tgz",
           tarballSha256: "ai-sha",
@@ -890,13 +890,13 @@ describe("release candidate checklist", () => {
 
   it("prefers the complete core package tarball set with legacy manifest fallback", () => {
     const legacyTarball = {
-      packageName: "@openclaw/ai",
+      packageName: "@granted/ai",
       packageVersion: "2026.7.1-beta.3",
       tarballName: "openclaw-ai-2026.7.1-beta.3.tgz",
       tarballSha256: "ai-sha",
     };
     const gatewayProtocolTarball = {
-      packageName: "@openclaw/gateway-protocol",
+      packageName: "@granted/gateway-protocol",
       packageVersion: "2026.7.1-beta.3",
       tarballName: "openclaw-gateway-protocol-2026.7.1-beta.3.tgz",
       tarballSha256: "protocol-sha",
@@ -921,19 +921,19 @@ describe("release candidate checklist", () => {
 
   it("passes only root dependency tarballs to Parallels with legacy fallback", () => {
     const aiTarball = {
-      packageName: "@openclaw/ai",
+      packageName: "@granted/ai",
       packageVersion: "2026.7.1-beta.3",
       tarballName: "openclaw-ai-2026.7.1-beta.3.tgz",
       tarballSha256: "ai-sha",
     };
     const gatewayProtocolTarball = {
-      packageName: "@openclaw/gateway-protocol",
+      packageName: "@granted/gateway-protocol",
       packageVersion: "2026.7.1-beta.3",
       tarballName: "openclaw-gateway-protocol-2026.7.1-beta.3.tgz",
       tarballSha256: "protocol-sha",
     };
     const gatewayClientTarball = {
-      packageName: "@openclaw/gateway-client",
+      packageName: "@granted/gateway-client",
       packageVersion: "2026.7.1-beta.3",
       tarballName: "openclaw-gateway-client-2026.7.1-beta.3.tgz",
       tarballSha256: "client-sha",
@@ -1643,7 +1643,7 @@ describe("release candidate checklist", () => {
         "--plugin-publish-scope",
         "selected",
         "--plugins",
-        "@openclaw/diffs",
+        "@granted/diffs",
       ]),
     ).toThrow("release candidates publish OpenClaw with --plugin-publish-scope all-publishable");
   });

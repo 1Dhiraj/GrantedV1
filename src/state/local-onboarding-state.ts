@@ -1,6 +1,6 @@
 // Durable local onboarding ownership; inference configuration alone does not prove setup finished.
 import path from "node:path";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import { sha256Hex } from "../infra/crypto-digest.js";
 import { readConfigMachineState, updateConfigMachineState } from "./config-machine-state.js";

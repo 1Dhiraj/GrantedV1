@@ -265,7 +265,7 @@ export {
   resolveExpiresAtMsFromDurationOrEpoch,
   resolveExpiresAtMsFromDurationSeconds,
   resolveExpiresAtMsFromEpochSeconds,
-} from "@openclaw/normalization-core/number-coercion";
+} from "@granted/normalization-core/number-coercion";
 export * from "../infra/outbound/send-deps.js";
 export * from "../infra/retry.js";
 export * from "../infra/retry-policy.js";

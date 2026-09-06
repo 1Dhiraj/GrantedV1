@@ -12,7 +12,7 @@ import {
 import { createRequire } from "node:module";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { afterEach, describe, expect, it } from "vitest";
 import {
   createEmptyChangedLanes,

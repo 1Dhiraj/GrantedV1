@@ -497,7 +497,7 @@ describe("handleBuzzInbound", () => {
 
   it("accepts a configured text mention when no native p tag is present", async () => {
     const runtime = createPluginRuntimeMock();
-    vi.mocked(runtime.channel.mentions.buildMentionRegexes).mockReturnValue([/@openclaw/i]);
+    vi.mocked(runtime.channel.mentions.buildMentionRegexes).mockReturnValue([/@granted/i]);
     setBuzzRuntime(runtime);
 
     await handleBuzzInbound({

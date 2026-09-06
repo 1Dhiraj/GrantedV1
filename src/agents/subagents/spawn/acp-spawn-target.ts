@@ -1,4 +1,4 @@
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { getAcpRuntimeBackend } from "../../../acp/runtime/registry.js";
 import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import { normalizeAgentIdStrict, normalizeOptionalAgentId } from "../../../routing/session-key.js";

@@ -1,5 +1,5 @@
 import "./ai-transport-runtime-host.js";
-import "@openclaw/ai/transports";
+import "@granted/ai/transports";
 
 const responsesTesting = globalThis.openclawOpenAIResponsesTransportTestApi;
 if (!responsesTesting) {

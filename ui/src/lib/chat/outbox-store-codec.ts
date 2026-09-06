@@ -1,5 +1,5 @@
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
-import { readNonBlankString as normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
+import { readNonBlankString as normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { normalizeQueueMode } from "../../../../src/auto-reply/reply/queue/normalize.js";
 import { normalizeAgentId } from "../sessions/session-key.ts";
 import type { ChatAttachment, ChatGoalDraftMode, ChatQueueItem } from "./chat-types.ts";

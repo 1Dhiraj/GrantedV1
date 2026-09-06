@@ -1,5 +1,5 @@
 // Doctor repair flow builds and runs repair actions for doctor findings.
-import { uniqueStrings } from "@openclaw/normalization-core/string-normalization";
+import { uniqueStrings } from "@granted/normalization-core/string-normalization";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import { scrubDoctorErrorMessage } from "./doctor-error-message.js";
 import { defineSplitHealthCheckInput, normalizeHealthCheck } from "./health-check-adapter.js";

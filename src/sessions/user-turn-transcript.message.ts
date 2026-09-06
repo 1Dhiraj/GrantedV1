@@ -1,7 +1,7 @@
 // Canonical user input shape and runtime/display projections share the same media metadata.
-import { mimeTypeFromFilePath } from "@openclaw/media-core/mime";
-import { asOptionalRecord } from "@openclaw/normalization-core/record-coerce";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { mimeTypeFromFilePath } from "@granted/media-core/mime";
+import { asOptionalRecord } from "@granted/normalization-core/record-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import type { AgentMessage } from "../../packages/agent-core/src/types.js";
 import { readPersistedMediaFacts, type MediaFact } from "../media/media-facts.js";
 import { applyInputProvenanceToUserMessage } from "./input-provenance.js";

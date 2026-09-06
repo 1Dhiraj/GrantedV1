@@ -114,7 +114,7 @@ trap cleanup_inner EXIT
 
 configure_plugin_registry() {
   openclaw_prepublish_plugin_registry_start_mounted \
-    /tmp/openclaw-codex-registry plugin_registry_pid '["@openclaw/codex"]'
+    /tmp/openclaw-codex-registry plugin_registry_pid '["@granted/codex"]'
 }
 
 mkdir -p "$NPM_CONFIG_PREFIX" "$XDG_CACHE_HOME" "$NPM_CONFIG_CACHE"
@@ -124,16 +124,16 @@ openclaw_e2e_install_package /tmp/openclaw-install.log
 command -v openclaw >/dev/null
 openclaw_e2e_enable_openclaw_cli_timeout
 
-openclaw_e2e_assert_dep_absent "@openclaw/codex" "$HOME/.openclaw" "$NPM_CONFIG_PREFIX"
+openclaw_e2e_assert_dep_absent "@granted/codex" "$HOME/.openclaw" "$NPM_CONFIG_PREFIX"
 openclaw_e2e_assert_dep_absent "@openai/codex" "$HOME/.openclaw" "$NPM_CONFIG_PREFIX"
 
 configure_plugin_registry
 
 # Non-interactive onboarding cannot grant capabilities. Use the shared fixture
 # consent flow and the exact companion when testing an unpublished candidate.
-codex_install_args=("@openclaw/codex")
+codex_install_args=("@granted/codex")
 if [ -n "${OPENCLAW_PREPUBLISH_PLUGIN_REGISTRY_DIR:-}" ]; then
-  codex_install_args=("npm:@openclaw/codex@${OPENCLAW_PREPUBLISH_PLUGIN_REGISTRY_CANDIDATE_VERSION:?missing candidate version}" --pin)
+  codex_install_args=("npm:@granted/codex@${OPENCLAW_PREPUBLISH_PLUGIN_REGISTRY_CANDIDATE_VERSION:?missing candidate version}" --pin)
 fi
 echo "Installing Codex on demand with explicit capability consent..."
 openclaw_e2e_fixture_plugin_command openclaw -- plugins install "${codex_install_args[@]}" \

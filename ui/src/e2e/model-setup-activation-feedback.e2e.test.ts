@@ -1,6 +1,6 @@
 // Real browser flow with a mocked Gateway; no Ollama server or model is used.
 import path from "node:path";
-import { asOptionalRecord } from "@openclaw/normalization-core/record-coerce";
+import { asOptionalRecord } from "@granted/normalization-core/record-coerce";
 import type { Locator } from "playwright";
 import { beforeEach, expect, it } from "vitest";
 import type { ApplicationRuntime } from "../app/bootstrap.ts";

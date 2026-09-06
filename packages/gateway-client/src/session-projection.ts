@@ -1,6 +1,6 @@
 /** Browser-safe identity and replay rules shared by Gateway conversation clients. */
 
-import { asNullableRecord as readRecord } from "@openclaw/normalization-core/record-coerce";
+import { asNullableRecord as readRecord } from "@granted/normalization-core/record-coerce";
 import {
   normalizeSessionProjectionRunId,
   readAssistantStreamSegmentIdentity,

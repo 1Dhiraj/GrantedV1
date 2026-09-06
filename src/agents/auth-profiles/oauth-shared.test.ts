@@ -4,8 +4,8 @@
  * replacement decisions.
  */
 
-import { expectDefined } from "@openclaw/normalization-core";
-import { MAX_DATE_TIMESTAMP_MS } from "@openclaw/normalization-core/number-coercion";
+import { expectDefined } from "@granted/normalization-core";
+import { MAX_DATE_TIMESTAMP_MS } from "@granted/normalization-core/number-coercion";
 import { describe, expect, it, vi } from "vitest";
 import {
   overlayRuntimeExternalOAuthProfiles,

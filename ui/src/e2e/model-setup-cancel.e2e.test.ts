@@ -1,6 +1,6 @@
 // Real routing and browser storage; Gateway/provider sign-in is mocked.
 import path from "node:path";
-import { asOptionalRecord } from "@openclaw/normalization-core/record-coerce";
+import { asOptionalRecord } from "@granted/normalization-core/record-coerce";
 import { beforeEach, expect, it } from "vitest";
 import { createControlUiE2eArtifactDir } from "../test-helpers/control-ui-e2e-artifacts.ts";
 import { installMockGateway } from "../test-helpers/control-ui-e2e.ts";

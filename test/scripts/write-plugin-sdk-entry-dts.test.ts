@@ -77,7 +77,7 @@ describe("write-plugin-sdk-entry-dts", () => {
         write(
           `extensions/${id}/package.json`,
           JSON.stringify({
-            name: `@openclaw/${id}`,
+            name: `@granted/${id}`,
             openclaw: { build: { bundledDist: id !== "external" } },
           }),
         );

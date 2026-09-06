@@ -3,13 +3,13 @@ import { MIMEType } from "node:util";
 import {
   classifyAttachmentBytes,
   type AttachmentClassification,
-} from "@openclaw/media-core/attachment-classify";
-import { canonicalizeBase64, estimateBase64DecodedBytes } from "@openclaw/media-core/base64";
-import { parseMediaContentLength } from "@openclaw/media-core/content-length";
-import { detectMime, normalizeMimeType } from "@openclaw/media-core/mime";
-import { resolveTimerTimeoutMs } from "@openclaw/normalization-core/number-coercion";
-import { normalizeOptionalLowercaseString } from "@openclaw/normalization-core/string-coerce";
-import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+} from "@granted/media-core/attachment-classify";
+import { canonicalizeBase64, estimateBase64DecodedBytes } from "@granted/media-core/base64";
+import { parseMediaContentLength } from "@granted/media-core/content-length";
+import { detectMime, normalizeMimeType } from "@granted/media-core/mime";
+import { resolveTimerTimeoutMs } from "@granted/normalization-core/number-coercion";
+import { normalizeOptionalLowercaseString } from "@granted/normalization-core/string-coerce";
+import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import { readResponseWithLimit } from "../infra/http-body.js";
 import { fetchWithSsrFGuard } from "../infra/net/fetch-guard.js";

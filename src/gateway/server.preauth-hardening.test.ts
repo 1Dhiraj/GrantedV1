@@ -2,7 +2,7 @@
  * Gateway pre-auth hardening tests.
  */
 import http from "node:http";
-import { rawDataToString } from "@openclaw/gateway-client/websocket-data";
+import { rawDataToString } from "@granted/gateway-client/websocket-data";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { WebSocket, WebSocketServer } from "ws";
 import {

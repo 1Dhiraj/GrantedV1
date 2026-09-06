@@ -537,15 +537,15 @@ function assertConfiguredPluginState(params: { installPath?: string } = {}): voi
     });
     writeMigratedSessionState(stateDir);
     writeJson(join(matrixInstallDir, "package.json"), {
-      name: "@openclaw/matrix",
+      name: "@granted/matrix",
     });
     writeJson(join(stateDir, "plugins", "installs.json"), {
       installRecords: {
         matrix: {
           source: "clawhub",
-          spec: "clawhub:@openclaw/matrix",
+          spec: "clawhub:@granted/matrix",
           installPath: matrixInstallDir,
-          clawhubPackage: "@openclaw/matrix",
+          clawhubPackage: "@granted/matrix",
           clawhubChannel: "official",
           artifactKind: "npm-pack",
         },
@@ -655,9 +655,9 @@ function assertCompanionPluginRecords(
     );
     const whatsappInstallPath = join(stateDir, "extensions", "whatsapp");
     for (const [installPath, packageName] of [
-      [discordInstallPath, "@openclaw/discord"],
-      [whatsappInstallPath, "@openclaw/whatsapp"],
-      [codexInstallPath, "@openclaw/codex"],
+      [discordInstallPath, "@granted/discord"],
+      [whatsappInstallPath, "@granted/whatsapp"],
+      [codexInstallPath, "@granted/codex"],
     ] as const) {
       mkdirSync(installPath, { recursive: true });
       writeJson(join(installPath, "package.json"), { name: packageName, version });
@@ -673,8 +673,8 @@ function assertCompanionPluginRecords(
     const records: Record<string, Record<string, unknown>> = {
       discord: {
         source: "npm",
-        spec: `@openclaw/discord@${version}`,
-        resolvedName: "@openclaw/discord",
+        spec: `@granted/discord@${version}`,
+        resolvedName: "@granted/discord",
         resolvedVersion: version,
         integrity: npmIntegrity,
         installPath: discordInstallPath,
@@ -682,9 +682,9 @@ function assertCompanionPluginRecords(
       },
       whatsapp: {
         source: "clawhub",
-        spec: `clawhub:@openclaw/whatsapp@${version}`,
+        spec: `clawhub:@granted/whatsapp@${version}`,
         version,
-        clawhubPackage: "@openclaw/whatsapp",
+        clawhubPackage: "@granted/whatsapp",
         clawhubChannel: "official",
         artifactKind: "npm-pack",
         clawpackSha256,
@@ -693,8 +693,8 @@ function assertCompanionPluginRecords(
       },
       codex: {
         source: "npm",
-        spec: `@openclaw/codex@${version}`,
-        resolvedName: "@openclaw/codex",
+        spec: `@granted/codex@${version}`,
+        resolvedName: "@granted/codex",
         resolvedVersion: version,
         integrity: npmIntegrity,
         installPath: codexInstallPath,
@@ -1366,25 +1366,25 @@ process.stdout.write(sessionDir + "\\n");
         (records, paths) => {
           records.matrix = {
             ...records.whatsapp,
-            clawhubPackage: "@openclaw/matrix",
-            spec: "clawhub:@openclaw/matrix@2026.8.1",
+            clawhubPackage: "@granted/matrix",
+            spec: "clawhub:@granted/matrix@2026.8.1",
           };
           writeJson(join(paths.whatsapp, "package.json"), {
-            name: "@openclaw/matrix",
+            name: "@granted/matrix",
             version: "2026.8.1",
           });
           delete records.whatsapp;
           const bravePath = join(paths.codex, "..", "brave-plugin");
           mkdirSync(bravePath, { recursive: true });
           writeJson(join(bravePath, "package.json"), {
-            name: "@openclaw/brave-plugin",
+            name: "@granted/brave-plugin",
             version: "2026.8.1",
           });
           records.brave = {
             ...records.codex,
             installPath: bravePath,
-            resolvedName: "@openclaw/brave-plugin",
-            spec: "@openclaw/brave-plugin@2026.8.1",
+            resolvedName: "@granted/brave-plugin",
+            spec: "@granted/brave-plugin@2026.8.1",
           };
         },
         true,
@@ -1436,7 +1436,7 @@ process.stdout.write(sessionDir + "\\n");
     (_sourceLabel, pluginId) => {
       expect(() =>
         assertCompanionPluginRecords((_records, installPaths) => {
-          const packageName = pluginId === "discord" ? "@openclaw/discord" : "@openclaw/whatsapp";
+          const packageName = pluginId === "discord" ? "@granted/discord" : "@granted/whatsapp";
           writeJson(join(installPaths[pluginId], "package.json"), {
             name: packageName,
             version: "2026.8.0",

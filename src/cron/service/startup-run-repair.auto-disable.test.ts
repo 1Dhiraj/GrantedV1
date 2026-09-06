@@ -1,4 +1,4 @@
-import { MAX_DATE_TIMESTAMP_MS } from "@openclaw/normalization-core/number-coercion";
+import { MAX_DATE_TIMESTAMP_MS } from "@granted/normalization-core/number-coercion";
 import { describe, expect, it, vi } from "vitest";
 import { resolveAgentMainSessionKey } from "../../config/sessions/main-session.js";
 import type { GrantedConfig } from "../../config/types.openclaw.js";

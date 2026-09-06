@@ -1,7 +1,7 @@
 // Persists the root ownership record for one Claw-created agent and workspace.
 
 import type { DatabaseSync } from "node:sqlite";
-import { stableStringify } from "@openclaw/normalization-core";
+import { stableStringify } from "@granted/normalization-core";
 import {
   openOpenClawStateDatabase,
   runOpenClawStateWriteTransaction,

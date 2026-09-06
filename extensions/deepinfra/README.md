@@ -5,7 +5,7 @@ Official OpenClaw provider plugin for DeepInfra.
 Install from OpenClaw:
 
 ```bash
-openclaw plugins install @openclaw/deepinfra-provider
+openclaw plugins install @granted/deepinfra-provider
 openclaw gateway restart
 ```
 

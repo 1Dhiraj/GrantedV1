@@ -16,7 +16,7 @@ afterEach(() => {
 describe("stale managed bundled plugin retirement", () => {
   it("preserves payload and record state for a non-bundled external plugin", async () => {
     const stateDir = makeTrackedTempDir("openclaw-doctor-plugin-retirement", tempDirs);
-    const packageName = "@openclaw/external-demo";
+    const packageName = "@granted/external-demo";
     const version = "2026.5.2";
     const npmRoot = resolvePluginNpmProjectDir({
       npmDir: path.join(stateDir, "npm"),

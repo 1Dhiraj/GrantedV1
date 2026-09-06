@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { DatabaseSync } from "node:sqlite";
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import {
   createPluginStateKeyedStoreForTests,
   createPluginStateSyncKeyedStoreForTests,
@@ -86,7 +86,7 @@ describe("voice-call doctor state migration", () => {
       const config = {
         plugins: {
           entries: {
-            "@openclaw/voice-call": {
+            "@granted/voice-call": {
               config: { store: warmStorePath },
             },
           },
@@ -155,7 +155,7 @@ describe("voice-call doctor state migration", () => {
     expect(
       resolveSessionStoreAgentIds({
         cfg: {
-          plugins: { entries: { "@openclaw/voice-call": { config: {} } } },
+          plugins: { entries: { "@granted/voice-call": { config: {} } } },
         },
       }),
     ).toEqual(["main"]);
@@ -188,7 +188,7 @@ describe("voice-call doctor state migration", () => {
     const config = {
       plugins: {
         entries: {
-          "@openclaw/voice-call": {
+          "@granted/voice-call": {
             config: { store: storePath },
           },
         },
@@ -396,7 +396,7 @@ describe("voice-call doctor state migration", () => {
     const config = {
       plugins: {
         entries: {
-          "@openclaw/voice-call": {
+          "@granted/voice-call": {
             config: { store: storePath },
           },
         },

@@ -1,4 +1,4 @@
-import { redactSensitiveUrlLikeString } from "@openclaw/net-policy/redact-sensitive-url";
+import { redactSensitiveUrlLikeString } from "@granted/net-policy/redact-sensitive-url";
 import { formatErrorMessage } from "../infra/errors.js";
 import { redactToolPayloadText } from "../logging/redact.js";
 

@@ -1,4 +1,4 @@
-import { MAX_DATE_TIMESTAMP_MS } from "@openclaw/normalization-core/number-coercion";
+import { MAX_DATE_TIMESTAMP_MS } from "@granted/normalization-core/number-coercion";
 /**
  * Usage-state and failure cooldown tests for auth profiles.
  * Covers unusable-window helpers, provider bypasses, WHAM probes, and store

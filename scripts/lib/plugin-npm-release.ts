@@ -425,7 +425,7 @@ function hasApprovedReleaseDependencyException(
   dependency: { packageName: string; version: string },
 ): boolean {
   if (
-    plugin.packageName !== "@openclaw/codex" ||
+    plugin.packageName !== "@granted/codex" ||
     plugin.version !== "2026.8.2" ||
     dependency.packageName !== "@openai/codex" ||
     dependency.version !== "0.151.0"

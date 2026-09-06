@@ -2,7 +2,7 @@ import { spawnSync } from "node:child_process";
 import { mkdirSync, mkdtempSync, realpathSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { describe, expect, it } from "vitest";
 import {
   collectHostedGateEvidence as collectHostedGateEvidenceRaw,
@@ -236,7 +236,7 @@ describe("verify-pr-hosted-gates", () => {
           compilerOptions: {
             baseUrl: ".",
             paths: {
-              "@openclaw/normalization-core/*": ["packages/normalization-core/src/*"],
+              "@granted/normalization-core/*": ["packages/normalization-core/src/*"],
             },
           },
         }),

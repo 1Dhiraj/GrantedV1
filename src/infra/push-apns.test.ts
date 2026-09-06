@@ -3,7 +3,7 @@ import { EventEmitter } from "node:events";
 import { createServer, type Server as HttpServer } from "node:http";
 import http2 from "node:http2";
 import net from "node:net";
-import { MAX_TIMER_TIMEOUT_MS } from "@openclaw/normalization-core/number-coercion";
+import { MAX_TIMER_TIMEOUT_MS } from "@granted/normalization-core/number-coercion";
 // Tests APNS push signing and request construction.
 import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, describe, expect, it, vi } from "vitest";

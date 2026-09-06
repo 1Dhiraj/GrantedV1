@@ -1,7 +1,7 @@
 import {
   clampTimerTimeoutMs,
   parseStrictPositiveInteger,
-} from "@openclaw/normalization-core/number-coercion";
+} from "@granted/normalization-core/number-coercion";
 // Gateway discovery runtime.
 // Starts local mDNS plugin discovery and optional wide-area DNS-SD publishing.
 import { isTruthyEnvValue } from "../infra/env.js";

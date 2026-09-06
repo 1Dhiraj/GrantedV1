@@ -17,7 +17,7 @@ const gatewayClientMocks = vi.hoisted(() => ({
   instances: [] as MockGatewayClientInstance[],
 }));
 
-vi.mock("@openclaw/gateway-client", () => ({
+vi.mock("@granted/gateway-client", () => ({
   GatewayClient: class {
     readonly opts: MockGatewayClientInstance["opts"];
     readonly request = vi.fn();

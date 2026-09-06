@@ -1,11 +1,11 @@
 /** Shared media tool routing, auth, path, and reference helpers. */
-import { normalizeInboundPathRoots } from "@openclaw/media-core/inbound-path-policy";
-import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
+import { normalizeInboundPathRoots } from "@granted/media-core/inbound-path-policy";
+import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
 import {
   normalizeOptionalLowercaseString,
   normalizeOptionalString,
-} from "@openclaw/normalization-core/string-coerce";
-import { uniqueStrings } from "@openclaw/normalization-core/string-normalization";
+} from "@granted/normalization-core/string-coerce";
+import { uniqueStrings } from "@granted/normalization-core/string-normalization";
 import {
   findCapabilityProviderById,
   resolveCapabilityModelRefForProviders,

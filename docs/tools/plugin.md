@@ -39,7 +39,7 @@ bundled, official external, and source-only plugins, see
 
     ClawHub is the primary discovery surface for community plugins. During the
     launch cutover, ordinary bare package specs still install from npm unless
-    they match an official plugin id. Raw `@openclaw/*` specs that match a
+    they match an official plugin id. Raw `@granted/*` specs that match a
     bundled plugin resolve to that bundled copy. Use an explicit source prefix
     when you need one source specifically.
 
@@ -129,9 +129,9 @@ bundled, official external, and source-only plugins, see
 Bare package specs have special compatibility behavior: a bare name that
 matches a bundled plugin id uses that bundled source; a bare name that matches
 an official external plugin id uses the official package catalog; any other
-bare spec installs through npm during the launch cutover. Raw `@openclaw/*`
+bare spec installs through npm during the launch cutover. Raw `@granted/*`
 specs that match bundled plugins also resolve to the bundled copy before npm
-fallback. Use `npm:@openclaw/<plugin>@<version>` to deliberately install the
+fallback. Use `npm:@granted/<plugin>@<version>` to deliberately install the
 external npm package instead of the bundled copy. Use `clawhub:`, `npm:`,
 `git:`, or `npm-pack:` for deterministic source selection. See
 [`openclaw plugins`](/cli/plugins#install) for the full command contract.

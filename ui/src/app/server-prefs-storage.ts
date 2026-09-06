@@ -1,7 +1,7 @@
 // localStorage persistence primitives for the synced-prefs engine. Stateless:
 // every helper is (root, scope)-parameterized; scope adoption, pending shadows,
 // and reconcile state stay in server-prefs.ts.
-import { asNullableRecord as asRecord } from "@openclaw/normalization-core/record-coerce";
+import { asNullableRecord as asRecord } from "@granted/normalization-core/record-coerce";
 import { SYNCED_PREFS, type ServerUiPrefs, type SyncedPrefKey } from "./server-prefs-state.ts";
 
 // Last server value this client reconciled against, persisted per gateway scope. Applying only on

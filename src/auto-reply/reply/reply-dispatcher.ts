@@ -1,5 +1,5 @@
 // Dispatches final reply payloads through visible senders and message tools.
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import type { TypingCallbacks } from "../../channels/typing.js";
 import type { HumanDelayConfig } from "../../config/types.js";
 import type { GrantedConfig } from "../../config/types.openclaw.js";

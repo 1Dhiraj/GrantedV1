@@ -2,8 +2,8 @@
 import {
   asNonNegativeFiniteNumber,
   asPositiveFiniteNumber as resolvePositiveContextTokens,
-} from "@openclaw/normalization-core/number-coercion";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/number-coercion";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { hasAcceptedSessionSpawn } from "../../agents/accepted-session-spawn.js";
 import { resolveAuthoredModelContextTokens } from "../../agents/context-resolution.js";
 import { hasCommittedMessagingToolDeliveryEvidence } from "../../agents/embedded-agent-runner/delivery-evidence.js";

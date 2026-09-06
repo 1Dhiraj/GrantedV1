@@ -1,5 +1,5 @@
 // Gateway usage methods validate requests and assemble owner-scoped usage reports.
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import {
   GATEWAY_CLIENT_CAPS,
   hasGatewayClientCap,

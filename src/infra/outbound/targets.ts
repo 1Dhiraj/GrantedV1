@@ -1,5 +1,5 @@
-import { expectDefined } from "@openclaw/normalization-core";
-import { asOptionalRecord } from "@openclaw/normalization-core/record-coerce";
+import { expectDefined } from "@granted/normalization-core";
+import { asOptionalRecord } from "@granted/normalization-core/record-coerce";
 // Outbound target helpers resolve direct send targets, heartbeat destinations,
 // sender context, and session-route aware heartbeat refinements.
 import { mapAllowFromEntries } from "granted/plugin-sdk/channel-config-helpers";

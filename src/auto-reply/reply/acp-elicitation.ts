@@ -1,4 +1,4 @@
-import type { AcpElicitationRequest } from "@openclaw/acp-core/runtime/types";
+import type { AcpElicitationRequest } from "@granted/acp-core/runtime/types";
 import {
   compileStructuredInputForm,
   compileStructuredInputUrl,

@@ -11,7 +11,7 @@ Adds Google, Google Gemini CLI, Google Vertex model provider support to OpenClaw
 
 ## Distribution
 
-- Package: `@openclaw/google-plugin`
+- Package: `@granted/google-plugin`
 - Install route: included in OpenClaw
 
 ## Surface

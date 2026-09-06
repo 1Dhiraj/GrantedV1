@@ -1,4 +1,4 @@
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import type { ProviderRuntimeModel } from "granted/plugin-sdk/plugin-entry";
 import {
   clearLiveCatalogCacheForTests,

@@ -1,6 +1,6 @@
-import { asOptionalObjectRecord } from "@openclaw/normalization-core/record-coerce";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
-import { sliceUtf16Safe, truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+import { asOptionalObjectRecord } from "@granted/normalization-core/record-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
+import { sliceUtf16Safe, truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import { readCompletedFileMutationDelta } from "../agents/file-mutation-args.js";
 import { resolveFileMutationToolName } from "../agents/tool-mutation-names.js";
 import type { AgentEventPayload } from "../infra/agent-events.js";

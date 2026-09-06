@@ -19,9 +19,9 @@ import type {
   SetSessionModeRequest,
   SetSessionModeResponse,
 } from "@agentclientprotocol/sdk";
-import type { AcpSessionStore } from "@openclaw/acp-core/session";
-import type { AcpServerOptions } from "@openclaw/acp-core/types";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import type { AcpSessionStore } from "@granted/acp-core/session";
+import type { AcpServerOptions } from "@granted/acp-core/types";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import type { GatewayClient } from "../gateway/client.js";
 import type { SessionsListResult } from "../gateway/session-utils.js";
 import type { FixedWindowRateLimiter } from "../infra/fixed-window-rate-limit.js";

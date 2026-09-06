@@ -1,8 +1,8 @@
 // Hook workspace helpers resolve hook roots and workspace-local hook files.
 import fs from "node:fs";
 import path from "node:path";
-import { safeParseJson } from "@openclaw/normalization-core";
-import { normalizeTrimmedStringList } from "@openclaw/normalization-core/string-normalization";
+import { safeParseJson } from "@granted/normalization-core";
+import { normalizeTrimmedStringList } from "@granted/normalization-core/string-normalization";
 import { MANIFEST_KEYS, readManifestSection } from "../compat/legacy-names.js";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import { openRootFileSync, readFileDescriptorBoundedSync } from "../infra/boundary-file-read.js";

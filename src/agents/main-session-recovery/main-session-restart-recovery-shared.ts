@@ -1,6 +1,6 @@
 import path from "node:path";
-import { asFiniteNumber } from "@openclaw/normalization-core/number-coercion";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { asFiniteNumber } from "@granted/normalization-core/number-coercion";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { resolveStateDir } from "../../config/paths.js";
 import {
   listConfiguredSessionStoreAgentIds,

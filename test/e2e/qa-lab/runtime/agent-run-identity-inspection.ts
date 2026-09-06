@@ -5,7 +5,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { DatabaseSync } from "node:sqlite";
 import { pathToFileURL } from "node:url";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import { WebSocket, type ClientOptions } from "ws";
 import {
   QA_EVIDENCE_FILENAME,

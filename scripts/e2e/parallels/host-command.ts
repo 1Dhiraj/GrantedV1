@@ -7,7 +7,7 @@ import { fileURLToPath } from "node:url";
 import {
   addTimerTimeoutGraceMs,
   clampTimerTimeoutMs,
-} from "@openclaw/normalization-core/number-coercion";
+} from "@granted/normalization-core/number-coercion";
 import {
   inspectManagedProcessGroup,
   terminateManagedChild,

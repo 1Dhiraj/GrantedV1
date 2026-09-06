@@ -7,7 +7,7 @@ import type {
   WorkboardMetadata,
   WorkboardNotification,
   WorkboardRunAttempt,
-} from "@openclaw/workboard-contract";
+} from "@granted/workboard-contract";
 import { isFutureDateTimestampMs } from "granted/plugin-sdk/number-runtime";
 import { safeEqualSecret } from "granted/plugin-sdk/security-runtime";
 import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";

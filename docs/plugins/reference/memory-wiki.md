@@ -11,7 +11,7 @@ Persistent wiki compiler and Obsidian-friendly knowledge vault for OpenClaw.
 
 ## Distribution
 
-- Package: `@openclaw/memory-wiki`
+- Package: `@granted/memory-wiki`
 - Install route: included in OpenClaw
 
 ## Surface

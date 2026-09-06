@@ -11,8 +11,8 @@ Adds the Clickclack channel surface for sending and receiving OpenClaw messages.
 
 ## Distribution
 
-- Package: `@openclaw/clickclack`
-- Install route: npm; ClawHub: `clawhub:@openclaw/clickclack`
+- Package: `@granted/clickclack`
+- Install route: npm; ClawHub: `clawhub:@granted/clickclack`
 
 ## Surface
 

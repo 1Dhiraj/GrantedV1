@@ -1,4 +1,4 @@
-import type { Result } from "@openclaw/normalization-core/result";
+import type { Result } from "@granted/normalization-core/result";
 import type { TSchema } from "typebox";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { PluginToolMcpMeta } from "../plugins/tool-metadata.js";

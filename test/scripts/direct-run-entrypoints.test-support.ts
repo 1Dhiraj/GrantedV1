@@ -52,7 +52,7 @@ export const instance = {};
   return `
 import assert from "node:assert/strict";
 import { createRequire } from "node:module";
-import { parseBoolean } from "@openclaw/normalization-core/boolean-coercion";
+import { parseBoolean } from "@granted/normalization-core/boolean-coercion";
 enum Transformed { Value = "transformed" }
 try {
 const require = createRequire(${JSON.stringify(pathToFileURL(pluginPath).href)});

@@ -6,9 +6,9 @@
 import {
   findNormalizedProviderValue,
   normalizeProviderId,
-} from "@openclaw/model-catalog-core/provider-id";
-import { asDateTimestampMs } from "@openclaw/normalization-core/number-coercion";
-import { normalizeUniqueStringEntries } from "@openclaw/normalization-core/string-normalization";
+} from "@granted/model-catalog-core/provider-id";
+import { asDateTimestampMs } from "@granted/normalization-core/number-coercion";
+import { normalizeUniqueStringEntries } from "@granted/normalization-core/string-normalization";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   DEFAULT_OAUTH_REFRESH_MARGIN_MS,

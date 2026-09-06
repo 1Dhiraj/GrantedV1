@@ -1,5 +1,5 @@
 {
-  "name": "@openclaw/firecrawl-plugin",
+  "name": "@granted/firecrawl-plugin",
   "version": "2026.8.1",
   "description": "OpenClaw Firecrawl plugin.",
   "repository": {
@@ -12,15 +12,15 @@
     "zod": "4.4.3"
   },
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*"
+    "@granted/plugin-sdk": "workspace:*"
   },
   "openclaw": {
     "extensions": [
       "./index.ts"
     ],
     "install": {
-      "clawhubSpec": "clawhub:@openclaw/firecrawl-plugin",
-      "npmSpec": "@openclaw/firecrawl-plugin",
+      "clawhubSpec": "clawhub:@granted/firecrawl-plugin",
+      "npmSpec": "@granted/firecrawl-plugin",
       "defaultChoice": "npm",
       "minHostVersion": ">=2026.6.8"
     },

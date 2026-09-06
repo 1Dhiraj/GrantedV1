@@ -1,4 +1,4 @@
-import { buildControlUiFocusPath } from "@openclaw/session-url-contract";
+import { buildControlUiFocusPath } from "@granted/session-url-contract";
 import { html, nothing } from "lit";
 import { repeat } from "lit/directives/repeat.js";
 import type { SessionsListResult } from "../../api/types.ts";

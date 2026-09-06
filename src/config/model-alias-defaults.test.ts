@@ -1,6 +1,6 @@
 // Verifies default model alias config values and overrides.
 
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { PluginManifestRegistry } from "../plugins/manifest-registry.js";
 import { applyModelDefaults as applyModelDefaultsWithPolicy } from "./defaults.js";

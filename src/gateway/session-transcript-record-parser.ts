@@ -1,4 +1,4 @@
-import { asOptionalRecord, isRecord } from "@openclaw/normalization-core/record-coerce";
+import { asOptionalRecord, isRecord } from "@granted/normalization-core/record-coerce";
 import { jsonUtf8Bytes } from "../infra/json-utf8-bytes.js";
 import {
   extractJsonNullableStringFieldPrefix,

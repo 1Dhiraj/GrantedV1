@@ -1,5 +1,5 @@
-import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
-import { stripSelfProviderModelPrefix } from "@openclaw/model-catalog-core/provider-model-id-normalization";
+import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
+import { stripSelfProviderModelPrefix } from "@granted/model-catalog-core/provider-model-id-normalization";
 import {
   resolveMergedModelProviderConfig,
   resolveModelProviderRouteOverridePresence,

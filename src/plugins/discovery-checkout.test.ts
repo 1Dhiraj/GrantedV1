@@ -27,7 +27,7 @@ describe("running checkout discovery", () => {
           fs.mkdirSync(pluginDir, { recursive: true });
           fs.writeFileSync(
             path.join(pluginDir, "package.json"),
-            JSON.stringify({ name: `@openclaw/${id}`, openclaw: { extensions: ["./index.js"] } }),
+            JSON.stringify({ name: `@granted/${id}`, openclaw: { extensions: ["./index.js"] } }),
           );
           fs.writeFileSync(
             path.join(pluginDir, "openclaw.plugin.json"),
@@ -156,7 +156,7 @@ describe("host provenance across bundled build states", () => {
     fs.mkdirSync(pluginRoot, { recursive: true });
     fs.writeFileSync(
       path.join(pluginRoot, "package.json"),
-      JSON.stringify({ name: "@openclaw/hosted", openclaw: { extensions: ["./index.ts"] } }),
+      JSON.stringify({ name: "@granted/hosted", openclaw: { extensions: ["./index.ts"] } }),
     );
     fs.writeFileSync(
       path.join(pluginRoot, "openclaw.plugin.json"),

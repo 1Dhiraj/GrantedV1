@@ -5,7 +5,7 @@ import { access, chmod, mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
-import { toErrorObject as toLintErrorObject } from "@openclaw/normalization-core/error-coercion";
+import { toErrorObject as toLintErrorObject } from "@granted/normalization-core/error-coercion";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   assertExpectedSha256ForTest,
@@ -1358,7 +1358,7 @@ describe("resolve-openclaw-package-candidate", () => {
                 "--plugin-registry-output-dir",
                 fixture.registryDir,
                 "--required-plugin-packages-json",
-                '["@openclaw/codex"]',
+                '["@granted/codex"]',
               ]
             : []),
         ]),
@@ -1424,7 +1424,7 @@ describe("resolve-openclaw-package-candidate", () => {
           "--plugin-registry-output-dir",
           fixture.registryDir,
           "--required-plugin-packages-json",
-          '["@openclaw/codex"]',
+          '["@granted/codex"]',
         ]),
       ).rejects.toThrow(
         "source=artifact requires a valid package build-info commit for prerelease plugin registry creation",
@@ -1503,7 +1503,7 @@ esac
           "--plugin-registry-output-dir",
           path.join(dir, "registry"),
           "--required-plugin-packages-json",
-          '["@openclaw/codex"]',
+          '["@granted/codex"]',
         ]),
       ).rejects.toThrow(
         `package_ref ${sourceSha} resolved to ${sourceSha}, which is not reachable from an OpenClaw branch or release tag`,

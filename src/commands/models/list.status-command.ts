@@ -3,8 +3,8 @@ import path from "node:path";
 import {
   parseStrictFiniteNumber,
   parseStrictPositiveInteger,
-} from "@openclaw/normalization-core/number-coercion";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/number-coercion";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { colorize, theme } from "../../../packages/terminal-core/src/theme.js";
 import {
   resolveAgentExplicitModelPrimary,

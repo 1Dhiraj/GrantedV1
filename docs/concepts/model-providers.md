@@ -337,7 +337,7 @@ Gateway model capability checks also read explicit `models.providers.<id>.models
 
 ### Moonshot AI (Kimi)
 
-Install `@openclaw/moonshot-provider` before onboarding. Add an explicit `models.providers.moonshot` entry only when you need to override the base URL or model metadata:
+Install `@granted/moonshot-provider` before onboarding. Add an explicit `models.providers.moonshot` entry only when you need to override the base URL or model metadata:
 
 - Provider: `moonshot`
 - Auth: `MOONSHOT_API_KEY`
@@ -445,7 +445,7 @@ In onboarding/configure model pickers, the Volcengine auth choice prefers both `
 
 BytePlus ARK provides access to the same models as Volcano Engine for international users.
 
-- Plugin: `@openclaw/byteplus-provider`
+- Plugin: `@granted/byteplus-provider`
 - Provider: `byteplus` (coding: `byteplus-plan`)
 - Auth: `BYTEPLUS_API_KEY`
 - Example model: `byteplus-plan/ark-code-latest`
@@ -454,7 +454,7 @@ BytePlus ARK provides access to the same models as Volcano Engine for internatio
 Install the official plugin and restart the Gateway:
 
 ```bash
-openclaw plugins install @openclaw/byteplus-provider
+openclaw plugins install @granted/byteplus-provider
 openclaw gateway restart
 ```
 
@@ -546,7 +546,7 @@ The bundled `llama-cpp` plugin provides one local text provider with two setup c
 Install the plugin once for either path:
 
 ```bash
-openclaw plugins install @openclaw/llama-cpp-provider
+openclaw plugins install @granted/llama-cpp-provider
 ```
 
 Both use `llama-cpp/<model>` references. See [llama.cpp](/plugins/llama-cpp) for setup,

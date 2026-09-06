@@ -1,6 +1,6 @@
 import { createHash, randomUUID } from "node:crypto";
 import { setTimeout as sleep } from "node:timers/promises";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import { formatErrorMessage } from "../infra/errors.js";
 import { NODE_FS_LIST_DIR_COMMAND } from "../infra/node-commands.js";
 import { createLazyRuntimeNamedExport } from "../shared/lazy-runtime.js";

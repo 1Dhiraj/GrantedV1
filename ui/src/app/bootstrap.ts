@@ -1,8 +1,8 @@
-import { gatewayOriginScope } from "@openclaw/gateway-client/browser";
+import { gatewayOriginScope } from "@granted/gateway-client/browser";
 import {
   parseControlUiFocusLocation,
   type ControlUiFocusLocation,
-} from "@openclaw/session-url-contract";
+} from "@granted/session-url-contract";
 import type { RouteLocation } from "@openclaw/uirouter";
 import type { GatewayBrowserClient } from "../api/gateway.ts";
 import {
@@ -208,7 +208,7 @@ export function bootstrapApplication(
     (documentMode ||
     (focusLocation?.status === "valid" && focusLocation.target.kind !== "dashboard")
       ? Promise.resolve()
-      : import("@openclaw/session-url-contract").then((contract) => {
+      : import("@granted/session-url-contract").then((contract) => {
           setSessionPathBuilder(contract.buildControlUiSessionPath);
         }));
 

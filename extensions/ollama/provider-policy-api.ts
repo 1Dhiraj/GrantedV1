@@ -1,5 +1,5 @@
-import { isCloudModelRef } from "@openclaw/model-catalog-core/model-catalog-refs";
-import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
+import { isCloudModelRef } from "@granted/model-catalog-core/model-catalog-refs";
+import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
 // Ollama API module exposes the plugin public contract.
 import type {
   ProviderDefaultThinkingPolicyContext,

@@ -5,7 +5,7 @@ Official OpenClaw plugin for OpenAI Codex app-server integration. It exposes the
 Install from OpenClaw:
 
 ```bash
-openclaw plugins install @openclaw/codex
+openclaw plugins install @granted/codex
 ```
 
 Use this plugin when you want OpenClaw to run Codex-backed model turns, media understanding, and prompt overlays through the Codex app-server harness, or to browse non-archived Codex CLI, VS Code, Atlas, and ChatGPT sessions and paginated transcripts across paired computers.

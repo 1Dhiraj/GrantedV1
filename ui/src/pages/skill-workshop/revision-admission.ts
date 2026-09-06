@@ -1,4 +1,4 @@
-import { readSkillProposalRevisionChangedError } from "@openclaw/gateway-protocol";
+import { readSkillProposalRevisionChangedError } from "@granted/gateway-protocol";
 import type { ApplicationContext, ApplicationGatewaySnapshot } from "../../app/context.ts";
 import type {
   SkillWorkshopRevisionAdmissionBinding,

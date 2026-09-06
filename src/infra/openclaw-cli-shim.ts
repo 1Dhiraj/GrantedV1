@@ -1,6 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import { normalizeUniqueStringEntries } from "@openclaw/normalization-core/string-normalization";
+import { normalizeUniqueStringEntries } from "@granted/normalization-core/string-normalization";
 import { normalizeProfileName } from "../cli/profile-utils.js";
 import { resolveStateDir } from "../config/paths.js";
 import { quoteCmdScriptArg } from "../daemon/cmd-argv.js";

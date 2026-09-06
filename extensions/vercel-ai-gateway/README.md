@@ -5,7 +5,7 @@ Official OpenClaw provider plugin for Vercel AI Gateway.
 ## Install
 
 ```sh
-openclaw plugins install @openclaw/vercel-ai-gateway-provider
+openclaw plugins install @granted/vercel-ai-gateway-provider
 ```
 
 ## Docs

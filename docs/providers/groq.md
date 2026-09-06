@@ -24,7 +24,7 @@ read_when:
 Install the official plugin, then restart Gateway:
 
 ```bash
-openclaw plugins install @openclaw/groq-provider
+openclaw plugins install @granted/groq-provider
 openclaw gateway restart
 ```
 

@@ -2,8 +2,8 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { expectDefined } from "@openclaw/normalization-core";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { expectDefined } from "@granted/normalization-core";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { testing as sessionMcpTesting } from "../../agents/agent-bundle-mcp-runtime.js";
 import { getOrCreateSessionMcpRuntime } from "../../agents/agent-bundle-mcp-tools.js";
@@ -1334,7 +1334,7 @@ describe("initSessionState RawBody", () => {
     expect(result.sessionCtx.agentText).toBe(expected);
   });
 
-  it.each(["@openclaw /new", "@openclaw/new"])(
+  it.each(["@openclaw /new", "@granted/new"])(
     "preserves bracketed multiline payloads after group mention form %s",
     async (prefix) => {
       const root = await makeCaseDir("openclaw-group-reset-message-");

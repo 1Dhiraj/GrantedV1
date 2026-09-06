@@ -1,5 +1,5 @@
 {
-  "name": "@openclaw/diagnostics-otel",
+  "name": "@granted/diagnostics-otel",
   "version": "2026.8.1",
   "description": "OpenClaw diagnostics OpenTelemetry exporter for metrics, traces, and logs.",
   "repository": {
@@ -24,15 +24,15 @@
     "@opentelemetry/semantic-conventions": "1.43.0"
   },
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*"
+    "@granted/plugin-sdk": "workspace:*"
   },
   "openclaw": {
     "extensions": [
       "./index.ts"
     ],
     "install": {
-      "clawhubSpec": "clawhub:@openclaw/diagnostics-otel",
-      "npmSpec": "@openclaw/diagnostics-otel",
+      "clawhubSpec": "clawhub:@granted/diagnostics-otel",
+      "npmSpec": "@granted/diagnostics-otel",
       "defaultChoice": "npm",
       "minHostVersion": ">=2026.4.25"
     },

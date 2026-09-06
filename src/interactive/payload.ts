@@ -1,9 +1,9 @@
 // Interactive payload helpers normalize structured interactive UI payloads.
-import { asOptionalRecord as toRecord } from "@openclaw/normalization-core/record-coerce";
+import { asOptionalRecord as toRecord } from "@granted/normalization-core/record-coerce";
 import {
   normalizeOptionalLowercaseString,
   normalizeOptionalString,
-} from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/string-coerce";
 import { isWellFormedApprovalId } from "../../packages/gateway-protocol/src/schema/approval-id.js";
 import type { ChannelApprovalKind } from "../infra/approval-types.js";
 

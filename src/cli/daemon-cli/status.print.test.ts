@@ -1112,11 +1112,11 @@ describe("printDaemonStatus", () => {
               installedVersion: "2026.6.9",
               gatewayVersion: "2026.6.10-beta.1",
               source: "npm",
-              packageName: "@openclaw/brave-plugin",
-              spec: "@openclaw/brave-plugin@2026.6.9",
+              packageName: "@granted/brave-plugin",
+              spec: "@granted/brave-plugin@2026.6.9",
               targetResolution: {
                 status: "resolved",
-                packageName: "@openclaw/brave-plugin",
+                packageName: "@granted/brave-plugin",
                 requestedTarget: "2026.6.10-beta.1",
                 version: "2026.6.10-beta.1",
               },
@@ -1131,7 +1131,7 @@ describe("printDaemonStatus", () => {
     expectMockLineContains(runtime.log, "- brave: 2026.6.9 (npm)");
     expectMockLineContains(
       runtime.log,
-      "openclaw plugins update @openclaw/brave-plugin@2026.6.10-beta.1",
+      "openclaw plugins update @granted/brave-plugin@2026.6.10-beta.1",
     );
     expectMockLineContains(runtime.log, "openclaw gateway restart");
   });
@@ -1154,13 +1154,13 @@ describe("printDaemonStatus", () => {
               installedVersion: "2026.7.1-beta.2",
               gatewayVersion: "2026.7.1-2",
               source: "npm",
-              packageName: "@openclaw/brave-plugin",
-              spec: "@openclaw/brave-plugin@2026.7.1-beta.2",
+              packageName: "@granted/brave-plugin",
+              spec: "@granted/brave-plugin@2026.7.1-beta.2",
               targetResolution: {
                 status: "unresolved",
-                packageName: "@openclaw/brave-plugin",
+                packageName: "@granted/brave-plugin",
                 requestedTarget: "2026.7.1",
-                error: "npm registry did not resolve @openclaw/brave-plugin@2026.7.1: HTTP 404",
+                error: "npm registry did not resolve @granted/brave-plugin@2026.7.1: HTTP 404",
               },
             },
           ],

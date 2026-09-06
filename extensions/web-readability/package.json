@@ -1,5 +1,5 @@
 {
-  "name": "@openclaw/web-readability-plugin",
+  "name": "@granted/web-readability-plugin",
   "version": "2026.8.1",
   "private": true,
   "description": "OpenClaw local Readability web extraction plugin",
@@ -9,7 +9,7 @@
     "linkedom": "0.18.13"
   },
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*"
+    "@granted/plugin-sdk": "workspace:*"
   },
   "openclaw": {
     "extensions": [

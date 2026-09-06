@@ -1,4 +1,4 @@
-import { GatewayErrorDetailCodes } from "@openclaw/gateway-protocol";
+import { GatewayErrorDetailCodes } from "@granted/gateway-protocol";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { i18n } from "../i18n/index.ts";
 import {

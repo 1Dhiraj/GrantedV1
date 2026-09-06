@@ -4,15 +4,15 @@ import { createHmac, randomBytes, randomUUID } from "node:crypto";
 import fs from "node:fs/promises";
 import type { IncomingMessage, ServerResponse } from "node:http";
 import path from "node:path";
-import { maxBytesForKind, mediaKindFromMime, type MediaKind } from "@openclaw/media-core/constants";
-import { mimeTypeFromFilePath, normalizeMimeType } from "@openclaw/media-core/mime";
-import { expectDefined } from "@openclaw/normalization-core";
+import { maxBytesForKind, mediaKindFromMime, type MediaKind } from "@granted/media-core/constants";
+import { mimeTypeFromFilePath, normalizeMimeType } from "@granted/media-core/mime";
+import { expectDefined } from "@granted/normalization-core";
 import {
   asDateTimestampMs,
   asNonNegativeFiniteNumber,
   resolveTimestampMsToIsoString,
-} from "@openclaw/normalization-core/number-coercion";
-import { asOptionalRecord } from "@openclaw/normalization-core/record-coerce";
+} from "@granted/normalization-core/number-coercion";
+import { asOptionalRecord } from "@granted/normalization-core/record-coerce";
 import pLimit from "p-limit";
 import type {
   ReplyMediaAttachment,

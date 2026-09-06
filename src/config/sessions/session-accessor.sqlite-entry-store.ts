@@ -1,5 +1,5 @@
 import { isDeepStrictEqual } from "node:util";
-import { uniqueStrings } from "@openclaw/normalization-core/string-normalization";
+import { uniqueStrings } from "@granted/normalization-core/string-normalization";
 import type { Selectable } from "kysely";
 import {
   executeSqliteQuerySync,

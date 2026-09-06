@@ -1,4 +1,4 @@
-import type { Context, Model } from "@openclaw/llm-core";
+import type { Context, Model } from "@granted/llm-core";
 import { describe, expect, it } from "vitest";
 import { buildOpenAIResponsesParams } from "./openai-responses-params-internal.js";
 import {

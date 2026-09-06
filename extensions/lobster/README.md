@@ -5,7 +5,7 @@ Adds the `lobster` agent tool as an **optional** plugin tool.
 ## Install
 
 ```bash
-openclaw plugins install @openclaw/lobster
+openclaw plugins install @granted/lobster
 ```
 
 Restart the Gateway after installing or updating the plugin.
@@ -89,5 +89,5 @@ Notes:
 
 - Plugin id: `lobster`
 - Tool: `lobster`
-- Package: `@openclaw/lobster`
+- Package: `@granted/lobster`
 - Minimum OpenClaw host: `2026.4.25`

@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
-import { stableStringify } from "@openclaw/normalization-core";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { stableStringify } from "@granted/normalization-core";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { resolveConversationCapabilityProfile } from "../../agents/conversation-capability-profile.js";
 import { resolveSandboxRuntimeStatus } from "../../agents/sandbox/runtime-status.js";
 import { readToolAllowlistIntersection } from "../../agents/tool-policy.js";

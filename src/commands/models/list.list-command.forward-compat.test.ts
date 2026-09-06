@@ -1,5 +1,5 @@
 // Model list forward-compat tests cover list command behavior with future catalog shapes.
-import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
+import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { createDeferred, withTestTimeout } from "../../../test/helpers/promise.js";
 

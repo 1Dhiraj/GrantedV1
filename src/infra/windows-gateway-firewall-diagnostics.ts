@@ -1,5 +1,5 @@
 // Read-only diagnostics for Windows LAN Gateway reachability.
-import { safeParseJson } from "@openclaw/normalization-core";
+import { safeParseJson } from "@granted/normalization-core";
 import { runCommandWithTimeout as defaultRunCommandWithTimeout } from "../process/exec.js";
 import { getWindowsPowerShellExePath } from "./windows-install-roots.js";
 

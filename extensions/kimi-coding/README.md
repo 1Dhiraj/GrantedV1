@@ -5,7 +5,7 @@ Official OpenClaw provider plugin for Kimi Coding.
 Install from OpenClaw:
 
 ```bash
-openclaw plugins install @openclaw/kimi-provider
+openclaw plugins install @granted/kimi-provider
 openclaw gateway restart
 ```
 

@@ -207,8 +207,8 @@ describe("ui package vitest config", () => {
   });
 
   it("aliases the scope-upgrade workspace subpath for clean browser test checkouts", () => {
-    expect(requireAlias(uiConfig, "@openclaw/gateway-client/scope-upgrade")).toEqual({
-      find: "@openclaw/gateway-client/scope-upgrade",
+    expect(requireAlias(uiConfig, "@granted/gateway-client/scope-upgrade")).toEqual({
+      find: "@granted/gateway-client/scope-upgrade",
       replacement: path.join(
         process.cwd(),
         "packages",

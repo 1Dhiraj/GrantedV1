@@ -1,11 +1,11 @@
 // Device pairing runtime commands for gateway and loopback-local fallback operations.
-import { coerceErrorMessage as normalizeErrorMessage } from "@openclaw/normalization-core/error-coercion";
+import { coerceErrorMessage as normalizeErrorMessage } from "@granted/normalization-core/error-coercion";
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
   normalizeStringifiedOptionalString,
-} from "@openclaw/normalization-core/string-coerce";
-import { uniqueStrings } from "@openclaw/normalization-core/string-normalization";
+} from "@granted/normalization-core/string-coerce";
+import { uniqueStrings } from "@granted/normalization-core/string-normalization";
 import {
   readConnectPairingRequiredMessage,
   type ConnectPairingRequiredDetails,

@@ -1,5 +1,5 @@
 /** Mirrors child ACP turns into detached-task status for requester-facing progress. */
-import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import type { AdmittedRunContext } from "../../agents/admitted-run-context.js";
 import { isRetainedExecutionOwnerBinding } from "../../audit/execution-owner-binding.js";
 import type { GrantedConfig } from "../../config/types.openclaw.js";

@@ -1,7 +1,7 @@
 import {
   applyOpenAIResponsesPayloadPolicy,
   resolveOpenAIResponsesPayloadPolicy,
-} from "@openclaw/ai/transports";
+} from "@granted/ai/transports";
 import { describe, expect, it } from "vitest";
 import type { ModelDefinitionConfig, ModelProviderConfig } from "../../config/types.models.js";
 import type { GrantedConfig } from "../../config/types.openclaw.js";

@@ -2,11 +2,11 @@
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { expectDefined } from "@openclaw/normalization-core";
-import { decodeMountInfoPath } from "@openclaw/normalization-core/mountinfo-path";
-import { asNullableObjectRecord } from "@openclaw/normalization-core/record-coerce";
-import { normalizeOptionalLowercaseString } from "@openclaw/normalization-core/string-coerce";
-import { uniqueStrings } from "@openclaw/normalization-core/string-normalization";
+import { expectDefined } from "@granted/normalization-core";
+import { decodeMountInfoPath } from "@granted/normalization-core/mountinfo-path";
+import { asNullableObjectRecord } from "@granted/normalization-core/record-coerce";
+import { normalizeOptionalLowercaseString } from "@granted/normalization-core/string-coerce";
+import { uniqueStrings } from "@granted/normalization-core/string-normalization";
 import { note } from "../../packages/terminal-core/src/note.js";
 import { isSharedAuthStoreOwner } from "../agents/agent-delete-safety.js";
 import {

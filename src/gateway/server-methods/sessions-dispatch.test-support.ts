@@ -1,4 +1,4 @@
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { vi } from "vitest";
 import {
   GATEWAY_CLIENT_IDS,

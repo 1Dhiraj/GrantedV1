@@ -1,4 +1,4 @@
-import type { WorkboardCard } from "@openclaw/workboard-contract";
+import type { WorkboardCard } from "@granted/workboard-contract";
 import { jsonResult, readStringParam } from "granted/plugin-sdk/core";
 import type { AnyAgentTool } from "granted/plugin-sdk/plugin-entry";
 import { asNonArrayRecord } from "granted/plugin-sdk/string-coerce-runtime";

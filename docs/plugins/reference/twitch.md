@@ -11,7 +11,7 @@ OpenClaw Twitch channel plugin for chat and moderation workflows.
 
 ## Distribution
 
-- Package: `@openclaw/twitch`
+- Package: `@granted/twitch`
 - Install route: npm; ClawHub
 
 ## Surface

@@ -4,9 +4,9 @@ import type {
   AcpSessionRuntimeOptions,
   SessionAcpIdentity,
   SessionAcpMeta,
-} from "@openclaw/acp-core/types";
-import { asNonNegativeFiniteNumber } from "@openclaw/normalization-core/number-coercion";
-import { normalizeOptionalString, type FastMode } from "@openclaw/normalization-core/string-coerce";
+} from "@granted/acp-core/types";
+import { asNonNegativeFiniteNumber } from "@granted/normalization-core/number-coercion";
+import { normalizeOptionalString, type FastMode } from "@granted/normalization-core/string-coerce";
 import type { SessionRow, SessionRunStatus } from "../../../packages/gateway-protocol/src/index.js";
 import type { QueueMode } from "../../../packages/gateway-protocol/src/schema/logs-chat.js";
 import type { SessionGoal } from "../../../packages/gateway-protocol/src/schema/sessions-goal.js";

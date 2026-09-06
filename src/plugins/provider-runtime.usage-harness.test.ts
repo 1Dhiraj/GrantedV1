@@ -25,7 +25,7 @@ function makeCodexManifestEnv(): NodeJS.ProcessEnv {
   fs.writeFileSync(
     path.join(pluginDir, "package.json"),
     JSON.stringify({
-      name: "@openclaw/codex-test",
+      name: "@granted/codex-test",
       openclaw: { extensions: ["./index.cjs"] },
     }),
   );

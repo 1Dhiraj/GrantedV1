@@ -35,8 +35,8 @@ if (!codexRecord) {
 if (codexRecord.source !== "npm") {
   throw new Error(`expected npm codex install record, got ${codexRecord.source}`);
 }
-if (!codexRecord.spec?.includes("@openclaw/codex")) {
-  throw new Error(`expected @openclaw/codex install spec, got ${codexRecord.spec}`);
+if (!codexRecord.spec?.includes("@granted/codex")) {
+  throw new Error(`expected @granted/codex install spec, got ${codexRecord.spec}`);
 }
 
 const npmRoot = managedNpmRoot();
@@ -48,14 +48,14 @@ assertPathInside(npmRoot, installPath, "codex install path");
 
 const codexPackageJson = path.join(installPath, "package.json");
 if (!fs.existsSync(codexPackageJson)) {
-  throw new Error(`missing npm-installed @openclaw/codex package: ${codexPackageJson}`);
+  throw new Error(`missing npm-installed @granted/codex package: ${codexPackageJson}`);
 }
 const codexPackage = readJson(codexPackageJson);
-if (codexPackage.name !== "@openclaw/codex") {
+if (codexPackage.name !== "@granted/codex") {
   throw new Error(`unexpected codex package name: ${codexPackage.name}`);
 }
 
-const npmProjectRoot = npmProjectRootForInstalledPackage(installPath, "@openclaw/codex");
+const npmProjectRoot = npmProjectRootForInstalledPackage(installPath, "@granted/codex");
 const openAiCodexPackageJson = findPackageJson("@openai/codex", [
   installPath,
   npmProjectRoot,

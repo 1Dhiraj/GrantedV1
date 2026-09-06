@@ -1,7 +1,7 @@
 // Doctor migration for config and state left by the retired Phone Control lease model.
 import fs from "node:fs/promises";
 import path from "node:path";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import { resolveStateDir } from "../config/paths.js";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import { isMissingPathError } from "../infra/errors.js";

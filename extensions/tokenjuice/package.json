@@ -1,5 +1,5 @@
 {
-  "name": "@openclaw/tokenjuice",
+  "name": "@granted/tokenjuice",
   "version": "2026.8.1",
   "description": "OpenClaw tokenjuice exec output compaction plugin",
   "repository": {
@@ -11,7 +11,7 @@
     "tokenjuice": "0.8.1"
   },
   "peerDependencies": {
-    "openclaw": ">=2026.8.1"
+    "granted": ">=2026.8.1"
   },
   "peerDependenciesMeta": {
     "openclaw": {
@@ -19,16 +19,16 @@
     }
   },
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*",
-    "openclaw": "workspace:*"
+    "@granted/plugin-sdk": "workspace:*",
+    "granted": "workspace:*"
   },
   "openclaw": {
     "extensions": [
       "./index.ts"
     ],
     "install": {
-      "clawhubSpec": "clawhub:@openclaw/tokenjuice",
-      "npmSpec": "@openclaw/tokenjuice",
+      "clawhubSpec": "clawhub:@granted/tokenjuice",
+      "npmSpec": "@granted/tokenjuice",
       "defaultChoice": "npm",
       "minHostVersion": ">=2026.5.28"
     },

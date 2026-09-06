@@ -1,6 +1,6 @@
-import type { NormalizedModelCatalogRow } from "@openclaw/model-catalog-core/model-catalog-types";
+import type { NormalizedModelCatalogRow } from "@granted/model-catalog-core/model-catalog-types";
 /** Dependency-light model catalog snapshots for default model-list views. */
-import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
+import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
 import { modelCatalogRowToEntry } from "../../agents/model-catalog-entry.js";
 import type { ModelCatalogEntry, ModelCatalogSnapshot } from "../../agents/model-catalog.types.js";
 import { modelTransportRoutesMatch } from "../../agents/model-compat-catalog.js";

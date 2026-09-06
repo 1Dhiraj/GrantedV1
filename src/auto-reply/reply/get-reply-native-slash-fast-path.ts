@@ -1,5 +1,5 @@
 // Handles native slash commands before full get-reply pipeline execution.
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import type { QueueMode } from "../../../packages/gateway-protocol/src/schema/logs-chat.js";
 import type { ModelCatalogSnapshot } from "../../agents/model-catalog.types.js";
 import {

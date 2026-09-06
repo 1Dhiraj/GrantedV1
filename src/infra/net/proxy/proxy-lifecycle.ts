@@ -1,5 +1,5 @@
-import { isLoopbackIpAddress } from "@openclaw/net-policy/ip";
-import { isHttpUrl, isWebSocketUrl } from "@openclaw/net-policy/url-protocol";
+import { isLoopbackIpAddress } from "@granted/net-policy/ip";
+import { isHttpUrl, isWebSocketUrl } from "@granted/net-policy/url-protocol";
 // Managed proxy lifecycle installs Proxyline, injects process proxy env, and
 // restores inherited/direct routing when owner handles stop.
 import {

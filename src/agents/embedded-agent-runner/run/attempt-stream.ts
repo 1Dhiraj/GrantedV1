@@ -1,7 +1,7 @@
 /**
  * Installs replay, tool-call, timeout, and diagnostic guards around an embedded stream.
  */
-import type { OpenAIResponsesCompactionRejection } from "@openclaw/ai/transports";
+import type { OpenAIResponsesCompactionRejection } from "@granted/ai/transports";
 import { resolveDiagnosticModelContentCapturePolicy } from "../../../infra/diagnostic-llm-content.js";
 import type { DiagnosticTraceContext } from "../../../infra/diagnostic-trace-context.js";
 import { DEFAULT_UNDICI_STREAM_TIMEOUT_MS } from "../../../infra/net/undici-global-dispatcher.js";

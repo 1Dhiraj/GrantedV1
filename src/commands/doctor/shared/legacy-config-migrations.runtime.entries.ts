@@ -1,4 +1,4 @@
-import { normalizeAgentId } from "@openclaw/normalization-core/agent-id";
+import { normalizeAgentId } from "@granted/normalization-core/agent-id";
 import { resolveLegacyFirstAgentWorkspacePin } from "../../../config/legacy.default-agent-roles.js";
 import {
   defineLegacyConfigMigration,

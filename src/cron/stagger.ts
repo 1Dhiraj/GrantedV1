@@ -1,9 +1,9 @@
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import {
   asSafeIntegerInRange,
   MAX_DATE_TIMESTAMP_MS,
   parseStrictNonNegativeInteger,
-} from "@openclaw/normalization-core/number-coercion";
+} from "@granted/normalization-core/number-coercion";
 /** Resolves deterministic cron stagger windows for recurring schedules. */
 import type { CronSchedule } from "./types.js";
 

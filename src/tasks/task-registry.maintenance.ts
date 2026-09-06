@@ -1,5 +1,5 @@
 // Reconciles stale or lost task registry records during maintenance passes.
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { isAcpTurnActive } from "../acp/control-plane/active-turns.js";
 import { getAcpSessionManager } from "../acp/control-plane/manager.js";
 import { acpSessionActorKey, resolveAcpSessionTarget } from "../acp/control-plane/manager.utils.js";

@@ -1,5 +1,5 @@
 import { randomUUID } from "node:crypto";
-import type { AssistantMessageEvent, Model } from "@openclaw/llm-core";
+import type { AssistantMessageEvent, Model } from "@granted/llm-core";
 import type { ChatCompletionChunk } from "openai/resources/chat/completions.js";
 import type { OpenAICompletionsOptions } from "../provider-options.js";
 import {

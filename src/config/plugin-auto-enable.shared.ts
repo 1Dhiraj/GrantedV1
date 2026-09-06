@@ -1,13 +1,13 @@
 // Shares plugin auto-enable detection across config and runtime code.
-import { collectConfiguredModelRefs } from "@openclaw/model-catalog-core/configured-model-refs";
-import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
-import { expectDefined } from "@openclaw/normalization-core";
+import { collectConfiguredModelRefs } from "@granted/model-catalog-core/configured-model-refs";
+import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
+import { expectDefined } from "@granted/normalization-core";
 import {
   asOptionalObjectRecord,
   asOptionalRecord,
   isRecord,
-} from "@openclaw/normalization-core/record-coerce";
-import { normalizeOptionalLowercaseString } from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/record-coerce";
+import { normalizeOptionalLowercaseString } from "@granted/normalization-core/string-coerce";
 import { listAgentEntries } from "../agents/agent-scope-config.js";
 import { collectConfiguredAgentHarnessRuntimes } from "../agents/harness-runtimes.js";
 import {

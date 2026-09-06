@@ -3,7 +3,7 @@
 import { randomInt } from "node:crypto";
 import { setTimeout as delay } from "node:timers/promises";
 import { Worker, type WorkerOptions } from "node:worker_threads";
-import { toStringifiedError } from "@openclaw/normalization-core/error-coercion";
+import { toStringifiedError } from "@granted/normalization-core/error-coercion";
 import { isPathInside } from "../../infra/path-guards.js";
 import { runtimeProcessEntrypoints } from "../../infra/runtime-process-entrypoints.js";
 import { resolveRuntimeWorkerUrl } from "../../infra/runtime-worker-url.js";

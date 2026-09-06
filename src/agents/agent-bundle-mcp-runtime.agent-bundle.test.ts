@@ -2,8 +2,8 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { expectDefined } from "@openclaw/normalization-core";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { expectDefined } from "@granted/normalization-core";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import { afterEach, expect, it } from "vitest";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import { loadEnabledBundleMcpConfig } from "../plugins/bundle-mcp.js";

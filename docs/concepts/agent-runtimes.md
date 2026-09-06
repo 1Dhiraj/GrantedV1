@@ -208,7 +208,7 @@ Codex model refs remain in config, treat that as legacy route state and run
 
 ## GitHub Copilot agent runtime
 
-The external `@openclaw/copilot` plugin registers an opt-in `copilot` runtime
+The external `@granted/copilot` plugin registers an opt-in `copilot` runtime
 backed by the GitHub Copilot CLI (`@github/copilot-sdk`). It claims the
 canonical subscription `github-copilot` provider and is **never** selected by
 `auto`. Opt in per-model or per-provider via `agentRuntime.id`:

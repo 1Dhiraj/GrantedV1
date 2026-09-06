@@ -10,10 +10,10 @@ import {
   normalizeUpstreamModelPricing,
   type ModelPricingProvider,
   type ModelPricingSource,
-} from "@openclaw/model-catalog-core/model-catalog-pricing";
-import { normalizeModelCatalogProviderId } from "@openclaw/model-catalog-core/model-catalog-refs";
-import { parseStrictFiniteNumber } from "@openclaw/normalization-core/number-coercion";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+} from "@granted/model-catalog-core/model-catalog-pricing";
+import { normalizeModelCatalogProviderId } from "@granted/model-catalog-core/model-catalog-refs";
+import { parseStrictFiniteNumber } from "@granted/normalization-core/number-coercion";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import { parseCerebrasPricingCatalog } from "../extensions/cerebras/pricing-api.js";
 import { parseChutesPricingCatalog } from "../extensions/chutes/pricing-api.js";
 import { parseDeepInfraPricingCatalog } from "../extensions/deepinfra/pricing-api.js";

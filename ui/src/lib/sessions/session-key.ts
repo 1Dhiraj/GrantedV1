@@ -1,10 +1,10 @@
 // Control UI module implements session key behavior.
-import { normalizeAgentId } from "@openclaw/normalization-core/agent-id";
+import { normalizeAgentId } from "@granted/normalization-core/agent-id";
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalLowercaseString,
   normalizeOptionalString,
-} from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/string-coerce";
 
 type ParsedAgentSessionKey = {
   agentId: string;

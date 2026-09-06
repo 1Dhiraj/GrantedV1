@@ -1,5 +1,5 @@
 /** Runs music generation, persistence, and detached completion. */
-import { normalizeOptionalLowercaseString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalLowercaseString } from "@granted/normalization-core/string-coerce";
 import { Type } from "typebox";
 import { getRuntimeConfig } from "../../config/config.js";
 import type { GrantedConfig } from "../../config/types.openclaw.js";

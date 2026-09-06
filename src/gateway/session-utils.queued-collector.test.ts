@@ -1,4 +1,4 @@
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { describe, expect, it, vi } from "vitest";
 import * as subagentKill from "../agents/subagents/registry/subagent-control-kill.js";
 import { subagentRuns } from "../agents/subagents/registry/subagent-registry-memory.js";

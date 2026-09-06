@@ -1,6 +1,6 @@
 // Realtime transcription websocket session streams audio to transcription providers.
 import { randomUUID } from "node:crypto";
-import { toErrorObject, toStringifiedError } from "@openclaw/normalization-core/error-coercion";
+import { toErrorObject, toStringifiedError } from "@granted/normalization-core/error-coercion";
 import WebSocket from "ws";
 import { RetrySupervisor } from "../../packages/retry/src/index.js";
 import { sleepWithAbort } from "../infra/backoff.js";

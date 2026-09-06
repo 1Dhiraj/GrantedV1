@@ -5,7 +5,7 @@ Official OpenClaw channel plugin for Mattermost.
 ## Install
 
 ```sh
-openclaw plugins install @openclaw/mattermost
+openclaw plugins install @granted/mattermost
 ```
 
 ## Docs

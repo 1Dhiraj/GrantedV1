@@ -1,5 +1,5 @@
 import path from "node:path";
-import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import JSON5 from "json5";
 import { CONFIG_FILENAME } from "../compat/legacy-names.js";
 import { VERSION } from "../version.js";

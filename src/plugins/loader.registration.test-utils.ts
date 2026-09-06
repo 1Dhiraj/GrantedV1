@@ -533,7 +533,7 @@ describe("loadOpenClawPlugins", () => {
     fs.writeFileSync(
       path.join(scopedDir, "package.json"),
       JSON.stringify({
-        name: "@openclaw/scoped-provider",
+        name: "@granted/scoped-provider",
         openclaw: { extensions: ["./index.cjs"] },
       }),
       "utf-8",
@@ -560,7 +560,7 @@ describe("loadOpenClawPlugins", () => {
     fs.writeFileSync(
       path.join(unscopedDir, "package.json"),
       JSON.stringify({
-        name: "@openclaw/unscoped-provider",
+        name: "@granted/unscoped-provider",
         openclaw: { extensions: ["./index.cjs"] },
       }),
       "utf-8",
@@ -607,7 +607,7 @@ describe("loadOpenClawPlugins", () => {
     fs.writeFileSync(
       path.join(bundledPluginDir, "package.json"),
       JSON.stringify({
-        name: "@openclaw/notify-host",
+        name: "@granted/notify-host",
         openclaw: { extensions: ["./index.cjs"] },
       }),
       "utf-8",

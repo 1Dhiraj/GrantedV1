@@ -1,5 +1,5 @@
 import path from "node:path";
-import { coerceErrorMessage } from "@openclaw/normalization-core/error-coercion";
+import { coerceErrorMessage } from "@granted/normalization-core/error-coercion";
 import { resolveStateDir } from "../config/paths.js";
 import { KeyedAsyncQueue } from "../plugin-sdk/keyed-async-queue.js";
 import { resolveTranscriptsConfig } from "../transcripts/config.js";

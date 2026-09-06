@@ -1,12 +1,12 @@
 // Provides canonical default config values and model/provider defaults.
-import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
+import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
 import {
   collectManifestModelIdNormalizationPolicies,
   normalizeConfiguredProviderCatalogModelId,
-} from "@openclaw/model-catalog-core/provider-model-id-normalization";
-import { asPositiveFiniteNumber } from "@openclaw/normalization-core/number-coercion";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
-import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
+} from "@granted/model-catalog-core/provider-model-id-normalization";
+import { asPositiveFiniteNumber } from "@granted/normalization-core/number-coercion";
+import { isRecord } from "@granted/normalization-core/record-coerce";
+import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
 import { DEFAULT_CONTEXT_TOKENS } from "../agents/defaults.js";
 import type { PluginManifestRegistry } from "../plugins/manifest-registry.js";
 import {

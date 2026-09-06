@@ -1,7 +1,7 @@
 /**
  * Normalizes configured provider model rows for runtime/discovery use.
  */
-import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
+import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
 import { mergeModelCost } from "../config/model-cost.js";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { PluginManifestRegistry } from "../plugins/manifest-registry.js";

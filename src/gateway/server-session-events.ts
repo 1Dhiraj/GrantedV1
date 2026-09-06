@@ -1,9 +1,9 @@
 // Gateway session event broadcaster.
 // Projects transcript and lifecycle updates to websocket subscribers.
 import path from "node:path";
-import { asPositiveSafeInteger } from "@openclaw/normalization-core/number-coercion";
-import { asOptionalRecord } from "@openclaw/normalization-core/record-coerce";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { asPositiveSafeInteger } from "@granted/normalization-core/number-coercion";
+import { asOptionalRecord } from "@granted/normalization-core/record-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import {
   readTranscriptDisplayPosition,
   type TranscriptDisplayPosition,

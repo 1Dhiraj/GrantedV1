@@ -5,7 +5,7 @@
 // session. The browser runtime is dynamically imported on first open so it
 // never weighs down the initial Control UI bundle.
 import { initialState, Task, TaskStatus } from "@lit/task";
-import { buildControlUiFocusPath } from "@openclaw/session-url-contract";
+import { buildControlUiFocusPath } from "@granted/session-url-contract";
 import { html, nothing } from "lit";
 import { property, state } from "lit/decorators.js";
 import { t } from "../../i18n/index.ts";

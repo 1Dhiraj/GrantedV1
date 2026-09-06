@@ -1,10 +1,10 @@
 import {
   inferControlUiFocusBasePath,
   matchControlUiCatalogSharePath,
-} from "@openclaw/session-url-contract";
+} from "@granted/session-url-contract";
 import { normalizeRouteBasePath, normalizeRoutePath } from "@openclaw/uirouter";
 import type { RouteLocation } from "@openclaw/uirouter";
-import { isValidWorkboardBoardId } from "@openclaw/workboard-contract";
+import { isValidWorkboardBoardId } from "@granted/workboard-contract";
 import { DEFAULT_AGENT_PANEL, isAgentsPanel, type AgentsPanel } from "./lib/agents/panels.ts";
 import type { BoardFace } from "./lib/board/settings.ts";
 export const INTERNAL_AGENT_PATH_PARAM = "__openclawAgentPath";

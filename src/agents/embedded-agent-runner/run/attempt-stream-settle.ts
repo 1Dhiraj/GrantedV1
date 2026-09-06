@@ -2,7 +2,7 @@
  * Prepares transport before streaming and settles the completed stream afterward.
  * It may assume session runtime ownership and provider inputs are established.
  */
-import { resolveCompactionReplayEligibility } from "@openclaw/ai/transports";
+import { resolveCompactionReplayEligibility } from "@granted/ai/transports";
 import { formatErrorMessage } from "../../../infra/errors.js";
 import { createCodexNativeWebSearchWrapper } from "../../../llm/providers/stream-wrappers/openai.js";
 import type { AssistantMessage } from "../../../llm/types.js";

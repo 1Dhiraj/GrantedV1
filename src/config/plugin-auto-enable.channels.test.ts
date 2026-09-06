@@ -79,7 +79,7 @@ describe("applyPluginAutoEnable channels", () => {
       JSON.stringify({
         entries: [
           {
-            name: "@openclaw/env-secondary",
+            name: "@granted/env-secondary",
             openclaw: {
               channel: {
                 id: "env-secondary",
@@ -90,7 +90,7 @@ describe("applyPluginAutoEnable channels", () => {
                 preferOver: ["env-primary"],
               },
               install: {
-                npmSpec: "@openclaw/env-secondary",
+                npmSpec: "@granted/env-secondary",
               },
             },
           },
@@ -114,7 +114,7 @@ describe("applyPluginAutoEnable channels", () => {
       JSON.stringify({
         entries: [
           {
-            name: "@openclaw/env-primary",
+            name: "@granted/env-primary",
             openclaw: {
               channel: {
                 id: "env-primary",
@@ -124,12 +124,12 @@ describe("applyPluginAutoEnable channels", () => {
                 blurb: "Env primary entry",
               },
               install: {
-                npmSpec: "@openclaw/env-primary",
+                npmSpec: "@granted/env-primary",
               },
             },
           },
           {
-            name: "@openclaw/env-secondary",
+            name: "@granted/env-secondary",
             openclaw: {
               channel: {
                 id: "env-secondary",
@@ -140,7 +140,7 @@ describe("applyPluginAutoEnable channels", () => {
                 preferOver: ["env-primary"],
               },
               install: {
-                npmSpec: "@openclaw/env-secondary",
+                npmSpec: "@granted/env-secondary",
               },
             },
           },
@@ -180,7 +180,7 @@ describe("applyPluginAutoEnable channels", () => {
       JSON.stringify({
         entries: [
           {
-            name: "@openclaw/env-secondary",
+            name: "@granted/env-secondary",
             openclaw: {
               channel: {
                 id: "env-secondary",
@@ -190,7 +190,7 @@ describe("applyPluginAutoEnable channels", () => {
                 blurb: "Env secondary entry",
                 preferOver: ["env-primary"],
               },
-              install: { npmSpec: "@openclaw/env-secondary" },
+              install: { npmSpec: "@granted/env-secondary" },
             },
           },
         ],

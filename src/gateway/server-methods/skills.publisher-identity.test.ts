@@ -2,7 +2,7 @@
 // client picks from skills.search must reach the outbound ClawHub request unchanged. Only the
 // HTTP layer is faked here; search, the Gateway handlers, and the detail client are real.
 
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const installSkillFromClawHubMock = vi.fn();

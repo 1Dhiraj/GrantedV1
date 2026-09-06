@@ -90,7 +90,7 @@ function requireCompleteCodexSupervisionToolSet(tools: readonly AnyAgentTool[]):
     return;
   }
   throw new Error(
-    `Codex supervision MCP could not load the official @openclaw/codex plugin tools (missing: ${missing.join(", ") || "none"}). Install or update @openclaw/codex, then enable Codex supervision.`,
+    `Codex supervision MCP could not load the official @granted/codex plugin tools (missing: ${missing.join(", ") || "none"}). Install or update @granted/codex, then enable Codex supervision.`,
   );
 }
 

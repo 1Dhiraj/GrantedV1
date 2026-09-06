@@ -1,9 +1,9 @@
 /**
  * Limits embedded-agent history length from session-key policy.
  */
-import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
-import { asOptionalRecord } from "@openclaw/normalization-core/record-coerce";
-import { normalizeOptionalLowercaseString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
+import { asOptionalRecord } from "@granted/normalization-core/record-coerce";
+import { normalizeOptionalLowercaseString } from "@granted/normalization-core/string-coerce";
 import { normalizeChatType, type ChatType } from "../../channels/chat-type.js";
 import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { normalizeAccountId } from "../../routing/account-id.js";

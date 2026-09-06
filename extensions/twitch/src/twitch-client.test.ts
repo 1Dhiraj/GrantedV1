@@ -9,7 +9,7 @@
  * - Error handling and edge cases
  */
 
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { createDeferred } from "granted/plugin-sdk/extension-shared";
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { resolveTwitchToken } from "./token.js";

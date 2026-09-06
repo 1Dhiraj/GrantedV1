@@ -1,5 +1,5 @@
 /** Host fallback secret contracts for external channels without contract artifacts. */
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   getOfficialExternalChannelSecretContract,

@@ -3,7 +3,7 @@
 import { randomBytes, randomUUID } from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
-import { toErrorObject as toLintErrorObject } from "@openclaw/normalization-core/error-coercion";
+import { toErrorObject as toLintErrorObject } from "@granted/normalization-core/error-coercion";
 import { afterEach, describe, expect, it } from "vitest";
 import { clearRuntimeConfigSnapshot, type GrantedConfig } from "../../../config/config.js";
 import { GatewayClient } from "../../../gateway/client.js";

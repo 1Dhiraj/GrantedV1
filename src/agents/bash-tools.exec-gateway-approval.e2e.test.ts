@@ -6,7 +6,7 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { asNonArrayRecord } from "@openclaw/normalization-core/record-coerce";
+import { asNonArrayRecord } from "@granted/normalization-core/record-coerce";
 import { afterEach, describe, expect, it } from "vitest";
 import { GATEWAY_CLIENT_CAPS } from "../../packages/gateway-protocol/src/client-info.js";
 import { clearConfigCache, clearRuntimeConfigSnapshot } from "../config/config.js";

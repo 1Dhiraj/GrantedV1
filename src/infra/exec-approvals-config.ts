@@ -1,13 +1,13 @@
 // Parses and normalizes the persisted exec approval policy.
 import { randomBytes } from "node:crypto";
 import path from "node:path";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
-import { err, ok, type Result } from "@openclaw/normalization-core/result";
+import { isRecord } from "@granted/normalization-core/record-coerce";
+import { err, ok, type Result } from "@granted/normalization-core/result";
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
   readStringValue,
-} from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/string-coerce";
 import { z } from "zod";
 import { DEFAULT_AGENT_ID } from "../routing/session-key.js";
 import type {

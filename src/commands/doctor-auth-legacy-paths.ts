@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import { readNonBlankString } from "@openclaw/normalization-core/string-coerce";
+import { readNonBlankString } from "@granted/normalization-core/string-coerce";
 import { listAgentIds, resolveAgentDir } from "../agents/agent-scope.js";
 import { resolveSharedMainAuthAgentDir } from "../agents/auth-profiles/shared-main-dir.js";
 import { resolveLegacyInheritedAuthAgentDir } from "../agents/legacy-inherited-auth-dir.js";

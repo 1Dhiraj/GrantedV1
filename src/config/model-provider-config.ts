@@ -1,5 +1,5 @@
-import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
-import { asOptionalRecord as readRecord } from "@openclaw/normalization-core/record-coerce";
+import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
+import { asOptionalRecord as readRecord } from "@granted/normalization-core/record-coerce";
 import type { ProviderRouteOverridePresence } from "../plugin-sdk/provider-model-types.js";
 import type { ModelDefinitionConfig, ModelProviderConfig } from "./types.models.js";
 import type { GrantedConfig } from "./types.openclaw.js";

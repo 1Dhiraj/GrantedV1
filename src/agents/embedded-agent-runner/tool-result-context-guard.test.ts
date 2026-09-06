@@ -1,7 +1,7 @@
 // Tool-result context guard tests cover live replay truncation, mid-turn
 // prechecks, and context-engine loop hooks for oversized tool outputs.
 
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { Agent, type AgentMessage } from "granted/plugin-sdk/agent-core";
 import { createAssistantMessageEventStream, type Message } from "granted/plugin-sdk/llm";
 import { Type } from "typebox";

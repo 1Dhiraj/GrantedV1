@@ -2,7 +2,7 @@
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalLowercaseString,
-} from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/string-coerce";
 import { normalizeChatType } from "../channels/chat-type.js";
 import type { SessionChatType, SessionEntry } from "../config/sessions.js";
 import type { GrantedConfig } from "../config/types.openclaw.js";

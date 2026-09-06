@@ -26,7 +26,7 @@ export function pluginRecord(
     manifestPath: `${rootDir}/openclaw.plugin.json`,
     manifestHash: `${pluginId}-manifest-v1`,
     source: `${rootDir}/index.js`,
-    packageName: `@openclaw/${pluginId}`,
+    packageName: `@granted/${pluginId}`,
     packageVersion: "1.0.0",
     installRecordHash: `${pluginId}-install-v1`,
     packageJson: { path: `${rootDir}/package.json`, hash: `${pluginId}-package-v1` },

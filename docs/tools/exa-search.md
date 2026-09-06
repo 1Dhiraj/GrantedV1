@@ -14,7 +14,7 @@ summaries).
 ## Install plugin
 
 ```bash
-openclaw plugins install @openclaw/exa-plugin
+openclaw plugins install @granted/exa-plugin
 openclaw gateway restart
 ```
 

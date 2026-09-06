@@ -1,4 +1,4 @@
-import { normalizeSortedUniqueTrimmedStringList } from "@openclaw/normalization-core/string-normalization";
+import { normalizeSortedUniqueTrimmedStringList } from "@granted/normalization-core/string-normalization";
 import {
   type DesktopObserveParams,
   type EnvironmentSummary,

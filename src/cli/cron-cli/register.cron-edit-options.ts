@@ -1,5 +1,5 @@
-import { parseStrictPositiveInteger } from "@openclaw/normalization-core/number-coercion";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { parseStrictPositiveInteger } from "@granted/normalization-core/number-coercion";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import type { CronJob } from "../../cron/types.js";
 import { isSystemOwnedCronPayloadKind } from "../../cron/types.js";
 import {

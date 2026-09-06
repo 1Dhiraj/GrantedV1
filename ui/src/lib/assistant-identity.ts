@@ -1,6 +1,6 @@
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 // Control UI module implements assistant identity behavior.
-import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import { isRenderableAvatarImageDataUrl } from "../../../src/shared/avatar-limits.js";
 
 // Short text/emoji avatars (e.g. "A", "PS", "🦞"). Anything longer that is not

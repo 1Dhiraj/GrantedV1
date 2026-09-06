@@ -2,7 +2,7 @@
 // Membership stays on each session entry's category field; this module owns
 // which groups exist, their display order, and bulk member category updates.
 import type { DatabaseSync } from "node:sqlite";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { resolveAllAgentSessionStoreTargetsSync } from "../config/sessions.js";
 import {
   applySessionEntryReplacements,

@@ -1,4 +1,4 @@
-import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
+import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
 // Control UI component renders the login gate.
 import { html, nothing } from "lit";
 import { property } from "lit/decorators.js";

@@ -1,14 +1,14 @@
 // Media-understanding runner resolves providers/models, local roots, auth, and
 // per-capability execution decisions for message attachments.
 import path from "node:path";
-import { mergeInboundPathRoots } from "@openclaw/media-core/inbound-path-policy";
-import { findNormalizedProviderValue } from "@openclaw/model-catalog-core/provider-id";
+import { mergeInboundPathRoots } from "@granted/media-core/inbound-path-policy";
+import { findNormalizedProviderValue } from "@granted/model-catalog-core/provider-id";
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeNullableString,
   normalizeOptionalString,
-} from "@openclaw/normalization-core/string-coerce";
-import { uniqueStrings } from "@openclaw/normalization-core/string-normalization";
+} from "@granted/normalization-core/string-coerce";
+import { uniqueStrings } from "@granted/normalization-core/string-normalization";
 import type { ActiveMediaModel } from "../../packages/media-understanding-common/src/active-model.js";
 import { isMediaUnderstandingSkipError } from "../../packages/media-understanding-common/src/errors.js";
 import {

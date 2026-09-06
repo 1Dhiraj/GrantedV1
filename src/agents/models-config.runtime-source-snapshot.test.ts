@@ -1,5 +1,5 @@
 // Verifies generated models.json preserves source secret markers from runtime snapshots.
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from "vitest";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import { createFixtureSuite } from "../test-utils/fixture-suite.js";

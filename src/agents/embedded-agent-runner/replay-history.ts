@@ -2,9 +2,9 @@
  * Sanitizes and validates replayed session history before model calls.
  */
 import { isDeepStrictEqual } from "node:util";
-import { replaceCompactionReplayOwnerContent } from "@openclaw/ai/transports";
-import { asFiniteNumber as toFiniteCostNumber } from "@openclaw/normalization-core/number-coercion";
-import { asOptionalRecord } from "@openclaw/normalization-core/record-coerce";
+import { replaceCompactionReplayOwnerContent } from "@granted/ai/transports";
+import { asFiniteNumber as toFiniteCostNumber } from "@granted/normalization-core/number-coercion";
+import { asOptionalRecord } from "@granted/normalization-core/record-coerce";
 import { stripInternalMetadataForDisplay } from "../../auto-reply/reply/display-text-sanitize.js";
 import { isSilentReplyPayloadText, SILENT_REPLY_TOKEN } from "../../auto-reply/tokens.js";
 import type { GrantedConfig } from "../../config/types.openclaw.js";

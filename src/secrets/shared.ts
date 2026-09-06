@@ -1,6 +1,6 @@
 /** Shared parsing and file helpers for secrets migration/runtime code. */
 import path from "node:path";
-import { resolvePositiveTimerTimeoutMs } from "@openclaw/normalization-core/number-coercion";
+import { resolvePositiveTimerTimeoutMs } from "@granted/normalization-core/number-coercion";
 import { privateFileStoreSync } from "../infra/private-file-store.js";
 import { replaceFileAtomicSync } from "../infra/replace-file.js";
 export { isRecord } from "../utils.js";

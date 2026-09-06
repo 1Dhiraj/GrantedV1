@@ -1,4 +1,4 @@
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 // Qa Lab tests cover cli plugin behavior.
 import { Command } from "commander";
 import type { QaRunnerCliContribution } from "granted/plugin-sdk/qa-runner-runtime";

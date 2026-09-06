@@ -11,8 +11,8 @@ Adds the Signal channel surface for sending and receiving OpenClaw messages.
 
 ## Distribution
 
-- Package: `@openclaw/signal`
-- Install route: npm; ClawHub: `clawhub:@openclaw/signal`
+- Package: `@granted/signal`
+- Install route: npm; ClawHub: `clawhub:@granted/signal`
 
 ## Surface
 

@@ -6,7 +6,7 @@ read_when:
 title: Feishu
 ---
 
-OpenClaw connects to Feishu/Lark (the all-in-one collaboration platform) through the official `@openclaw/feishu` plugin: bot DMs, group chats, streaming card replies, and Feishu doc/wiki/drive/Bitable tools.
+OpenClaw connects to Feishu/Lark (the all-in-one collaboration platform) through the official `@granted/feishu` plugin: bot DMs, group chats, streaming card replies, and Feishu doc/wiki/drive/Bitable tools.
 
 **Status:** production-ready for bot DMs + group chats. WebSocket is the default event transport (no public URL needed); webhook mode is optional.
 
@@ -21,7 +21,7 @@ Requires OpenClaw 2026.5.29 or above. Run `openclaw --version` to check. Upgrade
   ```bash
   openclaw channels login --channel feishu
   ```
-  This installs the `@openclaw/feishu` plugin if it is missing, then walks through setup:
+  This installs the `@granted/feishu` plugin if it is missing, then walks through setup:
 
 - **Manual setup**: paste an App ID and App Secret from Feishu Open Platform (`https://open.feishu.cn`) or Lark Developer (`https://open.larksuite.com`).
 - **QR setup**: scan a QR code in the Feishu app to create a bot automatically. This flow locks DMs to your own account (`dmPolicy: "allowlist"` with your `open_id`).

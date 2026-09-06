@@ -2,7 +2,7 @@
  * Tests for config gateway methods, writes, validation, and auth transitions.
  */
 
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { ConfigMutationConflictError } from "../../config/mutation-conflict.js";
 import type { GrantedConfig } from "../../config/types.openclaw.js";

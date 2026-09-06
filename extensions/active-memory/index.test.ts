@@ -2,7 +2,7 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { toErrorObject as toLintErrorObject } from "granted/plugin-sdk/error-runtime";
 import { createDeferred } from "granted/plugin-sdk/extension-shared";
 import type { GrantedPluginApi } from "granted/plugin-sdk/plugin-entry";

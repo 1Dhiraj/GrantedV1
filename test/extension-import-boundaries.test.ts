@@ -52,7 +52,7 @@ function createBoundaryFixture(fixture: BoundaryFixture) {
   fs.writeFileSync(filePath, fixture.source, "utf8");
   fs.writeFileSync(
     path.join(pluginRoot, "package.json"),
-    JSON.stringify(fixture.packageJson ?? { name: "@openclaw/demo" }),
+    JSON.stringify(fixture.packageJson ?? { name: "@granted/demo" }),
     "utf8",
   );
   return createExtensionPluginSdkBoundaryChecker({ repoRoot });
@@ -63,42 +63,42 @@ describe("production plugin normalization ownership boundary", () => {
     {
       name: "static string import",
       source:
-        'import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";',
+        'import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";',
       kind: "import",
-      specifier: "@openclaw/normalization-core/string-coerce",
+      specifier: "@granted/normalization-core/string-coerce",
       resolvedPath: "packages/normalization-core/src/string-coerce.ts",
       facade: "openclaw/plugin-sdk/string-coerce-runtime",
     },
     {
       name: "record re-export from public barrel",
       file: "api.ts",
-      source: 'export { isRecord } from "@openclaw/normalization-core/record-coerce";',
+      source: 'export { isRecord } from "@granted/normalization-core/record-coerce";',
       kind: "export",
-      specifier: "@openclaw/normalization-core/record-coerce",
+      specifier: "@granted/normalization-core/record-coerce",
       resolvedPath: "packages/normalization-core/src/record-coerce.ts",
       facade: "openclaw/plugin-sdk/string-coerce-runtime",
     },
     {
       name: "dynamic number import",
-      source: 'await import("@openclaw/normalization-core/number-coercion");',
+      source: 'await import("@granted/normalization-core/number-coercion");',
       kind: "dynamic-import",
-      specifier: "@openclaw/normalization-core/number-coercion",
+      specifier: "@granted/normalization-core/number-coercion",
       resolvedPath: "packages/normalization-core/src/number-coercion.ts",
       facade: "openclaw/plugin-sdk/number-runtime",
     },
     {
       name: "error import",
-      source: 'import { toErrorObject } from "@openclaw/normalization-core/error-coercion";',
+      source: 'import { toErrorObject } from "@granted/normalization-core/error-coercion";',
       kind: "import",
-      specifier: "@openclaw/normalization-core/error-coercion",
+      specifier: "@granted/normalization-core/error-coercion",
       resolvedPath: "packages/normalization-core/src/error-coercion.ts",
       facade: "openclaw/plugin-sdk/error-runtime",
     },
     {
       name: "bare package import",
-      source: 'import { expectDefined } from "@openclaw/normalization-core";',
+      source: 'import { expectDefined } from "@granted/normalization-core";',
       kind: "import",
-      specifier: "@openclaw/normalization-core",
+      specifier: "@granted/normalization-core",
       resolvedPath: "packages/normalization-core/src/index.ts",
     },
     {
@@ -167,24 +167,24 @@ describe("production plugin normalization ownership boundary", () => {
     {
       name: "test source",
       file: "src/runtime.test.ts",
-      source: 'import "@openclaw/normalization-core/record-coerce";',
+      source: 'import "@granted/normalization-core/record-coerce";',
     },
     {
       name: "dist generated source",
       file: "dist/generated.js",
-      source: 'import "@openclaw/normalization-core/record-coerce";',
+      source: 'import "@granted/normalization-core/record-coerce";',
     },
     {
       name: "declared generated asset",
       file: "src/generated.js",
       packageJson: {
-        name: "@openclaw/demo",
+        name: "@granted/demo",
         openclaw: {
           assetScripts: { build: "node build.mjs" },
           build: { staticAssets: [{ source: "src/generated.js", output: "generated.js" }] },
         },
       },
-      source: 'import "@openclaw/normalization-core/record-coerce";',
+      source: 'import "@granted/normalization-core/record-coerce";',
     },
   ])("allows $name", async ({ source, file, packageJson }) => {
     const checker = createBoundaryFixture({ source, file, packageJson });
@@ -197,7 +197,7 @@ describe("production plugin normalization ownership boundary", () => {
 
   it("renders actionable human diagnostics and fails strict mode", async () => {
     const checker = createBoundaryFixture({
-      source: 'export { toErrorObject } from "@openclaw/normalization-core/error-coercion";',
+      source: 'export { toErrorObject } from "@granted/normalization-core/error-coercion";',
       file: "runtime-api.ts",
     });
     const captured = createCapturedIo();
@@ -209,7 +209,7 @@ describe("production plugin normalization ownership boundary", () => {
     expect(captured.readStdout()).toContain("extensions/demo/runtime-api.ts");
     expect(captured.readStdout()).toContain("line 1 [export]");
     expect(captured.readStdout()).toContain("re-exports");
-    expect(captured.readStdout()).toContain("@openclaw/normalization-core/error-coercion");
+    expect(captured.readStdout()).toContain("@granted/normalization-core/error-coercion");
     expect(captured.readStdout()).toContain("openclaw/plugin-sdk/error-runtime");
     expect(captured.readStderr()).toContain("violations found (1)");
   });

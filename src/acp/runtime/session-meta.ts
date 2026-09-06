@@ -1,7 +1,7 @@
 /** SQLite-backed ACP session metadata storage keyed through session-store entries. */
 import type { DatabaseSync } from "node:sqlite";
-import { safeParseJsonRecord } from "@openclaw/normalization-core";
-import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
+import { safeParseJsonRecord } from "@granted/normalization-core";
+import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
 import type { Insertable } from "kysely";
 import { getRuntimeConfig } from "../../config/config.js";
 import { patchSessionEntryWithKey } from "../../config/sessions/session-accessor.js";

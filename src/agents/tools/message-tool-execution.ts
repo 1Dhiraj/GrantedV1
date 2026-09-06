@@ -2,7 +2,7 @@ import {
   normalizeOptionalLowercaseString,
   normalizeOptionalString,
   normalizeOptionalStringifiedId,
-} from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/string-coerce";
 import {
   GATEWAY_CLIENT_IDS,
   GATEWAY_CLIENT_MODES,

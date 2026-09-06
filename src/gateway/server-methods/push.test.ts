@@ -1,7 +1,7 @@
 // Push method tests cover APNs direct/relay registrations, Web Push delivery
 // outcomes, stale registration cleanup, config resolution, and error mapping.
 
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { ErrorCodes } from "../../../packages/gateway-protocol/src/index.js";
 import { resolveUserProfileId } from "../../state/user-profiles.js";

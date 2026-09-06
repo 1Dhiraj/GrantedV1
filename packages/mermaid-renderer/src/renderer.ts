@@ -1,4 +1,4 @@
-import { asRecord } from "@openclaw/normalization-core/record-coerce";
+import { asRecord } from "@granted/normalization-core/record-coerce";
 import createDOMPurify from "dompurify";
 import type { MermaidConfig } from "mermaid";
 import mermaidScriptUrl from "mermaid/dist/mermaid.min.js?url&no-inline";

@@ -1,5 +1,5 @@
 // Doctor quarantine for plugin entries whose config fails plugin-aware validation.
-import { asNullableRecord } from "@openclaw/normalization-core/record-coerce";
+import { asNullableRecord } from "@granted/normalization-core/record-coerce";
 import { sanitizeForLog } from "../../../../packages/terminal-core/src/ansi.js";
 import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import { validateConfigObjectWithPlugins } from "../../../config/validation.js";

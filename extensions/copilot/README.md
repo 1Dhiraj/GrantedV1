@@ -5,7 +5,7 @@ External OpenClaw plugin that registers a `copilot` agent harness backed by `@gi
 ## Install
 
 ```bash
-openclaw plugins install @openclaw/copilot
+openclaw plugins install @granted/copilot
 ```
 
 Restart the Gateway after installing or updating the plugin.
@@ -23,5 +23,5 @@ questions, replay, and the supported-surface contract.
 ## Package
 
 - Plugin id: `copilot`
-- Package: `@openclaw/copilot`
+- Package: `@granted/copilot`
 - Minimum OpenClaw host: `2026.5.28`

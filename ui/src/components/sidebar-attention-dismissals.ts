@@ -1,8 +1,8 @@
 // Per-gateway, per-browser snooze state for the sidebar attention chips.
 // Deliberately client-side chrome (like nav width / dock layout), not gateway
 // state: dismissing a nag on one device should not acknowledge it everywhere.
-import { gatewayOriginScope } from "@openclaw/gateway-client/browser";
-import { asNullableRecord } from "@openclaw/normalization-core/record-coerce";
+import { gatewayOriginScope } from "@granted/gateway-client/browser";
+import { asNullableRecord } from "@granted/normalization-core/record-coerce";
 import type { UpdateAvailable, UpdateScheduleState } from "../api/types.ts";
 import { getSafeLocalStorage } from "../local-storage.ts";
 import {

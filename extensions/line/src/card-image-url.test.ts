@@ -1,6 +1,6 @@
 import { createServer } from "node:http";
 import type { messagingApi } from "@line/bot-sdk";
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { createActionCard, createImageCard } from "./flex-templates/basic-cards.js";
 import { renderLineCard } from "./rich-messages.js";

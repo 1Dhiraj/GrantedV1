@@ -1,13 +1,13 @@
 /** Node-host command dispatcher for system commands, approvals, env policy, and plugin commands. */
 import fs from "node:fs";
 import path from "node:path";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
-} from "@openclaw/normalization-core/string-coerce";
-import { normalizeStringEntries } from "@openclaw/normalization-core/string-normalization";
-import { sliceUtf16Safe, truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+} from "@granted/normalization-core/string-coerce";
+import { normalizeStringEntries } from "@granted/normalization-core/string-normalization";
+import { sliceUtf16Safe, truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import { DEFAULT_ASK, DEFAULT_SECURITY } from "../infra/exec-approvals-config.js";
 import {
   analyzeArgvCommand,

@@ -1,5 +1,5 @@
 {
-  "name": "@openclaw/byteplus-provider",
+  "name": "@granted/byteplus-provider",
   "version": "2026.8.1",
   "description": "OpenClaw BytePlus provider plugin.",
   "repository": {
@@ -8,15 +8,15 @@
   },
   "type": "module",
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*"
+    "@granted/plugin-sdk": "workspace:*"
   },
   "openclaw": {
     "extensions": [
       "./index.ts"
     ],
     "install": {
-      "clawhubSpec": "clawhub:@openclaw/byteplus-provider",
-      "npmSpec": "@openclaw/byteplus-provider",
+      "clawhubSpec": "clawhub:@granted/byteplus-provider",
+      "npmSpec": "@granted/byteplus-provider",
       "defaultChoice": "npm",
       "minHostVersion": ">=2026.7.2"
     },

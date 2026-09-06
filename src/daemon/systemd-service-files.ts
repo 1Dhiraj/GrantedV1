@@ -1,8 +1,8 @@
 /** Linux systemd unit paths and environment-file parsing. */
 import fs from "node:fs/promises";
 import path from "node:path";
-import { asOptionalRecord } from "@openclaw/normalization-core/record-coerce";
-import { normalizeStringEntries } from "@openclaw/normalization-core/string-normalization";
+import { asOptionalRecord } from "@granted/normalization-core/record-coerce";
+import { normalizeStringEntries } from "@granted/normalization-core/string-normalization";
 import { isUnresolvedShellReference } from "../config/state-dir-dotenv.js";
 import { hasErrnoCode } from "../infra/errno.js";
 import { splitArgsPreservingQuotes } from "./arg-split.js";

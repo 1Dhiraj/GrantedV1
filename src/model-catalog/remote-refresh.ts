@@ -2,7 +2,7 @@ import {
   parseRemoteModelCatalogBundle,
   validateAndSanitizeRemoteModelCatalogBundle,
   type RemoteModelCatalogBundle,
-} from "@openclaw/model-catalog-core";
+} from "@granted/model-catalog-core";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import { compareOpenClawVersions } from "../config/version.js";
 import { readResponseWithLimit } from "../infra/http-body.js";

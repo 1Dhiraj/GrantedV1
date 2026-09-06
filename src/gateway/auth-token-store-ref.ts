@@ -1,5 +1,5 @@
 /** Store-backed SecretRef provisioning for gateway auth tokens setup generates itself. */
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { randomToken } from "../commands/random-token.js";
 import type { SecretRef } from "../config/types.secrets.js";
 import { resolveDefaultSecretProviderAlias } from "../secrets/ref-contract.js";

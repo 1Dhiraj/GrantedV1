@@ -1,5 +1,5 @@
 // Doctor runtime checks inspect tool names, browser residue, and runtime state.
-import { redactSensitiveUrlLikeString } from "@openclaw/net-policy/redact-sensitive-url";
+import { redactSensitiveUrlLikeString } from "@granted/net-policy/redact-sensitive-url";
 import { sanitizeTerminalText } from "../../packages/terminal-core/src/safe-text.js";
 import { assignSafeServerNames, TOOL_NAME_SEPARATOR } from "../agents/agent-bundle-mcp-names.js";
 import { loadSessionMcpConfig } from "../agents/agent-bundle-mcp-runtime-config.js";

@@ -1,5 +1,5 @@
 import path from "node:path";
-import type { QuestionRecord } from "@openclaw/gateway-protocol";
+import type { QuestionRecord } from "@granted/gateway-protocol";
 import { beforeEach, expect, it } from "vitest";
 import type { GatewaySessionRow, SessionsListResult } from "../api/types.ts";
 import { createControlUiE2eArtifactDir } from "../test-helpers/control-ui-e2e-artifacts.ts";

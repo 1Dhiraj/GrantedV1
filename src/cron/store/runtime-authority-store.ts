@@ -1,7 +1,7 @@
 /** Downgrade-stable persistence for runtime-private cron authority. */
 import { createHash } from "node:crypto";
 import type { DatabaseSync } from "node:sqlite";
-import { safeParseJson } from "@openclaw/normalization-core";
+import { safeParseJson } from "@granted/normalization-core";
 import type { Selectable } from "kysely";
 import { executeSqliteQuerySync, getNodeSqliteKysely } from "../../infra/kysely-sync.js";
 import { tableExists } from "../../state/openclaw-state-db-schema-helpers.js";

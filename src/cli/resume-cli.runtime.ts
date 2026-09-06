@@ -1,6 +1,6 @@
 // Resolves recent Gateway sessions and attaches the existing TUI to the selected key.
 import { cancel, isCancel } from "@clack/prompts";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import type { ErrorShape } from "../../packages/gateway-protocol/src/frame-guards.js";
 import { selectStyled } from "../../packages/terminal-core/src/prompt-select-styled.js";
 import { sanitizeTerminalText } from "../../packages/terminal-core/src/safe-text.js";

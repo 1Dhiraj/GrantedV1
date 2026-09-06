@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { err, ok, type Result } from "@openclaw/normalization-core/result";
+import { err, ok, type Result } from "@granted/normalization-core/result";
 // Doctor gateway service tests cover service audit diagnostics and duplicate gateway service reporting.
 import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";

@@ -12,8 +12,8 @@ import path from "node:path";
 import process from "node:process";
 import { setTimeout as delay } from "node:timers/promises";
 import { fileURLToPath, pathToFileURL } from "node:url";
-import { asRecord, isRecord } from "@openclaw/normalization-core/record-coerce";
-import { hasNonEmptyString } from "@openclaw/normalization-core/string-coerce";
+import { asRecord, isRecord } from "@granted/normalization-core/record-coerce";
+import { hasNonEmptyString } from "@granted/normalization-core/string-coerce";
 import {
   createBoundedResponseTooLargeError,
   readBoundedResponseText,
@@ -120,7 +120,7 @@ type PosixProcessRow = {
 type MalformedProcessRow = { pidRaw: string; ppidRaw: string };
 
 const PLUGIN_SPEC =
-  process.env.GRANTED_KITCHEN_SINK_NPM_SPEC || "npm:@openclaw/kitchen-sink@latest";
+  process.env.GRANTED_KITCHEN_SINK_NPM_SPEC || "npm:@granted/kitchen-sink@latest";
 const PLUGIN_ID = process.env.GRANTED_KITCHEN_SINK_PLUGIN_ID || "openclaw-kitchen-sink-fixture";
 const CHANNEL_ID = "kitchen-sink-channel";
 const CHANNEL_ACCOUNT_ID = "local";
@@ -221,7 +221,7 @@ Runs the external Kitchen Sink plugin RPC walk against a built OpenClaw entry.
 
 Environment:
   GRANTED_ENTRY                         Built OpenClaw entrypoint. Defaults to dist/index.mjs or dist/index.js.
-  GRANTED_KITCHEN_SINK_NPM_SPEC         Plugin package spec. Default: npm:@openclaw/kitchen-sink@latest.
+  GRANTED_KITCHEN_SINK_NPM_SPEC         Plugin package spec. Default: npm:@granted/kitchen-sink@latest.
   GRANTED_KITCHEN_SINK_PLUGIN_ID        Plugin id. Default: openclaw-kitchen-sink-fixture.
   GRANTED_KITCHEN_SINK_PERSONALITY      Plugin fixture personality. Default: conformance.
   GRANTED_KITCHEN_SINK_RPC_PORT         Gateway loopback port. Default: OS-selected free port.

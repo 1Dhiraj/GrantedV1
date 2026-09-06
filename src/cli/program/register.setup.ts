@@ -1,4 +1,4 @@
-import { readStringValue } from "@openclaw/normalization-core/string-coerce";
+import { readStringValue } from "@granted/normalization-core/string-coerce";
 // Setup command registration: system-agent chat for configured systems, onboarding otherwise.
 import type { Command } from "commander";
 import { formatDocsLink } from "../../../packages/terminal-core/src/links.js";

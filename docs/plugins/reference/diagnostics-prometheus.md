@@ -11,8 +11,8 @@ OpenClaw diagnostics Prometheus exporter for runtime metrics.
 
 ## Distribution
 
-- Package: `@openclaw/diagnostics-prometheus`
-- Install route: npm; ClawHub: `clawhub:@openclaw/diagnostics-prometheus`
+- Package: `@granted/diagnostics-prometheus`
+- Install route: npm; ClawHub: `clawhub:@granted/diagnostics-prometheus`
 
 ## Surface
 

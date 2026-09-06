@@ -1,6 +1,6 @@
 // System-agent session lifecycle tests cover ownership, eviction, and reset boundaries.
 
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { buildSystemAgentSessionInvalidatedErrorDetails } from "../../../packages/gateway-protocol/src/index.js";
 import { createDeferred } from "../../../test/helpers/promise.js";

@@ -1,5 +1,5 @@
-import { estimateBase64DecodedBytes } from "@openclaw/media-core/base64";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { estimateBase64DecodedBytes } from "@granted/media-core/base64";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 
 /** Drops Claude's echoed binary bytes before they enter retained tool/transcript state. */
 export function normalizeClaudeCliStreamJsonRecord(

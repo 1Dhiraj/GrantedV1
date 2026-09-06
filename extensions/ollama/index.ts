@@ -1,6 +1,6 @@
 // Ollama plugin entrypoint registers its OpenClaw integration.
-import { collectConfiguredModelRefValues } from "@openclaw/model-catalog-core/configured-model-refs";
-import { findNormalizedProviderKey } from "@openclaw/model-catalog-core/provider-id";
+import { collectConfiguredModelRefValues } from "@granted/model-catalog-core/configured-model-refs";
+import { findNormalizedProviderKey } from "@granted/model-catalog-core/provider-id";
 import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
 import type { MediaUnderstandingProvider } from "granted/plugin-sdk/media-understanding";

@@ -4,7 +4,7 @@ import { createHash } from "node:crypto";
 import { chmodSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { crc32 } from "node:zlib";
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   downloadClawHubBootstrapReadback,
@@ -260,7 +260,7 @@ describe("parseReleaseVerifyBetaArgs", () => {
         "--clawhub-workflow-ref",
         "v2026.5.10-beta.3",
         "--plugins",
-        "@openclaw/plugin-a,@openclaw/plugin-b",
+        "@granted/plugin-a,@granted/plugin-b",
         "--full-release-validation-run",
         "10",
         "--openclaw-npm-run",
@@ -272,7 +272,7 @@ describe("parseReleaseVerifyBetaArgs", () => {
         "--plugin-clawhub-bootstrap-run",
         "34",
         "--clawhub-bootstrap-plugins",
-        "@openclaw/plugin-b",
+        "@granted/plugin-b",
         "--npm-telegram-run",
         "44",
         "--evidence-out",
@@ -292,8 +292,8 @@ describe("parseReleaseVerifyBetaArgs", () => {
       releaseSha: "a".repeat(40),
       workflowRef: "release/2026.5.10",
       clawHubWorkflowRef: "v2026.5.10-beta.3",
-      pluginSelection: ["@openclaw/plugin-a", "@openclaw/plugin-b"],
-      clawHubBootstrapPlugins: ["@openclaw/plugin-b"],
+      pluginSelection: ["@granted/plugin-a", "@granted/plugin-b"],
+      clawHubBootstrapPlugins: ["@granted/plugin-b"],
       evidenceOut: ".artifacts/release-evidence.json",
       postpublishVerifier: "/tmp/trusted-postpublish.ts",
       skipPostpublish: false,
@@ -349,7 +349,7 @@ describe("parseReleaseVerifyBetaArgs", () => {
       parseReleaseVerifyBetaArgs([
         "2026.5.10-beta.3",
         "--clawhub-bootstrap-plugins",
-        "@openclaw/plugin-b",
+        "@granted/plugin-b",
       ]),
     ).toThrow("--clawhub-bootstrap-plugins requires --plugin-clawhub-bootstrap-run");
   });
@@ -412,11 +412,11 @@ describe("validateClawHubBootstrapEvidence", () => {
     clawhubToolchainIntegrity,
     clawhubToolchainSha256,
     clawhubToolchainVersion,
-    requestedPlugins: ["@openclaw/meta"],
+    requestedPlugins: ["@granted/meta"],
     verificationMode: "postpublish",
     packages: [
       {
-        packageName: "@openclaw/meta",
+        packageName: "@granted/meta",
         version: "2026.7.1-beta.3",
         expectedSha256: packageSha,
         expectedSize: 123,
@@ -430,7 +430,7 @@ describe("validateClawHubBootstrapEvidence", () => {
           size: 123,
           npmIntegrity: "sha512-test",
           npmShasum: "1".repeat(40),
-          packageName: "@openclaw/meta",
+          packageName: "@granted/meta",
           version: "2026.7.1-beta.3",
         },
       },
@@ -451,7 +451,7 @@ describe("validateClawHubBootstrapEvidence", () => {
       runId: "34",
       releaseSha,
       expectedVersion: "2026.7.1-beta.3",
-      expectedPackages: overrides.expectedPackages ?? ["@openclaw/meta"],
+      expectedPackages: overrides.expectedPackages ?? ["@granted/meta"],
       run: overrides.run ?? run,
       readbackArtifact: overrides.readbackArtifact ?? readbackArtifact,
       readbackArchiveSha256: readbackSha,
@@ -495,7 +495,7 @@ describe("validateClawHubBootstrapEvidence", () => {
     expect(() => validate({ evidence: { ...evidence, targetSha: "e".repeat(40) } })).toThrow(
       "target SHA mismatch",
     );
-    expect(() => validate({ expectedPackages: ["@openclaw/other"] })).toThrow(
+    expect(() => validate({ expectedPackages: ["@granted/other"] })).toThrow(
       "requested package set mismatch",
     );
   });

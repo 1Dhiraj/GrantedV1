@@ -1,5 +1,5 @@
 {
-  "name": "@openclaw/telegram",
+  "name": "@granted/telegram",
   "version": "2026.8.1",
   "private": true,
   "description": "OpenClaw Telegram channel plugin",
@@ -13,7 +13,7 @@
     "zod": "4.4.3"
   },
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*"
+    "@granted/plugin-sdk": "workspace:*"
   },
   "openclaw": {
     "extensions": [

@@ -3,7 +3,7 @@ import { createServer } from "node:http";
 import os from "node:os";
 import path from "node:path";
 import { Worker } from "node:worker_threads";
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { Bot } from "grammy";
 import type { Update } from "grammy/types";
 import type { ChannelAccountSnapshot } from "granted/plugin-sdk/channel-contract";

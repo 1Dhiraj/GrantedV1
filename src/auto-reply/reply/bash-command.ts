@@ -2,8 +2,8 @@
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
-} from "@openclaw/normalization-core/string-coerce";
-import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+} from "@granted/normalization-core/string-coerce";
+import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import { resolveSessionAgentId } from "../../agents/agent-scope.js";
 import { cancelBackgroundExecSession } from "../../agents/bash-process-control.js";
 import { getFinishedSession, getSession } from "../../agents/bash-process-registry.js";

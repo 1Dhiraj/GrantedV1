@@ -1,9 +1,9 @@
 import {
   readAssistantStreamSegmentIdentity,
   readSessionMessageIdentity,
-} from "@openclaw/gateway-client/browser";
-import { asNullableRecord as asRecord } from "@openclaw/normalization-core/record-coerce";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+} from "@granted/gateway-client/browser";
+import { asNullableRecord as asRecord } from "@granted/normalization-core/record-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import type { ChatItem } from "../../lib/chat/chat-types.ts";
 import { normalizeRoleForGrouping } from "../../lib/chat/message-normalizer.ts";
 import { userTurnRunId, type TurnInsertionBounds } from "./chat-thread-items.ts";

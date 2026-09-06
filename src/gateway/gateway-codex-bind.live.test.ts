@@ -3,7 +3,7 @@ import { randomBytes, randomUUID } from "node:crypto";
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { normalizeOptionalLowercaseString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalLowercaseString } from "@granted/normalization-core/string-coerce";
 import { describe, expect, it } from "vitest";
 import { renderCatFacePngBase64 } from "../../test/helpers/live-image-probe.js";
 import { resolveDefaultAgentDir } from "../agents/agent-scope-config.js";

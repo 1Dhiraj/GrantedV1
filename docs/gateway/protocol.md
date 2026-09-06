@@ -20,14 +20,14 @@ The verified stable package release is `2026.8.1`. Follow
 commands and compatibility guidance. Package release versions are separate from
 the wire protocol version and the root `openclaw` CLI release.
 
-- [`@openclaw/gateway-protocol`](https://www.npmjs.com/package/@openclaw/gateway-protocol)
+- [`@granted/gateway-protocol`](https://www.npmjs.com/package/@granted/gateway-protocol)
   publishes the schemas, validators, TypeScript types, lightweight frame and error
   helpers, and version constants. Its tarball includes the generated
-  [`protocol.schema.json`](https://unpkg.com/@openclaw/gateway-protocol@2026.8.1/protocol.schema.json)
+  [`protocol.schema.json`](https://unpkg.com/@granted/gateway-protocol@2026.8.1/protocol.schema.json)
   machine-readable contract as a downloadable file, not an exported import subpath.
-- [`@openclaw/gateway-client`](https://www.npmjs.com/package/@openclaw/gateway-client)
+- [`@granted/gateway-client`](https://www.npmjs.com/package/@granted/gateway-client)
   publishes the reference Node client and a browser-safe entry at
-  `@openclaw/gateway-client/browser`.
+  `@granted/gateway-client/browser`.
 
 For application lifecycle guidance, see
 [Building a Gateway client](https://docs.openclaw.ai/gateway/clients). For apps
@@ -78,11 +78,11 @@ missing-scope details:
 
 Clients should read `details` first and use the legacy message only as a compatibility
 fallback. `readMissingScopeError` and `readMissingScopeErrorDetails` are exported from
-`@openclaw/gateway-protocol/gateway-error-details`; the browser-safe gateway client
-re-exports them from `@openclaw/gateway-client/browser`.
+`@granted/gateway-protocol/gateway-error-details`; the browser-safe gateway client
+re-exports them from `@granted/gateway-client/browser`.
 
 The schemas are exported as `GatewayErrorDetailsSchema`,
-`MissingScopeErrorDetailsSchema` from `@openclaw/gateway-protocol/schema`.
+`MissingScopeErrorDetailsSchema` from `@granted/gateway-protocol/schema`.
 HTTP scope failures mirror the `MISSING_SCOPE` object under `error.details` and
 use HTTP status `403`.
 

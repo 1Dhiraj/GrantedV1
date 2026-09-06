@@ -1,5 +1,5 @@
-import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
-import { sortUniqueStrings } from "@openclaw/normalization-core/string-normalization";
+import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
+import { sortUniqueStrings } from "@granted/normalization-core/string-normalization";
 // Control UI view renders activity screen content.
 import { html, nothing } from "lit";
 import { icons } from "../../components/icons.ts";

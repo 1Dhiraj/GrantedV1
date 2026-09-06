@@ -1,4 +1,4 @@
-import { addTimerTimeoutGraceMs } from "@openclaw/normalization-core/number-coercion";
+import { addTimerTimeoutGraceMs } from "@granted/normalization-core/number-coercion";
 import {
   exceedsApprovalTextLimit,
   sanitizeExecApprovalWarningTextWithStatus,

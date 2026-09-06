@@ -1,7 +1,7 @@
 // Transcript event helpers serialize and trim session transcript events.
-import { asPositiveSafeInteger } from "@openclaw/normalization-core/number-coercion";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { asPositiveSafeInteger } from "@granted/normalization-core/number-coercion";
+import { isRecord } from "@granted/normalization-core/record-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { parseAgentSessionKey } from "../routing/session-key.js";
 import { resolveGlobalSet, resolveGlobalSingleton } from "../shared/global-singleton.js";
 

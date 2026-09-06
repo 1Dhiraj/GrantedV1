@@ -79,7 +79,7 @@ export async function resolveTrustedOfficialPrereleaseResolution(params: {
   signal?: AbortSignal;
   logger: PluginInstallLogger;
 }): Promise<TrustedOfficialPrereleaseResolution | null> {
-  if (!params.spec.name.startsWith("@openclaw/")) {
+  if (!params.spec.name.startsWith("@granted/")) {
     return null;
   }
   const semverVersions = await loadNpmPackageVersions({

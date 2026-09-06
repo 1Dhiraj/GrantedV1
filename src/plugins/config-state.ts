@@ -1,6 +1,6 @@
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 /** Normalizes plugin config and resolves effective enablement, slots, and activation sources. */
-import { normalizeOptionalLowercaseString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalLowercaseString } from "@granted/normalization-core/string-coerce";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   resolveMemorySlotDecisionShared,

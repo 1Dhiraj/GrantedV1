@@ -3,9 +3,9 @@ import { createHash } from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import { isDeepStrictEqual } from "node:util";
-import { collectConfiguredModelRefs } from "@openclaw/model-catalog-core/configured-model-refs";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
-import { readNonBlankString as readNonEmptyString } from "@openclaw/normalization-core/string-coerce";
+import { collectConfiguredModelRefs } from "@granted/model-catalog-core/configured-model-refs";
+import { isRecord } from "@granted/normalization-core/record-coerce";
+import { readNonBlankString as readNonEmptyString } from "@granted/normalization-core/string-coerce";
 import { note } from "../../packages/terminal-core/src/note.js";
 import { AUTH_STORE_VERSION } from "../agents/auth-profiles/constants.js";
 import {

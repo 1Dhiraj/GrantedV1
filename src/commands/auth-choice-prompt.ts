@@ -1,6 +1,6 @@
 // Interactive grouped auth-choice prompt used by onboarding and agent setup.
-import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
-import { expectDefined } from "@openclaw/normalization-core";
+import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
+import { expectDefined } from "@granted/normalization-core";
 import type { AuthProfileStore } from "../agents/auth-profiles/types.js";
 import { resolveAgentModelPrimaryValue } from "../config/model-input.js";
 import type { GrantedConfig } from "../config/types.openclaw.js";

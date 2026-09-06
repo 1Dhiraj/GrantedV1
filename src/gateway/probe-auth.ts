@@ -1,6 +1,6 @@
 // Gateway probe auth resolver.
 // Adapts gateway credential precedence for local/remote reachability checks.
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolveGatewayProbeSurfaceAuth } from "./auth-surface-resolution.js";
 import { createGatewayCredentialPlan } from "./credential-planner.js";

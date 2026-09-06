@@ -49,7 +49,7 @@ async function writeLocalizedCommandPlugin(params: { repoRoot: string; workspace
     path.join(pluginDir, "package.json"),
     `${JSON.stringify(
       {
-        name: `@openclaw/${LOCALIZED_PLUGIN_ID}`,
+        name: `@granted/${LOCALIZED_PLUGIN_ID}`,
         version: "0.0.0",
         type: "module",
         openclaw: { extensions: ["./index.js"] },

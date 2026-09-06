@@ -79,7 +79,7 @@ describe("persistPluginInstall enablement", () => {
       },
     } as GrantedConfig;
     setInstalledPluginIndexInstallRecords({
-      "demo-package": { source: "npm", spec: "@openclaw/demo-package@0.0.1" },
+      "demo-package": { source: "npm", spec: "@granted/demo-package@0.0.1" },
     });
     loadPluginManifestRegistryMock.mockReturnValue({
       plugins: [createManifestRecord("demo-plugin-npm", {}, "demo-package")],
@@ -95,7 +95,7 @@ describe("persistPluginInstall enablement", () => {
       pluginId: "demo-package",
       install: {
         source: "npm",
-        spec: "@openclaw/demo-package@0.0.1",
+        spec: "@granted/demo-package@0.0.1",
         installPath: "/tmp/demo-package",
       },
     });

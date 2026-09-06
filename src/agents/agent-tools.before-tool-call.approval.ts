@@ -3,7 +3,7 @@
  * Owns request/wait routing, embedded approval bridging, deferred approvals,
  * timeout classification, and owner-provided approval outcomes.
  */
-import { addTimerTimeoutGraceMs } from "@openclaw/normalization-core/number-coercion";
+import { addTimerTimeoutGraceMs } from "@granted/normalization-core/number-coercion";
 import { GatewayClientRequestError } from "../gateway/client.js";
 import { sanitizeApprovalScope } from "../infra/approval-scope.js";
 import { isEmbeddedMode } from "../infra/embedded-mode.js";

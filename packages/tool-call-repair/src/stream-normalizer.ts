@@ -1,4 +1,4 @@
-import { asOptionalObjectRecord } from "@openclaw/normalization-core/record-coerce";
+import { asOptionalObjectRecord } from "@granted/normalization-core/record-coerce";
 import {
   isOffsetInProtectedRanges,
   type PlainTextToolCallNameMatcher,

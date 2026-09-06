@@ -20,7 +20,7 @@ import { tmpdir } from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { runInNewContext } from "node:vm";
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import ts from "typescript";
 import { afterEach, describe, expect, it } from "vitest";
 import { parse } from "yaml";
@@ -1378,7 +1378,7 @@ function runProtocolSinceFixture(checkout: string, baseSha: string) {
     JSON.stringify({
       compilerOptions: {
         paths: {
-          "@openclaw/normalization-core/record-coerce": [
+          "@granted/normalization-core/record-coerce": [
             "./packages/normalization-core/src/record-coerce.ts",
           ],
         },

@@ -6,8 +6,8 @@ import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalLowercaseString,
   normalizeOptionalString,
-} from "@openclaw/normalization-core/string-coerce";
-import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+} from "@granted/normalization-core/string-coerce";
+import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import type { PresenceEntry } from "../../packages/gateway-protocol/src/schema/snapshot.js";
 import { resolveRuntimeServiceVersion } from "../version.js";
 import { pickBestEffortPrimaryLanIPv4 } from "./network-discovery-display.js";

@@ -18,7 +18,7 @@ a memory store outside the default built-in memory backend.
 ## Installation
 
 ```bash
-openclaw plugins install @openclaw/memory-lancedb
+openclaw plugins install @granted/memory-lancedb
 ```
 
 The plugin is published to npm; it is not bundled into the OpenClaw runtime

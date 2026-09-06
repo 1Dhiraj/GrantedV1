@@ -1,9 +1,9 @@
 import {
   readSessionMessageIdentity,
   readSessionMessageSequence,
-} from "@openclaw/gateway-client/browser";
-import type { SessionProjectionScope } from "@openclaw/gateway-client/browser";
-import { asNonArrayRecord } from "@openclaw/normalization-core/record-coerce";
+} from "@granted/gateway-client/browser";
+import type { SessionProjectionScope } from "@granted/gateway-client/browser";
+import { asNonArrayRecord } from "@granted/normalization-core/record-coerce";
 import { extractText } from "../../lib/chat/message-extract.ts";
 import { resolveChatAgentId } from "./chat-agent-id.ts";
 import type { ChatState } from "./chat-state-contract.ts";

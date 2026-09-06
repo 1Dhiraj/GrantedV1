@@ -23,7 +23,7 @@ import { homedir, tmpdir } from "node:os";
 import { delimiter, dirname, extname, isAbsolute, relative, resolve } from "node:path";
 import { StringDecoder } from "node:string_decoder";
 import { fileURLToPath } from "node:url";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import { crabboxProviderChain, normalizeCrabboxWorkload } from "./crabbox-routing-policy.mts";
 import {
   canonicalProviderName,

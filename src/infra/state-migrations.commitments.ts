@@ -1,7 +1,7 @@
 // Doctor-only removal for the retired commitments JSON store.
 import path from "node:path";
 import { root, type Root } from "@openclaw/fs-safe";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import {
   openExistingOpenClawStateDatabaseReadOnly,
   runOpenClawStateWriteTransaction,

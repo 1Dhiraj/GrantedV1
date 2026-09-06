@@ -5,9 +5,9 @@ import fs from "node:fs/promises";
 import { createServer as createHttpServer } from "node:http";
 import os from "node:os";
 import path from "node:path";
-import { configureAiTransportHost, getAiTransportHost } from "@openclaw/ai";
-import { expectDefined } from "@openclaw/normalization-core";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { configureAiTransportHost, getAiTransportHost } from "@granted/ai";
+import { expectDefined } from "@granted/normalization-core";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import {
   clampThinkingLevel,
   type Api,

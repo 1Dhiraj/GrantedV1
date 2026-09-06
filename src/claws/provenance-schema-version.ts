@@ -1,5 +1,5 @@
 import type { DatabaseSync } from "node:sqlite";
-import { stableStringify } from "@openclaw/normalization-core";
+import { stableStringify } from "@granted/normalization-core";
 
 const LEGACY_CLAW_INSTALL_RECORD_SCHEMA_VERSION = "openclaw.clawInstallRecord.v1" as const;
 export const CLAW_INSTALL_RECORD_SCHEMA_VERSION = "openclaw.clawInstallRecord.v2" as const;

@@ -1,4 +1,4 @@
-import { asOptionalObjectRecord } from "@openclaw/normalization-core/record-coerce";
+import { asOptionalObjectRecord } from "@granted/normalization-core/record-coerce";
 import { Type } from "typebox";
 import {
   PROGRESS_CARD_MAX_STEPS,

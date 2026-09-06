@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
-import { stableStringify } from "@openclaw/normalization-core";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { stableStringify } from "@granted/normalization-core";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import { emitSessionLifecycleEvent } from "../sessions/session-lifecycle-events.js";
 import type { PendingBridgeRequest } from "./code-mode-worker-types.js";
 import type { AgentToolUpdateCallback } from "./runtime/index.js";

@@ -2,7 +2,7 @@
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parseArgs } from "node:util";
-import { parseStrictPositiveInteger } from "@openclaw/normalization-core/number-coercion";
+import { parseStrictPositiveInteger } from "@granted/normalization-core/number-coercion";
 
 const options = {
   help: { type: "boolean", short: "h" },

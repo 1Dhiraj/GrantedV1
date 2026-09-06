@@ -11,7 +11,7 @@ OpenClaw Anthropic Vertex provider plugin for Claude models on Google Vertex AI.
 
 ## Distribution
 
-- Package: `@openclaw/anthropic-vertex-provider`
+- Package: `@granted/anthropic-vertex-provider`
 - Install route: npm; ClawHub
 
 ## Surface

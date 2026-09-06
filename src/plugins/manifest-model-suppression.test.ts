@@ -3,7 +3,7 @@ import fs from "node:fs";
 import {
   normalizeModelCatalog,
   normalizeModelCatalogProviderRows,
-} from "@openclaw/model-catalog-core/model-catalog-normalize";
+} from "@granted/model-catalog-core/model-catalog-normalize";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const mocks = vi.hoisted(() => ({

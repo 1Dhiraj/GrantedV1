@@ -109,7 +109,7 @@ function seedChannelPkg(
   const pluginDir = path.dirname(pkgJsonPath);
   const pluginId = opts.pluginId ?? opts.id;
   writeJsonFile(pkgJsonPath, {
-    name: `@openclaw/${pluginId}`,
+    name: `@granted/${pluginId}`,
     openclaw: {
       channel: {
         id: opts.id,
@@ -265,7 +265,7 @@ describe("listBundledChannelCatalogEntries", () => {
     const root = seedRoot("bcr-generated-doctor-");
     useBundledPluginsDir(undefined);
     seedGeneratedChannelCatalog(root, {
-      packageName: "@openclaw/discord",
+      packageName: "@granted/discord",
       id: "discord",
       label: "Discord",
       docsPath: "/channels/discord",
@@ -296,7 +296,7 @@ describe("listBundledChannelCatalogEntries", () => {
       markdownCapable: true,
     });
     seedGeneratedChannelCatalog(root, {
-      packageName: "@openclaw/matrix",
+      packageName: "@granted/matrix",
       id: "matrix",
       label: "Matrix",
       docsPath: "/channels/matrix",
@@ -315,7 +315,7 @@ describe("listBundledChannelCatalogEntries", () => {
     // rather than report zero bundled channels.
     const root = seedRoot("bcr-fallback-undefined-");
     seedGeneratedChannelCatalog(root, {
-      packageName: "@openclaw/fallback",
+      packageName: "@granted/fallback",
       id: "fallback-channel",
       label: "Fallback",
       docsPath: "/channels/fallback",
@@ -336,7 +336,7 @@ describe("listBundledChannelCatalogEntries", () => {
     const extensionsRoot = path.join(root, "dist", "extensions");
     fs.mkdirSync(extensionsRoot, { recursive: true });
     seedGeneratedChannelCatalog(root, {
-      packageName: "@openclaw/fallback",
+      packageName: "@granted/fallback",
       id: "fallback-channel",
       label: "Fallback",
       docsPath: "/channels/fallback",
@@ -374,7 +374,7 @@ describe("listBundledChannelCatalogEntries", () => {
       listBundledChannelCatalogEntries().find((entry) => entry.id === "generated"),
     ).toBeUndefined();
     seedGeneratedChannelCatalog(root, {
-      packageName: "@openclaw/generated",
+      packageName: "@granted/generated",
       id: "generated",
       label: "Generated after reset",
       docsPath: "/channels/generated",

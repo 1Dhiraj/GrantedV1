@@ -4,7 +4,7 @@ import fsSync from "node:fs";
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { Command } from "commander";
 import { afterAll, afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { PLUGIN_CAPABILITY_CONSENT_REQUIRED } from "../../packages/gateway-protocol/src/capability-consent-error-details.js";
@@ -329,7 +329,7 @@ vi.mock("./update-cli/update-command-post-plugin-readiness.js", async (importOri
 vi.mock("../utils.js", async (importOriginal) => {
   const [actual, { isRecord }] = await Promise.all([
     importOriginal<typeof import("../utils.js")>(),
-    import("@openclaw/normalization-core/record-coerce"),
+    import("@granted/normalization-core/record-coerce"),
   ]);
   return {
     ...actual,
@@ -2367,7 +2367,7 @@ describe("update-cli", () => {
       path: path.join(managedState, "openclaw.json"),
     });
     const managedRecords = {
-      telegram: { source: "npm", spec: "@openclaw/telegram@beta" },
+      telegram: { source: "npm", spec: "@granted/telegram@beta" },
     } satisfies Record<string, PluginInstallRecord>;
     primeServiceCommand(["node", path.join(process.cwd(), "dist", "index.js"), "gateway", "run"], {
       GRANTED_PROFILE: "work",
@@ -2815,7 +2815,7 @@ describe("update-cli", () => {
     const pluginInstallRecords = {
       demo: {
         source: "npm",
-        spec: "@openclaw/demo@1.0.0",
+        spec: "@granted/demo@1.0.0",
         installPath: "/tmp/openclaw-demo-plugin",
       },
     } as const;
@@ -2880,12 +2880,12 @@ describe("update-cli", () => {
     const pluginInstallRecords = {
       msteams: {
         source: "npm",
-        spec: "@openclaw/msteams",
+        spec: "@granted/msteams",
         installPath: "/tmp/openclaw-msteams-plugin",
         version: "1.0.0",
-        resolvedName: "@openclaw/msteams",
+        resolvedName: "@granted/msteams",
         resolvedVersion: "1.0.0",
-        resolvedSpec: "@openclaw/msteams@1.0.0",
+        resolvedSpec: "@granted/msteams@1.0.0",
         integrity: "sha512-newer",
       },
     } as const;
@@ -2912,10 +2912,10 @@ describe("update-cli", () => {
     expect(capturedRecords).toEqual({
       msteams: {
         source: "npm",
-        spec: "@openclaw/msteams",
+        spec: "@granted/msteams",
         installPath: "/tmp/openclaw-msteams-plugin",
         version: "1.0.0",
-        resolvedName: "@openclaw/msteams",
+        resolvedName: "@granted/msteams",
         integrity: "sha512-newer",
       },
     });
@@ -2949,7 +2949,7 @@ describe("update-cli", () => {
         installRecords: {
           msteams: {
             source: "npm",
-            spec: "@openclaw/msteams",
+            spec: "@granted/msteams",
             resolvedVersion: "1.0.0",
           },
         } satisfies Record<string, PluginInstallRecord>,
@@ -3040,7 +3040,7 @@ describe("update-cli", () => {
       installRecords: {
         msteams: {
           source: "npm",
-          spec: "@openclaw/msteams",
+          spec: "@granted/msteams",
           resolvedVersion: "1.0.0",
         },
       } satisfies Record<string, PluginInstallRecord>,
@@ -3762,7 +3762,7 @@ describe("update-cli", () => {
     const installPath = path.join(resultDir, "demo-plugin");
     await fs.mkdir(installPath, { recursive: true });
     await writeJsonFixture(recordsPath, {
-      demo: { source: "npm", spec: "@openclaw/demo@1.0.0", installPath },
+      demo: { source: "npm", spec: "@granted/demo@1.0.0", installPath },
     });
     pathExists.mockImplementation(async (candidate: string) => candidate === installPath);
 
@@ -3787,14 +3787,14 @@ describe("update-cli", () => {
     await writeJsonFixture(recordsPath, {
       stale: {
         source: "npm",
-        spec: "@openclaw/stale@1.0.0",
+        spec: "@granted/stale@1.0.0",
         installPath: "/tmp/stale-plugin",
       },
     });
     const postDoctorRecords = {
       codex: {
         source: "npm",
-        spec: "@openclaw/codex@2026.5.17",
+        spec: "@granted/codex@2026.5.17",
         installPath: "/tmp/codex-plugin",
       },
     } satisfies Record<string, PluginInstallRecord>;
@@ -3983,8 +3983,8 @@ describe("update-cli", () => {
     await expect(
       onIntegrityDrift({
         pluginId: "demo",
-        spec: "@openclaw/demo@1.0.0",
-        resolvedSpec: "@openclaw/demo@1.0.0",
+        spec: "@granted/demo@1.0.0",
+        resolvedSpec: "@granted/demo@1.0.0",
         expectedIntegrity: "sha512-old",
         actualIntegrity: "sha512-new",
       }),
@@ -4096,8 +4096,8 @@ describe("update-cli", () => {
       }) => {
         const proceed = await params.onIntegrityDrift?.({
           pluginId: "demo",
-          spec: "@openclaw/demo@1.0.0",
-          resolvedSpec: "@openclaw/demo@1.0.0",
+          spec: "@granted/demo@1.0.0",
+          resolvedSpec: "@granted/demo@1.0.0",
           resolvedVersion: "1.0.0",
           expectedIntegrity: "sha512-old",
           actualIntegrity: "sha512-new",
@@ -4112,7 +4112,7 @@ describe("update-cli", () => {
               status: "error",
               message:
                 proceed === false
-                  ? "Failed to update demo: aborted: npm package integrity drift detected for @openclaw/demo@1.0.0"
+                  ? "Failed to update demo: aborted: npm package integrity drift detected for @granted/demo@1.0.0"
                   : "unexpected drift continuation",
             },
           ],
@@ -4130,8 +4130,8 @@ describe("update-cli", () => {
     expect(jsonOutput?.postUpdate?.plugins?.integrityDrifts).toEqual([
       {
         pluginId: "demo",
-        spec: "@openclaw/demo@1.0.0",
-        resolvedSpec: "@openclaw/demo@1.0.0",
+        spec: "@granted/demo@1.0.0",
+        resolvedSpec: "@granted/demo@1.0.0",
         resolvedVersion: "1.0.0",
         expectedIntegrity: "sha512-old",
         actualIntegrity: "sha512-new",
@@ -4312,7 +4312,7 @@ describe("update-cli", () => {
     loadInstalledPluginIndexInstallRecords.mockResolvedValue({
       demo: {
         source: "npm",
-        spec: "@openclaw/demo@1.0.0",
+        spec: "@granted/demo@1.0.0",
         installPath,
       },
     });

@@ -1,5 +1,5 @@
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { snapshotOwnCronRecord } from "./own-record.js";
 
 const CRON_RUNTIME_AUTHORITY_MAX_BYTES = 64 * 1024;

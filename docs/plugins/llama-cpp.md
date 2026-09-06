@@ -14,7 +14,7 @@ manage a local `llama-server` or connect to one that you operate. Both choices
 use `llama-cpp/<model>` references and the OpenAI-compatible transport.
 
 ```bash
-openclaw plugins install @openclaw/llama-cpp-provider
+openclaw plugins install @granted/llama-cpp-provider
 openclaw onboard
 ```
 

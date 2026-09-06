@@ -1,6 +1,6 @@
 /* @vitest-environment jsdom */
 
-import type { ProgressCard } from "@openclaw/gateway-protocol";
+import type { ProgressCard } from "@granted/gateway-protocol";
 import { render } from "lit";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { ControlUiSessionPullRequestSnapshot } from "../../../src/gateway/control-ui-contract.js";

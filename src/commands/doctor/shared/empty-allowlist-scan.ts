@@ -1,5 +1,5 @@
 // Doctor scanner for empty allowlist policies across configured channels and accounts.
-import { asNullableRecord } from "@openclaw/normalization-core/record-coerce";
+import { asNullableRecord } from "@granted/normalization-core/record-coerce";
 import type { ChannelDoctorEmptyAllowlistAccountContext } from "../../../channels/plugins/types.adapters.js";
 import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import {

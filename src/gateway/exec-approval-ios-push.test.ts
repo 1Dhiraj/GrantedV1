@@ -85,7 +85,7 @@ function pluginApprovalRequest(id: string): PluginApprovalRequest {
     request: {
       title: "Install plugin update",
       description: "Allow the plugin to update its managed package.",
-      detail: '{"package":"@openclaw/example","token":"review-only"}',
+      detail: '{"package":"@granted/example","token":"review-only"}',
       severity: "warning",
       toolName: "plugins.update",
     },

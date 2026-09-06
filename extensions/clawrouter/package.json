@@ -1,11 +1,11 @@
 {
-  "name": "@openclaw/clawrouter",
+  "name": "@granted/clawrouter",
   "version": "2026.8.1",
   "private": true,
   "description": "OpenClaw ClawRouter plugin",
   "type": "module",
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*"
+    "@granted/plugin-sdk": "workspace:*"
   },
   "openclaw": {
     "extensions": [

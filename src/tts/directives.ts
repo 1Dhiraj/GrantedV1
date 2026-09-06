@@ -1,5 +1,5 @@
 // TTS directive helpers parse inline speech directives from text.
-import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
+import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
 import type { GrantedConfig } from "../config/types.js";
 import type { AssistantDeliveryTtsFacts } from "../llm/types.js";
 import type { SpeechProviderPlugin } from "../plugins/types.js";

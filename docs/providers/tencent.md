@@ -11,7 +11,7 @@ Install the official Tencent Cloud provider plugin to access Tencent Hy3 through
 | Property                  | Value                                                 |
 | ------------------------- | ----------------------------------------------------- |
 | Provider ids              | `tencent-tokenhub`, `tencent-tokenplan`               |
-| Package                   | `@openclaw/tencent-provider`                          |
+| Package                   | `@granted/tencent-provider`                          |
 | TokenHub auth env var     | `TOKENHUB_API_KEY`                                    |
 | TokenPlan auth env var    | `TOKENPLAN_API_KEY`                                   |
 | TokenHub onboarding flag  | `--auth-choice tokenhub-api-key`                      |

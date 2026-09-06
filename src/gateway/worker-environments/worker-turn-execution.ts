@@ -1,5 +1,5 @@
 import { randomUUID } from "node:crypto";
-import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import { SKILL_RESOURCE_PROTOCOL_FEATURE } from "../../../packages/gateway-protocol/src/schema/skill-resources.js";
 import { WORKER_SKILL_WORKSHOP_FEATURE } from "../../../packages/gateway-protocol/src/schema/worker-skill-workshop.js";
 import { mapThinkingLevelForProvider } from "../../agents/embedded-agent-runner/utils.js";

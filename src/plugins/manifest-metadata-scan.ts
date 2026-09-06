@@ -1,7 +1,7 @@
 // Scans plugin manifest metadata without importing runtime entrypoints.
 import path from "node:path";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
-import { normalizeOptionalString as normalizeTrimmedString } from "@openclaw/normalization-core/string-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
+import { normalizeOptionalString as normalizeTrimmedString } from "@granted/normalization-core/string-coerce";
 import { formatErrorMessage } from "../infra/errors.js";
 import { resolveHomeRelativePath } from "../infra/home-dir.js";
 import { resolveOpenClawPackageRootSync } from "../infra/openclaw-root.js";

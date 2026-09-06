@@ -1,7 +1,7 @@
 // Doctor repair for dmPolicy allowlists whose sender entries only exist in pairing stores.
-import { asNullableRecord } from "@openclaw/normalization-core/record-coerce";
-import { normalizeOptionalLowercaseString } from "@openclaw/normalization-core/string-coerce";
-import { normalizeUniqueStringEntries } from "@openclaw/normalization-core/string-normalization";
+import { asNullableRecord } from "@granted/normalization-core/record-coerce";
+import { normalizeOptionalLowercaseString } from "@granted/normalization-core/string-coerce";
+import { normalizeUniqueStringEntries } from "@granted/normalization-core/string-normalization";
 import { normalizeChatChannelId } from "../../../channels/ids.js";
 import {
   resolveChannelDmAccess,

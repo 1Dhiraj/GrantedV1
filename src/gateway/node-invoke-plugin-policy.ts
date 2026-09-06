@@ -1,8 +1,8 @@
 // Plugin-provided node.invoke policy adapter.
 // Lets plugin policies gate dangerous node commands before transport dispatch.
 import { randomUUID } from "node:crypto";
-import { asOptionalRecord } from "@openclaw/normalization-core/record-coerce";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { asOptionalRecord } from "@granted/normalization-core/record-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { recordRuntimeActionDecision } from "../audit/runtime-action-decision.js";
 import type { PluginRegistry } from "../plugins/registry-types.js";
 import { getActivePluginGatewayNodePolicyRegistry } from "../plugins/runtime.js";

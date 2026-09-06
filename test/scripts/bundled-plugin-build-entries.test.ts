@@ -40,7 +40,7 @@ describe("bundled plugin build entries", () => {
     fs.writeFileSync(
       path.join(pluginDir, "package.json"),
       JSON.stringify({
-        name: "@openclaw/external-owner",
+        name: "@granted/external-owner",
         openclaw: { build: { bundledDist: false } },
       }),
     );
@@ -302,7 +302,7 @@ describe("bundled plugin build entries", () => {
       fs.writeFileSync(
         path.join(pluginDir, "package.json"),
         `${JSON.stringify({
-          name: `@openclaw/${pluginId}`,
+          name: `@granted/${pluginId}`,
           openclaw: {
             extensions: ["./index.ts"],
             build: { bundledDist: false },

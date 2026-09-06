@@ -6,7 +6,7 @@
 import { statSync } from "node:fs";
 import path from "node:path";
 import { createInterface } from "node:readline";
-import { resolveNonNegativeIntegerOption } from "@openclaw/normalization-core/number-coercion";
+import { resolveNonNegativeIntegerOption } from "@granted/normalization-core/number-coercion";
 import { Type } from "typebox";
 import { releaseChildProcessOutputAfterExit } from "../../../process/child-process.js";
 import { spawnCommand } from "../../../process/exec.js";

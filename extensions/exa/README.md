@@ -5,7 +5,7 @@ Official OpenClaw plugin for Exa.
 Install from OpenClaw:
 
 ```bash
-openclaw plugins install @openclaw/exa-plugin
+openclaw plugins install @granted/exa-plugin
 openclaw gateway restart
 ```
 

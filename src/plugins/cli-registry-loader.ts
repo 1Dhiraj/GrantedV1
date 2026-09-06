@@ -1,7 +1,7 @@
 /** Loads plugin CLI registrations lazily for the command tree and plugin-owned subcommands. */
-import { stableStringify } from "@openclaw/normalization-core/stable-stringify";
-import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
-import { uniqueStrings } from "@openclaw/normalization-core/string-normalization";
+import { stableStringify } from "@granted/normalization-core/stable-stringify";
+import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
+import { uniqueStrings } from "@granted/normalization-core/string-normalization";
 import { collectUniqueCommandDescriptors } from "../cli/program/command-descriptor-utils.js";
 import { cloneEnvWithPlatformSemantics } from "../config/config-env-vars.js";
 import { getRuntimeConfig } from "../config/config.js";

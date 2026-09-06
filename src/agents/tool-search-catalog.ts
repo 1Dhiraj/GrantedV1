@@ -1,4 +1,4 @@
-import { stableStringify } from "@openclaw/normalization-core";
+import { stableStringify } from "@granted/normalization-core";
 import { generateSecureHex } from "../infra/secure-random.js";
 import { getPluginToolMeta, type PluginToolMcpMeta } from "../plugins/tool-metadata.js";
 import type { HookContext } from "./agent-tools.before-tool-call.js";

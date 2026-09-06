@@ -469,13 +469,13 @@ export function resolveReleaseCheckLocalPackageTarballs(
     .map((entry) => resolve(resolvedDir, entry.name))
     .toSorted((left, right) => left.localeCompare(right));
   const aiTarballs = tarballs.filter(
-    (tarballPath) => localPackageNameForTarball(tarballPath) === "@openclaw/ai",
+    (tarballPath) => localPackageNameForTarball(tarballPath) === "@granted/ai",
   );
   const gatewayProtocolTarballs = tarballs.filter(
-    (tarballPath) => localPackageNameForTarball(tarballPath) === "@openclaw/gateway-protocol",
+    (tarballPath) => localPackageNameForTarball(tarballPath) === "@granted/gateway-protocol",
   );
   const gatewayClientTarballs = tarballs.filter(
-    (tarballPath) => localPackageNameForTarball(tarballPath) === "@openclaw/gateway-client",
+    (tarballPath) => localPackageNameForTarball(tarballPath) === "@granted/gateway-client",
   );
   const recognizedTarballs =
     aiTarballs.length + gatewayProtocolTarballs.length + gatewayClientTarballs.length;
@@ -486,15 +486,15 @@ export function resolveReleaseCheckLocalPackageTarballs(
   }
   const expectedAiTarballs = requiresAi ? 1 : 0;
   const aiTarballRequirement = requiresAi
-    ? "exactly one @openclaw/ai tarball"
-    : "no @openclaw/ai tarballs";
+    ? "exactly one @granted/ai tarball"
+    : "no @granted/ai tarballs";
   if (
     aiTarballs.length !== expectedAiTarballs ||
     gatewayProtocolTarballs.length > 1 ||
     gatewayClientTarballs.length > 1
   ) {
     throw new Error(
-      `release-check: ${RELEASE_CHECK_LOCAL_PACKAGE_TARBALL_DIR_ENV} must contain ${aiTarballRequirement}, at most one @openclaw/gateway-protocol tarball, and at most one @openclaw/gateway-client tarball; found ${aiTarballs.length}, ${gatewayProtocolTarballs.length}, and ${gatewayClientTarballs.length}.`,
+      `release-check: ${RELEASE_CHECK_LOCAL_PACKAGE_TARBALL_DIR_ENV} must contain ${aiTarballRequirement}, at most one @granted/gateway-protocol tarball, and at most one @granted/gateway-client tarball; found ${aiTarballs.length}, ${gatewayProtocolTarballs.length}, and ${gatewayClientTarballs.length}.`,
     );
   }
   return tarballs;
@@ -504,19 +504,19 @@ function rootPackageRequiresLocalAiTarball(): boolean {
   const packageJson = JSON.parse(readFileSync(resolve("package.json"), "utf8")) as {
     dependencies?: Record<string, unknown>;
   };
-  return typeof packageJson.dependencies?.["@openclaw/ai"] === "string";
+  return typeof packageJson.dependencies?.["@granted/ai"] === "string";
 }
 
 function localPackageNameForTarball(tarballPath: string): string | undefined {
   const filename = basename(tarballPath);
   if (/^openclaw-ai(?:-.+)?\.tgz$/.test(filename)) {
-    return "@openclaw/ai";
+    return "@granted/ai";
   }
   if (/^openclaw-gateway-protocol(?:-.+)?\.tgz$/.test(filename)) {
-    return "@openclaw/gateway-protocol";
+    return "@granted/gateway-protocol";
   }
   if (/^openclaw-gateway-client(?:-.+)?\.tgz$/.test(filename)) {
-    return "@openclaw/gateway-client";
+    return "@granted/gateway-client";
   }
   return undefined;
 }
@@ -554,11 +554,11 @@ export function writePackedTarballInstallManifest(
     packageName: localPackageNameForTarball(localPackageTarballPath),
     tarballPath: localPackageTarballPath,
   }));
-  const aiTarballs = localPackages.filter(({ packageName }) => packageName === "@openclaw/ai");
+  const aiTarballs = localPackages.filter(({ packageName }) => packageName === "@granted/ai");
   const expectedAiTarballs = requiresAi ? 1 : 0;
   const aiTarballRequirement = requiresAi
-    ? "exactly one @openclaw/ai tarball"
-    : "no @openclaw/ai tarballs";
+    ? "exactly one @granted/ai tarball"
+    : "no @granted/ai tarballs";
   if (aiTarballs.length !== expectedAiTarballs) {
     throw new Error(
       `release-check: packed install requires ${aiTarballRequirement}; found ${aiTarballs.length}.`,
@@ -781,7 +781,7 @@ export function createPackedPluginSdkTypescriptSmokeProject(params: {
     openclaw: params.packageSpec,
   };
   if (params.aiPackageSpec) {
-    dependencies["@openclaw/ai"] = params.aiPackageSpec;
+    dependencies["@granted/ai"] = params.aiPackageSpec;
   }
   mkdirSync(join(params.consumerDir, "src"), { recursive: true });
   writeFileSync(
@@ -830,7 +830,7 @@ function runPackedPluginSdkTypescriptSmoke(
 ): void {
   const consumerDir = join(tmpRoot, "plugin-sdk-type-consumer");
   const aiTarball = localPackageTarballs.find(
-    (localPackageTarball) => localPackageNameForTarball(localPackageTarball) === "@openclaw/ai",
+    (localPackageTarball) => localPackageNameForTarball(localPackageTarball) === "@granted/ai",
   );
   createPackedPluginSdkTypescriptSmokeProject({
     consumerDir,

@@ -1,7 +1,7 @@
 /** Tests CLI compaction rotation and persisted transcript/session updates. */
 import fs from "node:fs/promises";
 import path from "node:path";
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { describe, expect, it, vi } from "vitest";
 import type { InternalSessionEntry, SessionEntry } from "../config/sessions.js";
 import type { GrantedConfig } from "../config/types.openclaw.js";

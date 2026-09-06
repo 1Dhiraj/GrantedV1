@@ -1,5 +1,5 @@
-import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
-import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
+import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
+import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
 import type { ResolvedProviderAuth } from "./model-auth-runtime-shared.js";
 
 const OPENAI_PROVIDER_ID = "openai";

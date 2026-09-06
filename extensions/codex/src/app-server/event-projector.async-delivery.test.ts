@@ -1,4 +1,4 @@
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { upsertSessionEntry } from "granted/plugin-sdk/session-store-runtime";
 import { readSessionTranscriptEvents } from "granted/plugin-sdk/session-transcript-runtime";
 import { describe, expect, it, vi } from "vitest";

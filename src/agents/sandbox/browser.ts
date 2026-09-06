@@ -7,7 +7,7 @@ import crypto from "node:crypto";
 import {
   normalizeOptionalLowercaseString,
   normalizeOptionalString,
-} from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/string-coerce";
 import { deriveDefaultBrowserCdpPortRange } from "../../config/port-defaults.js";
 import { withContainerEnvFile } from "../../infra/container-env-file.js";
 import { isSameSsrFPolicy, type SsrFPolicy } from "../../infra/net/ssrf.js";

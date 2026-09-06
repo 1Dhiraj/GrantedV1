@@ -1,4 +1,4 @@
-import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
+import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import { providerContextTokenCacheKey } from "./context-cache.js";
 import { type ModelsConfig, resolveAnthropicFixedContextWindow } from "./context-resolution.js";

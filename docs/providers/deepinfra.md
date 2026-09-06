@@ -13,7 +13,7 @@ it by switching the base URL.
 ## Install plugin
 
 ```bash
-openclaw plugins install @openclaw/deepinfra-provider
+openclaw plugins install @granted/deepinfra-provider
 openclaw gateway restart
 ```
 

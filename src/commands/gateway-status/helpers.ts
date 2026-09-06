@@ -1,6 +1,6 @@
-import { parseStrictInteger } from "@openclaw/normalization-core/number-coercion";
+import { parseStrictInteger } from "@granted/normalization-core/number-coercion";
 /** Shared helpers for gateway status target selection, auth, summaries, and probe rendering. */
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { colorize, theme } from "../../../packages/terminal-core/src/theme.js";
 import { resolveGatewayPort } from "../../config/config.js";
 import type { GrantedConfig, ConfigFileSnapshot } from "../../config/types.js";

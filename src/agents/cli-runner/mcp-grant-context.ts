@@ -1,4 +1,4 @@
-import { uniqueStrings } from "@openclaw/normalization-core/string-normalization";
+import { uniqueStrings } from "@granted/normalization-core/string-normalization";
 import { canonicalizeMainSessionAlias } from "../../config/sessions/main-session.js";
 import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { McpLoopbackRequestContext } from "../../gateway/mcp-grant-store.js";

@@ -1,5 +1,5 @@
-import { asNullableObjectRecord as readRecord } from "@openclaw/normalization-core/record-coerce";
-import { normalizeNullableString as toTrimmedString } from "@openclaw/normalization-core/string-coerce";
+import { asNullableObjectRecord as readRecord } from "@granted/normalization-core/record-coerce";
+import { normalizeNullableString as toTrimmedString } from "@granted/normalization-core/string-coerce";
 import type { ChatGuardianNotice, ToolApprovalReview } from "../../lib/chat/chat-types.ts";
 import {
   MAX_TOOL_APPROVAL_REVIEWS,

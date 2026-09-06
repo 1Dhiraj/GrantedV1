@@ -1,6 +1,6 @@
 /** Prepares exec workdir and environment facts before policy and host dispatch. */
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { normalizeChatChannelId } from "../channels/ids.js";
 import type { ExecHost } from "../infra/exec-approvals.js";
 import {

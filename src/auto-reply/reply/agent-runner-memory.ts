@@ -5,8 +5,8 @@ import path from "node:path";
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
-} from "@openclaw/normalization-core/string-coerce";
-import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+} from "@granted/normalization-core/string-coerce";
+import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import { prepareSystemAgentRunAdmission } from "../../agents/admitted-run-context.js";
 import { resolveEffectiveCompactionReserveTokens } from "../../agents/agent-compaction-constants.js";
 import { resolveDefaultAgentId } from "../../agents/agent-scope-config.js";

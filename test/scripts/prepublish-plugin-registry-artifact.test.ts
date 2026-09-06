@@ -28,7 +28,7 @@ import {
 
 const SOURCE_SHA = "a".repeat(40);
 const VERSION = "2026.8.1-beta.1";
-const PACKAGE_NAME = "@openclaw/discord";
+const PACKAGE_NAME = "@granted/discord";
 const TARBALL = "openclaw-discord-2026.8.1-beta.1.tgz";
 const SCRIPT = path.resolve("scripts/prepublish-plugin-registry-artifact.mjs");
 const tempDirs: string[] = [];
@@ -122,7 +122,7 @@ function firstPackage(paths: ReturnType<typeof fixture>) {
 }
 
 function addCompanionPackage(paths: ReturnType<typeof fixture>) {
-  const name = "@openclaw/feishu";
+  const name = "@granted/feishu";
   const tarball = "openclaw-feishu-2026.8.1-beta.1.tgz";
   const archiveRoot = path.join(path.dirname(paths.artifactDir), "feishu-package");
   const tarballPath = path.join(paths.artifactDir, tarball);
@@ -191,7 +191,7 @@ describe("prepublish plugin registry artifact", () => {
       const lane = findLaneByName(`npm-onboard-${channel}-candidate-channel-agent`);
       expect(lane).toBeDefined();
       const requiredPackages = requiredPrepublishPluginPackagesForLanes([lane!]);
-      const expectedPackages = ["@openclaw/codex", `@openclaw/${channel}`];
+      const expectedPackages = ["@granted/codex", `@granted/${channel}`];
       const { repoRoot, sourceSha } = cliFixture(expectedPackages);
       const artifactDir = path.join(repoRoot, "artifact");
       const result = createPrepublishPluginRegistryArtifact({
@@ -303,8 +303,8 @@ describe("prepublish plugin registry artifact", () => {
     addCompanionPackage(paths);
 
     expect(validate(paths).manifest.packages.map((entry) => entry.name)).toEqual([
-      "@openclaw/discord",
-      "@openclaw/feishu",
+      "@granted/discord",
+      "@granted/feishu",
     ]);
   });
 
@@ -317,12 +317,12 @@ describe("prepublish plugin registry artifact", () => {
         artifactDir: paths.artifactDir,
         candidateVersion: VERSION,
         manifestSha256: sha256(paths.manifestPath),
-        requiredPackages: ["@openclaw/feishu"],
+        requiredPackages: ["@granted/feishu"],
         sourceSha: SOURCE_SHA,
       }),
     ).toEqual([
       {
-        name: "@openclaw/feishu",
+        name: "@granted/feishu",
         tarballPath: path.join(paths.artifactDir, "openclaw-feishu-2026.8.1-beta.1.tgz"),
       },
     ]);
@@ -430,7 +430,7 @@ describe("prepublish plugin registry artifact", () => {
     duplicate.manifest.packages.push({ ...firstPackage(duplicate) });
     duplicate.writeManifest();
     expect(() =>
-      validate(duplicate, { requiredPackages: [PACKAGE_NAME, "@openclaw/feishu"] }),
+      validate(duplicate, { requiredPackages: [PACKAGE_NAME, "@granted/feishu"] }),
     ).toThrow("duplicate package");
   });
 
@@ -450,9 +450,9 @@ describe("prepublish plugin registry artifact", () => {
     expect(() => validate(hash)).toThrow("tarball SHA-256 mismatch");
 
     const identity = fixture();
-    firstPackage(identity).name = "@openclaw/feishu";
+    firstPackage(identity).name = "@granted/feishu";
     identity.writeManifest();
-    expect(() => validate(identity, { requiredPackages: ["@openclaw/feishu"] })).toThrow(
+    expect(() => validate(identity, { requiredPackages: ["@granted/feishu"] })).toThrow(
       "tarball identity mismatch",
     );
 
@@ -467,7 +467,7 @@ describe("prepublish plugin registry artifact", () => {
     );
 
     const required = fixture();
-    expect(() => validate(required, { requiredPackages: ["@openclaw/feishu"] })).toThrow(
+    expect(() => validate(required, { requiredPackages: ["@granted/feishu"] })).toThrow(
       "missing Docker-plan package",
     );
   });

@@ -29,7 +29,7 @@ The older Coding Plan does not include these models. `qwen3.7-max` and
 `qwen` ships as an official external plugin, not bundled with core. Install it and restart Gateway:
 
 ```bash
-openclaw plugins install @openclaw/qwen-provider
+openclaw plugins install @granted/qwen-provider
 openclaw gateway restart
 ```
 

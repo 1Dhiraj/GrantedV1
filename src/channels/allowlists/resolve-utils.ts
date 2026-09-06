@@ -6,7 +6,7 @@
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
-} from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/string-coerce";
 import { mapAllowFromEntries } from "granted/plugin-sdk/channel-config-helpers";
 import type { RuntimeEnv } from "../../runtime.js";
 import { summarizeStringEntries } from "../../shared/string-sample.js";

@@ -1,6 +1,6 @@
 import http from "node:http";
 import type { AddressInfo } from "node:net";
-import { rawDataToString } from "@openclaw/gateway-client/websocket-data";
+import { rawDataToString } from "@granted/gateway-client/websocket-data";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { WebSocket, WebSocketServer } from "ws";
 import {

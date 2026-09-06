@@ -1,8 +1,8 @@
 /**
  * Model-level auth diagnostics and request-header preparation.
  */
-import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
-import { normalizeOptionalLowercaseString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
+import { normalizeOptionalLowercaseString } from "@granted/normalization-core/string-coerce";
 import {
   getRuntimeConfigSnapshot,
   getRuntimeConfigSourceSnapshot,

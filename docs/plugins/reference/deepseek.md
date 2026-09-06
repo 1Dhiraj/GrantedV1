@@ -11,8 +11,8 @@ Adds DeepSeek model provider support to OpenClaw.
 
 ## Distribution
 
-- Package: `@openclaw/deepseek-provider`
-- Install route: npm; ClawHub: `clawhub:@openclaw/deepseek-provider`
+- Package: `@granted/deepseek-provider`
+- Install route: npm; ClawHub: `clawhub:@granted/deepseek-provider`
 
 ## Surface
 

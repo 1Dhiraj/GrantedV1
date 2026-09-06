@@ -384,8 +384,8 @@ describe("full release candidate contract", () => {
       "required prerelease packages",
       (binding) =>
         void (binding.preparation.requiredPrepublishPluginPackages = [
-          "@openclaw/codex",
-          "@openclaw/discord",
+          "@granted/codex",
+          "@granted/discord",
         ]),
     ],
     ["package artifact id", (binding) => void (binding.package.artifact.id = "105")],
@@ -469,7 +469,7 @@ describe("full release candidate contract", () => {
   it("rejects a canonical manifest larger than 32 KiB", () => {
     const requiredPrepublishPluginPackages = Array.from(
       { length: 1_000 },
-      (_, index) => `@openclaw/candidate-${String(index).padStart(4, "0")}-${"x".repeat(16)}`,
+      (_, index) => `@granted/candidate-${String(index).padStart(4, "0")}-${"x".repeat(16)}`,
     );
     const value = manifest({
       preparation: {
@@ -490,7 +490,7 @@ describe("full release candidate contract", () => {
         ...value,
         preparation: {
           ...value.preparation,
-          requiredPrepublishPluginPackages: ["openclaw", "@openclaw/codex"],
+          requiredPrepublishPluginPackages: ["openclaw", "@granted/codex"],
         },
       }).stderr,
     ).toContain("ascending ASCII order");

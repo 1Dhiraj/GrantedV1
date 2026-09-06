@@ -1,4 +1,4 @@
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 // Discord tests cover runtime plugin behavior.
 import {
   ChannelType,

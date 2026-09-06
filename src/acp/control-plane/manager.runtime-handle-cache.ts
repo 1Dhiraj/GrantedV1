@@ -2,14 +2,14 @@
 import {
   resolveRuntimeHandleIdentifiersFromIdentity,
   resolveSessionIdentityFromMeta,
-} from "@openclaw/acp-core/runtime/session-identity";
+} from "@granted/acp-core/runtime/session-identity";
 import type {
   AcpRuntime,
   AcpRuntimeHandle,
   AcpRuntimeSessionMode,
   AcpRuntimeStatus,
-} from "@openclaw/acp-core/runtime/types";
-import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
+} from "@granted/acp-core/runtime/types";
+import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
 import { logVerbose } from "../../globals.js";
 import { isAcpOwnerRepairRequired } from "./manager.runtime-owner.js";
 import type { AcpSessionTarget, SessionAcpMeta } from "./manager.types.js";

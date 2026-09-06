@@ -538,7 +538,7 @@ fi`);
 plugin_dir=/root/.openclaw/test-bad-plugin
 mkdir -p "$plugin_dir"
 cat >"$plugin_dir/package.json" <<'JSON'
-{"name":"@openclaw/test-bad-plugin","version":"1.0.0","openclaw":{"extensions":["./index.cjs"],"setupEntry":"./setup-entry.cjs"}}
+{"name":"@granted/test-bad-plugin","version":"1.0.0","openclaw":{"extensions":["./index.cjs"],"setupEntry":"./setup-entry.cjs"}}
 JSON
 cat >"$plugin_dir/openclaw.plugin.json" <<'JSON'
 {"id":"test-bad-plugin","configSchema":{"type":"object","additionalProperties":false,"properties":{}},"channels":["test-bad-plugin"]}

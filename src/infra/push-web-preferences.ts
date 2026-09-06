@@ -1,5 +1,5 @@
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
-import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+import { isRecord } from "@granted/normalization-core/record-coerce";
+import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import type {
   WebPushDetailLevel,
   WebPushDevicePreferences,

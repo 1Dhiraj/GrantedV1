@@ -1,7 +1,7 @@
 /** Worker-thread entrypoint for complete model-catalog discovery. */
 import { parentPort, workerData } from "node:worker_threads";
-import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import {
   copyConfigResolutionFacts,
   restoreConfigResolutionFacts,

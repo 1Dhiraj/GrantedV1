@@ -1,5 +1,5 @@
 import { consume } from "@lit/context";
-import { asNullableRecord } from "@openclaw/normalization-core/record-coerce";
+import { asNullableRecord } from "@granted/normalization-core/record-coerce";
 import { html, nothing, type PropertyValues } from "lit";
 import { property, state } from "lit/decorators.js";
 import "./openclaw-mascot.ts";

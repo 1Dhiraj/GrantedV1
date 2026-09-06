@@ -1,9 +1,9 @@
-import { gatewayCredentialScope, gatewayOriginScope } from "@openclaw/gateway-client/browser";
-import { safeParseJson } from "@openclaw/normalization-core";
-import { normalizeAgentId } from "@openclaw/normalization-core/agent-id";
-import { asOptionalRecord } from "@openclaw/normalization-core/record-coerce";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
-import { normalizeUniqueTrimmedStringList } from "@openclaw/normalization-core/string-normalization";
+import { gatewayCredentialScope, gatewayOriginScope } from "@granted/gateway-client/browser";
+import { safeParseJson } from "@granted/normalization-core";
+import { normalizeAgentId } from "@granted/normalization-core/agent-id";
+import { asOptionalRecord } from "@granted/normalization-core/record-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
+import { normalizeUniqueTrimmedStringList } from "@granted/normalization-core/string-normalization";
 import {
   DEFAULT_SIDEBAR_ENTRIES,
   isPersistedSidebarRoute,

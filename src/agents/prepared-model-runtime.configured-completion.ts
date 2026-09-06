@@ -1,7 +1,7 @@
 import {
   buildModelCatalogMergeKey,
   type ModelCatalogRef,
-} from "@openclaw/model-catalog-core/model-catalog-refs";
+} from "@granted/model-catalog-core/model-catalog-refs";
 import type { ProviderRuntimeModel } from "../plugins/provider-runtime-model.types.js";
 import type { PreparedConfiguredRuntimeModel } from "./prepared-model-runtime.configured.js";
 

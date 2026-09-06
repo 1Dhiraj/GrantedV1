@@ -1,5 +1,5 @@
 import type { DatabaseSync } from "node:sqlite";
-import { err, ok, type Result } from "@openclaw/normalization-core/result";
+import { err, ok, type Result } from "@granted/normalization-core/result";
 import {
   USER_PREFS_ENTRY_LIMIT,
   USER_PREFS_PROFILE_KEY_LIMIT,

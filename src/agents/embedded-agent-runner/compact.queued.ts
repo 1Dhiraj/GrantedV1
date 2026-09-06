@@ -1,7 +1,7 @@
 /**
  * Queues embedded-agent session compaction onto the correct command lane.
  */
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import {
   loadSessionEntryReadOnly,
   type SessionTranscriptRuntimeTarget,

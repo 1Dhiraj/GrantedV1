@@ -1,8 +1,8 @@
 // Gateway session-history projection state.
 // Tracks transcript sequence windows for paginated chat-history SSE updates.
 import { isDeepStrictEqual } from "node:util";
-import { expectDefined } from "@openclaw/normalization-core";
-import { asPositiveSafeInteger } from "@openclaw/normalization-core/number-coercion";
+import { expectDefined } from "@granted/normalization-core";
+import { asPositiveSafeInteger } from "@granted/normalization-core/number-coercion";
 import type { SessionEntry } from "../config/sessions.js";
 import {
   DEFAULT_CHAT_HISTORY_TEXT_MAX_CHARS,

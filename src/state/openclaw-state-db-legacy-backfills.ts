@@ -1,7 +1,7 @@
 import type { DatabaseSync } from "node:sqlite";
-import { safeParseJsonRecord } from "@openclaw/normalization-core";
-import { asFiniteNumber, asSafeIntegerInRange } from "@openclaw/normalization-core/number-coercion";
-import { asNullableRecord } from "@openclaw/normalization-core/record-coerce";
+import { safeParseJsonRecord } from "@granted/normalization-core";
+import { asFiniteNumber, asSafeIntegerInRange } from "@granted/normalization-core/number-coercion";
+import { asNullableRecord } from "@granted/normalization-core/record-coerce";
 import { normalizeAgentRunTerminalReplySnapshot } from "../agents/agent-run-terminal-reply.js";
 import { selectDeliverableSessionsReply } from "../agents/tools/sessions-send-tokens.js";
 import { buildApprovalResolutionRef } from "../infra/approval-resolution-ref.js";

@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
-import { expectDefined, stableStringify } from "@openclaw/normalization-core";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { expectDefined, stableStringify } from "@granted/normalization-core";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import type { MediaImageLayout } from "../../../agents/embedded-agent-runner/run/prompt-image-metadata.js";
 import { runAgentHarnessBeforeMessageWriteHook } from "../../../agents/harness/hook-helpers.js";
 import { runOutsidePreparedModelRuntimePluginGenerationScope } from "../../../agents/prepared-model-runtime-generation-scope.js";

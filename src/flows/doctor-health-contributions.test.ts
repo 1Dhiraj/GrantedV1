@@ -1644,7 +1644,7 @@ describe("doctor health contributions", () => {
           installedVersion: "2026.5.30-beta.1",
           gatewayVersion: "2026.6.1",
           source: "npm",
-          spec: "@openclaw/codex@2026.5.30-beta.1",
+          spec: "@granted/codex@2026.5.30-beta.1",
         },
       ],
     };
@@ -1678,7 +1678,7 @@ describe("doctor health contributions", () => {
       allowExecSecretRefs: false,
     });
     expect(fetchNpmPackageTargetStatus).toHaveBeenCalledWith({
-      packageName: "@openclaw/codex",
+      packageName: "@granted/codex",
       target: "2026.6.1",
     });
     expect(mocks.noteWorkspaceStatus).toHaveBeenCalledWith(cfg, {

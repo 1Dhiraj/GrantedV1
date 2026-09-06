@@ -1,6 +1,6 @@
-import { estimateBase64DecodedBytes } from "@openclaw/media-core/base64";
-import { asFiniteNumber } from "@openclaw/normalization-core/number-coercion";
-import { asOptionalRecord as readRecord } from "@openclaw/normalization-core/record-coerce";
+import { estimateBase64DecodedBytes } from "@granted/media-core/base64";
+import { asFiniteNumber } from "@granted/normalization-core/number-coercion";
+import { asOptionalRecord as readRecord } from "@granted/normalization-core/record-coerce";
 import { parseInboundMediaUri, buildInboundMediaUriFromPath } from "../media/media-reference.js";
 import {
   parseAssistantTextSignature,

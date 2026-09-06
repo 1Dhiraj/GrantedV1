@@ -172,7 +172,7 @@ export function createFixture(
     // Exercise every real extension partition, even in the small compiler fixture.
     for (const id of ["fixture-a", "fixture-b", "fixture-c", "fixture-d", "fixture-e"]) {
       write(`extensions/${id}/openclaw.plugin.json`, JSON.stringify({ id }));
-      write(`extensions/${id}/package.json`, JSON.stringify({ name: `@openclaw/${id}` }));
+      write(`extensions/${id}/package.json`, JSON.stringify({ name: `@granted/${id}` }));
       write(`extensions/${id}/index.ts`, "export {};\n");
     }
   }
@@ -207,8 +207,8 @@ export function createFixture(
         strict: true,
         types: [],
         paths: {
-          "@openclaw/llm-core": ["./src/shared.ts"],
-          "@openclaw/llm-core/contract": ["./contracts/current.ts"],
+          "@granted/llm-core": ["./src/shared.ts"],
+          "@granted/llm-core/contract": ["./contracts/current.ts"],
         },
       },
       include: ["src/**/*.ts"],
@@ -241,7 +241,7 @@ export function createFixture(
         [
           '/// <reference path="../schema.d.ts" />',
           'import schema from "../schema.sql";',
-          'export { Shared } from "@openclaw/llm-core";',
+          'export { Shared } from "@granted/llm-core";',
           "export function getSchema(): string { return schema; }",
         ].join("\n"),
       );
@@ -250,8 +250,8 @@ export function createFixture(
     write(
       source,
       [
-        'export { Shared } from "@openclaw/llm-core";',
-        'export type { TransitiveAlias } from "@openclaw/llm-core/contract";',
+        'export { Shared } from "@granted/llm-core";',
+        'export type { TransitiveAlias } from "@granted/llm-core/contract";',
         ...declarationInputs.map(({ file, name }) => {
           const relative = path.relative(path.dirname(source), file).replaceAll(path.sep, "/");
           const specifier = (relative.startsWith(".") ? relative : `./${relative}`).replace(

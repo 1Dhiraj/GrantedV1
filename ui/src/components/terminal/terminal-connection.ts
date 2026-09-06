@@ -1,6 +1,6 @@
 // Typed terminal RPCs plus per-session event routing; DOM-free for focused tests.
 
-import type { TerminalOpenParams } from "@openclaw/gateway-protocol";
+import type { TerminalOpenParams } from "@granted/gateway-protocol";
 import { BoundedBuffer } from "../../../../src/shared/bounded-buffer.ts";
 
 type TerminalRequestOptions = { timeoutMs?: number | null; signal?: AbortSignal };

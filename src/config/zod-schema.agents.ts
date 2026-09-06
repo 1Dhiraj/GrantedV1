@@ -1,6 +1,6 @@
 // Defines agent-related Zod schema fragments for config parsing.
-import { normalizeAgentId } from "@openclaw/normalization-core/agent-id";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeAgentId } from "@granted/normalization-core/agent-id";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { z } from "zod";
 import { isBlockedObjectKey } from "../infra/prototype-keys.js";
 import { AgentDefaultsSchema } from "./zod-schema.agent-defaults.js";

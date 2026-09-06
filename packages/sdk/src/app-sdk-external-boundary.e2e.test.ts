@@ -29,7 +29,7 @@ describe("external preview App SDK boundary", () => {
           WorkerEnvironmentMetadata,
           WorkerEnvironmentState,
           WorkerTunnelStatus,
-        } from "@openclaw/sdk";
+        } from "@granted/sdk";
         import type {
           AgentsCreateParams as ProtocolAgentsCreateParams,
           AgentsDeleteParams as ProtocolAgentsDeleteParams,
@@ -44,7 +44,7 @@ describe("external preview App SDK boundary", () => {
           WorkerEnvironmentMetadata as ProtocolWorkerEnvironmentMetadata,
           WorkerEnvironmentState as ProtocolWorkerEnvironmentState,
           WorkerTunnelStatus as ProtocolWorkerTunnelStatus,
-        } from "@openclaw/gateway-protocol";
+        } from "@granted/gateway-protocol";
 
         type Equal<Left, Right> =
           (<Value>() => Value extends Left ? 1 : 2) extends
@@ -137,7 +137,7 @@ describe("external preview App SDK boundary", () => {
         ];
       `);
       await consumer.run(`
-        import { GatewayClientTransport, OpenClaw, normalizeGatewayEvent } from "@openclaw/sdk";
+        import { GatewayClientTransport, OpenClaw, normalizeGatewayEvent } from "@granted/sdk";
 
         if (typeof GatewayClientTransport !== "function") throw new Error("missing transport export");
         const event = normalizeGatewayEvent({

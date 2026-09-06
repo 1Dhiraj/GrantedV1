@@ -11,8 +11,8 @@ Adds Qianfan model provider support to OpenClaw.
 
 ## Distribution
 
-- Package: `@openclaw/qianfan-provider`
-- Install route: npm; ClawHub: `clawhub:@openclaw/qianfan-provider`
+- Package: `@granted/qianfan-provider`
+- Install route: npm; ClawHub: `clawhub:@granted/qianfan-provider`
 
 ## Surface
 

@@ -1,5 +1,5 @@
 // Control UI controller manages skill workshop gateway state.
-import { readSkillProposalRevisionChangedError } from "@openclaw/gateway-protocol";
+import { readSkillProposalRevisionChangedError } from "@granted/gateway-protocol";
 import type { AgentSelectionCapability } from "../../app/agent-selection.ts";
 import type { ApplicationGateway } from "../../app/context.ts";
 import type { SkillWorkshopRevisionAdmissionOutcome } from "../../app/skill-workshop-revision-admissions.ts";

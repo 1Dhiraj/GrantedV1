@@ -1,6 +1,6 @@
 /** ACP protocol helpers and OpenClaw agent identity metadata. */
 import { VERSION } from "../version.js";
-export { normalizeAcpProvenanceMode } from "@openclaw/acp-core/types";
+export { normalizeAcpProvenanceMode } from "@granted/acp-core/types";
 
 /** ACP agent identity advertised during protocol initialization. */
 export const ACP_AGENT_INFO = {

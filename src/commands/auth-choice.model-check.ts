@@ -1,5 +1,5 @@
 // Post-selection model/auth sanity checks shown during onboarding and agent setup.
-import { normalizeProviderIdForAuth } from "@openclaw/model-catalog-core/provider-id";
+import { normalizeProviderIdForAuth } from "@granted/model-catalog-core/provider-id";
 import {
   resolveAgentDir,
   resolveAgentWorkspaceDir,

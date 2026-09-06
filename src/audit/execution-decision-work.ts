@@ -1,4 +1,4 @@
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 /** Private, bounded decision work projected by the canonical audit writer. */
 import type { DecisionReceiptV1 } from "../../packages/gateway-protocol/src/index.js";
 import { validateDecisionReceiptV1 } from "../../packages/gateway-protocol/src/index.js";

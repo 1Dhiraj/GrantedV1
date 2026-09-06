@@ -54,7 +54,7 @@ onboarding.
     <Steps>
       <Step title="Install the plugin">
         ```bash
-        openclaw plugins install @openclaw/moonshot-provider
+        openclaw plugins install @granted/moonshot-provider
         openclaw gateway restart
         ```
       </Step>
@@ -206,7 +206,7 @@ onboarding.
     <Steps>
       <Step title="Install the plugin">
         ```bash
-        openclaw plugins install @openclaw/kimi-provider
+        openclaw plugins install @granted/kimi-provider
         openclaw gateway restart
         ```
       </Step>

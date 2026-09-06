@@ -1,4 +1,4 @@
-import type { UiCommandParams } from "@openclaw/gateway-protocol";
+import type { UiCommandParams } from "@granted/gateway-protocol";
 import {
   KEYBOARD_SHORTCUT_COMBOS,
   matchesShortcutCombo,

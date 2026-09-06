@@ -1,4 +1,4 @@
-import { asNullableRecord as catalogRawRecord } from "@openclaw/normalization-core/record-coerce";
+import { asNullableRecord as catalogRawRecord } from "@granted/normalization-core/record-coerce";
 import type { GatewayBrowserClient } from "../../api/gateway.ts";
 import type { RouteId } from "../../app-routes.ts";
 import type { ApplicationContext } from "../../app/context.ts";

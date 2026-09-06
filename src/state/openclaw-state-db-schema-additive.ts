@@ -1,6 +1,6 @@
 import path from "node:path";
 import type { DatabaseSync } from "node:sqlite";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import {
   CLAW_FIRST_USE_ADDITIVE_STATE_COLUMN_DEFINITIONS,
   CLAW_STARTUP_ADDITIVE_STATE_COLUMN_DEFINITIONS,

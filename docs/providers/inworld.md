@@ -13,7 +13,7 @@ OpenClaw posts to Inworld's streaming TTS endpoint, concatenates the returned ba
 | Property      | Value                                                           |
 | ------------- | --------------------------------------------------------------- |
 | Provider id   | `inworld`                                                       |
-| Plugin        | official external package (`@openclaw/inworld-speech`)          |
+| Plugin        | official external package (`@granted/inworld-speech`)          |
 | Contract      | `speechProviders` (TTS only)                                    |
 | Auth env var  | `INWORLD_API_KEY` (HTTP Basic, Base64 dashboard credential)     |
 | Base URL      | `https://api.inworld.ai`                                        |
@@ -26,7 +26,7 @@ OpenClaw posts to Inworld's streaming TTS endpoint, concatenates the returned ba
 ## Install plugin
 
 ```bash
-openclaw plugins install @openclaw/inworld-speech
+openclaw plugins install @granted/inworld-speech
 openclaw gateway restart
 ```
 

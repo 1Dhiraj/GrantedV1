@@ -11,7 +11,7 @@ Adds xAI model provider support to OpenClaw.
 
 ## Distribution
 
-- Package: `@openclaw/xai-plugin`
+- Package: `@granted/xai-plugin`
 - Install route: included in OpenClaw
 
 ## Surface

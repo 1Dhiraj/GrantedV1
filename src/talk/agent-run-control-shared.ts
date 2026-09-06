@@ -4,11 +4,11 @@
  * This module owns the provider-facing control tool, conservative intent
  * classifier, and user-visible status/queue/cancel messages used by Talk.
  */
-import { asNonArrayRecord } from "@openclaw/normalization-core/record-coerce";
+import { asNonArrayRecord } from "@granted/normalization-core/record-coerce";
 import {
   normalizeOptionalLowercaseString,
   normalizeOptionalString,
-} from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/string-coerce";
 import type { RealtimeVoiceTool } from "./provider-types.js";
 import type { TalkEvent } from "./talk-events.js";
 

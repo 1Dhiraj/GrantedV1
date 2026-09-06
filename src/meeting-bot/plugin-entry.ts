@@ -1,5 +1,5 @@
-import { asOptionalRecord } from "@openclaw/normalization-core/record-coerce";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { asOptionalRecord } from "@granted/normalization-core/record-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import type { TObject } from "typebox";
 import { ErrorCodes, errorShape } from "../../packages/gateway-protocol/src/schema/error-codes.js";
 import {

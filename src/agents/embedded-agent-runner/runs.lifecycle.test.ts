@@ -1,4 +1,4 @@
-import { MAX_TIMER_TIMEOUT_MS } from "@openclaw/normalization-core/number-coercion";
+import { MAX_TIMER_TIMEOUT_MS } from "@granted/normalization-core/number-coercion";
 // Embedded run lifecycle tests cover drain/wait behavior, process-global
 // ownership, abandonment tracking, and snapshots.
 import { importFreshModule } from "granted/plugin-sdk/test-fixtures";

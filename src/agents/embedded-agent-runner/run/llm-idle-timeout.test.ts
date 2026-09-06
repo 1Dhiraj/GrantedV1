@@ -1,9 +1,9 @@
-import { notifyLlmRequestActivity } from "@openclaw/ai/internal/runtime";
-import { expectDefined } from "@openclaw/normalization-core";
-import { toErrorObject as toLintErrorObject } from "@openclaw/normalization-core/error-coercion";
+import { notifyLlmRequestActivity } from "@granted/ai/internal/runtime";
+import { expectDefined } from "@granted/normalization-core";
+import { toErrorObject as toLintErrorObject } from "@granted/normalization-core/error-coercion";
 // LLM idle-timeout tests cover timeout selection and stream wrapping for
 // embedded provider calls, including local-provider and cron exceptions.
-import { MAX_TIMER_TIMEOUT_MS } from "@openclaw/normalization-core/number-coercion";
+import { MAX_TIMER_TIMEOUT_MS } from "@granted/normalization-core/number-coercion";
 import {
   createAssistantMessageEventStream,
   type AssistantMessageEventStream,

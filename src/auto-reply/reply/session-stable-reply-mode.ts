@@ -1,7 +1,7 @@
 // Session-stable source-reply mode for synthetic turns (heartbeat wakes,
 // system events, inter-session announcements) that reach the reply resolver
 // without dispatch's injected delivery-mode facts.
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import {
   resolveEffectiveToolPolicy,
   resolveGroupToolPolicy,

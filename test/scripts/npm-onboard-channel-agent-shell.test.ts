@@ -35,13 +35,13 @@ function registryFixture(root: string, scenario: Scenario): NodeJS.ProcessEnv {
   const packages = ["codex", "discord", "slack"]
     .filter((id) => scenario.companion !== "missing" || id !== scenario.channel)
     .map((id) => {
-      const name = `@openclaw/${id}`;
+      const name = `@granted/${id}`;
       writeFileSync(
         join(staging, "package/package.json"),
         JSON.stringify({
           name:
             scenario.companion === "wrong-identity" && id === scenario.channel
-              ? "@openclaw/other"
+              ? "@granted/other"
               : name,
           version,
         }),
@@ -109,7 +109,7 @@ if (help) {
 } else if (args[0] === "plugins") {
   if (!current) fail("legacy package must retain automatic setup");
   if (!args.includes("--accept-capabilities")) fail("capability consent missing");
-  if (args[2] === "codex" || args[2].startsWith("npm:@openclaw/codex@")) {
+  if (args[2] === "codex" || args[2].startsWith("npm:@granted/codex@")) {
     if (events.some((event) => event[0] === "onboard")) fail("runtime installed after onboard");
   } else {
     if (!events.some((event) => event[0] === "onboard")) fail("channel installed before onboard");
@@ -212,7 +212,7 @@ describe("npm onboarding fixture consent", () => {
     expect(result.status, detail).toBe(0);
     expect(installs).toEqual([
       registry
-        ? ["plugins", "install", `npm:@openclaw/codex@${version}`, "--pin", "--accept-capabilities"]
+        ? ["plugins", "install", `npm:@granted/codex@${version}`, "--pin", "--accept-capabilities"]
         : ["plugins", "install", "codex", "--accept-capabilities"],
     ]);
     const onboard = events.find((args) => args[0] === "onboard");
@@ -279,7 +279,7 @@ describe("npm onboarding fixture consent", () => {
               "plugins",
               "install",
               ...(scenario.sourcePlugin
-                ? [`npm:@openclaw/${scenario.channel}@${version}`, "--pin"]
+                ? [`npm:@granted/${scenario.channel}@${version}`, "--pin"]
                 : [scenario.channel]),
               "--accept-capabilities",
             ],

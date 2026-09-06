@@ -1,4 +1,4 @@
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { resolveDefaultAgentId } from "../agents/agent-scope-config.js";
 import type { GrantedConfig } from "../config/config.js";
 import { formatErrorMessage } from "../infra/errors.js";

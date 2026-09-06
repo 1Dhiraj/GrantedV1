@@ -1,7 +1,7 @@
 import {
   GatewayClientRequestError,
   GatewayClientRequestTimeoutError,
-} from "@openclaw/gateway-client";
+} from "@granted/gateway-client";
 import { Command } from "commander";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 

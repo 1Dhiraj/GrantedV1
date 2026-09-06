@@ -11,7 +11,7 @@ Adds vLLM model provider support to OpenClaw.
 
 ## Distribution
 
-- Package: `@openclaw/vllm-provider`
+- Package: `@granted/vllm-provider`
 - Install route: included in OpenClaw
 
 ## Surface

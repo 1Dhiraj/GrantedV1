@@ -19,10 +19,10 @@ import {
 
 const { requestPreparedCompaction } = vi.hoisted(() => ({
   requestPreparedCompaction:
-    vi.fn<typeof import("@openclaw/ai/transports").requestPreparedOpenAIResponsesCompaction>(),
+    vi.fn<typeof import("@granted/ai/transports").requestPreparedOpenAIResponsesCompaction>(),
 }));
-vi.mock("@openclaw/ai/transports", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("@openclaw/ai/transports")>()),
+vi.mock("@granted/ai/transports", async (importOriginal) => ({
+  ...(await importOriginal<typeof import("@granted/ai/transports")>()),
   requestPreparedOpenAIResponsesCompaction: requestPreparedCompaction,
 }));
 

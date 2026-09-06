@@ -1,5 +1,5 @@
 {
-  "name": "@openclaw/browser-plugin",
+  "name": "@granted/browser-plugin",
   "version": "2026.8.1",
   "private": true,
   "description": "OpenClaw browser tool plugin",
@@ -13,7 +13,7 @@
     "zod": "4.4.3"
   },
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*",
+    "@granted/plugin-sdk": "workspace:*",
     "undici": "8.10.0"
   },
   "openclaw": {

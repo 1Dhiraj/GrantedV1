@@ -1,5 +1,5 @@
 // Plugin runtime mock helpers build minimal runtime doubles for plugin SDK tests.
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import { vi } from "vitest";
 import type { InboundDebounceCreateParams } from "../../auto-reply/inbound-debounce.js";
 import { normalizeInboundTextNewlines } from "../../auto-reply/reply/inbound-text.js";

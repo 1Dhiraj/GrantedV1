@@ -1,5 +1,5 @@
 // Tests usage-line formatting for agent runner completion summaries.
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { describe, expect, it } from "vitest";
 import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { getReplyPayloadMetadata, setReplyPayloadMetadata } from "../reply-payload.js";

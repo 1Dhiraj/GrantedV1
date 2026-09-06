@@ -1,5 +1,5 @@
 /** Runtime provider selection and tool construction for the `web_fetch` tool. */
-import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
+import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
 import { resolveRuntimeConfigCacheKey } from "../config/runtime-snapshot.js";
 import type { GrantedConfig } from "../config/types.js";
 import { logVerbose } from "../globals.js";

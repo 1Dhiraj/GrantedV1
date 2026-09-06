@@ -5,9 +5,9 @@ import { streamSimple } from "../../../llm/stream.js";
 vi.mock("../context-engine-capabilities.js", () => ({
   resolveContextEngineCapabilities: async () => ({ llm: undefined }),
 }));
-import type { LlmRuntime } from "@openclaw/ai";
-import { defaultLlmRuntime } from "@openclaw/ai/internal/runtime";
-import { SYSTEM_PROMPT_CACHE_BOUNDARY } from "@openclaw/ai/internal/shared";
+import type { LlmRuntime } from "@granted/ai";
+import { defaultLlmRuntime } from "@granted/ai/internal/runtime";
+import { SYSTEM_PROMPT_CACHE_BOUNDARY } from "@granted/ai/internal/shared";
 import type { GrantedConfig } from "../../../config/config.js";
 import { addSession } from "../../bash-process-registry.js";
 import { createProcessSessionFixture } from "../../bash-process-registry.test-helpers.js";

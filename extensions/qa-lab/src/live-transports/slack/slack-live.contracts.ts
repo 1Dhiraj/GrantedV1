@@ -1,5 +1,5 @@
 // QA Lab Slack live domain contracts and wire schemas.
-import type { createSlackWebClient } from "@openclaw/slack/api.js";
+import type { createSlackWebClient } from "@granted/slack/api.js";
 import type { ChannelApprovalKind } from "granted/plugin-sdk/approval-handler-runtime";
 import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { z } from "zod";

@@ -1,4 +1,4 @@
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { createExecTool } from "./bash-tools.exec-run.js";
 import { applyCodeModeCatalog } from "./code-mode.js";

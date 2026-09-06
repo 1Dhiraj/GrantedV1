@@ -2,7 +2,7 @@ import { randomUUID } from "node:crypto";
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { parseStrictNonNegativeInteger } from "@openclaw/normalization-core/number-coercion";
+import { parseStrictNonNegativeInteger } from "@granted/normalization-core/number-coercion";
 import { findAgentRunTerminalOutcome } from "../agents/agent-run-terminal-error.js";
 import { isExecutionIdentityCollectionEnabled } from "../audit/audit-config.js";
 import { formatCliCommand } from "../cli/command-format.js";

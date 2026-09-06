@@ -15,9 +15,9 @@ import {
 
 const providerRuntimeMocks = vi.hoisted(() => ({ cleanupSessionResources: vi.fn() }));
 
-vi.mock("@openclaw/ai/internal/runtime", async () => {
-  const actual = await vi.importActual<typeof import("@openclaw/ai/internal/runtime")>(
-    "@openclaw/ai/internal/runtime",
+vi.mock("@granted/ai/internal/runtime", async () => {
+  const actual = await vi.importActual<typeof import("@granted/ai/internal/runtime")>(
+    "@granted/ai/internal/runtime",
   );
   return { ...actual, cleanupSessionResources: providerRuntimeMocks.cleanupSessionResources };
 });

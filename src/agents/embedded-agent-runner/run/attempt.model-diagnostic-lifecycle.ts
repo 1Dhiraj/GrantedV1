@@ -1,6 +1,6 @@
-import { withProviderAcceptanceObserver, type ProviderAcceptance } from "@openclaw/ai/transports";
-import { isPromiseLike } from "@openclaw/normalization-core/promise-like";
-import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+import { withProviderAcceptanceObserver, type ProviderAcceptance } from "@granted/ai/transports";
+import { isPromiseLike } from "@granted/normalization-core/promise-like";
+import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import { fireAndForgetBoundedHook } from "../../../hooks/fire-and-forget.js";
 import {
   diagnosticErrorCategory,

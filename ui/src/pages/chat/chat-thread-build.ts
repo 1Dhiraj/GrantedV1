@@ -1,6 +1,6 @@
-import { readSessionMessageIdentity } from "@openclaw/gateway-client/browser";
-import { asNullableRecord as asRecord } from "@openclaw/normalization-core/record-coerce";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { readSessionMessageIdentity } from "@granted/gateway-client/browser";
+import { asNullableRecord as asRecord } from "@granted/normalization-core/record-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import type { ChatPendingInputsPage } from "../../../../packages/gateway-protocol/src/schema/logs-chat.js";
 import { composeTranscriptDisplay } from "../../../../src/chat/transcript-display-position.js";
 import type { QuestionPrompt } from "../../app/question-prompt.ts";

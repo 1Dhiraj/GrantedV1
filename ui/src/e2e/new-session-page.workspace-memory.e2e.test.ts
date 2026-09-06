@@ -1,5 +1,5 @@
 import path from "node:path";
-import { gatewayOriginScope } from "@openclaw/gateway-client/browser";
+import { gatewayOriginScope } from "@granted/gateway-client/browser";
 import type { BrowserContextOptions, Page } from "playwright";
 import { expect, it } from "vitest";
 import {

@@ -1,6 +1,6 @@
 /* @vitest-environment jsdom */
 
-import type { BoardGetParams } from "@openclaw/gateway-protocol";
+import type { BoardGetParams } from "@granted/gateway-protocol";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import type { GatewayBrowserClient } from "../../api/gateway.ts";
 import {

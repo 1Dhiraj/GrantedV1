@@ -1,6 +1,6 @@
-# @openclaw/ai example: minimal chat completion
+# @granted/ai example: minimal chat completion
 
-Smallest possible consumer of the published `@openclaw/ai` package: creates an
+Smallest possible consumer of the published `@granted/ai` package: creates an
 isolated runtime, registers the built-in API providers, and streams one
 completion. No OpenClaw application code is involved — inside this repo the
 workspace link resolves to the package's built `dist`, the same artifact npm

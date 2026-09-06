@@ -1,7 +1,7 @@
 // Claw doctor diagnostics project the lifecycle ownership ledger into health findings.
 import { createHash } from "node:crypto";
 import type { DatabaseSync } from "node:sqlite";
-import { coerceErrorMessage, stableStringify } from "@openclaw/normalization-core";
+import { coerceErrorMessage, stableStringify } from "@granted/normalization-core";
 import { listConfiguredMcpServers } from "../config/mcp-config.js";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolveDefaultCronStaggerMs } from "../cron/stagger.js";

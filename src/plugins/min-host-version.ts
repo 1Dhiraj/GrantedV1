@@ -1,5 +1,5 @@
 // Checks plugin minimum host version compatibility.
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { valid as validSemver } from "semver";
 import { compareOpenClawVersions } from "../config/version.js";
 

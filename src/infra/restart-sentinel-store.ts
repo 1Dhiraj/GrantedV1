@@ -1,6 +1,6 @@
 import type { DatabaseSync } from "node:sqlite";
-import { safeParseJson } from "@openclaw/normalization-core";
-import { isRecord as isPlainRecord } from "@openclaw/normalization-core/record-coerce";
+import { safeParseJson } from "@granted/normalization-core";
+import { isRecord as isPlainRecord } from "@granted/normalization-core/record-coerce";
 import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   executeSqliteQuerySync,

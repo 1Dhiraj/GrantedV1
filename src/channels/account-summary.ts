@@ -3,9 +3,9 @@
  *
  * Builds safe status snapshots and resolves enabled/configured account state.
  */
-import { asNullableRecord } from "@openclaw/normalization-core/record-coerce";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
-import { normalizeStringEntries } from "@openclaw/normalization-core/string-normalization";
+import { asNullableRecord } from "@granted/normalization-core/record-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
+import { normalizeStringEntries } from "@granted/normalization-core/string-normalization";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import { buildRuntimeAccountStatusSnapshot } from "../plugin-sdk/status-helpers.js";
 import { isRecord } from "../utils.js";

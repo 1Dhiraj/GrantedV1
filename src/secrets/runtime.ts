@@ -1,6 +1,6 @@
 /** Prepares secrets runtime snapshots from config, auth stores, plugins, and env. */
 import { isDeepStrictEqual } from "node:util";
-import { uniqueStrings } from "@openclaw/normalization-core/string-normalization";
+import { uniqueStrings } from "@granted/normalization-core/string-normalization";
 import {
   clearRuntimeAuthProfileStoreSnapshots,
   loadAuthProfileStoreForSecretsRuntime,

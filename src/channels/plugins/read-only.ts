@@ -6,7 +6,7 @@
 import {
   sortUniqueStrings,
   uniqueStrings,
-} from "@openclaw/normalization-core/string-normalization";
+} from "@granted/normalization-core/string-normalization";
 import { sanitizeForLog } from "../../../packages/terminal-core/src/ansi.js";
 import { tryResolveConfiguredAgentWorkspaceDir } from "../../agents/agent-scope.js";
 import { resolveConfigWidePluginManifestRegistry } from "../../config/io.plugin-metadata.js";

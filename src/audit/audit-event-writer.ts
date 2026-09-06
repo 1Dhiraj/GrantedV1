@@ -1,5 +1,5 @@
 /** Non-blocking process-owned queue for audit metadata persistence. */
-import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import type { DecisionReceiptV1 } from "../../packages/gateway-protocol/src/index.js";
 import { resolveStateDir } from "../config/paths.js";
 import { redactSensitiveText } from "../logging/redact.js";

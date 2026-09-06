@@ -21,7 +21,7 @@ The Volcengine provider gives access to Doubao models and third-party models hos
 <Steps>
   <Step title="Install the plugin">
     ```bash
-    openclaw plugins install @openclaw/volcengine-provider
+    openclaw plugins install @granted/volcengine-provider
     openclaw gateway restart
     ```
   </Step>

@@ -17,10 +17,10 @@ This is an unofficial integration and may result in account suspension or ban. U
 Zalo Personal is an official external plugin, not bundled in core. Install it before use:
 
 ```bash
-openclaw plugins install @openclaw/zalouser
+openclaw plugins install @granted/zalouser
 ```
 
-- Pin a version: `openclaw plugins install @openclaw/zalouser@<version>`
+- Pin a version: `openclaw plugins install @granted/zalouser@<version>`
 - From a source checkout: `openclaw plugins install ./path/to/local/zalouser-plugin`
 - Details: [Plugins](/tools/plugin)
 

@@ -1,4 +1,4 @@
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { getPluginToolMeta, setPluginToolMeta } from "../../../plugins/tool-metadata.js";
 import {

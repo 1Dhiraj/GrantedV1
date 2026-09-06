@@ -1,7 +1,7 @@
-import { isSensitiveUrlQueryParamName } from "@openclaw/net-policy/redact-sensitive-url";
-import { expectDefined } from "@openclaw/normalization-core";
+import { isSensitiveUrlQueryParamName } from "@granted/net-policy/redact-sensitive-url";
+import { expectDefined } from "@granted/normalization-core";
 // Redaction helpers scrub secrets and sensitive identifiers from log output.
-import { sliceUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+import { sliceUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import {
   findStructuredAuthParamRanges,
   redactStructuredAuthHeaders,

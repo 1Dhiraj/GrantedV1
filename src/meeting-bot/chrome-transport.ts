@@ -1,4 +1,4 @@
-import { addTimerTimeoutGraceMs } from "@openclaw/normalization-core/number-coercion";
+import { addTimerTimeoutGraceMs } from "@granted/normalization-core/number-coercion";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { PluginRuntime, RuntimeLogger } from "../plugins/runtime/types.js";
 import { resolveTranscriptsConfig } from "../transcripts/config.js";

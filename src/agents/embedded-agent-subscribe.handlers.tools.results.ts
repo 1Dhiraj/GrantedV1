@@ -1,11 +1,11 @@
 import {
   asOptionalObjectRecord,
   asOptionalRecord as readRecordField,
-} from "@openclaw/normalization-core/record-coerce";
+} from "@granted/normalization-core/record-coerce";
 import {
   normalizeOptionalLowercaseString,
   readStringValue,
-} from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/string-coerce";
 import type { AgentPlanStep } from "../channels/streaming.js";
 import { consumeRootOptionToken } from "../infra/cli-root-options.js";
 import type { ExecApprovalDecision } from "../infra/exec-approvals.js";

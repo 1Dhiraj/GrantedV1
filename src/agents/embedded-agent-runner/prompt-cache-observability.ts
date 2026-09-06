@@ -5,9 +5,9 @@ import crypto from "node:crypto";
 import {
   sortPromptCacheToolsByName,
   splitSystemPromptCacheBoundary,
-} from "@openclaw/ai/internal/shared";
-import { stableStringify } from "@openclaw/normalization-core";
-import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+} from "@granted/ai/internal/shared";
+import { stableStringify } from "@granted/normalization-core";
+import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import { pruneMapToMaxSize } from "../../infra/map-size.js";
 import type { NormalizedUsage } from "../usage.js";
 

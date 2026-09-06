@@ -1,6 +1,6 @@
 // Session patch applier for gateway session metadata and model/runtime overrides.
 import { randomUUID } from "node:crypto";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import {
   ErrorCodes,
   type ErrorShape,

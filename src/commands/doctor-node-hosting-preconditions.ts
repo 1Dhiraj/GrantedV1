@@ -1,6 +1,6 @@
 // Doctor node-hosting preconditions expose config combinations that leave browser auth healthy
 // while machine authentication or onboarding remains unavailable.
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { GRANTED_AGENT_RUNTIME_ID } from "../agents/agent-runtime-id.js";
 import { listAgentIds } from "../agents/agent-scope-config.js";
 import { resolveDefaultModelForAgent } from "../agents/model-selection.js";

@@ -1,5 +1,5 @@
-import { onLlmRequestActivity } from "@openclaw/ai/internal/runtime";
-import { isCloudModelRef } from "@openclaw/model-catalog-core/model-catalog-refs";
+import { onLlmRequestActivity } from "@granted/ai/internal/runtime";
+import { isCloudModelRef } from "@granted/model-catalog-core/model-catalog-refs";
 /**
  * Wraps LLM streams with idle-timeout detection and diagnostics.
  */
@@ -7,7 +7,7 @@ import {
   finiteSecondsToTimerSafeMilliseconds,
   clampTimerTimeoutMs,
   MAX_TIMER_TIMEOUT_MS,
-} from "@openclaw/normalization-core/number-coercion";
+} from "@granted/normalization-core/number-coercion";
 import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import { areDiagnosticsEnabledForProcess } from "../../../infra/diagnostic-events.js";
 import { toErrorObject } from "../../../infra/errors.js";

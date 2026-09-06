@@ -90,24 +90,24 @@ describe("post-core bundled plugin retirement", () => {
     );
     fs.writeFileSync(
       path.join(bundledDir, "package.json"),
-      JSON.stringify({ name: "@openclaw/codex", version: VERSION }),
+      JSON.stringify({ name: "@granted/codex", version: VERSION }),
       "utf8",
     );
     const npmRoot = resolvePluginNpmGenerationProjectDir({
       npmDir: path.join(stateDir, "npm"),
-      packageName: "@openclaw/codex",
-      generationKey: "@openclaw/codex@2026.7.2-beta.7",
+      packageName: "@granted/codex",
+      generationKey: "@granted/codex@2026.7.2-beta.7",
     });
     const packageDir = path.join(npmRoot, "node_modules", "@openclaw", "codex");
     fs.mkdirSync(packageDir, { recursive: true });
     fs.writeFileSync(
       path.join(npmRoot, "package.json"),
-      JSON.stringify({ dependencies: { "@openclaw/codex": "2026.7.2-beta.7" } }),
+      JSON.stringify({ dependencies: { "@granted/codex": "2026.7.2-beta.7" } }),
       "utf8",
     );
     fs.writeFileSync(
       path.join(packageDir, "package.json"),
-      JSON.stringify({ name: "@openclaw/codex", version: "2026.7.2-beta.7" }),
+      JSON.stringify({ name: "@granted/codex", version: "2026.7.2-beta.7" }),
       "utf8",
     );
     fs.writeFileSync(
@@ -119,11 +119,11 @@ describe("post-core bundled plugin retirement", () => {
       {
         codex: {
           source: "npm",
-          spec: "@openclaw/codex@beta",
+          spec: "@granted/codex@beta",
           installPath: packageDir,
           version: "2026.7.2-beta.7",
-          resolvedName: "@openclaw/codex",
-          resolvedSpec: "@openclaw/codex@2026.7.2-beta.7",
+          resolvedName: "@granted/codex",
+          resolvedSpec: "@granted/codex@2026.7.2-beta.7",
           resolvedVersion: "2026.7.2-beta.7",
         },
       },
@@ -145,8 +145,8 @@ describe("post-core bundled plugin retirement", () => {
         installAttempts += 1;
         const retryRoot = resolvePluginNpmGenerationProjectDir({
           npmDir: path.join(stateDir, "npm"),
-          packageName: "@openclaw/codex",
-          generationKey: `@openclaw/codex@retry-${installAttempts}`,
+          packageName: "@granted/codex",
+          generationKey: `@granted/codex@retry-${installAttempts}`,
         });
         const retryPackageDir = path.join(retryRoot, "node_modules", "@openclaw", "codex");
         fs.mkdirSync(retryPackageDir, { recursive: true });
@@ -159,7 +159,7 @@ describe("post-core bundled plugin retirement", () => {
           env: params.env,
         });
         return {
-          changes: ['Refreshed stale configured plugin "codex" from @openclaw/codex@beta.'],
+          changes: ['Refreshed stale configured plugin "codex" from @granted/codex@beta.'],
           warnings: [],
           records: nextRecords,
         };

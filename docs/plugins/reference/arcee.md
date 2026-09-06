@@ -11,8 +11,8 @@ Adds Arcee model provider support to OpenClaw.
 
 ## Distribution
 
-- Package: `@openclaw/arcee-provider`
-- Install route: npm; ClawHub: `clawhub:@openclaw/arcee-provider`
+- Package: `@granted/arcee-provider`
+- Install route: npm; ClawHub: `clawhub:@granted/arcee-provider`
 
 ## Surface
 

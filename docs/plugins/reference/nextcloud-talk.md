@@ -11,7 +11,7 @@ OpenClaw Nextcloud Talk channel plugin for conversations.
 
 ## Distribution
 
-- Package: `@openclaw/nextcloud-talk`
+- Package: `@granted/nextcloud-talk`
 - Install route: npm; ClawHub
 
 ## Surface

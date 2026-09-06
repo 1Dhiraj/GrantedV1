@@ -763,7 +763,7 @@ export function runCoercionHelperDeclarationGuard(
   }
   writeLine(
     io.stderr,
-    "Core/package/UI/workspace-script code: use the matching @openclaw/normalization-core export or module.",
+    "Core/package/UI/workspace-script code: use the matching @granted/normalization-core export or module.",
   );
   writeLine(
     io.stderr,

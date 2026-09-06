@@ -1,7 +1,7 @@
 // Doctor config-flow tests cover config repair, migration, stripping, and validation orchestration.
 import fs from "node:fs/promises";
 import path from "node:path";
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { withTempHome } from "granted/plugin-sdk/test-env";
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { migratePersistedImplicitMainRoster } from "../config/legacy.roster.js";
@@ -46,7 +46,7 @@ const noteImplicitFallbackClobberWarningsMock = vi.hoisted(() =>
 );
 const legacyConfigMigrationForTest = await vi.hoisted(async () => {
   const { asNullableRecord: readNullableRecord } =
-    await import("@openclaw/normalization-core/record-coerce");
+    await import("@granted/normalization-core/record-coerce");
 
   function ensureRecord(parent: Record<string, unknown>, key: string): Record<string, unknown> {
     const current = readNullableRecord(parent[key]);
@@ -355,7 +355,7 @@ vi.mock("../config/validation.js", () => ({
 
 vi.mock("../config/legacy.js", async () => {
   const { asNullableRecord: readNullableRecord } =
-    await import("@openclaw/normalization-core/record-coerce");
+    await import("@granted/normalization-core/record-coerce");
   type LegacyRule = {
     path: string[];
     message: string;
@@ -877,7 +877,7 @@ vi.mock("./doctor/channel-capabilities.js", () => {
 
 vi.mock("../plugins/doctor-contract-registry.js", async () => {
   const { asNullableRecord: readNullableRecord } =
-    await import("@openclaw/normalization-core/record-coerce");
+    await import("@granted/normalization-core/record-coerce");
 
   function hasLegacyTalkFields(value: unknown): boolean {
     const talk = readNullableRecord(value);
@@ -1077,7 +1077,7 @@ vi.mock("../plugins/setup-registry.js", () => ({
 
 vi.mock("./doctor/shared/channel-doctor.js", async () => {
   const { asNullableRecord: readNullableRecord } =
-    await import("@openclaw/normalization-core/record-coerce");
+    await import("@granted/normalization-core/record-coerce");
 
   function hasOwnStringArray(value: unknown): boolean {
     return Array.isArray(value) && value.some((entry) => typeof entry === "string" && entry);
@@ -1264,7 +1264,7 @@ vi.mock("./doctor/shared/channel-doctor.js", async () => {
 
 vi.mock("./doctor/shared/preview-warnings.js", async () => {
   const { asNullableRecord: readNullableRecord } =
-    await import("@openclaw/normalization-core/record-coerce");
+    await import("@granted/normalization-core/record-coerce");
 
   function hasStringEntries(value: unknown): boolean {
     return Array.isArray(value) && value.some((entry) => typeof entry === "string" && entry);

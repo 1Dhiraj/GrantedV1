@@ -1,8 +1,8 @@
-import { resolveClaudeOpus5ModelIdentity } from "@openclaw/llm-core";
+import { resolveClaudeOpus5ModelIdentity } from "@granted/llm-core";
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalLowercaseString,
-} from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/string-coerce";
 import {
   resolveSupportedThinkingLevel,
   resolveThinkingDefaultForModel,

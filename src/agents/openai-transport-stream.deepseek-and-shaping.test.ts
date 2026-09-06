@@ -1,4 +1,4 @@
-import { SYSTEM_PROMPT_CACHE_BOUNDARY } from "@openclaw/ai/internal/shared";
+import { SYSTEM_PROMPT_CACHE_BOUNDARY } from "@granted/ai/internal/shared";
 import type { Api, Model } from "granted/plugin-sdk/llm";
 import { describe, expect, it } from "vitest";
 import {

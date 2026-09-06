@@ -1,5 +1,5 @@
-import { asNullableRecord } from "@openclaw/normalization-core/record-coerce";
-import { normalizeOptionalLowercaseString } from "@openclaw/normalization-core/string-coerce";
+import { asNullableRecord } from "@granted/normalization-core/record-coerce";
+import { normalizeOptionalLowercaseString } from "@granted/normalization-core/string-coerce";
 import { listRawChannelPluginCatalogEntries } from "../../../channels/plugins/catalog.js";
 import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import { resolveConfiguredChannelPresencePolicy } from "../../../plugins/channel-plugin-ids.js";

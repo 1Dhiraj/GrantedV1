@@ -1,5 +1,5 @@
 // Doctor repair for open DM policies that still need explicit allowFrom wildcards.
-import { asNullableRecord } from "@openclaw/normalization-core/record-coerce";
+import { asNullableRecord } from "@granted/normalization-core/record-coerce";
 import { sanitizeForLog } from "../../../../packages/terminal-core/src/ansi.js";
 import { ensureOpenDmPolicyAllowFromWildcard } from "../../../channels/plugins/dm-access.js";
 import type { GrantedConfig } from "../../../config/types.openclaw.js";

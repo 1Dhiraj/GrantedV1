@@ -11,7 +11,7 @@ read_when:
 | Property        | Value                                    |
 | --------------- | ---------------------------------------- |
 | Provider id     | `cohere`                                 |
-| Plugin          | `@openclaw/cohere-provider`              |
+| Plugin          | `@granted/cohere-provider`              |
 | Auth env var    | `COHERE_API_KEY`                         |
 | Onboarding flag | `--auth-choice cohere-api-key`           |
 | Direct CLI flag | `--cohere-api-key <key>`                 |
@@ -37,7 +37,7 @@ Reasoning-capable Cohere models support two Compatibility API reasoning modes. O
 1. Install the official plugin and restart the Gateway:
 
 ```bash
-openclaw plugins install @openclaw/cohere-provider
+openclaw plugins install @granted/cohere-provider
 openclaw gateway restart
 ```
 

@@ -1,6 +1,6 @@
 /* @vitest-environment jsdom */
 
-import type { PortalListResult, PortalSummary } from "@openclaw/gateway-protocol";
+import type { PortalListResult, PortalSummary } from "@granted/gateway-protocol";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { GatewayBrowserClient, GatewayEventFrame } from "../../api/gateway.ts";
 import type { ApplicationContext, ApplicationGatewaySnapshot } from "../../app/context.ts";

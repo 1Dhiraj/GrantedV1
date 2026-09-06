@@ -11,7 +11,7 @@ OpenClaw ACP runtime backend with plugin-owned session and transport management.
 
 ## Distribution
 
-- Package: `@openclaw/acpx`
+- Package: `@granted/acpx`
 - Install route: npm; ClawHub
 
 ## Surface

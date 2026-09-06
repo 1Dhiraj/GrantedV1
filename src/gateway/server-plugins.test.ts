@@ -2,7 +2,7 @@
 // request-scope injection, diagnostics, and handler dispatch integration.
 import os from "node:os";
 import path from "node:path";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, beforeAll, beforeEach, describe, expect, test, vi } from "vitest";
 import { createTerminalTool } from "../agents/tools/terminal-tool.js";
@@ -744,7 +744,7 @@ describe("loadGatewayPlugins", () => {
     const installRecords = {
       telegram: {
         source: "npm" as const,
-        spec: "@openclaw/telegram@1.0.0",
+        spec: "@granted/telegram@1.0.0",
         installPath: "/tmp/plugins/telegram",
       },
     };

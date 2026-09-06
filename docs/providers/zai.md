@@ -13,7 +13,7 @@ OpenClaw uses the `zai` provider with a Z.AI API key.
 | Property | Value                                        |
 | -------- | -------------------------------------------- |
 | Provider | `zai`                                        |
-| Package  | `@openclaw/zai-provider`                     |
+| Package  | `@granted/zai-provider`                     |
 | Auth     | `ZAI_API_KEY` (legacy alias: `Z_AI_API_KEY`) |
 | API      | Z.AI Chat Completions (Bearer auth)          |
 
@@ -27,7 +27,7 @@ refs such as `zai/glm-5.3`: provider `zai`, model id `glm-5.3`.
 Install the provider plugin first:
 
 ```bash
-openclaw plugins install @openclaw/zai-provider
+openclaw plugins install @granted/zai-provider
 ```
 
 <Tabs>

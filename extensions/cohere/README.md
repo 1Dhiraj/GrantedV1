@@ -6,7 +6,7 @@ API.
 Install from OpenClaw:
 
 ```bash
-openclaw plugins install @openclaw/cohere-provider
+openclaw plugins install @granted/cohere-provider
 openclaw gateway restart
 ```
 

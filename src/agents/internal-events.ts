@@ -3,8 +3,8 @@
  * Sanitizes background task completion events into protected runtime-context
  * blocks or plain prompt text.
  */
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
-import { truncateWithMarker } from "@openclaw/normalization-core/utf16-slice";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
+import { truncateWithMarker } from "@granted/normalization-core/utf16-slice";
 import {
   formatGeneratedAttachmentLines,
   mediaUrlsFromGeneratedAttachments,

@@ -2,7 +2,7 @@
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
-} from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/string-coerce";
 
 export function parseCronThreadIdOption(value: unknown): number | undefined {
   if (typeof value !== "string") {

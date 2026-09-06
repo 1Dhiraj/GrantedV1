@@ -1,6 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import { normalizeStringEntries } from "@openclaw/normalization-core/string-normalization";
+import { normalizeStringEntries } from "@granted/normalization-core/string-normalization";
 import { stripAnsi } from "../../packages/terminal-core/src/ansi.js";
 import { hasErrnoCode } from "./errno.js";
 import { trimLogTail } from "./restart-sentinel.js";

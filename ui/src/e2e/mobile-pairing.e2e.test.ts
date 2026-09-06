@@ -1,6 +1,6 @@
 // Control UI tests cover mobile pairing setup through the mocked Gateway.
 import path from "node:path";
-import { DEFAULT_GATEWAY_REQUEST_TIMEOUT_MS } from "@openclaw/gateway-client/browser";
+import { DEFAULT_GATEWAY_REQUEST_TIMEOUT_MS } from "@granted/gateway-client/browser";
 import type { Page } from "playwright";
 import qrcode from "qrcode";
 import { beforeEach, expect, it } from "vitest";

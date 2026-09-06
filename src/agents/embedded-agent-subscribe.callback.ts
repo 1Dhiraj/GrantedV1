@@ -1,4 +1,4 @@
-import { isPromiseLike } from "@openclaw/normalization-core/promise-like";
+import { isPromiseLike } from "@granted/normalization-core/promise-like";
 
 type CallbackLogger = {
   warn(message: string): void;

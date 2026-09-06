@@ -1,4 +1,4 @@
-import { prependSystemPromptAdditionAfterCacheBoundary } from "@openclaw/ai/internal/shared";
+import { prependSystemPromptAdditionAfterCacheBoundary } from "@granted/ai/internal/shared";
 /**
  * Builds and repairs prompt inputs for embedded-agent attempts.
  */

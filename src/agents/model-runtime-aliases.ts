@@ -1,9 +1,9 @@
 /**
  * Resolves CLI runtime aliases to provider/model auth labels and execution ids.
  */
-import { parseModelCatalogRef } from "@openclaw/model-catalog-core/model-catalog-refs";
-import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
-import { normalizeOptionalLowercaseString } from "@openclaw/normalization-core/string-coerce";
+import { parseModelCatalogRef } from "@granted/model-catalog-core/model-catalog-refs";
+import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
+import { normalizeOptionalLowercaseString } from "@granted/normalization-core/string-coerce";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolveAgentDir } from "./agent-scope-config.js";
 import { resolveExplicitAuthOrderSelection } from "./auth-profiles/order.js";

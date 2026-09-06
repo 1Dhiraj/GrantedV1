@@ -1,7 +1,7 @@
 // Update gateway methods run self-update flows, report status, write restart
 // sentinels, and hand off managed-service restarts when needed.
 import { randomUUID } from "node:crypto";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import {
   validateUpdateHoldParams,
   validateUpdateHoldResult,

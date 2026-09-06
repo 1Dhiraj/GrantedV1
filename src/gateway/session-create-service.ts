@@ -1,11 +1,11 @@
 import { randomUUID } from "node:crypto";
-import { stableStringify } from "@openclaw/normalization-core";
+import { stableStringify } from "@granted/normalization-core";
 import {
   type FastMode,
   normalizeOptionalLowercaseString,
   normalizeOptionalString,
-} from "@openclaw/normalization-core/string-coerce";
-import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+} from "@granted/normalization-core/string-coerce";
+import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import {
   ErrorCodes,
   type ErrorShape,

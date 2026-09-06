@@ -1,5 +1,5 @@
 import { execFileSync } from "node:child_process";
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { Command } from "commander";
 import { describe, expect, it, vi } from "vitest";
 import { registerQaLabCli } from "./cli.js";

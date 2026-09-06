@@ -1,5 +1,5 @@
 // Stores voice wake trigger configuration.
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import {
   readConfigMachineStateWithMetadata,
   writeConfigMachineState,

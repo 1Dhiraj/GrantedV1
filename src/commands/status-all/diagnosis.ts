@@ -1,8 +1,8 @@
 // Appends the read-only diagnosis section for `openclaw status --all`.
 // Every line that can include logs, config, or connection details is redacted before display.
 
-import { redactSensitiveUrlLikeString } from "@openclaw/net-policy/redact-sensitive-url";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { redactSensitiveUrlLikeString } from "@granted/net-policy/redact-sensitive-url";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { sanitizeTerminalText } from "../../../packages/terminal-core/src/safe-text.js";
 import type { ProgressReporter } from "../../cli/progress.js";
 import { formatConfigIssueLine } from "../../config/issue-format.js";

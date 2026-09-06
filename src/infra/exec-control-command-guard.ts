@@ -1,9 +1,9 @@
 import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { expectDefined } from "@openclaw/normalization-core";
-import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
-import { normalizeStringEntries } from "@openclaw/normalization-core/string-normalization";
+import { expectDefined } from "@granted/normalization-core";
+import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
+import { normalizeStringEntries } from "@granted/normalization-core/string-normalization";
 import { splitShellArgs } from "../utils/shell-argv.js";
 import { resolvePathViaExistingAncestorSync } from "./boundary-path.js";
 import {

@@ -1,7 +1,7 @@
 // Reads provider ids selected by auth, model, channel, and media configuration.
-import { collectConfiguredModelRefs } from "@openclaw/model-catalog-core/configured-model-refs";
-import { asNullableRecord } from "@openclaw/normalization-core/record-coerce";
-import { normalizeNullableString as normalizeId } from "@openclaw/normalization-core/string-coerce";
+import { collectConfiguredModelRefs } from "@granted/model-catalog-core/configured-model-refs";
+import { asNullableRecord } from "@granted/normalization-core/record-coerce";
+import { normalizeNullableString as normalizeId } from "@granted/normalization-core/string-coerce";
 import type { GrantedConfig } from "../../../config/types.openclaw.js";
 
 function collectConfiguredProviderIds(cfg: GrantedConfig): Set<string> {

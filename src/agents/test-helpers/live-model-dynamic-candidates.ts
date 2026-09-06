@@ -6,9 +6,9 @@
 import {
   findNormalizedProviderValue,
   normalizeProviderId,
-} from "@openclaw/model-catalog-core/provider-id";
-import { parseStrictNonNegativeInteger } from "@openclaw/normalization-core/number-coercion";
-import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
+} from "@granted/model-catalog-core/provider-id";
+import { parseStrictNonNegativeInteger } from "@granted/normalization-core/number-coercion";
+import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
 import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { Model } from "../../llm/types.js";
 import { withBundledPluginEnablementCompat } from "../../plugins/bundled-compat.js";

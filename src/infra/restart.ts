@@ -2,7 +2,7 @@
 import { spawnSync } from "node:child_process";
 import os from "node:os";
 import path from "node:path";
-import { resolveTimerTimeoutMs } from "@openclaw/normalization-core/number-coercion";
+import { resolveTimerTimeoutMs } from "@granted/normalization-core/number-coercion";
 import {
   resolveGatewayLaunchAgentLabel,
   resolveGatewaySystemdServiceName,

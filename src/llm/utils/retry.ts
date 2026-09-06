@@ -1,4 +1,4 @@
-import { isProviderRefusalAssistantError } from "@openclaw/llm-core/diagnostics";
+import { isProviderRefusalAssistantError } from "@granted/llm-core/diagnostics";
 import { classifyFailoverSignal } from "../../agents/failover/classify.js";
 import {
   extractFailoverHttpStatus,

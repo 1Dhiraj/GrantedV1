@@ -1,5 +1,5 @@
-import { readSessionMessageIdentity } from "@openclaw/gateway-client/browser";
-import { asNullableRecord as asRecord } from "@openclaw/normalization-core/record-coerce";
+import { readSessionMessageIdentity } from "@granted/gateway-client/browser";
+import { asNullableRecord as asRecord } from "@granted/normalization-core/record-coerce";
 import { resolveAssistantMessagePhase } from "../../../../src/shared/chat-message-content.js";
 import type { MessageGroup } from "../../lib/chat/chat-types.ts";
 import { extractTextCached } from "../../lib/chat/message-extract.ts";

@@ -5,7 +5,7 @@ import type {
   WorkboardExecution,
   WorkboardLaunchState,
   WorkboardWorkspace,
-} from "@openclaw/workboard-contract";
+} from "@granted/workboard-contract";
 import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
 import {
   isFutureDateTimestampMs,

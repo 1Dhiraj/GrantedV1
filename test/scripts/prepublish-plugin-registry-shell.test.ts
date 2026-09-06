@@ -70,14 +70,14 @@ printf '%s\n' "\${GRANTED_PREPUBLISH_PLUGIN_REGISTRY_DOCKER_ARGS[@]}"
     mkdirSync(artifactDir);
     const codexFilename = "openclaw-codex-2026.8.1-beta.1.tgz";
     const telegramFilename = "openclaw-telegram-2026.8.1-beta.1.tgz";
-    const codexTarball = createTarball(root, artifactDir, "@openclaw/codex", codexFilename);
+    const codexTarball = createTarball(root, artifactDir, "@granted/codex", codexFilename);
     const telegramTarball = createTarball(
       root,
       artifactDir,
-      "@openclaw/telegram",
+      "@granted/telegram",
       telegramFilename,
     );
-    const extraTarball = createTarball(root, root, "@openclaw/brave-plugin", "brave-fixture.tgz");
+    const extraTarball = createTarball(root, root, "@granted/brave-plugin", "brave-fixture.tgz");
     const manifestPath = join(artifactDir, "prepublish-plugin-registry.json");
     writeFileSync(
       manifestPath,
@@ -85,13 +85,13 @@ printf '%s\n' "\${GRANTED_PREPUBLISH_PLUGIN_REGISTRY_DOCKER_ARGS[@]}"
         candidateVersion: VERSION,
         packages: [
           {
-            name: "@openclaw/codex",
+            name: "@granted/codex",
             sha256: sha256(codexTarball),
             tarball: codexFilename,
             version: VERSION,
           },
           {
-            name: "@openclaw/telegram",
+            name: "@granted/telegram",
             sha256: sha256(telegramTarball),
             tarball: telegramFilename,
             version: VERSION,
@@ -123,10 +123,10 @@ export GRANTED_DOCKER_E2E_SELECTED_SHA="$SOURCE_SHA"
 export GRANTED_PREPUBLISH_PLUGIN_REGISTRY_CANDIDATE_VERSION="$VERSION"
 export GRANTED_PREPUBLISH_PLUGIN_REGISTRY_MANIFEST_SHA256="$MANIFEST_SHA256"
 openclaw_prepublish_plugin_registry_start_mounted \
-  "$REGISTRY_ROOT" registry_pid '["@openclaw/codex"]' \
-  "@openclaw/brave-plugin" "$VERSION" "$EXTRA_TARBALL"
+  "$REGISTRY_ROOT" registry_pid '["@granted/codex"]' \
+  "@granted/brave-plugin" "$VERSION" "$EXTRA_TARBALL"
 node <<'NODE'
-const packages = ["@openclaw/codex", "@openclaw/telegram", "@openclaw/brave-plugin"];
+const packages = ["@granted/codex", "@granted/telegram", "@granted/brave-plugin"];
 for (const name of packages) {
   const response = await fetch(\`\${process.env.NPM_CONFIG_REGISTRY}/\${encodeURIComponent(name)}\`);
   if (!response.ok) throw new Error(\`\${name}: \${response.status}\`);
@@ -167,7 +167,7 @@ NODE
       const discordTarball = createTarball(
         root,
         root,
-        "@openclaw/discord",
+        "@granted/discord",
         `openclaw-discord-${version}.tgz`,
         version,
       );
@@ -175,7 +175,7 @@ NODE
       const braveTarball = createTarball(
         root,
         root,
-        "@openclaw/brave-plugin",
+        "@granted/brave-plugin",
         `openclaw-brave-${fixtureVersion}.tgz`,
         fixtureVersion,
       );
@@ -196,10 +196,10 @@ cleanup() {
 trap cleanup EXIT
 openclaw_prepublish_plugin_registry_start \
   "" "" "$VERSION" "" "$REGISTRY_ROOT" registry_pid \
-  "@openclaw/discord" "$VERSION" "$DISCORD_TARBALL" \
-  "@openclaw/brave-plugin" "$FIXTURE_VERSION" "$BRAVE_TARBALL"
-test "$(npm view @openclaw/discord version)" = "$VERSION"
-test "$(npm view @openclaw/brave-plugin version)" = "$FIXTURE_VERSION"
+  "@granted/discord" "$VERSION" "$DISCORD_TARBALL" \
+  "@granted/brave-plugin" "$FIXTURE_VERSION" "$BRAVE_TARBALL"
+test "$(npm view @granted/discord version)" = "$VERSION"
+test "$(npm view @granted/brave-plugin version)" = "$FIXTURE_VERSION"
 `,
         ],
         {

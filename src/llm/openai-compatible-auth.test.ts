@@ -1,5 +1,5 @@
-import type { Context, Model } from "@openclaw/ai";
-import { streamOpenAICompletions, streamOpenAIResponses } from "@openclaw/ai/internal/openai";
+import type { Context, Model } from "@granted/ai";
+import { streamOpenAICompletions, streamOpenAIResponses } from "@granted/ai/internal/openai";
 // OpenAI-compatible auth tests cover API key and base URL normalization.
 // Lives in core: it proves the facade-installed guarded fetch routes provider
 // requests through OpenClaw's SSRF guard.

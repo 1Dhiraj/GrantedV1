@@ -41,7 +41,7 @@ import {
   type WorkboardWorkerLog,
   type WorkboardWorkerProtocol,
   type WorkboardWorkspace,
-} from "@openclaw/workboard-contract";
+} from "@granted/workboard-contract";
 import { resolveNonNegativeIntegerOption } from "granted/plugin-sdk/number-runtime";
 import { isRecord, normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";

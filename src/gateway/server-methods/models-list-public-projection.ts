@@ -1,4 +1,4 @@
-import { asPositiveSafeInteger as resolvePositiveSafeInteger } from "@openclaw/normalization-core/number-coercion";
+import { asPositiveSafeInteger as resolvePositiveSafeInteger } from "@granted/normalization-core/number-coercion";
 import type {
   ModelCatalogProviderOutcome,
   ModelChoice,

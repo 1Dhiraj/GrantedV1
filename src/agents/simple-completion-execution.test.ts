@@ -1,4 +1,4 @@
-import { reasoningTagTextPolicy } from "@openclaw/ai/internal/openai";
+import { reasoningTagTextPolicy } from "@granted/ai/internal/openai";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { Model } from "../llm/types.js";
 
@@ -8,8 +8,8 @@ const mocks = vi.hoisted(() => ({
 }));
 
 vi.mock("../llm/stream.js", () => ({ completeSimple: mocks.complete }));
-vi.mock("@openclaw/ai/transports", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("@openclaw/ai/transports")>()),
+vi.mock("@granted/ai/transports", async (importOriginal) => ({
+  ...(await importOriginal<typeof import("@granted/ai/transports")>()),
   prepareModelForSimpleCompletion: mocks.prepareModel,
 }));
 

@@ -1,5 +1,5 @@
 // Chat UI chips for pull requests detected on the session's working branch.
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import { html, nothing } from "lit";
 import type {
   ControlUiSessionBranch,

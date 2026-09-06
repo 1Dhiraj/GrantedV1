@@ -12,7 +12,7 @@ access hundreds of models through a single endpoint.
 | Property      | Value                                  |
 | ------------- | -------------------------------------- |
 | Provider      | `vercel-ai-gateway`                    |
-| Package       | `@openclaw/vercel-ai-gateway-provider` |
+| Package       | `@granted/vercel-ai-gateway-provider` |
 | Auth          | `AI_GATEWAY_API_KEY`                   |
 | API           | Anthropic Messages compatible          |
 | Base URL      | `https://ai-gateway.vercel.sh`         |
@@ -31,7 +31,7 @@ refs such as `vercel-ai-gateway/openai/gpt-5.5` and
 <Steps>
   <Step title="Install the plugin">
     ```bash
-    openclaw plugins install @openclaw/vercel-ai-gateway-provider
+    openclaw plugins install @granted/vercel-ai-gateway-provider
     ```
   </Step>
   <Step title="Set the API key">

@@ -1,4 +1,4 @@
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import type { AssistantDeliveryTtsFacts, AssistantMessage } from "../../llm/types.js";
 import { extractTtsDirectiveFacts } from "../../tts/directive-facts.js";
 import {

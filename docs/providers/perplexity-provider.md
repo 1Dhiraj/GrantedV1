@@ -26,7 +26,7 @@ This page covers the Perplexity **provider** setup. For the Perplexity **tool** 
 ## Install plugin
 
 ```bash
-openclaw plugins install @openclaw/perplexity-plugin
+openclaw plugins install @granted/perplexity-plugin
 openclaw gateway restart
 ```
 

@@ -3,7 +3,7 @@ import os from "node:os";
 import path from "node:path";
 // Covers message-action media hydration, sandbox path normalization,
 // attachments, and channel/plugin media source aliases.
-import { canonicalizeBase64 } from "@openclaw/media-core/base64";
+import { canonicalizeBase64 } from "@granted/media-core/base64";
 import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { jsonResult } from "../../agents/tools/common.js";

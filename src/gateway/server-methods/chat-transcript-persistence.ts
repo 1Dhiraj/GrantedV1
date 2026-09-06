@@ -1,6 +1,6 @@
 // Transcript persistence and source-reply rewrites shared by chat send and abort.
-import { asOptionalRecord as transcriptEventRecord } from "@openclaw/normalization-core/record-coerce";
-import type { Result } from "@openclaw/normalization-core/result";
+import { asOptionalRecord as transcriptEventRecord } from "@granted/normalization-core/record-coerce";
+import type { Result } from "@granted/normalization-core/result";
 import { getReplyPayloadMetadata } from "../../auto-reply/reply-payload.js";
 import {
   findTranscriptEvent,

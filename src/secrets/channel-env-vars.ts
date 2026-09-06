@@ -1,5 +1,5 @@
 /** Discovers plugin-declared environment variable names for channel credential setup. */
-import { uniqueStrings } from "@openclaw/normalization-core/string-normalization";
+import { uniqueStrings } from "@granted/normalization-core/string-normalization";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolvePluginMetadataSnapshot } from "../plugins/plugin-metadata-snapshot.js";
 import { appendUniqueEnvVarCandidates } from "../shared/env-var-candidates.js";

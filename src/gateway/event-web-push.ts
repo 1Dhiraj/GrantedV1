@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
-import { normalizeOptionalString } from "@openclaw/normalization-core";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import type { WebPushNotificationCategory } from "../../packages/gateway-protocol/src/schema/push.js";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import {

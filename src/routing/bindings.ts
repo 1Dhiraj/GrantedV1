@@ -1,4 +1,4 @@
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 // Routing binding helpers resolve configured channel and agent route bindings.
 import { tryResolveLegacyCompatibilityAgentId } from "../agents/agent-scope.js";
 import { listRouteBindings } from "../config/bindings.js";

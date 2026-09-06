@@ -3,8 +3,8 @@ import {
   hasSensitiveUrlHintTag,
   isSensitiveUrlConfigPath,
   redactSensitiveUrlLikeString,
-} from "@openclaw/net-policy/redact-sensitive-url";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+} from "@granted/net-policy/redact-sensitive-url";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import { CHANNEL_IDS } from "../channels/ids.js";
 import { parseConfigSetPath, parseConfigSetValue } from "../cli/config-cli-path.js";
 import { isKernelOwnedChannelConfigKey } from "../config/channel-config-keys.js";

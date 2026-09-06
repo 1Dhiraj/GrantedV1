@@ -1,6 +1,6 @@
 // Gateway RPC handlers for safe gateway restart requests and preflight state.
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
-import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+import { isRecord } from "@granted/normalization-core/record-coerce";
+import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import { ErrorCodes, errorShape } from "../../../packages/gateway-protocol/src/index.js";
 import { readActiveGatewayLockIdentity } from "../../infra/gateway-lock.js";
 import {

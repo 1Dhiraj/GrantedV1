@@ -11,7 +11,7 @@ Read-only coding-session Beam receiver.
 
 ## Distribution
 
-- Package: `@openclaw/beam`
+- Package: `@granted/beam`
 - Install route: included in OpenClaw
 
 ## Surface

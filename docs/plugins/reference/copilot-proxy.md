@@ -11,7 +11,7 @@ Adds Copilot Proxy model provider support to OpenClaw.
 
 ## Distribution
 
-- Package: `@openclaw/copilot-proxy`
+- Package: `@granted/copilot-proxy`
 - Install route: included in OpenClaw
 
 ## Surface

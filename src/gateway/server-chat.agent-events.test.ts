@@ -1,7 +1,7 @@
 // Server chat agent-event tests protect event fanout, heartbeat visibility,
 // session lifecycle persistence, and subscriber registry behavior.
 
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { Value } from "typebox/value";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";

@@ -26,7 +26,7 @@ official LongCat plugin for LongCat's OpenAI-compatible endpoint.
 Install the official package, then restart Gateway:
 
 ```bash
-openclaw plugins install @openclaw/longcat-provider
+openclaw plugins install @granted/longcat-provider
 openclaw gateway restart
 ```
 

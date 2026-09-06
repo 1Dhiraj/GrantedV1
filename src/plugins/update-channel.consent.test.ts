@@ -36,7 +36,7 @@ describe("channel migration artifact consent", () => {
   )("$source with $review consent protects payload and acceptance", async ({ source, review }) => {
     const root = makeTrackedTempDir("openclaw-channel-consent", tempDirs);
     const pluginId = "channel-consent-fixture";
-    const packageName = `@openclaw/${pluginId}`;
+    const packageName = `@granted/${pluginId}`;
     const installedDir = path.join(root, "extensions", pluginId);
     const stagedDir = path.join(root, "stage");
     function writeArtifact(dir: string, version: string, providers: string[]) {

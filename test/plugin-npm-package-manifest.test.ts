@@ -118,7 +118,7 @@ function writePublishablePluginPackage(repoDir: string): string {
   const packageDir = join(repoDir, "extensions", "diffs");
   mkdirSync(packageDir, { recursive: true });
   writeJsonFile(join(packageDir, "package.json"), {
-    name: "@openclaw/diffs",
+    name: "@granted/diffs",
     version: "2026.5.3",
     type: "module",
     openclaw: {
@@ -629,7 +629,7 @@ describe("plugin npm package manifest staging", () => {
     });
     expect(resolved.changed).toBe(true);
     expect(resolved.packageJson).toEqual({
-      name: "@openclaw/diffs",
+      name: "@granted/diffs",
       version: "2026.5.3",
       type: "module",
       bundledDependencies: [],
@@ -819,11 +819,11 @@ process.stdout.write("PACKED_PLUGIN_CHANNEL_STATE_OK\\n");
         optionalDependencySpec: "file:../../deps/optional-platform-dep",
       });
       writeJsonFile(join(packageDir, "package.json"), {
-        name: "@openclaw/diffs",
+        name: "@granted/diffs",
         version: "2026.5.3",
         type: "module",
         dependencies: { "local-runtime-dep": "file:./deps/local-runtime-dep" },
-        devDependencies: { "@openclaw/plugin-sdk": "workspace:*" },
+        devDependencies: { "@granted/plugin-sdk": "workspace:*" },
         openclaw: {
           extensions: ["./index.ts"],
           setupEntry: "./setup-entry.ts",
@@ -1216,7 +1216,7 @@ console.log(JSON.stringify({ path: path.join(destination, packed.filename) }));
     writeFileText(join(packageDir, "dist", "setup-entry.js"), "export {};\n");
     writeLocalDependencyPackage(packageDir);
     writeJsonFile(join(packageDir, "package.json"), {
-      name: "@openclaw/diffs",
+      name: "@granted/diffs",
       version: "2026.5.3",
       type: "module",
       dependencies: {
@@ -1277,7 +1277,7 @@ console.log(JSON.stringify({ path: path.join(destination, packed.filename) }));
     writeFileText(join(packageDir, "dist", "index.js"), "export {};\n");
     writeFileText(join(packageDir, "dist", "setup-entry.js"), "export {};\n");
     writeJsonFile(join(packageDir, "package.json"), {
-      name: "@openclaw/diffs",
+      name: "@granted/diffs",
       version: "2026.5.3",
       type: "module",
       files: ["dist/**", "!dist/setup-entry.js"],

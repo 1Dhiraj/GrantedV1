@@ -6,7 +6,7 @@
 import {
   normalizeOptionalLowercaseString,
   normalizeOptionalString,
-} from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/string-coerce";
 import { listConfiguredBindings } from "../../config/bindings.js";
 import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { pickFirstExistingAgentId } from "../../routing/resolve-route.js";

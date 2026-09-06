@@ -1,4 +1,4 @@
-import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import { describe, expect, it } from "vitest";
 import { resolveRunWorkspaceDir } from "../agents/workspace-run.js";
 import type { GrantedConfig } from "../config/types.openclaw.js";

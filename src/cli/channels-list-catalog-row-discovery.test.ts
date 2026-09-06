@@ -78,7 +78,7 @@ function officialExternalCatalogEntry(channelId: string): ChannelPluginCatalogEn
   return {
     id: channelId,
     meta: { label: channelId },
-    install: { npmSpec: `@openclaw/${channelId}` },
+    install: { npmSpec: `@granted/${channelId}` },
   } as ChannelPluginCatalogEntry;
 }
 

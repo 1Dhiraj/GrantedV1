@@ -1,5 +1,5 @@
 // Control UI helpers shared by config form node renderers.
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import { html, nothing, type TemplateResult } from "lit";
 import { ref } from "lit/directives/ref.js";
 import type { ConfigUiHints } from "../api/types.ts";

@@ -1,6 +1,6 @@
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 // CLI tagline selection helpers, including deterministic random/default/holiday modes.
-import { parseStrictNonNegativeInteger } from "@openclaw/normalization-core/number-coercion";
+import { parseStrictNonNegativeInteger } from "@granted/normalization-core/number-coercion";
 
 const DEFAULT_TAGLINE = "Your AI. Your keys. Your machine.";
 export type TaglineMode = "random" | "default" | "off";

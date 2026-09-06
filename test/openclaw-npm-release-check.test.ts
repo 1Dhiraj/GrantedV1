@@ -38,33 +38,33 @@ describe("prepared OpenClaw AI dependency", () => {
   it("requires the packed root to depend on the exact prepared AI version", () => {
     expect(() =>
       assertPreparedOpenClawAiDependency({
-        aiManifest: { name: "@openclaw/ai", version: "2026.7.2" },
+        aiManifest: { name: "@granted/ai", version: "2026.7.2" },
         rootManifest: {
           name: "openclaw",
           version: "2026.7.1",
-          dependencies: { "@openclaw/ai": "2026.7.2" },
+          dependencies: { "@granted/ai": "2026.7.2" },
         },
       }),
-    ).toThrow("Prepared root and @openclaw/ai tarballs must both be version 2026.7.2.");
+    ).toThrow("Prepared root and @granted/ai tarballs must both be version 2026.7.2.");
 
     expect(() =>
       assertPreparedOpenClawAiDependency({
-        aiManifest: { name: "@openclaw/ai", version: "2026.7.2" },
+        aiManifest: { name: "@granted/ai", version: "2026.7.2" },
         rootManifest: {
           name: "openclaw",
           version: "2026.7.2",
-          dependencies: { "@openclaw/ai": "2026.7.1" },
+          dependencies: { "@granted/ai": "2026.7.1" },
         },
       }),
-    ).toThrow("Prepared root tarball must depend on exact @openclaw/ai@2026.7.2.");
+    ).toThrow("Prepared root tarball must depend on exact @granted/ai@2026.7.2.");
 
     expect(() =>
       assertPreparedOpenClawAiDependency({
-        aiManifest: { name: "@openclaw/ai", version: "2026.7.2" },
+        aiManifest: { name: "@granted/ai", version: "2026.7.2" },
         rootManifest: {
           name: "openclaw",
           version: "2026.7.2",
-          dependencies: { "@openclaw/ai": "2026.7.2" },
+          dependencies: { "@granted/ai": "2026.7.2" },
         },
       }),
     ).not.toThrow();

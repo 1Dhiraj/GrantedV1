@@ -2,11 +2,11 @@ import { execFile } from "node:child_process";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { promisify } from "node:util";
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import type {
   WhatsAppQaDriverObservedMessage,
   WhatsAppQaDriverSession,
-} from "@openclaw/whatsapp/api.js";
+} from "@granted/whatsapp/api.js";
 import { createDeferred } from "granted/plugin-sdk/extension-shared";
 import { runExec } from "granted/plugin-sdk/process-runtime";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";

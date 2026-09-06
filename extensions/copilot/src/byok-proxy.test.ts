@@ -1,6 +1,6 @@
 import { request as httpRequest } from "node:http";
 // Copilot BYOK proxy tests verify SDK-local transport is guarded outbound fetch.
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import type { fetchWithSsrFGuard } from "granted/plugin-sdk/ssrf-runtime";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { createCopilotByokProxy } from "./byok-proxy.js";

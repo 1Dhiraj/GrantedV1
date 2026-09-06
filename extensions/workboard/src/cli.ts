@@ -2,7 +2,7 @@ import {
   WORKBOARD_STATUSES,
   type WorkboardCard,
   type WorkboardStatus,
-} from "@openclaw/workboard-contract";
+} from "@granted/workboard-contract";
 // Workboard plugin module implements cli behavior.
 import type { Command } from "commander";
 import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";

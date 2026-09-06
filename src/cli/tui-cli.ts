@@ -1,4 +1,4 @@
-import { parseStrictPositiveInteger } from "@openclaw/normalization-core/number-coercion";
+import { parseStrictPositiveInteger } from "@granted/normalization-core/number-coercion";
 // Registers the terminal UI subcommand and normalizes its local-vs-gateway options.
 import type { Command } from "commander";
 import { CHAT_HISTORY_MAX_ENTRIES } from "../../packages/gateway-protocol/src/schema/chat-history-constants.js";

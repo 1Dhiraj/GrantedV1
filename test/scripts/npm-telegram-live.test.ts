@@ -107,7 +107,7 @@ describe("package Telegram live Docker E2E", () => {
     expect(runtimeRun).toContain('sut_command="/npm-global/bin/openclaw"');
     expect(runtimeRun).toContain('openclaw_e2e_run_command "$sut_command" --version');
     expect(runtimeRun).toContain(
-      'openclaw_e2e_run_command "$sut_command" plugins install @openclaw/codex',
+      'openclaw_e2e_run_command "$sut_command" plugins install @granted/codex',
     );
     expect(runtimeRun).toContain("--accept-capabilities");
     expect(runtimeRun).toContain('openclaw_e2e_run_command "$sut_command" onboard');
@@ -125,7 +125,7 @@ describe("package Telegram live Docker E2E", () => {
     expect(runtimeRun).not.toContain("sed -n '1,220p'");
     expect(runtimeRun).not.toMatch(/^\s*openclaw (onboard|channels add|doctor )/mu);
     expect(
-      runtimeRun.indexOf('openclaw_e2e_run_command "$sut_command" plugins install @openclaw/codex'),
+      runtimeRun.indexOf('openclaw_e2e_run_command "$sut_command" plugins install @granted/codex'),
     ).toBeLessThan(runtimeRun.indexOf('openclaw_e2e_run_command "$sut_command" onboard'));
   });
 

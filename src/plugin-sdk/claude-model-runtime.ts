@@ -7,5 +7,5 @@
  * owners; importing them through `provider-model-shared` drags the transport
  * and compat graph into every policy load (~60s under jiti in source checkouts).
  */
-export { resolveClaudeModelIdentity, resolveClaudeMythos5ModelIdentity } from "@openclaw/llm-core";
+export { resolveClaudeModelIdentity, resolveClaudeMythos5ModelIdentity } from "@granted/llm-core";
 export { resolveClaudeThinkingProfile } from "../plugins/provider-claude-thinking.js";

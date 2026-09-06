@@ -1,8 +1,8 @@
 /**
  * Resolves and persists live-session model switch requests.
  */
-import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { resolveSessionAuthProfileOverrideSource } from "../config/sessions/auth-profile-override-provenance.js";
 import { resolveSessionStorePathCore } from "../config/sessions/paths.js";
 import {

@@ -4,7 +4,7 @@
  * preserving the input pattern's slot shape, so each result is
  * pipeable into `resolveOcPath` / `setOcPath`.
  *
- * @module @openclaw/oc-path/find
+ * @module @granted/oc-path/find
  */
 
 import { expectDefined } from "granted/plugin-sdk/expect-runtime";

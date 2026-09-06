@@ -1,4 +1,4 @@
-import { parseStrictPositiveInteger } from "@openclaw/normalization-core/number-coercion";
+import { parseStrictPositiveInteger } from "@granted/normalization-core/number-coercion";
 // Low-level CLI argv helpers for root options, help/version detection, and command paths.
 import { isExperimentalClawsEnabled } from "../claws/experimental.js";
 import { isBunRuntime, isNodeRuntime } from "../daemon/runtime-binary.js";

@@ -1,6 +1,6 @@
 // SQLite import and receipt semantics for retired workspace state.
 import { createHash } from "node:crypto";
-import { safeParseJsonRecord } from "@openclaw/normalization-core/json-coercion";
+import { safeParseJsonRecord } from "@granted/normalization-core/json-coercion";
 import { LEGACY_WORKSPACE_ATTESTATION_HEADER } from "../agents/workspace-legacy-state.js";
 import {
   WORKSPACE_LEGACY_STATE_MIGRATION_KIND,

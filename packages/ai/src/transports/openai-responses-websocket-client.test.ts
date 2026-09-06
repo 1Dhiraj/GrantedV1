@@ -3,7 +3,7 @@ import {
   type AssistantMessage,
   type Context,
   type Model,
-} from "@openclaw/llm-core";
+} from "@granted/llm-core";
 import { WebSocketError } from "openai/resources/responses/internal-base.js";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {

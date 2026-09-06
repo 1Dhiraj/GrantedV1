@@ -1,11 +1,11 @@
 /** Reads ACP session status from the runtime and reconciles persisted identity metadata. */
-import { resolveSessionIdentityFromMeta } from "@openclaw/acp-core/runtime/session-identity";
+import { resolveSessionIdentityFromMeta } from "@granted/acp-core/runtime/session-identity";
 import type {
   AcpRuntime,
   AcpRuntimeCapabilities,
   AcpRuntimeHandle,
   AcpRuntimeStatus,
-} from "@openclaw/acp-core/runtime/types";
+} from "@granted/acp-core/runtime/types";
 import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { withAcpRuntimeErrorBoundary } from "../runtime/errors.js";
 import type {

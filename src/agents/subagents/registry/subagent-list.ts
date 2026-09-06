@@ -3,7 +3,7 @@
  *
  * Combines live registry runs and persisted session metadata for sessions_list/subagents views.
  */
-import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
+import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
 import { resolveSubagentLabel } from "../../../auto-reply/reply/subagents-utils.js";
 import { resolveSessionStorePathCore } from "../../../config/sessions/paths.js";
 import { listSessionEntriesReadOnly } from "../../../config/sessions/session-accessor.js";

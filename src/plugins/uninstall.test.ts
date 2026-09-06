@@ -1183,7 +1183,7 @@ describe("uninstallPlugin", () => {
         {
           private: true,
           dependencies: {
-            "@openclaw/kitchen-sink": "1.0.0",
+            "@granted/kitchen-sink": "1.0.0",
             "is-number": "7.0.0",
           },
         },
@@ -1202,7 +1202,7 @@ describe("uninstallPlugin", () => {
             installs: {
               "openclaw-kitchen-sink-fixture": {
                 source: "npm",
-                spec: "@openclaw/kitchen-sink@1.0.0",
+                spec: "@granted/kitchen-sink@1.0.0",
                 installPath: pluginDir,
               },
             },
@@ -1224,7 +1224,7 @@ describe("uninstallPlugin", () => {
       cleanup: {
         kind: "npm",
         npmRoot,
-        packageName: "@openclaw/kitchen-sink",
+        packageName: "@granted/kitchen-sink",
         rootKind: "legacy-shared",
       },
     });
@@ -1232,7 +1232,7 @@ describe("uninstallPlugin", () => {
     const applied = await applyPluginUninstallDirectoryRemoval(plan.directoryRemoval);
 
     expect(applied).toEqual({ directoryRemoved: true, warnings: [] });
-    expectNpmUninstallCommand({ packageName: "@openclaw/kitchen-sink", npmRoot });
+    expectNpmUninstallCommand({ packageName: "@granted/kitchen-sink", npmRoot });
     await expectPathAccessState(pluginDir, "missing");
   });
 
@@ -1246,12 +1246,12 @@ describe("uninstallPlugin", () => {
     const npmRoot = fixture.generationKey
       ? resolvePluginNpmGenerationProjectDir({
           npmDir: npmBaseDir,
-          packageName: "@openclaw/kitchen-sink",
+          packageName: "@granted/kitchen-sink",
           generationKey: fixture.generationKey,
         })
       : resolvePluginNpmProjectDir({
           npmDir: npmBaseDir,
-          packageName: "@openclaw/kitchen-sink",
+          packageName: "@granted/kitchen-sink",
         });
     const pluginDir = path.join(npmRoot, "node_modules", "@openclaw", "kitchen-sink");
     const hoistedDir = path.join(npmRoot, "node_modules", "is-number");
@@ -1263,7 +1263,7 @@ describe("uninstallPlugin", () => {
         {
           private: true,
           dependencies: {
-            "@openclaw/kitchen-sink": "1.0.0",
+            "@granted/kitchen-sink": "1.0.0",
             "is-number": "7.0.0",
           },
         },
@@ -1282,7 +1282,7 @@ describe("uninstallPlugin", () => {
             installs: {
               "openclaw-kitchen-sink-fixture": {
                 source: "npm",
-                spec: "@openclaw/kitchen-sink@1.0.0",
+                spec: "@granted/kitchen-sink@1.0.0",
                 installPath: pluginDir,
               },
             },
@@ -1304,7 +1304,7 @@ describe("uninstallPlugin", () => {
       cleanup: {
         kind: "npm",
         npmRoot,
-        packageName: "@openclaw/kitchen-sink",
+        packageName: "@granted/kitchen-sink",
         rootKind: "isolated-project",
       },
     });
@@ -1324,7 +1324,7 @@ describe("uninstallPlugin", () => {
       `${path.basename(
         resolvePluginNpmProjectDir({
           npmDir: "/managed/npm",
-          packageName: "@openclaw/kitchen-sink",
+          packageName: "@granted/kitchen-sink",
         }),
       )}-lookalike`,
     ],
@@ -1333,21 +1333,21 @@ describe("uninstallPlugin", () => {
       `${path.basename(
         resolvePluginNpmProjectDir({
           npmDir: "/managed/npm",
-          packageName: "@openclaw/kitchen-sink",
+          packageName: "@granted/kitchen-sink",
         }),
       )}__openclaw-generation_g-0123456789abcdef`,
     ],
     [
       "short generation suffix",
-      `${resolvePluginNpmGenerationProjectDirPrefix("@openclaw/kitchen-sink")}g-0123456789abcde`,
+      `${resolvePluginNpmGenerationProjectDirPrefix("@granted/kitchen-sink")}g-0123456789abcde`,
     ],
     [
       "uppercase generation suffix",
-      `${resolvePluginNpmGenerationProjectDirPrefix("@openclaw/kitchen-sink")}g-0123456789abcdeF`,
+      `${resolvePluginNpmGenerationProjectDirPrefix("@granted/kitchen-sink")}g-0123456789abcdeF`,
     ],
     [
       "generation suffix lookalike",
-      `${resolvePluginNpmGenerationProjectDirPrefix("@openclaw/kitchen-sink")}g-0123456789abcdef-extra`,
+      `${resolvePluginNpmGenerationProjectDirPrefix("@granted/kitchen-sink")}g-0123456789abcdef-extra`,
     ],
   ])("preserves a noncanonical npm project root ($name)", async (_name, projectName) => {
     const stateDir = path.join(tempDir, "state");
@@ -1362,7 +1362,7 @@ describe("uninstallPlugin", () => {
         {
           private: true,
           dependencies: {
-            "@openclaw/kitchen-sink": "1.0.0",
+            "@granted/kitchen-sink": "1.0.0",
           },
         },
         null,
@@ -1380,7 +1380,7 @@ describe("uninstallPlugin", () => {
             installs: {
               "openclaw-kitchen-sink-fixture": {
                 source: "npm",
-                spec: "@openclaw/kitchen-sink@1.0.0",
+                spec: "@granted/kitchen-sink@1.0.0",
                 installPath: pluginDir,
               },
             },
@@ -1402,7 +1402,7 @@ describe("uninstallPlugin", () => {
       cleanup: {
         kind: "npm",
         npmRoot,
-        packageName: "@openclaw/kitchen-sink",
+        packageName: "@granted/kitchen-sink",
         rootKind: "isolated-project",
       },
     });
@@ -1425,7 +1425,7 @@ describe("uninstallPlugin", () => {
     await fs.symlink(outsideProjectsDir, path.join(npmDir, "projects"), "dir");
     const projectRoot = resolvePluginNpmProjectDir({
       npmDir,
-      packageName: "@openclaw/kitchen-sink",
+      packageName: "@granted/kitchen-sink",
     });
     const pluginDir = path.join(projectRoot, "node_modules", "@openclaw", "kitchen-sink");
     const sentinel = path.join(projectRoot, "must-remain.txt");
@@ -1438,7 +1438,7 @@ describe("uninstallPlugin", () => {
         installs: {
           "openclaw-kitchen-sink-fixture": {
             source: "npm",
-            spec: "@openclaw/kitchen-sink@1.0.0",
+            spec: "@granted/kitchen-sink@1.0.0",
             installPath: pluginDir,
           },
         },
@@ -1463,7 +1463,7 @@ describe("uninstallPlugin", () => {
     const npmDir = path.join(stateDir, "npm");
     const projectRoot = resolvePluginNpmProjectDir({
       npmDir,
-      packageName: "@openclaw/kitchen-sink",
+      packageName: "@granted/kitchen-sink",
     });
     const outsideProjectRoot = path.join(tempDir, "outside-project");
     const pluginDir = path.join(projectRoot, "node_modules", "@openclaw", "kitchen-sink");
@@ -1485,7 +1485,7 @@ describe("uninstallPlugin", () => {
         installs: {
           "openclaw-kitchen-sink-fixture": {
             source: "npm",
-            spec: "@openclaw/kitchen-sink@1.0.0",
+            spec: "@granted/kitchen-sink@1.0.0",
             installPath: pluginDir,
           },
         },
@@ -1510,7 +1510,7 @@ describe("uninstallPlugin", () => {
     const npmDir = path.join(stateDir, "npm");
     const projectRoot = resolvePluginNpmProjectDir({
       npmDir,
-      packageName: "@openclaw/kitchen-sink",
+      packageName: "@granted/kitchen-sink",
     });
     const pluginDir = path.join(projectRoot, "node_modules", "@openclaw", "kitchen-sink");
     const packageTarget = path.join(projectRoot, "node_modules", "package-target");
@@ -1528,7 +1528,7 @@ describe("uninstallPlugin", () => {
             installs: {
               "openclaw-kitchen-sink-fixture": {
                 source: "npm",
-                spec: "@openclaw/kitchen-sink@1.0.0",
+                spec: "@granted/kitchen-sink@1.0.0",
                 installPath: pluginDir,
               },
             },
@@ -1566,7 +1566,7 @@ describe("uninstallPlugin", () => {
         layout === "canonical"
           ? resolvePluginNpmProjectDir({
               npmDir,
-              packageName: "@openclaw/kitchen-sink",
+              packageName: "@granted/kitchen-sink",
             })
           : path.join(npmDir, "projects", "noncanonical-race");
       const pluginDir = path.join(projectRoot, "node_modules", "@openclaw", "kitchen-sink");
@@ -1578,7 +1578,7 @@ describe("uninstallPlugin", () => {
               installs: {
                 "openclaw-kitchen-sink-fixture": {
                   source: "npm",
-                  spec: "@openclaw/kitchen-sink@1.0.0",
+                  spec: "@granted/kitchen-sink@1.0.0",
                   installPath: pluginDir,
                 },
               },
@@ -1628,7 +1628,7 @@ describe("uninstallPlugin", () => {
         layout === "canonical"
           ? resolvePluginNpmProjectDir({
               npmDir,
-              packageName: "@openclaw/kitchen-sink",
+              packageName: "@granted/kitchen-sink",
             })
           : path.join(npmDir, "projects", "noncanonical-manifest");
       const pluginDir = path.join(npmRoot, "node_modules", "@openclaw", "kitchen-sink");
@@ -1642,7 +1642,7 @@ describe("uninstallPlugin", () => {
               installs: {
                 "openclaw-kitchen-sink-fixture": {
                   source: "npm",
-                  spec: "@openclaw/kitchen-sink@1.0.0",
+                  spec: "@granted/kitchen-sink@1.0.0",
                   installPath: pluginDir,
                 },
               },
@@ -1959,7 +1959,7 @@ describe("uninstallPlugin", () => {
       await expect(
         pruneManagedNpmPeerDependenciesAfterUninstall({
           npmRoot,
-          packageName: "@openclaw/kitchen-sink",
+          packageName: "@granted/kitchen-sink",
           managedOverrides: {
             axios: "1.18.1",
             hono: "4.12.32",
@@ -2043,12 +2043,12 @@ describe("uninstallPlugin", () => {
     await expect(
       pruneManagedNpmPeerDependenciesAfterUninstall({
         npmRoot,
-        packageName: "@openclaw/kitchen-sink",
+        packageName: "@granted/kitchen-sink",
         managedOverrides: { axios: "1.18.1" },
         runCommand,
       }),
     ).resolves.toContain(
-      "Failed to prune managed peer dependencies after uninstalling @openclaw/kitchen-sink: npm error code EINVALIDTAGNAME",
+      "Failed to prune managed peer dependencies after uninstalling @granted/kitchen-sink: npm error code EINVALIDTAGNAME",
     );
     expect(cleanupAttempts).toBe(1);
   });

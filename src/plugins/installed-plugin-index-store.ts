@@ -1,6 +1,6 @@
 /** Reads and parses the installed plugin index in the state database. */
 import type { DatabaseSync } from "node:sqlite";
-import { safeParseJson } from "@openclaw/normalization-core/json-coercion";
+import { safeParseJson } from "@granted/normalization-core/json-coercion";
 import { z } from "zod";
 import {
   parsePluginInstallRecordMap,

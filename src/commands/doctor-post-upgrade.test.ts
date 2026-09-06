@@ -651,12 +651,12 @@ describe("runPostUpgradeProbes — plugin.version_drift", () => {
       await writePluginFixture(root, {
         id,
         enabled,
-        packageJson: { name: `@openclaw/${id}`, version, openclaw: { extensions: ["./index.js"] } },
+        packageJson: { name: `@granted/${id}`, version, openclaw: { extensions: ["./index.js"] } },
         files: { "index.js": "export default {};" },
         installRecord: {
           source: "npm",
-          spec: `@openclaw/${id}@latest`,
-          resolvedName: `@openclaw/${id}`,
+          spec: `@granted/${id}@latest`,
+          resolvedName: `@granted/${id}`,
           resolvedVersion: version,
         },
       });

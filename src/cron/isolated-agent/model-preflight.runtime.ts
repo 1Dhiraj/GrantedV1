@@ -1,7 +1,7 @@
 /** Preflights local model-provider endpoints before scheduled cron runner startup. */
-import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
-import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
-import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
+import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
+import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import { isLocalProviderBaseUrl } from "../../agents/model-provider-local.js";
 import type { ModelProviderConfig } from "../../config/types.models.js";
 import type { GrantedConfig } from "../../config/types.openclaw.js";

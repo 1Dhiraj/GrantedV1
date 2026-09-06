@@ -1,5 +1,5 @@
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
-import { buildControlUiFocusPath } from "@openclaw/session-url-contract";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
+import { buildControlUiFocusPath } from "@granted/session-url-contract";
 // Control UI startup settings resolve native auth handoff and URL parameters.
 import {
   CONTROL_UI_BOOTSTRAP_PROFILE_FRAGMENT_PARAM,

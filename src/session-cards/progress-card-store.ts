@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import type { DatabaseSync } from "node:sqlite";
-import { asOptionalObjectRecord } from "@openclaw/normalization-core/record-coerce";
+import { asOptionalObjectRecord } from "@granted/normalization-core/record-coerce";
 import type { Selectable } from "kysely";
 import type { ProgressCard, ProgressCardStep } from "../../packages/gateway-protocol/src/index.js";
 import {

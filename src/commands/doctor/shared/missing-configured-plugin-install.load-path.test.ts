@@ -29,7 +29,7 @@ function writeProviderPlugin(rootDir: string): void {
   fs.writeFileSync(
     path.join(rootDir, "package.json"),
     JSON.stringify({
-      name: "@openclaw/kilocode-provider",
+      name: "@granted/kilocode-provider",
       version: "2026.7.1",
       openclaw: {
         extensions: ["./index.ts"],
@@ -76,13 +76,13 @@ function writeBundledOpenCodeGoPlugin(bundledPluginsDir: string): void {
   fs.writeFileSync(
     path.join(pluginDir, "package.json"),
     JSON.stringify({
-      name: "@openclaw/opencode-go-provider",
+      name: "@granted/opencode-go-provider",
       version: "2026.8.1",
       openclaw: {
         extensions: ["./index.js"],
         install: {
-          clawhubSpec: "clawhub:@openclaw/opencode-go-provider",
-          npmSpec: "@openclaw/opencode-go-provider",
+          clawhubSpec: "clawhub:@granted/opencode-go-provider",
+          npmSpec: "@granted/opencode-go-provider",
           defaultChoice: "npm",
         },
         build: { openclawVersion: "2026.8.1" },

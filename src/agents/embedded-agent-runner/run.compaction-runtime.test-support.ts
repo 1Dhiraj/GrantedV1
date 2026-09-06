@@ -1,6 +1,6 @@
 import { createHash, randomUUID } from "node:crypto";
 import path from "node:path";
-import { toErrorObject } from "@openclaw/normalization-core/error-coercion";
+import { toErrorObject } from "@granted/normalization-core/error-coercion";
 import { expect, vi } from "vitest";
 import type { ContextEngine } from "../../context-engine/types.js";
 import type { ToolResultMessage } from "../../llm/types.js";

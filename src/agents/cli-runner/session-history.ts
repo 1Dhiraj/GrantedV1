@@ -2,8 +2,8 @@
  * Loads and renders owned session history for CLI session reseeding and
  * context-engine synchronization.
  */
-import { timestampMsToIsoString } from "@openclaw/normalization-core/number-coercion";
-import { sliceUtf16Safe, truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+import { timestampMsToIsoString } from "@granted/normalization-core/number-coercion";
+import { sliceUtf16Safe, truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import { selectResetKeptEntries } from "../../../packages/agent-core/src/harness/session/tool-result-pairing.js";
 import {
   readSessionTranscriptBoundedMessageTailPage,

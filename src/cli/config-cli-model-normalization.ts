@@ -1,4 +1,4 @@
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { normalizeSubmittedConfigModelRefs } from "../config/model-input-normalization.js";
 import { normalizeAgentModelRefForConfig } from "../config/model-input.js";
 import type { GrantedConfig } from "../config/types.openclaw.js";

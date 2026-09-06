@@ -3,8 +3,8 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
-import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
+import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
 import { formatErrorMessage } from "../infra/errors.js";
 import { resolveRequiredHomeDir } from "../infra/home-dir.js";
 import { resolveOpenClawPackageRootSync } from "../infra/openclaw-root.js";
@@ -431,7 +431,7 @@ function resolvePluginSdkAliasCandidateOrder(params: {
   return isDistRuntime || params.isProduction ? ["dist", "src"] : ["src", "dist"];
 }
 
-const PLUGIN_SDK_PACKAGE_NAMES = ["openclaw/plugin-sdk", "@openclaw/plugin-sdk"] as const;
+const PLUGIN_SDK_PACKAGE_NAMES = ["openclaw/plugin-sdk", "@granted/plugin-sdk"] as const;
 const CODEX_MCP_PROJECTION_PLUGIN_SDK_SUBPATH = "codex-mcp-projection";
 const CODEX_SESSION_TRANSCRIPT_PLUGIN_SDK_SUBPATH = "codex-session-transcript-runtime";
 const NATIVE_HOOK_RELAY_RUNTIME_PLUGIN_SDK_SUBPATH = "native-hook-relay-runtime";
@@ -471,7 +471,7 @@ type PrivatePluginSdkSubpathOwner = {
 const PRIVATE_PLUGIN_SDK_SUBPATH_OWNERS: readonly PrivatePluginSdkSubpathOwner[] = [
   {
     bundledPluginId: "codex",
-    officialInstalledPackageName: "@openclaw/codex",
+    officialInstalledPackageName: "@granted/codex",
     allowPrivateQaCli: true,
     subpaths: [
       CODEX_MCP_PROJECTION_PLUGIN_SDK_SUBPATH,
@@ -491,7 +491,7 @@ const PRIVATE_PLUGIN_SDK_SUBPATH_OWNERS: readonly PrivatePluginSdkSubpathOwner[]
   },
   {
     bundledPluginId: "llama-cpp",
-    officialInstalledPackageName: "@openclaw/llama-cpp-provider",
+    officialInstalledPackageName: "@granted/llama-cpp-provider",
     allowPrivateQaCli: false,
     subpaths: [CONFIGURED_LOCAL_ORIGIN_RUNTIME_PLUGIN_SDK_SUBPATH],
   },
@@ -586,7 +586,7 @@ const WORKSPACE_PACKAGE_ALIAS_ENTRIES: WorkspacePackageAliasEntry[] =
   WORKSPACE_PACKAGE_ALIAS_SUBPATHS.flatMap(([packageDir, subpaths]) =>
     subpaths.map(
       (subpath): WorkspacePackageAliasEntry => ({
-        packageName: `@openclaw/${packageDir}`,
+        packageName: `@granted/${packageDir}`,
         packageDir,
         subpath,
         srcFile: `${subpath || "index"}.ts`,
@@ -595,10 +595,10 @@ const WORKSPACE_PACKAGE_ALIAS_ENTRIES: WorkspacePackageAliasEntry[] =
     ),
   );
 const WORKSPACE_PACKAGE_ALIAS_NAMES = new Set([
-  ...WORKSPACE_PACKAGE_ALIAS_SUBPATHS.map(([name]) => `@openclaw/${name}`),
-  "@openclaw/media-core",
-  "@openclaw/normalization-core",
-  "@openclaw/acp-core",
+  ...WORKSPACE_PACKAGE_ALIAS_SUBPATHS.map(([name]) => `@granted/${name}`),
+  "@granted/media-core",
+  "@granted/normalization-core",
+  "@granted/acp-core",
 ]);
 const ROOT_PACKAGED_WORKSPACE_PACKAGE_DIRS = new Set([
   "acp-core",
@@ -787,7 +787,7 @@ function readPrivateLocalOnlyPluginSdkSubpaths(packageRoot: string): string[] {
 function readBundledPluginPackageName(packageJsonPath: string): string | null {
   const parsed = readPluginSdkPackageJson(path.dirname(packageJsonPath));
   const name = typeof parsed?.name === "string" ? parsed.name.trim() : "";
-  return name.startsWith("@openclaw/") ? name : null;
+  return name.startsWith("@granted/") ? name : null;
 }
 
 function isBundledPluginPublicSurfaceSourceBasename(params: {
@@ -946,7 +946,7 @@ function resolveWorkspacePackageAliasMap(
     ...["media-core", "normalization-core", "acp-core"].flatMap((packageDir) =>
       listWorkspacePackageExportAliasEntries({
         packageRoot,
-        packageName: `@openclaw/${packageDir}`,
+        packageName: `@granted/${packageDir}`,
         packageDir,
       }),
     ),
@@ -1430,7 +1430,7 @@ function isPluginLoaderAliasSpecifier(specifier: string): boolean {
   return (
     isPluginSdkAliasSpecifier(specifier) ||
     WORKSPACE_PACKAGE_ALIAS_NAMES.has(packageName) ||
-    (packageName.startsWith("@openclaw/") &&
+    (packageName.startsWith("@granted/") &&
       !basename.includes("/") &&
       basename.endsWith(".js") &&
       BUNDLED_PLUGIN_PUBLIC_SURFACE_SOURCE_PATTERN.test(basename.slice(0, -3)))

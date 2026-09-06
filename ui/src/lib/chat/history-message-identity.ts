@@ -1,5 +1,5 @@
-import { readSessionMessageIdentity } from "@openclaw/gateway-client/browser";
-import { asNullableRecord } from "@openclaw/normalization-core/record-coerce";
+import { readSessionMessageIdentity } from "@granted/gateway-client/browser";
+import { asNullableRecord } from "@granted/normalization-core/record-coerce";
 import type { ChatInputReceipts } from "../../../../packages/gateway-protocol/src/schema/logs-chat.js";
 
 /** Exact custody is independent of display pagination, but stays physical-session scoped. */

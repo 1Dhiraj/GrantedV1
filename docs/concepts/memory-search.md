@@ -34,7 +34,7 @@ For local embeddings with no API key, install and configure the official
 llama.cpp provider, then set `provider: "local"`:
 
 ```bash
-openclaw plugins install @openclaw/llama-cpp-provider
+openclaw plugins install @granted/llama-cpp-provider
 ```
 
 Choose llama.cpp once in interactive setup. OpenClaw installs a verified

@@ -60,7 +60,7 @@ pnpm deps:npm-lock:check:changed
 ## Inspect a plugin tarball
 
 ```bash
-npm pack @openclaw/discord@<version> --json --pack-destination /tmp/openclaw-plugin-pack
+npm pack @granted/discord@<version> --json --pack-destination /tmp/openclaw-plugin-pack
 tar -tf /tmp/openclaw-plugin-pack/openclaw-discord-<version>.tgz | grep '^package/node_modules/'
 tar -tf /tmp/openclaw-plugin-pack/openclaw-discord-<version>.tgz | grep -E '^package/(npm-shrinkwrap|package-lock)\.json$' && exit 1 || true
 ```

@@ -11,7 +11,7 @@ A2A v1.0 Agent-to-Agent protocol channel plugin.
 
 ## Distribution
 
-- Package: `@openclaw/a2a`
+- Package: `@granted/a2a`
 - Install route: included in OpenClaw
 
 ## Surface

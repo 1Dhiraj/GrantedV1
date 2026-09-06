@@ -1,11 +1,11 @@
 // Configure wizard Gateway port, bind, auth, and Tailscale prompts.
-import { parseIpAddressOrCidr } from "@openclaw/net-policy/ip";
-import { validateDottedDecimalIPv4Input } from "@openclaw/net-policy/ipv4";
+import { parseIpAddressOrCidr } from "@granted/net-policy/ip";
+import { validateDottedDecimalIPv4Input } from "@granted/net-policy/ipv4";
 import {
   normalizeOptionalString,
   readStringValue,
-} from "@openclaw/normalization-core/string-coerce";
-import { normalizeStringEntries } from "@openclaw/normalization-core/string-normalization";
+} from "@granted/normalization-core/string-coerce";
+import { normalizeStringEntries } from "@granted/normalization-core/string-normalization";
 import { note } from "../../packages/terminal-core/src/note.js";
 import { formatPortRangeHint } from "../cli/error-format.js";
 import { parsePort } from "../cli/shared/parse-port.js";

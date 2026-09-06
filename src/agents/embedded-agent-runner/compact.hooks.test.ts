@@ -3,8 +3,8 @@
 import { mkdtemp, realpath, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import type { Message } from "@openclaw/llm-core";
-import { expectDefined } from "@openclaw/normalization-core";
+import type { Message } from "@granted/llm-core";
+import { expectDefined } from "@granted/normalization-core";
 import type { AgentMessage, StreamFn } from "granted/plugin-sdk/agent-core";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi, type Mock } from "vitest";
 import { createDeferred } from "../../../test/helpers/promise.js";

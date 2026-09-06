@@ -1,6 +1,6 @@
 import { createServer } from "node:http";
 // Configure gateway auth prompt tests cover interactive auth selection and model-aware auth config.
-import type { NormalizedModelCatalogRow } from "@openclaw/model-catalog-core/model-catalog-types";
+import type { NormalizedModelCatalogRow } from "@granted/model-catalog-core/model-catalog-types";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { resolveAgentEffectiveModelPrimary } from "../agents/agent-scope.js";
 import { testing as cliBackendsTesting } from "../agents/cli-backends.test-support.js";

@@ -560,302 +560,302 @@
       "granted/plugin-sdk/llm": [
         "../../packages/plugin-sdk/dist/src/plugin-sdk/llm.d.ts"
       ],
-      "@openclaw/qa-channel/api.js": [
+      "@granted/qa-channel/api.js": [
         "../../.artifacts/extension-package-boundary/plugins/qa-channel/api.d.ts"
       ],
-      "@openclaw/memory-core/api.js": [
+      "@granted/memory-core/api.js": [
         "../../.artifacts/extension-package-boundary/plugins/memory-core/api.d.ts"
       ],
-      "@openclaw/ai": [
+      "@granted/ai": [
         "../../packages/plugin-sdk/dist/packages/ai/src/index.d.ts"
       ],
-      "@openclaw/ai/diagnostics": [
+      "@granted/ai/diagnostics": [
         "../../packages/plugin-sdk/dist/packages/ai/src/utils/diagnostics.d.ts"
       ],
-      "@openclaw/ai/event-stream": [
+      "@granted/ai/event-stream": [
         "../../packages/plugin-sdk/dist/packages/ai/src/utils/event-stream.d.ts"
       ],
-      "@openclaw/ai/providers": [
+      "@granted/ai/providers": [
         "../../packages/plugin-sdk/dist/packages/ai/src/providers.d.ts"
       ],
-      "@openclaw/ai/transports": [
+      "@granted/ai/transports": [
         "../../packages/plugin-sdk/dist/packages/ai/src/transports.d.ts"
       ],
-      "@openclaw/ai/types": [
+      "@granted/ai/types": [
         "../../packages/plugin-sdk/dist/packages/ai/src/types.d.ts"
       ],
-      "@openclaw/ai/validation": [
+      "@granted/ai/validation": [
         "../../packages/plugin-sdk/dist/packages/ai/src/validation.d.ts"
       ],
-      "@openclaw/ai/internal/anthropic": [
+      "@granted/ai/internal/anthropic": [
         "../../packages/plugin-sdk/dist/packages/ai/src/internal/anthropic.d.ts"
       ],
-      "@openclaw/ai/internal/openai": [
+      "@granted/ai/internal/openai": [
         "../../packages/plugin-sdk/dist/packages/ai/src/internal/openai.d.ts"
       ],
-      "@openclaw/ai/internal/retry-after": [
+      "@granted/ai/internal/retry-after": [
         "../../packages/plugin-sdk/dist/packages/ai/src/internal/retry-after.d.ts"
       ],
-      "@openclaw/ai/internal/runtime": [
+      "@granted/ai/internal/runtime": [
         "../../packages/plugin-sdk/dist/packages/ai/src/internal/runtime.d.ts"
       ],
-      "@openclaw/ai/internal/shared": [
+      "@granted/ai/internal/shared": [
         "../../packages/plugin-sdk/dist/packages/ai/src/internal/shared.d.ts"
       ],
-      "@openclaw/llm-core": [
+      "@granted/llm-core": [
         "../../packages/plugin-sdk/dist/packages/llm-core/src/index.d.ts"
       ],
-      "@openclaw/llm-core/diagnostics": [
+      "@granted/llm-core/diagnostics": [
         "../../packages/plugin-sdk/dist/packages/llm-core/src/utils/diagnostics.d.ts"
       ],
-      "@openclaw/llm-core/event-stream": [
+      "@granted/llm-core/event-stream": [
         "../../packages/plugin-sdk/dist/packages/llm-core/src/utils/event-stream.d.ts"
       ],
-      "@openclaw/llm-core/types": [
+      "@granted/llm-core/types": [
         "../../packages/plugin-sdk/dist/packages/llm-core/src/types.d.ts"
       ],
-      "@openclaw/llm-core/validation": [
+      "@granted/llm-core/validation": [
         "../../packages/plugin-sdk/dist/packages/llm-core/src/validation.d.ts"
       ],
-      "@openclaw/llm-core/*": [
+      "@granted/llm-core/*": [
         "../../packages/plugin-sdk/dist/packages/llm-core/src/*.d.ts"
       ],
-      "@openclaw/model-catalog-core": [
+      "@granted/model-catalog-core": [
         "../../packages/plugin-sdk/dist/packages/model-catalog-core/src/index.d.ts"
       ],
-      "@openclaw/model-catalog-core/configured-model-refs": [
+      "@granted/model-catalog-core/configured-model-refs": [
         "../../packages/plugin-sdk/dist/packages/model-catalog-core/src/configured-model-refs.d.ts"
       ],
-      "@openclaw/model-catalog-core/model-catalog-refs": [
+      "@granted/model-catalog-core/model-catalog-refs": [
         "../../packages/plugin-sdk/dist/packages/model-catalog-core/src/model-catalog-refs.d.ts"
       ],
-      "@openclaw/model-catalog-core/model-catalog-normalize": [
+      "@granted/model-catalog-core/model-catalog-normalize": [
         "../../packages/plugin-sdk/dist/packages/model-catalog-core/src/model-catalog-normalize.d.ts"
       ],
-      "@openclaw/model-catalog-core/model-catalog-types": [
+      "@granted/model-catalog-core/model-catalog-types": [
         "../../packages/plugin-sdk/dist/packages/model-catalog-core/src/model-catalog-types.d.ts"
       ],
-      "@openclaw/model-catalog-core/provider-id": [
+      "@granted/model-catalog-core/provider-id": [
         "../../packages/plugin-sdk/dist/packages/model-catalog-core/src/provider-id.d.ts"
       ],
-      "@openclaw/model-catalog-core/provider-model-id-normalization": [
+      "@granted/model-catalog-core/provider-model-id-normalization": [
         "../../packages/plugin-sdk/dist/packages/model-catalog-core/src/provider-model-id-normalization.d.ts"
       ],
-      "@openclaw/model-catalog-core/provider-model-id-normalize": [
+      "@granted/model-catalog-core/provider-model-id-normalize": [
         "../../packages/plugin-sdk/dist/packages/model-catalog-core/src/provider-model-id-normalize.d.ts"
       ],
-      "@openclaw/model-catalog-core/*": [
+      "@granted/model-catalog-core/*": [
         "../../packages/plugin-sdk/dist/packages/model-catalog-core/src/*.d.ts"
       ],
-      "@openclaw/markdown-core": [
+      "@granted/markdown-core": [
         "../../packages/plugin-sdk/dist/packages/markdown-core/src/index.d.ts"
       ],
-      "@openclaw/markdown-core/code-spans": [
+      "@granted/markdown-core/code-spans": [
         "../../packages/plugin-sdk/dist/packages/markdown-core/src/code-spans.d.ts"
       ],
-      "@openclaw/markdown-core/fences": [
+      "@granted/markdown-core/fences": [
         "../../packages/plugin-sdk/dist/packages/markdown-core/src/fences.d.ts"
       ],
-      "@openclaw/markdown-core/frontmatter": [
+      "@granted/markdown-core/frontmatter": [
         "../../packages/plugin-sdk/dist/packages/markdown-core/src/frontmatter.d.ts"
       ],
-      "@openclaw/markdown-core/ir": [
+      "@granted/markdown-core/ir": [
         "../../packages/plugin-sdk/dist/packages/markdown-core/src/ir.d.ts"
       ],
-      "@openclaw/markdown-core/render": [
+      "@granted/markdown-core/render": [
         "../../packages/plugin-sdk/dist/packages/markdown-core/src/render.d.ts"
       ],
-      "@openclaw/markdown-core/render-aware-chunking": [
+      "@granted/markdown-core/render-aware-chunking": [
         "../../packages/plugin-sdk/dist/packages/markdown-core/src/render-aware-chunking.d.ts"
       ],
-      "@openclaw/markdown-core/tables": [
+      "@granted/markdown-core/tables": [
         "../../packages/plugin-sdk/dist/packages/markdown-core/src/tables.d.ts"
       ],
-      "@openclaw/markdown-core/types": [
+      "@granted/markdown-core/types": [
         "../../packages/plugin-sdk/dist/packages/markdown-core/src/types.d.ts"
       ],
-      "@openclaw/markdown-core/*": [
+      "@granted/markdown-core/*": [
         "../../packages/plugin-sdk/dist/packages/markdown-core/src/*.d.ts"
       ],
-      "@openclaw/media-generation-core": [
+      "@granted/media-generation-core": [
         "../../packages/plugin-sdk/dist/packages/media-generation-core/src/index.d.ts"
       ],
-      "@openclaw/media-generation-core/capability-model-ref": [
+      "@granted/media-generation-core/capability-model-ref": [
         "../../packages/plugin-sdk/dist/packages/media-generation-core/src/capability-model-ref.d.ts"
       ],
-      "@openclaw/media-generation-core/catalog": [
+      "@granted/media-generation-core/catalog": [
         "../../packages/plugin-sdk/dist/packages/media-generation-core/src/catalog.d.ts"
       ],
-      "@openclaw/media-generation-core/model-ref": [
+      "@granted/media-generation-core/model-ref": [
         "../../packages/plugin-sdk/dist/packages/media-generation-core/src/model-ref.d.ts"
       ],
-      "@openclaw/media-generation-core/normalization": [
+      "@granted/media-generation-core/normalization": [
         "../../packages/plugin-sdk/dist/packages/media-generation-core/src/normalization.d.ts"
       ],
-      "@openclaw/media-generation-core/*": [
+      "@granted/media-generation-core/*": [
         "../../packages/plugin-sdk/dist/packages/media-generation-core/src/*.d.ts"
       ],
-      "@openclaw/media-core": [
+      "@granted/media-core": [
         "../../packages/plugin-sdk/dist/packages/media-core/src/index.d.ts"
       ],
-      "@openclaw/media-core/attachment-classify": [
+      "@granted/media-core/attachment-classify": [
         "../../packages/plugin-sdk/dist/packages/media-core/src/attachment-classify.d.ts"
       ],
-      "@openclaw/media-core/base64": [
+      "@granted/media-core/base64": [
         "../../packages/plugin-sdk/dist/packages/media-core/src/base64.d.ts"
       ],
-      "@openclaw/media-core/constants": [
+      "@granted/media-core/constants": [
         "../../packages/plugin-sdk/dist/packages/media-core/src/constants.d.ts"
       ],
-      "@openclaw/media-core/content-length": [
+      "@granted/media-core/content-length": [
         "../../packages/plugin-sdk/dist/packages/media-core/src/content-length.d.ts"
       ],
-      "@openclaw/media-core/file-name": [
+      "@granted/media-core/file-name": [
         "../../packages/plugin-sdk/dist/packages/media-core/src/file-name.d.ts"
       ],
-      "@openclaw/media-core/inbound-path-policy": [
+      "@granted/media-core/inbound-path-policy": [
         "../../packages/plugin-sdk/dist/packages/media-core/src/inbound-path-policy.d.ts"
       ],
-      "@openclaw/media-core/inline-image-data-url": [
+      "@granted/media-core/inline-image-data-url": [
         "../../packages/plugin-sdk/dist/packages/media-core/src/inline-image-data-url.d.ts"
       ],
-      "@openclaw/media-core/media-source-url": [
+      "@granted/media-core/media-source-url": [
         "../../packages/plugin-sdk/dist/packages/media-core/src/media-source-url.d.ts"
       ],
-      "@openclaw/media-core/mime": [
+      "@granted/media-core/mime": [
         "../../packages/plugin-sdk/dist/packages/media-core/src/mime.d.ts"
       ],
-      "@openclaw/media-core/read-byte-stream-with-limit": [
+      "@granted/media-core/read-byte-stream-with-limit": [
         "../../packages/plugin-sdk/dist/packages/media-core/src/read-byte-stream-with-limit.d.ts"
       ],
-      "@openclaw/media-core/*": [
+      "@granted/media-core/*": [
         "../../packages/plugin-sdk/dist/packages/media-core/src/*.d.ts"
       ],
-      "@openclaw/normalization-core/record-coerce": [
+      "@granted/normalization-core/record-coerce": [
         "../../packages/plugin-sdk/dist/packages/normalization-core/src/record-coerce.d.ts"
       ],
-      "@openclaw/normalization-core/string-coerce": [
+      "@granted/normalization-core/string-coerce": [
         "../../packages/plugin-sdk/dist/packages/normalization-core/src/string-coerce.d.ts"
       ],
-      "@openclaw/normalization-core/*": [
+      "@granted/normalization-core/*": [
         "../../packages/plugin-sdk/dist/packages/normalization-core/src/*.d.ts"
       ],
-      "@openclaw/retry": [
+      "@granted/retry": [
         "../../packages/plugin-sdk/dist/packages/retry/src/index.d.ts"
       ],
-      "@openclaw/workboard-contract": [
+      "@granted/workboard-contract": [
         "../../packages/workboard-contract/src/index.ts"
       ],
-      "@openclaw/acp-core": [
+      "@granted/acp-core": [
         "../../packages/plugin-sdk/dist/packages/acp-core/src/index.d.ts"
       ],
-      "@openclaw/acp-core/meta": [
+      "@granted/acp-core/meta": [
         "../../packages/plugin-sdk/dist/packages/acp-core/src/meta.d.ts"
       ],
-      "@openclaw/acp-core/session": [
+      "@granted/acp-core/session": [
         "../../packages/plugin-sdk/dist/packages/acp-core/src/session.d.ts"
       ],
-      "@openclaw/acp-core/session-interaction-mode": [
+      "@granted/acp-core/session-interaction-mode": [
         "../../packages/plugin-sdk/dist/packages/acp-core/src/session-interaction-mode.d.ts"
       ],
-      "@openclaw/acp-core/session-lineage-meta": [
+      "@granted/acp-core/session-lineage-meta": [
         "../../packages/plugin-sdk/dist/packages/acp-core/src/session-lineage-meta.d.ts"
       ],
-      "@openclaw/acp-core/types": [
+      "@granted/acp-core/types": [
         "../../packages/plugin-sdk/dist/packages/acp-core/src/types.d.ts"
       ],
-      "@openclaw/acp-core/runtime/error-text": [
+      "@granted/acp-core/runtime/error-text": [
         "../../packages/plugin-sdk/dist/packages/acp-core/src/runtime/error-text.d.ts"
       ],
-      "@openclaw/acp-core/runtime/errors": [
+      "@granted/acp-core/runtime/errors": [
         "../../packages/plugin-sdk/dist/packages/acp-core/src/runtime/errors.d.ts"
       ],
-      "@openclaw/acp-core/runtime/session-identifiers": [
+      "@granted/acp-core/runtime/session-identifiers": [
         "../../packages/plugin-sdk/dist/packages/acp-core/src/runtime/session-identifiers.d.ts"
       ],
-      "@openclaw/acp-core/runtime/session-identity": [
+      "@granted/acp-core/runtime/session-identity": [
         "../../packages/plugin-sdk/dist/packages/acp-core/src/runtime/session-identity.d.ts"
       ],
-      "@openclaw/acp-core/runtime/types": [
+      "@granted/acp-core/runtime/types": [
         "../../packages/plugin-sdk/dist/packages/acp-core/src/runtime/types.d.ts"
       ],
-      "@openclaw/acp-core/*": [
+      "@granted/acp-core/*": [
         "../../packages/plugin-sdk/dist/packages/acp-core/src/*.d.ts"
       ],
-      "@openclaw/terminal-core": [
+      "@granted/terminal-core": [
         "../../packages/plugin-sdk/dist/packages/terminal-core/src/index.d.ts"
       ],
-      "@openclaw/terminal-core/ansi": [
+      "@granted/terminal-core/ansi": [
         "../../packages/plugin-sdk/dist/packages/terminal-core/src/ansi.d.ts"
       ],
-      "@openclaw/terminal-core/decorative-emoji": [
+      "@granted/terminal-core/decorative-emoji": [
         "../../packages/plugin-sdk/dist/packages/terminal-core/src/decorative-emoji.d.ts"
       ],
-      "@openclaw/terminal-core/health-style": [
+      "@granted/terminal-core/health-style": [
         "../../packages/plugin-sdk/dist/packages/terminal-core/src/health-style.d.ts"
       ],
-      "@openclaw/terminal-core/links": [
+      "@granted/terminal-core/links": [
         "../../packages/plugin-sdk/dist/packages/terminal-core/src/links.d.ts"
       ],
-      "@openclaw/terminal-core/note": [
+      "@granted/terminal-core/note": [
         "../../packages/plugin-sdk/dist/packages/terminal-core/src/note.d.ts"
       ],
-      "@openclaw/terminal-core/osc-progress": [
+      "@granted/terminal-core/osc-progress": [
         "../../packages/plugin-sdk/dist/packages/terminal-core/src/osc-progress.d.ts"
       ],
-      "@openclaw/terminal-core/palette": [
+      "@granted/terminal-core/palette": [
         "../../packages/plugin-sdk/dist/packages/terminal-core/src/palette.d.ts"
       ],
-      "@openclaw/terminal-core/progress-line": [
+      "@granted/terminal-core/progress-line": [
         "../../packages/plugin-sdk/dist/packages/terminal-core/src/progress-line.d.ts"
       ],
-      "@openclaw/terminal-core/prompt-select-styled": [
+      "@granted/terminal-core/prompt-select-styled": [
         "../../packages/plugin-sdk/dist/packages/terminal-core/src/prompt-select-styled.d.ts"
       ],
-      "@openclaw/terminal-core/prompt-select-styled-params": [
+      "@granted/terminal-core/prompt-select-styled-params": [
         "../../packages/plugin-sdk/dist/packages/terminal-core/src/prompt-select-styled-params.d.ts"
       ],
-      "@openclaw/terminal-core/prompt-style": [
+      "@granted/terminal-core/prompt-style": [
         "../../packages/plugin-sdk/dist/packages/terminal-core/src/prompt-style.d.ts"
       ],
-      "@openclaw/terminal-core/restore": [
+      "@granted/terminal-core/restore": [
         "../../packages/plugin-sdk/dist/packages/terminal-core/src/restore.d.ts"
       ],
-      "@openclaw/terminal-core/safe-text": [
+      "@granted/terminal-core/safe-text": [
         "../../packages/plugin-sdk/dist/packages/terminal-core/src/safe-text.d.ts"
       ],
-      "@openclaw/terminal-core/stream-writer": [
+      "@granted/terminal-core/stream-writer": [
         "../../packages/plugin-sdk/dist/packages/terminal-core/src/stream-writer.d.ts"
       ],
-      "@openclaw/terminal-core/table": [
+      "@granted/terminal-core/table": [
         "../../packages/plugin-sdk/dist/packages/terminal-core/src/table.d.ts"
       ],
-      "@openclaw/terminal-core/terminal-link": [
+      "@granted/terminal-core/terminal-link": [
         "../../packages/plugin-sdk/dist/packages/terminal-core/src/terminal-link.d.ts"
       ],
-      "@openclaw/terminal-core/theme": [
+      "@granted/terminal-core/theme": [
         "../../packages/plugin-sdk/dist/packages/terminal-core/src/theme.d.ts"
       ],
-      "@openclaw/terminal-core/*": [
+      "@granted/terminal-core/*": [
         "../../packages/plugin-sdk/dist/packages/terminal-core/src/*.d.ts"
       ],
-      "@openclaw/*.js": [
+      "@granted/*.js": [
         "../../packages/plugin-sdk/dist/extensions/*.d.ts",
         "../*"
       ],
-      "@openclaw/*": [
+      "@granted/*": [
         "../*"
       ],
-      "@openclaw/plugin-sdk/*": [
+      "@granted/plugin-sdk/*": [
         "../../packages/plugin-sdk/dist/src/plugin-sdk/*.d.ts"
       ],
-      "@openclaw/anthropic-vertex/api.js": [
+      "@granted/anthropic-vertex/api.js": [
         "./.boundary-stubs/anthropic-vertex-api.d.ts"
       ],
-      "@openclaw/ollama/api.js": [
+      "@granted/ollama/api.js": [
         "./.boundary-stubs/ollama-api.d.ts"
       ],
-      "@openclaw/ollama/runtime-api.js": [
+      "@granted/ollama/runtime-api.js": [
         "./.boundary-stubs/ollama-runtime-api.d.ts"
       ],
       "granted/plugin-sdk/doctor-repair-runtime": [

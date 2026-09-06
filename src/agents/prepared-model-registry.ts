@@ -1,5 +1,5 @@
 /** Request-isolated registry views forked from lifecycle-owned model generations. */
-import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
+import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { Model } from "../llm/types.js";
 import type { PreparedAgentCredentialModes } from "./agent-auth-credential-modes.js";

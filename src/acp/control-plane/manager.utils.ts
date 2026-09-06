@@ -1,4 +1,4 @@
-import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
+import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
 import type { SessionAcpMeta } from "../../config/sessions/types.js";
 import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { toErrorObject } from "../../infra/errors.js";

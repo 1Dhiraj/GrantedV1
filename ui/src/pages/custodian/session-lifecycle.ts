@@ -2,7 +2,7 @@ import {
   readSystemAgentSessionInvalidatedErrorDetails,
   readSystemAgentInferenceUnavailableErrorDetails,
   type SystemAgentChatParams,
-} from "@openclaw/gateway-protocol";
+} from "@granted/gateway-protocol";
 import { inferBasePathFromPathname, routeIdFromPath } from "../../app-route-paths.ts";
 
 export type CustodianSessionVariant = "onboarding" | "new-agent" | "caretaker";

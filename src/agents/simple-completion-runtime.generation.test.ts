@@ -1,4 +1,4 @@
-import { createApiRegistry } from "@openclaw/ai";
+import { createApiRegistry } from "@granted/ai";
 import { beforeEach, expect, it, vi } from "vitest";
 import type { Model } from "../llm/types.js";
 import { createPluginMetadataSnapshotFixture } from "../plugins/plugin-metadata.test-support.js";

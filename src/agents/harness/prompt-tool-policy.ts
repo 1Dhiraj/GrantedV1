@@ -1,4 +1,4 @@
-import { normalizeUniqueStringEntries } from "@openclaw/normalization-core/string-normalization";
+import { normalizeUniqueStringEntries } from "@granted/normalization-core/string-normalization";
 import { getPluginToolMeta } from "../../plugins/tool-metadata.js";
 import { CODE_MODE_EXEC_TOOL_NAME, CODE_MODE_WAIT_TOOL_NAME } from "../code-mode-control-tools.js";
 import {

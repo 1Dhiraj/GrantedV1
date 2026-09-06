@@ -113,7 +113,7 @@ fi
 
 MODEL_REF="${OPENCLAW_LIVE_PLUGIN_TOOL_MODEL:?missing OPENCLAW_LIVE_PLUGIN_TOOL_MODEL}"
 PLUGIN_ID="e2e-slug-tool"
-PLUGIN_NAME="@openclaw/e2e-slug-tool"
+PLUGIN_NAME="@granted/e2e-slug-tool"
 PLUGIN_VERSION="0.0.0-e2e.1"
 TOOL_NAME="e2e_slug_probe"
 SEED="OpenClaw E2E Plugin Tool $(date +%s)-$RANDOM"

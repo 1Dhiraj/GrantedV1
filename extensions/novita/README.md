@@ -5,7 +5,7 @@ Official OpenClaw provider plugin for NovitaAI's OpenAI-compatible API.
 ## Install
 
 ```sh
-openclaw plugins install @openclaw/novita-provider
+openclaw plugins install @granted/novita-provider
 openclaw gateway restart
 ```
 

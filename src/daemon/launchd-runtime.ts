@@ -3,8 +3,8 @@ import fs from "node:fs/promises";
 import {
   parseStrictInteger,
   parseStrictPositiveInteger,
-} from "@openclaw/normalization-core/number-coercion";
-import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/number-coercion";
+import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
 import { parseTcpPort, parseTcpPortFromArgs } from "../infra/tcp-port.js";
 import { sleep } from "../utils.js";
 import { GATEWAY_SERVICE_KIND } from "./constants.js";

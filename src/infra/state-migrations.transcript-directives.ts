@@ -1,5 +1,5 @@
 import type { DatabaseSync } from "node:sqlite";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import type { TranscriptEvent } from "../config/sessions/session-accessor.sqlite-contract.js";
 import { updateSqliteTranscriptEventJsonInTransaction } from "../config/sessions/session-accessor.sqlite-transcript-store.js";
 import { GRANTED_AGENT_SCHEMA_VERSION } from "../state/openclaw-agent-db-contract.js";

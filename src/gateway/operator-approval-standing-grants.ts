@@ -4,7 +4,7 @@
 // one cron job re-execute without re-prompting while it revalidates.
 import { randomUUID } from "node:crypto";
 import type { DatabaseSync } from "node:sqlite";
-import { stableStringify } from "@openclaw/normalization-core";
+import { stableStringify } from "@granted/normalization-core";
 import { resolveCronJobConfigRevision } from "../cron/config-revision.js";
 import { loadedCronStoreFromRows } from "../cron/store/row-codec.js";
 import {

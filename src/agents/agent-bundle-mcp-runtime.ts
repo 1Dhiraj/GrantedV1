@@ -10,8 +10,8 @@ import {
   type ServerCapabilities,
   type Tool,
 } from "@modelcontextprotocol/sdk/types.js";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
-import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
+import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
 import type { SessionToolOverrides } from "../config/sessions/types.js";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import { racePromiseWithAbortSignal } from "../infra/abort-signal.js";

@@ -3,8 +3,8 @@
  *
  * Normalizes display/internal/current-session aliases and resolves session-id inputs through Gateway.
  */
-import { err, ok, type Result } from "@openclaw/normalization-core/result";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { err, ok, type Result } from "@granted/normalization-core/result";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import {
   GATEWAY_CLIENT_IDS,
   normalizeGatewayClientId,

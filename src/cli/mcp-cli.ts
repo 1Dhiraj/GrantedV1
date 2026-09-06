@@ -2,13 +2,13 @@
 import { constants as fsConstants } from "node:fs";
 import fs from "node:fs/promises";
 import path from "node:path";
-import { expectDefined } from "@openclaw/normalization-core";
-import { parseStrictFiniteNumber } from "@openclaw/normalization-core/number-coercion";
-import { asNullableRecord as asRecord } from "@openclaw/normalization-core/record-coerce";
+import { expectDefined } from "@granted/normalization-core";
+import { parseStrictFiniteNumber } from "@granted/normalization-core/number-coercion";
+import { asNullableRecord as asRecord } from "@granted/normalization-core/record-coerce";
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeStringifiedOptionalString,
-} from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/string-coerce";
 import { Command } from "commander";
 import { buildBundleMcpToolsFromCatalog } from "../agents/agent-bundle-mcp-materialize.js";
 import type { McpToolCatalog } from "../agents/agent-bundle-mcp-types.js";

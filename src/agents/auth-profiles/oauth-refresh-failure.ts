@@ -1,6 +1,6 @@
-import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
-import { asOptionalRecord } from "@openclaw/normalization-core/record-coerce";
-import { normalizeBoundedOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
+import { asOptionalRecord } from "@granted/normalization-core/record-coerce";
+import { normalizeBoundedOptionalString } from "@granted/normalization-core/string-coerce";
 import { sanitizeForLog } from "../../../packages/terminal-core/src/ansi.js";
 import { formatCliCommand } from "../../cli/command-format.js";
 /**

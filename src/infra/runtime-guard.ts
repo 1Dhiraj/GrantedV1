@@ -1,7 +1,7 @@
 // Validates the current runtime against OpenClaw's Node engine floor.
 import process from "node:process";
 import { format } from "node:util";
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import {
   isNodeVersionAtLeast,
   isSupportedOpenClawNodeVersion,

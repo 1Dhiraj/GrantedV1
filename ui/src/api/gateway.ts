@@ -26,11 +26,11 @@ import {
   resolveGatewayStartupRetryAfterMs,
   resolveSafeTimeoutDelayMs,
   shouldPauseGatewayReconnect,
-} from "@openclaw/gateway-client/browser";
+} from "@granted/gateway-client/browser";
 import type {
   GatewayScopeUpgrade,
   ScopeUpgradeBinding,
-} from "@openclaw/gateway-client/scope-upgrade";
+} from "@granted/gateway-client/scope-upgrade";
 // Control UI module implements gateway behavior.
 import {
   CONTROL_UI_OWNER_BOOTSTRAP_PROFILE_HINT,
@@ -55,7 +55,7 @@ import {
   enrichProtocolMismatchDetails,
   resolveGatewayErrorDetailCode,
 } from "./gateway-connect-errors.ts";
-export type { EventFrame as GatewayEventFrame } from "@openclaw/gateway-client/browser";
+export type { EventFrame as GatewayEventFrame } from "@granted/gateway-client/browser";
 
 export { resolveGatewayErrorDetailCode };
 

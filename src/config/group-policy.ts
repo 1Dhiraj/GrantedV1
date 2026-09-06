@@ -1,7 +1,7 @@
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
-} from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/string-coerce";
 import type { ChannelId } from "../channels/plugins/channel-id.types.js";
 import { createDedupeCache } from "../infra/dedupe.js";
 import { resolveAccountEntry } from "../routing/account-lookup.js";

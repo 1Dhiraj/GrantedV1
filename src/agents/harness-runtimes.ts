@@ -1,8 +1,8 @@
 /**
  * Collects configured native harness runtime ids from model provider config.
  */
-import { listModelRefsFromConfigValue } from "@openclaw/model-catalog-core/configured-model-refs";
-import { parseModelCatalogRef } from "@openclaw/model-catalog-core/model-catalog-refs";
+import { listModelRefsFromConfigValue } from "@granted/model-catalog-core/configured-model-refs";
+import { parseModelCatalogRef } from "@granted/model-catalog-core/model-catalog-refs";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import { isRecord } from "../utils.js";
 import {

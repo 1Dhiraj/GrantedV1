@@ -1,5 +1,5 @@
-import { asFiniteNumber } from "@openclaw/normalization-core/number-coercion";
-import { normalizeNullableString } from "@openclaw/normalization-core/string-coerce";
+import { asFiniteNumber } from "@granted/normalization-core/number-coercion";
+import { normalizeNullableString } from "@granted/normalization-core/string-coerce";
 import type { ContextEngineHostSupport } from "./host-compat.js";
 import type {
   ContextEngineRuntimeReasonCode,

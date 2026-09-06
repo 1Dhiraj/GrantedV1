@@ -1,5 +1,5 @@
 import { ContextProvider } from "@lit/context";
-import { buildControlUiFocusPath, type ControlUiFocusTarget } from "@openclaw/session-url-contract";
+import { buildControlUiFocusPath, type ControlUiFocusTarget } from "@granted/session-url-contract";
 import type { RouteLocation, RouteNotFound } from "@openclaw/uirouter";
 import { html, nothing } from "lit";
 import { state } from "lit/decorators.js";

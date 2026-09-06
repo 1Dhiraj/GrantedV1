@@ -5,7 +5,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { URL } from "node:url";
-import { detectMime } from "@openclaw/media-core/mime";
+import { detectMime } from "@granted/media-core/mime";
 import type { Static, TSchema } from "typebox";
 import { Value } from "typebox/value";
 import { isWindowsDrivePath } from "../infra/archive-path.js";

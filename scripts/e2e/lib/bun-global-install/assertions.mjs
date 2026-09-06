@@ -250,7 +250,7 @@ if (mode === "assert-release-versions") {
   const aiManifest = JSON.parse(fs.readFileSync(aiManifestPath, "utf8"));
   const rootVersion = rootManifest.version;
   const aiVersion = aiManifest.version;
-  const rootAiVersion = rootManifest.dependencies?.["@openclaw/ai"];
+  const rootAiVersion = rootManifest.dependencies?.["@granted/ai"];
   if (
     typeof rootVersion !== "string" ||
     typeof aiVersion !== "string" ||
@@ -258,7 +258,7 @@ if (mode === "assert-release-versions") {
     rootAiVersion !== aiVersion
   ) {
     throw new Error(
-      `candidate version mismatch: openclaw=${String(rootVersion)}, dependency=${String(rootAiVersion)}, @openclaw/ai=${String(aiVersion)}`,
+      `candidate version mismatch: openclaw=${String(rootVersion)}, dependency=${String(rootAiVersion)}, @granted/ai=${String(aiVersion)}`,
     );
   }
   process.stdout.write(aiVersion);

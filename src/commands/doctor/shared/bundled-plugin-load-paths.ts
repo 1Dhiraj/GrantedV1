@@ -1,6 +1,6 @@
 // Doctor warnings and repairs for redundant bundled plugin load path aliases.
 import path from "node:path";
-import { asNullableRecord } from "@openclaw/normalization-core/record-coerce";
+import { asNullableRecord } from "@granted/normalization-core/record-coerce";
 import { sanitizeForLog } from "../../../../packages/terminal-core/src/ansi.js";
 import { resolveAgentWorkspaceDir, tryResolveDefaultAgentId } from "../../../agents/agent-scope.js";
 import type { GrantedConfig } from "../../../config/types.openclaw.js";

@@ -1,4 +1,4 @@
-import type { LlmRuntime } from "@openclaw/ai";
+import type { LlmRuntime } from "@granted/ai";
 import type { ThinkLevel } from "../../auto-reply/thinking.js";
 import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { ProviderRuntimeModel } from "../../plugins/provider-runtime-model.types.js";

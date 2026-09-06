@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { FsSafeError } from "granted/plugin-sdk/security-runtime";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { applyMemoryWikiMutation } from "./apply.js";

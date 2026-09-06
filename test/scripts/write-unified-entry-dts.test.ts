@@ -298,7 +298,7 @@ describe("write-unified-entry-dts", () => {
     let cached: Record<string, string> = {};
     const last = TSDOWN_NON_SDK_DTS_CONFIG_GROUPS.at(-1)!;
     if (failure === "last compiler failure") {
-      write(declarations[last]![0]!, 'export type { Missing } from "@openclaw/llm-core";');
+      write(declarations[last]![0]!, 'export type { Missing } from "@granted/llm-core";');
     } else {
       write(
         "tsdown.config.ts",

@@ -2,9 +2,9 @@
 import crypto from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
-import { isInboundPathAllowed } from "@openclaw/media-core/inbound-path-policy";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
-import { sliceUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+import { isInboundPathAllowed } from "@granted/media-core/inbound-path-policy";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
+import { sliceUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import { assertSandboxPath } from "../../agents/sandbox-paths.js";
 import { ensureSandboxWorkspaceForSession } from "../../agents/sandbox.js";
 import { slugifySessionKey } from "../../agents/sandbox/shared.js";

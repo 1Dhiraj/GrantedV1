@@ -1,11 +1,11 @@
 // Gateway webhook helpers for external hook dispatch into agents and wake flows.
 import { randomUUID } from "node:crypto";
 import type { IncomingMessage } from "node:http";
-import type { Result } from "@openclaw/normalization-core/result";
+import type { Result } from "@granted/normalization-core/result";
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
-} from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/string-coerce";
 import { listAgentIds } from "../agents/agent-scope-config.js";
 import { listChannelPlugins } from "../channels/plugins/index.js";
 import { tryResolveLegacyCompatibilityAgentId } from "../config/legacy.default-agent-owner.js";

@@ -1,5 +1,5 @@
 {
-  "name": "@openclaw/meta-provider",
+  "name": "@granted/meta-provider",
   "version": "2026.8.1",
   "description": "OpenClaw Meta provider plugin.",
   "repository": {
@@ -8,15 +8,15 @@
   },
   "type": "module",
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*"
+    "@granted/plugin-sdk": "workspace:*"
   },
   "openclaw": {
     "extensions": [
       "./index.ts"
     ],
     "install": {
-      "clawhubSpec": "clawhub:@openclaw/meta-provider",
-      "npmSpec": "@openclaw/meta-provider",
+      "clawhubSpec": "clawhub:@granted/meta-provider",
+      "npmSpec": "@granted/meta-provider",
       "defaultChoice": "npm",
       "minHostVersion": ">=2026.6.11"
     },

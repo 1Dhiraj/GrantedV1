@@ -1,5 +1,5 @@
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
-import { sortUniqueStrings } from "@openclaw/normalization-core/string-normalization";
+import { isRecord } from "@granted/normalization-core/record-coerce";
+import { sortUniqueStrings } from "@granted/normalization-core/string-normalization";
 import * as talk from "../config/talk.js";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolveVoiceModelRefs } from "../tts/voice-models.js";

@@ -1,4 +1,4 @@
-import { safeParseJson } from "@openclaw/normalization-core";
+import { safeParseJson } from "@granted/normalization-core";
 import {
   GATEWAY_CLIENT_CAPS,
   hasGatewayClientCap,

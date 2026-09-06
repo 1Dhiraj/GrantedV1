@@ -2,7 +2,7 @@
 import { spawnSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
-import { toErrorObject as toLintErrorObject } from "@openclaw/normalization-core/error-coercion";
+import { toErrorObject as toLintErrorObject } from "@granted/normalization-core/error-coercion";
 import { assert, beforeAll, beforeEach, describe, expect, it } from "vitest";
 import { expectNoReaddirSyncDuring } from "../test-utils/fs-scan-assertions.js";
 import { listGitTrackedFiles, toRepoRelativePath } from "../test-utils/repo-files.js";
@@ -769,7 +769,7 @@ describe("bundled plugin metadata", () => {
     const pluginRoot = path.join(pluginsDir, "alpha");
 
     writeJson(path.join(pluginRoot, "package.json"), {
-      name: "@openclaw/alpha",
+      name: "@granted/alpha",
       version: "0.0.1",
       openclaw: {
         extensions: ["./index.ts"],
@@ -805,7 +805,7 @@ describe("bundled plugin metadata", () => {
     const pluginRoot = path.join(tempRoot, "extensions", "alpha");
 
     writeJson(path.join(pluginRoot, "package.json"), {
-      name: "@openclaw/alpha",
+      name: "@granted/alpha",
       version: "0.0.1",
       openclaw: {
         extensions: ["./index.ts"],

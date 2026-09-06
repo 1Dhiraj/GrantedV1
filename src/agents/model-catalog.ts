@@ -1,12 +1,12 @@
 /**
  * Loads bundled, manifest, and discovered model catalog entries.
  */
-import { resolveClaudeFable5ModelIdentity } from "@openclaw/llm-core";
-import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
+import { resolveClaudeFable5ModelIdentity } from "@granted/llm-core";
+import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
-} from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/string-coerce";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import { isDiagnosticFlagEnabled } from "../infra/diagnostic-flags.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";

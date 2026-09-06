@@ -1,9 +1,9 @@
 // Thinking/reasoning level catalog helpers for auto-reply model controls.
-import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
+import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
 import {
   normalizeOptionalLowercaseString,
   normalizeOptionalString,
-} from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/string-coerce";
 import { resolveClaudeThinkingProfile } from "../plugins/provider-claude-thinking.js";
 import { resolveEffectiveThinkingProfile } from "../plugins/provider-thinking.js";
 import type {

@@ -1,6 +1,6 @@
 // Binds plugin conversations to stable channel and agent identifiers.
 import crypto from "node:crypto";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import type { ReplyPayload } from "../auto-reply/reply-payload.js";
 import { getChannelPlugin, normalizeChannelId } from "../channels/plugins/index.js";
 import { createDedupeCache, type DedupeCache } from "../infra/dedupe.js";

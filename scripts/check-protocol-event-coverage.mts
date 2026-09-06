@@ -21,7 +21,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 // Dependency-light seam by design: preflight runs this script without
 // installed dependencies (the dependency-free manifest contract), so the
-// canonical @openclaw/normalization-core import cannot resolve here.
+// canonical @granted/normalization-core import cannot resolve here.
 import { isRecord } from "./lib/record-shared.mjs";
 
 const GATEWAY_EVENTS_FILE = "src/gateway/server-methods-list.ts";

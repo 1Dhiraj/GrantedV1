@@ -1,13 +1,13 @@
 ---
-summary: "The @openclaw/ai npm package: reusable model transports, isolated runtimes, and host policy ports"
-title: "@openclaw/ai package"
+summary: "The @granted/ai npm package: reusable model transports, isolated runtimes, and host policy ports"
+title: "@granted/ai package"
 read_when:
   - You want to reuse OpenClaw's model transports in another application
   - You are changing packages/ai or the AI transport host ports
   - You are reviewing what the openclaw release publishes to npm besides the root package
 ---
 
-`@openclaw/ai` is the publishable library form of OpenClaw's model execution
+`@granted/ai` is the publishable library form of OpenClaw's model execution
 layer: provider-neutral message/tool/stream contracts, validation, diagnostics,
 event streams, an isolated runtime registry, and lazy adapters for the eight
 built-in API families (Anthropic Messages, OpenAI Completions, OpenAI
@@ -17,14 +17,14 @@ AI, Google Vertex, Mistral Conversations).
 It publishes alongside the root `openclaw` package on every release, pinned to
 the same version. Its exact-pinned direct dependencies resolve at install time;
 the package ships no npm lockfile. Installing `openclaw` installs the matching
-`@openclaw/ai` automatically, and library consumers can depend on it directly
+`@granted/ai` automatically, and library consumers can depend on it directly
 without any OpenClaw application code.
 
 ## Quick start
 
 ```js
-import { createLlmRuntime } from "@openclaw/ai";
-import { registerBuiltInApiProviders } from "@openclaw/ai/providers";
+import { createLlmRuntime } from "@granted/ai";
+import { registerBuiltInApiProviders } from "@granted/ai/providers";
 
 const runtime = createLlmRuntime();
 registerBuiltInApiProviders(runtime.registry);
@@ -49,7 +49,7 @@ A runnable version lives in the repository at `examples/ai-chat`.
   strict-tool defaults, and diagnostics logging are `AiTransportHost` ports
   configured with `configureAiTransportHost`. The library defaults are inert;
   OpenClaw installs its real implementations in its stream facade.
-- **One event-stream identity.** `@openclaw/ai/event-stream` is the canonical
+- **One event-stream identity.** `@granted/ai/event-stream` is the canonical
   `EventStream` constructor shared by OpenClaw core, agent-core, and external
   consumers.
 - **`internal/*` subpaths are not API.** They exist for the OpenClaw

@@ -4,7 +4,7 @@
 import { once } from "node:events";
 import { existsSync } from "node:fs";
 import type { AddressInfo } from "node:net";
-import { rawDataToString } from "@openclaw/gateway-client/websocket-data";
+import { rawDataToString } from "@granted/gateway-client/websocket-data";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { WebSocket, WebSocketServer, type RawData } from "ws";
 import { resolveSessionStorePathCore } from "../config/sessions.js";

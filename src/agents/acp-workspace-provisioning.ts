@@ -7,7 +7,7 @@
  * binding scan, so mixed-binding agents and workspace-equal cwds keep standard
  * bootstrap behavior.
  */
-import { resolveAcpSessionCwd } from "@openclaw/acp-core/runtime/session-identifiers";
+import { resolveAcpSessionCwd } from "@granted/acp-core/runtime/session-identifiers";
 import type { SessionAcpMeta } from "../config/sessions/types.js";
 import type { GrantedConfig } from "../config/types.js";
 import {

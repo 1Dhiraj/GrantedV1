@@ -12,7 +12,7 @@
  *   oc://FILE/section/+0           → indexed insertion
  *   oc://FILE/+                    → file-root insertion
  *
- * @module @openclaw/oc-path/universal
+ * @module @granted/oc-path/universal
  */
 
 import { expectDefined } from "granted/plugin-sdk/expect-runtime";

@@ -1,12 +1,12 @@
 /**
  * Looks up model catalog entries and input capability support.
  */
-import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
-import { asOptionalRecord } from "@openclaw/normalization-core/record-coerce";
+import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
+import { asOptionalRecord } from "@granted/normalization-core/record-coerce";
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
-} from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/string-coerce";
 import { isModelThinkingFormat, type ModelCompatConfig } from "../config/types.models.js";
 import type { Model } from "../llm/types.js";
 import type { ModelCatalogEntry, ModelInputType } from "./model-catalog.types.js";

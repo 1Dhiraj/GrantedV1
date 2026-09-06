@@ -5,7 +5,7 @@ import { tmpdir } from "node:os";
 import path from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
 import { pathToFileURL } from "node:url";
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { describe, expect, it } from "vitest";
 import { loadInstalledPluginIndex } from "../../src/plugins/installed-plugin-index.js";
 import { resolveInstalledPluginPackageOwnership } from "../../src/plugins/installed-plugin-package-ownership.js";
@@ -276,7 +276,7 @@ describe("plugin update unchanged Docker E2E", () => {
   it("bounds corrupt plugin update commands and prints diagnostics on hangs", () => {
     const script = readFileSync(CORRUPT_UPDATE_SCENARIO_SCRIPT, "utf8");
 
-    expect(script).toContain('plugins install "npm:@openclaw/demo-corrupt-plugin@0.0.1" --force');
+    expect(script).toContain('plugins install "npm:@granted/demo-corrupt-plugin@0.0.1" --force');
     expect(script).toContain("config set plugins.allow '[\"demo-corrupt-plugin\"]'");
     expect(script).toContain("GRANTED_UPDATE_CORRUPT_PLUGIN_TIMEOUT_SECONDS");
     expect(script).toContain(

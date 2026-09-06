@@ -5,8 +5,8 @@
  */
 import fs from "node:fs";
 import path from "node:path";
-import { normalizeStringEntries } from "@openclaw/normalization-core/string-normalization";
-import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+import { normalizeStringEntries } from "@granted/normalization-core/string-normalization";
+import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import type { ChatType } from "../channels/chat-type.js";
 import { resolveControlUiSessionUrl } from "../config/control-ui-link-base.js";
 import type { GrantedConfig } from "../config/types.openclaw.js";

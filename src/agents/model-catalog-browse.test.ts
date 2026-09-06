@@ -1,4 +1,4 @@
-import { MAX_TIMER_TIMEOUT_MS } from "@openclaw/normalization-core/number-coercion";
+import { MAX_TIMER_TIMEOUT_MS } from "@granted/normalization-core/number-coercion";
 /**
  * Regression coverage for model catalog browsing.
  * Verifies filtered catalog output and pending load behavior.

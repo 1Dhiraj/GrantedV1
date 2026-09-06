@@ -1,7 +1,7 @@
-import { asNullableRecord } from "@openclaw/normalization-core/record-coerce";
-import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
+import { asNullableRecord } from "@granted/normalization-core/record-coerce";
+import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
 // Audits channel configuration for exposure, auth, and trust risks.
-import { uniqueStrings } from "@openclaw/normalization-core/string-normalization";
+import { uniqueStrings } from "@granted/normalization-core/string-normalization";
 import {
   hasConfiguredUnavailableCredentialStatus,
   hasResolvedCredentialValue,

@@ -138,7 +138,7 @@ export type {
   UnifiedModelCatalogEntry,
   UnifiedModelCatalogKind,
   UnifiedModelCatalogSource,
-} from "@openclaw/model-catalog-core/model-catalog-types";
+} from "@granted/model-catalog-core/model-catalog-types";
 export type { ProviderRuntimeModel } from "../plugins/provider-runtime-model.types.js";
 export type {
   GrantedPluginActiveModelContext,
@@ -283,7 +283,7 @@ export {
   readStringArrayParam,
   readToolStringParam as readStringParam,
 } from "../agents/tools/common.js";
-export { parseStrictPositiveInteger } from "@openclaw/normalization-core/number-coercion";
+export { parseStrictPositiveInteger } from "@granted/normalization-core/number-coercion";
 export { isTrustedProxyAddress, resolveClientIp } from "../gateway/net.js";
 export { formatZonedTimestamp } from "../infra/format-time/format-datetime.js";
 export { resolveConfiguredAcpBindingRecord } from "../acp/persistent-bindings.resolve.js";

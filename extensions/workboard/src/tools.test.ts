@@ -1,5 +1,5 @@
 // Workboard tests cover tools plugin behavior.
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { Value } from "typebox/value";
 import { describe, expect, it, vi } from "vitest";
 import type { GrantedPluginApi } from "../api.js";

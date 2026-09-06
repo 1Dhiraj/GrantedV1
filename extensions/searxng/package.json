@@ -1,18 +1,18 @@
 {
-  "name": "@openclaw/searxng-plugin",
+  "name": "@granted/searxng-plugin",
   "version": "2026.8.1",
   "description": "OpenClaw SearXNG plugin",
   "type": "module",
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*"
+    "@granted/plugin-sdk": "workspace:*"
   },
   "openclaw": {
     "extensions": [
       "./index.ts"
     ],
     "install": {
-      "clawhubSpec": "clawhub:@openclaw/searxng-plugin",
-      "npmSpec": "@openclaw/searxng-plugin",
+      "clawhubSpec": "clawhub:@granted/searxng-plugin",
+      "npmSpec": "@granted/searxng-plugin",
       "defaultChoice": "npm",
       "minHostVersion": ">=2026.6.9",
       "allowInvalidConfigRecovery": true

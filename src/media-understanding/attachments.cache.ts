@@ -6,11 +6,11 @@ import path from "node:path";
 import {
   classifyAttachmentBytes,
   type AttachmentClassification,
-} from "@openclaw/media-core/attachment-classify";
+} from "@granted/media-core/attachment-classify";
 import {
   isInboundPathAllowed,
   mergeInboundPathRoots,
-} from "@openclaw/media-core/inbound-path-policy";
+} from "@granted/media-core/inbound-path-policy";
 import { MediaUnderstandingSkipError } from "../../packages/media-understanding-common/src/errors.js";
 import { resolveStateDir } from "../config/paths.js";
 import { logVerbose, shouldLogVerbose } from "../globals.js";

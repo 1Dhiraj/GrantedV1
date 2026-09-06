@@ -81,7 +81,7 @@ vi.mock("./doctor/shared/channel-legacy-config-migrate.js", () => ({
 
 vi.mock("../secrets/target-registry.js", async () => {
   const { asNullableRecord: readRecord } =
-    await import("@openclaw/normalization-core/record-coerce");
+    await import("@granted/normalization-core/record-coerce");
   const entry = {
     id: "channels.discord.token",
     targetType: "channels.discord.token",

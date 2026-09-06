@@ -57,7 +57,7 @@ fs.writeFileSync(
   path.join(distPluginDir, "package.json"),
   JSON.stringify(
     {
-      name: "@openclaw/build-smoke-plugin",
+      name: "@granted/build-smoke-plugin",
       type: "module",
       openclaw: {
         extensions: ["./index.js"],

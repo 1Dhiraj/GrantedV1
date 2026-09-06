@@ -834,7 +834,7 @@ describe("gateway startup-migration refusal", () => {
     fs.writeFileSync(
       path.join(pluginDir, "package.json"),
       JSON.stringify({
-        name: `@openclaw/${pluginId}`,
+        name: `@granted/${pluginId}`,
         version: "1.0.0",
         openclaw: { extensions: ["./index.js"] },
       }),

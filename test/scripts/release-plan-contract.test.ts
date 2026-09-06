@@ -42,8 +42,8 @@ describe("release plan contract", () => {
     );
     expect(() => parseReleasePlanLockJson(nestedDuplicate)).toThrow("duplicate key");
     const arrayEntryDuplicate = lockText.replace(
-      '{"name":"@openclaw/example","targets":',
-      '{"name":"ignored","name":"@openclaw/example","targets":',
+      '{"name":"@granted/example","targets":',
+      '{"name":"ignored","name":"@granted/example","targets":',
     );
     expect(() => parseReleasePlanLockJson(arrayEntryDuplicate)).toThrow("duplicate key");
     expect(() =>
@@ -310,7 +310,7 @@ describe("release plan contract", () => {
           packages: [
             { name: "openclaw", targets: ["npm"], version: "2026.8.1-beta.2" },
             {
-              name: "@openclaw/example",
+              name: "@granted/example",
               targets: ["clawhub", "npm"],
               version: "2026.8.1-beta.2",
             },

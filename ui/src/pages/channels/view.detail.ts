@@ -1,6 +1,6 @@
 // Channel detail overlay: full status + advanced schema config form for one
 // channel, reusing the per-channel settings-language renderers.
-import { asNullableRecord, readStringField } from "@openclaw/normalization-core/record-coerce";
+import { asNullableRecord, readStringField } from "@granted/normalization-core/record-coerce";
 import { html, nothing, type TemplateResult } from "lit";
 import type { NostrProfile } from "../../api/types.ts";
 import { renderChannelIcon } from "../../components/channel-icon.ts";

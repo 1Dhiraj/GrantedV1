@@ -1,6 +1,6 @@
 // SecretRef-aware Gateway config string resolver.
 // Resolves configured secret inputs and fallback values without leaking values.
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { resolveConfigSecretRef } from "../config/resolution-facts.js";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { PluginManifestRegistry } from "../plugins/manifest-registry.js";

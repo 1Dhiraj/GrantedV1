@@ -1,5 +1,5 @@
 {
-  "name": "@openclaw/slack",
+  "name": "@granted/slack",
   "version": "2026.8.1",
   "description": "OpenClaw Slack channel plugin for channels, DMs, commands, and app events.",
   "repository": {
@@ -19,11 +19,11 @@
     "zod": "4.4.3"
   },
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*",
-    "openclaw": "workspace:*"
+    "@granted/plugin-sdk": "workspace:*",
+    "granted": "workspace:*"
   },
   "peerDependencies": {
-    "openclaw": ">=2026.8.1"
+    "granted": ">=2026.8.1"
   },
   "peerDependenciesMeta": {
     "openclaw": {
@@ -143,7 +143,7 @@
       }
     },
     "install": {
-      "npmSpec": "@openclaw/slack",
+      "npmSpec": "@granted/slack",
       "defaultChoice": "npm",
       "minHostVersion": ">=2026.5.28",
       "allowInvalidConfigRecovery": true

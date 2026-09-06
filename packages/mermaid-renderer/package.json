@@ -1,5 +1,5 @@
 {
-  "name": "@openclaw/mermaid-renderer",
+  "name": "@granted/mermaid-renderer",
   "version": "0.0.0-private",
   "private": true,
   "type": "module",
@@ -10,7 +10,7 @@
     "build": "vite build"
   },
   "dependencies": {
-    "@openclaw/normalization-core": "workspace:*",
+    "@granted/normalization-core": "workspace:*",
     "dompurify": "3.4.14",
     "mermaid": "11.17.2"
   },

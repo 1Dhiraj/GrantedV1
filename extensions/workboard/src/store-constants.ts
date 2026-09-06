@@ -1,4 +1,4 @@
-import type { WorkboardCard, WorkboardClaim } from "@openclaw/workboard-contract";
+import type { WorkboardCard, WorkboardClaim } from "@granted/workboard-contract";
 import {
   isFutureDateTimestampMs,
   MAX_DATE_TIMESTAMP_MS,

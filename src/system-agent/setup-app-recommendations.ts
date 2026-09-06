@@ -1,6 +1,6 @@
-import { safeParseJson } from "@openclaw/normalization-core";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
-import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+import { safeParseJson } from "@granted/normalization-core";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
+import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import pLimit from "p-limit";
 import { z } from "zod";
 import { searchClawHubSkills } from "../infra/clawhub-skills.js";

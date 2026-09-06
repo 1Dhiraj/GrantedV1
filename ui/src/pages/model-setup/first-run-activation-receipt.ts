@@ -1,6 +1,6 @@
 import { hmac } from "@noble/hashes/hmac.js";
 import { sha256 } from "@noble/hashes/sha2.js";
-import { gatewayCredentialScope } from "@openclaw/gateway-client/browser";
+import { gatewayCredentialScope } from "@granted/gateway-client/browser";
 import type { ApplicationContext } from "../../app/context.ts";
 import { getSafeLocalStorage } from "../../local-storage.ts";
 import { activationTimeoutForKind } from "./state.ts";

@@ -52,7 +52,7 @@ export function metadataSnapshot(params: {
         {
           pluginId: id,
           ...(origin === "global" ? { installOwner: id } : {}),
-          packageName: `@openclaw/${id}`,
+          packageName: `@granted/${id}`,
           origin,
           enabled: params.enabled,
           rootDir: `/tmp/${id}`,
@@ -78,18 +78,18 @@ export function emptyMetadataSnapshot() {
 }
 
 export const hostedDiffsEntry = {
-  name: "@openclaw/diffs",
+  name: "@granted/diffs",
   version: "2.0.0",
   description: "Hosted description",
   openclaw: {
     plugin: { id: "diffs", label: "Hosted Diffs" },
-    install: { clawhubSpec: "clawhub:@openclaw/diffs", defaultChoice: "clawhub" },
+    install: { clawhubSpec: "clawhub:@granted/diffs", defaultChoice: "clawhub" },
   },
 };
 
 // Mirrors the ClawHub feed: package identity is remote, while runtime metadata stays local.
 export const hostedFeedDiffsEntry = {
-  id: "@openclaw/diffs",
+  id: "@granted/diffs",
   title: "Diffs",
   state: "available",
   featured: true,
@@ -98,7 +98,7 @@ export const hostedFeedDiffsEntry = {
     candidates: [
       {
         sourceRef: "public-clawhub",
-        package: "@openclaw/diffs",
+        package: "@granted/diffs",
         version: "2026.6.11",
         integrity: `sha256:${"a".repeat(64)}`,
       },

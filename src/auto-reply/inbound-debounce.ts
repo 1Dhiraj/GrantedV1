@@ -2,7 +2,7 @@
 import {
   resolveNonNegativeIntegerOption,
   resolveOptionalIntegerOption,
-} from "@openclaw/normalization-core/number-coercion";
+} from "@granted/normalization-core/number-coercion";
 import type { InboundDebounceByProvider } from "../config/types.messages.js";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import { toErrorObject } from "../infra/errors.js";

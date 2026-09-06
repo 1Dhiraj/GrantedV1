@@ -5,7 +5,7 @@
 import {
   preserveCompactionReplayWindow,
   resolveCompactionReplayEligibility,
-} from "@openclaw/ai/transports";
+} from "@granted/ai/transports";
 import { formatSqliteSessionFileMarker } from "../../config/sessions/legacy-sqlite-marker.js";
 import { captureOwnedTranscriptWriteAssertion } from "../../config/sessions/transcript-write-context.js";
 import type { ContextEngineSessionTarget } from "../../context-engine/types.js";

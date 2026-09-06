@@ -1,6 +1,6 @@
 // Regression: input_file callers declare their MIME; a cosmetic filename must
 // not reroute classification past an operator-configured allowlist.
-import { classifyAttachmentBytes } from "@openclaw/media-core/attachment-classify";
+import { classifyAttachmentBytes } from "@granted/media-core/attachment-classify";
 import { describe, expect, it } from "vitest";
 import {
   DEFAULT_INPUT_IMAGE_MIMES,

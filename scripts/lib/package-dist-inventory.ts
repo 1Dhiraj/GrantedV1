@@ -1,6 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import { sortUniqueStrings } from "@openclaw/normalization-core/string-normalization";
+import { sortUniqueStrings } from "@granted/normalization-core/string-normalization";
 import { writeJson } from "../../src/infra/json-files.ts";
 import { collectPackageDistInventory } from "../../src/infra/package-dist-inventory.ts";
 import { PACKAGE_DIST_INVENTORY_RELATIVE_PATH } from "./package-dist-inventory-contract.mts";

@@ -4,7 +4,7 @@
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
-} from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/string-coerce";
 import { resolveEconomyModelRef } from "../config/economy-model.js";
 import { resolveAgentModelPrimaryValue } from "../config/model-input.js";
 import type { GrantedConfig } from "../config/types.openclaw.js";

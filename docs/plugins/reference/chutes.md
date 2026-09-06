@@ -11,8 +11,8 @@ Adds Chutes model provider support to OpenClaw.
 
 ## Distribution
 
-- Package: `@openclaw/chutes-provider`
-- Install route: npm; ClawHub: `clawhub:@openclaw/chutes-provider`
+- Package: `@granted/chutes-provider`
+- Install route: npm; ClawHub: `clawhub:@granted/chutes-provider`
 
 ## Surface
 

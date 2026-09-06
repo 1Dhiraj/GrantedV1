@@ -1,4 +1,4 @@
-import type { Result } from "@openclaw/normalization-core/result";
+import type { Result } from "@granted/normalization-core/result";
 // RPC adapter for chat.abort; cancellation policy lives in the sibling modules.
 import {
   ErrorCodes,

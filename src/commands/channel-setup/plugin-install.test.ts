@@ -1,7 +1,7 @@
 // Channel setup plugin install tests cover install decisions, registry reloads, scoped snapshots, and trust boundaries.
 import fs from "node:fs";
 import path from "node:path";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import { createRequireRecord, bundledPluginRoot } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../../test/helpers/temp-dir.js";
@@ -100,7 +100,7 @@ import {
   loadChannelSetupPluginRegistrySnapshotForChannel,
 } from "./plugin-install.js";
 
-const bundledChatNpmSpec = "@openclaw/bundled-chat@1.2.3";
+const bundledChatNpmSpec = "@granted/bundled-chat@1.2.3";
 const bundledChatIntegrity = "sha512-bundled-chat";
 const bundledChatForkNpmSpec = "@vendor/bundled-chat-fork@1.2.3";
 const bundledChatForkIntegrity = "sha512-vendor-bundled-chat-fork";
@@ -439,9 +439,9 @@ describe("ensureChannelSetupPluginInstalled", () => {
       targetDir: "/tmp/wecom-openclaw-plugin",
       version: "2026.5.4-beta.1",
       npmResolution: {
-        name: "@openclaw/wecom",
+        name: "@granted/wecom",
         version: "2026.5.4-beta.1",
-        resolvedSpec: "@openclaw/wecom@2026.5.4-beta.1",
+        resolvedSpec: "@granted/wecom@2026.5.4-beta.1",
       },
     });
 
@@ -458,7 +458,7 @@ describe("ensureChannelSetupPluginInstalled", () => {
           blurb: "WeCom channel",
         },
         install: {
-          npmSpec: "@openclaw/wecom",
+          npmSpec: "@granted/wecom",
         },
       },
       prompter,
@@ -468,10 +468,10 @@ describe("ensureChannelSetupPluginInstalled", () => {
 
     expect(select).not.toHaveBeenCalled();
     expectRecordFields(requireMockCallArg(installPluginFromNpmSpec, 0), "npm install args", {
-      spec: "@openclaw/wecom@beta",
+      spec: "@granted/wecom@beta",
       expectedPluginId: "wecom-openclaw-plugin",
     });
-    expect(result.cfg.plugins?.installs?.["wecom-openclaw-plugin"]?.spec).toBe("@openclaw/wecom");
+    expect(result.cfg.plugins?.installs?.["wecom-openclaw-plugin"]?.spec).toBe("@granted/wecom");
   });
 
   it("defaults to bundled local path on beta channel when available", async () => {
@@ -603,7 +603,7 @@ describe("ensureChannelSetupPluginInstalled", () => {
     {
       scenario: "falls back to local path when the npm target is not published",
       code: PLUGIN_INSTALL_ERROR_CODE.NPM_PACKAGE_NOT_FOUND,
-      error: "Package not found on npm: @openclaw/bundled-chat@1.2.3",
+      error: "Package not found on npm: @granted/bundled-chat@1.2.3",
       fallback: true,
     },
     {
@@ -680,7 +680,7 @@ describe("ensureChannelSetupPluginInstalled", () => {
           blurb: "WeCom channel",
         },
         install: {
-          npmSpec: "@openclaw/wecom@2026.4.23",
+          npmSpec: "@granted/wecom@2026.4.23",
         },
       };
       installPluginFromNpmSpec.mockResolvedValue({

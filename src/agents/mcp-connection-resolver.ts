@@ -3,8 +3,8 @@
  * Resolved url/headers are credentials — never log, fingerprint, or persist them.
  */
 import crypto from "node:crypto";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { resolveOpenClawMcpTransportAlias } from "../config/mcp-config-normalize.js";
 import { logWarn } from "../logger.js";
 import { registerSecretValueForRedaction } from "../logging/secret-redaction-registry.js";

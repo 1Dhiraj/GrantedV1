@@ -11,7 +11,7 @@ Adds Microsoft Foundry model provider support to OpenClaw.
 
 ## Distribution
 
-- Package: `@openclaw/microsoft-foundry`
+- Package: `@granted/microsoft-foundry`
 - Install route: included in OpenClaw
 
 ## Surface

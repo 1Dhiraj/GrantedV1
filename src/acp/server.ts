@@ -9,9 +9,9 @@ import {
   ndJsonStream,
   type AnyMessage,
 } from "@agentclientprotocol/sdk";
-import type { AcpServerOptions } from "@openclaw/acp-core/types";
-import { isRecord as isJsonObject } from "@openclaw/normalization-core/record-coerce";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import type { AcpServerOptions } from "@granted/acp-core/types";
+import { isRecord as isJsonObject } from "@granted/normalization-core/record-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import {
   GATEWAY_CLIENT_CAPS,
   GATEWAY_CLIENT_MODES,

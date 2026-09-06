@@ -180,7 +180,7 @@ describe("managed plugin capability consent", () => {
     createColdPluginFixture({
       rootDir,
       pluginId: "diffs",
-      packageName: "@openclaw/diffs",
+      packageName: "@granted/diffs",
       manifest: { providers: [], channels: [], channelConfigs: {}, providerAuthChoices: [] },
     });
     return rootDir;
@@ -189,15 +189,15 @@ describe("managed plugin capability consent", () => {
   const officialSources: PluginInstallRecord[] = [
     {
       source: "npm",
-      spec: "@openclaw/diffs@1.0.0",
-      resolvedName: "@openclaw/diffs",
-      resolvedSpec: "@openclaw/diffs@1.0.0",
+      spec: "@granted/diffs@1.0.0",
+      resolvedName: "@granted/diffs",
+      resolvedSpec: "@granted/diffs@1.0.0",
       integrity: "sha512-official-artifact",
     },
     {
       source: "clawhub",
-      spec: "clawhub:@openclaw/diffs@1.0.0",
-      clawhubPackage: "@openclaw/diffs",
+      spec: "clawhub:@granted/diffs@1.0.0",
+      clawhubPackage: "@granted/diffs",
       clawhubUrl: "https://clawhub.ai",
       clawhubChannel: "official",
       integrity: "sha256-official-artifact",
@@ -250,7 +250,7 @@ describe("managed plugin capability consent", () => {
     const handler = createManagedPluginArtifactConsentHandler({
       config: {},
       source: sourceRecord?.source ?? "npm",
-      spec: sourceRecord?.spec ?? "@openclaw/diffs",
+      spec: sourceRecord?.spec ?? "@granted/diffs",
     });
     await expect(
       handler.onBeforePluginArtifactCommit({

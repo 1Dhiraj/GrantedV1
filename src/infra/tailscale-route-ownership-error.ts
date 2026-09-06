@@ -1,4 +1,4 @@
-import { asNullableObjectRecord as readRecord } from "@openclaw/normalization-core/record-coerce";
+import { asNullableObjectRecord as readRecord } from "@granted/normalization-core/record-coerce";
 
 const TAILSCALE_ROUTE_OWNERSHIP_CONFLICT_CODE = "TAILSCALE_ROUTE_OWNERSHIP_CONFLICT";
 

@@ -1,5 +1,5 @@
 /** Builds plugin status reports from persisted metadata without importing full plugin runtimes. */
-import { uniqueStrings } from "@openclaw/normalization-core/string-normalization";
+import { uniqueStrings } from "@granted/normalization-core/string-normalization";
 import { getRuntimeConfig } from "../config/config.js";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import {

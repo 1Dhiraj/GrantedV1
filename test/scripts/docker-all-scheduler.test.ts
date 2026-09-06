@@ -237,7 +237,7 @@ function runCandidatePrep(fixture: ReturnType<typeof candidateFixture>) {
 
 function addRegistry(
   fixture: ReturnType<typeof candidateFixture>,
-  packageNames = ["@openclaw/discord", "@openclaw/feishu"],
+  packageNames = ["@granted/discord", "@granted/feishu"],
 ) {
   const registryDir = path.join(fixture.root, "registry");
   mkdirSync(registryDir);
@@ -427,10 +427,10 @@ describe("scripts/test-docker-all scheduler", () => {
       outputDir: path.join(root, "prepublish-plugin-registry"),
       repoRoot: process.cwd(),
       requiredPackages: [
-        "@openclaw/codex",
-        "@openclaw/discord",
-        "@openclaw/matrix",
-        "@openclaw/whatsapp",
+        "@granted/codex",
+        "@granted/discord",
+        "@granted/matrix",
+        "@granted/whatsapp",
       ],
       sourceSha: "a".repeat(40),
     });
@@ -574,7 +574,7 @@ describe("scripts/test-docker-all scheduler", () => {
     expect(() =>
       validateDockerCandidateEnvironment(
         env,
-        candidatePlan({ requiredPackages: ["@openclaw/discord"] }),
+        candidatePlan({ requiredPackages: ["@granted/discord"] }),
         fixture.root,
       ),
     ).not.toThrow();
@@ -599,7 +599,7 @@ describe("scripts/test-docker-all scheduler", () => {
     expect(() =>
       validateDockerCandidateEnvironment(
         env,
-        candidatePlan({ requiredPackages: ["@openclaw/discord"] }),
+        candidatePlan({ requiredPackages: ["@granted/discord"] }),
         fixture.root,
       ),
     ).not.toThrow();
@@ -609,7 +609,7 @@ describe("scripts/test-docker-all scheduler", () => {
     expect(() =>
       validateDockerCandidateEnvironment(
         fixture.env,
-        candidatePlan({ requiredPackages: ["@openclaw/discord"] }),
+        candidatePlan({ requiredPackages: ["@granted/discord"] }),
         fixture.root,
       ),
     ).toThrow("requires a prepublish plugin registry tuple");

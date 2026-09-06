@@ -6,7 +6,7 @@ plan, and Volcengine Speech text-to-speech.
 Install from OpenClaw:
 
 ```bash
-openclaw plugins install @openclaw/volcengine-provider
+openclaw plugins install @granted/volcengine-provider
 openclaw gateway restart
 ```
 

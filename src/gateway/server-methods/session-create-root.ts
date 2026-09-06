@@ -1,5 +1,5 @@
 import fs from "node:fs";
-import { err, ok, type Result } from "@openclaw/normalization-core/result";
+import { err, ok, type Result } from "@granted/normalization-core/result";
 import {
   ErrorCodes,
   errorShape,

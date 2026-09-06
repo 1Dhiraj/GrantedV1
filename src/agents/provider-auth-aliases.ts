@@ -3,7 +3,7 @@
  * Maps deprecated and plugin-defined provider IDs to canonical credential
  * providers, with trusted workspace plugin handling and snapshot-owned metadata.
  */
-import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
+import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import { normalizePluginsConfig } from "../plugins/config-state.js";
 import { getCurrentPluginMetadataSnapshot } from "../plugins/current-plugin-metadata-snapshot.js";

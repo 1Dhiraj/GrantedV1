@@ -1,6 +1,6 @@
-import { asPositiveFiniteNumber } from "@openclaw/normalization-core/number-coercion";
-import { asRecord } from "@openclaw/normalization-core/record-coerce";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { asPositiveFiniteNumber } from "@granted/normalization-core/number-coercion";
+import { asRecord } from "@granted/normalization-core/record-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { ErrorCodes, errorShape } from "../../../packages/gateway-protocol/src/index.js";
 import { resolveSessionEntryAccessTarget } from "../../config/sessions/session-accessor.js";
 import { parseAgentSessionKey } from "../../routing/session-key.js";

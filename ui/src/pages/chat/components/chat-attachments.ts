@@ -1,5 +1,5 @@
 // Shared attachment controls for chat and new-session composers.
-import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import { html, nothing } from "lit";
 import { ref } from "lit/directives/ref.js";
 import { icons } from "../../../components/icons.ts";

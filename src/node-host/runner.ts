@@ -1,5 +1,5 @@
 /** CLI runner for node-host stdin/stdout command dispatch. */
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import type { CloudflareAccessCredentials } from "../../packages/gateway-client/src/cloudflare-access.js";
 import {
   GATEWAY_CLIENT_MODES,

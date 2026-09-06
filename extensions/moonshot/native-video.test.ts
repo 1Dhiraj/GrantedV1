@@ -1,5 +1,5 @@
 import { createServer } from "node:http";
-import { createOpenAICompletionsTransportStreamFn } from "@openclaw/ai/transports";
+import { createOpenAICompletionsTransportStreamFn } from "@granted/ai/transports";
 import type { StreamFn } from "granted/plugin-sdk/agent-core";
 import { attachModelProviderRequestTransport } from "granted/plugin-sdk/agent-harness-runtime";
 import {

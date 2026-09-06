@@ -2,11 +2,11 @@
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { normalizeAgentId } from "@openclaw/normalization-core/agent-id";
+import { normalizeAgentId } from "@granted/normalization-core/agent-id";
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
-} from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/string-coerce";
 import type { MemoryExtraPath } from "./types.js";
 export { normalizeAgentId };
 

@@ -1,5 +1,5 @@
 // Implements plugin command listing and configuration helpers.
-import { normalizeOptionalLowercaseString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalLowercaseString } from "@granted/normalization-core/string-coerce";
 import { resolvePluginCapabilityConsentCliOptions } from "../../cli/plugin-capability-consent.js";
 import { readConfigFileSnapshot, readConfigFileSnapshotForWrite } from "../../config/config.js";
 import { assertConfigWriteAllowedInCurrentMode } from "../../config/nix-mode-write-guard.js";

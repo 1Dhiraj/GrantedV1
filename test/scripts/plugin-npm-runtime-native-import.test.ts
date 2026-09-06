@@ -46,7 +46,7 @@ function fixture(format = "esm", declaration = "peerDependencies") {
     packageDir,
     "package.json",
     JSON.stringify({
-      name: "@openclaw/demo",
+      name: "@granted/demo",
       version: "1.0.0",
       type: "module",
       optionalDependencies: { "fixture-dep": "1.0.0" },

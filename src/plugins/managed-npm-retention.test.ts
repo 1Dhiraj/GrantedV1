@@ -21,7 +21,7 @@ describe("managed npm retention", () => {
     async (layout) => {
       const stateDir = retentionTempDirs.make("openclaw-retention-");
       const npmDir = path.join(stateDir, "npm");
-      const packageName = "@openclaw/codex";
+      const packageName = "@granted/codex";
       const oldProjectRoot =
         layout === "ordinary"
           ? resolvePluginNpmProjectDir({ npmDir, packageName })
@@ -103,7 +103,7 @@ describe("managed npm retention", () => {
     fs.symlinkSync(outsideProjectsDir, path.join(npmDir, "projects"), "dir");
     const projectRoot = resolvePluginNpmProjectDir({
       npmDir,
-      packageName: "@openclaw/codex",
+      packageName: "@granted/codex",
     });
     const packageDir = path.join(projectRoot, "node_modules", "@openclaw", "codex");
     const sentinel = path.join(projectRoot, "must-remain.txt");
@@ -129,7 +129,7 @@ describe("managed npm retention", () => {
           ? npmDir
           : resolvePluginNpmGenerationProjectDir({
               npmDir,
-              packageName: "@openclaw/kept-plugin",
+              packageName: "@granted/kept-plugin",
               generationKey: "kept-plugin-v1",
             });
       const packageDir = path.join(projectRoot, "node_modules", "@openclaw", "kept-plugin");

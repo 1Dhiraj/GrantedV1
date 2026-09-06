@@ -7,14 +7,14 @@ import {
   findNormalizedProviderKey as findNormalizedProviderKeyCore,
   normalizeProviderId as normalizeProviderIdCore,
   normalizeProviderIdForAuth as normalizeProviderIdForAuthCore,
-} from "@openclaw/model-catalog-core/provider-id";
+} from "@granted/model-catalog-core/provider-id";
 import {
   normalizeBuiltInProviderModelId,
   normalizeConfiguredProviderCatalogModelRef,
   normalizeStaticProviderModelIdWithPolicies,
   stripSelfProviderModelPrefix,
-} from "@openclaw/model-catalog-core/provider-model-id-normalization";
-import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
+} from "@granted/model-catalog-core/provider-model-id-normalization";
+import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
 import {
   resolveManifestModelIdNormalizationPolicies,
   type ManifestModelIdNormalizationSource,

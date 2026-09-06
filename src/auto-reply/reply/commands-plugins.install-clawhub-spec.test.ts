@@ -103,11 +103,11 @@ describe("chat plugin install explicit ClawHub selectors", () => {
       targetDir: "/tmp/clawhub-demo",
       version: "1.2.3",
       extensions: ["index.js"],
-      packageName: "@openclaw/clawhub-demo",
+      packageName: "@granted/clawhub-demo",
       clawhub: {
         source: "clawhub",
         clawhubUrl: "https://clawhub.ai",
-        clawhubPackage: "@openclaw/clawhub-demo",
+        clawhubPackage: "@granted/clawhub-demo",
         clawhubFamily: "code-plugin",
         clawhubChannel: "official",
         version: "1.2.3",
@@ -120,7 +120,7 @@ describe("chat plugin install explicit ClawHub selectors", () => {
       const workspaceDir = await workspaceHarness.createWorkspace();
       const result = await handlePluginsCommand(
         buildClawHubPluginsParams(
-          "/plugins install clawhub:@openclaw/clawhub-demo@1.2.3",
+          "/plugins install clawhub:@granted/clawhub-demo@1.2.3",
           workspaceDir,
         ),
         true,
@@ -130,12 +130,12 @@ describe("chat plugin install explicit ClawHub selectors", () => {
       expect(result?.reply?.text).toBe(
         [
           "⚠️ Plugin capabilities require approval: Cold Control Plane (clawhub-demo) @ 1.2.3",
-          "Source: clawhub: clawhub:@openclaw/clawhub-demo@1.2.3",
+          "Source: clawhub: clawhub:@granted/clawhub-demo@1.2.3",
           "Channels: cold-channel",
           "Providers: cold-model-provider",
           "Prompt injection: allowed",
           "Conversation access: denied",
-          "Review these capabilities, then rerun /plugins install clawhub:@openclaw/clawhub-demo@1.2.3 --accept-capabilities to continue.",
+          "Review these capabilities, then rerun /plugins install clawhub:@granted/clawhub-demo@1.2.3 --accept-capabilities to continue.",
         ].join("\n"),
       );
       expect(persistPluginInstallMock).not.toHaveBeenCalled();
@@ -165,9 +165,9 @@ describe("chat plugin install release stream", () => {
         version: "1.0.0",
         extensions: ["index.js"],
         npmResolution: {
-          name: "@openclaw/brave-plugin",
+          name: "@granted/brave-plugin",
           version: "1.0.0",
-          resolvedSpec: "@openclaw/brave-plugin@1.0.0",
+          resolvedSpec: "@granted/brave-plugin@1.0.0",
         },
       });
       persistPluginInstallMock.mockResolvedValue({});
@@ -180,7 +180,7 @@ describe("chat plugin install release stream", () => {
         );
         const workspaceDir = await workspaceHarness.createWorkspace();
         const params = buildPluginsCommandParams({
-          commandBodyNormalized: `/plugins install npm:@openclaw/brave-plugin${acceptCapabilities ? " --accept-capabilities" : ""}`,
+          commandBodyNormalized: `/plugins install npm:@granted/brave-plugin${acceptCapabilities ? " --accept-capabilities" : ""}`,
           cfg,
           workspaceDir,
           gatewayClientScopes: ["operator.admin", "operator.write", "operator.pairing"],
@@ -189,7 +189,7 @@ describe("chat plugin install release stream", () => {
         const result = await handlePluginsCommand(params, true);
 
         expect(mockFirstObjectArg(installPluginFromNpmSpecMock).spec).toBe(
-          "@openclaw/brave-plugin@beta",
+          "@granted/brave-plugin@beta",
         );
         if (acceptCapabilities) {
           expect(persistPluginInstallMock).toHaveBeenCalledWith(

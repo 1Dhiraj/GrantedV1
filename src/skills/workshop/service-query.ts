@@ -1,6 +1,6 @@
 import path from "node:path";
-import { expectDefined } from "@openclaw/normalization-core";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { expectDefined } from "@granted/normalization-core";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { isPathInside } from "../../infra/path-safety.js";
 import { normalizeSkillIndexName } from "../discovery/skill-index.js";

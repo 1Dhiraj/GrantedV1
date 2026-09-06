@@ -1,11 +1,11 @@
 /** Doctor health note for Claude CLI binary, auth, and workspace/project directories. */
 import { spawnSync } from "node:child_process";
 import fs from "node:fs";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import {
   normalizeOptionalLowercaseString,
   resolvePrimaryStringValue,
-} from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/string-coerce";
 import { note } from "../../packages/terminal-core/src/note.js";
 import { resolveModelAgentRuntimeMetadata } from "../agents/agent-runtime-metadata.js";
 import {

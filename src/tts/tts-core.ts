@@ -1,6 +1,6 @@
-import { resolveTimerTimeoutMs } from "@openclaw/normalization-core/number-coercion";
+import { resolveTimerTimeoutMs } from "@granted/normalization-core/number-coercion";
 // TTS core coordinates text preparation, provider selection, and speech output.
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import {
   buildModelAliasIndex,
   resolveDefaultModelForAgent,

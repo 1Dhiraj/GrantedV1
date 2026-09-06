@@ -1,6 +1,6 @@
 // Health gateway methods return cached or refreshed status summaries while
 // detecting stale channel runtime state against live gateway snapshots.
-import { isFutureDateTimestampMs } from "@openclaw/normalization-core/number-coercion";
+import { isFutureDateTimestampMs } from "@granted/normalization-core/number-coercion";
 import { ErrorCodes, errorShape } from "../../../packages/gateway-protocol/src/index.js";
 import type { ChannelAccountSnapshot } from "../../channels/plugins/types.public.js";
 import { getStatusSummary } from "../../status/summary.js";

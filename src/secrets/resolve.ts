@@ -1,7 +1,7 @@
 /** Resolves SecretRef values from env, file, exec, and store secret providers. */
 import path from "node:path";
-import { expectDefined } from "@openclaw/normalization-core";
-import { uniqueStrings } from "@openclaw/normalization-core/string-normalization";
+import { expectDefined } from "@granted/normalization-core";
+import { uniqueStrings } from "@granted/normalization-core/string-normalization";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import type {
   FileSecretProviderConfig,

@@ -1,7 +1,7 @@
 import { createReadStream, existsSync } from "node:fs";
 import path from "node:path";
 import { TextDecoder } from "node:util";
-import { readByteStreamWithLimit } from "@openclaw/media-core/read-byte-stream-with-limit";
+import { readByteStreamWithLimit } from "@granted/media-core/read-byte-stream-with-limit";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import { mergeDeep } from "../infra/deep-merge.js";
 

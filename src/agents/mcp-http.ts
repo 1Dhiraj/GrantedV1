@@ -7,8 +7,8 @@
 import {
   redactSensitiveUrl,
   redactSensitiveUrlLikeString,
-} from "@openclaw/net-policy/redact-sensitive-url";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+} from "@granted/net-policy/redact-sensitive-url";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import { toMcpStringRecord } from "./mcp-config-shared.js";
 
 /** Supported HTTP-based MCP transport flavors. */

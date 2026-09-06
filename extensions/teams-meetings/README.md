@@ -1,4 +1,4 @@
-# @openclaw/teams-meetings
+# @granted/teams-meetings
 
 Official Microsoft Teams browser meeting participant plugin for OpenClaw.
 
@@ -8,7 +8,7 @@ Teams meetings as a Chrome browser guest.
 ## Install
 
 ```bash
-openclaw plugins install @openclaw/teams-meetings
+openclaw plugins install @granted/teams-meetings
 ```
 
 Restart the Gateway after installing or updating the plugin.
@@ -24,5 +24,5 @@ routing, and guest join setup:
 
 - Plugin id: `teams-meetings`
 - Tool: `teams_meetings`
-- Package: `@openclaw/teams-meetings`
+- Package: `@granted/teams-meetings`
 - Minimum OpenClaw host: `2026.7.2`

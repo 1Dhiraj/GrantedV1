@@ -1,4 +1,4 @@
-import { resolveReplayableResponsesMessageId } from "@openclaw/ai/transports";
+import { resolveReplayableResponsesMessageId } from "@granted/ai/transports";
 // Verifies OpenAI Responses replay preserves reasoning and response item ids.
 import type { AssistantMessage, Model, ToolResultMessage } from "granted/plugin-sdk/llm";
 import { stream } from "granted/plugin-sdk/llm";

@@ -155,27 +155,27 @@ function writePluginArtifact(params: {
 
 function currentLayoutFindings(): string[] {
   return [
-    "@openclaw/codex:dangerous-exec:src/app-server/sandbox-exec-server/sandbox-child.ts",
-    "@openclaw/codex:dangerous-exec:src/app-server/transport-process-snapshot.ts",
+    "@granted/codex:dangerous-exec:src/app-server/sandbox-exec-server/sandbox-child.ts",
+    "@granted/codex:dangerous-exec:src/app-server/transport-process-snapshot.ts",
   ];
 }
 
 function frozenReviewedFindings(): string[] {
   return [
-    "@openclaw/acpx:dangerous-exec:src/codex-auth-bridge.ts",
-    "@openclaw/acpx:dangerous-exec:src/runtime-internals/mcp-proxy.mjs",
-    "@openclaw/codex:dangerous-exec:src/app-server/transport-stdio.ts",
-    "@openclaw/codex:dangerous-exec:src/node-cli-sessions.ts",
-    "@openclaw/codex:dangerous-exec:src/app-server/sandbox-exec-server/http.ts",
-    "@openclaw/codex:dangerous-exec:src/app-server/sandbox-exec-server/processes.ts",
-    "@openclaw/discord:dangerous-exec:src/voice/audio.ts",
-    ...Array.from({ length: 3 }, () => "@openclaw/google-meet:dangerous-exec:src/node-host.ts"),
-    ...Array.from({ length: 2 }, () => "@openclaw/google-meet:dangerous-exec:src/realtime.ts"),
-    "@openclaw/matrix:dangerous-exec:src/matrix/deps.ts",
-    "@openclaw/raft:dangerous-exec:src/gateway.ts",
-    "@openclaw/signal:dangerous-exec:src/daemon.ts",
-    ...Array.from({ length: 4 }, () => "@openclaw/voice-call:dangerous-exec:src/tunnel.ts"),
-    "@openclaw/voice-call:dangerous-exec:src/webhook/tailscale.ts",
+    "@granted/acpx:dangerous-exec:src/codex-auth-bridge.ts",
+    "@granted/acpx:dangerous-exec:src/runtime-internals/mcp-proxy.mjs",
+    "@granted/codex:dangerous-exec:src/app-server/transport-stdio.ts",
+    "@granted/codex:dangerous-exec:src/node-cli-sessions.ts",
+    "@granted/codex:dangerous-exec:src/app-server/sandbox-exec-server/http.ts",
+    "@granted/codex:dangerous-exec:src/app-server/sandbox-exec-server/processes.ts",
+    "@granted/discord:dangerous-exec:src/voice/audio.ts",
+    ...Array.from({ length: 3 }, () => "@granted/google-meet:dangerous-exec:src/node-host.ts"),
+    ...Array.from({ length: 2 }, () => "@granted/google-meet:dangerous-exec:src/realtime.ts"),
+    "@granted/matrix:dangerous-exec:src/matrix/deps.ts",
+    "@granted/raft:dangerous-exec:src/gateway.ts",
+    "@granted/signal:dangerous-exec:src/daemon.ts",
+    ...Array.from({ length: 4 }, () => "@granted/voice-call:dangerous-exec:src/tunnel.ts"),
+    "@granted/voice-call:dangerous-exec:src/webhook/tailscale.ts",
   ];
 }
 
@@ -216,8 +216,8 @@ describe("scripts/lib/plugin-npm-security-scan.mts", () => {
   it("selects the complete reviewed layout from the canonical release context", () => {
     const current = currentLayoutFindings();
     const frozenLegacy = [
-      "@openclaw/codex:dangerous-exec:src/app-server/sandbox-exec-server/http.ts",
-      "@openclaw/codex:dangerous-exec:src/app-server/sandbox-exec-server/processes.ts",
+      "@granted/codex:dangerous-exec:src/app-server/sandbox-exec-server/http.ts",
+      "@granted/codex:dangerous-exec:src/app-server/sandbox-exec-server/processes.ts",
     ];
 
     expect(resolveReviewedSourceLayout(current)?.id).toBe("current");
@@ -284,7 +284,7 @@ describe("scripts/lib/plugin-npm-security-scan.mts", () => {
           "package.json",
           "plugin-npm-security-scan.mjs",
         ],
-        name: "@openclaw/test-inert-pack",
+        name: "@granted/test-inert-pack",
         openclaw: {
           assetScripts: { build: markerCommand(executionMarkers[0]!) },
           release: { publishToNpm: true },
@@ -341,7 +341,7 @@ describe("scripts/lib/plugin-npm-security-scan.mts", () => {
         "--package-dir",
         "extensions/inert",
         "--package-name",
-        "@openclaw/test-inert-pack",
+        "@granted/test-inert-pack",
         "--tooling-sha",
         toolingSha,
       ],
@@ -364,7 +364,7 @@ describe("scripts/lib/plugin-npm-security-scan.mts", () => {
     const expectedPackage = {
       extensionId: "inert",
       packageDir: "extensions/inert",
-      packageName: "@openclaw/test-inert-pack",
+      packageName: "@granted/test-inert-pack",
       packageVersion: "2026.8.1-beta.1",
     };
     const loaded = loadPluginNpmSecurityArtifacts({
@@ -390,8 +390,8 @@ describe("scripts/lib/plugin-npm-security-scan.mts", () => {
 
     const duplicateRoot = tempDirs.make("openclaw-plugin-npm-security-duplicates-");
     initGitRepo(duplicateRoot);
-    writePublishableManifest(duplicateRoot, "one", "@openclaw/duplicate");
-    writePublishableManifest(duplicateRoot, "two", "@openclaw/duplicate");
+    writePublishableManifest(duplicateRoot, "one", "@granted/duplicate");
+    writePublishableManifest(duplicateRoot, "two", "@granted/duplicate");
     await expect(listPublishablePluginPackages(duplicateRoot)).rejects.toThrow(
       "duplicate publishable package",
     );
@@ -401,7 +401,7 @@ describe("scripts/lib/plugin-npm-security-scan.mts", () => {
 
     const manifestRoot = tempDirs.make("openclaw-plugin-npm-security-manifest-");
     initGitRepo(manifestRoot);
-    writePublishableManifest(manifestRoot, "large", "@openclaw/large", {
+    writePublishableManifest(manifestRoot, "large", "@granted/large", {
       description: "x".repeat(1024),
     });
     await expect(
@@ -410,7 +410,7 @@ describe("scripts/lib/plugin-npm-security-scan.mts", () => {
   });
 
   it("fails closed on truncated scans, candidate package escapes, and tarball symlinks", () => {
-    expect(() => assertCompleteScannerSummary("@openclaw/test", { truncated: true })).toThrow(
+    expect(() => assertCompleteScannerSummary("@granted/test", { truncated: true })).toThrow(
       "security scan reached its file limit",
     );
 
@@ -419,7 +419,7 @@ describe("scripts/lib/plugin-npm-security-scan.mts", () => {
     mkdirSync(join(candidateRoot, "extensions"), { recursive: true });
     writeFileSync(
       join(outsideDir, "package.json"),
-      `${JSON.stringify({ name: "@openclaw/escape", version: "1.0.0" })}\n`,
+      `${JSON.stringify({ name: "@granted/escape", version: "1.0.0" })}\n`,
       "utf8",
     );
     symlinkSync(outsideDir, join(candidateRoot, "extensions", "escape"));
@@ -433,7 +433,7 @@ describe("scripts/lib/plugin-npm-security-scan.mts", () => {
     const artifact = writePluginArtifact({
       extensionId: "symlink",
       files: { "index.js": "export const value = 1;\n" },
-      packageName: "@openclaw/test-symlink",
+      packageName: "@granted/test-symlink",
     });
     symlinkSync(outsideFile, join(artifact.packageRoot, "escape.ts"));
     execFileSync(
@@ -458,7 +458,7 @@ describe("scripts/lib/plugin-npm-security-scan.mts", () => {
         "dist/service-BaCqPs_5.js": "export const value = 1;\n",
         "dist/service-malware.js": "export const value = 2;\n",
       },
-      packageName: "@openclaw/test-packed",
+      packageName: "@granted/test-packed",
     });
     const staged = stageScannerRelevantPluginTarballFiles(artifact.tarballPath);
     try {
@@ -479,12 +479,12 @@ describe("scripts/lib/plugin-npm-security-scan.mts", () => {
         "index.js": `const { execSync } = require("node:child_process");\nexecSync("id");\n`,
         "scripts/plugin-npm-security-scan.mts": `require("node:fs").writeFileSync(${JSON.stringify(marker)}, "ran");\n`,
       },
-      packageName: "@openclaw/test-malicious",
+      packageName: "@granted/test-malicious",
     });
     const oversized = writePluginArtifact({
       extensionId: "oversized",
       files: { "oversized.js": Buffer.alloc(1024 * 1024 + 1) },
-      packageName: "@openclaw/test-oversized",
+      packageName: "@granted/test-oversized",
     });
 
     const { packageResults, scanErrors } = await scanPublishablePluginPackages([
@@ -500,7 +500,7 @@ describe("scripts/lib/plugin-npm-security-scan.mts", () => {
       ruleId: "dangerous-exec",
     });
     expect(scanErrors).toHaveLength(1);
-    expect(scanErrors[0]).toContain("@openclaw/test-oversized");
+    expect(scanErrors[0]).toContain("@granted/test-oversized");
     expect(scanErrors[0]).not.toContain(oversized.artifact.tarballPath);
 
     const report = buildPluginNpmSecurityScanReport({
@@ -534,7 +534,7 @@ describe("scripts/lib/plugin-npm-security-scan.mts", () => {
         dependencies: { dependency: "1.0.0" },
         directories: { bin: "tools" },
       },
-      packageName: "@openclaw/test-file",
+      packageName: "@granted/test-file",
     });
 
     const scanned = await scanPublishablePluginPackages([artifact.artifact]);
@@ -542,7 +542,7 @@ describe("scripts/lib/plugin-npm-security-scan.mts", () => {
     expect(scanned.scanErrors).toEqual([]);
     expect(scanned.packageResults).toMatchObject([
       {
-        packageName: "@openclaw/test-file",
+        packageName: "@granted/test-file",
         scanFindingCount: 6,
         unexpectedCriticalFindings: [
           {
@@ -587,14 +587,14 @@ describe("scripts/lib/plugin-npm-security-scan.mts", () => {
         "dist/service-abcdefgh.js": "export const first = 1;\n",
         "dist/service-ijklmnop.js": "export const second = 2;\n",
       },
-      packageName: "@openclaw/test-ambiguous-bundle",
+      packageName: "@granted/test-ambiguous-bundle",
     });
 
     const scanned = await scanPublishablePluginPackages([artifact.artifact]);
 
     expect(scanned.packageResults).toEqual([]);
     expect(scanned.scanErrors).toEqual([
-      "@openclaw/test-ambiguous-bundle: package scan failed: multiple packed files normalize to dist/service-<hash>.js.",
+      "@granted/test-ambiguous-bundle: package scan failed: multiple packed files normalize to dist/service-<hash>.js.",
     ]);
   });
 
@@ -602,7 +602,7 @@ describe("scripts/lib/plugin-npm-security-scan.mts", () => {
     const artifact = writePluginArtifact({
       extensionId: "identity",
       files: { "index.js": "export const value = 1;\n" },
-      packageName: "@openclaw/test-identity",
+      packageName: "@granted/test-identity",
     });
     expect(
       listPluginNpmSecurityArtifacts({
@@ -611,7 +611,7 @@ describe("scripts/lib/plugin-npm-security-scan.mts", () => {
         expectedPackages: [artifact.expectedPackage],
         toolingSha: TOOLING_SHA,
       }).map((entry) => entry.packageName),
-    ).toEqual(["@openclaw/test-identity"]);
+    ).toEqual(["@granted/test-identity"]);
     expect(() =>
       listPluginNpmSecurityArtifacts({
         artifactRoot: artifact.artifactRoot,
@@ -628,13 +628,13 @@ describe("scripts/lib/plugin-npm-security-scan.mts", () => {
       artifactRoot,
       extensionId: "valid",
       files: { "index.js": "export const value = 1;\n" },
-      packageName: "@openclaw/test-valid",
+      packageName: "@granted/test-valid",
     });
     const malformed = writePluginArtifact({
       artifactRoot,
       extensionId: "malformed",
       files: { "index.js": "export const value = 2;\n" },
-      packageName: "@openclaw/test-malformed",
+      packageName: "@granted/test-malformed",
     });
     writeFileSync(
       join(malformed.artifact.artifactDir, "plugin-npm-security-artifact.json"),
@@ -652,16 +652,16 @@ describe("scripts/lib/plugin-npm-security-scan.mts", () => {
       toolingSha: TOOLING_SHA,
     });
     expect(loaded.artifacts.map((artifact) => artifact.packageName)).toEqual([
-      "@openclaw/test-valid",
+      "@granted/test-valid",
     ]);
     expect(loaded.ingestionErrors).toEqual([
-      "@openclaw/test-malformed: Plugin security artifact metadata is not valid JSON.",
+      "@granted/test-malformed: Plugin security artifact metadata is not valid JSON.",
     ]);
 
     const scanned = await scanPublishablePluginPackages(loaded.artifacts);
     expect(scanned.scanErrors).toEqual([]);
     expect(scanned.packageResults.map((result) => result.packageName)).toEqual([
-      "@openclaw/test-valid",
+      "@granted/test-valid",
     ]);
   });
 
@@ -671,13 +671,13 @@ describe("scripts/lib/plugin-npm-security-scan.mts", () => {
       artifactRoot,
       extensionId: "alpha",
       files: { "alpha.js": Buffer.alloc(256, 1) },
-      packageName: "@openclaw/test-alpha",
+      packageName: "@granted/test-alpha",
     });
     const beta = writePluginArtifact({
       artifactRoot,
       extensionId: "beta",
       files: { "beta.js": Buffer.alloc(256, 2) },
-      packageName: "@openclaw/test-beta",
+      packageName: "@granted/test-beta",
     });
     const expectedPackages = [alpha.expectedPackage, beta.expectedPackage];
     const baseline = loadPluginNpmSecurityArtifacts({
@@ -696,10 +696,10 @@ describe("scripts/lib/plugin-npm-security-scan.mts", () => {
       toolingSha: TOOLING_SHA,
     });
     expect(compressed.artifacts.map((artifact) => artifact.packageName)).toEqual([
-      "@openclaw/test-alpha",
+      "@granted/test-alpha",
     ]);
     expect(compressed.ingestionErrors).toEqual([
-      "@openclaw/test-beta: aggregate compressed-byte limit exceeded.",
+      "@granted/test-beta: aggregate compressed-byte limit exceeded.",
     ]);
 
     const expanded = loadPluginNpmSecurityArtifacts({
@@ -710,16 +710,16 @@ describe("scripts/lib/plugin-npm-security-scan.mts", () => {
       toolingSha: TOOLING_SHA,
     });
     expect(expanded.artifacts.map((artifact) => artifact.packageName)).toEqual([
-      "@openclaw/test-alpha",
+      "@granted/test-alpha",
     ]);
     expect(expanded.ingestionErrors).toEqual([
-      "@openclaw/test-beta: aggregate expanded-byte limit exceeded.",
+      "@granted/test-beta: aggregate expanded-byte limit exceeded.",
     ]);
   });
 
   it("caps total findings and emits byte-identical bounded reports", () => {
     const packageResults = [
-      syntheticResult("@openclaw/codex", {
+      syntheticResult("@granted/codex", {
         reviewedCriticalFindings: currentLayoutFindings(),
         scanFindingCount: 51,
       }),
@@ -861,7 +861,7 @@ describe("scripts/lib/plugin-npm-security-scan.mts", () => {
   it("retains the complete current-root publishable plugin inventory contract", async () => {
     const packages = await listPublishablePluginPackages(process.cwd());
     expect(packages.length).toBeGreaterThan(0);
-    expect(packages.map((plugin) => plugin.packageName)).toContain("@openclaw/acpx");
+    expect(packages.map((plugin) => plugin.packageName)).toContain("@granted/acpx");
     expect(new Set(packages.map((plugin) => plugin.packageName)).size).toBe(packages.length);
     expect(packages).toEqual(
       packages.toSorted((left, right) =>

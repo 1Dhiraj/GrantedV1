@@ -11,7 +11,7 @@
  * tolerate CLI latency opt in via `cliBackendDispatch: "subscription-auth"`
  * to run through the CLI backend on plan limits instead.
  */
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import type { SessionTranscriptRuntimeTarget } from "../../config/sessions/session-accessor.js";
 import { onAgentEventForRun } from "../../infra/agent-events.js";
 import { createSubsystemLogger } from "../../logging/subsystem.js";

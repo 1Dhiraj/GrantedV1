@@ -1,6 +1,6 @@
 // @vitest-environment node
-import { GatewayProtocolRequestError } from "@openclaw/gateway-client/browser";
-import type { EventFrame } from "@openclaw/gateway-protocol";
+import { GatewayProtocolRequestError } from "@granted/gateway-client/browser";
+import type { EventFrame } from "@granted/gateway-protocol";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { GatewayBoardProvider } from "./gateway-provider.ts";
 import type { BoardProvider } from "./provider.ts";

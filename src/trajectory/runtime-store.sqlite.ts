@@ -1,6 +1,6 @@
 // SQLite trajectory runtime store owns session-scoped runtime event rows.
 
-import { parseDateStringTimestampMs } from "@openclaw/normalization-core/number-coercion";
+import { parseDateStringTimestampMs } from "@granted/normalization-core/number-coercion";
 import { resolveSqliteTargetFromSessionStorePath } from "../config/sessions/session-sqlite-target.js";
 import {
   executeSqliteQuerySync,

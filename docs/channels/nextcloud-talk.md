@@ -5,12 +5,12 @@ read_when:
 title: "Nextcloud Talk"
 ---
 
-Nextcloud Talk is a downloadable channel plugin (`@openclaw/nextcloud-talk`) that connects OpenClaw to a self-hosted Nextcloud instance through a Talk webhook bot. Direct messages, rooms, reactions, and markdown messages are supported; media goes out as URLs.
+Nextcloud Talk is a downloadable channel plugin (`@granted/nextcloud-talk`) that connects OpenClaw to a self-hosted Nextcloud instance through a Talk webhook bot. Direct messages, rooms, reactions, and markdown messages are supported; media goes out as URLs.
 
 ## Install
 
 ```bash
-openclaw plugins install @openclaw/nextcloud-talk
+openclaw plugins install @granted/nextcloud-talk
 ```
 
 Use the bare package spec to follow the current official release tag. Pin an exact version only when you need a reproducible install.

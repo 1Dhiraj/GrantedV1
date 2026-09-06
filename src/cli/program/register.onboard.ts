@@ -1,5 +1,5 @@
 // Commander registration for onboard setup flags and lazy onboard runtime execution.
-import { readStringValue } from "@openclaw/normalization-core/string-coerce";
+import { readStringValue } from "@granted/normalization-core/string-coerce";
 import { Option, type Command } from "commander";
 import { formatDocsLink } from "../../../packages/terminal-core/src/links.js";
 import { theme } from "../../../packages/terminal-core/src/theme.js";

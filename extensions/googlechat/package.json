@@ -1,5 +1,5 @@
 {
-  "name": "@openclaw/googlechat",
+  "name": "@granted/googlechat",
   "version": "2026.8.1",
   "description": "OpenClaw Google Chat channel plugin for spaces and direct messages.",
   "repository": {
@@ -12,11 +12,11 @@
     "zod": "4.4.3"
   },
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*",
-    "openclaw": "workspace:*"
+    "@granted/plugin-sdk": "workspace:*",
+    "granted": "workspace:*"
   },
   "peerDependencies": {
-    "openclaw": ">=2026.8.1"
+    "granted": ">=2026.8.1"
   },
   "peerDependenciesMeta": {
     "openclaw": {
@@ -130,7 +130,7 @@
       }
     },
     "install": {
-      "npmSpec": "@openclaw/googlechat",
+      "npmSpec": "@granted/googlechat",
       "defaultChoice": "npm",
       "minHostVersion": ">=2026.4.10"
     },

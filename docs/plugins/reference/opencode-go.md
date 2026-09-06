@@ -11,7 +11,7 @@ Adds OpenCode Go model provider support to OpenClaw.
 
 ## Distribution
 
-- Package: `@openclaw/opencode-go-provider`
+- Package: `@granted/opencode-go-provider`
 - Install route: included in OpenClaw
 
 ## Surface

@@ -6,7 +6,7 @@
 import {
   collectNestedErrorCandidates,
   extractErrorCode,
-} from "@openclaw/normalization-core/error-coercion";
+} from "@granted/normalization-core/error-coercion";
 import { SESSION_WORK_START_CHANGED_ERROR_CODE } from "../../config/sessions/work-start-error.js";
 import { computeBackoff } from "../../infra/backoff.js";
 

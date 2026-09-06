@@ -1,7 +1,7 @@
 // Connection-level chat attachment ceilings shared by the parser and the
 // `hello-ok` handshake. Kept out of chat-attachments.ts so the handshake path
 // does not pull the media probe/store graph in just to read two numbers.
-import { MAX_IMAGE_BYTES } from "@openclaw/media-core/constants";
+import { MAX_IMAGE_BYTES } from "@granted/media-core/constants";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import { MAX_PAYLOAD_BYTES } from "./server-constants.js";
 

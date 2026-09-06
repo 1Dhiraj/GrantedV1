@@ -6,7 +6,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
-import { MAX_TIMER_TIMEOUT_MS } from "@openclaw/normalization-core/number-coercion";
+import { MAX_TIMER_TIMEOUT_MS } from "@granted/normalization-core/number-coercion";
 import * as tar from "tar";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { DOCKER_SELECTED_PLUGIN_BUILD_IDS_ENV } from "../../../../scripts/lib/bundled-plugin-build-entries.mjs";
@@ -83,7 +83,7 @@ function createSelectedPluginPackageFixture() {
     dependencies: { shared: "1.0.0" },
   };
   const pluginPackage = {
-    name: "@openclaw/demo",
+    name: "@granted/demo",
     version: packageJson.version,
     dependencies: { shared: "1.0.0", native: "2.0.0" },
     optionalDependencies: { optional: "3.0.0" },
@@ -1003,8 +1003,8 @@ describe("package-openclaw-for-docker", () => {
     const packageJsonPath = path.join(sourceDir, "package.json");
     const originalPackageJson = `${JSON.stringify(
       {
-        dependencies: { "@openclaw/ai": "workspace:*", "dep-a": "workspace:1.2.3" },
-        devDependencies: { "@openclaw/session-url-contract": "workspace:*" },
+        dependencies: { "@granted/ai": "workspace:*", "dep-a": "workspace:1.2.3" },
+        devDependencies: { "@granted/session-url-contract": "workspace:*" },
         files: ["dist"],
         name: "openclaw",
         version: "2026.6.17",
@@ -1015,7 +1015,7 @@ describe("package-openclaw-for-docker", () => {
     const installedAiPath = path.join(sourceDir, "node_modules", "@openclaw", "ai");
     const aiPackageJsonPath = path.join(sourceDir, "packages", "ai", "package.json");
     const originalAiPackageJson =
-      '{"name":"@openclaw/ai","version":"2026.6.17","devDependencies":{"@openclaw/normalization-core":"workspace:*"}}\n';
+      '{"name":"@granted/ai","version":"2026.6.17","devDependencies":{"@granted/normalization-core":"workspace:*"}}\n';
     fs.mkdirSync(path.join(sourceDir, "packages", "ai"), { recursive: true });
     fs.writeFileSync(aiPackageJsonPath, originalAiPackageJson);
     fs.mkdirSync(installedAiPath, { recursive: true });
@@ -1052,10 +1052,10 @@ describe("package-openclaw-for-docker", () => {
               path.join(destination, "package.json"),
               `${JSON.stringify({
                 dependencies: {
-                  "@openclaw/private-runtime": "0.0.0-private",
+                  "@granted/private-runtime": "0.0.0-private",
                   "dep-a": "1.2.3",
                 },
-                name: "@openclaw/ai",
+                name: "@granted/ai",
                 version: "2026.6.17",
               })}\n`,
             );
@@ -1072,11 +1072,11 @@ describe("package-openclaw-for-docker", () => {
         dependencies: Record<string, string>;
         devDependencies?: Record<string, string>;
       };
-      expect(packageJson.dependencies["@openclaw/ai"]).toBe("2026.6.17");
-      expect(packageJson.dependencies["@openclaw/private-runtime"]).toBeUndefined();
+      expect(packageJson.dependencies["@granted/ai"]).toBe("2026.6.17");
+      expect(packageJson.dependencies["@granted/private-runtime"]).toBeUndefined();
       expect(packageJson.dependencies["dep-a"]).toBe("1.2.3");
-      expect(packageJson.devDependencies?.["@openclaw/session-url-contract"]).toBe("workspace:*");
-      expect(packageJson.bundleDependencies).toContain("@openclaw/ai");
+      expect(packageJson.devDependencies?.["@granted/session-url-contract"]).toBe("workspace:*");
+      expect(packageJson.bundleDependencies).toContain("@granted/ai");
       expect(fs.existsSync(path.join(installedAiPath, "original-marker"))).toBe(false);
       expect(fs.existsSync(path.join(installedAiPath, "runtime.js"))).toBe(true);
       const stagedAiPackageJson = JSON.parse(
@@ -1101,12 +1101,12 @@ describe("package-openclaw-for-docker", () => {
     const outputDir = tempDirs.make("openclaw-docker-ai-failure-output-");
     const packageJsonPath = path.join(sourceDir, "package.json");
     const originalPackageJson = `${JSON.stringify({
-      dependencies: { "@openclaw/ai": "workspace:*" },
+      dependencies: { "@granted/ai": "workspace:*" },
       name: "openclaw",
     })}\n`;
     const aiPackageJsonPath = path.join(sourceDir, "packages", "ai", "package.json");
     const originalAiPackageJson =
-      '{"name":"@openclaw/ai","devDependencies":{"@openclaw/normalization-core":"workspace:*"}}\n';
+      '{"name":"@granted/ai","devDependencies":{"@granted/normalization-core":"workspace:*"}}\n';
     fs.mkdirSync(path.join(sourceDir, "packages", "ai"), { recursive: true });
     fs.writeFileSync(aiPackageJsonPath, originalAiPackageJson);
     fs.writeFileSync(packageJsonPath, originalPackageJson);
@@ -1155,7 +1155,7 @@ describe("package-openclaw-for-docker", () => {
     const originalPackageJson = `${JSON.stringify(
       {
         devDependencies: {
-          "@openclaw/session-url-contract": "workspace:*",
+          "@granted/session-url-contract": "workspace:*",
           vitest: "4.1.10",
         },
         name: "openclaw",
@@ -1166,7 +1166,7 @@ describe("package-openclaw-for-docker", () => {
     )}\n`;
     const aiPackageJsonPath = path.join(sourceDir, "packages", "ai", "package.json");
     const originalAiPackageJson =
-      '{"name":"@openclaw/ai","devDependencies":{"@openclaw/normalization-core":"workspace:*"}}\n';
+      '{"name":"@granted/ai","devDependencies":{"@granted/normalization-core":"workspace:*"}}\n';
     fs.mkdirSync(scriptsDir, { recursive: true });
     fs.mkdirSync(path.dirname(aiPackageJsonPath), { recursive: true });
     fs.copyFileSync(
@@ -1245,13 +1245,13 @@ describe("package-openclaw-for-docker", () => {
   it("rejects incomplete AI workspace package sources", async () => {
     const cases = [
       {
-        dependencies: { "@openclaw/ai": "workspace:*" },
-        expected: "@openclaw/ai dependency requires the packages/ai workspace",
+        dependencies: { "@granted/ai": "workspace:*" },
+        expected: "@granted/ai dependency requires the packages/ai workspace",
         withWorkspace: false,
       },
       {
         dependencies: {},
-        expected: "root package.json must declare @openclaw/ai as a dependency",
+        expected: "root package.json must declare @granted/ai as a dependency",
         withWorkspace: true,
       },
     ];

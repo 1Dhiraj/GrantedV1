@@ -5,8 +5,8 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import readline from "node:readline";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
-import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+import { isRecord } from "@granted/normalization-core/record-coerce";
+import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import {
   isSilentReplyPrefixText,
   isSilentReplyText,

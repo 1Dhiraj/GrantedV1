@@ -11,7 +11,7 @@ read_when:
 | Property        | Value                                                     |
 | --------------- | --------------------------------------------------------- |
 | Provider id     | `cerebras`                                                |
-| Plugin          | official external package (`@openclaw/cerebras-provider`) |
+| Plugin          | official external package (`@granted/cerebras-provider`) |
 | Auth env var    | `CEREBRAS_API_KEY`                                        |
 | Onboarding flag | `--auth-choice cerebras-api-key`                          |
 | Direct CLI flag | `--cerebras-api-key <key>`                                |
@@ -22,7 +22,7 @@ read_when:
 ## Install plugin
 
 ```bash
-openclaw plugins install @openclaw/cerebras-provider
+openclaw plugins install @granted/cerebras-provider
 openclaw gateway restart
 ```
 

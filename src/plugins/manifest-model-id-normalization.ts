@@ -3,7 +3,7 @@ import {
   collectManifestModelIdNormalizationPolicies,
   normalizeProviderModelIdWithPolicies,
   type ManifestModelIdNormalizationProvider,
-} from "@openclaw/model-catalog-core/provider-model-id-normalization";
+} from "@granted/model-catalog-core/provider-model-id-normalization";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { PluginManifestRecord } from "./manifest-registry.js";
 // Snapshot reads go through the registration-slot bridge so this module stays

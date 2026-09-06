@@ -594,7 +594,7 @@ jobs:
           fi
           codex_plugin_spec="$RELEASE_CODEX_PLUGIN_SPEC_INPUT"
           if [[ -z "${codex_plugin_spec// }" && "$release_package_spec" =~ ^openclaw@(.+)$ ]]; then
-            codex_plugin_spec="npm:@openclaw/codex@${BASH_REMATCH[1]}"
+            codex_plugin_spec="npm:@granted/codex@${BASH_REMATCH[1]}"
           fi
           source "$RELEASE_FILTER_VALIDATOR"
           validate_release_suite_filters \

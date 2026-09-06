@@ -4,8 +4,8 @@
  * Agent execution uses this to choose a model/provider-specific runtime policy
  * from agent entries, model catalog config, provider config, or QA overrides.
  */
-import { parseModelCatalogRef } from "@openclaw/model-catalog-core/model-catalog-refs";
-import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
+import { parseModelCatalogRef } from "@granted/model-catalog-core/model-catalog-refs";
+import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
 import { tryResolveLegacyCompatibilityAgentId } from "../config/legacy.default-agent-owner.js";
 import type { AgentModelEntryConfig } from "../config/types.agent-defaults.js";
 import type { AgentRuntimePolicyConfig } from "../config/types.agents-shared.js";

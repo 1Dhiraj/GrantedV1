@@ -1,5 +1,5 @@
 // Tests ACP dispatch delivery routing and visible reply handoff.
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { GrantedConfig } from "../../config/config.js";
 import { createAcpDispatchDeliveryCoordinator } from "./dispatch-acp-delivery.js";

@@ -3,7 +3,7 @@
  * Resolves prepared plugin manifest suppression rules so
  * built-in catalog entries can be hidden or blocked consistently.
  */
-import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
+import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
 import { normalizeLowercaseStringOrEmpty } from "../../packages/normalization-core/src/string-coerce.js";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import { buildManifestBuiltInModelSuppressionResolver } from "../plugins/manifest-model-suppression.js";

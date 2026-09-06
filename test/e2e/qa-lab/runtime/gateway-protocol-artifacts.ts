@@ -66,8 +66,8 @@ export function buildInstalledProtocolInspectionScript() {
 import {
   validateConnectParams,
   validateRequestFrame,
-} from "@openclaw/gateway-protocol";
-import { ProtocolSchemas } from "@openclaw/gateway-protocol/schema";
+} from "@granted/gateway-protocol";
+import { ProtocolSchemas } from "@granted/gateway-protocol/schema";
 
 const requestValid = validateRequestFrame({
   type: "req",
@@ -329,7 +329,7 @@ async function packAndInspectProtocol(params: {
   const packageJson = JSON.parse(
     await fs.readFile(path.join(unpackedRoot, "package.json"), "utf8"),
   ) as { name?: string; version?: string };
-  assert.equal(packageJson.name, "@openclaw/gateway-protocol");
+  assert.equal(packageJson.name, "@granted/gateway-protocol");
   assert.ok(packageJson.version, "packed protocol package version is missing");
 
   const published = JSON.parse(
@@ -396,8 +396,8 @@ async function packAndInspectProtocol(params: {
   return {
     consumer: {
       installed: true,
-      packageSpecifier: "@openclaw/gateway-protocol",
-      schemaSpecifier: "@openclaw/gateway-protocol/schema",
+      packageSpecifier: "@granted/gateway-protocol",
+      schemaSpecifier: "@granted/gateway-protocol/schema",
     },
     definitions: REQUIRED_PROTOCOL_DEFINITIONS.filter((definition) =>
       Object.hasOwn(published.definitions, definition),

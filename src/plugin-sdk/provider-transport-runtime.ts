@@ -6,7 +6,7 @@ export { buildOpenAICompletionsParams } from "../agents/openai-transport-stream.
 export {
   sortPromptCacheToolsByName,
   stripSystemPromptCacheBoundary,
-} from "@openclaw/ai/internal/shared";
+} from "@granted/ai/internal/shared";
 export { transformTransportMessages } from "../agents/transport-message-transform.js";
 export {
   describeToolResultMediaPlaceholder,
@@ -14,7 +14,7 @@ export {
   extractToolResultText,
   formatToolResultText,
   isImageWithMediaPayload,
-} from "@openclaw/ai/internal/shared";
+} from "@granted/ai/internal/shared";
 export {
   coerceTransportToolCallArguments,
   copyProviderAcceptanceObserver,
@@ -33,4 +33,4 @@ export {
   withProviderAcceptanceObserver,
   type ProviderAcceptance,
   type WritableTransportStream,
-} from "@openclaw/ai/transports";
+} from "@granted/ai/transports";

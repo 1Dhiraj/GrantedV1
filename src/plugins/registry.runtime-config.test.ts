@@ -66,9 +66,9 @@ describe("plugin registry runtime config scope", () => {
     },
     {
       label: "official global",
-      source: "/plugins/node_modules/@openclaw/codex/index.js",
+      source: "/plugins/node_modules/@granted/codex/index.js",
       origin: "global",
-      packageName: "@openclaw/codex",
+      packageName: "@granted/codex",
     },
   ] as const)("binds native compaction to the $label Codex harness", (fixture) => {
     const pluginRegistry = createTestRegistry(createPluginRuntime());

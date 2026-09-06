@@ -116,7 +116,7 @@ fs.appendFileSync(${JSON.stringify(marker)}, JSON.stringify({
   }).trim();
   const registry = path.join(root, "frozen registry");
   mkdirSync(registry);
-  writeJson(path.join(packageDir, "package.json"), { name: "@openclaw/codex", version });
+  writeJson(path.join(packageDir, "package.json"), { name: "@granted/codex", version });
   const pluginTarball = path.join(registry, "codex.tgz");
   execFileSync("tar", ["-czf", pluginTarball, "-C", path.dirname(packageDir), "package"]);
   const registryManifest = path.join(registry, "prepublish-plugin-registry.json");
@@ -127,7 +127,7 @@ fs.appendFileSync(${JSON.stringify(marker)}, JSON.stringify({
     candidateVersion: version,
     packages: [
       {
-        name: "@openclaw/codex",
+        name: "@granted/codex",
         version,
         tarball: "codex.tgz",
         sha256: createHash("sha256").update(readFileSync(pluginTarball)).digest("hex"),

@@ -1,6 +1,6 @@
 // Voice model catalog helpers shared by TTS and realtime voice plugins.
-import { parseModelCatalogRef } from "@openclaw/model-catalog-core/model-catalog-refs";
-import { normalizeOptionalString as normalizeString } from "@openclaw/normalization-core/string-coerce";
+import { parseModelCatalogRef } from "@granted/model-catalog-core/model-catalog-refs";
+import { normalizeOptionalString as normalizeString } from "@granted/normalization-core/string-coerce";
 
 /** Provider/model override parsed from config. */
 export type VoiceModelRef = {

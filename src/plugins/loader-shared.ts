@@ -1,8 +1,8 @@
-import { err as resultError, ok, type Result } from "@openclaw/normalization-core/result";
+import { err as resultError, ok, type Result } from "@granted/normalization-core/result";
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
-} from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/string-coerce";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import { activateContextEngineRegistrations } from "../context-engine/registry.js";
 import { resolveRealpathOrAbsolute } from "../infra/boundary-path.js";

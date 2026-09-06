@@ -1,5 +1,5 @@
 // Generates short labels for sessions from conversation context.
-import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import { createReasoningTagTextPartitioner } from "../../../packages/markdown-core/src/reasoning-tags.js";
 import { resolveDefaultAgentId } from "../../agents/agent-scope.js";
 import { runIsolatedCompletion } from "../../agents/isolated-completion.js";

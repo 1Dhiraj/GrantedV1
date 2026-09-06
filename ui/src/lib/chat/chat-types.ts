@@ -1,4 +1,4 @@
-import type { MediaKind } from "@openclaw/media-core/constants";
+import type { MediaKind } from "@granted/media-core/constants";
 /**
  * Chat message types for the UI layer.
  */

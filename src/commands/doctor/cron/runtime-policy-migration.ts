@@ -1,5 +1,5 @@
 // Doctor-only runtime policy repair for migrated cron Codex model refs.
-import { asOptionalRecord, isRecord } from "@openclaw/normalization-core/record-coerce";
+import { asOptionalRecord, isRecord } from "@granted/normalization-core/record-coerce";
 import { tryResolveAmbientOwnerAgentId } from "../../../agents/agent-scope-config.js";
 import {
   inheritLegacyDefaultAgentId,

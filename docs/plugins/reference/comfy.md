@@ -11,8 +11,8 @@ Adds ComfyUI model provider support to OpenClaw.
 
 ## Distribution
 
-- Package: `@openclaw/comfy-provider`
-- Install route: npm; ClawHub: `clawhub:@openclaw/comfy-provider`
+- Package: `@granted/comfy-provider`
+- Install route: npm; ClawHub: `clawhub:@granted/comfy-provider`
 
 ## Surface
 

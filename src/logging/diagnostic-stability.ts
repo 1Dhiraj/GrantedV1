@@ -1,5 +1,5 @@
 // Diagnostic stability helpers compare diagnostic outputs across runs.
-import { parseStrictNonNegativeInteger } from "@openclaw/normalization-core/number-coercion";
+import { parseStrictNonNegativeInteger } from "@granted/normalization-core/number-coercion";
 import {
   onInternalDiagnosticEvent,
   type DiagnosticEventPayload,

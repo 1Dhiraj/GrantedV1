@@ -1,7 +1,7 @@
 /** Dependency-light normalization helpers for stored cron run diagnostics. */
-import { asFiniteNumber } from "@openclaw/normalization-core/number-coercion";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
-import { sliceUtf16Safe, truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+import { asFiniteNumber } from "@granted/normalization-core/number-coercion";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
+import { sliceUtf16Safe, truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import type { CronRunLogEntry as CronRunLogWireEntry } from "../../packages/gateway-protocol/src/schema/cron.types.js";
 
 type CronRunDiagnostics = NonNullable<CronRunLogWireEntry["diagnostics"]>;

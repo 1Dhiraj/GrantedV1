@@ -1,7 +1,7 @@
 import { createHash } from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
-import { MAX_IMAGE_BYTES } from "@openclaw/media-core/constants";
+import { MAX_IMAGE_BYTES } from "@granted/media-core/constants";
 import { pruneProcessedHistoryImages } from "../../agents/embedded-agent-runner/run/history-image-prune.js";
 import {
   detectAndLoadPromptImages,

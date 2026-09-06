@@ -1,7 +1,7 @@
 // Doctor detection for legacy meeting transcript files, projections, and interrupted imports.
 import fs from "node:fs";
 import path from "node:path";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import { resolveOpenClawStateSqlitePath } from "../state/openclaw-state-db.paths.js";
 import {
   TRANSCRIPT_EXPORT_FILE_NAMES,

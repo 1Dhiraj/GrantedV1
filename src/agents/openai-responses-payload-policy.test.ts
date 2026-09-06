@@ -1,7 +1,7 @@
 import {
   applyOpenAIResponsesPayloadPolicy,
   resolveOpenAIResponsesPayloadPolicy,
-} from "@openclaw/ai/transports";
+} from "@granted/ai/transports";
 /**
  * Regression coverage for OpenAI Responses payload policy.
  * Verifies store, prompt-cache, compaction, service-tier, and reasoning mutations.

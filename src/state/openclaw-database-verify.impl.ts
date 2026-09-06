@@ -2,7 +2,7 @@ import { fork, type ChildProcess } from "node:child_process";
 import { existsSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { toStructuredErrorObject } from "@openclaw/normalization-core/error-coercion";
+import { toStructuredErrorObject } from "@granted/normalization-core/error-coercion";
 import { runtimeProcessEntrypoints } from "../infra/runtime-process-entrypoints.js";
 import { resolveRuntimeWorkerUrl } from "../infra/runtime-worker-url.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";

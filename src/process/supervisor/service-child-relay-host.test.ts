@@ -1,5 +1,5 @@
 import { Duplex } from "node:stream";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { mockProcessPlatform } from "../../test-utils/vitest-spies.js";
 import { createStubChild, firstMockArg } from "./adapters/child.test-support.js";

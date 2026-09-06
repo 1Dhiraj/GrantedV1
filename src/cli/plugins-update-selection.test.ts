@@ -68,13 +68,13 @@ describe("resolvePluginUpdateSelection", () => {
     {
       title: "maps an explicit scoped npm dist-tag update to the tracked plugin id",
       pluginId: "voice-call",
-      packageNameWithSpec: "@openclaw/voice-call",
+      packageNameWithSpec: "@granted/voice-call",
       installPath: "/tmp/voice-call",
-      packageName: "@openclaw/voice-call",
-      requestedSpec: "@openclaw/voice-call@beta",
+      packageName: "@granted/voice-call",
+      requestedSpec: "@granted/voice-call@beta",
       expectedPluginId: "voice-call",
       expectedTrackedId: "voice-call",
-      expectedSpec: "@openclaw/voice-call@beta",
+      expectedSpec: "@granted/voice-call@beta",
     },
     {
       title: "maps an explicit npm version update to the tracked plugin id",

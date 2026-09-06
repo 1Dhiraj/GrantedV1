@@ -1,4 +1,4 @@
-import type { DesktopObserveResult, WorkerDesktopAppId } from "@openclaw/gateway-protocol";
+import type { DesktopObserveResult, WorkerDesktopAppId } from "@granted/gateway-protocol";
 import type { DesktopConnectionHandle } from "./desktop-client.ts";
 
 export type DesktopAppId = WorkerDesktopAppId;

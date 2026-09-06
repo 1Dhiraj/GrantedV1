@@ -116,7 +116,7 @@ function writeBundledPlugin(
   fs.writeFileSync(
     path.join(rootDir, "package.json"),
     JSON.stringify({
-      name: `@openclaw/${pluginId}`,
+      name: `@granted/${pluginId}`,
       version: "1.0.0",
       openclaw: {
         extensions: [`./${entryPath}`],
@@ -411,7 +411,7 @@ describe("loadPluginRegistrySnapshotWithMetadata", () => {
     const config = {};
     const whatsappDir = writeManagedNpmPlugin({
       stateDir,
-      packageName: "@openclaw/whatsapp",
+      packageName: "@granted/whatsapp",
       pluginId: "whatsapp",
       version: "2026.5.2",
     });
@@ -434,12 +434,12 @@ describe("loadPluginRegistrySnapshotWithMetadata", () => {
     expectDiagnosticsContainCode(result.diagnostics, "persisted-registry-stale-source");
     expect(result.snapshot.installRecords.whatsapp).toEqual({
       source: "npm",
-      spec: "@openclaw/whatsapp@2026.5.2",
+      spec: "@granted/whatsapp@2026.5.2",
       installPath: whatsappDir,
       version: "2026.5.2",
-      resolvedName: "@openclaw/whatsapp",
+      resolvedName: "@granted/whatsapp",
       resolvedVersion: "2026.5.2",
-      resolvedSpec: "@openclaw/whatsapp@2026.5.2",
+      resolvedSpec: "@granted/whatsapp@2026.5.2",
     });
     const whatsappPlugin = requirePluginRecord(result.snapshot.plugins, "whatsapp");
     expect(whatsappPlugin.origin).toBe("global");
@@ -499,7 +499,7 @@ describe("loadPluginRegistrySnapshotWithMetadata", () => {
     const config = {};
     const codexDir = writeManagedNpmPlugin({
       stateDir,
-      packageName: "@openclaw/codex",
+      packageName: "@granted/codex",
       pluginId: "codex",
       version: "2026.6.10-beta.1",
     });
@@ -538,7 +538,7 @@ describe("loadPluginRegistrySnapshotWithMetadata", () => {
     };
     const codexDir = writeManagedNpmPlugin({
       stateDir,
-      packageName: "@openclaw/codex",
+      packageName: "@granted/codex",
       pluginId: "codex",
       version: "2026.6.10-beta.1",
     });
@@ -1419,7 +1419,7 @@ describe("loadPluginRegistrySnapshotWithMetadata", () => {
     fs.writeFileSync(
       path.join(sourcePluginDir, "package.json"),
       JSON.stringify({
-        name: "@openclaw/whatsapp",
+        name: "@granted/whatsapp",
         version: "1.0.0",
         openclaw: { extensions: ["./index.ts"], build: { bundledDist: false } },
       }),

@@ -1,4 +1,4 @@
-import { expectDefined, isRecord } from "@openclaw/normalization-core";
+import { expectDefined, isRecord } from "@granted/normalization-core";
 import type { ChatSplitColumn, ChatSplitLayout, ChatSplitPane } from "./split-layout-types.ts";
 
 export function normalizeSplitLayoutWeights(weights: number[]): number[] {

@@ -1,4 +1,4 @@
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import type { AgentCommandOpts } from "../../agents/command/types.js";
 import type { ChannelPlugin } from "../../channels/plugins/types.public.js";
 import { agentCommandFromIngress } from "../../commands/agent.js";

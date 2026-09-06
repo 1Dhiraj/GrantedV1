@@ -1,4 +1,4 @@
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
   PROJECTS_LIST_MAX_CHECKOUTS_PER_PROJECT,

@@ -1,5 +1,5 @@
 {
-  "name": "@openclaw/mattermost",
+  "name": "@granted/mattermost",
   "version": "2026.8.1",
   "description": "OpenClaw Mattermost channel plugin",
   "repository": {
@@ -12,11 +12,11 @@
     "zod": "4.4.3"
   },
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*",
-    "openclaw": "workspace:*"
+    "@granted/plugin-sdk": "workspace:*",
+    "granted": "workspace:*"
   },
   "peerDependencies": {
-    "openclaw": ">=2026.8.1"
+    "granted": ">=2026.8.1"
   },
   "peerDependenciesMeta": {
     "openclaw": {
@@ -85,8 +85,8 @@
       }
     },
     "install": {
-      "clawhubSpec": "clawhub:@openclaw/mattermost",
-      "npmSpec": "@openclaw/mattermost",
+      "clawhubSpec": "clawhub:@granted/mattermost",
+      "npmSpec": "@granted/mattermost",
       "defaultChoice": "npm",
       "minHostVersion": ">=2026.6.9",
       "allowInvalidConfigRecovery": true

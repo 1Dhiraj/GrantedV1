@@ -91,7 +91,7 @@ describe("scripts/check-deprecated-api-usage", () => {
     }
   });
 
-  it("bans the scoped @openclaw/plugin-sdk spelling of every deprecated specifier", () => {
+  it("bans the scoped @granted/plugin-sdk spelling of every deprecated specifier", () => {
     const specifiers = new Set(buildDeprecatedPluginSdkModuleSpecifiers());
 
     for (const specifier of specifiers) {

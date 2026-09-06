@@ -42,7 +42,7 @@ describe("Parallels runtime companion setup", () => {
       expect(installCli).toHaveBeenCalledExactlyOnceWith([
         "plugins",
         "install",
-        `npm:@openclaw/codex@${version}`,
+        `npm:@granted/codex@${version}`,
         "--pin",
         "--accept-capabilities",
       ]);

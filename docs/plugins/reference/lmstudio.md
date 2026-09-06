@@ -11,7 +11,7 @@ Adds LM Studio model provider support to OpenClaw.
 
 ## Distribution
 
-- Package: `@openclaw/lmstudio-provider`
+- Package: `@granted/lmstudio-provider`
 - Install route: included in OpenClaw
 
 ## Surface

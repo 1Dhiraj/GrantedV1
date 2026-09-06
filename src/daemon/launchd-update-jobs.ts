@@ -3,7 +3,7 @@ import path from "node:path";
 import {
   parseStrictInteger,
   parseStrictPositiveInteger,
-} from "@openclaw/normalization-core/number-coercion";
+} from "@granted/normalization-core/number-coercion";
 import {
   GATEWAY_SERVICE_KIND,
   GATEWAY_SERVICE_MARKERS,

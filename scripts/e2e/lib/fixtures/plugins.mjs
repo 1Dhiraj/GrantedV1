@@ -36,7 +36,7 @@ function writePlugin([dir, id, version, method, name]) {
     requireArg(value, label);
   }
   writeJson(path.join(dir, "package.json"), {
-    name: `@openclaw/${id}`,
+    name: `@granted/${id}`,
     version,
     openclaw: { extensions: ["./index.js"] },
   });
@@ -65,7 +65,7 @@ function writePluginPack([dir, id, version, entryList]) {
     throw new Error("plugin-pack entries must not be empty");
   }
   writeJson(path.join(dir, "package.json"), {
-    name: `@openclaw/${id}`,
+    name: `@granted/${id}`,
     version,
     openclaw: { extensions: entries.map((entry) => `./${entry}.js`) },
   });
@@ -83,7 +83,7 @@ function writePluginWithVendoredDependency([dir, id, version, method, name]) {
   writePlugin([dir, id, version, method, name]);
   const packageJsonPath = path.join(dir, "package.json");
   writeJson(packageJsonPath, {
-    name: `@openclaw/${id}`,
+    name: `@granted/${id}`,
     version,
     dependencies: { "is-number": "7.0.0" },
     openclaw: { extensions: ["./index.js"] },
@@ -108,7 +108,7 @@ function writePluginWithCli([dir, id, version, method, name, cliRoot, cliOutput]
     requireArg(value, label);
   }
   writeJson(path.join(dir, "package.json"), {
-    name: `@openclaw/${id}`,
+    name: `@granted/${id}`,
     version,
     dependencies: { "is-number": "file:./deps/is-number" },
     openclaw: { extensions: ["./index.js"] },
@@ -142,7 +142,7 @@ function writePluginWithCliRegistryDependency([
     requireArg(value, label);
   }
   writeJson(path.join(dir, "package.json"), {
-    name: `@openclaw/${id}`,
+    name: `@granted/${id}`,
     version,
     dependencies: { "is-number": "7.0.0" },
     openclaw: { extensions: ["./index.js"] },

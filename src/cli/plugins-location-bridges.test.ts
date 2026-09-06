@@ -62,8 +62,8 @@ function makeRegistry(pluginId: string, channels: string[] = [pluginId]): Plugin
         activation: {},
         startup: {},
         packageInstall: {
-          clawhubSpec: `clawhub:@openclaw/${pluginId}`,
-          npmSpec: `@openclaw/${pluginId}`,
+          clawhubSpec: `clawhub:@granted/${pluginId}`,
+          npmSpec: `@granted/${pluginId}`,
           defaultChoice: "clawhub",
         },
       },
@@ -93,13 +93,13 @@ describe("listPersistedBundledPluginLocationBridges", () => {
         packageInstall: {
           defaultChoice: "clawhub",
           clawhub: {
-            spec: "clawhub:@openclaw/diagnostics-otel",
-            packageName: "@openclaw/diagnostics-otel",
+            spec: "clawhub:@granted/diagnostics-otel",
+            packageName: "@granted/diagnostics-otel",
             exactVersion: false,
           },
           npm: {
-            spec: "@openclaw/diagnostics-otel",
-            packageName: "@openclaw/diagnostics-otel",
+            spec: "@granted/diagnostics-otel",
+            packageName: "@granted/diagnostics-otel",
             selectorKind: "none",
             exactVersion: false,
             pinState: "floating-without-integrity",
@@ -116,8 +116,8 @@ describe("listPersistedBundledPluginLocationBridges", () => {
       {
         bundledPluginId: "diagnostics-otel",
         pluginId: "diagnostics-otel",
-        npmSpec: "@openclaw/diagnostics-otel",
-        clawhubSpec: "clawhub:@openclaw/diagnostics-otel",
+        npmSpec: "@granted/diagnostics-otel",
+        clawhubSpec: "clawhub:@granted/diagnostics-otel",
         channelIds: ["diagnostics-otel"],
       },
     ]);
@@ -138,8 +138,8 @@ describe("listPersistedBundledPluginLocationBridges", () => {
         packageInstall: {
           defaultChoice: "clawhub",
           clawhub: {
-            spec: "clawhub:@openclaw/diagnostics-otel",
-            packageName: "@openclaw/diagnostics-otel",
+            spec: "clawhub:@granted/diagnostics-otel",
+            packageName: "@granted/diagnostics-otel",
             exactVersion: false,
           },
           warnings: [],
@@ -154,8 +154,8 @@ describe("listPersistedBundledPluginLocationBridges", () => {
       {
         bundledPluginId: "diagnostics-otel",
         pluginId: "diagnostics-otel",
-        npmSpec: "@openclaw/diagnostics-otel",
-        clawhubSpec: "clawhub:@openclaw/diagnostics-otel",
+        npmSpec: "@granted/diagnostics-otel",
+        clawhubSpec: "clawhub:@granted/diagnostics-otel",
         channelIds: ["diagnostics-otel"],
       },
     ]);
@@ -191,19 +191,19 @@ describe("listPersistedBundledPluginLocationBridges", () => {
   });
 
   it.each([
-    ["byteplus", "@openclaw/byteplus-provider", true],
-    ["duckduckgo", "@openclaw/duckduckgo-plugin", false],
-    ["mistral", "@openclaw/mistral-provider", true],
-    ["novita", "@openclaw/novita-provider", true],
-    ["opencode", "@openclaw/opencode-provider", true],
-    ["opencode-go", "@openclaw/opencode-go-provider", true],
-    ["synthetic", "@openclaw/synthetic-provider", true],
-    ["teams-meetings", "@openclaw/teams-meetings", true],
-    ["volcengine", "@openclaw/volcengine-provider", true],
-    ["voyage", "@openclaw/voyage-provider", true],
-    ["vydra", "@openclaw/vydra-provider", true],
-    ["xiaomi", "@openclaw/xiaomi-provider", true],
-    ["zoom-meetings", "@openclaw/zoom-meetings", true],
+    ["byteplus", "@granted/byteplus-provider", true],
+    ["duckduckgo", "@granted/duckduckgo-plugin", false],
+    ["mistral", "@granted/mistral-provider", true],
+    ["novita", "@granted/novita-provider", true],
+    ["opencode", "@granted/opencode-provider", true],
+    ["opencode-go", "@granted/opencode-go-provider", true],
+    ["synthetic", "@granted/synthetic-provider", true],
+    ["teams-meetings", "@granted/teams-meetings", true],
+    ["volcengine", "@granted/volcengine-provider", true],
+    ["voyage", "@granted/voyage-provider", true],
+    ["vydra", "@granted/vydra-provider", true],
+    ["xiaomi", "@granted/xiaomi-provider", true],
+    ["zoom-meetings", "@granted/zoom-meetings", true],
   ] as const)(
     "externalizes the shipped bundled %s plugin using official install metadata",
     async (pluginId, npmSpec, enabledByDefault) => {
@@ -262,8 +262,8 @@ describe("listPersistedBundledPluginLocationBridges", () => {
       {
         bundledPluginId: "comfy",
         pluginId: "comfy",
-        npmSpec: "@openclaw/comfy-provider",
-        clawhubSpec: "clawhub:@openclaw/comfy-provider",
+        npmSpec: "@granted/comfy-provider",
+        clawhubSpec: "clawhub:@granted/comfy-provider",
         enabledByDefault: true,
       },
     ]);
@@ -293,8 +293,8 @@ describe("listPersistedBundledPluginLocationBridges", () => {
       {
         bundledPluginId: "imessage",
         pluginId: "imessage",
-        npmSpec: "@openclaw/imessage",
-        clawhubSpec: "clawhub:@openclaw/imessage",
+        npmSpec: "@granted/imessage",
+        clawhubSpec: "clawhub:@granted/imessage",
         enabledByDefault: true,
         channelIds: ["imessage"],
       },

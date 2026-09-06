@@ -1,4 +1,4 @@
-import { asNullableRecord as readRecord } from "@openclaw/normalization-core/record-coerce";
+import { asNullableRecord as readRecord } from "@granted/normalization-core/record-coerce";
 
 export type SessionMessageEnvelope = {
   messageId?: unknown;

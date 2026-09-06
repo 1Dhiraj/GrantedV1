@@ -1,15 +1,15 @@
-import { stableStringify } from "@openclaw/normalization-core";
+import { stableStringify } from "@granted/normalization-core";
 /**
  * Shared media generation task status and duplicate-guard helpers.
  *
  * Image/video task modules use this to track recent starts, find active
  * background tasks, and build consistent user/prompt status messages.
  */
-import { resolveNonNegativeIntegerOption } from "@openclaw/normalization-core/number-coercion";
+import { resolveNonNegativeIntegerOption } from "@granted/normalization-core/number-coercion";
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
-} from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/string-coerce";
 import { getRuntimeConfig } from "../config/config.js";
 import { parseAgentSessionKey } from "../routing/session-key.js";
 import { listFreshTasksForOwnerKey } from "../tasks/runtime-internal.js";

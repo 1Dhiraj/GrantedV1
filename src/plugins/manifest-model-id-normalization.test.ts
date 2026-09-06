@@ -1,7 +1,7 @@
 // Verifies model IDs declared by plugin manifests are normalized.
 import fs from "node:fs";
 import path from "node:path";
-import { normalizeConfiguredProviderCatalogModelId } from "@openclaw/model-catalog-core/provider-model-id-normalization";
+import { normalizeConfiguredProviderCatalogModelId } from "@granted/model-catalog-core/provider-model-id-normalization";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { createTempDirTracker } from "../../test/helpers/temp-dir.js";
 import { captureEnv, deleteTestEnvValue, setTestEnvValue } from "../test-utils/env.js";

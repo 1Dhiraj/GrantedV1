@@ -2,7 +2,7 @@ import type { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { StreamableHTTPError } from "@modelcontextprotocol/sdk/client/streamableHttp.js";
 import type { Transport } from "@modelcontextprotocol/sdk/shared/transport.js";
 import { ErrorCode } from "@modelcontextprotocol/sdk/types.js";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import { GrantedStreamableHTTPClientTransport } from "./mcp-http-transport.js";
 import { GrantedStdioClientTransport } from "./mcp-stdio-transport.js";
 

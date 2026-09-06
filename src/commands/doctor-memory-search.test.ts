@@ -73,7 +73,7 @@ const getMissingLocalMemoryEmbeddingProviderMessage = vi.hoisted(() =>
     () =>
       "Unknown memory embedding provider: local.\n" +
       "Local GGUF embeddings are provided by the official llama.cpp provider plugin.\n" +
-      "Install it with: openclaw plugins install @openclaw/llama-cpp-provider\n" +
+      "Install it with: openclaw plugins install @granted/llama-cpp-provider\n" +
       "Then restart OpenClaw and retry: openclaw memory status --deep",
   ),
 );
@@ -382,7 +382,7 @@ describe("noteMemorySearchHealth", () => {
     expect(note).toHaveBeenCalledTimes(1);
     expectFirstNoteContains(
       "Unknown memory embedding provider: local",
-      "openclaw plugins install @openclaw/llama-cpp-provider",
+      "openclaw plugins install @granted/llama-cpp-provider",
       "openclaw memory status --deep",
     );
     expect(getMissingLocalMemoryEmbeddingProviderMessage).toHaveBeenCalledOnce();
@@ -404,7 +404,7 @@ describe("noteMemorySearchHealth", () => {
       "legacy llama.cpp server is unavailable",
       "openclaw plugins update llama-cpp",
     );
-    expectFirstNoteExcludes("openclaw plugins install @openclaw/llama-cpp-provider");
+    expectFirstNoteExcludes("openclaw plugins install @granted/llama-cpp-provider");
   });
 
   it.each([
@@ -430,7 +430,7 @@ describe("noteMemorySearchHealth", () => {
 
     expectFirstNoteContains(message, "local provider is blocked", fix);
     expectFirstNoteExcludes(
-      "openclaw plugins install @openclaw/llama-cpp-provider",
+      "openclaw plugins install @granted/llama-cpp-provider",
       "openclaw plugins update llama-cpp",
     );
     expect(loadTrustedExternalProviderPolicyArtifacts).not.toHaveBeenCalled();
@@ -508,7 +508,7 @@ describe("noteMemorySearchHealth", () => {
       "openclaw models --agent agent-default auth login --provider llama-cpp --method local",
       "Managed local embeddings are unavailable",
     );
-    expectFirstNoteExcludes("openclaw plugins install @openclaw/llama-cpp-provider");
+    expectFirstNoteExcludes("openclaw plugins install @granted/llama-cpp-provider");
   });
 
   it("supports silent structured collection through an injected note sink", async () => {
@@ -535,7 +535,7 @@ describe("noteMemorySearchHealth", () => {
       "managed llama-server unavailable",
       "Repair the llama.cpp server problem reported by the Gateway",
     );
-    expectFirstNoteExcludes("openclaw plugins install @openclaw/llama-cpp-provider");
+    expectFirstNoteExcludes("openclaw plugins install @granted/llama-cpp-provider");
   });
 
   it("does not warn when local provider with default model and gateway probe is ready", async () => {
@@ -630,7 +630,7 @@ describe("noteMemorySearchHealth", () => {
     );
     expectFirstNoteExcludes(
       "Gateway probe: GGUF load failed",
-      "openclaw plugins install @openclaw/llama-cpp-provider",
+      "openclaw plugins install @granted/llama-cpp-provider",
     );
   });
 

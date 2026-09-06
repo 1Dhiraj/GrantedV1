@@ -1,6 +1,6 @@
 import { isDeepStrictEqual } from "node:util";
-import { normalizeConfiguredProviderCatalogModelId } from "@openclaw/model-catalog-core/provider-model-id-normalization";
-import { normalizeLowercaseStringOrEmpty as normalizeString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeConfiguredProviderCatalogModelId } from "@granted/model-catalog-core/provider-model-id-normalization";
+import { normalizeLowercaseStringOrEmpty as normalizeString } from "@granted/normalization-core/string-coerce";
 import { splitTrailingAuthProfile } from "../../../agents/model-ref-profile.js";
 import { getRecord } from "../../../config/legacy.shared.js";
 import { normalizeAgentModelRefForConfig } from "../../../config/model-input.js";

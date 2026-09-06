@@ -1,5 +1,5 @@
-import { redactSensitiveUrlLikeString } from "@openclaw/net-policy/redact-sensitive-url";
-import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+import { redactSensitiveUrlLikeString } from "@granted/net-policy/redact-sensitive-url";
+import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import { sanitizeTerminalText } from "../../packages/terminal-core/src/safe-text.js";
 import {
   redactSecretDegradationReason,

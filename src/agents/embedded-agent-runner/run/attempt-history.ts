@@ -1,9 +1,9 @@
-import { preserveCompactionReplayWindow } from "@openclaw/ai/transports";
+import { preserveCompactionReplayWindow } from "@granted/ai/transports";
 /**
  * Prepares user-message boundaries, restored history, and transcript policy for an attempt.
  * It may assume normalized attempt and session inputs are ready.
  */
-import { stableStringify } from "@openclaw/normalization-core";
+import { stableStringify } from "@granted/normalization-core";
 import { buildHierarchyReinforcementMessage } from "../../../auto-reply/handoff-summarizer.js";
 import { filterHeartbeatTranscriptArtifacts } from "../../../auto-reply/heartbeat-filter.js";
 import { formatContextJsonBlock } from "../../../auto-reply/reply/channel-prompt-context.js";

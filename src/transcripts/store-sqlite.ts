@@ -1,5 +1,5 @@
 import type { DatabaseSync } from "node:sqlite";
-import { asOptionalRecord } from "@openclaw/normalization-core/record-coerce";
+import { asOptionalRecord } from "@granted/normalization-core/record-coerce";
 import type { Selectable } from "kysely";
 import {
   executeSqliteQuerySync,

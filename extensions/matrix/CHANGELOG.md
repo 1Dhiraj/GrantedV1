@@ -200,7 +200,7 @@
 
 - Version alignment with core OpenClaw release numbers.
 
-This file tracks Matrix-related release notes for the local `@openclaw/matrix`
+This file tracks Matrix-related release notes for the local `@granted/matrix`
 plugin since the `matrix-js-sdk` migration. Source release notes live in
 `../../changelog.md`; exact repeated entries inside the same version are
 collapsed here.

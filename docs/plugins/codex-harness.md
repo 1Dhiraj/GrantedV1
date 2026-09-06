@@ -98,7 +98,7 @@ channel is the communication surface.
 
 ## Requirements
 
-- The official `@openclaw/codex` plugin installed. Include `codex` in
+- The official `@granted/codex` plugin installed. Include `codex` in
   `plugins.allow` if your config uses an allowlist.
 - Managed Codex app-server `0.151.0`. The plugin ships and manages
   `@openai/codex` `0.151.0` by default, so a `codex` command on `PATH` does not
@@ -121,7 +121,7 @@ model discovery, and the full config field list, see
 Install the official plugin, then sign in with Codex OAuth:
 
 ```bash
-openclaw plugins install @openclaw/codex
+openclaw plugins install @granted/codex
 openclaw models auth login --provider openai
 ```
 

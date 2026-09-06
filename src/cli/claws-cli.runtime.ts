@@ -1,5 +1,5 @@
-import { redactSensitiveUrlLikeString } from "@openclaw/net-policy/redact-sensitive-url";
-import { stableStringify } from "@openclaw/normalization-core";
+import { redactSensitiveUrlLikeString } from "@granted/net-policy/redact-sensitive-url";
+import { stableStringify } from "@granted/normalization-core";
 import {
   listAgentEntries,
   listAgentIds,

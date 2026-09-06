@@ -1,6 +1,6 @@
 /** Registry-bound plugin command selection and execution for native/channel surfaces. */
-import { normalizeOptionalLowercaseString } from "@openclaw/normalization-core/string-coerce";
-import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+import { normalizeOptionalLowercaseString } from "@granted/normalization-core/string-coerce";
+import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import { redactToolPayloadTextWithConfig } from "../logging/redact.js";
 import type { RegisteredPluginCommand } from "./command-registry-state.js";

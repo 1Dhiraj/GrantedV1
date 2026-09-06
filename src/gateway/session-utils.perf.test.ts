@@ -2,7 +2,7 @@
 // session lists with repeated provider/model tuples.
 import path from "node:path";
 import { performance } from "node:perf_hooks";
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { describe, test, expect, vi } from "vitest";
 import {
   readAcpSessionMetaBatch,

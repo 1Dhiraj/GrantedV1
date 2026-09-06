@@ -1,6 +1,6 @@
 // Screen-recording payload helpers for node media commands.
 import * as path from "node:path";
-import { extnameFromAnyPath } from "@openclaw/media-core/file-name";
+import { extnameFromAnyPath } from "@granted/media-core/file-name";
 import {
   parseScreenSnapshotResult,
   type ScreenSnapshotResult,

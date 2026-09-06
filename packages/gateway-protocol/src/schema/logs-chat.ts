@@ -1,6 +1,6 @@
 // Gateway Protocol schema module defines protocol validation shapes.
-import { asOptionalRecord } from "@openclaw/normalization-core/record-coerce";
-import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+import { asOptionalRecord } from "@granted/normalization-core/record-coerce";
+import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import type { Static } from "typebox";
 import { Type } from "typebox";
 import {

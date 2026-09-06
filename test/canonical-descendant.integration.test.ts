@@ -1,6 +1,6 @@
 import http from "node:http";
 import { fileURLToPath } from "node:url";
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import {
   createPluginRuntimeMock,
   createPluginRegistry,

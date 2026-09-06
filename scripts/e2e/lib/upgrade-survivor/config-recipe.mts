@@ -189,7 +189,7 @@ const scenarioConfigSteps = new Map<string, ConfigStep[]>([
           "plugins-acpx-openclaw-tools-bridge.json",
         ),
         // The candidate externalizes this runtime even when the baseline bundles it.
-        prepublishPluginPackages: ["@openclaw/acpx"],
+        prepublishPluginPackages: ["@granted/acpx"],
       },
     ],
   ],

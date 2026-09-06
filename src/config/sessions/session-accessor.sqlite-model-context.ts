@@ -1,5 +1,5 @@
-import type { AgentMessage, SessionTreeEntry } from "@openclaw/agent-core";
-import { isCompactionReplayCheckpoint } from "@openclaw/ai/transports";
+import type { AgentMessage, SessionTreeEntry } from "@granted/agent-core";
+import { isCompactionReplayCheckpoint } from "@granted/ai/transports";
 import { sql } from "kysely";
 import {
   iterateSessionContextEntries,

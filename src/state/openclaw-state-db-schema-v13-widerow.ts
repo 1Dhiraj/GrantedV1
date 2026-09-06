@@ -1,6 +1,6 @@
 import type { DatabaseSync } from "node:sqlite";
-import { safeParseJson } from "@openclaw/normalization-core";
-import { asNullableRecord } from "@openclaw/normalization-core/record-coerce";
+import { safeParseJson } from "@granted/normalization-core";
+import { asNullableRecord } from "@granted/normalization-core/record-coerce";
 import { quoteSqliteIdentifier } from "../infra/sqlite-schema-sql.js";
 import { repairLegacySubagentRetainedResults } from "./openclaw-state-db-legacy-backfills.js";
 import { tableExists, tableHasColumn } from "./openclaw-state-db-schema-helpers.js";

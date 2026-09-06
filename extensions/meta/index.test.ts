@@ -9,8 +9,8 @@ import {
   type AssistantMessageEventStreamContract,
   type SimpleStreamOptions,
   type StreamFunction,
-} from "@openclaw/ai";
-import { prepareModelForSimpleCompletion } from "@openclaw/ai/transports";
+} from "@granted/ai";
+import { prepareModelForSimpleCompletion } from "@granted/ai/transports";
 import type { StreamFn } from "granted/plugin-sdk/agent-core";
 import { streamSimple, type Context, type Model } from "granted/plugin-sdk/llm";
 import { capturePluginRegistration } from "granted/plugin-sdk/plugin-test-runtime";

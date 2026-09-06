@@ -1,5 +1,5 @@
-import { matchesContextOverflowMessage } from "@openclaw/ai/internal/runtime";
-import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
+import { matchesContextOverflowMessage } from "@granted/ai/internal/runtime";
+import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
 import {
   isBillingErrorMessage,
   isProviderRequestSizeCeilingError,

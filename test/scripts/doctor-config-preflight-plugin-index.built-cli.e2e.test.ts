@@ -64,7 +64,7 @@ describe("Doctor plugin index persistence built CLI proof", () => {
     const pluginId = "legacy-doctor-index";
     const pluginDir = writeManagedNpmPlugin({
       stateDir: instance.stateDir,
-      packageName: "@openclaw/legacy-doctor-index",
+      packageName: "@granted/legacy-doctor-index",
       pluginId,
       version: "1.0.0",
     });

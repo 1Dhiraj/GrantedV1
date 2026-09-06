@@ -1,4 +1,4 @@
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import type { AgentMessage } from "granted/plugin-sdk/agent-core";
 /** Exercises provider runtime loading, ordering, and manifest-backed discovery paths. */
 import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
@@ -59,7 +59,7 @@ const resolveBundledProviderPolicySurfaceMock = vi.fn<ResolveBundledProviderPoli
 const resolveProviderPolicySurfaceMock = vi.fn<ResolveProviderPolicySurface>((_providerId) => null);
 const providerRuntimeWarnMock = vi.fn();
 
-let getAiTransportHost: typeof import("@openclaw/ai").getAiTransportHost;
+let getAiTransportHost: typeof import("@granted/ai").getAiTransportHost;
 let attachModelProviderRuntimePluginHandle: typeof import("./provider-hook-runtime.js").attachModelProviderRuntimePluginHandle;
 let resolveProviderPluginsForHooks: typeof import("./provider-hook-runtime.js").resolveProviderPluginsForHooks;
 let augmentModelCatalogWithProviderPlugins: typeof import("./provider-runtime.js").augmentModelCatalogWithProviderPlugins;
@@ -366,7 +366,7 @@ describe("provider-runtime", () => {
     ({ attachModelProviderRuntimePluginHandle, resolveProviderPluginsForHooks } =
       await import("./provider-hook-runtime.js"));
     await import("../agents/ai-transport-runtime-host.js");
-    ({ getAiTransportHost } = await import("@openclaw/ai"));
+    ({ getAiTransportHost } = await import("@granted/ai"));
     ({ createEmptyPluginRegistry } = await import("./registry-empty.js"));
     ({ resetPluginRuntimeStateForTest, setActivePluginRegistry } = await import("./runtime.js"));
   });

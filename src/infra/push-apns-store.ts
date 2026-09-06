@@ -1,7 +1,7 @@
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
-} from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/string-coerce";
 // Canonical shared-SQLite store for APNs device and relay registrations.
 import type { Insertable, Selectable } from "kysely";
 import { z } from "zod";

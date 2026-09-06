@@ -1,9 +1,9 @@
 // Provider model helpers normalize model catalog entries shared by provider plugins.
-import { normalizeProviderId as normalizeProviderIdCore } from "@openclaw/model-catalog-core/provider-id";
+import { normalizeProviderId as normalizeProviderIdCore } from "@granted/model-catalog-core/provider-id";
 import {
   normalizeAntigravityPreviewModelId as normalizeAntigravityPreviewModelIdCore,
   normalizeGooglePreviewModelId as normalizeGooglePreviewModelIdCore,
-} from "@openclaw/model-catalog-core/provider-model-id-normalize";
+} from "@granted/model-catalog-core/provider-model-id-normalize";
 import { normalizeOptionalLowercaseString } from "../../packages/normalization-core/src/string-coerce.js";
 import {
   buildAnthropicReplayPolicyForModel,
@@ -150,13 +150,13 @@ export {
   supportsClaudeFastMode,
   supportsClaudeNativeMaxEffort,
   supportsClaudeNativeXhighEffort,
-} from "@openclaw/llm-core";
+} from "@granted/llm-core";
 export type {
   UnifiedModelCatalogEntry,
   UnifiedModelCatalogKind,
   UnifiedModelCatalogSource,
-} from "@openclaw/model-catalog-core/model-catalog-types";
-export { isCloudModelRef } from "@openclaw/model-catalog-core/model-catalog-refs";
+} from "@granted/model-catalog-core/model-catalog-types";
+export { isCloudModelRef } from "@granted/model-catalog-core/model-catalog-refs";
 export { parseModelRef } from "../agents/model-selection-normalize.js";
 export type {
   BedrockDiscoveryConfig,

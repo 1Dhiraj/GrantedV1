@@ -1,13 +1,13 @@
 import {
   readAssistantStreamSegmentIdentity,
   readSessionMessageIdentity,
-} from "@openclaw/gateway-client/browser";
-import { asFiniteNumber } from "@openclaw/normalization-core/number-coercion";
-import { asNullableRecord } from "@openclaw/normalization-core/record-coerce";
+} from "@granted/gateway-client/browser";
+import { asFiniteNumber } from "@granted/normalization-core/number-coercion";
+import { asNullableRecord } from "@granted/normalization-core/record-coerce";
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
-} from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/string-coerce";
 import {
   accumulatedStreamText,
   advanceAccumulatedStreamText,

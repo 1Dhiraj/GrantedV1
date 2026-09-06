@@ -11,8 +11,8 @@ OpenClaw Matrix channel plugin for rooms and direct messages.
 
 ## Distribution
 
-- Package: `@openclaw/matrix`
-- Install route: ClawHub: `clawhub:@openclaw/matrix`; npm
+- Package: `@granted/matrix`
+- Install route: ClawHub: `clawhub:@granted/matrix`; npm
 
 ## Surface
 

@@ -1,5 +1,5 @@
 {
-  "name": "@openclaw/groq-provider",
+  "name": "@granted/groq-provider",
   "version": "2026.8.1",
   "description": "OpenClaw Groq media-understanding provider.",
   "repository": {
@@ -8,15 +8,15 @@
   },
   "type": "module",
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*"
+    "@granted/plugin-sdk": "workspace:*"
   },
   "openclaw": {
     "extensions": [
       "./index.ts"
     ],
     "install": {
-      "clawhubSpec": "clawhub:@openclaw/groq-provider",
-      "npmSpec": "@openclaw/groq-provider",
+      "clawhubSpec": "clawhub:@granted/groq-provider",
+      "npmSpec": "@granted/groq-provider",
       "defaultChoice": "npm",
       "minHostVersion": ">=2026.6.8"
     },

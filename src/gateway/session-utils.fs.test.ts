@@ -4,7 +4,7 @@ import path from "node:path";
 import {
   estimateStringChars,
   estimateTokensFromChars,
-} from "@openclaw/normalization-core/cjk-chars";
+} from "@granted/normalization-core/cjk-chars";
 import { SessionManager } from "granted/plugin-sdk/agent-sessions";
 // Session filesystem utility tests cover transcript reading, usage extraction,
 // preview rows, message counts, title fields, and archive candidate resolution.

@@ -58,8 +58,8 @@ function resolveSourceModulePath(
 ) {
   const pluginSdkPrefix = specifier.startsWith("openclaw/plugin-sdk/")
     ? "openclaw/plugin-sdk/"
-    : specifier.startsWith("@openclaw/plugin-sdk/")
-      ? "@openclaw/plugin-sdk/"
+    : specifier.startsWith("@granted/plugin-sdk/")
+      ? "@granted/plugin-sdk/"
       : null;
   if (!pluginSdkPrefix) {
     return resolveExportModulePath(sourcePath, specifier, modulesByPath);

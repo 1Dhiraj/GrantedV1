@@ -1,5 +1,5 @@
 // Stores durable delivery queue entries in SQLite.
-import { safeParseJsonRecord } from "@openclaw/normalization-core";
+import { safeParseJsonRecord } from "@granted/normalization-core";
 import {
   openOpenClawStateDatabase,
   type GrantedStateDatabase,

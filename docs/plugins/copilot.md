@@ -7,7 +7,7 @@ read_when:
   - You are wiring an agent to subscription Copilot (github / openclaw / copilot) and want it to run through the Copilot CLI
 ---
 
-The external `@openclaw/copilot` plugin runs embedded subscription Copilot
+The external `@granted/copilot` plugin runs embedded subscription Copilot
 agent turns through the GitHub Copilot CLI (`@github/copilot-sdk`) instead of
 OpenClaw's built-in harness. The Copilot CLI session owns the low-level
 agent loop: native tool execution, native compaction (`infiniteSessions`), and
@@ -21,10 +21,10 @@ For the broader model/provider/runtime split, start with
 
 ## Requirements
 
-- OpenClaw with the `@openclaw/copilot` plugin installed.
+- OpenClaw with the `@granted/copilot` plugin installed.
 - If your config uses `plugins.allow`, include `copilot` (the manifest id the
   plugin declares). An allowlist entry for the npm package name
-  `@openclaw/copilot` will not match and leaves the plugin blocked, even with
+  `@granted/copilot` will not match and leaves the plugin blocked, even with
   `agentRuntime.id: "copilot"` set.
 - A GitHub Copilot subscription that can drive the Copilot CLI, or a
   `gitHubToken` env var / auth-profile entry for headless or cron runs.
@@ -44,7 +44,7 @@ package does not carry `@github/copilot-sdk` or its platform-specific
 Install it only for agents that opt into this runtime:
 
 ```bash
-openclaw plugins install @openclaw/copilot
+openclaw plugins install @granted/copilot
 ```
 
 The setup wizard installs the plugin automatically the first time you select
@@ -55,7 +55,7 @@ GitHub Copilot provider and never installs this plugin.
 
 The runtime resolves the SDK in this order:
 
-1. `import("@github/copilot-sdk")` from the installed `@openclaw/copilot`
+1. `import("@github/copilot-sdk")` from the installed `@granted/copilot`
    package.
 2. The fallback dir `~/.openclaw/npm-runtime/copilot/` (legacy on-demand
    install target).

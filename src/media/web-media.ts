@@ -2,8 +2,8 @@
 import { createHash } from "node:crypto";
 import { lstat, realpath } from "node:fs/promises";
 import path from "node:path";
-import { maxBytesForKind, type MediaKind } from "@openclaw/media-core/constants";
-import { basenameFromAnyPath, extnameFromAnyPath } from "@openclaw/media-core/file-name";
+import { maxBytesForKind, type MediaKind } from "@granted/media-core/constants";
+import { basenameFromAnyPath, extnameFromAnyPath } from "@granted/media-core/file-name";
 import {
   detectMime,
   extensionForMime,
@@ -11,9 +11,9 @@ import {
   kindFromMime,
   mimeTypeFromFilePath,
   normalizeMimeType,
-} from "@openclaw/media-core/mime";
-import { hasHttpUrlPrefix } from "@openclaw/net-policy/url-protocol";
-import { uniqueValues } from "@openclaw/normalization-core/string-normalization";
+} from "@granted/media-core/mime";
+import { hasHttpUrlPrefix } from "@granted/net-policy/url-protocol";
+import { uniqueValues } from "@granted/normalization-core/string-normalization";
 import { resolveCanvasHttpPathToLocalPath } from "../canvas/documents.js";
 import { logVerbose, shouldLogVerbose } from "../globals.js";
 import { formatErrorMessage } from "../infra/errors.js";

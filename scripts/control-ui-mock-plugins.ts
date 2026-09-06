@@ -116,8 +116,8 @@ export function buildPluginInspectMock() {
       {
         source: {
           kind: "npm",
-          spec: "@openclaw/discord@1.4.0",
-          packageName: "@openclaw/discord",
+          spec: "@granted/discord@1.4.0",
+          packageName: "@granted/discord",
           integrity: "sha512-Zt8FjB1uT0mMyF5b0z0aH4dKq7wVn0m8rW3o5cQx1JYb1sB4kQ2u5w9c1p6nEo3q",
           integrityKind: "ssri",
         },

@@ -1,5 +1,5 @@
 // Browser tests cover browser tool.schema plugin behavior.
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { projectRuntimeToolInputSchema } from "granted/plugin-sdk/agent-harness-runtime";
 import { normalizeOpenAIToolSchemas } from "granted/plugin-sdk/provider-tools";
 import { Value } from "typebox/value";

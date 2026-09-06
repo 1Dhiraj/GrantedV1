@@ -4,8 +4,8 @@ import {
   requestPreparedOpenAIResponsesCompaction,
   requiresCompactionReplayRefresh,
   resolveOpenAIResponsesCompactEndpointPlan,
-} from "@openclaw/ai/transports";
-import type { Message } from "@openclaw/llm-core";
+} from "@granted/ai/transports";
+import type { Message } from "@granted/llm-core";
 import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { formatErrorMessage } from "../../infra/errors.js";
 import type { AgentMessage } from "../runtime/index.js";

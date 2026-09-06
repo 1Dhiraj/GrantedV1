@@ -11,7 +11,7 @@ Adds agent-callable tools.
 
 ## Distribution
 
-- Package: `@openclaw/memory-core`
+- Package: `@granted/memory-core`
 - Install route: included in OpenClaw
 
 ## Surface

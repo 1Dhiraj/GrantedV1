@@ -1,7 +1,7 @@
 // Shared upstream model contract tests keep capability flags aligned across bundled catalogs.
 import fs from "node:fs";
 import path from "node:path";
-import { asOptionalRecord as readRecord } from "@openclaw/normalization-core/record-coerce";
+import { asOptionalRecord as readRecord } from "@granted/normalization-core/record-coerce";
 import { describe, expect, it } from "vitest";
 import { listGitTrackedFiles } from "../../test-utils/repo-files.js";
 

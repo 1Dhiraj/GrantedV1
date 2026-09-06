@@ -6,7 +6,7 @@ Mistral memory embeddings.
 Install from OpenClaw:
 
 ```bash
-openclaw plugins install @openclaw/mistral-provider
+openclaw plugins install @granted/mistral-provider
 openclaw gateway restart
 ```
 

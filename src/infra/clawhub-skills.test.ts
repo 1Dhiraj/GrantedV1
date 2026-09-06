@@ -1,5 +1,5 @@
 // Verifies ClawHub skill icons, telemetry, metadata, verification, and cards.
-import { MAX_TIMER_TIMEOUT_MS } from "@openclaw/normalization-core/number-coercion";
+import { MAX_TIMER_TIMEOUT_MS } from "@granted/normalization-core/number-coercion";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { reportClawHubPluginInstallTelemetry } from "./clawhub-packages.js";
 import {
@@ -150,13 +150,13 @@ describe("clawhub skills", () => {
       { installRef: "@alice/email", installOnly: undefined, trustState: undefined },
       { installRef: "@bob/email", installOnly: undefined, trustState: undefined },
       // The external row keeps its own reference and stays out of detail; rewriting it to
-      // `@openclaw/weather` would install a different publisher's skill.
+      // `@granted/weather` would install a different publisher's skill.
       {
         installRef: "skills-sh:openclaw/skills/weather",
         installOnly: true,
         trustState: "not-scanned-by-clawhub",
       },
-      { installRef: "@openclaw/github-backed", installOnly: undefined, trustState: undefined },
+      { installRef: "@granted/github-backed", installOnly: undefined, trustState: undefined },
     ]);
   });
 
@@ -249,14 +249,14 @@ describe("clawhub skills", () => {
 
     await reportClawHubPluginInstallTelemetry({
       token: "test-token",
-      packageName: "@openclaw/voice-call",
+      packageName: "@granted/voice-call",
       version: "2026.7.23",
       fetchImpl,
     });
 
     expect(requestBody).toEqual({
       event: "plugin_install",
-      packageName: "@openclaw/voice-call",
+      packageName: "@granted/voice-call",
       version: "2026.7.23",
     });
   });
@@ -267,7 +267,7 @@ describe("clawhub skills", () => {
 
     await reportClawHubPluginInstallTelemetry({
       token: "test-token",
-      packageName: "@openclaw/voice-call",
+      packageName: "@granted/voice-call",
       fetchImpl,
     });
 

@@ -2,8 +2,8 @@
 // page, because native window.confirm/window.prompt silently answer in webviews with no
 // dialog bridge and would end the action with no outcome and no recorded reason.
 import { getPublicKeyAsync, hashes, signAsync, utils } from "@noble/ed25519";
-import { gatewayCredentialScope } from "@openclaw/gateway-client/browser";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { gatewayCredentialScope } from "@granted/gateway-client/browser";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import {
   type DeviceAuthEntry,
   type DeviceAuthStore,

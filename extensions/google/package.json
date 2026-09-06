@@ -1,5 +1,5 @@
 {
-  "name": "@openclaw/google-plugin",
+  "name": "@granted/google-plugin",
   "version": "2026.8.1",
   "private": true,
   "description": "OpenClaw Google plugin",
@@ -10,7 +10,7 @@
     "google-auth-library": "11.0.2"
   },
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*"
+    "@granted/plugin-sdk": "workspace:*"
   },
   "openclaw": {
     "extensions": [

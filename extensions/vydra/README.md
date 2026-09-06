@@ -5,7 +5,7 @@ Official OpenClaw provider plugin for Vydra image, video, and speech generation.
 Install from OpenClaw:
 
 ```bash
-openclaw plugins install @openclaw/vydra-provider
+openclaw plugins install @granted/vydra-provider
 openclaw gateway restart
 ```
 

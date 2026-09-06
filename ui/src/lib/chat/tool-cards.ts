@@ -2,8 +2,8 @@ import {
   asNullableObjectRecord as readRecord,
   asNullableRecord,
   isRecord,
-} from "@openclaw/normalization-core/record-coerce";
-import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+} from "@granted/normalization-core/record-coerce";
+import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 // Control UI chat domain owns pure tool-card extraction rules.
 import {
   extractCanvasFromDetails,

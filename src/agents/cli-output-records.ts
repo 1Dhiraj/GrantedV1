@@ -1,6 +1,6 @@
-import { extractBalancedJsonFragments } from "@openclaw/normalization-core";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
-import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
+import { extractBalancedJsonFragments } from "@granted/normalization-core";
+import { isRecord } from "@granted/normalization-core/record-coerce";
+import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
 import type { CliBackendConfig } from "../plugins/cli-backend.types.js";
 import type { CliOutput, CliTerminalFailure, CliUsage } from "./cli-output-contracts.js";
 import { normalizeUsage, type UsageLike } from "./usage.js";

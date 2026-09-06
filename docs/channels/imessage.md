@@ -25,7 +25,7 @@ For the common local setup, OpenClaw setup can offer a user-confirmed Homebrew i
 Install the official iMessage plugin on the Gateway host, then restart the Gateway:
 
 ```bash
-openclaw plugins install @openclaw/imessage
+openclaw plugins install @granted/imessage
 ```
 
 <CardGroup cols={3}>

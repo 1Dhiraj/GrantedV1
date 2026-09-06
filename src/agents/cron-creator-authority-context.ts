@@ -1,6 +1,6 @@
 import { AsyncLocalStorage } from "node:async_hooks";
-import { isPromiseLike } from "@openclaw/normalization-core/promise-like";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { isPromiseLike } from "@granted/normalization-core/promise-like";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import type { CronScheduledToolCallerOrigin } from "../cron/scheduled-tool-policy.js";
 import {
   createCronCreatorAuthorityRunScope,

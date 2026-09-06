@@ -1,7 +1,7 @@
 import {
   buildControlUiSessionPath,
   normalizeControlUiBasePath,
-} from "@openclaw/session-url-contract";
+} from "@granted/session-url-contract";
 import { resolveGatewayPublicOrigin } from "./gateway-public-origin.js";
 import type { GrantedConfig } from "./types.js";
 

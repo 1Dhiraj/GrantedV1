@@ -3,9 +3,9 @@
  * Reads provider-specific and manifest-declared env names without logging or
  * exposing secret values, with explicit single-key pins for flaky live lanes.
  */
-import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
-import { normalizeStringEntries } from "@openclaw/normalization-core/string-normalization";
+import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
+import { normalizeStringEntries } from "@granted/normalization-core/string-normalization";
 import { getProviderEnvVars } from "../secrets/provider-env-vars.js";
 import { classifyFailoverSignal } from "./failover/classify.js";
 

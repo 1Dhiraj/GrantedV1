@@ -44,7 +44,7 @@ const pluginMethods = [
 const workboardDisabled = {
   id: "workboard",
   name: "Workboard",
-  packageName: "@openclaw/workboard",
+  packageName: "@granted/workboard",
   description: "Dashboard workboard for agent-owned issues and sessions.",
   version: "2026.7.9",
   kind: ["productivity"],
@@ -75,12 +75,12 @@ const lobsterPlugin = {
   state: "not-installed",
   featured: true,
   order: 50,
-  install: { source: "clawhub", packageName: "@openclaw/lobster" },
+  install: { source: "clawhub", packageName: "@granted/lobster" },
 } satisfies PluginCatalogItem;
 
 const installedLobsterPlugin = {
   ...lobsterPlugin,
-  packageName: "@openclaw/lobster",
+  packageName: "@granted/lobster",
   version: "2026.8.10",
   origin: "global",
   installed: true,
@@ -101,7 +101,7 @@ const remoteIconPlugin = {
   featured: true,
   order: 60,
   hasIcon: true,
-  install: { source: "clawhub", packageName: "@openclaw/firecrawl" },
+  install: { source: "clawhub", packageName: "@granted/firecrawl" },
 } satisfies PluginCatalogItem;
 
 const calendarPlugin = {
@@ -158,7 +158,7 @@ const lobsterSearchResponse = {
     {
       score: 1,
       package: {
-        name: "@openclaw/lobster",
+        name: "@granted/lobster",
         displayName: "Lobster",
         family: "code-plugin",
         channel: "official",
@@ -184,7 +184,7 @@ const installResult = {
 
 const installPolicyWarning = {
   installPolicyCode: "install_policy_warning_acknowledgement_required",
-  targetName: "@openclaw/lobster",
+  targetName: "@granted/lobster",
   targetType: "plugin",
   requestMode: "install",
   reason: "ClawScan found issues to review.",
@@ -260,7 +260,7 @@ const lobsterInspection = {
     installed: false,
     enabled: false,
   },
-  source: { kind: "npm", packageName: "@openclaw/lobster" },
+  source: { kind: "npm", packageName: "@granted/lobster" },
 } satisfies PluginsInspectResult;
 
 const calendarInspection = {
@@ -492,14 +492,14 @@ describeControlUiE2e("Control UI Plugins mocked Gateway E2E", () => {
           await workboardCard.waitFor({ state: "visible" });
         }
 
-        await page.getByRole("searchbox", { name: "Search plugins" }).fill("@openclaw/workboard");
+        await page.getByRole("searchbox", { name: "Search plugins" }).fill("@granted/workboard");
         await workboardCard.waitFor({ state: "visible", timeout: 5_000 });
         await captureScreenshot(page, `08-scoped-package-${tab}.png`);
 
         if (tab === "discover") {
           const searchRequest = await gateway.waitForRequest("plugins.search");
           expect(requestParams(searchRequest)).toEqual({
-            query: "@openclaw/workboard",
+            query: "@granted/workboard",
             limit: 20,
           });
         }
@@ -866,7 +866,7 @@ describeControlUiE2e("Control UI Plugins mocked Gateway E2E", () => {
       await confirmPluginLifecycle(page, "Install");
       expect(requestParams(await gateway.waitForRequest("plugins.install"))).toEqual({
         source: "clawhub",
-        packageName: "@openclaw/lobster",
+        packageName: "@granted/lobster",
       });
       await gateway.rejectDeferred("plugins.install", {
         code: "INVALID_REQUEST",
@@ -890,7 +890,7 @@ describeControlUiE2e("Control UI Plugins mocked Gateway E2E", () => {
       expect(await review.textContent()).not.toContain("raw terminal install-policy output");
       await page.getByRole("searchbox", { name: "Search plugins" }).fill("lobster");
       await gateway.waitForRequest("plugins.search");
-      const searchRow = page.locator('[data-package-name="@openclaw/lobster"]');
+      const searchRow = page.locator('[data-package-name="@granted/lobster"]');
       const searchReview = searchRow.getByRole("alert");
       await searchReview.waitFor({ state: "visible" });
       expect(
@@ -936,7 +936,7 @@ describeControlUiE2e("Control UI Plugins mocked Gateway E2E", () => {
       const retry = await waitForNextRequest(gateway, "plugins.install", installCountBeforeRetry);
       expect(requestParams(retry)).toEqual({
         source: "clawhub",
-        packageName: "@openclaw/lobster",
+        packageName: "@granted/lobster",
         acknowledgeInstallPolicyWarning: true,
       });
       const pendingRetry = review.getByRole("button", { name: "Installing…", exact: true });
@@ -967,7 +967,7 @@ describeControlUiE2e("Control UI Plugins mocked Gateway E2E", () => {
       );
       expect(requestParams(secondRetry)).toEqual({
         source: "clawhub",
-        packageName: "@openclaw/lobster",
+        packageName: "@granted/lobster",
         acknowledgeInstallPolicyWarning: true,
       });
 

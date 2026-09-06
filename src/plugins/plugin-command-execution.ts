@@ -1,6 +1,6 @@
 /** Exact-registry plugin command execution shared by focused and compatibility runtimes. */
-import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
-import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
+import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import { resolveBoundAgentIdForSession } from "../agents/session-agent-binding.js";
 import { resolveCommandConversationResolution } from "../channels/conversation-resolution.js";
 import type { GrantedConfig } from "../config/types.openclaw.js";

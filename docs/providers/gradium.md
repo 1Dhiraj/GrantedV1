@@ -20,7 +20,7 @@ title: "Gradium"
 Gradium is an official external plugin. Install it, then restart Gateway:
 
 ```bash
-openclaw plugins install @openclaw/gradium-speech
+openclaw plugins install @granted/gradium-speech
 openclaw gateway restart
 ```
 

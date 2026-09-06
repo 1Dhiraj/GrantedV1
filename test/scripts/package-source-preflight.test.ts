@@ -24,7 +24,7 @@ function rootManifest(overrides: Record<string, unknown> = {}) {
     name: "openclaw",
     version: "2026.8.1",
     dependencies: {
-      "@openclaw/ai": "workspace:*",
+      "@granted/ai": "workspace:*",
       openai: "6.49.0",
     },
     ...overrides,
@@ -33,7 +33,7 @@ function rootManifest(overrides: Record<string, unknown> = {}) {
 
 function aiManifest(overrides: Record<string, unknown> = {}) {
   return JSON.stringify({
-    name: "@openclaw/ai",
+    name: "@granted/ai",
     version: "2026.8.1",
     dependencies: {
       openai: "6.49.0",
@@ -368,7 +368,7 @@ describe("package source preflight", () => {
     ).toThrow("packages/ai/package.json version must match package.json");
   });
 
-  it("rejects @openclaw/ai dependency drift before packing", () => {
+  it("rejects @granted/ai dependency drift before packing", () => {
     expect(() =>
       validatePackageSource({
         aiManifestContent: aiManifest({
@@ -393,7 +393,7 @@ describe("package source preflight", () => {
           private: "0.0.0-private",
           workspace: "4.5.6",
         },
-        bundledPackageLabel: "packed @openclaw/ai",
+        bundledPackageLabel: "packed @granted/ai",
         rootDependencies: {
           exact: "1.2.3",
           workspace: "workspace:4.5.6",
@@ -407,14 +407,14 @@ describe("package source preflight", () => {
     expect(() =>
       validateBundledPackageDependencyAlignment({
         bundledDependencies: { invalid: 123 },
-        bundledPackageLabel: "packed @openclaw/ai",
+        bundledPackageLabel: "packed @granted/ai",
         rootDependencies: { invalid: "123" },
       }),
-    ).toThrow("packed @openclaw/ai dependency invalid must declare a string version");
+    ).toThrow("packed @granted/ai dependency invalid must declare a string version");
     expect(() =>
       validateBundledPackageDependencyAlignment({
         bundledDependencies: { invalid: "1.2.3" },
-        bundledPackageLabel: "packed @openclaw/ai",
+        bundledPackageLabel: "packed @granted/ai",
         rootDependencies: { invalid: 123 },
       }),
     ).toThrow("root package.json dependency invalid must declare a string version");
@@ -437,7 +437,7 @@ describe("package source preflight", () => {
     );
   });
 
-  it("preserves historical sources from before the @openclaw/ai workspace split", () => {
+  it("preserves historical sources from before the @granted/ai workspace split", () => {
     expect(
       validatePackageSource({
         aiManifestContent: null,

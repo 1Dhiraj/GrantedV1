@@ -367,7 +367,7 @@ sender policy continues to apply to channel messages.
 ## Install
 
 ```bash
-openclaw plugins install @openclaw/slack
+openclaw plugins install @granted/slack
 ```
 
 `plugins install` registers and enables the plugin. It does nothing until you configure the Slack app and channel settings below. See [Plugins](/tools/plugin) for general plugin install rules.

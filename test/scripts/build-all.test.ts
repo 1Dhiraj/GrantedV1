@@ -3,7 +3,7 @@ import { spawnSync } from "node:child_process";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { describe, expect, it, vi } from "vitest";
 import {
   BUILD_ALL_PROFILES,
@@ -1265,7 +1265,7 @@ describe("resolveBuildStepCacheState", () => {
         fs.writeFileSync(
           path.join(directory, "package.json"),
           JSON.stringify({
-            name: `@openclaw/${id}`,
+            name: `@granted/${id}`,
             openclaw: { build: { bundledDist: id !== "external" } },
           }),
         );

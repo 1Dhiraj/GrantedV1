@@ -1,5 +1,5 @@
 /** Core-private spawned-session ownership lookup; not a published plugin SDK subpath. */
-import { err, ok, type Result } from "@openclaw/normalization-core/result";
+import { err, ok, type Result } from "@granted/normalization-core/result";
 import { normalizeLowercaseStringOrEmpty } from "../../packages/normalization-core/src/string-coerce.js";
 import { normalizeTrimmedStringList } from "../../packages/normalization-core/src/string-normalization.js";
 import {

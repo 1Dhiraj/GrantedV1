@@ -1,6 +1,6 @@
 // Talk client methods create browser-owned realtime voice sessions and route
 // client tool calls back into OpenClaw agent consult/control flows.
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import {
   ErrorCodes,
   errorShape,

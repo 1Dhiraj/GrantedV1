@@ -5,7 +5,7 @@ Official OpenClaw channel plugin for Twilio SMS and MMS.
 ## Install
 
 ```sh
-openclaw plugins install @openclaw/sms
+openclaw plugins install @granted/sms
 ```
 
 ## Docs

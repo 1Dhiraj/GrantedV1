@@ -1,6 +1,6 @@
-import { collectConfiguredModelRefs } from "@openclaw/model-catalog-core/configured-model-refs";
-import { parseModelCatalogRef } from "@openclaw/model-catalog-core/model-catalog-refs";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { collectConfiguredModelRefs } from "@granted/model-catalog-core/configured-model-refs";
+import { parseModelCatalogRef } from "@granted/model-catalog-core/model-catalog-refs";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import { z } from "zod";
 import { isChannelConfigMetadataKey } from "../channels/config-metadata.js";
 import { isBuiltInModelProviderOverlayId } from "../config/model-provider-config.js";

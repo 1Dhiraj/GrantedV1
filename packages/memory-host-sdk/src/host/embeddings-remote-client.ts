@@ -1,5 +1,5 @@
 // Memory Host SDK module implements embeddings remote client behavior.
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import type { EmbeddingProviderOptions } from "./embeddings.types.js";
 import { requireApiKey, resolveApiKeyForProvider } from "./openclaw-runtime-auth.js";
 import type { SsrFPolicy } from "./openclaw-runtime-network.js";

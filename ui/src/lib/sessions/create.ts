@@ -1,4 +1,4 @@
-import { normalizeOptionalString as stringValue } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalString as stringValue } from "@granted/normalization-core/string-coerce";
 import type {
   SessionsCreateParams,
   SessionsCreateResult,

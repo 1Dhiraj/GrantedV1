@@ -4,7 +4,7 @@ import { EventEmitter } from "node:events";
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { PassThrough } from "node:stream";
-import { validateToolArguments } from "@openclaw/llm-core/validation";
+import { validateToolArguments } from "@granted/llm-core/validation";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../../../test/helpers/temp-dir.js";
 import { spawnCommand } from "../../../process/exec.js";

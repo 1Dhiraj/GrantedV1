@@ -3,7 +3,7 @@
  *
  * Builds lightweight SDK-backed send adapters with chunking, sanitization, and media limits.
  */
-import { asOptionalRecord as asRecord } from "@openclaw/normalization-core/record-coerce";
+import { asOptionalRecord as asRecord } from "@granted/normalization-core/record-coerce";
 import { chunkText } from "../../../auto-reply/chunk.js";
 import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import type { OutboundSendDeps } from "../../../infra/outbound/deliver.js";

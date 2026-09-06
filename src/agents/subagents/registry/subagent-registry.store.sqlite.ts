@@ -2,9 +2,9 @@
  * Persists subagent run records in the shared sqlite state database, with
  * query-bearing identity columns indexing canonical normalized payload JSON.
  */
-import { safeParseJson } from "@openclaw/normalization-core";
-import { asFiniteNumber as normalizeFiniteNumber } from "@openclaw/normalization-core/number-coercion";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { safeParseJson } from "@granted/normalization-core";
+import { asFiniteNumber as normalizeFiniteNumber } from "@granted/normalization-core/number-coercion";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import { sql, type Insertable, type Selectable, type Updateable } from "kysely";
 import { executeSqliteQuerySync, getNodeSqliteKysely } from "../../../infra/kysely-sync.js";
 import type { DB as GrantedStateKyselyDatabase } from "../../../state/openclaw-state-db.generated.js";

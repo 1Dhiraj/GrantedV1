@@ -236,7 +236,7 @@ describe("managed npm root", () => {
         {
           private: true,
           dependencies: {
-            "@openclaw/discord": "2026.5.2",
+            "@granted/discord": "2026.5.2",
           },
           devDependencies: {
             fixture: "1.0.0",
@@ -249,7 +249,7 @@ describe("managed npm root", () => {
 
     await upsertManagedNpmRootDependency({
       npmRoot,
-      packageName: "@openclaw/feishu",
+      packageName: "@granted/feishu",
       dependencySpec: "2026.5.2",
     });
 
@@ -258,8 +258,8 @@ describe("managed npm root", () => {
     ).resolves.toEqual({
       private: true,
       dependencies: {
-        "@openclaw/discord": "2026.5.2",
-        "@openclaw/feishu": "2026.5.2",
+        "@granted/discord": "2026.5.2",
+        "@granted/feishu": "2026.5.2",
       },
       devDependencies: {
         fixture: "1.0.0",
@@ -275,7 +275,7 @@ describe("managed npm root", () => {
         {
           private: true,
           dependencies: {
-            "@openclaw/discord": "2026.5.2",
+            "@granted/discord": "2026.5.2",
           },
           overrides: {
             axios: "1.13.6",
@@ -293,7 +293,7 @@ describe("managed npm root", () => {
 
     await upsertManagedNpmRootDependency({
       npmRoot,
-      packageName: "@openclaw/feishu",
+      packageName: "@granted/feishu",
       dependencySpec: "2026.5.4",
       managedOverrides: {
         axios: "1.18.0",
@@ -310,8 +310,8 @@ describe("managed npm root", () => {
     ).resolves.toEqual({
       private: true,
       dependencies: {
-        "@openclaw/discord": "2026.5.2",
-        "@openclaw/feishu": "2026.5.4",
+        "@granted/discord": "2026.5.2",
+        "@granted/feishu": "2026.5.4",
       },
       overrides: {
         "left-pad": "1.3.0",
@@ -333,7 +333,7 @@ describe("managed npm root", () => {
 
     await upsertManagedNpmRootDependency({
       npmRoot,
-      packageName: "@openclaw/feishu",
+      packageName: "@granted/feishu",
       dependencySpec: "2026.5.4",
       omitNpmAliasOverrides: true,
       managedOverrides: {
@@ -686,7 +686,7 @@ describe("managed npm root", () => {
     await expect(
       upsertManagedNpmRootDependency({
         npmRoot,
-        packageName: "@openclaw/feishu",
+        packageName: "@granted/feishu",
         dependencySpec: "2026.5.2",
       }),
     ).rejects.toThrow(/JSON|package\.json|not-json/i);
@@ -698,16 +698,16 @@ describe("managed npm root", () => {
     expect(
       resolveManagedNpmRootDependencySpec({
         parsedSpec: {
-          name: "@openclaw/discord",
-          raw: "@openclaw/discord@stable",
+          name: "@granted/discord",
+          raw: "@granted/discord@stable",
           selector: "stable",
           selectorKind: "tag",
           selectorIsPrerelease: false,
         },
         resolution: {
-          name: "@openclaw/discord",
+          name: "@granted/discord",
           version: "2026.5.2",
-          resolvedSpec: "@openclaw/discord@2026.5.2",
+          resolvedSpec: "@granted/discord@2026.5.2",
           resolvedAt: "2026-05-03T00:00:00.000Z",
         },
       }),
@@ -716,15 +716,15 @@ describe("managed npm root", () => {
     expect(
       resolveManagedNpmRootDependencySpec({
         parsedSpec: {
-          name: "@openclaw/discord",
-          raw: "@openclaw/discord",
+          name: "@granted/discord",
+          raw: "@granted/discord",
           selectorKind: "none",
           selectorIsPrerelease: false,
         },
         resolution: {
-          name: "@openclaw/discord",
+          name: "@granted/discord",
           version: "2026.5.2",
-          resolvedSpec: "@openclaw/discord@2026.5.2",
+          resolvedSpec: "@granted/discord@2026.5.2",
           resolvedAt: "2026-05-03T00:00:00.000Z",
         },
       }),
@@ -739,9 +739,9 @@ describe("managed npm root", () => {
         {
           lockfileVersion: 3,
           packages: {
-            "node_modules/@openclaw/discord": {
+            "node_modules/@granted/discord": {
               version: "2026.5.2",
-              resolved: "https://registry.npmjs.org/@openclaw/discord/-/discord-2026.5.2.tgz",
+              resolved: "https://registry.npmjs.org/@granted/discord/-/discord-2026.5.2.tgz",
               integrity: "sha512-discord",
             },
           },
@@ -754,11 +754,11 @@ describe("managed npm root", () => {
     await expect(
       readManagedNpmRootInstalledDependency({
         npmRoot,
-        packageName: "@openclaw/discord",
+        packageName: "@granted/discord",
       }),
     ).resolves.toEqual({
       version: "2026.5.2",
-      resolved: "https://registry.npmjs.org/@openclaw/discord/-/discord-2026.5.2.tgz",
+      resolved: "https://registry.npmjs.org/@granted/discord/-/discord-2026.5.2.tgz",
       integrity: "sha512-discord",
     });
   });
@@ -1316,8 +1316,8 @@ describe("managed npm root", () => {
         {
           private: true,
           dependencies: {
-            "@openclaw/discord": "2026.5.2",
-            "@openclaw/voice-call": "2026.5.2",
+            "@granted/discord": "2026.5.2",
+            "@granted/voice-call": "2026.5.2",
           },
           devDependencies: {
             fixture: "1.0.0",
@@ -1330,7 +1330,7 @@ describe("managed npm root", () => {
 
     await removeManagedNpmRootDependency({
       npmRoot,
-      packageName: "@openclaw/voice-call",
+      packageName: "@granted/voice-call",
     });
 
     await expect(
@@ -1338,7 +1338,7 @@ describe("managed npm root", () => {
     ).resolves.toEqual({
       private: true,
       dependencies: {
-        "@openclaw/discord": "2026.5.2",
+        "@granted/discord": "2026.5.2",
       },
       devDependencies: {
         fixture: "1.0.0",
@@ -1356,7 +1356,7 @@ describe("managed npm root", () => {
           private: true,
           dependencies: {
             openclaw: "2026.5.4",
-            "@openclaw/discord": "2026.5.4",
+            "@granted/discord": "2026.5.4",
           },
         },
         null,
@@ -1372,13 +1372,13 @@ describe("managed npm root", () => {
             "": {
               dependencies: {
                 openclaw: "2026.5.4",
-                "@openclaw/discord": "2026.5.4",
+                "@granted/discord": "2026.5.4",
               },
             },
             "node_modules/openclaw": {
               version: "2026.5.4",
             },
-            "node_modules/@openclaw/discord": {
+            "node_modules/@granted/discord": {
               version: "2026.5.4",
             },
           },
@@ -1439,7 +1439,7 @@ describe("managed npm root", () => {
       dependencies?: Record<string, string>;
     };
     expect(manifest.dependencies).toEqual({
-      "@openclaw/discord": "2026.5.4",
+      "@granted/discord": "2026.5.4",
     });
     const lockfile = JSON.parse(
       await fs.readFile(path.join(npmRoot, "package-lock.json"), "utf8"),
@@ -1448,10 +1448,10 @@ describe("managed npm root", () => {
       dependencies?: Record<string, unknown>;
     };
     expect(lockfile.packages?.[""]?.dependencies).toEqual({
-      "@openclaw/discord": "2026.5.4",
+      "@granted/discord": "2026.5.4",
     });
     expect(lockfile.packages?.["node_modules/openclaw"]).toBeUndefined();
-    expect(lockfile.packages?.["node_modules/@openclaw/discord"]?.version).toBe("2026.5.4");
+    expect(lockfile.packages?.["node_modules/@granted/discord"]?.version).toBe("2026.5.4");
     expect(lockfile.dependencies?.openclaw).toBeUndefined();
     await expectPathMissing(path.join(npmRoot, "node_modules", "openclaw"));
     for (const binName of ["openclaw", "openclaw.cmd", "openclaw.ps1"]) {

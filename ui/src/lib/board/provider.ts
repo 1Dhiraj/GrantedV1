@@ -4,7 +4,7 @@ import type {
   BoardGetParams,
   BoardOp,
   BoardSnapshot,
-} from "@openclaw/gateway-protocol";
+} from "@granted/gateway-protocol";
 import type { GatewayBrowserClient } from "../../api/gateway.ts";
 import { t } from "../../i18n/index.ts";
 import {

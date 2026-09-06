@@ -1,7 +1,7 @@
 import { randomUUID } from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
-import { requestDiscord } from "@openclaw/discord/api.js";
+import { requestDiscord } from "@granted/discord/api.js";
 import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
 import {
   discordQaScenarioSupport,

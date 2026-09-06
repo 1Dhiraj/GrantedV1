@@ -1,5 +1,5 @@
-import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
-import { normalizeOptionalString as readStringParam } from "@openclaw/normalization-core/string-coerce";
+import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
+import { normalizeOptionalString as readStringParam } from "@granted/normalization-core/string-coerce";
 import {
   resolveMergedModelProviderConfig,
   resolveMergedModelProviderModels,

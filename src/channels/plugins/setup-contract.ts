@@ -1,5 +1,5 @@
-import { parseStrictNonNegativeInteger } from "@openclaw/normalization-core/number-coercion";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { parseStrictNonNegativeInteger } from "@granted/normalization-core/number-coercion";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import { Option } from "commander";
 import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { RuntimeEnv } from "../../runtime.js";

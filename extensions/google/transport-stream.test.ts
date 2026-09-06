@@ -4,7 +4,7 @@ import { createServer } from "node:http";
 import os from "node:os";
 import path from "node:path";
 import { gzipSync } from "node:zlib";
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { toErrorObject as toLintErrorObject } from "granted/plugin-sdk/error-runtime";
 import type { Model, ProviderContext } from "granted/plugin-sdk/llm";
 import { withProviderAcceptanceObserver } from "granted/plugin-sdk/provider-transport-runtime";

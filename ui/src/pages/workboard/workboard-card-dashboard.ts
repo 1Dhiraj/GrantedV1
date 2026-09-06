@@ -1,4 +1,4 @@
-import type { BoardGetParams } from "@openclaw/gateway-protocol";
+import type { BoardGetParams } from "@granted/gateway-protocol";
 import { html, nothing } from "lit";
 import { property, state } from "lit/decorators.js";
 import type { GatewayBrowserClient } from "../../api/gateway.ts";

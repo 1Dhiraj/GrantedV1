@@ -1,6 +1,6 @@
 import path from "node:path";
-import { expectDefined } from "@openclaw/normalization-core";
-import { MAX_TIMER_TIMEOUT_MS } from "@openclaw/normalization-core/number-coercion";
+import { expectDefined } from "@granted/normalization-core";
+import { MAX_TIMER_TIMEOUT_MS } from "@granted/normalization-core/number-coercion";
 // Sessions tool tests cover list/send helpers, announce-target resolution,
 // and assistant-visible text sanitization.
 import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";

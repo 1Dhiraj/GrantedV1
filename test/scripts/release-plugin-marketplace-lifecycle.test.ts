@@ -79,7 +79,7 @@ function writeMarketplaceState(home: string, version: string) {
   fs.mkdirSync(installPath, { recursive: true });
   fs.writeFileSync(
     path.join(installPath, "package.json"),
-    `${JSON.stringify({ name: `@openclaw/${pluginId}`, version })}\n`,
+    `${JSON.stringify({ name: `@granted/${pluginId}`, version })}\n`,
     "utf8",
   );
   fs.writeFileSync(

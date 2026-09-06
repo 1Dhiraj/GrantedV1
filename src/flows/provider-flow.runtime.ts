@@ -1,6 +1,6 @@
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 // Provider flow runtime helpers load provider setup behavior behind runtime imports.
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import * as providerWizard from "../plugins/provider-wizard.js";
 import type { ProviderModelPickerEntry } from "../plugins/provider-wizard.js";

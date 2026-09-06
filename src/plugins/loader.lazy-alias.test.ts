@@ -102,7 +102,7 @@ describe("native plugin alias preparation", () => {
     expect(read.mock.calls.filter(([target]) => target === f.unused)).toEqual([]);
     expect(metadata.load("openclaw/plugin-sdk/used")).toMatchObject({ value: "dist" });
     expect(read.mock.calls.filter(([target]) => target === f.unused)).toHaveLength(1);
-    expect(await metadata.loadEsm("@openclaw/plugin-sdk/used.js")).toMatchObject({ value: "dist" });
+    expect(await metadata.loadEsm("@granted/plugin-sdk/used.js")).toMatchObject({ value: "dist" });
     expect(createRequire(f.entry).resolve("openclaw/plugin-sdk/unused")).toBe(f.unused);
     expect(read.mock.calls.filter(([target]) => target === f.unused)).toHaveLength(1);
   });
@@ -115,8 +115,8 @@ describe("native plugin alias preparation", () => {
         f.root,
         `dist/extensions/demo/eager.${extension}`,
         extension === "cjs"
-          ? 'module.exports = require("@openclaw/plugin-sdk/used");'
-          : 'export { value } from "@openclaw/plugin-sdk/used";',
+          ? 'module.exports = require("@granted/plugin-sdk/used");'
+          : 'export { value } from "@granted/plugin-sdk/used";',
       );
       const read = vi.spyOn(fs, "readFileSync");
       const load = createPluginModuleLoader({ devSourceRoot: f.root });
@@ -127,9 +127,9 @@ describe("native plugin alias preparation", () => {
   );
 
   it.each([
-    { specifier: "@openclaw/retry", target: "dist/retry/index.js" },
+    { specifier: "@granted/retry", target: "dist/retry/index.js" },
     {
-      specifier: "@openclaw/fixture-owner/diagnostic-api.js",
+      specifier: "@granted/fixture-owner/diagnostic-api.js",
       target: "dist/extensions/fixture-owner/diagnostic-api.js",
     },
   ])("defers the full map for the $specifier alias family", ({ specifier, target: artifact }) => {
@@ -138,7 +138,7 @@ describe("native plugin alias preparation", () => {
     writeFile(
       f.root,
       "extensions/fixture-owner/package.json",
-      JSON.stringify({ name: "@openclaw/fixture-owner" }),
+      JSON.stringify({ name: "@granted/fixture-owner" }),
     );
     writeFile(
       f.root,
@@ -165,9 +165,9 @@ describe("native plugin alias preparation", () => {
     const load = createPluginModuleLoader({ devSourceRoot: f.root });
     const metadata = load(f.entry) as { load: (name: string) => unknown };
     expect(metadata.load("node:path")).toHaveProperty("join");
-    expect(() => metadata.load("@openclaw/plugin-sdk-other/used")).toThrow();
-    expect(() => metadata.load("@openclaw/not-a-workspace/used")).toThrow();
-    expect(() => createRequire(outside.entry).resolve("@openclaw/plugin-sdk/used")).toThrow();
+    expect(() => metadata.load("@granted/plugin-sdk-other/used")).toThrow();
+    expect(() => metadata.load("@granted/not-a-workspace/used")).toThrow();
+    expect(() => createRequire(outside.entry).resolve("@granted/plugin-sdk/used")).toThrow();
     expect(read.mock.calls.filter(([target]) => target === f.unused)).toEqual([]);
   });
 
@@ -186,19 +186,19 @@ describe("native plugin alias preparation", () => {
       installOpenClawPluginSdkNativeResolver({ pluginModulePath: pluginEntry });
       const requirePlugin = createRequire(pluginEntry);
       if (resolveFirst) {
-        expect(requirePlugin.resolve("@openclaw/plugin-sdk/used")).toBe(a.used);
+        expect(requirePlugin.resolve("@granted/plugin-sdk/used")).toBe(a.used);
       }
       vi.stubEnv("GRANTED_DEV_SOURCE_ROOT", b.root);
       vi.spyOn(process, "cwd").mockReturnValue(b.root);
       const argv = vi
         .spyOn(process, "argv", "get")
         .mockReturnValue([process.execPath, path.join(b.root, "granted.mjs")]);
-      expect(requirePlugin.resolve("@openclaw/plugin-sdk/used")).toBe(a.used);
+      expect(requirePlugin.resolve("@granted/plugin-sdk/used")).toBe(a.used);
       // Removal is from a new host snapshot, not an in-place artifact freshness poll.
       fs.rmSync(b.unused);
       installOpenClawPluginSdkNativeResolver({ pluginModulePath: pluginEntry });
-      expect(requirePlugin.resolve("@openclaw/plugin-sdk/used")).toBe(b.used);
-      expect(() => requirePlugin.resolve("@openclaw/plugin-sdk/unused")).toThrow();
+      expect(requirePlugin.resolve("@granted/plugin-sdk/used")).toBe(b.used);
+      expect(() => requirePlugin.resolve("@granted/plugin-sdk/unused")).toThrow();
       argv.mockRestore();
     },
   );
@@ -215,7 +215,7 @@ describe("native plugin alias preparation", () => {
       const entry = writeFile(
         external,
         "index.ts",
-        'import { value } from "@openclaw/plugin-sdk/used"; export const marker: string = value;',
+        'import { value } from "@granted/plugin-sdk/used"; export const marker: string = value;',
       );
       writeFile(a.root, "src/plugin-sdk/used.ts", 'export const value = "host-a";');
       writeFile(b.root, "src/plugin-sdk/used.ts", 'export const value = "host-b";');
@@ -253,9 +253,9 @@ describe("native plugin alias preparation", () => {
     const load = createPluginModuleLoader({ devSourceRoot: f.root });
     const metadata = load(f.entry) as { load: (name: string) => unknown };
     vi.stubEnv("GRANTED_ENABLE_PRIVATE_QA_CLI", "1");
-    expect(() => metadata.load("@openclaw/plugin-sdk/qa-runtime")).toThrow();
+    expect(() => metadata.load("@granted/plugin-sdk/qa-runtime")).toThrow();
     installOpenClawPluginSdkNativeResolver({ pluginModulePath: f.entry, devSourceRoot: f.root });
-    expect(metadata.load("@openclaw/plugin-sdk/qa-runtime")).toMatchObject({ privateValue: true });
+    expect(metadata.load("@granted/plugin-sdk/qa-runtime")).toMatchObject({ privateValue: true });
   });
 
   it("retires an unused pending provider on explicit reinstall", () => {
@@ -264,7 +264,7 @@ describe("native plugin alias preparation", () => {
     const read = vi.spyOn(fs, "readFileSync");
     installOpenClawPluginSdkNativeResolver({ pluginModulePath: a.entry, devSourceRoot: a.root });
     installOpenClawPluginSdkNativeResolver({ pluginModulePath: a.entry, devSourceRoot: b.root });
-    expect(createRequire(a.entry).resolve("@openclaw/plugin-sdk/used")).toBe(b.used);
+    expect(createRequire(a.entry).resolve("@granted/plugin-sdk/used")).toBe(b.used);
     expect(read.mock.calls.filter(([target]) => target === a.unused)).toEqual([]);
     expect(read.mock.calls.filter(([target]) => target === b.unused)).toHaveLength(1);
   });
@@ -281,11 +281,11 @@ describe("native plugin alias preparation", () => {
     const external = writeFile(f.root, "external/index.cjs", "module.exports = {};");
     writeFile(f.root, "external/package.json", JSON.stringify({ name: "external-fixture" }));
     installOpenClawPluginSdkNativeResolver({ pluginModulePath: f.entry, devSourceRoot: f.root });
-    expect(createRequire(f.entry)("@openclaw/plugin-sdk/demoted-helper")).toMatchObject({
+    expect(createRequire(f.entry)("@granted/plugin-sdk/demoted-helper")).toMatchObject({
       privateValue: true,
     });
     installOpenClawPluginSdkNativeResolver({ pluginModulePath: external, devSourceRoot: f.root });
-    expect(() => createRequire(external).resolve("@openclaw/plugin-sdk/demoted-helper")).toThrow();
+    expect(() => createRequire(external).resolve("@granted/plugin-sdk/demoted-helper")).toThrow();
   });
 
   it.each([false, true])(
@@ -293,7 +293,7 @@ describe("native plugin alias preparation", () => {
     (authorized) => {
       const f = fixture();
       vi.stubEnv("GRANTED_ENABLE_PRIVATE_QA_CLI", "0");
-      const packageName = "@openclaw/llama-cpp-provider";
+      const packageName = "@granted/llama-cpp-provider";
       const packageRoot = path.join(f.root, "node_modules", packageName);
       const manifest = writeFile(
         packageRoot,
@@ -312,7 +312,7 @@ describe("native plugin alias preparation", () => {
         JSON.stringify({ name: authorized ? "external-fixture" : packageName }),
       );
       const resolve = () =>
-        createRequire(entry).resolve("@openclaw/plugin-sdk/ssrf-runtime-internal");
+        createRequire(entry).resolve("@granted/plugin-sdk/ssrf-runtime-internal");
       if (authorized) {
         expect(resolve()).toBe(target);
       } else {
@@ -334,7 +334,7 @@ describe("native plugin alias preparation", () => {
       const entry = writeFile(
         a.root,
         "extensions/demo/transform.ts",
-        'import { value } from "@openclaw/plugin-sdk/used"; export const marker: string = value;',
+        'import { value } from "@granted/plugin-sdk/used"; export const marker: string = value;',
       );
       const read = vi.spyOn(fs, "readFileSync");
       const loader = getCachedPluginModuleLoader({
@@ -373,7 +373,7 @@ describe("native plugin alias preparation", () => {
       api.registerCli(({ program }) => program.command("late").action(async () => {
         const results = await Promise.allSettled([
           Promise.resolve().then(() => require("granted/plugin-sdk/used")),
-          import("@openclaw/plugin-sdk/unused.js"),
+          import("@granted/plugin-sdk/unused.js"),
         ]);
         require("node:fs").writeFileSync(${JSON.stringify(observed)}, JSON.stringify(results.map(result =>
           result.status === "fulfilled" ? result.value.value : { error: result.reason.code, message: result.reason.message }
@@ -485,7 +485,7 @@ describe("native plugin alias preparation", () => {
     );
     withPluginCache(createPluginCache(), () => {
       installOpenClawPluginSdkNativeResolver({ pluginModulePath: f.entry, devSourceRoot: f.root });
-      expect(() => createRequire(f.entry).resolve("@openclaw/plugin-sdk/unused")).toThrow();
+      expect(() => createRequire(f.entry).resolve("@granted/plugin-sdk/unused")).toThrow();
     });
   });
 

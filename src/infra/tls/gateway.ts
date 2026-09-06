@@ -4,7 +4,7 @@ import type { Stats } from "node:fs";
 import fs from "node:fs/promises";
 import path from "node:path";
 import tls from "node:tls";
-import { err, ok, type Result } from "@openclaw/normalization-core/result";
+import { err, ok, type Result } from "@granted/normalization-core/result";
 import { normalizeTlsFingerprint } from "../../../packages/gateway-client/src/client-address-utils.js";
 import type { GatewayTlsConfig } from "../../config/types.gateway.js";
 import { runExec } from "../../process/exec.js";

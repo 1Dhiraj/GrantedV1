@@ -2,7 +2,7 @@
 import { chmodSync, existsSync, mkdirSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
-import { getApiProvider } from "@openclaw/ai/internal/runtime";
+import { getApiProvider } from "@granted/ai/internal/runtime";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   loadPersistedPluginModelCatalogs,

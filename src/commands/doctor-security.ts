@@ -1,5 +1,5 @@
 /** Security warnings for gateway exposure, exec policy drift, channel DMs, and plaintext secrets. */
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { note } from "../../packages/terminal-core/src/note.js";
 import { listReadOnlyChannelPluginsForConfig } from "../channels/plugins/read-only.js";
 import { formatCliCommand } from "../cli/command-format.js";

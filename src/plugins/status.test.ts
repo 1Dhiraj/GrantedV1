@@ -1,6 +1,6 @@
 // Covers plugin status reporting from config, discovery, and registry state.
 
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { clearPluginMetadataLifecycleCaches } from "./plugin-metadata-lifecycle.js";
 import {

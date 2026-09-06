@@ -1,5 +1,5 @@
 /** Detects whether the current process is running inside a launchd service label. */
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { isGatewayServiceMarker } from "./constants.js";
 
 type CurrentProcessLaunchdServiceLabelOptions = {

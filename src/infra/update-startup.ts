@@ -1,10 +1,10 @@
 // Runs startup update checks and optional auto-update handoff.
 import { createHash, randomUUID } from "node:crypto";
-import { extractErrorCode } from "@openclaw/normalization-core/error-coercion";
+import { extractErrorCode } from "@granted/normalization-core/error-coercion";
 import {
   asDateTimestampMs,
   timestampMsToIsoString,
-} from "@openclaw/normalization-core/number-coercion";
+} from "@granted/normalization-core/number-coercion";
 import type {
   UpdateAvailable,
   UpdateScheduleState,

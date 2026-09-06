@@ -1,5 +1,5 @@
-import { asFiniteNumber } from "@openclaw/normalization-core/number-coercion";
-import { asNonArrayRecord, asOptionalRecord } from "@openclaw/normalization-core/record-coerce";
+import { asFiniteNumber } from "@granted/normalization-core/number-coercion";
+import { asNonArrayRecord, asOptionalRecord } from "@granted/normalization-core/record-coerce";
 import type { ImageLightboxItem } from "../../../components/image-lightbox.ts";
 import { t } from "../../../i18n/index.ts";
 import type { MessageContentItem } from "../../../lib/chat/chat-types.ts";

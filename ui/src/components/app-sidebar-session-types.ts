@@ -1,4 +1,4 @@
-import { gatewayOriginScope } from "@openclaw/gateway-client/browser";
+import { gatewayOriginScope } from "@granted/gateway-client/browser";
 import type { SessionParticipant } from "../../../packages/gateway-protocol/src/schema/session-participant.js";
 import type { SessionPlacementDiskSpace } from "../../../packages/gateway-protocol/src/schema/session-placement.js";
 import type { SessionCatalogPullRequestSummary } from "../../../packages/gateway-protocol/src/schema/sessions-catalog.js";

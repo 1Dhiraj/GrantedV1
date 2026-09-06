@@ -1,5 +1,5 @@
 /** Shared runtime helpers for embedding provider lookup across core and plugin capabilities. */
-import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
+import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   resolvePluginCapabilityProvider,

@@ -1,6 +1,6 @@
-import type { Context, Model } from "@openclaw/llm-core";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
-import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
+import type { Context, Model } from "@granted/llm-core";
+import { isRecord } from "@granted/normalization-core/record-coerce";
+import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
 import { getAiTransportHost } from "../host.js";
 import type { CodeModeToolSurfaceObservation } from "../provider-options.js";
 import { clampOpenAIPromptCacheKey } from "../providers/openai-prompt-cache.js";

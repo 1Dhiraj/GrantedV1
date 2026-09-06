@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
 import type { DatabaseSync } from "node:sqlite";
-import { safeParseJson } from "@openclaw/normalization-core/json-coercion";
+import { safeParseJson } from "@granted/normalization-core/json-coercion";
 import { lazyCompile } from "../../../packages/gateway-protocol/src/protocol-validator.js";
 import { SessionsGoalMutationResultSchema } from "../../../packages/gateway-protocol/src/schema/sessions-goal.js";
 import {

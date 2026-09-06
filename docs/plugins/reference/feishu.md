@@ -11,7 +11,7 @@ OpenClaw Feishu/Lark channel plugin for chats and workplace tools (community mai
 
 ## Distribution
 
-- Package: `@openclaw/feishu`
+- Package: `@granted/feishu`
 - Install route: npm; ClawHub
 
 ## Surface

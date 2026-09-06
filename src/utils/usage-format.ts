@@ -10,11 +10,11 @@ import {
   normalizeResolvedPricing,
   type ModelCostConfig,
   type RawModelCostConfig,
-} from "@openclaw/llm-core";
-import { buildModelCatalogRef } from "@openclaw/model-catalog-core/model-catalog-refs";
-import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
-import { normalizeBuiltInProviderModelId } from "@openclaw/model-catalog-core/provider-model-id-normalization";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+} from "@granted/llm-core";
+import { buildModelCatalogRef } from "@granted/model-catalog-core/model-catalog-refs";
+import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
+import { normalizeBuiltInProviderModelId } from "@granted/model-catalog-core/provider-model-id-normalization";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import {
   listAgentEntries,
   resolveAgentDir,
@@ -35,7 +35,7 @@ import {
   resolveModelPricingContext,
 } from "../model-catalog/pricing.js";
 export { formatTokenCount } from "./token-format.js";
-export type { ModelCostConfig } from "@openclaw/llm-core";
+export type { ModelCostConfig } from "@granted/llm-core";
 
 type ModelKeyNormalizer = (provider: string, model: string) => string;
 type ModelsJsonCostCache = {

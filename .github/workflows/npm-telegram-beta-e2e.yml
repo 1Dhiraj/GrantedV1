@@ -565,7 +565,7 @@ jobs:
             --source-sha "$SELECTED_SHA" \
             --candidate-version "$CANDIDATE_VERSION" \
             --manifest-sha256 "$EXPECTED_MANIFEST_SHA256" \
-            --required-packages-json '["@openclaw/codex"]'
+            --required-packages-json '["@granted/codex"]'
 
       - name: Run package Telegram E2E
         id: run_lane

@@ -1,9 +1,9 @@
-import { isPromiseLike } from "@openclaw/normalization-core/promise-like";
+import { isPromiseLike } from "@granted/normalization-core/promise-like";
 import {
   normalizeOptionalLowercaseString,
   readStringValue,
-} from "@openclaw/normalization-core/string-coerce";
-import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+} from "@granted/normalization-core/string-coerce";
+import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import { resolveControlUiSessionLinkBase } from "../config/control-ui-link-base.js";
 import { emitAgentActivityEvent, type AgentItemEventData } from "../infra/agent-activity-events.js";
 import { emitAgentEvent } from "../infra/agent-events.js";

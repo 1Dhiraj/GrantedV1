@@ -4,8 +4,8 @@
  * Manages live capture, manual import, summarization, and process-local transcript sessions.
  */
 import path from "node:path";
-import { asOptionalRecord } from "@openclaw/normalization-core/record-coerce";
-import { uniqueStrings } from "@openclaw/normalization-core/string-normalization";
+import { asOptionalRecord } from "@granted/normalization-core/record-coerce";
+import { uniqueStrings } from "@granted/normalization-core/string-normalization";
 import { Type } from "typebox";
 import { sanitizeTerminalText } from "../../../packages/terminal-core/src/safe-text.js";
 import { resolveStateDir } from "../../config/paths.js";

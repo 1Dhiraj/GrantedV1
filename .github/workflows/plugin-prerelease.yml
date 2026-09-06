@@ -885,7 +885,7 @@ jobs:
 
           if [ "$config_status" -eq 0 ]; then
             set +e
-            npm exec --yes "@openclaw/plugin-inspector@${OPENCLAW_PLUGIN_INSPECTOR_VERSION}" -- ci \
+            npm exec --yes "@granted/plugin-inspector@${OPENCLAW_PLUGIN_INSPECTOR_VERSION}" -- ci \
               --config plugin-inspector.config.json \
               --openclaw "$PWD" \
               --out "$OPENCLAW_PLUGIN_INSPECTOR_ROOT/reports" \
@@ -914,7 +914,7 @@ jobs:
           const lines = [
             "## Plugin Inspector Advisory",
             "",
-            `Inspector: @openclaw/plugin-inspector@${process.env.OPENCLAW_PLUGIN_INSPECTOR_VERSION}`,
+            `Inspector: @granted/plugin-inspector@${process.env.OPENCLAW_PLUGIN_INSPECTOR_VERSION}`,
             `Config exit code: ${configExitCode}`,
             `Exit code: ${exitCode}`,
           ];

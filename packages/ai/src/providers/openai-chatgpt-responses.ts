@@ -1,8 +1,8 @@
 // OpenAI ChatGPT Responses provider handles ChatGPT-authenticated response streams.
 import type * as NodeOs from "node:os";
 import type * as NodeZlib from "node:zlib";
-import { toErrorObject } from "@openclaw/normalization-core/error-coercion";
-import { resolveTimerTimeoutMs } from "@openclaw/normalization-core/number-coercion";
+import { toErrorObject } from "@granted/normalization-core/error-coercion";
+import { resolveTimerTimeoutMs } from "@granted/normalization-core/number-coercion";
 import type {
   Tool as OpenAITool,
   ResponseCreateParamsStreaming,

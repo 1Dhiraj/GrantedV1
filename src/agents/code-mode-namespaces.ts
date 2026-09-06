@@ -3,7 +3,7 @@
  * namespaced tool scopes here; code mode receives descriptors, virtual API
  * files, and a guarded invocation runtime.
  */
-import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import { tokTypes } from "acorn";
 import { isRecord } from "../../packages/normalization-core/src/record-coerce.js";
 import type { PluginToolMcpMeta } from "../plugins/tool-metadata.js";

@@ -1,4 +1,4 @@
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import { dispatchWidgetPrompt } from "../../components/mcp-app-security.ts";
 import { openExternalUrlSafe } from "../open-external-url.ts";
 

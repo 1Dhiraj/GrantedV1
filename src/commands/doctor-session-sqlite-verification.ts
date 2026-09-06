@@ -1,6 +1,6 @@
 /** Offline destination ownership and conservative adoption of historical import evidence. */
 import fs from "node:fs";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import { withSqliteSessionImportStage } from "../config/sessions/session-accessor.sqlite-import-stage.js";
 import { getSessionKysely } from "../config/sessions/session-accessor.sqlite-scope.js";
 import { readFileDescriptorBoundedSync } from "../infra/boundary-file-read.js";

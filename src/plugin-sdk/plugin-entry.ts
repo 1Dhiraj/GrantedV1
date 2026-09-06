@@ -185,7 +185,7 @@ export type {
   UnifiedModelCatalogEntry,
   UnifiedModelCatalogKind,
   UnifiedModelCatalogSource,
-} from "@openclaw/model-catalog-core/model-catalog-types";
+} from "@granted/model-catalog-core/model-catalog-types";
 
 export {
   buildJsonPluginConfigSchema,

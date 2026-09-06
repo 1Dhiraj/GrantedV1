@@ -1,6 +1,6 @@
 /* @vitest-environment jsdom */
 
-import { GatewayProtocolRequestError } from "@openclaw/gateway-client/browser";
+import { GatewayProtocolRequestError } from "@granted/gateway-client/browser";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import type { AuditRunInspectResult } from "../../../../packages/gateway-protocol/src/schema/audit-run.js";
 import { GatewayRequestError, type GatewayBrowserClient } from "../../api/gateway.ts";

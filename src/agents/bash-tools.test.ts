@@ -1,6 +1,6 @@
 /** Integration tests for the public Bash/process tool barrel and shared tool factory. */
 import path from "node:path";
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { drainFormattedSystemEvents } from "../auto-reply/reply/session-system-events.js";
 import type { GrantedConfig } from "../config/config.js";

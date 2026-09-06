@@ -1,6 +1,6 @@
 // Bridges TUI chat requests to gateway session APIs.
 import { randomUUID } from "node:crypto";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { gatewayOriginScope } from "../../packages/gateway-client/src/gateway-origin-scope.js";
 import {
   GATEWAY_CLIENT_CAPS,

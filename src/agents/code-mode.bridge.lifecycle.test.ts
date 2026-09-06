@@ -1,7 +1,7 @@
 /** Subscribed embedded tool lifecycles, including real QuickJS bridge coverage. */
 import { getEventListeners } from "node:events";
 import path from "node:path";
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { createDeferred } from "../../test/helpers/promise.js";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";

@@ -1,5 +1,5 @@
 // Detects dangerous config names used by validation and warnings.
-import { asNullableRecord } from "@openclaw/normalization-core/record-coerce";
+import { asNullableRecord } from "@granted/normalization-core/record-coerce";
 import { asBoolean } from "../utils/boolean.js";
 import type { GrantedConfig } from "./config.js";
 

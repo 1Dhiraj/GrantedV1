@@ -1,8 +1,8 @@
 // Logger implementation writes structured log output with redaction and transports.
 import fs from "node:fs";
 import path from "node:path";
-import { expectDefined } from "@openclaw/normalization-core";
-import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+import { expectDefined } from "@granted/normalization-core";
+import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import { Logger as TsLogger } from "tslog";
 import type { GrantedConfig } from "../config/types.js";
 import { hasInternalDiagnosticEventInterest } from "../infra/diagnostic-event-listener-presence.js";

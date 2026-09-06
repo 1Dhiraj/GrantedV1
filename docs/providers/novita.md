@@ -8,7 +8,7 @@ title: "NovitaAI"
 
 NovitaAI is a hosted AI infrastructure provider with an OpenAI-compatible API.
 OpenClaw provides NovitaAI through the official external
-`@openclaw/novita-provider` plugin. Model refs use the
+`@granted/novita-provider` plugin. Model refs use the
 `novita/deepseek/deepseek-v4-pro` form.
 
 ## Setup
@@ -16,7 +16,7 @@ OpenClaw provides NovitaAI through the official external
 Install the plugin and restart the Gateway:
 
 ```bash
-openclaw plugins install @openclaw/novita-provider
+openclaw plugins install @granted/novita-provider
 openclaw gateway restart
 ```
 
@@ -36,7 +36,7 @@ export NOVITA_API_KEY="<your-novita-api-key>" # pragma: allowlist secret
 
 | Setting       | Value                             |
 | ------------- | --------------------------------- |
-| Plugin        | `@openclaw/novita-provider`       |
+| Plugin        | `@granted/novita-provider`       |
 | Provider id   | `novita`                          |
 | Aliases       | `novita-ai`, `novitaai`           |
 | Base URL      | `https://api.novita.ai/openai/v1` |

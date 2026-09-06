@@ -1,5 +1,5 @@
-import { isContextOverflow } from "@openclaw/ai/internal/runtime";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { isContextOverflow } from "@granted/ai/internal/runtime";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { capCompactionSummary } from "../../../packages/agent-core/src/harness/compaction/compaction.js";
 import { InvalidSummaryOutputError } from "../../../packages/agent-core/src/harness/types.js";
 import type { AssistantMessage } from "../../llm/types.js";

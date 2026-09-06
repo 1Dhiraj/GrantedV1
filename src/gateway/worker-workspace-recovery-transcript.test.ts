@@ -1,5 +1,5 @@
 import fs from "node:fs/promises";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import { afterEach, describe, expect, it } from "vitest";
 import {
   loadTranscriptEvents,

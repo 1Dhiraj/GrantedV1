@@ -1,7 +1,7 @@
 // Session ids deliberately use per-tab storage: attach is a takeover, so shared
 // local storage could let one Control UI window steal another window's shells.
 
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import type {
   TerminalPanelAction,
   TerminalPanelCatalogReference,

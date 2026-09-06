@@ -108,7 +108,7 @@ test.each([".clawhub", ".clawdhub"])(
       localModifications: false,
       status: "update-available",
       update: {
-        command: ["openclaw", "skills", "update", "@openclaw/release-validation", "--global"],
+        command: ["openclaw", "skills", "update", "@granted/release-validation", "--global"],
       },
     });
 
@@ -141,7 +141,7 @@ test.each([".clawhub", ".clawdhub"])(
           "openclaw",
           "skills",
           "update",
-          "@openclaw/release-validation",
+          "@granted/release-validation",
           "--global",
           "--force",
         ],

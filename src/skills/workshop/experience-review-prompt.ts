@@ -1,5 +1,5 @@
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
-import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+import { isRecord } from "@granted/normalization-core/record-coerce";
+import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import type { RunSkillUsage } from "../runtime/run-usage.js";
 
 const EXPERIENCE_REVIEW_MAX_SKILL_ENTRIES = 50;

@@ -509,7 +509,7 @@ fs.writeFileSync(
   path.join(root, "package.json"),
   `${JSON.stringify(
     {
-      name: "@openclaw/brave-plugin",
+      name: "@granted/brave-plugin",
       version,
       openclaw: { extensions: ["./index.js"] },
     },
@@ -551,7 +551,7 @@ fs.writeFileSync(
 );
 NODE
     tar -czf "$tarball" -C "$fixture_root" package
-    registry_args+=("@openclaw/brave-plugin" "$candidate_version" "$tarball")
+    registry_args+=("@granted/brave-plugin" "$candidate_version" "$tarball")
   fi
 
   if [ "${#registry_args[@]}" -eq 0 ]; then
@@ -1342,9 +1342,9 @@ if [ -n "${OPENCLAW_CLAWHUB_URL:-}" ]; then
   clawhub_security_mode="$(
     node scripts/e2e/lib/package-compat.mjs --clawhub-release-security-mode "$candidate_version"
   )"
-  prepublish_package="@openclaw/whatsapp"
+  prepublish_package="@granted/whatsapp"
   if configured_plugin_installs_enabled; then
-    prepublish_package="@openclaw/matrix"
+    prepublish_package="@granted/matrix"
   fi
   clawhub_request_attempts=1
   if [ "$UPDATE_RESTART_MODE" = "auto-auth" ]; then

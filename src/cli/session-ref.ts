@@ -1,8 +1,8 @@
-import { isSensitiveUrlQueryParamName } from "@openclaw/net-policy/redact-sensitive-url";
+import { isSensitiveUrlQueryParamName } from "@granted/net-policy/redact-sensitive-url";
 import {
   type ControlUiSessionPathTarget,
   parseControlUiSessionPath,
-} from "@openclaw/session-url-contract/parse";
+} from "@granted/session-url-contract/parse";
 import { sanitizeTerminalText } from "../../packages/terminal-core/src/safe-text.js";
 import { buildGatewayConnectionDetailsWithResolvers } from "../gateway/connection-details.js";
 import { normalizeWebSocketProtocol } from "../gateway/websocket-protocol.js";

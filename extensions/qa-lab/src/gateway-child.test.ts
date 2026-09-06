@@ -2252,7 +2252,7 @@ describe("qa bundled plugin dir", () => {
     );
     await writeFile(
       path.join(repoRoot, "dist", "extensions", "qa-channel", "package.json"),
-      JSON.stringify({ name: "@openclaw/qa-channel", type: "module" }, null, 2),
+      JSON.stringify({ name: "@granted/qa-channel", type: "module" }, null, 2),
       "utf8",
     );
     await writeFile(
@@ -2355,7 +2355,7 @@ describe("qa bundled plugin dir", () => {
     );
     await writeFile(
       path.join(repoRoot, "dist-runtime", "extensions", "runtime-only", "package.json"),
-      JSON.stringify({ name: "@openclaw/runtime-only", type: "module" }, null, 2),
+      JSON.stringify({ name: "@granted/runtime-only", type: "module" }, null, 2),
       "utf8",
     );
     await writeFile(
@@ -2467,7 +2467,7 @@ describe("qa bundled plugin dir", () => {
     await mkdir(path.join(repoRoot, "extensions", "qa-channel"), { recursive: true });
     await writeFile(
       path.join(repoRoot, "extensions", "qa-channel", "package.json"),
-      JSON.stringify({ name: "@openclaw/qa-channel", type: "module" }, null, 2),
+      JSON.stringify({ name: "@granted/qa-channel", type: "module" }, null, 2),
       "utf8",
     );
     await writeFile(

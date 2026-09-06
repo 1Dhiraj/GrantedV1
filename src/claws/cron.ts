@@ -1,4 +1,4 @@
-import { coerceErrorMessage } from "@openclaw/normalization-core/error-coercion";
+import { coerceErrorMessage } from "@granted/normalization-core/error-coercion";
 import { resolveCronJobConfigRevision } from "../cron/config-revision.js";
 import { normalizeCronJobCreate } from "../cron/normalize.js";
 import { createTrustedCronScheduledToolPolicy } from "../cron/scheduled-tool-policy.js";

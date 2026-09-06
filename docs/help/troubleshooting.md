@@ -95,7 +95,7 @@ Fix in the plugin package:
 
 ```json
 {
-  "name": "@openclaw/my-plugin",
+  "name": "@granted/my-plugin",
   "version": "1.2.3",
   "openclaw": {
     "extensions": ["./dist/index.js"]
@@ -111,14 +111,14 @@ Update finishes but plugins are stale, disabled, or show `blocked by install
 policy`, `install policy failed closed`, or `Disabled "<plugin>" after plugin
 update failure`: check `security.installPolicy`.
 
-Install policy runs on plugin installs and updates. `@openclaw/*` plugin
+Install policy runs on plugin installs and updates. `@granted/*` plugin
 versions normally move with the OpenClaw release, so an OpenClaw update can
 need a matching plugin update during post-update sync.
 
 Avoid these policy shapes unless you also maintain the matching upgrade rule:
 
 - Freezing OpenClaw-owned plugins to one exact old version (for example, only
-  `@openclaw/*@2026.5.3`).
+  `@granted/*@2026.5.3`).
 - Blocking by source kind alone (every npm, network, or `request.mode:
 "update"` request).
 - Treating the policy command as optional: when `security.installPolicy` is
@@ -127,7 +127,7 @@ Avoid these policy shapes unless you also maintain the matching upgrade rule:
 - Approving versions without checking the request's `openclawVersion` against
   plugin candidate metadata.
 
-Prefer rules that allow trusted `@openclaw/*` updates compatible with the
+Prefer rules that allow trusted `@granted/*` updates compatible with the
 current host, instead of pinning one release forever. If you block npm by
 default, add a narrow exception for the plugin ids you use, and apply the same
 trust rule to `request.mode: "update"` as to installs.

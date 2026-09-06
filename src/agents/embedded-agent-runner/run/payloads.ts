@@ -1,7 +1,7 @@
 /**
  * Builds embedded-agent payload objects from attempt inputs and outcomes.
  */
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { buildCodexLoginRecovery } from "../../../auto-reply/codex-login-recovery.js";
 import type { SourceReplyDeliveryMode } from "../../../auto-reply/get-reply-options.types.js";
 import {

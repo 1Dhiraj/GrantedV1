@@ -1,6 +1,6 @@
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 // Directive tag helpers parse inline directive tags from user text.
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { findCodeRegions, isInsideCode } from "../shared/text/code-regions.js";
 
 export type InlineDirectiveParseResult = {

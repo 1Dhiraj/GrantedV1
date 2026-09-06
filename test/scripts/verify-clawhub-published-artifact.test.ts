@@ -66,10 +66,10 @@ function writeManifest(mode: "publish" | "configure-only", artifact: Uint8Array,
       clawhubToolchainIntegrity,
       clawhubToolchainSha256,
       clawhubToolchainVersion,
-      requestedPlugins: ["@openclaw/meta"],
+      requestedPlugins: ["@granted/meta"],
       entries: [
         {
-          packageName: "@openclaw/meta",
+          packageName: "@granted/meta",
           version: "2026.7.1-beta.3",
           packageDir: "extensions/meta",
           publishTag: "beta",
@@ -111,7 +111,7 @@ function metadataResponse(artifact: Uint8Array, body?: BodyInit) {
   return new Response(
     body ??
       JSON.stringify({
-        package: { name: "@openclaw/meta" },
+        package: { name: "@granted/meta" },
         version: "2026.7.1-beta.3",
         artifact: {
           kind: "npm-pack",
@@ -165,7 +165,7 @@ describe("ClawHub published artifact verification", () => {
     const fetchImpl = registryFetch(artifact);
     const evidence = await verifyPublishedClawHubPackage({
       expectedArtifactDir: writeExpectedArtifact(artifact),
-      packageName: "@openclaw/meta",
+      packageName: "@granted/meta",
       packageVersion: "2026.7.1-beta.3",
       publishTag: "beta",
       registry: "https://clawhub.example",
@@ -178,7 +178,7 @@ describe("ClawHub published artifact verification", () => {
       publicationAuthentication: "not-verified",
       expectedArtifact: identity(artifact),
       package: {
-        packageName: "@openclaw/meta",
+        packageName: "@granted/meta",
         registrySha256: identity(artifact).sha256,
         registrySize: artifact.byteLength,
       },
@@ -209,7 +209,7 @@ describe("ClawHub published artifact verification", () => {
     await expect(
       verifyPublishedClawHubPackage({
         expectedArtifactDir: writeExpectedArtifact(artifact),
-        packageName: "@openclaw/meta",
+        packageName: "@granted/meta",
         packageVersion: "2026.7.1-beta.3",
         publishTag: "beta",
         registry: "https://clawhub.example",
@@ -227,7 +227,7 @@ describe("ClawHub published artifact verification", () => {
     await expect(
       verifyPublishedClawHubPackage({
         expectedArtifactDir: ambiguous,
-        packageName: "@openclaw/meta",
+        packageName: "@granted/meta",
         packageVersion: "2026.7.1-beta.3",
         publishTag: "beta",
         retryOptions: { fetchImpl, attempts: 1, delayMs: 1 },
@@ -244,7 +244,7 @@ describe("ClawHub published artifact verification", () => {
     await expect(
       verifyPublishedClawHubPackage({
         expectedArtifactDir: artifactDir,
-        packageName: "@openclaw/meta",
+        packageName: "@granted/meta",
         packageVersion: "2026.7.1-beta.3",
         publishTag: "beta",
         retryOptions: { fetchImpl, attempts: 1, delayMs: 1 },
@@ -270,18 +270,18 @@ describe("ClawHub published artifact verification", () => {
       clawhubToolchainIntegrity,
       clawhubToolchainSha256,
       clawhubToolchainVersion,
-      requestedPlugins: ["@openclaw/meta"],
+      requestedPlugins: ["@granted/meta"],
       verificationMode: "postpublish",
       packages: [
         {
-          packageName: "@openclaw/meta",
+          packageName: "@granted/meta",
           registrySha256: identity(artifact).sha256,
           registrySize: artifact.byteLength,
           npmIntegrity: identity(artifact).npmIntegrity,
           npmShasum: identity(artifact).npmShasum,
           artifactMetadata: {
             kind: "npm-pack",
-            packageName: "@openclaw/meta",
+            packageName: "@granted/meta",
             version: "2026.7.1-beta.3",
           },
         },
@@ -328,7 +328,7 @@ describe("ClawHub published artifact verification", () => {
         retryOptions: { fetchImpl, attempts: 1, delayMs: 1 },
       }),
     ).rejects.toThrow(
-      "@openclaw/meta@2026.7.1-beta.3 ClawHub artifact did not stabilize after 1 attempts; last failure @openclaw/meta ClawHub tag beta mismatch",
+      "@granted/meta@2026.7.1-beta.3 ClawHub artifact did not stabilize after 1 attempts; last failure @granted/meta ClawHub tag beta mismatch",
     );
     expect(fetchImpl).toHaveBeenCalledTimes(1);
     expect(fetchImpl.mock.calls.some(([url]) => String(url).includes("/artifact"))).toBe(false);

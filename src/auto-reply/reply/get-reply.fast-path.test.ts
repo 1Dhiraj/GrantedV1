@@ -1,6 +1,6 @@
 // Tests get-reply fast-path command handling before full agent dispatch.
 import path from "node:path";
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { testing as cliBackendsTesting } from "../../agents/cli-backends.test-support.js";
 import type { GrantedConfig } from "../../config/config.js";

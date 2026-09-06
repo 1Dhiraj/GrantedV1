@@ -2,7 +2,7 @@
 // Combines configured agents and existing on-disk agent state for lightweight UI use.
 import fs from "node:fs";
 import path from "node:path";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { listAgentEntries, tryResolveDefaultAgentId } from "../agents/agent-scope.js";
 import { tryResolveLegacyCompatibilityAgentId } from "../config/legacy.default-agent-owner.js";
 import { resolveStateDir } from "../config/paths.js";

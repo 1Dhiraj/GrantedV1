@@ -1,5 +1,5 @@
 /** Module-level session MCP runtime manager entry APIs. */
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import type { SessionToolOverrides } from "../config/sessions/types.js";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { PluginManifestRegistry } from "../plugins/manifest-registry.js";

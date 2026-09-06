@@ -10,7 +10,7 @@ import {
   type OAuthClientInformationMixed,
   type OAuthTokens,
 } from "@modelcontextprotocol/sdk/shared/auth.js";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import {
   executeSqliteQuerySync,
   executeSqliteQueryTakeFirstSync,

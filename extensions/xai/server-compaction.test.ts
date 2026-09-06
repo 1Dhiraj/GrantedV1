@@ -2,7 +2,7 @@ import {
   captureOpenAIResponsesCompaction,
   createOpenAIResponsesTransportStreamFn,
   requestPreparedOpenAIResponsesCompaction,
-} from "@openclaw/ai/transports";
+} from "@granted/ai/transports";
 import type { StreamFn } from "granted/plugin-sdk/agent-core";
 import type { AssistantMessage, Context, Model } from "granted/plugin-sdk/llm";
 import { beforeEach, describe, expect, it, vi } from "vitest";

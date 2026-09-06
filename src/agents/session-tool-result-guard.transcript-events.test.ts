@@ -1,6 +1,6 @@
 // Verifies guarded session managers emit transcript update events with stable sequence ids.
 import path from "node:path";
-import { asNullableRecord } from "@openclaw/normalization-core/record-coerce";
+import { asNullableRecord } from "@granted/normalization-core/record-coerce";
 import type { AgentMessage } from "granted/plugin-sdk/agent-core";
 import { SessionManager } from "granted/plugin-sdk/agent-sessions";
 import { upsertSessionEntry } from "granted/plugin-sdk/session-store-runtime";

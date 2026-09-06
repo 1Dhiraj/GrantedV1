@@ -1,8 +1,8 @@
 /**
  * Normalizes OpenAI Responses reasoning/tool-call history for safe replay.
  */
-import { replaceCompactionReplayOwnerContent } from "@openclaw/ai/transports";
-import { parseDateFirstTimestampMs } from "@openclaw/normalization-core/number-coercion";
+import { replaceCompactionReplayOwnerContent } from "@granted/ai/transports";
+import { parseDateFirstTimestampMs } from "@granted/normalization-core/number-coercion";
 import { sha256HexPrefixCore } from "../../infra/crypto-digest.js";
 import type { AgentMessage } from "../runtime/index.js";
 import { rewriteToolResultIds } from "../tool-call-id.js";

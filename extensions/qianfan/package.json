@@ -1,5 +1,5 @@
 {
-  "name": "@openclaw/qianfan-provider",
+  "name": "@granted/qianfan-provider",
   "version": "2026.8.1",
   "description": "OpenClaw Qianfan provider plugin.",
   "repository": {
@@ -8,15 +8,15 @@
   },
   "type": "module",
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*"
+    "@granted/plugin-sdk": "workspace:*"
   },
   "openclaw": {
     "extensions": [
       "./index.ts"
     ],
     "install": {
-      "clawhubSpec": "clawhub:@openclaw/qianfan-provider",
-      "npmSpec": "@openclaw/qianfan-provider",
+      "clawhubSpec": "clawhub:@granted/qianfan-provider",
+      "npmSpec": "@granted/qianfan-provider",
       "defaultChoice": "npm",
       "minHostVersion": ">=2026.6.8"
     },

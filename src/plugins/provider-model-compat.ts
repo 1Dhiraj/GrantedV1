@@ -1,6 +1,6 @@
 // Normalizes provider model compatibility metadata from plugins.
-import { resolveUnsupportedToolSchemaKeywords } from "@openclaw/ai/internal/openai";
-import { resolveOpenAICompletionsCompat } from "@openclaw/ai/transports";
+import { resolveUnsupportedToolSchemaKeywords } from "@granted/ai/internal/openai";
+import { resolveOpenAICompletionsCompat } from "@granted/ai/transports";
 import { resolveProviderRequestCapabilities } from "../agents/provider-attribution.js";
 import { getModelProviderRequestRouteFacts } from "../agents/provider-request-config.js";
 import type { ModelCompatConfig } from "../config/types.models.js";
@@ -52,7 +52,7 @@ export function resolveToolCallArgumentsEncoding(
   return extractModelCompat(modelOrCompat)?.toolCallArgumentsEncoding;
 }
 
-// Tool-schema compat predicates moved into @openclaw/ai (agent-tools-parameter-schema);
+// Tool-schema compat predicates moved into @granted/ai (agent-tools-parameter-schema);
 // re-export so existing core/plugin callers keep one canonical import site.
 export { resolveUnsupportedToolSchemaKeywords };
 

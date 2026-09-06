@@ -1,11 +1,11 @@
 // CLI for reading and mutating exec approval allowlists locally, via gateway, or via node.
 import fs from "node:fs/promises";
-import { readByteStreamWithLimit } from "@openclaw/media-core/read-byte-stream-with-limit";
-import { expectDefined } from "@openclaw/normalization-core";
-import { parseStrictPositiveInteger } from "@openclaw/normalization-core/number-coercion";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
-import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+import { readByteStreamWithLimit } from "@granted/media-core/read-byte-stream-with-limit";
+import { expectDefined } from "@granted/normalization-core";
+import { parseStrictPositiveInteger } from "@granted/normalization-core/number-coercion";
+import { isRecord } from "@granted/normalization-core/record-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
+import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import type { Command } from "commander";
 import JSON5 from "json5";
 import {

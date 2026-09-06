@@ -2,9 +2,9 @@ import {
   collectNestedErrorCandidates,
   extractErrorCodeOrErrno,
   readErrorName,
-} from "@openclaw/normalization-core/error-coercion";
+} from "@granted/normalization-core/error-coercion";
 // Keep transient network policy aligned across retries and process-level handling.
-import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
+import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
 
 const TRANSIENT_NETWORK_CODES = new Set([
   "ECONNRESET",

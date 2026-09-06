@@ -1,5 +1,5 @@
-import { stableStringify } from "@openclaw/normalization-core";
-import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+import { stableStringify } from "@granted/normalization-core";
+import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import { PROPOSAL_DRAFT_FILE } from "../../skills/workshop/store-record.js";
 import type {
   SkillProposalEvaluation,

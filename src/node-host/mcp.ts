@@ -9,9 +9,9 @@ import {
   type ListToolsResult,
   type Tool,
 } from "@modelcontextprotocol/sdk/types.js";
-import { clampPositiveTimerTimeoutMs } from "@openclaw/normalization-core/number-coercion";
-import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
-import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+import { clampPositiveTimerTimeoutMs } from "@granted/normalization-core/number-coercion";
+import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
+import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import pLimit from "p-limit";
 import type { NodePluginToolDescriptor } from "../../packages/gateway-protocol/src/schema/nodes.js";
 import {

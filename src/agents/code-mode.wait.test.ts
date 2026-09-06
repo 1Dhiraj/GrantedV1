@@ -1,6 +1,6 @@
 /** Tests Code Mode wait, scope, and suspended runs. */
 
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { runWithAgentToolExecutionContext } from "../../packages/agent-core/src/tool-execution-context.js";
 import { createDeferred } from "../../test/helpers/promise.js";

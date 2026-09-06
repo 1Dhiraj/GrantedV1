@@ -1,6 +1,6 @@
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
-import { readNonBlankString } from "@openclaw/normalization-core/string-coerce";
-import { uniqueValues } from "@openclaw/normalization-core/string-normalization";
+import { isRecord } from "@granted/normalization-core/record-coerce";
+import { readNonBlankString } from "@granted/normalization-core/string-coerce";
+import { uniqueValues } from "@granted/normalization-core/string-normalization";
 import { normalizeAgentModelRefForConfig } from "../config/model-input.js";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import { formatErrorMessage } from "../infra/errors.js";

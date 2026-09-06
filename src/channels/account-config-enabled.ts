@@ -1,4 +1,4 @@
-import { asOptionalRecord } from "@openclaw/normalization-core/record-coerce";
+import { asOptionalRecord } from "@granted/normalization-core/record-coerce";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolveAccountEntry } from "../routing/account-lookup.js";
 

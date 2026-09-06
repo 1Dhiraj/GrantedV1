@@ -1,4 +1,4 @@
-import { uniqueStrings } from "@openclaw/normalization-core/string-normalization";
+import { uniqueStrings } from "@granted/normalization-core/string-normalization";
 import { findCapabilityProviderById } from "../../packages/media-generation-core/src/capability-model-ref.js";
 import { normalizeMediaProviderId } from "../../packages/media-understanding-common/src/provider-id.js";
 import {

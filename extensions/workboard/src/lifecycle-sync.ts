@@ -2,7 +2,7 @@ import type {
   WorkboardCard,
   WorkboardExecutionStatus,
   WorkboardStatus,
-} from "@openclaw/workboard-contract";
+} from "@granted/workboard-contract";
 import { resolveGlobalSingleton } from "granted/plugin-sdk/global-singleton";
 import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import type { GrantedPluginApi, GrantedPluginService } from "../api.js";

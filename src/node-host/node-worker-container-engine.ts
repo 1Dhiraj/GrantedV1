@@ -1,7 +1,7 @@
 import { createHash } from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import { resolveExecutableFromPathEnv } from "../infra/executable-path.js";
 import { isPathInside } from "../infra/path-guards.js";
 import { runExec } from "../process/exec.js";

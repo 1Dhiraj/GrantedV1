@@ -2,7 +2,7 @@
 import type {
   WhatsAppQaDriverObservedMessage,
   WhatsAppQaDriverSession,
-} from "@openclaw/whatsapp/api.js";
+} from "@granted/whatsapp/api.js";
 import type { ChannelApprovalKind } from "granted/plugin-sdk/approval-handler-runtime";
 import type { QaGatewayChild } from "../../gateway-child.js";
 export { toQaError as toWhatsAppQaError } from "../../errors.js";

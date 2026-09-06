@@ -2,7 +2,7 @@
 import { createHash } from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { RequestScopedSubagentRuntimeError } from "granted/plugin-sdk/error-runtime";
 import { createDeferred } from "granted/plugin-sdk/extension-shared";

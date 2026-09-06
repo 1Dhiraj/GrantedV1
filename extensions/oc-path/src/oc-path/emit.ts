@@ -19,7 +19,7 @@
  * `OcEmitSentinelError`. This is the substrate guard: callers can't
  * accidentally write a redacted view to disk through this emitter.
  *
- * @module @openclaw/oc-path/emit
+ * @module @granted/oc-path/emit
  */
 
 import type { MdAst } from "./ast.js";

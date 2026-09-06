@@ -1,5 +1,5 @@
-import { asOptionalObjectRecord as asMessageRecord } from "@openclaw/normalization-core/record-coerce";
-import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+import { asOptionalObjectRecord as asMessageRecord } from "@granted/normalization-core/record-coerce";
+import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 // Formats terminal-safe strings for TUI messages and status surfaces.
 import { stripAnsi } from "../../packages/terminal-core/src/ansi.js";
 import { splitTrailingAuthProfile } from "../agents/model-ref-profile.js";

@@ -3,7 +3,7 @@ import { randomUUID } from "node:crypto";
 import { constants, promises as fs, type Stats } from "node:fs";
 import path from "node:path";
 import { isDeepStrictEqual } from "node:util";
-import { decodeMountInfoPath } from "@openclaw/normalization-core/mountinfo-path";
+import { decodeMountInfoPath } from "@granted/normalization-core/mountinfo-path";
 import { resolveStateDir } from "../config/paths.js";
 import { sha256Hex } from "../infra/crypto-digest.js";
 import { hasErrnoCode } from "../infra/errno.js";

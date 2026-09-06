@@ -1,4 +1,4 @@
-import { asOptionalRecord } from "@openclaw/normalization-core/record-coerce";
+import { asOptionalRecord } from "@granted/normalization-core/record-coerce";
 import { resolveEnvironmentValue } from "../../infra/process-env.js";
 import { createWindowsOutputDecoder } from "../../infra/windows-encoding.js";
 import { getWindowsCmdExePath } from "../../infra/windows-install-roots.js";

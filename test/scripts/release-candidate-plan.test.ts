@@ -89,6 +89,6 @@ describe("shared release candidate preparation", () => {
   it("keeps targeted execution limited to the selected lane and its packages", () => {
     const { plan } = runPlanningStep("full", "targeted");
     expect(plan.lanes.map((lane) => lane.name)).toEqual(["npm-onboard-channel-agent"]);
-    expect(plan.requiredPrepublishPluginPackages).toEqual(["@openclaw/codex"]);
+    expect(plan.requiredPrepublishPluginPackages).toEqual(["@granted/codex"]);
   });
 });

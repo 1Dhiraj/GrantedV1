@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import { stableStringify } from "@openclaw/normalization-core";
+import { stableStringify } from "@granted/normalization-core";
 import { expect, it, vi } from "vitest";
 import { createDeferred } from "../../test/helpers/promise.js";
 import type { PendingBridgeRequest, SettledBridgeRequest } from "./code-mode-worker-types.js";

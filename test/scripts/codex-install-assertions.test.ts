@@ -189,7 +189,7 @@ function runCodexNpmPluginLiveConfigure(root: string) {
 function runCodexNpmPluginLivePluginAssertions(root: string) {
   return spawnSync(
     process.execPath,
-    [CODEX_NPM_PLUGIN_LIVE_ASSERTIONS_SCRIPT, "assert-plugin", "npm:@openclaw/codex"],
+    [CODEX_NPM_PLUGIN_LIVE_ASSERTIONS_SCRIPT, "assert-plugin", "npm:@granted/codex"],
     {
       encoding: "utf8",
       env: {
@@ -566,11 +566,11 @@ function createCodexInstallFixture(root: string) {
   const stateDir = path.join(root, "state");
   const npmRoot = path.join(stateDir, "npm");
   const installPath = path.join(npmRoot, "projects", "codex", "node_modules", "@openclaw", "codex");
-  const projectRoot = npmProjectRootForInstalledPackage(installPath, "@openclaw/codex");
+  const projectRoot = npmProjectRootForInstalledPackage(installPath, "@granted/codex");
   const target = currentCodexPlatformTarget();
   const pluginPackageJson = path.join(installPath, "package.json");
   writeJson(pluginPackageJson, {
-    name: "@openclaw/codex",
+    name: "@granted/codex",
     dependencies: { "@openai/codex": CODEX_VERSION },
     openclaw: { install: { requiredPlatformPackages: [target.alias] } },
   });
@@ -612,7 +612,7 @@ function createCodexInstallFixture(root: string) {
         codex: {
           installPath,
           source: "npm",
-          spec: "npm:@openclaw/codex",
+          spec: "npm:@granted/codex",
         },
       },
     },
@@ -708,9 +708,9 @@ describe("Codex install helpers", () => {
           codex: {
             installPath,
             source: "npm",
-            spec: "@openclaw/codex",
+            spec: "@granted/codex",
             resolvedVersion: "2026.7.2",
-            resolvedSpec: "@openclaw/codex@2026.7.2",
+            resolvedSpec: "@granted/codex@2026.7.2",
           },
         },
       },
@@ -749,7 +749,7 @@ describe("Codex install helpers", () => {
       "@openclaw",
       "codex",
     );
-    const projectRoot = npmProjectRootForInstalledPackage(packageRoot, "@openclaw/codex");
+    const projectRoot = npmProjectRootForInstalledPackage(packageRoot, "@granted/codex");
     const dependencyPackage = path.join(
       projectRoot,
       "node_modules",

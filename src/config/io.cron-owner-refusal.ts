@@ -1,4 +1,4 @@
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { formatErrorMessage } from "../infra/errors.js";
 import { parseAgentSessionKey } from "../routing/session-key.js";
 import type { GrantedConfig } from "./types.js";

@@ -1,6 +1,6 @@
 // Persists short-lived gateway restart intent for supervisor SIGTERM handoff.
-import { asPositiveSafeInteger } from "@openclaw/normalization-core/number-coercion";
-import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+import { asPositiveSafeInteger } from "@granted/normalization-core/number-coercion";
+import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import { createSubsystemLogger } from "../logging/subsystem.js";
 import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {

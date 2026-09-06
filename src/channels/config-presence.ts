@@ -8,8 +8,8 @@ import os from "node:os";
 import {
   hasNonEmptyString,
   normalizeOptionalLowercaseString,
-} from "@openclaw/normalization-core/string-coerce";
-import { uniqueStrings } from "@openclaw/normalization-core/string-normalization";
+} from "@granted/normalization-core/string-coerce";
+import { uniqueStrings } from "@granted/normalization-core/string-normalization";
 import {
   hasBundledChannelPersistedAuthState,
   listBundledChannelIdsWithPersistedAuthState,

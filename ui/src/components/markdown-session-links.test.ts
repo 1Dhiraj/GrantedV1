@@ -1,4 +1,4 @@
-import { buildControlUiSessionPath } from "@openclaw/session-url-contract";
+import { buildControlUiSessionPath } from "@granted/session-url-contract";
 import { describe, expect, it, vi } from "vitest";
 import { setSessionPathBuilder } from "../app-session-path-builder.ts";
 import type { ApplicationContext } from "../app/context.ts";

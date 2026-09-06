@@ -2,7 +2,7 @@
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalLowercaseString,
-} from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/string-coerce";
 import type { GrantedConfig } from "../config/types.js";
 import { matchPluginCommand } from "../plugins/commands.js";
 import { listChatCommands, listChatCommandsForConfig } from "./commands-registry-list.js";

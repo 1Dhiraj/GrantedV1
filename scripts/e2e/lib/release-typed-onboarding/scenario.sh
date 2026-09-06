@@ -92,7 +92,7 @@ wait_for_log() {
 
 openclaw_e2e_install_package "$INSTALL_LOG"
 echo "Installed the OpenClaw package."
-openclaw_prepublish_plugin_registry_start_mounted "$scenario_tmp/registry" plugin_registry_pid '["@openclaw/codex"]'
+openclaw_prepublish_plugin_registry_start_mounted "$scenario_tmp/registry" plugin_registry_pid '["@granted/codex"]'
 command -v openclaw >/dev/null
 package_root="$(openclaw_e2e_package_root)"
 entry="$(openclaw_e2e_package_entrypoint "$package_root")"
@@ -134,7 +134,7 @@ if [ -n "$fixture_consent" ]; then
   codex_install_args=(codex)
   if [ -n "${OPENCLAW_PREPUBLISH_PLUGIN_REGISTRY_DIR:-}" ]; then
     candidate_version="${OPENCLAW_PREPUBLISH_PLUGIN_REGISTRY_CANDIDATE_VERSION:?missing candidate version}"
-    codex_install_args=("npm:@openclaw/codex@$candidate_version" --pin)
+    codex_install_args=("npm:@granted/codex@$candidate_version" --pin)
   fi
   openclaw_e2e_fixture_plugin_command openclaw -- plugins install "${codex_install_args[@]}" \
     >"$CODEX_INSTALL_LOG" 2>&1

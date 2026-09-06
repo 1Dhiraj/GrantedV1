@@ -1,5 +1,5 @@
 {
-  "name": "@openclaw/matrix",
+  "name": "@granted/matrix",
   "version": "2026.8.1",
   "description": "OpenClaw Matrix channel plugin for rooms and direct messages.",
   "repository": {
@@ -18,11 +18,11 @@
     "zod": "4.4.3"
   },
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*",
-    "openclaw": "workspace:*"
+    "@granted/plugin-sdk": "workspace:*",
+    "granted": "workspace:*"
   },
   "peerDependencies": {
-    "openclaw": ">=2026.8.1"
+    "granted": ">=2026.8.1"
   },
   "peerDependenciesMeta": {
     "openclaw": {
@@ -164,8 +164,8 @@
       }
     },
     "install": {
-      "clawhubSpec": "clawhub:@openclaw/matrix",
-      "npmSpec": "@openclaw/matrix",
+      "clawhubSpec": "clawhub:@granted/matrix",
+      "npmSpec": "@granted/matrix",
       "defaultChoice": "npm",
       "minHostVersion": ">=2026.4.10",
       "allowInvalidConfigRecovery": true

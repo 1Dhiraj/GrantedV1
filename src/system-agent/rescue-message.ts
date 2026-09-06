@@ -3,8 +3,8 @@ import { createHash } from "node:crypto";
 import {
   asDateTimestampMs,
   resolveExpiresAtMsFromDurationMs,
-} from "@openclaw/normalization-core/number-coercion";
-import { hasNonEmptyString as isNonEmptyString } from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/number-coercion";
+import { hasNonEmptyString as isNonEmptyString } from "@granted/normalization-core/string-coerce";
 import type { CommandContext } from "../auto-reply/reply/commands-types.js";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import { createCorePluginStateSyncKeyedStore } from "../plugin-state/plugin-state-store.js";

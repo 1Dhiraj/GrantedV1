@@ -1,5 +1,5 @@
 // Shares plugin config normalization helpers across control-plane paths.
-import { normalizeArrayBackedTrimmedStringList } from "@openclaw/normalization-core/string-normalization";
+import { normalizeArrayBackedTrimmedStringList } from "@granted/normalization-core/string-normalization";
 import { normalizeChatChannelId } from "../channels/ids.js";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import { normalizeSlotValue, resolveSlotSelection } from "./slots.js";

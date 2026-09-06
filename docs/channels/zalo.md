@@ -13,8 +13,8 @@ Zalo ships as a bundled plugin in current OpenClaw releases, so packaged builds 
 
 On an older build or a custom install that excludes Zalo, install the npm package directly:
 
-- Install: `openclaw plugins install @openclaw/zalo`
-- Pinned version: `openclaw plugins install @openclaw/zalo@2026.6.11`
+- Install: `openclaw plugins install @granted/zalo`
+- Pinned version: `openclaw plugins install @granted/zalo@2026.6.11`
 - From a local checkout: `openclaw plugins install ./path/to/local/zalo-plugin`
 - Details: [Plugins](/tools/plugin)
 

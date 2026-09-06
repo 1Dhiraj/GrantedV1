@@ -1,5 +1,5 @@
 import { randomUUID } from "node:crypto";
-import type { Context, Model, Tool } from "@openclaw/llm-core";
+import type { Context, Model, Tool } from "@granted/llm-core";
 import OpenAI from "openai";
 import { describe, expect, it } from "vitest";
 import { cleanupSessionResources } from "../session-resources.js";

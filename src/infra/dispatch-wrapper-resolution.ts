@@ -1,6 +1,6 @@
 // Unwraps dispatch wrappers that delegate to real commands.
-import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
-import { sortUniqueStrings } from "@openclaw/normalization-core/string-normalization";
+import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
+import { sortUniqueStrings } from "@granted/normalization-core/string-normalization";
 import {
   envInvocationUsesModifiers,
   parseEnvInvocationPrelude,

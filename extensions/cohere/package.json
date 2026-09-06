@@ -1,5 +1,5 @@
 {
-  "name": "@openclaw/cohere-provider",
+  "name": "@granted/cohere-provider",
   "version": "2026.8.1",
   "description": "OpenClaw Cohere provider plugin.",
   "repository": {
@@ -8,15 +8,15 @@
   },
   "type": "module",
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*"
+    "@granted/plugin-sdk": "workspace:*"
   },
   "openclaw": {
     "extensions": [
       "./index.ts"
     ],
     "install": {
-      "clawhubSpec": "clawhub:@openclaw/cohere-provider",
-      "npmSpec": "@openclaw/cohere-provider",
+      "clawhubSpec": "clawhub:@granted/cohere-provider",
+      "npmSpec": "@granted/cohere-provider",
       "defaultChoice": "npm",
       "minHostVersion": ">=2026.6.8"
     },

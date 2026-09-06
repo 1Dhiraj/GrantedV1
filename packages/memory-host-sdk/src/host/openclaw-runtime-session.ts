@@ -1,6 +1,6 @@
 // Session/runtime facade for memory transcript helpers.
 import path from "node:path";
-import { isValidAgentId, normalizeAgentId } from "@openclaw/normalization-core/agent-id";
+import { isValidAgentId, normalizeAgentId } from "@granted/normalization-core/agent-id";
 import { readTranscriptStatsSync as readAccessorTranscriptStatsSync } from "../../../../src/config/sessions/session-accessor.js";
 
 export { resolveSessionAgentId } from "../../../../src/agents/agent-scope.js";

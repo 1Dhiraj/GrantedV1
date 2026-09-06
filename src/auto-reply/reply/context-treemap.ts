@@ -2,8 +2,8 @@
 import crypto from "node:crypto";
 import { writeFile } from "node:fs/promises";
 import path from "node:path";
-import { expectDefined } from "@openclaw/normalization-core";
-import { estimateTokensFromChars } from "@openclaw/normalization-core/cjk-chars";
+import { expectDefined } from "@granted/normalization-core";
+import { estimateTokensFromChars } from "@granted/normalization-core/cjk-chars";
 import type { SessionSystemPromptReport } from "../../config/sessions/types.js";
 import { resolvePreferredOpenClawTmpDir } from "../../infra/tmp-openclaw-dir.js";
 import { encodePngRgba } from "../../media/png-encode.js";

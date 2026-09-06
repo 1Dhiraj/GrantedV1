@@ -1,4 +1,4 @@
-# Changelog — @openclaw/gateway-protocol
+# Changelog — @granted/gateway-protocol
 
 Wire-protocol and schema contracts for the OpenClaw Gateway (WebSocket JSON-RPC-style
 frames, handshake, and method/event payload schemas). Protocol version is negotiated

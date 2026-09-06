@@ -26,7 +26,7 @@ function writePluginSourcePackage(repoRoot: string, pluginId: string) {
   const pluginDir = path.join(repoRoot, "extensions", pluginId);
   fs.mkdirSync(pluginDir, { recursive: true });
   writeJsonFile(path.join(pluginDir, "package.json"), {
-    name: `@openclaw/${pluginId}`,
+    name: `@granted/${pluginId}`,
     version: "0.0.0",
   });
 }
@@ -99,7 +99,7 @@ describe("pruneDockerPluginDist", () => {
     const pluginDir = path.join(repoRoot, "plugins", "acpx");
     fs.mkdirSync(pluginDir, { recursive: true });
     writeJsonFile(path.join(pluginDir, "package.json"), {
-      name: "@openclaw/acpx",
+      name: "@granted/acpx",
       version: "0.0.0",
     });
 
@@ -123,7 +123,7 @@ describe("pruneDockerPluginDist", () => {
       },
     });
     writeJsonFile(path.join(repoRoot, "extensions", "acpx", "package.json"), {
-      name: "@openclaw/acpx",
+      name: "@granted/acpx",
       version: "0.0.0",
       dependencies: {
         "@zed-industries/codex-acp": "0.0.0",
@@ -131,15 +131,15 @@ describe("pruneDockerPluginDist", () => {
       },
     });
     writeJsonFile(path.join(repoRoot, "extensions", "codex", "package.json"), {
-      name: "@openclaw/codex",
+      name: "@granted/codex",
       version: "0.0.0",
       dependencies: {
         "@openai/codex": "0.0.0",
         zod: "0.0.0",
       },
     });
-    writeNodePackage(repoRoot, "@openclaw/acpx");
-    writeNodePackage(repoRoot, "@openclaw/codex");
+    writeNodePackage(repoRoot, "@granted/acpx");
+    writeNodePackage(repoRoot, "@granted/codex");
     writeNodePackage(repoRoot, "zod");
     writeNodePackage(repoRoot, "@openai/codex", {
       optionalDependencies: {
@@ -177,7 +177,7 @@ describe("pruneDockerPluginDist", () => {
     });
 
     expect(removed).toEqual([
-      "node_modules/@openclaw/acpx",
+      "node_modules/@granted/acpx",
       "node_modules/@zed-industries/codex-acp",
       "node_modules/@zed-industries/codex-acp-linux-x64",
       "node_modules/postcss",
@@ -205,14 +205,14 @@ describe("pruneDockerPluginDist", () => {
     });
     const keptPluginDir = path.join(repoRoot, "extensions", "kept-client");
     writeJsonFile(path.join(keptPluginDir, "package.json"), {
-      name: "@openclaw/kept-client",
+      name: "@granted/kept-client",
       version: "0.0.0",
       dependencies: {
         "shared-client": "2.0.0",
       },
     });
     writeJsonFile(path.join(repoRoot, "extensions", "omitted-client", "package.json"), {
-      name: "@openclaw/omitted-client",
+      name: "@granted/omitted-client",
       version: "0.0.0",
       dependencies: {
         "kept-transitive": "1.0.0",
@@ -260,7 +260,7 @@ describe("pruneDockerPluginDist", () => {
       },
     });
     writeJsonFile(path.join(repoRoot, "extensions", "optional-client", "package.json"), {
-      name: "@openclaw/optional-client",
+      name: "@granted/optional-client",
       version: "0.0.0",
       dependencies: {
         "whatwg-url": "16.0.1",

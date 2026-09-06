@@ -20,7 +20,7 @@ read_when:
 Install the official plugin, then restart Gateway:
 
 ```bash
-openclaw plugins install @openclaw/deepseek-provider
+openclaw plugins install @granted/deepseek-provider
 openclaw gateway restart
 ```
 

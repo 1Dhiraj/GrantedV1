@@ -1,4 +1,4 @@
-# @openclaw/diagnostics-prometheus
+# @granted/diagnostics-prometheus
 
 Official Prometheus diagnostics exporter for OpenClaw.
 
@@ -7,7 +7,7 @@ This plugin exposes OpenClaw Gateway runtime metrics in Prometheus text format f
 ## Install
 
 ```bash
-openclaw plugins install @openclaw/diagnostics-prometheus
+openclaw plugins install @granted/diagnostics-prometheus
 ```
 
 Restart the Gateway after installing or updating the plugin.
@@ -23,5 +23,5 @@ The full config surface, metric names, and scrape examples live in the docs:
 ## Package
 
 - Plugin id: `diagnostics-prometheus`
-- Package: `@openclaw/diagnostics-prometheus`
+- Package: `@granted/diagnostics-prometheus`
 - Minimum OpenClaw host: `2026.4.25`

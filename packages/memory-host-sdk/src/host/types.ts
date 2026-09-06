@@ -1,5 +1,5 @@
 // Public memory host contracts shared by runtime, builtin search, and package consumers.
-import { asNullableRecord } from "@openclaw/normalization-core/record-coerce";
+import { asNullableRecord } from "@granted/normalization-core/record-coerce";
 export type MemorySource = "memory" | "sessions";
 
 export type MemoryOriginClass = "owner" | "agent" | "untrusted" | "system";

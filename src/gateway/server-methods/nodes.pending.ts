@@ -1,5 +1,5 @@
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
-import { normalizeUniqueTrimmedStringList } from "@openclaw/normalization-core/string-normalization";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
+import { normalizeUniqueTrimmedStringList } from "@granted/normalization-core/string-normalization";
 import {
   ErrorCodes,
   errorShape,

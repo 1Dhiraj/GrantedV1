@@ -1,7 +1,7 @@
 import "../../styles/approval.css";
 import "../../styles/chat/question-card.css";
 import { consume } from "@lit/context";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import { html, nothing, type PropertyValues } from "lit";
 import { property, state } from "lit/decorators.js";
 import type { GatewayBrowserClient } from "../../api/gateway.ts";

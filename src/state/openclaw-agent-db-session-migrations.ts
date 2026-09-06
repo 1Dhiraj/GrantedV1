@@ -1,7 +1,7 @@
 import type { DatabaseSync } from "node:sqlite";
-import { safeParseJsonRecord } from "@openclaw/normalization-core/json-coercion";
-import { asOptionalRecord } from "@openclaw/normalization-core/record-coerce";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { safeParseJsonRecord } from "@granted/normalization-core/json-coercion";
+import { asOptionalRecord } from "@granted/normalization-core/record-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { normalizeChatType, type ChatType } from "../channels/chat-type.js";
 import { parseSqliteSessionEntryRecord } from "../config/sessions/session-entry-json.js";
 import type { SessionEntry } from "../config/sessions/types.js";

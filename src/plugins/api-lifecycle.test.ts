@@ -1,6 +1,6 @@
 // Plugin API lifecycle guard: registration-only methods stop working once
 // register() returns, while runtime methods remain callable from hooks and tools.
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { describe, expect, it, vi } from "vitest";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import { buildPluginApi } from "./api-builder.js";

@@ -1,4 +1,4 @@
-# @openclaw/google-meet
+# @granted/google-meet
 
 Official Google Meet participant plugin for OpenClaw.
 
@@ -7,7 +7,7 @@ This plugin registers the `google_meet` tool so agents can join Google Meet call
 ## Install
 
 ```bash
-openclaw plugins install @openclaw/google-meet
+openclaw plugins install @granted/google-meet
 ```
 
 Restart the Gateway after installing or updating the plugin.
@@ -22,5 +22,5 @@ Enable the plugin and follow the Google Meet docs for browser profile, transport
 
 - Plugin id: `google-meet`
 - Tool: `google_meet`
-- Package: `@openclaw/google-meet`
+- Package: `@granted/google-meet`
 - Minimum OpenClaw host: `2026.4.20`

@@ -12,7 +12,7 @@ OpenClaw provides `pixverse` as an official external plugin for hosted PixVerse 
 | Property           | Value                                                                |
 | ------------------ | -------------------------------------------------------------------- |
 | Provider id        | `pixverse`                                                           |
-| Plugin package     | `@openclaw/pixverse-provider`                                        |
+| Plugin package     | `@granted/pixverse-provider`                                        |
 | Auth env var       | `PIXVERSE_API_KEY`                                                   |
 | Onboarding flag    | `--auth-choice pixverse-api-key`                                     |
 | Direct CLI flag    | `--pixverse-api-key <key>`                                           |
@@ -25,7 +25,7 @@ OpenClaw provides `pixverse` as an official external plugin for hosted PixVerse 
 <Steps>
   <Step title="Install the plugin">
     ```bash
-    openclaw plugins install @openclaw/pixverse-provider
+    openclaw plugins install @granted/pixverse-provider
     openclaw gateway restart
     ```
   </Step>

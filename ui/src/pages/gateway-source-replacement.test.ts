@@ -1,7 +1,7 @@
 /* @vitest-environment jsdom */
 
 import { TaskStatus } from "@lit/task";
-import type { SkillsLibraryListResult } from "@openclaw/gateway-protocol";
+import type { SkillsLibraryListResult } from "@granted/gateway-protocol";
 import { nothing } from "lit";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import type { GatewayBrowserClient } from "../api/gateway.ts";

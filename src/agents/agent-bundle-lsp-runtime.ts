@@ -1,6 +1,6 @@
 /** Session-scoped embedded LSP runtime and tool materialization for agent bundles. */
 import type { ChildProcess } from "node:child_process";
-import { normalizeOptionalLowercaseString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalLowercaseString } from "@granted/normalization-core/string-coerce";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import { createAbortError } from "../infra/abort-signal.js";
 import { logDebug, logWarn } from "../logger.js";

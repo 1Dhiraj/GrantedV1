@@ -3,7 +3,7 @@ import { createServer as createHttpServer } from "node:http";
 import { createServer as createHttpsServer } from "node:https";
 import net, { type AddressInfo } from "node:net";
 import { Duplex } from "node:stream";
-import { rawDataToString } from "@openclaw/gateway-client/websocket-data";
+import { rawDataToString } from "@granted/gateway-client/websocket-data";
 import { installGlobalProxy } from "@openclaw/proxyline";
 import { describe, expect, it } from "vitest";
 import { WebSocketServer } from "ws";

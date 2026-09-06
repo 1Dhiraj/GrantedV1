@@ -2,11 +2,11 @@ import { spawnSync } from "node:child_process";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import type { RemoteModelCatalogBundle } from "@openclaw/model-catalog-core";
+import type { RemoteModelCatalogBundle } from "@granted/model-catalog-core";
 import {
   LITELLM_PRICING_URL,
   OPENROUTER_MODELS_URL,
-} from "@openclaw/model-catalog-core/model-catalog-pricing";
+} from "@granted/model-catalog-core/model-catalog-pricing";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   assembleModelCatalogBundle,

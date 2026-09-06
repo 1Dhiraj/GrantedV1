@@ -4,11 +4,11 @@ import path from "node:path";
 import {
   asOptionalRecord as asObjectRecord,
   isRecord as isPlainObject,
-} from "@openclaw/normalization-core/record-coerce";
+} from "@granted/normalization-core/record-coerce";
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
-} from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/string-coerce";
 import { resolveAgentConfig } from "../agents/agent-scope-config.js";
 import type { GrantedConfig } from "../config/types.js";
 import type { TtsAutoMode, TtsConfig, TtsMode } from "../config/types.tts.js";

@@ -63,8 +63,8 @@ describe("cross-OS release companion installation", () => {
 
       await installLaneCompanions({
         companions: [
-          { name: "@openclaw/codex", tarballPath: "/tmp/openclaw-codex.tgz" },
-          { name: "@openclaw/discord", tarballPath: "/tmp/openclaw-discord.tgz" },
+          { name: "@granted/codex", tarballPath: "/tmp/openclaw-codex.tgz" },
+          { name: "@granted/discord", tarballPath: "/tmp/openclaw-discord.tgz" },
         ],
         logsDir: "/tmp/openclaw-release/logs",
         lane,
@@ -109,7 +109,7 @@ describe("cross-OS release companion installation", () => {
 
     await expect(
       installLaneCompanions({
-        companions: [{ name: "@openclaw/codex", tarballPath: "/tmp/openclaw-codex.tgz" }],
+        companions: [{ name: "@granted/codex", tarballPath: "/tmp/openclaw-codex.tgz" }],
         logsDir: "/tmp/openclaw-release/logs",
         lane,
         env: { HOME: lane.homeDir },

@@ -5,7 +5,7 @@ Official OpenClaw plugin for Inworld.
 Install from OpenClaw:
 
 ```bash
-openclaw plugins install @openclaw/inworld-speech
+openclaw plugins install @granted/inworld-speech
 openclaw gateway restart
 ```
 

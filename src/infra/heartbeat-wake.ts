@@ -1,4 +1,4 @@
-import { resolveTimerTimeoutMs } from "@openclaw/normalization-core/number-coercion";
+import { resolveTimerTimeoutMs } from "@granted/normalization-core/number-coercion";
 import { runWithoutOwnedSessionTranscriptWrites } from "../config/sessions/transcript-write-context.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";
 // Tracks heartbeat wake requests, busy skips, and retry timing.

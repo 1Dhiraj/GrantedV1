@@ -631,7 +631,7 @@ describe("plugins cli list", () => {
     expect(output).toContain("Plugin configuration:");
     expect(output).toContain('Configured runtime "codex" requires the Codex plugin');
     expect(output).toContain("openclaw doctor --fix");
-    expect(output).toContain("openclaw plugins install @openclaw/codex");
+    expect(output).toContain("openclaw plugins install @granted/codex");
     expect(output).toContain(
       "No plugin install-tree issues detected; configuration warnings remain.",
     );
@@ -656,7 +656,7 @@ describe("plugins cli list", () => {
     expect(output).toContain("Plugin configuration:");
     expect(output).toContain('Configured runtime "acpx" requires the ACPX Runtime plugin');
     expect(output).toContain("openclaw doctor --fix");
-    expect(output).toContain("openclaw plugins install @openclaw/acpx");
+    expect(output).toContain("openclaw plugins install @granted/acpx");
     expect(output).not.toContain(cleanDoctorMessage);
   });
 
@@ -684,7 +684,7 @@ describe("plugins cli list", () => {
     expect(output).toContain("Set plugins.entries.acpx.enabled=true");
     expect(output).toContain("disable ACP/acpx in acp config");
     expect(output).not.toContain('runtime policy to "openclaw"');
-    expect(output).not.toContain("openclaw plugins install @openclaw/acpx");
+    expect(output).not.toContain("openclaw plugins install @granted/acpx");
     expect(output).not.toContain(cleanDoctorMessage);
   });
 
@@ -707,7 +707,7 @@ describe("plugins cli list", () => {
     expect(output).toContain('Enable the "acpx" plugin');
     expect(output).toContain("disable ACP/acpx in acp config");
     expect(output).not.toContain('runtime policy to "openclaw"');
-    expect(output).not.toContain("openclaw plugins install @openclaw/acpx");
+    expect(output).not.toContain("openclaw plugins install @granted/acpx");
     expect(output).not.toContain(cleanDoctorMessage);
   });
 
@@ -779,7 +779,7 @@ describe("plugins cli list", () => {
     expect(output).toContain('Configured runtime "codex" requires the Codex plugin');
     expect(output).toContain('but "codex" is disabled');
     expect(output).toContain('Enable the "codex" plugin');
-    expect(output).not.toContain("openclaw plugins install @openclaw/codex");
+    expect(output).not.toContain("openclaw plugins install @granted/codex");
     expect(output).not.toContain(cleanDoctorMessage);
   });
 
@@ -811,7 +811,7 @@ describe("plugins cli list", () => {
     expect(output).toContain('but "codex" is blocked by plugin configuration');
     expect(output).toContain('Remove "codex" from plugins.deny');
     expect(output).not.toContain('Run "openclaw doctor --fix" to install');
-    expect(output).not.toContain("openclaw plugins install @openclaw/codex");
+    expect(output).not.toContain("openclaw plugins install @granted/codex");
     expect(output).not.toContain(cleanDoctorMessage);
   });
 
@@ -845,7 +845,7 @@ describe("plugins cli list", () => {
     expect(output).toContain('but "codex" is blocked by plugin configuration');
     expect(output).toContain("Set plugins.entries.codex.enabled=true");
     expect(output).not.toContain('Run "openclaw doctor --fix" to install');
-    expect(output).not.toContain("openclaw plugins install @openclaw/codex");
+    expect(output).not.toContain("openclaw plugins install @granted/codex");
     expect(output).not.toContain(cleanDoctorMessage);
   });
 
@@ -864,7 +864,7 @@ describe("plugins cli list", () => {
         {
           level: "warn",
           pluginId: "discord",
-          source: "/tmp/openclaw/npm/node_modules/@openclaw/discord/index.ts",
+          source: "/tmp/openclaw/npm/node_modules/@granted/discord/index.ts",
           message:
             "duplicate plugin id resolved by explicit config-selected plugin; global plugin will be overridden by config plugin (/tmp/openclaw-upstream/extensions/discord/index.ts)",
         },
@@ -879,7 +879,7 @@ describe("plugins cli list", () => {
       "discord: duplicate plugin id resolved by explicit config-selected plugin",
     );
     expect(output).toContain("active: /tmp/openclaw-upstream/extensions/discord/index.ts");
-    expect(output).toContain("shadowed: /tmp/openclaw/npm/node_modules/@openclaw/discord/index.ts");
+    expect(output).toContain("shadowed: /tmp/openclaw/npm/node_modules/@granted/discord/index.ts");
     expect(output).toContain("openclaw plugins registry --refresh");
   });
 
@@ -897,7 +897,7 @@ describe("plugins cli list", () => {
         {
           level: "warn",
           pluginId: "discord",
-          source: "/tmp/openclaw/npm/node_modules/@openclaw/discord/index.ts",
+          source: "/tmp/openclaw/npm/node_modules/@granted/discord/index.ts",
           message:
             "duplicate plugin id resolved by explicit config-selected plugin; global plugin will be overridden by config plugin (/tmp/openclaw-upstream/extensions/discord/index.ts)",
         },

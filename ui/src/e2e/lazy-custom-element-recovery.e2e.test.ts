@@ -2,7 +2,7 @@ import path from "node:path";
 import {
   buildControlUiFocusPath,
   type ControlUiFocusBuildTarget,
-} from "@openclaw/session-url-contract";
+} from "@granted/session-url-contract";
 import type { Page, Route, Video } from "playwright";
 import { beforeEach, expect, it } from "vitest";
 import { ConnectErrorDetailCodes } from "../../../packages/gateway-protocol/src/connect-error-details.js";

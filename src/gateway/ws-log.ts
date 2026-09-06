@@ -1,8 +1,8 @@
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 // Gateway WebSocket log formatting.
 // Redacts and compacts request/response/event metadata for console diagnostics.
-import { readStringValue } from "@openclaw/normalization-core/string-coerce";
-import { sliceUtf16Safe, truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+import { readStringValue } from "@granted/normalization-core/string-coerce";
+import { sliceUtf16Safe, truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import chalk from "chalk";
 import { resolveSendableOutboundReplyParts } from "granted/plugin-sdk/reply-payload";
 import { isVerbose } from "../globals.js";

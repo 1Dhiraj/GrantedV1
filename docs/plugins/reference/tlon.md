@@ -11,7 +11,7 @@ OpenClaw Tlon/Urbit channel plugin for chat workflows.
 
 ## Distribution
 
-- Package: `@openclaw/tlon`
+- Package: `@granted/tlon`
 - Install route: npm; ClawHub
 
 ## Surface

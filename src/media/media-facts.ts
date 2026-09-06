@@ -1,16 +1,16 @@
-import type { MediaKind } from "@openclaw/media-core/constants";
+import type { MediaKind } from "@granted/media-core/constants";
 import {
   getFileExtension,
   kindFromMime,
   mimeTypeFromFilePath,
   normalizeMimeType,
-} from "@openclaw/media-core/mime";
+} from "@granted/media-core/mime";
 import {
   asFiniteNumberInRange,
   asPositiveSafeInteger as normalizePositiveInteger,
-} from "@openclaw/normalization-core/number-coercion";
-import { asNonArrayRecord } from "@openclaw/normalization-core/record-coerce";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/number-coercion";
+import { asNonArrayRecord } from "@granted/normalization-core/record-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import type { PromptImageOrderEntry } from "./prompt-image-order.js";
 
 /** One ordered runtime attachment; array position is its alignment identity. */

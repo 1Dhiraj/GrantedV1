@@ -1,4 +1,4 @@
-import { parseStrictNonNegativeInteger } from "@openclaw/normalization-core/number-coercion";
+import { parseStrictNonNegativeInteger } from "@granted/normalization-core/number-coercion";
 import { gatewayOriginScope } from "../../packages/gateway-client/src/gateway-origin-scope.js";
 /**
  * Interactive remote gateway onboarding.

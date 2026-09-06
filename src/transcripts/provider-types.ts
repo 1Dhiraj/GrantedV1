@@ -1,5 +1,5 @@
 // Transcript provider contracts for external and manual transcript sources.
-import type { Result } from "@openclaw/normalization-core/result";
+import type { Result } from "@granted/normalization-core/result";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 
 /**

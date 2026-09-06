@@ -1,6 +1,6 @@
 import { lstat, mkdir, readdir, realpath, rmdir, unlink, writeFile } from "node:fs/promises";
 import { basename, dirname, isAbsolute, parse, relative, resolve, sep } from "node:path";
-import { coerceErrorMessage } from "@openclaw/normalization-core/error-coercion";
+import { coerceErrorMessage } from "@granted/normalization-core/error-coercion";
 import { root as fsSafeRoot } from "../infra/fs-safe.js";
 import { readClawManifestFile } from "./reader.js";
 import { isCanonicalClawHubPackageName, portableClawPathKey } from "./schema-portability.js";

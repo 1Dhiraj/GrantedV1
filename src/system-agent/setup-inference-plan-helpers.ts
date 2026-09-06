@@ -1,6 +1,6 @@
 import { randomUUID } from "node:crypto";
-import { expectDefined } from "@openclaw/normalization-core";
-import { err, ok, type Result } from "@openclaw/normalization-core/result";
+import { expectDefined } from "@granted/normalization-core";
+import { err, ok, type Result } from "@granted/normalization-core/result";
 import type { AgentRunResultView } from "../agents/agent-run-result.js";
 import { listAgentEntries, resolveAmbientOwnerAgentId } from "../agents/agent-scope.js";
 import { loadAuthProfileStoreForRuntime } from "../agents/auth-profiles/store.js";

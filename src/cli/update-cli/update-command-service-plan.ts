@@ -1,8 +1,8 @@
 // Read-only managed Gateway ownership and Node selection for update planning.
 import fs from "node:fs/promises";
 import path from "node:path";
-import { err as resultError, ok, type Result } from "@openclaw/normalization-core/result";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { err as resultError, ok, type Result } from "@granted/normalization-core/result";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { summarizeGatewayServiceLayout } from "../../daemon/service-layout.js";
 import type { GatewayServiceCommandConfig } from "../../daemon/service-types.js";
 import { resolveGatewayService } from "../../daemon/service.js";

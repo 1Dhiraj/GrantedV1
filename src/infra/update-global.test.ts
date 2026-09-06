@@ -151,8 +151,8 @@ describe("update global helpers", () => {
     { packageName: "openclaw", spec: "openclaw@=1.2.3", expected: "1.2.3" },
     { packageName: "openclaw", spec: "openclaw@=v1.2.3", expected: "1.2.3" },
     {
-      packageName: "@openclaw/core",
-      spec: "@openclaw/core@2026.7.30-beta.1",
+      packageName: "@granted/core",
+      spec: "@granted/core@2026.7.30-beta.1",
       expected: "2026.7.30-beta.1",
     },
     { packageName: "openclaw", spec: "openclaw@^1.2.3", expected: null },
@@ -1049,7 +1049,7 @@ describe("update global helpers", () => {
   it("verifies legacy sidecars for installed bundled plugins without inventory", async () => {
     await withTestDir({ prefix: "openclaw-update-global-legacy-plugin-" }, async (packageRoot) => {
       await writeGlobalPackageJson(packageRoot);
-      await writeBundledPluginPackageJson(packageRoot, "telegram", "@openclaw/telegram");
+      await writeBundledPluginPackageJson(packageRoot, "telegram", "@granted/telegram");
 
       await expect(collectInstalledGlobalPackageErrors({ packageRoot })).resolves.toContain(
         `missing bundled runtime sidecar ${TELEGRAM_RUNTIME_API}`,
@@ -1062,7 +1062,7 @@ describe("update global helpers", () => {
       { prefix: "openclaw-update-global-critical-sidecars-" },
       async (packageRoot) => {
         await writeGlobalPackageJson(packageRoot, "2026.4.15");
-        await writeBundledPluginPackageJson(packageRoot, "telegram", "@openclaw/telegram");
+        await writeBundledPluginPackageJson(packageRoot, "telegram", "@granted/telegram");
         await writePackageDistInventory(packageRoot);
 
         await expect(collectInstalledGlobalPackageErrors({ packageRoot })).resolves.toContain(
@@ -1077,7 +1077,7 @@ describe("update global helpers", () => {
       { prefix: "openclaw-update-global-stale-private-qa-" },
       async (packageRoot) => {
         await writeGlobalPackageJson(packageRoot, "2026.4.15");
-        await writeBundledPluginPackageJson(packageRoot, "qa-lab", "@openclaw/qa-lab");
+        await writeBundledPluginPackageJson(packageRoot, "qa-lab", "@granted/qa-lab");
         await writePackageDistInventory(packageRoot);
 
         await expect(collectInstalledGlobalPackageErrors({ packageRoot })).resolves.toStrictEqual(

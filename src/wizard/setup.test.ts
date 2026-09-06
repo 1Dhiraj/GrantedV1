@@ -1790,7 +1790,7 @@ describe("runSetupWizard", () => {
       agents: { entries: { main: { default: true } } },
       plugins: {
         installs: {
-          demo: { source: "npm", spec: "@openclaw/demo-plugin" },
+          demo: { source: "npm", spec: "@granted/demo-plugin" },
         },
       },
     };

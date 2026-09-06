@@ -1,6 +1,6 @@
 /** Tool Search catalog compaction for large OpenClaw, MCP, and client tool inventories. */
-import { normalizeStringEntries } from "@openclaw/normalization-core/string-normalization";
-import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+import { normalizeStringEntries } from "@granted/normalization-core/string-normalization";
+import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import { Type } from "typebox";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { HookContext } from "./agent-tools.before-tool-call.js";

@@ -1,10 +1,10 @@
 // Control UI view renders agents utils screen content.
-import { formatByteSize } from "@openclaw/normalization-core";
+import { formatByteSize } from "@granted/normalization-core";
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
-} from "@openclaw/normalization-core/string-coerce";
-import { normalizeStringEntries } from "@openclaw/normalization-core/string-normalization";
+} from "@granted/normalization-core/string-coerce";
+import { normalizeStringEntries } from "@granted/normalization-core/string-normalization";
 import type {
   AgentIdentityResult,
   AgentsFilesListResult,

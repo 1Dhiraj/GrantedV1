@@ -5,7 +5,7 @@ Official OpenClaw memory embedding provider plugin for Voyage AI.
 Install from OpenClaw:
 
 ```bash
-openclaw plugins install @openclaw/voyage-provider
+openclaw plugins install @granted/voyage-provider
 openclaw gateway restart
 ```
 

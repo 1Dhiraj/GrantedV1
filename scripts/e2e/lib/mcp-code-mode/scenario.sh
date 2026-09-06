@@ -55,10 +55,10 @@ tsx scripts/e2e/mcp-code-mode-gateway-seed.ts >"$log_prefix-seed.log"
 # The OpenAI default preset uses Codex. Install its matching candidate with
 # fixture consent before starting the packaged Gateway, just as onboarding does.
 openclaw_prepublish_plugin_registry_start_mounted \
-  "$log_prefix-plugin-registry" plugin_registry_pid '["@openclaw/codex"]'
+  "$log_prefix-plugin-registry" plugin_registry_pid '["@granted/codex"]'
 codex_install_args=(codex)
 if [ -n "${OPENCLAW_PREPUBLISH_PLUGIN_REGISTRY_DIR:-}" ]; then
-  codex_install_args=("npm:@openclaw/codex@${OPENCLAW_PREPUBLISH_PLUGIN_REGISTRY_CANDIDATE_VERSION:?missing candidate version}" --pin)
+  codex_install_args=("npm:@granted/codex@${OPENCLAW_PREPUBLISH_PLUGIN_REGISTRY_CANDIDATE_VERSION:?missing candidate version}" --pin)
 fi
 openclaw_e2e_fixture_plugin_command openclaw_e2e_run_command node "$entry" -- \
   plugins install "${codex_install_args[@]}" >"$log_prefix-plugin-install.log" 2>&1

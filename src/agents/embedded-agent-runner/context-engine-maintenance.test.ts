@@ -1,6 +1,6 @@
 // Coverage for deferred context-engine maintenance and transcript rewrite hooks.
 
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { registerLegacyContextEngine } from "../../context-engine/legacy.registration.js";

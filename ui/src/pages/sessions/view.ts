@@ -1,8 +1,8 @@
-import { parseStrictPositiveInteger } from "@openclaw/normalization-core/number-coercion";
+import { parseStrictPositiveInteger } from "@granted/normalization-core/number-coercion";
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
-} from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/string-coerce";
 // Control UI view renders sessions screen content.
 import { html, nothing } from "lit";
 import type { SessionsSearchHit } from "../../../../packages/gateway-protocol/src/index.js";

@@ -1,5 +1,5 @@
 import type { DatabaseSync } from "node:sqlite";
-import { toStringifiedError } from "@openclaw/normalization-core/error-coercion";
+import { toStringifiedError } from "@granted/normalization-core/error-coercion";
 import { openNodeSqliteDatabase } from "./node-sqlite.js";
 import {
   readStableSqliteFileGeneration,

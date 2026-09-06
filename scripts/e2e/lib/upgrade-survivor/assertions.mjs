@@ -1164,9 +1164,9 @@ function assertCompanionPluginInstalls([expectedVersion, capabilityConsentSuppor
   );
   const records = readInstalledPluginIndex().installRecords ?? {};
   for (const [pluginId, packageName, source] of [
-    ["discord", "@openclaw/discord", "npm"],
-    ["whatsapp", "@openclaw/whatsapp", "clawhub"],
-    ["codex", "@openclaw/codex", "npm"],
+    ["discord", "@granted/discord", "npm"],
+    ["whatsapp", "@granted/whatsapp", "clawhub"],
+    ["codex", "@granted/codex", "npm"],
   ]) {
     const packageJson = assertExternalPluginInstall(records, pluginId, packageName);
     const record = records[pluginId];
@@ -1237,11 +1237,11 @@ function assertConfiguredPluginInstalls() {
   const records = index.installRecords ?? {};
   assertOptionalConfiguredPluginIndex(records, index.plugins ?? [], {
     bundled: true,
-    packageName: "@openclaw/matrix",
+    packageName: "@granted/matrix",
     pluginId: "matrix",
   });
   assertOptionalConfiguredPluginIndex(records, index.plugins ?? [], {
-    packageName: "@openclaw/brave-plugin",
+    packageName: "@granted/brave-plugin",
     pluginId: "brave",
   });
   assert(!records.telegram, "internal telegram plugin should not be installed externally");

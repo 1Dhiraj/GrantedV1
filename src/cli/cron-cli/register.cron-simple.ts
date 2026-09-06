@@ -3,7 +3,7 @@ import {
   parseStrictPositiveInteger,
   resolvePositiveTimerTimeoutMs,
   resolveTimerTimeoutMs,
-} from "@openclaw/normalization-core/number-coercion";
+} from "@granted/normalization-core/number-coercion";
 import type { Command } from "commander";
 import { resolveCronCompletionStatus } from "../../cron/completion-status.js";
 import type { CronRunLogEntry } from "../../cron/run-log-types.js";

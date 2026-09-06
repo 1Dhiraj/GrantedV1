@@ -1,4 +1,4 @@
-import { asNullableRecord, isRecord } from "@openclaw/normalization-core/record-coerce";
+import { asNullableRecord, isRecord } from "@granted/normalization-core/record-coerce";
 import { Type } from "typebox";
 import {
   validateSecretsStoreListResult,

@@ -1,4 +1,4 @@
-import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import {
   HEARTBEAT_RESPONSE_TOOL_INSTRUCTIONS,
   isHeartbeatContentEffectivelyEmpty,

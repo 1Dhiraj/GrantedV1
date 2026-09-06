@@ -5,7 +5,7 @@ Official OpenClaw provider plugin for StepFun.
 Install from OpenClaw:
 
 ```bash
-openclaw plugins install @openclaw/stepfun-provider
+openclaw plugins install @granted/stepfun-provider
 openclaw gateway restart
 ```
 

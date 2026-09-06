@@ -2,8 +2,8 @@
 import {
   findNormalizedProviderValue,
   normalizeProviderId,
-} from "@openclaw/model-catalog-core/provider-id";
-import { normalizeUniqueSingleOrTrimmedStringList } from "@openclaw/normalization-core/string-normalization";
+} from "@granted/model-catalog-core/provider-id";
+import { normalizeUniqueSingleOrTrimmedStringList } from "@granted/normalization-core/string-normalization";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 
 /** Core built-in model API ids that do not imply plugin ownership of a provider config. */

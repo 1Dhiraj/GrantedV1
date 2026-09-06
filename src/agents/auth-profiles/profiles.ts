@@ -4,8 +4,8 @@
  * records through locked or immediate store writes.
  */
 import { isDeepStrictEqual } from "node:util";
-import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
-import { normalizeStringEntries } from "@openclaw/normalization-core/string-normalization";
+import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
+import { normalizeStringEntries } from "@granted/normalization-core/string-normalization";
 import { createSubsystemLogger } from "../../logging/subsystem.js";
 import { resolveProviderIdForAuth } from "../provider-auth-aliases.js";
 import { normalizeAuthProfileCredential } from "./credential-normalize.js";

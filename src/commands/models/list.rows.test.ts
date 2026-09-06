@@ -1,5 +1,5 @@
 // Model list row tests cover rendered row construction for model listing output.
-import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
+import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { ModelCatalogEntry } from "../../agents/model-catalog.types.js";
 import type { ModelRow } from "./list.types.js";

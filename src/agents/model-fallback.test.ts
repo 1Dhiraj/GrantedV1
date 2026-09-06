@@ -1,6 +1,6 @@
 import crypto from "node:crypto";
 import path from "node:path";
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 // Covers model fallback ordering, error classification, and auth cooldown behavior.
 import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";

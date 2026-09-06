@@ -1,6 +1,6 @@
 // Gateway startup logging helpers.
 // Produces the compact ready banner with resolved model and safety state.
-import { normalizeSortedUniqueStringEntries } from "@openclaw/normalization-core/string-normalization";
+import { normalizeSortedUniqueStringEntries } from "@granted/normalization-core/string-normalization";
 import chalk from "chalk";
 import { sanitizeForLog } from "../../packages/terminal-core/src/ansi.js";
 import { resolveAgentConfig, tryResolveLegacyCompatibilityAgentId } from "../agents/agent-scope.js";

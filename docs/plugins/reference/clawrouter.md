@@ -11,7 +11,7 @@ Adds ClawRouter model provider support to OpenClaw.
 
 ## Distribution
 
-- Package: `@openclaw/clawrouter`
+- Package: `@granted/clawrouter`
 - Install route: included in OpenClaw
 
 ## Surface

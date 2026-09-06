@@ -1,5 +1,5 @@
 import crypto from "node:crypto";
-import { stableStringify } from "@openclaw/normalization-core";
+import { stableStringify } from "@granted/normalization-core";
 import { redactConfigObject } from "../../config/redact-snapshot.js";
 import type { GrantedConfig } from "../../config/types.openclaw.js";
 

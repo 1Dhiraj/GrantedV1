@@ -1,5 +1,5 @@
-import { asOptionalRecord } from "@openclaw/normalization-core/record-coerce";
-import { hasNonEmptyString, readStringValue } from "@openclaw/normalization-core/string-coerce";
+import { asOptionalRecord } from "@granted/normalization-core/record-coerce";
+import { hasNonEmptyString, readStringValue } from "@granted/normalization-core/string-coerce";
 import type { SourceReplyDeliveryMode } from "../auto-reply/get-reply-options.types.js";
 import {
   pluginBroadcastHasDelivery,

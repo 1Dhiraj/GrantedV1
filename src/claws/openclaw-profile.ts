@@ -1,5 +1,5 @@
 // Safe loader for the conventional package-local OpenClaw profile.
-import { asOptionalRecord as record } from "@openclaw/normalization-core/record-coerce";
+import { asOptionalRecord as record } from "@granted/normalization-core/record-coerce";
 import { isScalar, parseDocument, visit } from "yaml";
 import type { ToolProfileId } from "../agents/tool-policy-shared.js";
 import { FsSafeError, root as fsSafeRoot } from "../infra/fs-safe.js";

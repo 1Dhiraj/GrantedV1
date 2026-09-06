@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import { asFiniteNumber } from "@openclaw/normalization-core/number-coercion";
+import { asFiniteNumber } from "@granted/normalization-core/number-coercion";
 import { SessionManager } from "../../src/agents/sessions/session-manager.js";
 import type { GrantedConfig } from "../../src/config/config.js";
 import { resolveAgentModelPrimaryValue } from "../../src/config/model-input.js";

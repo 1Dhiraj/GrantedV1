@@ -1,7 +1,7 @@
-import { safeParseJsonRecord } from "@openclaw/normalization-core";
-import { asPositiveSafeInteger } from "@openclaw/normalization-core/number-coercion";
-import { asOptionalRecord as readRecord } from "@openclaw/normalization-core/record-coerce";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { safeParseJsonRecord } from "@granted/normalization-core";
+import { asPositiveSafeInteger } from "@granted/normalization-core/number-coercion";
+import { asOptionalRecord as readRecord } from "@granted/normalization-core/record-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { readAssistantDisplayContent } from "../shared/assistant-display-content.js";
 import { isOpenClawDeliveryMirrorAssistantMessage } from "../shared/transcript-only-openclaw-assistant.js";
 import {

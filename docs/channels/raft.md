@@ -17,7 +17,7 @@ uses the Raft CLI to check and send messages. Direct chat only (no groups).
 Raft is an official external plugin. Install it on the Gateway host:
 
 ```bash
-openclaw plugins install @openclaw/raft
+openclaw plugins install @granted/raft
 openclaw gateway restart
 ```
 

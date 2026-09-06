@@ -323,7 +323,7 @@ const rootToolingAndWorkspaceDependencies = [
   // scripts/ui.mts anchors these lookups at ui/package.json before invoking the UI workspace.
   "@vitest/browser-playwright",
   "dompurify",
-  // Root typecheck/test projects compile @openclaw/net-policy source directly.
+  // Root typecheck/test projects compile @granted/net-policy source directly.
   // Keep its exact dependency available without externalizing it from packaged builds.
   "ipaddr.js",
   "jscpd",
@@ -465,11 +465,11 @@ const config = {
   workspaces: {
     ".": {
       ignoreDependencies: [
-        "@openclaw/*",
+        "@granted/*",
         // Cloudflare template dependency: declared in scripts/cloudflare/package.json
         // (isolated deploy tooling), not in the root manifest.
         "@cloudflare/containers",
-        // Docker packaging stages @openclaw/ai without nested dependencies after
+        // Docker packaging stages @granted/ai without nested dependencies after
         // verifying the root owns its exact runtime dependency versions.
         "@mistralai/mistralai",
         "openai",

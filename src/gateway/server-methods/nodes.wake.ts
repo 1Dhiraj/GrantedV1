@@ -1,4 +1,4 @@
-import { resolveTimerTimeoutMs } from "@openclaw/normalization-core/number-coercion";
+import { resolveTimerTimeoutMs } from "@granted/normalization-core/number-coercion";
 import { getRuntimeConfig } from "../../config/io.js";
 import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { NodePairingGeneration } from "../../infra/device-pairing-node-state.js";

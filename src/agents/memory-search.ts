@@ -1,7 +1,7 @@
 /**
  * Resolves memory-search source, sync, and ranking configuration.
  */
-import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
+import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
 import type { GrantedConfig, MemorySearchConfig } from "../config/config.js";
 import type { SecretInput } from "../config/types.secrets.js";
 import {

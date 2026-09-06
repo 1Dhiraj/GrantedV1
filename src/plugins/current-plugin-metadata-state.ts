@@ -1,5 +1,5 @@
 // Holds current plugin metadata snapshots for process-scoped consumers.
-import { setCurrentManifestModelIdNormalizationPolicies } from "@openclaw/model-catalog-core/provider-model-id-normalization";
+import { setCurrentManifestModelIdNormalizationPolicies } from "@granted/model-catalog-core/provider-model-id-normalization";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import { getPluginCache, getProcessPluginCache } from "./plugin-cache.js";
 import type { PluginMetadataSnapshot } from "./plugin-metadata-snapshot.types.js";

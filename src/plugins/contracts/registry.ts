@@ -1,5 +1,5 @@
 // Plugin contract registry assembles bundled plugin fixtures for shared contract tests.
-import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
+import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
 import { loadBundledCapabilityRuntimeRegistry } from "../bundled-capability-runtime.js";
 import { discoverOpenClawPlugins } from "../discovery.js";
 import { loadPluginManifestRegistryCore } from "../manifest-registry.js";

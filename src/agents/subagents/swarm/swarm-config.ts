@@ -1,4 +1,4 @@
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import { clampNumber } from "../../../utils.js";
 import { resolveAgentConfig } from "../../agent-scope-config.js";

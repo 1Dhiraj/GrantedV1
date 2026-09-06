@@ -2,7 +2,7 @@
 import {
   normalizeConfiguredProviderCatalogModelId,
   type ManifestModelIdNormalizationProvider,
-} from "@openclaw/model-catalog-core/provider-model-id-normalization";
+} from "@granted/model-catalog-core/provider-model-id-normalization";
 import { isRecord } from "../utils.js";
 import {
   normalizeAgentModelMapForConfig,

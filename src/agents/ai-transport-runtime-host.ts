@@ -2,7 +2,7 @@ import {
   configureAiTransportHost,
   getAiTransportHost,
   type AiProviderRequestCapabilities,
-} from "@openclaw/ai";
+} from "@granted/ai";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import "../llm/ai-transport-host.js";
 import { getModelProviderRuntimePluginHandle } from "../plugins/provider-hook-runtime.js";

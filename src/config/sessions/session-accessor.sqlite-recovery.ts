@@ -1,4 +1,4 @@
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import { runOpenClawAgentWriteTransaction } from "../../state/openclaw-agent-db.js";
 import {
   normalizeLifecycleTarget,

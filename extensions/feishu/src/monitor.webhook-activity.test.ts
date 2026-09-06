@@ -1,6 +1,6 @@
 import { createConnection } from "node:net";
 import * as Lark from "@larksuiteoapi/node-sdk";
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { cleanupFeishuMonitorStateForTests } from "./monitor.cleanup.test-helpers.js";
 import { httpServers } from "./monitor.state.js";

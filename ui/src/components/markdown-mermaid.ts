@@ -1,4 +1,4 @@
-import { renderMermaidSvg, type MermaidTheme } from "@openclaw/mermaid-renderer";
+import { renderMermaidSvg, type MermaidTheme } from "@granted/mermaid-renderer";
 import { css, html, nothing, type PropertyValues } from "lit";
 import { property, state } from "lit/decorators.js";
 import { t } from "../i18n/index.ts";

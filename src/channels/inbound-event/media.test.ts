@@ -1,7 +1,7 @@
 // Inbound event media tests cover channel media attachment normalization.
 import path from "node:path";
-import { kindFromMime } from "@openclaw/media-core/mime";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { kindFromMime } from "@granted/media-core/mime";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
   hasStagedMediaFacts,

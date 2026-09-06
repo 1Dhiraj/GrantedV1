@@ -925,7 +925,7 @@ exit 99
               compilerOptions: {
                 paths: {
                   [dependency]: ["./caller-dependency.mts"],
-                  "@openclaw/normalization-core/record-coerce": [
+                  "@granted/normalization-core/record-coerce": [
                     "./packages/normalization-core/src/record-coerce.ts",
                   ],
                 },

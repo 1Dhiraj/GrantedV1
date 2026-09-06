@@ -2,7 +2,7 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { listSlackReactions } from "@openclaw/slack/api.js";
+import { listSlackReactions } from "@granted/slack/api.js";
 import { extractGatewayMessageText } from "../../gateway-log-sentinel.js";
 import { formatApprovalResultValue } from "../shared/live-approval-result.js";
 import { asPlainRecord } from "./slack-live.config.js";

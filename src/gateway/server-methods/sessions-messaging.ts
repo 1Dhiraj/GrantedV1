@@ -1,7 +1,7 @@
 // Session message RPC adapters over canonical chat.send dispatch.
 import { randomUUID } from "node:crypto";
-import { expectDefined } from "@openclaw/normalization-core";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { expectDefined } from "@granted/normalization-core";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import {
   ErrorCodes,
   errorShape,

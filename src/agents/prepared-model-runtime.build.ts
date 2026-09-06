@@ -1,7 +1,7 @@
 import { performance } from "node:perf_hooks";
 import { setImmediate as yieldToEventLoop } from "node:timers/promises";
-import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
-import { toStringifiedError } from "@openclaw/normalization-core/error-coercion";
+import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
+import { toStringifiedError } from "@granted/normalization-core/error-coercion";
 import pLimit from "p-limit";
 import { runAbortableTimeout } from "../node-host/with-timeout.js";
 import { prepareModelCatalogThinkingPolicies } from "../plugins/provider-thinking.js";

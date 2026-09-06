@@ -3,7 +3,7 @@ import fs from "node:fs";
 import {
   normalizeOptionalString,
   normalizeStringifiedOptionalString,
-} from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/string-coerce";
 import JSON5 from "json5";
 import { rejectConfigNonFiniteNumbers } from "../config/io.read-helpers.js";
 import { readFileDescriptorBoundedSync } from "../infra/boundary-file-read.js";

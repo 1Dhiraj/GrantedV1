@@ -1,5 +1,5 @@
 // Imports machine-owned openclaw.json values into the shared SQLite state store.
-import { asOptionalRecord } from "@openclaw/normalization-core/record-coerce";
+import { asOptionalRecord } from "@granted/normalization-core/record-coerce";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import { compareOpenClawVersions } from "../config/version.js";
 import { clearBundledDiscoveryModeMemo } from "../plugins/bundled-discovery-state.js";

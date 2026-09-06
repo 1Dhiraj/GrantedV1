@@ -1,6 +1,6 @@
 // Control UI view renders dreaming screen content.
-import { expectDefined } from "@openclaw/normalization-core";
-import { parseDateStringTimestampMs } from "@openclaw/normalization-core/number-coercion";
+import { expectDefined } from "@granted/normalization-core";
+import { parseDateStringTimestampMs } from "@granted/normalization-core/number-coercion";
 import { html, nothing } from "lit";
 import { unsafeHTML } from "lit/directives/unsafe-html.js";
 import { renderHubTabs } from "../../../components/hub-tabs.ts";

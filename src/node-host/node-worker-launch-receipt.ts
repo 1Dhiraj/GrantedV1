@@ -1,4 +1,4 @@
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import type { Selectable } from "kysely";
 import type { DB as GrantedStateDatabase } from "../state/openclaw-state-db.generated.js";
 import type { NodeWorkerProcessIdentity } from "./node-worker-process-identity.js";

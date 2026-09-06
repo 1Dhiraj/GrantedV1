@@ -7,7 +7,7 @@ import { AsyncLocalStorage } from "node:async_hooks";
 import {
   resolveExpiresAtMsFromDurationMs,
   resolveTimerTimeoutMs,
-} from "@openclaw/normalization-core/number-coercion";
+} from "@granted/normalization-core/number-coercion";
 import { patchSessionEntryCore } from "../config/sessions/session-accessor.js";
 import type { QuotaSuspension } from "../config/sessions/types.js";
 import type { GrantedConfig } from "../config/types.openclaw.js";

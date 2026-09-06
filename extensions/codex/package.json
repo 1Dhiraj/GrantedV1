@@ -1,5 +1,5 @@
 {
-  "name": "@openclaw/codex",
+  "name": "@granted/codex",
   "version": "2026.8.1",
   "description": "OpenClaw Codex app-server harness and native session supervision plugin.",
   "repository": {
@@ -16,14 +16,14 @@
     "zod": "4.4.3"
   },
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*"
+    "@granted/plugin-sdk": "workspace:*"
   },
   "openclaw": {
     "extensions": [
       "./index.ts"
     ],
     "install": {
-      "npmSpec": "@openclaw/codex",
+      "npmSpec": "@granted/codex",
       "defaultChoice": "npm",
       "minHostVersion": ">=2026.5.1-beta.1",
       "requiredPlatformPackages": [

@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import { expectDefined } from "@openclaw/normalization-core";
-import { asNullableRecord } from "@openclaw/normalization-core/record-coerce";
+import { expectDefined } from "@granted/normalization-core";
+import { asNullableRecord } from "@granted/normalization-core/record-coerce";
 import { afterEach, expect, test, vi } from "vitest";
 import { waitForFile } from "../../test/helpers/process-wait.js";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";

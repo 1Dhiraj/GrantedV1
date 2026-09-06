@@ -1,6 +1,6 @@
 /** Read-only transcript detection; positive repairs retain exact snapshots. */
 import type { DatabaseSync, StatementSync } from "node:sqlite";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import type { SqliteTranscriptStorageRow } from "../config/sessions/session-accessor.sqlite-read.js";
 import { tableExists } from "../state/openclaw-state-db-schema-helpers.js";
 

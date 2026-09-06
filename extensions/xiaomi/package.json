@@ -1,5 +1,5 @@
 {
-  "name": "@openclaw/xiaomi-provider",
+  "name": "@granted/xiaomi-provider",
   "version": "2026.8.1",
   "description": "OpenClaw Xiaomi provider plugin.",
   "repository": {
@@ -8,15 +8,15 @@
   },
   "type": "module",
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*"
+    "@granted/plugin-sdk": "workspace:*"
   },
   "openclaw": {
     "extensions": [
       "./index.ts"
     ],
     "install": {
-      "clawhubSpec": "clawhub:@openclaw/xiaomi-provider",
-      "npmSpec": "@openclaw/xiaomi-provider",
+      "clawhubSpec": "clawhub:@granted/xiaomi-provider",
+      "npmSpec": "@granted/xiaomi-provider",
       "defaultChoice": "npm",
       "minHostVersion": ">=2026.7.2"
     },

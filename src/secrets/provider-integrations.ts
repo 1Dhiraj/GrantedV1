@@ -1,7 +1,7 @@
 /** Materializes trusted plugin secret-provider integrations into exec provider configs. */
 import fs from "node:fs";
 import path from "node:path";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import type {
   ManualExecSecretProviderConfig,

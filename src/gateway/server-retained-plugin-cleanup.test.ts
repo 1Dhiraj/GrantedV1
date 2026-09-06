@@ -15,7 +15,7 @@ it("preserves package files retained by plugin uninstall", async () => {
   await withOpenClawTestState({ label: "gateway-retained-plugin-cleanup" }, async (state) => {
     const packageDir = writeManagedNpmPlugin({
       stateDir: state.stateDir,
-      packageName: "@openclaw/kept-plugin",
+      packageName: "@granted/kept-plugin",
       pluginId: "kept-plugin",
       version: "1.0.0",
     });
@@ -42,7 +42,7 @@ it.each(["project", "legacy"] as const)(
       const writePlugin = (pluginId: string) =>
         writeManagedNpmPlugin({
           stateDir: state.stateDir,
-          packageName: `@openclaw/${pluginId}`,
+          packageName: `@granted/${pluginId}`,
           pluginId,
           version: "1.0.0",
           layout,
@@ -55,7 +55,7 @@ it.each(["project", "legacy"] as const)(
         {
           "desired-plugin": {
             source: "npm",
-            spec: "@openclaw/desired-plugin",
+            spec: "@granted/desired-plugin",
             installPath: desiredPackage,
           },
         },

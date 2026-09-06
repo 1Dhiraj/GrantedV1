@@ -1,4 +1,4 @@
-import { WORKBOARD_STATUSES, type WorkboardCard } from "@openclaw/workboard-contract";
+import { WORKBOARD_STATUSES, type WorkboardCard } from "@granted/workboard-contract";
 import type { AnyAgentTool } from "granted/plugin-sdk/plugin-entry";
 import type { AgentToolResult } from "granted/plugin-sdk/tool-results";
 import { Type, type TProperties } from "typebox";

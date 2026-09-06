@@ -1,8 +1,8 @@
 /** Selects stable runtime executable paths for daemon installs across platforms. */
 import fs from "node:fs/promises";
 import path from "node:path";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
-import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
+import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
 import { SUPPORTED_NODE_VERSIONS } from "../../node-version.mjs";
 import { isMissingPathError } from "../infra/errno.js";
 import { isSupportedBunVersion, isSupportedNodeVersion } from "../infra/runtime-guard.js";

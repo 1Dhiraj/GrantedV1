@@ -1,4 +1,4 @@
-import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
+import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
 import { describe, expect, it, vi } from "vitest";
 import type { ModelProviderConfig } from "../../config/types.models.js";
 import type { Model } from "../../llm/types.js";

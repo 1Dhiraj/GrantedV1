@@ -1,8 +1,8 @@
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import {
   normalizeStringEntries,
   uniqueStrings,
-} from "@openclaw/normalization-core/string-normalization";
+} from "@granted/normalization-core/string-normalization";
 import { getPluginToolMeta } from "../plugins/tool-metadata.js";
 import { levenshteinDistance } from "../shared/levenshtein-distance.js";
 import {

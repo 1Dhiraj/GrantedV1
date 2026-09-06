@@ -5,7 +5,7 @@
  */
 import os from "node:os";
 import path from "node:path";
-import { normalizeOptionalLowercaseString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalLowercaseString } from "@granted/normalization-core/string-coerce";
 import { resolveProfileStateDir } from "../cli/profile-utils.js";
 import { resolveStateDir } from "../config/paths.js";
 

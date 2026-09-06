@@ -6,7 +6,7 @@ understanding, and native OpenCode session browsing.
 ## Install
 
 ```sh
-openclaw plugins install @openclaw/opencode-provider
+openclaw plugins install @granted/opencode-provider
 openclaw gateway restart
 ```
 

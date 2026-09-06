@@ -4,7 +4,7 @@ import { createServer } from "node:http";
 import os from "node:os";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
-import { coerceErrorMessage, toErrorObject } from "@openclaw/normalization-core/error-coercion";
+import { coerceErrorMessage, toErrorObject } from "@granted/normalization-core/error-coercion";
 import { GatewayClient } from "granted/plugin-sdk/gateway-runtime";
 import {
   createQaBusState,

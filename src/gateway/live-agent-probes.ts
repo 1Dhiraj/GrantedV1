@@ -6,8 +6,8 @@ import path from "node:path";
 import {
   resolveExpiresAtMsFromDurationSeconds,
   resolveTimestampMsToIsoString,
-} from "@openclaw/normalization-core/number-coercion";
-import { normalizeOptionalLowercaseString } from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/number-coercion";
+import { normalizeOptionalLowercaseString } from "@granted/normalization-core/string-coerce";
 import { isTruthyEnvValue } from "../infra/env.js";
 import { runExec } from "../process/exec.js";
 

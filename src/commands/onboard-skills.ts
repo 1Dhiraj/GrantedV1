@@ -4,7 +4,7 @@
  * It reports workspace skill readiness, offers safe dependency installs, and
  * leaves per-skill credentials to the agent when a skill actually needs them.
  */
-import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import { formatCliCommand } from "../cli/command-format.js";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolveBrewExecutable } from "../infra/brew.js";

@@ -1,7 +1,7 @@
 import { EventEmitter, once } from "node:events";
 import { createServer as createHttpsServer } from "node:https";
 import net from "node:net";
-import { rawDataToString } from "@openclaw/gateway-client/websocket-data";
+import { rawDataToString } from "@granted/gateway-client/websocket-data";
 import { describe, expect, it, vi } from "vitest";
 import { WebSocketServer, type WebSocket } from "ws";
 import {

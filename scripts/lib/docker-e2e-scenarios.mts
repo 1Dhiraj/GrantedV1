@@ -65,7 +65,7 @@ const updateRunPackageSelfUpgradeCommand =
   "GRANTED_QA_ALLOW_UPDATE_RUN_SELF=1 GRANTED_SKIP_DOCKER_BUILD=1 pnpm test:docker:update-run-package-self-upgrade";
 const CODEX_HARNESS_API_KEY_ENV = "GRANTED_LIVE_CODEX_HARNESS_AUTH=api-key";
 const npmOnboardLaneOptions = {
-  prepublishPluginPackages: ["@openclaw/codex"],
+  prepublishPluginPackages: ["@granted/codex"],
   resources: ["service"],
   stateScenario: "empty",
   weight: 3,
@@ -318,7 +318,7 @@ function mcpCodeModeGatewayLane() {
     "mcp-code-mode-gateway",
     "GRANTED_SKIP_DOCKER_BUILD=1 pnpm test:docker:mcp-code-mode-gateway",
     {
-      prepublishPluginPackages: ["@openclaw/codex"],
+      prepublishPluginPackages: ["@granted/codex"],
       resources: ["npm"],
       stateScenario: "empty",
       weight: 3,
@@ -333,7 +333,7 @@ function liveMcpCodeModeGatewayLane() {
     {
       cacheKey: "mcp-code-mode-gateway",
       e2eImageKind: "functional",
-      prepublishPluginPackages: ["@openclaw/codex"],
+      prepublishPluginPackages: ["@granted/codex"],
       provider: "openai",
       resources: ["npm", "service"],
       stateScenario: "empty",
@@ -444,13 +444,13 @@ export const mainLanes: DockerE2eLane[] = [
     weight: 2,
   }),
   npmLane("codex-on-demand", "GRANTED_SKIP_DOCKER_BUILD=1 pnpm test:docker:codex-on-demand", {
-    prepublishPluginPackages: ["@openclaw/codex"],
+    prepublishPluginPackages: ["@granted/codex"],
     resources: ["service"],
     stateScenario: "empty",
     weight: 3,
   }),
   serviceLane("codex-media-path", "GRANTED_SKIP_DOCKER_BUILD=1 pnpm test:docker:codex-media-path", {
-    prepublishPluginPackages: ["@openclaw/codex"],
+    prepublishPluginPackages: ["@granted/codex"],
     resources: ["npm"],
     stateScenario: "empty",
     weight: 3,
@@ -480,7 +480,7 @@ export const mainLanes: DockerE2eLane[] = [
     ),
     {
       ...npmOnboardLaneOptions,
-      prepublishPluginPackages: ["@openclaw/codex", "@openclaw/discord"],
+      prepublishPluginPackages: ["@granted/codex", "@granted/discord"],
     },
   ),
   npmLane(
@@ -491,7 +491,7 @@ export const mainLanes: DockerE2eLane[] = [
     ),
     {
       ...npmOnboardLaneOptions,
-      prepublishPluginPackages: ["@openclaw/codex", "@openclaw/slack"],
+      prepublishPluginPackages: ["@granted/codex", "@granted/slack"],
     },
   ),
   npmLane(

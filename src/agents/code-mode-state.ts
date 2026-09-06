@@ -2,7 +2,7 @@ import { randomUUID } from "node:crypto";
 import {
   isFutureDateTimestampMs,
   resolveExpiresAtMsFromDurationSeconds,
-} from "@openclaw/normalization-core/number-coercion";
+} from "@granted/normalization-core/number-coercion";
 import type { Snapshot } from "quickjs-wasi";
 import { raceWithAbortSignal } from "./agent-tools.abort.js";
 import { runBridgeRequest } from "./code-mode-bridge.js";

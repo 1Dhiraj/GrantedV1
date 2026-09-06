@@ -1,5 +1,5 @@
-import type { AgentMessage } from "@openclaw/agent-core";
-import { asOptionalRecord } from "@openclaw/normalization-core/record-coerce";
+import type { AgentMessage } from "@granted/agent-core";
+import { asOptionalRecord } from "@granted/normalization-core/record-coerce";
 
 // Native replay retains the exact submitted prompt. Model-context consumers already
 // have its visible content; copying this storage-only payload duplicates the prompt.

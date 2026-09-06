@@ -168,9 +168,9 @@ describe("release-check", () => {
       };
       expect(manifest.private).toBe(true);
       expect(manifest.dependencies).toEqual({
-        "@openclaw/ai": "file:///tmp/openclaw-ai.tgz",
-        "@openclaw/gateway-client": "file:///tmp/openclaw-gateway-client.tgz",
-        "@openclaw/gateway-protocol": "file:///tmp/openclaw-gateway-protocol.tgz",
+        "@granted/ai": "file:///tmp/openclaw-ai.tgz",
+        "@granted/gateway-client": "file:///tmp/openclaw-gateway-client.tgz",
+        "@granted/gateway-protocol": "file:///tmp/openclaw-gateway-protocol.tgz",
         openclaw: "file:///tmp/openclaw.tgz",
       });
     } finally {
@@ -191,8 +191,8 @@ describe("release-check", () => {
         dependencies?: Record<string, string>;
       };
       expect(manifest.dependencies).toEqual({
-        "@openclaw/gateway-client": "file:///tmp/openclaw-gateway-client.tgz",
-        "@openclaw/gateway-protocol": "file:///tmp/openclaw-gateway-protocol.tgz",
+        "@granted/gateway-client": "file:///tmp/openclaw-gateway-client.tgz",
+        "@granted/gateway-protocol": "file:///tmp/openclaw-gateway-protocol.tgz",
         openclaw: "file:///tmp/openclaw.tgz",
       });
     } finally {
@@ -248,14 +248,14 @@ describe("release-check", () => {
     const root = mkdtempSync(join(tmpdir(), "openclaw-release-check-install-test-"));
     try {
       expect(() => writePackedTarballInstallManifest(root, "/tmp/openclaw.tgz", [])).toThrow(
-        "requires exactly one @openclaw/ai tarball",
+        "requires exactly one @granted/ai tarball",
       );
       expect(() =>
         writePackedTarballInstallManifest(root, "/tmp/openclaw.tgz", [
           "/tmp/openclaw-ai-one.tgz",
           "/tmp/openclaw-ai-two.tgz",
         ]),
-      ).toThrow("requires exactly one @openclaw/ai tarball");
+      ).toThrow("requires exactly one @granted/ai tarball");
     } finally {
       rmSync(root, { recursive: true, force: true });
     }
@@ -270,7 +270,7 @@ describe("release-check", () => {
       const empty = join(root, "empty");
       mkdirSync(empty);
       expect(() => resolveReleaseCheckLocalPackageTarballs(empty)).toThrow(
-        "must contain exactly one @openclaw/ai tarball",
+        "must contain exactly one @granted/ai tarball",
       );
       writeFileSync(join(empty, "one.tgz"), "fixture");
       writeFileSync(join(empty, "two.tgz"), "fixture");

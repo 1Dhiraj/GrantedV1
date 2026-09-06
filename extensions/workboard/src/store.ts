@@ -10,7 +10,7 @@ import type {
   WorkboardMetadata,
   WorkboardStaleState,
   WorkboardStatus,
-} from "@openclaw/workboard-contract";
+} from "@granted/workboard-contract";
 import { createWorkboardSqliteStores } from "./sqlite-store.js";
 import {
   buildWorkerContext,

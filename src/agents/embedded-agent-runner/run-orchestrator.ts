@@ -1,7 +1,7 @@
 /**
  * Embedded-agent run orchestration implementation.
  */
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { SILENT_REPLY_TOKEN } from "../../auto-reply/tokens.js";
 import { getRuntimeConfigSnapshot } from "../../config/config.js";
 import type { GrantedConfig } from "../../config/types.openclaw.js";

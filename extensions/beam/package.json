@@ -1,11 +1,11 @@
 {
-  "name": "@openclaw/beam",
+  "name": "@granted/beam",
   "version": "2026.8.1",
   "private": true,
   "description": "Read-only coding-session Beam receiver",
   "type": "module",
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*"
+    "@granted/plugin-sdk": "workspace:*"
   },
   "openclaw": {
     "extensions": [

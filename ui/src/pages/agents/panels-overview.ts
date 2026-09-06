@@ -1,5 +1,5 @@
 // Control UI view renders agents panels overview screen content.
-import { normalizeCsvOrLooseStringList } from "@openclaw/normalization-core/string-normalization";
+import { normalizeCsvOrLooseStringList } from "@granted/normalization-core/string-normalization";
 import { html, nothing } from "lit";
 import type {
   AgentIdentityResult,

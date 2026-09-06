@@ -463,7 +463,7 @@ fs.writeFileSync(
   path.join(root, "package.json"),
   `${JSON.stringify(
     {
-      name: "@openclaw/brave-plugin",
+      name: "@granted/brave-plugin",
       version: "2026.5.2",
       openclaw: { extensions: ["./index.js"] },
     },
@@ -505,7 +505,7 @@ fs.writeFileSync(
 );
 NODE
     tar -czf "$tarball" -C "$fixture_root" package
-    registry_args+=("@openclaw/brave-plugin" "2026.5.2" "$tarball")
+    registry_args+=("@granted/brave-plugin" "2026.5.2" "$tarball")
   fi
 
    if [ "${#registry_args[@]}" -eq 0 ]; then
@@ -531,21 +531,21 @@ install_companion_plugins() {
 
   set +e
   openclaw_e2e_fixture_plugin_command openclaw -- \
-    plugins install "npm:@openclaw/discord@$package_version" --pin
+    plugins install "npm:@granted/discord@$package_version" --pin
   install_status=$?
   if [ "$install_status" -eq 0 ]; then
     openclaw_e2e_fixture_plugin_command openclaw -- \
-      plugins install "clawhub:@openclaw/whatsapp@$package_version"
+      plugins install "clawhub:@granted/whatsapp@$package_version"
     install_status=$?
   fi
   if [ "$install_status" -eq 0 ]; then
     node "$OPENCLAW_UPGRADE_SURVIVOR_CLAWHUB_FIXTURE_SERVER" \
-      assert-prepublish-requests "$OPENCLAW_CLAWHUB_URL" "@openclaw/whatsapp" "$package_version"
+      assert-prepublish-requests "$OPENCLAW_CLAWHUB_URL" "@granted/whatsapp" "$package_version"
     install_status=$?
   fi
   if [ "$install_status" -eq 0 ]; then
     openclaw_e2e_fixture_plugin_command openclaw -- \
-      plugins install "npm:@openclaw/codex@$package_version" --pin
+      plugins install "npm:@granted/codex@$package_version" --pin
     install_status=$?
   fi
   node "$OPENCLAW_UPGRADE_SURVIVOR_CONFIG_PARKING_HELPER" \

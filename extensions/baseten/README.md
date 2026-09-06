@@ -5,7 +5,7 @@ Official OpenClaw provider plugin for Baseten Model APIs, including Thinking Mac
 Install from OpenClaw:
 
 ```bash
-openclaw plugins install @openclaw/baseten-provider
+openclaw plugins install @granted/baseten-provider
 openclaw gateway restart
 ```
 

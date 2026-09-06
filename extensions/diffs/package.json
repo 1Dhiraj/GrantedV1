@@ -1,5 +1,5 @@
 {
-  "name": "@openclaw/diffs",
+  "name": "@granted/diffs",
   "version": "2026.8.1",
   "description": "OpenClaw read-only diff viewer plugin and file renderer for agents.",
   "repository": {
@@ -15,15 +15,15 @@
     "zod": "4.4.3"
   },
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*"
+    "@granted/plugin-sdk": "workspace:*"
   },
   "openclaw": {
     "extensions": [
       "./index.ts"
     ],
     "install": {
-      "npmSpec": "@openclaw/diffs",
-      "clawhubSpec": "clawhub:@openclaw/diffs",
+      "npmSpec": "@granted/diffs",
+      "clawhubSpec": "clawhub:@granted/diffs",
       "defaultChoice": "npm",
       "minHostVersion": ">=2026.4.30"
     },

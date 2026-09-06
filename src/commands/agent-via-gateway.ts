@@ -4,9 +4,9 @@ import { TextDecoder } from "node:util";
 import {
   parseStrictNonNegativeInteger,
   resolveTimerTimeoutMs,
-} from "@openclaw/normalization-core/number-coercion";
-import { asOptionalRecord } from "@openclaw/normalization-core/record-coerce";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/number-coercion";
+import { asOptionalRecord } from "@granted/normalization-core/record-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { GatewayProtocolRequestError } from "../../packages/gateway-client/src/protocol-request.js";
 import {
   GATEWAY_CLIENT_MODES,

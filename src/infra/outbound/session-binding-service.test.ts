@@ -1,6 +1,6 @@
 // Covers session binding adapter registration, generic current-conversation
 // fallback, capability errors, deduping, and duplicate graph teardown.
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import {
   inspectConversationBinding as inspectSessionBindingByConversation,
   type ConversationBindingInspection,

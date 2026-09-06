@@ -89,7 +89,7 @@ function hasWorkerOverride(env: Record<string, string | undefined>): boolean {
 
 function sourcePackageAlias(packageId: string, subpath?: string) {
   return {
-    find: `@openclaw/${packageId}${subpath ? `/${subpath}` : ""}`,
+    find: `@granted/${packageId}${subpath ? `/${subpath}` : ""}`,
     replacement: path.join(
       repoRoot,
       "packages",
@@ -192,59 +192,59 @@ export const sharedVitestConfig = {
         ),
       },
       {
-        find: "@openclaw/qa-channel/api.js",
+        find: "@granted/qa-channel/api.js",
         replacement: path.join(repoRoot, "extensions", "qa-channel", "api.ts"),
       },
       {
-        find: "@openclaw/discord/api.js",
+        find: "@granted/discord/api.js",
         replacement: path.join(repoRoot, "extensions", "discord", "api.ts"),
       },
       {
-        find: "@openclaw/matrix/test-api.js",
+        find: "@granted/matrix/test-api.js",
         replacement: path.join(repoRoot, "extensions", "matrix", "test-api.ts"),
       },
       {
-        find: "@openclaw/memory-core/api.js",
+        find: "@granted/memory-core/api.js",
         replacement: path.join(repoRoot, "extensions", "memory-core", "api.ts"),
       },
       {
-        find: "@openclaw/slack/api.js",
+        find: "@granted/slack/api.js",
         replacement: path.join(repoRoot, "extensions", "slack", "api.ts"),
       },
       {
-        find: "@openclaw/whatsapp/api.js",
+        find: "@granted/whatsapp/api.js",
         replacement: path.join(repoRoot, "extensions", "whatsapp", "api.ts"),
       },
       {
-        find: "@openclaw/gateway-client/browser",
+        find: "@granted/gateway-client/browser",
         replacement: path.join(repoRoot, "packages", "gateway-client", "src", "browser.ts"),
       },
       {
-        find: "@openclaw/gateway-client/readiness",
+        find: "@granted/gateway-client/readiness",
         replacement: path.join(repoRoot, "packages", "gateway-client", "src", "readiness.ts"),
       },
       {
-        find: "@openclaw/gateway-client/scope-upgrade",
+        find: "@granted/gateway-client/scope-upgrade",
         replacement: path.join(repoRoot, "packages", "gateway-client", "src", "scope-upgrade.ts"),
       },
       {
-        find: "@openclaw/gateway-client/timeouts",
+        find: "@granted/gateway-client/timeouts",
         replacement: path.join(repoRoot, "packages", "gateway-client", "src", "timeouts.ts"),
       },
       {
-        find: "@openclaw/gateway-client/websocket-data",
+        find: "@granted/gateway-client/websocket-data",
         replacement: path.join(repoRoot, "packages", "gateway-client", "src", "websocket-data.ts"),
       },
       {
-        find: "@openclaw/gateway-client",
+        find: "@granted/gateway-client",
         replacement: path.join(repoRoot, "packages", "gateway-client", "src", "index.ts"),
       },
       {
-        find: "@openclaw/gateway-protocol/client-info",
+        find: "@granted/gateway-protocol/client-info",
         replacement: path.join(repoRoot, "packages", "gateway-protocol", "src", "client-info.ts"),
       },
       {
-        find: "@openclaw/gateway-protocol/connect-error-details",
+        find: "@granted/gateway-protocol/connect-error-details",
         replacement: path.join(
           repoRoot,
           "packages",
@@ -254,11 +254,11 @@ export const sharedVitestConfig = {
         ),
       },
       {
-        find: "@openclaw/gateway-protocol/frame-guards",
+        find: "@granted/gateway-protocol/frame-guards",
         replacement: path.join(repoRoot, "packages", "gateway-protocol", "src", "frame-guards.ts"),
       },
       {
-        find: "@openclaw/gateway-protocol/gateway-error-details",
+        find: "@granted/gateway-protocol/gateway-error-details",
         replacement: path.join(
           repoRoot,
           "packages",
@@ -268,11 +268,11 @@ export const sharedVitestConfig = {
         ),
       },
       {
-        find: "@openclaw/gateway-protocol/schema",
+        find: "@granted/gateway-protocol/schema",
         replacement: path.join(repoRoot, "packages", "gateway-protocol", "src", "schema.ts"),
       },
       {
-        find: "@openclaw/gateway-protocol/startup-unavailable",
+        find: "@granted/gateway-protocol/startup-unavailable",
         replacement: path.join(
           repoRoot,
           "packages",
@@ -282,11 +282,11 @@ export const sharedVitestConfig = {
         ),
       },
       {
-        find: "@openclaw/gateway-protocol/version",
+        find: "@granted/gateway-protocol/version",
         replacement: path.join(repoRoot, "packages", "gateway-protocol", "src", "version.ts"),
       },
       {
-        find: "@openclaw/gateway-protocol",
+        find: "@granted/gateway-protocol",
         replacement: path.join(repoRoot, "packages", "gateway-protocol", "src", "index.ts"),
       },
       {
@@ -294,23 +294,23 @@ export const sharedVitestConfig = {
         replacement: path.join(repoRoot, "packages", "ai", "src", "internal", "$1.ts"),
       },
       {
-        find: "@openclaw/ai/diagnostics",
+        find: "@granted/ai/diagnostics",
         replacement: path.join(repoRoot, "packages", "ai", "src", "utils", "diagnostics.ts"),
       },
       {
-        find: "@openclaw/ai/event-stream",
+        find: "@granted/ai/event-stream",
         replacement: path.join(repoRoot, "packages", "ai", "src", "utils", "event-stream.ts"),
       },
       {
-        find: "@openclaw/ai/providers",
+        find: "@granted/ai/providers",
         replacement: path.join(repoRoot, "packages", "ai", "src", "providers.ts"),
       },
       {
-        find: "@openclaw/ai/types",
+        find: "@granted/ai/types",
         replacement: path.join(repoRoot, "packages", "ai", "src", "types.ts"),
       },
       {
-        find: "@openclaw/ai/validation",
+        find: "@granted/ai/validation",
         replacement: path.join(repoRoot, "packages", "ai", "src", "validation.ts"),
       },
       {
@@ -318,27 +318,27 @@ export const sharedVitestConfig = {
         replacement: path.join(repoRoot, "packages", "ai", "src", "$1.ts"),
       },
       {
-        find: "@openclaw/ai",
+        find: "@granted/ai",
         replacement: path.join(repoRoot, "packages", "ai", "src", "index.ts"),
       },
       {
-        find: "@openclaw/llm-core/diagnostics",
+        find: "@granted/llm-core/diagnostics",
         replacement: path.join(repoRoot, "packages", "llm-core", "src", "utils", "diagnostics.ts"),
       },
       {
-        find: "@openclaw/llm-core/event-stream",
+        find: "@granted/llm-core/event-stream",
         replacement: path.join(repoRoot, "packages", "llm-core", "src", "utils", "event-stream.ts"),
       },
       {
-        find: "@openclaw/llm-core/validation",
+        find: "@granted/llm-core/validation",
         replacement: path.join(repoRoot, "packages", "llm-core", "src", "validation.ts"),
       },
       {
-        find: "@openclaw/llm-core",
+        find: "@granted/llm-core",
         replacement: path.join(repoRoot, "packages", "llm-core", "src", "index.ts"),
       },
       {
-        find: "@openclaw/model-catalog-core/configured-model-refs",
+        find: "@granted/model-catalog-core/configured-model-refs",
         replacement: path.join(
           repoRoot,
           "packages",
@@ -348,7 +348,7 @@ export const sharedVitestConfig = {
         ),
       },
       {
-        find: "@openclaw/model-catalog-core/model-catalog-refs",
+        find: "@granted/model-catalog-core/model-catalog-refs",
         replacement: path.join(
           repoRoot,
           "packages",
@@ -358,7 +358,7 @@ export const sharedVitestConfig = {
         ),
       },
       {
-        find: "@openclaw/model-catalog-core/model-catalog-normalize",
+        find: "@granted/model-catalog-core/model-catalog-normalize",
         replacement: path.join(
           repoRoot,
           "packages",
@@ -369,7 +369,7 @@ export const sharedVitestConfig = {
       },
       sourcePackageAlias("model-catalog-core", "model-catalog-pricing"),
       {
-        find: "@openclaw/model-catalog-core/model-catalog-types",
+        find: "@granted/model-catalog-core/model-catalog-types",
         replacement: path.join(
           repoRoot,
           "packages",
@@ -379,11 +379,11 @@ export const sharedVitestConfig = {
         ),
       },
       {
-        find: "@openclaw/model-catalog-core/provider-id",
+        find: "@granted/model-catalog-core/provider-id",
         replacement: path.join(repoRoot, "packages", "model-catalog-core", "src", "provider-id.ts"),
       },
       {
-        find: "@openclaw/model-catalog-core/provider-model-id-normalization",
+        find: "@granted/model-catalog-core/provider-model-id-normalization",
         replacement: path.join(
           repoRoot,
           "packages",
@@ -393,7 +393,7 @@ export const sharedVitestConfig = {
         ),
       },
       {
-        find: "@openclaw/model-catalog-core/provider-model-id-normalize",
+        find: "@granted/model-catalog-core/provider-model-id-normalize",
         replacement: path.join(
           repoRoot,
           "packages",
@@ -403,19 +403,19 @@ export const sharedVitestConfig = {
         ),
       },
       {
-        find: "@openclaw/model-catalog-core",
+        find: "@granted/model-catalog-core",
         replacement: path.join(repoRoot, "packages", "model-catalog-core", "src", "index.ts"),
       },
       {
-        find: "@openclaw/net-policy/ip",
+        find: "@granted/net-policy/ip",
         replacement: path.join(repoRoot, "packages", "net-policy", "src", "ip.ts"),
       },
       {
-        find: "@openclaw/net-policy/ipv4",
+        find: "@granted/net-policy/ipv4",
         replacement: path.join(repoRoot, "packages", "net-policy", "src", "ipv4.ts"),
       },
       {
-        find: "@openclaw/net-policy/redact-sensitive-url",
+        find: "@granted/net-policy/redact-sensitive-url",
         replacement: path.join(
           repoRoot,
           "packages",
@@ -425,15 +425,15 @@ export const sharedVitestConfig = {
         ),
       },
       {
-        find: "@openclaw/net-policy/url-protocol",
+        find: "@granted/net-policy/url-protocol",
         replacement: path.join(repoRoot, "packages", "net-policy", "src", "url-protocol.ts"),
       },
       {
-        find: "@openclaw/net-policy/url-userinfo",
+        find: "@granted/net-policy/url-userinfo",
         replacement: path.join(repoRoot, "packages", "net-policy", "src", "url-userinfo.ts"),
       },
       {
-        find: "@openclaw/net-policy",
+        find: "@granted/net-policy",
         replacement: path.join(repoRoot, "packages", "net-policy", "src", "index.ts"),
       },
       ...sourcePackageAliasesFromExports(
@@ -464,7 +464,7 @@ export const sharedVitestConfig = {
         replacement: path.join(repoRoot, "src", "plugin-sdk", `${subpath}.ts`),
       })),
       ...pluginSdkSubpaths.map((subpath) => ({
-        find: `@openclaw/plugin-sdk/${subpath}`,
+        find: `@granted/plugin-sdk/${subpath}`,
         replacement: path.join(repoRoot, "packages", "plugin-sdk", "src", `${subpath}.ts`),
       })),
     ],

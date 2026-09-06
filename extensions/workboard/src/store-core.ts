@@ -7,7 +7,7 @@ import type {
   WorkboardLink,
   WorkboardMetadata,
   WorkboardStatus,
-} from "@openclaw/workboard-contract";
+} from "@granted/workboard-contract";
 import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import { isWorkboardCardStore } from "./persistence-types.js";
 import type {

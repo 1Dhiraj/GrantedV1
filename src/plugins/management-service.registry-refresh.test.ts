@@ -150,7 +150,7 @@ function metadataSnapshot(enabled: boolean, installed = false) {
         recordInstalledPluginIndexInstallOwner(
           {
             pluginId: "workboard",
-            packageName: "@openclaw/workboard",
+            packageName: "@granted/workboard",
             origin: "bundled",
             rootDir: "/tmp/workboard",
             enabled,

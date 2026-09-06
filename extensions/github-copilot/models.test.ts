@@ -1,6 +1,6 @@
-import { streamSimpleOpenAIResponses } from "@openclaw/ai/internal/openai";
+import { streamSimpleOpenAIResponses } from "@granted/ai/internal/openai";
 // Github Copilot tests cover models plugin behavior.
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { createProviderUsageFetch, makeResponse } from "granted/plugin-sdk/test-env";
 import { describe, expect, it, vi } from "vitest";
 import { resolveThinkingProfile } from "./provider-policy-api.js";

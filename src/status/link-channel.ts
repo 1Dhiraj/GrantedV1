@@ -1,7 +1,7 @@
 // Resolves the first channel that can report linked/unlinked auth state for status summaries.
 // Channel-specific linking logic stays inside plugin status hooks.
 
-import { asNullableRecord } from "@openclaw/normalization-core/record-coerce";
+import { asNullableRecord } from "@granted/normalization-core/record-coerce";
 import { resolveInspectedChannelAccount } from "../channels/account-inspection.js";
 import { resolveChannelDefaultAccountId } from "../channels/plugins/helpers.js";
 import { listReadOnlyChannelPluginsForConfig } from "../channels/plugins/read-only.js";

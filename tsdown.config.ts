@@ -296,7 +296,7 @@ const rootDependencyOptions = withExternalPackageSubpaths({
     "@discordjs/voice",
     "@larksuiteoapi/node-sdk",
     "@matrix-org/matrix-sdk-crypto-nodejs",
-    "@openclaw/ai",
+    "@granted/ai",
     // Its native loader resolves optional platform packages from the package scope.
     "@openclaw/fs-safe",
     "@slack/bolt",
@@ -329,17 +329,17 @@ function shouldNeverBundleDeclarationDependency(id: string): boolean {
 function shouldAlwaysBundleDependency(id: string): boolean {
   return (
     id === "openclaw/plugin-sdk/ssrf-runtime-internal" ||
-    id === "@openclaw/normalization-core" ||
-    id.startsWith("@openclaw/normalization-core/") ||
-    id === "@openclaw/retry" ||
-    id === "@openclaw/media-core" ||
-    id.startsWith("@openclaw/media-core/") ||
+    id === "@granted/normalization-core" ||
+    id.startsWith("@granted/normalization-core/") ||
+    id === "@granted/retry" ||
+    id === "@granted/media-core" ||
+    id.startsWith("@granted/media-core/") ||
     [
-      "@openclaw/acp-core",
-      "@openclaw/session-url-contract",
-      "@openclaw/workboard-contract",
+      "@granted/acp-core",
+      "@granted/session-url-contract",
+      "@granted/workboard-contract",
     ].includes(id) ||
-    id.startsWith("@openclaw/acp-core/") ||
+    id.startsWith("@granted/acp-core/") ||
     id === "zod" ||
     id.startsWith("zod/")
   );
@@ -514,10 +514,10 @@ function buildLlmCoreDistEntries(): Record<string, string> {
 
 function shouldExternalizeAgentCoreDependency(id: string): boolean {
   return (
-    id === "@openclaw/ai" ||
-    id.startsWith("@openclaw/ai/") ||
-    id === "@openclaw/llm-core" ||
-    id.startsWith("@openclaw/llm-core/") ||
+    id === "@granted/ai" ||
+    id.startsWith("@granted/ai/") ||
+    id === "@granted/llm-core" ||
+    id.startsWith("@granted/llm-core/") ||
     id === "ignore" ||
     id === "openclaw" ||
     id.startsWith("openclaw/") ||
@@ -533,7 +533,7 @@ function shouldExternalizeGatewayProtocolDependency(id: string): boolean {
 }
 
 function shouldExternalizeGatewayClientDependency(id: string): boolean {
-  return ["ws", "@openclaw/gateway-protocol", "ipaddr.js"].some(
+  return ["ws", "@granted/gateway-protocol", "ipaddr.js"].some(
     (dependency) => id === dependency || id.startsWith(`${dependency}/`),
   );
 }

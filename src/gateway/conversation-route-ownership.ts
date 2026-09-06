@@ -1,4 +1,4 @@
-import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
+import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
 import { AgentSelectionRequiredError } from "../agents/agent-scope-config.js";
 import { normalizeChatType } from "../channels/chat-type.js";
 import {

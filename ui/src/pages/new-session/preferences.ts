@@ -1,6 +1,6 @@
-import { gatewayOriginScope } from "@openclaw/gateway-client/browser";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { gatewayOriginScope } from "@granted/gateway-client/browser";
+import { isRecord } from "@granted/normalization-core/record-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { normalizeAgentId } from "../../lib/sessions/session-key.ts";
 import { getSafeLocalStorage } from "../../local-storage.ts";
 

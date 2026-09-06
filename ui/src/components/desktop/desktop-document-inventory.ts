@@ -1,4 +1,4 @@
-import type { EnvironmentSummary } from "@openclaw/gateway-protocol";
+import type { EnvironmentSummary } from "@granted/gateway-protocol";
 import type { GatewayBrowserClient } from "../../api/gateway.ts";
 import { resolveDesktopDocumentSessionTarget } from "./desktop-session-controller.ts";
 

@@ -1,9 +1,9 @@
 import { createHash } from "node:crypto";
 import { existsSync } from "node:fs";
-import { estimateStringChars } from "@openclaw/normalization-core/cjk-chars";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
-import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
-import { sliceUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+import { estimateStringChars } from "@granted/normalization-core/cjk-chars";
+import { isRecord } from "@granted/normalization-core/record-coerce";
+import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
+import { sliceUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import { parseDurationMs } from "../../cli/parse-duration.js";
 import type { AgentContextPruningConfig } from "../../config/types.agent-defaults.js";
 import { createDedupeCache } from "../../infra/dedupe.js";

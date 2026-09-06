@@ -2,7 +2,7 @@
 import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { createDeferred } from "granted/plugin-sdk/extension-shared";
 import { resolveFetch } from "granted/plugin-sdk/fetch-runtime";
 import { MAX_DATE_TIMESTAMP_MS } from "granted/plugin-sdk/number-runtime";

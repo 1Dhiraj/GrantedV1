@@ -1,5 +1,5 @@
 {
-  "name": "@openclaw/acpx",
+  "name": "@granted/acpx",
   "version": "2026.8.1",
   "description": "OpenClaw ACP runtime backend with plugin-owned session and transport management.",
   "repository": {
@@ -15,14 +15,14 @@
     "zod": "4.4.3"
   },
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*"
+    "@granted/plugin-sdk": "workspace:*"
   },
   "openclaw": {
     "extensions": [
       "./index.ts"
     ],
     "install": {
-      "npmSpec": "@openclaw/acpx",
+      "npmSpec": "@granted/acpx",
       "defaultChoice": "npm",
       "minHostVersion": ">=2026.4.25",
       "requiredPlatformPackages": [

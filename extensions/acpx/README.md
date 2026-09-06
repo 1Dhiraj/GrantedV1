@@ -1,4 +1,4 @@
-# @openclaw/acpx
+# @granted/acpx
 
 Official ACP runtime backend for OpenClaw.
 
@@ -7,7 +7,7 @@ ACPx lets OpenClaw run external coding harnesses through the Agent Client Protoc
 ## Install
 
 ```bash
-openclaw plugins install @openclaw/acpx
+openclaw plugins install @granted/acpx
 ```
 
 Restart the Gateway after installing or updating the plugin.
@@ -29,5 +29,5 @@ Use the ACP docs for harness-specific setup, permission modes, and model/runtime
 ## Package
 
 - Plugin id: `acpx`
-- Package: `@openclaw/acpx`
+- Package: `@granted/acpx`
 - Minimum OpenClaw host: `2026.4.25`

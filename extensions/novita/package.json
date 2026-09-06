@@ -1,5 +1,5 @@
 {
-  "name": "@openclaw/novita-provider",
+  "name": "@granted/novita-provider",
   "version": "2026.8.1",
   "description": "OpenClaw NovitaAI provider plugin",
   "repository": {
@@ -8,15 +8,15 @@
   },
   "type": "module",
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*"
+    "@granted/plugin-sdk": "workspace:*"
   },
   "openclaw": {
     "extensions": [
       "./index.ts"
     ],
     "install": {
-      "clawhubSpec": "clawhub:@openclaw/novita-provider",
-      "npmSpec": "@openclaw/novita-provider",
+      "clawhubSpec": "clawhub:@granted/novita-provider",
+      "npmSpec": "@granted/novita-provider",
       "defaultChoice": "npm",
       "minHostVersion": ">=2026.7.2"
     },

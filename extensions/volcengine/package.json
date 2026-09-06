@@ -1,5 +1,5 @@
 {
-  "name": "@openclaw/volcengine-provider",
+  "name": "@granted/volcengine-provider",
   "version": "2026.8.1",
   "description": "OpenClaw Volcengine provider plugin.",
   "repository": {
@@ -8,15 +8,15 @@
   },
   "type": "module",
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*"
+    "@granted/plugin-sdk": "workspace:*"
   },
   "openclaw": {
     "extensions": [
       "./index.ts"
     ],
     "install": {
-      "clawhubSpec": "clawhub:@openclaw/volcengine-provider",
-      "npmSpec": "@openclaw/volcengine-provider",
+      "clawhubSpec": "clawhub:@granted/volcengine-provider",
+      "npmSpec": "@granted/volcengine-provider",
       "defaultChoice": "npm",
       "minHostVersion": ">=2026.7.2"
     },

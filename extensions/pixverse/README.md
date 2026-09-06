@@ -1,4 +1,4 @@
-# @openclaw/pixverse-provider
+# @granted/pixverse-provider
 
 Official PixVerse video generation provider plugin for OpenClaw.
 
@@ -7,7 +7,7 @@ This plugin registers PixVerse as a `video_generate` provider for text-to-video 
 ## Install
 
 ```bash
-openclaw plugins install @openclaw/pixverse-provider
+openclaw plugins install @granted/pixverse-provider
 ```
 
 Restart the Gateway after installing or updating the plugin.
@@ -23,5 +23,5 @@ Full setup and model/provider examples:
 ## Package
 
 - Plugin id: `pixverse`
-- Package: `@openclaw/pixverse-provider`
+- Package: `@granted/pixverse-provider`
 - Minimum OpenClaw host: `2026.5.26`

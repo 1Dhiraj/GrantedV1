@@ -1,4 +1,4 @@
-import { readOpenAIResponsesCompactionWindow } from "@openclaw/ai/internal/openai-responses-payload-policy";
+import { readOpenAIResponsesCompactionWindow } from "@granted/ai/internal/openai-responses-payload-policy";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 
 type TranscriptReplayRoute = {

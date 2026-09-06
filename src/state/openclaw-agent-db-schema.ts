@@ -1,8 +1,8 @@
 import type { DatabaseSync } from "node:sqlite";
-import { safeParseJsonRecord } from "@openclaw/normalization-core";
-import { asFiniteNumber } from "@openclaw/normalization-core/number-coercion";
-import { asNullableRecord } from "@openclaw/normalization-core/record-coerce";
-import { normalizeNullableString as migratedText } from "@openclaw/normalization-core/string-coerce";
+import { safeParseJsonRecord } from "@granted/normalization-core";
+import { asFiniteNumber } from "@granted/normalization-core/number-coercion";
+import { asNullableRecord } from "@granted/normalization-core/record-coerce";
+import { normalizeNullableString as migratedText } from "@granted/normalization-core/string-coerce";
 import type { SessionRunStatus } from "../../packages/gateway-protocol/src/schema/sessions-row.js";
 import {
   ensureMemoryChunkProvenance,

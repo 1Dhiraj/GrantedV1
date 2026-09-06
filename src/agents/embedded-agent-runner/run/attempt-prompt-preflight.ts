@@ -1,7 +1,7 @@
 /**
  * Reports prompt pressure and owns explicit mid-turn recovery routing.
  */
-import { CompactionReplayRefreshRequiredError } from "@openclaw/ai/transports";
+import { CompactionReplayRefreshRequiredError } from "@granted/ai/transports";
 import type { AssembleResult } from "../../../context-engine/types.js";
 import type { AgentRunAttemptFailureSource } from "../../agent-run-terminal-outcome.js";
 import { sanitizeCompactionReplayMessages } from "../../compaction-replay.js";

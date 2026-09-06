@@ -1,11 +1,11 @@
 // Shared ACP command helpers for session identity and reply formatting.
 import { randomUUID } from "node:crypto";
-import type { AcpRuntimeSessionMode } from "@openclaw/acp-core/runtime/types";
-import type { Result } from "@openclaw/normalization-core/result";
+import type { AcpRuntimeSessionMode } from "@granted/acp-core/runtime/types";
+import type { Result } from "@granted/normalization-core/result";
 import {
   normalizeOptionalLowercaseString,
   normalizeOptionalString,
-} from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/string-coerce";
 import { type AcpRuntimeError, toAcpRuntimeErrorText } from "../../../acp/runtime/errors.js";
 import { supportsAutomaticThreadBindingSpawn } from "../../../channels/thread-bindings-policy.js";
 import type { AcpSessionRuntimeOptions } from "../../../config/sessions/types.js";

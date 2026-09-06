@@ -1,10 +1,10 @@
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 // Test helpers build minimal plugin registries for outbound session-route
 // scenarios without importing real channel implementations.
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalLowercaseString,
-} from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/string-coerce";
 import type { ChannelPlugin } from "../../channels/plugins/types.plugin.js";
 import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {

@@ -1,5 +1,5 @@
 {
-  "name": "@openclaw/featherless-provider",
+  "name": "@granted/featherless-provider",
   "version": "2026.8.1",
   "description": "OpenClaw Featherless AI provider plugin.",
   "repository": {
@@ -8,15 +8,15 @@
   },
   "type": "module",
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*"
+    "@granted/plugin-sdk": "workspace:*"
   },
   "openclaw": {
     "extensions": [
       "./index.ts"
     ],
     "install": {
-      "clawhubSpec": "clawhub:@openclaw/featherless-provider",
-      "npmSpec": "@openclaw/featherless-provider",
+      "clawhubSpec": "clawhub:@granted/featherless-provider",
+      "npmSpec": "@granted/featherless-provider",
       "defaultChoice": "npm",
       "minHostVersion": ">=2026.6.11"
     },

@@ -5,21 +5,21 @@ import {
   GATEWAY_CLIENT_NAMES,
   type GatewayClientMode,
   type GatewayClientName,
-} from "@openclaw/gateway-protocol/client-info";
+} from "@granted/gateway-protocol/client-info";
 import {
   ConnectErrorDetailCodes,
   readConnectErrorDetailCode,
-} from "@openclaw/gateway-protocol/connect-error-details";
-import type { ConnectParams, EventFrame, HelloOk } from "@openclaw/gateway-protocol/frame-guards";
-import { resolveGatewayStartupRetryAfterMs } from "@openclaw/gateway-protocol/startup-unavailable";
+} from "@granted/gateway-protocol/connect-error-details";
+import type { ConnectParams, EventFrame, HelloOk } from "@granted/gateway-protocol/frame-guards";
+import { resolveGatewayStartupRetryAfterMs } from "@granted/gateway-protocol/startup-unavailable";
 import {
   MIN_CLIENT_PROTOCOL_VERSION,
   MIN_NODE_PROTOCOL_VERSION,
   MIN_PROBE_PROTOCOL_VERSION,
   PROTOCOL_VERSION,
-} from "@openclaw/gateway-protocol/version";
-import { redactSensitiveUrlLikeString } from "@openclaw/net-policy/redact-sensitive-url";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+} from "@granted/gateway-protocol/version";
+import { redactSensitiveUrlLikeString } from "@granted/net-policy/redact-sensitive-url";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import { WebSocket } from "ws";
 import {
   isSensitiveUrlQueryParamName,

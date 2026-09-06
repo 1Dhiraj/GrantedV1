@@ -3,7 +3,7 @@
 import fs from "node:fs";
 import path from "node:path";
 /* oxlint-disable max-lines -- TODO: split this grandfathered oversized file. */
-import { sliceUtf16Safe, truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+import { sliceUtf16Safe, truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import {
   capCompactionSummary,
   MAX_COMPACTION_SUMMARY_CHARS,

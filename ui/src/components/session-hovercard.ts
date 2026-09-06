@@ -1,5 +1,5 @@
-import type { ProgressCard } from "@openclaw/gateway-protocol";
-import { bucketRelativeTimeMs, type RelativeTimeUnit } from "@openclaw/normalization-core";
+import type { ProgressCard } from "@granted/gateway-protocol";
+import { bucketRelativeTimeMs, type RelativeTimeUnit } from "@granted/normalization-core";
 import { html, nothing } from "lit";
 import type { SessionParticipant } from "../../../packages/gateway-protocol/src/schema/session-participant.js";
 import type {

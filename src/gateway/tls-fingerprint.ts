@@ -1,4 +1,4 @@
-import { isWssUrl } from "@openclaw/net-policy/url-protocol";
+import { isWssUrl } from "@granted/net-policy/url-protocol";
 import { requireTlsFingerprint } from "../../packages/gateway-client/src/client-address-utils.js";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import { inspectGatewayTlsCertificate } from "../infra/tls/gateway.js";

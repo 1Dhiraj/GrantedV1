@@ -103,7 +103,7 @@ sidecars are still pending, `connect` returns a retryable `UNAVAILABLE` error wi
 `details.reason: "startup-sidecars"`, a bounded `retryAfterMs`, and then closes
 with code `1013` and reason `gateway starting`. Use
 `resolveGatewayStartupRetryAfterMs` from
-`@openclaw/gateway-protocol/startup-unavailable` or the reference client's built-in
+`@granted/gateway-protocol/startup-unavailable` or the reference client's built-in
 policy, then reconnect.
 
 ## Interpret restart and shutdown

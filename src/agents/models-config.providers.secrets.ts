@@ -3,7 +3,7 @@
  * The resolvers return env/profile/config marker values so discovery can prove
  * auth availability without writing secret material into generated config.
  */
-import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
+import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
 import { resolveConfigSecretRef } from "../config/resolution-facts.js";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolveProviderSyntheticAuthWithPlugin } from "../plugins/provider-runtime.js";

@@ -1,7 +1,7 @@
 import { createHash, randomUUID } from "node:crypto";
 import path from "node:path";
-import { expectDefined } from "@openclaw/normalization-core";
-import { asOptionalRecord } from "@openclaw/normalization-core/record-coerce";
+import { expectDefined } from "@granted/normalization-core";
+import { asOptionalRecord } from "@granted/normalization-core/record-coerce";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { convertMessages } from "../../../packages/ai/src/openai-completions-messages.js";
 import { resolveOpenAICompletionsCompat } from "../../../packages/ai/src/transports/openai-completions-compat.js";

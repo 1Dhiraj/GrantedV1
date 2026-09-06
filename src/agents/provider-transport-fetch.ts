@@ -3,20 +3,20 @@
  *
  * Applies request timeouts, proxy/TLS overrides, SSRF policy, local-service leases, retry hints, and SSE normalization.
  */
-import { parseRetryAfterHttpDateMs } from "@openclaw/ai/internal/retry-after";
-import { emitModelTransportDebug, formatModelTransportDebugUrl } from "@openclaw/ai/transports";
+import { parseRetryAfterHttpDateMs } from "@granted/ai/internal/retry-after";
+import { emitModelTransportDebug, formatModelTransportDebugUrl } from "@granted/ai/transports";
 import {
   isCloudMetadataIpAddress,
   isLinkLocalIpAddress,
   isRfc8215LocalUseNat64Ipv6Address,
   parseCanonicalIpAddress,
-} from "@openclaw/net-policy/ip";
+} from "@granted/net-policy/ip";
 import {
   asFiniteNumberInRange,
   clampTimerTimeoutMs,
   parseStrictFiniteNumber,
   parseStrictNonNegativeInteger,
-} from "@openclaw/normalization-core/number-coercion";
+} from "@granted/normalization-core/number-coercion";
 import {
   fetchWithSsrFGuard,
   withTrustedEnvProxyGuardedFetchMode,

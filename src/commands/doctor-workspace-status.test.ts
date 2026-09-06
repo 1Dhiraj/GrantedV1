@@ -1,5 +1,5 @@
 // Doctor workspace status tests cover workspace inspection and status output.
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { describe, expect, it, vi } from "vitest";
 import * as noteModule from "../../packages/terminal-core/src/note.js";
 import type { GrantedConfig } from "../config/types.openclaw.js";
@@ -248,13 +248,13 @@ describe("noteWorkspaceStatus", () => {
               installedVersion: "2026.7.1-beta.2",
               gatewayVersion: "2026.7.1-2",
               source: "npm",
-              packageName: "@openclaw/brave-plugin",
-              spec: "@openclaw/brave-plugin@2026.7.1-beta.2",
+              packageName: "@granted/brave-plugin",
+              spec: "@granted/brave-plugin@2026.7.1-beta.2",
               targetResolution: {
                 status: "unresolved",
-                packageName: "@openclaw/brave-plugin",
+                packageName: "@granted/brave-plugin",
                 requestedTarget: "2026.7.1",
-                error: "npm registry did not resolve @openclaw/brave-plugin@2026.7.1: HTTP 404",
+                error: "npm registry did not resolve @granted/brave-plugin@2026.7.1: HTTP 404",
               },
             },
           ],
@@ -416,11 +416,11 @@ describe("noteWorkspaceStatus", () => {
               installedVersion: "2026.6.9",
               gatewayVersion: "2026.6.10-beta.1",
               source: "npm",
-              packageName: "@openclaw/brave-plugin",
-              spec: "@openclaw/brave-plugin@2026.6.9",
+              packageName: "@granted/brave-plugin",
+              spec: "@granted/brave-plugin@2026.6.9",
               targetResolution: {
                 status: "resolved",
-                packageName: "@openclaw/brave-plugin",
+                packageName: "@granted/brave-plugin",
                 requestedTarget: "2026.6.10-beta.1",
                 version: "2026.6.10-beta.1",
               },
@@ -433,7 +433,7 @@ describe("noteWorkspaceStatus", () => {
       const driftCalls = noteSpy.mock.calls.filter(([, title]) => title === "Plugin version drift");
       expect(driftCalls).toHaveLength(1);
       const [body] = expectDefined(driftCalls[0], "(driftCalls)[0] test invariant");
-      expect(body).toContain("openclaw plugins update @openclaw/brave-plugin@2026.6.10-beta.1");
+      expect(body).toContain("openclaw plugins update @granted/brave-plugin@2026.6.10-beta.1");
       expect(body).not.toContain("openclaw plugins update brave");
       expect(body).toContain("openclaw gateway restart");
     } finally {

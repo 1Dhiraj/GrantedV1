@@ -1,5 +1,5 @@
 /** ACP streaming and projection settings derived from config. */
-import type { AcpSessionUpdateTag } from "@openclaw/acp-core/runtime/types";
+import type { AcpSessionUpdateTag } from "@granted/acp-core/runtime/types";
 import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { resolveEffectiveBlockStreamingConfig } from "./block-streaming.js";
 

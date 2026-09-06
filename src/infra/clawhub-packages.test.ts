@@ -43,7 +43,7 @@ describe("clawhub packages", () => {
     let requestedUrl = "";
     await expect(
       fetchClawHubPackageArtifact({
-        name: "@openclaw/diagnostics-otel",
+        name: "@granted/diagnostics-otel",
         version: "2026.3.22",
         fetchImpl: async (input) => {
           requestedUrl = input instanceof Request ? input.url : String(input);
@@ -52,7 +52,7 @@ describe("clawhub packages", () => {
               artifact: {
                 source: "clawhub",
                 artifactKind: "npm-pack",
-                packageName: "@openclaw/diagnostics-otel",
+                packageName: "@granted/diagnostics-otel",
                 version: "2026.3.22",
                 downloadUrl: "https://clawhub.ai/api/v1/clawpacks/abc",
                 npmIntegrity: "sha512-demo",
@@ -67,7 +67,7 @@ describe("clawhub packages", () => {
       artifact: {
         source: "clawhub",
         artifactKind: "npm-pack",
-        packageName: "@openclaw/diagnostics-otel",
+        packageName: "@granted/diagnostics-otel",
         version: "2026.3.22",
         downloadUrl: "https://clawhub.ai/api/v1/clawpacks/abc",
         npmIntegrity: "sha512-demo",
@@ -83,14 +83,14 @@ describe("clawhub packages", () => {
     let requestedUrl = "";
     await expect(
       fetchClawHubPackageSecurity({
-        name: "@openclaw/diagnostics-otel",
+        name: "@granted/diagnostics-otel",
         version: "2026.3.22",
         fetchImpl: async (input) => {
           requestedUrl = input instanceof Request ? input.url : String(input);
           return new Response(
             JSON.stringify({
               package: {
-                name: "@openclaw/diagnostics-otel",
+                name: "@granted/diagnostics-otel",
                 displayName: "Diagnostics",
                 family: "code-plugin",
               },
@@ -100,7 +100,7 @@ describe("clawhub packages", () => {
               },
               overview: "The plugin uses privileged local APIs.\n\nReview those capabilities.",
               securityAuditUrl:
-                "https://clawhub.ai/plugins/@openclaw/diagnostics-otel/security-audit?version=2026.3.22",
+                "https://clawhub.ai/plugins/@granted/diagnostics-otel/security-audit?version=2026.3.22",
               trust: {
                 scanStatus: "clean",
                 moderationState: null,
@@ -116,7 +116,7 @@ describe("clawhub packages", () => {
       }),
     ).resolves.toEqual({
       package: {
-        name: "@openclaw/diagnostics-otel",
+        name: "@granted/diagnostics-otel",
         displayName: "Diagnostics",
         family: "code-plugin",
       },
@@ -126,7 +126,7 @@ describe("clawhub packages", () => {
       },
       overview: "The plugin uses privileged local APIs.\n\nReview those capabilities.",
       securityAuditUrl:
-        "https://clawhub.ai/plugins/@openclaw/diagnostics-otel/security-audit?version=2026.3.22",
+        "https://clawhub.ai/plugins/@granted/diagnostics-otel/security-audit?version=2026.3.22",
       trust: {
         scanStatus: "clean",
         moderationState: null,
@@ -144,7 +144,7 @@ describe("clawhub packages", () => {
   it("rejects malformed package security reports", async () => {
     await expect(
       fetchClawHubPackageSecurity({
-        name: "@openclaw/diagnostics-otel",
+        name: "@granted/diagnostics-otel",
         version: "2026.3.22",
         fetchImpl: async () =>
           new Response(
@@ -167,13 +167,13 @@ describe("clawhub packages", () => {
   it("rejects package security reports without their audit overview", async () => {
     await expect(
       fetchClawHubPackageSecurity({
-        name: "@openclaw/diagnostics-otel",
+        name: "@granted/diagnostics-otel",
         version: "2026.3.22",
         fetchImpl: async () =>
           new Response(
             JSON.stringify({
               securityAuditUrl:
-                "https://clawhub.ai/plugins/@openclaw/diagnostics-otel/security-audit?version=2026.3.22",
+                "https://clawhub.ai/plugins/@granted/diagnostics-otel/security-audit?version=2026.3.22",
               trust: {
                 blockedFromDownload: false,
                 reasons: [],

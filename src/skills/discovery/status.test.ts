@@ -603,7 +603,7 @@ describe("buildWorkspaceSkillStatus", () => {
             install: [
               {
                 kind: "node",
-                package: "@openclaw/missing-skill-bin",
+                package: "@granted/missing-skill-bin",
                 bins: [missingBin],
               },
             ],
@@ -665,7 +665,7 @@ describe("buildWorkspaceSkillStatus", () => {
       {
         kind: "node",
         id: "node-0",
-        label: "Install @openclaw/missing-skill-bin (pnpm)",
+        label: "Install @granted/missing-skill-bin (pnpm)",
         bins: [missingBin],
       },
     ]);

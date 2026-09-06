@@ -1,4 +1,4 @@
-import type { DesktopSource, EnvironmentSummary } from "@openclaw/gateway-protocol";
+import type { DesktopSource, EnvironmentSummary } from "@granted/gateway-protocol";
 
 export function desktopSourceForEnvironment(
   environment: Pick<EnvironmentSummary, "id">,

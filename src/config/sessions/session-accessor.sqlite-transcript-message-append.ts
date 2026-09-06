@@ -1,7 +1,7 @@
 import { randomUUID } from "node:crypto";
 import { isDeepStrictEqual } from "node:util";
-import { resolveTimestampMsToIsoString } from "@openclaw/normalization-core/number-coercion";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { resolveTimestampMsToIsoString } from "@granted/normalization-core/number-coercion";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import type { GrantedAgentDatabase } from "../../state/openclaw-agent-db.js";
 import type {
   TranscriptMessageAppendOptions,

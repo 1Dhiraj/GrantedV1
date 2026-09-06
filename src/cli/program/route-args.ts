@@ -1,5 +1,5 @@
 // Route-first argv parsers for commands that can skip full Commander startup.
-import { parseStrictPositiveInteger } from "@openclaw/normalization-core/number-coercion";
+import { parseStrictPositiveInteger } from "@granted/normalization-core/number-coercion";
 import { isValueToken } from "../../infra/cli-root-options.js";
 import {
   getCommandPositionalsWithRootOptions,

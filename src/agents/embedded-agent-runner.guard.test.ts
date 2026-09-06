@@ -1,8 +1,8 @@
 // Covers session-manager guard behavior for tool-result pairing and transcript
 // redaction.
 import { readFileSync } from "node:fs";
-import { expectDefined } from "@openclaw/normalization-core";
-import { MAX_TIMER_TIMEOUT_MS } from "@openclaw/normalization-core/number-coercion";
+import { expectDefined } from "@granted/normalization-core";
+import { MAX_TIMER_TIMEOUT_MS } from "@granted/normalization-core/number-coercion";
 import type { AgentMessage } from "granted/plugin-sdk/agent-core";
 import { SessionManager } from "granted/plugin-sdk/agent-sessions";
 import {

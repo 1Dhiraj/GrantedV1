@@ -83,7 +83,7 @@ function identity(packageName: string) {
 
 describe("npm placeholder publication", () => {
   it("preserves selected multi-package order and binds unique release-enabled manifests", async () => {
-    const names = ["@openclaw/zoom-meetings", "@openclaw/comfy-provider"] as const;
+    const names = ["@granted/zoom-meetings", "@granted/comfy-provider"] as const;
     const root = createRepo([
       { dir: "comfy", manifest: packageJson(names[1]) },
       { dir: "zoom-meetings", manifest: packageJson(names[0]) },
@@ -111,15 +111,15 @@ describe("npm placeholder publication", () => {
   });
 
   it("creates deterministic canonical two-file placeholder tarballs", () => {
-    const first = createPlaceholderTarball("@openclaw/comfy-provider");
-    const second = createPlaceholderTarball("@openclaw/comfy-provider");
+    const first = createPlaceholderTarball("@granted/comfy-provider");
+    const second = createPlaceholderTarball("@granted/comfy-provider");
 
     expect(first).toEqual(second);
     expect(first.subarray(0, 2)).toEqual(Buffer.from([0x1f, 0x8b]));
   });
 
   it("requires three stable registry observations during planning", async () => {
-    const packageName = "@openclaw/comfy-provider";
+    const packageName = "@granted/comfy-provider";
     const root = createRepo([{ dir: "comfy", manifest: packageJson(packageName) }]);
     const responses = [
       registryResponse(),
@@ -140,7 +140,7 @@ describe("npm placeholder publication", () => {
   });
 
   it("classifies E404, existing-version backfill, and exact idempotent reruns", () => {
-    const packageName = "@openclaw/meta-provider";
+    const packageName = "@granted/meta-provider";
     const expected = identity(packageName);
     expect(
       classifyRegistryState({
@@ -209,7 +209,7 @@ describe("npm placeholder publication", () => {
   });
 
   it("rejects mismatched 0.0.0 bytes and conflicting placeholder tags", () => {
-    const packageName = "@openclaw/duckduckgo-plugin";
+    const packageName = "@granted/duckduckgo-plugin";
     const expected = identity(packageName);
     expect(() =>
       classifyRegistryState({
@@ -244,7 +244,7 @@ describe("npm placeholder publication", () => {
   });
 
   it("publishes serially and preserves every non-placeholder dist-tag", async () => {
-    const names = ["@openclaw/byteplus-provider", "@openclaw/meta-provider"] as const;
+    const names = ["@granted/byteplus-provider", "@granted/meta-provider"] as const;
     const root = createRepo([
       { dir: "byteplus", manifest: packageJson(names[0]) },
       { dir: "meta", manifest: packageJson(names[1]) },
@@ -328,22 +328,22 @@ describe("npm placeholder publication", () => {
   });
 
   it("rejects malicious package input, duplicate identity, and unsafe manifest paths", () => {
-    expect(() => parseSelectedPackages("@openclaw/good,../../evil")).toThrow(
+    expect(() => parseSelectedPackages("@granted/good,../../evil")).toThrow(
       "Invalid OpenClaw package name",
     );
-    expect(() => parseSelectedPackages("@openclaw/good,@openclaw/good")).toThrow("duplicates");
+    expect(() => parseSelectedPackages("@granted/good,@granted/good")).toThrow("duplicates");
 
     const duplicateRoot = createRepo([
-      { dir: "one", manifest: packageJson("@openclaw/good") },
-      { dir: "two", manifest: packageJson("@openclaw/good") },
+      { dir: "one", manifest: packageJson("@granted/good") },
+      { dir: "two", manifest: packageJson("@granted/good") },
     ]);
-    expect(() => resolveSelectedPackageSources(duplicateRoot, ["@openclaw/good"])).toThrow(
+    expect(() => resolveSelectedPackageSources(duplicateRoot, ["@granted/good"])).toThrow(
       "must map uniquely",
     );
 
-    const unsafeRoot = createRepo([{ dir: "good", manifest: packageJson("@openclaw/good") }]);
+    const unsafeRoot = createRepo([{ dir: "good", manifest: packageJson("@granted/good") }]);
     writeFileSync(join(unsafeRoot, "extensions", "good", "package.json"), "{}\n");
-    expect(() => resolveSelectedPackageSources(unsafeRoot, ["@openclaw/good"])).toThrow(
+    expect(() => resolveSelectedPackageSources(unsafeRoot, ["@granted/good"])).toThrow(
       "must map uniquely",
     );
 
@@ -351,18 +351,18 @@ describe("npm placeholder publication", () => {
       {
         dir: "private",
         manifest: {
-          ...packageJson("@openclaw/private"),
+          ...packageJson("@granted/private"),
           publishConfig: { access: "private" },
         },
       },
     ]);
-    expect(() => resolveSelectedPackageSources(privateRoot, ["@openclaw/private"])).toThrow(
+    expect(() => resolveSelectedPackageSources(privateRoot, ["@granted/private"])).toThrow(
       "not a public release-enabled npm plugin",
     );
   });
 
   it("fails final verification when any pre-existing dist-tag changes", () => {
-    const packageName = "@openclaw/meta-provider";
+    const packageName = "@granted/meta-provider";
     const expected = identity(packageName);
     const entry = {
       packageDir: "extensions/meta",
@@ -390,7 +390,7 @@ describe("npm placeholder publication", () => {
   });
 
   it("rejects manifest state combinations that could lie about registry creation", async () => {
-    const packageName = "@openclaw/comfy-provider";
+    const packageName = "@granted/comfy-provider";
     const root = createRepo([{ dir: "comfy", manifest: packageJson(packageName) }]);
     const artifactDir = join(tempDirs.make("npm-placeholder-invalid-parent-"), "artifact");
     await createPlaceholderPublication({
@@ -420,7 +420,7 @@ describe("npm placeholder publication", () => {
   });
 
   it("removes token-bearing npm config after mutation and readback failure", async () => {
-    const packageName = "@openclaw/comfy-provider";
+    const packageName = "@granted/comfy-provider";
     const root = createRepo([{ dir: "comfy", manifest: packageJson(packageName) }]);
     const artifactDir = join(tempDirs.make("npm-placeholder-failure-parent-"), "artifact");
     await createPlaceholderPublication({
@@ -452,7 +452,7 @@ describe("npm placeholder publication", () => {
   });
 
   it("repairs a missing placeholder tag and accepts exact readback after an ambiguous error", async () => {
-    const packageName = "@openclaw/meta-provider";
+    const packageName = "@granted/meta-provider";
     const root = createRepo([{ dir: "meta", manifest: packageJson(packageName) }]);
     const expected = identity(packageName);
     const before = {
@@ -499,7 +499,7 @@ describe("npm placeholder publication", () => {
   });
 
   it("preserves prototype-looking npm dist-tags as ordinary tag entries", () => {
-    const packageName = "@openclaw/meta-provider";
+    const packageName = "@granted/meta-provider";
     const expected = identity(packageName);
     const distTags = JSON.parse(
       '{"__proto__":"2026.7.1","latest":"2026.7.2","placeholder":"0.0.0"}',

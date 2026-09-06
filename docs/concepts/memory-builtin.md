@@ -51,7 +51,7 @@ To force local GGUF embeddings, install and configure the official llama.cpp
 provider, then point `local.modelPath` at a GGUF file:
 
 ```bash
-openclaw plugins install @openclaw/llama-cpp-provider
+openclaw plugins install @granted/llama-cpp-provider
 ```
 
 ```json5

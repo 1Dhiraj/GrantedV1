@@ -4,7 +4,7 @@ import { useAutoCleanupTempDirTracker } from "granted/plugin-sdk/test-env";
 import { afterEach, describe, expect, it, vi } from "vitest";
 const { requestDiscordMock } = vi.hoisted(() => ({ requestDiscordMock: vi.fn() }));
 
-vi.mock("@openclaw/discord/api.js", () => ({ requestDiscord: requestDiscordMock }));
+vi.mock("@granted/discord/api.js", () => ({ requestDiscord: requestDiscordMock }));
 
 import { discordQaScenarioSupport } from "./discord-live.runtime.js";
 import {

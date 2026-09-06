@@ -101,28 +101,28 @@ const PACKAGE_DEPENDENCY_SECTIONS = [
   "peerDependencies",
   "devDependencies",
 ] as const;
-const REQUIRED_BUNDLED_WORKSPACE_DEPENDENCIES = ["@openclaw/ai"];
+const REQUIRED_BUNDLED_WORKSPACE_DEPENDENCIES = ["@granted/ai"];
 // Strict Docker artifacts bundle this private runtime rather than resolving it
 // from npm. Keep the concrete load-bearing entries explicit instead of
 // reimplementing Node's conditional package-exports resolver here.
 const REQUIRED_BUNDLED_WORKSPACE_RUNTIME_ENTRIES = new Map([
   [
-    "@openclaw/ai",
+    "@granted/ai",
     [
-      { specifier: "@openclaw/ai", entry: "dist/index.mjs" },
-      { specifier: "@openclaw/ai/providers", entry: "dist/providers.mjs" },
+      { specifier: "@granted/ai", entry: "dist/index.mjs" },
+      { specifier: "@granted/ai/providers", entry: "dist/providers.mjs" },
       {
-        specifier: "@openclaw/ai/transports",
+        specifier: "@granted/ai/transports",
         entry: "dist/transports.mjs",
         whenExported: "./transports",
       },
       {
-        specifier: "@openclaw/ai/internal/openai-responses-payload-policy",
+        specifier: "@granted/ai/internal/openai-responses-payload-policy",
         entry: "dist/internal/openai-responses-payload-policy.mjs",
         whenExported: "./internal/openai-responses-payload-policy",
       },
       {
-        specifier: "@openclaw/ai/internal/runtime",
+        specifier: "@granted/ai/internal/runtime",
         entry: "dist/internal/runtime.mjs",
       },
     ],

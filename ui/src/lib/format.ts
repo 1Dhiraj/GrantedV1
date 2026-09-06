@@ -1,7 +1,7 @@
-import { bucketRelativeTimeMs, type RelativeTimeUnit } from "@openclaw/normalization-core";
+import { bucketRelativeTimeMs, type RelativeTimeUnit } from "@granted/normalization-core";
 // Control UI module implements format behavior.
-import { asDateTimestampMs } from "@openclaw/normalization-core/number-coercion";
-import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+import { asDateTimestampMs } from "@granted/normalization-core/number-coercion";
+import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import {
   resolveCompactDurationParts,
   resolveSingleUnitDurationParts,
@@ -10,7 +10,7 @@ import {
 import { i18n, t } from "../i18n/index.ts";
 import { formatUiError } from "./format-error.ts";
 
-export { formatByteSize } from "@openclaw/normalization-core";
+export { formatByteSize } from "@granted/normalization-core";
 
 export function formatCountdown(deadlineMs: number, nowMs: number, padMinutes = false): string {
   const totalSeconds = Math.max(0, Math.ceil((deadlineMs - nowMs) / 1_000));

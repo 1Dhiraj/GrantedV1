@@ -13,7 +13,7 @@ import {
   type WorkboardNotification,
   type WorkboardRunAttempt,
   type WorkboardStatus,
-} from "@openclaw/workboard-contract";
+} from "@granted/workboard-contract";
 import { safeEqualSecret } from "granted/plugin-sdk/security-runtime";
 import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import {

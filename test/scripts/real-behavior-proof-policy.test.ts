@@ -1,6 +1,6 @@
 // PR Context And Evidence Policy tests cover GitHub PR-body policy behavior.
 import { readFileSync } from "node:fs";
-import { toErrorObject as toLintErrorObject } from "@openclaw/normalization-core/error-coercion";
+import { toErrorObject as toLintErrorObject } from "@granted/normalization-core/error-coercion";
 import { describe, expect, it, vi } from "vitest";
 import {
   NEEDS_PR_CONTEXT_LABEL,

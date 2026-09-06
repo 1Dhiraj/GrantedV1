@@ -1,8 +1,8 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 // Coverage for model-call diagnostic events around attempt stream functions.
-import { notifyProviderStreamOpened } from "@openclaw/ai/transports";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { notifyProviderStreamOpened } from "@granted/ai/transports";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import type { StreamFn } from "granted/plugin-sdk/agent-core";
 import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";

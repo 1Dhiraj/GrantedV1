@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { AcpRuntimeEvent } from "@openclaw/acp-core/runtime/types";
-import { asOptionalRecord } from "@openclaw/normalization-core/record-coerce";
+import type { AcpRuntimeEvent } from "@granted/acp-core/runtime/types";
+import { asOptionalRecord } from "@granted/normalization-core/record-coerce";
 import { afterEach, describe, expect, test, vi } from "vitest";
 import type { WebSocket } from "ws";
 import { createDeferred } from "../../test/helpers/promise.js";

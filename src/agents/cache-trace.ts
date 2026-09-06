@@ -3,8 +3,8 @@
  */
 import crypto from "node:crypto";
 import path from "node:path";
-import { sanitizeSurrogates } from "@openclaw/ai/internal/shared";
-import { stableStringify } from "@openclaw/normalization-core";
+import { sanitizeSurrogates } from "@granted/ai/internal/shared";
+import { stableStringify } from "@granted/normalization-core";
 import { resolveStateDir } from "../config/paths.js";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolveUserPath } from "../utils.js";

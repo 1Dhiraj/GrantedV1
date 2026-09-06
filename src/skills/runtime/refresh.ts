@@ -3,7 +3,7 @@ import { AsyncLocalStorage } from "node:async_hooks";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import chokidar, { type FSWatcher } from "chokidar";
 import { isDefaultStateDir } from "../../config/paths.js";
 import type { GrantedConfig } from "../../config/types.openclaw.js";

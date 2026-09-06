@@ -1,8 +1,8 @@
 // Public file-oriented media-understanding runtime for image, audio, video, and
 // structured extraction calls outside normal channel message handling.
 import path from "node:path";
-import { kindFromMime, mimeTypeFromFilePath } from "@openclaw/media-core/mime";
-import { hasHttpUrlPrefix } from "@openclaw/net-policy/url-protocol";
+import { kindFromMime, mimeTypeFromFilePath } from "@granted/media-core/mime";
+import { hasHttpUrlPrefix } from "@granted/net-policy/url-protocol";
 import { resolveAgentDir, resolveDefaultAgentDir } from "../agents/agent-scope.js";
 import type { GrantedConfig } from "../config/types.js";
 import { DEFAULT_MAX_BYTES } from "./defaults.constants.js";

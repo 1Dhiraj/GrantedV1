@@ -108,7 +108,7 @@ function writeDistDoctorPlugin(pluginRoot: string, pluginId: string): void {
     path.join(pluginRoot, "package.json"),
     JSON.stringify(
       {
-        name: `@openclaw/${pluginId}`,
+        name: `@granted/${pluginId}`,
         version: "0.0.0-test",
         type: "module",
         openclaw: {
@@ -155,7 +155,7 @@ function writeLegacyRuntimeDoctorPlugin(params: {
   fs.writeFileSync(
     path.join(params.pluginRoot, "package.json"),
     JSON.stringify({
-      name: `@openclaw/${params.pluginId}`,
+      name: `@granted/${params.pluginId}`,
       version: "2026.7.2-beta.7",
       type: "module",
       openclaw: { extensions: ["./dist/index.js"] },
@@ -196,7 +196,7 @@ function writeLegacyChannelMigrationPlugin(params: {
   fs.writeFileSync(
     path.join(params.pluginRoot, "package.json"),
     JSON.stringify({
-      name: `@openclaw/${params.pluginId}`,
+      name: `@granted/${params.pluginId}`,
       version: "2026.7.1",
       type: "commonjs",
       openclaw: {
@@ -273,7 +273,7 @@ function writeModernBundledChannelMigrationPlugin(params: {
   fs.writeFileSync(
     path.join(params.pluginRoot, "package.json"),
     JSON.stringify({
-      name: `@openclaw/${params.pluginId}`,
+      name: `@granted/${params.pluginId}`,
       version: "2026.7.1",
       type: "commonjs",
       openclaw: {

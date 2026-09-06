@@ -3,7 +3,7 @@
 // (multi-hundred-MB stores, blocking vacuums) surfaced only after user harm.
 import fs from "node:fs";
 import type { DatabaseSync } from "node:sqlite";
-import { asFiniteNumber } from "@openclaw/normalization-core/number-coercion";
+import { asFiniteNumber } from "@granted/normalization-core/number-coercion";
 import { note } from "../../packages/terminal-core/src/note.js";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import { openNodeSqliteDatabase } from "../infra/node-sqlite.js";

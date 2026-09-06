@@ -11,8 +11,8 @@ Connect OpenClaw agents to Buzz rooms.
 
 ## Distribution
 
-- Package: `@openclaw/buzz`
-- Install route: npm; ClawHub: `clawhub:@openclaw/buzz`
+- Package: `@granted/buzz`
+- Install route: npm; ClawHub: `clawhub:@granted/buzz`
 
 ## Surface
 

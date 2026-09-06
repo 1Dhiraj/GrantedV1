@@ -3,7 +3,7 @@
  * was truncated before an agent sees it.
  */
 import path from "node:path";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import {
   buildBootstrapPromptWarning,

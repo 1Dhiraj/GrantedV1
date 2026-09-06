@@ -12,7 +12,7 @@ read_when:
 | Property        | Value                                               |
 | --------------- | --------------------------------------------------- |
 | Provider id     | `fireworks` (alias: `fireworks-ai`)                 |
-| Package         | `@openclaw/fireworks-provider`                      |
+| Package         | `@granted/fireworks-provider`                      |
 | Auth env var    | `FIREWORKS_API_KEY`                                 |
 | Onboarding flag | `--auth-choice fireworks-api-key`                   |
 | Direct CLI flag | `--fireworks-api-key <key>`                         |
@@ -26,7 +26,7 @@ read_when:
 <Steps>
   <Step title="Install the plugin">
     ```bash
-    openclaw plugins install @openclaw/fireworks-provider
+    openclaw plugins install @granted/fireworks-provider
     ```
   </Step>
   <Step title="Set the Fireworks API key">

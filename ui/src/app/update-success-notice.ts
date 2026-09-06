@@ -1,7 +1,7 @@
 // The serving bundle may retire this document before reconnect admits it.
 // Preserve the pending read-only reconciliation and its eventual notice across
 // that reload; neither record authorizes starting another update.
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import { reloadControlUiIfStale } from "../build-info.ts";
 import { t } from "../i18n/index.ts";
 import { showToast } from "../lib/toast.ts";

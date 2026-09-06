@@ -3126,12 +3126,12 @@ describe("scripts/crabbox-wrapper", () => {
     const { output, remoteCommand } = runSuccessfulNativeWindows("aws", [
       "pnpm",
       "--filter",
-      "@openclaw/discord",
+      "@granted/discord",
       "test",
     ]);
     expect(output.args).toContain("--shell");
     expect(remoteCommand).toContain("$env:CRABBOX_PNPM_MODULES_DIR");
-    expect(remoteCommand).toContain("pnpm --filter '@openclaw/discord' test");
+    expect(remoteCommand).toContain("pnpm --filter '@granted/discord' test");
   });
 
   it("restores hydrated node_modules before POSIX run commands", () => {

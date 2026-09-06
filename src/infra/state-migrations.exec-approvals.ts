@@ -1,9 +1,9 @@
 // Doctor-only import for the retired exec approvals JSON store.
 import { isDeepStrictEqual } from "node:util";
 import { root, type Root } from "@openclaw/fs-safe";
-import { safeParseJsonRecord } from "@openclaw/normalization-core/json-coercion";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
-import { err } from "@openclaw/normalization-core/result";
+import { safeParseJsonRecord } from "@granted/normalization-core/json-coercion";
+import { isRecord } from "@granted/normalization-core/record-coerce";
+import { err } from "@granted/normalization-core/result";
 import { runOpenClawStateWriteTransaction } from "../state/openclaw-state-db.js";
 import {
   parsePersistedExecApprovals,

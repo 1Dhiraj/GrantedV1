@@ -1,8 +1,8 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import type { AcpElicitationHandler } from "@openclaw/acp-core/runtime/types";
-import { detectMime } from "@openclaw/media-core/mime";
+import type { AcpElicitationHandler } from "@granted/acp-core/runtime/types";
+import { detectMime } from "@granted/media-core/mime";
 // Tests ACP dispatch wiring, command bypass, and runtime event handling.
 import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { beforeEach, describe, expect, it, vi } from "vitest";

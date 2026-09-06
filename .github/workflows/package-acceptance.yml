@@ -669,7 +669,7 @@ jobs:
                 ("$SOURCE" == "ref" || "$SOURCE" == "artifact") ]]; then
             set -- \
               --plugin-registry-output-dir .artifacts/package-acceptance-telegram-plugin-registry \
-              --required-plugin-packages-json '["@openclaw/codex"]'
+              --required-plugin-packages-json '["@granted/codex"]'
           fi
 
           node --import tsx scripts/resolve-openclaw-package-candidate.mts \

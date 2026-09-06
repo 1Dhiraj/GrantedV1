@@ -3,8 +3,8 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 // Systemd tests cover Linux service install, start, stop, and status behavior.
-import { expectDefined } from "@openclaw/normalization-core";
-import { err as resultErr, ok } from "@openclaw/normalization-core/result";
+import { expectDefined } from "@granted/normalization-core";
+import { err as resultErr, ok } from "@granted/normalization-core/result";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { buildGatewayInstallPlan } from "../commands/daemon-install-helpers.js";
 import type { ExecResult } from "./exec-file.js";

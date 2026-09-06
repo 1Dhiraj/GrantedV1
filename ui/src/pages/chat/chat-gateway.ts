@@ -1,8 +1,8 @@
 import {
   hasSessionProjectionAcceptedFinal,
   reduceSessionProjectionRunEvent,
-} from "@openclaw/gateway-client/browser";
-import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
+} from "@granted/gateway-client/browser";
+import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
 import { accumulatedStreamText } from "../../lib/chat/chat-types.ts";
 import { isAssistantHeartbeatAckForDisplay } from "../../lib/chat/heartbeat-display.ts";
 import { extractText } from "../../lib/chat/message-extract.ts";

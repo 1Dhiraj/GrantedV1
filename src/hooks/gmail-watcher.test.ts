@@ -1,7 +1,7 @@
 // Gmail watcher tests cover watcher events and Gmail hook message flow.
 import { EventEmitter } from "node:events";
 import { PassThrough } from "node:stream";
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { createDeferred } from "../../test/helpers/promise.js";
 import { withMockedPlatform } from "../test-utils/vitest-spies.js";

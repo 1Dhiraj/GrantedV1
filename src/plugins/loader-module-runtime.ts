@@ -1,4 +1,4 @@
-import { isPromiseLike } from "@openclaw/normalization-core/promise-like";
+import { isPromiseLike } from "@granted/normalization-core/promise-like";
 import { toSafeImportPath } from "../shared/import-specifier.js";
 import { VERSION } from "../version.js";
 import { attachPluginApiFacades } from "./api-facades.js";

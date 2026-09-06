@@ -11,8 +11,8 @@ Adds BytePlus, BytePlus Plan model provider support to OpenClaw.
 
 ## Distribution
 
-- Package: `@openclaw/byteplus-provider`
-- Install route: npm; ClawHub: `clawhub:@openclaw/byteplus-provider`
+- Package: `@granted/byteplus-provider`
+- Install route: npm; ClawHub: `clawhub:@granted/byteplus-provider`
 
 ## Surface
 

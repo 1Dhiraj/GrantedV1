@@ -1,6 +1,6 @@
 // Full-entry coverage for replay-safe Codex app-server recovery retries.
 
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import type { GrantedTestState } from "../../test-utils/openclaw-test-state.js";
 import { makeModelFallbackCfg } from "../test-helpers/model-fallback-config-fixture.js";

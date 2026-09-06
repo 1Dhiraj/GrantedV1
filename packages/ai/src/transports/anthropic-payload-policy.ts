@@ -1,5 +1,5 @@
-import type { Model } from "@openclaw/llm-core";
-import { normalizeOptionalLowercaseString } from "@openclaw/normalization-core/string-coerce";
+import type { Model } from "@granted/llm-core";
+import { normalizeOptionalLowercaseString } from "@granted/normalization-core/string-coerce";
 import { isAnthropicOAuthApiKey } from "../providers/anthropic-auth-headers.js";
 import { resolveCacheRetention } from "../providers/cache-retention.js";
 import {

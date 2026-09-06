@@ -1,5 +1,5 @@
 // Route resolution helpers map user targets to configured channel routes.
-import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
+import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
 import {
   AgentSelectionRequiredError,
   listAgentEntries,

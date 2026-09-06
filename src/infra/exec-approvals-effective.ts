@@ -1,5 +1,5 @@
 // Resolves effective exec approval policy from config and policy files.
-import { sortUniqueStrings } from "@openclaw/normalization-core/string-normalization";
+import { sortUniqueStrings } from "@granted/normalization-core/string-normalization";
 import {
   listAgentEntries,
   tryResolveLegacyCompatibilityAgentId,

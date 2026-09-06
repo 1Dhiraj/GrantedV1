@@ -362,7 +362,7 @@ describe("hooks CLI metadata config keys", () => {
         os: ["linux"],
       },
       install: [
-        { id: "demo-npm", kind: "npm", label: "Install @openclaw/demo-hook (npm)", bins: [] },
+        { id: "demo-npm", kind: "npm", label: "Install @granted/demo-hook (npm)", bins: [] },
       ],
     };
     mocks.buildWorkspaceHookStatus.mockReturnValue({ ...report, hooks: [ineligibleHook] });
@@ -372,7 +372,7 @@ describe("hooks CLI metadata config keys", () => {
     ).rejects.toThrow("__exit__:1");
 
     expect(capture.runtimeErrors.at(-1)).toBe(
-      'Error: Hook "display-name" is not eligible; missing bins: missing-bin; anyBins: missing-any-a, missing-any-b; env: MISSING_ENV; config: hooks.demo.enabled; os: linux. Install options: Install @openclaw/demo-hook (npm). Run `openclaw hooks info display-name` for details.',
+      'Error: Hook "display-name" is not eligible; missing bins: missing-bin; anyBins: missing-any-a, missing-any-b; env: MISSING_ENV; config: hooks.demo.enabled; os: linux. Install options: Install @granted/demo-hook (npm). Run `openclaw hooks info display-name` for details.',
     );
     expect(mocks.replaceConfigFile).not.toHaveBeenCalled();
   });

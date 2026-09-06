@@ -50,12 +50,12 @@ provider or agent runtime in three different ways.
   </Tab>
 
   <Tab title="Copilot SDK harness plugin (copilot)">
-    Install the external `@openclaw/copilot` plugin when you want GitHub's
+    Install the external `@granted/copilot` plugin when you want GitHub's
     Copilot CLI and SDK to own the low-level agent loop for selected
     `github-copilot/*` models.
 
     ```bash
-    openclaw plugins install @openclaw/copilot
+    openclaw plugins install @granted/copilot
     ```
 
     Then opt a model or provider into the runtime:

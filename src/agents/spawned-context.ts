@@ -3,7 +3,7 @@
  *
  * Projects tool runtime context into persisted lineage, group routing, workspace, and inherited policy metadata.
  */
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import type { ThinkLevel } from "../auto-reply/thinking.shared.js";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import { normalizeAgentId, parseAgentSessionKey } from "../routing/session-key.js";

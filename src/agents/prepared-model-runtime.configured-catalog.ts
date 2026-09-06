@@ -1,5 +1,5 @@
-import type { ModelCatalogRef } from "@openclaw/model-catalog-core/model-catalog-refs";
-import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
+import type { ModelCatalogRef } from "@granted/model-catalog-core/model-catalog-refs";
+import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
 import type { InlineModelEntry } from "./embedded-agent-runner/model.inline-provider.js";
 import type { ModelCatalogEntry } from "./model-catalog.js";
 import type { ModelCatalogSnapshot } from "./model-catalog.types.js";

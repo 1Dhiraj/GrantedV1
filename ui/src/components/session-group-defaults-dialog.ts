@@ -1,4 +1,4 @@
-import { readMissingScopeError } from "@openclaw/gateway-client/browser";
+import { readMissingScopeError } from "@granted/gateway-client/browser";
 import { html, nothing, render } from "lit";
 import { ref } from "lit/directives/ref.js";
 import type {

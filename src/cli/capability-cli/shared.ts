@@ -1,7 +1,7 @@
 import {
   parseStrictFiniteNumber,
   parseStrictPositiveInteger,
-} from "@openclaw/normalization-core/number-coercion";
+} from "@granted/normalization-core/number-coercion";
 import type { Command } from "commander";
 import {
   resolveAgentOperationAgentId,

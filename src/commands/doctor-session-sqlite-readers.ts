@@ -4,7 +4,7 @@ import fs from "node:fs";
 import path from "node:path";
 import type { DatabaseSync } from "node:sqlite";
 import { TextDecoder } from "node:util";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import {
   classifySessionFileEntry,
   migrateSessionFileEntryToCurrentVersion,

@@ -1,9 +1,9 @@
 /**
  * Resolves bundled static catalog rows for embedded-agent model selection.
  */
-import { normalizeResolvedPricing } from "@openclaw/llm-core";
-import type { NormalizedModelCatalogRow } from "@openclaw/model-catalog-core/model-catalog-types";
-import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
+import { normalizeResolvedPricing } from "@granted/llm-core";
+import type { NormalizedModelCatalogRow } from "@granted/model-catalog-core/model-catalog-types";
+import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
 import type { ModelProviderConfig } from "../../config/types.models.js";
 import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { planEffectiveModelCatalogRows } from "../../model-catalog/index.js";

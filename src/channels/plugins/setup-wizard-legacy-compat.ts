@@ -1,4 +1,4 @@
-import { asNullableRecord as asObjectRecord } from "@openclaw/normalization-core/record-coerce";
+import { asNullableRecord as asObjectRecord } from "@granted/normalization-core/record-coerce";
 import type { DmPolicy } from "../../config/types.base.js";
 import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { DEFAULT_ACCOUNT_ID } from "../../routing/session-key.js";

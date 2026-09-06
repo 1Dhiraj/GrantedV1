@@ -1,8 +1,8 @@
 /**
  * Snapshot-aware and synthetic provider-auth availability.
  */
-import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
-import { normalizeUniqueStringEntries } from "@openclaw/normalization-core/string-normalization";
+import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
+import { normalizeUniqueStringEntries } from "@granted/normalization-core/string-normalization";
 import { getRuntimeConfigSnapshot } from "../config/config.js";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import { resolveProviderSyntheticAuthWithPlugin } from "../plugins/provider-runtime.js";

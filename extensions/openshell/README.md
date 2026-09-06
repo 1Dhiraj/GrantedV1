@@ -1,4 +1,4 @@
-# @openclaw/openshell-sandbox
+# @granted/openshell-sandbox
 
 Official NVIDIA OpenShell sandbox backend for OpenClaw.
 
@@ -21,7 +21,7 @@ fallback when no ambient selection exists.
 ## Install
 
 ```bash
-openclaw plugins install @openclaw/openshell-sandbox
+openclaw plugins install @granted/openshell-sandbox
 ```
 
 Restart the Gateway after installing or updating the plugin.
@@ -52,5 +52,5 @@ Use the OpenShell docs for credentials, workspace mirroring, runtime selection, 
 ## Package
 
 - Plugin id: `openshell`
-- Package: `@openclaw/openshell-sandbox`
+- Package: `@granted/openshell-sandbox`
 - Minimum OpenClaw host: `2026.5.12-beta.1`

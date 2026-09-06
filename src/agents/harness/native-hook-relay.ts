@@ -3,7 +3,7 @@ import { randomUUID } from "node:crypto";
 import {
   MAX_TIMER_TIMEOUT_MS,
   resolveExpiresAtMsFromDurationMs,
-} from "@openclaw/normalization-core/number-coercion";
+} from "@granted/normalization-core/number-coercion";
 import { createSubsystemLogger } from "../../logging/subsystem.js";
 import { resolveOpenClawStateSqlitePath } from "../../state/openclaw-state-db.paths.js";
 import { retainBeforeToolCallForNativeHookRelay } from "./host-capability.js";

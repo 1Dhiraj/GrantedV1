@@ -3,8 +3,8 @@
  *
  * Reads bounded, redacted session transcript history after session visibility filtering.
  */
-import { asPositiveSafeInteger } from "@openclaw/normalization-core/number-coercion";
-import { asOptionalRecord } from "@openclaw/normalization-core/record-coerce";
+import { asPositiveSafeInteger } from "@granted/normalization-core/number-coercion";
+import { asOptionalRecord } from "@granted/normalization-core/record-coerce";
 import { Type } from "typebox";
 import type { ChatPendingInputsPage } from "../../../packages/gateway-protocol/src/schema/logs-chat.js";
 import { resolvePersistedSessionStoreOwnerForKey } from "../../config/sessions/session-store-owner.js";

@@ -43,10 +43,10 @@ describe("SettingsManager scoped persistence", () => {
     const storage = new InspectableSettingsStorage();
     storage.set("global", {
       terminal: { showImages: true, imageWidthCells: 60 },
-      packages: ["npm:@openclaw/global"],
+      packages: ["npm:@granted/global"],
     });
     storage.set("project", {
-      packages: ["npm:@openclaw/project"],
+      packages: ["npm:@granted/project"],
       skills: ["old-skill"],
     });
     const settingsManager = SettingsManager.fromStorage(storage);
@@ -57,10 +57,10 @@ describe("SettingsManager scoped persistence", () => {
     updatedSkills.push("caller-mutation");
     storage.set("global", {
       terminal: { showImages: true, imageWidthCells: 120, clearOnShrink: true },
-      packages: ["npm:@openclaw/global"],
+      packages: ["npm:@granted/global"],
     });
     storage.set("project", {
-      packages: ["npm:@openclaw/external"],
+      packages: ["npm:@granted/external"],
       skills: ["old-skill"],
       themes: ["external-theme"],
     });
@@ -69,10 +69,10 @@ describe("SettingsManager scoped persistence", () => {
 
     expect(storage.get("global")).toEqual({
       terminal: { showImages: false, imageWidthCells: 120, clearOnShrink: true },
-      packages: ["npm:@openclaw/global"],
+      packages: ["npm:@granted/global"],
     });
     expect(storage.get("project")).toEqual({
-      packages: ["npm:@openclaw/external"],
+      packages: ["npm:@granted/external"],
       skills: ["new-skill"],
       themes: ["external-theme"],
     });
@@ -81,7 +81,7 @@ describe("SettingsManager scoped persistence", () => {
     expect(settingsManager.getShowImages()).toBe(false);
     expect(settingsManager.getImageWidthCells()).toBe(120);
     expect(settingsManager.getClearOnShrink()).toBe(true);
-    expect(settingsManager.getPackages()).toEqual(["npm:@openclaw/external"]);
+    expect(settingsManager.getPackages()).toEqual(["npm:@granted/external"]);
     expect(settingsManager.getSkillPaths()).toEqual(["new-skill"]);
     expect(settingsManager.getThemePaths()).toEqual(["external-theme"]);
   });
@@ -137,15 +137,15 @@ describe("SettingsManager runtime overrides", () => {
     });
 
     settingsManager.applyOverrides({ compaction: { reserveTokens: 50_000 } });
-    settingsManager.setProjectPackages(["npm:@openclaw/example"]);
+    settingsManager.setProjectPackages(["npm:@granted/example"]);
 
-    expect(settingsManager.getPackages()).toEqual(["npm:@openclaw/example"]);
+    expect(settingsManager.getPackages()).toEqual(["npm:@granted/example"]);
     expect(settingsManager.getCompactionReserveTokens()).toBe(50_000);
 
     await settingsManager.flush();
     await settingsManager.reload();
 
-    expect(settingsManager.getPackages()).toEqual(["npm:@openclaw/example"]);
+    expect(settingsManager.getPackages()).toEqual(["npm:@granted/example"]);
     expect(settingsManager.getCompactionReserveTokens()).toBe(50_000);
   });
 
@@ -154,18 +154,18 @@ describe("SettingsManager runtime overrides", () => {
       retry: {
         provider: { timeoutMs: 30_000, maxRetryDelayMs: 60_000 },
       },
-      packages: ["npm:@openclaw/base"],
+      packages: ["npm:@granted/base"],
     });
 
     settingsManager.applyOverrides({
       retry: { provider: { timeoutMs: 45_000 } },
-      packages: ["npm:@openclaw/override"],
+      packages: ["npm:@granted/override"],
     });
 
     expect(settingsManager.getProviderRetrySettings()).toEqual({
       timeoutMs: 45_000,
       maxRetryDelayMs: 60_000,
     });
-    expect(settingsManager.getPackages()).toEqual(["npm:@openclaw/override"]);
+    expect(settingsManager.getPackages()).toEqual(["npm:@granted/override"]);
   });
 });

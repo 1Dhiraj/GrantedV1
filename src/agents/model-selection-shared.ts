@@ -4,7 +4,7 @@
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
-} from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/string-coerce";
 import { sanitizeForLog, stripAnsi } from "../../packages/terminal-core/src/ansi.js";
 import { resolveAgentModelPrimaryValue } from "../config/model-input.js";
 import {
@@ -36,7 +36,7 @@ import {
 } from "./model-ref-shared.js";
 import { findNormalizedProviderValue, parseModelRef } from "./model-selection-normalize.js";
 
-export { resolvePrimaryStringValue as normalizeModelSelection } from "@openclaw/normalization-core/string-coerce";
+export { resolvePrimaryStringValue as normalizeModelSelection } from "@granted/normalization-core/string-coerce";
 
 // Shared model-selection helpers for config aliases, allowlists, provider
 // inference, and configured catalog rows used by CLI and runtime selectors.

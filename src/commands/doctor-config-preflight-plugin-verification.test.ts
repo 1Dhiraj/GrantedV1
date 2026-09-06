@@ -73,7 +73,7 @@ describe.each(["startup", "repair"] as const)("%s consent inventory", (first) =>
       const home = tempDirs.make("openclaw-consent-inventory-");
       const bundledRoot = path.join(home, "bundled");
       const pluginId = "bundled-consent-fixture";
-      const packageName = "@openclaw/bundled-consent-fixture";
+      const packageName = "@granted/bundled-consent-fixture";
       const rootDir = path.join(bundledRoot, pluginId);
       fs.mkdirSync(rootDir, { recursive: true });
       const fixture = createColdPluginFixture({ rootDir, pluginId, packageName });
@@ -123,11 +123,11 @@ describe.each(["startup", "repair"] as const)("%s consent inventory", (first) =>
     {
       envVar: "OPENCODE_API_KEY",
       packages: {
-        opencode: "@openclaw/opencode-provider",
-        "opencode-go": "@openclaw/opencode-go-provider",
+        opencode: "@granted/opencode-provider",
+        "opencode-go": "@granted/opencode-go-provider",
       },
     },
-    { envVar: "OPENROUTER_API_KEY", packages: { perplexity: "@openclaw/perplexity-plugin" } },
+    { envVar: "OPENROUTER_API_KEY", packages: { perplexity: "@granted/perplexity-plugin" } },
   ])(
     "converges verified official packages selected only by $envVar",
     async ({ envVar, packages }) => {

@@ -391,7 +391,7 @@ describe("doctor-contract-registry module loader", () => {
       "utf-8",
     );
     mocks.loadPluginManifestRegistry.mockReturnValue({
-      plugins: [{ id: "test-plugin", packageName: "@openclaw/demo", rootDir: pluginRoot }],
+      plugins: [{ id: "test-plugin", packageName: "@granted/demo", rootDir: pluginRoot }],
       diagnostics: [],
     });
 
@@ -402,7 +402,7 @@ describe("doctor-contract-registry module loader", () => {
         },
         workspaceDir: pluginRoot,
         env: {},
-        pluginIds: ["@openclaw/demo"],
+        pluginIds: ["@granted/demo"],
       }),
     ).toEqual(["cards", "voice"]);
   });

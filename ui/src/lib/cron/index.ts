@@ -1,6 +1,6 @@
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
-import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
-import { sortUniqueStrings } from "@openclaw/normalization-core/string-normalization";
+import { isRecord } from "@granted/normalization-core/record-coerce";
+import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
+import { sortUniqueStrings } from "@granted/normalization-core/string-normalization";
 import { resolveCronTriggerMinIntervalMs } from "../../../../src/config/cron-limits.js";
 import { isSystemOwnedCronPayloadKind } from "../../../../src/cron/types.js";
 import type { GatewayBrowserClient } from "../../api/gateway.ts";

@@ -6,7 +6,7 @@
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
-} from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/string-coerce";
 import { Type } from "typebox";
 import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { bindModelLlmRuntime } from "../../llm/model-runtime-binding.js";

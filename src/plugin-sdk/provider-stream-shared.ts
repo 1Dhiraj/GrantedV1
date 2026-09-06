@@ -1,10 +1,10 @@
 // Provider stream shared helpers implement reusable stream wrappers and payload policies.
-import { resolveOpenAIReasoningEffortForModel } from "@openclaw/ai/internal/openai";
+import { resolveOpenAIReasoningEffortForModel } from "@granted/ai/internal/openai";
 import {
   createEmptyTransportUsage,
   resolveOpenAIReasoningEffortMap,
-} from "@openclaw/ai/transports";
-import { asOptionalObjectRecord } from "@openclaw/normalization-core/record-coerce";
+} from "@granted/ai/transports";
+import { asOptionalObjectRecord } from "@granted/normalization-core/record-coerce";
 import {
   createPromotedPlainTextToolCallBlock,
   createPromotedPlainTextToolCallEvents,
@@ -32,9 +32,9 @@ export {
   applyAnthropicRefusal,
   isAnthropicOAuthApiKey,
   resolveAnthropicServerCompactionPlan,
-} from "@openclaw/ai/internal/anthropic";
-export { createDeferredEventBuffer } from "@openclaw/ai/internal/runtime";
-export { notifyLlmRequestActivity, onLlmRequestActivity } from "@openclaw/ai/internal/runtime";
+} from "@granted/ai/internal/anthropic";
+export { createDeferredEventBuffer } from "@granted/ai/internal/runtime";
+export { notifyLlmRequestActivity, onLlmRequestActivity } from "@granted/ai/internal/runtime";
 
 type ProviderWrapStreamFnContext = import("../plugins/types.js").ProviderWrapStreamFnContext;
 
@@ -712,7 +712,7 @@ export function createGoogleThinkingStreamWrapper(
 export {
   applyAnthropicPayloadPolicyToParams,
   resolveAnthropicPayloadPolicy,
-} from "@openclaw/ai/transports";
+} from "@granted/ai/transports";
 export { applyAnthropicEphemeralCacheControlMarkers } from "../llm/providers/stream-wrappers/anthropic-cache-control-payload.js";
 export {
   createMoonshotThinkingWrapper,

@@ -1,13 +1,13 @@
 import {
   reasoningTagTextPolicy,
   supportsOpenAIReasoningEffort,
-} from "@openclaw/ai/internal/openai";
-import { defaultApiRegistry } from "@openclaw/ai/internal/runtime";
-import { prepareModelForSimpleCompletion } from "@openclaw/ai/transports";
+} from "@granted/ai/internal/openai";
+import { defaultApiRegistry } from "@granted/ai/internal/runtime";
+import { prepareModelForSimpleCompletion } from "@granted/ai/transports";
 import {
   resolveClaudeOpus5ModelIdentity,
   resolveClaudeSonnet5ModelIdentity,
-} from "@openclaw/llm-core";
+} from "@granted/llm-core";
 /**
  * Simple completion runtime preparation.
  *

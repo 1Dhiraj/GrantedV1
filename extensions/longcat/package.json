@@ -1,5 +1,5 @@
 {
-  "name": "@openclaw/longcat-provider",
+  "name": "@granted/longcat-provider",
   "version": "2026.8.1",
   "description": "OpenClaw LongCat provider plugin.",
   "repository": {
@@ -8,15 +8,15 @@
   },
   "type": "module",
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*"
+    "@granted/plugin-sdk": "workspace:*"
   },
   "openclaw": {
     "extensions": [
       "./index.ts"
     ],
     "install": {
-      "clawhubSpec": "clawhub:@openclaw/longcat-provider",
-      "npmSpec": "@openclaw/longcat-provider",
+      "clawhubSpec": "clawhub:@granted/longcat-provider",
+      "npmSpec": "@granted/longcat-provider",
       "defaultChoice": "npm",
       "minHostVersion": ">=2026.6.8"
     },

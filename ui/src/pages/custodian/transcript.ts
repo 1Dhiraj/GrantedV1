@@ -2,7 +2,7 @@ import type {
   SystemAgentChatHistoryResult,
   SystemAgentChatHistoryTurn,
   SystemAgentChatResult,
-} from "@openclaw/gateway-protocol";
+} from "@granted/gateway-protocol";
 import { html, nothing } from "lit";
 import type { GatewayBrowserClient } from "../../api/gateway.ts";
 import type { WizardStep } from "../../api/types.ts";

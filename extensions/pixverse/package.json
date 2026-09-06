@@ -1,5 +1,5 @@
 {
-  "name": "@openclaw/pixverse-provider",
+  "name": "@granted/pixverse-provider",
   "version": "2026.8.1",
   "description": "OpenClaw PixVerse video generation provider plugin.",
   "repository": {
@@ -8,11 +8,11 @@
   },
   "type": "module",
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*",
-    "openclaw": "workspace:*"
+    "@granted/plugin-sdk": "workspace:*",
+    "granted": "workspace:*"
   },
   "peerDependencies": {
-    "openclaw": ">=2026.8.1"
+    "granted": ">=2026.8.1"
   },
   "peerDependenciesMeta": {
     "openclaw": {
@@ -24,8 +24,8 @@
       "./index.ts"
     ],
     "install": {
-      "clawhubSpec": "clawhub:@openclaw/pixverse-provider",
-      "npmSpec": "@openclaw/pixverse-provider",
+      "clawhubSpec": "clawhub:@granted/pixverse-provider",
+      "npmSpec": "@granted/pixverse-provider",
       "defaultChoice": "npm",
       "minHostVersion": ">=2026.5.26"
     },

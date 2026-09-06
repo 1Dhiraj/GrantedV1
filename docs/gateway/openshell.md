@@ -57,7 +57,7 @@ reach a background service.
 ## Quick start
 
 ```bash
-openclaw plugins install @openclaw/openshell-sandbox
+openclaw plugins install @granted/openshell-sandbox
 ```
 
 ```json5
@@ -500,7 +500,7 @@ openclaw logs --follow
 ```
 
 - **Plugin missing or backend unavailable:** Install
-  `@openclaw/openshell-sandbox`, set `plugins.entries.openshell.enabled: true`,
+  `@granted/openshell-sandbox`, set `plugins.entries.openshell.enabled: true`,
   validate the config, and restart the OpenClaw Gateway. Run
   `openclaw plugins inspect openshell --runtime --json` to check the running
   Gateway rather than only the on-disk plugin registration.

@@ -3,11 +3,11 @@
  *
  * Prompts account ids, credentials, allowlists, and account-scoped setup config updates.
  */
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import {
   normalizeStringEntries,
   uniqueStrings,
-} from "@openclaw/normalization-core/string-normalization";
+} from "@granted/normalization-core/string-normalization";
 import type { DmPolicy, GroupPolicy } from "../../config/types.base.js";
 import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { SecretInput } from "../../config/types.secrets.js";

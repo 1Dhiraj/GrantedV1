@@ -159,7 +159,7 @@ describe("provider flow install catalog contributions", () => {
         onboardingScopes: ["image-generation"],
         label: "Vydra",
         origin: "bundled",
-        install: { npmSpec: "@openclaw/vydra-provider" },
+        install: { npmSpec: "@granted/vydra-provider" },
       },
     ]);
 
@@ -192,7 +192,7 @@ describe("provider flow install catalog contributions", () => {
         label: "OpenAI",
         origin: "bundled",
         install: {
-          npmSpec: "@openclaw/openai",
+          npmSpec: "@granted/openai",
         },
       },
     ]);
@@ -233,7 +233,7 @@ describe("provider flow install catalog contributions", () => {
         label: "vLLM",
         origin: "bundled",
         install: {
-          npmSpec: "@openclaw/vllm",
+          npmSpec: "@granted/vllm",
         },
       },
     ]);
@@ -381,7 +381,7 @@ describe("provider flow install catalog contributions", () => {
         label: "OpenAI",
         origin: "bundled",
         install: {
-          npmSpec: "@openclaw/openai",
+          npmSpec: "@granted/openai",
         },
       },
     ]);

@@ -1,7 +1,7 @@
-import { readSessionMessageIdentity } from "@openclaw/gateway-client/browser";
-import { asFiniteNumber } from "@openclaw/normalization-core/number-coercion";
-import { asNullableRecord as asRecord } from "@openclaw/normalization-core/record-coerce";
-import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
+import { readSessionMessageIdentity } from "@granted/gateway-client/browser";
+import { asFiniteNumber } from "@granted/normalization-core/number-coercion";
+import { asNullableRecord as asRecord } from "@granted/normalization-core/record-coerce";
+import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
 import { CHAT_PENDING_INPUT_MESSAGE_PREFIX } from "../../../../packages/gateway-protocol/src/schema/chat-history-constants.js";
 import { resolveToolUseId } from "../../../../src/chat/tool-content.js";
 import type { ChatItem, ChatQueueItem, ToolCard } from "../../lib/chat/chat-types.ts";

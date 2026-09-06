@@ -137,7 +137,7 @@ describe("scripts/build-and-run-mac.sh", () => {
       mkdirSync(resources, { recursive: true });
       writeFileSync(join(resources, "stale.js"), "stale");
       symlinkSync(process.execPath, join(binDir, "node"));
-      const expectedArgs = ["--filter", "@openclaw/mermaid-renderer", "build"];
+      const expectedArgs = ["--filter", "@granted/mermaid-renderer", "build"];
       if (runner === "corepack") {
         expectedArgs.unshift("pnpm");
       }

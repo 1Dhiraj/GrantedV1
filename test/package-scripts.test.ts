@@ -1,6 +1,6 @@
 // Package script tests validate root package script invariants.
 import fs from "node:fs";
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { describe, expect, it } from "vitest";
 import { detectChangedScope } from "../scripts/ci-changed-scope.mjs";
 

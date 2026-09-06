@@ -273,7 +273,7 @@ describe("DefaultPackageManager", () => {
     const manager = new DefaultPackageManager({
       cwd: root,
       agentDir: join(root, "agent"),
-      settingsManager: SettingsManager.inMemory({ packages: ["npm:@openclaw/missing-test"] }),
+      settingsManager: SettingsManager.inMemory({ packages: ["npm:@granted/missing-test"] }),
     });
 
     const resolved = await manager.resolve();
@@ -324,7 +324,7 @@ describe("DefaultPackageManager", () => {
 
   it.each([
     ["local", "./missing-extension.ts"],
-    ["npm", "npm:@openclaw/missing-test"],
+    ["npm", "npm:@granted/missing-test"],
     ["git", "https://github.com/openclaw/missing-test.git"],
   ])("reports missing %s package sources through the owner callback", async (_kind, source) => {
     const root = tempDirs.make("openclaw-package-manager-missing-");
@@ -350,7 +350,7 @@ describe("DefaultPackageManager", () => {
       agentDir,
       settingsManager: SettingsManager.inMemory({}),
     }) as unknown as PackageManagerInternals;
-    const npmSource = manager.parseSource("npm:@openclaw/example");
+    const npmSource = manager.parseSource("npm:@granted/example");
     const gitSource = manager.parseSource("https://github.com/openclaw/example.git");
     if (npmSource.type !== "npm" || gitSource.type !== "git") {
       throw new Error("Expected package sources");

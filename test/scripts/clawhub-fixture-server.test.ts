@@ -10,7 +10,7 @@ import { checkClawHubPackageTrust } from "../../src/infra/clawhub-install-trust.
 import { useAutoCleanupTempDirTracker } from "../helpers/temp-dir.js";
 
 const SCRIPT_PATH = path.resolve("scripts/e2e/lib/clawhub-fixture-server.cjs");
-const PACKAGE_NAME = "@openclaw/kitchen-sink";
+const PACKAGE_NAME = "@granted/kitchen-sink";
 const PACKAGE_PATH = `/api/v1/packages/${encodeURIComponent(PACKAGE_NAME)}`;
 const KITCHEN_SINK_VERSION = "0.2.5";
 type FixtureServerChild = ChildProcessByStdio<null, Readable, Readable>;
@@ -201,7 +201,7 @@ describe("ClawHub fixture server", () => {
     mkdirSync(packageDir);
     writeFileSync(
       path.join(packageDir, "package.json"),
-      `${JSON.stringify({ name: "@openclaw/whatsapp", version })}\n`,
+      `${JSON.stringify({ name: "@granted/whatsapp", version })}\n`,
     );
     writeFileSync(
       path.join(packageDir, "openclaw.plugin.json"),
@@ -216,7 +216,7 @@ describe("ClawHub fixture server", () => {
     writeFileSync(
       manifestPath,
       `${JSON.stringify({
-        packages: [{ name: "@openclaw/whatsapp", version, tarball, sha256 }],
+        packages: [{ name: "@granted/whatsapp", version, tarball, sha256 }],
       })}\n`,
     );
 
@@ -229,14 +229,14 @@ describe("ClawHub fixture server", () => {
     expect(
       runPrepublishAssertion(
         baseUrl,
-        "@openclaw/whatsapp",
+        "@granted/whatsapp",
         version,
         "required",
         isolatedCwd,
         "complete",
       ).status,
     ).toBe(1);
-    const whatsappPath = `/api/v1/packages/${encodeURIComponent("@openclaw/whatsapp")}`;
+    const whatsappPath = `/api/v1/packages/${encodeURIComponent("@granted/whatsapp")}`;
     const detail = await fetchJson(baseUrl, whatsappPath);
     expect(detail.package).toMatchObject({
       latestVersion: version,
@@ -262,7 +262,7 @@ describe("ClawHub fixture server", () => {
     });
     const auditMessages: string[] = [];
     const trust = await checkClawHubPackageTrust({
-      subject: { kind: "plugin", packageName: "@openclaw/whatsapp" },
+      subject: { kind: "plugin", packageName: "@granted/whatsapp" },
       version,
       baseUrl,
       mode: "update",
@@ -270,12 +270,12 @@ describe("ClawHub fixture server", () => {
     });
     expect(security).toEqual({
       package: {
-        name: "@openclaw/whatsapp",
-        displayName: "@openclaw/whatsapp",
+        name: "@granted/whatsapp",
+        displayName: "@granted/whatsapp",
         family: "code-plugin",
       },
       release: {
-        releaseId: `fixture:@openclaw/whatsapp@${version}`,
+        releaseId: `fixture:@granted/whatsapp@${version}`,
         version,
         artifactKind: "npm-pack",
         artifactSha256: sha256,
@@ -319,11 +319,11 @@ describe("ClawHub fixture server", () => {
       `GET ${whatsappPath}/versions/${version}/artifact/download`,
     ]);
     expect(
-      runPrepublishAssertion(baseUrl, "@openclaw/whatsapp", version, undefined, isolatedCwd).status,
+      runPrepublishAssertion(baseUrl, "@granted/whatsapp", version, undefined, isolatedCwd).status,
     ).toBe(0);
     const completeWithMinimum = runPrepublishAssertion(
       baseUrl,
-      "@openclaw/whatsapp",
+      "@granted/whatsapp",
       version,
       "required",
       isolatedCwd,
@@ -349,7 +349,7 @@ describe("ClawHub fixture server", () => {
       await response.arrayBuffer();
     }
     expect(
-      runPrepublishAssertion(baseUrl, "@openclaw/whatsapp", version, "required", isolatedCwd, 2)
+      runPrepublishAssertion(baseUrl, "@granted/whatsapp", version, "required", isolatedCwd, 2)
         .status,
     ).toBe(0);
     for (let attempt = 2; attempt < 4; attempt += 1) {
@@ -359,10 +359,10 @@ describe("ClawHub fixture server", () => {
         await response.arrayBuffer();
       }
     }
-    expect(runPrepublishAssertion(baseUrl, "@openclaw/whatsapp", version).status).toBe(1);
+    expect(runPrepublishAssertion(baseUrl, "@granted/whatsapp", version).status).toBe(1);
     const complete = runPrepublishAssertion(
       baseUrl,
-      "@openclaw/whatsapp",
+      "@granted/whatsapp",
       version,
       "required",
       isolatedCwd,
@@ -375,7 +375,7 @@ describe("ClawHub fixture server", () => {
     expect((await fetch(`${baseUrl}${whatsappPath}`)).status).toBe(200);
     const partial = runPrepublishAssertion(
       baseUrl,
-      "@openclaw/whatsapp",
+      "@granted/whatsapp",
       version,
       "required",
       isolatedCwd,
@@ -390,7 +390,7 @@ describe("ClawHub fixture server", () => {
     }
     const foreign = runPrepublishAssertion(
       baseUrl,
-      "@openclaw/whatsapp",
+      "@granted/whatsapp",
       version,
       "required",
       isolatedCwd,
@@ -414,7 +414,7 @@ describe("ClawHub fixture server", () => {
     }
     const aboveMaximum = runPrepublishAssertion(
       maximumBaseUrl,
-      "@openclaw/whatsapp",
+      "@granted/whatsapp",
       version,
       "required",
       isolatedCwd,

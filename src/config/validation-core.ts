@@ -1,5 +1,5 @@
 import path from "node:path";
-import { isCanonicalDottedDecimalIPv4, isLoopbackIpAddress } from "@openclaw/net-policy/ip";
+import { isCanonicalDottedDecimalIPv4, isLoopbackIpAddress } from "@granted/net-policy/ip";
 import { sanitizeForLog } from "../../packages/terminal-core/src/ansi.js";
 import {
   listAgentEntries,

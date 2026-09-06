@@ -1,5 +1,5 @@
-import { expectDefined } from "@openclaw/normalization-core";
-import { asOptionalRecord } from "@openclaw/normalization-core/record-coerce";
+import { expectDefined } from "@granted/normalization-core";
+import { asOptionalRecord } from "@granted/normalization-core/record-coerce";
 // Channel selection chooses a deliverable message channel from explicit input,
 // tool context fallback, or configured plugin accounts.
 import type { ChannelPlugin } from "../../channels/plugins/types.plugin.js";

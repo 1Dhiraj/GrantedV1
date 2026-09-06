@@ -1,6 +1,6 @@
 /** Loads and normalizes OpenClaw plugin manifests, including contracts and config schemas. */
 import path from "node:path";
-import { normalizeModelCatalog } from "@openclaw/model-catalog-core/model-catalog-normalize";
+import { normalizeModelCatalog } from "@granted/model-catalog-core/model-catalog-normalize";
 import { normalizeOptionalString } from "../../packages/normalization-core/src/string-coerce.js";
 import { normalizeTrimmedStringList } from "../../packages/normalization-core/src/string-normalization.js";
 import { matchRootFileOpenFailure } from "../infra/boundary-file-read.js";

@@ -1,13 +1,13 @@
 /**
  * Orchestrates one agent attempt across embedded, CLI, and ACP runtimes.
  */
-import type { AcpRuntimeEvent } from "@openclaw/acp-core/runtime/types";
-import { asOptionalRecord } from "@openclaw/normalization-core/record-coerce";
+import type { AcpRuntimeEvent } from "@granted/acp-core/runtime/types";
+import { asOptionalRecord } from "@granted/normalization-core/record-coerce";
 import {
   normalizeOptionalLowercaseString,
   type FastMode,
-} from "@openclaw/normalization-core/string-coerce";
-import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+} from "@granted/normalization-core/string-coerce";
+import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import { sanitizeForLog } from "../../../packages/terminal-core/src/ansi.js";
 import { ACP_TURN_TIMEOUT_DETAIL_CODE } from "../../acp/control-plane/manager.turn-timeout.js";
 import { formatAcpErrorChain } from "../../acp/runtime/errors.js";

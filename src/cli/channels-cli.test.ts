@@ -225,7 +225,7 @@ describe("registerChannelsCli", () => {
           docsPath: "/channels/installed-chat",
           blurb: "Installed test channel.",
         },
-        install: { npmSpec: "@openclaw/installed-chat" },
+        install: { npmSpec: "@granted/installed-chat" },
       },
     ]);
     const program = new Command().name("openclaw");
@@ -264,7 +264,7 @@ describe("registerChannelsCli", () => {
           docsPath: "/channels/chat-a",
           blurb: "Chat A test channel.",
         },
-        install: { npmSpec: "@openclaw/chat-a" },
+        install: { npmSpec: "@granted/chat-a" },
       },
       {
         id: "chat-b",
@@ -282,7 +282,7 @@ describe("registerChannelsCli", () => {
           docsPath: "/channels/chat-b",
           blurb: "Chat B test channel.",
         },
-        install: { npmSpec: "@openclaw/chat-b" },
+        install: { npmSpec: "@granted/chat-b" },
       },
     ]);
     const program = new Command().name("openclaw");
@@ -325,7 +325,7 @@ describe("registerChannelsCli", () => {
           docsPath: "/channels/chat-a",
           blurb: "Chat A test channel.",
         },
-        install: { npmSpec: "@openclaw/chat-a" },
+        install: { npmSpec: "@granted/chat-a" },
       },
       {
         id: "chat-b",
@@ -343,7 +343,7 @@ describe("registerChannelsCli", () => {
           docsPath: "/channels/chat-b",
           blurb: "Chat B test channel.",
         },
-        install: { npmSpec: "@openclaw/chat-b" },
+        install: { npmSpec: "@granted/chat-b" },
       },
     ]);
     const program = new Command().name("openclaw");

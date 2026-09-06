@@ -1,5 +1,5 @@
 import { setTimeout as sleep } from "node:timers/promises";
-import type { MatrixVerificationSummary } from "@openclaw/matrix/test-api.js";
+import type { MatrixVerificationSummary } from "@granted/matrix/test-api.js";
 import { createDeferred } from "granted/plugin-sdk/extension-shared";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {

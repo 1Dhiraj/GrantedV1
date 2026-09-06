@@ -1,5 +1,5 @@
-import { asNullableRecord as asRecord } from "@openclaw/normalization-core/record-coerce";
-import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
+import { asNullableRecord as asRecord } from "@granted/normalization-core/record-coerce";
+import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
 import {
   isToolCallContentType,
   isToolResultContentType,

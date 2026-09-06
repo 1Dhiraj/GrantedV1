@@ -1,5 +1,5 @@
 {
-  "name": "@openclaw/sms",
+  "name": "@granted/sms",
   "version": "2026.8.1",
   "description": "OpenClaw SMS/MMS channel plugin for Twilio messages.",
   "repository": {
@@ -11,7 +11,7 @@
     "zod": "4.4.3"
   },
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*"
+    "@granted/plugin-sdk": "workspace:*"
   },
   "openclaw": {
     "extensions": [
@@ -133,8 +133,8 @@
       "bundledDist": false
     },
     "install": {
-      "clawhubSpec": "clawhub:@openclaw/sms",
-      "npmSpec": "@openclaw/sms",
+      "clawhubSpec": "clawhub:@granted/sms",
+      "npmSpec": "@granted/sms",
       "defaultChoice": "npm",
       "minHostVersion": ">=2026.6.9",
       "allowInvalidConfigRecovery": true

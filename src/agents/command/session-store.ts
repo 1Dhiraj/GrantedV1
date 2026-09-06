@@ -1,8 +1,8 @@
 /**
  * Updates persisted session metadata after agent command runs.
  */
-import { asNonNegativeFiniteNumber } from "@openclaw/normalization-core/number-coercion";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { asNonNegativeFiniteNumber } from "@granted/normalization-core/number-coercion";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import {
   SESSION_TOTAL_TOKENS_VERSION,
   setSessionRuntimeModel,

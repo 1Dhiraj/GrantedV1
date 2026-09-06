@@ -1,8 +1,8 @@
 import { isIP } from "node:net";
-import type { RemoteModelCatalogPricing } from "@openclaw/model-catalog-core";
-import { MODEL_PRICING_SOURCES } from "@openclaw/model-catalog-core/model-catalog-pricing";
-import { buildModelCatalogRef } from "@openclaw/model-catalog-core/model-catalog-refs";
-import type { ModelCatalogCost } from "@openclaw/model-catalog-core/model-catalog-types";
+import type { RemoteModelCatalogPricing } from "@granted/model-catalog-core";
+import { MODEL_PRICING_SOURCES } from "@granted/model-catalog-core/model-catalog-pricing";
+import { buildModelCatalogRef } from "@granted/model-catalog-core/model-catalog-refs";
+import type { ModelCatalogCost } from "@granted/model-catalog-core/model-catalog-types";
 import {
   createStaticProviderModelIdNormalizer,
   normalizeProviderId,

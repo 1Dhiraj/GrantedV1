@@ -1,8 +1,8 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { Worker } from "node:worker_threads";
-import { getAiTransportHost } from "@openclaw/ai";
-import { streamOpenAIResponses } from "@openclaw/ai/internal/openai";
+import { getAiTransportHost } from "@granted/ai";
+import { streamOpenAIResponses } from "@granted/ai/internal/openai";
 import { afterEach, beforeAll, describe, expect, it, vi } from "vitest";
 import { createDeferred } from "../../../test/helpers/promise.js";
 import { createTempDirTracker } from "../../../test/helpers/temp-dir.js";

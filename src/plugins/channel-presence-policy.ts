@@ -1,6 +1,6 @@
 // Resolves channel presence policy advertised by plugin metadata.
-import { normalizeOptionalLowercaseString } from "@openclaw/normalization-core/string-coerce";
-import { sortUniqueStrings } from "@openclaw/normalization-core/string-normalization";
+import { normalizeOptionalLowercaseString } from "@granted/normalization-core/string-coerce";
+import { sortUniqueStrings } from "@granted/normalization-core/string-normalization";
 import { isChannelConfigMetadataKey } from "../channels/config-metadata.js";
 import {
   hasMeaningfulChannelConfig,

@@ -5,7 +5,7 @@ Official OpenClaw channel plugin for Signal.
 ## Install
 
 ```sh
-openclaw plugins install @openclaw/signal
+openclaw plugins install @granted/signal
 ```
 
 ## Docs

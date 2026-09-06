@@ -580,7 +580,7 @@ describe("cross-OS release checks workflow", () => {
     );
     expect(run.run).not.toContain("--required-companion-packages-json");
     expect(run.run).not.toContain("GRANTED_PLUGIN_INSTALL_OVERRIDES");
-    expect(JSON.stringify(workflow)).not.toContain("@openclaw/codex");
+    expect(JSON.stringify(workflow)).not.toContain("@granted/codex");
   });
 
   it("owns provider companion requirements and fails closed for direct candidates", () => {
@@ -616,7 +616,7 @@ describe("cross-OS release checks workflow", () => {
   });
 
   it.each([
-    ["openai", ["@openclaw/codex"]],
+    ["openai", ["@granted/codex"]],
     ["anthropic", []],
     ["minimax", []],
   ])("resolves provider-owned companions for %s", (provider, expected) => {

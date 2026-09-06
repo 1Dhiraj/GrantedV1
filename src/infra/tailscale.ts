@@ -5,12 +5,12 @@ import { fileURLToPath } from "node:url";
 import {
   asDateTimestampMs,
   resolveExpiresAtMsFromDurationMs,
-} from "@openclaw/normalization-core/number-coercion";
-import { asNullableObjectRecord as readRecord } from "@openclaw/normalization-core/record-coerce";
+} from "@granted/normalization-core/number-coercion";
+import { asNullableObjectRecord as readRecord } from "@granted/normalization-core/record-coerce";
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
-} from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/string-coerce";
 import { runExec } from "../process/exec.js";
 import { signalProcessTree } from "../process/kill-tree.js";
 import { isVitestRuntimeEnv } from "./env.js";

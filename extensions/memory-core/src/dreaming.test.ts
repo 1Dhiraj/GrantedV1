@@ -1,5 +1,5 @@
 // Memory Core tests cover dreaming plugin behavior.
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   DEFAULT_MEMORY_DEEP_DREAMING_LIMIT,

@@ -7,7 +7,7 @@ title: "Synthetic"
 ---
 
 [Synthetic](https://synthetic.new) exposes Anthropic-compatible endpoints.
-OpenClaw provides it through the official `@openclaw/synthetic-provider`
+OpenClaw provides it through the official `@granted/synthetic-provider`
 plugin and uses the Anthropic Messages API.
 
 | Property | Value                                 |
@@ -22,7 +22,7 @@ plugin and uses the Anthropic Messages API.
 <Steps>
   <Step title="Install the plugin">
     ```bash
-    openclaw plugins install @openclaw/synthetic-provider
+    openclaw plugins install @granted/synthetic-provider
     openclaw gateway restart
     ```
   </Step>

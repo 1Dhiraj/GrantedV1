@@ -1,4 +1,4 @@
-import type { WorkboardCard } from "@openclaw/workboard-contract";
+import type { WorkboardCard } from "@granted/workboard-contract";
 // Workboard dispatch workspace helpers keep authority resolution outside the orchestration loop.
 import type { PluginRuntime } from "granted/plugin-sdk/plugin-runtime";
 import {

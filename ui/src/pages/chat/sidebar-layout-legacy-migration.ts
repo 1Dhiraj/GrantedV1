@@ -1,4 +1,4 @@
-import { isRecord } from "@openclaw/normalization-core";
+import { isRecord } from "@granted/normalization-core";
 import { patchSettings, type UiSettings } from "../../app/settings.ts";
 import { updateSidebarSessionLayout } from "./sidebar-layout-persistence.ts";
 import { openSlot, type SidebarLayout, type SidebarSlotId } from "./sidebar-layout.ts";

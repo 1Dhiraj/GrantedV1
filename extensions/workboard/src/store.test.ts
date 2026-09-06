@@ -3,7 +3,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { DatabaseSync } from "node:sqlite";
-import { type WorkboardCard, WORKBOARD_STATUSES } from "@openclaw/workboard-contract";
+import { type WorkboardCard, WORKBOARD_STATUSES } from "@granted/workboard-contract";
 import { MAX_DATE_TIMESTAMP_MS } from "granted/plugin-sdk/number-runtime";
 import { useAutoCleanupTempDirTracker } from "granted/plugin-sdk/test-env";
 import { afterEach, describe, expect, it, vi } from "vitest";

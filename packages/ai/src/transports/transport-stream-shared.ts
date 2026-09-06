@@ -9,8 +9,8 @@ import type {
   ProviderResponse,
   StreamOptions,
   Usage,
-} from "@openclaw/llm-core";
-import { asNonArrayRecord, asOptionalRecord } from "@openclaw/normalization-core/record-coerce";
+} from "@granted/llm-core";
+import { asNonArrayRecord, asOptionalRecord } from "@granted/normalization-core/record-coerce";
 import {
   appendAssistantMessageDiagnostic,
   createAssistantMessageDiagnostic,

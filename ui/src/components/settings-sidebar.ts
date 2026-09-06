@@ -1,4 +1,4 @@
-import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
+import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
 // Dedicated sidebar for the full-page settings takeover (see app-host.ts).
 import { html, nothing } from "lit";
 import type { UpdateAvailable, UpdateScheduleState } from "../api/types.ts";

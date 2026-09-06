@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
-import { stableStringify } from "@openclaw/normalization-core";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { stableStringify } from "@granted/normalization-core";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import { parseWorkerLaunchPlan, type WorkerLaunchPlan } from "./launch-descriptor.js";
 import { hasExactOwnKeys } from "./protocol-record.js";
 

@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
 import path from "node:path";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import { resolveSessionStorePathCore } from "../../config/sessions/paths.js";
 import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {

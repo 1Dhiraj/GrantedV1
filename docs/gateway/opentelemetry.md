@@ -29,7 +29,7 @@ OTLP/HTTP works without code changes. For local file logs, see
 ## Quick start
 
 ```bash
-openclaw plugins install clawhub:@openclaw/diagnostics-otel
+openclaw plugins install clawhub:@granted/diagnostics-otel
 ```
 
 ```json5

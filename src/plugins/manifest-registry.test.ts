@@ -108,10 +108,10 @@ function createMsteamsClawHubInstallRecord(
 ): PluginInstallRecord {
   const record: PluginInstallRecord = {
     source: "clawhub",
-    spec: "clawhub:@openclaw/msteams",
+    spec: "clawhub:@granted/msteams",
     installPath,
     clawhubUrl: "https://clawhub.ai",
-    clawhubPackage: "@openclaw/msteams",
+    clawhubPackage: "@granted/msteams",
     clawhubChannel: "official",
   };
   return { ...record, ...overrides };
@@ -128,7 +128,7 @@ function resolveMsteamsClawHubTrust(overrides: Partial<PluginInstallRecord> = {}
       createPluginCandidate({
         idHint: "msteams",
         rootDir: dir,
-        packageName: "@openclaw/msteams",
+        packageName: "@granted/msteams",
         origin: "global",
         installOwner: "msteams",
       }),
@@ -144,11 +144,11 @@ function resolveDiffsNpmTrust(overrides: Partial<PluginInstallRecord> = {}) {
     installRecords: {
       diffs: {
         source: "npm",
-        spec: "@openclaw/diffs",
+        spec: "@granted/diffs",
         installPath: dir,
-        resolvedName: "@openclaw/diffs",
+        resolvedName: "@granted/diffs",
         resolvedVersion: "2026.7.16",
-        resolvedSpec: "@openclaw/diffs@2026.7.16",
+        resolvedSpec: "@granted/diffs@2026.7.16",
         ...overrides,
       },
     },
@@ -156,7 +156,7 @@ function resolveDiffsNpmTrust(overrides: Partial<PluginInstallRecord> = {}) {
       createPluginCandidate({
         idHint: "diffs",
         rootDir: dir,
-        packageName: "@openclaw/diffs",
+        packageName: "@granted/diffs",
         origin: "global",
         installOwner: "diffs",
       }),
@@ -324,7 +324,7 @@ function loadRegistryForMinHostVersionCase(params: {
         origin: "global",
         packageManifest: {
           install: {
-            npmSpec: "@openclaw/synology-chat",
+            npmSpec: "@granted/synology-chat",
             minHostVersion: params.minHostVersion,
           },
         },
@@ -350,7 +350,7 @@ function loadRegistryForPluginApiCase(params: {
         origin: params.origin ?? "global",
         packageManifest: {
           install: {
-            npmSpec: "@openclaw/synology-chat",
+            npmSpec: "@granted/synology-chat",
             minHostVersion: ">=2026.4.25",
           },
           compat: {
@@ -487,7 +487,7 @@ describe("loadPluginManifestRegistry", () => {
     fs.writeFileSync(
       path.join(pluginDir, "package.json"),
       JSON.stringify({
-        name: "@openclaw/cached-manifest",
+        name: "@granted/cached-manifest",
         openclaw: { extensions: ["./index.js"] },
       }),
       "utf-8",
@@ -933,10 +933,10 @@ describe("loadPluginManifestRegistry", () => {
       installRecords: {
         diffs: {
           source: "npm",
-          spec: "@openclaw/diffs",
+          spec: "@granted/diffs",
           installPath: dir,
-          resolvedName: "@openclaw/diffs",
-          resolvedSpec: "@openclaw/diffs@2026.7.16",
+          resolvedName: "@granted/diffs",
+          resolvedSpec: "@granted/diffs@2026.7.16",
         },
       },
       candidates: [
@@ -944,7 +944,7 @@ describe("loadPluginManifestRegistry", () => {
           ...createPluginCandidate({
             idHint: "diffs/two",
             rootDir: dir,
-            packageName: "@openclaw/diffs",
+            packageName: "@granted/diffs",
             origin: "global",
             installOwner: "diffs",
           }),
@@ -954,7 +954,7 @@ describe("loadPluginManifestRegistry", () => {
           ...createPluginCandidate({
             idHint: "diffs/one",
             rootDir: dir,
-            packageName: "@openclaw/diffs",
+            packageName: "@granted/diffs",
             origin: "global",
             installOwner: "diffs",
           }),
@@ -1015,7 +1015,7 @@ describe("loadPluginManifestRegistry", () => {
     { name: "complete records", overrides: {} },
     {
       name: "versioned ClawHub specs",
-      overrides: { spec: "clawhub:@openclaw/msteams@2026.6.11" },
+      overrides: { spec: "clawhub:@granted/msteams@2026.6.11" },
     },
     {
       name: "legacy spec-only records",
@@ -1027,15 +1027,15 @@ describe("loadPluginManifestRegistry", () => {
     },
     {
       name: "matching npm resolved specs",
-      overrides: { resolvedSpec: "@openclaw/msteams@2026.6.11" },
+      overrides: { resolvedSpec: "@granted/msteams@2026.6.11" },
     },
     {
       name: "matching ClawHub resolved specs",
-      overrides: { resolvedSpec: "clawhub:@openclaw/msteams@2026.6.11" },
+      overrides: { resolvedSpec: "clawhub:@granted/msteams@2026.6.11" },
     },
     {
       name: "matching resolved package names",
-      overrides: { resolvedName: "@openclaw/msteams" },
+      overrides: { resolvedName: "@granted/msteams" },
     },
   ] satisfies Array<{ name: string; overrides: Partial<PluginInstallRecord> }>)(
     "marks official npm-only ClawHub installs with $name as trusted",
@@ -1063,19 +1063,19 @@ describe("loadPluginManifestRegistry", () => {
     },
     {
       name: "conflicting ClawHub package",
-      overrides: { clawhubPackage: "@openclaw/line" },
+      overrides: { clawhubPackage: "@granted/line" },
     },
     {
       name: "conflicting requested spec",
-      overrides: { spec: "clawhub:@openclaw/line" },
+      overrides: { spec: "clawhub:@granted/line" },
     },
     {
       name: "conflicting npm resolved spec",
-      overrides: { resolvedSpec: "@openclaw/line@2026.6.11" },
+      overrides: { resolvedSpec: "@granted/line@2026.6.11" },
     },
     {
       name: "conflicting ClawHub resolved spec",
-      overrides: { resolvedSpec: "clawhub:@openclaw/line@2026.6.11" },
+      overrides: { resolvedSpec: "clawhub:@granted/line@2026.6.11" },
     },
     {
       name: "blank ClawHub package",
@@ -1083,11 +1083,11 @@ describe("loadPluginManifestRegistry", () => {
     },
     {
       name: "malformed ClawHub package",
-      overrides: { clawhubPackage: "@openclaw/msteams@2026.6.11" },
+      overrides: { clawhubPackage: "@granted/msteams@2026.6.11" },
     },
     {
       name: "malformed requested spec",
-      overrides: { spec: "@openclaw/msteams" },
+      overrides: { spec: "@granted/msteams" },
     },
     {
       name: "malformed resolved spec",
@@ -1095,11 +1095,11 @@ describe("loadPluginManifestRegistry", () => {
     },
     {
       name: "conflicting resolved package name",
-      overrides: { resolvedName: "@openclaw/line" },
+      overrides: { resolvedName: "@granted/line" },
     },
     {
       name: "malformed resolved package name",
-      overrides: { resolvedName: "@openclaw/msteams@2026.6.11" },
+      overrides: { resolvedName: "@granted/msteams@2026.6.11" },
     },
     {
       name: "missing package identities",
@@ -1114,7 +1114,7 @@ describe("loadPluginManifestRegistry", () => {
       overrides: {
         clawhubPackage: undefined,
         spec: undefined,
-        resolvedSpec: "@openclaw/msteams@2026.6.11",
+        resolvedSpec: "@granted/msteams@2026.6.11",
       },
     },
   ] satisfies Array<{ name: string; overrides: Partial<PluginInstallRecord> }>)(
@@ -1139,7 +1139,7 @@ describe("loadPluginManifestRegistry", () => {
         createPluginCandidate({
           idHint: "msteams",
           rootDir: dir,
-          packageName: "@openclaw/msteams",
+          packageName: "@granted/msteams",
           origin: "config",
         }),
       ],
@@ -1156,10 +1156,10 @@ describe("loadPluginManifestRegistry", () => {
       installRecords: {
         "diagnostics-otel": {
           source: "clawhub",
-          spec: "clawhub:@openclaw/diagnostics-otel",
+          spec: "clawhub:@granted/diagnostics-otel",
           installPath: dir,
           clawhubUrl: "https://example.invalid",
-          clawhubPackage: "@openclaw/diagnostics-otel",
+          clawhubPackage: "@granted/diagnostics-otel",
           clawhubChannel: "official",
         },
       },
@@ -1167,7 +1167,7 @@ describe("loadPluginManifestRegistry", () => {
         createPluginCandidate({
           idHint: "diagnostics-otel",
           rootDir: dir,
-          packageName: "@openclaw/diagnostics-otel",
+          packageName: "@granted/diagnostics-otel",
           origin: "global",
           installOwner: "diagnostics-otel",
         }),
@@ -1185,7 +1185,7 @@ describe("loadPluginManifestRegistry", () => {
       installRecords: {
         "diagnostics-otel": {
           source: "clawhub",
-          spec: "clawhub:@openclaw/diagnostics-otel@2026.5.18",
+          spec: "clawhub:@granted/diagnostics-otel@2026.5.18",
           installPath: dir,
         },
       },
@@ -1193,7 +1193,7 @@ describe("loadPluginManifestRegistry", () => {
         createPluginCandidate({
           idHint: "diagnostics-otel",
           rootDir: dir,
-          packageName: "@openclaw/diagnostics-otel",
+          packageName: "@granted/diagnostics-otel",
           origin: "global",
           installOwner: "diagnostics-otel",
         }),
@@ -1211,18 +1211,18 @@ describe("loadPluginManifestRegistry", () => {
       installRecords: {
         "diagnostics-otel": {
           source: "npm",
-          spec: "@openclaw/diagnostics-otel",
+          spec: "@granted/diagnostics-otel",
           installPath: dir,
-          resolvedName: "@openclaw/diagnostics-otel",
+          resolvedName: "@granted/diagnostics-otel",
           resolvedVersion: "2026.5.18",
-          resolvedSpec: "@openclaw/diagnostics-otel@2026.5.18",
+          resolvedSpec: "@granted/diagnostics-otel@2026.5.18",
         },
       },
       candidates: [
         createPluginCandidate({
           idHint: "diagnostics-otel",
           rootDir: dir,
-          packageName: "@openclaw/diagnostics-otel",
+          packageName: "@granted/diagnostics-otel",
           origin: "config",
           installOwner: "diagnostics-otel",
         }),
@@ -1245,7 +1245,7 @@ describe("loadPluginManifestRegistry", () => {
         "diagnostics-prometheus": {
           source: "npm",
           installPath: dir,
-          resolvedName: "@openclaw/diagnostics-prometheus",
+          resolvedName: "@granted/diagnostics-prometheus",
           resolvedVersion: "2026.5.3",
         },
       },
@@ -1253,14 +1253,14 @@ describe("loadPluginManifestRegistry", () => {
         createPluginCandidate({
           idHint: "diagnostics-prometheus",
           rootDir: dir,
-          packageName: "@openclaw/diagnostics-prometheus",
+          packageName: "@granted/diagnostics-prometheus",
           origin: "global",
           installOwner: "diagnostics-prometheus",
         }),
         createPluginCandidate({
           idHint: "diagnostics-prometheus",
           rootDir: dir,
-          packageName: "@openclaw/diagnostics-prometheus",
+          packageName: "@granted/diagnostics-prometheus",
           origin: "config",
           installOwner: "diagnostics-prometheus",
         }),
@@ -1284,7 +1284,7 @@ describe("loadPluginManifestRegistry", () => {
         createPluginCandidate({
           idHint: "diagnostics-prometheus",
           rootDir: dir,
-          packageName: "@openclaw/diagnostics-prometheus",
+          packageName: "@granted/diagnostics-prometheus",
           origin: "global",
         }),
       ],
@@ -1303,7 +1303,7 @@ describe("loadPluginManifestRegistry", () => {
         createPluginCandidate({
           idHint: "msteams",
           rootDir: dir,
-          packageName: "@openclaw/msteams",
+          packageName: "@granted/msteams",
           origin: "global",
         }),
       ],
@@ -1910,7 +1910,7 @@ describe("loadPluginManifestRegistry", () => {
         idHint: "slack",
         rootDir: dir,
         origin: "global",
-        packageName: "@openclaw/slack",
+        packageName: "@granted/slack",
       }),
     ]);
 
@@ -1942,7 +1942,7 @@ describe("loadPluginManifestRegistry", () => {
         idHint: "diffs",
         rootDir: dir,
         origin: "global",
-        packageName: "@openclaw/diffs",
+        packageName: "@granted/diffs",
       }),
     ]);
 
@@ -2943,7 +2943,7 @@ describe("loadPluginManifestRegistry", () => {
             origin: "global",
             packageManifest: {
               install: {
-                npmSpec: "@openclaw/codex",
+                npmSpec: "@granted/codex",
                 minHostVersion: "2026.3.22",
               },
             },
@@ -2970,7 +2970,7 @@ describe("loadPluginManifestRegistry", () => {
           origin: "bundled",
           packageManifest: {
             install: {
-              npmSpec: "@openclaw/codex",
+              npmSpec: "@granted/codex",
               minHostVersion: ">=2026.5.1-beta.1",
             },
           },
@@ -3437,7 +3437,7 @@ describe("loadPluginManifestRegistry", () => {
         origin: "global",
         packageManifest: {
           install: {
-            npmSpec: "@openclaw/synology-chat",
+            npmSpec: "@granted/synology-chat",
             minHostVersion: ">=2026.3.22",
           },
         },

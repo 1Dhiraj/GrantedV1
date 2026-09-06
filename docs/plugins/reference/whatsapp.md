@@ -11,8 +11,8 @@ OpenClaw WhatsApp channel plugin for WhatsApp Web chats.
 
 ## Distribution
 
-- Package: `@openclaw/whatsapp`
-- Install route: ClawHub: `clawhub:@openclaw/whatsapp`; npm
+- Package: `@granted/whatsapp`
+- Install route: ClawHub: `clawhub:@granted/whatsapp`; npm
 
 ## Surface
 

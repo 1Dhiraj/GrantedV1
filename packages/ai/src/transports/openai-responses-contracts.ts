@@ -2,8 +2,8 @@ import {
   PROVIDER_POST_DISPATCH_AMBIGUITY_ERROR_CODE,
   type Api,
   type ProviderReplayState,
-} from "@openclaw/llm-core";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+} from "@granted/llm-core";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import type {
   FunctionTool,
   ResponseCreateParamsStreaming,

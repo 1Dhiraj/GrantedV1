@@ -7,8 +7,8 @@ const { requestPreparedCompactionMock } = vi.hoisted(() => ({
   requestPreparedCompactionMock: vi.fn(),
 }));
 
-vi.mock("@openclaw/ai/transports", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("@openclaw/ai/transports")>()),
+vi.mock("@granted/ai/transports", async (importOriginal) => ({
+  ...(await importOriginal<typeof import("@granted/ai/transports")>()),
   requestPreparedOpenAIResponsesCompaction: requestPreparedCompactionMock,
 }));
 

@@ -1,6 +1,6 @@
 // Implements channel-scoped tailing of the OpenClaw log file.
-import { parseStrictPositiveInteger } from "@openclaw/normalization-core/number-coercion";
-import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
+import { parseStrictPositiveInteger } from "@granted/normalization-core/number-coercion";
+import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
 import { theme } from "../../../packages/terminal-core/src/theme.js";
 import {
   CHAT_CHANNEL_ORDER,

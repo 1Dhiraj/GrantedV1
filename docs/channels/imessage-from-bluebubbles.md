@@ -7,7 +7,7 @@ read_when:
 title: "Coming from BlueBubbles"
 ---
 
-BlueBubbles support was removed. OpenClaw supports iMessage only through the official `@openclaw/imessage` plugin, which drives [`steipete/imsg`](https://github.com/steipete/imsg) over JSON-RPC and reaches the same private API surface BlueBubbles had (`react`, `edit`, `unsend`, `reply`, `sendWithEffect`, native polls, group management, attachments). One CLI binary replaces the BlueBubbles server + client app + webhook plumbing: no REST endpoint, no webhook auth.
+BlueBubbles support was removed. OpenClaw supports iMessage only through the official `@granted/imessage` plugin, which drives [`steipete/imsg`](https://github.com/steipete/imsg) over JSON-RPC and reaches the same private API surface BlueBubbles had (`react`, `edit`, `unsend`, `reply`, `sendWithEffect`, native polls, group management, attachments). One CLI binary replaces the BlueBubbles server + client app + webhook plumbing: no REST endpoint, no webhook auth.
 
 This guide migrates old `channels.bluebubbles` configs to `channels.imessage`. There is no other supported migration path. On current OpenClaw a leftover `channels.bluebubbles` block is inert — no runtime reads it.
 
@@ -19,7 +19,7 @@ For the short announcement and operator summary, see [BlueBubbles removal and th
 
 The shortest safe path when you already know your old BlueBubbles config:
 
-1. Install the official plugin with `openclaw plugins install @openclaw/imessage`, then restart the Gateway.
+1. Install the official plugin with `openclaw plugins install @granted/imessage`, then restart the Gateway.
 2. Verify `imsg` directly on the Mac that runs Messages.app (`imsg chats`, `imsg history`, `imsg send`, `imsg rpc --help`).
 3. Copy behavior keys from `channels.bluebubbles` to `channels.imessage`: `dmPolicy`, `allowFrom`, `groupPolicy`, `groupAllowFrom`, `groups`, `includeAttachments`, `attachmentRoots`, `mediaMaxMb`, `textChunkLimit`, and `actions`.
 4. Drop transport keys that no longer exist: `serverUrl`, `password`, webhook URLs, and BlueBubbles server setup.

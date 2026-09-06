@@ -1,5 +1,5 @@
 import path from "node:path";
-import { gatewayOriginScope } from "@openclaw/gateway-client/browser";
+import { gatewayOriginScope } from "@granted/gateway-client/browser";
 import { expect, it } from "vitest";
 import { CLOUD_PROFILE_RETRY_DELAYS_MS } from "../pages/new-session/cloud-profile-discovery.ts";
 import {

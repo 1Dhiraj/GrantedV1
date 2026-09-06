@@ -1,4 +1,4 @@
-import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
+import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
 import { DEFAULT_RESET_TRIGGERS } from "../../config/sessions/types.js";
 import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { isResetAuthorizedForContext } from "../command-auth.js";

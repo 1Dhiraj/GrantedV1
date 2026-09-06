@@ -1,11 +1,11 @@
 {
-  "name": "@openclaw/runway-provider",
+  "name": "@granted/runway-provider",
   "version": "2026.8.1",
   "private": true,
   "description": "OpenClaw Runway video provider plugin",
   "type": "module",
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*"
+    "@granted/plugin-sdk": "workspace:*"
   },
   "openclaw": {
     "extensions": [

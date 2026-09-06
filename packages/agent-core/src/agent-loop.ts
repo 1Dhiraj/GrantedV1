@@ -1,7 +1,7 @@
 // Keep the runtime class on the public package specifier so OpenClaw and
 // external consumers share one constructor identity.
-import { EventStream as LlmEventStream } from "@openclaw/ai/event-stream";
-import { replaceCompactionReplayOwnerContent } from "@openclaw/ai/transports";
+import { EventStream as LlmEventStream } from "@granted/ai/event-stream";
+import { replaceCompactionReplayOwnerContent } from "@granted/ai/transports";
 import type {
   AssistantMessage,
   AssistantMessageEvent,
@@ -9,9 +9,9 @@ import type {
   EventStream,
   ToolResultMessage,
   EventStream as SourceEventStream,
-} from "@openclaw/llm-core";
-import { coerceErrorMessage } from "@openclaw/normalization-core/error-coercion";
-import { asOptionalRecord } from "@openclaw/normalization-core/record-coerce";
+} from "@granted/llm-core";
+import { coerceErrorMessage } from "@granted/normalization-core/error-coercion";
+import { asOptionalRecord } from "@granted/normalization-core/record-coerce";
 import { TranscriptNotContinuableError } from "./errors.js";
 import { uuidv7 } from "./harness/session/uuid.js";
 import {

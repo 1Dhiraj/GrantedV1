@@ -1,4 +1,4 @@
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
   configSnapshot,
@@ -162,7 +162,7 @@ describe("plugin management service", () => {
         version: "2.0.0",
         featured: true,
         order: 40,
-        install: { source: "clawhub", packageName: "@openclaw/diffs" },
+        install: { source: "clawhub", packageName: "@granted/diffs" },
       }),
     ]);
   });
@@ -256,7 +256,7 @@ describe("plugin management service", () => {
     expect(catalog.plugins).toEqual([
       expect.objectContaining({
         id: "workboard",
-        packageName: "@openclaw/workboard",
+        packageName: "@granted/workboard",
         installed: true,
         enabled: false,
         state: "disabled",
@@ -312,7 +312,7 @@ describe("plugin management service", () => {
     const officialCatalog = {
       entries: [
         {
-          name: "@openclaw/firecrawl",
+          name: "@granted/firecrawl",
           description: "Web extraction and crawling.",
           openclaw: {
             plugin: { id: "firecrawl", label: "FireCrawl" },
@@ -598,7 +598,7 @@ describe("plugin management service", () => {
     const env = { HOME: "/tmp/openclaw-managed-uninstall-home" };
     const installRecord = {
       source: "clawhub",
-      spec: "clawhub:@openclaw/diffs",
+      spec: "clawhub:@granted/diffs",
       installPath: "/tmp/extensions/diffs",
     };
     const prepared = configSnapshot({

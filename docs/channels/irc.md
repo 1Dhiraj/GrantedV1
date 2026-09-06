@@ -14,7 +14,7 @@ Install the official IRC plugin, then configure it under `channels.irc`.
 1. Install the plugin:
 
 ```bash
-openclaw plugins install @openclaw/irc
+openclaw plugins install @granted/irc
 ```
 
 2. Set at least host, nick, and the channels to join in `~/.openclaw/openclaw.json`:

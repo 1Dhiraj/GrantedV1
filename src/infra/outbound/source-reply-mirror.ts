@@ -1,11 +1,11 @@
 // Source reply mirroring records successful same-conversation message-tool
 // sends back into the owning session transcript.
-import { asOptionalRecord as asRecord } from "@openclaw/normalization-core/record-coerce";
+import { asOptionalRecord as asRecord } from "@granted/normalization-core/record-coerce";
 import {
   normalizeOptionalLowercaseString,
   normalizeOptionalString,
-} from "@openclaw/normalization-core/string-coerce";
-import { normalizeOptionalTrimmedStringList } from "@openclaw/normalization-core/string-normalization";
+} from "@granted/normalization-core/string-coerce";
+import { normalizeOptionalTrimmedStringList } from "@granted/normalization-core/string-normalization";
 import type { ReplyPayload } from "../../auto-reply/types.js";
 import { normalizeOutboundLocation } from "../../channels/location.js";
 import { getChannelPlugin } from "../../channels/plugins/index.js";

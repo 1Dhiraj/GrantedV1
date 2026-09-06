@@ -2,4 +2,4 @@
 export {
   normalizeModelPricingCatalog,
   normalizeOpenRouterModelPricing,
-} from "@openclaw/model-catalog-core/model-catalog-pricing";
+} from "@granted/model-catalog-core/model-catalog-pricing";

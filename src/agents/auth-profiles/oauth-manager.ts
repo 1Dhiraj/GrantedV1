@@ -1,4 +1,4 @@
-import { asDateTimestampMs } from "@openclaw/normalization-core/number-coercion";
+import { asDateTimestampMs } from "@granted/normalization-core/number-coercion";
 /**
  * OAuth credential manager.
  * Resolves usable access tokens, refreshes expired credentials under global

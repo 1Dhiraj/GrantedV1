@@ -1,11 +1,11 @@
 {
-  "name": "@openclaw/huggingface-provider",
+  "name": "@granted/huggingface-provider",
   "version": "2026.8.1",
   "private": true,
   "description": "OpenClaw Hugging Face provider plugin",
   "type": "module",
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*"
+    "@granted/plugin-sdk": "workspace:*"
   },
   "openclaw": {
     "extensions": [

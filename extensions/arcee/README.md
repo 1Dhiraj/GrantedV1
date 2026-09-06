@@ -5,7 +5,7 @@ Official OpenClaw provider plugin for Arcee AI.
 Install from OpenClaw:
 
 ```bash
-openclaw plugins install @openclaw/arcee-provider
+openclaw plugins install @granted/arcee-provider
 openclaw gateway restart
 ```
 

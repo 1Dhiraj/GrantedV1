@@ -1,7 +1,7 @@
 // Manages APNs registration state and direct/relay push sending.
-import { resolveTimerTimeoutMs } from "@openclaw/normalization-core/number-coercion";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
-import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+import { resolveTimerTimeoutMs } from "@granted/normalization-core/number-coercion";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
+import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import type { ChannelApprovalKind } from "./approval-types.js";
 import type { DeviceIdentity } from "./device-identity.js";
 import { toErrorObject } from "./errors.js";

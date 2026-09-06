@@ -91,7 +91,7 @@ describe("install security scan official bypass", () => {
     const sourceDir = makeTempDir();
     const result = await scanBundleInstallSourceRuntime({
       logger: {},
-      pluginId: "@openclaw/matrix",
+      pluginId: "@granted/matrix",
       sourceDir,
       source: { kind: "clawhub", authority: "official", mutable: false, network: true },
     });
@@ -121,8 +121,8 @@ describe("install security scan official bypass", () => {
   it("runs only operator policy for official immutable npm sources", async () => {
     const result = await preflightPluginNpmInstallPolicyRuntime({
       logger: {},
-      packageName: "@openclaw/matrix",
-      requestedSpecifier: "@openclaw/matrix@latest",
+      packageName: "@granted/matrix",
+      requestedSpecifier: "@granted/matrix@latest",
       source: { kind: "npm", authority: "official", mutable: false, network: true },
       sourcePath: "/tmp/openclaw-official-npm",
       sourcePathKind: "directory",
@@ -143,7 +143,7 @@ describe("install security scan official bypass", () => {
     const sourceDir = makeTempDir();
     const result = await scanBundleInstallSourceRuntime({
       logger: {},
-      pluginId: "@openclaw/matrix",
+      pluginId: "@granted/matrix",
       sourceDir,
       source: { kind: "clawhub", authority: "official", mutable: false, network: true },
     });
@@ -164,7 +164,7 @@ describe("install security scan official bypass", () => {
     await expect(
       scanBundleInstallSourceRuntime({
         logger: {},
-        pluginId: "@openclaw/matrix",
+        pluginId: "@granted/matrix",
         sourceDir,
         source: { kind: "clawhub", authority: "official", mutable: false, network: true },
       }),
@@ -181,7 +181,7 @@ describe("install security scan official bypass", () => {
         extensions: ["index.js"],
         logger: {},
         packageDir,
-        pluginId: "@openclaw/matrix",
+        pluginId: "@granted/matrix",
         source: { kind: "npm", authority: "official", mutable: false, network: true },
         trustedSourceLinkedOfficialInstall: true,
       }),

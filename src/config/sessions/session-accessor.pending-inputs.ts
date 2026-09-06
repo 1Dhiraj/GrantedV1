@@ -1,5 +1,5 @@
 import { createHash, randomUUID } from "node:crypto";
-import { stableStringify } from "@openclaw/normalization-core/stable-stringify";
+import { stableStringify } from "@granted/normalization-core/stable-stringify";
 import { sql } from "kysely";
 import { MAX_PAYLOAD_BYTES } from "../../gateway/server-constants.js";
 import { getAgentEventLifecycleGeneration } from "../../infra/agent-events.js";

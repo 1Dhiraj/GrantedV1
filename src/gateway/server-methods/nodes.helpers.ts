@@ -1,6 +1,6 @@
 // Node method helpers centralize unavailable responses, safe JSON parsing,
 // and node-invoke error mapping.
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import {
   ErrorCodes,
   errorShape,

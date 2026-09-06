@@ -1,4 +1,4 @@
-import { gatewayOriginScope } from "@openclaw/gateway-client/browser";
+import { gatewayOriginScope } from "@granted/gateway-client/browser";
 import { expect, it } from "vitest";
 import {
   WORKSPACE,

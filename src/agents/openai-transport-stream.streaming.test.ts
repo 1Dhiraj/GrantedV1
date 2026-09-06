@@ -3,7 +3,7 @@ import {
   createAzureOpenAIResponsesTransportStreamFn,
   createOpenAICompletionsTransportStreamFn,
   createOpenAIResponsesTransportStreamFn,
-} from "@openclaw/ai/transports";
+} from "@granted/ai/transports";
 import type { Model } from "granted/plugin-sdk/llm";
 import { describe, expect, it, vi } from "vitest";
 import {

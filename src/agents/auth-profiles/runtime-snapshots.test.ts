@@ -4,7 +4,7 @@
  */
 
 import path from "node:path";
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { describe, expect, it, vi } from "vitest";
 import * as authProfileClone from "./clone.js";
 import {

@@ -22,7 +22,7 @@ rate limits, and any provider-side routing policy.
 | Property      | Value                                    |
 | ------------- | ---------------------------------------- |
 | Provider id   | `gmi` (aliases: `gmi-cloud`, `gmicloud`) |
-| Package       | `@openclaw/gmi-provider`                 |
+| Package       | `@granted/gmi-provider`                 |
 | Auth env var  | `GMI_API_KEY`                            |
 | API           | OpenAI-compatible (`openai-completions`) |
 | Base URL      | `https://api.gmi-serving.com/v1`         |
@@ -34,7 +34,7 @@ Install the plugin, restart the gateway, then create an API key in GMI Cloud
 (`https://www.gmicloud.ai/`):
 
 ```bash
-openclaw plugins install @openclaw/gmi-provider
+openclaw plugins install @granted/gmi-provider
 openclaw gateway restart
 ```
 

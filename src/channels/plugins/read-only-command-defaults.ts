@@ -3,7 +3,7 @@
  *
  * Reads native command/skill defaults from installed plugin manifests without loading plugins.
  */
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { resolveStateDir, STATE_DIR } from "../../config/paths.js";
 import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { isBlockedObjectKey } from "../../infra/prototype-keys.js";

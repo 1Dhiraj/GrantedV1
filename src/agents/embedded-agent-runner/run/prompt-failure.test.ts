@@ -1,4 +1,4 @@
-import { CompactionReplayRefreshRequiredError } from "@openclaw/ai/transports";
+import { CompactionReplayRefreshRequiredError } from "@granted/ai/transports";
 import { describe, expect, it, vi } from "vitest";
 import { handleEmbeddedPromptFailure } from "./prompt-failure.js";
 

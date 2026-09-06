@@ -2,7 +2,7 @@
 import { spawn } from "node:child_process";
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { Result } from "@openclaw/normalization-core/result";
+import type { Result } from "@granted/normalization-core/result";
 import { callGatewayFromCliWithTransport } from "../cli/gateway-rpc.js";
 import { formatInstallationTargetCommand } from "../cli/installation-target-format.js";
 import { exitCliAfterOutput } from "../cli/one-shot-exit.js";

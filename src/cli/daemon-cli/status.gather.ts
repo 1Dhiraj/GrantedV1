@@ -1,7 +1,7 @@
 // Collects daemon status from service files, config snapshots, ports, probes, and plugin drift.
 import fs from "node:fs/promises";
-import { asNonArrayRecord } from "@openclaw/normalization-core/record-coerce";
-import { uniqueStrings } from "@openclaw/normalization-core/string-normalization";
+import { asNonArrayRecord } from "@granted/normalization-core/record-coerce";
+import { uniqueStrings } from "@granted/normalization-core/string-normalization";
 import JSON5 from "json5";
 import type { classifyGatewayConnectFailure } from "../../../packages/gateway-protocol/src/connect-error-details.js";
 import {

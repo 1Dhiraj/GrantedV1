@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import * as staticNormalization from "@openclaw/model-catalog-core/provider-model-id-normalization";
-import { expectDefined } from "@openclaw/normalization-core";
+import * as staticNormalization from "@granted/model-catalog-core/provider-model-id-normalization";
+import { expectDefined } from "@granted/normalization-core";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
 import * as runtimeNormalization from "../agents/provider-model-normalization.runtime.js";

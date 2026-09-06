@@ -1,5 +1,5 @@
-import { readSessionMessageIdentity } from "@openclaw/gateway-client/browser";
-import { asNullableRecord } from "@openclaw/normalization-core/record-coerce";
+import { readSessionMessageIdentity } from "@granted/gateway-client/browser";
+import { asNullableRecord } from "@granted/normalization-core/record-coerce";
 import {
   isToolCallContentType,
   isToolResultContentType,

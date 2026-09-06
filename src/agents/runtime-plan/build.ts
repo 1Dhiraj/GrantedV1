@@ -1,4 +1,4 @@
-import { asOptionalRecord } from "@openclaw/normalization-core/record-coerce";
+import { asOptionalRecord } from "@granted/normalization-core/record-coerce";
 /**
  * Builds prepared runtime plans consumed by embedded agent runs. A plan
  * centralizes provider hooks, auth, tool schema policy, transcript policy,

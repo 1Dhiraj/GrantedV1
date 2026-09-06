@@ -5,7 +5,7 @@ Official OpenClaw provider plugin for Featherless AI's OpenAI-compatible API.
 Install from OpenClaw:
 
 ```bash
-openclaw plugins install @openclaw/featherless-provider
+openclaw plugins install @granted/featherless-provider
 openclaw gateway restart
 ```
 

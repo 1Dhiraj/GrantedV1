@@ -4,12 +4,12 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { promisify } from "node:util";
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import {
   resolveWhatsAppAccount,
   type WhatsAppQaDriverObservedMessage,
   type WhatsAppQaDriverSession,
-} from "@openclaw/whatsapp/api.js";
+} from "@granted/whatsapp/api.js";
 import { describe, expect, it, vi } from "vitest";
 import { fingerprintQaCredentialId } from "../../qa-credentials-fingerprint.runtime.js";
 import { readQaScenarioById } from "../../scenario-catalog.js";

@@ -1,4 +1,4 @@
-# @openclaw/brave-plugin
+# @granted/brave-plugin
 
 Official Brave Search provider plugin for OpenClaw.
 
@@ -7,7 +7,7 @@ This plugin registers Brave as a `web_search` provider. It supports normal Brave
 ## Install
 
 ```bash
-openclaw plugins install @openclaw/brave-plugin
+openclaw plugins install @granted/brave-plugin
 ```
 
 Restart the Gateway after installing or updating the plugin.
@@ -32,5 +32,5 @@ Full setup, config examples, search modes, and tool parameters:
 ## Package
 
 - Plugin id: `brave`
-- Package: `@openclaw/brave-plugin`
+- Package: `@granted/brave-plugin`
 - Minimum OpenClaw host: `2026.4.10`

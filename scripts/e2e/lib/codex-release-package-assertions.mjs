@@ -36,7 +36,7 @@ export function assertCodexReleasePackageContract(params) {
   const expectedDependency = pluginPackage.dependencies?.["@openai/codex"];
   if (expectedDependency !== EXPECTED_CODEX_VERSION) {
     throw new Error(
-      `@openclaw/codex must depend on @openai/codex ${EXPECTED_CODEX_VERSION}; found ${String(expectedDependency)}`,
+      `@granted/codex must depend on @openai/codex ${EXPECTED_CODEX_VERSION}; found ${String(expectedDependency)}`,
     );
   }
   const requiredPlatformPackages = pluginPackage.openclaw?.install?.requiredPlatformPackages;
@@ -45,7 +45,7 @@ export function assertCodexReleasePackageContract(params) {
     !requiredPlatformPackages.includes(target.alias)
   ) {
     throw new Error(
-      `@openclaw/codex manifest does not require current platform alias ${target.alias}`,
+      `@granted/codex manifest does not require current platform alias ${target.alias}`,
     );
   }
 

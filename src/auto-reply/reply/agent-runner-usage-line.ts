@@ -1,4 +1,4 @@
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { hasBillableUsage, hasNonzeroUsage, type NormalizedUsage } from "../../agents/usage.js";
 import type { GrantedConfig } from "../../config/config.js";
 import type { PluginHookReplyUsageState } from "../../plugins/hook-types.js";

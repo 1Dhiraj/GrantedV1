@@ -2743,9 +2743,9 @@ docker_e2e_docker_run_cmd run demo
       'assert-prepublish-requests "$GRANTED_CLAWHUB_URL" "$prepublish_package" "$candidate_version" "$clawhub_security_mode"',
     ]);
     expect(publishedRunner).not.toContain('if [ "$candidate_version" = "2026.6.35" ]; then');
-    expect(publishedRunner).toContain('prepublish_package="@openclaw/whatsapp"');
+    expect(publishedRunner).toContain('prepublish_package="@granted/whatsapp"');
     expect(publishedRunner).toContain("if configured_plugin_installs_enabled; then");
-    expect(publishedRunner).toContain('prepublish_package="@openclaw/matrix"');
+    expect(publishedRunner).toContain('prepublish_package="@granted/matrix"');
     expect(publishedRunner).toContain(
       'assert-prepublish-requests "$GRANTED_CLAWHUB_URL" "$prepublish_package" "$candidate_version"',
     );
@@ -2755,23 +2755,23 @@ docker_e2e_docker_run_cmd run demo
     expect(publishedRunner).toContain('FIXTURE_PACKAGE_VERSION="$candidate_version"');
     expect(publishedRunner).toContain("version,");
     expect(publishedRunner).toContain(
-      'registry_args+=("@openclaw/brave-plugin" "$candidate_version" "$tarball")',
+      'registry_args+=("@granted/brave-plugin" "$candidate_version" "$tarball")',
     );
     expect(publishedRunner).toContain('"$clawhub_security_mode"');
     expect(publishedRunner.indexOf("phase assert-prepublish-requests node")).toBeLessThan(
       publishedRunner.indexOf("phase doctor run_doctor"),
     );
     const discordInstallIndex = runner.indexOf(
-      'openclaw_e2e_fixture_plugin_command openclaw -- \\\n    plugins install "npm:@openclaw/discord@$package_version" --pin',
+      'openclaw_e2e_fixture_plugin_command openclaw -- \\\n    plugins install "npm:@granted/discord@$package_version" --pin',
     );
     const whatsappInstallIndex = runner.indexOf(
-      'openclaw_e2e_fixture_plugin_command openclaw -- \\\n      plugins install "clawhub:@openclaw/whatsapp@$package_version"',
+      'openclaw_e2e_fixture_plugin_command openclaw -- \\\n      plugins install "clawhub:@granted/whatsapp@$package_version"',
     );
     const clawhubRequestIndex = runner.indexOf(
-      'assert-prepublish-requests "$GRANTED_CLAWHUB_URL" "@openclaw/whatsapp" "$package_version"',
+      'assert-prepublish-requests "$GRANTED_CLAWHUB_URL" "@granted/whatsapp" "$package_version"',
     );
     const codexInstallIndex = runner.indexOf(
-      'openclaw_e2e_fixture_plugin_command openclaw -- \\\n      plugins install "npm:@openclaw/codex@$package_version" --pin',
+      'openclaw_e2e_fixture_plugin_command openclaw -- \\\n      plugins install "npm:@granted/codex@$package_version" --pin',
     );
     const restoreCompanionIndex = runner.indexOf(
       'restore "$GRANTED_CONFIG_PATH" "$authored_config"',
@@ -5842,7 +5842,7 @@ grep -Fxq preserved "$TMPDIR/caller-fd"
       "source scripts/e2e/lib/prepublish-plugin-registry.sh",
       "openclaw_prepublish_plugin_registry_configure_docker_args",
       "openclaw_prepublish_plugin_registry_start_mounted",
-      "'[\"@openclaw/codex\"]'",
+      "'[\"@granted/codex\"]'",
     ]);
     expectTextToIncludeAll(registryHelper, [
       'GRANTED_NPM_REGISTRY_DIST_TAGS="$dist_tags"',
@@ -5863,7 +5863,7 @@ grep -Fxq preserved "$TMPDIR/caller-fd"
       'source "$ROOT_DIR/scripts/e2e/lib/prepublish-plugin-registry.sh"',
       "openclaw_prepublish_plugin_registry_configure_docker_args",
       "openclaw_prepublish_plugin_registry_start_mounted",
-      "'[\"@openclaw/codex\"]'",
+      "'[\"@granted/codex\"]'",
     ]);
     expect(runner.indexOf("openclaw_prepublish_plugin_registry_start_mounted")).toBeLessThan(
       runner.indexOf("\nopenclaw_e2e_install_package"),
@@ -7698,7 +7698,7 @@ done
       'plugins install "$dir_plugin" --force',
       "plugins update demo-plugin-dir",
       "start_npm_fixture_registry",
-      'plugins install "npm:@openclaw/demo-plugin-npm@0.0.1" --force',
+      'plugins install "npm:@granted/demo-plugin-npm@0.0.1" --force',
       "plugins update demo-plugin-npm",
       'plugins install "git:$git_update_repo_url@main" --force',
       "plugins update demo-plugin-git-update",
@@ -7741,7 +7741,7 @@ done
       'plugins install "$CLAWHUB_PLUGIN_SPEC"',
       'plugins update "$CLAWHUB_PLUGIN_ID"',
       'openclaw_e2e_maybe_timeout "$GRANTED_PLUGINS_CLI_TIMEOUT"',
-      "clawhub:@openclaw/kitchen-sink",
+      "clawhub:@granted/kitchen-sink",
     ]);
   });
 });

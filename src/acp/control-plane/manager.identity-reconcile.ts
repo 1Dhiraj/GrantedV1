@@ -6,12 +6,12 @@ import {
   mergeSessionIdentity,
   resolveRuntimeHandleIdentifiersFromIdentity,
   resolveSessionIdentityFromMeta,
-} from "@openclaw/acp-core/runtime/session-identity";
+} from "@granted/acp-core/runtime/session-identity";
 import type {
   AcpRuntime,
   AcpRuntimeHandle,
   AcpRuntimeStatus,
-} from "@openclaw/acp-core/runtime/types";
+} from "@granted/acp-core/runtime/types";
 import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { logVerbose } from "../../globals.js";
 import { withAcpRuntimeErrorBoundary } from "../runtime/errors.js";

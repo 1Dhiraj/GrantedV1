@@ -4,7 +4,7 @@
  * credentials, resolves SecretRefs, and maintains runtime store snapshots.
  */
 import { isDeepStrictEqual } from "node:util";
-import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
+import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
 import { getRuntimeConfig } from "../../config/config.js";
 import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { coerceSecretRef } from "../../config/types.secrets.js";

@@ -1,6 +1,6 @@
-import { stripSystemPromptCacheBoundary } from "@openclaw/ai/internal/shared";
-import { clampPositiveTimerTimeoutMs } from "@openclaw/normalization-core/number-coercion";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { stripSystemPromptCacheBoundary } from "@granted/ai/internal/shared";
+import { clampPositiveTimerTimeoutMs } from "@granted/normalization-core/number-coercion";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import { toErrorObject } from "../../infra/errors.js";
 import { resolveExecutablePath } from "../../infra/executable-path.js";
 import { BLOCKED_TOOL_CALL_ABORT_FLOOR_MS } from "../../logging/diagnostic-run-activity.js";

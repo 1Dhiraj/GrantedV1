@@ -21,7 +21,7 @@ For frame shapes, the handshake, errors, and the complete method surface, read t
 Install the verified stable release, `2026.8.1`, with exact version pins:
 
 ```bash
-npm install --save-exact @openclaw/gateway-client@2026.8.1 @openclaw/gateway-protocol@2026.8.1
+npm install --save-exact @granted/gateway-client@2026.8.1 @granted/gateway-protocol@2026.8.1
 ```
 
 If an existing lockfile still pins either package to the reserved `0.0.0`
@@ -35,16 +35,16 @@ its own package versions and dist-tags. Pin and test the client and Gateway
 versions together, and check the [wire-version rules](/gateway/clients#track-protocol-versions)
 before upgrading. The `2026.8.1` client pins protocol package `2026.8.1` exactly.
 
-- [`@openclaw/gateway-protocol`](https://www.npmjs.com/package/@openclaw/gateway-protocol)
+- [`@granted/gateway-protocol`](https://www.npmjs.com/package/@granted/gateway-protocol)
   provides schemas, runtime validators, TypeScript types, client identity and
   capability registries, structured error readers, and protocol version constants.
   Its npm tarball also includes the generated
-  [`protocol.schema.json`](https://unpkg.com/@openclaw/gateway-protocol@2026.8.1/protocol.schema.json)
+  [`protocol.schema.json`](https://unpkg.com/@granted/gateway-protocol@2026.8.1/protocol.schema.json)
   machine-readable contract. Download it as a file; it is not an exported package
   import subpath.
-- [`@openclaw/gateway-client`](https://www.npmjs.com/package/@openclaw/gateway-client)
+- [`@granted/gateway-client`](https://www.npmjs.com/package/@granted/gateway-client)
   is the reference connection implementation. Import the package root for the Node
-  client and `@openclaw/gateway-client/browser` for the browser-safe protocol,
+  client and `@granted/gateway-client/browser` for the browser-safe protocol,
   device-auth, and reconnect helpers.
 
 These package releases declare Node.js `>=22.19.0`. The Node entry includes the `ws`
@@ -100,7 +100,7 @@ not grant authorization. Import names from `GATEWAY_CLIENT_CAPS` instead of
 duplicating string literals:
 
 ```ts
-import { GATEWAY_CLIENT_CAPS } from "@openclaw/gateway-protocol/client-info";
+import { GATEWAY_CLIENT_CAPS } from "@granted/gateway-protocol/client-info";
 
 const caps = [GATEWAY_CLIENT_CAPS.TOOL_EVENTS];
 ```

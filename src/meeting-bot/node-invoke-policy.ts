@@ -1,9 +1,9 @@
 import {
   asPositiveFiniteNumber as readPositiveNumber,
   asSafeIntegerInRange,
-} from "@openclaw/normalization-core/number-coercion";
-import { asOptionalRecord } from "@openclaw/normalization-core/record-coerce";
-import { readNonEmptyStringPreservingWhitespace as readNonEmptyString } from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/number-coercion";
+import { asOptionalRecord } from "@granted/normalization-core/record-coerce";
+import { readNonEmptyStringPreservingWhitespace as readNonEmptyString } from "@granted/normalization-core/string-coerce";
 import type {
   GrantedPluginNodeInvokePolicy,
   GrantedPluginNodeInvokePolicyResult,

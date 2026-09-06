@@ -7,12 +7,12 @@ import {
   isLoopbackIpAddress,
   isRfc1918Ipv4Address,
   parseCanonicalIpAddress,
-} from "@openclaw/net-policy/ip";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+} from "@granted/net-policy/ip";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
-} from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/string-coerce";
 import { normalizeTlsFingerprint } from "../../packages/gateway-client/src/client-address-utils.js";
 import { resolveGatewayPort } from "../config/paths.js";
 import type { GrantedConfig } from "../config/types.js";

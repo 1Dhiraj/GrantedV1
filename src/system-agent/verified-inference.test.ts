@@ -979,7 +979,7 @@ describe("verified OpenClaw inference binding", () => {
         fs.mkdirSync(path.dirname(runtimeSource), { recursive: true });
         fs.writeFileSync(runtimeSource, "export const runtimeRevision = 1;\n", "utf8");
         fs.writeFileSync(manifestPath, '{"id":"provider-owner"}\n', "utf8");
-        fs.writeFileSync(packageJsonPath, '{"name":"@openclaw/provider-owner"}\n', "utf8");
+        fs.writeFileSync(packageJsonPath, '{"name":"@granted/provider-owner"}\n', "utf8");
 
         const record = pluginRecord("provider-owner", {
           origin,
@@ -996,7 +996,7 @@ describe("verified OpenClaw inference binding", () => {
         fs.mkdirSync(codexRootDir, { recursive: true });
         fs.writeFileSync(codexSource, "export const runtime = 'codex';\n", "utf8");
         fs.writeFileSync(codexManifestPath, '{"id":"codex"}\n', "utf8");
-        fs.writeFileSync(codexPackageJsonPath, '{"name":"@openclaw/codex"}\n', "utf8");
+        fs.writeFileSync(codexPackageJsonPath, '{"name":"@granted/codex"}\n', "utf8");
         const codexRecord = pluginRecord("codex", {
           rootDir: codexRootDir,
           manifestPath: codexManifestPath,

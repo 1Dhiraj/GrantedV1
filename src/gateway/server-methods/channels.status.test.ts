@@ -2,7 +2,7 @@
  * Gateway channels.status method tests.
  */
 
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { setActivePluginRegistry } from "../../plugins/runtime.js";
 import { createPluginRecord } from "../../plugins/status.test-fixtures.js";

@@ -11,7 +11,7 @@ Adds LiteLLM model provider support to OpenClaw.
 
 ## Distribution
 
-- Package: `@openclaw/litellm-provider`
+- Package: `@granted/litellm-provider`
 - Install route: included in OpenClaw
 
 ## Surface

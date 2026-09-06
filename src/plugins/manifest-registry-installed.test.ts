@@ -1,7 +1,7 @@
 // Covers installed plugin manifest registry behavior.
 import fs from "node:fs";
 import path from "node:path";
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   recordInstalledPluginIndexInstallOwner,
@@ -125,7 +125,7 @@ function writePackageManifest(rootDir: string, channelLabel: string, selectionDo
   fs.writeFileSync(
     packageJsonPath,
     JSON.stringify({
-      name: "@openclaw/installed",
+      name: "@granted/installed",
       version: "1.0.0",
       dependencies: {
         "runtime-dep": "1.0.0",

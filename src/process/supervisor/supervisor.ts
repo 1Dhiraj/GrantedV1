@@ -1,10 +1,10 @@
 // Process supervisor manages long-running child and PTY process lifecycles.
 import crypto from "node:crypto";
 import { performance } from "node:perf_hooks";
-import { expectDefined } from "@openclaw/normalization-core";
-import { resolveTimerTimeoutMs } from "@openclaw/normalization-core/number-coercion";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
-import { sliceUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+import { expectDefined } from "@granted/normalization-core";
+import { resolveTimerTimeoutMs } from "@granted/normalization-core/number-coercion";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
+import { sliceUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import { createLazyRuntimeModule } from "../../shared/lazy-runtime.js";
 import { createChildAdapter } from "./adapters/child.js";
 import { createPtyAdapter } from "./adapters/pty.js";

@@ -1,7 +1,7 @@
 import { randomUUID } from "node:crypto";
 import fs from "node:fs/promises";
-import { stableStringify } from "@openclaw/normalization-core";
-import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+import { stableStringify } from "@granted/normalization-core";
+import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import { prepareSystemAgentRunAdmission } from "../../agents/admitted-run-context.js";
 import {
   listAgentIds,

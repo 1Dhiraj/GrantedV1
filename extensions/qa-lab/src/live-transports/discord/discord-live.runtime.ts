@@ -7,7 +7,7 @@ import {
   DiscordApiError,
   handleDiscordMessageAction,
   requestDiscord,
-} from "@openclaw/discord/api.js";
+} from "@granted/discord/api.js";
 import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
 import { writeExternalFileWithinRoot } from "granted/plugin-sdk/security-runtime";

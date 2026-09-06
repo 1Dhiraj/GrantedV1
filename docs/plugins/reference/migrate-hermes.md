@@ -11,7 +11,7 @@ Imports Hermes configuration, memories, skills, and supported credentials into O
 
 ## Distribution
 
-- Package: `@openclaw/migrate-hermes`
+- Package: `@granted/migrate-hermes`
 - Install route: included in OpenClaw
 
 ## Surface

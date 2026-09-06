@@ -1,6 +1,6 @@
 /* @vitest-environment jsdom */
-import { readSessionMessageIdentity } from "@openclaw/gateway-client/browser";
-import { expectDefined } from "@openclaw/normalization-core";
+import { readSessionMessageIdentity } from "@granted/gateway-client/browser";
+import { expectDefined } from "@granted/normalization-core";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type {
   ChatInputReceipts,

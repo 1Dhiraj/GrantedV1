@@ -1,12 +1,12 @@
 /** Extracts message delivery evidence from embedded-agent tool calls and results. */
-import { asNonNegativeFiniteNumber } from "@openclaw/normalization-core/number-coercion";
-import { asOptionalRecord as readRecord } from "@openclaw/normalization-core/record-coerce";
+import { asNonNegativeFiniteNumber } from "@granted/normalization-core/number-coercion";
+import { asOptionalRecord as readRecord } from "@granted/normalization-core/record-coerce";
 import {
   normalizeOptionalLowercaseString,
   normalizeOptionalString,
   normalizeOptionalStringifiedId,
   readStringValue,
-} from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/string-coerce";
 import { getChannelPlugin, normalizeChannelId } from "../channels/plugins/index.js";
 import type { ChannelMessageActionName } from "../channels/plugins/types.public.js";
 import type { GrantedConfig } from "../config/types.openclaw.js";

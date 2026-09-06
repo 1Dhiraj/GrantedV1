@@ -73,7 +73,7 @@ async function compileVitestWorkerArtifacts(directory: string): Promise<void> {
     deps: {
       neverBundle: true,
       alwaysBundle: (id) =>
-        (id.startsWith("@openclaw/") || id.startsWith("openclaw/")) &&
+        (id.startsWith("@granted/") || id.startsWith("openclaw/")) &&
         id !== "@openclaw/fs-safe" &&
         !id.startsWith("@openclaw/fs-safe/"),
     },

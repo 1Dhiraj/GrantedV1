@@ -4,7 +4,7 @@ import { createRequire } from "node:module";
 import { hostname } from "node:os";
 import { performance } from "node:perf_hooks";
 import type { DatabaseSync } from "node:sqlite";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import { getFileLockProcessStartTime, isPidDefinitelyDead } from "../shared/pid-alive.js";
 import { withExistingOpenClawStateDatabaseReadOnly } from "../state/openclaw-state-db-readonly.js";
 import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";

@@ -1,8 +1,8 @@
 // Reconcile invocation projections before grouping so summaries and expanded
 // cards consume the same calls, regardless of history/live delivery order.
-import { readSessionMessageIdentity } from "@openclaw/gateway-client/browser";
-import { asNullableRecord as asRecord } from "@openclaw/normalization-core/record-coerce";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { readSessionMessageIdentity } from "@granted/gateway-client/browser";
+import { asNullableRecord as asRecord } from "@granted/normalization-core/record-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import {
   isToolCallContentType,
   isToolResultContentType,

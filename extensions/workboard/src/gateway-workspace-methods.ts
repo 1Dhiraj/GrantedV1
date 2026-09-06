@@ -1,4 +1,4 @@
-import type { WorkboardCard } from "@openclaw/workboard-contract";
+import type { WorkboardCard } from "@granted/workboard-contract";
 // Workboard Gateway methods that can persist workspace-bearing card metadata.
 import type { GrantedPluginApi } from "../api.js";
 import {

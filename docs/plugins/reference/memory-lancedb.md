@@ -11,7 +11,7 @@ OpenClaw LanceDB-backed long-term memory plugin with auto-recall, auto-capture, 
 
 ## Distribution
 
-- Package: `@openclaw/memory-lancedb`
+- Package: `@granted/memory-lancedb`
 - Install route: npm; ClawHub
 
 ## Surface

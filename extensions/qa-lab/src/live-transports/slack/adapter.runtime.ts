@@ -5,7 +5,7 @@ import {
   createSlackWebClient,
   createSlackWriteClient,
   resolveSlackWebClientOptions,
-} from "@openclaw/slack/api.js";
+} from "@granted/slack/api.js";
 import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { toStringifiedError } from "granted/plugin-sdk/error-runtime";
 import { acquireDebugProxyCaptureStore } from "granted/plugin-sdk/proxy-capture";

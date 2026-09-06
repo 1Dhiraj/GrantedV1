@@ -11,7 +11,7 @@ Advertise the local OpenClaw gateway over Bonjour/mDNS.
 
 ## Distribution
 
-- Package: `@openclaw/bonjour`
+- Package: `@granted/bonjour`
 - Install route: included in OpenClaw
 
 ## Surface

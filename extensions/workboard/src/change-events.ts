@@ -1,4 +1,4 @@
-import type { WorkboardChange } from "@openclaw/workboard-contract";
+import type { WorkboardChange } from "@granted/workboard-contract";
 import type { GrantedPluginService } from "../api.js";
 import type { WorkboardStore } from "./store.js";
 

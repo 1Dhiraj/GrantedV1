@@ -1,5 +1,5 @@
 // Doctor checks and repairs for exec safeBins profiles and trusted binary directories.
-import { asNullableRecord } from "@openclaw/normalization-core/record-coerce";
+import { asNullableRecord } from "@granted/normalization-core/record-coerce";
 import { sanitizeForLog } from "../../../../packages/terminal-core/src/ansi.js";
 import { listAgentEntriesWithSource } from "../../../agents/agent-scope-config.js";
 import type { GrantedConfig } from "../../../config/types.openclaw.js";

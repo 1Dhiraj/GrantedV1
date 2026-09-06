@@ -1054,7 +1054,7 @@ describe("scripts/openclaw-cross-os-release-checks", () => {
     ).toBe("openai/gpt-5.4-nano");
     expect(resolveProviderConfig("openai", {})?.model).toBe("openai/gpt-5.6-luna");
     expect(resolveProviderConfig("openai", {})?.requiredCompanionPackages).toEqual([
-      "@openclaw/codex",
+      "@granted/codex",
     ]);
     expect(resolveProviderConfig("anthropic", {})?.requiredCompanionPackages).toEqual([]);
     expect(resolveProviderConfig("minimax", {})?.requiredCompanionPackages).toEqual([]);
@@ -1432,7 +1432,7 @@ describe("scripts/openclaw-cross-os-release-checks", () => {
         name: "openclaw",
         version: "2026.8.1",
         dependencies: {
-          "@openclaw/ai": "workspace:*",
+          "@granted/ai": "workspace:*",
           "partial-json": "0.1.8",
         },
       }),
@@ -1440,7 +1440,7 @@ describe("scripts/openclaw-cross-os-release-checks", () => {
     writeFileSync(
       join(sourceDir, "packages", "ai", "package.json"),
       JSON.stringify({
-        name: "@openclaw/ai",
+        name: "@granted/ai",
         version: "2026.8.1",
         dependencies: {
           "partial-json": "0.1.7",

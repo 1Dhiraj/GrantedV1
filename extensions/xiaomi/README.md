@@ -6,7 +6,7 @@ models, usage tracking, and text-to-speech.
 Install from OpenClaw:
 
 ```bash
-openclaw plugins install @openclaw/xiaomi-provider
+openclaw plugins install @granted/xiaomi-provider
 openclaw gateway restart
 ```
 

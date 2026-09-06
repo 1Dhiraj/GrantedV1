@@ -1,4 +1,4 @@
-import type { WorkboardCard } from "@openclaw/workboard-contract";
+import type { WorkboardCard } from "@granted/workboard-contract";
 // Workboard plugin module implements tools behavior.
 import { jsonResult, readStringParam } from "granted/plugin-sdk/core";
 import type {

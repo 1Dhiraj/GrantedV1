@@ -38,7 +38,7 @@ const PROCESS_GROUP_EXIT_POLL_MS = 25;
 const POST_FORCE_KILL_WAIT_MS = 1_000;
 const DEFAULT_CAPTURED_STDOUT_MAX_BYTES = 1024 * 1024;
 const MAX_TIMER_TIMEOUT_MS = 2_147_000_000;
-const AI_RUNTIME_PACKAGE = "@openclaw/ai";
+const AI_RUNTIME_PACKAGE = "@granted/ai";
 const AI_RUNTIME_BACKUP_DIR = ".openclaw-ai-package-backup";
 
 type KillChild = (signal: NodeJS.Signals) => void;
@@ -623,10 +623,10 @@ export async function prepareBundledAiRuntimePackage(
     return async () => {};
   }
   if (!hasAiRuntimeWorkspace) {
-    throw new Error("@openclaw/ai dependency requires the packages/ai workspace");
+    throw new Error("@granted/ai dependency requires the packages/ai workspace");
   }
   if (typeof aiRuntimeDependency !== "string") {
-    throw new Error("root package.json must declare @openclaw/ai as a dependency");
+    throw new Error("root package.json must declare @granted/ai as a dependency");
   }
 
   try {
@@ -711,7 +711,7 @@ export async function prepareBundledAiRuntimePackage(
       .map((filename) => path.join(outputDir, filename));
     if (packedAiTarballs.length !== 1) {
       throw new Error(
-        `expected one packed @openclaw/ai tarball in ${outputDir}, found ${packedAiTarballs.length}`,
+        `expected one packed @granted/ai tarball in ${outputDir}, found ${packedAiTarballs.length}`,
       );
     }
 
@@ -736,11 +736,11 @@ export async function prepareBundledAiRuntimePackage(
       version?: unknown;
     };
     if (typeof stagedPackageJson.version !== "string" || !stagedPackageJson.version) {
-      throw new Error("packed @openclaw/ai package must declare a version");
+      throw new Error("packed @granted/ai package must declare a version");
     }
     const alignedDependencies = validateBundledPackageDependencyAlignment({
       bundledDependencies: stagedPackageJson.dependencies,
-      bundledPackageLabel: "packed @openclaw/ai",
+      bundledPackageLabel: "packed @granted/ai",
       rootDependencies: packageJson.dependencies,
     });
     for (const [name, version] of alignedDependencies) {

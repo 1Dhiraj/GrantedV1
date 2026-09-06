@@ -578,7 +578,7 @@ describe("ensureOnboardingPluginInstalled", () => {
             pluginId: "demo-plugin",
             label: "Demo Provider",
             install: {
-              npmSpec: "@openclaw/demo-plugin@1.2.3",
+              npmSpec: "@granted/demo-plugin@1.2.3",
             },
           },
           promptInstall: false,
@@ -698,7 +698,7 @@ describe("ensureOnboardingPluginInstalled", () => {
   it("uses a guarded npm install override without official-trust flags", async () => {
     process.env.GRANTED_ALLOW_PLUGIN_INSTALL_OVERRIDES = "1";
     process.env.GRANTED_PLUGIN_INSTALL_OVERRIDES = JSON.stringify({
-      codex: "npm:@openclaw/codex@2026.5.8",
+      codex: "npm:@granted/codex@2026.5.8",
       "other-plugin": "npm-pack:/tmp/other.tgz",
     });
     installPluginFromNpmSpec.mockResolvedValue({
@@ -707,9 +707,9 @@ describe("ensureOnboardingPluginInstalled", () => {
       targetDir: "/tmp/openclaw/extensions/codex",
       version: "2026.5.8",
       npmResolution: {
-        name: "@openclaw/codex",
+        name: "@granted/codex",
         version: "2026.5.8",
-        resolvedSpec: "@openclaw/codex@2026.5.8",
+        resolvedSpec: "@granted/codex@2026.5.8",
       },
     });
 
@@ -719,7 +719,7 @@ describe("ensureOnboardingPluginInstalled", () => {
         pluginId: "codex",
         label: "Codex",
         install: {
-          npmSpec: "@openclaw/codex",
+          npmSpec: "@granted/codex",
         },
         trustedSourceLinkedOfficialInstall: true,
       },
@@ -735,18 +735,18 @@ describe("ensureOnboardingPluginInstalled", () => {
       NpmSpecInstallCall,
     ];
     expect(npmCall.trustedSourceLinkedOfficialInstall).toBeUndefined();
-    expect(npmCall.spec).toBe("@openclaw/codex@2026.5.8");
+    expect(npmCall.spec).toBe("@granted/codex@2026.5.8");
     expect(npmCall.expectedPluginId).toBe("codex");
   });
 
-  it.each(["@openclaw/codex", "@openclaw/codex@latest"])(
+  it.each(["@granted/codex", "@granted/codex@latest"])(
     "falls back to the operator selector %s when no beta release is published",
     async (spec) => {
       installPluginFromNpmSpec
         .mockResolvedValueOnce({
           ok: false,
           code: "npm_package_not_found",
-          error: "Package not found on npm: @openclaw/codex@beta.",
+          error: "Package not found on npm: @granted/codex@beta.",
         })
         .mockResolvedValue({
           ok: true,
@@ -754,9 +754,9 @@ describe("ensureOnboardingPluginInstalled", () => {
           targetDir: "/tmp/openclaw/extensions/codex",
           version: "2026.7.1",
           npmResolution: {
-            name: "@openclaw/codex",
+            name: "@granted/codex",
             version: "2026.7.1",
-            resolvedSpec: "@openclaw/codex@2026.7.1",
+            resolvedSpec: "@granted/codex@2026.7.1",
           },
         });
       const note = vi.fn();
@@ -778,11 +778,11 @@ describe("ensureOnboardingPluginInstalled", () => {
       });
 
       const calls = installPluginFromNpmSpec.mock.calls as [NpmSpecInstallCall][];
-      expect(calls[0]?.[0]?.spec).toBe("@openclaw/codex@beta");
+      expect(calls[0]?.[0]?.spec).toBe("@granted/codex@beta");
       expect(calls[1]?.[0]?.spec).toBe(spec);
       expect(
         note.mock.calls.some(([message]) =>
-          String(message).includes("No @openclaw/codex@beta release is published"),
+          String(message).includes("No @granted/codex@beta release is published"),
         ),
       ).toBe(true);
     },
@@ -894,7 +894,7 @@ describe("ensureOnboardingPluginInstalled", () => {
         label: "Demo Provider",
         install: {
           clawhubSpec: "clawhub:demo-plugin@2026.5.2",
-          npmSpec: "@openclaw/demo-plugin@2026.5.2",
+          npmSpec: "@granted/demo-plugin@2026.5.2",
           defaultChoice: "clawhub",
         },
       },
@@ -1044,7 +1044,7 @@ describe("ensureOnboardingPluginInstalled", () => {
     );
   });
 
-  it.each(["@openclaw/discord", "@openclaw/discord@latest"])(
+  it.each(["@granted/discord", "@granted/discord@latest"])(
     "installs trusted official intent %s at the exact extended-stable core version",
     async (spec) => {
       coreVersion.value = "2026.7.33";
@@ -1054,9 +1054,9 @@ describe("ensureOnboardingPluginInstalled", () => {
         targetDir: "/tmp/discord",
         version: VERSION,
         npmResolution: {
-          name: "@openclaw/discord",
+          name: "@granted/discord",
           version: VERSION,
-          resolvedSpec: `@openclaw/discord@${VERSION}`,
+          resolvedSpec: `@granted/discord@${VERSION}`,
         },
       });
 
@@ -1079,7 +1079,7 @@ describe("ensureOnboardingPluginInstalled", () => {
       const [npmCall] = readFirstMockCall(installPluginFromNpmSpec, "installPluginFromNpmSpec") as [
         NpmSpecInstallCall,
       ];
-      expect(npmCall.spec).toBe(`@openclaw/discord@${VERSION}`);
+      expect(npmCall.spec).toBe(`@granted/discord@${VERSION}`);
       const [, recordUpdate] = readFirstMockCall(recordPluginInstall, "recordPluginInstall") as [
         GrantedConfig,
         PluginInstallRecord,
@@ -1095,9 +1095,9 @@ describe("ensureOnboardingPluginInstalled", () => {
       targetDir: "/tmp/discord",
       version: "2026.7.21",
       npmResolution: {
-        name: "@openclaw/discord",
+        name: "@granted/discord",
         version: "2026.7.21",
-        resolvedSpec: "@openclaw/discord@2026.7.21",
+        resolvedSpec: "@granted/discord@2026.7.21",
       },
     });
 
@@ -1106,7 +1106,7 @@ describe("ensureOnboardingPluginInstalled", () => {
       entry: {
         pluginId: "discord",
         label: "Discord",
-        install: { npmSpec: "@openclaw/discord" },
+        install: { npmSpec: "@granted/discord" },
         trustedSourceLinkedOfficialInstall: true,
       },
       prompter: {
@@ -1121,7 +1121,7 @@ describe("ensureOnboardingPluginInstalled", () => {
       GrantedConfig,
       PluginInstallRecord,
     ];
-    expect(recordUpdate.spec).toBe("@openclaw/discord");
+    expect(recordUpdate.spec).toBe("@granted/discord");
   });
 
   it.each(
@@ -1136,7 +1136,7 @@ describe("ensureOnboardingPluginInstalled", () => {
         { version: "2026.8.1-beta.4", channel: "stable", installVersion: "2026.8.1-beta.4" },
       ] as const
     ).flatMap(({ version, channel, installVersion }) =>
-      ["@openclaw/codex", "@openclaw/codex@latest"].map((spec) => ({
+      ["@granted/codex", "@granted/codex@latest"].map((spec) => ({
         version,
         channel,
         installVersion,
@@ -1153,9 +1153,9 @@ describe("ensureOnboardingPluginInstalled", () => {
         targetDir: "/tmp/codex",
         version: VERSION,
         npmResolution: {
-          name: "@openclaw/codex",
+          name: "@granted/codex",
           version: VERSION,
-          resolvedSpec: `@openclaw/codex@${VERSION}`,
+          resolvedSpec: `@granted/codex@${VERSION}`,
         },
       });
 
@@ -1179,7 +1179,7 @@ describe("ensureOnboardingPluginInstalled", () => {
       const [npmCall] = readFirstMockCall(installPluginFromNpmSpec, "installPluginFromNpmSpec") as [
         NpmSpecInstallCall,
       ];
-      expect(npmCall.spec).toBe(`@openclaw/codex@${installVersion}`);
+      expect(npmCall.spec).toBe(`@granted/codex@${installVersion}`);
       const [, recordUpdate] = readFirstMockCall(recordPluginInstall, "recordPluginInstall") as [
         GrantedConfig,
         PluginInstallRecord,
@@ -1210,7 +1210,7 @@ describe("ensureOnboardingPluginInstalled", () => {
         pluginId: "codex",
         label: "Codex",
         install: {
-          npmSpec: "@openclaw/codex@beta",
+          npmSpec: "@granted/codex@beta",
         },
       },
       prompter: {
@@ -1371,7 +1371,7 @@ describe("ensureOnboardingPluginInstalled", () => {
         label: "Demo Plugin",
         install: {
           clawhubSpec: "clawhub:demo-plugin@2026.5.2",
-          npmSpec: "@openclaw/demo-plugin@2026.5.2",
+          npmSpec: "@granted/demo-plugin@2026.5.2",
         },
       },
       prompter: {
@@ -1384,7 +1384,7 @@ describe("ensureOnboardingPluginInstalled", () => {
     });
 
     expect(captured?.options).toEqual([
-      { value: "npm", label: "Download from npm (@openclaw/demo-plugin@2026.5.2)" },
+      { value: "npm", label: "Download from npm (@granted/demo-plugin@2026.5.2)" },
       { value: "clawhub", label: "Download from ClawHub (clawhub:demo-plugin@2026.5.2)" },
       { value: "skip", label: "Skip for now" },
     ]);
@@ -1407,7 +1407,7 @@ describe("ensureOnboardingPluginInstalled", () => {
         label: "Demo Plugin",
         install: {
           clawhubSpec: "clawhub:demo-plugin@2026.5.2",
-          npmSpec: "@openclaw/demo-plugin@2026.5.2",
+          npmSpec: "@granted/demo-plugin@2026.5.2",
           defaultChoice: "clawhub",
         },
       },
@@ -1427,9 +1427,9 @@ describe("ensureOnboardingPluginInstalled", () => {
     {
       name: "explicit stable selector",
       version: "2026.8.1",
-      npmSpec: "@openclaw/demo-plugin@2026.5.2",
+      npmSpec: "@granted/demo-plugin@2026.5.2",
       clawhubSpec: "clawhub:demo-plugin@2026.5.2",
-      expectedNpmSpecs: ["@openclaw/demo-plugin@2026.5.2"],
+      expectedNpmSpecs: ["@granted/demo-plugin@2026.5.2"],
       expectedClawHubSpec: "clawhub:demo-plugin@2026.5.2",
       installVersion: "2026.5.2",
       trustedSourceLinkedOfficialInstall: false,
@@ -1437,9 +1437,9 @@ describe("ensureOnboardingPluginInstalled", () => {
     {
       name: "official beta core",
       version: "2026.8.1-beta.3",
-      npmSpec: "@openclaw/demo-plugin",
+      npmSpec: "@granted/demo-plugin",
       clawhubSpec: "clawhub:demo-plugin",
-      expectedNpmSpecs: ["@openclaw/demo-plugin@2026.8.1-beta.3", "@openclaw/demo-plugin"],
+      expectedNpmSpecs: ["@granted/demo-plugin@2026.8.1-beta.3", "@granted/demo-plugin"],
       expectedClawHubSpec: "clawhub:demo-plugin@2026.8.1-beta.3",
       installVersion: "2026.8.1-beta.3",
       trustedSourceLinkedOfficialInstall: true,
@@ -1581,7 +1581,7 @@ describe("ensureOnboardingPluginInstalled", () => {
         label: "Demo Plugin",
         install: {
           clawhubSpec: "clawhub:demo-plugin@2026.5.2",
-          npmSpec: "@openclaw/demo-plugin@2026.5.2",
+          npmSpec: "@granted/demo-plugin@2026.5.2",
           defaultChoice: "clawhub",
         },
       },
@@ -1957,7 +1957,7 @@ describe("ensureOnboardingPluginInstalled", () => {
           pluginId: "tlon",
           label: "Tlon",
           install: {
-            npmSpec: "@openclaw/tlon",
+            npmSpec: "@granted/tlon",
             defaultChoice: "npm",
           },
         },
@@ -1971,7 +1971,7 @@ describe("ensureOnboardingPluginInstalled", () => {
       });
 
       const prompt = requireCapturedPrompt(captured);
-      // "Download from npm (@openclaw/tlon)" must NOT appear: the bundled
+      // "Download from npm (@granted/tlon)" must NOT appear: the bundled
       // copy is what gets enabled, so the npm hint would only confuse
       // users into thinking the plugin is missing.
       expect(prompt.options).toEqual([
@@ -2016,7 +2016,7 @@ describe("ensureOnboardingPluginInstalled", () => {
           pluginId: "discord",
           label: "Discord",
           install: {
-            npmSpec: "@openclaw/discord",
+            npmSpec: "@granted/discord",
           },
         },
         prompter: {

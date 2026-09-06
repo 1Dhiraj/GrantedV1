@@ -269,7 +269,7 @@ function collectBundledRuntimeDependencies(root: string, manifest: PackageManife
   const declared = runtimeDependencyNames(manifest);
   const buildDependencies = new Set(
     Object.keys(manifest.devDependencies ?? {}).filter(
-      (name) => !name.startsWith("@openclaw/") && !declared.has(name),
+      (name) => !name.startsWith("@granted/") && !declared.has(name),
     ),
   );
   const plan = buildDependencies.size
@@ -395,7 +395,7 @@ describe("extension runtime dependency manifests", () => {
         for (const packageName of collectRuntimeImports(filePath)) {
           if (
             packageName === "openclaw" ||
-            packageName.startsWith("@openclaw/") ||
+            packageName.startsWith("@granted/") ||
             BUILTIN_MODULES.has(packageName) ||
             declared.has(packageName) ||
             (bundled.entryFiles.has(filePath) && bundled.dependencies.has(packageName)) ||

@@ -3,7 +3,7 @@
  * code + QR for non-terminal clients and never leaks the gateway credential.
  */
 
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import * as devicePairingJoinCode from "../../infra/device-pairing-join-code.js";
 import type { GatewayRequestHandlerOptions } from "./types.js";

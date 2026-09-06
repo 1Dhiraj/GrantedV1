@@ -127,13 +127,13 @@ function buildFixtureRepo(root: string, version: string, options: FixtureOptions
     JSON.stringify({
       name: "openclaw",
       version,
-      dependencies: { "@openclaw/ai": "workspace:*" },
+      dependencies: { "@granted/ai": "workspace:*" },
     }),
   );
   for (const [path, name] of [
-    ["packages/ai", "@openclaw/ai"],
-    ["packages/gateway-client", "@openclaw/gateway-client"],
-    ["packages/gateway-protocol", "@openclaw/gateway-protocol"],
+    ["packages/ai", "@granted/ai"],
+    ["packages/gateway-client", "@granted/gateway-client"],
+    ["packages/gateway-protocol", "@granted/gateway-protocol"],
   ]) {
     writeFixture(
       root,
@@ -148,20 +148,20 @@ function buildFixtureRepo(root: string, version: string, options: FixtureOptions
   if (options.corePackageNameCollision) {
     writePublishablePluginFixture(root, {
       extensionId: "shadow-ai",
-      packageName: "@openclaw/ai",
+      packageName: "@granted/ai",
       version,
       publishTo: "both",
     });
   } else if (options.duplicateCrossTargetPackageName) {
     writePublishablePluginFixture(root, {
       extensionId: "duplicate-npm",
-      packageName: "@openclaw/duplicate",
+      packageName: "@granted/duplicate",
       version,
       publishTo: "npm",
     });
     writePublishablePluginFixture(root, {
       extensionId: "duplicate-clawhub",
-      packageName: "@openclaw/duplicate",
+      packageName: "@granted/duplicate",
       version,
       publishTo: "clawhub",
     });
@@ -172,7 +172,7 @@ function buildFixtureRepo(root: string, version: string, options: FixtureOptions
       root,
       "extensions/broken/package.json",
       JSON.stringify({
-        name: "@openclaw/broken",
+        name: "@granted/broken",
         version,
         type: "commonjs",
         private: true,
@@ -181,7 +181,7 @@ function buildFixtureRepo(root: string, version: string, options: FixtureOptions
           extensions: ["./index.ts"],
           compat: { pluginApi: `>=${version}` },
           build: { openclawVersion: version },
-          install: { npmSpec: "@openclaw/broken" },
+          install: { npmSpec: "@granted/broken" },
           release: { publishToNpm: true },
         },
       }),
@@ -244,7 +244,7 @@ function buildFixtureRepo(root: string, version: string, options: FixtureOptions
       "        env:",
       "          CORE_PACKAGE_DIRS: packages/ai packages/gateway-protocol packages/gateway-client",
       "        run: |",
-      '          if [[ "$package_dir" == "packages/ai" ]] && ! node -e \'const pkg = require("./package.json"); process.exit(pkg.dependencies?.["@openclaw/ai"] ? 0 : 1)\'; then',
+      '          if [[ "$package_dir" == "packages/ai" ]] && ! node -e \'const pkg = require("./package.json"); process.exit(pkg.dependencies?.["@granted/ai"] ? 0 : 1)\'; then',
       "            exit 0",
       "          fi",
       "",
@@ -571,9 +571,9 @@ describe("release plan producer", () => {
       soak: false,
     });
     expect(plan.inventory.packages).toEqual([
-      { name: "@openclaw/ai", targets: ["npm"], version: "2026.8.1-beta.2" },
-      { name: "@openclaw/gateway-client", targets: ["npm"], version: "2026.8.1-beta.2" },
-      { name: "@openclaw/gateway-protocol", targets: ["npm"], version: "2026.8.1-beta.2" },
+      { name: "@granted/ai", targets: ["npm"], version: "2026.8.1-beta.2" },
+      { name: "@granted/gateway-client", targets: ["npm"], version: "2026.8.1-beta.2" },
+      { name: "@granted/gateway-protocol", targets: ["npm"], version: "2026.8.1-beta.2" },
       { name: "openclaw", targets: ["npm"], version: "2026.8.1-beta.2" },
     ]);
     expect(plan.inventory.platforms).toEqual([
@@ -1278,7 +1278,7 @@ mutateModule.syncBuiltinESMExports();
     });
 
     expect(() => produceReleasePlan(sourceParams(fixture))).toThrow(
-      "package @openclaw/duplicate is declared by multiple plugin sources",
+      "package @granted/duplicate is declared by multiple plugin sources",
     );
   });
 
@@ -1288,7 +1288,7 @@ mutateModule.syncBuiltinESMExports();
     });
 
     expect(() => produceReleasePlan(sourceParams(fixture))).toThrow(
-      "package inventory source mismatch for @openclaw/ai: extensions/shadow-ai/package.json and packages/ai/package.json",
+      "package inventory source mismatch for @granted/ai: extensions/shadow-ai/package.json and packages/ai/package.json",
     );
   });
 
@@ -1358,9 +1358,9 @@ mutateModule.syncBuiltinESMExports();
     expect(npmPackages).toHaveLength(93);
     expect(clawHubPackages).toHaveLength(89);
     const coreNpmPackages = new Set([
-      "@openclaw/ai",
-      "@openclaw/gateway-client",
-      "@openclaw/gateway-protocol",
+      "@granted/ai",
+      "@granted/gateway-client",
+      "@granted/gateway-protocol",
       "openclaw",
     ]);
     expect(
@@ -1380,9 +1380,9 @@ mutateModule.syncBuiltinESMExports();
     );
     expect(npmPackages.map((entry) => entry.name)).toEqual(
       expect.arrayContaining([
-        "@openclaw/ai",
-        "@openclaw/gateway-client",
-        "@openclaw/gateway-protocol",
+        "@granted/ai",
+        "@granted/gateway-client",
+        "@granted/gateway-protocol",
         "openclaw",
       ]),
     );

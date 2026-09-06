@@ -1,4 +1,4 @@
-# @openclaw/buzz
+# @granted/buzz
 
 Official Buzz channel plugin for OpenClaw. It connects an OpenClaw agent to approved Buzz rooms for text conversations and threaded replies.
 
@@ -73,4 +73,4 @@ openclaw message send \
 
 Full documentation: https://docs.openclaw.ai/channels/buzz
 
-Package: `@openclaw/buzz` · Plugin ID: `buzz`
+Package: `@granted/buzz` · Plugin ID: `buzz`

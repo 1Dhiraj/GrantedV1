@@ -1,4 +1,4 @@
-import type { Context } from "@openclaw/llm-core";
+import type { Context } from "@granted/llm-core";
 import { expect, it } from "vitest";
 import { createOpenAIResponsesTransportStreamFn } from "./openai-responses-client.js";
 import {

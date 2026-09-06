@@ -1,5 +1,5 @@
 /** Lazy preparation runtimes and session lifecycle helpers for cron runs. */
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { retireSessionMcpRuntime } from "../../agents/agent-bundle-mcp-tools.js";
 import { hasAnyAuthProfileStoreSource } from "../../agents/auth-profiles/source-check.js";
 import { SILENT_REPLY_TOKEN } from "../../auto-reply/tokens.js";

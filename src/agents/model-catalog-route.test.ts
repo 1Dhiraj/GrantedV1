@@ -1,4 +1,4 @@
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { describe, expect, it, vi } from "vitest";
 import { resolveThinkingProfile } from "../auto-reply/thinking.js";
 import type { GrantedConfig } from "../config/types.openclaw.js";

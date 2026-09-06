@@ -1,8 +1,8 @@
 // Builds the gateway-visible combined session store across agent-specific stores.
 // Gateway callers need canonical per-agent keys even when stores are split by `{agentId}`.
 
-import { expectDefined } from "@openclaw/normalization-core";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { expectDefined } from "@granted/normalization-core";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { listAgentEntries } from "../../agents/agent-scope.js";
 import {
   resolveSessionStoreAgentId,

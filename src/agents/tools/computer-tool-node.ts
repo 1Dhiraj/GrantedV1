@@ -1,6 +1,6 @@
 import crypto from "node:crypto";
-import { imageMimeFromFormat } from "@openclaw/media-core/mime";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { imageMimeFromFormat } from "@granted/media-core/mime";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import { parseScreenSnapshotPayload } from "../../cli/nodes-screen.js";
 import { formatErrorMessage } from "../../infra/errors.js";
 import type {

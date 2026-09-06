@@ -191,7 +191,7 @@ describe("managed local embedding setup health check", () => {
         target: "main/local",
         requirement: "memory-embedding-provider-plugin",
         message: expect.stringContaining("official llama.cpp provider plugin"),
-        fixHint: expect.stringContaining("openclaw plugins install @openclaw/llama-cpp-provider"),
+        fixHint: expect.stringContaining("openclaw plugins install @granted/llama-cpp-provider"),
       }),
     ]);
   });

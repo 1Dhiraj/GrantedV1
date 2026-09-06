@@ -1,5 +1,5 @@
-import { safeParseJson, stableStringify } from "@openclaw/normalization-core";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { safeParseJson, stableStringify } from "@granted/normalization-core";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 
 export const UPDATE_DEV_TARGET_REF_ENV = "GRANTED_UPDATE_DEV_TARGET_REF";
 const TRACKED_DEV_TARGET_PREFIX = "openclaw-dev-target:v1:";

@@ -1,5 +1,5 @@
 // Doctor cron repair orchestration for legacy stores, run logs, payloads, and warnings.
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import { note } from "../../../../packages/terminal-core/src/note.js";
 import { resolveStaticSessionMcpServerNames } from "../../../agents/agent-bundle-mcp-runtime-config.js";
 import {

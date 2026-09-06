@@ -163,7 +163,7 @@ ClickClack in channel setup or running `openclaw plugins enable clickclack`
 appends `clickclack` to that list. Onboarding installation uses the same
 explicit-selection behavior. These paths do not override `plugins.deny` or a
 global `plugins.enabled: false` setting. Direct
-`openclaw plugins install @openclaw/clickclack` follows the normal
+`openclaw plugins install @granted/clickclack` follows the normal
 plugin-install policy and also records ClickClack in an existing allowlist.
 
 ## Multiple bots

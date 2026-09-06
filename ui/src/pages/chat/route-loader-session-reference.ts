@@ -1,4 +1,4 @@
-import { controlUiSessionSlug, SHORT_SESSION_ID_RE } from "@openclaw/session-url-contract";
+import { controlUiSessionSlug, SHORT_SESSION_ID_RE } from "@granted/session-url-contract";
 import type { GatewayBrowserClient } from "../../api/gateway.ts";
 import type { GatewaySessionRow, SessionsListResult } from "../../api/types.ts";
 import { pathForRoute } from "../../app-route-paths.ts";

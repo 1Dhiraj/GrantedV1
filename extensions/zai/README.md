@@ -5,7 +5,7 @@ Official OpenClaw provider plugin for Z.AI.
 ## Install
 
 ```sh
-openclaw plugins install @openclaw/zai-provider
+openclaw plugins install @granted/zai-provider
 ```
 
 ## Docs

@@ -1,7 +1,7 @@
 // Respawns the CLI with adjusted process flags when startup requires it.
 import { spawn, type ChildProcess } from "node:child_process";
 import path from "node:path";
-import { readNonBlankString } from "@openclaw/normalization-core/string-coerce";
+import { readNonBlankString } from "@granted/normalization-core/string-coerce";
 import { resolveNodeStartupTlsEnvironment } from "./bootstrap/node-startup-env.js";
 import {
   isTerminalInteractiveRespawnArgv,

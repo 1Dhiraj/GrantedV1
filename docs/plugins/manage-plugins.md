@@ -196,7 +196,7 @@ openclaw plugins install clawhub:<package>@beta
 # Install from npm.
 openclaw plugins install npm:<package>
 openclaw plugins install npm:@scope/openclaw-plugin@1.2.3
-openclaw plugins install npm:@openclaw/codex
+openclaw plugins install npm:@granted/codex
 
 # Install from a local npm-pack artifact.
 openclaw plugins install npm-pack:<path.tgz>

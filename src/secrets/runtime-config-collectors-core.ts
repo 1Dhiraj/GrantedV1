@@ -1,6 +1,6 @@
 /** Collects core config secret refs during runtime preparation. */
-import { findNormalizedProviderKey } from "@openclaw/model-catalog-core/provider-id";
-import { normalizeOptionalLowercaseString } from "@openclaw/normalization-core/string-coerce";
+import { findNormalizedProviderKey } from "@granted/model-catalog-core/provider-id";
+import { normalizeOptionalLowercaseString } from "@granted/normalization-core/string-coerce";
 import { listAgentEntriesWithSource } from "../agents/agent-scope-config.js";
 import {
   resolveConfiguredTalkRealtimeProviderId,

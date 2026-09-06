@@ -5,8 +5,8 @@
  * before-finalize retry/finalize decisions with bounded retry accounting.
  */
 import { createHash } from "node:crypto";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
-import { normalizeOptionalString as normalizeTrimmedString } from "@openclaw/normalization-core/string-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
+import { normalizeOptionalString as normalizeTrimmedString } from "@granted/normalization-core/string-coerce";
 import { createSubsystemLogger } from "../../logging/subsystem.js";
 import { getGlobalHookRunner } from "../../plugins/hook-runner-global.js";
 import type {

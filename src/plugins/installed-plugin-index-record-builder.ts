@@ -1,7 +1,7 @@
 /** Builds installed-index records from normalized plugin manifest registry entries. */
 import path from "node:path";
-import { normalizeOptionalString as normalizeStringField } from "@openclaw/normalization-core/string-coerce";
-import { normalizeSortedUniqueStringEntries } from "@openclaw/normalization-core/string-normalization";
+import { normalizeOptionalString as normalizeStringField } from "@granted/normalization-core/string-coerce";
+import { normalizeSortedUniqueStringEntries } from "@granted/normalization-core/string-normalization";
 import { getPluginInstallRecordMapEntry } from "../config/plugin-install-record-map.js";
 import type { GrantedConfig } from "../config/types.js";
 import {

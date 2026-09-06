@@ -1,7 +1,7 @@
 // Transcript append redaction tests cover secret scrubbing when appending transcript entries.
 import fs from "node:fs";
 import path from "node:path";
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {

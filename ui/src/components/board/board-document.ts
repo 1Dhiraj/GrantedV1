@@ -1,4 +1,4 @@
-import { GATEWAY_SERVER_CAPS, type BoardSnapshot } from "@openclaw/gateway-protocol";
+import { GATEWAY_SERVER_CAPS, type BoardSnapshot } from "@granted/gateway-protocol";
 import { html, nothing, type PropertyValues } from "lit";
 import { property, state } from "lit/decorators.js";
 import type { GatewaySessionRow } from "../../api/types.ts";

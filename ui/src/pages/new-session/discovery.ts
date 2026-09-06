@@ -1,9 +1,9 @@
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import {
   normalizeArrayBackedTrimmedStringList,
   normalizeSortedUniqueTrimmedStringList,
-} from "@openclaw/normalization-core/string-normalization";
+} from "@granted/normalization-core/string-normalization";
 import type {
   EnvironmentStatus,
   RuntimeTargetIssue,

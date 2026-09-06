@@ -68,8 +68,8 @@ describe("package git fixture", () => {
       path.join(root, "package.json"),
       `${JSON.stringify(
         {
-          dependencies: { "@openclaw/ai": "2026.6.11", chalk: "5.6.2" },
-          bundleDependencies: ["@openclaw/ai", "chalk"],
+          dependencies: { "@granted/ai": "2026.6.11", chalk: "5.6.2" },
+          bundleDependencies: ["@granted/ai", "chalk"],
           scripts: {
             build: "node build.mjs",
             openclaw: "node scripts/run-node.mjs",
@@ -83,12 +83,12 @@ describe("package git fixture", () => {
     writeFileSync(
       path.join(root, "node_modules", "@openclaw", "ai", "package.json"),
       `${JSON.stringify({
-        name: "@openclaw/ai",
+        name: "@granted/ai",
         version: "2026.6.11",
         type: "module",
         main: "./dist/index.mjs",
         exports: { ".": "./dist/index.mjs" },
-        devDependencies: { "@openclaw/normalization-core": "0.0.0-private" },
+        devDependencies: { "@granted/normalization-core": "0.0.0-private" },
       })}\n`,
     );
 
@@ -103,7 +103,7 @@ describe("package git fixture", () => {
       expect.arrayContaining(["dist/", "node_modules", "**/node_modules/", "pnpm-lock.yaml"]),
     );
     const packageJson = JSON.parse(readFileSync(path.join(root, "package.json"), "utf8"));
-    expect(packageJson.dependencies["@openclaw/ai"]).toBe("file:.openclaw-fixture/packages/ai");
+    expect(packageJson.dependencies["@granted/ai"]).toBe("file:.openclaw-fixture/packages/ai");
     expect(packageJson.bundleDependencies).toEqual(["chalk"]);
     expect(packageJson.scripts).toEqual({
       build: "node build.mjs",
@@ -113,7 +113,7 @@ describe("package git fixture", () => {
       readFileSync(path.join(root, ".openclaw-fixture", "packages", "ai", "package.json"), "utf8"),
     );
     expect(relocatedAiPackage).toMatchObject({
-      name: "@openclaw/ai",
+      name: "@granted/ai",
       version: "2026.6.11",
       type: "module",
       main: "./dist/index.mjs",
@@ -171,6 +171,6 @@ describe("package git fixture", () => {
       lint: "node lint.mjs",
       openclaw: "node granted.mjs",
     });
-    expect(packageJson.dependencies).not.toHaveProperty("@openclaw/ai");
+    expect(packageJson.dependencies).not.toHaveProperty("@granted/ai");
   });
 });

@@ -1,5 +1,5 @@
 // Bridges ACP transcript events into persisted OpenClaw session transcripts.
-import { resolveAcpSessionCwd } from "@openclaw/acp-core/runtime/session-identifiers";
+import { resolveAcpSessionCwd } from "@granted/acp-core/runtime/session-identifiers";
 import { persistAcpTurnTranscript } from "../../agents/command/attempt-execution.js";
 import { resolveSessionStorePathCore } from "../../config/sessions.js";
 import { loadSessionEntryReadOnly } from "../../config/sessions/session-accessor.js";

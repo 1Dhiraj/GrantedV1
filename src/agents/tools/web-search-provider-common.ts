@@ -3,7 +3,7 @@
  *
  * Handles provider config, credential normalization, guarded endpoint calls, caching, and filters.
  */
-import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
+import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
 import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { normalizeResolvedSecretInputString } from "../../config/types.secrets.js";
 import { createLazyImportLoader } from "../../shared/lazy-promise.js";

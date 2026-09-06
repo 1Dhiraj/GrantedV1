@@ -339,7 +339,7 @@ describe("maybeRepairPluginRegistryState", () => {
     const managed = createManagedNpmPlugin({
       stateDir,
       id: "google-meet",
-      packageName: "@openclaw/google-meet",
+      packageName: "@granted/google-meet",
       version: "2026.5.2",
     });
     await writePersistedInstalledPluginIndex(createCurrentIndex(), { stateDir });
@@ -350,7 +350,7 @@ describe("maybeRepairPluginRegistryState", () => {
         createBundledCandidate({
           rootDir: bundledDir,
           id: "google-meet",
-          packageName: "@openclaw/google-meet",
+          packageName: "@granted/google-meet",
           version: "2026.5.3",
         }),
       ],
@@ -373,7 +373,7 @@ describe("maybeRepairPluginRegistryState", () => {
     expect(staleIssue).toMatchObject({
       kind: "stale-managed-npm-bundled-plugin",
       pluginId: "google-meet",
-      packageName: "@openclaw/google-meet",
+      packageName: "@granted/google-meet",
       packageDir: managed.packageDir,
       version: "2026.5.2",
     });
@@ -413,7 +413,7 @@ describe("maybeRepairPluginRegistryState", () => {
         createBundledCandidate({
           rootDir: bundledDir,
           id: "discord",
-          packageName: "@openclaw/discord",
+          packageName: "@granted/discord",
           version: "2026.5.20-beta.1",
         }),
       ],
@@ -491,7 +491,7 @@ describe("maybeRepairPluginRegistryState", () => {
     const managed = createManagedNpmPlugin({
       stateDir,
       id: "google-meet",
-      packageName: "@openclaw/google-meet",
+      packageName: "@granted/google-meet",
       version: "2026.5.2",
     });
     await writePersistedInstalledPluginIndex(createCurrentIndex(), { stateDir });
@@ -502,7 +502,7 @@ describe("maybeRepairPluginRegistryState", () => {
         createBundledCandidate({
           rootDir: bundledDir,
           id: "google-meet",
-          packageName: "@openclaw/google-meet",
+          packageName: "@granted/google-meet",
           version: "2026.5.3",
         }),
       ],
@@ -524,7 +524,7 @@ describe("maybeRepairPluginRegistryState", () => {
     expect(vi.mocked(note).mock.calls.join("\n")).toContain(
       "Managed npm plugin packages shadow bundled plugins",
     );
-    expect(vi.mocked(note).mock.calls.join("\n")).toContain("@openclaw/google-meet@2026.5.2");
+    expect(vi.mocked(note).mock.calls.join("\n")).toContain("@granted/google-meet@2026.5.2");
     expect(fs.existsSync(managed.packageDir)).toBe(true);
   });
 
@@ -535,7 +535,7 @@ describe("maybeRepairPluginRegistryState", () => {
     const managed = createManagedNpmPlugin({
       stateDir,
       id: "google-meet",
-      packageName: "@openclaw/google-meet",
+      packageName: "@granted/google-meet",
       version: "2026.5.2",
     });
     const config = JSON.parse(
@@ -549,7 +549,7 @@ describe("maybeRepairPluginRegistryState", () => {
           createBundledCandidate({
             rootDir: bundledDir,
             id: "google-meet",
-            packageName: "@openclaw/google-meet",
+            packageName: "@granted/google-meet",
             version: "2026.5.3",
           }),
         ],
@@ -627,7 +627,7 @@ describe("maybeRepairPluginRegistryState", () => {
     const managed = createManagedNpmPlugin({
       stateDir,
       id: "google-meet",
-      packageName: "@openclaw/google-meet",
+      packageName: "@granted/google-meet",
       version: "2026.5.2",
     });
     await writePersistedInstalledPluginIndex(createCurrentIndex(), { stateDir });
@@ -638,7 +638,7 @@ describe("maybeRepairPluginRegistryState", () => {
         createBundledCandidate({
           rootDir: bundledDir,
           id: "google-meet",
-          packageName: "@openclaw/google-meet",
+          packageName: "@granted/google-meet",
           version: "2026.5.3",
         }),
       ],
@@ -668,7 +668,7 @@ describe("maybeRepairPluginRegistryState", () => {
         pluginId: "google-meet",
         rootDir: bundledDir,
         origin: "bundled",
-        packageName: "@openclaw/google-meet",
+        packageName: "@granted/google-meet",
         packageVersion: "2026.5.3",
       }),
     ]);
@@ -684,7 +684,7 @@ describe("maybeRepairPluginRegistryState", () => {
     const managed = createManagedNpmPlugin({
       stateDir,
       id: "google-meet",
-      packageName: "@openclaw/google-meet",
+      packageName: "@granted/google-meet",
       version: "2026.5.2",
     });
     await markRetainedManagedNpmInstall({
@@ -696,7 +696,7 @@ describe("maybeRepairPluginRegistryState", () => {
     await writePersistedInstalledPluginIndex(
       createCurrentIndexWithNpmRecord({
         pluginId: "google-meet",
-        packageName: "@openclaw/google-meet",
+        packageName: "@granted/google-meet",
         packageDir: managed.packageDir,
         version: "2026.5.2",
       }),
@@ -709,7 +709,7 @@ describe("maybeRepairPluginRegistryState", () => {
         createBundledCandidate({
           rootDir: bundledDir,
           id: "google-meet",
-          packageName: "@openclaw/google-meet",
+          packageName: "@granted/google-meet",
           version: "2026.5.3",
         }),
       ],
@@ -733,7 +733,7 @@ describe("maybeRepairPluginRegistryState", () => {
     expect(persisted.installRecords["google-meet"]).toMatchObject({
       source: "npm",
       installPath: managed.packageDir,
-      resolvedName: "@openclaw/google-meet",
+      resolvedName: "@granted/google-meet",
       resolvedVersion: "2026.5.2",
     });
     expect(vi.mocked(note).mock.calls.join("\n")).not.toContain(
@@ -748,13 +748,13 @@ describe("maybeRepairPluginRegistryState", () => {
     const managed = createManagedNpmPlugin({
       stateDir,
       id: "google-meet",
-      packageName: "@openclaw/google-meet",
+      packageName: "@granted/google-meet",
       version: "2026.5.3",
     });
     await writePersistedInstalledPluginIndex(
       createCurrentIndexWithNpmRecord({
         pluginId: "google-meet",
-        packageName: "@openclaw/google-meet",
+        packageName: "@granted/google-meet",
         packageDir: managed.packageDir,
         version: "2026.5.3",
       }),
@@ -767,7 +767,7 @@ describe("maybeRepairPluginRegistryState", () => {
         createBundledCandidate({
           rootDir: bundledDir,
           id: "google-meet",
-          packageName: "@openclaw/google-meet",
+          packageName: "@granted/google-meet",
           version: "2026.5.3",
         }),
       ],
@@ -796,7 +796,7 @@ describe("maybeRepairPluginRegistryState", () => {
         pluginId: "google-meet",
         rootDir: bundledDir,
         origin: "bundled",
-        packageName: "@openclaw/google-meet",
+        packageName: "@granted/google-meet",
         packageVersion: "2026.5.3",
       }),
     ]);
@@ -824,7 +824,7 @@ describe("maybeRepairPluginRegistryState", () => {
         createBundledCandidate({
           rootDir: bundledDir,
           id: "discord",
-          packageName: "@openclaw/discord",
+          packageName: "@granted/discord",
           version: "2026.5.20-beta.1",
         }),
       ],
@@ -873,7 +873,7 @@ describe("maybeRepairPluginRegistryState", () => {
         createBundledCandidate({
           rootDir: bundledDir,
           id: "discord",
-          packageName: "@openclaw/discord",
+          packageName: "@granted/discord",
           version: "2026.5.20-beta.1",
         }),
       ],
@@ -901,7 +901,7 @@ describe("maybeRepairPluginRegistryState", () => {
         pluginId: "discord",
         rootDir: bundledDir,
         origin: "bundled",
-        packageName: "@openclaw/discord",
+        packageName: "@granted/discord",
         packageVersion: "2026.5.20-beta.1",
       }),
     ]);
@@ -917,7 +917,7 @@ describe("maybeRepairPluginRegistryState", () => {
     const managed = createManagedNpmPlugin({
       stateDir,
       id: "google-meet",
-      packageName: "@openclaw/google-meet",
+      packageName: "@granted/google-meet",
       version: "2026.5.2",
       packageLock: true,
     });
@@ -929,7 +929,7 @@ describe("maybeRepairPluginRegistryState", () => {
         createBundledCandidate({
           rootDir: bundledDir,
           id: "google-meet",
-          packageName: "@openclaw/google-meet",
+          packageName: "@granted/google-meet",
           version: "2026.5.3",
         }),
       ],
@@ -952,8 +952,8 @@ describe("maybeRepairPluginRegistryState", () => {
       fs.readFileSync(path.join(managed.npmRoot, "package-lock.json"), "utf8"),
     );
     expect(packageLock.packages[""].dependencies).toEqual({ "other-plugin": "1.0.0" });
-    expect(packageLock.packages).not.toHaveProperty("node_modules/@openclaw/google-meet");
-    expect(packageLock.dependencies).not.toHaveProperty("@openclaw/google-meet");
+    expect(packageLock.packages).not.toHaveProperty("node_modules/@granted/google-meet");
+    expect(packageLock.dependencies).not.toHaveProperty("@granted/google-meet");
     expect(packageLock.dependencies).toHaveProperty("other-plugin");
   });
 

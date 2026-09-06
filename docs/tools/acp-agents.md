@@ -41,7 +41,7 @@ existing OpenClaw channel conversations, use
 Yes, after installing the official ACP runtime plugin:
 
 ```bash
-openclaw plugins install @openclaw/acpx
+openclaw plugins install @granted/acpx
 openclaw config set plugins.entries.acpx.enabled true
 ```
 
@@ -239,7 +239,7 @@ See also [Sub-agents](/tools/subagents).
 For Claude Code through ACP, the stack is:
 
 1. OpenClaw ACP session control plane.
-2. Official `@openclaw/acpx` runtime plugin.
+2. Official `@granted/acpx` runtime plugin.
 3. Claude ACP adapter.
 4. Claude-side runtime/session machinery.
 

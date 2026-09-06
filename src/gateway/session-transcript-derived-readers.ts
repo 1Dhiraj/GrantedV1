@@ -1,12 +1,12 @@
 import {
   estimateStringChars,
   estimateTokensFromChars,
-} from "@openclaw/normalization-core/cjk-chars";
+} from "@granted/normalization-core/cjk-chars";
 import {
   asNonNegativeFiniteNumber,
   asPositiveFiniteNumber,
-} from "@openclaw/normalization-core/number-coercion";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+} from "@granted/normalization-core/number-coercion";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import {
   deriveSessionTotalTokens,
   hasNonzeroUsage,

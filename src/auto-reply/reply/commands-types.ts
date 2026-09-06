@@ -1,4 +1,4 @@
-import type { FastMode } from "@openclaw/normalization-core/string-coerce";
+import type { FastMode } from "@granted/normalization-core/string-coerce";
 import type { QueueMode } from "../../../packages/gateway-protocol/src/schema/logs-chat.js";
 /** Shared command handler context and result contracts. */
 import type { BlockReplyChunking } from "../../agents/embedded-agent-block-chunker.js";

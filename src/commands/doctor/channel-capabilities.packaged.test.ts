@@ -43,7 +43,7 @@ beforeEach(() => {
   writeJsonFile(path.join(root, "dist", "channel-catalog.json"), {
     entries: [
       {
-        name: "@openclaw/discord",
+        name: "@granted/discord",
         openclaw: {
           channel: {
             id: "discord",

@@ -608,8 +608,8 @@ describe("registerPreActionHooks", () => {
 
   it("only allows invalid config for explicit official recovery reinstall requests", async () => {
     await runPreAction({
-      parseArgv: ["plugins", "install", "@openclaw/discord"],
-      processArgv: ["node", "openclaw", "plugins", "install", "@openclaw/discord"],
+      parseArgv: ["plugins", "install", "@granted/discord"],
+      processArgv: ["node", "openclaw", "plugins", "install", "@granted/discord"],
     });
 
     expect(ensureConfigReadyMock).toHaveBeenCalledWith({
@@ -621,8 +621,8 @@ describe("registerPreActionHooks", () => {
 
     vi.clearAllMocks();
     await runPreAction({
-      parseArgv: ["plugins", "install", "@openclaw/discord@2026.5.22"],
-      processArgv: ["node", "openclaw", "plugins", "install", "@openclaw/discord@2026.5.22"],
+      parseArgv: ["plugins", "install", "@granted/discord@2026.5.22"],
+      processArgv: ["node", "openclaw", "plugins", "install", "@granted/discord@2026.5.22"],
     });
 
     expect(ensureConfigReadyMock).toHaveBeenCalledWith({
@@ -634,8 +634,8 @@ describe("registerPreActionHooks", () => {
 
     vi.clearAllMocks();
     await runPreAction({
-      parseArgv: ["plugins", "install", "@openclaw/brave-plugin"],
-      processArgv: ["node", "openclaw", "plugins", "install", "@openclaw/brave-plugin"],
+      parseArgv: ["plugins", "install", "@granted/brave-plugin"],
+      processArgv: ["node", "openclaw", "plugins", "install", "@granted/brave-plugin"],
     });
 
     expect(ensureConfigReadyMock).toHaveBeenCalledWith({
@@ -647,8 +647,8 @@ describe("registerPreActionHooks", () => {
 
     vi.clearAllMocks();
     await runPreAction({
-      parseArgv: ["plugins", "install", "@openclaw/slack"],
-      processArgv: ["node", "openclaw", "plugins", "install", "@openclaw/slack"],
+      parseArgv: ["plugins", "install", "@granted/slack"],
+      processArgv: ["node", "openclaw", "plugins", "install", "@granted/slack"],
     });
 
     expect(ensureConfigReadyMock).toHaveBeenCalledWith({
@@ -685,13 +685,13 @@ describe("registerPreActionHooks", () => {
 
     vi.clearAllMocks();
     await runPreAction({
-      parseArgv: ["plugins", "install", "@openclaw/discord", "--marketplace", "local/repo"],
+      parseArgv: ["plugins", "install", "@granted/discord", "--marketplace", "local/repo"],
       processArgv: [
         "node",
         "openclaw",
         "plugins",
         "install",
-        "@openclaw/discord",
+        "@granted/discord",
         "--marketplace",
         "local/repo",
       ],

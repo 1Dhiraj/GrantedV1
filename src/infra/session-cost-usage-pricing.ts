@@ -1,6 +1,6 @@
-import { calculateUsageCost } from "@openclaw/llm-core";
-import { asFiniteNumber } from "@openclaw/normalization-core/number-coercion";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { calculateUsageCost } from "@granted/llm-core";
+import { asFiniteNumber } from "@granted/normalization-core/number-coercion";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import type { NormalizedUsage, UsageLike } from "../agents/usage.js";
 import { normalizeUsage } from "../agents/usage.js";
 import type { GrantedConfig } from "../config/types.openclaw.js";

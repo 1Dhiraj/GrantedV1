@@ -1,7 +1,7 @@
 import path from "node:path";
-import { MAX_VIDEO_BYTES } from "@openclaw/media-core/constants";
-import { normalizeMimeType } from "@openclaw/media-core/mime";
-import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
+import { MAX_VIDEO_BYTES } from "@granted/media-core/constants";
+import { normalizeMimeType } from "@granted/media-core/mime";
+import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
 import type {
   ModelInputContent,
   ProviderContext,

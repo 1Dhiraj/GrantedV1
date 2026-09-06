@@ -1,5 +1,5 @@
-import { SYSTEM_PROMPT_CACHE_BOUNDARY } from "@openclaw/ai/internal/shared";
-import { expectDefined } from "@openclaw/normalization-core";
+import { SYSTEM_PROMPT_CACHE_BOUNDARY } from "@granted/ai/internal/shared";
+import { expectDefined } from "@granted/normalization-core";
 import { describe, expect, it } from "vitest";
 import type { Model } from "../types.js";
 import { buildOpenAICompletionsParams } from "./openai-completions-params.js";

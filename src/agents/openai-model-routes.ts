@@ -1,5 +1,5 @@
 /** Cold adapter for provider-owned OpenAI model route facts. */
-import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
+import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
 import { resolveMergedModelProviderConfig } from "../config/model-provider-config.js";
 import type { ModelApi } from "../config/types.models.js";
 import type { GrantedConfig } from "../config/types.openclaw.js";

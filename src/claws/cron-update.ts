@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import { coerceErrorMessage, stableStringify } from "@openclaw/normalization-core";
+import { coerceErrorMessage, stableStringify } from "@granted/normalization-core";
 import type { GrantedStateDatabaseOptions } from "../state/openclaw-state-db.js";
 import {
   CLAW_CRON_REF_SCHEMA_VERSION,

@@ -1,11 +1,11 @@
 /** Builds manifest registry records from installed plugin index snapshots. */
 import path from "node:path";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import {
   normalizeOptionalString,
   readStringValue,
-} from "@openclaw/normalization-core/string-coerce";
-import { normalizeOptionalTrimmedStringList } from "@openclaw/normalization-core/string-normalization";
+} from "@granted/normalization-core/string-coerce";
+import { normalizeOptionalTrimmedStringList } from "@granted/normalization-core/string-normalization";
 import {
   resolveChannelSetupFieldCliAttributeName,
   type ChannelSetupFieldMetadata,

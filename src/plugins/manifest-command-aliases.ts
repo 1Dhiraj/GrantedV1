@@ -1,9 +1,9 @@
 /** Normalizes manifest-declared CLI command aliases. */
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import {
   normalizeOptionalLowercaseString,
   normalizeOptionalString,
-} from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/string-coerce";
 
 type PluginManifestCommandAliasKind = "runtime-slash";
 

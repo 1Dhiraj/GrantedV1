@@ -2,7 +2,7 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { resolveDateTimestampMs } from "@openclaw/normalization-core/number-coercion";
+import { resolveDateTimestampMs } from "@granted/normalization-core/number-coercion";
 import type { BackupAgentRoot } from "../commands/backup-resource-inventory.js";
 import {
   buildBackupArchiveBasename,

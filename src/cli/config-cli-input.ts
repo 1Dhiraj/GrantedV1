@@ -1,8 +1,8 @@
-import { readByteStreamWithLimit } from "@openclaw/media-core/read-byte-stream-with-limit";
-import { parseStrictPositiveInteger } from "@openclaw/normalization-core/number-coercion";
-import { isRecord as isPlainRecord } from "@openclaw/normalization-core/record-coerce";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
-import { normalizeStringEntries } from "@openclaw/normalization-core/string-normalization";
+import { readByteStreamWithLimit } from "@granted/media-core/read-byte-stream-with-limit";
+import { parseStrictPositiveInteger } from "@granted/normalization-core/number-coercion";
+import { isRecord as isPlainRecord } from "@granted/normalization-core/record-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
+import { normalizeStringEntries } from "@granted/normalization-core/string-normalization";
 import JSON5 from "json5";
 import { rejectConfigNonFiniteNumbers } from "../config/io.read-helpers.js";
 import {

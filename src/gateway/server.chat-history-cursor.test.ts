@@ -1,6 +1,6 @@
 import path from "node:path";
-import { createSessionProjection, reduceSessionProjection } from "@openclaw/gateway-client/browser";
-import { asOptionalRecord } from "@openclaw/normalization-core/record-coerce";
+import { createSessionProjection, reduceSessionProjection } from "@granted/gateway-client/browser";
+import { asOptionalRecord } from "@granted/normalization-core/record-coerce";
 import { afterEach, describe, expect, test, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
 import { HEARTBEAT_PROMPT } from "../auto-reply/heartbeat.js";

@@ -3,7 +3,7 @@ import fs from "node:fs";
 import Module from "node:module";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import { isPathInside, isPathStrictlyInside } from "../infra/path-guards.js";
 import { pluginCacheExistsSync, pluginCacheRealpathSync } from "./plugin-cache-files.js";
 import { getPluginSdkHostFacts } from "./plugin-cache-sdk.js";
@@ -53,7 +53,7 @@ const moduleWithResolver = Module as ModuleWithResolver;
 const nodeResolveFilenameProperty = "_resolveFilename" as const;
 const INTERNAL_CORE_PACKAGE_ALIASES = [
   {
-    packageName: "@openclaw/markdown-core",
+    packageName: "@granted/markdown-core",
     packageDir: "markdown-core",
     subpaths: [
       ["", "index.ts"],
@@ -71,7 +71,7 @@ const INTERNAL_CORE_PACKAGE_ALIASES = [
     // Mirrors packages/ai/package.json exports; dist file names do not follow
     // the src layout (dist/diagnostics.mjs <- src/utils/diagnostics.ts), so the
     // generic export-map derivation cannot be used here.
-    packageName: "@openclaw/ai",
+    packageName: "@granted/ai",
     packageDir: "ai",
     subpaths: [
       ["", "index.ts"],
@@ -93,7 +93,7 @@ const INTERNAL_CORE_PACKAGE_ALIASES = [
     ],
   },
   {
-    packageName: "@openclaw/llm-core",
+    packageName: "@granted/llm-core",
     packageDir: "llm-core",
     subpaths: [
       ["", "index.ts"],
@@ -340,11 +340,11 @@ function listInternalCorePackageNativeAliases(
   const internalCorePackageAliases = [
     ...INTERNAL_CORE_PACKAGE_ALIASES,
     ...["media-core", "normalization-core", "acp-core"].map((packageDir) => ({
-      packageName: `@openclaw/${packageDir}`,
+      packageName: `@granted/${packageDir}`,
       packageDir,
       subpaths: listWorkspacePackageExportAliasEntries({
         packageRoot,
-        packageName: `@openclaw/${packageDir}`,
+        packageName: `@granted/${packageDir}`,
         packageDir,
       }).map((entry) => [entry.subpath, entry.srcFile] as const),
     })),

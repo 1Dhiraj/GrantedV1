@@ -5,8 +5,8 @@ import {
   asPositiveFiniteNumber,
   clampPositiveTimerTimeoutMs,
   resolvePositiveTimerTimeoutMs,
-} from "@openclaw/normalization-core/number-coercion";
-import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/number-coercion";
+import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
 import { sanitizeForLog } from "../../packages/terminal-core/src/ansi.js";
 import { resolveOpenClawMcpTransportAlias } from "../config/mcp-config-normalize.js";
 import { createDedupeCache } from "../infra/dedupe.js";

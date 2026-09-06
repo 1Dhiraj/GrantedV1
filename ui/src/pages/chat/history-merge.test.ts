@@ -3,8 +3,8 @@ import {
   reduceSessionProjection,
   reduceSessionProjectionRunEvent,
   type SessionProjectionScope,
-} from "@openclaw/gateway-client/browser";
-import { expectDefined } from "@openclaw/normalization-core";
+} from "@granted/gateway-client/browser";
+import { expectDefined } from "@granted/normalization-core";
 import { describe, expect, it } from "vitest";
 import { createChatSubmissions } from "../../app/chat-submissions.ts";
 import {

@@ -4,7 +4,7 @@
  * Keep this barrel limited to CLI imports. Per-kind helpers stay in their
  * owning modules.
  *
- * @module @openclaw/oc-path
+ * @module @granted/oc-path
  */
 
 export type { OcPath } from "./oc-path.js";

@@ -4,7 +4,7 @@ import type {
   AcpRuntimeCapabilities,
   AcpRuntimeHandle,
   AcpRuntimeStatus,
-} from "@openclaw/acp-core/runtime/types";
+} from "@granted/acp-core/runtime/types";
 import { AgentSelectionRequiredError } from "../../agents/agent-scope-config.js";
 import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { logVerbose } from "../../globals.js";

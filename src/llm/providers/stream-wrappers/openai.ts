@@ -3,7 +3,7 @@ import {
   type CodeModeToolSurfaceObservation,
   resolveOpenAIReasoningEffortForModel,
   supportsOpenAIReasoningEffort,
-} from "@openclaw/ai/internal/openai";
+} from "@granted/ai/internal/openai";
 import {
   filterCodeModePayloadTools,
   isCodeModeModelVisibleToolName,
@@ -12,15 +12,15 @@ import {
   stripCompletionMessagesToRoleContent,
   applyOpenAIResponsesPayloadPolicy,
   resolveOpenAIResponsesPayloadPolicy,
-} from "@openclaw/ai/transports";
-import { isPromiseLike } from "@openclaw/normalization-core/promise-like";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+} from "@granted/ai/transports";
+import { isPromiseLike } from "@granted/normalization-core/promise-like";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 // OpenAI stream wrapper normalizes OpenAI-compatible streamed tool and text events.
 import {
   normalizeFastMode,
   normalizeOptionalLowercaseString,
   readStringValue,
-} from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/string-coerce";
 import {
   patchCodexNativeWebSearchPayload,
   resolveCodexNativeSearchActivation,

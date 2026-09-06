@@ -1,5 +1,5 @@
-import { isHttpsUrl, isHttpUrl } from "@openclaw/net-policy/url-protocol";
-import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
+import { isHttpsUrl, isHttpUrl } from "@granted/net-policy/url-protocol";
+import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
 import { z } from "zod";
 import { findEdgeAuthIssue } from "../shared/gateway-edge-auth-headers.js";
 import type { GatewayRemoteConfig } from "./types.gateway.js";

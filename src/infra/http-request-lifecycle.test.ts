@@ -1,7 +1,7 @@
 import { once } from "node:events";
 import { createServer, request, type IncomingMessage, type ServerResponse } from "node:http";
 import { connect, type Socket } from "node:net";
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { describe, expect, it } from "vitest";
 import { runWithGatewayHttpWorkAdmission } from "../gateway/server/http-work-admission.js";
 import {

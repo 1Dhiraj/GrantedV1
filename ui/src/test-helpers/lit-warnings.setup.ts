@@ -1,4 +1,4 @@
-import { buildControlUiSessionPath } from "@openclaw/session-url-contract";
+import { buildControlUiSessionPath } from "@granted/session-url-contract";
 import { setSessionPathBuilder } from "../app-session-path-builder.ts";
 import { installSafeLocalStorageForTesting } from "./storage.ts";
 

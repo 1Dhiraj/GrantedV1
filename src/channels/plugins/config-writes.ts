@@ -3,7 +3,7 @@
  *
  * Applies shared config write authorization to concrete OpenClaw channel config.
  */
-import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
+import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
 import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {
   authorizeConfigWriteShared,

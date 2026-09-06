@@ -1,7 +1,7 @@
 // Slack tests cover prepare plugin behavior.
 import fs from "node:fs/promises";
 import path from "node:path";
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import type { App } from "@slack/bolt";
 import { expectChannelInboundContextContract as expectInboundContextContract } from "granted/plugin-sdk/channel-contract-testing";
 import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";

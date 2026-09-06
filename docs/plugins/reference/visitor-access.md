@@ -11,7 +11,7 @@ Manage expiring visitor grants through one Cloudflare Access email policy.
 
 ## Distribution
 
-- Package: `@openclaw/visitor-access`
+- Package: `@granted/visitor-access`
 - Install route: source checkout only
 
 ## Surface

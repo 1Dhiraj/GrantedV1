@@ -1,4 +1,4 @@
-import { parseStrictInteger } from "@openclaw/normalization-core/number-coercion";
+import { parseStrictInteger } from "@granted/normalization-core/number-coercion";
 /**
  * Shared helpers for live prompt-cache integration tests.
  */

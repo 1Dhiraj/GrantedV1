@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import type { PluginRuntime } from "granted/plugin-sdk/core";
 import { createDeferred } from "granted/plugin-sdk/extension-shared";

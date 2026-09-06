@@ -2,7 +2,7 @@
  * Settles prompt dispatch, stream cleanup, and result projection.
  * It may assume stream runtime preparation and session state are ready.
  */
-import { asOptionalRecord } from "@openclaw/normalization-core/record-coerce";
+import { asOptionalRecord } from "@granted/normalization-core/record-coerce";
 import type { AssistantMessage } from "../../../llm/types.js";
 import {
   mergeAgentRunAttemptTerminal,

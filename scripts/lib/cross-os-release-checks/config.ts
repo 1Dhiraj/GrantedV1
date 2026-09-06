@@ -154,7 +154,7 @@ const providerConfig = {
     secretEnv: "OPENAI_API_KEY",
     authChoice: "openai-api-key",
     model: "openai/gpt-5.6-luna",
-    requiredCompanionPackages: ["@openclaw/codex"],
+    requiredCompanionPackages: ["@granted/codex"],
     baseUrl: "https://api.openai.com/v1",
     timeoutSeconds: CROSS_OS_AGENT_TURN_TIMEOUT_SECONDS,
   },

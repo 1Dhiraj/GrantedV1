@@ -15,7 +15,7 @@ import type {
   WorkboardProof,
   WorkboardRunAttempt,
   WorkboardWorkerLog,
-} from "@openclaw/workboard-contract";
+} from "@granted/workboard-contract";
 import {
   configureSqliteConnectionPragmas,
   migrateSqliteSchemaToStrict,

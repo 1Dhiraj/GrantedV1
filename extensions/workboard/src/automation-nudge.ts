@@ -1,4 +1,4 @@
-import type { WorkboardCard } from "@openclaw/workboard-contract";
+import type { WorkboardCard } from "@granted/workboard-contract";
 import { resolveGlobalSingleton } from "granted/plugin-sdk/global-singleton";
 import { isCronSessionKey } from "granted/plugin-sdk/routing";
 import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";

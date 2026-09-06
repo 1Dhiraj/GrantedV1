@@ -5,7 +5,7 @@ Official OpenClaw provider plugin for Kilo Gateway.
 Install from OpenClaw:
 
 ```bash
-openclaw plugins install @openclaw/kilocode-provider
+openclaw plugins install @granted/kilocode-provider
 openclaw gateway restart
 ```
 

@@ -1,7 +1,7 @@
 // Canonical SQLite storage for gateway/device Ed25519 identities.
 import crypto from "node:crypto";
 import path from "node:path";
-import { asSafeIntegerInRange } from "@openclaw/normalization-core/number-coercion";
+import { asSafeIntegerInRange } from "@granted/normalization-core/number-coercion";
 import type { Insertable, Selectable } from "kysely";
 import { withExistingOpenClawStateDatabaseArtifactPreservingReadOnly } from "../state/openclaw-state-db-readonly.js";
 import type { DB as GrantedStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";

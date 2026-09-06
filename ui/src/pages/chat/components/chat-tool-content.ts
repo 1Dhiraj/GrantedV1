@@ -1,5 +1,5 @@
-import { asNullableRecord, isRecord } from "@openclaw/normalization-core/record-coerce";
-import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+import { asNullableRecord, isRecord } from "@granted/normalization-core/record-coerce";
+import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import { html, nothing } from "lit";
 import { ref } from "lit/directives/ref.js";
 import { renderCopyButton } from "../../../components/copy-button.ts";

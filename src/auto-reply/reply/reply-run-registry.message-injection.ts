@@ -1,4 +1,4 @@
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { hasPromptImageInput } from "../../media/prompt-image-input.js";
 import { createDeferredCore } from "../../shared/deferred.js";
 import {

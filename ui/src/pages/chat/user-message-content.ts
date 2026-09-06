@@ -1,5 +1,5 @@
 // Control UI chat module implements user message content behavior.
-import type { MediaKind } from "@openclaw/media-core/constants";
+import type { MediaKind } from "@granted/media-core/constants";
 import type { ChatAttachment } from "../../lib/chat/chat-types.ts";
 import type { SenderIdentity } from "../../lib/chat/sender-label.ts";
 import { hasVideoMediaFileExtension } from "../../lib/media-file-extension.ts";

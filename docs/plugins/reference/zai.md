@@ -11,8 +11,8 @@ Adds Z.AI model provider support to OpenClaw.
 
 ## Distribution
 
-- Package: `@openclaw/zai-provider`
-- Install route: npm; ClawHub: `clawhub:@openclaw/zai-provider`
+- Package: `@granted/zai-provider`
+- Install route: npm; ClawHub: `clawhub:@granted/zai-provider`
 
 ## Surface
 

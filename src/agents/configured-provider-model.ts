@@ -1,5 +1,5 @@
 /** Configured provider rows own exact model ids before plugin normalization. */
-import { findNormalizedProviderValue } from "@openclaw/model-catalog-core/provider-id";
+import { findNormalizedProviderValue } from "@granted/model-catalog-core/provider-id";
 import type { ModelProviderConfig } from "../config/types.models.js";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 

@@ -1,4 +1,4 @@
-# @openclaw/llama-cpp-provider
+# @granted/llama-cpp-provider
 
 Official llama.cpp provider for managed and external OpenClaw model servers.
 
@@ -11,7 +11,7 @@ the managed choice.
 ## Install
 
 ```bash
-openclaw plugins install @openclaw/llama-cpp-provider
+openclaw plugins install @granted/llama-cpp-provider
 ```
 
 Restart the Gateway after installing or updating the plugin. Interactive setup
@@ -58,5 +58,5 @@ the managed server's `/v1/embeddings` endpoint.
 
 - Plugin id: `llama-cpp`
 - Provider id: `llama-cpp`
-- Package: `@openclaw/llama-cpp-provider`
+- Package: `@granted/llama-cpp-provider`
 - Minimum OpenClaw host: `2026.6.2`

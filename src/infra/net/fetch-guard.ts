@@ -1,6 +1,6 @@
 // Guarded fetch runtime enforces SSRF checks, DNS pinning, redirect policy, and
 // trusted proxy modes around provider/network requests.
-import { isPromiseLike } from "@openclaw/normalization-core/promise-like";
+import { isPromiseLike } from "@granted/normalization-core/promise-like";
 import type { Dispatcher } from "undici";
 import { logWarn } from "../../logger.js";
 import { buildTimeoutAbortSignal } from "../../utils/fetch-timeout.js";

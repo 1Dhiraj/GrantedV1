@@ -20,7 +20,7 @@ DuckDuckGo is never auto-selected, since auto-detection only considers providers
 <Steps>
   <Step title="Install the plugin">
     ```bash
-    openclaw plugins install @openclaw/duckduckgo-plugin
+    openclaw plugins install @granted/duckduckgo-plugin
     openclaw gateway restart
     ```
   </Step>

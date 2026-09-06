@@ -13,7 +13,7 @@ Status: official plugin, installed separately. Direct messages only; text and ho
 ## Install
 
 ```bash
-openclaw plugins install @openclaw/synology-chat
+openclaw plugins install @granted/synology-chat
 ```
 
 Local checkout (when running from a git repo):

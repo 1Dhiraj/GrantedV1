@@ -1,6 +1,6 @@
 import { mkdir } from "node:fs/promises";
 import path from "node:path";
-import { DEFAULT_GATEWAY_REQUEST_TIMEOUT_MS } from "@openclaw/gateway-client/browser";
+import { DEFAULT_GATEWAY_REQUEST_TIMEOUT_MS } from "@granted/gateway-client/browser";
 import { expect, it } from "vitest";
 import {
   captureUiProofEnabled,

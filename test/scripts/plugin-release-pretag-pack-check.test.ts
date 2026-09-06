@@ -55,7 +55,7 @@ describe("scripts/plugin-release-pretag-pack-check.ts", () => {
     expect(collectPluginReleasePretagPackTargets(repoDir)).toEqual([
       {
         packageDir: "extensions/demo-plugin",
-        packageName: "@openclaw/demo-plugin",
+        packageName: "@granted/demo-plugin",
         packClawHub: true,
         packNpm: true,
       },

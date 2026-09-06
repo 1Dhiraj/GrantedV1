@@ -1,5 +1,5 @@
 import { randomUUID } from "node:crypto";
-import { asOptionalRecord } from "@openclaw/normalization-core/record-coerce";
+import { asOptionalRecord } from "@granted/normalization-core/record-coerce";
 import { createDefaultDeps } from "../../cli/deps.js";
 import type { GrantedConfig } from "../../config/types.openclaw.js";
 import type { CronJob } from "../../cron/types.js";

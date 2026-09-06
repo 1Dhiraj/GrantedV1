@@ -5,7 +5,7 @@ Official OpenClaw plugin for DuckDuckGo web search.
 Install from OpenClaw:
 
 ```bash
-openclaw plugins install @openclaw/duckduckgo-plugin
+openclaw plugins install @granted/duckduckgo-plugin
 openclaw gateway restart
 ```
 

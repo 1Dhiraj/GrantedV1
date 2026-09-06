@@ -5,7 +5,7 @@ Official OpenClaw provider plugin for Venice.
 ## Install
 
 ```sh
-openclaw plugins install @openclaw/venice-provider
+openclaw plugins install @granted/venice-provider
 ```
 
 ## Docs

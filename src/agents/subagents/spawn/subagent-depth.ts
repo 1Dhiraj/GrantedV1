@@ -1,10 +1,10 @@
-import { parseStrictNonNegativeInteger } from "@openclaw/normalization-core/number-coercion";
+import { parseStrictNonNegativeInteger } from "@granted/normalization-core/number-coercion";
 /**
  * Subagent spawn-depth lookup helpers.
  *
  * Reads persisted session store state to recover spawn depth and parent lineage across restarts.
  */
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { resolveSessionStorePathCore } from "../../../config/sessions/paths.js";
 import { listSessionEntriesReadOnly } from "../../../config/sessions/session-accessor.js";
 import type { GrantedConfig } from "../../../config/types.openclaw.js";

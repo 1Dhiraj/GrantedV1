@@ -1,10 +1,10 @@
 /** OpenRouter free-model scanner and fallback updater for model commands. */
 import { cancel, multiselect as clackMultiselect, isCancel } from "@clack/prompts";
-import { getEnvApiKey } from "@openclaw/ai/internal/runtime";
+import { getEnvApiKey } from "@granted/ai/internal/runtime";
 import {
   parseStrictFiniteNumber,
   parseStrictPositiveInteger,
-} from "@openclaw/normalization-core/number-coercion";
+} from "@granted/normalization-core/number-coercion";
 import { styleSelectParams } from "../../../packages/terminal-core/src/prompt-select-styled-params.js";
 import { stylePromptTitle } from "../../../packages/terminal-core/src/prompt-style.js";
 import { sanitizeTerminalText } from "../../../packages/terminal-core/src/safe-text.js";

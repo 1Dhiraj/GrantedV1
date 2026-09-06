@@ -96,7 +96,7 @@ describe("Docker E2E helper CLIs", () => {
     writeFileSync(
       file,
       `${JSON.stringify({
-        requiredPrepublishPluginPackages: ["@openclaw/discord", "@openclaw/feishu"],
+        requiredPrepublishPluginPackages: ["@granted/discord", "@granted/feishu"],
         needs: { prepublishPluginRegistry: true },
       })}\n`,
     );
@@ -106,7 +106,7 @@ describe("Docker E2E helper CLIs", () => {
     expect(result.status).toBe(0);
     expect(result.stdout).toContain("needs_prepublish_plugin_registry=1");
     expect(result.stdout).toContain(
-      'required_prepublish_plugin_packages=["@openclaw/discord","@openclaw/feishu"]',
+      'required_prepublish_plugin_packages=["@granted/discord","@granted/feishu"]',
     );
   });
 

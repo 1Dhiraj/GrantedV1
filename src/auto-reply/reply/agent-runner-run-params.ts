@@ -1,5 +1,5 @@
 /** Builds embedded-agent run parameters from queued follow-up run state. */
-import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
+import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
 import {
   modelFallbackOverrideFromAvailability,
   resolveModelFallbackAvailability,

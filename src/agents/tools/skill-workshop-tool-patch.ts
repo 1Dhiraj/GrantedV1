@@ -1,4 +1,4 @@
-import { sliceUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+import { sliceUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { sha256Hex } from "../../infra/crypto-digest.js";
 import { hasRunWorkspaceSkillUsage } from "../../skills/runtime/run-usage.js";

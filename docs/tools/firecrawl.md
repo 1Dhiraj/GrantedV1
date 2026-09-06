@@ -22,7 +22,7 @@ It is a hosted extraction/search service that supports bot circumvention and cac
 Install the official plugin, then restart Gateway:
 
 ```bash
-openclaw plugins install @openclaw/firecrawl-plugin
+openclaw plugins install @granted/firecrawl-plugin
 openclaw gateway restart
 ```
 

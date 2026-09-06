@@ -49,7 +49,7 @@ function index(rootDir: string, plugins: InstalledPluginIndexRecord[]): Installe
     policyHash: "test",
     generatedAtMs: 1,
     installRecords: {
-      pack: { source: "npm", installPath: rootDir, spec: "@openclaw/pack@latest" },
+      pack: { source: "npm", installPath: rootDir, spec: "@granted/pack@latest" },
     },
     plugins,
     diagnostics: [],

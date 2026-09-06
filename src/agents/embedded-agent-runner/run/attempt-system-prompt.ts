@@ -4,7 +4,7 @@
 import {
   splitSystemPromptCacheBoundary,
   SYSTEM_PROMPT_CACHE_BOUNDARY,
-} from "@openclaw/ai/internal/shared";
+} from "@granted/ai/internal/shared";
 import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import type { ProviderTransformSystemPromptContext } from "../../../plugins/types.js";
 import { buildEmbeddedSystemPrompt } from "../system-prompt.js";

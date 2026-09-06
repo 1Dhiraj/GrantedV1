@@ -1,4 +1,4 @@
-import { hasNonEmptyString } from "@openclaw/normalization-core/string-coerce";
+import { hasNonEmptyString } from "@granted/normalization-core/string-coerce";
 import {
   isReplyPayloadTerminalContent,
   type ReplyPayload,

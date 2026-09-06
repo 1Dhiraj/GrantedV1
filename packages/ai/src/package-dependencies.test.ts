@@ -43,8 +43,8 @@ async function productionImportsPackage(packageName: string): Promise<boolean> {
   return false;
 }
 
-describe("@openclaw/ai source dependency contract", () => {
-  it.each(["@openclaw/model-catalog-core", "@openclaw/normalization-core"])(
+describe("@granted/ai source dependency contract", () => {
+  it.each(["@granted/model-catalog-core", "@granted/normalization-core"])(
     "declares bundled %s imports as a workspace dev dependency",
     async (packageName) => {
       const manifest = JSON.parse(

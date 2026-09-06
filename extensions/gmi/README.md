@@ -6,7 +6,7 @@ OpenAI-compatible API.
 Install from OpenClaw:
 
 ```bash
-openclaw plugins install @openclaw/gmi-provider
+openclaw plugins install @granted/gmi-provider
 openclaw gateway restart
 ```
 

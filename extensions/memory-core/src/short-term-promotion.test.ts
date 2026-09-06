@@ -3,7 +3,7 @@ import fsSync from "node:fs";
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { createDeferred } from "granted/plugin-sdk/extension-shared";
 import { listMemoryArtifactProvenance } from "granted/plugin-sdk/memory-core-host-runtime-core";
 import type { OpenKeyedStoreOptions } from "granted/plugin-sdk/plugin-state-runtime";

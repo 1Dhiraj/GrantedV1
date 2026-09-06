@@ -6,7 +6,7 @@ import {
   drainFileLockManagerForTest,
   resetFileLockManagerForTest,
 } from "@openclaw/fs-safe/file-lock";
-import { asNullableRecord } from "@openclaw/normalization-core/record-coerce";
+import { asNullableRecord } from "@granted/normalization-core/record-coerce";
 import {
   isLockOwnerDefinitelyStale,
   shouldRemoveDeadOwnerOrExpiredLock,

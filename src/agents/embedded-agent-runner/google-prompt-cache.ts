@@ -5,15 +5,15 @@ import crypto from "node:crypto";
 import {
   sortPromptCacheToolsByName,
   stripSystemPromptCacheBoundary,
-} from "@openclaw/ai/internal/shared";
-import { mergeTransportHeaders, sanitizeTransportPayloadText } from "@openclaw/ai/transports";
-import { stableStringify } from "@openclaw/normalization-core";
+} from "@granted/ai/internal/shared";
+import { mergeTransportHeaders, sanitizeTransportPayloadText } from "@granted/ai/transports";
+import { stableStringify } from "@granted/normalization-core";
 import {
   asDateTimestampMs,
   isFutureDateTimestampMs,
   parseDateStringTimestampMs,
   resolveExpiresAtMsFromDurationMs,
-} from "@openclaw/normalization-core/number-coercion";
+} from "@granted/normalization-core/number-coercion";
 import { SessionTranscriptWriterClaimReboundError } from "../../config/sessions/transcript-write-context.js";
 import { parseGeminiAuth } from "../../infra/gemini-auth.js";
 import { normalizeGoogleApiBaseUrl } from "../../infra/google-api-base-url.js";

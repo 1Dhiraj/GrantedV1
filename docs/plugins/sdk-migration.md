@@ -614,7 +614,7 @@ package exports are generated from the public subset.
 Reserved bundled-plugin helper seams have been retired from the public SDK
 export map except for explicitly documented compatibility facades such as the
 deprecated `plugin-sdk/discord` shim retained for external plugins that still
-import the published `@openclaw/discord` package directly. Owner-specific
+import the published `@granted/discord` package directly. Owner-specific
 helpers live inside the owning plugin package; shared host behavior moves
 through generic SDK contracts such as `plugin-sdk/gateway-runtime`,
 `plugin-sdk/security-runtime`, and the injected plugin API.
@@ -924,7 +924,7 @@ timeline for current status.
 
     `openclaw plugins inspect --all --runtime` reports non-bundled plugins whose
     load errors or diagnostics still reference these removed file APIs. The
-    `@openclaw/plugin-inspector` advisory sweep must use version `0.3.17` or
+    `@granted/plugin-inspector` advisory sweep must use version `0.3.17` or
     newer so external package scans also flag whole-store session helpers,
     session file-path helpers, legacy transcript file targets, and low-level
     transcript helpers before release.

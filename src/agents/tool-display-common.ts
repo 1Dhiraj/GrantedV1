@@ -1,15 +1,15 @@
-import { parseStrictFiniteNumber } from "@openclaw/normalization-core/number-coercion";
+import { parseStrictFiniteNumber } from "@granted/normalization-core/number-coercion";
 /**
  * Shared compact tool-call display helpers.
  * Redacts and summarizes arguments into short labels/details for chat and UI
  * tool update streams.
  */
-import { asOptionalObjectRecord as asRecord } from "@openclaw/normalization-core/record-coerce";
+import { asOptionalObjectRecord as asRecord } from "@granted/normalization-core/record-coerce";
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
-} from "@openclaw/normalization-core/string-coerce";
-import { sliceUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+} from "@granted/normalization-core/string-coerce";
+import { sliceUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import { redactToolPayloadText } from "../logging/redact.js";
 import { resolveExecDetail, type ToolDetailMode } from "./tool-display-exec.js";
 

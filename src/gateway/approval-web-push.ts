@@ -1,8 +1,8 @@
 // Delivers generic approval notifications to Web Push subscriptions whose
 // persisted browser binding still has current approval and visibility access.
 import { createHash } from "node:crypto";
-import { normalizeOptionalString } from "@openclaw/normalization-core";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import { resolveGatewayPublicOrigin } from "../config/gateway-public-origin.js";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import {

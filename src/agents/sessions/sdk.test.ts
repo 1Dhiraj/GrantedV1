@@ -1,5 +1,5 @@
 import path from "node:path";
-import { registerSessionResourceCleanup } from "@openclaw/ai/internal/runtime";
+import { registerSessionResourceCleanup } from "@granted/ai/internal/runtime";
 import { createAssistantMessageEventStream, type AssistantMessage } from "granted/plugin-sdk/llm";
 // Agent session SDK tests cover default tool wiring, prompt preservation, and
 // session write-settlement behavior.

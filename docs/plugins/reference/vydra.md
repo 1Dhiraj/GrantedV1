@@ -11,8 +11,8 @@ Adds Vydra model provider support to OpenClaw.
 
 ## Distribution
 
-- Package: `@openclaw/vydra-provider`
-- Install route: npm; ClawHub: `clawhub:@openclaw/vydra-provider`
+- Package: `@granted/vydra-provider`
+- Install route: npm; ClawHub: `clawhub:@granted/vydra-provider`
 
 ## Surface
 

@@ -1,5 +1,5 @@
 /** Tests plugin version drift detection between package, manifest, and install records. */
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { GrantedConfig } from "../config/types.js";
 import type { PluginInstallRecord } from "../config/types.plugins.js";
@@ -18,7 +18,7 @@ function npmRecord(
   version: string,
   overrides: Partial<PluginInstallRecord> = {},
 ): PluginInstallRecord {
-  const resolvedName = overrides.resolvedName ?? "@openclaw/whatsapp";
+  const resolvedName = overrides.resolvedName ?? "@granted/whatsapp";
   return {
     source: "npm",
     spec: `${resolvedName}@latest`,
@@ -34,8 +34,8 @@ function clawhubRecord(
 ): PluginInstallRecord {
   return {
     source: "clawhub",
-    spec: "clawhub:@openclaw/whatsapp",
-    clawhubPackage: "@openclaw/whatsapp",
+    spec: "clawhub:@granted/whatsapp",
+    clawhubPackage: "@granted/whatsapp",
     resolvedVersion: version,
     ...overrides,
   };
@@ -58,7 +58,7 @@ describe("detectPluginVersionDrift", () => {
       gatewayVersion: "2026.5.4",
       installRecords: {
         whatsapp: npmRecord("2026.5.4"),
-        discord: npmRecord("2026.5.4", { resolvedName: "@openclaw/discord" }),
+        discord: npmRecord("2026.5.4", { resolvedName: "@granted/discord" }),
       },
     });
 
@@ -71,10 +71,10 @@ describe("detectPluginVersionDrift", () => {
       gatewayVersion: "2026.5.4",
       installRecords: {
         whatsapp: npmRecord("2026.5.3", {
-          resolvedName: "@openclaw/whatsapp",
-          spec: "@openclaw/whatsapp@2026.5.3",
+          resolvedName: "@granted/whatsapp",
+          spec: "@granted/whatsapp@2026.5.3",
         }),
-        discord: npmRecord("2026.5.4", { resolvedName: "@openclaw/discord" }),
+        discord: npmRecord("2026.5.4", { resolvedName: "@granted/discord" }),
       },
     });
 
@@ -84,8 +84,8 @@ describe("detectPluginVersionDrift", () => {
       installedVersion: "2026.5.3",
       gatewayVersion: "2026.5.4",
       source: "npm",
-      packageName: "@openclaw/whatsapp",
-      spec: "@openclaw/whatsapp@2026.5.3",
+      packageName: "@granted/whatsapp",
+      spec: "@granted/whatsapp@2026.5.3",
     });
   });
 
@@ -95,7 +95,7 @@ describe("detectPluginVersionDrift", () => {
       installRecords: {
         whatsapp: npmRecord("2026.5.4"),
         // ...and the inverse direction
-        discord: npmRecord("2026.5.4-1", { resolvedName: "@openclaw/discord" }),
+        discord: npmRecord("2026.5.4-1", { resolvedName: "@granted/discord" }),
       },
     });
 
@@ -119,8 +119,8 @@ describe("detectPluginVersionDrift", () => {
       gatewayVersion: "2026.5.4",
       installRecords: {
         discord: clawhubRecord("2026.5.3", {
-          spec: "clawhub:@openclaw/discord",
-          clawhubPackage: "@openclaw/discord",
+          spec: "clawhub:@granted/discord",
+          clawhubPackage: "@granted/discord",
           clawhubChannel: "official",
           clawhubUrl: "https://clawhub.ai",
         }),
@@ -195,19 +195,19 @@ describe("detectPluginVersionDrift", () => {
         // bump alone.
         archive: {
           source: "archive",
-          resolvedName: "@openclaw/whatsapp",
+          resolvedName: "@granted/whatsapp",
           resolvedVersion: "2026.5.3",
-          spec: "@openclaw/whatsapp@archive",
+          spec: "@granted/whatsapp@archive",
         },
         local: {
           source: "path",
-          resolvedName: "@openclaw/whatsapp",
+          resolvedName: "@granted/whatsapp",
           resolvedVersion: "2026.5.3",
           spec: "/tmp/local-plugin",
         },
         forked: {
           source: "git",
-          resolvedName: "@openclaw/whatsapp",
+          resolvedName: "@granted/whatsapp",
           resolvedVersion: "2026.5.3",
           spec: "git+ssh://example/forked",
         },
@@ -223,8 +223,8 @@ describe("detectPluginVersionDrift", () => {
       installRecords: {
         whatsapp: {
           source: "npm",
-          spec: "@openclaw/whatsapp@latest",
-          resolvedName: "@openclaw/whatsapp",
+          spec: "@granted/whatsapp@latest",
+          resolvedName: "@granted/whatsapp",
           version: "2026.5.3",
         },
       },
@@ -238,7 +238,7 @@ describe("detectPluginVersionDrift", () => {
     const result = detectPluginVersionDrift({
       gatewayVersion: "2026.5.4",
       installRecords: {
-        whatsapp: { source: "npm", spec: "@openclaw/whatsapp@latest" },
+        whatsapp: { source: "npm", spec: "@granted/whatsapp@latest" },
       },
     });
 
@@ -259,7 +259,7 @@ describe("detectPluginVersionDrift", () => {
       gatewayVersion: "2026.5.4",
       installRecords: {
         whatsapp: npmRecord("2026.5.3"),
-        discord: npmRecord("2026.5.3", { resolvedName: "@openclaw/discord" }),
+        discord: npmRecord("2026.5.3", { resolvedName: "@granted/discord" }),
       },
       config,
     });
@@ -331,8 +331,8 @@ describe("detectPluginVersionDrift", () => {
       gatewayVersion: "2026.5.4",
       installRecords: {
         whatsapp: npmRecord("2026.5.3"),
-        discord: npmRecord("2026.5.3", { resolvedName: "@openclaw/discord" }),
-        matrix: npmRecord("2026.5.3", { resolvedName: "@openclaw/matrix" }),
+        discord: npmRecord("2026.5.3", { resolvedName: "@granted/discord" }),
+        matrix: npmRecord("2026.5.3", { resolvedName: "@granted/matrix" }),
       },
     });
 
@@ -345,12 +345,12 @@ describe("resolvePluginVersionDriftTargets", () => {
 
   function driftReport(
     gatewayVersion = "2026.7.1-2",
-    spec = "@openclaw/brave-plugin@2026.7.1-beta.2",
+    spec = "@granted/brave-plugin@2026.7.1-beta.2",
   ) {
     return detectPluginVersionDrift({
       gatewayVersion,
       installRecords: {
-        brave: npmRecord("2026.7.1-beta.2", { resolvedName: "@openclaw/brave-plugin", spec }),
+        brave: npmRecord("2026.7.1-beta.2", { resolvedName: "@granted/brave-plugin", spec }),
       },
     });
   }
@@ -363,14 +363,14 @@ describe("resolvePluginVersionDriftTargets", () => {
     });
     const report = await resolvePluginVersionDriftTargets(driftReport());
     expect(fetchNpmPackageTargetStatus).toHaveBeenCalledWith({
-      packageName: "@openclaw/brave-plugin",
+      packageName: "@granted/brave-plugin",
       target: "2026.7.1",
     });
     expect(
       resolvePluginVersionDriftUpdateCommand(
         expectDefined(report.drifts[0], "detected plugin drift"),
       ),
-    ).toBe("openclaw plugins update @openclaw/brave-plugin@2026.7.1");
+    ).toBe("openclaw plugins update @granted/brave-plugin@2026.7.1");
   });
 
   it.each([
@@ -392,7 +392,7 @@ describe("resolvePluginVersionDriftTargets", () => {
       const entry = expectDefined(report.drifts[0], "detected plugin drift");
       expect(entry.targetResolution).toMatchObject({
         status: "unresolved",
-        packageName: "@openclaw/brave-plugin",
+        packageName: "@granted/brave-plugin",
         requestedTarget: "2026.7.1",
         error: expect.stringContaining(result.error ?? JSON.stringify(result.version)),
       });
@@ -408,7 +408,7 @@ describe("resolvePluginVersionDriftTargets", () => {
       ),
     ).toBeUndefined();
     const floating = await resolvePluginVersionDriftTargets(
-      driftReport("2026.7.1", "@openclaw/brave-plugin@latest"),
+      driftReport("2026.7.1", "@granted/brave-plugin@latest"),
     );
     expect(
       resolvePluginVersionDriftUpdateCommand(
@@ -427,11 +427,11 @@ describe("resolvePluginVersionDriftUpdateCommand", () => {
         installedVersion: "2026.7.0",
         gatewayVersion: "2026.7.1-2",
         source: "npm",
-        packageName: "@openclaw/brave-plugin",
-        spec: "@openclaw/brave-plugin@2026.7.0",
-        ...resolvedNpmTarget("@openclaw/brave-plugin", "2026.7.1"),
+        packageName: "@granted/brave-plugin",
+        spec: "@granted/brave-plugin@2026.7.0",
+        ...resolvedNpmTarget("@granted/brave-plugin", "2026.7.1"),
       }),
-    ).toBe("openclaw plugins update @openclaw/brave-plugin@2026.7.1");
+    ).toBe("openclaw plugins update @granted/brave-plugin@2026.7.1");
   });
 
   it("uses an exact npm package target when the drifted install is pinned", () => {
@@ -441,11 +441,11 @@ describe("resolvePluginVersionDriftUpdateCommand", () => {
         installedVersion: "2026.6.9",
         gatewayVersion: "2026.6.10-beta.1",
         source: "npm",
-        packageName: "@openclaw/brave-plugin",
-        spec: "@openclaw/brave-plugin@2026.6.9",
-        ...resolvedNpmTarget("@openclaw/brave-plugin", "2026.6.10-beta.1"),
+        packageName: "@granted/brave-plugin",
+        spec: "@granted/brave-plugin@2026.6.9",
+        ...resolvedNpmTarget("@granted/brave-plugin", "2026.6.10-beta.1"),
       }),
-    ).toBe("openclaw plugins update @openclaw/brave-plugin@2026.6.10-beta.1");
+    ).toBe("openclaw plugins update @granted/brave-plugin@2026.6.10-beta.1");
   });
 
   it("parses the package name from exact npm specs when drift metadata is sparse", () => {
@@ -455,10 +455,10 @@ describe("resolvePluginVersionDriftUpdateCommand", () => {
         installedVersion: "2026.6.9",
         gatewayVersion: "2026.6.10-beta.1",
         source: "npm",
-        spec: "@openclaw/brave-plugin@2026.6.9",
-        ...resolvedNpmTarget("@openclaw/brave-plugin", "2026.6.10-beta.1"),
+        spec: "@granted/brave-plugin@2026.6.9",
+        ...resolvedNpmTarget("@granted/brave-plugin", "2026.6.10-beta.1"),
       }),
-    ).toBe("openclaw plugins update @openclaw/brave-plugin@2026.6.10-beta.1");
+    ).toBe("openclaw plugins update @granted/brave-plugin@2026.6.10-beta.1");
   });
 
   it("prefers the parsed exact npm spec package over inconsistent drift metadata", () => {
@@ -468,25 +468,25 @@ describe("resolvePluginVersionDriftUpdateCommand", () => {
         installedVersion: "2026.6.9",
         gatewayVersion: "2026.6.10-beta.1",
         source: "npm",
-        packageName: "@openclaw/other-plugin",
-        spec: "@openclaw/brave-plugin@2026.6.9",
-        ...resolvedNpmTarget("@openclaw/brave-plugin", "2026.6.10-beta.1"),
+        packageName: "@granted/other-plugin",
+        spec: "@granted/brave-plugin@2026.6.9",
+        ...resolvedNpmTarget("@granted/brave-plugin", "2026.6.10-beta.1"),
       }),
-    ).toBe("openclaw plugins update @openclaw/brave-plugin@2026.6.10-beta.1");
+    ).toBe("openclaw plugins update @granted/brave-plugin@2026.6.10-beta.1");
   });
 
   it.each([
     {
       pluginId: "codex",
       source: "npm" as const,
-      packageName: "@openclaw/codex",
-      spec: "@openclaw/codex",
+      packageName: "@granted/codex",
+      spec: "@granted/codex",
     },
     {
       pluginId: "diagnostics-otel",
       source: "clawhub" as const,
-      packageName: "@openclaw/diagnostics-otel",
-      spec: "clawhub:@openclaw/diagnostics-otel",
+      packageName: "@granted/diagnostics-otel",
+      spec: "clawhub:@granted/diagnostics-otel",
     },
   ])("keeps the repairing plugin-id update for a floating $source install", (entry) => {
     expect(
@@ -508,8 +508,8 @@ describe("resolvePluginVersionDriftUpdateCommand", () => {
         installedVersion: "2026.6.9",
         gatewayVersion: "unknown",
         source: "npm",
-        packageName: "@openclaw/brave-plugin",
-        spec: "@openclaw/brave-plugin@2026.6.9",
+        packageName: "@granted/brave-plugin",
+        spec: "@granted/brave-plugin@2026.6.9",
       }),
     ).toBeUndefined();
   });

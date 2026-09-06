@@ -1,5 +1,5 @@
 // System-agent prompts drive the OpenClaw conversation with typed-command output.
-import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import { buildCredentialSafetyPrompt } from "../agents/transcript-credential-safety.js";
 import type { SystemAgentGreetingFacts } from "./greeting.js";
 import type { SystemAgentOverview } from "./overview.js";

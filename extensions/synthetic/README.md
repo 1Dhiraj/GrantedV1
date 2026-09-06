@@ -6,7 +6,7 @@ API.
 Install from OpenClaw:
 
 ```bash
-openclaw plugins install @openclaw/synthetic-provider
+openclaw plugins install @granted/synthetic-provider
 openclaw gateway restart
 ```
 

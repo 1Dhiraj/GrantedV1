@@ -1,6 +1,6 @@
 /** Best-effort durable signal log for session state changes. */
 import type { DatabaseSync } from "node:sqlite";
-import { safeParseJsonRecord } from "@openclaw/normalization-core/json-coercion";
+import { safeParseJsonRecord } from "@granted/normalization-core/json-coercion";
 import type { Insertable, Selectable } from "kysely";
 import { loadSessionEntryReadOnly } from "../config/sessions/session-accessor.js";
 import type { SessionEntry } from "../config/sessions/types.js";

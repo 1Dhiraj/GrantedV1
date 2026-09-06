@@ -2,8 +2,8 @@
 // previews, session pull request chips): pinned origin, manual redirects,
 // bounded bodies, and normalized upstream error statuses.
 import { createHash } from "node:crypto";
-import { asFiniteNumber } from "@openclaw/normalization-core/number-coercion";
-import { readNonBlankString } from "@openclaw/normalization-core/string-coerce";
+import { asFiniteNumber } from "@granted/normalization-core/number-coercion";
+import { readNonBlankString } from "@granted/normalization-core/string-coerce";
 import { getRuntimeConfigSnapshot } from "../config/runtime-snapshot.js";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import { readResponseWithLimit } from "../infra/http-body.js";
@@ -11,7 +11,7 @@ import {
   assertSecretOwnerAvailable,
   SecretSurfaceUnavailableError,
 } from "../secrets/runtime-degraded-state.js";
-export { isRecord } from "@openclaw/normalization-core/record-coerce";
+export { isRecord } from "@granted/normalization-core/record-coerce";
 
 export const GITHUB_API_ORIGIN = "https://api.github.com";
 export const CONTROL_UI_GITHUB_CREDENTIAL_UNAVAILABLE_MESSAGE =

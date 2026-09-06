@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import { DatabaseSync } from "node:sqlite";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import { expect, it } from "vitest";
 import { GRANTED_AGENT_SCHEMA_VERSION } from "./openclaw-agent-db-contract.js";
 import retirementManifest from "./openclaw-schema-retirements.json" with { type: "json" };

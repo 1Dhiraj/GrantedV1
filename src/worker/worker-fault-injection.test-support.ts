@@ -2,7 +2,7 @@ import { once } from "node:events";
 import fs from "node:fs/promises";
 import { createServer, type Server } from "node:http";
 import path from "node:path";
-import { rawDataToString } from "@openclaw/gateway-client/websocket-data";
+import { rawDataToString } from "@granted/gateway-client/websocket-data";
 import { WebSocket, WebSocketServer, type RawData } from "ws";
 import {
   type WorkerLiveEventParams,

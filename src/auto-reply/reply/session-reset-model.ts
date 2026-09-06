@@ -1,6 +1,6 @@
 /** Applies model override tokens embedded in reset/new command text. */
-import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { resolveAgentDir, resolveDefaultAgentId } from "../../agents/agent-scope.js";
 import type { ModelCatalogEntry } from "../../agents/model-catalog.types.js";
 import { resolveModelRefFromString } from "../../agents/model-selection-shared.js";

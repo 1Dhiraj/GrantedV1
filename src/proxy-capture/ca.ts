@@ -2,7 +2,7 @@
 import { createHash, createPrivateKey, randomBytes, X509Certificate } from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
-import { parseCanonicalIpAddress } from "@openclaw/net-policy/ip";
+import { parseCanonicalIpAddress } from "@granted/net-policy/ip";
 import { type FileLockOptions, withFileLock } from "../infra/file-lock.js";
 import { resolveSystemBin } from "../infra/resolve-system-bin.js";
 import { KeyedAsyncQueue } from "../plugin-sdk/keyed-async-queue.js";

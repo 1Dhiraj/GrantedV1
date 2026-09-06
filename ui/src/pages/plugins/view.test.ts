@@ -1,6 +1,6 @@
 /* @vitest-environment jsdom */
 
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { nothing, render } from "lit";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { i18n } from "../../i18n/index.ts";
@@ -159,14 +159,14 @@ describe("renderPlugins", () => {
     expect(onFilterChange).toHaveBeenCalledWith("issues");
   });
 
-  it.each(["@openclaw/workboard", "  @OPENCLAW/WORKBOARD  "])(
+  it.each(["@granted/workboard", "  @OPENCLAW/WORKBOARD  "])(
     "finds an installed plugin by its scoped package name %s",
     (query) => {
-      const plugin = createPlugin({ packageName: "@openclaw/workboard" });
+      const plugin = createPlugin({ packageName: "@granted/workboard" });
       const container = mount(createProps({ query, result: createResult([plugin]) }));
 
       expect(container.querySelector('[data-plugin-id="workboard"]')).not.toBeNull();
-      expect(normalizedText(container)).toContain("@openclaw/workboard");
+      expect(normalizedText(container)).toContain("@granted/workboard");
     },
   );
 
@@ -177,7 +177,7 @@ describe("renderPlugins", () => {
     const plugin = createPlugin({
       id: "calendar-runtime",
       name: "Shared Calendar",
-      packageName: "@openclaw/calendar-runtime",
+      packageName: "@granted/calendar-runtime",
       description: "Schedule team events.",
       origin: "official",
       installed: false,
@@ -189,7 +189,7 @@ describe("renderPlugins", () => {
     const container = mount(
       createProps({
         activeTab: "discover",
-        query: "@openclaw/calendar-runtime",
+        query: "@granted/calendar-runtime",
         result: createResult([plugin]),
       }),
     );
@@ -474,7 +474,7 @@ describe("renderPlugins", () => {
           {
             score: 0.9,
             package: {
-              name: "@openclaw/calendar-plus",
+              name: "@granted/calendar-plus",
               displayName: "Calendar Plus",
               family: "code-plugin",
               channel: "official",
@@ -508,7 +508,7 @@ describe("renderPlugins", () => {
     expect(link?.target).toBe("_blank");
 
     const result = container.querySelector<HTMLElement>(
-      '[data-package-name="@openclaw/calendar-plus"]',
+      '[data-package-name="@granted/calendar-plus"]',
     );
     expect(result?.dataset.pluginSource).toBe("clawhub");
     expect(normalizedText(result)).toContain("Official");
@@ -519,14 +519,14 @@ describe("renderPlugins", () => {
     expect(onInstall).toHaveBeenCalledWith(
       {
         source: "clawhub",
-        packageName: "@openclaw/calendar-plus",
+        packageName: "@granted/calendar-plus",
       },
-      clawHubKey("@openclaw/calendar-plus"),
+      clawHubKey("@granted/calendar-plus"),
     );
   });
 
   it("renders a row-local ClawHub install error without a risk retry action", () => {
-    const packageName = "@openclaw/calendar-plus";
+    const packageName = "@granted/calendar-plus";
     const key = clawHubKey(packageName);
     const onInstall = vi.fn();
     const container = mount(
@@ -700,7 +700,7 @@ describe("renderPlugins", () => {
     const plugin = createPlugin({
       id: "lobster",
       name: "Lobster",
-      packageName: "@openclaw/lobster",
+      packageName: "@granted/lobster",
       installed: false,
       enabled: false,
       state: "disabled",
@@ -720,7 +720,7 @@ describe("renderPlugins", () => {
           {
             score: 1,
             package: {
-              name: "@openclaw/lobster",
+              name: "@granted/lobster",
               displayName: "Lobster",
               family: "code-plugin",
               channel: "official",
@@ -737,7 +737,7 @@ describe("renderPlugins", () => {
               request,
               details: {
                 installPolicyCode: "install_policy_warning_acknowledgement_required",
-                targetName: "@openclaw/lobster",
+                targetName: "@granted/lobster",
                 targetType: "plugin",
                 requestMode: "install",
                 reason: "Review this plugin.",
@@ -755,7 +755,7 @@ describe("renderPlugins", () => {
       "catalog row",
     );
     const searchRow = expectDefined(
-      container.querySelector<HTMLElement>('[data-package-name="@openclaw/lobster"]'),
+      container.querySelector<HTMLElement>('[data-package-name="@granted/lobster"]'),
       "search row",
     );
     const detail = expectDefined(
@@ -789,7 +789,7 @@ describe("renderPlugins", () => {
           {
             score: 1,
             package: {
-              name: "@openclaw/lobster",
+              name: "@granted/lobster",
               displayName: "Lobster",
               family: "code-plugin",
               channel: "official",
@@ -804,7 +804,7 @@ describe("renderPlugins", () => {
 
     actionButton(container, "Install Lobster")?.click();
     expect(onInstall).toHaveBeenCalledWith(
-      { source: "clawhub", packageName: "@openclaw/lobster" },
+      { source: "clawhub", packageName: "@granted/lobster" },
       "plugin:lobster",
     );
   });

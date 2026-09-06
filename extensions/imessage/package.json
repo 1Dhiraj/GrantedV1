@@ -1,5 +1,5 @@
 {
-  "name": "@openclaw/imessage",
+  "name": "@granted/imessage",
   "version": "2026.8.1",
   "description": "OpenClaw iMessage channel plugin using imsg on a signed-in Mac",
   "repository": {
@@ -12,11 +12,11 @@
     "zod": "4.4.3"
   },
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*",
-    "openclaw": "workspace:*"
+    "@granted/plugin-sdk": "workspace:*",
+    "granted": "workspace:*"
   },
   "peerDependencies": {
-    "openclaw": ">=2026.8.1"
+    "granted": ">=2026.8.1"
   },
   "peerDependenciesMeta": {
     "openclaw": {
@@ -89,8 +89,8 @@
       }
     },
     "install": {
-      "clawhubSpec": "clawhub:@openclaw/imessage",
-      "npmSpec": "@openclaw/imessage",
+      "clawhubSpec": "clawhub:@granted/imessage",
+      "npmSpec": "@granted/imessage",
       "defaultChoice": "npm",
       "minHostVersion": ">=2026.7.2",
       "allowInvalidConfigRecovery": true

@@ -365,7 +365,7 @@ describe("Control UI Vite config", () => {
   });
 
   it("resolves root tsconfig package aliases for source imports", () => {
-    expect(findStringAlias("@openclaw/net-policy/ip")?.replacement).toBe(
+    expect(findStringAlias("@granted/net-policy/ip")?.replacement).toBe(
       path.join(repoRoot, "packages/net-policy/src/ip.ts"),
     );
   });
@@ -373,37 +373,37 @@ describe("Control UI Vite config", () => {
   it("resolves Control UI dev-server source aliases for internal packages", () => {
     const aliases = resolveSourcePackageAliasesForVite();
     expect(
-      aliases.find((alias) => alias.find === "@openclaw/normalization-core/agent-id"),
+      aliases.find((alias) => alias.find === "@granted/normalization-core/agent-id"),
     )?.toEqual({
-      find: "@openclaw/normalization-core/agent-id",
+      find: "@granted/normalization-core/agent-id",
       replacement: path.join(repoRoot, "packages/normalization-core/src/agent-id.ts"),
     });
     expect(
-      aliases.find((alias) => alias.find === "@openclaw/normalization-core/json-schema"),
+      aliases.find((alias) => alias.find === "@granted/normalization-core/json-schema"),
     )?.toEqual({
-      find: "@openclaw/normalization-core/json-schema",
+      find: "@granted/normalization-core/json-schema",
       replacement: path.join(repoRoot, "packages/normalization-core/src/json-schema.ts"),
     });
     expect(
-      aliases.find((alias) => alias.find === "@openclaw/normalization-core/string-coerce"),
+      aliases.find((alias) => alias.find === "@granted/normalization-core/string-coerce"),
     )?.toEqual({
-      find: "@openclaw/normalization-core/string-coerce",
+      find: "@granted/normalization-core/string-coerce",
       replacement: path.join(repoRoot, "packages/normalization-core/src/string-coerce.ts"),
     });
     expect(
-      aliases.find((alias) => alias.find === "@openclaw/normalization-core/phone-presentation"),
+      aliases.find((alias) => alias.find === "@granted/normalization-core/phone-presentation"),
     )?.toEqual({
-      find: "@openclaw/normalization-core/phone-presentation",
+      find: "@granted/normalization-core/phone-presentation",
       replacement: path.join(repoRoot, "packages/normalization-core/src/phone-presentation.ts"),
     });
     const resultAliasIndex = aliases.findIndex(
-      (alias) => alias.find === "@openclaw/normalization-core/result",
+      (alias) => alias.find === "@granted/normalization-core/result",
     );
     const rootAliasIndex = aliases.findIndex(
-      (alias) => alias.find === "@openclaw/normalization-core",
+      (alias) => alias.find === "@granted/normalization-core",
     );
     expect(aliases[resultAliasIndex]).toEqual({
-      find: "@openclaw/normalization-core/result",
+      find: "@granted/normalization-core/result",
       replacement: path.join(repoRoot, "packages/normalization-core/src/result.ts"),
     });
     expect(resultAliasIndex).toBeGreaterThanOrEqual(0);
@@ -429,9 +429,9 @@ describe("Control UI Vite config", () => {
 
   it("keeps specific tsconfig aliases ahead of broad package aliases", () => {
     const aliases = resolveTsconfigPathAliasesForVite();
-    const netPolicyIpIndex = aliases.findIndex((alias) => alias.find === "@openclaw/net-policy/ip");
+    const netPolicyIpIndex = aliases.findIndex((alias) => alias.find === "@granted/net-policy/ip");
     const netPolicyPackageIndex = aliases.findIndex(
-      (alias) => alias.find === "@openclaw/net-policy",
+      (alias) => alias.find === "@granted/net-policy",
     );
     const netPolicyWildcardIndex = aliases.findIndex(
       (alias) =>

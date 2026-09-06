@@ -4,8 +4,8 @@
  * Transport adapters use this module to turn provider-specific response bodies,
  * request ids, and binary payload guardrails into stable OpenClaw error shapes.
  */
-import { asOptionalRecord } from "@openclaw/normalization-core/record-coerce";
-import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+import { asOptionalRecord } from "@granted/normalization-core/record-coerce";
+import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import { normalizeOptionalString as trimToUndefined } from "../../packages/normalization-core/src/string-coerce.js";
 import {
   readResponseTextPrefix,

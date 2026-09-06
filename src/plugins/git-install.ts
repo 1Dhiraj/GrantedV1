@@ -2,9 +2,9 @@
 import "../infra/fs-safe-defaults.js";
 import fs from "node:fs/promises";
 import path from "node:path";
-import { redactSensitiveUrlLikeString } from "@openclaw/net-policy/redact-sensitive-url";
-import { hasHttpUrlPrefix } from "@openclaw/net-policy/url-protocol";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { redactSensitiveUrlLikeString } from "@granted/net-policy/redact-sensitive-url";
+import { hasHttpUrlPrefix } from "@granted/net-policy/url-protocol";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { sanitizeForLog } from "../../packages/terminal-core/src/ansi.js";
 import { sha256HexPrefixCore } from "../infra/crypto-digest.js";
 import { pathExists } from "../infra/fs-safe.js";

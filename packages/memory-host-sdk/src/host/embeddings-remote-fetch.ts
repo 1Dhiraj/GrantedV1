@@ -1,5 +1,5 @@
 // Memory Host SDK module implements embeddings remote fetch behavior.
-import { asOptionalRecord } from "@openclaw/normalization-core/record-coerce";
+import { asOptionalRecord } from "@granted/normalization-core/record-coerce";
 import { readEmbeddingVectors } from "./embedding-vectors.js";
 import type { SsrFPolicy } from "./openclaw-runtime-network.js";
 import { postJson } from "./post-json.js";

@@ -5,7 +5,7 @@ Official OpenClaw plugin for Parallel.
 Install from OpenClaw:
 
 ```bash
-openclaw plugins install @openclaw/parallel-plugin
+openclaw plugins install @granted/parallel-plugin
 openclaw gateway restart
 ```
 

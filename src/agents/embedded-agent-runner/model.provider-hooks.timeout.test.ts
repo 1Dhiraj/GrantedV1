@@ -1,5 +1,5 @@
 import { createServer, type Server } from "node:http";
-import { withFirstStreamEventTimeout } from "@openclaw/ai/internal/runtime";
+import { withFirstStreamEventTimeout } from "@granted/ai/internal/runtime";
 import { beforeEach, describe, expect, it } from "vitest";
 import { withTestTimeout } from "../../../test/helpers/promise.js";
 import type { GrantedConfig } from "../../config/types.openclaw.js";

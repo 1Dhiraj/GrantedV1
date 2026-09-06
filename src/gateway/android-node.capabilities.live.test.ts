@@ -1,8 +1,8 @@
 // Android node capability live tests verify paired node command allowlists and remote policy behavior.
 import { randomUUID } from "node:crypto";
-import { expectDefined } from "@openclaw/normalization-core";
-import { asRecord, isRecord } from "@openclaw/normalization-core/record-coerce";
-import { normalizeNullableString } from "@openclaw/normalization-core/string-coerce";
+import { expectDefined } from "@granted/normalization-core";
+import { asRecord, isRecord } from "@granted/normalization-core/record-coerce";
+import { normalizeNullableString } from "@granted/normalization-core/string-coerce";
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import { unwrapRemoteConfigSnapshot } from "../../test/helpers/gateway/android-node-capabilities-policy-config.js";
 import { shouldFetchRemotePolicyConfig } from "../../test/helpers/gateway/android-node-capabilities-policy-source.js";

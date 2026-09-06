@@ -1,4 +1,4 @@
-import { parseStrictInteger } from "@openclaw/normalization-core/number-coercion";
+import { parseStrictInteger } from "@granted/normalization-core/number-coercion";
 // Commander registration for debug proxy capture, validation, query, and blob commands.
 import { InvalidArgumentError, type Command } from "commander";
 import type { CaptureQueryPreset } from "../proxy-capture/types.js";

@@ -1,5 +1,5 @@
 import path from "node:path";
-import { rawDataToString } from "@openclaw/gateway-client/websocket-data";
+import { rawDataToString } from "@granted/gateway-client/websocket-data";
 import {
   afterAll,
   beforeAll,

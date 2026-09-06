@@ -1,11 +1,11 @@
 // Runtime LLM helpers adapt plugin provider hooks into the core model runtime.
-import { parseModelCatalogRef } from "@openclaw/model-catalog-core/model-catalog-refs";
+import { parseModelCatalogRef } from "@granted/model-catalog-core/model-catalog-refs";
 import {
   normalizeBuiltInProviderModelId,
   stripSelfProviderModelPrefix,
-} from "@openclaw/model-catalog-core/provider-model-id-normalization";
-import { asFiniteNumber, asFiniteNumberInRange } from "@openclaw/normalization-core";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+} from "@granted/model-catalog-core/provider-model-id-normalization";
+import { asFiniteNumber, asFiniteNumberInRange } from "@granted/normalization-core";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { splitTrailingAuthProfile } from "../../agents/model-ref-profile.js";
 import { normalizeModelRef } from "../../agents/model-ref-shared.js";
 import type { UsageLike } from "../../agents/usage.js";

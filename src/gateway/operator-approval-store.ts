@@ -1,9 +1,9 @@
 // Persistent operator approval lifecycle and first-answer-wins transitions.
 import { createHash } from "node:crypto";
 import type { DatabaseSync } from "node:sqlite";
-import { safeParseJson } from "@openclaw/normalization-core/json-coercion";
-import { normalizeNullableString } from "@openclaw/normalization-core/string-coerce";
-import { normalizeUniqueTrimmedStringList } from "@openclaw/normalization-core/string-normalization";
+import { safeParseJson } from "@granted/normalization-core/json-coercion";
+import { normalizeNullableString } from "@granted/normalization-core/string-coerce";
+import { normalizeUniqueTrimmedStringList } from "@granted/normalization-core/string-normalization";
 import { sql, type Selectable } from "kysely";
 import {
   type DecisionReceiptV1,

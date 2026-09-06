@@ -1,8 +1,8 @@
 // Resolves bundled source overlays used by plugin packaging.
 import fs from "node:fs";
 import path from "node:path";
-import { decodeMountInfoPath } from "@openclaw/normalization-core/mountinfo-path";
-import { normalizeOptionalLowercaseString } from "@openclaw/normalization-core/string-coerce";
+import { decodeMountInfoPath } from "@granted/normalization-core/mountinfo-path";
+import { normalizeOptionalLowercaseString } from "@granted/normalization-core/string-coerce";
 import { buildLegacyBundledRootPath } from "./bundled-load-path-aliases.js";
 import {
   pluginCacheExistsSync,

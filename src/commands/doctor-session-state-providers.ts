@@ -1,7 +1,7 @@
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 /** Doctor repair for stale plugin-owned routing state persisted in session entries. */
-import { normalizeOptionalString as normalizeString } from "@openclaw/normalization-core/string-coerce";
-import { normalizeStringEntriesLower } from "@openclaw/normalization-core/string-normalization";
+import { normalizeOptionalString as normalizeString } from "@granted/normalization-core/string-coerce";
+import { normalizeStringEntriesLower } from "@granted/normalization-core/string-normalization";
 import { note } from "../../packages/terminal-core/src/note.js";
 import {
   resolveAgentModelFallbacksOverride,

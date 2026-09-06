@@ -1,5 +1,5 @@
 {
-  "name": "@openclaw/memory-wiki",
+  "name": "@granted/memory-wiki",
   "version": "2026.8.1",
   "private": true,
   "description": "OpenClaw persistent wiki plugin",
@@ -11,12 +11,12 @@
     "zod": "4.4.3"
   },
   "devDependencies": {
-    "@openclaw/memory-core": "workspace:*",
-    "@openclaw/plugin-sdk": "workspace:*",
-    "openclaw": "workspace:*"
+    "@granted/memory-core": "workspace:*",
+    "@granted/plugin-sdk": "workspace:*",
+    "granted": "workspace:*"
   },
   "peerDependencies": {
-    "openclaw": ">=2026.8.1"
+    "granted": ">=2026.8.1"
   },
   "peerDependenciesMeta": {
     "openclaw": {

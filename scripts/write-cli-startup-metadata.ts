@@ -12,7 +12,7 @@ import fs, {
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
-import { toErrorObject } from "@openclaw/normalization-core/error-coercion";
+import { toErrorObject } from "@granted/normalization-core/error-coercion";
 import pMap from "p-map";
 import type { RootHelpRenderOptions } from "../src/cli/program/root-help.js";
 import type { GrantedConfig } from "../src/config/config.js";

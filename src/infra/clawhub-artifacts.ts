@@ -1,11 +1,11 @@
 // ClawHub package, skill, resolver URL, and GitHub archive downloads.
 import { createHash } from "node:crypto";
 import fs from "node:fs/promises";
-import { parseStrictPositiveInteger } from "@openclaw/normalization-core/number-coercion";
+import { parseStrictPositiveInteger } from "@granted/normalization-core/number-coercion";
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
-} from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/string-coerce";
 import {
   createClawHubError,
   readClawHubBytes,

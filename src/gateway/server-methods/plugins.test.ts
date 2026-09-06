@@ -1,6 +1,6 @@
 // Plugin management Gateway handler tests cover DTO mapping, trust errors, and reload planning.
 
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
   readCapabilityConsentErrorDetails,
@@ -213,7 +213,7 @@ describe("plugin management Gateway handlers", () => {
         },
         source: {
           kind: "official-catalog",
-          packageName: "@openclaw/diffs",
+          packageName: "@granted/diffs",
           integrity: "sha256-catalog-pin",
           integrityKind: "sha256",
         },
@@ -256,7 +256,7 @@ describe("plugin management Gateway handlers", () => {
       {
         score: 0.91,
         package: {
-          name: "@openclaw/diffs",
+          name: "@granted/diffs",
           displayName: "Diffs",
           family: "code-plugin",
           channel: "official",
@@ -279,7 +279,7 @@ describe("plugin management Gateway handlers", () => {
         {
           score: 0.91,
           package: {
-            name: "@openclaw/diffs",
+            name: "@granted/diffs",
             displayName: "Diffs",
             family: "code-plugin",
             channel: "official",
@@ -497,7 +497,7 @@ describe("plugin management Gateway handlers", () => {
 
     await callHandler("plugins.install", {
       source: "clawhub",
-      packageName: "@openclaw/diffs",
+      packageName: "@granted/diffs",
       version: "1.2.3",
       acknowledgeCapabilities: { reviewToken },
     });
@@ -505,7 +505,7 @@ describe("plugin management Gateway handlers", () => {
     expect(managementMocks.install).toHaveBeenCalledWith({
       request: {
         source: "clawhub",
-        packageName: "@openclaw/diffs",
+        packageName: "@granted/diffs",
         version: "1.2.3",
         acknowledgeCapabilities: { reviewToken },
       },

@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { coerceErrorMessage } from "@openclaw/normalization-core/error-coercion";
+import { coerceErrorMessage } from "@granted/normalization-core/error-coercion";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { TranscriptsStore } from "../transcripts/store.js";
 import { createMeetingSession } from "./session-factory.js";

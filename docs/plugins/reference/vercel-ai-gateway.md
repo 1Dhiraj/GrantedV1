@@ -11,8 +11,8 @@ Adds Vercel AI Gateway model provider support to OpenClaw.
 
 ## Distribution
 
-- Package: `@openclaw/vercel-ai-gateway-provider`
-- Install route: npm; ClawHub: `clawhub:@openclaw/vercel-ai-gateway-provider`
+- Package: `@granted/vercel-ai-gateway-provider`
+- Install route: npm; ClawHub: `clawhub:@granted/vercel-ai-gateway-provider`
 
 ## Surface
 

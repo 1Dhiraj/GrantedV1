@@ -1,7 +1,7 @@
 // Managed service identity, shutdown, and recovery shared by update and Doctor.
 import { Writable } from "node:stream";
-import { parseStrictPositiveInteger } from "@openclaw/normalization-core/number-coercion";
-import { stableStringify } from "@openclaw/normalization-core/stable-stringify";
+import { parseStrictPositiveInteger } from "@granted/normalization-core/number-coercion";
+import { stableStringify } from "@granted/normalization-core/stable-stringify";
 import { theme } from "../../../packages/terminal-core/src/theme.js";
 import { createConfigIO } from "../../config/io.js";
 import { resolveGatewayPort } from "../../config/paths.js";

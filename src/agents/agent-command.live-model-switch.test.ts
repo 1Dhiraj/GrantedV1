@@ -3,7 +3,7 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { expectDefined, toStringifiedError } from "@openclaw/normalization-core";
+import { expectDefined, toStringifiedError } from "@granted/normalization-core";
 import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { createDeferred } from "../../test/helpers/promise.js";
@@ -363,7 +363,7 @@ vi.mock("./tools/gateway.js", () => ({
   callGatewayTool: (...args: unknown[]) => state.gatewayCallMock(...args),
 }));
 
-vi.mock("@openclaw/acp-core/runtime/session-identifiers", () => ({
+vi.mock("@granted/acp-core/runtime/session-identifiers", () => ({
   resolveAcpSessionCwd: () => "/tmp",
 }));
 

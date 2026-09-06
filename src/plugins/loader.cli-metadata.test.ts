@@ -293,7 +293,7 @@ module.exports = { id: "packaged-cli-metadata", register() {} };`,
       configSchema: EMPTY_PLUGIN_SCHEMA,
       channels: ["cli-metadata-channel"],
       packageJson: {
-        name: "@openclaw/cli-metadata-channel",
+        name: "@granted/cli-metadata-channel",
         openclaw: { extensions: ["./index.cjs"], setupEntry: "./setup-entry.cjs" },
       },
     });
@@ -385,7 +385,7 @@ module.exports = {
       configSchema: EMPTY_PLUGIN_SCHEMA,
       channels: ["bundled-skip-channel"],
       packageJson: {
-        name: "@openclaw/bundled-skip-channel",
+        name: "@granted/bundled-skip-channel",
         openclaw: { extensions: ["./index.cjs"] },
       },
     });
@@ -438,7 +438,7 @@ module.exports = {
       configSchema: EMPTY_PLUGIN_SCHEMA,
       channels: ["bundled-cli-channel"],
       packageJson: {
-        name: "@openclaw/bundled-cli-channel",
+        name: "@granted/bundled-cli-channel",
         openclaw: { extensions: ["./index.cjs"] },
       },
     });
@@ -513,7 +513,7 @@ module.exports = {
       id: "bundled-skip-provider",
       configSchema: EMPTY_PLUGIN_SCHEMA,
       packageJson: {
-        name: "@openclaw/bundled-skip-provider",
+        name: "@granted/bundled-skip-provider",
         openclaw: { extensions: ["./index.cjs"] },
       },
     });
@@ -563,7 +563,7 @@ module.exports = {
       configSchema: EMPTY_PLUGIN_SCHEMA,
       channels: ["full-cli-metadata-channel"],
       packageJson: {
-        name: "@openclaw/full-cli-metadata-channel",
+        name: "@granted/full-cli-metadata-channel",
         openclaw: { extensions: ["./index.cjs"] },
       },
     });
@@ -645,7 +645,7 @@ module.exports = {
       configSchema: EMPTY_PLUGIN_SCHEMA,
       channels: ["discovery-cli-metadata-channel"],
       packageJson: {
-        name: "@openclaw/discovery-cli-metadata-channel",
+        name: "@granted/discovery-cli-metadata-channel",
         openclaw: { extensions: ["./index.cjs"] },
       },
     });
@@ -736,7 +736,7 @@ module.exports = {
       configSchema: EMPTY_PLUGIN_SCHEMA,
       channels: ["force-runtime-cli-channel"],
       packageJson: {
-        name: "@openclaw/force-runtime-cli-channel",
+        name: "@granted/force-runtime-cli-channel",
         openclaw: { extensions: ["./index.cjs"], setupEntry: "./setup-entry.cjs" },
       },
     });

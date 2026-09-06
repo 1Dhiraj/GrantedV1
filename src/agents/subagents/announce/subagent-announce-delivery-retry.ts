@@ -1,7 +1,7 @@
 /**
  * Retry and error policy for subagent announcement delivery.
  */
-import { clampTimerTimeoutMs } from "@openclaw/normalization-core/number-coercion";
+import { clampTimerTimeoutMs } from "@granted/normalization-core/number-coercion";
 import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import { isFastTestRuntimeEnv } from "../../../infra/env.js";
 import {

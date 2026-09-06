@@ -1,5 +1,5 @@
 // Status-tool session resolution helpers keep storage lookup out of the tool body.
-import { uniqueStrings } from "@openclaw/normalization-core/string-normalization";
+import { uniqueStrings } from "@granted/normalization-core/string-normalization";
 import { resolveSessionEntryCandidateTarget, type SessionEntry } from "../../config/sessions.js";
 import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { buildAgentMainSessionKey, parseAgentSessionKey } from "../../routing/session-key.js";

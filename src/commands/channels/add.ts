@@ -1,6 +1,6 @@
-import { parseStrictNonNegativeInteger } from "@openclaw/normalization-core/number-coercion";
+import { parseStrictNonNegativeInteger } from "@granted/normalization-core/number-coercion";
 // Implements guided and non-interactive `openclaw channels add` account setup.
-import { normalizeOptionalLowercaseString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalLowercaseString } from "@granted/normalization-core/string-coerce";
 import {
   applyPreparedChannelAccountConfiguration,
   type ChannelAccountMutationPlugin,

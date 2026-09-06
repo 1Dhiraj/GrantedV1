@@ -1,6 +1,6 @@
 // Stores and resolves the last TUI session per workspace.
 import { createHash } from "node:crypto";
-import { normalizeLowercaseStringOrEmpty as normalizeMarker } from "@openclaw/normalization-core/string-coerce";
+import { normalizeLowercaseStringOrEmpty as normalizeMarker } from "@granted/normalization-core/string-coerce";
 import { executeSqliteQuerySync, getNodeSqliteKysely } from "../infra/kysely-sync.js";
 import { normalizeAgentId, parseAgentSessionKey } from "../routing/session-key.js";
 import {

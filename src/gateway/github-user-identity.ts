@@ -1,6 +1,6 @@
 import type { IncomingHttpHeaders } from "node:http";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
-import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
+import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
 import type { GatewayAuthConfig } from "../config/types.gateway.js";
 import { resolveCachedGitHubIdentity } from "../state/user-profile-github-identity.js";
 import { classifyTailscaleLogin } from "../state/user-profiles-tailscale-login.js";

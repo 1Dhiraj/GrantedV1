@@ -3,8 +3,8 @@ import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalLowercaseString,
   normalizeOptionalString,
-} from "@openclaw/normalization-core/string-coerce";
-import { normalizeHyphenSlug } from "@openclaw/normalization-core/string-normalization";
+} from "@granted/normalization-core/string-coerce";
+import { normalizeHyphenSlug } from "@granted/normalization-core/string-normalization";
 import type { MsgContext } from "../../auto-reply/templating.js";
 import { listChannelPlugins } from "../../channels/plugins/registry.js";
 import { normalizeSessionPeerId } from "../../sessions/session-key-utils.js";

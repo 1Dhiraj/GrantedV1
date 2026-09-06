@@ -1,5 +1,5 @@
 /** Shared guard for staging remote inbound media into the local cache. */
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import type { GrantedConfig } from "../../config/config.js";
 import { hasStagedMediaFacts } from "../../media/media-facts.js";
 import { createLazyImportLoader } from "../../shared/lazy-promise.js";

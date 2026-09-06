@@ -1,8 +1,8 @@
-import { isPromiseLike } from "@openclaw/normalization-core/promise-like";
+import { isPromiseLike } from "@granted/normalization-core/promise-like";
 /**
  * Handles assistant message lifecycle boundaries, final reconciliation, and usage.
  */
-import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import { resolveSendableOutboundReplyParts } from "granted/plugin-sdk/reply-payload";
 import { createInlineCodeState } from "../../packages/markdown-core/src/code-spans.js";
 import { parseReplyDirectives } from "../auto-reply/reply/reply-directives.js";

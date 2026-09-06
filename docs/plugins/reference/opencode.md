@@ -11,8 +11,8 @@ Adds OpenCode model provider support to OpenClaw.
 
 ## Distribution
 
-- Package: `@openclaw/opencode-provider`
-- Install route: npm; ClawHub: `clawhub:@openclaw/opencode-provider`
+- Package: `@granted/opencode-provider`
+- Install route: npm; ClawHub: `clawhub:@granted/opencode-provider`
 
 ## Surface
 

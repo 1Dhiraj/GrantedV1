@@ -1,15 +1,15 @@
 // Collects configured model, generation, voice, and memory provider ownership.
-import { listModelRefsFromConfigValue } from "@openclaw/model-catalog-core/configured-model-refs";
+import { listModelRefsFromConfigValue } from "@granted/model-catalog-core/configured-model-refs";
 import {
   buildModelCatalogMergeKey,
   parseModelCatalogRef,
-} from "@openclaw/model-catalog-core/model-catalog-refs";
+} from "@granted/model-catalog-core/model-catalog-refs";
 import {
   findNormalizedProviderValue,
   normalizeProviderId,
-} from "@openclaw/model-catalog-core/provider-id";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
-import { normalizeOptionalLowercaseString } from "@openclaw/normalization-core/string-coerce";
+} from "@granted/model-catalog-core/provider-id";
+import { isRecord } from "@granted/normalization-core/record-coerce";
+import { normalizeOptionalLowercaseString } from "@granted/normalization-core/string-coerce";
 import { listAgentEntries } from "../agents/agent-scope-config.js";
 import { resolveConfiguredTalkRealtimeProviderId } from "../config/talk.js";
 import type { GrantedConfig } from "../config/types.openclaw.js";

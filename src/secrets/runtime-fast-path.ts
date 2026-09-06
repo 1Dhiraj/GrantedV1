@@ -1,6 +1,6 @@
 /** Detects when secrets runtime preparation can safely use a fast path. */
 import { existsSync } from "node:fs";
-import { uniqueStrings } from "@openclaw/normalization-core/string-normalization";
+import { uniqueStrings } from "@granted/normalization-core/string-normalization";
 import { listAgentIds, resolveAgentDir } from "../agents/agent-scope-config.js";
 import { resolveSharedAuthStorePath } from "../agents/auth-profiles/path-resolve.js";
 import {

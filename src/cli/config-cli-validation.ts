@@ -1,5 +1,5 @@
-import { isRecord as isPlainRecord } from "@openclaw/normalization-core/record-coerce";
-import { uniqueValues } from "@openclaw/normalization-core/string-normalization";
+import { isRecord as isPlainRecord } from "@granted/normalization-core/record-coerce";
+import { uniqueValues } from "@granted/normalization-core/string-normalization";
 import type { ConfigFileSnapshot } from "../config/config.js";
 import { readConfigFileSnapshotForWrite } from "../config/config.js";
 import { formatConfigIssueLines, normalizeConfigIssues } from "../config/issue-format.js";

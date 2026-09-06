@@ -227,7 +227,7 @@ export function registerPreActionHooks(program: Command, programVersion: string)
       beforeStateMigrations = async (snapshot) => {
         if (snapshot) {
           const { isValidAgentId, normalizeAgentId } =
-            await import("@openclaw/normalization-core/agent-id");
+            await import("@granted/normalization-core/agent-id");
           if (isValidAgentId(stateMigrationAgentId)) {
             const [{ listAgentIds }, { retainLegacyDefaultAgentId }] = await Promise.all([
               import("../../agents/agent-scope-config.js"),

@@ -5,7 +5,7 @@
 import {
   findNormalizedProviderValue,
   normalizeProviderId,
-} from "@openclaw/model-catalog-core/provider-id";
+} from "@granted/model-catalog-core/provider-id";
 import type { GrantedConfig } from "../config/types.js";
 
 type ProviderModelRef = {

@@ -1,5 +1,5 @@
 // Coverage for assembling provider-transformed embedded attempt system prompts.
-import { prependSystemPromptAdditionAfterCacheBoundary } from "@openclaw/ai/internal/shared";
+import { prependSystemPromptAdditionAfterCacheBoundary } from "@granted/ai/internal/shared";
 import { Type } from "typebox";
 import { afterEach, beforeAll, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../../../test/helpers/temp-dir.js";

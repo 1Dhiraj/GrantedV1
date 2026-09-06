@@ -1,4 +1,4 @@
-# @openclaw/imessage
+# @granted/imessage
 
 Official iMessage channel plugin for OpenClaw, using `imsg` on a signed-in Mac.
 
@@ -9,7 +9,7 @@ available.
 ## Install
 
 ```bash
-openclaw plugins install @openclaw/imessage
+openclaw plugins install @granted/imessage
 ```
 
 Restart the Gateway after installing or updating the plugin.
@@ -25,5 +25,5 @@ enabling private API actions, and configuring local or remote-Mac operation:
 
 - Plugin id: `imessage`
 - Channel id: `imessage`
-- Package: `@openclaw/imessage`
+- Package: `@granted/imessage`
 - Minimum OpenClaw host: `2026.7.2`

@@ -1,6 +1,6 @@
 // Verifies persisted provider auth markers preserve credential provenance.
 import path from "node:path";
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
 import type { GrantedConfig } from "../config/types.openclaw.js";

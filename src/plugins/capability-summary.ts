@@ -1,6 +1,6 @@
 // Inventory needs capability facts without artifact inspection or lifecycle writes.
 import { createHash } from "node:crypto";
-import { redactSensitiveUrlLikeString } from "@openclaw/net-policy/redact-sensitive-url";
+import { redactSensitiveUrlLikeString } from "@granted/net-policy/redact-sensitive-url";
 import { PLUGIN_DECLARED_SURFACE_GROUPS } from "../../packages/gateway-protocol/src/schema/plugin-declared-surface-groups.js";
 import type {
   PluginDeclaredSurface,

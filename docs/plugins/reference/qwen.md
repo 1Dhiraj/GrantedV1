@@ -11,8 +11,8 @@ Adds Qwen, Qwen Cloud, Model Studio, DashScope, Qwen Token Plan, Bailian Token P
 
 ## Distribution
 
-- Package: `@openclaw/qwen-provider`
-- Install route: npm; ClawHub: `clawhub:@openclaw/qwen-provider`
+- Package: `@granted/qwen-provider`
+- Install route: npm; ClawHub: `clawhub:@granted/qwen-provider`
 
 ## Surface
 

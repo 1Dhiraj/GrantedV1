@@ -11,8 +11,8 @@ Adds Kilocode model provider support to OpenClaw.
 
 ## Distribution
 
-- Package: `@openclaw/kilocode-provider`
-- Install route: npm; ClawHub: `clawhub:@openclaw/kilocode-provider`
+- Package: `@granted/kilocode-provider`
+- Install route: npm; ClawHub: `clawhub:@granted/kilocode-provider`
 
 ## Surface
 

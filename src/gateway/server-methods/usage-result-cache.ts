@@ -1,4 +1,4 @@
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { resolveSessionAgentId } from "../../agents/agent-scope.js";
 import type { GrantedConfig } from "../../config/types.openclaw.js";
 import {

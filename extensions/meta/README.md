@@ -40,7 +40,7 @@ values. Meta does not publish an exact maximum-output figure for these catalog r
 Install the plugin and restart Gateway:
 
 ```bash
-openclaw plugins install @openclaw/meta-provider
+openclaw plugins install @granted/meta-provider
 openclaw gateway restart
 ```
 

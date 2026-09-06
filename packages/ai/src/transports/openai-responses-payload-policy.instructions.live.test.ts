@@ -1,4 +1,4 @@
-import type { AssistantMessage, Context, Model } from "@openclaw/llm-core";
+import type { AssistantMessage, Context, Model } from "@granted/llm-core";
 import { afterEach, describe, expect, it } from "vitest";
 import { cleanupSessionResources } from "../session-resources.js";
 import { createOpenAIResponsesTransportStreamFn } from "./openai-responses-client.js";

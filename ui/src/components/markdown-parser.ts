@@ -1,4 +1,4 @@
-import { asOptionalRecord } from "@openclaw/normalization-core/record-coerce";
+import { asOptionalRecord } from "@granted/normalization-core/record-coerce";
 import MarkdownIt, { type MarkdownIt as MarkdownItParser, type Token } from "markdown-it";
 import markdownItTaskLists from "markdown-it-task-lists";
 import { t } from "../i18n/index.ts";

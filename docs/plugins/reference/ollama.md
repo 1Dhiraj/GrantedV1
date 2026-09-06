@@ -11,7 +11,7 @@ Adds Ollama, Ollama Cloud model provider support to OpenClaw.
 
 ## Distribution
 
-- Package: `@openclaw/ollama-provider`
+- Package: `@granted/ollama-provider`
 - Install route: included in OpenClaw
 
 ## Surface

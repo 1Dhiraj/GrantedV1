@@ -1,5 +1,5 @@
 import path from "node:path";
-import { toStringifiedError } from "@openclaw/normalization-core/error-coercion";
+import { toStringifiedError } from "@granted/normalization-core/error-coercion";
 import { tryResolveLegacyCompatibilityAgentId } from "../config/legacy.default-agent-owner.js";
 import { hashRuntimeConfigValue } from "../config/runtime-snapshot.js";
 import type { GrantedConfig } from "../config/types.openclaw.js";

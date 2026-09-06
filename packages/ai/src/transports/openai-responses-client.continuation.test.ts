@@ -1,4 +1,4 @@
-import type { AssistantMessage, Context, Model } from "@openclaw/llm-core";
+import type { AssistantMessage, Context, Model } from "@granted/llm-core";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 type SdkResponse = { data: AsyncIterable<unknown>; response: Response };

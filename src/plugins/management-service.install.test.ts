@@ -1,5 +1,5 @@
 import os from "node:os";
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
 import { buildPluginCapabilitySummary, computeDeclaredSurfaceHash } from "./capability-summary.js";
@@ -144,20 +144,20 @@ describe("managed plugin installation", () => {
   it("pins curated ClawHub installs to the expected runtime id", async () => {
     mocks.readConfig.mockResolvedValue(configSnapshot());
     mockHostedOfficialCatalog([hostedFeedDiffsEntry]);
-    mockClawHubInstall("impostor", "@openclaw/diffs");
+    mockClawHubInstall("impostor", "@granted/diffs");
 
     await expect(
       installManagedPlugin({
         request: {
           source: "clawhub",
-          packageName: "@openclaw/diffs",
+          packageName: "@granted/diffs",
         },
         env: {},
       }),
     ).rejects.toThrow("expected diffs, got impostor");
     expect(mocks.clawhubInstall).toHaveBeenCalledWith(
       expect.objectContaining({
-        spec: "clawhub:@openclaw/diffs@2026.6.11",
+        spec: "clawhub:@granted/diffs@2026.6.11",
         expectedPluginId: "diffs",
         expectedIntegrity: `sha256-${Buffer.from("a".repeat(64), "hex").toString("base64")}`,
       }),
@@ -171,12 +171,12 @@ describe("managed plugin installation", () => {
       mocks.readConfig.mockResolvedValue(configSnapshot());
       mockHostedOfficialCatalog([
         {
-          name: "@openclaw/diffs",
+          name: "@granted/diffs",
           openclaw: {
             plugin: { id: "diffs" },
             install: {
-              npmSpec: "@openclaw/diffs",
-              clawhubSpec: "clawhub:@openclaw/diffs",
+              npmSpec: "@granted/diffs",
+              clawhubSpec: "clawhub:@granted/diffs",
               defaultChoice: "clawhub",
               expectedIntegrity: "sha512-npmpin",
             },
@@ -188,7 +188,7 @@ describe("managed plugin installation", () => {
           ? { ok: false, code: "npm_package_not_found", error: "package absent" }
           : { ok: true, pluginId: "diffs", targetDir: "/tmp/npm/diffs", extensions: ["index.js"] },
       );
-      mockClawHubInstall("diffs", "@openclaw/diffs");
+      mockClawHubInstall("diffs", "@granted/diffs");
       mocks.persistInstall.mockResolvedValue({});
       mocks.metadata.mockReturnValue(
         metadataSnapshot({ enabled: true, id: "diffs", name: "Diffs", origin: "global" }),
@@ -228,10 +228,10 @@ describe("managed plugin installation", () => {
     mocks.readConfig.mockResolvedValue(configSnapshot());
     mockHostedOfficialCatalog([
       {
-        name: "@openclaw/diffs",
+        name: "@granted/diffs",
         openclaw: {
           plugin: { id: "diffs" },
-          install: { npmSpec: "@openclaw/diffs", clawhubSpec: "clawhub:@openclaw/diffs" },
+          install: { npmSpec: "@granted/diffs", clawhubSpec: "clawhub:@granted/diffs" },
         },
       },
     ]);
@@ -253,7 +253,7 @@ describe("managed plugin installation", () => {
             ...hostedFeedDiffsEntry.install.candidates,
             {
               sourceRef: "public-npm",
-              package: "@openclaw/diffs",
+              package: "@granted/diffs",
               version: "2026.6.11",
               integrity: "sha512-test",
             },
@@ -266,7 +266,7 @@ describe("managed plugin installation", () => {
       code: "npm_package_not_found",
       error: "package absent",
     });
-    mockClawHubInstall("diffs", "@openclaw/diffs");
+    mockClawHubInstall("diffs", "@granted/diffs");
     mocks.persistInstall.mockResolvedValue({});
     mocks.metadata.mockReturnValue(
       metadataSnapshot({ enabled: true, id: "diffs", origin: "global" }),
@@ -281,13 +281,13 @@ describe("managed plugin installation", () => {
     });
     expect(mocks.npmInstall).toHaveBeenCalledWith(
       expect.objectContaining({
-        spec: "@openclaw/diffs@2026.6.11",
+        spec: "@granted/diffs@2026.6.11",
         expectedIntegrity: "sha512-test",
       }),
     );
     expect(mocks.clawhubInstall).toHaveBeenCalledWith(
       expect.objectContaining({
-        spec: "clawhub:@openclaw/diffs@2026.6.11",
+        spec: "clawhub:@granted/diffs@2026.6.11",
         expectedIntegrity: `sha256-${Buffer.from("a".repeat(64), "hex").toString("base64")}`,
       }),
     );
@@ -296,23 +296,23 @@ describe("managed plugin installation", () => {
   it("resolves hosted-only beta installs without pinning the package name as a runtime id", async () => {
     const installRecord = {
       source: "clawhub",
-      spec: "clawhub:@openclaw/bluebubbles",
+      spec: "clawhub:@granted/bluebubbles",
       installPath: "/tmp/extensions/bluebubbles",
     };
     mocks.readConfig.mockResolvedValue(configSnapshot({ update: { channel: "beta" } }));
     // Package identity without a declared runtime id must not become an expectedPluginId pin.
     mockHostedOfficialCatalog([
       {
-        id: "@openclaw/bluebubbles",
+        id: "@granted/bluebubbles",
         title: "BlueBubbles",
         state: "available",
         publisher: { id: "openclaw", trust: "official" },
         install: {
-          candidates: [{ sourceRef: "public-clawhub", package: "@openclaw/bluebubbles" }],
+          candidates: [{ sourceRef: "public-clawhub", package: "@granted/bluebubbles" }],
         },
       },
     ]);
-    mockClawHubInstall("bluebubbles", "@openclaw/bluebubbles");
+    mockClawHubInstall("bluebubbles", "@granted/bluebubbles");
     mocks.persistInstall.mockResolvedValue({});
     mocks.refreshRegistry.mockResolvedValue(undefined);
     mocks.metadata.mockReturnValue(
@@ -328,7 +328,7 @@ describe("managed plugin installation", () => {
     const result = await installManagedPlugin({
       request: {
         source: "clawhub",
-        packageName: "@openclaw/bluebubbles",
+        packageName: "@granted/bluebubbles",
         acknowledgeCapabilities: emptyArtifactAcknowledgment,
       },
       env: {},
@@ -338,11 +338,11 @@ describe("managed plugin installation", () => {
       expect.not.objectContaining({ expectedPluginId: expect.anything() }),
     );
     expect(mocks.clawhubInstall).toHaveBeenCalledWith(
-      expect.objectContaining({ spec: "clawhub:@openclaw/bluebubbles@beta" }),
+      expect.objectContaining({ spec: "clawhub:@granted/bluebubbles@beta" }),
     );
     expect(mocks.persistInstall).toHaveBeenCalledWith(
       expect.objectContaining({
-        install: expect.objectContaining({ spec: "clawhub:@openclaw/bluebubbles" }),
+        install: expect.objectContaining({ spec: "clawhub:@granted/bluebubbles" }),
       }),
     );
     expect(result.plugin.id).toBe("bluebubbles");
@@ -377,7 +377,7 @@ describe("managed plugin installation", () => {
   it("threads hosted ClawHub candidate integrity into official installs", async () => {
     mocks.readConfig.mockResolvedValue(configSnapshot());
     mockHostedOfficialCatalog([hostedFeedDiffsEntry]);
-    mockClawHubInstall("diffs", "@openclaw/diffs");
+    mockClawHubInstall("diffs", "@granted/diffs");
     mocks.persistInstall.mockResolvedValue({});
     mocks.metadata.mockReturnValue(
       metadataSnapshot({ enabled: true, id: "diffs", name: "Diffs", origin: "global" }),
@@ -394,7 +394,7 @@ describe("managed plugin installation", () => {
 
     expect(mocks.clawhubInstall).toHaveBeenCalledWith(
       expect.objectContaining({
-        spec: "clawhub:@openclaw/diffs@2026.6.11",
+        spec: "clawhub:@granted/diffs@2026.6.11",
         expectedPluginId: "diffs",
         expectedIntegrity: `sha256-${Buffer.from("a".repeat(64), "hex").toString("base64")}`,
       }),
@@ -439,11 +439,11 @@ describe("managed plugin installation", () => {
         pluginId: "diffs",
         targetDir: "/tmp/extensions/diffs",
         extensions: ["index.js"],
-        packageName: "@openclaw/diffs",
+        packageName: "@granted/diffs",
         clawhub: {
           source: "clawhub",
           clawhubUrl: "https://clawhub.ai",
-          clawhubPackage: "@openclaw/diffs",
+          clawhubPackage: "@granted/diffs",
           clawhubFamily: "code-plugin",
         },
       };

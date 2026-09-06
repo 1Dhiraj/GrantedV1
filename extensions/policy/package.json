@@ -1,5 +1,5 @@
 {
-  "name": "@openclaw/policy",
+  "name": "@granted/policy",
   "version": "2026.8.1",
   "private": true,
   "description": "OpenClaw policy doctor checks for workspace conformance",
@@ -8,11 +8,11 @@
     "json5": "2.2.3"
   },
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*",
-    "openclaw": "workspace:*"
+    "@granted/plugin-sdk": "workspace:*",
+    "granted": "workspace:*"
   },
   "peerDependencies": {
-    "openclaw": ">=2026.8.1"
+    "granted": ">=2026.8.1"
   },
   "peerDependenciesMeta": {
     "openclaw": {

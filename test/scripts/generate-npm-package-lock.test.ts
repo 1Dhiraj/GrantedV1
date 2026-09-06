@@ -40,7 +40,7 @@ describe("generate-npm-package-lock", () => {
       {
         bundleDependencies: ["chalk"],
         bundledDependencies: ["chalk"],
-        dependencies: { "@openclaw/ai": "workspace:2026.6.11", chalk: "5.6.2" },
+        dependencies: { "@granted/ai": "workspace:2026.6.11", chalk: "5.6.2" },
         devDependencies: { local: "workspace:*" },
         peerDependencies: { host: "workspace:^1.2.3" },
       },
@@ -226,15 +226,15 @@ describe("generate-npm-package-lock", () => {
 
   it("parses nested scoped package paths", () => {
     expect(
-      parseLockPackagePath("node_modules/@openclaw/codex/node_modules/@anthropic-ai/sdk"),
+      parseLockPackagePath("node_modules/@granted/codex/node_modules/@anthropic-ai/sdk"),
     ).toEqual([
       {
-        name: "@openclaw/codex",
-        path: "node_modules/@openclaw/codex",
+        name: "@granted/codex",
+        path: "node_modules/@granted/codex",
       },
       {
         name: "@anthropic-ai/sdk",
-        path: "node_modules/@openclaw/codex/node_modules/@anthropic-ai/sdk",
+        path: "node_modules/@granted/codex/node_modules/@anthropic-ai/sdk",
       },
     ]);
   });
@@ -259,17 +259,17 @@ describe("generate-npm-package-lock", () => {
             "lru-cache": "^11.5.0",
           },
         },
-        "node_modules/@openclaw/codex": {
+        "node_modules/@granted/codex": {
           version: "0.75.4",
           hasShrinkwrap: true,
         },
-        "node_modules/@openclaw/codex/node_modules/protobufjs": {
+        "node_modules/@granted/codex/node_modules/protobufjs": {
           version: "7.5.9",
         },
-        "node_modules/@openclaw/codex/node_modules/fetch-blob": {
+        "node_modules/@granted/codex/node_modules/fetch-blob": {
           version: "4.0.0",
         },
-        "node_modules/@openclaw/codex/node_modules/fetch-blob/node_modules/node-domexception": {
+        "node_modules/@granted/codex/node_modules/fetch-blob/node_modules/node-domexception": {
           version: "1.0.0",
         },
       },
@@ -281,11 +281,11 @@ describe("generate-npm-package-lock", () => {
 
     expect(collectOverrideViolations(lockfile, overrideRules)).toHaveLength(2);
     expect(disableDependencyShrinkwrapOverrideConflictSources(lockfile, overrideRules)).toEqual([
-      "node_modules/@openclaw/codex",
+      "node_modules/@granted/codex",
     ]);
-    expect(lockfile.packages["node_modules/@openclaw/codex"]).not.toHaveProperty("hasShrinkwrap");
+    expect(lockfile.packages["node_modules/@granted/codex"]).not.toHaveProperty("hasShrinkwrap");
     expect(
-      lockfile.packages["node_modules/@openclaw/codex/node_modules/protobufjs"],
+      lockfile.packages["node_modules/@granted/codex/node_modules/protobufjs"],
     ).toBeUndefined();
   });
 

@@ -1,4 +1,4 @@
-import type { SystemAgentChatParams, SystemAgentChatResult } from "@openclaw/gateway-protocol";
+import type { SystemAgentChatParams, SystemAgentChatResult } from "@granted/gateway-protocol";
 import type { GatewayBrowserClient } from "../../api/gateway.ts";
 import type { ApplicationContext } from "../../app/context.ts";
 import type { CustodianTurnAdmission } from "../../components/custodian-alert-contract.ts";

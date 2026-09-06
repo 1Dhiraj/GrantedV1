@@ -4,7 +4,7 @@ import type {
   EnvironmentSummary,
   EnvironmentsListResult,
   WorkerDesktopLaunchResult,
-} from "@openclaw/gateway-protocol";
+} from "@granted/gateway-protocol";
 import { html, nothing } from "lit";
 import { property, state } from "lit/decorators.js";
 import type { GatewayBrowserClient } from "../../api/gateway.ts";

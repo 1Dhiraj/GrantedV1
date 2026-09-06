@@ -1,4 +1,4 @@
-import { normalizeAgentId } from "@openclaw/normalization-core/agent-id";
+import { normalizeAgentId } from "@granted/normalization-core/agent-id";
 import { listAgentIds } from "../../agents/agent-scope-config.js";
 import { classifySessionKeyShape } from "../../routing/session-key.js";
 import type { GrantedConfig } from "../types.openclaw.js";

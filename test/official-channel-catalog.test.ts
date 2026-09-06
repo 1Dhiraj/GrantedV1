@@ -191,7 +191,7 @@ describe("buildOfficialChannelCatalog", () => {
   it("lets publishable package metadata override same-id seeds and skips non-publishable entries", () => {
     const repoRoot = makeRepoRoot("openclaw-official-channel-catalog-");
     writeJson(path.join(repoRoot, "extensions", "wecom", "package.json"), {
-      name: "@openclaw/wecom",
+      name: "@granted/wecom",
       version: "2026.8.1",
       description: "Repository-owned WeCom channel",
       openclaw: {
@@ -208,7 +208,7 @@ describe("buildOfficialChannelCatalog", () => {
           },
         },
         install: {
-          npmSpec: "@openclaw/wecom",
+          npmSpec: "@granted/wecom",
           defaultChoice: "npm",
         },
         release: {
@@ -248,7 +248,7 @@ describe("buildOfficialChannelCatalog", () => {
       },
     });
     writeJson(path.join(repoRoot, "extensions", "local-only", "package.json"), {
-      name: "@openclaw/local-only",
+      name: "@granted/local-only",
       openclaw: {
         channel: {
           id: "local-only",
@@ -273,7 +273,7 @@ describe("buildOfficialChannelCatalog", () => {
         findCatalogEntry(entries, (entry) => entry.openclaw?.channel?.id === "wecom"),
       ),
     ).toEqual({
-      name: "@openclaw/wecom",
+      name: "@granted/wecom",
       description: "Repository-owned WeCom channel",
       source: "official",
       plugin: undefined,
@@ -313,7 +313,7 @@ describe("buildOfficialChannelCatalog", () => {
         },
       ],
       install: {
-        npmSpec: "@openclaw/wecom",
+        npmSpec: "@granted/wecom",
         defaultChoice: "npm",
       },
     });
@@ -414,14 +414,14 @@ describe("buildOfficialChannelCatalog", () => {
     const repoRoot = makeRepoRoot("openclaw-official-channel-catalog-duplicate-");
     for (const dirName of ["first", "second"]) {
       writeJson(path.join(repoRoot, "extensions", dirName, "package.json"), {
-        name: `@openclaw/${dirName}`,
+        name: `@granted/${dirName}`,
         openclaw: {
           channel: {
             id: "duplicate",
             label: dirName,
           },
           install: {
-            npmSpec: `@openclaw/${dirName}`,
+            npmSpec: `@granted/${dirName}`,
           },
           release: {
             publishToNpm: true,
@@ -464,7 +464,7 @@ describe("buildOfficialChannelCatalog", () => {
     const seedChannelIds = seed.entries.map((entry) => entry.openclaw?.channel?.id?.toLowerCase());
 
     expect(seed.entries.every((entry) => entry.source === "external")).toBe(true);
-    expect(seed.entries.some((entry) => entry.name?.startsWith("@openclaw/"))).toBe(false);
+    expect(seed.entries.some((entry) => entry.name?.startsWith("@granted/"))).toBe(false);
     expect(new Set(seedChannelIds).size).toBe(seedChannelIds.length);
     expect(
       seed.entries.some((entry) => {
@@ -480,7 +480,7 @@ describe("buildOfficialChannelCatalog", () => {
       files: ["dist/extensions/**", "!dist/extensions/hidden/**"],
     });
     writeJson(path.join(repoRoot, "extensions", "bundled", "package.json"), {
-      name: "@openclaw/bundled",
+      name: "@granted/bundled",
       openclaw: {
         channel: {
           id: "bundled",
@@ -491,7 +491,7 @@ describe("buildOfficialChannelCatalog", () => {
       },
     });
     writeJson(path.join(repoRoot, "extensions", "hidden", "package.json"), {
-      name: "@openclaw/hidden",
+      name: "@granted/hidden",
       openclaw: {
         channel: {
           id: "hidden",
@@ -532,7 +532,7 @@ describe("buildOfficialChannelCatalog", () => {
   it("uses the canonical channel docs route when a manifest omits docsPath", () => {
     const repoRoot = makeRepoRoot("openclaw-default-channel-docs-route-");
     writeJson(path.join(repoRoot, "extensions", "defaulted", "package.json"), {
-      name: "@openclaw/defaulted",
+      name: "@granted/defaulted",
       openclaw: {
         channel: {
           id: "defaulted",
@@ -562,7 +562,7 @@ describe("buildOfficialChannelCatalog", () => {
       files: ["dist/extensions/**", "!dist/extensions/source-only/**"],
     });
     writeJson(path.join(repoRoot, "extensions", "source-only", "package.json"), {
-      name: "@openclaw/source-only",
+      name: "@granted/source-only",
       openclaw: {
         channel: {
           id: "source-only",
@@ -601,7 +601,7 @@ describe("buildOfficialChannelCatalog", () => {
   ])("rejects channel docs with $name", ({ content, error }) => {
     const repoRoot = makeRepoRoot("openclaw-channel-docs-frontmatter-");
     writeJson(path.join(repoRoot, "extensions", "frontmatter-test", "package.json"), {
-      name: "@openclaw/frontmatter-test",
+      name: "@granted/frontmatter-test",
       openclaw: {
         channel: {
           id: "frontmatter-test",
@@ -622,7 +622,7 @@ describe("buildOfficialChannelCatalog", () => {
   it("writes the generated docs block and reports missing or hidden navigation routes", () => {
     const repoRoot = makeRepoRoot("openclaw-official-channel-docs-write-");
     writeJson(path.join(repoRoot, "extensions", "bundled", "package.json"), {
-      name: "@openclaw/bundled",
+      name: "@granted/bundled",
       openclaw: {
         channel: {
           id: "bundled",
@@ -633,7 +633,7 @@ describe("buildOfficialChannelCatalog", () => {
       },
     });
     writeJson(path.join(repoRoot, "extensions", "hidden", "package.json"), {
-      name: "@openclaw/hidden",
+      name: "@granted/hidden",
       openclaw: {
         channel: {
           id: "hidden",
@@ -711,7 +711,7 @@ describe("buildOfficialChannelCatalog", () => {
   it("keeps third-party official external catalog npm sources pinned unless they track latest", () => {
     const repoRoot = makeRepoRoot("openclaw-official-channel-catalog-policy-");
     const entries = buildOfficialChannelCatalog({ repoRoot }).entries.filter(
-      (entry) => entry.source === "external" && !entry.name?.startsWith("@openclaw/"),
+      (entry) => entry.source === "external" && !entry.name?.startsWith("@granted/"),
     );
 
     expect(entries.length).toBeGreaterThan(0);
@@ -725,7 +725,7 @@ describe("buildOfficialChannelCatalog", () => {
   it("allows official OpenClaw channel npm specs without integrity during launch", () => {
     const repoRoot = makeRepoRoot("openclaw-official-channel-catalog-openclaw-policy-");
     writeJson(path.join(repoRoot, "extensions", "twitch", "package.json"), {
-      name: "@openclaw/twitch",
+      name: "@granted/twitch",
       openclaw: {
         channel: {
           id: "twitch",
@@ -733,7 +733,7 @@ describe("buildOfficialChannelCatalog", () => {
           docsPath: "/channels/twitch",
         },
         install: {
-          npmSpec: "@openclaw/twitch",
+          npmSpec: "@granted/twitch",
           defaultChoice: "npm",
           minHostVersion: ">=2026.4.10",
         },
@@ -750,9 +750,9 @@ describe("buildOfficialChannelCatalog", () => {
       name: twitch?.name,
       install: twitch?.openclaw?.install,
     }).toEqual({
-      name: "@openclaw/twitch",
+      name: "@granted/twitch",
       install: {
-        npmSpec: "@openclaw/twitch",
+        npmSpec: "@granted/twitch",
         defaultChoice: "npm",
         minHostVersion: ">=2026.4.10",
       },
@@ -765,7 +765,7 @@ describe("buildOfficialChannelCatalog", () => {
   it("keeps iMessage available for cold install after core package externalization", () => {
     const repoRoot = makeRepoRoot("openclaw-official-channel-catalog-imessage-");
     writeJson(path.join(repoRoot, "extensions", "imessage", "package.json"), {
-      name: "@openclaw/imessage",
+      name: "@granted/imessage",
       openclaw: {
         channel: {
           id: "imessage",
@@ -774,8 +774,8 @@ describe("buildOfficialChannelCatalog", () => {
           docsPath: "/channels/imessage",
         },
         install: {
-          clawhubSpec: "clawhub:@openclaw/imessage",
-          npmSpec: "@openclaw/imessage",
+          clawhubSpec: "clawhub:@granted/imessage",
+          npmSpec: "@granted/imessage",
           defaultChoice: "npm",
           minHostVersion: ">=2026.7.2",
           allowInvalidConfigRecovery: true,
@@ -794,11 +794,11 @@ describe("buildOfficialChannelCatalog", () => {
       aliases: imessage?.openclaw?.channel?.aliases,
       install: imessage?.openclaw?.install,
     }).toEqual({
-      name: "@openclaw/imessage",
+      name: "@granted/imessage",
       aliases: ["imsg"],
       install: {
-        clawhubSpec: "clawhub:@openclaw/imessage",
-        npmSpec: "@openclaw/imessage",
+        clawhubSpec: "clawhub:@granted/imessage",
+        npmSpec: "@granted/imessage",
         defaultChoice: "npm",
         minHostVersion: ">=2026.7.2",
         allowInvalidConfigRecovery: true,
@@ -809,7 +809,7 @@ describe("buildOfficialChannelCatalog", () => {
   it("preserves ClawHub specs when generating publishable channel catalog entries", () => {
     const repoRoot = makeRepoRoot("openclaw-official-channel-catalog-clawhub-");
     writeJson(path.join(repoRoot, "extensions", "storepack-chat", "package.json"), {
-      name: "@openclaw/storepack-chat",
+      name: "@granted/storepack-chat",
       openclaw: {
         channel: {
           id: "storepack-chat",
@@ -819,8 +819,8 @@ describe("buildOfficialChannelCatalog", () => {
           blurb: "storepack-first channel",
         },
         install: {
-          clawhubSpec: "clawhub:@openclaw/storepack-chat",
-          npmSpec: "@openclaw/storepack-chat",
+          clawhubSpec: "clawhub:@granted/storepack-chat",
+          npmSpec: "@granted/storepack-chat",
           defaultChoice: "clawhub",
         },
         release: {
@@ -834,8 +834,8 @@ describe("buildOfficialChannelCatalog", () => {
     );
 
     expect(requireInstall(entry)).toEqual({
-      clawhubSpec: "clawhub:@openclaw/storepack-chat",
-      npmSpec: "@openclaw/storepack-chat",
+      clawhubSpec: "clawhub:@granted/storepack-chat",
+      npmSpec: "@granted/storepack-chat",
       defaultChoice: "clawhub",
     });
   });
@@ -843,7 +843,7 @@ describe("buildOfficialChannelCatalog", () => {
   it("writes the official catalog under dist", () => {
     const repoRoot = makeRepoRoot("openclaw-official-channel-catalog-write-");
     writeJson(path.join(repoRoot, "extensions", "whatsapp", "package.json"), {
-      name: "@openclaw/whatsapp",
+      name: "@granted/whatsapp",
       openclaw: {
         channel: {
           id: "whatsapp",
@@ -853,7 +853,7 @@ describe("buildOfficialChannelCatalog", () => {
           blurb: "wa",
         },
         install: {
-          npmSpec: "@openclaw/whatsapp",
+          npmSpec: "@granted/whatsapp",
         },
         release: {
           publishToNpm: true,
@@ -878,7 +878,7 @@ describe("buildOfficialChannelCatalog", () => {
         entry.openclaw?.channel?.id === "whatsapp",
     );
     expect(summarizeCatalogEntry(whatsappEntry)).toEqual({
-      name: "@openclaw/whatsapp",
+      name: "@granted/whatsapp",
       description: undefined,
       source: "official",
       plugin: undefined,
@@ -894,7 +894,7 @@ describe("buildOfficialChannelCatalog", () => {
       channelConfigs: undefined,
       providerEndpoints: undefined,
       install: {
-        npmSpec: "@openclaw/whatsapp",
+        npmSpec: "@granted/whatsapp",
       },
     });
     const whatsappEntries = entries.filter(
@@ -907,7 +907,7 @@ describe("buildOfficialChannelCatalog", () => {
   it("writes and checks the committed official catalog", () => {
     const repoRoot = makeRepoRoot("openclaw-official-channel-catalog-source-");
     writeJson(path.join(repoRoot, "extensions", "demo", "package.json"), {
-      name: "@openclaw/demo",
+      name: "@granted/demo",
       openclaw: {
         channel: {
           id: "demo",
@@ -915,7 +915,7 @@ describe("buildOfficialChannelCatalog", () => {
           docsPath: "/channels/demo",
         },
         install: {
-          npmSpec: "@openclaw/demo",
+          npmSpec: "@granted/demo",
         },
         release: {
           publishToNpm: true,

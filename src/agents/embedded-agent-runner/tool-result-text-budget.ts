@@ -1,5 +1,5 @@
-import { estimateStringChars } from "@openclaw/normalization-core/cjk-chars";
-import { sliceUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+import { estimateStringChars } from "@granted/normalization-core/cjk-chars";
+import { sliceUtf16Safe } from "@granted/normalization-core/utf16-slice";
 
 type ToolResultTextBudgetOptions = {
   minimumRawWeight?: number;

@@ -1,7 +1,7 @@
 /**
  * Removes short-window duplicate user turns from compaction summaries.
  */
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import { hasPersistedMedia } from "../../sessions/user-turn-media.js";
 
 const DEFAULT_DUPLICATE_USER_MESSAGE_WINDOW_MS = 60_000;

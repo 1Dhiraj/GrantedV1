@@ -1,4 +1,4 @@
-import { createOpenAIResponsesTransportStreamFn } from "@openclaw/ai/transports";
+import { createOpenAIResponsesTransportStreamFn } from "@granted/ai/transports";
 import { clearLiveCatalogCacheForTests } from "granted/plugin-sdk/provider-catalog-live-runtime";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import clawrouter from "../../extensions/clawrouter/index.js";

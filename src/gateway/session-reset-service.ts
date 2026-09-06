@@ -1,9 +1,9 @@
 // Gateway session reset/delete service.
 // Rotates transcripts and coordinates lifecycle cleanup across runtimes/hooks.
 import { randomUUID } from "node:crypto";
-import { cleanupSessionResources } from "@openclaw/ai/internal/runtime";
-import { type FastMode, normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
-import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+import { cleanupSessionResources } from "@granted/ai/internal/runtime";
+import { type FastMode, normalizeOptionalString } from "@granted/normalization-core/string-coerce";
+import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import {
   ErrorCodes,
   errorShape,

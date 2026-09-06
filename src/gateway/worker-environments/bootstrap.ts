@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import { PROCESS_NODE_VERSION_CHECK } from "../../../node-version.mjs";
 import {
   type WorkerAdmissionHandshake,

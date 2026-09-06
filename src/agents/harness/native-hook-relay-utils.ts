@@ -1,5 +1,5 @@
-import { readNonEmptyStringPreservingWhitespace as readOptionalNonEmptyString } from "@openclaw/normalization-core/string-coerce";
-import { truncateUtf16Safe, truncateWithMarker } from "@openclaw/normalization-core/utf16-slice";
+import { readNonEmptyStringPreservingWhitespace as readOptionalNonEmptyString } from "@granted/normalization-core/string-coerce";
+import { truncateUtf16Safe, truncateWithMarker } from "@granted/normalization-core/utf16-slice";
 import type {
   JsonValue,
   NativeHookRelayEvent,

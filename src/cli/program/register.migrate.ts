@@ -1,4 +1,4 @@
-import { normalizeOptionalTrimmedStringList } from "@openclaw/normalization-core/string-normalization";
+import { normalizeOptionalTrimmedStringList } from "@granted/normalization-core/string-normalization";
 // Migration command registration: list, plan, and apply migration providers.
 import type { Command } from "commander";
 import { theme } from "../../../packages/terminal-core/src/theme.js";

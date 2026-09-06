@@ -1,6 +1,6 @@
 // Verifies session tool-result guard inserts, truncates, and repairs tool results.
 
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import type { AgentMessage } from "granted/plugin-sdk/agent-core";
 import { SessionManager } from "granted/plugin-sdk/agent-sessions";
 import { Type } from "typebox";

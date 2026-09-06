@@ -2,9 +2,9 @@ import {
   SessionsCreateParamsSchema,
   SessionPermissionModeSchema,
   SessionToolOverridesSchema,
-} from "@openclaw/gateway-protocol";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
-import { hasNonEmptyString as isNonEmptyString } from "@openclaw/normalization-core/string-coerce";
+} from "@granted/gateway-protocol";
+import { isRecord } from "@granted/normalization-core/record-coerce";
+import { hasNonEmptyString as isNonEmptyString } from "@granted/normalization-core/string-coerce";
 import { Value } from "typebox/value";
 import { formatUiError } from "../format-error.ts";
 import type { SessionCreateParams } from "./create.ts";

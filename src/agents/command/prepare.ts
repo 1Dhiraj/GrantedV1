@@ -1,5 +1,5 @@
-import { parseStrictNonNegativeInteger } from "@openclaw/normalization-core/number-coercion";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { parseStrictNonNegativeInteger } from "@granted/normalization-core/number-coercion";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { resolveSessionStableReplyMode } from "../../auto-reply/reply/session-stable-reply-mode.js";
 import { isSyntheticSourceReplyTurn } from "../../auto-reply/reply/source-reply-delivery-mode.js";
 import {

@@ -1,6 +1,6 @@
 /* @vitest-environment jsdom */
 
-import type { TalkCatalogResult } from "@openclaw/gateway-protocol";
+import type { TalkCatalogResult } from "@granted/gateway-protocol";
 import { html, render } from "lit";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import type { GatewayBrowserClient } from "../../api/gateway.ts";

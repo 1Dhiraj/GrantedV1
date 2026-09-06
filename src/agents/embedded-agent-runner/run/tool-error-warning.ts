@@ -1,4 +1,4 @@
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import type { VerboseLevel } from "../../../auto-reply/thinking.js";
 import { formatToolAggregateParts } from "../../../auto-reply/tool-meta.js";
 import { formatInlineCodeSpan } from "../../../shared/markdown-code.js";

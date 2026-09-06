@@ -46,7 +46,7 @@ const ruleTextByMode: Record<BoundaryMode, string> = {
     "Rule: production bundled plugins must not import normalization-core directly; use the matching openclaw/plugin-sdk coercion runtime",
 };
 
-const NORMALIZATION_CORE_PACKAGE = "@openclaw/normalization-core";
+const NORMALIZATION_CORE_PACKAGE = "@granted/normalization-core";
 const NORMALIZATION_CORE_ROOT = "packages/normalization-core";
 const DIRECT_COERCION_OWNER_PATHS = new Set(["src/infra/errors", "src/utils/boolean"]);
 

@@ -1,8 +1,8 @@
 /**
  * Projects provider assistant messages into ordered visible stream state.
  */
-import { asOptionalRecord as asRecord } from "@openclaw/normalization-core/record-coerce";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { asOptionalRecord as asRecord } from "@granted/normalization-core/record-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { resolveSendableOutboundReplyParts } from "granted/plugin-sdk/reply-payload";
 import {
   parseReplyDirectives,

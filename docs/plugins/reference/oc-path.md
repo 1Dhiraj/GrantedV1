@@ -11,7 +11,7 @@ Adds the openclaw path CLI for oc:// workspace file addressing.
 
 ## Distribution
 
-- Package: `@openclaw/oc-path`
+- Package: `@granted/oc-path`
 - Install route: included in OpenClaw
 
 ## Surface

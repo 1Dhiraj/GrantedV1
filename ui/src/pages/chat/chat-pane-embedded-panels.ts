@@ -1,4 +1,4 @@
-import { buildControlUiFocusPath } from "@openclaw/session-url-contract";
+import { buildControlUiFocusPath } from "@granted/session-url-contract";
 import { html, nothing, type TemplateResult } from "lit";
 import type { SessionObserverDigest } from "../../../../packages/gateway-protocol/src/schema/sessions.js";
 import type { ControlUiSessionPullRequest } from "../../../../src/gateway/control-ui-contract.js";

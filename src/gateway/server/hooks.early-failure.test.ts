@@ -1,7 +1,7 @@
 import { readFile } from "node:fs/promises";
 import type { IncomingMessage, ServerResponse } from "node:http";
 import { Readable } from "node:stream";
-import type { AcpRuntime, AcpRuntimeTurnInput } from "@openclaw/acp-core/runtime/types";
+import type { AcpRuntime, AcpRuntimeTurnInput } from "@granted/acp-core/runtime/types";
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { createDeferred } from "../../../test/helpers/promise.js";
 import { consumeAcpTurnStream } from "../../acp/control-plane/manager.turn-stream.js";

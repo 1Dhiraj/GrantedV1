@@ -22,22 +22,22 @@ function parseSpecOrThrow(spec: string) {
 
 describe("npm registry spec validation", () => {
   it.each([
-    "@openclaw/voice-call",
-    "@openclaw/voice-call@1.2.3",
-    "@openclaw/voice-call@1.2.3-beta.4",
-    "@openclaw/voice-call@latest",
-    "@openclaw/voice-call@beta",
+    "@granted/voice-call",
+    "@granted/voice-call@1.2.3",
+    "@granted/voice-call@1.2.3-beta.4",
+    "@granted/voice-call@latest",
+    "@granted/voice-call@beta",
   ])("accepts %s", (spec) => {
     expect(validateRegistryNpmSpec(spec)).toBeNull();
   });
 
   it.each([
     {
-      spec: "@openclaw/voice-call@^1.2.3",
+      spec: "@granted/voice-call@^1.2.3",
       expected: "exact version or dist-tag",
     },
     {
-      spec: "@openclaw/voice-call@~1.2.3",
+      spec: "@granted/voice-call@~1.2.3",
       expected: "exact version or dist-tag",
     },
     {
@@ -49,11 +49,11 @@ describe("npm registry spec validation", () => {
       expected: "URLs are not allowed",
     },
     {
-      spec: "@openclaw/voice-call@",
+      spec: "@granted/voice-call@",
       expected: "missing version/tag after @",
     },
     {
-      spec: "@openclaw/voice-call@../beta",
+      spec: "@granted/voice-call@../beta",
       expected: "invalid version/tag",
     },
   ])("rejects %s", ({ spec, expected }) => {
@@ -64,39 +64,39 @@ describe("npm registry spec validation", () => {
 describe("npm registry spec parsing helpers", () => {
   it.each([
     {
-      spec: "@openclaw/voice-call",
+      spec: "@granted/voice-call",
       expected: {
-        name: "@openclaw/voice-call",
-        raw: "@openclaw/voice-call",
+        name: "@granted/voice-call",
+        raw: "@granted/voice-call",
         selectorKind: "none",
         selectorIsPrerelease: false,
       },
     },
     {
-      spec: "@openclaw/voice-call@beta",
+      spec: "@granted/voice-call@beta",
       expected: {
-        name: "@openclaw/voice-call",
-        raw: "@openclaw/voice-call@beta",
+        name: "@granted/voice-call",
+        raw: "@granted/voice-call@beta",
         selector: "beta",
         selectorKind: "tag",
         selectorIsPrerelease: false,
       },
     },
     {
-      spec: "@openclaw/voice-call@2026.5.3-1",
+      spec: "@granted/voice-call@2026.5.3-1",
       expected: {
-        name: "@openclaw/voice-call",
-        raw: "@openclaw/voice-call@2026.5.3-1",
+        name: "@granted/voice-call",
+        raw: "@granted/voice-call@2026.5.3-1",
         selector: "2026.5.3-1",
         selectorKind: "exact-version",
         selectorIsPrerelease: false,
       },
     },
     {
-      spec: "@openclaw/voice-call@1.2.3-beta.1",
+      spec: "@granted/voice-call@1.2.3-beta.1",
       expected: {
-        name: "@openclaw/voice-call",
-        raw: "@openclaw/voice-call@1.2.3-beta.1",
+        name: "@granted/voice-call",
+        raw: "@granted/voice-call@1.2.3-beta.1",
         selector: "1.2.3-beta.1",
         selectorKind: "exact-version",
         selectorIsPrerelease: true,
@@ -151,37 +151,37 @@ describe("npm registry spec parsing helpers", () => {
 describe("npm prerelease resolution policy", () => {
   it.each([
     {
-      spec: "@openclaw/voice-call",
+      spec: "@granted/voice-call",
       resolvedVersion: "1.2.3-beta.1",
       expected: false,
     },
     {
-      spec: "@openclaw/voice-call@latest",
+      spec: "@granted/voice-call@latest",
       resolvedVersion: "1.2.3-rc.1",
       expected: false,
     },
     {
-      spec: "@openclaw/voice-call@latest",
+      spec: "@granted/voice-call@latest",
       resolvedVersion: "2026.5.3-1",
       expected: true,
     },
     {
-      spec: "@openclaw/voice-call@beta",
+      spec: "@granted/voice-call@beta",
       resolvedVersion: "1.2.3-beta.4",
       expected: true,
     },
     {
-      spec: "@openclaw/voice-call@1.2.3-beta.1",
+      spec: "@granted/voice-call@1.2.3-beta.1",
       resolvedVersion: "1.2.3-beta.1",
       expected: true,
     },
     {
-      spec: "@openclaw/voice-call",
+      spec: "@granted/voice-call",
       resolvedVersion: "1.2.3",
       expected: true,
     },
     {
-      spec: "@openclaw/voice-call@latest",
+      spec: "@granted/voice-call@latest",
       resolvedVersion: undefined,
       expected: true,
     },
@@ -196,12 +196,12 @@ describe("npm prerelease resolution policy", () => {
 
   it.each([
     {
-      spec: "@openclaw/voice-call",
+      spec: "@granted/voice-call",
       resolvedVersion: "1.2.3-beta.1",
-      expected: `Use "@openclaw/voice-call@beta"`,
+      expected: `Use "@granted/voice-call@beta"`,
     },
     {
-      spec: "@openclaw/voice-call@beta",
+      spec: "@granted/voice-call@beta",
       resolvedVersion: "1.2.3-rc.1",
       expected: "Use an explicit prerelease tag or exact prerelease version",
     },
@@ -242,8 +242,8 @@ describe("resolveNpmJsonEntries", () => {
   });
 
   it("unwraps scoped name keys in the npm 12 pack object", () => {
-    const entry = { id: "@openclaw/voice-call@1.2.3", name: "@openclaw/voice-call" };
-    expect(resolveNpmJsonEntries({ "@openclaw/voice-call": entry })).toEqual([entry]);
+    const entry = { id: "@granted/voice-call@1.2.3", name: "@granted/voice-call" };
+    expect(resolveNpmJsonEntries({ "@granted/voice-call": entry })).toEqual([entry]);
   });
 
   it("falls back to the raw value when no entries are recognizable", () => {

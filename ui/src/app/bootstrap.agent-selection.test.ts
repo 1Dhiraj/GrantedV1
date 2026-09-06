@@ -1,5 +1,5 @@
-import { gatewayOriginScope } from "@openclaw/gateway-client/browser";
-import { buildControlUiSessionPath } from "@openclaw/session-url-contract";
+import { gatewayOriginScope } from "@granted/gateway-client/browser";
+import { buildControlUiSessionPath } from "@granted/session-url-contract";
 import type { RouteLocation } from "@openclaw/uirouter";
 import { expect, it, vi } from "vitest";
 import type { RouteId } from "../app-routes.ts";

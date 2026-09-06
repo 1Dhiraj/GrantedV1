@@ -1,6 +1,6 @@
-import { asDateTimestampMs } from "@openclaw/normalization-core/number-coercion";
+import { asDateTimestampMs } from "@granted/normalization-core/number-coercion";
 // Handles auth directives that choose provider auth profiles for a reply.
-import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
+import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
 import { formatRemainingShort } from "../../agents/auth-health.js";
 import {
   isConfiguredAwsSdkAuthProfileForProvider,

@@ -1,5 +1,5 @@
 // Discord tests cover reply delivery plugin behavior.
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { isChannelPartialDeliveryError } from "granted/plugin-sdk/channel-inbound";
 import { createMessageReceiptFromOutboundResults } from "granted/plugin-sdk/channel-outbound";
 import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";

@@ -1,9 +1,9 @@
 /** Builds agent tools registered by plugins, preserving plugin scope around callbacks and descriptors. */
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import {
   normalizeUniqueStringEntries,
   uniqueStrings,
-} from "@openclaw/normalization-core/string-normalization";
+} from "@granted/normalization-core/string-normalization";
 import { compileGlobPatterns, matchesAnyGlobPattern } from "../agents/glob-pattern.js";
 import {
   DEFAULT_PLUGIN_TOOLS_ALLOWLIST_ENTRY,

@@ -1,7 +1,7 @@
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 // Doctor migration from legacy DM allowFrom fallback to explicit groupAllowFrom lists.
-import { asNullableRecord } from "@openclaw/normalization-core/record-coerce";
-import { normalizeUniqueStringEntries } from "@openclaw/normalization-core/string-normalization";
+import { asNullableRecord } from "@granted/normalization-core/record-coerce";
+import { normalizeUniqueStringEntries } from "@granted/normalization-core/string-normalization";
 import { resolveChannelDmAllowFrom } from "../../../channels/plugins/dm-access.js";
 import { normalizeAnyChannelId } from "../../../channels/registry.js";
 import { GENERATED_BUNDLED_CHANNEL_CONFIG_METADATA } from "../../../config/bundled-channel-config-metadata.generated.js";

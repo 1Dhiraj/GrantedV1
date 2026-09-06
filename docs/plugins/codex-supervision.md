@@ -41,9 +41,9 @@ Supported actions depend on the source host and its capabilities:
 
 ## Before you begin
 
-- Install the official `@openclaw/codex` plugin on the Gateway. The OpenClaw
+- Install the official `@granted/codex` plugin on the Gateway. The OpenClaw
   macOS app can install it when you enable Codex features; CLI installations can
-  run `openclaw plugins install @openclaw/codex`.
+  run `openclaw plugins install @granted/codex`.
 - Install and sign in to Codex Desktop or the Codex CLI on each computer whose
   sessions you want to list.
 - Pair remote computers as OpenClaw nodes. Each computer must opt in locally;
@@ -537,7 +537,7 @@ For every supervision config field, see
 
 ## Troubleshooting
 
-**No sessions appear:** verify that `@openclaw/codex` is installed, both the
+**No sessions appear:** verify that `@granted/codex` is installed, both the
 plugin and `supervision.enabled` are true, the current plugin allowlist permits
 `codex`, and the sessions are not archived. Restart the Gateway or node after
 changing activation.

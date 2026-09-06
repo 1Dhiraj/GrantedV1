@@ -1,10 +1,10 @@
 /**
  * Estimates prompt pressure and decides pre-prompt compaction routing.
  */
-import { resolveCompactionReplayPressure } from "@openclaw/ai/transports";
-import type { Model } from "@openclaw/llm-core";
-import { estimateStringChars } from "@openclaw/normalization-core/cjk-chars";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { resolveCompactionReplayPressure } from "@granted/ai/transports";
+import type { Model } from "@granted/llm-core";
+import { estimateStringChars } from "@granted/normalization-core/cjk-chars";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import type { SessionContextBudgetStatus } from "../../../config/sessions.js";
 import { resolveEffectiveCompactionReserveTokens } from "../../agent-compaction-constants.js";
 import { SAFETY_MARGIN } from "../../compaction.js";

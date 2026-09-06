@@ -1,5 +1,5 @@
-import { googleFlashSupportsMinimalThinking } from "@openclaw/ai/transports";
-import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
+import { googleFlashSupportsMinimalThinking } from "@granted/ai/transports";
+import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
 
 /** @deprecated Google provider-owned stream helper; do not use from third-party plugins. */
 export type GoogleThinkingLevel = "MINIMAL" | "LOW" | "MEDIUM" | "HIGH";

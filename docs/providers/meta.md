@@ -13,7 +13,7 @@ plugin.
 | Property                   | Value                              |
 | -------------------------- | ---------------------------------- |
 | Provider id                | `meta`                             |
-| Plugin                     | `@openclaw/meta-provider`          |
+| Plugin                     | `@granted/meta-provider`          |
 | Auth env var               | `MODEL_API_KEY`                    |
 | Onboarding flag            | `--auth-choice meta-api-key`       |
 | Direct CLI flag            | `--meta-api-key <key>`             |
@@ -27,7 +27,7 @@ plugin.
 <Steps>
   <Step title="Install the plugin">
     ```bash
-    openclaw plugins install @openclaw/meta-provider
+    openclaw plugins install @granted/meta-provider
     openclaw gateway restart
     ```
   </Step>

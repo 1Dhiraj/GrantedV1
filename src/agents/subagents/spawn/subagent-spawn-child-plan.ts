@@ -1,4 +1,4 @@
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { inheritSessionCreationPolicy } from "../../../config/sessions/session-entry-provenance.js";
 import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import { isIncognitoSessionKey } from "../../../routing/session-key.js";

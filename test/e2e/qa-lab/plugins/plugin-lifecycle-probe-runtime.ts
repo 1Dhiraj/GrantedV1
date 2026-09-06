@@ -591,9 +591,9 @@ async function runRuntimeInspect(params: {
 
 async function runPluginLifecycleMatrix() {
   const pluginId = "lifecycle-claw";
-  const packageName = "@openclaw/lifecycle-claw";
+  const packageName = "@granted/lifecycle-claw";
   const packOwner = "lifecycle-pack";
-  const packPackageName = "@openclaw/lifecycle-pack";
+  const packPackageName = "@granted/lifecycle-pack";
   const packOne = `${packOwner}/one`;
   const packTwo = `${packOwner}/two`;
   const packOld = `${packOwner}/old`;

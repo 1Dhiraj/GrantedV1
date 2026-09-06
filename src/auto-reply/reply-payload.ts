@@ -1,8 +1,8 @@
-import { asPositiveFiniteNumber as normalizePairingQrExpiresAtMs } from "@openclaw/normalization-core/number-coercion";
+import { asPositiveFiniteNumber as normalizePairingQrExpiresAtMs } from "@granted/normalization-core/number-coercion";
 import {
   readNonBlankString,
   readNonBlankString as normalizeTtsSupplementSpokenText,
-} from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/string-coerce";
 import type { OutboundLocation } from "../channels/location.js";
 /** Reply payload contracts and metadata helpers shared by dispatch and channel renderers. */
 import type { ReplyToMode } from "../config/types.base.js";

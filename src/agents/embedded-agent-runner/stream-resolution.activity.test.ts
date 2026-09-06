@@ -3,7 +3,7 @@ import {
   defaultLlmRuntime,
   notifyLlmRequestActivity,
   onLlmRequestActivity,
-} from "@openclaw/ai/internal/runtime";
+} from "@granted/ai/internal/runtime";
 import {
   createAssistantMessageEventStream,
   type AssistantMessageEventStream,

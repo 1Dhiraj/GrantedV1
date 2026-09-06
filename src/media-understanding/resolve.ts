@@ -3,7 +3,7 @@
 import {
   MAX_TIMER_TIMEOUT_MS,
   resolveTimerTimeoutMs,
-} from "@openclaw/normalization-core/number-coercion";
+} from "@granted/normalization-core/number-coercion";
 import type { MsgContext } from "../auto-reply/templating.js";
 import type { GrantedConfig } from "../config/types.js";
 import type {

@@ -1,8 +1,8 @@
 /** Reads persisted generated catalogs without constructing a model registry. */
-import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
-import { asPositiveFiniteNumber as readPositiveNumber } from "@openclaw/normalization-core/number-coercion";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
-import { normalizeOptionalString as readString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
+import { asPositiveFiniteNumber as readPositiveNumber } from "@granted/normalization-core/number-coercion";
+import { isRecord } from "@granted/normalization-core/record-coerce";
+import { normalizeOptionalString as readString } from "@granted/normalization-core/string-coerce";
 import type { ModelCatalogEntry, ModelInputType } from "../../agents/model-catalog.types.js";
 import {
   filterGeneratedPluginModelCatalogProviders,

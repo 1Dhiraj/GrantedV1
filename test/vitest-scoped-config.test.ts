@@ -169,30 +169,30 @@ describe("resolveVitestIsolation", () => {
         },
       );
       expect(() =>
-        findAlias(sharedVitestConfig.resolve.alias, `@openclaw/plugin-sdk/${subpath}`),
-      ).toThrow(`missing alias @openclaw/plugin-sdk/${subpath}`);
+        findAlias(sharedVitestConfig.resolve.alias, `@granted/plugin-sdk/${subpath}`),
+      ).toThrow(`missing alias @granted/plugin-sdk/${subpath}`);
     }
   });
 
   it("aliases private core packages to source for clean checkout tests", () => {
-    expect(findAlias(sharedVitestConfig.resolve.alias, "@openclaw/media-core/mime")).toEqual({
-      find: "@openclaw/media-core/mime",
+    expect(findAlias(sharedVitestConfig.resolve.alias, "@granted/media-core/mime")).toEqual({
+      find: "@granted/media-core/mime",
       replacement: path.join(process.cwd(), "packages", "media-core", "src", "mime.ts"),
     });
-    expect(findAlias(sharedVitestConfig.resolve.alias, "@openclaw/acp-core/runtime/types")).toEqual(
+    expect(findAlias(sharedVitestConfig.resolve.alias, "@granted/acp-core/runtime/types")).toEqual(
       {
-        find: "@openclaw/acp-core/runtime/types",
+        find: "@granted/acp-core/runtime/types",
         replacement: path.join(process.cwd(), "packages", "acp-core", "src", "runtime", "types.ts"),
       },
     );
-    expect(findAlias(sharedVitestConfig.resolve.alias, "@openclaw/retry")).toEqual({
-      find: "@openclaw/retry",
+    expect(findAlias(sharedVitestConfig.resolve.alias, "@granted/retry")).toEqual({
+      find: "@granted/retry",
       replacement: path.join(process.cwd(), "packages", "retry", "src", "index.ts"),
     });
     expect(
-      findAlias(sharedVitestConfig.resolve.alias, "@openclaw/gateway-client/scope-upgrade"),
+      findAlias(sharedVitestConfig.resolve.alias, "@granted/gateway-client/scope-upgrade"),
     ).toEqual({
-      find: "@openclaw/gateway-client/scope-upgrade",
+      find: "@granted/gateway-client/scope-upgrade",
       replacement: path.join(
         process.cwd(),
         "packages",

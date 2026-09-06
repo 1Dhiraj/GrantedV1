@@ -2,7 +2,7 @@ import { execFileSync } from "node:child_process";
 // Openshell tests cover backend-owned exec workdir validation behavior.
 import fs from "node:fs/promises";
 import path from "node:path";
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import type { SandboxBackendHandle } from "granted/plugin-sdk/sandbox";
 import {
   resolvePreferredOpenClawTmpDir,

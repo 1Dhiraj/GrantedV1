@@ -1,6 +1,6 @@
 /** Persists usage, cost, model, and CLI session metadata after reply runs. */
-import { asNonNegativeFiniteNumber } from "@openclaw/normalization-core/number-coercion";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { asNonNegativeFiniteNumber } from "@granted/normalization-core/number-coercion";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import {
   clearCliSession,
   setCliSessionBinding,

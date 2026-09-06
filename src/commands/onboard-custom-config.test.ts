@@ -1,5 +1,5 @@
 // Onboard custom config tests cover provider-specific config merging and context-window bounds.
-import { setCurrentManifestModelIdNormalizationPolicies } from "@openclaw/model-catalog-core/provider-model-id-normalization";
+import { setCurrentManifestModelIdNormalizationPolicies } from "@granted/model-catalog-core/provider-model-id-normalization";
 import { describe, expect, it, vi } from "vitest";
 import { CONTEXT_WINDOW_HARD_MIN_TOKENS } from "../agents/context-window-guard.js";
 import * as providerModelNormalizationRuntime from "../agents/provider-model-normalization.runtime.js";

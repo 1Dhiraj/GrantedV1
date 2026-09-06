@@ -1,6 +1,6 @@
 // Verifies session thinking levels reach OpenAI and Codex Responses transports.
 import { createServer } from "node:http";
-import { createLlmRuntime } from "@openclaw/ai";
+import { createLlmRuntime } from "@granted/ai";
 import { Agent, type StreamFn } from "granted/plugin-sdk/agent-core";
 import {
   createAssistantMessageEventStream,

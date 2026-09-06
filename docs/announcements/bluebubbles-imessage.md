@@ -9,7 +9,7 @@ title: "BlueBubbles removal and the imsg iMessage path"
 
 # BlueBubbles removal and the imsg iMessage path
 
-OpenClaw no longer ships the BlueBubbles channel. iMessage support runs through the official `@openclaw/imessage` plugin: the Gateway spawns [`imsg`](https://github.com/steipete/imsg) as a child process, locally or through an SSH wrapper, and talks JSON-RPC over stdin/stdout. No server, no webhook, no port.
+OpenClaw no longer ships the BlueBubbles channel. iMessage support runs through the official `@granted/imessage` plugin: the Gateway spawns [`imsg`](https://github.com/steipete/imsg) as a child process, locally or through an SSH wrapper, and talks JSON-RPC over stdin/stdout. No server, no webhook, no port.
 
 If your config still contains `channels.bluebubbles`, migrate it to `channels.imessage`. The legacy `/channels/bluebubbles` docs URL redirects to [Coming from BlueBubbles](/channels/imessage-from-bluebubbles), which has the full config translation table and cutover checklist.
 
@@ -26,7 +26,7 @@ If your config still contains `channels.bluebubbles`, migrate it to `channels.im
 1. Install the official plugin on the Gateway host, then restart the Gateway:
 
    ```bash
-   openclaw plugins install @openclaw/imessage
+   openclaw plugins install @granted/imessage
    ```
 
 2. Install and verify `imsg` on the Messages Mac:

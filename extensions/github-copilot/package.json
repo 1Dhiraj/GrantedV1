@@ -1,11 +1,11 @@
 {
-  "name": "@openclaw/github-copilot-provider",
+  "name": "@granted/github-copilot-provider",
   "version": "2026.8.1",
   "private": true,
   "description": "OpenClaw GitHub Copilot provider plugin",
   "type": "module",
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*"
+    "@granted/plugin-sdk": "workspace:*"
   },
   "openclaw": {
     "extensions": [

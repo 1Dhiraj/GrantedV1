@@ -1,4 +1,4 @@
-import { normalizeStringifiedEntries } from "@openclaw/normalization-core/string-coerce";
+import { normalizeStringifiedEntries } from "@granted/normalization-core/string-coerce";
 import {
   createKeyedFifoLeaseRegistry,
   type KeyedFifoLease,

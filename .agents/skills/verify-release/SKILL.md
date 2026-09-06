@@ -61,7 +61,7 @@ Use these checks only for the regular orchestrated release track.
    - Use OpenClaw itself for live registry proof:
      `openclaw plugins search <known-plugin> --json`.
    - Install one official plugin from ClawHub in an isolated HOME:
-     `openclaw plugins install clawhub:@openclaw/matrix --pin`.
+     `openclaw plugins install clawhub:@granted/matrix --pin`.
      Prefer `matrix` unless that plugin is not in the expected set.
 5. Release workflows:
    - Verify conclusions for release notes evidence links:

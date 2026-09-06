@@ -1,5 +1,5 @@
 // Tests media-only get-reply runs and sandboxed media attachment handling.
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import type { SessionEntry } from "../../config/sessions.js";
 import { withSystemEventOwner } from "../../infra/system-event-ownership.js";

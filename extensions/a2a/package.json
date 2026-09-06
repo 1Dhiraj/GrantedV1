@@ -1,5 +1,5 @@
 {
-  "name": "@openclaw/a2a",
+  "name": "@granted/a2a",
   "version": "2026.8.1",
   "description": "OpenClaw A2A v1.0 Agent-to-Agent protocol channel plugin",
   "repository": {
@@ -16,11 +16,11 @@
     "zod": "4.4.3"
   },
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*",
-    "openclaw": "workspace:*"
+    "@granted/plugin-sdk": "workspace:*",
+    "granted": "workspace:*"
   },
   "peerDependencies": {
-    "openclaw": ">=2026.8.1"
+    "granted": ">=2026.8.1"
   },
   "peerDependenciesMeta": {
     "openclaw": {

@@ -1,7 +1,7 @@
 // Approval shared helpers normalize pending exec/plugin approval lookups,
 // decision payloads, turn-source routing, and gateway error responses.
-import { isPromiseLike } from "@openclaw/normalization-core/promise-like";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { isPromiseLike } from "@granted/normalization-core/promise-like";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { ErrorCodes, errorShape } from "../../../packages/gateway-protocol/src/index.js";
 import type {
   ApprovalChannelReviewer,

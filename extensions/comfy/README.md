@@ -1,4 +1,4 @@
-# @openclaw/comfy-provider
+# @granted/comfy-provider
 
 Official ComfyUI image, video, and music generation provider plugin for
 OpenClaw.
@@ -6,7 +6,7 @@ OpenClaw.
 ## Install
 
 ```bash
-openclaw plugins install @openclaw/comfy-provider
+openclaw plugins install @granted/comfy-provider
 openclaw gateway restart
 ```
 
@@ -22,5 +22,5 @@ Full workflow, model, and provider configuration:
 ## Package
 
 - Plugin id: `comfy`
-- Package: `@openclaw/comfy-provider`
+- Package: `@granted/comfy-provider`
 - Minimum OpenClaw host: `2026.7.2`

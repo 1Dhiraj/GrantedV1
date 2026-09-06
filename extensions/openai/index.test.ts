@@ -1,5 +1,5 @@
 // Openai tests cover index plugin behavior.
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { createTestPluginApi } from "granted/plugin-sdk/plugin-test-api";
 import { requireRegisteredProvider } from "granted/plugin-sdk/plugin-test-runtime";

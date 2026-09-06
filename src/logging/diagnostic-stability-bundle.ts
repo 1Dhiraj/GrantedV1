@@ -2,8 +2,8 @@
 import fs from "node:fs";
 import path from "node:path";
 import process from "node:process";
-import { expectDefined } from "@openclaw/normalization-core";
-import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+import { expectDefined } from "@granted/normalization-core";
+import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import { resolveStateDir } from "../config/paths.js";
 import type {
   DiagnosticMemoryPressureEvent,

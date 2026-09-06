@@ -1,22 +1,22 @@
-import { createLlmRuntime, type LlmRuntime } from "@openclaw/ai";
-import type { OpenAICompletionsOptions } from "@openclaw/ai/internal/openai";
-import { getEnvApiKey } from "@openclaw/ai/internal/runtime";
-import { registerBuiltInApiProviders } from "@openclaw/ai/providers";
-import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
+import { createLlmRuntime, type LlmRuntime } from "@granted/ai";
+import type { OpenAICompletionsOptions } from "@granted/ai/internal/openai";
+import { getEnvApiKey } from "@granted/ai/internal/runtime";
+import { registerBuiltInApiProviders } from "@granted/ai/providers";
+import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
 import {
   asDateTimestampMs,
   asPositiveSafeInteger,
   resolveTimerTimeoutMs,
-} from "@openclaw/normalization-core/number-coercion";
-import { asOptionalRecord } from "@openclaw/normalization-core/record-coerce";
+} from "@granted/normalization-core/number-coercion";
+import { asOptionalRecord } from "@granted/normalization-core/record-coerce";
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
-} from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/string-coerce";
 import {
   normalizeStringEntries,
   uniqueStrings,
-} from "@openclaw/normalization-core/string-normalization";
+} from "@granted/normalization-core/string-normalization";
 import pMap from "p-map";
 import { Type } from "typebox";
 import { formatErrorMessage } from "../infra/errors.js";

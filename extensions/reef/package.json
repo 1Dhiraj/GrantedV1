@@ -1,5 +1,5 @@
 {
-  "name": "@openclaw/reef",
+  "name": "@granted/reef",
   "version": "2026.8.1",
   "description": "OpenClaw Reef channel plugin — guarded end-to-end encrypted claw-to-claw messaging",
   "type": "module",
@@ -33,6 +33,6 @@
     }
   },
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*"
+    "@granted/plugin-sdk": "workspace:*"
   }
 }

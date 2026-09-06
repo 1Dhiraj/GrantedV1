@@ -1,4 +1,4 @@
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { isAgentEventLifecycleGenerationCurrent } from "../../infra/agent-events.js";
 import type { controlRealtimeVoiceAgentRun } from "../../talk/agent-run-control.js";
 import type { PreparedTalkSessionTarget } from "../talk-session-target.types.js";

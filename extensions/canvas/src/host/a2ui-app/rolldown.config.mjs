@@ -56,7 +56,7 @@ const createConfig = (input, file) => ({
       "@a2ui/lit/ui": a2uiLitUi,
       "@a2ui/lit/v0_9": a2uiLitV09,
       "@a2ui/web_core/v0_9": a2uiWebCoreV09,
-      "@openclaw/a2ui-theme-context": a2uiThemeContext,
+      "@granted/a2ui-theme-context": a2uiThemeContext,
       "@lit/context": resolveUiDependency("@lit/context"),
       "@lit/context/": resolveUiDependency("@lit/context/"),
       "@lit-labs/signals": resolveUiDependency("@lit-labs/signals"),

@@ -1,5 +1,5 @@
 // Ollama tests cover discovery shared plugin behavior.
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { clearLiveCatalogCacheForTests } from "granted/plugin-sdk/provider-catalog-shared";
 import type { ModelProviderConfig } from "granted/plugin-sdk/provider-model-shared";
 import { afterEach, describe, expect, it, vi } from "vitest";

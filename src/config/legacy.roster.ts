@@ -1,4 +1,4 @@
-import { normalizeAgentId } from "@openclaw/normalization-core/agent-id";
+import { normalizeAgentId } from "@granted/normalization-core/agent-id";
 import { readAgentRosterProperty } from "../agents/agent-scope-config.js";
 import {
   retainLegacyDefaultAgentId,

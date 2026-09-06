@@ -1,5 +1,5 @@
-import { asNonNegativeFiniteNumber } from "@openclaw/normalization-core/number-coercion";
-import { asNullableObjectRecord as readCostRecord } from "@openclaw/normalization-core/record-coerce";
+import { asNonNegativeFiniteNumber } from "@granted/normalization-core/number-coercion";
+import { asNullableObjectRecord as readCostRecord } from "@granted/normalization-core/record-coerce";
 import { html, nothing } from "lit";
 import { isTranscriptOnlyOpenClawAssistantMessage } from "../../../../../src/shared/transcript-only-openclaw-assistant.js";
 import type { GatewaySessionRow } from "../../../api/types.ts";

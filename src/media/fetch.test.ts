@@ -2,7 +2,7 @@
 import fs from "node:fs/promises";
 import { createServer } from "node:http";
 import path from "node:path";
-import { MAX_TIMER_TIMEOUT_MS } from "@openclaw/normalization-core/number-coercion";
+import { MAX_TIMER_TIMEOUT_MS } from "@granted/normalization-core/number-coercion";
 import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { hasErrnoCode } from "../infra/errors.js";
 import { createTempHomeEnv, type TempHomeEnv } from "../test-utils/temp-home.js";
@@ -249,7 +249,7 @@ describe("readRemoteMediaBuffer", () => {
     saveRemoteMedia = fetchModule.saveRemoteMedia;
     saveResponseMedia = fetchModule.saveResponseMedia;
     // Default cap mirrors the module-private DEFAULT_FETCH_MEDIA_MAX_BYTES.
-    defaultFetchMediaMaxBytes = (await import("@openclaw/media-core/constants")).MAX_DOCUMENT_BYTES;
+    defaultFetchMediaMaxBytes = (await import("@granted/media-core/constants")).MAX_DOCUMENT_BYTES;
   });
 
   beforeEach(() => {

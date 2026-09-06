@@ -11,7 +11,7 @@ Authenticated inbound webhooks that bind external automation to OpenClaw TaskFlo
 
 ## Distribution
 
-- Package: `@openclaw/webhooks`
+- Package: `@granted/webhooks`
 - Install route: included in OpenClaw
 
 ## Surface

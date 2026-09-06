@@ -1,5 +1,5 @@
 // Parses auth profile directives into provider-scoped runtime overrides.
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import {
   ensureAuthProfileStore,
   findPersistedAuthProfileCredential,

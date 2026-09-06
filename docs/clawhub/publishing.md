@@ -49,7 +49,7 @@ Scoped names include the owner in the first path segment:
 ```
 
 The scope must match the selected publish owner. A package named
-`@openclaw/dronzer` can only be published as `@openclaw`. To publish as
+`@granted/dronzer` can only be published as `@openclaw`. To publish as
 `@vintageayu`, rename the package to `@vintageayu/dronzer`.
 
 This stops a package from claiming an org namespace the publisher does not
@@ -91,5 +91,5 @@ clawhub package transfer @opik/opik-openclaw --to opik
 Package transfer needs admin access to both the current owner and the
 destination publisher; it does not let you publish into a scope you do not
 control. This is the same namespace protection: a package named
-`@openclaw/dronzer` claims the `@openclaw` namespace, so only publishers with
+`@granted/dronzer` claims the `@openclaw` namespace, so only publishers with
 access to `@openclaw` can publish or transfer into it.

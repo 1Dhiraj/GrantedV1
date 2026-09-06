@@ -2,7 +2,7 @@ import { spawn } from "node:child_process";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import type { SandboxBackendHandle, SandboxFsBridge } from "granted/plugin-sdk/sandbox";
 import { expect } from "vitest";
 import { z } from "zod";

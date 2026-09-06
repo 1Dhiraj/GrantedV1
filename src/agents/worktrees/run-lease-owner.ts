@@ -1,5 +1,5 @@
 import type { DatabaseSync } from "node:sqlite";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import { executeSqliteQuerySync, type getNodeSqliteKysely } from "../../infra/kysely-sync.js";
 import { isLockOwnerDefinitelyStale } from "../../infra/stale-lock-file.js";
 import type { DB } from "../../state/openclaw-state-db.generated.js";

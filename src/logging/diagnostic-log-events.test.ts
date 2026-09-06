@@ -1,5 +1,5 @@
 // Diagnostic log event tests cover structured events written to diagnostic logs.
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   onDiagnosticEvent,

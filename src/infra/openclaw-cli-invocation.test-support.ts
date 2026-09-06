@@ -29,7 +29,7 @@ export async function createSourceCliFixture(root: string) {
   await fs.writeFile(
     entryPath,
     [
-      'import { normalizeUniqueStringEntries } from "@openclaw/normalization-core/string-normalization";',
+      'import { normalizeUniqueStringEntries } from "@granted/normalization-core/string-normalization";',
       'const source: string = normalizeUniqueStringEntries(["gateway", "gateway"]).join("");',
       'console.log(JSON.stringify({ source, args: process.argv.slice(2), cwd: process.cwd(), tsconfigPath: process.env.TSX_TSCONFIG_PATH, pathHead: process.env.PATH?.split(process.platform === "win32" ? ";" : ":")[0] }));',
     ].join("\n"),

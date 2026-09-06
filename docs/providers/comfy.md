@@ -10,7 +10,7 @@ read_when:
 Install the official `comfy` plugin for workflow-driven ComfyUI runs:
 
 ```bash
-openclaw plugins install @openclaw/comfy-provider
+openclaw plugins install @granted/comfy-provider
 openclaw gateway restart
 ```
 

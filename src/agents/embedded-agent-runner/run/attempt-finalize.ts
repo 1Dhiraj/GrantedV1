@@ -1,4 +1,4 @@
-import { parseStrictPositiveInteger } from "@openclaw/normalization-core/number-coercion";
+import { parseStrictPositiveInteger } from "@granted/normalization-core/number-coercion";
 /**
  * Finalizes post-turn state, abort resources, and terminal trajectory artifacts.
  * It may assume stream execution and transcript writes are settled.

@@ -35,7 +35,7 @@ function transactions(count = 1) {
       parentRunAttempt: "1",
     },
     packages: Array.from({ length: count }, (_, index) => ({
-      name: `@openclaw/plugin-${String(index).padStart(3, "0")}`,
+      name: `@granted/plugin-${String(index).padStart(3, "0")}`,
       version: "2026.8.2",
       inventoryDigest: "c".repeat(64),
       artifactName: `clawhub-package-${index}`,
@@ -98,7 +98,7 @@ describe("ClawHub parent publication authorization", () => {
     const sealed = transactions();
     const receipt = createClawHubParentAuthorization(sealed, "automated-awaited");
     for (const patch of [
-      { name: "@openclaw/other" },
+      { name: "@granted/other" },
       { version: "2026.8.3" },
       { inventoryDigest: "e".repeat(64) },
     ]) {

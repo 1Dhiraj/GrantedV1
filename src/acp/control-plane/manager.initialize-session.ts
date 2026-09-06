@@ -2,8 +2,8 @@
 import {
   createIdentityFromEnsure,
   mergeSessionIdentity,
-} from "@openclaw/acp-core/runtime/session-identity";
-import type { AcpRuntime, AcpRuntimeHandle } from "@openclaw/acp-core/runtime/types";
+} from "@granted/acp-core/runtime/session-identity";
+import type { AcpRuntime, AcpRuntimeHandle } from "@granted/acp-core/runtime/types";
 import { resolveRuntimeConfigCacheKey } from "../../config/runtime-snapshot.js";
 import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { logVerbose } from "../../globals.js";

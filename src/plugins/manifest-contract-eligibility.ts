@@ -1,5 +1,5 @@
 // Determines which manifest contracts are eligible for plugin activation.
-import { sortUniqueStrings } from "@openclaw/normalization-core/string-normalization";
+import { sortUniqueStrings } from "@granted/normalization-core/string-normalization";
 import {
   hasMeaningfulChannelConfigShallow,
   resolveChannelConfigRecord,

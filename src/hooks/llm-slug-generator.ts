@@ -3,8 +3,8 @@
  */
 
 import { randomUUID } from "node:crypto";
-import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
-import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
+import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import { prepareSystemAgentRunAdmission } from "../agents/admitted-run-context.js";
 import { resolveAgentWorkspaceDir, resolveAgentDir } from "../agents/agent-scope.js";
 import { runEmbeddedAgent } from "../agents/embedded-agent.js";

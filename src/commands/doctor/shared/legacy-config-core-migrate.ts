@@ -1,5 +1,5 @@
 // Core doctor compatibility migration pipeline for current config objects.
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import { readAgentRosterProperty } from "../../../agents/agent-scope-config.js";
 import { migrateLegacyContextBudgetConfig } from "../../../config/legacy.context-budget.js";
 import type { GrantedConfig } from "../../../config/types.openclaw.js";

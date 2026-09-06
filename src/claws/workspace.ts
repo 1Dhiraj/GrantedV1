@@ -2,7 +2,7 @@
 import { createHash } from "node:crypto";
 import { realpath } from "node:fs/promises";
 import { resolve, sep } from "node:path";
-import { coerceErrorMessage } from "@openclaw/normalization-core/error-coercion";
+import { coerceErrorMessage } from "@granted/normalization-core/error-coercion";
 import { root as fsSafeRoot, FsSafeError, type Root } from "../infra/fs-safe.js";
 import {
   openOpenClawStateDatabase,

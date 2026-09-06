@@ -3,7 +3,7 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { estimateStringChars } from "@openclaw/normalization-core/cjk-chars";
+import { estimateStringChars } from "@granted/normalization-core/cjk-chars";
 import type { AgentMessage } from "granted/plugin-sdk/agent-core";
 import { SessionManager } from "granted/plugin-sdk/agent-sessions";
 import type { AssistantMessage, ToolResultMessage, UserMessage } from "granted/plugin-sdk/llm";

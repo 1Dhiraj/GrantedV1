@@ -1,7 +1,7 @@
 import {
   normalizeOptionalLowercaseString,
   normalizeOptionalString,
-} from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/string-coerce";
 import { readAcpSessionMeta } from "../../../acp/runtime/session-meta.js";
 import { resolveSessionStorePathCore } from "../../../config/sessions/paths.js";
 import {

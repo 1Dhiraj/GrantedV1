@@ -11,7 +11,7 @@ Fetch, list, and write files on paired nodes via dedicated node commands. Bypass
 
 ## Distribution
 
-- Package: `@openclaw/file-transfer`
+- Package: `@granted/file-transfer`
 - Install route: included in OpenClaw
 
 ## Surface

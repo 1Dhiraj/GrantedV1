@@ -158,7 +158,7 @@ describe("managed plugin inspection", () => {
 
     expect(inspection.source).toEqual({
       kind: "npm",
-      packageName: "@openclaw/community-plugin",
+      packageName: "@granted/community-plugin",
     });
   });
 
@@ -228,8 +228,8 @@ describe("managed plugin inspection", () => {
         },
         source: {
           kind: "official-catalog",
-          packageName: npm ? "@vendor/diffs-npm" : "@openclaw/diffs",
-          spec: npm ? "@vendor/diffs-npm@1.2.3" : "clawhub:@openclaw/diffs@2026.6.11",
+          packageName: npm ? "@vendor/diffs-npm" : "@granted/diffs",
+          spec: npm ? "@vendor/diffs-npm@1.2.3" : "clawhub:@granted/diffs@2026.6.11",
           integrity: npm ? "sha512-bnBtLXBpbg==" : expect.stringMatching(/^sha256-/),
           integrityKind: npm ? "ssri" : "sha256",
         },

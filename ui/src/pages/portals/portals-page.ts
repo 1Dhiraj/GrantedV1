@@ -3,7 +3,7 @@ import type {
   PortalCloseResult,
   PortalListResult,
   PortalSummary,
-} from "@openclaw/gateway-protocol";
+} from "@granted/gateway-protocol";
 import { html, nothing } from "lit";
 import { state } from "lit/decorators.js";
 import { keyed } from "lit/directives/keyed.js";

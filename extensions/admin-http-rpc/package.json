@@ -1,11 +1,11 @@
 {
-  "name": "@openclaw/admin-http-rpc",
+  "name": "@granted/admin-http-rpc",
   "version": "2026.8.1",
   "private": true,
   "description": "OpenClaw admin HTTP RPC endpoint",
   "type": "module",
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*"
+    "@granted/plugin-sdk": "workspace:*"
   },
   "openclaw": {
     "extensions": [

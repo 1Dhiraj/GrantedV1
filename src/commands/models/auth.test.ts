@@ -1,7 +1,7 @@
 // Model auth tests cover provider auth status, expiry, and display helpers.
 
-import { MAX_DATE_TIMESTAMP_MS } from "@openclaw/normalization-core/number-coercion";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { MAX_DATE_TIMESTAMP_MS } from "@granted/normalization-core/number-coercion";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { GrantedConfig } from "../../config/config.js";
 import type { ProviderPlugin } from "../../plugins/types.js";

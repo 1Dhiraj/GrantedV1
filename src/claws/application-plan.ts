@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import { stableStringify } from "@openclaw/normalization-core";
+import { stableStringify } from "@granted/normalization-core";
 import type {
   ClawAddCapabilityChange,
   ClawAddPlanAction,

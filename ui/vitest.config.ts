@@ -26,11 +26,11 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(here, "..");
 const workspaceSourceAliases = [
   {
-    find: "@openclaw/gateway-client/browser",
+    find: "@granted/gateway-client/browser",
     replacement: path.resolve(repoRoot, "packages/gateway-client/src/browser.ts"),
   },
   {
-    find: "@openclaw/gateway-client/scope-upgrade",
+    find: "@granted/gateway-client/scope-upgrade",
     replacement: path.resolve(repoRoot, "packages/gateway-client/src/scope-upgrade.ts"),
   },
   {
@@ -54,7 +54,7 @@ const workspaceSourceAliases = [
     replacement: path.resolve(repoRoot, "packages/model-catalog-core/src/$1.ts"),
   },
   {
-    find: "@openclaw/model-catalog-core",
+    find: "@granted/model-catalog-core",
     replacement: path.resolve(repoRoot, "packages/model-catalog-core/src/index.ts"),
   },
   {
@@ -62,7 +62,7 @@ const workspaceSourceAliases = [
     replacement: path.resolve(repoRoot, "packages/normalization-core/src/$1"),
   },
   {
-    find: "@openclaw/normalization-core",
+    find: "@granted/normalization-core",
     replacement: path.resolve(repoRoot, "packages/normalization-core/src/index.ts"),
   },
   {
@@ -70,23 +70,23 @@ const workspaceSourceAliases = [
     replacement: path.resolve(repoRoot, "packages/media-core/src/$1"),
   },
   {
-    find: "@openclaw/media-core",
+    find: "@granted/media-core",
     replacement: path.resolve(repoRoot, "packages/media-core/src/index.ts"),
   },
   {
-    find: "@openclaw/session-url-contract/parse",
+    find: "@granted/session-url-contract/parse",
     replacement: path.resolve(repoRoot, "packages/session-url-contract/src/parse.ts"),
   },
   {
-    find: "@openclaw/session-url-contract/share-build",
+    find: "@granted/session-url-contract/share-build",
     replacement: path.resolve(repoRoot, "packages/session-url-contract/src/share-build.ts"),
   },
   {
-    find: "@openclaw/session-url-contract",
+    find: "@granted/session-url-contract",
     replacement: path.resolve(repoRoot, "packages/session-url-contract/src/index.ts"),
   },
   {
-    find: "@openclaw/workboard-contract",
+    find: "@granted/workboard-contract",
     replacement: path.resolve(repoRoot, "packages/workboard-contract/src/index.ts"),
   },
   {
@@ -94,7 +94,7 @@ const workspaceSourceAliases = [
     replacement: path.resolve(repoRoot, "packages/net-policy/src/$1"),
   },
   {
-    find: "@openclaw/net-policy",
+    find: "@granted/net-policy",
     replacement: path.resolve(repoRoot, "packages/net-policy/src/index.ts"),
   },
 ];

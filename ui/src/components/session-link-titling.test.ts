@@ -1,6 +1,6 @@
 /* @vitest-environment jsdom */
 
-import { buildControlUiSessionPath } from "@openclaw/session-url-contract";
+import { buildControlUiSessionPath } from "@granted/session-url-contract";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { GatewayBrowserClient } from "../api/gateway.ts";
 import type { GatewaySessionRow } from "../api/types.ts";

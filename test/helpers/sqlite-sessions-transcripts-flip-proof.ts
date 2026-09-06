@@ -8,8 +8,8 @@ import path from "node:path";
 import { DatabaseSync, type SQLInputValue } from "node:sqlite";
 import type { Readable } from "node:stream";
 import { fileURLToPath } from "node:url";
-import { expectDefined } from "@openclaw/normalization-core";
-import { asOptionalRecord as asRecord } from "@openclaw/normalization-core/record-coerce";
+import { expectDefined } from "@granted/normalization-core";
+import { asOptionalRecord as asRecord } from "@granted/normalization-core/record-coerce";
 import {
   readSessionArchiveContentSync,
   stripSessionArchiveCompressionSuffix,

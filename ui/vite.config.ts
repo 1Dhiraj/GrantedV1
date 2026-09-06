@@ -298,7 +298,7 @@ function resolveTsconfigPathAlias(key: string, target: string): ControlUiViteAli
 
 function sourcePackageAlias(packageId: string, subpath?: string): ControlUiViteAlias {
   return {
-    find: `@openclaw/${packageId}${subpath ? `/${subpath}` : ""}`,
+    find: `@granted/${packageId}${subpath ? `/${subpath}` : ""}`,
     replacement: path.join(
       repoRoot,
       "packages",

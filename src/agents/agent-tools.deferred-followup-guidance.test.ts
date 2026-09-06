@@ -1,5 +1,5 @@
 /** Tests model-facing descriptions selected from the final authorized tool set. */
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { describe, expect, it } from "vitest";
 import { getPluginToolMeta, setPluginToolMeta } from "../plugins/tool-metadata.js";
 import { withMockedPlatform } from "../test-utils/vitest-spies.js";

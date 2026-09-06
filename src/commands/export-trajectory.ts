@@ -1,6 +1,6 @@
 /** CLI command for exporting a session transcript as a trajectory artifact. */
 import path from "node:path";
-import { readNonBlankString } from "@openclaw/normalization-core/string-coerce";
+import { readNonBlankString } from "@granted/normalization-core/string-coerce";
 import { resolveConfiguredAgentId } from "../agents/agent-scope-config.js";
 import { formatCliCommand } from "../cli/command-format.js";
 import { ExpectedCliError } from "../cli/failure-output.js";

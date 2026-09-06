@@ -1,7 +1,7 @@
 // Stores and verifies web push subscriptions and delivery payloads.
 import { randomUUID } from "node:crypto";
 import path from "node:path";
-import { expectDefined, normalizeOptionalString } from "@openclaw/normalization-core";
+import { expectDefined, normalizeOptionalString } from "@granted/normalization-core";
 import { resolveStateDir } from "../config/paths.js";
 import { createLazyRuntimeModule } from "../shared/lazy-runtime.js";
 import { pathMayExistSync } from "./path-existence.js";

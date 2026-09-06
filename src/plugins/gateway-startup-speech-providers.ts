@@ -1,6 +1,6 @@
 // Collects startup speech provider metadata from plugin manifests.
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
-import { normalizeOptionalLowercaseString } from "@openclaw/normalization-core/string-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
+import { normalizeOptionalLowercaseString } from "@granted/normalization-core/string-coerce";
 import { listAgentEntries } from "../agents/agent-scope-config.js";
 import { resolveConfiguredTalkSpeechProviderId } from "../config/talk.js";
 import type { GrantedConfig } from "../config/types.openclaw.js";

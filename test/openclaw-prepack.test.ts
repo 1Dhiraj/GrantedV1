@@ -61,7 +61,7 @@ function createBundledChannelSmokeFixture(entrySource: string, prepared = false)
   writeFileSync(
     path.join(extensionRoot, "package.json"),
     `${JSON.stringify({
-      name: "@openclaw/fixture-channel",
+      name: "@granted/fixture-channel",
       openclaw: { channel: true, extensions: ["./index.ts"] },
     })}\n`,
   );
@@ -103,7 +103,7 @@ function createPrepackLifecycleFixture() {
   Object.assign(packageJson, {
     packageManager: rootPackageManager,
     files: ["dist", "docs/docs_map.md", "CHANGELOG.md", ".openclaw-lifecycle-pending"],
-    devDependencies: { "@openclaw/session-url-contract": "workspace:*" },
+    devDependencies: { "@granted/session-url-contract": "workspace:*" },
     scripts: {
       "build:package": "node rebuild.mjs",
       prepack: "node lifecycle.mjs prepack",
@@ -391,14 +391,14 @@ describe("prepack lifecycle", () => {
 });
 
 describe("collectSourcePackWorkspaceDependencyErrors", () => {
-  it("rejects the plain source pack that pnpm rewrites without bundling @openclaw/ai", () => {
+  it("rejects the plain source pack that pnpm rewrites without bundling @granted/ai", () => {
     const rootDir = tempDirs.make("openclaw-source-pack-workspace-");
     const aiDir = path.join(rootDir, "packages", "ai");
     const packDir = path.join(rootDir, "pack");
     const extractDir = path.join(rootDir, "extract");
     const version = "2099.1.2-test.0";
     const rootPackageJson = {
-      dependencies: { "@openclaw/ai": "workspace:*" },
+      dependencies: { "@granted/ai": "workspace:*" },
       name: "openclaw-source-pack-regression",
       packageManager: rootPackageManager,
       version,
@@ -413,7 +413,7 @@ describe("collectSourcePackWorkspaceDependencyErrors", () => {
     writeFileSync(path.join(rootDir, "pnpm-workspace.yaml"), 'packages:\n  - "packages/*"\n');
     writeFileSync(
       path.join(aiDir, "package.json"),
-      `${JSON.stringify({ name: "@openclaw/ai", version }, null, 2)}\n`,
+      `${JSON.stringify({ name: "@granted/ai", version }, null, 2)}\n`,
     );
 
     const install = spawnSync("pnpm", ["install", "--ignore-scripts", "--reporter=silent"], {
@@ -448,7 +448,7 @@ describe("collectSourcePackWorkspaceDependencyErrors", () => {
       bundleDependencies?: string[];
       dependencies?: Record<string, string>;
     };
-    expect(packedPackageJson.dependencies?.["@openclaw/ai"]).toBe(version);
+    expect(packedPackageJson.dependencies?.["@granted/ai"]).toBe(version);
     expect(packedPackageJson.bundleDependencies).toBeUndefined();
     expect(existsSync(path.join(extractDir, "package", "node_modules", "@openclaw", "ai"))).toBe(
       false,
@@ -456,8 +456,8 @@ describe("collectSourcePackWorkspaceDependencyErrors", () => {
     expect(existsSync(path.join(extractDir, "package", "npm-shrinkwrap.json"))).toBe(false);
     expect(existsSync(path.join(extractDir, "package", "package-lock.json"))).toBe(false);
     expect(collectSourcePackWorkspaceDependencyErrors(rootPackageJson, {})).toEqual([
-      "plain root packing cannot safely resolve @openclaw/ai from workspace:*: pnpm rewrites the workspace dependency to an exact version without bundling the package",
-      "use `node scripts/package-openclaw-for-docker.mjs --allow-unreleased-changelog` for a self-contained source package; official npm release automation prepares and publishes @openclaw/ai separately",
+      "plain root packing cannot safely resolve @granted/ai from workspace:*: pnpm rewrites the workspace dependency to an exact version without bundling the package",
+      "use `node scripts/package-openclaw-for-docker.mjs --allow-unreleased-changelog` for a self-contained source package; official npm release automation prepares and publishes @granted/ai separately",
     ]);
     expect(
       collectSourcePackWorkspaceDependencyErrors(rootPackageJson, {
@@ -510,7 +510,7 @@ describe("collectSourcePackWorkspaceDependencyErrors", () => {
           "crabbox:run": "node scripts/crabbox-wrapper.mjs run",
         },
         devDependencies: {
-          "@openclaw/session-url-contract": "workspace:*",
+          "@granted/session-url-contract": "workspace:*",
           vitest: "4.1.10",
         },
       },

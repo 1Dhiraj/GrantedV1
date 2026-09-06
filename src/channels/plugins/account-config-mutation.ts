@@ -1,5 +1,5 @@
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
-import { err as resultError, ok, type Result } from "@openclaw/normalization-core/result";
+import { isRecord } from "@granted/normalization-core/record-coerce";
+import { err as resultError, ok, type Result } from "@granted/normalization-core/result";
 import type { GrantedConfig } from "../../config/types.openclaw.js";
 import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "../../routing/session-key.js";
 import type { RuntimeEnv } from "../../runtime.js";

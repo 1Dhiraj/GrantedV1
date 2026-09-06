@@ -1,12 +1,12 @@
 import fs from "node:fs";
 import path from "node:path";
 import { performance } from "node:perf_hooks";
-import { parseModelCatalogRef } from "@openclaw/model-catalog-core/model-catalog-refs";
+import { parseModelCatalogRef } from "@granted/model-catalog-core/model-catalog-refs";
 import {
   findNormalizedProviderValue,
   normalizeProviderId,
-} from "@openclaw/model-catalog-core/provider-id";
-import { stableStringify } from "@openclaw/normalization-core";
+} from "@granted/model-catalog-core/provider-id";
+import { stableStringify } from "@granted/normalization-core";
 import { sha256Base64Url } from "../infra/crypto-digest.js";
 import { prepareMediaCapabilityProviders } from "../plugins/capability-provider-runtime.js";
 import { normalizePluginsConfig } from "../plugins/config-state.js";

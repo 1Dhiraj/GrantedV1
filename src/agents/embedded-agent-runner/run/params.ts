@@ -1,7 +1,7 @@
 /**
  * Shared parameter types for embedded-agent run orchestration.
  */
-import type { FastMode } from "@openclaw/normalization-core/string-coerce";
+import type { FastMode } from "@granted/normalization-core/string-coerce";
 import type {
   BlockReplyContext,
   PartialReplyPayload,

@@ -203,7 +203,7 @@ describe("CLI prepared metadata lifetime", () => {
       fs.writeFileSync(
         path.join(plugin.dir, "package.json"),
         JSON.stringify({
-          name: "@openclaw/cli-inputs",
+          name: "@granted/cli-inputs",
           openclaw: {
             extensions: ["./index.cjs"],
             channel: { id: plugin.id, configuredState: { env: { allOf: ["CLI_INPUTS_TOKEN"] } } },

@@ -1,4 +1,4 @@
-import { asNullableRecord } from "@openclaw/normalization-core/record-coerce";
+import { asNullableRecord } from "@granted/normalization-core/record-coerce";
 import { hasTerminalControl } from "../../../../packages/terminal-core/src/safe-text.js";
 import type { GatewaySessionRow } from "../../api/types.ts";
 

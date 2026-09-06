@@ -1,4 +1,4 @@
-import { OPENAI_PROMPT_CACHE_KEY_MAX_LENGTH } from "@openclaw/ai/providers";
+import { OPENAI_PROMPT_CACHE_KEY_MAX_LENGTH } from "@granted/ai/providers";
 
 export function resolveSessionBoundaryPromptCacheKey(params: {
   api: string;

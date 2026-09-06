@@ -68,7 +68,7 @@ describe("bundled provider compatibility in installed plugin indexes", () => {
           packageDir: candidate.rootDir,
           packageManifest: {
             install: {
-              npmSpec: "@openclaw/contract-provider",
+              npmSpec: "@granted/contract-provider",
               minHostVersion: ">=2099.1.1",
             },
           },

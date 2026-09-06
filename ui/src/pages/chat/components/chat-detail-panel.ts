@@ -1,4 +1,4 @@
-import { toErrorObject } from "@openclaw/normalization-core";
+import { toErrorObject } from "@granted/normalization-core";
 import { property, state } from "lit/decorators.js";
 import {
   localEditorFilePath,

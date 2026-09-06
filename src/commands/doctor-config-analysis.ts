@@ -1,6 +1,6 @@
 /** Doctor analysis helpers for config schema cleanup and ambiguous model fallback shapes. */
 import path from "node:path";
-import { resolvePrimaryStringValue } from "@openclaw/normalization-core/string-coerce";
+import { resolvePrimaryStringValue } from "@granted/normalization-core/string-coerce";
 import type { ZodIssue } from "zod";
 import { note } from "../../packages/terminal-core/src/note.js";
 import { listAgentEntries } from "../agents/agent-scope-config.js";

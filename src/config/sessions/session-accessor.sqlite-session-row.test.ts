@@ -1,5 +1,5 @@
 import fs from "node:fs";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { createTempDirTracker } from "../../../test/helpers/temp-dir.js";
 import { createCanonicalFixtureSkill } from "../../skills/test-support/test-helpers.js";

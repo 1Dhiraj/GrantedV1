@@ -1,4 +1,4 @@
-import { asOptionalObjectRecord } from "@openclaw/normalization-core/record-coerce";
+import { asOptionalObjectRecord } from "@granted/normalization-core/record-coerce";
 /** Projects a safe Code Mode catalog miss into terminal metadata for operator diagnostics. */
 import { CODE_MODE_EXEC_TOOL_NAME, CODE_MODE_WAIT_TOOL_NAME } from "../code-mode-control-tools.js";
 import type { ToolErrorSummary } from "../tool-error-summary.js";

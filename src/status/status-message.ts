@@ -1,11 +1,11 @@
 // Status message helpers read and format stored status messages.
-import { asNonNegativeFiniteNumber } from "@openclaw/normalization-core/number-coercion";
+import { asNonNegativeFiniteNumber } from "@granted/normalization-core/number-coercion";
 import {
   type FastMode,
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalLowercaseString,
   normalizeOptionalString,
-} from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/string-coerce";
 import { resolveAuthoredModelContextTokens } from "../agents/context-resolution.js";
 import { resolveContextTokensForModel } from "../agents/context.js";
 import { resolveCronStyleNow } from "../agents/current-time.js";

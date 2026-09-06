@@ -6,7 +6,7 @@ video generation.
 Install from OpenClaw:
 
 ```bash
-openclaw plugins install @openclaw/byteplus-provider
+openclaw plugins install @granted/byteplus-provider
 openclaw gateway restart
 ```
 

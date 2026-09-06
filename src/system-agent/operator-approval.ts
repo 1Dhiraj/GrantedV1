@@ -1,6 +1,6 @@
 // Human-only arming for delegated OpenClaw changes.
 import { createHash } from "node:crypto";
-import { stableStringify } from "@openclaw/normalization-core";
+import { stableStringify } from "@granted/normalization-core";
 import { isPersistentSystemAgentOperation, type SystemAgentOperation } from "./operations-parse.js";
 
 export type SystemAgentProposalRef = { current?: string; operation?: SystemAgentOperation };

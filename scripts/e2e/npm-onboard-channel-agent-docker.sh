@@ -153,13 +153,13 @@ dump_debug_logs() {
 }
 trap 'status=$?; dump_debug_logs "$status"; exit "$status"' ERR
 
-required_plugins='["@openclaw/codex"]'
+required_plugins='["@granted/codex"]'
 if [ "${OPENCLAW_NPM_ONBOARD_USE_SOURCE_PLUGIN_PACKAGE:-0}" = "1" ] && [ "$CHANNEL" != "telegram" ]; then
   if [ -z "${OPENCLAW_PREPUBLISH_PLUGIN_REGISTRY_DIR:-}" ]; then
     echo "source channel fixture requires OPENCLAW_PREPUBLISH_PLUGIN_REGISTRY_DIR with the matching candidate companion" >&2
     exit 1
   fi
-  required_plugins="[\"@openclaw/codex\",\"@openclaw/$CHANNEL\"]"
+  required_plugins="[\"@granted/codex\",\"@granted/$CHANNEL\"]"
 fi
 if [ -n "${OPENCLAW_PREPUBLISH_PLUGIN_REGISTRY_DIR:-}" ]; then
   openclaw_prepublish_plugin_registry_start_mounted \
@@ -186,7 +186,7 @@ if [ -n "$fixture_consent" ]; then
   codex_install_args=(codex)
   if [ -n "${OPENCLAW_PREPUBLISH_PLUGIN_REGISTRY_DIR:-}" ]; then
     candidate_version="${OPENCLAW_PREPUBLISH_PLUGIN_REGISTRY_CANDIDATE_VERSION:?missing candidate version}"
-    codex_install_args=("npm:@openclaw/codex@$candidate_version" --pin)
+    codex_install_args=("npm:@granted/codex@$candidate_version" --pin)
   fi
   # Published packages use the official catalog's source selection;
   # mounted candidates use only the exact companion verified above.
@@ -219,7 +219,7 @@ if [ "$CHANNEL_PACKAGE_MODE" = "external" ] && [ -n "$fixture_consent" ]; then
   if [ "${OPENCLAW_NPM_ONBOARD_USE_SOURCE_PLUGIN_PACKAGE:-0}" = "1" ] && [ "$CHANNEL" != "telegram" ]; then
     # The verified registry preserves candidate bytes through the official npm
     # installer; a local archive would not establish official plugin provenance.
-    channel_install_args=("npm:@openclaw/$CHANNEL@$candidate_version" --pin)
+    channel_install_args=("npm:@granted/$CHANNEL@$candidate_version" --pin)
   fi
   openclaw_e2e_fixture_plugin_command openclaw -- plugins install "${channel_install_args[@]}" \
     >/tmp/openclaw-channel-plugin-install.log 2>&1

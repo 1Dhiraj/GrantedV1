@@ -7,13 +7,13 @@ import {
   select as clackSelect,
   text as clackText,
 } from "@clack/prompts";
-import { readByteStreamWithLimit } from "@openclaw/media-core/read-byte-stream-with-limit";
-import { expectDefined } from "@openclaw/normalization-core";
-import { resolveExpiresAtMsFromDurationMs } from "@openclaw/normalization-core/number-coercion";
+import { readByteStreamWithLimit } from "@granted/media-core/read-byte-stream-with-limit";
+import { expectDefined } from "@granted/normalization-core";
+import { resolveExpiresAtMsFromDurationMs } from "@granted/normalization-core/number-coercion";
 import {
   normalizeOptionalString,
   normalizeStringifiedOptionalString,
-} from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/string-coerce";
 import { styleSelectParams } from "../../../packages/terminal-core/src/prompt-select-styled-params.js";
 import { stylePromptMessage } from "../../../packages/terminal-core/src/prompt-style.js";
 import { resolveAgentWorkspaceDir } from "../../agents/agent-scope.js";

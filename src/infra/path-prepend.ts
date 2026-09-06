@@ -4,7 +4,7 @@ import {
   normalizeStringEntries,
   normalizeUniqueStringEntries,
   normalizeUniqueTrimmedStringList,
-} from "@openclaw/normalization-core/string-normalization";
+} from "@granted/normalization-core/string-normalization";
 
 /**
  * Find the actual key used for PATH in the env object.

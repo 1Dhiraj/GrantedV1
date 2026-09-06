@@ -1,6 +1,6 @@
 import os from "node:os";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
-import { readNonBlankString } from "@openclaw/normalization-core/string-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
+import { readNonBlankString } from "@granted/normalization-core/string-coerce";
 
 export function githubPublicationBaseLookupArgs(repository: string, baseBranch: string): string[] {
   return [

@@ -1,6 +1,6 @@
 // Bundles MCP metadata exposed by plugins for package output.
 import path from "node:path";
-import { isStringRecord } from "@openclaw/normalization-core/record-coerce";
+import { isStringRecord } from "@granted/normalization-core/record-coerce";
 import { resolveMcpTransportConfig } from "../agents/mcp-transport-config.js";
 import { applyMergePatch } from "../config/merge-patch.js";
 import type { GrantedConfig } from "../config/types.openclaw.js";

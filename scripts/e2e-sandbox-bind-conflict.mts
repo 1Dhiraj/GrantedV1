@@ -12,7 +12,7 @@ import { spawnSync } from "node:child_process";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import { formatErrorMessage } from "./lib/error-format.mts";
 import { resolveRepoRoot } from "./lib/repo-root.mjs";
 

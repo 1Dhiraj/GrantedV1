@@ -1,6 +1,6 @@
 /* @vitest-environment jsdom */
 
-import { renderMermaidSvg } from "@openclaw/mermaid-renderer";
+import { renderMermaidSvg } from "@granted/mermaid-renderer";
 import { html, nothing, render } from "lit";
 import { unsafeHTML } from "lit/directives/unsafe-html.js";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
@@ -9,7 +9,7 @@ import { copyToClipboard } from "../lib/clipboard.ts";
 import { mountMermaidBlocks } from "./markdown-mermaid.ts";
 import { toSanitizedMarkdownHtml } from "./markdown.ts";
 
-vi.mock("@openclaw/mermaid-renderer", () => ({ renderMermaidSvg: vi.fn() }));
+vi.mock("@granted/mermaid-renderer", () => ({ renderMermaidSvg: vi.fn() }));
 vi.mock("../lib/clipboard.ts", () => ({ copyToClipboard: vi.fn() }));
 
 type MermaidElement = HTMLElementTagNameMap["openclaw-mermaid"];

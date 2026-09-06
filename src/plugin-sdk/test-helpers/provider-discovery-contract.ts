@@ -1,6 +1,6 @@
 // Provider discovery contract helpers define reusable discovery tests for provider plugins.
-import { asNullableRecord } from "@openclaw/normalization-core/record-coerce";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { asNullableRecord } from "@granted/normalization-core/record-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { runProviderCatalog } from "../../plugins/provider-discovery.js";
 import {

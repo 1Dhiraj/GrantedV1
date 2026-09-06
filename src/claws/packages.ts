@@ -1,7 +1,7 @@
 import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { coerceErrorMessage, stableStringify } from "@openclaw/normalization-core";
+import { coerceErrorMessage, stableStringify } from "@granted/normalization-core";
 import { runPluginInstallCommand } from "../cli/plugins-install-command.js";
 import { runPluginUninstallCommand } from "../cli/plugins-uninstall-command.js";
 import { normalizeClawHubSha256Integrity } from "../infra/clawhub-artifacts.js";

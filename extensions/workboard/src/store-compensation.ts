@@ -1,5 +1,5 @@
 import { isDeepStrictEqual } from "node:util";
-import type { WorkboardCard } from "@openclaw/workboard-contract";
+import type { WorkboardCard } from "@granted/workboard-contract";
 import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 
 const ABSENT = Symbol("workboard-compensation-absent");

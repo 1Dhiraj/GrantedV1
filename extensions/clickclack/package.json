@@ -1,5 +1,5 @@
 {
-  "name": "@openclaw/clickclack",
+  "name": "@granted/clickclack",
   "version": "2026.8.1",
   "description": "OpenClaw ClickClack channel plugin",
   "type": "module",
@@ -13,11 +13,11 @@
     "zod": "4.4.3"
   },
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*",
-    "openclaw": "workspace:*"
+    "@granted/plugin-sdk": "workspace:*",
+    "granted": "workspace:*"
   },
   "peerDependencies": {
-    "openclaw": ">=2026.8.1"
+    "granted": ">=2026.8.1"
   },
   "peerDependenciesMeta": {
     "openclaw": {
@@ -134,8 +134,8 @@
       }
     },
     "install": {
-      "clawhubSpec": "clawhub:@openclaw/clickclack",
-      "npmSpec": "@openclaw/clickclack",
+      "clawhubSpec": "clawhub:@granted/clickclack",
+      "npmSpec": "@granted/clickclack",
       "defaultChoice": "npm",
       "minHostVersion": ">=2026.6.9",
       "allowInvalidConfigRecovery": true

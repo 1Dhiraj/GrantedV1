@@ -1,15 +1,15 @@
 // Gateway logs CLI with RPC tailing, local file fallback, and systemd journal fallback.
 import { setTimeout as delay } from "node:timers/promises";
-import { redactSensitiveUrlLikeString } from "@openclaw/net-policy/redact-sensitive-url";
+import { redactSensitiveUrlLikeString } from "@granted/net-policy/redact-sensitive-url";
 import {
   coerceErrorMessage as normalizeErrorMessage,
   toStringifiedError,
-} from "@openclaw/normalization-core/error-coercion";
+} from "@granted/normalization-core/error-coercion";
 import {
   parseStrictPositiveInteger,
   resolveIntegerOption,
-} from "@openclaw/normalization-core/number-coercion";
-import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/number-coercion";
+import { normalizeLowercaseStringOrEmpty } from "@granted/normalization-core/string-coerce";
 import type { Command } from "commander";
 import {
   GATEWAY_CLIENT_MODES,

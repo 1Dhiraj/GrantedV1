@@ -1,6 +1,6 @@
-import { normalizeModelCostConfig } from "@openclaw/llm-core";
+import { normalizeModelCostConfig } from "@granted/llm-core";
 // Verifies default config values and environment-sensitive overrides.
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { ProviderResolveModelRoutesContext } from "../plugin-sdk/provider-model-types.js";
 import { resolveProviderModelRoutes } from "../plugins/provider-model-routes.js";

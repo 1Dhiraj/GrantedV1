@@ -2,7 +2,7 @@ import { execFile } from "node:child_process";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { promisify } from "node:util";
-import { buildControlUiSessionPath } from "@openclaw/session-url-contract";
+import { buildControlUiSessionPath } from "@granted/session-url-contract";
 import type { GatewayClient } from "granted/plugin-sdk/gateway-runtime";
 import type { Browser, BrowserContext, Page } from "playwright";
 import { afterEach, describe, expect, it, vi } from "vitest";

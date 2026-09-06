@@ -1137,7 +1137,7 @@ describe("loadOpenClawPlugins", () => {
       path.join(pluginDir, "package.json"),
       JSON.stringify(
         {
-          name: "@openclaw/nested-default-channel",
+          name: "@granted/nested-default-channel",
           openclaw: {
             extensions: ["./index.cjs"],
           },
@@ -1494,7 +1494,7 @@ ${channelPluginSource({
         pluginManifest("untrusted-global-channel", ["untrusted-global-channel"]),
       );
       writeFixtureJson(globalDir, "package.json", {
-        name: "@openclaw/untrusted-global-channel",
+        name: "@granted/untrusted-global-channel",
         version: "0.0.0-test",
         main: "./index.cjs",
         openclaw: { extensions: ["./index.cjs"] },

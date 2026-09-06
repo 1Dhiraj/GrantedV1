@@ -11,7 +11,7 @@ OpenClaw sandbox backend for the NVIDIA OpenShell CLI with mirrored local worksp
 
 ## Distribution
 
-- Package: `@openclaw/openshell-sandbox`
+- Package: `@granted/openshell-sandbox`
 - Install route: npm; ClawHub
 
 ## Surface

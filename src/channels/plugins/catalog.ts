@@ -4,11 +4,11 @@
  * Combines bundled, installed, and official external channel metadata for UI/setup surfaces.
  */
 import path from "node:path";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import {
   normalizeStringEntries,
   uniqueStrings,
-} from "@openclaw/normalization-core/string-normalization";
+} from "@granted/normalization-core/string-normalization";
 import {
   LEGACY_MANIFEST_KEYS,
   MANIFEST_KEY,

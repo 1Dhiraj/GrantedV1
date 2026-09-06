@@ -1,14 +1,14 @@
 // Dispatches reply turns through ACP runtimes and projects their events.
-import { resolveAcpThreadSessionDetailLines } from "@openclaw/acp-core/runtime/session-identifiers";
+import { resolveAcpThreadSessionDetailLines } from "@granted/acp-core/runtime/session-identifiers";
 import {
   isSessionIdentityPending,
   resolveSessionIdentityFromMeta,
-} from "@openclaw/acp-core/runtime/session-identity";
+} from "@granted/acp-core/runtime/session-identity";
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalLowercaseString,
   normalizeOptionalString,
-} from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/string-coerce";
 import type { AcpTurnAttachment } from "../../acp/control-plane/manager.types.js";
 import { resolveAcpAgentPolicyError, resolveAcpDispatchPolicyError } from "../../acp/policy.js";
 import {

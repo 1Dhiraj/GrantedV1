@@ -16,9 +16,9 @@ export OPENCLAW_CODEX_MEDIA_PATH_APP_SERVER_LOG="/tmp/openclaw-codex-media-path-
 
 PORT="${PORT:?missing PORT}"
 TOKEN="${OPENCLAW_GATEWAY_TOKEN:?missing OPENCLAW_GATEWAY_TOKEN}"
-PLUGIN_SPEC="${OPENCLAW_CODEX_MEDIA_PATH_PLUGIN_SPEC:-npm:@openclaw/codex}"
+PLUGIN_SPEC="${OPENCLAW_CODEX_MEDIA_PATH_PLUGIN_SPEC:-npm:@granted/codex}"
 if [[ -z "${OPENCLAW_CODEX_MEDIA_PATH_PLUGIN_SPEC:-}" && -n "${OPENCLAW_PREPUBLISH_PLUGIN_REGISTRY_DIR:-}" ]]; then
-  PLUGIN_SPEC="npm:@openclaw/codex@${OPENCLAW_PREPUBLISH_PLUGIN_REGISTRY_CANDIDATE_VERSION:?missing candidate version}"
+  PLUGIN_SPEC="npm:@granted/codex@${OPENCLAW_PREPUBLISH_PLUGIN_REGISTRY_CANDIDATE_VERSION:?missing candidate version}"
 fi
 GATEWAY_LOG="/tmp/openclaw-codex-media-path-gateway.log"
 CLIENT_LOG="/tmp/openclaw-codex-media-path-client.log"
@@ -46,7 +46,7 @@ rm -f "$OPENCLAW_CODEX_MEDIA_PATH_APP_SERVER_LOG"
 
 openclaw_e2e_enable_openclaw_cli_timeout
 openclaw_prepublish_plugin_registry_start_mounted \
-  /tmp/openclaw-codex-media-path-registry plugin_registry_pid '["@openclaw/codex"]'
+  /tmp/openclaw-codex-media-path-registry plugin_registry_pid '["@granted/codex"]'
 
 echo "Installing Codex plugin: $PLUGIN_SPEC"
 openclaw_e2e_fixture_plugin_command openclaw -- plugins install "$PLUGIN_SPEC" --force >"$PLUGIN_INSTALL_LOG" 2>&1

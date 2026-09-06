@@ -1,8 +1,8 @@
 /**
  * Registers caller-supplied custom API stream functions with the LLM registry.
  */
-import type { ApiRegistry } from "@openclaw/ai";
-import type { StreamFn } from "@openclaw/llm-core";
+import type { ApiRegistry } from "@granted/ai";
+import type { StreamFn } from "@granted/llm-core";
 import type {
   Api,
   AssistantMessageEventStreamContract,

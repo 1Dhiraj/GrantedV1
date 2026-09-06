@@ -1,5 +1,5 @@
 /** Pure heartbeat enrollment and configuration shared by scheduling, health, and Doctor. */
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import {
   listAgentEntries,
   listAgentIds,

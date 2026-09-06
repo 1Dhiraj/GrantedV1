@@ -1,4 +1,4 @@
-import type { WorkboardWorkspace, WorkboardWorkspaceAccess } from "@openclaw/workboard-contract";
+import type { WorkboardWorkspace, WorkboardWorkspaceAccess } from "@granted/workboard-contract";
 import {
   listAgentIds,
   resolveAgentConfig,
@@ -17,7 +17,7 @@ import type {
 } from "granted/plugin-sdk/plugin-entry";
 import { asOptionalRecord } from "granted/plugin-sdk/string-coerce-runtime";
 
-export type { WorkboardWorkspaceAccess } from "@openclaw/workboard-contract";
+export type { WorkboardWorkspaceAccess } from "@granted/workboard-contract";
 
 type WorkboardConfig = NonNullable<GrantedPluginToolContext["config"]>;
 type ResolveSandboxWorkspaceAuthority =

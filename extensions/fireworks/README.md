@@ -5,7 +5,7 @@ Official OpenClaw provider plugin for Fireworks.
 ## Install
 
 ```sh
-openclaw plugins install @openclaw/fireworks-provider
+openclaw plugins install @granted/fireworks-provider
 ```
 
 ## Docs

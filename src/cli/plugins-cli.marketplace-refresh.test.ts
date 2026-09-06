@@ -187,7 +187,7 @@ describe("plugins marketplace refresh", () => {
     mocks.getRuntimeConfig.mockReturnValue({});
     mocks.loadConfiguredHostedOfficialExternalPluginCatalogEntries.mockResolvedValue({
       source: "bundled-fallback",
-      entries: [{ name: "@openclaw/acpx" }],
+      entries: [{ name: "@granted/acpx" }],
       error: "hosted catalog feed returned HTTP 503",
       metadata: {
         url: "https://clawhub.ai/v1/feeds/plugins",
@@ -267,7 +267,7 @@ describe("plugins marketplace refresh", () => {
     mocks.getRuntimeConfig.mockReturnValue({});
     mocks.loadConfiguredHostedOfficialExternalPluginCatalogEntries.mockResolvedValue({
       source: "bundled-fallback",
-      entries: [{ name: "@openclaw/acpx" }],
+      entries: [{ name: "@granted/acpx" }],
       error:
         "hosted catalog feed fetch failed for https://clawhub.ai/v1/feeds/plugins?token=secret#frag",
       metadata: {
@@ -306,7 +306,7 @@ describe("plugins marketplace refresh", () => {
     mocks.getRuntimeConfig.mockReturnValue({});
     mocks.loadConfiguredHostedOfficialExternalPluginCatalogEntries.mockResolvedValue({
       source: "bundled-fallback",
-      entries: [{ name: "@openclaw/acpx" }],
+      entries: [{ name: "@granted/acpx" }],
       error: "hosted catalog feed checksum mismatch: expected sha256:expected",
       metadata: {
         url: "https://clawhub.ai/v1/feeds/plugins",

@@ -2,7 +2,7 @@
 // Loads plugin registries and builds fallback request context for non-WS paths.
 import { randomUUID } from "node:crypto";
 import { performance } from "node:perf_hooks";
-import { uniqueStrings } from "@openclaw/normalization-core/string-normalization";
+import { uniqueStrings } from "@granted/normalization-core/string-normalization";
 import type { AgentWaitResult } from "../agents/run-wait.types.js";
 import type { AmbientEnvTriggerPolicy } from "../channels/config-presence.js";
 import { allowsProcessHomeSessionScan } from "../config/paths.js";

@@ -1,4 +1,4 @@
-import { normalizeOptionalString, type FastMode } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalString, type FastMode } from "@granted/normalization-core/string-coerce";
 import type {
   SessionRow,
   SessionRunStatus,

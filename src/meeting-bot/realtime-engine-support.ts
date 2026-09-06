@@ -1,4 +1,4 @@
-import { normalizeOptionalString as readLogString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalString as readLogString } from "@granted/normalization-core/string-coerce";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import type { RuntimeLogger } from "../plugins/runtime/types.js";
 import type {

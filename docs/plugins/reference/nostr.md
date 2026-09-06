@@ -11,7 +11,7 @@ OpenClaw Nostr channel plugin for NIP-04 encrypted direct messages.
 
 ## Distribution
 
-- Package: `@openclaw/nostr`
+- Package: `@granted/nostr`
 - Install route: npm; ClawHub
 
 ## Surface

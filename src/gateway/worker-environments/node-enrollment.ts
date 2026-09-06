@@ -1,6 +1,6 @@
 import os from "node:os";
 import { setTimeout as sleep } from "node:timers/promises";
-import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import { resolveGatewayPublicOrigin } from "../../config/gateway-public-origin.js";
 import { ensureDevicePairSetupBootstrapToken } from "../../infra/device-bootstrap.js";
 import { removePairedDeviceRole } from "../../infra/device-pairing.js";

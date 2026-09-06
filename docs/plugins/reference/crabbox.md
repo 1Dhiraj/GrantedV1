@@ -11,7 +11,7 @@ Cloud worker provider backed by the Crabbox CLI.
 
 ## Distribution
 
-- Package: `@openclaw/crabbox-provider`
+- Package: `@granted/crabbox-provider`
 - Install route: included in OpenClaw
 
 ## Surface

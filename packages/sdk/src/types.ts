@@ -14,7 +14,7 @@ import type {
   TaskSummary as GatewayTaskSummaryType,
   ToolsInvokeParams as GatewayToolsInvokeParamsType,
   ToolsInvokeResult as GatewayToolsInvokeResultType,
-} from "@openclaw/gateway-protocol";
+} from "@granted/gateway-protocol";
 
 export type {
   AgentsCreateParams,
@@ -35,7 +35,7 @@ export type {
   WorkerEnvironmentMetadata,
   WorkerEnvironmentState,
   WorkerTunnelStatus,
-} from "@openclaw/gateway-protocol";
+} from "@granted/gateway-protocol";
 
 export type JsonObject = Record<string, unknown>;
 

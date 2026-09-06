@@ -73,7 +73,7 @@ function writeCleanupPlugins(bundledRoot: string) {
   );
   fs.writeFileSync(
     path.join(owner.dir, "package.json"),
-    JSON.stringify({ name: `@openclaw/${owner.id}`, openclaw: { extensions: ["./index.cjs"] } }),
+    JSON.stringify({ name: `@granted/${owner.id}`, openclaw: { extensions: ["./index.cjs"] } }),
   );
   const unrelated = writePlugin({
     id: "unrelated-cleanup-plugin",

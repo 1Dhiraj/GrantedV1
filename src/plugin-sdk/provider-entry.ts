@@ -1,6 +1,6 @@
 // Provider entry contracts define provider plugin hooks, model catalogs, and runtime adapters.
-import type { UnifiedModelCatalogEntry } from "@openclaw/model-catalog-core/model-catalog-types";
-import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
+import type { UnifiedModelCatalogEntry } from "@granted/model-catalog-core/model-catalog-types";
+import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
 import {
   normalizeStringEntries,
   uniqueStrings,

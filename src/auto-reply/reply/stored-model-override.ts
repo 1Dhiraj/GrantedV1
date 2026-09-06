@@ -1,5 +1,5 @@
 // Normalizes stored reply models and detects stale heartbeat fallback pins.
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import { hasSessionAutoModelFallbackProvenance } from "../../agents/agent-scope.js";
 import { resolveCliRuntimeCanonicalProvider } from "../../agents/cli-backends.js";
 import {

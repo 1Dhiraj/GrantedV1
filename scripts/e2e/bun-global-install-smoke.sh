@@ -79,24 +79,24 @@ prepare_ai_candidate() {
   fi
   root_manifest="$PACK_DIR/openclaw-package.json"
   tar -xOf "$PACKAGE_TGZ" package/package.json >"$root_manifest"
-  if ! tar -tzf "$PACKAGE_TGZ" package/node_modules/@openclaw/ai/package.json >/dev/null 2>&1; then
+  if ! tar -tzf "$PACKAGE_TGZ" package/node_modules/@granted/ai/package.json >/dev/null 2>&1; then
     if node -e '
 const manifest = require(process.argv[1]);
-process.exit(manifest.dependencies?.["@openclaw/ai"] ? 0 : 1);
+process.exit(manifest.dependencies?.["@granted/ai"] ? 0 : 1);
 ' "$root_manifest"; then
-      echo "OpenClaw tarball declares @openclaw/ai but does not bundle it" >&2
+      echo "OpenClaw tarball declares @granted/ai but does not bundle it" >&2
       exit 1
     fi
-    echo "==> Candidate has no bundled @openclaw/ai dependency"
+    echo "==> Candidate has no bundled @granted/ai dependency"
     return
   fi
-  echo "==> Extract bundled candidate @openclaw/ai package"
+  echo "==> Extract bundled candidate @granted/ai package"
   ai_package_dir="$PACK_DIR/ai-candidate"
   mkdir -p "$ai_package_dir"
   tar -xzf "$PACKAGE_TGZ" \
     -C "$ai_package_dir" \
     --strip-components=4 \
-    package/node_modules/@openclaw/ai
+    package/node_modules/@granted/ai
   ai_manifest="$ai_package_dir/package.json"
   node scripts/e2e/lib/bun-global-install/assertions.mjs \
     assert-release-versions \
@@ -106,7 +106,7 @@ process.exit(manifest.dependencies?.["@openclaw/ai"] ? 0 : 1);
   npm pack --ignore-scripts --silent --pack-destination "$PACK_DIR" "$ai_package_dir" >/dev/null
   ai_tarballs=("$PACK_DIR"/openclaw-ai-*.tgz)
   if [ "${#ai_tarballs[@]}" -ne 1 ] || [ ! -f "${ai_tarballs[0]}" ]; then
-    echo "expected one packed @openclaw/ai candidate in $PACK_DIR" >&2
+    echo "expected one packed @granted/ai candidate in $PACK_DIR" >&2
     exit 1
   fi
   AI_PACKAGE_TGZ="${ai_tarballs[0]}"
@@ -260,7 +260,7 @@ main() {
     "$XDG_CACHE_HOME" \
     "$OPENCLAW_STATE_DIR"
   export PATH="$BUN_INSTALL/bin:$(dirname "$(command -v node)"):$PATH"
-  # Current root tarballs bundle @openclaw/ai, while older release tarballs do
+  # Current root tarballs bundle @granted/ai, while older release tarballs do
   # not declare it. Pin only the bundled dependency; inventing an override for
   # the older package changes the artifact under test.
   if [ -n "$AI_PACKAGE_TGZ" ]; then
@@ -272,7 +272,7 @@ import fs from "node:fs";
 const [, , packageJsonPath, aiPackageTarball] = process.argv;
 fs.writeFileSync(
   packageJsonPath,
-  `${JSON.stringify({ private: true, overrides: { "@openclaw/ai": `file:${aiPackageTarball}` } })}\n`,
+  `${JSON.stringify({ private: true, overrides: { "@granted/ai": `file:${aiPackageTarball}` } })}\n`,
 );
 NODE
   fi

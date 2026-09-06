@@ -1,6 +1,6 @@
-import { reduceSessionProjection } from "@openclaw/gateway-client/browser";
+import { reduceSessionProjection } from "@granted/gateway-client/browser";
 /* @vitest-environment jsdom */
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { render } from "lit";
 import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";

@@ -19,7 +19,7 @@ openclaw config schema --json | jq '.properties.models'   # confirm exact provid
 openclaw plugins list   # OpenAI routes need the codex harness plugin; enable/install NOW, not mid-proof
 ```
 
-If the harness plugin for the target provider is missing or disabled, remediate here (`openclaw plugins enable codex` or `openclaw plugins install @openclaw/codex`) so the Prove step does not stall on it later; plugin enable is picked up by gateway hot-reload.
+If the harness plugin for the target provider is missing or disabled, remediate here (`openclaw plugins enable codex` or `openclaw plugins install @granted/codex`) so the Prove step does not stall on it later; plugin enable is picked up by gateway hot-reload.
 
 Decide the auth contract: API-key providers take a SecretRef on `models.providers.<id>.apiKey`; subscription/OAuth providers (ChatGPT/Codex, Claude subscriptions) use `openclaw models auth login --provider <id>` instead and must not be given an API key path.
 
@@ -63,7 +63,7 @@ Single-agent installs can use the lighter completion probe instead — it has no
 openclaw infer model run --gateway --model openai/gpt-5.4 --prompt "Reply with exactly: PROVIDER-PROOF-OK"
 ```
 
-Expect the exact probe string; record model id and wall time. Known dependency: OpenAI routes need the codex harness plugin at runtime — if the probe reports the runtime unavailable, run `openclaw plugins install @openclaw/codex` and restart the gateway, then re-probe.
+Expect the exact probe string; record model id and wall time. Known dependency: OpenAI routes need the codex harness plugin at runtime — if the probe reports the runtime unavailable, run `openclaw plugins install @granted/codex` and restart the gateway, then re-probe.
 
 ## Report
 

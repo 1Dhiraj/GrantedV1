@@ -81,11 +81,11 @@ function createMissingSdkError(
   const lines = [
     "[copilot] @github/copilot-sdk is not installed.",
     "",
-    "The external @openclaw/copilot plugin depends on @github/copilot-sdk",
+    "The external @granted/copilot plugin depends on @github/copilot-sdk",
     "(~260 MB after pulling its platform-specific @github/copilot CLI binary).",
     "Reinstall the plugin once with:",
     "",
-    "  openclaw plugins install @openclaw/copilot",
+    "  openclaw plugins install @granted/copilot",
     "",
     "For source checkouts or offline repair, install the SDK directly:",
     "",

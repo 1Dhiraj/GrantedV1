@@ -11,7 +11,7 @@ OpenClaw Raft channel plugin for secure CLI wake bridges.
 
 ## Distribution
 
-- Package: `@openclaw/raft`
+- Package: `@granted/raft`
 - Install route: npm; ClawHub
 
 ## Surface

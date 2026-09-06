@@ -17,7 +17,7 @@ import { runQaGatewayFixture, stopQaGatewayFixture } from "../../../helpers/qa-g
 import { startLocalOtlpReceiver } from "./otel-test-support.js";
 
 const execFileAsync = promisify(execFile);
-const PACKAGE_NAME = "@openclaw/diagnostics-otel";
+const PACKAGE_NAME = "@granted/diagnostics-otel";
 
 type MutableConfig = {
   diagnostics?: unknown;

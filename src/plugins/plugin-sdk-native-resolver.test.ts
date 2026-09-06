@@ -99,7 +99,7 @@ function writeInternalCorePackageExports(
   subpaths: readonly string[],
 ): void {
   writeJsonFile(path.join(root, "packages", packageDir, "package.json"), {
-    name: `@openclaw/${packageDir}`,
+    name: `@granted/${packageDir}`,
     exports: Object.fromEntries(
       subpaths.map((subpath) => {
         const exportKey = subpath ? `./${subpath}` : ".";
@@ -164,7 +164,7 @@ describe("installOpenClawInternalCorePackageNativeResolver", () => {
         moduleUrl: fixture.moduleUrl,
       });
 
-      expect(aliases).toContain("@openclaw/markdown-core/code-spans");
+      expect(aliases).toContain("@granted/markdown-core/code-spans");
       expect(existsSync).not.toHaveBeenCalled();
 
       installOpenClawPluginSdkNativeResolver({
@@ -198,7 +198,7 @@ describe("installOpenClawInternalCorePackageNativeResolver", () => {
         moduleUrl: secondModuleUrl,
       });
 
-      expect(aliases).toContain("@openclaw/markdown-core/code-spans");
+      expect(aliases).toContain("@granted/markdown-core/code-spans");
       expect(existsSync).not.toHaveBeenCalledWith(fixture.sourcePath);
       expect(readFileSync).not.toHaveBeenCalled();
 
@@ -228,12 +228,12 @@ describe("installOpenClawInternalCorePackageNativeResolver", () => {
       expect(existsSync).toHaveBeenCalledWith(second.sourcePath);
       expect(
         fs.realpathSync(
-          createRequire(first.coreSourceParent).resolve("@openclaw/markdown-core/code-spans"),
+          createRequire(first.coreSourceParent).resolve("@granted/markdown-core/code-spans"),
         ),
       ).toBe(fs.realpathSync(first.sourcePath));
       expect(
         fs.realpathSync(
-          createRequire(second.coreSourceParent).resolve("@openclaw/markdown-core/code-spans"),
+          createRequire(second.coreSourceParent).resolve("@granted/markdown-core/code-spans"),
         ),
       ).toBe(fs.realpathSync(second.sourcePath));
     } finally {
@@ -592,64 +592,64 @@ describe("installOpenClawPluginSdkNativeResolver", () => {
     const requireFromCoreSource = createRequire(coreSourceParent);
     const requireFromPlugin = createRequire(externalPluginEntry);
     expect(
-      fs.realpathSync(requireFromCoreSource.resolve("@openclaw/normalization-core/string-coerce")),
+      fs.realpathSync(requireFromCoreSource.resolve("@granted/normalization-core/string-coerce")),
     ).toBe(fs.realpathSync(normalizationSource));
     expect(
       fs.realpathSync(
-        requireFromCoreSource.resolve("@openclaw/normalization-core/boolean-coercion"),
+        requireFromCoreSource.resolve("@granted/normalization-core/boolean-coercion"),
       ),
     ).toBe(fs.realpathSync(booleanCoercionSource));
     expect(
-      fs.realpathSync(requireFromCoreSource.resolve("@openclaw/normalization-core/result")),
+      fs.realpathSync(requireFromCoreSource.resolve("@granted/normalization-core/result")),
     ).toBe(fs.realpathSync(resultSource));
     expect(
-      fs.realpathSync(requireFromCoreSource.resolve("@openclaw/normalization-core/agent-id")),
+      fs.realpathSync(requireFromCoreSource.resolve("@granted/normalization-core/agent-id")),
     ).toBe(fs.realpathSync(agentIdSource));
-    expect(fs.realpathSync(requireFromCoreSource.resolve("@openclaw/media-core/mime"))).toBe(
+    expect(fs.realpathSync(requireFromCoreSource.resolve("@granted/media-core/mime"))).toBe(
       fs.realpathSync(mediaMimeSource),
     );
     expect(
-      fs.realpathSync(requireFromCoreSource.resolve("@openclaw/media-core/attachment-classify")),
+      fs.realpathSync(requireFromCoreSource.resolve("@granted/media-core/attachment-classify")),
     ).toBe(fs.realpathSync(mediaAttachmentClassifySource));
     expect(
-      fs.realpathSync(requireFromCoreSource.resolve("@openclaw/markdown-core/code-spans")),
+      fs.realpathSync(requireFromCoreSource.resolve("@granted/markdown-core/code-spans")),
     ).toBe(fs.realpathSync(markdownCoreSource));
-    expect(fs.realpathSync(requireFromCoreSource.resolve("@openclaw/ai/transports"))).toBe(
+    expect(fs.realpathSync(requireFromCoreSource.resolve("@granted/ai/transports"))).toBe(
       fs.realpathSync(aiTransportsSource),
     );
     expect(
       fs.realpathSync(
-        requireFromCoreSource.resolve("@openclaw/ai/internal/openai-responses-payload-policy"),
+        requireFromCoreSource.resolve("@granted/ai/internal/openai-responses-payload-policy"),
       ),
     ).toBe(fs.realpathSync(aiResponsesPayloadPolicySource));
     expect(
-      fs.realpathSync(requireFromCoreSource.resolve("@openclaw/ai/internal/retry-after")),
+      fs.realpathSync(requireFromCoreSource.resolve("@granted/ai/internal/retry-after")),
     ).toBe(fs.realpathSync(aiRetryAfterSource));
-    expect(fs.realpathSync(requireFromCoreSource.resolve("@openclaw/ai/internal/runtime"))).toBe(
+    expect(fs.realpathSync(requireFromCoreSource.resolve("@granted/ai/internal/runtime"))).toBe(
       fs.realpathSync(aiRuntimeSource),
     );
-    expect(fs.realpathSync(requireFromCoreSource.resolve("@openclaw/acp-core/runtime/types"))).toBe(
+    expect(fs.realpathSync(requireFromCoreSource.resolve("@granted/acp-core/runtime/types"))).toBe(
       fs.realpathSync(acpCoreSource),
     );
-    expect(fs.realpathSync(requireFromCoreSource.resolve("@openclaw/llm-core"))).toBe(
+    expect(fs.realpathSync(requireFromCoreSource.resolve("@granted/llm-core"))).toBe(
       fs.realpathSync(llmCoreSource),
     );
-    expect(() => requireFromPlugin.resolve("@openclaw/normalization-core/string-coerce")).toThrow();
+    expect(() => requireFromPlugin.resolve("@granted/normalization-core/string-coerce")).toThrow();
     expect(() =>
-      requireFromPlugin.resolve("@openclaw/normalization-core/boolean-coercion"),
+      requireFromPlugin.resolve("@granted/normalization-core/boolean-coercion"),
     ).toThrow();
-    expect(() => requireFromPlugin.resolve("@openclaw/normalization-core/result")).toThrow();
-    expect(() => requireFromPlugin.resolve("@openclaw/media-core/mime")).toThrow();
-    expect(() => requireFromPlugin.resolve("@openclaw/media-core/attachment-classify")).toThrow();
-    expect(() => requireFromPlugin.resolve("@openclaw/markdown-core/code-spans")).toThrow();
-    expect(() => requireFromPlugin.resolve("@openclaw/ai/transports")).toThrow();
+    expect(() => requireFromPlugin.resolve("@granted/normalization-core/result")).toThrow();
+    expect(() => requireFromPlugin.resolve("@granted/media-core/mime")).toThrow();
+    expect(() => requireFromPlugin.resolve("@granted/media-core/attachment-classify")).toThrow();
+    expect(() => requireFromPlugin.resolve("@granted/markdown-core/code-spans")).toThrow();
+    expect(() => requireFromPlugin.resolve("@granted/ai/transports")).toThrow();
     expect(() =>
-      requireFromPlugin.resolve("@openclaw/ai/internal/openai-responses-payload-policy"),
+      requireFromPlugin.resolve("@granted/ai/internal/openai-responses-payload-policy"),
     ).toThrow();
-    expect(() => requireFromPlugin.resolve("@openclaw/ai/internal/retry-after")).toThrow();
-    expect(() => requireFromPlugin.resolve("@openclaw/ai/internal/runtime")).toThrow();
-    expect(() => requireFromPlugin.resolve("@openclaw/acp-core/runtime/types")).toThrow();
-    expect(() => requireFromPlugin.resolve("@openclaw/llm-core")).toThrow();
+    expect(() => requireFromPlugin.resolve("@granted/ai/internal/retry-after")).toThrow();
+    expect(() => requireFromPlugin.resolve("@granted/ai/internal/runtime")).toThrow();
+    expect(() => requireFromPlugin.resolve("@granted/acp-core/runtime/types")).toThrow();
+    expect(() => requireFromPlugin.resolve("@granted/llm-core")).toThrow();
   });
 
   it("does not register source-only SDK subpaths for native resolution", () => {

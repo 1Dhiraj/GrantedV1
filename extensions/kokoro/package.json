@@ -1,11 +1,11 @@
 {
-  "name": "@openclaw/kokoro-speech",
+  "name": "@granted/kokoro-speech",
   "version": "2026.8.1",
   "private": true,
   "description": "OpenClaw Kokoro local high-quality speech plugin (isolated worker)",
   "type": "module",
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*"
+    "@granted/plugin-sdk": "workspace:*"
   },
   "openclaw": {
     "extensions": [

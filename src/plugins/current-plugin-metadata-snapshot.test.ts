@@ -5,7 +5,7 @@ import path from "node:path";
 import {
   collectManifestModelIdNormalizationPolicies,
   normalizeConfiguredProviderCatalogModelId,
-} from "@openclaw/model-catalog-core/provider-model-id-normalization";
+} from "@granted/model-catalog-core/provider-model-id-normalization";
 import { describe, expect, it, vi } from "vitest";
 import { resolveBundledPluginsDir } from "./bundled-dir.js";
 import {

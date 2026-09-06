@@ -69,7 +69,7 @@ describe("runDaemonStatus", () => {
           installedVersion: "2026.7.0",
           gatewayVersion: "2026.7.1-2",
           source: "npm",
-          spec: "@openclaw/brave-plugin@2026.7.0",
+          spec: "@granted/brave-plugin@2026.7.0",
         },
       ],
     };

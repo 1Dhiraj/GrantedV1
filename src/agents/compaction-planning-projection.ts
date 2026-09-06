@@ -1,6 +1,6 @@
 /** Builds bounded transcript projections for compaction worker planning. */
-import { estimateStringChars } from "@openclaw/normalization-core/cjk-chars";
-import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+import { estimateStringChars } from "@granted/normalization-core/cjk-chars";
+import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import type { AgentMessage } from "./runtime/index.js";
 
 const TEXT_TRUNCATE_THRESHOLD_CHARS = 32_768;

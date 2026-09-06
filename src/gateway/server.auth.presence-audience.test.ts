@@ -1,7 +1,7 @@
 import { randomUUID } from "node:crypto";
 import { once } from "node:events";
 import path from "node:path";
-import { rawDataToString } from "@openclaw/gateway-client/websocket-data";
+import { rawDataToString } from "@granted/gateway-client/websocket-data";
 import { Type } from "typebox";
 import { Value } from "typebox/value";
 import { afterEach, describe, expect, test } from "vitest";

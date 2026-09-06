@@ -1,6 +1,6 @@
 /** Agent-facing inline chat widget tool. */
 import { createHash } from "node:crypto";
-import { asOptionalRecord } from "@openclaw/normalization-core/record-coerce";
+import { asOptionalRecord } from "@granted/normalization-core/record-coerce";
 import { Type } from "typebox";
 import type { BoardWidgetPutResult } from "../../packages/gateway-protocol/src/index.js";
 import { optionalStringEnum } from "../agents/schema/string-enum.js";

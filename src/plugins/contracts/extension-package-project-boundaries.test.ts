@@ -21,15 +21,15 @@ const XAI_OMITTED_BOUNDARY_PATHS = {
   "openclaw/plugin-sdk/channel-secret-tts-runtime": [
     "../packages/plugin-sdk/dist/src/plugin-sdk/channel-secret-tts-runtime.d.ts",
   ],
-  "@openclaw/matrix/test-api.js": [
+  "@granted/matrix/test-api.js": [
     "../.artifacts/extension-package-boundary/plugins/matrix/test-api.d.ts",
   ],
-  "@openclaw/discord/api.js": ["../.artifacts/extension-package-boundary/plugins/discord/api.d.ts"],
-  "@openclaw/slack/api.js": ["../.artifacts/extension-package-boundary/plugins/slack/api.d.ts"],
-  "@openclaw/telegram/api.js": [
+  "@granted/discord/api.js": ["../.artifacts/extension-package-boundary/plugins/discord/api.d.ts"],
+  "@granted/slack/api.js": ["../.artifacts/extension-package-boundary/plugins/slack/api.d.ts"],
+  "@granted/telegram/api.js": [
     "../.artifacts/extension-package-boundary/plugins/telegram/api.d.ts",
   ],
-  "@openclaw/whatsapp/api.js": [
+  "@granted/whatsapp/api.js": [
     "../.artifacts/extension-package-boundary/plugins/whatsapp/api.d.ts",
   ],
 } as const;
@@ -205,7 +205,7 @@ describe("opt-in extension package boundaries", () => {
         continue;
       }
       const subpath = exportKey === "." ? "" : exportKey.slice(2);
-      const specifier = subpath ? `@openclaw/acp-core/${subpath}` : "@openclaw/acp-core";
+      const specifier = subpath ? `@granted/acp-core/${subpath}` : "@granted/acp-core";
       expect(paths[specifier], specifier).toEqual([
         `../packages/plugin-sdk/dist/packages/acp-core/src/${subpath || "index"}.d.ts`,
       ]);
@@ -254,7 +254,7 @@ describe("opt-in extension package boundaries", () => {
       expect(tsconfig.exclude).toBeUndefined();
 
       const packageJson = readJsonFile<PackageJson>(`extensions/${extensionName}/package.json`);
-      expect(packageJson.devDependencies?.["@openclaw/plugin-sdk"]).toBe("workspace:*");
+      expect(packageJson.devDependencies?.["@granted/plugin-sdk"]).toBe("workspace:*");
     }
   });
 
@@ -283,15 +283,15 @@ describe("opt-in extension package boundaries", () => {
         ]),
     );
     Object.assign(expectedPaths, {
-      "@openclaw/qa-channel/api.js": [
+      "@granted/qa-channel/api.js": [
         "../../.artifacts/extension-package-boundary/plugins/qa-channel/api.d.ts",
       ],
-      "@openclaw/*.js": ["../../packages/plugin-sdk/dist/extensions/*.d.ts", "../*"],
-      "@openclaw/*": ["../*"],
-      "@openclaw/plugin-sdk/*": ["../../packages/plugin-sdk/dist/src/plugin-sdk/*.d.ts"],
-      "@openclaw/anthropic-vertex/api.js": ["./.boundary-stubs/anthropic-vertex-api.d.ts"],
-      "@openclaw/ollama/api.js": ["./.boundary-stubs/ollama-api.d.ts"],
-      "@openclaw/ollama/runtime-api.js": ["./.boundary-stubs/ollama-runtime-api.d.ts"],
+      "@granted/*.js": ["../../packages/plugin-sdk/dist/extensions/*.d.ts", "../*"],
+      "@granted/*": ["../*"],
+      "@granted/plugin-sdk/*": ["../../packages/plugin-sdk/dist/src/plugin-sdk/*.d.ts"],
+      "@granted/anthropic-vertex/api.js": ["./.boundary-stubs/anthropic-vertex-api.d.ts"],
+      "@granted/ollama/api.js": ["./.boundary-stubs/ollama-api.d.ts"],
+      "@granted/ollama/runtime-api.js": ["./.boundary-stubs/ollama-runtime-api.d.ts"],
     });
     expect(readExtensionTsconfig("xai").compilerOptions?.paths).toEqual(expectedPaths);
   });
@@ -322,7 +322,7 @@ describe("opt-in extension package boundaries", () => {
     ]);
 
     const packageJson = readJsonFile<PackageJson>("packages/plugin-sdk/package.json");
-    expect(packageJson.name).toBe("@openclaw/plugin-sdk");
+    expect(packageJson.name).toBe("@granted/plugin-sdk");
     expect(packageJson.exports?.["./account-id"]?.types).toBe(
       "./dist/src/plugin-sdk/account-id.d.ts",
     );
@@ -396,7 +396,7 @@ describe("opt-in extension package boundaries", () => {
     const packageJson = readJsonFile<PackageJson>("packages/memory-host-sdk/package.json");
     const packageExports = packageJson.exports as unknown as Record<string, string>;
 
-    expect(packageJson.name).toBe("@openclaw/memory-host-sdk");
+    expect(packageJson.name).toBe("@granted/memory-host-sdk");
     expect(packageJson.version).toBe("0.0.0-private");
     expect(packageJson.private).toBe(true);
     expect(packageJson.type).toBe("module");

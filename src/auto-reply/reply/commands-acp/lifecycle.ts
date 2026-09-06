@@ -1,7 +1,7 @@
 // Implements ACP lifecycle commands for start, stop, reset, and resume.
 import { randomUUID } from "node:crypto";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
-import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
+import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import { getAcpSessionManager } from "../../../acp/control-plane/manager.js";
 import type { AcpSessionTarget } from "../../../acp/control-plane/manager.types.js";
 import { resolveAcpSessionResolutionError } from "../../../acp/control-plane/manager.utils.js";

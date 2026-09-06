@@ -11,7 +11,7 @@ Adds text-to-speech provider support.
 
 ## Distribution
 
-- Package: `@openclaw/microsoft-speech`
+- Package: `@granted/microsoft-speech`
 - Install route: included in OpenClaw
 
 ## Surface

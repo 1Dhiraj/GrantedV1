@@ -1,6 +1,6 @@
 // Gateway probe target resolver.
 // Chooses local or remote probe mode from gateway config and URL availability.
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 
 // Probe target resolution converts configured gateway mode into the actual

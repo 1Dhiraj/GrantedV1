@@ -5,7 +5,7 @@ Official OpenClaw provider plugin for Moonshot.
 ## Install
 
 ```sh
-openclaw plugins install @openclaw/moonshot-provider
+openclaw plugins install @granted/moonshot-provider
 ```
 
 ## Docs

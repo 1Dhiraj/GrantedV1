@@ -59,7 +59,7 @@ function fixture(parentOnMain = false) {
   mkdirSync(artifactDir);
   writeFileSync(
     join(packageDir, "package.json"),
-    JSON.stringify({ name: "@openclaw/example", version: "2026.8.2" }),
+    JSON.stringify({ name: "@granted/example", version: "2026.8.2" }),
   );
   writeFileSync(join(packageDir, "openclaw.plugin.json"), JSON.stringify({ id: "example" }));
   const tarballPath = join(artifactDir, "example.tgz");
@@ -78,7 +78,7 @@ function fixture(parentOnMain = false) {
   const tarball = readFileSync(tarballPath);
   const entry = readPackedClawHubTransaction({
     artifactDir,
-    packageName: "@openclaw/example",
+    packageName: "@granted/example",
     version: "2026.8.2",
     artifactName: "package-example",
   });

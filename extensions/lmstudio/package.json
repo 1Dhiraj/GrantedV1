@@ -1,5 +1,5 @@
 {
-  "name": "@openclaw/lmstudio-provider",
+  "name": "@granted/lmstudio-provider",
   "version": "2026.8.1",
   "private": true,
   "description": "OpenClaw LM Studio provider plugin",

@@ -1,6 +1,6 @@
 /* @vitest-environment jsdom */
 
-import { buildSystemAgentSessionInvalidatedErrorDetails } from "@openclaw/gateway-protocol";
+import { buildSystemAgentSessionInvalidatedErrorDetails } from "@granted/gateway-protocol";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { GatewayRequestError, type GatewayBrowserClient } from "../../api/gateway.ts";
 import { installSafeLocalStorageForTesting } from "../../test-helpers/storage.ts";

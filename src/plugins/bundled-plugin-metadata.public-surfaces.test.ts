@@ -21,7 +21,7 @@ describe("bundled plugin public surfaces", () => {
     const tempRoot = createGeneratedPluginTempRoot("openclaw-bundled-plugin-channel-configs-");
 
     writeJson(path.join(tempRoot, "extensions", "alpha", "package.json"), {
-      name: "@openclaw/alpha",
+      name: "@granted/alpha",
       version: "0.0.1",
       openclaw: {
         extensions: ["./index.ts"],
@@ -96,7 +96,7 @@ describe("bundled plugin public surfaces", () => {
     const tempRoot = createGeneratedPluginTempRoot("openclaw-bundled-plugin-public-artifacts-");
 
     writeJson(path.join(tempRoot, "extensions", "alpha", "package.json"), {
-      name: "@openclaw/alpha",
+      name: "@granted/alpha",
       version: "0.0.1",
       openclaw: {
         extensions: ["./index.ts"],
@@ -139,7 +139,7 @@ describe("bundled plugin public surfaces", () => {
     const distRoot = path.join(tempRoot, "dist");
 
     writeJson(path.join(distRoot, "extensions", "alpha", "package.json"), {
-      name: "@openclaw/alpha",
+      name: "@granted/alpha",
       version: "0.0.1",
       openclaw: {
         extensions: ["./index.ts"],
@@ -215,7 +215,7 @@ describe("bundled plugin public surfaces", () => {
     const markerPath = path.join(tempRoot, "runtime-api-loaded");
 
     writeJson(path.join(distRoot, "extensions", "alpha", "package.json"), {
-      name: "@openclaw/alpha",
+      name: "@granted/alpha",
       version: "0.0.1",
       openclaw: {
         extensions: ["./index.ts"],

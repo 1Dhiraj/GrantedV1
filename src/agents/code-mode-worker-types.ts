@@ -1,4 +1,4 @@
-import type { Result } from "@openclaw/normalization-core/result";
+import type { Result } from "@granted/normalization-core/result";
 import type { Snapshot } from "quickjs-wasi";
 import type { CodeModeJsonSource, CodeModeOutputSource } from "./code-mode-json.js";
 import type { CodeModeApiVirtualFile } from "./code-mode-namespaces.js";

@@ -5,7 +5,7 @@ import fs from "node:fs";
 import path from "node:path";
 import process from "node:process";
 import { pathToFileURL } from "node:url";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import { requireOptionArgument } from "./lib/arg-utils.mts";
 import { collectSqliteQueryPlanEvidence } from "./lib/sqlite-query-plan-evidence.js";
 

@@ -4,7 +4,7 @@ import path from "node:path";
 import {
   normalizeOptionalLowercaseString,
   normalizeOptionalString,
-} from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/string-coerce";
 import {
   parseFrontmatterBlock,
   stripFrontmatterBlock,

@@ -1,5 +1,5 @@
 import type { DatabaseSync } from "node:sqlite";
-import { safeParseJsonRecord } from "@openclaw/normalization-core";
+import { safeParseJsonRecord } from "@granted/normalization-core";
 import { pruneDeliveryQueueTombstones } from "../infra/delivery-queue-sqlite-bound.js";
 import {
   inferDeliveryQueueFailureRetention,

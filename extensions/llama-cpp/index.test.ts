@@ -1,6 +1,6 @@
 import os from "node:os";
 import path from "node:path";
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { createLocalEmbeddingProvider } from "granted/plugin-sdk/memory-core-host-engine-embeddings";
 import { createTestPluginApi } from "granted/plugin-sdk/plugin-test-api";
 import {

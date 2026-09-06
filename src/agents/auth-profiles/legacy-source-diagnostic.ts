@@ -1,5 +1,5 @@
 import fs from "node:fs";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import { createSubsystemLogger } from "../../logging/subsystem.js";
 import { shortenHomePath } from "../../utils.js";
 import {

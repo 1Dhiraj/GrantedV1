@@ -11,7 +11,7 @@ Adds the Telegram channel surface for sending and receiving OpenClaw messages.
 
 ## Distribution
 
-- Package: `@openclaw/telegram`
+- Package: `@granted/telegram`
 - Install route: included in OpenClaw
 
 ## Surface

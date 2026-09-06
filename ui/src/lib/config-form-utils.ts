@@ -1,5 +1,5 @@
 // Control UI controller manages form utils gateway state.
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import type { ConfigUiHint, ConfigUiHints } from "../api/types.ts";
 
 export type JsonSchema = {

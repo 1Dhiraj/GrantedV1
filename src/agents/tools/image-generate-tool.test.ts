@@ -1,6 +1,6 @@
 // image_generate tool tests cover provider/model selection, edit inputs,
 // background task handling, media saving, and duplicate-generation guards.
-import { MAX_IMAGE_BYTES } from "@openclaw/media-core/constants";
+import { MAX_IMAGE_BYTES } from "@granted/media-core/constants";
 import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import type { GrantedConfig } from "../../config/types.openclaw.js";

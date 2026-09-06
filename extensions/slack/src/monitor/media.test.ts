@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 // Slack tests cover media plugin behavior.
 import type { WebClient } from "@slack/web-api";
 import type { FetchLike, SavedMedia } from "granted/plugin-sdk/media-runtime";

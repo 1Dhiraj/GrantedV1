@@ -2,8 +2,8 @@
 import {
   asNonNegativeFiniteNumber,
   asPositiveFiniteNumber,
-} from "@openclaw/normalization-core/number-coercion";
-import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/number-coercion";
+import { normalizeOptionalString } from "@granted/normalization-core/string-coerce";
 import type { ReplyMediaAttachment } from "../auto-reply/reply-payload.js";
 import { extractToolResultText } from "./embedded-agent-tool-results.js";
 import { normalizeToolPolicyName } from "./tool-policy.js";

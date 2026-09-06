@@ -494,7 +494,7 @@ describe("registerBundledHealthChecks", () => {
   }
 
   it("continues other health checks for a retained stable Codex without a health API", () => {
-    // Published @openclaw/codex@2026.7.1-1 has neither a health declaration nor api.js.
+    // Published @granted/codex@2026.7.1-1 has neither a health declaration nor api.js.
     mocks.loadPluginManifestRegistryForPluginRegistry.mockReturnValue({
       plugins: [codexRecord("global", true, false)],
       diagnostics: [],

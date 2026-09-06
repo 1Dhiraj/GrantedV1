@@ -1,4 +1,4 @@
-import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
+import { normalizeProviderId } from "@granted/model-catalog-core/provider-id";
 import type { PreparedAgentCredentialModes } from "../../agents/agent-auth-credential-modes.js";
 import { resolveAgentDir } from "../../agents/agent-scope.js";
 import { resolveExternalCliAuthScopeFromConfig } from "../../agents/auth-profiles/external-cli-scope.js";

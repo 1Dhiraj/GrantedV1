@@ -1,4 +1,4 @@
-# @openclaw/voice-call
+# @granted/voice-call
 
 Official Voice Call plugin for **OpenClaw**.
 
@@ -15,7 +15,7 @@ Plugin system: `https://docs.openclaw.ai/tools/plugin`
 ## Install
 
 ```bash
-openclaw plugins install @openclaw/voice-call
+openclaw plugins install @granted/voice-call
 ```
 
 Restart the Gateway afterwards.

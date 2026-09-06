@@ -20,7 +20,7 @@
 import {
   resolveIntegerOption,
   resolveTimerTimeoutMs,
-} from "@openclaw/normalization-core/number-coercion";
+} from "@granted/normalization-core/number-coercion";
 import { isLoopbackAddress, resolveClientIp } from "./net.js";
 
 // ---------------------------------------------------------------------------

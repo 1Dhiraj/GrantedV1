@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import { asFiniteNumber } from "@openclaw/normalization-core/number-coercion";
+import { asFiniteNumber } from "@granted/normalization-core/number-coercion";
 import { replaceFileAtomic } from "../infra/replace-file.js";
 import { isRecord } from "../utils.js";
 import { stampConfigWriteMetadata } from "./io.meta.js";

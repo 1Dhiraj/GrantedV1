@@ -1,8 +1,8 @@
 import fs from "node:fs";
 import path from "node:path";
 import type { DatabaseSync, SQLInputValue } from "node:sqlite";
-import { expectDefined } from "@openclaw/normalization-core";
-import { asSafeIntegerInRange } from "@openclaw/normalization-core/number-coercion";
+import { expectDefined } from "@granted/normalization-core";
+import { asSafeIntegerInRange } from "@granted/normalization-core/number-coercion";
 import {
   copyPluginInstallRecordMap,
   createPluginInstallRecordMap,

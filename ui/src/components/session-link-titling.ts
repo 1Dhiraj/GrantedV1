@@ -1,6 +1,6 @@
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
-import { readNonBlankString } from "@openclaw/normalization-core/string-coerce";
-import { controlUiSessionSlug } from "@openclaw/session-url-contract";
+import { isRecord } from "@granted/normalization-core/record-coerce";
+import { readNonBlankString } from "@granted/normalization-core/string-coerce";
+import { controlUiSessionSlug } from "@granted/session-url-contract";
 import type { ControlUiSessionPreview } from "../../../src/gateway/control-ui-contract.js";
 import type { GatewayBrowserClient } from "../api/gateway.ts";
 import type { GatewaySessionRow } from "../api/types.ts";

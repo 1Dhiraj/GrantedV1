@@ -2,8 +2,8 @@
 // whose producer-owned source may disappear before retry.
 import fs from "node:fs/promises";
 import path from "node:path";
-import { isPassThroughRemoteMediaSource } from "@openclaw/media-core/media-source-url";
-import { hasNonEmptyString as isNonEmptyMediaSource } from "@openclaw/normalization-core/string-coerce";
+import { isPassThroughRemoteMediaSource } from "@granted/media-core/media-source-url";
+import { hasNonEmptyString as isNonEmptyMediaSource } from "@granted/normalization-core/string-coerce";
 import type { ReplyPayload } from "../../auto-reply/types.js";
 import { resolveDeliveryQueueMediaDir } from "../../config/paths.js";
 import {

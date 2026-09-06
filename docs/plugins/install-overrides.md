@@ -27,7 +27,7 @@ Overrides are disabled unless both variables are set:
 export OPENCLAW_ALLOW_PLUGIN_INSTALL_OVERRIDES=1
 export OPENCLAW_PLUGIN_INSTALL_OVERRIDES='{
   "codex": "npm-pack:/tmp/openclaw-codex-2026.5.8.tgz",
-  "openclaw-web-search": "npm:@openclaw/web-search@2026.5.8"
+  "openclaw-web-search": "npm:@granted/web-search@2026.5.8"
 }'
 ```
 
@@ -71,8 +71,8 @@ pnpm openclaw onboard --mode local
 Verify the installed package under the state directory:
 
 ```bash
-find "$OPENCLAW_STATE_DIR/npm/projects" -path '*/node_modules/@openclaw/codex/package.json' -print
-grep -R '"@openclaw/codex"' "$OPENCLAW_STATE_DIR/npm/projects"/*/package-lock.json
+find "$OPENCLAW_STATE_DIR/npm/projects" -path '*/node_modules/@granted/codex/package.json' -print
+grep -R '"@granted/codex"' "$OPENCLAW_STATE_DIR/npm/projects"/*/package-lock.json
 ```
 
 For live provider E2E, source the real API key from a trusted shell or CI

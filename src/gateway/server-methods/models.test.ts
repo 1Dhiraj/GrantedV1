@@ -1,7 +1,7 @@
 // Models method tests cover slow catalog timeouts, configured/all views,
 // validation errors, and protocol response shapes.
 
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import { createDeferred } from "../../../test/helpers/promise.js";
 import { resolveAgentDir, resolveDefaultAgentId } from "../../agents/agent-scope.js";

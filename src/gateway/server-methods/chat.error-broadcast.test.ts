@@ -1,7 +1,7 @@
 // Chat error broadcast tests ensure chat.send failures still respond and emit
 // error-state broadcasts for connected UI clients.
 
-import { expectDefined } from "@openclaw/normalization-core";
+import { expectDefined } from "@granted/normalization-core";
 import { describe, expect, it, onTestFinished, vi } from "vitest";
 import { createDeferred } from "../../../test/helpers/promise.js";
 import { withOpenClawTestState } from "../../test-utils/openclaw-test-state.js";

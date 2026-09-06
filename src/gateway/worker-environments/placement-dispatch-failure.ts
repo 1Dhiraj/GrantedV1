@@ -1,4 +1,4 @@
-import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+import { truncateUtf16Safe } from "@granted/normalization-core/utf16-slice";
 import { supportsWorkerExecutionContextLaunch } from "./admission.js";
 import { matchesWorkerPlacementTarget } from "./placement-reclaim-contract.js";
 import { placementTurnOwner, type WorkerPlacementExecutionMode } from "./placement-record.js";

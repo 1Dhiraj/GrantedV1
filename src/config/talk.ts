@@ -1,10 +1,10 @@
 // Normalizes talk-mode config for voice and channel interactions.
-import { findNormalizedProviderKey } from "@openclaw/model-catalog-core/provider-id";
-import { isRecord } from "@openclaw/normalization-core/record-coerce";
+import { findNormalizedProviderKey } from "@granted/model-catalog-core/provider-id";
+import { isRecord } from "@granted/normalization-core/record-coerce";
 import {
   normalizeFastMode,
   normalizeOptionalString,
-} from "@openclaw/normalization-core/string-coerce";
+} from "@granted/normalization-core/string-coerce";
 import { normalizeThinkLevel } from "../auto-reply/thinking.shared.js";
 import { isBlockedObjectKey } from "../infra/prototype-keys.js";
 import type {

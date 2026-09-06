@@ -29,7 +29,7 @@ Xiaomi MiMo is the API platform for **MiMo** models. The official external
 <Steps>
   <Step title="Install the plugin">
     ```bash
-    openclaw plugins install @openclaw/xiaomi-provider
+    openclaw plugins install @granted/xiaomi-provider
     openclaw gateway restart
     ```
   </Step>

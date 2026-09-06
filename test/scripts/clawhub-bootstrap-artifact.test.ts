@@ -51,7 +51,7 @@ function fixture() {
     matrixPath,
     JSON.stringify([
       {
-        packageName: "@openclaw/meta",
+        packageName: "@granted/meta",
         version: "2026.7.1-beta.3",
         packageDir: "extensions/meta",
         publishTag: "beta",
@@ -59,7 +59,7 @@ function fixture() {
         requiresManualOverride: false,
       },
       {
-        packageName: "@openclaw/existing",
+        packageName: "@granted/existing",
         version: "2026.7.1-beta.3",
         packageDir: "extensions/existing",
         publishTag: "beta",
@@ -82,7 +82,7 @@ function common(paths: ReturnType<typeof fixture>) {
     clawhubToolchainIntegrity,
     clawhubToolchainSha256,
     clawhubToolchainVersion,
-    plugins: "@openclaw/meta,@openclaw/existing",
+    plugins: "@granted/meta,@granted/existing",
     repository: "openclaw/openclaw",
     runAttempt: "2",
     runId: "123",
@@ -168,7 +168,7 @@ describe("ClawHub bootstrap artifact manifest", () => {
       matrixPath: paths.matrixPath,
       outputPath: paths.manifestPath,
     });
-    const meta = created.entries.find((entry) => entry.packageName === "@openclaw/meta");
+    const meta = created.entries.find((entry) => entry.packageName === "@granted/meta");
     expect(meta).toMatchObject({
       artifactPath: "packages/meta/openclaw-meta-2026.7.1-beta.3.tgz",
       size: 11,
@@ -274,7 +274,7 @@ describe("ClawHub bootstrap artifact manifest", () => {
       matrixPath: paths.matrixPath,
       outputPath: paths.manifestPath,
     });
-    const existing = manifest.entries.find((entry) => entry.packageName === "@openclaw/existing");
+    const existing = manifest.entries.find((entry) => entry.packageName === "@granted/existing");
     expect(existing).toMatchObject({
       artifactPath: "packages/existing/openclaw-existing-2026.7.1-beta.3.tgz",
       size: 15,
@@ -349,7 +349,7 @@ describe("ClawHub bootstrap artifact manifest", () => {
 describe("ClawHub packed artifact identity", () => {
   const expectedIdentity = {
     expectedDir: "extensions/meta",
-    expectedName: "@openclaw/meta-provider",
+    expectedName: "@granted/meta-provider",
     expectedVersion: "2026.7.1-beta.3",
   };
 
@@ -359,7 +359,7 @@ describe("ClawHub packed artifact identity", () => {
         name: "package.json",
         prefix: "package",
         contents: JSON.stringify({
-          name: "@openclaw/meta-provider",
+          name: "@granted/meta-provider",
           version: "2026.7.1-beta.3",
           openclaw: {
             release: {
@@ -382,11 +382,11 @@ describe("ClawHub packed artifact identity", () => {
         expectedSha256: pack.sha256,
         expectedSize: String(pack.bytes.byteLength),
         expectedDir: "extensions/meta",
-        expectedName: "@openclaw/meta-provider",
+        expectedName: "@granted/meta-provider",
         expectedVersion: "2026.7.1-beta.3",
       }),
     ).resolves.toMatchObject({
-      packageName: "@openclaw/meta-provider",
+      packageName: "@granted/meta-provider",
       packageVersion: "2026.7.1-beta.3",
       sha256: pack.sha256,
       size: pack.bytes.byteLength,
@@ -398,7 +398,7 @@ describe("ClawHub packed artifact identity", () => {
       {
         name: "package/package.json",
         contents: JSON.stringify({
-          name: "@openclaw/meta-provider",
+          name: "@granted/meta-provider",
           version: "2026.7.1-beta.3",
         }),
       },
@@ -406,7 +406,7 @@ describe("ClawHub packed artifact identity", () => {
         name: " package.json ",
         prefix: " package ",
         contents: JSON.stringify({
-          name: "@openclaw/other",
+          name: "@granted/other",
           version: "9.9.9",
         }),
       },
