@@ -188,7 +188,7 @@ const resolvePrivateQaRequiredDistEntries = (distRoot: string) => [
 const shouldRequireBundledPluginRuntimeOutput = (
   pluginId: string,
   env: NodeJS.ProcessEnv = process.env,
-) => env.OPENCLAW_BUILD_PRIVATE_QA === "1" || !NON_PACKAGED_BUNDLED_PLUGIN_DIRS.has(pluginId);
+) => env.GRANTED_BUILD_PRIVATE_QA === "1" || !NON_PACKAGED_BUNDLED_PLUGIN_DIRS.has(pluginId);
 
 const isExcludedSource = (filePath: string, sourceRoot: string, sourceRootName: string) => {
   const relativePath = normalizePath(path.relative(sourceRoot, filePath));
@@ -612,7 +612,7 @@ const listRequiredOpenClawExtensionAliasOutputs = (deps: RunNodeRequirementDeps)
 };
 
 const listRequiredStaticExtensionAssetOutputs = (deps: RunNodeRequirementDeps) => {
-  if (deps.env.OPENCLAW_RUNTIME_POSTBUILD_STATIC_ASSETS === "0") {
+  if (deps.env.GRANTED_RUNTIME_POSTBUILD_STATIC_ASSETS === "0") {
     return [];
   }
   const distRoot = deps.distRoot;
@@ -656,11 +656,11 @@ const hasMissingRequiredRuntimePostBuildOutput = (deps: RunNodeRequirementDeps) 
 
 /** Decides whether source changes require a new dev build. */
 export const resolveBuildRequirement = (deps: RunNodeRequirementDeps): BuildRequirement => {
-  if (deps.env.OPENCLAW_FORCE_BUILD === "1") {
+  if (deps.env.GRANTED_FORCE_BUILD === "1") {
     return { shouldBuild: true, reason: "force_build" };
   }
   if (
-    deps.env.OPENCLAW_BUILD_PRIVATE_QA === "1" &&
+    deps.env.GRANTED_BUILD_PRIVATE_QA === "1" &&
     (deps.privateQaRequiredDistEntries ?? resolvePrivateQaRequiredDistEntries(deps.distRoot)).some(
       (entry) => statMtime(entry, deps.fs) == null,
     )
@@ -716,7 +716,7 @@ export const resolveBuildRequirement = (deps: RunNodeRequirementDeps): BuildRequ
 export const resolveRuntimePostBuildRequirement = (
   deps: RunNodeRuntimeRequirementDeps,
 ): RuntimePostBuildRequirement => {
-  if (deps.env.OPENCLAW_FORCE_RUNTIME_POSTBUILD === "1") {
+  if (deps.env.GRANTED_FORCE_RUNTIME_POSTBUILD === "1") {
     return { shouldSync: true, reason: "force_runtime_postbuild" };
   }
 
@@ -765,7 +765,7 @@ export const resolveRuntimePostBuildRequirement = (
 };
 
 const BUILD_REASON_LABELS = {
-  force_build: "forced by OPENCLAW_FORCE_BUILD",
+  force_build: "forced by GRANTED_FORCE_BUILD",
   missing_build_stamp: "build stamp missing",
   missing_dist_entry: "dist entry missing",
   config_newer: "config newer than build stamp",
@@ -779,7 +779,7 @@ const BUILD_REASON_LABELS = {
 };
 
 const RUNTIME_POSTBUILD_REASON_LABELS = {
-  force_runtime_postbuild: "forced by OPENCLAW_FORCE_RUNTIME_POSTBUILD",
+  force_runtime_postbuild: "forced by GRANTED_FORCE_RUNTIME_POSTBUILD",
   missing_runtime_postbuild_output: "required runtime postbuild output missing",
   missing_runtime_postbuild_stamp: "runtime postbuild stamp missing",
   missing_build_stamp: "build stamp missing",
@@ -819,14 +819,14 @@ const isSignalKey = (signal: NodeJS.Signals): signal is keyof typeof SIGNAL_EXIT
 const getSignalExitCode = (signal: NodeJS.Signals) =>
   isSignalKey(signal) ? SIGNAL_EXIT_CODES[signal] : 1;
 
-const RUN_NODE_OUTPUT_LOG_ENV = "OPENCLAW_RUN_NODE_OUTPUT_LOG";
-const RUN_NODE_CPU_PROF_DIR_ENV = "OPENCLAW_RUN_NODE_CPU_PROF_DIR";
-const RUN_NODE_CPU_PROF_MAX_FILES_ENV = "OPENCLAW_RUN_NODE_CPU_PROF_MAX_FILES";
-const RUN_NODE_FILTER_SYNC_IO_STDERR_ENV = "OPENCLAW_RUN_NODE_FILTER_SYNC_IO_STDERR";
-const RUN_NODE_BUILD_LOCK_TIMEOUT_ENV = "OPENCLAW_RUN_NODE_BUILD_LOCK_TIMEOUT_MS";
-const RUN_NODE_BUILD_LOCK_POLL_ENV = "OPENCLAW_RUN_NODE_BUILD_LOCK_POLL_MS";
-const RUN_NODE_BUILD_LOCK_STALE_ENV = "OPENCLAW_RUN_NODE_BUILD_LOCK_STALE_MS";
-const RUN_NODE_SKIP_DTS_BUILD_ENV = "OPENCLAW_RUN_NODE_SKIP_DTS_BUILD";
+const RUN_NODE_OUTPUT_LOG_ENV = "GRANTED_RUN_NODE_OUTPUT_LOG";
+const RUN_NODE_CPU_PROF_DIR_ENV = "GRANTED_RUN_NODE_CPU_PROF_DIR";
+const RUN_NODE_CPU_PROF_MAX_FILES_ENV = "GRANTED_RUN_NODE_CPU_PROF_MAX_FILES";
+const RUN_NODE_FILTER_SYNC_IO_STDERR_ENV = "GRANTED_RUN_NODE_FILTER_SYNC_IO_STDERR";
+const RUN_NODE_BUILD_LOCK_TIMEOUT_ENV = "GRANTED_RUN_NODE_BUILD_LOCK_TIMEOUT_MS";
+const RUN_NODE_BUILD_LOCK_POLL_ENV = "GRANTED_RUN_NODE_BUILD_LOCK_POLL_MS";
+const RUN_NODE_BUILD_LOCK_STALE_ENV = "GRANTED_RUN_NODE_BUILD_LOCK_STALE_MS";
+const RUN_NODE_SKIP_DTS_BUILD_ENV = "GRANTED_RUN_NODE_SKIP_DTS_BUILD";
 const DEFAULT_BUILD_LOCK_TIMEOUT_MS = 5 * 60 * 1000;
 const DEFAULT_BUILD_LOCK_POLL_MS = 100;
 const DEFAULT_BUILD_LOCK_STALE_MS = 10 * 60 * 1000;
@@ -915,7 +915,7 @@ const createRunNodeOutputTee = (deps: RunNodeDeps): RunNodeOutputTee | null => {
 };
 
 const logRunner = (message: string, deps: RunNodeLogDeps) => {
-  if (deps.env.OPENCLAW_RUNNER_LOG === "0") {
+  if (deps.env.GRANTED_RUNNER_LOG === "0") {
     return;
   }
   const line = `[openclaw] ${message}\n`;
@@ -929,7 +929,7 @@ const RUN_NODE_PROGRESS_FRAMES = ["-", "\\", "|", "/"];
 
 const shouldUseRunNodeProgress = (deps: RunNodeDeps) =>
   deps.stderr?.isTTY === true &&
-  deps.env.OPENCLAW_RUNNER_PROGRESS !== "0" &&
+  deps.env.GRANTED_RUNNER_PROGRESS !== "0" &&
   deps.env.CI !== "true" &&
   !deps.outputTee;
 
@@ -1096,7 +1096,7 @@ const resolveRunNodeCpuProfileArgs = (deps: RunNodeDeps) => {
 
 const resolveRunNodeDiagnosticArgs = (deps: RunNodeDeps) => {
   const args = [...resolveRunNodeCpuProfileArgs(deps)];
-  if (deps.env.OPENCLAW_TRACE_SYNC_IO === "1") {
+  if (deps.env.GRANTED_TRACE_SYNC_IO === "1") {
     logRunner("Enabling Node --trace-sync-io for startup I/O diagnostics.", deps);
     args.push("--trace-sync-io");
   }
@@ -1512,7 +1512,7 @@ const writeBuildStamp = (deps: RunNodeDeps) => {
 };
 
 const shouldSkipWatchRuntimeSync = (deps: RunNodeDeps, requirement: RuntimePostBuildRequirement) =>
-  deps.env.OPENCLAW_WATCH_MODE === "1" &&
+  deps.env.GRANTED_WATCH_MODE === "1" &&
   requirement.reason === "missing_runtime_postbuild_stamp" &&
   hasDirtyRuntimePostBuildInputs(deps) !== true &&
   !hasMissingRequiredRuntimePostBuildOutput(deps);
@@ -1524,7 +1524,7 @@ const isGatewayClientCommand = (args: string[]) =>
 
 const shouldFastPathExistingDistForGatewayClient = (deps: RunNodeDeps) =>
   isGatewayClientCommand(deps.args) &&
-  deps.env.OPENCLAW_FORCE_BUILD !== "1" &&
+  deps.env.GRANTED_FORCE_BUILD !== "1" &&
   statMtime(deps.distEntry, deps.fs) != null &&
   canUseStampedGatewayClientDist(deps);
 
@@ -1551,7 +1551,7 @@ const canUseStampedGatewayClientDist = (deps: RunNodeDeps) => {
     runtimeStamp.mtime == null ||
     runtimeStamp.mtime < buildStamp.mtime ||
     runtimeStamp.head !== currentHead ||
-    deps.env.OPENCLAW_FORCE_RUNTIME_POSTBUILD === "1"
+    deps.env.GRANTED_FORCE_RUNTIME_POSTBUILD === "1"
   ) {
     return false;
   }
@@ -1565,7 +1565,7 @@ const resolveQaReportSourceScript = (deps: RunNodeDeps, buildRequirement: BuildR
   if (
     buildRequirement.reason !== "missing_private_qa_dist" ||
     deps.args[0] !== "qa" ||
-    deps.env.OPENCLAW_FORCE_BUILD === "1" ||
+    deps.env.GRANTED_FORCE_BUILD === "1" ||
     statMtime(sourceEntrypoint, deps.fs) == null
   ) {
     return null;
@@ -1587,7 +1587,7 @@ function createRunNodeDeps(params: RunNodeMainParams) {
   const distRoot = path.join(cwd, "dist");
   const env = params.env ? { ...params.env } : { ...process.env };
   // Select this checkout's plugins over tracked installs without changing source/dist loading.
-  env.OPENCLAW_DEV_SOURCE_ROOT ??= cwd;
+  env.GRANTED_DEV_SOURCE_ROOT ??= cwd;
   const mutableState: RunNodeMutableState = {
     outputTee: null,
     runNodeProgress: undefined,
@@ -1623,9 +1623,9 @@ function createRunNodeDeps(params: RunNodeMainParams) {
 export async function runNodeMain(params: RunNodeMainParams = {}): Promise<number> {
   const deps = createRunNodeDeps(params);
   if (deps.args[0] === "qa") {
-    deps.env.OPENCLAW_BUILD_PRIVATE_QA = "1";
-    deps.env.OPENCLAW_ENABLE_PRIVATE_QA_CLI = "1";
-    deps.env.OPENCLAW_DISABLE_BUNDLED_PLUGINS ??= "0";
+    deps.env.GRANTED_BUILD_PRIVATE_QA = "1";
+    deps.env.GRANTED_ENABLE_PRIVATE_QA_CLI = "1";
+    deps.env.GRANTED_DISABLE_BUNDLED_PLUGINS ??= "0";
   }
   deps.outputTee = createRunNodeOutputTee(deps);
 

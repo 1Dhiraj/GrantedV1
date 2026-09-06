@@ -26,31 +26,31 @@ describe("docker e2e update-check suppression", () => {
     const args = injectedRunArgs(["-d", "--name", "openclaw-e2e", "openclaw:test"]);
 
     expect(args).toContain("-e");
-    expect(args).toContain("OPENCLAW_NO_AUTO_UPDATE=1");
+    expect(args).toContain("GRANTED_NO_AUTO_UPDATE=1");
   });
 
   it("still suppresses when resource limits are disabled", () => {
     const args = injectedRunArgs(["-d", "openclaw:test"], {
-      OPENCLAW_DOCKER_E2E_DISABLE_RESOURCE_LIMITS: "1",
+      GRANTED_DOCKER_E2E_DISABLE_RESOURCE_LIMITS: "1",
     });
 
-    expect(args).toEqual(["-e", "OPENCLAW_NO_AUTO_UPDATE=1"]);
+    expect(args).toEqual(["-e", "GRANTED_NO_AUTO_UPDATE=1"]);
   });
 
   it("keeps a caller-provided value so update lanes stay in control", () => {
     for (const callerArgs of [
-      ["-e", "OPENCLAW_NO_AUTO_UPDATE=0", "openclaw:test"],
-      ["-eOPENCLAW_NO_AUTO_UPDATE=0", "openclaw:test"],
-      ["--env", "OPENCLAW_NO_AUTO_UPDATE", "openclaw:test"],
-      ["--env=OPENCLAW_NO_AUTO_UPDATE=0", "openclaw:test"],
+      ["-e", "GRANTED_NO_AUTO_UPDATE=0", "openclaw:test"],
+      ["-eGRANTED_NO_AUTO_UPDATE=0", "openclaw:test"],
+      ["--env", "GRANTED_NO_AUTO_UPDATE", "openclaw:test"],
+      ["--env=GRANTED_NO_AUTO_UPDATE=0", "openclaw:test"],
     ]) {
-      expect(injectedRunArgs(callerArgs)).not.toContain("OPENCLAW_NO_AUTO_UPDATE=1");
+      expect(injectedRunArgs(callerArgs)).not.toContain("GRANTED_NO_AUTO_UPDATE=1");
     }
   });
 
   it("does not mistake an image or unrelated flag value for the suppression variable", () => {
-    const args = injectedRunArgs(["-e", "SOMETHING_ELSE=1", "OPENCLAW_NO_AUTO_UPDATE", "-d"]);
+    const args = injectedRunArgs(["-e", "SOMETHING_ELSE=1", "GRANTED_NO_AUTO_UPDATE", "-d"]);
 
-    expect(args).toContain("OPENCLAW_NO_AUTO_UPDATE=1");
+    expect(args).toContain("GRANTED_NO_AUTO_UPDATE=1");
   });
 });

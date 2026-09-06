@@ -104,9 +104,9 @@ export function resolveCompileConcurrency(
   env: NodeJS.ProcessEnv = process.env,
   availableParallelism = os.availableParallelism(),
 ) {
-  const raw = env.OPENCLAW_EXTENSION_BOUNDARY_CONCURRENCY?.trim();
+  const raw = env.GRANTED_EXTENSION_BOUNDARY_CONCURRENCY?.trim();
   if (raw) {
-    return parsePositiveInt(raw, "OPENCLAW_EXTENSION_BOUNDARY_CONCURRENCY");
+    return parsePositiveInt(raw, "GRANTED_EXTENSION_BOUNDARY_CONCURRENCY");
   }
   return Math.max(1, Math.min(6, Math.floor(availableParallelism / 2)));
 }
@@ -512,7 +512,7 @@ async function runCompileCheck(extensionIds: string[]) {
   await runNodeStepAsync("plugin-sdk boundary prep", prepareBoundaryArtifactsArgs, 420_000);
   const prepElapsedMs = Date.now() - prepStartedAt;
   const concurrency = resolveCompileConcurrency();
-  const verboseFreshLogs = process.env.OPENCLAW_EXTENSION_BOUNDARY_VERBOSE_FRESH === "1";
+  const verboseFreshLogs = process.env.GRANTED_EXTENSION_BOUNDARY_VERBOSE_FRESH === "1";
   const before = new BoundaryInputSnapshot(repoRoot);
   process.stdout.write(`compile concurrency ${concurrency}\n`);
   const compileStartedAt = Date.now();

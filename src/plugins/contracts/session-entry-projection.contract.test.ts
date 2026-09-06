@@ -82,7 +82,7 @@ async function withProjectionSessionStore(
   };
   try {
     return await withEnvAsync(
-      { OPENCLAW_STATE_DIR: stateDir },
+      { GRANTED_STATE_DIR: stateDir },
       async () =>
         await withTempConfig({
           cfg: tempConfig,

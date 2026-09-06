@@ -1,4 +1,4 @@
-import type { MANIFEST_KEY } from "../compat/legacy-names.js";
+import type { LEGACY_MANIFEST_KEYS, MANIFEST_KEY } from "../compat/legacy-names.js";
 import type {
   PluginManifestCatalog,
   PluginManifestChannelConfig,
@@ -11,7 +11,7 @@ import type {
   PluginPackageInstall,
 } from "./package-manifest.types.js";
 
-type ManifestKey = typeof MANIFEST_KEY;
+type ManifestKey = typeof MANIFEST_KEY | (typeof LEGACY_MANIFEST_KEYS)[number];
 
 export type OfficialExternalProviderAuthChoice = {
   method?: string;

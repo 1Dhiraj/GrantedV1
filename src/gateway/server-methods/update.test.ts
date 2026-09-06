@@ -503,7 +503,7 @@ describe("update.run restart scheduling", () => {
     detectRespawnSupervisorMock.mockReturnValueOnce("launchd");
     mockGlobalInstallSurface();
 
-    const payload = await withProcessEnv({ OPENCLAW_LAUNCHD_LABEL: "ai.openclaw.gateway" }, () =>
+    const payload = await withProcessEnv({ GRANTED_LAUNCHD_LABEL: "ai.openclaw.gateway" }, () =>
       captureUpdateRunPayload({}, {}),
     );
 
@@ -590,7 +590,7 @@ describe("update.run restart scheduling", () => {
       handoffId: "handoff-existing",
     });
 
-    const payload = await withProcessEnv({ OPENCLAW_LAUNCHD_LABEL: "ai.openclaw.gateway" }, () =>
+    const payload = await withProcessEnv({ GRANTED_LAUNCHD_LABEL: "ai.openclaw.gateway" }, () =>
       captureUpdateRunPayload({
         sessionKey: "agent:main:webchat:dm:user-123",
         continuationMessage: "Report the update result after restart.",
@@ -626,7 +626,7 @@ describe("update.run restart scheduling", () => {
     mockGlobalInstallSurface();
     restartSentinelWriteError = new Error("state database unavailable");
 
-    const payload = await withProcessEnv({ OPENCLAW_LAUNCHD_LABEL: "ai.openclaw.gateway" }, () =>
+    const payload = await withProcessEnv({ GRANTED_LAUNCHD_LABEL: "ai.openclaw.gateway" }, () =>
       captureUpdateRunPayload(),
     );
 
@@ -643,7 +643,7 @@ describe("update.run restart scheduling", () => {
       Object.assign(new Error("spawn ENOENT"), { code: "ENOENT" }),
     );
 
-    const payload = await withProcessEnv({ OPENCLAW_LAUNCHD_LABEL: "ai.openclaw.gateway" }, () =>
+    const payload = await withProcessEnv({ GRANTED_LAUNCHD_LABEL: "ai.openclaw.gateway" }, () =>
       captureUpdateRunPayload(),
     );
 
@@ -660,7 +660,7 @@ describe("update.run restart scheduling", () => {
     detectRespawnSupervisorMock.mockReturnValueOnce("systemd");
     mockGlobalInstallSurface();
 
-    await withProcessEnv({ OPENCLAW_SYSTEMD_UNIT: "openclaw-gateway.service" }, () =>
+    await withProcessEnv({ GRANTED_SYSTEMD_UNIT: "openclaw-gateway.service" }, () =>
       invokeUpdateRun({ restartDelayMs: 0 }),
     );
 
@@ -710,7 +710,7 @@ describe("update.run restart scheduling", () => {
       throw Object.assign(new Error("uv_cwd"), { code: "ENOENT", syscall: "uv_cwd" });
     });
     try {
-      await withProcessEnv({ OPENCLAW_LAUNCHD_LABEL: "ai.openclaw.gateway" }, () =>
+      await withProcessEnv({ GRANTED_LAUNCHD_LABEL: "ai.openclaw.gateway" }, () =>
         invokeUpdateRun({}),
       );
     } finally {
@@ -728,7 +728,7 @@ describe("update.run restart scheduling", () => {
   it("preflights supervised git/dev updates before handing them to the CLI path", async () => {
     detectRespawnSupervisorMock.mockReturnValueOnce("launchd");
     mockGitInstallSurface("/tmp/openclaw-git");
-    const payload = await withProcessEnv({ OPENCLAW_LAUNCHD_LABEL: "ai.openclaw.gateway" }, () =>
+    const payload = await withProcessEnv({ GRANTED_LAUNCHD_LABEL: "ai.openclaw.gateway" }, () =>
       captureUpdateRunPayload(),
     );
 
@@ -783,7 +783,7 @@ describe("update.run restart scheduling", () => {
       durationMs: 1,
     });
 
-    const payload = await withProcessEnv({ OPENCLAW_LAUNCHD_LABEL: "ai.openclaw.gateway" }, () =>
+    const payload = await withProcessEnv({ GRANTED_LAUNCHD_LABEL: "ai.openclaw.gateway" }, () =>
       captureUpdateRunPayload(),
     );
 
@@ -801,8 +801,8 @@ describe("update.run restart scheduling", () => {
 
     const payload = await withProcessEnv(
       {
-        OPENCLAW_SERVICE_MARKER: "openclaw",
-        OPENCLAW_SERVICE_KIND: "gateway",
+        GRANTED_SERVICE_MARKER: "openclaw",
+        GRANTED_SERVICE_KIND: "gateway",
       },
       () => captureUpdateRunPayload(),
     );
@@ -823,7 +823,7 @@ describe("update.run restart scheduling", () => {
     detectRespawnSupervisorMock.mockReturnValueOnce("launchd");
     mockGitInstallSurface("/tmp/openclaw-git");
 
-    const payload = await withProcessEnv({ OPENCLAW_LAUNCHD_LABEL: "ai.openclaw.gateway" }, () =>
+    const payload = await withProcessEnv({ GRANTED_LAUNCHD_LABEL: "ai.openclaw.gateway" }, () =>
       captureUpdateRunPayload(),
     );
 
@@ -842,7 +842,7 @@ describe("update.run restart scheduling", () => {
     detectRespawnSupervisorMock.mockReturnValueOnce("launchd");
     mockGitInstallSurface("/tmp/openclaw-git");
 
-    const payload = await withProcessEnv({ OPENCLAW_LAUNCHD_LABEL: "ai.openclaw.gateway" }, () =>
+    const payload = await withProcessEnv({ GRANTED_LAUNCHD_LABEL: "ai.openclaw.gateway" }, () =>
       captureUpdateRunPayload(),
     );
 
@@ -862,7 +862,7 @@ describe("update.run restart scheduling", () => {
     detectRespawnSupervisorMock.mockReturnValueOnce("launchd");
     mockGlobalInstallSurface();
 
-    await withProcessEnv({ OPENCLAW_LAUNCHD_LABEL: "ai.openclaw.gateway" }, () =>
+    await withProcessEnv({ GRANTED_LAUNCHD_LABEL: "ai.openclaw.gateway" }, () =>
       captureUpdateRunPayload(),
     );
 
@@ -898,7 +898,7 @@ describe("update.run restart scheduling", () => {
 
     const payload = await withProcessEnv(
       {
-        OPENCLAW_SYSTEMD_UNIT: "openclaw-gateway.service",
+        GRANTED_SYSTEMD_UNIT: "openclaw-gateway.service",
         INVOCATION_ID: "8a77e69a8f604bf0b7984879b9f17a7c",
       },
       () => captureUpdateRunPayload(),
@@ -925,9 +925,9 @@ describe("update.run restart scheduling", () => {
 
     const payload = await withProcessEnv(
       {
-        OPENCLAW_SYSTEMD_UNIT: undefined,
-        OPENCLAW_SERVICE_MARKER: "openclaw",
-        OPENCLAW_SERVICE_KIND: "gateway",
+        GRANTED_SYSTEMD_UNIT: undefined,
+        GRANTED_SERVICE_MARKER: "openclaw",
+        GRANTED_SERVICE_KIND: "gateway",
       },
       () => captureUpdateRunPayload(),
     );
@@ -986,8 +986,8 @@ describe("update.run restart scheduling", () => {
 
     const payload = await withProcessEnv(
       {
-        OPENCLAW_SUPERVISOR_MODE: "external",
-        OPENCLAW_SYSTEMD_UNIT: "openclaw-gateway.service",
+        GRANTED_SUPERVISOR_MODE: "external",
+        GRANTED_SYSTEMD_UNIT: "openclaw-gateway.service",
       },
       () => captureUpdateRunPayload(),
     );
@@ -1105,7 +1105,7 @@ describe("update.run post-core plugin finalize", () => {
     detectRespawnSupervisorMock.mockReturnValueOnce("launchd");
     mockGlobalInstallSurface();
 
-    await withProcessEnv({ OPENCLAW_LAUNCHD_LABEL: "ai.openclaw.gateway" }, () =>
+    await withProcessEnv({ GRANTED_LAUNCHD_LABEL: "ai.openclaw.gateway" }, () =>
       captureUpdateRunPayload(),
     );
 

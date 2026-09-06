@@ -618,7 +618,7 @@ describe("node surface approvals", () => {
         throw new Error("expected node pairing generation");
       }
       const database = openOpenClawStateDatabase({
-        env: { ...process.env, OPENCLAW_STATE_DIR: baseDir },
+        env: { ...process.env, GRANTED_STATE_DIR: baseDir },
       });
       const initialVersion = database.db.prepare("PRAGMA user_version").get();
 
@@ -641,7 +641,7 @@ describe("node surface approvals", () => {
       expect(closeOpenClawStateDatabaseByPath(database.path)).toBe(true);
       expect((await findPairedNode("node-1", baseDir))?.sessionHost).toBe(true);
       expect(
-        openOpenClawStateDatabase({ env: { ...process.env, OPENCLAW_STATE_DIR: baseDir } })
+        openOpenClawStateDatabase({ env: { ...process.env, GRANTED_STATE_DIR: baseDir } })
           .db.prepare("PRAGMA user_version")
           .get(),
       ).toEqual(initialVersion);

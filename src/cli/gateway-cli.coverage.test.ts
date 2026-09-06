@@ -563,7 +563,7 @@ describe("gateway-cli coverage", () => {
       fs.mkdirSync(bundleDir, { recursive: true });
       fs.writeFileSync(bundlePath, `${JSON.stringify(bundle, null, 2)}\n`, "utf8");
 
-      await withEnvOverride({ OPENCLAW_STATE_DIR: tempDir }, async () => {
+      await withEnvOverride({ GRANTED_STATE_DIR: tempDir }, async () => {
         await runGatewayCommand([
           "gateway",
           "--port",
@@ -608,7 +608,7 @@ describe("gateway-cli coverage", () => {
     try {
       const outputPath = path.join(tempDir, "diagnostics.zip");
       await withEnvOverride(
-        { OPENCLAW_STATE_DIR: tempDir, OPENCLAW_TEST_FILE_LOG: undefined },
+        { GRANTED_STATE_DIR: tempDir, GRANTED_TEST_FILE_LOG: undefined },
         async () => {
           await runGatewayCommand([...args, "--output", outputPath, "--json"]);
         },

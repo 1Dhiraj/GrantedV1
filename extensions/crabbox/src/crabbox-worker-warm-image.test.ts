@@ -257,7 +257,7 @@ describe("Crabbox profile warm images", () => {
             ],
             {
               cwd: runtime,
-              env: { ...process.env, OPENCLAW_STATE_DIR: state },
+              env: { ...process.env, GRANTED_STATE_DIR: state },
               detached: true,
               stdio: ["ignore", "pipe", "ignore"],
             },

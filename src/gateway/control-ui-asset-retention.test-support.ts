@@ -63,7 +63,7 @@ export async function withRetentionFixture(
   const state = path.join(root, "state");
   const cache = path.join(state, "cache", "control-ui-assets");
   try {
-    await withEnvAsync({ OPENCLAW_STATE_DIR: state }, async () => {
+    await withEnvAsync({ GRANTED_STATE_DIR: state }, async () => {
       await fs.mkdir(cache, { recursive: true });
       await run({
         root,

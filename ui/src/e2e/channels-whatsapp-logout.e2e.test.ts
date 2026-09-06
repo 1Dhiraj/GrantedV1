@@ -13,7 +13,7 @@ const suite = createControlUiE2eSuite({
 
 const QR_DATA_URL =
   "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAusB9WlY9Z8AAAAASUVORK5CYII=";
-const captureUiProofEnabled = process.env.OPENCLAW_CAPTURE_UI_PROOF === "1";
+const captureUiProofEnabled = process.env.GRANTED_CAPTURE_UI_PROOF === "1";
 let uiProofArtifactDir: string;
 beforeEach(() => {
   if (captureUiProofEnabled) {
@@ -187,7 +187,7 @@ suite.define(() => {
             fullPage: true,
             path: path.join(
               uiProofArtifactDir,
-              `whatsapp-mutation-${process.env.OPENCLAW_UI_PROOF_LABEL ?? "rejected"}.png`,
+              `whatsapp-mutation-${process.env.GRANTED_UI_PROOF_LABEL ?? "rejected"}.png`,
             ),
           });
         }
@@ -273,7 +273,7 @@ suite.define(() => {
             fullPage: true,
             path: path.join(
               uiProofArtifactDir,
-              `modal-escape-${process.env.OPENCLAW_UI_PROOF_LABEL ?? "dismissed"}.png`,
+              `modal-escape-${process.env.GRANTED_UI_PROOF_LABEL ?? "dismissed"}.png`,
             ),
           });
         }

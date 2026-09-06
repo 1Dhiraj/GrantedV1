@@ -5,7 +5,7 @@ import { createControlUiE2eArtifactDir } from "../test-helpers/control-ui-e2e-ar
 
 let artifactDir: string | undefined;
 beforeEach(() => {
-  const parent = process.env.OPENCLAW_CONTROL_UI_E2E_ARTIFACT_DIR?.trim();
+  const parent = process.env.GRANTED_CONTROL_UI_E2E_ARTIFACT_DIR?.trim();
   artifactDir = parent
     ? createControlUiE2eArtifactDir("chat-tool-turn-outcome", parent)
     : undefined;
@@ -43,7 +43,7 @@ async function captureFactrowProof(
   if (!artifactDir) {
     return;
   }
-  const state = process.env.OPENCLAW_FACTROW_PROOF_STATE?.trim() || "after";
+  const state = process.env.GRANTED_FACTROW_PROOF_STATE?.trim() || "after";
   await page.locator(".chat-main").screenshot({
     path: path.join(artifactDir, `factrow-${state}-${theme}-context.png`),
   });

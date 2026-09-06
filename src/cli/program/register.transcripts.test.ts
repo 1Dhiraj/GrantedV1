@@ -16,12 +16,12 @@ import { TranscriptsStore } from "../../transcripts/store.js";
 import { summarizeTranscripts } from "../../transcripts/summary.js";
 import { registerTranscriptsCli } from "./register.transcripts.js";
 
-const originalStateDir = process.env.OPENCLAW_STATE_DIR;
+const originalStateDir = process.env.GRANTED_STATE_DIR;
 const tempDirs = useAutoCleanupTempDirTracker(afterEach);
 
 function storeFor(stateDir: string): TranscriptsStore {
   return new TranscriptsStore(path.join(stateDir, "transcripts"), {
-    env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+    env: { ...process.env, GRANTED_STATE_DIR: stateDir },
   });
 }
 
@@ -70,15 +70,15 @@ describe("transcripts CLI", () => {
 
   beforeEach(async () => {
     stateDir = tempDirs.make("openclaw-transcripts-cli-");
-    process.env.OPENCLAW_STATE_DIR = stateDir;
+    process.env.GRANTED_STATE_DIR = stateDir;
   });
 
   afterEach(() => {
     closeOpenClawStateDatabaseForTest();
     if (originalStateDir === undefined) {
-      delete process.env.OPENCLAW_STATE_DIR;
+      delete process.env.GRANTED_STATE_DIR;
     } else {
-      process.env.OPENCLAW_STATE_DIR = originalStateDir;
+      process.env.GRANTED_STATE_DIR = originalStateDir;
     }
   });
 
@@ -107,7 +107,7 @@ describe("transcripts CLI", () => {
   ])("prints and materializes exact bytes for summary %j", async (markdown, expected) => {
     const sessionDir = await writeSession(stateDir, "design-review");
     const database = openOpenClawStateDatabase({
-      env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+      env: { ...process.env, GRANTED_STATE_DIR: stateDir },
     });
     const db = getNodeSqliteKysely<
       Pick<OpenClawStateKyselyDatabase, "meeting_transcript_summaries">
@@ -160,7 +160,7 @@ describe("transcripts CLI", () => {
   it("sanitizes stored summary control bytes at the show boundary", async () => {
     await writeSession(stateDir, "legacy-summary");
     const database = openOpenClawStateDatabase({
-      env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+      env: { ...process.env, GRANTED_STATE_DIR: stateDir },
     });
     const db = getNodeSqliteKysely<
       Pick<OpenClawStateKyselyDatabase, "meeting_transcript_summaries">

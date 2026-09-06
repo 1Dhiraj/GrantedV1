@@ -19,7 +19,7 @@ function run(args: string[], env: NodeJS.ProcessEnv = {}) {
   delete processEnv.GIT_COMMIT;
   delete processEnv.GIT_SHA;
   delete processEnv.GITHUB_SHA;
-  delete processEnv.OPENCLAW_BUILD_TIMESTAMP;
+  delete processEnv.GRANTED_BUILD_TIMESTAMP;
   return spawnSync(process.execPath, ["--import", "tsx", SCRIPT, ...args], {
     cwd: process.cwd(),
     encoding: "utf8",
@@ -53,7 +53,7 @@ describe("Android release artifacts", () => {
         GIT_COMMIT: "A".repeat(40),
         GIT_SHA: "d".repeat(40),
         GITHUB_SHA: "b".repeat(40),
-        OPENCLAW_BUILD_TIMESTAMP: "2026-07-10T01:02:03Z",
+        GRANTED_BUILD_TIMESTAMP: "2026-07-10T01:02:03Z",
       },
       now: () => new Date("2026-07-11T00:00:00Z"),
       readGitCommit: () => "c".repeat(40),
@@ -113,7 +113,7 @@ describe("Android release artifacts", () => {
       resolveAndroidBuildMetadata({
         env: {
           GIT_COMMIT: "a".repeat(40),
-          OPENCLAW_BUILD_TIMESTAMP: "2026-07-10T01:02:03+01:00",
+          GRANTED_BUILD_TIMESTAMP: "2026-07-10T01:02:03+01:00",
         },
       }),
     ).toThrow("ISO-8601 UTC timestamp");

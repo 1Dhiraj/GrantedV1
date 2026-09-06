@@ -43,7 +43,7 @@ describe("CLI startup benchmark script spawners", () => {
         fixturePath,
         [
           'import { appendFileSync } from "node:fs";',
-          "appendFileSync(process.env.OPENCLAW_BENCH_HOME_LOG, `${process.env.HOME}\\n`);",
+          "appendFileSync(process.env.GRANTED_BENCH_HOME_LOG, `${process.env.HOME}\\n`);",
           "console.log('{\"ok\":true}');",
           "",
         ].join("\n"),
@@ -75,7 +75,7 @@ describe("CLI startup benchmark script spawners", () => {
           cwd: process.cwd(),
           env: {
             ...process.env,
-            OPENCLAW_BENCH_HOME_LOG: homeLogPath,
+            GRANTED_BENCH_HOME_LOG: homeLogPath,
           },
           stdio: "pipe",
         },
@@ -217,7 +217,7 @@ describe("CLI startup benchmark script spawners", () => {
             cwd: process.cwd(),
             env: {
               ...process.env,
-              OPENCLAW_STARTUP_BENCH_ENFORCE_NONCANONICAL_ARCH: "1",
+              GRANTED_STARTUP_BENCH_ENFORCE_NONCANONICAL_ARCH: "1",
             },
             stdio: "pipe",
           },
@@ -322,7 +322,7 @@ describe("CLI startup benchmark script spawners", () => {
           encoding: "utf8",
           env: {
             ...process.env,
-            OPENCLAW_STARTUP_BENCH_ENFORCE_NONCANONICAL_ARCH: "1",
+            GRANTED_STARTUP_BENCH_ENFORCE_NONCANONICAL_ARCH: "1",
           },
         },
       );
@@ -612,7 +612,7 @@ describe("CLI startup benchmark script spawners", () => {
         encoding: "utf8",
         env: {
           ...process.env,
-          OPENCLAW_STARTUP_BENCH_MAX_RSS_REGRESSION_PCT: "20pct",
+          GRANTED_STARTUP_BENCH_MAX_RSS_REGRESSION_PCT: "20pct",
         },
       },
     );
@@ -620,7 +620,7 @@ describe("CLI startup benchmark script spawners", () => {
     expect(result.status).toBe(1);
     expect(result.stdout).toBe("");
     expect(result.stderr).toContain(
-      "OPENCLAW_STARTUP_BENCH_MAX_RSS_REGRESSION_PCT must be a non-negative number",
+      "GRANTED_STARTUP_BENCH_MAX_RSS_REGRESSION_PCT must be a non-negative number",
     );
     expect(result.stderr).not.toContain("at ");
   });

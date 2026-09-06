@@ -337,12 +337,12 @@ export async function writeConfigFileFromContext(
     if (
       !snapshot.exists ||
       options.skipOutputLogs ||
-      (isVitestRuntimeEnv(deps.env) && !readTestLogFlag("OPENCLAW_TEST_CONFIG_WRITE_LOG"))
+      (isVitestRuntimeEnv(deps.env) && !readTestLogFlag("GRANTED_TEST_CONFIG_WRITE_LOG"))
     ) {
       return;
     }
-    const testLog = readTestLogFlag("OPENCLAW_TEST_CONFIG_WRITE_LOG");
-    if (!isVerbose() && deps.env.OPENCLAW_CONFIG_OVERWRITE_LOG !== "1" && !testLog) {
+    const testLog = readTestLogFlag("GRANTED_TEST_CONFIG_WRITE_LOG");
+    if (!isVerbose() && deps.env.GRANTED_CONFIG_OVERWRITE_LOG !== "1" && !testLog) {
       return;
     }
     deps.logger.warn(
@@ -355,7 +355,7 @@ export async function writeConfigFileFromContext(
     );
   };
   const logConfigWriteAnomalies = () => {
-    const testLog = readTestLogFlag("OPENCLAW_TEST_CONFIG_WRITE_LOG");
+    const testLog = readTestLogFlag("GRANTED_TEST_CONFIG_WRITE_LOG");
     if (
       suspiciousReasons.length === 0 ||
       options.skipOutputLogs ||
@@ -364,7 +364,7 @@ export async function writeConfigFileFromContext(
       return;
     }
     const showMissingMeta =
-      isVerbose() || deps.env.OPENCLAW_CONFIG_WRITE_ANOMALY_LOG === "1" || testLog;
+      isVerbose() || deps.env.GRANTED_CONFIG_WRITE_ANOMALY_LOG === "1" || testLog;
     const visibleReasons = showMissingMeta
       ? suspiciousReasons
       : suspiciousReasons.filter((reason) => reason !== "missing-meta-before-write");

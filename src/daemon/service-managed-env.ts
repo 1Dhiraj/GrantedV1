@@ -4,7 +4,7 @@ import { normalizeEnvVarKey } from "../infra/host-env-security.js";
 import { detectRespawnSupervisor } from "../infra/supervisor-markers.js";
 import type { GatewayServiceEnvironmentValueSource } from "./service-types.js";
 
-const MANAGED_SERVICE_ENV_KEYS_VAR = "OPENCLAW_SERVICE_MANAGED_ENV_KEYS";
+const MANAGED_SERVICE_ENV_KEYS_VAR = "GRANTED_SERVICE_MANAGED_ENV_KEYS";
 
 // Tracks which service environment keys OpenClaw owns across reinstall/start flows.
 type ServiceEnvCommand = {

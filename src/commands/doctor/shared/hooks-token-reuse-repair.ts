@@ -38,8 +38,8 @@ async function materializeDoctorGatewayAuthRefs(
     mode: cfg.gateway?.auth?.mode,
     hasTokenOverride: false,
     hasPasswordOverride: false,
-    hasTokenFallback: Boolean(normalizeOptionalString(env.OPENCLAW_GATEWAY_TOKEN)),
-    hasPasswordFallback: Boolean(normalizeOptionalString(env.OPENCLAW_GATEWAY_PASSWORD)),
+    hasTokenFallback: Boolean(normalizeOptionalString(env.GRANTED_GATEWAY_TOKEN)),
+    hasPasswordFallback: Boolean(normalizeOptionalString(env.GRANTED_GATEWAY_PASSWORD)),
   };
   if (!canMaterializeGatewayAuthSecretRefsWithoutExec(materializeParams)) {
     return cfg;

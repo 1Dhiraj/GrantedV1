@@ -326,7 +326,7 @@ describe("codex web search provider", () => {
     ]);
     expect(isolatedStartOptions?.clearEnv).toEqual([
       "KEEP_CLEARED",
-      "OPENCLAW_CODEX_APP_SERVER_ARGS",
+      "GRANTED_CODEX_APP_SERVER_ARGS",
     ]);
     expect(isolatedCodexHome).toEqual(expect.any(String));
     if (!threadStartCwd || !isolatedCodexHome) {

@@ -50,7 +50,7 @@ type NpmLockOptions = {
 
 const SCRIPT_ROOT_DIR = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const ROOT_DIR = path.resolve(
-  process.env.OPENCLAW_NPM_PACKAGE_LOCK_REPO_ROOT?.trim() || SCRIPT_ROOT_DIR,
+  process.env.GRANTED_NPM_PACKAGE_LOCK_REPO_ROOT?.trim() || SCRIPT_ROOT_DIR,
 );
 const EXACT_VERSION_PATTERN = /^\d+\.\d+\.\d+(?:[-+][0-9A-Za-z.-]+)?$/u;
 const STABLE_VERSION_PATTERN = /^(\d+)\.(\d+)\.(\d+)$/u;
@@ -738,14 +738,14 @@ export function createNpmLockExecOptions(
     cwd,
     env: invocation.env ?? env,
     maxBuffer: readPositiveIntEnv(
-      "OPENCLAW_NPM_LOCK_COMMAND_MAX_BUFFER_BYTES",
+      "GRANTED_NPM_LOCK_COMMAND_MAX_BUFFER_BYTES",
       NPM_LOCK_COMMAND_MAX_BUFFER_BYTES,
       env,
     ),
     shell: invocation.shell,
     stdio: ["ignore", "pipe", "pipe"] satisfies ["ignore", "pipe", "pipe"],
     timeout: readPositiveIntEnv(
-      "OPENCLAW_NPM_LOCK_COMMAND_TIMEOUT_MS",
+      "GRANTED_NPM_LOCK_COMMAND_TIMEOUT_MS",
       NPM_LOCK_COMMAND_TIMEOUT_MS,
       env,
     ),
@@ -1372,16 +1372,16 @@ export function resolveNpmLockJobs(
   env: NodeJS.ProcessEnv = process.env,
   fallback = NPM_LOCK_DEFAULT_JOBS,
 ) {
-  const raw = rawValue ?? env.OPENCLAW_NPM_LOCK_JOBS ?? String(fallback);
+  const raw = rawValue ?? env.GRANTED_NPM_LOCK_JOBS ?? String(fallback);
   const rawText =
     typeof raw === "string" || typeof raw === "number" || typeof raw === "bigint"
       ? String(raw)
       : "";
-  const jobs = readPositiveIntEnv("OPENCLAW_NPM_LOCK_JOBS", rawText, {
-    OPENCLAW_NPM_LOCK_JOBS: rawText,
+  const jobs = readPositiveIntEnv("GRANTED_NPM_LOCK_JOBS", rawText, {
+    GRANTED_NPM_LOCK_JOBS: rawText,
   });
   if (jobs > NPM_LOCK_MAX_JOBS) {
-    throw new Error(`invalid OPENCLAW_NPM_LOCK_JOBS: ${rawText}; maximum is ${NPM_LOCK_MAX_JOBS}`);
+    throw new Error(`invalid GRANTED_NPM_LOCK_JOBS: ${rawText}; maximum is ${NPM_LOCK_MAX_JOBS}`);
   }
   return jobs;
 }

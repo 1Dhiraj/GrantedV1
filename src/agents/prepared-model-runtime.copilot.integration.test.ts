@@ -45,9 +45,9 @@ it("prepares an agent-local Copilot BYOK harness without replacing the active ro
   vi.spyOn(pluginModuleRuntime, "createPluginModuleLoader").mockReturnValue(loadModule);
   const env = {
     ...process.env,
-    OPENCLAW_STATE_DIR: fs.realpathSync(makePluginLoaderTempDir()),
-    OPENCLAW_BUNDLED_PLUGINS_DIR: bundledRoot,
-    OPENCLAW_DISABLE_BUNDLED_PLUGINS: "0",
+    GRANTED_STATE_DIR: fs.realpathSync(makePluginLoaderTempDir()),
+    GRANTED_BUNDLED_PLUGINS_DIR: bundledRoot,
+    GRANTED_DISABLE_BUNDLED_PLUGINS: "0",
   };
   const config: OpenClawConfig = {
     agents: {

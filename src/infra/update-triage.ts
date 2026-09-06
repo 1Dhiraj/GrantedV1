@@ -118,7 +118,7 @@ async function runPreparedUpdateFailureTriage(
     ),
     ...installationTargetEnv(installationTarget),
   };
-  delete env.OPENCLAW_UPDATE_IN_PROGRESS;
+  delete env.GRANTED_UPDATE_IN_PROGRESS;
   const redaction = { env, stateDir: installationTarget.stateDir };
   const { log, error: logError } = prepared.runtime;
   log("Update failed. Entering triage...");

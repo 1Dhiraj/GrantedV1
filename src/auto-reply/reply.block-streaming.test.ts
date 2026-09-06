@@ -126,7 +126,7 @@ describe("block streaming", () => {
 
   it("handles ordering, timeout fallback, and telegram streamMode block", async () => {
     await withOpenClawTestState(
-      { label: "reply-block-streaming", env: { OPENCLAW_TEST_FAST: "1" } },
+      { label: "reply-block-streaming", env: { GRANTED_TEST_FAST: "1" } },
       async (state) => {
         const cfg = createReplyConfig(state);
         const streamModeCfg = createReplyConfig(state, "block");

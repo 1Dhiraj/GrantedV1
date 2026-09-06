@@ -472,14 +472,14 @@ printf 'replacement=%s\\n' "$PR_MAIN_SHA"
       const readyPath = join(f.root, "fetch-ready.fifo");
       const holdPath = join(f.root, "fetch-hold.fifo");
       execFileSync("mkfifo", [readyPath, holdPath]);
-      f.env.OPENCLAW_TEST_FETCH_READY = readyPath;
-      f.env.OPENCLAW_TEST_FETCH_HOLD = holdPath;
+      f.env.GRANTED_TEST_FETCH_READY = readyPath;
+      f.env.GRANTED_TEST_FETCH_HOLD = holdPath;
       writeFileSync(
         join(f.root, "hold-upload-pack"),
         `#!/usr/bin/env bash
 set -euo pipefail
-printf '%s\\t%s\\n' "$$" "$(ps -o pgid= -p "$$")" > "$OPENCLAW_TEST_FETCH_READY"
-read -r release < "$OPENCLAW_TEST_FETCH_HOLD"
+printf '%s\\t%s\\n' "$$" "$(ps -o pgid= -p "$$")" > "$GRANTED_TEST_FETCH_READY"
+read -r release < "$GRANTED_TEST_FETCH_HOLD"
 `,
         { mode: 0o755 },
       );
@@ -617,7 +617,7 @@ read -r release < "$OPENCLAW_TEST_FETCH_HOLD"
       writeFileSync(join(f.local, "gates.env"), "GATES_MODE=full\n");
       f.configure({ moveAtCi: true });
       if (strict) {
-        f.env.OPENCLAW_PR_STRICT_DRIFT = "1";
+        f.env.GRANTED_PR_STRICT_DRIFT = "1";
       }
       const before = f.events().length;
       const result = f.run("merge-verify");

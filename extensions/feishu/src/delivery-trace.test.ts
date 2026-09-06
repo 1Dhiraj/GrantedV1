@@ -4,7 +4,7 @@
 // delivery, and replyOptions callbacks); OUT
 // events are recorded at the mocked Lark SDK client and the mocked CardKit
 // HTTP fetch, so streaming-card entity calls are captured at the wire seam.
-// Refresh goldens with OPENCLAW_TRACE_UPDATE=1 (see delivery-trace harness docs).
+// Refresh goldens with GRANTED_TRACE_UPDATE=1 (see delivery-trace harness docs).
 import {
   deliveryTraceScenarios,
   expectDeliveryTraceMatchesGolden,

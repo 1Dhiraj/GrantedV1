@@ -11,7 +11,7 @@ function readControlUiResourceBasePath(): string | null {
   const windowValue =
     typeof window === "undefined"
       ? undefined
-      : (window as WindowWithControlUiBasePath)["__OPENCLAW_CONTROL_UI_BASE_PATH__"];
+      : (window as WindowWithControlUiBasePath)["__GRANTED_CONTROL_UI_BASE_PATH__"];
   const value =
     typeof windowValue === "string"
       ? windowValue

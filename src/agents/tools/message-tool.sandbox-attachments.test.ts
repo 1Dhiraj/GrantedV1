@@ -187,7 +187,7 @@ describe("message tool sandbox attachments", () => {
   it("keeps managed host artifacts readable with a remote workspace bridge", async () => {
     await withTempDir("message-tool-managed-media-", async (tempDir) => {
       const stateDir = await fs.realpath(tempDir);
-      vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
+      vi.stubEnv("GRANTED_STATE_DIR", stateDir);
       const hostMirrorDir = path.join(stateDir, "host-mirror");
       const remoteWorkspaceDir = path.join(stateDir, "remote-workspace");
       const managedPath = path.join(stateDir, "media", "tool-image-generation", "chart.txt");

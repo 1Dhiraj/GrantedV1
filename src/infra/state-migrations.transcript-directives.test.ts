@@ -172,7 +172,7 @@ afterEach(() => {
 describe("historical transcript directive migration", () => {
   it("migrates assistant rows and archives while preserving code and derived indexes", async () => {
     const stateDir = makeTempDir(tempDirs, "transcript-directive-migration-");
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const opened = openOpenClawAgentDatabase({ agentId: "main", env });
     const databasePath = opened.path;
     const tagged = messageEvent({
@@ -373,7 +373,7 @@ describe("historical transcript directive migration", () => {
 
   it("resumes after the committed transcript cursor", async () => {
     const stateDir = makeTempDir(tempDirs, "transcript-directive-resume-");
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const opened = openOpenClawAgentDatabase({ agentId: "main", env });
     const databasePath = opened.path;
     insertSession(opened.db, {
@@ -429,7 +429,7 @@ describe("historical transcript directive migration", () => {
 
   it("completes an old-schema database without the optional archives table", async () => {
     const stateDir = makeTempDir(tempDirs, "transcript-directive-old-schema-");
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const opened = openOpenClawAgentDatabase({ agentId: "main", env });
     const databasePath = opened.path;
     insertSession(opened.db, {
@@ -467,7 +467,7 @@ describe("historical transcript directive migration", () => {
 
   it("completes a pre-stuck archives cursor when the optional table is absent", async () => {
     const stateDir = makeTempDir(tempDirs, "transcript-directive-stuck-archives-");
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const opened = openOpenClawAgentDatabase({ agentId: "main", env });
     const databasePath = opened.path;
     opened.db.exec("DROP TABLE session_transcript_archives");
@@ -497,7 +497,7 @@ describe("historical transcript directive migration", () => {
 
   it("acquires stopped-writer maintenance before upgrading an older agent database", async () => {
     const stateDir = makeTempDir(tempDirs, "transcript-directive-old-agent-schema-");
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const opened = openOpenClawAgentDatabase({ agentId: "main", env });
     const databasePath = opened.path;
     opened.db.exec(`
@@ -521,7 +521,7 @@ describe("historical transcript directive migration", () => {
 
   it("rolls back same-version convergence when maintenance expires before commit", async () => {
     const stateDir = makeTempDir(tempDirs, "transcript-directive-same-version-expiry-");
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const opened = openOpenClawAgentDatabase({ agentId: "main", env });
     const databasePath = opened.path;
     opened.db.exec(`
@@ -575,7 +575,7 @@ describe("historical transcript directive migration", () => {
 
   it("leaves a current empty database and its active writer untouched", async () => {
     const stateDir = makeTempDir(tempDirs, "transcript-directive-current-empty-");
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const opened = openOpenClawAgentDatabase({ agentId: "main", env });
 
     await expect(migrateHistoricalTranscriptDirectives({ env })).resolves.toEqual({
@@ -588,7 +588,7 @@ describe("historical transcript directive migration", () => {
 
   it("surfaces lease inspection failures from preflight", async () => {
     const stateDir = makeTempDir(tempDirs, "transcript-directive-lease-inspection-");
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const opened = openOpenClawAgentDatabase({ agentId: "main", env });
     const databasePath = opened.path;
     closeOpenClawAgentDatabasesForTest();
@@ -619,7 +619,7 @@ describe("historical transcript directive migration", () => {
 
   it("leaves canonical archives and their active writer untouched", async () => {
     const stateDir = makeTempDir(tempDirs, "transcript-directive-current-archive-");
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const opened = openOpenClawAgentDatabase({ agentId: "main", env });
     const archived = messageEvent({
       content: [{ type: "text", text: "Already canonical" }],
@@ -663,7 +663,7 @@ describe("historical transcript directive migration", () => {
 
   it("continues preflight after an unreadable target", async () => {
     const stateDir = makeTempDir(tempDirs, "transcript-directive-preflight-targets-");
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const opened = openOpenClawAgentDatabase({ agentId: "second", env });
     const databasePath = opened.path;
     const unreadablePath = path.join(stateDir, "unreadable", "agent.sqlite");
@@ -696,7 +696,7 @@ describe("historical transcript directive migration", () => {
 
   it("prunes a stale writer lease before completing an empty database", async () => {
     const stateDir = makeTempDir(tempDirs, "transcript-directive-stale-writer-");
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const opened = openOpenClawAgentDatabase({ agentId: "main", env });
     const databasePath = opened.path;
     closeOpenClawAgentDatabasesForTest();
@@ -718,7 +718,7 @@ describe("historical transcript directive migration", () => {
 
   it("rolls back a transcript transaction when maintenance expires before commit", async () => {
     const stateDir = makeTempDir(tempDirs, "transcript-directive-expired-commit-");
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const opened = openOpenClawAgentDatabase({ agentId: "main", env });
     insertSession(opened.db, {
       events: [
@@ -786,7 +786,7 @@ describe("historical transcript directive migration", () => {
 
   it("preserves a published archive when maintenance expires before rename", async () => {
     const stateDir = makeTempDir(tempDirs, "transcript-directive-expired-archive-");
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const opened = openOpenClawAgentDatabase({ agentId: "main", env });
     const archived = messageEvent({
       content: [{ type: "text", text: "[[reply_to_current]] Archived" }],
@@ -884,7 +884,7 @@ describe("historical transcript directive migration", () => {
 
   it("renews maintenance through a blocked schema upgrade and fences the final transcript batch", async () => {
     const stateDir = makeTempDir(tempDirs, "transcript-directive-lease-renewal-");
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const opened = openOpenClawAgentDatabase({ agentId: "main", env });
     const batchSize = TRANSCRIPT_DIRECTIVE_MIGRATION_BATCH_SIZE;
     const sessionIdAt = (index: number) =>

@@ -92,7 +92,7 @@ export function parseTimeoutMsOrExit(timeout?: string): number | undefined | nul
   return seconds * 1000;
 }
 
-const OPENCLAW_REPO_URL = "https://github.com/openclaw/openclaw.git";
+const GRANTED_REPO_URL = "https://github.com/openclaw/openclaw.git";
 // Keep the full commit graph for dev ref switching while deferring historical blobs.
 // A shallow clone would make older or non-default dev targets unreachable.
 const GIT_CLONE_BLOB_FILTER = "--filter=blob:none";
@@ -167,7 +167,7 @@ export async function isEmptyDir(targetPath: string): Promise<boolean> {
 
 /** Resolve the checkout path used by source-based self-update. */
 export function resolveGitInstallDir(): string {
-  const override = process.env.OPENCLAW_GIT_DIR?.trim();
+  const override = process.env.GRANTED_GIT_DIR?.trim();
   if (override) {
     return path.resolve(override);
   }
@@ -256,7 +256,7 @@ async function cloneGitCheckoutTransactionally(params: {
   try {
     const result = await runUpdateStep({
       name: "git clone",
-      argv: ["git", "clone", GIT_CLONE_BLOB_FILTER, OPENCLAW_REPO_URL, stagingDir],
+      argv: ["git", "clone", GIT_CLONE_BLOB_FILTER, GRANTED_REPO_URL, stagingDir],
       env: params.env,
       timeoutMs: params.timeoutMs,
       progress: params.progress,
@@ -279,7 +279,7 @@ async function cloneGitCheckoutTransactionally(params: {
 
     if (!preserveDir) {
       throw new Error(
-        `OPENCLAW_GIT_DIR appeared while cloning: ${params.dir}. The existing path was left unchanged; move it or choose another OPENCLAW_GIT_DIR, then retry.`,
+        `GRANTED_GIT_DIR appeared while cloning: ${params.dir}. The existing path was left unchanged; move it or choose another GRANTED_GIT_DIR, then retry.`,
       );
     }
 
@@ -287,7 +287,7 @@ async function cloneGitCheckoutTransactionally(params: {
     const destinationEntries = await fs.readdir(targetDir);
     if (destinationEntries.toSorted().join("\0") !== expectedEntries.toSorted().join("\0")) {
       throw new Error(
-        `OPENCLAW_GIT_DIR appeared while cloning: ${params.dir}. The existing path was left unchanged; move it or choose another OPENCLAW_GIT_DIR, then retry.`,
+        `GRANTED_GIT_DIR appeared while cloning: ${params.dir}. The existing path was left unchanged; move it or choose another GRANTED_GIT_DIR, then retry.`,
       );
     }
 
@@ -353,7 +353,7 @@ export async function ensureGitCheckout(params: {
     if (!empty) {
       throw new UpdatePreMutationError(
         "invalid-git-directory",
-        `OPENCLAW_GIT_DIR points at a non-git directory: ${params.dir}. Set OPENCLAW_GIT_DIR to an empty folder or an openclaw checkout.`,
+        `GRANTED_GIT_DIR points at a non-git directory: ${params.dir}. Set GRANTED_GIT_DIR to an empty folder or an openclaw checkout.`,
       );
     }
 
@@ -368,7 +368,7 @@ export async function ensureGitCheckout(params: {
   if (!(await isCorePackage(params.dir))) {
     throw new UpdatePreMutationError(
       "invalid-git-directory",
-      `OPENCLAW_GIT_DIR does not look like a core checkout: ${params.dir}.`,
+      `GRANTED_GIT_DIR does not look like a core checkout: ${params.dir}.`,
     );
   }
 

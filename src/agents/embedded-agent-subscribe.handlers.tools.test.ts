@@ -1161,7 +1161,7 @@ describe("handleToolExecutionEnd cron mutation tracking", () => {
     ["exec", "bunx openclaw@latest cron add --at +1h --message 'follow up'"],
     ["exec", "/usr/local/bin/openclaw cron add --at +1h --message 'follow up'"],
     ["bash", "corepack pnpm exec openclaw cron add --at +1h --message 'follow up'"],
-    ["exec", "env OPENCLAW_PROFILE=test openclaw cron add --at +1h --message 'follow up'"],
+    ["exec", "env GRANTED_PROFILE=test openclaw cron add --at +1h --message 'follow up'"],
     ["exec", "openclaw cron create --at +1h --message 'follow up'"],
     ["exec", "openclaw --profile work cron create --at +1h --message 'follow up'"],
     ["exec", "openclaw --dev cron add --at +1h --message 'follow up'"],

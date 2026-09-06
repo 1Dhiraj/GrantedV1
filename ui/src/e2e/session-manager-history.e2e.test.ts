@@ -18,7 +18,7 @@ const suite = createControlUiE2eSuite({
   unavailableMessage: (executablePath) =>
     `Playwright Chromium is not installed or cannot start at ${executablePath}.`,
 });
-const captureProof = process.env.OPENCLAW_CAPTURE_UI_PROOF === "1";
+const captureProof = process.env.GRANTED_CAPTURE_UI_PROOF === "1";
 
 async function captureUiProof(page: Page, fileName: string) {
   if (!captureProof) {

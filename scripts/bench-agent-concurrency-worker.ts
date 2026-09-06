@@ -783,11 +783,11 @@ async function runScenario(options: WorkerOptions, stateDir: string): Promise<Wo
 async function main(): Promise<void> {
   const options = parseOptions(process.argv.slice(2));
   const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-agent-concurrency-worker-"));
-  const previousStateDir = process.env.OPENCLAW_STATE_DIR;
+  const previousStateDir = process.env.GRANTED_STATE_DIR;
   const previousNodeEnv = process.env.NODE_ENV;
   let result: WorkerResult | undefined;
   let failure: unknown;
-  process.env.OPENCLAW_STATE_DIR = stateDir;
+  process.env.GRANTED_STATE_DIR = stateDir;
   process.env.NODE_ENV = "test";
   try {
     const { pinRuntimePaths } = await import("../src/config/paths.js");
@@ -802,9 +802,9 @@ async function main(): Promise<void> {
       failure ??= error;
     } finally {
       if (previousStateDir === undefined) {
-        delete process.env.OPENCLAW_STATE_DIR;
+        delete process.env.GRANTED_STATE_DIR;
       } else {
-        process.env.OPENCLAW_STATE_DIR = previousStateDir;
+        process.env.GRANTED_STATE_DIR = previousStateDir;
       }
       if (previousNodeEnv === undefined) {
         delete process.env.NODE_ENV;

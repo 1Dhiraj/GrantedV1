@@ -1170,7 +1170,7 @@ describe("executePreparedCliRun supervisor output capture", () => {
         })}\n`,
       );
       recordMcpLoopbackToolCallResult({
-        captureKey: input.env?.OPENCLAW_MCP_CLI_CAPTURE_KEY ?? "",
+        captureKey: input.env?.GRANTED_MCP_CLI_CAPTURE_KEY ?? "",
         toolName: "message",
         args: { action: "react" },
         isError: true,
@@ -1230,7 +1230,7 @@ describe("executePreparedCliRun supervisor output capture", () => {
     supervisorSpawnMock.mockImplementationOnce(async (...args: unknown[]) => {
       const input = args[0] as SupervisorSpawnInput;
       const captureHandle = markMcpLoopbackToolCallStarted({
-        captureKey: input.env?.OPENCLAW_MCP_CLI_CAPTURE_KEY,
+        captureKey: input.env?.GRANTED_MCP_CLI_CAPTURE_KEY,
         toolName: "message",
         args: { action: "react", emoji: "early" },
       });
@@ -1340,14 +1340,14 @@ describe("executePreparedCliRun supervisor output capture", () => {
         })}\n`,
       );
       recordMcpLoopbackToolCallResult({
-        captureKey: input.env?.OPENCLAW_MCP_CLI_CAPTURE_KEY ?? "",
+        captureKey: input.env?.GRANTED_MCP_CLI_CAPTURE_KEY ?? "",
         toolName: "message",
         args: { action: "react", emoji: "B" },
         isError: true,
         outcome: "failed",
       });
       recordMcpLoopbackToolCallResult({
-        captureKey: input.env?.OPENCLAW_MCP_CLI_CAPTURE_KEY ?? "",
+        captureKey: input.env?.GRANTED_MCP_CLI_CAPTURE_KEY ?? "",
         toolName: "message",
         args: { action: "react", emoji: "A" },
         isError: false,
@@ -1426,7 +1426,7 @@ describe("executePreparedCliRun supervisor output capture", () => {
       };
       const recordOutcome = (outcome: "completed" | "failed") =>
         recordMcpLoopbackToolCallResult({
-          captureKey: input.env?.OPENCLAW_MCP_CLI_CAPTURE_KEY ?? "",
+          captureKey: input.env?.GRANTED_MCP_CLI_CAPTURE_KEY ?? "",
           toolName: "message",
           args: toolArgs,
           isError: outcome === "failed",
@@ -1555,7 +1555,7 @@ describe("executePreparedCliRun supervisor output capture", () => {
         })}\n${JSON.stringify({ type: "result", session_id: "session-jsonl", result: "done" })}\n`,
       );
       const captureHandle = markMcpLoopbackToolCallStarted({
-        captureKey: input.env?.OPENCLAW_MCP_CLI_CAPTURE_KEY,
+        captureKey: input.env?.GRANTED_MCP_CLI_CAPTURE_KEY,
         toolName: "message",
         args: toolArgs,
       });
@@ -1680,7 +1680,7 @@ describe("executePreparedCliRun supervisor output capture", () => {
       const input = args[0] as SupervisorSpawnInput;
       input.onStdout?.(toolStart);
       recordMcpLoopbackToolCallResult({
-        captureKey: input.env?.OPENCLAW_MCP_CLI_CAPTURE_KEY ?? "",
+        captureKey: input.env?.GRANTED_MCP_CLI_CAPTURE_KEY ?? "",
         toolName: "cron",
         args: {},
         isError: true,
@@ -1756,7 +1756,7 @@ describe("executePreparedCliRun supervisor output capture", () => {
       input.onStdout?.(toolStart);
       if (fixture.type === "mcp_tool_use") {
         recordMcpLoopbackToolCallResult({
-          captureKey: input.env?.OPENCLAW_MCP_CLI_CAPTURE_KEY ?? "",
+          captureKey: input.env?.GRANTED_MCP_CLI_CAPTURE_KEY ?? "",
           toolName: "cron",
           args: {},
           isError: true,
@@ -1765,7 +1765,7 @@ describe("executePreparedCliRun supervisor output capture", () => {
       }
       if (fixture.type === "server_tool_use") {
         recordMcpLoopbackToolCallResult({
-          captureKey: input.env?.OPENCLAW_MCP_CLI_CAPTURE_KEY ?? "",
+          captureKey: input.env?.GRANTED_MCP_CLI_CAPTURE_KEY ?? "",
           toolName: "web_search",
           args: {},
           isError: false,
@@ -1853,7 +1853,7 @@ describe("executePreparedCliRun supervisor output capture", () => {
     supervisorSpawnMock.mockImplementationOnce(async (...args: unknown[]) => {
       const input = args[0] as SupervisorSpawnInput;
       recordMcpLoopbackToolCallResult({
-        captureKey: input.env?.OPENCLAW_MCP_CLI_CAPTURE_KEY ?? "",
+        captureKey: input.env?.GRANTED_MCP_CLI_CAPTURE_KEY ?? "",
         toolName: "message",
         args: {
           action: "send",
@@ -2162,7 +2162,7 @@ describe("executePreparedCliRun supervisor output capture", () => {
     supervisorSpawnMock.mockImplementationOnce(async (...args: unknown[]) => {
       const input = args[0] as SupervisorSpawnInput;
       recordMcpLoopbackToolCallResult({
-        captureKey: input.env?.OPENCLAW_MCP_CLI_CAPTURE_KEY ?? "",
+        captureKey: input.env?.GRANTED_MCP_CLI_CAPTURE_KEY ?? "",
         toolName: "message",
         args: {
           action: "send",
@@ -2197,7 +2197,7 @@ describe("executePreparedCliRun supervisor output capture", () => {
     context.mcpDeliveryCapture = true;
     supervisorSpawnMock.mockImplementationOnce(async (...args: unknown[]) => {
       const input = args[0] as SupervisorSpawnInput;
-      const captureHandle = markMcpLoopbackRequestStarted(input.env?.OPENCLAW_MCP_CLI_CAPTURE_KEY);
+      const captureHandle = markMcpLoopbackRequestStarted(input.env?.GRANTED_MCP_CLI_CAPTURE_KEY);
       await resolveMcpLoopbackYieldContext(captureHandle)?.onYield(
         "private continuation",
         "Research started; results will follow.",
@@ -2228,7 +2228,7 @@ describe("executePreparedCliRun supervisor output capture", () => {
     supervisorSpawnMock.mockImplementationOnce(async (...args: unknown[]) => {
       const input = args[0] as SupervisorSpawnInput;
       recordMcpLoopbackToolCallResult({
-        captureKey: input.env?.OPENCLAW_MCP_CLI_CAPTURE_KEY ?? "",
+        captureKey: input.env?.GRANTED_MCP_CLI_CAPTURE_KEY ?? "",
         toolName: "message",
         args: {
           action: "edit",
@@ -2268,7 +2268,7 @@ describe("executePreparedCliRun supervisor output capture", () => {
     supervisorSpawnMock.mockImplementationOnce(async (...args: unknown[]) => {
       const input = args[0] as SupervisorSpawnInput;
       recordMcpLoopbackToolCallResult({
-        captureKey: input.env?.OPENCLAW_MCP_CLI_CAPTURE_KEY ?? "",
+        captureKey: input.env?.GRANTED_MCP_CLI_CAPTURE_KEY ?? "",
         toolName: "message",
         args: {
           action: "send",
@@ -2307,7 +2307,7 @@ describe("executePreparedCliRun supervisor output capture", () => {
     supervisorSpawnMock.mockImplementationOnce(async (...args: unknown[]) => {
       const input = args[0] as SupervisorSpawnInput;
       recordMcpLoopbackToolCallResult({
-        captureKey: input.env?.OPENCLAW_MCP_CLI_CAPTURE_KEY ?? "",
+        captureKey: input.env?.GRANTED_MCP_CLI_CAPTURE_KEY ?? "",
         toolName: "message",
         args: {
           action: "send",
@@ -2353,7 +2353,7 @@ describe("executePreparedCliRun supervisor output capture", () => {
     supervisorSpawnMock.mockImplementationOnce(async (...args: unknown[]) => {
       const input = args[0] as SupervisorSpawnInput;
       recordMcpLoopbackToolCallResult({
-        captureKey: input.env?.OPENCLAW_MCP_CLI_CAPTURE_KEY ?? "",
+        captureKey: input.env?.GRANTED_MCP_CLI_CAPTURE_KEY ?? "",
         toolName: "message",
         args: {
           action: "send",
@@ -2396,7 +2396,7 @@ describe("executePreparedCliRun supervisor output capture", () => {
     supervisorSpawnMock.mockImplementationOnce(async (...args: unknown[]) => {
       const input = args[0] as SupervisorSpawnInput;
       recordMcpLoopbackToolCallResult({
-        captureKey: input.env?.OPENCLAW_MCP_CLI_CAPTURE_KEY ?? "",
+        captureKey: input.env?.GRANTED_MCP_CLI_CAPTURE_KEY ?? "",
         toolName: "message",
         args: {
           action: "poll",
@@ -2458,7 +2458,7 @@ describe("executePreparedCliRun supervisor output capture", () => {
     supervisorSpawnMock.mockImplementationOnce(async (...spawnArgs: unknown[]) => {
       const input = spawnArgs[0] as SupervisorSpawnInput;
       recordMcpLoopbackToolCallResult({
-        captureKey: input.env?.OPENCLAW_MCP_CLI_CAPTURE_KEY ?? "",
+        captureKey: input.env?.GRANTED_MCP_CLI_CAPTURE_KEY ?? "",
         toolName: "message",
         args,
         result: { ok: true },
@@ -2497,7 +2497,7 @@ describe("executePreparedCliRun supervisor output capture", () => {
     supervisorSpawnMock.mockImplementationOnce(async (...spawnArgs: unknown[]) => {
       const input = spawnArgs[0] as SupervisorSpawnInput;
       recordMcpLoopbackToolCallResult({
-        captureKey: input.env?.OPENCLAW_MCP_CLI_CAPTURE_KEY ?? "",
+        captureKey: input.env?.GRANTED_MCP_CLI_CAPTURE_KEY ?? "",
         toolName: "message",
         args: {
           action: "thread-create",
@@ -2541,7 +2541,7 @@ describe("executePreparedCliRun supervisor output capture", () => {
     supervisorSpawnMock.mockImplementationOnce(async (...spawnArgs: unknown[]) => {
       const input = spawnArgs[0] as SupervisorSpawnInput;
       recordMcpLoopbackToolCallResult({
-        captureKey: input.env?.OPENCLAW_MCP_CLI_CAPTURE_KEY ?? "",
+        captureKey: input.env?.GRANTED_MCP_CLI_CAPTURE_KEY ?? "",
         toolName: "message",
         args: {
           action: "reply",
@@ -2582,7 +2582,7 @@ describe("executePreparedCliRun supervisor output capture", () => {
     supervisorSpawnMock.mockImplementationOnce(async (...args: unknown[]) => {
       const input = args[0] as SupervisorSpawnInput;
       recordMcpLoopbackToolCallResult({
-        captureKey: input.env?.OPENCLAW_MCP_CLI_CAPTURE_KEY ?? "",
+        captureKey: input.env?.GRANTED_MCP_CLI_CAPTURE_KEY ?? "",
         toolName: "message",
         args: {
           action: "send",
@@ -2603,7 +2603,7 @@ describe("executePreparedCliRun supervisor output capture", () => {
         isError: false,
       });
       recordMcpLoopbackToolCallResult({
-        captureKey: input.env?.OPENCLAW_MCP_CLI_CAPTURE_KEY ?? "",
+        captureKey: input.env?.GRANTED_MCP_CLI_CAPTURE_KEY ?? "",
         toolName: "message",
         args: {
           action: "send",
@@ -2697,7 +2697,7 @@ describe("executePreparedCliRun supervisor output capture", () => {
     supervisorSpawnMock.mockImplementationOnce(async (...args: unknown[]) => {
       const input = args[0] as SupervisorSpawnInput;
       recordMcpLoopbackToolCallResult({
-        captureKey: input.env?.OPENCLAW_MCP_CLI_CAPTURE_KEY ?? "",
+        captureKey: input.env?.GRANTED_MCP_CLI_CAPTURE_KEY ?? "",
         toolName: "message",
         args: {
           action: "send",
@@ -2741,7 +2741,7 @@ describe("executePreparedCliRun supervisor output capture", () => {
     supervisorSpawnMock.mockImplementationOnce(async (...args: unknown[]) => {
       const input = args[0] as SupervisorSpawnInput;
       recordMcpLoopbackToolCallResult({
-        captureKey: input.env?.OPENCLAW_MCP_CLI_CAPTURE_KEY ?? "",
+        captureKey: input.env?.GRANTED_MCP_CLI_CAPTURE_KEY ?? "",
         toolName: "message",
         args: {
           action: "send",
@@ -2823,7 +2823,7 @@ describe("executePreparedCliRun supervisor output capture", () => {
     const captureKeys: string[] = [];
     supervisorSpawnMock.mockImplementation(async (...args: unknown[]) => {
       const input = args[0] as SupervisorSpawnInput;
-      const captureKey = input.env?.OPENCLAW_MCP_CLI_CAPTURE_KEY ?? "";
+      const captureKey = input.env?.GRANTED_MCP_CLI_CAPTURE_KEY ?? "";
       captureKeys.push(captureKey);
       recordMcpLoopbackToolCallResult({
         captureKey,

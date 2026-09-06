@@ -1331,7 +1331,7 @@ describe("config cli", () => {
 
       await runConfigCommand(["config", "get", "gateway.auth.token"]);
 
-      expect(mockWriteStdout).toHaveBeenCalledWith("__OPENCLAW_REDACTED__\n");
+      expect(mockWriteStdout).toHaveBeenCalledWith("__GRANTED_REDACTED__\n");
     });
 
     it("redacts sensitive values in JSON output", async () => {
@@ -1346,7 +1346,7 @@ describe("config cli", () => {
 
       await runConfigCommand(["config", "get", "gateway.auth.token", "--json"]);
 
-      expect(parseLastLogPayload()).toBe("__OPENCLAW_REDACTED__");
+      expect(parseLastLogPayload()).toBe("__GRANTED_REDACTED__");
       expect(mockWriteStdout).not.toHaveBeenCalledWith(
         expect.stringContaining("super-secret-token"),
       );
@@ -3236,7 +3236,7 @@ describe("config cli", () => {
       const snapshot = buildSnapshot({ resolved, config: resolved });
       snapshot.path = configPath;
       mockReadConfigFileSnapshot.mockResolvedValueOnce(snapshot);
-      vi.stubEnv("OPENCLAW_HOME", home);
+      vi.stubEnv("GRANTED_HOME", home);
 
       const patch = writeTempJson5File("openclaw-config-patch-resolved-path", {
         gateway: { port: 18790 },
@@ -3251,7 +3251,7 @@ describe("config cli", () => {
       const payload = lastMockArg(defaultRuntime.writeJson) as { configPath: string };
       expect(payload.configPath).toBe(configPath);
       expect(path.isAbsolute(payload.configPath)).toBe(true);
-      expect(payload.configPath).not.toContain("$OPENCLAW_HOME");
+      expect(payload.configPath).not.toContain("$GRANTED_HOME");
       expect(payload.configPath).not.toContain("~");
     });
 
@@ -5150,11 +5150,11 @@ describe("config cli", () => {
       const profile = "configfile-probe";
       const stateDir = path.join(home, `.openclaw-${profile}`);
       const configPath = path.join(stateDir, "openclaw.json");
-      vi.stubEnv("OPENCLAW_HOME", home);
-      vi.stubEnv("OPENCLAW_CONFIG_PATH", "");
-      vi.stubEnv("OPENCLAW_PROFILE", "");
-      vi.stubEnv("OPENCLAW_STATE_DIR", "");
-      vi.stubEnv("OPENCLAW_TEST_FAST", "1");
+      vi.stubEnv("GRANTED_HOME", home);
+      vi.stubEnv("GRANTED_CONFIG_PATH", "");
+      vi.stubEnv("GRANTED_PROFILE", "");
+      vi.stubEnv("GRANTED_STATE_DIR", "");
+      vi.stubEnv("GRANTED_TEST_FAST", "1");
       applyCliProfileEnv({ profile });
       mockReadConfigFileSnapshot.mockImplementationOnce(async () => {
         fs.mkdirSync(path.join(stateDir, "state"), { recursive: true });
@@ -5170,7 +5170,7 @@ describe("config cli", () => {
         expect(mockWriteStdout).toHaveBeenCalledWith(`${configPath}\n`);
         expect(output).toBe(`${configPath}\n`);
         expect(path.isAbsolute(output.trimEnd())).toBe(true);
-        expect(output).not.toContain("$OPENCLAW_HOME");
+        expect(output).not.toContain("$GRANTED_HOME");
         expect(output).not.toContain("~");
         expect(mockReadConfigFileSnapshot).not.toHaveBeenCalled();
         expect(fs.existsSync(stateDir)).toBe(false);
@@ -5183,7 +5183,7 @@ describe("config cli", () => {
 
     it("emits the active path as a JSON object", async () => {
       const configPath = path.join(os.tmpdir(), "openclaw-json-config", "openclaw.json");
-      vi.stubEnv("OPENCLAW_CONFIG_PATH", configPath);
+      vi.stubEnv("GRANTED_CONFIG_PATH", configPath);
 
       try {
         await runConfigCommand(["config", "file", "--json"]);

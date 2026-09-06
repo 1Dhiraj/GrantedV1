@@ -33,7 +33,7 @@ describe("worker placement terminal persistence", () => {
 
   beforeEach(async () => {
     root = await fs.mkdtemp(path.join(await fs.realpath(os.tmpdir()), "openclaw-terminal-"));
-    database = openOpenClawStateDatabase({ env: { OPENCLAW_STATE_DIR: root } });
+    database = openOpenClawStateDatabase({ env: { GRANTED_STATE_DIR: root } });
     nowMs = 1_000;
     store = createWorkerSessionPlacementStore({ database, now: () => nowMs });
   });
@@ -189,7 +189,7 @@ describe("worker placement terminal persistence", () => {
     unregister();
 
     closeOpenClawStateDatabaseForTest();
-    database = openOpenClawStateDatabase({ env: { OPENCLAW_STATE_DIR: root } });
+    database = openOpenClawStateDatabase({ env: { GRANTED_STATE_DIR: root } });
     store = createWorkerSessionPlacementStore({ database, now: () => nowMs });
     const reopened = store.get(SESSION.sessionId);
     expect(reopened).toMatchObject({ state: "failed", terminalAtMs: 2_000 });

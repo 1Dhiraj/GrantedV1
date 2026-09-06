@@ -183,7 +183,7 @@ describe("scripts/bench-sqlite-reliability", () => {
     fs.writeFileSync(previousArtifact, "retained");
 
     const existingDatabase = openOpenClawStateDatabase({
-      env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+      env: { ...process.env, GRANTED_STATE_DIR: stateDir },
     });
     try {
       existingDatabase.db.exec(STRESS_TABLE_SQL);

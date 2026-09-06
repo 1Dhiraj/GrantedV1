@@ -603,7 +603,7 @@ describe("native host registration", () => {
         nativeHostPath: path.join(versionDir, "native-host-entry.js"),
         env: {
           ...value.deps.env,
-          OPENCLAW_CONFIG_PATH: path.join(value.root, "config's dir", "openclaw.json"),
+          GRANTED_CONFIG_PATH: path.join(value.root, "config's dir", "openclaw.json"),
         },
       };
       const executed = path.join(value.root, "target-executed");

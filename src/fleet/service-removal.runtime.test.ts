@@ -41,7 +41,7 @@ function runningInspection(
     labels: fleetLabels(),
     environment: {
       HOME: "/home/node",
-      OPENCLAW_GATEWAY_TOKEN: "old-token",
+      GRANTED_GATEWAY_TOKEN: "old-token",
       FEATURE: "enabled",
       NODE_VERSION: "old-image-default",
     },
@@ -166,7 +166,7 @@ describe("fleet service filesystem and removal", () => {
 
   beforeEach(async () => {
     root = await tempRoot.setup();
-    env = { ...process.env, OPENCLAW_STATE_DIR: root };
+    env = { ...process.env, GRANTED_STATE_DIR: root };
   });
 
   afterEach(async () => {

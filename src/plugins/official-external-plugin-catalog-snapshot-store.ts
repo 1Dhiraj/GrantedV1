@@ -64,7 +64,7 @@ function resolveStoreEnv(
   }
   return {
     ...(options.env ?? process.env),
-    OPENCLAW_STATE_DIR: options.stateDir,
+    GRANTED_STATE_DIR: options.stateDir,
   };
 }
 

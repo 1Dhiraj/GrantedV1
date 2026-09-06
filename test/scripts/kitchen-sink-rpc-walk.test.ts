@@ -191,12 +191,12 @@ describe("kitchen-sink RPC isolated state", () => {
     expect(result.stdout).toContain(
       "Usage: node --import tsx scripts/e2e/kitchen-sink-rpc-walk.mts",
     );
-    expect(result.stdout).toContain("OPENCLAW_KITCHEN_SINK_NPM_SPEC");
-    expect(result.stdout).toContain("OPENCLAW_KITCHEN_SINK_PERSONALITY");
-    expect(result.stdout).toContain("OPENCLAW_KITCHEN_SINK_RPC_PORT");
-    expect(result.stdout).toContain("OPENCLAW_KITCHEN_SINK_RPC_FETCH_MS");
-    expect(result.stdout).toContain("OPENCLAW_KITCHEN_SINK_RPC_FETCH_BODY_BYTES");
-    expect(result.stdout).toContain("OPENCLAW_KITCHEN_SINK_OUTPUT_CAPTURE_CHARS");
+    expect(result.stdout).toContain("GRANTED_KITCHEN_SINK_NPM_SPEC");
+    expect(result.stdout).toContain("GRANTED_KITCHEN_SINK_PERSONALITY");
+    expect(result.stdout).toContain("GRANTED_KITCHEN_SINK_RPC_PORT");
+    expect(result.stdout).toContain("GRANTED_KITCHEN_SINK_RPC_FETCH_MS");
+    expect(result.stdout).toContain("GRANTED_KITCHEN_SINK_RPC_FETCH_BODY_BYTES");
+    expect(result.stdout).toContain("GRANTED_KITCHEN_SINK_OUTPUT_CAPTURE_CHARS");
     expect(result.stdout).not.toContain("Kitchen Sink RPC walk using");
     expect(result.stdout).not.toContain("temp root preserved");
   });
@@ -208,7 +208,7 @@ describe("kitchen-sink RPC isolated state", () => {
       {
         env: {
           ...process.env,
-          OPENCLAW_KITCHEN_SINK_MAX_RSS_MIB: "1e3",
+          GRANTED_KITCHEN_SINK_MAX_RSS_MIB: "1e3",
         },
       },
     );
@@ -249,14 +249,14 @@ describe("kitchen-sink RPC isolated state", () => {
     expect(readPositiveInt("", 60_000)).toBe(60_000);
     expect(readPositiveInt("1000", 60_000)).toBe(1000);
     expect(readPositiveInt(" 1000 ", 60_000)).toBe(1000);
-    expect(() => readPositiveInt("1e3", 60_000, "OPENCLAW_KITCHEN_SINK_MAX_RSS_MIB")).toThrow(
-      'OPENCLAW_KITCHEN_SINK_MAX_RSS_MIB must be a positive integer. Got: "1e3"',
+    expect(() => readPositiveInt("1e3", 60_000, "GRANTED_KITCHEN_SINK_MAX_RSS_MIB")).toThrow(
+      'GRANTED_KITCHEN_SINK_MAX_RSS_MIB must be a positive integer. Got: "1e3"',
     );
-    expect(() => readPositiveInt("1000ms", 60_000, "OPENCLAW_KITCHEN_SINK_RPC_READY_MS")).toThrow(
-      'OPENCLAW_KITCHEN_SINK_RPC_READY_MS must be a positive integer. Got: "1000ms"',
+    expect(() => readPositiveInt("1000ms", 60_000, "GRANTED_KITCHEN_SINK_RPC_READY_MS")).toThrow(
+      'GRANTED_KITCHEN_SINK_RPC_READY_MS must be a positive integer. Got: "1000ms"',
     );
-    expect(() => readPositiveInt("0", 60_000, "OPENCLAW_KITCHEN_SINK_RPC_PORT")).toThrow(
-      'OPENCLAW_KITCHEN_SINK_RPC_PORT must be a positive integer. Got: "0"',
+    expect(() => readPositiveInt("0", 60_000, "GRANTED_KITCHEN_SINK_RPC_PORT")).toThrow(
+      'GRANTED_KITCHEN_SINK_RPC_PORT must be a positive integer. Got: "0"',
     );
   });
 
@@ -266,11 +266,11 @@ describe("kitchen-sink RPC isolated state", () => {
     expect(readPositiveTimerMs(oversizedTimerMs, 60_000)).toBe(MAX_KITCHEN_SINK_TIMER_TIMEOUT_MS);
 
     const config = resolveKitchenSinkRpcConfig({
-      OPENCLAW_KITCHEN_SINK_RPC_CALL_MS: oversizedTimerMs,
-      OPENCLAW_KITCHEN_SINK_RPC_COMMAND_MS: oversizedTimerMs,
-      OPENCLAW_KITCHEN_SINK_RPC_FETCH_MS: oversizedTimerMs,
-      OPENCLAW_KITCHEN_SINK_RPC_INSTALL_MS: oversizedTimerMs,
-      OPENCLAW_KITCHEN_SINK_RPC_READY_MS: oversizedTimerMs,
+      GRANTED_KITCHEN_SINK_RPC_CALL_MS: oversizedTimerMs,
+      GRANTED_KITCHEN_SINK_RPC_COMMAND_MS: oversizedTimerMs,
+      GRANTED_KITCHEN_SINK_RPC_FETCH_MS: oversizedTimerMs,
+      GRANTED_KITCHEN_SINK_RPC_INSTALL_MS: oversizedTimerMs,
+      GRANTED_KITCHEN_SINK_RPC_READY_MS: oversizedTimerMs,
     });
 
     expect(config.rpcTimeoutMs).toBe(MAX_KITCHEN_SINK_TIMER_TIMEOUT_MS);
@@ -281,7 +281,7 @@ describe("kitchen-sink RPC isolated state", () => {
     expect(
       createRpcCliRunOptions("kitchen_sink_text", {
         env: {
-          OPENCLAW_KITCHEN_SINK_RPC_CALL_MS: String(MAX_KITCHEN_SINK_TIMER_TIMEOUT_MS),
+          GRANTED_KITCHEN_SINK_RPC_CALL_MS: String(MAX_KITCHEN_SINK_TIMER_TIMEOUT_MS),
         },
       }).timeoutMs,
     ).toBe(MAX_KITCHEN_SINK_TIMER_TIMEOUT_MS);
@@ -289,15 +289,15 @@ describe("kitchen-sink RPC isolated state", () => {
 
   it("uses an explicit RPC port or asks the OS for an available fallback", async () => {
     await expect(
-      resolveKitchenSinkRpcPort({ OPENCLAW_KITCHEN_SINK_RPC_PORT: "19080" }),
+      resolveKitchenSinkRpcPort({ GRANTED_KITCHEN_SINK_RPC_PORT: "19080" }),
     ).resolves.toBe(19080);
     await expect(
-      resolveKitchenSinkRpcPort({ OPENCLAW_KITCHEN_SINK_RPC_PORT: "65535" }),
+      resolveKitchenSinkRpcPort({ GRANTED_KITCHEN_SINK_RPC_PORT: "65535" }),
     ).resolves.toBe(65535);
     await expect(
-      resolveKitchenSinkRpcPort({ OPENCLAW_KITCHEN_SINK_RPC_PORT: "65536" }),
+      resolveKitchenSinkRpcPort({ GRANTED_KITCHEN_SINK_RPC_PORT: "65536" }),
     ).rejects.toThrow(
-      'OPENCLAW_KITCHEN_SINK_RPC_PORT must be a TCP port from 1 to 65535. Got: "65536"',
+      'GRANTED_KITCHEN_SINK_RPC_PORT must be a TCP port from 1 to 65535. Got: "65536"',
     );
     await expect(
       resolveKitchenSinkRpcPort({}, { findAvailablePort: async () => 45678 }),
@@ -310,10 +310,10 @@ describe("kitchen-sink RPC isolated state", () => {
     expect(root).toContain("openclaw-kitchen-sink-rpc-");
     expect(env.HOME).toBe(path.join(root, "home"));
     expect(env.USERPROFILE).toBe(env.HOME);
-    expect(env.OPENCLAW_HOME).toBe(env.HOME);
-    expect(env.OPENCLAW_STATE_DIR).toBe(path.join(env.HOME, ".openclaw"));
-    expect(env.OPENCLAW_CONFIG_PATH).toBe(path.join(env.OPENCLAW_STATE_DIR, "openclaw.json"));
-    expect(existsSync(env.OPENCLAW_STATE_DIR)).toBe(true);
+    expect(env.GRANTED_HOME).toBe(env.HOME);
+    expect(env.GRANTED_STATE_DIR).toBe(path.join(env.HOME, ".openclaw"));
+    expect(env.GRANTED_CONFIG_PATH).toBe(path.join(env.GRANTED_STATE_DIR, "openclaw.json"));
+    expect(existsSync(env.GRANTED_STATE_DIR)).toBe(true);
 
     await expect(cleanupKitchenSinkEnv(root)).resolves.toBe(true);
 
@@ -721,8 +721,8 @@ describe("kitchen-sink RPC command output capture", () => {
   });
 
   it("clamps oversized command timeout env values before scheduling timers", async () => {
-    const previousTimeout = process.env.OPENCLAW_KITCHEN_SINK_RPC_COMMAND_MS;
-    process.env.OPENCLAW_KITCHEN_SINK_RPC_COMMAND_MS = String(Number.MAX_SAFE_INTEGER);
+    const previousTimeout = process.env.GRANTED_KITCHEN_SINK_RPC_COMMAND_MS;
+    process.env.GRANTED_KITCHEN_SINK_RPC_COMMAND_MS = String(Number.MAX_SAFE_INTEGER);
     try {
       await expect(
         runCommand(process.execPath, [
@@ -733,9 +733,9 @@ describe("kitchen-sink RPC command output capture", () => {
       ).resolves.toMatchObject({ stdout: "", stderr: "" });
     } finally {
       if (previousTimeout === undefined) {
-        delete process.env.OPENCLAW_KITCHEN_SINK_RPC_COMMAND_MS;
+        delete process.env.GRANTED_KITCHEN_SINK_RPC_COMMAND_MS;
       } else {
-        process.env.OPENCLAW_KITCHEN_SINK_RPC_COMMAND_MS = previousTimeout;
+        process.env.GRANTED_KITCHEN_SINK_RPC_COMMAND_MS = previousTimeout;
       }
     }
   });
@@ -940,7 +940,7 @@ describe("kitchen-sink RPC caller loading", () => {
     expect(usesBuiltOpenClawEntry({ command: "node", baseArgs: ["dist/index.js"] })).toBe(true);
     expect(
       usesBuiltOpenClawEntry({ command: "node", baseArgs: ["/app/openclaw.mjs"] }, "/repo", {
-        OPENCLAW_ENTRY: "/app/openclaw.mjs",
+        GRANTED_ENTRY: "/app/openclaw.mjs",
       }),
     ).toBe(true);
   });
@@ -1110,7 +1110,7 @@ await runCommand(process.execPath, [${JSON.stringify(scriptPath)}], {
         cwd: process.cwd(),
         env: {
           ...process.env,
-          OPENCLAW_TEST_KITCHEN_SINK_PARENT_SIGNAL_KILL_GRACE_MS: "100",
+          GRANTED_TEST_KITCHEN_SINK_PARENT_SIGNAL_KILL_GRACE_MS: "100",
         },
         stdio: ["ignore", "ignore", "pipe"],
       });

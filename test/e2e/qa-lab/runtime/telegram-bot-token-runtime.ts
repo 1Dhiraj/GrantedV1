@@ -14,10 +14,7 @@ const STARTUP_TIMEOUT_MS = 30_000;
 const LIVE_ACCOUNT_ID = "qa-live";
 const PRODUCT_STARTUP_LOG = `[${LIVE_ACCOUNT_ID}] starting provider (@`;
 const POLLING_STARTUP_LOGS = ["isolated polling ingress started", "polling cycle started"] as const;
-const TOKEN_ENV_KEYS = [
-  "OPENCLAW_QA_TELEGRAM_SUT_BOT_TOKEN",
-  "TELEGRAM_E2E_SUT_BOT_TOKEN",
-] as const;
+const TOKEN_ENV_KEYS = ["GRANTED_QA_TELEGRAM_SUT_BOT_TOKEN", "TELEGRAM_E2E_SUT_BOT_TOKEN"] as const;
 
 type TelegramRuntimeOptions = {
   artifactBase: string;
@@ -58,7 +55,7 @@ const defaultDependencies: TelegramRuntimeDependencies = {
     return await loadQaRuntimeModule().acquireQaCredentialLease({
       env,
       kind: "telegram",
-      source: directCredential ? "env" : env.OPENCLAW_QA_CREDENTIAL_SOURCE,
+      source: directCredential ? "env" : env.GRANTED_QA_CREDENTIAL_SOURCE,
       resolveEnvPayload: () => {
         if (!directCredential) {
           throw new Error(`none of ${TOKEN_ENV_KEYS.join(", ")} is set`);
@@ -191,7 +188,7 @@ export async function runTelegramBotTokenRuntime(
   const writer = createWriter(options);
   const startedAt = Date.now();
   const directCredential = resolveLeasedToken(env);
-  const configuredSource = env.OPENCLAW_QA_CREDENTIAL_SOURCE?.trim().toLowerCase();
+  const configuredSource = env.GRANTED_QA_CREDENTIAL_SOURCE?.trim().toLowerCase();
   if (!directCredential && configuredSource !== "convex") {
     writer.appendLog(
       `telegram-startup-getme: blocked; none of ${TOKEN_ENV_KEYS.join(", ")} is set\n`,
@@ -238,9 +235,9 @@ export async function runTelegramBotTokenRuntime(
         },
       },
       env: {
-        OPENCLAW_SKIP_CHANNELS: undefined,
-        OPENCLAW_SKIP_PROVIDERS: undefined,
-        OPENCLAW_TEST_MINIMAL_GATEWAY: undefined,
+        GRANTED_SKIP_CHANNELS: undefined,
+        GRANTED_SKIP_PROVIDERS: undefined,
+        GRANTED_TEST_MINIMAL_GATEWAY: undefined,
         TELEGRAM_BOT_TOKEN: "qa-invalid-precedence-decoy",
       },
       startTimeoutMs: options.startupTimeoutMs,

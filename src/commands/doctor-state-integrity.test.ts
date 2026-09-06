@@ -85,9 +85,9 @@ vi.mock("../channels/plugins/persisted-auth-state.js", () => ({
 }));
 
 function createAgentDir(agentId: string, includeNestedAgentDir = true) {
-  const stateDir = process.env.OPENCLAW_STATE_DIR;
+  const stateDir = process.env.GRANTED_STATE_DIR;
   if (!stateDir) {
-    throw new Error("OPENCLAW_STATE_DIR is not set");
+    throw new Error("GRANTED_STATE_DIR is not set");
   }
   const targetDir = includeNestedAgentDir
     ? path.join(stateDir, "agents", agentId, "agent")
@@ -108,11 +108,11 @@ describe("structured state integrity findings", () => {
   let tempHome = "";
 
   beforeEach(() => {
-    envSnapshot = captureEnv(["HOME", "OPENCLAW_HOME", "OPENCLAW_STATE_DIR"]);
+    envSnapshot = captureEnv(["HOME", "GRANTED_HOME", "GRANTED_STATE_DIR"]);
     tempHome = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-doctor-state-integrity-"));
     setTestEnvValue("HOME", tempHome);
-    setTestEnvValue("OPENCLAW_HOME", tempHome);
-    setTestEnvValue("OPENCLAW_STATE_DIR", path.join(tempHome, ".openclaw"));
+    setTestEnvValue("GRANTED_HOME", tempHome);
+    setTestEnvValue("GRANTED_STATE_DIR", path.join(tempHome, ".openclaw"));
     noteMock.mockClear();
   });
 
@@ -299,18 +299,18 @@ describe("doctor state integrity oauth dir checks", () => {
   beforeEach(() => {
     envSnapshot = captureEnv([
       "HOME",
-      "OPENCLAW_HOME",
-      "OPENCLAW_STATE_DIR",
-      "OPENCLAW_OAUTH_DIR",
-      "OPENCLAW_AGENT_DIR",
+      "GRANTED_HOME",
+      "GRANTED_STATE_DIR",
+      "GRANTED_OAUTH_DIR",
+      "GRANTED_AGENT_DIR",
     ]);
     tempHome = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-doctor-state-integrity-"));
     const stateDir = path.join(tempHome, ".openclaw");
     setTestEnvValue("HOME", tempHome);
-    setTestEnvValue("OPENCLAW_HOME", tempHome);
-    setTestEnvValue("OPENCLAW_STATE_DIR", stateDir);
-    deleteTestEnvValue("OPENCLAW_OAUTH_DIR");
-    deleteTestEnvValue("OPENCLAW_AGENT_DIR");
+    setTestEnvValue("GRANTED_HOME", tempHome);
+    setTestEnvValue("GRANTED_STATE_DIR", stateDir);
+    deleteTestEnvValue("GRANTED_OAUTH_DIR");
+    deleteTestEnvValue("GRANTED_AGENT_DIR");
     fs.mkdirSync(stateDir, { recursive: true, mode: 0o700 });
     noteMock.mockClear();
   });
@@ -355,8 +355,8 @@ describe("doctor state integrity oauth dir checks", () => {
     expect(hasRepairPromptMessage(confirmRuntimeRepair, "Create OAuth dir at")).toBe(true);
   });
 
-  it("prompts for oauth dir when OPENCLAW_OAUTH_DIR is explicitly configured", async () => {
-    process.env.OPENCLAW_OAUTH_DIR = path.join(tempHome, ".oauth");
+  it("prompts for oauth dir when GRANTED_OAUTH_DIR is explicitly configured", async () => {
+    process.env.GRANTED_OAUTH_DIR = path.join(tempHome, ".oauth");
     const cfg: OpenClawConfig = {};
     const confirmRuntimeRepair = await runStateIntegrity(cfg);
     expect(hasRepairPromptMessage(confirmRuntimeRepair, "Create OAuth dir at")).toBe(true);
@@ -433,16 +433,16 @@ describe("doctor state integrity oauth dir checks", () => {
     expect(text).toContain("Examples: main");
   });
 
-  it("does not let OPENCLAW_AGENT_DIR hide an unconfigured agent dir", async () => {
+  it("does not let GRANTED_AGENT_DIR hide an unconfigured agent dir", async () => {
     createAgentDir("legacy");
     writeConfigMachineState("auth.sharedStore", { location: "state-db" });
     const legacyAgentDir = path.join(
-      process.env.OPENCLAW_STATE_DIR ?? "",
+      process.env.GRANTED_STATE_DIR ?? "",
       "agents",
       "legacy",
       "agent",
     );
-    setTestEnvValue("OPENCLAW_AGENT_DIR", legacyAgentDir);
+    setTestEnvValue("GRANTED_AGENT_DIR", legacyAgentDir);
 
     const text = await runStateIntegrityText({
       agents: {
@@ -519,7 +519,7 @@ describe("doctor state integrity oauth dir checks", () => {
   it("checks case-mismatched agent dirs using native filesystem reachability", async () => {
     createAgentDir("Research");
     const configuredAgentDirExists = fs.existsSync(
-      path.join(process.env.OPENCLAW_STATE_DIR ?? "", "agents", "research", "agent"),
+      path.join(process.env.GRANTED_STATE_DIR ?? "", "agents", "research", "agent"),
     );
 
     const text = await runStateIntegrityText({
@@ -539,32 +539,31 @@ describe("doctor state directory discovery", () => {
     { homeSource: "HOME", activeDefault: true, defaultExists: true, warns: false },
     { homeSource: "HOME", activeDefault: false, defaultExists: false, warns: false },
     { homeSource: "USERPROFILE", activeDefault: false, defaultExists: true, warns: true },
-    { homeSource: "OPENCLAW_HOME", activeDefault: false, defaultExists: true, warns: true },
-    { homeSource: "OPENCLAW_HOME", activeDefault: false, defaultExists: false, warns: false },
+    { homeSource: "GRANTED_HOME", activeDefault: false, defaultExists: true, warns: true },
+    { homeSource: "GRANTED_HOME", activeDefault: false, defaultExists: false, warns: false },
   ])(
     "compares only the effective home ($homeSource, activeDefault=$activeDefault, defaultExists=$defaultExists)",
     async ({ homeSource, activeDefault, defaultExists, warns }) => {
       await withTestDir({ prefix: "openclaw-doctor-discovery-" }, async (root) => {
         const osHome = path.join(root, "os-home");
-        const effectiveHome =
-          homeSource === "OPENCLAW_HOME" ? path.join(root, "relocated") : osHome;
+        const effectiveHome = homeSource === "GRANTED_HOME" ? path.join(root, "relocated") : osHome;
         const defaultState = path.join(effectiveHome, ".openclaw");
         const activeState = activeDefault ? defaultState : path.join(root, "selected-state");
         fs.mkdirSync(activeState, { recursive: true, mode: 0o700 });
         if (defaultExists) {
           fs.mkdirSync(defaultState, { recursive: true, mode: 0o700 });
         }
-        if (homeSource === "OPENCLAW_HOME") {
+        if (homeSource === "GRANTED_HOME") {
           fs.mkdirSync(path.join(osHome, ".openclaw"), { recursive: true, mode: 0o700 });
         }
         await withEnvAsync(
           {
             HOME: homeSource === "USERPROFILE" ? undefined : osHome,
             USERPROFILE: osHome,
-            OPENCLAW_HOME: homeSource === "OPENCLAW_HOME" ? effectiveHome : undefined,
-            OPENCLAW_STATE_DIR: activeState,
-            OPENCLAW_AGENT_DIR: undefined,
-            OPENCLAW_OAUTH_DIR: undefined,
+            GRANTED_HOME: homeSource === "GRANTED_HOME" ? effectiveHome : undefined,
+            GRANTED_STATE_DIR: activeState,
+            GRANTED_AGENT_DIR: undefined,
+            GRANTED_OAUTH_DIR: undefined,
           },
           async () => {
             const attemptedProbes: string[] = [];
@@ -612,9 +611,7 @@ describe("doctor state directory discovery", () => {
               expect(text.includes("Multiple state directories detected")).toBe(warns);
               if (warns) {
                 expect(text).toContain(
-                  homeSource === "OPENCLAW_HOME"
-                    ? "  - $OPENCLAW_HOME/.openclaw"
-                    : "  - ~/.openclaw",
+                  homeSource === "GRANTED_HOME" ? "  - $GRANTED_HOME/.openclaw" : "  - ~/.openclaw",
                 );
                 expect(text).toContain(`Active state dir: ${activeState}`);
               }

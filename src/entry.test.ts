@@ -21,7 +21,7 @@ describe("entry root help fast path", () => {
 
     await expect(
       tryHandleRootHelpFastPath(argv, {
-        env: { OPENCLAW_DISABLE_CLI_STARTUP_HELP_FAST_PATH: "1" },
+        env: { GRANTED_DISABLE_CLI_STARTUP_HELP_FAST_PATH: "1" },
         outputPrecomputedRootHelpText,
         outputRootHelp,
         loadRootHelpRenderOptionsForConfigSensitivePlugins,
@@ -34,11 +34,11 @@ describe("entry root help fast path", () => {
   });
 
   it("respects the process env startup help fast path kill switch", async () => {
-    const original = process.env.OPENCLAW_DISABLE_CLI_STARTUP_HELP_FAST_PATH;
+    const original = process.env.GRANTED_DISABLE_CLI_STARTUP_HELP_FAST_PATH;
     const outputPrecomputedRootHelpText = vi.fn(() => true);
     const outputRootHelp = vi.fn();
     const loadRootHelpRenderOptionsForConfigSensitivePlugins = vi.fn(async () => null);
-    process.env.OPENCLAW_DISABLE_CLI_STARTUP_HELP_FAST_PATH = "1";
+    process.env.GRANTED_DISABLE_CLI_STARTUP_HELP_FAST_PATH = "1";
 
     try {
       await expect(
@@ -54,9 +54,9 @@ describe("entry root help fast path", () => {
       expect(outputRootHelp).not.toHaveBeenCalled();
     } finally {
       if (original === undefined) {
-        delete process.env.OPENCLAW_DISABLE_CLI_STARTUP_HELP_FAST_PATH;
+        delete process.env.GRANTED_DISABLE_CLI_STARTUP_HELP_FAST_PATH;
       } else {
-        process.env.OPENCLAW_DISABLE_CLI_STARTUP_HELP_FAST_PATH = original;
+        process.env.GRANTED_DISABLE_CLI_STARTUP_HELP_FAST_PATH = original;
       }
     }
   });
@@ -421,7 +421,7 @@ describe("entry precomputed command help fast path", () => {
     const handled = await tryHandlePrecomputedCommandHelpFastPath(
       ["node", "openclaw", "secrets", "--help"],
       {
-        env: { OPENCLAW_DISABLE_CLI_STARTUP_HELP_FAST_PATH: "1" },
+        env: { GRANTED_DISABLE_CLI_STARTUP_HELP_FAST_PATH: "1" },
         outputPrecomputedSecretsHelpText: () => {
           outputPrecomputedSecretsHelpTextCalls += 1;
           return true;
@@ -435,8 +435,8 @@ describe("entry precomputed command help fast path", () => {
 
   it("respects the process env startup help fast path kill switch", async () => {
     let outputPrecomputedSecretsHelpTextCalls = 0;
-    const original = process.env.OPENCLAW_DISABLE_CLI_STARTUP_HELP_FAST_PATH;
-    process.env.OPENCLAW_DISABLE_CLI_STARTUP_HELP_FAST_PATH = "1";
+    const original = process.env.GRANTED_DISABLE_CLI_STARTUP_HELP_FAST_PATH;
+    process.env.GRANTED_DISABLE_CLI_STARTUP_HELP_FAST_PATH = "1";
     try {
       const handled = await tryHandlePrecomputedCommandHelpFastPath(
         ["node", "openclaw", "secrets", "--help"],
@@ -452,9 +452,9 @@ describe("entry precomputed command help fast path", () => {
       expect(outputPrecomputedSecretsHelpTextCalls).toBe(0);
     } finally {
       if (original === undefined) {
-        delete process.env.OPENCLAW_DISABLE_CLI_STARTUP_HELP_FAST_PATH;
+        delete process.env.GRANTED_DISABLE_CLI_STARTUP_HELP_FAST_PATH;
       } else {
-        process.env.OPENCLAW_DISABLE_CLI_STARTUP_HELP_FAST_PATH = original;
+        process.env.GRANTED_DISABLE_CLI_STARTUP_HELP_FAST_PATH = original;
       }
     }
   });
@@ -483,7 +483,7 @@ describe("entry precomputed command help fast path", () => {
     const handled = await tryHandlePrecomputedCommandHelpFastPath(
       ["node", "openclaw", "browser", "--help"],
       {
-        env: { OPENCLAW_CONTAINER: "demo" },
+        env: { GRANTED_CONTAINER: "demo" },
         outputPrecomputedBrowserHelpText: () => {
           outputPrecomputedBrowserHelpTextCalls += 1;
           return true;

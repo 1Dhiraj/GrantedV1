@@ -89,9 +89,9 @@ function createCatalogFixture(
   fs.writeFileSync(externalAuthPath, "A", "utf8");
   const env = {
     ...process.env,
-    OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-    OPENCLAW_STATE_DIR: stateDir,
-    OPENCLAW_WORKER_CATALOG_MARKER: marker,
+    GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+    GRANTED_STATE_DIR: stateDir,
+    GRANTED_WORKER_CATALOG_MARKER: marker,
     [EXTERNAL_AUTH_PATH_ENV]: externalAuthPath,
     ...envOverride,
     [REF_ONLY_API_ENV]: "ref-only-api-secret-not-real",
@@ -298,10 +298,10 @@ describe("prepared model catalog worker boundary", () => {
     const homeB = makeTempDir("openclaw-catalog-owner-home-b-");
     const codexHome = makeTempDir("openclaw-catalog-owner-empty-codex-");
     vi.stubEnv("HOME", homeA);
-    vi.stubEnv("OPENCLAW_HOME", homeA);
+    vi.stubEnv("GRANTED_HOME", homeA);
     vi.stubEnv("CODEX_HOME", codexHome);
     const fixture = createCatalogFixture(0);
-    vi.stubEnv("OPENCLAW_STATE_DIR", fixture.env.OPENCLAW_STATE_DIR);
+    vi.stubEnv("GRANTED_STATE_DIR", fixture.env.GRANTED_STATE_DIR);
     const config = {
       ...fixture.config,
       agents: { ...fixture.config.agents, entries: { main: {} } },
@@ -354,8 +354,8 @@ describe("prepared model catalog worker boundary", () => {
       await expect(project()).resolves.toMatchObject(expectedOwner);
 
       vi.stubEnv("HOME", homeB);
-      vi.stubEnv("OPENCLAW_HOME", homeB);
-      vi.stubEnv("OPENCLAW_STATE_DIR", path.join(homeB, "state"));
+      vi.stubEnv("GRANTED_HOME", homeB);
+      vi.stubEnv("GRANTED_STATE_DIR", path.join(homeB, "state"));
       driftedAgentDir = resolveAgentDir(config, "main");
       expect(driftedAgentDir).not.toBe(agentDir);
       expect(resolveAgentWorkspaceDir(config, "main")).not.toBe(workspaceDir);
@@ -380,9 +380,9 @@ describe("prepared model catalog worker boundary", () => {
     // Configured publication reads the process environment; keep both the parent and worker
     // inside the same synthetic plugin/state fixture, without a supplied liveness predicate.
     for (const name of [
-      "OPENCLAW_DISABLE_BUNDLED_PLUGINS",
-      "OPENCLAW_STATE_DIR",
-      "OPENCLAW_WORKER_CATALOG_MARKER",
+      "GRANTED_DISABLE_BUNDLED_PLUGINS",
+      "GRANTED_STATE_DIR",
+      "GRANTED_WORKER_CATALOG_MARKER",
       EXTERNAL_AUTH_PATH_ENV,
       REF_ONLY_API_ENV,
       REF_ONLY_TOKEN_ENV,

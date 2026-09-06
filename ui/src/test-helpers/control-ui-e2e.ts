@@ -537,13 +537,13 @@ async function installControlUiE2eUnhandledRejectionRing(page: Page): Promise<vo
   controlUiE2eUnhandledRejectionPages.add(page);
   await page.addInitScript(() => {
     const windowWithDiagnostics = window as Window & {
-      __OPENCLAW_CONTROL_UI_E2E_UNHANDLED_REJECTIONS__?: Array<{
+      __GRANTED_CONTROL_UI_E2E_UNHANDLED_REJECTIONS__?: Array<{
         at: string;
         reason: unknown;
       }>;
     };
     const events: Array<{ at: string; reason: unknown }> = [];
-    windowWithDiagnostics["__OPENCLAW_CONTROL_UI_E2E_UNHANDLED_REJECTIONS__"] = events;
+    windowWithDiagnostics["__GRANTED_CONTROL_UI_E2E_UNHANDLED_REJECTIONS__"] = events;
     window.addEventListener("unhandledrejection", (event) => {
       let reason: unknown;
       if (event.reason instanceof Error) {
@@ -699,7 +699,7 @@ export async function startControlUiE2eServer(
     clearScreen: false,
     configFile: false,
     define: {
-      "globalThis.OPENCLAW_CONTROL_UI_BUILD_INFO": JSON.stringify(resolvedBuildInfo),
+      "globalThis.GRANTED_CONTROL_UI_BUILD_INFO": JSON.stringify(resolvedBuildInfo),
     },
     logLevel: "error",
     optimizeDeps: {
@@ -786,9 +786,7 @@ function createBundledControlUiE2eConfig(
     configFile: false,
     define: {
       ...config.define,
-      "globalThis.OPENCLAW_CONTROL_UI_BUILD_INFO": JSON.stringify(
-        DEFAULT_CONTROL_UI_E2E_BUILD_INFO,
-      ),
+      "globalThis.GRANTED_CONTROL_UI_BUILD_INFO": JSON.stringify(DEFAULT_CONTROL_UI_E2E_BUILD_INFO),
     },
     logLevel: "error" as const,
     root: uiRoot,
@@ -803,7 +801,7 @@ export async function buildProductionControlUiE2e(outDir: string, buildId: strin
   const env: NodeJS.ProcessEnv = {
     ...process.env,
     NODE_ENV: "production",
-    OPENCLAW_CONTROL_UI_BUILD_ID: buildId,
+    GRANTED_CONTROL_UI_BUILD_ID: buildId,
   };
   for (const key of Object.keys(env)) {
     if (key.startsWith("VITEST")) {
@@ -1092,7 +1090,7 @@ export type ControlUiMockGateway = {
   socketUrls: () => string[];
 };
 type MockGatewayWindow = Window & {
-  __OPENCLAW_CONTROL_UI_BASE_PATH__?: string;
+  __GRANTED_CONTROL_UI_BASE_PATH__?: string;
   openclawControlUiE2eGateway?: ControlUiMockGateway;
 };
 
@@ -1155,7 +1153,7 @@ function installControlUiMockGateway(
   } catch {
     // The scenario value remains authoritative when browser storage is unavailable.
   }
-  (window as MockGatewayWindow)["__OPENCLAW_CONTROL_UI_BASE_PATH__"] = scenario.basePath;
+  (window as MockGatewayWindow)["__GRANTED_CONTROL_UI_BASE_PATH__"] = scenario.basePath;
   const protocolVersion = input.protocolVersion;
   const methodResponseOverridesStorageKey = "openclaw.control-ui-e2e.method-responses.v1";
   const methodResponseOverrides: Record<string, unknown> = {};
@@ -2934,7 +2932,7 @@ async function captureControlUiE2eFailureDiagnosticsUnsafe(
     pageEvents?: ControlUiE2eDiagnosticEvent[];
   },
 ): Promise<void> {
-  const configuredDir = process.env.OPENCLAW_UI_E2E_DIAGNOSTIC_DIR?.trim();
+  const configuredDir = process.env.GRANTED_UI_E2E_DIAGNOSTIC_DIR?.trim();
   const artifactDir = createControlUiE2eArtifactDir(
     "failure",
     configuredDir || path.join(resolveRepoRoot(), ".artifacts", "control-ui-e2e-timeouts", "local"),
@@ -2977,7 +2975,7 @@ async function captureControlUiE2eFailureDiagnosticsUnsafe(
         socketUrls?: () => string[];
       };
       const windowState = window as Window & {
-        __OPENCLAW_CONTROL_UI_E2E_UNHANDLED_REJECTIONS__?: unknown[];
+        __GRANTED_CONTROL_UI_E2E_UNHANDLED_REJECTIONS__?: unknown[];
         openclawControlUiE2eGateway?: MockGateway;
       };
       const app = document.querySelector("openclaw-app") as
@@ -3067,7 +3065,7 @@ async function captureControlUiE2eFailureDiagnosticsUnsafe(
           socketUrls: copy(windowState.openclawControlUiE2eGateway?.socketUrls?.() ?? []),
         },
         unhandledRejections: copy(
-          windowState["__OPENCLAW_CONTROL_UI_E2E_UNHANDLED_REJECTIONS__"] ?? [],
+          windowState["__GRANTED_CONTROL_UI_E2E_UNHANDLED_REJECTIONS__"] ?? [],
         ),
       };
     });

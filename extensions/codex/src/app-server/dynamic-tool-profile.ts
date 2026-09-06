@@ -37,8 +37,8 @@ const DYNAMIC_TOOL_NAME_ALIASES: Record<string, string> = {
 };
 
 type CodexDynamicToolProfileEnv = {
-  OPENCLAW_BUILD_PRIVATE_QA?: string;
-  OPENCLAW_QA_FORCE_RUNTIME?: string;
+  GRANTED_BUILD_PRIVATE_QA?: string;
+  GRANTED_QA_FORCE_RUNTIME?: string;
 };
 
 /** Normalizes OpenClaw/Codex tool names before filtering and allowlist checks. */
@@ -73,8 +73,8 @@ export function isForcedPrivateQaCodexRuntime(
   env: CodexDynamicToolProfileEnv = process.env,
 ): boolean {
   return (
-    env.OPENCLAW_BUILD_PRIVATE_QA === "1" &&
-    env.OPENCLAW_QA_FORCE_RUNTIME?.trim().toLowerCase() === "codex"
+    env.GRANTED_BUILD_PRIVATE_QA === "1" &&
+    env.GRANTED_QA_FORCE_RUNTIME?.trim().toLowerCase() === "codex"
   );
 }
 

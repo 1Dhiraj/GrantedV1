@@ -10,7 +10,7 @@ export type { OpenClawConfig };
 
 const DOCKER_OPENAI_MODEL_REF = "openai/gpt-5.6-luna";
 const DOCKER_OPENAI_BASE_URL =
-  process.env.OPENCLAW_DOCKER_OPENAI_BASE_URL?.trim() || "http://127.0.0.1:9/v1";
+  process.env.GRANTED_DOCKER_OPENAI_BASE_URL?.trim() || "http://127.0.0.1:9/v1";
 const DOCKER_OPENAI_MODEL: ModelDefinitionConfig = {
   id: "gpt-5.6-luna",
   name: "gpt-5.6-luna",

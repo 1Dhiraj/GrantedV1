@@ -25,7 +25,7 @@ import { enqueueSystemEvent, peekSystemEvents, resetSystemEventsForTest } from "
 describe("stale exec heartbeat wakes", () => {
   type WakeRequest = Parameters<typeof requestHeartbeat>[0];
   type WakeHandler = Parameters<typeof setRuntimeHeartbeatWakeHandler>[0];
-  const envSnapshot = captureEnv(["OPENCLAW_STATE_DIR"]);
+  const envSnapshot = captureEnv(["GRANTED_STATE_DIR"]);
   let currentHandlerDisposer: (() => void) | undefined;
 
   function setHeartbeatWakeHandler(handler: WakeHandler): void {
@@ -175,7 +175,7 @@ describe("stale exec heartbeat wakes", () => {
 
   it("keeps a scheduled turn alive when an acknowledged exec wake coalesces with it", async () => {
     await withTempHeartbeatSandbox(async ({ tmpDir, storePath }) => {
-      setTestEnvValue("OPENCLAW_STATE_DIR", tmpDir);
+      setTestEnvValue("GRANTED_STATE_DIR", tmpDir);
       const cfg: OpenClawConfig = {
         agents: {
           defaults: {
@@ -218,7 +218,7 @@ describe("stale exec heartbeat wakes", () => {
 
   it("keeps tagged cron work alive when an exec wake is coalesced", async () => {
     await withTempHeartbeatSandbox(async ({ tmpDir, storePath }) => {
-      setTestEnvValue("OPENCLAW_STATE_DIR", tmpDir);
+      setTestEnvValue("GRANTED_STATE_DIR", tmpDir);
       const cfg: OpenClawConfig = {
         agents: {
           defaults: {
@@ -257,7 +257,7 @@ describe("stale exec heartbeat wakes", () => {
 
   it("retires a stale exec wake before retryable busy gates", async () => {
     await withTempHeartbeatSandbox(async ({ tmpDir, storePath }) => {
-      setTestEnvValue("OPENCLAW_STATE_DIR", tmpDir);
+      setTestEnvValue("GRANTED_STATE_DIR", tmpDir);
       const cfg: OpenClawConfig = {
         agents: {
           defaults: {

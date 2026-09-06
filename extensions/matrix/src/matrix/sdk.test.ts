@@ -93,7 +93,7 @@ function readStoredRecoveryKey(recoveryKeyPath: string) {
   return readMatrixRecoveryKeyStateForPath(recoveryKeyPath);
 }
 
-const TEST_UNDICI_RUNTIME_DEPS_KEY = "__OPENCLAW_TEST_UNDICI_RUNTIME_DEPS__";
+const TEST_UNDICI_RUNTIME_DEPS_KEY = "__GRANTED_TEST_UNDICI_RUNTIME_DEPS__";
 
 function clearTestUndiciRuntimeDepsOverride(): void {
   Reflect.deleteProperty(globalThis as object, TEST_UNDICI_RUNTIME_DEPS_KEY);

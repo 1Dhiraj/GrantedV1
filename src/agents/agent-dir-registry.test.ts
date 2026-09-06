@@ -92,7 +92,7 @@ describe("agent directory registry", () => {
     const root = tempDirs.make("openclaw-agent-dir-home-");
     const customHome = path.join(root, "home");
     const agentDir = path.join(customHome, "agents", "main", "agent");
-    const env = { HOME: customHome, OPENCLAW_HOME: customHome };
+    const env = { HOME: customHome, GRANTED_HOME: customHome };
     fs.mkdirSync(customHome, { recursive: true });
 
     try {

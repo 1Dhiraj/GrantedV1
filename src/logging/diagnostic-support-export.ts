@@ -212,7 +212,7 @@ function safeScalar(value: unknown): unknown {
 function resolveBonjourEnvOverride(
   env: NodeJS.ProcessEnv,
 ): NonNullable<ConfigShape["discovery"]>["bonjourEnvOverride"] {
-  const raw = env.OPENCLAW_DISABLE_BONJOUR?.trim();
+  const raw = env.GRANTED_DISABLE_BONJOUR?.trim();
   if (!raw) {
     return "unset";
   }
@@ -412,7 +412,7 @@ function readStabilityBundle(
   stateDir: string,
 ): ReadDiagnosticStabilityBundleResult {
   if (target === false) {
-    return { status: "missing", dir: "$OPENCLAW_STATE_DIR/logs/stability" };
+    return { status: "missing", dir: "$GRANTED_STATE_DIR/logs/stability" };
   }
   if (target === undefined || target === "latest") {
     return readLatestDiagnosticStabilityBundleSync({ stateDir });

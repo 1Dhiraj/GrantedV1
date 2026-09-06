@@ -32,7 +32,7 @@ describe("runRespawnChildWithSignalBridge", () => {
     runRespawnChildWithSignalBridge({
       command: "/usr/bin/node",
       args: ["/repo/openclaw/dist/entry.js"],
-      env: { OPENCLAW_NODE_OPTIONS_READY: "1" },
+      env: { GRANTED_NODE_OPTIONS_READY: "1" },
       detachForProcessTree: true,
       stdioIsTerminal: false,
       runtime: {
@@ -45,7 +45,7 @@ describe("runRespawnChildWithSignalBridge", () => {
 
     expect(spawnChild).toHaveBeenCalledWith("/usr/bin/node", ["/repo/openclaw/dist/entry.js"], {
       stdio: "inherit",
-      env: { OPENCLAW_NODE_OPTIONS_READY: "1" },
+      env: { GRANTED_NODE_OPTIONS_READY: "1" },
       detached: process.platform !== "win32",
     });
   });

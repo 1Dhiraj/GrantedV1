@@ -25,7 +25,7 @@ type PendingTimelineEvent =
 const CLI_STARTUP_TIMELINE_PHASE = "cli.startup";
 
 function hasDiagnosticsTimelinePath(env: NodeJS.ProcessEnv): boolean {
-  return Boolean(env.OPENCLAW_DIAGNOSTICS_TIMELINE_PATH?.trim());
+  return Boolean(env.GRANTED_DIAGNOSTICS_TIMELINE_PATH?.trim());
 }
 
 export function createGatewayDispatchStartupTrace(
@@ -44,7 +44,7 @@ export function createGatewayDispatchStartupTrace(
   ): Promise<T>;
 } {
   const enabled =
-    isTruthyEnvValue(process.env.OPENCLAW_GATEWAY_STARTUP_TRACE) &&
+    isTruthyEnvValue(process.env.GRANTED_GATEWAY_STARTUP_TRACE) &&
     argv.slice(2).includes("gateway");
   const started = performance.now();
   let last = started;

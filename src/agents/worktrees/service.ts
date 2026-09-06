@@ -402,8 +402,8 @@ async function runSetupScript(
     signal: params.signal,
     killProcessTree: true,
     env: {
-      OPENCLAW_SOURCE_TREE_PATH: repoRoot,
-      OPENCLAW_WORKTREE_PATH: worktreePath,
+      GRANTED_SOURCE_TREE_PATH: repoRoot,
+      GRANTED_WORKTREE_PATH: worktreePath,
     },
   });
   params.signal?.throwIfAborted();

@@ -104,9 +104,9 @@ describe("setup provider workspace trust", () => {
     });
 
     const env: NodeJS.ProcessEnv = {
-      OPENCLAW_STATE_DIR: stateDir,
-      OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-      OPENCLAW_BUNDLED_PLUGINS_DIR: undefined,
+      GRANTED_STATE_DIR: stateDir,
+      GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+      GRANTED_BUNDLED_PLUGINS_DIR: undefined,
     };
 
     withEnv(env, () => {
@@ -145,9 +145,9 @@ describe("setup provider workspace trust", () => {
     });
 
     const env: NodeJS.ProcessEnv = {
-      OPENCLAW_STATE_DIR: stateDir,
-      OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-      OPENCLAW_BUNDLED_PLUGINS_DIR: undefined,
+      GRANTED_STATE_DIR: stateDir,
+      GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+      GRANTED_BUNDLED_PLUGINS_DIR: undefined,
     };
 
     withEnv(env, () => {

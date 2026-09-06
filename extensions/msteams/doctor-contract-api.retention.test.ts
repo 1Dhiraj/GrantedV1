@@ -44,7 +44,7 @@ describe("Teams custom migration retention", () => {
   beforeEach(async () => {
     resetPluginStateStoreForTests();
     stateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-teams-retention-"));
-    env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+    env = { ...process.env, GRANTED_STATE_DIR: stateDir };
     context = {
       openPluginStateKeyedStore: (options) =>
         createPluginStateKeyedStoreForTests("msteams", { ...options, env }),

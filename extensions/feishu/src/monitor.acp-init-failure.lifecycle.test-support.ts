@@ -30,7 +30,7 @@ const {
   withReplyDispatcherMock,
 } = getFeishuLifecycleTestMocks();
 let lastRuntime = createRuntimeEnv();
-const originalStateDir = process.env.OPENCLAW_STATE_DIR;
+const originalStateDir = process.env.GRANTED_STATE_DIR;
 const { cfg: lifecycleConfig, account: lifecycleAccount } = createFeishuLifecycleFixture({
   accountId: "acct-acp",
   appId: "cli_test",

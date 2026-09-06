@@ -88,7 +88,7 @@ const VoiceCallToolSchema = Type.Union([
 ]);
 
 function isCliOnlyProcess(): boolean {
-  return process.env.OPENCLAW_CLI === "1" && !process.argv.slice(2).includes("gateway");
+  return process.env.GRANTED_CLI === "1" && !process.argv.slice(2).includes("gateway");
 }
 
 const VOICE_CALL_RUNTIME_COORDINATOR_KEY = Symbol.for("openclaw.voice-call.runtimeCoordinator");

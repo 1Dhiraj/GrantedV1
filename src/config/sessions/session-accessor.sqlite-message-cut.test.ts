@@ -81,7 +81,7 @@ async function createSiblingSession(params: {
 
 async function createSession(options: { activeLeafTarget?: string } = {}) {
   const stateDir = tempDirs.make("openclaw-message-cut-");
-  const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+  const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
   const sessionId = "message-cut-source";
   const scope = { agentId, env, sessionId, sessionKey };
   const entry: InternalSessionEntry = {
@@ -421,7 +421,7 @@ describe("SQLite session message cuts", () => {
 
   it("summarizes a large shared branch graph without repeated path walks", async () => {
     const stateDir = tempDirs.make("openclaw-large-branches-");
-    const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+    const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
     const sessionId = "large-branches-source";
     const scope = { agentId, env, sessionId, sessionKey };
     await upsertSessionEntryCore(scope, { sessionId, updatedAt: Date.now() });

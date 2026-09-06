@@ -486,7 +486,7 @@ describe("memory-core doctor dreaming migration", () => {
     rootDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-memory-core-doctor-"));
     workspaceDir = path.join(rootDir, "workspace");
     await fs.mkdir(path.join(workspaceDir, "memory", ".dreams"), { recursive: true });
-    env = { ...process.env, OPENCLAW_STATE_DIR: path.join(rootDir, "state") };
+    env = { ...process.env, GRANTED_STATE_DIR: path.join(rootDir, "state") };
   });
 
   afterEach(async () => {
@@ -1381,7 +1381,7 @@ describe("memory-core doctor dreaming migration", () => {
   });
 
   it("uses migration env when resolving default workspaces", async () => {
-    env = { ...env, OPENCLAW_WORKSPACE_DIR: workspaceDir };
+    env = { ...env, GRANTED_WORKSPACE_DIR: workspaceDir };
     const recallPath = path.join(workspaceDir, "memory", ".dreams", "short-term-recall.json");
     await fs.writeFile(
       recallPath,

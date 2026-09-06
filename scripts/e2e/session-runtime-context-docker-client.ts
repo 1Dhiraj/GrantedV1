@@ -63,9 +63,9 @@ async function verifyRuntimeContextTranscriptShape() {
   const effectivePrompt = [
     "visible ask",
     "",
-    "<<<BEGIN_OPENCLAW_INTERNAL_CONTEXT>>>",
+    "<<<BEGIN_GRANTED_INTERNAL_CONTEXT>>>",
     "secret docker context",
-    "<<<END_OPENCLAW_INTERNAL_CONTEXT>>>",
+    "<<<END_GRANTED_INTERNAL_CONTEXT>>>",
   ].join("\n");
   const promptSubmission = resolveRuntimeContextPromptParts({
     effectivePrompt,
@@ -109,7 +109,7 @@ async function verifyRuntimeContextTranscriptShape() {
   const userText = messageText(userEntries[0]?.message?.content);
   assert(userText === "visible ask", `unexpected visible user text: ${JSON.stringify(userText)}`);
   assert(
-    !userText.includes("OPENCLAW_INTERNAL_CONTEXT") && !userText.includes("secret docker context"),
+    !userText.includes("GRANTED_INTERNAL_CONTEXT") && !userText.includes("secret docker context"),
     "visible user transcript leaked runtime context",
   );
 }
@@ -135,9 +135,9 @@ async function seedBrokenSession(stateDir: string): Promise<string> {
         content: [
           "visible ask",
           "",
-          "<<<BEGIN_OPENCLAW_INTERNAL_CONTEXT>>>",
+          "<<<BEGIN_GRANTED_INTERNAL_CONTEXT>>>",
           "secret doctor context",
-          "<<<END_OPENCLAW_INTERNAL_CONTEXT>>>",
+          "<<<END_GRANTED_INTERNAL_CONTEXT>>>",
         ].join("\n"),
       },
     },
@@ -202,15 +202,15 @@ async function verifyDoctorRepair(root: string) {
     env: {
       ...process.env,
       HOME: root,
-      OPENCLAW_CONFIG_PATH: configPath,
-      OPENCLAW_DISABLE_BONJOUR: "1",
-      OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-      OPENCLAW_NO_ONBOARD: "1",
-      OPENCLAW_STATE_DIR: stateDir,
-      OPENCLAW_SKIP_CANVAS_HOST: "1",
-      OPENCLAW_SKIP_CHANNELS: "1",
-      OPENCLAW_SKIP_CRON: "1",
-      OPENCLAW_SKIP_GMAIL_WATCHER: "1",
+      GRANTED_CONFIG_PATH: configPath,
+      GRANTED_DISABLE_BONJOUR: "1",
+      GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+      GRANTED_NO_ONBOARD: "1",
+      GRANTED_STATE_DIR: stateDir,
+      GRANTED_SKIP_CANVAS_HOST: "1",
+      GRANTED_SKIP_CHANNELS: "1",
+      GRANTED_SKIP_CRON: "1",
+      GRANTED_SKIP_GMAIL_WATCHER: "1",
     },
     encoding: "utf-8",
     timeout: 120_000,
@@ -291,14 +291,14 @@ async function main() {
   const root = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-session-runtime-context-"));
   const stateDir = path.join(root, ".openclaw");
   setEnvValue("HOME", root);
-  setEnvValue("OPENCLAW_STATE_DIR", stateDir);
-  setEnvValue("OPENCLAW_CONFIG_PATH", path.join(stateDir, "openclaw.json"));
+  setEnvValue("GRANTED_STATE_DIR", stateDir);
+  setEnvValue("GRANTED_CONFIG_PATH", path.join(stateDir, "openclaw.json"));
   try {
     await verifyRuntimeContextTranscriptShape();
     await verifyDoctorRepair(root);
     console.log("session runtime context Docker E2E passed");
   } finally {
-    if (process.env.OPENCLAW_SESSION_RUNTIME_CONTEXT_KEEP_ARTIFACTS !== "1") {
+    if (process.env.GRANTED_SESSION_RUNTIME_CONTEXT_KEEP_ARTIFACTS !== "1") {
       await fs.rm(root, { recursive: true, force: true });
     } else {
       console.error(`kept artifacts: ${root}`);

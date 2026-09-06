@@ -20,7 +20,7 @@ describe("LaunchAgent environment round-trip", () => {
         await fs.writeFile(
           plistPath,
           buildLaunchAgentPlist({
-            label: "ai.openclaw.gateway",
+            label: "ai.granted.gateway",
             programArguments,
             stdoutPath: path.join(dir, "stdout.log"),
             stderrPath: path.join(dir, "stderr.log"),
@@ -41,9 +41,9 @@ describe("parseLaunchdPlistLabel", () => {
   it("decodes the XML entities accepted in launchd labels", () => {
     expect(
       parseLaunchdPlistLabel(
-        "<plist><dict><key>Label</key><string>ai.openclaw.a&amp;b</string></dict></plist>",
+        "<plist><dict><key>Label</key><string>ai.granted.a&amp;b</string></dict></plist>",
       ),
-    ).toBe("ai.openclaw.a&b");
+    ).toBe("ai.granted.a&b");
   });
 
   it("returns null for missing or empty labels", () => {

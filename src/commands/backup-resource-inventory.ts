@@ -118,7 +118,7 @@ export async function createBackupResourceInventory(params: {
   );
   const protectedPathSet = new Set<string>([
     path.resolve(params.configPath),
-    resolveOpenClawStateSqlitePath({ ...process.env, OPENCLAW_STATE_DIR: stateDir }),
+    resolveOpenClawStateSqlitePath({ ...process.env, GRANTED_STATE_DIR: stateDir }),
   ]);
   const regenerableRoots: BackupRegenerableRoot[] = [];
   const exclude = (kind: BackupRegenerableKind, sourcePath: string): void => {

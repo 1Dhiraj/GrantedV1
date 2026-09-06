@@ -522,19 +522,19 @@ function createChromeLifecycleRuntime(config: Record<string, unknown> = {}) {
 }
 
 const GOOGLE_MEET_ENV_KEYS = [
-  "OPENCLAW_GOOGLE_MEET_CLIENT_ID",
+  "GRANTED_GOOGLE_MEET_CLIENT_ID",
   "GOOGLE_MEET_CLIENT_ID",
-  "OPENCLAW_GOOGLE_MEET_CLIENT_SECRET",
+  "GRANTED_GOOGLE_MEET_CLIENT_SECRET",
   "GOOGLE_MEET_CLIENT_SECRET",
-  "OPENCLAW_GOOGLE_MEET_REFRESH_TOKEN",
+  "GRANTED_GOOGLE_MEET_REFRESH_TOKEN",
   "GOOGLE_MEET_REFRESH_TOKEN",
-  "OPENCLAW_GOOGLE_MEET_ACCESS_TOKEN",
+  "GRANTED_GOOGLE_MEET_ACCESS_TOKEN",
   "GOOGLE_MEET_ACCESS_TOKEN",
-  "OPENCLAW_GOOGLE_MEET_ACCESS_TOKEN_EXPIRES_AT",
+  "GRANTED_GOOGLE_MEET_ACCESS_TOKEN_EXPIRES_AT",
   "GOOGLE_MEET_ACCESS_TOKEN_EXPIRES_AT",
-  "OPENCLAW_GOOGLE_MEET_DEFAULT_MEETING",
+  "GRANTED_GOOGLE_MEET_DEFAULT_MEETING",
   "GOOGLE_MEET_DEFAULT_MEETING",
-  "OPENCLAW_GOOGLE_MEET_PREVIEW_ACK",
+  "GRANTED_GOOGLE_MEET_PREVIEW_ACK",
   "GOOGLE_MEET_PREVIEW_ACK",
 ] as const;
 
@@ -1390,13 +1390,13 @@ describe("google-meet plugin", () => {
 
   it("uses env fallbacks for OAuth, preview, and default meeting values", () => {
     const config = resolveGoogleMeetConfigFromTestEnv({
-      OPENCLAW_GOOGLE_MEET_CLIENT_ID: "client-id",
+      GRANTED_GOOGLE_MEET_CLIENT_ID: "client-id",
       GOOGLE_MEET_CLIENT_SECRET: "client-secret",
-      OPENCLAW_GOOGLE_MEET_REFRESH_TOKEN: "refresh-token",
+      GRANTED_GOOGLE_MEET_REFRESH_TOKEN: "refresh-token",
       GOOGLE_MEET_ACCESS_TOKEN: "access-token",
-      OPENCLAW_GOOGLE_MEET_ACCESS_TOKEN_EXPIRES_AT: "123456",
+      GRANTED_GOOGLE_MEET_ACCESS_TOKEN_EXPIRES_AT: "123456",
       GOOGLE_MEET_DEFAULT_MEETING: MEET_URL,
-      OPENCLAW_GOOGLE_MEET_PREVIEW_ACK: "true",
+      GRANTED_GOOGLE_MEET_PREVIEW_ACK: "true",
     });
     expect(config.defaults).toEqual({ meeting: MEET_URL });
     expect(config.preview).toEqual({ enrollmentAcknowledged: true });
@@ -1411,8 +1411,8 @@ describe("google-meet plugin", () => {
 
   it.each(["0x10", "1e3"])("ignores non-decimal env numeric fallbacks: %s", (expiresAt) => {
     const config = resolveGoogleMeetConfigFromTestEnv({
-      OPENCLAW_GOOGLE_MEET_ACCESS_TOKEN: "access-token",
-      OPENCLAW_GOOGLE_MEET_ACCESS_TOKEN_EXPIRES_AT: expiresAt,
+      GRANTED_GOOGLE_MEET_ACCESS_TOKEN: "access-token",
+      GRANTED_GOOGLE_MEET_ACCESS_TOKEN_EXPIRES_AT: expiresAt,
     });
 
     expect(config.oauth).toEqual({ accessToken: "access-token" });

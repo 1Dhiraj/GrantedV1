@@ -27,11 +27,11 @@ export async function startSkillLibraryNodeProcess(
   const node = await createOpenClawTestInstance({
     name: "skill-library-node",
     env: {
-      OPENCLAW_GATEWAY_TOKEN: undefined,
-      OPENCLAW_GATEWAY_PASSWORD: gateway.gatewayToken,
-      OPENCLAW_TEST_MINIMAL_GATEWAY: undefined,
-      OPENCLAW_SKIP_PROVIDERS: undefined,
-      OPENCLAW_SKIP_CHANNELS: undefined,
+      GRANTED_GATEWAY_TOKEN: undefined,
+      GRANTED_GATEWAY_PASSWORD: gateway.gatewayToken,
+      GRANTED_TEST_MINIMAL_GATEWAY: undefined,
+      GRANTED_SKIP_PROVIDERS: undefined,
+      GRANTED_SKIP_CHANNELS: undefined,
       VITEST: undefined,
       VITEST_POOL_ID: undefined,
       VITEST_WORKER_ID: undefined,

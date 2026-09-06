@@ -51,7 +51,7 @@ describe("qa suite runtime agent session helpers", () => {
   function qaSessionEnv(tempRoot: string): NodeJS.ProcessEnv {
     return {
       ...process.env,
-      OPENCLAW_STATE_DIR: path.join(tempRoot, "state"),
+      GRANTED_STATE_DIR: path.join(tempRoot, "state"),
     };
   }
 

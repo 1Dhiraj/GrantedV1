@@ -61,10 +61,10 @@ function fixture() {
   for (const [key, value] of Object.entries({
     HOME: root,
     USERPROFILE: root,
-    OPENCLAW_HOME: root,
-    OPENCLAW_STATE_DIR: stateDir,
-    OPENCLAW_CONFIG_PATH: configPath,
-    OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
+    GRANTED_HOME: root,
+    GRANTED_STATE_DIR: stateDir,
+    GRANTED_CONFIG_PATH: configPath,
+    GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
   })) {
     vi.stubEnv(key, value);
   }

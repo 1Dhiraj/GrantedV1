@@ -41,7 +41,7 @@ vi.mock("../../config/config.js", async (importOriginal) => {
 
 const tempDirs = useAutoCleanupTempDirTracker(afterEach);
 const CODEX_COMMAND = "codex.exec-server.stdio.v1";
-const OPENCLAW_DEVICE_REQUIREMENT = { requiredNodeCommands: [], consumesWorkerSlot: true };
+const GRANTED_DEVICE_REQUIREMENT = { requiredNodeCommands: [], consumesWorkerSlot: true };
 const CODEX_DEVICE_REQUIREMENT = {
   requiredNodeCommands: [CODEX_COMMAND],
   consumesWorkerSlot: false,
@@ -99,7 +99,7 @@ function prepareCloudNodeDispatch(
     profileId: ready.profileId,
     executionMode,
     devicePlacement:
-      executionMode === "remote-exec" ? CODEX_DEVICE_REQUIREMENT : OPENCLAW_DEVICE_REQUIREMENT,
+      executionMode === "remote-exec" ? CODEX_DEVICE_REQUIREMENT : GRANTED_DEVICE_REQUIREMENT,
   };
 }
 
@@ -111,7 +111,7 @@ describe("device worker placement dispatch", () => {
   beforeEach(() => {
     runtimeNodeCommandPolicy.commands = { allow: [CODEX_COMMAND] };
     root = tempDirs.make("openclaw-device-dispatch-");
-    database = openOpenClawStateDatabase({ env: { OPENCLAW_STATE_DIR: root } });
+    database = openOpenClawStateDatabase({ env: { GRANTED_STATE_DIR: root } });
     placementStore = createWorkerSessionPlacementStore({ database, now: () => 1_000 });
   });
 
@@ -145,7 +145,7 @@ describe("device worker placement dispatch", () => {
       ...REQUEST,
       profileId: "device:device-1",
       deviceId: "device-1",
-      devicePlacement: OPENCLAW_DEVICE_REQUIREMENT,
+      devicePlacement: GRANTED_DEVICE_REQUIREMENT,
       inheritedProfile: {
         providerId: "device",
         profileSnapshot: { install: "bundle" as const, settings: { device: "device-1" } },
@@ -497,7 +497,7 @@ describe("device worker placement dispatch", () => {
       ...REQUEST,
       profileId: "device:offline-device",
       deviceId: "offline-device",
-      devicePlacement: OPENCLAW_DEVICE_REQUIREMENT,
+      devicePlacement: GRANTED_DEVICE_REQUIREMENT,
       inheritedProfile: {
         providerId: "device",
         profileSnapshot: {
@@ -535,7 +535,7 @@ describe("device worker placement dispatch", () => {
       ...REQUEST,
       profileId: "device:device-1",
       deviceId: "device-1",
-      devicePlacement: OPENCLAW_DEVICE_REQUIREMENT,
+      devicePlacement: GRANTED_DEVICE_REQUIREMENT,
       inheritedProfile: {
         providerId: "device",
         profileSnapshot: { install: "bundle" as const, settings: { device: "device-1" } },
@@ -565,7 +565,7 @@ describe("device worker placement dispatch", () => {
     {
       name: "rejects worker-turn when all slots are occupied",
       node: deviceProof(0),
-      requirement: OPENCLAW_DEVICE_REQUIREMENT,
+      requirement: GRANTED_DEVICE_REQUIREMENT,
       config: {},
       expected: false,
       message: "at capacity",
@@ -596,7 +596,7 @@ describe("device worker placement dispatch", () => {
     {
       name: "rejects a replaced node connection",
       node: deviceProof(),
-      requirement: OPENCLAW_DEVICE_REQUIREMENT,
+      requirement: GRANTED_DEVICE_REQUIREMENT,
       config: {},
       currentNode: { nodeId: "device-1", connId: "replaced-connection" },
       expected: false,

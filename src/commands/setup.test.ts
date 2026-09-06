@@ -13,7 +13,7 @@ function createSetupDeps(home: string) {
   const configPath = path.join(home, ".openclaw", "openclaw.json");
   const configIO = createConfigIO({
     configPath,
-    env: { OPENCLAW_TEST_FAST: "1" } as NodeJS.ProcessEnv,
+    env: { GRANTED_TEST_FAST: "1" } as NodeJS.ProcessEnv,
     homedir: () => home,
     logger: { error: vi.fn(), warn: vi.fn() },
   });

@@ -86,7 +86,7 @@ async function routeModule(
 }
 
 afterEach(() => {
-  Reflect.deleteProperty(window, "__OPENCLAW_CONTROL_UI_BASE_PATH__");
+  Reflect.deleteProperty(window, "__GRANTED_CONTROL_UI_BASE_PATH__");
   document.body.replaceChildren();
 });
 

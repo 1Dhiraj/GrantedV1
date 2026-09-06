@@ -21,7 +21,7 @@ function runAgentsDeleteAssert(
       encoding: "utf8",
       env: {
         ...process.env,
-        OPENCLAW_STATE_DIR: path.join(root, "state"),
+        GRANTED_STATE_DIR: path.join(root, "state"),
         SHARED_WORKSPACE: path.join(root, "workspace"),
         ...env,
       },
@@ -34,7 +34,7 @@ function runOpenWebUiWorkspace(workspaceDir: string) {
     encoding: "utf8",
     env: {
       ...process.env,
-      OPENCLAW_WORKSPACE_DIR: workspaceDir,
+      GRANTED_WORKSPACE_DIR: workspaceDir,
     },
   });
 }
@@ -86,7 +86,7 @@ describe("workspace fixture assertions", () => {
     );
 
     const result = runAgentsDeleteAssert(root, outputPath, agentsPath, {
-      OPENCLAW_FIXTURE_AGENTS_DELETE_OUTPUT_MAX_BYTES: "1024",
+      GRANTED_FIXTURE_AGENTS_DELETE_OUTPUT_MAX_BYTES: "1024",
     });
 
     expect(result.status).not.toBe(0);
@@ -107,7 +107,7 @@ describe("workspace fixture assertions", () => {
     );
 
     const result = runAgentsDeleteAssert(root, outputPath, agentsPath, {
-      OPENCLAW_FIXTURE_AGENTS_DELETE_OUTPUT_MAX_BYTES: "131072",
+      GRANTED_FIXTURE_AGENTS_DELETE_OUTPUT_MAX_BYTES: "131072",
     });
 
     expect(result.status).not.toBe(0);

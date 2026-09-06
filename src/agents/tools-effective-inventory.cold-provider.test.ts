@@ -85,8 +85,8 @@ async function withColdFixture(run: (fixture: ReturnType<typeof createFixture>) 
       const fixture = createFixture(state);
       await withEnvAsync(
         {
-          OPENCLAW_BUNDLED_PLUGINS_DIR: fixture.emptyBundledRoot,
-          OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
+          GRANTED_BUNDLED_PLUGINS_DIR: fixture.emptyBundledRoot,
+          GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
         },
         async () => {
           resetPreparedModelRuntimeSnapshotsForTest();

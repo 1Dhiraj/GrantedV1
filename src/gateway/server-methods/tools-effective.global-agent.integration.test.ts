@@ -20,9 +20,9 @@ describe("tools.effective global agent integration", () => {
   let getRuntimeConfig: Awaited<ReturnType<typeof getGatewayConfigModule>>["getRuntimeConfig"];
 
   async function seedSelectedGlobalStores() {
-    const stateDir = process.env.OPENCLAW_STATE_DIR;
+    const stateDir = process.env.GRANTED_STATE_DIR;
     if (!stateDir) {
-      throw new Error("OPENCLAW_STATE_DIR is required");
+      throw new Error("GRANTED_STATE_DIR is required");
     }
     const dir = path.join(stateDir, "session-stores", `tools-effective-${Date.now()}`);
     const storeTemplate = path.join(dir, "{agentId}", "sessions.json");
@@ -188,9 +188,9 @@ describe("tools.effective global agent integration", () => {
   });
 
   async function seedNonGlobalMainStore() {
-    const stateDir = process.env.OPENCLAW_STATE_DIR;
+    const stateDir = process.env.GRANTED_STATE_DIR;
     if (!stateDir) {
-      throw new Error("OPENCLAW_STATE_DIR is required");
+      throw new Error("GRANTED_STATE_DIR is required");
     }
     const dir = path.join(stateDir, "session-stores", `tools-effective-nonglobal-${Date.now()}`);
     const storeTemplate = path.join(dir, "{agentId}", "sessions.json");

@@ -7,6 +7,7 @@ import {
   MAX_TERMINAL_UPLOAD_BYTES,
   terminalUploadDecodedSize,
 } from "../../packages/gateway-protocol/src/schema/terminal-constants.js";
+import { STATE_DIRNAME } from "../compat/legacy-names.js";
 import { logWarn } from "../logger.js";
 
 const TERMINAL_UPLOAD_PREFIX = "openclaw-terminal-upload-";
@@ -28,7 +29,7 @@ type TerminalUploadRootOptions = {
 /** Windows temp variables can point at a shared directory; inherit the user's profile ACL instead. */
 function resolveTerminalUploadRoot(options?: TerminalUploadRootOptions): string {
   return (options?.platform ?? process.platform) === "win32"
-    ? path.join(options?.homeDir ?? homedir(), ".openclaw", "tmp")
+    ? path.join(options?.homeDir ?? homedir(), STATE_DIRNAME, "tmp")
     : (options?.tempDir ?? tmpdir());
 }
 

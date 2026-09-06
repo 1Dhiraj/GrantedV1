@@ -536,7 +536,7 @@ export function createFleetService(options: FleetServiceOptions = {}) {
         record,
         await containers.inspect(record.runtime, record.containerName),
       );
-      const gatewayCredential = inspection.environment.OPENCLAW_GATEWAY_TOKEN;
+      const gatewayCredential = inspection.environment.GRANTED_GATEWAY_TOKEN;
       // Pin the inspected generation so a concurrent restore cannot redirect the stream.
       await containers.logs(record.runtime, inspection.containerId, {
         follow: logOptions.follow,

@@ -50,8 +50,8 @@ describe("generated exec approval migration", () => {
 
   it("removes inactive generated grants without changing manual or cwd-bound rules", async () => {
     await withTestDir({ prefix: "openclaw-exec-approval-migration-" }, async (home) => {
-      const previousStateDir = process.env.OPENCLAW_STATE_DIR;
-      process.env.OPENCLAW_STATE_DIR = path.join(home, ".openclaw");
+      const previousStateDir = process.env.GRANTED_STATE_DIR;
+      process.env.GRANTED_STATE_DIR = path.join(home, ".openclaw");
       closeOpenClawStateDatabaseForTest();
       execApprovalsStoreTesting.reset();
       try {
@@ -96,9 +96,9 @@ describe("generated exec approval migration", () => {
         closeOpenClawStateDatabaseForTest();
         execApprovalsStoreTesting.reset();
         if (previousStateDir === undefined) {
-          delete process.env.OPENCLAW_STATE_DIR;
+          delete process.env.GRANTED_STATE_DIR;
         } else {
-          process.env.OPENCLAW_STATE_DIR = previousStateDir;
+          process.env.GRANTED_STATE_DIR = previousStateDir;
         }
       }
     });

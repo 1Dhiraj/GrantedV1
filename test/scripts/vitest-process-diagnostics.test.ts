@@ -123,8 +123,8 @@ describe("vitest process diagnostics", () => {
           encoding: "utf8",
           env: {
             ...process.env,
-            OPENCLAW_VITEST_NO_OUTPUT_HEARTBEAT_MS: "0",
-            OPENCLAW_VITEST_NO_OUTPUT_TIMEOUT_MS: "1",
+            GRANTED_VITEST_NO_OUTPUT_HEARTBEAT_MS: "0",
+            GRANTED_VITEST_NO_OUTPUT_TIMEOUT_MS: "1",
           },
           timeout: 15_000,
         },

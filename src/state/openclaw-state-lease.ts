@@ -53,11 +53,11 @@ export type OpenClawStateLeaseContext = {
 };
 
 type OpenClawStateLeaseErrorCode =
-  | "OPENCLAW_STATE_LEASE_INVALID_INPUT"
-  | "OPENCLAW_STATE_LEASE_TIMEOUT"
-  | "OPENCLAW_STATE_LEASE_ABORTED"
-  | "OPENCLAW_STATE_LEASE_LOST"
-  | "OPENCLAW_STATE_LEASE_STORAGE_FAILED";
+  | "GRANTED_STATE_LEASE_INVALID_INPUT"
+  | "GRANTED_STATE_LEASE_TIMEOUT"
+  | "GRANTED_STATE_LEASE_ABORTED"
+  | "GRANTED_STATE_LEASE_LOST"
+  | "GRANTED_STATE_LEASE_STORAGE_FAILED";
 
 export class OpenClawStateLeaseError extends Error {
   readonly code: OpenClawStateLeaseErrorCode;
@@ -130,7 +130,7 @@ function leaseError(
 }
 
 function invalidInput(message: string): OpenClawStateLeaseError {
-  return leaseError("OPENCLAW_STATE_LEASE_INVALID_INPUT", message);
+  return leaseError("GRANTED_STATE_LEASE_INVALID_INPUT", message);
 }
 
 function validateDuration(value: number, label: string, minimum: number, maximum: number): number {
@@ -261,7 +261,7 @@ function renew(
     const expiresAt = renewOpenClawStateLeaseInTransaction(db, params, params.leaseMs);
     if (expiresAt === undefined) {
       throw leaseError(
-        "OPENCLAW_STATE_LEASE_LOST",
+        "GRANTED_STATE_LEASE_LOST",
         `${params.leaseLabel} ${params.scope}/${params.key} was lost`,
       );
     }
@@ -273,7 +273,7 @@ function assertLeaseOwnedInDatabase(database: DatabaseSync, params: LeaseIdentit
   const expiresAt = readOpenClawStateLeaseExpiry(database, params);
   if (expiresAt === undefined) {
     throw leaseError(
-      "OPENCLAW_STATE_LEASE_LOST",
+      "GRANTED_STATE_LEASE_LOST",
       `${params.leaseLabel} ${params.scope}/${params.key} was lost`,
     );
   }
@@ -299,7 +299,7 @@ function verifyLeaseOwnership(
       throw error;
     }
     throw leaseError(
-      "OPENCLAW_STATE_LEASE_STORAGE_FAILED",
+      "GRANTED_STATE_LEASE_STORAGE_FAILED",
       `failed to verify ${params.leaseLabel} ${params.scope}/${params.key}`,
       error,
     );
@@ -350,7 +350,7 @@ function abortError(
   leaseLabel: string,
 ): OpenClawStateLeaseError {
   return leaseError(
-    "OPENCLAW_STATE_LEASE_ABORTED",
+    "GRANTED_STATE_LEASE_ABORTED",
     `${leaseLabel} ${label} was aborted`,
     signal.reason,
   );
@@ -391,7 +391,7 @@ export async function withOpenClawStateLease<T>(
       }
       if (!isSqliteLockError(error)) {
         throw leaseError(
-          "OPENCLAW_STATE_LEASE_STORAGE_FAILED",
+          "GRANTED_STATE_LEASE_STORAGE_FAILED",
           `failed to acquire ${validated.leaseLabel} ${validated.scope}/${validated.key}`,
           error,
         );
@@ -412,7 +412,7 @@ export async function withOpenClawStateLease<T>(
           throw abortError(validated.signal, "acquisition", validated.leaseLabel);
         }
         throw leaseError(
-          "OPENCLAW_STATE_LEASE_TIMEOUT",
+          "GRANTED_STATE_LEASE_TIMEOUT",
           `timed out waiting for ${validated.leaseLabel} ${validated.scope}/${validated.key}`,
         );
       }
@@ -420,7 +420,7 @@ export async function withOpenClawStateLease<T>(
     }
     if (now >= deadline) {
       throw leaseError(
-        "OPENCLAW_STATE_LEASE_TIMEOUT",
+        "GRANTED_STATE_LEASE_TIMEOUT",
         `timed out waiting for ${validated.leaseLabel} ${validated.scope}/${validated.key}`,
       );
     }
@@ -468,7 +468,7 @@ export async function withOpenClawStateLease<T>(
         cause instanceof OpenClawStateLeaseError
           ? cause
           : leaseError(
-              "OPENCLAW_STATE_LEASE_LOST",
+              "GRANTED_STATE_LEASE_LOST",
               `${validated.leaseLabel} ${validated.scope}/${validated.key} was lost`,
               cause,
             ),
@@ -506,7 +506,7 @@ export async function withOpenClawStateLease<T>(
     try {
       renewAndSchedule();
     } catch (error) {
-      if (error instanceof OpenClawStateLeaseError && error.code === "OPENCLAW_STATE_LEASE_LOST") {
+      if (error instanceof OpenClawStateLeaseError && error.code === "GRANTED_STATE_LEASE_LOST") {
         abortLost(error);
       } else if (confirmedExpiresAt !== undefined && Date.now() >= confirmedExpiresAt) {
         abortLost(error);

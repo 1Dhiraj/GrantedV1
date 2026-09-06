@@ -180,15 +180,15 @@ describe("audit event writer", () => {
     const supervisedDatabase = {
       env: {
         ...process.env,
-        OPENCLAW_STATE_DIR: stateDir,
-        OPENCLAW_SUPERVISOR_MODE: "external",
+        GRANTED_STATE_DIR: stateDir,
+        GRANTED_SUPERVISOR_MODE: "external",
       },
     };
     claimOpenClawStateOwnership("gateway-test-supervisor", supervisedDatabase);
     closeOpenClawStateDatabaseForTest();
     const write = async (runId: string, supervisorMode: string | undefined) => {
       const errors: string[] = [];
-      await withEnvAsync({ OPENCLAW_SUPERVISOR_MODE: supervisorMode }, async () => {
+      await withEnvAsync({ GRANTED_SUPERVISOR_MODE: supervisorMode }, async () => {
         const writer = createAuditEventWriter({ stateDir, onError: (error) => errors.push(error) });
         await writer.ready;
         expect(writer.record({ ...input(), sourceId: `${runId}:1:started`, runId })).toBe(true);
@@ -217,7 +217,7 @@ describe("audit event writer", () => {
 
   it("keeps progress absent while disabled and routes enabled progress off audit_events", async () => {
     const stateDir = tempDirs.make("openclaw-audit-writer-");
-    const database = { env: { OPENCLAW_STATE_DIR: stateDir } };
+    const database = { env: { GRANTED_STATE_DIR: stateDir } };
     const disabledWriter = createAuditEventWriter({ stateDir });
     const disabledRecorder = createAuditEventRecorder({
       messageMode: "off",
@@ -266,7 +266,7 @@ describe("audit event writer", () => {
 
   it("flushes accepted events through the canonical state connection", async () => {
     const stateDir = tempDirs.make("openclaw-audit-writer-");
-    const database = { env: { OPENCLAW_STATE_DIR: stateDir } };
+    const database = { env: { GRANTED_STATE_DIR: stateDir } };
     const owner = openOpenClawStateDatabase(database).db;
     const readDataVersion = () =>
       (owner.prepare("PRAGMA data_version").get() as { data_version: number }).data_version;
@@ -284,7 +284,7 @@ describe("audit event writer", () => {
 
   it("keeps fresh storage identity-free when recovery evidence is missing", async () => {
     const stateDir = tempDirs.make("openclaw-audit-writer-");
-    const database = { env: { OPENCLAW_STATE_DIR: stateDir } };
+    const database = { env: { GRANTED_STATE_DIR: stateDir } };
     const errors: string[] = [];
     const writer = createAuditEventWriter({ stateDir, onError: (error) => errors.push(error) });
 
@@ -324,7 +324,7 @@ describe("audit event writer", () => {
 
   it("keeps a cold owner open nonblocking under a held write lock", async () => {
     const stateDir = tempDirs.make("openclaw-audit-writer-");
-    const database = { env: { OPENCLAW_STATE_DIR: stateDir } };
+    const database = { env: { GRANTED_STATE_DIR: stateDir } };
     recordAuditEvent(input(), database);
     const path = openOpenClawStateDatabase(database).path;
     closeOpenClawStateDatabaseForTest();
@@ -375,7 +375,7 @@ describe("audit event writer", () => {
 
   it("persists a generic decision through the bounded queue", async () => {
     const stateDir = tempDirs.make("openclaw-audit-writer-");
-    const database = { env: { OPENCLAW_STATE_DIR: stateDir } };
+    const database = { env: { GRANTED_STATE_DIR: stateDir } };
     const errors: string[] = [];
     const writer = createAuditEventWriter({ stateDir, onError: (error) => errors.push(error) });
 
@@ -412,7 +412,7 @@ describe("audit event writer", () => {
 
   it("keeps the shared queue nonblocking under a held write lock and flushes before stop", async () => {
     const stateDir = tempDirs.make("openclaw-audit-writer-");
-    const database = { env: { OPENCLAW_STATE_DIR: stateDir } };
+    const database = { env: { GRANTED_STATE_DIR: stateDir } };
     recordAuditEvent(input(), database);
     closeOpenClawStateDatabaseForTest();
     const errors: string[] = [];
@@ -543,7 +543,7 @@ describe("audit event writer", () => {
 
   it("reports sustained lock contention once while backing off retries", async () => {
     const stateDir = tempDirs.make("openclaw-audit-writer-");
-    const database = { env: { OPENCLAW_STATE_DIR: stateDir } };
+    const database = { env: { GRANTED_STATE_DIR: stateDir } };
     const contentions: string[] = [];
     const errors: string[] = [];
     const writer = createAuditEventWriter({
@@ -601,7 +601,7 @@ describe("audit event writer", () => {
 
   it("persists owned unknown and omits inherited evidence through the queue clone boundary", async () => {
     const stateDir = tempDirs.make("openclaw-audit-writer-");
-    const database = { env: { OPENCLAW_STATE_DIR: stateDir } };
+    const database = { env: { GRANTED_STATE_DIR: stateDir } };
     const errors: string[] = [];
     const writer = createAuditEventWriter({ stateDir, onError: (error) => errors.push(error) });
     const clearSink = configureExecutionIdentityAdmissionSink(writer.recordExecutionIdentity);
@@ -777,7 +777,7 @@ describe("audit event writer", () => {
 
   it("prunes expired identity contexts before preserving exact-envelope conflicts", async () => {
     const stateDir = tempDirs.make("openclaw-audit-writer-");
-    const database = { env: { OPENCLAW_STATE_DIR: stateDir } };
+    const database = { env: { GRANTED_STATE_DIR: stateDir } };
     persistExecutionIdentityAdmissionEnvelope(
       captureExecutionIdentityAdmissionEnvelope(
         {
@@ -899,7 +899,7 @@ describe("audit event writer", () => {
     );
 
     const schemaStateDir = tempDirs.make("openclaw-audit-writer-");
-    const schemaDatabase = { env: { OPENCLAW_STATE_DIR: schemaStateDir } };
+    const schemaDatabase = { env: { GRANTED_STATE_DIR: schemaStateDir } };
     openOpenClawStateDatabase(schemaDatabase).db.exec(`
       CREATE VIEW execution_identity_contexts AS
       SELECT 'context' AS context_id, 'run' AS run_id, 0 AS created_at,
@@ -919,7 +919,7 @@ describe("audit event writer", () => {
     expect(schemaErrors).toContain("audit execution identity persistence failed");
 
     const insertStateDir = tempDirs.make("openclaw-audit-writer-");
-    const insertDatabase = { env: { OPENCLAW_STATE_DIR: insertStateDir } };
+    const insertDatabase = { env: { GRANTED_STATE_DIR: insertStateDir } };
     persistExecutionIdentityAdmissionEnvelope(
       captureExecutionIdentityAdmissionEnvelope(
         {
@@ -960,7 +960,7 @@ describe("audit event writer", () => {
 
   it("keeps malformed, serialization, and key failures nonblocking and redaction-safe", async () => {
     const stateDir = tempDirs.make("openclaw-audit-writer-");
-    const database = { env: { OPENCLAW_STATE_DIR: stateDir } };
+    const database = { env: { GRANTED_STATE_DIR: stateDir } };
     const rawSecret = "raw-worker-message-secret";
     persistExecutionIdentityAdmissionEnvelope(
       captureExecutionIdentityAdmissionEnvelope(

@@ -55,8 +55,8 @@ it("borrows the compiled daemon in another process and leaves it serving an exte
         {
           env: {
             HOME: stateDir,
-            OPENCLAW_STATE_DIR: stateDir,
-            OPENCLAW_CONFIG_PATH: configPath,
+            GRANTED_STATE_DIR: stateDir,
+            GRANTED_CONFIG_PATH: configPath,
             PATH: process.env.PATH,
             TMPDIR: process.env.TMPDIR,
           },

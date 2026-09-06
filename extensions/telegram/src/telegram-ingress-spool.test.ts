@@ -33,7 +33,7 @@ async function withTempState<T>(
   const stateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-tg-spool-"));
   const spoolDir = resolveTelegramIngressSpoolDir({
     accountId: "acct",
-    env: { OPENCLAW_STATE_DIR: stateDir } as NodeJS.ProcessEnv,
+    env: { GRANTED_STATE_DIR: stateDir } as NodeJS.ProcessEnv,
   });
   const openKeyedStore = <StoreValue>(
     options: Parameters<typeof createPluginStateKeyedStoreForTests<StoreValue>>[1],

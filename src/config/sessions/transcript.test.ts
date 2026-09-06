@@ -10,9 +10,9 @@ import * as transcriptEvents from "../../sessions/transcript-events.js";
 import type { InternalSessionTranscriptUpdate } from "../../sessions/transcript-events.js";
 import {
   CRON_DIRECT_DELIVERY_CONTEXT_KIND,
-  OPENCLAW_DELIVERY_MIRROR_MODEL,
-  OPENCLAW_TRANSCRIPT_ARTIFACT_API,
-  OPENCLAW_TRANSCRIPT_ARTIFACT_PROVIDER,
+  GRANTED_DELIVERY_MIRROR_MODEL,
+  GRANTED_TRANSCRIPT_ARTIFACT_API,
+  GRANTED_TRANSCRIPT_ARTIFACT_PROVIDER,
 } from "../../shared/transcript-only-openclaw-assistant.js";
 import { deleteTestEnvValue, setTestEnvValue } from "../../test-utils/env.js";
 import { resolveSessionTranscriptPathInDir } from "./paths.js";
@@ -171,9 +171,9 @@ describe("appendAssistantMessageToSessionTranscript", () => {
 
   it("uses configured session.store when storePath is omitted", async () => {
     const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "transcript-config-store-"));
-    const previousStateDir = process.env.OPENCLAW_STATE_DIR;
+    const previousStateDir = process.env.GRANTED_STATE_DIR;
     try {
-      setTestEnvValue("OPENCLAW_STATE_DIR", path.join(tempDir, "default-state"));
+      setTestEnvValue("GRANTED_STATE_DIR", path.join(tempDir, "default-state"));
       const sessionsDir = path.join(tempDir, "configured", "sessions");
       fs.mkdirSync(sessionsDir, { recursive: true });
       const storePath = path.join(sessionsDir, "sessions.json");
@@ -221,9 +221,9 @@ describe("appendAssistantMessageToSessionTranscript", () => {
       );
     } finally {
       if (previousStateDir === undefined) {
-        deleteTestEnvValue("OPENCLAW_STATE_DIR");
+        deleteTestEnvValue("GRANTED_STATE_DIR");
       } else {
-        setTestEnvValue("OPENCLAW_STATE_DIR", previousStateDir);
+        setTestEnvValue("GRANTED_STATE_DIR", previousStateDir);
       }
       fs.rmSync(tempDir, { recursive: true, force: true });
     }
@@ -231,10 +231,10 @@ describe("appendAssistantMessageToSessionTranscript", () => {
 
   it("uses the session key agent for configured session.store templates", async () => {
     const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "transcript-agent-store-"));
-    const previousStateDir = process.env.OPENCLAW_STATE_DIR;
+    const previousStateDir = process.env.GRANTED_STATE_DIR;
     const emitSpy = vi.spyOn(transcriptEvents, "emitSessionTranscriptUpdate");
     try {
-      setTestEnvValue("OPENCLAW_STATE_DIR", path.join(tempDir, "default-state"));
+      setTestEnvValue("GRANTED_STATE_DIR", path.join(tempDir, "default-state"));
       const storeTemplate = path.join(tempDir, "agents", "{agentId}", "sessions", "sessions.json");
       const sessionsDir = path.join(tempDir, "agents", "worker", "sessions");
       fs.mkdirSync(sessionsDir, { recursive: true });
@@ -294,9 +294,9 @@ describe("appendAssistantMessageToSessionTranscript", () => {
     } finally {
       emitSpy.mockRestore();
       if (previousStateDir === undefined) {
-        deleteTestEnvValue("OPENCLAW_STATE_DIR");
+        deleteTestEnvValue("GRANTED_STATE_DIR");
       } else {
-        setTestEnvValue("OPENCLAW_STATE_DIR", previousStateDir);
+        setTestEnvValue("GRANTED_STATE_DIR", previousStateDir);
       }
       fs.rmSync(tempDir, { recursive: true, force: true });
     }
@@ -630,7 +630,7 @@ describe("appendAssistantMessageToSessionTranscript", () => {
     expect(event?.sessionKey).toBe(sessionKey);
     expect(event?.messageId).toBeTypeOf("string");
     expect(message?.role).toBe("assistant");
-    expect(message?.api).toBe(OPENCLAW_TRANSCRIPT_ARTIFACT_API);
+    expect(message?.api).toBe(GRANTED_TRANSCRIPT_ARTIFACT_API);
     expect(message?.provider).toBe("openclaw");
     expect(message?.model).toBe("delivery-mirror");
     expect(message?.content).toEqual([{ type: "text", text: "Hello from delivery mirror!" }]);
@@ -925,9 +925,9 @@ describe("appendAssistantMessageToSessionTranscript", () => {
         );
       expect(mirrors).toHaveLength(2);
       expect(mirrors[0]).toMatchObject({
-        api: OPENCLAW_TRANSCRIPT_ARTIFACT_API,
-        provider: OPENCLAW_TRANSCRIPT_ARTIFACT_PROVIDER,
-        model: OPENCLAW_DELIVERY_MIRROR_MODEL,
+        api: GRANTED_TRANSCRIPT_ARTIFACT_API,
+        provider: GRANTED_TRANSCRIPT_ARTIFACT_PROVIDER,
+        model: GRANTED_DELIVERY_MIRROR_MODEL,
         openclawDeliveryMirror: {
           kind: "channel-final-suppressed",
           reason: "stale-foreground",
@@ -1440,7 +1440,7 @@ describe("appendAssistantMessageToSessionTranscript", () => {
         content?: Array<{ text?: string }>;
       }>;
       expect(messages).toHaveLength(3);
-      expect(messages[2]?.api).toBe(OPENCLAW_TRANSCRIPT_ARTIFACT_API);
+      expect(messages[2]?.api).toBe(GRANTED_TRANSCRIPT_ARTIFACT_API);
       expect(messages[2]?.provider).toBe("openclaw");
       expect(messages[2]?.model).toBe("delivery-mirror");
       expect(messages[2]?.content?.[0]?.text).toBe("Repeated answer");
@@ -1488,7 +1488,7 @@ describe("appendAssistantMessageToSessionTranscript", () => {
       entry.message ? [entry.message] : [],
     ) as Array<{ api?: string; model?: string }>;
     expect(messagesAfterMirror).toHaveLength(2);
-    expect(messagesAfterMirror[1]?.api).toBe(OPENCLAW_TRANSCRIPT_ARTIFACT_API);
+    expect(messagesAfterMirror[1]?.api).toBe(GRANTED_TRANSCRIPT_ARTIFACT_API);
     expect(messagesAfterMirror[1]?.model).toBe("delivery-mirror");
 
     await persistSessionTranscriptTurn(createFixtureTranscriptScope(), {

@@ -120,7 +120,7 @@ export async function withConnectedDaemon(
     };
     setRuntimeConfigSnapshot(config, config);
     await withEnvAsync(
-      { OPENCLAW_STATE_DIR: stateDir, OPENCLAW_OAUTH_DIR: credentials },
+      { GRANTED_STATE_DIR: stateDir, GRANTED_OAUTH_DIR: credentials },
       async () => {
         let daemon = startDaemon
           ? await startDaemon(port, stateDir, config)

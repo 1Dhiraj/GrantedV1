@@ -48,7 +48,7 @@ describe("cleanupQaGatewayTempRoots", () => {
       const stores = roots.map(root => {
         const stateDir = path.join(root, "state");
         const agentDir = path.join(stateDir, "agents", "qa", "agent");
-        const env = { OPENCLAW_STATE_DIR: stateDir };
+        const env = { GRANTED_STATE_DIR: stateDir };
         return {
           agentDir,
           agent: openOpenClawAgentDatabase({ agentId: "qa", env, path: path.join(agentDir, "openclaw-agent.sqlite") }),
@@ -79,8 +79,8 @@ describe("cleanupQaGatewayTempRoots", () => {
         SystemRoot: process.env.SystemRoot,
         HOME: home,
         USERPROFILE: home,
-        OPENCLAW_HOME: home,
-        OPENCLAW_STATE_DIR: path.join(home, "state"),
+        GRANTED_HOME: home,
+        GRANTED_STATE_DIR: path.join(home, "state"),
         XDG_CONFIG_HOME: path.join(home, "config"),
         XDG_CACHE_HOME: path.join(home, "cache"),
         XDG_DATA_HOME: path.join(home, "data"),
@@ -109,7 +109,7 @@ describe("cleanupQaGatewayTempRoots", () => {
       const stagedBundledPluginsRoot = await dirs.makeTempDir("qa-cleanup-store-plugins-");
       const stateDir = path.join(tempRoot, "state");
       const agentDir = path.join(stateDir, "agents", "qa", "agent");
-      const env = { OPENCLAW_STATE_DIR: stateDir };
+      const env = { GRANTED_STATE_DIR: stateDir };
       await writeQaAuthProfiles({
         agentId: "qa",
         stateDir,

@@ -3,7 +3,7 @@ import path from "node:path";
 import { DatabaseSync } from "node:sqlite";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { createTempDirTracker } from "../../test/helpers/temp-dir.js";
-import { OPENCLAW_STATE_SCHEMA_VERSION } from "../state/openclaw-state-db-contract.js";
+import { GRANTED_STATE_SCHEMA_VERSION } from "../state/openclaw-state-db-contract.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
@@ -25,7 +25,7 @@ afterEach(() => {
 function createHealthDeps(warn = vi.fn()) {
   const home = tempDirs.make("openclaw-health-warning-");
   return {
-    env: { HOME: home, OPENCLAW_STATE_DIR: home },
+    env: { HOME: home, GRANTED_STATE_DIR: home },
     homedir: () => home,
     logger: { warn, error: vi.fn() },
   };
@@ -46,7 +46,7 @@ describe("config health-state warnings", () => {
       const options = {
         ...deps,
         configPath,
-        env: { ...deps.env, OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1" },
+        env: { ...deps.env, GRANTED_DISABLE_BUNDLED_PLUGINS: "1" },
       };
       expect(createConfigIO(options).loadConfig().gateway?.mode).toBe("local");
       expect((await createConfigIO(options).readConfigFileSnapshot()).valid).toBe(true);
@@ -62,7 +62,7 @@ describe("config health-state warnings", () => {
     const databasePath = resolveOpenClawStateSqlitePath(deps.env);
     fs.mkdirSync(path.dirname(databasePath), { recursive: true });
     const db = new DatabaseSync(databasePath);
-    db.exec(`PRAGMA user_version = ${OPENCLAW_STATE_SCHEMA_VERSION + 1}`);
+    db.exec(`PRAGMA user_version = ${GRANTED_STATE_SCHEMA_VERSION + 1}`);
     db.close();
 
     for (let i = 0; i < 3; i++) {
@@ -70,7 +70,7 @@ describe("config health-state warnings", () => {
       writeConfigHealthStateToStore(deps, healthState);
     }
     expect(deps.logger.warn).toHaveBeenCalledExactlyOnceWith(
-      expect.stringContaining(`uses newer schema version ${OPENCLAW_STATE_SCHEMA_VERSION + 1}`),
+      expect.stringContaining(`uses newer schema version ${GRANTED_STATE_SCHEMA_VERSION + 1}`),
     );
   });
 

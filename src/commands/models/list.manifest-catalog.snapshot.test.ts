@@ -88,12 +88,12 @@ function prepareFixture() {
   };
   const env: NodeJS.ProcessEnv = {
     HOME: path.join(root, "home"),
-    OPENCLAW_HOME: path.join(root, "home"),
-    OPENCLAW_STATE_DIR: path.join(root, "state"),
-    OPENCLAW_CONFIG_PATH: path.join(root, "state/openclaw.json"),
-    OPENCLAW_BUNDLED_PLUGINS_DIR: bundled,
-    OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR: "1",
-    OPENCLAW_DISABLE_BUNDLED_SOURCE_OVERLAYS: "1",
+    GRANTED_HOME: path.join(root, "home"),
+    GRANTED_STATE_DIR: path.join(root, "state"),
+    GRANTED_CONFIG_PATH: path.join(root, "state/openclaw.json"),
+    GRANTED_BUNDLED_PLUGINS_DIR: bundled,
+    GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR: "1",
+    GRANTED_DISABLE_BUNDLED_SOURCE_OVERLAYS: "1",
     VITEST: "true",
   };
   const metadataSnapshot = loadPluginMetadataSnapshot({

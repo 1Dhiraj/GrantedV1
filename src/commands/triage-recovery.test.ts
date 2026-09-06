@@ -238,9 +238,9 @@ describe("triage external recovery handoff", () => {
           cwd: state.workspaceDir,
           stdio: "inherit",
           env: expect.objectContaining({
-            OPENCLAW_STATE_DIR: target.stateDir,
-            OPENCLAW_CONFIG_PATH: target.configPath,
-            OPENCLAW_WORKSPACE_DIR: target.defaultWorkspaceDir,
+            GRANTED_STATE_DIR: target.stateDir,
+            GRANTED_CONFIG_PATH: target.configPath,
+            GRANTED_WORKSPACE_DIR: target.defaultWorkspaceDir,
           }),
         }),
       );
@@ -263,7 +263,7 @@ describe("triage external recovery handoff", () => {
               name: "doctor",
               exitCode: 1,
               stderrTail: expect.stringContaining(
-                "Migration failed at $OPENCLAW_STATE_DIR/install/runtime-entry.js",
+                "Migration failed at $GRANTED_STATE_DIR/install/runtime-entry.js",
               ),
               stdoutTail: "compiler-output-cause",
             },
@@ -400,9 +400,7 @@ describe("standalone triage update evidence", () => {
         expect(prompt).toContain("2026.8.26");
         const evidence = JSON.parse(/```json\n([\s\S]+?)\n```/u.exec(prompt)?.[1] ?? "");
         expect(evidence.result.recovery).toBeUndefined();
-        expect(prompt).toContain(
-          "EACCES: cannot open $OPENCLAW_STATE_DIR/install/runtime-entry.js",
-        );
+        expect(prompt).toContain("EACCES: cannot open $GRANTED_STATE_DIR/install/runtime-entry.js");
         for (const omitted of [
           secret,
           "private-session-route",

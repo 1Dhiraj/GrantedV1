@@ -179,9 +179,9 @@ describe("handleReset", () => {
         withEnvAsync(
           {
             HOME: homeDir,
-            OPENCLAW_HOME: homeDir,
-            OPENCLAW_STATE_DIR: stateDir,
-            OPENCLAW_CONFIG_PATH: configPath,
+            GRANTED_HOME: homeDir,
+            GRANTED_STATE_DIR: stateDir,
+            GRANTED_CONFIG_PATH: configPath,
           },
           async () => await handleReset("full", workspaceDir, runtime),
         ),
@@ -224,10 +224,10 @@ describe("handleReset", () => {
       await withEnvAsync(
         {
           HOME: homeDir,
-          OPENCLAW_HOME: homeDir,
-          OPENCLAW_PROFILE: "work",
-          OPENCLAW_STATE_DIR: profileStateDir,
-          OPENCLAW_CONFIG_PATH: profileConfigPath,
+          GRANTED_HOME: homeDir,
+          GRANTED_PROFILE: "work",
+          GRANTED_STATE_DIR: profileStateDir,
+          GRANTED_CONFIG_PATH: profileConfigPath,
         },
         async () => await handleReset("full", workspaceDir, runtime),
       );
@@ -249,7 +249,7 @@ describe("handleReset", () => {
     const runtime = { log: vi.fn() } as unknown as RuntimeEnv;
 
     await withEnvAsync(
-      { HOME: homeDir, OPENCLAW_HOME: homeDir, OPENCLAW_CONFIG_PATH: configPath },
+      { HOME: homeDir, GRANTED_HOME: homeDir, GRANTED_CONFIG_PATH: configPath },
       async () => {
         await expect(handleReset("config", "unused", runtime)).rejects.toThrow(configPath);
       },
@@ -275,9 +275,9 @@ describe("handleReset", () => {
     await withEnvAsync(
       {
         HOME: homeDir,
-        OPENCLAW_HOME: homeDir,
-        OPENCLAW_STATE_DIR: stateDir,
-        OPENCLAW_CONFIG_PATH: configPath,
+        GRANTED_HOME: homeDir,
+        GRANTED_STATE_DIR: stateDir,
+        GRANTED_CONFIG_PATH: configPath,
       },
       async () => {
         await expect(handleReset("config+creds+sessions", "unused", runtime)).rejects.toThrow(
@@ -305,9 +305,9 @@ describe("handleReset", () => {
       await withEnvAsync(
         {
           HOME: homeDir,
-          OPENCLAW_HOME: homeDir,
-          OPENCLAW_STATE_DIR: stateDir,
-          OPENCLAW_CONFIG_PATH: path.join(stateDir, "openclaw.json"),
+          GRANTED_HOME: homeDir,
+          GRANTED_STATE_DIR: stateDir,
+          GRANTED_CONFIG_PATH: path.join(stateDir, "openclaw.json"),
         },
         async () => {
           const failure = await handleReset("full", workspaceDir, runtime).catch(
@@ -340,9 +340,9 @@ describe("handleReset", () => {
     await withEnvAsync(
       {
         HOME: homeDir,
-        OPENCLAW_HOME: homeDir,
-        OPENCLAW_STATE_DIR: stateDir,
-        OPENCLAW_CONFIG_PATH: path.join(stateDir, "openclaw.json"),
+        GRANTED_HOME: homeDir,
+        GRANTED_STATE_DIR: stateDir,
+        GRANTED_CONFIG_PATH: path.join(stateDir, "openclaw.json"),
       },
       async () => {
         await expect(
@@ -372,9 +372,9 @@ describe("handleReset", () => {
     await withEnvAsync(
       {
         HOME: homeDir,
-        OPENCLAW_HOME: homeDir,
-        OPENCLAW_STATE_DIR: stateDir,
-        OPENCLAW_CONFIG_PATH: path.join(stateDir, "openclaw.json"),
+        GRANTED_HOME: homeDir,
+        GRANTED_STATE_DIR: stateDir,
+        GRANTED_CONFIG_PATH: path.join(stateDir, "openclaw.json"),
       },
       async () => {
         await expect(handleReset("full", workspaceDir, runtime)).rejects.toThrow(warning);
@@ -400,9 +400,9 @@ describe("handleReset", () => {
     const reset = withEnvAsync(
       {
         HOME: homeDir,
-        OPENCLAW_HOME: homeDir,
-        OPENCLAW_STATE_DIR: stateDir,
-        OPENCLAW_CONFIG_PATH: path.join(stateDir, "openclaw.json"),
+        GRANTED_HOME: homeDir,
+        GRANTED_STATE_DIR: stateDir,
+        GRANTED_CONFIG_PATH: path.join(stateDir, "openclaw.json"),
       },
       async () =>
         await handleReset("full", workspaceDir, {
@@ -427,9 +427,9 @@ describe("handleReset", () => {
     await withEnvAsync(
       {
         HOME: homeDir,
-        OPENCLAW_HOME: homeDir,
-        OPENCLAW_STATE_DIR: stateDir,
-        OPENCLAW_CONFIG_PATH: path.join(stateDir, "openclaw.json"),
+        GRANTED_HOME: homeDir,
+        GRANTED_STATE_DIR: stateDir,
+        GRANTED_CONFIG_PATH: path.join(stateDir, "openclaw.json"),
       },
       async () => {
         await expect(
@@ -463,10 +463,10 @@ describe("handleReset", () => {
       await withEnvAsync(
         {
           HOME: homeDir,
-          OPENCLAW_HOME: homeDir,
-          OPENCLAW_PROFILE: "work",
-          OPENCLAW_STATE_DIR: profileStateDir,
-          OPENCLAW_CONFIG_PATH: profileConfigPath,
+          GRANTED_HOME: homeDir,
+          GRANTED_PROFILE: "work",
+          GRANTED_STATE_DIR: profileStateDir,
+          GRANTED_CONFIG_PATH: profileConfigPath,
         },
         async () => {
           await expect(handleReset("full", workspaceDir, runtime)).rejects.toThrow(workspaceDir);

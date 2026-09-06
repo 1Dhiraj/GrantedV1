@@ -70,15 +70,15 @@ beforeEach(async () => {
   state = await createOpenClawTestState({
     label: "update-lease",
     env: {
-      OPENCLAW_COMPATIBILITY_HOST_VERSION: undefined,
-      OPENCLAW_UPDATE_POST_CORE_RESULT_PATH: undefined,
-      OPENCLAW_UPDATE_POST_CORE_INSTALL_RECORDS_PATH: undefined,
-      OPENCLAW_UPDATE_POST_CORE_SOURCE_CONFIG_PATH: undefined,
-      OPENCLAW_UPDATE_POST_CORE_REQUESTED_CHANNEL: undefined,
-      OPENCLAW_UPDATE_POST_CORE_STARTED_AT_MS: undefined,
-      OPENCLAW_UPDATE_PARENT_ALLOWS_GATEWAY_ACTIVATION: undefined,
-      OPENCLAW_UPDATE_PARENT_ALLOWS_GATEWAY_SERVICE_REPAIR: undefined,
-      OPENCLAW_UPDATE_PARENT_SUPPORTS_GATEWAY_RESTART: undefined,
+      GRANTED_COMPATIBILITY_HOST_VERSION: undefined,
+      GRANTED_UPDATE_POST_CORE_RESULT_PATH: undefined,
+      GRANTED_UPDATE_POST_CORE_INSTALL_RECORDS_PATH: undefined,
+      GRANTED_UPDATE_POST_CORE_SOURCE_CONFIG_PATH: undefined,
+      GRANTED_UPDATE_POST_CORE_REQUESTED_CHANNEL: undefined,
+      GRANTED_UPDATE_POST_CORE_STARTED_AT_MS: undefined,
+      GRANTED_UPDATE_PARENT_ALLOWS_GATEWAY_ACTIVATION: undefined,
+      GRANTED_UPDATE_PARENT_ALLOWS_GATEWAY_SERVICE_REPAIR: undefined,
+      GRANTED_UPDATE_PARENT_SUPPORTS_GATEWAY_RESTART: undefined,
     },
   });
   await state.writeConfig({ plugins: { enabled: false }, update: { channel: "stable" } });
@@ -210,8 +210,8 @@ describe("update orchestration lifecycle ownership", () => {
         hostVersion: lane === "repair" ? undefined : "1.0.0",
       });
       if (lane === "current-process") {
-        vi.stubEnv("OPENCLAW_UPDATE_PARENT_ALLOWS_GATEWAY_ACTIVATION", "1");
-        vi.stubEnv("OPENCLAW_UPDATE_PARENT_ALLOWS_GATEWAY_SERVICE_REPAIR", "1");
+        vi.stubEnv("GRANTED_UPDATE_PARENT_ALLOWS_GATEWAY_ACTIVATION", "1");
+        vi.stubEnv("GRANTED_UPDATE_PARENT_ALLOWS_GATEWAY_SERVICE_REPAIR", "1");
       }
       mocks.plugins.mockImplementationOnce(async () => {
         const result = await runExec(process.execPath, [entrypoint, "probe"], {
@@ -222,7 +222,7 @@ describe("update orchestration lifecycle ownership", () => {
       });
       await invoke(lane);
       expectSuccess(lane);
-      expect(process.env.OPENCLAW_UPDATE_PARENT_ALLOWS_GATEWAY_ACTIVATION).toBe(
+      expect(process.env.GRANTED_UPDATE_PARENT_ALLOWS_GATEWAY_ACTIVATION).toBe(
         lane === "current-process" ? "1" : undefined,
       );
       expect(await events()).toEqual([
@@ -233,7 +233,7 @@ describe("update orchestration lifecycle ownership", () => {
         "readiness",
       ]);
       if (lane === "current-process") {
-        expect(process.env.OPENCLAW_COMPATIBILITY_HOST_VERSION).toBeUndefined();
+        expect(process.env.GRANTED_COMPATIBILITY_HOST_VERSION).toBeUndefined();
         expect(mocks.restart).toHaveBeenCalledWith(
           expect.objectContaining({ shouldRestart: false }),
         );
@@ -322,8 +322,8 @@ describe("update orchestration lifecycle ownership", () => {
       await writePersistedInstalledPluginIndexInstallRecords(old);
       expect(await loadInstalledPluginIndexInstallRecords()).toEqual(old);
       const recordsPath = await state.writeJson("forwarded.json", old);
-      vi.stubEnv("OPENCLAW_UPDATE_POST_CORE_INSTALL_RECORDS_PATH", recordsPath);
-      vi.stubEnv("OPENCLAW_UPDATE_POST_CORE_STARTED_AT_MS", String(Date.now()));
+      vi.stubEnv("GRANTED_UPDATE_POST_CORE_INSTALL_RECORDS_PATH", recordsPath);
+      vi.stubEnv("GRANTED_UPDATE_POST_CORE_STARTED_AT_MS", String(Date.now()));
       const current: Record<string, PluginInstallRecord> = empty
         ? {}
         : { current: { source: "path" } };
@@ -420,7 +420,7 @@ describe("update orchestration lifecycle ownership", () => {
       await writeScenario(lane, { failDoctor: "pre" });
       const resultPath = state.path("failed-post-core.json");
       if (lane === "resume") {
-        vi.stubEnv("OPENCLAW_UPDATE_POST_CORE_RESULT_PATH", resultPath);
+        vi.stubEnv("GRANTED_UPDATE_POST_CORE_RESULT_PATH", resultPath);
       }
       await expect(invoke(lane)).rejects.toThrow("doctor fixture failure");
       expect(mocks.plugins).not.toHaveBeenCalled();
@@ -449,7 +449,7 @@ describe("update orchestration lifecycle ownership", () => {
       postUpdate: { plugins: { reason: "post-plugin-doctor-execution-failed" } },
     });
     expect(mocks.restart).not.toHaveBeenCalled();
-    expect(process.env.OPENCLAW_COMPATIBILITY_HOST_VERSION).toBeUndefined();
+    expect(process.env.GRANTED_COMPATIBILITY_HOST_VERSION).toBeUndefined();
     expectDoctorDiagnostics();
     expect(await events()).toEqual(["post-attempt", "post-acquired", "validate", "readiness"]);
   });

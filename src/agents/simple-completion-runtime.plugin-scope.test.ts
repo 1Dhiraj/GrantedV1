@@ -180,8 +180,8 @@ module.exports = {
       );
       const env = {
         ...createColdPluginHermeticEnv(tempRoot, { bundledPluginsDir: tempRoots.makeTempDir() }),
-        OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-        OPENCLAW_STATE_DIR: path.join(tempRoot, "state"),
+        GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+        GRANTED_STATE_DIR: path.join(tempRoot, "state"),
       };
 
       const result = await withEnvAsync(env, () =>
@@ -288,8 +288,8 @@ module.exports = {
         const cfg = configFor(selected);
         const env = {
           ...createColdPluginHermeticEnv(tempRoot, { bundledPluginsDir: tempRoots.makeTempDir() }),
-          OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-          OPENCLAW_STATE_DIR: path.join(tempRoot, "state"),
+          GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+          GRANTED_STATE_DIR: path.join(tempRoot, "state"),
         };
         await withEnvAsync(env, async () => {
           const input = {

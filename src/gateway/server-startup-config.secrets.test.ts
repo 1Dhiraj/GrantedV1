@@ -212,24 +212,24 @@ function readTimelineEvents(filePath: string): Array<Record<string, unknown>> {
 function installDiagnosticsTimelineEnv() {
   const root = mkdtempSync(path.join(tmpdir(), "openclaw-startup-secrets-timeline-"));
   const timelinePath = path.join(root, "timeline.jsonl");
-  const previousDiagnostics = process.env.OPENCLAW_DIAGNOSTICS;
-  const previousTimelinePath = process.env.OPENCLAW_DIAGNOSTICS_TIMELINE_PATH;
-  process.env.OPENCLAW_DIAGNOSTICS = "timeline";
-  process.env.OPENCLAW_DIAGNOSTICS_TIMELINE_PATH = timelinePath;
+  const previousDiagnostics = process.env.GRANTED_DIAGNOSTICS;
+  const previousTimelinePath = process.env.GRANTED_DIAGNOSTICS_TIMELINE_PATH;
+  process.env.GRANTED_DIAGNOSTICS = "timeline";
+  process.env.GRANTED_DIAGNOSTICS_TIMELINE_PATH = timelinePath;
 
   return {
     timelinePath,
     cleanup: () => {
       flushDiagnosticsTimeline();
       if (previousDiagnostics === undefined) {
-        delete process.env.OPENCLAW_DIAGNOSTICS;
+        delete process.env.GRANTED_DIAGNOSTICS;
       } else {
-        process.env.OPENCLAW_DIAGNOSTICS = previousDiagnostics;
+        process.env.GRANTED_DIAGNOSTICS = previousDiagnostics;
       }
       if (previousTimelinePath === undefined) {
-        delete process.env.OPENCLAW_DIAGNOSTICS_TIMELINE_PATH;
+        delete process.env.GRANTED_DIAGNOSTICS_TIMELINE_PATH;
       } else {
-        process.env.OPENCLAW_DIAGNOSTICS_TIMELINE_PATH = previousTimelinePath;
+        process.env.GRANTED_DIAGNOSTICS_TIMELINE_PATH = previousTimelinePath;
       }
       rmSync(root, { force: true, recursive: true });
     },
@@ -240,19 +240,19 @@ function installDiagnosticsTimelineEnv() {
 function installIsolatedStartupFastPathEnv() {
   const root = mkdtempSync(path.join(tmpdir(), "openclaw-startup-fast-path-env-"));
   const keys = [
-    "OPENCLAW_HOME",
-    "OPENCLAW_STATE_DIR",
-    "OPENCLAW_CONFIG_PATH",
-    "OPENCLAW_OAUTH_DIR",
+    "GRANTED_HOME",
+    "GRANTED_STATE_DIR",
+    "GRANTED_CONFIG_PATH",
+    "GRANTED_OAUTH_DIR",
   ] as const;
   const previous = new Map<(typeof keys)[number], string | undefined>();
   for (const key of keys) {
     previous.set(key, process.env[key]);
   }
-  process.env.OPENCLAW_HOME = path.join(root, "home");
-  process.env.OPENCLAW_STATE_DIR = path.join(root, "state");
-  process.env.OPENCLAW_CONFIG_PATH = path.join(root, "state", "openclaw.json");
-  process.env.OPENCLAW_OAUTH_DIR = path.join(root, "credentials");
+  process.env.GRANTED_HOME = path.join(root, "home");
+  process.env.GRANTED_STATE_DIR = path.join(root, "state");
+  process.env.GRANTED_CONFIG_PATH = path.join(root, "state", "openclaw.json");
+  process.env.GRANTED_OAUTH_DIR = path.join(root, "credentials");
 
   return {
     cleanup: () => {
@@ -429,20 +429,20 @@ async function expectImportedStartupConfigUsesFullSecretsRuntime(
 }
 
 describe("gateway startup config secret preflight", () => {
-  const previousSkipChannels = process.env.OPENCLAW_SKIP_CHANNELS;
-  const previousSkipProviders = process.env.OPENCLAW_SKIP_PROVIDERS;
+  const previousSkipChannels = process.env.GRANTED_SKIP_CHANNELS;
+  const previousSkipProviders = process.env.GRANTED_SKIP_PROVIDERS;
 
   afterEach(() => {
     clearSecretsRuntimeSnapshotState();
     if (previousSkipChannels === undefined) {
-      delete process.env.OPENCLAW_SKIP_CHANNELS;
+      delete process.env.GRANTED_SKIP_CHANNELS;
     } else {
-      process.env.OPENCLAW_SKIP_CHANNELS = previousSkipChannels;
+      process.env.GRANTED_SKIP_CHANNELS = previousSkipChannels;
     }
     if (previousSkipProviders === undefined) {
-      delete process.env.OPENCLAW_SKIP_PROVIDERS;
+      delete process.env.GRANTED_SKIP_PROVIDERS;
     } else {
-      process.env.OPENCLAW_SKIP_PROVIDERS = previousSkipProviders;
+      process.env.GRANTED_SKIP_PROVIDERS = previousSkipProviders;
     }
   });
 
@@ -2487,7 +2487,7 @@ describe("gateway startup config secret preflight", () => {
   );
 
   it("prunes channel refs from startup secret preflight when channels are skipped", async () => {
-    process.env.OPENCLAW_SKIP_CHANNELS = "1";
+    process.env.GRANTED_SKIP_CHANNELS = "1";
     const prepareRuntimeSecretsSnapshot = vi.fn(async ({ config }) => preparedSnapshot(config));
     const activateRuntimeSecrets = runtimeSecretsActivatorForTest({
       prepareRuntimeSecretsSnapshot,
@@ -2927,8 +2927,8 @@ describe("gateway startup config secret preflight", () => {
     await withEnvAsync(
       {
         HOME: processHome,
-        OPENCLAW_STATE_DIR: path.join(processHome, "state"),
-        OPENCLAW_AGENT_DIR: relocatedMainAgentDir,
+        GRANTED_STATE_DIR: path.join(processHome, "state"),
+        GRANTED_AGENT_DIR: relocatedMainAgentDir,
       },
       async () => {
         writePersistedOpenAiProfile(relocatedMainAgentDir, "fake-persisted-key");
@@ -2936,8 +2936,8 @@ describe("gateway startup config secret preflight", () => {
         const activationEnv = {
           ...process.env,
           HOME: activationHome,
-          OPENCLAW_STATE_DIR: path.join(activationHome, "state"),
-          OPENCLAW_AGENT_DIR: relocatedMainAgentDir,
+          GRANTED_STATE_DIR: path.join(activationHome, "state"),
+          GRANTED_AGENT_DIR: relocatedMainAgentDir,
         };
 
         try {
@@ -2969,8 +2969,8 @@ describe("gateway startup config secret preflight", () => {
     await withEnvAsync(
       {
         HOME: processHome,
-        OPENCLAW_STATE_DIR: path.join(processHome, "state"),
-        OPENCLAW_AGENT_DIR: undefined,
+        GRANTED_STATE_DIR: path.join(processHome, "state"),
+        GRANTED_AGENT_DIR: undefined,
       },
       async () => {
         writePersistedOpenAiProfile(activationAgentDir, "fake-activation-env-key");
@@ -2978,7 +2978,7 @@ describe("gateway startup config secret preflight", () => {
         const activationEnv = {
           ...process.env,
           HOME: activationHome,
-          OPENCLAW_STATE_DIR: path.join(activationHome, "state"),
+          GRANTED_STATE_DIR: path.join(activationHome, "state"),
         };
 
         try {

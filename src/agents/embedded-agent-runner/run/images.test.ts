@@ -511,8 +511,8 @@ describe("detectAndLoadPromptImages", () => {
       Buffer.from(TINY_PNG_BASE64, "base64"),
     );
     await fs.writeFile(path.join(stateDir, "prompt-b.png"), Buffer.from(TINY_PNG_BASE64, "base64"));
-    const envSnapshot = captureEnv(["OPENCLAW_STATE_DIR"]);
-    setTestEnvValue("OPENCLAW_STATE_DIR", stateDir);
+    const envSnapshot = captureEnv(["GRANTED_STATE_DIR"]);
+    setTestEnvValue("GRANTED_STATE_DIR", stateDir);
     const prompt =
       "compare [media attached: media://inbound/prompt-ref.png] and ./prompt-b.png\n[media attached: media://inbound/att-b.gif]";
 
@@ -553,8 +553,8 @@ describe("detectAndLoadPromptImages", () => {
     const mediaId = "remaining.gif";
     await fs.mkdir(inboundDir, { recursive: true });
     await fs.writeFile(path.join(inboundDir, mediaId), TINY_GIF_BUFFER);
-    const envSnapshot = captureEnv(["OPENCLAW_STATE_DIR"]);
-    setTestEnvValue("OPENCLAW_STATE_DIR", stateDir);
+    const envSnapshot = captureEnv(["GRANTED_STATE_DIR"]);
+    setTestEnvValue("GRANTED_STATE_DIR", stateDir);
     const inlineImage = { type: "image" as const, data: TINY_PNG_BASE64, mimeType: "image/png" };
 
     try {
@@ -647,8 +647,8 @@ describe("detectAndLoadPromptImages", () => {
     const imagePath = path.join(inboundDir, "signal-replay.png");
     const pngB64 = TINY_PNG_BASE64;
     await fs.writeFile(imagePath, Buffer.from(pngB64, "base64"));
-    const envSnapshot = captureEnv(["OPENCLAW_STATE_DIR"]);
-    setTestEnvValue("OPENCLAW_STATE_DIR", stateDir);
+    const envSnapshot = captureEnv(["GRANTED_STATE_DIR"]);
+    setTestEnvValue("GRANTED_STATE_DIR", stateDir);
 
     try {
       const result = await detectAndLoadPromptImages({
@@ -699,8 +699,8 @@ describe("hydratePromptMediaMessages", () => {
     const mediaId = "queued.gif";
     await fs.mkdir(inboundDir, { recursive: true });
     await fs.writeFile(path.join(inboundDir, mediaId), TINY_GIF_BUFFER);
-    const envSnapshot = captureEnv(["OPENCLAW_STATE_DIR"]);
-    setTestEnvValue("OPENCLAW_STATE_DIR", stateDir);
+    const envSnapshot = captureEnv(["GRANTED_STATE_DIR"]);
+    setTestEnvValue("GRANTED_STATE_DIR", stateDir);
     const inlineImage = { type: "image" as const, data: TINY_PNG_BASE64, mimeType: "image/png" };
     const message = attachRuntimePromptMediaFacts(
       { role: "user" as const, content: [{ type: "text" as const, text: "compare" }, inlineImage] },

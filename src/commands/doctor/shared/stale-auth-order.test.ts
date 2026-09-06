@@ -176,7 +176,7 @@ describe("repairStaleConfiguredAuthOrders", () => {
 
       const result = maybeRepairStaleConfiguredAuthOrders({
         cfg,
-        env: { OPENCLAW_STATE_DIR: stateDir },
+        env: { GRANTED_STATE_DIR: stateDir },
       });
 
       expect(result.config.auth?.order?.openai).toEqual(["openai:chatgpt-manual"]);
@@ -202,11 +202,11 @@ describe("repairStaleConfiguredAuthOrders", () => {
       const preview = collectStaleConfiguredAuthOrderWarnings({
         cfg,
         doctorFixCommand: "openclaw doctor --fix",
-        env: { OPENCLAW_STATE_DIR: stateDir },
+        env: { GRANTED_STATE_DIR: stateDir },
       });
       const result = maybeRepairStaleConfiguredAuthOrders({
         cfg,
-        env: { OPENCLAW_STATE_DIR: stateDir },
+        env: { GRANTED_STATE_DIR: stateDir },
       });
 
       expect(result.config).toBe(cfg);
@@ -240,7 +240,7 @@ describe("repairStaleConfiguredAuthOrders", () => {
 
       const result = maybeRepairStaleConfiguredAuthOrders({
         cfg,
-        env: { OPENCLAW_STATE_DIR: stateDir },
+        env: { GRANTED_STATE_DIR: stateDir },
       });
 
       expect(result).toEqual({ config: cfg, changes: [] });
@@ -270,7 +270,7 @@ describe("repairStaleConfiguredAuthOrders", () => {
 
       const result = maybeRepairStaleConfiguredAuthOrders({
         cfg,
-        env: { OPENCLAW_STATE_DIR: stateDir },
+        env: { GRANTED_STATE_DIR: stateDir },
       });
 
       expect(result.config.auth?.order?.openai).toBeUndefined();
@@ -471,7 +471,7 @@ describe("repairStaleConfiguredAuthOrders", () => {
 
       const result = maybeRepairStaleConfiguredAuthOrders({
         cfg,
-        env: { OPENCLAW_STATE_DIR: stateDir },
+        env: { GRANTED_STATE_DIR: stateDir },
       });
 
       expect(result.config.auth?.order?.anthropic).toBeUndefined();
@@ -489,7 +489,7 @@ describe("repairStaleConfiguredAuthOrders", () => {
 
       const result = maybeRepairStaleConfiguredAuthOrders({
         cfg,
-        env: { OPENCLAW_STATE_DIR: stateDir },
+        env: { GRANTED_STATE_DIR: stateDir },
       });
 
       expect(result.config.auth?.order?.anthropic).toBeUndefined();
@@ -514,7 +514,7 @@ describe("repairStaleConfiguredAuthOrders", () => {
 
         const result = maybeRepairStaleConfiguredAuthOrders({
           cfg,
-          env: { OPENCLAW_STATE_DIR: stateDir },
+          env: { GRANTED_STATE_DIR: stateDir },
         });
 
         expect(result.config).toBe(cfg);
@@ -539,7 +539,7 @@ describe("repairStaleConfiguredAuthOrders", () => {
 
       const result = maybeRepairStaleConfiguredAuthOrders({
         cfg,
-        env: { OPENCLAW_STATE_DIR: stateDir },
+        env: { GRANTED_STATE_DIR: stateDir },
       });
 
       expect(result).toEqual({ config: cfg, changes: [] });
@@ -548,7 +548,7 @@ describe("repairStaleConfiguredAuthOrders", () => {
 
   it("preserves an ordered profile in a registered custom agent directory", async () => {
     await withStateDir("openclaw-custom-auth-order-", async (stateDir) => {
-      const env = { OPENCLAW_STATE_DIR: stateDir };
+      const env = { GRANTED_STATE_DIR: stateDir };
       writeTokenStore(path.join(stateDir, "agents", "main", "agent"), {
         profileId: "claude-cli:setup-token",
       });
@@ -575,7 +575,7 @@ describe("repairStaleConfiguredAuthOrders", () => {
 
   it("does not use a registered inactive store as the automatic fallback proof", async () => {
     await withStateDir("openclaw-custom-fallback-", async (stateDir) => {
-      const env = { OPENCLAW_STATE_DIR: stateDir };
+      const env = { GRANTED_STATE_DIR: stateDir };
       const customAgentDir = path.join(stateDir, "custom-agents", "retained");
       const database = openOpenClawAgentDatabase({
         agentId: "retained",
@@ -601,7 +601,7 @@ describe("repairStaleConfiguredAuthOrders", () => {
 
   it("preserves an ordered runtime profile from a registered custom agent directory", async () => {
     await withStateDir("openclaw-custom-runtime-auth-", async (stateDir) => {
-      const env = { OPENCLAW_STATE_DIR: stateDir };
+      const env = { GRANTED_STATE_DIR: stateDir };
       writeTokenStore(path.join(stateDir, "agents", "main", "agent"), {
         profileId: "claude-cli:main-token",
       });
@@ -646,7 +646,7 @@ describe("repairStaleConfiguredAuthOrders", () => {
 
   it("does not repair while a registered custom agent has an unmigrated auth store", async () => {
     await withStateDir("openclaw-custom-legacy-auth-", async (stateDir) => {
-      const env = { OPENCLAW_STATE_DIR: stateDir };
+      const env = { GRANTED_STATE_DIR: stateDir };
       writeTokenStore(path.join(stateDir, "agents", "main", "agent"), {
         profileId: "claude-cli:main-token",
       });
@@ -680,7 +680,7 @@ describe("repairStaleConfiguredAuthOrders", () => {
 
       const result = maybeRepairStaleConfiguredAuthOrders({
         cfg,
-        env: { OPENCLAW_STATE_DIR: stateDir },
+        env: { GRANTED_STATE_DIR: stateDir },
       });
 
       expect(result).toEqual({ config: cfg, changes: [] });
@@ -705,7 +705,7 @@ describe("repairStaleConfiguredAuthOrders", () => {
 
         const result = maybeRepairStaleConfiguredAuthOrders({
           cfg,
-          env: { OPENCLAW_STATE_DIR: stateDir },
+          env: { GRANTED_STATE_DIR: stateDir },
         });
 
         expect(result.config).toBe(cfg);
@@ -715,7 +715,7 @@ describe("repairStaleConfiguredAuthOrders", () => {
     },
   );
 
-  it.each(["OPENCLAW_AGENT_DIR", "PI_CODING_AGENT_DIR"] as const)(
+  it.each(["GRANTED_AGENT_DIR", "PI_CODING_AGENT_DIR"] as const)(
     "preserves profiles in the %s-selected auth store",
     async (envKey) => {
       await withStateDir("openclaw-env-auth-order-", async (stateDir) => {
@@ -729,7 +729,7 @@ describe("repairStaleConfiguredAuthOrders", () => {
         const result = maybeRepairStaleConfiguredAuthOrders({
           cfg,
           env: {
-            OPENCLAW_STATE_DIR: stateDir,
+            GRANTED_STATE_DIR: stateDir,
             [envKey]: selectedAgentDir,
           },
         });
@@ -739,7 +739,7 @@ describe("repairStaleConfiguredAuthOrders", () => {
     },
   );
 
-  it("uses OPENCLAW_AGENT_DIR as the inherited shared-main auth store", async () => {
+  it("uses GRANTED_AGENT_DIR as the inherited shared-main auth store", async () => {
     await withStateDir("openclaw-main-auth-order-", async (stateDir) => {
       const sharedMainAgentDir = path.join(stateDir, "relocated-main-agent");
       writeTokenStore(sharedMainAgentDir, {
@@ -751,8 +751,8 @@ describe("repairStaleConfiguredAuthOrders", () => {
       const result = maybeRepairStaleConfiguredAuthOrders({
         cfg,
         env: {
-          OPENCLAW_AGENT_DIR: sharedMainAgentDir,
-          OPENCLAW_STATE_DIR: stateDir,
+          GRANTED_AGENT_DIR: sharedMainAgentDir,
+          GRANTED_STATE_DIR: stateDir,
         },
       });
 
@@ -803,7 +803,7 @@ describe("repairStaleConfiguredAuthOrders", () => {
 
       const result = maybeRepairStaleConfiguredAuthOrders({
         cfg,
-        env: { OPENCLAW_STATE_DIR: stateDir },
+        env: { GRANTED_STATE_DIR: stateDir },
       });
 
       expect(result).toEqual({ config: cfg, changes: [] });
@@ -824,7 +824,7 @@ describe("repairStaleConfiguredAuthOrders", () => {
 
       const result = maybeRepairStaleConfiguredAuthOrders({
         cfg,
-        env: { OPENCLAW_STATE_DIR: stateDir },
+        env: { GRANTED_STATE_DIR: stateDir },
       });
 
       expect(result.config).toBe(cfg);
@@ -834,7 +834,7 @@ describe("repairStaleConfiguredAuthOrders", () => {
         collectStaleConfiguredAuthOrderWarnings({
           cfg,
           doctorFixCommand: "openclaw doctor --fix",
-          env: { OPENCLAW_STATE_DIR: stateDir },
+          env: { GRANTED_STATE_DIR: stateDir },
         }).join("\n"),
       ).toContain("SQLite auth profile store is unreadable");
     });
@@ -859,7 +859,7 @@ describe("repairStaleConfiguredAuthOrders", () => {
 
         const result = maybeRepairStaleConfiguredAuthOrders({
           cfg,
-          env: { OPENCLAW_STATE_DIR: stateDir },
+          env: { GRANTED_STATE_DIR: stateDir },
         });
 
         expect(result.config).toBe(cfg);
@@ -891,7 +891,7 @@ describe("repairStaleConfiguredAuthOrders", () => {
 
         const result = maybeRepairStaleConfiguredAuthOrders({
           cfg,
-          env: { OPENCLAW_STATE_DIR: stateDir },
+          env: { GRANTED_STATE_DIR: stateDir },
         });
 
         expect(result.config).toBe(cfg);
@@ -913,7 +913,7 @@ describe("repairStaleConfiguredAuthOrders", () => {
 
       const result = maybeRepairStaleConfiguredAuthOrders({
         cfg,
-        env: { OPENCLAW_STATE_DIR: stateDir },
+        env: { GRANTED_STATE_DIR: stateDir },
       });
 
       expect(result.config).toBe(cfg);
@@ -924,7 +924,7 @@ describe("repairStaleConfiguredAuthOrders", () => {
 
   it("fails closed when a registered custom auth database is unreadable", async () => {
     await withStateDir("openclaw-custom-invalid-auth-", async (stateDir) => {
-      const env = { OPENCLAW_STATE_DIR: stateDir };
+      const env = { GRANTED_STATE_DIR: stateDir };
       writeTokenStore(path.join(stateDir, "agents", "main", "agent"), {
         profileId: "claude-cli:main-token",
       });
@@ -946,7 +946,7 @@ describe("repairStaleConfiguredAuthOrders", () => {
 
   it("fails closed when registered auth runtime state is unreadable without a secrets row", async () => {
     await withStateDir("openclaw-custom-state-auth-", async (stateDir) => {
-      const env = { OPENCLAW_STATE_DIR: stateDir };
+      const env = { GRANTED_STATE_DIR: stateDir };
       writeTokenStore(path.join(stateDir, "agents", "main", "agent"), {
         profileId: "claude-cli:main-token",
       });
@@ -981,7 +981,7 @@ describe("repairStaleConfiguredAuthOrders", () => {
 
   it("fails closed when a registered auth database owner no longer matches", async () => {
     await withStateDir("openclaw-custom-owner-auth-", async (stateDir) => {
-      const env = { OPENCLAW_STATE_DIR: stateDir };
+      const env = { GRANTED_STATE_DIR: stateDir };
       writeTokenStore(path.join(stateDir, "agents", "main", "agent"), {
         profileId: "claude-cli:main-token",
       });
@@ -1007,7 +1007,7 @@ describe("repairStaleConfiguredAuthOrders", () => {
 
   it("uses the live owner after a registered database pathname is recreated", async () => {
     await withStateDir("openclaw-reowned-auth-", async (stateDir) => {
-      const env = { OPENCLAW_STATE_DIR: stateDir };
+      const env = { GRANTED_STATE_DIR: stateDir };
       writeTokenStore(path.join(stateDir, "agents", "main", "agent"), {
         profileId: "claude-cli:main-token",
       });
@@ -1035,7 +1035,7 @@ describe("repairStaleConfiguredAuthOrders", () => {
 
   it("fails closed when an active agent points at another agent's database", async () => {
     await withStateDir("openclaw-active-owner-auth-", async (stateDir) => {
-      const env = { OPENCLAW_STATE_DIR: stateDir };
+      const env = { GRANTED_STATE_DIR: stateDir };
       writeTokenStore(path.join(stateDir, "agents", "main", "agent"), {
         profileId: "claude-cli:main-token",
       });
@@ -1096,7 +1096,7 @@ describe("repairStaleConfiguredAuthOrders", () => {
 
       const result = maybeRepairStaleConfiguredAuthOrders({
         cfg,
-        env: { OPENCLAW_STATE_DIR: stateDir },
+        env: { GRANTED_STATE_DIR: stateDir },
       });
 
       expect(result.config).toBe(cfg);
@@ -1107,7 +1107,7 @@ describe("repairStaleConfiguredAuthOrders", () => {
 
   it("prefers a configured owner over the retained directory basename", async () => {
     await withStateDir("openclaw-renamed-owner-auth-", async (stateDir) => {
-      const env = { OPENCLAW_STATE_DIR: stateDir };
+      const env = { GRANTED_STATE_DIR: stateDir };
       writeTokenStore(path.join(stateDir, "agents", "main", "agent"), {
         profileId: "claude-cli:main-token",
       });
@@ -1133,7 +1133,7 @@ describe("repairStaleConfiguredAuthOrders", () => {
 
   it("uses durable ownership for a deconfigured relocated agent directory", async () => {
     await withStateDir("openclaw-relocated-owner-auth-", async (stateDir) => {
-      const env = { OPENCLAW_STATE_DIR: stateDir };
+      const env = { GRANTED_STATE_DIR: stateDir };
       writeTokenStore(path.join(stateDir, "agents", "main", "agent"), {
         profileId: "claude-cli:main-token",
       });
@@ -1160,7 +1160,7 @@ describe("repairStaleConfiguredAuthOrders", () => {
   it("fails closed when an environment-selected directory belongs to another agent", async () => {
     await withStateDir("openclaw-env-owner-auth-", async (stateDir) => {
       const envAgentDir = path.join(stateDir, "custom-env-agent");
-      const env = { OPENCLAW_STATE_DIR: stateDir, OPENCLAW_AGENT_DIR: envAgentDir };
+      const env = { GRANTED_STATE_DIR: stateDir, GRANTED_AGENT_DIR: envAgentDir };
       writeTokenStore(path.join(stateDir, "agents", "main", "agent"), {
         profileId: "claude-cli:main-token",
       });
@@ -1204,7 +1204,7 @@ describe("repairStaleConfiguredAuthOrders", () => {
 
       const result = maybeRepairStaleConfiguredAuthOrders({
         cfg,
-        env: { OPENCLAW_STATE_DIR: stateDir },
+        env: { GRANTED_STATE_DIR: stateDir },
       });
 
       expect(result.config).toBe(cfg);
@@ -1215,7 +1215,7 @@ describe("repairStaleConfiguredAuthOrders", () => {
 
   it("fails closed when a stale registered database leaves a SQLite sidecar", async () => {
     await withStateDir("openclaw-custom-sidecar-auth-", async (stateDir) => {
-      const env = { OPENCLAW_STATE_DIR: stateDir };
+      const env = { GRANTED_STATE_DIR: stateDir };
       writeTokenStore(path.join(stateDir, "agents", "main", "agent"), {
         profileId: "claude-cli:main-token",
       });
@@ -1242,7 +1242,7 @@ describe("repairStaleConfiguredAuthOrders", () => {
 
   it("ignores a stale registered auth database after its pathname is removed", async () => {
     await withStateDir("openclaw-custom-missing-auth-", async (stateDir) => {
-      const env = { OPENCLAW_STATE_DIR: stateDir };
+      const env = { GRANTED_STATE_DIR: stateDir };
       writeTokenStore(path.join(stateDir, "agents", "main", "agent"), {
         profileId: "claude-cli:main-token",
       });
@@ -1268,7 +1268,7 @@ describe("repairStaleConfiguredAuthOrders", () => {
     "fails closed on a dangling registered auth database symlink",
     async () => {
       await withStateDir("openclaw-custom-dangling-auth-", async (stateDir) => {
-        const env = { OPENCLAW_STATE_DIR: stateDir };
+        const env = { GRANTED_STATE_DIR: stateDir };
         writeTokenStore(path.join(stateDir, "agents", "main", "agent"), {
           profileId: "claude-cli:main-token",
         });
@@ -1294,7 +1294,7 @@ describe("repairStaleConfiguredAuthOrders", () => {
     "fails closed on a dangling registered auth database parent symlink",
     async () => {
       await withStateDir("openclaw-custom-dangling-parent-auth-", async (stateDir) => {
-        const env = { OPENCLAW_STATE_DIR: stateDir };
+        const env = { GRANTED_STATE_DIR: stateDir };
         writeTokenStore(path.join(stateDir, "agents", "main", "agent"), {
           profileId: "claude-cli:main-token",
         });
@@ -1343,7 +1343,7 @@ describe("repairStaleConfiguredAuthOrders", () => {
 
       const result = maybeRepairStaleConfiguredAuthOrders({
         cfg,
-        env: { OPENCLAW_STATE_DIR: stateDir },
+        env: { GRANTED_STATE_DIR: stateDir },
       });
 
       expect(result.config).toBe(cfg);
@@ -1365,7 +1365,7 @@ describe("repairStaleConfiguredAuthOrders", () => {
 
       const result = maybeRepairStaleConfiguredAuthOrders({
         cfg,
-        env: { OPENCLAW_STATE_DIR: stateDir },
+        env: { GRANTED_STATE_DIR: stateDir },
       });
 
       expect(result.config.auth?.order?.anthropic).toBeUndefined();
@@ -1389,7 +1389,7 @@ describe("repairStaleConfiguredAuthOrders", () => {
 
       const result = maybeRepairStaleConfiguredAuthOrders({
         cfg,
-        env: { OPENCLAW_STATE_DIR: stateDir },
+        env: { GRANTED_STATE_DIR: stateDir },
       });
 
       expect(result.config.auth?.order?.anthropic).toBeUndefined();
@@ -1410,7 +1410,7 @@ describe("repairStaleConfiguredAuthOrders", () => {
 
       const result = maybeRepairStaleConfiguredAuthOrders({
         cfg,
-        env: { OPENCLAW_STATE_DIR: stateDir },
+        env: { GRANTED_STATE_DIR: stateDir },
       });
 
       expect(result).toEqual({ config: cfg, changes: [] });

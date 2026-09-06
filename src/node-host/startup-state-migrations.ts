@@ -46,7 +46,7 @@ export async function runStartupMigrations(params?: {
   log?: MigrationLogger;
 }): Promise<void> {
   const stateDir = resolveStateDir(params?.env);
-  const env = { ...(params?.env ?? process.env), OPENCLAW_STATE_DIR: stateDir };
+  const env = { ...(params?.env ?? process.env), GRANTED_STATE_DIR: stateDir };
   const log = params?.log ?? createSubsystemLogger("node-host/startup-migrations");
 
   // Native clients can create version-zero tables before this node starts.

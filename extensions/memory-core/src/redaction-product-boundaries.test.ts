@@ -27,8 +27,8 @@ const RAW_PROMOTION_SECRET = "OPENAI_API_KEY=sk-fedcba0987654321"; // pragma: al
 async function createWorkspace(prefix: string): Promise<string> {
   const workspaceDir = await createTempWorkspace(prefix);
   await fs.mkdir(path.join(workspaceDir, "memory"), { recursive: true });
-  vi.stubEnv("OPENCLAW_STATE_DIR", path.join(workspaceDir, ".state"));
-  vi.stubEnv("OPENCLAW_TEST_FAST", "1");
+  vi.stubEnv("GRANTED_STATE_DIR", path.join(workspaceDir, ".state"));
+  vi.stubEnv("GRANTED_TEST_FAST", "1");
   clearRuntimeConfigSnapshot();
   return workspaceDir;
 }

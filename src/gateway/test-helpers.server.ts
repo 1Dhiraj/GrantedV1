@@ -83,19 +83,19 @@ const GATEWAY_TEST_ENV_KEYS = [
   "HOME",
   "USERPROFILE",
   ...GATEWAY_STARTUP_MUTATED_ENV_KEYS,
-  "OPENCLAW_STATE_DIR",
-  "OPENCLAW_CONFIG_PATH",
-  "OPENCLAW_AGENT_DIR",
-  "OPENCLAW_GATEWAY_TOKEN",
-  "OPENCLAW_SKIP_BROWSER_CONTROL_SERVER",
-  "OPENCLAW_SKIP_GMAIL_WATCHER",
-  "OPENCLAW_SKIP_CANVAS_HOST",
-  "OPENCLAW_BUNDLED_PLUGINS_DIR",
-  "OPENCLAW_DISABLE_BUNDLED_PLUGINS",
-  "OPENCLAW_SKIP_CHANNELS",
-  "OPENCLAW_SKIP_PROVIDERS",
-  "OPENCLAW_SKIP_CRON",
-  "OPENCLAW_TEST_MINIMAL_GATEWAY",
+  "GRANTED_STATE_DIR",
+  "GRANTED_CONFIG_PATH",
+  "GRANTED_AGENT_DIR",
+  "GRANTED_GATEWAY_TOKEN",
+  "GRANTED_SKIP_BROWSER_CONTROL_SERVER",
+  "GRANTED_SKIP_GMAIL_WATCHER",
+  "GRANTED_SKIP_CANVAS_HOST",
+  "GRANTED_BUNDLED_PLUGINS_DIR",
+  "GRANTED_DISABLE_BUNDLED_PLUGINS",
+  "GRANTED_SKIP_CHANNELS",
+  "GRANTED_SKIP_PROVIDERS",
+  "GRANTED_SKIP_CRON",
+  "GRANTED_TEST_MINIMAL_GATEWAY",
 ] as const;
 
 let gatewayEnvSnapshot: ReturnType<typeof captureEnv> | undefined;
@@ -147,11 +147,11 @@ function hasUnsyncedGatewayTestSessionConfig(): boolean {
 
 async function persistTestSessionConfig(): Promise<void> {
   const configPaths = new Set<string>();
-  if (process.env.OPENCLAW_CONFIG_PATH) {
-    configPaths.add(process.env.OPENCLAW_CONFIG_PATH);
+  if (process.env.GRANTED_CONFIG_PATH) {
+    configPaths.add(process.env.GRANTED_CONFIG_PATH);
   }
-  if (process.env.OPENCLAW_STATE_DIR) {
-    configPaths.add(path.join(process.env.OPENCLAW_STATE_DIR, "openclaw.json"));
+  if (process.env.GRANTED_STATE_DIR) {
+    configPaths.add(path.join(process.env.GRANTED_STATE_DIR, "openclaw.json"));
   }
   const parsedConfigs = new Map<string, Record<string, unknown>>();
   let preservedTemplateStore: string | undefined;
@@ -328,21 +328,21 @@ async function setupGatewayTestHome() {
   tempHome = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-gateway-home-"));
   process.env.HOME = tempHome;
   process.env.USERPROFILE = tempHome;
-  process.env.OPENCLAW_STATE_DIR = path.join(tempHome, ".openclaw");
-  delete process.env.OPENCLAW_CONFIG_PATH;
-  delete process.env.OPENCLAW_AGENT_DIR;
+  process.env.GRANTED_STATE_DIR = path.join(tempHome, ".openclaw");
+  delete process.env.GRANTED_CONFIG_PATH;
+  delete process.env.GRANTED_AGENT_DIR;
 }
 
 function applyGatewaySkipEnv() {
-  process.env.OPENCLAW_SKIP_BROWSER_CONTROL_SERVER = "1";
-  process.env.OPENCLAW_SKIP_GMAIL_WATCHER = "1";
-  process.env.OPENCLAW_SKIP_CANVAS_HOST = "1";
-  process.env.OPENCLAW_SKIP_CHANNELS = "1";
-  process.env.OPENCLAW_SKIP_PROVIDERS = "1";
-  process.env.OPENCLAW_SKIP_CRON = "1";
-  process.env.OPENCLAW_TEST_MINIMAL_GATEWAY = "1";
-  process.env.OPENCLAW_DISABLE_BUNDLED_PLUGINS = "1";
-  process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = tempHome
+  process.env.GRANTED_SKIP_BROWSER_CONTROL_SERVER = "1";
+  process.env.GRANTED_SKIP_GMAIL_WATCHER = "1";
+  process.env.GRANTED_SKIP_CANVAS_HOST = "1";
+  process.env.GRANTED_SKIP_CHANNELS = "1";
+  process.env.GRANTED_SKIP_PROVIDERS = "1";
+  process.env.GRANTED_SKIP_CRON = "1";
+  process.env.GRANTED_TEST_MINIMAL_GATEWAY = "1";
+  process.env.GRANTED_DISABLE_BUNDLED_PLUGINS = "1";
+  process.env.GRANTED_BUNDLED_PLUGINS_DIR = tempHome
     ? path.join(tempHome, "openclaw-test-no-bundled-extensions")
     : "openclaw-test-no-bundled-extensions";
 }
@@ -426,10 +426,10 @@ async function resetGatewayTestState(options: { uniqueConfigRoot: boolean }) {
     throw new Error("resetGatewayTestState called before temp home was initialized");
   }
   applyGatewaySkipEnv();
-  delete process.env.OPENCLAW_GATEWAY_TOKEN;
+  delete process.env.GRANTED_GATEWAY_TOKEN;
   resetTaskRegistryForTests({ persist: false });
   resetTaskFlowRegistryForTests({ persist: false });
-  const stateDir = process.env.OPENCLAW_STATE_DIR;
+  const stateDir = process.env.GRANTED_STATE_DIR;
   if (stateDir) {
     await fs.rm(stateDir, {
       recursive: true,
@@ -519,7 +519,7 @@ async function resetGatewayTestRuntimeOnly() {
   resetGatewayLifecycleTestState({ preserveRuntimeBindings: true });
   setLoggerOverride({ level: "silent", consoleLevel: "silent" });
   applyGatewaySkipEnv();
-  delete process.env.OPENCLAW_GATEWAY_TOKEN;
+  delete process.env.GRANTED_GATEWAY_TOKEN;
   resetConfigRuntimeState();
   invalidateSessionSharingSnapshot();
   resetTestPluginRegistry();
@@ -537,7 +537,7 @@ export async function prepareGatewayReplyRuntimeForTest(options?: {
   force?: boolean;
 }): Promise<void> {
   if (
-    process.env.OPENCLAW_TEST_MINIMAL_GATEWAY !== "1" ||
+    process.env.GRANTED_TEST_MINIMAL_GATEWAY !== "1" ||
     (!options?.force && gatewayReplyRuntimePrepared)
   ) {
     return;
@@ -723,7 +723,7 @@ export async function startTestGatewayServer(port: number, opts?: GatewayServerO
   };
   if (
     resolvedOpts.controlUiEnabled &&
-    process.env.OPENCLAW_TEST_MINIMAL_GATEWAY === "1" &&
+    process.env.GRANTED_TEST_MINIMAL_GATEWAY === "1" &&
     tempControlUiRoot &&
     typeof (testState.gatewayControlUi as { root?: unknown } | undefined)?.root !== "string"
   ) {
@@ -859,8 +859,8 @@ export async function createGatewaySuiteHarness(opts?: {
 
 export async function startServer(token?: string, opts?: GatewayServerOptions) {
   let port = await getGatewayTestPort();
-  const envSnapshot = captureEnv(["OPENCLAW_GATEWAY_TOKEN"]);
-  const prev = process.env.OPENCLAW_GATEWAY_TOKEN;
+  const envSnapshot = captureEnv(["GRANTED_GATEWAY_TOKEN"]);
+  const prev = process.env.GRANTED_GATEWAY_TOKEN;
   if (typeof token === "string") {
     testState.gatewayAuth = { mode: "token", token };
   }
@@ -870,9 +870,9 @@ export async function startServer(token?: string, opts?: GatewayServerOptions) {
       ? (testState.gatewayAuth as { token?: string }).token
       : undefined);
   if (fallbackToken === undefined) {
-    delete process.env.OPENCLAW_GATEWAY_TOKEN;
+    delete process.env.GRANTED_GATEWAY_TOKEN;
   } else {
-    process.env.OPENCLAW_GATEWAY_TOKEN = fallbackToken;
+    process.env.GRANTED_GATEWAY_TOKEN = fallbackToken;
   }
 
   const resolvedGatewayOpts: GatewayServerOptions =
@@ -931,7 +931,7 @@ function resolveDefaultTestDeviceIdentityPath(params: {
       "_",
     ),
   );
-  const suiteRoot = process.env.OPENCLAW_STATE_DIR ?? process.env.HOME ?? os.tmpdir();
+  const suiteRoot = process.env.GRANTED_STATE_DIR ?? process.env.HOME ?? os.tmpdir();
   return path.join(suiteRoot, "test-device-identities", `${safe}.sqlite`);
 }
 
@@ -1103,13 +1103,13 @@ export async function connectReq(
       ? undefined
       : typeof (testState.gatewayAuth as { token?: unknown } | undefined)?.token === "string"
         ? ((testState.gatewayAuth as { token?: string }).token ?? undefined)
-        : process.env.OPENCLAW_GATEWAY_TOKEN;
+        : process.env.GRANTED_GATEWAY_TOKEN;
   const defaultPassword =
     opts?.skipDefaultAuth === true
       ? undefined
       : typeof (testState.gatewayAuth as { password?: unknown } | undefined)?.password === "string"
         ? ((testState.gatewayAuth as { password?: string }).password ?? undefined)
-        : process.env.OPENCLAW_GATEWAY_PASSWORD;
+        : process.env.GRANTED_GATEWAY_PASSWORD;
   const token = opts?.token ?? defaultToken;
   const bootstrapToken = normalizeOptionalString(opts?.bootstrapToken);
   const deviceToken = normalizeOptionalString(opts?.deviceToken);

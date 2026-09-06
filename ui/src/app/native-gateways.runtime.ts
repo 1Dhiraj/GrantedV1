@@ -12,7 +12,7 @@ type NativeGatewaysMessage =
   | { type: "select" | "open-window" | "set-primary"; id: string }
   | { type: "open-settings" };
 type NativeGatewaysWindow = Window & {
-  __OPENCLAW_NATIVE_GATEWAYS__?: unknown;
+  __GRANTED_NATIVE_GATEWAYS__?: unknown;
   webkit?: {
     messageHandlers?: { openclawGateways?: { postMessage(message: NativeGatewaysMessage): void } };
   };
@@ -52,7 +52,7 @@ function createNativeGatewaysCapability(): NativeGatewaysCapability | null {
   const post = handler.postMessage.bind(handler);
   const postWithId = (type: "select" | "open-window" | "set-primary", id: string) =>
     post({ type, id });
-  let snapshot = snapshotFrom(nativeWindow["__OPENCLAW_NATIVE_GATEWAYS__"]);
+  let snapshot = snapshotFrom(nativeWindow["__GRANTED_NATIVE_GATEWAYS__"]);
   const listeners = new Set<(snapshot: NativeGatewaysSnapshot) => void>();
   const onChange = (event: Event) => {
     const next = snapshotFrom((event as CustomEvent<unknown>).detail);

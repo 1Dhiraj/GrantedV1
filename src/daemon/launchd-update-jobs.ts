@@ -6,7 +6,8 @@ import {
 } from "@openclaw/normalization-core/number-coercion";
 import {
   GATEWAY_SERVICE_KIND,
-  GATEWAY_SERVICE_MARKER,
+  GATEWAY_SERVICE_MARKERS,
+  isGatewayServiceMarker,
   resolveGatewayLaunchAgentLabel,
 } from "./constants.js";
 import { isCurrentProcessLaunchdServiceLabel } from "./launchd-current-service.js";
@@ -16,13 +17,18 @@ import { readLaunchAgentProgramArgumentsFromFile } from "./launchd-plist.js";
 import { resolveLaunchAgentGuiDomain } from "./launchd-runtime.js";
 import { resolveLaunchAgentPlistPathForLabel } from "./launchd-service-files.js";
 
-const OPENCLAW_UPDATE_LAUNCHD_LABEL_PREFIX = "ai.openclaw.update.";
-const MANUAL_UPDATE_LAUNCHD_LABEL_PATTERN = /^ai\.openclaw\.manual-update\.\d+$/;
-const OPENCLAW_PROFILE_UPDATE_LAUNCHD_LABEL_PATTERN =
-  /^ai\.openclaw\.[A-Za-z0-9._-]+\.update\.[A-Za-z0-9._-]+$/;
-const OPENCLAW_DIRECT_CLI_NAMES = new Set(["openclaw", "openclaw.mjs"]);
-const OPENCLAW_NODE_RUNTIME_NAMES = new Set(["bun", "bun.exe", "node", "node.exe"]);
-const OPENCLAW_SCRIPT_NAMES = new Set(["openclaw.mjs"]);
+// Update jobs installed under any product name this project has used: stale
+// ones from before a rename still have to be found and cleaned up.
+const UPDATE_LAUNCHD_LABEL_PREFIXES = GATEWAY_SERVICE_MARKERS.map(
+  (marker) => `ai.${marker}.update.`,
+);
+const MANUAL_UPDATE_LAUNCHD_LABEL_PATTERN =
+  /^ai\.(?:granted|openclaw|clawdbot)\.manual-update\.\d+$/;
+const GRANTED_PROFILE_UPDATE_LAUNCHD_LABEL_PATTERN =
+  /^ai\.(?:granted|openclaw|clawdbot)\.[A-Za-z0-9._-]+\.update\.[A-Za-z0-9._-]+$/;
+const GRANTED_DIRECT_CLI_NAMES = new Set(["granted", "granted.mjs", "openclaw", "openclaw.mjs"]);
+const GRANTED_NODE_RUNTIME_NAMES = new Set(["bun", "bun.exe", "node", "node.exe"]);
+const GRANTED_SCRIPT_NAMES = new Set(["granted.mjs", "openclaw.mjs"]);
 export type StaleOpenClawUpdateLaunchdJob = {
   label: string;
   pid?: number;
@@ -39,11 +45,11 @@ function normalizeOpenClawUpdateLaunchdLabel(label: unknown): string | null {
     return null;
   }
   const trimmed = label.trim();
-  if (trimmed.startsWith(OPENCLAW_UPDATE_LAUNCHD_LABEL_PREFIX)) {
+  if (UPDATE_LAUNCHD_LABEL_PREFIXES.some((prefix) => trimmed.startsWith(prefix))) {
     return trimmed;
   }
   // Manual update jobs include a timestamp-like suffix and should be cleaned up
-  // without matching arbitrary ai.openclaw labels.
+  // without matching arbitrary product-namespaced labels.
   return MANUAL_UPDATE_LAUNCHD_LABEL_PATTERN.test(trimmed) ? trimmed : null;
 }
 
@@ -58,23 +64,23 @@ function normalizeOpenClawUpdateLaunchdLabelCandidate(
     return null;
   }
   const trimmed = label.trim();
-  return OPENCLAW_PROFILE_UPDATE_LAUNCHD_LABEL_PATTERN.test(trimmed)
+  return GRANTED_PROFILE_UPDATE_LAUNCHD_LABEL_PATTERN.test(trimmed)
     ? { label: trimmed, requiresMetadata: true }
     : null;
 }
 
 function isCurrentGatewayLaunchdLabel(label: string, env: NodeJS.ProcessEnv): boolean {
-  const gatewayProfileLabel = resolveGatewayLaunchAgentLabel(env.OPENCLAW_PROFILE);
+  const gatewayProfileLabel = resolveGatewayLaunchAgentLabel(env.GRANTED_PROFILE);
   if (label === gatewayProfileLabel) {
     return true;
   }
   if (
-    env.OPENCLAW_SERVICE_MARKER?.trim() !== GATEWAY_SERVICE_MARKER ||
-    env.OPENCLAW_SERVICE_KIND?.trim() !== GATEWAY_SERVICE_KIND
+    !isGatewayServiceMarker(env.GRANTED_SERVICE_MARKER) ||
+    env.GRANTED_SERVICE_KIND?.trim() !== GATEWAY_SERVICE_KIND
   ) {
     return false;
   }
-  const configuredLabel = env.OPENCLAW_LAUNCHD_LABEL?.trim();
+  const configuredLabel = env.GRANTED_LAUNCHD_LABEL?.trim();
   return Boolean(configuredLabel && label === configuredLabel);
 }
 
@@ -85,7 +91,7 @@ function resolveCurrentOpenClawUpdateLaunchdJobLabel(
     env.LAUNCH_JOB_LABEL,
     env.LAUNCH_JOB_NAME,
     env.XPC_SERVICE_NAME,
-    env.OPENCLAW_LAUNCHD_LABEL,
+    env.GRANTED_LAUNCHD_LABEL,
   ]) {
     const candidate = normalizeOpenClawUpdateLaunchdLabelCandidate(label);
     if (candidate) {
@@ -134,20 +140,20 @@ function parseLaunchctlListOpenClawUpdateJobCandidates(
 }
 
 function hasOpenClawUpdateLaunchdMarker(env: Record<string, string | undefined> | undefined) {
-  return env?.OPENCLAW_UPDATE_RUN_HANDOFF?.trim() === "1";
+  return env?.GRANTED_UPDATE_RUN_HANDOFF?.trim() === "1";
 }
 
 function isOpenClawUpdateCommandPrefix(programArguments: string[], updateIndex: number): boolean {
   if (updateIndex === 1) {
     const cliName = path.basename(programArguments[0] ?? "").toLowerCase();
-    return OPENCLAW_DIRECT_CLI_NAMES.has(cliName);
+    return GRANTED_DIRECT_CLI_NAMES.has(cliName);
   }
   if (updateIndex !== 2) {
     return false;
   }
   const runtimeName = path.basename(programArguments[0] ?? "").toLowerCase();
   const entryName = path.basename(programArguments[1] ?? "").toLowerCase();
-  return OPENCLAW_NODE_RUNTIME_NAMES.has(runtimeName) && OPENCLAW_SCRIPT_NAMES.has(entryName);
+  return GRANTED_NODE_RUNTIME_NAMES.has(runtimeName) && GRANTED_SCRIPT_NAMES.has(entryName);
 }
 
 function isOpenClawUpdateProgramArguments(programArguments: string[] | undefined): boolean {

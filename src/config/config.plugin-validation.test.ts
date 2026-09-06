@@ -136,10 +136,10 @@ describe("config plugin validation", () => {
   const suiteEnv = () =>
     ({
       HOME: suiteHome,
-      OPENCLAW_HOME: undefined,
-      OPENCLAW_STATE_DIR: path.join(suiteHome, ".openclaw"),
-      OPENCLAW_BUNDLED_PLUGINS_DIR: undefined,
-      OPENCLAW_VERSION: undefined,
+      GRANTED_HOME: undefined,
+      GRANTED_STATE_DIR: path.join(suiteHome, ".openclaw"),
+      GRANTED_BUNDLED_PLUGINS_DIR: undefined,
+      GRANTED_VERSION: undefined,
       VITEST: "true",
     }) satisfies NodeJS.ProcessEnv;
 
@@ -1890,7 +1890,7 @@ describe("config plugin validation", () => {
       {
         env: {
           ...suiteEnv(),
-          OPENCLAW_BUNDLED_PLUGINS_DIR: path.join(suiteHome, "missing-bundled-plugins"),
+          GRANTED_BUNDLED_PLUGINS_DIR: path.join(suiteHome, "missing-bundled-plugins"),
         },
       },
     );
@@ -2074,7 +2074,7 @@ describe("config plugin validation", () => {
     const options = {
       env: {
         ...suiteEnv(),
-        OPENCLAW_BUNDLED_PLUGINS_DIR: path.join(process.cwd(), "extensions"),
+        GRANTED_BUNDLED_PLUGINS_DIR: path.join(process.cwd(), "extensions"),
       },
     };
 
@@ -2117,7 +2117,7 @@ describe("config plugin validation", () => {
       {
         env: {
           ...suiteEnv(),
-          OPENCLAW_BUNDLED_PLUGINS_DIR: path.join(process.cwd(), "extensions"),
+          GRANTED_BUNDLED_PLUGINS_DIR: path.join(process.cwd(), "extensions"),
         },
       },
     );
@@ -2160,7 +2160,7 @@ describe("config plugin validation", () => {
       {
         env: {
           ...suiteEnv(),
-          OPENCLAW_BUNDLED_PLUGINS_DIR: path.join(process.cwd(), "extensions"),
+          GRANTED_BUNDLED_PLUGINS_DIR: path.join(process.cwd(), "extensions"),
         },
       },
     );
@@ -2210,7 +2210,7 @@ describe("config plugin validation", () => {
       {
         env: {
           ...suiteEnv(),
-          OPENCLAW_BUNDLED_PLUGINS_DIR: path.join(process.cwd(), "extensions"),
+          GRANTED_BUNDLED_PLUGINS_DIR: path.join(process.cwd(), "extensions"),
         },
       },
     );

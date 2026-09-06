@@ -18,7 +18,7 @@ const configuredProfile = {
     ttl: "24h",
     idleTimeout: "60m",
     setup: "install-node",
-    setupEnv: ["OPENCLAW_WORKER_ARTIFACT_TOKEN"],
+    setupEnv: ["GRANTED_WORKER_ARTIFACT_TOKEN"],
     desktop: true,
     binary: "/opt/crabbox",
     region: "eu-west-1",

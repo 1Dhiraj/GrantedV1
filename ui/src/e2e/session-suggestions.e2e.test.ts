@@ -15,7 +15,7 @@ const sessionKey = "agent:main:main";
 
 let proofArtifactDir: string | undefined;
 beforeEach(() => {
-  const parent = process.env.OPENCLAW_CONTROL_UI_E2E_ARTIFACT_DIR?.trim();
+  const parent = process.env.GRANTED_CONTROL_UI_E2E_ARTIFACT_DIR?.trim();
   proofArtifactDir = parent
     ? createControlUiE2eArtifactDir("session-suggestions", parent)
     : undefined;

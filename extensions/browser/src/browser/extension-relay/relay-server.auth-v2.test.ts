@@ -355,9 +355,9 @@ describe.sequential("extension relay HTTP auth v2", () => {
   let handle: ExtensionRelayHandle | null = null;
 
   beforeEach(async () => {
-    previousStateDir = process.env.OPENCLAW_STATE_DIR;
+    previousStateDir = process.env.GRANTED_STATE_DIR;
     stateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-relay-auth-v2-"));
-    process.env.OPENCLAW_STATE_DIR = stateDir;
+    process.env.GRANTED_STATE_DIR = stateDir;
     await fs.mkdir(path.join(stateDir, "credentials"), { recursive: true });
     await fs.writeFile(
       path.join(stateDir, "credentials", "browser-extension-relay.secret"),
@@ -374,9 +374,9 @@ describe.sequential("extension relay HTTP auth v2", () => {
     handle = null;
     invalidateBrowserRelayAuthV2Authority();
     if (previousStateDir === undefined) {
-      delete process.env.OPENCLAW_STATE_DIR;
+      delete process.env.GRANTED_STATE_DIR;
     } else {
-      process.env.OPENCLAW_STATE_DIR = previousStateDir;
+      process.env.GRANTED_STATE_DIR = previousStateDir;
     }
     await fs.rm(stateDir, { recursive: true, force: true });
   });

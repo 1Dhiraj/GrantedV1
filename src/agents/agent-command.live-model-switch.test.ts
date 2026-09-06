@@ -1339,7 +1339,7 @@ describe("agentCommand – LiveSessionModelSwitchError retry", () => {
         await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-command-recovery-start-")),
       );
       try {
-        await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () => {
+        await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {
           const sessionKey = "agent:default:main";
           const storePath = path.join(stateDir, "agents", "default", "sessions", "sessions.json");
           const runId = "recovery-run";

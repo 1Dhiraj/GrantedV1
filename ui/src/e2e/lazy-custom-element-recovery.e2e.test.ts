@@ -24,8 +24,8 @@ beforeEach(() => {
     artifactDir = createControlUiE2eArtifactDir("lazy-custom-element-recovery");
   }
 });
-const captureUiProof = process.env.OPENCLAW_CAPTURE_UI_PROOF === "1";
-const railProofDirParent = process.env.OPENCLAW_UI_RAIL_PROOF_DIR?.trim();
+const captureUiProof = process.env.GRANTED_CAPTURE_UI_PROOF === "1";
+const railProofDirParent = process.env.GRANTED_UI_RAIL_PROOF_DIR?.trim();
 let railProofDir: string | undefined;
 beforeEach(() => {
   railProofDir = railProofDirParent

@@ -33,9 +33,9 @@ function runAssertionCommand(command: string, root: string, env: Record<string, 
       EXPECTED_SLUG: "live-plugin-slug",
       HOME: root,
       MODEL_REF: "openai/gpt-5.5",
-      OPENCLAW_LIVE_PLUGIN_TOOL_AGENT_ERROR_PATH: path.join(root, "agent.err"),
-      OPENCLAW_LIVE_PLUGIN_TOOL_AGENT_OUTPUT_PATH: path.join(root, "agent.json"),
-      OPENCLAW_STATE_DIR: path.join(root, "state"),
+      GRANTED_LIVE_PLUGIN_TOOL_AGENT_ERROR_PATH: path.join(root, "agent.err"),
+      GRANTED_LIVE_PLUGIN_TOOL_AGENT_OUTPUT_PATH: path.join(root, "agent.json"),
+      GRANTED_STATE_DIR: path.join(root, "state"),
       PLUGIN_ID: "e2e-live-plugin-tool",
       PLUGIN_NAME: "@openclaw/e2e-live-plugin-tool",
       PLUGIN_VERSION: "1.0.0",
@@ -52,11 +52,11 @@ describe("live plugin tool assertions", () => {
     const root = mkdtempSync(path.join(tmpdir(), "openclaw-live-plugin-tool-"));
     try {
       const result = runAssertionCommand("configure", root, {
-        OPENCLAW_LIVE_PLUGIN_TOOL_TIMEOUT_SECONDS: "1e3",
+        GRANTED_LIVE_PLUGIN_TOOL_TIMEOUT_SECONDS: "1e3",
       });
 
       expect(result.status).not.toBe(0);
-      expect(result.stderr).toContain("invalid OPENCLAW_LIVE_PLUGIN_TOOL_TIMEOUT_SECONDS: 1e3");
+      expect(result.stderr).toContain("invalid GRANTED_LIVE_PLUGIN_TOOL_TIMEOUT_SECONDS: 1e3");
     } finally {
       rmSync(root, { force: true, recursive: true });
     }
@@ -66,7 +66,7 @@ describe("live plugin tool assertions", () => {
     const root = mkdtempSync(path.join(tmpdir(), "openclaw-live-plugin-tool-"));
     try {
       const result = runAssertionCommand("configure", root, {
-        OPENCLAW_LIVE_PLUGIN_TOOL_TIMEOUT_SECONDS: "240",
+        GRANTED_LIVE_PLUGIN_TOOL_TIMEOUT_SECONDS: "240",
       });
 
       expect(result.status, result.stderr).toBe(0);
@@ -278,7 +278,7 @@ describe("live plugin tool assertions", () => {
       }
 
       const result = runAssertion(root, {
-        OPENCLAW_LIVE_PLUGIN_TOOL_SESSION_SCAN_MAX_ENTRIES: "2",
+        GRANTED_LIVE_PLUGIN_TOOL_SESSION_SCAN_MAX_ENTRIES: "2",
       });
 
       expect(result.status).not.toBe(0);
@@ -386,7 +386,7 @@ describe("live plugin tool assertions", () => {
       writeFileSync(path.join(root, "agent.err"), "recent stderr tail\n", "utf8");
 
       const result = runAssertion(root, {
-        OPENCLAW_LIVE_PLUGIN_TOOL_AGENT_OUTPUT_MAX_BYTES: "1024",
+        GRANTED_LIVE_PLUGIN_TOOL_AGENT_OUTPUT_MAX_BYTES: "1024",
       });
 
       expect(result.status).not.toBe(0);

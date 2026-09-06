@@ -284,7 +284,7 @@ describe("collectLegacyCronStoreHealthFindings", () => {
 
   it("attributes SQLite-only cron findings to the canonical state database", async () => {
     const storePath = await makeTempStorePath();
-    vi.stubEnv("OPENCLAW_STATE_DIR", path.dirname(path.dirname(storePath)));
+    vi.stubEnv("GRANTED_STATE_DIR", path.dirname(path.dirname(storePath)));
     await writeCurrentCronStore(storePath, [createCurrentCronJob({ notify: true })]);
 
     const findings = await collectLegacyCronStoreHealthFindings({ cfg: {} });
@@ -343,7 +343,7 @@ describe("collectLegacyCronStoreHealthFindings", () => {
 
   it("reports a legacy quarantine sidecar without creating or modifying a SQLite database", async () => {
     const storePath = await makeTempStorePath();
-    vi.stubEnv("OPENCLAW_STATE_DIR", path.dirname(path.dirname(storePath)));
+    vi.stubEnv("GRANTED_STATE_DIR", path.dirname(path.dirname(storePath)));
     const quarantinePath = resolveLegacyCronQuarantinePath(storePath);
     await fs.mkdir(path.dirname(quarantinePath), { recursive: true });
     const historicalBytes = JSON.stringify({
@@ -793,7 +793,7 @@ describe("maybeRepairLegacyCronStore", () => {
 
   it("recovers a valid quarantined schedule only after Doctor confirmation", async () => {
     const storePath = await makeTempStorePath();
-    vi.stubEnv("OPENCLAW_STATE_DIR", path.dirname(path.dirname(storePath)));
+    vi.stubEnv("GRANTED_STATE_DIR", path.dirname(path.dirname(storePath)));
     await writeCurrentCronStore(storePath, []);
     saveCronQuarantinedJobs({
       storePath,

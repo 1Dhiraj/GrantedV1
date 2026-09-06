@@ -51,7 +51,7 @@ describe("OpenClaw source performance isolation", () => {
     const sliceStart = run.indexOf(sliceStartMarker);
     const sliceEndMarkerIndex = run.indexOf(sliceEndMarker, sliceStart);
     const workflowSlice = run.slice(sliceStart, sliceEndMarkerIndex + sliceEndMarker.length);
-    const cronEnv = "OPENCLAW_SKIP_CRON";
+    const cronEnv = "GRANTED_SKIP_CRON";
     const joinedSliceContinuations = workflowSlice.replace(/\\\s*\n/g, " ");
     const gatewayConfigHeredocTargets = joinedSliceContinuations
       .split("\n")
@@ -70,8 +70,8 @@ describe("OpenClaw source performance isolation", () => {
     expect(
       workflowSlice.slice(configHeredocStart, configHeredocEnd).split("${catalog_refresh_config}"),
     ).toHaveLength(2);
-    expect(workflowSlice.match(/OPENCLAW_SKIP_CRON/g) ?? []).toHaveLength(1);
-    expect(workflowSlice.match(/OPENCLAW_SKIP_CHANNELS/g) ?? []).toHaveLength(1);
+    expect(workflowSlice.match(/GRANTED_SKIP_CRON/g) ?? []).toHaveLength(1);
+    expect(workflowSlice.match(/GRANTED_SKIP_CHANNELS/g) ?? []).toHaveLength(1);
 
     const fixtureRoot = tempDirs.make("openclaw-performance-isolation-");
     const binDir = join(fixtureRoot, "bin");
@@ -82,13 +82,13 @@ describe("OpenClaw source performance isolation", () => {
 set -eu
 record_env() {
   {
-    printf 'OPENCLAW_HOME=%s\\n' "\${OPENCLAW_HOME-<unset>}"
-    printf 'OPENCLAW_STATE_DIR=%s\\n' "\${OPENCLAW_STATE_DIR-<unset>}"
-    printf 'OPENCLAW_CONFIG_PATH=%s\\n' "\${OPENCLAW_CONFIG_PATH-<unset>}"
-    printf 'OPENCLAW_GATEWAY_PORT=%s\\n' "\${OPENCLAW_GATEWAY_PORT-<unset>}"
-    printf 'OPENCLAW_GATEWAY_TOKEN=%s\\n' "\${OPENCLAW_GATEWAY_TOKEN-<unset>}"
-    printf 'OPENCLAW_SKIP_CHANNELS=%s\\n' "\${OPENCLAW_SKIP_CHANNELS-<unset>}"
-    printf 'OPENCLAW_SKIP_CRON=%s\\n' "\${OPENCLAW_SKIP_CRON-<unset>}"
+    printf 'GRANTED_HOME=%s\\n' "\${GRANTED_HOME-<unset>}"
+    printf 'GRANTED_STATE_DIR=%s\\n' "\${GRANTED_STATE_DIR-<unset>}"
+    printf 'GRANTED_CONFIG_PATH=%s\\n' "\${GRANTED_CONFIG_PATH-<unset>}"
+    printf 'GRANTED_GATEWAY_PORT=%s\\n' "\${GRANTED_GATEWAY_PORT-<unset>}"
+    printf 'GRANTED_GATEWAY_TOKEN=%s\\n' "\${GRANTED_GATEWAY_TOKEN-<unset>}"
+    printf 'GRANTED_SKIP_CHANNELS=%s\\n' "\${GRANTED_SKIP_CHANNELS-<unset>}"
+    printf 'GRANTED_SKIP_CRON=%s\\n' "\${GRANTED_SKIP_CRON-<unset>}"
   } > "$CAPTURE_DIR/$1.env"
 }
 record_argv() {
@@ -103,8 +103,8 @@ fi
 if [ "\${1-}" = "dist/entry.js" ] && [ "\${2-}" = "gateway" ] && [ "\${3-}" = "run" ]; then
   record_env gateway
   record_argv gateway "$@"
-  /bin/cp "$OPENCLAW_CONFIG_PATH" "$CAPTURE_DIR/gateway.config"
-  printf '%s\\n' "$OPENCLAW_GATEWAY_PORT" > "$CAPTURE_DIR/gateway.port"
+  /bin/cp "$GRANTED_CONFIG_PATH" "$CAPTURE_DIR/gateway.config"
+  printf '%s\\n' "$GRANTED_GATEWAY_PORT" > "$CAPTURE_DIR/gateway.port"
   trap 'printf "terminated\\n" > "$CAPTURE_DIR/gateway.terminated"; exit 0' TERM INT
   printf 'gateway-run\\n' >> "$EVENTS_FILE"
   : > "$CAPTURE_DIR/gateway.ready"
@@ -118,7 +118,7 @@ fi
 if [ "\${1-}" = "dist/entry.js" ] && [ "\${2-}" = "gateway" ] && [ "\${3-}" = "health" ]; then
   record_env health
   record_argv health "$@"
-  /bin/cp "$OPENCLAW_CONFIG_PATH" "$CAPTURE_DIR/health.config"
+  /bin/cp "$GRANTED_CONFIG_PATH" "$CAPTURE_DIR/health.config"
   printf 'gateway-health\\n' >> "$EVENTS_FILE"
   exit 0
 fi
@@ -129,7 +129,7 @@ if [ "\${1-}" = "--import" ] && [ "\${2-}" = "tsx" ]; then
   esac
   record_env benchmark
   record_argv benchmark "$@"
-  /bin/cp "$OPENCLAW_CONFIG_PATH" "$CAPTURE_DIR/benchmark.config"
+  /bin/cp "$GRANTED_CONFIG_PATH" "$CAPTURE_DIR/benchmark.config"
   printf 'benchmark\\n' >> "$EVENTS_FILE"
   exit 0
 fi
@@ -194,9 +194,9 @@ exit "$RG_STATUS"
       mkdirSync(sourcePerfDir);
       const isolatedEnv = { ...process.env };
       for (const name of [
-        "OPENCLAW_SKIP_CRON",
-        "OPENCLAW_SKIP_CHANNELS",
-        "OPENCLAW_GATEWAY_TOKEN",
+        "GRANTED_SKIP_CRON",
+        "GRANTED_SKIP_CHANNELS",
+        "GRANTED_GATEWAY_TOKEN",
         "BASH_ENV",
         "ENV",
         "BASHOPTS",
@@ -287,32 +287,32 @@ exit "$RG_STATUS"
       const gatewayEnv = readCapturedEnv("gateway");
       const healthEnv = readCapturedEnv("health");
       const benchmarkEnv = readCapturedEnv("benchmark");
-      const gatewayHome = expectDefined(gatewayEnv.OPENCLAW_HOME, "gateway home capture");
-      const gatewayState = expectDefined(gatewayEnv.OPENCLAW_STATE_DIR, "gateway state capture");
+      const gatewayHome = expectDefined(gatewayEnv.GRANTED_HOME, "gateway home capture");
+      const gatewayState = expectDefined(gatewayEnv.GRANTED_STATE_DIR, "gateway state capture");
       const gatewayConfigPath = expectDefined(
-        gatewayEnv.OPENCLAW_CONFIG_PATH,
+        gatewayEnv.GRANTED_CONFIG_PATH,
         "gateway config capture",
       );
-      const healthHome = expectDefined(healthEnv.OPENCLAW_HOME, "readiness home capture");
-      const healthState = expectDefined(healthEnv.OPENCLAW_STATE_DIR, "readiness state capture");
+      const healthHome = expectDefined(healthEnv.GRANTED_HOME, "readiness home capture");
+      const healthState = expectDefined(healthEnv.GRANTED_STATE_DIR, "readiness state capture");
       const healthConfigPath = expectDefined(
-        healthEnv.OPENCLAW_CONFIG_PATH,
+        healthEnv.GRANTED_CONFIG_PATH,
         "readiness config capture",
       );
-      expect(gatewayEnv.OPENCLAW_SKIP_CRON).toBe("1");
-      expect(gatewayEnv.OPENCLAW_SKIP_CHANNELS).toBe("1");
-      expect(benchmarkEnv.OPENCLAW_SKIP_CRON).toBe("<unset>");
-      expect(benchmarkEnv.OPENCLAW_SKIP_CHANNELS).toBe("<unset>");
-      expect(healthEnv.OPENCLAW_SKIP_CRON).toBe("<unset>");
-      expect(healthEnv.OPENCLAW_SKIP_CHANNELS).toBe("<unset>");
-      expect(benchmarkEnv.OPENCLAW_HOME).toBe(gatewayHome);
-      expect(benchmarkEnv.OPENCLAW_STATE_DIR).toBe(gatewayState);
-      expect(benchmarkEnv.OPENCLAW_CONFIG_PATH).toBe(gatewayConfigPath);
-      expect(benchmarkEnv.OPENCLAW_GATEWAY_PORT).toBe(gatewayPort);
-      expect(gatewayEnv.OPENCLAW_GATEWAY_PORT).toBe(gatewayPort);
-      expect(gatewayEnv.OPENCLAW_GATEWAY_TOKEN).toMatch(/^[0-9a-f]{64}$/u);
-      expect(healthEnv.OPENCLAW_GATEWAY_TOKEN).toBe(gatewayEnv.OPENCLAW_GATEWAY_TOKEN);
-      expect(benchmarkEnv.OPENCLAW_GATEWAY_TOKEN).toBe(gatewayEnv.OPENCLAW_GATEWAY_TOKEN);
+      expect(gatewayEnv.GRANTED_SKIP_CRON).toBe("1");
+      expect(gatewayEnv.GRANTED_SKIP_CHANNELS).toBe("1");
+      expect(benchmarkEnv.GRANTED_SKIP_CRON).toBe("<unset>");
+      expect(benchmarkEnv.GRANTED_SKIP_CHANNELS).toBe("<unset>");
+      expect(healthEnv.GRANTED_SKIP_CRON).toBe("<unset>");
+      expect(healthEnv.GRANTED_SKIP_CHANNELS).toBe("<unset>");
+      expect(benchmarkEnv.GRANTED_HOME).toBe(gatewayHome);
+      expect(benchmarkEnv.GRANTED_STATE_DIR).toBe(gatewayState);
+      expect(benchmarkEnv.GRANTED_CONFIG_PATH).toBe(gatewayConfigPath);
+      expect(benchmarkEnv.GRANTED_GATEWAY_PORT).toBe(gatewayPort);
+      expect(gatewayEnv.GRANTED_GATEWAY_PORT).toBe(gatewayPort);
+      expect(gatewayEnv.GRANTED_GATEWAY_TOKEN).toMatch(/^[0-9a-f]{64}$/u);
+      expect(healthEnv.GRANTED_GATEWAY_TOKEN).toBe(gatewayEnv.GRANTED_GATEWAY_TOKEN);
+      expect(benchmarkEnv.GRANTED_GATEWAY_TOKEN).toBe(gatewayEnv.GRANTED_GATEWAY_TOKEN);
       expect(healthHome).not.toBe(gatewayHome);
       expect(healthState).not.toBe(gatewayState);
       expect(healthConfigPath).not.toBe(gatewayConfigPath);

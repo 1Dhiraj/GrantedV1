@@ -185,7 +185,7 @@ describe("restart health", () => {
           probeHosts: ["127.0.0.1"],
           env: {
             ...process.env,
-            OPENCLAW_STATE_DIR: `/tmp/openclaw-autoqa-161-${process.pid}-${port}`,
+            GRANTED_STATE_DIR: `/tmp/openclaw-autoqa-161-${process.pid}-${port}`,
           },
         });
 

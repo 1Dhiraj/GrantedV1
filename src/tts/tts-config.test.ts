@@ -30,11 +30,11 @@ describe("shouldAttemptTtsPayload", () => {
   });
 
   beforeEach(() => {
-    envSnapshot = captureEnv(["OPENCLAW_TTS_PREFS"]);
+    envSnapshot = captureEnv(["GRANTED_TTS_PREFS"]);
     dir = path.join(root, `case-${caseId++}`);
     mkdirSync(dir, { recursive: true });
     prefsPath = path.join(dir, "tts.json");
-    process.env.OPENCLAW_TTS_PREFS = prefsPath;
+    process.env.GRANTED_TTS_PREFS = prefsPath;
   });
 
   afterEach(() => {

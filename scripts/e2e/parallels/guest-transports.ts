@@ -338,8 +338,8 @@ export async function runWindowsBackgroundPowerShell(
   const guestRunDir = `openclaw-parallels\\${nonce}`;
   const windowsDonePath = `%WINDIR%\\Temp\\${guestRunDir}\\done`;
   const windowsLogPath = `%WINDIR%\\Temp\\${guestRunDir}\\run.log`;
-  const backgroundExitPrefix = `__OPENCLAW_BACKGROUND_EXIT__:${nonce}:`;
-  const backgroundDoneMarker = `__OPENCLAW_BACKGROUND_DONE__:${nonce}`;
+  const backgroundExitPrefix = `__GRANTED_BACKGROUND_EXIT__:${nonce}:`;
+  const backgroundDoneMarker = `__GRANTED_BACKGROUND_DONE__:${nonce}`;
   // PhaseRunner cannot cancel an in-flight callback. Keep cleanup inside the
   // helper budget so a timed-out lane cannot overlap the next snapshot restore.
   const deadline =
@@ -752,7 +752,7 @@ export class LinuxGuest {
   private transportArgs(args: string[], env: Record<string, string> = {}): string[] {
     const envArgs = Object.entries({
       HOME: "/root",
-      OPENCLAW_ALLOW_ROOT: "1",
+      GRANTED_ALLOW_ROOT: "1",
       ...this.getEnv(),
       ...env,
     }).map(([key, value]) => `${key}=${value}`);

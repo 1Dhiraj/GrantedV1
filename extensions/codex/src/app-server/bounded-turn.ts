@@ -54,7 +54,7 @@ import {
   readCodexInheritedMcpServerNames,
 } from "./thread-requests.js";
 
-const CODEX_APP_SERVER_ARGS_ENV_KEY = "OPENCLAW_CODEX_APP_SERVER_ARGS";
+const CODEX_APP_SERVER_ARGS_ENV_KEY = "GRANTED_CODEX_APP_SERVER_ARGS";
 const CODEX_BOUNDED_THREAD_CONFIG: JsonObject = {
   "agents.enabled": false,
   "features.multi_agent": false,

@@ -12,7 +12,7 @@ describe("Slack message actions with an unavailable account SecretRef", () => {
             botToken: {
               source: "env",
               provider: "default",
-              id: "OPENCLAW_TEST_MISSING_SLACK_BOT_TOKEN",
+              id: "GRANTED_TEST_MISSING_SLACK_BOT_TOKEN",
             },
           },
           healthy: { botToken: "xoxb-healthy" },

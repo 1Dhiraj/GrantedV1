@@ -162,7 +162,7 @@ describe("createDiscordGatewayPlugin", () => {
   it("resolves gateway metadata timeout from env, then default", () => {
     expect(
       resolveDiscordGatewayInfoTimeoutMs({
-        env: { OPENCLAW_DISCORD_GATEWAY_INFO_TIMEOUT_MS: "25000" },
+        env: { GRANTED_DISCORD_GATEWAY_INFO_TIMEOUT_MS: "25000" },
       }),
     ).toBe(25_000);
     expect(resolveDiscordGatewayInfoTimeoutMs({ env: {} })).toBe(30_000);

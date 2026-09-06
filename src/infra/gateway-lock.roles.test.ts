@@ -33,9 +33,9 @@ describe("Gateway lock roles", () => {
     await fs.writeFile(configPath, "{}", "utf8");
     const env = {
       ...process.env,
-      OPENCLAW_ALLOW_MULTI_GATEWAY: "1",
-      OPENCLAW_CONFIG_PATH: configPath,
-      OPENCLAW_STATE_DIR: stateDir,
+      GRANTED_ALLOW_MULTI_GATEWAY: "1",
+      GRANTED_CONFIG_PATH: configPath,
+      GRANTED_STATE_DIR: stateDir,
     };
     const readProcessCmdline = () => ["openclaw", "skills", "workshop", "apply", "proposal-id"];
     const lock = await acquireGatewayLock({
@@ -90,8 +90,8 @@ describe("Gateway lock roles", () => {
     await fs.writeFile(configPath, "{}", "utf8");
     const env = {
       ...process.env,
-      OPENCLAW_CONFIG_PATH: configPath,
-      OPENCLAW_STATE_DIR: stateDir,
+      GRANTED_CONFIG_PATH: configPath,
+      GRANTED_STATE_DIR: stateDir,
     };
     const lock = await acquireGatewayLock({
       allowInTests: true,
@@ -131,8 +131,8 @@ describe("Gateway lock roles", () => {
     await fs.writeFile(configPath, "{}", "utf8");
     const env = {
       ...process.env,
-      OPENCLAW_CONFIG_PATH: configPath,
-      OPENCLAW_STATE_DIR: stateDir,
+      GRANTED_CONFIG_PATH: configPath,
+      GRANTED_STATE_DIR: stateDir,
     };
     const readProcessCmdline = () => ["openclaw", "agent", "--local", "--message", "hello"];
     const lock = await acquireGatewayLock({

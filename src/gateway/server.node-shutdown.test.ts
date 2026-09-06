@@ -29,7 +29,7 @@ import { createWorkerEnvironmentStore } from "./worker-environments/store.js";
 installGatewayTestHooks({ scope: "suite" });
 
 test("settles an idle paired worker's rootless stop reply during Gateway shutdown", async () => {
-  const stateDir = process.env.OPENCLAW_STATE_DIR;
+  const stateDir = process.env.GRANTED_STATE_DIR;
   if (!stateDir) {
     throw new Error("node shutdown proof requires an isolated Gateway state directory");
   }
@@ -51,16 +51,16 @@ test("settles an idle paired worker's rootless stop reply during Gateway shutdow
     callerScopes: ["operator.pairing", "operator.write"],
   });
 
-  const previousMinimalGateway = process.env.OPENCLAW_TEST_MINIMAL_GATEWAY;
+  const previousMinimalGateway = process.env.GRANTED_TEST_MINIMAL_GATEWAY;
   let started: Awaited<ReturnType<typeof startServer>>;
   try {
-    delete process.env.OPENCLAW_TEST_MINIMAL_GATEWAY;
+    delete process.env.GRANTED_TEST_MINIMAL_GATEWAY;
     started = await startServer("secret");
   } finally {
     if (previousMinimalGateway === undefined) {
-      delete process.env.OPENCLAW_TEST_MINIMAL_GATEWAY;
+      delete process.env.GRANTED_TEST_MINIMAL_GATEWAY;
     } else {
-      process.env.OPENCLAW_TEST_MINIMAL_GATEWAY = previousMinimalGateway;
+      process.env.GRANTED_TEST_MINIMAL_GATEWAY = previousMinimalGateway;
     }
   }
   const { port, server } = started;

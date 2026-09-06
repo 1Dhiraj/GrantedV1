@@ -226,7 +226,7 @@ export function noteToStream(
 ) {
   if (
     suppressNotesStorage.getStore() === true ||
-    isSuppressedByEnv(process.env.OPENCLAW_SUPPRESS_NOTES)
+    isSuppressedByEnv(process.env.GRANTED_SUPPRESS_NOTES)
   ) {
     return;
   }

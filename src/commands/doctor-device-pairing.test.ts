@@ -67,8 +67,8 @@ describe("noteDevicePairingHealth", () => {
     await withTempDir("openclaw-doctor-device-pairing-", async (stateDir) => {
       await withEnvAsync(
         {
-          OPENCLAW_STATE_DIR: stateDir,
-          OPENCLAW_TEST_FAST: "1",
+          GRANTED_STATE_DIR: stateDir,
+          GRANTED_TEST_FAST: "1",
         },
         async () => {
           const identity = loadOrCreateDeviceIdentity();
@@ -112,8 +112,8 @@ describe("noteDevicePairingHealth", () => {
     await withTempDir("openclaw-doctor-device-pairing-readonly-", async (stateDir) => {
       await withEnvAsync(
         {
-          OPENCLAW_STATE_DIR: stateDir,
-          OPENCLAW_TEST_FAST: "1",
+          GRANTED_STATE_DIR: stateDir,
+          GRANTED_TEST_FAST: "1",
         },
         async () => {
           await expect(
@@ -177,8 +177,8 @@ describe("noteDevicePairingHealth", () => {
     await withTempDir("openclaw-doctor-device-pairing-", async (stateDir) => {
       await withEnvAsync(
         {
-          OPENCLAW_STATE_DIR: stateDir,
-          OPENCLAW_TEST_FAST: "1",
+          GRANTED_STATE_DIR: stateDir,
+          GRANTED_TEST_FAST: "1",
         },
         async () => {
           const pairedPath = path.join(stateDir, "devices", "paired.json");

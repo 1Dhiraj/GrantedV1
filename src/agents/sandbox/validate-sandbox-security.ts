@@ -160,7 +160,7 @@ function getBlockedReasonForSourcePath(
 function getBlockedHostPaths(): string[] {
   const cacheKey = JSON.stringify({
     home: process.env.HOME,
-    openclawHome: process.env.OPENCLAW_HOME,
+    openclawHome: process.env.GRANTED_HOME,
     osHome: os.homedir(),
     userProfile: process.env.USERPROFILE,
   });
@@ -180,7 +180,7 @@ function getBlockedHostPaths(): string[] {
 function getBlockedHomeRoots(): string[] {
   const roots = new Set<string>();
   for (const candidate of [
-    process.env.OPENCLAW_HOME,
+    process.env.GRANTED_HOME,
     process.env.HOME,
     process.env.USERPROFILE,
     resolveRequiredHomeDir(process.env, os.homedir),

@@ -9,7 +9,7 @@ import * as agentDatabaseSchema from "../state/openclaw-agent-db-schema.js";
 import {
   closeOpenClawAgentDatabasesForTest,
   listOpenClawAgentDatabasesForTest,
-  OPENCLAW_AGENT_DB_OPEN_HANDLE_CAP,
+  GRANTED_AGENT_DB_OPEN_HANDLE_CAP,
 } from "../state/openclaw-agent-db.js";
 import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
 import { setStateDirEnv, withStateDirEnv } from "../test-helpers/state-dir-env.js";
@@ -22,7 +22,7 @@ test("discovers groups across more than the handle cap without writable database
     closeOpenClawStateDatabaseForTest();
 
     const agentIds = Array.from(
-      { length: OPENCLAW_AGENT_DB_OPEN_HANDLE_CAP + 1 },
+      { length: GRANTED_AGENT_DB_OPEN_HANDLE_CAP + 1 },
       (_, index) => `group-reader-${index}`,
     );
     const config = {

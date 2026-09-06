@@ -8,7 +8,7 @@ import {
 import { hasErrnoCode } from "../infra/errno.js";
 import {
   GATEWAY_SERVICE_KIND,
-  GATEWAY_SERVICE_MARKER,
+  isGatewayServiceMarker,
   resolveGatewayServiceDescription,
 } from "./constants.js";
 import { formatLine, writeFormattedLines } from "./output.js";
@@ -152,7 +152,9 @@ function sanitizeSystemdUnitBackupContent(params: {
 
 function removeLegacyGatewayVersionMetadata(content: string): string {
   const description =
-    /^Description=OpenClaw Gateway \((?:(profile: [^,)\r\n]+), )?v([^)\r\n]+)\)$/mu.exec(content);
+    /^Description=(?:Granted|OpenClaw) Gateway \((?:(profile: [^,)\r\n]+), )?v([^)\r\n]+)\)$/mu.exec(
+      content,
+    );
   if (!description) {
     return content;
   }
@@ -177,20 +179,20 @@ function removeLegacyGatewayVersionMetadata(content: string): string {
     }
   }
   if (
-    inlineEnvironment.get("OPENCLAW_SERVICE_MARKER") !== GATEWAY_SERVICE_MARKER ||
-    inlineEnvironment.get("OPENCLAW_SERVICE_KIND") !== GATEWAY_SERVICE_KIND ||
-    inlineEnvironment.get("OPENCLAW_SERVICE_VERSION") !== description[2]
+    !isGatewayServiceMarker(inlineEnvironment.get("GRANTED_SERVICE_MARKER")) ||
+    inlineEnvironment.get("GRANTED_SERVICE_KIND") !== GATEWAY_SERVICE_KIND ||
+    inlineEnvironment.get("GRANTED_SERVICE_VERSION") !== description[2]
   ) {
     return content;
   }
   const replacement = description[1]
-    ? `Description=OpenClaw Gateway (${description[1]})`
-    : "Description=OpenClaw Gateway";
+    ? `Description=Granted Gateway (${description[1]})`
+    : "Description=Granted Gateway";
   const refreshed =
     content.slice(0, description.index) +
     replacement +
     content.slice(description.index + description[0].length);
-  return removeSystemdInlineEnvironmentKeys(refreshed, new Set(["OPENCLAW_SERVICE_VERSION"]));
+  return removeSystemdInlineEnvironmentKeys(refreshed, new Set(["GRANTED_SERVICE_VERSION"]));
 }
 
 /** Removes obsolete install-time version stamps without restarting the service. */
@@ -414,7 +416,7 @@ async function removeNodeSystemdManagedEnvironmentKeys(env: GatewayServiceEnv): 
   } catch {
     return;
   }
-  const managedKeys = new Set(["OPENCLAW_GATEWAY_TOKEN", "OPENCLAW_GATEWAY_PASSWORD"]);
+  const managedKeys = new Set(["GRANTED_GATEWAY_TOKEN", "GRANTED_GATEWAY_PASSWORD"]);
   const remaining = Object.fromEntries(
     Object.entries(existingFile.environment).filter(([key, value]) => {
       const normalized = normalizeServiceEnvKey(key);

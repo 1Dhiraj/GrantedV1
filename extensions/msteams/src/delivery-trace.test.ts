@@ -11,7 +11,7 @@
 // `cancel` step to nothing. A non-cancel write fault latches streamFailed and
 // the full reply is intentionally re-delivered as blocks even though a prefix
 // already streamed (duplication over truncation — see reply-stream-controller).
-// Refresh goldens with OPENCLAW_TRACE_UPDATE=1 (see delivery-trace harness docs).
+// Refresh goldens with GRANTED_TRACE_UPDATE=1 (see delivery-trace harness docs).
 import {
   deliveryTraceScenarios,
   expectDeliveryTraceMatchesGolden,

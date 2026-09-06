@@ -62,7 +62,7 @@ function configureDurableImportRunStore(
     afterWrite?: (record: ChatGptImportRunRecord) => Promise<void>;
   },
 ): void {
-  const env = { ...process.env, HOME: stateDir, OPENCLAW_STATE_DIR: stateDir };
+  const env = { ...process.env, HOME: stateDir, GRANTED_STATE_DIR: stateDir };
   const store = createMemoryWikiImportRunStateStore(<T>(options: OpenKeyedStoreOptions) =>
     createPluginStateKeyedStoreForTests<T>("memory-wiki", { ...options, env }),
   );

@@ -304,9 +304,9 @@ describe("managed plugin capability consent", () => {
     };
     const env = {
       HOME: rootDir,
-      OPENCLAW_STATE_DIR: path.join(rootDir, "state"),
-      OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-      OPENCLAW_DISABLE_BUNDLED_SOURCE_OVERLAYS: "1",
+      GRANTED_STATE_DIR: path.join(rootDir, "state"),
+      GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+      GRANTED_DISABLE_BUNDLED_SOURCE_OVERLAYS: "1",
     };
     const { index, manifestRegistry } = loadInstalledPluginIndexWithDiscovery({
       config,
@@ -425,9 +425,9 @@ describe("managed plugin capability consent", () => {
     };
     const env = {
       HOME: rootDir,
-      OPENCLAW_STATE_DIR: path.join(rootDir, "state"),
-      OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-      OPENCLAW_DISABLE_BUNDLED_SOURCE_OVERLAYS: "1",
+      GRANTED_STATE_DIR: path.join(rootDir, "state"),
+      GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+      GRANTED_DISABLE_BUNDLED_SOURCE_OVERLAYS: "1",
     };
     mocks.records = { "community-plugin": record };
     const { index, manifestRegistry } = loadInstalledPluginIndexWithDiscovery({

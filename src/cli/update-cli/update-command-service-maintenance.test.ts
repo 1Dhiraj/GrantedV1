@@ -111,13 +111,13 @@ it.each(nativeOfflineCases)(
       await withEnvAsync(
         {
           HOME: home,
-          OPENCLAW_HOME: undefined,
-          OPENCLAW_STATE_DIR: undefined,
-          OPENCLAW_CONFIG_PATH: undefined,
-          OPENCLAW_PROFILE: undefined,
-          OPENCLAW_SUPERVISOR_MODE: undefined,
-          OPENCLAW_SERVICE_MARKER: undefined,
-          OPENCLAW_SERVICE_KIND: undefined,
+          GRANTED_HOME: undefined,
+          GRANTED_STATE_DIR: undefined,
+          GRANTED_CONFIG_PATH: undefined,
+          GRANTED_PROFILE: undefined,
+          GRANTED_SUPERVISOR_MODE: undefined,
+          GRANTED_SERVICE_MARKER: undefined,
+          GRANTED_SERVICE_KIND: undefined,
         },
         async () => {
           mockProcessPlatform(scenario.platform);

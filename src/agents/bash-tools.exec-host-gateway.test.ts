@@ -3872,13 +3872,13 @@ EOF`,
     let unregisterCronSource: (() => void) | undefined;
 
     beforeEach(() => {
-      hadStateDirBackup = "OPENCLAW_STATE_DIR" in process.env;
-      stateDirBackup = process.env.OPENCLAW_STATE_DIR;
+      hadStateDirBackup = "GRANTED_STATE_DIR" in process.env;
+      stateDirBackup = process.env.GRANTED_STATE_DIR;
       const stateDir = fs.realpathSync(
         fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-cron-grant-state-")),
       );
       grantTempDirs.push(stateDir);
-      process.env.OPENCLAW_STATE_DIR = stateDir;
+      process.env.GRANTED_STATE_DIR = stateDir;
       workdir = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-cron-grant-cwd-")));
       grantTempDirs.push(workdir);
       // Grants are consulted only when policy would otherwise prompt, before
@@ -3898,9 +3898,9 @@ EOF`,
       unregisterCronSource = undefined;
       closeOpenClawStateDatabaseForTest();
       if (hadStateDirBackup) {
-        process.env.OPENCLAW_STATE_DIR = stateDirBackup;
+        process.env.GRANTED_STATE_DIR = stateDirBackup;
       } else {
-        delete process.env.OPENCLAW_STATE_DIR;
+        delete process.env.GRANTED_STATE_DIR;
       }
       for (const dir of grantTempDirs.splice(0)) {
         fs.rmSync(dir, { recursive: true, force: true });

@@ -357,7 +357,7 @@ export function requireInspectedGatewayToken(
   inspection: Extract<FleetContainerInspectResult, { kind: "ok" }>,
   context: "upgrade" | "restore",
 ): string {
-  const gatewayCredential = inspection.environment.OPENCLAW_GATEWAY_TOKEN;
+  const gatewayCredential = inspection.environment.GRANTED_GATEWAY_TOKEN;
   if (!gatewayCredential) {
     throw new Error(`Cannot ${context} cell: existing container has no Gateway token environment.`);
   }

@@ -138,12 +138,12 @@ export async function prepareVitestRuntime(
     bin: process.execPath,
     args: ["scripts/run-node.mjs", "--version"],
     cwd: path.resolve(import.meta.dirname, "../.."),
-    env: { ...env, ...(mode === "private-qa" ? { OPENCLAW_BUILD_PRIVATE_QA: "1" } : {}) },
+    env: { ...env, ...(mode === "private-qa" ? { GRANTED_BUILD_PRIVATE_QA: "1" } : {}) },
   });
 }
 
 export function isE2eBuildSkipped(env: NodeJS.ProcessEnv) {
-  return env.OPENCLAW_E2E_SKIP_BUILD === "1" || env.OPENCLAW_E2E_USE_PREBUILT_DIST === "1";
+  return env.GRANTED_E2E_SKIP_BUILD === "1" || env.GRANTED_E2E_USE_PREBUILT_DIST === "1";
 }
 
 export async function prepareE2eVitestRuntime(env: NodeJS.ProcessEnv) {
@@ -157,7 +157,7 @@ export async function prepareE2eVitestRuntime(env: NodeJS.ProcessEnv) {
     env,
   );
   // Only successful preparation may tell readers to reuse this shared generation.
-  return { OPENCLAW_E2E_USE_PREBUILT_DIST: "1" };
+  return { GRANTED_E2E_USE_PREBUILT_DIST: "1" };
 }
 
 function runE2eSetupCommand(args: string[], env: NodeJS.ProcessEnv): Promise<number> {
@@ -196,8 +196,8 @@ export async function runE2eGlobalSetup(
       args: ["scripts/run-node.mjs", "--version"],
       env: {
         ...env,
-        OPENCLAW_BUILD_PRIVATE_QA: "1",
-        OPENCLAW_RUN_NODE_SKIP_DTS_BUILD: "0",
+        GRANTED_BUILD_PRIVATE_QA: "1",
+        GRANTED_RUN_NODE_SKIP_DTS_BUILD: "0",
       },
     },
     {

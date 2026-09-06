@@ -325,7 +325,7 @@ describe("google-meet CLI", () => {
 
       try {
         const source = path.join(process.cwd(), "extensions/google-meet/src/cli-shared.ts");
-        const script = `import { writeCliOutput } from ${JSON.stringify(source)}; await writeCliOutput({ output: process.env.OPENCLAW_TEST_OUTPUT }, "x".repeat(8192));`;
+        const script = `import { writeCliOutput } from ${JSON.stringify(source)}; await writeCliOutput({ output: process.env.GRANTED_TEST_OUTPUT }, "x".repeat(8192));`;
         const result = spawnSync(
           "/bin/sh",
           [
@@ -341,7 +341,7 @@ describe("google-meet CLI", () => {
           ],
           {
             cwd: process.cwd(),
-            env: { ...process.env, OPENCLAW_TEST_OUTPUT: outputPath },
+            env: { ...process.env, GRANTED_TEST_OUTPUT: outputPath },
             encoding: "utf8",
           },
         );

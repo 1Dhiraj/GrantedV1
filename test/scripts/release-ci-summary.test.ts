@@ -153,7 +153,7 @@ process.stdout.write(readFileSync(process.env.ARCHIVE));
         ...process.env,
         ARCHIVE: archivePath,
         FIXTURES: fixturesPath,
-        OPENCLAW_GH_BIN: plainGh,
+        GRANTED_GH_BIN: plainGh,
         PATH: `${root}:${process.env.PATH ?? ""}`,
         PLAIN_LOG: plainLog,
         SHIM_LOG: shimLog,

@@ -15,7 +15,7 @@ import { publishOutputFileAtomically } from "./output-file.runtime.js";
 
 export const COMPLETION_SHELLS = ["zsh", "bash", "powershell", "fish"] as const;
 export type CompletionShell = (typeof COMPLETION_SHELLS)[number];
-export const COMPLETION_SKIP_PLUGIN_COMMANDS_ENV = "OPENCLAW_COMPLETION_SKIP_PLUGIN_COMMANDS";
+export const COMPLETION_SKIP_PLUGIN_COMMANDS_ENV = "GRANTED_COMPLETION_SKIP_PLUGIN_COMMANDS";
 
 type CompletionProfileEncoding = "utf8" | "utf8bom" | "utf16le" | "utf16be";
 

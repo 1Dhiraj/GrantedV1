@@ -38,7 +38,7 @@ function createState(): { agentDir: string; env: NodeJS.ProcessEnv; stateDir: st
   return {
     agentDir,
     stateDir,
-    env: { ...process.env, HOME: stateDir, OPENCLAW_STATE_DIR: stateDir },
+    env: { ...process.env, HOME: stateDir, GRANTED_STATE_DIR: stateDir },
   };
 }
 

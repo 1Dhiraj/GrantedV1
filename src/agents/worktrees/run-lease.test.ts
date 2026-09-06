@@ -69,7 +69,7 @@ describe("worktree run lease", () => {
     // Each case keeps a private .git directory; only repository construction is shared.
     await fs.cp(templateRepo, repo, { recursive: true });
     repo = await fs.realpath(repo);
-    env = { ...process.env, OPENCLAW_STATE_DIR: path.join(root, "openclaw-state") };
+    env = { ...process.env, GRANTED_STATE_DIR: path.join(root, "openclaw-state") };
     service = new ManagedWorktreeService({ env });
   });
 

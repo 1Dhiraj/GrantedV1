@@ -11,8 +11,8 @@ describe("resolveMemoryHostAgentWorkspaceDir", () => {
     expect(
       resolveMemoryHostAgentWorkspaceDir({}, "main", {
         HOME: "/home/peter",
-        OPENCLAW_PROFILE: "work",
-        OPENCLAW_STATE_DIR: "/home/peter/.openclaw-work",
+        GRANTED_PROFILE: "work",
+        GRANTED_STATE_DIR: "/home/peter/.openclaw-work",
       }),
     ).toBe("/home/peter/.openclaw-work/workspace");
   });
@@ -21,7 +21,7 @@ describe("resolveMemoryHostAgentWorkspaceDir", () => {
     expect(
       resolveMemoryHostAgentWorkspaceDir({}, "main", {
         HOME: "/home/peter",
-        OPENCLAW_STATE_DIR: "/srv/openclaw-scratch",
+        GRANTED_STATE_DIR: "/srv/openclaw-scratch",
       }),
     ).toBe("/srv/openclaw-scratch/workspace");
   });
@@ -30,8 +30,8 @@ describe("resolveMemoryHostAgentWorkspaceDir", () => {
     expect(
       resolveMemoryHostAgentWorkspaceDir({}, "main", {
         HOME: "/home/peter",
-        OPENCLAW_STATE_DIR: "/srv/openclaw-scratch",
-        OPENCLAW_WORKSPACE_DIR: "/srv/openclaw-workspace",
+        GRANTED_STATE_DIR: "/srv/openclaw-scratch",
+        GRANTED_WORKSPACE_DIR: "/srv/openclaw-workspace",
       }),
     ).toBe("/srv/openclaw-workspace");
   });
@@ -41,7 +41,7 @@ describe("resolveMemoryHostAgentWorkspaceDir", () => {
       resolveMemoryHostAgentWorkspaceDir(
         { agents: { entries: { support: { workspace: "~/ws" } } } },
         "support",
-        { HOME: "/home/peter$&mall", OPENCLAW_HOME: "~/oc" },
+        { HOME: "/home/peter$&mall", GRANTED_HOME: "~/oc" },
       ),
     ).toBe(path.resolve("/home/peter$&mall/oc/ws"));
   });

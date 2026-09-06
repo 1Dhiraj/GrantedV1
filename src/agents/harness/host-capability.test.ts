@@ -322,9 +322,9 @@ describe("agent harness host capability", () => {
       localIdentityEnv: expect.objectContaining({ GH_CONFIG_DIR: expect.any(String) }),
       managedLocalIdentity: true,
       localProcessEnv: {
-        OPENCLAW_STATE_DIR: "/state",
-        OPENCLAW_CONFIG_PATH: "/config",
-        OPENCLAW_WORKSPACE_DIR: "/workspace",
+        GRANTED_STATE_DIR: "/state",
+        GRANTED_CONFIG_PATH: "/config",
+        GRANTED_WORKSPACE_DIR: "/workspace",
       },
     });
     expect(Object.isFrozen(host.capabilities.preparedEnvironment?.().localProcessEnv)).toBe(true);

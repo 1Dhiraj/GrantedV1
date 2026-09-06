@@ -54,8 +54,8 @@ describe("buildCodexMcpServersConfig", () => {
             type: "http",
             url: "http://127.0.0.1:23119/mcp",
             headers: {
-              Authorization: "Bearer ${OPENCLAW_MCP_TOKEN}",
-              "x-session-key": "${OPENCLAW_MCP_SESSION_KEY}",
+              Authorization: "Bearer ${GRANTED_MCP_TOKEN}",
+              "x-session-key": "${GRANTED_MCP_SESSION_KEY}",
               "x-static": "static-value",
             },
           },
@@ -65,12 +65,12 @@ describe("buildCodexMcpServersConfig", () => {
       openclaw: {
         url: "http://127.0.0.1:23119/mcp",
         default_tools_approval_mode: "approve",
-        bearer_token_env_var: "OPENCLAW_MCP_TOKEN",
+        bearer_token_env_var: "GRANTED_MCP_TOKEN",
         http_headers: {
           "x-static": "static-value",
         },
         env_http_headers: {
-          "x-session-key": "OPENCLAW_MCP_SESSION_KEY",
+          "x-session-key": "GRANTED_MCP_SESSION_KEY",
         },
       },
     });

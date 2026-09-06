@@ -36,7 +36,7 @@ describe("agent database permission repair", () => {
     const stateDir = tempDirs.make("openclaw-agent-chmod-");
     const options = {
       agentId: "worker-1",
-      env: { OPENCLAW_STATE_DIR: stateDir },
+      env: { GRANTED_STATE_DIR: stateDir },
     };
     const database = openOpenClawAgentDatabase(options);
     const before = database.db

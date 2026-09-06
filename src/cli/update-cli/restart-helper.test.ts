@@ -9,13 +9,13 @@ import { useAutoCleanupTempDirTracker } from "../../../test/helpers/temp-dir.js"
 import { getWindowsCmdExePath } from "../../infra/windows-install-roots.js";
 import { prepareRestartScript, runRestartScript } from "./restart-helper.js";
 
-const windowsKillPolicyStartMarker = "# OPENCLAW_RESTART_KILL_POLICY_BEGIN";
-const windowsKillPolicyEndMarker = "# OPENCLAW_RESTART_KILL_POLICY_END";
+const windowsKillPolicyStartMarker = "# GRANTED_RESTART_KILL_POLICY_BEGIN";
+const windowsKillPolicyEndMarker = "# GRANTED_RESTART_KILL_POLICY_END";
 
 function findPowerShell(): string | null {
   const executable = process.platform === "win32" ? "pwsh.exe" : "pwsh";
   const candidates = [
-    process.env.OPENCLAW_TEST_PWSH,
+    process.env.GRANTED_TEST_PWSH,
     ...(process.env.PATH ?? "")
       .split(path.delimiter)
       .filter(Boolean)
@@ -234,7 +234,7 @@ ${body}`,
     it("creates a systemd restart script on Linux", async () => {
       Object.defineProperty(process, "platform", { value: "linux" });
       const { scriptPath, content } = await prepareAndReadScript({
-        OPENCLAW_PROFILE: "default",
+        GRANTED_PROFILE: "default",
       });
       expect(scriptPath.endsWith(".sh")).toBe(true);
       expect(content).toContain("#!/bin/sh");
@@ -258,7 +258,7 @@ ${body}`,
       await fs.writeFile(
         path.join(fakeBinDir, "systemctl"),
         `#!/bin/sh
-printf 'runtime=%s bus=%s args=%s\n' "$XDG_RUNTIME_DIR" "$DBUS_SESSION_BUS_ADDRESS" "$*" >> "$OPENCLAW_SYSTEMCTL_CALLS"
+printf 'runtime=%s bus=%s args=%s\n' "$XDG_RUNTIME_DIR" "$DBUS_SESSION_BUS_ADDRESS" "$*" >> "$GRANTED_SYSTEMCTL_CALLS"
 case "$2" in
   is-active|restart) exit 0 ;;
 esac
@@ -268,15 +268,15 @@ exit 1
       );
 
       const { scriptPath } = await prepareAndReadScript({
-        OPENCLAW_PROFILE: "default",
+        GRANTED_PROFILE: "default",
         HOME: path.join(tmpDir, "home"),
-        OPENCLAW_STATE_DIR: path.join(tmpDir, "state"),
+        GRANTED_STATE_DIR: path.join(tmpDir, "state"),
         XDG_RUNTIME_DIR: "/run/user/0",
         DBUS_SESSION_BUS_ADDRESS: "unix:path=/run/user/0/bus",
       });
       const result = await executeScript(scriptPath, {
         PATH: `${fakeBinDir}:${process.env.PATH ?? ""}`,
-        OPENCLAW_SYSTEMCTL_CALLS: callsPath,
+        GRANTED_SYSTEMCTL_CALLS: callsPath,
         XDG_RUNTIME_DIR: "/run/user/0",
         DBUS_SESSION_BUS_ADDRESS: "unix:path=/run/user/0/bus",
       });
@@ -306,7 +306,7 @@ exit 1
       process.geteuid = () => 1000;
       const statSpy = mockLinuxUserBusSocket();
       const { scriptPath, content } = await prepareAndReadScript({
-        OPENCLAW_PROFILE: "default",
+        GRANTED_PROFILE: "default",
         XDG_RUNTIME_DIR: "/srv/openclaw-runtime",
         DBUS_SESSION_BUS_ADDRESS: busAddress,
       });
@@ -332,7 +332,7 @@ exit 1
       mockLinuxUserBusSocket();
 
       const { scriptPath, content } = await prepareAndReadScript({
-        OPENCLAW_PROFILE: "default",
+        GRANTED_PROFILE: "default",
         XDG_RUNTIME_DIR: "",
         DBUS_SESSION_BUS_ADDRESS: busAddress,
       });
@@ -354,7 +354,7 @@ exit 1
       mockLinuxUserBusSocket();
 
       const { scriptPath, content } = await prepareAndReadScript({
-        OPENCLAW_PROFILE: "default",
+        GRANTED_PROFILE: "default",
         XDG_RUNTIME_DIR: runtimeDir,
         DBUS_SESSION_BUS_ADDRESS: address,
       });
@@ -369,7 +369,7 @@ exit 1
       process.geteuid = () => 1000;
       mockLinuxUserBusSocket();
       const { scriptPath, content } = await prepareAndReadScript({
-        OPENCLAW_PROFILE: "default",
+        GRANTED_PROFILE: "default",
         XDG_RUNTIME_DIR: "",
         DBUS_SESSION_BUS_ADDRESS: "",
       });
@@ -384,7 +384,7 @@ exit 1
       process.geteuid = () => 1000;
       const statSpy = vi.spyOn(fs, "stat");
       const { scriptPath, content } = await prepareAndReadScript({
-        OPENCLAW_PROFILE: "default",
+        GRANTED_PROFILE: "default",
         XDG_RUNTIME_DIR: "/run/user/1000",
         DBUS_SESSION_BUS_ADDRESS: "unix:path=/run/user/1000/bus",
       });
@@ -402,7 +402,7 @@ exit 1
         Object.assign(new Error("missing bus"), { code: "ENOENT" }),
       );
       const { scriptPath, content } = await prepareAndReadScript({
-        OPENCLAW_PROFILE: "default",
+        GRANTED_PROFILE: "default",
         XDG_RUNTIME_DIR: "/run/user/0",
         DBUS_SESSION_BUS_ADDRESS: "unix:path=/run/user/0/bus",
       });
@@ -433,7 +433,7 @@ exit 1
 
       try {
         const { scriptPath } = await prepareAndReadScript({
-          OPENCLAW_PROFILE: "default",
+          GRANTED_PROFILE: "default",
         });
         const scriptDir = path.dirname(scriptPath);
         const relativeScriptDir = path.relative(os.tmpdir(), scriptDir);
@@ -464,11 +464,11 @@ exit 1
       }
     });
 
-    it("uses OPENCLAW_SYSTEMD_UNIT override for systemd scripts", async () => {
+    it("uses GRANTED_SYSTEMD_UNIT override for systemd scripts", async () => {
       Object.defineProperty(process, "platform", { value: "linux" });
       const { scriptPath, content } = await prepareAndReadScript({
-        OPENCLAW_PROFILE: "default",
-        OPENCLAW_SYSTEMD_UNIT: "custom-gateway",
+        GRANTED_PROFILE: "default",
+        GRANTED_SYSTEMD_UNIT: "custom-gateway",
       });
       expect(content).toContain("systemctl --user restart 'custom-gateway.service'");
       await cleanupScript(scriptPath);
@@ -484,7 +484,7 @@ exit 1
       await fs.writeFile(
         path.join(fakeBinDir, "systemctl"),
         `#!/bin/sh
-printf '%s\\n' "$*" >> "$OPENCLAW_SYSTEMCTL_CALLS"
+printf '%s\\n' "$*" >> "$GRANTED_SYSTEMCTL_CALLS"
 if [ "$1" = "--user" ] && [ "$2" = "is-active" ]; then exit 3; fi
 if [ "$1" = "--user" ] && [ "$2" = "is-enabled" ]; then exit 1; fi
 if [ "$1" = "is-active" ] && [ "$2" = "--quiet" ]; then exit 0; fi
@@ -496,13 +496,13 @@ exit 1
       );
 
       const { scriptPath } = await prepareAndReadScript({
-        OPENCLAW_PROFILE: "default",
+        GRANTED_PROFILE: "default",
         HOME: path.join(tmpDir, "home"),
-        OPENCLAW_STATE_DIR: path.join(tmpDir, "state"),
+        GRANTED_STATE_DIR: path.join(tmpDir, "state"),
       });
       const result = await executeScript(scriptPath, {
         PATH: `${fakeBinDir}:${process.env.PATH ?? ""}`,
-        OPENCLAW_SYSTEMCTL_CALLS: callsPath,
+        GRANTED_SYSTEMCTL_CALLS: callsPath,
       });
       const calls = await fs.readFile(callsPath, "utf-8");
 
@@ -519,7 +519,7 @@ exit 1
       process.getuid = () => 501;
 
       const { scriptPath, content } = await prepareAndReadScript({
-        OPENCLAW_PROFILE: "default",
+        GRANTED_PROFILE: "default",
       });
       expect(scriptPath.endsWith(".sh")).toBe(true);
       expect(content).toContain("#!/bin/sh");
@@ -544,7 +544,7 @@ exit 1
       process.getuid = () => 501;
 
       const { scriptPath, content } = await prepareAndReadScript({
-        OPENCLAW_PROFILE: "default",
+        GRANTED_PROFILE: "default",
         HOME: "/Users/testuser",
       });
       expect(content).toContain("exec >>'/Users/testuser/.openclaw/logs/gateway-restart.log' 2>&1");
@@ -555,14 +555,14 @@ exit 1
       await cleanupScript(scriptPath);
     });
 
-    it("uses OPENCLAW_STATE_DIR for the macOS update restart log", async () => {
+    it("uses GRANTED_STATE_DIR for the macOS update restart log", async () => {
       Object.defineProperty(process, "platform", { value: "darwin" });
       process.getuid = () => 501;
 
       const { scriptPath, content } = await prepareAndReadScript({
-        OPENCLAW_PROFILE: "default",
+        GRANTED_PROFILE: "default",
         HOME: "/Users/testuser",
-        OPENCLAW_STATE_DIR: "/tmp/openclaw-state",
+        GRANTED_STATE_DIR: "/tmp/openclaw-state",
       });
 
       expect(content).toContain(
@@ -594,9 +594,9 @@ exit 0
       );
 
       const { scriptPath } = await prepareAndReadScript({
-        OPENCLAW_PROFILE: "default",
+        GRANTED_PROFILE: "default",
         HOME: path.join(tmpDir, "home"),
-        OPENCLAW_STATE_DIR: stateDir,
+        GRANTED_STATE_DIR: stateDir,
       });
 
       const result = await executeScript(scriptPath, {
@@ -630,9 +630,9 @@ exit 0
       );
 
       const { scriptPath } = await prepareAndReadScript({
-        OPENCLAW_PROFILE: "default",
+        GRANTED_PROFILE: "default",
         HOME: path.join(tmpDir, "home"),
-        OPENCLAW_STATE_DIR: stateFile,
+        GRANTED_STATE_DIR: stateFile,
       });
 
       const result = await executeScript(scriptPath, {
@@ -649,17 +649,17 @@ exit 0
       process.getuid = () => 501;
 
       await expect(
-        prepareRestartScript({ OPENCLAW_LAUNCHD_LABEL: "ai.openclaw.$(echo injected)" }),
+        prepareRestartScript({ GRANTED_LAUNCHD_LABEL: "ai.openclaw.$(echo injected)" }),
       ).resolves.toBeNull();
     });
 
-    it("uses OPENCLAW_LAUNCHD_LABEL override on macOS", async () => {
+    it("uses GRANTED_LAUNCHD_LABEL override on macOS", async () => {
       Object.defineProperty(process, "platform", { value: "darwin" });
       process.getuid = () => 501;
 
       const { scriptPath, content } = await prepareAndReadScript({
-        OPENCLAW_PROFILE: "default",
-        OPENCLAW_LAUNCHD_LABEL: "com.custom.openclaw",
+        GRANTED_PROFILE: "default",
+        GRANTED_LAUNCHD_LABEL: "com.custom.openclaw",
       });
       expect(content).toContain("launchctl kickstart -k 'gui/501/com.custom.openclaw'");
       await cleanupScript(scriptPath);
@@ -669,7 +669,7 @@ exit 0
       Object.defineProperty(process, "platform", { value: "win32" });
 
       const { scriptPath, content } = await prepareAndReadScript({
-        OPENCLAW_PROFILE: "default",
+        GRANTED_PROFILE: "default",
       });
       expect(scriptPath.endsWith(".cmd")).toBe(true);
       expect(content).toContain("@echo off");
@@ -690,7 +690,7 @@ exit 0
       expect(content).toContain("openclaw restart launched startup fallback");
       expectWindowsRestartWaitOrdering(content);
       expect(content).toContain('del "%~f0" >nul 2>&1');
-      expect(content).toContain('rmdir "%OPENCLAW_RESTART_SCRIPT_DIR%" >nul 2>&1');
+      expect(content).toContain('rmdir "%GRANTED_RESTART_SCRIPT_DIR%" >nul 2>&1');
       await cleanupScript(scriptPath);
     });
 
@@ -705,7 +705,7 @@ exit 0
         "18789",
       ];
       const { scriptPath, content } = await prepareAndReadScript(
-        { OPENCLAW_PROFILE: "default" },
+        { GRANTED_PROFILE: "default" },
         18789,
         expectedArgv,
       );
@@ -736,7 +736,7 @@ exit 0
       async () => {
         Object.defineProperty(process, "platform", { value: "win32" });
         const { scriptPath, content } = await prepareAndReadScript(
-          { OPENCLAW_PROFILE: "default" },
+          { GRANTED_PROFILE: "default" },
           18789,
           ["node", "C:\\openclaw\\dist\\entry.js", "gateway", "--port", "18789"],
         );
@@ -885,24 +885,24 @@ Assert-True (-not $recycledLease.Terminated) "recycled PID target was killed"
 Assert-True $recycledLease.Disposed "recycled PID handle was not disposed"
 Assert-DecisionLog "process-replaced"
 
-Write-Output "OPENCLAW_RESTART_POLICY_OK"
+Write-Output "GRANTED_RESTART_POLICY_OK"
 `,
           );
 
           expect(result.stderr).toBe("");
-          expect(result.stdout).toContain("OPENCLAW_RESTART_POLICY_OK");
+          expect(result.stdout).toContain("GRANTED_RESTART_POLICY_OK");
         } finally {
           await cleanupScript(scriptPath);
         }
       },
     );
 
-    it("uses OPENCLAW_WINDOWS_TASK_NAME override on Windows", async () => {
+    it("uses GRANTED_WINDOWS_TASK_NAME override on Windows", async () => {
       Object.defineProperty(process, "platform", { value: "win32" });
 
       const { scriptPath, content } = await prepareAndReadScript({
-        OPENCLAW_PROFILE: "default",
-        OPENCLAW_WINDOWS_TASK_NAME: "OpenClaw Gateway (custom)",
+        GRANTED_PROFILE: "default",
+        GRANTED_WINDOWS_TASK_NAME: "OpenClaw Gateway (custom)",
       });
       expect(content).toContain("$taskName = 'OpenClaw Gateway (custom)'");
       expect(content).toContain("Get-OpenClawScheduledTaskState -TaskName $taskName");
@@ -922,7 +922,7 @@ Write-Output "OPENCLAW_RESTART_POLICY_OK"
 
       const { scriptPath, content } = await prepareAndReadScript(
         {
-          OPENCLAW_PROFILE: "default",
+          GRANTED_PROFILE: "default",
         },
         customPort,
       );
@@ -937,7 +937,7 @@ Write-Output "OPENCLAW_RESTART_POLICY_OK"
     it("uses custom profile in service names", async () => {
       Object.defineProperty(process, "platform", { value: "linux" });
       const { scriptPath, content } = await prepareAndReadScript({
-        OPENCLAW_PROFILE: "production",
+        GRANTED_PROFILE: "production",
       });
       expect(content).toContain("openclaw-gateway-production.service");
       await cleanupScript(scriptPath);
@@ -948,7 +948,7 @@ Write-Output "OPENCLAW_RESTART_POLICY_OK"
       process.getuid = () => 502;
 
       const { scriptPath, content } = await prepareAndReadScript({
-        OPENCLAW_PROFILE: "staging",
+        GRANTED_PROFILE: "staging",
       });
       expect(content).toContain("gui/502/ai.openclaw.staging");
       await cleanupScript(scriptPath);
@@ -958,7 +958,7 @@ Write-Output "OPENCLAW_RESTART_POLICY_OK"
       Object.defineProperty(process, "platform", { value: "win32" });
 
       const { scriptPath, content } = await prepareAndReadScript({
-        OPENCLAW_PROFILE: "production",
+        GRANTED_PROFILE: "production",
       });
       expect(content).toContain("$taskName = 'OpenClaw Gateway (production)'");
       expectWindowsRestartWaitOrdering(content);
@@ -978,7 +978,7 @@ Write-Output "OPENCLAW_RESTART_POLICY_OK"
         .mockRejectedValueOnce(new Error("simulated write failure"));
 
       const scriptPath = await prepareRestartScript({
-        OPENCLAW_PROFILE: "default",
+        GRANTED_PROFILE: "default",
       });
 
       expect(scriptPath).toBeNull();
@@ -988,7 +988,7 @@ Write-Output "OPENCLAW_RESTART_POLICY_OK"
     it("escapes single quotes in profile names for shell scripts", async () => {
       Object.defineProperty(process, "platform", { value: "linux" });
       const { scriptPath, content } = await prepareAndReadScript({
-        OPENCLAW_PROFILE: "it's-a-test",
+        GRANTED_PROFILE: "it's-a-test",
       });
       // Single quotes should be escaped with '\'' pattern
       expect(content).not.toContain("it's");
@@ -1002,7 +1002,7 @@ Write-Output "OPENCLAW_RESTART_POLICY_OK"
 
       const { scriptPath, content } = await prepareAndReadScript({
         HOME: "/Users/testuser",
-        OPENCLAW_PROFILE: "default",
+        GRANTED_PROFILE: "default",
       });
       // The plist path must contain the resolved home dir, not literal $HOME
       expect(content).toMatch(/[\\/]Users[\\/]testuser[\\/]Library[\\/]LaunchAgents[\\/]/);
@@ -1016,7 +1016,7 @@ Write-Output "OPENCLAW_RESTART_POLICY_OK"
 
       const { scriptPath, content } = await prepareAndReadScript({
         HOME: "/Users/envhome",
-        OPENCLAW_PROFILE: "default",
+        GRANTED_PROFILE: "default",
       });
       expect(content).toMatch(/[\\/]Users[\\/]envhome[\\/]Library[\\/]LaunchAgents[\\/]/);
       await cleanupScript(scriptPath);
@@ -1029,7 +1029,7 @@ Write-Output "OPENCLAW_RESTART_POLICY_OK"
       await expect(
         prepareRestartScript({
           HOME: "/Users/testuser",
-          OPENCLAW_LAUNCHD_LABEL: "ai.openclaw.it's-a-test",
+          GRANTED_LAUNCHD_LABEL: "ai.openclaw.it's-a-test",
         }),
       ).resolves.toBeNull();
     });
@@ -1037,7 +1037,7 @@ Write-Output "OPENCLAW_RESTART_POLICY_OK"
     it("rejects unsafe batch profile names on Windows", async () => {
       Object.defineProperty(process, "platform", { value: "win32" });
       const scriptPath = await prepareRestartScript({
-        OPENCLAW_PROFILE: "test&whoami",
+        GRANTED_PROFILE: "test&whoami",
       });
 
       expect(scriptPath).toBeNull();

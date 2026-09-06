@@ -73,7 +73,7 @@ vi.mock("../../plugins/bundled-dir.js", async (importOriginal) => {
   return {
     ...actual,
     resolveBundledPluginsDir: (env: NodeJS.ProcessEnv = process.env) =>
-      env.OPENCLAW_BUNDLED_PLUGINS_DIR ?? actual.resolveBundledPluginsDir(env),
+      env.GRANTED_BUNDLED_PLUGINS_DIR ?? actual.resolveBundledPluginsDir(env),
   };
 });
 
@@ -281,7 +281,7 @@ function writeBundledSetupChannelPlugin(
   } = {},
 ) {
   const bundledRoot = makePluginLoaderTempDir();
-  process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = bundledRoot;
+  process.env.GRANTED_BUNDLED_PLUGINS_DIR = bundledRoot;
   const pluginId = options.pluginId ?? "bundled-chat";
   const channelId = options.channelId ?? pluginId;
   const envVar = options.envVar ?? "BUNDLED_CHAT_TOKEN";
@@ -501,7 +501,7 @@ describe("listReadOnlyChannelPluginsForConfig", () => {
 
   it("reevaluates persisted auth without replacing manifest adapters or loading channel runtime", () => {
     const stateDir = makePluginLoaderTempDir();
-    vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
+    vi.stubEnv("GRANTED_STATE_DIR", stateDir);
     const persistedAuthPath = path.join(stateDir, "linked-auth");
     const { channelId, setupMarker, fullMarker } = writeBundledSetupChannelPlugin({
       persistedAuthPath,
@@ -898,8 +898,8 @@ describe("listReadOnlyChannelPluginsForConfig", () => {
       });
       const cfg = createExternalChannelTestConfig({ pluginDir, pluginId: "external-chat-plugin" });
       if (origin === "bundled") {
-        vi.stubEnv("OPENCLAW_DISABLE_BUNDLED_PLUGINS", undefined);
-        vi.stubEnv("OPENCLAW_BUNDLED_PLUGINS_DIR", fixtureRoot);
+        vi.stubEnv("GRANTED_DISABLE_BUNDLED_PLUGINS", undefined);
+        vi.stubEnv("GRANTED_BUNDLED_PLUGINS_DIR", fixtureRoot);
         delete cfg.plugins?.load;
       }
       for (const includeSetupFallbackPlugins of [undefined, false]) {

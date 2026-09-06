@@ -90,9 +90,9 @@ export async function createMatrixQaCliE2eeSetupRuntime(params: {
       ...requireMatrixQaCliRuntimeEnv(params.context),
       FORCE_COLOR: "0",
       NO_COLOR: "1",
-      OPENCLAW_CONFIG_PATH: configPath,
-      OPENCLAW_NO_AUTO_UPDATE: "1",
-      OPENCLAW_STATE_DIR: stateDir,
+      GRANTED_CONFIG_PATH: configPath,
+      GRANTED_NO_AUTO_UPDATE: "1",
+      GRANTED_STATE_DIR: stateDir,
     };
     const run = async (args: string[], timeoutMs = params.context.timeoutMs, stdin?: string) =>
       await runMatrixQaOpenClawCli({
@@ -150,7 +150,7 @@ export async function createMatrixQaCliGatewayRuntime(params: {
     ...requireMatrixQaCliRuntimeEnv(params.context),
     FORCE_COLOR: "0",
     NO_COLOR: "1",
-    OPENCLAW_NO_AUTO_UPDATE: "1",
+    GRANTED_NO_AUTO_UPDATE: "1",
   };
   const run = async (args: string[], timeoutMs = params.context.timeoutMs) =>
     await runMatrixQaOpenClawCli({

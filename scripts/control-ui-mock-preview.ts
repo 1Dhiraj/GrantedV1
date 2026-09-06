@@ -7,14 +7,14 @@ import type { ControlUiMockGateway } from "../ui/src/test-helpers/control-ui-e2e
 // Serialized into the preview page; runtime dependencies must stay inside this function.
 function installControlUiPreview(): void {
   const previewWindow = window as Window & {
-    __OPENCLAW_NATIVE_CONTROL_AUTH__?: { gatewayUrl: string };
+    __GRANTED_NATIVE_CONTROL_AUTH__?: { gatewayUrl: string };
     openclawControlUiE2eGateway?: ControlUiMockGateway;
   };
   // The WebSocket mock does not intercept HTTP. Select this origin before
   // application startup can send synthetic resources to the operator Gateway.
   const gatewayUrl = new URL(window.location.origin);
   gatewayUrl.protocol = gatewayUrl.protocol === "https:" ? "wss:" : "ws:";
-  previewWindow["__OPENCLAW_NATIVE_CONTROL_AUTH__"] = { gatewayUrl: gatewayUrl.origin };
+  previewWindow["__GRANTED_NATIVE_CONTROL_AUTH__"] = { gatewayUrl: gatewayUrl.origin };
 
   const gateway = previewWindow.openclawControlUiE2eGateway;
   if (!gateway) {

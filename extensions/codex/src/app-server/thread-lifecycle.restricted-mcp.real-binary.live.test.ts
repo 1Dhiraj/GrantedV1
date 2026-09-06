@@ -12,7 +12,7 @@ import {
 } from "./thread-lifecycle.test-fixtures.js";
 
 const LIVE =
-  process.env.OPENCLAW_LIVE_TEST === "1" && process.env.OPENCLAW_LIVE_CODEX_RESTRICTED_MCP === "1";
+  process.env.GRANTED_LIVE_TEST === "1" && process.env.GRANTED_LIVE_CODEX_RESTRICTED_MCP === "1";
 const describeLive = LIVE ? describe : describe.skip;
 
 afterEach(() => {

@@ -94,7 +94,7 @@ export function configValueExistsAtPath(
 }
 
 export function renderUnsupportedPathSummary(paths: string[]) {
-  const marker = "__OPENCLAW_CONFIG_PATHS__";
+  const marker = "__GRANTED_CONFIG_PATHS__";
   const key =
     paths.length === 1 ? "configView.formUnsafeCount" : "configView.formUnsafeCountPlural";
   const [prefix, suffix = ""] = t(key, {

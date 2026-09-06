@@ -91,7 +91,7 @@ function forceFsSafeNativeFallback(env: NodeJS.ProcessEnv): void {
     }
   }
   env.FS_SAFE_NATIVE_MODE = "off";
-  env.OPENCLAW_FS_SAFE_NATIVE_MODE = "off";
+  env.GRANTED_FS_SAFE_NATIVE_MODE = "off";
 }
 
 function forceWindowsAclVerificationUnavailable(

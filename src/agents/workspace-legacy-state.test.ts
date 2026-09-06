@@ -21,7 +21,7 @@ describe("legacy workspace reset cleanup", () => {
     const homeDir = tempDirs.make("openclaw-workspace-legacy-cleanup-");
     const stateDir = path.join(homeDir, "state");
     const workspaceDir = path.join(homeDir, "workspace");
-    const env = { ...process.env, HOME: homeDir, OPENCLAW_STATE_DIR: stateDir };
+    const env = { ...process.env, HOME: homeDir, GRANTED_STATE_DIR: stateDir };
     const homedir = () => homeDir;
     return {
       env,

@@ -73,7 +73,7 @@ suite.define(() => {
         await gateway.waitForRequest("chat.startup", { after: startupCount });
         await expect.poll(itemOccurrences).toEqual([1, 1]);
 
-        if (process.env.OPENCLAW_CAPTURE_UI_PROOF === "1") {
+        if (process.env.GRANTED_CAPTURE_UI_PROOF === "1") {
           await page.screenshot({
             fullPage: true,
             path: path.join(suite.artifactDir, "commentary-reconciliation.png"),

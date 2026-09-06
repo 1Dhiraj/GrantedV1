@@ -3207,7 +3207,7 @@ try {
     clearScreen: false,
     configFile: path.join(uiRoot, "vite.config.ts"),
     define: {
-      "globalThis.OPENCLAW_CONTROL_UI_BUILD_INFO": JSON.stringify({
+      "globalThis.GRANTED_CONTROL_UI_BUILD_INFO": JSON.stringify({
         version: "2026.7.10",
         commit: "0123456789abcdef0123456789abcdef01234567",
         commitAt: "2026-07-10T11:22:33.000Z",

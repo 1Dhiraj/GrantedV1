@@ -54,7 +54,7 @@ test("successful naming survives setup failure and is shared with discussion ope
   const starts = path.join(setup, "starts");
   await fs.writeFile(
     path.join(setup, "worktree-setup.sh"),
-    '#!/bin/sh\necho started >> "$OPENCLAW_SOURCE_TREE_PATH/.openclaw/starts"\nexit 1\n',
+    '#!/bin/sh\necho started >> "$GRANTED_SOURCE_TREE_PATH/.openclaw/starts"\nexit 1\n',
     { mode: 0o755 },
   );
   const context = {

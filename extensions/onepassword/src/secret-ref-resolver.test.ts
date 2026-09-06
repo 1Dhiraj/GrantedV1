@@ -134,7 +134,7 @@ function runResolver(params: {
   resolverExecutablePath?: string;
   token?: string | null;
 }): Promise<{ stdout: string; stderr: string; code: number | null }> {
-  let stateDir = params.env?.OPENCLAW_STATE_DIR;
+  let stateDir = params.env?.GRANTED_STATE_DIR;
   if (!stateDir) {
     const workspace = tempWorkspaceSync({
       rootDir: resolvePreferredOpenClawTmpDir(),
@@ -160,7 +160,7 @@ function runResolver(params: {
         ...process.env,
         OP_SERVICE_ACCOUNT_TOKEN: "",
         CLAW_1PASSWORD_OP: "",
-        OPENCLAW_STATE_DIR: stateDir,
+        GRANTED_STATE_DIR: stateDir,
         ...params.env,
       },
     });
@@ -246,8 +246,8 @@ describe("plugin manifest", () => {
         "LOCALAPPDATA",
         "TEMP",
         "TMP",
-        "OPENCLAW_STATE_DIR",
-        "OPENCLAW_PROFILE",
+        "GRANTED_STATE_DIR",
+        "GRANTED_PROFILE",
         "PATH",
         "SYSTEMROOT",
         "WINDIR",
@@ -590,7 +590,7 @@ process.stdout.write("not-a-real-value");
         provider: "onepassword",
         ids: ["op://Engineering/OpenRouter/apiKey"],
       },
-      env: { CLAW_1PASSWORD_OP: process.execPath, OPENCLAW_STATE_DIR: stateDir },
+      env: { CLAW_1PASSWORD_OP: process.execPath, GRANTED_STATE_DIR: stateDir },
       token: null,
     });
 
@@ -624,7 +624,7 @@ process.stdout.write("not-a-real-value");
           provider: "onepassword",
           ids: ["op://Engineering/OpenRouter/apiKey"],
         },
-        env: { CLAW_1PASSWORD_OP: opPath, OPENCLAW_STATE_DIR: stateDir },
+        env: { CLAW_1PASSWORD_OP: opPath, GRANTED_STATE_DIR: stateDir },
         token: null,
       });
 
@@ -665,9 +665,9 @@ process.stdout.write("not-a-real-value");
         env: {
           CLAW_1PASSWORD_OP: opPath,
           HOME: home,
-          OPENCLAW_HOME: "",
-          OPENCLAW_PROFILE: "work",
-          OPENCLAW_STATE_DIR: "",
+          GRANTED_HOME: "",
+          GRANTED_PROFILE: "work",
+          GRANTED_STATE_DIR: "",
         },
         token: null,
       });
@@ -704,9 +704,9 @@ process.stdout.write("not-a-real-value");
         env: {
           CLAW_1PASSWORD_OP: opPath,
           HOME: home,
-          OPENCLAW_HOME: "",
-          OPENCLAW_PROFILE: "",
-          OPENCLAW_STATE_DIR: "~/oc-state",
+          GRANTED_HOME: "",
+          GRANTED_PROFILE: "",
+          GRANTED_STATE_DIR: "~/oc-state",
         },
         token: null,
       });
@@ -719,7 +719,7 @@ process.stdout.write("not-a-real-value");
   );
 
   it.runIf(process.platform !== "win32")(
-    "keeps literal $ patterns in HOME when expanding a tilde OPENCLAW_HOME",
+    "keeps literal $ patterns in HOME when expanding a tilde GRANTED_HOME",
     async () => {
       const home = path.join(fixtureWorkspace.dir, "home$&d");
       const tokenDir = path.join(home, "oc-home", ".openclaw", "credentials", "onepassword");
@@ -743,9 +743,9 @@ process.stdout.write("not-a-real-value");
         env: {
           CLAW_1PASSWORD_OP: opPath,
           HOME: home,
-          OPENCLAW_HOME: "~/oc-home",
-          OPENCLAW_PROFILE: "",
-          OPENCLAW_STATE_DIR: "",
+          GRANTED_HOME: "~/oc-home",
+          GRANTED_PROFILE: "",
+          GRANTED_STATE_DIR: "",
         },
         token: null,
       });

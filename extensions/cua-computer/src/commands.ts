@@ -41,7 +41,7 @@ const CUA_WIRE_ACTION_NAMES = COMPUTER_USE_V2_ACTION_NAMES.slice(1, 14);
 // capture, not the delivered frame. 8K (7680x4320 = ~33.2M) is a valid primary
 // display; budget above it so full-resolution snapshots reach the downscaler.
 const MAX_IMAGE_PIXELS = 40_000_000;
-const CUA_DRIVER_ENDPOINT_ENV = "OPENCLAW_CUA_DRIVER_ENDPOINT";
+const CUA_DRIVER_ENDPOINT_ENV = "GRANTED_CUA_DRIVER_ENDPOINT";
 
 const CuaDriverEndpointSchema = z.strictObject({
   v: z.literal(1),

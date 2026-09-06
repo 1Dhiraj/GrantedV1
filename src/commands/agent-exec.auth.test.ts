@@ -170,7 +170,7 @@ describe("agent exec stored auth", () => {
           let resolvedKey: string | undefined;
           const result = await agentExecCommand("inspect", {}, runtime, {
             runAgent: async () => {
-              expect(process.env.OPENCLAW_STATE_DIR).not.toBe(state.stateDir);
+              expect(process.env.GRANTED_STATE_DIR).not.toBe(state.stateDir);
               const store = ensureAuthProfileStore(undefined, {
                 externalCli: { mode: "none" },
                 syncExternalCli: false,
@@ -279,8 +279,8 @@ describe("agent exec stored auth", () => {
   it("blocks direct persisted credential reads under --auth-env-only", async () => {
     const normalStateDir = tempDirs.make("openclaw-agent-exec-hidden-auth-");
     const normalAgentDir = path.join(normalStateDir, "agents", "main", "agent");
-    const previousStateDir = process.env.OPENCLAW_STATE_DIR;
-    process.env.OPENCLAW_STATE_DIR = normalStateDir;
+    const previousStateDir = process.env.GRANTED_STATE_DIR;
+    process.env.GRANTED_STATE_DIR = normalStateDir;
     const { saveAuthProfileStore } = await import("../agents/auth-profiles.js");
     saveAuthProfileStore(
       {
@@ -310,9 +310,9 @@ describe("agent exec stored auth", () => {
       });
     } finally {
       if (previousStateDir === undefined) {
-        delete process.env.OPENCLAW_STATE_DIR;
+        delete process.env.GRANTED_STATE_DIR;
       } else {
-        process.env.OPENCLAW_STATE_DIR = previousStateDir;
+        process.env.GRANTED_STATE_DIR = previousStateDir;
       }
     }
 
@@ -323,8 +323,8 @@ describe("agent exec stored auth", () => {
   it("uses the normal stored auth profile when auth-env-only is disabled", async () => {
     const normalStateDir = tempDirs.make("openclaw-agent-exec-normal-state-");
     const normalAgentDir = path.join(normalStateDir, "agents", "main", "agent");
-    const previousStateDir = process.env.OPENCLAW_STATE_DIR;
-    process.env.OPENCLAW_STATE_DIR = normalStateDir;
+    const previousStateDir = process.env.GRANTED_STATE_DIR;
+    process.env.GRANTED_STATE_DIR = normalStateDir;
     const { saveAuthProfileStore } = await import("../agents/auth-profiles.js");
     saveAuthProfileStore(
       {
@@ -340,7 +340,7 @@ describe("agent exec stored auth", () => {
     try {
       await agentExecCommand("inspect", { authEnvOnly: false }, runtime, {
         runAgent: vi.fn(async () => {
-          expect(process.env.OPENCLAW_STATE_DIR).not.toBe(normalStateDir);
+          expect(process.env.GRANTED_STATE_DIR).not.toBe(normalStateDir);
           profileIds = Object.keys(
             ensureAuthProfileStore(undefined, {
               allowKeychainPrompt: false,
@@ -352,9 +352,9 @@ describe("agent exec stored auth", () => {
       });
     } finally {
       if (previousStateDir === undefined) {
-        delete process.env.OPENCLAW_STATE_DIR;
+        delete process.env.GRANTED_STATE_DIR;
       } else {
-        process.env.OPENCLAW_STATE_DIR = previousStateDir;
+        process.env.GRANTED_STATE_DIR = previousStateDir;
       }
     }
 

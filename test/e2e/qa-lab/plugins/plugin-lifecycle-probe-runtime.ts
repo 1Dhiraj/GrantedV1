@@ -45,11 +45,11 @@ interface RegistryServer {
 }
 
 function stateDir(env: ProbeEnv = process.env) {
-  return env.OPENCLAW_STATE_DIR || path.join(env.HOME ?? os.homedir(), ".openclaw");
+  return env.GRANTED_STATE_DIR || path.join(env.HOME ?? os.homedir(), ".openclaw");
 }
 
 function configPath(env: ProbeEnv = process.env) {
-  return env.OPENCLAW_CONFIG_PATH || path.join(stateDir(env), "openclaw.json");
+  return env.GRANTED_CONFIG_PATH || path.join(stateDir(env), "openclaw.json");
 }
 
 function readJson(file: string) {
@@ -278,11 +278,11 @@ function createMatrixStateEnv(resourceDir: string): MatrixEnv {
     ...process.env,
     HOME: home,
     USERPROFILE: home,
-    OPENCLAW_HOME: home,
-    OPENCLAW_STATE_DIR: stateDir,
-    OPENCLAW_CONFIG_PATH: configFile,
-    OPENCLAW_TEST_WORKSPACE_DIR: workspaceDir,
-    OPENCLAW_AUTH_PROFILE_SECRET_KEY: randomBytes(32).toString("hex"),
+    GRANTED_HOME: home,
+    GRANTED_STATE_DIR: stateDir,
+    GRANTED_CONFIG_PATH: configFile,
+    GRANTED_TEST_WORKSPACE_DIR: workspaceDir,
+    GRANTED_AUTH_PROFILE_SECRET_KEY: randomBytes(32).toString("hex"),
   };
 }
 
@@ -438,8 +438,8 @@ async function runCommand(command: string, args: readonly string[], options: Com
 }
 
 async function installOpenClawPackage(prefix: string, env: MatrixEnv) {
-  const packageTgz = env.OPENCLAW_CURRENT_PACKAGE_TGZ;
-  assertProbe(packageTgz, "OPENCLAW_CURRENT_PACKAGE_TGZ is required");
+  const packageTgz = env.GRANTED_CURRENT_PACKAGE_TGZ;
+  assertProbe(packageTgz, "GRANTED_CURRENT_PACKAGE_TGZ is required");
   const installLog = "/tmp/openclaw-plugin-lifecycle-install.log";
   process.stdout.write("Installing mounted OpenClaw package...\n");
   await runCommand(
@@ -448,7 +448,7 @@ async function installOpenClawPackage(prefix: string, env: MatrixEnv) {
     {
       env,
       outputFile: installLog,
-      timeoutMs: parseDurationMs(env.OPENCLAW_E2E_NPM_INSTALL_TIMEOUT, "600s"),
+      timeoutMs: parseDurationMs(env.GRANTED_E2E_NPM_INSTALL_TIMEOUT, "600s"),
     },
   );
 }

@@ -92,7 +92,7 @@ export function createControlUiE2eSuite(options: ControlUiE2eSuiteOptions): Cont
   // Global setup already checked the executable; keep that result across isolated files.
   const { executablePath: chromiumExecutablePath, available: chromiumAvailable } =
     inject("controlUiE2eChromium");
-  const allowMissingChromium = process.env.OPENCLAW_UI_E2E_ALLOW_MISSING_CHROMIUM === "1";
+  const allowMissingChromium = process.env.GRANTED_UI_E2E_ALLOW_MISSING_CHROMIUM === "1";
   const describeControlUiE2e =
     chromiumAvailable || !allowMissingChromium ? describe : describe.skip;
   const openBrowserContexts = new Set<BrowserContext>();

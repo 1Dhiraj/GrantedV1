@@ -4,7 +4,7 @@ import { afterEach, describe, expect, it } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
 import { openNodeSqliteDatabase } from "../infra/node-sqlite.js";
 import { VERSION } from "../version.js";
-import { OPENCLAW_STATE_SCHEMA_VERSION } from "./openclaw-state-db-contract.js";
+import { GRANTED_STATE_SCHEMA_VERSION } from "./openclaw-state-db-contract.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
@@ -38,7 +38,7 @@ function readMigrationSnapshot(database: DatabaseSync) {
 
 function createVersion14Bindings() {
   const stateDir = tempDirs.make("openclaw-binding-targets-v14-");
-  const options = { env: { OPENCLAW_STATE_DIR: stateDir } };
+  const options = { env: { GRANTED_STATE_DIR: stateDir } };
   const databasePath = openOpenClawStateDatabase(options).path;
   closeOpenClawStateDatabaseForTest();
 
@@ -218,13 +218,13 @@ describe("conversation binding target migration", () => {
         before.rows.map(({ target_agent_id: _agent, target_session_id: _session, ...row }) => row),
       );
       expect(migrated.db.prepare("PRAGMA user_version").get()).toEqual({
-        user_version: OPENCLAW_STATE_SCHEMA_VERSION,
+        user_version: GRANTED_STATE_SCHEMA_VERSION,
       });
       expect(
         migrated.db
           .prepare("SELECT schema_version, app_version FROM schema_meta WHERE meta_key = 'primary'")
           .get(),
-      ).toEqual({ schema_version: OPENCLAW_STATE_SCHEMA_VERSION, app_version: VERSION });
+      ).toEqual({ schema_version: GRANTED_STATE_SCHEMA_VERSION, app_version: VERSION });
       expect(
         migrated.db
           .prepare(

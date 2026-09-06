@@ -114,7 +114,7 @@ export function detectLegacyMeetingTranscripts(params: {
     return { sourceDir, hasLegacy: false, pendingImportCount: 0 };
   }
   const databaseState = readMeetingTranscriptMigrationDetectionState({
-    env: { ...(params.env ?? process.env), OPENCLAW_STATE_DIR: params.stateDir },
+    env: { ...(params.env ?? process.env), GRANTED_STATE_DIR: params.stateDir },
   });
   const pendingImportCount = databaseState.pendingImportCount;
   const needsDatabaseRepair = pendingImportCount > 0 || databaseState.hasOversizedSessionSlugs;

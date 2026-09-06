@@ -180,7 +180,7 @@ describe("security audit install metadata findings", () => {
     installs: Record<string, HookInstallRecord>,
   ): void => {
     writeConfigMachineState("hooks.internal.installs", installs, {
-      env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+      env: { ...process.env, GRANTED_STATE_DIR: stateDir },
     });
   };
 
@@ -466,9 +466,9 @@ describe("security audit extension tool reachability findings", () => {
     "USERPROFILE",
     "HOMEDRIVE",
     "HOMEPATH",
-    "OPENCLAW_HOME",
-    "OPENCLAW_STATE_DIR",
-    "OPENCLAW_BUNDLED_PLUGINS_DIR",
+    "GRANTED_HOME",
+    "GRANTED_STATE_DIR",
+    "GRANTED_BUNDLED_PLUGINS_DIR",
   ] as const;
   let pathResolutionEnvSnapshot: ReturnType<typeof captureEnv> | undefined;
 
@@ -484,7 +484,7 @@ describe("security audit extension tool reachability findings", () => {
     const vitestModule = await import("vitest");
     fixtureRoot = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-security-extensions-"));
     isolatedHome = path.join(fixtureRoot, "home");
-    const isolatedEnv = createPathResolutionEnv(isolatedHome, { OPENCLAW_HOME: isolatedHome });
+    const isolatedEnv = createPathResolutionEnv(isolatedHome, { GRANTED_HOME: isolatedHome });
     pathResolutionEnvSnapshot = captureEnv([...pathResolutionEnvKeys]);
     for (const key of pathResolutionEnvKeys) {
       const value = isolatedEnv[key];

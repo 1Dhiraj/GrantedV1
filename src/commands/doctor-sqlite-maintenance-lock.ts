@@ -73,7 +73,7 @@ async function assertMaintenancePathsOwnedByStateDir(
       });
     } catch (error) {
       throw new Error(
-        `Cannot run ${operation} for a path outside the active OpenClaw state directory: ${protectedPath}. Set OPENCLAW_STATE_DIR to the owning state directory and retry.`,
+        `Cannot run ${operation} for a path outside the active OpenClaw state directory: ${protectedPath}. Set GRANTED_STATE_DIR to the owning state directory and retry.`,
         { cause: error },
       );
     }

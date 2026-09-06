@@ -9,11 +9,11 @@ describe("buildPlatformRuntimeLogHints", () => {
         platform: "darwin",
         env: {
           HOME: "/Users/test",
-          OPENCLAW_STATE_DIR: "/tmp/openclaw-state",
-          OPENCLAW_LOG_PREFIX: "gateway",
+          GRANTED_STATE_DIR: "/tmp/openclaw-state",
+          GRANTED_LOG_PREFIX: "gateway",
         },
-        systemdServiceName: "openclaw-gateway",
-        windowsTaskName: "OpenClaw Gateway",
+        systemdServiceName: "granted-gateway",
+        windowsTaskName: "Granted Gateway",
       }),
     ).toEqual([
       "Launchd stdout (if installed): /Users/test/Library/Logs/openclaw/gateway.log",
@@ -27,26 +27,26 @@ describe("buildPlatformRuntimeLogHints", () => {
       buildPlatformRuntimeLogHints({
         platform: "linux",
         env: {
-          OPENCLAW_STATE_DIR: "/tmp/openclaw-state",
+          GRANTED_STATE_DIR: "/tmp/openclaw-state",
         },
-        systemdServiceName: "openclaw-gateway",
-        windowsTaskName: "OpenClaw Gateway",
+        systemdServiceName: "granted-gateway",
+        windowsTaskName: "Granted Gateway",
       }),
     ).toEqual([
-      "Logs: journalctl --user -u openclaw-gateway.service -n 200 --no-pager",
+      "Logs: journalctl --user -u granted-gateway.service -n 200 --no-pager",
       "Restart attempts: /tmp/openclaw-state/logs/gateway-restart.log",
     ]);
     expect(
       buildPlatformRuntimeLogHints({
         platform: "win32",
         env: {
-          OPENCLAW_STATE_DIR: "/tmp/openclaw-state",
+          GRANTED_STATE_DIR: "/tmp/openclaw-state",
         },
-        systemdServiceName: "openclaw-gateway",
-        windowsTaskName: "OpenClaw Gateway",
+        systemdServiceName: "granted-gateway",
+        windowsTaskName: "Granted Gateway",
       }),
     ).toEqual([
-      'Logs: schtasks /Query /TN "OpenClaw Gateway" /V /FO LIST',
+      'Logs: schtasks /Query /TN "Granted Gateway" /V /FO LIST',
       "Restart attempts: /tmp/openclaw-state/logs/gateway-restart.log",
     ]);
   });
@@ -60,8 +60,8 @@ describe("buildPlatformServiceStartHints", () => {
         installCommand: "openclaw gateway install",
         startCommand: "openclaw gateway",
         launchAgentPlistPath: "~/Library/LaunchAgents/com.openclaw.gateway.plist",
-        systemdServiceName: "openclaw-gateway",
-        windowsTaskName: "OpenClaw Gateway",
+        systemdServiceName: "granted-gateway",
+        windowsTaskName: "Granted Gateway",
       }),
     ).toEqual([
       "openclaw gateway install",
@@ -74,13 +74,13 @@ describe("buildPlatformServiceStartHints", () => {
         installCommand: "openclaw gateway install",
         startCommand: "openclaw gateway",
         launchAgentPlistPath: "~/Library/LaunchAgents/com.openclaw.gateway.plist",
-        systemdServiceName: "openclaw-gateway",
-        windowsTaskName: "OpenClaw Gateway",
+        systemdServiceName: "granted-gateway",
+        windowsTaskName: "Granted Gateway",
       }),
     ).toEqual([
       "openclaw gateway install",
       "openclaw gateway",
-      "systemctl --user start openclaw-gateway.service",
+      "systemctl --user start granted-gateway.service",
     ]);
   });
 });

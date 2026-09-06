@@ -31,8 +31,8 @@ function makeTempDir() {
 
 function hermeticEnv(overrides: NodeJS.ProcessEnv = {}): NodeJS.ProcessEnv {
   return {
-    OPENCLAW_BUNDLED_PLUGINS_DIR: undefined,
-    OPENCLAW_VERSION: "2026.4.25",
+    GRANTED_BUNDLED_PLUGINS_DIR: undefined,
+    GRANTED_VERSION: "2026.4.25",
     VITEST: "true",
     ...overrides,
   };
@@ -144,7 +144,7 @@ function insertStalePersistedIndexRow(stateDir: string, installRecordsJson = "{}
         `,
       ).run(valueJson);
     },
-    { env: { ...process.env, OPENCLAW_STATE_DIR: stateDir } },
+    { env: { ...process.env, GRANTED_STATE_DIR: stateDir } },
   );
 }
 
@@ -182,7 +182,7 @@ describe("doctor plugin registry migration", () => {
             "SELECT value_json, updated_at_ms FROM config_machine_state WHERE state_key = 'plugins.installedIndex'",
           )
           .get(),
-      { env: { OPENCLAW_STATE_DIR: stateDir } },
+      { env: { GRANTED_STATE_DIR: stateDir } },
     );
     expect(row).toMatchObject({ updated_at_ms: 123 });
     const restored = await migratePluginRegistryForDoctor({
@@ -264,7 +264,7 @@ describe("doctor plugin registry migration", () => {
               WHERE state_key = 'plugins.installedIndex'`,
           )
           .get() as { value_json: string; updated_at_ms: number | bigint },
-      { env: { ...process.env, OPENCLAW_STATE_DIR: stateDir } },
+      { env: { ...process.env, GRANTED_STATE_DIR: stateDir } },
     );
     expect(row.updated_at_ms).toBe(123);
     const persistedValue = JSON.parse(row.value_json) as {

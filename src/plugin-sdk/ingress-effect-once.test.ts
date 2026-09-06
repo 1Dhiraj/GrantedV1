@@ -20,7 +20,7 @@ beforeEach(async () => {
   stateDir = await fs.realpath(
     await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-ingress-effect-once-")),
   );
-  vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
+  vi.stubEnv("GRANTED_STATE_DIR", stateDir);
 });
 
 afterEach(async () => {

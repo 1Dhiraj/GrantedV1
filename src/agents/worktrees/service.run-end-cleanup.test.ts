@@ -40,7 +40,7 @@ describe("ManagedWorktreeService run-end cleanup outcomes", () => {
     root = await fs.mkdtemp(path.join(await fs.realpath(os.tmpdir()), "openclaw-run-end-cleanup-"));
     repo = await initializeRepository(root);
     stateDir = path.join(root, "state");
-    env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+    env = { ...process.env, GRANTED_STATE_DIR: stateDir };
     service = new ManagedWorktreeService({ env, now: () => now });
   });
 
@@ -68,7 +68,7 @@ describe("ManagedWorktreeService run-end cleanup outcomes", () => {
     const closed = path.join(setup, "authority-closed");
     await fs.writeFile(
       path.join(setup, "worktree-setup.sh"),
-      '#!/bin/sh\ntouch "$OPENCLAW_SOURCE_TREE_PATH/.openclaw/authority-closed"\n',
+      '#!/bin/sh\ntouch "$GRANTED_SOURCE_TREE_PATH/.openclaw/authority-closed"\n',
       { mode: 0o755 },
     );
     await expect(

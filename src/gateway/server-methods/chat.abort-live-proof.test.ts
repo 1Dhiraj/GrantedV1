@@ -16,17 +16,17 @@ import { buildMockOpenAiResponsesProvider } from "../test-openai-responses-model
 
 const envKeys = [
   "HOME",
-  "OPENCLAW_STATE_DIR",
-  "OPENCLAW_CONFIG_PATH",
-  "OPENCLAW_GATEWAY_TOKEN",
-  "OPENCLAW_SKIP_CHANNELS",
-  "OPENCLAW_SKIP_GMAIL_WATCHER",
-  "OPENCLAW_SKIP_CRON",
-  "OPENCLAW_SKIP_CANVAS_HOST",
-  "OPENCLAW_SKIP_BROWSER_CONTROL_SERVER",
-  "OPENCLAW_SKIP_PROVIDERS",
-  "OPENCLAW_BUNDLED_PLUGINS_DIR",
-  "OPENCLAW_DISABLE_BUNDLED_PLUGINS",
+  "GRANTED_STATE_DIR",
+  "GRANTED_CONFIG_PATH",
+  "GRANTED_GATEWAY_TOKEN",
+  "GRANTED_SKIP_CHANNELS",
+  "GRANTED_SKIP_GMAIL_WATCHER",
+  "GRANTED_SKIP_CRON",
+  "GRANTED_SKIP_CANVAS_HOST",
+  "GRANTED_SKIP_BROWSER_CONTROL_SERVER",
+  "GRANTED_SKIP_PROVIDERS",
+  "GRANTED_BUNDLED_PLUGINS_DIR",
+  "GRANTED_DISABLE_BUNDLED_PLUGINS",
 ] as const;
 
 const REPLY_TEXT = "PR132123_COMMITTED_REPLY";
@@ -89,17 +89,17 @@ describe("PR #132123 real Gateway proof", () => {
         ]);
         for (const [key, value] of Object.entries({
           HOME: tempHome,
-          OPENCLAW_STATE_DIR: stateDir,
-          OPENCLAW_CONFIG_PATH: configPath,
-          OPENCLAW_GATEWAY_TOKEN: "pr132123-proof-token",
-          OPENCLAW_SKIP_CHANNELS: "1",
-          OPENCLAW_SKIP_GMAIL_WATCHER: "1",
-          OPENCLAW_SKIP_CRON: "1",
-          OPENCLAW_SKIP_CANVAS_HOST: "1",
-          OPENCLAW_SKIP_BROWSER_CONTROL_SERVER: "1",
-          OPENCLAW_SKIP_PROVIDERS: "1",
-          OPENCLAW_BUNDLED_PLUGINS_DIR: bundledPluginsDir,
-          OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
+          GRANTED_STATE_DIR: stateDir,
+          GRANTED_CONFIG_PATH: configPath,
+          GRANTED_GATEWAY_TOKEN: "pr132123-proof-token",
+          GRANTED_SKIP_CHANNELS: "1",
+          GRANTED_SKIP_GMAIL_WATCHER: "1",
+          GRANTED_SKIP_CRON: "1",
+          GRANTED_SKIP_CANVAS_HOST: "1",
+          GRANTED_SKIP_BROWSER_CONTROL_SERVER: "1",
+          GRANTED_SKIP_PROVIDERS: "1",
+          GRANTED_BUNDLED_PLUGINS_DIR: bundledPluginsDir,
+          GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
         })) {
           setTestEnvValue(key, value);
         }

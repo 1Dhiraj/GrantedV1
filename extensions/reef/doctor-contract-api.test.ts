@@ -141,7 +141,7 @@ describe("Reef doctor contract", () => {
     resetPluginStateStoreForTests();
     stateDir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-reef-doctor-"));
     vi.spyOn(os, "homedir").mockReturnValue(stateDir);
-    env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+    env = { ...process.env, GRANTED_STATE_DIR: stateDir };
   });
 
   afterEach(() => {
@@ -263,7 +263,7 @@ describe("Reef doctor contract", () => {
     fs.mkdirSync(isolatedStateDir, { recursive: true });
     fs.writeFileSync(homeKeysPath, JSON.stringify(reefKeys()));
     vi.mocked(os.homedir).mockReturnValue(homeDir);
-    const isolatedEnv = { ...env, OPENCLAW_STATE_DIR: isolatedStateDir };
+    const isolatedEnv = { ...env, GRANTED_STATE_DIR: isolatedStateDir };
     const migration = migrationById("reef-keys-json-to-plugin-state");
     const params = {
       config: {},
@@ -291,7 +291,7 @@ describe("Reef doctor contract", () => {
     fs.mkdirSync(isolatedStateDir, { recursive: true });
     fs.writeFileSync(homeKeysPath, JSON.stringify(keys));
     vi.mocked(os.homedir).mockReturnValue(homeDir);
-    const isolatedEnv = { ...env, OPENCLAW_STATE_DIR: isolatedStateDir };
+    const isolatedEnv = { ...env, GRANTED_STATE_DIR: isolatedStateDir };
     const context = createDoctorContext(isolatedEnv);
     const migration = migrationById("reef-keys-json-to-plugin-state");
     const params = {

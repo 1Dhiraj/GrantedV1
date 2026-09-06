@@ -236,7 +236,7 @@ describe("managed npm generation-dir loader precedence", () => {
     expect(emitWarning).toHaveBeenCalledWith(
       expect.stringContaining("without an authoritative active path"),
       expect.objectContaining({
-        code: "OPENCLAW_PLUGIN_INSTALL_RECOVERY_FALLBACK",
+        code: "GRANTED_PLUGIN_INSTALL_RECOVERY_FALLBACK",
         type: "OpenClawPluginRecoveryWarning",
       }),
     );
@@ -283,7 +283,7 @@ describe("managed npm generation-dir loader precedence", () => {
     });
     expect(emitWarning).toHaveBeenCalledWith(
       expect.stringContaining("without an authoritative active path"),
-      expect.objectContaining({ code: "OPENCLAW_PLUGIN_INSTALL_RECOVERY_FALLBACK" }),
+      expect.objectContaining({ code: "GRANTED_PLUGIN_INSTALL_RECOVERY_FALLBACK" }),
     );
   });
 

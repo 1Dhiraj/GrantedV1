@@ -24,7 +24,7 @@ import { createControlUiE2eSuite } from "./control-ui-e2e-suite.test-support.ts"
  * silently to the fallback stack and looks merely "a bit off".
  */
 
-const captureUiProof = process.env.OPENCLAW_CAPTURE_UI_PROOF === "1";
+const captureUiProof = process.env.GRANTED_CAPTURE_UI_PROOF === "1";
 
 const suite = createControlUiE2eSuite({
   name: "Control UI theme typography",

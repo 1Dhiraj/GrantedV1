@@ -203,7 +203,7 @@ install_openclaw() { :; }
             HOME: root,
             TMPDIR: tempRoot,
             PATH: `${path.dirname(process.execPath)}:${systemPath}`,
-            OPENCLAW_MAC_SIGNING_VARIANT: variant,
+            GRANTED_MAC_SIGNING_VARIANT: variant,
           },
         },
       );

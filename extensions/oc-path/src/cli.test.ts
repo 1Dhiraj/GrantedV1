@@ -567,7 +567,7 @@ describe("openclaw path CLI", () => {
       // the structured CLI error boundary instead of escaping Commander.
       await pathSetCommand(
         "oc://gateway.jsonc/token",
-        "__OPENCLAW_REDACTED__",
+        "__GRANTED_REDACTED__",
         { cwd: workspaceDir, json: true },
         rt,
       );

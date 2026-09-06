@@ -300,6 +300,13 @@ const enSettings = {
         "Enter a CSS width such as 960px, 82%, min(1280px, 82%), or calc(100% - 2rem).",
       collapseTaskProgress: "Collapse task progress by default",
       collapseTaskProgressHint: "Keep active task progress collapsed until you open it.",
+      wakeWord: "Wake word",
+      wakeWordHint:
+        "Listen in the background and open talk mode when you say the phrase. Uses this browser's own speech recognition, so it costs nothing while it waits.",
+      wakeWordPhrase: "Wake phrase",
+      wakeWordPhraseHint: "The phrase that opens talk mode. Punctuation and casing are ignored.",
+      wakeWordUnsupported:
+        "This browser has no speech recognition, so the wake word cannot listen.",
     },
     sidebarPrefs: {
       title: "Sidebar",

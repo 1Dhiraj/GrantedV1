@@ -37,7 +37,7 @@ describe("worker transcript commit store", () => {
   beforeEach(async () => {
     root = await fs.mkdtemp(path.join(await fs.realpath(os.tmpdir()), "openclaw-worker-commit-"));
     nowMs = 1_000;
-    const database = openOpenClawStateDatabase({ env: { OPENCLAW_STATE_DIR: root } });
+    const database = openOpenClawStateDatabase({ env: { GRANTED_STATE_DIR: root } });
     store = createWorkerTranscriptCommitStore({ database, now: () => nowMs });
   });
 
@@ -55,7 +55,7 @@ describe("worker transcript commit store", () => {
     expect(store.begin(BASE_INPUT)).toEqual({ kind: "replay", outcome: SUCCESS_OUTCOME });
 
     closeOpenClawStateDatabaseForTest();
-    const database = openOpenClawStateDatabase({ env: { OPENCLAW_STATE_DIR: root } });
+    const database = openOpenClawStateDatabase({ env: { GRANTED_STATE_DIR: root } });
     store = createWorkerTranscriptCommitStore({ database, now: () => nowMs });
     expect(store.begin(BASE_INPUT)).toEqual({ kind: "replay", outcome: SUCCESS_OUTCOME });
   });

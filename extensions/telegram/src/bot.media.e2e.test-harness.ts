@@ -77,7 +77,7 @@ async function defaultSaveMediaBuffer(buffer: Buffer, contentType?: string) {
 }
 
 const saveMediaBufferSpy: Mock = vi.fn(defaultSaveMediaBuffer);
-const originalStateDir = process.env.OPENCLAW_STATE_DIR;
+const originalStateDir = process.env.GRANTED_STATE_DIR;
 let mediaHarnessStoreRoot: string | undefined;
 
 function ensureMediaHarnessStoreRoot(): string {
@@ -264,7 +264,7 @@ export const telegramBotDepsForTest: TelegramBotDeps = {
 beforeEach(() => {
   resetPluginStateStoreForTests();
   cleanupMediaHarnessStoreRoot();
-  process.env.OPENCLAW_STATE_DIR = ensureMediaHarnessStoreRoot();
+  process.env.GRANTED_STATE_DIR = ensureMediaHarnessStoreRoot();
   telegramBotDepsForTest.getRuntimeConfig = defaultRuntimeConfig;
   resetInboundDedupe();
   resetTelegramTopicNameCacheForTest();
@@ -277,9 +277,9 @@ beforeEach(() => {
 afterEach(() => {
   resetPluginStateStoreForTests();
   if (originalStateDir === undefined) {
-    delete process.env.OPENCLAW_STATE_DIR;
+    delete process.env.GRANTED_STATE_DIR;
   } else {
-    process.env.OPENCLAW_STATE_DIR = originalStateDir;
+    process.env.GRANTED_STATE_DIR = originalStateDir;
   }
   cleanupMediaHarnessStoreRoot();
 });

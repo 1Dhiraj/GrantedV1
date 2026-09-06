@@ -1011,8 +1011,8 @@ describe("gateway client capability tool filtering", () => {
     }
   });
 
-  it("keeps the core widget tool out when OPENCLAW_SKIP_CANVAS_HOST is set", () => {
-    withEnv({ OPENCLAW_SKIP_CANVAS_HOST: "1" }, () => {
+  it("keeps the core widget tool out when GRANTED_SKIP_CANVAS_HOST is set", () => {
+    withEnv({ GRANTED_SKIP_CANVAS_HOST: "1" }, () => {
       expect(hasTool(createOpenClawTools({ clientCaps: ["inline-widgets"] }), "show_widget")).toBe(
         false,
       );

@@ -51,7 +51,7 @@ describe("deliverOutboundPayloads queue integration: block intent recovery", () 
   });
 
   it("recovers one pending block intent once and dedupes completed producer replays", async () => {
-    process.env.OPENCLAW_STATE_DIR = tmpDir;
+    process.env.GRANTED_STATE_DIR = tmpDir;
     const deliveryIntentId = "block-reply:v1:codex-app-server:thread-1:turn-1:restart-dedupe";
     await enqueueDeliveryOnce(
       {

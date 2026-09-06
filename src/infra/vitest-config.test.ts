@@ -29,11 +29,11 @@ describe("resolveLocalVitestMaxWorkers", () => {
     ).toBe(6);
   });
 
-  it("lets OPENCLAW_VITEST_MAX_WORKERS override the inferred cap", () => {
+  it("lets GRANTED_VITEST_MAX_WORKERS override the inferred cap", () => {
     expect(
       resolveLocalVitestMaxWorkers(
         {
-          OPENCLAW_VITEST_MAX_WORKERS: "2",
+          GRANTED_VITEST_MAX_WORKERS: "2",
         },
         {
           cpuCount: 10,
@@ -45,11 +45,11 @@ describe("resolveLocalVitestMaxWorkers", () => {
     ).toBe(2);
   });
 
-  it("respects the legacy OPENCLAW_TEST_WORKERS override too", () => {
+  it("respects the legacy GRANTED_TEST_WORKERS override too", () => {
     expect(
       resolveLocalVitestMaxWorkers(
         {
-          OPENCLAW_TEST_WORKERS: "3",
+          GRANTED_TEST_WORKERS: "3",
         },
         {
           cpuCount: 16,
@@ -159,7 +159,7 @@ describe("resolveLocalVitestScheduling", () => {
     expect(
       resolveLocalVitestScheduling(
         {
-          OPENCLAW_VITEST_DISABLE_SYSTEM_THROTTLE: "1",
+          GRANTED_VITEST_DISABLE_SYSTEM_THROTTLE: "1",
         },
         {
           cpuCount: 16,
@@ -285,7 +285,7 @@ describe("test scripts", () => {
       "node --import ./scripts/tsx.mjs scripts/test-force.ts",
     );
     expect(pkg.scripts?.["test:gateway"]).toBe(
-      "node --import ./scripts/tsx.mjs scripts/run-with-env.mts OPENCLAW_GATEWAY_PROJECT_SHARDS=1 -- node scripts/run-vitest.mjs run --config test/vitest/vitest.gateway.config.ts",
+      "node --import ./scripts/tsx.mjs scripts/run-with-env.mts GRANTED_GATEWAY_PROJECT_SHARDS=1 -- node scripts/run-vitest.mjs run --config test/vitest/vitest.gateway.config.ts",
     );
     expect(pkg.scripts?.["test:single"]).toBeUndefined();
   });

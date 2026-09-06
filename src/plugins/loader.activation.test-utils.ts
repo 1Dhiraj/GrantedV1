@@ -92,10 +92,10 @@ describe("loadOpenClawPlugins", () => {
               ...options,
               env: {
                 ...process.env,
-                OPENCLAW_HOME: openclawHome,
+                GRANTED_HOME: openclawHome,
                 HOME: ignoredHome,
-                OPENCLAW_STATE_DIR: stateDir,
-                OPENCLAW_BUNDLED_PLUGINS_DIR: "/nonexistent/bundled/plugins",
+                GRANTED_STATE_DIR: stateDir,
+                GRANTED_BUNDLED_PLUGINS_DIR: "/nonexistent/bundled/plugins",
               },
             }),
           loadVariant: () =>
@@ -103,10 +103,10 @@ describe("loadOpenClawPlugins", () => {
               ...options,
               env: {
                 ...process.env,
-                OPENCLAW_HOME: secondHome,
+                GRANTED_HOME: secondHome,
                 HOME: ignoredHome,
-                OPENCLAW_STATE_DIR: stateDir,
-                OPENCLAW_BUNDLED_PLUGINS_DIR: "/nonexistent/bundled/plugins",
+                GRANTED_STATE_DIR: stateDir,
+                GRANTED_BUNDLED_PLUGINS_DIR: "/nonexistent/bundled/plugins",
               },
             }),
         };
@@ -197,8 +197,8 @@ describe("loadOpenClawPlugins", () => {
       env: {
         ...process.env,
         HOME: homeDir,
-        OPENCLAW_HOME: undefined,
-        OPENCLAW_BUNDLED_PLUGINS_DIR: override,
+        GRANTED_HOME: undefined,
+        GRANTED_BUNDLED_PLUGINS_DIR: override,
       },
       config: {
         plugins: {
@@ -215,7 +215,7 @@ describe("loadOpenClawPlugins", () => {
     ).toBe(fs.realpathSync(plugin.file));
   });
 
-  it("prefers OPENCLAW_HOME over HOME for env-expanded load paths", () => {
+  it("prefers GRANTED_HOME over HOME for env-expanded load paths", () => {
     const ignoredHome = makePluginLoaderTempDir();
     const openclawHome = makePluginLoaderTempDir();
     const stateDir = makePluginLoaderTempDir();
@@ -231,9 +231,9 @@ describe("loadOpenClawPlugins", () => {
       env: {
         ...process.env,
         HOME: ignoredHome,
-        OPENCLAW_HOME: openclawHome,
-        OPENCLAW_STATE_DIR: stateDir,
-        OPENCLAW_BUNDLED_PLUGINS_DIR: bundledDir,
+        GRANTED_HOME: openclawHome,
+        GRANTED_STATE_DIR: stateDir,
+        GRANTED_BUNDLED_PLUGINS_DIR: bundledDir,
       },
       config: {
         plugins: {
@@ -445,7 +445,7 @@ describe("loadOpenClawPlugins", () => {
       };`,
     });
 
-    const registry = withEnv({ OPENCLAW_PLUGIN_LOAD_DEBUG: "1" }, () =>
+    const registry = withEnv({ GRANTED_PLUGIN_LOAD_DEBUG: "1" }, () =>
       loadRegistryFromSinglePlugin({
         plugin,
         pluginConfig: {

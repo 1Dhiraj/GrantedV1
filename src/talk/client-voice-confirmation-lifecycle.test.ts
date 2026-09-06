@@ -25,7 +25,7 @@ import {
 } from "./client-voice-session.js";
 import { clientVoiceSessionTesting } from "./client-voice-session.test-support.js";
 
-const envSnapshot = captureEnv(["OPENCLAW_STATE_DIR"]);
+const envSnapshot = captureEnv(["GRANTED_STATE_DIR"]);
 const tempDirs = useAutoCleanupTempDirTracker(afterEach);
 let tempDir: string;
 
@@ -93,7 +93,7 @@ async function completeRun(runId: string): Promise<void> {
 describe("client voice confirmation lifecycle", () => {
   beforeEach(() => {
     tempDir = tempDirs.make("openclaw-voice-confirmation-");
-    setTestEnvValue("OPENCLAW_STATE_DIR", tempDir);
+    setTestEnvValue("GRANTED_STATE_DIR", tempDir);
   });
 
   afterEach(() => {

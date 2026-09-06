@@ -675,10 +675,10 @@ describe("loadGatewayPlugins", () => {
       {
         HOME: home,
         USERPROFILE: home,
-        OPENCLAW_HOME: undefined,
-        OPENCLAW_PROFILE: undefined,
-        OPENCLAW_STATE_DIR: defaultStateDir,
-        OPENCLAW_CONFIG_PATH: path.join(defaultStateDir, "openclaw.json"),
+        GRANTED_HOME: undefined,
+        GRANTED_PROFILE: undefined,
+        GRANTED_STATE_DIR: defaultStateDir,
+        GRANTED_CONFIG_PATH: path.join(defaultStateDir, "openclaw.json"),
       },
       () => loadGatewayPluginsForTest(),
     );
@@ -688,10 +688,10 @@ describe("loadGatewayPlugins", () => {
       {
         HOME: home,
         USERPROFILE: home,
-        OPENCLAW_HOME: undefined,
-        OPENCLAW_PROFILE: "dev",
-        OPENCLAW_STATE_DIR: path.join(home, ".openclaw-dev"),
-        OPENCLAW_CONFIG_PATH: path.join(home, ".openclaw-dev", "openclaw.json"),
+        GRANTED_HOME: undefined,
+        GRANTED_PROFILE: "dev",
+        GRANTED_STATE_DIR: path.join(home, ".openclaw-dev"),
+        GRANTED_CONFIG_PATH: path.join(home, ".openclaw-dev", "openclaw.json"),
       },
       () => loadGatewayPluginsForTest(),
     );

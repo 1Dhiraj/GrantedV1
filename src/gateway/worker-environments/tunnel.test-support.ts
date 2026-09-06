@@ -107,7 +107,7 @@ export async function prepareLocalWorkspaceRsyncBoundary(
   const fakeSsh = path.join(remoteHome, ".openclaw-test-ssh");
   await fs.writeFile(
     fakeSsh,
-    '#!/bin/sh\nset -eu\nwhile [ "$#" -gt 0 ]; do\n  case "$1" in -l|-p) shift 2 ;; -*) shift ;; *) shift; break ;; esac\ndone\ncd "$HOME"\nif [ -n "${OPENCLAW_TEST_RECEIVER_PATH:-}" ]; then PATH=$OPENCLAW_TEST_RECEIVER_PATH; export PATH; fi\nexec sh -c "$*"\n',
+    '#!/bin/sh\nset -eu\nwhile [ "$#" -gt 0 ]; do\n  case "$1" in -l|-p) shift 2 ;; -*) shift ;; *) shift; break ;; esac\ndone\ncd "$HOME"\nif [ -n "${GRANTED_TEST_RECEIVER_PATH:-}" ]; then PATH=$GRANTED_TEST_RECEIVER_PATH; export PATH; fi\nexec sh -c "$*"\n',
     { mode: 0o755 },
   );
   const localArgv = [...argv];

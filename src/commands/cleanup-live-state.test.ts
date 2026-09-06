@@ -74,7 +74,7 @@ async function startLiveStateOwner(state: OpenClawTestState): Promise<ChildProce
     const { acquireGatewayLock } = await import(${JSON.stringify(lockModuleUrl)});
     const lock = await acquireGatewayLock({ allowInTests: true, env: process.env, port: 18789 });
     if (!lock) throw new Error("live owner did not acquire the Gateway lock");
-    const databasePath = path.join(process.env.OPENCLAW_STATE_DIR, "state", "openclaw.sqlite");
+    const databasePath = path.join(process.env.GRANTED_STATE_DIR, "state", "openclaw.sqlite");
     const database = new DatabaseSync(databasePath);
     database.exec("PRAGMA journal_mode = WAL; CREATE TABLE live_owner (value TEXT); INSERT INTO live_owner VALUES ('held');");
     process.send?.("ready");

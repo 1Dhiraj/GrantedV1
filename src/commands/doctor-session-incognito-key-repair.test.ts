@@ -26,7 +26,7 @@ afterEach(() => {
 describe("doctor reserved incognito session key repair", () => {
   it("renames durable collisions and every key-bearing linkage idempotently", () => {
     const stateDir = fs.realpathSync(tempDirs.make("openclaw-doctor-incognito-key-"));
-    const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+    const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
     const sqlitePath = resolveOpenClawAgentSqlitePath({ agentId: "main", env });
     const database = openOpenClawAgentDatabase({ agentId: "main", env, path: sqlitePath });
     const secondaryPath = resolveOpenClawAgentSqlitePath({ agentId: "work", env });
@@ -263,7 +263,7 @@ describe("doctor reserved incognito session key repair", () => {
     "resumes an interrupted repair from its journal (shared owner: %s)",
     (shared) => {
       const stateDir = fs.realpathSync(tempDirs.make("openclaw-doctor-incognito-resume-"));
-      const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+      const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
       const sqlitePath = shared
         ? path.join(stateDir, "shared.sqlite")
         : resolveOpenClawAgentSqlitePath({ agentId: "main", env });
@@ -339,7 +339,7 @@ describe("doctor reserved incognito session key repair", () => {
 
   it("rewrites dense incognito references in bounded batches without changing payloads", () => {
     const stateDir = fs.realpathSync(tempDirs.make("openclaw-doctor-incognito-density-"));
-    const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+    const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
     const database = openOpenClawAgentDatabase({ agentId: "main", env });
     const oldKey = "agent:main:dashboard:incognito-density";
     const newKey = "agent:main:dashboard:legacy-incognito-density";

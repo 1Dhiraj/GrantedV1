@@ -189,7 +189,7 @@ suite.define(() => {
           '[data-session-section="catalog:claude"] .sidebar-recent-sessions__head',
         );
         const toggle = header.locator(".sidebar-session-group-toggle");
-        const artifactRoot = process.env.OPENCLAW_UI_E2E_ARTIFACT_DIR?.trim();
+        const artifactRoot = process.env.GRANTED_UI_E2E_ARTIFACT_DIR?.trim();
         const artifactDir = artifactRoot
           ? createControlUiE2eArtifactDir("claude-sessions", artifactRoot)
           : undefined;
@@ -343,7 +343,7 @@ suite.define(() => {
       });
       expect(touchAffordance.actionsColor).toBe(touchAffordance.toolbarButtonColor);
 
-      const artifactRoot = process.env.OPENCLAW_UI_E2E_ARTIFACT_DIR?.trim();
+      const artifactRoot = process.env.GRANTED_UI_E2E_ARTIFACT_DIR?.trim();
       const artifactDir = artifactRoot
         ? createControlUiE2eArtifactDir("claude-sessions", artifactRoot)
         : undefined;
@@ -399,7 +399,7 @@ suite.define(() => {
       await connecting.waitFor();
       expect(await page.locator(".tabstrip-tab.is-connecting").count()).toBe(1);
 
-      const artifactRoot = process.env.OPENCLAW_UI_E2E_ARTIFACT_DIR?.trim();
+      const artifactRoot = process.env.GRANTED_UI_E2E_ARTIFACT_DIR?.trim();
       const artifactDir = artifactRoot
         ? createControlUiE2eArtifactDir("claude-sessions", artifactRoot)
         : undefined;
@@ -646,7 +646,7 @@ suite.define(() => {
     await expect
       .poll(() => page.getByText("This session is on a paired device and is view-only.").count())
       .toBe(1);
-    const artifactRoot = process.env.OPENCLAW_UI_E2E_ARTIFACT_DIR?.trim();
+    const artifactRoot = process.env.GRANTED_UI_E2E_ARTIFACT_DIR?.trim();
     const artifactDir = artifactRoot
       ? createControlUiE2eArtifactDir("claude-sessions", artifactRoot)
       : undefined;
@@ -694,7 +694,7 @@ suite.define(() => {
   });
 
   it("auto-pages an underfilled native transcript until it becomes scrollable", async () => {
-    const artifactRoot = process.env.OPENCLAW_UI_E2E_ARTIFACT_DIR?.trim();
+    const artifactRoot = process.env.GRANTED_UI_E2E_ARTIFACT_DIR?.trim();
     const artifactDir = artifactRoot
       ? createControlUiE2eArtifactDir("claude-sessions", artifactRoot)
       : undefined;
@@ -849,7 +849,7 @@ suite.define(() => {
 
   it("keeps the earlier-history action fixed while loading and reveals the fetched page", async () => {
     const page = await suite.browser.newPage({ viewport: { width: 1280, height: 800 } });
-    const artifactRoot = process.env.OPENCLAW_UI_E2E_ARTIFACT_DIR?.trim();
+    const artifactRoot = process.env.GRANTED_UI_E2E_ARTIFACT_DIR?.trim();
     const artifactDir = artifactRoot
       ? createControlUiE2eArtifactDir("claude-sessions", artifactRoot)
       : undefined;

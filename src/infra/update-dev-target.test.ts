@@ -11,7 +11,7 @@ const TRACKED_VALUE =
 
 describe("dev update target environment", () => {
   it("preserves the legacy plain detached-ref contract", () => {
-    expect(parseDevUpdateTargetEnv({ OPENCLAW_UPDATE_DEV_TARGET_REF: " refs/tags/dev " })).toEqual({
+    expect(parseDevUpdateTargetEnv({ GRANTED_UPDATE_DEV_TARGET_REF: " refs/tags/dev " })).toEqual({
       status: "valid",
       target: { mode: "detached", ref: "refs/tags/dev" },
     });
@@ -20,7 +20,7 @@ describe("dev update target environment", () => {
   it("distinguishes an absent target from an invalid one", () => {
     expect(parseDevUpdateTargetEnv({})).toEqual({ status: "absent" });
     expect(
-      parseDevUpdateTargetEnv({ OPENCLAW_UPDATE_DEV_TARGET_REF: "refs/heads/my branch" }),
+      parseDevUpdateTargetEnv({ GRANTED_UPDATE_DEV_TARGET_REF: "refs/heads/my branch" }),
     ).toEqual({ status: "invalid" });
   });
 
@@ -30,7 +30,7 @@ describe("dev update target environment", () => {
       { mode: "tracked", upstreamRef: "origin/main", upstreamSha: "frozen-sha" },
     );
 
-    expect(env).toEqual({ KEEP: "value", OPENCLAW_UPDATE_DEV_TARGET_REF: TRACKED_VALUE });
+    expect(env).toEqual({ KEEP: "value", GRANTED_UPDATE_DEV_TARGET_REF: TRACKED_VALUE });
     expect(parseDevUpdateTargetEnv(env)).toEqual({
       status: "valid",
       target: { mode: "tracked", upstreamRef: "origin/main", upstreamSha: "frozen-sha" },
@@ -66,7 +66,7 @@ describe("dev update target environment", () => {
     `openclaw-dev-target:v1:${Buffer.from(JSON.stringify({ upstreamRef: " upstream ", upstreamSha: "ref" })).toString("base64url")}`,
     `openclaw-dev-target:v1:${Buffer.from(JSON.stringify({ upstreamRef: "origin/main", upstreamSha: "ref\0" })).toString("base64url")}`,
   ])("fails closed for malformed or unsupported tracked value %s", (value) => {
-    expect(parseDevUpdateTargetEnv({ OPENCLAW_UPDATE_DEV_TARGET_REF: value })).toEqual({
+    expect(parseDevUpdateTargetEnv({ GRANTED_UPDATE_DEV_TARGET_REF: value })).toEqual({
       status: "invalid",
     });
   });

@@ -27,12 +27,12 @@ function createIntentEnv(): NodeJS.ProcessEnv {
   tempDirs.push(dir);
   return {
     ...process.env,
-    OPENCLAW_STATE_DIR: dir,
+    GRANTED_STATE_DIR: dir,
   };
 }
 
 function legacyIntentPath(env: NodeJS.ProcessEnv): string {
-  return path.join(env.OPENCLAW_STATE_DIR ?? "", "gateway-restart-intent.json");
+  return path.join(env.GRANTED_STATE_DIR ?? "", "gateway-restart-intent.json");
 }
 
 function readIntentRow(env: NodeJS.ProcessEnv) {

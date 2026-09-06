@@ -17,26 +17,26 @@ function requireEnv(name) {
   return value;
 }
 
-const root = requireEnv("OPENCLAW_E2E_ROOT");
-const sandboxImage = requireEnv("OPENCLAW_E2E_SANDBOX_IMAGE");
-const browserImage = requireEnv("OPENCLAW_E2E_BROWSER_IMAGE");
-const sandboxPrefix = requireEnv("OPENCLAW_E2E_SANDBOX_PREFIX");
-const browserPrefix = requireEnv("OPENCLAW_E2E_BROWSER_PREFIX");
-const browserNetwork = requireEnv("OPENCLAW_E2E_BROWSER_NETWORK");
+const root = requireEnv("GRANTED_E2E_ROOT");
+const sandboxImage = requireEnv("GRANTED_E2E_SANDBOX_IMAGE");
+const browserImage = requireEnv("GRANTED_E2E_BROWSER_IMAGE");
+const sandboxPrefix = requireEnv("GRANTED_E2E_SANDBOX_PREFIX");
+const browserPrefix = requireEnv("GRANTED_E2E_BROWSER_PREFIX");
+const browserNetwork = requireEnv("GRANTED_E2E_BROWSER_NETWORK");
 const stateDir = path.join(root, "state");
 const workspaceDir = path.join(root, "workspace");
 const sandboxRoot = path.join(root, "sandboxes");
 const configPath = path.join(stateDir, "openclaw.json");
-const sessionKey = requireEnv("OPENCLAW_E2E_SESSION_KEY");
+const sessionKey = requireEnv("GRANTED_E2E_SESSION_KEY");
 const workspaceHash = createHash("sha256").update(workspaceDir).digest("hex").slice(0, 32);
 const scopeKey = `${sessionKey}:workspace:${workspaceHash}`;
 const browserToken = `sandbox-browser-sidecar-${process.pid}`;
-const marker = `OPENCLAW_SANDBOX_BROWSER_SIDECAR_${process.pid}`;
+const marker = `GRANTED_SANDBOX_BROWSER_SIDECAR_${process.pid}`;
 const ownedContainerNames = new Set();
 
 process.env.HOME = path.join(root, "home");
-process.env.OPENCLAW_STATE_DIR = stateDir;
-process.env.OPENCLAW_CONFIG_PATH = configPath;
+process.env.GRANTED_STATE_DIR = stateDir;
+process.env.GRANTED_CONFIG_PATH = configPath;
 
 const config = {
   gateway: {

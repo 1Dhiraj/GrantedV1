@@ -141,8 +141,8 @@ async function withTeamStoreEntries(
 ): Promise<void> {
   const tempDirs = createTempDirTracker();
   const stateDir = tempDirs.make("openclaw-exec-store-env-");
-  const envSnapshot = captureEnv(["OPENCLAW_STATE_DIR"]);
-  process.env.OPENCLAW_STATE_DIR = stateDir;
+  const envSnapshot = captureEnv(["GRANTED_STATE_DIR"]);
+  process.env.GRANTED_STATE_DIR = stateDir;
   try {
     for (const entry of entries) {
       writeSecretStoreEntry({ scope: { kind: "team" }, ...entry, updatedBy: "test" });
@@ -228,19 +228,19 @@ describe("exec store environment", () => {
         if (host === "gateway") {
           await run;
           expect(mocks.spawnInputs.at(-1)?.env).toMatchObject({
-            OPENCLAW_STATE_DIR: target.stateDir,
-            OPENCLAW_CONFIG_PATH: target.configPath,
-            OPENCLAW_WORKSPACE_DIR: target.defaultWorkspaceDir,
+            GRANTED_STATE_DIR: target.stateDir,
+            GRANTED_CONFIG_PATH: target.configPath,
+            GRANTED_WORKSPACE_DIR: target.defaultWorkspaceDir,
           });
           const ordinary = createLazyExecTool({ host, security: "full", ask: "off" });
           await withInstallationTarget(target, () =>
             ordinary.execute("ordinary-probe", { command: "echo ok", yieldMs: 120_000 }),
           );
-          expect(mocks.spawnInputs.at(-1)?.env?.OPENCLAW_STATE_DIR).toBe(
-            process.env.OPENCLAW_STATE_DIR,
+          expect(mocks.spawnInputs.at(-1)?.env?.GRANTED_STATE_DIR).toBe(
+            process.env.GRANTED_STATE_DIR,
           );
-          expect(mocks.spawnInputs.at(-1)?.env?.OPENCLAW_WORKSPACE_DIR).toBe(
-            process.env.OPENCLAW_WORKSPACE_DIR,
+          expect(mocks.spawnInputs.at(-1)?.env?.GRANTED_WORKSPACE_DIR).toBe(
+            process.env.GRANTED_WORKSPACE_DIR,
           );
         } else {
           await expect(run).rejects.toThrow("saved prompt");
@@ -465,7 +465,7 @@ describe("exec store environment", () => {
   )(
     "applies enabled secret egress for $host exec with provider sentinels $sentinelMode",
     async ({ host, sentinelMode }) => {
-      vi.stubEnv("OPENCLAW_SECRET_SENTINELS", sentinelMode);
+      vi.stubEnv("GRANTED_SECRET_SENTINELS", sentinelMode);
       await withTeamStoreEntries(
         [
           { name: "AWS_REGION", value: "us-west-2", kind: "env" },

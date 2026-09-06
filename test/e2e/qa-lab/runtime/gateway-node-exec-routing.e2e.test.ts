@@ -82,12 +82,12 @@ it(
         home,
         tempDir: tmp,
         extra: {
-          OPENCLAW_HOME: home,
-          OPENCLAW_STATE_DIR: state,
-          OPENCLAW_CONFIG_PATH: config,
-          OPENCLAW_GATEWAY_TOKEN: gateway.token,
-          OPENCLAW_SKIP_CHANNELS: "1",
-          OPENCLAW_SKIP_PROVIDERS: "1",
+          GRANTED_HOME: home,
+          GRANTED_STATE_DIR: state,
+          GRANTED_CONFIG_PATH: config,
+          GRANTED_GATEWAY_TOKEN: gateway.token,
+          GRANTED_SKIP_CHANNELS: "1",
+          GRANTED_SKIP_PROVIDERS: "1",
         },
       });
       const port = Number(new URL(gateway.baseUrl).port);
@@ -118,9 +118,9 @@ it(
           transportBaseUrl: "http://127.0.0.1",
           controlUiEnabled: false,
           runtimeEnvPatch: {
-            OPENCLAW_SKIP_CHANNELS: "1",
-            OPENCLAW_SKIP_PROVIDERS: "1",
-            OPENCLAW_TEST_MINIMAL_GATEWAY: "1",
+            GRANTED_SKIP_CHANNELS: "1",
+            GRANTED_SKIP_PROVIDERS: "1",
+            GRANTED_TEST_MINIMAL_GATEWAY: "1",
           },
           mutateConfig: (cfg) => ({
             ...cfg,
@@ -141,12 +141,12 @@ it(
         await fs.mkdir(callerState, { recursive: true });
         await fs.writeFile(callerConfig, JSON.stringify(gateway.cfg));
         vi.stubEnv("HOME", callerHome);
-        vi.stubEnv("OPENCLAW_HOME", callerHome);
-        vi.stubEnv("OPENCLAW_STATE_DIR", callerState);
-        vi.stubEnv("OPENCLAW_CONFIG_PATH", callerConfig);
-        vi.stubEnv("OPENCLAW_GATEWAY_URL", undefined);
-        vi.stubEnv("OPENCLAW_GATEWAY_PORT", new URL(gateway.baseUrl).port);
-        vi.stubEnv("OPENCLAW_GATEWAY_TOKEN", gateway.token);
+        vi.stubEnv("GRANTED_HOME", callerHome);
+        vi.stubEnv("GRANTED_STATE_DIR", callerState);
+        vi.stubEnv("GRANTED_CONFIG_PATH", callerConfig);
+        vi.stubEnv("GRANTED_GATEWAY_URL", undefined);
+        vi.stubEnv("GRANTED_GATEWAY_PORT", new URL(gateway.baseUrl).port);
+        vi.stubEnv("GRANTED_GATEWAY_TOKEN", gateway.token);
         setRuntimeConfigSnapshot(gateway.cfg);
         const makeExec = (node?: string) =>
           createExecTool({

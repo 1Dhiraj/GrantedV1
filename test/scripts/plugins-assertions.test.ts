@@ -72,7 +72,7 @@ function writeFixtureServerShims(binDir: string, pidPath: string): void {
     path.join(binDir, "node"),
     [
       "#!/bin/bash",
-      'printf "%s\\n" "$$" >"$OPENCLAW_TEST_FIXTURE_SERVER_PID"',
+      'printf "%s\\n" "$$" >"$GRANTED_TEST_FIXTURE_SERVER_PID"',
       "trap 'exit 0' TERM",
       "while true; do /bin/sleep 1; done",
       "",
@@ -90,7 +90,7 @@ function writeStubbornFixtureServerShims(binDir: string, pidPath: string): void 
     path.join(binDir, "node"),
     [
       "#!/bin/bash",
-      'printf "%s\\n" "$$" >"$OPENCLAW_TEST_FIXTURE_SERVER_PID"',
+      'printf "%s\\n" "$$" >"$GRANTED_TEST_FIXTURE_SERVER_PID"',
       "trap ':' TERM",
       "while true; do /bin/sleep 1; done",
       "",
@@ -200,12 +200,12 @@ describe("plugins Docker assertions", () => {
       env: {
         ...process.env,
         CLAWHUB_PLUGIN_SPEC: "clawhub:@openclaw/kitchen-sink",
-        OPENCLAW_PLUGINS_E2E_CLAWHUB_PREFLIGHT_TIMEOUT_MS: "1e3",
+        GRANTED_PLUGINS_E2E_CLAWHUB_PREFLIGHT_TIMEOUT_MS: "1e3",
       },
     });
     expect(timeoutResult.status).not.toBe(0);
     expect(timeoutResult.stderr).toContain(
-      "invalid OPENCLAW_PLUGINS_E2E_CLAWHUB_PREFLIGHT_TIMEOUT_MS: 1e3",
+      "invalid GRANTED_PLUGINS_E2E_CLAWHUB_PREFLIGHT_TIMEOUT_MS: 1e3",
     );
 
     const bodyLimitResult = spawnSync(process.execPath, [ASSERTIONS_SCRIPT, "clawhub-preflight"], {
@@ -213,12 +213,12 @@ describe("plugins Docker assertions", () => {
       env: {
         ...process.env,
         CLAWHUB_PLUGIN_SPEC: "clawhub:@openclaw/kitchen-sink",
-        OPENCLAW_PLUGINS_E2E_CLAWHUB_PREFLIGHT_BODY_MAX_BYTES: "1000bytes",
+        GRANTED_PLUGINS_E2E_CLAWHUB_PREFLIGHT_BODY_MAX_BYTES: "1000bytes",
       },
     });
     expect(bodyLimitResult.status).not.toBe(0);
     expect(bodyLimitResult.stderr).toContain(
-      "invalid OPENCLAW_PLUGINS_E2E_CLAWHUB_PREFLIGHT_BODY_MAX_BYTES: 1000bytes",
+      "invalid GRANTED_PLUGINS_E2E_CLAWHUB_PREFLIGHT_BODY_MAX_BYTES: 1000bytes",
     );
   });
 
@@ -235,7 +235,7 @@ describe("plugins Docker assertions", () => {
         'mktemp -d "/tmp/openclaw-plugins.XXXXXX"',
         "",
       );
-      expect(script).toContain("OPENCLAW_PLUGINS_TMP_DIR");
+      expect(script).toContain("GRANTED_PLUGINS_TMP_DIR");
       expect(scriptWithoutDefaultScratch).not.toMatch(
         /\/tmp\/(?:plugins|marketplace|demo-plugin|is-number|openclaw-plugin|openclaw-clawhub)/,
       );
@@ -249,12 +249,12 @@ describe("plugins Docker assertions", () => {
       const result = runPluginsSweepShell(
         `
 set -euo pipefail
-export OPENCLAW_PLUGINS_SWEEP_SOURCE_ONLY=1
+export GRANTED_PLUGINS_SWEEP_SOURCE_ONLY=1
 source scripts/e2e/lib/plugins/sweep.sh
-printf '%s\\n' "$OPENCLAW_PLUGINS_TMP_DIR" > "$MARKER"
-test -d "$OPENCLAW_PLUGINS_TMP_DIR"
+printf '%s\\n' "$GRANTED_PLUGINS_TMP_DIR" > "$MARKER"
+test -d "$GRANTED_PLUGINS_TMP_DIR"
 cleanup_openclaw_plugins_sweep
-test ! -e "$OPENCLAW_PLUGINS_TMP_DIR"
+test ! -e "$GRANTED_PLUGINS_TMP_DIR"
 `,
         { MARKER: marker },
       );
@@ -277,12 +277,12 @@ test ! -e "$OPENCLAW_PLUGINS_TMP_DIR"
       const result = runPluginsSweepShell(
         `
 set -euo pipefail
-export OPENCLAW_PLUGINS_SWEEP_SOURCE_ONLY=1
-export OPENCLAW_PLUGINS_TMP_DIR="$SCRATCH_ROOT"
+export GRANTED_PLUGINS_SWEEP_SOURCE_ONLY=1
+export GRANTED_PLUGINS_TMP_DIR="$SCRATCH_ROOT"
 source scripts/e2e/lib/plugins/sweep.sh
-test -d "$OPENCLAW_PLUGINS_TMP_DIR"
+test -d "$GRANTED_PLUGINS_TMP_DIR"
 cleanup_openclaw_plugins_sweep
-test -d "$OPENCLAW_PLUGINS_TMP_DIR"
+test -d "$GRANTED_PLUGINS_TMP_DIR"
 `,
         { SCRATCH_ROOT: scratchRoot },
       );
@@ -329,10 +329,10 @@ test -d "$OPENCLAW_PLUGINS_TMP_DIR"
         const result = runPluginsSweepShell(
           `
 set -euo pipefail
-export OPENCLAW_PLUGINS_SWEEP_SOURCE_ONLY=1
-export OPENCLAW_PLUGINS_TMP_DIR="$SCRATCH_ROOT"
-export OPENCLAW_PLUGINS_CLI_TIMEOUT=1s
-export OPENCLAW_ENTRY=fixture-entry
+export GRANTED_PLUGINS_SWEEP_SOURCE_ONLY=1
+export GRANTED_PLUGINS_TMP_DIR="$SCRATCH_ROOT"
+export GRANTED_PLUGINS_CLI_TIMEOUT=1s
+export GRANTED_ENTRY=fixture-entry
 source scripts/e2e/lib/plugins/sweep.sh
 umask 000
 openclaw_e2e_maybe_timeout() {
@@ -351,7 +351,7 @@ openclaw_e2e_maybe_timeout() {
   done
   printf '%s\\n' "$CAPTURED_OUTPUT"
   printf '%s\\n' "$CAPTURED_STDERR" >&2
-  if [[ "\${OPENCLAW_PLUGIN_LIFECYCLE_TRACE:-}" == "1" ]]; then
+  if [[ "\${GRANTED_PLUGIN_LIFECYCLE_TRACE:-}" == "1" ]]; then
     printf '%s\\n' '[plugins:lifecycle] shim' >&2
   fi
   return "$CAPTURE_STATUS"
@@ -362,8 +362,8 @@ ${command}
             CAPTURED_OUTPUT: capturedOutput,
             CAPTURED_STDERR: capturedError,
             CAPTURE_STATUS: String(testCase.status),
-            OPENCLAW_DOCKER_E2E_LOG_PRINT_BYTES: "192",
-            OPENCLAW_PLUGIN_LIFECYCLE_TRACE: testCase.traceEnabled ? "1" : "0",
+            GRANTED_DOCKER_E2E_LOG_PRINT_BYTES: "192",
+            GRANTED_PLUGIN_LIFECYCLE_TRACE: testCase.traceEnabled ? "1" : "0",
             OUTPUT_FILE: outputFile,
             SCRATCH_ROOT: root,
           },
@@ -436,7 +436,7 @@ ${command}
         "utf8",
       );
       const pass = await runAssertionAsync(["plugin-dir-update-skipped"], {
-        OPENCLAW_PLUGINS_TMP_DIR: passRoot,
+        GRANTED_PLUGINS_TMP_DIR: passRoot,
       });
       expect(pass.status).toBe(0);
 
@@ -448,7 +448,7 @@ ${command}
         "utf8",
       );
       const fail = await runAssertionAsync(["plugin-dir-update-skipped"], {
-        OPENCLAW_PLUGINS_TMP_DIR: failRoot,
+        GRANTED_PLUGINS_TMP_DIR: failRoot,
       });
       expect(fail.status).toBe(1);
       expect(fail.stderr).toContain("Output tail:");
@@ -469,7 +469,7 @@ ${command}
       });
       const invalid = await runAssertionAsync(["invalid-openclaw-extensions"], {
         HOME: invalidHome,
-        OPENCLAW_PLUGINS_TMP_DIR: invalidRoot,
+        GRANTED_PLUGINS_TMP_DIR: invalidRoot,
       });
       expect(invalid.status).toBe(1);
       expect(invalid.stderr).toContain("malformed metadata install output");
@@ -509,7 +509,7 @@ ${command}
           encoding: "utf8",
           env: {
             ...process.env,
-            OPENCLAW_TEST_FIXTURE_SERVER_PID: pidPath,
+            GRANTED_TEST_FIXTURE_SERVER_PID: pidPath,
             PATH: `${binDir}${path.delimiter}/usr/bin${path.delimiter}/bin`,
           },
         },
@@ -553,9 +553,9 @@ ${command}
           encoding: "utf8",
           env: {
             ...process.env,
-            OPENCLAW_PLUGINS_FIXTURE_STOP_ATTEMPTS: "2",
-            OPENCLAW_PLUGINS_FIXTURE_STOP_INTERVAL_SECONDS: "0.05",
-            OPENCLAW_TEST_FIXTURE_SERVER_PID: pidPath,
+            GRANTED_PLUGINS_FIXTURE_STOP_ATTEMPTS: "2",
+            GRANTED_PLUGINS_FIXTURE_STOP_INTERVAL_SECONDS: "0.05",
+            GRANTED_TEST_FIXTURE_SERVER_PID: pidPath,
             PATH: `${binDir}${path.delimiter}/usr/bin${path.delimiter}/bin`,
           },
         },
@@ -592,13 +592,13 @@ ${command}
         encoding: "utf8",
         env: {
           ...process.env,
-          OPENCLAW_PLUGINS_FIXTURE_STOP_ATTEMPTS: "2x",
+          GRANTED_PLUGINS_FIXTURE_STOP_ATTEMPTS: "2x",
         },
       },
     );
 
     expect(result.status).toBe(2);
-    expect(result.stderr).toContain("invalid OPENCLAW_PLUGINS_FIXTURE_STOP_ATTEMPTS: 2x");
+    expect(result.stderr).toContain("invalid GRANTED_PLUGINS_FIXTURE_STOP_ATTEMPTS: 2x");
     expect(result.stdout).not.toContain("signal");
     expect(result.stdout).not.toContain("probe");
   });
@@ -625,14 +625,14 @@ ${command}
         encoding: "utf8",
         env: {
           ...process.env,
-          OPENCLAW_PLUGINS_FIXTURE_STOP_ATTEMPTS: "2",
-          OPENCLAW_PLUGINS_FIXTURE_STOP_INTERVAL_SECONDS: "soon",
+          GRANTED_PLUGINS_FIXTURE_STOP_ATTEMPTS: "2",
+          GRANTED_PLUGINS_FIXTURE_STOP_INTERVAL_SECONDS: "soon",
         },
       },
     );
 
     expect(result.status).toBe(2);
-    expect(result.stderr).toContain("invalid OPENCLAW_PLUGINS_FIXTURE_STOP_INTERVAL_SECONDS: soon");
+    expect(result.stderr).toContain("invalid GRANTED_PLUGINS_FIXTURE_STOP_INTERVAL_SECONDS: soon");
     expect(result.stdout).not.toContain("signal");
     expect(result.stdout).not.toContain("probe");
   });
@@ -665,7 +665,7 @@ ${command}
           encoding: "utf8",
           env: {
             ...process.env,
-            OPENCLAW_DOCKER_E2E_LOG_PRINT_BYTES: "80",
+            GRANTED_DOCKER_E2E_LOG_PRINT_BYTES: "80",
             PATH: `${binDir}${path.delimiter}/usr/bin${path.delimiter}/bin`,
           },
         },
@@ -766,7 +766,7 @@ ${command}
         cwd: process.cwd(),
         env: {
           ...process.env,
-          OPENCLAW_NPM_REGISTRY_DIST_TAGS: "latest=0.0.0,beta=2026.7.1-beta.3",
+          GRANTED_NPM_REGISTRY_DIST_TAGS: "latest=0.0.0,beta=2026.7.1-beta.3",
         },
         stdio: ["ignore", "pipe", "pipe"],
       },
@@ -841,7 +841,7 @@ ${command}
         cwd: process.cwd(),
         env: {
           ...process.env,
-          OPENCLAW_NPM_REGISTRY_UPSTREAM: `http://127.0.0.1:${upstreamAddress.port}`,
+          GRANTED_NPM_REGISTRY_UPSTREAM: `http://127.0.0.1:${upstreamAddress.port}`,
         },
         stdio: ["ignore", "pipe", "pipe"],
       },
@@ -900,7 +900,7 @@ ${command}
         cwd: process.cwd(),
         env: {
           ...process.env,
-          OPENCLAW_NPM_REGISTRY_UPSTREAM: `http://127.0.0.1:${upstreamAddress.port}`,
+          GRANTED_NPM_REGISTRY_UPSTREAM: `http://127.0.0.1:${upstreamAddress.port}`,
         },
         stdio: ["ignore", "pipe", "pipe"],
       },
@@ -963,7 +963,7 @@ ${command}
         cwd: process.cwd(),
         env: {
           ...process.env,
-          OPENCLAW_NPM_REGISTRY_UPSTREAM: `http://127.0.0.1:${upstreamAddress.port}`,
+          GRANTED_NPM_REGISTRY_UPSTREAM: `http://127.0.0.1:${upstreamAddress.port}`,
         },
         stdio: ["ignore", "pipe", "pipe"],
       },
@@ -1073,7 +1073,7 @@ ${command}
         cwd: process.cwd(),
         env: {
           ...process.env,
-          OPENCLAW_NPM_REGISTRY_UPSTREAM: `http://127.0.0.1:${upstreamAddress.port}`,
+          GRANTED_NPM_REGISTRY_UPSTREAM: `http://127.0.0.1:${upstreamAddress.port}`,
         },
         stdio: ["ignore", "pipe", "pipe"],
       },
@@ -1162,7 +1162,7 @@ ${command}
         cwd: process.cwd(),
         env: {
           ...process.env,
-          OPENCLAW_NPM_REGISTRY_UPSTREAM: `http://127.0.0.1:${configuredAddress.port}`,
+          GRANTED_NPM_REGISTRY_UPSTREAM: `http://127.0.0.1:${configuredAddress.port}`,
         },
         stdio: ["ignore", "pipe", "pipe"],
       },
@@ -1237,14 +1237,14 @@ ${command}
           encoding: "utf8",
           env: {
             ...process.env,
-            OPENCLAW_DOCKER_E2E_LOG_PRINT_BYTES: "64kb",
+            GRANTED_DOCKER_E2E_LOG_PRINT_BYTES: "64kb",
             PATH: `${binDir}${path.delimiter}/usr/bin${path.delimiter}/bin`,
           },
         },
       );
 
       expect(result.status).toBe(2);
-      expect(result.stderr).toContain("invalid OPENCLAW_DOCKER_E2E_LOG_PRINT_BYTES: 64kb");
+      expect(result.stderr).toContain("invalid GRANTED_DOCKER_E2E_LOG_PRINT_BYTES: 64kb");
       expect(result.stderr).not.toContain("node should not run");
     } finally {
       rmSync(root, { force: true, recursive: true });
@@ -1281,9 +1281,9 @@ ${command}
           encoding: "utf8",
           env: {
             ...process.env,
-            OPENCLAW_PLUGINS_E2E_LIVE_CLAWHUB: "0",
-            OPENCLAW_PLUGINS_TMP_DIR: tmpDir,
-            OPENCLAW_TEST_FIXTURE_SERVER_PID: pidPath,
+            GRANTED_PLUGINS_E2E_LIVE_CLAWHUB: "0",
+            GRANTED_PLUGINS_TMP_DIR: tmpDir,
+            GRANTED_TEST_FIXTURE_SERVER_PID: pidPath,
             PATH: `${binDir}${path.delimiter}/usr/bin${path.delimiter}/bin`,
           },
         },
@@ -1332,16 +1332,16 @@ ${command}
           encoding: "utf8",
           env: {
             ...process.env,
-            OPENCLAW_DOCKER_E2E_LOG_PRINT_BYTES: "64kb",
-            OPENCLAW_PLUGINS_E2E_LIVE_CLAWHUB: "0",
-            OPENCLAW_PLUGINS_TMP_DIR: tmpDir,
+            GRANTED_DOCKER_E2E_LOG_PRINT_BYTES: "64kb",
+            GRANTED_PLUGINS_E2E_LIVE_CLAWHUB: "0",
+            GRANTED_PLUGINS_TMP_DIR: tmpDir,
             PATH: `${binDir}${path.delimiter}/usr/bin${path.delimiter}/bin`,
           },
         },
       );
 
       expect(result.status).toBe(2);
-      expect(result.stderr).toContain("invalid OPENCLAW_DOCKER_E2E_LOG_PRINT_BYTES: 64kb");
+      expect(result.stderr).toContain("invalid GRANTED_DOCKER_E2E_LOG_PRINT_BYTES: 64kb");
       expect(result.stderr).not.toContain("node should not run");
     } finally {
       rmSync(root, { force: true, recursive: true });
@@ -1377,9 +1377,9 @@ ${command}
           encoding: "utf8",
           env: {
             ...process.env,
-            OPENCLAW_DOCKER_E2E_LOG_PRINT_BYTES: "80",
-            OPENCLAW_PLUGINS_E2E_LIVE_CLAWHUB: "0",
-            OPENCLAW_PLUGINS_TMP_DIR: tmpDir,
+            GRANTED_DOCKER_E2E_LOG_PRINT_BYTES: "80",
+            GRANTED_PLUGINS_E2E_LIVE_CLAWHUB: "0",
+            GRANTED_PLUGINS_TMP_DIR: tmpDir,
             PATH: `${binDir}${path.delimiter}/usr/bin${path.delimiter}/bin`,
           },
         },
@@ -1422,8 +1422,8 @@ ${command}
         env: {
           ...process.env,
           HOME: home,
-          OPENCLAW_PLUGINS_E2E_CLAWHUB_PREFLIGHT_TIMEOUT_MS: "1e3",
-          OPENCLAW_PLUGINS_TMP_DIR: scratchRoot,
+          GRANTED_PLUGINS_E2E_CLAWHUB_PREFLIGHT_TIMEOUT_MS: "1e3",
+          GRANTED_PLUGINS_TMP_DIR: scratchRoot,
         },
       });
 
@@ -1466,7 +1466,7 @@ ${command}
         env: {
           ...process.env,
           HOME: home,
-          OPENCLAW_PLUGINS_TMP_DIR: scratchRoot,
+          GRANTED_PLUGINS_TMP_DIR: scratchRoot,
         },
       });
 
@@ -1495,7 +1495,7 @@ ${command}
         env: {
           ...process.env,
           HOME: home,
-          OPENCLAW_PLUGINS_TMP_DIR: scratchRoot,
+          GRANTED_PLUGINS_TMP_DIR: scratchRoot,
         },
       });
 
@@ -1529,7 +1529,7 @@ ${command}
         env: {
           ...process.env,
           HOME: home,
-          OPENCLAW_PLUGINS_TMP_DIR: scratchRoot,
+          GRANTED_PLUGINS_TMP_DIR: scratchRoot,
         },
       });
 
@@ -1576,7 +1576,7 @@ ${command}
         CLAWHUB_PLUGIN_ID: "openclaw-kitchen-sink-fixture",
         CLAWHUB_PLUGIN_SPEC: "clawhub:@openclaw/kitchen-sink",
         HOME: home,
-        OPENCLAW_PLUGINS_TMP_DIR: scratchRoot,
+        GRANTED_PLUGINS_TMP_DIR: scratchRoot,
       },
     });
 
@@ -1598,8 +1598,8 @@ ${command}
       const result = await runAssertionAsync(["clawhub-preflight"], {
         CLAWHUB_PLUGIN_ID: "openclaw-kitchen-sink-fixture",
         CLAWHUB_PLUGIN_SPEC: "clawhub:@openclaw/kitchen-sink",
-        OPENCLAW_CLAWHUB_URL: `http://127.0.0.1:${address.port}`,
-        OPENCLAW_PLUGINS_E2E_CLAWHUB_PREFLIGHT_TIMEOUT_MS: "25",
+        GRANTED_CLAWHUB_URL: `http://127.0.0.1:${address.port}`,
+        GRANTED_PLUGINS_E2E_CLAWHUB_PREFLIGHT_TIMEOUT_MS: "25",
       });
 
       expect(result.status).not.toBe(0);
@@ -1632,10 +1632,10 @@ ${command}
         CLAWHUB_PLUGIN_ID: "openclaw-kitchen-sink-fixture",
         CLAWHUB_PLUGIN_SPEC: "clawhub:@openclaw/kitchen-sink",
         NODE_OPTIONS: `--import=data:text/javascript,${encodeURIComponent(
-          "const response = await fetch(process.env.OPENCLAW_CLAWHUB_URL); globalThis.fetch = async () => response;",
+          "const response = await fetch(process.env.GRANTED_CLAWHUB_URL); globalThis.fetch = async () => response;",
         )}`,
-        OPENCLAW_CLAWHUB_URL: `http://127.0.0.1:${address.port}`,
-        OPENCLAW_PLUGINS_E2E_CLAWHUB_PREFLIGHT_TIMEOUT_MS: "75",
+        GRANTED_CLAWHUB_URL: `http://127.0.0.1:${address.port}`,
+        GRANTED_PLUGINS_E2E_CLAWHUB_PREFLIGHT_TIMEOUT_MS: "75",
       });
 
       expect(result.status).not.toBe(0);
@@ -1666,9 +1666,9 @@ ${command}
       const result = await runAssertionAsync(["clawhub-preflight"], {
         CLAWHUB_PLUGIN_ID: "openclaw-kitchen-sink-fixture",
         CLAWHUB_PLUGIN_SPEC: "clawhub:@openclaw/kitchen-sink",
-        OPENCLAW_CLAWHUB_URL: `http://127.0.0.1:${address.port}`,
-        OPENCLAW_PLUGINS_E2E_CLAWHUB_PREFLIGHT_BODY_MAX_BYTES: "16",
-        OPENCLAW_PLUGINS_E2E_CLAWHUB_PREFLIGHT_TIMEOUT_MS: "1000",
+        GRANTED_CLAWHUB_URL: `http://127.0.0.1:${address.port}`,
+        GRANTED_PLUGINS_E2E_CLAWHUB_PREFLIGHT_BODY_MAX_BYTES: "16",
+        GRANTED_PLUGINS_E2E_CLAWHUB_PREFLIGHT_TIMEOUT_MS: "1000",
       });
 
       expect(result.status).not.toBe(0);

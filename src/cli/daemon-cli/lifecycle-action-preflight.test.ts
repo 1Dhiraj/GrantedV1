@@ -20,8 +20,8 @@ async function withIsolatedLifecycleState(
     await fs.mkdir(agentDir, { recursive: true });
     await fs.writeFile(configPath, "{}\n");
     vi.stubEnv("HOME", root);
-    vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
-    vi.stubEnv("OPENCLAW_CONFIG_PATH", configPath);
+    vi.stubEnv("GRANTED_STATE_DIR", stateDir);
+    vi.stubEnv("GRANTED_CONFIG_PATH", configPath);
     resetConfigRuntimeState();
     await run({ agentDir, configPath });
     await expect(fs.access(path.join(stateDir, "state", "openclaw.sqlite"))).rejects.toMatchObject({

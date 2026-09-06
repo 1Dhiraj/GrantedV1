@@ -209,7 +209,7 @@ describe("scripts/pr wrappers", () => {
     expect(script).toContain("scripts/pr prepare-run <PR>");
     expect(script).toContain("scripts/pr ci-dispatch <PR>");
     expect(script).toContain("scripts/pr merge-run <PR> [--auto-merge]");
-    expect(script).toContain("OPENCLAW_PR_AUTO_MERGE=1 is equivalent");
+    expect(script).toContain("GRANTED_PR_AUTO_MERGE=1 is equivalent");
     expect(script).toContain("Required commands: git, gh, jq, rg (ripgrep), pnpm, node.");
     expect(script).toContain('review_init "$pr"');
     expect(script).toContain('prepare_run "$pr"');
@@ -238,13 +238,13 @@ describe("scripts/pr wrappers", () => {
       cpSync("scripts/lib/plain-gh.sh", join(fixture.canonical, "scripts/lib/plain-gh.sh"));
       writeFileSync(
         join(fixture.canonical, "scripts/pr-lib/worktree.sh"),
-        `list_pr_worktrees() { /bin/sh -c 'printf "%s\\n" "\${OPENCLAW_GH_BIN-absent}"'; }\n`,
+        `list_pr_worktrees() { /bin/sh -c 'printf "%s\\n" "\${GRANTED_GH_BIN-absent}"'; }\n`,
       );
       for (const override of [undefined, "", join(fixture.bin, "gh")]) {
         const result = spawnSync(join(fixture.canonical, "scripts/pr"), ["ls"], {
           cwd: fixture.canonical,
           encoding: "utf8",
-          env: { ...fixture.env, OPENCLAW_GH_BIN: override },
+          env: { ...fixture.env, GRANTED_GH_BIN: override },
         });
         expect(result.status, result.stderr).toBe(0);
         expect(result.stdout).toBe(`${override ?? "absent"}\n`);
@@ -413,7 +413,7 @@ describe("scripts/pr wrappers", () => {
       const envResult = spawnSync(join(fixture.linked, "scripts", "pr"), ["ci-dispatch", "123"], {
         cwd: fixture.linked,
         encoding: "utf8",
-        env: { ...fixture.env, OPENCLAW_PR_DEV_WRAPPER: "1" },
+        env: { ...fixture.env, GRANTED_PR_DEV_WRAPPER: "1" },
       });
       expect(envResult.status, `${envResult.stderr}\n${envResult.stdout}`).toBe(0);
       expect(envResult.stdout).toContain("local wrapper executed");
@@ -721,8 +721,8 @@ describe("scripts/pr wrappers", () => {
           "c".repeat(64),
         ]);
         expect.soft(publisher.status, publisher.stderr).toBe(0);
-        expect.soft(publisher.stdout).toContain(`OPENCLAW_CRABBOX_GATE_HEAD=${REVIEWED_HEAD}`);
-        expect.soft(publisher.stdout).toContain("OPENCLAW_CRABBOX_GATE_TARGET_COUNT=0");
+        expect.soft(publisher.stdout).toContain(`GRANTED_CRABBOX_GATE_HEAD=${REVIEWED_HEAD}`);
+        expect.soft(publisher.stdout).toContain("GRANTED_CRABBOX_GATE_TARGET_COUNT=0");
         expect.soft(publisher.stdout).toContain("pnpm build");
         expect.soft(publisher.stdout).toContain("pnpm check");
 
@@ -773,7 +773,7 @@ describe("scripts/pr wrappers", () => {
       writeFileSync(
         tar,
         `#!/bin/sh
-"$OPENCLAW_TEST_TAR" "$@" || exit
+"$GRANTED_TEST_TAR" "$@" || exit
 while [ "$#" -gt 0 ]; do
   if [ "$1" = "-C" ]; then
     printf '\\n// tampered\\n' >> "$2/scripts/lib/anchor-review-record.mjs"
@@ -788,7 +788,7 @@ exit 99
       const result = spawnSync(join(fixture.linked, "scripts/pr"), ["unknown-command"], {
         cwd: fixture.linked,
         encoding: "utf8",
-        env: { ...fixture.env, OPENCLAW_TEST_TAR: resolveCommand("tar") },
+        env: { ...fixture.env, GRANTED_TEST_TAR: resolveCommand("tar") },
       });
       expect(result.status, `${result.stdout}\n${result.stderr}`).toBe(1);
       expect(result.stderr).toContain("Refusing to silently substitute");
@@ -1000,8 +1000,8 @@ exit 99
         fixture.git(fixture.canonical, ["checkout", "main"]);
         if (contract === "handoff") {
           const legacy = readScript(join(fixture.canonical, "scripts/pr")).replaceAll(
-            "OPENCLAW_PR_ANCHOR_REPO_ROOT",
-            "OPENCLAW_PR_LEGACY_UNSUPPORTED",
+            "GRANTED_PR_ANCHOR_REPO_ROOT",
+            "GRANTED_PR_LEGACY_UNSUPPORTED",
           );
           writeFileSync(join(fixture.canonical, "scripts/pr"), legacy);
         } else {
@@ -1039,7 +1039,7 @@ exit 99
   it("defaults to squash and allows commit-preserving merge methods", () => {
     const script = readScript("scripts/pr-lib/merge.sh");
 
-    expect(script).toContain("OPENCLAW_PR_MERGE_METHOD:-squash");
+    expect(script).toContain("GRANTED_PR_MERGE_METHOD:-squash");
     expect(script).toContain("--squash");
     expect(script).toContain("--merge");
     expect(script).toContain("--rebase");
@@ -1226,7 +1226,7 @@ exit 1
       ],
       {
         cwd: process.cwd(),
-        env: { ...isolatedWrapperEnv(dir), OPENCLAW_GH_BIN: gh, GH_TOKEN: "synthetic-token" },
+        env: { ...isolatedWrapperEnv(dir), GRANTED_GH_BIN: gh, GH_TOKEN: "synthetic-token" },
         encoding: "utf8",
       },
     );
@@ -1244,7 +1244,7 @@ exit 1
       const calls = join(dir, "calls.log");
       mkdirSync(bin);
       const protectedGh = `#!/bin/sh
-printf '%s\\n' "$*" >> "$OPENCLAW_TEST_CALLS"
+printf '%s\\n' "$*" >> "$GRANTED_TEST_CALLS"
 case "$1 $2" in
   "api user") printf 'relay-reader\\n' ;;
   "api graphql") printf 'writer-maintainer\\n' ;;
@@ -1267,7 +1267,7 @@ esac
               "source scripts/lib/plain-gh.sh",
               "source scripts/pr-lib/common.sh",
               "source scripts/pr-lib/review.sh",
-              'enter_worktree() { cd "$OPENCLAW_TEST_ROOT"; mkdir -p .local; }',
+              'enter_worktree() { cd "$GRANTED_TEST_ROOT"; mkdir -p .local; }',
               "review_claim 42",
             ].join("\n"),
           ],
@@ -1277,9 +1277,9 @@ esac
             env: {
               HOME: dir,
               GH_TOKEN: "synthetic-writer-token",
-              OPENCLAW_GH_BIN: route === "override" ? overrideGh : "",
-              OPENCLAW_TEST_CALLS: calls,
-              OPENCLAW_TEST_ROOT: dir,
+              GRANTED_GH_BIN: route === "override" ? overrideGh : "",
+              GRANTED_TEST_CALLS: calls,
+              GRANTED_TEST_ROOT: dir,
               PATH: `${bin}${delimiter}${process.env.PATH ?? ""}`,
             },
           },

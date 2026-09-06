@@ -12,15 +12,15 @@ import { deleteTestEnvValue, setTestEnvValue } from "../test-utils/env.js";
 import { listSystemAgentAuditEntriesForTests } from "./audit.test-support.js";
 import { runSystemAgentRescueMessage } from "./rescue-message.js";
 
-const originalStateDir = process.env.OPENCLAW_STATE_DIR;
-const originalConfigPath = process.env.OPENCLAW_CONFIG_PATH;
+const originalStateDir = process.env.GRANTED_STATE_DIR;
+const originalConfigPath = process.env.GRANTED_CONFIG_PATH;
 
 const runLive =
-  isTruthyEnvValue(process.env.OPENCLAW_LIVE_TEST) &&
-  isTruthyEnvValue(process.env.OPENCLAW_LIVE_SYSTEM_AGENT_RESCUE_CHANNEL);
+  isTruthyEnvValue(process.env.GRANTED_LIVE_TEST) &&
+  isTruthyEnvValue(process.env.GRANTED_LIVE_SYSTEM_AGENT_RESCUE_CHANNEL);
 const describeLive = runLive ? describe : describe.skip;
 
-function commandContext(channel = process.env.OPENCLAW_LIVE_SYSTEM_AGENT_CHANNEL ?? "whatsapp") {
+function commandContext(channel = process.env.GRANTED_LIVE_SYSTEM_AGENT_CHANNEL ?? "whatsapp") {
   return {
     surface: channel,
     channel,
@@ -55,22 +55,22 @@ describeLive("OpenClaw live rescue channel smoke", () => {
     resetPluginStateStoreForTests();
     clearConfigCache();
     if (originalStateDir === undefined) {
-      deleteTestEnvValue("OPENCLAW_STATE_DIR");
+      deleteTestEnvValue("GRANTED_STATE_DIR");
     } else {
-      setTestEnvValue("OPENCLAW_STATE_DIR", originalStateDir);
+      setTestEnvValue("GRANTED_STATE_DIR", originalStateDir);
     }
     if (originalConfigPath === undefined) {
-      deleteTestEnvValue("OPENCLAW_CONFIG_PATH");
+      deleteTestEnvValue("GRANTED_CONFIG_PATH");
     } else {
-      setTestEnvValue("OPENCLAW_CONFIG_PATH", originalConfigPath);
+      setTestEnvValue("GRANTED_CONFIG_PATH", originalConfigPath);
     }
   });
 
   it("handles /openclaw status and a persistent approval roundtrip", async () => {
     await withTestDir({ prefix: "openclaw-live-rescue-" }, async (tempDir) => {
       const configPath = path.join(tempDir, "openclaw.json");
-      setTestEnvValue("OPENCLAW_STATE_DIR", tempDir);
-      setTestEnvValue("OPENCLAW_CONFIG_PATH", configPath);
+      setTestEnvValue("GRANTED_STATE_DIR", tempDir);
+      setTestEnvValue("GRANTED_CONFIG_PATH", configPath);
       await fs.writeFile(
         configPath,
         JSON.stringify(

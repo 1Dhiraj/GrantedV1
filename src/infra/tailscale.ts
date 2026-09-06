@@ -198,7 +198,7 @@ function getTestTailscaleBinaryOverride(env: NodeJS.ProcessEnv = process.env): s
   if (!isVitestRuntimeEnv(env)) {
     return null;
   }
-  const forcedBinary = env.OPENCLAW_TEST_TAILSCALE_BINARY?.trim();
+  const forcedBinary = env.GRANTED_TEST_TAILSCALE_BINARY?.trim();
   return forcedBinary || null;
 }
 

@@ -57,7 +57,7 @@ type MatrixQaPluginStateValue = {
 const matrixQaPluginStateNamespaces = new Map<string, Map<string, MatrixQaPluginStateValue>>();
 
 function resolveMatrixQaPluginStateNamespaceKey(options: OpenKeyedStoreOptions): string {
-  return `${options.env?.OPENCLAW_STATE_DIR ?? ""}\0${options.namespace}`;
+  return `${options.env?.GRANTED_STATE_DIR ?? ""}\0${options.namespace}`;
 }
 
 function resolveMatrixQaPluginStateRows(

@@ -13,7 +13,7 @@ export function withLegacyAuditMigrationLease<T>(
       key: LEGACY_AUDIT_COORDINATION_KEY,
       database: {
         scope: "shared",
-        options: { env: { ...process.env, OPENCLAW_STATE_DIR: stateDir } },
+        options: { env: { ...process.env, GRANTED_STATE_DIR: stateDir } },
       },
       leaseMs: 60_000,
       waitMs: 5_000,

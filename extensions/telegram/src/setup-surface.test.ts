@@ -155,8 +155,8 @@ describe("telegramSetupWizard allowFrom", () => {
   });
 
   it("localizes setup wizard allowFrom copy when loaded under zh-CN", async () => {
-    const previousLocale = process.env.OPENCLAW_LOCALE;
-    process.env.OPENCLAW_LOCALE = "zh-CN";
+    const previousLocale = process.env.GRANTED_LOCALE;
+    process.env.GRANTED_LOCALE = "zh-CN";
 
     try {
       vi.resetModules();
@@ -169,16 +169,16 @@ describe("telegramSetupWizard allowFrom", () => {
       );
     } finally {
       if (previousLocale === undefined) {
-        delete process.env.OPENCLAW_LOCALE;
+        delete process.env.GRANTED_LOCALE;
       } else {
-        process.env.OPENCLAW_LOCALE = previousLocale;
+        process.env.GRANTED_LOCALE = previousLocale;
       }
     }
   });
 
   it("localizes legacy allowFrom prompt copy", async () => {
-    const previousLocale = process.env.OPENCLAW_LOCALE;
-    process.env.OPENCLAW_LOCALE = "zh-CN";
+    const previousLocale = process.env.GRANTED_LOCALE;
+    process.env.GRANTED_LOCALE = "zh-CN";
     const note = vi.fn(async () => {});
     const text = vi.fn(async () => "123456789");
 
@@ -200,9 +200,9 @@ describe("telegramSetupWizard allowFrom", () => {
       );
     } finally {
       if (previousLocale === undefined) {
-        delete process.env.OPENCLAW_LOCALE;
+        delete process.env.GRANTED_LOCALE;
       } else {
-        process.env.OPENCLAW_LOCALE = previousLocale;
+        process.env.GRANTED_LOCALE = previousLocale;
       }
     }
   });

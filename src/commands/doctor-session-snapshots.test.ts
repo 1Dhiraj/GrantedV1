@@ -234,7 +234,7 @@ describe("doctor session snapshot stale runtime metadata", () => {
     });
   });
 
-  it("uses the OS home for cached OCM paths when OPENCLAW_HOME differs", () => {
+  it("uses the OS home for cached OCM paths when GRANTED_HOME differs", () => {
     const homeDir = path.join(root, "home");
     const currentBundledSkillsDir = path.join(homeDir, ".ocm/current/node_modules/openclaw/skills");
     const expectedPath = path.join(currentBundledSkillsDir, "doctor", "SKILL.md");
@@ -243,7 +243,7 @@ describe("doctor session snapshot stale runtime metadata", () => {
 
     const findings = scanSessionStoreForStaleRuntimeSnapshotPaths({
       bundledSkillsDir: currentBundledSkillsDir,
-      env: { HOME: homeDir, OPENCLAW_HOME: path.join(root, "ocm-profile") },
+      env: { HOME: homeDir, GRANTED_HOME: path.join(root, "ocm-profile") },
       store: {
         "agent:current": sessionEntry({
           skillsSnapshot: { prompt: skillPrompt(currentPath), skills: [{ name: "doctor" }] },
@@ -282,7 +282,7 @@ describe("doctor session snapshot stale runtime metadata", () => {
 
     const findings = scanSessionStoreForStaleRuntimeSnapshotPaths({
       bundledSkillsDir,
-      env: { OPENCLAW_STATE_DIR: stateDir },
+      env: { GRANTED_STATE_DIR: stateDir },
       store: {
         "agent:imsg": sessionEntry({
           skillsSnapshot: {
@@ -313,7 +313,7 @@ describe("doctor session snapshot stale runtime metadata", () => {
 
     const findings = scanSessionStoreForStaleRuntimeSnapshotPaths({
       bundledSkillsDir: packageSkillsDir,
-      env: { OPENCLAW_STATE_DIR: stateDir },
+      env: { GRANTED_STATE_DIR: stateDir },
       store: {
         "agent:imsg": sessionEntry({
           skillsSnapshot: {
@@ -553,7 +553,7 @@ describe("doctor session snapshot stale runtime metadata", () => {
     await noteSessionSnapshotHealth({
       cfg: { session: { store: configuredStorePath } } as OpenClawConfig,
       bundledSkillsDir,
-      env: { OPENCLAW_STATE_DIR: stateDir },
+      env: { GRANTED_STATE_DIR: stateDir },
     });
 
     expect(note).toHaveBeenCalledTimes(1);
@@ -590,7 +590,7 @@ describe("doctor session snapshot stale runtime metadata", () => {
         agents: { list: [{ id: "main" }, { id: "ops" }] },
       } as OpenClawConfig,
       bundledSkillsDir,
-      env: { OPENCLAW_STATE_DIR: path.join(root, "state") },
+      env: { GRANTED_STATE_DIR: path.join(root, "state") },
     });
 
     expect(note).toHaveBeenCalledTimes(1);

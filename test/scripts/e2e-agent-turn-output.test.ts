@@ -14,22 +14,22 @@ describe("scripts/e2e/lib/agent-turn-output", () => {
     expect(
       extractAgentReplyTexts(
         JSON.stringify({
-          payloads: [{ text: "OPENCLAW_E2E_OK_LOCAL" }],
+          payloads: [{ text: "GRANTED_E2E_OK_LOCAL" }],
           meta: { finalAssistantVisibleText: "visible" },
         }),
       ),
-    ).toEqual(["visible", "OPENCLAW_E2E_OK_LOCAL"]);
+    ).toEqual(["visible", "GRANTED_E2E_OK_LOCAL"]);
 
     expect(
       extractAgentReplyTexts(
         JSON.stringify({
           result: {
-            payloads: [{ text: "OPENCLAW_E2E_OK_GATEWAY" }],
+            payloads: [{ text: "GRANTED_E2E_OK_GATEWAY" }],
             meta: { finalAssistantRawText: "raw" },
           },
         }),
       ),
-    ).toEqual(["raw", "OPENCLAW_E2E_OK_GATEWAY"]);
+    ).toEqual(["raw", "GRANTED_E2E_OK_GATEWAY"]);
   });
 
   it("reads compact JSON replies from combined stdout and stderr logs", () => {
@@ -37,10 +37,10 @@ describe("scripts/e2e/lib/agent-turn-output", () => {
       extractAgentReplyTexts(
         [
           "warning: diagnostic on stderr",
-          JSON.stringify({ payloads: [{ text: "OPENCLAW_E2E_OK_COMBINED" }] }),
+          JSON.stringify({ payloads: [{ text: "GRANTED_E2E_OK_COMBINED" }] }),
         ].join("\n"),
       ),
-    ).toEqual(["OPENCLAW_E2E_OK_COMBINED"]);
+    ).toEqual(["GRANTED_E2E_OK_COMBINED"]);
   });
 
   it("reads pretty JSON replies from combined stdout and stderr logs", () => {
@@ -50,14 +50,14 @@ describe("scripts/e2e/lib/agent-turn-output", () => {
           "warning: diagnostic on stderr",
           JSON.stringify(
             {
-              payloads: [{ text: "OPENCLAW_E2E_OK_PRETTY" }],
+              payloads: [{ text: "GRANTED_E2E_OK_PRETTY" }],
             },
             null,
             2,
           ),
         ].join("\n"),
       ),
-    ).toEqual(["OPENCLAW_E2E_OK_PRETTY"]);
+    ).toEqual(["GRANTED_E2E_OK_PRETTY"]);
   });
 
   it("does not accept markers that only appear outside reply payloads", () => {
@@ -67,13 +67,13 @@ describe("scripts/e2e/lib/agent-turn-output", () => {
       writeFileSync(
         outputPath,
         [
-          "Return marker OPENCLAW_E2E_OK_PROMPT_ECHO",
+          "Return marker GRANTED_E2E_OK_PROMPT_ECHO",
           JSON.stringify({ payloads: [{ text: "wrong reply" }] }),
         ].join("\n"),
       );
 
       expect(() =>
-        assertAgentReplyContainsMarker("OPENCLAW_E2E_OK_PROMPT_ECHO", outputPath),
+        assertAgentReplyContainsMarker("GRANTED_E2E_OK_PROMPT_ECHO", outputPath),
       ).toThrow(/agent reply payload did not contain marker/u);
     } finally {
       rmSync(dir, { recursive: true, force: true });
@@ -87,14 +87,14 @@ describe("scripts/e2e/lib/agent-turn-output", () => {
       writeFileSync(
         outputPath,
         [
-          `echo ${JSON.stringify({ payloads: [{ text: "OPENCLAW_E2E_OK_DIAGNOSTIC" }] })}`,
+          `echo ${JSON.stringify({ payloads: [{ text: "GRANTED_E2E_OK_DIAGNOSTIC" }] })}`,
           JSON.stringify({ payloads: [{ text: "real reply without marker" }] }),
         ].join("\n"),
       );
 
-      expect(() =>
-        assertAgentReplyContainsMarker("OPENCLAW_E2E_OK_DIAGNOSTIC", outputPath),
-      ).toThrow(/agent reply payload did not contain marker/u);
+      expect(() => assertAgentReplyContainsMarker("GRANTED_E2E_OK_DIAGNOSTIC", outputPath)).toThrow(
+        /agent reply payload did not contain marker/u,
+      );
     } finally {
       rmSync(dir, { recursive: true, force: true });
     }
@@ -108,14 +108,14 @@ describe("scripts/e2e/lib/agent-turn-output", () => {
         outputPath,
         JSON.stringify({
           payloads: [
-            { isError: true, text: "OPENCLAW_E2E_OK_ERROR_PAYLOAD" },
+            { isError: true, text: "GRANTED_E2E_OK_ERROR_PAYLOAD" },
             { text: "regular reply without marker" },
           ],
         }),
       );
 
       expect(() =>
-        assertAgentReplyContainsMarker("OPENCLAW_E2E_OK_ERROR_PAYLOAD", outputPath),
+        assertAgentReplyContainsMarker("GRANTED_E2E_OK_ERROR_PAYLOAD", outputPath),
       ).toThrow(/agent reply payload did not contain marker/u);
     } finally {
       rmSync(dir, { recursive: true, force: true });
@@ -131,15 +131,15 @@ describe("scripts/e2e/lib/agent-turn-output", () => {
         JSON.stringify({
           result: {
             status: "error",
-            meta: { finalAssistantVisibleText: "OPENCLAW_E2E_OK_ERROR_META" },
-            payloads: [{ isError: true, text: "OPENCLAW_E2E_OK_ERROR_META" }],
+            meta: { finalAssistantVisibleText: "GRANTED_E2E_OK_ERROR_META" },
+            payloads: [{ isError: true, text: "GRANTED_E2E_OK_ERROR_META" }],
           },
         }),
       );
 
-      expect(() =>
-        assertAgentReplyContainsMarker("OPENCLAW_E2E_OK_ERROR_META", outputPath),
-      ).toThrow(/agent reply payload did not contain marker/u);
+      expect(() => assertAgentReplyContainsMarker("GRANTED_E2E_OK_ERROR_META", outputPath)).toThrow(
+        /agent reply payload did not contain marker/u,
+      );
     } finally {
       rmSync(dir, { recursive: true, force: true });
     }
@@ -150,14 +150,14 @@ describe("scripts/e2e/lib/agent-turn-output", () => {
       extractAgentReplyTexts(
         JSON.stringify({
           status: "blocked",
-          finalAssistantVisibleText: "OPENCLAW_E2E_OK_BLOCKED_META",
+          finalAssistantVisibleText: "GRANTED_E2E_OK_BLOCKED_META",
         }),
       ),
     ).toEqual([]);
   });
 
   it("does not accept markers mirrored into blocked run metadata", () => {
-    const marker = "OPENCLAW_E2E_OK_BLOCKED_META";
+    const marker = "GRANTED_E2E_OK_BLOCKED_META";
 
     expect(
       extractAgentReplyTexts(
@@ -177,7 +177,7 @@ describe("scripts/e2e/lib/agent-turn-output", () => {
     expect(
       extractAgentReplyTexts(
         JSON.stringify({
-          payloads: [{ text: "OPENCLAW_E2E_OK_FAILED_PAYLOAD" }],
+          payloads: [{ text: "GRANTED_E2E_OK_FAILED_PAYLOAD" }],
           status: "error",
         }),
       ),
@@ -191,13 +191,13 @@ describe("scripts/e2e/lib/agent-turn-output", () => {
       writeFileSync(
         outputPath,
         [
-          JSON.stringify({ payloads: [{ text: "OPENCLAW_E2E_OK_STALE" }] }),
+          JSON.stringify({ payloads: [{ text: "GRANTED_E2E_OK_STALE" }] }),
           "x".repeat(2_200_000),
           JSON.stringify({ payloads: [{ text: "current reply without marker" }] }),
         ].join("\n"),
       );
 
-      expect(() => assertAgentReplyContainsMarker("OPENCLAW_E2E_OK_STALE", outputPath)).toThrow(
+      expect(() => assertAgentReplyContainsMarker("GRANTED_E2E_OK_STALE", outputPath)).toThrow(
         /agent reply payload did not contain marker/u,
       );
     } finally {
@@ -218,11 +218,11 @@ describe("scripts/e2e/lib/agent-turn-output", () => {
         ].join("\n"),
       );
 
-      expect(() => assertAgentReplyContainsMarker("OPENCLAW_E2E_OK_MISSING", outputPath)).toThrow(
+      expect(() => assertAgentReplyContainsMarker("GRANTED_E2E_OK_MISSING", outputPath)).toThrow(
         /agent reply payload did not contain marker/u,
       );
       try {
-        assertAgentReplyContainsMarker("OPENCLAW_E2E_OK_MISSING", outputPath);
+        assertAgentReplyContainsMarker("GRANTED_E2E_OK_MISSING", outputPath);
       } catch (error) {
         expect(error).toBeInstanceOf(Error);
         expect((error as Error).message).toContain("Output tail:");
@@ -250,7 +250,7 @@ describe("scripts/e2e/lib/agent-turn-output", () => {
       );
 
       try {
-        assertAgentReplyContainsMarker("OPENCLAW_E2E_OK_MISSING", outputPath);
+        assertAgentReplyContainsMarker("GRANTED_E2E_OK_MISSING", outputPath);
       } catch (error) {
         expect(error).toBeInstanceOf(Error);
         expect((error as Error).message).toContain("Reply payload summary:");

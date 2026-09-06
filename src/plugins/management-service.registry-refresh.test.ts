@@ -391,7 +391,7 @@ describe("plugin management registry refresh", () => {
         link: true,
       },
       snapshot: installSnapshot,
-      env: { OPENCLAW_STATE_DIR: stateDir },
+      env: { GRANTED_STATE_DIR: stateDir },
     };
 
     await expect(installManagedPluginSource(params)).rejects.toMatchObject({

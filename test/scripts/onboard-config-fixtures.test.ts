@@ -191,7 +191,7 @@ describe("onboard config fixture helpers", () => {
               token: {
                 source: "env",
                 provider: "default",
-                id: "OPENCLAW_GATEWAY_TOKEN",
+                id: "GRANTED_GATEWAY_TOKEN",
               },
             },
           },

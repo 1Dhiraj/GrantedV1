@@ -146,7 +146,7 @@ async function withRescueStateDir(
   const stateDir = await makeStateDir(prefix);
   resetPluginStateStoreForTests();
   try {
-    await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () => await run(stateDir));
+    await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => await run(stateDir));
   } finally {
     resetPluginStateStoreForTests();
   }

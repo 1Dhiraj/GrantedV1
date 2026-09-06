@@ -202,8 +202,8 @@ type PluginInstallRecord = Partial<PersistedPluginInstallRecord> & { pluginId?: 
 describe("ensureOnboardingPluginInstalled", () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    vi.stubEnv("OPENCLAW_ALLOW_PLUGIN_INSTALL_OVERRIDES", undefined);
-    vi.stubEnv("OPENCLAW_PLUGIN_INSTALL_OVERRIDES", undefined);
+    vi.stubEnv("GRANTED_ALLOW_PLUGIN_INSTALL_OVERRIDES", undefined);
+    vi.stubEnv("GRANTED_PLUGIN_INSTALL_OVERRIDES", undefined);
     withTimeout.mockImplementation(async <T>(promise: Promise<T>) => await promise);
     prepareManagedPluginArtifactConsentHandler.mockResolvedValue({
       onBeforePluginArtifactCommit: async () => {},
@@ -261,8 +261,8 @@ describe("ensureOnboardingPluginInstalled", () => {
           };
         };
         if (source === "npm-pack") {
-          process.env.OPENCLAW_ALLOW_PLUGIN_INSTALL_OVERRIDES = "1";
-          process.env.OPENCLAW_PLUGIN_INSTALL_OVERRIDES = JSON.stringify({
+          process.env.GRANTED_ALLOW_PLUGIN_INSTALL_OVERRIDES = "1";
+          process.env.GRANTED_PLUGIN_INSTALL_OVERRIDES = JSON.stringify({
             "demo-plugin": `npm-pack:${path.join(artifactDir, "plugin.tgz")}`,
           });
           installPluginFromNpmPackArchive.mockImplementationOnce(install);
@@ -473,8 +473,8 @@ describe("ensureOnboardingPluginInstalled", () => {
   );
 
   it("localizes plugin install choices", async () => {
-    const previousLocale = process.env.OPENCLAW_LOCALE;
-    process.env.OPENCLAW_LOCALE = "zh-CN";
+    const previousLocale = process.env.GRANTED_LOCALE;
+    process.env.GRANTED_LOCALE = "zh-CN";
     let captured:
       | {
           message: string;
@@ -512,16 +512,16 @@ describe("ensureOnboardingPluginInstalled", () => {
       ]);
     } finally {
       if (previousLocale === undefined) {
-        delete process.env.OPENCLAW_LOCALE;
+        delete process.env.GRANTED_LOCALE;
       } else {
-        process.env.OPENCLAW_LOCALE = previousLocale;
+        process.env.GRANTED_LOCALE = previousLocale;
       }
     }
   });
 
   it("localizes plugin install progress and enablement failures", async () => {
-    const previousLocale = process.env.OPENCLAW_LOCALE;
-    process.env.OPENCLAW_LOCALE = "zh-CN";
+    const previousLocale = process.env.GRANTED_LOCALE;
+    process.env.GRANTED_LOCALE = "zh-CN";
     enablePluginInConfig.mockReturnValueOnce({
       config: {},
       enabled: false,
@@ -560,16 +560,16 @@ describe("ensureOnboardingPluginInstalled", () => {
       expect(withPluginLifecycleLease).toHaveBeenCalledOnce();
     } finally {
       if (previousLocale === undefined) {
-        delete process.env.OPENCLAW_LOCALE;
+        delete process.env.GRANTED_LOCALE;
       } else {
-        process.env.OPENCLAW_LOCALE = previousLocale;
+        process.env.GRANTED_LOCALE = previousLocale;
       }
     }
   });
 
   it("refuses non-skipped installs in Nix mode before package work", async () => {
-    const previous = process.env.OPENCLAW_NIX_MODE;
-    process.env.OPENCLAW_NIX_MODE = "1";
+    const previous = process.env.GRANTED_NIX_MODE;
+    process.env.GRANTED_NIX_MODE = "1";
     try {
       await expect(
         ensureOnboardingPluginInstalled({
@@ -588,12 +588,12 @@ describe("ensureOnboardingPluginInstalled", () => {
           } as never,
           runtime: {} as never,
         }),
-      ).rejects.toThrow("OPENCLAW_NIX_MODE=1");
+      ).rejects.toThrow("GRANTED_NIX_MODE=1");
     } finally {
       if (previous === undefined) {
-        delete process.env.OPENCLAW_NIX_MODE;
+        delete process.env.GRANTED_NIX_MODE;
       } else {
-        process.env.OPENCLAW_NIX_MODE = previous;
+        process.env.GRANTED_NIX_MODE = previous;
       }
     }
 
@@ -616,8 +616,8 @@ describe("ensureOnboardingPluginInstalled", () => {
         },
       },
     };
-    process.env.OPENCLAW_ALLOW_PLUGIN_INSTALL_OVERRIDES = "1";
-    process.env.OPENCLAW_PLUGIN_INSTALL_OVERRIDES = JSON.stringify({
+    process.env.GRANTED_ALLOW_PLUGIN_INSTALL_OVERRIDES = "1";
+    process.env.GRANTED_PLUGIN_INSTALL_OVERRIDES = JSON.stringify({
       "other-plugin": "npm:@demo/other@1.0.0",
       "demo-plugin": `npm-pack:${archivePath}`,
     });
@@ -696,8 +696,8 @@ describe("ensureOnboardingPluginInstalled", () => {
   });
 
   it("uses a guarded npm install override without official-trust flags", async () => {
-    process.env.OPENCLAW_ALLOW_PLUGIN_INSTALL_OVERRIDES = "1";
-    process.env.OPENCLAW_PLUGIN_INSTALL_OVERRIDES = JSON.stringify({
+    process.env.GRANTED_ALLOW_PLUGIN_INSTALL_OVERRIDES = "1";
+    process.env.GRANTED_PLUGIN_INSTALL_OVERRIDES = JSON.stringify({
       codex: "npm:@openclaw/codex@2026.5.8",
       "other-plugin": "npm-pack:/tmp/other.tgz",
     });

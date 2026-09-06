@@ -99,11 +99,11 @@ export function readToolSearchGatewayFetchLimits(
 ): ToolSearchGatewayFetchLimits {
   return {
     bodyMaxBytes: readPositiveIntEnv(
-      "OPENCLAW_TOOL_SEARCH_GATEWAY_E2E_FETCH_BODY_MAX_BYTES",
+      "GRANTED_TOOL_SEARCH_GATEWAY_E2E_FETCH_BODY_MAX_BYTES",
       1024 * 1024,
       env,
     ),
-    timeoutMs: readPositiveIntEnv("OPENCLAW_TOOL_SEARCH_GATEWAY_E2E_FETCH_TIMEOUT_MS", 5_000, env),
+    timeoutMs: readPositiveIntEnv("GRANTED_TOOL_SEARCH_GATEWAY_E2E_FETCH_TIMEOUT_MS", 5_000, env),
   };
 }
 
@@ -412,7 +412,7 @@ export async function runToolSearchGatewayLane(params: {
 }): Promise<LaneResult> {
   const providerBaseUrl = params.env.mock?.baseUrl;
   assert(providerBaseUrl, "Tool Search gateway fixture requires mock-openai provider mode");
-  const gatewayToken = params.env.gateway.runtimeEnv.OPENCLAW_GATEWAY_TOKEN;
+  const gatewayToken = params.env.gateway.runtimeEnv.GRANTED_GATEWAY_TOKEN;
   assert(gatewayToken, "Tool Search gateway fixture requires QA gateway token");
   await configureLane(params);
   const stateDir = path.join(params.env.gateway.tempRoot, "state");

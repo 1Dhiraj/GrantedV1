@@ -1323,9 +1323,9 @@ async function buildResponsesPayload(
     }
     return buildAssistantEvents(
       [
-        "<<<BEGIN_OPENCLAW_INTERNAL_CONTEXT>>>",
+        "<<<BEGIN_GRANTED_INTERNAL_CONTEXT>>>",
         QA_SUBAGENT_TERMINAL_METADATA_SENTINEL,
-        "<<<END_OPENCLAW_INTERNAL_CONTEXT>>>",
+        "<<<END_GRANTED_INTERNAL_CONTEXT>>>",
       ].join("\n"),
     );
   }
@@ -1333,9 +1333,9 @@ async function buildResponsesPayload(
     return buildAssistantEvents(
       [
         QA_SUBAGENT_TERMINAL_MARKERS.fallback,
-        "<<<BEGIN_OPENCLAW_INTERNAL_CONTEXT>>>",
+        "<<<BEGIN_GRANTED_INTERNAL_CONTEXT>>>",
         QA_SUBAGENT_TERMINAL_METADATA_SENTINEL,
-        "<<<END_OPENCLAW_INTERNAL_CONTEXT>>>",
+        "<<<END_GRANTED_INTERNAL_CONTEXT>>>",
       ].join("\n"),
     );
   }

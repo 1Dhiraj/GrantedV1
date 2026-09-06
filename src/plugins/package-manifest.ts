@@ -1,5 +1,5 @@
 import { normalizeOptionalString } from "../../packages/normalization-core/src/string-coerce.js";
-import { MANIFEST_KEY } from "../compat/legacy-names.js";
+import { readManifestSection } from "../compat/legacy-names.js";
 import { isRecord } from "../utils.js";
 import type {
   OpenClawPackageManifest,
@@ -22,13 +22,13 @@ export function getPackageManifestMetadata(
   if (!manifest) {
     return undefined;
   }
-  return manifest[MANIFEST_KEY];
+  return readManifestSection(manifest) as OpenClawPackageManifest | undefined;
 }
 
 export function resolvePackageExtensionEntries(
   manifest: PackageManifest | undefined,
 ): PackageExtensionResolution {
-  const rawOpenClaw = manifest?.[MANIFEST_KEY] as unknown;
+  const rawOpenClaw = readManifestSection(manifest);
   if (rawOpenClaw === undefined || rawOpenClaw === null) {
     return { status: "missing", entries: [] };
   }

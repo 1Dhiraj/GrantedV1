@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { OPENCLAW_EMBEDDED_CONTEXT_ENGINE_HOST } from "../../../context-engine/host-compat.js";
+import { GRANTED_EMBEDDED_CONTEXT_ENGINE_HOST } from "../../../context-engine/host-compat.js";
 import { buildContextEngineRuntimeSettings } from "../../../context-engine/runtime-settings.js";
 import type { ContextEngine } from "../../../context-engine/types.js";
 import { getAgentRunLifecycleGeneration } from "../../../infra/agent-run-registry.js";
@@ -123,7 +123,7 @@ describe("recoverEmbeddedRunOverflow transcript ownership", () => {
           resolveContextEnginePluginId: () => undefined,
           buildRuntimeSettings: ({ tokenBudget, degradedReason }) =>
             buildContextEngineRuntimeSettings({
-              contextEngineHost: OPENCLAW_EMBEDDED_CONTEXT_ENGINE_HOST,
+              contextEngineHost: GRANTED_EMBEDDED_CONTEXT_ENGINE_HOST,
               promptTokenBudget: tokenBudget,
               degradedReason,
             }),

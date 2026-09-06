@@ -79,7 +79,7 @@ function runCleanupFunction(fakePs: string) {
       'LOCAL_PROCESS_PATTERN="/worktree/apps/macos/.build-local/debug/OpenClaw"',
       'RELEASE_PROCESS_PATTERN="/worktree/apps/macos/.build/release/OpenClaw"',
       "kill() {",
-      '  printf "%s\\n" "$*" >> "$OPENCLAW_TEST_KILL_CALLS"',
+      '  printf "%s\\n" "$*" >> "$GRANTED_TEST_KILL_CALLS"',
       "  return 0",
       "}",
       "kill_all_openclaw",
@@ -91,7 +91,7 @@ function runCleanupFunction(fakePs: string) {
     encoding: "utf8",
     env: {
       ...process.env,
-      OPENCLAW_TEST_KILL_CALLS: killCallsPath,
+      GRANTED_TEST_KILL_CALLS: killCallsPath,
       PATH: `${binDir}:${process.env.PATH ?? ""}`,
     },
   });
@@ -128,11 +128,11 @@ function runManagedSupervisorClassifier(
       "set -euo pipefail",
       classifierFunctions,
       "loaded_launch_jobs() {",
-      '  [[ "${OPENCLAW_TEST_FAIL_ENUMERATION:-0}" != "1" ]] || return 1',
-      "  cut -d'|' -f1,2 \"$OPENCLAW_TEST_LOADED_JOBS\"",
+      '  [[ "${GRANTED_TEST_FAIL_ENUMERATION:-0}" != "1" ]] || return 1',
+      "  cut -d'|' -f1,2 \"$GRANTED_TEST_LOADED_JOBS\"",
       "}",
       "launch_job_snapshot() {",
-      '  grep "^$1|$2|" "$OPENCLAW_TEST_LOADED_JOBS" |',
+      '  grep "^$1|$2|" "$GRANTED_TEST_LOADED_JOBS" |',
       "    awk -F'|' '{ print \"program = \" $3; print \"properties = \" $4 }'",
       "}",
       'TARGET_EXECUTABLE="/worktree/dist/OpenClaw.app/Contents/MacOS/OpenClaw"',
@@ -145,8 +145,8 @@ function runManagedSupervisorClassifier(
     encoding: "utf8",
     env: {
       ...process.env,
-      OPENCLAW_TEST_FAIL_ENUMERATION: options.failEnumeration ? "1" : "0",
-      OPENCLAW_TEST_LOADED_JOBS: recordsPath,
+      GRANTED_TEST_FAIL_ENUMERATION: options.failEnumeration ? "1" : "0",
+      GRANTED_TEST_LOADED_JOBS: recordsPath,
     },
   });
 }
@@ -248,7 +248,7 @@ function runProfileGuard(profile: string) {
   const root = mkdtempSync(join(tmpdir(), "openclaw-restart-mac-profile-test-"));
   tempRoots.push(root);
   const script = readFileSync(restartScriptPath, "utf8");
-  const start = script.indexOf('if [[ -n "${OPENCLAW_PROFILE:-}" ]]');
+  const start = script.indexOf('if [[ -n "${GRANTED_PROFILE:-}" ]]');
   const guardBlock = script.slice(start, script.indexOf("canonicalize_app_bundle", start));
   const harnessPath = join(root, "profile-guard.sh");
   writeFileSync(
@@ -264,7 +264,7 @@ function runProfileGuard(profile: string) {
   chmodSync(harnessPath, 0o755);
   return spawnSync("/bin/bash", [harnessPath], {
     encoding: "utf8",
-    env: { ...process.env, OPENCLAW_PROFILE: profile },
+    env: { ...process.env, GRANTED_PROFILE: profile },
   });
 }
 
@@ -459,15 +459,15 @@ describe("scripts/restart-mac.sh", () => {
     const script = readFileSync(restartScriptPath, "utf8");
 
     expect(script).toContain(
-      'LOG_PATH="${OPENCLAW_RESTART_LOG:-${TMPDIR:-/tmp}/openclaw-restart-${LOCK_KEY}.log}"',
+      'LOG_PATH="${GRANTED_RESTART_LOG:-${TMPDIR:-/tmp}/openclaw-restart-${LOCK_KEY}.log}"',
     );
-    expect(script).not.toContain('LOG_PATH="${OPENCLAW_RESTART_LOG:-/tmp/openclaw-restart.log}"');
+    expect(script).not.toContain('LOG_PATH="${GRANTED_RESTART_LOG:-/tmp/openclaw-restart.log}"');
   });
 
   it("rejects named app profiles before global process or launchd cleanup", () => {
     const script = readFileSync(restartScriptPath, "utf8");
 
-    expect(script).toContain('if [[ -n "${OPENCLAW_PROFILE:-}"');
+    expect(script).toContain('if [[ -n "${GRANTED_PROFILE:-}"');
     expect(script).toContain("restart-mac.sh cannot safely target one app profile");
     expect(script.indexOf("cannot safely target one app profile")).toBeLessThan(
       script.indexOf("\nacquire_lock\n"),
@@ -515,7 +515,7 @@ describe("scripts/restart-mac.sh", () => {
       script.indexOf("choose_app_bundle", script.indexOf("choose_app_bundle()") + 1),
     );
 
-    expect(script).toContain('fail "OPENCLAW_APP_BUNDLE does not exist: ${APP_BUNDLE}"');
+    expect(script).toContain('fail "GRANTED_APP_BUNDLE does not exist: ${APP_BUNDLE}"');
     expect(chooseBlock).toContain("canonicalize_app_bundle");
     expect(chooseBlock.indexOf("${ROOT_DIR}/dist/OpenClaw.app")).toBeGreaterThan(-1);
     expect(chooseBlock.indexOf("/Applications/OpenClaw.app")).toBeGreaterThan(-1);
@@ -659,7 +659,7 @@ describe("scripts/restart-mac.sh", () => {
     const launchIndex = script.indexOf('run_step "launch app"');
 
     expect(packageIndex).toBeGreaterThan(-1);
-    expect(script).toContain('OPENCLAW_PACKAGE_APP_ROOT="${STAGED_APP_BUNDLE}"');
+    expect(script).toContain('GRANTED_PACKAGE_APP_ROOT="${STAGED_APP_BUNDLE}"');
     expect(verifyIndex).toBeGreaterThan(packageIndex);
     expect(switchIndex).toBeGreaterThan(packageIndex);
     expect(installIndex).toBeGreaterThan(switchIndex);
@@ -751,7 +751,7 @@ describe("scripts/restart-mac.sh", () => {
     const { killCalls, result } = runCleanupFunction(
       [
         "#!/usr/bin/env bash",
-        'kill_count="$(wc -l < "$OPENCLAW_TEST_KILL_CALLS" 2>/dev/null || echo 0)"',
+        'kill_count="$(wc -l < "$GRANTED_TEST_KILL_CALLS" 2>/dev/null || echo 0)"',
         'if [[ "$kill_count" -lt 11 ]]; then',
         "  printf '%s\\n' '  321 /worktree/dist/OpenClaw.app/Contents/MacOS/OpenClaw --attach-only'",
         "fi",

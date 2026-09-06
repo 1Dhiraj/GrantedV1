@@ -43,7 +43,7 @@ export function requireMatrixQaCliRuntimeEnv(context: MatrixQaScenarioContext) {
 }
 
 export function requireMatrixQaGatewayConfigPath(context: MatrixQaScenarioContext) {
-  const configPath = requireMatrixQaCliRuntimeEnv(context).OPENCLAW_CONFIG_PATH?.trim();
+  const configPath = requireMatrixQaCliRuntimeEnv(context).GRANTED_CONFIG_PATH?.trim();
   if (!configPath) {
     throw new Error("Matrix CLI QA scenarios require the gateway config path");
   }

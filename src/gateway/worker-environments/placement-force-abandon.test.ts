@@ -22,7 +22,7 @@ describe("forced worker environment abandonment", () => {
 
   beforeEach(async () => {
     root = await fs.mkdtemp(path.join(await fs.realpath(os.tmpdir()), "openclaw-force-worker-"));
-    database = openOpenClawStateDatabase({ env: { OPENCLAW_STATE_DIR: root } });
+    database = openOpenClawStateDatabase({ env: { GRANTED_STATE_DIR: root } });
   });
 
   afterEach(async () => {

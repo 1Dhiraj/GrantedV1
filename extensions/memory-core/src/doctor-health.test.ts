@@ -65,7 +65,7 @@ function context(stateDir: string, provider: string): HealthCheckContext {
         },
       },
     },
-    env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+    env: { ...process.env, GRANTED_STATE_DIR: stateDir },
   };
 }
 

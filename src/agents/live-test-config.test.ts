@@ -28,7 +28,7 @@ function listLiveTestFiles(root: string): string[] {
 describe("readLiveTestConfig", () => {
   it("tolerates retired config keys without mutating process env", async () => {
     await withTempHome(async (home) => {
-      const envKey = "OPENCLAW_LIVE_CONFIG_ISOLATION_TEST";
+      const envKey = "GRANTED_LIVE_CONFIG_ISOLATION_TEST";
       const configDir = path.join(home, ".openclaw");
       await fs.promises.mkdir(configDir, { recursive: true });
       await fs.promises.writeFile(

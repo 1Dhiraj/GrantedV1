@@ -475,8 +475,8 @@ export async function prepareGatewayKernelState(params: {
     getStateDatabaseFailure: () =>
       openClawStateDatabaseCache.getOpenClawStateDatabaseRuntimeFailure(resolveDatabasePath()),
     shouldSkipChannelReadiness: () =>
-      isTruthyEnvValue(process.env.OPENCLAW_SKIP_CHANNELS) ||
-      isTruthyEnvValue(process.env.OPENCLAW_SKIP_PROVIDERS),
+      isTruthyEnvValue(process.env.GRANTED_SKIP_CHANNELS) ||
+      isTruthyEnvValue(process.env.GRANTED_SKIP_PROVIDERS),
   });
   const watchNodeRequestHandler: {
     current?: (req: IncomingMessage, res: ServerResponse) => Promise<boolean>;

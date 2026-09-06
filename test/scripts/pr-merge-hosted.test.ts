@@ -25,7 +25,7 @@ describePosix("native hosted merge handoff", () => {
         expect.objectContaining({ id: 6, event: "workflow_dispatch", headSha: f.head }),
       ]),
     });
-    delete f.env.OPENCLAW_TESTBOX;
+    delete f.env.GRANTED_TESTBOX;
     // A changelog-only checkout must not narrow the prepared source change's
     // gates, nor may a PR-controlled helper replace the canonical verifier.
     f.git(f.worktree, "checkout", "--detach", f.main);

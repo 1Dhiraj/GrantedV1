@@ -474,7 +474,7 @@ const child = spawn(process.execPath, ["-e",
 ], { stdio: ["ignore", "ignore", "ignore", 3] });
 child.unref();
 process.stdout.write(JSON.stringify({ type: "result", result: prompt }) + "\\n");`);
-      await withEnvAsync({ OPENCLAW_SERVICE_MARKER: "openclaw" }, async () => {
+      await withEnvAsync({ GRANTED_SERVICE_MARKER: "openclaw" }, async () => {
         const calls: Array<{ method: string; params: unknown }> = [];
         const request = {
           argv: ["-p"],

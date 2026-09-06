@@ -386,7 +386,7 @@ describe("GPT-Live offer broker", () => {
       contentType: expect.stringMatching(/^multipart\/form-data; boundary=/),
     },
   ])("uses matching $name headers on signaling and the API sideband", async (authCase) => {
-    vi.stubEnv("OPENCLAW_VERSION", "2026.7.2-test");
+    vi.stubEnv("GRANTED_VERSION", "2026.7.2-test");
     let signalingUrl: string | undefined;
     let signalingHeaders: Record<string, string> | undefined;
     const fetchImpl = vi.fn(async (url: string | URL | Request, init?: RequestInit) => {

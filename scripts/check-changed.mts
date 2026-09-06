@@ -208,7 +208,7 @@ export function shouldDelegateChangedCheckToCrabbox(
   env: NodeJS.ProcessEnv = process.env,
   options: ChangedCheckDelegateOptions = {},
 ) {
-  if (isOpenEndedTruthyValue(env.OPENCLAW_CHECK_CHANGED_REMOTE_CHILD)) {
+  if (isOpenEndedTruthyValue(env.GRANTED_CHECK_CHANGED_REMOTE_CHILD)) {
     return false;
   }
   if (isOpenEndedTruthyValue(env.CI) || isOpenEndedTruthyValue(env.GITHUB_ACTIONS)) {
@@ -224,7 +224,7 @@ export function shouldDelegateChangedCheckToCrabbox(
   if (result.paths.length === 0) {
     return false;
   }
-  if (isOpenEndedTruthyValue(env.OPENCLAW_TESTBOX)) {
+  if (isOpenEndedTruthyValue(env.GRANTED_TESTBOX)) {
     return true;
   }
   // Release metadata plans diff the supplied commits after classification. A missing
@@ -273,8 +273,8 @@ export function buildChangedCheckCrabboxArgs(argv: string[] = [], options: { cwd
     "--timing-json",
     "--",
     "env",
-    "OPENCLAW_CHECK_CHANGED_REMOTE_CHILD=1",
-    "OPENCLAW_CHANGED_LANES_RAW_SYNC=1",
+    "GRANTED_CHECK_CHANGED_REMOTE_CHILD=1",
+    "GRANTED_CHANGED_LANES_RAW_SYNC=1",
     "CI=1",
     "PNPM_CONFIG_VERIFY_DEPS_BEFORE_RUN=false",
     "corepack",
@@ -740,11 +740,11 @@ export function createChangedCheckPlan(
   add("package patch guard", ["deps:patches:check"]);
   if (
     hasDeadcodeScannedSource(result.paths) &&
-    !isOpenEndedTruthyValue(baseEnv.OPENCLAW_CHECK_CHANGED_SKIP_DEADCODE)
+    !isOpenEndedTruthyValue(baseEnv.GRANTED_CHECK_CHANGED_SKIP_DEADCODE)
   ) {
     broadAudits.add(
       addCommand(
-        "dead export scan (skip with OPENCLAW_CHECK_CHANGED_SKIP_DEADCODE=1)",
+        "dead export scan (skip with GRANTED_CHECK_CHANGED_SKIP_DEADCODE=1)",
         "node",
         ["--import", "tsx", "scripts/check-deadcode-exports.mts"],
         baseEnv,
@@ -973,8 +973,8 @@ export function createChangedCheckPlan(
     addCommand("live Docker shell syntax", "bash", ["-n", ...LIVE_DOCKER_AUTH_SHELL_TARGETS]);
     addCommand("live Docker scheduler dry run", "node", ["scripts/test-docker-all.mjs"], {
       ...baseEnv,
-      OPENCLAW_DOCKER_ALL_DRY_RUN: "1",
-      OPENCLAW_DOCKER_ALL_LIVE_MODE: "only",
+      GRANTED_DOCKER_ALL_DRY_RUN: "1",
+      GRANTED_DOCKER_ALL_LIVE_MODE: "only",
     });
   }
 

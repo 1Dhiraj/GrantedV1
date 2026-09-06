@@ -10,10 +10,10 @@ async function seedTrajectorySession(tempHome: string, sessionKey: string) {
     ...process.env,
     HOME: tempHome,
     USERPROFILE: tempHome,
-    OPENCLAW_CONFIG_PATH: path.join(tempHome, "missing-openclaw.json"),
-    OPENCLAW_STATE_DIR: stateDir,
+    GRANTED_CONFIG_PATH: path.join(tempHome, "missing-openclaw.json"),
+    GRANTED_STATE_DIR: stateDir,
   };
-  delete env.OPENCLAW_HOME;
+  delete env.GRANTED_HOME;
   const [{ upsertSessionEntryCore }, { closeOpenClawAgentDatabaseByPath }] = await Promise.all([
     import("../src/config/sessions/session-accessor.js"),
     import("../src/state/openclaw-agent-db.js"),
@@ -321,10 +321,10 @@ describe("cli json stdout contract", () => {
         const message = testCase.message.replace("$MISSING_STORE", missingStore);
         const result = runBuiltCli(tempHome, args, {
           NODE_OPTIONS: `--import=data:text/javascript;base64,${preload}`,
-          OPENCLAW_CONFIG_PATH: path.join(tempHome, "missing-openclaw.json"),
-          OPENCLAW_GATEWAY_PORT: "29791",
-          OPENCLAW_STATE_DIR: path.join(tempHome, "isolated-state"),
-          ...("commander" in testCase ? { OPENCLAW_DISABLE_ROUTE_FIRST: "1" } : {}),
+          GRANTED_CONFIG_PATH: path.join(tempHome, "missing-openclaw.json"),
+          GRANTED_GATEWAY_PORT: "29791",
+          GRANTED_STATE_DIR: path.join(tempHome, "isolated-state"),
+          ...("commander" in testCase ? { GRANTED_DISABLE_ROUTE_FIRST: "1" } : {}),
           ...("tty" in testCase ? { FORCE_COLOR: "1" } : {}),
         });
 
@@ -380,9 +380,9 @@ describe("cli json stdout contract", () => {
         }
 
         const result = runBuiltCli(tempHome, args, {
-          OPENCLAW_CONFIG_PATH: path.join(tempHome, "missing-openclaw.json"),
-          OPENCLAW_GATEWAY_PORT: "29791",
-          OPENCLAW_STATE_DIR: path.join(tempHome, "isolated-state"),
+          GRANTED_CONFIG_PATH: path.join(tempHome, "missing-openclaw.json"),
+          GRANTED_GATEWAY_PORT: "29791",
+          GRANTED_STATE_DIR: path.join(tempHome, "isolated-state"),
         });
 
         expect(result.status, result.stderr).toBe(0);

@@ -399,13 +399,13 @@ describe("test-projects args", () => {
   it("caps project-level parallelism when the Vitest worker budget is conservative", () => {
     expect(
       resolveParallelFullSuiteConcurrency(58, {
-        OPENCLAW_VITEST_MAX_WORKERS: "1",
+        GRANTED_VITEST_MAX_WORKERS: "1",
       }),
     ).toBe(1);
 
     expect(
       resolveParallelFullSuiteConcurrency(58, {
-        OPENCLAW_TEST_WORKERS: "1",
+        GRANTED_TEST_WORKERS: "1",
       }),
     ).toBe(1);
   });
@@ -413,10 +413,10 @@ describe("test-projects args", () => {
   it("keeps conservative local full-suite runs on leaf project configs", () => {
     withEnv(
       {
-        OPENCLAW_VITEST_MAX_WORKERS: "1",
-        OPENCLAW_TEST_WORKERS: undefined,
-        OPENCLAW_TEST_PROJECTS_PARALLEL: undefined,
-        OPENCLAW_TEST_PROJECTS_LEAF_SHARDS: undefined,
+        GRANTED_VITEST_MAX_WORKERS: "1",
+        GRANTED_TEST_WORKERS: undefined,
+        GRANTED_TEST_PROJECTS_PARALLEL: undefined,
+        GRANTED_TEST_PROJECTS_LEAF_SHARDS: undefined,
         CI: undefined,
         GITHUB_ACTIONS: undefined,
       },
@@ -437,8 +437,8 @@ describe("test-projects args", () => {
     expect(
       resolveParallelFullSuiteConcurrency(58, {
         GITHUB_ACTIONS: "true",
-        OPENCLAW_TEST_PROJECTS_PARALLEL: "3",
-        OPENCLAW_VITEST_MAX_WORKERS: "1",
+        GRANTED_TEST_PROJECTS_PARALLEL: "3",
+        GRANTED_VITEST_MAX_WORKERS: "1",
       }),
     ).toBe(3);
   });
@@ -448,7 +448,7 @@ describe("test-projects args", () => {
       resolveParallelFullSuiteConcurrency(
         58,
         {
-          OPENCLAW_TEST_PROJECTS_LEAF_SHARDS: "1",
+          GRANTED_TEST_PROJECTS_LEAF_SHARDS: "1",
         },
         {
           cpuCount: 8,
@@ -479,10 +479,10 @@ describe("test-projects args", () => {
 
     const firstEnv = specs[0]?.env;
     expect(firstEnv?.KEEP_ME).toBe("1");
-    expect(firstEnv?.OPENCLAW_VITEST_FS_MODULE_CACHE_PATH?.replaceAll("\\", "/")).toBe(
+    expect(firstEnv?.GRANTED_VITEST_FS_MODULE_CACHE_PATH?.replaceAll("\\", "/")).toBe(
       "/repo/.cache/vitest/0-test-vitest-vitest.gateway.config.ts",
     );
-    expect(specs[1]?.env.OPENCLAW_VITEST_FS_MODULE_CACHE_PATH?.replaceAll("\\", "/")).toBe(
+    expect(specs[1]?.env.GRANTED_VITEST_FS_MODULE_CACHE_PATH?.replaceAll("\\", "/")).toBe(
       "/repo/.cache/vitest/1-test-vitest-vitest.gateway-server.config.ts",
     );
   });
@@ -717,7 +717,7 @@ describe("test-projects args", () => {
     expect(targetArgs).toEqual(["src/plugin-sdk/core.test.ts"]);
     expect(
       resolveChangedTargetArgs(["--changed=origin/main"], process.cwd(), () => changedPaths, {
-        env: { OPENCLAW_TEST_CHANGED_BROAD: "1" },
+        env: { GRANTED_TEST_CHANGED_BROAD: "1" },
       }),
     ).toEqual(["src/plugin-sdk/core.test.ts", "extensions"]);
     expect(plans[0]).toEqual({
@@ -792,7 +792,7 @@ describe("test-projects args", () => {
       "extensions/discord/src/monitor/message-handler.preflight.test.ts",
     ]);
     expect(spec?.includeFilePath).toContain("openclaw-vitest-include-");
-    expect(spec?.env.OPENCLAW_VITEST_INCLUDE_FILE).toBe(spec?.includeFilePath);
+    expect(spec?.env.GRANTED_VITEST_INCLUDE_FILE).toBe(spec?.includeFilePath);
   });
 
   it("rejects explicit test file targets that do not exist", () => {
@@ -907,7 +907,7 @@ describe("test-projects args", () => {
         ],
         {
           baseEnv: {
-            OPENCLAW_VITEST_INCLUDE_FILE: includeFile,
+            GRANTED_VITEST_INCLUDE_FILE: includeFile,
           } as NodeJS.ProcessEnv,
         },
       );

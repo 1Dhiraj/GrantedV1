@@ -280,10 +280,10 @@ beforeEach(() => {
   vi.clearAllMocks();
   currentNowMs = START_SECONDS * 1_000;
   vi.spyOn(Date, "now").mockImplementation(() => currentNowMs);
-  previousStateDir = process.env.OPENCLAW_STATE_DIR;
+  previousStateDir = process.env.GRANTED_STATE_DIR;
   // openclaw-temp-dir: allow extension tests cannot import root test helpers.
   tempDir = mkdtempSync(path.join(tmpdir(), "openclaw-buzz-coldstart-"));
-  process.env.OPENCLAW_STATE_DIR = tempDir;
+  process.env.GRANTED_STATE_DIR = tempDir;
   handled = [];
   gates = new Map();
   relayMocks.messageFilters.length = 0;
@@ -329,9 +329,9 @@ afterEach(() => {
   vi.unstubAllGlobals();
   resetPluginStateStoreForTests();
   if (previousStateDir === undefined) {
-    delete process.env.OPENCLAW_STATE_DIR;
+    delete process.env.GRANTED_STATE_DIR;
   } else {
-    process.env.OPENCLAW_STATE_DIR = previousStateDir;
+    process.env.GRANTED_STATE_DIR = previousStateDir;
   }
   if (tempDir) {
     rmSync(tempDir, { recursive: true, force: true });

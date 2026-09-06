@@ -186,7 +186,7 @@ suite.define(() => {
         phase: "naming_worktree",
       });
       const startupIndicator = page.locator('.chat-working-indicator[role="status"]');
-      if (process.env.OPENCLAW_CAPTURE_UI_PROOF === "1") {
+      if (process.env.GRANTED_CAPTURE_UI_PROOF === "1") {
         const startupProofDir = path.join(suite.artifactDir, "duplicate-session-naming");
         await page.screenshot({ path: path.join(startupProofDir, "steer.png"), fullPage: true });
       }
@@ -482,7 +482,7 @@ suite.define(() => {
             )
             .toEqual([initialText, beforeText, steerText, afterText]);
         } finally {
-          const artifactDirParent = process.env.OPENCLAW_UI_E2E_ARTIFACT_DIR?.trim();
+          const artifactDirParent = process.env.GRANTED_UI_E2E_ARTIFACT_DIR?.trim();
           const artifactDir = artifactDirParent
             ? createControlUiE2eArtifactDir("chat-flow.active-run-follow-ups", artifactDirParent)
             : undefined;
@@ -545,7 +545,7 @@ suite.define(() => {
         state: "delta",
       });
     const capture = async (name: string) => {
-      const artifactDirParent = process.env.OPENCLAW_UI_E2E_ARTIFACT_DIR?.trim();
+      const artifactDirParent = process.env.GRANTED_UI_E2E_ARTIFACT_DIR?.trim();
       const artifactDir = artifactDirParent
         ? createControlUiE2eArtifactDir("chat-flow.active-run-follow-ups", artifactDirParent)
         : undefined;

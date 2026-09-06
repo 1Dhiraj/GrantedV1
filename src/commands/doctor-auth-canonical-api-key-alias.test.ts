@@ -19,7 +19,7 @@ async function makeTestState(): Promise<OpenClawTestState> {
   const state = await createOpenClawTestState({
     layout: "state-only",
     prefix: "openclaw-doctor-canonical-api-key-",
-    env: { OPENCLAW_AGENT_DIR: undefined, PI_CODING_AGENT_DIR: undefined },
+    env: { GRANTED_AGENT_DIR: undefined, PI_CODING_AGENT_DIR: undefined },
   });
   states.push(state);
   return state;
@@ -118,7 +118,7 @@ describe("canonical SQLite migration for historical API-key aliases", () => {
     expect(prompter.confirmAutoFix).toHaveBeenCalledOnce();
   });
 
-  it.each(["OPENCLAW_AGENT_DIR", "PI_CODING_AGENT_DIR"] as const)(
+  it.each(["GRANTED_AGENT_DIR", "PI_CODING_AGENT_DIR"] as const)(
     "migrates aliases from the shipped %s agent override",
     async (agentDirVariable) => {
       const state = await makeTestState();

@@ -161,19 +161,19 @@ beforeEach(async () => {
   vi.spyOn(os, "userInfo").mockReturnValue({ ...os.userInfo(), homedir: root });
   const keys = [
     "HOME",
-    "OPENCLAW_HOME",
-    "OPENCLAW_STATE_DIR",
-    "OPENCLAW_CONFIG_PATH",
-    "OPENCLAW_PROFILE",
-    "OPENCLAW_GATEWAY_PORT",
-    "OPENCLAW_SERVICE_MARKER",
-    "OPENCLAW_SERVICE_KIND",
-    "OPENCLAW_SUPERVISOR_MODE",
-    "OPENCLAW_SYSTEMD_UNIT",
-    "OPENCLAW_LAUNCHD_LABEL",
-    "OPENCLAW_UPDATE_IN_PROGRESS",
-    "OPENCLAW_UPDATE_PARENT_ALLOWS_GATEWAY_SERVICE_REPAIR",
-    "OPENCLAW_ALLOW_OLDER_BINARY_DESTRUCTIVE_ACTIONS",
+    "GRANTED_HOME",
+    "GRANTED_STATE_DIR",
+    "GRANTED_CONFIG_PATH",
+    "GRANTED_PROFILE",
+    "GRANTED_GATEWAY_PORT",
+    "GRANTED_SERVICE_MARKER",
+    "GRANTED_SERVICE_KIND",
+    "GRANTED_SUPERVISOR_MODE",
+    "GRANTED_SYSTEMD_UNIT",
+    "GRANTED_LAUNCHD_LABEL",
+    "GRANTED_UPDATE_IN_PROGRESS",
+    "GRANTED_UPDATE_PARENT_ALLOWS_GATEWAY_SERVICE_REPAIR",
+    "GRANTED_ALLOW_OLDER_BINARY_DESTRUCTIVE_ACTIONS",
   ];
   envSnapshot = captureEnv(keys);
   for (const key of keys) {
@@ -474,13 +474,13 @@ describe("preserved update activation with real version guards", () => {
       .mockRejectedValue(new Error("automatic repair reached"));
     mocks.child.mockImplementation(async (args, options) => {
       const snapshot = captureEnv([
-        "OPENCLAW_UPDATE_IN_PROGRESS",
-        "OPENCLAW_UPDATE_PARENT_ALLOWS_GATEWAY_SERVICE_REPAIR",
+        "GRANTED_UPDATE_IN_PROGRESS",
+        "GRANTED_UPDATE_PARENT_ALLOWS_GATEWAY_SERVICE_REPAIR",
       ]);
       if (typeof options === "object") {
         for (const key of [
-          "OPENCLAW_UPDATE_IN_PROGRESS",
-          "OPENCLAW_UPDATE_PARENT_ALLOWS_GATEWAY_SERVICE_REPAIR",
+          "GRANTED_UPDATE_IN_PROGRESS",
+          "GRANTED_UPDATE_PARENT_ALLOWS_GATEWAY_SERVICE_REPAIR",
         ]) {
           const value = options.env?.[key];
           if (value !== undefined) {
@@ -556,7 +556,7 @@ describe("preserved update activation with real version guards", () => {
         jsonMode: true,
       });
       expect(before.stopped).toBe(true);
-      expect(before.serviceEnv?.OPENCLAW_SYSTEMD_UNIT).toBeUndefined();
+      expect(before.serviceEnv?.GRANTED_SYSTEMD_UNIT).toBeUndefined();
       const command = await mocks.command(process.env);
       if (!command) {
         throw new Error("missing fixture command");
@@ -572,23 +572,21 @@ describe("preserved update activation with real version guards", () => {
         ],
         environment: {
           HOME: root,
-          OPENCLAW_GATEWAY_PORT: "19002",
+          GRANTED_GATEWAY_PORT: "19002",
           ...(change === "profile"
             ? {
-                OPENCLAW_PROFILE: "second",
-                OPENCLAW_SYSTEMD_UNIT: "openclaw-gateway-second.service",
-                OPENCLAW_STATE_DIR: path.join(root, ".openclaw-second"),
-                OPENCLAW_CONFIG_PATH: path.join(root, ".openclaw-second", "openclaw.json"),
+                GRANTED_PROFILE: "second",
+                GRANTED_SYSTEMD_UNIT: "openclaw-gateway-second.service",
+                GRANTED_STATE_DIR: path.join(root, ".openclaw-second"),
+                GRANTED_CONFIG_PATH: path.join(root, ".openclaw-second", "openclaw.json"),
               }
             : {
-                OPENCLAW_PROFILE: "default",
-                OPENCLAW_SYSTEMD_UNIT: "openclaw-gateway.service",
-                OPENCLAW_STATE_DIR: path.join(root, ".openclaw"),
-                OPENCLAW_CONFIG_PATH: configPath,
+                GRANTED_PROFILE: "default",
+                GRANTED_SYSTEMD_UNIT: "openclaw-gateway.service",
+                GRANTED_STATE_DIR: path.join(root, ".openclaw"),
+                GRANTED_CONFIG_PATH: configPath,
               }),
-          ...(change === "unit"
-            ? { OPENCLAW_SYSTEMD_UNIT: "openclaw-gateway-custom.service" }
-            : {}),
+          ...(change === "unit" ? { GRANTED_SYSTEMD_UNIT: "openclaw-gateway-custom.service" } : {}),
         },
       });
       const state = await readGatewayServiceState(resolveGatewayService(), {
@@ -602,7 +600,7 @@ describe("preserved update activation with real version guards", () => {
         preManagedServiceStop: before,
       });
       if (change !== "metadata") {
-        expect(state.env.OPENCLAW_SYSTEMD_UNIT).toBe(
+        expect(state.env.GRANTED_SYSTEMD_UNIT).toBe(
           change === "profile"
             ? "openclaw-gateway-second.service"
             : "openclaw-gateway-custom.service",
@@ -735,7 +733,7 @@ describe("preserved update activation with real version guards", () => {
     "refuses preserved activation through %s process signaling",
     async (mode) => {
       if (mode === "external") {
-        process.env.OPENCLAW_SUPERVISOR_MODE = "external";
+        process.env.GRANTED_SUPERVISOR_MODE = "external";
       }
       await expect(
         runDaemonRestart({ preserveDefinition: true, safe: mode === "safe" }),
@@ -777,8 +775,8 @@ describe("preserved update activation with real version guards", () => {
       stderrPath: path.join(root, "gateway.err"),
       environment: {
         HOME: root,
-        OPENCLAW_GATEWAY_TOKEN: "fixture-inline-token",
-        OPENCLAW_SERVICE_VERSION: "legacy",
+        GRANTED_GATEWAY_TOKEN: "fixture-inline-token",
+        GRANTED_SERVICE_VERSION: "legacy",
       },
     });
     if (demandOnly) {

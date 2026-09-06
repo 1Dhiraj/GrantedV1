@@ -509,9 +509,9 @@ function runSessionStateAssertion(
         env: {
           ...process.env,
           ...fixtureEnv,
-          OPENCLAW_STATE_DIR: stateDir,
-          OPENCLAW_TEST_WORKSPACE_DIR: workspace,
-          OPENCLAW_UPGRADE_SURVIVOR_SCENARIO: options.scenario ?? "base",
+          GRANTED_STATE_DIR: stateDir,
+          GRANTED_TEST_WORKSPACE_DIR: workspace,
+          GRANTED_UPGRADE_SURVIVOR_SCENARIO: options.scenario ?? "base",
         },
         stdio: "pipe",
       });
@@ -561,10 +561,10 @@ function assertConfiguredPluginState(params: { installPath?: string } = {}): voi
     execFileSync(process.execPath, [ASSERTIONS_PATH, "assert-state"], {
       env: {
         ...process.env,
-        OPENCLAW_STATE_DIR: stateDir,
-        OPENCLAW_TEST_WORKSPACE_DIR: workspace,
-        OPENCLAW_UPGRADE_SURVIVOR_CONFIG_COVERAGE_JSON: coveragePath,
-        OPENCLAW_UPGRADE_SURVIVOR_SCENARIO: "configured-plugin-installs",
+        GRANTED_STATE_DIR: stateDir,
+        GRANTED_TEST_WORKSPACE_DIR: workspace,
+        GRANTED_UPGRADE_SURVIVOR_CONFIG_COVERAGE_JSON: coveragePath,
+        GRANTED_UPGRADE_SURVIVOR_SCENARIO: "configured-plugin-installs",
       },
       stdio: "pipe",
     });
@@ -593,11 +593,11 @@ function assertConfig(params: {
     execFileSync(process.execPath, [ASSERTIONS_PATH, "assert-config"], {
       env: {
         ...process.env,
-        OPENCLAW_CONFIG_PATH: configPath,
-        OPENCLAW_UPGRADE_SURVIVOR_CONFIG_COVERAGE_JSON: coveragePath,
-        OPENCLAW_UPGRADE_SURVIVOR_SCENARIO: params.scenario,
-        OPENCLAW_UPGRADE_SURVIVOR_ASSERT_STAGE: params.stage ?? "survival",
-        OPENCLAW_UPGRADE_SURVIVOR_UPDATE_CHANNEL: params.updateChannel ?? "",
+        GRANTED_CONFIG_PATH: configPath,
+        GRANTED_UPGRADE_SURVIVOR_CONFIG_COVERAGE_JSON: coveragePath,
+        GRANTED_UPGRADE_SURVIVOR_SCENARIO: params.scenario,
+        GRANTED_UPGRADE_SURVIVOR_ASSERT_STAGE: params.stage ?? "survival",
+        GRANTED_UPGRADE_SURVIVOR_UPDATE_CHANNEL: params.updateChannel ?? "",
       },
       stdio: "pipe",
     });
@@ -734,7 +734,7 @@ function assertCompanionPluginRecords(
       {
         env: {
           ...process.env,
-          OPENCLAW_STATE_DIR: stateDir,
+          GRANTED_STATE_DIR: stateDir,
         },
         stdio: "pipe",
       },
@@ -915,8 +915,8 @@ describe("upgrade survivor assertions", () => {
             encoding: "utf8",
             env: {
               ...process.env,
-              OPENCLAW_STATE_DIR: stateDir,
-              OPENCLAW_UPGRADE_SURVIVOR_BASELINE_VERSION: version,
+              GRANTED_STATE_DIR: stateDir,
+              GRANTED_UPGRADE_SURVIVOR_BASELINE_VERSION: version,
             },
           },
         );
@@ -1055,7 +1055,7 @@ const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const path = require("node:path");
 assert.deepEqual(process.argv.slice(2), ["transcripts", "path", "2026-07-01/design-review", "--dir"]);
-const root = process.env.OPENCLAW_STATE_DIR;
+const root = process.env.GRANTED_STATE_DIR;
 const sessionDir = path.join(root, "transcripts", "2026-07-01", "design-review");
 fs.cpSync(path.join(root, "transcripts.migrated-fixture", "2026-07-01", "design-review"), sessionDir, { recursive: true });
 process.stdout.write(sessionDir + "\\n");
@@ -1120,9 +1120,9 @@ process.stdout.write(sessionDir + "\\n");
         execFileSync(process.execPath, [ASSERTIONS_PATH, "seed"], {
           env: {
             ...process.env,
-            OPENCLAW_STATE_DIR: stateDir,
-            OPENCLAW_TEST_WORKSPACE_DIR: workspace,
-            OPENCLAW_UPGRADE_SURVIVOR_SCENARIO: scenario,
+            GRANTED_STATE_DIR: stateDir,
+            GRANTED_TEST_WORKSPACE_DIR: workspace,
+            GRANTED_UPGRADE_SURVIVOR_SCENARIO: scenario,
           },
           stdio: "pipe",
         });
@@ -1199,10 +1199,10 @@ process.stdout.write(sessionDir + "\\n");
       const workspace = join(root, "workspace");
       const env = {
         ...process.env,
-        OPENCLAW_STATE_DIR: stateDir,
-        OPENCLAW_TEST_WORKSPACE_DIR: workspace,
-        OPENCLAW_UPGRADE_SURVIVOR_SCENARIO: "cron-scheduled-authority",
-        OPENCLAW_UPGRADE_SURVIVOR_ASSERT_STAGE: "baseline",
+        GRANTED_STATE_DIR: stateDir,
+        GRANTED_TEST_WORKSPACE_DIR: workspace,
+        GRANTED_UPGRADE_SURVIVOR_SCENARIO: "cron-scheduled-authority",
+        GRANTED_UPGRADE_SURVIVOR_ASSERT_STAGE: "baseline",
       };
       const run = (command: string) =>
         spawnSync(process.execPath, [ASSERTIONS_PATH, command], { env, encoding: "utf8" });
@@ -1233,9 +1233,9 @@ process.stdout.write(sessionDir + "\\n");
       execFileSync(process.execPath, [ASSERTIONS_PATH, "seed"], {
         env: {
           ...process.env,
-          OPENCLAW_STATE_DIR: stateDir,
-          OPENCLAW_TEST_WORKSPACE_DIR: workspace,
-          OPENCLAW_UPGRADE_SURVIVOR_SCENARIO: "acpx-openclaw-tools-bridge",
+          GRANTED_STATE_DIR: stateDir,
+          GRANTED_TEST_WORKSPACE_DIR: workspace,
+          GRANTED_UPGRADE_SURVIVOR_SCENARIO: "acpx-openclaw-tools-bridge",
         },
         stdio: "pipe",
       });

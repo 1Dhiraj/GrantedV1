@@ -70,7 +70,7 @@ describe("visitor-access plugin lifecycle", () => {
   beforeEach(() => {
     resetPluginStateStoreForTests();
     stateDir = realpathSync(mkdtempSync(path.join(tmpdir(), "visitor-access-test-")));
-    env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+    env = { ...process.env, GRANTED_STATE_DIR: stateDir };
     vi.useFakeTimers({ toFake: ["Date", "setInterval", "clearInterval"] });
     vi.setSystemTime(START_MS);
   });

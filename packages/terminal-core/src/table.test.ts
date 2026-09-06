@@ -633,7 +633,7 @@ console.log(JSON.stringify({
     const home = path.resolve("test-home", "alice");
     vi.stubEnv("HOME", home);
     vi.stubEnv("USERPROFILE", "");
-    vi.stubEnv("OPENCLAW_HOME", "");
+    vi.stubEnv("GRANTED_HOME", "");
 
     const out = renderTable({
       border: "none",

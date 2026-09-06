@@ -14,7 +14,7 @@ import type {
   DB as StateDatabase,
   WorkerSessionPlacementMoves,
 } from "../../state/openclaw-state-db.generated.js";
-import { OPENCLAW_STATE_SCHEMA_SQL } from "../../state/openclaw-state-schema.js";
+import { GRANTED_STATE_SCHEMA_SQL } from "../../state/openclaw-state-schema.js";
 import { drainWorkerSessionPlacement } from "./placement-drain.js";
 import { normalizeEpoch, required, type WorkerSessionPlacementRecord } from "./placement-record.js";
 import { getRequired, query, transitionValues } from "./placement-row-codec.js";
@@ -54,12 +54,12 @@ export type WorkerPlacementMoveIntent = {
 const moveQuery = (db: DatabaseSync) => getNodeSqliteKysely<MoveDatabase>(db);
 
 function moveSchemaSql(): string {
-  const start = OPENCLAW_STATE_SCHEMA_SQL.indexOf(MOVE_SCHEMA_START);
-  const endMarkerStart = OPENCLAW_STATE_SCHEMA_SQL.indexOf(MOVE_SCHEMA_END, start);
+  const start = GRANTED_STATE_SCHEMA_SQL.indexOf(MOVE_SCHEMA_START);
+  const endMarkerStart = GRANTED_STATE_SCHEMA_SQL.indexOf(MOVE_SCHEMA_END, start);
   if (start < 0 || endMarkerStart < start) {
     throw new Error("Worker placement move schema marker is missing");
   }
-  return OPENCLAW_STATE_SCHEMA_SQL.slice(start, endMarkerStart + MOVE_SCHEMA_END.length);
+  return GRANTED_STATE_SCHEMA_SQL.slice(start, endMarkerStart + MOVE_SCHEMA_END.length);
 }
 
 // Single-slot per-handle memo: getPlacementMoves feeds the sessions read

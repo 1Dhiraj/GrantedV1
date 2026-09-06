@@ -57,7 +57,7 @@ function setActiveMemorySessionDisabled(
     maxEntries: 10_000,
     env: {
       ...process.env,
-      OPENCLAW_STATE_DIR: path.join(env.gateway.tempRoot, "state"),
+      GRANTED_STATE_DIR: path.join(env.gateway.tempRoot, "state"),
     },
   });
   const key = activeMemoryToggleKey(sessionKey);
@@ -117,11 +117,11 @@ export async function runQaSuiteScenarioSteps(
   const stepResults: QaSuiteScenarioResult["steps"] = [];
   for (const step of steps) {
     try {
-      if (process.env.OPENCLAW_QA_DEBUG === "1") {
+      if (process.env.GRANTED_QA_DEBUG === "1") {
         console.error(`[qa-suite] start scenario="${name}" step="${step.name}"`);
       }
       const details = await step.run();
-      if (process.env.OPENCLAW_QA_DEBUG === "1") {
+      if (process.env.GRANTED_QA_DEBUG === "1") {
         console.error(`[qa-suite] pass scenario="${name}" step="${step.name}"`);
       }
       stepResults.push({
@@ -135,7 +135,7 @@ export async function runQaSuiteScenarioSteps(
         stepResults.push({ name: step.name, status: "skip", details });
         return { name, status: "skip", steps: stepResults, details };
       }
-      if (process.env.OPENCLAW_QA_DEBUG === "1") {
+      if (process.env.GRANTED_QA_DEBUG === "1") {
         console.error(`[qa-suite] fail scenario="${name}" step="${step.name}" details=${details}`);
       }
       stepResults.push({ name: step.name, status: "fail", details });

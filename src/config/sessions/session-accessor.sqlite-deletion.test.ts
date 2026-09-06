@@ -57,7 +57,7 @@ describe("session deletion and native owner state", () => {
 
   beforeEach(() => {
     const tempDir = tempDirs.make("openclaw-session-deletion-");
-    vi.stubEnv("OPENCLAW_STATE_DIR", tempDir);
+    vi.stubEnv("GRANTED_STATE_DIR", tempDir);
     storePath = path.join(tempDir, "agents", "main", "sessions", "sessions.json");
     bindings = new Map();
   });

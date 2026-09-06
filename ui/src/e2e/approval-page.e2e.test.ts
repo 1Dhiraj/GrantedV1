@@ -23,7 +23,7 @@ const suite = createControlUiE2eSuite({
 const APPROVAL_ID = "Approval:Mobile/東京 100% 🦞";
 const APPROVAL_NOW_MS = Date.UTC(2026, 6, 10, 18, 0, 0);
 let ARTIFACT_DIR: string;
-const CAPTURE_UI_PROOF = process.env.OPENCLAW_CAPTURE_UI_PROOF === "1";
+const CAPTURE_UI_PROOF = process.env.GRANTED_CAPTURE_UI_PROOF === "1";
 const MOBILE_VIEWPORT = { height: 844, width: 390 } as const;
 const DESKTOP_VIEWPORT = { height: 800, width: 1200 } as const;
 

@@ -383,8 +383,8 @@ function drainableProcessTreeScript(delayMs: number): string {
   return `const { spawn } = require('node:child_process'); spawn(process.execPath, ['-e', ${JSON.stringify(descendantScript)}], { env: process.env, stdio: 'ignore' }); process.on('SIGTERM', () => process.exit(0)); setInterval(() => {}, 1000);`;
 }
 
-const SIGNAL_GRANDCHILD_SCRIPT = `const { writeFileSync } = require('node:fs'); writeFileSync(process.env.OPENCLAW_TEST_GRANDCHILD_PID, String(process.pid)); process.on('SIGTERM', () => {}); setInterval(() => {}, 1000);`;
-const SIGNAL_PARENT_SCRIPT = `const { spawn } = require('node:child_process'); const { writeFileSync } = require('node:fs'); spawn(process.execPath, ['-e', ${JSON.stringify(SIGNAL_GRANDCHILD_SCRIPT)}], { env: process.env, stdio: 'ignore' }); writeFileSync(process.env.OPENCLAW_TEST_READY_FILE, 'ready'); process.on('SIGTERM', () => process.exit(0)); setInterval(() => {}, 1000);`;
+const SIGNAL_GRANDCHILD_SCRIPT = `const { writeFileSync } = require('node:fs'); writeFileSync(process.env.GRANTED_TEST_GRANDCHILD_PID, String(process.pid)); process.on('SIGTERM', () => {}); setInterval(() => {}, 1000);`;
+const SIGNAL_PARENT_SCRIPT = `const { spawn } = require('node:child_process'); const { writeFileSync } = require('node:fs'); spawn(process.execPath, ['-e', ${JSON.stringify(SIGNAL_GRANDCHILD_SCRIPT)}], { env: process.env, stdio: 'ignore' }); writeFileSync(process.env.GRANTED_TEST_READY_FILE, 'ready'); process.on('SIGTERM', () => process.exit(0)); setInterval(() => {}, 1000);`;
 
 function createSignaledHostCommandFixture(streaming: boolean) {
   const tempDir = makeTempDir(tempDirs, "openclaw-parallels-host-command-signal-");
@@ -401,7 +401,7 @@ function createSignaledHostCommandFixture(streaming: boolean) {
     `import { ${commandName} } from ${JSON.stringify(hostCommandUrl)};
 ${streaming ? "await " : ""}${commandName}(process.execPath, ['-e', ${JSON.stringify(SIGNAL_PARENT_SCRIPT)}], {
   ${specificOption}
-  env: { ...process.env, OPENCLAW_TEST_GRANDCHILD_PID: ${JSON.stringify(grandchildPidPath)}, OPENCLAW_TEST_READY_FILE: ${JSON.stringify(readyPath)} },
+  env: { ...process.env, GRANTED_TEST_GRANDCHILD_PID: ${JSON.stringify(grandchildPidPath)}, GRANTED_TEST_READY_FILE: ${JSON.stringify(readyPath)} },
   quiet: true,
   timeoutMs: 30_000,
 });`,
@@ -505,7 +505,7 @@ describe("Parallels smoke model selection", () => {
       "if (Test-Path -LiteralPath '${GUEST_PROFILE_PS}/Downloads/OpenClawPrereqs')",
     );
     expect(controller).toContain("winget.exe download --source winget");
-    expect(controller).toContain("OPENCLAW_PARALLELS_WINDOWS_LIBRARY_ONLY");
+    expect(controller).toContain("GRANTED_PARALLELS_WINDOWS_LIBRARY_ONLY");
     expect(controller).not.toContain("openclaw-windows-node");
   });
 
@@ -524,7 +524,7 @@ describe("Parallels smoke model selection", () => {
         [
           "-c",
           `set -euo pipefail
-OPENCLAW_PARALLELS_WINDOWS_LIBRARY_ONLY=1 source "$1"
+GRANTED_PARALLELS_WINDOWS_LIBRARY_ONLY=1 source "$1"
 guest_version="$3"
 guest_user_cmd() {
   case "$1" in
@@ -579,7 +579,7 @@ printf 'verified-node=%s\\n' "$guest_version"`,
       [
         "-c",
         `set -euo pipefail
-OPENCLAW_PARALLELS_WINDOWS_LIBRARY_ONLY=1 source "$1"
+GRANTED_PARALLELS_WINDOWS_LIBRARY_ONLY=1 source "$1"
 vm_state() { cat "$VM_STATE_FILE"; }
 sleep() { printf stopped >"$VM_STATE_FILE"; }
 run_bounded() { printf 'invoked=%s\\n' "$*"; }
@@ -623,7 +623,7 @@ ensure_vm_running`,
       "bash",
       [
         "-c",
-        'set -- run-tests --app-option; OPENCLAW_PARALLELS_WINDOWS_LIBRARY_ONLY=1 source "$1"; printf "%s\\n" "$*"',
+        'set -- run-tests --app-option; GRANTED_PARALLELS_WINDOWS_LIBRARY_ONLY=1 source "$1"; printf "%s\\n" "$*"',
         "bash",
         WINDOWS_PREPARE_WRAPPER,
       ],
@@ -638,7 +638,7 @@ ensure_vm_running`,
       "bash",
       [
         "-c",
-        'OPENCLAW_PARALLELS_WINDOWS_LIBRARY_ONLY=1 source "$1"; curl() { printf "%s\\n" "$@"; }; fetch_host_metadata "https://example.test/metadata"',
+        'GRANTED_PARALLELS_WINDOWS_LIBRARY_ONLY=1 source "$1"; curl() { printf "%s\\n" "$@"; }; fetch_host_metadata "https://example.test/metadata"',
         "bash",
         WINDOWS_PREPARE_WRAPPER,
       ],
@@ -667,7 +667,7 @@ ensure_vm_running`,
       "bash",
       [
         "-c",
-        `OPENCLAW_PARALLELS_WINDOWS_LIBRARY_ONLY=1 source "$1"; curl() { count="$(<"$CURL_CALL_COUNT")"; count=$((count + 1)); printf '%s\\n' "$count" >"$CURL_CALL_COUNT"; if [[ "$count" == "1" ]]; then printf 'partial-'; return 28; fi; printf 'complete'; }; sleep() { :; }; fetch_host_metadata "https://example.test/metadata"`,
+        `GRANTED_PARALLELS_WINDOWS_LIBRARY_ONLY=1 source "$1"; curl() { count="$(<"$CURL_CALL_COUNT")"; count=$((count + 1)); printf '%s\\n' "$count" >"$CURL_CALL_COUNT"; if [[ "$count" == "1" ]]; then printf 'partial-'; return 28; fi; printf 'complete'; }; sleep() { :; }; fetch_host_metadata "https://example.test/metadata"`,
         "bash",
         WINDOWS_PREPARE_WRAPPER,
       ],
@@ -749,7 +749,7 @@ ensure_vm_running`,
         "--latest-version",
         "2026.8.25",
         "--api-key-env",
-        "OPENCLAW_PARALLELS_TEST_API_KEY",
+        "GRANTED_PARALLELS_TEST_API_KEY",
         "--json",
       ],
       {
@@ -759,9 +759,9 @@ ensure_vm_running`,
           ...process.env,
           ...fakePrlctlEnv(tempDir),
           "BASH_FUNC_ifconfig%%": "() { return 1; }",
-          OPENCLAW_PARALLELS_ARTIFACT_ROOT: join(tempDir, "artifacts"),
-          OPENCLAW_PARALLELS_SKIP_SNAPSHOT_RESTORE: "1",
-          OPENCLAW_PARALLELS_TEST_API_KEY: "fixture-not-a-real-credential",
+          GRANTED_PARALLELS_ARTIFACT_ROOT: join(tempDir, "artifacts"),
+          GRANTED_PARALLELS_SKIP_SNAPSHOT_RESTORE: "1",
+          GRANTED_PARALLELS_TEST_API_KEY: "fixture-not-a-real-credential",
           TMPDIR: tempDir,
           npm_execpath: fakePnpm,
         },
@@ -795,7 +795,7 @@ ensure_vm_running`,
   });
 
   it("keeps provider auth and model defaults in the shared helper", () => {
-    expect(PROVIDER_AUTH_PREREQUISITE_SOURCE).toContain("OPENCLAW_PARALLELS_WINDOWS_OPENAI_MODEL");
+    expect(PROVIDER_AUTH_PREREQUISITE_SOURCE).toContain("GRANTED_PARALLELS_WINDOWS_OPENAI_MODEL");
     expect(PROVIDER_AUTH_PREREQUISITE_SOURCE).toContain("openai/gpt-5.6-luna");
     expect(PROVIDER_AUTH_PREREQUISITE_SOURCE).toContain("tokenProvider: input.provider");
 
@@ -843,7 +843,7 @@ ensure_vm_running`,
     expect(script).toContain(
       "Remove-Item $isolationScriptPath -Force -ErrorAction SilentlyContinue",
     );
-    expect(script).toContain("Remove-Item Env:OPENCLAW_PARALLELS_PLUGIN_ISOLATION");
+    expect(script).toContain("Remove-Item Env:GRANTED_PARALLELS_PLUGIN_ISOLATION");
   });
 
   it("writes full model ids as config map keys in provider batches", () => {
@@ -891,7 +891,7 @@ ensure_vm_running`,
     expect(hostServer).toContain("export async function startHostServer");
     expect(hostServer).toContain("export async function startNpmRegistryServer");
     expect(hostServer).toContain("hostUrl: `http://127.0.0.1:${port}`");
-    expect(hostServer).toContain('OPENCLAW_NPM_REGISTRY_UPSTREAM: "https://registry.npmjs.org"');
+    expect(hostServer).toContain('GRANTED_NPM_REGISTRY_UPSTREAM: "https://registry.npmjs.org"');
     expect(hostServer).toContain("http.server");
     expect(snapshots).toContain("export function resolveSnapshot");
     expect(smokeCommon).toContain("runSmokeLane");
@@ -1185,7 +1185,7 @@ if (commandArgs[0] === "list") {
           "--latest-version",
           "2026.1.1",
           "--api-key-env",
-          "OPENCLAW_PARALLELS_TEST_KEY",
+          "GRANTED_PARALLELS_TEST_KEY",
           "--json",
         ],
         {
@@ -1194,8 +1194,8 @@ if (commandArgs[0] === "list") {
           env: {
             ...process.env,
             ...fakePrlctlEnv(tempDir),
-            OPENCLAW_PARALLELS_ARTIFACT_ROOT: tempDir,
-            OPENCLAW_PARALLELS_TEST_KEY: "fixture",
+            GRANTED_PARALLELS_ARTIFACT_ROOT: tempDir,
+            GRANTED_PARALLELS_TEST_KEY: "fixture",
           },
           timeout: 20_000,
         },
@@ -1228,7 +1228,7 @@ if (commandArgs[0] === "list") {
     );
     expect(invalidSkipBothResult.status).toBe(1);
     expect(invalidSkipBothResult.stderr).toContain(
-      "OPENCLAW_PARALLELS_SKIP_SNAPSHOT_RESTORE=1 requires --mode fresh or --mode upgrade",
+      "GRANTED_PARALLELS_SKIP_SNAPSHOT_RESTORE=1 requires --mode fresh or --mode upgrade",
     );
     expect(() =>
       withEnv({ [SKIP_SNAPSHOT_RESTORE_ENV]: "1" }, () =>
@@ -1341,7 +1341,7 @@ if (commandArgs[0] === "list") {
         },
         {
           CUSTOM_ANTHROPIC_KEY: "sk-anthropic",
-          OPENCLAW_PARALLELS_ANTHROPIC_MODEL: "  anthropic/custom  ",
+          GRANTED_PARALLELS_ANTHROPIC_MODEL: "  anthropic/custom  ",
         },
       ),
     ).toMatchObject({
@@ -1378,8 +1378,8 @@ if (commandArgs[0] === "list") {
 
     const windowsEnv = {
       OPENAI_API_KEY: "sk-openai",
-      OPENCLAW_PARALLELS_OPENAI_MODEL: "openai/generic",
-      OPENCLAW_PARALLELS_WINDOWS_OPENAI_MODEL: "openai/windows",
+      GRANTED_PARALLELS_OPENAI_MODEL: "openai/generic",
+      GRANTED_PARALLELS_WINDOWS_OPENAI_MODEL: "openai/windows",
     };
     const frozenWindows = resolveParallelsProviderAuth(
       { platform: "windows", provider: "openai" },
@@ -1399,7 +1399,7 @@ if (commandArgs[0] === "list") {
         windowsEnv,
       ).auth.modelId,
     ).toBe("openai/explicit");
-    const whitespaceEnv = { OPENAI_API_KEY: "sk-openai", OPENCLAW_PARALLELS_OPENAI_MODEL: "   " };
+    const whitespaceEnv = { OPENAI_API_KEY: "sk-openai", GRANTED_PARALLELS_OPENAI_MODEL: "   " };
     expect([
       resolveParallelsProviderAuth({ platform: "windows", provider: "openai" }, whitespaceEnv).auth
         .modelId,
@@ -1466,7 +1466,7 @@ if (commandArgs[0] === "list") {
 
     const output: string[] = [];
     const env = { OPENAI_API_KEY: "sk-openai" };
-    Object.defineProperty(env, "OPENCLAW_PARALLELS_WINDOWS_OPENAI_MODEL", {
+    Object.defineProperty(env, "GRANTED_PARALLELS_WINDOWS_OPENAI_MODEL", {
       get: () => {
         throw new Error("sentinel-secret");
       },
@@ -1718,8 +1718,8 @@ if (commandArgs[0] === "list") {
   it("preseeds dev update channel before stable-to-dev update lanes", () => {
     expect(macos).toContain('channel: "dev"');
     expect(windows).toContain("Name channel -Value 'dev'");
-    expect(macos).toContain("OPENCLAW_ALLOW_OLDER_BINARY_DESTRUCTIVE_ACTIONS=1");
-    expect(windows).toContain("OPENCLAW_ALLOW_OLDER_BINARY_DESTRUCTIVE_ACTIONS");
+    expect(macos).toContain("GRANTED_ALLOW_OLDER_BINARY_DESTRUCTIVE_ACTIONS=1");
+    expect(windows).toContain("GRANTED_ALLOW_OLDER_BINARY_DESTRUCTIVE_ACTIONS");
   });
 
   it("requires macOS dashboard smoke to load built assets", () => {
@@ -1734,7 +1734,7 @@ if (commandArgs[0] === "list") {
     expect(npmUpdate).toContain('"--model"');
     expect(npmUpdate).toContain("auth.modelId");
     expect(npmUpdate).toContain("authForPlatform");
-    expect(npmUpdate).toContain("OPENCLAW_PARALLELS_LINUX_DISABLE_BONJOUR");
+    expect(npmUpdate).toContain("GRANTED_PARALLELS_LINUX_DISABLE_BONJOUR");
   });
 
   it("keeps the Windows update config scrub compatible with PowerShell 5.1", () => {
@@ -1789,7 +1789,7 @@ if (commandArgs[0] === "list") {
   });
 
   it("keeps Windows gateway reachability on a real deadline with start recovery", () => {
-    expect(windows).toContain("OPENCLAW_PARALLELS_WINDOWS_GATEWAY_RECOVERY_AFTER_S");
+    expect(windows).toContain("GRANTED_PARALLELS_WINDOWS_GATEWAY_RECOVERY_AFTER_S");
     expect(windows).toContain("Date.now() < deadline");
     expect(windows).toContain("gateway start");
     expect(windows).toContain("gateway-reachable recovery");
@@ -1800,8 +1800,8 @@ if (commandArgs[0] === "list") {
     expect(windows).toContain("runWindowsBackgroundPowerShell");
     expect(transports).toContain("Join-Path (Join-Path $env:WINDIR 'Temp\\\\openclaw-parallels')");
     expect(transports).toContain("icacls.exe $runDir /inheritance:r");
-    expect(transports).toContain("__OPENCLAW_BACKGROUND_DONE__");
-    expect(transports).toContain("__OPENCLAW_BACKGROUND_EXIT__");
+    expect(transports).toContain("__GRANTED_BACKGROUND_DONE__");
+    expect(transports).toContain("__GRANTED_BACKGROUND_EXIT__");
     expect(transports).toContain("poll.status !== 0 && poll.status !== 124");
     expect(transports).toContain('cmd.exe /d /s /c start "" /b powershell.exe');
     expect(transports).toContain('if exist "${windowsDonePath}"');
@@ -2105,8 +2105,8 @@ if (commandArgs[0] === "list") {
           check: false,
           env: {
             ...process.env,
-            OPENCLAW_TEST_GRANDCHILD_PID: grandchildPidPath,
-            OPENCLAW_TEST_READY_FILE: join(tempDir, "ready"),
+            GRANTED_TEST_GRANDCHILD_PID: grandchildPidPath,
+            GRANTED_TEST_READY_FILE: join(tempDir, "ready"),
           },
           timeoutMs: 500,
         });
@@ -2331,7 +2331,7 @@ if (commandArgs[0] === "list") {
   it.runIf(process.platform !== "win32")(
     "does not treat timed command stderr as wrapper control data",
     () => {
-      const result = runNode("process.stderr.write('__OPENCLAW_HOST_COMMAND_SPAWN_ERROR__{}\\n')", {
+      const result = runNode("process.stderr.write('__GRANTED_HOST_COMMAND_SPAWN_ERROR__{}\\n')", {
         check: false,
         timeoutMs: 500,
       });
@@ -2427,9 +2427,9 @@ if (commandArgs[0] === "list") {
 
   it("runs the Windows agent turn through the detached done-file runner", () => {
     expect(windows).toContain('guestPowerShellBackground(\n      "agent-turn"');
-    expect(windows).toContain("OPENCLAW_PARALLELS_WINDOWS_AGENT_TIMEOUT_S");
+    expect(windows).toContain("GRANTED_PARALLELS_WINDOWS_AGENT_TIMEOUT_S");
     expect(windows).toContain(
-      'readPositiveIntEnv(\n    "OPENCLAW_PARALLELS_WINDOWS_AGENT_TIMEOUT_S"',
+      'readPositiveIntEnv(\n    "GRANTED_PARALLELS_WINDOWS_AGENT_TIMEOUT_S"',
     );
     expect(windows).toContain("windowsAgentTurnConfigPatchScript(this.auth.modelId)");
     expect(windows).toContain("--model");
@@ -2453,7 +2453,7 @@ if (commandArgs[0] === "list") {
       windows: 1800,
     });
     expect(macos).toContain(
-      'this.agentTimeoutSeconds = readPositiveIntEnv("OPENCLAW_PARALLELS_MACOS_AGENT_TIMEOUT_S", 2700)',
+      'this.agentTimeoutSeconds = readPositiveIntEnv("GRANTED_PARALLELS_MACOS_AGENT_TIMEOUT_S", 2700)',
     );
     expect(macos).toContain("--timeout ${this.modelTimeoutSeconds}");
     expect(linux).toContain('--timeout ${resolveParallelsModelTimeoutSeconds("linux")}');
@@ -2461,32 +2461,32 @@ if (commandArgs[0] === "list") {
 
   it("rejects loose Parallels numeric limits before starting smoke lanes", () => {
     expect(
-      withEnv({ OPENCLAW_PARALLELS_MODEL_TIMEOUT_S: "1200" }, () =>
+      withEnv({ GRANTED_PARALLELS_MODEL_TIMEOUT_S: "1200" }, () =>
         resolveParallelsModelTimeoutSeconds("linux"),
       ),
     ).toBe(1200);
     expect(
-      withEnv({ OPENCLAW_PARALLELS_NUMERIC_TEST: " 42 " }, () =>
-        readPositiveIntEnv("OPENCLAW_PARALLELS_NUMERIC_TEST", 7),
+      withEnv({ GRANTED_PARALLELS_NUMERIC_TEST: " 42 " }, () =>
+        readPositiveIntEnv("GRANTED_PARALLELS_NUMERIC_TEST", 7),
       ),
     ).toBe(42);
     expect(
-      withEnv({ OPENCLAW_PARALLELS_DEV_TARGET_REF: ` ${"A".repeat(40)} ` }, () =>
-        readGitCommitEnv("OPENCLAW_PARALLELS_DEV_TARGET_REF"),
+      withEnv({ GRANTED_PARALLELS_DEV_TARGET_REF: ` ${"A".repeat(40)} ` }, () =>
+        readGitCommitEnv("GRANTED_PARALLELS_DEV_TARGET_REF"),
       ),
     ).toBe("a".repeat(40));
     expect(
-      withEnv({ OPENCLAW_PARALLELS_DEV_TARGET_REF: " " }, () =>
-        readGitCommitEnv("OPENCLAW_PARALLELS_DEV_TARGET_REF"),
+      withEnv({ GRANTED_PARALLELS_DEV_TARGET_REF: " " }, () =>
+        readGitCommitEnv("GRANTED_PARALLELS_DEV_TARGET_REF"),
       ),
     ).toBeUndefined();
 
     expectFatalError(
       () =>
-        withEnv({ OPENCLAW_PARALLELS_MACOS_MODEL_TIMEOUT_S: "1800s" }, () =>
+        withEnv({ GRANTED_PARALLELS_MACOS_MODEL_TIMEOUT_S: "1800s" }, () =>
           resolveParallelsModelTimeoutSeconds("macos"),
         ),
-      "invalid OPENCLAW_PARALLELS_MACOS_MODEL_TIMEOUT_S: 1800s",
+      "invalid GRANTED_PARALLELS_MACOS_MODEL_TIMEOUT_S: 1800s",
     );
     for (const [parseArgs, value] of [
       [parseMacosSmokeArgs, "18425x"],
@@ -2499,9 +2499,9 @@ if (commandArgs[0] === "list") {
       expectFatalError(() => parseArgs(["--host-port", "65536"]), "invalid --host-port: 65536");
     }
     for (const [name, value, fallback] of [
-      ["OPENCLAW_PARALLELS_LINUX_AGENT_TIMEOUT_S", "1e3", 1500],
-      ["OPENCLAW_PARALLELS_WINDOWS_AGENT_TIMEOUT_S", "2700s", 2700],
-      ["OPENCLAW_PARALLELS_WINDOWS_UPDATE_TIMEOUT_S", "12.5", 7200],
+      ["GRANTED_PARALLELS_LINUX_AGENT_TIMEOUT_S", "1e3", 1500],
+      ["GRANTED_PARALLELS_WINDOWS_AGENT_TIMEOUT_S", "2700s", 2700],
+      ["GRANTED_PARALLELS_WINDOWS_UPDATE_TIMEOUT_S", "12.5", 7200],
     ] as const) {
       expectFatalError(
         () => withEnv({ [name]: value }, () => readPositiveIntEnv(name, fallback)),
@@ -2510,10 +2510,10 @@ if (commandArgs[0] === "list") {
     }
     expectFatalError(
       () =>
-        withEnv({ OPENCLAW_PARALLELS_DEV_TARGET_REF: "main" }, () =>
-          readGitCommitEnv("OPENCLAW_PARALLELS_DEV_TARGET_REF"),
+        withEnv({ GRANTED_PARALLELS_DEV_TARGET_REF: "main" }, () =>
+          readGitCommitEnv("GRANTED_PARALLELS_DEV_TARGET_REF"),
         ),
-      "invalid OPENCLAW_PARALLELS_DEV_TARGET_REF: expected a full 40-character commit SHA",
+      "invalid GRANTED_PARALLELS_DEV_TARGET_REF: expected a full 40-character commit SHA",
     );
     expectFatalError(
       () => parseNpmUpdateSmokeArgs(["--platform", "macos,macos"]),
@@ -2521,17 +2521,17 @@ if (commandArgs[0] === "list") {
     );
 
     expect(macos).toContain(
-      'this.updateDevTimeoutSeconds = readPositiveIntEnv(\n      "OPENCLAW_PARALLELS_MACOS_UPDATE_DEV_TIMEOUT_S"',
+      'this.updateDevTimeoutSeconds = readPositiveIntEnv(\n      "GRANTED_PARALLELS_MACOS_UPDATE_DEV_TIMEOUT_S"',
     );
-    expect(linux).toContain('readPositiveIntEnv(\n    "OPENCLAW_PARALLELS_LINUX_AGENT_TIMEOUT_S"');
+    expect(linux).toContain('readPositiveIntEnv(\n    "GRANTED_PARALLELS_LINUX_AGENT_TIMEOUT_S"');
     expect(windows).toContain(
-      'readPositiveIntEnv(\n    "OPENCLAW_PARALLELS_WINDOWS_UPDATE_TIMEOUT_S"',
+      'readPositiveIntEnv(\n    "GRANTED_PARALLELS_WINDOWS_UPDATE_TIMEOUT_S"',
     );
     expect(packageArtifact).toContain(
-      'readPositiveIntEnv("OPENCLAW_PARALLELS_PACKAGE_LOCK_TIMEOUT_MS", 30 * 60_000)',
+      'readPositiveIntEnv("GRANTED_PARALLELS_PACKAGE_LOCK_TIMEOUT_MS", 30 * 60_000)',
     );
     expect(npmUpdate).toContain(
-      'readPositiveIntEnv("OPENCLAW_PARALLELS_NPM_UPDATE_TIMEOUT_S", 2700)',
+      'readPositiveIntEnv("GRANTED_PARALLELS_NPM_UPDATE_TIMEOUT_S", 2700)',
     );
   });
 
@@ -2548,23 +2548,23 @@ if (commandArgs[0] === "list") {
 
     expect(devUpdateLines).not.toContain(undefined);
     for (const updateLine of devUpdateLines) {
-      expect(updateLine).not.toContain("OPENCLAW_DISABLE_BUNDLED_PLUGINS");
+      expect(updateLine).not.toContain("GRANTED_DISABLE_BUNDLED_PLUGINS");
     }
     expect(powershell).toContain("windowsScopedEnvFunction");
     expect(windows).toContain(
-      "Invoke-WithScopedEnv @{ OPENCLAW_ALLOW_OLDER_BINARY_DESTRUCTIVE_ACTIONS",
+      "Invoke-WithScopedEnv @{ GRANTED_ALLOW_OLDER_BINARY_DESTRUCTIVE_ACTIONS",
     );
     expect(windows).toContain("$script:OpenClawUpdateExit = $LASTEXITCODE");
-    expect(windows).not.toContain("$env:OPENCLAW_DISABLE_BUNDLED_PLUGINS = '1'");
+    expect(windows).not.toContain("$env:GRANTED_DISABLE_BUNDLED_PLUGINS = '1'");
     for (const script of [macos, windows]) {
-      expect(script).toContain('readGitCommitEnv("OPENCLAW_PARALLELS_DEV_TARGET_REF")');
-      expect(script).toContain("OPENCLAW_UPDATE_DEV_TARGET_REF");
+      expect(script).toContain('readGitCommitEnv("GRANTED_PARALLELS_DEV_TARGET_REF")');
+      expect(script).toContain("GRANTED_UPDATE_DEV_TARGET_REF");
       expect(script).toContain('const expectedBranch = this.devTargetCommit ? "HEAD" : "main"');
       expect(script).toContain("dev update checkout head");
     }
-    expect(macos).toContain("OPENCLAW_UPDATE_DEV_TARGET_REF=${shellQuote(this.devTargetCommit)}");
+    expect(macos).toContain("GRANTED_UPDATE_DEV_TARGET_REF=${shellQuote(this.devTargetCommit)}");
     expect(windows).toContain(
-      "OPENCLAW_UPDATE_DEV_TARGET_REF = ${psSingleQuote(this.devTargetCommit)}",
+      "GRANTED_UPDATE_DEV_TARGET_REF = ${psSingleQuote(this.devTargetCommit)}",
     );
   });
 
@@ -2588,7 +2588,7 @@ if (commandArgs[0] === "list") {
 
   it("resolves Windows OpenClaw commands without assuming the npm shim path", () => {
     expect(powershell).toContain("windowsOpenClawResolver");
-    expect(powershell).toContain("OPENCLAW_PARALLELS_AGENT_RUNTIME_POLICY_SUPPORTED");
+    expect(powershell).toContain("GRANTED_PARALLELS_AGENT_RUNTIME_POLICY_SUPPORTED");
     expect(powershell).toContain("Programs\\nodejs");
     expect(powershell).toContain('selectedModelEntry.agentRuntime = { id: "openclaw" }');
     expect(powershell).toContain("delete selectedModelEntry.agentRuntime");

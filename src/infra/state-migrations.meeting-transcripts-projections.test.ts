@@ -26,7 +26,7 @@ afterEach(() => closeOpenClawStateDatabaseForTest());
 
 function createHarness() {
   const stateDir = tempDirs.make("openclaw-transcript-projections-");
-  const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+  const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
   const root = path.join(stateDir, "transcripts");
   const store = new TranscriptsStore(root, { env });
   const detect = () =>

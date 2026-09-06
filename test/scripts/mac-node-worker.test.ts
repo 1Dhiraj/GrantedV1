@@ -122,7 +122,7 @@ esac
       set -euo pipefail
       source scripts/install-cli.sh
       PREFIX=${quote(prefix)}
-      OPENCLAW_VERSION=/fixture/openclaw.tgz
+      GRANTED_VERSION=/fixture/openclaw.tgz
       is_gateway_daemon_loaded() { echo loaded >> ${quote(calls)}; return 0; }
       refresh_gateway_service_if_loaded() { echo refresh >> ${quote(calls)}; }
       install_openclaw
@@ -134,7 +134,7 @@ esac
           env: {
             HOME: home,
             PATH: `${path.join(nodeDir, "bin")}:/usr/bin:/bin`,
-            OPENCLAW_INSTALL_CLI_SH_NO_RUN: "1",
+            GRANTED_INSTALL_CLI_SH_NO_RUN: "1",
           },
         },
       );

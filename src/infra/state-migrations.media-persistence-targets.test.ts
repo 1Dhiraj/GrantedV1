@@ -11,7 +11,7 @@ import {
 import {
   closeOpenClawAgentDatabasesForTest,
   listOpenClawRegisteredAgentDatabases,
-  OPENCLAW_AGENT_SCHEMA_VERSION,
+  GRANTED_AGENT_SCHEMA_VERSION,
   openOpenClawAgentDatabase,
 } from "../state/openclaw-agent-db.js";
 import { assertOpenClawDatabasesReady } from "../state/openclaw-database-preflight.js";
@@ -70,14 +70,14 @@ afterEach(() => {
 describe("media persistence migration targets", () => {
   it("migrates and registers an unregistered default-layout agent database", async () => {
     const stateDir = fs.realpathSync.native(makeTempDir(tempDirs, "media-persistence-disk-scan-"));
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const databasePath = createLegacyAgentDatabase({ env });
     unregisterOpenClawAgentDatabase({ agentId: "main", env, path: databasePath });
 
     const result = await migrateLegacyMediaPersistence({ env });
 
     expect(result.warnings).toEqual([]);
-    expect(readUserVersion(databasePath)).toBe(OPENCLAW_AGENT_SCHEMA_VERSION);
+    expect(readUserVersion(databasePath)).toBe(GRANTED_AGENT_SCHEMA_VERSION);
     expect(
       listOpenClawRegisteredAgentDatabases({
         env,
@@ -87,7 +87,7 @@ describe("media persistence migration targets", () => {
       expect.objectContaining({
         agentId: "main",
         path: databasePath,
-        schemaVersion: OPENCLAW_AGENT_SCHEMA_VERSION,
+        schemaVersion: GRANTED_AGENT_SCHEMA_VERSION,
       }),
     ]);
   });
@@ -96,7 +96,7 @@ describe("media persistence migration targets", () => {
     const stateDir = fs.realpathSync.native(
       makeTempDir(tempDirs, "media-persistence-renamed-owner-"),
     );
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const databasePath = path.join(stateDir, "agents", "oldname", "agent", "openclaw-agent.sqlite");
     createLegacyAgentDatabase({ agentId: "renamed", env, path: databasePath });
     unregisterOpenClawAgentDatabase({ agentId: "renamed", env, path: databasePath });
@@ -107,7 +107,7 @@ describe("media persistence migration targets", () => {
     });
 
     expect(result.warnings).toEqual([]);
-    expect(readUserVersion(databasePath)).toBe(OPENCLAW_AGENT_SCHEMA_VERSION);
+    expect(readUserVersion(databasePath)).toBe(GRANTED_AGENT_SCHEMA_VERSION);
     expect(
       listOpenClawRegisteredAgentDatabases({
         env,
@@ -120,14 +120,14 @@ describe("media persistence migration targets", () => {
     const stateDir = fs.realpathSync.native(
       makeTempDir(tempDirs, "media-persistence-recorded-owner-"),
     );
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const databasePath = path.join(stateDir, "agents", "dirname", "agent", "openclaw-agent.sqlite");
     createLegacyAgentDatabase({ agentId: "recorded", env, path: databasePath });
 
     const result = await migrateLegacyMediaPersistence({ env });
 
     expect(result.warnings).toEqual([]);
-    expect(readUserVersion(databasePath)).toBe(OPENCLAW_AGENT_SCHEMA_VERSION);
+    expect(readUserVersion(databasePath)).toBe(GRANTED_AGENT_SCHEMA_VERSION);
     expect(
       listOpenClawRegisteredAgentDatabases({
         env,
@@ -140,7 +140,7 @@ describe("media persistence migration targets", () => {
     const stateDir = fs.realpathSync.native(
       makeTempDir(tempDirs, "media-persistence-symlink-path-"),
     );
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const symlinkTarget = path.join(stateDir, "external", "subdir");
     fs.mkdirSync(symlinkTarget, { recursive: true });
     fs.symlinkSync(symlinkTarget, path.join(stateDir, "link"), "dir");
@@ -170,7 +170,7 @@ describe("media persistence migration targets", () => {
     const result = await migrateLegacyMediaPersistence({ env });
 
     expect(result.warnings).toEqual([]);
-    expect(readUserVersion(filesystemPath)).toBe(OPENCLAW_AGENT_SCHEMA_VERSION);
+    expect(readUserVersion(filesystemPath)).toBe(GRANTED_AGENT_SCHEMA_VERSION);
     expect(readUserVersion(lexicalPath)).toBe(PREVIOUS_VERSION);
     expect(() =>
       assertOpenClawDatabasesReady({
@@ -188,7 +188,7 @@ describe("media persistence migration targets", () => {
     const foreignStateDir = fs.realpathSync.native(
       makeTempDir(tempDirs, "media-persistence-foreign-state-"),
     );
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const databasePath = path.join(
       foreignStateDir,
       "agents",
@@ -222,7 +222,7 @@ describe("media persistence migration targets", () => {
     const customRoot = fs.realpathSync.native(
       makeTempDir(tempDirs, "media-persistence-custom-store-"),
     );
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const storePath = resolveSessionStorePathCore(
       path.join(customRoot, "{agentId}", "sessions.json"),
       {
@@ -250,7 +250,7 @@ describe("media persistence migration targets", () => {
     });
 
     expect(result.warnings).toEqual([]);
-    expect(readUserVersion(databasePath)).toBe(OPENCLAW_AGENT_SCHEMA_VERSION);
+    expect(readUserVersion(databasePath)).toBe(GRANTED_AGENT_SCHEMA_VERSION);
     expect(
       listOpenClawRegisteredAgentDatabases({
         env,
@@ -266,7 +266,7 @@ describe("media persistence migration targets", () => {
     const customRoot = fs.realpathSync.native(
       makeTempDir(tempDirs, "media-persistence-stale-owner-store-"),
     );
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const databasePath = path.join(customRoot, "openclaw-agent.sqlite");
     createLegacyAgentDatabase({ agentId: "new", env, path: databasePath });
     unregisterOpenClawAgentDatabase({ agentId: "new", env, path: databasePath });
@@ -295,7 +295,7 @@ describe("media persistence migration targets", () => {
     expect(result.warnings).toContain(
       `Skipped foreign agent database ${databasePath}; it is outside the active state directory and is not a configured session store.`,
     );
-    expect(readUserVersion(databasePath)).toBe(OPENCLAW_AGENT_SCHEMA_VERSION);
+    expect(readUserVersion(databasePath)).toBe(GRANTED_AGENT_SCHEMA_VERSION);
     expect(
       listOpenClawRegisteredAgentDatabases({
         env,
@@ -308,7 +308,7 @@ describe("media persistence migration targets", () => {
     const stateDir = fs.realpathSync.native(
       makeTempDir(tempDirs, "media-persistence-registry-hygiene-"),
     );
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const missingPath = path.join(stateDir, "agents", "missing", "agent", "openclaw-agent.sqlite");
     const archivedPath = path.join(stateDir, "imports", "archived", "openclaw-agent.sqlite");
     fs.mkdirSync(path.dirname(archivedPath), { recursive: true });
@@ -317,7 +317,7 @@ describe("media persistence migration targets", () => {
     const insert = state.db.prepare(
       "INSERT INTO agent_databases(agent_id,path,schema_version,last_seen_at,size_bytes) VALUES(?,?,?,?,?)",
     );
-    insert.run("missing", missingPath, OPENCLAW_AGENT_SCHEMA_VERSION, 1, null);
+    insert.run("missing", missingPath, GRANTED_AGENT_SCHEMA_VERSION, 1, null);
     insert.run("archived", archivedPath, 8, 1, null);
 
     expect(() =>

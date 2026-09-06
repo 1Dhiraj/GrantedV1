@@ -15,7 +15,7 @@ import type { UpdateRunResult } from "./update-runner.js";
 
 // Control-plane update sentinel helpers preserve update metadata while a
 // managed service handoff waits for restart health to complete.
-export const CONTROL_PLANE_UPDATE_SENTINEL_META_ENV = "OPENCLAW_CONTROL_PLANE_UPDATE_SENTINEL_META";
+export const CONTROL_PLANE_UPDATE_SENTINEL_META_ENV = "GRANTED_CONTROL_PLANE_UPDATE_SENTINEL_META";
 export const CONTROL_PLANE_UPDATE_HANDOFF_STARTED_REASON = "managed-service-handoff-started";
 export const CONTROL_PLANE_UPDATE_RESTART_HEALTH_PENDING_REASON = "restart-health-pending";
 
@@ -24,7 +24,7 @@ export const CONTROL_PLANE_UPDATE_RESTART_HEALTH_PENDING_REASON = "restart-healt
 export const MANAGED_SERVICE_UPDATE_UNSAFE_EXIT_CODE = 79;
 
 export function resolveManagedServiceUpdateFailureExitCode(result: UpdateRunResult): number {
-  return process.env.OPENCLAW_UPDATE_RUN_HANDOFF === "1" &&
+  return process.env.GRANTED_UPDATE_RUN_HANDOFF === "1" &&
     result.recovery?.serviceRestartSafe === false
     ? MANAGED_SERVICE_UPDATE_UNSAFE_EXIT_CODE
     : 1;

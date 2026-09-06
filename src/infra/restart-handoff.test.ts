@@ -6,7 +6,7 @@ import path from "node:path";
 import { createInterface } from "node:readline";
 import { DatabaseSync } from "node:sqlite";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { OPENCLAW_STATE_SCHEMA_VERSION } from "../state/openclaw-state-db-contract.js";
+import { GRANTED_STATE_SCHEMA_VERSION } from "../state/openclaw-state-db-contract.js";
 import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   closeOpenClawStateDatabaseForTest,
@@ -34,12 +34,12 @@ function createHandoffEnv(): NodeJS.ProcessEnv {
   tempDirs.push(dir);
   return {
     ...process.env,
-    OPENCLAW_STATE_DIR: dir,
+    GRANTED_STATE_DIR: dir,
   };
 }
 
 function legacyHandoffPath(env: NodeJS.ProcessEnv): string {
-  return path.join(env.OPENCLAW_STATE_DIR ?? "", "gateway-supervisor-restart-handoff.json");
+  return path.join(env.GRANTED_STATE_DIR ?? "", "gateway-supervisor-restart-handoff.json");
 }
 
 function readHandoffRow(env: NodeJS.ProcessEnv) {
@@ -175,7 +175,7 @@ describe("gateway restart handoff", () => {
 
   it("does not create shared state when no restart handoff database exists", () => {
     const env = createHandoffEnv();
-    const databasePath = path.join(env.OPENCLAW_STATE_DIR ?? "", "state", "openclaw.sqlite");
+    const databasePath = path.join(env.GRANTED_STATE_DIR ?? "", "state", "openclaw.sqlite");
 
     expect(readGatewayRestartHandoffSync(env)).toBeNull();
     expect(fs.existsSync(databasePath)).toBe(false);
@@ -191,8 +191,8 @@ describe("gateway restart handoff", () => {
       createdAt: 1_000,
     });
     closeOpenClawStateDatabaseForTest();
-    const databasePath = path.join(env.OPENCLAW_STATE_DIR ?? "", "state", "openclaw.sqlite");
-    const olderVersion = OPENCLAW_STATE_SCHEMA_VERSION - 1;
+    const databasePath = path.join(env.GRANTED_STATE_DIR ?? "", "state", "openclaw.sqlite");
+    const olderVersion = GRANTED_STATE_SCHEMA_VERSION - 1;
     const writable = new DatabaseSync(databasePath);
     writable.exec(`
       PRAGMA user_version = ${olderVersion};

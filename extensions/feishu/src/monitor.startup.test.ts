@@ -131,14 +131,14 @@ describe("Feishu monitor startup preflight", () => {
 
   it("parses startup probe timeout env strictly", () => {
     expect(resolveStartupProbeTimeoutMs({})).toBe(30_000);
-    expect(
-      resolveStartupProbeTimeoutMs({ OPENCLAW_FEISHU_STARTUP_PROBE_TIMEOUT_MS: "90000" }),
-    ).toBe(90_000);
+    expect(resolveStartupProbeTimeoutMs({ GRANTED_FEISHU_STARTUP_PROBE_TIMEOUT_MS: "90000" })).toBe(
+      90_000,
+    );
 
     for (const value of ["0x10", "1e3", "10.5"]) {
-      expect(
-        resolveStartupProbeTimeoutMs({ OPENCLAW_FEISHU_STARTUP_PROBE_TIMEOUT_MS: value }),
-      ).toBe(30_000);
+      expect(resolveStartupProbeTimeoutMs({ GRANTED_FEISHU_STARTUP_PROBE_TIMEOUT_MS: value })).toBe(
+        30_000,
+      );
     }
   });
 

@@ -33,7 +33,7 @@ describe("noteMacLaunchctlGatewayEnvOverrides", () => {
   it("collects clear unsetenv instructions for token override", async () => {
     const noteFn = vi.fn();
     const getenv = vi.fn(async (name: string) =>
-      name === "OPENCLAW_GATEWAY_TOKEN" ? "launchctl-token" : undefined,
+      name === "GRANTED_GATEWAY_TOKEN" ? "launchctl-token" : undefined,
     );
     const cfg = {
       gateway: {
@@ -47,15 +47,15 @@ describe("noteMacLaunchctlGatewayEnvOverrides", () => {
     const [warning] = requireNoteCall(noteFn);
 
     expect(warning).toContain("Host-wide launchctl gateway auth overrides detected");
-    expect(warning).toContain("OPENCLAW_GATEWAY_TOKEN");
-    expect(warning).toContain("launchctl unsetenv OPENCLAW_GATEWAY_TOKEN");
-    expect(warning).not.toContain("OPENCLAW_GATEWAY_PASSWORD");
+    expect(warning).toContain("GRANTED_GATEWAY_TOKEN");
+    expect(warning).toContain("launchctl unsetenv GRANTED_GATEWAY_TOKEN");
+    expect(warning).not.toContain("GRANTED_GATEWAY_PASSWORD");
   });
 
   it("prints clear unsetenv instructions for token override", async () => {
     const noteFn = vi.fn();
     const getenv = vi.fn(async (name: string) =>
-      name === "OPENCLAW_GATEWAY_TOKEN" ? "launchctl-token" : undefined,
+      name === "GRANTED_GATEWAY_TOKEN" ? "launchctl-token" : undefined,
     );
     const cfg = {
       gateway: {
@@ -74,9 +74,9 @@ describe("noteMacLaunchctlGatewayEnvOverrides", () => {
     expect(title).toBe("Gateway (macOS)");
     expect(message).toContain("Host-wide launchctl gateway auth overrides detected");
     expect(message).toContain("Current managed Gateway installs do not need these values");
-    expect(message).toContain("OPENCLAW_GATEWAY_TOKEN");
-    expect(message).toContain("launchctl unsetenv OPENCLAW_GATEWAY_TOKEN");
-    expect(message).not.toContain("OPENCLAW_GATEWAY_PASSWORD");
+    expect(message).toContain("GRANTED_GATEWAY_TOKEN");
+    expect(message).toContain("launchctl unsetenv GRANTED_GATEWAY_TOKEN");
+    expect(message).not.toContain("GRANTED_GATEWAY_PASSWORD");
   });
 
   it("does nothing when config has no gateway credentials", async () => {
@@ -93,12 +93,12 @@ describe("noteMacLaunchctlGatewayEnvOverrides", () => {
   it("treats SecretRef-backed credentials as configured", async () => {
     const noteFn = vi.fn();
     const getenv = vi.fn(async (name: string) =>
-      name === "OPENCLAW_GATEWAY_PASSWORD" ? "launchctl-password" : undefined,
+      name === "GRANTED_GATEWAY_PASSWORD" ? "launchctl-password" : undefined,
     );
     const cfg = {
       gateway: {
         auth: {
-          password: { source: "env", provider: "default", id: "OPENCLAW_GATEWAY_PASSWORD" },
+          password: { source: "env", provider: "default", id: "GRANTED_GATEWAY_PASSWORD" },
         },
       },
       secrets: {
@@ -112,7 +112,7 @@ describe("noteMacLaunchctlGatewayEnvOverrides", () => {
 
     expect(noteFn).toHaveBeenCalledTimes(1);
     const [message] = requireNoteCall(noteFn);
-    expect(message).toContain("OPENCLAW_GATEWAY_PASSWORD");
+    expect(message).toContain("GRANTED_GATEWAY_PASSWORD");
   });
 
   it("does nothing on non-darwin platforms", async () => {
@@ -148,13 +148,13 @@ describe("noteMacLaunchctlGatewayEnvOverrides", () => {
     expect(processMocks.runExec).toHaveBeenNthCalledWith(
       1,
       "/bin/launchctl",
-      ["getenv", "OPENCLAW_GATEWAY_TOKEN"],
+      ["getenv", "GRANTED_GATEWAY_TOKEN"],
       { logOutput: false, timeoutMs: 5_000 },
     );
     expect(processMocks.runExec).toHaveBeenNthCalledWith(
       2,
       "/bin/launchctl",
-      ["getenv", "OPENCLAW_GATEWAY_PASSWORD"],
+      ["getenv", "GRANTED_GATEWAY_PASSWORD"],
       { logOutput: false, timeoutMs: 5_000 },
     );
     expect(noteFn).not.toHaveBeenCalled();
@@ -164,8 +164,8 @@ describe("noteMacLaunchctlGatewayEnvOverrides", () => {
 describe("noteMacStaleOpenClawUpdateLaunchdJobs", () => {
   it("uses service env for gateway platform stale updater warnings", async () => {
     const serviceEnv = {
-      OPENCLAW_STATE_DIR: "/tmp/openclaw-daemon",
-      OPENCLAW_LAUNCHD_LABEL: "ai.openclaw.manual-update.gateway",
+      GRANTED_STATE_DIR: "/tmp/openclaw-daemon",
+      GRANTED_LAUNCHD_LABEL: "ai.openclaw.manual-update.gateway",
     };
     const service = {
       readCommand: vi.fn(async () => ({
@@ -184,16 +184,16 @@ describe("noteMacStaleOpenClawUpdateLaunchdJobs", () => {
     expect(service.readCommand).toHaveBeenCalledTimes(1);
     expect(findJobs).toHaveBeenCalledWith(
       expect.objectContaining({
-        OPENCLAW_STATE_DIR: "/tmp/openclaw-daemon",
-        OPENCLAW_LAUNCHD_LABEL: "ai.openclaw.manual-update.gateway",
+        GRANTED_STATE_DIR: "/tmp/openclaw-daemon",
+        GRANTED_LAUNCHD_LABEL: "ai.openclaw.manual-update.gateway",
       }),
     );
   });
 
   it("uses service env for doctor stale updater notes", async () => {
     const serviceEnv = {
-      OPENCLAW_STATE_DIR: "/tmp/openclaw-daemon",
-      OPENCLAW_LAUNCHD_LABEL: "ai.openclaw.manual-update.gateway",
+      GRANTED_STATE_DIR: "/tmp/openclaw-daemon",
+      GRANTED_LAUNCHD_LABEL: "ai.openclaw.manual-update.gateway",
     };
     const service = {
       readCommand: vi.fn(async () => ({
@@ -212,8 +212,8 @@ describe("noteMacStaleOpenClawUpdateLaunchdJobs", () => {
     expect(service.readCommand).toHaveBeenCalledTimes(1);
     expect(findJobs).toHaveBeenCalledWith(
       expect.objectContaining({
-        OPENCLAW_STATE_DIR: "/tmp/openclaw-daemon",
-        OPENCLAW_LAUNCHD_LABEL: "ai.openclaw.manual-update.gateway",
+        GRANTED_STATE_DIR: "/tmp/openclaw-daemon",
+        GRANTED_LAUNCHD_LABEL: "ai.openclaw.manual-update.gateway",
       }),
     );
   });

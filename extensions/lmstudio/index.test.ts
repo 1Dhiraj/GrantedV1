@@ -259,7 +259,7 @@ describe("lmstudio plugin", () => {
 
     await detectAvailability({
       config: {},
-      env: { OPENCLAW_DOCKER_SETUP: "1" },
+      env: { GRANTED_DOCKER_SETUP: "1" },
     });
 
     expect(fetchLmstudioModelsMock).toHaveBeenCalledWith({

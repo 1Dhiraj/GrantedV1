@@ -98,8 +98,8 @@ describe("loadBundledCapabilityRuntimeRegistry", () => {
     });
     const config = { plugins: { load: { paths: [shadow.dir] } } };
     const env = {
-      OPENCLAW_HOME: path.join(root, "home"),
-      OPENCLAW_BUNDLED_PLUGINS_DIR: bundledRoot,
+      GRANTED_HOME: path.join(root, "home"),
+      GRANTED_BUNDLED_PLUGINS_DIR: bundledRoot,
     };
     const snapshot = completePluginMetadataSnapshot({
       snapshot: loadPluginMetadataSnapshot({ config, env, preferPersisted: false }),

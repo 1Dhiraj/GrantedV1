@@ -10,8 +10,8 @@ const UNKNOWN_CLIENT_IP_BUDGET_KEY = "__openclaw_unknown_client_ip__";
 
 function getMaxPreauthConnectionsPerIpFromEnv(env: NodeJS.ProcessEnv = process.env): number {
   const configured =
-    env.OPENCLAW_MAX_PREAUTH_CONNECTIONS_PER_IP ||
-    (isVitestRuntimeEnv(env) ? env.OPENCLAW_TEST_MAX_PREAUTH_CONNECTIONS_PER_IP : undefined);
+    env.GRANTED_MAX_PREAUTH_CONNECTIONS_PER_IP ||
+    (isVitestRuntimeEnv(env) ? env.GRANTED_TEST_MAX_PREAUTH_CONNECTIONS_PER_IP : undefined);
   if (!configured) {
     return DEFAULT_MAX_PREAUTH_CONNECTIONS_PER_IP;
   }

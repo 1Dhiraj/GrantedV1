@@ -5,7 +5,7 @@ import { isRecord } from "../utils.js";
 type ConfigMcpServers = Record<string, Record<string, unknown>>;
 type OpenClawMcpHttpTransport = "sse" | "streamable-http";
 
-const CLI_MCP_TYPE_TO_OPENCLAW_TRANSPORT: Record<string, OpenClawMcpHttpTransport | "stdio"> = {
+const CLI_MCP_TYPE_TO_GRANTED_TRANSPORT: Record<string, OpenClawMcpHttpTransport | "stdio"> = {
   http: "streamable-http",
   "streamable-http": "streamable-http",
   sse: "sse",
@@ -16,13 +16,13 @@ const CLI_MCP_TYPE_TO_OPENCLAW_TRANSPORT: Record<string, OpenClawMcpHttpTranspor
 export function resolveOpenClawMcpTransportAlias(
   value: unknown,
 ): OpenClawMcpHttpTransport | undefined {
-  const mapped = CLI_MCP_TYPE_TO_OPENCLAW_TRANSPORT[normalizeMcpString(value)];
+  const mapped = CLI_MCP_TYPE_TO_GRANTED_TRANSPORT[normalizeMcpString(value)];
   return mapped === "sse" || mapped === "streamable-http" ? mapped : undefined;
 }
 
 /** Checks whether a raw MCP `type` value is a legacy CLI alias OpenClaw can rewrite. */
 export function isKnownCliMcpTypeAlias(value: unknown): boolean {
-  return Object.hasOwn(CLI_MCP_TYPE_TO_OPENCLAW_TRANSPORT, normalizeMcpString(value));
+  return Object.hasOwn(CLI_MCP_TYPE_TO_GRANTED_TRANSPORT, normalizeMcpString(value));
 }
 
 /**

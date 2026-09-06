@@ -20,8 +20,8 @@ async function createTimelineEnv() {
   const dir = tempDirs.make("openclaw-agent-preparation-");
   return {
     env: {
-      OPENCLAW_DIAGNOSTICS: "timeline",
-      OPENCLAW_DIAGNOSTICS_TIMELINE_PATH: join(dir, "timeline.jsonl"),
+      GRANTED_DIAGNOSTICS: "timeline",
+      GRANTED_DIAGNOSTICS_TIMELINE_PATH: join(dir, "timeline.jsonl"),
     } as NodeJS.ProcessEnv,
     path: join(dir, "timeline.jsonl"),
   };

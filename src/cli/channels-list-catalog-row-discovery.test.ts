@@ -100,9 +100,9 @@ async function runChannelsListJson(channelIds: readonly string[]): Promise<{
 }
 
 beforeEach(() => {
-  vi.stubEnv("OPENCLAW_DISABLE_BUNDLED_PLUGINS", "1");
-  vi.stubEnv("OPENCLAW_HOME", path.join(tempRoot, "home"));
-  vi.stubEnv("OPENCLAW_STATE_DIR", path.join(tempRoot, "state"));
+  vi.stubEnv("GRANTED_DISABLE_BUNDLED_PLUGINS", "1");
+  vi.stubEnv("GRANTED_HOME", path.join(tempRoot, "home"));
+  vi.stubEnv("GRANTED_STATE_DIR", path.join(tempRoot, "state"));
 });
 
 afterAll(() => {

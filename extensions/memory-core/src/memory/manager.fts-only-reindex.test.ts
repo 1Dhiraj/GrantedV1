@@ -50,17 +50,17 @@ const createEmbeddingProviderMock = vi.hoisted(() =>
     };
   }),
 );
-const originalFtsOnlyStateDir = process.env.OPENCLAW_STATE_DIR;
+const originalFtsOnlyStateDir = process.env.GRANTED_STATE_DIR;
 
 function setFtsOnlyStateDir(stateDir: string): void {
-  Reflect.set(process.env, "OPENCLAW_STATE_DIR", stateDir);
+  Reflect.set(process.env, "GRANTED_STATE_DIR", stateDir);
 }
 
 function restoreFtsOnlyStateDir(): void {
   if (originalFtsOnlyStateDir === undefined) {
-    Reflect.deleteProperty(process.env, "OPENCLAW_STATE_DIR");
+    Reflect.deleteProperty(process.env, "GRANTED_STATE_DIR");
   } else {
-    Reflect.set(process.env, "OPENCLAW_STATE_DIR", originalFtsOnlyStateDir);
+    Reflect.set(process.env, "GRANTED_STATE_DIR", originalFtsOnlyStateDir);
   }
 }
 

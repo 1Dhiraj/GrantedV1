@@ -5,7 +5,7 @@ import { finishElementAnimations } from "../test-helpers/animations.ts";
 import { controlUiBundledGatewayUrl, installMockGateway } from "../test-helpers/control-ui-e2e.ts";
 import { createControlUiE2eSuite } from "./control-ui-e2e-suite.test-support.ts";
 
-const captureUiProof = process.env.OPENCLAW_CAPTURE_UI_PROOF === "1";
+const captureUiProof = process.env.GRANTED_CAPTURE_UI_PROOF === "1";
 
 const themeCases = [
   { family: "claw", mode: "dark", resolved: "dark" },

@@ -100,10 +100,10 @@ function writeManifest(tempRoot: string, signingRepo: string): string {
         apkCertificateSha256: APK_CERTIFICATE_SHA256,
         materializedRoot: "unused-by-test",
         gradlePropertyNames: [
-          "OPENCLAW_ANDROID_STORE_FILE",
-          "OPENCLAW_ANDROID_STORE_PASSWORD",
-          "OPENCLAW_ANDROID_KEY_ALIAS",
-          "OPENCLAW_ANDROID_KEY_PASSWORD",
+          "GRANTED_ANDROID_STORE_FILE",
+          "GRANTED_ANDROID_STORE_PASSWORD",
+          "GRANTED_ANDROID_KEY_ALIAS",
+          "GRANTED_ANDROID_KEY_PASSWORD",
         ],
       },
       null,
@@ -120,9 +120,9 @@ function writeSigningSources(tempRoot: string) {
   fs.writeFileSync(
     propertiesPath,
     [
-      `OPENCLAW_ANDROID_STORE_PASSWORD=${STORE_PASSWORD}`,
-      "OPENCLAW_ANDROID_KEY_ALIAS=openclaw-upload",
-      `OPENCLAW_ANDROID_KEY_PASSWORD=${KEY_PASSWORD}`,
+      `GRANTED_ANDROID_STORE_PASSWORD=${STORE_PASSWORD}`,
+      "GRANTED_ANDROID_KEY_ALIAS=openclaw-upload",
+      `GRANTED_ANDROID_KEY_PASSWORD=${KEY_PASSWORD}`,
       "",
     ].join("\n"),
   );
@@ -289,11 +289,11 @@ describe("scripts/android-release-signing.mjs", () => {
         "utf8",
       );
       expect(materializedProperties).toContain(
-        `OPENCLAW_ANDROID_STORE_FILE=${path.join(materializedDir, "upload-keystore.jks")}`,
+        `GRANTED_ANDROID_STORE_FILE=${path.join(materializedDir, "upload-keystore.jks")}`,
       );
-      expect(materializedProperties).toContain(`OPENCLAW_ANDROID_STORE_PASSWORD=${STORE_PASSWORD}`);
-      expect(materializedProperties).toContain("OPENCLAW_ANDROID_KEY_ALIAS=openclaw-upload");
-      expect(materializedProperties).toContain(`OPENCLAW_ANDROID_KEY_PASSWORD=${KEY_PASSWORD}`);
+      expect(materializedProperties).toContain(`GRANTED_ANDROID_STORE_PASSWORD=${STORE_PASSWORD}`);
+      expect(materializedProperties).toContain("GRANTED_ANDROID_KEY_ALIAS=openclaw-upload");
+      expect(materializedProperties).toContain(`GRANTED_ANDROID_KEY_PASSWORD=${KEY_PASSWORD}`);
       if (process.platform !== "win32") {
         expect(fs.statSync(path.join(materializedDir, "gradle.properties")).mode & 0o777).toBe(
           0o600,

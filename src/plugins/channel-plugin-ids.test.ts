@@ -2318,7 +2318,7 @@ describe("resolveGatewayStartupPluginIdsFromRegistry", () => {
     expectStartupPluginIds({
       config: {} as OpenClawConfig,
       env: createPluginPlanningTestEnv({
-        OPENCLAW_STATE_DIR: "/tmp/openclaw-with-persisted-demo-channel",
+        GRANTED_STATE_DIR: "/tmp/openclaw-with-persisted-demo-channel",
       }),
       expected: ["browser", "memory-core"],
     });
@@ -2649,7 +2649,7 @@ describe("resolveGatewayStartupPluginIdsFromRegistry", () => {
       config: createStartupConfig({
         enabledPluginIds: ["codex"],
       }),
-      env: { OPENCLAW_AGENT_RUNTIME: "codex" },
+      env: { GRANTED_AGENT_RUNTIME: "codex" },
       expected: ["demo-channel", "browser", "memory-core"],
     });
   });

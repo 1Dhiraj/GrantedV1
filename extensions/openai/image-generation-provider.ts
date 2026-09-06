@@ -343,7 +343,7 @@ function shouldAllowPrivateImageEndpoint(req: {
   if (!baseUrl.startsWith("http://127.0.0.1:") && !baseUrl.startsWith("http://localhost:")) {
     return false;
   }
-  return process.env.OPENCLAW_QA_ALLOW_LOCAL_IMAGE_PROVIDER === "1";
+  return process.env.GRANTED_QA_ALLOW_LOCAL_IMAGE_PROVIDER === "1";
 }
 
 function resolveRequestAuthStore(req: {

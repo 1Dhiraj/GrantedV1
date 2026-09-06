@@ -21,7 +21,7 @@ const tempDirs: string[] = [];
 async function createStateEnv(): Promise<NodeJS.ProcessEnv> {
   const dir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-model-picker-"));
   tempDirs.push(dir);
-  const env = { ...process.env, OPENCLAW_STATE_DIR: dir };
+  const env = { ...process.env, GRANTED_STATE_DIR: dir };
   setDiscordRuntime({
     state: {
       openKeyedStore: (options: OpenKeyedStoreOptions) =>
@@ -139,7 +139,7 @@ describe("discord model picker preferences", () => {
     const env = await createStateEnv();
     const scope = { userId: "legacy-runtime-user" };
     const legacyPath = path.join(
-      env.OPENCLAW_STATE_DIR as string,
+      env.GRANTED_STATE_DIR as string,
       "discord",
       "model-picker-preferences.json",
     );

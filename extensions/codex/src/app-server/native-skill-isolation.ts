@@ -37,7 +37,7 @@ async function canonicalizeExistingPath(candidate: string): Promise<string> {
 }
 
 async function usesDefaultStateDir(): Promise<boolean> {
-  if (!process.env.OPENCLAW_STATE_DIR?.trim()) {
+  if (!process.env.GRANTED_STATE_DIR?.trim()) {
     return true;
   }
   const home = resolveRequiredHomeDir();
@@ -201,7 +201,7 @@ export async function resolveCodexNativeSkillIsolation(params: {
   signal?: AbortSignal;
 }): Promise<CodexNativeSkillIsolation | undefined> {
   params.signal?.throwIfAborted();
-  if (!process.env.OPENCLAW_STATE_DIR?.trim()) {
+  if (!process.env.GRANTED_STATE_DIR?.trim()) {
     return undefined;
   }
   const key = JSON.stringify([

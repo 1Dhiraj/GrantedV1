@@ -9,7 +9,7 @@ import {
 } from "./sdk-node-runtime.js";
 
 type BrowserControlHandle = LazyPluginServiceHandle | null;
-const EAGER_BROWSER_CONTROL_SERVICE_ENV = "OPENCLAW_EAGER_BROWSER_CONTROL_SERVER";
+const EAGER_BROWSER_CONTROL_SERVICE_ENV = "GRANTED_EAGER_BROWSER_CONTROL_SERVER";
 const UNSAFE_BROWSER_CONTROL_OVERRIDE_SPECIFIER = /^(?:data|http|https|node):/i;
 
 function validateBrowserControlOverrideSpecifier(specifier: string): string {
@@ -36,8 +36,8 @@ export function createBrowserPluginService(params: {
         return;
       }
       handle = await startLazyPluginServiceModule({
-        skipEnvVar: "OPENCLAW_SKIP_BROWSER_CONTROL_SERVER",
-        overrideEnvVar: "OPENCLAW_BROWSER_CONTROL_MODULE",
+        skipEnvVar: "GRANTED_SKIP_BROWSER_CONTROL_SERVER",
+        overrideEnvVar: "GRANTED_BROWSER_CONTROL_MODULE",
         validateOverrideSpecifier: validateBrowserControlOverrideSpecifier,
         // Keep the default module import static so compiled builds still bundle it.
         loadDefaultModule: async () => await import("./server.js"),

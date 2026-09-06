@@ -22,8 +22,8 @@ async function createLockFixture() {
   await fs.writeFile(configPath, "{}\n", "utf8");
   const env = {
     ...process.env,
-    OPENCLAW_CONFIG_PATH: configPath,
-    OPENCLAW_STATE_DIR: stateDir,
+    GRANTED_CONFIG_PATH: configPath,
+    GRANTED_STATE_DIR: stateDir,
     VITEST: "1",
   };
   return {
@@ -196,7 +196,7 @@ describe("doctor SQLite maintenance lock", () => {
     const run = vi.fn();
     const gatewayLock = await acquireGatewayLock({
       allowInTests: true,
-      env: { ...fixture.env, OPENCLAW_ALLOW_MULTI_GATEWAY: "1" },
+      env: { ...fixture.env, GRANTED_ALLOW_MULTI_GATEWAY: "1" },
       lockDir: fixture.lockDir,
       platform: "darwin",
       port: 18789,
@@ -229,7 +229,7 @@ describe("doctor SQLite maintenance lock", () => {
     await expect(
       withDoctorSqliteMaintenanceLock(
         {
-          env: { ...fixture.env, OPENCLAW_ALLOW_MULTI_GATEWAY: "1" },
+          env: { ...fixture.env, GRANTED_ALLOW_MULTI_GATEWAY: "1" },
           operation: "state SQLite compaction",
           run: () => "done",
         },
@@ -278,7 +278,7 @@ describe("doctor SQLite maintenance lock", () => {
       return;
     }
     const fixture = await createLockFixture();
-    const sessionsDir = path.join(fixture.env.OPENCLAW_STATE_DIR, "agents", "main", "sessions");
+    const sessionsDir = path.join(fixture.env.GRANTED_STATE_DIR, "agents", "main", "sessions");
     const storePath = path.join(sessionsDir, "sessions.json");
     const outsideTarget = path.join(
       tempDirs.make("openclaw-dangling-session-target-"),
@@ -308,10 +308,10 @@ describe("doctor SQLite maintenance lock", () => {
     }
     const fixture = await createLockFixture();
     const externalAlias = path.join(
-      path.dirname(fixture.env.OPENCLAW_STATE_DIR),
+      path.dirname(fixture.env.GRANTED_STATE_DIR),
       "external-state-alias",
     );
-    await fs.symlink(fixture.env.OPENCLAW_STATE_DIR, externalAlias, "dir");
+    await fs.symlink(fixture.env.GRANTED_STATE_DIR, externalAlias, "dir");
     const storePath = path.join(externalAlias, "agents", "main", "sessions", "sessions.json");
     const run = vi.fn();
 
@@ -331,9 +331,9 @@ describe("doctor SQLite maintenance lock", () => {
 
   it("refuses in-state hard links that can alias storage outside ownership", async () => {
     const fixture = await createLockFixture();
-    const sessionsDir = path.join(fixture.env.OPENCLAW_STATE_DIR, "agents", "main", "sessions");
+    const sessionsDir = path.join(fixture.env.GRANTED_STATE_DIR, "agents", "main", "sessions");
     const storePath = path.join(sessionsDir, "sessions.json");
-    const externalDir = path.join(path.dirname(fixture.env.OPENCLAW_STATE_DIR), "external-state");
+    const externalDir = path.join(path.dirname(fixture.env.GRANTED_STATE_DIR), "external-state");
     const externalPath = path.join(externalDir, "sessions.json");
     await fs.mkdir(sessionsDir, { recursive: true });
     await fs.mkdir(externalDir, { recursive: true });
@@ -360,7 +360,7 @@ describe("doctor SQLite maintenance lock", () => {
     "refuses in-state symbolic links before destructive maintenance",
     async () => {
       const fixture = await createLockFixture();
-      const sessionsDir = path.join(fixture.env.OPENCLAW_STATE_DIR, "agents", "main", "agent");
+      const sessionsDir = path.join(fixture.env.GRANTED_STATE_DIR, "agents", "main", "agent");
       const targetPath = path.join(sessionsDir, "sidecar-target");
       const sidecarPath = path.join(sessionsDir, "openclaw-agent.sqlite-wal");
       await fs.mkdir(sessionsDir, { recursive: true });
@@ -388,8 +388,8 @@ describe("doctor SQLite maintenance lock", () => {
     "refuses symbolic links in owned path ancestors",
     async () => {
       const fixture = await createLockFixture();
-      const agentsDir = path.join(fixture.env.OPENCLAW_STATE_DIR, "agents");
-      const realAgentDir = path.join(fixture.env.OPENCLAW_STATE_DIR, "real-main");
+      const agentsDir = path.join(fixture.env.GRANTED_STATE_DIR, "agents");
+      const realAgentDir = path.join(fixture.env.GRANTED_STATE_DIR, "real-main");
       const aliasedAgentDir = path.join(agentsDir, "main");
       const databasePath = path.join(aliasedAgentDir, "agent", "openclaw-agent.sqlite");
       await fs.mkdir(path.dirname(path.join(realAgentDir, "agent", "placeholder")), {
@@ -421,7 +421,7 @@ describe("doctor SQLite maintenance lock", () => {
   it("allows explicit destructive targets owned by the locked state directory", async () => {
     const fixture = await createLockFixture();
     const storePath = path.join(
-      fixture.env.OPENCLAW_STATE_DIR,
+      fixture.env.GRANTED_STATE_DIR,
       "agents",
       "main",
       "sessions",

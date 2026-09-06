@@ -220,9 +220,9 @@ export async function confirmGatewayReachable(params: {
   env?: NodeJS.ProcessEnv;
   allowDeviceIdentityRequired?: boolean;
 }): Promise<GatewayReachability> {
-  const token = normalizeOptionalString(params.auth?.token ?? process.env.OPENCLAW_GATEWAY_TOKEN);
+  const token = normalizeOptionalString(params.auth?.token ?? process.env.GRANTED_GATEWAY_TOKEN);
   const password = normalizeOptionalString(
-    params.auth?.password ?? process.env.OPENCLAW_GATEWAY_PASSWORD,
+    params.auth?.password ?? process.env.GRANTED_GATEWAY_PASSWORD,
   );
   try {
     const configuredProbe =

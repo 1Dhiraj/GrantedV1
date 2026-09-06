@@ -282,8 +282,8 @@ async function withGatewayChatHarness(
   try {
     await run({ ws, createSessionDir });
   } finally {
-    if (process.env.OPENCLAW_CONFIG_PATH) {
-      await fs.rm(process.env.OPENCLAW_CONFIG_PATH, { force: true });
+    if (process.env.GRANTED_CONFIG_PATH) {
+      await fs.rm(process.env.GRANTED_CONFIG_PATH, { force: true });
     }
     clearConfigCache();
     testState.sessionStorePath = undefined;
@@ -319,9 +319,9 @@ function readOpenClawSeq(message: unknown): number | undefined {
 }
 
 async function writeGatewayConfig(config: Record<string, unknown>) {
-  const configPath = process.env.OPENCLAW_CONFIG_PATH;
+  const configPath = process.env.GRANTED_CONFIG_PATH;
   if (!configPath) {
-    throw new Error("OPENCLAW_CONFIG_PATH missing in gateway test environment");
+    throw new Error("GRANTED_CONFIG_PATH missing in gateway test environment");
   }
   await fs.mkdir(path.dirname(configPath), { recursive: true });
   await fs.writeFile(configPath, JSON.stringify(config, null, 2), "utf-8");
@@ -2038,8 +2038,8 @@ describe("gateway server chat", () => {
           CHATGPT_OAUTH_TOKEN: undefined,
           CODEX_API_KEY: undefined,
           CODEX_HOME: "/__openclaw_gateway_startup_routes__/codex",
-          OPENCLAW_BUNDLED_PLUGINS_DIR: path.resolve("extensions"),
-          OPENCLAW_DISABLE_BUNDLED_PLUGINS: undefined,
+          GRANTED_BUNDLED_PLUGINS_DIR: path.resolve("extensions"),
+          GRANTED_DISABLE_BUNDLED_PLUGINS: undefined,
           OPENAI_API_KEY: undefined,
           OPENAI_BASE_URL: undefined,
           OPENAI_OAUTH_TOKEN: undefined,
@@ -6201,10 +6201,10 @@ describe("gateway server chat", () => {
   test("chat.send diagnostics timeline carries run correlation attributes", async () => {
     const timelineDir = autoCleanupTempDirs.make("openclaw-chat-timeline-");
     const timelinePath = path.join(timelineDir, "timeline.jsonl");
-    const previousDiagnostics = process.env.OPENCLAW_DIAGNOSTICS;
-    const previousTimelinePath = process.env.OPENCLAW_DIAGNOSTICS_TIMELINE_PATH;
-    process.env.OPENCLAW_DIAGNOSTICS = "timeline";
-    process.env.OPENCLAW_DIAGNOSTICS_TIMELINE_PATH = timelinePath;
+    const previousDiagnostics = process.env.GRANTED_DIAGNOSTICS;
+    const previousTimelinePath = process.env.GRANTED_DIAGNOSTICS_TIMELINE_PATH;
+    process.env.GRANTED_DIAGNOSTICS = "timeline";
+    process.env.GRANTED_DIAGNOSTICS_TIMELINE_PATH = timelinePath;
     try {
       await withGatewayChatHarness(
         async ({ ws, createSessionDir }) => {
@@ -6268,14 +6268,14 @@ describe("gateway server chat", () => {
     } finally {
       flushDiagnosticsTimeline();
       if (previousDiagnostics === undefined) {
-        delete process.env.OPENCLAW_DIAGNOSTICS;
+        delete process.env.GRANTED_DIAGNOSTICS;
       } else {
-        process.env.OPENCLAW_DIAGNOSTICS = previousDiagnostics;
+        process.env.GRANTED_DIAGNOSTICS = previousDiagnostics;
       }
       if (previousTimelinePath === undefined) {
-        delete process.env.OPENCLAW_DIAGNOSTICS_TIMELINE_PATH;
+        delete process.env.GRANTED_DIAGNOSTICS_TIMELINE_PATH;
       } else {
-        process.env.OPENCLAW_DIAGNOSTICS_TIMELINE_PATH = previousTimelinePath;
+        process.env.GRANTED_DIAGNOSTICS_TIMELINE_PATH = previousTimelinePath;
       }
     }
   });

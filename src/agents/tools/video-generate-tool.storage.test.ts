@@ -118,7 +118,7 @@ describe("video generation invocation QA", () => {
     const config = createConfig("qa-limited-video/limited-v1", ["qa-capable-video/capable-v1"]);
     const providerOptions = { seed: 17, draft: true };
 
-    await withEnvAsync({ OPENCLAW_STATE_DIR: path.join(root, "state") }, async () => {
+    await withEnvAsync({ GRANTED_STATE_DIR: path.join(root, "state") }, async () => {
       const tool = requireVideoTool(
         createVideoGenerateTool({
           config,
@@ -226,7 +226,7 @@ describe("video generation invocation QA", () => {
     const config = createConfig("qa-ordered-video/ordered-v1", []);
     config.agents!.defaults!.mediaMaxMb = savedVideo.byteLength / (1024 * 1024);
 
-    await withEnvAsync({ OPENCLAW_STATE_DIR: path.join(root, "state") }, async () => {
+    await withEnvAsync({ GRANTED_STATE_DIR: path.join(root, "state") }, async () => {
       const tool = requireVideoTool(
         createVideoGenerateTool({
           config,

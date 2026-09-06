@@ -48,9 +48,9 @@ describe("Gateway OpenAI Responses compaction replay", () => {
         name: "gateway-openai-compaction-replay",
         config: createTestConfig(modelServer.baseUrl),
         env: {
-          OPENCLAW_DEBUG_MODEL_TRANSPORT: "1",
-          OPENCLAW_SKIP_PROVIDERS: undefined,
-          OPENCLAW_TEST_MINIMAL_GATEWAY: undefined,
+          GRANTED_DEBUG_MODEL_TRANSPORT: "1",
+          GRANTED_SKIP_PROVIDERS: undefined,
+          GRANTED_TEST_MINIMAL_GATEWAY: undefined,
         },
       });
       instances.push(instance);

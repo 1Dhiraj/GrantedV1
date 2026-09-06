@@ -45,7 +45,7 @@ describe("worker placement cancellation and reclaim authority", () => {
 
   beforeEach(async () => {
     root = tempDirs.make("openclaw-reclaim-auth-");
-    database = openOpenClawStateDatabase({ env: { OPENCLAW_STATE_DIR: root } });
+    database = openOpenClawStateDatabase({ env: { GRANTED_STATE_DIR: root } });
     placementStore = createWorkerSessionPlacementStore({ database, now: () => 1_000 });
   });
 

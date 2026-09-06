@@ -80,5 +80,5 @@ export function signalMockManagedUpdateHandoffReady(params: {
     cleanups.add(cleanup);
     child.once("exit", cleanup);
   }
-  child.stdout.write("OPENCLAW_UPDATE_HANDOFF_READY\n");
+  child.stdout.write("GRANTED_UPDATE_HANDOFF_READY\n");
 }

@@ -31,7 +31,7 @@ function createDedupe(root: string, overrides?: { ttlMs?: number }) {
     pluginId: "test-persistent-dedupe",
     namespacePrefix: "test-dedupe",
     stateMaxEntries: 1000,
-    env: { ...process.env, OPENCLAW_STATE_DIR: root },
+    env: { ...process.env, GRANTED_STATE_DIR: root },
   });
 }
 
@@ -45,7 +45,7 @@ afterEach(() => {
 describe("memory host event journal helpers", () => {
   it("appends and reads typed workspace events", async () => {
     const workspaceDir = await createTempDir("memory-host-events-");
-    const env = { ...process.env, OPENCLAW_STATE_DIR: workspaceDir };
+    const env = { ...process.env, GRANTED_STATE_DIR: workspaceDir };
 
     await appendMemoryHostEvent(
       workspaceDir,
@@ -96,7 +96,7 @@ describe("memory host event journal helpers", () => {
 
   it("keeps journal retention timestamps in the current wall-clock domain", async () => {
     const workspaceDir = await createTempDir("memory-host-events-created-at-");
-    const env = { ...process.env, OPENCLAW_STATE_DIR: workspaceDir };
+    const env = { ...process.env, GRANTED_STATE_DIR: workspaceDir };
     const now = Date.parse("2026-07-16T12:00:00.000Z");
     vi.useFakeTimers();
     vi.setSystemTime(now);
@@ -122,7 +122,7 @@ describe("memory host event journal helpers", () => {
 
   it("keeps legacy event readers stable when diagnostic records are present", async () => {
     const workspaceDir = await createTempDir("memory-host-events-diagnostics-");
-    const env = { ...process.env, OPENCLAW_STATE_DIR: workspaceDir };
+    const env = { ...process.env, GRANTED_STATE_DIR: workspaceDir };
 
     await appendMemoryHostEvent(
       workspaceDir,
@@ -201,7 +201,7 @@ describe("memory host event journal helpers", () => {
 
   it("bounds oversized diagnostic detail without failing the parent operation", async () => {
     const workspaceDir = await createTempDir("memory-host-events-bounded-");
-    const env = { ...process.env, OPENCLAW_STATE_DIR: workspaceDir };
+    const env = { ...process.env, GRANTED_STATE_DIR: workspaceDir };
     const results = Array.from({ length: 100 }, (_, index) => ({
       path: `memory/${"wide-path-".repeat(100)}${index}.md`,
       startLine: index + 1,
@@ -275,7 +275,7 @@ describe("memory host event journal helpers", () => {
 
   it("rotates old events without evicting the workspace sequence cursor", async () => {
     const workspaceDir = await createTempDir("memory-host-events-rotation-");
-    const env = { ...process.env, OPENCLAW_STATE_DIR: workspaceDir };
+    const env = { ...process.env, GRANTED_STATE_DIR: workspaceDir };
     setMaxMemoryHostEventsForTests(3);
     let clock = 1_000;
     vi.spyOn(Date, "now").mockImplementation(() => clock--);
@@ -304,7 +304,7 @@ describe("memory host event journal helpers", () => {
     const stateDir = await createTempDir("memory-host-events-shared-retention-");
     const workspaceA = path.join(stateDir, "workspace-a");
     const workspaceB = path.join(stateDir, "workspace-b");
-    const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+    const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
     setMaxMemoryHostEventsForTests(3);
 
     const appendRecall = async (workspaceDir: string, query: string) => {
@@ -366,7 +366,7 @@ describe("createPersistentDedupe", () => {
       pluginId: "test-persistent-dedupe",
       namespacePrefix: "test-bounds",
       stateMaxEntries: Number.NaN,
-      env: { ...process.env, OPENCLAW_STATE_DIR: root },
+      env: { ...process.env, GRANTED_STATE_DIR: root },
     });
 
     expect(await dedupe.checkAndRecord("m1", { namespace: "a", now: 100 })).toBe(true);
@@ -383,7 +383,7 @@ describe("createPersistentDedupe", () => {
       memoryMaxSize: 100,
       fileMaxEntries: 1000,
       resolveFilePath: () => legacyPath,
-      env: { ...process.env, OPENCLAW_STATE_DIR: root },
+      env: { ...process.env, GRANTED_STATE_DIR: root },
     });
 
     expect(await dedupe.checkAndRecord("sqlite-only", { namespace: "x" })).toBe(true);
@@ -516,7 +516,7 @@ describe("createClaimableDedupe", () => {
       pluginId: "test-claimable-dedupe",
       namespacePrefix: "test-claimable-dedupe",
       stateMaxEntries: 1000,
-      env: { ...process.env, OPENCLAW_STATE_DIR: root },
+      env: { ...process.env, GRANTED_STATE_DIR: root },
     });
 
     await expect(writer.claim("m1", { namespace: "acct" })).resolves.toEqual({ kind: "claimed" });
@@ -528,7 +528,7 @@ describe("createClaimableDedupe", () => {
       pluginId: "test-claimable-dedupe",
       namespacePrefix: "test-claimable-dedupe",
       stateMaxEntries: 1000,
-      env: { ...process.env, OPENCLAW_STATE_DIR: root },
+      env: { ...process.env, GRANTED_STATE_DIR: root },
     });
 
     expect(await reader.hasRecent("m1", { namespace: "acct" })).toBe(true);
@@ -543,7 +543,7 @@ describe("createClaimableDedupe", () => {
       pluginId: "test-claimable-dedupe",
       namespacePrefix: "test-claimable-dedupe",
       stateMaxEntries: 1000,
-      env: { ...process.env, OPENCLAW_STATE_DIR: root },
+      env: { ...process.env, GRANTED_STATE_DIR: root },
     });
     await expect(afterForget.claim("m1", { namespace: "acct" })).resolves.toEqual({
       kind: "claimed",

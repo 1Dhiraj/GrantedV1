@@ -88,7 +88,7 @@ function register(targetRun = run): Record<string, string> {
 }
 
 beforeEach(async () => {
-  vi.stubEnv("OPENCLAW_SECRET_SENTINELS", undefined);
+  vi.stubEnv("GRANTED_SECRET_SENTINELS", undefined);
   observed = [];
   caDir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-egress-lifecycle-"));
   proxy = await startSecretEgressProxyServer({ caDir, onAudit: () => {} });

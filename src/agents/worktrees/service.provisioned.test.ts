@@ -64,7 +64,7 @@ describe("ManagedWorktreeService provisioned state", () => {
     repo = path.join(root, "repo");
     await fs.cp(templateRepo, repo, { mode: fsConstants.COPYFILE_FICLONE, recursive: true });
     repo = await fs.realpath(repo);
-    env = { ...process.env, OPENCLAW_STATE_DIR: path.join(root, "openclaw-state") };
+    env = { ...process.env, GRANTED_STATE_DIR: path.join(root, "openclaw-state") };
     now = 1_700_000_000_000;
     service = new ManagedWorktreeService({ env, now: () => now });
   });

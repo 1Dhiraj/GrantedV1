@@ -42,7 +42,7 @@ function shouldCopyBundledPluginMetadata(
   if (!NON_PACKAGED_BUNDLED_PLUGIN_DIRS.has(id)) {
     return true;
   }
-  return env.OPENCLAW_BUILD_PRIVATE_QA === "1";
+  return env.GRANTED_BUILD_PRIVATE_QA === "1";
 }
 
 function rewritePackageExtensions(entries: unknown): string[] | undefined {

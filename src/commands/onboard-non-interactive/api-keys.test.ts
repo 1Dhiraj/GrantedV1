@@ -373,7 +373,7 @@ describe("resolveNonInteractiveApiKey", () => {
       provider: "fixture",
       cfg: {},
       flagName: "--fixture-api-key",
-      envVar: testCase.envVar ?? "OPENCLAW_ONBOARD_MISSING_FIXTURE_KEY",
+      envVar: testCase.envVar ?? "GRANTED_ONBOARD_MISSING_FIXTURE_KEY",
       flagValue: testCase.flagValue,
       secretInputMode: testCase.secretInputMode,
       runtime,

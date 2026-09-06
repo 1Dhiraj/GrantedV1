@@ -60,7 +60,7 @@ const RELEASED_TABLES = `
 
 function createReleasedDatabase(execution: "running" | "terminal") {
   const stateDir = fs.realpathSync(tempDirs.make("openclaw-released-subagent-binding-"));
-  vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
+  vi.stubEnv("GRANTED_STATE_DIR", stateDir);
   const databasePath = path.join(stateDir, "state", "openclaw.sqlite");
   fs.mkdirSync(path.dirname(databasePath), { recursive: true });
   const db = new DatabaseSync(databasePath);

@@ -52,7 +52,7 @@ vi.mock("../gateway/call.js", () => ({
   isGatewayCredentialsRequiredError: (error: unknown) =>
     error instanceof Error && error.name === "GatewayCredentialsRequiredError",
   isImplicitLocalGatewayTarget: async ({ config }: { config?: OpenClawConfig }) =>
-    !process.env.OPENCLAW_GATEWAY_URL && config?.gateway?.mode !== "remote",
+    !process.env.GRANTED_GATEWAY_URL && config?.gateway?.mode !== "remote",
 }));
 
 vi.mock("../hooks/hooks-status.js", () => ({
@@ -751,7 +751,7 @@ describe("hooks CLI metadata config keys", () => {
   )("does not substitute local hooks after $label", async ({ target, command, json }) => {
     mocks.getRuntimeConfig.mockReturnValue(target.config);
     if (target.url) {
-      vi.stubEnv("OPENCLAW_GATEWAY_URL", target.url);
+      vi.stubEnv("GRANTED_GATEWAY_URL", target.url);
     }
     const error = target.unsupported
       ? new GatewayClientRequestError({ code: "INVALID_REQUEST", message: target.message })

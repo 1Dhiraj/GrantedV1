@@ -169,8 +169,8 @@ export function createGatewayReloadHandlers(params: GatewayReloadHandlerParams) 
     const candidateEnv = publication?.runtimeEnv ?? process.env;
     // Use one candidate env snapshot before publication and through later channel starts.
     const shouldSkipChannelRestart =
-      isTruthyEnvValue(candidateEnv.OPENCLAW_SKIP_CHANNELS) ||
-      isTruthyEnvValue(candidateEnv.OPENCLAW_SKIP_PROVIDERS);
+      isTruthyEnvValue(candidateEnv.GRANTED_SKIP_CHANNELS) ||
+      isTruthyEnvValue(candidateEnv.GRANTED_SKIP_PROVIDERS);
     const channelReloadTargets = () =>
       new Set<ChannelKind>([...channelsToRestart, ...restartChannelAccounts.keys()]);
     const getChannelAutostartSuppression = () => params.getChannelAutostartSuppression?.() ?? null;
@@ -638,7 +638,7 @@ export function createGatewayReloadHandlers(params: GatewayReloadHandlerParams) 
               signal: restartAbortController.signal,
               onSkipped: () =>
                 params.logHooks.info(
-                  "skipping gmail watcher restart (OPENCLAW_SKIP_GMAIL_WATCHER=1)",
+                  "skipping gmail watcher restart (GRANTED_SKIP_GMAIL_WATCHER=1)",
                 ),
             });
           }
@@ -661,7 +661,7 @@ export function createGatewayReloadHandlers(params: GatewayReloadHandlerParams) 
       accountsStoppedBeforePluginReload,
       shouldSkipChannelRestart,
       skipChannelRestartLogMessage:
-        "skipping channel reload (OPENCLAW_SKIP_CHANNELS=1 or OPENCLAW_SKIP_PROVIDERS=1)",
+        "skipping channel reload (GRANTED_SKIP_CHANNELS=1 or GRANTED_SKIP_PROVIDERS=1)",
       isLifecycleReloadAborted,
       getChannelAutostartSuppression,
       channelReloadTargets,

@@ -717,7 +717,7 @@ describe("sqlite WAL maintenance", () => {
           process.execPath,
           ["--import", "tsx", childScript, role, databasePath, staleCloseMarker],
           {
-            env: { ...process.env, OPENCLAW_TEST_CONSOLE: "1" },
+            env: { ...process.env, GRANTED_TEST_CONSOLE: "1" },
             stdio: ["ignore", "pipe", "pipe"],
           },
         );

@@ -8,7 +8,7 @@ import { createDisplayStringFormatter } from "./display-string.js";
 function stubHome(home: string, openclawHome = ""): void {
   vi.stubEnv("HOME", home);
   vi.stubEnv("USERPROFILE", "");
-  vi.stubEnv("OPENCLAW_HOME", openclawHome);
+  vi.stubEnv("GRANTED_HOME", openclawHome);
 }
 
 describe("createDisplayStringFormatter", () => {
@@ -38,24 +38,24 @@ describe("createDisplayStringFormatter", () => {
     expect(displayString(`/tmp${home}/project`)).toBe(`/tmp${home}/project`);
   });
 
-  it("uses OPENCLAW_HOME as the display prefix", () => {
+  it("uses GRANTED_HOME as the display prefix", () => {
     const home = path.resolve("test-home", "alice");
     const openclawHome = path.resolve("test-openclaw-home");
     stubHome(home, openclawHome);
     const displayString = createDisplayStringFormatter();
 
-    expect(displayString(openclawHome)).toBe("$OPENCLAW_HOME");
-    expect(displayString(`${openclawHome}/state`)).toBe("$OPENCLAW_HOME/state");
+    expect(displayString(openclawHome)).toBe("$GRANTED_HOME");
+    expect(displayString(`${openclawHome}/state`)).toBe("$GRANTED_HOME/state");
     expect(displayString(`${openclawHome}2/state`)).toBe(`${openclawHome}2/state`);
   });
 
-  it.each(["$&", "$`", "$'", "$$"])("keeps %s literal when expanding OPENCLAW_HOME", (pattern) => {
+  it.each(["$&", "$`", "$'", "$$"])("keeps %s literal when expanding GRANTED_HOME", (pattern) => {
     const home = path.resolve("test-home", `${pattern}user`);
     stubHome(home, "~/state");
     const displayString = createDisplayStringFormatter();
 
     expect(displayString(path.join(home, "state", "project"))).toBe(
-      `$OPENCLAW_HOME${path.sep}project`,
+      `$GRANTED_HOME${path.sep}project`,
     );
   });
 

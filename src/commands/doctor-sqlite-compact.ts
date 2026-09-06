@@ -3,7 +3,7 @@ import fs from "node:fs";
 import type { DatabaseSync } from "node:sqlite";
 import { openNodeSqliteDatabase } from "../infra/node-sqlite.js";
 import { assertSqliteIntegrity } from "../infra/sqlite-integrity.js";
-import { OPENCLAW_SQLITE_BUSY_TIMEOUT_MS } from "../state/openclaw-state-db.js";
+import { GRANTED_SQLITE_BUSY_TIMEOUT_MS } from "../state/openclaw-state-db.js";
 
 export type DoctorSqliteCompactSnapshot = {
   autoVacuum: number;
@@ -43,7 +43,7 @@ export function compactDoctorSqliteFile(
   let result: DoctorSqliteCompactResult | undefined;
   try {
     database.exec(
-      `PRAGMA busy_timeout = ${options.busyTimeoutMs ?? OPENCLAW_SQLITE_BUSY_TIMEOUT_MS};`,
+      `PRAGMA busy_timeout = ${options.busyTimeoutMs ?? GRANTED_SQLITE_BUSY_TIMEOUT_MS};`,
     );
     database.exec("PRAGMA trusted_schema = OFF;");
     options.validateBeforeMutation?.(database);

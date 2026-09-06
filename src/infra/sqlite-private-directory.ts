@@ -16,7 +16,7 @@ import {
 } from "./windows-powershell-spawn.js";
 
 const SQLITE_DIRECTORY_MODE = 0o700;
-const WINDOWS_DIRECTORY_EXISTS_MARKER = "OPENCLAW_SQLITE_DIRECTORY_EXISTS";
+const WINDOWS_DIRECTORY_EXISTS_MARKER = "GRANTED_SQLITE_DIRECTORY_EXISTS";
 
 // Managed directory creation accepts existing paths. CreateDirectoryW applies the
 // protected DACL atomically while preserving fail-if-exists semantics.

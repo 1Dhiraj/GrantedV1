@@ -351,7 +351,7 @@ describe("worker environment service", () => {
       .run("worker-legacy-shared");
     closeOpenClawStateDatabaseForTest();
     support.testState.stateDb = openOpenClawStateDatabase({
-      env: { OPENCLAW_STATE_DIR: support.testState.root },
+      env: { GRANTED_STATE_DIR: support.testState.root },
     });
     support.testState.store = createWorkerEnvironmentStore({
       database: support.testState.stateDb,

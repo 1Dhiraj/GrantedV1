@@ -17,7 +17,7 @@ function dashboardPath(): string {
 
 suite.define(() => {
   it("projects a distinct durable reply after interim text and a message-less terminal", async () => {
-    const recordProof = process.env.OPENCLAW_UI_E2E_RECORD === "1";
+    const recordProof = process.env.GRANTED_UI_E2E_RECORD === "1";
     if (recordProof) {
       await mkdir(path.join(suite.artifactDir, "dashboard-final-reply-recovery"), {
         recursive: true,

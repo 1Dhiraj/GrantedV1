@@ -196,7 +196,7 @@ async function migratePluginDoctorStatePlans(
   try {
     lock = await acquireGatewayLock({
       allowInTests: true,
-      env: { ...input.env, OPENCLAW_STATE_DIR: input.stateDir },
+      env: { ...input.env, GRANTED_STATE_DIR: input.stateDir },
       pollIntervalMs: PLUGIN_DOCTOR_MIGRATION_LOCK_POLL_INTERVAL_MS,
       role: "sqlite-maintenance",
       timeoutMs: PLUGIN_DOCTOR_MIGRATION_LOCK_TIMEOUT_MS,
@@ -330,7 +330,7 @@ export async function autoMigrateLegacyPluginDoctorState(params: {
   const stateDir = resolveStateDir(env, params.homedir ?? os.homedir);
   const oauthDir = resolveOAuthDir(env, stateDir);
   const stateSchema = repairOpenClawStateDatabaseSchemaIfNeeded({
-    env: { ...env, OPENCLAW_STATE_DIR: stateDir },
+    env: { ...env, GRANTED_STATE_DIR: stateDir },
   });
   const changes = [...stateDirResult.changes, ...stateSchema.changes];
   const warnings = [...stateDirResult.warnings, ...stateSchema.warnings];

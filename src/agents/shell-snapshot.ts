@@ -17,9 +17,9 @@ import { killProcessTree } from "../process/kill-tree.js";
 const SNAPSHOT_VERSION = 1;
 const SNAPSHOT_REFRESH_MS = 5 * 60 * 1000;
 const SNAPSHOT_MAX_AGE_MS = 3 * 24 * 60 * 60 * 1000;
-const CAPTURE_MARKER = "__OPENCLAW_SHELL_SNAPSHOT_CAPTURE__";
-const ENV_MARKER = "__OPENCLAW_SHELL_SNAPSHOT_ENV__";
-const EXEC_SHELL_SNAPSHOT_ENV = "OPENCLAW_EXEC_SHELL_SNAPSHOT";
+const CAPTURE_MARKER = "__GRANTED_SHELL_SNAPSHOT_CAPTURE__";
+const ENV_MARKER = "__GRANTED_SHELL_SNAPSHOT_ENV__";
+const EXEC_SHELL_SNAPSHOT_ENV = "GRANTED_EXEC_SHELL_SNAPSHOT";
 const VALID_ENV_NAME = /^[A-Za-z_][A-Za-z0-9_]*$/;
 const SNAPSHOT_SHELLS = new Set(["bash", "zsh"]);
 const SNAPSHOT_DISABLE_VALUES = new Set(["0", "false", "no", "off"]);
@@ -47,7 +47,7 @@ const SAFE_ENV_NAMES = new Set([
 const CAPTURE_ENV_NAMES = new Set([
   ...SAFE_ENV_NAMES,
   "HOME",
-  "OPENCLAW_SHELL",
+  "GRANTED_SHELL",
   "SHELL",
   "USERPROFILE",
   "ZDOTDIR",
@@ -324,10 +324,10 @@ function buildTrustedSnapshotCaptureEnv(
 ): Record<string, string | undefined> {
   const env = buildSnapshotCaptureEnv(process.env);
   env.HOME = getTrustedShellHome();
-  // OPENCLAW_SHELL is injected by the exec runtime, so startup files can keep
+  // GRANTED_SHELL is injected by the exec runtime, so startup files can keep
   // their documented exec-specific branches without trusting model input.
-  if (runtimeEnv.OPENCLAW_SHELL === "exec") {
-    env.OPENCLAW_SHELL = "exec";
+  if (runtimeEnv.GRANTED_SHELL === "exec") {
+    env.GRANTED_SHELL = "exec";
   }
   return env;
 }

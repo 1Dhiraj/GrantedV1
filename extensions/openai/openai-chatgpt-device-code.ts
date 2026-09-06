@@ -25,7 +25,7 @@ const OPENAI_CODEX_DEVICE_ERROR_BODY_LIMIT_BYTES = 8 * 1024;
 const OPENAI_CODEX_DEVICE_JSON_BODY_LIMIT_BYTES = 256 * 1024;
 
 function resolveOpenAICodexDeviceCodeHeaders(contentType: string): Record<string, string> {
-  const version = process.env.OPENCLAW_VERSION?.trim();
+  const version = process.env.GRANTED_VERSION?.trim();
   return {
     "Content-Type": contentType,
     originator: "openclaw",

@@ -53,8 +53,8 @@ function materializeEnvCatalogCandidates(
     candidates,
     env: {
       ...makeIsolatedEnv(),
-      OPENCLAW_STATE_DIR: stateDir,
-      OPENCLAW_BUNDLED_PLUGINS_DIR: "/nonexistent/bundled/plugins",
+      GRANTED_STATE_DIR: stateDir,
+      GRANTED_BUNDLED_PLUGINS_DIR: "/nonexistent/bundled/plugins",
     },
     manifestRegistry: makeRegistry([]),
   });

@@ -68,7 +68,7 @@ function resolveOutcomePlan(
     ? "hooks-disabled"
     : !params.cfg.hooks.gmail?.account
       ? "no-gmail-account"
-      : isTruthyEnvValue((params.env ?? process.env).OPENCLAW_SKIP_GMAIL_WATCHER)
+      : isTruthyEnvValue((params.env ?? process.env).GRANTED_SKIP_GMAIL_WATCHER)
         ? "disabled-by-environment"
         : "scheduled";
 

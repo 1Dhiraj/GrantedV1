@@ -215,7 +215,7 @@ describe("matrix credentials storage", () => {
   });
 
   it("reports persisted auth from SQLite for package-state probes", async () => {
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     expect(hasAnyMatrixAuth({ cfg: {}, env })).toBe(false);
 
     await saveMatrixCredentials(

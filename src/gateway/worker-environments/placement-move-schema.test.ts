@@ -7,7 +7,7 @@ import {
   openOpenClawStateDatabase,
 } from "../../state/openclaw-state-db.js";
 import { getOpenClawStateRuntimeSchema } from "../../state/openclaw-state-schema-compatibility.js";
-import { OPENCLAW_STATE_SCHEMA_SQL } from "../../state/openclaw-state-schema.js";
+import { GRANTED_STATE_SCHEMA_SQL } from "../../state/openclaw-state-schema.js";
 import { createWorkerSessionPlacementStore } from "./placement-store.js";
 
 const tempDirs = useAutoCleanupTempDirTracker(afterEach);
@@ -19,13 +19,13 @@ afterEach(() => {
 describe("worker placement move schema", () => {
   it("survives a same-version previous reader and candidate reopen", () => {
     const stateDir = tempDirs.make("openclaw-placement-move-schema-");
-    const options = { env: { OPENCLAW_STATE_DIR: stateDir } };
+    const options = { env: { GRANTED_STATE_DIR: stateDir } };
     const database = openOpenClawStateDatabase(options);
     const versionBefore = database.db.prepare("PRAGMA user_version").get();
     const metadataBefore = database.db
       .prepare("SELECT schema_version, updated_at FROM schema_meta WHERE meta_key = 'primary'")
       .get();
-    const previousSchema = OPENCLAW_STATE_SCHEMA_SQL.replace(
+    const previousSchema = GRANTED_STATE_SCHEMA_SQL.replace(
       "  target_machine_class TEXT,\n",
       "",
     ).replace(

@@ -39,7 +39,7 @@ describe("ManagedWorktreeService orphan reconciliation", () => {
     await fs.writeFile(path.join(repo, "README.md"), "base\n");
     await git(repo, "add", "README.md");
     await git(repo, "commit", "-m", "initial");
-    env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+    env = { ...process.env, GRANTED_STATE_DIR: stateDir };
     service = new ManagedWorktreeService({ env });
   });
 
@@ -153,7 +153,7 @@ describe("ManagedWorktreeService orphan reconciliation", () => {
       const linkedStateDir = path.join(root, "linked-state");
       await fs.mkdir(realStateDir);
       await fs.symlink(realStateDir, linkedStateDir, "dir");
-      env = { ...process.env, OPENCLAW_STATE_DIR: linkedStateDir };
+      env = { ...process.env, GRANTED_STATE_DIR: linkedStateDir };
       service = new ManagedWorktreeService({ env });
       const target = path.join(realStateDir, "worktrees", "fingerprint", "nested-via-symlink");
       await addRegisteredWorktree(target, "committed");

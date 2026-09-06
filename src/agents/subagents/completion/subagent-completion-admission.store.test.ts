@@ -173,7 +173,7 @@ describe("atomic subagent completion admission store", () => {
 
   function useDefaultDatabase(): void {
     closeOpenClawStateDatabaseForTest();
-    vi.stubEnv("OPENCLAW_STATE_DIR", tempDir);
+    vi.stubEnv("GRANTED_STATE_DIR", tempDir);
     database = openOpenClawStateDatabase();
   }
 
@@ -506,7 +506,7 @@ describe("atomic subagent completion admission store", () => {
   });
 
   it("keeps canonical owner payload through failure and clears it after redrive success", async () => {
-    await withEnvAsync({ OPENCLAW_STATE_DIR: tempDir }, async () => {
+    await withEnvAsync({ GRANTED_STATE_DIR: tempDir }, async () => {
       closeOpenClawStateDatabaseForTest();
       database = openOpenClawStateDatabase();
       const input = records();
@@ -586,7 +586,7 @@ describe("atomic subagent completion admission store", () => {
   });
 
   it("reloads a blocked text completion from SQLite before canonical owner redrive", async () => {
-    await withEnvAsync({ OPENCLAW_STATE_DIR: tempDir }, async () => {
+    await withEnvAsync({ GRANTED_STATE_DIR: tempDir }, async () => {
       closeOpenClawStateDatabaseForTest();
       database = openOpenClawStateDatabase();
       const input = records();

@@ -134,8 +134,8 @@ describe("Codex app-server config", () => {
         },
       },
       env: {
-        OPENCLAW_CODEX_APP_SERVER_APPROVAL_POLICY: "never",
-        OPENCLAW_CODEX_APP_SERVER_SANDBOX: "read-only",
+        GRANTED_CODEX_APP_SERVER_APPROVAL_POLICY: "never",
+        GRANTED_CODEX_APP_SERVER_SANDBOX: "read-only",
       },
       modelProvider: "openai",
     });
@@ -611,8 +611,8 @@ describe("Codex app-server config", () => {
 
   it("does not let private-QA environment flags override native sandbox policy", () => {
     const privateQaCodexEnv = {
-      OPENCLAW_BUILD_PRIVATE_QA: "1",
-      OPENCLAW_QA_FORCE_RUNTIME: "codex",
+      GRANTED_BUILD_PRIVATE_QA: "1",
+      GRANTED_QA_FORCE_RUNTIME: "codex",
     };
     const runtime = resolveRuntimeForTest({
       pluginConfig: {
@@ -671,8 +671,8 @@ describe("Codex app-server config", () => {
 
   it("preserves an explicitly read-only sandbox for forced private-QA Codex runtime", () => {
     const privateQaCodexEnv = {
-      OPENCLAW_BUILD_PRIVATE_QA: "1",
-      OPENCLAW_QA_FORCE_RUNTIME: "codex",
+      GRANTED_BUILD_PRIVATE_QA: "1",
+      GRANTED_QA_FORCE_RUNTIME: "codex",
     };
     const runtime = resolveRuntimeForTest({
       pluginConfig: {
@@ -700,18 +700,18 @@ describe("Codex app-server config", () => {
 
   it.each([
     { label: "ordinary production", env: {} },
-    { label: "private build without a forced runtime", env: { OPENCLAW_BUILD_PRIVATE_QA: "1" } },
+    { label: "private build without a forced runtime", env: { GRANTED_BUILD_PRIVATE_QA: "1" } },
     {
       label: "forced runtime without a private build",
-      env: { OPENCLAW_QA_FORCE_RUNTIME: "codex" },
+      env: { GRANTED_QA_FORCE_RUNTIME: "codex" },
     },
     {
       label: "forced private-QA Codex runtime without explicit sandbox configuration",
-      env: { OPENCLAW_BUILD_PRIVATE_QA: "1", OPENCLAW_QA_FORCE_RUNTIME: "codex" },
+      env: { GRANTED_BUILD_PRIVATE_QA: "1", GRANTED_QA_FORCE_RUNTIME: "codex" },
     },
     {
       label: "forced private-QA OpenClaw runtime",
-      env: { OPENCLAW_BUILD_PRIVATE_QA: "1", OPENCLAW_QA_FORCE_RUNTIME: "openclaw" },
+      env: { GRANTED_BUILD_PRIVATE_QA: "1", GRANTED_QA_FORCE_RUNTIME: "openclaw" },
     },
   ])("preserves production yolo filesystem policy for $label", ({ env }) => {
     const runtime = resolveRuntimeForTest({ pluginConfig: {}, env });
@@ -1473,7 +1473,7 @@ allowed_sandbox_modes = ["read-only", "workspace-write"]
     expectRuntimePolicy(
       resolveRuntimeForTest({
         pluginConfig: {},
-        env: { OPENCLAW_CODEX_APP_SERVER_MODE: "yolo" },
+        env: { GRANTED_CODEX_APP_SERVER_MODE: "yolo" },
         requirementsToml,
       }),
       {
@@ -1863,7 +1863,7 @@ allowed_sandbox_modes = ["read-only", "workspace-write"]
     expectFields(
       resolveRuntimeForTest({
         pluginConfig: { appServer: { command: "/opt/codex/bin/codex" } },
-        env: { OPENCLAW_CODEX_APP_SERVER_BIN: "/usr/local/bin/codex" },
+        env: { GRANTED_CODEX_APP_SERVER_BIN: "/usr/local/bin/codex" },
       }).start,
       "configured start",
       {
@@ -1875,7 +1875,7 @@ allowed_sandbox_modes = ["read-only", "workspace-write"]
     expectFields(
       resolveRuntimeForTest({
         pluginConfig: {},
-        env: { OPENCLAW_CODEX_APP_SERVER_BIN: "/usr/local/bin/codex" },
+        env: { GRANTED_CODEX_APP_SERVER_BIN: "/usr/local/bin/codex" },
       }).start,
       "environment start",
       {
@@ -2041,11 +2041,11 @@ allowed_sandbox_modes = ["read-only", "workspace-write"]
       resolveRuntimeForTest({
         pluginConfig: {},
         env: {
-          OPENCLAW_CODEX_APP_SERVER_BIN:
+          GRANTED_CODEX_APP_SERVER_BIN:
             "node C:\\Users\\me\\.openclaw\\npm\\node_modules\\@openai\\codex\\bin\\codex.js",
         },
       }),
-    ).toThrow("OPENCLAW_CODEX_APP_SERVER_BIN must be only the Codex app-server executable path");
+    ).toThrow("GRANTED_CODEX_APP_SERVER_BIN must be only the Codex app-server executable path");
   });
 
   it("preserves executable paths that contain spaces", () => {
@@ -2067,7 +2067,7 @@ allowed_sandbox_modes = ["read-only", "workspace-write"]
           },
         },
         env: {
-          OPENCLAW_CODEX_COMPUTER_USE_PLUGIN_NAME: "env-fallback-plugin",
+          GRANTED_CODEX_COMPUTER_USE_PLUGIN_NAME: "env-fallback-plugin",
         },
       }),
     ).toEqual({
@@ -2090,10 +2090,10 @@ allowed_sandbox_modes = ["read-only", "workspace-write"]
       resolveCodexComputerUseConfig({
         pluginConfig: {},
         env: {
-          OPENCLAW_CODEX_COMPUTER_USE: "1",
-          OPENCLAW_CODEX_COMPUTER_USE_MARKETPLACE_SOURCE: "github:example/plugins",
-          OPENCLAW_CODEX_COMPUTER_USE_AUTO_INSTALL: "true",
-          OPENCLAW_CODEX_COMPUTER_USE_MARKETPLACE_DISCOVERY_TIMEOUT_MS: "30000",
+          GRANTED_CODEX_COMPUTER_USE: "1",
+          GRANTED_CODEX_COMPUTER_USE_MARKETPLACE_SOURCE: "github:example/plugins",
+          GRANTED_CODEX_COMPUTER_USE_AUTO_INSTALL: "true",
+          GRANTED_CODEX_COMPUTER_USE_MARKETPLACE_DISCOVERY_TIMEOUT_MS: "30000",
         },
       }),
       "computer use config",
@@ -2117,8 +2117,8 @@ allowed_sandbox_modes = ["read-only", "workspace-write"]
         resolveCodexComputerUseConfig({
           pluginConfig: {},
           env: {
-            OPENCLAW_CODEX_COMPUTER_USE: "1",
-            OPENCLAW_CODEX_COMPUTER_USE_MARKETPLACE_DISCOVERY_TIMEOUT_MS: value,
+            GRANTED_CODEX_COMPUTER_USE: "1",
+            GRANTED_CODEX_COMPUTER_USE_MARKETPLACE_DISCOVERY_TIMEOUT_MS: value,
           },
         }),
         "computer use config",
@@ -2153,10 +2153,10 @@ allowed_sandbox_modes = ["read-only", "workspace-write"]
           },
         },
         env: {
-          OPENCLAW_CODEX_COMPUTER_USE_HEALTH_CHECK_ENABLED: "false",
-          OPENCLAW_CODEX_COMPUTER_USE_HEALTH_CHECK_INTERVAL_MINUTES: "240",
-          OPENCLAW_CODEX_COMPUTER_USE_STRICT_READINESS: "false",
-          OPENCLAW_CODEX_COMPUTER_USE_AUTO_REPAIR: "false",
+          GRANTED_CODEX_COMPUTER_USE_HEALTH_CHECK_ENABLED: "false",
+          GRANTED_CODEX_COMPUTER_USE_HEALTH_CHECK_INTERVAL_MINUTES: "240",
+          GRANTED_CODEX_COMPUTER_USE_STRICT_READINESS: "false",
+          GRANTED_CODEX_COMPUTER_USE_AUTO_REPAIR: "false",
         },
       }),
       "computer use config",
@@ -2176,11 +2176,11 @@ allowed_sandbox_modes = ["read-only", "workspace-write"]
       resolveCodexComputerUseConfig({
         pluginConfig: { computerUse: { enabled: true } },
         env: {
-          OPENCLAW_CODEX_COMPUTER_USE_HEALTH_CHECK_ENABLED: "1",
-          OPENCLAW_CODEX_COMPUTER_USE_HEALTH_CHECK_INTERVAL_MINUTES: "90",
-          OPENCLAW_CODEX_COMPUTER_USE_STRICT_READINESS: "true",
-          OPENCLAW_CODEX_COMPUTER_USE_AUTO_REPAIR: "true",
-          OPENCLAW_CODEX_COMPUTER_USE_PLUGIN_CACHE_MODE: "stale-copy",
+          GRANTED_CODEX_COMPUTER_USE_HEALTH_CHECK_ENABLED: "1",
+          GRANTED_CODEX_COMPUTER_USE_HEALTH_CHECK_INTERVAL_MINUTES: "90",
+          GRANTED_CODEX_COMPUTER_USE_STRICT_READINESS: "true",
+          GRANTED_CODEX_COMPUTER_USE_AUTO_REPAIR: "true",
+          GRANTED_CODEX_COMPUTER_USE_PLUGIN_CACHE_MODE: "stale-copy",
         },
       }),
       "computer use config",
@@ -2233,7 +2233,7 @@ allowed_sandbox_modes = ["read-only", "workspace-write"]
     const runtime = resolveRuntimeForTest({
       pluginConfig: {},
       modelProvider: "openai",
-      env: { OPENCLAW_CODEX_APP_SERVER_MODE: "guardian" },
+      env: { GRANTED_CODEX_APP_SERVER_MODE: "guardian" },
     });
 
     expectRuntimePolicy(runtime, {
@@ -2267,8 +2267,8 @@ allowed_sandbox_modes = ["read-only", "workspace-write"]
         },
       },
       env: {
-        OPENCLAW_CODEX_APP_SERVER_APPROVAL_POLICY: "never",
-        OPENCLAW_CODEX_APP_SERVER_SANDBOX: "danger-full-access",
+        GRANTED_CODEX_APP_SERVER_APPROVAL_POLICY: "never",
+        GRANTED_CODEX_APP_SERVER_SANDBOX: "danger-full-access",
       },
       execMode: "auto",
       modelProvider: "openai",
@@ -2300,9 +2300,9 @@ allowed_sandbox_modes = ["read-only", "workspace-write"]
       execMode: "auto",
       modelProvider: "openai",
       env: {
-        OPENCLAW_CODEX_APP_SERVER_MODE: "yolo",
-        OPENCLAW_CODEX_APP_SERVER_APPROVAL_POLICY: "never",
-        OPENCLAW_CODEX_APP_SERVER_SANDBOX: "read-only",
+        GRANTED_CODEX_APP_SERVER_MODE: "yolo",
+        GRANTED_CODEX_APP_SERVER_APPROVAL_POLICY: "never",
+        GRANTED_CODEX_APP_SERVER_SANDBOX: "read-only",
       },
     });
 
@@ -2358,7 +2358,7 @@ allowed_sandbox_modes = ["read-only", "workspace-write"]
     const envRuntime = resolveRuntimeForTest({
       pluginConfig: {},
       execMode: "ask",
-      env: { OPENCLAW_CODEX_APP_SERVER_MODE: "guardian" },
+      env: { GRANTED_CODEX_APP_SERVER_MODE: "guardian" },
     });
 
     expectRuntimePolicy(configRuntime, {
@@ -2390,9 +2390,9 @@ allowed_sandbox_modes = ["read-only", "workspace-write"]
       pluginConfig: {},
       execMode: "ask",
       env: {
-        OPENCLAW_CODEX_APP_SERVER_MODE: "yolo",
-        OPENCLAW_CODEX_APP_SERVER_APPROVAL_POLICY: "never",
-        OPENCLAW_CODEX_APP_SERVER_SANDBOX: "danger-full-access",
+        GRANTED_CODEX_APP_SERVER_MODE: "yolo",
+        GRANTED_CODEX_APP_SERVER_APPROVAL_POLICY: "never",
+        GRANTED_CODEX_APP_SERVER_SANDBOX: "danger-full-access",
       },
     });
 
@@ -2425,9 +2425,9 @@ allowed_sandbox_modes = ["read-only", "workspace-write"]
       pluginConfig: {},
       execMode: "ask",
       env: {
-        OPENCLAW_CODEX_APP_SERVER_MODE: "yolo",
-        OPENCLAW_CODEX_APP_SERVER_APPROVAL_POLICY: "never",
-        OPENCLAW_CODEX_APP_SERVER_SANDBOX: "read-only",
+        GRANTED_CODEX_APP_SERVER_MODE: "yolo",
+        GRANTED_CODEX_APP_SERVER_APPROVAL_POLICY: "never",
+        GRANTED_CODEX_APP_SERVER_SANDBOX: "read-only",
       },
     });
 
@@ -3037,10 +3037,10 @@ allowed_sandbox_modes = ["read-only", "workspace-write"]
     ).toBe("guardian_subagent");
   });
 
-  it("ignores removed OPENCLAW_CODEX_APP_SERVER_GUARDIAN fallback", () => {
+  it("ignores removed GRANTED_CODEX_APP_SERVER_GUARDIAN fallback", () => {
     const runtime = resolveRuntimeForTest({
       pluginConfig: {},
-      env: { OPENCLAW_CODEX_APP_SERVER_GUARDIAN: "1" },
+      env: { GRANTED_CODEX_APP_SERVER_GUARDIAN: "1" },
     });
 
     expectRuntimePolicy(runtime, {
@@ -3091,7 +3091,7 @@ allowed_sandbox_modes = ["read-only", "workspace-write"]
     expect(() =>
       resolveRuntimeForTest({
         pluginConfig: {},
-        env: { OPENCLAW_CODEX_APP_SERVER_APPROVAL_POLICY: "untrusted" },
+        env: { GRANTED_CODEX_APP_SERVER_APPROVAL_POLICY: "untrusted" },
       }),
     ).toThrow(
       'Codex app-server approval policy "untrusted" is retired; run "openclaw doctor --fix" and use "on-request".',

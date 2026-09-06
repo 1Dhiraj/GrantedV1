@@ -31,14 +31,14 @@ it("admits plugin-only repair before executing setup or doctor modules", async (
   for (const [key, value] of Object.entries({
     HOME: root,
     USERPROFILE: root,
-    OPENCLAW_STATE_DIR: stateDir,
-    OPENCLAW_CONFIG_PATH: configPath,
-    OPENCLAW_BUNDLED_PLUGINS_DIR: bundledDir,
-    OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
+    GRANTED_STATE_DIR: stateDir,
+    GRANTED_CONFIG_PATH: configPath,
+    GRANTED_BUNDLED_PLUGINS_DIR: bundledDir,
+    GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
   })) {
     vi.stubEnv(key, value);
   }
-  vi.stubEnv("OPENCLAW_HOME", undefined);
+  vi.stubEnv("GRANTED_HOME", undefined);
   const pluginId = "fixture-maintenance-owner";
   const packageName = `@fixture/${pluginId}`;
   const pluginDir = writeManagedNpmPlugin({

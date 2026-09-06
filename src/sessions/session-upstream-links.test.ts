@@ -13,8 +13,8 @@ const tempDirs: string[] = [];
 
 function createDatabaseOptions() {
   const stateDir = makeTempDir(tempDirs, "openclaw-session-upstream-links-");
-  vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
-  return { env: { ...process.env, OPENCLAW_STATE_DIR: stateDir } };
+  vi.stubEnv("GRANTED_STATE_DIR", stateDir);
+  return { env: { ...process.env, GRANTED_STATE_DIR: stateDir } };
 }
 
 function upsertLink(

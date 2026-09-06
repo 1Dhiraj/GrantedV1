@@ -98,7 +98,7 @@ async function resolveLaunchAgentEnvironmentWrapperOverwriteWarnings(params: {
     return [];
   }
   return [
-    `Existing generated LaunchAgent env wrapper at ${params.wrapperPath} contains custom behavior and will be overwritten; move custom behavior to openclaw gateway install --wrapper <path> or OPENCLAW_WRAPPER.`,
+    `Existing generated LaunchAgent env wrapper at ${params.wrapperPath} contains custom behavior and will be overwritten; move custom behavior to openclaw gateway install --wrapper <path> or GRANTED_WRAPPER.`,
   ];
 }
 
@@ -411,7 +411,7 @@ export async function rewriteLaunchAgentPlistForRestart({
   // of copying it into the next canonical definition.
   const canonicalEnvironment = {
     ...existing.environment,
-    OPENCLAW_SERVICE_VERSION: undefined,
+    GRANTED_SERVICE_VERSION: undefined,
   };
   const prepared = await prepareLaunchAgentProgramArguments({
     env,

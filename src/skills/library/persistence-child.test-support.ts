@@ -63,7 +63,7 @@ type OlderReaderRuntime = Pick<
   Pick<
     typeof import("../../config/sessions/session-accessor.sqlite-entry.js"),
     "loadSessionEntry" | "upsertSessionEntryCore"
-  > & { OPENCLAW_STATE_SCHEMA_VERSION: number; OPENCLAW_AGENT_SCHEMA_VERSION: number };
+  > & { GRANTED_STATE_SCHEMA_VERSION: number; GRANTED_AGENT_SCHEMA_VERSION: number };
 
 async function runOlderReader(
   entrypoint: string,
@@ -74,8 +74,8 @@ async function runOlderReader(
   // describe its exports and cannot load the candidate's schema/parser/store.
   await phase("baseline-import");
   const old = (await import(pathToFileURL(entrypoint).href)) as OlderReaderRuntime;
-  assert.equal(old.OPENCLAW_STATE_SCHEMA_VERSION, 15);
-  assert.equal(old.OPENCLAW_AGENT_SCHEMA_VERSION, 19);
+  assert.equal(old.GRANTED_STATE_SCHEMA_VERSION, 15);
+  assert.equal(old.GRANTED_AGENT_SCHEMA_VERSION, 19);
   await phase("imports-complete");
   await beginOperation();
   const options = { env: process.env, path: path.join(root, "state", "openclaw.sqlite") };
@@ -305,7 +305,7 @@ process.once("message", (command: PersistenceCommand) => {
   void (async () => {
     try {
       await phase("command-received");
-      const root = process.env.OPENCLAW_STATE_DIR;
+      const root = process.env.GRANTED_STATE_DIR;
       assert.ok(root);
       const reply =
         command.action === "older-reader"

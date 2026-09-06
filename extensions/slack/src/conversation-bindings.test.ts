@@ -32,9 +32,9 @@ describe("Slack runtime conversation bindings", () => {
   let installationState: SlackInstallationStateRegistration;
 
   beforeEach(async () => {
-    previousStateDir = process.env.OPENCLAW_STATE_DIR;
+    previousStateDir = process.env.GRANTED_STATE_DIR;
     testStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-slack-bindings-"));
-    process.env.OPENCLAW_STATE_DIR = testStateDir;
+    process.env.GRANTED_STATE_DIR = testStateDir;
     cfg = { channels: { slack: {} } };
     setSlackRuntime({ config: { current: () => cfg } } as never);
     setActivePluginRegistry(
@@ -50,9 +50,9 @@ describe("Slack runtime conversation bindings", () => {
     closeOpenClawStateDatabaseForTest();
     setSlackRuntime(null as never);
     if (previousStateDir === undefined) {
-      delete process.env.OPENCLAW_STATE_DIR;
+      delete process.env.GRANTED_STATE_DIR;
     } else {
-      process.env.OPENCLAW_STATE_DIR = previousStateDir;
+      process.env.GRANTED_STATE_DIR = previousStateDir;
     }
     await fs.rm(testStateDir, { recursive: true, force: true });
   });

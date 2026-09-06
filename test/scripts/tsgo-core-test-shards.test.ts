@@ -239,7 +239,7 @@ process.exitCode=boundary || await check.checkTypes();
         const result = await lifetime.track(
           runNodeScript(
             ["--import", pathToFileURL(path.join(sourceRoot, "scripts/tsx.mjs")).href, driver],
-            { ...process.env, OPENCLAW_LOCAL_CHECK: "0" },
+            { ...process.env, GRANTED_LOCAL_CHECK: "0" },
             undefined,
             { cwd: root, signal, requireProcessTreeExit: true },
           ),
@@ -296,7 +296,7 @@ setInterval(()=>{},1000);
       const running = lifetime.track(
         runNodeScript(
           ["--import", pathToFileURL(path.join(sourceRoot, "scripts/tsx.mjs")).href, driver],
-          { ...process.env, OPENCLAW_LOCAL_CHECK: "0" },
+          { ...process.env, GRANTED_LOCAL_CHECK: "0" },
           undefined,
           {
             cwd: root,

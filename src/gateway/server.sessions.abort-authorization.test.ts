@@ -67,7 +67,7 @@ afterAll(async () => {
 });
 
 async function openOperator(device: string, scopes = ["operator.write"]) {
-  const deviceIdentityPath = path.join(process.env.OPENCLAW_STATE_DIR!, `${device}.sqlite`);
+  const deviceIdentityPath = path.join(process.env.GRANTED_STATE_DIR!, `${device}.sqlite`);
   const client = await harness.openClient({
     scopes,
     deviceIdentityPath,

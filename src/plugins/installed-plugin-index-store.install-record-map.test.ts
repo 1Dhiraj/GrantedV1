@@ -58,7 +58,7 @@ function readInstallRecordRow(stateDir: string): {
             WHERE state_key = 'plugins.installedIndex'`,
         )
         .get() as { value_json: string; updated_at_ms: number | bigint },
-    { env: { ...process.env, OPENCLAW_STATE_DIR: stateDir } },
+    { env: { ...process.env, GRANTED_STATE_DIR: stateDir } },
   );
 }
 
@@ -73,7 +73,7 @@ describe("installed plugin index install-record persistence", () => {
     async ({ order, validIndex }) => {
       const stateDir = makeStateDir();
       await withPluginLifecycleLease(
-        { env: { ...process.env, OPENCLAW_STATE_DIR: stateDir } },
+        { env: { ...process.env, GRANTED_STATE_DIR: stateDir } },
         async () => {
           expect(readPersistedInstalledPluginIndexInstallRecordsSync({ stateDir })).toBeNull();
           expect(readPersistedInstalledPluginIndexSync({ stateDir })).toBeNull();
@@ -88,7 +88,7 @@ describe("installed plugin index install-record persistence", () => {
                 WHERE state_key = 'plugins.installedIndex'`,
                 ).run();
               },
-              { env: { ...process.env, OPENCLAW_STATE_DIR: stateDir } },
+              { env: { ...process.env, GRANTED_STATE_DIR: stateDir } },
             );
           }
           const { DatabaseSync } = requireNodeSqlite();

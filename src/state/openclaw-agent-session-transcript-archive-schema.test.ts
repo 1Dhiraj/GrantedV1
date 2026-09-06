@@ -6,7 +6,7 @@ import {
   closeOpenClawAgentDatabasesForTest,
   openOpenClawAgentDatabase,
 } from "./openclaw-agent-db.js";
-import { OPENCLAW_AGENT_SCHEMA_SQL } from "./openclaw-agent-schema.js";
+import { GRANTED_AGENT_SCHEMA_SQL } from "./openclaw-agent-schema.js";
 import {
   ensureSessionTranscriptArchiveSchema,
   SESSION_TRANSCRIPT_ARCHIVES_TABLE,
@@ -19,22 +19,22 @@ afterEach(() => {
 });
 
 function schemaWithoutTranscriptArchives(): string {
-  const start = OPENCLAW_AGENT_SCHEMA_SQL.indexOf(
+  const start = GRANTED_AGENT_SCHEMA_SQL.indexOf(
     `CREATE TABLE IF NOT EXISTS ${SESSION_TRANSCRIPT_ARCHIVES_TABLE} (`,
   );
-  const end = OPENCLAW_AGENT_SCHEMA_SQL.indexOf(
+  const end = GRANTED_AGENT_SCHEMA_SQL.indexOf(
     "CREATE TABLE IF NOT EXISTS transcript_rewrite_watermarks (",
     start,
   );
   expect(start).toBeGreaterThanOrEqual(0);
   expect(end).toBeGreaterThan(start);
-  return `${OPENCLAW_AGENT_SCHEMA_SQL.slice(0, start)}${OPENCLAW_AGENT_SCHEMA_SQL.slice(end)}`;
+  return `${GRANTED_AGENT_SCHEMA_SQL.slice(0, start)}${GRANTED_AGENT_SCHEMA_SQL.slice(end)}`;
 }
 
 describe("session transcript archive schema", () => {
   it("keeps a current database table-free until first archive use without changing its version", () => {
     const stateDir = tempDirs.make("openclaw-session-archive-schema-");
-    const options = { agentId: "main", env: { OPENCLAW_STATE_DIR: stateDir } };
+    const options = { agentId: "main", env: { GRANTED_STATE_DIR: stateDir } };
     const initial = openOpenClawAgentDatabase(options);
     const databasePath = initial.path;
     closeOpenClawAgentDatabasesForTest();
@@ -76,7 +76,7 @@ describe("session transcript archive schema", () => {
   it("keeps a populated additive archive table usable by the previous schema contract", () => {
     const database = new DatabaseSync(":memory:");
     try {
-      database.exec(OPENCLAW_AGENT_SCHEMA_SQL);
+      database.exec(GRANTED_AGENT_SCHEMA_SQL);
       database
         .prepare(
           `INSERT INTO ${SESSION_TRANSCRIPT_ARCHIVES_TABLE} (
@@ -111,7 +111,7 @@ describe("session transcript archive schema", () => {
 
   it("rejects a drifted archive table instead of treating it as an optional absence", () => {
     const stateDir = tempDirs.make("openclaw-session-archive-drift-");
-    const options = { agentId: "main", env: { OPENCLAW_STATE_DIR: stateDir } };
+    const options = { agentId: "main", env: { GRANTED_STATE_DIR: stateDir } };
     const initial = openOpenClawAgentDatabase(options);
     const databasePath = initial.path;
     closeOpenClawAgentDatabasesForTest();

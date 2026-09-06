@@ -45,7 +45,7 @@ describe("memory manager reindex recovery", () => {
     workspaceDir = path.join(fixtureRoot, "workspace");
     memoryDir = path.join(workspaceDir, "memory");
     await fs.mkdir(memoryDir, { recursive: true });
-    vi.stubEnv("OPENCLAW_STATE_DIR", path.join(fixtureRoot, "state"));
+    vi.stubEnv("GRANTED_STATE_DIR", path.join(fixtureRoot, "state"));
   });
 
   afterEach(async () => {

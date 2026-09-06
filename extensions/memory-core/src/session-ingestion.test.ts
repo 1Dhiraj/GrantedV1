@@ -32,7 +32,7 @@ describe("session ingestion", () => {
         await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-session-admission-")),
       );
       tempDirs.push(dir);
-      vi.stubEnv("OPENCLAW_STATE_DIR", dir);
+      vi.stubEnv("GRANTED_STATE_DIR", dir);
       const storePath = path.join(dir, "custom", "sessions.json");
       await fs.mkdir(path.dirname(storePath), { recursive: true });
       const sessionId = "source-session";

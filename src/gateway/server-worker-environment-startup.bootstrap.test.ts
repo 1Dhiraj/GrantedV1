@@ -114,7 +114,7 @@ describe("cloud bootstrap plugin generations", () => {
       },
     );
 
-    await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () => {
+    await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {
       setRuntimeConfigSnapshot({ gateway: { publicOrigin: "https://gateway.example.test" } });
       const startup = await loadGatewayWorkerEnvironmentStartupState();
       const runtime = await createGatewayWorkerEnvironmentRuntime({

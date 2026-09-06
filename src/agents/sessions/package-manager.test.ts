@@ -179,7 +179,7 @@ describe("DefaultPackageManager", () => {
 
     const resolveSkillPaths = async (stateDir: string) =>
       await withEnvAsync(
-        { HOME: home, OPENCLAW_HOME: undefined, OPENCLAW_STATE_DIR: stateDir },
+        { HOME: home, GRANTED_HOME: undefined, GRANTED_STATE_DIR: stateDir },
         async () => {
           const manager = new DefaultPackageManager({
             cwd: workspace,

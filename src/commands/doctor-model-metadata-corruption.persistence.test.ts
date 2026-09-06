@@ -53,8 +53,8 @@ describe("Doctor model metadata corruption persistence", () => {
     await withTempHome(async (home) => {
       await withEnvOverride(
         {
-          OPENCLAW_BUNDLED_PLUGINS_DIR: path.resolve("extensions"),
-          OPENCLAW_DISABLE_BUNDLED_PLUGINS: undefined,
+          GRANTED_BUNDLED_PLUGINS_DIR: path.resolve("extensions"),
+          GRANTED_DISABLE_BUNDLED_PLUGINS: undefined,
         },
         async () => {
           const configPath = await writeOpenClawConfig(home, {

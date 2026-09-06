@@ -55,7 +55,7 @@ export async function resolveBrowserToolNodeTarget(params: {
         !hasGatewayToolRoutingContext() &&
         cfg.gateway?.mode !== "remote" &&
         !cfg.gateway?.remote?.url?.trim() &&
-        !process.env.OPENCLAW_GATEWAY_URL?.trim()))
+        !process.env.GRANTED_GATEWAY_URL?.trim()))
   ) {
     return null;
   }

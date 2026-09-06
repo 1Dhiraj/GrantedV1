@@ -32,20 +32,20 @@ describe("package Telegram live Docker E2E", () => {
   it("supports npm-specific Convex credential aliases", () => {
     const script = readFileSync(DOCKER_SCRIPT_PATH, "utf8");
 
-    expect(script).toContain("OPENCLAW_NPM_TELEGRAM_CREDENTIAL_SOURCE");
-    expect(script).toContain("OPENCLAW_NPM_TELEGRAM_CREDENTIAL_ROLE");
-    expect(script).toContain('docker_env+=(-e OPENCLAW_QA_CREDENTIAL_SOURCE="$credential_source")');
-    expect(script).toContain('docker_env+=(-e OPENCLAW_QA_CREDENTIAL_ROLE="$credential_role")');
+    expect(script).toContain("GRANTED_NPM_TELEGRAM_CREDENTIAL_SOURCE");
+    expect(script).toContain("GRANTED_NPM_TELEGRAM_CREDENTIAL_ROLE");
+    expect(script).toContain('docker_env+=(-e GRANTED_QA_CREDENTIAL_SOURCE="$credential_source")');
+    expect(script).toContain('docker_env+=(-e GRANTED_QA_CREDENTIAL_ROLE="$credential_role")');
   });
 
   it("defaults CI runs to Convex when broker credentials are present", () => {
     const script = readFileSync(DOCKER_SCRIPT_PATH, "utf8");
 
     expect(script).toContain(
-      'if [ -n "${CI:-}" ] && [ -n "${OPENCLAW_QA_CONVEX_SITE_URL:-}" ]; then',
+      'if [ -n "${CI:-}" ] && [ -n "${GRANTED_QA_CONVEX_SITE_URL:-}" ]; then',
     );
-    expect(script).toContain("OPENCLAW_QA_CONVEX_SECRET_CI");
-    expect(script).toContain("OPENCLAW_QA_CONVEX_SECRET_MAINTAINER");
+    expect(script).toContain("GRANTED_QA_CONVEX_SECRET_CI");
+    expect(script).toContain("GRANTED_QA_CONVEX_SECRET_MAINTAINER");
     expect(script).toContain('printf "convex"');
   });
 
@@ -58,7 +58,7 @@ describe("package Telegram live Docker E2E", () => {
     expect(installRunStart).toBeGreaterThanOrEqual(0);
     expect(installRunEnd).toBeGreaterThan(installRunStart);
     expect(installRun).toContain(
-      '-e OPENCLAW_E2E_NPM_INSTALL_TIMEOUT="${OPENCLAW_E2E_NPM_INSTALL_TIMEOUT:-600s}"',
+      '-e GRANTED_E2E_NPM_INSTALL_TIMEOUT="${GRANTED_E2E_NPM_INSTALL_TIMEOUT:-600s}"',
     );
     expect(installRun).toContain(
       '"$timeout_bin" --kill-after=30s "$npm_install_timeout" npm install -g "$install_source" --no-fund --no-audit',
@@ -66,7 +66,7 @@ describe("package Telegram live Docker E2E", () => {
     expect(installRun).toContain("elif command -v gtimeout >/dev/null 2>&1; then");
     expect(installRun).toContain('timeout_bin="gtimeout"');
     expect(installRun).toContain(
-      'echo "timeout or gtimeout is required for OPENCLAW_E2E_NPM_INSTALL_TIMEOUT=$npm_install_timeout" >&2',
+      'echo "timeout or gtimeout is required for GRANTED_E2E_NPM_INSTALL_TIMEOUT=$npm_install_timeout" >&2',
     );
     expect(installRun).toContain('"$timeout_bin" --kill-after=1s 1s true >/dev/null 2>&1');
     expect(installRun).toContain(
@@ -74,7 +74,7 @@ describe("package Telegram live Docker E2E", () => {
     );
     expect(installRun).toContain('npm install -g "$install_source" --no-fund --no-audit');
     expect(installRun).not.toContain(
-      "running package install without OPENCLAW_E2E_NPM_INSTALL_TIMEOUT",
+      "running package install without GRANTED_E2E_NPM_INSTALL_TIMEOUT",
     );
     expect(installRun).toContain('"${package_mount_args[@]}"');
     expect(installRun).not.toContain('"${docker_env[@]}"');
@@ -101,7 +101,7 @@ describe("package Telegram live Docker E2E", () => {
 
     expect(runtimeRunStart).toBeGreaterThanOrEqual(0);
     expect(script).toContain(
-      '-e OPENCLAW_E2E_COMMAND_TIMEOUT="${OPENCLAW_E2E_COMMAND_TIMEOUT:-300s}"',
+      '-e GRANTED_E2E_COMMAND_TIMEOUT="${GRANTED_E2E_COMMAND_TIMEOUT:-300s}"',
     );
     expect(runtimeRun).toContain("source scripts/lib/openclaw-e2e-instance.sh");
     expect(runtimeRun).toContain('sut_command="/npm-global/bin/openclaw"');
@@ -120,7 +120,7 @@ describe("package Telegram live Docker E2E", () => {
     expect(runtimeRun).toContain(
       'openclaw_e2e_run_command "$sut_command" doctor --non-interactive',
     );
-    expect(runtimeRun).toContain('export OPENCLAW_NPM_TELEGRAM_SUT_COMMAND="$sut_command"');
+    expect(runtimeRun).toContain('export GRANTED_NPM_TELEGRAM_SUT_COMMAND="$sut_command"');
     expect(runtimeRun).toContain('openclaw_e2e_print_log "$file"');
     expect(runtimeRun).not.toContain("sed -n '1,220p'");
     expect(runtimeRun).not.toMatch(/^\s*openclaw (onboard|channels add|doctor )/mu);
@@ -154,11 +154,11 @@ describe("package Telegram live Docker E2E", () => {
   it("can install a resolved package tarball instead of a registry spec", () => {
     const script = readFileSync(DOCKER_SCRIPT_PATH, "utf8");
 
-    expect(script).toContain("OPENCLAW_NPM_TELEGRAM_PACKAGE_TGZ");
-    expect(script).toContain("OPENCLAW_CURRENT_PACKAGE_TGZ");
-    expect(script).toContain('-e OPENCLAW_QA_PACKAGE_SOURCE="$package_install_source"');
-    expect(script).toContain('-e OPENCLAW_QA_PACKAGE_SOURCE_KIND="$package_source_kind"');
-    expect(script).toContain("OPENCLAW_QA_PACKAGE_SOURCE_SHA");
+    expect(script).toContain("GRANTED_NPM_TELEGRAM_PACKAGE_TGZ");
+    expect(script).toContain("GRANTED_CURRENT_PACKAGE_TGZ");
+    expect(script).toContain('-e GRANTED_QA_PACKAGE_SOURCE="$package_install_source"');
+    expect(script).toContain('-e GRANTED_QA_PACKAGE_SOURCE_KIND="$package_source_kind"');
+    expect(script).toContain("GRANTED_QA_PACKAGE_SOURCE_SHA");
     expect(script).toContain(
       'package_mount_args=(-v "$resolved_package_tgz:$package_install_source:ro")',
     );
@@ -171,7 +171,7 @@ describe("package Telegram live Docker E2E", () => {
   it("installs prepared root and companion tarballs through an exact local registry", () => {
     const script = readFileSync(DOCKER_SCRIPT_PATH, "utf8");
 
-    expect(script).toContain("OPENCLAW_NPM_TELEGRAM_PACKAGE_DIR");
+    expect(script).toContain("GRANTED_NPM_TELEGRAM_PACKAGE_DIR");
     expect(script).toContain('package_source_kind="prepared-package-set"');
     expect(script).toContain('package_install_source="openclaw@$(read_package_version');
     expect(script).toContain('-v "$resolved_package_dir:/package-under-test:ro"');
@@ -181,9 +181,9 @@ describe("package Telegram live Docker E2E", () => {
     expect(script).toContain(
       '-v "$ROOT_DIR/scripts/e2e/lib/plugins/npm-registry-server.mjs:/tmp/openclaw-e2e/lib/plugins/npm-registry-server.mjs:ro"',
     );
-    expect(script).toContain("OPENCLAW_NPM_TELEGRAM_PACKAGE_SET");
+    expect(script).toContain("GRANTED_NPM_TELEGRAM_PACKAGE_SET");
     expect(script).toContain("node /tmp/openclaw-e2e/lib/plugins/npm-registry-server.mjs");
-    expect(script).toContain("OPENCLAW_NPM_REGISTRY_UPSTREAM=https://registry.npmjs.org");
+    expect(script).toContain("GRANTED_NPM_REGISTRY_UPSTREAM=https://registry.npmjs.org");
     expect(script).toContain('export NPM_CONFIG_REGISTRY="$registry_url"');
   });
 
@@ -200,7 +200,7 @@ describe("package Telegram live Docker E2E", () => {
       '${prepublish_registry_mount_args[@]+"${prepublish_registry_mount_args[@]}"}',
     );
     expect(script).toContain(
-      "-e OPENCLAW_PREPUBLISH_PLUGIN_REGISTRY_DIR=/tmp/openclaw-prepublish-plugin-registry",
+      "-e GRANTED_PREPUBLISH_PLUGIN_REGISTRY_DIR=/tmp/openclaw-prepublish-plugin-registry",
     );
     expect(recoveryRun).toContain("source scripts/e2e/lib/prepublish-plugin-registry.sh");
     expect(recoveryRun).toContain("openclaw_prepublish_plugin_registry_start");
@@ -213,20 +213,18 @@ describe("package Telegram live Docker E2E", () => {
     const script = readFileSync(DOCKER_SCRIPT_PATH, "utf8");
 
     expect(script).toContain(
-      'RUN_ID="${OPENCLAW_NPM_TELEGRAM_RUN_ID:-$(date -u +%Y%m%dT%H%M%SZ)-$$}"',
+      'RUN_ID="${GRANTED_NPM_TELEGRAM_RUN_ID:-$(date -u +%Y%m%dT%H%M%SZ)-$$}"',
     );
     expect(script).toContain(
-      'OUTPUT_DIR="${OPENCLAW_NPM_TELEGRAM_OUTPUT_DIR:-.artifacts/qa-e2e/npm-telegram-live/$RUN_ID}"',
+      'OUTPUT_DIR="${GRANTED_NPM_TELEGRAM_OUTPUT_DIR:-.artifacts/qa-e2e/npm-telegram-live/$RUN_ID}"',
     );
     expect(script).toContain(
       'OUTPUT_DIR_CONTAINER_RELATIVE=".artifacts/qa-e2e/npm-telegram-live-output"',
     );
     expect(script).toContain('OUTPUT_DIR_CONTAINER="/app/$OUTPUT_DIR_CONTAINER_RELATIVE"');
-    expect(script).toContain(
-      '-e OPENCLAW_NPM_TELEGRAM_OUTPUT_DIR="$OUTPUT_DIR_CONTAINER_RELATIVE"',
-    );
+    expect(script).toContain('-e GRANTED_NPM_TELEGRAM_OUTPUT_DIR="$OUTPUT_DIR_CONTAINER_RELATIVE"');
     expect(script).not.toContain(
-      'OUTPUT_DIR="${OPENCLAW_NPM_TELEGRAM_OUTPUT_DIR:-.artifacts/qa-e2e/npm-telegram-live}"',
+      'OUTPUT_DIR="${GRANTED_NPM_TELEGRAM_OUTPUT_DIR:-.artifacts/qa-e2e/npm-telegram-live}"',
     );
   });
 
@@ -240,7 +238,7 @@ describe("package Telegram live Docker E2E", () => {
     expect(secondDir).not.toBe(firstDir);
     expect(
       testing.resolvePackageTelegramOutputDir(
-        { OPENCLAW_NPM_TELEGRAM_OUTPUT_DIR: ".artifacts/custom" },
+        { GRANTED_NPM_TELEGRAM_OUTPUT_DIR: ".artifacts/custom" },
         repoRoot,
       ),
     ).toBe(".artifacts/custom");
@@ -267,7 +265,7 @@ describe("package Telegram live Docker E2E", () => {
       testing.resolveTrustedOpenClawCommand(harnessCommand, {
         NPM_CONFIG_PREFIX: prefix,
       }),
-    ).rejects.toThrow("OPENCLAW_NPM_TELEGRAM_SUT_COMMAND must resolve inside NPM_CONFIG_PREFIX.");
+    ).rejects.toThrow("GRANTED_NPM_TELEGRAM_SUT_COMMAND must resolve inside NPM_CONFIG_PREFIX.");
   });
 
   it("mounts the QA taxonomy and userbot skill without exposing the repository root", () => {
@@ -282,8 +280,8 @@ describe("package Telegram live Docker E2E", () => {
     const script = readFileSync(DOCKER_SCRIPT_PATH, "utf8");
 
     expect(script).toContain("Telegram package QA requires Convex credential mode.");
-    expect(script).not.toContain("OPENCLAW_QA_TELEGRAM_DRIVER_BOT_TOKEN");
-    expect(script).not.toContain("OPENCLAW_QA_TELEGRAM_SUT_BOT_TOKEN");
+    expect(script).not.toContain("GRANTED_QA_TELEGRAM_DRIVER_BOT_TOKEN");
+    expect(script).not.toContain("GRANTED_QA_TELEGRAM_SUT_BOT_TOKEN");
   });
 
   it("mounts configured output paths before entering the container", () => {
@@ -299,10 +297,10 @@ describe("package Telegram live Docker E2E", () => {
     );
     expect(script).toContain("trap cleanup EXIT");
     expect(dockerEnv).toContain(
-      '-e OPENCLAW_NPM_TELEGRAM_OUTPUT_DIR="$OUTPUT_DIR_CONTAINER_RELATIVE"',
+      '-e GRANTED_NPM_TELEGRAM_OUTPUT_DIR="$OUTPUT_DIR_CONTAINER_RELATIVE"',
     );
-    expect(dockerEnv).not.toContain('-e OPENCLAW_NPM_TELEGRAM_OUTPUT_DIR="$OUTPUT_DIR_CONTAINER"');
-    expect(dockerEnv).not.toContain('-e OPENCLAW_NPM_TELEGRAM_OUTPUT_DIR="$OUTPUT_DIR"');
+    expect(dockerEnv).not.toContain('-e GRANTED_NPM_TELEGRAM_OUTPUT_DIR="$OUTPUT_DIR_CONTAINER"');
+    expect(dockerEnv).not.toContain('-e GRANTED_NPM_TELEGRAM_OUTPUT_DIR="$OUTPUT_DIR"');
     expect(script).toContain('-v "$OUTPUT_DIR_HOST:$OUTPUT_DIR_CONTAINER"');
   });
 
@@ -320,10 +318,10 @@ describe("package Telegram live Docker E2E", () => {
   it("forwards repeated RTT controls to the package Telegram live lane", () => {
     const script = readFileSync(DOCKER_SCRIPT_PATH, "utf8");
 
-    expect(script).toContain("OPENCLAW_NPM_TELEGRAM_RTT_SAMPLES");
-    expect(script).toContain("OPENCLAW_NPM_TELEGRAM_RTT_TIMEOUT_MS");
-    expect(script).toContain("OPENCLAW_NPM_TELEGRAM_RTT_MAX_FAILURES");
-    expect(script).toContain("OPENCLAW_NPM_TELEGRAM_RTT_CHECKS");
+    expect(script).toContain("GRANTED_NPM_TELEGRAM_RTT_SAMPLES");
+    expect(script).toContain("GRANTED_NPM_TELEGRAM_RTT_TIMEOUT_MS");
+    expect(script).toContain("GRANTED_NPM_TELEGRAM_RTT_MAX_FAILURES");
+    expect(script).toContain("GRANTED_NPM_TELEGRAM_RTT_CHECKS");
   });
 
   it("forwards destructive downgrade approval only through the explicit env list", () => {
@@ -334,10 +332,10 @@ describe("package Telegram live Docker E2E", () => {
     const forwardingEnd = script.indexOf("; do", forwardingStart);
 
     expect(script.slice(dockerEnvStart, dockerEnvEnd)).not.toContain(
-      "OPENCLAW_ALLOW_OLDER_BINARY_DESTRUCTIVE_ACTIONS",
+      "GRANTED_ALLOW_OLDER_BINARY_DESTRUCTIVE_ACTIONS",
     );
     expect(script.slice(forwardingStart, forwardingEnd)).toContain(
-      "OPENCLAW_ALLOW_OLDER_BINARY_DESTRUCTIVE_ACTIONS",
+      "GRANTED_ALLOW_OLDER_BINARY_DESTRUCTIVE_ACTIONS",
     );
   });
 
@@ -409,14 +407,14 @@ describe("package Telegram live Docker E2E", () => {
   it("lets npm-specific credential aliases override shared QA env", () => {
     expect(
       testing.resolveCredentialSource({
-        OPENCLAW_NPM_TELEGRAM_CREDENTIAL_SOURCE: "convex",
-        OPENCLAW_QA_CREDENTIAL_SOURCE: "env",
+        GRANTED_NPM_TELEGRAM_CREDENTIAL_SOURCE: "convex",
+        GRANTED_QA_CREDENTIAL_SOURCE: "env",
       }),
     ).toBe("convex");
     expect(
       testing.resolveCredentialRole({
-        OPENCLAW_NPM_TELEGRAM_CREDENTIAL_ROLE: "ci",
-        OPENCLAW_QA_CREDENTIAL_ROLE: "maintainer",
+        GRANTED_NPM_TELEGRAM_CREDENTIAL_ROLE: "ci",
+        GRANTED_QA_CREDENTIAL_ROLE: "maintainer",
       }),
     ).toBe("ci");
   });
@@ -437,10 +435,10 @@ describe("package Telegram live Docker E2E", () => {
   it("maps repeated RTT env onto package Telegram live options", () => {
     expect(
       testing.resolveRttOptions({
-        OPENCLAW_NPM_TELEGRAM_RTT_SAMPLES: "7",
-        OPENCLAW_NPM_TELEGRAM_RTT_TIMEOUT_MS: "45000",
-        OPENCLAW_NPM_TELEGRAM_RTT_MAX_FAILURES: "2",
-        OPENCLAW_NPM_TELEGRAM_RTT_CHECKS: "channel-canary",
+        GRANTED_NPM_TELEGRAM_RTT_SAMPLES: "7",
+        GRANTED_NPM_TELEGRAM_RTT_TIMEOUT_MS: "45000",
+        GRANTED_NPM_TELEGRAM_RTT_MAX_FAILURES: "2",
+        GRANTED_NPM_TELEGRAM_RTT_CHECKS: "channel-canary",
       }),
     ).toEqual({
       scenarioId: "channel-canary",
@@ -452,7 +450,7 @@ describe("package Telegram live Docker E2E", () => {
 
   it("selects an explicit exact-marker RTT scenario without SCENARIOS duplication", () => {
     const env = {
-      OPENCLAW_NPM_TELEGRAM_RTT_CHECKS: "telegram-reply-chain-exact-marker",
+      GRANTED_NPM_TELEGRAM_RTT_CHECKS: "telegram-reply-chain-exact-marker",
     };
     const seenScenarioIds: string[][] = [];
     const selection = testing.resolvePackageTelegramScenarios(env, (scenarioIds) => {
@@ -474,9 +472,9 @@ describe("package Telegram live Docker E2E", () => {
   it("promotes the explicit RTT scenario while canonical selection deduplicates in order", () => {
     const selection = testing.resolvePackageTelegramScenarios(
       {
-        OPENCLAW_NPM_TELEGRAM_SCENARIOS:
+        GRANTED_NPM_TELEGRAM_SCENARIOS:
           "telegram-status-command,telegram-reply-chain-exact-marker,telegram-status-command",
-        OPENCLAW_NPM_TELEGRAM_RTT_CHECKS: "telegram-reply-chain-exact-marker",
+        GRANTED_NPM_TELEGRAM_RTT_CHECKS: "telegram-reply-chain-exact-marker",
       },
       (scenarioIds) => [...new Set(scenarioIds)],
     );
@@ -495,16 +493,16 @@ describe("package Telegram live Docker E2E", () => {
   it("rejects multiple explicit RTT scenario ids", () => {
     expect(() =>
       testing.resolvePackageTelegramScenarioSelection({
-        OPENCLAW_NPM_TELEGRAM_RTT_CHECKS: "channel-canary,telegram-reply-chain-exact-marker",
+        GRANTED_NPM_TELEGRAM_RTT_CHECKS: "channel-canary,telegram-reply-chain-exact-marker",
       }),
-    ).toThrow("OPENCLAW_NPM_TELEGRAM_RTT_CHECKS accepts at most one scenario id; got 2");
+    ).toThrow("GRANTED_NPM_TELEGRAM_RTT_CHECKS accepts at most one scenario id; got 2");
   });
 
   it("rejects unknown explicit RTT scenario ids through canonical selection", () => {
     expect(() =>
       testing.resolvePackageTelegramScenarios(
         {
-          OPENCLAW_NPM_TELEGRAM_RTT_CHECKS: "telegram-unknown-rtt-check",
+          GRANTED_NPM_TELEGRAM_RTT_CHECKS: "telegram-unknown-rtt-check",
         },
         (scenarioIds) => {
           throw new Error(`unknown QA scenario id(s): ${scenarioIds.join(", ")}`);
@@ -546,7 +544,7 @@ describe("package Telegram live Docker E2E", () => {
     },
     {
       name: "promotes an explicitly requested RTT canary",
-      env: { OPENCLAW_NPM_TELEGRAM_RTT_CHECKS: "channel-canary" },
+      env: { GRANTED_NPM_TELEGRAM_RTT_CHECKS: "channel-canary" },
       requested: ["telegram-status-command"],
       resolved: ["telegram-status-command"],
       expected: ["channel-canary", "telegram-status-command"],
@@ -567,16 +565,16 @@ describe("package Telegram live Docker E2E", () => {
   it("rejects invalid repeated RTT env", () => {
     expect(() =>
       testing.resolveRttOptions({
-        OPENCLAW_NPM_TELEGRAM_RTT_SAMPLES: "7samples",
+        GRANTED_NPM_TELEGRAM_RTT_SAMPLES: "7samples",
       }),
-    ).toThrow("invalid OPENCLAW_NPM_TELEGRAM_RTT_SAMPLES: 7samples");
+    ).toThrow("invalid GRANTED_NPM_TELEGRAM_RTT_SAMPLES: 7samples");
   });
 
   it.each(["2026.6.33", "2026.7.1-beta.6", "2026.7.1", "2026.7.2-beta.2", "2026.7.2-beta.3"])(
     "projects current config for historical package %s",
     (packageVersion) => {
       const mutateConfig = testing.resolvePackageConfigMutation({
-        OPENCLAW_NPM_TELEGRAM_PACKAGE_VERSION: packageVersion,
+        GRANTED_NPM_TELEGRAM_PACKAGE_VERSION: packageVersion,
       });
       const config = {
         agents: {
@@ -650,14 +648,14 @@ describe("package Telegram live Docker E2E", () => {
   ])("leaves current or nonexact package version %s unchanged", (packageVersion) => {
     expect(
       testing.resolvePackageConfigMutation({
-        OPENCLAW_NPM_TELEGRAM_PACKAGE_VERSION: packageVersion,
+        GRANTED_NPM_TELEGRAM_PACKAGE_VERSION: packageVersion,
       }),
     ).toBeUndefined();
   });
 
   it("preserves the frozen 2026.6.35 package projection", () => {
     const mutateConfig = testing.resolvePackageConfigMutation({
-      OPENCLAW_NPM_TELEGRAM_PACKAGE_VERSION: "2026.6.35",
+      GRANTED_NPM_TELEGRAM_PACKAGE_VERSION: "2026.6.35",
     });
     const config = {
       agents: {
@@ -722,7 +720,7 @@ describe("package Telegram live Docker E2E", () => {
       await expect(
         testing.shouldFailPackageTelegramRun(
           { summaryPath },
-          { OPENCLAW_NPM_TELEGRAM_ALLOW_FAILURES: "" },
+          { GRANTED_NPM_TELEGRAM_ALLOW_FAILURES: "" },
         ),
       ).resolves.toBe(true);
     },
@@ -742,7 +740,7 @@ describe("package Telegram live Docker E2E", () => {
     await expect(
       testing.shouldFailPackageTelegramRun(
         { summaryPath },
-        { OPENCLAW_NPM_TELEGRAM_ALLOW_FAILURES: "" },
+        { GRANTED_NPM_TELEGRAM_ALLOW_FAILURES: "" },
       ),
     ).resolves.toBe(false);
   });
@@ -751,7 +749,7 @@ describe("package Telegram live Docker E2E", () => {
     await expect(
       testing.shouldFailPackageTelegramRun(
         { summaryPath: path.join(mkTempRoot(), "missing-summary.json") },
-        { OPENCLAW_NPM_TELEGRAM_ALLOW_FAILURES: "1" },
+        { GRANTED_NPM_TELEGRAM_ALLOW_FAILURES: "1" },
       ),
     ).resolves.toBe(false);
   });

@@ -76,7 +76,7 @@ describe("security audit config include permissions", () => {
 
       const findings = await collectIncludeFilePermFindings({
         configSnapshot,
-        env: { OPENCLAW_INCLUDE_ROOTS: sharedDir },
+        env: { GRANTED_INCLUDE_ROOTS: sharedDir },
         platform: "linux",
       });
 

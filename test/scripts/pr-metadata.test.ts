@@ -143,7 +143,7 @@ function readPrMetadata(
         FAKE_PR_VIEW_FAILURE_TARGET: options.prViewFailureTarget ?? "all",
         FAKE_REJECT_REVIEW_REQUESTS: options.rejectReviewRequests ? "1" : "0",
         FAKE_REST_FILE_COUNT: options.restFileCount ?? "101",
-        OPENCLAW_GH_BIN: "",
+        GRANTED_GH_BIN: "",
         PATH: `${fakeGhDir}:${process.env.PATH}`,
       },
       encoding: "utf8",

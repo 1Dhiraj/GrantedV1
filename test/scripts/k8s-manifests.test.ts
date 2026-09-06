@@ -97,9 +97,9 @@ describe("k8s manifests", () => {
 
     expect(gateway.command).toEqual(["node", "/app/dist/index.js", "gateway", "run"]);
     expect(findNamed(env, "HOME")).toMatchObject({ value: "/home/node" });
-    expect(findNamed(env, "OPENCLAW_CONFIG_DIR")).toMatchObject({ value: "/home/node/.openclaw" });
-    expect(findNamed(env, "OPENCLAW_GATEWAY_TOKEN")).toMatchObject({
-      valueFrom: { secretKeyRef: { key: "OPENCLAW_GATEWAY_TOKEN", name: "openclaw-secrets" } },
+    expect(findNamed(env, "GRANTED_CONFIG_DIR")).toMatchObject({ value: "/home/node/.openclaw" });
+    expect(findNamed(env, "GRANTED_GATEWAY_TOKEN")).toMatchObject({
+      valueFrom: { secretKeyRef: { key: "GRANTED_GATEWAY_TOKEN", name: "openclaw-secrets" } },
     });
     expect(findNamed(volumes, "openclaw-home")).toMatchObject({
       persistentVolumeClaim: { claimName: "openclaw-home-pvc" },

@@ -562,7 +562,7 @@ describe("createSessionVisibilityGuard", () => {
   it("persists unknown ownership evidence with an opaque target through the local writer", async () => {
     const now = Date.now();
     const stateDir = tempDirs.make("openclaw-session-access-audit-");
-    const database = { env: { OPENCLAW_STATE_DIR: stateDir } };
+    const database = { env: { GRANTED_STATE_DIR: stateDir } };
     const stopWriter = startAgentLocalAuditWriter({ stateDir });
     if (!stopWriter) {
       throw new Error("expected an isolated direct-local audit writer");

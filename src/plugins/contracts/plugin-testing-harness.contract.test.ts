@@ -20,7 +20,7 @@ describePluginRegistrationContract(pluginRegistrationContractCases.brave);
 describe("plugin testing harness contracts", () => {
   it("executes declared tools and reports missing tool contracts", async () => {
     const previousHome = process.env.HOME;
-    const previousStateDir = process.env.OPENCLAW_STATE_DIR;
+    const previousStateDir = process.env.GRANTED_STATE_DIR;
 
     await withTempHome(async (home) => {
       const stateDir = path.join(home, ".openclaw");
@@ -28,7 +28,7 @@ describe("plugin testing harness contracts", () => {
         fs.stat(path.join(stateDir, "agents", "main", "sessions")),
       ).resolves.toBeDefined();
       expect(process.env.HOME).toBe(home);
-      expect(process.env.OPENCLAW_STATE_DIR).toBe(stateDir);
+      expect(process.env.GRANTED_STATE_DIR).toBe(stateDir);
 
       const { config, registry } = createPluginRegistryFixture({
         plugins: {
@@ -112,6 +112,6 @@ describe("plugin testing harness contracts", () => {
     });
 
     expect(process.env.HOME).toBe(previousHome);
-    expect(process.env.OPENCLAW_STATE_DIR).toBe(previousStateDir);
+    expect(process.env.GRANTED_STATE_DIR).toBe(previousStateDir);
   });
 });

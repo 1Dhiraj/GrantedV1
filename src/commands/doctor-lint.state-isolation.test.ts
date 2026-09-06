@@ -31,8 +31,8 @@ const runtime = {
 
 const originalEnv = {
   HOME: process.env.HOME,
-  OPENCLAW_CONFIG_PATH: process.env.OPENCLAW_CONFIG_PATH,
-  OPENCLAW_STATE_DIR: process.env.OPENCLAW_STATE_DIR,
+  GRANTED_CONFIG_PATH: process.env.GRANTED_CONFIG_PATH,
+  GRANTED_STATE_DIR: process.env.GRANTED_STATE_DIR,
 };
 
 describe("doctor lint state isolation", () => {
@@ -53,8 +53,8 @@ describe("doctor lint state isolation", () => {
     const serverUrl = "https://mcp.example.test/rpc";
     const identity = operatorMcpOAuthIdentity("oauth-proof", serverUrl);
     process.env.HOME = stateDir;
-    process.env.OPENCLAW_CONFIG_PATH = configPath;
-    process.env.OPENCLAW_STATE_DIR = stateDir;
+    process.env.GRANTED_CONFIG_PATH = configPath;
+    process.env.GRANTED_STATE_DIR = stateDir;
     fs.mkdirSync(stateDir, { recursive: true });
     fs.writeFileSync(configPath, "{}\n");
     await createMcpOAuthClientProvider({ identity }).saveTokens({
@@ -124,14 +124,14 @@ function restoreEnv(values: typeof originalEnv): void {
   } else {
     process.env.HOME = values.HOME;
   }
-  if (values.OPENCLAW_CONFIG_PATH === undefined) {
-    delete process.env.OPENCLAW_CONFIG_PATH;
+  if (values.GRANTED_CONFIG_PATH === undefined) {
+    delete process.env.GRANTED_CONFIG_PATH;
   } else {
-    process.env.OPENCLAW_CONFIG_PATH = values.OPENCLAW_CONFIG_PATH;
+    process.env.GRANTED_CONFIG_PATH = values.GRANTED_CONFIG_PATH;
   }
-  if (values.OPENCLAW_STATE_DIR === undefined) {
-    delete process.env.OPENCLAW_STATE_DIR;
+  if (values.GRANTED_STATE_DIR === undefined) {
+    delete process.env.GRANTED_STATE_DIR;
   } else {
-    process.env.OPENCLAW_STATE_DIR = values.OPENCLAW_STATE_DIR;
+    process.env.GRANTED_STATE_DIR = values.GRANTED_STATE_DIR;
   }
 }

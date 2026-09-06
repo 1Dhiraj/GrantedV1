@@ -93,11 +93,11 @@ describe("Gateway dreaming session restart cleanup", () => {
     const instance = await createOpenClawTestInstance({
       name: "dreaming-startup-cleanup",
       config,
-      env: { OPENCLAW_TEST_MINIMAL_GATEWAY: undefined },
+      env: { GRANTED_TEST_MINIMAL_GATEWAY: undefined },
     });
     instances.push(instance);
     instance.state.applyEnv();
-    expect(instance.env.OPENCLAW_SKIP_CRON).toBe("1");
+    expect(instance.env.GRANTED_SKIP_CRON).toBe("1");
 
     const sentinel = await seedSession({
       agentId: "main",

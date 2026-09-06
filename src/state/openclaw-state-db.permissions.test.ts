@@ -73,7 +73,7 @@ describe("state database permission hardening without chmod support", () => {
     const stateDir = tempDirs.make("openclaw-state-chmod-");
     chmodFailHook.error = enotsupError();
 
-    const database = openOpenClawStateDatabase({ env: { OPENCLAW_STATE_DIR: stateDir } });
+    const database = openOpenClawStateDatabase({ env: { GRANTED_STATE_DIR: stateDir } });
 
     expect(database.db.isOpen).toBe(true);
     // Hardening ran and failed; the failure must stay non-fatal.
@@ -86,29 +86,29 @@ describe("state database permission hardening without chmod support", () => {
     chmodFailHook.error = chmodError("EPERM");
     chmodFailHook.failProbe = false;
 
-    expect(() => openOpenClawStateDatabase({ env: { OPENCLAW_STATE_DIR: stateDir } })).toThrow(
+    expect(() => openOpenClawStateDatabase({ env: { GRANTED_STATE_DIR: stateDir } })).toThrow(
       /EPERM/,
     );
   });
 
   it("opens when EPERM leaves existing permissions restrictive", () => {
     const stateDir = tempDirs.make("openclaw-state-chmod-");
-    openOpenClawStateDatabase({ env: { OPENCLAW_STATE_DIR: stateDir } });
+    openOpenClawStateDatabase({ env: { GRANTED_STATE_DIR: stateDir } });
     closeOpenClawStateDatabaseForTest();
     chmodFailHook.error = chmodError("EPERM");
 
-    const database = openOpenClawStateDatabase({ env: { OPENCLAW_STATE_DIR: stateDir } });
+    const database = openOpenClawStateDatabase({ env: { GRANTED_STATE_DIR: stateDir } });
 
     expect(database.db.isOpen).toBe(true);
   });
 
   it("opens when EROFS leaves existing permissions restrictive", () => {
     const stateDir = tempDirs.make("openclaw-state-chmod-");
-    openOpenClawStateDatabase({ env: { OPENCLAW_STATE_DIR: stateDir } });
+    openOpenClawStateDatabase({ env: { GRANTED_STATE_DIR: stateDir } });
     closeOpenClawStateDatabaseForTest();
     chmodFailHook.error = chmodError("EROFS");
 
-    const database = openOpenClawStateDatabase({ env: { OPENCLAW_STATE_DIR: stateDir } });
+    const database = openOpenClawStateDatabase({ env: { GRANTED_STATE_DIR: stateDir } });
 
     expect(database.db.isOpen).toBe(true);
   });
@@ -118,7 +118,7 @@ describe("state database permission hardening without chmod support", () => {
     fs.chmodSync(stateDir, 0o755);
     chmodFailHook.error = chmodError("EROFS");
 
-    expect(() => openOpenClawStateDatabase({ env: { OPENCLAW_STATE_DIR: stateDir } })).toThrow(
+    expect(() => openOpenClawStateDatabase({ env: { GRANTED_STATE_DIR: stateDir } })).toThrow(
       /EROFS/,
     );
   });
@@ -128,7 +128,7 @@ describe("state database permission hardening without chmod support", () => {
     fs.chmodSync(stateDir, 0o755);
     chmodFailHook.error = chmodError("EPERM");
 
-    const database = openOpenClawStateDatabase({ env: { OPENCLAW_STATE_DIR: stateDir } });
+    const database = openOpenClawStateDatabase({ env: { GRANTED_STATE_DIR: stateDir } });
 
     expect(database.db.isOpen).toBe(true);
   });
@@ -139,7 +139,7 @@ describe("state database permission hardening without chmod support", () => {
     const stateDir = tempDirs.make("openclaw-state-chmod-");
     chmodFailHook.error = chmodError("EACCES");
 
-    expect(() => openOpenClawStateDatabase({ env: { OPENCLAW_STATE_DIR: stateDir } })).toThrow(
+    expect(() => openOpenClawStateDatabase({ env: { GRANTED_STATE_DIR: stateDir } })).toThrow(
       /EACCES/,
     );
   });
@@ -148,7 +148,7 @@ describe("state database permission hardening without chmod support", () => {
     "opens when the %s sidecar disappears before chmod",
     (suffix) => {
       const stateDir = tempDirs.make("openclaw-state-chmod-");
-      const options = { env: { OPENCLAW_STATE_DIR: stateDir } };
+      const options = { env: { GRANTED_STATE_DIR: stateDir } };
       openOpenClawStateDatabase(options);
       closeOpenClawStateDatabaseForTest();
       const sidecarPath = join(stateDir, "state", `openclaw.sqlite${suffix}`);
@@ -168,7 +168,7 @@ describe("state database permission hardening without chmod support", () => {
     // it must stay fatal: swallowing that ENOENT would fall through to a SQLite
     // open that creates a fresh empty database instead of surfacing the loss.
     const stateDir = tempDirs.make("openclaw-state-chmod-");
-    const options = { env: { OPENCLAW_STATE_DIR: stateDir } };
+    const options = { env: { GRANTED_STATE_DIR: stateDir } };
     openOpenClawStateDatabase(options);
     closeOpenClawStateDatabaseForTest();
     chmodFailHook.removeTargetSuffix = "openclaw.sqlite";
@@ -180,20 +180,20 @@ describe("state database permission hardening without chmod support", () => {
 
   it("repairs the schema when chmodSync throws ENOTSUP", () => {
     const stateDir = tempDirs.make("openclaw-state-chmod-");
-    openOpenClawStateDatabase({ env: { OPENCLAW_STATE_DIR: stateDir } });
+    openOpenClawStateDatabase({ env: { GRANTED_STATE_DIR: stateDir } });
     closeOpenClawStateDatabaseForTest();
 
     chmodFailHook.error = enotsupError();
 
     expect(() =>
-      repairOpenClawStateDatabaseSchema({ env: { OPENCLAW_STATE_DIR: stateDir } }),
+      repairOpenClawStateDatabaseSchema({ env: { GRANTED_STATE_DIR: stateDir } }),
     ).not.toThrow();
   });
 
   it("commits write transactions when chmodSync throws ENOTSUP", () => {
     const stateDir = tempDirs.make("openclaw-state-chmod-");
     chmodFailHook.error = enotsupError();
-    const options = { env: { OPENCLAW_STATE_DIR: stateDir } };
+    const options = { env: { GRANTED_STATE_DIR: stateDir } };
 
     const result = runOpenClawStateWriteTransaction((database) => {
       expect(database.db.isOpen).toBe(true);

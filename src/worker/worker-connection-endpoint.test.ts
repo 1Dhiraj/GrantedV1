@@ -124,7 +124,7 @@ describe("worker connection endpoint", () => {
     };
     expect(() => resolveWorkerConnectionTarget(endpoint, {})).toThrow("SECURITY ERROR");
     expect(() =>
-      resolveWorkerConnectionTarget(endpoint, { OPENCLAW_ALLOW_INSECURE_PRIVATE_WS: "1" }),
+      resolveWorkerConnectionTarget(endpoint, { GRANTED_ALLOW_INSECURE_PRIVATE_WS: "1" }),
     ).not.toThrow();
   });
 

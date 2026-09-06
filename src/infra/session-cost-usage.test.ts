@@ -91,7 +91,7 @@ async function refreshSessionCostUsageForTest(sessionFile: string): Promise<void
 describe("session cost usage", () => {
   const suiteRootTracker = createSuiteTempRootTracker({ prefix: "openclaw-session-cost-" });
   const withStateDir = async <T>(stateDir: string, fn: () => Promise<T>): Promise<T> =>
-    await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, fn);
+    await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, fn);
   const makeSessionCostRoot = async (prefix: string): Promise<string> =>
     await suiteRootTracker.make(prefix);
   const transcriptText = (sessionId: string, entry: unknown): string =>

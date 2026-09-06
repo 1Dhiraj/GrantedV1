@@ -1155,7 +1155,7 @@ function validateClawHubPluginPackage(params: {
     }
     if (minGatewayVersionCheck.kind === "unknown_host_version") {
       return buildClawHubInstallFailure(
-        `Plugin "${pkg.name}" requires OpenClaw >=${minGatewayVersionCheck.requirement.minimumLabel}, but this host version could not be determined. Re-run from a released build or set OPENCLAW_VERSION and retry.`,
+        `Plugin "${pkg.name}" requires OpenClaw >=${minGatewayVersionCheck.requirement.minimumLabel}, but this host version could not be determined. Re-run from a released build or set GRANTED_VERSION and retry.`,
         CLAWHUB_INSTALL_ERROR_CODE.UNKNOWN_GATEWAY_VERSION,
       );
     }

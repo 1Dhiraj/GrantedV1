@@ -349,9 +349,9 @@ describe("persisted implicit-main roster migration", () => {
       const home = path.resolve("workspace-migration-home");
       const env = {
         HOME: home,
-        ...(kind === "state" ? { OPENCLAW_STATE_DIR: path.join(home, "state") } : {}),
-        ...(kind === "profile" ? { OPENCLAW_PROFILE: "work" } : {}),
-        ...(kind === "workspace" ? { OPENCLAW_WORKSPACE_DIR: path.join(home, "selected") } : {}),
+        ...(kind === "state" ? { GRANTED_STATE_DIR: path.join(home, "state") } : {}),
+        ...(kind === "profile" ? { GRANTED_PROFILE: "work" } : {}),
+        ...(kind === "workspace" ? { GRANTED_WORKSPACE_DIR: path.join(home, "selected") } : {}),
       };
       const expected =
         kind === "state"

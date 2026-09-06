@@ -34,14 +34,14 @@ const ANTHROPIC_CONTEXT_1M_BETA_LEGACY = "context-1m-2025-08-07";
 const ANTHROPIC_COMPACTION_BETA = "compact-2026-01-12";
 const ANTHROPIC_FAST_MODE_BETA = "fast-mode-2026-02-01";
 const ANTHROPIC_FAST_MODE_COST_MULTIPLIER = 2;
-const OPENCLAW_DEFAULT_ANTHROPIC_BETAS = [
+const GRANTED_DEFAULT_ANTHROPIC_BETAS = [
   "fine-grained-tool-streaming-2025-05-14",
   "interleaved-thinking-2025-05-14",
 ] as const;
-const OPENCLAW_OAUTH_ANTHROPIC_BETAS = [
+const GRANTED_OAUTH_ANTHROPIC_BETAS = [
   "claude-code-20250219",
   "oauth-2025-04-20",
-  ...OPENCLAW_DEFAULT_ANTHROPIC_BETAS,
+  ...GRANTED_DEFAULT_ANTHROPIC_BETAS,
 ] as const;
 
 type AnthropicServiceTier = "auto" | "standard_only";
@@ -166,8 +166,8 @@ export function createAnthropicBetaHeadersWrapper(
     const effectiveBetas = betas.filter((beta) => beta !== ANTHROPIC_CONTEXT_1M_BETA_LEGACY);
 
     const openClawBetas = isOauth
-      ? (OPENCLAW_OAUTH_ANTHROPIC_BETAS as readonly string[])
-      : (OPENCLAW_DEFAULT_ANTHROPIC_BETAS as readonly string[]);
+      ? (GRANTED_OAUTH_ANTHROPIC_BETAS as readonly string[])
+      : (GRANTED_DEFAULT_ANTHROPIC_BETAS as readonly string[]);
     const allBetas = [...new Set([...openClawBetas, ...effectiveBetas])];
     return underlying(model, context, {
       ...options,

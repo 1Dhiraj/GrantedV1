@@ -1416,7 +1416,7 @@ describe("session accessor seam", () => {
       agentId: "main",
       env: {
         ...process.env,
-        OPENCLAW_STATE_DIR: stateDir,
+        GRANTED_STATE_DIR: stateDir,
       },
       sessionId: "default-store-turn-session",
       sessionKey: "agent:main:default-store-turn",
@@ -1499,7 +1499,7 @@ describe("session accessor seam", () => {
     const expectedStorePath = path.join(stateDir, "agents", "main", "sessions", "sessions.json");
     const scope = {
       agentId: "main",
-      env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+      env: { ...process.env, GRANTED_STATE_DIR: stateDir },
       sessionId: "old-default-rotate",
       sessionKey: "agent:main:default-rotate",
     };
@@ -1580,7 +1580,7 @@ describe("session accessor seam", () => {
   it("does not create database state for rejected memory-only transcript turns", async () => {
     for (const source of ["sessionStore", "sessionEntry"] as const) {
       const stateDir = path.join(tempDir, `rejected-memory-only-${source}`);
-      const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+      const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
       const agentId = "main";
       const sessionKey = `agent:main:rejected-memory-only-${source}`;
       const sessionId = `rejected-memory-only-${source}`;

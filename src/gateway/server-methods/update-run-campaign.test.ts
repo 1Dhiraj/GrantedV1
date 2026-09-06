@@ -339,7 +339,7 @@ describe("update.run campaign ownership", () => {
     detectRespawnSupervisorMock.mockReturnValueOnce("launchd");
     mockPackageInstallSurface("global");
 
-    await withEnvAsync({ OPENCLAW_LAUNCHD_LABEL: "ai.openclaw.gateway" }, invokeUpdateRun);
+    await withEnvAsync({ GRANTED_LAUNCHD_LABEL: "ai.openclaw.gateway" }, invokeUpdateRun);
 
     expect(startManagedServiceUpdateHandoffMock).toHaveBeenCalledWith(
       expect.objectContaining({ channel: "beta", tag: "2.0.0" }),
@@ -351,7 +351,7 @@ describe("update.run campaign ownership", () => {
     detectRespawnSupervisorMock.mockReturnValueOnce("launchd");
     mockPackageInstallSurface("global");
 
-    await withEnvAsync({ OPENCLAW_LAUNCHD_LABEL: "ai.openclaw.gateway" }, invokeUpdateRun);
+    await withEnvAsync({ GRANTED_LAUNCHD_LABEL: "ai.openclaw.gateway" }, invokeUpdateRun);
 
     expect(startManagedServiceUpdateHandoffMock).toHaveBeenCalledWith(
       expect.objectContaining({ channel: "extended-stable" }),
@@ -443,7 +443,7 @@ describe("update.run campaign ownership", () => {
     setDevCampaignSchedule();
     detectRespawnSupervisorMock.mockReturnValueOnce("launchd");
 
-    await withEnvAsync({ OPENCLAW_LAUNCHD_LABEL: "ai.openclaw.gateway" }, invokeUpdateRun);
+    await withEnvAsync({ GRANTED_LAUNCHD_LABEL: "ai.openclaw.gateway" }, invokeUpdateRun);
 
     expect(startManagedServiceUpdateHandoffMock).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -646,7 +646,7 @@ describe("update.run campaign ownership", () => {
     adoptCampaignMock.mockReturnValueOnce({ status: "absent" });
     detectRespawnSupervisorMock.mockReturnValueOnce("launchd");
 
-    await withEnvAsync({ OPENCLAW_LAUNCHD_LABEL: "ai.openclaw.gateway" }, invokeUpdateRun);
+    await withEnvAsync({ GRANTED_LAUNCHD_LABEL: "ai.openclaw.gateway" }, invokeUpdateRun);
 
     expect(startManagedServiceUpdateHandoffMock).toHaveBeenCalledWith(
       expect.not.objectContaining({ env: expect.anything() }),
@@ -741,7 +741,7 @@ describe("update.run campaign ownership", () => {
     detectRespawnSupervisorMock.mockReturnValueOnce("launchd");
     mockPackageInstallSurface("global");
 
-    await withEnvAsync({ OPENCLAW_LAUNCHD_LABEL: "ai.openclaw.gateway" }, invokeUpdateRun);
+    await withEnvAsync({ GRANTED_LAUNCHD_LABEL: "ai.openclaw.gateway" }, invokeUpdateRun);
 
     expect(startManagedServiceUpdateHandoffMock).toHaveBeenCalledOnce();
     expect(clearCampaignMock).not.toHaveBeenCalled();

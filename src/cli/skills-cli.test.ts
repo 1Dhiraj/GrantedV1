@@ -76,8 +76,8 @@ describe("skills-cli", () => {
         prefix: "openclaw",
       },
     ])("preserves the $name on every human skill surface", ({ profile, container, prefix }) => {
-      vi.stubEnv("OPENCLAW_PROFILE", profile);
-      vi.stubEnv("OPENCLAW_CONTAINER_HINT", container);
+      vi.stubEnv("GRANTED_PROFILE", profile);
+      vi.stubEnv("GRANTED_CONTAINER_HINT", container);
       const report = createMockReport([]);
       const outputs = [
         formatSkillsList(report, {}),
@@ -93,8 +93,8 @@ describe("skills-cli", () => {
     });
 
     it("keeps profile and container guidance out of machine-readable skill output", () => {
-      vi.stubEnv("OPENCLAW_PROFILE", "work");
-      vi.stubEnv("OPENCLAW_CONTAINER_HINT", "demo");
+      vi.stubEnv("GRANTED_PROFILE", "work");
+      vi.stubEnv("GRANTED_CONTAINER_HINT", "demo");
       const report = createMockReport([]);
       const outputs = [
         formatSkillsList(report, { json: true }),

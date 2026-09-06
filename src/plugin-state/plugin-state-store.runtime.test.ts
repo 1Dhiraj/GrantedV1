@@ -199,7 +199,7 @@ describe("plugin runtime state proxy", () => {
       const api = registry.createApi(record, { config: {} });
       const redirectedEnv = {
         ...state.env,
-        OPENCLAW_STATE_DIR: `${state.stateDir}-redirected`,
+        GRANTED_STATE_DIR: `${state.stateDir}-redirected`,
       };
 
       const store = api.runtime.state.openBlobStore<{ kind: string }>({

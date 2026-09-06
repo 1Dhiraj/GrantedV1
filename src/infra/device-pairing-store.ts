@@ -97,7 +97,7 @@ let devicePairingStoreCache: DevicePairingStoreCache | undefined;
 
 /** Route an explicit pairing base dir (tests, alternate state roots) to that dir's DB. */
 function resolveDevicePairingStateDbOptions(baseDir?: string): OpenClawStateDatabaseOptions {
-  return baseDir ? { env: { ...process.env, OPENCLAW_STATE_DIR: baseDir } } : {};
+  return baseDir ? { env: { ...process.env, GRANTED_STATE_DIR: baseDir } } : {};
 }
 
 function readDataVersion(database: DatabaseSync): number {

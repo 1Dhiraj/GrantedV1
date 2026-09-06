@@ -59,7 +59,7 @@ describe("secret scanning maintainer script", () => {
         encoding: "utf8",
         env: {
           ...process.env,
-          OPENCLAW_GH_BIN: ghPath,
+          GRANTED_GH_BIN: ghPath,
           PATH: `${binDir}${path.delimiter}${process.env.PATH ?? ""}`,
         },
       },

@@ -94,7 +94,7 @@ export async function discoverRestartRecoveryStorePaths(params: {
 }): Promise<string[]> {
   const storePaths = new Set<string>();
   const stateDir = params.stateDir ?? resolveStateDir(process.env);
-  const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+  const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
   if (params.cfg) {
     // Recovery must not reopen a deleted or otherwise unconfigured agent database merely
     // because its old directory still exists on disk. Those stores are intentionally fenced
@@ -128,7 +128,7 @@ export async function resolveRestartRecoveryStorePaths(
   params: Parameters<typeof discoverRestartRecoveryStorePaths>[0],
 ): Promise<string[]> {
   const stateDir = params.stateDir ?? resolveStateDir(process.env);
-  const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+  const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
   // Startup recovery needs running rows; shutdown must also mark queued turns
   // whose session still carries a prior terminal status.
   return (await discoverRestartRecoveryStorePaths(params)).filter((storePath) =>

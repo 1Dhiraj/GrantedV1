@@ -9,7 +9,7 @@ import {
   hasCanonicalAuditEventsSchema,
 } from "./openclaw-state-db-audit-migration.js";
 import {
-  OPENCLAW_STATE_STRICT_SCHEMA_VERSION,
+  GRANTED_STATE_STRICT_SCHEMA_VERSION,
   type OpenClawStateDatabaseOptions,
   type OpenClawStateDatabaseSchemaMigration,
 } from "./openclaw-state-db-contract.js";
@@ -33,7 +33,7 @@ import {
   resolveOpenClawAgentDatabaseStoredPath,
   resolveOpenClawStateDirForDatabasePath,
 } from "./openclaw-state-db.paths.js";
-import { OPENCLAW_STATE_SCHEMA_SQL } from "./openclaw-state-schema.js";
+import { GRANTED_STATE_SCHEMA_SQL } from "./openclaw-state-schema.js";
 
 export function dropLegacyStateTables(db: DatabaseSync): void {
   // Unreleased transient history; drop, do not migrate.
@@ -60,15 +60,15 @@ export function migrateWorkerPlacementExecutionModeSchema(
       db.exec(`ALTER TABLE worker_session_placements ADD COLUMN ${definition};`);
     }
   }
-  const start = OPENCLAW_STATE_SCHEMA_SQL.indexOf(
+  const start = GRANTED_STATE_SCHEMA_SQL.indexOf(
     "CREATE TABLE IF NOT EXISTS worker_session_placements (",
   );
   const endMarker = "\n) STRICT;";
-  const end = start >= 0 ? OPENCLAW_STATE_SCHEMA_SQL.indexOf(endMarker, start) : -1;
+  const end = start >= 0 ? GRANTED_STATE_SCHEMA_SQL.indexOf(endMarker, start) : -1;
   if (start < 0 || end < 0) {
     throw new Error("Canonical worker placement schema block is missing");
   }
-  const placementSchema = OPENCLAW_STATE_SCHEMA_SQL.slice(start, end + endMarker.length);
+  const placementSchema = GRANTED_STATE_SCHEMA_SQL.slice(start, end + endMarker.length);
   const canonical = openNodeSqliteDatabase(":memory:");
   let canonicalColumns: string[];
   try {
@@ -415,7 +415,7 @@ export function detectOpenClawStateDatabaseSchemaMigrationsFromDatabase(
   if (!hasCanonicalAuditEventsSchema(db)) {
     migrations.push({ kind: "audit-events-v2", path: pathname });
   }
-  if (tableExists(db, "audit_events") && userVersion < OPENCLAW_STATE_STRICT_SCHEMA_VERSION) {
+  if (tableExists(db, "audit_events") && userVersion < GRANTED_STATE_STRICT_SCHEMA_VERSION) {
     migrations.push({ kind: "strict-tables-v3", path: pathname });
   }
   if (sessionWatchMigration.needsSessionWatchCursorProvenanceMigration(db, userVersion)) {

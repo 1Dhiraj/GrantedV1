@@ -30,8 +30,8 @@ import {
 const OPERATION_ID = `provision:v2:${"0".repeat(64)}`;
 const LEASE_ID = "cbx_6071fc2062a6";
 const HOST_KEY = [["ssh", "ed25519"].join("-"), "AAAA"].join(" ");
-const OPENCLAW_ROOT = path.resolve(path.sep, "workspace", "openclaw");
-const SIBLING_BINARY = path.resolve(OPENCLAW_ROOT, "../crabbox/bin/crabbox");
+const GRANTED_ROOT = path.resolve(path.sep, "workspace", "openclaw");
+const SIBLING_BINARY = path.resolve(GRANTED_ROOT, "../crabbox/bin/crabbox");
 const WORKER_WALLPAPER_PATH = fileURLToPath(
   new URL("../assets/openclaw-worker-wallpaper.png", import.meta.url),
 );
@@ -124,7 +124,7 @@ function providerWithRawRunner(
 ): WorkerProvider {
   const provider = createCrabboxWorkerProvider({
     runCommand,
-    openclawRoot: OPENCLAW_ROOT,
+    openclawRoot: GRANTED_ROOT,
     pathEnv: "",
     isExecutable: (candidate) => candidate === SIBLING_BINARY,
     sleep,
@@ -208,7 +208,7 @@ describe("Crabbox worker provider", () => {
   it.each(["aws", "hetzner", "machine0"])(
     "resolves %s cleanup without commands or setup environment resolution",
     async (backend) => {
-      vi.stubEnv("OPENCLAW_TEST_MISSING_SETUP", undefined);
+      vi.stubEnv("GRANTED_TEST_MISSING_SETUP", undefined);
       const runCommand = vi.fn<CrabboxCommandRunner>();
       const provider = providerWithRawRunner(runCommand);
       await expect(
@@ -217,7 +217,7 @@ describe("Crabbox worker provider", () => {
             ...PROFILE,
             provider: backend,
             setup: "true",
-            setupEnv: ["OPENCLAW_TEST_MISSING_SETUP"],
+            setupEnv: ["GRANTED_TEST_MISSING_SETUP"],
           },
           OPERATION_ID,
         ),
@@ -1025,17 +1025,17 @@ describe("Crabbox worker provider", () => {
     { name: "without forwarded environment", setupEnv: undefined, forwardedEnv: undefined },
     {
       name: "with only explicitly forwarded Gateway environment",
-      setupEnv: ["OPENCLAW_WORKER_ARTIFACT_TOKEN", "CRABBOX_EMPTY_VALUE"],
+      setupEnv: ["GRANTED_WORKER_ARTIFACT_TOKEN", "CRABBOX_EMPTY_VALUE"],
       forwardedEnv: {
-        OPENCLAW_WORKER_ARTIFACT_TOKEN: "fixture artifact #tag \"quoted\" \\path 'single'",
+        GRANTED_WORKER_ARTIFACT_TOKEN: "fixture artifact #tag \"quoted\" \\path 'single'",
         CRABBOX_EMPTY_VALUE: "",
       },
     },
   ])(
     "runs profile setup $name without widening node enrollment",
     async ({ setupEnv, forwardedEnv }) => {
-      vi.stubEnv("CRABBOX_ENV_ALLOW", "OPENCLAW_UNSELECTED_SECRET");
-      vi.stubEnv("OPENCLAW_UNSELECTED_SECRET", "unselected-secret");
+      vi.stubEnv("CRABBOX_ENV_ALLOW", "GRANTED_UNSELECTED_SECRET");
+      vi.stubEnv("GRANTED_UNSELECTED_SECRET", "unselected-secret");
       for (const [name, value] of Object.entries(forwardedEnv ?? {})) {
         vi.stubEnv(name, value);
       }
@@ -1166,7 +1166,7 @@ describe("Crabbox worker provider", () => {
   );
 
   it("rejects a missing profile setup environment variable before invoking Crabbox", async () => {
-    const missingName = "OPENCLAW_MISSING_WORKER_ARTIFACT_TOKEN";
+    const missingName = "GRANTED_MISSING_WORKER_ARTIFACT_TOKEN";
     vi.stubEnv(missingName, undefined);
     const runCommand = vi.fn<CrabboxCommandRunner>();
     const provider = providerWithRawRunner(runCommand);
@@ -1191,7 +1191,7 @@ describe("Crabbox worker provider", () => {
   ])(
     "rejects profile setup environment containing $name without exposing its value",
     async ({ value }) => {
-      const envName = "OPENCLAW_WORKER_ARTIFACT_TOKEN";
+      const envName = "GRANTED_WORKER_ARTIFACT_TOKEN";
       vi.stubEnv(envName, value);
       const calls: string[][] = [];
       const provider = providerWithRunner(async (argv) => {
@@ -1367,7 +1367,7 @@ describe("Crabbox worker provider", () => {
   ])(
     "stops the lease and removes its private env profile when setup $name",
     async ({ result, message }) => {
-      const envName = "OPENCLAW_WORKER_ARTIFACT_TOKEN";
+      const envName = "GRANTED_WORKER_ARTIFACT_TOKEN";
       vi.stubEnv(envName, "fixture-artifact-token");
       const calls: string[][] = [];
       let profilePath: string | undefined;
@@ -1741,7 +1741,7 @@ describe("Crabbox worker provider", () => {
         }
         return commandResult();
       },
-      openclawRoot: OPENCLAW_ROOT,
+      openclawRoot: GRANTED_ROOT,
       pathEnv: "",
       isExecutable: (candidate) => candidate === SIBLING_BINARY,
       sleep: async () => {},
@@ -1893,15 +1893,15 @@ describe("Crabbox worker provider", () => {
     );
   });
 
-  it.each([
-    ["OPENCLAW_WORKER_ARTIFACT_TOKEN"],
-    ["OPENCLAW_WORKER_ARTIFACT_TOKEN", "_SECOND_VALUE2"],
-  ])("accepts valid profile setup environment names %j", (...setupEnv) => {
-    expect(parseCrabboxProfile({ ...PROFILE, setup: "install-node", setupEnv })).toMatchObject({
-      setup: "install-node",
-      setupEnv,
-    });
-  });
+  it.each([["GRANTED_WORKER_ARTIFACT_TOKEN"], ["GRANTED_WORKER_ARTIFACT_TOKEN", "_SECOND_VALUE2"]])(
+    "accepts valid profile setup environment names %j",
+    (...setupEnv) => {
+      expect(parseCrabboxProfile({ ...PROFILE, setup: "install-node", setupEnv })).toMatchObject({
+        setup: "install-node",
+        setupEnv,
+      });
+    },
+  );
 
   it.each([
     [`provision:v2:${"0".repeat(64)}`, "cbx_6071fc2062a6"],
@@ -2868,7 +2868,7 @@ describe("Crabbox worker provider", () => {
         }
         return commandResult();
       },
-      openclawRoot: OPENCLAW_ROOT,
+      openclawRoot: GRANTED_ROOT,
       pathEnv: "",
       isExecutable: (candidate) => candidate === SIBLING_BINARY,
       sleep: async () => {
@@ -2974,7 +2974,7 @@ describe("Crabbox worker provider", () => {
         calls.push(argv);
         return argv[1] === "inspect" ? commandResult({ stdout: inspectJson() }) : commandResult();
       },
-      openclawRoot: OPENCLAW_ROOT,
+      openclawRoot: GRANTED_ROOT,
       pathEnv: "",
       isExecutable: () => false,
       wallpaperPath: WORKER_WALLPAPER_PATH,
@@ -3417,34 +3417,34 @@ describe("Crabbox binary resolution", () => {
     expect(
       resolveCrabboxBinary({
         explicit: explicitBinary,
-        openclawRoot: OPENCLAW_ROOT,
+        openclawRoot: GRANTED_ROOT,
         isExecutable: () => false,
       }),
     ).toBe(explicitBinary);
     expect(
       resolveCrabboxBinary({
-        openclawRoot: OPENCLAW_ROOT,
+        openclawRoot: GRANTED_ROOT,
         pathEnv: toolsDir,
         isExecutable: (candidate) => candidate === SIBLING_BINARY || candidate === pathBinary,
       }),
     ).toBe(SIBLING_BINARY);
     expect(
       resolveCrabboxBinary({
-        openclawRoot: OPENCLAW_ROOT,
+        openclawRoot: GRANTED_ROOT,
         pathEnv: [path.resolve(path.sep, "not-executable"), toolsDir].join(path.delimiter),
         isExecutable: (candidate) => candidate === pathBinary,
       }),
     ).toBe(pathBinary);
     expect(
       resolveCrabboxBinary({
-        openclawRoot: OPENCLAW_ROOT,
+        openclawRoot: GRANTED_ROOT,
         pathEnv: "relative-tools",
         isExecutable: (candidate) => candidate === relativePathBinary,
       }),
     ).toBe(relativePathBinary);
     expect(
       resolveCrabboxBinary({
-        openclawRoot: OPENCLAW_ROOT,
+        openclawRoot: GRANTED_ROOT,
         pathEnv: path.resolve(path.sep, "not-executable"),
         isExecutable: () => false,
       }),
@@ -3457,13 +3457,13 @@ describe("Crabbox binary resolution", () => {
     expect(
       findCrabboxBinary({
         explicit: explicitBinary,
-        openclawRoot: OPENCLAW_ROOT,
+        openclawRoot: GRANTED_ROOT,
         isExecutable: () => false,
       }),
     ).toBeUndefined();
     expect(
       findCrabboxBinary({
-        openclawRoot: OPENCLAW_ROOT,
+        openclawRoot: GRANTED_ROOT,
         pathEnv: path.resolve(path.sep, "not-executable"),
         isExecutable: () => false,
       }),
@@ -3471,11 +3471,11 @@ describe("Crabbox binary resolution", () => {
   });
 
   it("derives the package root from source and bundled plugin roots", () => {
-    expect(resolveOpenClawRoot(path.join(OPENCLAW_ROOT, "extensions", "crabbox"))).toBe(
-      OPENCLAW_ROOT,
+    expect(resolveOpenClawRoot(path.join(GRANTED_ROOT, "extensions", "crabbox"))).toBe(
+      GRANTED_ROOT,
     );
-    expect(resolveOpenClawRoot(path.join(OPENCLAW_ROOT, "dist", "extensions", "crabbox"))).toBe(
-      OPENCLAW_ROOT,
+    expect(resolveOpenClawRoot(path.join(GRANTED_ROOT, "dist", "extensions", "crabbox"))).toBe(
+      GRANTED_ROOT,
     );
   });
 });

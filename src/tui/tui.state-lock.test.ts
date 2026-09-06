@@ -10,8 +10,8 @@ function createGatewayLockOptions(stateDir: string): GatewayLockOptions {
     allowInTests: true,
     env: {
       ...process.env,
-      OPENCLAW_CONFIG_PATH: path.join(stateDir, "openclaw.json"),
-      OPENCLAW_STATE_DIR: stateDir,
+      GRANTED_CONFIG_PATH: path.join(stateDir, "openclaw.json"),
+      GRANTED_STATE_DIR: stateDir,
     },
     lockDir: path.join(stateDir, "gateway-locks"),
     readProcessStartTime: () => 123_456,

@@ -165,8 +165,8 @@ describe("setup migration import options", () => {
   });
 
   it("does not offer install-only providers during a transactional import", async () => {
-    const previousDisableBundled = process.env.OPENCLAW_DISABLE_BUNDLED_PLUGINS;
-    process.env.OPENCLAW_DISABLE_BUNDLED_PLUGINS = "1";
+    const previousDisableBundled = process.env.GRANTED_DISABLE_BUNDLED_PLUGINS;
+    process.env.GRANTED_DISABLE_BUNDLED_PLUGINS = "1";
     try {
       const options = await listSetupMigrationOptions({
         baseConfig: {},
@@ -178,9 +178,9 @@ describe("setup migration import options", () => {
       );
     } finally {
       if (previousDisableBundled === undefined) {
-        delete process.env.OPENCLAW_DISABLE_BUNDLED_PLUGINS;
+        delete process.env.GRANTED_DISABLE_BUNDLED_PLUGINS;
       } else {
-        process.env.OPENCLAW_DISABLE_BUNDLED_PLUGINS = previousDisableBundled;
+        process.env.GRANTED_DISABLE_BUNDLED_PLUGINS = previousDisableBundled;
       }
     }
   });

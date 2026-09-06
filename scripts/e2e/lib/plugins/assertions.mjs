@@ -15,7 +15,7 @@ import {
 import { readTextFileTail } from "../text-file-utils.mjs";
 
 const command = process.argv[2];
-const scratchRoot = process.env.OPENCLAW_PLUGINS_TMP_DIR || os.tmpdir();
+const scratchRoot = process.env.GRANTED_PLUGINS_TMP_DIR || os.tmpdir();
 const readJson = (file) => JSON.parse(fs.readFileSync(file, "utf8"));
 const scratchFile = (name) => path.join(scratchRoot, name);
 const ERROR_DETAIL_TAIL_BYTES = 16 * 1024;
@@ -24,10 +24,10 @@ const LOG_SCAN_CHUNK_BYTES = 64 * 1024;
 function readClawHubPreflightLimits() {
   return {
     bodyMaxBytes: readPositiveIntEnv(
-      "OPENCLAW_PLUGINS_E2E_CLAWHUB_PREFLIGHT_BODY_MAX_BYTES",
+      "GRANTED_PLUGINS_E2E_CLAWHUB_PREFLIGHT_BODY_MAX_BYTES",
       1024 * 1024,
     ),
-    timeoutMs: readPositiveIntEnv("OPENCLAW_PLUGINS_E2E_CLAWHUB_PREFLIGHT_TIMEOUT_MS", 30_000),
+    timeoutMs: readPositiveIntEnv("GRANTED_PLUGINS_E2E_CLAWHUB_PREFLIGHT_TIMEOUT_MS", 30_000),
   };
 }
 
@@ -117,7 +117,7 @@ function fileContainsText(file, needle) {
 function getInstallRecords() {
   const configPath = openClawConfigPath();
   const config = readOpenClawConfig();
-  const allowLegacyCompat = process.env.OPENCLAW_PACKAGE_ACCEPTANCE_LEGACY_COMPAT === "1";
+  const allowLegacyCompat = process.env.GRANTED_PACKAGE_ACCEPTANCE_LEGACY_COMPAT === "1";
   const index = readPluginInstallIndex({
     configPath,
     fallbackRecords: allowLegacyCompat ? (config.plugins?.installs ?? {}) : {},
@@ -868,7 +868,7 @@ async function assertClawHubPreflight() {
   const limits = readClawHubPreflightLimits();
   const packageName = parseClawHubPackageName(spec);
   const baseUrl = (
-    process.env.OPENCLAW_CLAWHUB_URL ||
+    process.env.GRANTED_CLAWHUB_URL ||
     process.env.CLAWHUB_URL ||
     "https://clawhub.ai"
   ).replace(/\/+$/, "");
@@ -946,7 +946,7 @@ function assertClawHubInstalled() {
 
   const configPath = path.join(process.env.HOME, ".openclaw", "openclaw.json");
   const config = fs.existsSync(configPath) ? readJson(configPath) : {};
-  const allowLegacyCompat = process.env.OPENCLAW_PACKAGE_ACCEPTANCE_LEGACY_COMPAT === "1";
+  const allowLegacyCompat = process.env.GRANTED_PACKAGE_ACCEPTANCE_LEGACY_COMPAT === "1";
   const index = readPluginInstallIndex({
     configPath,
     fallbackRecords: allowLegacyCompat ? (config.plugins?.installs ?? {}) : {},

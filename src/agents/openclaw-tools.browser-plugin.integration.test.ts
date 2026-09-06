@@ -586,7 +586,7 @@ describe("createOpenClawTools browser plugin integration", () => {
   });
 
   it("keeps provider availability and credential resolution aligned for env-only auth", async () => {
-    const envName = "OPENCLAW_PLUGIN_TOOL_AUTH_TEST_KEY";
+    const envName = "GRANTED_PLUGIN_TOOL_AUTH_TEST_KEY";
     vi.stubEnv(envName, "env-only-key");
     let capturedParams:
       | {

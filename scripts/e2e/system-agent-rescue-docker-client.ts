@@ -78,9 +78,9 @@ async function main() {
   const tempState = await createE2eStateDir("openclaw-openclaw-");
   tempState.registerExitCleanup();
   const stateDir = tempState.stateDir;
-  const configPath = process.env.OPENCLAW_CONFIG_PATH ?? path.join(stateDir, "openclaw.json");
-  process.env.OPENCLAW_STATE_DIR = stateDir;
-  process.env.OPENCLAW_CONFIG_PATH = configPath;
+  const configPath = process.env.GRANTED_CONFIG_PATH ?? path.join(stateDir, "openclaw.json");
+  process.env.GRANTED_STATE_DIR = stateDir;
+  process.env.GRANTED_CONFIG_PATH = configPath;
   await fs.mkdir(stateDir, { recursive: true });
   await fs.writeFile(
     configPath,
@@ -140,7 +140,7 @@ async function main() {
   assert(configSetApplied.includes("[openclaw] done: config.set"), "generic config set failed");
 
   const refPlan = await invoke(
-    "/openclaw config set-ref gateway.auth.token env OPENCLAW_GATEWAY_TOKEN",
+    "/openclaw config set-ref gateway.auth.token env GRANTED_GATEWAY_TOKEN",
     cfg,
   );
   assert(
@@ -270,7 +270,7 @@ async function main() {
     updatedConfig.gateway?.auth?.token &&
       typeof updatedConfig.gateway.auth.token === "object" &&
       "id" in updatedConfig.gateway.auth.token &&
-      updatedConfig.gateway.auth.token.id === "OPENCLAW_GATEWAY_TOKEN",
+      updatedConfig.gateway.auth.token.id === "GRANTED_GATEWAY_TOKEN",
     "SecretRef set did not update gateway.auth.token",
   );
   assert(

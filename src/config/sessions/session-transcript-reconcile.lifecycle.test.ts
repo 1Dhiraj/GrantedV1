@@ -109,12 +109,12 @@ describe("session transcript reconcile worker lifecycle", () => {
   it("drains later fixture owners without waiting for an unrelated state directory", async () => {
     const root = tempDirs.make("openclaw-reconcile-scope-");
     const stateDir = path.join(root, "state");
-    const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+    const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
     const first = { agentId: "main", env };
     const later = { agentId: "later", env };
     const unrelated = {
       agentId: "main",
-      env: { ...env, OPENCLAW_STATE_DIR: `${stateDir}-unrelated` },
+      env: { ...env, GRANTED_STATE_DIR: `${stateDir}-unrelated` },
     };
     const realSetImmediate = globalThis.setImmediate;
     const immediateSpy = vi.spyOn(globalThis, "setImmediate");
@@ -177,7 +177,7 @@ describe("session transcript reconcile worker lifecycle", () => {
     const stateDir = tempDirs.make("openclaw-active-transcript-");
     const scope = {
       agentId: "main",
-      env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+      env: { ...process.env, GRANTED_STATE_DIR: stateDir },
       sessionId: "active-transcript-test",
       sessionKey: "agent:main:active-transcript-test",
     };
@@ -286,7 +286,7 @@ describe("session transcript reconcile worker lifecycle", () => {
     "releases its database before reporting $expectedTerminal",
     async ({ expectedTerminal, failAfterFirstPlan }) => {
       const stateDir = tempDirs.make("openclaw-transcript-worker-cleanup-");
-      await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () => {
+      await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {
         const primarySessionId = "cleanup-primary";
         const primaryScope = {
           agentId: "main",

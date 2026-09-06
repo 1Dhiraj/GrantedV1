@@ -19,7 +19,7 @@ import {
   type SkillProposalRecord,
   type SkillProposalRollback,
 } from "../skills/workshop/types.js";
-import { OPENCLAW_STATE_SCHEMA_VERSION } from "../state/openclaw-state-db-contract.js";
+import { GRANTED_STATE_SCHEMA_VERSION } from "../state/openclaw-state-db-contract.js";
 import { openOpenClawStateDatabase } from "../state/openclaw-state-db.js";
 import {
   createOpenClawTestState,
@@ -359,7 +359,7 @@ describe("doctor Skill Workshop SQLite migration", () => {
       fs.access(path.join(testState.stateDir, "skill-workshop", "proposals.json")),
     ).rejects.toThrow();
     expect(openOpenClawStateDatabase().db.prepare("PRAGMA user_version").get()).toEqual({
-      user_version: OPENCLAW_STATE_SCHEMA_VERSION,
+      user_version: GRANTED_STATE_SCHEMA_VERSION,
     });
 
     const ambiguousId = "ambiguous-workshop-20260727-1234567890";

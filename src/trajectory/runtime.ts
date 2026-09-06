@@ -423,8 +423,8 @@ export function createTrajectoryRuntimeRecorder(
 ): TrajectoryRuntimeRecorder | null {
   const env = params.env ?? process.env;
   // Trajectory capture is now default-on. The env var remains as an explicit
-  // override so operators can still disable recording with OPENCLAW_TRAJECTORY=0.
-  const enabled = parseBooleanValue(env.OPENCLAW_TRAJECTORY) ?? true;
+  // override so operators can still disable recording with GRANTED_TRAJECTORY=0.
+  const enabled = parseBooleanValue(env.GRANTED_TRAJECTORY) ?? true;
   if (!enabled) {
     return null;
   }

@@ -158,7 +158,7 @@ describe.skipIf(process.platform === "win32")("embedded triage installation targ
         VITEST: "true",
         NODE_ENV: "test",
         OPENAI_API_KEY: secret,
-        OPENCLAW_WORKSPACE_DIR: undefined,
+        GRANTED_WORKSPACE_DIR: undefined,
       });
       try {
         await withEnvAsync(syntheticEnv, async () => {
@@ -167,7 +167,7 @@ describe.skipIf(process.platform === "win32")("embedded triage installation targ
               layout,
               label: "triage-target",
               ...(layout === "home"
-                ? { env: { OPENCLAW_STATE_DIR: undefined, OPENCLAW_CONFIG_PATH: undefined } }
+                ? { env: { GRANTED_STATE_DIR: undefined, GRANTED_CONFIG_PATH: undefined } }
                 : {}),
             },
             async (state) => {
@@ -177,7 +177,7 @@ describe.skipIf(process.platform === "win32")("embedded triage installation targ
                   ? state.path("custom default workspace")
                   : state.statePath("workspace");
               if (workspaceSelector === "custom") {
-                process.env.OPENCLAW_WORKSPACE_DIR = defaultWorkspaceDir;
+                process.env.GRANTED_WORKSPACE_DIR = defaultWorkspaceDir;
               }
               await fs.mkdir(defaultWorkspaceDir, { recursive: true });
               const workspaceMarkerPath = path.join(defaultWorkspaceDir, "workspace-probe.txt");
@@ -241,9 +241,9 @@ describe.skipIf(process.platform === "win32")("embedded triage installation targ
                   expect(path.dirname(state.configPath)).not.toBe(state.stateDir);
                 }
                 const originalSelectors = {
-                  stateDir: process.env.OPENCLAW_STATE_DIR,
-                  configPath: process.env.OPENCLAW_CONFIG_PATH,
-                  workspaceDir: process.env.OPENCLAW_WORKSPACE_DIR,
+                  stateDir: process.env.GRANTED_STATE_DIR,
+                  configPath: process.env.GRANTED_CONFIG_PATH,
+                  workspaceDir: process.env.GRANTED_WORKSPACE_DIR,
                 };
 
                 let runStateDir = "";
@@ -252,9 +252,7 @@ describe.skipIf(process.platform === "win32")("embedded triage installation targ
                 mocks.agentCommand.mockImplementation(async (opts: Record<string, unknown>) => {
                   const prompt = String(opts.message);
                   const archiveReference = /^Sanitized ZIP: (.+)$/mu.exec(prompt)?.[1];
-                  expect(archiveReference).toBe(
-                    "$OPENCLAW_STATE_DIR/logs/support/installation.zip",
-                  );
+                  expect(archiveReference).toBe("$GRANTED_STATE_DIR/logs/support/installation.zip");
                   expect(prompt).not.toContain(secret);
                   expect(prompt).not.toContain(state.stateDir);
                   expect(prompt).not.toContain(defaultWorkspaceDir);
@@ -262,7 +260,7 @@ describe.skipIf(process.platform === "win32")("embedded triage installation targ
                   runStateDir = await fs.realpath(resolveStateDir());
                   expect(runStateDir).not.toBe(state.stateDir);
                   const runConfig = getRuntimeConfig();
-                  expect(process.env.OPENCLAW_WORKSPACE_DIR).toBe(state.workspaceDir);
+                  expect(process.env.GRANTED_WORKSPACE_DIR).toBe(state.workspaceDir);
                   expect(runConfig.agents?.entries?.diagnostic?.workspace).toBe(state.workspaceDir);
                   expect(runConfig.agents?.entries?.diagnostic?.model).toBe(
                     "fixture/diagnostic-model",
@@ -321,9 +319,9 @@ describe.skipIf(process.platform === "win32")("embedded triage installation targ
                 expect(mocks.agentCommand).toHaveBeenCalledOnce();
                 expect(execSpy).toHaveBeenCalledOnce();
                 expect(execSpy.mock.calls[0]?.[1].stateDir).toBeUndefined();
-                expect(process.env.OPENCLAW_STATE_DIR).toBe(originalSelectors.stateDir);
-                expect(process.env.OPENCLAW_CONFIG_PATH).toBe(originalSelectors.configPath);
-                expect(process.env.OPENCLAW_WORKSPACE_DIR).toBe(originalSelectors.workspaceDir);
+                expect(process.env.GRANTED_STATE_DIR).toBe(originalSelectors.stateDir);
+                expect(process.env.GRANTED_CONFIG_PATH).toBe(originalSelectors.configPath);
+                expect(process.env.GRANTED_WORKSPACE_DIR).toBe(originalSelectors.workspaceDir);
                 expect(getRuntimeConfigSnapshot()).toBeNull();
                 await expect(fs.stat(runStateDir)).rejects.toMatchObject({ code: "ENOENT" });
                 expect(await fs.readFile(state.configPath, "utf8")).toBe(originalConfig);

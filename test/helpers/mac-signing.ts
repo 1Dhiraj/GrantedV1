@@ -356,7 +356,7 @@ with tempfile.TemporaryDirectory(prefix='oc-sign-swap-', dir='/tmp') as control:
           BASH_ENV: bashEnv,
           SIGN_IDENTITY: "Developer ID Application: OpenClaw Foundation (FWJYW4S8P8)",
           ...(config.skipTeam === true ? { SKIP_TEAM_ID_CHECK: "1" } : {}),
-          ...(elevation ? { OPENCLAW_MAC_SIGNING_VARIANT: "elevation-host" } : {}),
+          ...(elevation ? { GRANTED_MAC_SIGNING_VARIANT: "elevation-host" } : {}),
         },
       });
     },

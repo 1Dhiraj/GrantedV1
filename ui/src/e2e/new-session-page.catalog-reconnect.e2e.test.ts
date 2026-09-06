@@ -17,7 +17,7 @@ import {
 } from "./new-session-page.test-support.ts";
 
 const suite = createNewSessionPageE2eSuite();
-const captureCliAgentsProof = process.env.OPENCLAW_CAPTURE_UI_PROOF === "1";
+const captureCliAgentsProof = process.env.GRANTED_CAPTURE_UI_PROOF === "1";
 
 function requestHasParam(request: { params?: unknown }, key: string, value: unknown): boolean {
   return Boolean(

@@ -14,7 +14,7 @@ import {
 import { getPluginRuntimeLoadContext } from "../../plugins/runtime/load-context.js";
 import {
   isDefaultAgentRuntimeId,
-  OPENCLAW_AGENT_RUNTIME_ID,
+  GRANTED_AGENT_RUNTIME_ID,
   normalizeOptionalAgentRuntimeId,
 } from "../agent-runtime-id.js";
 import { isCliRuntimeAliasForProvider } from "../model-runtime-aliases.js";
@@ -209,7 +209,7 @@ export async function ensureSelectedAgentHarnessPlugin(params: {
       : policy.runtime;
   if (
     isDefaultAgentRuntimeId(runtime) ||
-    runtime === OPENCLAW_AGENT_RUNTIME_ID ||
+    runtime === GRANTED_AGENT_RUNTIME_ID ||
     isCliRuntimeAliasForProvider({
       runtime,
       provider: params.provider,

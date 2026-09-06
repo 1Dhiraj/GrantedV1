@@ -71,7 +71,7 @@ export type DoctorConfigPreflightResult = {
 export function shouldSkipPluginValidationForDoctorConfigPreflight(
   env: NodeJS.ProcessEnv = process.env,
 ): boolean {
-  return isTruthyEnvValue(env.OPENCLAW_UPDATE_IN_PROGRESS);
+  return isTruthyEnvValue(env.GRANTED_UPDATE_IN_PROGRESS);
 }
 
 function noteStateMigrationResult(result: {

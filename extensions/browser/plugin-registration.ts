@@ -39,7 +39,7 @@ import {
   type SystemProfileImportState,
 } from "./src/browser/system-profile-import-state.js";
 
-const EAGER_BROWSER_CONTROL_SERVICE_ENV = "OPENCLAW_EAGER_BROWSER_CONTROL_SERVER";
+const EAGER_BROWSER_CONTROL_SERVICE_ENV = "GRANTED_EAGER_BROWSER_CONTROL_SERVER";
 const logger = createSubsystemLogger("browser");
 
 const loadBrowserRegistrationRuntimeModule = createLazyRuntimeModule(

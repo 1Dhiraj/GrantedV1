@@ -148,7 +148,7 @@ async function expectPluginIncludeMutationConflict(
 
 describe("config mutate helpers", () => {
   const suiteRootTracker = createSuiteTempRootTracker({ prefix: "openclaw-config-mutate-" });
-  const originalNixMode = process.env.OPENCLAW_NIX_MODE;
+  const originalNixMode = process.env.GRANTED_NIX_MODE;
 
   beforeAll(async () => {
     await suiteRootTracker.setup();
@@ -156,9 +156,9 @@ describe("config mutate helpers", () => {
 
   afterAll(async () => {
     if (originalNixMode === undefined) {
-      delete process.env.OPENCLAW_NIX_MODE;
+      delete process.env.GRANTED_NIX_MODE;
     } else {
-      process.env.OPENCLAW_NIX_MODE = originalNixMode;
+      process.env.GRANTED_NIX_MODE = originalNixMode;
     }
     await suiteRootTracker.cleanup();
   });
@@ -177,7 +177,7 @@ describe("config mutate helpers", () => {
       (snapshot: { hash?: string }) => snapshot.hash ?? null,
     );
     fileLockMocks.withFileLock.mockImplementation(async (_filePath, _options, fn) => await fn());
-    delete process.env.OPENCLAW_NIX_MODE;
+    delete process.env.GRANTED_NIX_MODE;
   });
 
   it("mutates source config with optimistic hash protection", async () => {
@@ -612,7 +612,7 @@ describe("config mutate helpers", () => {
   });
 
   it("refuses replace writes in Nix mode before touching disk", async () => {
-    process.env.OPENCLAW_NIX_MODE = "1";
+    process.env.GRANTED_NIX_MODE = "1";
     const snapshot = createSnapshot({
       hash: "hash-1",
       sourceConfig: { gateway: { port: 18789 } },
@@ -634,7 +634,7 @@ describe("config mutate helpers", () => {
   });
 
   it("refuses mutate writes in Nix mode before touching disk", async () => {
-    process.env.OPENCLAW_NIX_MODE = "1";
+    process.env.GRANTED_NIX_MODE = "1";
     const snapshot = createSnapshot({
       hash: "hash-1",
       sourceConfig: { gateway: { port: 18789 } },
@@ -811,7 +811,7 @@ describe("config mutate helpers", () => {
           entries: {
             old: {
               enabled: true,
-              config: { token: "${OPENCLAW_TEST_PLUGIN_TOKEN}" },
+              config: { token: "${GRANTED_TEST_PLUGIN_TOKEN}" },
             },
           },
         },
@@ -858,7 +858,7 @@ describe("config mutate helpers", () => {
         snapshot,
         writeOptions: {
           expectedConfigPath: configPath,
-          envSnapshotForRestore: { OPENCLAW_TEST_PLUGIN_TOKEN: "plugin-token-runtime" },
+          envSnapshotForRestore: { GRANTED_TEST_PLUGIN_TOKEN: "plugin-token-runtime" },
           assertConfigPathForWrite: allowConfigPathWrite,
           includeFileTargetsForWrite: { [pluginsPath]: await resolveIncludeTarget(pluginsPath) },
         },
@@ -896,7 +896,7 @@ describe("config mutate helpers", () => {
           },
         },
         io: {
-          env: { OPENCLAW_TEST_PLUGIN_TOKEN: "plugin-token-after-read" },
+          env: { GRANTED_TEST_PLUGIN_TOKEN: "plugin-token-after-read" },
           readConfigFileSnapshotForWrite: ioMocks.readConfigFileSnapshotForWrite,
           writeConfigFile: ioMocks.writeConfigFile,
         },
@@ -946,7 +946,7 @@ describe("config mutate helpers", () => {
       entries?: Record<string, { config?: { token?: string } }>;
       installs?: Record<string, unknown>;
     };
-    expect(persistedPlugins.entries?.old?.config?.token).toBe("${OPENCLAW_TEST_PLUGIN_TOKEN}");
+    expect(persistedPlugins.entries?.old?.config?.token).toBe("${GRANTED_TEST_PLUGIN_TOKEN}");
     expect(persistedPlugins.entries?.demo).toEqual({ enabled: true });
     expect(persistedPlugins.installs).toBeUndefined();
   });
@@ -1356,7 +1356,7 @@ describe("config mutate helpers", () => {
         },
         nextConfig,
         io: {
-          env: { OPENCLAW_INCLUDE_ROOTS: "~/shared" },
+          env: { GRANTED_INCLUDE_ROOTS: "~/shared" },
           readConfigFileSnapshotForWrite: ioMocks.readConfigFileSnapshotForWrite,
           writeConfigFile: ioMocks.writeConfigFile,
         },
@@ -2104,7 +2104,7 @@ describe("config mutate helpers", () => {
     const initialPluginsRaw = `${JSON.stringify(
       {
         entries: {
-          old: { enabled: true, config: { token: "${OPENCLAW_TEST_INCLUDE_TOKEN}" } },
+          old: { enabled: true, config: { token: "${GRANTED_TEST_INCLUDE_TOKEN}" } },
         },
       },
       null,
@@ -2135,7 +2135,7 @@ describe("config mutate helpers", () => {
           snapshot,
           writeOptions: {
             expectedConfigPath: snapshot.path,
-            envSnapshotForRestore: { OPENCLAW_TEST_INCLUDE_TOKEN: "old-token" },
+            envSnapshotForRestore: { GRANTED_TEST_INCLUDE_TOKEN: "old-token" },
             assertConfigPathForWrite: allowConfigPathWrite,
             includeFileTargetsForWrite: { [pluginsPath]: await resolveIncludeTarget(pluginsPath) },
           },
@@ -2148,7 +2148,7 @@ describe("config mutate helpers", () => {
             },
           },
           io: {
-            env: { OPENCLAW_TEST_INCLUDE_TOKEN: "new-token" },
+            env: { GRANTED_TEST_INCLUDE_TOKEN: "new-token" },
             readConfigFileSnapshotForWrite: ioMocks.readConfigFileSnapshotForWrite,
             writeConfigFile: ioMocks.writeConfigFile,
           },
@@ -2291,7 +2291,7 @@ describe("config mutate helpers", () => {
     const configPath = path.join(home, ".openclaw", "openclaw.json");
     const pluginsPath = path.join(home, ".openclaw", "config", "plugins.json5");
     const env = {} as NodeJS.ProcessEnv;
-    const envKey = "OPENCLAW_TEST_INCLUDE_ROLLBACK_ENV";
+    const envKey = "GRANTED_TEST_INCLUDE_ROLLBACK_ENV";
     await fs.mkdir(path.dirname(pluginsPath), { recursive: true });
     await fs.writeFile(
       configPath,

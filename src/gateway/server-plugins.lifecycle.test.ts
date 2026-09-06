@@ -153,15 +153,15 @@ async function prepareInstanceBindingTest(options?: {
 }) {
   const coordinator = installInstanceBindingProbeCoordinator(options);
   const plugin = await writeInstanceBindingProbePlugin();
-  process.env.OPENCLAW_TEST_MINIMAL_GATEWAY = "0";
-  delete process.env.OPENCLAW_DISABLE_BUNDLED_PLUGINS;
-  process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = plugin.bundledRoot;
-  process.env.OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR = "1";
-  process.env.OPENCLAW_SKIP_CHANNELS = "1";
-  process.env.OPENCLAW_SKIP_CRON = "1";
-  const configPath = process.env.OPENCLAW_CONFIG_PATH;
+  process.env.GRANTED_TEST_MINIMAL_GATEWAY = "0";
+  delete process.env.GRANTED_DISABLE_BUNDLED_PLUGINS;
+  process.env.GRANTED_BUNDLED_PLUGINS_DIR = plugin.bundledRoot;
+  process.env.GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR = "1";
+  process.env.GRANTED_SKIP_CHANNELS = "1";
+  process.env.GRANTED_SKIP_CRON = "1";
+  const configPath = process.env.GRANTED_CONFIG_PATH;
   if (!configPath) {
-    throw new Error("gateway test hooks did not install OPENCLAW_CONFIG_PATH");
+    throw new Error("gateway test hooks did not install GRANTED_CONFIG_PATH");
   }
   const config = {
     plugins: {
@@ -190,7 +190,7 @@ describe("gateway plugin instance bindings", () => {
       await server.close({ reason: "instance binding cleanup" });
     }
     delete (globalThis as Record<PropertyKey, unknown>)[INSTANCE_BINDING_PROBE_KEY];
-    delete process.env.OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR;
+    delete process.env.GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR;
   });
 
   it(

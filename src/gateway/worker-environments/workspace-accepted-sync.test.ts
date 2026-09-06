@@ -129,7 +129,7 @@ describe("accepted workspace publication", () => {
       const gateController = await fs.open(gate, "r+");
       await fs.writeFile(
         path.join(bin, "rsync"),
-        '#!/bin/sh\nset -eu\nfor destination do :; done\nprintf "staged\\n" > "$destination/result.txt"\n( : > "$OPENCLAW_TEST_RECEIVER_MARKER"; read -r _ < "$OPENCLAW_TEST_RECEIVER_GATE"; printf "local\\n" > "$destination/result.txt" ) </dev/null >/dev/null 2>&1 &\nexit 0\n',
+        '#!/bin/sh\nset -eu\nfor destination do :; done\nprintf "staged\\n" > "$destination/result.txt"\n( : > "$GRANTED_TEST_RECEIVER_MARKER"; read -r _ < "$GRANTED_TEST_RECEIVER_GATE"; printf "local\\n" > "$destination/result.txt" ) </dev/null >/dev/null 2>&1 &\nexit 0\n',
         { mode: 0o755 },
       );
 
@@ -153,9 +153,9 @@ describe("accepted workspace publication", () => {
       const env = {
         ...process.env,
         HOME: home,
-        OPENCLAW_TEST_RECEIVER_PATH: `${bin}:${process.env.PATH ?? ""}`,
-        OPENCLAW_TEST_RECEIVER_GATE: gate,
-        OPENCLAW_TEST_RECEIVER_MARKER: receiverMarker,
+        GRANTED_TEST_RECEIVER_PATH: `${bin}:${process.env.PATH ?? ""}`,
+        GRANTED_TEST_RECEIVER_GATE: gate,
+        GRANTED_TEST_RECEIVER_MARKER: receiverMarker,
       };
       const runWorkspaceCommand = async (command: WorkerWorkspaceCommand): Promise<SpawnResult> => {
         if (command.argv[2] !== REMOTE_WORKSPACE_ACCEPTED_TRANSACTION_JS) {
@@ -287,10 +287,10 @@ const renameSync = fs.renameSync;
 let gated = false;
 fs.renameSync = function(source, destination) {
   const value = renameSync.apply(this, arguments);
-  if (!gated && process.argv[1] === "apply" && source === process.env.OPENCLAW_TEST_GATE_SOURCE && destination.includes(path.sep + "backup" + path.sep)) {
+  if (!gated && process.argv[1] === "apply" && source === process.env.GRANTED_TEST_GATE_SOURCE && destination.includes(path.sep + "backup" + path.sep)) {
     gated = true;
-    fs.writeFileSync(process.env.OPENCLAW_TEST_APPLY_MARKER, "");
-    fs.readFileSync(process.env.OPENCLAW_TEST_GATE);
+    fs.writeFileSync(process.env.GRANTED_TEST_APPLY_MARKER, "");
+    fs.readFileSync(process.env.GRANTED_TEST_GATE);
   }
   return value;
 };
@@ -298,9 +298,9 @@ fs.renameSync = function(source, destination) {
     );
     const env = {
       ...process.env,
-      OPENCLAW_TEST_GATE: gate,
-      OPENCLAW_TEST_GATE_SOURCE: path.join(workspace, "result.txt"),
-      OPENCLAW_TEST_APPLY_MARKER: applyMarker,
+      GRANTED_TEST_GATE: gate,
+      GRANTED_TEST_GATE_SOURCE: path.join(workspace, "result.txt"),
+      GRANTED_TEST_APPLY_MARKER: applyMarker,
     };
     const remote = manifest("worker\n");
     const accepted = manifest("local\n");
@@ -474,10 +474,10 @@ const renameSync = fs.renameSync;
 let gated = false;
 fs.renameSync = function(source, destination) {
   const value = renameSync.apply(this, arguments);
-  if (!gated && process.argv[1] === "apply" && source === process.env.OPENCLAW_TEST_GATE_SOURCE && destination.includes(path.sep + "backup" + path.sep)) {
+  if (!gated && process.argv[1] === "apply" && source === process.env.GRANTED_TEST_GATE_SOURCE && destination.includes(path.sep + "backup" + path.sep)) {
     gated = true;
-    fs.writeFileSync(process.env.OPENCLAW_TEST_APPLY_MARKER, "");
-    fs.readFileSync(process.env.OPENCLAW_TEST_GATE);
+    fs.writeFileSync(process.env.GRANTED_TEST_APPLY_MARKER, "");
+    fs.readFileSync(process.env.GRANTED_TEST_GATE);
   }
   return value;
 };
@@ -496,9 +496,9 @@ Atomics.wait = function(waitArray, index, value, timeout) {
     ]);
     const env = {
       ...process.env,
-      OPENCLAW_TEST_GATE: gate,
-      OPENCLAW_TEST_GATE_SOURCE: path.join(workspace, "result.txt"),
-      OPENCLAW_TEST_APPLY_MARKER: applyMarker,
+      GRANTED_TEST_GATE: gate,
+      GRANTED_TEST_GATE_SOURCE: path.join(workspace, "result.txt"),
+      GRANTED_TEST_APPLY_MARKER: applyMarker,
     };
     const remote = manifest("worker\n");
     const accepted = manifest("local\n");

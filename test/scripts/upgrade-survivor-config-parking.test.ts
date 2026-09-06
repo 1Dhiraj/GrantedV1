@@ -88,7 +88,7 @@ openclaw_e2e_probe_tcp() { [ -f "$PROBE_LIVE" ]; }
 assert_prepublish_fixture_idle() { :; }
 assert_baseline_state() { :; }
 run_update_restart_probe_gateway() {
-  cp "$OPENCLAW_CONFIG_PATH" "$PROBE_CAPTURE"
+  cp "$GRANTED_CONFIG_PATH" "$PROBE_CAPTURE"
   touch "$PROBE_INSTALLED" "$PROBE_LIVE"
   return "$PROBE_INSTALL_STATUS"
 }
@@ -102,14 +102,14 @@ exit "$probe_status"
           ...process.env,
           HOME: root,
           PATH: `${bin}${path.delimiter}${process.env.PATH}`,
-          OPENCLAW_STATE_DIR: stateDir,
-          OPENCLAW_CONFIG_PATH: configPath,
-          OPENCLAW_UPGRADE_SURVIVOR_BASELINE: "openclaw@2026.8.1",
-          OPENCLAW_UPGRADE_SURVIVOR_UPDATE_RESTART_MODE: "auto-auth",
-          OPENCLAW_UPGRADE_SURVIVOR_RUNTIME_ROOT: path.join(root, "runtime"),
-          OPENCLAW_UPGRADE_SURVIVOR_SUMMARY_JSON: path.join(root, "artifacts", "summary.json"),
-          OPENCLAW_UPGRADE_SURVIVOR_CONFIG_PARKING_HELPER: parkingWrapper,
-          OPENCLAW_PREPUBLISH_PLUGIN_REGISTRY_DIR: registry ? path.join(root, "registry") : "",
+          GRANTED_STATE_DIR: stateDir,
+          GRANTED_CONFIG_PATH: configPath,
+          GRANTED_UPGRADE_SURVIVOR_BASELINE: "openclaw@2026.8.1",
+          GRANTED_UPGRADE_SURVIVOR_UPDATE_RESTART_MODE: "auto-auth",
+          GRANTED_UPGRADE_SURVIVOR_RUNTIME_ROOT: path.join(root, "runtime"),
+          GRANTED_UPGRADE_SURVIVOR_SUMMARY_JSON: path.join(root, "artifacts", "summary.json"),
+          GRANTED_UPGRADE_SURVIVOR_CONFIG_PARKING_HELPER: parkingWrapper,
+          GRANTED_PREPUBLISH_PLUGIN_REGISTRY_DIR: registry ? path.join(root, "registry") : "",
           PROBE_CAPTURE: capturePath,
           PROBE_EVENTS: path.join(root, "events"),
           PROBE_LIVE: path.join(root, "live"),
@@ -173,10 +173,10 @@ printf '%s\\n' "$*" >>"$PROBE_EVENTS"
 [ "$*" = '--user start openclaw-gateway.service' ] || exit 97
 printf 'synthetic start diagnostic\\n' >&2
 [ "$PROBE_START_STATUS" -eq 0 ] || exit "$PROBE_START_STATUS"
-printf '42\\n' >"$OPENCLAW_UPGRADE_SURVIVOR_SYSTEMCTL_SHIM_PID_FILE"
+printf '42\\n' >"$GRANTED_UPGRADE_SURVIVOR_SYSTEMCTL_SHIM_PID_FILE"
 case "$PROBE_MUTATION" in
   unit) printf 'changed' >>"$HOME/.config/systemd/user/openclaw-gateway.service" ;;
-  env) printf 'changed' >>"$OPENCLAW_STATE_DIR/gateway.systemd.env" ;;
+  env) printf 'changed' >>"$GRANTED_STATE_DIR/gateway.systemd.env" ;;
 esac
 `,
         { mode: 0o755 },
@@ -198,11 +198,11 @@ export const { redactSensitiveText } = await tsImport(${JSON.stringify(path.reso
           `${setup}
 trap - EXIT ERR INT TERM
 update_repair_required=0
-mkdir -p "$HOME/.config/systemd/user" "$OPENCLAW_STATE_DIR"
+mkdir -p "$HOME/.config/systemd/user" "$GRANTED_STATE_DIR"
 printf 'original unit\\n' >"$HOME/.config/systemd/user/openclaw-gateway.service"
-printf 'original env\\n' >"$OPENCLAW_STATE_DIR/gateway.systemd.env"
-printf 'original dotenv\\n' >"$OPENCLAW_STATE_DIR/.env"
-printf 'baseline timeline\\n' >"$OPENCLAW_UPGRADE_SURVIVOR_SYSTEMCTL_SHIM_DAEMON_LOG"
+printf 'original env\\n' >"$GRANTED_STATE_DIR/gateway.systemd.env"
+printf 'original dotenv\\n' >"$GRANTED_STATE_DIR/.env"
+printf 'baseline timeline\\n' >"$GRANTED_UPGRADE_SURVIVOR_SYSTEMCTL_SHIM_DAEMON_LOG"
 : >"$PROBE_EVENTS"
 openclaw_e2e_wait_gateway_ready() {
   printf 'readiness\\n' >>"$PROBE_EVENTS"
@@ -223,14 +223,14 @@ exit "$probe_status"
             ...process.env,
             PATH: `${bin}${path.delimiter}${process.env.PATH}`,
             HOME: root,
-            OPENCLAW_STATE_DIR: path.join(root, "state"),
-            OPENCLAW_UPGRADE_SURVIVOR_BASELINE: "openclaw@2026.8.1",
-            OPENCLAW_UPGRADE_SURVIVOR_UPDATE_RESTART_MODE: "auto-auth",
-            OPENCLAW_UPGRADE_SURVIVOR_RUNTIME_ROOT: path.join(root, "runtime"),
-            OPENCLAW_UPGRADE_SURVIVOR_SUMMARY_JSON: path.join(root, "artifacts", "summary.json"),
-            OPENCLAW_CLAWHUB_URL: "",
+            GRANTED_STATE_DIR: path.join(root, "state"),
+            GRANTED_UPGRADE_SURVIVOR_BASELINE: "openclaw@2026.8.1",
+            GRANTED_UPGRADE_SURVIVOR_UPDATE_RESTART_MODE: "auto-auth",
+            GRANTED_UPGRADE_SURVIVOR_RUNTIME_ROOT: path.join(root, "runtime"),
+            GRANTED_UPGRADE_SURVIVOR_SUMMARY_JSON: path.join(root, "artifacts", "summary.json"),
+            GRANTED_CLAWHUB_URL: "",
             PROBE_EVENTS: path.join(root, "events"),
-            OPENCLAW_E2E_REDACTOR_MODULE: redactor,
+            GRANTED_E2E_REDACTOR_MODULE: redactor,
             PROBE_ACTIVE_STATUS: String(activeStatus),
             PROBE_MUTATION: mutation,
             PROBE_START_STATUS: String(startStatus),
@@ -303,9 +303,9 @@ ${conditional ? 'probe_status=0; phase preparation handler || probe_status=$?; e
           env: {
             ...process.env,
             HOME: root,
-            OPENCLAW_UPGRADE_SURVIVOR_BASELINE: "openclaw@2026.8.1",
-            OPENCLAW_UPGRADE_SURVIVOR_RUNTIME_ROOT: path.join(root, "runtime"),
-            OPENCLAW_UPGRADE_SURVIVOR_SUMMARY_JSON: path.join(root, "artifacts", "summary.json"),
+            GRANTED_UPGRADE_SURVIVOR_BASELINE: "openclaw@2026.8.1",
+            GRANTED_UPGRADE_SURVIVOR_RUNTIME_ROOT: path.join(root, "runtime"),
+            GRANTED_UPGRADE_SURVIVOR_SUMMARY_JSON: path.join(root, "artifacts", "summary.json"),
             PROBE_SIDE_EFFECT: path.join(root, "side-effect"),
           },
         },
@@ -409,11 +409,11 @@ ${conditional ? 'probe_status=0; phase preparation handler || probe_status=$?; e
       `#!/usr/bin/env bash
 set -euo pipefail
 count=0
-if [ -f "$OPENCLAW_INVOCATION_PATH" ]; then
-  count="$(cat "$OPENCLAW_INVOCATION_PATH")"
+if [ -f "$GRANTED_INVOCATION_PATH" ]; then
+  count="$(cat "$GRANTED_INVOCATION_PATH")"
 fi
 count=$((count + 1))
-printf '%s' "$count" >"$OPENCLAW_INVOCATION_PATH"
+printf '%s' "$count" >"$GRANTED_INVOCATION_PATH"
 if [ "$count" -eq 2 ]; then
   exit 23
 fi
@@ -434,11 +434,11 @@ install_companion_plugins
       encoding: "utf8",
       env: {
         ...process.env,
-        OPENCLAW_CONFIG_PATH: configPath,
-        OPENCLAW_INVOCATION_PATH: invocationPath,
-        OPENCLAW_UPGRADE_SURVIVOR_ARTIFACT_ROOT: root,
-        OPENCLAW_UPGRADE_SURVIVOR_CONFIG_PARKING_HELPER: SCRIPT_PATH,
-        OPENCLAW_UPGRADE_SURVIVOR_CLAWHUB_FIXTURE_SERVER: "unused",
+        GRANTED_CONFIG_PATH: configPath,
+        GRANTED_INVOCATION_PATH: invocationPath,
+        GRANTED_UPGRADE_SURVIVOR_ARTIFACT_ROOT: root,
+        GRANTED_UPGRADE_SURVIVOR_CONFIG_PARKING_HELPER: SCRIPT_PATH,
+        GRANTED_UPGRADE_SURVIVOR_CLAWHUB_FIXTURE_SERVER: "unused",
         PATH: `${binDir}:${process.env.PATH ?? ""}`,
         package_version: "2026.8.1",
       },

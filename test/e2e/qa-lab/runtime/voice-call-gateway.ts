@@ -235,8 +235,8 @@ async function runVoiceCallProof(options: ProducerOptions): Promise<string> {
       controlUiEnabled: false,
       enabledPluginIds: ["voice-call"],
       runtimeEnvPatch: {
-        OPENCLAW_QA_VOICE_BRIDGE_CALLS_PATH: fixture.bridgeCallsPath,
-        OPENCLAW_QA_VOICE_TOOL_RESULTS_PATH: fixture.toolResultsPath,
+        GRANTED_QA_VOICE_BRIDGE_CALLS_PATH: fixture.bridgeCallsPath,
+        GRANTED_QA_VOICE_TOOL_RESULTS_PATH: fixture.toolResultsPath,
       },
       mutateConfig: (config) =>
         withVoiceCallConfig({ config, pluginDir: fixture.pluginDir, servePort }),

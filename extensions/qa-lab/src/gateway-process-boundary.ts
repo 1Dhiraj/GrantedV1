@@ -515,7 +515,7 @@ export async function createQaGatewayProcessBoundaryController(params: {
     const sandboxFilePath = path.join(controlDir, `sandbox-${generation}.json`);
     const envKeys = normalizeEnvKeys([
       ...forwardedEnvKeys.filter((key) => spawnParams.env[key] !== undefined),
-      "OPENCLAW_QA_SUT_PREENTRY_STOP",
+      "GRANTED_QA_SUT_PREENTRY_STOP",
     ]);
     const command: QaGatewayProcessCommand = {
       version: PROCESS_BOUNDARY_VERSION,
@@ -536,11 +536,11 @@ export async function createQaGatewayProcessBoundaryController(params: {
       commandSha256,
       env: {
         ...spawnParams.env,
-        OPENCLAW_QA_SUT_BOUNDARY_COMMAND_FILE: commandFilePath,
-        OPENCLAW_QA_SUT_BOUNDARY_COMMAND_SHA256: commandSha256,
-        OPENCLAW_QA_SUT_BOUNDARY_GENERATION: generation,
-        OPENCLAW_QA_SUT_BOUNDARY_IDENTITY_FILE: identityFilePath,
-        OPENCLAW_QA_SUT_BOUNDARY_SANDBOX_FILE: sandboxFilePath,
+        GRANTED_QA_SUT_BOUNDARY_COMMAND_FILE: commandFilePath,
+        GRANTED_QA_SUT_BOUNDARY_COMMAND_SHA256: commandSha256,
+        GRANTED_QA_SUT_BOUNDARY_GENERATION: generation,
+        GRANTED_QA_SUT_BOUNDARY_IDENTITY_FILE: identityFilePath,
+        GRANTED_QA_SUT_BOUNDARY_SANDBOX_FILE: sandboxFilePath,
       },
       generation,
       identityFilePath,
@@ -795,7 +795,7 @@ export function assertQaGatewayCredentialLeaseQuarantine(
   lease: { leaseTtlMs: number; source: string },
   env: NodeJS.ProcessEnv = process.env,
 ) {
-  if (!env.OPENCLAW_QA_TELEGRAM_SUT_PROCESS_BOUNDARY_DIR?.trim() || lease.source !== "convex") {
+  if (!env.GRANTED_QA_TELEGRAM_SUT_PROCESS_BOUNDARY_DIR?.trim() || lease.source !== "convex") {
     return;
   }
   if (lease.leaseTtlMs < QA_GATEWAY_PROCESS_BOUNDARY_MIN_QUARANTINE_TTL_MS) {
@@ -806,7 +806,7 @@ export function assertQaGatewayCredentialLeaseQuarantine(
 }
 
 export async function shouldRetainQaGatewayCredentialLease(env: NodeJS.ProcessEnv = process.env) {
-  const evidenceDir = env.OPENCLAW_QA_TELEGRAM_SUT_PROCESS_BOUNDARY_DIR?.trim();
+  const evidenceDir = env.GRANTED_QA_TELEGRAM_SUT_PROCESS_BOUNDARY_DIR?.trim();
   if (!evidenceDir || !path.isAbsolute(evidenceDir)) {
     return false;
   }

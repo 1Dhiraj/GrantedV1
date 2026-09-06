@@ -21,9 +21,9 @@ function runProbe(home: string, args: string[]) {
     ...process.env,
     HOME: home,
     USERPROFILE: home,
-    OPENCLAW_CONFIG_PATH: path.join(home, "openclaw.json"),
-    OPENCLAW_STATE_DIR: path.join(home, "state"),
-    OPENCLAW_TEST_FAST: "1",
+    GRANTED_CONFIG_PATH: path.join(home, "openclaw.json"),
+    GRANTED_STATE_DIR: path.join(home, "state"),
+    GRANTED_TEST_FAST: "1",
     MCP_TEST_ARGS_JSON: JSON.stringify(args),
   };
   delete env.VITEST;

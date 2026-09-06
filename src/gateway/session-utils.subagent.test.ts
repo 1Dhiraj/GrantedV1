@@ -908,8 +908,8 @@ describe("session list subagent metadata", () => {
 
       const row = await withEnvAsync(
         {
-          OPENCLAW_STATE_DIR: stateDir,
-          OPENCLAW_TEST_READ_SUBAGENT_RUNS_FROM_SQLITE: "1",
+          GRANTED_STATE_DIR: stateDir,
+          GRANTED_TEST_READ_SUBAGENT_RUNS_FROM_SQLITE: "1",
         },
         async () => {
           saveSubagentRegistryToSqlite(canonicalSubagentRunFixtures(persistedRuns));
@@ -1001,8 +1001,8 @@ describe("session list subagent metadata", () => {
     try {
       const result = await withEnvAsync(
         {
-          OPENCLAW_STATE_DIR: stateDir,
-          OPENCLAW_TEST_READ_SUBAGENT_RUNS_FROM_SQLITE: "1",
+          GRANTED_STATE_DIR: stateDir,
+          GRANTED_TEST_READ_SUBAGENT_RUNS_FROM_SQLITE: "1",
         },
         async () => {
           saveSubagentRegistryToSqlite(canonicalSubagentRunFixtures(persistedRuns));
@@ -1037,8 +1037,8 @@ describe("session list subagent metadata", () => {
     try {
       const result = await withEnvAsync(
         {
-          OPENCLAW_STATE_DIR: stateDir,
-          OPENCLAW_TEST_READ_SUBAGENT_RUNS_FROM_SQLITE: "1",
+          GRANTED_STATE_DIR: stateDir,
+          GRANTED_TEST_READ_SUBAGENT_RUNS_FROM_SQLITE: "1",
         },
         async () =>
           await listSessionsFromStoreAsync({

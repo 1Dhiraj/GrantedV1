@@ -162,7 +162,7 @@ describe("placement session retirement", () => {
     const root = await fs.mkdtemp(
       path.join(await fs.realpath(os.tmpdir()), "openclaw-placement-retirement-"),
     );
-    const database = openOpenClawStateDatabase({ env: { OPENCLAW_STATE_DIR: root } });
+    const database = openOpenClawStateDatabase({ env: { GRANTED_STATE_DIR: root } });
     const placements = createWorkerSessionPlacementStore({ database, now: () => 1_000 });
     const requested = placements.startDispatch({
       sessionId: "session-requested",

@@ -56,7 +56,7 @@ export const trimToUndefined = normalizeOptionalString;
 
 /**
  * Like trimToUndefined but also rejects unresolved env var placeholders (e.g. `${VAR}`).
- * This prevents literal placeholder strings like `${OPENCLAW_GATEWAY_TOKEN}` from being
+ * This prevents literal placeholder strings like `${GRANTED_GATEWAY_TOKEN}` from being
  * accepted as valid credentials when the referenced env var is missing.
  * Note: legitimate credential values containing literal `${UPPER_CASE}` patterns will
  * also be rejected, but this is an extremely unlikely edge case.
@@ -120,8 +120,8 @@ export function createGatewayCredentialPlan(params: {
   const remote = gateway?.remote;
   const defaults = params.defaults ?? params.config.secrets?.defaults;
   const authMode = gateway?.auth?.mode;
-  const envToken = trimToUndefined(env.OPENCLAW_GATEWAY_TOKEN);
-  const envPassword = trimToUndefined(env.OPENCLAW_GATEWAY_PASSWORD);
+  const envToken = trimToUndefined(env.GRANTED_GATEWAY_TOKEN);
+  const envPassword = trimToUndefined(env.GRANTED_GATEWAY_PASSWORD);
 
   const localToken = resolveConfiguredGatewayCredentialInput({
     config: params.config,

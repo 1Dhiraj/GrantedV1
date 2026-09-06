@@ -52,9 +52,9 @@ await server.connect(new StdioServerTransport());
 }
 
 async function main() {
-  const stateDir = process.env.OPENCLAW_STATE_DIR?.trim() || path.join(os.homedir(), ".openclaw");
+  const stateDir = process.env.GRANTED_STATE_DIR?.trim() || path.join(os.homedir(), ".openclaw");
   const configPath =
-    process.env.OPENCLAW_CONFIG_PATH?.trim() || path.join(stateDir, "openclaw.json");
+    process.env.GRANTED_CONFIG_PATH?.trim() || path.join(stateDir, "openclaw.json");
   const probeDir = path.join(stateDir, "cron-mcp-cleanup");
   const serverPath = path.join(probeDir, "probe-server.mjs");
   const pidPath = path.join(probeDir, "probe.pid");

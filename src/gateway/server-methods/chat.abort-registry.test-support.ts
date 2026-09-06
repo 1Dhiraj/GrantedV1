@@ -22,12 +22,12 @@ import { captureEnv, setTestEnvValue } from "../../test-utils/env.js";
 import { cleanupSessionStateForTest } from "../../test-utils/session-state-cleanup.js";
 
 export function useChatAbortRegistryFixture() {
-  const env = captureEnv(["OPENCLAW_STATE_DIR", "OPENCLAW_CONFIG_PATH"]);
+  const env = captureEnv(["GRANTED_STATE_DIR", "GRANTED_CONFIG_PATH"]);
   let stateDir = "";
   beforeEach(async () => {
     stateDir = await realpath(await mkdtemp(path.join(os.tmpdir(), "openclaw-abort-errors-")));
-    setTestEnvValue("OPENCLAW_STATE_DIR", stateDir);
-    setTestEnvValue("OPENCLAW_CONFIG_PATH", path.join(stateDir, "openclaw.json"));
+    setTestEnvValue("GRANTED_STATE_DIR", stateDir);
+    setTestEnvValue("GRANTED_CONFIG_PATH", path.join(stateDir, "openclaw.json"));
     await writeFile(
       path.join(stateDir, "openclaw.json"),
       JSON.stringify({ agents: { defaults: { workspace: stateDir } } }),

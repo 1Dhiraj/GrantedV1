@@ -66,8 +66,8 @@ describe("Doctor workspace persistence", () => {
       await withTempHome(async (home) => {
         await withEnvOverride(
           {
-            OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-            OPENCLAW_UPDATE_IN_PROGRESS: updateInProgress ? "1" : undefined,
+            GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+            GRANTED_UPDATE_IN_PROGRESS: updateInProgress ? "1" : undefined,
           },
           async () => {
             const entries = {
@@ -122,7 +122,7 @@ describe("Doctor workspace persistence", () => {
     "persists explicit ownership for a markerless multi-agent %s roster",
     async (shape) => {
       await withTempHome(async (home) => {
-        await withEnvOverride({ OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1" }, async () => {
+        await withEnvOverride({ GRANTED_DISABLE_BUNDLED_PLUGINS: "1" }, async () => {
           const entries = {
             ops: { workspace: path.join(home, "ops") },
             research: { workspace: path.join(home, "research") },
@@ -166,7 +166,7 @@ describe("Doctor workspace persistence", () => {
     async ({ kind, legacyId }) => {
       await withTempHome(async (home) => {
         await withEnvOverride(
-          { OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1", OPENCLAW_WORKSPACE_DIR: undefined },
+          { GRANTED_DISABLE_BUNDLED_PLUGINS: "1", GRANTED_WORKSPACE_DIR: undefined },
           async () => {
             const workspace = path.join(
               home,
@@ -225,7 +225,7 @@ describe("Doctor workspace persistence", () => {
     "repairs workspace and heartbeat values from %s through snapshot, doctor, and write",
     async (shape) => {
       await withTempHome(async (home) => {
-        await withEnvOverride({ OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1" }, async () => {
+        await withEnvOverride({ GRANTED_DISABLE_BUNDLED_PLUGINS: "1" }, async () => {
           const agent = {
             workspace: null,
             heartbeat: { every: "30m", activeHours: { start: "99:99", end: "17:00" } },
@@ -266,7 +266,7 @@ describe("Doctor workspace persistence", () => {
 
   it("repairs a legacy candidate without writing when include ownership blocks migration", async () => {
     await withTempHome(async (home) => {
-      await withEnvOverride({ OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1" }, async () => {
+      await withEnvOverride({ GRANTED_DISABLE_BUNDLED_PLUGINS: "1" }, async () => {
         const configPath = await writeOpenClawConfig(home, {
           agents: {
             list: [
@@ -297,7 +297,7 @@ describe("Doctor workspace persistence", () => {
 
   it("keeps the legacy owner on the shared workspace across later health writes", async () => {
     await withTempHome(async (home) => {
-      await withEnvOverride({ OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1" }, async () => {
+      await withEnvOverride({ GRANTED_DISABLE_BUNDLED_PLUGINS: "1" }, async () => {
         const workspace = path.join(home, "shared-workspace");
         const configPath = await writeOpenClawConfig(home, {
           agents: {
@@ -335,7 +335,7 @@ describe("Doctor workspace persistence", () => {
     await withTempHome(async (home) => {
       const stateDir = path.join(home, ".openclaw");
       await withEnvOverride(
-        { OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1", OPENCLAW_STATE_DIR: stateDir },
+        { GRANTED_DISABLE_BUNDLED_PLUGINS: "1", GRANTED_STATE_DIR: stateDir },
         async () => {
           const configPath = await writeOpenClawConfig(home, {
             agents: {

@@ -180,7 +180,7 @@ describe("codesign-mac-app temp file hygiene", () => {
           [path.join(tempRoot, "Missing.app")],
           tempRoot,
           {
-            OPENCLAW_MAC_SIGNING_VARIANT: "elevation-host",
+            GRANTED_MAC_SIGNING_VARIANT: "elevation-host",
             [key]: "1",
           },
         );
@@ -233,7 +233,7 @@ describe("codesign-mac-app temp file hygiene", () => {
           encoding: "utf8",
           env: {
             ...process.env,
-            OPENCLAW_MAC_SIGNING_VARIANT: "elevation-host",
+            GRANTED_MAC_SIGNING_VARIANT: "elevation-host",
             PATH: `${binDir}${path.delimiter}${process.env.PATH ?? ""}`,
             SIGN_IDENTITY: "Developer ID Application: OpenClaw Foundation (FWJYW4S8P8)",
             TMPDIR: tempRoot,
@@ -263,7 +263,7 @@ describe("codesign-mac-app temp file hygiene", () => {
           env: {
             ...process.env,
             CODESIGN_FAKE_SECOND_AUTHORITY: "1",
-            OPENCLAW_MAC_SIGNING_VARIANT: "elevation-host",
+            GRANTED_MAC_SIGNING_VARIANT: "elevation-host",
             PATH: `${binDir}${path.delimiter}${process.env.PATH ?? ""}`,
             SIGN_IDENTITY: "Developer ID Application: OpenClaw Foundation (FWJYW4S8P8)",
             TMPDIR: tempRoot,
@@ -295,7 +295,7 @@ describe("codesign-mac-app temp file hygiene", () => {
           env: {
             ...process.env,
             CODESIGN_FAKE_NO_AUTHORITY: "1",
-            OPENCLAW_MAC_SIGNING_VARIANT: "elevation-host",
+            GRANTED_MAC_SIGNING_VARIANT: "elevation-host",
             PATH: `${binDir}${path.delimiter}${process.env.PATH ?? ""}`,
             SIGN_IDENTITY: "Developer ID Application: OpenClaw Foundation (FWJYW4S8P8)",
             TMPDIR: tempRoot,
@@ -323,7 +323,7 @@ describe("codesign-mac-app temp file hygiene", () => {
         env: {
           ...process.env,
           CODESIGN_FAKE_FAIL_AFTER_METADATA: "1",
-          OPENCLAW_MAC_SIGNING_VARIANT: "elevation-host",
+          GRANTED_MAC_SIGNING_VARIANT: "elevation-host",
           PATH: `${binDir}${path.delimiter}${process.env.PATH ?? ""}`,
           SIGN_IDENTITY: "Developer ID Application: OpenClaw Foundation (FWJYW4S8P8)",
           TMPDIR: tempRoot,

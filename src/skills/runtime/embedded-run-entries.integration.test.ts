@@ -10,14 +10,14 @@ import { resolveEmbeddedRunSkillEntries } from "./embedded-run-entries.js";
 import { resolveReusableWorkspaceSkillSnapshot } from "./session-snapshot.js";
 
 const tempDirs = createTempDirTracker();
-const originalBundledDir = process.env.OPENCLAW_BUNDLED_PLUGINS_DIR;
+const originalBundledDir = process.env.GRANTED_BUNDLED_PLUGINS_DIR;
 
 function restoreBundledPluginsDir() {
   if (originalBundledDir === undefined) {
-    delete process.env.OPENCLAW_BUNDLED_PLUGINS_DIR;
+    delete process.env.GRANTED_BUNDLED_PLUGINS_DIR;
     return;
   }
-  process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = originalBundledDir;
+  process.env.GRANTED_BUNDLED_PLUGINS_DIR = originalBundledDir;
 }
 
 async function setupBundledDiffsPlugin() {
@@ -37,7 +37,7 @@ async function setupBundledDiffsPlugin() {
 
 async function resolveBundledDiffsSkillEntries(config?: OpenClawConfig) {
   const { bundledPluginsDir, workspaceDir } = await setupBundledDiffsPlugin();
-  process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = bundledPluginsDir;
+  process.env.GRANTED_BUNDLED_PLUGINS_DIR = bundledPluginsDir;
 
   return resolveEmbeddedRunSkillEntries({ workspaceDir, ...(config ? { config } : {}) });
 }

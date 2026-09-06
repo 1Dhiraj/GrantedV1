@@ -13,7 +13,7 @@ export type RemoteEmbeddingProviderId = string;
 
 /** Attribution headers for native OpenAI embedding calls. */
 function resolveOpenClawAttributionHeaders(): Record<string, string> {
-  const version = typeof process !== "undefined" ? process.env.OPENCLAW_VERSION?.trim() : undefined;
+  const version = typeof process !== "undefined" ? process.env.GRANTED_VERSION?.trim() : undefined;
   return {
     originator: "openclaw",
     ...(version ? { version } : {}),

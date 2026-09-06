@@ -759,7 +759,7 @@ describe("github-copilot plugin", () => {
                 apiKey: {
                   source: "env",
                   provider: "default",
-                  id: "OPENCLAW_MISSING_COPILOT_CATALOG_TOKEN",
+                  id: "GRANTED_MISSING_COPILOT_CATALOG_TOKEN",
                 },
               },
             },

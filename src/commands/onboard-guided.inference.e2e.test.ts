@@ -52,8 +52,8 @@ describe("guided onboarding inference composition", () => {
       setTestEnvValue("USERPROFILE", root);
       setTestEnvValue("CODEX_HOME", path.join(root, "codex"));
       setTestEnvValue("CLAUDE_CONFIG_DIR", path.join(root, "claude"));
-      setTestEnvValue("OPENCLAW_STATE_DIR", root);
-      setTestEnvValue("OPENCLAW_CONFIG_PATH", configPath);
+      setTestEnvValue("GRANTED_STATE_DIR", root);
+      setTestEnvValue("GRANTED_CONFIG_PATH", configPath);
       setTestEnvValue("OPENAI_API_KEY", "test-openai-key");
       setTestEnvValue("PATH", path.dirname(process.execPath));
 

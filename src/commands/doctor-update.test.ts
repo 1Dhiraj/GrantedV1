@@ -268,7 +268,7 @@ describe("maybeOfferUpdateBeforeDoctor", () => {
     "verifies the preserved doctor service port from $source",
     async ({ args, envPort, expected }) => {
       const runtime = { log: vi.fn(), error: vi.fn(), exit: vi.fn() };
-      const serviceEnv = { ...createManagedDoctorEnvironment(), OPENCLAW_GATEWAY_PORT: envPort };
+      const serviceEnv = { ...createManagedDoctorEnvironment(), GRANTED_GATEWAY_PORT: envPort };
       mockGitCheckout();
       mockManagedService({
         verdict: { kind: "owned", refreshDefinition: false, fingerprint: "opaque" },
@@ -403,7 +403,7 @@ describe("maybeOfferUpdateBeforeDoctor", () => {
       const runtime = { log: vi.fn(), error: vi.fn(), exit: vi.fn() };
       const serviceEnv = {
         ...createManagedDoctorEnvironment(),
-        OPENCLAW_SYSTEMD_UNIT: "openclaw-gateway-work.service",
+        GRANTED_SYSTEMD_UNIT: "openclaw-gateway-work.service",
       };
       mockGitCheckout();
       mockManagedService({
@@ -632,7 +632,7 @@ describe("maybeOfferUpdateBeforeDoctor", () => {
   });
 
   it("preserves the active profile in unsafe recovery guidance", async () => {
-    vi.stubEnv("OPENCLAW_PROFILE", "work");
+    vi.stubEnv("GRANTED_PROFILE", "work");
     mockGitCheckout();
     mockManagedService({
       verdict: { kind: "owned", refreshDefinition: true, fingerprint: "opaque" },
@@ -656,7 +656,7 @@ describe("maybeOfferUpdateBeforeDoctor", () => {
 
   it("leaves a running gateway alone when service repair is externally managed", async () => {
     mockGitCheckout();
-    process.env.OPENCLAW_SERVICE_REPAIR_POLICY = "external";
+    process.env.GRANTED_SERVICE_REPAIR_POLICY = "external";
     mocks.runGatewayUpdate.mockResolvedValue({
       status: "ok",
       mode: "git",

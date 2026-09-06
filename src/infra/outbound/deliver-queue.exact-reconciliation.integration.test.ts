@@ -37,7 +37,7 @@ describe("exact Matrix delivery queue reconciliation", () => {
   it.each(["required", "best_effort"] as const)(
     "settles one exact Matrix %s send without restart replay",
     async (queuePolicy) => {
-      process.env.OPENCLAW_STATE_DIR = tmpDir;
+      process.env.GRANTED_STATE_DIR = tmpDir;
       const deliveryIntentId = `cron-direct-delivery:v1:exact-${queuePolicy}-completion`;
       const messageId = `exact-${queuePolicy}-message`;
       const reconcileUnknownSend = vi.fn();

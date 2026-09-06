@@ -134,11 +134,11 @@ export async function loadQaRunnerModelOptions(params: { repoRoot: string; signa
         cwd: params.repoRoot,
         env: {
           HOME: homeDir,
-          OPENCLAW_HOME: homeDir,
-          OPENCLAW_CONFIG_PATH: configPath,
-          OPENCLAW_STATE_DIR: stateDir,
-          OPENCLAW_OAUTH_DIR: path.join(stateDir, "credentials"),
-          OPENCLAW_CODEX_DISCOVERY_LIVE: "0",
+          GRANTED_HOME: homeDir,
+          GRANTED_CONFIG_PATH: configPath,
+          GRANTED_STATE_DIR: stateDir,
+          GRANTED_OAUTH_DIR: path.join(stateDir, "credentials"),
+          GRANTED_CODEX_DISCOVERY_LIVE: "0",
         },
         killProcessTree: true,
         maxOutputBytes: {

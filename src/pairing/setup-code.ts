@@ -296,8 +296,8 @@ function resolvePairingSetupAuthLabel(
     value: cfg.gateway?.auth?.password,
     defaults,
   }).ref;
-  const envToken = normalizeOptionalString(env.OPENCLAW_GATEWAY_TOKEN);
-  const envPassword = normalizeOptionalString(env.OPENCLAW_GATEWAY_PASSWORD);
+  const envToken = normalizeOptionalString(env.GRANTED_GATEWAY_TOKEN);
+  const envPassword = normalizeOptionalString(env.GRANTED_GATEWAY_PASSWORD);
   const token =
     envToken || (tokenRef ? undefined : normalizeSecretInputString(cfg.gateway?.auth?.token));
   const password =
@@ -493,8 +493,8 @@ export async function resolvePairingSetupFromConfig(
     mode: cfg.gateway?.auth?.mode,
     hasTokenOverride: false,
     hasPasswordOverride: false,
-    hasTokenFallback: Boolean(normalizeOptionalString(env.OPENCLAW_GATEWAY_TOKEN)),
-    hasPasswordFallback: Boolean(normalizeOptionalString(env.OPENCLAW_GATEWAY_PASSWORD)),
+    hasTokenFallback: Boolean(normalizeOptionalString(env.GRANTED_GATEWAY_TOKEN)),
+    hasPasswordFallback: Boolean(normalizeOptionalString(env.GRANTED_GATEWAY_PASSWORD)),
   });
   const authLabel = resolvePairingSetupAuthLabel(cfgForAuth, env);
   if (authLabel.error) {

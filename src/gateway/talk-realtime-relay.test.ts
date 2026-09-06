@@ -346,9 +346,9 @@ describe("talk realtime gateway relay", () => {
   });
 
   it("closes only realtime relays owned by the disconnected connection", async () => {
-    const envSnapshot = captureEnv(["OPENCLAW_STATE_DIR"]);
+    const envSnapshot = captureEnv(["GRANTED_STATE_DIR"]);
     const tempDir = tempDirs.make("openclaw-relay-disconnect-");
-    setTestEnvValue("OPENCLAW_STATE_DIR", tempDir);
+    setTestEnvValue("GRANTED_STATE_DIR", tempDir);
     const bridgeCloses: Array<ReturnType<typeof vi.fn>> = [];
     const bridgeAudioSends: Array<ReturnType<typeof vi.fn>> = [];
     const bridgeRequests: RealtimeVoiceBridgeCreateRequest[] = [];
@@ -614,11 +614,11 @@ describe("talk realtime gateway relay", () => {
   ])(
     "appends relay transcripts from $sessionKey to $canonicalKey",
     async ({ sessionKey, canonicalKey, mainKey, scope }) => {
-      const envSnapshot = captureEnv(["OPENCLAW_STATE_DIR"]);
+      const envSnapshot = captureEnv(["GRANTED_STATE_DIR"]);
       const tempDir = await fs.realpath(
         await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-relay-voice-")),
       );
-      setTestEnvValue("OPENCLAW_STATE_DIR", tempDir);
+      setTestEnvValue("GRANTED_STATE_DIR", tempDir);
       const storePath = path.join(tempDir, "configured", "sessions.sqlite");
       const cfg: OpenClawConfig = { session: { store: storePath, mainKey, scope } };
       let bridgeRequest: RealtimeVoiceBridgeCreateRequest | undefined;
@@ -698,9 +698,9 @@ describe("talk realtime gateway relay", () => {
   );
 
   it("emits one terminal error and close when transcript persistence overflows", async () => {
-    const envSnapshot = captureEnv(["OPENCLAW_STATE_DIR"]);
+    const envSnapshot = captureEnv(["GRANTED_STATE_DIR"]);
     const tempDir = tempDirs.make("openclaw-relay-voice-overflow-");
-    setTestEnvValue("OPENCLAW_STATE_DIR", tempDir);
+    setTestEnvValue("GRANTED_STATE_DIR", tempDir);
     let bridgeRequest: RealtimeVoiceBridgeCreateRequest | undefined;
     const bridgeClose = vi.fn();
     const events: Array<{ event: string; payload: unknown; connIds: string[] }> = [];
@@ -822,11 +822,11 @@ describe("talk realtime gateway relay", () => {
   });
 
   it("creates the relay voice record before binding a transcript-free consult", async () => {
-    const envSnapshot = captureEnv(["OPENCLAW_STATE_DIR"]);
+    const envSnapshot = captureEnv(["GRANTED_STATE_DIR"]);
     const tempDir = await fs.realpath(
       await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-relay-voice-consult-")),
     );
-    setTestEnvValue("OPENCLAW_STATE_DIR", tempDir);
+    setTestEnvValue("GRANTED_STATE_DIR", tempDir);
     try {
       const session = createTalkRealtimeRelaySession({
         context: {
@@ -881,11 +881,11 @@ describe("talk realtime gateway relay", () => {
   });
 
   it("pins an unscoped relay owner before the configured default changes", async () => {
-    const envSnapshot = captureEnv(["OPENCLAW_STATE_DIR"]);
+    const envSnapshot = captureEnv(["GRANTED_STATE_DIR"]);
     const tempDir = await fs.realpath(
       await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-relay-owner-pin-")),
     );
-    setTestEnvValue("OPENCLAW_STATE_DIR", tempDir);
+    setTestEnvValue("GRANTED_STATE_DIR", tempDir);
     let runtimeConfig: OpenClawConfig = {
       agents: { entries: { main: { default: true }, ops: {} } },
     };
@@ -933,11 +933,11 @@ describe("talk realtime gateway relay", () => {
   });
 
   it("pins a scoped relay owner from the trimmed session key", async () => {
-    const envSnapshot = captureEnv(["OPENCLAW_STATE_DIR"]);
+    const envSnapshot = captureEnv(["GRANTED_STATE_DIR"]);
     const tempDir = await fs.realpath(
       await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-relay-trimmed-owner-")),
     );
-    setTestEnvValue("OPENCLAW_STATE_DIR", tempDir);
+    setTestEnvValue("GRANTED_STATE_DIR", tempDir);
     try {
       const session = createTalkRealtimeRelaySessionRaw({
         context: {
@@ -979,11 +979,11 @@ describe("talk realtime gateway relay", () => {
   });
 
   it("logs relay transcript append failures", async () => {
-    const envSnapshot = captureEnv(["OPENCLAW_STATE_DIR"]);
+    const envSnapshot = captureEnv(["GRANTED_STATE_DIR"]);
     const tempDir = await fs.realpath(
       await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-relay-voice-failure-")),
     );
-    setTestEnvValue("OPENCLAW_STATE_DIR", tempDir);
+    setTestEnvValue("GRANTED_STATE_DIR", tempDir);
     let bridgeRequest: RealtimeVoiceBridgeCreateRequest | undefined;
     const warn = vi.fn();
     try {

@@ -94,8 +94,8 @@ async function prepareUnreachableGatewayCliFixture(params: {
     const stateEnv = {
       ...process.env,
       HOME: root,
-      OPENCLAW_HOME: root,
-      OPENCLAW_STATE_DIR: stateDir,
+      GRANTED_HOME: root,
+      GRANTED_STATE_DIR: stateDir,
     };
     const identity = loadOrCreateDeviceIdentity({ env: stateEnv });
     storeOriginDeviceToken({
@@ -160,15 +160,15 @@ async function runIsolatedGatewayCli(params: {
       NODE_DISABLE_COMPILE_CACHE: "1",
       NODE_ENV: undefined,
       NODE_OPTIONS: undefined,
-      OPENCLAW_CONFIG_PATH: params.configPath,
-      OPENCLAW_SKIP_CHANNELS: "1",
-      OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-      OPENCLAW_GATEWAY_PASSWORD: undefined,
-      OPENCLAW_GATEWAY_TOKEN: undefined,
-      OPENCLAW_GATEWAY_URL: undefined,
-      OPENCLAW_HOME: params.root,
-      OPENCLAW_NO_RESPAWN: "1",
-      OPENCLAW_STATE_DIR: params.stateDir,
+      GRANTED_CONFIG_PATH: params.configPath,
+      GRANTED_SKIP_CHANNELS: "1",
+      GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+      GRANTED_GATEWAY_PASSWORD: undefined,
+      GRANTED_GATEWAY_TOKEN: undefined,
+      GRANTED_GATEWAY_URL: undefined,
+      GRANTED_HOME: params.root,
+      GRANTED_NO_RESPAWN: "1",
+      GRANTED_STATE_DIR: params.stateDir,
       DISCORD_BOT_TOKEN: undefined,
       TWILIO_ACCOUNT_SID: undefined,
       TWILIO_AUTH_TOKEN: undefined,
@@ -352,8 +352,8 @@ describe("gateway-backed CLI process exit", () => {
     const stateEnv = {
       ...process.env,
       HOME: root,
-      OPENCLAW_HOME: root,
-      OPENCLAW_STATE_DIR: stateDir,
+      GRANTED_HOME: root,
+      GRANTED_STATE_DIR: stateDir,
     };
     await fs.mkdir(stateDir, { recursive: true });
     await fs.writeFile(
@@ -429,8 +429,8 @@ describe("gateway-backed CLI process exit", () => {
     const stateEnv = {
       ...process.env,
       HOME: root,
-      OPENCLAW_HOME: root,
-      OPENCLAW_STATE_DIR: stateDir,
+      GRANTED_HOME: root,
+      GRANTED_STATE_DIR: stateDir,
     };
     await fs.mkdir(stateDir, { recursive: true });
     await fs.writeFile(
@@ -485,8 +485,8 @@ describe("gateway-backed CLI process exit", () => {
       const stateEnv = {
         ...process.env,
         HOME: root,
-        OPENCLAW_HOME: root,
-        OPENCLAW_STATE_DIR: stateDir,
+        GRANTED_HOME: root,
+        GRANTED_STATE_DIR: stateDir,
       };
       await fs.mkdir(stateDir, { recursive: true });
       await fs.writeFile(
@@ -556,7 +556,7 @@ describe("gateway-backed CLI process exit", () => {
           'import fs from "node:fs";',
           'const entry = process.argv[1]?.replaceAll("\\\\", "/");',
           'if (entry?.endsWith("/src/entry.ts")) {',
-          "  fs.appendFileSync(process.env.OPENCLAW_ENTRY_PID_LOG, `${process.pid}\\n`);",
+          "  fs.appendFileSync(process.env.GRANTED_ENTRY_PID_LOG, `${process.pid}\\n`);",
           "}",
           "",
         ].join("\n"),
@@ -580,10 +580,10 @@ describe("gateway-backed CLI process exit", () => {
         configPath,
         env: {
           NODE_OPTIONS: `--import=${pathToFileURL(preloadPath).href}`,
-          OPENCLAW_ENTRY_PID_LOG: pidLogPath,
-          OPENCLAW_NODE_EXTRA_CA_CERTS_READY: "1",
-          OPENCLAW_NODE_OPTIONS_READY: undefined,
-          OPENCLAW_NO_RESPAWN: undefined,
+          GRANTED_ENTRY_PID_LOG: pidLogPath,
+          GRANTED_NODE_EXTRA_CA_CERTS_READY: "1",
+          GRANTED_NODE_OPTIONS_READY: undefined,
+          GRANTED_NO_RESPAWN: undefined,
         },
       });
 
@@ -694,7 +694,7 @@ describe("gateway-backed CLI process exit", () => {
       );
       expect(result.stderr).not.toContain("The CLI command failed");
       expect(result.stderr).not.toContain("Could not start the CLI");
-      expect(result.stderr).not.toContain("OPENCLAW_DEBUG");
+      expect(result.stderr).not.toContain("GRANTED_DEBUG");
       expect(result.stderr).not.toContain("Stack:");
       expect(result.stderr).not.toContain("openclaw doctor");
     },
@@ -791,7 +791,7 @@ describe("gateway-backed CLI process exit", () => {
     await fs.mkdir(stateDir, { recursive: true });
     await fs.writeFile(
       caTriggerPath,
-      `if (process.env.OPENCLAW_NODE_OPTIONS_READY === "1") {
+      `if (process.env.GRANTED_NODE_OPTIONS_READY === "1") {
   const { getCACertificates } = await import("node:tls");
   getCACertificates("default");
 }
@@ -830,10 +830,10 @@ describe("gateway-backed CLI process exit", () => {
         NODE_ENV: undefined,
         NODE_OPTIONS: undefined,
         NODE_USE_SYSTEM_CA: "1",
-        OPENCLAW_CONFIG_PATH: configPath,
-        OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-        OPENCLAW_NODE_OPTIONS_READY: undefined,
-        OPENCLAW_STATE_DIR: stateDir,
+        GRANTED_CONFIG_PATH: configPath,
+        GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+        GRANTED_NODE_OPTIONS_READY: undefined,
+        GRANTED_STATE_DIR: stateDir,
         VITEST: undefined,
       },
       onStdout: (stdout) => {
@@ -868,7 +868,7 @@ describe("gateway-backed CLI process exit", () => {
       root,
       stateDir,
       configPath,
-      env: { OPENCLAW_GATEWAY_PORT: String(port) },
+      env: { GRANTED_GATEWAY_PORT: String(port) },
     });
 
     expect(result, result.stderr).toMatchObject({ code: 1, signal: null, stderr: "" });
@@ -911,9 +911,9 @@ describe("gateway-backed CLI process exit", () => {
       const gatewayEnv = {
         ...process.env,
         HOME: root,
-        OPENCLAW_CONFIG_PATH: configPath,
-        OPENCLAW_HOME: root,
-        OPENCLAW_STATE_DIR: stateDir,
+        GRANTED_CONFIG_PATH: configPath,
+        GRANTED_HOME: root,
+        GRANTED_STATE_DIR: stateDir,
       };
       const lock = gatewayOwnsLock
         ? await acquireGatewayLock({
@@ -941,7 +941,7 @@ describe("gateway-backed CLI process exit", () => {
         expect(result.stderr).toContain(`Config: ${configPath}`);
         expect(result.stderr).not.toContain("The CLI command failed");
         expect(result.stderr).not.toContain("Could not start the CLI");
-        expect(result.stderr).not.toContain("OPENCLAW_DEBUG");
+        expect(result.stderr).not.toContain("GRANTED_DEBUG");
         expect(result.stderr).not.toContain("Stack:");
         expect(result.stderr).not.toContain("openclaw doctor");
       } finally {

@@ -31,12 +31,12 @@ describe("wide-area DNS zone writer — unmocked production boundary", () => {
       fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-widearea-dns-boundary-")),
     );
     originalConfigDir = utils.CONFIG_DIR;
-    utils.pinConfigDir({ ...process.env, OPENCLAW_STATE_DIR: stateDir });
+    utils.pinConfigDir({ ...process.env, GRANTED_STATE_DIR: stateDir });
   });
 
   afterEach(() => {
     vi.useRealTimers();
-    utils.pinConfigDir({ ...process.env, OPENCLAW_STATE_DIR: originalConfigDir });
+    utils.pinConfigDir({ ...process.env, GRANTED_STATE_DIR: originalConfigDir });
     fs.rmSync(stateDir, { recursive: true, force: true });
     expect(utils.CONFIG_DIR).toBe(originalConfigDir);
   });

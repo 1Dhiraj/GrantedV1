@@ -473,7 +473,7 @@ export function detectSharedAuthStoreMigration(params: {
   env?: NodeJS.ProcessEnv;
   doctorOnlyStateMigrations?: boolean;
 }): SharedAuthStoreMigrationDetection {
-  const env = { ...(params.env ?? process.env), OPENCLAW_STATE_DIR: params.stateDir };
+  const env = { ...(params.env ?? process.env), GRANTED_STATE_DIR: params.stateDir };
   const sourcePath = path.join(resolveSharedMainAuthAgentDir(env), "openclaw-agent.sqlite");
   if (params.doctorOnlyStateMigrations !== true) {
     return { sourcePath, hasLegacy: false };

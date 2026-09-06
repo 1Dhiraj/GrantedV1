@@ -14,7 +14,7 @@ import {
   openOpenClawAgentDatabase,
 } from "./openclaw-agent-db.js";
 import { ensureSessionPendingInputsSchema } from "./openclaw-agent-pending-inputs-schema.js";
-import { OPENCLAW_AGENT_SCHEMA_SQL } from "./openclaw-agent-schema.js";
+import { GRANTED_AGENT_SCHEMA_SQL } from "./openclaw-agent-schema.js";
 import { tableHasColumn, tableExists } from "./openclaw-state-db-schema-helpers.js";
 
 const tempDirs = useAutoCleanupTempDirTracker(afterEach);
@@ -24,7 +24,7 @@ describe("pending input additive schema", () => {
   it("leaves old stores table-free on reads and preserves accepted input through older-reader use and reopen", async () => {
     const options = {
       agentId: "main",
-      env: { OPENCLAW_STATE_DIR: tempDirs.make("openclaw-input-schema-") },
+      env: { GRANTED_STATE_DIR: tempDirs.make("openclaw-input-schema-") },
     };
     const scope = {
       ...options,
@@ -62,9 +62,9 @@ describe("pending input additive schema", () => {
     ensureSessionPendingInputsSchema(candidate.db);
     closeOpenClawAgentDatabasesForTest();
     const older = new DatabaseSync(filename);
-    const previousSql = OPENCLAW_AGENT_SCHEMA_SQL.slice(
+    const previousSql = GRANTED_AGENT_SCHEMA_SQL.slice(
       0,
-      OPENCLAW_AGENT_SCHEMA_SQL.indexOf("CREATE TABLE IF NOT EXISTS session_pending_inputs ("),
+      GRANTED_AGENT_SCHEMA_SQL.indexOf("CREATE TABLE IF NOT EXISTS session_pending_inputs ("),
     );
     assertSqliteSchemaContains(older, filename, previousSql);
     older
@@ -89,7 +89,7 @@ describe("pending input additive schema", () => {
   it("rejects a drifted optional table rather than treating it as absent", () => {
     const options = {
       agentId: "main",
-      env: { OPENCLAW_STATE_DIR: tempDirs.make("openclaw-input-schema-drift-") },
+      env: { GRANTED_STATE_DIR: tempDirs.make("openclaw-input-schema-drift-") },
     };
     const filename = openOpenClawAgentDatabase(options).path;
     closeOpenClawAgentDatabasesForTest();
@@ -106,7 +106,7 @@ describe("pending input additive schema", () => {
     async (path) => {
       const options = {
         agentId: "main",
-        env: { OPENCLAW_STATE_DIR: tempDirs.make("openclaw-input-column-") },
+        env: { GRANTED_STATE_DIR: tempDirs.make("openclaw-input-column-") },
       };
       const scope = { ...options, sessionKey: "agent:main:column", sessionId: "column-session" };
       await upsertSessionEntryCore(scope, { sessionId: scope.sessionId, updatedAt: 1 });
@@ -166,7 +166,7 @@ describe("pending input additive schema", () => {
     (existing) => {
       const database = new DatabaseSync(":memory:");
       try {
-        database.exec(OPENCLAW_AGENT_SCHEMA_SQL.replace("  consumed_event_id TEXT,\n", ""));
+        database.exec(GRANTED_AGENT_SCHEMA_SQL.replace("  consumed_event_id TEXT,\n", ""));
         database.exec("PRAGMA user_version = 19");
         if (!existing) {
           database.exec("DROP TABLE session_pending_inputs");

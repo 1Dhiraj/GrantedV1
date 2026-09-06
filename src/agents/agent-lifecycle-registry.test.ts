@@ -23,7 +23,7 @@ function createOptions() {
     fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-agent-delete-")),
   );
   tempDirs.push(stateDir);
-  return { env: { ...process.env, OPENCLAW_STATE_DIR: stateDir } };
+  return { env: { ...process.env, GRANTED_STATE_DIR: stateDir } };
 }
 
 function createEntry(agentId: string) {

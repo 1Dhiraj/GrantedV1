@@ -64,14 +64,14 @@ function runUpdateProcess(root: string, args: string[], env: NodeJS.ProcessEnv =
       NODE_ENV: undefined,
       NODE_OPTIONS: undefined,
       NO_COLOR: "1",
-      OPENCLAW_CONFIG_PATH: configPath,
-      OPENCLAW_DEBUG_PROXY_ENABLED: undefined,
-      OPENCLAW_DEBUG_PROXY_REQUIRE: undefined,
-      OPENCLAW_HIDE_BANNER: "1",
-      OPENCLAW_HOME: root,
-      OPENCLAW_NO_RESPAWN: "1",
-      OPENCLAW_STATE_DIR: stateDir,
-      OPENCLAW_SUPERVISOR_MODE: undefined,
+      GRANTED_CONFIG_PATH: configPath,
+      GRANTED_DEBUG_PROXY_ENABLED: undefined,
+      GRANTED_DEBUG_PROXY_REQUIRE: undefined,
+      GRANTED_HIDE_BANNER: "1",
+      GRANTED_HOME: root,
+      GRANTED_NO_RESPAWN: "1",
+      GRANTED_STATE_DIR: stateDir,
+      GRANTED_SUPERVISOR_MODE: undefined,
       VITEST: undefined,
       VITEST_POOL_ID: undefined,
       VITEST_WORKER_ID: undefined,
@@ -250,10 +250,10 @@ describe("update process state", () => {
       const externalEnv = {
         ...process.env,
         HOME: root,
-        OPENCLAW_CONFIG_PATH: configPath,
-        OPENCLAW_HOME: root,
-        OPENCLAW_STATE_DIR: stateDir,
-        OPENCLAW_SUPERVISOR_MODE: "external",
+        GRANTED_CONFIG_PATH: configPath,
+        GRANTED_HOME: root,
+        GRANTED_STATE_DIR: stateDir,
+        GRANTED_SUPERVISOR_MODE: "external",
       };
       claimOpenClawStateOwnership("gateway-supervisor", { env: externalEnv });
       const databasePath = openOpenClawStateDatabase({ env: externalEnv }).path;
@@ -277,7 +277,7 @@ describe("update process state", () => {
       expect(refused.error).toBeUndefined();
       expect(refused.status).not.toBe(0);
       expect(`${refused.stdout}\n${refused.stderr}`).toMatch(/gateway-supervisor/u);
-      expect(`${refused.stdout}\n${refused.stderr}`).toMatch(/OPENCLAW_SUPERVISOR_MODE=external/u);
+      expect(`${refused.stdout}\n${refused.stderr}`).toMatch(/GRANTED_SUPERVISOR_MODE=external/u);
       expect(await snapshotTree(root)).toEqual(before);
       expect(await sha256File(databasePath)).toBe(beforeDatabaseHash);
     },

@@ -150,7 +150,7 @@ async function createFakeGateway(
   const tracePath = path.join(cwd, "attempts.jsonl");
   // Diagnostic runs keep these receipts outside Vitest's disposable temp tree.
   const processReceipt = `
-const registry = ${JSON.stringify(process.env.OPENCLAW_HELPER_PROOF_PID_REGISTRY ?? null)};
+const registry = ${JSON.stringify(process.env.GRANTED_HELPER_PROOF_PID_REGISTRY ?? null)};
 function recordFixtureProcess(pid) {
   if (!registry) return;
   let identity;
@@ -179,8 +179,8 @@ import { execFileSync, spawn } from "node:child_process";
 import { appendFileSync, readFileSync, writeFileSync } from "node:fs";
 import { createServer } from "node:http";
 ${processReceipt}
-const tracePath = process.env.OPENCLAW_FAKE_GATEWAY_TRACE;
-const controlUrl = process.env.OPENCLAW_FAKE_GATEWAY_CONTROL;
+const tracePath = process.env.GRANTED_FAKE_GATEWAY_TRACE;
+const controlUrl = process.env.GRANTED_FAKE_GATEWAY_CONTROL;
 if (controlUrl) await (await fetch(controlUrl + "/launch?pid=" + process.pid)).text();
 const countPath = tracePath + ".count";
 let attempt = 1;
@@ -188,9 +188,9 @@ try { attempt = Number(readFileSync(countPath, "utf8")) + 1; } catch {}
 writeFileSync(countPath, String(attempt));
 const argv = process.argv.slice(2);
 const port = Number(argv[argv.indexOf("--port") + 1]);
-const env = Object.fromEntries(["HOME", "OPENCLAW_CONFIG_PATH", "OPENCLAW_GATEWAY_TOKEN", "OPENCLAW_STATE_DIR"].map((key) => [key, process.env[key]]));
-appendFileSync(tracePath, JSON.stringify({ argv, config: JSON.parse(readFileSync(process.env.OPENCLAW_CONFIG_PATH, "utf8")), cwd: process.cwd(), env, pid: process.pid, port }) + "\\n");
-const kind = (process.env.OPENCLAW_FAKE_GATEWAY_SEQUENCE || "ready").split(",")[attempt - 1] || "ready";
+const env = Object.fromEntries(["HOME", "GRANTED_CONFIG_PATH", "GRANTED_GATEWAY_TOKEN", "GRANTED_STATE_DIR"].map((key) => [key, process.env[key]]));
+appendFileSync(tracePath, JSON.stringify({ argv, config: JSON.parse(readFileSync(process.env.GRANTED_CONFIG_PATH, "utf8")), cwd: process.cwd(), env, pid: process.pid, port }) + "\\n");
+const kind = (process.env.GRANTED_FAKE_GATEWAY_SEQUENCE || "ready").split(",")[attempt - 1] || "ready";
 process.stdout.write("fake gateway attempt " + attempt + "\\n");
 if (kind === "cli") {
   process.stderr.write("cli diagnostic\\n");
@@ -253,9 +253,9 @@ writeFileSync("dist/.runtime-postbuildstamp", "");
     name: `fake-gateway-${path.basename(cwd)}`,
     cwd,
     env: {
-      OPENCLAW_FAKE_GATEWAY_SEQUENCE: sequence,
-      OPENCLAW_FAKE_GATEWAY_TRACE: tracePath,
-      OPENCLAW_FAKE_GATEWAY_CONTROL: control?.url,
+      GRANTED_FAKE_GATEWAY_SEQUENCE: sequence,
+      GRANTED_FAKE_GATEWAY_TRACE: tracePath,
+      GRANTED_FAKE_GATEWAY_CONTROL: control?.url,
     },
     startTimeoutMs,
     stopTimeoutMs,
@@ -1123,7 +1123,7 @@ describe("openclaw test instance", () => {
         },
       },
       env: {
-        OPENCLAW_SKIP_CRON: "0",
+        GRANTED_SKIP_CRON: "0",
       },
     });
 
@@ -1133,9 +1133,9 @@ describe("openclaw test instance", () => {
       expect(inst.stateDir).toBe(path.join(inst.homeDir, ".openclaw"));
       expect(inst.configPath).toBe(path.join(inst.stateDir, "openclaw.json"));
       expect(inst.env.HOME).toBe(inst.homeDir);
-      expect(inst.env.OPENCLAW_STATE_DIR).toBe(inst.stateDir);
-      expect(inst.env.OPENCLAW_CONFIG_PATH).toBe(inst.configPath);
-      expect(inst.env.OPENCLAW_SKIP_CRON).toBe("0");
+      expect(inst.env.GRANTED_STATE_DIR).toBe(inst.stateDir);
+      expect(inst.env.GRANTED_CONFIG_PATH).toBe(inst.configPath);
+      expect(inst.env.GRANTED_SKIP_CRON).toBe("0");
 
       const config = JSON.parse(await fs.readFile(inst.configPath, "utf8"));
       expect(config).toStrictEqual({

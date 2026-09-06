@@ -5,7 +5,7 @@ import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
 import { resolveConfiguredAgentDatabaseTargets } from "../config/sessions/targets.js";
 import type { OpenClawConfig } from "../config/types.openclaw.js";
 import { requireNodeSqlite } from "../infra/node-sqlite.js";
-import { OPENCLAW_AGENT_SCHEMA_VERSION } from "../state/openclaw-agent-db-contract.js";
+import { GRANTED_AGENT_SCHEMA_VERSION } from "../state/openclaw-agent-db-contract.js";
 import { beginDoctorMaintenance } from "./doctor-maintenance.js";
 
 const tempDirs = useAutoCleanupTempDirTracker(afterEach);
@@ -19,12 +19,12 @@ function createLegacyRegistryFixture() {
   for (const [key, value] of Object.entries({
     HOME: root,
     USERPROFILE: root,
-    OPENCLAW_STATE_DIR: stateDir,
-    OPENCLAW_CONFIG_PATH: configPath,
+    GRANTED_STATE_DIR: stateDir,
+    GRANTED_CONFIG_PATH: configPath,
   })) {
     vi.stubEnv(key, value);
   }
-  vi.stubEnv("OPENCLAW_HOME", undefined);
+  vi.stubEnv("GRANTED_HOME", undefined);
   fs.mkdirSync(path.dirname(databasePath), { recursive: true });
   const { DatabaseSync } = requireNodeSqlite();
   const database = new DatabaseSync(databasePath);
@@ -90,12 +90,12 @@ it.each(["canonical", "custom-json", "shared-sqlite", "registered-shared-sqlite"
       const registry = new DatabaseSync(fixture.databasePath);
       registry
         .prepare("INSERT INTO agent_databases VALUES (?, ?, ?, ?, ?)")
-        .run("ops", agentPath, OPENCLAW_AGENT_SCHEMA_VERSION, 1, null);
+        .run("ops", agentPath, GRANTED_AGENT_SCHEMA_VERSION, 1, null);
       registry.close();
     }
     const agent = new DatabaseSync(agentPath);
     agent.exec(`
-      PRAGMA user_version = ${OPENCLAW_AGENT_SCHEMA_VERSION + 1};
+      PRAGMA user_version = ${GRANTED_AGENT_SCHEMA_VERSION + 1};
       CREATE TABLE schema_meta (meta_key TEXT PRIMARY KEY, agent_id TEXT);
       INSERT INTO schema_meta VALUES ('primary', 'main');
     `);

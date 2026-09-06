@@ -9,12 +9,12 @@ import { runDoctorStateSqliteCompact } from "../commands/doctor-state-sqlite-com
 import { withOpenClawAgentDatabaseReadOnly } from "./openclaw-agent-db-readonly.js";
 import {
   closeOpenClawAgentDatabasesForTest,
-  OPENCLAW_AGENT_SCHEMA_VERSION,
+  GRANTED_AGENT_SCHEMA_VERSION,
   openOpenClawAgentDatabase,
 } from "./openclaw-agent-db.js";
 import { resolveOpenClawAgentSqlitePath } from "./openclaw-agent-db.paths.js";
 import { preflightOpenClawDatabaseSchemas } from "./openclaw-database-preflight.js";
-import { OPENCLAW_STATE_SCHEMA_VERSION } from "./openclaw-state-db-contract.js";
+import { GRANTED_STATE_SCHEMA_VERSION } from "./openclaw-state-db-contract.js";
 import { withOpenClawStateDatabaseReadOnly } from "./openclaw-state-db-readonly.js";
 import {
   closeOpenClawStateDatabaseForTest,
@@ -36,15 +36,15 @@ const tempDirs = useAutoCleanupTempDirTracker((cleanup) => {
 function createDeepStateEnv(): NodeJS.ProcessEnv {
   const env = {
     ...process.env,
-    OPENCLAW_STATE_DIR: tempDirs.make("openclaw-database-paths-windows-"),
+    GRANTED_STATE_DIR: tempDirs.make("openclaw-database-paths-windows-"),
   };
   while (
     resolveOpenClawStateSqlitePath(env).length <= MAX_PATH ||
     resolveOpenClawAgentSqlitePath({ agentId: AGENT_ID, env }).length <= MAX_PATH
   ) {
-    env.OPENCLAW_STATE_DIR = path.join(env.OPENCLAW_STATE_DIR, `segment-${"x".repeat(24)}`);
+    env.GRANTED_STATE_DIR = path.join(env.GRANTED_STATE_DIR, `segment-${"x".repeat(24)}`);
   }
-  fs.mkdirSync(env.OPENCLAW_STATE_DIR, { recursive: true });
+  fs.mkdirSync(env.GRANTED_STATE_DIR, { recursive: true });
   return env;
 }
 
@@ -68,7 +68,7 @@ describe("OpenClaw database paths on Windows", () => {
         state.db
           .prepare("SELECT role, schema_version FROM schema_meta WHERE meta_key = 'primary'")
           .get(),
-      ).toEqual({ role: "global", schema_version: OPENCLAW_STATE_SCHEMA_VERSION });
+      ).toEqual({ role: "global", schema_version: GRANTED_STATE_SCHEMA_VERSION });
       expect(
         agent.db
           .prepare(
@@ -77,7 +77,7 @@ describe("OpenClaw database paths on Windows", () => {
           .get(),
       ).toEqual({
         role: "agent",
-        schema_version: OPENCLAW_AGENT_SCHEMA_VERSION,
+        schema_version: GRANTED_AGENT_SCHEMA_VERSION,
         agent_id: AGENT_ID,
       });
       closeOpenClawAgentDatabasesForTest();
@@ -93,7 +93,7 @@ describe("OpenClaw database paths on Windows", () => {
         ),
       ).toEqual({
         pathname: statePath,
-        version: { user_version: OPENCLAW_STATE_SCHEMA_VERSION },
+        version: { user_version: GRANTED_STATE_SCHEMA_VERSION },
       });
       expect(
         withOpenClawAgentDatabaseReadOnly(
@@ -107,15 +107,15 @@ describe("OpenClaw database paths on Windows", () => {
         found: true,
         value: {
           pathname: agentPath,
-          version: { user_version: OPENCLAW_AGENT_SCHEMA_VERSION },
+          version: { user_version: GRANTED_AGENT_SCHEMA_VERSION },
         },
       });
       expect(
         preflightOpenClawDatabaseSchemas({
           env,
           supportedVersions: {
-            state: OPENCLAW_STATE_SCHEMA_VERSION,
-            agent: OPENCLAW_AGENT_SCHEMA_VERSION,
+            state: GRANTED_STATE_SCHEMA_VERSION,
+            agent: GRANTED_AGENT_SCHEMA_VERSION,
           },
         }),
       ).toEqual({ incompatible: [], indeterminate: [] });
@@ -132,7 +132,7 @@ describe("OpenClaw database paths on Windows", () => {
         readOnlyState?.db
           .prepare("SELECT role, schema_version FROM schema_meta WHERE meta_key = 'primary'")
           .get(),
-      ).toEqual({ role: "global", schema_version: OPENCLAW_STATE_SCHEMA_VERSION });
+      ).toEqual({ role: "global", schema_version: GRANTED_STATE_SCHEMA_VERSION });
       const openedStatePath = readOnlyState?.db.prepare("PRAGMA database_list").get() as
         | { file?: unknown }
         | undefined;
@@ -158,7 +158,7 @@ describe("OpenClaw database paths on Windows", () => {
           {
             agentId: AGENT_ID,
             storePath: path.join(
-              env.OPENCLAW_STATE_DIR ?? "",
+              env.GRANTED_STATE_DIR ?? "",
               "agents",
               AGENT_ID,
               "sessions",

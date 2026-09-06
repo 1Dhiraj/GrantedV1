@@ -92,7 +92,7 @@ async function makeState(): Promise<OpenClawTestState> {
   const state = await createOpenClawTestState({
     layout: "state-only",
     prefix: "openclaw-doctor-auth-import-order-",
-    env: { OPENCLAW_AGENT_DIR: undefined },
+    env: { GRANTED_AGENT_DIR: undefined },
   });
   states.push(state);
   return state;

@@ -46,20 +46,20 @@ describe("prepublish plugin registry shell helper", () => {
 set -euo pipefail
 source "$HELPER"
 openclaw_prepublish_plugin_registry_configure_docker_args "$ARTIFACT_DIR"
-printf '%s\n' "\${OPENCLAW_PREPUBLISH_PLUGIN_REGISTRY_DOCKER_ARGS[@]}"
+printf '%s\n' "\${GRANTED_PREPUBLISH_PLUGIN_REGISTRY_DOCKER_ARGS[@]}"
 `,
       ],
       { encoding: "utf8", env: { ...process.env, ARTIFACT_DIR: root, HELPER: SCRIPT } },
     );
 
     expect(result.status, result.stderr).toBe(0);
-    expect(result.stdout).toContain(`OPENCLAW_DOCKER_E2E_SELECTED_SHA=${SOURCE_SHA}`);
+    expect(result.stdout).toContain(`GRANTED_DOCKER_E2E_SELECTED_SHA=${SOURCE_SHA}`);
     expect(result.stdout).toContain(
-      `OPENCLAW_PREPUBLISH_PLUGIN_REGISTRY_CANDIDATE_VERSION=${VERSION}`,
+      `GRANTED_PREPUBLISH_PLUGIN_REGISTRY_CANDIDATE_VERSION=${VERSION}`,
     );
     expect(result.stdout).toContain(`${root}:/tmp/openclaw-prepublish-plugin-registry:ro`);
     expect(result.stdout).toContain(
-      `OPENCLAW_PREPUBLISH_PLUGIN_REGISTRY_MANIFEST_SHA256=${sha256(manifestPath)}`,
+      `GRANTED_PREPUBLISH_PLUGIN_REGISTRY_MANIFEST_SHA256=${sha256(manifestPath)}`,
     );
   });
 
@@ -118,10 +118,10 @@ cleanup() {
   fi
 }
 trap cleanup EXIT
-export OPENCLAW_PREPUBLISH_PLUGIN_REGISTRY_DIR="$ARTIFACT_DIR"
-export OPENCLAW_DOCKER_E2E_SELECTED_SHA="$SOURCE_SHA"
-export OPENCLAW_PREPUBLISH_PLUGIN_REGISTRY_CANDIDATE_VERSION="$VERSION"
-export OPENCLAW_PREPUBLISH_PLUGIN_REGISTRY_MANIFEST_SHA256="$MANIFEST_SHA256"
+export GRANTED_PREPUBLISH_PLUGIN_REGISTRY_DIR="$ARTIFACT_DIR"
+export GRANTED_DOCKER_E2E_SELECTED_SHA="$SOURCE_SHA"
+export GRANTED_PREPUBLISH_PLUGIN_REGISTRY_CANDIDATE_VERSION="$VERSION"
+export GRANTED_PREPUBLISH_PLUGIN_REGISTRY_MANIFEST_SHA256="$MANIFEST_SHA256"
 openclaw_prepublish_plugin_registry_start_mounted \
   "$REGISTRY_ROOT" registry_pid '["@openclaw/codex"]' \
   "@openclaw/brave-plugin" "$VERSION" "$EXTRA_TARBALL"

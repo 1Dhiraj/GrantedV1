@@ -55,7 +55,7 @@ async function fixture(
   options: { managed?: boolean; authoring?: boolean; capability?: boolean } = {},
 ) {
   const root = await fs.realpath(temps.make("node-skill-wire-"));
-  vi.stubEnv("OPENCLAW_STATE_DIR", root);
+  vi.stubEnv("GRANTED_STATE_DIR", root);
   const workspace = path.join(root, "project");
   await fs.mkdir(workspace);
   const executable = path.join(root, "claude.cjs");

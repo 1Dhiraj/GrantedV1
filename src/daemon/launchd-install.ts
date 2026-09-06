@@ -94,7 +94,7 @@ function createLaunchAgentRemovalError(error: unknown): Error {
 function currentGatewayLaunchAgentLabel(
   targetEnv: Record<string, string | undefined>,
 ): string | undefined {
-  const configuredCurrentLabel = process.env.OPENCLAW_LAUNCHD_LABEL?.trim();
+  const configuredCurrentLabel = process.env.GRANTED_LAUNCHD_LABEL?.trim();
   const candidates = new Set([
     resolveLaunchAgentLabel(targetEnv),
     ...(configuredCurrentLabel ? [assertValidLaunchAgentLabel(configuredCurrentLabel)] : []),
@@ -364,7 +364,7 @@ export async function installLaunchAgent(
   // Plist, generated environment files, and launchd registration form one cutover.
   // Capture every prior owner before publication so any later failure can restore it.
   const legacy = await Promise.all(
-    resolveLegacyGatewayLaunchAgentLabels(args.env.OPENCLAW_PROFILE).map(async (legacyLabel) => {
+    resolveLegacyGatewayLaunchAgentLabels(args.env.GRANTED_PROFILE).map(async (legacyLabel) => {
       const plistPath = resolveLaunchAgentPlistPathForLabel(args.env, legacyLabel);
       const contents = await readExistingLaunchAgentPlist(plistPath);
       return {

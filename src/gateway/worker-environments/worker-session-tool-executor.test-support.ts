@@ -94,7 +94,7 @@ async function createWorkerSessionToolTestFixture(
   const root = await fs.mkdtemp(
     path.join(await fs.realpath(os.tmpdir()), "openclaw-worker-tools-"),
   );
-  const database = openOpenClawStateDatabase({ env: { OPENCLAW_STATE_DIR: root } });
+  const database = openOpenClawStateDatabase({ env: { GRANTED_STATE_DIR: root } });
   const placements = createWorkerSessionPlacementStore({ database });
   activate(SOURCE);
   activate(TARGET);

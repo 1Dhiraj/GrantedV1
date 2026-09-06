@@ -84,7 +84,7 @@ function resolveOsHome() {
 }
 
 function resolveOpenClawHome() {
-  const explicit = process.env.OPENCLAW_HOME?.trim();
+  const explicit = process.env.GRANTED_HOME?.trim();
   if (!explicit) {
     return resolveOsHome();
   }
@@ -95,7 +95,7 @@ function resolveOpenClawHome() {
 }
 
 function resolveStateDir() {
-  const override = process.env.OPENCLAW_STATE_DIR?.trim();
+  const override = process.env.GRANTED_STATE_DIR?.trim();
   if (override) {
     if (override === "~" || override.startsWith("~/") || override.startsWith("~\\")) {
       return path.resolve(override.replace(/^~(?=$|[\\/])/u, () => resolveOpenClawHome()));
@@ -103,7 +103,7 @@ function resolveStateDir() {
     return path.resolve(override);
   }
   const home = resolveOpenClawHome();
-  const profile = process.env.OPENCLAW_PROFILE?.trim();
+  const profile = process.env.GRANTED_PROFILE?.trim();
   if (profile && profile.toLowerCase() !== "default") {
     // Keep the static resolver aligned with the root CLI profile contract without importing core.
     if (!/^[A-Za-z0-9_-]+$/u.test(profile)) {

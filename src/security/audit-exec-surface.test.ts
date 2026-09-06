@@ -34,7 +34,7 @@ function requireFinding(
 }
 
 describe("security audit exec surface findings", () => {
-  // Redirect the OpenClaw home (OPENCLAW_HOME wins over HOME/USERPROFILE in
+  // Redirect the OpenClaw home (GRANTED_HOME wins over HOME/USERPROFILE in
   // `resolveRawHomeDir`) to a per-test tempdir so `saveExecApprovals` never
   // touches the real `~/.openclaw/exec-approvals.json` on the host running
   // the suite.
@@ -47,13 +47,13 @@ describe("security audit exec surface findings", () => {
   });
 
   beforeEach(async () => {
-    envSnapshot = captureEnv(["OPENCLAW_HOME", "HOME", "USERPROFILE"]);
+    envSnapshot = captureEnv(["GRANTED_HOME", "HOME", "USERPROFILE"]);
     const tempDir = path.join(tempRoot, `case-${++tempCaseIndex}`);
     await fs.mkdir(path.join(tempDir, ".openclaw"), { recursive: true });
-    // OPENCLAW_HOME takes precedence over HOME/USERPROFILE in resolveRawHomeDir,
+    // GRANTED_HOME takes precedence over HOME/USERPROFILE in resolveRawHomeDir,
     // so all three must point at the tempdir to neutralize whichever the host
     // happens to have set.
-    process.env.OPENCLAW_HOME = tempDir;
+    process.env.GRANTED_HOME = tempDir;
     process.env.HOME = tempDir;
     // Windows uses USERPROFILE for os.homedir()
     process.env.USERPROFILE = tempDir;

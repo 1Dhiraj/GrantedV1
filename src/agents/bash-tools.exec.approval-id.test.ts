@@ -438,18 +438,18 @@ describe("exec approvals", () => {
     envSnapshot = captureEnv([
       "HOME",
       "USERPROFILE",
-      "OPENCLAW_STATE_DIR",
-      "OPENCLAW_BUNDLED_PLUGINS_DIR",
-      "OPENCLAW_DISABLE_BUNDLED_PLUGINS",
+      "GRANTED_STATE_DIR",
+      "GRANTED_BUNDLED_PLUGINS_DIR",
+      "GRANTED_DISABLE_BUNDLED_PLUGINS",
     ]);
     const tempDir = path.join(tempRoot, `case-${++tempCaseIndex}`);
     await fs.mkdir(tempDir, { recursive: true });
     setTestEnvValue("HOME", tempDir);
     // Windows uses USERPROFILE for os.homedir()
     setTestEnvValue("USERPROFILE", tempDir);
-    setTestEnvValue("OPENCLAW_STATE_DIR", path.join(tempDir, ".openclaw"));
-    deleteTestEnvValue("OPENCLAW_BUNDLED_PLUGINS_DIR");
-    setTestEnvValue("OPENCLAW_DISABLE_BUNDLED_PLUGINS", "1");
+    setTestEnvValue("GRANTED_STATE_DIR", path.join(tempDir, ".openclaw"));
+    deleteTestEnvValue("GRANTED_BUNDLED_PLUGINS_DIR");
+    setTestEnvValue("GRANTED_DISABLE_BUNDLED_PLUGINS", "1");
     vi.mocked(callGatewayTool).mockReset();
     vi.mocked(sendMessage).mockClear();
   });

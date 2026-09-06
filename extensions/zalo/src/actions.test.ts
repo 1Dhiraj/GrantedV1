@@ -43,7 +43,7 @@ describe("zaloMessageActions.describeMessageTool", () => {
               botToken: {
                 source: "env",
                 provider: "default",
-                id: "OPENCLAW_TEST_MISSING_ZALO_TOKEN",
+                id: "GRANTED_TEST_MISSING_ZALO_TOKEN",
               },
             },
             healthy: { botToken: "healthy-token" },

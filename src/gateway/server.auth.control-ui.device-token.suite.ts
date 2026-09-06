@@ -199,9 +199,9 @@ export function registerControlUiDeviceTokenSuite(): void {
     ws2.close();
     await server.close();
     if (prevToken === undefined) {
-      delete process.env.OPENCLAW_GATEWAY_TOKEN;
+      delete process.env.GRANTED_GATEWAY_TOKEN;
     } else {
-      process.env.OPENCLAW_GATEWAY_TOKEN = prevToken;
+      process.env.GRANTED_GATEWAY_TOKEN = prevToken;
     }
   });
 }

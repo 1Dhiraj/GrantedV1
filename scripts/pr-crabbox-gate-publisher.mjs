@@ -27,12 +27,12 @@ const RUN_ID_PATTERN = /^run_[a-z0-9]+$/u;
 const LEASE_ID_PATTERN = /^cbx_[a-z0-9]+$/u;
 const MAX_PROOF_AGE_MS = 2 * 60 * 60 * 1000;
 const EXPECTED_MARKERS = [
-  "OPENCLAW_CRABBOX_GATE_VERSION=1",
-  "OPENCLAW_CRABBOX_GATE_MODE=remote_crabbox_aws",
-  "OPENCLAW_CRABBOX_GATE_STAGE=build:ok",
-  "OPENCLAW_CRABBOX_GATE_STAGE=check:ok",
-  "OPENCLAW_CRABBOX_GATE_STAGE=test:ok",
-  "OPENCLAW_CRABBOX_GATE_RESULT=success",
+  "GRANTED_CRABBOX_GATE_VERSION=1",
+  "GRANTED_CRABBOX_GATE_MODE=remote_crabbox_aws",
+  "GRANTED_CRABBOX_GATE_STAGE=build:ok",
+  "GRANTED_CRABBOX_GATE_STAGE=check:ok",
+  "GRANTED_CRABBOX_GATE_STAGE=test:ok",
+  "GRANTED_CRABBOX_GATE_RESULT=success",
 ];
 
 function requiredString(value, label) {
@@ -423,11 +423,11 @@ export function validateBrokerProof({
   if (log.length > 0) {
     for (const marker of [
       ...EXPECTED_MARKERS,
-      `OPENCLAW_CRABBOX_GATE_BASE=${context.baseSha}`,
-      `OPENCLAW_CRABBOX_GATE_HEAD=${context.headSha}`,
-      `OPENCLAW_CRABBOX_GATE_PLAN_SHA256=${crabboxGatePlanDigest(plan)}`,
-      `OPENCLAW_CRABBOX_GATE_TARGET_COUNT=${plan.targets.length}`,
-      `OPENCLAW_CRABBOX_BOOTSTRAP_SHA256=${bootstrapSha256}`,
+      `GRANTED_CRABBOX_GATE_BASE=${context.baseSha}`,
+      `GRANTED_CRABBOX_GATE_HEAD=${context.headSha}`,
+      `GRANTED_CRABBOX_GATE_PLAN_SHA256=${crabboxGatePlanDigest(plan)}`,
+      `GRANTED_CRABBOX_GATE_TARGET_COUNT=${plan.targets.length}`,
+      `GRANTED_CRABBOX_BOOTSTRAP_SHA256=${bootstrapSha256}`,
     ]) {
       if (log.split(marker).length !== 2) {
         throw new Error(`Crabbox retained log must contain exactly one ${marker} marker`);

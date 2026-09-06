@@ -34,7 +34,7 @@ describe("msteams conversation store (plugin state)", () => {
     const stateDir = tempDirs.make("openclaw-msteams-store-");
     const env: NodeJS.ProcessEnv = {
       ...process.env,
-      OPENCLAW_STATE_DIR: stateDir,
+      GRANTED_STATE_DIR: stateDir,
     };
 
     const ref: StoredConversationReference = {
@@ -92,7 +92,7 @@ describe("msteams conversation store (plugin state)", () => {
     const stateDir = tempDirs.make("openclaw-msteams-store-");
     const env: NodeJS.ProcessEnv = {
       ...process.env,
-      OPENCLAW_STATE_DIR: stateDir,
+      GRANTED_STATE_DIR: stateDir,
     };
     const ref: StoredConversationReference = {
       conversation: { id: "conv-current" },
@@ -182,7 +182,7 @@ describe("msteams conversation store (plugin state)", () => {
 
   it("keeps newest conversations by lastSeenAt at the row cap", async () => {
     const stateDir = tempDirs.make("openclaw-msteams-store-");
-    const env: NodeJS.ProcessEnv = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+    const env: NodeJS.ProcessEnv = { ...process.env, GRANTED_STATE_DIR: stateDir };
     const sqliteStore = createPluginStateKeyedStoreForTests<StoredConversationReference>(
       "msteams",
       {
@@ -216,7 +216,7 @@ describe("msteams conversation store (plugin state)", () => {
 
   it("treats timestamp-less conversations as oldest during later cap pruning", async () => {
     const stateDir = tempDirs.make("openclaw-msteams-store-");
-    const env: NodeJS.ProcessEnv = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+    const env: NodeJS.ProcessEnv = { ...process.env, GRANTED_STATE_DIR: stateDir };
     const sqliteStore = createPluginStateKeyedStoreForTests<StoredConversationReference>(
       "msteams",
       {

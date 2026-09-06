@@ -28,7 +28,7 @@ const persistedStore = {
 
 function makeStateEnv(): NodeJS.ProcessEnv {
   const stateDir = tempDirs.make("openclaw-shared-auth-store-");
-  return { ...process.env, OPENCLAW_STATE_DIR: stateDir, OPENCLAW_AGENT_DIR: undefined };
+  return { ...process.env, GRANTED_STATE_DIR: stateDir, GRANTED_AGENT_DIR: undefined };
 }
 
 describe("shared auth store path resolution", () => {
@@ -52,14 +52,14 @@ describe("shared auth store path resolution", () => {
     writeConfigMachineState("auth.sharedStore", { location: "state-db" }, { env });
     const aliasEnv = {
       ...env,
-      OPENCLAW_STATE_DIR: path.join(env.OPENCLAW_STATE_DIR ?? "", "."),
+      GRANTED_STATE_DIR: path.join(env.GRANTED_STATE_DIR ?? "", "."),
     };
 
     expect(resolveSharedAuthStorePath(aliasEnv)).toBe(
       path.join(legacyDir, "openclaw-agent.sqlite"),
     );
 
-    withEnv({ OPENCLAW_STATE_DIR: env.OPENCLAW_STATE_DIR, OPENCLAW_AGENT_DIR: undefined }, () => {
+    withEnv({ GRANTED_STATE_DIR: env.GRANTED_STATE_DIR, GRANTED_AGENT_DIR: undefined }, () => {
       writePersistedAuthProfileStoreRaw(persistedStore, legacyDir);
       const expectedPath = path.join(legacyDir, "openclaw-agent.sqlite");
       expect(resolveAuthStorePathForDisplay(legacyDir)).toBe(expectedPath);
@@ -97,9 +97,9 @@ describe("shared auth store path resolution", () => {
     expect(resolveSharedAuthStoreOwnership(env)).toEqual({ location: "state-db" });
     expect(resolveSharedAuthStorePath(env)).toBe(resolveOpenClawStateSqlitePath(env));
 
-    withEnv({ OPENCLAW_STATE_DIR: env.OPENCLAW_STATE_DIR, OPENCLAW_AGENT_DIR: undefined }, () => {
+    withEnv({ GRANTED_STATE_DIR: env.GRANTED_STATE_DIR, GRANTED_AGENT_DIR: undefined }, () => {
       writePersistedAuthProfileStoreRaw(persistedStore);
-      const agentDir = path.join(env.OPENCLAW_STATE_DIR ?? "", "agents", "helper", "agent");
+      const agentDir = path.join(env.GRANTED_STATE_DIR ?? "", "agents", "helper", "agent");
       const expectedPath = resolveOpenClawStateSqlitePath(env);
       expect(resolveAuthStorePathForDisplay(agentDir)).toBe(expectedPath);
       expect(resolveAuthStatePathForDisplay(agentDir)).toBe(expectedPath);
@@ -110,9 +110,9 @@ describe("shared auth store path resolution", () => {
   it("keeps an agent-local store local under shared-state ownership", async () => {
     const env = makeStateEnv();
     writeConfigMachineState("auth.sharedStore", { location: "state-db" }, { env });
-    const agentDir = path.join(env.OPENCLAW_STATE_DIR ?? "", "agents", "helper", "agent");
+    const agentDir = path.join(env.GRANTED_STATE_DIR ?? "", "agents", "helper", "agent");
 
-    withEnv({ OPENCLAW_STATE_DIR: env.OPENCLAW_STATE_DIR, OPENCLAW_AGENT_DIR: undefined }, () => {
+    withEnv({ GRANTED_STATE_DIR: env.GRANTED_STATE_DIR, GRANTED_AGENT_DIR: undefined }, () => {
       writePersistedAuthProfileStoreRaw(persistedStore, agentDir);
       const expectedPath = path.join(agentDir, "openclaw-agent.sqlite");
       expect(resolveAuthStorePathForDisplay(agentDir)).toBe(expectedPath);
@@ -124,9 +124,9 @@ describe("shared auth store path resolution", () => {
   it("ignores runtime-only external CLI profiles when displaying store ownership", async () => {
     const env = makeStateEnv();
     writeConfigMachineState("auth.sharedStore", { location: "state-db" }, { env });
-    const agentDir = path.join(env.OPENCLAW_STATE_DIR ?? "", "agents", "helper", "agent");
+    const agentDir = path.join(env.GRANTED_STATE_DIR ?? "", "agents", "helper", "agent");
 
-    withEnv({ OPENCLAW_STATE_DIR: env.OPENCLAW_STATE_DIR, OPENCLAW_AGENT_DIR: undefined }, () => {
+    withEnv({ GRANTED_STATE_DIR: env.GRANTED_STATE_DIR, GRANTED_AGENT_DIR: undefined }, () => {
       writePersistedAuthProfileStoreRaw(persistedStore);
       setRuntimeAuthProfileStoreSnapshot(
         {

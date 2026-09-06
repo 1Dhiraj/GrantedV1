@@ -9,7 +9,7 @@ import { assertSqliteIntegrity } from "../infra/sqlite-integrity.js";
 import { createPrivateSqliteTempDirectory } from "../infra/sqlite-private-directory.js";
 import { publishVerifiedSqliteFile } from "../infra/sqlite-snapshot.js";
 import { normalizeAgentId } from "../routing/session-key.js";
-import { OPENCLAW_AGENT_SCHEMA_SQL } from "../state/openclaw-agent-schema.js";
+import { GRANTED_AGENT_SCHEMA_SQL } from "../state/openclaw-agent-schema.js";
 import { getOpenClawStateRuntimeSchema } from "../state/openclaw-state-schema-compatibility.js";
 import {
   AGENT_SECRET_TABLE_NAMES,
@@ -487,7 +487,7 @@ function convergeRestoredSchema(database: DatabaseSync, identity: GitBackupIdent
   database.exec(
     identity.role === "global"
       ? getOpenClawStateRuntimeSchema({ includeVersionLazyAdditiveTables: false })
-      : OPENCLAW_AGENT_SCHEMA_SQL,
+      : GRANTED_AGENT_SCHEMA_SQL,
   );
 }
 

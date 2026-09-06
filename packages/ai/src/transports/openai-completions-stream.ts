@@ -458,7 +458,7 @@ export async function processCompletionsStream(
     stage: "completions",
     abort: options?.abortFirstEventStream,
     onTimeout: options?.onFirstEventTimeout,
-    hint: "The provider may be stalled while parsing the tool payload; retry with a smaller tool surface or enable OPENCLAW_DEBUG_MODEL_PAYLOAD=tools to inspect exposed tools.",
+    hint: "The provider may be stalled while parsing the tool payload; retry with a smaller tool surface or enable GRANTED_DEBUG_MODEL_PAYLOAD=tools to inspect exposed tools.",
   });
   for await (const rawChunk of guardedStream) {
     throwIfModelStreamAborted(options?.signal);

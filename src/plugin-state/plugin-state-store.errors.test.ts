@@ -4,7 +4,7 @@ import {
   clearOpenClawDatabaseQuarantine,
   recordOpenClawDatabaseQuarantine,
 } from "../state/openclaw-quarantine-store.js";
-import { OPENCLAW_STATE_SCHEMA_VERSION } from "../state/openclaw-state-db-contract.js";
+import { GRANTED_STATE_SCHEMA_VERSION } from "../state/openclaw-state-db-contract.js";
 import {
   clearOpenClawStateDatabaseOpenFailure,
   openOpenClawStateDatabase,
@@ -78,7 +78,7 @@ describe("plugin state open errors", () => {
     await store.register("k", { ok: true });
     const databasePath = resolveOpenClawStateSqlitePath(testState?.env);
     openOpenClawStateDatabase().db.exec(
-      `PRAGMA user_version = ${OPENCLAW_STATE_SCHEMA_VERSION + 1};`,
+      `PRAGMA user_version = ${GRANTED_STATE_SCHEMA_VERSION + 1};`,
     );
     closePluginStateDatabase();
 
@@ -95,7 +95,7 @@ describe("plugin state open errors", () => {
       clearOpenClawStateDatabaseOpenFailure(databasePath);
       const database = new DatabaseSync(databasePath);
       try {
-        database.exec(`PRAGMA user_version = ${OPENCLAW_STATE_SCHEMA_VERSION};`);
+        database.exec(`PRAGMA user_version = ${GRANTED_STATE_SCHEMA_VERSION};`);
       } finally {
         database.close();
       }

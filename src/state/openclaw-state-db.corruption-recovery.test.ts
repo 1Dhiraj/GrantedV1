@@ -168,7 +168,7 @@ describe("isSqliteCorruptionError", () => {
 
 describe("shared state write transaction corruption recovery", () => {
   it("preserves the shared WAL when evicting a poisoned cache owner", () => {
-    const env = { OPENCLAW_STATE_DIR: createTempStateDir() };
+    const env = { GRANTED_STATE_DIR: createTempStateDir() };
     const cached = openOpenClawStateDatabase({ env });
     insertProbeEvent(env, "committed-before-eviction");
     const walPath = `${cached.path}-wal`;
@@ -204,7 +204,7 @@ describe("shared state write transaction corruption recovery", () => {
   });
 
   it("evicts the cached handle so a repaired file recovers without a process restart", () => {
-    const env = { OPENCLAW_STATE_DIR: createTempStateDir() };
+    const env = { GRANTED_STATE_DIR: createTempStateDir() };
     const { databasePath, healthySnapshot, poisoned } = prepareCorruptedCachedDatabase(env);
 
     expectNotADatabaseError(() => insertProbeEvent(env, "during-corruption"));
@@ -221,7 +221,7 @@ describe("shared state write transaction corruption recovery", () => {
   });
 
   it("does not evict a different cached owner when an injected write handle fails", () => {
-    const env = { OPENCLAW_STATE_DIR: createTempStateDir() };
+    const env = { GRANTED_STATE_DIR: createTempStateDir() };
     const cached = openOpenClawStateDatabase({ env });
     const { DatabaseSync } = requireNodeSqlite();
     const injectedDb = new DatabaseSync(":memory:");
@@ -255,7 +255,7 @@ describe("shared state write transaction corruption recovery", () => {
   });
 
   it("keeps the cached handle when a write fails without proven corruption", () => {
-    const env = { OPENCLAW_STATE_DIR: createTempStateDir() };
+    const env = { GRANTED_STATE_DIR: createTempStateDir() };
     const cached = openOpenClawStateDatabase({ env });
 
     expect(() =>
@@ -275,7 +275,7 @@ describe("shared state write transaction corruption recovery", () => {
 
 describe("shared state read corruption recovery", () => {
   it("evicts a cached handle after a Kysely read reports corruption", () => {
-    const env = { OPENCLAW_STATE_DIR: createTempStateDir() };
+    const env = { GRANTED_STATE_DIR: createTempStateDir() };
     const { databasePath, healthySnapshot, poisoned } = prepareCorruptedCachedDatabase(env);
 
     expectNotADatabaseError(() => readProbeEventKeys(poisoned));
@@ -291,7 +291,7 @@ describe("shared state read corruption recovery", () => {
   });
 
   it("evicts a cached handle after a raw read-only operation reports corruption", () => {
-    const env = { OPENCLAW_STATE_DIR: createTempStateDir() };
+    const env = { GRANTED_STATE_DIR: createTempStateDir() };
     const { databasePath, healthySnapshot, poisoned } = prepareCorruptedCachedDatabase(env);
 
     expectNotADatabaseError(() =>

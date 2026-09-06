@@ -68,13 +68,13 @@ import {
 } from "./openclaw-quarantine-store.js";
 import {
   createOpenClawDatabaseVerificationError,
-  OPENCLAW_SQLITE_BUSY_TIMEOUT_MS,
+  GRANTED_SQLITE_BUSY_TIMEOUT_MS,
   type OpenClawStateDatabaseOptions,
 } from "./openclaw-state-db.js";
 import { withOpenClawStateLease, type OpenClawStateLeaseContext } from "./openclaw-state-lease.js";
 
 export {
-  OPENCLAW_AGENT_SCHEMA_VERSION,
+  GRANTED_AGENT_SCHEMA_VERSION,
   type OpenClawAgentDatabase,
   type OpenClawAgentDatabaseOptions,
   type OpenClawAgentDatabaseOwnerInspection,
@@ -103,7 +103,7 @@ export {
  * per pathname, protected with private file modes, and registered in the shared
  * OpenClaw state database for discovery and maintenance.
  */
-const OPENCLAW_AGENT_DB_SLOW_OPEN_MS = 1_000;
+const GRANTED_AGENT_DB_SLOW_OPEN_MS = 1_000;
 
 export class IncognitoAgentDatabasePathCollisionError extends Error {
   readonly path: string;
@@ -118,7 +118,7 @@ export class IncognitoAgentDatabasePathCollisionError extends Error {
 }
 // Each WAL database consumes roughly three file descriptors, so the fixed cap
 // satisfies the bounded-cache policy within a predictable FD budget, without config.
-export const OPENCLAW_AGENT_DB_OPEN_HANDLE_CAP = 64;
+export const GRANTED_AGENT_DB_OPEN_HANDLE_CAP = 64;
 const agentDbLog = createSubsystemLogger("state/agent-db");
 const cachedDatabases = new Map<string, OpenClawAgentDatabase>();
 const incognitoDatabases = new WeakSet<OpenClawAgentDatabase>();
@@ -181,14 +181,14 @@ function logSlowAgentDatabaseOpen(params: {
   elapsedMs: number;
   path: string;
 }): void {
-  if (params.elapsedMs < OPENCLAW_AGENT_DB_SLOW_OPEN_MS) {
+  if (params.elapsedMs < GRANTED_AGENT_DB_SLOW_OPEN_MS) {
     return;
   }
   agentDbLog.warn("slow OpenClaw agent database open", {
     agentId: params.agentId,
     elapsedMs: params.elapsedMs,
     path: params.path,
-    thresholdMs: OPENCLAW_AGENT_DB_SLOW_OPEN_MS,
+    thresholdMs: GRANTED_AGENT_DB_SLOW_OPEN_MS,
   });
 }
 
@@ -207,7 +207,7 @@ export function inspectOpenClawAgentDatabaseOwner(
       return { status: "owned", agentId: opened.agentId };
     }
     db = openNodeSqliteDatabase(pathname, { readOnly: true });
-    db.exec(`PRAGMA busy_timeout = ${OPENCLAW_SQLITE_BUSY_TIMEOUT_MS};`);
+    db.exec(`PRAGMA busy_timeout = ${GRANTED_SQLITE_BUSY_TIMEOUT_MS};`);
     assertSupportedAgentSchemaVersion(db, pathname);
     const existing = readExistingAgentSchemaMeta(db);
     if (!existing) {
@@ -262,10 +262,10 @@ export function openOpenClawAgentDatabase(
     // and no directory, lease, registry row, WAL sidecar, or file write may be created.
     const db = openNodeSqliteDatabase(":memory:");
     configureSqlitePreSchemaPragmas(db, {
-      busyTimeoutMs: OPENCLAW_SQLITE_BUSY_TIMEOUT_MS,
+      busyTimeoutMs: GRANTED_SQLITE_BUSY_TIMEOUT_MS,
     });
     const walMaintenance = configureSqliteConnectionPragmas(db, {
-      busyTimeoutMs: OPENCLAW_SQLITE_BUSY_TIMEOUT_MS,
+      busyTimeoutMs: GRANTED_SQLITE_BUSY_TIMEOUT_MS,
       databaseLabel: `openclaw-agent-incognito:${agentId}`,
       foreignKeys: true,
       synchronous: "NORMAL",
@@ -332,7 +332,7 @@ export function openOpenClawAgentDatabase(
     const walMaintenance = (() => {
       let maintenance: OpenClawAgentDatabase["walMaintenance"] | undefined;
       try {
-        db.exec(`PRAGMA busy_timeout = ${OPENCLAW_SQLITE_BUSY_TIMEOUT_MS};`);
+        db.exec(`PRAGMA busy_timeout = ${GRANTED_SQLITE_BUSY_TIMEOUT_MS};`);
         assertSupportedAgentSchemaVersion(db, pathname);
         assertExistingAgentSchemaOwner(readExistingAgentSchemaMeta(db), agentId, pathname);
         // Integrity is not process-stable: the file can be damaged while evicted.
@@ -350,10 +350,10 @@ export function openOpenClawAgentDatabase(
         }
         assertCanonicalAgentPersistenceVersion(db, pathname);
         configureSqlitePreSchemaPragmas(db, {
-          busyTimeoutMs: OPENCLAW_SQLITE_BUSY_TIMEOUT_MS,
+          busyTimeoutMs: GRANTED_SQLITE_BUSY_TIMEOUT_MS,
         });
         maintenance = configureSqliteConnectionPragmas(db, {
-          busyTimeoutMs: OPENCLAW_SQLITE_BUSY_TIMEOUT_MS,
+          busyTimeoutMs: GRANTED_SQLITE_BUSY_TIMEOUT_MS,
           databaseLabel: `openclaw-agent:${agentId}`,
           databasePath: pathname,
           foreignKeys: true,
@@ -463,7 +463,7 @@ export function runOpenClawAgentWriteTransaction<T>(
         return operationResult;
       },
       {
-        busyTimeoutMs: transactionOptions.busyTimeoutMs ?? OPENCLAW_SQLITE_BUSY_TIMEOUT_MS,
+        busyTimeoutMs: transactionOptions.busyTimeoutMs ?? GRANTED_SQLITE_BUSY_TIMEOUT_MS,
         databaseLabel: database.path,
         ...transactionOptions,
         operationLabel: transactionOptions.operationLabel ?? "agent.write",
@@ -495,7 +495,7 @@ function evictLruAgentDatabaseHandles(): void {
   // Callers re-fetch handles from this cache at each operation entry and use
   // them within one synchronous section, so eviction can never close a handle
   // mid-use; a handle retained across an eviction-triggering open goes stale.
-  while (cachedDatabases.size >= OPENCLAW_AGENT_DB_OPEN_HANDLE_CAP) {
+  while (cachedDatabases.size >= GRANTED_AGENT_DB_OPEN_HANDLE_CAP) {
     let evicted = false;
     for (const [pathname, database] of cachedDatabases) {
       // A synchronous transaction owns its handle through COMMIT or ROLLBACK;
@@ -529,7 +529,7 @@ function evictLruAgentDatabaseHandles(): void {
       agentDbLog.warn(
         "agent database handle cap exceeded; all cached handles are in transactions",
         {
-          cap: OPENCLAW_AGENT_DB_OPEN_HANDLE_CAP,
+          cap: GRANTED_AGENT_DB_OPEN_HANDLE_CAP,
           openHandles: cachedDatabases.size,
         },
       );

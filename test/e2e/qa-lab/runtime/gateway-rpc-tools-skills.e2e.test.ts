@@ -14,17 +14,17 @@ const tempDirs = useAutoCleanupTempDirTracker(afterEach);
 const ENV_KEYS = [
   "HOME",
   "USERPROFILE",
-  "OPENCLAW_STATE_DIR",
-  "OPENCLAW_CONFIG_PATH",
-  "OPENCLAW_SKIP_CHANNELS",
-  "OPENCLAW_SKIP_GMAIL_WATCHER",
-  "OPENCLAW_SKIP_CRON",
-  "OPENCLAW_SKIP_CANVAS_HOST",
-  "OPENCLAW_SKIP_BROWSER_CONTROL_SERVER",
-  "OPENCLAW_SKIP_PROVIDERS",
-  "OPENCLAW_TEST_MINIMAL_GATEWAY",
-  "OPENCLAW_BUNDLED_PLUGINS_DIR",
-  "OPENCLAW_DISABLE_BUNDLED_PLUGINS",
+  "GRANTED_STATE_DIR",
+  "GRANTED_CONFIG_PATH",
+  "GRANTED_SKIP_CHANNELS",
+  "GRANTED_SKIP_GMAIL_WATCHER",
+  "GRANTED_SKIP_CRON",
+  "GRANTED_SKIP_CANVAS_HOST",
+  "GRANTED_SKIP_BROWSER_CONTROL_SERVER",
+  "GRANTED_SKIP_PROVIDERS",
+  "GRANTED_TEST_MINIMAL_GATEWAY",
+  "GRANTED_BUNDLED_PLUGINS_DIR",
+  "GRANTED_DISABLE_BUNDLED_PLUGINS",
 ] as const;
 
 async function setupTempHome() {
@@ -57,17 +57,17 @@ async function setupTempHome() {
   await fs.writeFile(path.join(skillDir, "skill-card.md"), SKILL_CARD, "utf8");
   setTestEnvValue("HOME", home);
   setTestEnvValue("USERPROFILE", home);
-  setTestEnvValue("OPENCLAW_STATE_DIR", stateDir);
-  setTestEnvValue("OPENCLAW_SKIP_CHANNELS", "1");
-  setTestEnvValue("OPENCLAW_SKIP_GMAIL_WATCHER", "1");
-  setTestEnvValue("OPENCLAW_SKIP_CRON", "1");
-  setTestEnvValue("OPENCLAW_SKIP_CANVAS_HOST", "1");
-  setTestEnvValue("OPENCLAW_SKIP_BROWSER_CONTROL_SERVER", "1");
-  setTestEnvValue("OPENCLAW_SKIP_PROVIDERS", "1");
-  setTestEnvValue("OPENCLAW_BUNDLED_PLUGINS_DIR", bundledPlugins);
-  setTestEnvValue("OPENCLAW_DISABLE_BUNDLED_PLUGINS", "1");
-  delete process.env.OPENCLAW_CONFIG_PATH;
-  delete process.env.OPENCLAW_TEST_MINIMAL_GATEWAY;
+  setTestEnvValue("GRANTED_STATE_DIR", stateDir);
+  setTestEnvValue("GRANTED_SKIP_CHANNELS", "1");
+  setTestEnvValue("GRANTED_SKIP_GMAIL_WATCHER", "1");
+  setTestEnvValue("GRANTED_SKIP_CRON", "1");
+  setTestEnvValue("GRANTED_SKIP_CANVAS_HOST", "1");
+  setTestEnvValue("GRANTED_SKIP_BROWSER_CONTROL_SERVER", "1");
+  setTestEnvValue("GRANTED_SKIP_PROVIDERS", "1");
+  setTestEnvValue("GRANTED_BUNDLED_PLUGINS_DIR", bundledPlugins);
+  setTestEnvValue("GRANTED_DISABLE_BUNDLED_PLUGINS", "1");
+  delete process.env.GRANTED_CONFIG_PATH;
+  delete process.env.GRANTED_TEST_MINIMAL_GATEWAY;
   return {
     configPath: path.join(stateDir, "openclaw.json"),
     env,

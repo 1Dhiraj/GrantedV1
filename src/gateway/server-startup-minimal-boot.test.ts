@@ -32,13 +32,13 @@ describe("gateway minimal boot smoke", () => {
       label: "gateway-bootstrap-ambient-default",
       layout: "home",
       env: {
-        OPENCLAW_SKIP_BROWSER_CONTROL_SERVER: "1",
-        OPENCLAW_SKIP_CANVAS_HOST: "1",
-        OPENCLAW_SKIP_CHANNELS: "1",
-        OPENCLAW_SKIP_CRON: "1",
-        OPENCLAW_SKIP_GMAIL_WATCHER: "1",
-        OPENCLAW_SKIP_PROVIDERS: "1",
-        OPENCLAW_TEST_MINIMAL_GATEWAY: "1",
+        GRANTED_SKIP_BROWSER_CONTROL_SERVER: "1",
+        GRANTED_SKIP_CANVAS_HOST: "1",
+        GRANTED_SKIP_CHANNELS: "1",
+        GRANTED_SKIP_CRON: "1",
+        GRANTED_SKIP_GMAIL_WATCHER: "1",
+        GRANTED_SKIP_PROVIDERS: "1",
+        GRANTED_TEST_MINIMAL_GATEWAY: "1",
         VITEST: "1",
       },
     });
@@ -70,7 +70,7 @@ describe("gateway minimal boot smoke", () => {
 
       expect(bootstrap.ambientEnvTriggers).toBe("suppress");
       vi.stubEnv(
-        "OPENCLAW_CONFIG_PATH",
+        "GRANTED_CONFIG_PATH",
         `/tmp/openclaw-bootstrap-missing-${process.pid}-${Date.now()}.json`,
       );
       expect(readLoggingConfig()).toMatchObject({ level: "debug" });
@@ -85,22 +85,22 @@ describe("gateway minimal boot smoke", () => {
       label: "gateway-minimal-boot-smoke",
       layout: "home",
       env: {
-        OPENCLAW_GATEWAY_PASSWORD: undefined,
-        OPENCLAW_GATEWAY_TOKEN: undefined,
-        OPENCLAW_SKIP_BROWSER_CONTROL_SERVER: "1",
-        OPENCLAW_SKIP_CANVAS_HOST: "1",
-        OPENCLAW_SKIP_CHANNELS: "1",
-        OPENCLAW_SKIP_CRON: "1",
-        OPENCLAW_SKIP_GMAIL_WATCHER: "1",
-        OPENCLAW_SKIP_PROVIDERS: "1",
-        OPENCLAW_TEST_MINIMAL_GATEWAY: "1",
+        GRANTED_GATEWAY_PASSWORD: undefined,
+        GRANTED_GATEWAY_TOKEN: undefined,
+        GRANTED_SKIP_BROWSER_CONTROL_SERVER: "1",
+        GRANTED_SKIP_CANVAS_HOST: "1",
+        GRANTED_SKIP_CHANNELS: "1",
+        GRANTED_SKIP_CRON: "1",
+        GRANTED_SKIP_GMAIL_WATCHER: "1",
+        GRANTED_SKIP_PROVIDERS: "1",
+        GRANTED_TEST_MINIMAL_GATEWAY: "1",
         VITEST: "1",
       },
     });
     const token = "gateway-minimal-boot-smoke-token";
     const timelinePath = state.path("gateway-startup.jsonl");
-    state.envVars.OPENCLAW_DIAGNOSTICS = "1";
-    state.envVars.OPENCLAW_DIAGNOSTICS_TIMELINE_PATH = timelinePath;
+    state.envVars.GRANTED_DIAGNOSTICS = "1";
+    state.envVars.GRANTED_DIAGNOSTICS_TIMELINE_PATH = timelinePath;
     await state.writeConfig({
       gateway: {
         auth: { mode: "token", token },

@@ -121,9 +121,9 @@ describe("configured plugin install health for explicit load paths", () => {
     };
     const env = {
       KILOCODE_API_KEY: "test-key",
-      OPENCLAW_BUNDLED_PLUGINS_DIR: path.join(rootDir, "bundled"),
-      OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-      OPENCLAW_STATE_DIR: path.join(rootDir, "state"),
+      GRANTED_BUNDLED_PLUGINS_DIR: path.join(rootDir, "bundled"),
+      GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+      GRANTED_STATE_DIR: path.join(rootDir, "state"),
       VITEST: "true",
     };
     await writeStalePathInstallRecord({ cfg, env, pluginId: "kilocode", stalePath });
@@ -163,10 +163,10 @@ describe("configured plugin install health for explicit load paths", () => {
       },
     };
     const env = {
-      OPENCLAW_BUNDLED_PLUGINS_DIR: bundledPluginsDir,
-      OPENCLAW_DISABLE_BUNDLED_SOURCE_OVERLAYS: "1",
-      OPENCLAW_STATE_DIR: path.join(rootDir, "state"),
-      OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR: "1",
+      GRANTED_BUNDLED_PLUGINS_DIR: bundledPluginsDir,
+      GRANTED_DISABLE_BUNDLED_SOURCE_OVERLAYS: "1",
+      GRANTED_STATE_DIR: path.join(rootDir, "state"),
+      GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR: "1",
       VITEST: "true",
     };
     await writeStalePathInstallRecord({ cfg, env, pluginId: "opencode-go", stalePath });
@@ -207,9 +207,9 @@ describe("configured plugin install health for explicit load paths", () => {
     };
     const env = {
       KILOCODE_API_KEY: "test-key",
-      OPENCLAW_BUNDLED_PLUGINS_DIR: path.join(rootDir, "bundled"),
-      OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-      OPENCLAW_STATE_DIR: path.join(rootDir, "state"),
+      GRANTED_BUNDLED_PLUGINS_DIR: path.join(rootDir, "bundled"),
+      GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+      GRANTED_STATE_DIR: path.join(rootDir, "state"),
       VITEST: "true",
     };
     await writeStalePathInstallRecord({
@@ -241,9 +241,9 @@ describe("configured plugin install health for explicit load paths", () => {
     };
     const env = {
       KILOCODE_API_KEY: "test-key",
-      OPENCLAW_BUNDLED_PLUGINS_DIR: path.join(rootDir, "bundled"),
-      OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-      OPENCLAW_STATE_DIR: path.join(rootDir, "state"),
+      GRANTED_BUNDLED_PLUGINS_DIR: path.join(rootDir, "bundled"),
+      GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+      GRANTED_STATE_DIR: path.join(rootDir, "state"),
       VITEST: "true",
     };
     const snapshot = loadManifestMetadataSnapshot({ config: cfg, env });
@@ -285,12 +285,12 @@ describe("configured plugin install health for explicit load paths", () => {
     const env = {
       HOME: homeDir,
       USERPROFILE: homeDir,
-      OPENCLAW_HOME: homeDir,
-      OPENCLAW_STATE_DIR: stateDir,
-      OPENCLAW_CONFIG_PATH: configPath,
-      OPENCLAW_BUNDLED_PLUGINS_DIR: bundledPluginsDir,
-      OPENCLAW_DISABLE_BUNDLED_SOURCE_OVERLAYS: "1",
-      OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR: "1",
+      GRANTED_HOME: homeDir,
+      GRANTED_STATE_DIR: stateDir,
+      GRANTED_CONFIG_PATH: configPath,
+      GRANTED_BUNDLED_PLUGINS_DIR: bundledPluginsDir,
+      GRANTED_DISABLE_BUNDLED_SOURCE_OVERLAYS: "1",
+      GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR: "1",
       NPM_CONFIG_REGISTRY: "http://127.0.0.1:9",
       npm_config_registry: "http://127.0.0.1:9",
       XDG_CONFIG_HOME: path.join(rootDir, "xdg-config"),

@@ -743,7 +743,7 @@ describe("collectInstalledPackageErrors", () => {
 
     try {
       const expectedErrors = collectInstalledBundledExtensionManifestErrors(packageRoot);
-      const filteredErrors = withEnv({ OPENCLAW_BUNDLED_PLUGIN_BUILD_IDS: "ollama" }, () =>
+      const filteredErrors = withEnv({ GRANTED_BUNDLED_PLUGIN_BUILD_IDS: "ollama" }, () =>
         collectInstalledBundledExtensionManifestErrors(packageRoot),
       );
 
@@ -785,7 +785,7 @@ describe("collectInstalledPackageErrors", () => {
         {
           cwd: process.cwd(),
           encoding: "utf8",
-          env: { ...process.env, OPENCLAW_BUNDLED_PLUGIN_BUILD_IDS: "ollama" },
+          env: { ...process.env, GRANTED_BUNDLED_PLUGIN_BUILD_IDS: "ollama" },
           timeout: 30_000,
         },
       );

@@ -98,7 +98,7 @@ it("budgets raw Git candidates separately from materialized eligible inventory",
   await fs.writeFile(
     mockGit,
     `#!/usr/bin/env node
-const count = Number(process.env.OPENCLAW_TEST_GIT_CANDIDATES);
+const count = Number(process.env.GRANTED_TEST_GIT_CANDIDATES);
 process.stdout.write("missing\\0".repeat(count));
 `,
     { mode: 0o755 },
@@ -107,7 +107,7 @@ process.stdout.write("missing\\0".repeat(count));
     ...process.env,
     HOME: home,
     PATH: `${bin}${path.delimiter}${process.env.PATH ?? ""}`,
-    OPENCLAW_TEST_GIT_CANDIDATES: String(MAX_WORKSPACE_INVENTORY_ENTRIES + 1),
+    GRANTED_TEST_GIT_CANDIDATES: String(MAX_WORKSPACE_INVENTORY_ENTRIES + 1),
   };
 
   const accepted = await runCommandWithTimeout(
@@ -131,7 +131,7 @@ process.stdout.write("missing\\0".repeat(count));
       timeoutMs: 20_000,
       baseEnv: {
         ...baseEnv,
-        OPENCLAW_TEST_GIT_CANDIDATES: String(MAX_WORKSPACE_GIT_CANDIDATES + 1),
+        GRANTED_TEST_GIT_CANDIDATES: String(MAX_WORKSPACE_GIT_CANDIDATES + 1),
       },
     },
   );

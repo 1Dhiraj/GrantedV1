@@ -132,7 +132,7 @@ afterEach(() => {
 describe("createPluginModuleLoader", () => {
   it("loads bundled JavaScript natively without source transformation", () => {
     const pluginRoot = writeJavaScriptPluginFixture("demo");
-    vi.stubEnv("OPENCLAW_BUNDLED_PLUGINS_DIR", pluginRoot);
+    vi.stubEnv("GRANTED_BUNDLED_PLUGINS_DIR", pluginRoot);
 
     const before = getPluginModuleLoaderStats();
     const registry = loadOpenClawPlugins({
@@ -163,7 +163,7 @@ describe("createPluginModuleLoader", () => {
 
   it("loads packaged JavaScript natively without source transformation", () => {
     const pluginRoot = writePackagedPluginFixture("npm-demo");
-    vi.stubEnv("OPENCLAW_BUNDLED_PLUGINS_DIR", tempDirs.make("openclaw-plugin-loader-"));
+    vi.stubEnv("GRANTED_BUNDLED_PLUGINS_DIR", tempDirs.make("openclaw-plugin-loader-"));
 
     const before = getPluginModuleLoaderStats();
     const registry = loadOpenClawPlugins({
@@ -195,7 +195,7 @@ describe("createPluginModuleLoader", () => {
 
   it("loads published pre-split SDK bridge imports (doctor repair, WhatsApp ack, Slack render)", () => {
     const pluginRoot = writePreSplitSdkBridgeConsumerFixture();
-    vi.stubEnv("OPENCLAW_BUNDLED_PLUGINS_DIR", tempDirs.make("openclaw-plugin-loader-"));
+    vi.stubEnv("GRANTED_BUNDLED_PLUGINS_DIR", tempDirs.make("openclaw-plugin-loader-"));
 
     const registry = loadOpenClawPlugins({
       cache: false,

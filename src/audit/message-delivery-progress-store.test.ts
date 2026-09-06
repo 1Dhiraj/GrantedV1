@@ -5,7 +5,7 @@ import { afterEach, describe, expect, it } from "vitest";
 import gitPrerequisites from "../../.github/actions/git-owner/test-prerequisites.json" with { type: "json" };
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
 import { openNodeSqliteDatabase } from "../infra/node-sqlite.js";
-import { OPENCLAW_STATE_SCHEMA_VERSION } from "../state/openclaw-state-db-contract.js";
+import { GRANTED_STATE_SCHEMA_VERSION } from "../state/openclaw-state-db-contract.js";
 import { tableExists } from "../state/openclaw-state-db-schema-helpers.js";
 import {
   closeOpenClawStateDatabaseForTest,
@@ -51,7 +51,7 @@ function ensurePinnedReaderCommit(repositoryRoot: string): void {
 }
 
 function databaseOptions() {
-  return { env: { OPENCLAW_STATE_DIR: tempDirs.make("message-progress-") } };
+  return { env: { GRANTED_STATE_DIR: tempDirs.make("message-progress-") } };
 }
 
 function progressInput(
@@ -147,7 +147,7 @@ describe("outbound message progress companion", () => {
     const database = databaseOptions();
     const opened = openOpenClawStateDatabase(database);
     expect(opened.db.prepare("PRAGMA user_version").get()).toEqual({
-      user_version: OPENCLAW_STATE_SCHEMA_VERSION,
+      user_version: GRANTED_STATE_SCHEMA_VERSION,
     });
     expect(tableExists(opened.db, "outbound_message_progress")).toBe(false);
     expect(tableExists(opened.db, "outbound_message_execution_bindings")).toBe(false);
@@ -343,13 +343,13 @@ describe("outbound message progress companion", () => {
           "--input-type=module",
           "--eval",
           `
-            const stateDir = process.env.OPENCLAW_C04_PINNED_READER_STATE_DIR;
+            const stateDir = process.env.GRANTED_C04_PINNED_READER_STATE_DIR;
             const { listAuditEvents } = await import("./src/audit/audit-event-store.ts");
             const {
               closeOpenClawStateDatabaseForTest,
               openOpenClawStateDatabase,
             } = await import("./src/state/openclaw-state-db.ts");
-            const database = { env: { ...process.env, OPENCLAW_STATE_DIR: stateDir } };
+            const database = { env: { ...process.env, GRANTED_STATE_DIR: stateDir } };
             const opened = openOpenClawStateDatabase(database);
             const schemaVersion = opened.db.prepare("PRAGMA user_version").get().user_version;
             const quickCheck = opened.db.prepare("PRAGMA quick_check").get().quick_check;
@@ -371,7 +371,7 @@ describe("outbound message progress companion", () => {
           cwd: pinnedCheckout,
           env: {
             ...process.env,
-            OPENCLAW_C04_PINNED_READER_STATE_DIR: database.env.OPENCLAW_STATE_DIR,
+            GRANTED_C04_PINNED_READER_STATE_DIR: database.env.GRANTED_STATE_DIR,
           },
           encoding: "utf8",
           stdio: ["ignore", "pipe", "pipe"],
@@ -396,7 +396,7 @@ describe("outbound message progress companion", () => {
 
     const reopened = openOpenClawStateDatabase(database).db;
     expect(reopened.prepare("PRAGMA user_version").get()).toEqual({
-      user_version: OPENCLAW_STATE_SCHEMA_VERSION,
+      user_version: GRANTED_STATE_SCHEMA_VERSION,
     });
     expect(reopened.prepare("PRAGMA quick_check").get()).toEqual({ quick_check: "ok" });
     expect(

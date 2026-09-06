@@ -34,7 +34,7 @@ describe("legacy subagent registry Doctor migration", () => {
 
   function useStateDir(): { env: NodeJS.ProcessEnv; stateDir: string } {
     const stateDir = tempDirs.make("openclaw-subagent-migration-");
-    return { env: { ...process.env, OPENCLAW_STATE_DIR: stateDir }, stateDir };
+    return { env: { ...process.env, GRANTED_STATE_DIR: stateDir }, stateDir };
   }
 
   function createRun(runId: string): SubagentRunRecord {

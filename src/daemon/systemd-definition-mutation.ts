@@ -9,6 +9,7 @@ import { sha256Hex } from "../infra/crypto-digest.js";
 import { hasErrnoCode } from "../infra/errno.js";
 import { withFileLock } from "../infra/file-lock.js";
 import { canonicalPathFromExistingAncestor, findExistingAncestor } from "../infra/fs-safe.js";
+import { GATEWAY_SERVICE_MARKER } from "./constants.js";
 import {
   assertServiceDefinitionWritable,
   type GatewayServiceEnv,
@@ -177,8 +178,12 @@ export async function readSystemdDefinitionMutationCapability(
   options?: { environment?: GatewayServiceEnv; timeoutMs?: number },
 ): Promise<ServiceDefinitionMutationCapability> {
   const selected = path.basename(resolveSystemdUnitPath(env));
+  // The shipped unit is also reachable under the bare product name, so a system
+  // unit installed under either spelling still blocks a user-scope rewrite.
   const names =
-    selected === "openclaw-gateway.service" ? [selected, "openclaw.service"] : [selected];
+    selected === `${GATEWAY_SERVICE_MARKER}-gateway.service`
+      ? [selected, `${GATEWAY_SERVICE_MARKER}.service`]
+      : [selected];
   const deadlineAt = options?.timeoutMs ? Date.now() + options.timeoutMs : undefined;
   for (const name of names) {
     try {

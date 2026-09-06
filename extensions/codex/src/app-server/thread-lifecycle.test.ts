@@ -19,7 +19,7 @@ import { createCodexTestHostCapabilities } from "./host-capability.test-support.
 import { buildCodexAppServerConnectionFingerprint } from "./plugin-app-cache-key.js";
 import type { CodexPluginThreadConfig } from "./plugin-thread-config.js";
 import {
-  CODEX_OPENCLAW_DIRECT_DYNAMIC_TOOL_NAMESPACE,
+  CODEX_GRANTED_DIRECT_DYNAMIC_TOOL_NAMESPACE,
   type CodexDynamicToolFunctionSpec,
   type JsonObject,
   isJsonObject,
@@ -134,9 +134,9 @@ describe("Codex managed shell environment", () => {
           GH_TOKEN: "",
           GITHUB_TOKEN: "",
           PREVIEW_SERVICE_TOKEN: "",
-          OPENCLAW_STATE_DIR: "/fixture/diagnosed",
-          OPENCLAW_CONFIG_PATH: "/fixture/custom.json",
-          OPENCLAW_WORKSPACE_DIR: "/fixture/default-workspace",
+          GRANTED_STATE_DIR: "/fixture/diagnosed",
+          GRANTED_CONFIG_PATH: "/fixture/custom.json",
+          GRANTED_WORKSPACE_DIR: "/fixture/default-workspace",
         },
         disableLoginShell: true,
       };
@@ -166,9 +166,9 @@ describe("Codex managed shell environment", () => {
           GH_TOKEN: "",
           GITHUB_TOKEN: "",
           PREVIEW_SERVICE_TOKEN: "",
-          OPENCLAW_STATE_DIR: "/fixture/diagnosed",
-          OPENCLAW_CONFIG_PATH: "/fixture/custom.json",
-          OPENCLAW_WORKSPACE_DIR: "/fixture/default-workspace",
+          GRANTED_STATE_DIR: "/fixture/diagnosed",
+          GRANTED_CONFIG_PATH: "/fixture/custom.json",
+          GRANTED_WORKSPACE_DIR: "/fixture/default-workspace",
         },
       });
       expect(request.config?.allow_login_shell).toBe(false);
@@ -181,9 +181,9 @@ describe("Codex managed shell environment", () => {
           "GITHUB_TOKEN",
           "GH_TOKEN",
           "PREVIEW_SERVICE_TOKEN",
-          "OPENCLAW_STATE_DIR",
-          "OPENCLAW_CONFIG_PATH",
-          "OPENCLAW_WORKSPACE_DIR",
+          "GRANTED_STATE_DIR",
+          "GRANTED_CONFIG_PATH",
+          "GRANTED_WORKSPACE_DIR",
         ]),
       );
       expect(shellEnvironmentPolicy.experimental_use_profile).toBe(false);
@@ -1905,7 +1905,7 @@ describe("Codex app-server native code mode config", () => {
       const dynamicTools = [
         {
           type: "namespace" as const,
-          name: CODEX_OPENCLAW_DIRECT_DYNAMIC_TOOL_NAMESPACE,
+          name: CODEX_GRANTED_DIRECT_DYNAMIC_TOOL_NAMESPACE,
           description: "",
           tools: [],
         },
@@ -1948,7 +1948,7 @@ describe("Codex app-server native code mode config", () => {
             : {}),
           direct_only_tool_namespaces: [
             ...(configured ? ["vendor_direct"] : []),
-            CODEX_OPENCLAW_DIRECT_DYNAMIC_TOOL_NAMESPACE,
+            CODEX_GRANTED_DIRECT_DYNAMIC_TOOL_NAMESPACE,
           ],
         });
         expect(request.config?.["code_mode.direct_only_tool_namespaces"]).toBeUndefined();

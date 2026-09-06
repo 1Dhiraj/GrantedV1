@@ -16,14 +16,14 @@ import { createControlUiE2eSuite } from "./control-ui-e2e-suite.test-support.ts"
 export { controlUiSessionPath, controlUiSessionUrl, installMockGateway, waitForConfirmModal };
 
 export const collapsedSessionSectionsStorageKey = "openclaw:sidebar:sessions:collapsed-sections";
-export const captureUiProofEnabled = process.env.OPENCLAW_CAPTURE_UI_PROOF === "1";
+export const captureUiProofEnabled = process.env.GRANTED_CAPTURE_UI_PROOF === "1";
 
 export function createSessionManagementE2eSuite(source = false) {
   return createControlUiE2eSuite({
     name: "Control UI session management mocked Gateway E2E",
     ...(source ? { startServer: () => startControlUiE2eServer(undefined, { source: true }) } : {}),
     unavailableMessage: (executablePath) =>
-      `Playwright Chromium is not installed or cannot start at ${executablePath}. Run \`pnpm --dir ui exec playwright install --with-deps chromium\`, or set OPENCLAW_UI_E2E_ALLOW_MISSING_CHROMIUM=1 only when intentionally skipping this lane.`,
+      `Playwright Chromium is not installed or cannot start at ${executablePath}. Run \`pnpm --dir ui exec playwright install --with-deps chromium\`, or set GRANTED_UI_E2E_ALLOW_MISSING_CHROMIUM=1 only when intentionally skipping this lane.`,
   });
 }
 

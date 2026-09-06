@@ -41,10 +41,10 @@ function runPlanningStep(
       LANES: mode === "targeted" ? "npm-onboard-channel-agent" : "",
       PREPARE_ONLY: String(mode === "prepare"),
       RELEASE_TEST_PROFILE: releaseProfile,
-      OPENCLAW_DOCKER_ALL_TIMINGS: "0",
-      OPENCLAW_UPGRADE_SURVIVOR_BASELINE_SPEC: "",
-      OPENCLAW_UPGRADE_SURVIVOR_BASELINE_SPECS: "",
-      OPENCLAW_UPGRADE_SURVIVOR_SCENARIOS: mode === "targeted" ? "" : "reported-issues",
+      GRANTED_DOCKER_ALL_TIMINGS: "0",
+      GRANTED_UPGRADE_SURVIVOR_BASELINE_SPEC: "",
+      GRANTED_UPGRADE_SURVIVOR_BASELINE_SPECS: "",
+      GRANTED_UPGRADE_SURVIVOR_SCENARIOS: mode === "targeted" ? "" : "reported-issues",
     },
   });
   return {

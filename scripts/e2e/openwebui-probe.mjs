@@ -22,7 +22,7 @@ const controlTimeoutMs = readPositiveTimerMs(
 const chatTimeoutMs = readPositiveTimerMs("OPENWEBUI_CHAT_TIMEOUT_MS", fetchTimeoutMs);
 const responseBodyMaxBytes = readPositiveInt("OPENWEBUI_RESPONSE_BODY_MAX_BYTES", 1024 * 1024);
 const smokeMode =
-  process.env.OPENWEBUI_SMOKE_MODE ?? process.env.OPENCLAW_OPENWEBUI_SMOKE_MODE ?? "chat";
+  process.env.OPENWEBUI_SMOKE_MODE ?? process.env.GRANTED_OPENWEBUI_SMOKE_MODE ?? "chat";
 
 setGlobalDispatcher(
   new Agent({

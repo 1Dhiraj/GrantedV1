@@ -522,7 +522,7 @@ describe("plugin npm package manifest staging", () => {
     expect(lock).toBe('{"lockfileVersion":3}\n');
     expect(generateOptions).toHaveLength(2);
     expect(generateOptions[0]).toMatchObject({
-      env: { OPENCLAW_NPM_LOCK_COMMAND_TIMEOUT_MS: "180000" },
+      env: { GRANTED_NPM_LOCK_COMMAND_TIMEOUT_MS: "180000" },
       installStrategy: "shallow",
     });
     expect(generateOptions[1]).toEqual(generateOptions[0]);
@@ -875,7 +875,7 @@ process.stdout.write("PACKED_PLUGIN_CHANNEL_STATE_OK\\n");
         {
           cwd: repoDir,
           encoding: "utf8",
-          env: { ...process.env, OPENCLAW_PLUGIN_NPM_BUNDLE_DEPENDENCIES: "1" },
+          env: { ...process.env, GRANTED_PLUGIN_NPM_BUNDLE_DEPENDENCIES: "1" },
         },
       );
       expect(result.status, result.stderr).toBe(scenario === "failed command" ? 7 : 0);
@@ -1015,11 +1015,11 @@ console.log(JSON.stringify({ path: path.join(destination, packed.filename) }));
           ...registryEnv,
           SOURCE_COMMIT: "1".repeat(40),
           SOURCE_REF: "fixture",
-          OPENCLAW_PLUGIN_NPM_RUNTIME_BUILD: "0",
-          OPENCLAW_CLAWHUB_CLI: cli,
-          OPENCLAW_CLAWHUB_PACK_OUTPUT_DIR: consumerDir,
+          GRANTED_PLUGIN_NPM_RUNTIME_BUILD: "0",
+          GRANTED_CLAWHUB_CLI: cli,
+          GRANTED_CLAWHUB_PACK_OUTPUT_DIR: consumerDir,
         };
-        delete env.OPENCLAW_NPM_PACKAGE_LOCK_REPO_ROOT;
+        delete env.GRANTED_NPM_PACKAGE_LOCK_REPO_ROOT;
         await execFileAsync(
           "bash",
           [
@@ -1056,8 +1056,8 @@ console.log(JSON.stringify({ path: path.join(destination, packed.filename) }));
             encoding: "utf8",
             env: {
               ...registryEnv,
-              OPENCLAW_NPM_PACKAGE_LOCK_REPO_ROOT: repoDir,
-              OPENCLAW_PLUGIN_NPM_BUNDLE_DEPENDENCIES:
+              GRANTED_NPM_PACKAGE_LOCK_REPO_ROOT: repoDir,
+              GRANTED_PLUGIN_NPM_BUNDLE_DEPENDENCIES:
                 bundling === "all" || bundling.startsWith("nested-") ? "1" : "0",
             },
           },

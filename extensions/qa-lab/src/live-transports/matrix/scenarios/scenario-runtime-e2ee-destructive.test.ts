@@ -41,7 +41,7 @@ const storageMetadataRuntime = vi.hoisted(() => ({
     return {
       namespace: "storage-meta",
       maxEntries: 10,
-      env: { ...process.env, OPENCLAW_STATE_DIR: storageRootDir },
+      env: { ...process.env, GRANTED_STATE_DIR: storageRootDir },
     };
   },
 }));
@@ -57,7 +57,7 @@ vi.mock("../substrate/e2ee-client.js", () => ({
     openMatrixRecoveryKeyStoreOptions: (storageRootDir: string) => ({
       namespace: "recovery-key",
       maxEntries: 10,
-      env: { ...process.env, OPENCLAW_STATE_DIR: storageRootDir },
+      env: { ...process.env, GRANTED_STATE_DIR: storageRootDir },
     }),
   }),
 }));
@@ -207,7 +207,7 @@ describe("Matrix sync-state loss driver readiness", () => {
       });
       const context = createMatrixQaE2eeTestContext({
         gatewayStateDir: "/tmp/unused-gateway-state",
-        gatewayRuntimeEnv: { OPENCLAW_CONFIG_PATH: "/tmp/unused-gateway-config" },
+        gatewayRuntimeEnv: { GRANTED_CONFIG_PATH: "/tmp/unused-gateway-config" },
         restartGatewayAfterStateMutation: async (mutate) => {
           await mutate({ stateDir: "/tmp/unused-gateway-state" });
         },

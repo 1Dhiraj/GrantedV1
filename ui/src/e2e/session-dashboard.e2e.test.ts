@@ -252,7 +252,7 @@ suite.define(() => {
   });
 
   it("pins Canvas HTML, follows board commands, and persists dock resizing", async () => {
-    const recordProof = process.env.OPENCLAW_UI_E2E_RECORD === "1";
+    const recordProof = process.env.GRANTED_UI_E2E_RECORD === "1";
     if (recordProof) {
       await mkdir(path.join(suite.artifactDir, "workboard-pin"), { recursive: true });
     }
@@ -405,7 +405,7 @@ suite.define(() => {
   });
 
   it("shows a bounded visible outcome when a Canvas dashboard pin fails", async () => {
-    const recordProof = process.env.OPENCLAW_UI_E2E_RECORD === "1";
+    const recordProof = process.env.GRANTED_UI_E2E_RECORD === "1";
     if (recordProof) {
       await mkdir(path.join(suite.artifactDir, "workboard-pin-failure"), { recursive: true });
     }
@@ -562,7 +562,7 @@ suite.define(() => {
   });
 
   it("renders and updates active Workboard plugin widgets", async () => {
-    const recordProof = process.env.OPENCLAW_UI_E2E_RECORD === "1";
+    const recordProof = process.env.GRANTED_UI_E2E_RECORD === "1";
     if (recordProof) {
       await mkdir(path.join(suite.artifactDir, "workboard-plugin-widgets"), { recursive: true });
     }
@@ -803,7 +803,7 @@ suite.define(() => {
   });
 
   it("links a dispatched Workboard card and its live session dashboard in both directions", async () => {
-    const recordProof = process.env.OPENCLAW_UI_E2E_RECORD === "1";
+    const recordProof = process.env.GRANTED_UI_E2E_RECORD === "1";
     if (recordProof) {
       await mkdir(path.join(suite.artifactDir, "workboard-cardboard"), { recursive: true });
     }

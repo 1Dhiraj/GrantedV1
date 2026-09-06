@@ -719,7 +719,7 @@ describe("createBackupArchive", () => {
         async (state) => {
           const broadTarget = path.join(await fs.realpath(state.root), "broad-skill");
           const configPath = path.join(broadTarget, "openclaw.json");
-          state.envVars.OPENCLAW_CONFIG_PATH = configPath;
+          state.envVars.GRANTED_CONFIG_PATH = configPath;
           state.applyEnv();
           await fs.mkdir(broadTarget, { recursive: true });
           await fs.writeFile(
@@ -1508,7 +1508,7 @@ describe("createBackupArchive", () => {
           const restoredEntries = createSqliteAuditRecordStore({
             scope: CONFIG_AUDIT_SCOPE,
             maxEntries: CONFIG_AUDIT_MAX_ENTRIES,
-            env: { ...process.env, OPENCLAW_STATE_DIR: restoredStateDir },
+            env: { ...process.env, GRANTED_STATE_DIR: restoredStateDir },
           }).entries();
           expect(new Set(restoredEntries.map((entry) => entry.key)).size).toBe(2);
           expect(restoredEntries.map((entry) => entry.value)).toEqual([record, record]);
@@ -1743,7 +1743,7 @@ describe("createBackupArchive", () => {
         closeOpenClawAgentDatabasesForTest();
         const sqlite = requireNodeSqlite();
         const liveDbPath = path.join(state.agentDir(), "openclaw-agent.sqlite");
-        const deletedSecretMarker = "OPENCLAW_DELETED_SECRET_PAGE_MARKER";
+        const deletedSecretMarker = "GRANTED_DELETED_SECRET_PAGE_MARKER";
         const deletedSecret = `${deletedSecretMarker}-${"x".repeat(16_384)}`;
         const liveDb = new sqlite.DatabaseSync(liveDbPath);
         try {
@@ -3286,7 +3286,7 @@ describe("createBackupArchive", () => {
         layout: "state-only",
         prefix: "openclaw-backup-managed-root-workspace-",
         scenario: "minimal",
-        env: { OPENCLAW_OAUTH_DIR: undefined },
+        env: { GRANTED_OAUTH_DIR: undefined },
       },
       async (state) => {
         const stateDir = state.stateDir;
@@ -3308,8 +3308,8 @@ describe("createBackupArchive", () => {
         const toolRuntimeDir = path.join(stateDir, "tools", "runtime");
         const workspaceDbPath = path.join(workspaceDir, "workspace.sqlite");
         const outputDir = state.path("backups");
-        state.envVars.OPENCLAW_CONFIG_PATH = configPath;
-        state.envVars.OPENCLAW_OAUTH_DIR = oauthDir;
+        state.envVars.GRANTED_CONFIG_PATH = configPath;
+        state.envVars.GRANTED_OAUTH_DIR = oauthDir;
         state.applyEnv();
         await fs.mkdir(workspaceDir, { recursive: true });
         await fs.mkdir(tmpWorkspaceDir, { recursive: true });

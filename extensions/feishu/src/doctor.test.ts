@@ -34,7 +34,7 @@ function feishuConfig(): OpenClawConfig {
 }
 
 function stateDir(): string {
-  return process.env.OPENCLAW_STATE_DIR!;
+  return process.env.GRANTED_STATE_DIR!;
 }
 
 function sessionsDir(agentId = "main"): string {
@@ -169,8 +169,8 @@ describe("Feishu doctor state repair", () => {
   beforeEach(() => {
     tempHome = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-feishu-doctor-"));
     vi.stubEnv("HOME", tempHome);
-    vi.stubEnv("OPENCLAW_HOME", tempHome);
-    vi.stubEnv("OPENCLAW_STATE_DIR", path.join(tempHome, ".openclaw"));
+    vi.stubEnv("GRANTED_HOME", tempHome);
+    vi.stubEnv("GRANTED_STATE_DIR", path.join(tempHome, ".openclaw"));
     fs.mkdirSync(stateDir(), { recursive: true, mode: 0o700 });
   });
 

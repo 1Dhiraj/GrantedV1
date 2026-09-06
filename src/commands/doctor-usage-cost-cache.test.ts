@@ -57,7 +57,7 @@ describe("legacy usage-cost cache cleanup", () => {
     );
     const staleTime = new Date(Date.now() - 60_000);
     await Promise.all(staleTempFiles.map((filePath) => fs.utimes(filePath, staleTime, staleTime)));
-    const env = { OPENCLAW_STATE_DIR: root } as NodeJS.ProcessEnv;
+    const env = { GRANTED_STATE_DIR: root } as NodeJS.ProcessEnv;
 
     await maybeRepairLegacyRuntimeFiles(true, env);
 
@@ -75,7 +75,7 @@ describe("legacy usage-cost cache cleanup", () => {
     const metadataPath = path.join(uploadRoot, randomUploadId(), "metadata.json");
     await fs.mkdir(path.dirname(metadataPath), { recursive: true });
     await fs.writeFile(metadataPath, "{}\n", "utf8");
-    const env = { OPENCLAW_STATE_DIR: root } as NodeJS.ProcessEnv;
+    const env = { GRANTED_STATE_DIR: root } as NodeJS.ProcessEnv;
 
     await maybeRepairLegacyRuntimeFiles(false, env);
     await expect(fs.readFile(metadataPath, "utf8")).resolves.toBe("{}\n");
@@ -95,7 +95,7 @@ describe("legacy usage-cost cache cleanup", () => {
     await fs.symlink(external, uploadRoot, "dir");
 
     await maybeRepairLegacyRuntimeFiles(true, {
-      OPENCLAW_STATE_DIR: root,
+      GRANTED_STATE_DIR: root,
     } as NodeJS.ProcessEnv);
 
     await expect(fs.lstat(uploadRoot)).rejects.toMatchObject({ code: "ENOENT" });
@@ -104,7 +104,7 @@ describe("legacy usage-cost cache cleanup", () => {
 
   it("removes retired usage rows from every registered agent database", async () => {
     root = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-usage-cost-sqlite-doctor-"));
-    const env = { OPENCLAW_STATE_DIR: root } as NodeJS.ProcessEnv;
+    const env = { GRANTED_STATE_DIR: root } as NodeJS.ProcessEnv;
     const databases = ["main", "worker"].map((agentId) =>
       openOpenClawAgentDatabase({ agentId, env }),
     );
@@ -181,7 +181,7 @@ describe("legacy usage-cost cache cleanup", () => {
     }
 
     await maybeRepairLegacyRuntimeFiles(shouldRepair, {
-      OPENCLAW_STATE_DIR: root,
+      GRANTED_STATE_DIR: root,
     } as NodeJS.ProcessEnv);
 
     if (diagnostic) {

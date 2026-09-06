@@ -72,7 +72,7 @@ if (process.argv.includes("diff")) {
       cwd: path.resolve(import.meta.dirname, "../.."),
       env: {
         ...process.env,
-        OPENCLAW_RELEASE_METADATA_GIT_TIMEOUT_MS: "500",
+        GRANTED_RELEASE_METADATA_GIT_TIMEOUT_MS: "500",
         PATH: `${tempDir}${path.delimiter}${process.env.PATH ?? ""}`,
       },
       encoding: "utf8",
@@ -88,7 +88,7 @@ if (process.argv.includes("diff")) {
       cwd: path.resolve(import.meta.dirname, "../.."),
       env: {
         ...process.env,
-        OPENCLAW_RELEASE_METADATA_GIT_TIMEOUT_MS: "0.5",
+        GRANTED_RELEASE_METADATA_GIT_TIMEOUT_MS: "0.5",
         PATH: `${tempDir}${path.delimiter}${process.env.PATH ?? ""}`,
       },
       encoding: "utf8",

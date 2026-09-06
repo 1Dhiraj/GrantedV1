@@ -23,7 +23,7 @@ vi.mock("../../packages/terminal-core/src/note.js", () => ({ note: mocks.note })
 async function testEnv(options?: { bootstrap?: boolean }): Promise<NodeJS.ProcessEnv> {
   const root = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-backup-runs-test-"));
   roots.push(root);
-  const env = { ...process.env, OPENCLAW_STATE_DIR: path.join(root, "state") };
+  const env = { ...process.env, GRANTED_STATE_DIR: path.join(root, "state") };
   if (options?.bootstrap) {
     // Recording is non-creating by contract, so the fixture bootstraps the
     // state database the way a real gateway host already has.

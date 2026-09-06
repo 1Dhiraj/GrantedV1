@@ -17,7 +17,7 @@ describe("measureCliCommandStartup", () => {
     await expect(
       measureCliCommandStartup("config-ready", async () => "ready", {
         env: {
-          OPENCLAW_DIAGNOSTICS: "timeline",
+          GRANTED_DIAGNOSTICS: "timeline",
         },
       }),
     ).resolves.toBe("ready");
@@ -28,8 +28,8 @@ describe("measureCliCommandStartup", () => {
     tempDirs.push(dir);
     const path = join(dir, "timeline.jsonl");
     const env = {
-      OPENCLAW_DIAGNOSTICS: "timeline",
-      OPENCLAW_DIAGNOSTICS_TIMELINE_PATH: path,
+      GRANTED_DIAGNOSTICS: "timeline",
+      GRANTED_DIAGNOSTICS_TIMELINE_PATH: path,
     } as NodeJS.ProcessEnv;
 
     await expect(

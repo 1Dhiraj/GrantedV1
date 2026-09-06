@@ -144,7 +144,7 @@ vi.mock("openclaw/plugin-sdk/agent-harness", async (importOriginal) => {
   };
 });
 
-const LIVE = isLiveTestEnabled(["OPENCLAW_COPILOT_AGENT_LIVE_TEST"]);
+const LIVE = isLiveTestEnabled(["GRANTED_COPILOT_AGENT_LIVE_TEST"]);
 const AUTH_MODE = resolveLiveAuthMode();
 const describeLive = LIVE && AUTH_MODE ? describe : describe.skip;
 let liveAttemptFacts: LiveAttemptFacts;
@@ -155,7 +155,7 @@ function readNonEmptyEnv(name: string): string | undefined {
 }
 
 function resolveLiveAuthMode(): LiveAuthMode | undefined {
-  const explicitCopilotToken = readNonEmptyEnv("OPENCLAW_COPILOT_AGENT_LIVE_TOKEN");
+  const explicitCopilotToken = readNonEmptyEnv("GRANTED_COPILOT_AGENT_LIVE_TOKEN");
   if (explicitCopilotToken) {
     return { kind: "github-copilot", gitHubToken: explicitCopilotToken };
   }
@@ -164,7 +164,7 @@ function resolveLiveAuthMode(): LiveAuthMode | undefined {
     return {
       apiKey,
       kind: "openai-byok",
-      modelId: readNonEmptyEnv("OPENCLAW_COPILOT_AGENT_LIVE_MODEL") ?? OPENAI_DEFAULT_MODEL,
+      modelId: readNonEmptyEnv("GRANTED_COPILOT_AGENT_LIVE_MODEL") ?? OPENAI_DEFAULT_MODEL,
     };
   }
   const fallbackCopilotToken = readNonEmptyEnv("GITHUB_TOKEN") ?? readNonEmptyEnv("GH_TOKEN");

@@ -811,7 +811,7 @@ export async function runGatewayUpdateCheck(params: {
   const runAuto: AutoUpdateRunner =
     params.runAutoUpdate ?? ((runParams) => runAutoUpdateCommand(runParams, params.log));
   const auto = resolveAutoUpdatePolicy(params.cfg);
-  const autoDisabledByEnv = isTruthyEnvValue(process.env.OPENCLAW_NO_AUTO_UPDATE);
+  const autoDisabledByEnv = isTruthyEnvValue(process.env.GRANTED_NO_AUTO_UPDATE);
   if (params.cfg.update?.checkOnStart === false || autoDisabledByEnv) {
     updateCampaign.clear();
     setUpdateAvailableCache({

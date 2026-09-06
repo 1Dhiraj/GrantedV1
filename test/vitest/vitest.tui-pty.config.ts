@@ -17,12 +17,12 @@ export function createTuiPtyVitestConfig(env?: Record<string, string | undefined
   const baseTest = sharedVitestConfig.test ?? {};
   const exclude = (baseTest.exclude ?? []).filter((pattern) => pattern !== "**/*.e2e.test.ts");
   const configEnv = env ?? process.env;
-  const includeLocal = configEnv.OPENCLAW_TUI_PTY_INCLUDE_LOCAL === "1";
+  const includeLocal = configEnv.GRANTED_TUI_PTY_INCLUDE_LOCAL === "1";
   const include = tuiPtyTestFiles
     .filter((target) => includeLocal || !target.endsWith("tui-pty-local.e2e.test.ts"))
     .map((target) => target.replace(/^src\//u, ""));
   const includeFromEnv = toTuiPtyIncludePatterns(
-    loadPatternListFromEnv("OPENCLAW_VITEST_INCLUDE_FILE", configEnv),
+    loadPatternListFromEnv("GRANTED_VITEST_INCLUDE_FILE", configEnv),
   );
   const includeFromArgv = toTuiPtyIncludePatterns(narrowIncludePatternsForCli(targetableIncludes));
   const baseSequence = (baseTest as { sequence?: { groupOrder?: number } }).sequence;

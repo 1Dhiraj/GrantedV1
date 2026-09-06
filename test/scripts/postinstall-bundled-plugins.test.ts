@@ -120,10 +120,10 @@ describe("bundled plugin postinstall", () => {
           env: {
             ...process.env,
             HOME: path.join(packageRoot, "home"),
-            OPENCLAW_CONFIG_PATH: undefined,
-            OPENCLAW_DISABLE_BUNDLED_PLUGIN_POSTINSTALL: undefined,
-            OPENCLAW_HOME: path.join(packageRoot, "home"),
-            OPENCLAW_STATE_DIR: path.join(packageRoot, "state"),
+            GRANTED_CONFIG_PATH: undefined,
+            GRANTED_DISABLE_BUNDLED_PLUGIN_POSTINSTALL: undefined,
+            GRANTED_HOME: path.join(packageRoot, "home"),
+            GRANTED_STATE_DIR: path.join(packageRoot, "state"),
             STATE_DIRECTORY: undefined,
             NODE_COMPILE_CACHE: configuredCacheRoot,
             NODE_DISABLE_COMPILE_CACHE: disableCompileCache,
@@ -186,11 +186,11 @@ describe("bundled plugin postinstall", () => {
         env: {
           ...process.env,
           HOME: path.join(packageRoot, "home"),
-          OPENCLAW_HOME: path.join(packageRoot, "home"),
-          OPENCLAW_STATE_DIR: path.join(packageRoot, "state"),
-          OPENCLAW_CONFIG_PATH: undefined,
+          GRANTED_HOME: path.join(packageRoot, "home"),
+          GRANTED_STATE_DIR: path.join(packageRoot, "state"),
+          GRANTED_CONFIG_PATH: undefined,
           STATE_DIRECTORY: undefined,
-          OPENCLAW_DISABLE_BUNDLED_PLUGIN_POSTINSTALL: undefined,
+          GRANTED_DISABLE_BUNDLED_PLUGIN_POSTINSTALL: undefined,
         },
       });
       expect(result.status, result.stderr).toBe(0);
@@ -225,7 +225,7 @@ describe("bundled plugin postinstall", () => {
     await fs.writeFile(staleFile, "export {};\n");
 
     runBundledPluginPostinstall({
-      env: { OPENCLAW_DISABLE_BUNDLED_PLUGIN_POSTINSTALL: "1" },
+      env: { GRANTED_DISABLE_BUNDLED_PLUGIN_POSTINSTALL: "1" },
       packageRoot,
     });
 
@@ -286,7 +286,7 @@ describe("bundled plugin postinstall", () => {
         "import { DatabaseSync } from 'node:sqlite';",
         "import { join } from 'node:path';",
         "export async function migratePluginRegistryForInstall({ env }) {",
-        "  const db = new DatabaseSync(join(env.OPENCLAW_STATE_DIR, 'state', 'openclaw.sqlite'));",
+        "  const db = new DatabaseSync(join(env.GRANTED_STATE_DIR, 'state', 'openclaw.sqlite'));",
         "  try {",
         "    db.exec(\"PRAGMA user_version = 9; UPDATE schema_meta SET schema_version = 9 WHERE meta_key = 'primary';\");",
         "  } finally {",
@@ -307,10 +307,10 @@ describe("bundled plugin postinstall", () => {
         env: {
           ...process.env,
           HOME: path.join(packageRoot, "home"),
-          OPENCLAW_CONFIG_PATH: undefined,
-          OPENCLAW_DISABLE_BUNDLED_PLUGIN_POSTINSTALL: undefined,
-          OPENCLAW_HOME: path.join(packageRoot, "home"),
-          OPENCLAW_STATE_DIR: stateDir,
+          GRANTED_CONFIG_PATH: undefined,
+          GRANTED_DISABLE_BUNDLED_PLUGIN_POSTINSTALL: undefined,
+          GRANTED_HOME: path.join(packageRoot, "home"),
+          GRANTED_STATE_DIR: stateDir,
           STATE_DIRECTORY: undefined,
         },
       },
@@ -456,7 +456,7 @@ describe("bundled plugin postinstall", () => {
     runBundledPluginPostinstall({
       env: {
         HOME: home,
-        OPENCLAW_STATE_DIR: stateOverride,
+        GRANTED_STATE_DIR: stateOverride,
         STATE_DIRECTORY: systemState,
       },
       packageRoot,
@@ -548,9 +548,9 @@ describe("bundled plugin postinstall", () => {
       collectLegacyPluginRuntimeDepsStateRoots({
         env: {
           HOME: "/users/alice",
-          OPENCLAW_HOME: "/srv/openclaw-home",
-          OPENCLAW_CONFIG_PATH: "~/profile/openclaw.json",
-          OPENCLAW_STATE_DIR: "~/state",
+          GRANTED_HOME: "/srv/openclaw-home",
+          GRANTED_CONFIG_PATH: "~/profile/openclaw.json",
+          GRANTED_STATE_DIR: "~/state",
           STATE_DIRECTORY: "/var/lib/openclaw",
         },
         homedir: () => "/users/alice",

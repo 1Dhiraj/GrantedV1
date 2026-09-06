@@ -49,12 +49,12 @@ vi.mock("../logging/subsystem.js", () => ({
 type ExecApprovalsDatabase = Pick<OpenClawStateKyselyDatabase, "exec_approvals_config">;
 
 const tempDirs: string[] = [];
-const envSnapshot = captureEnv(["OPENCLAW_STATE_DIR"]);
+const envSnapshot = captureEnv(["GRANTED_STATE_DIR"]);
 
 function createStateDir(): string {
   const stateDir = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), "exec-approvals-db-")));
   tempDirs.push(stateDir);
-  setTestEnvValue("OPENCLAW_STATE_DIR", stateDir);
+  setTestEnvValue("GRANTED_STATE_DIR", stateDir);
   return stateDir;
 }
 
@@ -70,7 +70,7 @@ function row() {
 
 function makeStateDatabaseUnavailable(): void {
   closeOpenClawStateDatabaseForTest();
-  const stateDir = process.env.OPENCLAW_STATE_DIR;
+  const stateDir = process.env.GRANTED_STATE_DIR;
   if (!stateDir) {
     throw new Error("missing test state dir");
   }
@@ -449,7 +449,7 @@ describe("exec approvals SQLite store", () => {
     "blocks runtime reads while the retired %s exists, then rechecks after removal",
     (_, suffix) => {
       closeOpenClawStateDatabaseForTest();
-      const stateDir = process.env.OPENCLAW_STATE_DIR;
+      const stateDir = process.env.GRANTED_STATE_DIR;
       if (!stateDir) {
         throw new Error("missing test state dir");
       }
@@ -465,7 +465,7 @@ describe("exec approvals SQLite store", () => {
       }
       expect(caught).toBeInstanceOf(ExecApprovalsMigrationRequiredError);
       expect(caught).toMatchObject({
-        message: `Legacy exec approvals exist at ${sourcePath}. Run \`openclaw doctor --fix\` with OPENCLAW_STATE_DIR set to ${stateDir} before using exec approvals.`,
+        message: `Legacy exec approvals exist at ${sourcePath}. Run \`openclaw doctor --fix\` with GRANTED_STATE_DIR set to ${stateDir} before using exec approvals.`,
       });
 
       fs.rmSync(legacyPath);
@@ -476,7 +476,7 @@ describe("exec approvals SQLite store", () => {
   it("scopes the doctor command to the blocked state directory", () => {
     // A bare `openclaw doctor --fix` repairs the default root, leaving a scoped
     // install blocked by the same file it was told to repair (#115008).
-    const stateDir = process.env.OPENCLAW_STATE_DIR;
+    const stateDir = process.env.GRANTED_STATE_DIR;
     if (!stateDir) {
       throw new Error("missing test state dir");
     }
@@ -487,7 +487,7 @@ describe("exec approvals SQLite store", () => {
     // Prose, not `VAR=value cmd`: no Windows shell accepts that form, and a path
     // containing spaces would need shell-specific quoting to survive a paste.
     expect(error.message).toContain(
-      `Run \`openclaw doctor --fix\` with OPENCLAW_STATE_DIR set to ${stateDir}`,
+      `Run \`openclaw doctor --fix\` with GRANTED_STATE_DIR set to ${stateDir}`,
     );
   });
 
@@ -496,7 +496,7 @@ describe("exec approvals SQLite store", () => {
     [false, true, false],
     [false, false, true],
   ])("detects legacy state at every source-claim-source probe", (first, claim, second) => {
-    const stateDir = process.env.OPENCLAW_STATE_DIR;
+    const stateDir = process.env.GRANTED_STATE_DIR;
     if (!stateDir) {
       throw new Error("missing test state dir");
     }

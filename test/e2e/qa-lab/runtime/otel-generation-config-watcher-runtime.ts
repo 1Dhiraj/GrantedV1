@@ -483,16 +483,16 @@ async function probeOtelGenerationConfigWatcher(
       enabledPluginIds: ["diagnostics-otel"],
       controlUiEnabled: false,
       runtimeEnvPatch: {
-        OPENCLAW_NO_RESPAWN: "1",
-        OPENCLAW_OTEL_PRELOADED: "0",
+        GRANTED_NO_RESPAWN: "1",
+        GRANTED_OTEL_PRELOADED: "0",
         OTEL_SDK_DISABLED: "false",
       },
       mutateConfig: (config) => withOtelEndpoint(config, receiverA!.baseUrl),
     });
 
-    const noRespawn = gateway.runtimeEnv.OPENCLAW_NO_RESPAWN === "1";
+    const noRespawn = gateway.runtimeEnv.GRANTED_NO_RESPAWN === "1";
     const pidBefore = gateway.pid;
-    assertContract(noRespawn, "QA Gateway did not set OPENCLAW_NO_RESPAWN=1");
+    assertContract(noRespawn, "QA Gateway did not set GRANTED_NO_RESPAWN=1");
     assertContract(typeof pidBefore === "number", "QA Gateway did not expose its PID");
 
     await runTracedTurn(gateway, GENERATION_A);
@@ -507,7 +507,7 @@ async function probeOtelGenerationConfigWatcher(
         gateway!
           .logs()
           .slice(restartLogOffset)
-          .includes("restart mode: in-process restart (OPENCLAW_NO_RESPAWN)")
+          .includes("restart mode: in-process restart (GRANTED_NO_RESPAWN)")
           ? true
           : undefined,
     });

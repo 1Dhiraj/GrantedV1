@@ -17,10 +17,10 @@ import {
 describe("plugin install root context", () => {
   it("keeps discovery roots on the operator install while runtime state is redirected", async () => {
     const operatorRoots = resolvePluginInstallRoots(
-      { OPENCLAW_STATE_DIR: "/operator/openclaw" },
+      { GRANTED_STATE_DIR: "/operator/openclaw" },
       () => "/unused-home",
     );
-    const redirectedEnv = { OPENCLAW_STATE_DIR: "/tmp/ephemeral-run" };
+    const redirectedEnv = { GRANTED_STATE_DIR: "/tmp/ephemeral-run" };
 
     await withPluginInstallRoots(operatorRoots, async () => {
       await Promise.resolve();
@@ -34,7 +34,7 @@ describe("plugin install root context", () => {
       );
       expect(
         resolveInstalledPluginIndexStateDatabaseOptions({ env: redirectedEnv }).env
-          ?.OPENCLAW_STATE_DIR,
+          ?.GRANTED_STATE_DIR,
       ).toBe("/operator/openclaw");
     });
 
@@ -44,18 +44,18 @@ describe("plugin install root context", () => {
     );
     expect(
       resolveInstalledPluginIndexStateDatabaseOptions({ env: redirectedEnv }).env
-        ?.OPENCLAW_STATE_DIR,
+        ?.GRANTED_STATE_DIR,
     ).toBe("/tmp/ephemeral-run");
   });
 
   it("isolates concurrent install-root scopes", async () => {
     const resolveScopedRoot = async (stateDir: string) => {
-      const roots = resolvePluginInstallRoots({ OPENCLAW_STATE_DIR: stateDir });
+      const roots = resolvePluginInstallRoots({ GRANTED_STATE_DIR: stateDir });
       return await withPluginInstallRoots(roots, async () => {
         await new Promise<void>((resolve) => {
           setTimeout(resolve, 0);
         });
-        return resolveDefaultPluginExtensionsDir({ OPENCLAW_STATE_DIR: "/redirected" });
+        return resolveDefaultPluginExtensionsDir({ GRANTED_STATE_DIR: "/redirected" });
       });
     };
 

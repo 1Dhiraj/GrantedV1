@@ -8,7 +8,7 @@ import { pathToFileURL } from "node:url";
 import { Worker } from "node:worker_threads";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { listOpenClawRegisteredAgentDatabases } from "../src/state/openclaw-agent-db-registry-listing.js";
-import { OPENCLAW_STATE_SCHEMA_VERSION } from "../src/state/openclaw-state-db-contract.js";
+import { GRANTED_STATE_SCHEMA_VERSION } from "../src/state/openclaw-state-db-contract.js";
 import {
   closeOpenClawStateDatabaseByPath,
   openOpenClawStateDatabase,
@@ -84,7 +84,7 @@ describe("test environment SQLite lifetime", () => {
       path.join(testEnv.tempHome, ".openclaw", "state", "openclaw.sqlite"),
     );
     expect(database.db.prepare("PRAGMA user_version").get()).toEqual({
-      user_version: OPENCLAW_STATE_SCHEMA_VERSION,
+      user_version: GRANTED_STATE_SCHEMA_VERSION,
     });
 
     cleanups.pop()?.();
@@ -97,9 +97,9 @@ describe("test environment SQLite lifetime", () => {
     const callerState = path.join(sandbox, "caller-state");
     fs.mkdirSync(callerState);
     fs.writeFileSync(path.join(callerState, "keep"), "caller-owned");
-    setTestEnvValue("OPENCLAW_STATE_DIR", callerState);
+    setTestEnvValue("GRANTED_STATE_DIR", callerState);
     const callerHome = process.env.HOME;
-    const callerTestHome = process.env.OPENCLAW_TEST_HOME;
+    const callerTestHome = process.env.GRANTED_TEST_HOME;
     const outer = installOwnedEnv();
     const outerDatabase = openOpenClawStateDatabase();
     expect(resolveOpenClawStateSqlitePath()).toBe(outer.databasePath);
@@ -112,14 +112,14 @@ describe("test environment SQLite lifetime", () => {
     expect(fs.existsSync(inner.tempHome)).toBe(false);
     expect(fs.existsSync(inner.databasePath)).toBe(false);
     expect(process.env.HOME).toBe(outer.tempHome);
-    expect(process.env.OPENCLAW_TEST_HOME).toBe(outer.tempHome);
+    expect(process.env.GRANTED_TEST_HOME).toBe(outer.tempHome);
     expect(openOpenClawStateDatabase()).toBe(outerDatabase);
 
     cleanups.pop()?.();
     expect(fs.existsSync(outer.databasePath)).toBe(false);
     expect(process.env.HOME).toBe(callerHome);
-    expect(process.env.OPENCLAW_TEST_HOME).toBe(callerTestHome);
-    expect(process.env.OPENCLAW_STATE_DIR).toBe(callerState);
+    expect(process.env.GRANTED_TEST_HOME).toBe(callerTestHome);
+    expect(process.env.GRANTED_STATE_DIR).toBe(callerState);
     const next = installOwnedEnv();
     expect(next.databasePath).not.toBe(outer.databasePath);
     expect(next.databasePath).not.toBe(inner.databasePath);

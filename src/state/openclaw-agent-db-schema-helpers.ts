@@ -27,7 +27,7 @@ import { CONTEXT_ENGINE_TURN_OUTBOX_TABLE } from "./openclaw-agent-context-engin
 import { FIRST_USE_ADDITIVE_AGENT_COLUMN_DEFINITIONS } from "./openclaw-agent-db-additive-columns.js";
 import {
   AGENT_MEDIA_SCHEMA_VERSION,
-  OPENCLAW_AGENT_SCHEMA_VERSION,
+  GRANTED_AGENT_SCHEMA_VERSION,
 } from "./openclaw-agent-db-contract.js";
 import { OpenClawAgentDatabaseMediaMigrationRequiredError } from "./openclaw-agent-db-migration-required.js";
 import {
@@ -43,7 +43,7 @@ import {
   AGENT_PROGRESS_CARD_SCHEMA_SQL,
   SESSION_PROGRESS_CARDS_TABLE,
 } from "./openclaw-agent-progress-card-schema.js";
-import { OPENCLAW_AGENT_SCHEMA_SQL } from "./openclaw-agent-schema.js";
+import { GRANTED_AGENT_SCHEMA_SQL } from "./openclaw-agent-schema.js";
 import { SESSION_PARTICIPANTS_TABLE } from "./openclaw-agent-session-participants-schema.js";
 import {
   AGENT_V14_ADDITIVE_SCHEMA_SQL,
@@ -143,9 +143,9 @@ export function assertOpenClawAgentCurrentRuntimeSchema(
     );
   }
   assertExistingAgentSchemaOwner(metadata, agentId, options.pathname);
-  if (metadata.schemaVersion !== OPENCLAW_AGENT_SCHEMA_VERSION) {
+  if (metadata.schemaVersion !== GRANTED_AGENT_SCHEMA_VERSION) {
     throw new Error(
-      `OpenClaw agent database ${options.pathname} metadata schema version ${metadata.schemaVersion ?? "invalid"} does not match ${OPENCLAW_AGENT_SCHEMA_VERSION}; run openclaw doctor --fix before using it.`,
+      `OpenClaw agent database ${options.pathname} metadata schema version ${metadata.schemaVersion ?? "invalid"} does not match ${GRANTED_AGENT_SCHEMA_VERSION}; run openclaw doctor --fix before using it.`,
     );
   }
   if (hasRetiredAgentStateLeaseSchema(database)) {
@@ -153,7 +153,7 @@ export function assertOpenClawAgentCurrentRuntimeSchema(
       `OpenClaw agent database ${options.pathname} retains retired state_leases storage; run openclaw doctor --fix before using it.`,
     );
   }
-  assertOpenClawAgentSchemaContains(database, options.pathname, OPENCLAW_AGENT_SCHEMA_SQL);
+  assertOpenClawAgentSchemaContains(database, options.pathname, GRANTED_AGENT_SCHEMA_SQL);
 }
 
 function hasAnyCanonicalTable(database: DatabaseSync, schemaSql: string): boolean {
@@ -186,12 +186,12 @@ const SESSION_KEY_CONTRACT_SCHEMA_END = "CREATE TABLE IF NOT EXISTS session_wind
 
 /** Ensure the additive session-key contract table inside the caller's transaction. */
 export function ensureSessionKeyContractSchemaInTransaction(db: DatabaseSync): void {
-  const start = OPENCLAW_AGENT_SCHEMA_SQL.indexOf(SESSION_KEY_CONTRACT_SCHEMA_START);
-  const end = OPENCLAW_AGENT_SCHEMA_SQL.indexOf(SESSION_KEY_CONTRACT_SCHEMA_END, start);
+  const start = GRANTED_AGENT_SCHEMA_SQL.indexOf(SESSION_KEY_CONTRACT_SCHEMA_START);
+  const end = GRANTED_AGENT_SCHEMA_SQL.indexOf(SESSION_KEY_CONTRACT_SCHEMA_END, start);
   if (start === -1 || end === -1) {
     throw new Error("OpenClaw agent session-key contract schema markers are missing.");
   }
-  db.exec(OPENCLAW_AGENT_SCHEMA_SQL.slice(start, end)); // sqlite-allow-raw -- Idempotent additive lazy ensure.
+  db.exec(GRANTED_AGENT_SCHEMA_SQL.slice(start, end)); // sqlite-allow-raw -- Idempotent additive lazy ensure.
 }
 
 export function repairAndAssertOpenClawAgentV14SchemaForMigration(
@@ -251,12 +251,12 @@ export function repairAndAssertOpenClawAgentV14SchemaForMigration(
 
 export function assertSupportedAgentSchemaVersion(db: DatabaseSync, pathname: string): number {
   const userVersion = readSqliteUserVersion(db);
-  if (userVersion > OPENCLAW_AGENT_SCHEMA_VERSION) {
+  if (userVersion > GRANTED_AGENT_SCHEMA_VERSION) {
     throw createNewerSqliteSchemaVersionError(
       "OpenClaw agent database",
       pathname,
       userVersion,
-      OPENCLAW_AGENT_SCHEMA_VERSION,
+      GRANTED_AGENT_SCHEMA_VERSION,
     );
   }
   return userVersion;
@@ -276,7 +276,7 @@ export function assertCanonicalAgentPersistenceVersion(
   if (userVersion < AGENT_MEDIA_SCHEMA_VERSION && !isNewUnownedDatabase) {
     throw new OpenClawAgentDatabaseMediaMigrationRequiredError(pathname, userVersion);
   }
-  if (userVersion < OPENCLAW_AGENT_SCHEMA_VERSION && !isNewUnownedDatabase) {
+  if (userVersion < GRANTED_AGENT_SCHEMA_VERSION && !isNewUnownedDatabase) {
     throw new Error(
       `OpenClaw agent database ${pathname} uses schema version ${userVersion}; stop active agents and run openclaw doctor --fix to migrate session identities before using it.`,
     );

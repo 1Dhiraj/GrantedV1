@@ -21,7 +21,7 @@ import path from "node:path";
 const agentDb = await import(${JSON.stringify(agentDbUrl)});
 const stateDb = await import(${JSON.stringify(stateDbUrl)});
 const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-connection-reuse-"));
-const env = { OPENCLAW_STATE_DIR: stateDir };
+const env = { GRANTED_STATE_DIR: stateDir };
 let databasePath;
 let movedPath;
 try {

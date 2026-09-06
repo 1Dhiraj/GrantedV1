@@ -518,20 +518,20 @@ function makePluginReloadResult(
 }
 
 function enableChannelReloadsForTest() {
-  const previousSkipChannels = process.env.OPENCLAW_SKIP_CHANNELS;
-  const previousSkipProviders = process.env.OPENCLAW_SKIP_PROVIDERS;
-  delete process.env.OPENCLAW_SKIP_CHANNELS;
-  delete process.env.OPENCLAW_SKIP_PROVIDERS;
+  const previousSkipChannels = process.env.GRANTED_SKIP_CHANNELS;
+  const previousSkipProviders = process.env.GRANTED_SKIP_PROVIDERS;
+  delete process.env.GRANTED_SKIP_CHANNELS;
+  delete process.env.GRANTED_SKIP_PROVIDERS;
   return () => {
     if (previousSkipChannels === undefined) {
-      delete process.env.OPENCLAW_SKIP_CHANNELS;
+      delete process.env.GRANTED_SKIP_CHANNELS;
     } else {
-      process.env.OPENCLAW_SKIP_CHANNELS = previousSkipChannels;
+      process.env.GRANTED_SKIP_CHANNELS = previousSkipChannels;
     }
     if (previousSkipProviders === undefined) {
-      delete process.env.OPENCLAW_SKIP_PROVIDERS;
+      delete process.env.GRANTED_SKIP_PROVIDERS;
     } else {
-      process.env.OPENCLAW_SKIP_PROVIDERS = previousSkipProviders;
+      process.env.GRANTED_SKIP_PROVIDERS = previousSkipProviders;
     }
   };
 }
@@ -933,7 +933,7 @@ async function withGatewayRestartSignal(
 }
 
 // Other gateway test helpers (test-helpers.mocks.ts, test-helpers.server.ts)
-// set OPENCLAW_SKIP_CHANNELS / OPENCLAW_SKIP_PROVIDERS at module load. When a
+// set GRANTED_SKIP_CHANNELS / GRANTED_SKIP_PROVIDERS at module load. When a
 // shared vitest worker imports those helpers before this file runs, the leaked
 // env routes reloads into the skip branch and channel restarts never fire.
 const testGatewayRestartListener = () => {};
@@ -945,8 +945,8 @@ beforeEach(() => {
   process.on("SIGUSR1", testGatewayRestartListener);
   resetGatewayWorkAdmission();
   resetProcessRegistryForTests();
-  delete process.env.OPENCLAW_SKIP_CHANNELS;
-  delete process.env.OPENCLAW_SKIP_PROVIDERS;
+  delete process.env.GRANTED_SKIP_CHANNELS;
+  delete process.env.GRANTED_SKIP_PROVIDERS;
   hoisted.resetSkillSnapshotConfigFingerprintCache.mockClear();
   hoisted.applyLoggingConfig.mockClear();
 });
@@ -1990,8 +1990,8 @@ describe("gateway hot reload model state", () => {
       }
       let state: ReturnType<ReloadHandlerParams["getState"]> | undefined;
 
-      vi.stubEnv("OPENCLAW_STATE_DIR", fixtureDir);
-      vi.stubEnv("OPENCLAW_SKIP_CRON", "0");
+      vi.stubEnv("GRANTED_STATE_DIR", fixtureDir);
+      vi.stubEnv("GRANTED_SKIP_CRON", "0");
       hoisted.runtimeConfig.value = config;
       setRuntimeConfigSnapshot(config, config);
 
@@ -5890,7 +5890,7 @@ describe("gateway Gmail hot reload handlers", () => {
 
 describe("gateway plugin hot reload handlers", () => {
   it("restarts channels when the candidate env removes an active skip flag", async () => {
-    const envKey = "OPENCLAW_SKIP_CHANNELS";
+    const envKey = "GRANTED_SKIP_CHANNELS";
     const previousValue = process.env[envKey];
     process.env[envKey] = "1";
     const targetEnv: NodeJS.ProcessEnv = { [envKey]: "1" };
@@ -5950,7 +5950,7 @@ describe("gateway plugin hot reload handlers", () => {
   });
 
   it("skips channel work when the candidate env adds a skip flag", async () => {
-    const envKey = "OPENCLAW_SKIP_PROVIDERS";
+    const envKey = "GRANTED_SKIP_PROVIDERS";
     const previousValue = process.env[envKey];
     delete process.env[envKey];
     const targetEnv: NodeJS.ProcessEnv = {};
@@ -6006,12 +6006,12 @@ describe("gateway plugin hot reload handlers", () => {
     expect(stopChannel).not.toHaveBeenCalled();
     expect(startChannel).not.toHaveBeenCalled();
     expect(logChannels.info).toHaveBeenCalledWith(
-      "skipping channel reload (OPENCLAW_SKIP_CHANNELS=1 or OPENCLAW_SKIP_PROVIDERS=1)",
+      "skipping channel reload (GRANTED_SKIP_CHANNELS=1 or GRANTED_SKIP_PROVIDERS=1)",
     );
   });
 
   it("publishes candidate env before cron, plugin, and channel replacements start", async () => {
-    const envKey = "OPENCLAW_TEST_HOT_RELOAD_SERVICE_ENV";
+    const envKey = "GRANTED_TEST_HOT_RELOAD_SERVICE_ENV";
     const targetEnv: NodeJS.ProcessEnv = { [envKey]: "old" };
     const initialConfig = {
       gateway: { reload: {} },
@@ -6946,8 +6946,8 @@ describe("deferred channel reload abort generation", () => {
   afterEach(() => {
     hoisted.activeTaskCount.value = 0;
     vi.useRealTimers();
-    delete process.env.OPENCLAW_SKIP_CHANNELS;
-    delete process.env.OPENCLAW_SKIP_PROVIDERS;
+    delete process.env.GRANTED_SKIP_CHANNELS;
+    delete process.env.GRANTED_SKIP_PROVIDERS;
   });
 
   const createTestHandlers = (

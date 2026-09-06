@@ -226,9 +226,9 @@ describe("scripts/lib/plugin-prerelease-test-plan.mts", () => {
       expect(getDockerLane(lane).name).toBe(lane);
     }
     const candidateLane = getDockerLane("npm-onboard-discord-candidate-channel-agent");
-    expect(candidateLane.command).toContain("OPENCLAW_DOCKER_E2E_TRUSTED_HARNESS_DIR");
+    expect(candidateLane.command).toContain("GRANTED_DOCKER_E2E_TRUSTED_HARNESS_DIR");
     expect(candidateLane.command).toContain(
-      'OPENCLAW_LIVE_DOCKER_REPO_ROOT="${OPENCLAW_DOCKER_E2E_REPO_ROOT:-$PWD}"',
+      'GRANTED_LIVE_DOCKER_REPO_ROOT="${GRANTED_DOCKER_E2E_REPO_ROOT:-$PWD}"',
     );
   });
 
@@ -265,7 +265,7 @@ describe("scripts/lib/plugin-prerelease-test-plan.mts", () => {
     );
 
     expect(lane).toEqual({
-      command: "OPENCLAW_SKIP_DOCKER_BUILD=1 pnpm test:docker:kitchen-sink-plugin",
+      command: "GRANTED_SKIP_DOCKER_BUILD=1 pnpm test:docker:kitchen-sink-plugin",
       e2eImageKind: "functional",
       live: false,
       name: "kitchen-sink-plugin",
@@ -281,7 +281,7 @@ describe("scripts/lib/plugin-prerelease-test-plan.mts", () => {
     expect(script).toContain("npm:@openclaw/kitchen-sink@beta");
     expect(script).toContain("clawhub:@openclaw/kitchen-sink@latest");
     expect(script).toContain("clawhub:@openclaw/kitchen-sink@beta");
-    expect(script).toContain("OPENCLAW_KITCHEN_SINK_PLUGIN_MAX_MEMORY_MIB");
+    expect(script).toContain("GRANTED_KITCHEN_SINK_PLUGIN_MAX_MEMORY_MIB");
     expect(script).toContain(
       "npm-to-clawhub|clawhub:@openclaw/kitchen-sink@latest|openclaw-kitchen-sink-fixture|clawhub|success|basic||${KITCHEN_SINK_NPM_SPEC}",
     );
@@ -291,7 +291,7 @@ describe("scripts/lib/plugin-prerelease-test-plan.mts", () => {
     expect(sweepScript).toContain("assert-cutover-preinstalled");
     expect(sweepScript).toContain('install_args+=("--force")');
     expect(sweepScript).toContain("KITCHEN_SINK_PERSONALITY");
-    expect(sweepScript).toContain("OPENCLAW_KITCHEN_SINK_PERSONALITY");
+    expect(sweepScript).toContain("GRANTED_KITCHEN_SINK_PERSONALITY");
     expect(sweepScript).toContain('plugins uninstall "$KITCHEN_SINK_SPEC" --force');
     const successScenario = sweepScript.slice(
       sweepScript.indexOf("run_success_scenario()"),
@@ -335,7 +335,7 @@ describe("scripts/lib/plugin-prerelease-test-plan.mts", () => {
     const walkScript = readFileSync("scripts/e2e/kitchen-sink-rpc-walk.mts", "utf8");
 
     expect(lane).toMatchObject({
-      command: "OPENCLAW_SKIP_DOCKER_BUILD=1 pnpm test:docker:kitchen-sink-rpc",
+      command: "GRANTED_SKIP_DOCKER_BUILD=1 pnpm test:docker:kitchen-sink-rpc",
       e2eImageKind: "functional",
       live: false,
       name: "kitchen-sink-rpc",
@@ -346,8 +346,8 @@ describe("scripts/lib/plugin-prerelease-test-plan.mts", () => {
       timeoutMs: 1_500_000,
       weight: 3,
     });
-    expect(script).toContain("OPENCLAW_ENTRY=/app/openclaw.mjs");
-    expect(script).toContain("OPENCLAW_KITCHEN_SINK_COMMAND_MAX_RSS_MIB");
+    expect(script).toContain("GRANTED_ENTRY=/app/openclaw.mjs");
+    expect(script).toContain("GRANTED_KITCHEN_SINK_COMMAND_MAX_RSS_MIB");
     expect(script).toContain("docker_e2e_sample_stats_until_exit");
     expect(script).toContain("scripts/e2e/lib/docker-stats/assert-resource-ceiling.mjs");
     expect(script).toContain(
@@ -374,7 +374,7 @@ describe("scripts/lib/plugin-prerelease-test-plan.mts", () => {
     const prereleasePlan = createPluginPrereleaseTestPlan();
 
     expect(lane).toEqual({
-      command: "OPENCLAW_SKIP_DOCKER_BUILD=1 pnpm test:docker:plugins",
+      command: "GRANTED_SKIP_DOCKER_BUILD=1 pnpm test:docker:plugins",
       e2eImageKind: "functional",
       live: false,
       name: "plugins",
@@ -428,8 +428,8 @@ describe("scripts/lib/plugin-prerelease-test-plan.mts", () => {
       encoding: "utf8",
       env: {
         NODE_TEST_EXCLUDE_PATTERNS_JSON: JSON.stringify(patterns),
-        OPENCLAW_NODE_TEST_CONFIGS_JSON: JSON.stringify(["test/vitest/vitest.plugins.config.ts"]),
-        OPENCLAW_NODE_TEST_INCLUDE_PATTERNS_JSON: "null",
+        GRANTED_NODE_TEST_CONFIGS_JSON: JSON.stringify(["test/vitest/vitest.plugins.config.ts"]),
+        GRANTED_NODE_TEST_INCLUDE_PATTERNS_JSON: "null",
         PATH: `${root}:${process.env.PATH}`,
         PNPM_ARGS_PATH: argsPath,
       },
@@ -627,51 +627,51 @@ describe("scripts/lib/plugin-prerelease-test-plan.mts", () => {
       type: "string",
     });
     expect(manifestEnv).toMatchObject({
-      OPENCLAW_CI_CHANGED_PATHS_JSON:
+      GRANTED_CI_CHANGED_PATHS_JSON:
         "${{ steps.changed_scope.outputs.changed_paths_json || 'null' }}",
-      OPENCLAW_CI_CHECKOUT_REVISION: "${{ steps.checkout_ref.outputs.sha }}",
-      OPENCLAW_CI_DOCS_CHANGED:
+      GRANTED_CI_CHECKOUT_REVISION: "${{ steps.checkout_ref.outputs.sha }}",
+      GRANTED_CI_DOCS_CHANGED:
         "${{ github.event_name == 'workflow_dispatch' && 'true' || steps.docs_scope.outputs.docs_changed }}",
-      OPENCLAW_CI_DOCS_ONLY:
+      GRANTED_CI_DOCS_ONLY:
         "${{ github.event_name == 'workflow_dispatch' && 'false' || steps.docs_scope.outputs.docs_only }}",
-      OPENCLAW_CI_EVENT_NAME: "${{ github.event_name }}",
-      OPENCLAW_CI_HISTORICAL_TARGET: "${{ steps.historical_target.outputs.eligible || 'false' }}",
-      OPENCLAW_CI_RELEASE_GATE: "${{ inputs.release_gate && 'true' || 'false' }}",
-      OPENCLAW_CI_RELEASE_CANDIDATE_TARGET:
+      GRANTED_CI_EVENT_NAME: "${{ github.event_name }}",
+      GRANTED_CI_HISTORICAL_TARGET: "${{ steps.historical_target.outputs.eligible || 'false' }}",
+      GRANTED_CI_RELEASE_GATE: "${{ inputs.release_gate && 'true' || 'false' }}",
+      GRANTED_CI_RELEASE_CANDIDATE_TARGET:
         "${{ steps.release_candidate_target.outputs.eligible || 'false' }}",
-      OPENCLAW_CI_TARGET_CONTEXT_TARGET:
+      GRANTED_CI_TARGET_CONTEXT_TARGET:
         "${{ steps.target_context_target.outputs.eligible || 'false' }}",
-      OPENCLAW_CI_REPOSITORY: "${{ github.repository }}",
-      OPENCLAW_CI_RUNNER_PROFILE: "${{ steps.runner_profile.outputs.runner_profile }}",
-      OPENCLAW_CI_RUN_ANDROID:
+      GRANTED_CI_REPOSITORY: "${{ github.repository }}",
+      GRANTED_CI_RUNNER_PROFILE: "${{ steps.runner_profile.outputs.runner_profile }}",
+      GRANTED_CI_RUN_ANDROID:
         "${{ github.event_name == 'workflow_dispatch' && (inputs.release_gate || inputs.include_android) && 'true' || steps.changed_scope.outputs.run_android || 'false' }}",
-      OPENCLAW_CI_RUN_CONTROL_UI_I18N:
+      GRANTED_CI_RUN_CONTROL_UI_I18N:
         "${{ github.event_name == 'workflow_dispatch' && 'true' || steps.changed_scope.outputs.run_control_ui_i18n || 'false' }}",
-      OPENCLAW_CI_RUN_IOS_BUILD:
+      GRANTED_CI_RUN_IOS_BUILD:
         "${{ github.event_name == 'workflow_dispatch' && !inputs.release_gate && 'true' || steps.changed_scope.outputs.run_ios_build || 'false' }}",
-      OPENCLAW_CI_RUN_MACOS:
+      GRANTED_CI_RUN_MACOS:
         "${{ github.event_name == 'workflow_dispatch' && !inputs.release_gate && 'true' || steps.changed_scope.outputs.run_macos || 'false' }}",
-      OPENCLAW_CI_RUN_MACOS_NODE:
+      GRANTED_CI_RUN_MACOS_NODE:
         "${{ github.event_name == 'workflow_dispatch' && !inputs.release_gate && 'true' || steps.changed_scope.outputs.run_macos_node || 'false' }}",
-      OPENCLAW_CI_RUN_NATIVE_I18N:
+      GRANTED_CI_RUN_NATIVE_I18N:
         "${{ github.event_name == 'workflow_dispatch' && 'true' || steps.changed_scope.outputs.run_native_i18n || 'false' }}",
-      OPENCLAW_CI_RUN_NODE:
+      GRANTED_CI_RUN_NODE:
         "${{ github.event_name == 'workflow_dispatch' && 'true' || steps.changed_scope.outputs.run_node || 'false' }}",
-      OPENCLAW_CI_RUN_NODE_FAST_CI_ROUTING:
+      GRANTED_CI_RUN_NODE_FAST_CI_ROUTING:
         "${{ github.event_name == 'workflow_dispatch' && 'false' || steps.changed_scope.outputs.run_node_fast_ci_routing || 'false' }}",
-      OPENCLAW_CI_RUN_NODE_FAST_ONLY:
+      GRANTED_CI_RUN_NODE_FAST_ONLY:
         "${{ github.event_name == 'workflow_dispatch' && 'false' || steps.changed_scope.outputs.run_node_fast_only || 'false' }}",
-      OPENCLAW_CI_RUN_NODE_FAST_PLUGIN_CONTRACTS:
+      GRANTED_CI_RUN_NODE_FAST_PLUGIN_CONTRACTS:
         "${{ github.event_name == 'workflow_dispatch' && 'false' || steps.changed_scope.outputs.run_node_fast_plugin_contracts || 'false' }}",
-      OPENCLAW_CI_RUN_SKILLS_PYTHON:
+      GRANTED_CI_RUN_SKILLS_PYTHON:
         "${{ github.event_name == 'workflow_dispatch' && 'true' || steps.changed_scope.outputs.run_skills_python || 'false' }}",
-      OPENCLAW_CI_RUN_UI_TESTS:
+      GRANTED_CI_RUN_UI_TESTS:
         "${{ github.event_name == 'workflow_dispatch' && 'true' || steps.changed_scope.outputs.run_ui_tests || 'false' }}",
-      OPENCLAW_CI_RUN_WINDOWS:
+      GRANTED_CI_RUN_WINDOWS:
         "${{ github.event_name == 'workflow_dispatch' && 'true' || steps.changed_scope.outputs.run_windows || 'false' }}",
-      OPENCLAW_CI_WORKFLOW_REVISION: "${{ github.workflow_sha }}",
+      GRANTED_CI_WORKFLOW_REVISION: "${{ github.workflow_sha }}",
     });
-    expect(manifestEnv).not.toHaveProperty("OPENCLAW_CI_FULL_RELEASE_VALIDATION");
+    expect(manifestEnv).not.toHaveProperty("GRANTED_CI_FULL_RELEASE_VALIDATION");
     expect(manifestScript).toContain("includeReleaseOnlyPluginShards: false");
     expect(manifestScript).not.toContain("plugin-prerelease-test-plan.mts");
     expect(
@@ -814,12 +814,12 @@ describe("scripts/lib/plugin-prerelease-test-plan.mts", () => {
       (step: WorkflowStep) => step.name === "Run plugin inspector advisory sweep",
     );
     expect(inspectorRun.env).toEqual({
-      OPENCLAW_PLUGIN_INSPECTOR_ROOT: ".artifacts/plugin-inspector",
-      OPENCLAW_PLUGIN_INSPECTOR_VERSION: "0.3.21",
+      GRANTED_PLUGIN_INSPECTOR_ROOT: ".artifacts/plugin-inspector",
+      GRANTED_PLUGIN_INSPECTOR_VERSION: "0.3.21",
     });
     expect(inspectorRun.run).toContain("extensions/");
     expect(inspectorRun.run).toContain(
-      'npm exec --yes "@openclaw/plugin-inspector@${OPENCLAW_PLUGIN_INSPECTOR_VERSION}" -- ci',
+      'npm exec --yes "@openclaw/plugin-inspector@${GRANTED_PLUGIN_INSPECTOR_VERSION}" -- ci',
     );
     expect(inspectorRun.run).toContain("This job is informational");
     expect(
@@ -1116,7 +1116,7 @@ describe("scripts/lib/plugin-prerelease-test-plan.mts", () => {
     expect(dockerPreflightStep?.run).toContain("--target runtime-assets");
     expect(dockerPreflightStep?.run).toContain("timeout --kill-after=30s 15m docker build");
     expect(dockerPreflightStep?.run).toContain(
-      '--build-arg OPENCLAW_EXTENSIONS="diagnostics-otel,codex"',
+      '--build-arg GRANTED_EXTENSIONS="diagnostics-otel,codex"',
     );
     expect(
       fullReleaseWorkflow.jobs.docker_runtime_assets_preflight.steps.some(
@@ -1297,7 +1297,7 @@ describe("scripts/lib/plugin-prerelease-test-plan.mts", () => {
     );
 
     expect(output).toContain("provider-openai: present (OPENAI_API_KEY, OPENAI_BASE_URL)");
-    expect(output).toContain("channel-discord: present (DISCORD_TOKEN, OPENCLAW_DISCORD_TOKEN)");
+    expect(output).toContain("channel-discord: present (DISCORD_TOKEN, GRANTED_DISCORD_TOKEN)");
     expect(output).not.toContain("openai-token-should-not-print");
     expect(output).not.toContain("discord-token-should-not-print");
   });

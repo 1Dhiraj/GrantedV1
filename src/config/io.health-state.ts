@@ -48,7 +48,7 @@ type ConfigHealthStateDeps = {
 };
 
 function resolveConfigHealthStateEnv(deps: ConfigHealthStateDeps): NodeJS.ProcessEnv {
-  if (deps.env.OPENCLAW_HOME || deps.env.HOME || deps.env.USERPROFILE || deps.env.PREFIX) {
+  if (deps.env.GRANTED_HOME || deps.env.HOME || deps.env.USERPROFILE || deps.env.PREFIX) {
     return deps.env;
   }
   return { ...deps.env, HOME: deps.homedir() };

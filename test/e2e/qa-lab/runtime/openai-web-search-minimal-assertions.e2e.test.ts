@@ -22,7 +22,7 @@ describe("openai web-search minimal assertions", () => {
         logPath,
         `${JSON.stringify({
           body: {
-            input: "OPENCLAW_SCHEMA_E2E_OK",
+            input: "GRANTED_SCHEMA_E2E_OK",
             reasoning: { effort: "low" },
             tools: [{ type: "web_search" }],
           },
@@ -46,7 +46,7 @@ describe("openai web-search minimal assertions", () => {
         `${JSON.stringify({ path: "/health", body: { pad: "x".repeat(70 * 1024) } })}\n${JSON.stringify(
           {
             body: {
-              input: "OPENCLAW_SCHEMA_E2E_OK",
+              input: "GRANTED_SCHEMA_E2E_OK",
               reasoning: { effort: "low" },
               tools: [{ type: "web_search" }],
             },
@@ -121,7 +121,7 @@ describe("openai web-search minimal assertions", () => {
         logPath,
         `${JSON.stringify({
           body: {
-            input: "OPENCLAW_SCHEMA_E2E_OK",
+            input: "GRANTED_SCHEMA_E2E_OK",
             reasoning: { effort: "low" },
             tools: [{ name: "web_search", type: "function" }],
           },

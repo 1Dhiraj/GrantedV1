@@ -134,13 +134,13 @@ export async function writeTsdownDeclarations(
           artifactRoot: stage,
           env: {
             ...process.env,
-            OPENCLAW_BUILD_PRIVATE_QA: process.env.OPENCLAW_BUILD_PRIVATE_QA === "1" ? "1" : "0",
+            GRANTED_BUILD_PRIVATE_QA: process.env.GRANTED_BUILD_PRIVATE_QA === "1" ? "1" : "0",
           },
           inputSignature: (inputs: string[]) =>
             before.signature("tsconfig.json", identity, inputs, liveDist),
         };
         const state =
-          process.env.OPENCLAW_BUILD_CACHE === "0"
+          process.env.GRANTED_BUILD_CACHE === "0"
             ? undefined
             : resolveBuildStepCacheState(step, params);
         if (!state) {

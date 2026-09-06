@@ -50,8 +50,8 @@ test("host:auto executes inside the resolved Docker sandbox", async () => {
   const outsideScript = path.join(outsideDir, "must-not-run.sh");
   const outsideMarker = path.join(outsideDir, "executed.txt");
   const workspaceMarker = path.join(workspaceDir, "container-marker.txt");
-  const image = process.env.OPENCLAW_SANDBOX_TEST_IMAGE ?? "openclaw-sandbox:bookworm-slim";
-  const env = captureEnv(["OPENCLAW_STATE_DIR"]);
+  const image = process.env.GRANTED_SANDBOX_TEST_IMAGE ?? "openclaw-sandbox:bookworm-slim";
+  const env = captureEnv(["GRANTED_STATE_DIR"]);
   let runtimeId: string | undefined;
 
   await fs.mkdir(path.join(workspaceDir, ".openclaw", "sandbox-skills", "skills"), {
@@ -63,7 +63,7 @@ test("host:auto executes inside the resolved Docker sandbox", async () => {
     `#!/bin/sh\nprintf executed > ${JSON.stringify(outsideMarker)}\n`,
     { mode: 0o755 },
   );
-  setTestEnvValue("OPENCLAW_STATE_DIR", stateDir);
+  setTestEnvValue("GRANTED_STATE_DIR", stateDir);
 
   try {
     const sessionId = randomUUID();

@@ -110,7 +110,7 @@ function legacyEntry(id: string, text: string) {
 
 function readQueueEntryJson(queueName: string, id: string, stateDir: string): string | undefined {
   const { db } = openOpenClawStateDatabase({
-    env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+    env: { ...process.env, GRANTED_STATE_DIR: stateDir },
   });
   return (
     db

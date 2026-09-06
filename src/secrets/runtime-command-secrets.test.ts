@@ -91,33 +91,33 @@ function activateMinimalSecretsRuntimeSnapshot(params: {
 const { prepareSecretsRuntimeSnapshot } = setupSecretsRuntimeSnapshotTestHooks();
 
 describe("runtime command secrets", () => {
-  const previousBundledPluginsDir = process.env.OPENCLAW_BUNDLED_PLUGINS_DIR;
-  const previousTrustBundledPluginsDir = process.env.OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR;
+  const previousBundledPluginsDir = process.env.GRANTED_BUNDLED_PLUGINS_DIR;
+  const previousTrustBundledPluginsDir = process.env.GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR;
 
   afterEach(() => {
     clearSecretsRuntimeSnapshot();
     if (previousBundledPluginsDir === undefined) {
-      delete process.env.OPENCLAW_BUNDLED_PLUGINS_DIR;
+      delete process.env.GRANTED_BUNDLED_PLUGINS_DIR;
     } else {
-      process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = previousBundledPluginsDir;
+      process.env.GRANTED_BUNDLED_PLUGINS_DIR = previousBundledPluginsDir;
     }
     if (previousTrustBundledPluginsDir === undefined) {
-      delete process.env.OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR;
+      delete process.env.GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR;
     } else {
-      process.env.OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR = previousTrustBundledPluginsDir;
+      process.env.GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR = previousTrustBundledPluginsDir;
     }
   });
 
   it("returns forced fallback assignments from the active gateway snapshot", async () => {
-    process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = "extensions";
-    process.env.OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR = "1";
+    process.env.GRANTED_BUNDLED_PLUGINS_DIR = "extensions";
+    process.env.GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR = "1";
     activateMinimalSecretsRuntimeSnapshot({
       config: forcedFallbackConfig,
       env: {
         FIRECRAWL_API_KEY: "gateway-only-firecrawl-key",
         HOME: process.env.HOME,
-        OPENCLAW_BUNDLED_PLUGINS_DIR: "extensions",
-        OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR: "1",
+        GRANTED_BUNDLED_PLUGINS_DIR: "extensions",
+        GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR: "1",
       },
     });
 
@@ -138,15 +138,15 @@ describe("runtime command secrets", () => {
   });
 
   it("re-resolves forced command-selected web provider paths with gateway env", async () => {
-    process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = "extensions";
-    process.env.OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR = "1";
+    process.env.GRANTED_BUNDLED_PLUGINS_DIR = "extensions";
+    process.env.GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR = "1";
     activateMinimalSecretsRuntimeSnapshot({
       config: forcedWebProviderConfig,
       env: {
         FIRECRAWL_API_KEY: "gateway-selected-firecrawl-key",
         HOME: process.env.HOME,
-        OPENCLAW_BUNDLED_PLUGINS_DIR: "extensions",
-        OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR: "1",
+        GRANTED_BUNDLED_PLUGINS_DIR: "extensions",
+        GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR: "1",
       },
     });
 

@@ -103,10 +103,10 @@ it.each(["cjs", "ts"])(
     );
     await withEnvAsync(
       {
-        OPENCLAW_HOME: root,
-        OPENCLAW_STATE_DIR: path.join(root, "state"),
-        OPENCLAW_BUNDLED_PLUGINS_DIR: bundledDir,
-        OPENCLAW_DISABLE_BUNDLED_PLUGINS: undefined,
+        GRANTED_HOME: root,
+        GRANTED_STATE_DIR: path.join(root, "state"),
+        GRANTED_BUNDLED_PLUGINS_DIR: bundledDir,
+        GRANTED_DISABLE_BUNDLED_PLUGINS: undefined,
       },
       async () => {
         const heartbeat = vi.fn(async () => ({ status: "skipped" as const, reason: "disabled" }));
@@ -478,7 +478,7 @@ describe("resolvePluginLoadCacheContext", () => {
   });
 
   it("loads a custom profile's install records instead of reusing the process snapshot", () => {
-    const profileEnv = { ...process.env, OPENCLAW_STATE_DIR: makePluginLoaderTempDir() };
+    const profileEnv = { ...process.env, GRANTED_STATE_DIR: makePluginLoaderTempDir() };
     const profileInstallRecords: Record<string, PluginInstallRecord> = {
       demo: {
         source: "npm",

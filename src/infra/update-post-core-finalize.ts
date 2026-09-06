@@ -2,7 +2,7 @@
 // update.
 //
 // `runGatewayUpdate` (git mode) runs `openclaw doctor --fix` with
-// `OPENCLAW_UPDATE_PARENT_SUPPORTS_DOCTOR_CONFIG_WRITE=1`, which makes the doctor
+// `GRANTED_UPDATE_PARENT_SUPPORTS_DOCTOR_CONFIG_WRITE=1`, which makes the doctor
 // pass DEFER configured-plugin repair to a later convergence step (see
 // `shouldDeferConfiguredPluginInstallRepair`). The `openclaw update` CLI resumes
 // that deferred work in a fresh post-core process; the gateway `update.run` RPC
@@ -63,12 +63,12 @@ function buildFinalizeEnv(
     compatHostVersion,
     sourceConfigPath,
   });
-  delete env.OPENCLAW_SERVICE_MARKER;
-  delete env.OPENCLAW_SERVICE_KIND;
+  delete env.GRANTED_SERVICE_MARKER;
+  delete env.GRANTED_SERVICE_KIND;
   delete env[GATEWAY_SERVICE_RUNTIME_PID_ENV];
   env[UPDATE_EFFECTIVE_CHANNEL_ENV] = effectiveChannel;
   if (serviceRepairPolicy) {
-    env.OPENCLAW_SERVICE_REPAIR_POLICY = serviceRepairPolicy;
+    env.GRANTED_SERVICE_REPAIR_POLICY = serviceRepairPolicy;
   }
   return env;
 }

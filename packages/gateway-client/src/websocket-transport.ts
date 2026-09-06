@@ -97,7 +97,7 @@ export function resolveGatewayWebSocketTransport(params: {
       "gateway tls fingerprint requires wss:// gateway url",
     );
   }
-  const allowPrivateWs = (params.env ?? process.env).OPENCLAW_ALLOW_INSECURE_PRIVATE_WS === "1";
+  const allowPrivateWs = (params.env ?? process.env).GRANTED_ALLOW_INSECURE_PRIVATE_WS === "1";
   if (!isSecureWebSocketUrl(params.url, { allowPrivateWs })) {
     let displayHost = params.url;
     try {
@@ -112,7 +112,7 @@ export function resolveGatewayWebSocketTransport(params: {
         "(ssh -N -L 18789:127.0.0.1:18789 user@gateway-host), or use Tailscale Serve/Funnel. " +
         (allowPrivateWs
           ? ""
-          : "Break-glass (trusted private networks only): set OPENCLAW_ALLOW_INSECURE_PRIVATE_WS=1. ") +
+          : "Break-glass (trusted private networks only): set GRANTED_ALLOW_INSECURE_PRIVATE_WS=1. ") +
         "Run `openclaw doctor --fix` for guidance.",
     );
   }

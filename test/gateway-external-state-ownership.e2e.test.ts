@@ -5,7 +5,7 @@ describe("Gateway external shared-state ownership", () => {
   it("refuses unmarked startup and accepts the external supervisor marker", async () => {
     const instance = await createOpenClawTestInstance({
       name: "gateway-external-state-owner",
-      env: { OPENCLAW_SUPERVISOR_MODE: "external" },
+      env: { GRANTED_SUPERVISOR_MODE: "external" },
       startTimeoutMs: 30_000,
     });
     try {
@@ -69,11 +69,11 @@ describe("Gateway external shared-state ownership", () => {
         error: expect.stringContaining("already claimed by external manager gateway-supervisor"),
       });
 
-      delete instance.env.OPENCLAW_SUPERVISOR_MODE;
+      delete instance.env.GRANTED_SUPERVISOR_MODE;
       await expect(instance.startGateway()).rejects.toThrow(/gateway-supervisor/u);
-      expect(instance.logs()).toMatch(/OPENCLAW_SUPERVISOR_MODE=external/u);
+      expect(instance.logs()).toMatch(/GRANTED_SUPERVISOR_MODE=external/u);
 
-      instance.env.OPENCLAW_SUPERVISOR_MODE = "external";
+      instance.env.GRANTED_SUPERVISOR_MODE = "external";
       await instance.startGateway();
       expect(instance.child).toBeDefined();
     } finally {

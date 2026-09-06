@@ -68,7 +68,7 @@ describe("gateway prepared model catalog", () => {
     const input = {
       config: {},
       agentDir: "/tmp/raw-catalog-state/agents/main/agent",
-      env: { OPENCLAW_STATE_DIR: "/tmp/raw-catalog-state", OPENCLAW_HOME: "/tmp/raw-catalog-home" },
+      env: { GRANTED_STATE_DIR: "/tmp/raw-catalog-state", GRANTED_HOME: "/tmp/raw-catalog-home" },
     };
     expect(preparePublishedModelCatalogOwnerIdentity(input)).toMatchObject({ agentId: "main" });
     expect(

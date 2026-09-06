@@ -91,7 +91,7 @@ describe("ManagedWorktreeService failure diagnostics", () => {
     root = await fs.mkdtemp(path.join(await fs.realpath(os.tmpdir()), "openclaw-worktree-errors-"));
     repo = await initializeRepository(root);
     service = new ManagedWorktreeService({
-      env: { ...process.env, OPENCLAW_STATE_DIR: path.join(root, "state") },
+      env: { ...process.env, GRANTED_STATE_DIR: path.join(root, "state") },
     });
   });
 
@@ -116,7 +116,7 @@ describe("ManagedWorktreeService failure diagnostics", () => {
       script,
       [
         "#!/bin/sh",
-        'printf "%s\\n" "$OPENCLAW_WORKTREE_PATH" > "$OPENCLAW_SOURCE_TREE_PATH/setup-path.txt"',
+        'printf "%s\\n" "$GRANTED_WORKTREE_PATH" > "$GRANTED_SOURCE_TREE_PATH/setup-path.txt"',
         "printf '%s\\n' 'fatal: create local-fixture-input.txt and retry'",
         "printf '%s\\n' 'warning: optional fixture hint is unset' >&2",
         "exit 23",

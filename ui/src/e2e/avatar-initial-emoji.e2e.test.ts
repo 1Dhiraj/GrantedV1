@@ -14,7 +14,7 @@ const suite = createControlUiE2eSuite({
     `Playwright Chromium is not available at ${executablePath}`,
 });
 
-const captureUiProof = process.env.OPENCLAW_CAPTURE_UI_PROOF === "1";
+const captureUiProof = process.env.GRANTED_CAPTURE_UI_PROOF === "1";
 let proofDir: string;
 beforeEach(() => {
   if (captureUiProof) {
@@ -216,7 +216,7 @@ suite.define(() => {
           .toBe(emojiGrapheme);
         await screenshot(
           page,
-          `03-agents-overview-${process.env.OPENCLAW_UI_PROOF_LABEL ?? "emoji"}.png`,
+          `03-agents-overview-${process.env.GRANTED_UI_PROOF_LABEL ?? "emoji"}.png`,
         );
         await expect
           .poll(() => page.locator(".agent-identity-editor__avatar-text").textContent())

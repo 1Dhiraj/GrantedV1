@@ -16,7 +16,7 @@ describe("buildBrowserExtensionPairing", () => {
       fs.mkdirSync(credentials, { mode: 0o700 });
       const secretPath = path.join(credentials, "browser-extension-relay.secret");
       await withEnvAsync(
-        { OPENCLAW_STATE_DIR: stateDir, OPENCLAW_OAUTH_DIR: credentials },
+        { GRANTED_STATE_DIR: stateDir, GRANTED_OAUTH_DIR: credentials },
         async () => {
           const fd = fs.openSync(secretPath, "wx", 0o600);
           try {
@@ -37,7 +37,7 @@ describe("buildBrowserExtensionPairing", () => {
   });
 
   it("preserves the standalone host relay for local manual pairing compatibility", async () => {
-    await withEnvAsync({ OPENCLAW_GATEWAY_PORT: undefined }, async () => {
+    await withEnvAsync({ GRANTED_GATEWAY_PORT: undefined }, async () => {
       await expect(
         buildBrowserExtensionPairing({
           cfg: {
@@ -57,7 +57,7 @@ describe("buildBrowserExtensionPairing", () => {
   });
 
   it("routes local native bootstrap through the Gateway while retaining relay metadata", async () => {
-    await withEnvAsync({ OPENCLAW_GATEWAY_PORT: undefined }, async () => {
+    await withEnvAsync({ GRANTED_GATEWAY_PORT: undefined }, async () => {
       await expect(
         buildBrowserExtensionPairing({
           cfg: {

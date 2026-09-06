@@ -419,7 +419,7 @@ describe("QA runtime parity scenario retry isolation", () => {
   it.each(["pass", "fail"] as const)(
     "retains sanitized logs after an initial %s only when the scenario retried",
     async (firstStatus) => {
-      vi.stubEnv("OPENCLAW_QA_KEEP_TEMP", undefined);
+      vi.stubEnv("GRANTED_QA_KEEP_TEMP", undefined);
       const root = await tempDirs.makeTempDir("qa-retry-artifacts-");
       const tempRoot = path.join(root, "runtime");
       await fs.mkdir(tempRoot);

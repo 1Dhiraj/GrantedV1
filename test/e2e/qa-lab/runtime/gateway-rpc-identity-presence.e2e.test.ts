@@ -17,9 +17,9 @@ const TOKEN = `rpc-identity-presence-${process.pid}`;
 let started: Awaited<ReturnType<typeof startGatewayWithClient>> | undefined;
 
 beforeAll(async () => {
-  const stateDir = process.env.OPENCLAW_STATE_DIR;
+  const stateDir = process.env.GRANTED_STATE_DIR;
   if (!stateDir) {
-    throw new Error("OPENCLAW_STATE_DIR is required");
+    throw new Error("GRANTED_STATE_DIR is required");
   }
   started = await startGatewayWithClient({
     cfg: { gateway: { auth: { mode: "token", token: TOKEN } } },

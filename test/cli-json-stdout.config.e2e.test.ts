@@ -14,24 +14,24 @@ describe("cli json stdout contract", () => {
     {
       name: "Commander config get",
       args: ["config", "get", "gateway.port", "--json"],
-      overrides: { OPENCLAW_DISABLE_ROUTE_FIRST: "1" },
+      overrides: { GRANTED_DISABLE_ROUTE_FIRST: "1" },
     },
     {
       name: "Nix config get",
       args: ["config", "get", "gateway.port", "--json"],
-      overrides: { OPENCLAW_NIX_MODE: "1" },
+      overrides: { GRANTED_NIX_MODE: "1" },
     },
     { name: "config schema", args: ["config", "schema"], overrides: {} },
     {
       name: "Nix config schema",
       args: ["config", "schema"],
-      overrides: { OPENCLAW_NIX_MODE: "1" },
+      overrides: { GRANTED_NIX_MODE: "1" },
     },
     { name: "config validate", args: ["config", "validate", "--json"], overrides: {} },
     {
       name: "Nix config validate",
       args: ["config", "validate", "--json"],
-      overrides: { OPENCLAW_NIX_MODE: "1" },
+      overrides: { GRANTED_NIX_MODE: "1" },
     },
   ])("does not initialize shared SQLite for $name", async (testCase) => {
     await withTempHome(
@@ -45,8 +45,8 @@ describe("cli json stdout contract", () => {
         );
 
         const result = runBuiltCli(tempHome, testCase.args, {
-          OPENCLAW_CONFIG_PATH: configPath,
-          OPENCLAW_STATE_DIR: stateDir,
+          GRANTED_CONFIG_PATH: configPath,
+          GRANTED_STATE_DIR: stateDir,
           ...testCase.overrides,
         });
 
@@ -66,7 +66,7 @@ describe("cli json stdout contract", () => {
     { name: "routed malformed config get", overrides: {} },
     {
       name: "Commander malformed config get",
-      overrides: { OPENCLAW_DISABLE_ROUTE_FIRST: "1" },
+      overrides: { GRANTED_DISABLE_ROUTE_FIRST: "1" },
     },
   ])("returns actionable JSON without creating state for $name", async (testCase) => {
     await withTempHome(
@@ -79,8 +79,8 @@ describe("cli json stdout contract", () => {
           tempHome,
           ["config", "get", "gateway.__proto__.token", "--json"],
           {
-            OPENCLAW_CONFIG_PATH: configPath,
-            OPENCLAW_STATE_DIR: stateDir,
+            GRANTED_CONFIG_PATH: configPath,
+            GRANTED_STATE_DIR: stateDir,
             ...testCase.overrides,
           },
         );
@@ -108,7 +108,7 @@ describe("cli json stdout contract", () => {
     { name: "routed invalid config get", overrides: {} },
     {
       name: "Commander invalid config get",
-      overrides: { OPENCLAW_DISABLE_ROUTE_FIRST: "1" },
+      overrides: { GRANTED_DISABLE_ROUTE_FIRST: "1" },
     },
   ])("reports invalid configuration as JSON without creating state for $name", async (testCase) => {
     await withTempHome(
@@ -122,8 +122,8 @@ describe("cli json stdout contract", () => {
         );
 
         const result = runBuiltCli(tempHome, ["config", "get", "gateway.port", "--json"], {
-          OPENCLAW_CONFIG_PATH: configPath,
-          OPENCLAW_STATE_DIR: stateDir,
+          GRANTED_CONFIG_PATH: configPath,
+          GRANTED_STATE_DIR: stateDir,
           ...testCase.overrides,
         });
 
@@ -157,9 +157,9 @@ describe("cli json stdout contract", () => {
       async (tempHome) => {
         const inheritedStateDir = path.join(tempHome, inherited.inheritedStateName);
         const result = runBuiltCli(tempHome, ["--profile", "work", "config", "file"], {
-          OPENCLAW_PROFILE: inherited.inheritedProfile,
-          OPENCLAW_STATE_DIR: inheritedStateDir,
-          OPENCLAW_CONFIG_PATH: path.join(inheritedStateDir, "openclaw.json"),
+          GRANTED_PROFILE: inherited.inheritedProfile,
+          GRANTED_STATE_DIR: inheritedStateDir,
+          GRANTED_CONFIG_PATH: path.join(inheritedStateDir, "openclaw.json"),
         });
 
         expect(result.status, result.stderr).toBe(0);
@@ -184,7 +184,7 @@ describe("cli json stdout contract", () => {
         await fs.writeFile(approvalsPath, approvals, "utf8");
 
         const result = runBuiltCli(tempHome, ["config", "file"], {
-          OPENCLAW_STATE_DIR: scratchStateDir,
+          GRANTED_STATE_DIR: scratchStateDir,
         });
 
         expect(result.status, result.stderr).toBe(0);
@@ -209,7 +209,7 @@ describe("cli json stdout contract", () => {
       async (tempHome) => {
         const configPath = path.join(tempHome, "openclaw.json");
         await fs.writeFile(configPath, '{"gateway":{"port":28789}}\n', "utf8");
-        const env = { OPENCLAW_CONFIG_PATH: configPath };
+        const env = { GRANTED_CONFIG_PATH: configPath };
 
         const getResult = runBuiltCli(tempHome, ["config", "get", "gateway.port", "--json"], env);
         const validateResult = runBuiltCli(tempHome, ["config", "validate", "--json"], env);
@@ -229,7 +229,7 @@ describe("cli json stdout contract", () => {
     await withTempHome(
       async (tempHome) => {
         const result = runBuiltCli(tempHome, ["config", "schema"], {
-          OPENCLAW_LOG_LEVEL: "debug",
+          GRANTED_LOG_LEVEL: "debug",
         });
 
         expect(result.status).toBe(0);
@@ -250,8 +250,8 @@ describe("cli json stdout contract", () => {
         const configPath = path.join(tempHome, "openclaw.json");
         await fs.writeFile(configPath, "{}", "utf8");
         const result = runBuiltCli(tempHome, ["config", "validate", "--json"], {
-          OPENCLAW_CONFIG_PATH: configPath,
-          OPENCLAW_LOG_LEVEL: "debug",
+          GRANTED_CONFIG_PATH: configPath,
+          GRANTED_LOG_LEVEL: "debug",
         });
 
         expect(result.status).toBe(0);

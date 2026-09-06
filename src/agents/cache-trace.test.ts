@@ -52,7 +52,7 @@ describe("createCacheTrace", () => {
           },
         },
       },
-      env: { OPENCLAW_STATE_DIR: "/tmp/openclaw-cache-trace" },
+      env: { GRANTED_STATE_DIR: "/tmp/openclaw-cache-trace" },
       writer: {
         filePath: "memory",
         write: (line) => lines.push(line),
@@ -163,7 +163,7 @@ describe("createCacheTrace", () => {
         },
       },
       env: {
-        OPENCLAW_CACHE_TRACE: "0",
+        GRANTED_CACHE_TRACE: "0",
       },
       writer: {
         filePath: "memory",

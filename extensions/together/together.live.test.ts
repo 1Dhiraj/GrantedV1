@@ -5,7 +5,7 @@ import { describe, expect, it } from "vitest";
 import { TOGETHER_BASE_URL, TOGETHER_MODEL_CATALOG } from "./models.js";
 
 const TOGETHER_KEY = process.env.TOGETHER_API_KEY ?? "";
-const LIVE = ["LIVE", "OPENCLAW_LIVE_TEST", "TOGETHER_LIVE_TEST"].some((name) =>
+const LIVE = ["LIVE", "GRANTED_LIVE_TEST", "TOGETHER_LIVE_TEST"].some((name) =>
   isTruthyEnvValue(process.env[name]),
 );
 const TOGETHER_LIVE_TIMEOUT_MS = 45_000;

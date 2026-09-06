@@ -5,9 +5,9 @@ import { createConfigIO } from "../src/config/config.js";
 
 describe("shared test setup home isolation", () => {
   it("routes default config IO through the per-worker temp home", () => {
-    const testHome = process.env.OPENCLAW_TEST_HOME;
+    const testHome = process.env.GRANTED_TEST_HOME;
     if (!testHome) {
-      throw new Error("OPENCLAW_TEST_HOME must be set by the test setup");
+      throw new Error("GRANTED_TEST_HOME must be set by the test setup");
     }
     expect(process.env.HOME).toBe(testHome);
     expect(process.env.USERPROFILE).toBe(testHome);

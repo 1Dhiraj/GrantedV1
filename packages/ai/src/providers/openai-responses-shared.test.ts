@@ -416,7 +416,7 @@ describe("convertResponsesMessages", () => {
       role: "developer",
       content: [{ type: "input_text", text: "Stable\nDynamic" }],
     });
-    expect(JSON.stringify(input)).not.toContain("OPENCLAW_CACHE_BOUNDARY");
+    expect(JSON.stringify(input)).not.toContain("GRANTED_CACHE_BOUNDARY");
   });
 
   it("omits phase-tagged assistant replay ids without reasoning", () => {

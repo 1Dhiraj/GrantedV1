@@ -957,7 +957,7 @@ describe("devices cli local fallback", () => {
     );
     expect(failure).toContain("superseded by a newer pending request");
     expect(failure).toContain("openclaw devices approve req-default");
-    expect(failure).not.toContain("OPENCLAW_PROFILE");
+    expect(failure).not.toContain("GRANTED_PROFILE");
     expect(failure).not.toContain("--token");
     expect(readRuntimeOutput()).not.toContain(fallbackNotice);
   });

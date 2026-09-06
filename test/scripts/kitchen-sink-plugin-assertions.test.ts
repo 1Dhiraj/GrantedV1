@@ -118,7 +118,7 @@ function runAssertInstalled({
         ...spawnEnv,
         ...env,
         HOME: home,
-        OPENCLAW_STATE_DIR: path.join(home, ".openclaw"),
+        GRANTED_STATE_DIR: path.join(home, ".openclaw"),
         KITCHEN_SINK_ID: pluginId,
         KITCHEN_SINK_LABEL: label,
         KITCHEN_SINK_SOURCE: "npm",
@@ -191,7 +191,7 @@ function runAssertClawhubInstalled({
       env: {
         ...process.env,
         HOME: home,
-        OPENCLAW_STATE_DIR: path.join(home, ".openclaw"),
+        GRANTED_STATE_DIR: path.join(home, ".openclaw"),
         KITCHEN_SINK_ID: pluginId,
         KITCHEN_SINK_LABEL: label,
         KITCHEN_SINK_SOURCE: "clawhub",
@@ -662,7 +662,7 @@ test ! -e "$KITCHEN_SINK_TMP_DIR"
 set -euo pipefail
 export KITCHEN_SINK_SWEEP_SOURCE_ONLY=1
 export KITCHEN_SINK_TMP_DIR="$SCRATCH_ROOT"
-export OPENCLAW_ENTRY="$ENTRY"
+export GRANTED_ENTRY="$ENTRY"
 source scripts/e2e/lib/kitchen-sink-plugin/sweep.sh
 run_kitchen_sink_openclaw_logged "install/log" plugins install demo
 test -f "$SCRATCH_ROOT/install_log.log"
@@ -697,8 +697,8 @@ grep -q "cli transcript: plugins install demo" "$SCRATCH_ROOT/install_log.log"
 set -euo pipefail
 export KITCHEN_SINK_SWEEP_SOURCE_ONLY=1
 export KITCHEN_SINK_TMP_DIR="$SCRATCH_ROOT"
-export OPENCLAW_ENTRY="$ENTRY"
-export OPENCLAW_DOCKER_E2E_LOG_PRINT_BYTES=64
+export GRANTED_ENTRY="$ENTRY"
+export GRANTED_DOCKER_E2E_LOG_PRINT_BYTES=64
 source scripts/e2e/lib/kitchen-sink-plugin/sweep.sh
 run_kitchen_sink_openclaw_logged "install/noisy" plugins install demo
 grep -q "prefix" "$SCRATCH_ROOT/install_noisy.log"
@@ -731,8 +731,8 @@ grep -q "prefix" "$SCRATCH_ROOT/install_noisy.log"
 set -euo pipefail
 export KITCHEN_SINK_SWEEP_SOURCE_ONLY=1
 export KITCHEN_SINK_TMP_DIR="$SCRATCH_ROOT"
-export OPENCLAW_ENTRY="$ENTRY"
-export OPENCLAW_DOCKER_E2E_LOG_PRINT_BYTES=64kb
+export GRANTED_ENTRY="$ENTRY"
+export GRANTED_DOCKER_E2E_LOG_PRINT_BYTES=64kb
 source scripts/e2e/lib/kitchen-sink-plugin/sweep.sh
 run_kitchen_sink_openclaw_logged "install/log" plugins install demo
 `,
@@ -743,7 +743,7 @@ run_kitchen_sink_openclaw_logged "install/log" plugins install demo
       );
 
       expect(result.status).toBe(2);
-      expect(result.stderr).toContain("invalid OPENCLAW_DOCKER_E2E_LOG_PRINT_BYTES: 64kb");
+      expect(result.stderr).toContain("invalid GRANTED_DOCKER_E2E_LOG_PRINT_BYTES: 64kb");
       expect(result.stdout).not.toContain("should not run");
     } finally {
       rmSync(parent, { force: true, recursive: true });
@@ -802,7 +802,7 @@ set -euo pipefail
 export PATH="$FAKE_BIN:$PATH"
 export KITCHEN_SINK_SWEEP_SOURCE_ONLY=1
 export KITCHEN_SINK_TMP_DIR="$SCRATCH_ROOT"
-export OPENCLAW_CLAWHUB_FIXTURE_WAIT_ATTEMPTS=1
+export GRANTED_CLAWHUB_FIXTURE_WAIT_ATTEMPTS=1
 source scripts/e2e/lib/kitchen-sink-plugin/sweep.sh
 set +e
 start_kitchen_sink_clawhub_fixture_server "$FIXTURE_DIR"
@@ -858,7 +858,7 @@ set -euo pipefail
 export PATH="$FAKE_BIN:$PATH"
 export KITCHEN_SINK_SWEEP_SOURCE_ONLY=1
 export KITCHEN_SINK_TMP_DIR="$SCRATCH_ROOT"
-export OPENCLAW_CLAWHUB_FIXTURE_WAIT_ATTEMPTS=2x
+export GRANTED_CLAWHUB_FIXTURE_WAIT_ATTEMPTS=2x
 source scripts/e2e/lib/kitchen-sink-plugin/sweep.sh
 set +e
 start_kitchen_sink_clawhub_fixture_server "$FIXTURE_DIR"
@@ -875,7 +875,7 @@ exit "$status"
       );
 
       expect(result.status).toBe(2);
-      expect(result.stderr).toContain("invalid OPENCLAW_CLAWHUB_FIXTURE_WAIT_ATTEMPTS: 2x");
+      expect(result.stderr).toContain("invalid GRANTED_CLAWHUB_FIXTURE_WAIT_ATTEMPTS: 2x");
       expect(result.stderr).not.toContain("node should not run");
     } finally {
       rmSync(parent, { force: true, recursive: true });
@@ -926,8 +926,8 @@ set -euo pipefail
 export PATH="$FAKE_BIN:$PATH"
 export KITCHEN_SINK_SWEEP_SOURCE_ONLY=1
 export KITCHEN_SINK_TMP_DIR="$SCRATCH_ROOT"
-export OPENCLAW_CLAWHUB_FIXTURE_WAIT_ATTEMPTS=1
-export OPENCLAW_DOCKER_E2E_LOG_PRINT_BYTES=64
+export GRANTED_CLAWHUB_FIXTURE_WAIT_ATTEMPTS=1
+export GRANTED_DOCKER_E2E_LOG_PRINT_BYTES=64
 source scripts/e2e/lib/kitchen-sink-plugin/sweep.sh
 set +e
 start_kitchen_sink_clawhub_fixture_server "$FIXTURE_DIR"

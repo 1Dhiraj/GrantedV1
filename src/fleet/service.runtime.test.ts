@@ -38,7 +38,7 @@ function runningInspection(
     labels: fleetLabels(),
     environment: {
       HOME: "/home/node",
-      OPENCLAW_GATEWAY_TOKEN: "old-token",
+      GRANTED_GATEWAY_TOKEN: "old-token",
       FEATURE: "enabled",
       NODE_VERSION: "old-image-default",
     },
@@ -163,7 +163,7 @@ describe("fleet service", () => {
 
   beforeEach(async () => {
     root = await tempRoot.setup();
-    env = { ...process.env, OPENCLAW_STATE_DIR: root };
+    env = { ...process.env, GRANTED_STATE_DIR: root };
     vi.stubGlobal(
       "fetch",
       vi.fn<typeof fetch>(async () => new Response(null, { status: 200 })),
@@ -225,7 +225,7 @@ describe("fleet service", () => {
       containers.start.mock.invocationCallOrder[0] ?? Number.POSITIVE_INFINITY,
     );
     expect(profile?.environment).toMatchObject({
-      OPENCLAW_GATEWAY_TOKEN: "gw-token",
+      GRANTED_GATEWAY_TOKEN: "gw-token",
       FEATURE: "a=b",
     });
 
@@ -638,7 +638,7 @@ describe("fleet service", () => {
       networkName: "openclaw-cell-acme-net",
       environment: {
         HOME: "/home/node",
-        OPENCLAW_GATEWAY_TOKEN: "old-token",
+        GRANTED_GATEWAY_TOKEN: "old-token",
         FEATURE: "enabled",
       },
     });

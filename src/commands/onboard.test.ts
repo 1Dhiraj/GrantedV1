@@ -623,9 +623,9 @@ describe("setupWizardCommand", () => {
   it.each(
     (
       [
-        ["gatewayPassword", "OPENCLAW_GATEWAY_PASSWORD"],
-        ["remoteToken", "OPENCLAW_GATEWAY_TOKEN"],
-        ["remotePassword", "OPENCLAW_GATEWAY_PASSWORD"],
+        ["gatewayPassword", "GRANTED_GATEWAY_PASSWORD"],
+        ["remoteToken", "GRANTED_GATEWAY_TOKEN"],
+        ["remotePassword", "GRANTED_GATEWAY_PASSWORD"],
       ] as const
     ).flatMap(([optionName, envName]) =>
       ["", "different-credential"].map((envValue) => ({ optionName, envName, envValue })),
@@ -662,7 +662,7 @@ describe("setupWizardCommand", () => {
   );
 
   it("keeps interactive gateway reference selection independent of the default env var", async () => {
-    vi.stubEnv("OPENCLAW_GATEWAY_PASSWORD", "");
+    vi.stubEnv("GRANTED_GATEWAY_PASSWORD", "");
     const runtime = makeRuntime();
 
     await setupWizardCommand(
@@ -717,8 +717,8 @@ describe("setupWizardCommand", () => {
   });
 
   it("rejects conflicting gateway token inputs before reset", async () => {
-    const previous = process.env.OPENCLAW_GATEWAY_TOKEN;
-    process.env.OPENCLAW_GATEWAY_TOKEN = "env-token";
+    const previous = process.env.GRANTED_GATEWAY_TOKEN;
+    process.env.GRANTED_GATEWAY_TOKEN = "env-token";
     const runtime = makeRuntime();
 
     try {
@@ -726,15 +726,15 @@ describe("setupWizardCommand", () => {
         {
           reset: true,
           gatewayToken: "plaintext-token",
-          gatewayTokenRefEnv: "OPENCLAW_GATEWAY_TOKEN",
+          gatewayTokenRefEnv: "GRANTED_GATEWAY_TOKEN",
         },
         runtime,
       );
     } finally {
       if (previous === undefined) {
-        delete process.env.OPENCLAW_GATEWAY_TOKEN;
+        delete process.env.GRANTED_GATEWAY_TOKEN;
       } else {
-        process.env.OPENCLAW_GATEWAY_TOKEN = previous;
+        process.env.GRANTED_GATEWAY_TOKEN = previous;
       }
     }
 

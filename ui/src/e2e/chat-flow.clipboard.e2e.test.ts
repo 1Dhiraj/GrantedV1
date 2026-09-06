@@ -99,7 +99,7 @@ suite.define(() => {
   it.each(["tool-diff", "selection", "agent-id"] as const)(
     "reports clipboard failure from the %s action",
     async (surface) => {
-      const artifactDirParent = process.env.OPENCLAW_UI_E2E_ARTIFACT_DIR?.trim();
+      const artifactDirParent = process.env.GRANTED_UI_E2E_ARTIFACT_DIR?.trim();
       const artifactDir = artifactDirParent
         ? createControlUiE2eArtifactDir("chat-flow.clipboard", artifactDirParent)
         : undefined;
@@ -399,7 +399,7 @@ suite.define(() => {
         });
         expect(await gateway.getRequests("chat.send")).toHaveLength(0);
 
-        const artifactDirParent = process.env.OPENCLAW_UI_E2E_ARTIFACT_DIR?.trim();
+        const artifactDirParent = process.env.GRANTED_UI_E2E_ARTIFACT_DIR?.trim();
         const artifactDir = artifactDirParent
           ? createControlUiE2eArtifactDir("chat-flow.clipboard", artifactDirParent)
           : undefined;
@@ -456,7 +456,7 @@ suite.define(() => {
       });
       expect(await gateway.getRequests("chat.send")).toHaveLength(0);
 
-      const artifactDirParent = process.env.OPENCLAW_UI_E2E_ARTIFACT_DIR?.trim();
+      const artifactDirParent = process.env.GRANTED_UI_E2E_ARTIFACT_DIR?.trim();
       const artifactDir = artifactDirParent
         ? createControlUiE2eArtifactDir("chat-flow.clipboard", artifactDirParent)
         : undefined;

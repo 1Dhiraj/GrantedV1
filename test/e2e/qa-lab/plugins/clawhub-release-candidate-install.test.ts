@@ -21,7 +21,7 @@ describe("ClawHub release candidate install producer", () => {
       path.join(os.tmpdir(), "openclaw-clawhub-release-evidence-"),
     );
     tempRoots.push(artifactBase);
-    const missingTarballEnv = "OPENCLAW_TEST_MISSING_RELEASE_CANDIDATE_TARBALL";
+    const missingTarballEnv = "GRANTED_TEST_MISSING_RELEASE_CANDIDATE_TARBALL";
     vi.stubEnv(missingTarballEnv, "");
 
     const result = await runClawHubReleaseCandidateInstallProducer({

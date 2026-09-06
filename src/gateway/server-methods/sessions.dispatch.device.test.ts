@@ -348,7 +348,7 @@ describe("sessions.dispatch device targets", () => {
         path.join(await fs.realpath(os.tmpdir()), "openclaw-session-auto-device-"),
       );
       try {
-        const database = openOpenClawStateDatabase({ env: { OPENCLAW_STATE_DIR: root } });
+        const database = openOpenClawStateDatabase({ env: { GRANTED_STATE_DIR: root } });
         const placements = createWorkerSessionPlacementStore({ database, now: () => 1_000 });
         // A local row starts at generation one; failed and retried dispatches advance it twice.
         const harness = createHarness(placements, { environmentGeneration: 3 });
@@ -751,7 +751,7 @@ describe("sessions.dispatch device targets", () => {
         path.join(await fs.realpath(os.tmpdir()), "openclaw-session-dispatch-device-"),
       );
       try {
-        const database = openOpenClawStateDatabase({ env: { OPENCLAW_STATE_DIR: root } });
+        const database = openOpenClawStateDatabase({ env: { GRANTED_STATE_DIR: root } });
         const placements = createWorkerSessionPlacementStore({ database, now: () => 1_000 });
         const harness = createHarness(placements);
         const runtime = createDeviceWorkerRuntime({

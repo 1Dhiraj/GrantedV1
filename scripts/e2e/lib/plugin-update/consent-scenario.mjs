@@ -137,8 +137,8 @@ export async function runConsentScenario(entry, coreTarball) {
       {
         env: {
           ...process.env,
-          OPENCLAW_NPM_REGISTRY_PORT: String(registryPort ?? 0),
-          OPENCLAW_NPM_REGISTRY_UPSTREAM: "https://registry.npmjs.org",
+          GRANTED_NPM_REGISTRY_PORT: String(registryPort ?? 0),
+          GRANTED_NPM_REGISTRY_UPSTREAM: "https://registry.npmjs.org",
         },
         stdio: ["ignore", "inherit", "inherit"],
       },
@@ -158,7 +158,7 @@ export async function runConsentScenario(entry, coreTarball) {
     );
     assert.equal(report.plugin.status, enabled ? "loaded" : "disabled");
     assert.equal(report.plugin.enabled, enabled);
-    const config = JSON.parse(fs.readFileSync(process.env.OPENCLAW_CONFIG_PATH, "utf8"));
+    const config = JSON.parse(fs.readFileSync(process.env.GRANTED_CONFIG_PATH, "utf8"));
     assert.equal(config.plugins.entries[pluginId].enabled, enabled);
     const record = report.install;
     assert.equal(record.version, `${version}.0.0`);
@@ -254,13 +254,13 @@ export async function runConsentScenario(entry, coreTarball) {
       await cli("disable", ["plugins", "disable", pluginId]);
       await cli("reinstall-unchanged", reinstall(1));
       const disabled = await snapshot("reinstall-unchanged-disabled", 1, false);
-      const configBefore = fs.readFileSync(process.env.OPENCLAW_CONFIG_PATH, "utf8");
+      const configBefore = fs.readFileSync(process.env.GRANTED_CONFIG_PATH, "utf8");
       const indexBefore = readPluginInstallIndex();
       assert.deepEqual(indexBefore.installRecords[pluginId], disabled.record);
       const rejected = await cli("reinstall-widened-denied", reinstall(2), { allowFailure: true });
       assert.equal(rejected.code, 1, `${rejected.output}\n${rejected.diagnostic}`);
       assert.match(rejected.output + rejected.diagnostic, /requires capability consent/i);
-      assert.equal(fs.readFileSync(process.env.OPENCLAW_CONFIG_PATH, "utf8"), configBefore);
+      assert.equal(fs.readFileSync(process.env.GRANTED_CONFIG_PATH, "utf8"), configBefore);
       assert.deepEqual(readPluginInstallIndex(), indexBefore);
       assert.deepEqual(await snapshot("reinstall-denied-preserved", 1, false), disabled);
       await cli("reinstall-widened-accepted", [...reinstall(2), "--accept-capabilities"]);
@@ -350,7 +350,7 @@ export async function runConsentScenario(entry, coreTarball) {
       const final = await snapshot("fresh-process-accepted", 3);
       const payload = path.join(final.record.installPath, "index.js");
       assert(
-        final.record.installPath.startsWith(process.env.OPENCLAW_STATE_DIR + path.sep),
+        final.record.installPath.startsWith(process.env.GRANTED_STATE_DIR + path.sep),
         "fixture payload must belong to isolated state",
       );
       fs.rmSync(final.record.installPath, { recursive: true });

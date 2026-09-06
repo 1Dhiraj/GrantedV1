@@ -1619,7 +1619,7 @@ describe("EmbeddedTuiBackend", () => {
   });
 
   it("aborts local post-turn maintenance when stop grace elapses", async () => {
-    await withEnvAsync({ OPENCLAW_TUI_LOCAL_RUN_SHUTDOWN_GRACE_MS: "5" }, async () => {
+    await withEnvAsync({ GRANTED_TUI_LOCAL_RUN_SHUTDOWN_GRACE_MS: "5" }, async () => {
       const pending = deferred<EmbeddedAgentResult>();
       const abortListener = vi.fn();
       agentCommandFromIngressMock.mockImplementationOnce((opts: { abortSignal?: AbortSignal }) => {
@@ -1698,7 +1698,7 @@ describe("EmbeddedTuiBackend", () => {
   });
 
   it("queues same-session sends behind active local runs", async () => {
-    await withEnvAsync({ OPENCLAW_TUI_LOCAL_RUN_SHUTDOWN_GRACE_MS: "5" }, async () => {
+    await withEnvAsync({ GRANTED_TUI_LOCAL_RUN_SHUTDOWN_GRACE_MS: "5" }, async () => {
       const first = deferred<EmbeddedAgentResult>();
       const second = deferred<EmbeddedAgentResult>();
       const firstAbortListener = vi.fn();
@@ -2931,7 +2931,7 @@ describe("EmbeddedTuiBackend", () => {
   });
 
   it("fails a queued local send when the previous finishing run does not settle", async () => {
-    await withEnvAsync({ OPENCLAW_TUI_LOCAL_RUN_SHUTDOWN_GRACE_MS: "5" }, async () => {
+    await withEnvAsync({ GRANTED_TUI_LOCAL_RUN_SHUTDOWN_GRACE_MS: "5" }, async () => {
       const first = deferred<EmbeddedAgentResult>();
       agentCommandFromIngressMock.mockReturnValueOnce(first.promise);
 
@@ -2973,7 +2973,7 @@ describe("EmbeddedTuiBackend", () => {
   });
 
   it("keeps the bounded post-turn timeout visible through canceled queue predecessors", async () => {
-    await withEnvAsync({ OPENCLAW_TUI_LOCAL_RUN_SHUTDOWN_GRACE_MS: "5" }, async () => {
+    await withEnvAsync({ GRANTED_TUI_LOCAL_RUN_SHUTDOWN_GRACE_MS: "5" }, async () => {
       const active = deferred<EmbeddedAgentResult>();
       agentCommandFromIngressMock.mockReturnValueOnce(active.promise);
       loadSessionEntryMock.mockImplementation((sessionKey: string) => ({
@@ -3025,7 +3025,7 @@ describe("EmbeddedTuiBackend", () => {
   });
 
   it("fails a queued local send immediately when shutdown grace is zero", async () => {
-    await withEnvAsync({ OPENCLAW_TUI_LOCAL_RUN_SHUTDOWN_GRACE_MS: "0" }, async () => {
+    await withEnvAsync({ GRANTED_TUI_LOCAL_RUN_SHUTDOWN_GRACE_MS: "0" }, async () => {
       const first = deferred<EmbeddedAgentResult>();
       agentCommandFromIngressMock.mockReturnValueOnce(first.promise);
 

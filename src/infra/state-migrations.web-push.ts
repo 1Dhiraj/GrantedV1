@@ -285,7 +285,7 @@ function migrateIntoDatabase(params: {
         }
       }
     },
-    { env: { ...process.env, OPENCLAW_STATE_DIR: params.stateDir } },
+    { env: { ...process.env, GRANTED_STATE_DIR: params.stateDir } },
   );
   return { importedSubscriptions, importedVapidKeys };
 }

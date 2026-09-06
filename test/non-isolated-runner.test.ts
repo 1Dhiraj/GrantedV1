@@ -23,7 +23,7 @@ function childEnv(): NodeJS.ProcessEnv {
     // drop GITHUB_ACTIONS so the child's reporter cannot annotate the parent.
     if (
       key.startsWith("VITEST") ||
-      key.startsWith("OPENCLAW_VITEST") ||
+      key.startsWith("GRANTED_VITEST") ||
       key === "GITHUB_ACTIONS" ||
       key === "FORCE_COLOR"
     ) {
@@ -32,8 +32,8 @@ function childEnv(): NodeJS.ProcessEnv {
     env[key] = value;
   }
   env.NO_COLOR = "1";
-  delete env.OPENCLAW_SKIP_CHANNELS;
-  delete env.OPENCLAW_SKIP_CRON;
+  delete env.GRANTED_SKIP_CHANNELS;
+  delete env.GRANTED_SKIP_CRON;
   return env;
 }
 
@@ -121,22 +121,22 @@ it("applies mocks after a sibling collection failure", () => {
     "02-a-gateway-env.test.ts": `import ${sourcePath("gateway/test-helpers.mocks.ts")};
 import { expect, it } from "vitest";
 it("seeds gateway helper env", () => {
-  expect(process.env.OPENCLAW_SKIP_CHANNELS).toBe("1");
-  expect(process.env.OPENCLAW_SKIP_CRON).toBe("1");
+  expect(process.env.GRANTED_SKIP_CHANNELS).toBe("1");
+  expect(process.env.GRANTED_SKIP_CRON).toBe("1");
 });
 `,
     "02-b-gateway-env.test.ts": `import { expect, it } from "vitest";
 it("restores gateway helper env", () => {
-  expect(process.env.OPENCLAW_SKIP_CHANNELS).toBeUndefined();
-  expect(process.env.OPENCLAW_SKIP_CRON).toBeUndefined();
+  expect(process.env.GRANTED_SKIP_CHANNELS).toBeUndefined();
+  expect(process.env.GRANTED_SKIP_CRON).toBeUndefined();
 });
 `,
     "02-c-agent-env.test.ts": `import { setTestEnvValue } from ${sourcePath("test-utils/env.ts")};
 import { expect, it, vi } from "vitest";
 it("leaves agent selectors for file-completion env unstub", () => {
-  expect(process.env.HOME).toBe(process.env.OPENCLAW_TEST_HOME);
-  expect(process.env.OPENCLAW_TEST_HOME).toBeTruthy();
-  for (const key of ["OPENCLAW_AGENT_DIR", "PI_CODING_AGENT_DIR"]) {
+  expect(process.env.HOME).toBe(process.env.GRANTED_TEST_HOME);
+  expect(process.env.GRANTED_TEST_HOME).toBeTruthy();
+  for (const key of ["GRANTED_AGENT_DIR", "PI_CODING_AGENT_DIR"]) {
     setTestEnvValue(key, \`/tmp/inherited-\${key}\`);
     vi.stubEnv(key, undefined);
     expect(process.env[key]).toBeUndefined();
@@ -145,8 +145,8 @@ it("leaves agent selectors for file-completion env unstub", () => {
 `,
     "02-d-agent-env.test.ts": `import { expect, it } from "vitest";
 it("clears restored agent selectors before the next file", () => {
-  expect(process.env.HOME).toBe(process.env.OPENCLAW_TEST_HOME);
-  expect(process.env.OPENCLAW_AGENT_DIR).toBeUndefined();
+  expect(process.env.HOME).toBe(process.env.GRANTED_TEST_HOME);
+  expect(process.env.GRANTED_AGENT_DIR).toBeUndefined();
   expect(process.env.PI_CODING_AGENT_DIR).toBeUndefined();
 });
 `,

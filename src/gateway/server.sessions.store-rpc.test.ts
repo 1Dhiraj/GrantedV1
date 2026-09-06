@@ -669,12 +669,12 @@ test("lists and patches session store via sessions.* RPC", async () => {
 });
 
 test("sessions.list configuredAgentsOnly keeps configured-agent children and hides unrelated stores", async () => {
-  const rootStateDir = expectDefined(process.env.OPENCLAW_STATE_DIR, "OPENCLAW_STATE_DIR");
+  const rootStateDir = expectDefined(process.env.GRANTED_STATE_DIR, "GRANTED_STATE_DIR");
   const stateDir = path.join(rootStateDir, "configured-list-regression");
-  await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () => {
+  await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {
     testState.agentsConfig = { ownership: "explicit", list: [{ id: "ops" }] };
     testState.agentConfig = { sessionStore: { agentId: "ops" } };
-    const configPath = expectDefined(process.env.OPENCLAW_CONFIG_PATH, "OPENCLAW_CONFIG_PATH");
+    const configPath = expectDefined(process.env.GRANTED_CONFIG_PATH, "GRANTED_CONFIG_PATH");
     const configJson = '{"acp":{"defaultAgent":"claude","allowedAgents":["gemini"]}}';
     await fs.writeFile(configPath, configJson, "utf-8");
     const agentsDir = path.join(stateDir, "agents");

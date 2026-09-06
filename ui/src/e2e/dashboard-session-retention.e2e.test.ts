@@ -30,7 +30,7 @@ function dashboardSnapshot(key: string, prefix: string) {
 
 suite.define(() => {
   it("shows a warmed dashboard immediately while its refresh is pending", async () => {
-    const recordProof = process.env.OPENCLAW_UI_E2E_RECORD === "1";
+    const recordProof = process.env.GRANTED_UI_E2E_RECORD === "1";
     if (recordProof) {
       await mkdir(path.join(suite.artifactDir, "dashboard-session-retention"), { recursive: true });
     }

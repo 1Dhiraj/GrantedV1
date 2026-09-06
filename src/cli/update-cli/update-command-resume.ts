@@ -79,7 +79,7 @@ async function resumePostCoreUpdateInternal(params: ResumePostCoreUpdateParams):
     return;
   }
 
-  process.env.OPENCLAW_COMPATIBILITY_HOST_VERSION =
+  process.env.GRANTED_COMPATIBILITY_HOST_VERSION =
     (await readPackageVersion(params.root)) ?? VERSION;
 
   let configSnapshot = await readConfigFileSnapshot({

@@ -194,13 +194,13 @@ describe("check-extension-package-tsc-boundary", () => {
   });
 
   it("parses extension boundary compile concurrency strictly", () => {
-    expect(resolveCompileConcurrency({ OPENCLAW_EXTENSION_BOUNDARY_CONCURRENCY: "4" }, 32)).toBe(4);
+    expect(resolveCompileConcurrency({ GRANTED_EXTENSION_BOUNDARY_CONCURRENCY: "4" }, 32)).toBe(4);
     expect(resolveCompileConcurrency({}, 12)).toBe(6);
     expect(resolveCompileConcurrency({}, 3)).toBe(1);
     for (const value of ["4x", "0", "1e3"]) {
       expect(() =>
-        resolveCompileConcurrency({ OPENCLAW_EXTENSION_BOUNDARY_CONCURRENCY: value }, 32),
-      ).toThrow("OPENCLAW_EXTENSION_BOUNDARY_CONCURRENCY must be a positive integer");
+        resolveCompileConcurrency({ GRANTED_EXTENSION_BOUNDARY_CONCURRENCY: value }, 32),
+      ).toThrow("GRANTED_EXTENSION_BOUNDARY_CONCURRENCY must be a positive integer");
     }
   });
 

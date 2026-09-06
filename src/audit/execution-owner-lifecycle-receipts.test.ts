@@ -6,13 +6,13 @@ import type { ExecutionIdentityContextV1 } from "../../packages/gateway-protocol
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
 import type { AdmittedRunContext } from "../agents/admitted-run-context.js";
 import { bindCronRunReceiptExecution } from "../cron/store/run-receipt-store.js";
-import { OPENCLAW_STATE_SCHEMA_VERSION } from "../state/openclaw-state-db-contract.js";
+import { GRANTED_STATE_SCHEMA_VERSION } from "../state/openclaw-state-db-contract.js";
 import { tableHasColumn, tableExists } from "../state/openclaw-state-db-schema-helpers.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
 } from "../state/openclaw-state-db.js";
-import { OPENCLAW_STATE_SCHEMA_SQL } from "../state/openclaw-state-schema.js";
+import { GRANTED_STATE_SCHEMA_SQL } from "../state/openclaw-state-schema.js";
 import { bindTaskFlowExecution } from "../tasks/task-flow-registry.store.sqlite.js";
 import { bindTaskRunExecution } from "../tasks/task-registry.store.sqlite.js";
 import { presentExecutionDecisionReceipts } from "./execution-decision-receipts.js";
@@ -23,29 +23,29 @@ afterEach(() => closeOpenClawStateDatabaseForTest());
 const tempDirs = useAutoCleanupTempDirTracker(afterEach);
 
 function oldSchemaSql(): string {
-  const start = OPENCLAW_STATE_SCHEMA_SQL.indexOf(
+  const start = GRANTED_STATE_SCHEMA_SQL.indexOf(
     "CREATE TABLE IF NOT EXISTS execution_owner_lifecycle_bindings (",
   );
   const endMarker = ") STRICT;";
-  const end = OPENCLAW_STATE_SCHEMA_SQL.indexOf(endMarker, start);
+  const end = GRANTED_STATE_SCHEMA_SQL.indexOf(endMarker, start);
   if (start < 0 || end < start) {
     throw new Error("owner lifecycle binding schema marker is missing");
   }
-  return `${OPENCLAW_STATE_SCHEMA_SQL.slice(0, start)}${OPENCLAW_STATE_SCHEMA_SQL.slice(end + endMarker.length)}`;
+  return `${GRANTED_STATE_SCHEMA_SQL.slice(0, start)}${GRANTED_STATE_SCHEMA_SQL.slice(end + endMarker.length)}`;
 }
 
 function createOldOwnerDatabase() {
   const pathname = path.join(tempDirs.make("owner-lifecycle-"), "openclaw.sqlite");
   const oldReader = new DatabaseSync(pathname);
   oldReader.exec(oldSchemaSql());
-  oldReader.exec(`PRAGMA user_version = ${OPENCLAW_STATE_SCHEMA_VERSION}`);
+  oldReader.exec(`PRAGMA user_version = ${GRANTED_STATE_SCHEMA_VERSION}`);
   oldReader
     .prepare(
       `INSERT INTO schema_meta (
          meta_key, role, schema_version, created_at, updated_at
        ) VALUES ('primary', 'global', ?, 1, 1)`,
     )
-    .run(OPENCLAW_STATE_SCHEMA_VERSION);
+    .run(GRANTED_STATE_SCHEMA_VERSION);
   oldReader
     .prepare(
       `INSERT INTO cron_run_receipts (
@@ -191,7 +191,7 @@ describe("owner-native execution lifecycle receipts", () => {
 
     const reopened = openOpenClawStateDatabase(options).db;
     expect(reopened.prepare("PRAGMA user_version").get()).toEqual({
-      user_version: OPENCLAW_STATE_SCHEMA_VERSION,
+      user_version: GRANTED_STATE_SCHEMA_VERSION,
     });
     expect(
       reopened

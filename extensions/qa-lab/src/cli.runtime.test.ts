@@ -736,11 +736,11 @@ describe("qa cli runtime", () => {
   });
 
   it("dispatches a taxonomy-backed profile category through the suite runner", async () => {
-    const previousProfile = process.env.OPENCLAW_QA_PROFILE;
-    process.env.OPENCLAW_QA_PROFILE = "release";
+    const previousProfile = process.env.GRANTED_QA_PROFILE;
+    process.env.GRANTED_QA_PROFILE = "release";
     try {
       runQaSuite.mockImplementationOnce(async (params) => {
-        expect(process.env.OPENCLAW_QA_PROFILE).toBe("smoke-ci");
+        expect(process.env.GRANTED_QA_PROFILE).toBe("smoke-ci");
         await fs.writeFile(
           suiteEvidencePath,
           JSON.stringify(
@@ -835,7 +835,7 @@ describe("qa cli runtime", () => {
         channelDriver: "crabline",
       });
       expect(suiteArgs.scenarioIds).toEqual(["telegram-commands-command"]);
-      expect(process.env.OPENCLAW_QA_PROFILE).toBe("release");
+      expect(process.env.GRANTED_QA_PROFILE).toBe("release");
       const evidence = JSON.parse(await fs.readFile(suiteEvidencePath, "utf8")) as {
         evidenceMode?: unknown;
         entries?: unknown[];
@@ -883,9 +883,9 @@ describe("qa cli runtime", () => {
       expectWriteContains(stdoutWrite, `QA profile scorecard: ${suiteEvidencePath}`);
     } finally {
       if (previousProfile === undefined) {
-        delete process.env.OPENCLAW_QA_PROFILE;
+        delete process.env.GRANTED_QA_PROFILE;
       } else {
-        process.env.OPENCLAW_QA_PROFILE = previousProfile;
+        process.env.GRANTED_QA_PROFILE = previousProfile;
       }
     }
   });
@@ -1142,7 +1142,7 @@ describe("qa cli runtime", () => {
   ])(
     "runs discovered live adapters with isolation=$isolatesInstances, concurrency=$requested at $expected workers",
     async ({ isolatesInstances, requested, expected }) => {
-      vi.stubEnv("OPENCLAW_QA_SUITE_CONCURRENCY", "64");
+      vi.stubEnv("GRANTED_QA_SUITE_CONCURRENCY", "64");
       listLiveTransportQaAdapterFactories.mockReturnValue([
         {
           id: "telegram",
@@ -1608,14 +1608,14 @@ describe("qa cli runtime", () => {
     await fs.writeFile(launcherPath, "#!/bin/sh\nexit 0\n", { mode: 0o700 });
     await fs.writeFile(preloadPath, "export {};\n", { mode: 0o600 });
     await fs.writeFile(runtimeEntryPath, "export {};\n", { mode: 0o600 });
-    vi.stubEnv("OPENCLAW_QA_TELEGRAM_SUT_FORWARDED_ENV_KEYS", "HOME,PATH");
-    vi.stubEnv("OPENCLAW_QA_TELEGRAM_SUT_CLEANUP_TIMEOUT_MS", "60000");
-    vi.stubEnv("OPENCLAW_QA_TELEGRAM_SUT_GID", "1002");
-    vi.stubEnv("OPENCLAW_QA_TELEGRAM_SUT_OPENCLAW_COMMAND", launcherPath);
-    vi.stubEnv("OPENCLAW_QA_TELEGRAM_SUT_PRELOAD_PATH", preloadPath);
-    vi.stubEnv("OPENCLAW_QA_TELEGRAM_SUT_PROCESS_BOUNDARY_DIR", boundaryDir);
-    vi.stubEnv("OPENCLAW_QA_TELEGRAM_SUT_RUNTIME_EXECUTABLE", process.execPath);
-    vi.stubEnv("OPENCLAW_QA_TELEGRAM_SUT_UID", "1001");
+    vi.stubEnv("GRANTED_QA_TELEGRAM_SUT_FORWARDED_ENV_KEYS", "HOME,PATH");
+    vi.stubEnv("GRANTED_QA_TELEGRAM_SUT_CLEANUP_TIMEOUT_MS", "60000");
+    vi.stubEnv("GRANTED_QA_TELEGRAM_SUT_GID", "1002");
+    vi.stubEnv("GRANTED_QA_TELEGRAM_SUT_GRANTED_COMMAND", launcherPath);
+    vi.stubEnv("GRANTED_QA_TELEGRAM_SUT_PRELOAD_PATH", preloadPath);
+    vi.stubEnv("GRANTED_QA_TELEGRAM_SUT_PROCESS_BOUNDARY_DIR", boundaryDir);
+    vi.stubEnv("GRANTED_QA_TELEGRAM_SUT_RUNTIME_EXECUTABLE", process.execPath);
+    vi.stubEnv("GRANTED_QA_TELEGRAM_SUT_UID", "1001");
     await runQaTelegramCommand({
       repoRoot: candidateRoot,
       scenarioIds: ["telegram-help-command", "telegram-commands-command"],
@@ -1642,40 +1642,40 @@ describe("qa cli runtime", () => {
   });
 
   it("rejects relative Telegram launcher paths before starting a gateway", async () => {
-    vi.stubEnv("OPENCLAW_QA_TELEGRAM_SUT_OPENCLAW_COMMAND", "relative-launcher");
+    vi.stubEnv("GRANTED_QA_TELEGRAM_SUT_GRANTED_COMMAND", "relative-launcher");
     await expect(
       runQaTelegramCommand({
         repoRoot: "/tmp/openclaw-repo",
         scenarioIds: ["telegram-help-command"],
       }),
-    ).rejects.toThrow("OPENCLAW_QA_TELEGRAM_SUT_OPENCLAW_COMMAND must be an absolute file path.");
+    ).rejects.toThrow("GRANTED_QA_TELEGRAM_SUT_GRANTED_COMMAND must be an absolute file path.");
 
     expect(runQaFlowSuiteFromRuntime).not.toHaveBeenCalled();
   });
 
   it.each([
     {
-      envKey: "OPENCLAW_QA_TELEGRAM_SUT_UID",
+      envKey: "GRANTED_QA_TELEGRAM_SUT_UID",
       badValue: "0x3e9",
       label: "uid-hex",
     },
     {
-      envKey: "OPENCLAW_QA_TELEGRAM_SUT_UID",
+      envKey: "GRANTED_QA_TELEGRAM_SUT_UID",
       badValue: "1e3",
       label: "uid-exponent",
     },
     {
-      envKey: "OPENCLAW_QA_TELEGRAM_SUT_UID",
+      envKey: "GRANTED_QA_TELEGRAM_SUT_UID",
       badValue: "1001.5",
       label: "uid-fraction",
     },
     {
-      envKey: "OPENCLAW_QA_TELEGRAM_SUT_GID",
+      envKey: "GRANTED_QA_TELEGRAM_SUT_GID",
       badValue: "0x3ea",
       label: "gid-hex",
     },
     {
-      envKey: "OPENCLAW_QA_TELEGRAM_SUT_CLEANUP_TIMEOUT_MS",
+      envKey: "GRANTED_QA_TELEGRAM_SUT_CLEANUP_TIMEOUT_MS",
       badValue: "0x3e8",
       label: "cleanup-hex",
     },
@@ -1695,14 +1695,14 @@ describe("qa cli runtime", () => {
       await fs.writeFile(launcherPath, "#!/bin/sh\nexit 0\n", { mode: 0o700 });
       await fs.writeFile(preloadPath, "export {};\n", { mode: 0o600 });
       await fs.writeFile(runtimeEntryPath, "export {};\n", { mode: 0o600 });
-      vi.stubEnv("OPENCLAW_QA_TELEGRAM_SUT_FORWARDED_ENV_KEYS", "HOME,PATH");
-      vi.stubEnv("OPENCLAW_QA_TELEGRAM_SUT_CLEANUP_TIMEOUT_MS", "60000");
-      vi.stubEnv("OPENCLAW_QA_TELEGRAM_SUT_GID", "1002");
-      vi.stubEnv("OPENCLAW_QA_TELEGRAM_SUT_OPENCLAW_COMMAND", launcherPath);
-      vi.stubEnv("OPENCLAW_QA_TELEGRAM_SUT_PRELOAD_PATH", preloadPath);
-      vi.stubEnv("OPENCLAW_QA_TELEGRAM_SUT_PROCESS_BOUNDARY_DIR", boundaryDir);
-      vi.stubEnv("OPENCLAW_QA_TELEGRAM_SUT_RUNTIME_EXECUTABLE", process.execPath);
-      vi.stubEnv("OPENCLAW_QA_TELEGRAM_SUT_UID", "1001");
+      vi.stubEnv("GRANTED_QA_TELEGRAM_SUT_FORWARDED_ENV_KEYS", "HOME,PATH");
+      vi.stubEnv("GRANTED_QA_TELEGRAM_SUT_CLEANUP_TIMEOUT_MS", "60000");
+      vi.stubEnv("GRANTED_QA_TELEGRAM_SUT_GID", "1002");
+      vi.stubEnv("GRANTED_QA_TELEGRAM_SUT_GRANTED_COMMAND", launcherPath);
+      vi.stubEnv("GRANTED_QA_TELEGRAM_SUT_PRELOAD_PATH", preloadPath);
+      vi.stubEnv("GRANTED_QA_TELEGRAM_SUT_PROCESS_BOUNDARY_DIR", boundaryDir);
+      vi.stubEnv("GRANTED_QA_TELEGRAM_SUT_RUNTIME_EXECUTABLE", process.execPath);
+      vi.stubEnv("GRANTED_QA_TELEGRAM_SUT_UID", "1001");
       vi.stubEnv(envKey, badValue);
 
       await expect(
@@ -1719,21 +1719,21 @@ describe("qa cli runtime", () => {
   it("rejects non-executable Telegram launcher files before starting a gateway", async () => {
     const launcherPath = path.join(telegramArtifactsDir, "non-executable-launcher");
     await fs.writeFile(launcherPath, "#!/bin/sh\nexit 0\n", { mode: 0o600 });
-    vi.stubEnv("OPENCLAW_QA_TELEGRAM_SUT_OPENCLAW_COMMAND", launcherPath);
+    vi.stubEnv("GRANTED_QA_TELEGRAM_SUT_GRANTED_COMMAND", launcherPath);
     await expect(
       runQaTelegramCommand({
         repoRoot: "/tmp/openclaw-repo",
         scenarioIds: ["telegram-help-command"],
       }),
     ).rejects.toThrow(
-      `OPENCLAW_QA_TELEGRAM_SUT_OPENCLAW_COMMAND must point to an executable regular file: ${launcherPath}`,
+      `GRANTED_QA_TELEGRAM_SUT_GRANTED_COMMAND must point to an executable regular file: ${launcherPath}`,
     );
 
     expect(runQaFlowSuiteFromRuntime).not.toHaveBeenCalled();
   });
 
   it("rejects unknown mixed Telegram selections before resolving the SUT launcher", async () => {
-    vi.stubEnv("OPENCLAW_QA_TELEGRAM_SUT_OPENCLAW_COMMAND", "relative-launcher");
+    vi.stubEnv("GRANTED_QA_TELEGRAM_SUT_GRANTED_COMMAND", "relative-launcher");
     await expect(
       runQaTelegramCommand({
         repoRoot: "/tmp/openclaw-repo",
@@ -1745,7 +1745,7 @@ describe("qa cli runtime", () => {
   });
 
   it("prints telegram scenario catalog without resolving the SUT launcher", async () => {
-    vi.stubEnv("OPENCLAW_QA_TELEGRAM_SUT_OPENCLAW_COMMAND", "relative-launcher");
+    vi.stubEnv("GRANTED_QA_TELEGRAM_SUT_GRANTED_COMMAND", "relative-launcher");
     await runQaTelegramCommand({
       repoRoot: "/tmp/openclaw-repo",
       providerMode: "mock-openai",
@@ -3316,10 +3316,10 @@ describe("qa cli runtime", () => {
   });
 
   it("rejects oversized credential payload files before broker setup", async () => {
-    const previousMaxBytes = process.env.OPENCLAW_QA_CREDENTIAL_PAYLOAD_MAX_BYTES;
+    const previousMaxBytes = process.env.GRANTED_QA_CREDENTIAL_PAYLOAD_MAX_BYTES;
     const payloadPath = path.join(suiteArtifactsDir, "oversized-credential.json");
     await fs.writeFile(payloadPath, JSON.stringify({ blob: "x".repeat(64) }), "utf8");
-    process.env.OPENCLAW_QA_CREDENTIAL_PAYLOAD_MAX_BYTES = "32";
+    process.env.GRANTED_QA_CREDENTIAL_PAYLOAD_MAX_BYTES = "32";
 
     try {
       await expect(
@@ -3327,14 +3327,12 @@ describe("qa cli runtime", () => {
           kind: "telegram",
           payloadFile: payloadPath,
         }),
-      ).rejects.toThrow(
-        "Payload file exceeds OPENCLAW_QA_CREDENTIAL_PAYLOAD_MAX_BYTES (32 bytes).",
-      );
+      ).rejects.toThrow("Payload file exceeds GRANTED_QA_CREDENTIAL_PAYLOAD_MAX_BYTES (32 bytes).");
     } finally {
       if (previousMaxBytes === undefined) {
-        delete process.env.OPENCLAW_QA_CREDENTIAL_PAYLOAD_MAX_BYTES;
+        delete process.env.GRANTED_QA_CREDENTIAL_PAYLOAD_MAX_BYTES;
       } else {
-        process.env.OPENCLAW_QA_CREDENTIAL_PAYLOAD_MAX_BYTES = previousMaxBytes;
+        process.env.GRANTED_QA_CREDENTIAL_PAYLOAD_MAX_BYTES = previousMaxBytes;
       }
     }
   });

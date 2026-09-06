@@ -8,7 +8,7 @@ import { shouldIncludeHook } from "./config.js";
 import { buildWorkspaceHookStatus } from "./hooks-status.js";
 import type { HookEntry } from "./types.js";
 
-const ENV_NAME = "OPENCLAW_TEST_HOOK_REQUIRED_ENV";
+const ENV_NAME = "GRANTED_TEST_HOOK_REQUIRED_ENV";
 const HOOK_NAME = "required-env-hook";
 
 const entry: HookEntry = {

@@ -123,7 +123,7 @@ module.exports = {
       autoSelectOrder: 1,
       isConfigured: () => true,
       async synthesize(request) {
-        fs.appendFileSync(process.env.OPENCLAW_QA_SPEECH_CALLS_PATH, JSON.stringify({ text: request.text, target: request.target }) + "\\n");
+        fs.appendFileSync(process.env.GRANTED_QA_SPEECH_CALLS_PATH, JSON.stringify({ text: request.text, target: request.target }) + "\\n");
         return {
           audioBuffer: Buffer.from(${JSON.stringify(FIXTURE_WAV_BASE64)}, "base64"),
           fileExtension: ".wav",
@@ -137,7 +137,7 @@ module.exports = {
       label: "QA Realtime",
       isConfigured: () => true,
       async createBrowserSession(request) {
-        fs.appendFileSync(process.env.OPENCLAW_QA_REALTIME_CALLS_PATH, JSON.stringify({ tools: request.tools?.map((tool) => tool.name) ?? [] }) + "\\n");
+        fs.appendFileSync(process.env.GRANTED_QA_REALTIME_CALLS_PATH, JSON.stringify({ tools: request.tools?.map((tool) => tool.name) ?? [] }) + "\\n");
         return {
           provider: ${JSON.stringify(FIXTURE_REALTIME_PROVIDER_ID)},
           transport: "provider-websocket",
@@ -331,9 +331,9 @@ async function runWebchatAutoTtsProof(options: ProducerOptions): Promise<string>
       transportBaseUrl: "http://127.0.0.1",
       controlUiEnabled: true,
       runtimeEnvPatch: {
-        OPENCLAW_QA_SPEECH_CALLS_PATH: fixture.speechCallsPath,
-        OPENCLAW_QA_REALTIME_CALLS_PATH: fixture.realtimeCallsPath,
-        OPENCLAW_TTS_PREFS: path.join(fixtureRoot, "tts-prefs.json"),
+        GRANTED_QA_SPEECH_CALLS_PATH: fixture.speechCallsPath,
+        GRANTED_QA_REALTIME_CALLS_PATH: fixture.realtimeCallsPath,
+        GRANTED_TTS_PREFS: path.join(fixtureRoot, "tts-prefs.json"),
       },
       mutateConfig: (config) => {
         const withPlugin = withFixturePlugin(config, fixture.pluginDir);
@@ -499,8 +499,8 @@ async function runActiveTalkAgentRunProof(options: ProducerOptions): Promise<str
       transportBaseUrl: "http://127.0.0.1",
       controlUiEnabled: true,
       runtimeEnvPatch: {
-        OPENCLAW_QA_SPEECH_CALLS_PATH: fixture.speechCallsPath,
-        OPENCLAW_QA_REALTIME_CALLS_PATH: fixture.realtimeCallsPath,
+        GRANTED_QA_SPEECH_CALLS_PATH: fixture.speechCallsPath,
+        GRANTED_QA_REALTIME_CALLS_PATH: fixture.realtimeCallsPath,
       },
       mutateConfig: (config) => {
         const withPlugin = withFixturePlugin(config, fixture.pluginDir);

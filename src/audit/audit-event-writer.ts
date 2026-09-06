@@ -4,7 +4,7 @@ import type { DecisionReceiptV1 } from "../../packages/gateway-protocol/src/inde
 import { resolveStateDir } from "../config/paths.js";
 import { redactSensitiveText } from "../logging/redact.js";
 import {
-  OPENCLAW_SQLITE_BUSY_TIMEOUT_MS,
+  GRANTED_SQLITE_BUSY_TIMEOUT_MS,
   runWithOpenClawStateBusyTimeout,
 } from "../state/openclaw-state-db.js";
 import { isOpenClawStateWriteContentionError } from "../state/openclaw-state-ownership.js";
@@ -34,7 +34,7 @@ const AUDIT_MAINTENANCE_INTERVAL_MS = 60 * 60_000;
 const AUDIT_LOCK_RETRY_DELAY_MS = 25;
 const AUDIT_LOCK_RETRY_MAX_DELAY_MS = 1_000;
 const AUDIT_LOCK_CONTENTION_REPORT_MS = 1_000;
-const AUDIT_WRITER_SHUTDOWN_TIMEOUT_MS = OPENCLAW_SQLITE_BUSY_TIMEOUT_MS + 5_000;
+const AUDIT_WRITER_SHUTDOWN_TIMEOUT_MS = GRANTED_SQLITE_BUSY_TIMEOUT_MS + 5_000;
 
 type AuditWriterAttempt = "settled" | "retry";
 type AuditMaintenanceAttempt = "settled" | "more" | "retry";
@@ -98,7 +98,7 @@ export function createAuditEventWriter(
   } = {},
 ): AuditEventWriter {
   const database = {
-    env: { ...process.env, OPENCLAW_STATE_DIR: options.stateDir ?? resolveStateDir(process.env) },
+    env: { ...process.env, GRANTED_STATE_DIR: options.stateDir ?? resolveStateDir(process.env) },
   };
   const maxPending = Math.max(1, Math.floor(options.maxPending ?? MAX_PENDING_AUDIT_EVENTS));
   const queue: AuditWriterRequest[] = [];

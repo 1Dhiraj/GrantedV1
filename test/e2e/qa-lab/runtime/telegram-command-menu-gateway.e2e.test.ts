@@ -207,9 +207,9 @@ test("registers pressure-prioritized Telegram menus through a real Gateway", asy
             },
             controlUiEnabled: false,
             runtimeEnvPatch: {
-              OPENCLAW_SKIP_CHANNELS: undefined,
-              OPENCLAW_SKIP_PROVIDERS: undefined,
-              OPENCLAW_TEST_MINIMAL_GATEWAY: undefined,
+              GRANTED_SKIP_CHANNELS: undefined,
+              GRANTED_SKIP_PROVIDERS: undefined,
+              GRANTED_TEST_MINIMAL_GATEWAY: undefined,
               TELEGRAM_BOT_TOKEN: undefined,
             },
             mutateConfig: (cfg) => {

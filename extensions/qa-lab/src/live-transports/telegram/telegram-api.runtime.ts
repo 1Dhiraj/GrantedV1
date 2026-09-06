@@ -89,7 +89,7 @@ export function buildTelegramQaConfig(
 }
 
 function resolveTelegramQaReadyTimeoutMs(env: NodeJS.ProcessEnv = process.env) {
-  const raw = env.OPENCLAW_QA_TRANSPORT_READY_TIMEOUT_MS;
+  const raw = env.GRANTED_QA_TRANSPORT_READY_TIMEOUT_MS;
   return raw
     ? (parseStrictPositiveInteger(raw) ?? TELEGRAM_QA_DEFAULT_READY_TIMEOUT_MS)
     : TELEGRAM_QA_DEFAULT_READY_TIMEOUT_MS;

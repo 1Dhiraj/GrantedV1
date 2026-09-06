@@ -53,7 +53,7 @@ describe("doctor canonical session-key repair", () => {
     },
   ])("restores a delivery-proven lowercased $label alias", async (fixture) => {
     await withStateDirEnv("openclaw-doctor-canonical-delivery-alias-", async ({ stateDir }) => {
-      const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+      const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
       const storeTemplate = path.join(stateDir, "agents", "{agentId}", "sessions.json");
       const storePath = resolveSessionStorePathCore(storeTemplate, { agentId: "main", env });
       const cfg = {
@@ -132,7 +132,7 @@ describe("doctor canonical session-key repair", () => {
 
   it("bounds same-database repair batches while collapsing whole-store projections", async () => {
     await withStateDirEnv("openclaw-doctor-canonical-batches-", async ({ stateDir }) => {
-      const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+      const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
       const storeTemplate = path.join(stateDir, "agents", "{agentId}", "sessions.json");
       const storePath = resolveSessionStorePathCore(storeTemplate, { agentId: "main", env });
       const cfg = {
@@ -174,7 +174,7 @@ describe("doctor canonical session-key repair", () => {
 
   it("is a no-op for fresh stores and remains idempotent after repair", async () => {
     await withStateDirEnv("openclaw-doctor-canonical-fresh-", async ({ stateDir }) => {
-      const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+      const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
       const storeTemplate = path.join(stateDir, "agents", "{agentId}", "sessions.json");
       const storePath = resolveSessionStorePathCore(storeTemplate, { agentId: "main", env });
       const cfg = {
@@ -234,7 +234,7 @@ describe("doctor canonical session-key repair", () => {
 
   it("moves a legacy global heartbeat sibling to its agent-qualified key", async () => {
     await withStateDirEnv("openclaw-doctor-canonical-global-heartbeat-", async ({ stateDir }) => {
-      const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+      const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
       const storeTemplate = path.join(stateDir, "agents", "{agentId}", "sessions.json");
       const storePath = resolveSessionStorePathCore(storeTemplate, { agentId: "historian2", env });
       const cfg = {
@@ -283,7 +283,7 @@ describe("doctor canonical session-key repair", () => {
 
   it("preserves in-flight recovery ownership while canonicalizing the main alias", async () => {
     await withStateDirEnv("openclaw-doctor-canonical-recovery-owner-", async ({ stateDir }) => {
-      const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+      const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
       const storeTemplate = path.join(stateDir, "agents", "{agentId}", "sessions.json");
       const storePath = resolveSessionStorePathCore(storeTemplate, { agentId: "main", env });
       const cfg = {
@@ -342,7 +342,7 @@ describe("doctor canonical session-key repair", () => {
 
   it("moves an empty stored key to the owning agent main key", async () => {
     await withStateDirEnv("openclaw-doctor-canonical-empty-key-", async ({ stateDir }) => {
-      const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+      const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
       const storeTemplate = path.join(stateDir, "agents", "{agentId}", "sessions.json");
       const storePath = resolveSessionStorePathCore(storeTemplate, { agentId: "main", env });
       const cfg = {
@@ -410,7 +410,7 @@ describe("doctor canonical session-key repair", () => {
 
   it("rehomes matching in-store transcript generations under the canonical key", async () => {
     await withStateDirEnv("openclaw-doctor-canonical-rehome-", async ({ stateDir }) => {
-      const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+      const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
       const storeTemplate = path.join(stateDir, "agents", "{agentId}", "sessions.json");
       const storePath = resolveSessionStorePathCore(storeTemplate, { agentId: "main", env });
       const cfg = {
@@ -456,7 +456,7 @@ describe("doctor canonical session-key repair", () => {
 
   it("replaces same-store membership from the selected alias winner", async () => {
     await withStateDirEnv("openclaw-doctor-canonical-members-", async ({ stateDir }) => {
-      const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+      const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
       const storeTemplate = path.join(stateDir, "agents", "{agentId}", "sessions.json");
       const storePath = resolveSessionStorePathCore(storeTemplate, { agentId: "main", env });
       const cfg = {
@@ -519,7 +519,7 @@ describe("doctor canonical session-key repair", () => {
 
   it("rehomes suggestions from a stale same-store alias", async () => {
     await withStateDirEnv("openclaw-doctor-canonical-suggestions-", async ({ stateDir }) => {
-      const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+      const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
       const storeTemplate = path.join(stateDir, "agents", "{agentId}", "sessions.json");
       const storePath = resolveSessionStorePathCore(storeTemplate, { agentId: "main", env });
       const cfg = {
@@ -567,7 +567,7 @@ describe("doctor canonical session-key repair", () => {
 
   it("keeps sentinel rows scoped to their owning agent stores", async () => {
     await withStateDirEnv("openclaw-doctor-canonical-sentinels-", async ({ stateDir }) => {
-      const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+      const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
       const storeTemplate = path.join(stateDir, "agents", "{agentId}", "sessions.json");
       const mainStore = resolveSessionStorePathCore(storeTemplate, { agentId: "main", env });
       const opsStore = resolveSessionStorePathCore(storeTemplate, { agentId: "ops", env });
@@ -620,7 +620,7 @@ describe("doctor canonical session-key repair", () => {
 
   it("normalizes persisted lineage keys before runtime SQL filtering", async () => {
     await withStateDirEnv("openclaw-doctor-canonical-lineage-", async ({ stateDir }) => {
-      const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+      const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
       const storeTemplate = path.join(stateDir, "agents", "{agentId}", "sessions.json");
       const storePath = resolveSessionStorePathCore(storeTemplate, { agentId: "main", env });
       const cfg = {
@@ -719,7 +719,7 @@ describe("doctor canonical session-key repair", () => {
 
   it("moves a lone alias row to its canonical key", async () => {
     await withStateDirEnv("openclaw-doctor-canonical-single-alias-", async ({ stateDir }) => {
-      const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+      const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
       const storeTemplate = path.join(stateDir, "agents", "{agentId}", "sessions.json");
       const storePath = resolveSessionStorePathCore(storeTemplate, { agentId: "main", env });
       const cfg = {
@@ -866,7 +866,7 @@ describe("doctor canonical session-key repair", () => {
 
   it("moves a lone canonical row out of the wrong agent database", async () => {
     await withStateDirEnv("openclaw-doctor-canonical-wrong-store-", async ({ stateDir }) => {
-      const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+      const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
       const storeTemplate = path.join(stateDir, "agents", "{agentId}", "sessions.json");
       const mainStore = resolveSessionStorePathCore(storeTemplate, { agentId: "main", env });
       const opsStore = resolveSessionStorePathCore(storeTemplate, { agentId: "ops", env });
@@ -957,7 +957,7 @@ describe("doctor canonical session-key repair", () => {
 
   it("keeps canonical destination history when cross-store timestamps tie", async () => {
     await withStateDirEnv("openclaw-doctor-canonical-tied-stores-", async ({ stateDir }) => {
-      const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+      const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
       const storeTemplate = path.join(stateDir, "agents", "{agentId}", "sessions.json");
       const mainStore = resolveSessionStorePathCore(storeTemplate, { agentId: "main", env });
       const opsStore = resolveSessionStorePathCore(storeTemplate, { agentId: "ops", env });

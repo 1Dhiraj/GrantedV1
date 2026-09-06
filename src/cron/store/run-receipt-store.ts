@@ -21,7 +21,7 @@ import {
   runOpenClawStateWriteTransaction,
   type OpenClawStateDatabaseOptions,
 } from "../../state/openclaw-state-db.js";
-import { OPENCLAW_STATE_SCHEMA_SQL } from "../../state/openclaw-state-schema.js";
+import { GRANTED_STATE_SCHEMA_SQL } from "../../state/openclaw-state-schema.js";
 import { resolveCronJobConfigRevision } from "../config-revision.js";
 import type { CronJob } from "../types.js";
 import { cronStoreKey } from "./key.js";
@@ -150,14 +150,14 @@ export class CronRunReceiptRevisionError extends Error {
 }
 
 function ensureCronRunReceiptSchema(database: DatabaseSync): void {
-  const start = OPENCLAW_STATE_SCHEMA_SQL.indexOf(CRON_RUN_RECEIPT_SCHEMA_START);
-  const endMarker = OPENCLAW_STATE_SCHEMA_SQL.indexOf(CRON_RUN_RECEIPT_SCHEMA_END, start);
+  const start = GRANTED_STATE_SCHEMA_SQL.indexOf(CRON_RUN_RECEIPT_SCHEMA_START);
+  const endMarker = GRANTED_STATE_SCHEMA_SQL.indexOf(CRON_RUN_RECEIPT_SCHEMA_END, start);
   if (start < 0 || endMarker < start) {
     throw new Error("OpenClaw cron run receipt schema marker is missing.");
   }
   // sqlite-allow-raw -- Canonical feature-local additive DDL only.
   database.exec(
-    OPENCLAW_STATE_SCHEMA_SQL.slice(start, endMarker + CRON_RUN_RECEIPT_SCHEMA_END.length),
+    GRANTED_STATE_SCHEMA_SQL.slice(start, endMarker + CRON_RUN_RECEIPT_SCHEMA_END.length),
   );
 }
 

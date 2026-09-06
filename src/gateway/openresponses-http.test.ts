@@ -140,9 +140,9 @@ async function startSharedSecretServer(
 }
 
 async function writeGatewayConfig(config: Record<string, unknown>) {
-  const configPath = process.env.OPENCLAW_CONFIG_PATH;
+  const configPath = process.env.GRANTED_CONFIG_PATH;
   if (!configPath) {
-    throw new Error("OPENCLAW_CONFIG_PATH is required for gateway config tests");
+    throw new Error("GRANTED_CONFIG_PATH is required for gateway config tests");
   }
   await fs.mkdir(path.dirname(configPath), { recursive: true });
   await fs.writeFile(configPath, JSON.stringify(config, null, 2), "utf-8");
@@ -2187,7 +2187,7 @@ describe("OpenResponses HTTP API (e2e)", () => {
 
   it("blocks a view-capped operator from mutating another operator's response session", async () => {
     await withEnvAsync(
-      { OPENCLAW_GATEWAY_TOKEN: undefined, OPENCLAW_GATEWAY_PASSWORD: undefined },
+      { GRANTED_GATEWAY_TOKEN: undefined, GRANTED_GATEWAY_PASSWORD: undefined },
       async () => {
         const port = await getGatewayTestPort();
         const { startGatewayServer } = await import("./server.js");
@@ -2270,7 +2270,7 @@ describe("OpenResponses HTTP API (e2e)", () => {
 
   it("preserves verified trusted-proxy owner identity for both response modes", async () => {
     await withEnvAsync(
-      { OPENCLAW_GATEWAY_TOKEN: undefined, OPENCLAW_GATEWAY_PASSWORD: undefined },
+      { GRANTED_GATEWAY_TOKEN: undefined, GRANTED_GATEWAY_PASSWORD: undefined },
       async () => {
         const port = await getGatewayTestPort();
         const { startGatewayServer } = await import("./server.js");

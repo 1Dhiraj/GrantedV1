@@ -34,7 +34,7 @@ declare const chrome: {
 };
 
 const runE2E =
-  process.env.OPENCLAW_BROWSER_EXTENSION_E2E === "1" &&
+  process.env.GRANTED_BROWSER_EXTENSION_E2E === "1" &&
   (process.platform === "linux" || process.platform === "darwin");
 const cleanups: Array<() => Promise<void>> = [];
 const STORE_ORIGIN = "chrome-extension://kcdjddhmeafeomebliikmbpblkmkfoig/";
@@ -195,9 +195,9 @@ describe.runIf(runE2E)("Chrome native bootstrap Chromium E2E", () => {
     );
     await withEnvAsync(
       {
-        OPENCLAW_STATE_DIR: stateDir,
-        OPENCLAW_CONFIG_PATH: configPath,
-        OPENCLAW_GATEWAY_PORT: String(gatewayPort),
+        GRANTED_STATE_DIR: stateDir,
+        GRANTED_CONFIG_PATH: configPath,
+        GRANTED_GATEWAY_PORT: String(gatewayPort),
       },
       async () => {
         const extensionSource = path.dirname(fileURLToPath(import.meta.url));
@@ -214,9 +214,9 @@ describe.runIf(runE2E)("Chrome native bootstrap Chromium E2E", () => {
           env: {
             HOME: homeDir,
             ...chromeRootEnv,
-            OPENCLAW_STATE_DIR: stateDir,
-            OPENCLAW_CONFIG_PATH: configPath,
-            OPENCLAW_GATEWAY_PORT: String(gatewayPort),
+            GRANTED_STATE_DIR: stateDir,
+            GRANTED_CONFIG_PATH: configPath,
+            GRANTED_GATEWAY_PORT: String(gatewayPort),
           },
           ...launchFixture,
         };

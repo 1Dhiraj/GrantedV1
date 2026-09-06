@@ -6,7 +6,7 @@ import { createChatFlowE2eSuite, installMockGateway } from "./chat-flow.test-sup
 const suite = createChatFlowE2eSuite();
 
 async function captureHistoryIssuanceProof(page: Page, name: string): Promise<void> {
-  const artifactDir = process.env.OPENCLAW_UI_E2E_ARTIFACT_DIR?.trim()
+  const artifactDir = process.env.GRANTED_UI_E2E_ARTIFACT_DIR?.trim()
     ? suite.artifactDir
     : undefined;
   if (!artifactDir) {

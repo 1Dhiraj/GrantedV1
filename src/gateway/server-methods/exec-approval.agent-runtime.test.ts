@@ -20,7 +20,7 @@ const tempDirs = useAutoCleanupTempDirTracker(afterEach);
 
 function databaseOptions(): OpenClawStateDatabaseOptions {
   const stateDir = fs.realpathSync(tempDirs.make("exec-approval-id-"));
-  return { env: { ...process.env, OPENCLAW_STATE_DIR: stateDir } };
+  return { env: { ...process.env, GRANTED_STATE_DIR: stateDir } };
 }
 
 function identity(enabled: boolean): AgentRuntimeIdentity {

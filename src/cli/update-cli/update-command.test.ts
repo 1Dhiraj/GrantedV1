@@ -152,8 +152,8 @@ describe("resolveUpdatedGatewayRestartPort", () => {
     expect(
       await resolveUpdatedGatewayRestartPort({
         config: { gateway: { port: 19000 } } as never,
-        processEnv: { OPENCLAW_GATEWAY_PORT: "19001" },
-        serviceEnv: { OPENCLAW_GATEWAY_PORT: "19002" },
+        processEnv: { GRANTED_GATEWAY_PORT: "19001" },
+        serviceEnv: { GRANTED_GATEWAY_PORT: "19002" },
       }),
     ).toBe(19002);
   });
@@ -173,8 +173,8 @@ describe("resolvePostUpdateServiceStateReadEnv", () => {
   it.each(["git", "npm", "pnpm", "bun"] as const)(
     "keeps %s restart preparation anchored to the pre-update service env",
     (updateMode) => {
-      const processEnv = { OPENCLAW_STATE_DIR: "/source/state" };
-      const preManagedServiceEnv = { OPENCLAW_STATE_DIR: "/managed/state" };
+      const processEnv = { GRANTED_STATE_DIR: "/source/state" };
+      const preManagedServiceEnv = { GRANTED_STATE_DIR: "/managed/state" };
       expect(
         resolvePostUpdateServiceStateReadEnv({ updateMode, processEnv, preManagedServiceEnv }),
       ).toEqual(preManagedServiceEnv);
@@ -182,7 +182,7 @@ describe("resolvePostUpdateServiceStateReadEnv", () => {
   );
 
   it("uses the caller environment when no managed service context was captured", () => {
-    const processEnv = { OPENCLAW_STATE_DIR: "/source/state" };
+    const processEnv = { GRANTED_STATE_DIR: "/source/state" };
     expect(resolvePostUpdateServiceStateReadEnv({ updateMode: "git", processEnv })).toEqual(
       processEnv,
     );
@@ -195,46 +195,46 @@ describe("resolveUpdateTargetEnv", () => {
       invocationCwd: "/srv/openclaw",
       baseEnv: {
         PATH: "/bin",
-        OPENCLAW_SERVICE_REPAIR_POLICY: "external",
-        OPENCLAW_STATE_DIR: "/wrong/state",
-        OPENCLAW_CONFIG_PATH: "/wrong/openclaw.json",
-        OPENCLAW_PROFILE: "wrong",
-        OPENCLAW_SYSTEMD_UNIT: "wrong.service",
+        GRANTED_SERVICE_REPAIR_POLICY: "external",
+        GRANTED_STATE_DIR: "/wrong/state",
+        GRANTED_CONFIG_PATH: "/wrong/openclaw.json",
+        GRANTED_PROFILE: "wrong",
+        GRANTED_SYSTEMD_UNIT: "wrong.service",
       },
       serviceEnv: {
-        OPENCLAW_STATE_DIR: "daemon-state",
-        OPENCLAW_CONFIG_PATH: "daemon-state/openclaw.json",
-        OPENCLAW_PROFILE: "work",
-        OPENCLAW_SYSTEMD_UNIT: "openclaw-gateway-work.service",
+        GRANTED_STATE_DIR: "daemon-state",
+        GRANTED_CONFIG_PATH: "daemon-state/openclaw.json",
+        GRANTED_PROFILE: "work",
+        GRANTED_SYSTEMD_UNIT: "openclaw-gateway-work.service",
       },
     });
 
     expect(env.PATH).toBe("/bin");
-    expect(env.OPENCLAW_SERVICE_REPAIR_POLICY).toBe("external");
+    expect(env.GRANTED_SERVICE_REPAIR_POLICY).toBe("external");
     expect(env.NODE_DISABLE_COMPILE_CACHE).toBe("1");
-    expect(env.OPENCLAW_STATE_DIR).toBe(path.join("/srv/openclaw", "daemon-state"));
-    expect(env.OPENCLAW_CONFIG_PATH).toBe(
+    expect(env.GRANTED_STATE_DIR).toBe(path.join("/srv/openclaw", "daemon-state"));
+    expect(env.GRANTED_CONFIG_PATH).toBe(
       path.join("/srv/openclaw", "daemon-state", "openclaw.json"),
     );
-    expect(env.OPENCLAW_PROFILE).toBe("work");
-    expect(env.OPENCLAW_SYSTEMD_UNIT).toBe("openclaw-gateway-work.service");
+    expect(env.GRANTED_PROFILE).toBe("work");
+    expect(env.GRANTED_SYSTEMD_UNIT).toBe("openclaw-gateway-work.service");
   });
 
   it("keeps the caller env when no managed service env is available", () => {
     const env = resolveUpdateTargetEnv({
       baseEnv: {
         PATH: "/bin",
-        OPENCLAW_SERVICE_REPAIR_POLICY: "external",
-        OPENCLAW_STATE_DIR: "/caller/state",
-        OPENCLAW_PROFILE: "caller",
+        GRANTED_SERVICE_REPAIR_POLICY: "external",
+        GRANTED_STATE_DIR: "/caller/state",
+        GRANTED_PROFILE: "caller",
       },
     });
 
     expect(env.PATH).toBe("/bin");
-    expect(env.OPENCLAW_SERVICE_REPAIR_POLICY).toBe("external");
+    expect(env.GRANTED_SERVICE_REPAIR_POLICY).toBe("external");
     expect(env.NODE_DISABLE_COMPILE_CACHE).toBe("1");
-    expect(env.OPENCLAW_STATE_DIR).toBe("/caller/state");
-    expect(env.OPENCLAW_PROFILE).toBe("caller");
+    expect(env.GRANTED_STATE_DIR).toBe("/caller/state");
+    expect(env.GRANTED_PROFILE).toBe("caller");
   });
 });
 
@@ -243,18 +243,18 @@ describe("resolveUpdatedInstallCommandEnv", () => {
     const env = resolveUpdatedInstallCommandEnv({
       invocationCwd: "/srv/openclaw",
       processEnv: {
-        OPENCLAW_GATEWAY_AUTH_TOKEN: "runtime-token",
-        OPENCLAW_STATE_DIR: "/wrong/state",
+        GRANTED_GATEWAY_AUTH_TOKEN: "runtime-token",
+        GRANTED_STATE_DIR: "/wrong/state",
         PATH: "/caller/bin",
       },
       serviceEnv: {
-        OPENCLAW_STATE_DIR: "daemon-state",
+        GRANTED_STATE_DIR: "daemon-state",
         PATH: "/daemon/bin",
       },
     });
 
-    expect(env.OPENCLAW_GATEWAY_AUTH_TOKEN).toBe("runtime-token");
-    expect(env.OPENCLAW_STATE_DIR).toBe(path.join("/srv/openclaw", "daemon-state"));
+    expect(env.GRANTED_GATEWAY_AUTH_TOKEN).toBe("runtime-token");
+    expect(env.GRANTED_STATE_DIR).toBe(path.join("/srv/openclaw", "daemon-state"));
     expect(env.PATH).toBe("/daemon/bin");
     expect(env.NODE_DISABLE_COMPILE_CACHE).toBe("1");
     expect(resolveUpdatedInstallCommandEnv({ processEnv: env })).toEqual(env);
@@ -264,29 +264,29 @@ describe("resolveUpdatedInstallCommandEnv", () => {
     const env = resolveOwnedManagedUpdateEnv({
       processEnv: {
         HOME: "/home/operator",
-        OPENCLAW_HOME: "/home/operator/openclaw-home",
-        OPENCLAW_PROFILE: "personal",
-        OPENCLAW_STATE_DIR: "/home/operator/.openclaw-personal",
-        OPENCLAW_CONFIG_PATH: "/home/operator/.openclaw-personal/openclaw.json",
-        OPENCLAW_GATEWAY_PORT: "19111",
+        GRANTED_HOME: "/home/operator/openclaw-home",
+        GRANTED_PROFILE: "personal",
+        GRANTED_STATE_DIR: "/home/operator/.openclaw-personal",
+        GRANTED_CONFIG_PATH: "/home/operator/.openclaw-personal/openclaw.json",
+        GRANTED_GATEWAY_PORT: "19111",
       },
       serviceEnv: {
         HOME: "/home/operator",
-        OPENCLAW_HOME: "/home/operator/openclaw-home",
-        OPENCLAW_PROFILE: "personal",
-        OPENCLAW_STATE_DIR: "/home/operator/.openclaw-personal",
-        OPENCLAW_CONFIG_PATH: "/effective/openclaw.json",
-        OPENCLAW_GATEWAY_PORT: "19111",
+        GRANTED_HOME: "/home/operator/openclaw-home",
+        GRANTED_PROFILE: "personal",
+        GRANTED_STATE_DIR: "/home/operator/.openclaw-personal",
+        GRANTED_CONFIG_PATH: "/effective/openclaw.json",
+        GRANTED_GATEWAY_PORT: "19111",
       },
-      serviceDefinitionEnv: { OPENCLAW_CONFIG_PATH: "/managed/openclaw.json" },
+      serviceDefinitionEnv: { GRANTED_CONFIG_PATH: "/managed/openclaw.json" },
     });
 
     expect(env.HOME).toBe("/home/operator");
-    expect(env.OPENCLAW_HOME).toBeUndefined();
-    expect(env.OPENCLAW_PROFILE).toBeUndefined();
-    expect(env.OPENCLAW_STATE_DIR).toBeUndefined();
-    expect(env.OPENCLAW_CONFIG_PATH).toBe("/effective/openclaw.json");
-    expect(env.OPENCLAW_GATEWAY_PORT).toBeUndefined();
+    expect(env.GRANTED_HOME).toBeUndefined();
+    expect(env.GRANTED_PROFILE).toBeUndefined();
+    expect(env.GRANTED_STATE_DIR).toBeUndefined();
+    expect(env.GRANTED_CONFIG_PATH).toBe("/effective/openclaw.json");
+    expect(env.GRANTED_GATEWAY_PORT).toBeUndefined();
   });
 });
 
@@ -676,8 +676,8 @@ describe("recoverInstalledLaunchAgentAfterUpdate", () => {
     "reports installed-but-not-loaded LaunchAgent recovery: %s",
     async (outcome) => {
       const service = {} as never;
-      const serviceEnv = { OPENCLAW_PROFILE: "stomme" };
-      const recoveredEnv = { ...serviceEnv, OPENCLAW_PORT: "18790" };
+      const serviceEnv = { GRANTED_PROFILE: "stomme" };
+      const recoveredEnv = { ...serviceEnv, GRANTED_PORT: "18790" };
       const readState = vi.fn(async () => ({
         installed: true,
         loadState: { status: "not-loaded" },
@@ -743,7 +743,7 @@ describe("recoverInstalledLaunchAgentAfterUpdate", () => {
       installed: true,
       loadState: { status: "loaded" },
       running: true,
-      env: { OPENCLAW_PROFILE: "stomme" } as NodeJS.ProcessEnv,
+      env: { GRANTED_PROFILE: "stomme" } as NodeJS.ProcessEnv,
       command: null,
       runtime: { status: "running" },
     }));
@@ -796,7 +796,7 @@ describe("recoverLaunchAgentAndRecheckGatewayHealth", () => {
         port: 18790,
         expectedVersion: "2026.5.3",
         expectedBuildId: "new-build",
-        env: { OPENCLAW_PROFILE: "stomme", OPENCLAW_PORT: "18790" },
+        env: { GRANTED_PROFILE: "stomme", GRANTED_PORT: "18790" },
         deps: { recoverLaunchAgent, waitForHealthy },
       }),
     ).resolves.toEqual({
@@ -814,7 +814,7 @@ describe("recoverLaunchAgentAndRecheckGatewayHealth", () => {
       port: 18790,
       expectedVersion: "2026.5.3",
       expectedBuildId: "new-build",
-      env: { OPENCLAW_PROFILE: "stomme", OPENCLAW_PORT: "18790" },
+      env: { GRANTED_PROFILE: "stomme", GRANTED_PORT: "18790" },
       supervisorKeepsAlive: true,
     });
   });
@@ -863,7 +863,7 @@ describe("hasLoadedLaunchdKeepAliveSupervisor", () => {
     await expect(
       updateCommandServiceTesting.hasLoadedLaunchdKeepAliveSupervisor({
         service,
-        env: { OPENCLAW_PROFILE: "work" },
+        env: { GRANTED_PROFILE: "work" },
       }),
     ).resolves.toBe(false);
     isLoaded.mockResolvedValue(true);

@@ -8,7 +8,7 @@ describe("gateway startup trace", () => {
   });
 
   it("keeps pre-bootstrap and startup phases on one elapsed-time origin", async () => {
-    vi.stubEnv("OPENCLAW_GATEWAY_STARTUP_TRACE", "1");
+    vi.stubEnv("GRANTED_GATEWAY_STARTUP_TRACE", "1");
     const info = vi.fn();
     const trace = createGatewayStartupTrace(
       { info } as unknown as Parameters<typeof createGatewayStartupTrace>[0],

@@ -37,7 +37,7 @@ describe("scanNodeHostedSkills", () => {
     const stateDir = createRoot();
     const skillDir = path.join(stateDir, "skills", "profile-skill");
     writeSkill(path.join(stateDir, "skills"), "profile-skill", "Profile skill");
-    vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
+    vi.stubEnv("GRANTED_STATE_DIR", stateDir);
 
     expect(resolveNodeHostedSkillDirectory("node://node-1/skills/profile-skill", "node-1")).toBe(
       fs.realpathSync(skillDir),
@@ -61,7 +61,7 @@ describe("scanNodeHostedSkills", () => {
   it("uses the active OpenClaw profile skills directory by default", () => {
     const stateDir = createRoot();
     const content = writeSkill(path.join(stateDir, "skills"), "profile-skill", "Profile skill");
-    vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
+    vi.stubEnv("GRANTED_STATE_DIR", stateDir);
 
     expect(scanNodeHostedSkills()).toEqual([
       { name: "profile-skill", description: "Profile skill", content },

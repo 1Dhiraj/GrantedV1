@@ -253,8 +253,8 @@ function resolveChannelMcpInvocation(params: {
         [
           `import(${JSON.stringify(channelServerUrl)})`,
           `.then((module) => module.serveOpenClawChannelMcp({`,
-          `gatewayUrl: process.env.OPENCLAW_QA_GATEWAY_URL,`,
-          `gatewayToken: process.env.OPENCLAW_QA_GATEWAY_TOKEN,`,
+          `gatewayUrl: process.env.GRANTED_QA_GATEWAY_URL,`,
+          `gatewayToken: process.env.GRANTED_QA_GATEWAY_TOKEN,`,
           `claudeChannelMode: "off",`,
           `verbose: true`,
           `}))`,
@@ -263,8 +263,8 @@ function resolveChannelMcpInvocation(params: {
       command: process.execPath,
       cwd: params.repoRoot,
       envPatch: {
-        OPENCLAW_QA_GATEWAY_TOKEN: params.gatewayToken,
-        OPENCLAW_QA_GATEWAY_URL: params.gatewayUrl,
+        GRANTED_QA_GATEWAY_TOKEN: params.gatewayToken,
+        GRANTED_QA_GATEWAY_URL: params.gatewayUrl,
       },
     };
   }
@@ -290,10 +290,10 @@ function resolvePluginToolsMcpInvocation(params: {
     cwd: params.repoRoot,
     env: {
       HOME: params.homeDir,
-      OPENCLAW_CONFIG_PATH: params.configPath,
-      OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-      OPENCLAW_HOME: params.homeDir,
-      OPENCLAW_STATE_DIR: params.stateDir,
+      GRANTED_CONFIG_PATH: params.configPath,
+      GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+      GRANTED_HOME: params.homeDir,
+      GRANTED_STATE_DIR: params.stateDir,
     },
   };
 }
@@ -490,9 +490,9 @@ async function connectChannelMcpClient(params: {
     env: {
       ...process.env,
       ...mcpInvocation.envPatch,
-      OPENCLAW_ALLOW_INSECURE_PRIVATE_WS: "1",
-      OPENCLAW_LOG_LEVEL: "debug",
-      OPENCLAW_STATE_DIR: tempState.stateDir,
+      GRANTED_ALLOW_INSECURE_PRIVATE_WS: "1",
+      GRANTED_LOG_LEVEL: "debug",
+      GRANTED_STATE_DIR: tempState.stateDir,
     },
     stderr: "pipe",
   });
@@ -556,7 +556,7 @@ async function approvePendingMcpPairing(gateway: QaGatewayChild) {
 async function runGatewaySmokeProof(options: ProducerOptions): Promise<string> {
   const gatewayOwner = createQaGatewayChild();
   let tempRoot: string | undefined;
-  const keepTemp = process.env.OPENCLAW_QA_KEEP_TEMP === "1";
+  const keepTemp = process.env.GRANTED_QA_KEEP_TEMP === "1";
   let details = "";
   try {
     const gateway = await gatewayOwner.start({
@@ -599,7 +599,7 @@ async function runMcpGatewayStartupRetryProof(options: ProducerOptions): Promise
   const gatewayOwner = createQaGatewayChild();
   let gateway: QaGatewayChild | undefined;
   let beforeSpawnAt = 0;
-  const keepTemp = process.env.OPENCLAW_QA_KEEP_TEMP === "1";
+  const keepTemp = process.env.GRANTED_QA_KEEP_TEMP === "1";
   let details = "";
   let proofError: Error | undefined;
   try {

@@ -69,8 +69,8 @@ describe("stale managed bundled plugin retirement", () => {
       { stateDir },
     );
     const env = {
-      OPENCLAW_BUNDLED_PLUGINS_DIR: undefined,
-      OPENCLAW_VERSION: "2026.4.25",
+      GRANTED_BUNDLED_PLUGINS_DIR: undefined,
+      GRANTED_VERSION: "2026.4.25",
       VITEST: "true",
     };
 

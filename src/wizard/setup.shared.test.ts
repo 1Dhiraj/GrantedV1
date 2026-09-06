@@ -138,14 +138,14 @@ describe("resolveQuickstartGatewayDefaults", () => {
   it("maps an explicit env-backed token to the canonical SecretRef", () => {
     expect(
       resolveQuickstartGatewayDefaults(storedConfig, {
-        gatewayTokenRefEnv: " OPENCLAW_GATEWAY_TOKEN ",
+        gatewayTokenRefEnv: " GRANTED_GATEWAY_TOKEN ",
       }),
     ).toMatchObject({
       authMode: "token",
       token: {
         source: "env",
         provider: "default",
-        id: "OPENCLAW_GATEWAY_TOKEN",
+        id: "GRANTED_GATEWAY_TOKEN",
       },
     });
   });

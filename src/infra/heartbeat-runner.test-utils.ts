@@ -143,10 +143,10 @@ export async function withTempHeartbeatSandbox<T>(
   const storePath = path.join(tmpDir, "sessions.json");
   const replySpy = createHeartbeatReplySpy();
   const previousEnv = new Map<string, string | undefined>();
-  const envNames = new Set(["OPENCLAW_STATE_DIR", ...(options?.unsetEnvVars ?? [])]);
+  const envNames = new Set(["GRANTED_STATE_DIR", ...(options?.unsetEnvVars ?? [])]);
   for (const envName of envNames) {
     previousEnv.set(envName, process.env[envName]);
-    process.env[envName] = envName === "OPENCLAW_STATE_DIR" ? path.join(tmpDir, "state") : "";
+    process.env[envName] = envName === "GRANTED_STATE_DIR" ? path.join(tmpDir, "state") : "";
   }
   await seedHeartbeatScratchForTest({ content: "- Check status\n" });
   try {

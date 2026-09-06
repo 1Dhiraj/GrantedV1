@@ -128,7 +128,7 @@ describe("plugin lifecycle matrix probe", () => {
     expect(() =>
       assertUninstalled("lifecycle-claw", {
         HOME: dir,
-        OPENCLAW_CONFIG_PATH: configFile,
+        GRANTED_CONFIG_PATH: configFile,
       }),
     ).toThrow(`failed to read JSON from ${configFile}`);
   });
@@ -231,7 +231,7 @@ describe("plugin lifecycle matrix probe", () => {
         "import { writeFileSync } from 'node:fs';",
         `const child = spawn(process.execPath, ['-e', ${JSON.stringify(childScript)}], { stdio: 'ignore' });`,
         "child.unref();",
-        "writeFileSync(process.env.OPENCLAW_TEST_DESCENDANT_PID, String(child.pid));",
+        "writeFileSync(process.env.GRANTED_TEST_DESCENDANT_PID, String(child.pid));",
         "process.on('SIGTERM', () => process.exit(0));",
         "setInterval(() => {}, 1000);",
       ].join("\n");
@@ -240,7 +240,7 @@ describe("plugin lifecycle matrix probe", () => {
         process.execPath,
         ["--input-type=module", "-e", parentScript],
         {
-          env: { ...process.env, OPENCLAW_TEST_DESCENDANT_PID: descendantPidPath },
+          env: { ...process.env, GRANTED_TEST_DESCENDANT_PID: descendantPidPath },
           timeoutKillGraceMs: 100,
           timeoutMs: 500,
         },

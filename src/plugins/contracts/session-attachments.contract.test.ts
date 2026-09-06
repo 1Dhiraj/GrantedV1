@@ -63,8 +63,8 @@ async function withSessionStore(
   const storePath = path.join(stateDir, "sessions.json");
   const filePath = path.join(stateDir, "x.txt");
   await fs.writeFile(filePath, "x", "utf8");
-  const previousStateDir = process.env.OPENCLAW_STATE_DIR;
-  process.env.OPENCLAW_STATE_DIR = stateDir;
+  const previousStateDir = process.env.GRANTED_STATE_DIR;
+  process.env.GRANTED_STATE_DIR = stateDir;
   try {
     await withTempConfig({
       cfg: { session: { store: storePath } },
@@ -72,9 +72,9 @@ async function withSessionStore(
     });
   } finally {
     if (previousStateDir === undefined) {
-      delete process.env.OPENCLAW_STATE_DIR;
+      delete process.env.GRANTED_STATE_DIR;
     } else {
-      process.env.OPENCLAW_STATE_DIR = previousStateDir;
+      process.env.GRANTED_STATE_DIR = previousStateDir;
     }
     await fs.rm(stateDir, { recursive: true, force: true });
   }

@@ -84,7 +84,7 @@ function trustedUpgradeSurvivorCommand(
 ): string {
   const prefix = envPrefix ? `${envPrefix} ` : "";
   const prelude = shellPrelude ? `${shellPrelude}; ` : "";
-  return `OPENCLAW_DOCKER_E2E_REPO_ROOT="\${OPENCLAW_DOCKER_E2E_REPO_ROOT:-$PWD}" ${prefix}OPENCLAW_SKIP_DOCKER_BUILD=1 bash -c '${prelude}harness="\${OPENCLAW_DOCKER_E2E_TRUSTED_HARNESS_DIR:-${harnessDir}}"; OPENCLAW_LIVE_DOCKER_REPO_ROOT="\${OPENCLAW_DOCKER_E2E_REPO_ROOT:-$PWD}" bash "$harness/scripts/e2e/upgrade-survivor-docker.sh"'`;
+  return `GRANTED_DOCKER_E2E_REPO_ROOT="\${GRANTED_DOCKER_E2E_REPO_ROOT:-$PWD}" ${prefix}GRANTED_SKIP_DOCKER_BUILD=1 bash -c '${prelude}harness="\${GRANTED_DOCKER_E2E_TRUSTED_HARNESS_DIR:-${harnessDir}}"; GRANTED_LIVE_DOCKER_REPO_ROOT="\${GRANTED_DOCKER_E2E_REPO_ROOT:-$PWD}" bash "$harness/scripts/e2e/upgrade-survivor-docker.sh"'`;
 }
 
 function publishedUpgradeSurvivorLane(
@@ -93,11 +93,11 @@ function publishedUpgradeSurvivorLane(
   scenario?: string,
 ): ReturnType<typeof summarizeLane> {
   return {
-    command: `OPENCLAW_UPGRADE_SURVIVOR_ARTIFACT_DIR="$PWD/.artifacts/upgrade-survivor/${name}" OPENCLAW_UPGRADE_SURVIVOR_BASELINE_SPEC='${baselineSpec}' ${
-      scenario ? `OPENCLAW_UPGRADE_SURVIVOR_SCENARIO='${scenario}' ` : ""
+    command: `GRANTED_UPGRADE_SURVIVOR_ARTIFACT_DIR="$PWD/.artifacts/upgrade-survivor/${name}" GRANTED_UPGRADE_SURVIVOR_BASELINE_SPEC='${baselineSpec}' ${
+      scenario ? `GRANTED_UPGRADE_SURVIVOR_SCENARIO='${scenario}' ` : ""
     }${trustedUpgradeSurvivorCommand(
-      "OPENCLAW_UPGRADE_SURVIVOR_PUBLISHED_BASELINE=1",
-      'export OPENCLAW_UPGRADE_SURVIVOR_BASELINE_SPEC="${OPENCLAW_UPGRADE_SURVIVOR_BASELINE_SPEC:-openclaw@latest}"; export OPENCLAW_UPGRADE_SURVIVOR_DOCKER_RUN_TIMEOUT="${OPENCLAW_UPGRADE_SURVIVOR_DOCKER_RUN_TIMEOUT:-1500s}"',
+      "GRANTED_UPGRADE_SURVIVOR_PUBLISHED_BASELINE=1",
+      'export GRANTED_UPGRADE_SURVIVOR_BASELINE_SPEC="${GRANTED_UPGRADE_SURVIVOR_BASELINE_SPEC:-openclaw@latest}"; export GRANTED_UPGRADE_SURVIVOR_DOCKER_RUN_TIMEOUT="${GRANTED_UPGRADE_SURVIVOR_DOCKER_RUN_TIMEOUT:-1500s}"',
     )}`,
     imageKind: "bare",
     live: false,
@@ -111,9 +111,9 @@ function publishedUpgradeSurvivorLane(
 
 function updateMigrationLane(name: string, baselineSpec: string): ReturnType<typeof summarizeLane> {
   return {
-    command: `OPENCLAW_UPGRADE_SURVIVOR_ARTIFACT_DIR="$PWD/.artifacts/upgrade-survivor/${name}" OPENCLAW_UPGRADE_SURVIVOR_BASELINE_SPEC='${baselineSpec}' OPENCLAW_UPGRADE_SURVIVOR_SCENARIO='plugin-deps-cleanup' ${trustedUpgradeSurvivorCommand(
-      "OPENCLAW_UPGRADE_SURVIVOR_PUBLISHED_BASELINE=1",
-      'export OPENCLAW_UPGRADE_SURVIVOR_BASELINE_SPEC="${OPENCLAW_UPGRADE_SURVIVOR_BASELINE_SPEC:-openclaw@latest}"; export OPENCLAW_UPGRADE_SURVIVOR_SCENARIO="${OPENCLAW_UPGRADE_SURVIVOR_SCENARIO:-plugin-deps-cleanup}"',
+    command: `GRANTED_UPGRADE_SURVIVOR_ARTIFACT_DIR="$PWD/.artifacts/upgrade-survivor/${name}" GRANTED_UPGRADE_SURVIVOR_BASELINE_SPEC='${baselineSpec}' GRANTED_UPGRADE_SURVIVOR_SCENARIO='plugin-deps-cleanup' ${trustedUpgradeSurvivorCommand(
+      "GRANTED_UPGRADE_SURVIVOR_PUBLISHED_BASELINE=1",
+      'export GRANTED_UPGRADE_SURVIVOR_BASELINE_SPEC="${GRANTED_UPGRADE_SURVIVOR_BASELINE_SPEC:-openclaw@latest}"; export GRANTED_UPGRADE_SURVIVOR_SCENARIO="${GRANTED_UPGRADE_SURVIVOR_SCENARIO:-plugin-deps-cleanup}"',
     )}`,
     imageKind: "bare",
     live: false,
@@ -127,7 +127,7 @@ function updateMigrationLane(name: string, baselineSpec: string): ReturnType<typ
 
 function bundledPluginSweepLane(index: number): ReturnType<typeof summarizeLane> {
   return {
-    command: `OPENCLAW_BUNDLED_PLUGIN_SWEEP_TOTAL=24 OPENCLAW_BUNDLED_PLUGIN_SWEEP_INDEX=${index} OPENCLAW_SKIP_DOCKER_BUILD=1 pnpm test:docker:bundled-plugin-install-uninstall`,
+    command: `GRANTED_BUNDLED_PLUGIN_SWEEP_TOTAL=24 GRANTED_BUNDLED_PLUGIN_SWEEP_INDEX=${index} GRANTED_SKIP_DOCKER_BUILD=1 pnpm test:docker:bundled-plugin-install-uninstall`,
     imageKind: "functional",
     live: false,
     name: `bundled-plugin-install-uninstall-${index}`,
@@ -168,7 +168,7 @@ describe("scripts/lib/docker-e2e-plan", () => {
 
     expect(plan.lanes.map(summarizeLane)).toEqual([
       {
-        command: "OPENCLAW_SKIP_DOCKER_BUILD=1 pnpm test:docker:sandbox-browser-sidecar",
+        command: "GRANTED_SKIP_DOCKER_BUILD=1 pnpm test:docker:sandbox-browser-sidecar",
         imageKind: "functional",
         live: false,
         name: "sandbox-browser-sidecar",
@@ -208,7 +208,7 @@ describe("scripts/lib/docker-e2e-plan", () => {
     expect(sourceLanes).toHaveLength(trustedScripts.size);
     for (const sourceLane of sourceLanes) {
       expect(sourceLane.command).toContain(
-        'harness="${OPENCLAW_DOCKER_E2E_TRUSTED_HARNESS_DIR:-.}"',
+        'harness="${GRANTED_DOCKER_E2E_TRUSTED_HARNESS_DIR:-.}"',
       );
     }
 
@@ -242,7 +242,7 @@ describe("scripts/lib/docker-e2e-plan", () => {
         encoding: "utf8",
         env: {
           ...process.env,
-          OPENCLAW_DOCKER_E2E_REPO_ROOT: tempRoot,
+          GRANTED_DOCKER_E2E_REPO_ROOT: tempRoot,
         },
       },
     );
@@ -251,7 +251,7 @@ describe("scripts/lib/docker-e2e-plan", () => {
     expect(lanes).toHaveLength(trustedScripts.size);
     for (const lane of lanes) {
       expect(lane.command).toContain(
-        'harness="${OPENCLAW_DOCKER_E2E_TRUSTED_HARNESS_DIR:-.release-harness}"',
+        'harness="${GRANTED_DOCKER_E2E_TRUSTED_HARNESS_DIR:-.release-harness}"',
       );
       expect(lane.command).toContain(`bash "$harness/scripts/${trustedScripts.get(lane.name)}"`);
       expect(lane.command).not.toContain(`pnpm test:docker:${lane.name}`);
@@ -275,7 +275,7 @@ describe("scripts/lib/docker-e2e-plan", () => {
         script,
         [
           "#!/usr/bin/env bash",
-          'printf "%s|%s\\n" "$OPENCLAW_UPGRADE_SURVIVOR_BASELINE_SPEC" "$OPENCLAW_UPGRADE_SURVIVOR_SCENARIO" > "$OPENCLAW_TEST_OUTPUT"',
+          'printf "%s|%s\\n" "$GRANTED_UPGRADE_SURVIVOR_BASELINE_SPEC" "$GRANTED_UPGRADE_SURVIVOR_SCENARIO" > "$GRANTED_TEST_OUTPUT"',
         ].join("\n"),
       );
       chmodSync(script, 0o755);
@@ -291,11 +291,11 @@ describe("scripts/lib/docker-e2e-plan", () => {
         cwd: root,
         env: {
           ...process.env,
-          OPENCLAW_DOCKER_E2E_REPO_ROOT: root,
-          OPENCLAW_DOCKER_E2E_TRUSTED_HARNESS_DIR: harnessRoot,
-          OPENCLAW_TEST_OUTPUT: output,
-          OPENCLAW_UPGRADE_SURVIVOR_BASELINE_SPEC: "",
-          OPENCLAW_UPGRADE_SURVIVOR_SCENARIO: scenario,
+          GRANTED_DOCKER_E2E_REPO_ROOT: root,
+          GRANTED_DOCKER_E2E_TRUSTED_HARNESS_DIR: harnessRoot,
+          GRANTED_TEST_OUTPUT: output,
+          GRANTED_UPGRADE_SURVIVOR_BASELINE_SPEC: "",
+          GRANTED_UPGRADE_SURVIVOR_SCENARIO: scenario,
         },
       });
 
@@ -310,7 +310,7 @@ describe("scripts/lib/docker-e2e-plan", () => {
 
     expect(plan.lanes.map(summarizeLane)).toEqual([
       {
-        command: "OPENCLAW_SKIP_DOCKER_BUILD=1 pnpm test:docker:cli-installer-distribution",
+        command: "GRANTED_SKIP_DOCKER_BUILD=1 pnpm test:docker:cli-installer-distribution",
         imageKind: "bare",
         live: false,
         name: "cli-installer-distribution",
@@ -320,7 +320,7 @@ describe("scripts/lib/docker-e2e-plan", () => {
         weight: 3,
       },
       {
-        command: "OPENCLAW_SKIP_DOCKER_BUILD=1 pnpm test:docker:compose-setup",
+        command: "GRANTED_SKIP_DOCKER_BUILD=1 pnpm test:docker:compose-setup",
         imageKind: "functional",
         live: false,
         name: "compose-setup",
@@ -330,7 +330,7 @@ describe("scripts/lib/docker-e2e-plan", () => {
         weight: 3,
       },
       {
-        command: "OPENCLAW_SKIP_DOCKER_BUILD=1 pnpm test:docker:package-install",
+        command: "GRANTED_SKIP_DOCKER_BUILD=1 pnpm test:docker:package-install",
         imageKind: "bare",
         live: false,
         name: "docker-package-install",
@@ -395,7 +395,7 @@ describe("scripts/lib/docker-e2e-plan", () => {
     expect(plan.selectedLanes).toEqual([]);
     expect(codeModeLanes.map(summarizeLane)).toEqual([
       {
-        command: "OPENCLAW_SKIP_DOCKER_BUILD=1 pnpm test:docker:mcp-code-mode-gateway",
+        command: "GRANTED_SKIP_DOCKER_BUILD=1 pnpm test:docker:mcp-code-mode-gateway",
         imageKind: "functional",
         live: false,
         name: "mcp-code-mode-gateway",
@@ -414,7 +414,7 @@ describe("scripts/lib/docker-e2e-plan", () => {
     expect(targeted.lanes.map(summarizeLane)).toEqual([
       {
         command:
-          'OPENCLAW_SKIP_DOCKER_BUILD=1 bash -c \'harness="${OPENCLAW_DOCKER_E2E_TRUSTED_HARNESS_DIR:-.}"; OPENCLAW_LIVE_DOCKER_REPO_ROOT="${OPENCLAW_DOCKER_E2E_REPO_ROOT:-$PWD}" bash "$harness/scripts/e2e/gateway-concurrency-docker.sh"\'',
+          'GRANTED_SKIP_DOCKER_BUILD=1 bash -c \'harness="${GRANTED_DOCKER_E2E_TRUSTED_HARNESS_DIR:-.}"; GRANTED_LIVE_DOCKER_REPO_ROOT="${GRANTED_DOCKER_E2E_REPO_ROOT:-$PWD}" bash "$harness/scripts/e2e/gateway-concurrency-docker.sh"\'',
         imageKind: "functional",
         live: false,
         name: "gateway-concurrency",
@@ -580,7 +580,7 @@ describe("scripts/lib/docker-e2e-plan", () => {
         .map(summarizeLane),
     ).toEqual([
       {
-        command: "OPENCLAW_SKIP_DOCKER_BUILD=1 pnpm test:docker:release-typed-onboarding",
+        command: "GRANTED_SKIP_DOCKER_BUILD=1 pnpm test:docker:release-typed-onboarding",
         imageKind: "bare",
         live: false,
         name: "release-typed-onboarding",
@@ -593,8 +593,8 @@ describe("scripts/lib/docker-e2e-plan", () => {
     expect(packageInstallOpenAi.lanes.slice(-2).map(summarizeLane)).toEqual([
       {
         command: trustedUpgradeSurvivorCommand(
-          "OPENCLAW_UPGRADE_SURVIVOR_PUBLISHED_BASELINE=1 OPENCLAW_UPGRADE_SURVIVOR_ROOT_MANAGED_VPS=1",
-          'export OPENCLAW_UPGRADE_SURVIVOR_BASELINE_SPEC="${OPENCLAW_UPGRADE_SURVIVOR_BASELINE_SPEC:-openclaw@latest}"; export OPENCLAW_UPGRADE_SURVIVOR_DOCKER_RUN_TIMEOUT="${OPENCLAW_UPGRADE_SURVIVOR_DOCKER_RUN_TIMEOUT:-1500s}"',
+          "GRANTED_UPGRADE_SURVIVOR_PUBLISHED_BASELINE=1 GRANTED_UPGRADE_SURVIVOR_ROOT_MANAGED_VPS=1",
+          'export GRANTED_UPGRADE_SURVIVOR_BASELINE_SPEC="${GRANTED_UPGRADE_SURVIVOR_BASELINE_SPEC:-openclaw@latest}"; export GRANTED_UPGRADE_SURVIVOR_DOCKER_RUN_TIMEOUT="${GRANTED_UPGRADE_SURVIVOR_DOCKER_RUN_TIMEOUT:-1500s}"',
         ),
         imageKind: "bare",
         live: false,
@@ -606,8 +606,8 @@ describe("scripts/lib/docker-e2e-plan", () => {
       },
       {
         command: trustedUpgradeSurvivorCommand(
-          "OPENCLAW_UPGRADE_SURVIVOR_PUBLISHED_BASELINE=1 OPENCLAW_UPGRADE_SURVIVOR_UPDATE_RESTART_MODE=auto-auth",
-          'export OPENCLAW_UPGRADE_SURVIVOR_BASELINE_SPEC="${OPENCLAW_UPGRADE_SURVIVOR_BASELINE_SPEC:-openclaw@latest}"; export OPENCLAW_UPGRADE_SURVIVOR_DOCKER_RUN_TIMEOUT="${OPENCLAW_UPGRADE_SURVIVOR_DOCKER_RUN_TIMEOUT:-1500s}"',
+          "GRANTED_UPGRADE_SURVIVOR_PUBLISHED_BASELINE=1 GRANTED_UPGRADE_SURVIVOR_UPDATE_RESTART_MODE=auto-auth",
+          'export GRANTED_UPGRADE_SURVIVOR_BASELINE_SPEC="${GRANTED_UPGRADE_SURVIVOR_BASELINE_SPEC:-openclaw@latest}"; export GRANTED_UPGRADE_SURVIVOR_DOCKER_RUN_TIMEOUT="${GRANTED_UPGRADE_SURVIVOR_DOCKER_RUN_TIMEOUT:-1500s}"',
         ),
         imageKind: "bare",
         live: false,
@@ -620,7 +620,7 @@ describe("scripts/lib/docker-e2e-plan", () => {
     ]);
     expect(packageUpdateCore.lanes.map(summarizeLane)).toEqual([
       {
-        command: "OPENCLAW_SKIP_DOCKER_BUILD=1 pnpm test:docker:npm-onboard-channel-agent",
+        command: "GRANTED_SKIP_DOCKER_BUILD=1 pnpm test:docker:npm-onboard-channel-agent",
         imageKind: "bare",
         live: false,
         name: "npm-onboard-channel-agent",
@@ -630,7 +630,7 @@ describe("scripts/lib/docker-e2e-plan", () => {
       },
       {
         command:
-          "OPENCLAW_NPM_ONBOARD_CHANNEL=discord OPENCLAW_SKIP_DOCKER_BUILD=1 pnpm test:docker:npm-onboard-channel-agent",
+          "GRANTED_NPM_ONBOARD_CHANNEL=discord GRANTED_SKIP_DOCKER_BUILD=1 pnpm test:docker:npm-onboard-channel-agent",
         imageKind: "bare",
         live: false,
         name: "npm-onboard-discord-channel-agent",
@@ -640,7 +640,7 @@ describe("scripts/lib/docker-e2e-plan", () => {
       },
       {
         command:
-          "OPENCLAW_NPM_ONBOARD_CHANNEL=slack OPENCLAW_SKIP_DOCKER_BUILD=1 pnpm test:docker:npm-onboard-channel-agent",
+          "GRANTED_NPM_ONBOARD_CHANNEL=slack GRANTED_SKIP_DOCKER_BUILD=1 pnpm test:docker:npm-onboard-channel-agent",
         imageKind: "bare",
         live: false,
         name: "npm-onboard-slack-channel-agent",
@@ -649,7 +649,7 @@ describe("scripts/lib/docker-e2e-plan", () => {
         weight: 3,
       },
       {
-        command: "OPENCLAW_SKIP_DOCKER_BUILD=1 pnpm test:docker:doctor-switch",
+        command: "GRANTED_SKIP_DOCKER_BUILD=1 pnpm test:docker:doctor-switch",
         imageKind: "bare",
         live: false,
         name: "doctor-switch",
@@ -658,7 +658,7 @@ describe("scripts/lib/docker-e2e-plan", () => {
         weight: 3,
       },
       {
-        command: "OPENCLAW_SKIP_DOCKER_BUILD=1 pnpm test:docker:skill-install",
+        command: "GRANTED_SKIP_DOCKER_BUILD=1 pnpm test:docker:skill-install",
         imageKind: "bare",
         live: false,
         name: "skill-install",
@@ -668,7 +668,7 @@ describe("scripts/lib/docker-e2e-plan", () => {
         weight: 2,
       },
       {
-        command: "OPENCLAW_SKIP_DOCKER_BUILD=1 pnpm test:docker:update-channel-switch",
+        command: "GRANTED_SKIP_DOCKER_BUILD=1 pnpm test:docker:update-channel-switch",
         imageKind: "bare",
         live: false,
         name: "update-channel-switch",
@@ -679,8 +679,8 @@ describe("scripts/lib/docker-e2e-plan", () => {
       },
       {
         command: trustedUpgradeSurvivorCommand(
-          "OPENCLAW_UPGRADE_SURVIVOR_PUBLISHED_BASELINE=1",
-          'export OPENCLAW_UPGRADE_SURVIVOR_BASELINE_SPEC="${OPENCLAW_UPGRADE_SURVIVOR_BASELINE_SPEC:-openclaw@latest}"; export OPENCLAW_UPGRADE_SURVIVOR_DOCKER_RUN_TIMEOUT="${OPENCLAW_UPGRADE_SURVIVOR_DOCKER_RUN_TIMEOUT:-1500s}"',
+          "GRANTED_UPGRADE_SURVIVOR_PUBLISHED_BASELINE=1",
+          'export GRANTED_UPGRADE_SURVIVOR_BASELINE_SPEC="${GRANTED_UPGRADE_SURVIVOR_BASELINE_SPEC:-openclaw@latest}"; export GRANTED_UPGRADE_SURVIVOR_DOCKER_RUN_TIMEOUT="${GRANTED_UPGRADE_SURVIVOR_DOCKER_RUN_TIMEOUT:-1500s}"',
         ),
         imageKind: "bare",
         live: false,
@@ -702,7 +702,7 @@ describe("scripts/lib/docker-e2e-plan", () => {
       },
       {
         command:
-          "OPENCLAW_QA_ALLOW_UPDATE_RUN_SELF=1 OPENCLAW_SKIP_DOCKER_BUILD=1 pnpm test:docker:update-run-package-self-upgrade",
+          "GRANTED_QA_ALLOW_UPDATE_RUN_SELF=1 GRANTED_SKIP_DOCKER_BUILD=1 pnpm test:docker:update-run-package-self-upgrade",
         imageKind: "bare",
         live: false,
         name: "update-run-package-self-upgrade",
@@ -715,7 +715,7 @@ describe("scripts/lib/docker-e2e-plan", () => {
     expect(pluginsRuntimePlugins.lanes.map((lane) => lane.name)).toEqual(["plugins"]);
     expect(pluginsRuntimeServices.lanes.map(summarizeLane)).toEqual([
       {
-        command: "OPENCLAW_SKIP_DOCKER_BUILD=1 pnpm test:docker:cron-mcp-cleanup",
+        command: "GRANTED_SKIP_DOCKER_BUILD=1 pnpm test:docker:cron-mcp-cleanup",
         imageKind: "functional",
         live: false,
         name: "cron-mcp-cleanup",
@@ -724,7 +724,7 @@ describe("scripts/lib/docker-e2e-plan", () => {
         weight: 3,
       },
       {
-        command: "OPENCLAW_SKIP_DOCKER_BUILD=1 pnpm test:docker:kitchen-sink-rpc",
+        command: "GRANTED_SKIP_DOCKER_BUILD=1 pnpm test:docker:kitchen-sink-rpc",
         imageKind: "functional",
         live: false,
         name: "kitchen-sink-rpc",
@@ -734,7 +734,7 @@ describe("scripts/lib/docker-e2e-plan", () => {
         weight: 3,
       },
       {
-        command: "OPENCLAW_SKIP_DOCKER_BUILD=1 pnpm test:docker:openai-web-search-minimal",
+        command: "GRANTED_SKIP_DOCKER_BUILD=1 pnpm test:docker:openai-web-search-minimal",
         imageKind: "functional",
         live: false,
         name: "openai-web-search-minimal",
@@ -745,7 +745,7 @@ describe("scripts/lib/docker-e2e-plan", () => {
       },
       {
         command:
-          "OPENCLAW_LIVE_PLUGIN_TOOL_TIMEOUT_SECONDS=300 OPENCLAW_SKIP_DOCKER_BUILD=1 pnpm test:docker:live-plugin-tool",
+          "GRANTED_LIVE_PLUGIN_TOOL_TIMEOUT_SECONDS=300 GRANTED_SKIP_DOCKER_BUILD=1 pnpm test:docker:live-plugin-tool",
         imageKind: "bare",
         live: true,
         name: "live-plugin-tool",
@@ -758,7 +758,7 @@ describe("scripts/lib/docker-e2e-plan", () => {
     expect(openWebUI.lanes.map(summarizeLane)).toEqual([
       {
         command:
-          "OPENCLAW_OPENWEBUI_MODEL=openai/gpt-5.4-mini OPENCLAW_OPENWEBUI_PROVIDER_TIMEOUT_SECONDS=300 OPENCLAW_SKIP_DOCKER_BUILD=1 pnpm test:docker:openwebui",
+          "GRANTED_OPENWEBUI_MODEL=openai/gpt-5.4-mini GRANTED_OPENWEBUI_PROVIDER_TIMEOUT_SECONDS=300 GRANTED_SKIP_DOCKER_BUILD=1 pnpm test:docker:openwebui",
         imageKind: "functional",
         live: true,
         name: "openwebui",
@@ -1418,17 +1418,17 @@ describe("scripts/lib/docker-e2e-plan", () => {
     mkdirSync(dirname(script), { recursive: true });
     writeFileSync(
       script,
-      'printf "%s|%s|%s\\n" "$OPENCLAW_IMAGE" "$OPENCLAW_DOCKER_BUILD_EXTENSIONS" "$OPENCLAW_SKIP_DOCKER_BUILD"',
+      'printf "%s|%s|%s\\n" "$GRANTED_IMAGE" "$GRANTED_DOCKER_BUILD_EXTENSIONS" "$GRANTED_SKIP_DOCKER_BUILD"',
     );
     const lane = requireFirstLane(planFor({ selectedLaneNames: ["live-gateway"] }));
     const output = execFileSync("/bin/bash", ["-c", lane.command], {
       encoding: "utf8",
       env: {
         ...process.env,
-        OPENCLAW_DOCKER_E2E_TRUSTED_HARNESS_DIR: root,
-        OPENCLAW_IMAGE: "openclaw:prepared-candidate",
-        OPENCLAW_DOCKER_BUILD_EXTENSIONS: "matrix acpx codex",
-        OPENCLAW_SKIP_DOCKER_BUILD: "1",
+        GRANTED_DOCKER_E2E_TRUSTED_HARNESS_DIR: root,
+        GRANTED_IMAGE: "openclaw:prepared-candidate",
+        GRANTED_DOCKER_BUILD_EXTENSIONS: "matrix acpx codex",
+        GRANTED_SKIP_DOCKER_BUILD: "1",
       },
     });
 
@@ -1463,10 +1463,10 @@ describe("scripts/lib/docker-e2e-plan", () => {
     const plan = planFor({ selectedLaneNames: ["live-cli-backend-gemini"] });
     const lane = requireFirstLane(plan);
 
-    expect(lane.command).toContain("OPENCLAW_LIVE_CLI_BACKEND_ADVISORY=1");
-    expect(lane.command).toContain("OPENCLAW_LIVE_CLI_BACKEND_ALLOW_PROVIDER_SKIP=1");
+    expect(lane.command).toContain("GRANTED_LIVE_CLI_BACKEND_ADVISORY=1");
+    expect(lane.command).toContain("GRANTED_LIVE_CLI_BACKEND_ALLOW_PROVIDER_SKIP=1");
     expect(lane.command).toContain(
-      "OPENCLAW_LIVE_CLI_BACKEND_MODEL=google-gemini-cli/gemini-3-flash-preview",
+      "GRANTED_LIVE_CLI_BACKEND_MODEL=google-gemini-cli/gemini-3-flash-preview",
     );
   });
 
@@ -1476,7 +1476,7 @@ describe("scripts/lib/docker-e2e-plan", () => {
       const lane = requireFirstLane(plan);
 
       expect(plan.credentials, name).toEqual(["openai"]);
-      expect(lane.command, name).toContain("OPENCLAW_LIVE_CODEX_HARNESS_AUTH=api-key");
+      expect(lane.command, name).toContain("GRANTED_LIVE_CODEX_HARNESS_AUTH=api-key");
       expect(lane.resources, name).toContain("live:openai");
       expect(lane.resources, name).not.toContain("live:codex");
     }
@@ -1489,7 +1489,7 @@ describe("scripts/lib/docker-e2e-plan", () => {
     expect(plan.lanes.map(summarizeLane)).toEqual([
       {
         command:
-          'OPENCLAW_SKIP_DOCKER_BUILD=1 bash -c \'harness="${OPENCLAW_DOCKER_E2E_TRUSTED_HARNESS_DIR:-.}"; OPENCLAW_LIVE_DOCKER_REPO_ROOT="${OPENCLAW_DOCKER_E2E_REPO_ROOT:-$PWD}" bash "$harness/scripts/e2e/codex-npm-plugin-live-docker.sh"\'',
+          'GRANTED_SKIP_DOCKER_BUILD=1 bash -c \'harness="${GRANTED_DOCKER_E2E_TRUSTED_HARNESS_DIR:-.}"; GRANTED_LIVE_DOCKER_REPO_ROOT="${GRANTED_DOCKER_E2E_REPO_ROOT:-$PWD}" bash "$harness/scripts/e2e/codex-npm-plugin-live-docker.sh"\'',
         imageKind: "bare",
         live: true,
         name: "live-codex-npm-plugin",
@@ -1514,7 +1514,7 @@ describe("scripts/lib/docker-e2e-plan", () => {
 
     expect(plan.lanes).toHaveLength(1);
     const lane = requireFirstLane(plan);
-    expect(lane.command).toBe("OPENCLAW_SKIP_DOCKER_BUILD=1 pnpm test:docker:codex-on-demand");
+    expect(lane.command).toBe("GRANTED_SKIP_DOCKER_BUILD=1 pnpm test:docker:codex-on-demand");
     expect(lane.imageKind).toBe("bare");
     expect(lane.live).toBe(false);
     expect(lane.name).toBe("codex-on-demand");
@@ -1533,7 +1533,7 @@ describe("scripts/lib/docker-e2e-plan", () => {
     expect(plan.lanes).toHaveLength(1);
     const lane = requireFirstLane(plan);
     expect(lane.command).toBe(
-      "OPENCLAW_SKIP_DOCKER_BUILD=0 pnpm test:docker:plugin-binding-command-escape",
+      "GRANTED_SKIP_DOCKER_BUILD=0 pnpm test:docker:plugin-binding-command-escape",
     );
     expect(lane.imageKind).toBeUndefined();
     expect(lane.live).toBe(false);
@@ -1551,7 +1551,7 @@ describe("scripts/lib/docker-e2e-plan", () => {
     expect(plan.lanes).toHaveLength(1);
     const lane = requireFirstLane(plan);
     expect(lane.command).toBe(
-      "OPENCLAW_LIVE_PLUGIN_TOOL_TIMEOUT_SECONDS=300 OPENCLAW_SKIP_DOCKER_BUILD=1 pnpm test:docker:live-plugin-tool",
+      "GRANTED_LIVE_PLUGIN_TOOL_TIMEOUT_SECONDS=300 GRANTED_SKIP_DOCKER_BUILD=1 pnpm test:docker:live-plugin-tool",
     );
     expect(lane.imageKind).toBe("bare");
     expect(lane.live).toBe(true);
@@ -1587,7 +1587,7 @@ describe("scripts/lib/docker-e2e-plan", () => {
     expect(plan.lanes).toHaveLength(1);
     const lane = requireFirstLane(plan);
     expect(lane.command).toBe(
-      'OPENCLAW_LIVE_ACP_BIND_AGENT=droid OPENCLAW_LIVE_ACP_BIND_REQUIRE_TRANSCRIPT=1 OPENCLAW_SKIP_DOCKER_BUILD=1 bash -c \'harness="${OPENCLAW_DOCKER_E2E_TRUSTED_HARNESS_DIR:-.}"; OPENCLAW_LIVE_DOCKER_REPO_ROOT="${OPENCLAW_DOCKER_E2E_REPO_ROOT:-$PWD}" bash "$harness/scripts/test-live-acp-bind-docker.sh"\'',
+      'GRANTED_LIVE_ACP_BIND_AGENT=droid GRANTED_LIVE_ACP_BIND_REQUIRE_TRANSCRIPT=1 GRANTED_SKIP_DOCKER_BUILD=1 bash -c \'harness="${GRANTED_DOCKER_E2E_TRUSTED_HARNESS_DIR:-.}"; GRANTED_LIVE_DOCKER_REPO_ROOT="${GRANTED_DOCKER_E2E_REPO_ROOT:-$PWD}" bash "$harness/scripts/test-live-acp-bind-docker.sh"\'',
     );
     expect(lane.imageKind).toBeUndefined();
     expect(lane.live).toBe(true);
@@ -1615,7 +1615,7 @@ describe("scripts/lib/docker-e2e-plan", () => {
         weight: 3,
       },
       {
-        command: "OPENCLAW_SKIP_DOCKER_BUILD=1 pnpm test:docker:multi-node-update",
+        command: "GRANTED_SKIP_DOCKER_BUILD=1 pnpm test:docker:multi-node-update",
         imageKind: "bare",
         live: false,
         name: "multi-node-update",
@@ -1625,7 +1625,7 @@ describe("scripts/lib/docker-e2e-plan", () => {
         weight: 3,
       },
       {
-        command: "OPENCLAW_SKIP_DOCKER_BUILD=1 pnpm test:docker:npm-telegram-live",
+        command: "GRANTED_SKIP_DOCKER_BUILD=1 pnpm test:docker:npm-telegram-live",
         imageKind: "bare",
         live: true,
         name: "npm-telegram-live",
@@ -1654,7 +1654,7 @@ describe("scripts/lib/docker-e2e-plan", () => {
     expect(plan.lanes.map(summarizeLane)).toEqual([
       {
         command:
-          "OPENCLAW_OPENWEBUI_MODEL=openai/gpt-5.4-mini OPENCLAW_OPENWEBUI_PROVIDER_TIMEOUT_SECONDS=300 OPENCLAW_SKIP_DOCKER_BUILD=1 pnpm test:docker:openwebui",
+          "GRANTED_OPENWEBUI_MODEL=openai/gpt-5.4-mini GRANTED_OPENWEBUI_PROVIDER_TIMEOUT_SECONDS=300 GRANTED_SKIP_DOCKER_BUILD=1 pnpm test:docker:openwebui",
         imageKind: "functional",
         live: true,
         name: "openwebui",
@@ -1868,7 +1868,7 @@ describe("scripts/lib/docker-e2e-plan", () => {
 
   it("rejects unknown selected lanes with the available lane names", () => {
     expect(() => planFor({ selectedLaneNames: ["missing-lane"] })).toThrow(
-      /OPENCLAW_DOCKER_ALL_LANES unknown lane\(s\): missing-lane/u,
+      /GRANTED_DOCKER_ALL_LANES unknown lane\(s\): missing-lane/u,
     );
   });
 });

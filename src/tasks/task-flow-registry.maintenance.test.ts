@@ -26,7 +26,7 @@ import {
   resetTaskFlowRegistryForTests,
 } from "./task-runtime.test-helpers.js";
 
-const ORIGINAL_ENV = captureEnv(["OPENCLAW_STATE_DIR"]);
+const ORIGINAL_ENV = captureEnv(["GRANTED_STATE_DIR"]);
 
 function createFlowRecord(params: Parameters<typeof createFlowRecordOrNull>[0]): TaskFlowRecord {
   const flow = createFlowRecordOrNull(params);

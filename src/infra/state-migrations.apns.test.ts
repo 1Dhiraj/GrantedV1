@@ -38,13 +38,13 @@ describe("legacy APNs Doctor migration", () => {
 
   function useStateDir(): string {
     const stateDir = tempDirs.make("openclaw-apns-migration-");
-    envSnapshot ??= captureEnv(["OPENCLAW_STATE_DIR", "OPENCLAW_APNS_RELAY_ALLOW_HTTP"]);
-    setTestEnvValue("OPENCLAW_STATE_DIR", stateDir);
+    envSnapshot ??= captureEnv(["GRANTED_STATE_DIR", "GRANTED_APNS_RELAY_ALLOW_HTTP"]);
+    setTestEnvValue("GRANTED_STATE_DIR", stateDir);
     return stateDir;
   }
 
   function envFor(stateDir: string): NodeJS.ProcessEnv {
-    return { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+    return { ...process.env, GRANTED_STATE_DIR: stateDir };
   }
 
   function directRegistration(overrides: Record<string, unknown> = {}) {
@@ -239,7 +239,7 @@ describe("legacy APNs Doctor migration", () => {
     });
     const env = {
       ...envFor(stateDir),
-      OPENCLAW_APNS_RELAY_ALLOW_HTTP: "true",
+      GRANTED_APNS_RELAY_ALLOW_HTTP: "true",
     };
 
     const result = await migrateLegacyApnsRegistrations({
@@ -257,7 +257,7 @@ describe("legacy APNs Doctor migration", () => {
       .get("legacy-relay");
     expect(row).toEqual({ relay_origin: "http://127.0.0.1:18791" });
     closeOpenClawStateDatabaseForTest();
-    deleteTestEnvValue("OPENCLAW_APNS_RELAY_ALLOW_HTTP");
+    deleteTestEnvValue("GRANTED_APNS_RELAY_ALLOW_HTTP");
     await expect(loadApnsRegistration("legacy-relay", stateDir)).resolves.toMatchObject({
       relayOrigin: "http://127.0.0.1:18791",
     });

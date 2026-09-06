@@ -28,7 +28,7 @@ export function formatBonjourInstanceName(displayName: string) {
 /** Resolves the CLI path advertised to Bonjour clients, preferring explicit env config. */
 export function resolveBonjourCliPath(opts: ResolveBonjourCliPathOptions = {}): string | undefined {
   const env = opts.env ?? process.env;
-  const envPath = env.OPENCLAW_CLI_PATH?.trim();
+  const envPath = env.GRANTED_CLI_PATH?.trim();
   if (envPath) {
     return envPath;
   }
@@ -75,7 +75,7 @@ export async function resolveTailnetDnsHint(opts?: {
   enabled?: boolean;
 }): Promise<string | undefined> {
   const env = opts?.env ?? process.env;
-  const envRaw = env.OPENCLAW_TAILNET_DNS?.trim();
+  const envRaw = env.GRANTED_TAILNET_DNS?.trim();
   const envValue = envRaw && envRaw.length > 0 ? envRaw.replace(/\.$/, "") : "";
   if (envValue) {
     return envValue;

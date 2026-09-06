@@ -23,12 +23,12 @@ describe("buildCurrentOpenClawCliExecRequest", () => {
       PATH: "/usr/bin",
       VITEST: "true",
       VITEST_POOL_ID: "pool",
-      OPENCLAW_VITEST_MAX_WORKERS: "1",
+      GRANTED_VITEST_MAX_WORKERS: "1",
     });
     expect(env).toMatchObject({
       VITEST: "",
       VITEST_POOL_ID: "",
-      OPENCLAW_VITEST_MAX_WORKERS: "",
+      GRANTED_VITEST_MAX_WORKERS: "",
     });
     expect(env).not.toHaveProperty("PATH");
   });

@@ -346,11 +346,11 @@ function expandUpgradeSurvivorBaselineLanes(
             const name = expandedUpgradeSurvivorLaneName(poolLane.name, baselineSpec, scenario);
             const suffix = name.slice(poolLane.name.length + 1);
             const commandPrefix = [
-              `OPENCLAW_UPGRADE_SURVIVOR_ARTIFACT_DIR="$PWD/.artifacts/upgrade-survivor/${name}"`,
+              `GRANTED_UPGRADE_SURVIVOR_ARTIFACT_DIR="$PWD/.artifacts/upgrade-survivor/${name}"`,
               baselineSpec
-                ? `OPENCLAW_UPGRADE_SURVIVOR_BASELINE_SPEC=${shellQuote(baselineSpec)}`
+                ? `GRANTED_UPGRADE_SURVIVOR_BASELINE_SPEC=${shellQuote(baselineSpec)}`
                 : "",
-              scenario ? `OPENCLAW_UPGRADE_SURVIVOR_SCENARIO=${shellQuote(scenario)}` : "",
+              scenario ? `GRANTED_UPGRADE_SURVIVOR_SCENARIO=${shellQuote(scenario)}` : "",
             ]
               .filter(Boolean)
               .join(" ");
@@ -403,7 +403,7 @@ export function parseLiveMode(raw: unknown): LiveMode {
     return mode;
   }
   throw new Error(
-    `OPENCLAW_DOCKER_ALL_LIVE_MODE must be one of: all, skip, only. Got: ${JSON.stringify(raw)}`,
+    `GRANTED_DOCKER_ALL_LIVE_MODE must be one of: all, skip, only. Got: ${JSON.stringify(raw)}`,
   );
 }
 
@@ -413,7 +413,7 @@ export function parseProfile(raw: unknown): DockerProfile {
     return profile;
   }
   throw new Error(
-    `OPENCLAW_DOCKER_ALL_PROFILE must be one of: ${DEFAULT_PROFILE}, ${RELEASE_PATH_PROFILE}. Got: ${JSON.stringify(raw)}`,
+    `GRANTED_DOCKER_ALL_PROFILE must be one of: ${DEFAULT_PROFILE}, ${RELEASE_PATH_PROFILE}. Got: ${JSON.stringify(raw)}`,
   );
 }
 
@@ -469,9 +469,9 @@ export function findLaneByName(name: string): DockerE2eLane | undefined {
         ...mainLanes,
         ...tailLanes,
       ],
-      process.env.OPENCLAW_UPGRADE_SURVIVOR_BASELINE_SPECS,
+      process.env.GRANTED_UPGRADE_SURVIVOR_BASELINE_SPECS,
       undefined,
-      process.env.OPENCLAW_UPGRADE_SURVIVOR_SCENARIOS,
+      process.env.GRANTED_UPGRADE_SURVIVOR_SCENARIOS,
     ).lanes,
   ).find((poolLane) => poolLane.name === name);
 }
@@ -517,7 +517,7 @@ function upgradeSurvivorScenarioForLane(poolLane: DockerE2eLane): string | undef
   if (!poolLane.upgradeSurvivorScenario) {
     return undefined;
   }
-  const match = /(?:^|\s)OPENCLAW_UPGRADE_SURVIVOR_SCENARIO=(?:'([^']+)'|"([^"]+)"|([^\s]+))/u.exec(
+  const match = /(?:^|\s)GRANTED_UPGRADE_SURVIVOR_SCENARIO=(?:'([^']+)'|"([^"]+)"|([^\s]+))/u.exec(
     poolLane.command,
   );
   return match?.[1] ?? match?.[2] ?? match?.[3] ?? poolLane.upgradeSurvivorScenario;
@@ -525,7 +525,7 @@ function upgradeSurvivorScenarioForLane(poolLane: DockerE2eLane): string | undef
 
 function upgradeSurvivorBaselineVersionForLane(poolLane: DockerE2eLane): string | null {
   const match =
-    /(?:^|\s)OPENCLAW_UPGRADE_SURVIVOR_BASELINE_SPEC=(?:'([^']+)'|"([^"]+)"|([^\s]+))/u.exec(
+    /(?:^|\s)GRANTED_UPGRADE_SURVIVOR_BASELINE_SPEC=(?:'([^']+)'|"([^"]+)"|([^\s]+))/u.exec(
       poolLane.command,
     );
   const spec = match?.[1] ?? match?.[2] ?? match?.[3];
@@ -721,7 +721,7 @@ export function resolveDockerE2ePlan(options: DockerE2ePlanOptions) {
             omittedUnsupportedLaneNames.add(selectedName);
             return [];
           }
-          selectNamedLanes(unfilteredSelectableLanes, [selectedName], "OPENCLAW_DOCKER_ALL_LANES");
+          selectNamedLanes(unfilteredSelectableLanes, [selectedName], "GRANTED_DOCKER_ALL_LANES");
           return [];
         })
       : undefined;

@@ -80,7 +80,7 @@ function createGatewayAudit({
       programArguments: ["/usr/bin/node", "gateway"],
       environment: {
         PATH: pathLocal,
-        ...(serviceToken ? { OPENCLAW_GATEWAY_TOKEN: serviceToken } : {}),
+        ...(serviceToken ? { GRANTED_GATEWAY_TOKEN: serviceToken } : {}),
         ...extraEnvironment,
       },
       ...(environmentValueSources ? { environmentValueSources } : {}),
@@ -91,7 +91,7 @@ function createGatewayAudit({
 async function writeSystemdUnitForAudit(
   home: string,
   lines: string[],
-  unitName = "openclaw-gateway.service",
+  unitName = "granted-gateway.service",
 ) {
   const unitDir = path.join(home, ".config", "systemd", "user");
   const unitPath = path.join(unitDir, unitName);
@@ -100,7 +100,7 @@ async function writeSystemdUnitForAudit(
     unitPath,
     [
       "[Unit]",
-      "Description=OpenClaw Gateway",
+      "Description=Granted Gateway",
       "[Service]",
       ...lines,
       "ExecStart=/usr/bin/node gateway",
@@ -650,7 +650,7 @@ describe("auditGatewayServiceConfig", () => {
     const home = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-service-audit-manager-"));
     try {
       const unitName = "openclaw-audit.service";
-      const env = { HOME: home, OPENCLAW_SYSTEMD_UNIT: unitName };
+      const env = { HOME: home, GRANTED_SYSTEMD_UNIT: unitName };
       await writeSystemdUnitForAudit(home, unit, unitName);
       execSystemctlUser.mockResolvedValueOnce({
         stdout: manager.join("\n"),
@@ -767,7 +767,7 @@ describe("auditGatewayServiceConfig", () => {
       expectedGatewayToken: "new-token",
       serviceToken: "old-token",
       environmentValueSources: {
-        OPENCLAW_GATEWAY_TOKEN: "file",
+        GRANTED_GATEWAY_TOKEN: "file",
       },
     });
     expectTokenAudit(audit, { embedded: false, mismatch: false });
@@ -778,7 +778,7 @@ describe("auditGatewayServiceConfig", () => {
       expectedGatewayToken: "new-token",
       serviceToken: "old-token",
       environmentValueSources: {
-        OPENCLAW_GATEWAY_TOKEN: "inline-and-file",
+        GRANTED_GATEWAY_TOKEN: "inline-and-file",
       },
     });
     expectTokenAudit(audit, { embedded: true, mismatch: true });
@@ -787,7 +787,7 @@ describe("auditGatewayServiceConfig", () => {
   it("flags inline managed service env values from the service key list", async () => {
     const audit = await createGatewayAudit({
       extraEnvironment: {
-        OPENCLAW_SERVICE_MANAGED_ENV_KEYS: "TAVILY_API_KEY,OPENROUTER_API_KEY",
+        GRANTED_SERVICE_MANAGED_ENV_KEYS: "TAVILY_API_KEY,OPENROUTER_API_KEY",
         TAVILY_API_KEY: "tvly-test",
         OPENROUTER_API_KEY: "or-test",
       },
@@ -976,7 +976,7 @@ describe("checkTokenDrift", () => {
 describe("legacy gateway service version metadata", () => {
   it("does not treat install-time version metadata as runtime truth", async () => {
     const legacyAudit = await createGatewayAudit({
-      extraEnvironment: { OPENCLAW_SERVICE_VERSION: "2026.4.15-beta.1" },
+      extraEnvironment: { GRANTED_SERVICE_VERSION: "2026.4.15-beta.1" },
     });
     const canonicalAudit = await createGatewayAudit();
 

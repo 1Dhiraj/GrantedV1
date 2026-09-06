@@ -216,14 +216,14 @@ describe("CORE_HEALTH_CHECKS", () => {
   });
 
   it("includes Claw state diagnostics in core doctor checks", () => {
-    vi.stubEnv("OPENCLAW_EXPERIMENTAL_CLAWS", "1");
+    vi.stubEnv("GRANTED_EXPERIMENTAL_CLAWS", "1");
     expect(createCoreHealthChecks(createDeps()).map((check) => check.id)).toContain(
       "core/doctor/claws-state",
     );
   });
 
   it("passes one live Gateway cron inventory provider to Claw diagnostics", async () => {
-    vi.stubEnv("OPENCLAW_EXPERIMENTAL_CLAWS", "1");
+    vi.stubEnv("GRANTED_EXPERIMENTAL_CLAWS", "1");
     const listGatewayCronJobs = vi.fn(async () => []);
     mocks.collectClawStateHealthFindings.mockImplementationOnce(async (options) => {
       await options?.cronGateway?.list({ includeDisabled: true });
@@ -241,7 +241,7 @@ describe("CORE_HEALTH_CHECKS", () => {
   });
 
   it("reads every stable Gateway cron inventory page for Claw diagnostics", async () => {
-    vi.stubEnv("OPENCLAW_EXPERIMENTAL_CLAWS", "1");
+    vi.stubEnv("GRANTED_EXPERIMENTAL_CLAWS", "1");
     const firstJob = { id: "job-1" };
     const secondJob = { id: "job-2" };
     mocks.callGateway
@@ -289,7 +289,7 @@ describe("CORE_HEALTH_CHECKS", () => {
   });
 
   it("rejects a Gateway cron inventory that changes between pages", async () => {
-    vi.stubEnv("OPENCLAW_EXPERIMENTAL_CLAWS", "1");
+    vi.stubEnv("GRANTED_EXPERIMENTAL_CLAWS", "1");
     mocks.callGateway
       .mockResolvedValueOnce({
         jobs: [{ id: "job-1" }],
@@ -321,7 +321,7 @@ describe("CORE_HEALTH_CHECKS", () => {
   });
 
   it("omits Claw state diagnostics without the experiment", () => {
-    vi.stubEnv("OPENCLAW_EXPERIMENTAL_CLAWS", "");
+    vi.stubEnv("GRANTED_EXPERIMENTAL_CLAWS", "");
     expect(createCoreHealthChecks(createDeps()).map((check) => check.id)).not.toContain(
       "core/doctor/claws-state",
     );
@@ -646,7 +646,7 @@ describe("CORE_HEALTH_CHECKS", () => {
 
   it("skips gateway auth warning when SecretRef-managed token resolves in lint checks", async () => {
     const check = CORE_HEALTH_CHECKS.find((entry) => entry.id === "core/doctor/gateway-auth");
-    await withEnvAsync({ OPENCLAW_TEST_GATEWAY_TOKEN: "resolved-test-token" }, async () => {
+    await withEnvAsync({ GRANTED_TEST_GATEWAY_TOKEN: "resolved-test-token" }, async () => {
       const findings = await check?.detect({
         mode: "lint",
         runtime: { log() {}, error() {}, exit() {} },
@@ -658,7 +658,7 @@ describe("CORE_HEALTH_CHECKS", () => {
               token: {
                 source: "env",
                 provider: "default",
-                id: "OPENCLAW_TEST_GATEWAY_TOKEN",
+                id: "GRANTED_TEST_GATEWAY_TOKEN",
               },
             },
           },
@@ -675,12 +675,12 @@ describe("CORE_HEALTH_CHECKS", () => {
     });
   });
 
-  it("reports unresolved SecretRefs even when OPENCLAW_GATEWAY_TOKEN is set", async () => {
+  it("reports unresolved SecretRefs even when GRANTED_GATEWAY_TOKEN is set", async () => {
     const check = CORE_HEALTH_CHECKS.find((entry) => entry.id === "core/doctor/gateway-auth");
     await withEnvAsync(
       {
-        OPENCLAW_GATEWAY_TOKEN: "fallback-token",
-        OPENCLAW_MISSING_GATEWAY_REF_TOKEN: undefined,
+        GRANTED_GATEWAY_TOKEN: "fallback-token",
+        GRANTED_MISSING_GATEWAY_REF_TOKEN: undefined,
       },
       async () => {
         const findings = await check?.detect({
@@ -694,7 +694,7 @@ describe("CORE_HEALTH_CHECKS", () => {
                 token: {
                   source: "env",
                   provider: "default",
-                  id: "OPENCLAW_MISSING_GATEWAY_REF_TOKEN",
+                  id: "GRANTED_MISSING_GATEWAY_REF_TOKEN",
                 },
               },
             },
@@ -820,7 +820,7 @@ describe("CORE_HEALTH_CHECKS", () => {
     );
     const check = CORE_HEALTH_CHECKS.find((entry) => entry.id === "core/doctor/gateway-auth");
 
-    const findings = await withEnvAsync({ OPENCLAW_GATEWAY_TOKEN: "fallback-token" }, async () =>
+    const findings = await withEnvAsync({ GRANTED_GATEWAY_TOKEN: "fallback-token" }, async () =>
       withSecureTestNodeCommand(async (command) =>
         check?.detect({
           mode: "lint",

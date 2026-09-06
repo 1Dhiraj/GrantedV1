@@ -231,12 +231,12 @@ describe("runDaemonRestart health checks", () => {
 
   beforeEach(() => {
     envSnapshot = captureEnv([
-      "OPENCLAW_CONTAINER_HINT",
-      "OPENCLAW_PROFILE",
-      "OPENCLAW_STATE_DIR",
-      "OPENCLAW_SYSTEMD_UNIT",
+      "GRANTED_CONTAINER_HINT",
+      "GRANTED_PROFILE",
+      "GRANTED_STATE_DIR",
+      "GRANTED_SYSTEMD_UNIT",
     ]);
-    delete process.env.OPENCLAW_CONTAINER_HINT;
+    delete process.env.GRANTED_CONTAINER_HINT;
     service.readCommand.mockReset();
     service.readRuntime.mockReset().mockResolvedValue({ status: "stopped" });
     service.restart.mockReset().mockResolvedValue({ outcome: "completed" });
@@ -376,20 +376,20 @@ describe("runDaemonRestart health checks", () => {
     await runDaemonRestart({ json: true });
 
     const restartParams = requireMockCallArg(runServiceRestart, "runServiceRestart");
-    process.env.OPENCLAW_STATE_DIR = "/tmp/openclaw-non-default-service-state";
+    process.env.GRANTED_STATE_DIR = "/tmp/openclaw-non-default-service-state";
     expect(() => (restartParams.beforeServiceMutation as () => void)()).toThrow(
       /non-default state dir/,
     );
   });
 
   it("uses the installed service environment for managed restart health", async () => {
-    process.env.OPENCLAW_STATE_DIR = "/tmp/openclaw-caller-state";
-    process.env.OPENCLAW_SYSTEMD_UNIT = "openclaw-gateway-maintenance.service";
+    process.env.GRANTED_STATE_DIR = "/tmp/openclaw-caller-state";
+    process.env.GRANTED_SYSTEMD_UNIT = "openclaw-gateway-maintenance.service";
     service.readCommand.mockResolvedValue({
       programArguments: ["openclaw", "gateway", "--port", "18789"],
       environment: {
-        OPENCLAW_STATE_DIR: "/tmp/openclaw-service-state",
-        OPENCLAW_SYSTEMD_UNIT: "openclaw-gateway.service",
+        GRANTED_STATE_DIR: "/tmp/openclaw-service-state",
+        GRANTED_SYSTEMD_UNIT: "openclaw-gateway.service",
       },
     });
 
@@ -399,8 +399,8 @@ describe("runDaemonRestart health checks", () => {
       waitForGatewayHealthyRestart,
       "waitForGatewayHealthyRestart",
     ) as { env?: NodeJS.ProcessEnv };
-    expect(waitParams.env?.OPENCLAW_STATE_DIR).toBe("/tmp/openclaw-service-state");
-    expect(waitParams.env?.OPENCLAW_SYSTEMD_UNIT).toBe("openclaw-gateway-maintenance.service");
+    expect(waitParams.env?.GRANTED_STATE_DIR).toBe("/tmp/openclaw-service-state");
+    expect(waitParams.env?.GRANTED_SYSTEMD_UNIT).toBe("openclaw-gateway-maintenance.service");
   });
 
   it("carries launchd KeepAlive supervision into managed restart health", async () => {
@@ -417,11 +417,11 @@ describe("runDaemonRestart health checks", () => {
     service.readCommand
       .mockResolvedValueOnce({
         programArguments: ["openclaw", "gateway", "--port", "18789"],
-        environment: { OPENCLAW_STATE_DIR: "/tmp/openclaw-stale-state" },
+        environment: { GRANTED_STATE_DIR: "/tmp/openclaw-stale-state" },
       })
       .mockResolvedValue({
         programArguments: ["openclaw", "gateway", "--port", "19001"],
-        environment: { OPENCLAW_STATE_DIR: "/tmp/openclaw-repaired-state" },
+        environment: { GRANTED_STATE_DIR: "/tmp/openclaw-repaired-state" },
       });
     repairLoadedGatewayServiceForStart.mockResolvedValue({
       result: "restarted",
@@ -452,7 +452,7 @@ describe("runDaemonRestart health checks", () => {
       expect.objectContaining({
         port: 19_001,
         env: expect.objectContaining({
-          OPENCLAW_STATE_DIR: "/tmp/openclaw-repaired-state",
+          GRANTED_STATE_DIR: "/tmp/openclaw-repaired-state",
         }),
       }),
     );
@@ -530,7 +530,7 @@ describe("runDaemonRestart health checks", () => {
         await params.repairLoadedService?.({
           json: true,
           stdout: process.stdout,
-          state: { command: { environment: { OPENCLAW_GATEWAY_PORT: "18789" } } },
+          state: { command: { environment: { GRANTED_GATEWAY_PORT: "18789" } } },
           issues: [{ code: "port-mismatch", message: "service port is stale" }],
         });
       },
@@ -550,7 +550,7 @@ describe("runDaemonRestart health checks", () => {
     expect(repairParams.service).toBe(service);
     expect(repairParams.json).toBe(true);
     expect(repairParams.state?.command?.environment).toEqual({
-      OPENCLAW_GATEWAY_PORT: "18789",
+      GRANTED_GATEWAY_PORT: "18789",
     });
     expect(repairParams.issues).toHaveLength(1);
     expect(repairParams.issues?.[0]?.code).toBe("port-mismatch");
@@ -806,7 +806,7 @@ describe("runDaemonRestart health checks", () => {
 
   it("signals a single unmanaged gateway process on restart", async () => {
     vi.spyOn(process, "platform", "get").mockReturnValue("linux");
-    process.env.OPENCLAW_STATE_DIR = "/tmp/openclaw-non-default-service-state";
+    process.env.GRANTED_STATE_DIR = "/tmp/openclaw-non-default-service-state";
     findVerifiedGatewayListenerPidsOnPortSync.mockReturnValue([4200]);
     mockUnmanagedRestart({ runPostRestartCheck: true });
 
@@ -830,7 +830,7 @@ describe("runDaemonRestart health checks", () => {
 
   it("rejects denied Darwin recovery when no unmanaged listener exists", async () => {
     vi.spyOn(process, "platform", "get").mockReturnValue("darwin");
-    process.env.OPENCLAW_STATE_DIR = "/tmp/openclaw-non-default-service-state";
+    process.env.GRANTED_STATE_DIR = "/tmp/openclaw-non-default-service-state";
     mockUnmanagedRestart();
 
     await expect(runDaemonRestart({ json: true })).rejects.toThrow(/non-default state dir/);
@@ -1005,7 +1005,7 @@ describe("runDaemonRestart health checks", () => {
   });
 
   it("fails unmanaged restart when multiple gateway listeners are present", async () => {
-    process.env.OPENCLAW_STATE_DIR = "/tmp/openclaw-non-default-service-state";
+    process.env.GRANTED_STATE_DIR = "/tmp/openclaw-non-default-service-state";
     findVerifiedGatewayListenerPidsOnPortSync.mockReturnValue([4200, 4300]);
     mockUnmanagedRestart();
 
@@ -1114,13 +1114,13 @@ describe("runDaemonRestart health checks", () => {
   it("resolves port and probe hosts from selected service config/env (no --port arg)", async () => {
     const serviceCommand = {
       programArguments: ["openclaw", "gateway"],
-      environment: { OPENCLAW_STATE_DIR: "/tmp/service-state" },
+      environment: { GRANTED_STATE_DIR: "/tmp/service-state" },
     };
     service.readCommand.mockResolvedValue(serviceCommand);
     loadConfig.mockReturnValue({ gateway: { port: 18789 } });
     createConfigIO.mockImplementation((opts) => ({
       readBestEffortConfig: async () => ({
-        gateway: { port: opts?.env?.OPENCLAW_STATE_DIR === "/tmp/service-state" ? 19000 : 18789 },
+        gateway: { port: opts?.env?.GRANTED_STATE_DIR === "/tmp/service-state" ? 19000 : 18789 },
       }),
     }));
     resolveGatewayPort.mockImplementation((cfg) => {

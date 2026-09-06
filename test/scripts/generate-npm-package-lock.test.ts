@@ -143,16 +143,16 @@ describe("generate-npm-package-lock", () => {
 
   it("validates npm-lock worker counts from flags and environment", () => {
     expect(resolveNpmLockJobs("3", {})).toBe(3);
-    expect(resolveNpmLockJobs(undefined, { OPENCLAW_NPM_LOCK_JOBS: "2" })).toBe(2);
-    expect(() => resolveNpmLockJobs("0", {})).toThrow("invalid OPENCLAW_NPM_LOCK_JOBS: 0");
+    expect(resolveNpmLockJobs(undefined, { GRANTED_NPM_LOCK_JOBS: "2" })).toBe(2);
+    expect(() => resolveNpmLockJobs("0", {})).toThrow("invalid GRANTED_NPM_LOCK_JOBS: 0");
     expect(() => resolveNpmLockJobs("17", {})).toThrow("maximum is 16");
   });
 
   it("accepts strict npm-lock command timeout and buffer overrides", () => {
     expect(
       createNpmLockExecOptions({ command: "npm", args: ["install"] }, "/tmp/package", {
-        OPENCLAW_NPM_LOCK_COMMAND_MAX_BUFFER_BYTES: "1048576",
-        OPENCLAW_NPM_LOCK_COMMAND_TIMEOUT_MS: "30000",
+        GRANTED_NPM_LOCK_COMMAND_MAX_BUFFER_BYTES: "1048576",
+        GRANTED_NPM_LOCK_COMMAND_TIMEOUT_MS: "30000",
       }),
     ).toMatchObject({
       maxBuffer: 1024 * 1024,
@@ -163,14 +163,14 @@ describe("generate-npm-package-lock", () => {
   it("rejects loose npm-lock command timeout and buffer overrides", () => {
     expect(() =>
       createNpmLockExecOptions({ command: "npm", args: ["install"] }, "/tmp/package", {
-        OPENCLAW_NPM_LOCK_COMMAND_TIMEOUT_MS: "30s",
+        GRANTED_NPM_LOCK_COMMAND_TIMEOUT_MS: "30s",
       }),
-    ).toThrow("invalid OPENCLAW_NPM_LOCK_COMMAND_TIMEOUT_MS: 30s");
+    ).toThrow("invalid GRANTED_NPM_LOCK_COMMAND_TIMEOUT_MS: 30s");
     expect(() =>
       createNpmLockExecOptions({ command: "npm", args: ["install"] }, "/tmp/package", {
-        OPENCLAW_NPM_LOCK_COMMAND_MAX_BUFFER_BYTES: "64mb",
+        GRANTED_NPM_LOCK_COMMAND_MAX_BUFFER_BYTES: "64mb",
       }),
-    ).toThrow("invalid OPENCLAW_NPM_LOCK_COMMAND_MAX_BUFFER_BYTES: 64mb");
+    ).toThrow("invalid GRANTED_NPM_LOCK_COMMAND_MAX_BUFFER_BYTES: 64mb");
   });
 
   it("extracts exact versions from npm override specs", () => {
@@ -569,7 +569,7 @@ describe("generate-npm-package-lock", () => {
         {
           cwd: root,
           encoding: "utf8",
-          env: { ...process.env, OPENCLAW_NPM_PACKAGE_LOCK_REPO_ROOT: root },
+          env: { ...process.env, GRANTED_NPM_PACKAGE_LOCK_REPO_ROOT: root },
         },
       );
       if (scenario === "valid") {

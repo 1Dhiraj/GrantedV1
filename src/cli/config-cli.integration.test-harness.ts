@@ -80,11 +80,11 @@ export function useConfigCliIntegrationHarness() {
   ): Promise<void> {
     const tempDir = tempDirs.make(prefix);
     const configPath = path.join(tempDir, "openclaw.json");
-    const envSnapshot = captureEnv(["OPENCLAW_CONFIG_PATH", "OPENCLAW_TEST_FAST"]);
+    const envSnapshot = captureEnv(["GRANTED_CONFIG_PATH", "GRANTED_TEST_FAST"]);
     try {
       fs.writeFileSync(configPath, raw, "utf8");
-      setTestEnvValue("OPENCLAW_TEST_FAST", "1");
-      setTestEnvValue("OPENCLAW_CONFIG_PATH", configPath);
+      setTestEnvValue("GRANTED_TEST_FAST", "1");
+      setTestEnvValue("GRANTED_CONFIG_PATH", configPath);
       clearConfigCache();
       clearRuntimeConfigSnapshot();
       await run({ configPath, tempDir });

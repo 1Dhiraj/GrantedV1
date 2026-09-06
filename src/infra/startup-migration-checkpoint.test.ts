@@ -3,7 +3,7 @@ import { existsSync, mkdirSync } from "node:fs";
 import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
-import { OPENCLAW_STATE_SCHEMA_VERSION } from "../state/openclaw-state-db-contract.js";
+import { GRANTED_STATE_SCHEMA_VERSION } from "../state/openclaw-state-db-contract.js";
 import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   closeOpenClawStateDatabaseForTest,
@@ -78,7 +78,7 @@ function overwriteStartupMigrationLeaseOwnerStartedAt(
 describe("startup migration checkpoint", () => {
   it("checks migration activity without creating shared state", () => {
     const env = {
-      OPENCLAW_STATE_DIR: startupMigrationTempDirs.make("openclaw-startup-migration-"),
+      GRANTED_STATE_DIR: startupMigrationTempDirs.make("openclaw-startup-migration-"),
     };
     const dbPath = resolveOpenClawStateSqlitePath(env);
 
@@ -88,7 +88,7 @@ describe("startup migration checkpoint", () => {
 
   it("initializes the canonical schema before creating the first startup checkpoint", () => {
     const env = {
-      OPENCLAW_STATE_DIR: startupMigrationTempDirs.make("openclaw-startup-migration-fresh-"),
+      GRANTED_STATE_DIR: startupMigrationTempDirs.make("openclaw-startup-migration-fresh-"),
     };
 
     expect(readStartupMigrationVersion(env)).toBeNull();
@@ -97,13 +97,13 @@ describe("startup migration checkpoint", () => {
     const database = new DatabaseSync(resolveOpenClawStateSqlitePath(env), { readOnly: true });
     try {
       expect(database.prepare("PRAGMA user_version").get()).toEqual({
-        user_version: OPENCLAW_STATE_SCHEMA_VERSION,
+        user_version: GRANTED_STATE_SCHEMA_VERSION,
       });
       expect(
         database
           .prepare("SELECT role, schema_version FROM schema_meta WHERE meta_key = 'primary'")
           .get(),
-      ).toEqual({ role: "global", schema_version: OPENCLAW_STATE_SCHEMA_VERSION });
+      ).toEqual({ role: "global", schema_version: GRANTED_STATE_SCHEMA_VERSION });
       expect(
         database
           .prepare("SELECT 1 AS present FROM sqlite_schema WHERE name = 'plugin_state_entries'")
@@ -118,7 +118,7 @@ describe("startup migration checkpoint", () => {
     "adopts native version-zero state before checkpoint access (existing checkpoint: %s)",
     (hasExistingCheckpoint) => {
       const env = {
-        OPENCLAW_STATE_DIR: startupMigrationTempDirs.make("openclaw-startup-migration-native-"),
+        GRANTED_STATE_DIR: startupMigrationTempDirs.make("openclaw-startup-migration-native-"),
       };
       const databasePath = resolveOpenClawStateSqlitePath(env);
       mkdirSync(path.dirname(databasePath), { recursive: true });
@@ -188,13 +188,13 @@ describe("startup migration checkpoint", () => {
         const initialized = new DatabaseSync(databasePath, { readOnly: true });
         try {
           expect(initialized.prepare("PRAGMA user_version").get()).toEqual({
-            user_version: OPENCLAW_STATE_SCHEMA_VERSION,
+            user_version: GRANTED_STATE_SCHEMA_VERSION,
           });
           expect(
             initialized
               .prepare("SELECT schema_version FROM schema_meta WHERE meta_key = 'primary'")
               .get(),
-          ).toEqual({ schema_version: OPENCLAW_STATE_SCHEMA_VERSION });
+          ).toEqual({ schema_version: GRANTED_STATE_SCHEMA_VERSION });
           expect(
             initialized
               .prepare("SELECT device_id FROM device_identities WHERE identity_key = 'node'")
@@ -216,7 +216,7 @@ describe("startup migration checkpoint", () => {
 
   it("records the migrated OpenClaw version in shared state", () => {
     const env = {
-      OPENCLAW_STATE_DIR: startupMigrationTempDirs.make("openclaw-startup-migration-"),
+      GRANTED_STATE_DIR: startupMigrationTempDirs.make("openclaw-startup-migration-"),
     };
 
     expect(readStartupMigrationVersion(env)).toBeNull();
@@ -296,7 +296,7 @@ describe("startup migration checkpoint", () => {
 
   it("keeps state-only completion narrower than gateway startup", () => {
     const env = {
-      OPENCLAW_STATE_DIR: startupMigrationTempDirs.make("openclaw-startup-migration-"),
+      GRANTED_STATE_DIR: startupMigrationTempDirs.make("openclaw-startup-migration-"),
     };
     const checkpoint = {
       env,
@@ -314,7 +314,7 @@ describe("startup migration checkpoint", () => {
 
   it("keeps the fast path disabled without immutable build provenance", () => {
     const env = {
-      OPENCLAW_STATE_DIR: startupMigrationTempDirs.make("openclaw-startup-migration-"),
+      GRANTED_STATE_DIR: startupMigrationTempDirs.make("openclaw-startup-migration-"),
     };
 
     recordSuccessfulStartupMigrations({
@@ -353,7 +353,7 @@ describe("startup migration checkpoint", () => {
 
   it("treats legacy build-only checkpoints as stale once", () => {
     const env = {
-      OPENCLAW_STATE_DIR: startupMigrationTempDirs.make("openclaw-startup-migration-"),
+      GRANTED_STATE_DIR: startupMigrationTempDirs.make("openclaw-startup-migration-"),
     };
     const checkpoint = {
       env,
@@ -383,7 +383,7 @@ describe("startup migration checkpoint", () => {
 
   it("serializes startup migrations with an expiring shared-state lease", () => {
     const env = {
-      OPENCLAW_STATE_DIR: startupMigrationTempDirs.make("openclaw-startup-migration-"),
+      GRANTED_STATE_DIR: startupMigrationTempDirs.make("openclaw-startup-migration-"),
     };
     const lease = acquireStartupMigrationLease({ env, nowMs: 1000, owner: "first" });
 
@@ -403,7 +403,7 @@ describe("startup migration checkpoint", () => {
 
   it("rechecks external ownership inside the final lease write transaction", () => {
     const env = {
-      OPENCLAW_STATE_DIR: startupMigrationTempDirs.make("openclaw-startup-migration-"),
+      GRANTED_STATE_DIR: startupMigrationTempDirs.make("openclaw-startup-migration-"),
     };
     runOpenClawStateWriteTransaction(() => undefined, { env });
     closeOpenClawStateDatabaseForTest();
@@ -482,7 +482,7 @@ describe("startup migration checkpoint", () => {
 
   it("waits for a live same-host startup migration lease to be released", async () => {
     const env = {
-      OPENCLAW_STATE_DIR: startupMigrationTempDirs.make("openclaw-startup-migration-"),
+      GRANTED_STATE_DIR: startupMigrationTempDirs.make("openclaw-startup-migration-"),
     };
     let nowMs = 1001;
     let elapsedMs = 0;
@@ -521,7 +521,7 @@ describe("startup migration checkpoint", () => {
 
   it("preserves the existing lease error when the wait bound expires", async () => {
     const env = {
-      OPENCLAW_STATE_DIR: startupMigrationTempDirs.make("openclaw-startup-migration-"),
+      GRANTED_STATE_DIR: startupMigrationTempDirs.make("openclaw-startup-migration-"),
     };
     let nowMs = 1001;
     let elapsedMs = 0;
@@ -549,7 +549,7 @@ describe("startup migration checkpoint", () => {
 
   it("reclaims an active startup migration lease whose owner process is gone", async () => {
     const env = {
-      OPENCLAW_STATE_DIR: startupMigrationTempDirs.make("openclaw-startup-migration-"),
+      GRANTED_STATE_DIR: startupMigrationTempDirs.make("openclaw-startup-migration-"),
     };
     const deadPid = 2_147_483_647;
     const stale = acquireStartupMigrationLease({
@@ -577,7 +577,7 @@ describe("startup migration checkpoint", () => {
     "reclaims a startup migration lease whose owner PID was recycled",
     () => {
       const env = {
-        OPENCLAW_STATE_DIR: startupMigrationTempDirs.make("openclaw-startup-migration-"),
+        GRANTED_STATE_DIR: startupMigrationTempDirs.make("openclaw-startup-migration-"),
       };
       const stale = acquireStartupMigrationLease({ env, nowMs: 1000, owner: "stale" });
 
@@ -595,7 +595,7 @@ describe("startup migration checkpoint", () => {
 
   it("does not report an expired startup migration lease as active", () => {
     const env = {
-      OPENCLAW_STATE_DIR: startupMigrationTempDirs.make("openclaw-startup-migration-"),
+      GRANTED_STATE_DIR: startupMigrationTempDirs.make("openclaw-startup-migration-"),
     };
     const lease = acquireStartupMigrationLease({ env, nowMs: 1000, owner: "first" });
 
@@ -606,7 +606,7 @@ describe("startup migration checkpoint", () => {
 
   it("renews startup migration leases while the owner is still running", () => {
     const env = {
-      OPENCLAW_STATE_DIR: startupMigrationTempDirs.make("openclaw-startup-migration-"),
+      GRANTED_STATE_DIR: startupMigrationTempDirs.make("openclaw-startup-migration-"),
     };
     const lease = acquireStartupMigrationLease({ env, nowMs: 1000, owner: "first" });
 
@@ -621,7 +621,7 @@ describe("startup migration checkpoint", () => {
 
   it("does not checkpoint startup migrations after the lease is lost", () => {
     const env = {
-      OPENCLAW_STATE_DIR: startupMigrationTempDirs.make("openclaw-startup-migration-"),
+      GRANTED_STATE_DIR: startupMigrationTempDirs.make("openclaw-startup-migration-"),
     };
     const first = acquireStartupMigrationLease({ env, nowMs: 1000, owner: "first" });
     const second = acquireStartupMigrationLease({ env, nowMs: 400_000, owner: "second" });
@@ -643,7 +643,7 @@ describe("startup migration checkpoint", () => {
 
   it("checks exact lease ownership inside the caller write transaction", () => {
     const env = {
-      OPENCLAW_STATE_DIR: startupMigrationTempDirs.make("openclaw-startup-migration-"),
+      GRANTED_STATE_DIR: startupMigrationTempDirs.make("openclaw-startup-migration-"),
     };
     const nowMs = Date.now();
     const first = acquireStartupMigrationLease({ env, nowMs, owner: "first" });
@@ -669,7 +669,7 @@ describe("startup migration checkpoint", () => {
 
   it("reads the checkpoint without requiring the full state schema to be canonical", () => {
     const env = {
-      OPENCLAW_STATE_DIR: startupMigrationTempDirs.make("openclaw-startup-migration-"),
+      GRANTED_STATE_DIR: startupMigrationTempDirs.make("openclaw-startup-migration-"),
     };
     const sqlite = requireNodeSqlite();
     const dbPath = resolveOpenClawStateSqlitePath(env);
@@ -696,17 +696,17 @@ describe("startup migration checkpoint", () => {
 
   it("refuses future-version state databases before creating checkpoint tables", () => {
     const env = {
-      OPENCLAW_STATE_DIR: startupMigrationTempDirs.make("openclaw-startup-migration-"),
+      GRANTED_STATE_DIR: startupMigrationTempDirs.make("openclaw-startup-migration-"),
     };
     const sqlite = requireNodeSqlite();
     const dbPath = resolveOpenClawStateSqlitePath(env);
     mkdirSync(path.dirname(dbPath), { recursive: true });
     const db = new sqlite.DatabaseSync(dbPath);
-    db.exec(`PRAGMA user_version = ${OPENCLAW_STATE_SCHEMA_VERSION + 1};`);
+    db.exec(`PRAGMA user_version = ${GRANTED_STATE_SCHEMA_VERSION + 1};`);
     db.close();
 
     expect(() => acquireStartupMigrationLease({ env, nowMs: 1000, owner: "first" })).toThrow(
-      `newer schema version ${OPENCLAW_STATE_SCHEMA_VERSION + 1}`,
+      `newer schema version ${GRANTED_STATE_SCHEMA_VERSION + 1}`,
     );
 
     const verify = new sqlite.DatabaseSync(dbPath, { readOnly: true });

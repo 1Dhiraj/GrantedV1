@@ -7,7 +7,7 @@
 // The scripted IN steps stand in for the model loop; OUT events are the grammY
 // Bot API calls (sendMessage / editMessageText / sendChatAction /
 // deleteMessage) observed at a recording API mock with scripted message ids.
-// Refresh goldens with OPENCLAW_TRACE_UPDATE=1 (see delivery-trace harness docs).
+// Refresh goldens with GRANTED_TRACE_UPDATE=1 (see delivery-trace harness docs).
 import type { Bot } from "grammy";
 import {
   deliveryTraceScenarios,

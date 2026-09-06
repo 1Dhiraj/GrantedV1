@@ -103,9 +103,9 @@ afterAll(() => {
 });
 
 it("keeps plain-config status off the full config runtime", async () => {
-  vi.stubEnv("OPENCLAW_HOME", tempRoot);
-  vi.stubEnv("OPENCLAW_STATE_DIR", tempRoot);
-  vi.stubEnv("OPENCLAW_CONFIG_PATH", configPath);
+  vi.stubEnv("GRANTED_HOME", tempRoot);
+  vi.stubEnv("GRANTED_STATE_DIR", tempRoot);
+  vi.stubEnv("GRANTED_CONFIG_PATH", configPath);
 
   await expect(
     tryRouteCli(["node", "openclaw", "gateway", "status", "--json", "--no-probe"]),

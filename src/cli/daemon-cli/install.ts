@@ -14,7 +14,7 @@ import { replaceConfigFile } from "../../config/mutate.js";
 import { resolveGatewayPort } from "../../config/paths.js";
 import type { GatewayBindMode } from "../../config/types.gateway.js";
 import type { OpenClawConfig } from "../../config/types.js";
-import { OPENCLAW_WRAPPER_ENV_KEY, resolveOpenClawWrapperPath } from "../../daemon/program-args.js";
+import { GRANTED_WRAPPER_ENV_KEY, resolveOpenClawWrapperPath } from "../../daemon/program-args.js";
 import { readEmbeddedGatewayToken } from "../../daemon/service-audit.js";
 import { mergeGatewayServiceEnv } from "../../daemon/service-env-merge.js";
 import {
@@ -116,10 +116,10 @@ export function mergeInstallInvocationEnv(params: {
       continue;
     }
     const upper = key.toUpperCase();
-    if (upper === OPENCLAW_WRAPPER_ENV_KEY) {
+    if (upper === GRANTED_WRAPPER_ENV_KEY) {
       const value = rawValue.trim();
       if (value) {
-        preservedServiceEnv[normalizeInstallEnvKey(OPENCLAW_WRAPPER_ENV_KEY)] = value;
+        preservedServiceEnv[normalizeInstallEnvKey(GRANTED_WRAPPER_ENV_KEY)] = value;
       }
       continue;
     }
@@ -127,7 +127,7 @@ export function mergeInstallInvocationEnv(params: {
       upper === "HOME" ||
       upper === "PATH" ||
       upper === "TMPDIR" ||
-      upper.startsWith("OPENCLAW_")
+      upper.startsWith("GRANTED_")
     ) {
       continue;
     }
@@ -269,9 +269,9 @@ export async function runDaemonInstall(opts: DaemonInstallOptions) {
   }
   if (!wrapperPath) {
     try {
-      wrapperPath = await resolveOpenClawWrapperPath(installEnv[OPENCLAW_WRAPPER_ENV_KEY]);
+      wrapperPath = await resolveOpenClawWrapperPath(installEnv[GRANTED_WRAPPER_ENV_KEY]);
     } catch (err) {
-      fail(`Invalid ${OPENCLAW_WRAPPER_ENV_KEY}: ${String(err)}`);
+      fail(`Invalid ${GRANTED_WRAPPER_ENV_KEY}: ${String(err)}`);
       return;
     }
   }
@@ -424,14 +424,14 @@ async function getGatewayServiceAutoRefreshMessage(params: {
     if (currentEmbeddedToken) {
       const plannedInstall = await getPlannedInstall();
       const plannedEmbeddedToken = normalizeOptionalString(
-        plannedInstall.environment.OPENCLAW_GATEWAY_TOKEN,
+        plannedInstall.environment.GRANTED_GATEWAY_TOKEN,
       );
       if (currentEmbeddedToken !== plannedEmbeddedToken) {
-        return "Gateway service OPENCLAW_GATEWAY_TOKEN differs from the current install plan; refreshing the install.";
+        return "Gateway service GRANTED_GATEWAY_TOKEN differs from the current install plan; refreshing the install.";
       }
     }
     const wrapperRequested = Boolean(
-      params.wrapperPath || normalizeOptionalString(params.installEnv[OPENCLAW_WRAPPER_ENV_KEY]),
+      params.wrapperPath || normalizeOptionalString(params.installEnv[GRANTED_WRAPPER_ENV_KEY]),
     );
     if (wrapperRequested) {
       const plannedInstall = await getPlannedInstall();
@@ -442,13 +442,13 @@ async function getGatewayServiceAutoRefreshMessage(params: {
         return "Gateway service command differs from the current wrapper install plan; refreshing the install.";
       }
       const plannedWrapperPath = normalizeOptionalString(
-        plannedInstall.environment[OPENCLAW_WRAPPER_ENV_KEY],
+        plannedInstall.environment[GRANTED_WRAPPER_ENV_KEY],
       );
       const currentWrapperPath = normalizeOptionalString(
-        currentCommand.environment?.[OPENCLAW_WRAPPER_ENV_KEY],
+        currentCommand.environment?.[GRANTED_WRAPPER_ENV_KEY],
       );
       if (plannedWrapperPath !== currentWrapperPath) {
-        return `Gateway service ${OPENCLAW_WRAPPER_ENV_KEY} differs from the current wrapper install plan; refreshing the install.`;
+        return `Gateway service ${GRANTED_WRAPPER_ENV_KEY} differs from the current wrapper install plan; refreshing the install.`;
       }
     }
     const currentExecPath = currentCommand.programArguments[0]?.trim();

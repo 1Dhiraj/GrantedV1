@@ -93,12 +93,12 @@ describe("logNonInteractiveOnboardingFailure", () => {
   it.each([
     {
       name: "active profile",
-      env: { OPENCLAW_PROFILE: "work", OPENCLAW_CONTAINER_HINT: undefined },
+      env: { GRANTED_PROFILE: "work", GRANTED_CONTAINER_HINT: undefined },
       selector: "--profile work",
     },
     {
       name: "container precedence over the active profile",
-      env: { OPENCLAW_PROFILE: "work", OPENCLAW_CONTAINER_HINT: "preview" },
+      env: { GRANTED_PROFILE: "work", GRANTED_CONTAINER_HINT: "preview" },
       selector: "--container preview",
     },
   ])("keeps $name on every recovery command in human and JSON output", ({ env, selector }) => {
@@ -580,7 +580,7 @@ describe("onboard (non-interactive): gateway and remote auth", () => {
       const passwordRef = {
         source: "env" as const,
         provider: "default",
-        id: "OPENCLAW_REMOTE_GATEWAY_PASSWORD",
+        id: "GRANTED_REMOTE_GATEWAY_PASSWORD",
       };
       const tokenRef = { source: "env" as const, provider: "default", id: "REMOTE_TOKEN" };
       const seededAgents = {
@@ -998,7 +998,7 @@ describe("onboard (non-interactive): gateway and remote auth", () => {
 
       const { runtimeWithCapture, readCapturedJson } = createOnboardJsonCaptureRuntime();
       await withEnvAsync(
-        { OPENCLAW_PROFILE: "work", OPENCLAW_CONTAINER_HINT: undefined },
+        { GRANTED_PROFILE: "work", GRANTED_CONTAINER_HINT: undefined },
         async () => {
           await expectOnboardLocalJsonSetupFailure({
             runSetup: runNonInteractiveSetup,

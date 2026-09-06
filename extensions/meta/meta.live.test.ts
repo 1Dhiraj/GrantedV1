@@ -19,7 +19,7 @@ const LIVE =
   isLiveTestEnabled(["META_LIVE_TEST", "MODEL_API_LIVE_TEST"]) && MODEL_API_KEY.length > 0;
 // Contributor prompts and completions may train future Meta models, so sending live
 // test content requires deliberate opt-in even though the fixture is synthetic.
-const CONTRIBUTOR_LIVE = LIVE && process.env.OPENCLAW_LIVE_META_CONTRIBUTOR === "1";
+const CONTRIBUTOR_LIVE = LIVE && process.env.GRANTED_LIVE_META_CONTRIBUTOR === "1";
 const describeLive = LIVE ? describe : describe.skip;
 const describeContributorLive = CONTRIBUTOR_LIVE ? describe : describe.skip;
 

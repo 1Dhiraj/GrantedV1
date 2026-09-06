@@ -72,7 +72,7 @@ beforeEach(async () => {
     };
   });
   setActivePluginRegistry(createEmptyPluginRegistry());
-  vi.stubEnv("OPENCLAW_STATE_DIR", tempDirs.make("openclaw-rewind-handler-"));
+  vi.stubEnv("GRANTED_STATE_DIR", tempDirs.make("openclaw-rewind-handler-"));
   await upsertSessionEntryCore(
     { agentId: "main", sessionKey },
     {

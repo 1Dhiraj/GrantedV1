@@ -16,7 +16,7 @@ export type VitestShardTimingSpec = {
   watchMode?: boolean;
 };
 
-const SHARD_NAME_ENV_KEY = "OPENCLAW_VITEST_SHARD_NAME";
+const SHARD_NAME_ENV_KEY = "GRANTED_VITEST_SHARD_NAME";
 
 function sanitizeTimingLabel(value: unknown): string {
   return String(value)

@@ -47,7 +47,7 @@ describe("standing intents", () => {
     stateDir = await fs.realpath(
       await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-standing-intents-")),
     );
-    vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
+    vi.stubEnv("GRANTED_STATE_DIR", stateDir);
     await fs.mkdir(path.dirname(resolveOpenClawAgentSqlitePath({ agentId: "main" })), {
       recursive: true,
     });

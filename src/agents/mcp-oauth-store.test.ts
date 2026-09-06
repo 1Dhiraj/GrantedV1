@@ -1,6 +1,6 @@
 import { withTempHome as withBaseTempHome } from "openclaw/plugin-sdk/test-env";
 import { describe, expect, it } from "vitest";
-import { OPENCLAW_STATE_SCHEMA_VERSION } from "../state/openclaw-state-db-contract.js";
+import { GRANTED_STATE_SCHEMA_VERSION } from "../state/openclaw-state-db-contract.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
@@ -51,7 +51,7 @@ describe("MCP OAuth pending authorization store", () => {
           .get("mcp_oauth_pending_authorizations"),
       ).toEqual({ strict: 1 });
       expect(database.prepare("PRAGMA user_version").get()).toEqual({
-        user_version: OPENCLAW_STATE_SCHEMA_VERSION,
+        user_version: GRANTED_STATE_SCHEMA_VERSION,
       });
       expect(readMcpOAuthPendingAuthorization("first-state")).toBe(store.storeKey);
 

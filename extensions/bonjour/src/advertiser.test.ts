@@ -57,7 +57,7 @@ function enableAdvertiserUnitMode(hostname = "test-host") {
   vi.stubEnv("VITEST", undefined);
   vi.stubEnv("NODE_ENV", "development");
   vi.spyOn(os, "hostname").mockReturnValue(hostname);
-  vi.stubEnv("OPENCLAW_MDNS_HOSTNAME", hostname);
+  vi.stubEnv("GRANTED_MDNS_HOSTNAME", hostname);
 }
 
 function mockCiaoService(params?: {
@@ -224,9 +224,9 @@ describe("gateway bonjour advertiser", () => {
     await started.stop();
   });
 
-  it("honors truthy OPENCLAW_DISABLE_BONJOUR values", async () => {
+  it("honors truthy GRANTED_DISABLE_BONJOUR values", async () => {
     enableAdvertiserUnitMode();
-    vi.stubEnv("OPENCLAW_DISABLE_BONJOUR", "true");
+    vi.stubEnv("GRANTED_DISABLE_BONJOUR", "true");
 
     const started = await startAdvertiser({
       gatewayPort: 18789,
@@ -268,7 +268,7 @@ describe("gateway bonjour advertiser", () => {
 
   it("honors explicit Bonjour opt-in inside detected containers", async () => {
     enableAdvertiserUnitMode();
-    vi.stubEnv("OPENCLAW_DISABLE_BONJOUR", "0");
+    vi.stubEnv("GRANTED_DISABLE_BONJOUR", "0");
     vi.spyOn(fs, "existsSync").mockImplementation((filePath) => String(filePath) === "/.dockerenv");
 
     const destroy = vi.fn().mockResolvedValue(undefined);
@@ -607,7 +607,7 @@ describe("gateway bonjour advertiser", () => {
     // Allow advertiser to run in unit tests.
     vi.stubEnv("VITEST", undefined);
     vi.stubEnv("NODE_ENV", "development");
-    vi.stubEnv("OPENCLAW_MDNS_HOSTNAME", undefined);
+    vi.stubEnv("GRANTED_MDNS_HOSTNAME", undefined);
     vi.spyOn(os, "hostname").mockReturnValue("My_Lobster Host");
 
     const destroy = vi.fn().mockResolvedValue(undefined);
@@ -699,11 +699,11 @@ describe("gateway bonjour advertiser", () => {
     await started.stop();
   });
 
-  it("uses system hostname when OPENCLAW_MDNS_HOSTNAME is unset", async () => {
+  it("uses system hostname when GRANTED_MDNS_HOSTNAME is unset", async () => {
     // Allow advertiser to run in unit tests.
     vi.stubEnv("VITEST", undefined);
     vi.stubEnv("NODE_ENV", "development");
-    vi.stubEnv("OPENCLAW_MDNS_HOSTNAME", undefined);
+    vi.stubEnv("GRANTED_MDNS_HOSTNAME", undefined);
     vi.spyOn(os, "hostname").mockReturnValue("Lobster");
 
     const destroy = vi.fn().mockResolvedValue(undefined);

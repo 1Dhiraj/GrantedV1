@@ -393,11 +393,11 @@ describe.runIf(process.platform !== "win32")("terminal PTY process-session teard
 
     try {
       handle.write(
-        'sleep 300 & child=$(jobs -p); printf \'__OPENCLAW_PIDS__ %s %s\\n\' "$$" "$child"\r',
+        'sleep 300 & child=$(jobs -p); printf \'__GRANTED_PIDS__ %s %s\\n\' "$$" "$child"\r',
       );
       await vi.waitFor(
         () => {
-          const match = output.match(/__OPENCLAW_PIDS__\s+(\d+)\s+(\d+)/u);
+          const match = output.match(/__GRANTED_PIDS__\s+(\d+)\s+(\d+)/u);
           expect(match, output).toBeTruthy();
           shellPid = Number(match?.[1]);
           childPid = Number(match?.[2]);

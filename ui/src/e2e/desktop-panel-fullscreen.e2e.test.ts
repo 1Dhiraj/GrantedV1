@@ -7,7 +7,7 @@ import { installMockGateway } from "../test-helpers/control-ui-e2e.ts";
 import { createControlUiE2eSuite } from "./control-ui-e2e-suite.test-support.ts";
 import { installScriptedRfbServer } from "./desktop-rfb-test-support.ts";
 
-const realVncWsUrl = process.env.OPENCLAW_DESKTOP_REAL_VNC_WS_URL?.trim() || null;
+const realVncWsUrl = process.env.GRANTED_DESKTOP_REAL_VNC_WS_URL?.trim() || null;
 const suite = createControlUiE2eSuite({
   name: "desktop fullscreen",
   browserLaunchOptions: realVncWsUrl
@@ -17,8 +17,8 @@ const suite = createControlUiE2eSuite({
   unavailableMessage: (executablePath) =>
     `Playwright Chromium is not installed or cannot start at ${executablePath}. Run \`pnpm --dir ui exec playwright install --with-deps chromium\`.`,
 });
-const captureUiProof = process.env.OPENCLAW_CAPTURE_UI_PROOF === "1";
-const proofStage = process.env.OPENCLAW_DESKTOP_FULLSCREEN_PROOF_STAGE ?? "after";
+const captureUiProof = process.env.GRANTED_CAPTURE_UI_PROOF === "1";
+const proofStage = process.env.GRANTED_DESKTOP_FULLSCREEN_PROOF_STAGE ?? "after";
 let proofDir: string;
 beforeEach(() => {
   if (captureUiProof) {
@@ -157,7 +157,7 @@ suite.define(() => {
           await gateway.waitForRequest("environments.list");
           if (!realVncWsUrl) {
             // CI uses the canonical scripted RFB endpoint. Visual proof sets
-            // OPENCLAW_DESKTOP_REAL_VNC_WS_URL to a genuine VNC desktop.
+            // GRANTED_DESKTOP_REAL_VNC_WS_URL to a genuine VNC desktop.
             await installScriptedRfbServer(page);
           }
           await panel.getByRole("button", { name: "Connect", exact: true }).click();

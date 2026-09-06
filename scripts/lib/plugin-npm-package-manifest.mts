@@ -336,7 +336,7 @@ export function generatePluginNpmPackageLockWithRetry(
   const pluginDir = params.pluginDir ?? "plugin";
   const env = {
     ...(options.env ?? process.env),
-    OPENCLAW_NPM_LOCK_COMMAND_TIMEOUT_MS: String(timeoutMs),
+    GRANTED_NPM_LOCK_COMMAND_TIMEOUT_MS: String(timeoutMs),
   };
 
   for (let attempt = 1; attempt <= attempts; attempt += 1) {
@@ -1206,7 +1206,7 @@ function main(argv: string[] = process.argv.slice(2)) {
   return withAugmentedPluginNpmManifestForPackage(
     {
       packageDir,
-      bundleDependencies: process.env.OPENCLAW_PLUGIN_NPM_BUNDLE_DEPENDENCIES,
+      bundleDependencies: process.env.GRANTED_PLUGIN_NPM_BUNDLE_DEPENDENCIES,
     },
     ({ packageDir: cwd }) => {
       const commandArgs = [...args];

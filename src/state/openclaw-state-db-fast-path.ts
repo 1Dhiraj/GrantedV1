@@ -9,7 +9,7 @@ import { runSqliteDeferredTransactionSync } from "../infra/sqlite-transaction.js
 import { readSqliteUserVersion } from "../infra/sqlite-user-version.js";
 import { hasLegacyCronRunLogs } from "../infra/state-migrations.cron-run-logs.js";
 import { VERSION } from "../version.js";
-import { OPENCLAW_STATE_SCHEMA_VERSION } from "./openclaw-state-db-contract.js";
+import { GRANTED_STATE_SCHEMA_VERSION } from "./openclaw-state-db-contract.js";
 import {
   assertOpenClawStateDatabaseForMaintenance,
   assertSupportedSchemaVersion,
@@ -36,7 +36,7 @@ export function isOpenClawStateSchemaFastPathEligible(
 ): boolean {
   return runSqliteDeferredTransactionSync(database, () => {
     assertSupportedSchemaVersion(database, pathname);
-    if (readSqliteUserVersion(database) !== OPENCLAW_STATE_SCHEMA_VERSION) {
+    if (readSqliteUserVersion(database) !== GRANTED_STATE_SCHEMA_VERSION) {
       return false;
     }
     assertSqliteIntegrity(database, pathname);

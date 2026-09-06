@@ -84,8 +84,8 @@ export function installMatrixTestRuntime(options: MatrixTestRuntimeOptions = {})
   ) => stateDir;
   const resolvePluginStateEnv = (storeOptions: OpenKeyedStoreOptions): NodeJS.ProcessEnv => ({
     ...(storeOptions.env ?? process.env),
-    OPENCLAW_STATE_DIR:
-      storeOptions.env?.OPENCLAW_STATE_DIR?.trim() || defaultStateDirResolver(storeOptions.env),
+    GRANTED_STATE_DIR:
+      storeOptions.env?.GRANTED_STATE_DIR?.trim() || defaultStateDirResolver(storeOptions.env),
   });
   const getRuntimeConfig = () => options.cfg ?? {};
   const logging: PluginRuntime["logging"] | undefined = options.logging
@@ -113,7 +113,7 @@ export function installMatrixTestRuntime(options: MatrixTestRuntimeOptions = {})
       openBlobStore: (<T>(storeOptions: OpenBlobStoreOptions) =>
         createPluginBlobStoreForTests<T>("matrix", storeOptions, {
           ...process.env,
-          OPENCLAW_STATE_DIR: defaultStateDirResolver(process.env),
+          GRANTED_STATE_DIR: defaultStateDirResolver(process.env),
         })) as PluginRuntime["state"]["openBlobStore"],
       openKeyedStore: (<T>(storeOptions: OpenKeyedStoreOptions) =>
         createPluginStateKeyedStoreForTests<T>("matrix", {

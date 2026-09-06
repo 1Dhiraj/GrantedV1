@@ -3,7 +3,7 @@ import { randomUUID } from "node:crypto";
 import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
 import { formatCliCommand } from "../cli/command-format.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";
-import { OPENCLAW_AGENT_SCHEMA_VERSION } from "../state/openclaw-agent-db-contract.js";
+import { GRANTED_AGENT_SCHEMA_VERSION } from "../state/openclaw-agent-db-contract.js";
 import {
   formatLegacyAgentMediaMigrationRequiredMessage,
   GATEWAY_AGENT_MEDIA_MIGRATION_REQUIRED_REASON,
@@ -288,7 +288,7 @@ export function repairGatewayAgentMediaMigrationStartupFailures(params: {
         const legacyMessages = [
           ...new Set(
             params.databasePaths.flatMap((pathname) =>
-              Array.from({ length: OPENCLAW_AGENT_SCHEMA_VERSION }, (_, schemaVersion) => {
+              Array.from({ length: GRANTED_AGENT_SCHEMA_VERSION }, (_, schemaVersion) => {
                 const message = formatLegacyAgentMediaMigrationRequiredMessage(
                   pathname,
                   schemaVersion,

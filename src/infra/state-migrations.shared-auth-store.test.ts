@@ -53,9 +53,9 @@ describe("shared auth store relocation", () => {
 
   async function createFixture() {
     const stateDir = tempDirs.make("openclaw-shared-auth-relocate-");
-    vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
-    vi.stubEnv("OPENCLAW_AGENT_DIR", "");
-    const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir, OPENCLAW_AGENT_DIR: undefined };
+    vi.stubEnv("GRANTED_STATE_DIR", stateDir);
+    vi.stubEnv("GRANTED_AGENT_DIR", "");
+    const env = { ...process.env, GRANTED_STATE_DIR: stateDir, GRANTED_AGENT_DIR: undefined };
     const mainAgentDir = paths.resolveSharedMainAuthAgentDir(env);
     const opsAgentDir = path.join(stateDir, "agents", "ops", "agent");
     const sharedStore = makeStore("openai:shared", "shared-key");
@@ -84,9 +84,9 @@ describe("shared auth store relocation", () => {
 
   async function createEmptyFixture(createSourceDatabase: boolean) {
     const stateDir = tempDirs.make("openclaw-shared-auth-empty-");
-    vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
-    vi.stubEnv("OPENCLAW_AGENT_DIR", "");
-    const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir, OPENCLAW_AGENT_DIR: undefined };
+    vi.stubEnv("GRANTED_STATE_DIR", stateDir);
+    vi.stubEnv("GRANTED_AGENT_DIR", "");
+    const env = { ...process.env, GRANTED_STATE_DIR: stateDir, GRANTED_AGENT_DIR: undefined };
     const mainAgentDir = paths.resolveSharedMainAuthAgentDir(env);
     const sourcePath = sqlite.resolveAuthProfileDatabasePath(mainAgentDir);
     if (createSourceDatabase) {
@@ -186,7 +186,7 @@ describe("shared auth store relocation", () => {
       credential: {
         type: "api_key",
         provider: "openai",
-        keyRef: { source: "env", provider: "default", id: "OPENCLAW_SHARED_AUTH_TEST_KEY" },
+        keyRef: { source: "env", provider: "default", id: "GRANTED_SHARED_AUTH_TEST_KEY" },
       },
       stateDir: fixture.stateDir,
     });
@@ -463,9 +463,9 @@ describe("shared auth store relocation", () => {
           layout: "split",
           applyEnv: false,
           env: {
-            OPENCLAW_AGENT_DIR: undefined,
+            GRANTED_AGENT_DIR: undefined,
             PI_CODING_AGENT_DIR: undefined,
-            OPENCLAW_OAUTH_DIR: undefined,
+            GRANTED_OAUTH_DIR: undefined,
           },
         });
         ownerStates.push(owner);
@@ -477,14 +477,14 @@ describe("shared auth store relocation", () => {
       const ambientDir = path.join(ambient.home, "relocated-auth");
       const selectedEnv = {
         ...selected.env,
-        OPENCLAW_AGENT_DIR: pathStyle === "tilde" ? "~/relocated-auth" : selectedDir,
+        GRANTED_AGENT_DIR: pathStyle === "tilde" ? "~/relocated-auth" : selectedDir,
       };
       const ambientEnv = {
         ...ambient.env,
-        OPENCLAW_AGENT_DIR: pathStyle === "tilde" ? "~/relocated-auth" : ambientDir,
+        GRANTED_AGENT_DIR: pathStyle === "tilde" ? "~/relocated-auth" : ambientDir,
       };
       ambient.applyEnv();
-      vi.stubEnv("OPENCLAW_AGENT_DIR", ambientEnv.OPENCLAW_AGENT_DIR);
+      vi.stubEnv("GRANTED_AGENT_DIR", ambientEnv.GRANTED_AGENT_DIR);
       const profileId = "openai:source";
       const selectedStore = makeStore(profileId, `fake-selected-${randomUUID()}`);
       const ambientStore = makeStore(profileId, `fake-ambient-${randomUUID()}`);
@@ -577,8 +577,8 @@ describe("shared auth store relocation", () => {
     fs.mkdirSync(path.dirname(fixture.sourcePath), { recursive: true });
     fs.writeFileSync(fixture.sourcePath, sourceBytes);
     const ambientStateDir = tempDirs.make("openclaw-shared-auth-pending-ambient-");
-    vi.stubEnv("OPENCLAW_STATE_DIR", ambientStateDir);
-    vi.stubEnv("OPENCLAW_AGENT_DIR", path.join(ambientStateDir, "relocated-auth"));
+    vi.stubEnv("GRANTED_STATE_DIR", ambientStateDir);
+    vi.stubEnv("GRANTED_AGENT_DIR", path.join(ambientStateDir, "relocated-auth"));
 
     const detected = await doctor.detectLegacyStateMigrations({
       cfg: { plugins: { enabled: false } },

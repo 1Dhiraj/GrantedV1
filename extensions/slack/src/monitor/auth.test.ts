@@ -27,11 +27,11 @@ beforeAll(async () => {
 
 beforeEach(() => {
   readChannelIngressStoreAllowFromForDmPolicyMock.mockReset();
-  delete process.env.OPENCLAW_SLACK_CHANNEL_MEMBERS_CACHE_TTL_MS;
+  delete process.env.GRANTED_SLACK_CHANNEL_MEMBERS_CACHE_TTL_MS;
 });
 
 afterEach(() => {
-  delete process.env.OPENCLAW_SLACK_CHANNEL_MEMBERS_CACHE_TTL_MS;
+  delete process.env.GRANTED_SLACK_CHANNEL_MEMBERS_CACHE_TTL_MS;
 });
 
 vi.mock("openclaw/plugin-sdk/channel-ingress-runtime", async () => {
@@ -307,7 +307,7 @@ describe("authorizeSlackSystemEventSender", () => {
     [
       "ignores non-decimal channel member cache ttl env values",
       () => {
-        process.env.OPENCLAW_SLACK_CHANNEL_MEMBERS_CACHE_TTL_MS = "0x0";
+        process.env.GRANTED_SLACK_CHANNEL_MEMBERS_CACHE_TTL_MS = "0x0";
       },
       1,
     ],

@@ -368,7 +368,7 @@ export async function continuePostCoreUpdateInFreshProcess(params: {
       stdio: childStdio,
       env: {
         ...handoffEnv,
-        OPENCLAW_UPDATE_IN_PROGRESS: "1",
+        GRANTED_UPDATE_IN_PROGRESS: "1",
         [POST_CORE_UPDATE_ENV]: "1",
         [POST_CORE_UPDATE_CHANNEL_ENV]: params.channel,
         [POST_CORE_UPDATE_RESULT_PATH_ENV]: resultPath,

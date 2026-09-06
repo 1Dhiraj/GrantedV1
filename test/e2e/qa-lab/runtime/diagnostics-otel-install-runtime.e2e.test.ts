@@ -156,7 +156,7 @@ async function packPlugin(repoRoot: string, scratch: string) {
       cwd: repoRoot,
       env: {
         ...process.env,
-        OPENCLAW_PLUGIN_NPM_BUNDLE_DEPENDENCIES: "1",
+        GRANTED_PLUGIN_NPM_BUNDLE_DEPENDENCIES: "1",
       },
       maxBuffer: 16 * 1024 * 1024,
       timeout: 120_000,
@@ -187,7 +187,7 @@ async function startRegistry(repoRoot: string, scratch: string, tarball: string,
       cwd: repoRoot,
       env: {
         ...process.env,
-        OPENCLAW_NPM_REGISTRY_UPSTREAM: "https://registry.npmjs.org",
+        GRANTED_NPM_REGISTRY_UPSTREAM: "https://registry.npmjs.org",
       },
       stdio: ["ignore", "pipe", "pipe"],
     },
@@ -289,10 +289,10 @@ async function startInstallGateway(params: {
     }),
     runtimeEnvPatch: {
       NPM_CONFIG_REGISTRY: params.registryBaseUrl,
-      OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
+      GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
       OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: `${params.envTraceEndpoint}/v1/traces`,
       ...(params.nodeOptions ? { NODE_OPTIONS: params.nodeOptions } : {}),
-      ...(params.nodeOptions ? { OPENCLAW_OTEL_PRELOADED: "1" } : {}),
+      ...(params.nodeOptions ? { GRANTED_OTEL_PRELOADED: "1" } : {}),
     },
   });
 }
@@ -306,7 +306,7 @@ async function installAndConfigure(params: {
   const { gateway } = params;
   const spec = `npm:${PACKAGE_NAME}@${params.packageVersion}`;
   await gateway.runCli(["plugins", "install", spec, "--force", "--accept-capabilities"]);
-  const stateDir = gateway.runtimeEnv.OPENCLAW_STATE_DIR;
+  const stateDir = gateway.runtimeEnv.GRANTED_STATE_DIR;
   if (!stateDir) {
     throw new Error("qa gateway state directory was not configured");
   }
@@ -488,7 +488,7 @@ describe("managed diagnostics-otel install runtime", () => {
         configTraceEndpoint: ignoredConfig.baseUrl,
         packageVersion: packed.version,
       });
-      const stateDir = gateway.runtimeEnv.OPENCLAW_STATE_DIR;
+      const stateDir = gateway.runtimeEnv.GRANTED_STATE_DIR;
       if (!stateDir) {
         throw new Error("qa gateway state directory was not configured");
       }

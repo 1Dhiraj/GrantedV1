@@ -12,7 +12,7 @@ import {
 
 const QA_DOCKER_E2E_LANE_SCRIPT = "test/e2e/qa-lab/runtime/docker-e2e-lane.ts";
 const DOCKER_CANDIDATE_ENV_KEY =
-  /^(?:OPENCLAW_DOCKER_E2E_SELECTED_SHA|OPENCLAW_CURRENT_PACKAGE_(?:TGZ|VERSION|SHA256)|OPENCLAW_PREPUBLISH_PLUGIN_REGISTRY_(?:DIR|CANDIDATE_VERSION|MANIFEST_SHA256))$/u;
+  /^(?:GRANTED_DOCKER_E2E_SELECTED_SHA|GRANTED_CURRENT_PACKAGE_(?:TGZ|VERSION|SHA256)|GRANTED_PREPUBLISH_PLUGIN_REGISTRY_(?:DIR|CANDIDATE_VERSION|MANIFEST_SHA256))$/u;
 const dockerRegistrySchema = z.strictObject({
   dir: z.string(),
   candidateVersion: z.string(),
@@ -93,7 +93,7 @@ export async function prepareDockerE2eEnvironment(params: {
   const env = { ...params.env };
   for (const key of Object.keys(env)) {
     if (
-      key.startsWith("OPENCLAW_DOCKER_ALL_") ||
+      key.startsWith("GRANTED_DOCKER_ALL_") ||
       DOCKER_CANDIDATE_ENV_KEY.test(key) ||
       key === "DOCKER_E2E_LANES"
     ) {
@@ -108,9 +108,9 @@ export async function prepareDockerE2eEnvironment(params: {
     cwd: params.repoRoot,
     env: {
       ...env,
-      OPENCLAW_DOCKER_ALL_LANES: laneNames.join(","),
-      OPENCLAW_DOCKER_ALL_LOG_DIR: prepDir,
-      OPENCLAW_DOCKER_E2E_REPO_ROOT: params.repoRoot,
+      GRANTED_DOCKER_ALL_LANES: laneNames.join(","),
+      GRANTED_DOCKER_ALL_LOG_DIR: prepDir,
+      GRANTED_DOCKER_E2E_REPO_ROOT: params.repoRoot,
     },
   });
   if (result.exitCode !== 0) {
@@ -121,22 +121,22 @@ export async function prepareDockerE2eEnvironment(params: {
   const manifest = dockerCandidateManifestSchema.parse(
     JSON.parse(await fs.readFile(manifestPath, "utf8")),
   );
-  env.OPENCLAW_DOCKER_E2E_REPO_ROOT = params.repoRoot;
+  env.GRANTED_DOCKER_E2E_REPO_ROOT = params.repoRoot;
   if (manifest.candidate === null) {
     return Object.freeze(env);
   }
   const { package: packageCandidate, registry } = manifest.candidate;
   return Object.freeze(
     Object.assign(env, {
-      OPENCLAW_DOCKER_E2E_SELECTED_SHA: manifest.sourceSha,
-      OPENCLAW_CURRENT_PACKAGE_TGZ: packageCandidate.path,
-      OPENCLAW_CURRENT_PACKAGE_VERSION: packageCandidate.version,
-      OPENCLAW_CURRENT_PACKAGE_SHA256: packageCandidate.sha256,
+      GRANTED_DOCKER_E2E_SELECTED_SHA: manifest.sourceSha,
+      GRANTED_CURRENT_PACKAGE_TGZ: packageCandidate.path,
+      GRANTED_CURRENT_PACKAGE_VERSION: packageCandidate.version,
+      GRANTED_CURRENT_PACKAGE_SHA256: packageCandidate.sha256,
       ...(registry
         ? {
-            OPENCLAW_PREPUBLISH_PLUGIN_REGISTRY_DIR: registry.dir,
-            OPENCLAW_PREPUBLISH_PLUGIN_REGISTRY_CANDIDATE_VERSION: registry.candidateVersion,
-            OPENCLAW_PREPUBLISH_PLUGIN_REGISTRY_MANIFEST_SHA256: registry.manifestSha256,
+            GRANTED_PREPUBLISH_PLUGIN_REGISTRY_DIR: registry.dir,
+            GRANTED_PREPUBLISH_PLUGIN_REGISTRY_CANDIDATE_VERSION: registry.candidateVersion,
+            GRANTED_PREPUBLISH_PLUGIN_REGISTRY_MANIFEST_SHA256: registry.manifestSha256,
           }
         : {}),
     }),
@@ -187,13 +187,13 @@ export async function runDockerE2eBatch(params: {
       cwd: params.repoRoot,
       env: {
         ...params.env,
-        OPENCLAW_DOCKER_ALL_BUILD: "1",
-        OPENCLAW_DOCKER_ALL_FAIL_FAST: "0",
-        OPENCLAW_DOCKER_ALL_LANES: laneNames.join(","),
-        OPENCLAW_DOCKER_ALL_LANE_TIMEOUT_MS: String(params.commandTimeoutMs),
-        OPENCLAW_DOCKER_ALL_LOG_DIR: dockerOutputDir,
-        OPENCLAW_DOCKER_ALL_PROFILE: "all",
-        OPENCLAW_DOCKER_ALL_TIMINGS_FILE: path.join(dockerOutputDir, "lane-timings.json"),
+        GRANTED_DOCKER_ALL_BUILD: "1",
+        GRANTED_DOCKER_ALL_FAIL_FAST: "0",
+        GRANTED_DOCKER_ALL_LANES: laneNames.join(","),
+        GRANTED_DOCKER_ALL_LANE_TIMEOUT_MS: String(params.commandTimeoutMs),
+        GRANTED_DOCKER_ALL_LOG_DIR: dockerOutputDir,
+        GRANTED_DOCKER_ALL_PROFILE: "all",
+        GRANTED_DOCKER_ALL_TIMINGS_FILE: path.join(dockerOutputDir, "lane-timings.json"),
       },
       ...(params.onCommandOutput ? { onOutput: params.onCommandOutput } : {}),
       // The scheduler owns each resolved lane deadline. Parent signals and the

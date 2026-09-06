@@ -20,7 +20,7 @@ it("completes absent legacy-state checks without loading client runtimes", async
   });
   const params = {
     config: {},
-    env: { HOME: stateDir, OPENCLAW_STATE_DIR: stateDir },
+    env: { HOME: stateDir, GRANTED_STATE_DIR: stateDir },
     stateDir,
     oauthDir: path.join(stateDir, "oauth"),
     context: { openPluginStateKeyedStore },

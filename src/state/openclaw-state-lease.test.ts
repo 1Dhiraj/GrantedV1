@@ -33,7 +33,7 @@ describe("OpenClaw state lease", () => {
           await withOpenClawStateLease({
             scope: "core:test",
             key: "process-exit",
-            database: { scope: "shared", options: { env: { ...process.env, OPENCLAW_STATE_DIR: stateDir } } },
+            database: { scope: "shared", options: { env: { ...process.env, GRANTED_STATE_DIR: stateDir } } },
             leaseMs: 300_000,
             waitMs: 0,
             heartbeat: ${JSON.stringify(heartbeat)},
@@ -92,7 +92,7 @@ describe("OpenClaw state lease", () => {
           } from ${JSON.stringify(stateDbModuleUrl)};
           import { loggingState } from ${JSON.stringify(loggingStateModuleUrl)};
           const stateDir = process.argv[2];
-          const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+          const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
           // Simulate --json console routing being active for the command.
           loggingState.forceConsoleToStderr = true;
           await withOpenClawStateLease({
@@ -125,7 +125,7 @@ describe("OpenClaw state lease", () => {
       }>((resolve, reject) => {
         const child = spawn(process.execPath, ["--import", "tsx", childScript, state.stateDir], {
           // Keep console logging enabled in the child despite the inherited VITEST env.
-          env: { ...process.env, OPENCLAW_TEST_CONSOLE: "1" },
+          env: { ...process.env, GRANTED_TEST_CONSOLE: "1" },
           stdio: ["ignore", "pipe", "pipe"],
         });
         let stdout = "";
@@ -170,12 +170,12 @@ describe("OpenClaw state lease", () => {
                   .where("lease_key", "=", "credential-write"),
               );
               expect(() => lease.assertOwnedInTransaction(db)).toThrowError(
-                expect.objectContaining({ code: "OPENCLAW_STATE_LEASE_LOST" }),
+                expect.objectContaining({ code: "GRANTED_STATE_LEASE_LOST" }),
               );
             });
           },
         ),
-      ).rejects.toMatchObject({ code: "OPENCLAW_STATE_LEASE_LOST" });
+      ).rejects.toMatchObject({ code: "GRANTED_STATE_LEASE_LOST" });
     });
   });
 });

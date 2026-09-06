@@ -186,9 +186,9 @@ describe("tasks.list Gateway performance", () => {
           },
         });
 
-        const stateDir = process.env.OPENCLAW_STATE_DIR;
+        const stateDir = process.env.GRANTED_STATE_DIR;
         if (!stateDir) {
-          throw new Error("OPENCLAW_STATE_DIR is required for the Gateway proof");
+          throw new Error("GRANTED_STATE_DIR is required for the Gateway proof");
         }
         const connect = async (email: string, scopes: string[], identityLabel = email) => {
           const ws = await openWs(port, {

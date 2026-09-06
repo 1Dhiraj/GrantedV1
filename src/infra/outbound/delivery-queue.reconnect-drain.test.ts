@@ -87,7 +87,7 @@ function expectLogMessageWith(logFn: ReturnType<typeof vi.fn>, text: string): vo
 
 function readOutboundQueueStatus(tmpDir: string, id: string): string | undefined {
   const { db } = openOpenClawStateDatabase({
-    env: { ...process.env, OPENCLAW_STATE_DIR: tmpDir },
+    env: { ...process.env, GRANTED_STATE_DIR: tmpDir },
   });
   const row = db
     .prepare("SELECT status FROM delivery_queue_entries WHERE queue_name = ? AND id = ?")

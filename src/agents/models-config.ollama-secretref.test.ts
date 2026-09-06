@@ -72,7 +72,7 @@ describe("registered Ollama catalog SecretRef ownership", () => {
     "keeps $owner refs out of writable plans at $baseUrl (explicit=$explicitModels, value=$runtimeKey)",
     async ({ owner, baseUrl, explicitModels, runtimeKey }) => {
       const stateDir = tempDirs.make("ollama-catalog-ref-");
-      await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir, OLLAMA_API_KEY: undefined }, async () => {
+      await withEnvAsync({ GRANTED_STATE_DIR: stateDir, OLLAMA_API_KEY: undefined }, async () => {
         const agentDir = path.join(stateDir, "agent");
         const ref = { source: "store", provider: "default", id: "OLLAMA_DISCOVERY_KEY" } as const;
         const profile = {

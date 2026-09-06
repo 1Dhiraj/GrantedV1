@@ -20,9 +20,9 @@ function fixture() {
     HOME: home,
     PATH: `${home}/bin:${process.env.PATH}`,
     npm_config_prefix: home,
-    OPENCLAW_UPGRADE_SURVIVOR_SYSTEMCTL_SHIM_LOG: join(home, "systemctl.log"),
-    OPENCLAW_UPGRADE_SURVIVOR_SYSTEMCTL_SHIM_PID_FILE: join(home, "gateway.pid"),
-    OPENCLAW_UPGRADE_SURVIVOR_SYSTEMCTL_SHIM_DAEMON_LOG: join(home, "gateway.log"),
+    GRANTED_UPGRADE_SURVIVOR_SYSTEMCTL_SHIM_LOG: join(home, "systemctl.log"),
+    GRANTED_UPGRADE_SURVIVOR_SYSTEMCTL_SHIM_PID_FILE: join(home, "gateway.pid"),
+    GRANTED_UPGRADE_SURVIVOR_SYSTEMCTL_SHIM_DAEMON_LOG: join(home, "gateway.log"),
   };
   const shell = (script: string, args: string[] = []) =>
     spawnSync(
@@ -72,8 +72,8 @@ describe.skipIf(process.platform === "win32")("survivor manager fixture", () => 
         programArguments,
         workingDirectory: home,
         environment: {
-          OPENCLAW_STATE_DIR: join(home, "state"),
-          OPENCLAW_GATEWAY_PORT: "18817",
+          GRANTED_STATE_DIR: join(home, "state"),
+          GRANTED_GATEWAY_PORT: "18817",
           FIXTURE_VALUE: "inline",
         },
         environmentFiles: [environmentFile],
@@ -102,8 +102,8 @@ describe.skipIf(process.platform === "win32")("survivor manager fixture", () => 
       sourcePath: unit,
       definitionPaths: [unit],
       environment: {
-        OPENCLAW_STATE_DIR: join(home, "state"),
-        OPENCLAW_GATEWAY_PORT: "18817",
+        GRANTED_STATE_DIR: join(home, "state"),
+        GRANTED_GATEWAY_PORT: "18817",
         FIXTURE_VALUE: "from file",
       },
       environmentValueSources: { FIXTURE_VALUE: "inline-and-file" },
@@ -157,7 +157,7 @@ describe.skipIf(process.platform === "win32")("survivor manager fixture", () => 
     writeFileSync(
       program,
       `import fs from "node:fs";
-fs.appendFileSync(${JSON.stringify(record)}, JSON.stringify({pid:process.pid, argv:process.argv.slice(2), cwd:process.cwd(), value:process.env.FIXTURE_VALUE, state:process.env.OPENCLAW_STATE_DIR, update:process.env.OPENCLAW_UPDATE_IN_PROGRESS}) + "\\n");
+fs.appendFileSync(${JSON.stringify(record)}, JSON.stringify({pid:process.pid, argv:process.argv.slice(2), cwd:process.cwd(), value:process.env.FIXTURE_VALUE, state:process.env.GRANTED_STATE_DIR, update:process.env.GRANTED_UPDATE_IN_PROGRESS}) + "\\n");
 process.on("SIGTERM", () => process.exit(0));
 setInterval(() => {}, 1000);
 `,
@@ -175,7 +175,7 @@ setInterval(() => {}, 1000);
       buildSystemdUnit({
         programArguments,
         workingDirectory: home,
-        environment: { OPENCLAW_STATE_DIR: join(home, "state"), FIXTURE_VALUE: "inline" },
+        environment: { GRANTED_STATE_DIR: join(home, "state"), FIXTURE_VALUE: "inline" },
         environmentFiles: [environmentFile],
       }),
     );
@@ -212,7 +212,7 @@ raise SystemExit(code if code >= 0 else 128 - code)
           record,
         ],
         {
-          env: { ...env, OPENCLAW_UPDATE_IN_PROGRESS: "1" },
+          env: { ...env, GRANTED_UPDATE_IN_PROGRESS: "1" },
           encoding: "utf8",
           timeout: 40_000,
         },
@@ -229,14 +229,14 @@ raise SystemExit(code if code >= 0 else 128 - code)
         state: join(home, "state"),
       });
       const previousPid = readFileSync(
-        env.OPENCLAW_UPGRADE_SURVIVOR_SYSTEMCTL_SHIM_PID_FILE,
+        env.GRANTED_UPGRADE_SURVIVOR_SYSTEMCTL_SHIM_PID_FILE,
         "utf8",
       ).trim();
       expect(await readSystemdServiceRuntime(env)).toMatchObject({
         status: "running",
         pid: Number(previousPid),
       });
-      const previousLines = readFileSync(env.OPENCLAW_UPGRADE_SURVIVOR_SYSTEMCTL_SHIM_LOG, "utf8")
+      const previousLines = readFileSync(env.GRANTED_UPGRADE_SURVIVOR_SYSTEMCTL_SHIM_LOG, "utf8")
         .trim()
         .split("\n").length;
       const assertion = () =>
@@ -264,7 +264,7 @@ raise SystemExit(code if code >= 0 else 128 - code)
           } catch {}
         }
       }
-      expect(existsSync(env.OPENCLAW_UPGRADE_SURVIVOR_SYSTEMCTL_SHIM_PID_FILE)).toBe(false);
+      expect(existsSync(env.GRANTED_UPGRADE_SURVIVOR_SYSTEMCTL_SHIM_PID_FILE)).toBe(false);
       const runtime = await readSystemdServiceRuntime(env);
       expect(runtime).toMatchObject({ status: "stopped" });
       expect(runtime.missingUnit).not.toBe(true);

@@ -31,7 +31,7 @@ vi.mock("../process/supervisor/index.js", () => ({
 const isWin = process.platform === "win32";
 const defaultShell = isWin
   ? undefined
-  : process.env.OPENCLAW_TEST_SHELL || getBashShellConfig().shell;
+  : process.env.GRANTED_TEST_SHELL || getBashShellConfig().shell;
 const tempDirs = createTempDirTracker();
 
 function requireTextContent(
@@ -222,7 +222,7 @@ describe("exec foreground failures", () => {
     expect(text).toContain("known to be safe to retry");
     expect(text).not.toMatch(/process|background|yieldMs|poll|trailing &/i);
     expect(text).not.toContain("OOM-score wrapper");
-    expect(text).not.toContain("OPENCLAW_CHILD_OOM_SCORE_ADJ");
+    expect(text).not.toContain("GRANTED_CHILD_OOM_SCORE_ADJ");
     const details = requireFailedDetails(result.details);
     expect(details.exitCode).toBeNull();
     expect(details.exitSignal).toBe("SIGKILL");
@@ -270,7 +270,7 @@ describe("exec foreground failures", () => {
     ]) {
       expect(text).toContain(fragment);
     }
-    expect(text).not.toContain("OPENCLAW_CHILD_OOM_SCORE_ADJ");
+    expect(text).not.toContain("GRANTED_CHILD_OOM_SCORE_ADJ");
   });
 
   it("keeps wrapped SIGKILL process outcomes generic for non-foreground consumers", async () => {
@@ -337,7 +337,7 @@ describe("exec foreground failures", () => {
       const text = requireTextContent(result);
       expect(text).toContain(`Command aborted by signal ${exitSignal}`);
       expect(text).not.toContain("OOM-score wrapper");
-      expect(text).not.toContain("OPENCLAW_CHILD_OOM_SCORE_ADJ");
+      expect(text).not.toContain("GRANTED_CHILD_OOM_SCORE_ADJ");
     },
   );
 

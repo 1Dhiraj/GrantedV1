@@ -48,7 +48,7 @@ it.each(["host", "writable sandbox", "cloud"])(
         "media/inbound/project.png",
       ]);
       await requireGit(repo, ["commit", "-qm", "project-owned inputs"]);
-      const env = { ...process.env, OPENCLAW_STATE_DIR: path.join(home, "state") };
+      const env = { ...process.env, GRANTED_STATE_DIR: path.join(home, "state") };
       const service = new ManagedWorktreeService({ env });
       const worktree = await service.create({ repoRoot: repo, name: "inputs", baseRef: "HEAD" });
       const cwd = worktree.path;

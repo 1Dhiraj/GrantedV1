@@ -9,7 +9,7 @@ import { isRecord } from "./lib/record-shared.mjs";
 
 const GIT_OUTPUT_MAX_BUFFER = 64 * 1024 * 1024;
 const IMPLAUSIBLE_NO_MERGE_BASE_DIFF_PATHS = 200;
-const RAW_SYNC_CHANGED_LANES_ENV = "OPENCLAW_CHANGED_LANES_RAW_SYNC";
+const RAW_SYNC_CHANGED_LANES_ENV = "GRANTED_CHANGED_LANES_RAW_SYNC";
 
 // Source files knip's production scan reads. Any edit to one of these can orphan
 // an export -- including an import-only edit that drops a barrel re-export's last

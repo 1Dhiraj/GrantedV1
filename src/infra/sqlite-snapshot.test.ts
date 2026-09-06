@@ -113,7 +113,7 @@ function createHotRollbackJournal(sqlitePath: string): void {
       "-e",
       `
         import { DatabaseSync } from "node:sqlite";
-        const database = new DatabaseSync(process.env.OPENCLAW_HOT_JOURNAL_PATH);
+        const database = new DatabaseSync(process.env.GRANTED_HOT_JOURNAL_PATH);
         database.exec(
           "PRAGMA journal_mode = DELETE; " +
           "PRAGMA synchronous = FULL; " +
@@ -126,7 +126,7 @@ function createHotRollbackJournal(sqlitePath: string): void {
       `,
     ],
     {
-      env: { ...process.env, OPENCLAW_HOT_JOURNAL_PATH: sqlitePath },
+      env: { ...process.env, GRANTED_HOT_JOURNAL_PATH: sqlitePath },
       encoding: "utf8",
     },
   );

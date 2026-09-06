@@ -222,6 +222,10 @@ export type UiSettings = {
   composerHoldToRecord?: boolean;
   // Camera intent is device-local, not per-agent or synced through config ui.prefs.
   talkCameraAutoEnable?: boolean;
+  // Wake word is device-local for the same reason, and because it depends on
+  // this browser having speech recognition and a microphone at all.
+  wakeWordEnabled?: boolean;
+  wakeWordPhrase?: string;
   chatSplitLayout?: ChatSplitLayout;
   chatWorkspaceDock?: ChatWorkspaceDock; // Session workspace rail dock edge (default "right")
   boardSessionViews?: BoardSessionViews; // Per-device active dashboard tab and dock state
@@ -547,6 +551,9 @@ export function loadSettings(): UiSettings {
           : defaults.composerHoldToRecord,
       talkCameraAutoEnable:
         typeof parsed.talkCameraAutoEnable === "boolean" ? parsed.talkCameraAutoEnable : undefined,
+      wakeWordEnabled:
+        typeof parsed.wakeWordEnabled === "boolean" ? parsed.wakeWordEnabled : undefined,
+      wakeWordPhrase: normalizeOptionalString(parsed.wakeWordPhrase),
       chatSplitLayout: normalizeChatSplitLayout(parsed.chatSplitLayout),
       chatWorkspaceDock: normalizeChatWorkspaceDock(parsed.chatWorkspaceDock),
       boardSessionViews: normalizeBoardSessionViews(parsed.boardSessionViews),
@@ -701,6 +708,11 @@ function persistSettings(next: UiSettings, options: { selectGateway?: boolean } 
     ...(next.composerHoldToRecord === false ? { composerHoldToRecord: false } : {}),
     ...(typeof next.talkCameraAutoEnable === "boolean"
       ? { talkCameraAutoEnable: next.talkCameraAutoEnable }
+      : {}),
+    // Off is the default, so only the opt-in is worth persisting.
+    ...(next.wakeWordEnabled === true ? { wakeWordEnabled: true } : {}),
+    ...(normalizeOptionalString(next.wakeWordPhrase)
+      ? { wakeWordPhrase: normalizeOptionalString(next.wakeWordPhrase) }
       : {}),
     ...(next.chatSplitLayout ? { chatSplitLayout: next.chatSplitLayout } : {}),
     // Right dock is the default; only the opt-in bottom dock persists.

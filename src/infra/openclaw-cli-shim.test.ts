@@ -16,8 +16,8 @@ import {
 import { clearGatewayAgentCliShim, prepareGatewayAgentCliShim } from "./openclaw-cli-shim.js";
 
 const envSnapshot = captureEnv([
-  "OPENCLAW_EXEC_SHELL_SNAPSHOT",
-  "OPENCLAW_PROFILE",
+  "GRANTED_EXEC_SHELL_SNAPSHOT",
+  "GRANTED_PROFILE",
   "PATH",
   "TSX_TSCONFIG_PATH",
   "TSX_DISABLE_CACHE",
@@ -50,9 +50,9 @@ describe.skipIf(process.platform === "win32")("Gateway agent CLI shim", () => {
         const env = {
           HOME: root,
           USERPROFILE: root,
-          OPENCLAW_PROFILE: "",
-          OPENCLAW_STATE_DIR: stateDir,
-          OPENCLAW_CONFIG_PATH: path.join(stateDir, "openclaw.json"),
+          GRANTED_PROFILE: "",
+          GRANTED_STATE_DIR: stateDir,
+          GRANTED_CONFIG_PATH: path.join(stateDir, "openclaw.json"),
         };
         const invocation = resolveCurrentOpenClawCliInvocation([], {
           argv1: entryPath,
@@ -97,7 +97,7 @@ describe.skipIf(process.platform === "win32")("Gateway agent CLI shim", () => {
       });
 
       await prepareGatewayAgentCliShim({
-        env: testCase.profile ? { OPENCLAW_PROFILE: testCase.profile } : {},
+        env: testCase.profile ? { GRANTED_PROFILE: testCase.profile } : {},
         invocation: fixture.invocation,
         stateDir,
       });
@@ -108,9 +108,9 @@ describe.skipIf(process.platform === "win32")("Gateway agent CLI shim", () => {
       const execConfig = resolveExecToolConfig({ cfg: config });
       expect(execConfig.pathPrepend?.slice(0, 2)).toEqual([shimBinDir, staleBinDir]);
 
-      process.env.OPENCLAW_EXEC_SHELL_SNAPSHOT = "0";
+      process.env.GRANTED_EXEC_SHELL_SNAPSHOT = "0";
       process.env.PATH = `${staleBinDir}${path.delimiter}${process.env.PATH ?? ""}`;
-      delete process.env.OPENCLAW_PROFILE;
+      delete process.env.GRANTED_PROFILE;
       delete process.env.TSX_TSCONFIG_PATH;
       process.env.TSX_DISABLE_CACHE = "1";
       const tool = createExecTool({
@@ -138,7 +138,7 @@ describe.skipIf(process.platform === "win32")("Gateway agent CLI shim", () => {
 it("renders a Windows PATH launcher for the running CLI", async () => {
   await withTempDir("openclaw-agent-cli-shim-win-", async (root) => {
     await prepareGatewayAgentCliShim({
-      env: { OPENCLAW_PROFILE: "work" },
+      env: { GRANTED_PROFILE: "work" },
       invocation: {
         command: "C:\\Program Files\\nodejs\\node.exe",
         args: ["C:\\OpenClaw\\dist\\index.js"],

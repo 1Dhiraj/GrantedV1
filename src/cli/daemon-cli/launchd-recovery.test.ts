@@ -19,7 +19,7 @@ vi.mock("../../daemon/launchd.js", () => ({
   repairLaunchAgentBootstrap: (args: { env?: Record<string, string | undefined> }) =>
     repairLaunchAgentBootstrap(args),
   resolveLaunchAgentLabel: (env: Record<string, string | undefined>) =>
-    env.OPENCLAW_LAUNCHD_LABEL ?? "ai.openclaw.gateway",
+    env.GRANTED_LAUNCHD_LABEL ?? "ai.openclaw.gateway",
 }));
 
 vi.mock("../../daemon/launchd-system.js", () => ({

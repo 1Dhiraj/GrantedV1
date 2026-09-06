@@ -708,7 +708,7 @@ async function readSessionTranscriptBytes(
     agentId: "qa",
     env: {
       ...process.env,
-      OPENCLAW_STATE_DIR: path.join(env.gateway.tempRoot, "state"),
+      GRANTED_STATE_DIR: path.join(env.gateway.tempRoot, "state"),
     },
     sessionId,
     sessionKey,
@@ -933,7 +933,7 @@ export async function runRuntimeToolFixture(
     config,
   });
   const forcedCodexNativeWorkspace =
-    env.gateway.runtimeEnv.OPENCLAW_QA_FORCE_RUNTIME === "codex" &&
+    env.gateway.runtimeEnv.GRANTED_QA_FORCE_RUNTIME === "codex" &&
     metadata.expectedLayer === "codex-native-workspace";
   // Effective tool discovery may advertise the native name. The forced
   // runtime and scenario owner, not inventory absence, decide who executes it.

@@ -222,7 +222,7 @@ function isHealthyImageFrame(frame: FrameSample): boolean {
 
 suite.define(() => {
   it("does not replay a retired user bubble after a later history page omits it", async () => {
-    const proofDir = process.env.OPENCLAW_UI_E2E_ARTIFACT_DIR?.trim()
+    const proofDir = process.env.GRANTED_UI_E2E_ARTIFACT_DIR?.trim()
       ? suite.artifactDir
       : undefined;
     await suite.withPage(

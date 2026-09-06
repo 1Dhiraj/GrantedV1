@@ -11,8 +11,8 @@ import {
   sendMissingScopeForbidden,
 } from "./http-common.js";
 import {
-  OPENCLAW_DEFAULT_MODEL_ID,
-  OPENCLAW_MODEL_ID,
+  GRANTED_DEFAULT_MODEL_ID,
+  GRANTED_MODEL_ID,
   authorizeGatewayHttpRequestOrReply,
   isOpenClawAgentModelId,
   resolveAgentIdFromModel,
@@ -63,7 +63,7 @@ async function authorizeRequest(
 
 function loadAgentModelIds(): string[] {
   const cfg = getRuntimeConfig();
-  const ids = new Set<string>([OPENCLAW_MODEL_ID, OPENCLAW_DEFAULT_MODEL_ID]);
+  const ids = new Set<string>([GRANTED_MODEL_ID, GRANTED_DEFAULT_MODEL_ID]);
   const compatibilityAgentId = tryResolveLegacyCompatibilityAgentId(cfg);
   if (compatibilityAgentId) {
     ids.add(`openclaw/${compatibilityAgentId}`);
@@ -135,7 +135,7 @@ export async function handleOpenAiModelsHttpRequest(
   }
 
   const normalizedModelId = decodedId.trim().toLowerCase();
-  if (normalizedModelId !== OPENCLAW_MODEL_ID && normalizedModelId !== OPENCLAW_DEFAULT_MODEL_ID) {
+  if (normalizedModelId !== GRANTED_MODEL_ID && normalizedModelId !== GRANTED_DEFAULT_MODEL_ID) {
     const cfg = getRuntimeConfig();
     const agentId = resolveAgentIdFromModel(decodedId, cfg);
     if (!agentId || !listAgentIds(cfg).includes(agentId)) {

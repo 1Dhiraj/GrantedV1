@@ -1321,14 +1321,14 @@ describe("scripts/test-group-report run plans", () => {
   beforeAll(() => {
     withEnv(
       {
-        OPENCLAW_TEST_PROJECTS_PARALLEL: undefined,
-        OPENCLAW_TEST_PROJECTS_LEAF_SHARDS: undefined,
+        GRANTED_TEST_PROJECTS_PARALLEL: undefined,
+        GRANTED_TEST_PROJECTS_LEAF_SHARDS: undefined,
       },
       () => {
         serialFullSuitePlans = resolveRunPlans(parseTestGroupReportArgs(["--full-suite"]));
       },
     );
-    withEnv({ OPENCLAW_TEST_PROJECTS_PARALLEL: "6" }, () => {
+    withEnv({ GRANTED_TEST_PROJECTS_PARALLEL: "6" }, () => {
       parallelFullSuitePlans = resolveRunPlans(parseTestGroupReportArgs(["--full-suite"]));
     });
   });
@@ -1354,7 +1354,7 @@ describe("scripts/test-group-report run plans", () => {
 
   it("caps Vitest workers for full-suite profiling by default", () => {
     expect(resolveFullSuiteVitestEnv(parseTestGroupReportArgs(["--full-suite"]), {})).toEqual({
-      OPENCLAW_VITEST_MAX_WORKERS: "2",
+      GRANTED_VITEST_MAX_WORKERS: "2",
     });
   });
 
@@ -1362,19 +1362,19 @@ describe("scripts/test-group-report run plans", () => {
     expect(
       resolveFullSuiteVitestEnv(parseTestGroupReportArgs(["--full-suite"]), {}, "commands"),
     ).toEqual({
-      OPENCLAW_VITEST_MAX_WORKERS: "1",
+      GRANTED_VITEST_MAX_WORKERS: "1",
     });
   });
 
   it("preserves explicit Vitest worker budgets for full-suite profiling", () => {
     expect(
       resolveFullSuiteVitestEnv(parseTestGroupReportArgs(["--full-suite"]), {
-        OPENCLAW_VITEST_MAX_WORKERS: "2",
+        GRANTED_VITEST_MAX_WORKERS: "2",
       }),
     ).toEqual({});
     expect(
       resolveFullSuiteVitestEnv(parseTestGroupReportArgs(["--full-suite"]), {
-        OPENCLAW_TEST_WORKERS: "2",
+        GRANTED_TEST_WORKERS: "2",
       }),
     ).toEqual({});
   });
@@ -1404,7 +1404,7 @@ describe("scripts/test-group-report run plans", () => {
       { cwd: "/repo", env: {} },
     );
 
-    expect(specs.map((spec) => spec.env.OPENCLAW_VITEST_FS_MODULE_CACHE_PATH)).toEqual([
+    expect(specs.map((spec) => spec.env.GRANTED_VITEST_FS_MODULE_CACHE_PATH)).toEqual([
       path.join("/repo", ".cache", "vitest", "0-a.ts"),
       path.join("/repo", ".cache", "vitest", "1-b.ts"),
     ]);

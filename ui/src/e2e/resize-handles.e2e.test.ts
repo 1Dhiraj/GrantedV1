@@ -68,7 +68,7 @@ async function waitForAnimations(locator: Locator) {
 }
 
 async function captureResizeState(page: Page, name: string) {
-  if (process.env.OPENCLAW_CAPTURE_UI_PROOF !== "1") {
+  if (process.env.GRANTED_CAPTURE_UI_PROOF !== "1") {
     return;
   }
   const output = path.join(suite.artifactDir, "resize-handles");

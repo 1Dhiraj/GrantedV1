@@ -67,7 +67,7 @@ describe("sendMessage live-only delivery", () => {
   it("keeps ephemeral-authority sends out of recovery after revocation", async () => {
     const stateDir = tempDirs.make("openclaw-live-only-delivery-");
     try {
-      await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () => {
+      await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {
         pinRuntimePaths();
         let authorityActive = true;
         const sendText = vi.fn(async (ctx: { onPlatformSendDispatch?: () => Promise<void> }) => {

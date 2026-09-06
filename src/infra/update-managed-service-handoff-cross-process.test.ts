@@ -88,7 +88,7 @@ async function prepareConcurrentHandoffHelper(): Promise<{
     parentPid: process.pid,
     execPath: "/usr/local/bin/node",
     argv1: "/opt/openclaw/openclaw.mjs",
-    env: { OPENCLAW_STATE_DIR: tmpDir },
+    env: { GRANTED_STATE_DIR: tmpDir },
     handoffId: "fixture-handoff",
     meta: { handoffId: "fixture-handoff" },
   });
@@ -171,7 +171,7 @@ function driveHandoffProtocol(
     while ((newline = buffered.indexOf("\n")) >= 0) {
       const line = buffered.slice(0, newline);
       buffered = buffered.slice(newline + 1);
-      if (line === "OPENCLAW_UPDATE_HANDOFF_READY") {
+      if (line === "GRANTED_UPDATE_HANDOFF_READY") {
         child.stdin?.write("park\n");
       } else if (line === "parked") {
         child.stdin?.write("commit\n");
@@ -312,7 +312,7 @@ process.stdin.on("data", (chunk) => {
           handoffId,
           meta: { handoffId },
           env: {
-            OPENCLAW_STATE_DIR: tmpDir,
+            GRANTED_STATE_DIR: tmpDir,
             PATH: `${tmpDir}${path.delimiter}${process.env.PATH ?? ""}`,
           },
         });
@@ -504,7 +504,7 @@ process.stdin.on("data", (chunk) => {
       const result = await runHelper({ execFile, helperScriptPath, paramsPath, cwd: tmpDir });
 
       expect(result.code).toBe(1);
-      expect(result.stdout).not.toContain("OPENCLAW_UPDATE_HANDOFF_READY");
+      expect(result.stdout).not.toContain("GRANTED_UPDATE_HANDOFF_READY");
       await expect(pathExists(markerPath)).resolves.toBe(false);
       if (await pathExists(leaseDatabasePath)) {
         const db = new DatabaseSync(leaseDatabasePath, { readOnly: true });
@@ -689,7 +689,7 @@ childProcess.spawnSync = function(command, args, options) {
     let output = "";
     helper.stdout.on("data", (chunk: Buffer | string) => {
       output += chunk.toString();
-      if (output.includes("OPENCLAW_UPDATE_HANDOFF_READY") && !output.includes("cancelled")) {
+      if (output.includes("GRANTED_UPDATE_HANDOFF_READY") && !output.includes("cancelled")) {
         helper.stdin.write("cancel\n");
       }
     });
@@ -779,7 +779,7 @@ childProcess.spawnSync = function(command, args, options) {
 
       expect(result, result.stderr).toMatchObject({
         code: 0,
-        stdout: expect.stringContaining("OPENCLAW_UPDATE_HANDOFF_READY"),
+        stdout: expect.stringContaining("GRANTED_UPDATE_HANDOFF_READY"),
       });
       await expect(pathExists(commandStartedPath)).resolves.toBe(true);
     },
@@ -817,7 +817,7 @@ childProcess.spawnSync = function(command, args, options) {
       });
 
       expect(result.code).toBe(1);
-      expect(result.stdout).not.toContain("OPENCLAW_UPDATE_HANDOFF_READY");
+      expect(result.stdout).not.toContain("GRANTED_UPDATE_HANDOFF_READY");
       await expect(pathExists(commandStartedPath)).resolves.toBe(false);
     },
   );
@@ -886,7 +886,7 @@ childProcess.spawnSync = function(command, args, options) {
       try {
         await vi.waitFor(
           async () => {
-            expect(firstStdout).toContain("OPENCLAW_UPDATE_HANDOFF_READY");
+            expect(firstStdout).toContain("GRANTED_UPDATE_HANDOFF_READY");
             await expect(pathExists(orphanPidPath)).resolves.toBe(true);
           },
           { interval: 10, timeout: 5_000 },
@@ -928,7 +928,7 @@ childProcess.spawnSync = function(command, args, options) {
         });
         expect(third, third.stderr).toMatchObject({
           code: 0,
-          stdout: expect.stringContaining("OPENCLAW_UPDATE_HANDOFF_READY"),
+          stdout: expect.stringContaining("GRANTED_UPDATE_HANDOFF_READY"),
         });
         await expect(pathExists(thirdStartedPath)).resolves.toBe(true);
       } finally {
@@ -1003,7 +1003,7 @@ childProcess.spawnSync = function(command, args, options) {
       try {
         await vi.waitFor(
           async () => {
-            expect(firstStdout).toContain("OPENCLAW_UPDATE_HANDOFF_READY");
+            expect(firstStdout).toContain("GRANTED_UPDATE_HANDOFF_READY");
             await expect(pathExists(firstStartedPath)).resolves.toBe(true);
           },
           { interval: 10, timeout: 5_000 },
@@ -1032,7 +1032,7 @@ childProcess.spawnSync = function(command, args, options) {
         });
         expect(third, third.stderr).toMatchObject({
           code: 0,
-          stdout: expect.stringContaining("OPENCLAW_UPDATE_HANDOFF_READY"),
+          stdout: expect.stringContaining("GRANTED_UPDATE_HANDOFF_READY"),
         });
         await expect(pathExists(thirdStartedPath)).resolves.toBe(true);
       } finally {

@@ -110,7 +110,7 @@ afterEach(async () => {
 async function createRun(agentId: string, sessionPersistence?: "durable" | "detached") {
   const root = tempRoots.make("openclaw-suspension-boundary-");
   const stateDir = path.join(root, "final");
-  vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
+  vi.stubEnv("GRANTED_STATE_DIR", stateDir);
   const agentDir = path.join(root, "staged", "agents", agentId, "agent");
   const workspaceDir = path.join(root, "workspace");
   await fs.mkdir(agentDir, { recursive: true });

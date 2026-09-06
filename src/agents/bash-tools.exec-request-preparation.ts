@@ -14,7 +14,7 @@ import {
   installationTargetEnv,
   LOCAL_INSTALLATION_TARGET_UNSUPPORTED,
 } from "../infra/installation-target-context.js";
-import { OPENCLAW_CLI_ENV_VAR } from "../infra/openclaw-exec-env.js";
+import { GRANTED_CLI_ENV_VAR } from "../infra/openclaw-exec-env.js";
 import {
   getShellPathFromLoginShell,
   resolveShellEnvFallbackTimeoutMs,
@@ -57,7 +57,7 @@ type ResolvedExecWorkdirPreparedState = {
   resolution: ExecWorkdirResolution;
 };
 
-const CHANNEL_CONTEXT_ENV_KEY = "OPENCLAW_CHANNEL_CONTEXT";
+const CHANNEL_CONTEXT_ENV_KEY = "GRANTED_CHANNEL_CONTEXT";
 const resolvedExecEnvPreparedStates = new WeakMap<ExecToolArgs, ResolvedExecEnvPreparedState>();
 const execHookContexts = new WeakMap<ExecToolArgs, HookContext | undefined>();
 const resolvedExecWorkdirPreparedStates = new WeakMap<
@@ -111,7 +111,7 @@ function filterPluginExecEnv(rawEnv: Record<string, string>): Record<string, str
     const upperKey = key.toUpperCase();
     if (
       upperKey === "PATH" ||
-      upperKey === OPENCLAW_CLI_ENV_VAR ||
+      upperKey === GRANTED_CLI_ENV_VAR ||
       isDangerousHostEnvVarName(upperKey) ||
       isDangerousHostEnvOverrideVarName(upperKey)
     ) {
@@ -396,14 +396,14 @@ export function resolvePreparedExecEnvironment(params: {
         blockPathOverrides: true,
       })
     : undefined;
-  const { [OPENCLAW_CLI_ENV_VAR]: _storeMarker, ...acceptedStoreEnv } = storeEnvResult?.env ?? {};
+  const { [GRANTED_CLI_ENV_VAR]: _storeMarker, ...acceptedStoreEnv } = storeEnvResult?.env ?? {};
   let storeEnv = Object.keys(acceptedStoreEnv).length > 0 ? acceptedStoreEnv : undefined;
   const rejectedStoreKeys = new Set([
     ...(storeEnvResult?.rejectedOverrideBlockedKeys ?? []),
     ...(storeEnvResult?.rejectedOverrideInvalidKeys ?? []),
   ]);
-  if (params.storeEnv && Object.hasOwn(params.storeEnv, OPENCLAW_CLI_ENV_VAR)) {
-    rejectedStoreKeys.add(OPENCLAW_CLI_ENV_VAR);
+  if (params.storeEnv && Object.hasOwn(params.storeEnv, GRANTED_CLI_ENV_VAR)) {
+    rejectedStoreKeys.add(GRANTED_CLI_ENV_VAR);
   }
   if (params.host === "sandbox" && storeEnv) {
     const sandboxStoreEnvResult = sanitizeEnvVars(storeEnv);

@@ -336,7 +336,7 @@ describe("runEmbeddedAttemptPromptPhase", () => {
   it("does not claim heartbeat outcomes for detached user-triggered runs", async () => {
     const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-prompt-phase-heartbeat-"));
     tempStateDirs.push(stateDir);
-    vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
+    vi.stubEnv("GRANTED_STATE_DIR", stateDir);
     await upsertSessionEntryCore(
       { agentId: "main", env: process.env, sessionKey: "agent:main:main" },
       { sessionId: "prompt-phase-heartbeat-test", updatedAt: 1 },

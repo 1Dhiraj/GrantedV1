@@ -388,9 +388,9 @@ const TEST_RUNTIME_CONTEXT_CARRIER = [
   "OpenClaw runtime context for the immediately preceding user message.",
   "This context is runtime-generated, not user-authored. Keep internal details private.",
   "",
-  "<<<BEGIN_OPENCLAW_INTERNAL_CONTEXT>>>",
+  "<<<BEGIN_GRANTED_INTERNAL_CONTEXT>>>",
   "runtime metadata",
-  "<<<END_OPENCLAW_INTERNAL_CONTEXT>>>",
+  "<<<END_GRANTED_INTERNAL_CONTEXT>>>",
 ].join("\n");
 
 function makeDeveloperInput(text: string) {
@@ -3398,18 +3398,18 @@ Update and merge these partial structured summaries.`,
     [
       "empty",
       [
-        "<<<BEGIN_OPENCLAW_INTERNAL_CONTEXT>>>",
+        "<<<BEGIN_GRANTED_INTERNAL_CONTEXT>>>",
         "QA-SUBAGENT-TERMINAL-INTERNAL-MUST-NOT-LEAK",
-        "<<<END_OPENCLAW_INTERNAL_CONTEXT>>>",
+        "<<<END_GRANTED_INTERNAL_CONTEXT>>>",
       ].join("\n"),
     ],
     [
       "fallback",
       [
         "QA-SUBAGENT-TERMINAL-FALLBACK-OK",
-        "<<<BEGIN_OPENCLAW_INTERNAL_CONTEXT>>>",
+        "<<<BEGIN_GRANTED_INTERNAL_CONTEXT>>>",
         "QA-SUBAGENT-TERMINAL-INTERNAL-MUST-NOT-LEAK",
-        "<<<END_OPENCLAW_INTERNAL_CONTEXT>>>",
+        "<<<END_GRANTED_INTERNAL_CONTEXT>>>",
       ].join("\n"),
     ],
   ])("returns the terminal-reply matrix worker result for %s", async (terminalCase, expected) => {
@@ -5289,7 +5289,7 @@ Update and merge these partial structured summaries.`,
     const imageCall = outputToolCall(imagePlan, "image_generate");
     const callId = outputToolCallId(imageCall, "call_mock_image_generate_unavailable");
     const completionEvent = [
-      "<<<BEGIN_OPENCLAW_INTERNAL_CONTEXT>>>",
+      "<<<BEGIN_GRANTED_INTERNAL_CONTEXT>>>",
       "OpenClaw runtime context (internal):",
       "",
       "[Internal task completion event]",
@@ -5298,7 +5298,7 @@ Update and merge these partial structured summaries.`,
       "status: completed successfully",
       "Generated media:",
       "MEDIA:/tmp/qa-lighthouse.png",
-      "<<<END_OPENCLAW_INTERNAL_CONTEXT>>>",
+      "<<<END_GRANTED_INTERNAL_CONTEXT>>>",
     ].join("\n");
     const completion = await expectNonStreamingResponsesJson<unknown>(server, {
       tools: [MESSAGE_TOOL],
@@ -5705,7 +5705,7 @@ Update and merge these partial structured summaries.`,
     const toolPlanOutput = outputItem(await response.json());
     expect(toolPlanOutput.type).toBe("function_call");
     expect(toolPlanOutput.name).toBe("web_search");
-    expect(String(toolPlanOutput.arguments)).toContain("OPENCLAW_QA_WEB_SEARCH_DENIED_INPUT");
+    expect(String(toolPlanOutput.arguments)).toContain("GRANTED_QA_WEB_SEARCH_DENIED_INPUT");
   });
 
   it.each([
@@ -6460,7 +6460,7 @@ Update and merge these partial structured summaries.`,
       },
       body:
         '--qa\r\ncontent-disposition: form-data; name="file"; filename="upload.ogg"\r\n\r\n' +
-        "OPENCLAW_QA_GROUP_AUDIO_TRIGGER\r\n--qa--\r\n",
+        "GRANTED_QA_GROUP_AUDIO_TRIGGER\r\n--qa--\r\n",
     });
     const quiet = await fetchOk(`${server.baseUrl}/v1/audio/transcriptions`, {
       method: "POST",

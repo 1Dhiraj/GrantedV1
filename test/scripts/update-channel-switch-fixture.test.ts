@@ -75,11 +75,11 @@ it("preserves the package-derived Git fixture identity through build and lifecyc
             env: {
               ...process.env,
               HOME: home,
-              OPENCLAW_HOME: home,
-              OPENCLAW_STATE_DIR: join(home, "state"),
-              OPENCLAW_CONFIG_PATH: join(home, "config.json"),
+              GRANTED_HOME: home,
+              GRANTED_STATE_DIR: join(home, "state"),
+              GRANTED_CONFIG_PATH: join(home, "config.json"),
               STATE_DIRECTORY: undefined,
-              OPENCLAW_DISABLE_BUNDLED_PLUGIN_POSTINSTALL: undefined,
+              GRANTED_DISABLE_BUNDLED_PLUGIN_POSTINSTALL: undefined,
             },
           });
         },

@@ -32,20 +32,20 @@ import { useAutoCleanupTempDirTracker } from "../../../helpers/temp-dir.js";
 const PROOF_CHANNEL_ID = "heartbeat-route-proof";
 const ISOLATED_GATEWAY_ENV_KEYS = [
   "HOME",
-  "OPENCLAW_STATE_DIR",
-  "OPENCLAW_CONFIG_PATH",
-  "OPENCLAW_GATEWAY_TOKEN",
-  "OPENCLAW_TEST_GATEWAY_OVERRIDE_TOKEN",
-  "OPENCLAW_TEST_RUNTIME_OVERRIDE_TOKEN",
-  "OPENCLAW_TEST_MINIMAL_GATEWAY",
-  "OPENCLAW_SKIP_CHANNELS",
-  "OPENCLAW_SKIP_GMAIL_WATCHER",
-  "OPENCLAW_SKIP_CRON",
-  "OPENCLAW_SKIP_CANVAS_HOST",
-  "OPENCLAW_SKIP_BROWSER_CONTROL_SERVER",
-  "OPENCLAW_SKIP_PROVIDERS",
-  "OPENCLAW_BUNDLED_PLUGINS_DIR",
-  "OPENCLAW_DISABLE_BUNDLED_PLUGINS",
+  "GRANTED_STATE_DIR",
+  "GRANTED_CONFIG_PATH",
+  "GRANTED_GATEWAY_TOKEN",
+  "GRANTED_TEST_GATEWAY_OVERRIDE_TOKEN",
+  "GRANTED_TEST_RUNTIME_OVERRIDE_TOKEN",
+  "GRANTED_TEST_MINIMAL_GATEWAY",
+  "GRANTED_SKIP_CHANNELS",
+  "GRANTED_SKIP_GMAIL_WATCHER",
+  "GRANTED_SKIP_CRON",
+  "GRANTED_SKIP_CANVAS_HOST",
+  "GRANTED_SKIP_BROWSER_CONTROL_SERVER",
+  "GRANTED_SKIP_PROVIDERS",
+  "GRANTED_BUNDLED_PLUGINS_DIR",
+  "GRANTED_DISABLE_BUNDLED_PLUGINS",
 ] as const;
 
 type DeliveryTrace = {
@@ -246,21 +246,21 @@ describe("Gateway heartbeat session routing", () => {
       const token = nextId("heartbeat-routing-token");
       for (const [key, value] of Object.entries({
         HOME: tempHome,
-        OPENCLAW_STATE_DIR: stateDir,
-        OPENCLAW_GATEWAY_TOKEN: token,
-        OPENCLAW_SKIP_GMAIL_WATCHER: "1",
-        OPENCLAW_SKIP_CRON: "0",
-        OPENCLAW_SKIP_CANVAS_HOST: "1",
-        OPENCLAW_SKIP_BROWSER_CONTROL_SERVER: "1",
-        OPENCLAW_SKIP_PROVIDERS: "1",
-        OPENCLAW_BUNDLED_PLUGINS_DIR: bundledPluginsDir,
-        OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
+        GRANTED_STATE_DIR: stateDir,
+        GRANTED_GATEWAY_TOKEN: token,
+        GRANTED_SKIP_GMAIL_WATCHER: "1",
+        GRANTED_SKIP_CRON: "0",
+        GRANTED_SKIP_CANVAS_HOST: "1",
+        GRANTED_SKIP_BROWSER_CONTROL_SERVER: "1",
+        GRANTED_SKIP_PROVIDERS: "1",
+        GRANTED_BUNDLED_PLUGINS_DIR: bundledPluginsDir,
+        GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
       })) {
         setTestEnvValue(key, value);
       }
-      deleteTestEnvValue("OPENCLAW_CONFIG_PATH");
-      deleteTestEnvValue("OPENCLAW_TEST_MINIMAL_GATEWAY");
-      deleteTestEnvValue("OPENCLAW_SKIP_CHANNELS");
+      deleteTestEnvValue("GRANTED_CONFIG_PATH");
+      deleteTestEnvValue("GRANTED_TEST_MINIMAL_GATEWAY");
+      deleteTestEnvValue("GRANTED_SKIP_CHANNELS");
 
       const configuredSessionKey = "agent:main:ops-heartbeat";
       const configuredSessionId = nextId("configured-heartbeat-session");

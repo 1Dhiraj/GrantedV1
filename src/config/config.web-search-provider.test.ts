@@ -574,7 +574,7 @@ describe("web search provider auto-detection", () => {
 
   afterEach(() => {
     // Preserve Node's native env object: later workers in this shared fork
-    // must inherit fixture env changes, including OPENCLAW_STATE_DIR.
+    // must inherit fixture env changes, including GRANTED_STATE_DIR.
     vi.unstubAllEnvs();
     vi.restoreAllMocks();
   });

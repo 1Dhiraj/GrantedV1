@@ -19,7 +19,7 @@ const suite = createControlUiE2eSuite({
 });
 
 const sessionKey = "agent:main:side-panel-clearance";
-const proofDirParent = process.env.OPENCLAW_UI_RAIL_PROOF_DIR?.trim();
+const proofDirParent = process.env.GRANTED_UI_RAIL_PROOF_DIR?.trim();
 let proofDir: string | undefined;
 beforeEach(() => {
   proofDir = proofDirParent

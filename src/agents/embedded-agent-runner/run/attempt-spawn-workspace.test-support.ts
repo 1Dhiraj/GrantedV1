@@ -1440,14 +1440,14 @@ export async function createContextEngineAttemptRunner(params: {
     return { session };
   });
 
-  const previousTrajectoryEnv = process.env.OPENCLAW_TRAJECTORY;
-  const previousTrajectoryDirEnv = process.env.OPENCLAW_TRAJECTORY_DIR;
+  const previousTrajectoryEnv = process.env.GRANTED_TRAJECTORY;
+  const previousTrajectoryDirEnv = process.env.GRANTED_TRAJECTORY_DIR;
   if (params.trajectory !== true) {
-    process.env.OPENCLAW_TRAJECTORY = "0";
-    delete process.env.OPENCLAW_TRAJECTORY_DIR;
+    process.env.GRANTED_TRAJECTORY = "0";
+    delete process.env.GRANTED_TRAJECTORY_DIR;
   } else {
-    delete process.env.OPENCLAW_TRAJECTORY;
-    process.env.OPENCLAW_TRAJECTORY_DIR = workspaceDir;
+    delete process.env.GRANTED_TRAJECTORY;
+    process.env.GRANTED_TRAJECTORY_DIR = workspaceDir;
   }
   try {
     const attempt: Omit<EmbeddedRunAttemptParams, "admittedRunContext"> = {
@@ -1515,14 +1515,14 @@ export async function createContextEngineAttemptRunner(params: {
     }
   } finally {
     if (previousTrajectoryEnv === undefined) {
-      delete process.env.OPENCLAW_TRAJECTORY;
+      delete process.env.GRANTED_TRAJECTORY;
     } else {
-      process.env.OPENCLAW_TRAJECTORY = previousTrajectoryEnv;
+      process.env.GRANTED_TRAJECTORY = previousTrajectoryEnv;
     }
     if (previousTrajectoryDirEnv === undefined) {
-      delete process.env.OPENCLAW_TRAJECTORY_DIR;
+      delete process.env.GRANTED_TRAJECTORY_DIR;
     } else {
-      process.env.OPENCLAW_TRAJECTORY_DIR = previousTrajectoryDirEnv;
+      process.env.GRANTED_TRAJECTORY_DIR = previousTrajectoryDirEnv;
     }
   }
 }

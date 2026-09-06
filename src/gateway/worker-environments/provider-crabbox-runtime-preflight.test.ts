@@ -9,7 +9,7 @@ import { importFreshModule } from "../../plugin-sdk/test-helpers/import-fresh.js
 import { resolvePluginModuleExport } from "../../plugins/loader-module-runtime.js";
 import * as support from "./service.test-support.js";
 
-const SETUP_ENV = "OPENCLAW_TEST_REPLAY_SETUP";
+const SETUP_ENV = "GRANTED_TEST_REPLAY_SETUP";
 const CLASSLESS_PROFILE = {
   binary: "/mock/crabbox",
   provider: "machine0",
@@ -58,7 +58,7 @@ describe("Crabbox runtime preflight cleanup", () => {
     return expectDefined(registered, "registered Crabbox provider");
   }
   beforeEach(() => {
-    vi.stubEnv("OPENCLAW_STATE_DIR", support.testState.root);
+    vi.stubEnv("GRANTED_STATE_DIR", support.testState.root);
     vi.stubEnv(SETUP_ENV, "fixture");
   });
   afterEach(async () => {

@@ -5,7 +5,7 @@ import { createStorageMock } from "../test-helpers/storage.ts";
 import { bootstrapApplication, type ApplicationRuntime } from "./bootstrap.ts";
 import { persistSessionToken } from "./settings.ts";
 
-const NATIVE_AUTH_KEY = "__OPENCLAW_NATIVE_CONTROL_AUTH__";
+const NATIVE_AUTH_KEY = "__GRANTED_NATIVE_CONTROL_AUTH__";
 const originalUrl = window.location.href;
 let runtime: ApplicationRuntime | undefined;
 

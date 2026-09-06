@@ -23,7 +23,7 @@ beforeEach(() => {
   ]);
   vi.spyOn(persistedAuthState, "hasBundledChannelPersistedAuthState").mockImplementation(
     ({ channelId, env }) =>
-      channelId === "matrix" && Boolean(env?.OPENCLAW_STATE_DIR?.includes("persisted-matrix")),
+      channelId === "matrix" && Boolean(env?.GRANTED_STATE_DIR?.includes("persisted-matrix")),
   );
 });
 
@@ -153,7 +153,7 @@ describe("config presence", () => {
     );
     fs.mkdirSync(stateDir, { recursive: true });
     tempDirs.push(stateDir);
-    const env = { OPENCLAW_STATE_DIR: stateDir } as NodeJS.ProcessEnv;
+    const env = { GRANTED_STATE_DIR: stateDir } as NodeJS.ProcessEnv;
 
     expectPotentialConfiguredChannelCase({
       cfg: {},

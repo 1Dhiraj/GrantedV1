@@ -458,7 +458,7 @@ describe("AgentMemoryPanel gateway lifecycle", () => {
   });
 });
 
-describe.runIf(process.env.OPENCLAW_UI_MEMORY_CHROMIUM_E2E === "1")(
+describe.runIf(process.env.GRANTED_UI_MEMORY_CHROMIUM_E2E === "1")(
   "agent memory real Chromium owner proof",
   () => {
     let browser: import("playwright").Browser;

@@ -46,7 +46,7 @@ export async function setupAuthTestEnv(
   const state = await createOpenClawTestState({ prefix, layout: "state-only" });
   try {
     const agentDir = path.join(state.stateDir, options?.agentSubdir ?? "agent");
-    process.env.OPENCLAW_AGENT_DIR = agentDir;
+    process.env.GRANTED_AGENT_DIR = agentDir;
     await fs.mkdir(agentDir, { recursive: true });
     return { stateDir: state.stateDir, agentDir, cleanup: state.cleanup };
   } catch (error) {

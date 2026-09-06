@@ -362,11 +362,11 @@ function parseJournalctlOutput(output: string): { lines: string[]; cursor?: stri
 }
 
 function resolveLogsSystemdUnitName(runtime: LogsCliRuntimeModule, env: NodeJS.ProcessEnv): string {
-  const override = env.OPENCLAW_SYSTEMD_UNIT?.trim();
+  const override = env.GRANTED_SYSTEMD_UNIT?.trim();
   if (override) {
     return override.endsWith(".service") ? override : `${override}.service`;
   }
-  return `${runtime.resolveGatewaySystemdServiceName(env.OPENCLAW_PROFILE)}.service`;
+  return `${runtime.resolveGatewaySystemdServiceName(env.GRANTED_PROFILE)}.service`;
 }
 
 const MAX_FOLLOW_RETRIES = 8;

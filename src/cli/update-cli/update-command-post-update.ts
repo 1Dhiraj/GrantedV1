@@ -344,7 +344,7 @@ export async function finishUpdate(params: {
 
     if (!pluginsUpdatedInFreshProcess) {
       await withOwnedManagedUpdateEnv(params.ownedManagedUpdateEnv, async () => {
-        const previousCompatibilityHostVersion = process.env.OPENCLAW_COMPATIBILITY_HOST_VERSION;
+        const previousCompatibilityHostVersion = process.env.GRANTED_COMPATIBILITY_HOST_VERSION;
         let compatibilityDowngradeTarget: string | null = null;
         try {
           const initialPluginUpdate = await withPluginLifecycleLease({}, async () => {
@@ -381,7 +381,7 @@ export async function finishUpdate(params: {
                 ? postUpdateInstalledVersion
                 : null;
             if (compatibilityDowngradeTarget) {
-              process.env.OPENCLAW_COMPATIBILITY_HOST_VERSION = compatibilityDowngradeTarget;
+              process.env.GRANTED_COMPATIBILITY_HOST_VERSION = compatibilityDowngradeTarget;
             }
             const pluginInstallRecords = await loadInstalledPluginIndexInstallRecords();
             return await updatePluginsAfterCoreUpdate({
@@ -415,9 +415,9 @@ export async function finishUpdate(params: {
         } finally {
           if (compatibilityDowngradeTarget) {
             if (previousCompatibilityHostVersion === undefined) {
-              delete process.env.OPENCLAW_COMPATIBILITY_HOST_VERSION;
+              delete process.env.GRANTED_COMPATIBILITY_HOST_VERSION;
             } else {
-              process.env.OPENCLAW_COMPATIBILITY_HOST_VERSION = previousCompatibilityHostVersion;
+              process.env.GRANTED_COMPATIBILITY_HOST_VERSION = previousCompatibilityHostVersion;
             }
           }
         }

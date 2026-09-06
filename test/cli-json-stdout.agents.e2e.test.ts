@@ -274,8 +274,8 @@ describe("cli json stdout contract", () => {
           argument === "$WORKSPACE" ? workspace : argument,
         );
         const result = runBuiltCli(tempHome, args, {
-          OPENCLAW_STATE_DIR: path.join(tempHome, "isolated-state"),
-          OPENCLAW_CONFIG_PATH: configPath,
+          GRANTED_STATE_DIR: path.join(tempHome, "isolated-state"),
+          GRANTED_CONFIG_PATH: configPath,
           ...("tty" in testCase ? { NODE_OPTIONS: `--import=${preload}`, FORCE_COLOR: "1" } : {}),
         });
 
@@ -319,8 +319,8 @@ describe("cli json stdout contract", () => {
           tempHome,
           ["agents", "set-identity", "--agent", "ghost", "--name", "Ghost", "--json"],
           {
-            OPENCLAW_STATE_DIR: path.join(tempHome, "isolated-state"),
-            OPENCLAW_CONFIG_PATH: configPath,
+            GRANTED_STATE_DIR: path.join(tempHome, "isolated-state"),
+            GRANTED_CONFIG_PATH: configPath,
           },
         );
 
@@ -406,8 +406,8 @@ describe("cli json stdout contract", () => {
         }
 
         const result = runBuiltCli(tempHome, testCase.args, {
-          OPENCLAW_STATE_DIR: path.join(tempHome, "isolated-state"),
-          OPENCLAW_CONFIG_PATH: configPath,
+          GRANTED_STATE_DIR: path.join(tempHome, "isolated-state"),
+          GRANTED_CONFIG_PATH: configPath,
         });
 
         expect(result.status, result.stderr).toBe("conflict" in testCase ? 1 : 0);

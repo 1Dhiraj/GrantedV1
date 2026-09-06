@@ -1502,7 +1502,7 @@ describe("provider auth profile helpers", () => {
           { status: 200, headers: { "content-type": "application/json" } },
         );
       });
-      const env = { OPENCLAW_STATE_DIR: stateDir } as NodeJS.ProcessEnv;
+      const env = { GRANTED_STATE_DIR: stateDir } as NodeJS.ProcessEnv;
 
       const firstA = await resolveCopilotApiToken({
         githubToken: "test-auth-token",

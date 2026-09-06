@@ -7,10 +7,10 @@ import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
 import { requireNodeSqlite } from "../infra/node-sqlite.js";
 import { createPrivateSqliteDirectory } from "../infra/sqlite-private-directory.js";
 import { runExec } from "../process/exec.js";
-import { OPENCLAW_AGENT_SCHEMA_VERSION } from "../state/openclaw-agent-db.js";
-import { OPENCLAW_AGENT_SCHEMA_SQL } from "../state/openclaw-agent-schema.js";
-import { OPENCLAW_STATE_SCHEMA_VERSION } from "../state/openclaw-state-db-contract.js";
-import { OPENCLAW_STATE_SCHEMA_SQL } from "../state/openclaw-state-schema.js";
+import { GRANTED_AGENT_SCHEMA_VERSION } from "../state/openclaw-agent-db.js";
+import { GRANTED_AGENT_SCHEMA_SQL } from "../state/openclaw-agent-schema.js";
+import { GRANTED_STATE_SCHEMA_VERSION } from "../state/openclaw-state-db-contract.js";
+import { GRANTED_STATE_SCHEMA_SQL } from "../state/openclaw-state-schema.js";
 import { hashSnapshotArtifact, readSnapshotManifest } from "./manifest.js";
 import {
   SNAPSHOT_MANIFEST_FILENAME,
@@ -192,8 +192,8 @@ async function createGenericSnapshotFixture(
 function createGlobalDatabase(databasePath: string): void {
   withDatabase(databasePath, (database) => {
     database.exec(`
-      ${OPENCLAW_STATE_SCHEMA_SQL}
-      PRAGMA user_version = ${OPENCLAW_STATE_SCHEMA_VERSION};
+      ${GRANTED_STATE_SCHEMA_SQL}
+      PRAGMA user_version = ${GRANTED_STATE_SCHEMA_VERSION};
     `);
     database
       .prepare(
@@ -209,7 +209,7 @@ function createGlobalDatabase(databasePath: string): void {
           ) VALUES ('primary', 'global', ?, NULL, NULL, 1, 1)
         `,
       )
-      .run(OPENCLAW_STATE_SCHEMA_VERSION);
+      .run(GRANTED_STATE_SCHEMA_VERSION);
     database
       .prepare(
         `
@@ -260,8 +260,8 @@ function seedGlobalPluginBlobSnapshotFixtures(databasePath: string): void {
 function createAgentDatabase(databasePath: string, agentId: string): void {
   withDatabase(databasePath, (database) => {
     database.exec(`
-      ${OPENCLAW_AGENT_SCHEMA_SQL}
-      PRAGMA user_version = ${OPENCLAW_AGENT_SCHEMA_VERSION};
+      ${GRANTED_AGENT_SCHEMA_SQL}
+      PRAGMA user_version = ${GRANTED_AGENT_SCHEMA_VERSION};
     `);
     database
       .prepare(
@@ -277,7 +277,7 @@ function createAgentDatabase(databasePath: string, agentId: string): void {
           ) VALUES ('primary', 'agent', ?, ?, NULL, 1, 1)
         `,
       )
-      .run(OPENCLAW_AGENT_SCHEMA_VERSION, agentId);
+      .run(GRANTED_AGENT_SCHEMA_VERSION, agentId);
   });
 }
 
@@ -1460,7 +1460,7 @@ describe("local SQLite snapshot repository", () => {
     const wrongRolePath = path.join(tempDir, "wrong-role.sqlite");
     createAgentDatabase(wrongRolePath, "main");
     withDatabase(wrongRolePath, (database) => {
-      database.exec(`PRAGMA user_version = ${OPENCLAW_STATE_SCHEMA_VERSION};`);
+      database.exec(`PRAGMA user_version = ${GRANTED_STATE_SCHEMA_VERSION};`);
     });
     await expect(
       provider.create({ path: wrongRolePath, identity: { role: "global" } }),
@@ -1535,7 +1535,7 @@ describe("local SQLite snapshot repository", () => {
         database: {
           role: "agent",
           agentId: "worker-1",
-          userVersion: OPENCLAW_AGENT_SCHEMA_VERSION,
+          userVersion: GRANTED_AGENT_SCHEMA_VERSION,
         },
       },
     });
@@ -1912,7 +1912,7 @@ describe("snapshot manifest parser", () => {
       role: "agent",
       agentId: "worker-1",
       basename: "openclaw-agent.sqlite",
-      userVersion: OPENCLAW_AGENT_SCHEMA_VERSION,
+      userVersion: GRANTED_AGENT_SCHEMA_VERSION,
     },
     artifact: {
       path: SNAPSHOT_SQLITE_FILENAME,

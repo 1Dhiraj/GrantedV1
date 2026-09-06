@@ -51,7 +51,7 @@ describe("noteAuthProfileHealth", () => {
 
   beforeEach(() => {
     tempDir = tempDirs.make("openclaw-doctor-auth-");
-    vi.stubEnv("OPENCLAW_STATE_DIR", tempDir);
+    vi.stubEnv("GRANTED_STATE_DIR", tempDir);
     authProfileMocks.loadAuthProfileStoreForRuntime.mockReset();
     authProfileMocks.hasAnyAuthProfileStoreSource.mockReset();
     authProfileMocks.hasAnyAuthProfileStoreSource.mockReturnValue(false);

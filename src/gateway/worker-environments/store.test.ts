@@ -9,7 +9,7 @@ import type {
   WorkerProfile,
   WorkerSshEndpoint,
 } from "../../plugins/types.js";
-import { OPENCLAW_STATE_SCHEMA_VERSION } from "../../state/openclaw-state-db-contract.js";
+import { GRANTED_STATE_SCHEMA_VERSION } from "../../state/openclaw-state-db-contract.js";
 import { ensureAdditiveStateColumns } from "../../state/openclaw-state-db-schema-additive.js";
 import {
   assertOpenClawStateDatabaseForMaintenance,
@@ -74,7 +74,7 @@ describe("worker environment store", () => {
 
   beforeEach(async () => {
     root = await fs.mkdtemp(path.join(await fs.realpath(os.tmpdir()), "openclaw-worker-env-"));
-    database = openOpenClawStateDatabase({ env: { OPENCLAW_STATE_DIR: root } });
+    database = openOpenClawStateDatabase({ env: { GRANTED_STATE_DIR: root } });
     nowMs = 1_000;
     store = createWorkerEnvironmentStore({ database, now: () => nowMs });
   });
@@ -182,7 +182,7 @@ describe("worker environment store", () => {
 
     snapshot.settings.region = "mutated-after-create";
     closeOpenClawStateDatabaseForTest();
-    database = openOpenClawStateDatabase({ env: { OPENCLAW_STATE_DIR: root } });
+    database = openOpenClawStateDatabase({ env: { GRANTED_STATE_DIR: root } });
     store = createWorkerEnvironmentStore({ database, now: () => nowMs });
 
     expect(store.get("worker-crash")?.profileSnapshot).toEqual({
@@ -206,7 +206,7 @@ describe("worker environment store", () => {
     });
 
     closeOpenClawStateDatabaseForTest();
-    database = openOpenClawStateDatabase({ env: { OPENCLAW_STATE_DIR: root } });
+    database = openOpenClawStateDatabase({ env: { GRANTED_STATE_DIR: root } });
     store = createWorkerEnvironmentStore({ database, now: () => nowMs });
     expect(store.get("worker-cancelled")?.destroyRequestedAtMs).toBe(1_050);
   });
@@ -230,7 +230,7 @@ describe("worker environment store", () => {
       patch: readyPatch(),
     });
     closeOpenClawStateDatabaseForTest();
-    database = openOpenClawStateDatabase({ env: { OPENCLAW_STATE_DIR: root } });
+    database = openOpenClawStateDatabase({ env: { GRANTED_STATE_DIR: root } });
     store = createWorkerEnvironmentStore({ database, now: () => nowMs });
     expect(store.get("worker-1")).toMatchObject({
       sshEndpoint: SSH_ENDPOINT,
@@ -321,14 +321,14 @@ describe("worker environment store", () => {
     current.exec("DROP TABLE worker_environment_ssh_fallback_ports;");
     current.close();
 
-    database = openOpenClawStateDatabase({ env: { OPENCLAW_STATE_DIR: root } });
+    database = openOpenClawStateDatabase({ env: { GRANTED_STATE_DIR: root } });
     expect(
       database.db
         .prepare("SELECT name FROM sqlite_schema WHERE type = 'table' AND name = ?")
         .get("worker_environment_ssh_fallback_ports"),
     ).toBeUndefined();
     expect(database.db.prepare("PRAGMA user_version").get()).toEqual({
-      user_version: OPENCLAW_STATE_SCHEMA_VERSION,
+      user_version: GRANTED_STATE_SCHEMA_VERSION,
     });
 
     store = createWorkerEnvironmentStore({ database, now: () => nowMs });
@@ -554,7 +554,7 @@ describe("worker environment store", () => {
       patch: { leaseId: "lease-desktop", sshEndpoint: SSH_ENDPOINT, desktop: DESKTOP },
     });
     closeOpenClawStateDatabaseForTest();
-    database = openOpenClawStateDatabase({ env: { OPENCLAW_STATE_DIR: root } });
+    database = openOpenClawStateDatabase({ env: { GRANTED_STATE_DIR: root } });
     store = createWorkerEnvironmentStore({ database, now: () => nowMs });
     expect(store.get("worker-desktop")?.desktop).toEqual(DESKTOP);
 
@@ -604,7 +604,7 @@ describe("worker environment store", () => {
     expect(store.getCredential("worker-owner")).toMatchObject({ ownerEpoch: 1, sessionId: null });
 
     closeOpenClawStateDatabaseForTest();
-    database = openOpenClawStateDatabase({ env: { OPENCLAW_STATE_DIR: root } });
+    database = openOpenClawStateDatabase({ env: { GRANTED_STATE_DIR: root } });
     store = createWorkerEnvironmentStore({ database, now: () => nowMs });
     const renewal = [CREDENTIAL, "renewal"].join("-");
     expect(

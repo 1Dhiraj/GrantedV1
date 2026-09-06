@@ -165,7 +165,7 @@ describe("network CodeQL PR routing", () => {
     "HTTPS_PROXY",
     "NO_PROXY",
     "GLOBAL_AGENT_HTTP_PROXY",
-    "OPENCLAW_PROXY_ACTIVE",
+    "GRANTED_PROXY_ACTIVE",
   ])("escalates added %s references", (key) => {
     const { result, output } = scan([
       { filename: "src/infra/net/proxy/proxy-lifecycle.ts", patch: `+process.env.${key} = value;` },

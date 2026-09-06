@@ -23,7 +23,7 @@ describe("Gateway workspace migration readiness", () => {
   });
 
   it("refuses startup for a secondary workspace until Doctor removes its legacy state", async () => {
-    const stateDir = process.env.OPENCLAW_STATE_DIR!;
+    const stateDir = process.env.GRANTED_STATE_DIR!;
     const workspaceDir = path.join(stateDir, "workspace-secondary");
     const cfg: OpenClawConfig = {
       gateway: { mode: "local", bind: "loopback", auth: { mode: "none" } },

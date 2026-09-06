@@ -78,7 +78,7 @@ describe("managed image record SQLite store", () => {
     const expected = record();
     insertManagedImageRecord(expected, stateDir);
     const database = openOpenClawStateDatabase({
-      env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+      env: { ...process.env, GRANTED_STATE_DIR: stateDir },
     });
     executeSqliteQuerySync(
       database.db,
@@ -112,7 +112,7 @@ describe("managed image record SQLite store", () => {
       updatedAt: "2026-07-15T00:02:00.000Z",
     });
     const database = openOpenClawStateDatabase({
-      env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+      env: { ...process.env, GRANTED_STATE_DIR: stateDir },
     });
     const row = executeSqliteQueryTakeFirstSync(
       database.db,

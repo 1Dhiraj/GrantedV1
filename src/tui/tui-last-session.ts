@@ -19,9 +19,7 @@ type TuiLastSessionDatabase = Pick<OpenClawStateKyselyDatabase, "config_machine_
 const TUI_LAST_SESSION_STATE_KEY_PREFIX = "tui.lastSession.";
 
 function stateDatabaseOptions(stateDir?: string) {
-  return stateDir
-    ? { env: { ...process.env, OPENCLAW_STATE_DIR: stateDir } }
-    : { env: process.env };
+  return stateDir ? { env: { ...process.env, GRANTED_STATE_DIR: stateDir } } : { env: process.env };
 }
 
 /** Builds a stable private-store key for the current TUI connection, agent, and session scope. */

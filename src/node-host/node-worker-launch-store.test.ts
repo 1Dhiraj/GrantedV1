@@ -18,7 +18,7 @@ afterEach(() => {
 });
 
 function fixture() {
-  const env = { OPENCLAW_STATE_DIR: tempDirs.make("node-worker-launch-store-") };
+  const env = { GRANTED_STATE_DIR: tempDirs.make("node-worker-launch-store-") };
   const store = new NodeWorkerLaunchStore({ env });
   store.get("schema-probe");
   return { database: openOpenClawStateDatabase({ env }).db, env, store };

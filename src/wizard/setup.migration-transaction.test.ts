@@ -212,7 +212,7 @@ async function runImport(params: {
 }) {
   const workspace = path.join(params.root, "workspace");
   mocks.currentConfig = params.currentConfig;
-  process.env.OPENCLAW_STATE_DIR = path.join(params.root, "openclaw-state");
+  process.env.GRANTED_STATE_DIR = path.join(params.root, "openclaw-state");
   return await runSetupMigrationImport({
     opts: {
       importSource: params.source,
@@ -240,7 +240,7 @@ async function runImport(params: {
 }
 
 beforeEach(() => {
-  previousStateDir = process.env.OPENCLAW_STATE_DIR;
+  previousStateDir = process.env.GRANTED_STATE_DIR;
   mocks.currentConfig = undefined;
   mocks.canonicalMutateConfigFile.mockReset();
   mocks.canonicalMutateConfigFile.mockImplementation(
@@ -285,9 +285,9 @@ afterEach(async () => {
   closeOpenClawStateDatabaseForTest();
   mocks.provider = undefined;
   if (previousStateDir === undefined) {
-    delete process.env.OPENCLAW_STATE_DIR;
+    delete process.env.GRANTED_STATE_DIR;
   } else {
-    process.env.OPENCLAW_STATE_DIR = previousStateDir;
+    process.env.GRANTED_STATE_DIR = previousStateDir;
   }
   tempRoots.cleanup();
 });
@@ -546,7 +546,7 @@ describe("transactional setup migration import", () => {
     const root = tempRoots.make("openclaw-migration-transaction-");
     const source = path.join(root, "source-memory.md");
     const stateDir = path.join(root, "openclaw-state");
-    const liveEnv = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+    const liveEnv = { ...process.env, GRANTED_STATE_DIR: stateDir };
     const runtimeDatabasePath = path.join(root, "runtime-agent.sqlite");
     await fs.writeFile(source, "remember this\n", "utf8");
     mocks.provider = provider({

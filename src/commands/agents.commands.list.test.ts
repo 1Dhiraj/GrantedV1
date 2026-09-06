@@ -268,14 +268,14 @@ describe("agentsListCommand", () => {
         } satisfies OpenClawConfig);
         const runtime = createRuntime();
 
-        await withEnvAsync({ OPENCLAW_HOME: home }, async () => {
+        await withEnvAsync({ GRANTED_HOME: home }, async () => {
           await agentsListCommand({}, runtime);
         });
 
         const output = vi.mocked(runtime.log).mock.calls.flat().join("\n");
-        expect(output).toContain(`Workspace: $OPENCLAW_HOME${path.sep}workspace`);
+        expect(output).toContain(`Workspace: $GRANTED_HOME${path.sep}workspace`);
         expect(output).toContain(
-          `Agent dir: $OPENCLAW_HOME${path.sep}agents${path.sep}main${path.sep}agent`,
+          `Agent dir: $GRANTED_HOME${path.sep}agents${path.sep}main${path.sep}agent`,
         );
         expect(output).not.toContain(homeAlias);
       });

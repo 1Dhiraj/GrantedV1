@@ -1181,14 +1181,14 @@ async function getSessionManagedOutgoingAttachmentIndex(
     storeAvailabilityCache?.get(ownerAgentId) ??
     resolveExistingAgentSessionStoreTargetsReadOnlyResult(cfg, ownerAgentId, {
       cache: storeTargetsReadCache,
-      ...(stateDir ? { env: { ...process.env, OPENCLAW_STATE_DIR: stateDir } } : {}),
+      ...(stateDir ? { env: { ...process.env, GRANTED_STATE_DIR: stateDir } } : {}),
     });
   storeAvailabilityCache?.set(ownerAgentId, discovery);
   if (!discovery.available) {
     return { kind: "unavailable", reason: discovery.reason };
   }
   const usesRuntimeState = !stateDir || path.resolve(stateDir) === path.resolve(resolveStateDir());
-  const env = stateDir ? { ...process.env, OPENCLAW_STATE_DIR: stateDir } : process.env;
+  const env = stateDir ? { ...process.env, GRANTED_STATE_DIR: stateDir } : process.env;
   type SessionEntry = ReturnType<typeof loadGatewaySessionEntryReadOnly>["entry"];
   let matched: { entry: NonNullable<SessionEntry>; storePath: string } | undefined;
   for (const target of discovery.targets) {

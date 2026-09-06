@@ -5,7 +5,7 @@
 // test feeds in, collapsing the diagnostic and OTel id spaces into one value. That hides
 // a parent lookup keyed by one id space and queried with the other.
 //
-// Trace cases use the OPENCLAW_OTEL_PRELOADED seam to retain this file's tracer provider.
+// Trace cases use the GRANTED_OTEL_PRELOADED seam to retain this file's tracer provider.
 // Collector-boundary cases run owned mode, which now composes private providers and never
 // registers global SDK state; teardown still restores the preloaded globals for trace cases.
 import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
@@ -42,7 +42,7 @@ import {
   stopStartedOtelServices,
 } from "./service.test-helpers.js";
 
-const PRELOAD_ENV = "OPENCLAW_OTEL_PRELOADED";
+const PRELOAD_ENV = "GRANTED_OTEL_PRELOADED";
 const ENDPOINT_ENV_KEYS = [
   "OTEL_SDK_DISABLED",
   "OTEL_TRACES_EXPORTER",

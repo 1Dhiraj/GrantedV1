@@ -204,9 +204,9 @@ describe("resolveVitestIsolation", () => {
   });
 
   it("ignores the legacy isolation escape hatches", () => {
-    expect(resolveVitestIsolation({ OPENCLAW_TEST_ISOLATE: "1" })).toBe(false);
-    expect(resolveVitestIsolation({ OPENCLAW_TEST_NO_ISOLATE: "0" })).toBe(false);
-    expect(resolveVitestIsolation({ OPENCLAW_TEST_NO_ISOLATE: "false" })).toBe(false);
+    expect(resolveVitestIsolation({ GRANTED_TEST_ISOLATE: "1" })).toBe(false);
+    expect(resolveVitestIsolation({ GRANTED_TEST_NO_ISOLATE: "0" })).toBe(false);
+    expect(resolveVitestIsolation({ GRANTED_TEST_NO_ISOLATE: "false" })).toBe(false);
   });
 
   it("resolves scoped discovery dirs from the repo root after config relocation", () => {
@@ -373,7 +373,7 @@ describe("createScopedVitestConfig", () => {
     expect(testConfig.passWithNoTests).toBe(true);
   });
 
-  it("loads scoped include overrides from OPENCLAW_VITEST_INCLUDE_FILE", () => {
+  it("loads scoped include overrides from GRANTED_VITEST_INCLUDE_FILE", () => {
     const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-vitest-scoped-"));
     try {
       const includeFile = path.join(tempDir, "include.json");
@@ -382,7 +382,7 @@ describe("createScopedVitestConfig", () => {
       const config = createScopedVitestConfig(["src/utils/**/*.test.ts"], {
         dir: "src",
         env: {
-          OPENCLAW_VITEST_INCLUDE_FILE: includeFile,
+          GRANTED_VITEST_INCLUDE_FILE: includeFile,
         },
       });
 
@@ -405,7 +405,7 @@ describe("createScopedVitestConfig", () => {
       const config = createScopedVitestConfig(["src/gateway/server-methods/**/*.test.ts"], {
         dir: "src/gateway",
         env: {
-          OPENCLAW_VITEST_INCLUDE_FILE: includeFile,
+          GRANTED_VITEST_INCLUDE_FILE: includeFile,
         },
         intersectIncludeFile: true,
       });
@@ -434,7 +434,7 @@ describe("createScopedVitestConfig", () => {
           createScopedVitestConfig(["src/gateway/**/*server*.test.ts"], {
             dir: "src/gateway",
             env: {
-              OPENCLAW_VITEST_INCLUDE_FILE: includeFile,
+              GRANTED_VITEST_INCLUDE_FILE: includeFile,
             },
             intersectIncludeFile: true,
           }),
@@ -454,7 +454,7 @@ describe("createScopedVitestConfig", () => {
       const config = createScopedVitestConfig(["src/gateway/**/*server*.test.ts"], {
         dir: "src/gateway",
         env: {
-          OPENCLAW_VITEST_INCLUDE_FILE: includeFile,
+          GRANTED_VITEST_INCLUDE_FILE: includeFile,
         },
         intersectIncludeFile: true,
       });
@@ -474,7 +474,7 @@ describe("createScopedVitestConfig", () => {
         JSON.stringify(["src/gateway/server.node-pairing-ssh-verify.test.ts"]),
         "utf8",
       );
-      const env = { OPENCLAW_VITEST_INCLUDE_FILE: includeFile };
+      const env = { GRANTED_VITEST_INCLUDE_FILE: includeFile };
 
       expect(requireTestConfig(createGatewayServerVitestConfig(env)).include).toEqual([
         "server.node-pairing-ssh-verify.test.ts",
@@ -700,7 +700,7 @@ describe("scoped vitest configs", () => {
     expect(requireTestConfig(defaultChannelsConfig).include).toEqual(["src/channels/**/*.test.ts"]);
   });
 
-  it("loads channel include overrides from OPENCLAW_VITEST_INCLUDE_FILE", () => {
+  it("loads channel include overrides from GRANTED_VITEST_INCLUDE_FILE", () => {
     const tempDirs: string[] = [];
     const tempDir = makeTempDir(tempDirs, "openclaw-vitest-channels-");
     try {
@@ -717,7 +717,7 @@ describe("scoped vitest configs", () => {
       );
 
       const config = createChannelsVitestConfig({
-        OPENCLAW_VITEST_INCLUDE_FILE: includeFile,
+        GRANTED_VITEST_INCLUDE_FILE: includeFile,
       });
 
       expect(requireTestConfig(config).include).toEqual([

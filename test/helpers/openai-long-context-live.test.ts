@@ -45,7 +45,7 @@ describe("OpenAI long-context live settings", () => {
   it("fails closed on incomplete gates, missing keys, and malformed profiles", () => {
     expect(() =>
       resolveOpenAILongContextLiveSettings({ [OPENAI_LONG_CONTEXT_LIVE_ENV]: "1" }, false),
-    ).toThrow("also requires OPENCLAW_LIVE_TEST=1");
+    ).toThrow("also requires GRANTED_LIVE_TEST=1");
     expect(() =>
       resolveOpenAILongContextLiveSettings(
         {

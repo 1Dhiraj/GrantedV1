@@ -892,7 +892,7 @@ try {
 $root = Join-Path $script:InstallerTempDirectory ("openclaw pnpm boundary " + [guid]::NewGuid().ToString("N"))
 $contextNames = @('COREPACK_ENABLE_DOWNLOAD_PROMPT', 'NPM_CONFIG_WORKSPACE_DIR', 'PNPM_CONFIG_LOCKFILE_DIR', 'PNPM_CONFIG_CHILD_CONCURRENCY', 'PNPM_CONFIG_NETWORK_CONCURRENCY', 'PNPM_CONFIG_WORKSPACE_CONCURRENCY', 'PNPM_CONFIG_VERIFY_DEPS_BEFORE_RUN', 'PNPM_CONFIG_SIDE_EFFECTS_CACHE', 'NODE_OPTIONS')
 $saved = @{}
-foreach ($name in (@('PATH', 'PATHEXT', 'USERPROFILE', 'OPENCLAW_TEST_BOOTSTRAP_ROOT', 'PNPM_CONFIG_PREFER_OFFLINE') + $contextNames)) {
+foreach ($name in (@('PATH', 'PATHEXT', 'USERPROFILE', 'GRANTED_TEST_BOOTSTRAP_ROOT', 'PNPM_CONFIG_PREFER_OFFLINE') + $contextNames)) {
     $saved[$name] = [Environment]::GetEnvironmentVariable($name, 'Process')
 }
 $previousTemp = $script:InstallerTempDirectory
@@ -919,7 +919,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const { spawnSync } = require('node:child_process');
-const root = process.env.OPENCLAW_TEST_BOOTSTRAP_ROOT;
+const root = process.env.GRANTED_TEST_BOOTSTRAP_ROOT;
 const spec = JSON.parse(fs.readFileSync(path.join(root, 'case.json'), 'utf8'));
 const target = path.join(root, 'target');
 const log = path.join(root, 'calls.jsonl');
@@ -1035,7 +1035,7 @@ try {
         foreach ($dir in @($bin, $target, $foreign, $script:InstallerTempDirectory)) {
             New-Item -ItemType Directory -Force -Path $dir | Out-Null
         }
-        $env:OPENCLAW_TEST_BOOTSTRAP_ROOT = $caseRoot
+        $env:GRANTED_TEST_BOOTSTRAP_ROOT = $caseRoot
         $env:USERPROFILE = $caseRoot
         $env:PATH = $bin
         $env:PATHEXT = '.COM;.EXE;.BAT;.CMD'
@@ -1180,8 +1180,8 @@ try {
 
     for (const args of cases) {
       const result = runInstallerFile(args, {
-        OPENCLAW_DRY_RUN: "1",
-        OPENCLAW_NO_ONBOARD: "1",
+        GRANTED_DRY_RUN: "1",
+        GRANTED_NO_ONBOARD: "1",
       });
       expect(result.status, args.join(" ")).not.toBe(0);
       expect(`${result.stdout}\n${result.stderr}`).not.toContain("[OK] Windows detected");
@@ -1190,8 +1190,8 @@ try {
 
   runIfPowerShell("validates environment options before starting the installer", () => {
     const result = runInstallerFile(["-NoOnboard"], {
-      OPENCLAW_DRY_RUN: "1",
-      OPENCLAW_INSTALL_METHOD: "bogus",
+      GRANTED_DRY_RUN: "1",
+      GRANTED_INSTALL_METHOD: "bogus",
     });
 
     expect(result.status).not.toBe(0);

@@ -320,7 +320,7 @@ describe("scripts/plan-release-workflow-matrix.mjs", () => {
     expect(outputs.live_image?.split(":")[1]?.length).toBeLessThanOrEqual(128);
     const builtIds = new Set(
       collectBundledPluginBuildEntries({
-        env: { OPENCLAW_INTERNAL_DOCKER_BUILD_PLUGIN_IDS: outputs.live_image_extensions },
+        env: { GRANTED_INTERNAL_DOCKER_BUILD_PLUGIN_IDS: outputs.live_image_extensions },
       }).map((entry: { id: string }) => entry.id),
     );
     const plan = createReleaseWorkflowMatrixPlan({
@@ -333,7 +333,7 @@ describe("scripts/plan-release-workflow-matrix.mjs", () => {
     for (const entry of requiredJob(definition, "validate_live_docker_provider_suites").strategy
       .matrix.include) {
       for (const match of JSON.stringify(entry).matchAll(
-        /OPENCLAW_LIVE_GATEWAY_PROVIDERS=([^\s"]+)/gu,
+        /GRANTED_LIVE_GATEWAY_PROVIDERS=([^\s"]+)/gu,
       )) {
         for (const provider of expectDefined(match[1], "Gateway provider selection").split(",")) {
           providers.add(provider);
@@ -392,7 +392,7 @@ describe("scripts/plan-release-workflow-matrix.mjs", () => {
       required: false,
       type: "boolean",
     });
-    expect(definition.env.OPENCLAW_DOCKER_E2E_ALLOW_UNRELEASED_CHANGELOG).toBe(
+    expect(definition.env.GRANTED_DOCKER_E2E_ALLOW_UNRELEASED_CHANGELOG).toBe(
       "${{ inputs.allow_unreleased_changelog }}",
     );
     const packageStep = requiredJob(definition, "prepare_docker_e2e_image").steps.find(
@@ -568,8 +568,8 @@ describe("scripts/plan-release-workflow-matrix.mjs", () => {
     expect(liveModels.strategy.matrix).toBe(
       "${{ fromJson(needs.plan_release_workflow_matrices.outputs.live_models_matrix) }}",
     );
-    expect(liveModels.env.OPENCLAW_LIVE_MODELS).toBe("${{ matrix.models || 'modern' }}");
-    expect(liveModels.env.OPENCLAW_LIVE_MAX_MODELS).toBe("${{ matrix.max_models || '6' }}");
+    expect(liveModels.env.GRANTED_LIVE_MODELS).toBe("${{ matrix.models || 'modern' }}");
+    expect(liveModels.env.GRANTED_LIVE_MAX_MODELS).toBe("${{ matrix.max_models || '6' }}");
   });
 
   it("requires new release-profile matrices to use a planner or an explicit allowlist", () => {

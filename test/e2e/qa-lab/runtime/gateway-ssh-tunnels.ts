@@ -24,7 +24,7 @@ const SOURCE_PATH = "test/e2e/qa-lab/runtime/gateway-ssh-tunnels.ts";
 const STATUS_TIMEOUT_MS = 8_000;
 const PROCESS_TIMEOUT_MS = 10_000;
 const TEST_TOKEN = "qa-gateway-ssh-token";
-const SSH_NAMESPACE_MARKER = "OPENCLAW_QA_SSH_NAMESPACE";
+const SSH_NAMESPACE_MARKER = "GRANTED_QA_SSH_NAMESPACE";
 
 type ProducerOptions = {
   artifactBase: string;
@@ -359,9 +359,9 @@ async function runInSshNamespace(options: ProducerOptions): Promise<QaEvidenceSu
     wrapperPath,
     [
       "#!/bin/sh",
-      ': "${OPENCLAW_QA_REAL_SSH:?missing system SSH path}"',
-      ': "${OPENCLAW_QA_SSH_KNOWN_HOSTS:?missing isolated known-hosts path}"',
-      'exec "$OPENCLAW_QA_REAL_SSH" -F /dev/null -o "UserKnownHostsFile=$OPENCLAW_QA_SSH_KNOWN_HOSTS" -o GlobalKnownHostsFile=/dev/null -o UpdateHostKeys=no "$@"',
+      ': "${GRANTED_QA_REAL_SSH:?missing system SSH path}"',
+      ': "${GRANTED_QA_SSH_KNOWN_HOSTS:?missing isolated known-hosts path}"',
+      'exec "$GRANTED_QA_REAL_SSH" -F /dev/null -o "UserKnownHostsFile=$GRANTED_QA_SSH_KNOWN_HOSTS" -o GlobalKnownHostsFile=/dev/null -o UpdateHostKeys=no "$@"',
       "",
     ].join("\n"),
     { mode: 0o700 },
@@ -369,8 +369,8 @@ async function runInSshNamespace(options: ProducerOptions): Promise<QaEvidenceSu
 
   const childSource = `
 import { pathToFileURL } from "node:url";
-const modulePath = process.env.OPENCLAW_QA_PRODUCER_PATH;
-const rawOptions = process.env.OPENCLAW_QA_PRODUCER_OPTIONS;
+const modulePath = process.env.GRANTED_QA_PRODUCER_PATH;
+const rawOptions = process.env.GRANTED_QA_PRODUCER_OPTIONS;
 if (!modulePath || !rawOptions) {
   throw new Error("missing namespaced producer configuration");
 }
@@ -383,10 +383,10 @@ set -eu
 ${mount} --bind "$1" "$2"
 ${mount} --bind "$3" "$1"
 export ${SSH_NAMESPACE_MARKER}=1
-export OPENCLAW_TESTBOX=1
-export OPENCLAW_QA_REAL_SSH="$2"
-export OPENCLAW_QA_PRODUCER_PATH="$4"
-export OPENCLAW_QA_PRODUCER_OPTIONS="$5"
+export GRANTED_TESTBOX=1
+export GRANTED_QA_REAL_SSH="$2"
+export GRANTED_QA_PRODUCER_PATH="$4"
+export GRANTED_QA_PRODUCER_OPTIONS="$5"
 shift 5
 exec "$@"
 `;
@@ -533,9 +533,9 @@ export async function runGatewaySshTunnels(
       ],
     },
   });
-  if (process.env.OPENCLAW_TESTBOX !== "1") {
+  if (process.env.GRANTED_TESTBOX !== "1") {
     return await writer.write({
-      details: "Gateway SSH tunnel QA requires OPENCLAW_TESTBOX=1 before privileged setup",
+      details: "Gateway SSH tunnel QA requires GRANTED_TESTBOX=1 before privileged setup",
       durationMs: 1,
       status: "blocked",
     });
@@ -590,18 +590,18 @@ export async function runGatewaySshTunnels(
       {
         ...snapshotGatewayStartupEnv(),
         HOME: homeDir,
-        OPENCLAW_CONFIG_PATH: configPath,
-        OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-        OPENCLAW_HOME: homeDir,
-        OPENCLAW_SKIP_BROWSER_CONTROL_SERVER: "1",
-        OPENCLAW_SKIP_CANVAS_HOST: "1",
-        OPENCLAW_SKIP_CHANNELS: "1",
-        OPENCLAW_SKIP_CRON: "1",
-        OPENCLAW_SKIP_GMAIL_WATCHER: "1",
-        OPENCLAW_SKIP_PROVIDERS: "1",
-        OPENCLAW_QA_SSH_KNOWN_HOSTS: isolatedSshd.knownHostsPath,
-        OPENCLAW_STATE_DIR: stateDir,
-        OPENCLAW_TEST_MINIMAL_GATEWAY: "1",
+        GRANTED_CONFIG_PATH: configPath,
+        GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+        GRANTED_HOME: homeDir,
+        GRANTED_SKIP_BROWSER_CONTROL_SERVER: "1",
+        GRANTED_SKIP_CANVAS_HOST: "1",
+        GRANTED_SKIP_CHANNELS: "1",
+        GRANTED_SKIP_CRON: "1",
+        GRANTED_SKIP_GMAIL_WATCHER: "1",
+        GRANTED_SKIP_PROVIDERS: "1",
+        GRANTED_QA_SSH_KNOWN_HOSTS: isolatedSshd.knownHostsPath,
+        GRANTED_STATE_DIR: stateDir,
+        GRANTED_TEST_MINIMAL_GATEWAY: "1",
       },
       async () => {
         clearRuntimeConfigSnapshot();

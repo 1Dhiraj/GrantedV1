@@ -116,10 +116,10 @@ describe("resolveBuildAllStep", () => {
     expect(uiInvocation.options.env).toMatchObject({
       FOO: "bar",
       GIT_COMMIT: commit,
-      OPENCLAW_BUILD_TIMESTAMP: "2026-07-10T12:34:56.789Z",
+      GRANTED_BUILD_TIMESTAMP: "2026-07-10T12:34:56.789Z",
     });
-    expect(buildInfoInvocation.options.env.OPENCLAW_BUILD_TIMESTAMP).toBe(
-      uiInvocation.options.env.OPENCLAW_BUILD_TIMESTAMP,
+    expect(buildInfoInvocation.options.env.GRANTED_BUILD_TIMESTAMP).toBe(
+      uiInvocation.options.env.GRANTED_BUILD_TIMESTAMP,
     );
   });
 
@@ -167,8 +167,8 @@ describe("resolveBuildAllStep", () => {
   it("preserves an explicit build timestamp after trimming outer whitespace", () => {
     expect(
       resolveBuildAllEnvironment({
-        OPENCLAW_BUILD_TIMESTAMP: " 2026-07-10T01:02:03.000Z ",
-      }).OPENCLAW_BUILD_TIMESTAMP,
+        GRANTED_BUILD_TIMESTAMP: " 2026-07-10T01:02:03.000Z ",
+      }).GRANTED_BUILD_TIMESTAMP,
     ).toBe("2026-07-10T01:02:03.000Z");
   });
 
@@ -223,12 +223,12 @@ describe("resolveBuildAllStep", () => {
     {
       label: "write-plugin-sdk-entry-dts",
       scriptPath: "scripts/write-plugin-sdk-entry-dts.ts",
-      expectedEnv: { FOO: "bar", OPENCLAW_RUN_NODE_SKIP_DTS_BUILD: "0" },
+      expectedEnv: { FOO: "bar", GRANTED_RUN_NODE_SKIP_DTS_BUILD: "0" },
     },
     {
       label: "write-unified-entry-dts",
       scriptPath: "scripts/write-unified-entry-dts.ts",
-      expectedEnv: { FOO: "bar", OPENCLAW_RUN_NODE_SKIP_DTS_BUILD: "0" },
+      expectedEnv: { FOO: "bar", GRANTED_RUN_NODE_SKIP_DTS_BUILD: "0" },
     },
     {
       label: "write-build-info",
@@ -263,7 +263,7 @@ describe("resolveBuildAllStep", () => {
 
     const result = resolveBuildAllStep(step, {
       nodeExecPath: "/custom/node",
-      env: { OPENCLAW_BUILD_ALL_NO_PNPM: "1" },
+      env: { GRANTED_BUILD_ALL_NO_PNPM: "1" },
     });
 
     expect(result).toEqual({
@@ -271,7 +271,7 @@ describe("resolveBuildAllStep", () => {
       args: ["--import", "tsx", "scripts/bundled-plugin-assets.mts", "--phase", "build"],
       options: {
         stdio: "inherit",
-        env: { OPENCLAW_BUILD_ALL_NO_PNPM: "1" },
+        env: { GRANTED_BUILD_ALL_NO_PNPM: "1" },
       },
     });
   });
@@ -280,14 +280,14 @@ describe("resolveBuildAllStep", () => {
     expect(
       resolveBuildAllStep(getBuildAllStep("ui:build"), {
         nodeExecPath: "/custom/node",
-        env: { OPENCLAW_BUILD_ALL_NO_PNPM: "1" },
+        env: { GRANTED_BUILD_ALL_NO_PNPM: "1" },
       }),
     ).toEqual({
       command: "/custom/node",
       args: ["scripts/ui.js", "build"],
       options: {
         stdio: "inherit",
-        env: { OPENCLAW_BUILD_ALL_NO_PNPM: "1" },
+        env: { GRANTED_BUILD_ALL_NO_PNPM: "1" },
       },
     });
   });
@@ -473,7 +473,7 @@ describe("resolveBuildAllSteps", () => {
       expect(result.exitCode).toBe(0);
       expect(tsdownInvocations).toHaveLength(4);
       for (const invocation of tsdownInvocations) {
-        expect(invocation.options.env.OPENCLAW_TSDOWN_MAX_OLD_SPACE_MB).toBe("4352");
+        expect(invocation.options.env.GRANTED_TSDOWN_MAX_OLD_SPACE_MB).toBe("4352");
         expect(invocation.options.env.NODE_OPTIONS).toBe("--max-old-space-size=4352");
       }
       expect(restoreCache).toHaveBeenCalledOnce();
@@ -490,7 +490,7 @@ describe("resolveBuildAllSteps", () => {
 
       const cacheDisabledRunner = vi.fn(() => ({ status: 0 }));
       await runBuildAllSteps("ciArtifacts", {
-        env: { OPENCLAW_BUILD_CACHE: "0" },
+        env: { GRANTED_BUILD_CACHE: "0" },
         memoryLimit: { cgroupMemoryLimitBytes: 5 * 1024 * 1024 * 1024 },
         finalizeCache: vi.fn(() => true),
         logger: { error: vi.fn(), warn: vi.fn() },
@@ -539,7 +539,7 @@ describe("resolveBuildAllSteps", () => {
       expect(runStep).toHaveBeenCalled();
       for (const [invocation] of runStep.mock.calls) {
         expect(invocation.options.env).toMatchObject(partialEnv);
-        expect(invocation.options.env.OPENCLAW_TSDOWN_MAX_OLD_SPACE_MB).toBeUndefined();
+        expect(invocation.options.env.GRANTED_TSDOWN_MAX_OLD_SPACE_MB).toBeUndefined();
       }
     },
   );
@@ -565,7 +565,7 @@ describe("resolveBuildAllSteps", () => {
       label: "explicit override",
       env: {
         NODE_OPTIONS: "--trace-warnings --max-old-space-size=8192",
-        OPENCLAW_TSDOWN_MAX_OLD_SPACE_MB: "4096",
+        GRANTED_TSDOWN_MAX_OLD_SPACE_MB: "4096",
       },
       cgroupGiB: 4,
       heapMb: 4096,
@@ -600,7 +600,7 @@ describe("resolveBuildAllSteps", () => {
         ),
         "SDK declaration writer invocation",
       );
-      expect(writer.options.env.OPENCLAW_RUN_NODE_SKIP_DTS_BUILD).toBe("0");
+      expect(writer.options.env.GRANTED_RUN_NODE_SKIP_DTS_BUILD).toBe("0");
 
       // Probe the writer's actual launch environment without compiling the declaration graph.
       // A CLI flag supplies an independent reference across Node versions' V8 overheads.
@@ -622,7 +622,7 @@ describe("resolveBuildAllSteps", () => {
       expect(Number(actual.stdout)).toBe(Number(expected.stdout));
       for (const invocation of invocations) {
         expect(invocation.options.env.NODE_OPTIONS).toBe(nodeOptions);
-        expect(invocation.options.env.OPENCLAW_TSDOWN_MAX_OLD_SPACE_MB).toBe(String(heapMb));
+        expect(invocation.options.env.GRANTED_TSDOWN_MAX_OLD_SPACE_MB).toBe(String(heapMb));
       }
       expect(logger.warn).toHaveBeenCalledTimes(warns ? 1 : 0);
     },
@@ -652,13 +652,13 @@ describe("resolveBuildAllSteps", () => {
       "--filter",
       TSDOWN_UNIFIED_CONFIG_GROUP,
     ]);
-    expect(unified.env).toMatchObject({ OPENCLAW_RUN_NODE_SKIP_DTS_BUILD: "1" });
+    expect(unified.env).toMatchObject({ GRANTED_RUN_NODE_SKIP_DTS_BUILD: "1" });
     expect(unified.cache).toBeUndefined();
     for (const step of [ai, packages]) {
       expect(step.cache?.restore).toBe("always");
-      expect(step.cache?.runOnHit?.env).toEqual({ OPENCLAW_RUN_NODE_SKIP_DTS_BUILD: "1" });
+      expect(step.cache?.runOnHit?.env).toEqual({ GRANTED_RUN_NODE_SKIP_DTS_BUILD: "1" });
       expect(resolveBuildAllStepOnCacheHit(step)?.env).toMatchObject({
-        OPENCLAW_RUN_NODE_SKIP_DTS_BUILD: "1",
+        GRANTED_RUN_NODE_SKIP_DTS_BUILD: "1",
       });
       expect(step.cache?.outputs).toEqual(
         expect.arrayContaining([
@@ -701,12 +701,12 @@ describe("resolveBuildAllSteps", () => {
       expect(
         expectDefined(BUILD_ALL_PROFILE_STEP_ENV[profile], `${profile} build step env`).tsdown,
       ).toMatchObject({
-        OPENCLAW_RUN_NODE_SKIP_DTS_BUILD: "1",
+        GRANTED_RUN_NODE_SKIP_DTS_BUILD: "1",
       });
       expect(
-        resolveBuildAllStep(tsdown, { env: { OPENCLAW_RUN_NODE_SKIP_DTS_BUILD: "0" } }).options.env,
+        resolveBuildAllStep(tsdown, { env: { GRANTED_RUN_NODE_SKIP_DTS_BUILD: "0" } }).options.env,
       ).toMatchObject({
-        OPENCLAW_RUN_NODE_SKIP_DTS_BUILD: "1",
+        GRANTED_RUN_NODE_SKIP_DTS_BUILD: "1",
       });
     }
   });
@@ -718,13 +718,13 @@ describe("resolveBuildAllSteps", () => {
       "runtime stage",
     );
     expect(resolveBuildAllStep(tsdown, { env: {} }).options.env).toMatchObject({
-      OPENCLAW_RUN_NODE_SKIP_DTS_BUILD: "1",
+      GRANTED_RUN_NODE_SKIP_DTS_BUILD: "1",
     });
     const stage = expectDefined(
       steps.find((step) => step.label === "write-plugin-sdk-entry-dts"),
       "SDK declaration stage",
     );
-    expect(stage.env).toMatchObject({ OPENCLAW_RUN_NODE_SKIP_DTS_BUILD: "0" });
+    expect(stage.env).toMatchObject({ GRANTED_RUN_NODE_SKIP_DTS_BUILD: "0" });
     expect(stage.cache).toBeUndefined();
     for (const profile of ["full", "package"]) {
       const profileSteps = resolveBuildAllSteps(profile);
@@ -741,7 +741,7 @@ describe("resolveBuildAllSteps", () => {
       throw new Error("Missing full tsdown-unified step");
     }
     expect(resolveBuildAllStep(fullTsdown, { env: {} }).options.env).toMatchObject({
-      OPENCLAW_PRESERVE_CLI_STARTUP_METADATA: "1",
+      GRANTED_PRESERVE_CLI_STARTUP_METADATA: "1",
     });
 
     for (const profile of ["ciArtifacts", "sourcePerformance", "cliStartup"]) {
@@ -751,7 +751,7 @@ describe("resolveBuildAllSteps", () => {
       }
 
       expect(resolveBuildAllStep(tsdown, { env: {} }).options.env).toMatchObject({
-        OPENCLAW_PRESERVE_CLI_STARTUP_METADATA: "1",
+        GRANTED_PRESERVE_CLI_STARTUP_METADATA: "1",
       });
     }
 
@@ -762,7 +762,7 @@ describe("resolveBuildAllSteps", () => {
       }
 
       expect(resolveBuildAllStep(tsdown, { env: {} }).options.env).not.toHaveProperty(
-        "OPENCLAW_PRESERVE_CLI_STARTUP_METADATA",
+        "GRANTED_PRESERVE_CLI_STARTUP_METADATA",
       );
     }
   });
@@ -793,7 +793,7 @@ describe("resolveBuildAllSteps", () => {
 
   it("uses the full runtime artifact surface without declaration work when DTS is disabled", () => {
     const steps = resolveBuildAllSteps("full", {
-      OPENCLAW_RUN_NODE_SKIP_DTS_BUILD: "1",
+      GRANTED_RUN_NODE_SKIP_DTS_BUILD: "1",
     });
     const labels = steps.map((step) => step.label);
 
@@ -820,19 +820,19 @@ describe("resolveBuildAllSteps", () => {
       { name: "ordinary build", env: {}, runtimeOnly: false, skipDts: undefined },
       {
         name: "runtime override",
-        env: { OPENCLAW_RUN_NODE_SKIP_DTS_BUILD: "1" },
+        env: { GRANTED_RUN_NODE_SKIP_DTS_BUILD: "1" },
         runtimeOnly: true,
         skipDts: "1",
       },
       {
         name: "legacy updater marker",
-        env: { OPENCLAW_UPDATE_IN_PROGRESS: "1" },
+        env: { GRANTED_UPDATE_IN_PROGRESS: "1" },
         runtimeOnly: true,
         skipDts: "1",
       },
       {
         name: "explicit declarations during update",
-        env: { OPENCLAW_UPDATE_IN_PROGRESS: "1", OPENCLAW_RUN_NODE_SKIP_DTS_BUILD: "0" },
+        env: { GRANTED_UPDATE_IN_PROGRESS: "1", GRANTED_RUN_NODE_SKIP_DTS_BUILD: "0" },
         runtimeOnly: false,
         skipDts: "0",
       },
@@ -858,7 +858,7 @@ describe("resolveBuildAllSteps", () => {
         const labels = result.timings.map((timing) => timing.label);
         expect(labels).toEqual(
           resolveBuildAllSteps(profile, {
-            OPENCLAW_RUN_NODE_SKIP_DTS_BUILD: runtimeOnly ? "1" : "0",
+            GRANTED_RUN_NODE_SKIP_DTS_BUILD: runtimeOnly ? "1" : "0",
           }).map((step) => step.label),
         );
         expect(labels.includes("write-plugin-sdk-entry-dts")).toBe(!runtimeOnly);
@@ -870,7 +870,7 @@ describe("resolveBuildAllSteps", () => {
         );
         expect(compilers).toHaveLength(runtimeOnly ? 1 : 3);
         for (const compiler of compilers) {
-          expect(compiler.options.env.OPENCLAW_RUN_NODE_SKIP_DTS_BUILD).toBe(
+          expect(compiler.options.env.GRANTED_RUN_NODE_SKIP_DTS_BUILD).toBe(
             compiler.args.includes(TSDOWN_UNIFIED_CONFIG_GROUP) ? "1" : skipDts,
           );
         }
@@ -920,14 +920,14 @@ describe("resolveBuildAllSteps", () => {
           "runtime-postbuild"
         ],
       ).toEqual({
-        OPENCLAW_RUNTIME_POSTBUILD_STATIC_ASSETS: "0",
+        GRANTED_RUNTIME_POSTBUILD_STATIC_ASSETS: "0",
       });
       expect(
         resolveBuildAllStep(runtimePostbuild, {
-          env: { OPENCLAW_RUNTIME_POSTBUILD_STATIC_ASSETS: "1" },
+          env: { GRANTED_RUNTIME_POSTBUILD_STATIC_ASSETS: "1" },
         }).options.env,
       ).toMatchObject({
-        OPENCLAW_RUNTIME_POSTBUILD_STATIC_ASSETS: "0",
+        GRANTED_RUNTIME_POSTBUILD_STATIC_ASSETS: "0",
       });
     }
   });
@@ -948,10 +948,10 @@ describe("resolveBuildAllSteps", () => {
       ).toBeUndefined();
       expect(
         resolveBuildAllStep(runtimePostbuild, {
-          env: { OPENCLAW_RUNTIME_POSTBUILD_STATIC_ASSETS: "1" },
+          env: { GRANTED_RUNTIME_POSTBUILD_STATIC_ASSETS: "1" },
         }).options.env,
       ).toMatchObject({
-        OPENCLAW_RUNTIME_POSTBUILD_STATIC_ASSETS: "1",
+        GRANTED_RUNTIME_POSTBUILD_STATIC_ASSETS: "1",
       });
     }
   });
@@ -1017,7 +1017,7 @@ describe("resolveBuildAllSteps", () => {
 
   it("does not cache ui:build because Vite reads package.json, git HEAD, and env metadata", () => {
     // ui/vite.config.ts derives the Control UI build ID from package.json,
-    // git HEAD, and OPENCLAW_CONTROL_UI_BUILD_ID env, so a file-input
+    // git HEAD, and GRANTED_CONTROL_UI_BUILD_ID env, so a file-input
     // signature cannot exactly invalidate generated assets. Leaving this
     // step uncached avoids restoring stale service-worker/app cache
     // metadata after `tsdown` clears `dist`.
@@ -1248,12 +1248,12 @@ describe("resolveBuildStepCacheState", () => {
   });
 
   it.each<{ name: string; before: NodeJS.ProcessEnv; after: NodeJS.ProcessEnv }>([
-    { name: "bounded plugins", before: { OPENCLAW_BUNDLED_PLUGIN_BUILD_IDS: "plain" }, after: {} },
-    { name: "optional plugins", before: { OPENCLAW_INCLUDE_OPTIONAL_BUNDLED: "0" }, after: {} },
+    { name: "bounded plugins", before: { GRANTED_BUNDLED_PLUGIN_BUILD_IDS: "plain" }, after: {} },
+    { name: "optional plugins", before: { GRANTED_INCLUDE_OPTIONAL_BUNDLED: "0" }, after: {} },
     {
       name: "Docker plugins",
       before: {},
-      after: { OPENCLAW_INTERNAL_DOCKER_BUILD_PLUGIN_IDS: "external" },
+      after: { GRANTED_INTERNAL_DOCKER_BUILD_PLUGIN_IDS: "external" },
     },
   ])("keeps workspace declaration signatures independent of $name", ({ before, after }) => {
     withBuildCacheFixture(({ rootDir }) => {
@@ -1368,7 +1368,7 @@ describe("resolveBuildStepCacheState", () => {
         const implicit = resolveBuildStepCacheState(step, { rootDir, env: {} });
         const explicit = resolveBuildStepCacheState(step, {
           rootDir,
-          env: { OPENCLAW_RUN_NODE_SKIP_DTS_BUILD: "0" },
+          env: { GRANTED_RUN_NODE_SKIP_DTS_BUILD: "0" },
         });
         expect(explicit.signature, label).toBe(implicit.signature);
       }
@@ -1526,17 +1526,17 @@ describe("resolveBuildStepCacheState", () => {
         ...step,
         cache: {
           ...step.cache,
-          env: ["OPENCLAW_BUILD_PRIVATE_QA"],
+          env: ["GRANTED_BUILD_PRIVATE_QA"],
           restore: "always" as const,
         },
       };
       const cacheState = resolveBuildStepCacheState(envStep, {
         rootDir,
-        env: { OPENCLAW_BUILD_PRIVATE_QA: "1" },
+        env: { GRANTED_BUILD_PRIVATE_QA: "1" },
       });
       writeBuildStepCacheStamp(envStep, cacheState, {
         rootDir,
-        env: { OPENCLAW_BUILD_PRIVATE_QA: "1" },
+        env: { GRANTED_BUILD_PRIVATE_QA: "1" },
       });
 
       const stale = resolveBuildStepCacheState(envStep, {

@@ -62,7 +62,7 @@ describe("provider auth warm worker", () => {
 
     await withEnvAsync(
       {
-        OPENCLAW_STATE_DIR: path.join(root, "state"),
+        GRANTED_STATE_DIR: path.join(root, "state"),
       },
       async () => {
         const agentDir = path.join(root, "agent");
@@ -111,8 +111,8 @@ describe("provider auth warm worker", () => {
 
     await withEnvAsync(
       {
-        OPENCLAW_DISABLE_PERSISTED_PLUGIN_REGISTRY: "1",
-        OPENCLAW_STATE_DIR: path.join(root, "state"),
+        GRANTED_DISABLE_PERSISTED_PLUGIN_REGISTRY: "1",
+        GRANTED_STATE_DIR: path.join(root, "state"),
       },
       async () => {
         const agentDir = path.join(root, "agent");

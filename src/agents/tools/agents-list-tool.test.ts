@@ -185,7 +185,7 @@ describe("agents_list tool", () => {
   it("ignores legacy env-forced plugin runtime selections", async () => {
     // Runtime selection now comes from config/model routing, not a process-wide
     // legacy env override.
-    vi.stubEnv("OPENCLAW_AGENT_RUNTIME", "codex");
+    vi.stubEnv("GRANTED_AGENT_RUNTIME", "codex");
     loadConfigMock.mockReturnValue({
       agents: {
         defaults: {

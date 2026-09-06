@@ -176,8 +176,8 @@ function runInstallE2eInstallerFixture(params: {
     OUTPUT_PATH_CAPTURE: outputPathCapture,
     PATH: `${binDir}:${process.env.PATH ?? ""}`,
   };
-  delete env.OPENCLAW_BETA;
-  delete env.OPENCLAW_VERSION;
+  delete env.GRANTED_BETA;
+  delete env.GRANTED_VERSION;
 
   const result = spawnSync(
     "/bin/bash",
@@ -573,9 +573,9 @@ function runInstallSmokePackHelpers(packJson: unknown, budgetBytes?: number) {
   const packJsonPath = join(root, "pack.json");
   writeFileSync(packJsonPath, JSON.stringify(packJson), "utf8");
   const env: NodeJS.ProcessEnv = { ...process.env, PACK_JSON_PATH: packJsonPath };
-  delete env.OPENCLAW_INSTALL_SMOKE_PACK_UNPACKED_BUDGET_BYTES;
+  delete env.GRANTED_INSTALL_SMOKE_PACK_UNPACKED_BUDGET_BYTES;
   if (budgetBytes !== undefined) {
-    env.OPENCLAW_INSTALL_SMOKE_PACK_UNPACKED_BUDGET_BYTES = String(budgetBytes);
+    env.GRANTED_INSTALL_SMOKE_PACK_UNPACKED_BUDGET_BYTES = String(budgetBytes);
   }
   const result = spawnSync(
     "bash",
@@ -742,7 +742,7 @@ describe("test-install-sh-docker", () => {
     expect(runDefaultSmokePlatform({ GITHUB_ACTIONS: "true" }, "x86_64")).toBe("linux/amd64");
     expect(runDefaultSmokePlatform({}, "arm64")).toBe("linux/arm64");
     expect(
-      runDefaultSmokePlatform({ OPENCLAW_INSTALL_SMOKE_PLATFORM: "linux/s390x" }, "x86_64"),
+      runDefaultSmokePlatform({ GRANTED_INSTALL_SMOKE_PLATFORM: "linux/s390x" }, "x86_64"),
     ).toBe("linux/s390x");
   });
 
@@ -750,7 +750,7 @@ describe("test-install-sh-docker", () => {
     const script = readFileSync(SCRIPT_PATH, "utf8");
 
     expect(script).toContain(
-      'UPDATE_EXPECT_VERSION="${OPENCLAW_INSTALL_SMOKE_UPDATE_EXPECT_VERSION:-}"',
+      'UPDATE_EXPECT_VERSION="${GRANTED_INSTALL_SMOKE_UPDATE_EXPECT_VERSION:-}"',
     );
     expect(script).toContain('if [[ -z "$UPDATE_EXPECT_VERSION" ]]; then');
     expect(script).toContain('UPDATE_EXPECT_VERSION="$packed_update_version"');
@@ -765,17 +765,17 @@ describe("test-install-sh-docker", () => {
     const workflow = readFileSync(INSTALL_SMOKE_WORKFLOW_PATH, "utf8");
 
     expect(script).toContain(
-      'UPDATE_BASELINE_VERSION="${OPENCLAW_INSTALL_SMOKE_UPDATE_BASELINE:-latest}"',
+      'UPDATE_BASELINE_VERSION="${GRANTED_INSTALL_SMOKE_UPDATE_BASELINE:-latest}"',
     );
     expect(script).toContain('quiet_npm pack "${PACKAGE_NAME}@${UPDATE_BASELINE_VERSION}"');
     expect(script).toContain('UPDATE_BASELINE_VERSION="$(');
     expect(runner).toContain(
-      'UPDATE_BASELINE_VERSION="${OPENCLAW_INSTALL_UPDATE_BASELINE:-latest}"',
+      'UPDATE_BASELINE_VERSION="${GRANTED_INSTALL_UPDATE_BASELINE:-latest}"',
     );
     expect(runner).toContain("resolve_update_baseline_version");
     expect(runner).toContain('quiet_npm view "${PACKAGE_NAME}@${UPDATE_BASELINE_VERSION}" version');
     expect(workflow).toContain(
-      "OPENCLAW_INSTALL_SMOKE_UPDATE_BASELINE: ${{ inputs.update_baseline_version || 'latest' }}",
+      "GRANTED_INSTALL_SMOKE_UPDATE_BASELINE: ${{ inputs.update_baseline_version || 'latest' }}",
     );
   });
 
@@ -876,12 +876,12 @@ describe("test-install-sh-docker", () => {
     const packageHelper = readFileSync(DOCKER_E2E_PACKAGE_HELPER_PATH, "utf8");
     const dockerfile = readFileSync("Dockerfile", "utf8");
 
-    expect(script).toContain('ROOT_DIR="${OPENCLAW_INSTALL_SMOKE_SOURCE_DIR:-$HARNESS_ROOT}"');
-    expect(script).toContain('UPDATE_DIST_IMAGE="${OPENCLAW_INSTALL_SMOKE_UPDATE_DIST_IMAGE:-}"');
+    expect(script).toContain('ROOT_DIR="${GRANTED_INSTALL_SMOKE_SOURCE_DIR:-$HARNESS_ROOT}"');
+    expect(script).toContain('UPDATE_DIST_IMAGE="${GRANTED_INSTALL_SMOKE_UPDATE_DIST_IMAGE:-}"');
     expect(script).toContain("docker_e2e_restore_package_dist_from_image");
     expect(script).toContain('source "$HARNESS_ROOT/scripts/lib/docker-e2e-package.sh"');
     expect(script).toContain(
-      'DOCKER_COMMAND_TIMEOUT="${DOCKER_COMMAND_TIMEOUT:-${OPENCLAW_INSTALL_SMOKE_DOCKER_COMMAND_TIMEOUT:-600s}}"',
+      'DOCKER_COMMAND_TIMEOUT="${DOCKER_COMMAND_TIMEOUT:-${GRANTED_INSTALL_SMOKE_DOCKER_COMMAND_TIMEOUT:-600s}}"',
     );
     expect(packageHelper).toContain('container_id="$(docker_e2e_docker_cmd create "$image")"');
     expect(packageHelper).toContain(
@@ -982,7 +982,7 @@ printf 'status=%s\\n' "$status"
     const script = readFileSync(SCRIPT_PATH, "utf8");
 
     expect(script).toContain(
-      'INSTALL_SMOKE_DOCKER_RUN_TIMEOUT="${OPENCLAW_INSTALL_SMOKE_DOCKER_RUN_TIMEOUT:-2700s}"',
+      'INSTALL_SMOKE_DOCKER_RUN_TIMEOUT="${GRANTED_INSTALL_SMOKE_DOCKER_RUN_TIMEOUT:-2700s}"',
     );
     expect(script).toContain("run_install_smoke_container()");
     expect(script).toContain(
@@ -1023,12 +1023,12 @@ printf 'status=%s\\n' "$status"
     const dockerfile = readFileSync("Dockerfile", "utf8");
 
     expect(dockerfile).toContain(
-      'ARG OPENCLAW_DOCKER_BUILD_NODE_OPTIONS="--max-old-space-size=8192"',
+      'ARG GRANTED_DOCKER_BUILD_NODE_OPTIONS="--max-old-space-size=8192"',
     );
-    expect(dockerfile).toContain('ARG OPENCLAW_DOCKER_BUILD_TSDOWN_MAX_OLD_SPACE_MB=""');
-    expect(dockerfile).toContain("ARG OPENCLAW_DOCKER_BUILD_SKIP_DTS=1");
+    expect(dockerfile).toContain('ARG GRANTED_DOCKER_BUILD_TSDOWN_MAX_OLD_SPACE_MB=""');
+    expect(dockerfile).toContain("ARG GRANTED_DOCKER_BUILD_SKIP_DTS=1");
     expect(dockerfile).toContain(
-      'OPENCLAW_RUN_NODE_SKIP_DTS_BUILD="$OPENCLAW_DOCKER_BUILD_SKIP_DTS" OPENCLAW_TSDOWN_MAX_OLD_SPACE_MB="$OPENCLAW_DOCKER_BUILD_TSDOWN_MAX_OLD_SPACE_MB" NODE_OPTIONS="$OPENCLAW_DOCKER_BUILD_NODE_OPTIONS" pnpm_config_verify_deps_before_run=false pnpm build:docker',
+      'GRANTED_RUN_NODE_SKIP_DTS_BUILD="$GRANTED_DOCKER_BUILD_SKIP_DTS" GRANTED_TSDOWN_MAX_OLD_SPACE_MB="$GRANTED_DOCKER_BUILD_TSDOWN_MAX_OLD_SPACE_MB" NODE_OPTIONS="$GRANTED_DOCKER_BUILD_NODE_OPTIONS" pnpm_config_verify_deps_before_run=false pnpm build:docker',
     );
   });
 
@@ -1054,9 +1054,9 @@ printf 'status=%s\\n' "$status"
   it("passes the baked browser build arg through Docker setup", () => {
     const script = readFileSync(DOCKER_SETUP_PATH, "utf8");
 
-    expect(script).toContain('export OPENCLAW_INSTALL_BROWSER="${OPENCLAW_INSTALL_BROWSER:-}"');
-    expect(script).toContain("OPENCLAW_INSTALL_BROWSER \\");
-    expect(script).toContain('--build-arg "OPENCLAW_INSTALL_BROWSER=${OPENCLAW_INSTALL_BROWSER}"');
+    expect(script).toContain('export GRANTED_INSTALL_BROWSER="${GRANTED_INSTALL_BROWSER:-}"');
+    expect(script).toContain("GRANTED_INSTALL_BROWSER \\");
+    expect(script).toContain('--build-arg "GRANTED_INSTALL_BROWSER=${GRANTED_INSTALL_BROWSER}"');
   });
 
   it("bounds Docker setup image pulls", () => {
@@ -1064,7 +1064,7 @@ printf 'status=%s\\n' "$status"
     const timeoutHelper = readFileSync(HOST_TIMEOUT_PATH, "utf8");
 
     expect(script).toContain('source "$ROOT_DIR/scripts/lib/host-timeout.sh"');
-    expect(script).toContain('DOCKER_PULL_TIMEOUT="${OPENCLAW_DOCKER_SETUP_PULL_TIMEOUT:-600s}"');
+    expect(script).toContain('DOCKER_PULL_TIMEOUT="${GRANTED_DOCKER_SETUP_PULL_TIMEOUT:-600s}"');
     expect(script).toContain("run_docker_pull()");
     expect(script).toContain(
       'openclaw_host_timeout_cmd "$DOCKER_PULL_TIMEOUT" docker pull "$image"',
@@ -1090,7 +1090,7 @@ printf 'status=%s\\n' "$status"
     const script = readFileSync(DOCKER_SETUP_PATH, "utf8");
     expect(script).not.toContain("/usr/share/zoneinfo");
     expect(script).toContain(
-      'fail "OPENCLAW_TZ must be supported by $IMAGE_NAME (e.g. Asia/Shanghai)."',
+      'fail "GRANTED_TZ must be supported by $IMAGE_NAME (e.g. Asia/Shanghai)."',
     );
   });
 
@@ -1098,32 +1098,30 @@ printf 'status=%s\\n' "$status"
     const script = readFileSync(PODMAN_SETUP_PATH, "utf8");
 
     expect(script).toContain('source "$REPO_PATH/scripts/lib/host-timeout.sh"');
-    expect(script).toContain('PODMAN_PULL_TIMEOUT="${OPENCLAW_PODMAN_SETUP_PULL_TIMEOUT:-600s}"');
+    expect(script).toContain('PODMAN_PULL_TIMEOUT="${GRANTED_PODMAN_SETUP_PULL_TIMEOUT:-600s}"');
     expect(script).toContain("run_podman_pull()");
     expect(script).toContain(
       'openclaw_host_timeout_cmd "$PODMAN_PULL_TIMEOUT" podman pull "$image"',
     );
-    expect(script).toContain('run_podman_pull "$OPENCLAW_IMAGE"');
-    expect(script).not.toContain('podman pull "$OPENCLAW_IMAGE"');
+    expect(script).toContain('run_podman_pull "$GRANTED_IMAGE"');
+    expect(script).not.toContain('podman pull "$GRANTED_IMAGE"');
   });
 
   it("bounds Podman setup image builds", () => {
     const script = readFileSync(PODMAN_SETUP_PATH, "utf8");
 
-    expect(script).toContain(
-      'PODMAN_BUILD_TIMEOUT="${OPENCLAW_PODMAN_SETUP_BUILD_TIMEOUT:-1800s}"',
-    );
+    expect(script).toContain('PODMAN_BUILD_TIMEOUT="${GRANTED_PODMAN_SETUP_BUILD_TIMEOUT:-1800s}"');
     expect(script).toContain("run_podman_build()");
     expect(script).toContain('openclaw_host_timeout_cmd "$PODMAN_BUILD_TIMEOUT" podman build "$@"');
-    expect(script).toContain('run_podman_build -t "$OPENCLAW_IMAGE"');
-    expect(script).not.toContain('podman build -t "$OPENCLAW_IMAGE"');
+    expect(script).toContain('run_podman_build -t "$GRANTED_IMAGE"');
+    expect(script).not.toContain('podman build -t "$GRANTED_IMAGE"');
   });
 
   it("bounds detached Podman launches without timing out onboarding", () => {
     const script = readFileSync(PODMAN_RUN_PATH, "utf8");
 
-    expect(script).toContain('PODMAN_RUN_TIMEOUT="${OPENCLAW_PODMAN_RUN_TIMEOUT:-600s}"');
-    expect(script).toContain("OPENCLAW_PODMAN_RUN_TIMEOUT|OPENCLAW_PODMAN_GATEWAY_HOST_PORT");
+    expect(script).toContain('PODMAN_RUN_TIMEOUT="${GRANTED_PODMAN_RUN_TIMEOUT:-600s}"');
+    expect(script).toContain("GRANTED_PODMAN_RUN_TIMEOUT|GRANTED_PODMAN_GATEWAY_HOST_PORT");
     expect(script).toContain('source "$SCRIPT_DIR/lib/host-timeout.sh"');
     expect(script).toContain("run_podman_detached()");
     expect(script).toContain('openclaw_host_timeout_cmd "$PODMAN_RUN_TIMEOUT" podman run "$@"');
@@ -1137,23 +1135,23 @@ printf 'status=%s\\n' "$status"
     const podmanSetup = readFileSync(PODMAN_SETUP_PATH, "utf8");
     const dockerfile = readFileSync("Dockerfile", "utf8");
 
-    expect(dockerfile).toContain("ARG OPENCLAW_IMAGE_PIP_PACKAGES");
+    expect(dockerfile).toContain("ARG GRANTED_IMAGE_PIP_PACKAGES");
     expect(dockerfile).toContain(
-      "python3 -m pip install --no-cache-dir --break-system-packages $OPENCLAW_IMAGE_PIP_PACKAGES",
+      "python3 -m pip install --no-cache-dir --break-system-packages $GRANTED_IMAGE_PIP_PACKAGES",
     );
     expect(dockerSetup).toContain(
-      'export OPENCLAW_IMAGE_PIP_PACKAGES="${OPENCLAW_IMAGE_PIP_PACKAGES:-}"',
+      'export GRANTED_IMAGE_PIP_PACKAGES="${GRANTED_IMAGE_PIP_PACKAGES:-}"',
     );
-    expect(dockerSetup).toContain("OPENCLAW_IMAGE_PIP_PACKAGES \\");
+    expect(dockerSetup).toContain("GRANTED_IMAGE_PIP_PACKAGES \\");
     expect(dockerSetup).toContain(
-      '--build-arg "OPENCLAW_IMAGE_PIP_PACKAGES=${OPENCLAW_IMAGE_PIP_PACKAGES}"',
+      '--build-arg "GRANTED_IMAGE_PIP_PACKAGES=${GRANTED_IMAGE_PIP_PACKAGES}"',
     );
-    expect(dockerSetup).not.toContain("OPENCLAW_DOCKER_PIP_PACKAGES");
-    expect(podmanSetup).toContain('OPENCLAW_IMAGE_PIP_PACKAGES="${OPENCLAW_IMAGE_PIP_PACKAGES:-}"');
+    expect(dockerSetup).not.toContain("GRANTED_DOCKER_PIP_PACKAGES");
+    expect(podmanSetup).toContain('GRANTED_IMAGE_PIP_PACKAGES="${GRANTED_IMAGE_PIP_PACKAGES:-}"');
     expect(podmanSetup).toContain(
-      'BUILD_ARGS+=(--build-arg "OPENCLAW_IMAGE_PIP_PACKAGES=${OPENCLAW_IMAGE_PIP_PACKAGES}")',
+      'BUILD_ARGS+=(--build-arg "GRANTED_IMAGE_PIP_PACKAGES=${GRANTED_IMAGE_PIP_PACKAGES}")',
     );
-    expect(podmanSetup).not.toContain("OPENCLAW_DOCKER_PIP_PACKAGES");
+    expect(podmanSetup).not.toContain("GRANTED_DOCKER_PIP_PACKAGES");
   });
 
   it("passes one source identity into local Docker and Podman builds", () => {
@@ -1164,7 +1162,7 @@ printf 'status=%s\\n' "$status"
       expect(setupScript).toContain("scripts/lib/build-metadata.sh");
       expect(setupScript).toContain("openclaw_resolve_git_commit");
       expect(setupScript).toContain("openclaw_resolve_build_timestamp");
-      expect(setupScript).toContain("OPENCLAW_BUILD_TIMESTAMP=${BUILD_TIMESTAMP}");
+      expect(setupScript).toContain("GRANTED_BUILD_TIMESTAMP=${BUILD_TIMESTAMP}");
       expect(setupScript).toContain("GIT_COMMIT=${BUILD_GIT_COMMIT}");
     }
   });
@@ -1177,8 +1175,8 @@ printf 'status=%s\\n' "$status"
       'QUADLET_TEMPLATE="$REPO_PATH/scripts/podman/openclaw.container.in"',
     );
     for (const placeholder of [
-      "OPENCLAW_CONFIG_DIR",
-      "OPENCLAW_WORKSPACE_DIR",
+      "GRANTED_CONFIG_DIR",
+      "GRANTED_WORKSPACE_DIR",
       "IMAGE_NAME",
       "CONTAINER_NAME",
     ]) {
@@ -1188,11 +1186,9 @@ printf 'status=%s\\n' "$status"
 
     expect(template).toContain("UserNS=keep-id");
     expect(template).toContain("User=%U:%G");
-    expect(template).toContain("Volume={{OPENCLAW_CONFIG_DIR}}:/home/node/.openclaw:Z");
-    expect(template).toContain(
-      "Volume={{OPENCLAW_WORKSPACE_DIR}}:/home/node/.openclaw/workspace:Z",
-    );
-    expect(template).toContain("EnvironmentFile={{OPENCLAW_CONFIG_DIR}}/.env");
+    expect(template).toContain("Volume={{GRANTED_CONFIG_DIR}}:/home/node/.openclaw:Z");
+    expect(template).toContain("Volume={{GRANTED_WORKSPACE_DIR}}:/home/node/.openclaw/workspace:Z");
+    expect(template).toContain("EnvironmentFile={{GRANTED_CONFIG_DIR}}/.env");
     expect(template).toContain("PublishPort=127.0.0.1:18789:18789");
     expect(template).toContain("Exec=node dist/index.js gateway --bind lan --port 18789");
     expect(template).not.toContain("/home/admin");
@@ -1341,9 +1337,9 @@ printf 'status=%s\\n' "$status"
 
     expect(script).toContain('node "$HARNESS_ROOT/scripts/package-openclaw-for-docker.mjs"');
     expect(script).toContain("--allow-unreleased-changelog");
-    expect(script).toContain("OPENCLAW_INSTALL_SMOKE_ALLOW_UNRELEASED_CHANGELOG");
+    expect(script).toContain("GRANTED_INSTALL_SMOKE_ALLOW_UNRELEASED_CHANGELOG");
     expect(script).toContain(
-      'if [[ "${OPENCLAW_INSTALL_SMOKE_ALLOW_UNRELEASED_CHANGELOG:-true}" == "true" ]]',
+      'if [[ "${GRANTED_INSTALL_SMOKE_ALLOW_UNRELEASED_CHANGELOG:-true}" == "true" ]]',
     );
     expect(script).toContain("package_args+=(--allow-unreleased-changelog)");
     expect(script).toContain('--source-dir "$ROOT_DIR"');
@@ -1385,9 +1381,7 @@ printf 'status=%s\\n' "$status"
     const runner = readFileSync(SMOKE_RUNNER_PATH, "utf8");
 
     expect(wrapper).toContain('-v "$INSTALL_SCRIPT_PATH:/tmp/openclaw-install.sh:ro"');
-    expect(wrapper).toContain(
-      'FROZEN_PAYLOAD_DIR="${OPENCLAW_INSTALL_SMOKE_FROZEN_PAYLOAD_DIR:-}"',
-    );
+    expect(wrapper).toContain('FROZEN_PAYLOAD_DIR="${GRANTED_INSTALL_SMOKE_FROZEN_PAYLOAD_DIR:-}"');
     expect(runner).toContain("Run official installer one-liner for latest release tarball");
     expect(runner).toContain("run_installer_pipeline");
     expect(runner).toContain('--version "$FRESH_TAG_URL"');
@@ -1404,7 +1398,7 @@ printf 'status=%s\\n' "$status"
     expect(runner).toContain('--version "$FRESH_TAG_URL"');
     expect(runner).toContain('--version "$FRESHNESS_VERSION"');
     expect(runner).toMatch(
-      /HOME="\$policy_home" \\\n\s*NPM_CONFIG_USERCONFIG="\$\{policy_home\}\/\.npmrc" \\\n\s*OPENCLAW_NO_ONBOARD=1 \\\n\s*OPENCLAW_NO_PROMPT=1 \\\n\s*run_installer_pipeline/u,
+      /HOME="\$policy_home" \\\n\s*NPM_CONFIG_USERCONFIG="\$\{policy_home\}\/\.npmrc" \\\n\s*GRANTED_NO_ONBOARD=1 \\\n\s*GRANTED_NO_PROMPT=1 \\\n\s*run_installer_pipeline/u,
     );
   });
 
@@ -1412,9 +1406,9 @@ printf 'status=%s\\n' "$status"
     const wrapper = readFileSync(SCRIPT_PATH, "utf8");
     const nonrootRunner = readFileSync(NONROOT_RUNNER_PATH, "utf8");
 
-    expect(wrapper).toContain('-e OPENCLAW_INSTALL_CLI_URL="$CLI_INSTALL_URL"');
+    expect(wrapper).toContain('-e GRANTED_INSTALL_CLI_URL="$CLI_INSTALL_URL"');
     expect(wrapper).toContain(
-      `'set -o pipefail; curl -fsSL --connect-timeout 30 --max-time 300 -- "$OPENCLAW_INSTALL_CLI_URL" | bash -s -- --set-npm-prefix --no-onboard'`,
+      `'set -o pipefail; curl -fsSL --connect-timeout 30 --max-time 300 -- "$GRANTED_INSTALL_CLI_URL" | bash -s -- --set-npm-prefix --no-onboard'`,
     );
     expect(nonrootRunner).toContain(
       'curl -fsSL --connect-timeout 30 --max-time 300 -o "$installer" -- "$INSTALL_URL"',
@@ -1460,13 +1454,13 @@ printf 'status=%s\\n' "$status"
     );
     expect(wrapper).toContain('LATEST_VERSION="$public_latest_version"');
     expect(wrapper).toContain('LATEST_VERSION="$(quiet_npm view "$PACKAGE_NAME" version)"');
-    expect(wrapper).toContain('-e OPENCLAW_INSTALL_EXPECT_VERSION="$LATEST_VERSION"');
+    expect(wrapper).toContain('-e GRANTED_INSTALL_EXPECT_VERSION="$LATEST_VERSION"');
   });
 
   it("runs update and non-root installer groups independently while defaulting to all", () => {
     const wrapper = readFileSync(SCRIPT_PATH, "utf8");
 
-    expect(wrapper).toContain('INSTALL_SMOKE_GROUP="${OPENCLAW_INSTALL_SMOKE_GROUP:-all}"');
+    expect(wrapper).toContain('INSTALL_SMOKE_GROUP="${GRANTED_INSTALL_SMOKE_GROUP:-all}"');
     expect(wrapper).toContain("RUN_UPDATE_GROUP=0");
     expect(wrapper).toContain("RUN_NONROOT_GROUP=0");
     expect(wrapper).toContain('case "$INSTALL_SMOKE_GROUP" in');
@@ -1483,13 +1477,11 @@ printf 'status=%s\\n' "$status"
       encoding: "utf8",
       env: {
         ...process.env,
-        OPENCLAW_INSTALL_SMOKE_GROUP: "invalid",
+        GRANTED_INSTALL_SMOKE_GROUP: "invalid",
       },
     });
     expect(invalid.status).toBe(2);
-    expect(invalid.stderr).toContain(
-      "OPENCLAW_INSTALL_SMOKE_GROUP must be all, update, or nonroot",
-    );
+    expect(invalid.stderr).toContain("GRANTED_INSTALL_SMOKE_GROUP must be all, update, or nonroot");
   });
 });
 
@@ -1519,7 +1511,7 @@ describe("install-sh E2E runner", () => {
       const fixture = runInstallE2eInstallerFixture({
         installTag,
         installerBody:
-          'printf "%s|%s" "${OPENCLAW_BETA-}" "${OPENCLAW_VERSION-}" >"$INSTALL_MARKER"\n',
+          'printf "%s|%s" "${GRANTED_BETA-}" "${GRANTED_VERSION-}" >"$INSTALL_MARKER"\n',
       });
 
       expect(fixture.result.status, fixture.result.stderr).toBe(0);
@@ -1532,57 +1524,57 @@ describe("install-sh E2E runner", () => {
     const wrapper = readFileSync(INSTALL_E2E_DOCKER_PATH, "utf8");
 
     expect(wrapper).toContain(
-      'AGENT_TURN_TIMEOUT_SECONDS="$(\n  docker_e2e_read_positive_int_env OPENCLAW_INSTALL_E2E_AGENT_TURN_TIMEOUT_SECONDS 300\n)"',
+      'AGENT_TURN_TIMEOUT_SECONDS="$(\n  docker_e2e_read_positive_int_env GRANTED_INSTALL_E2E_AGENT_TURN_TIMEOUT_SECONDS 300\n)"',
     );
     expect(wrapper).toContain(
-      'OPENAI_PROVIDER_TIMEOUT_SECONDS="$(\n  docker_e2e_read_positive_int_env OPENCLAW_INSTALL_E2E_OPENAI_PROVIDER_TIMEOUT_SECONDS "$AGENT_TURN_TIMEOUT_SECONDS"\n)"',
+      'OPENAI_PROVIDER_TIMEOUT_SECONDS="$(\n  docker_e2e_read_positive_int_env GRANTED_INSTALL_E2E_OPENAI_PROVIDER_TIMEOUT_SECONDS "$AGENT_TURN_TIMEOUT_SECONDS"\n)"',
     );
     expect(wrapper).toContain(
-      'AGENT_TURNS_PARALLEL="$(read_boolean_env OPENCLAW_INSTALL_E2E_AGENT_TURNS_PARALLEL 1)"',
+      'AGENT_TURNS_PARALLEL="$(read_boolean_env GRANTED_INSTALL_E2E_AGENT_TURNS_PARALLEL 1)"',
     );
     expect(wrapper).toContain(
-      'AGENT_TOOL_SMOKE="$(read_boolean_env OPENCLAW_INSTALL_E2E_AGENT_TOOL_SMOKE 1)"',
+      'AGENT_TOOL_SMOKE="$(read_boolean_env GRANTED_INSTALL_E2E_AGENT_TOOL_SMOKE 1)"',
     );
     expect(wrapper).toContain(
-      'SESSION_SCAN_BYTES="$(\n  docker_e2e_read_positive_int_env OPENCLAW_INSTALL_E2E_SESSION_SCAN_BYTES 16777216\n)"',
+      'SESSION_SCAN_BYTES="$(\n  docker_e2e_read_positive_int_env GRANTED_INSTALL_E2E_SESSION_SCAN_BYTES 16777216\n)"',
     );
     expect(wrapper).toContain(
-      'SESSION_LINE_BYTES="$(\n  docker_e2e_read_positive_int_env OPENCLAW_INSTALL_E2E_SESSION_LINE_BYTES 1048576\n)"',
+      'SESSION_LINE_BYTES="$(\n  docker_e2e_read_positive_int_env GRANTED_INSTALL_E2E_SESSION_LINE_BYTES 1048576\n)"',
     );
     expect(wrapper).toContain(
-      'SESSION_SCAN_DEPTH="$(docker_e2e_read_positive_int_env OPENCLAW_INSTALL_E2E_SESSION_SCAN_DEPTH 64)"',
+      'SESSION_SCAN_DEPTH="$(docker_e2e_read_positive_int_env GRANTED_INSTALL_E2E_SESSION_SCAN_DEPTH 64)"',
     );
     expect(wrapper).toContain(
-      'SESSION_SCAN_NODES="$(docker_e2e_read_positive_int_env OPENCLAW_INSTALL_E2E_SESSION_SCAN_NODES 100000)"',
+      'SESSION_SCAN_NODES="$(docker_e2e_read_positive_int_env GRANTED_INSTALL_E2E_SESSION_SCAN_NODES 100000)"',
     );
     expect(wrapper).toContain(
-      '-e OPENCLAW_INSTALL_E2E_OPENAI_PROVIDER_TIMEOUT_SECONDS="$OPENAI_PROVIDER_TIMEOUT_SECONDS"',
+      '-e GRANTED_INSTALL_E2E_OPENAI_PROVIDER_TIMEOUT_SECONDS="$OPENAI_PROVIDER_TIMEOUT_SECONDS"',
     );
     expect(wrapper).toContain(
-      '-e OPENCLAW_INSTALL_E2E_AGENT_TURN_TIMEOUT_SECONDS="$AGENT_TURN_TIMEOUT_SECONDS"',
+      '-e GRANTED_INSTALL_E2E_AGENT_TURN_TIMEOUT_SECONDS="$AGENT_TURN_TIMEOUT_SECONDS"',
     );
     expect(wrapper).toContain(
-      '-e OPENCLAW_INSTALL_E2E_AGENT_TURNS_PARALLEL="$AGENT_TURNS_PARALLEL"',
+      '-e GRANTED_INSTALL_E2E_AGENT_TURNS_PARALLEL="$AGENT_TURNS_PARALLEL"',
     );
-    expect(wrapper).toContain('-e OPENCLAW_INSTALL_E2E_AGENT_TOOL_SMOKE="$AGENT_TOOL_SMOKE"');
-    expect(wrapper).toContain('-e OPENCLAW_INSTALL_E2E_SESSION_SCAN_BYTES="$SESSION_SCAN_BYTES"');
-    expect(wrapper).toContain('-e OPENCLAW_INSTALL_E2E_SESSION_LINE_BYTES="$SESSION_LINE_BYTES"');
-    expect(wrapper).toContain('-e OPENCLAW_INSTALL_E2E_SESSION_SCAN_DEPTH="$SESSION_SCAN_DEPTH"');
-    expect(wrapper).toContain('-e OPENCLAW_INSTALL_E2E_SESSION_SCAN_NODES="$SESSION_SCAN_NODES"');
+    expect(wrapper).toContain('-e GRANTED_INSTALL_E2E_AGENT_TOOL_SMOKE="$AGENT_TOOL_SMOKE"');
+    expect(wrapper).toContain('-e GRANTED_INSTALL_E2E_SESSION_SCAN_BYTES="$SESSION_SCAN_BYTES"');
+    expect(wrapper).toContain('-e GRANTED_INSTALL_E2E_SESSION_LINE_BYTES="$SESSION_LINE_BYTES"');
+    expect(wrapper).toContain('-e GRANTED_INSTALL_E2E_SESSION_SCAN_DEPTH="$SESSION_SCAN_DEPTH"');
+    expect(wrapper).toContain('-e GRANTED_INSTALL_E2E_SESSION_SCAN_NODES="$SESSION_SCAN_NODES"');
     expect(wrapper).not.toContain(
-      'OPENCLAW_INSTALL_E2E_OPENAI_PROVIDER_TIMEOUT_SECONDS="${OPENCLAW_INSTALL_E2E_OPENAI_PROVIDER_TIMEOUT_SECONDS:-}"',
+      'GRANTED_INSTALL_E2E_OPENAI_PROVIDER_TIMEOUT_SECONDS="${GRANTED_INSTALL_E2E_OPENAI_PROVIDER_TIMEOUT_SECONDS:-}"',
     );
   });
 
   it.each([
-    ["turn timeout", "OPENCLAW_INSTALL_E2E_AGENT_TURN_TIMEOUT_SECONDS", "300s"],
-    ["provider timeout", "OPENCLAW_INSTALL_E2E_OPENAI_PROVIDER_TIMEOUT_SECONDS", "1e3"],
-    ["parallel toggle", "OPENCLAW_INSTALL_E2E_AGENT_TURNS_PARALLEL", "2"],
-    ["tool smoke toggle", "OPENCLAW_INSTALL_E2E_AGENT_TOOL_SMOKE", "false"],
-    ["session scan bytes", "OPENCLAW_INSTALL_E2E_SESSION_SCAN_BYTES", "16mb"],
-    ["session line bytes", "OPENCLAW_INSTALL_E2E_SESSION_LINE_BYTES", "1mb"],
-    ["session scan depth", "OPENCLAW_INSTALL_E2E_SESSION_SCAN_DEPTH", "0"],
-    ["session scan nodes", "OPENCLAW_INSTALL_E2E_SESSION_SCAN_NODES", "100k"],
+    ["turn timeout", "GRANTED_INSTALL_E2E_AGENT_TURN_TIMEOUT_SECONDS", "300s"],
+    ["provider timeout", "GRANTED_INSTALL_E2E_OPENAI_PROVIDER_TIMEOUT_SECONDS", "1e3"],
+    ["parallel toggle", "GRANTED_INSTALL_E2E_AGENT_TURNS_PARALLEL", "2"],
+    ["tool smoke toggle", "GRANTED_INSTALL_E2E_AGENT_TOOL_SMOKE", "false"],
+    ["session scan bytes", "GRANTED_INSTALL_E2E_SESSION_SCAN_BYTES", "16mb"],
+    ["session line bytes", "GRANTED_INSTALL_E2E_SESSION_LINE_BYTES", "1mb"],
+    ["session scan depth", "GRANTED_INSTALL_E2E_SESSION_SCAN_DEPTH", "0"],
+    ["session scan nodes", "GRANTED_INSTALL_E2E_SESSION_SCAN_NODES", "100k"],
   ])("rejects invalid install E2E Docker %s before image build", (_label, envName, value) => {
     const result = spawnSync("bash", [INSTALL_E2E_DOCKER_PATH], {
       encoding: "utf8",
@@ -1601,16 +1593,16 @@ describe("install-sh E2E runner", () => {
     const script = readFileSync(INSTALL_E2E_RUNNER_PATH, "utf8");
 
     expect(script).toContain(
-      'AGENT_TURN_TIMEOUT_SECONDS="$(read_positive_int_env OPENCLAW_INSTALL_E2E_AGENT_TURN_TIMEOUT_SECONDS 300)"',
+      'AGENT_TURN_TIMEOUT_SECONDS="$(read_positive_int_env GRANTED_INSTALL_E2E_AGENT_TURN_TIMEOUT_SECONDS 300)"',
     );
     expect(script).toContain(
-      'AGENT_TURNS_PARALLEL="$(read_boolean_env OPENCLAW_INSTALL_E2E_AGENT_TURNS_PARALLEL 1)"',
+      'AGENT_TURNS_PARALLEL="$(read_boolean_env GRANTED_INSTALL_E2E_AGENT_TURNS_PARALLEL 1)"',
     );
     expect(script).toContain(
-      'AGENT_TOOL_SMOKE="$(read_boolean_env OPENCLAW_INSTALL_E2E_AGENT_TOOL_SMOKE 1)"',
+      'AGENT_TOOL_SMOKE="$(read_boolean_env GRANTED_INSTALL_E2E_AGENT_TOOL_SMOKE 1)"',
     );
     expect(script).toContain(
-      'OPENAI_PROVIDER_TIMEOUT_SECONDS="$(read_positive_int_env OPENCLAW_INSTALL_E2E_OPENAI_PROVIDER_TIMEOUT_SECONDS "$AGENT_TURN_TIMEOUT_SECONDS")"',
+      'OPENAI_PROVIDER_TIMEOUT_SECONDS="$(read_positive_int_env GRANTED_INSTALL_E2E_OPENAI_PROVIDER_TIMEOUT_SECONDS "$AGENT_TURN_TIMEOUT_SECONDS")"',
     );
     expect(script).toContain('timeout --kill-after=15s "${AGENT_TURN_TIMEOUT_SECONDS}s"');
     expect(script).toContain('\\"timeoutSeconds\\":${OPENAI_PROVIDER_TIMEOUT_SECONDS}');
@@ -1633,10 +1625,10 @@ describe("install-sh E2E runner", () => {
   });
 
   it.each([
-    ["turn timeout", "OPENCLAW_INSTALL_E2E_AGENT_TURN_TIMEOUT_SECONDS", "300s"],
-    ["provider timeout", "OPENCLAW_INSTALL_E2E_OPENAI_PROVIDER_TIMEOUT_SECONDS", "1e3"],
-    ["parallel toggle", "OPENCLAW_INSTALL_E2E_AGENT_TURNS_PARALLEL", "2"],
-    ["tool smoke toggle", "OPENCLAW_INSTALL_E2E_AGENT_TOOL_SMOKE", "false"],
+    ["turn timeout", "GRANTED_INSTALL_E2E_AGENT_TURN_TIMEOUT_SECONDS", "300s"],
+    ["provider timeout", "GRANTED_INSTALL_E2E_OPENAI_PROVIDER_TIMEOUT_SECONDS", "1e3"],
+    ["parallel toggle", "GRANTED_INSTALL_E2E_AGENT_TURNS_PARALLEL", "2"],
+    ["tool smoke toggle", "GRANTED_INSTALL_E2E_AGENT_TOOL_SMOKE", "false"],
   ])("rejects invalid install E2E %s before credential preflight", (_label, envName, value) => {
     const result = spawnSync("bash", [INSTALL_E2E_RUNNER_PATH], {
       encoding: "utf8",
@@ -1648,7 +1640,7 @@ describe("install-sh E2E runner", () => {
 
     expect(result.status).toBe(2);
     expect(result.stderr).toContain(`invalid ${envName}: ${value}`);
-    expect(result.stderr).not.toContain("OPENCLAW_E2E_MODELS=both requires");
+    expect(result.stderr).not.toContain("GRANTED_E2E_MODELS=both requires");
   });
 });
 
@@ -1711,10 +1703,10 @@ describe("install-sh smoke runner", () => {
     const script = readFileSync(SMOKE_RUNNER_PATH, "utf8");
 
     expect(script).toContain(
-      'HEARTBEAT_INTERVAL="$(read_nonnegative_int_env OPENCLAW_INSTALL_SMOKE_HEARTBEAT_INTERVAL 60)"',
+      'HEARTBEAT_INTERVAL="$(read_nonnegative_int_env GRANTED_INSTALL_SMOKE_HEARTBEAT_INTERVAL 60)"',
     );
     expect(script).toContain(
-      'INSTALL_COMMAND_TIMEOUT="$(read_positive_int_env OPENCLAW_INSTALL_SMOKE_COMMAND_TIMEOUT 900)"',
+      'INSTALL_COMMAND_TIMEOUT="$(read_positive_int_env GRANTED_INSTALL_SMOKE_COMMAND_TIMEOUT 900)"',
     );
     expect(script).toContain('if [[ "$interval" == "0" ]]; then');
     expect(script).toContain("run_with_heartbeat");
@@ -1774,8 +1766,8 @@ describe("install-sh smoke runner", () => {
   });
 
   it.each([
-    ["command timeout", "OPENCLAW_INSTALL_SMOKE_COMMAND_TIMEOUT", "900s"],
-    ["heartbeat interval", "OPENCLAW_INSTALL_SMOKE_HEARTBEAT_INTERVAL", "60s"],
+    ["command timeout", "GRANTED_INSTALL_SMOKE_COMMAND_TIMEOUT", "900s"],
+    ["heartbeat interval", "GRANTED_INSTALL_SMOKE_HEARTBEAT_INTERVAL", "60s"],
   ])("rejects invalid install smoke %s before running npm", (_label, envName, value) => {
     const result = spawnSync("bash", [SMOKE_RUNNER_PATH], {
       encoding: "utf8",
@@ -1787,15 +1779,15 @@ describe("install-sh smoke runner", () => {
 
     expect(result.status).toBe(2);
     expect(result.stderr).toContain(`invalid ${envName}: ${value}`);
-    expect(result.stderr).not.toContain("unsupported OPENCLAW_INSTALL_SMOKE_MODE");
+    expect(result.stderr).not.toContain("unsupported GRANTED_INSTALL_SMOKE_MODE");
   });
 
   it("covers plain npm global installs and npm-driven updates", () => {
     const script = readFileSync(SCRIPT_PATH, "utf8");
     const runner = readFileSync(SMOKE_RUNNER_PATH, "utf8");
 
-    expect(script).toContain('SKIP_NPM_GLOBAL="${OPENCLAW_INSTALL_SMOKE_SKIP_NPM_GLOBAL:-0}"');
-    expect(script).toContain('NPM_CACHE_DIR="${OPENCLAW_INSTALL_SMOKE_NPM_CACHE_DIR:-}"');
+    expect(script).toContain('SKIP_NPM_GLOBAL="${GRANTED_INSTALL_SMOKE_SKIP_NPM_GLOBAL:-0}"');
+    expect(script).toContain('NPM_CACHE_DIR="${GRANTED_INSTALL_SMOKE_NPM_CACHE_DIR:-}"');
     expect(script).toContain("-e npm_config_cache=/npm-cache");
     expect(script).toContain('${NPM_CACHE_DOCKER_ARGS[@]+"${NPM_CACHE_DOCKER_ARGS[@]}"}');
     expect(script).toContain("remove_owned_npm_cache");
@@ -1807,7 +1799,7 @@ describe("install-sh smoke runner", () => {
       /Run CLI installer non-root test[\s\S]*"\$\{NPM_CACHE_DOCKER_ARGS\[@\]\}"/,
     );
     expect(script).toContain("==> Run direct npm global smoke");
-    expect(script).toContain("OPENCLAW_INSTALL_SMOKE_MODE=npm-global");
+    expect(script).toContain("GRANTED_INSTALL_SMOKE_MODE=npm-global");
     expect(runner).toContain("run_npm_global_smoke");
     expect(runner).toContain("==> Direct npm global install candidate");
     expect(runner).toContain("==> Direct npm global update candidate");
@@ -1818,12 +1810,12 @@ describe("install-sh smoke runner", () => {
 
     expect(script).toContain("SMOKE_RUNNER_ENV_ARGS=()");
     for (const envName of [
-      "OPENCLAW_INSTALL_ALLOW_LEGACY_UPDATE_WARNING",
-      "OPENCLAW_INSTALL_SELF_UPDATE_WARNING_FIXED_VERSION",
-      "OPENCLAW_INSTALL_SMOKE_COMMAND_TIMEOUT",
-      "OPENCLAW_INSTALL_SMOKE_HEARTBEAT_INTERVAL",
-      "OPENCLAW_INSTALL_SMOKE_PREVIOUS",
-      "OPENCLAW_INSTALL_SMOKE_SKIP_PREVIOUS",
+      "GRANTED_INSTALL_ALLOW_LEGACY_UPDATE_WARNING",
+      "GRANTED_INSTALL_SELF_UPDATE_WARNING_FIXED_VERSION",
+      "GRANTED_INSTALL_SMOKE_COMMAND_TIMEOUT",
+      "GRANTED_INSTALL_SMOKE_HEARTBEAT_INTERVAL",
+      "GRANTED_INSTALL_SMOKE_PREVIOUS",
+      "GRANTED_INSTALL_SMOKE_SKIP_PREVIOUS",
     ]) {
       expect(script).toContain(envName);
     }
@@ -1921,7 +1913,7 @@ syncBuiltinESMExports();
       ["--import", preloadPath, BUN_GLOBAL_ASSERTIONS_PATH, "run-with-timeout", "60000", "fixture"],
       {
         encoding: "utf8",
-        env: { ...process.env, OPENCLAW_BUN_GLOBAL_SMOKE_TIMEOUT_KILL_GRACE_MS: "100" },
+        env: { ...process.env, GRANTED_BUN_GLOBAL_SMOKE_TIMEOUT_KILL_GRACE_MS: "100" },
       },
     );
   };
@@ -1959,9 +1951,9 @@ syncBuiltinESMExports();
 
     expect(script).toContain("node scripts/package-openclaw-for-docker.mjs");
     expect(script).toContain("--allow-unreleased-changelog");
-    expect(script).toContain("OPENCLAW_BUN_GLOBAL_SMOKE_ALLOW_UNRELEASED_CHANGELOG");
+    expect(script).toContain("GRANTED_BUN_GLOBAL_SMOKE_ALLOW_UNRELEASED_CHANGELOG");
     expect(script).toContain(
-      'if [[ "${OPENCLAW_BUN_GLOBAL_SMOKE_ALLOW_UNRELEASED_CHANGELOG:-true}" == "true" ]]',
+      'if [[ "${GRANTED_BUN_GLOBAL_SMOKE_ALLOW_UNRELEASED_CHANGELOG:-true}" == "true" ]]',
     );
     expect(script).toContain("package_args+=(--allow-unreleased-changelog)");
     expect(script).toContain("--skip-build");
@@ -1969,7 +1961,7 @@ syncBuiltinESMExports();
     expect(script).not.toContain("npm pack --ignore-scripts --json --pack-destination");
     expect(script).toContain('"$bun_path" install -g --trust "$PACKAGE_TGZ" --no-progress');
     expect(script).toContain('"$openclaw_bin" --help');
-    expect(script).toContain("OPENCLAW_BUN_GLOBAL_SMOKE_PROOF_PATH");
+    expect(script).toContain("GRANTED_BUN_GLOBAL_SMOKE_PROOF_PATH");
     expect(script).toContain("infer image providers --json");
     expect(script).toContain("assert-image-providers");
     expect(script).toContain("assert-openclaw-trusted");
@@ -1977,14 +1969,14 @@ syncBuiltinESMExports();
     expect(script).toContain("gateway health");
     expect(script).toContain("openclaw_e2e_wait_gateway_ready");
     expect(assertions).toContain("image providers output is missing bundled provider");
-    expect(script).toContain("OPENCLAW_BUN_GLOBAL_SMOKE_DIST_IMAGE");
+    expect(script).toContain("GRANTED_BUN_GLOBAL_SMOKE_DIST_IMAGE");
     expect(script).toContain('source "$ROOT_DIR/scripts/lib/docker-e2e-package.sh"');
     expect(script).toContain("docker_e2e_restore_package_dist_from_image");
     expect(script).toContain(
-      'COMMAND_TIMEOUT_MS="$(read_positive_int_env OPENCLAW_BUN_GLOBAL_SMOKE_TIMEOUT_MS 180000)"',
+      'COMMAND_TIMEOUT_MS="$(read_positive_int_env GRANTED_BUN_GLOBAL_SMOKE_TIMEOUT_MS 180000)"',
     );
     expect(script).toContain(
-      'DOCKER_COMMAND_TIMEOUT="${DOCKER_COMMAND_TIMEOUT:-${OPENCLAW_BUN_GLOBAL_SMOKE_DOCKER_COMMAND_TIMEOUT:-600s}}"',
+      'DOCKER_COMMAND_TIMEOUT="${DOCKER_COMMAND_TIMEOUT:-${GRANTED_BUN_GLOBAL_SMOKE_DOCKER_COMMAND_TIMEOUT:-600s}}"',
     );
     expect(packageHelper).toContain('container_id="$(docker_e2e_docker_cmd create "$image")"');
     expect(packageHelper).toContain(
@@ -2010,12 +2002,12 @@ syncBuiltinESMExports();
       encoding: "utf8",
       env: {
         ...process.env,
-        OPENCLAW_BUN_GLOBAL_SMOKE_TIMEOUT_MS: "180000ms",
+        GRANTED_BUN_GLOBAL_SMOKE_TIMEOUT_MS: "180000ms",
       },
     });
 
     expect(result.status).toBe(2);
-    expect(result.stderr).toContain("invalid OPENCLAW_BUN_GLOBAL_SMOKE_TIMEOUT_MS: 180000ms");
+    expect(result.stderr).toContain("invalid GRANTED_BUN_GLOBAL_SMOKE_TIMEOUT_MS: 180000ms");
     expect(result.stderr).not.toContain("Bun is required");
   });
 
@@ -2267,7 +2259,7 @@ test -f "\${override#file:}"
 fi
 package_root="$BUN_INSTALL/install/global/node_modules/openclaw"
 mkdir -p "$BUN_INSTALL/bin" "$package_root/dist/plugin-sdk"
-printf '%s\\n' "$OPENCLAW_STATE_DIR" >"$FAKE_STATE_PATH"
+printf '%s\\n' "$GRANTED_STATE_DIR" >"$FAKE_STATE_PATH"
 if [ "$EXPECT_AI_OVERRIDE" = "1" ]; then
   printf '%s\\n' "\${override#file:}" >"$FAKE_AI_TARBALL_PATH"
 else
@@ -2306,9 +2298,9 @@ node -e 'const fs=require("node:fs");const p=process.argv[1];const value=JSON.pa
         FAKE_STATUS_EXIT: String(statusExit),
         FAKE_STATE_PATH: statePath,
         FAKE_AI_TARBALL_PATH: aiTarballPath,
-        OPENCLAW_BUN_GLOBAL_SMOKE_HOST_BUILD: "0",
-        OPENCLAW_BUN_GLOBAL_SMOKE_PACKAGE_TGZ: packageTgz,
-        OPENCLAW_BUN_GLOBAL_SMOKE_TIMEOUT_MS: "10000",
+        GRANTED_BUN_GLOBAL_SMOKE_HOST_BUILD: "0",
+        GRANTED_BUN_GLOBAL_SMOKE_PACKAGE_TGZ: packageTgz,
+        GRANTED_BUN_GLOBAL_SMOKE_TIMEOUT_MS: "10000",
       },
     });
 
@@ -2365,7 +2357,7 @@ node -e 'const fs=require("node:fs");const p=process.argv[1];const value=JSON.pa
           encoding: "utf8",
           env: {
             ...process.env,
-            OPENCLAW_BUN_GLOBAL_SMOKE_TIMEOUT_KILL_GRACE_MS: "1000",
+            GRANTED_BUN_GLOBAL_SMOKE_TIMEOUT_KILL_GRACE_MS: "1000",
           },
           timeout: 5_000,
         },
@@ -2412,7 +2404,7 @@ node -e 'const fs=require("node:fs");const p=process.argv[1];const value=JSON.pa
         {
           env: {
             ...process.env,
-            OPENCLAW_BUN_GLOBAL_SMOKE_TIMEOUT_KILL_GRACE_MS: "100",
+            GRANTED_BUN_GLOBAL_SMOKE_TIMEOUT_KILL_GRACE_MS: "100",
           },
           stdio: ["ignore", "pipe", "pipe"],
         },
@@ -2496,9 +2488,9 @@ node -e 'const fs=require("node:fs");const p=process.argv[1];const value=JSON.pa
     expect(workflow).toContain("bash scripts/e2e/bun-global-install-smoke.sh");
     expect(workflow).not.toContain("uses: ./.release-harness/.github/actions/setup-node-env");
     expect(workflow).toContain(
-      "OPENCLAW_BUN_GLOBAL_SMOKE_PACKAGE_TGZ: ${{ runner.temp }}/install-smoke-candidate-payload/candidate.tgz",
+      "GRANTED_BUN_GLOBAL_SMOKE_PACKAGE_TGZ: ${{ runner.temp }}/install-smoke-candidate-payload/candidate.tgz",
     );
-    expect(workflow).not.toContain("OPENCLAW_BUN_GLOBAL_SMOKE_DIST_IMAGE");
+    expect(workflow).not.toContain("GRANTED_BUN_GLOBAL_SMOKE_DIST_IMAGE");
     expect(workflow).toContain("group: ${{ github.workflow }}-workflow-call-${{ github.run_id }}");
     expect(workflow).toContain("cancel-in-progress: false");
     expect(workflow).not.toContain(
@@ -2506,9 +2498,9 @@ node -e 'const fs=require("node:fs");const p=process.argv[1];const value=JSON.pa
     );
     expect(workflow).not.toContain("github.event_name == 'pull_request'");
     expect(workflow).not.toContain("node scripts/ci-changed-scope.mjs");
-    expect(workflow).toContain("OPENCLAW_CI_WORKFLOW_BUN_GLOBAL_INSTALL_SMOKE");
+    expect(workflow).toContain("GRANTED_CI_WORKFLOW_BUN_GLOBAL_INSTALL_SMOKE");
     expect(workflow).toContain('run_bun_global_install_smoke="$workflow_bun_global_install_smoke"');
-    expect(workflow).not.toContain("OPENCLAW_CI_EVENT_NAME");
+    expect(workflow).not.toContain("GRANTED_CI_EVENT_NAME");
     expect(workflow).not.toContain('if [ "$event_name"');
     expect(workflow).toContain('echo "run_bun_global_install_smoke=$run_bun_global_install_smoke"');
     expect(workflow).toContain("run_fast_install_smoke=true");
@@ -2526,9 +2518,9 @@ node -e 'const fs=require("node:fs");const p=process.argv[1];const value=JSON.pa
     expect(workflow).not.toMatch(/(^|\n)\s+docker run --rm --entrypoint sh/u);
     expect(workflow).toContain("--progress=plain");
     expect(workflow).toContain("--load");
-    expect(workflow).toContain("OPENCLAW_INSTALL_URL: file:///tmp/openclaw-install.sh");
-    expect(workflow).toContain("OPENCLAW_INSTALL_CLI_URL: file:///tmp/openclaw-install-cli.sh");
-    expect(workflow).toContain('OPENCLAW_INSTALL_SMOKE_SKIP_CLI: "0"');
+    expect(workflow).toContain("GRANTED_INSTALL_URL: file:///tmp/openclaw-install.sh");
+    expect(workflow).toContain("GRANTED_INSTALL_CLI_URL: file:///tmp/openclaw-install-cli.sh");
+    expect(workflow).toContain('GRANTED_INSTALL_SMOKE_SKIP_CLI: "0"');
     expect(workflow).toContain("Run Rocky Linux installer smoke");
     expect(workflow).toContain("Run Rocky Linux CLI installer smoke");
     expect(workflow).toContain("PAYLOAD_DIR: ${{ runner.temp }}/install-smoke-candidate-payload");
@@ -2543,7 +2535,7 @@ node -e 'const fs=require("node:fs");const p=process.argv[1];const value=JSON.pa
     expect(workflow).not.toContain("--cache-from");
     expect(workflow).not.toContain("--cache-to");
     expect(workflow).not.toContain("type=gha");
-    expect(workflow).toContain('OPENCLAW_INSTALL_SMOKE_SKIP_NPM_GLOBAL: "1"');
+    expect(workflow).toContain('GRANTED_INSTALL_SMOKE_SKIP_NPM_GLOBAL: "1"');
     expect(releaseChecks).toContain("install_smoke_release_checks:");
     expect(releaseChecks).toContain("uses: ./.github/workflows/install-smoke-reusable.yml");
     expect(releaseChecks).toContain("run_bun_global_install_smoke: true");
@@ -2613,9 +2605,9 @@ node -e 'const fs=require("node:fs");const p=process.argv[1];const value=JSON.pa
       );
       const run = workflowStep(consumer, testCase.testName);
       expect(run.env).toMatchObject({
-        OPENCLAW_INSTALL_SMOKE_FROZEN_PAYLOAD_DIR:
+        GRANTED_INSTALL_SMOKE_FROZEN_PAYLOAD_DIR:
           "${{ runner.temp }}/install-smoke-candidate-payload",
-        OPENCLAW_INSTALL_SMOKE_GROUP: testCase.group,
+        GRANTED_INSTALL_SMOKE_GROUP: testCase.group,
       });
       expect(run.run).toBe("bash .release-harness/scripts/test-install-sh-docker.sh");
     }
@@ -2651,7 +2643,7 @@ node -e 'const fs=require("node:fs");const p=process.argv[1];const value=JSON.pa
         encoding: "utf8",
         env: {
           ...process.env,
-          OPENCLAW_BUN_GLOBAL_SMOKE_TIMEOUT_KILL_GRACE_MS: "50",
+          GRANTED_BUN_GLOBAL_SMOKE_TIMEOUT_KILL_GRACE_MS: "50",
         },
         timeout: 5000,
       },

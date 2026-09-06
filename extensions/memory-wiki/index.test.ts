@@ -150,7 +150,7 @@ describe("memory-wiki plugin", () => {
     const stateDir = "/tmp/openclaw-memory-wiki-runtime-state";
     const { api, registerTool } = createPluginApi();
 
-    withEnv({ OPENCLAW_STATE_DIR: stateDir }, () => {
+    withEnv({ GRANTED_STATE_DIR: stateDir }, () => {
       plugin.register(api);
       const statusFactory = registerTool.mock.calls.find(
         ([, registration]) => registration.name === "wiki_status",

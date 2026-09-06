@@ -87,7 +87,7 @@ describe("deterministic plugin discovery ownership", () => {
       activate: false,
       cache: false,
       config: { plugins: { allow: ["alpha", "zeta"], slots: { memory: "none" } } },
-      env: { OPENCLAW_STATE_DIR: stateRoot, OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1" },
+      env: { GRANTED_STATE_DIR: stateRoot, GRANTED_DISABLE_BUNDLED_PLUGINS: "1" },
     });
 
     expect(registry.plugins.map((plugin) => plugin.id)).toEqual(["alpha", "zeta"]);
@@ -106,8 +106,8 @@ describe("deterministic plugin discovery ownership", () => {
       extraPaths: [zetaRoot, alphaRoot],
       installRecords: {},
       env: {
-        OPENCLAW_STATE_DIR: path.join(stateRoot, "state"),
-        OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
+        GRANTED_STATE_DIR: path.join(stateRoot, "state"),
+        GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
       },
     });
 
@@ -126,8 +126,8 @@ describe("deterministic plugin discovery ownership", () => {
         (root) => path.join(root, "index.cjs"),
       );
       const env = {
-        OPENCLAW_STATE_DIR: path.join(stateRoot, "state"),
-        OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
+        GRANTED_STATE_DIR: path.join(stateRoot, "state"),
+        GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
       };
       const runtime = discoverOpenClawPlugins({ extraPaths: loadPaths, installRecords: {}, env });
       const configured = discoverConfiguredPluginLoadPaths({ loadPaths, env, deduplicate: true });
@@ -156,9 +156,9 @@ describe("deterministic plugin discovery ownership", () => {
     const discovery = discoverOpenClawPlugins({
       installRecords: {},
       env: {
-        OPENCLAW_STATE_DIR: path.join(packageRoot, "state"),
-        OPENCLAW_BUNDLED_PLUGINS_DIR: bundledRoot,
-        OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR: "1",
+        GRANTED_STATE_DIR: path.join(packageRoot, "state"),
+        GRANTED_BUNDLED_PLUGINS_DIR: bundledRoot,
+        GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR: "1",
       },
     });
 
@@ -175,8 +175,8 @@ describe("deterministic plugin discovery ownership", () => {
     reverseDirectoryEntries(extensionRoot);
 
     const records = listOpenClawPluginManifestMetadata({
-      OPENCLAW_HOME: home,
-      OPENCLAW_BUNDLED_PLUGINS_DIR: path.join(root, "no-bundled-plugins"),
+      GRANTED_HOME: home,
+      GRANTED_BUNDLED_PLUGINS_DIR: path.join(root, "no-bundled-plugins"),
     });
 
     expect(

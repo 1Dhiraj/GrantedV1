@@ -9,7 +9,11 @@ import {
   normalizeStringEntries,
   uniqueStrings,
 } from "@openclaw/normalization-core/string-normalization";
-import { MANIFEST_KEY } from "../../compat/legacy-names.js";
+import {
+  LEGACY_MANIFEST_KEYS,
+  MANIFEST_KEY,
+  readManifestSection,
+} from "../../compat/legacy-names.js";
 import type { PluginInstallRecord } from "../../config/types.plugins.js";
 import { isPrereleaseSemverVersion, parseRegistryNpmSpec } from "../../infra/npm-registry-spec.js";
 import { resolveOpenClawPackageRootSync } from "../../infra/openclaw-root.js";
@@ -110,9 +114,9 @@ type ExternalCatalogEntry = {
   description?: string;
 } & Partial<Record<ManifestKey, OpenClawPackageManifest>>;
 
-const ENV_CATALOG_PATHS = ["OPENCLAW_PLUGIN_CATALOG_PATHS", "OPENCLAW_MPM_CATALOG_PATHS"];
+const ENV_CATALOG_PATHS = ["GRANTED_PLUGIN_CATALOG_PATHS", "GRANTED_MPM_CATALOG_PATHS"];
 const OFFICIAL_CHANNEL_CATALOG_RELATIVE_PATH = path.join("dist", "channel-catalog.json");
-type ManifestKey = typeof MANIFEST_KEY;
+type ManifestKey = typeof MANIFEST_KEY | (typeof LEGACY_MANIFEST_KEYS)[number];
 
 function parseCatalogEntries(raw: unknown): ExternalCatalogEntry[] {
   const list = Array.isArray(raw)
@@ -294,7 +298,7 @@ function buildExternalCatalogEntry(
   entry: ExternalCatalogEntry,
   trustedSourceLinkedOfficialInstall = false,
 ): ChannelPluginCatalogEntry | null {
-  const manifest = entry[MANIFEST_KEY];
+  const manifest = readManifestSection(entry) as ExternalCatalogEntry[ManifestKey];
   return buildCatalogEntryFromManifest({
     pluginId: manifest?.plugin?.id,
     packageName: entry.name,

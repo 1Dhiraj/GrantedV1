@@ -6,7 +6,7 @@ import { parseModelCatalogRef } from "@openclaw/model-catalog-core/model-catalog
 import type { OpenClawConfig } from "../config/types.openclaw.js";
 import { isRecord } from "../utils.js";
 import {
-  OPENCLAW_AGENT_RUNTIME_ID,
+  GRANTED_AGENT_RUNTIME_ID,
   isDefaultAgentRuntimeId,
   normalizeOptionalAgentRuntimeId,
 } from "./agent-runtime-id.js";
@@ -23,7 +23,7 @@ function isSelectablePluginRuntime(runtime: string | undefined): runtime is stri
   return (
     Boolean(runtime) &&
     !isDefaultAgentRuntimeId(runtime) &&
-    normalizeOptionalAgentRuntimeId(runtime) !== OPENCLAW_AGENT_RUNTIME_ID
+    normalizeOptionalAgentRuntimeId(runtime) !== GRANTED_AGENT_RUNTIME_ID
   );
 }
 

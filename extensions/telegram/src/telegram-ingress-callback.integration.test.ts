@@ -54,8 +54,8 @@ it.each(["none", "middleware", "handler"] as const)(
   async (recovery) => {
     downstream.mockClear();
     const stateDir = await fs.mkdtemp(path.join(os.tmpdir(), "telegram-native-admission-"));
-    const previousStateDir = process.env.OPENCLAW_STATE_DIR;
-    process.env.OPENCLAW_STATE_DIR = stateDir;
+    const previousStateDir = process.env.GRANTED_STATE_DIR;
+    process.env.GRANTED_STATE_DIR = stateDir;
     resetPluginStateStoreForTests({ closeDatabase: false });
     resetTelegramAccountThrottlersForTest();
     setTelegramRuntime({
@@ -274,9 +274,9 @@ it.each(["none", "middleware", "handler"] as const)(
       closeOpenClawStateDatabaseForTest();
       resetPluginStateStoreForTests({ closeDatabase: false });
       if (previousStateDir === undefined) {
-        delete process.env.OPENCLAW_STATE_DIR;
+        delete process.env.GRANTED_STATE_DIR;
       } else {
-        process.env.OPENCLAW_STATE_DIR = previousStateDir;
+        process.env.GRANTED_STATE_DIR = previousStateDir;
       }
       await fs.rm(stateDir, { recursive: true, force: true });
     }

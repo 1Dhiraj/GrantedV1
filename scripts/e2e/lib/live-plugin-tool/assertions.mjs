@@ -11,22 +11,19 @@ import { readTextFileTail, tailText } from "../text-file-utils.mjs";
 const command = process.argv[2];
 const readJson = (file) => JSON.parse(fs.readFileSync(file, "utf8"));
 
-const agentTurnTimeoutSeconds = readPositiveIntEnv(
-  "OPENCLAW_LIVE_PLUGIN_TOOL_TIMEOUT_SECONDS",
-  300,
-);
+const agentTurnTimeoutSeconds = readPositiveIntEnv("GRANTED_LIVE_PLUGIN_TOOL_TIMEOUT_SECONDS", 300);
 const SCAN_CHUNK_BYTES = 64 * 1024;
 const SCAN_CARRY_CHARS = 256;
 const SESSION_JSONL_LINE_MAX_BYTES = 1024 * 1024;
 const ERROR_DETAIL_TAIL_BYTES = 16 * 1024;
 const AGENT_OUTPUT_MAX_BYTES = readPositiveIntEnv(
-  "OPENCLAW_LIVE_PLUGIN_TOOL_AGENT_OUTPUT_MAX_BYTES",
+  "GRANTED_LIVE_PLUGIN_TOOL_AGENT_OUTPUT_MAX_BYTES",
   1024 * 1024,
 );
 const SESSION_FILE_LIST_LIMIT = 20;
 const LIVE_PLUGIN_TOOL_SESSION_ID = "live-plugin-tool";
 const SESSION_SCAN_MAX_ENTRIES = readPositiveIntEnv(
-  "OPENCLAW_LIVE_PLUGIN_TOOL_SESSION_SCAN_MAX_ENTRIES",
+  "GRANTED_LIVE_PLUGIN_TOOL_SESSION_SCAN_MAX_ENTRIES",
   50_000,
 );
 
@@ -39,19 +36,19 @@ function requireEnv(name) {
 }
 
 function stateDir() {
-  return process.env.OPENCLAW_STATE_DIR || path.join(process.env.HOME, ".openclaw");
+  return process.env.GRANTED_STATE_DIR || path.join(process.env.HOME, ".openclaw");
 }
 
 function configPath() {
-  return process.env.OPENCLAW_CONFIG_PATH || path.join(stateDir(), "openclaw.json");
+  return process.env.GRANTED_CONFIG_PATH || path.join(stateDir(), "openclaw.json");
 }
 
 function agentOutputPath() {
-  return process.env.OPENCLAW_LIVE_PLUGIN_TOOL_AGENT_OUTPUT_PATH || "/tmp/openclaw-agent.json";
+  return process.env.GRANTED_LIVE_PLUGIN_TOOL_AGENT_OUTPUT_PATH || "/tmp/openclaw-agent.json";
 }
 
 function agentErrorPath() {
-  return process.env.OPENCLAW_LIVE_PLUGIN_TOOL_AGENT_ERROR_PATH || "/tmp/openclaw-agent.err";
+  return process.env.GRANTED_LIVE_PLUGIN_TOOL_AGENT_ERROR_PATH || "/tmp/openclaw-agent.err";
 }
 
 function readNonEmptyString(value) {

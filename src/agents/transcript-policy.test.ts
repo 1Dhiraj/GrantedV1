@@ -54,8 +54,8 @@ vi.mock("../plugins/provider-hook-runtime.js", async () => {
           switch (provider) {
             case "env-sensitive":
               return {
-                sanitizeToolCallIds: context?.env?.OPENCLAW_TEST_TRANSCRIPT_POLICY === "strict",
-                ...(context?.env?.OPENCLAW_TEST_TRANSCRIPT_POLICY === "strict"
+                sanitizeToolCallIds: context?.env?.GRANTED_TEST_TRANSCRIPT_POLICY === "strict",
+                ...(context?.env?.GRANTED_TEST_TRANSCRIPT_POLICY === "strict"
                   ? { toolCallIdMode: "strict" as const }
                   : {}),
               };
@@ -285,11 +285,11 @@ describe("resolveTranscriptPolicy", () => {
     const config = {} as OpenClawConfig;
     const strictEnv = {
       ...process.env,
-      OPENCLAW_TEST_TRANSCRIPT_POLICY: "strict",
+      GRANTED_TEST_TRANSCRIPT_POLICY: "strict",
     };
     const looseEnv = {
       ...process.env,
-      OPENCLAW_TEST_TRANSCRIPT_POLICY: "loose",
+      GRANTED_TEST_TRANSCRIPT_POLICY: "loose",
     };
 
     const strictPolicy = resolveTranscriptPolicy({

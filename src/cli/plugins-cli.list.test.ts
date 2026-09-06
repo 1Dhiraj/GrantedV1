@@ -441,7 +441,7 @@ describe("plugins cli list", () => {
       ],
     });
 
-    await withEnvAsync({ OPENCLAW_HOME: homeDir }, async () => {
+    await withEnvAsync({ GRANTED_HOME: homeDir }, async () => {
       await runPluginsCommand(["plugins", "doctor", "--json"]);
     });
 
@@ -455,14 +455,14 @@ describe("plugins cli list", () => {
       pluginErrors: [
         {
           id: "broken",
-          error: "failed to load $OPENCLAW_HOME/plugins/broken/runtime.ts",
-          source: "$OPENCLAW_HOME/plugins/broken/index.ts",
+          error: "failed to load $GRANTED_HOME/plugins/broken/runtime.ts",
+          source: "$GRANTED_HOME/plugins/broken/index.ts",
         },
       ],
       diagnostics: [
         {
           level: "warn",
-          message: "failed to inspect $OPENCLAW_HOME/plugins/unreadable",
+          message: "failed to inspect $GRANTED_HOME/plugins/unreadable",
         },
       ],
       sourceShadowing: [
@@ -470,14 +470,14 @@ describe("plugins cli list", () => {
           pluginId: "broken",
           message:
             "duplicate plugin id resolved by explicit config-selected plugin; " +
-            "global plugin will be overridden by config plugin ($OPENCLAW_HOME/plugins/broken/index.ts)",
+            "global plugin will be overridden by config plugin ($GRANTED_HOME/plugins/broken/index.ts)",
           active: {
-            source: "$OPENCLAW_HOME/plugins/broken/index.ts",
+            source: "$GRANTED_HOME/plugins/broken/index.ts",
             origin: "config",
             status: "error",
-            error: "failed to load $OPENCLAW_HOME/plugins/broken/runtime.ts",
+            error: "failed to load $GRANTED_HOME/plugins/broken/runtime.ts",
           },
-          shadowedSource: "$OPENCLAW_HOME/plugins/shadowed/index.ts",
+          shadowedSource: "$GRANTED_HOME/plugins/shadowed/index.ts",
           repair: [
             "openclaw plugins inspect broken",
             "edit or remove the config-selected plugin source",

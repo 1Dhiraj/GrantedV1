@@ -2,8 +2,8 @@ import { resolveAmbientOwnerAgentId } from "../agents/agent-scope-config.js";
 // OpenClaw overview gathers config, agent, tool, docs, source, and gateway status.
 import { listAgentEntries, resolveAgentEffectiveModelPrimary } from "../agents/agent-scope.js";
 import {
-  OPENCLAW_DOCS_URL,
-  OPENCLAW_SOURCE_URL,
+  GRANTED_DOCS_URL,
+  GRANTED_SOURCE_URL,
   resolveOpenClawReferencePaths,
 } from "../agents/docs-path.js";
 import {
@@ -208,9 +208,9 @@ export async function loadSystemAgentOverview(
     },
     references: {
       docsPath: references.docsPath ?? undefined,
-      docsUrl: OPENCLAW_DOCS_URL,
+      docsUrl: GRANTED_DOCS_URL,
       sourcePath: references.sourcePath ?? undefined,
-      sourceUrl: OPENCLAW_SOURCE_URL,
+      sourceUrl: GRANTED_SOURCE_URL,
     },
   };
 }

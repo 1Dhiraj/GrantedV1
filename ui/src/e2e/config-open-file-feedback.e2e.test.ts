@@ -10,7 +10,7 @@ const suite = createControlUiE2eSuite({
   startServerBeforeBrowser: true,
 });
 const configPath = "/tmp/openclaw-config-open-feedback/openclaw.json";
-const captureProof = process.env.OPENCLAW_CAPTURE_UI_PROOF === "1";
+const captureProof = process.env.GRANTED_CAPTURE_UI_PROOF === "1";
 
 async function installClipboardProof(page: Page): Promise<void> {
   await page.addInitScript(() => {

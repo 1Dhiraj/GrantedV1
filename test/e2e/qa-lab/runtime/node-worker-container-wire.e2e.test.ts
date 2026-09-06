@@ -28,11 +28,11 @@ import {
 } from "./paired-node-worker-wire-fixture.js";
 
 const execFileAsync = promisify(execFile);
-const CONTAINER_WIRE_ENABLED = process.env.OPENCLAW_DOCKER_NODE_WORKER_E2E === "1";
-const CONTROL_UI_PROOF_ENABLED = process.env.OPENCLAW_DOCKER_NODE_WORKER_UI_PROOF === "1";
-const CONTAINER_IMAGE = process.env.OPENCLAW_DOCKER_NODE_WORKER_IMAGE ?? "node:24-bookworm";
+const CONTAINER_WIRE_ENABLED = process.env.GRANTED_DOCKER_NODE_WORKER_E2E === "1";
+const CONTROL_UI_PROOF_ENABLED = process.env.GRANTED_DOCKER_NODE_WORKER_UI_PROOF === "1";
+const CONTAINER_IMAGE = process.env.GRANTED_DOCKER_NODE_WORKER_IMAGE ?? "node:24-bookworm";
 const CONTAINER_GATEWAY_HOST =
-  process.env.OPENCLAW_DOCKER_NODE_WORKER_GATEWAY_HOST ?? "host.docker.internal";
+  process.env.GRANTED_DOCKER_NODE_WORKER_GATEWAY_HOST ?? "host.docker.internal";
 const SESSION_KEY = "agent:qa:node-worker-container-wire";
 const INITIAL_MARKER = "NODE_WORKER_CONTAINER_UI_START_OK";
 const INITIAL_PROMPT = `Reply with only this exact marker: ${INITIAL_MARKER}`;
@@ -133,7 +133,7 @@ async function startControlUiProof(gateway: WireGateway): Promise<ControlUiProof
   );
   const { chromium } = await import("playwright");
   const artifactDir = path.resolve(
-    process.env.OPENCLAW_DOCKER_NODE_WORKER_ARTIFACT_DIR ??
+    process.env.GRANTED_DOCKER_NODE_WORKER_ARTIFACT_DIR ??
       ".artifacts/control-ui-e2e/node-worker-container-wire",
   );
   await fs.mkdir(artifactDir, { recursive: true });
@@ -146,7 +146,7 @@ async function startControlUiProof(gateway: WireGateway): Promise<ControlUiProof
   });
   await context.addInitScript(
     ({ gatewayUrl, token }) => {
-      Object.defineProperty(globalThis, "__OPENCLAW_NATIVE_CONTROL_AUTH__", {
+      Object.defineProperty(globalThis, "__GRANTED_NATIVE_CONTROL_AUTH__", {
         configurable: true,
         value: { gatewayUrl, token },
       });
@@ -312,7 +312,7 @@ describe.runIf(CONTAINER_WIRE_ENABLED)("node worker real Docker wire", () => {
           containerEngine: engine,
           containerImage: CONTAINER_IMAGE,
           workerGatewayUrl: workerGatewayUrl.toString(),
-          workerEnv: { OPENCLAW_ALLOW_INSECURE_PRIVATE_WS: "1" },
+          workerEnv: { GRANTED_ALLOW_INSECURE_PRIVATE_WS: "1" },
           onInvoke: (frame) => {
             if (frame.command !== NODE_WORKER_SUPERVISOR_LAUNCH_COMMAND || !frame.paramsJSON) {
               return;

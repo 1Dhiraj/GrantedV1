@@ -120,8 +120,8 @@ function jsonRpcInternalError(parsed: unknown) {
 
 function shouldLogMcpLoopbackTraffic(): boolean {
   return (
-    isTruthyEnvValue(process.env.OPENCLAW_CLI_BACKEND_LOG_OUTPUT) ||
-    isTruthyEnvValue(process.env.OPENCLAW_LIVE_CLI_BACKEND_DEBUG)
+    isTruthyEnvValue(process.env.GRANTED_CLI_BACKEND_LOG_OUTPUT) ||
+    isTruthyEnvValue(process.env.GRANTED_LIVE_CLI_BACKEND_DEBUG)
   );
 }
 

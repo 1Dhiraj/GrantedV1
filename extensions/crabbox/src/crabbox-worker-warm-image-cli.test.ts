@@ -17,7 +17,7 @@ let output = "";
 
 beforeEach(() => {
   resetPluginStateStoreForTests();
-  vi.stubEnv("OPENCLAW_STATE_DIR", tempDirs.make("openclaw-crabbox-warm-cli-"));
+  vi.stubEnv("GRANTED_STATE_DIR", tempDirs.make("openclaw-crabbox-warm-cli-"));
   output = "";
   vi.spyOn(process.stdout, "write").mockImplementation((chunk) => {
     output += String(chunk);

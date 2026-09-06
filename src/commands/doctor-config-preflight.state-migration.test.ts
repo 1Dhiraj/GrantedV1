@@ -453,15 +453,15 @@ describe("runDoctorConfigPreflight state migration", () => {
 
   it("releases the startup lease when the fresh config guard rejects", async () => {
     needsStartupMigrationCheckpoint.mockReturnValue(true);
-    const previousStateDir = process.env.OPENCLAW_STATE_DIR;
-    process.env.OPENCLAW_STATE_DIR = "/tmp/openclaw-original-state";
+    const previousStateDir = process.env.GRANTED_STATE_DIR;
+    process.env.GRANTED_STATE_DIR = "/tmp/openclaw-original-state";
     let leaseEnv: NodeJS.ProcessEnv | undefined;
     acquireStartupMigrationLeaseWithWait.mockImplementationOnce(async ({ env }) => {
       leaseEnv = env;
       return {
         ...startupMigrationLease,
         release: vi.fn(() => {
-          expect(env.OPENCLAW_STATE_DIR).toBe("/tmp/openclaw-original-state");
+          expect(env.GRANTED_STATE_DIR).toBe("/tmp/openclaw-original-state");
           startupMigrationLeaseRelease();
         }),
       };
@@ -470,7 +470,7 @@ describe("runDoctorConfigPreflight state migration", () => {
       .fn<(_snapshot?: Record<string, unknown>) => Promise<boolean>>()
       .mockResolvedValueOnce(true)
       .mockImplementationOnce(async () => {
-        process.env.OPENCLAW_STATE_DIR = "/tmp/openclaw-drifted-state";
+        process.env.GRANTED_STATE_DIR = "/tmp/openclaw-drifted-state";
         return false;
       });
 
@@ -485,9 +485,9 @@ describe("runDoctorConfigPreflight state migration", () => {
       ).rejects.toThrow("selected config changed during startup");
     } finally {
       if (previousStateDir === undefined) {
-        delete process.env.OPENCLAW_STATE_DIR;
+        delete process.env.GRANTED_STATE_DIR;
       } else {
-        process.env.OPENCLAW_STATE_DIR = previousStateDir;
+        process.env.GRANTED_STATE_DIR = previousStateDir;
       }
     }
 
@@ -597,16 +597,16 @@ describe("runDoctorConfigPreflight state migration", () => {
 
   it("pins startup plugin convergence without re-persisting the installed record snapshot", async () => {
     needsStartupMigrationCheckpoint.mockReturnValue(true);
-    const previousHostVersion = process.env.OPENCLAW_COMPATIBILITY_HOST_VERSION;
-    process.env.OPENCLAW_COMPATIBILITY_HOST_VERSION = "2026.7.2-beta.7";
+    const previousHostVersion = process.env.GRANTED_COMPATIBILITY_HOST_VERSION;
+    process.env.GRANTED_COMPATIBILITY_HOST_VERSION = "2026.7.2-beta.7";
 
     try {
       await runDoctorConfigPreflight(startupCheckpointOptions);
     } finally {
       if (previousHostVersion === undefined) {
-        delete process.env.OPENCLAW_COMPATIBILITY_HOST_VERSION;
+        delete process.env.GRANTED_COMPATIBILITY_HOST_VERSION;
       } else {
-        process.env.OPENCLAW_COMPATIBILITY_HOST_VERSION = previousHostVersion;
+        process.env.GRANTED_COMPATIBILITY_HOST_VERSION = previousHostVersion;
       }
     }
 

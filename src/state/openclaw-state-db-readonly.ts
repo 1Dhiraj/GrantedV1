@@ -13,8 +13,8 @@ import {
 } from "../infra/sqlite-user-version.js";
 import { openClawStateDatabaseCache } from "./openclaw-state-db-cache.js";
 import {
-  OPENCLAW_SQLITE_BUSY_TIMEOUT_MS,
-  OPENCLAW_STATE_SCHEMA_VERSION,
+  GRANTED_SQLITE_BUSY_TIMEOUT_MS,
+  GRANTED_STATE_SCHEMA_VERSION,
   type OpenClawStateDatabaseOptions,
 } from "./openclaw-state-db-contract.js";
 import { resolveOpenClawStateSqlitePath } from "./openclaw-state-db.paths.js";
@@ -44,12 +44,12 @@ function existingPathOrUndefined(pathname: string): string | undefined {
 
 function assertSupportedSchemaVersion(db: DatabaseSync, pathname: string): void {
   const userVersion = readSqliteUserVersion(db);
-  if (userVersion > OPENCLAW_STATE_SCHEMA_VERSION) {
+  if (userVersion > GRANTED_STATE_SCHEMA_VERSION) {
     throw createNewerSqliteSchemaVersionError(
       "OpenClaw state database",
       pathname,
       userVersion,
-      OPENCLAW_STATE_SCHEMA_VERSION,
+      GRANTED_STATE_SCHEMA_VERSION,
     );
   }
 }
@@ -91,7 +91,7 @@ function withFreshOpenClawStateDatabaseReadOnly<T>(
   );
   const db = openNodeSqliteDatabase(location, { readOnly: true });
   try {
-    db.exec(`PRAGMA busy_timeout = ${OPENCLAW_SQLITE_BUSY_TIMEOUT_MS};`);
+    db.exec(`PRAGMA busy_timeout = ${GRANTED_SQLITE_BUSY_TIMEOUT_MS};`);
     assertSupportedSchemaVersion(db, pathname);
     return operation({ db, path: pathname });
   } finally {

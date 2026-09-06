@@ -345,7 +345,7 @@ describe("ensureSandboxContainer config-hash recreation", () => {
 
       expect(createCall.args.join(" ")).not.toContain(sentinel);
       expect(createCall.envFileContents).toContain(`CONFIGURED_VALUE=${sentinel}\n`);
-      expect(createCall.envFileContents).toContain("OPENCLAW_CLI=1\n");
+      expect(createCall.envFileContents).toContain("GRANTED_CLI=1\n");
       const envFile = collectDockerFlagValues(createCall.args, "--env-file")[0];
       expect(envFile).toBeDefined();
       expect(fs.existsSync(envFile!)).toBe(false);

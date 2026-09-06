@@ -23,9 +23,9 @@ describe("setupAuthTestEnv", () => {
     try {
       expect(fixture.agentDir).toBe(path.join(fixture.stateDir, agentSubdir ?? "agent"));
       expect((await fs.stat(fixture.agentDir)).isDirectory()).toBe(true);
-      expect(process.env.OPENCLAW_AGENT_DIR).toBe(fixture.agentDir);
-      expect(process.env.OPENCLAW_STATE_DIR).toBe(fixture.stateDir);
-      expect(process.env.OPENCLAW_CONFIG_PATH).toBe(path.join(fixture.stateDir, "openclaw.json"));
+      expect(process.env.GRANTED_AGENT_DIR).toBe(fixture.agentDir);
+      expect(process.env.GRANTED_STATE_DIR).toBe(fixture.stateDir);
+      expect(process.env.GRANTED_CONFIG_PATH).toBe(path.join(fixture.stateDir, "openclaw.json"));
       expect(process.env.HOME).toBe(previousEnv.HOME);
       await fixture.cleanup();
       expect(process.env).toEqual(previousEnv);
@@ -46,7 +46,7 @@ describe("setupAuthTestEnv", () => {
     async (prior) => {
       await withEnvAsync(
         {
-          OPENCLAW_AGENT_DIR:
+          GRANTED_AGENT_DIR:
             prior === "set" ? path.join(process.env.HOME!, "prior-agent") : undefined,
         },
         async () => {
@@ -60,13 +60,13 @@ describe("setupAuthTestEnv", () => {
           const mkdirSpy = vi.spyOn(fs, "mkdir").mockImplementation(async (...args) => {
             if (
               typeof args[0] === "string" &&
-              args[0] === process.env.OPENCLAW_AGENT_DIR &&
+              args[0] === process.env.GRANTED_AGENT_DIR &&
               path.basename(args[0]) === "faulting-agent"
             ) {
               const stateDir = path.dirname(args[0]);
               root = path.dirname(stateDir);
               expect((await fs.stat(stateDir)).isDirectory()).toBe(true);
-              const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+              const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
               shared = openOpenClawStateDatabase({ env });
               agent = openOpenClawAgentDatabase({ agentId: "main", env });
               throw failure;

@@ -127,7 +127,7 @@ function stripIncludeKeys(value: unknown): unknown {
 function createDocsConfigValidationContext(): DocsConfigValidationContext {
   const env = {
     ...process.env,
-    OPENCLAW_BUNDLED_PLUGINS_DIR: path.join(process.cwd(), "extensions"),
+    GRANTED_BUNDLED_PLUGINS_DIR: path.join(process.cwd(), "extensions"),
   };
   return {
     env,

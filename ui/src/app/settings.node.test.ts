@@ -59,7 +59,7 @@ describe("resolveApplicationStartupSettings", () => {
   });
 
   it("re-scopes the selected token when native auth changes only the Gateway and password", () => {
-    window["__OPENCLAW_NATIVE_CONTROL_AUTH__"] = {
+    window["__GRANTED_NATIVE_CONTROL_AUTH__"] = {
       gatewayUrl: "wss://gateway-b.example",
       password: "next-password",
     };

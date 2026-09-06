@@ -134,7 +134,7 @@ type MarkMainSessionsAbortedForRestart = NonNullable<
 type DrainActiveSessionsForShutdown = NonNullable<
   GatewayCloseHandlerParams["drainActiveSessionsForShutdown"]
 >;
-const originalRestartTraceEnv = process.env.OPENCLAW_GATEWAY_RESTART_TRACE;
+const originalRestartTraceEnv = process.env.GRANTED_GATEWAY_RESTART_TRACE;
 
 function firstMockCall<T extends readonly unknown[]>(mock: { mock: { calls: readonly T[] } }) {
   return mock.mock.calls[0];
@@ -238,9 +238,9 @@ describe("createGatewayCloseHandler", () => {
     resetPluginRuntimeStateForTest();
     vi.useRealTimers();
     if (originalRestartTraceEnv === undefined) {
-      delete process.env.OPENCLAW_GATEWAY_RESTART_TRACE;
+      delete process.env.GRANTED_GATEWAY_RESTART_TRACE;
     } else {
-      process.env.OPENCLAW_GATEWAY_RESTART_TRACE = originalRestartTraceEnv;
+      process.env.GRANTED_GATEWAY_RESTART_TRACE = originalRestartTraceEnv;
     }
   });
 
@@ -357,8 +357,8 @@ describe("createGatewayCloseHandler", () => {
   it.skipIf(process.platform === "win32")(
     "terminates supervised process trees before Gateway close returns",
     async () => {
-      const previousServiceMarker = process.env.OPENCLAW_SERVICE_MARKER;
-      process.env.OPENCLAW_SERVICE_MARKER = "openclaw";
+      const previousServiceMarker = process.env.GRANTED_SERVICE_MARKER;
+      process.env.GRANTED_SERVICE_MARKER = "openclaw";
       const supervisor = getProcessSupervisor();
       let output = "";
       let run: ManagedRun | undefined;
@@ -395,9 +395,9 @@ describe("createGatewayCloseHandler", () => {
         run?.cancel();
         await run?.waitForExtinction?.().catch(() => undefined);
         if (previousServiceMarker === undefined) {
-          delete process.env.OPENCLAW_SERVICE_MARKER;
+          delete process.env.GRANTED_SERVICE_MARKER;
         } else {
-          process.env.OPENCLAW_SERVICE_MARKER = previousServiceMarker;
+          process.env.GRANTED_SERVICE_MARKER = previousServiceMarker;
         }
       }
     },
@@ -664,7 +664,7 @@ describe("createGatewayCloseHandler", () => {
   });
 
   it("emits parseable restart close trace spans when enabled", async () => {
-    process.env.OPENCLAW_GATEWAY_RESTART_TRACE = "1";
+    process.env.GRANTED_GATEWAY_RESTART_TRACE = "1";
     const drainActiveSessionsForShutdown = vi.fn<DrainActiveSessionsForShutdown>(async () => ({
       emittedSessionIds: [],
       timedOut: false,
@@ -726,7 +726,7 @@ describe("createGatewayCloseHandler", () => {
   });
 
   it("emits restart ready child spans without shortening the parent ready span", async () => {
-    process.env.OPENCLAW_GATEWAY_RESTART_TRACE = "1";
+    process.env.GRANTED_GATEWAY_RESTART_TRACE = "1";
 
     startGatewayRestartTrace("restart.signal.received", [["reason", "test restart"]]);
     await new Promise((resolve) => {

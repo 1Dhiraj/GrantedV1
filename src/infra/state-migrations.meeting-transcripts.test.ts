@@ -81,7 +81,7 @@ async function seedLegacySession(params: {
 }
 
 function databaseEnv(stateDir: string): NodeJS.ProcessEnv {
-  return { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+  return { ...process.env, GRANTED_STATE_DIR: stateDir };
 }
 
 describe("meeting transcript Doctor migration", () => {

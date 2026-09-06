@@ -53,7 +53,7 @@ describe("OpenAI memory embedding adapter", () => {
 
   it("keeps native OpenAI embedding cache identity stable across OpenClaw versions", async () => {
     const createForVersion = async (version: string) => {
-      vi.stubEnv("OPENCLAW_VERSION", version);
+      vi.stubEnv("GRANTED_VERSION", version);
       const client = await resolveRemoteEmbeddingBearerClient({
         provider: "openai",
         defaultBaseUrl: "https://api.openai.com/v1",

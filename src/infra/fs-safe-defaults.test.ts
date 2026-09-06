@@ -15,14 +15,14 @@ async function importDefaults(env: Record<string, string | undefined> = {}) {
   await withEnvAsync(
     {
       FS_SAFE_NATIVE_MODE: undefined,
-      OPENCLAW_FS_SAFE_NATIVE_MODE: undefined,
+      GRANTED_FS_SAFE_NATIVE_MODE: undefined,
       openclaw_fs_safe_native_mode: undefined,
       FS_SAFE_PYTHON_MODE: undefined,
-      OPENCLAW_FS_SAFE_PYTHON_MODE: undefined,
+      GRANTED_FS_SAFE_PYTHON_MODE: undefined,
       FS_SAFE_PYTHON: undefined,
-      OPENCLAW_FS_SAFE_PYTHON: undefined,
-      OPENCLAW_PINNED_PYTHON: undefined,
-      OPENCLAW_PINNED_WRITE_PYTHON: undefined,
+      GRANTED_FS_SAFE_PYTHON: undefined,
+      GRANTED_PINNED_PYTHON: undefined,
+      GRANTED_PINNED_WRITE_PYTHON: undefined,
     },
     // Apply overrides after clearing aliases; Windows env names are case-insensitive.
     () => withEnvAsync(env, () => import("./fs-safe-defaults.js")),
@@ -47,7 +47,7 @@ describe("fs-safe defaults", () => {
   });
 
   it("honors the OpenClaw-specific env mode override", async () => {
-    await importDefaults({ OPENCLAW_FS_SAFE_NATIVE_MODE: "auto" });
+    await importDefaults({ GRANTED_FS_SAFE_NATIVE_MODE: "auto" });
 
     expect(configureFsSafeNative).not.toHaveBeenCalled();
   });
@@ -60,13 +60,13 @@ describe("fs-safe defaults", () => {
   });
 
   it("lets fs-safe migrate legacy require mode without overriding it", async () => {
-    await importDefaults({ OPENCLAW_FS_SAFE_PYTHON_MODE: "require" });
+    await importDefaults({ GRANTED_FS_SAFE_PYTHON_MODE: "require" });
 
     expect(configureFsSafeNative).not.toHaveBeenCalled();
   });
 
   it("does not treat a retired interpreter path as a native mode override", async () => {
-    await importDefaults({ OPENCLAW_FS_SAFE_PYTHON: "/usr/bin/python3" });
+    await importDefaults({ GRANTED_FS_SAFE_PYTHON: "/usr/bin/python3" });
 
     expect(configureFsSafeNative).toHaveBeenCalledWith({ mode: "off" });
   });

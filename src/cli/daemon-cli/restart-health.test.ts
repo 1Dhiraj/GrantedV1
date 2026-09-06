@@ -346,7 +346,7 @@ describe("restart health", () => {
     const service = makeGatewayService({ status: "running", pid: 8000 });
     const serviceEnv = {
       ...process.env,
-      OPENCLAW_STATE_DIR: "/tmp/openclaw-restart-service-state",
+      GRANTED_STATE_DIR: "/tmp/openclaw-restart-service-state",
     } as NodeJS.ProcessEnv;
     inspectPortUsage.mockResolvedValue({
       port: 18789,

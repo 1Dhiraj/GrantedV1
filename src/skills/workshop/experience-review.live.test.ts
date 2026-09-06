@@ -30,10 +30,10 @@ import {
 import { getSkillProposalRunProgress, listSkillProposals } from "./service.js";
 
 const LIVE =
-  isLiveTestEnabled(["OPENCLAW_LIVE_SKILL_EXPERIENCE_REVIEW"]) &&
+  isLiveTestEnabled(["GRANTED_LIVE_SKILL_EXPERIENCE_REVIEW"]) &&
   Boolean(process.env.OPENAI_API_KEY?.trim());
 const describeLive = LIVE ? describe : describe.skip;
-const modelId = process.env.OPENCLAW_LIVE_SKILL_EXPERIENCE_MODEL ?? "gpt-5.6-luna";
+const modelId = process.env.GRANTED_LIVE_SKILL_EXPERIENCE_MODEL ?? "gpt-5.6-luna";
 const { positiveMessages, negativeMessages, interruptedMessages } =
   createExperienceReviewMessages(modelId);
 const tempDirs = createTrackedTempDirs();

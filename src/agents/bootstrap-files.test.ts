@@ -426,7 +426,7 @@ describe("resolveBootstrapFilesForRun", () => {
     await fs.writeFile(path.join(workspaceDir, "AGENTS.md"), "rules", "utf8");
     await fs.writeFile(path.join(workspaceDir, "BOOTSTRAP.md"), "stale ritual", "utf8");
 
-    const files = await withEnvAsync({ OPENCLAW_HOME: parentDir }, async () =>
+    const files = await withEnvAsync({ GRANTED_HOME: parentDir }, async () =>
       resolveBootstrapFilesForRun({ workspaceDir: "~/workspace" }),
     );
 

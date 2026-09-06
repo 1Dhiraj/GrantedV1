@@ -117,7 +117,7 @@ describe("gateway node pairing memoization", () => {
     ).toBeUndefined();
 
     const database = openOpenClawStateDatabase({
-      env: { ...process.env, OPENCLAW_STATE_DIR: baseDir },
+      env: { ...process.env, GRANTED_STATE_DIR: baseDir },
     });
     const external = new DatabaseSync(database.path);
     const maintenance = configureSqliteConnectionPragmas(external, {

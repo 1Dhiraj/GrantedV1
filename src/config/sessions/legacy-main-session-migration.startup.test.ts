@@ -26,7 +26,7 @@ it("rejects startup when session-store discovery fails", async () => {
   await expect(
     runSessionStartupMigration({
       cfg: {},
-      env: { OPENCLAW_STATE_DIR: stateDir },
+      env: { GRANTED_STATE_DIR: stateDir },
       log: { info: vi.fn(), warn: vi.fn() },
       deps: {
         resolveAllAgentSessionStoreTargetsSync() {
@@ -71,7 +71,7 @@ it("runs the armed startup engine even when no legacy session directory remains"
   const stateDir = path.join(root, "state");
   fs.mkdirSync(stateDir, { recursive: true });
   const cfg = { agents: { entries: { ops: {} } } };
-  const env = { ...process.env, OPENCLAW_AGENT_DIR: undefined, OPENCLAW_STATE_DIR: stateDir };
+  const env = { ...process.env, GRANTED_AGENT_DIR: undefined, GRANTED_STATE_DIR: stateDir };
   const migrate = vi.fn(async () => ({
     armed: true,
     changes: [],
@@ -104,76 +104,73 @@ it.each([false, true])(
     const stateDir = path.join(root, "state");
     const workspace = path.join(root, "ops-workspace");
     fs.mkdirSync(workspace, { recursive: true });
-    await withEnvAsync(
-      { OPENCLAW_AGENT_DIR: undefined, OPENCLAW_STATE_DIR: stateDir },
-      async () => {
-        const env = { ...process.env };
-        const cfg = { agents: { entries: { ops: { workspace } } } };
-        const sourceScope = { agentId: "main", env, sessionKey: "agent:main:worktree" };
-        const destinationScope = { agentId: "ops", env, sessionKey: "agent:ops:worktree" };
-        const destinationPath = path.join(
-          stateDir,
-          "agents",
-          "ops",
-          "agent",
-          "openclaw-agent.sqlite",
-        );
-        const input = {
-          sessionId: "transferred-session",
-          updatedAt: 10,
-          worktree: { id: "legacy", branch: "openclaw/legacy", repoRoot: workspace },
-        };
-        await replaceSessionEntry(sourceScope, input);
-        const original = loadSessionEntry(sourceScope);
-        expect(original).toMatchObject(input);
-        expect(fs.existsSync(destinationPath)).toBe(false);
-        const log = { info: vi.fn(), warn: vi.fn() };
-        const runMigration = () => runSessionStartupMigration({ cfg, env, log });
-        let databases: Awaited<ReturnType<typeof runMigration>>;
-        if (sourceCleanupFails) {
-          const registry = createEmptyPluginRegistry();
-          registry.agentHarnesses.push({
-            pluginId: "core",
-            source: "test",
-            harness: {
-              id: "migration-fixture",
-              label: "Migration fixture",
-              supports: () => ({ supported: true }),
-              async runAttempt() {
-                throw new Error("unused");
-              },
-              async withSessionDeletion() {
-                throw new Error("synthetic source cleanup failure");
-              },
+    await withEnvAsync({ GRANTED_AGENT_DIR: undefined, GRANTED_STATE_DIR: stateDir }, async () => {
+      const env = { ...process.env };
+      const cfg = { agents: { entries: { ops: { workspace } } } };
+      const sourceScope = { agentId: "main", env, sessionKey: "agent:main:worktree" };
+      const destinationScope = { agentId: "ops", env, sessionKey: "agent:ops:worktree" };
+      const destinationPath = path.join(
+        stateDir,
+        "agents",
+        "ops",
+        "agent",
+        "openclaw-agent.sqlite",
+      );
+      const input = {
+        sessionId: "transferred-session",
+        updatedAt: 10,
+        worktree: { id: "legacy", branch: "openclaw/legacy", repoRoot: workspace },
+      };
+      await replaceSessionEntry(sourceScope, input);
+      const original = loadSessionEntry(sourceScope);
+      expect(original).toMatchObject(input);
+      expect(fs.existsSync(destinationPath)).toBe(false);
+      const log = { info: vi.fn(), warn: vi.fn() };
+      const runMigration = () => runSessionStartupMigration({ cfg, env, log });
+      let databases: Awaited<ReturnType<typeof runMigration>>;
+      if (sourceCleanupFails) {
+        const registry = createEmptyPluginRegistry();
+        registry.agentHarnesses.push({
+          pluginId: "core",
+          source: "test",
+          harness: {
+            id: "migration-fixture",
+            label: "Migration fixture",
+            supports: () => ({ supported: true }),
+            async runAttempt() {
+              throw new Error("unused");
             },
-          });
-          markPluginRegistryActive(registry);
-          try {
-            databases = await withPluginRuntimeRegistryScope(registry, runMigration);
-          } finally {
-            markPluginRegistryRetired(registry);
-          }
-          expect(loadSessionEntry(sourceScope)).toEqual(original);
-          expect(loadSessionEntry(destinationScope)).toEqual(original);
-          expect(log.warn).toHaveBeenCalledWith(
-            expect.stringContaining("synthetic source cleanup failure"),
-          );
-          log.warn.mockClear();
-          await runMigration();
-        } else {
-          databases = await runMigration();
-        }
-
-        expect(databases).toContainEqual(
-          expect.objectContaining({ agentId: "ops", path: destinationPath }),
-        );
-        expect(loadSessionEntry(sourceScope)).toBeUndefined();
-        expect(loadSessionEntry(destinationScope)).toEqual({
-          ...original,
-          worktree: { ...original?.worktree, canonicalWorkspaceDir: workspace },
+            async withSessionDeletion() {
+              throw new Error("synthetic source cleanup failure");
+            },
+          },
         });
-        expect(log.warn).not.toHaveBeenCalled();
-      },
-    );
+        markPluginRegistryActive(registry);
+        try {
+          databases = await withPluginRuntimeRegistryScope(registry, runMigration);
+        } finally {
+          markPluginRegistryRetired(registry);
+        }
+        expect(loadSessionEntry(sourceScope)).toEqual(original);
+        expect(loadSessionEntry(destinationScope)).toEqual(original);
+        expect(log.warn).toHaveBeenCalledWith(
+          expect.stringContaining("synthetic source cleanup failure"),
+        );
+        log.warn.mockClear();
+        await runMigration();
+      } else {
+        databases = await runMigration();
+      }
+
+      expect(databases).toContainEqual(
+        expect.objectContaining({ agentId: "ops", path: destinationPath }),
+      );
+      expect(loadSessionEntry(sourceScope)).toBeUndefined();
+      expect(loadSessionEntry(destinationScope)).toEqual({
+        ...original,
+        worktree: { ...original?.worktree, canonicalWorkspaceDir: workspace },
+      });
+      expect(log.warn).not.toHaveBeenCalled();
+    });
   },
 );

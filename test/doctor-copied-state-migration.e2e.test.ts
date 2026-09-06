@@ -3,7 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { DatabaseSync } from "node:sqlite";
 import { describe, expect, it } from "vitest";
-import { OPENCLAW_STATE_SCHEMA_SQL } from "../src/state/openclaw-state-schema.js";
+import { GRANTED_STATE_SCHEMA_SQL } from "../src/state/openclaw-state-schema.js";
 import { createOpenClawTestInstance } from "./helpers/openclaw-test-instance.js";
 
 const HISTORICAL_DEVICE_BOOTSTRAP_TOKENS_SQL = `
@@ -154,7 +154,7 @@ function writeHistoricalCopiedStateFixture(stateDir: string): void {
   fs.mkdirSync(path.dirname(databasePath), { recursive: true });
   const database = new DatabaseSync(databasePath);
   try {
-    database.exec(OPENCLAW_STATE_SCHEMA_SQL);
+    database.exec(GRANTED_STATE_SCHEMA_SQL);
     database.exec(`
       DROP TABLE device_bootstrap_tokens;
       ${HISTORICAL_DEVICE_BOOTSTRAP_TOKENS_SQL}

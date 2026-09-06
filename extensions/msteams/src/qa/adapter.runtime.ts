@@ -248,7 +248,7 @@ export async function createMSTeamsQaTransportAdapter(
         },
       }) as Pick<OpenClawConfig, "channels" | "messages">,
     createRuntimeEnvPatch: () => ({
-      OPENCLAW_BUILD_PRIVATE_QA: "1",
+      GRANTED_BUILD_PRIVATE_QA: "1",
       NODE_OPTIONS: [
         process.env.NODE_OPTIONS?.trim(),
         `--import=${pathToFileURL(bootstrapPath).href}`,

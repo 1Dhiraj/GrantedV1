@@ -6,7 +6,7 @@ it("keeps serialized Gateway globals and storage out of the host realm", ({ gate
   const keys = [
     "WebSocket",
     "JSON5",
-    "__OPENCLAW_CONTROL_UI_BASE_PATH__",
+    "__GRANTED_CONTROL_UI_BASE_PATH__",
     "openclawControlUiE2eGateway",
   ];
   const descriptors = () => keys.map((key) => Object.getOwnPropertyDescriptor(globalThis, key));

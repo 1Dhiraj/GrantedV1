@@ -706,7 +706,7 @@ child.once("message", () => process.exit(${exitCode}));
           { label: "first", args: ["--eval", appendScript("first")], timeoutMs: 5_000 },
           { label: "second", args: ["--eval", appendScript("second")], timeoutMs: 5_000 },
         ],
-        { OPENCLAW_LOCAL_CHECK: "1" },
+        { GRANTED_LOCAL_CHECK: "1" },
       );
 
       expect(fs.readFileSync(logPath, "utf8").trim().split("\n")).toEqual([
@@ -723,13 +723,13 @@ child.once("message", () => process.exit(${exitCode}));
       const outputPath = path.join(rootDir, "env.txt");
       const writeEnvScript =
         `const fs=require("node:fs");` +
-        `fs.writeFileSync(${JSON.stringify(outputPath)}, process.env.OPENCLAW_TEST_ENV || "", "utf8");`;
+        `fs.writeFileSync(${JSON.stringify(outputPath)}, process.env.GRANTED_TEST_ENV || "", "utf8");`;
 
       await runNodeStepsInParallel([
         {
           label: "env-step",
           args: ["--eval", writeEnvScript],
-          env: { OPENCLAW_TEST_ENV: "passed" },
+          env: { GRANTED_TEST_ENV: "passed" },
           timeoutMs: 5_000,
         },
       ]);
@@ -747,18 +747,18 @@ child.once("message", () => process.exit(${exitCode}));
     expect(resolveBoundaryRootShimsTimeoutMs({})).toBe(300_000);
     expect(
       resolveBoundaryRootShimsTimeoutMs({
-        OPENCLAW_PLUGIN_SDK_BOUNDARY_ROOT_SHIMS_TIMEOUT_MS: "450000",
+        GRANTED_PLUGIN_SDK_BOUNDARY_ROOT_SHIMS_TIMEOUT_MS: "450000",
       }),
     ).toBe(450_000);
     expect(() =>
       resolveBoundaryRootShimsTimeoutMs({
-        OPENCLAW_PLUGIN_SDK_BOUNDARY_ROOT_SHIMS_TIMEOUT_MS: "120s",
+        GRANTED_PLUGIN_SDK_BOUNDARY_ROOT_SHIMS_TIMEOUT_MS: "120s",
       }),
-    ).toThrow("OPENCLAW_PLUGIN_SDK_BOUNDARY_ROOT_SHIMS_TIMEOUT_MS must be a positive integer");
+    ).toThrow("GRANTED_PLUGIN_SDK_BOUNDARY_ROOT_SHIMS_TIMEOUT_MS must be a positive integer");
     expect(() =>
       resolveBoundaryRootShimsTimeoutMs({
-        OPENCLAW_PLUGIN_SDK_BOUNDARY_ROOT_SHIMS_TIMEOUT_MS: "0",
+        GRANTED_PLUGIN_SDK_BOUNDARY_ROOT_SHIMS_TIMEOUT_MS: "0",
       }),
-    ).toThrow("OPENCLAW_PLUGIN_SDK_BOUNDARY_ROOT_SHIMS_TIMEOUT_MS must be a positive integer");
+    ).toThrow("GRANTED_PLUGIN_SDK_BOUNDARY_ROOT_SHIMS_TIMEOUT_MS must be a positive integer");
   });
 });

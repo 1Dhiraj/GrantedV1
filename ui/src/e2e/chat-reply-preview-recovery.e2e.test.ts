@@ -32,7 +32,7 @@ suite.define(() => {
   ])(
     "settles a $name without repeatedly loading the reply preview",
     async ({ artifact, response }) => {
-      const artifactRoot = process.env.OPENCLAW_UI_E2E_ARTIFACT_DIR?.trim();
+      const artifactRoot = process.env.GRANTED_UI_E2E_ARTIFACT_DIR?.trim();
       const artifactDir = artifactRoot
         ? createControlUiE2eArtifactDir("chat-reply-preview-recovery", artifactRoot)
         : undefined;

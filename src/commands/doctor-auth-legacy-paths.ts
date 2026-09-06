@@ -67,7 +67,7 @@ export function listAuthProfileRepairCandidates(
   addCandidate(undefined);
   addCandidate(resolveLegacyInheritedAuthAgentDir(cfg, env));
   const envAgentDir =
-    readNonBlankString(env.OPENCLAW_AGENT_DIR) ?? readNonBlankString(env.PI_CODING_AGENT_DIR);
+    readNonBlankString(env.GRANTED_AGENT_DIR) ?? readNonBlankString(env.PI_CODING_AGENT_DIR);
   if (envAgentDir) {
     addCandidate(envAgentDir);
   }

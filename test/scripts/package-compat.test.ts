@@ -57,13 +57,13 @@ function runShell(root: string, entry: string, script: string) {
     env: {
       ...process.env,
       HOME: root,
-      OPENCLAW_ENTRY: entry,
-      OPENCLAW_PLUGINS_TMP_DIR: root,
+      GRANTED_ENTRY: entry,
+      GRANTED_PLUGINS_TMP_DIR: root,
       KITCHEN_SINK_TMP_DIR: root,
       ARGV_LOG: path.join(root, "argv.jsonl"),
-      OPENCLAW_PLUGINS_E2E_CLAWHUB: "0",
-      OPENCLAW_PLUGINS_CLI_TIMEOUT: "5s",
-      OPENCLAW_TEST_STATE_SCRIPT_B64: Buffer.from(":").toString("base64"),
+      GRANTED_PLUGINS_E2E_CLAWHUB: "0",
+      GRANTED_PLUGINS_CLI_TIMEOUT: "5s",
+      GRANTED_TEST_STATE_SCRIPT_B64: Buffer.from(":").toString("base64"),
     },
   });
   const log = path.join(root, "argv.jsonl");
@@ -78,7 +78,7 @@ function runShell(root: string, entry: string, script: string) {
 
 const fixtureCommand = `
 source scripts/lib/openclaw-e2e-instance.sh
-openclaw_e2e_fixture_plugin_command openclaw_e2e_maybe_timeout 5s node "$OPENCLAW_ENTRY" --
+openclaw_e2e_fixture_plugin_command openclaw_e2e_maybe_timeout 5s node "$GRANTED_ENTRY" --
 `.trim();
 
 // Replace artifact construction and inventory assertions, not the CLI runner or scenario order.
@@ -214,7 +214,7 @@ ${fixtureCommand} plugins update fixture`,
         root,
         writeCandidate(root, { commands: supported ? undefined : [] }),
         `${fixtureCommand} plugins install fixture
-printf 'support=%s\\n' "$OPENCLAW_E2E_LAST_FIXTURE_PLUGIN_CAPABILITY_CONSENT_SUPPORTED"`,
+printf 'support=%s\\n' "$GRANTED_E2E_LAST_FIXTURE_PLUGIN_CAPABILITY_CONSENT_SUPPORTED"`,
       );
       expect(result.status, result.stderr).toBe(0);
       expect(result.stdout).toContain(`support=${supported ? "1" : "0"}`);
@@ -229,9 +229,9 @@ printf 'support=%s\\n' "$OPENCLAW_E2E_LAST_FIXTURE_PLUGIN_CAPABILITY_CONSENT_SUP
         root,
         writeCandidate(root, { commands: supported ? undefined : [] }),
         `
-export OPENCLAW_PLUGINS_SWEEP_SOURCE_ONLY=1
-export OPENCLAW_PLUGINS_E2E_CLAWHUB=1
-export OPENCLAW_PLUGINS_E2E_LIVE_CLAWHUB=1
+export GRANTED_PLUGINS_SWEEP_SOURCE_ONLY=1
+export GRANTED_PLUGINS_E2E_CLAWHUB=1
+export GRANTED_PLUGINS_E2E_LIVE_CLAWHUB=1
 source scripts/e2e/lib/plugins/sweep.sh
 node() {
   case "$1" in
@@ -275,8 +275,8 @@ run_plugins_clawhub_scenario
       entry,
       suite === "plugins"
         ? `
-export OPENCLAW_PLUGINS_SWEEP_SOURCE_ONLY=1
-export OPENCLAW_PLUGINS_CLI_TIMEOUT=1s
+export GRANTED_PLUGINS_SWEEP_SOURCE_ONLY=1
+export GRANTED_PLUGINS_CLI_TIMEOUT=1s
 source scripts/e2e/lib/plugins/sweep.sh
 run_plugins_fixture_logged failure plugins install fixture --force
 `
@@ -311,7 +311,7 @@ run_kitchen_sink_fixture_logged failure plugins install fixture --force
       root,
       entry,
       `${fixtureCommand} plugins install fixture
-cp "$HOME/replacement.cjs" "$OPENCLAW_ENTRY"
+cp "$HOME/replacement.cjs" "$GRANTED_ENTRY"
 ${fixtureCommand} plugins install fixture`,
     );
     expect(result.status, result.stderr).toBe(0);

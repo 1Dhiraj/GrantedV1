@@ -3383,8 +3383,8 @@ describe("prepareCliRunContext", () => {
       });
 
       expect(context.preparedBackend.env).toMatchObject({
-        OPENCLAW_MCP_TOKEN: "loopback-token",
-        OPENCLAW_MCP_CLI_CAPTURE_KEY: "",
+        GRANTED_MCP_TOKEN: "loopback-token",
+        GRANTED_MCP_CLI_CAPTURE_KEY: "",
       });
       expect(mintMcpLoopbackClientGrant).toHaveBeenCalledWith({
         context: {
@@ -3548,7 +3548,7 @@ describe("prepareCliRunContext", () => {
 
     expect(context.mcpDeliveryCapture).toBe(true);
     expect(context.preparedBackend.env).toMatchObject({
-      OPENCLAW_MCP_CLI_CAPTURE_KEY: "",
+      GRANTED_MCP_CLI_CAPTURE_KEY: "",
     });
   });
 
@@ -4312,8 +4312,8 @@ describe("prepareCliRunContext", () => {
     };
     expect(Object.keys(raw.mcpServers ?? {})).toEqual(["openclaw"]);
     expect(raw.mcpServers?.openclaw?.env).toMatchObject({
-      OPENCLAW_TOOLS_MCP_TOOLS: "openclaw",
-      OPENCLAW_TOOLS_MCP_SYSTEM_AGENT_SURFACE: "cli",
+      GRANTED_TOOLS_MCP_TOOLS: "openclaw",
+      GRANTED_TOOLS_MCP_SYSTEM_AGENT_SURFACE: "cli",
     });
 
     await context.preparedBackend.cleanup?.();

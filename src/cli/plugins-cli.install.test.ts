@@ -57,8 +57,8 @@ vi.mock("../version.js", async (importOriginal) => ({
 }));
 
 const CLI_STATE_ROOT = "/tmp/openclaw-state";
-const ORIGINAL_OPENCLAW_STATE_DIR = process.env.OPENCLAW_STATE_DIR;
-const ORIGINAL_OPENCLAW_NIX_MODE = process.env.OPENCLAW_NIX_MODE;
+const ORIGINAL_GRANTED_STATE_DIR = process.env.GRANTED_STATE_DIR;
+const ORIGINAL_GRANTED_NIX_MODE = process.env.GRANTED_NIX_MODE;
 const ORIGINAL_STDIN_TTY = Object.getOwnPropertyDescriptor(process.stdin, "isTTY");
 const ORIGINAL_STDOUT_TTY = Object.getOwnPropertyDescriptor(process.stdout, "isTTY");
 const PROFILE_STATE_ROOT = "/tmp/openclaw-ledger-profile";
@@ -85,7 +85,7 @@ function cliInstallPath(pluginId: string): string {
 }
 
 function useProfileExtensionsDir(): string {
-  process.env.OPENCLAW_STATE_DIR = PROFILE_STATE_ROOT;
+  process.env.GRANTED_STATE_DIR = PROFILE_STATE_ROOT;
   return path.resolve(PROFILE_STATE_ROOT, "extensions");
 }
 
@@ -639,15 +639,15 @@ describe("plugins cli install", () => {
 
   afterEach(() => {
     coreVersion.value = "2026.8.1";
-    if (ORIGINAL_OPENCLAW_STATE_DIR === undefined) {
-      delete process.env.OPENCLAW_STATE_DIR;
+    if (ORIGINAL_GRANTED_STATE_DIR === undefined) {
+      delete process.env.GRANTED_STATE_DIR;
     } else {
-      process.env.OPENCLAW_STATE_DIR = ORIGINAL_OPENCLAW_STATE_DIR;
+      process.env.GRANTED_STATE_DIR = ORIGINAL_GRANTED_STATE_DIR;
     }
-    if (ORIGINAL_OPENCLAW_NIX_MODE === undefined) {
-      delete process.env.OPENCLAW_NIX_MODE;
+    if (ORIGINAL_GRANTED_NIX_MODE === undefined) {
+      delete process.env.GRANTED_NIX_MODE;
     } else {
-      process.env.OPENCLAW_NIX_MODE = ORIGINAL_OPENCLAW_NIX_MODE;
+      process.env.GRANTED_NIX_MODE = ORIGINAL_GRANTED_NIX_MODE;
     }
     restoreTty();
   });
@@ -669,11 +669,11 @@ describe("plugins cli install", () => {
   });
 
   it("refuses plugin installs in Nix mode before installer side effects", async () => {
-    process.env.OPENCLAW_NIX_MODE = "1";
+    process.env.GRANTED_NIX_MODE = "1";
 
     await expect(
       runAcknowledgedPluginsInstallCommand(["plugins", "install", "@acme/demo"]),
-    ).rejects.toThrow("OPENCLAW_NIX_MODE=1");
+    ).rejects.toThrow("GRANTED_NIX_MODE=1");
 
     expect(installPluginFromNpmSpecMock).not.toHaveBeenCalled();
     expect(installPluginFromPathMock).not.toHaveBeenCalled();

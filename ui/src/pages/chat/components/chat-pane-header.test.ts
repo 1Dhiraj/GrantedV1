@@ -34,7 +34,7 @@ const containers: HTMLElement[] = [];
 afterEach(() => {
   containers.splice(0).forEach((container) => container.remove());
   vi.restoreAllMocks();
-  Reflect.deleteProperty(window, "__OPENCLAW_NATIVE_WEB_CHROME__");
+  Reflect.deleteProperty(window, "__GRANTED_NATIVE_WEB_CHROME__");
 });
 
 function nativeGateways(snapshot: NativeGatewaysSnapshot): NativeGatewaysCapability {
@@ -123,7 +123,7 @@ function mountIntegratedPresenceHeader(params: {
 
 describe("chat pane header", () => {
   it("hides the gateway picker without capability and with one gateway", () => {
-    Object.assign(window, { __OPENCLAW_NATIVE_WEB_CHROME__: true });
+    Object.assign(window, { __GRANTED_NATIVE_WEB_CHROME__: true });
     expect(mountHeader().container.querySelector(".chat-pane__gateway-menu")).toBeNull();
     const one = nativeGateways({ gateways: [gatewaySnapshot.gateways[0]!], currentId: "primary" });
     expect(
@@ -132,7 +132,7 @@ describe("chat pane header", () => {
   });
 
   it("renders gateway rows, primary tag, and current checkmark", () => {
-    Object.assign(window, { __OPENCLAW_NATIVE_WEB_CHROME__: true });
+    Object.assign(window, { __GRANTED_NATIVE_WEB_CHROME__: true });
     const { container } = mountHeader({ nativeGateways: nativeGateways(gatewaySnapshot) });
     const rows = container.querySelectorAll(".chat-pane__gateway-item");
     expect(rows).toHaveLength(2);
@@ -143,7 +143,7 @@ describe("chat pane header", () => {
   });
 
   it("selects normally and opens a new window on alt-click", () => {
-    Object.assign(window, { __OPENCLAW_NATIVE_WEB_CHROME__: true });
+    Object.assign(window, { __GRANTED_NATIVE_WEB_CHROME__: true });
     const select = vi.fn();
     const openWindow = vi.fn();
     const capability = { ...nativeGateways(gatewaySnapshot), select, openWindow };
@@ -160,7 +160,7 @@ describe("chat pane header", () => {
   });
 
   it("opens a new window when alt-clicking the current gateway", () => {
-    Object.assign(window, { __OPENCLAW_NATIVE_WEB_CHROME__: true });
+    Object.assign(window, { __GRANTED_NATIVE_WEB_CHROME__: true });
     const select = vi.fn();
     const openWindow = vi.fn();
     const capability = { ...nativeGateways(gatewaySnapshot), select, openWindow };
@@ -173,7 +173,7 @@ describe("chat pane header", () => {
   });
 
   it("re-renders gateway rows from a changed snapshot property", () => {
-    Object.assign(window, { __OPENCLAW_NATIVE_WEB_CHROME__: true });
+    Object.assign(window, { __GRANTED_NATIVE_WEB_CHROME__: true });
     let current = gatewaySnapshot;
     const capability = {
       ...nativeGateways(gatewaySnapshot),
@@ -207,7 +207,7 @@ describe("chat pane header", () => {
   });
 
   it("disables set-primary when the viewed gateway cannot be promoted", () => {
-    Object.assign(window, { __OPENCLAW_NATIVE_WEB_CHROME__: true });
+    Object.assign(window, { __GRANTED_NATIVE_WEB_CHROME__: true });
     const snapshot = {
       ...gatewaySnapshot,
       gateways: gatewaySnapshot.gateways.map((gateway) =>

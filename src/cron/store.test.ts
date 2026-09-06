@@ -118,14 +118,14 @@ async function expectPathMissing(targetPath: string): Promise<void> {
 const requireRecord = createRequireRecord("record", "expected-label");
 
 describe("resolveCronStorePath", () => {
-  const envSnapshot = captureEnv(["OPENCLAW_HOME", "HOME"]);
+  const envSnapshot = captureEnv(["GRANTED_HOME", "HOME"]);
 
   afterEach(() => {
     envSnapshot.restore();
   });
 
-  it("uses OPENCLAW_HOME for tilde expansion", () => {
-    setTestEnvValue("OPENCLAW_HOME", "/srv/openclaw-home");
+  it("uses GRANTED_HOME for tilde expansion", () => {
+    setTestEnvValue("GRANTED_HOME", "/srv/openclaw-home");
     setTestEnvValue("HOME", "/home/other");
 
     const result = resolveCronStorePath("~/cron/jobs.json");

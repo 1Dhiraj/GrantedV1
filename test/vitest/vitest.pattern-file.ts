@@ -354,7 +354,7 @@ export function matchesVitestCliSelection(
   env: NodeJS.ProcessEnv,
 ): boolean {
   const patterns =
-    loadPatternListFromEnv("OPENCLAW_VITEST_INCLUDE_FILE", env) ??
+    loadPatternListFromEnv("GRANTED_VITEST_INCLUDE_FILE", env) ??
     narrowIncludePatternsForCli(include, ["node", "vitest", ...args], { scopedDir }) ??
     include;
   const relativeFile = path.posix.relative(scopedDir, file);

@@ -157,8 +157,8 @@ function createLocalGatewayLockOptions(
     allowInTests: true,
     env: {
       ...process.env,
-      OPENCLAW_CONFIG_PATH: path.join(stateDir, "openclaw.json"),
-      OPENCLAW_STATE_DIR: stateDir,
+      GRANTED_CONFIG_PATH: path.join(stateDir, "openclaw.json"),
+      GRANTED_STATE_DIR: stateDir,
     },
     lockDir: path.join(stateDir, "gateway-locks"),
     timeoutMs: 100,
@@ -318,7 +318,7 @@ function resetAgentCliCommandMocksForTest() {
   // into every later --local test and silently route them through the failure path.
   startOneShotDiagnosticsExporters.mockReset();
   startOneShotDiagnosticsExporters.mockResolvedValue(null);
-  vi.stubEnv("OPENCLAW_GATEWAY_URL", "");
+  vi.stubEnv("GRANTED_GATEWAY_URL", "");
   agentViaGatewayTesting.resetLazyImportsForTests();
   agentViaGatewayTesting.setGatewayAbortRetryDelaysMsForTests([0, 0, 0, 0]);
   loadAgentSessionModuleMock.mockImplementation(
@@ -489,7 +489,7 @@ describe("agentCliCommand", () => {
     },
   ])("keeps ordinary $label runs least-privilege", async ({ gatewayUrl, overrides }) => {
     if (gatewayUrl) {
-      vi.stubEnv("OPENCLAW_GATEWAY_URL", gatewayUrl);
+      vi.stubEnv("GRANTED_GATEWAY_URL", gatewayUrl);
     }
     await withTempStore(async () => {
       mockRemoteGatewayRoster("sole");
@@ -707,7 +707,7 @@ describe("agentCliCommand", () => {
   it("uses the local global session through --local despite remote gateway settings", async () => {
     await withTempStore(
       async () => {
-        vi.stubEnv("OPENCLAW_GATEWAY_URL", "wss://gateway.example.test");
+        vi.stubEnv("GRANTED_GATEWAY_URL", "wss://gateway.example.test");
         const cfg = retainLegacyDefaultAgentId(
           {
             ...loadRuntimeConfig(),

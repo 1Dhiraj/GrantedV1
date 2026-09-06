@@ -37,16 +37,16 @@ export function runFixture(
     encoding: "utf8",
     env: {
       ...process.env,
-      OPENCLAW_BUNDLED_PLUGIN_BUILD_IDS: undefined,
-      OPENCLAW_INTERNAL_DOCKER_BUILD_PLUGIN_IDS: undefined,
-      OPENCLAW_INCLUDE_OPTIONAL_BUNDLED: undefined,
+      GRANTED_BUNDLED_PLUGIN_BUILD_IDS: undefined,
+      GRANTED_INTERNAL_DOCKER_BUILD_PLUGIN_IDS: undefined,
+      GRANTED_INCLUDE_OPTIONAL_BUNDLED: undefined,
       ...env,
-      OPENCLAW_BUILD_PRIVATE_QA: privateQa ? "1" : "0",
-      OPENCLAW_RUN_NODE_SKIP_DTS_BUILD: "0",
+      GRANTED_BUILD_PRIVATE_QA: privateQa ? "1" : "0",
+      GRANTED_RUN_NODE_SKIP_DTS_BUILD: "0",
       // This synthetic graph fits a small heap; the full-repository floor does not apply.
-      OPENCLAW_TSDOWN_MAX_OLD_SPACE_MB: "1024",
+      GRANTED_TSDOWN_MAX_OLD_SPACE_MB: "1024",
       // Use the build owner's existing direct-tool path, without a fixture pnpm shim.
-      OPENCLAW_BUILD_ALL_NO_PNPM: "1",
+      GRANTED_BUILD_ALL_NO_PNPM: "1",
     },
   });
 }

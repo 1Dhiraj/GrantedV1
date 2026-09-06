@@ -40,7 +40,7 @@ function createPartialSendFailure() {
 }
 
 async function deliverPartialMatrixBatch(sendMatrix: ReturnType<typeof vi.fn>, tmpDir: string) {
-  process.env.OPENCLAW_STATE_DIR = tmpDir;
+  process.env.GRANTED_STATE_DIR = tmpDir;
   await expect(
     deliverOutboundPayloads({
       cfg: {} as OpenClawConfig,
@@ -158,7 +158,7 @@ describe("deliverOutboundPayloads queue integration: mid-batch failure with send
   });
 
   it("claims pristine reusable permanent Matrix intents before recovery provider I/O", async () => {
-    process.env.OPENCLAW_STATE_DIR = tmpDir;
+    process.env.GRANTED_STATE_DIR = tmpDir;
     const deliveryIntentId = "permanent-matrix-pristine-fenced-recovery";
     await enqueueDeliveryOnce(
       {
@@ -195,7 +195,7 @@ describe("deliverOutboundPayloads queue integration: mid-batch failure with send
   });
 
   it("retains permanent receipts when stable delivery is intentionally suppressed", async () => {
-    process.env.OPENCLAW_STATE_DIR = tmpDir;
+    process.env.GRANTED_STATE_DIR = tmpDir;
     const sendMatrix = vi.fn();
     const liveIntentId = "permanent-matrix-suppressed-live";
 
@@ -236,7 +236,7 @@ describe("deliverOutboundPayloads queue integration: mid-batch failure with send
   });
 
   it("fences recovered stable intents at the real Matrix provider boundary", async () => {
-    process.env.OPENCLAW_STATE_DIR = tmpDir;
+    process.env.GRANTED_STATE_DIR = tmpDir;
     const deliveryIntentId = "cron-direct-delivery:v1:fenced-matrix-recovery";
     await enqueueDeliveryOnce(
       {
@@ -280,7 +280,7 @@ describe("deliverOutboundPayloads queue integration: mid-batch failure with send
   ])(
     "never completes %s recovered Matrix sends without a platform identity",
     async (_retention, deliveryIntentId, completionRetention, requiresProducerClaim) => {
-      process.env.OPENCLAW_STATE_DIR = tmpDir;
+      process.env.GRANTED_STATE_DIR = tmpDir;
       await enqueueDeliveryOnce(
         {
           channel: "matrix",
@@ -319,7 +319,7 @@ describe("deliverOutboundPayloads queue integration: mid-batch failure with send
   );
 
   it("never completes recovered Matrix batches when any platform send lacks an identity", async () => {
-    process.env.OPENCLAW_STATE_DIR = tmpDir;
+    process.env.GRANTED_STATE_DIR = tmpDir;
     const deliveryIntentId = "cron-direct-delivery:v1:recovered-matrix-partial-no-identity";
     await enqueueDeliveryOnce(
       {
@@ -360,7 +360,7 @@ describe("deliverOutboundPayloads queue integration: mid-batch failure with send
   });
 
   it("replays the immutable queue-owned payload instead of regenerated producer input", async () => {
-    process.env.OPENCLAW_STATE_DIR = tmpDir;
+    process.env.GRANTED_STATE_DIR = tmpDir;
     const deliveryIntentId = "cron-direct-delivery:v1:immutable-queue-custody";
     await enqueueDeliveryOnce(
       {
@@ -397,7 +397,7 @@ describe("deliverOutboundPayloads queue integration: mid-batch failure with send
   });
 
   it("reuses durable Matrix media after regenerated producer files disappear", async () => {
-    process.env.OPENCLAW_STATE_DIR = tmpDir;
+    process.env.GRANTED_STATE_DIR = tmpDir;
     const deliveryIntentId = "cron-direct-delivery:v1:immutable-staged-matrix-media";
     const originalSource = path.join(tmpDir, "original-stable-media.ogg");
     const originalBytes = "original durable Matrix attachment";
@@ -482,7 +482,7 @@ describe("deliverOutboundPayloads queue integration: mid-batch failure with send
   });
 
   it("retains a completed stable delivery receipt across producer replays", async () => {
-    process.env.OPENCLAW_STATE_DIR = tmpDir;
+    process.env.GRANTED_STATE_DIR = tmpDir;
     const sendMatrix = vi.fn().mockResolvedValue({ messageId: "stable-message" });
     const deliveryIntentId = "cron-direct-delivery:v1:stable-completion";
     const params = {
@@ -508,7 +508,7 @@ describe("deliverOutboundPayloads queue integration: mid-batch failure with send
   });
 
   it("retains a completed stable receipt after fully successful best-effort delivery", async () => {
-    process.env.OPENCLAW_STATE_DIR = tmpDir;
+    process.env.GRANTED_STATE_DIR = tmpDir;
     const sendMatrix = vi.fn().mockResolvedValue({ messageId: "stable-best-effort-message" });
     const deliveryIntentId = "cron-direct-delivery:v1:best-effort-stable-completion";
     const params = {
@@ -535,7 +535,7 @@ describe("deliverOutboundPayloads queue integration: mid-batch failure with send
   });
 
   it("holds one live claim while concurrent producers reuse a stable pending intent", async () => {
-    process.env.OPENCLAW_STATE_DIR = tmpDir;
+    process.env.GRANTED_STATE_DIR = tmpDir;
     let resolveSend!: (value: { messageId: string }) => void;
     let notifySendStarted!: () => void;
     const sendStarted = new Promise<void>((resolve) => {
@@ -578,7 +578,7 @@ describe("deliverOutboundPayloads queue integration: mid-batch failure with send
   });
 
   it("never acknowledges or replays a partially sent best-effort stable intent", async () => {
-    process.env.OPENCLAW_STATE_DIR = tmpDir;
+    process.env.GRANTED_STATE_DIR = tmpDir;
     const sendMatrix = vi
       .fn()
       .mockResolvedValueOnce({ messageId: "best-effort-first-message" })
@@ -617,7 +617,7 @@ describe("deliverOutboundPayloads queue integration: mid-batch failure with send
   });
 
   it("never acknowledges route-only metadata as a platform message identity", async () => {
-    process.env.OPENCLAW_STATE_DIR = tmpDir;
+    process.env.GRANTED_STATE_DIR = tmpDir;
     const sendMatrix = vi.fn().mockResolvedValue({ messageId: "", toJid: "!route-only:example" });
     const deliveryIntentId = "cron-direct-delivery:v1:no-platform-identity";
     const params = {
@@ -647,7 +647,7 @@ describe("deliverOutboundPayloads queue integration: mid-batch failure with send
   });
 
   it("never completes live Matrix batches when any platform send lacks an identity", async () => {
-    process.env.OPENCLAW_STATE_DIR = tmpDir;
+    process.env.GRANTED_STATE_DIR = tmpDir;
     const sendMatrix = vi
       .fn()
       .mockResolvedValueOnce({ messageId: "confirmed-live-message" })
@@ -690,7 +690,7 @@ describe("deliverOutboundPayloads queue integration: mid-batch failure with send
   it.each(["abort", "permanent rejection"] as const)(
     "never creates a successful stable receipt after platform %s",
     async (failureKind) => {
-      process.env.OPENCLAW_STATE_DIR = tmpDir;
+      process.env.GRANTED_STATE_DIR = tmpDir;
       const cause =
         failureKind === "abort"
           ? Object.assign(new Error("stable delivery aborted"), { name: "AbortError" })
@@ -723,7 +723,7 @@ describe("deliverOutboundPayloads queue integration: mid-batch failure with send
   );
 
   it("preserves queue custody when a provider timeout looks like an abort", async () => {
-    process.env.OPENCLAW_STATE_DIR = tmpDir;
+    process.env.GRANTED_STATE_DIR = tmpDir;
     const timeout = new DOMException("Matrix request timed out", "AbortError");
     const sendMatrix = vi.fn().mockRejectedValue(timeout);
 
@@ -746,7 +746,7 @@ describe("deliverOutboundPayloads queue integration: mid-batch failure with send
   });
 
   it("removes an unsent queue intent when the caller cancels after publication", async () => {
-    process.env.OPENCLAW_STATE_DIR = tmpDir;
+    process.env.GRANTED_STATE_DIR = tmpDir;
     const controller = new AbortController();
     const sendMatrix = vi.fn();
 
@@ -771,7 +771,7 @@ describe("deliverOutboundPayloads queue integration: mid-batch failure with send
   it.each(["abort", "permanent rejection"] as const)(
     "preserves an already-sent Matrix payload when a later payload ends in %s",
     async (failureKind) => {
-      process.env.OPENCLAW_STATE_DIR = tmpDir;
+      process.env.GRANTED_STATE_DIR = tmpDir;
       const cause =
         failureKind === "abort"
           ? Object.assign(new Error("later stable delivery aborted"), { name: "AbortError" })
@@ -815,7 +815,7 @@ describe("deliverOutboundPayloads queue integration: mid-batch failure with send
   );
 
   it("retries a stable delivery intent only after a proven pre-dispatch failure", async () => {
-    process.env.OPENCLAW_STATE_DIR = tmpDir;
+    process.env.GRANTED_STATE_DIR = tmpDir;
     const notDispatchedError = new PlatformMessageNotDispatchedError(
       "provider disconnected before dispatch",
       { cause: new Error("connect ECONNREFUSED") },
@@ -855,7 +855,7 @@ describe("deliverOutboundPayloads queue integration: mid-batch failure with send
   });
 
   it("never replays a stable intent after an ambiguous platform send", async () => {
-    process.env.OPENCLAW_STATE_DIR = tmpDir;
+    process.env.GRANTED_STATE_DIR = tmpDir;
     const sendMatrix = vi.fn().mockRejectedValue(new Error("provider result was lost"));
     const deliveryIntentId = "cron-direct-delivery:v1:unknown-platform-outcome";
     const params = {
@@ -932,7 +932,7 @@ describe("deliverOutboundPayloads queue integration: mid-batch failure with send
   it("does not retain a pre-send suppression across an ambiguous crash boundary", async () => {
     const auditEvents: TrustedMessageAuditEvent[] = [];
     const unsubscribe = onTrustedMessageAuditEvent((event) => auditEvents.push(event));
-    process.env.OPENCLAW_STATE_DIR = tmpDir;
+    process.env.GRANTED_STATE_DIR = tmpDir;
     const sendMatrix = vi.fn().mockRejectedValueOnce(new Error("ambiguous provider failure"));
 
     await expect(
@@ -970,7 +970,7 @@ describe("deliverOutboundPayloads queue integration: mid-batch failure with send
     thrown: string,
     extra: Partial<Parameters<typeof deliverOutboundPayloads>[0]>,
   ) => {
-    process.env.OPENCLAW_STATE_DIR = tmpDir;
+    process.env.GRANTED_STATE_DIR = tmpDir;
     const failure = await deliverOutboundPayloads({
       cfg: {} as OpenClawConfig,
       channel: "matrix",

@@ -30,13 +30,13 @@ import {
 type UpdateDoctorPhase = "pre-plugin" | "post-plugin";
 
 export async function withPrePluginUpdateDoctorEnv<T>(run: () => Promise<T>): Promise<T> {
-  const previousUpdateInProgress = process.env.OPENCLAW_UPDATE_IN_PROGRESS;
+  const previousUpdateInProgress = process.env.GRANTED_UPDATE_IN_PROGRESS;
   const previousDeferConfiguredPluginInstallRepair =
     process.env[UPDATE_DEFER_CONFIGURED_PLUGIN_INSTALL_REPAIR_ENV];
   const previousParentSupportsDoctorConfigWrite =
     process.env[UPDATE_PARENT_SUPPORTS_DOCTOR_CONFIG_WRITE_ENV];
   const previousPostCoreConvergence = process.env[UPDATE_POST_CORE_CONVERGENCE_ENV];
-  process.env.OPENCLAW_UPDATE_IN_PROGRESS = "1";
+  process.env.GRANTED_UPDATE_IN_PROGRESS = "1";
   process.env[UPDATE_DEFER_CONFIGURED_PLUGIN_INSTALL_REPAIR_ENV] = "1";
   process.env[UPDATE_PARENT_SUPPORTS_DOCTOR_CONFIG_WRITE_ENV] = "1";
   delete process.env[UPDATE_POST_CORE_CONVERGENCE_ENV];
@@ -44,9 +44,9 @@ export async function withPrePluginUpdateDoctorEnv<T>(run: () => Promise<T>): Pr
     return await run();
   } finally {
     if (previousUpdateInProgress === undefined) {
-      delete process.env.OPENCLAW_UPDATE_IN_PROGRESS;
+      delete process.env.GRANTED_UPDATE_IN_PROGRESS;
     } else {
-      process.env.OPENCLAW_UPDATE_IN_PROGRESS = previousUpdateInProgress;
+      process.env.GRANTED_UPDATE_IN_PROGRESS = previousUpdateInProgress;
     }
     if (previousDeferConfiguredPluginInstallRepair === undefined) {
       delete process.env[UPDATE_DEFER_CONFIGURED_PLUGIN_INSTALL_REPAIR_ENV];
@@ -69,15 +69,15 @@ export async function withPrePluginUpdateDoctorEnv<T>(run: () => Promise<T>): Pr
 }
 
 async function withNormalConfigValidation<T>(run: () => Promise<T>): Promise<T> {
-  const previousUpdateInProgress = process.env.OPENCLAW_UPDATE_IN_PROGRESS;
-  process.env.OPENCLAW_UPDATE_IN_PROGRESS = "0";
+  const previousUpdateInProgress = process.env.GRANTED_UPDATE_IN_PROGRESS;
+  process.env.GRANTED_UPDATE_IN_PROGRESS = "0";
   try {
     return await run();
   } finally {
     if (previousUpdateInProgress === undefined) {
-      delete process.env.OPENCLAW_UPDATE_IN_PROGRESS;
+      delete process.env.GRANTED_UPDATE_IN_PROGRESS;
     } else {
-      process.env.OPENCLAW_UPDATE_IN_PROGRESS = previousUpdateInProgress;
+      process.env.GRANTED_UPDATE_IN_PROGRESS = previousUpdateInProgress;
     }
   }
 }
@@ -201,7 +201,7 @@ async function validatePostPluginConfigInFreshProcess(params: {
         maxBuffer: 4 * 1024 * 1024,
         logOutput: false,
         baseEnv: stripGatewayServiceMarkerEnv(disableUpdatedPackageCompileCacheEnv(process.env)),
-        env: { OPENCLAW_UPDATE_IN_PROGRESS: "0" },
+        env: { GRANTED_UPDATE_IN_PROGRESS: "0" },
       },
     );
     return true;

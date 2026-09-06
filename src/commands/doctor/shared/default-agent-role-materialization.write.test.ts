@@ -53,7 +53,7 @@ describe("default role materialization authored writes", () => {
       configPath,
       env: {
         HOME: root,
-        OPENCLAW_TEST_FAST: "1",
+        GRANTED_TEST_FAST: "1",
         DEFAULT_MODEL: "openai/default-model",
         RESEARCH_MODEL: "openai/research-model",
       } as NodeJS.ProcessEnv,
@@ -128,7 +128,7 @@ describe("default role materialization authored writes", () => {
       );
       const io = createConfigIO({
         configPath,
-        env: { HOME: root, OPENCLAW_TEST_FAST: "1" } as NodeJS.ProcessEnv,
+        env: { HOME: root, GRANTED_TEST_FAST: "1" } as NodeJS.ProcessEnv,
         homedir: () => root,
         observe: false,
         logger: { warn: () => {}, error: () => {} },
@@ -169,7 +169,7 @@ describe("default role materialization authored writes", () => {
     );
     const io = createConfigIO({
       configPath,
-      env: { HOME: root, OPENCLAW_TEST_FAST: "1" } as NodeJS.ProcessEnv,
+      env: { HOME: root, GRANTED_TEST_FAST: "1" } as NodeJS.ProcessEnv,
       homedir: () => root,
       observe: false,
       logger: { warn: () => {}, error: () => {} },
@@ -205,7 +205,7 @@ describe("default role materialization authored writes", () => {
     );
     const io = createConfigIO({
       configPath,
-      env: { HOME: root, OPENCLAW_TEST_FAST: "1" } as NodeJS.ProcessEnv,
+      env: { HOME: root, GRANTED_TEST_FAST: "1" } as NodeJS.ProcessEnv,
       homedir: () => root,
       observe: false,
       logger: { warn: () => {}, error: () => {} },
@@ -249,7 +249,7 @@ describe("default role materialization authored writes", () => {
     );
     const io = createConfigIO({
       configPath,
-      env: { HOME: root, OPENCLAW_TEST_FAST: "1" } as NodeJS.ProcessEnv,
+      env: { HOME: root, GRANTED_TEST_FAST: "1" } as NodeJS.ProcessEnv,
       homedir: () => root,
       observe: false,
       logger: { warn: () => {}, error: () => {} },
@@ -285,7 +285,7 @@ describe("default role materialization authored writes", () => {
       await fs.writeFile(configPath, JSON.stringify({ agents: { entries: { ops: {} } } }));
       const io = createConfigIO({
         configPath,
-        env: { HOME: root, OPENCLAW_TEST_FAST: "1" } as NodeJS.ProcessEnv,
+        env: { HOME: root, GRANTED_TEST_FAST: "1" } as NodeJS.ProcessEnv,
         homedir: () => root,
         observe: false,
         logger: { warn: () => {}, error: () => {} },
@@ -325,7 +325,7 @@ describe("default role materialization authored writes", () => {
     );
     const io = createConfigIO({
       configPath,
-      env: { HOME: root, OPENCLAW_TEST_FAST: "1" } as NodeJS.ProcessEnv,
+      env: { HOME: root, GRANTED_TEST_FAST: "1" } as NodeJS.ProcessEnv,
       homedir: () => root,
       observe: false,
       logger: { warn: () => {}, error: () => {} },
@@ -363,7 +363,7 @@ describe("default role materialization authored writes", () => {
     );
     const io = createConfigIO({
       configPath,
-      env: { HOME: root, OPENCLAW_TEST_FAST: "1" } as NodeJS.ProcessEnv,
+      env: { HOME: root, GRANTED_TEST_FAST: "1" } as NodeJS.ProcessEnv,
       homedir: () => root,
       observe: false,
       logger: { warn: () => {}, error: () => {} },
@@ -407,8 +407,8 @@ describe("default role materialization authored writes", () => {
     const storePath = path.join(root, "custom-cron", "jobs.json");
     const env = {
       HOME: root,
-      OPENCLAW_STATE_DIR: root,
-      OPENCLAW_TEST_FAST: "1",
+      GRANTED_STATE_DIR: root,
+      GRANTED_TEST_FAST: "1",
     } as NodeJS.ProcessEnv;
     await fs.writeFile(
       configPath,
@@ -473,8 +473,8 @@ describe("default role materialization authored writes", () => {
     const storePath = path.join(root, "cron", "jobs.json");
     const env = {
       HOME: root,
-      OPENCLAW_STATE_DIR: root,
-      OPENCLAW_TEST_FAST: "1",
+      GRANTED_STATE_DIR: root,
+      GRANTED_TEST_FAST: "1",
     } as NodeJS.ProcessEnv;
     await fs.mkdir(path.dirname(storePath), { recursive: true });
     await fs.writeFile(
@@ -532,8 +532,8 @@ describe("default role materialization authored writes", () => {
     const configPath = path.join(root, "openclaw.json");
     const env = {
       HOME: root,
-      OPENCLAW_STATE_DIR: root,
-      OPENCLAW_TEST_FAST: "1",
+      GRANTED_STATE_DIR: root,
+      GRANTED_TEST_FAST: "1",
     } as NodeJS.ProcessEnv;
     const storePath = path.join(root, "cron", "jobs.json");
     const source = JSON.stringify({
@@ -590,7 +590,7 @@ describe("default role materialization authored writes", () => {
     );
     const io = createConfigIO({
       configPath,
-      env: { HOME: root, OPENCLAW_TEST_FAST: "1" } as NodeJS.ProcessEnv,
+      env: { HOME: root, GRANTED_TEST_FAST: "1" } as NodeJS.ProcessEnv,
       homedir: () => root,
       observe: false,
       logger: { warn: () => {}, error: () => {} },

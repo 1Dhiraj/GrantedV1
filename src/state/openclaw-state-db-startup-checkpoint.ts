@@ -6,7 +6,7 @@ import { runSqliteImmediateTransactionSync } from "../infra/sqlite-transaction.j
 import { readSqliteUserVersion } from "../infra/sqlite-user-version.js";
 import { configureSqlitePreSchemaPragmas } from "../infra/sqlite-wal.js";
 import {
-  OPENCLAW_SQLITE_BUSY_TIMEOUT_MS,
+  GRANTED_SQLITE_BUSY_TIMEOUT_MS,
   type OpenClawStateDatabaseOptions,
 } from "./openclaw-state-db-contract.js";
 import {
@@ -112,7 +112,7 @@ function ensureStartupMigrationCheckpointSchema(
       ensureColumn(db, "schema_meta", "app_version TEXT");
     },
     {
-      busyTimeoutMs: OPENCLAW_SQLITE_BUSY_TIMEOUT_MS,
+      busyTimeoutMs: GRANTED_SQLITE_BUSY_TIMEOUT_MS,
       databaseLabel: pathname,
       operationLabel: "state.schema.ensure-startup-checkpoint",
     },
@@ -134,7 +134,7 @@ export function withOpenClawStateStartupCheckpointConnection<T>(
       const db = openNodeSqliteDatabase(pathname);
       try {
         configureSqlitePreSchemaPragmas(db, {
-          busyTimeoutMs: OPENCLAW_SQLITE_BUSY_TIMEOUT_MS,
+          busyTimeoutMs: GRANTED_SQLITE_BUSY_TIMEOUT_MS,
         });
         assertSqliteIntegrity(db, pathname);
         if (isUninitializedNativeStartupDatabase(db)) {

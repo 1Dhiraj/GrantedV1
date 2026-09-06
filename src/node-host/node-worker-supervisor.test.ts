@@ -470,10 +470,10 @@ describe("node worker supervisor", () => {
       NODE_DISABLE_COMPILE_CACHE: "1",
       NODE_EXTRA_CA_CERTS: path.join(root, "private-ca.pem"),
       NODE_USE_SYSTEM_CA: "1",
-      OPENCLAW_ALLOW_INSECURE_PRIVATE_WS: "1",
-      OPENCLAW_LAUNCHD_LABEL: "ai.openclaw.node",
-      OPENCLAW_SERVICE_KIND: "node",
-      OPENCLAW_SUPPLIED_SECRET: "supplied-openclaw-secret",
+      GRANTED_ALLOW_INSECURE_PRIVATE_WS: "1",
+      GRANTED_LAUNCHD_LABEL: "ai.openclaw.node",
+      GRANTED_SERVICE_KIND: "node",
+      GRANTED_SUPPLIED_SECRET: "supplied-openclaw-secret",
       NODE_OPTIONS: "--title=forbidden-worker-title",
       BASH_ENV: path.join(root, "forbidden-shell-init"),
       DYLD_INSERT_LIBRARIES: path.join(root, "forbidden-runtime-injection"),
@@ -484,7 +484,7 @@ describe("node worker supervisor", () => {
     await withEnvAsync(
       {
         AMBIENT_SECRET: "ambient-secret",
-        OPENCLAW_AMBIENT_SECRET: "ambient-openclaw-secret",
+        GRANTED_AMBIENT_SECRET: "ambient-openclaw-secret",
         HTTP_PROXY: "http://ambient-proxy.invalid",
         NODE_OPTIONS: undefined,
       },
@@ -496,8 +496,8 @@ describe("node worker supervisor", () => {
           NODE_EXTRA_CA_CERTS: suppliedEnv.NODE_EXTRA_CA_CERTS,
           NODE_USE_SYSTEM_CA: suppliedEnv.NODE_USE_SYSTEM_CA,
           NODE_COMPILE_CACHE: expect.stringContaining("node-worker-compile-cache"),
-          OPENCLAW_ALLOW_INSECURE_PRIVATE_WS: suppliedEnv.OPENCLAW_ALLOW_INSECURE_PRIVATE_WS,
-          OPENCLAW_NO_RESPAWN: "1",
+          GRANTED_ALLOW_INSECURE_PRIVATE_WS: suppliedEnv.GRANTED_ALLOW_INSECURE_PRIVATE_WS,
+          GRANTED_NO_RESPAWN: "1",
           [suppliedPathKey]: suppliedEnv[suppliedPathKey],
         };
         const supervisor = createNodeWorkerSupervisor({ bundleRoot, env: suppliedEnv });
@@ -512,11 +512,11 @@ describe("node worker supervisor", () => {
 
         expect(workerEnv).toMatchObject(expectedWorkerEnv);
         expect(workerEnv).not.toHaveProperty("AMBIENT_SECRET");
-        expect(workerEnv).not.toHaveProperty("OPENCLAW_AMBIENT_SECRET");
-        expect(workerEnv).not.toHaveProperty("OPENCLAW_LAUNCHD_LABEL");
-        expect(workerEnv).not.toHaveProperty("OPENCLAW_SERVICE_KIND");
-        expect(workerEnv).not.toHaveProperty("OPENCLAW_STATE_DIR");
-        expect(workerEnv).not.toHaveProperty("OPENCLAW_SUPPLIED_SECRET");
+        expect(workerEnv).not.toHaveProperty("GRANTED_AMBIENT_SECRET");
+        expect(workerEnv).not.toHaveProperty("GRANTED_LAUNCHD_LABEL");
+        expect(workerEnv).not.toHaveProperty("GRANTED_SERVICE_KIND");
+        expect(workerEnv).not.toHaveProperty("GRANTED_STATE_DIR");
+        expect(workerEnv).not.toHaveProperty("GRANTED_SUPPLIED_SECRET");
         expect(workerEnv).not.toHaveProperty("NODE_DISABLE_COMPILE_CACHE");
         expect(workerEnv).not.toHaveProperty("NODE_OPTIONS");
         expect(workerEnv).not.toHaveProperty("BASH_ENV");

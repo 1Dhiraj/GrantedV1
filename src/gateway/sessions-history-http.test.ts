@@ -16,7 +16,7 @@ import {
 import { executeSqliteQuerySync, getNodeSqliteKysely } from "../infra/kysely-sync.js";
 import { emitSessionTranscriptUpdate } from "../sessions/transcript-events.js";
 import { persistUserTurnTranscript } from "../sessions/user-turn-transcript.test-support.js";
-import { OPENCLAW_TRANSCRIPT_ARTIFACT_API } from "../shared/transcript-only-openclaw-assistant.js";
+import { GRANTED_TRANSCRIPT_ARTIFACT_API } from "../shared/transcript-only-openclaw-assistant.js";
 import type { DB as OpenClawAgentKyselyDatabase } from "../state/openclaw-agent-db.generated.js";
 import { runOpenClawAgentWriteTransaction } from "../state/openclaw-agent-db.js";
 import { ensureProfileForEmail, setAvatar, setDisplayName } from "../state/user-profiles.js";
@@ -198,7 +198,7 @@ function makeDeliveryMirrorAssistantMessage(
       provider: "openclaw",
       model: "delivery-mirror",
     }),
-    api: OPENCLAW_TRANSCRIPT_ARTIFACT_API,
+    api: GRANTED_TRANSCRIPT_ARTIFACT_API,
   };
 }
 

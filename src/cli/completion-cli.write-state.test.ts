@@ -84,7 +84,7 @@ async function withIsolatedCompletionState(
       {
         HOME: homeDir,
         USERPROFILE: homeDir,
-        OPENCLAW_STATE_DIR: stateDir,
+        GRANTED_STATE_DIR: stateDir,
         XDG_CONFIG_HOME: undefined,
         ZDOTDIR: undefined,
         ...env,
@@ -414,7 +414,7 @@ describe("completion-cli write-state", () => {
     const homeDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-completion-home-"));
 
     try {
-      await withEnvAsync({ HOME: homeDir, OPENCLAW_STATE_DIR: stateDir }, async () => {
+      await withEnvAsync({ HOME: homeDir, GRANTED_STATE_DIR: stateDir }, async () => {
         const program = new Command();
         program.name("openclaw");
         registerCompletionCli(program);
@@ -454,7 +454,7 @@ describe("completion-cli write-state", () => {
 
     try {
       logging.setLoggerOverride({ level: "silent", consoleLevel: "info", consoleStyle: "json" });
-      await withEnvAsync({ HOME: homeDir, OPENCLAW_STATE_DIR: stateDir }, async () => {
+      await withEnvAsync({ HOME: homeDir, GRANTED_STATE_DIR: stateDir }, async () => {
         const program = new Command();
         program.name("openclaw");
         registerCompletionCli(program);
@@ -486,7 +486,7 @@ describe("completion-cli write-state", () => {
       await withEnvAsync(
         {
           HOME: homeDir,
-          OPENCLAW_STATE_DIR: stateDir,
+          GRANTED_STATE_DIR: stateDir,
           [COMPLETION_SKIP_PLUGIN_COMMANDS_ENV]: "1",
         },
         async () => {

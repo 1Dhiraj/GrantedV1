@@ -20,7 +20,7 @@ type WebKitNotificationsMessageHandler = {
 };
 
 type NativeNotificationsWindow = Window & {
-  __OPENCLAW_NATIVE_NOTIFICATIONS__?: unknown;
+  __GRANTED_NATIVE_NOTIFICATIONS__?: unknown;
   webkit?: {
     messageHandlers?: {
       openclawNotifications?: WebKitNotificationsMessageHandler;
@@ -87,7 +87,7 @@ export function createNativeNotificationsCapability(): NativeNotificationsCapabi
   }
 
   const nativeWindow = window as NativeNotificationsWindow;
-  let snapshot = snapshotFrom(nativeWindow["__OPENCLAW_NATIVE_NOTIFICATIONS__"]) ?? {
+  let snapshot = snapshotFrom(nativeWindow["__GRANTED_NATIVE_NOTIFICATIONS__"]) ?? {
     permission: "unknown" as const,
     test: null,
   };

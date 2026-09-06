@@ -156,14 +156,14 @@ describe("gateway usage and memory APIs", () => {
       const state = await createOpenClawTestState({
         label: "gateway-usage-memory-apis",
         env: {
-          OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-          OPENCLAW_SKIP_BROWSER_CONTROL_SERVER: "1",
-          OPENCLAW_SKIP_CANVAS_HOST: "1",
-          OPENCLAW_SKIP_CHANNELS: "1",
-          OPENCLAW_SKIP_CRON: "1",
-          OPENCLAW_SKIP_GMAIL_WATCHER: "1",
-          OPENCLAW_SKIP_PROVIDERS: "1",
-          OPENCLAW_TEST_MINIMAL_GATEWAY: "1",
+          GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+          GRANTED_SKIP_BROWSER_CONTROL_SERVER: "1",
+          GRANTED_SKIP_CANVAS_HOST: "1",
+          GRANTED_SKIP_CHANNELS: "1",
+          GRANTED_SKIP_CRON: "1",
+          GRANTED_SKIP_GMAIL_WATCHER: "1",
+          GRANTED_SKIP_PROVIDERS: "1",
+          GRANTED_TEST_MINIMAL_GATEWAY: "1",
         },
       });
       const config = {

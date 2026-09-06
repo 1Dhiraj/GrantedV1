@@ -26,12 +26,12 @@ type GatewayLogPaths = {
 
 // Restart logs capture supervisor handoff output when normal service logs are unavailable.
 function resolveGatewayLogPrefix(env: GatewayServiceEnv): string {
-  return env.OPENCLAW_LOG_PREFIX?.trim() || "gateway";
+  return env.GRANTED_LOG_PREFIX?.trim() || "gateway";
 }
 
 function resolveMacLaunchAgentLogPrefix(env: GatewayServiceEnv): string {
   return (
-    env.OPENCLAW_LOG_PREFIX?.trim() || `gateway${resolveGatewayProfileSuffix(env.OPENCLAW_PROFILE)}`
+    env.GRANTED_LOG_PREFIX?.trim() || `gateway${resolveGatewayProfileSuffix(env.GRANTED_PROFILE)}`
   );
 }
 

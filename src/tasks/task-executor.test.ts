@@ -48,7 +48,7 @@ import {
   setTaskRegistryDeliveryRuntimeForTests,
 } from "./task-runtime.test-helpers.js";
 
-const ORIGINAL_ENV = captureEnv(["OPENCLAW_STATE_DIR"]);
+const ORIGINAL_ENV = captureEnv(["GRANTED_STATE_DIR"]);
 
 function createQueuedTaskRun(params: Parameters<typeof createQueuedTaskRunOrNull>[0]): TaskRecord {
   const task = createQueuedTaskRunOrNull(params);

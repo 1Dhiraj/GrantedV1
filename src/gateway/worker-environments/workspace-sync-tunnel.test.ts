@@ -308,7 +308,7 @@ describe("worker tunnel manager", () => {
       const fakeRsync = path.join(bin, "rsync");
       await fs.writeFile(
         fakeRsync,
-        '#!/bin/sh\nset -eu\nprintf \'%s\\n\' "$$" > "$OPENCLAW_TEST_RECEIVER_MARKER"\nread -r _ < "$OPENCLAW_TEST_RECEIVER_GATE"\nprintf \'late stale write\\n\' > "$OPENCLAW_TEST_RECEIVER_WORKSPACE/stale-late.txt"\n',
+        '#!/bin/sh\nset -eu\nprintf \'%s\\n\' "$$" > "$GRANTED_TEST_RECEIVER_MARKER"\nread -r _ < "$GRANTED_TEST_RECEIVER_GATE"\nprintf \'late stale write\\n\' > "$GRANTED_TEST_RECEIVER_WORKSPACE/stale-late.txt"\n',
         { mode: 0o755 },
       );
 
@@ -378,10 +378,10 @@ describe("worker tunnel manager", () => {
             env: {
               ...process.env,
               HOME: canonicalRemoteHome,
-              OPENCLAW_TEST_RECEIVER_PATH: `${bin}:${process.env.PATH ?? ""}`,
-              OPENCLAW_TEST_RECEIVER_GATE: receiverGate,
-              OPENCLAW_TEST_RECEIVER_MARKER: receiverMarker,
-              OPENCLAW_TEST_RECEIVER_WORKSPACE: remoteWorkspaceDir,
+              GRANTED_TEST_RECEIVER_PATH: `${bin}:${process.env.PATH ?? ""}`,
+              GRANTED_TEST_RECEIVER_GATE: receiverGate,
+              GRANTED_TEST_RECEIVER_MARKER: receiverMarker,
+              GRANTED_TEST_RECEIVER_WORKSPACE: remoteWorkspaceDir,
             },
             stdio: ["ignore", "ignore", "pipe"],
           });

@@ -21,9 +21,9 @@ const provider = vi.hoisted(() => ({
 let previousStateDir: string | undefined;
 
 function configPath(): string {
-  const stateDir = process.env.OPENCLAW_STATE_DIR;
+  const stateDir = process.env.GRANTED_STATE_DIR;
   if (!stateDir) {
-    throw new Error("OPENCLAW_STATE_DIR is required");
+    throw new Error("GRANTED_STATE_DIR is required");
   }
   return path.join(stateDir, "openclaw.json");
 }
@@ -87,7 +87,7 @@ function runtime(): RuntimeEnv {
 
 describe("non-interactive migration onboarding", () => {
   beforeEach(() => {
-    previousStateDir = process.env.OPENCLAW_STATE_DIR;
+    previousStateDir = process.env.GRANTED_STATE_DIR;
     configStore.clear();
     ensureWorkspaceAndSessions.mockClear();
     provider.plan.mockReset();
@@ -96,9 +96,9 @@ describe("non-interactive migration onboarding", () => {
 
   afterEach(() => {
     if (previousStateDir === undefined) {
-      delete process.env.OPENCLAW_STATE_DIR;
+      delete process.env.GRANTED_STATE_DIR;
     } else {
-      process.env.OPENCLAW_STATE_DIR = previousStateDir;
+      process.env.GRANTED_STATE_DIR = previousStateDir;
     }
   });
 
@@ -108,7 +108,7 @@ describe("non-interactive migration onboarding", () => {
     const workspace = path.join(stateDir, "workspace");
     await fs.mkdir(source, { recursive: true });
     await fs.writeFile(path.join(source, "AGENTS.md"), "Imported agents.\n", "utf8");
-    process.env.OPENCLAW_STATE_DIR = stateDir;
+    process.env.GRANTED_STATE_DIR = stateDir;
 
     provider.plan.mockImplementation(async (ctx): Promise<MigrationPlan> => {
       const configuredWorkspace = ctx.config.agents?.defaults?.workspace;

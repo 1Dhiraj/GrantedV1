@@ -63,10 +63,10 @@ function registryFixture(root: string, scenario: Scenario): NodeJS.ProcessEnv {
     }),
   );
   return {
-    OPENCLAW_PREPUBLISH_PLUGIN_REGISTRY_DIR: artifactDir,
-    OPENCLAW_DOCKER_E2E_SELECTED_SHA: sourceSha,
-    OPENCLAW_PREPUBLISH_PLUGIN_REGISTRY_CANDIDATE_VERSION: version,
-    OPENCLAW_PREPUBLISH_PLUGIN_REGISTRY_MANIFEST_SHA256: sha256(manifest),
+    GRANTED_PREPUBLISH_PLUGIN_REGISTRY_DIR: artifactDir,
+    GRANTED_DOCKER_E2E_SELECTED_SHA: sourceSha,
+    GRANTED_PREPUBLISH_PLUGIN_REGISTRY_CANDIDATE_VERSION: version,
+    GRANTED_PREPUBLISH_PLUGIN_REGISTRY_MANIFEST_SHA256: sha256(manifest),
   };
 }
 
@@ -124,7 +124,7 @@ if (help) {
   if (!current) installChannelDependency();
 }
 function dependencyPath() {
-  const dep = { telegram: "grammy", discord: "discord-api-types", slack: "@slack/bolt" }[env.OPENCLAW_NPM_ONBOARD_CHANNEL];
+  const dep = { telegram: "grammy", discord: "discord-api-types", slack: "@slack/bolt" }[env.GRANTED_NPM_ONBOARD_CHANNEL];
   return path.join(env.HOME, ".openclaw/node_modules", dep, "package.json");
 }
 function installChannelDependency() {
@@ -161,7 +161,7 @@ openclaw_e2e_wait_mock_openai() { :; }
 `;
   const registryEnv = scenario.registry ? registryFixture(root, scenario) : {};
   if (scenario.corruptRegistry) {
-    registryEnv.OPENCLAW_PREPUBLISH_PLUGIN_REGISTRY_MANIFEST_SHA256 = "0".repeat(64);
+    registryEnv.GRANTED_PREPUBLISH_PLUGIN_REGISTRY_MANIFEST_SHA256 = "0".repeat(64);
   }
   const commandPath = [bin, dirname(process.execPath), process.env.PATH]
     .filter(Boolean)
@@ -172,7 +172,7 @@ openclaw_e2e_wait_mock_openai() { :; }
     timeout: 20_000,
     env: {
       HOME: home,
-      OPENCLAW_HOME: home,
+      GRANTED_HOME: home,
       PATH: commandPath,
       TMPDIR: root,
       REAL_NODE: process.execPath,
@@ -183,11 +183,11 @@ openclaw_e2e_wait_mock_openai() { :; }
       BUNDLED: bundled ? "1" : "0",
       HELP_FAILURE: scenario.helpFailure ?? "",
       FAIL_PROBE: scenario.helpFailure ? String(scenario.failProbe ?? 1) : "0",
-      OPENCLAW_E2E_COMMAND_TIMEOUT: scenario.helpFailure === "timeout" ? "1s" : "5s",
-      OPENCLAW_E2E_TIMEOUT_KILL_GRACE_MS: "10",
-      OPENCLAW_NPM_ONBOARD_CHANNEL: channel,
-      OPENCLAW_NPM_ONBOARD_USE_SOURCE_PLUGIN_PACKAGE: scenario.sourcePlugin ? "1" : "0",
-      OPENCLAW_TEST_STATE_SCRIPT_B64: Buffer.from(testState).toString("base64"),
+      GRANTED_E2E_COMMAND_TIMEOUT: scenario.helpFailure === "timeout" ? "1s" : "5s",
+      GRANTED_E2E_TIMEOUT_KILL_GRACE_MS: "10",
+      GRANTED_NPM_ONBOARD_CHANNEL: channel,
+      GRANTED_NPM_ONBOARD_USE_SOURCE_PLUGIN_PACKAGE: scenario.sourcePlugin ? "1" : "0",
+      GRANTED_TEST_STATE_SCRIPT_B64: Buffer.from(testState).toString("base64"),
       ...registryEnv,
     },
   });
@@ -296,7 +296,7 @@ describe("npm onboarding fixture consent", () => {
     const { result, events, detail } = runScenario({ ...scenario, sourcePlugin: true });
     expect(result.status, detail).not.toBe(0);
     expect(detail).toContain(
-      "source channel fixture requires OPENCLAW_PREPUBLISH_PLUGIN_REGISTRY_DIR",
+      "source channel fixture requires GRANTED_PREPUBLISH_PLUGIN_REGISTRY_DIR",
     );
     expect(events).toEqual([]);
   });

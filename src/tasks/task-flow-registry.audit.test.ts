@@ -23,7 +23,7 @@ import {
   resetTaskFlowRegistryForTests,
 } from "./task-runtime.test-helpers.js";
 
-const ORIGINAL_ENV = captureEnv(["OPENCLAW_STATE_DIR"]);
+const ORIGINAL_ENV = captureEnv(["GRANTED_STATE_DIR"]);
 
 function createManagedTaskFlow(
   params: Parameters<typeof createManagedTaskFlowOrNull>[0],

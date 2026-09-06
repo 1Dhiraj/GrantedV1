@@ -104,13 +104,13 @@ function withRedactionDisabledConfig(): () => void {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), "copilot-redact-off-"));
   const configPath = path.join(dir, "openclaw.json");
   fs.writeFileSync(configPath, JSON.stringify({ logging: { redactSensitive: "off" } }));
-  const previous = process.env.OPENCLAW_CONFIG_PATH;
-  process.env.OPENCLAW_CONFIG_PATH = configPath;
+  const previous = process.env.GRANTED_CONFIG_PATH;
+  process.env.GRANTED_CONFIG_PATH = configPath;
   return () => {
     if (previous === undefined) {
-      delete process.env.OPENCLAW_CONFIG_PATH;
+      delete process.env.GRANTED_CONFIG_PATH;
     } else {
-      process.env.OPENCLAW_CONFIG_PATH = previous;
+      process.env.GRANTED_CONFIG_PATH = previous;
     }
     fs.rmSync(dir, { recursive: true, force: true });
   };

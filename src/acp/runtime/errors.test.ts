@@ -32,7 +32,7 @@ describe("ACP runtime error redaction", () => {
     const providerToken = `ghp_${"a".repeat(20)}`;
     const customSecret = "internal-ticket-12345";
 
-    const output = withEnv({ OPENCLAW_CONFIG_PATH: configPath }, () =>
+    const output = withEnv({ GRANTED_CONFIG_PATH: configPath }, () =>
       formatAcpErrorChain(
         new AcpRuntimeError("ACP_TURN_FAILED", `backend failed: ${providerToken} ${customSecret}`),
       ),

@@ -373,12 +373,12 @@ describe("plugin cron registry ownership e2e", () => {
         name: "cron-selected-provider",
         config,
         env: {
-          OPENCLAW_BUNDLED_PLUGINS_DIR: bundledRoot,
-          OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR: "1",
-          OPENCLAW_DISABLE_BUNDLED_PLUGINS: undefined,
-          OPENCLAW_SKIP_CRON: undefined,
-          OPENCLAW_SKIP_PROVIDERS: undefined,
-          OPENCLAW_TEST_MINIMAL_GATEWAY: undefined,
+          GRANTED_BUNDLED_PLUGINS_DIR: bundledRoot,
+          GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR: "1",
+          GRANTED_DISABLE_BUNDLED_PLUGINS: undefined,
+          GRANTED_SKIP_CRON: undefined,
+          GRANTED_SKIP_PROVIDERS: undefined,
+          GRANTED_TEST_MINIMAL_GATEWAY: undefined,
         },
       });
       instances.push(instance);
@@ -557,12 +557,12 @@ describe("plugin cron registry ownership e2e", () => {
         port: customPort,
         config,
         env: {
-          OPENCLAW_BUNDLED_PLUGINS_DIR: bundledRoot,
-          OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR: "1",
-          OPENCLAW_DISABLE_BUNDLED_PLUGINS: undefined,
-          OPENCLAW_SKIP_CRON: undefined,
-          OPENCLAW_SKIP_PROVIDERS: undefined,
-          OPENCLAW_TEST_MINIMAL_GATEWAY: undefined,
+          GRANTED_BUNDLED_PLUGINS_DIR: bundledRoot,
+          GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR: "1",
+          GRANTED_DISABLE_BUNDLED_PLUGINS: undefined,
+          GRANTED_SKIP_CRON: undefined,
+          GRANTED_SKIP_PROVIDERS: undefined,
+          GRANTED_TEST_MINIMAL_GATEWAY: undefined,
         },
       });
       instances.push(instance);

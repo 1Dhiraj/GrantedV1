@@ -153,8 +153,8 @@ const mocks = vi.hoisted(() => ({
 const testHome = withIsolatedTestHome({ mode: "hermetic" });
 const testEnv: NodeJS.ProcessEnv = {
   HOME: testHome.tempHome,
-  OPENCLAW_HOME: testHome.tempHome,
-  OPENCLAW_STATE_DIR: path.join(testHome.tempHome, ".openclaw"),
+  GRANTED_HOME: testHome.tempHome,
+  GRANTED_STATE_DIR: path.join(testHome.tempHome, ".openclaw"),
 };
 afterAll(() => {
   closeOpenClawStateDatabaseByPath(resolveOpenClawStateSqlitePath(testEnv));
@@ -685,7 +685,7 @@ describe("repairMissingConfiguredPluginInstalls", () => {
       const { runPostCorePluginConvergence } = await import("./post-core-plugin-convergence.js");
       const convergence = await runPostCorePluginConvergence({
         cfg: { plugins: { entries: { demo: { enabled: true }, other: { enabled: true } } } },
-        env: { OPENCLAW_STATE_DIR: path.join(root, "state") },
+        env: { GRANTED_STATE_DIR: path.join(root, "state") },
         baselineInstallRecords: records,
         onCapabilityConsent,
       });
@@ -810,7 +810,7 @@ describe("repairMissingConfiguredPluginInstalls", () => {
         cfg,
         env: {
           ...testEnv,
-          ...(source === "npm-existing" ? { OPENCLAW_UPDATE_POST_CORE_CONVERGENCE: "1" } : {}),
+          ...(source === "npm-existing" ? { GRANTED_UPDATE_POST_CORE_CONVERGENCE: "1" } : {}),
         },
         ...(accepted ? { onCapabilityConsent: consent } : {}),
       });
@@ -841,7 +841,7 @@ describe("repairMissingConfiguredPluginInstalls", () => {
       const { runPostCorePluginConvergence } = await import("./post-core-plugin-convergence.js");
       const convergence = await runPostCorePluginConvergence({
         cfg,
-        env: { OPENCLAW_STATE_DIR: path.join(root, "state") },
+        env: { GRANTED_STATE_DIR: path.join(root, "state") },
         baselineInstallRecords: {},
         ...(accepted ? { onCapabilityConsent: consent } : {}),
       });
@@ -1093,8 +1093,8 @@ describe("repairMissingConfiguredPluginInstalls", () => {
       },
       env: {
         ...testEnv,
-        OPENCLAW_UPDATE_IN_PROGRESS: "1",
-        OPENCLAW_UPDATE_DEFER_CONFIGURED_PLUGIN_INSTALL_REPAIR: "1",
+        GRANTED_UPDATE_IN_PROGRESS: "1",
+        GRANTED_UPDATE_DEFER_CONFIGURED_PLUGIN_INSTALL_REPAIR: "1",
       },
     });
 
@@ -2143,8 +2143,8 @@ describe("repairMissingConfiguredPluginInstalls", () => {
       },
       env: {
         ...testEnv,
-        OPENCLAW_UPDATE_IN_PROGRESS: "1",
-        OPENCLAW_UPDATE_DEFER_CONFIGURED_PLUGIN_INSTALL_REPAIR: "1",
+        GRANTED_UPDATE_IN_PROGRESS: "1",
+        GRANTED_UPDATE_DEFER_CONFIGURED_PLUGIN_INSTALL_REPAIR: "1",
       },
     });
 
@@ -2206,7 +2206,7 @@ describe("repairMissingConfiguredPluginInstalls", () => {
           discord: { enabled: true },
         },
       },
-      env: { ...testEnv, OPENCLAW_UPDATE_POST_CORE_CONVERGENCE: "1" },
+      env: { ...testEnv, GRANTED_UPDATE_POST_CORE_CONVERGENCE: "1" },
     });
 
     expect(mocks.installPluginFromClawHub).not.toHaveBeenCalled();
@@ -2268,7 +2268,7 @@ describe("repairMissingConfiguredPluginInstalls", () => {
       await import("./missing-configured-plugin-install.js");
     const result = await repairMissingConfiguredPluginInstalls({
       cfg,
-      env: { ...testEnv, OPENCLAW_UPDATE_POST_CORE_CONVERGENCE: "1" },
+      env: { ...testEnv, GRANTED_UPDATE_POST_CORE_CONVERGENCE: "1" },
     });
 
     expect(mocks.installPluginFromNpmSpec).toHaveBeenCalledTimes(2);
@@ -2392,8 +2392,8 @@ describe("repairMissingConfiguredPluginInstalls", () => {
         cfg: { update: { channel }, plugins: { entries: { codex: { enabled: true } } } },
         env: {
           ...testEnv,
-          OPENCLAW_UPDATE_POST_CORE_CONVERGENCE: "1",
-          OPENCLAW_COMPATIBILITY_HOST_VERSION: coreVersion,
+          GRANTED_UPDATE_POST_CORE_CONVERGENCE: "1",
+          GRANTED_COMPATIBILITY_HOST_VERSION: coreVersion,
         },
         onCapabilityConsent: consent,
       });
@@ -2478,8 +2478,8 @@ describe("repairMissingConfiguredPluginInstalls", () => {
       },
       env: {
         ...testEnv,
-        OPENCLAW_COMPATIBILITY_HOST_VERSION: "2026.5.19",
-        OPENCLAW_UPDATE_POST_CORE_CONVERGENCE: "1",
+        GRANTED_COMPATIBILITY_HOST_VERSION: "2026.5.19",
+        GRANTED_UPDATE_POST_CORE_CONVERGENCE: "1",
       },
     });
 
@@ -2487,8 +2487,8 @@ describe("repairMissingConfiguredPluginInstalls", () => {
       spec: expectedClawHubInstallSpec("clawhub:@openclaw/whatsapp"),
       env: {
         ...testEnv,
-        OPENCLAW_COMPATIBILITY_HOST_VERSION: "2026.5.19",
-        OPENCLAW_UPDATE_POST_CORE_CONVERGENCE: "1",
+        GRANTED_COMPATIBILITY_HOST_VERSION: "2026.5.19",
+        GRANTED_UPDATE_POST_CORE_CONVERGENCE: "1",
       },
       mode: "install",
     });
@@ -2502,7 +2502,7 @@ describe("repairMissingConfiguredPluginInstalls", () => {
     });
   });
 
-  it("repairs missing external payload during post-core convergence even with OPENCLAW_UPDATE_IN_PROGRESS=1", async () => {
+  it("repairs missing external payload during post-core convergence even with GRANTED_UPDATE_IN_PROGRESS=1", async () => {
     const records = {
       discord: {
         source: "npm",
@@ -2542,8 +2542,8 @@ describe("repairMissingConfiguredPluginInstalls", () => {
       },
       env: {
         ...testEnv,
-        OPENCLAW_UPDATE_IN_PROGRESS: "1",
-        OPENCLAW_UPDATE_POST_CORE_CONVERGENCE: "1",
+        GRANTED_UPDATE_IN_PROGRESS: "1",
+        GRANTED_UPDATE_POST_CORE_CONVERGENCE: "1",
       },
     });
 
@@ -2586,8 +2586,8 @@ describe("repairMissingConfiguredPluginInstalls", () => {
       },
       env: {
         ...testEnv,
-        OPENCLAW_UPDATE_IN_PROGRESS: "1",
-        OPENCLAW_UPDATE_DEFER_CONFIGURED_PLUGIN_INSTALL_REPAIR: "1",
+        GRANTED_UPDATE_IN_PROGRESS: "1",
+        GRANTED_UPDATE_DEFER_CONFIGURED_PLUGIN_INSTALL_REPAIR: "1",
       },
     });
 
@@ -2629,8 +2629,8 @@ describe("repairMissingConfiguredPluginInstalls", () => {
       },
       env: {
         ...testEnv,
-        OPENCLAW_UPDATE_IN_PROGRESS: "1",
-        OPENCLAW_UPDATE_DEFER_CONFIGURED_PLUGIN_INSTALL_REPAIR: "1",
+        GRANTED_UPDATE_IN_PROGRESS: "1",
+        GRANTED_UPDATE_DEFER_CONFIGURED_PLUGIN_INSTALL_REPAIR: "1",
       },
     });
 
@@ -2671,7 +2671,7 @@ describe("repairMissingConfiguredPluginInstalls", () => {
           discord: { enabled: true, token: "secret" },
         },
       },
-      env: { ...testEnv, OPENCLAW_UPDATE_IN_PROGRESS: "1" },
+      env: { ...testEnv, GRANTED_UPDATE_IN_PROGRESS: "1" },
     });
 
     expect(mocks.installPluginFromNpmSpec).toHaveBeenCalledTimes(1);
@@ -2716,7 +2716,7 @@ describe("repairMissingConfiguredPluginInstalls", () => {
           whatsapp: { enabled: true, allowFrom: ["+15555550123"] },
         },
       },
-      env: { ...testEnv, OPENCLAW_UPDATE_IN_PROGRESS: "1" },
+      env: { ...testEnv, GRANTED_UPDATE_IN_PROGRESS: "1" },
     });
 
     expect(mocks.installPluginFromClawHub).not.toHaveBeenCalled();
@@ -2754,7 +2754,7 @@ describe("repairMissingConfiguredPluginInstalls", () => {
           matrix: { enabled: true, homeserver: "https://matrix.example.org" },
         },
       },
-      env: { ...testEnv, OPENCLAW_UPDATE_IN_PROGRESS: "1" },
+      env: { ...testEnv, GRANTED_UPDATE_IN_PROGRESS: "1" },
     });
 
     expectRecordFields(mockCallArg(mocks.installPluginFromClawHub), {
@@ -3553,7 +3553,7 @@ describe("repairMissingConfiguredPluginInstalls", () => {
       },
       {},
     ],
-    ["environment runtime override", {}, { OPENCLAW_AGENT_RUNTIME: "codex" }],
+    ["environment runtime override", {}, { GRANTED_AGENT_RUNTIME: "codex" }],
   ])("ignores legacy whole-agent Codex runtime selected by %s", async (_label, cfg, env) => {
     mocks.listOfficialExternalPluginCatalogEntries.mockReturnValue([
       {
@@ -4117,7 +4117,7 @@ describe("repairMissingConfiguredPluginInstalls", () => {
             discord: { enabled: true },
           },
         },
-        env: { OPENCLAW_STATE_DIR: path.join(root, "state") },
+        env: { GRANTED_STATE_DIR: path.join(root, "state") },
         onCapabilityConsent,
       });
 
@@ -4138,7 +4138,7 @@ describe("repairMissingConfiguredPluginInstalls", () => {
       });
       expect(mockCallArg(mocks.writePersistedInstalledPluginIndexInstallRecords, 0, 1)).toEqual({
         config: expect.any(Object),
-        env: { OPENCLAW_STATE_DIR: path.join(root, "state") },
+        env: { GRANTED_STATE_DIR: path.join(root, "state") },
       });
       expect(result.changes).toEqual([
         `Installed missing configured plugin "discord" from ${expectedNpmInstallSpec("@openclaw/discord")}.`,

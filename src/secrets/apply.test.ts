@@ -137,8 +137,8 @@ async function createApplyFixture(): Promise<ApplyFixture> {
   return {
     ...paths,
     env: {
-      OPENCLAW_STATE_DIR: paths.stateDir,
-      OPENCLAW_CONFIG_PATH: paths.configPath,
+      GRANTED_STATE_DIR: paths.stateDir,
+      GRANTED_CONFIG_PATH: paths.configPath,
       OPENAI_API_KEY: "sk-live-env", // pragma: allowlist secret
     },
   };
@@ -417,7 +417,7 @@ describe("secrets apply", () => {
     const ambientStateDir = path.join(fixture.rootDir, "ambient-state");
     const ambientMainDir = path.join(ambientStateDir, "agents", "main", "agent");
     const ambientOpsDir = path.join(ambientStateDir, "agents", "ops", "agent");
-    vi.stubEnv("OPENCLAW_STATE_DIR", ambientStateDir);
+    vi.stubEnv("GRANTED_STATE_DIR", ambientStateDir);
     saveAuthProfileStore(
       {
         version: 1,
@@ -695,9 +695,9 @@ describe("secrets apply", () => {
   it("preserves relocated shared inheritance when applying an agent SecretRef", async () => {
     const sharedDir = path.join(fixture.rootDir, "relocated-shared");
     const agentDir = path.join(fixture.rootDir, "ops-agent");
-    fixture.env.OPENCLAW_AGENT_DIR = sharedDir;
-    vi.stubEnv("OPENCLAW_STATE_DIR", fixture.stateDir);
-    vi.stubEnv("OPENCLAW_AGENT_DIR", sharedDir);
+    fixture.env.GRANTED_AGENT_DIR = sharedDir;
+    vi.stubEnv("GRANTED_STATE_DIR", fixture.stateDir);
+    vi.stubEnv("GRANTED_AGENT_DIR", sharedDir);
     noteCommittedSharedAuthStoreOwnership({ location: "legacy-main" }, fixture.env);
     const shared: AuthProfileStore = {
       version: 1,
@@ -1770,7 +1770,7 @@ describe("secrets apply", () => {
   });
 
   it("scrubs .env in legacy .clawdbot state directory via automatic fallback", async () => {
-    // Do NOT set OPENCLAW_STATE_DIR — rely on resolveStateDir's automatic
+    // Do NOT set GRANTED_STATE_DIR — rely on resolveStateDir's automatic
     // legacy-directory fallback. A controlled HOME that contains only
     // .clawdbot (no .openclaw) exercises the scrub path so the old
     // resolveConfigDir call (which always returns $HOME/.openclaw) would
@@ -1945,7 +1945,7 @@ describe("secrets apply", () => {
     await fs.mkdir(configDir, { recursive: true });
     await fs.copyFile(fixture.configPath, configPath);
     await fs.copyFile(fixture.envPath, configEnvPath);
-    fixture.env.OPENCLAW_CONFIG_PATH = configPath;
+    fixture.env.GRANTED_CONFIG_PATH = configPath;
 
     const applied = await runSecretsApply({
       plan: createPlan({

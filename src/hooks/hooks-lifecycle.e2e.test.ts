@@ -116,11 +116,11 @@ async function createHookPackFixture() {
     ...process.env,
     HOME: homeDir,
     USERPROFILE: homeDir,
-    OPENCLAW_CONFIG_PATH: configPath,
-    OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-    OPENCLAW_HOME: homeDir,
-    OPENCLAW_STATE_DIR: stateDir,
-    OPENCLAW_TEST_FAST: "1",
+    GRANTED_CONFIG_PATH: configPath,
+    GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+    GRANTED_HOME: homeDir,
+    GRANTED_STATE_DIR: stateDir,
+    GRANTED_TEST_FAST: "1",
     VITEST: "",
   };
 

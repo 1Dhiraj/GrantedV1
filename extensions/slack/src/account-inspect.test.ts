@@ -170,7 +170,7 @@ describe("inspectSlackAccount", () => {
             botToken: {
               source: "env",
               provider: "default",
-              id: "OPENCLAW_TEST_MISSING_SLACK_BOT_TOKEN",
+              id: "GRANTED_TEST_MISSING_SLACK_BOT_TOKEN",
             },
             appToken: "test-app-token",
           },
@@ -200,7 +200,7 @@ describe("inspectSlackAccount", () => {
             userToken: {
               source: "env",
               provider: "default",
-              id: "OPENCLAW_TEST_MISSING_OPTIONAL_SLACK_USER_TOKEN",
+              id: "GRANTED_TEST_MISSING_OPTIONAL_SLACK_USER_TOKEN",
             },
           },
         },
@@ -227,7 +227,7 @@ describe("inspectSlackAccount", () => {
             botToken: {
               source: "env",
               provider: "default",
-              id: "OPENCLAW_TEST_MISSING_REQUIRED_SLACK_BOT_TOKEN",
+              id: "GRANTED_TEST_MISSING_REQUIRED_SLACK_BOT_TOKEN",
             },
           },
         },

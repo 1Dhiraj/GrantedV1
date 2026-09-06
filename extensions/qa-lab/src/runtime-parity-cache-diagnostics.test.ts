@@ -27,7 +27,7 @@ async function seedRuntimeParityCacheTranscript(messages: Array<Record<string, u
   const agentId = "qa";
   const sessionId = "runtime-parity-cache-miss";
   const sessionKey = "agent:qa:runtime-parity-cache-miss";
-  const env = { ...process.env, OPENCLAW_STATE_DIR: path.join(tempRoot, "state") };
+  const env = { ...process.env, GRANTED_STATE_DIR: path.join(tempRoot, "state") };
   const storePath = resolveStorePath(undefined, { agentId, env });
   await upsertSessionEntry({
     agentId,

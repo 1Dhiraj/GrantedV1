@@ -437,7 +437,7 @@ async function runQaTestFileSuiteFromRuntime(params: {
         ? {
             // The owning QA process already loaded the prepared runtime. Native
             // child setup must not clean or rebuild those files under live gateways.
-            env: { OPENCLAW_E2E_USE_PREBUILT_DIST: "1" },
+            env: { GRANTED_E2E_USE_PREBUILT_DIST: "1" },
           }
         : {}),
     ...(runParams?.failFast ? { failFast: true } : {}),

@@ -7,7 +7,7 @@ import {
   type SessionTranscriptRuntimeTarget,
 } from "../../config/sessions/session-accessor.js";
 import { projectPublicSessionEntry } from "../../config/sessions/session-entry-projection.js";
-import { OPENCLAW_EMBEDDED_CONTEXT_ENGINE_HOST } from "../../context-engine/host-compat.js";
+import { GRANTED_EMBEDDED_CONTEXT_ENGINE_HOST } from "../../context-engine/host-compat.js";
 import { ensureContextEnginesInitialized } from "../../context-engine/init.js";
 import {
   resolveContextEngine,
@@ -558,7 +558,7 @@ async function compactResolvedContextEngine(
     contextEnginePluginId: resolveContextEngineOwnerPluginId(contextEngine),
   });
   const contextEngineRuntimeSettings = buildContextEngineRuntimeSettings({
-    contextEngineHost: OPENCLAW_EMBEDDED_CONTEXT_ENGINE_HOST,
+    contextEngineHost: GRANTED_EMBEDDED_CONTEXT_ENGINE_HOST,
     provider: ceProvider,
     requestedModel: params.model,
     resolvedModel: ceModelId,

@@ -4,7 +4,7 @@ import { expect } from "vitest";
 import { createControlUiE2eArtifactDir } from "../test-helpers/control-ui-e2e-artifacts.ts";
 
 export const agentFileProofDir =
-  process.env.OPENCLAW_CAPTURE_UI_PROOF === "1"
+  process.env.GRANTED_CAPTURE_UI_PROOF === "1"
     ? createControlUiE2eArtifactDir("agent-file-lifecycle")
     : undefined;
 

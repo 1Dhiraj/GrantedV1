@@ -169,7 +169,7 @@ describe("Control UI Vite build", () => {
     }
     const serviceWorker = await fs.readFile(path.join(outDir, "sw.js"), "utf8");
     const embeddedBuildId = /const EMBEDDED_CACHE_VERSION = "([^"]+)"/u.exec(serviceWorker)?.[1];
-    const buildInfo = JSON.parse(config.define?.["globalThis.OPENCLAW_CONTROL_UI_BUILD_INFO"]);
+    const buildInfo = JSON.parse(config.define?.["globalThis.GRANTED_CONTROL_UI_BUILD_INFO"]);
     expect(embeddedBuildId).toBe(buildInfo.buildId);
   });
 

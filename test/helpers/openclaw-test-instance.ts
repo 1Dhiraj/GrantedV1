@@ -422,15 +422,15 @@ function createInstanceEnv(params: {
 }): NodeJS.ProcessEnv {
   const env: NodeJS.ProcessEnv = {
     ...params.stateEnv,
-    OPENCLAW_GATEWAY_TOKEN: "",
-    OPENCLAW_GATEWAY_PASSWORD: "",
-    OPENCLAW_SKIP_CHANNELS: "1",
-    OPENCLAW_SKIP_PROVIDERS: "1",
-    OPENCLAW_SKIP_GMAIL_WATCHER: "1",
-    OPENCLAW_SKIP_CRON: "1",
-    OPENCLAW_SKIP_BROWSER_CONTROL_SERVER: "1",
-    OPENCLAW_SKIP_CANVAS_HOST: "1",
-    OPENCLAW_TEST_MINIMAL_GATEWAY: "1",
+    GRANTED_GATEWAY_TOKEN: "",
+    GRANTED_GATEWAY_PASSWORD: "",
+    GRANTED_SKIP_CHANNELS: "1",
+    GRANTED_SKIP_PROVIDERS: "1",
+    GRANTED_SKIP_GMAIL_WATCHER: "1",
+    GRANTED_SKIP_CRON: "1",
+    GRANTED_SKIP_BROWSER_CONTROL_SERVER: "1",
+    GRANTED_SKIP_CANVAS_HOST: "1",
+    GRANTED_TEST_MINIMAL_GATEWAY: "1",
     VITEST: "1",
   };
   for (const [key, value] of Object.entries(params.extraEnv)) {

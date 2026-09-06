@@ -29,7 +29,7 @@ function createCompletionProgram(): Command {
   program.option("-v, --verbose", "Verbose output");
   program.option(
     "--status-json",
-    "Output JSON (alias for `models status --json`) in $OPENCLAW_STATE_DIR",
+    "Output JSON (alias for `models status --json`) in $GRANTED_STATE_DIR",
   );
 
   const gateway = program.command("gateway").description("Gateway commands");
@@ -71,18 +71,18 @@ describe("completion-cli", () => {
     expect(script).toContain("(restart) _openclaw_gateway_restart ;;");
     expect(script).toContain("--force[Force the action]");
     expect(script).toContain("\\`models status --json\\`");
-    expect(script).toContain("\\$OPENCLAW_STATE_DIR");
+    expect(script).toContain("\\$GRANTED_STATE_DIR");
   });
 
   it("escapes zsh option descriptions for double-quoted arguments specs", () => {
     const program = new Command()
       .name("openclaw")
-      .option("--literal", "Use $OPENCLAW_STATE_DIR with `model/list` and John's profile");
+      .option("--literal", "Use $GRANTED_STATE_DIR with `model/list` and John's profile");
 
     const script = getCompletionScript("zsh", program);
 
     expect(script).toContain(
-      "--literal[Use \\$OPENCLAW_STATE_DIR with \\`model/list\\` and John's profile]",
+      "--literal[Use \\$GRANTED_STATE_DIR with \\`model/list\\` and John's profile]",
     );
     expect(script).not.toContain("John'\\''s");
   });
@@ -110,7 +110,7 @@ describe("completion-cli", () => {
           .command("inspect")
           .alias("review")
           .description(
-            'Show John\'s "literal" $OPENCLAW_COMPLETION_LITERAL with `models auth list`',
+            'Show John\'s "literal" $GRANTED_COMPLETION_LITERAL with `models auth list`',
           );
         completionFunction = scope === "nested" ? "_openclaw_parent" : "_openclaw_root_completion";
       }
@@ -120,8 +120,8 @@ describe("completion-cli", () => {
         [
           "-fc",
           `${getCompletionScript("zsh", program)}
-OPENCLAW_COMPLETION_LITERAL=expanded-value
-models() { printf '%s\\n' "OPENCLAW_COMPLETION_DESCRIPTION_EVALUATED:$*" >&2; }
+GRANTED_COMPLETION_LITERAL=expanded-value
+models() { printf '%s\\n' "GRANTED_COMPLETION_DESCRIPTION_EVALUATED:$*" >&2; }
 _arguments() {
   local spec
   for spec in "$@"; do
@@ -172,8 +172,8 @@ ${completionFunction}
           "two words",
           'say "hello"',
           "it's literal",
-          "literal $(printf OPENCLAW_COMPLETION_VALUE_EXECUTED >&2)",
-          "literal `printf OPENCLAW_COMPLETION_VALUE_EXECUTED >&2`",
+          "literal $(printf GRANTED_COMPLETION_VALUE_EXECUTED >&2)",
+          "literal `printf GRANTED_COMPLETION_VALUE_EXECUTED >&2`",
         ]),
       );
 
@@ -199,7 +199,7 @@ _openclaw_root_completion
       expect(result.status).toBe(0);
       expect(result.stdout).toContain("two\\ words");
       expect(result.stdout).toContain('say\\ \\"hello\\"');
-      expect(result.stdout).toContain("OPENCLAW_COMPLETION_VALUE_EXECUTED");
+      expect(result.stdout).toContain("GRANTED_COMPLETION_VALUE_EXECUTED");
     },
   );
 
@@ -381,17 +381,17 @@ _openclaw_root_completion
     { name: "apostrophes", value: "Jane's", prefix: "Ja" },
     {
       name: "literal command substitution",
-      value: "literal $(Write-Error OPENCLAW_COMPLETION_VALUE_EXECUTED)",
+      value: "literal $(Write-Error GRANTED_COMPLETION_VALUE_EXECUTED)",
       prefix: "literal",
     },
     {
       name: "literal backtick metacharacters",
-      value: "literal `$(Write-Error OPENCLAW_COMPLETION_VALUE_EXECUTED)",
+      value: "literal `$(Write-Error GRANTED_COMPLETION_VALUE_EXECUTED)",
       prefix: "literal",
     },
     {
       name: "literal statement separators",
-      value: "literal; Write-Error OPENCLAW_COMPLETION_VALUE_EXECUTED",
+      value: "literal; Write-Error GRANTED_COMPLETION_VALUE_EXECUTED",
       prefix: "literal",
     },
   ])("inserts PowerShell $name as one safe argument", async ({ value, prefix }) => {
@@ -598,12 +598,12 @@ _openclaw_root_completion
     { name: "apostrophes", value: "it's literal", prefix: "it" },
     {
       name: "literal command substitution",
-      value: "literal $(printf OPENCLAW_COMPLETION_VALUE_EXECUTED >&2)",
+      value: "literal $(printf GRANTED_COMPLETION_VALUE_EXECUTED >&2)",
       prefix: "literal",
     },
     {
       name: "literal backtick substitution",
-      value: "literal `printf OPENCLAW_COMPLETION_VALUE_EXECUTED >&2`",
+      value: "literal `printf GRANTED_COMPLETION_VALUE_EXECUTED >&2`",
       prefix: "literal",
     },
   ])("preserves Fish choice $name as one inert candidate", ({ value, prefix }) => {
@@ -796,12 +796,12 @@ _openclaw_root_completion
     },
     {
       name: "literal command substitution",
-      value: "$(printf OPENCLAW_COMPLETION_VALUE_EXECUTED >&2)",
+      value: "$(printf GRANTED_COMPLETION_VALUE_EXECUTED >&2)",
       prefix: "$(",
     },
     {
       name: "literal backtick substitution",
-      value: "`printf OPENCLAW_COMPLETION_VALUE_EXECUTED >&2`",
+      value: "`printf GRANTED_COMPLETION_VALUE_EXECUTED >&2`",
       prefix: "`",
     },
   ])("keeps Bash choice $name literal without executing it", ({ value, prefix }) => {

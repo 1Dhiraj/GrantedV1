@@ -52,7 +52,7 @@ function requestUrl(input: string | URL | Request): string {
 function publishedPricingParams(bundle: RemoteModelCatalogBundle, provider: string) {
   const agentDir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-native-pricing-"));
   tempDirs.push(agentDir);
-  vi.stubEnv("OPENCLAW_STATE_DIR", agentDir);
+  vi.stubEnv("GRANTED_STATE_DIR", agentDir);
   setRemoteModelCatalogOverlaySourcesForTest({
     bundledGeneratedAt: () => 1,
     readStoredCatalog: () => ({

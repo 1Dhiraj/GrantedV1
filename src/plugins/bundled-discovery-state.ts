@@ -18,7 +18,7 @@ export function readBundledDiscoveryMode(
           ...options,
           env: {
             ...(options.env ?? process.env),
-            OPENCLAW_STATE_DIR: resolveActivePluginInstallRoots(options.env).stateDir,
+            GRANTED_STATE_DIR: resolveActivePluginInstallRoots(options.env).stateDir,
           },
         };
   const value = readConfigMachineState<unknown>("plugins.bundledDiscovery", resolvedOptions);
@@ -40,7 +40,7 @@ registerPluginMetadataProcessMemoLifecycleClear(() => {
 
 function resolveBundledDiscoveryMemoKey(env: NodeJS.ProcessEnv): string {
   const scopedEnv = hasActivePluginInstallRoots()
-    ? { ...env, OPENCLAW_STATE_DIR: resolveActivePluginInstallRoots(env).stateDir }
+    ? { ...env, GRANTED_STATE_DIR: resolveActivePluginInstallRoots(env).stateDir }
     : env;
   return resolveOpenClawStateSqlitePath(scopedEnv);
 }

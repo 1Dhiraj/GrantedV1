@@ -122,9 +122,9 @@ describe("gateway e2e", () => {
     });
     let server: Awaited<ReturnType<typeof startGatewayServer>> | undefined;
     try {
-      deleteTestEnvValue("OPENCLAW_GATEWAY_TOKEN");
+      deleteTestEnvValue("GRANTED_GATEWAY_TOKEN");
       const configPath = await createGatewayConfigPath(tempHome);
-      setTestEnvValue("OPENCLAW_CONFIG_PATH", configPath);
+      setTestEnvValue("GRANTED_CONFIG_PATH", configPath);
       const initialConfig: OpenClawConfig = {
         gateway: { mode: "local", bind: "loopback" },
         logging: { level: "info" },
@@ -174,7 +174,7 @@ describe("gateway e2e", () => {
       let server: Awaited<ReturnType<typeof startGatewayServer>> | undefined;
       let client: Awaited<ReturnType<typeof connectGatewayClient>> | undefined;
       try {
-        deleteTestEnvValue("OPENCLAW_GATEWAY_TOKEN");
+        deleteTestEnvValue("GRANTED_GATEWAY_TOKEN");
         const fileToken = nextGatewayId("direct-file-token");
         const overrideToken = nextGatewayId("direct-override-token");
         const initialConfig: OpenClawConfig = {
@@ -188,7 +188,7 @@ describe("gateway e2e", () => {
                         ? {
                             source: "env" as const,
                             provider: "default",
-                            id: "OPENCLAW_TEST_MISSING_DISK_TOKEN",
+                            id: "GRANTED_TEST_MISSING_DISK_TOKEN",
                           }
                         : fileToken,
                   },
@@ -201,21 +201,21 @@ describe("gateway e2e", () => {
           logging: { level: "info" },
         };
         const configPath = await createGatewayConfigPath(tempHome);
-        setTestEnvValue("OPENCLAW_CONFIG_PATH", configPath);
+        setTestEnvValue("GRANTED_CONFIG_PATH", configPath);
         const configIO = createConfigIO({ configPath });
         await configIO.writeConfigFile(initialConfig);
         if (authSource === "secret-ref-override") {
-          setTestEnvValue("OPENCLAW_TEST_GATEWAY_OVERRIDE_TOKEN", overrideToken);
+          setTestEnvValue("GRANTED_TEST_GATEWAY_OVERRIDE_TOKEN", overrideToken);
         }
         if (authSource === "runtime-overrides") {
-          deleteTestEnvValue("OPENCLAW_SKIP_CHANNELS");
-          deleteTestEnvValue("OPENCLAW_SKIP_PROVIDERS");
-          setTestEnvValue("OPENCLAW_TEST_RUNTIME_OVERRIDE_TOKEN", overrideToken);
+          deleteTestEnvValue("GRANTED_SKIP_CHANNELS");
+          deleteTestEnvValue("GRANTED_SKIP_PROVIDERS");
+          setTestEnvValue("GRANTED_TEST_RUNTIME_OVERRIDE_TOKEN", overrideToken);
           expect(
             setConfigOverride("gateway.auth.token", {
               source: "env",
               provider: "default",
-              id: "OPENCLAW_TEST_RUNTIME_OVERRIDE_TOKEN",
+              id: "GRANTED_TEST_RUNTIME_OVERRIDE_TOKEN",
             }).ok,
           ).toBe(true);
           expect(
@@ -235,7 +235,7 @@ describe("gateway e2e", () => {
                   token: {
                     source: "env",
                     provider: "default",
-                    id: "OPENCLAW_TEST_GATEWAY_OVERRIDE_TOKEN",
+                    id: "GRANTED_TEST_GATEWAY_OVERRIDE_TOKEN",
                   },
                 }
               : undefined;
@@ -345,7 +345,7 @@ describe("gateway e2e", () => {
     let server: Awaited<ReturnType<typeof startGatewayServer>> | undefined;
     try {
       const configPath = await createGatewayConfigPath(tempHome);
-      setTestEnvValue("OPENCLAW_CONFIG_PATH", configPath);
+      setTestEnvValue("GRANTED_CONFIG_PATH", configPath);
       const gatewayToken = nextGatewayId("hook-policy-gateway-token");
       const hookToken = nextGatewayId("hook-policy-token");
       const fixedSessionStore = path.join(tempHome, ".openclaw", "sessions.json");
@@ -462,7 +462,7 @@ describe("gateway e2e", () => {
       let oldClient: Awaited<ReturnType<typeof connectGatewayClient>> | undefined;
       try {
         const configPath = await createGatewayConfigPath(tempHome);
-        setTestEnvValue("OPENCLAW_CONFIG_PATH", configPath);
+        setTestEnvValue("GRANTED_CONFIG_PATH", configPath);
         const configIO = createConfigIO({ configPath });
         const fileToken = nextGatewayId("startup-auth-file-token");
         const oldToken = nextGatewayId("startup-auth-ref-old");
@@ -471,7 +471,7 @@ describe("gateway e2e", () => {
           gateway: { auth: { mode: "token", token: fileToken } },
           logging: { level: "info" },
         });
-        setTestEnvValue("OPENCLAW_TEST_GATEWAY_OVERRIDE_TOKEN", oldToken);
+        setTestEnvValue("GRANTED_TEST_GATEWAY_OVERRIDE_TOKEN", oldToken);
         const port = await getGatewayE2ePortBlock();
         server = await startGatewayServer(port, {
           bind: "loopback",
@@ -480,7 +480,7 @@ describe("gateway e2e", () => {
             token: {
               source: "env",
               provider: "default",
-              id: "OPENCLAW_TEST_GATEWAY_OVERRIDE_TOKEN",
+              id: "GRANTED_TEST_GATEWAY_OVERRIDE_TOKEN",
             },
           },
           controlUiEnabled: false,
@@ -491,7 +491,7 @@ describe("gateway e2e", () => {
           clientDisplayName: "vitest-startup-auth-ref-old",
         });
 
-        setTestEnvValue("OPENCLAW_TEST_GATEWAY_OVERRIDE_TOKEN", newToken);
+        setTestEnvValue("GRANTED_TEST_GATEWAY_OVERRIDE_TOKEN", newToken);
         const reload = await oldClient
           .request<{ ok?: boolean }>("secrets.reload", {})
           .catch((error: unknown) => (error instanceof Error ? error : new Error(String(error))));
@@ -532,7 +532,7 @@ describe("gateway e2e", () => {
     });
     const token = nextGatewayId("direct-origins-token");
     const configPath = await createGatewayConfigPath(tempHome);
-    setTestEnvValue("OPENCLAW_CONFIG_PATH", configPath);
+    setTestEnvValue("GRANTED_CONFIG_PATH", configPath);
     const configIO = createConfigIO({ configPath });
     const initialConfig: OpenClawConfig = {
       gateway: { auth: { mode: "token", token } },
@@ -596,7 +596,7 @@ describe("gateway e2e", () => {
 
       try {
         const token = nextGatewayId("test-token");
-        setTestEnvValue("OPENCLAW_GATEWAY_TOKEN", token);
+        setTestEnvValue("GRANTED_GATEWAY_TOKEN", token);
 
         const configPath = await createGatewayConfigPath(tempHome);
         const mockProvider = buildMockOpenAiResponsesProvider(openaiBaseUrl);
@@ -688,7 +688,7 @@ describe("gateway e2e", () => {
       });
 
       const token = nextGatewayId("http-tools-token");
-      setTestEnvValue("OPENCLAW_GATEWAY_TOKEN", token);
+      setTestEnvValue("GRANTED_GATEWAY_TOKEN", token);
       const registerCountPath = path.join(tempHome, "workspace-plugin-register-count.txt");
       await writeWorkspacePlugin({
         workspaceDir,
@@ -721,7 +721,7 @@ module.exports = {
         gateway: { auth: { token } },
       };
       await fs.writeFile(configPath, `${JSON.stringify(cfg, null, 2)}\n`);
-      setTestEnvValue("OPENCLAW_CONFIG_PATH", configPath);
+      setTestEnvValue("GRANTED_CONFIG_PATH", configPath);
 
       const { port, server } = await startLoopbackTokenGateway(token);
 
@@ -766,10 +766,10 @@ module.exports = {
         prefix: "openclaw-wizard-home-",
         minimalGateway: true,
       });
-      deleteTestEnvValue("OPENCLAW_GATEWAY_TOKEN");
+      deleteTestEnvValue("GRANTED_GATEWAY_TOKEN");
 
       const configPath = await createGatewayConfigPath(tempHome);
-      setTestEnvValue("OPENCLAW_CONFIG_PATH", configPath);
+      setTestEnvValue("GRANTED_CONFIG_PATH", configPath);
       clearRuntimeConfigSnapshot();
       clearConfigCache();
 
@@ -931,20 +931,20 @@ module.exports = {
       const configPath = await createGatewayConfigPath(tempHome);
       const bundledPluginsDir = path.join(tempHome, "openclaw-test-no-bundled-extensions");
       setTestEnvValue("HOME", tempHome);
-      setTestEnvValue("OPENCLAW_STATE_DIR", path.join(tempHome, ".openclaw"));
-      setTestEnvValue("OPENCLAW_CONFIG_PATH", configPath);
-      setTestEnvValue("OPENCLAW_SKIP_CHANNELS", "1");
-      setTestEnvValue("OPENCLAW_SKIP_GMAIL_WATCHER", "1");
-      setTestEnvValue("OPENCLAW_SKIP_CRON", "1");
-      setTestEnvValue("OPENCLAW_SKIP_CANVAS_HOST", "1");
-      setTestEnvValue("OPENCLAW_SKIP_BROWSER_CONTROL_SERVER", "1");
-      setTestEnvValue("OPENCLAW_SKIP_PROVIDERS", "1");
-      setTestEnvValue("OPENCLAW_BUNDLED_PLUGINS_DIR", bundledPluginsDir);
-      setTestEnvValue("OPENCLAW_TEST_MINIMAL_GATEWAY", "1");
+      setTestEnvValue("GRANTED_STATE_DIR", path.join(tempHome, ".openclaw"));
+      setTestEnvValue("GRANTED_CONFIG_PATH", configPath);
+      setTestEnvValue("GRANTED_SKIP_CHANNELS", "1");
+      setTestEnvValue("GRANTED_SKIP_GMAIL_WATCHER", "1");
+      setTestEnvValue("GRANTED_SKIP_CRON", "1");
+      setTestEnvValue("GRANTED_SKIP_CANVAS_HOST", "1");
+      setTestEnvValue("GRANTED_SKIP_BROWSER_CONTROL_SERVER", "1");
+      setTestEnvValue("GRANTED_SKIP_PROVIDERS", "1");
+      setTestEnvValue("GRANTED_BUNDLED_PLUGINS_DIR", bundledPluginsDir);
+      setTestEnvValue("GRANTED_TEST_MINIMAL_GATEWAY", "1");
       setTestEnvValue("DISCORD_BOT_TOKEN", "discord-test-token");
 
       const token = nextGatewayId("minimal-token");
-      setTestEnvValue("OPENCLAW_GATEWAY_TOKEN", token);
+      setTestEnvValue("GRANTED_GATEWAY_TOKEN", token);
       await fs.mkdir(bundledPluginsDir, { recursive: true });
       await fs.writeFile(
         configPath,

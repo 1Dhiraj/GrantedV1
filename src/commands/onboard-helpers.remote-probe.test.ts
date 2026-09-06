@@ -247,7 +247,7 @@ describe("probeGatewayReachable", () => {
       ok: false,
       connectLatencyMs: 42,
       error: "foreign protocol error",
-      connectErrorDetails: { code: "NOT_AN_OPENCLAW_CONNECT_ERROR" },
+      connectErrorDetails: { code: "NOT_AN_GRANTED_CONNECT_ERROR" },
       auth: { role: null, scopes: [], capability: "unknown" },
       server: { version: null, connId: null },
     });

@@ -25,7 +25,7 @@ function collapseDockerContinuations(dockerfile: string): string {
 
 function resolveOptionalAptPackages(dockerfile: string, env: NodeJS.ProcessEnv): string {
   const assignment = collapseDockerContinuations(dockerfile).match(
-    /\bpackages="(\$\{OPENCLAW_IMAGE_APT_PACKAGES:-\$OPENCLAW_DOCKER_APT_PACKAGES\})";/u,
+    /\bpackages="(\$\{GRANTED_IMAGE_APT_PACKAGES:-\$GRANTED_DOCKER_APT_PACKAGES\})";/u,
   )?.[1];
   if (!assignment) {
     throw new Error("Dockerfile optional apt package assignment is missing");
@@ -52,10 +52,10 @@ describe("Dockerfile", () => {
     const docs = await readFile(dockerInstallDocsPath, "utf8");
     const composeSetup = await readFile(composeSetupScriptPath, "utf8");
     const gatewayHealthCommand =
-      'node dist/index.js gateway health --token "$OPENCLAW_GATEWAY_TOKEN"';
+      'node dist/index.js gateway health --token "$GRANTED_GATEWAY_TOKEN"';
 
     expect(docs).toContain(`docker compose exec openclaw-gateway sh -lc '${gatewayHealthCommand}'`);
-    expect(docs).not.toContain('node dist/index.js health --token "$OPENCLAW_GATEWAY_TOKEN"');
+    expect(docs).not.toContain('node dist/index.js health --token "$GRANTED_GATEWAY_TOKEN"');
     expect(composeSetup).toContain(
       `"\${COMPOSE[@]}" exec -T openclaw-gateway sh -lc '${gatewayHealthCommand}'`,
     );
@@ -80,29 +80,29 @@ describe("Dockerfile", () => {
   it("uses full bookworm for build stages and slim bookworm for runtime", async () => {
     const dockerfile = await readFile(dockerfilePath, "utf8");
     expect(dockerfile).toContain(
-      'ARG OPENCLAW_NODE_BOOKWORM_IMAGE="docker.io/library/node:24-bookworm@sha256:934240a162082fd8b8a2f90cd5114446443f1eba1c5378f6687167ca405e6584"',
+      'ARG GRANTED_NODE_BOOKWORM_IMAGE="docker.io/library/node:24-bookworm@sha256:934240a162082fd8b8a2f90cd5114446443f1eba1c5378f6687167ca405e6584"',
     );
     expect(dockerfile).toContain(
-      'ARG OPENCLAW_NODE_BOOKWORM_SLIM_IMAGE="docker.io/library/node:24-bookworm-slim@sha256:3638d9a6fe4030bd716be989438248074489337ba3275657f93595428be4fc03"',
+      'ARG GRANTED_NODE_BOOKWORM_SLIM_IMAGE="docker.io/library/node:24-bookworm-slim@sha256:3638d9a6fe4030bd716be989438248074489337ba3275657f93595428be4fc03"',
     );
     expect(dockerfile).toContain(
-      'ARG OPENCLAW_BUN_IMAGE="docker.io/oven/bun:1.4.0@sha256:5ff609364c049b54eb0ff560ec96319729a972078ef2c755d758f0c6ef89c2d6"',
+      'ARG GRANTED_BUN_IMAGE="docker.io/oven/bun:1.4.0@sha256:5ff609364c049b54eb0ff560ec96319729a972078ef2c755d758f0c6ef89c2d6"',
     );
-    expect(dockerfile).toContain("FROM ${OPENCLAW_NODE_BOOKWORM_IMAGE} AS workspace-deps");
-    expect(dockerfile).toContain("FROM ${OPENCLAW_NODE_BOOKWORM_IMAGE} AS dependency-inputs");
+    expect(dockerfile).toContain("FROM ${GRANTED_NODE_BOOKWORM_IMAGE} AS workspace-deps");
+    expect(dockerfile).toContain("FROM ${GRANTED_NODE_BOOKWORM_IMAGE} AS dependency-inputs");
     expect(dockerfile).toContain("FROM dependency-inputs AS build");
-    expect(dockerfile).toContain("FROM ${OPENCLAW_NODE_BOOKWORM_SLIM_IMAGE} AS base-runtime");
+    expect(dockerfile).toContain("FROM ${GRANTED_NODE_BOOKWORM_SLIM_IMAGE} AS base-runtime");
     expect(dockerfile).toContain("FROM base-runtime");
     expect(dockerfile).toContain("current multi-arch manifest list entries");
     expect(dockerfile).not.toContain("current amd64 entry");
-    expect(dockerfile).not.toContain("OPENCLAW_VARIANT");
+    expect(dockerfile).not.toContain("GRANTED_VARIANT");
   });
 
   it("installs CA certificates in the slim runtime stage", async () => {
     const dockerfile = await readFile(dockerfilePath, "utf8");
     const collapsed = collapseDockerContinuations(dockerfile);
     const runtimeIndex = collapsed.indexOf(
-      "FROM ${OPENCLAW_NODE_BOOKWORM_SLIM_IMAGE} AS base-runtime",
+      "FROM ${GRANTED_NODE_BOOKWORM_SLIM_IMAGE} AS base-runtime",
     );
     const caInstallIndex = collapsed.indexOf(
       "ca-certificates curl git hostname libgomp1 lsof openssh-client openssl procps python3",
@@ -118,7 +118,7 @@ describe("Dockerfile", () => {
   it("installs Python, tini, and the llama-server OpenMP runtime in the slim stage", async () => {
     const dockerfile = collapseDockerContinuations(await readFile(dockerfilePath, "utf8"));
     const runtimeIndex = dockerfile.indexOf(
-      "FROM ${OPENCLAW_NODE_BOOKWORM_SLIM_IMAGE} AS base-runtime",
+      "FROM ${GRANTED_NODE_BOOKWORM_SLIM_IMAGE} AS base-runtime",
     );
     const pythonInstallIndex = dockerfile.indexOf(
       "ca-certificates curl git hostname libgomp1 lsof openssh-client openssl procps python3",
@@ -136,14 +136,14 @@ describe("Dockerfile", () => {
   it.runIf(process.platform !== "win32").each([
     {
       name: "preferred packages",
-      env: { OPENCLAW_IMAGE_APT_PACKAGES: "python3 wget" },
+      env: { GRANTED_IMAGE_APT_PACKAGES: "python3 wget" },
       expected: "python3 wget",
     },
     {
       name: "legacy packages when the preferred argument is empty",
       env: {
-        OPENCLAW_IMAGE_APT_PACKAGES: "",
-        OPENCLAW_DOCKER_APT_PACKAGES: "git curl jq",
+        GRANTED_IMAGE_APT_PACKAGES: "",
+        GRANTED_DOCKER_APT_PACKAGES: "git curl jq",
       },
       expected: "git curl jq",
     },
@@ -155,8 +155,8 @@ describe("Dockerfile", () => {
     {
       name: "preferred packages when both arguments are present",
       env: {
-        OPENCLAW_IMAGE_APT_PACKAGES: "python3",
-        OPENCLAW_DOCKER_APT_PACKAGES: "git",
+        GRANTED_IMAGE_APT_PACKAGES: "python3",
+        GRANTED_DOCKER_APT_PACKAGES: "git",
       },
       expected: "python3",
     },
@@ -168,7 +168,7 @@ describe("Dockerfile", () => {
   it("installs optional browser dependencies after pnpm install", async () => {
     const dockerfile = await readFile(dockerfilePath, "utf8");
     const installIndex = dockerfile.indexOf("pnpm install --frozen-lockfile");
-    const browserArgIndex = dockerfile.indexOf("ARG OPENCLAW_INSTALL_BROWSER");
+    const browserArgIndex = dockerfile.indexOf("ARG GRANTED_INSTALL_BROWSER");
 
     expect(installIndex).toBeGreaterThan(-1);
     expect(browserArgIndex).toBeGreaterThan(-1);
@@ -214,21 +214,21 @@ describe("Dockerfile", () => {
   it("uses portable copies for workspace dependency inputs", async () => {
     const dockerfile = await readFile(dockerfilePath, "utf8");
     const workspaceDepsStart = dockerfile.indexOf(
-      "FROM ${OPENCLAW_NODE_BOOKWORM_IMAGE} AS workspace-deps",
+      "FROM ${GRANTED_NODE_BOOKWORM_IMAGE} AS workspace-deps",
     );
-    const workspaceDepsEnd = dockerfile.indexOf("FROM ${OPENCLAW_BUN_IMAGE} AS bun-binary");
+    const workspaceDepsEnd = dockerfile.indexOf("FROM ${GRANTED_BUN_IMAGE} AS bun-binary");
 
     expect(workspaceDepsStart).toBeGreaterThan(-1);
     expect(workspaceDepsEnd).toBeGreaterThan(workspaceDepsStart);
 
     const workspaceDeps = dockerfile.slice(workspaceDepsStart, workspaceDepsEnd);
     const extractionIndex = workspaceDeps.indexOf(
-      'RUN mkdir -p /out/packages "/out/${OPENCLAW_BUNDLED_PLUGIN_DIR}"',
+      'RUN mkdir -p /out/packages "/out/${GRANTED_BUNDLED_PLUGIN_DIR}"',
     );
     const inputCopies = [
       "COPY scripts/lib/docker-plugin-selection.mjs /tmp/docker-plugin-selection.mjs",
       "COPY packages /tmp/packages",
-      "COPY ${OPENCLAW_BUNDLED_PLUGIN_DIR} /tmp/${OPENCLAW_BUNDLED_PLUGIN_DIR}",
+      "COPY ${GRANTED_BUNDLED_PLUGIN_DIR} /tmp/${GRANTED_BUNDLED_PLUGIN_DIR}",
     ];
 
     expect(extractionIndex).toBeGreaterThan(-1);
@@ -255,7 +255,7 @@ describe("Dockerfile", () => {
       "COPY --from=workspace-deps /out/packages/ ./packages/",
     );
     const extensionManifestIndex = dockerfile.indexOf(
-      "COPY --from=workspace-deps /out/${OPENCLAW_BUNDLED_PLUGIN_DIR}/ ./${OPENCLAW_BUNDLED_PLUGIN_DIR}/",
+      "COPY --from=workspace-deps /out/${GRANTED_BUNDLED_PLUGIN_DIR}/ ./${GRANTED_BUNDLED_PLUGIN_DIR}/",
     );
 
     expect(postinstallIndex).toBeGreaterThan(-1);
@@ -266,7 +266,7 @@ describe("Dockerfile", () => {
     expect(extensionManifestIndex).toBeGreaterThan(-1);
     expect(dockerfile).toContain("for manifest in /tmp/packages/*/package.json");
     expect(dockerfile).toContain(
-      'node /tmp/docker-plugin-selection.mjs "/tmp/${OPENCLAW_BUNDLED_PLUGIN_DIR}" "$OPENCLAW_EXTENSIONS"',
+      'node /tmp/docker-plugin-selection.mjs "/tmp/${GRANTED_BUNDLED_PLUGIN_DIR}" "$GRANTED_EXTENSIONS"',
     );
     expect(dockerfile).toContain("done < /tmp/openclaw-workspace-plugin-dirs");
     expect(dockerfile).toContain(`if [ -f "$ext_dir/package.json" ]; then`);
@@ -295,7 +295,7 @@ describe("Dockerfile", () => {
     expect(dockerfile).toContain(
       'selected_plugin_dirs="$(cat /tmp/openclaw-selected-plugin-dirs)"',
     );
-    expect(dockerfile).toContain('OPENCLAW_EXTENSIONS="$(cat /tmp/openclaw-selected-plugin-dirs)"');
+    expect(dockerfile).toContain('GRANTED_EXTENSIONS="$(cat /tmp/openclaw-selected-plugin-dirs)"');
   });
 
   it.each(["Dockerfile", "scripts/docker/cleanup-smoke/Dockerfile"])(
@@ -373,10 +373,10 @@ describe("Dockerfile", () => {
     const collapsed = collapseDockerContinuations(dockerfile);
     const qaLabExtensionCheckIndex = collapsed.indexOf("grep -qx 'qa-lab'");
     const privateQaExportIndex = collapsed.indexOf(
-      "export OPENCLAW_BUILD_PRIVATE_QA=1 OPENCLAW_ENABLE_PRIVATE_QA_CLI=1",
+      "export GRANTED_BUILD_PRIVATE_QA=1 GRANTED_ENABLE_PRIVATE_QA_CLI=1",
     );
     const buildDockerIndex = collapsed.indexOf(
-      'OPENCLAW_INTERNAL_DOCKER_BUILD_PLUGIN_IDS="$selected_plugin_dirs" OPENCLAW_RUN_NODE_SKIP_DTS_BUILD="$OPENCLAW_DOCKER_BUILD_SKIP_DTS" OPENCLAW_TSDOWN_MAX_OLD_SPACE_MB="$OPENCLAW_DOCKER_BUILD_TSDOWN_MAX_OLD_SPACE_MB" NODE_OPTIONS="$OPENCLAW_DOCKER_BUILD_NODE_OPTIONS" pnpm_config_verify_deps_before_run=false pnpm build:docker',
+      'GRANTED_INTERNAL_DOCKER_BUILD_PLUGIN_IDS="$selected_plugin_dirs" GRANTED_RUN_NODE_SKIP_DTS_BUILD="$GRANTED_DOCKER_BUILD_SKIP_DTS" GRANTED_TSDOWN_MAX_OLD_SPACE_MB="$GRANTED_DOCKER_BUILD_TSDOWN_MAX_OLD_SPACE_MB" NODE_OPTIONS="$GRANTED_DOCKER_BUILD_NODE_OPTIONS" pnpm_config_verify_deps_before_run=false pnpm build:docker',
     );
     const qaLabBuildIndex = collapsed.indexOf(
       "pnpm_config_verify_deps_before_run=false pnpm qa:lab:build",
@@ -389,7 +389,7 @@ describe("Dockerfile", () => {
     expect(qaLabExtensionCheckIndex).toBeGreaterThan(-1);
     expect(buildDockerIndex).toBeGreaterThan(-1);
     expect(collapsed).not.toContain(
-      'OPENCLAW_DOCKER_BUILD_EXTENSIONS="$OPENCLAW_EXTENSIONS" OPENCLAW_RUN_NODE_SKIP_DTS_BUILD=',
+      'GRANTED_DOCKER_BUILD_EXTENSIONS="$GRANTED_EXTENSIONS" GRANTED_RUN_NODE_SKIP_DTS_BUILD=',
     );
     expect(qaLabBuildIndex).toBeGreaterThan(-1);
     expect(qaLabDistCopyIndex).toBeGreaterThan(-1);
@@ -410,7 +410,7 @@ describe("Dockerfile", () => {
     const dockerfile = await readFile(dockerfilePath, "utf8");
     const installIndex = dockerfile.indexOf("pnpm install --frozen-lockfile");
     const commitArgIndex = dockerfile.indexOf('ARG GIT_COMMIT=""');
-    const timestampArgIndex = dockerfile.indexOf('ARG OPENCLAW_BUILD_TIMESTAMP=""');
+    const timestampArgIndex = dockerfile.indexOf('ARG GRANTED_BUILD_TIMESTAMP=""');
     const provenanceEnvIndex = dockerfile.indexOf("ENV GIT_COMMIT=${GIT_COMMIT}");
     const backendBuildIndex = dockerfile.indexOf("pnpm build:docker");
     const uiBuildIndex = dockerfile.indexOf("pnpm ui:build");
@@ -418,8 +418,8 @@ describe("Dockerfile", () => {
     expect(commitArgIndex).toBeGreaterThan(installIndex);
     expect(timestampArgIndex).toBeGreaterThan(commitArgIndex);
     expect(provenanceEnvIndex).toBeGreaterThan(timestampArgIndex);
-    expect(dockerfile).toContain("OPENCLAW_BUILD_TIMESTAMP=${OPENCLAW_BUILD_TIMESTAMP}");
-    expect(dockerfile).toContain('OPENCLAW_BUILD_TIMESTAMP="$(date -u +%Y-%m-%dT%H:%M:%SZ)"');
+    expect(dockerfile).toContain("GRANTED_BUILD_TIMESTAMP=${GRANTED_BUILD_TIMESTAMP}");
+    expect(dockerfile).toContain('GRANTED_BUILD_TIMESTAMP="$(date -u +%Y-%m-%dT%H:%M:%SZ)"');
     expect(backendBuildIndex).toBeGreaterThan(provenanceEnvIndex);
     expect(uiBuildIndex).toBeGreaterThan(backendBuildIndex);
   });
@@ -433,7 +433,7 @@ describe("Dockerfile", () => {
     expect(docs).toContain('BUILD_GIT_COMMIT="$(git rev-parse HEAD)"');
     expect(docs).toContain('BUILD_TIMESTAMP="$(date -u +%Y-%m-%dT%H:%M:%SZ)"');
     expect(docs).toContain('--build-arg "GIT_COMMIT=${BUILD_GIT_COMMIT}"');
-    expect(docs).toContain('--build-arg "OPENCLAW_BUILD_TIMESTAMP=${BUILD_TIMESTAMP}"');
+    expect(docs).toContain('--build-arg "GRANTED_BUILD_TIMESTAMP=${BUILD_TIMESTAMP}"');
     expect(docs).toContain("The Docker context excludes `.git`.");
     expect(selectedPluginStart).toBeGreaterThan(-1);
     expect(selectedPluginEnd).toBeGreaterThan(selectedPluginStart);
@@ -441,7 +441,7 @@ describe("Dockerfile", () => {
     expect(selectedPluginDocs).toContain('BUILD_TIMESTAMP="$(date -u +%Y-%m-%dT%H:%M:%SZ)"');
     expect(selectedPluginDocs).toContain('--build-arg "GIT_COMMIT=${SOURCE_SHA}"');
     expect(selectedPluginDocs).toContain(
-      '--build-arg "OPENCLAW_BUILD_TIMESTAMP=${BUILD_TIMESTAMP}"',
+      '--build-arg "GRANTED_BUILD_TIMESTAMP=${BUILD_TIMESTAMP}"',
     );
   });
 
@@ -458,7 +458,7 @@ describe("Dockerfile", () => {
       expect(production?.parent).toBe("dependency-inputs");
       expect(stages.get("build")?.parent).toBe(production?.parent);
       const inputs = stages.get("dependency-inputs");
-      expect(inputs?.parent).toBe("${OPENCLAW_NODE_BOOKWORM_IMAGE}");
+      expect(inputs?.parent).toBe("${GRANTED_NODE_BOOKWORM_IMAGE}");
       expect(inputs?.body).not.toMatch(/pnpm install|COPY \. \./);
       expect(production?.body).toContain("pnpm install --frozen-lockfile --prod");
       expect(production?.body).not.toMatch(/--ignore-scripts|COPY .*node_modules/);
@@ -511,7 +511,7 @@ describe("Dockerfile", () => {
         }
         execFileSync("/bin/sh", ["-eu", "-c", cleanCommand], {
           cwd: app,
-          env: { ...process.env, OPENCLAW_BUNDLED_PLUGIN_DIR: "extensions" },
+          env: { ...process.env, GRANTED_BUNDLED_PLUGIN_DIR: "extensions" },
         });
         await mkdir(join(prod, "node_modules/@openclaw"), { recursive: true });
         await symlink("../../packages/ai", join(prod, "node_modules/@openclaw/ai"));
@@ -580,10 +580,10 @@ describe("Dockerfile", () => {
 
   it("keeps the Codex plugin in official Docker release images", async () => {
     const workflow = await readFile(dockerReleaseWorkflowPath, "utf8");
-    const releaseKeepList = "OPENCLAW_EXTENSIONS=diagnostics-otel,codex";
+    const releaseKeepList = "GRANTED_EXTENSIONS=diagnostics-otel,codex";
 
     expect(workflow.match(new RegExp(releaseKeepList, "g"))).toHaveLength(4);
-    expect(workflow).not.toContain("OPENCLAW_EXTENSIONS=diagnostics-otel\n");
+    expect(workflow).not.toContain("GRANTED_EXTENSIONS=diagnostics-otel\n");
   });
 
   it("uses one release identity for every official Docker artifact", async () => {
@@ -613,16 +613,16 @@ describe("Dockerfile", () => {
     ).toBe(4);
     expect(
       workflow.split(
-        "OPENCLAW_BUILD_TIMESTAMP=${{ needs.resolve_build_provenance.outputs.built_at }}",
+        "GRANTED_BUILD_TIMESTAMP=${{ needs.resolve_build_provenance.outputs.built_at }}",
       ).length - 1,
     ).toBe(4);
     expect(
       workflow.split(
-        "OPENCLAW_DOCKER_BUILD_VERSION=${{ needs.resolve_build_provenance.outputs.release_version }}",
+        "GRANTED_DOCKER_BUILD_VERSION=${{ needs.resolve_build_provenance.outputs.release_version }}",
       ).length - 1,
     ).toBe(4);
 
-    const stampIndex = dockerfile.indexOf('pnpm pkg set "version=$OPENCLAW_DOCKER_BUILD_VERSION"');
+    const stampIndex = dockerfile.indexOf('pnpm pkg set "version=$GRANTED_DOCKER_BUILD_VERSION"');
     const buildIndex = dockerfile.indexOf("pnpm build:docker");
     const productionDepsIndex = dockerfile.indexOf("COPY --from=production-deps /app/ ./");
     const restoreVersionIndex = dockerfile.indexOf(
@@ -632,13 +632,13 @@ describe("Dockerfile", () => {
     expect(stampIndex).toBeLessThan(buildIndex);
     expect(restoreVersionIndex).toBeGreaterThan(productionDepsIndex);
     expect(dockerfile).toContain(
-      'test "$(node -p "require(\\"/app/package.json\\").version")" = "$OPENCLAW_DOCKER_BUILD_VERSION"',
+      'test "$(node -p "require(\\"/app/package.json\\").version")" = "$GRANTED_DOCKER_BUILD_VERSION"',
     );
     expect(dockerfile).toContain(
-      'test "$(node -p "require(\\"/app/dist/build-info.json\\").version")" = "$OPENCLAW_DOCKER_BUILD_VERSION"',
+      'test "$(node -p "require(\\"/app/dist/build-info.json\\").version")" = "$GRANTED_DOCKER_BUILD_VERSION"',
     );
     expect(dockerfile).toContain(
-      'test "$(node /app/openclaw.mjs --version | cut -d \' \' -f 2)" = "$OPENCLAW_DOCKER_BUILD_VERSION"',
+      'test "$(node /app/openclaw.mjs --version | cut -d \' \' -f 2)" = "$GRANTED_DOCKER_BUILD_VERSION"',
     );
   });
 
@@ -647,7 +647,7 @@ describe("Dockerfile", () => {
 
     expect(workflow).toContain("Build and push amd64 browser image");
     expect(workflow).toContain("Build and push arm64 browser image");
-    expect(workflow).toContain("OPENCLAW_INSTALL_BROWSER=1");
+    expect(workflow).toContain("GRANTED_INSTALL_BROWSER=1");
     expect(workflow).toContain('${GHCR_IMAGE}:${image_version}-browser"');
     expect(workflow).toContain('${DOCKERHUB_IMAGE}:${image_version}-browser"');
     expect(workflow).not.toContain("main-browser-amd64");
@@ -655,7 +655,7 @@ describe("Dockerfile", () => {
     expect(workflow).toContain("Smoke test amd64 browser image");
     expect(workflow).toContain("Smoke test arm64 browser image");
     expect(workflow).toContain("chrome-headless-shell");
-    expect(workflow).toContain("grep -q '^ARG OPENCLAW_INSTALL_BROWSER' Dockerfile");
+    expect(workflow).toContain("grep -q '^ARG GRANTED_INSTALL_BROWSER' Dockerfile");
     expect(workflow).toContain("if: steps.tags.outputs.browser != ''");
     expect(workflow).not.toContain('git show "${SOURCE_REF}:Dockerfile"');
     expect(workflow).toContain('if [[ -n "${BROWSER_TAGS}" ]]; then');
@@ -727,20 +727,20 @@ describe("Dockerfile", () => {
 
   it("does not override bundled plugin discovery in runtime images", async () => {
     const dockerfile = collapseDockerContinuations(await readFile(dockerfilePath, "utf8"));
-    expect(dockerfile).toContain(`ARG OPENCLAW_BUNDLED_PLUGIN_DIR=${BUNDLED_PLUGIN_ROOT_DIR}`);
-    expect(dockerfile).not.toMatch(/^\s*ENV\b[^\n]*\bOPENCLAW_BUNDLED_PLUGINS_DIR\b/m);
+    expect(dockerfile).toContain(`ARG GRANTED_BUNDLED_PLUGIN_DIR=${BUNDLED_PLUGIN_ROOT_DIR}`);
+    expect(dockerfile).not.toMatch(/^\s*ENV\b[^\n]*\bGRANTED_BUNDLED_PLUGINS_DIR\b/m);
   });
 
   it("normalizes plugin and agent paths permissions in image layers", async () => {
     const dockerfile = await readFile(dockerfilePath, "utf8");
     expect(dockerfile).toContain(
-      "RUN for dir in /app/${OPENCLAW_BUNDLED_PLUGIN_DIR} /app/.agent /app/.agents; do \\",
+      "RUN for dir in /app/${GRANTED_BUNDLED_PLUGIN_DIR} /app/.agent /app/.agents; do \\",
     );
     expect(dockerfile).toContain('find "$dir" -type d -exec chmod 755 {} +');
     expect(dockerfile).toContain('find "$dir" -type f -exec chmod 644 {} +');
   });
 
-  it("Docker GPG fingerprint awk uses correct quoting for OPENCLAW_SANDBOX=1 build", async () => {
+  it("Docker GPG fingerprint awk uses correct quoting for GRANTED_SANDBOX=1 build", async () => {
     const dockerfile = await readFile(dockerfilePath, "utf8");
     expect(dockerfile).toContain('== "fpr" {');
     expect(dockerfile).not.toContain('\\"fpr\\"');

@@ -334,5 +334,5 @@ vi.mock("../plugins/loader.js", async () => {
     loadOpenClawPlugins: () => getTestPluginRegistry(),
   };
 });
-vi.stubEnv("OPENCLAW_SKIP_CHANNELS", "1");
-vi.stubEnv("OPENCLAW_SKIP_CRON", "1");
+vi.stubEnv("GRANTED_SKIP_CHANNELS", "1");
+vi.stubEnv("GRANTED_SKIP_CRON", "1");

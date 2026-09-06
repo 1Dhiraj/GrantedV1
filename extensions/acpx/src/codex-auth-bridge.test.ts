@@ -9,17 +9,17 @@ import {
   type TempWorkspace,
 } from "openclaw/plugin-sdk/temp-path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { OPENCLAW_CODEX_CONFIG_ARG } from "./codex-adapter.js";
+import { GRANTED_CODEX_CONFIG_ARG } from "./codex-adapter.js";
 import { prepareAcpxCodexAuthConfig } from "./codex-auth-bridge.js";
 import { resolveAcpxPluginConfig } from "./config.js";
-import { OPENCLAW_ACPX_LEASE_ID_ARG, OPENCLAW_GATEWAY_INSTANCE_ID_ARG } from "./process-lease.js";
+import { GRANTED_ACPX_LEASE_ID_ARG, GRANTED_GATEWAY_INSTANCE_ID_ARG } from "./process-lease.js";
 
 const execFileAsync = promisify(execFile);
 const WRAPPER_STDERR_LOG_MAX_CHARS = 256 * 1024;
 let testWorkspace: TempWorkspace;
 const previousEnv = {
   CODEX_HOME: process.env.CODEX_HOME,
-  OPENCLAW_AGENT_DIR: process.env.OPENCLAW_AGENT_DIR,
+  GRANTED_AGENT_DIR: process.env.GRANTED_AGENT_DIR,
 };
 
 beforeEach(async () => {
@@ -119,9 +119,9 @@ async function captureGeneratedCodexWrapperStderr(
       "--openclaw-run-configured",
       process.execPath,
       stderrScript,
-      OPENCLAW_ACPX_LEASE_ID_ARG,
+      GRANTED_ACPX_LEASE_ID_ARG,
       leaseId,
-      OPENCLAW_GATEWAY_INSTANCE_ID_ARG,
+      GRANTED_GATEWAY_INSTANCE_ID_ARG,
       "gateway-test",
     ],
     { maxBuffer: WRAPPER_STDERR_LOG_MAX_CHARS * 2 },
@@ -141,7 +141,7 @@ async function captureGeneratedCodexWrapperStderr(
 afterEach(async () => {
   vi.restoreAllMocks();
   restoreEnv("CODEX_HOME");
-  restoreEnv("OPENCLAW_AGENT_DIR");
+  restoreEnv("GRANTED_AGENT_DIR");
   await testWorkspace.cleanup();
 });
 
@@ -160,7 +160,7 @@ describe("prepareAcpxCodexAuthConfig", () => {
       "dist",
       "index.js",
     );
-    process.env.OPENCLAW_AGENT_DIR = agentDir;
+    process.env.GRANTED_AGENT_DIR = agentDir;
 
     const pluginConfig = resolveAcpxPluginConfig({
       rawConfig: {},
@@ -359,9 +359,9 @@ describe("prepareAcpxCodexAuthConfig", () => {
         "lease-1",
         "--openclaw-gateway-instance-id",
         "gateway-1",
-        OPENCLAW_CODEX_CONFIG_ARG,
+        GRANTED_CODEX_CONFIG_ARG,
         JSON.stringify({ model_providers: { custom: { wire_api: "responses" } } }),
-        OPENCLAW_CODEX_CONFIG_ARG,
+        GRANTED_CODEX_CONFIG_ARG,
         JSON.stringify({ model: "gpt-5.6-sol", model_reasoning_effort: "medium" }),
       ],
       {
@@ -582,7 +582,7 @@ describe("prepareAcpxCodexAuthConfig", () => {
       ].join("\n"),
     );
     process.env.CODEX_HOME = sourceCodexHome;
-    process.env.OPENCLAW_AGENT_DIR = agentDir;
+    process.env.GRANTED_AGENT_DIR = agentDir;
 
     const pluginConfig = resolveAcpxPluginConfig({
       rawConfig: {},
@@ -748,9 +748,9 @@ describe("prepareAcpxCodexAuthConfig", () => {
     });
 
     const wrapperArgs = [
-      OPENCLAW_ACPX_LEASE_ID_ARG,
+      GRANTED_ACPX_LEASE_ID_ARG,
       "quiet-lease",
-      OPENCLAW_GATEWAY_INSTANCE_ID_ARG,
+      GRANTED_GATEWAY_INSTANCE_ID_ARG,
       "gateway-test",
     ];
     await execFileAsync(process.execPath, [
@@ -797,9 +797,9 @@ describe("prepareAcpxCodexAuthConfig", () => {
         "--openclaw-run-configured",
         process.execPath,
         quietScript,
-        OPENCLAW_ACPX_LEASE_ID_ARG,
+        GRANTED_ACPX_LEASE_ID_ARG,
         "blocked-lease",
-        OPENCLAW_GATEWAY_INSTANCE_ID_ARG,
+        GRANTED_GATEWAY_INSTANCE_ID_ARG,
         "gateway-test",
       ]),
     ).resolves.toMatchObject({ stderr: "" });

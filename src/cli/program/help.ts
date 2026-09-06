@@ -82,7 +82,7 @@ export function configureProgramHelp(
     .version(ctx.programVersion)
     .option(
       "--container <name>",
-      "Run the CLI inside a running Podman/Docker container named <name> (default: env OPENCLAW_CONTAINER)",
+      "Run the CLI inside a running Podman/Docker container named <name> (default: env GRANTED_CONTAINER)",
     )
     .option(
       "--dev",
@@ -90,7 +90,7 @@ export function configureProgramHelp(
     )
     .option(
       "--profile <name>",
-      "Use a named profile (isolates OPENCLAW_STATE_DIR/OPENCLAW_CONFIG_PATH under ~/.openclaw-<name>)",
+      "Use a named profile (isolates GRANTED_STATE_DIR/GRANTED_CONFIG_PATH under ~/.openclaw-<name>)",
     )
     .option(
       "--log-level <level>",
@@ -142,7 +142,7 @@ export function configureProgramHelp(
   }
 
   program.addHelpText("beforeAll", () => {
-    if (hasEmittedCliBanner() || process.env.OPENCLAW_SUPPRESS_HELP_BANNER === "1") {
+    if (hasEmittedCliBanner() || process.env.GRANTED_SUPPRESS_HELP_BANNER === "1") {
       return "";
     }
     const rich = isRich();

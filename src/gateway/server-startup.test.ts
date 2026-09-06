@@ -124,18 +124,18 @@ describe("gateway startup primary model warmup", () => {
     expect(shouldSkipStartupModelPrewarm({})).toBe(false);
     expect(
       shouldSkipStartupModelPrewarm({
-        OPENCLAW_SKIP_STARTUP_MODEL_PREWARM: "1",
+        GRANTED_SKIP_STARTUP_MODEL_PREWARM: "1",
       }),
     ).toBe(true);
     expect(
       shouldSkipStartupModelPrewarm({
-        OPENCLAW_SKIP_STARTUP_MODEL_PREWARM: "true",
+        GRANTED_SKIP_STARTUP_MODEL_PREWARM: "true",
       }),
     ).toBe(true);
   });
 
   it("publishes required runtime snapshots when optional startup prewarm is skipped", async () => {
-    vi.stubEnv("OPENCLAW_SKIP_STARTUP_MODEL_PREWARM", "1");
+    vi.stubEnv("GRANTED_SKIP_STARTUP_MODEL_PREWARM", "1");
     const optionalPrewarm = vi.fn(async () => {});
     try {
       await publishStartupModelRuntime(

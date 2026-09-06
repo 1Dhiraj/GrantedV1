@@ -1,6 +1,6 @@
 import type { DatabaseSync } from "node:sqlite";
 import { runSqliteImmediateTransactionSync } from "../infra/sqlite-transaction.js";
-import { OPENCLAW_AGENT_SCHEMA_SQL } from "./openclaw-agent-schema.js";
+import { GRANTED_AGENT_SCHEMA_SQL } from "./openclaw-agent-schema.js";
 import { ensureColumn, tableHasColumn } from "./openclaw-state-db-schema-helpers.js";
 
 export const SESSION_PENDING_INPUTS_TABLE = "session_pending_inputs";
@@ -33,7 +33,7 @@ export function ensureSessionPendingInputsSchema(db: DatabaseSync): void {
   if (completeDatabases.has(db)) {
     return;
   }
-  const start = OPENCLAW_AGENT_SCHEMA_SQL.indexOf(
+  const start = GRANTED_AGENT_SCHEMA_SQL.indexOf(
     `CREATE TABLE IF NOT EXISTS ${SESSION_PENDING_INPUTS_TABLE} (`,
   );
   if (start < 0) {
@@ -41,7 +41,7 @@ export function ensureSessionPendingInputsSchema(db: DatabaseSync): void {
   }
   const nested = db.isTransaction;
   runSqliteImmediateTransactionSync(db, () => {
-    db.exec(OPENCLAW_AGENT_SCHEMA_SQL.slice(start)); // sqlite-allow-raw -- Canonical additive DDL only.
+    db.exec(GRANTED_AGENT_SCHEMA_SQL.slice(start)); // sqlite-allow-raw -- Canonical additive DDL only.
     ensureColumn(db, SESSION_PENDING_INPUTS_TABLE, "consumed_event_id TEXT");
   });
   absentDatabases = new WeakSet();

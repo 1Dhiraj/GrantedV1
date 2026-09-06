@@ -9,7 +9,7 @@ import { resolveSqliteTargetFromSessionStorePath } from "./session-sqlite-target
 describe("explicit SQLite session target ownership", () => {
   it("keeps scoped rows for multiple agents in one exact SQLite locator", async () => {
     await withTempHome(async (home) => {
-      const env = { ...process.env, OPENCLAW_STATE_DIR: path.join(home, ".openclaw") };
+      const env = { ...process.env, GRANTED_STATE_DIR: path.join(home, ".openclaw") };
       const storePath = path.join(home, "shared.sqlite");
       const mainScope = {
         agentId: "main",
@@ -38,7 +38,7 @@ describe("explicit SQLite session target ownership", () => {
   it("honors durable ownership after the registry row is removed", async () => {
     await withTempHome(async (home) => {
       const stateDir = path.join(home, ".openclaw");
-      const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+      const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
       const databasePath = path.join(home, "shared.sqlite");
       openOpenClawAgentDatabase({ agentId: "ops", env, path: databasePath });
       unregisterOpenClawAgentDatabase({ agentId: "ops", env, path: databasePath });

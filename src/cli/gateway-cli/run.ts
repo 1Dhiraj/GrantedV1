@@ -136,7 +136,7 @@ function extractGatewayMiskeys(parsed: unknown): {
 }
 
 function createGatewayCliStartupTrace() {
-  const enabled = isTruthyEnvValue(process.env.OPENCLAW_GATEWAY_STARTUP_TRACE);
+  const enabled = isTruthyEnvValue(process.env.GRANTED_GATEWAY_STARTUP_TRACE);
   const started = performance.now();
   let last = started;
   const emit = (name: string, durationMs: number, totalMs: number) => {
@@ -193,7 +193,7 @@ function createGatewayCliStartupTrace() {
 
 function warnInlinePasswordFlag() {
   defaultRuntime.error(
-    "Warning: --password can be exposed via process listings. Prefer --password-file or OPENCLAW_GATEWAY_PASSWORD.",
+    "Warning: --password can be exposed via process listings. Prefer --password-file or GRANTED_GATEWAY_PASSWORD.",
   );
 }
 
@@ -618,7 +618,7 @@ async function runGatewayCommandOnce(opts: GatewayRunOpts, hooks: GatewayRunRunt
   const { clearGatewayRunConfigEnvironment } = await import("./pre-bootstrap.js");
   clearGatewayRunConfigEnvironment();
   installQaParentWatchdog();
-  const isDevProfile = normalizeOptionalLowercaseString(process.env.OPENCLAW_PROFILE) === "dev";
+  const isDevProfile = normalizeOptionalLowercaseString(process.env.GRANTED_PROFILE) === "dev";
   const devMode = Boolean(opts.dev) || isDevProfile;
   // Gateways inherit the launching shell, so suppress ambient channel credentials unless the
   // operator explicitly allows them for this run.
@@ -631,7 +631,7 @@ async function runGatewayCommandOnce(opts: GatewayRunOpts, hooks: GatewayRunRunt
   setVerbose(Boolean(opts.verbose));
   if (opts.cliBackendLogs || opts.claudeCliLogs) {
     setConsoleSubsystemFilter(["agent/cli-backend"]);
-    process.env.OPENCLAW_CLI_BACKEND_LOG_OUTPUT = "1";
+    process.env.GRANTED_CLI_BACKEND_LOG_OUTPUT = "1";
   }
   const wsLogRaw = (opts.compact ? "compact" : opts.wsLog) as string | undefined;
   const wsLogStyle: GatewayWsLogStyle =
@@ -648,11 +648,11 @@ async function runGatewayCommandOnce(opts: GatewayRunOpts, hooks: GatewayRunRunt
   setGatewayWsLogStyle(wsLogStyle);
 
   if (opts.rawStream) {
-    process.env.OPENCLAW_RAW_STREAM = "1";
+    process.env.GRANTED_RAW_STREAM = "1";
   }
   const rawStreamPath = toOptionString(opts.rawStreamPath);
   if (rawStreamPath) {
-    process.env.OPENCLAW_RAW_STREAM_PATH = rawStreamPath;
+    process.env.GRANTED_RAW_STREAM_PATH = rawStreamPath;
   }
 
   const startupTrace = createGatewayCliStartupTrace();
@@ -734,7 +734,7 @@ async function runGatewayCommandOnce(opts: GatewayRunOpts, hooks: GatewayRunRunt
     ) {
       return;
     }
-    const finalConfigEnteredServiceMode = Boolean(process.env.OPENCLAW_SERVICE_MARKER?.trim());
+    const finalConfigEnteredServiceMode = Boolean(process.env.GRANTED_SERVICE_MARKER?.trim());
     const clearRejectedFinalConfigEnv = () => {
       clearGatewayRunConfigEnvironment();
       if (finalConfigEnteredServiceMode) {
@@ -757,7 +757,7 @@ async function runGatewayCommandOnce(opts: GatewayRunOpts, hooks: GatewayRunRunt
       return;
     }
   }
-  if (process.env.OPENCLAW_SERVICE_MARKER?.trim()) {
+  if (process.env.GRANTED_SERVICE_MARKER?.trim()) {
     process.env[GATEWAY_SERVICE_RUNTIME_PID_ENV] = String(process.pid);
   }
   await hooks.refreshManagedProxy?.(cfg.proxy);
@@ -786,7 +786,7 @@ async function runGatewayCommandOnce(opts: GatewayRunOpts, hooks: GatewayRunRunt
     return;
   }
   const bindExplicitRaw = bindExplicitRawStr as GatewayBindMode | undefined;
-  if (process.env.OPENCLAW_SERVICE_MARKER?.trim()) {
+  if (process.env.GRANTED_SERVICE_MARKER?.trim()) {
     const { cleanStaleGatewayProcessesSync } = await import("../../infra/restart-stale-pids.js");
     const stale = cleanStaleGatewayProcessesSync(port, {
       protectedPid: inheritedGatewayServicePid,
@@ -889,7 +889,7 @@ async function runGatewayCommandOnce(opts: GatewayRunOpts, hooks: GatewayRunRunt
   if (opts.token) {
     const token = toOptionString(opts.token);
     if (token) {
-      process.env.OPENCLAW_GATEWAY_TOKEN = token;
+      process.env.GRANTED_GATEWAY_TOKEN = token;
     }
   }
   const authModeRaw = toOptionString(opts.auth);
@@ -998,7 +998,7 @@ async function runGatewayCommandOnce(opts: GatewayRunOpts, hooks: GatewayRunRunt
     defaultRuntime.error(
       [
         "Gateway auth is set to password, but no password is configured.",
-        "Set gateway.auth.password (or OPENCLAW_GATEWAY_PASSWORD), or pass --password.",
+        "Set gateway.auth.password (or GRANTED_GATEWAY_PASSWORD), or pass --password.",
         ...authHints,
       ]
         .filter(Boolean)
@@ -1026,10 +1026,10 @@ async function runGatewayCommandOnce(opts: GatewayRunOpts, hooks: GatewayRunRunt
         ...(isContainerEnvironment()
           ? [
               "Container environment detected \u2014 the gateway defaults to bind=auto (0.0.0.0) for port-forwarding compatibility.",
-              "Set OPENCLAW_GATEWAY_TOKEN or OPENCLAW_GATEWAY_PASSWORD, or pass --token/--password to start with auth.",
+              "Set GRANTED_GATEWAY_TOKEN or GRANTED_GATEWAY_PASSWORD, or pass --token/--password to start with auth.",
             ]
           : [
-              "Set gateway.auth.token/password (or OPENCLAW_GATEWAY_TOKEN/OPENCLAW_GATEWAY_PASSWORD) or pass --token/--password.",
+              "Set gateway.auth.token/password (or GRANTED_GATEWAY_TOKEN/GRANTED_GATEWAY_PASSWORD) or pass --token/--password.",
             ]),
         ...authHints,
       ]
@@ -1045,8 +1045,8 @@ async function runGatewayCommandOnce(opts: GatewayRunOpts, hooks: GatewayRunRunt
   startupTrace.mark("cli.gateway-loop");
   let startupConfigSnapshotReadForNextStart = startupConfigSnapshotRead;
   const envSidecarStartupMode =
-    isTruthyEnvValue(process.env.OPENCLAW_SKIP_CHANNELS) ||
-    isTruthyEnvValue(process.env.OPENCLAW_SKIP_PROVIDERS)
+    isTruthyEnvValue(process.env.GRANTED_SKIP_CHANNELS) ||
+    isTruthyEnvValue(process.env.GRANTED_SKIP_PROVIDERS)
       ? "defer"
       : "start";
   let crashLoopDecision: GatewayCrashLoopBreakerDecision | undefined;

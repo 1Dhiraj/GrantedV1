@@ -67,8 +67,8 @@ function makeTempDir() {
 
 function hermeticEnv(overrides: NodeJS.ProcessEnv = {}): NodeJS.ProcessEnv {
   return {
-    OPENCLAW_BUNDLED_PLUGINS_DIR: undefined,
-    OPENCLAW_VERSION: "2026.4.25",
+    GRANTED_BUNDLED_PLUGINS_DIR: undefined,
+    GRANTED_VERSION: "2026.4.25",
     VITEST: "true",
     ...overrides,
   };
@@ -567,8 +567,8 @@ describe("plugin registry facade", () => {
     const rootDir = makeTempDir();
     const filePath = path.join(tempDir, "custom-registry.sqlite");
     const env = hermeticEnv({
-      OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-      OPENCLAW_STATE_DIR: tempDir,
+      GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+      GRANTED_STATE_DIR: tempDir,
     });
     const installRecords = {
       demo: { source: "npm" as const, spec: "demo@1.0.0", installPath: rootDir },
@@ -755,7 +755,7 @@ describe("plugin registry facade", () => {
     const result = loadPluginRegistrySnapshotWithMetadata({
       stateDir,
       candidates: [candidate],
-      env: hermeticEnv({ OPENCLAW_BUNDLED_PLUGINS_DIR: rootDir }),
+      env: hermeticEnv({ GRANTED_BUNDLED_PLUGINS_DIR: rootDir }),
     });
 
     expect(result.source).toBe("derived");
@@ -791,8 +791,8 @@ describe("plugin registry facade", () => {
     fs.copyFileSync(path.join(sourceRoot, "index.ts"), path.join(builtRoot, "index.ts"));
     fs.writeFileSync(path.join(builtRoot, "package.json"), packageJson);
     const env = hermeticEnv({
-      OPENCLAW_BUNDLED_PLUGINS_DIR: path.dirname(builtRoot),
-      OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR: "1",
+      GRANTED_BUNDLED_PLUGINS_DIR: path.dirname(builtRoot),
+      GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR: "1",
     });
     const freshIndex = loadPluginRegistrySnapshot({
       candidates: [sourceCandidate],
@@ -901,7 +901,7 @@ describe("plugin registry facade", () => {
     const rootDir = path.join(bundledRoot, "demo");
     fs.mkdirSync(rootDir, { recursive: true });
     createCandidate(rootDir);
-    const env = hermeticEnv({ OPENCLAW_BUNDLED_PLUGINS_DIR: bundledRoot });
+    const env = hermeticEnv({ GRANTED_BUNDLED_PLUGINS_DIR: bundledRoot });
     const config = { plugins: { entries: { demo: { enabled: true } } } } as const;
     const first = loadPluginRegistrySnapshotWithMetadata({
       stateDir,
@@ -929,8 +929,8 @@ describe("plugin registry facade", () => {
     fs.mkdirSync(firstRoot, { recursive: true });
     createCandidate(firstRoot, "first");
     const env = hermeticEnv({
-      OPENCLAW_CONFIG_PATH: path.join(configDir, "openclaw.json"),
-      OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
+      GRANTED_CONFIG_PATH: path.join(configDir, "openclaw.json"),
+      GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
     });
 
     const first = loadPluginRegistrySnapshotWithMetadata({ stateDir, env });
@@ -957,14 +957,14 @@ describe("plugin registry facade", () => {
     const first = loadPluginRegistrySnapshotWithMetadata({
       stateDir,
       config,
-      env: hermeticEnv({ OPENCLAW_BUNDLED_PLUGINS_DIR: bundledRoot }),
+      env: hermeticEnv({ GRANTED_BUNDLED_PLUGINS_DIR: bundledRoot }),
     });
     const second = loadPluginRegistrySnapshotWithMetadata({
       stateDir,
       config,
       env: hermeticEnv({
-        OPENCLAW_BUNDLED_PLUGINS_DIR: bundledRoot,
-        OPENCLAW_VERSION: "2026.4.26",
+        GRANTED_BUNDLED_PLUGINS_DIR: bundledRoot,
+        GRANTED_VERSION: "2026.4.26",
       }),
     });
 

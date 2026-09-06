@@ -48,8 +48,8 @@ type MemorySessionTranscriptUpdate = {
   };
 };
 
-const originalStartupStateDir = process.env.OPENCLAW_STATE_DIR;
-const originalStartupConfigPath = process.env.OPENCLAW_CONFIG_PATH;
+const originalStartupStateDir = process.env.GRANTED_STATE_DIR;
+const originalStartupConfigPath = process.env.GRANTED_CONFIG_PATH;
 let transcriptUpdateListener: ((update: MemorySessionTranscriptUpdate) => void) | undefined;
 
 /** Clears the module-owned listener between tests; ESM bindings cannot be reassigned by importers. */
@@ -94,23 +94,23 @@ function createStartupHarnessDatabase(sourceRows: SourceStateRow[]): DatabaseSyn
   return db;
 }
 export function setStartupStateDir(stateDir: string): void {
-  Reflect.set(process.env, "OPENCLAW_STATE_DIR", stateDir);
+  Reflect.set(process.env, "GRANTED_STATE_DIR", stateDir);
 }
 
 export function setStartupConfigPath(configPath: string): void {
-  Reflect.set(process.env, "OPENCLAW_CONFIG_PATH", configPath);
+  Reflect.set(process.env, "GRANTED_CONFIG_PATH", configPath);
 }
 
 export function restoreStartupEnv(): void {
   if (originalStartupStateDir === undefined) {
-    Reflect.deleteProperty(process.env, "OPENCLAW_STATE_DIR");
+    Reflect.deleteProperty(process.env, "GRANTED_STATE_DIR");
   } else {
-    Reflect.set(process.env, "OPENCLAW_STATE_DIR", originalStartupStateDir);
+    Reflect.set(process.env, "GRANTED_STATE_DIR", originalStartupStateDir);
   }
   if (originalStartupConfigPath === undefined) {
-    Reflect.deleteProperty(process.env, "OPENCLAW_CONFIG_PATH");
+    Reflect.deleteProperty(process.env, "GRANTED_CONFIG_PATH");
   } else {
-    Reflect.set(process.env, "OPENCLAW_CONFIG_PATH", originalStartupConfigPath);
+    Reflect.set(process.env, "GRANTED_CONFIG_PATH", originalStartupConfigPath);
   }
 }
 

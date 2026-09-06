@@ -51,8 +51,8 @@ type AcpxRuntimeLike = CompleteAcpRuntime & {
   probeAvailability(): Promise<void>;
   isHealthy(): boolean;
 };
-const ENABLE_STARTUP_PROBE_ENV = "OPENCLAW_ACPX_RUNTIME_STARTUP_PROBE";
-const SKIP_RUNTIME_PROBE_ENV = "OPENCLAW_SKIP_ACPX_RUNTIME_PROBE";
+const ENABLE_STARTUP_PROBE_ENV = "GRANTED_ACPX_RUNTIME_STARTUP_PROBE";
+const SKIP_RUNTIME_PROBE_ENV = "GRANTED_SKIP_ACPX_RUNTIME_PROBE";
 
 type AcpxRuntimeFactoryParams = {
   pluginConfig: ResolvedAcpxPluginConfig;
@@ -356,8 +356,8 @@ export function createAcpxRuntimeService(
   return {
     id: "acpx-runtime",
     async start(ctx: OpenClawPluginServiceContext): Promise<void> {
-      if (process.env.OPENCLAW_SKIP_ACPX_RUNTIME === "1") {
-        ctx.logger.info("skipping embedded acpx runtime backend (OPENCLAW_SKIP_ACPX_RUNTIME=1)");
+      if (process.env.GRANTED_SKIP_ACPX_RUNTIME === "1") {
+        ctx.logger.info("skipping embedded acpx runtime backend (GRANTED_SKIP_ACPX_RUNTIME=1)");
         return;
       }
       const openKeyedStore = params.openKeyedStore;

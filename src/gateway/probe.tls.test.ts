@@ -101,7 +101,7 @@ describe("probeGateway TLS", () => {
     await withTestDir({ prefix: "openclaw-probe-tls-" }, async (stateDir) => {
       const gateway = await startTlsProbeGateway();
       try {
-        const env = { OPENCLAW_STATE_DIR: stateDir };
+        const env = { GRANTED_STATE_DIR: stateDir };
         const config: OpenClawConfig = {
           gateway: {
             mode: "remote",
@@ -247,7 +247,7 @@ describe("Gateway probe TLS trust", () => {
         auth: { token: "test-probe-token" },
         timeoutMs: 2_000,
         detailLevel: "none",
-        env: { OPENCLAW_STATE_DIR: await tempDirs.make("state") },
+        env: { GRANTED_STATE_DIR: await tempDirs.make("state") },
       });
 
       await gateway.drain();
@@ -272,7 +272,7 @@ describe("Gateway probe TLS trust", () => {
   it("retains saved TLS trust through the health readiness polling path", async () => {
     const before = gateway.observed.connectFrames;
     const result = await withEnvAsync(
-      { OPENCLAW_STATE_DIR: await tempDirs.make("polling-state") },
+      { GRANTED_STATE_DIR: await tempDirs.make("polling-state") },
       () =>
         waitForGatewayReachable({
           url,

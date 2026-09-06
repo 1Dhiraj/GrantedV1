@@ -28,7 +28,7 @@ describe("setup completion session ownership", () => {
     async (harness) => {
       const root = tempRoots.make("openclaw-setup-completion-");
       const stateDir = path.join(root, "state");
-      vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
+      vi.stubEnv("GRANTED_STATE_DIR", stateDir);
       const config: OpenClawConfig = {
         agents: {
           ownership: "explicit",

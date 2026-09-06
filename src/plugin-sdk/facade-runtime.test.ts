@@ -24,9 +24,9 @@ import {
 import { createPluginSdkTestHarness } from "./test-helpers.js";
 
 const { createTempDirSync } = createPluginSdkTestHarness();
-const originalBundledPluginsDir = process.env.OPENCLAW_BUNDLED_PLUGINS_DIR;
-const originalDisableBundledPlugins = process.env.OPENCLAW_DISABLE_BUNDLED_PLUGINS;
-const originalStateDir = process.env.OPENCLAW_STATE_DIR;
+const originalBundledPluginsDir = process.env.GRANTED_BUNDLED_PLUGINS_DIR;
+const originalDisableBundledPlugins = process.env.GRANTED_DISABLE_BUNDLED_PLUGINS;
+const originalStateDir = process.env.GRANTED_STATE_DIR;
 const trustedBundledFixturesRoot = path.resolve("dist-runtime", "extensions");
 const trustedBundledFixtureDirs: string[] = [];
 type SnapshotPluginRecord = PluginMetadataSnapshot["manifestRegistry"]["plugins"][number];
@@ -69,7 +69,7 @@ function createBundledPluginDir(prefix: string, marker: string): string {
 }
 
 function useBundledPluginDirOverrideForTest(dir: string): void {
-  process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = dir;
+  process.env.GRANTED_BUNDLED_PLUGINS_DIR = dir;
 }
 
 function createThrowingPluginDir(prefix: string): string {
@@ -86,9 +86,9 @@ function createThrowingPluginDir(prefix: string): string {
 }
 
 beforeEach(() => {
-  delete process.env.OPENCLAW_BUNDLED_PLUGINS_DIR;
-  delete process.env.OPENCLAW_DISABLE_BUNDLED_PLUGINS;
-  delete process.env.OPENCLAW_STATE_DIR;
+  delete process.env.GRANTED_BUNDLED_PLUGINS_DIR;
+  delete process.env.GRANTED_DISABLE_BUNDLED_PLUGINS;
+  delete process.env.GRANTED_STATE_DIR;
 });
 
 afterEach(() => {
@@ -101,19 +101,19 @@ afterEach(() => {
   resetFacadeRuntimeStateForTest();
   vi.doUnmock("../plugins/manifest-registry.js");
   if (originalBundledPluginsDir === undefined) {
-    delete process.env.OPENCLAW_BUNDLED_PLUGINS_DIR;
+    delete process.env.GRANTED_BUNDLED_PLUGINS_DIR;
   } else {
-    process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = originalBundledPluginsDir;
+    process.env.GRANTED_BUNDLED_PLUGINS_DIR = originalBundledPluginsDir;
   }
   if (originalDisableBundledPlugins === undefined) {
-    delete process.env.OPENCLAW_DISABLE_BUNDLED_PLUGINS;
+    delete process.env.GRANTED_DISABLE_BUNDLED_PLUGINS;
   } else {
-    process.env.OPENCLAW_DISABLE_BUNDLED_PLUGINS = originalDisableBundledPlugins;
+    process.env.GRANTED_DISABLE_BUNDLED_PLUGINS = originalDisableBundledPlugins;
   }
   if (originalStateDir === undefined) {
-    delete process.env.OPENCLAW_STATE_DIR;
+    delete process.env.GRANTED_STATE_DIR;
   } else {
-    process.env.OPENCLAW_STATE_DIR = originalStateDir;
+    process.env.GRANTED_STATE_DIR = originalStateDir;
   }
 });
 
@@ -229,8 +229,8 @@ describe("plugin-sdk facade runtime", () => {
   });
 
   it("does not fall back to package source surfaces when bundled plugins are disabled", () => {
-    process.env.OPENCLAW_DISABLE_BUNDLED_PLUGINS = "1";
-    delete process.env.OPENCLAW_BUNDLED_PLUGINS_DIR;
+    process.env.GRANTED_DISABLE_BUNDLED_PLUGINS = "1";
+    delete process.env.GRANTED_BUNDLED_PLUGINS_DIR;
     testing.setFacadeActivationCheckRuntimeForTest({
       resolveRegistryPluginModuleLocation: () => null,
     } as never);
@@ -256,7 +256,7 @@ describe("plugin-sdk facade runtime", () => {
       boundaryRoot: dir,
     });
 
-    process.env.OPENCLAW_DISABLE_BUNDLED_PLUGINS = "1";
+    process.env.GRANTED_DISABLE_BUNDLED_PLUGINS = "1";
     testing.setFacadeActivationCheckRuntimeForTest({
       resolveRegistryPluginModuleLocation: () => null,
     } as never);
@@ -266,15 +266,15 @@ describe("plugin-sdk facade runtime", () => {
 
   it("does not reuse installed facade locations across custom environment profiles", () => {
     const profileA: NodeJS.ProcessEnv = {
-      OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-      OPENCLAW_STATE_DIR: path.join(path.sep, "openclaw-facade-profile-a"),
+      GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+      GRANTED_STATE_DIR: path.join(path.sep, "openclaw-facade-profile-a"),
     };
     const profileB: NodeJS.ProcessEnv = {
-      OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-      OPENCLAW_STATE_DIR: path.join(path.sep, "openclaw-facade-profile-b"),
+      GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+      GRANTED_STATE_DIR: path.join(path.sep, "openclaw-facade-profile-b"),
     };
     const resolveRegistryPluginModuleLocation = vi.fn(({ env }: { env?: NodeJS.ProcessEnv }) => {
-      const stateDir = env?.OPENCLAW_STATE_DIR;
+      const stateDir = env?.GRANTED_STATE_DIR;
       if (!stateDir) {
         return null;
       }
@@ -289,8 +289,8 @@ describe("plugin-sdk facade runtime", () => {
     } as never);
 
     const params = { dirName: "demo", artifactBasename: "api.js" };
-    const profileARoot = path.join(profileA.OPENCLAW_STATE_DIR!, "plugins", "demo");
-    const profileBRoot = path.join(profileB.OPENCLAW_STATE_DIR!, "plugins", "demo");
+    const profileARoot = path.join(profileA.GRANTED_STATE_DIR!, "plugins", "demo");
+    const profileBRoot = path.join(profileB.GRANTED_STATE_DIR!, "plugins", "demo");
 
     expect(testing.resolveFacadeModuleLocation({ ...params, env: profileA })).toEqual({
       modulePath: path.join(profileARoot, "api.js"),

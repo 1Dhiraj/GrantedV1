@@ -87,7 +87,7 @@ let phase = "preparation";
   const pidFile = path.join(stateDir, "node.pid");
   const setupFile = path.join(stateDir, "setup-code");
   const runtimeLink = path.join(stateDir, "runtime");
-  const nodeEnv = { ...process.env, ...(mode ? { OPENCLAW_STATE_DIR: stateDir } : {}) };
+  const nodeEnv = { ...process.env, ...(mode ? { GRANTED_STATE_DIR: stateDir } : {}) };
   if (desktopEnvironment) {
     // Inspect XFCE only after stripping forwarded credentials from every child environment.
     const desktop = spawnSync("bash", ["-c", desktopEnvironment, "bash", process.execPath], { env: nodeEnv, encoding: "utf8", timeout: 60000 });
@@ -111,7 +111,7 @@ let phase = "preparation";
       // OpenClaw changes process.title; the immutable install cwd survives that argv rewrite.
       const title = args[0];
       const nodeInvocation = args[1] === cli || ["openclaw", "openclaw-connect", "openclaw-node"].includes(title);
-      if (!nodeInvocation || fs.realpathSync(path.join("/proc", pidText, "cwd")) !== runtimeDir || !env.includes("OPENCLAW_STATE_DIR=" + stateDir)) {
+      if (!nodeInvocation || fs.realpathSync(path.join("/proc", pidText, "cwd")) !== runtimeDir || !env.includes("GRANTED_STATE_DIR=" + stateDir)) {
         throw new Error("Cloud worker node is running a different bootstrap artifact or invocation; release and reprovision the worker");
       }
       return;

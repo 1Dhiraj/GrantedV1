@@ -24,7 +24,7 @@ import {
 
 // Write transactions must run on the same env-scoped handle as their
 // statements; a bare transaction would open the default state DB while the
-// SQL hits the override, losing atomicity under OPENCLAW_STATE_DIR overrides.
+// SQL hits the override, losing atomicity under GRANTED_STATE_DIR overrides.
 
 type SessionGroupRecord = {
   name: string;

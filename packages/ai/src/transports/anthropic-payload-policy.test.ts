@@ -16,7 +16,7 @@ describe("resolveAnthropicEphemeralCacheControl", () => {
     "https://aiplatform.us.rep.googleapis.com",
     "https://aiplatform.eu.rep.googleapis.com",
   ])("preserves env-configured long retention for the official %s endpoint", (baseUrl) => {
-    vi.stubEnv("OPENCLAW_CACHE_RETENTION", "long");
+    vi.stubEnv("GRANTED_CACHE_RETENTION", "long");
 
     expect(resolveAnthropicEphemeralCacheControl(baseUrl, undefined)).toEqual({
       type: "ephemeral",
@@ -25,7 +25,7 @@ describe("resolveAnthropicEphemeralCacheControl", () => {
   });
 
   it("keeps env-configured long retention restricted for custom proxy endpoints", () => {
-    vi.stubEnv("OPENCLAW_CACHE_RETENTION", "long");
+    vi.stubEnv("GRANTED_CACHE_RETENTION", "long");
 
     expect(
       resolveAnthropicEphemeralCacheControl("https://proxy.example.test/vertex", undefined),

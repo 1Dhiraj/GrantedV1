@@ -17,7 +17,7 @@ export async function guardRunWorkspaceOwnership(
     }
     requests.push(workspaceDir);
     expect(process.env.HOME, "fixture home survives runner reset/warmup").toBe(state.home);
-    expect(process.env.OPENCLAW_STATE_DIR, "fixture state survives runner reset/warmup").toBe(
+    expect(process.env.GRANTED_STATE_DIR, "fixture state survives runner reset/warmup").toBe(
       state.stateDir,
     );
     if (!isPathInside(state.root, workspaceDir)) {

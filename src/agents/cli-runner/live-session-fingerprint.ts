@@ -9,7 +9,7 @@ export function buildCliLiveSessionFingerprint(params: {
 }): string {
   const context = params.context;
   const managedGrant = context.preparedBackend.mcpClientGrantCapture;
-  const normalizeGrantToken = params.env.OPENCLAW_MCP_TOKEN === managedGrant?.transportToken;
+  const normalizeGrantToken = params.env.GRANTED_MCP_TOKEN === managedGrant?.transportToken;
   const normalizeMcpConfigPath = Boolean(context.preparedBackend.mcpConfigHash);
   const skillSnapshot = context.params.skillsSnapshot;
   const skillsFingerprint = skillSnapshot
@@ -87,10 +87,10 @@ export function buildCliLiveSessionFingerprint(params: {
       skillsFingerprint,
       env: Object.keys(params.env)
         .toSorted()
-        .filter((key) => key !== "OPENCLAW_MCP_CLI_CAPTURE_KEY")
+        .filter((key) => key !== "GRANTED_MCP_CLI_CAPTURE_KEY")
         .map((key) => [
           key,
-          key === "OPENCLAW_MCP_TOKEN" && normalizeGrantToken
+          key === "GRANTED_MCP_TOKEN" && normalizeGrantToken
             ? "<managed-mcp-grant>"
             : params.env[key]
               ? sha256Hex(params.env[key])

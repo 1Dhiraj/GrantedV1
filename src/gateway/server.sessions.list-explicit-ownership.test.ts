@@ -10,12 +10,12 @@ import {
 setupGatewaySessionsHandlerTestHarness();
 
 test("sessions.list excludes ownerless sentinels for explicit multi-agent federation", async () => {
-  const rootStateDir = process.env.OPENCLAW_STATE_DIR;
+  const rootStateDir = process.env.GRANTED_STATE_DIR;
   if (!rootStateDir) {
-    throw new Error("OPENCLAW_STATE_DIR is required for gateway session tests");
+    throw new Error("GRANTED_STATE_DIR is required for gateway session tests");
   }
   const stateDir = path.join(rootStateDir, "explicit-ownership-list-regression");
-  await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () => {
+  await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {
     const agentsDir = path.join(stateDir, "agents");
     const storeTemplate = path.join(agentsDir, "{agentId}", "sessions", "sessions.json");
     testState.sessionConfig = { store: storeTemplate };

@@ -493,8 +493,8 @@ describe("memory cli", () => {
 
   it("drains admitted session backfill in one apply command before preview", async () => {
     const workspaceDir = path.join(workspaceFixtureRoot, `session-backfill-${workspaceCaseId++}`);
-    vi.stubEnv("OPENCLAW_STATE_DIR", path.join(workspaceDir, "state"));
-    vi.stubEnv("OPENCLAW_CONFIG_PATH", path.join(workspaceDir, "openclaw.json"));
+    vi.stubEnv("GRANTED_STATE_DIR", path.join(workspaceDir, "state"));
+    vi.stubEnv("GRANTED_CONFIG_PATH", path.join(workspaceDir, "openclaw.json"));
     await fs.mkdir(workspaceDir, { recursive: true });
     await seedCliBackfillTranscript("drain", ["2026-01-01", "2026-01-02", "2026-01-03"]);
     await seedCliBackfillTranscript("excluded", ["2026-01-04"], {
@@ -1882,7 +1882,7 @@ describe("memory cli", () => {
   ])("fails %s when the memory index has orphaned provenance", async (_label, args) => {
     const stateDir = path.join(fixtureRoot, `corrupt-state-${workspaceCaseId++}`);
     const workspaceDir = path.join(fixtureRoot, `corrupt-workspace-${workspaceCaseId++}`);
-    const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+    const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
     const agentDatabase = openOpenClawAgentDatabase({ agentId: "main", env });
     agentDatabase.db.exec(`
       PRAGMA foreign_keys = OFF;
@@ -1920,7 +1920,7 @@ describe("memory cli", () => {
       },
       plugins: { enabled: false },
     } as OpenClawConfig;
-    vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
+    vi.stubEnv("GRANTED_STATE_DIR", stateDir);
     getRuntimeConfig.mockReturnValue(cfg);
     const actualMemory =
       await vi.importActual<typeof import("./memory/index.js")>("./memory/index.js");

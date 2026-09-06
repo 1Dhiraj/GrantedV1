@@ -1,5 +1,5 @@
 import type { ChannelSetupMetadata } from "../channels/plugins/setup-contract.js";
-import type { MANIFEST_KEY } from "../compat/legacy-names.js";
+import type { LEGACY_MANIFEST_KEYS, MANIFEST_KEY } from "../compat/legacy-names.js";
 import type { PluginManifestChannelCommandDefaults } from "./manifest-types.js";
 
 /** package.json OpenClaw metadata used for plugin setup and catalog discovery. */
@@ -122,7 +122,7 @@ export type PackageExtensionResolution =
   | { status: "empty"; entries: [] }
   | { status: "invalid"; entries: []; error: string };
 
-type ManifestKey = typeof MANIFEST_KEY;
+type ManifestKey = typeof MANIFEST_KEY | (typeof LEGACY_MANIFEST_KEYS)[number];
 
 export type PackageManifest = {
   name?: string;

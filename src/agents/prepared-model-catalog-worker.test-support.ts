@@ -13,13 +13,13 @@ export const PROFILE_ID = `${SHARED_AUTH_PROVIDER_ID}:named`;
 export const MATERIALIZED_SECRET = "materialized-worker-secret-not-real";
 export const UNRELATED_SECRET = "unrelated-worker-secret-not-real";
 export const REF_ONLY_API_PROVIDER_ID = `${PROVIDER_ID}-ref-api`;
-export const REF_ONLY_API_ENV = "OPENCLAW_WORKER_REF_ONLY_API_KEY";
+export const REF_ONLY_API_ENV = "GRANTED_WORKER_REF_ONLY_API_KEY";
 export const REF_ONLY_TOKEN_PROVIDER_ID = `${PROVIDER_ID}-ref-token`;
-export const REF_ONLY_TOKEN_ENV = "OPENCLAW_WORKER_REF_ONLY_TOKEN";
+export const REF_ONLY_TOKEN_ENV = "GRANTED_WORKER_REF_ONLY_TOKEN";
 export const DURABLE_AUTH_PROVIDER_ID = `${PROVIDER_ID}-durable-auth`;
 export const DURABLE_AUTH_KEY = "post-startup-durable-key-not-real";
 export const EXTERNAL_AUTH_PROFILE_ID = `${PROVIDER_ID}:external`;
-export const EXTERNAL_AUTH_PATH_ENV = "OPENCLAW_WORKER_EXTERNAL_AUTH_PATH";
+export const EXTERNAL_AUTH_PATH_ENV = "GRANTED_WORKER_EXTERNAL_AUTH_PATH";
 
 export function createJwtWithExp(exp: number, marker?: string): string {
   const payload = Buffer.from(JSON.stringify({ exp, ...(marker ? { marker } : {}) })).toString(
@@ -154,11 +154,11 @@ module.exports = {
         },
       },
       async augmentModelCatalog(context) {
-        const marker = process.env.OPENCLAW_WORKER_CATALOG_MARKER;
+        const marker = process.env.GRANTED_WORKER_CATALOG_MARKER;
         const invocation = fs.existsSync(marker)
           ? fs.readFileSync(marker, "utf8").split("start\\n").length
           : 1;
-        fs.appendFileSync(process.env.OPENCLAW_WORKER_CATALOG_MARKER, "start\\n");
+        fs.appendFileSync(process.env.GRANTED_WORKER_CATALOG_MARKER, "start\\n");
         const barrier = marker + ".hold";
         if (fs.existsSync(barrier)) {
           await new Promise((resolve) => {
@@ -176,7 +176,7 @@ module.exports = {
           entry.provider === ${JSON.stringify(PROVIDER_ID)} && entry.id === "sqlite-model");
         const hasShared = context.resolveProviderApiKey(${JSON.stringify(SHARED_AUTH_PROVIDER_ID)}).apiKey === ${JSON.stringify(MATERIALIZED_SECRET)};
         const hasUnrelated = context.resolveProviderApiKey("unrelated-provider").apiKey === ${JSON.stringify(UNRELATED_SECRET)};
-        fs.appendFileSync(process.env.OPENCLAW_WORKER_CATALOG_MARKER, "done\\n");
+        fs.appendFileSync(process.env.GRANTED_WORKER_CATALOG_MARKER, "done\\n");
         return [{
           provider: ${JSON.stringify(PROVIDER_ID)},
           id: \`proof-refresh-\${invocation}-sqlite-\${hasSqlite}-shared-\${hasShared}-unrelated-\${hasUnrelated}\`,

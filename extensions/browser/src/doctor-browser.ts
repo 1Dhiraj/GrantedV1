@@ -16,7 +16,7 @@ import {
   resolveBrowserExecutableForPlatform,
   resolveGoogleChromeExecutableForPlatform,
 } from "./browser/chrome.executables.js";
-import { DEFAULT_OPENCLAW_BROWSER_PROFILE_NAME, resolveBrowserConfig } from "./browser/config.js";
+import { DEFAULT_GRANTED_BROWSER_PROFILE_NAME, resolveBrowserConfig } from "./browser/config.js";
 import {
   browserExtensionStatus,
   FOUNDATION_CHROME_WEB_STORE_URL,
@@ -183,7 +183,7 @@ export function detectLegacyClawdBrowserProfileResidue(
   const resolved = resolveBrowserConfig(cfg.browser, cfg);
   const defaultProfile = resolved.profiles[resolved.defaultProfile];
   if (
-    resolved.defaultProfile !== DEFAULT_OPENCLAW_BROWSER_PROFILE_NAME ||
+    resolved.defaultProfile !== DEFAULT_GRANTED_BROWSER_PROFILE_NAME ||
     defaultProfile?.driver === "existing-session"
   ) {
     return null;
@@ -194,7 +194,7 @@ export function detectLegacyClawdBrowserProfileResidue(
     legacyUserDataDir,
     canonicalUserDataDir: resolveManagedBrowserUserDataDir(
       configDir,
-      DEFAULT_OPENCLAW_BROWSER_PROFILE_NAME,
+      DEFAULT_GRANTED_BROWSER_PROFILE_NAME,
     ),
   };
 }

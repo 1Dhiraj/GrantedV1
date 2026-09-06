@@ -11,7 +11,7 @@ import { wrapAnthropicProviderStream } from "./stream-wrappers.js";
 
 const settings = resolveAnthropicCompactionLiveSettings(
   process.env,
-  isTruthyEnvValue(process.env.OPENCLAW_LIVE_TEST),
+  isTruthyEnvValue(process.env.GRANTED_LIVE_TEST),
 );
 const describeLive = settings.enabled ? describe : describe.skip;
 

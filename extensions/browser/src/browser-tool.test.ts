@@ -2366,7 +2366,7 @@ describe("browser tool standalone routing", () => {
   registerBrowserToolAfterEachReset();
   beforeEach(() => {
     gatewayMocks.hasGatewayToolRoutingContext.mockReturnValue(false);
-    vi.stubEnv("OPENCLAW_GATEWAY_URL", undefined);
+    vi.stubEnv("GRANTED_GATEWAY_URL", undefined);
   });
   afterEach(() => vi.unstubAllEnvs());
 
@@ -2419,7 +2419,7 @@ describe("browser tool standalone routing", () => {
     "preserves discovery errors for $name without an in-process Gateway",
     async ({ gateway, target, node, gatewayUrl }) => {
       configMocks.loadConfig.mockReturnValue({ browser: {}, gateway });
-      vi.stubEnv("OPENCLAW_GATEWAY_URL", gatewayUrl);
+      vi.stubEnv("GRANTED_GATEWAY_URL", gatewayUrl);
       const error = new Error("configured Gateway unavailable");
       nodesUtilsMocks.listNodes.mockRejectedValueOnce(error);
 

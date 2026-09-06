@@ -8,9 +8,9 @@ import {
 } from "../../packages/memory-host-sdk/src/host/memory-schema-provenance.js";
 import { MEMORY_INDEX_CHUNK_RECALL_METADATA_TABLE } from "../../packages/memory-host-sdk/src/host/memory-schema-recall.js";
 import { openNodeSqliteDatabase } from "../infra/node-sqlite.js";
-import { OPENCLAW_AGENT_SCHEMA_VERSION } from "./openclaw-agent-db-contract.js";
+import { GRANTED_AGENT_SCHEMA_VERSION } from "./openclaw-agent-db-contract.js";
 import { ensureOpenClawAgentDatabaseSchema } from "./openclaw-agent-db-schema.js";
-import { OPENCLAW_AGENT_SCHEMA_SQL } from "./openclaw-agent-schema.js";
+import { GRANTED_AGENT_SCHEMA_SQL } from "./openclaw-agent-schema.js";
 import { ensureOpenClawAgentStandingIntentsSchema } from "./openclaw-agent-standing-intents-schema.js";
 
 const STANDING_SCHEMA_START = "CREATE TABLE IF NOT EXISTS standing_intents (";
@@ -33,27 +33,27 @@ function removeSchemaSection(schema: string, startMarker: string, endMarker: str
 }
 
 function schemaWithoutStandingIntents(): string {
-  return removeSchemaSection(OPENCLAW_AGENT_SCHEMA_SQL, STANDING_SCHEMA_START, STANDING_SCHEMA_END);
+  return removeSchemaSection(GRANTED_AGENT_SCHEMA_SQL, STANDING_SCHEMA_START, STANDING_SCHEMA_END);
 }
 
 function schemaWithoutMemoryProvenance(): string {
   return removeSchemaSection(
-    OPENCLAW_AGENT_SCHEMA_SQL,
+    GRANTED_AGENT_SCHEMA_SQL,
     PROVENANCE_SCHEMA_START,
     PROVENANCE_SCHEMA_END,
   );
 }
 
 function schemaWithoutStandingIntentCreator(): string {
-  if (!OPENCLAW_AGENT_SCHEMA_SQL.includes(STANDING_CREATOR_COLUMN)) {
+  if (!GRANTED_AGENT_SCHEMA_SQL.includes(STANDING_CREATOR_COLUMN)) {
     throw new Error("standing-intent creator column missing in test fixture");
   }
-  return OPENCLAW_AGENT_SCHEMA_SQL.replace(STANDING_CREATOR_COLUMN, "");
+  return GRANTED_AGENT_SCHEMA_SQL.replace(STANDING_CREATOR_COLUMN, "");
 }
 
 function schemaWithoutMemoryRecallMetadata(): string {
   return removeSchemaSection(
-    OPENCLAW_AGENT_SCHEMA_SQL,
+    GRANTED_AGENT_SCHEMA_SQL,
     RECALL_METADATA_SCHEMA_START,
     RECALL_METADATA_SCHEMA_END,
   );
@@ -76,12 +76,12 @@ describe("additive memory agent schemas", () => {
     const db = openNodeSqliteDatabase(databasePath);
     try {
       db.exec(schemaWithoutStandingIntents());
-      db.exec(`PRAGMA user_version = ${OPENCLAW_AGENT_SCHEMA_VERSION};`);
+      db.exec(`PRAGMA user_version = ${GRANTED_AGENT_SCHEMA_VERSION};`);
       db.prepare(
         `INSERT INTO schema_meta (
           meta_key, role, schema_version, agent_id, app_version, created_at, updated_at
         ) VALUES ('primary', 'agent', ?, 'main', 'test', 1, 1)`,
-      ).run(OPENCLAW_AGENT_SCHEMA_VERSION);
+      ).run(GRANTED_AGENT_SCHEMA_VERSION);
 
       expect(() =>
         ensureOpenClawAgentDatabaseSchema(db, {
@@ -119,7 +119,7 @@ describe("additive memory agent schemas", () => {
         pk: 0,
       });
       expect(db.prepare("PRAGMA user_version").get()).toMatchObject({
-        user_version: OPENCLAW_AGENT_SCHEMA_VERSION,
+        user_version: GRANTED_AGENT_SCHEMA_VERSION,
       });
     } finally {
       db.close();
@@ -134,12 +134,12 @@ describe("additive memory agent schemas", () => {
     const db = openNodeSqliteDatabase(databasePath);
     try {
       db.exec(schemaWithoutMemoryProvenance());
-      db.exec(`PRAGMA user_version = ${OPENCLAW_AGENT_SCHEMA_VERSION};`);
+      db.exec(`PRAGMA user_version = ${GRANTED_AGENT_SCHEMA_VERSION};`);
       db.prepare(
         `INSERT INTO schema_meta (
           meta_key, role, schema_version, agent_id, app_version, created_at, updated_at
         ) VALUES ('primary', 'agent', ?, 'main', 'test', 1, 1)`,
-      ).run(OPENCLAW_AGENT_SCHEMA_VERSION);
+      ).run(GRANTED_AGENT_SCHEMA_VERSION);
 
       expect(() =>
         ensureOpenClawAgentDatabaseSchema(db, {
@@ -178,7 +178,7 @@ describe("additive memory agent schemas", () => {
           .get(MEMORY_INDEX_CHUNK_PROVENANCE_TABLE),
       ).toBeDefined();
       expect(db.prepare("PRAGMA user_version").get()).toMatchObject({
-        user_version: OPENCLAW_AGENT_SCHEMA_VERSION,
+        user_version: GRANTED_AGENT_SCHEMA_VERSION,
       });
     } finally {
       db.close();
@@ -193,12 +193,12 @@ describe("additive memory agent schemas", () => {
     const db = openNodeSqliteDatabase(databasePath);
     try {
       db.exec(schemaWithoutStandingIntentCreator());
-      db.exec(`PRAGMA user_version = ${OPENCLAW_AGENT_SCHEMA_VERSION};`);
+      db.exec(`PRAGMA user_version = ${GRANTED_AGENT_SCHEMA_VERSION};`);
       db.prepare(
         `INSERT INTO schema_meta (
           meta_key, role, schema_version, agent_id, app_version, created_at, updated_at
         ) VALUES ('primary', 'agent', ?, 'main', 'test', 1, 1)`,
-      ).run(OPENCLAW_AGENT_SCHEMA_VERSION);
+      ).run(GRANTED_AGENT_SCHEMA_VERSION);
 
       expect(() =>
         ensureOpenClawAgentDatabaseSchema(db, { agentId: "main", path: databasePath }),
@@ -255,12 +255,12 @@ describe("additive memory agent schemas", () => {
           42, 9, 'when testing rollback', 'project/key'
         );
       `);
-      db.exec(`PRAGMA user_version = ${OPENCLAW_AGENT_SCHEMA_VERSION};`);
+      db.exec(`PRAGMA user_version = ${GRANTED_AGENT_SCHEMA_VERSION};`);
       db.prepare(
         `INSERT INTO schema_meta (
           meta_key, role, schema_version, agent_id, app_version, created_at, updated_at
         ) VALUES ('primary', 'agent', ?, 'main', 'test', 1, 1)`,
-      ).run(OPENCLAW_AGENT_SCHEMA_VERSION);
+      ).run(GRANTED_AGENT_SCHEMA_VERSION);
 
       expect(() =>
         ensureOpenClawAgentDatabaseSchema(db, { agentId: "main", path: databasePath }),

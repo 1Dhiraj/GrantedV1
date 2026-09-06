@@ -12,8 +12,8 @@ import { isTruthyEnvValue } from "../infra/env.js";
 import { runExec } from "../process/exec.js";
 
 const LIVE_CRON_PROBE_DELAY_SECONDS = 7 * 24 * 60 * 60;
-const OPENCLAW_CLI_GATEWAY_TIMEOUT_MS = 30_000;
-const OPENCLAW_CLI_CHILD_TIMEOUT_MS = OPENCLAW_CLI_GATEWAY_TIMEOUT_MS + 45_000;
+const GRANTED_CLI_GATEWAY_TIMEOUT_MS = 30_000;
+const GRANTED_CLI_CHILD_TIMEOUT_MS = GRANTED_CLI_GATEWAY_TIMEOUT_MS + 45_000;
 
 type CronListCliResult = {
   jobs?: Array<{
@@ -151,7 +151,7 @@ export async function runOpenClawCliJson<T>(args: string[], env: NodeJS.ProcessE
   delete childEnv.VITEST_WORKER_ID;
   const cliArgs = args.includes("--timeout")
     ? args
-    : [...args, "--timeout", String(OPENCLAW_CLI_GATEWAY_TIMEOUT_MS)];
+    : [...args, "--timeout", String(GRANTED_CLI_GATEWAY_TIMEOUT_MS)];
   const hasBuildOutput = ["entry.js", "entry.mjs"].some((entry) =>
     fs.existsSync(path.join(process.cwd(), "dist", entry)),
   );
@@ -163,7 +163,7 @@ export async function runOpenClawCliJson<T>(args: string[], env: NodeJS.ProcessE
       cwd: process.cwd(),
       logOutput: false,
       maxBuffer: 1024 * 1024,
-      timeoutMs: OPENCLAW_CLI_CHILD_TIMEOUT_MS,
+      timeoutMs: GRANTED_CLI_CHILD_TIMEOUT_MS,
     },
   );
   const trimmed = stdout.trim();

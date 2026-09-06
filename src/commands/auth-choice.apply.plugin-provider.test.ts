@@ -795,7 +795,7 @@ describe("applyAuthChoiceLoadedPluginProvider", () => {
           },
         },
       },
-      env: { OPENCLAW_STATE_DIR: "/tmp/openclaw-state" },
+      env: { GRANTED_STATE_DIR: "/tmp/openclaw-state" },
       runtime: {} as ApplyAuthChoiceParams["runtime"],
       prompter: {
         note,

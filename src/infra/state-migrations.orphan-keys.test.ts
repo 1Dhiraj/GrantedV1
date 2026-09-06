@@ -73,7 +73,7 @@ async function migrateFixtureState(
 ) {
   return migrateOrphanedSessionKeys({
     cfg,
-    env: { OPENCLAW_STATE_DIR: stateDir },
+    env: { GRANTED_STATE_DIR: stateDir },
     additionalAgentIds,
     legacySessionSurfaces: EMPTY_LEGACY_SESSION_SURFACES,
   });
@@ -160,7 +160,7 @@ describe("migrateOrphanedSessionKeys", () => {
 
       const result = await migrateOrphanedSessionKeys({
         cfg,
-        env: { OPENCLAW_STATE_DIR: stateDir },
+        env: { GRANTED_STATE_DIR: stateDir },
         additionalAgentIds: ["voice"],
         legacySessionSurfaces: EMPTY_LEGACY_SESSION_SURFACES,
       });
@@ -225,7 +225,7 @@ describe("migrateOrphanedSessionKeys", () => {
       try {
         ownership = resolveSessionStoreOwnership({
           cfg,
-          env: { OPENCLAW_STATE_DIR: stateDir },
+          env: { GRANTED_STATE_DIR: stateDir },
           stateDir,
           targetAgentId: "voice",
           pluginSessionStoreAgentIds: ["voice"],
@@ -270,7 +270,7 @@ describe("migrateOrphanedSessionKeys", () => {
 
       expect(listPluginDoctorSessionStoreAgentIdsMock).toHaveBeenCalledWith({
         config: cfg,
-        env: { OPENCLAW_STATE_DIR: stateDir },
+        env: { GRANTED_STATE_DIR: stateDir },
         pluginIds: ["voice-call"],
       });
       const store = readStore(voiceStorePath);
@@ -447,7 +447,7 @@ describe("migrateOrphanedSessionKeys", () => {
       try {
         result = await migrateOrphanedSessionKeys({
           cfg,
-          env: { OPENCLAW_STATE_DIR: stateDir },
+          env: { GRANTED_STATE_DIR: stateDir },
           additionalAgentIds: ["voice"],
           legacySessionSurfaces: EMPTY_LEGACY_SESSION_SURFACES,
         });
@@ -756,7 +756,7 @@ describe("migrateOrphanedSessionKeys", () => {
 
       const result = await migrateOrphanedSessionKeys({
         cfg: OPS_WORK_CONFIG,
-        env: { OPENCLAW_STATE_DIR: stateDir },
+        env: { GRANTED_STATE_DIR: stateDir },
         legacySessionSurfaces: prepareLegacySessionSurfaces,
       });
 
@@ -772,7 +772,7 @@ describe("migrateOrphanedSessionKeys", () => {
         "agent:main:main": { sessionId: "abc-123", updatedAt: 1000 },
       });
 
-      const env = { OPENCLAW_STATE_DIR: stateDir };
+      const env = { GRANTED_STATE_DIR: stateDir };
       await migrateOrphanedSessionKeys({
         cfg: OPS_WORK_CONFIG,
         env,
@@ -1095,7 +1095,7 @@ describe("migrateOrphanedSessionKeys", () => {
 
       const result = await migrateOrphanedSessionKeys({
         cfg,
-        env: { OPENCLAW_STATE_DIR: stateDir },
+        env: { GRANTED_STATE_DIR: stateDir },
         legacySessionSurfaces: EMPTY_LEGACY_SESSION_SURFACES,
       });
 

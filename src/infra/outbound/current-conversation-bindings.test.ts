@@ -209,9 +209,9 @@ describe("generic current-conversation bindings", () => {
   let testStateDir = "";
 
   beforeEach(async () => {
-    previousStateDir = process.env.OPENCLAW_STATE_DIR;
+    previousStateDir = process.env.GRANTED_STATE_DIR;
     testStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-current-bindings-"));
-    process.env.OPENCLAW_STATE_DIR = testStateDir;
+    process.env.GRANTED_STATE_DIR = testStateDir;
     setMinimalCurrentConversationRegistry();
     testing.clearPersistedCurrentConversationBindingsForTests();
   });
@@ -221,9 +221,9 @@ describe("generic current-conversation bindings", () => {
     testing.clearPersistedCurrentConversationBindingsForTests();
     closeOpenClawStateDatabaseForTest();
     if (previousStateDir == null) {
-      delete process.env.OPENCLAW_STATE_DIR;
+      delete process.env.GRANTED_STATE_DIR;
     } else {
-      process.env.OPENCLAW_STATE_DIR = previousStateDir;
+      process.env.GRANTED_STATE_DIR = previousStateDir;
     }
     await fs.rm(testStateDir, { recursive: true, force: true });
   });

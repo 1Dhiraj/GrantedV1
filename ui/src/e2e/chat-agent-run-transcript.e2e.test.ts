@@ -84,7 +84,7 @@ suite.define(() => {
 
     expect(rowKeys[0]).toMatch(/^agent-run:/u);
     expect(rowKeys).toEqual([rowKeys[0], rowKeys[0], rowKeys[0]]);
-    const artifactRoot = process.env.OPENCLAW_CONTROL_UI_E2E_ARTIFACT_DIR?.trim();
+    const artifactRoot = process.env.GRANTED_CONTROL_UI_E2E_ARTIFACT_DIR?.trim();
     const artifactDir = artifactRoot
       ? createControlUiE2eArtifactDir("chat-agent-run-transcript", artifactRoot)
       : undefined;
@@ -251,7 +251,7 @@ suite.define(() => {
       await page.goto(`${suite.server.baseUrl}chat`);
       const transcript = page.locator(".chat-thread-inner");
       await transcript.getByText("Caption ready for the second run.", { exact: true }).waitFor();
-      const artifactRoot = process.env.OPENCLAW_CONTROL_UI_E2E_ARTIFACT_DIR?.trim();
+      const artifactRoot = process.env.GRANTED_CONTROL_UI_E2E_ARTIFACT_DIR?.trim();
       const artifactDir = artifactRoot
         ? createControlUiE2eArtifactDir("chat-agent-run-transcript", artifactRoot)
         : undefined;
@@ -449,7 +449,7 @@ suite.define(() => {
     });
     expect(overlappingRows).toEqual([]);
 
-    const artifactRoot = process.env.OPENCLAW_CONTROL_UI_E2E_ARTIFACT_DIR?.trim();
+    const artifactRoot = process.env.GRANTED_CONTROL_UI_E2E_ARTIFACT_DIR?.trim();
     const artifactDir = artifactRoot
       ? createControlUiE2eArtifactDir("chat-agent-run-transcript", artifactRoot)
       : undefined;

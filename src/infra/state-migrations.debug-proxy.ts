@@ -116,7 +116,7 @@ export function detectLegacyDebugProxyCaptureSidecar(
   const paths = resolveLegacyDebugProxyCapturePaths(stateDir);
   if (
     path.resolve(paths.sourcePath) ===
-    path.resolve(resolveOpenClawStateSqlitePath({ ...env, OPENCLAW_STATE_DIR: stateDir }))
+    path.resolve(resolveOpenClawStateSqlitePath({ ...env, GRANTED_STATE_DIR: stateDir }))
   ) {
     return { ...paths, hasLegacy: false };
   }
@@ -542,7 +542,7 @@ export function migrateLegacyDebugProxyCaptureSidecar(params: {
           }
         }
       },
-      { env: { ...process.env, OPENCLAW_STATE_DIR: params.stateDir } },
+      { env: { ...process.env, GRANTED_STATE_DIR: params.stateDir } },
     );
     changes.push(
       `Migrated ${legacy.sessions.length} debug proxy capture ${legacy.sessions.length === 1 ? "session" : "sessions"}, ${legacy.events.length} ${legacy.events.length === 1 ? "event" : "events"}, and ${legacy.blobs.length} ${legacy.blobs.length === 1 ? "blob" : "blobs"} → shared SQLite state`,

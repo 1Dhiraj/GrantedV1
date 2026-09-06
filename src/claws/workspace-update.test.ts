@@ -70,7 +70,7 @@ describe("applyClawWorkspaceUpdate", () => {
       integrity: "sha256:target",
     };
     const workspace = join(root, "workspace");
-    const env = { OPENCLAW_STATE_DIR: join(root, "state") };
+    const env = { GRANTED_STATE_DIR: join(root, "state") };
     const currentAddPlan = await buildClawAddPlan({
       manifest: currentParsed.manifest,
       source: currentSource,

@@ -672,7 +672,7 @@ describe("package source preflight", () => {
       "validate_docker_lanes",
       "validate_docker_openwebui",
     ]) {
-      expect(workflow.jobs[jobId]!.env?.OPENCLAW_DOCKER_E2E_PACKAGE_ARTIFACT_NAME).toBe(
+      expect(workflow.jobs[jobId]!.env?.GRANTED_DOCKER_E2E_PACKAGE_ARTIFACT_NAME).toBe(
         reportArtifactName,
       );
     }
@@ -706,8 +706,8 @@ describe("package source preflight", () => {
           status: "failed",
         },
         {
-          OPENCLAW_DOCKER_E2E_PACKAGE_ARTIFACT_NAME: noPackageArtifactName || "docker-e2e-package",
-          OPENCLAW_DOCKER_E2E_SELECTED_SHA: "a".repeat(40),
+          GRANTED_DOCKER_E2E_PACKAGE_ARTIFACT_NAME: noPackageArtifactName || "docker-e2e-package",
+          GRANTED_DOCKER_E2E_SELECTED_SHA: "a".repeat(40),
         },
       );
       const summary = JSON.parse(readFileSync(path.join(reportDir, "summary.json"), "utf8"));

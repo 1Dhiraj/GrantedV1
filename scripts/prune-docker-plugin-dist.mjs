@@ -22,7 +22,7 @@ function parsePluginList(value) {
 }
 
 /**
- * Parses OPENCLAW_EXTENSIONS into the bundled plugin ids that Docker should keep.
+ * Parses GRANTED_EXTENSIONS into the bundled plugin ids that Docker should keep.
  */
 export function parseDockerPluginKeepList(value) {
   return parsePluginList(value);
@@ -201,8 +201,8 @@ function pruneNodeModulesForOmittedPlugins(repoRoot, bundledPluginDir, omittedPl
 export function pruneDockerPluginDist(params = {}) {
   const repoRoot = params.cwd ?? params.repoRoot ?? process.cwd();
   const env = params.env ?? process.env;
-  const bundledPluginDir = env.OPENCLAW_BUNDLED_PLUGIN_DIR ?? "extensions";
-  const keepPluginIds = parseDockerPluginKeepList(env.OPENCLAW_EXTENSIONS);
+  const bundledPluginDir = env.GRANTED_BUNDLED_PLUGIN_DIR ?? "extensions";
+  const keepPluginIds = parseDockerPluginKeepList(env.GRANTED_EXTENSIONS);
   const excludedPluginIds = collectRootPackageExcludedExtensionDirs({ cwd: repoRoot });
   const omittedPluginIds = new Set(
     [...excludedPluginIds].filter((pluginId) => !keepPluginIds.has(pluginId)),

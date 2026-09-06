@@ -153,9 +153,9 @@ describe("packed CLI smoke", () => {
           SystemRoot: "C:\\Windows",
           GITHUB_TOKEN: "redacted",
           OPENAI_API_KEY: "real-secret",
-          OPENCLAW_CONFIG_PATH: "/tmp/leaky-config.json",
+          GRANTED_CONFIG_PATH: "/tmp/leaky-config.json",
         },
-        { HOME: "/tmp/smoke-home", OPENCLAW_STATE_DIR: "/tmp/smoke-state" },
+        { HOME: "/tmp/smoke-home", GRANTED_STATE_DIR: "/tmp/smoke-state" },
       ),
     ).toEqual({
       PATH:
@@ -172,11 +172,11 @@ describe("packed CLI smoke", () => {
       AWS_CONFIG_FILE: join("/tmp/smoke-home", ".aws", "config"),
       TMPDIR: "/tmp/original-tmp",
       SystemRoot: "C:\\Windows",
-      OPENCLAW_DISABLE_BUNDLED_ENTRY_SOURCE_FALLBACK: "1",
-      OPENCLAW_NO_ONBOARD: "1",
-      OPENCLAW_SERVICE_REPAIR_POLICY: "external",
-      OPENCLAW_SUPPRESS_NOTES: "1",
-      OPENCLAW_STATE_DIR: "/tmp/smoke-state",
+      GRANTED_DISABLE_BUNDLED_ENTRY_SOURCE_FALLBACK: "1",
+      GRANTED_NO_ONBOARD: "1",
+      GRANTED_SERVICE_REPAIR_POLICY: "external",
+      GRANTED_SUPPRESS_NOTES: "1",
+      GRANTED_STATE_DIR: "/tmp/smoke-state",
     });
   });
 
@@ -185,19 +185,19 @@ describe("packed CLI smoke", () => {
       createPackedCompletionSmokeEnv(
         {
           PATH: "/usr/bin",
-          OPENCLAW_COMPLETION_SKIP_PLUGIN_COMMANDS: "0",
+          GRANTED_COMPLETION_SKIP_PLUGIN_COMMANDS: "0",
         },
         {
           HOME: "/tmp/smoke-home",
-          OPENCLAW_STATE_DIR: "/tmp/smoke-state",
+          GRANTED_STATE_DIR: "/tmp/smoke-state",
         },
       ),
     ).toEqual({
       PATH: "/usr/bin",
       HOME: "/tmp/smoke-home",
-      OPENCLAW_STATE_DIR: "/tmp/smoke-state",
-      OPENCLAW_SUPPRESS_NOTES: "1",
-      OPENCLAW_DISABLE_BUNDLED_ENTRY_SOURCE_FALLBACK: "1",
+      GRANTED_STATE_DIR: "/tmp/smoke-state",
+      GRANTED_SUPPRESS_NOTES: "1",
+      GRANTED_DISABLE_BUNDLED_ENTRY_SOURCE_FALLBACK: "1",
       [COMPLETION_SKIP_PLUGIN_COMMANDS_ENV]: "1",
     });
   });
@@ -238,22 +238,22 @@ describe("runReleaseCheckCommand", () => {
   });
 
   it("rejects malformed command limit environment values", () => {
-    withProcessEnv({ OPENCLAW_RELEASE_CHECK_COMMAND_TIMEOUT_MS: "1e3" }, () => {
+    withProcessEnv({ GRANTED_RELEASE_CHECK_COMMAND_TIMEOUT_MS: "1e3" }, () => {
       expect(() =>
         runReleaseCheckCommand(
           { command: process.execPath, args: ["--eval", "process.stdout.write('ok')"] },
           { stdio: ["ignore", "pipe", "pipe"] },
         ),
-      ).toThrow("invalid OPENCLAW_RELEASE_CHECK_COMMAND_TIMEOUT_MS: 1e3");
+      ).toThrow("invalid GRANTED_RELEASE_CHECK_COMMAND_TIMEOUT_MS: 1e3");
     });
 
-    withProcessEnv({ OPENCLAW_RELEASE_CHECK_COMMAND_MAX_BUFFER_BYTES: "16mb" }, () => {
+    withProcessEnv({ GRANTED_RELEASE_CHECK_COMMAND_MAX_BUFFER_BYTES: "16mb" }, () => {
       expect(() =>
         runReleaseCheckCommand(
           { command: process.execPath, args: ["--eval", "process.stdout.write('ok')"] },
           { stdio: ["ignore", "pipe", "pipe"] },
         ),
-      ).toThrow("invalid OPENCLAW_RELEASE_CHECK_COMMAND_MAX_BUFFER_BYTES: 16mb");
+      ).toThrow("invalid GRANTED_RELEASE_CHECK_COMMAND_MAX_BUFFER_BYTES: 16mb");
     });
   });
 });
@@ -300,7 +300,7 @@ describe("workspace bootstrap smoke", () => {
           TMPDIR: "/tmp/original-tmp",
           OPENAI_API_KEY: "real-secret",
           ANTHROPIC_API_KEY: "real-secret",
-          OPENCLAW_CONFIG_PATH: "/tmp/leaky-config.json",
+          GRANTED_CONFIG_PATH: "/tmp/leaky-config.json",
         },
         "/tmp/bootstrap-home",
       ),
@@ -311,12 +311,12 @@ describe("workspace bootstrap smoke", () => {
           : `${dirname(process.execPath)}:/usr/bin:/bin`,
       HOME: "/tmp/bootstrap-home",
       USERPROFILE: "/tmp/bootstrap-home",
-      OPENCLAW_HOME: "/tmp/bootstrap-home",
+      GRANTED_HOME: "/tmp/bootstrap-home",
       TMPDIR: "/tmp/original-tmp",
-      OPENCLAW_NO_ONBOARD: "1",
-      OPENCLAW_SUPPRESS_NOTES: "1",
-      OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-      OPENCLAW_DISABLE_BUNDLED_ENTRY_SOURCE_FALLBACK: "1",
+      GRANTED_NO_ONBOARD: "1",
+      GRANTED_SUPPRESS_NOTES: "1",
+      GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+      GRANTED_DISABLE_BUNDLED_ENTRY_SOURCE_FALLBACK: "1",
       AWS_EC2_METADATA_DISABLED: "true",
       AWS_SHARED_CREDENTIALS_FILE: join("/tmp/bootstrap-home", ".aws", "credentials"),
       AWS_CONFIG_FILE: join("/tmp/bootstrap-home", ".aws", "config"),
@@ -1015,7 +1015,7 @@ describe("createPackedBundledPluginPostinstallEnv", () => {
   it("keeps packed postinstall on the lazy bundled dependency path", () => {
     expect(createPackedBundledPluginPostinstallEnv({ PATH: "/usr/bin" })).toEqual({
       PATH: "/usr/bin",
-      OPENCLAW_DISABLE_BUNDLED_ENTRY_SOURCE_FALLBACK: "1",
+      GRANTED_DISABLE_BUNDLED_ENTRY_SOURCE_FALLBACK: "1",
     });
   });
 });

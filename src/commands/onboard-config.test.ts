@@ -81,7 +81,7 @@ describe("applyLocalSetupWorkspaceConfig", () => {
 
   it("keeps fresh-install workspace writes unchanged", () => {
     const result = applyLocalSetupWorkspaceConfig({}, "/tmp/new-workspace", {
-      env: { HOME: "/tmp/fresh-home", OPENCLAW_STATE_DIR: "/tmp/fresh-state" },
+      env: { HOME: "/tmp/fresh-home", GRANTED_STATE_DIR: "/tmp/fresh-state" },
     });
 
     expect(result.agents?.defaults?.workspace).toBe("/tmp/new-workspace");
@@ -106,7 +106,7 @@ describe("applyLocalSetupWorkspaceConfig", () => {
   });
 
   it("does not materialize a fleet default for an existing roster", () => {
-    const env = { HOME: "/tmp/fleet-home", OPENCLAW_STATE_DIR: "/tmp/fleet-state" };
+    const env = { HOME: "/tmp/fleet-home", GRANTED_STATE_DIR: "/tmp/fleet-state" };
     const baseConfig: OpenClawConfig = {
       agents: { list: [{ id: "main" }, { id: "ops" }] },
     };
@@ -124,7 +124,7 @@ describe("applyLocalSetupWorkspaceConfig", () => {
     const stateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-onboard-state-"));
     try {
       await fs.mkdir(path.join(stateDir, "agents", "main", "sessions"), { recursive: true });
-      const env = { HOME: stateDir, OPENCLAW_STATE_DIR: stateDir };
+      const env = { HOME: stateDir, GRANTED_STATE_DIR: stateDir };
 
       const result = applyLocalSetupWorkspaceConfig({}, "/tmp/requested-workspace", {
         env,
@@ -151,7 +151,7 @@ describe("applyLocalSetupWorkspaceConfig", () => {
         { agents: { defaults: { workspace: "/tmp/current-workspace" } } },
         "/tmp/requested-workspace",
         {
-          env: { HOME: "/tmp/unreadable-home", OPENCLAW_STATE_DIR: "/tmp/unreadable-state" },
+          env: { HOME: "/tmp/unreadable-home", GRANTED_STATE_DIR: "/tmp/unreadable-state" },
         },
       );
       expect(result.agents?.defaults?.workspace).toBe("/tmp/current-workspace");

@@ -65,11 +65,11 @@ export function resolveConfigDir(
   env: NodeJS.ProcessEnv = process.env,
   homedir: () => string = os.homedir,
 ): string {
-  const override = env.OPENCLAW_STATE_DIR?.trim();
+  const override = env.GRANTED_STATE_DIR?.trim();
   if (override) {
     return resolveUserPath(override, env, homedir);
   }
-  const configPath = env.OPENCLAW_CONFIG_PATH?.trim();
+  const configPath = env.GRANTED_CONFIG_PATH?.trim();
   if (configPath) {
     return path.dirname(resolveUserPath(configPath, env, homedir));
   }
@@ -95,14 +95,14 @@ function resolveHomeDisplayPrefix(): { home: string; prefix: string } | undefine
   if (!home) {
     return undefined;
   }
-  const explicitHome = process.env.OPENCLAW_HOME?.trim();
+  const explicitHome = process.env.GRANTED_HOME?.trim();
   if (explicitHome) {
-    return { home, prefix: "$OPENCLAW_HOME" };
+    return { home, prefix: "$GRANTED_HOME" };
   }
   return { home, prefix: "~" };
 }
 
-/** Replaces the leading home directory in a path with `~` or `$OPENCLAW_HOME`. */
+/** Replaces the leading home directory in a path with `~` or `$GRANTED_HOME`. */
 export function shortenHomePath(input: string): string {
   const display = resolveHomeDisplayPrefix();
   if (!display) {

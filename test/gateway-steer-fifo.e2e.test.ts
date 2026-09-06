@@ -521,9 +521,9 @@ async function createGatewayFixture(
     gatewayToken: "steer-fifo-token",
     config: createConfig({ fixtureDir, modelServer, steeringTools }),
     env: {
-      OPENCLAW_LOG_LEVEL: "debug",
-      OPENCLAW_SKIP_PROVIDERS: undefined,
-      OPENCLAW_TEST_MINIMAL_GATEWAY: undefined,
+      GRANTED_LOG_LEVEL: "debug",
+      GRANTED_SKIP_PROVIDERS: undefined,
+      GRANTED_TEST_MINIMAL_GATEWAY: undefined,
     },
   });
   instances.push(instance);

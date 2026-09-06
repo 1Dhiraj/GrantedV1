@@ -22,7 +22,7 @@ describe("DiscordThreadDeleteListener session-store integration", () => {
       const canonicalTempRoot = await fs.realpath(tempRoot);
       const canonicalStateDir = await fs.realpath(stateDir);
 
-      await withEnvAsync({ OPENCLAW_STATE_DIR: canonicalStateDir }, async () => {
+      await withEnvAsync({ GRANTED_STATE_DIR: canonicalStateDir }, async () => {
         const sharedStorePath = path.join(canonicalTempRoot, "shared", "sessions.json");
         const cfg = {
           session: { store: sharedStorePath },

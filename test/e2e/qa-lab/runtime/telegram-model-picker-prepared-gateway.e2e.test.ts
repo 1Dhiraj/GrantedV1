@@ -165,7 +165,7 @@ function pickerConfig(apiRoot: string, modelId: string): OpenClawConfig {
 
 async function readTelegramIngressStatuses(stateDir: string, eventIds: string[]) {
   const database = await openExistingOpenClawStateDatabaseReadOnly({
-    env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+    env: { ...process.env, GRANTED_STATE_DIR: stateDir },
   });
   if (!database) {
     return [];
@@ -261,9 +261,9 @@ const [{ startGatewayServer }, preparedRuntime] = await Promise.all([
   import(${JSON.stringify(runtimeUrl)}),
 ]);
 const replacementConfig = JSON.parse(
-  await fs.readFile(process.env.OPENCLAW_QA_REPLACEMENT_CONFIG_PATH, "utf8"),
+  await fs.readFile(process.env.GRANTED_QA_REPLACEMENT_CONFIG_PATH, "utf8"),
 );
-const server = await startGatewayServer(Number(process.env.OPENCLAW_GATEWAY_PORT), {
+const server = await startGatewayServer(Number(process.env.GRANTED_GATEWAY_PORT), {
   auth: { mode: "token", token: "picker-token" },
   bind: "loopback",
   controlUiEnabled: false,
@@ -309,17 +309,17 @@ process.on("message", async (message) => {
     env: {
       ...process.env,
       HOME: params.fixtureRoot,
-      OPENCLAW_HOME: params.fixtureRoot,
-      OPENCLAW_CONFIG_PATH: params.configPath,
-      OPENCLAW_STATE_DIR: path.join(params.fixtureRoot, "state"),
-      OPENCLAW_QA_REPLACEMENT_CONFIG_PATH: params.replacementConfigPath,
-      OPENCLAW_GATEWAY_PORT: String(port),
-      OPENCLAW_SKIP_BROWSER_CONTROL_SERVER: "1",
-      OPENCLAW_SKIP_CRON: "1",
-      OPENCLAW_SKIP_GMAIL_WATCHER: "1",
-      OPENCLAW_SKIP_CHANNELS: undefined,
-      OPENCLAW_SKIP_PROVIDERS: undefined,
-      OPENCLAW_TEST_MINIMAL_GATEWAY: undefined,
+      GRANTED_HOME: params.fixtureRoot,
+      GRANTED_CONFIG_PATH: params.configPath,
+      GRANTED_STATE_DIR: path.join(params.fixtureRoot, "state"),
+      GRANTED_QA_REPLACEMENT_CONFIG_PATH: params.replacementConfigPath,
+      GRANTED_GATEWAY_PORT: String(port),
+      GRANTED_SKIP_BROWSER_CONTROL_SERVER: "1",
+      GRANTED_SKIP_CRON: "1",
+      GRANTED_SKIP_GMAIL_WATCHER: "1",
+      GRANTED_SKIP_CHANNELS: undefined,
+      GRANTED_SKIP_PROVIDERS: undefined,
+      GRANTED_TEST_MINIMAL_GATEWAY: undefined,
       TELEGRAM_BOT_TOKEN: undefined,
     },
     stdio: ["ignore", "pipe", "pipe", "ipc"],
@@ -586,9 +586,9 @@ test("keeps Telegram model-picker callbacks on the prepared Gateway catalog", as
             primaryModel: `ollama/${PREPARED_MODEL}`,
             alternateModel: `ollama/${PREPARED_MODEL}`,
             runtimeEnvPatch: {
-              OPENCLAW_SKIP_CHANNELS: undefined,
-              OPENCLAW_SKIP_PROVIDERS: undefined,
-              OPENCLAW_TEST_MINIMAL_GATEWAY: undefined,
+              GRANTED_SKIP_CHANNELS: undefined,
+              GRANTED_SKIP_PROVIDERS: undefined,
+              GRANTED_TEST_MINIMAL_GATEWAY: undefined,
               TELEGRAM_BOT_TOKEN: undefined,
             },
             mutateConfig: (cfg) => ({

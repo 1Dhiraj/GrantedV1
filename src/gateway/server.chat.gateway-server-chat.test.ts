@@ -2366,8 +2366,8 @@ describe("gateway server chat", () => {
   test("chat.history persists assistant image data URLs as managed image blocks", async () => {
     await withMainSessionStore(
       async (dir) => {
-        const envSnapshot = captureEnv(["OPENCLAW_STATE_DIR"]);
-        setTestEnvValue("OPENCLAW_STATE_DIR", dir);
+        const envSnapshot = captureEnv(["GRANTED_STATE_DIR"]);
+        setTestEnvValue("GRANTED_STATE_DIR", dir);
         const pngB64 =
           "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGNgYAAAAAMAASsJTYQAAAAASUVORK5CYII=";
         dispatchInboundMessageMock.mockImplementationOnce(async (...args: unknown[]) => {

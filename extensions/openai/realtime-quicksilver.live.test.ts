@@ -24,7 +24,7 @@ import { buildOpenAIRealtimeVoiceProvider } from "./realtime-voice-provider.js";
 import { OPENAI_REALTIME_INPUT_TRANSCRIPTION_MODEL } from "./realtime-voice-session-policy.js";
 
 const LIVE_ENABLED =
-  process.env.OPENCLAW_LIVE_TEST === "1" && process.env.OPENCLAW_LIVE_GPT_LIVE === "1";
+  process.env.GRANTED_LIVE_TEST === "1" && process.env.GRANTED_LIVE_GPT_LIVE === "1";
 const describeLive = LIVE_ENABLED ? describe : describe.skip;
 const LIVE_TIMEOUT_MS = 60_000;
 const LIVE_MILESTONE_TIMEOUT_MS = 30_000;

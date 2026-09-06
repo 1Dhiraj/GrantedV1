@@ -13,7 +13,7 @@ import {
 } from "../../../../extensions/qa-lab/api.js";
 import { createQaScriptEvidenceWriter } from "./script-evidence.js";
 
-const ALLOW_ENV = "OPENCLAW_QA_ALLOW_SYSTEMD_RECOVERY";
+const ALLOW_ENV = "GRANTED_QA_ALLOW_SYSTEMD_RECOVERY";
 const SCENARIO_ID = "doctor-gateway-startup-recovery";
 const SOURCE_PATH = "test/e2e/qa-lab/runtime/doctor-gateway-startup-recovery.ts";
 const commandTimeoutMs = 120_000;
@@ -122,26 +122,26 @@ function commandEnv(
   const env: NodeJS.ProcessEnv = {
     ...baseEnv,
     HOME: accountHome,
-    OPENCLAW_CONFIG_PATH: path.join(stateDir, "openclaw.json"),
-    OPENCLAW_PROFILE: profile,
-    OPENCLAW_STATE_DIR: stateDir,
-    OPENCLAW_SKIP_CHANNELS: "1",
-    OPENCLAW_SKIP_PROVIDERS: "1",
-    OPENCLAW_SKIP_GMAIL_WATCHER: "1",
-    OPENCLAW_SKIP_CRON: "1",
-    OPENCLAW_SKIP_BROWSER_CONTROL_SERVER: "1",
-    OPENCLAW_SKIP_CANVAS_HOST: "1",
-    OPENCLAW_TEST_MINIMAL_GATEWAY: "1",
+    GRANTED_CONFIG_PATH: path.join(stateDir, "openclaw.json"),
+    GRANTED_PROFILE: profile,
+    GRANTED_STATE_DIR: stateDir,
+    GRANTED_SKIP_CHANNELS: "1",
+    GRANTED_SKIP_PROVIDERS: "1",
+    GRANTED_SKIP_GMAIL_WATCHER: "1",
+    GRANTED_SKIP_CRON: "1",
+    GRANTED_SKIP_BROWSER_CONTROL_SERVER: "1",
+    GRANTED_SKIP_CANVAS_HOST: "1",
+    GRANTED_TEST_MINIMAL_GATEWAY: "1",
   };
   for (const key of [
-    "OPENCLAW_HOME",
-    "OPENCLAW_SYSTEMD_UNIT",
-    "OPENCLAW_GATEWAY_PORT",
-    "OPENCLAW_GATEWAY_URL",
-    "OPENCLAW_GATEWAY_TOKEN",
-    "OPENCLAW_GATEWAY_PASSWORD",
-    "OPENCLAW_SERVICE_REPAIR_POLICY",
-    "OPENCLAW_SUPERVISOR_MODE",
+    "GRANTED_HOME",
+    "GRANTED_SYSTEMD_UNIT",
+    "GRANTED_GATEWAY_PORT",
+    "GRANTED_GATEWAY_URL",
+    "GRANTED_GATEWAY_TOKEN",
+    "GRANTED_GATEWAY_PASSWORD",
+    "GRANTED_SERVICE_REPAIR_POLICY",
+    "GRANTED_SUPERVISOR_MODE",
     "DBUS_SESSION_BUS_ADDRESS",
     "SUDO_COMMAND",
     "SUDO_GID",

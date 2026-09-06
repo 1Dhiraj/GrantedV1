@@ -283,10 +283,10 @@ describe("sessions.catalog.startTerminal", () => {
       {
         HOME: home,
         USERPROFILE: home,
-        OPENCLAW_HOME: undefined,
-        OPENCLAW_PROFILE: "dev",
-        OPENCLAW_STATE_DIR: stateDir,
-        OPENCLAW_CONFIG_PATH: path.join(stateDir, "openclaw.json"),
+        GRANTED_HOME: undefined,
+        GRANTED_PROFILE: "dev",
+        GRANTED_STATE_DIR: stateDir,
+        GRANTED_CONFIG_PATH: path.join(stateDir, "openclaw.json"),
       },
       async () =>
         await call(

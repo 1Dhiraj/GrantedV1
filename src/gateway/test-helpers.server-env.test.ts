@@ -16,8 +16,8 @@ import {
 
 const envBeforeSuite = {
   PATH: process.env.PATH,
-  OPENCLAW_GATEWAY_PORT: process.env.OPENCLAW_GATEWAY_PORT,
-  OPENCLAW_PATH_BOOTSTRAPPED: process.env.OPENCLAW_PATH_BOOTSTRAPPED,
+  GRANTED_GATEWAY_PORT: process.env.GRANTED_GATEWAY_PORT,
+  GRANTED_PATH_BOOTSTRAPPED: process.env.GRANTED_PATH_BOOTSTRAPPED,
 };
 
 installGatewayTestHooks();
@@ -25,16 +25,16 @@ installGatewayTestHooks();
 describe("Gateway test environment lifecycle", () => {
   it("records the process-wide startup environment", async () => {
     await withGatewayServer(async ({ port }) => {
-      expect(process.env.OPENCLAW_GATEWAY_PORT).toBe(String(port));
-      expect(process.env.OPENCLAW_PATH_BOOTSTRAPPED).toBe("1");
+      expect(process.env.GRANTED_GATEWAY_PORT).toBe(String(port));
+      expect(process.env.GRANTED_PATH_BOOTSTRAPPED).toBe("1");
     });
   });
 
   it("restores startup-owned environment before the next test", () => {
     expect({
       PATH: process.env.PATH,
-      OPENCLAW_GATEWAY_PORT: process.env.OPENCLAW_GATEWAY_PORT,
-      OPENCLAW_PATH_BOOTSTRAPPED: process.env.OPENCLAW_PATH_BOOTSTRAPPED,
+      GRANTED_GATEWAY_PORT: process.env.GRANTED_GATEWAY_PORT,
+      GRANTED_PATH_BOOTSTRAPPED: process.env.GRANTED_PATH_BOOTSTRAPPED,
     }).toEqual(envBeforeSuite);
   });
 
@@ -63,7 +63,7 @@ describe("Gateway test environment lifecycle", () => {
       const actual = await vi.importActual<typeof import("../config/io.js")>("../config/io.js");
       const { writeConfigFile } = createGatewayConfigOverrides(actual);
       await writeConfigFile({ session: { reset: { idleMinutes: 30 } } });
-      const configPath = process.env.OPENCLAW_CONFIG_PATH!;
+      const configPath = process.env.GRANTED_CONFIG_PATH!;
       const readIdleMinutes = () =>
         actual.loadConfig({ pin: false, skipPluginValidation: true, skipShellEnvFallback: true })
           .session?.reset?.idleMinutes;
@@ -97,16 +97,16 @@ describe("Gateway test environment lifecycle", () => {
   );
 
   it("restores startup-owned environment when a direct E2E server closes", async () => {
-    const stateDir = process.env.OPENCLAW_STATE_DIR;
+    const stateDir = process.env.GRANTED_STATE_DIR;
     if (!stateDir) {
-      throw new Error("OPENCLAW_STATE_DIR is required");
+      throw new Error("GRANTED_STATE_DIR is required");
     }
     setTestEnvValue("PATH", process.env.PATH ?? "");
-    deleteTestEnvValue("OPENCLAW_PATH_BOOTSTRAPPED");
+    deleteTestEnvValue("GRANTED_PATH_BOOTSTRAPPED");
     const envBeforeServer = {
       PATH: process.env.PATH,
-      OPENCLAW_GATEWAY_PORT: process.env.OPENCLAW_GATEWAY_PORT,
-      OPENCLAW_PATH_BOOTSTRAPPED: process.env.OPENCLAW_PATH_BOOTSTRAPPED,
+      GRANTED_GATEWAY_PORT: process.env.GRANTED_GATEWAY_PORT,
+      GRANTED_PATH_BOOTSTRAPPED: process.env.GRANTED_PATH_BOOTSTRAPPED,
     };
     const token = "test-gateway-token-1234567890";
     for (const attempt of ["first", "second"]) {
@@ -117,8 +117,8 @@ describe("Gateway test environment lifecycle", () => {
       });
 
       try {
-        expect(process.env.OPENCLAW_GATEWAY_PORT).toBe(String(started.port));
-        expect(process.env.OPENCLAW_PATH_BOOTSTRAPPED).toBe("1");
+        expect(process.env.GRANTED_GATEWAY_PORT).toBe(String(started.port));
+        expect(process.env.GRANTED_PATH_BOOTSTRAPPED).toBe("1");
       } finally {
         await disconnectGatewayClient(started.client).catch(() => undefined);
         await started.server.close({
@@ -128,8 +128,8 @@ describe("Gateway test environment lifecycle", () => {
 
       expect({
         PATH: process.env.PATH,
-        OPENCLAW_GATEWAY_PORT: process.env.OPENCLAW_GATEWAY_PORT,
-        OPENCLAW_PATH_BOOTSTRAPPED: process.env.OPENCLAW_PATH_BOOTSTRAPPED,
+        GRANTED_GATEWAY_PORT: process.env.GRANTED_GATEWAY_PORT,
+        GRANTED_PATH_BOOTSTRAPPED: process.env.GRANTED_PATH_BOOTSTRAPPED,
       }).toEqual(envBeforeServer);
     }
   });

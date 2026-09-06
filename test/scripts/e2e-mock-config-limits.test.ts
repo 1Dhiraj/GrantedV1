@@ -28,10 +28,10 @@ const scrubbedEnvKeys = [
   "MOCK_RESPONSE_CONTROL",
   "MOCK_TLS_CERT",
   "MOCK_TLS_KEY",
-  "OPENCLAW_CONFIG_RELOAD_LOG_MAX_READ_BYTES",
-  "OPENCLAW_CONFIG_RELOAD_LOG_PATH",
-  "OPENCLAW_CONFIG_RELOAD_LOG_TIMEOUT_MS",
-  "OPENCLAW_MOCK_OPENAI_PORT",
+  "GRANTED_CONFIG_RELOAD_LOG_MAX_READ_BYTES",
+  "GRANTED_CONFIG_RELOAD_LOG_PATH",
+  "GRANTED_CONFIG_RELOAD_LOG_TIMEOUT_MS",
+  "GRANTED_MOCK_OPENAI_PORT",
   "RAW_SCHEMA_ERROR",
   "SUCCESS_MARKER",
 ];
@@ -159,7 +159,7 @@ describe("mock OpenAI response markers", () => {
         mockOpenAiPath,
         { MOCK_DRAFTPROOF_FINAL_DELAY_MS: "80" },
         async (baseUrl) => {
-          const user = { role: "user", content: "return OPENCLAW_E2E_DRAFTPROOF" };
+          const user = { role: "user", content: "return GRANTED_E2E_DRAFTPROOF" };
           const tool = {
             name: "exec",
             description: "Execute a shell command",
@@ -271,7 +271,7 @@ describe("mock OpenAI response markers", () => {
             const response = stream
               ? final.find((event) => event.type === "response.completed").response
               : final[0];
-            expect(response.output[0].content[0].text).toBe("OPENCLAW_E2E_DRAFTPROOF");
+            expect(response.output[0].content[0].text).toBe("GRANTED_E2E_DRAFTPROOF");
           } else {
             expect(
               final
@@ -281,7 +281,7 @@ describe("mock OpenAI response markers", () => {
                     : chunk.choices[0].message.content,
                 )
                 .join(""),
-            ).toBe("OPENCLAW_E2E_DRAFTPROOF");
+            ).toBe("GRANTED_E2E_DRAFTPROOF");
             expect(performance.now() - finalStartedAt).toBeGreaterThanOrEqual(60);
           }
         },
@@ -291,7 +291,7 @@ describe("mock OpenAI response markers", () => {
 
   it("echoes dynamic OpenClaw E2E markers", async () => {
     await withMockServer(mockOpenAiPath, {}, async (baseUrl) => {
-      for (const marker of ["OPENCLAW_E2E_SEED_0_123", "OPENCLAW_E2E_ANDROID_OK"]) {
+      for (const marker of ["GRANTED_E2E_SEED_0_123", "GRANTED_E2E_ANDROID_OK"]) {
         const response = await fetch(`${baseUrl}/v1/responses`, {
           method: "POST",
           headers: { "content-type": "application/json" },
@@ -361,7 +361,7 @@ describe("mock OpenAI response markers", () => {
             method: "POST",
             headers: { "content-type": "application/json" },
             body: JSON.stringify({
-              input: "return OPENCLAW_E2E_EDIT_FAILURE_UNRESOLVED",
+              input: "return GRANTED_E2E_EDIT_FAILURE_UNRESOLVED",
               stream: false,
             }),
           }).then((response) => response.json());
@@ -370,7 +370,7 @@ describe("mock OpenAI response markers", () => {
           method: "POST",
           headers: { "content-type": "application/json" },
           body: JSON.stringify({
-            messages: [{ content: "return OPENCLAW_E2E_DRAFTPROOF", role: "user" }],
+            messages: [{ content: "return GRANTED_E2E_DRAFTPROOF", role: "user" }],
             stream: false,
           }),
         }).then((response) => response.json());
@@ -768,10 +768,10 @@ describe("e2e mock and config helper numeric limits", () => {
     expect(mockPort.stderr).toContain("invalid MOCK_PORT: 44080tcp");
 
     const fallbackPort = runScript(mockOpenAiPath, {
-      OPENCLAW_MOCK_OPENAI_PORT: "44080http",
+      GRANTED_MOCK_OPENAI_PORT: "44080http",
     });
     expect(fallbackPort.status).not.toBe(0);
-    expect(fallbackPort.stderr).toContain("invalid OPENCLAW_MOCK_OPENAI_PORT: 44080http");
+    expect(fallbackPort.stderr).toContain("invalid GRANTED_MOCK_OPENAI_PORT: 44080http");
   });
 
   it("rejects out-of-range mock OpenAI port env values", () => {
@@ -780,10 +780,10 @@ describe("e2e mock and config helper numeric limits", () => {
     expect(mockPort.stderr).toContain("invalid MOCK_PORT: 65536");
 
     const fallbackPort = runScript(mockOpenAiPath, {
-      OPENCLAW_MOCK_OPENAI_PORT: "65536",
+      GRANTED_MOCK_OPENAI_PORT: "65536",
     });
     expect(fallbackPort.status).not.toBe(0);
-    expect(fallbackPort.stderr).toContain("invalid OPENCLAW_MOCK_OPENAI_PORT: 65536");
+    expect(fallbackPort.stderr).toContain("invalid GRANTED_MOCK_OPENAI_PORT: 65536");
   });
 
   it("rejects loose OpenAI web-search mock port env values", () => {
@@ -811,20 +811,20 @@ describe("e2e mock and config helper numeric limits", () => {
 
   it("rejects loose config-reload log timeout env values", () => {
     const result = runScript(configReloadAssertPath, {
-      OPENCLAW_CONFIG_RELOAD_LOG_TIMEOUT_MS: "30000ms",
+      GRANTED_CONFIG_RELOAD_LOG_TIMEOUT_MS: "30000ms",
     });
 
     expect(result.status).not.toBe(0);
-    expect(result.stderr).toContain("invalid OPENCLAW_CONFIG_RELOAD_LOG_TIMEOUT_MS: 30000ms");
+    expect(result.stderr).toContain("invalid GRANTED_CONFIG_RELOAD_LOG_TIMEOUT_MS: 30000ms");
   });
 
   it("rejects loose config-reload log read caps", () => {
     const result = runScript(configReloadAssertPath, {
-      OPENCLAW_CONFIG_RELOAD_LOG_MAX_READ_BYTES: "256kb",
+      GRANTED_CONFIG_RELOAD_LOG_MAX_READ_BYTES: "256kb",
     });
 
     expect(result.status).not.toBe(0);
-    expect(result.stderr).toContain("invalid OPENCLAW_CONFIG_RELOAD_LOG_MAX_READ_BYTES: 256kb");
+    expect(result.stderr).toContain("invalid GRANTED_CONFIG_RELOAD_LOG_MAX_READ_BYTES: 256kb");
   });
 
   it("returns a clear error when mock OpenAI cannot append request logs", async () => {
@@ -837,7 +837,7 @@ describe("e2e mock and config helper numeric limits", () => {
           const response = await fetch(`${baseUrl}/v1/responses`, {
             method: "POST",
             headers: { "content-type": "application/json" },
-            body: JSON.stringify({ input: "OPENCLAW_E2E_OK" }),
+            body: JSON.stringify({ input: "GRANTED_E2E_OK" }),
           });
           const body = await response.json();
 
@@ -861,14 +861,14 @@ describe("e2e mock and config helper numeric limits", () => {
         {
           MOCK_REQUEST_LOG: requestLogDirectory,
           RAW_SCHEMA_ERROR: "400 schema rejected",
-          SUCCESS_MARKER: "OPENCLAW_SCHEMA_E2E_OK",
+          SUCCESS_MARKER: "GRANTED_SCHEMA_E2E_OK",
         },
         async (baseUrl, output) => {
           const response = await fetch(`${baseUrl}/v1/responses`, {
             method: "POST",
             headers: { "content-type": "application/json" },
             body: JSON.stringify({
-              input: "OPENCLAW_SCHEMA_E2E_OK",
+              input: "GRANTED_SCHEMA_E2E_OK",
               reasoning: { effort: "low" },
               tools: [{ type: "web_search" }],
             }),

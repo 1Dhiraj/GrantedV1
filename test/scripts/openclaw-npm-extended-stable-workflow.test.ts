@@ -276,22 +276,22 @@ describe("minimal npm extended-stable workflow", () => {
     expect(metadata.run).toContain('RELEASE_BRANCH_REF="${RELEASE_SHA}"');
     expect(metadata.run).not.toContain("Validation-only SHA mode only supports");
     expect(pack.run).toContain('if [[ "${RELEASE_REF}" =~ ^[0-9a-fA-F]{40}$ ]]');
-    expect(pack.run).toContain("export OPENCLAW_PREPACK_ALLOW_UNRELEASED_CHANGELOG=1");
+    expect(pack.run).toContain("export GRANTED_PREPACK_ALLOW_UNRELEASED_CHANGELOG=1");
 
     const plugins = step(preflight, "Exercise all extended-stable plugin npm packages");
     expect(step(preflight, "Verify release contents").env).toMatchObject({
-      OPENCLAW_RELEASE_CHECK_LOCAL_PACKAGE_TARBALL_DIR:
+      GRANTED_RELEASE_CHECK_LOCAL_PACKAGE_TARBALL_DIR:
         "${{ steps.core_package_tarballs.outputs.dir }}",
     });
     expect(plugins.if).toBe("${{ inputs.npm_dist_tag == 'extended-stable' }}");
     expect(plugins.env).toMatchObject({
-      OPENCLAW_PLUGIN_NPM_PUBLISH_TAG: "extended-stable",
+      GRANTED_PLUGIN_NPM_PUBLISH_TAG: "extended-stable",
     });
     expect(plugins.run).toContain("--selection-mode all-publishable");
     expect(plugins.run).toContain("--npm-dist-tag extended-stable");
     expect(plugins.run).toContain("scripts/check-plugin-npm-runtime-builds.mts");
     expect(plugins.run).toContain("scripts/plugin-npm-publish.sh --pack");
-    expect(plugins.run).toContain("OPENCLAW_PLUGIN_NPM_PACK_OUTPUT_DIR");
+    expect(plugins.run).toContain("GRANTED_PLUGIN_NPM_PACK_OUTPUT_DIR");
     expect(plugins.run).not.toContain("--publish");
     expect(step(preflight, "Upload extended-stable plugin npm packages")).toBeDefined();
   });
@@ -323,9 +323,9 @@ describe("minimal npm extended-stable workflow", () => {
     const build = step(preflight, "Build");
     const buildControlUi = step(preflight, "Build Control UI");
     expect(build.if).toBe("steps.dist_build_cache.outputs.cache-hit != 'true'");
-    expect(build.env?.OPENCLAW_CONTROL_UI_RELEASE_BUILD).toBe("1");
+    expect(build.env?.GRANTED_CONTROL_UI_RELEASE_BUILD).toBe("1");
     expect(buildControlUi.if).toBe("steps.dist_build_cache.outputs.cache-hit != 'true'");
-    expect(buildControlUi.env?.OPENCLAW_CONTROL_UI_RELEASE_BUILD).toBe("1");
+    expect(buildControlUi.env?.GRANTED_CONTROL_UI_RELEASE_BUILD).toBe("1");
     expect(step(preflight, "Check").if).toBeUndefined();
     const verifyReleaseContents = step(preflight, "Verify release contents");
     expect(verifyReleaseContents.if).toBeUndefined();

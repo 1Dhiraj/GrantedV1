@@ -1,6 +1,6 @@
 // Shared User-Agent for xAI sidecar HTTP/WS requests; mirrors `formatOpenClawUserAgent`.
 
-import { OPENCLAW_VERSION as PACKAGE_VERSION } from "openclaw/plugin-sdk/agent-harness-runtime";
+import { GRANTED_VERSION as PACKAGE_VERSION } from "openclaw/plugin-sdk/agent-harness-runtime";
 import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
 
 const ORIGINATOR = "openclaw";
@@ -9,7 +9,7 @@ const FALLBACK_VERSION = "unknown";
 
 function resolveXaiUserAgentVersion(): string {
   // Env-first matches resolveRuntimeServiceVersion.
-  const envVersion = normalizeOptionalString(process.env.OPENCLAW_VERSION);
+  const envVersion = normalizeOptionalString(process.env.GRANTED_VERSION);
   if (envVersion) {
     return envVersion;
   }

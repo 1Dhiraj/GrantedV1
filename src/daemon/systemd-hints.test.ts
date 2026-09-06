@@ -49,7 +49,7 @@ describe("renderSystemdUnavailableHints", () => {
   });
 
   it("skips headless recovery hints when container context is known", () => {
-    const env = { OPENCLAW_CONTAINER_HINT: "sandbox" };
+    const env = { GRANTED_CONTAINER_HINT: "sandbox" };
     expect(
       renderSystemdUnavailableHints({
         kind: "user_bus_unavailable",

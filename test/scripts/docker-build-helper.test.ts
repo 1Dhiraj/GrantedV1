@@ -28,7 +28,7 @@ const DOCKER_ALL_SCHEDULER_PATH = "scripts/test-docker-all.mts";
 const DOCKER_E2E_PACKAGE_HELPER_PATH = "scripts/lib/docker-e2e-package.sh";
 const DOCKER_E2E_IMAGE_HELPER_PATH = "scripts/lib/docker-e2e-image.sh";
 const DOCKER_E2E_SCENARIOS_PATH = "scripts/lib/docker-e2e-scenarios.mts";
-const OPENCLAW_E2E_INSTANCE_HELPER_PATH = "scripts/lib/openclaw-e2e-instance.sh";
+const GRANTED_E2E_INSTANCE_HELPER_PATH = "scripts/lib/openclaw-e2e-instance.sh";
 const COMPOSE_SETUP_E2E_PATH = "scripts/e2e/compose-setup.sh";
 const CLI_INSTALLER_DISTRIBUTION_E2E_PATH = "scripts/e2e/cli-installer-distribution-docker.sh";
 const DOCKER_PACKAGE_INSTALL_E2E_PATH = "scripts/e2e/docker-package-install.sh";
@@ -225,11 +225,11 @@ function survivorPostCoreFixture() {
       ...process.env,
       HOME: workDir,
       TMPDIR: workDir,
-      OPENCLAW_STATE_DIR: workDir,
-      OPENCLAW_CONFIG_PATH: join(workDir, "absent"),
-      OPENCLAW_UPGRADE_SURVIVOR_ARTIFACT_ROOT: artifacts,
-      OPENCLAW_UPDATE_POST_CORE: "1",
-      OPENCLAW_UPDATE_POST_CORE_RESULT_PATH: resultPath,
+      GRANTED_STATE_DIR: workDir,
+      GRANTED_CONFIG_PATH: join(workDir, "absent"),
+      GRANTED_UPGRADE_SURVIVOR_ARTIFACT_ROOT: artifacts,
+      GRANTED_UPDATE_POST_CORE: "1",
+      GRANTED_UPDATE_POST_CORE_RESULT_PATH: resultPath,
       NODE_OPTIONS: "--no-warnings",
     },
   };
@@ -433,8 +433,8 @@ esac
           ...process.env,
           FAKE_PROC_STAT: procStat ?? "",
           FAKE_PROC_STAT_MODE: procStat === undefined ? "unreadable" : "readable",
-          OPENCLAW_UPGRADE_SURVIVOR_SYSTEMCTL_SHIM_LOG: join(workDir, "systemctl.log"),
-          OPENCLAW_UPGRADE_SURVIVOR_SYSTEMCTL_SHIM_PID_FILE: pidPath,
+          GRANTED_UPGRADE_SURVIVOR_SYSTEMCTL_SHIM_LOG: join(workDir, "systemctl.log"),
+          GRANTED_UPGRADE_SURVIVOR_SYSTEMCTL_SHIM_PID_FILE: pidPath,
           PATH: `${binDir}:${process.env.PATH ?? ""}`,
         },
       }).status;
@@ -497,7 +497,7 @@ describe("docker build helper", () => {
   it("allows deployments to build an immutable sandbox image tag", () => {
     const script = readFileSync("scripts/sandbox-setup.sh", "utf8");
     expect(script).toContain(
-      'IMAGE_NAME="${OPENCLAW_SANDBOX_IMAGE:-openclaw-sandbox:bookworm-slim}"',
+      'IMAGE_NAME="${GRANTED_SANDBOX_IMAGE:-openclaw-sandbox:bookworm-slim}"',
     );
   });
 
@@ -593,7 +593,7 @@ fi
 
     expect(cleanupSmoke).toContain('source "$ROOT_DIR/scripts/lib/docker-e2e-container.sh"');
     expect(cleanupSmoke).toContain(
-      'DOCKER_COMMAND_TIMEOUT="${DOCKER_COMMAND_TIMEOUT:-${OPENCLAW_CLEANUP_SMOKE_DOCKER_TIMEOUT:-600s}}"',
+      'DOCKER_COMMAND_TIMEOUT="${DOCKER_COMMAND_TIMEOUT:-${GRANTED_CLEANUP_SMOKE_DOCKER_TIMEOUT:-600s}}"',
     );
     expect(cleanupSmoke).toContain(
       'docker_e2e_docker_run_cmd run --rm --platform "$PLATFORM" -t "$IMAGE_NAME"',
@@ -602,7 +602,7 @@ fi
 
     expect(installE2eSmoke).toContain('source "$ROOT_DIR/scripts/lib/docker-e2e-container.sh"');
     expect(installE2eSmoke).toContain(
-      'DOCKER_COMMAND_TIMEOUT="${DOCKER_COMMAND_TIMEOUT:-${OPENCLAW_INSTALL_E2E_DOCKER_TIMEOUT:-2700s}}"',
+      'DOCKER_COMMAND_TIMEOUT="${DOCKER_COMMAND_TIMEOUT:-${GRANTED_INSTALL_E2E_DOCKER_TIMEOUT:-2700s}}"',
     );
     expect(installE2eSmoke).toContain("docker_e2e_docker_run_cmd run --rm \\");
     expect(installE2eSmoke).not.toContain("docker run --rm \\");
@@ -682,7 +682,7 @@ if (args[0] === "ps") {
       env: {
         ...process.env,
         PATH: `${binDir}:${process.env.PATH ?? ""}`,
-        OPENCLAW_DOCKER_SOCKET: join(workDir, "missing.sock"),
+        GRANTED_DOCKER_SOCKET: join(workDir, "missing.sock"),
       },
     });
 
@@ -712,7 +712,7 @@ if (args[0] === "ps") {
     const script = `
 set -euo pipefail
 LOG_PATH=${shellQuote(logPath)}
-export OPENCLAW_CLEANUP_SMOKE_LOG_PRINT_BYTES=64kb
+export GRANTED_CLEANUP_SMOKE_LOG_PRINT_BYTES=64kb
 
 ${cleanupSmokeLogTailHelpers()}
 
@@ -722,7 +722,7 @@ print_log_tail "$LOG_PATH"
     const result = spawnSync("bash", ["-lc", script], { encoding: "utf8" });
 
     expect(result.status).toBe(2);
-    expect(result.stderr).toContain("invalid OPENCLAW_CLEANUP_SMOKE_LOG_PRINT_BYTES: 64kb");
+    expect(result.stderr).toContain("invalid GRANTED_CLEANUP_SMOKE_LOG_PRINT_BYTES: 64kb");
     expect(result.stdout).toBe("");
   });
 
@@ -733,7 +733,7 @@ print_log_tail "$LOG_PATH"
     const script = `
 set -euo pipefail
 LOG_PATH=${shellQuote(logPath)}
-export OPENCLAW_CLEANUP_SMOKE_LOG_PRINT_BYTES=0008
+export GRANTED_CLEANUP_SMOKE_LOG_PRINT_BYTES=0008
 
 ${cleanupSmokeLogTailHelpers()}
 
@@ -774,7 +774,7 @@ print_log_tail "$LOG_PATH"
     expect(runCleanupDefaultPlatform({ GITHUB_ACTIONS: "true" }, "x86_64")).toBe("linux/amd64");
     expect(runCleanupDefaultPlatform({}, "arm64")).toBe("linux/arm64");
     expect(
-      runCleanupDefaultPlatform({ OPENCLAW_CLEANUP_SMOKE_PLATFORM: "linux/s390x" }, "x86_64"),
+      runCleanupDefaultPlatform({ GRANTED_CLEANUP_SMOKE_PLATFORM: "linux/s390x" }, "x86_64"),
     ).toBe("linux/s390x");
   });
 
@@ -786,8 +786,8 @@ print_log_tail "$LOG_PATH"
 
     expectTextToIncludeAll(helper, [
       "docker_build_on_missing_enabled()",
-      "OPENCLAW_DOCKER_BUILD_ON_MISSING",
-      "OPENCLAW_TESTBOX",
+      "GRANTED_DOCKER_BUILD_ON_MISSING",
+      "GRANTED_TESTBOX",
     ]);
 
     expect(e2eImageHelper).toContain("docker_build_on_missing_enabled");
@@ -796,10 +796,10 @@ print_log_tail "$LOG_PATH"
     expect(e2eImageHelper).toContain('docker_e2e_docker_cmd pull "$image_name"');
     expect(liveBuild).toContain('source "$SCRIPT_ROOT_DIR/scripts/lib/docker-e2e-container.sh"');
     expect(liveBuild).toContain(
-      'DOCKER_COMMAND_TIMEOUT="${DOCKER_COMMAND_TIMEOUT:-${OPENCLAW_LIVE_DOCKER_PULL_TIMEOUT:-600s}}"',
+      'DOCKER_COMMAND_TIMEOUT="${DOCKER_COMMAND_TIMEOUT:-${GRANTED_LIVE_DOCKER_PULL_TIMEOUT:-600s}}"',
     );
     expect(liveBuild).toContain(
-      'LIVE_IMAGE_PULL_ATTEMPTS="${OPENCLAW_LIVE_DOCKER_PULL_ATTEMPTS:-3}"',
+      'LIVE_IMAGE_PULL_ATTEMPTS="${GRANTED_LIVE_DOCKER_PULL_ATTEMPTS:-3}"',
     );
     expect(liveBuild).toContain('docker_e2e_docker_cmd image inspect "$LIVE_IMAGE_NAME"');
     expect(liveBuild).toContain('docker_e2e_docker_cmd pull "$LIVE_IMAGE_NAME"');
@@ -823,12 +823,12 @@ print_log_tail "$LOG_PATH"
       "node scripts/e2e/lib/openwebui/http-probe.mjs 'http://$OW_NAME:$WEBUI_PORT/' lt500",
     );
     expect(liveCliBackend).toContain(
-      'OPENCLAW_LIVE_DOCKER_REPO_ROOT="$ROOT_DIR" "$TRUSTED_HARNESS_DIR/scripts/test-live-build-docker.sh"',
+      'GRANTED_LIVE_DOCKER_REPO_ROOT="$ROOT_DIR" "$TRUSTED_HARNESS_DIR/scripts/test-live-build-docker.sh"',
     );
     expect(liveCliBackend).toContain("codex-cli is no longer a bundled CLI backend");
     expect(liveCliBackend).not.toContain("==> Direct Codex CLI probe ok");
     expect(liveCliBackend).not.toContain(
-      'echo "==> Reuse live-test image: $LIVE_IMAGE_NAME (OPENCLAW_SKIP_DOCKER_BUILD=1)"',
+      'echo "==> Reuse live-test image: $LIVE_IMAGE_NAME (GRANTED_SKIP_DOCKER_BUILD=1)"',
     );
   });
 
@@ -872,7 +872,7 @@ print_log_tail "$LOG_PATH"
         "bash",
         [
           "-c",
-          `source "${OPENCLAW_E2E_INSTANCE_HELPER_PATH}"; openclaw_e2e_run_script_entrypoint "$1" "$2"`,
+          `source "${GRANTED_E2E_INSTANCE_HELPER_PATH}"; openclaw_e2e_run_script_entrypoint "$1" "$2"`,
           "openclaw-docker-script-entrypoint",
           scriptStem,
           value,
@@ -947,14 +947,14 @@ print_log_tail "$LOG_PATH"
     const runProbe = (value: string) => {
       const script = [
         "source scripts/lib/docker-e2e-image.sh",
-        "docker_e2e_read_nonnegative_decimal_env OPENCLAW_SAMPLE_RESOURCE_LIMIT 2048",
+        "docker_e2e_read_nonnegative_decimal_env GRANTED_SAMPLE_RESOURCE_LIMIT 2048",
       ].join("\n");
       return spawnSync("bash", ["-c", script], {
         cwd: process.cwd(),
         encoding: "utf8",
         env: {
           ...process.env,
-          OPENCLAW_SAMPLE_RESOURCE_LIMIT: value,
+          GRANTED_SAMPLE_RESOURCE_LIMIT: value,
         },
       });
     };
@@ -964,11 +964,11 @@ print_log_tail "$LOG_PATH"
     const overprecise = runProbe("12.1234567");
     const decimal = runProbe("12.5");
     expect(invalid.status).toBe(2);
-    expect(invalid.stderr).toContain("invalid OPENCLAW_SAMPLE_RESOURCE_LIMIT: 12mb");
+    expect(invalid.stderr).toContain("invalid GRANTED_SAMPLE_RESOURCE_LIMIT: 12mb");
     expect(overlarge.status).toBe(2);
-    expect(overlarge.stderr).toContain("invalid OPENCLAW_SAMPLE_RESOURCE_LIMIT: 9999999999");
+    expect(overlarge.stderr).toContain("invalid GRANTED_SAMPLE_RESOURCE_LIMIT: 9999999999");
     expect(overprecise.status).toBe(2);
-    expect(overprecise.stderr).toContain("invalid OPENCLAW_SAMPLE_RESOURCE_LIMIT: 12.1234567");
+    expect(overprecise.stderr).toContain("invalid GRANTED_SAMPLE_RESOURCE_LIMIT: 12.1234567");
     expect(decimal.status).toBe(0);
     expect(decimal.stdout.trimEnd()).toBe("12.5");
   });
@@ -976,7 +976,7 @@ print_log_tail "$LOG_PATH"
   it("keeps Testbox image-build fallback before isolating live MCP code-mode runtime flags", () => {
     const script = readFileSync(MCP_CODE_MODE_GATEWAY_LIVE_DOCKER_E2E_PATH, "utf8");
     const buildIndex = script.indexOf('docker_e2e_build_or_reuse "$IMAGE_NAME"');
-    const unsetIndex = script.indexOf("unset OPENCLAW_TESTBOX");
+    const unsetIndex = script.indexOf("unset GRANTED_TESTBOX");
 
     expect(buildIndex).toBeGreaterThanOrEqual(0);
     expect(unsetIndex).toBeGreaterThan(buildIndex);
@@ -1002,7 +1002,7 @@ printf "%s\\n" "$*" >>"$TMPDIR/docker-seen"
 
     const script = repoShell(workDir)`
 export PATH="$TMPDIR/bin:$PATH"
-export OPENCLAW_DOCKER_BUILD_TIMEOUT=17s
+export GRANTED_DOCKER_BUILD_TIMEOUT=17s
 
 source "$ROOT_DIR/scripts/lib/docker-build.sh"
 
@@ -1034,7 +1034,7 @@ printf "captured docker build log\\n"
 
     const script = repoShell(workDir)`
 export PATH="$TMPDIR/bin:$PATH"
-export OPENCLAW_DOCKER_BUILD_HEARTBEAT_SECONDS=1
+export GRANTED_DOCKER_BUILD_HEARTBEAT_SECONDS=1
 
 source "$ROOT_DIR/scripts/lib/docker-build.sh"
 
@@ -1077,7 +1077,7 @@ ROOT_DIR=${shellQuote(process.cwd())}
 TMPDIR=${shellQuote(workDir)}
 export ROOT_DIR TMPDIR
 export PATH="$TMPDIR/bin:$PATH"
-export OPENCLAW_DOCKER_BUILD_RETRIES=3
+export GRANTED_DOCKER_BUILD_RETRIES=3
 source "$ROOT_DIR/scripts/lib/docker-build.sh"
 docker_build_run e2e-build -t demo-image .
 `,
@@ -1159,7 +1159,7 @@ printf "quick docker build log\\n"
 
     const script = repoShell(workDir)`
 export PATH="$TMPDIR/bin:$PATH"
-export OPENCLAW_DOCKER_BUILD_HEARTBEAT_SECONDS=30
+export GRANTED_DOCKER_BUILD_HEARTBEAT_SECONDS=30
 
 source "$ROOT_DIR/scripts/lib/docker-build.sh"
 
@@ -1176,7 +1176,7 @@ output="$(docker_build_run e2e-build -t demo-image .)"
   it("normalizes zero-padded centralized Docker build heartbeat intervals", () => {
     const script = repoRootShell`
 export ROOT_DIR
-export OPENCLAW_DOCKER_BUILD_HEARTBEAT_SECONDS=08
+export GRANTED_DOCKER_BUILD_HEARTBEAT_SECONDS=08
 
 source "$ROOT_DIR/scripts/lib/docker-build.sh"
 
@@ -1189,7 +1189,7 @@ source "$ROOT_DIR/scripts/lib/docker-build.sh"
   it("normalizes zero-padded centralized Docker build retry counts", () => {
     const script = repoRootShell`
 export ROOT_DIR
-export OPENCLAW_DOCKER_BUILD_RETRIES=08
+export GRANTED_DOCKER_BUILD_RETRIES=08
 
 source "$ROOT_DIR/scripts/lib/docker-build.sh"
 
@@ -1202,15 +1202,15 @@ source "$ROOT_DIR/scripts/lib/docker-build.sh"
   it.each([
     [
       "retry count",
-      "OPENCLAW_DOCKER_BUILD_RETRIES",
+      "GRANTED_DOCKER_BUILD_RETRIES",
       "2x",
-      "invalid OPENCLAW_DOCKER_BUILD_RETRIES: 2x",
+      "invalid GRANTED_DOCKER_BUILD_RETRIES: 2x",
     ],
     [
       "heartbeat interval",
-      "OPENCLAW_DOCKER_BUILD_HEARTBEAT_SECONDS",
+      "GRANTED_DOCKER_BUILD_HEARTBEAT_SECONDS",
       "soon",
-      "invalid OPENCLAW_DOCKER_BUILD_HEARTBEAT_SECONDS: soon",
+      "invalid GRANTED_DOCKER_BUILD_HEARTBEAT_SECONDS: soon",
     ],
   ])(
     "rejects invalid centralized Docker build %s before invoking docker",
@@ -1254,7 +1254,7 @@ docker_build_run e2e-build -t demo-image .
     mkdirSync(join(workDir, "bin"));
     const script = repoShell(workDir)`
 export PATH="$TMPDIR/bin"
-export OPENCLAW_DOCKER_BUILD_TIMEOUT=19s
+export GRANTED_DOCKER_BUILD_TIMEOUT=19s
 
 dirname() {
   /usr/bin/dirname "$@"
@@ -1320,7 +1320,7 @@ printf "%s\\n" "$*" >"$TMPDIR/docker-seen"
 
     const script = repoShell(workDir)`
 export PATH="$TMPDIR/bin"
-export OPENCLAW_DOCKER_BUILD_TIMEOUT=23s
+export GRANTED_DOCKER_BUILD_TIMEOUT=23s
 
 dirname() {
   /usr/bin/dirname "$@"
@@ -1355,7 +1355,7 @@ docker_build_exec -t setup-image .
       tempPrefix: "openclaw-docker-image-reuse-timeout-",
       scriptSource: (workDir: string) => repoShell(workDir)`
 export DOCKER_COMMAND_TIMEOUT=3s
-export OPENCLAW_SKIP_DOCKER_BUILD=1
+export GRANTED_SKIP_DOCKER_BUILD=1
 
 mkdir -p "$TMPDIR/bin"
 cat >"$TMPDIR/bin/timeout" <<'SH'
@@ -1412,9 +1412,9 @@ grep -q '^pull openclaw-reuse-image$' "$TMPDIR/docker-seen"
       title: "explains how to opt out when Docker rejects default resource limits",
       tempPrefix: "openclaw-docker-resource-diagnostic-",
       scriptSource: (workDir: string) => repoShell(workDir)`
-export OPENCLAW_DOCKER_E2E_AVAILABLE_CPUS=8
-unset OPENCLAW_DOCKER_E2E_DISABLE_RESOURCE_LIMITS
-unset OPENCLAW_DOCKER_E2E_MEMORY OPENCLAW_DOCKER_E2E_CPUS OPENCLAW_DOCKER_E2E_PIDS_LIMIT
+export GRANTED_DOCKER_E2E_AVAILABLE_CPUS=8
+unset GRANTED_DOCKER_E2E_DISABLE_RESOURCE_LIMITS
+unset GRANTED_DOCKER_E2E_MEMORY GRANTED_DOCKER_E2E_CPUS GRANTED_DOCKER_E2E_PIDS_LIMIT
 
 docker() {
   printf "%s\\n" "$*" >>"$TMPDIR/docker-seen"
@@ -1452,7 +1452,7 @@ stderr="$(<"$TMPDIR/stderr")"
 [[ "$stderr" = before\\ Docker* ]]
 [[ "$stderr" = *"NanoCPUs can not be set"* ]]
 [[ "$stderr" = *"Docker E2E resource limits are incompatible with this Docker runtime"* ]]
-[[ "$stderr" = *"OPENCLAW_DOCKER_E2E_DISABLE_RESOURCE_LIMITS=1"* ]]
+[[ "$stderr" = *"GRANTED_DOCKER_E2E_DISABLE_RESOURCE_LIMITS=1"* ]]
 [[ "$(grep -c '^run ' "$TMPDIR/docker-seen")" = "1" ]]
 [[ "$(<"$TMPDIR/tail-seen")" = "-c 65536" ]]
 [[ "$(<"$TMPDIR/mktemp-seen")" = -d* ]]
@@ -1463,9 +1463,9 @@ stderr="$(<"$TMPDIR/stderr")"
       title: "does not suggest resource opt-out for other Docker failures",
       tempPrefix: "openclaw-docker-resource-unrelated-",
       scriptSource: (workDir: string) => repoShell(workDir)`
-export OPENCLAW_DOCKER_E2E_AVAILABLE_CPUS=8
-unset OPENCLAW_DOCKER_E2E_DISABLE_RESOURCE_LIMITS
-unset OPENCLAW_DOCKER_E2E_MEMORY OPENCLAW_DOCKER_E2E_CPUS OPENCLAW_DOCKER_E2E_PIDS_LIMIT
+export GRANTED_DOCKER_E2E_AVAILABLE_CPUS=8
+unset GRANTED_DOCKER_E2E_DISABLE_RESOURCE_LIMITS
+unset GRANTED_DOCKER_E2E_MEMORY GRANTED_DOCKER_E2E_CPUS GRANTED_DOCKER_E2E_PIDS_LIMIT
 
 docker() {
   printf "%s\\n" "$*" >>"$TMPDIR/docker-seen"
@@ -1487,7 +1487,7 @@ set -e
 stderr="$(<"$TMPDIR/stderr")"
 [[ "$status" = "125" ]]
 [[ "$stderr" = *"No such image: cgroup-helper"* ]]
-[[ "$stderr" != *"OPENCLAW_DOCKER_E2E_DISABLE_RESOURCE_LIMITS"* ]]
+[[ "$stderr" != *"GRANTED_DOCKER_E2E_DISABLE_RESOURCE_LIMITS"* ]]
 [[ "$(grep -c '^run ' "$TMPDIR/docker-seen")" = "1" ]]
 `,
     },
@@ -1504,12 +1504,12 @@ export -f docker
 source "$ROOT_DIR/scripts/lib/docker-e2e-container.sh"
 
 set +e
-OPENCLAW_DOCKER_E2E_PIDS_LIMIT=many docker_e2e_docker_cmd run demo 2>"$TMPDIR/stderr"
+GRANTED_DOCKER_E2E_PIDS_LIMIT=many docker_e2e_docker_cmd run demo 2>"$TMPDIR/stderr"
 status="$?"
 set -e
 
 [[ "$status" = "2" ]]
-[[ "$(<"$TMPDIR/stderr")" = *"invalid OPENCLAW_DOCKER_E2E_PIDS_LIMIT: many"* ]]
+[[ "$(<"$TMPDIR/stderr")" = *"invalid GRANTED_DOCKER_E2E_PIDS_LIMIT: many"* ]]
 [[ ! -e "$TMPDIR/docker-seen" ]]
 `,
     },
@@ -1530,12 +1530,12 @@ export -f docker
 source "$ROOT_DIR/scripts/lib/docker-e2e-package.sh"
 
 set +e
-OPENCLAW_DOCKER_E2E_PIDS_LIMIT=many docker_e2e_docker_run_cmd run demo 2>"$TMPDIR/stderr"
+GRANTED_DOCKER_E2E_PIDS_LIMIT=many docker_e2e_docker_run_cmd run demo 2>"$TMPDIR/stderr"
 status="$?"
 set -e
 
 [[ "$status" = "2" ]]
-[[ "$(<"$TMPDIR/stderr")" = *"invalid OPENCLAW_DOCKER_E2E_PIDS_LIMIT: many"* ]]
+[[ "$(<"$TMPDIR/stderr")" = *"invalid GRANTED_DOCKER_E2E_PIDS_LIMIT: many"* ]]
 [[ ! -e "$TMPDIR/docker-seen" ]]
 `,
     },
@@ -1543,9 +1543,9 @@ set -e
       title: "diagnoses rejected resource limits through the canonical package helper",
       tempPrefix: "openclaw-docker-package-diagnostic-",
       scriptSource: (workDir: string) => repoShell(workDir)`
-export OPENCLAW_DOCKER_E2E_AVAILABLE_CPUS=8
-unset OPENCLAW_DOCKER_E2E_DISABLE_RESOURCE_LIMITS
-unset OPENCLAW_DOCKER_E2E_MEMORY OPENCLAW_DOCKER_E2E_CPUS OPENCLAW_DOCKER_E2E_PIDS_LIMIT
+export GRANTED_DOCKER_E2E_AVAILABLE_CPUS=8
+unset GRANTED_DOCKER_E2E_DISABLE_RESOURCE_LIMITS
+unset GRANTED_DOCKER_E2E_MEMORY GRANTED_DOCKER_E2E_CPUS GRANTED_DOCKER_E2E_PIDS_LIMIT
 
 timeout() {
   if [[ "$1" = "--kill-after=1s" ]]; then
@@ -1572,7 +1572,7 @@ stderr="$(<"$TMPDIR/stderr")"
 [[ "$status" = "125" ]]
 [[ "$stderr" = *"controller pids is not available"* ]]
 [[ "$stderr" = *"Docker E2E resource limits are incompatible with this Docker runtime"* ]]
-[[ "$stderr" = *"OPENCLAW_DOCKER_E2E_DISABLE_RESOURCE_LIMITS=1"* ]]
+[[ "$stderr" = *"GRANTED_DOCKER_E2E_DISABLE_RESOURCE_LIMITS=1"* ]]
 [[ "$(grep -c '^run ' "$TMPDIR/docker-seen")" = "1" ]]
 `,
     },
@@ -1657,8 +1657,8 @@ fi
 external_dir="$TMPDIR/external-package"
 mkdir -p "$external_dir"
 printf fixture >"$external_dir/openclaw-current.tgz"
-OPENCLAW_CURRENT_PACKAGE_TGZ="$external_dir/openclaw-current.tgz"
-export OPENCLAW_CURRENT_PACKAGE_TGZ
+GRANTED_CURRENT_PACKAGE_TGZ="$external_dir/openclaw-current.tgz"
+export GRANTED_CURRENT_PACKAGE_TGZ
 
 source "$ROOT_DIR/scripts/lib/docker-e2e-image.sh"
 
@@ -1686,7 +1686,7 @@ docker_e2e_build_or_reuse \\
   functional
 
 test -f "$TMPDIR/build-context-seen"
-test -f "$OPENCLAW_CURRENT_PACKAGE_TGZ"
+test -f "$GRANTED_CURRENT_PACKAGE_TGZ"
 leftovers="$(find "$TMPDIR" -maxdepth 1 -name 'openclaw-docker-e2e-package-context.*' -print)"
 if [[ -n "$leftovers" ]]; then
   printf 'leftover functional build context:\\n%s\\n' "$leftovers" >&2
@@ -1833,15 +1833,15 @@ source "$ROOT_DIR/scripts/lib/docker-e2e-package.sh"
 
 package="$TMPDIR/openclaw-current.tgz"
 printf fixture >"$package"
-export OPENCLAW_E2E_NPM_INSTALL_TIMEOUT=42s
-export OPENCLAW_E2E_COMMAND_TIMEOUT=23s
+export GRANTED_E2E_NPM_INSTALL_TIMEOUT=42s
+export GRANTED_E2E_COMMAND_TIMEOUT=23s
 docker_e2e_package_mount_args "$package"
 printf "%s\\n" "\${DOCKER_E2E_PACKAGE_ARGS[@]}" >"$TMPDIR/package-args"
 
 grep -qx -- "-e" "$TMPDIR/package-args"
-grep -qx -- "OPENCLAW_CURRENT_PACKAGE_TGZ=/tmp/openclaw-current.tgz" "$TMPDIR/package-args"
-grep -qx -- "OPENCLAW_E2E_NPM_INSTALL_TIMEOUT=42s" "$TMPDIR/package-args"
-grep -qx -- "OPENCLAW_E2E_COMMAND_TIMEOUT=23s" "$TMPDIR/package-args"
+grep -qx -- "GRANTED_CURRENT_PACKAGE_TGZ=/tmp/openclaw-current.tgz" "$TMPDIR/package-args"
+grep -qx -- "GRANTED_E2E_NPM_INSTALL_TIMEOUT=42s" "$TMPDIR/package-args"
+grep -qx -- "GRANTED_E2E_COMMAND_TIMEOUT=23s" "$TMPDIR/package-args"
 `,
     },
     {
@@ -1943,7 +1943,7 @@ grep -Fxq 'printf "heredoc reached docker\\n"' "$TMPDIR/docker-stdin-seen"
       title: "bounds printed Docker E2E logs to the configured tail",
       tempPrefix: "openclaw-docker-e2e-log-print-tail-",
       scriptSource: (workDir: string) => repoShell(workDir)`
-export OPENCLAW_DOCKER_E2E_LOG_PRINT_BYTES=64
+export GRANTED_DOCKER_E2E_LOG_PRINT_BYTES=64
 
 source "$ROOT_DIR/scripts/lib/docker-e2e-logs.sh"
 
@@ -1971,7 +1971,7 @@ output="$(docker_e2e_maybe_print_log_heartbeat plugins-run 1 1 "$TMPDIR/run.log"
       title: "cleans the heartbeat command when the wrapper is terminated",
       tempPrefix: "openclaw-docker-e2e-log-term-cleanup-",
       scriptSource: (workDir: string) => repoShell(workDir)`
-export OPENCLAW_DOCKER_E2E_HEARTBEAT_TERM_GRACE_SECONDS=1
+export GRANTED_DOCKER_E2E_HEARTBEAT_TERM_GRACE_SECONDS=1
 
 source "$ROOT_DIR/scripts/lib/docker-e2e-logs.sh"
 
@@ -2184,9 +2184,9 @@ exec "$@"
 TMPDIR=${shellQuote(workDir)}
 export ROOT_DIR TMPDIR
 export PATH="$TMPDIR/bin:$PATH"
-export OPENCLAW_SKIP_DOCKER_BUILD=1
-export OPENCLAW_DOCKER_E2E_IMAGE=shared-functional
-export OPENCLAW_DOCKER_ALL_LANE_NAME=browser-cdp-snapshot
+export GRANTED_SKIP_DOCKER_BUILD=1
+export GRANTED_DOCKER_E2E_IMAGE=shared-functional
+export GRANTED_DOCKER_ALL_LANE_NAME=browser-cdp-snapshot
 
 bash "$ROOT_DIR/scripts/e2e/browser-cdp-snapshot-docker.sh"
 
@@ -2207,21 +2207,21 @@ fi
       encoding: "utf8",
       env: {
         ...process.env,
-        OPENCLAW_BROWSER_CDP_SNAPSHOT_MAX_BYTES: "64kb",
-        OPENCLAW_SKIP_DOCKER_BUILD: "1",
+        GRANTED_BROWSER_CDP_SNAPSHOT_MAX_BYTES: "64kb",
+        GRANTED_SKIP_DOCKER_BUILD: "1",
       },
     });
 
     expect(result.status).toBe(2);
-    expect(result.stderr).toContain("invalid OPENCLAW_BROWSER_CDP_SNAPSHOT_MAX_BYTES: 64kb");
+    expect(result.stderr).toContain("invalid GRANTED_BROWSER_CDP_SNAPSHOT_MAX_BYTES: 64kb");
   });
 
   it("forwards browser CDP snapshot byte limits into the Docker runner", () => {
     const runner = readFileSync(BROWSER_CDP_SNAPSHOT_DOCKER_E2E_PATH, "utf8");
     expect(runner).toContain(
-      "docker_e2e_read_positive_int_env OPENCLAW_BROWSER_CDP_SNAPSHOT_MAX_BYTES 524288",
+      "docker_e2e_read_positive_int_env GRANTED_BROWSER_CDP_SNAPSHOT_MAX_BYTES 524288",
     );
-    expect(runner).toContain('-e "OPENCLAW_BROWSER_CDP_SNAPSHOT_MAX_BYTES=$SNAPSHOT_MAX_BYTES"');
+    expect(runner).toContain('-e "GRANTED_BROWSER_CDP_SNAPSHOT_MAX_BYTES=$SNAPSHOT_MAX_BYTES"');
   });
 
   it("uses Playwright Chromium for the browser CDP snapshot image", () => {
@@ -2294,8 +2294,8 @@ stderr="$(<"$TMPDIR/stderr")"
     const script = repoShell(workDir)`
 export PATH="$TMPDIR/bin"
 export DOCKER_COMMAND_TIMEOUT=7s
-unset OPENCLAW_DOCKER_E2E_DISABLE_RESOURCE_LIMITS
-unset OPENCLAW_DOCKER_E2E_MEMORY OPENCLAW_DOCKER_E2E_CPUS OPENCLAW_DOCKER_E2E_PIDS_LIMIT
+unset GRANTED_DOCKER_E2E_DISABLE_RESOURCE_LIMITS
+unset GRANTED_DOCKER_E2E_MEMORY GRANTED_DOCKER_E2E_CPUS GRANTED_DOCKER_E2E_PIDS_LIMIT
 
 source "$ROOT_DIR/scripts/lib/docker-e2e-container.sh"
 
@@ -2307,7 +2307,7 @@ set -e
 stderr="$(<"$TMPDIR/stderr")"
 [[ "$status" = "13" ]]
 [[ "$stderr" = *"timeout command not found; using Node watchdog for Docker command timeout 7s"* ]]
-[[ "$(<"$TMPDIR/docker-seen")" = "run -e OPENCLAW_NO_AUTO_UPDATE=1 --memory 8g --cpus 16 --pids-limit 2048 -i demo|payload" ]]
+[[ "$(<"$TMPDIR/docker-seen")" = "run -e GRANTED_NO_AUTO_UPDATE=1 --memory 8g --cpus 16 --pids-limit 2048 -i demo|payload" ]]
 `;
 
     execFileSync("bash", ["-lc", script], { encoding: "utf8" });
@@ -2328,9 +2328,9 @@ shift 2
 
     const script = repoShell(workDir)`
 export PATH="$TMPDIR/bin:$PATH"
-unset OPENCLAW_DOCKER_E2E_DISABLE_RESOURCE_LIMITS
-unset OPENCLAW_DOCKER_E2E_MEMORY OPENCLAW_DOCKER_E2E_CPUS OPENCLAW_DOCKER_E2E_PIDS_LIMIT
-export OPENCLAW_DOCKER_E2E_AVAILABLE_CPUS=32
+unset GRANTED_DOCKER_E2E_DISABLE_RESOURCE_LIMITS
+unset GRANTED_DOCKER_E2E_MEMORY GRANTED_DOCKER_E2E_CPUS GRANTED_DOCKER_E2E_PIDS_LIMIT
+export GRANTED_DOCKER_E2E_AVAILABLE_CPUS=32
 
 docker() {
   printf "%s\\n" "$*" >>"$TMPDIR/docker-seen"
@@ -2340,16 +2340,16 @@ export -f docker
 source "$ROOT_DIR/scripts/lib/docker-e2e-container.sh"
 
 docker_e2e_docker_cmd run demo
-OPENCLAW_DOCKER_E2E_MEMORY=12g OPENCLAW_DOCKER_E2E_CPUS=4 OPENCLAW_DOCKER_E2E_PIDS_LIMIT=512 docker_e2e_docker_cmd run demo
-OPENCLAW_DOCKER_E2E_AVAILABLE_CPUS=8 OPENCLAW_DOCKER_E2E_MEMORY=12g OPENCLAW_DOCKER_E2E_CPUS=16 OPENCLAW_DOCKER_E2E_PIDS_LIMIT=512 docker_e2e_docker_cmd run demo
+GRANTED_DOCKER_E2E_MEMORY=12g GRANTED_DOCKER_E2E_CPUS=4 GRANTED_DOCKER_E2E_PIDS_LIMIT=512 docker_e2e_docker_cmd run demo
+GRANTED_DOCKER_E2E_AVAILABLE_CPUS=8 GRANTED_DOCKER_E2E_MEMORY=12g GRANTED_DOCKER_E2E_CPUS=16 GRANTED_DOCKER_E2E_PIDS_LIMIT=512 docker_e2e_docker_cmd run demo
 docker_e2e_docker_cmd run --memory 2g --cpus 3 --pids-limit 99 demo
-OPENCLAW_DOCKER_E2E_DISABLE_RESOURCE_LIMITS=1 docker_e2e_docker_cmd run demo
+GRANTED_DOCKER_E2E_DISABLE_RESOURCE_LIMITS=1 docker_e2e_docker_cmd run demo
 
-[[ "$(sed -n '1p' "$TMPDIR/docker-seen")" = "run -e OPENCLAW_NO_AUTO_UPDATE=1 --memory 8g --cpus 16 --pids-limit 2048 demo" ]]
-[[ "$(sed -n '2p' "$TMPDIR/docker-seen")" = "run -e OPENCLAW_NO_AUTO_UPDATE=1 --memory 12g --cpus 4 --pids-limit 512 demo" ]]
-[[ "$(sed -n '3p' "$TMPDIR/docker-seen")" = "run -e OPENCLAW_NO_AUTO_UPDATE=1 --memory 12g --cpus 8 --pids-limit 512 demo" ]]
-[[ "$(sed -n '4p' "$TMPDIR/docker-seen")" = "run -e OPENCLAW_NO_AUTO_UPDATE=1 --memory 2g --cpus 3 --pids-limit 99 demo" ]]
-[[ "$(sed -n '5p' "$TMPDIR/docker-seen")" = "run -e OPENCLAW_NO_AUTO_UPDATE=1 demo" ]]
+[[ "$(sed -n '1p' "$TMPDIR/docker-seen")" = "run -e GRANTED_NO_AUTO_UPDATE=1 --memory 8g --cpus 16 --pids-limit 2048 demo" ]]
+[[ "$(sed -n '2p' "$TMPDIR/docker-seen")" = "run -e GRANTED_NO_AUTO_UPDATE=1 --memory 12g --cpus 4 --pids-limit 512 demo" ]]
+[[ "$(sed -n '3p' "$TMPDIR/docker-seen")" = "run -e GRANTED_NO_AUTO_UPDATE=1 --memory 12g --cpus 8 --pids-limit 512 demo" ]]
+[[ "$(sed -n '4p' "$TMPDIR/docker-seen")" = "run -e GRANTED_NO_AUTO_UPDATE=1 --memory 2g --cpus 3 --pids-limit 99 demo" ]]
+[[ "$(sed -n '5p' "$TMPDIR/docker-seen")" = "run -e GRANTED_NO_AUTO_UPDATE=1 demo" ]]
 `;
 
     execFileSync("bash", ["-lc", script], { encoding: "utf8" });
@@ -2361,9 +2361,9 @@ OPENCLAW_DOCKER_E2E_DISABLE_RESOURCE_LIMITS=1 docker_e2e_docker_cmd run demo
     const script = repoRootShell`
 TMPDIR=${shellQuote(missingTmpDir)}
 export ROOT_DIR TMPDIR
-export OPENCLAW_DOCKER_E2E_AVAILABLE_CPUS=8
-unset OPENCLAW_DOCKER_E2E_DISABLE_RESOURCE_LIMITS
-unset OPENCLAW_DOCKER_E2E_MEMORY OPENCLAW_DOCKER_E2E_CPUS OPENCLAW_DOCKER_E2E_PIDS_LIMIT
+export GRANTED_DOCKER_E2E_AVAILABLE_CPUS=8
+unset GRANTED_DOCKER_E2E_DISABLE_RESOURCE_LIMITS
+unset GRANTED_DOCKER_E2E_MEMORY GRANTED_DOCKER_E2E_CPUS GRANTED_DOCKER_E2E_PIDS_LIMIT
 
 docker() {
   printf "%s\\n" "$*" >>${shellQuote(join(workDir, "docker-seen"))}
@@ -2409,7 +2409,7 @@ TMPDIR=${shellQuote(workDir)}
 export ROOT_DIR TMPDIR
 export PATH="$TMPDIR/bin"
 export DOCKER_COMMAND_TIMEOUT=30s
-export OPENCLAW_DOCKER_TIMEOUT_KILL_GRACE_MS=100
+export GRANTED_DOCKER_TIMEOUT_KILL_GRACE_MS=100
 
 source "$ROOT_DIR/scripts/lib/docker-e2e-container.sh"
 
@@ -2490,10 +2490,10 @@ shift 2
 
     const script = repoShell(workDir)`
 export PATH="$TMPDIR/bin"
-export OPENCLAW_DOCKER_E2E_RUN_TIMEOUT=13s
-export OPENCLAW_DOCKER_E2E_AVAILABLE_CPUS=8
-unset OPENCLAW_DOCKER_E2E_DISABLE_RESOURCE_LIMITS
-unset OPENCLAW_DOCKER_E2E_MEMORY OPENCLAW_DOCKER_E2E_CPUS OPENCLAW_DOCKER_E2E_PIDS_LIMIT
+export GRANTED_DOCKER_E2E_RUN_TIMEOUT=13s
+export GRANTED_DOCKER_E2E_AVAILABLE_CPUS=8
+unset GRANTED_DOCKER_E2E_DISABLE_RESOURCE_LIMITS
+unset GRANTED_DOCKER_E2E_MEMORY GRANTED_DOCKER_E2E_CPUS GRANTED_DOCKER_E2E_PIDS_LIMIT
 
 docker() {
   printf "%s\\n" "$*" >>"$TMPDIR/docker-seen"
@@ -2504,8 +2504,8 @@ source "$ROOT_DIR/scripts/lib/docker-e2e-container.sh"
 
 docker_e2e_docker_run_cmd run demo
 
-[[ "$(<"$TMPDIR/timeout-seen")" = "gtimeout:--kill-after=30s 13s|docker run -e OPENCLAW_NO_AUTO_UPDATE=1 --memory 8g --cpus 8 --pids-limit 2048 demo" ]]
-[[ "$(<"$TMPDIR/docker-seen")" = "run -e OPENCLAW_NO_AUTO_UPDATE=1 --memory 8g --cpus 8 --pids-limit 2048 demo" ]]
+[[ "$(<"$TMPDIR/timeout-seen")" = "gtimeout:--kill-after=30s 13s|docker run -e GRANTED_NO_AUTO_UPDATE=1 --memory 8g --cpus 8 --pids-limit 2048 demo" ]]
+[[ "$(<"$TMPDIR/docker-seen")" = "run -e GRANTED_NO_AUTO_UPDATE=1 --memory 8g --cpus 8 --pids-limit 2048 demo" ]]
 `;
 
     execFileSync("bash", ["-lc", script], { encoding: "utf8" });
@@ -2516,7 +2516,7 @@ docker_e2e_docker_run_cmd run demo
     mkdirSync(join(workDir, "bin"));
     const script = repoShell(workDir)`
 export PATH="$TMPDIR/bin"
-export OPENCLAW_DOCKER_E2E_RUN_TIMEOUT=11s
+export GRANTED_DOCKER_E2E_RUN_TIMEOUT=11s
 
 dirname() {
   /usr/bin/dirname "$@"
@@ -2559,10 +2559,10 @@ shift 2
 
     const script = repoShell(workDir)`
 export PATH="$TMPDIR/bin"
-export OPENCLAW_DOCKER_E2E_RUN_TIMEOUT=15s
-export OPENCLAW_DOCKER_E2E_AVAILABLE_CPUS=8
-unset OPENCLAW_DOCKER_E2E_DISABLE_RESOURCE_LIMITS
-unset OPENCLAW_DOCKER_E2E_MEMORY OPENCLAW_DOCKER_E2E_CPUS OPENCLAW_DOCKER_E2E_PIDS_LIMIT
+export GRANTED_DOCKER_E2E_RUN_TIMEOUT=15s
+export GRANTED_DOCKER_E2E_AVAILABLE_CPUS=8
+unset GRANTED_DOCKER_E2E_DISABLE_RESOURCE_LIMITS
+unset GRANTED_DOCKER_E2E_MEMORY GRANTED_DOCKER_E2E_CPUS GRANTED_DOCKER_E2E_PIDS_LIMIT
 
 dirname() {
   /usr/bin/dirname "$@"
@@ -2577,8 +2577,8 @@ source "$ROOT_DIR/scripts/lib/docker-e2e-package.sh"
 
 docker_e2e_docker_run_cmd run demo
 
-[[ "$(<"$TMPDIR/timeout-seen")" = "gtimeout:--kill-after=30s 15s|docker run -e OPENCLAW_NO_AUTO_UPDATE=1 --memory 8g --cpus 8 --pids-limit 2048 demo" ]]
-[[ "$(<"$TMPDIR/docker-seen")" = "run -e OPENCLAW_NO_AUTO_UPDATE=1 --memory 8g --cpus 8 --pids-limit 2048 demo" ]]
+[[ "$(<"$TMPDIR/timeout-seen")" = "gtimeout:--kill-after=30s 15s|docker run -e GRANTED_NO_AUTO_UPDATE=1 --memory 8g --cpus 8 --pids-limit 2048 demo" ]]
+[[ "$(<"$TMPDIR/docker-seen")" = "run -e GRANTED_NO_AUTO_UPDATE=1 --memory 8g --cpus 8 --pids-limit 2048 demo" ]]
 `;
 
     execFileSync("bash", ["-lc", script], { encoding: "utf8" });
@@ -2589,19 +2589,19 @@ docker_e2e_docker_run_cmd run demo
     expectTextToIncludeAll(runner, [
       "append_positive_int_env()",
       "append_positive_number_env()",
-      "append_positive_int_env OPENCLAW_PLUGIN_LIFECYCLE_PHASE_TIMEOUT_MS",
-      "append_positive_int_env OPENCLAW_PLUGIN_LIFECYCLE_TIMEOUT_KILL_GRACE_MS",
-      "append_positive_int_env OPENCLAW_PLUGIN_LIFECYCLE_METRIC_POLL_MS",
-      "append_positive_int_env OPENCLAW_PLUGIN_LIFECYCLE_MAX_RSS_KB",
-      "append_positive_int_env OPENCLAW_PLUGIN_LIFECYCLE_MAX_WALL_MS",
-      "append_positive_number_env OPENCLAW_PLUGIN_LIFECYCLE_MAX_CPU_CORE_RATIO",
+      "append_positive_int_env GRANTED_PLUGIN_LIFECYCLE_PHASE_TIMEOUT_MS",
+      "append_positive_int_env GRANTED_PLUGIN_LIFECYCLE_TIMEOUT_KILL_GRACE_MS",
+      "append_positive_int_env GRANTED_PLUGIN_LIFECYCLE_METRIC_POLL_MS",
+      "append_positive_int_env GRANTED_PLUGIN_LIFECYCLE_MAX_RSS_KB",
+      "append_positive_int_env GRANTED_PLUGIN_LIFECYCLE_MAX_WALL_MS",
+      "append_positive_number_env GRANTED_PLUGIN_LIFECYCLE_MAX_CPU_CORE_RATIO",
       'docker_e2e_run_with_harness \\\n  "${DOCKER_ENV_ARGS[@]}"',
     ]);
   });
 
   it.each([
-    ["phase timeout", "OPENCLAW_PLUGIN_LIFECYCLE_PHASE_TIMEOUT_MS", "150ms"],
-    ["CPU ratio", "OPENCLAW_PLUGIN_LIFECYCLE_MAX_CPU_CORE_RATIO", "0"],
+    ["phase timeout", "GRANTED_PLUGIN_LIFECYCLE_PHASE_TIMEOUT_MS", "150ms"],
+    ["CPU ratio", "GRANTED_PLUGIN_LIFECYCLE_MAX_CPU_CORE_RATIO", "0"],
   ])(
     "rejects invalid plugin lifecycle Docker %s overrides before package setup",
     (_label, envName, value) => {
@@ -2609,7 +2609,7 @@ docker_e2e_docker_run_cmd run demo
         encoding: "utf8",
         env: {
           ...process.env,
-          OPENCLAW_CURRENT_PACKAGE_TGZ: "/tmp/openclaw-missing-package.tgz",
+          GRANTED_CURRENT_PACKAGE_TGZ: "/tmp/openclaw-missing-package.tgz",
           [envName]: value,
         },
       });
@@ -2632,8 +2632,8 @@ docker_e2e_docker_run_cmd run demo
       'openclaw_e2e_install_package "$ARTIFACTS/install-a.log" "OpenClaw package under node-A prefix" "$NPM_PREFIX_A"',
     );
     expectTextToIncludeAll(updateChannel, [
-      'openclaw_e2e_maybe_timeout "${OPENCLAW_E2E_NPM_INSTALL_TIMEOUT:-600s}" npm install --omit=dev --no-fund --no-audit',
-      'openclaw_e2e_maybe_timeout "${OPENCLAW_E2E_NPM_INSTALL_TIMEOUT:-600s}" npm install -g --prefix /tmp/npm-prefix --omit=optional "$pkg_tgz_path"',
+      'openclaw_e2e_maybe_timeout "${GRANTED_E2E_NPM_INSTALL_TIMEOUT:-600s}" npm install --omit=dev --no-fund --no-audit',
+      'openclaw_e2e_maybe_timeout "${GRANTED_E2E_NPM_INSTALL_TIMEOUT:-600s}" npm install -g --prefix /tmp/npm-prefix --omit=optional "$pkg_tgz_path"',
       "openclaw_e2e_print_log /tmp/openclaw-git-install.log",
       'openclaw_e2e_print_log "$package_install_log"',
     ]);
@@ -2641,13 +2641,13 @@ docker_e2e_docker_run_cmd run demo
     expect(updateChannel).not.toContain("cat /tmp/openclaw-git-install.log");
     expect(updateChannel).not.toContain('cat "$package_install_log"');
     expectTextToIncludeAll(doctorSwitch, [
-      'openclaw_e2e_maybe_timeout "${OPENCLAW_E2E_NPM_INSTALL_TIMEOUT:-600s}" npm install --omit=dev --no-fund --no-audit',
-      'openclaw_e2e_maybe_timeout "${OPENCLAW_E2E_NPM_INSTALL_TIMEOUT:-600s}" npm install -g --prefix /tmp/npm-prefix --omit=optional "$package_tgz"',
+      'openclaw_e2e_maybe_timeout "${GRANTED_E2E_NPM_INSTALL_TIMEOUT:-600s}" npm install --omit=dev --no-fund --no-audit',
+      'openclaw_e2e_maybe_timeout "${GRANTED_E2E_NPM_INSTALL_TIMEOUT:-600s}" npm install -g --prefix /tmp/npm-prefix --omit=optional "$package_tgz"',
       "openclaw_e2e_print_log /tmp/openclaw-git-install.log",
     ]);
     for (const script of [releaseUpgrade, upgradeSurvivor, pluginCorrupt]) {
       expect(script).toContain(
-        'openclaw_e2e_maybe_timeout "${OPENCLAW_E2E_NPM_INSTALL_TIMEOUT:-600s}" npm install -g',
+        'openclaw_e2e_maybe_timeout "${GRANTED_E2E_NPM_INSTALL_TIMEOUT:-600s}" npm install -g',
       );
     }
   });
@@ -2659,18 +2659,18 @@ docker_e2e_docker_run_cmd run demo
     for (const script of [runner, publishedRunner]) {
       expectTextToIncludeAll(script, [
         "openclaw-upgrade-survivor-runtime",
-        "OPENCLAW_UPGRADE_SURVIVOR_TMPDIR",
-        "OPENCLAW_UPGRADE_SURVIVOR_TEST_STATE_TMPDIR",
-        'export npm_config_cache="${OPENCLAW_UPGRADE_SURVIVOR_NPM_CACHE:-$OPENCLAW_UPGRADE_SURVIVOR_RUNTIME_ROOT/npm-cache}"',
+        "GRANTED_UPGRADE_SURVIVOR_TMPDIR",
+        "GRANTED_UPGRADE_SURVIVOR_TEST_STATE_TMPDIR",
+        'export npm_config_cache="${GRANTED_UPGRADE_SURVIVOR_NPM_CACHE:-$GRANTED_UPGRADE_SURVIVOR_RUNTIME_ROOT/npm-cache}"',
         'export NPM_CONFIG_CACHE="$npm_config_cache"',
         'chmod 700 "$npm_config_cache" || true',
       ]);
 
       expect(script).not.toContain('export TMPDIR="$ARTIFACT_ROOT/tmp"');
-      expect(script).not.toContain('export TMPDIR="$OPENCLAW_UPGRADE_SURVIVOR_ARTIFACT_ROOT/tmp"');
+      expect(script).not.toContain('export TMPDIR="$GRANTED_UPGRADE_SURVIVOR_ARTIFACT_ROOT/tmp"');
       expect(script).not.toContain('export npm_config_cache="$ARTIFACT_ROOT/npm-cache"');
       expect(script).not.toContain(
-        'export npm_config_cache="$OPENCLAW_UPGRADE_SURVIVOR_ARTIFACT_ROOT/npm-cache"',
+        'export npm_config_cache="$GRANTED_UPGRADE_SURVIVOR_ARTIFACT_ROOT/npm-cache"',
       );
     }
   });
@@ -2685,10 +2685,10 @@ docker_e2e_docker_run_cmd run demo
       expect(script).toContain("openclaw_prepublish_plugin_registry_start");
     }
     expectTextToIncludeAll(registryHelper, [
-      "OPENCLAW_NPM_REGISTRY_UPSTREAM=https://registry.npmjs.org",
+      "GRANTED_NPM_REGISTRY_UPSTREAM=https://registry.npmjs.org",
       '[[ "$candidate_version" =~ -(alpha|beta)\\.[1-9][0-9]*$ ]]',
       'dist_tags="latest=0.0.0,$dist_tags"',
-      'OPENCLAW_NPM_REGISTRY_DIST_TAGS="$dist_tags"',
+      'GRANTED_NPM_REGISTRY_DIST_TAGS="$dist_tags"',
       'export NPM_CONFIG_REGISTRY="http://127.0.0.1:$(cat "$port_file")"',
       'export npm_config_registry="$NPM_CONFIG_REGISTRY"',
     ]);
@@ -2740,14 +2740,14 @@ docker_e2e_docker_run_cmd run demo
     );
     expectTextToIncludeAll(publishedRunner, [
       'package-compat.mjs --clawhub-release-security-mode "$candidate_version"',
-      'assert-prepublish-requests "$OPENCLAW_CLAWHUB_URL" "$prepublish_package" "$candidate_version" "$clawhub_security_mode"',
+      'assert-prepublish-requests "$GRANTED_CLAWHUB_URL" "$prepublish_package" "$candidate_version" "$clawhub_security_mode"',
     ]);
     expect(publishedRunner).not.toContain('if [ "$candidate_version" = "2026.6.35" ]; then');
     expect(publishedRunner).toContain('prepublish_package="@openclaw/whatsapp"');
     expect(publishedRunner).toContain("if configured_plugin_installs_enabled; then");
     expect(publishedRunner).toContain('prepublish_package="@openclaw/matrix"');
     expect(publishedRunner).toContain(
-      'assert-prepublish-requests "$OPENCLAW_CLAWHUB_URL" "$prepublish_package" "$candidate_version"',
+      'assert-prepublish-requests "$GRANTED_CLAWHUB_URL" "$prepublish_package" "$candidate_version"',
     );
     expect(publishedRunner).toContain(
       'local tarball="$fixture_root/openclaw-brave-plugin-${candidate_version}.tgz"',
@@ -2768,13 +2768,13 @@ docker_e2e_docker_run_cmd run demo
       'openclaw_e2e_fixture_plugin_command openclaw -- \\\n      plugins install "clawhub:@openclaw/whatsapp@$package_version"',
     );
     const clawhubRequestIndex = runner.indexOf(
-      'assert-prepublish-requests "$OPENCLAW_CLAWHUB_URL" "@openclaw/whatsapp" "$package_version"',
+      'assert-prepublish-requests "$GRANTED_CLAWHUB_URL" "@openclaw/whatsapp" "$package_version"',
     );
     const codexInstallIndex = runner.indexOf(
       'openclaw_e2e_fixture_plugin_command openclaw -- \\\n      plugins install "npm:@openclaw/codex@$package_version" --pin',
     );
     const restoreCompanionIndex = runner.indexOf(
-      'restore "$OPENCLAW_CONFIG_PATH" "$authored_config"',
+      'restore "$GRANTED_CONFIG_PATH" "$authored_config"',
     );
     const assertCompanionIndex = runner.indexOf('assert-companion-installs "$package_version"');
     expect(discordInstallIndex).toBeGreaterThan(-1);
@@ -2788,7 +2788,7 @@ docker_e2e_docker_run_cmd run demo
       runner.match(/openclaw_e2e_fixture_plugin_command openclaw -- \\\n\s+plugins install/gu),
     ).toHaveLength(3);
     expect(runner).not.toContain("--accept-capabilities");
-    expect(runner).toContain('park-companion-install "$OPENCLAW_CONFIG_PATH" "$authored_config"');
+    expect(runner).toContain('park-companion-install "$GRANTED_CONFIG_PATH" "$authored_config"');
     expectTextToIncludeAll(runner, [
       "install_status=$?",
       "restore_status=$?",
@@ -2818,8 +2818,8 @@ docker_e2e_docker_run_cmd run demo
       expectTextToIncludeAll(script, [
         "prepublish-artifacts",
         "prepublish-plugin-registry.json",
-        "unset OPENCLAW_CLAWHUB_URL CLAWHUB_URL",
-        'export OPENCLAW_CLAWHUB_URL="http://127.0.0.1:$(cat "$port_file")"',
+        "unset GRANTED_CLAWHUB_URL CLAWHUB_URL",
+        'export GRANTED_CLAWHUB_URL="http://127.0.0.1:$(cat "$port_file")"',
         'openclaw_e2e_stop_process "${clawhub_fixture_pid:-}"',
         "assert-prepublish-requests",
       ]);
@@ -2838,14 +2838,14 @@ docker_e2e_docker_run_cmd run demo
       "assert_prepublish_fixture_idle",
       "assert-no-requests",
       "config-parking.mjs",
-      "'^(GATEWAY_AUTH_TOKEN_REF|OPENCLAW_CLAWHUB_URL)='",
-      "OPENCLAW_CLAWHUB_URL=%s",
+      "'^(GATEWAY_AUTH_TOKEN_REF|GRANTED_CLAWHUB_URL)='",
+      "GRANTED_CLAWHUB_URL=%s",
     ]);
     for (const script of [runner, updateRestartAuth]) {
       expect(script).not.toContain("assert-no-requests");
     }
     expect(updateRestartAuth).toContain("park-restart-probe");
-    expect(updateRestartAuth).toContain('"$OPENCLAW_CONFIG_PATH"');
+    expect(updateRestartAuth).toContain('"$GRANTED_CONFIG_PATH"');
     expect(publishedRunner).not.toContain(
       '\nexport MATRIX_ACCESS_TOKEN="upgrade-survivor-matrix-token"\n',
     );
@@ -2865,7 +2865,7 @@ docker_e2e_docker_run_cmd run demo
     ).toHaveLength(2);
     expect(
       runner.match(
-        /-e OPENCLAW_UPGRADE_SURVIVOR_CLAWHUB_FIXTURE_SERVER=\/tmp\/openclaw-clawhub-fixture-server\.cjs/gu,
+        /-e GRANTED_UPGRADE_SURVIVOR_CLAWHUB_FIXTURE_SERVER=\/tmp\/openclaw-clawhub-fixture-server\.cjs/gu,
       ),
     ).toHaveLength(2);
     expect(
@@ -2875,7 +2875,7 @@ docker_e2e_docker_run_cmd run demo
     ).toHaveLength(2);
     expect(
       runner.match(
-        /-e OPENCLAW_UPGRADE_SURVIVOR_CONFIG_PARKING_HELPER=\/tmp\/openclaw-config-parking\.mjs/gu,
+        /-e GRANTED_UPGRADE_SURVIVOR_CONFIG_PARKING_HELPER=\/tmp\/openclaw-config-parking\.mjs/gu,
       ),
     ).toHaveLength(2);
   });
@@ -2946,7 +2946,7 @@ docker_e2e_docker_run_cmd run demo
   it("prints channel-add failures through the shared E2E logger", () => {
     const script = readFileSync(NPM_ONBOARD_CHANNEL_AGENT_DOCKER_E2E_PATH, "utf8");
     expect(script).toContain(
-      'openclaw_e2e_run_logged channel-add "$OPENCLAW_E2E_CLI_BIN" channels add --channel "$CHANNEL" "${CHANNEL_ADD_ARGS[@]}"',
+      'openclaw_e2e_run_logged channel-add "$GRANTED_E2E_CLI_BIN" channels add --channel "$CHANNEL" "${CHANNEL_ADD_ARGS[@]}"',
     );
     expect(script).not.toContain("/tmp/openclaw-channel-add.log");
   });
@@ -3099,7 +3099,7 @@ docker_e2e_docker_run_cmd run demo
 
     expect(multiNode).toContain('timeout --kill-after=30s "$DOCKER_RUN_TIMEOUT" bash -lc');
     expect(upgradeSurvivor).toContain(
-      'ROOT_DIR="$(cd "${OPENCLAW_DOCKER_E2E_REPO_ROOT:-$HARNESS_ROOT_DIR}" && pwd)"',
+      'ROOT_DIR="$(cd "${GRANTED_DOCKER_E2E_REPO_ROOT:-$HARNESS_ROOT_DIR}" && pwd)"',
     );
     expect(upgradeSurvivor).toContain('DOCKER_E2E_HARNESS_ROOT_DIR="$HARNESS_ROOT_DIR"');
     expect(upgradeSurvivor).toContain(
@@ -3175,14 +3175,14 @@ exec "$@"
       env: {
         ...process.env,
         FAKE_NPM_MARKER: markerPath,
-        OPENCLAW_TEST_STATE_FUNCTION_B64: Buffer.from(
+        GRANTED_TEST_STATE_FUNCTION_B64: Buffer.from(
           "openclaw_test_state_create() { :; }",
         ).toString("base64"),
-        OPENCLAW_UPGRADE_SURVIVOR_BASELINE: "openclaw@2026.7.1-2",
-        OPENCLAW_UPGRADE_SURVIVOR_CANDIDATE_SPEC: join(workDir, "unused.tgz"),
-        OPENCLAW_UPGRADE_SURVIVOR_RUNTIME_ROOT: join(workDir, "runtime"),
-        OPENCLAW_UPGRADE_SURVIVOR_STATE_HOME_ROOT: join(workDir, "state-home"),
-        OPENCLAW_UPGRADE_SURVIVOR_SUMMARY_JSON: summaryPath,
+        GRANTED_UPGRADE_SURVIVOR_BASELINE: "openclaw@2026.7.1-2",
+        GRANTED_UPGRADE_SURVIVOR_CANDIDATE_SPEC: join(workDir, "unused.tgz"),
+        GRANTED_UPGRADE_SURVIVOR_RUNTIME_ROOT: join(workDir, "runtime"),
+        GRANTED_UPGRADE_SURVIVOR_STATE_HOME_ROOT: join(workDir, "state-home"),
+        GRANTED_UPGRADE_SURVIVOR_SUMMARY_JSON: summaryPath,
         PATH: `${binDir}:${process.env.PATH ?? ""}`,
       },
       stdio: "ignore",
@@ -3240,14 +3240,14 @@ exec "$@"
   it("keeps multi-node update Docker artifacts isolated by default", () => {
     const multiNode = readFileSync(MULTI_NODE_UPDATE_DOCKER_E2E_PATH, "utf8");
     expect(multiNode).toContain(
-      'RUN_ID="${OPENCLAW_MULTI_NODE_RUN_ID:-$(date -u +%Y%m%dT%H%M%SZ)-$$}"',
+      'RUN_ID="${GRANTED_MULTI_NODE_RUN_ID:-$(date -u +%Y%m%dT%H%M%SZ)-$$}"',
     );
     expect(multiNode).toContain(
-      'ARTIFACT_DIR="${OPENCLAW_MULTI_NODE_ARTIFACT_DIR:-$ROOT_DIR/.artifacts/multi-node-update/$RUN_ID}"',
+      'ARTIFACT_DIR="${GRANTED_MULTI_NODE_ARTIFACT_DIR:-$ROOT_DIR/.artifacts/multi-node-update/$RUN_ID}"',
     );
     expect(multiNode).toContain('-v "$ARTIFACT_DIR:/tmp/artifacts"');
     expect(multiNode).not.toContain(
-      'ARTIFACT_DIR="${OPENCLAW_MULTI_NODE_ARTIFACT_DIR:-$ROOT_DIR/.artifacts/multi-node-update}"',
+      'ARTIFACT_DIR="${GRANTED_MULTI_NODE_ARTIFACT_DIR:-$ROOT_DIR/.artifacts/multi-node-update}"',
     );
   });
 
@@ -3287,10 +3287,10 @@ exec "$@"
 TMPDIR=${shellQuote(workDir)}
 export ROOT_DIR TMPDIR
 export PATH="$TMPDIR/bin:$PATH"
-export OPENCLAW_SKIP_DOCKER_BUILD=1
-export OPENCLAW_DOCKER_E2E_IMAGE=shared-bare
-export OPENCLAW_CURRENT_PACKAGE_TGZ="$TMPDIR/openclaw-current.tgz"
-export OPENCLAW_MULTI_NODE_ARTIFACT_DIR="$TMPDIR/artifacts"
+export GRANTED_SKIP_DOCKER_BUILD=1
+export GRANTED_DOCKER_E2E_IMAGE=shared-bare
+export GRANTED_CURRENT_PACKAGE_TGZ="$TMPDIR/openclaw-current.tgz"
+export GRANTED_MULTI_NODE_ARTIFACT_DIR="$TMPDIR/artifacts"
 
 bash "$ROOT_DIR/scripts/e2e/multi-node-update-docker.sh"
 
@@ -3312,42 +3312,42 @@ fi
 
     expectTextToIncludeAll(runner, [
       'source "$HARNESS_ROOT_DIR/scripts/lib/openclaw-e2e-instance.sh"',
-      'START_BUDGET_SECONDS="$(openclaw_e2e_read_positive_int_env OPENCLAW_UPGRADE_SURVIVOR_START_BUDGET_SECONDS 90)"',
-      'STATUS_BUDGET_SECONDS="$(openclaw_e2e_read_positive_int_env OPENCLAW_UPGRADE_SURVIVOR_STATUS_BUDGET_SECONDS 30)"',
-      '-e OPENCLAW_UPGRADE_SURVIVOR_START_BUDGET_SECONDS="$START_BUDGET_SECONDS"',
-      '-e OPENCLAW_UPGRADE_SURVIVOR_STATUS_BUDGET_SECONDS="$STATUS_BUDGET_SECONDS"',
-      'START_BUDGET="$(openclaw_e2e_read_positive_int_env OPENCLAW_UPGRADE_SURVIVOR_START_BUDGET_SECONDS 90)"',
-      'STATUS_BUDGET="$(openclaw_e2e_read_positive_int_env OPENCLAW_UPGRADE_SURVIVOR_STATUS_BUDGET_SECONDS 30)"',
-      'COMMAND_TIMEOUT="${OPENCLAW_UPGRADE_SURVIVOR_COMMAND_TIMEOUT:-900s}"',
-      '-e OPENCLAW_UPGRADE_SURVIVOR_COMMAND_TIMEOUT="$COMMAND_TIMEOUT"',
-      'command_timeout="${OPENCLAW_UPGRADE_SURVIVOR_COMMAND_TIMEOUT:-900s}"',
-      'openclaw_e2e_maybe_timeout "$command_timeout" env -u OPENCLAW_GATEWAY_TOKEN',
+      'START_BUDGET_SECONDS="$(openclaw_e2e_read_positive_int_env GRANTED_UPGRADE_SURVIVOR_START_BUDGET_SECONDS 90)"',
+      'STATUS_BUDGET_SECONDS="$(openclaw_e2e_read_positive_int_env GRANTED_UPGRADE_SURVIVOR_STATUS_BUDGET_SECONDS 30)"',
+      '-e GRANTED_UPGRADE_SURVIVOR_START_BUDGET_SECONDS="$START_BUDGET_SECONDS"',
+      '-e GRANTED_UPGRADE_SURVIVOR_STATUS_BUDGET_SECONDS="$STATUS_BUDGET_SECONDS"',
+      'START_BUDGET="$(openclaw_e2e_read_positive_int_env GRANTED_UPGRADE_SURVIVOR_START_BUDGET_SECONDS 90)"',
+      'STATUS_BUDGET="$(openclaw_e2e_read_positive_int_env GRANTED_UPGRADE_SURVIVOR_STATUS_BUDGET_SECONDS 30)"',
+      'COMMAND_TIMEOUT="${GRANTED_UPGRADE_SURVIVOR_COMMAND_TIMEOUT:-900s}"',
+      '-e GRANTED_UPGRADE_SURVIVOR_COMMAND_TIMEOUT="$COMMAND_TIMEOUT"',
+      'command_timeout="${GRANTED_UPGRADE_SURVIVOR_COMMAND_TIMEOUT:-900s}"',
+      'openclaw_e2e_maybe_timeout "$command_timeout" env -u GRANTED_GATEWAY_TOKEN',
       'openclaw_e2e_maybe_timeout "$command_timeout" openclaw doctor --fix --non-interactive',
       'openclaw_e2e_maybe_timeout "$command_timeout" openclaw config validate',
       'openclaw_e2e_maybe_timeout "$command_timeout" openclaw gateway status',
       'openclaw gateway --port "$PORT" --bind loopback --allow-unconfigured',
-      'PROBE_TIMEOUT_MS="$(openclaw_e2e_read_nonnegative_int_env OPENCLAW_UPGRADE_SURVIVOR_PROBE_TIMEOUT_MS 60000)"',
-      "openclaw_e2e_read_positive_int_env OPENCLAW_UPGRADE_SURVIVOR_PROBE_ATTEMPT_TIMEOUT_MS 5000",
-      "openclaw_e2e_read_positive_int_env OPENCLAW_UPGRADE_SURVIVOR_PROBE_MAX_BODY_BYTES 1048576",
-      '-e OPENCLAW_UPGRADE_SURVIVOR_PROBE_TIMEOUT_MS="$PROBE_TIMEOUT_MS"',
-      '-e OPENCLAW_UPGRADE_SURVIVOR_PROBE_ATTEMPT_TIMEOUT_MS="$PROBE_ATTEMPT_TIMEOUT_MS"',
-      '-e OPENCLAW_UPGRADE_SURVIVOR_PROBE_MAX_BODY_BYTES="$PROBE_MAX_BODY_BYTES"',
+      'PROBE_TIMEOUT_MS="$(openclaw_e2e_read_nonnegative_int_env GRANTED_UPGRADE_SURVIVOR_PROBE_TIMEOUT_MS 60000)"',
+      "openclaw_e2e_read_positive_int_env GRANTED_UPGRADE_SURVIVOR_PROBE_ATTEMPT_TIMEOUT_MS 5000",
+      "openclaw_e2e_read_positive_int_env GRANTED_UPGRADE_SURVIVOR_PROBE_MAX_BODY_BYTES 1048576",
+      '-e GRANTED_UPGRADE_SURVIVOR_PROBE_TIMEOUT_MS="$PROBE_TIMEOUT_MS"',
+      '-e GRANTED_UPGRADE_SURVIVOR_PROBE_ATTEMPT_TIMEOUT_MS="$PROBE_ATTEMPT_TIMEOUT_MS"',
+      '-e GRANTED_UPGRADE_SURVIVOR_PROBE_MAX_BODY_BYTES="$PROBE_MAX_BODY_BYTES"',
       "readyz_probe_args=(",
-      'readyz_probe_args+=(--allow-failing "$OPENCLAW_UPGRADE_SURVIVOR_READYZ_ALLOW_FAILING")',
+      'readyz_probe_args+=(--allow-failing "$GRANTED_UPGRADE_SURVIVOR_READYZ_ALLOW_FAILING")',
       "readyz_probe_args+=(--allow-degraded-ready)",
       'node scripts/e2e/lib/upgrade-survivor/probe-gateway.mjs "${readyz_probe_args[@]}"',
-      "OPENCLAW_UPGRADE_SURVIVOR_READYZ_ALLOW_FAILING",
-      "OPENCLAW_UPGRADE_SURVIVOR_READYZ_ALLOW_DEGRADED",
+      "GRANTED_UPGRADE_SURVIVOR_READYZ_ALLOW_FAILING",
+      "GRANTED_UPGRADE_SURVIVOR_READYZ_ALLOW_DEGRADED",
     ]);
 
     expect(publishedRunner).toContain(
-      'COMMAND_TIMEOUT="${OPENCLAW_UPGRADE_SURVIVOR_COMMAND_TIMEOUT:-900s}"',
+      'COMMAND_TIMEOUT="${GRANTED_UPGRADE_SURVIVOR_COMMAND_TIMEOUT:-900s}"',
     );
     expect(publishedRunner).toContain(
-      'budget="$(openclaw_e2e_read_positive_int_env OPENCLAW_UPGRADE_SURVIVOR_START_BUDGET_SECONDS 90)"',
+      'budget="$(openclaw_e2e_read_positive_int_env GRANTED_UPGRADE_SURVIVOR_START_BUDGET_SECONDS 90)"',
     );
     expect(publishedRunner).toContain(
-      'budget="$(openclaw_e2e_read_positive_int_env OPENCLAW_UPGRADE_SURVIVOR_STATUS_BUDGET_SECONDS 30)"',
+      'budget="$(openclaw_e2e_read_positive_int_env GRANTED_UPGRADE_SURVIVOR_STATUS_BUDGET_SECONDS 30)"',
     );
     expect(publishedRunner).toContain(
       'openclaw_e2e_maybe_timeout "$COMMAND_TIMEOUT" openclaw --version',
@@ -3374,10 +3374,10 @@ fi
     expect(publishedRunner).toContain('openclaw gateway --port "$port" --bind loopback');
 
     expect(updateRestartAuth).toContain(
-      'command_timeout="${OPENCLAW_UPGRADE_SURVIVOR_COMMAND_TIMEOUT:-900s}"',
+      'command_timeout="${GRANTED_UPGRADE_SURVIVOR_COMMAND_TIMEOUT:-900s}"',
     );
     expectTextToIncludeAll(updateRestartAuth, [
-      "command=(env -u OPENCLAW_GATEWAY_TOKEN -u OPENCLAW_GATEWAY_PASSWORD openclaw gateway install --force --json)",
+      "command=(env -u GRANTED_GATEWAY_TOKEN -u GRANTED_GATEWAY_PASSWORD openclaw gateway install --force --json)",
       'openclaw_e2e_maybe_timeout "$command_timeout" "${command[@]}"',
     ]);
   });
@@ -3400,7 +3400,7 @@ fi
         childPath,
         `import fs from "node:fs";
 import http from "node:http";
-const identity = { pid: process.pid, managed: process.env.OPENCLAW_SYSTEMD_UNIT === "openclaw-gateway.service" };
+const identity = { pid: process.pid, managed: process.env.GRANTED_SYSTEMD_UNIT === "openclaw-gateway.service" };
 const server = http.createServer((_req, res) => res.end(JSON.stringify(identity)));
 const port = fs.existsSync(process.env.PORT_FILE) ? Number(fs.readFileSync(process.env.PORT_FILE, "utf8")) : 0;
 server.listen(port, "127.0.0.1", () => {
@@ -3416,7 +3416,7 @@ server.listen(port, "127.0.0.1", () => {
         stagedUnit,
         buildSystemdUnit({
           programArguments: [process.execPath, executable, "gateway"],
-          environment: { OPENCLAW_SYSTEMD_UNIT: "openclaw-gateway.service" },
+          environment: { GRANTED_SYSTEMD_UNIT: "openclaw-gateway.service" },
         }),
       );
       writeExecutables(join(workDir, "bin"), {
@@ -3437,7 +3437,7 @@ const child = spawn(process.execPath, [process.env.LISTENER_SCRIPT], { stdio: "i
 child.once("exit", () => process.exit(0));
 // A wrapper exit must not strand the listening child outside its service owner.
 process.on("SIGTERM", () => {
-  if (!process.env.OPENCLAW_SYSTEMD_UNIT) process.exit(0);
+  if (!process.env.GRANTED_SYSTEMD_UNIT) process.exit(0);
 });
 `,
       });
@@ -3446,21 +3446,21 @@ process.on("SIGTERM", () => {
         HOME: workDir,
         PATH: `${join(workDir, "bin")}:${process.env.PATH}`,
         npm_config_prefix: workDir,
-        OPENCLAW_STATE_DIR: stateDir,
-        OPENCLAW_CONFIG_PATH: configPath,
-        OPENCLAW_UPGRADE_SURVIVOR_BASELINE: "openclaw@2026.3.13",
-        OPENCLAW_UPGRADE_SURVIVOR_UPDATE_RESTART_MODE: "auto-auth",
-        OPENCLAW_UPGRADE_SURVIVOR_RUNTIME_ROOT: join(workDir, "runtime"),
-        OPENCLAW_UPGRADE_SURVIVOR_SUMMARY_JSON: join(artifacts, "summary.json"),
-        OPENCLAW_UPGRADE_SURVIVOR_SYSTEMCTL_SHIM_PID_FILE: join(artifacts, "systemctl-shim.pid"),
-        OPENCLAW_UPGRADE_SURVIVOR_SYSTEMCTL_SHIM_LOG: join(artifacts, "systemctl-shim.log"),
-        OPENCLAW_UPGRADE_SURVIVOR_SYSTEMCTL_SHIM_DAEMON_LOG: join(
+        GRANTED_STATE_DIR: stateDir,
+        GRANTED_CONFIG_PATH: configPath,
+        GRANTED_UPGRADE_SURVIVOR_BASELINE: "openclaw@2026.3.13",
+        GRANTED_UPGRADE_SURVIVOR_UPDATE_RESTART_MODE: "auto-auth",
+        GRANTED_UPGRADE_SURVIVOR_RUNTIME_ROOT: join(workDir, "runtime"),
+        GRANTED_UPGRADE_SURVIVOR_SUMMARY_JSON: join(artifacts, "summary.json"),
+        GRANTED_UPGRADE_SURVIVOR_SYSTEMCTL_SHIM_PID_FILE: join(artifacts, "systemctl-shim.pid"),
+        GRANTED_UPGRADE_SURVIVOR_SYSTEMCTL_SHIM_LOG: join(artifacts, "systemctl-shim.log"),
+        GRANTED_UPGRADE_SURVIVOR_SYSTEMCTL_SHIM_DAEMON_LOG: join(
           artifacts,
           "systemctl-shim-gateway.log",
         ),
-        OPENCLAW_UPGRADE_SURVIVOR_BASELINE_SERVICE_INSTALL_JSON: join(artifacts, "install.json"),
-        OPENCLAW_UPGRADE_SURVIVOR_BASELINE_SERVICE_INSTALL_ERR: join(artifacts, "install.err"),
-        OPENCLAW_PREPUBLISH_PLUGIN_REGISTRY_DIR: join(workDir, "registry"),
+        GRANTED_UPGRADE_SURVIVOR_BASELINE_SERVICE_INSTALL_JSON: join(artifacts, "install.json"),
+        GRANTED_UPGRADE_SURVIVOR_BASELINE_SERVICE_INSTALL_ERR: join(artifacts, "install.err"),
+        GRANTED_PREPUBLISH_PLUGIN_REGISTRY_DIR: join(workDir, "registry"),
         GATEWAY_AUTH_TOKEN_REF: "survivor-fixture-token",
         STAGED_UNIT: stagedUnit,
         LISTENER_SCRIPT: childPath,
@@ -3471,7 +3471,7 @@ process.on("SIGTERM", () => {
       const setup =
         lane === "published"
           ? source.slice(0, source.indexOf("phase storage-preflight"))
-          : `source ${shellQuote(OPENCLAW_E2E_INSTANCE_HELPER_PATH)}\nsource ${shellQuote(UPGRADE_SURVIVOR_UPDATE_RESTART_AUTH_PATH)}`;
+          : `source ${shellQuote(GRANTED_E2E_INSTANCE_HELPER_PATH)}\nsource ${shellQuote(UPGRADE_SURVIVOR_UPDATE_RESTART_AUTH_PATH)}`;
       const script = `${setup}
 trap - EXIT ERR INT TERM
 seed_update_restart_probe_device_auth() { :; }
@@ -3484,7 +3484,7 @@ openclaw_e2e_wait_gateway_ready() {
   for _ in {1..200}; do [ -s "$PORT_FILE" ] && break; sleep 0.01; done
   fixture_wait_gateway_ready "$1" "$2" 20 "$(cat "$PORT_FILE")" "\${5:-strict}"
 }
-${lane === "published" ? "prepare_update_restart_probe" : 'prepare_update_restart_probe_current_install 18789 "$OPENCLAW_UPGRADE_SURVIVOR_SYSTEMCTL_SHIM_DAEMON_LOG"'}
+${lane === "published" ? "prepare_update_restart_probe" : 'prepare_update_restart_probe_current_install 18789 "$GRANTED_UPGRADE_SURVIVOR_SYSTEMCTL_SHIM_DAEMON_LOG"'}
 `;
       const systemctlPath = join(
         lane === "published" ? join(artifacts, "npm-prefix") : workDir,
@@ -3566,7 +3566,7 @@ ${lane === "published" ? "prepare_update_restart_probe" : 'prepare_update_restar
         "-c",
         repoShell(workDir)`
 export PATH="$TMPDIR/bin:$PATH"
-source "$ROOT_DIR/${OPENCLAW_E2E_INSTANCE_HELPER_PATH}"
+source "$ROOT_DIR/${GRANTED_E2E_INSTANCE_HELPER_PATH}"
 GATEWAY_LOG="$TMPDIR/gateway.log"
 UPDATE_RESTART_MODE=manual
 ${start}
@@ -3588,9 +3588,9 @@ exit "$start_status"
 set -euo pipefail
 printf '%s\\n' "$@" >"$CAPTURE_DIR/doctor-argv"
 {
-  printf 'OPENCLAW_UPDATE_IN_PROGRESS=%s\\n' "\${OPENCLAW_UPDATE_IN_PROGRESS-unset}"
-  printf 'OPENCLAW_UPDATE_DEFER_CONFIGURED_PLUGIN_INSTALL_REPAIR=%s\\n' "\${OPENCLAW_UPDATE_DEFER_CONFIGURED_PLUGIN_INSTALL_REPAIR-unset}"
-  printf 'OPENCLAW_UPDATE_PARENT_SUPPORTS_DOCTOR_CONFIG_WRITE=%s\\n' "\${OPENCLAW_UPDATE_PARENT_SUPPORTS_DOCTOR_CONFIG_WRITE-unset}"
+  printf 'GRANTED_UPDATE_IN_PROGRESS=%s\\n' "\${GRANTED_UPDATE_IN_PROGRESS-unset}"
+  printf 'GRANTED_UPDATE_DEFER_CONFIGURED_PLUGIN_INSTALL_REPAIR=%s\\n' "\${GRANTED_UPDATE_DEFER_CONFIGURED_PLUGIN_INSTALL_REPAIR-unset}"
+  printf 'GRANTED_UPDATE_PARENT_SUPPORTS_DOCTOR_CONFIG_WRITE=%s\\n' "\${GRANTED_UPDATE_PARENT_SUPPORTS_DOCTOR_CONFIG_WRITE-unset}"
 } >"$CAPTURE_DIR/doctor-env"
 exit 23
 `,
@@ -3599,13 +3599,13 @@ exit 23
     const script = repoShell(workDir)`
 export PATH="$TMPDIR/bin:$PATH"
 export CAPTURE_DIR="$TMPDIR"
-export OPENCLAW_CONFIG_PATH="$TMPDIR/openclaw.json"
-export OPENCLAW_UPGRADE_SURVIVOR_CONFIG_PARKING_HELPER="$ROOT_DIR/${UPGRADE_SURVIVOR_CONFIG_PARKING_PATH}"
-printf '%s\n' '{"gateway":{"mode":"local"}}' >"$OPENCLAW_CONFIG_PATH"
-unset OPENCLAW_UPDATE_IN_PROGRESS
-unset OPENCLAW_UPDATE_DEFER_CONFIGURED_PLUGIN_INSTALL_REPAIR
-unset OPENCLAW_UPDATE_PARENT_SUPPORTS_DOCTOR_CONFIG_WRITE
-source "$ROOT_DIR/${OPENCLAW_E2E_INSTANCE_HELPER_PATH}"
+export GRANTED_CONFIG_PATH="$TMPDIR/openclaw.json"
+export GRANTED_UPGRADE_SURVIVOR_CONFIG_PARKING_HELPER="$ROOT_DIR/${UPGRADE_SURVIVOR_CONFIG_PARKING_PATH}"
+printf '%s\n' '{"gateway":{"mode":"local"}}' >"$GRANTED_CONFIG_PATH"
+unset GRANTED_UPDATE_IN_PROGRESS
+unset GRANTED_UPDATE_DEFER_CONFIGURED_PLUGIN_INSTALL_REPAIR
+unset GRANTED_UPDATE_PARENT_SUPPORTS_DOCTOR_CONFIG_WRITE
+source "$ROOT_DIR/${GRANTED_E2E_INSTANCE_HELPER_PATH}"
 source "$ROOT_DIR/${UPGRADE_SURVIVOR_UPDATE_RESTART_AUTH_PATH}"
 install_update_restart_systemctl_shim() { :; }
 seed_update_restart_probe_device_auth() { :; }
@@ -3618,9 +3618,9 @@ if prepare_update_restart_probe_current_install 18789 "$TMPDIR/gateway.log" >/de
   exit 3
 fi
 {
-  printf 'OPENCLAW_UPDATE_IN_PROGRESS=%s\\n' "\${OPENCLAW_UPDATE_IN_PROGRESS-unset}"
-  printf 'OPENCLAW_UPDATE_DEFER_CONFIGURED_PLUGIN_INSTALL_REPAIR=%s\\n' "\${OPENCLAW_UPDATE_DEFER_CONFIGURED_PLUGIN_INSTALL_REPAIR-unset}"
-  printf 'OPENCLAW_UPDATE_PARENT_SUPPORTS_DOCTOR_CONFIG_WRITE=%s\\n' "\${OPENCLAW_UPDATE_PARENT_SUPPORTS_DOCTOR_CONFIG_WRITE-unset}"
+  printf 'GRANTED_UPDATE_IN_PROGRESS=%s\\n' "\${GRANTED_UPDATE_IN_PROGRESS-unset}"
+  printf 'GRANTED_UPDATE_DEFER_CONFIGURED_PLUGIN_INSTALL_REPAIR=%s\\n' "\${GRANTED_UPDATE_DEFER_CONFIGURED_PLUGIN_INSTALL_REPAIR-unset}"
+  printf 'GRANTED_UPDATE_PARENT_SUPPORTS_DOCTOR_CONFIG_WRITE=%s\\n' "\${GRANTED_UPDATE_PARENT_SUPPORTS_DOCTOR_CONFIG_WRITE-unset}"
 } >"$CAPTURE_DIR/parent-env"
 `;
 
@@ -3635,17 +3635,17 @@ fi
     ]);
     expect(readFileSync(join(workDir, "doctor-env"), "utf8")).toBe(
       [
-        "OPENCLAW_UPDATE_IN_PROGRESS=1",
-        "OPENCLAW_UPDATE_DEFER_CONFIGURED_PLUGIN_INSTALL_REPAIR=1",
-        "OPENCLAW_UPDATE_PARENT_SUPPORTS_DOCTOR_CONFIG_WRITE=1",
+        "GRANTED_UPDATE_IN_PROGRESS=1",
+        "GRANTED_UPDATE_DEFER_CONFIGURED_PLUGIN_INSTALL_REPAIR=1",
+        "GRANTED_UPDATE_PARENT_SUPPORTS_DOCTOR_CONFIG_WRITE=1",
         "",
       ].join("\n"),
     );
     expect(readFileSync(join(workDir, "parent-env"), "utf8")).toBe(
       [
-        "OPENCLAW_UPDATE_IN_PROGRESS=unset",
-        "OPENCLAW_UPDATE_DEFER_CONFIGURED_PLUGIN_INSTALL_REPAIR=unset",
-        "OPENCLAW_UPDATE_PARENT_SUPPORTS_DOCTOR_CONFIG_WRITE=unset",
+        "GRANTED_UPDATE_IN_PROGRESS=unset",
+        "GRANTED_UPDATE_DEFER_CONFIGURED_PLUGIN_INSTALL_REPAIR=unset",
+        "GRANTED_UPDATE_PARENT_SUPPORTS_DOCTOR_CONFIG_WRITE=unset",
         "",
       ].join("\n"),
     );
@@ -3663,7 +3663,7 @@ fi
       writeExecutables(join(workDir, "bin"), {
         openclaw: `#!/usr/bin/env bash
 set -euo pipefail
-printf '%s %s\n' "$OPENCLAW_CONFIG_PATH" "$*" >>"$CAPTURE_DIR/openclaw-calls"
+printf '%s %s\n' "$GRANTED_CONFIG_PATH" "$*" >>"$CAPTURE_DIR/openclaw-calls"
 if [ "\${1:-}" = doctor ]; then
   [ "$FAILURE_STAGE" != doctor ] || exit 41
   exit 0
@@ -3671,7 +3671,7 @@ fi
 if [ "\${1:-}" = gateway ] && [ "\${2:-}" = install ]; then
   [ "$FAILURE_STAGE" != install ] || exit 44
   sleep 30 >/dev/null 2>&1 &
-  printf '%s\\n' "$!" >"$OPENCLAW_UPGRADE_SURVIVOR_SYSTEMCTL_SHIM_PID_FILE"
+  printf '%s\\n' "$!" >"$GRANTED_UPGRADE_SURVIVOR_SYSTEMCTL_SHIM_PID_FILE"
   exit 0
 fi
 exec sleep 30
@@ -3682,18 +3682,18 @@ exec sleep 30
 export PATH="$TMPDIR/bin:$PATH"
 export CAPTURE_DIR="$TMPDIR"
 export FAILURE_STAGE="${failureStage}"
-export OPENCLAW_STATE_DIR="$TMPDIR/state"
-export OPENCLAW_CONFIG_PATH="$OPENCLAW_STATE_DIR/openclaw.json"
-export OPENCLAW_UPGRADE_SURVIVOR_CONFIG_PARKING_HELPER="$ROOT_DIR/${UPGRADE_SURVIVOR_CONFIG_PARKING_PATH}"
-export OPENCLAW_UPGRADE_SURVIVOR_SYSTEMCTL_SHIM_PID_FILE="$TMPDIR/gateway.pid"
-export OPENCLAW_UPGRADE_SURVIVOR_SYSTEMCTL_SHIM_DAEMON_LOG="$TMPDIR/service.log"
-export OPENCLAW_UPGRADE_SURVIVOR_BASELINE_SERVICE_INSTALL_JSON="$TMPDIR/install.json"
-export OPENCLAW_UPGRADE_SURVIVOR_BASELINE_SERVICE_INSTALL_ERR="$TMPDIR/install.err"
+export GRANTED_STATE_DIR="$TMPDIR/state"
+export GRANTED_CONFIG_PATH="$GRANTED_STATE_DIR/openclaw.json"
+export GRANTED_UPGRADE_SURVIVOR_CONFIG_PARKING_HELPER="$ROOT_DIR/${UPGRADE_SURVIVOR_CONFIG_PARKING_PATH}"
+export GRANTED_UPGRADE_SURVIVOR_SYSTEMCTL_SHIM_PID_FILE="$TMPDIR/gateway.pid"
+export GRANTED_UPGRADE_SURVIVOR_SYSTEMCTL_SHIM_DAEMON_LOG="$TMPDIR/service.log"
+export GRANTED_UPGRADE_SURVIVOR_BASELINE_SERVICE_INSTALL_JSON="$TMPDIR/install.json"
+export GRANTED_UPGRADE_SURVIVOR_BASELINE_SERVICE_INSTALL_ERR="$TMPDIR/install.err"
 export GATEWAY_AUTH_TOKEN_REF=upgrade-survivor-token
-mkdir -p "$OPENCLAW_STATE_DIR"
+mkdir -p "$GRANTED_STATE_DIR"
 authored_config='{"channels":{"discord":{"dm":{"policy":"allowlist","allowFrom":["123"]}}}}'
-printf '%s\n' "$authored_config" >"$OPENCLAW_CONFIG_PATH"
-source "$ROOT_DIR/${OPENCLAW_E2E_INSTANCE_HELPER_PATH}"
+printf '%s\n' "$authored_config" >"$GRANTED_CONFIG_PATH"
+source "$ROOT_DIR/${GRANTED_E2E_INSTANCE_HELPER_PATH}"
 source "$ROOT_DIR/${UPGRADE_SURVIVOR_UPDATE_RESTART_AUTH_PATH}"
 install_update_restart_systemctl_shim() { :; }
 seed_update_restart_probe_device_auth() { :; }
@@ -3710,7 +3710,7 @@ write_update_restart_service_auth_env() {
 status=0
 prepare_update_restart_probe_current_install 18789 "$TMPDIR/gateway.log" >/dev/null 2>&1 || status=$?
 printf '%s\n' "$status" >"$CAPTURE_DIR/status"
-cmp -s "$OPENCLAW_CONFIG_PATH" <(printf '%s\n' "$authored_config")
+cmp -s "$GRANTED_CONFIG_PATH" <(printf '%s\n' "$authored_config")
 [ ! -e "$TMPDIR/gateway.log.authored-config" ]
 if [ -n "\${gateway_pid:-}" ]; then
   kill "$gateway_pid" >/dev/null 2>&1 || true
@@ -3724,7 +3724,7 @@ fi
       expect(readFileSync(join(workDir, "status"), "utf8")).toBe(`${expectedStatus}\n`);
       const calls = readFileSync(join(workDir, "openclaw-calls"), "utf8");
       expect(calls).toContain(join(workDir, "state", "openclaw.json"));
-      expect(calls).not.toContain("OPENCLAW_CONFIG_PATH=");
+      expect(calls).not.toContain("GRANTED_CONFIG_PATH=");
     },
   );
 
@@ -3752,13 +3752,13 @@ process.exit(result.status ?? 1);
 
     const script = repoShell(workDir)`
 export PATH="$TMPDIR/bin:$PATH"
-export OPENCLAW_STATE_DIR="$TMPDIR/state"
-export OPENCLAW_CONFIG_PATH="$OPENCLAW_STATE_DIR/openclaw.json"
+export GRANTED_STATE_DIR="$TMPDIR/state"
+export GRANTED_CONFIG_PATH="$GRANTED_STATE_DIR/openclaw.json"
 export REAL_CONFIG_PARKING_HELPER="$ROOT_DIR/${UPGRADE_SURVIVOR_CONFIG_PARKING_PATH}"
-export OPENCLAW_UPGRADE_SURVIVOR_CONFIG_PARKING_HELPER="$TMPDIR/bin/config-parking-wrapper.mjs"
-mkdir -p "$OPENCLAW_STATE_DIR"
-printf '%s\n' '{"channels":{"discord":{"dm":{"policy":"allowlist"}}}}' >"$OPENCLAW_CONFIG_PATH"
-source "$ROOT_DIR/${OPENCLAW_E2E_INSTANCE_HELPER_PATH}"
+export GRANTED_UPGRADE_SURVIVOR_CONFIG_PARKING_HELPER="$TMPDIR/bin/config-parking-wrapper.mjs"
+mkdir -p "$GRANTED_STATE_DIR"
+printf '%s\n' '{"channels":{"discord":{"dm":{"policy":"allowlist"}}}}' >"$GRANTED_CONFIG_PATH"
+source "$ROOT_DIR/${GRANTED_E2E_INSTANCE_HELPER_PATH}"
 source "$ROOT_DIR/${UPGRADE_SURVIVOR_UPDATE_RESTART_AUTH_PATH}"
 install_update_restart_systemctl_shim() { :; }
 seed_update_restart_probe_device_auth() { :; }
@@ -3809,9 +3809,9 @@ printf '%s\n' "$status" >"$TMPDIR/status"
     for (const script of [updateRestartAuth]) {
       expectTextToIncludeAll(script, [
         'supervisor_script="${pid_file}.supervisor.mjs"',
-        'OPENCLAW_SYSTEMCTL_SHIM_EXEC_START="$exec_start"',
-        'if (key.startsWith("OPENCLAW_UPDATE_")) {',
-        "delete childEnv.OPENCLAW_COMPATIBILITY_HOST_VERSION;",
+        'GRANTED_SYSTEMCTL_SHIM_EXEC_START="$exec_start"',
+        'if (key.startsWith("GRANTED_UPDATE_")) {',
+        "delete childEnv.GRANTED_COMPATIBILITY_HOST_VERSION;",
         'process.on("SIGTERM", stop);',
         "const stopTimeoutMs = 30_000;",
         "process.kill(-pid, signal);",
@@ -3899,7 +3899,7 @@ printf '%s\n' "$status" >"$TMPDIR/status"
       writeFileSync(
         childPath,
         `import fs from "node:fs";
-fs.writeFileSync(process.env.OPENCLAW_UPDATE_POST_CORE_RESULT_PATH, ${JSON.stringify(JSON.stringify(result))});
+fs.writeFileSync(process.env.GRANTED_UPDATE_POST_CORE_RESULT_PATH, ${JSON.stringify(JSON.stringify(result))});
 process.stdout.write("original stdout\\n");
 process.exit(${code});
 `,
@@ -3979,10 +3979,10 @@ process.exit(${code});
         rmSync(resultPath);
       }
       if (scenario === "missing-context") {
-        env.OPENCLAW_UPDATE_POST_CORE = "";
+        env.GRANTED_UPDATE_POST_CORE = "";
       }
       if (scenario === "wrong-file") {
-        env.OPENCLAW_UPDATE_POST_CORE_RESULT_PATH = join(dirname(resultPath), "source-config.json");
+        env.GRANTED_UPDATE_POST_CORE_RESULT_PATH = join(dirname(resultPath), "source-config.json");
       }
       if (scenario === "outside-tmp") {
         env.TMPDIR = artifacts;
@@ -4058,9 +4058,9 @@ process.exit(78);
       const artifactSetup = published
         ? source.slice(
             source.indexOf("ARTIFACT_ROOT="),
-            source.indexOf("export OPENCLAW_UPGRADE_SURVIVOR_RUNTIME_ROOT="),
+            source.indexOf("export GRANTED_UPGRADE_SURVIVOR_RUNTIME_ROOT="),
           )
-        : 'ARTIFACT_ROOT="$OPENCLAW_UPGRADE_SURVIVOR_ARTIFACT_ROOT"';
+        : 'ARTIFACT_ROOT="$GRANTED_UPGRADE_SURVIVOR_ARTIFACT_ROOT"';
       const update = published
         ? source.slice(
             source.indexOf("update_candidate() {"),
@@ -4073,14 +4073,14 @@ process.exit(78);
       writeExecutables(bin, {
         openclaw: `#!${process.execPath}
 const fs = require("node:fs"), path = require("node:path"), { spawnSync } = require("node:child_process");
-fs.appendFileSync(path.join(process.env.TMPDIR,"invocations.jsonl"), JSON.stringify({argv:process.argv.slice(2), options:process.env.NODE_OPTIONS, artifactRoot:process.env.OPENCLAW_UPGRADE_SURVIVOR_ARTIFACT_ROOT})+"\\n");
-if (process.env.OPENCLAW_UPDATE_POST_CORE === "1") {
-  fs.writeFileSync(process.env.OPENCLAW_UPDATE_POST_CORE_RESULT_PATH, JSON.stringify({status:"error",changed:false,sync:{changed:false,switchedToBundled:[],switchedToNpm:[],warnings:[],errors:[]},npm:{changed:false,outcomes:[]},integrityDrifts:[]}));
+fs.appendFileSync(path.join(process.env.TMPDIR,"invocations.jsonl"), JSON.stringify({argv:process.argv.slice(2), options:process.env.NODE_OPTIONS, artifactRoot:process.env.GRANTED_UPGRADE_SURVIVOR_ARTIFACT_ROOT})+"\\n");
+if (process.env.GRANTED_UPDATE_POST_CORE === "1") {
+  fs.writeFileSync(process.env.GRANTED_UPDATE_POST_CORE_RESULT_PATH, JSON.stringify({status:"error",changed:false,sync:{changed:false,switchedToBundled:[],switchedToNpm:[],warnings:[],errors:[]},npm:{changed:false,outcomes:[]},integrityDrifts:[]}));
   process.exit(0);
 }
 if (process.argv[2] !== "update") process.exit(0);
 const resultDir = fs.mkdtempSync(path.join(process.env.TMPDIR,"openclaw-update-post-core-"));
-const child = spawnSync(process.execPath, [__filename,"update","--json"], {env:{...process.env, OPENCLAW_UPDATE_POST_CORE:"1",OPENCLAW_UPDATE_POST_CORE_RESULT_PATH:path.join(resultDir,"plugins.json")}});
+const child = spawnSync(process.execPath, [__filename,"update","--json"], {env:{...process.env, GRANTED_UPDATE_POST_CORE:"1",GRANTED_UPDATE_POST_CORE_RESULT_PATH:path.join(resultDir,"plugins.json")}});
 if (child.status !== 0) process.exit(90);
 fs.rmSync(resultDir,{recursive:true});
 process.exit(78);
@@ -4094,7 +4094,7 @@ process.exit(78);
 ${artifactSetup}
 openclaw_e2e_maybe_timeout() { shift; "$@"; }
 openclaw_e2e_print_log() { :; }
-candidate_update_spec() { printf "%s" "$OPENCLAW_CURRENT_PACKAGE_TGZ"; }
+candidate_update_spec() { printf "%s" "$GRANTED_CURRENT_PACKAGE_TGZ"; }
 COMMAND_TIMEOUT=900s
 command_timeout=900s
 ROOT_MANAGED_VPS=0
@@ -4115,11 +4115,11 @@ exit "$lane_exit"
           encoding: "utf8",
           env: {
             ...env,
-            OPENCLAW_UPGRADE_SURVIVOR_ARTIFACT_ROOT: published ? undefined : artifacts,
-            OPENCLAW_UPGRADE_SURVIVOR_SUMMARY_JSON: join(artifacts, "summary.json"),
+            GRANTED_UPGRADE_SURVIVOR_ARTIFACT_ROOT: published ? undefined : artifacts,
+            GRANTED_UPGRADE_SURVIVOR_SUMMARY_JSON: join(artifacts, "summary.json"),
             PATH: `${bin}:${process.env.PATH}`,
-            OPENCLAW_UPDATE_POST_CORE: "",
-            OPENCLAW_CURRENT_PACKAGE_TGZ: join(workDir, "candidate.tgz"),
+            GRANTED_UPDATE_POST_CORE: "",
+            GRANTED_CURRENT_PACKAGE_TGZ: join(workDir, "candidate.tgz"),
           },
         },
       );
@@ -4184,9 +4184,9 @@ test -x "$npm_config_prefix/bin/busctl"
         env: {
           ...process.env,
           HOME: workDir,
-          OPENCLAW_UPGRADE_SURVIVOR_BASELINE: "openclaw@2026.4.15",
-          OPENCLAW_UPGRADE_SURVIVOR_SUMMARY_JSON: join(workDir, "artifacts", "summary.json"),
-          OPENCLAW_UPGRADE_SURVIVOR_RUNTIME_ROOT: join(workDir, "runtime"),
+          GRANTED_UPGRADE_SURVIVOR_BASELINE: "openclaw@2026.4.15",
+          GRANTED_UPGRADE_SURVIVOR_SUMMARY_JSON: join(workDir, "artifacts", "summary.json"),
+          GRANTED_UPGRADE_SURVIVOR_RUNTIME_ROOT: join(workDir, "runtime"),
         },
       },
     );
@@ -4216,8 +4216,8 @@ test -x "$npm_config_prefix/bin/busctl"
 const fs = require("node:fs");
 if (process.argv[2] !== "update") throw new Error("expected updater invocation");
 fs.writeFileSync(${JSON.stringify(invocation)}, "update\\n");
-if (["pid-only", "replaced"].includes(process.env.RESTART_TEST_MODE)) fs.writeFileSync(process.env.OPENCLAW_UPGRADE_SURVIVOR_SYSTEMCTL_SHIM_PID_FILE, "23456\\n");
-if (["request-only", "replaced"].includes(process.env.RESTART_TEST_MODE)) fs.appendFileSync(process.env.OPENCLAW_UPGRADE_SURVIVOR_SYSTEMCTL_SHIM_LOG, "--user restart openclaw-gateway.service\\n");
+if (["pid-only", "replaced"].includes(process.env.RESTART_TEST_MODE)) fs.writeFileSync(process.env.GRANTED_UPGRADE_SURVIVOR_SYSTEMCTL_SHIM_PID_FILE, "23456\\n");
+if (["request-only", "replaced"].includes(process.env.RESTART_TEST_MODE)) fs.appendFileSync(process.env.GRANTED_UPGRADE_SURVIVOR_SYSTEMCTL_SHIM_LOG, "--user restart openclaw-gateway.service\\n");
 console.log(JSON.stringify({status:"ok",after:{version:"2026.8.1"},steps:[{name:"global update",exitCode:0}]}));
 `,
       });
@@ -4258,8 +4258,8 @@ update_candidate 1
             ...process.env,
             PATH: `${bin}:${process.env.PATH ?? ""}`,
             RESTART_TEST_MODE: mode,
-            OPENCLAW_UPGRADE_SURVIVOR_SYSTEMCTL_SHIM_PID_FILE: pidFile,
-            OPENCLAW_UPGRADE_SURVIVOR_SYSTEMCTL_SHIM_LOG: logFile,
+            GRANTED_UPGRADE_SURVIVOR_SYSTEMCTL_SHIM_PID_FILE: pidFile,
+            GRANTED_UPGRADE_SURVIVOR_SYSTEMCTL_SHIM_LOG: logFile,
           },
         },
       );
@@ -4385,8 +4385,8 @@ ${storage === "wal" ? 'process.kill(process.pid, "SIGKILL");' : ""}`,
         {
           env: {
             ...env,
-            OPENCLAW_STATE_DIR: state,
-            OPENCLAW_CONFIG_PATH: join(state, "openclaw.json"),
+            GRANTED_STATE_DIR: state,
+            GRANTED_CONFIG_PATH: join(state, "openclaw.json"),
           },
           encoding: "utf8",
           cwd: workDir,
@@ -4479,7 +4479,7 @@ ${storage === "wal" ? 'process.kill(process.pid, "SIGKILL");' : ""}`,
     }
     const captured = runSurvivorDiagnostics("capture", artifacts, ["update-candidate", "1"], {
       ...env,
-      OPENCLAW_STATE_DIR: state,
+      GRANTED_STATE_DIR: state,
     });
     expect(captured.status, captured.stderr).toBe(0);
     const published = runSurvivorDiagnostics("publish", artifacts, [join(workDir, "public")]);
@@ -4538,8 +4538,8 @@ ${storage === "wal" ? 'process.kill(process.pid, "SIGKILL");' : ""}`,
       const supervisor = spawn(process.execPath, [supervisorPath], {
         env: {
           ...process.env,
-          OPENCLAW_SYSTEMCTL_SHIM_DAEMON_LOG: logPath,
-          OPENCLAW_SYSTEMCTL_SHIM_EXEC_START: `${shellQuote(process.execPath)} ${shellQuote(childPath)}`,
+          GRANTED_SYSTEMCTL_SHIM_DAEMON_LOG: logPath,
+          GRANTED_SYSTEMCTL_SHIM_EXEC_START: `${shellQuote(process.execPath)} ${shellQuote(childPath)}`,
         },
         stdio: "ignore",
       });
@@ -4562,17 +4562,17 @@ ${storage === "wal" ? 'process.kill(process.pid, "SIGKILL");' : ""}`,
         env: {
           ...process.env,
           HOME: join(workDir, "home"),
-          OPENCLAW_UPGRADE_SURVIVOR_SYSTEMCTL_SHIM_DAEMON_LOG: logPath,
-          OPENCLAW_UPGRADE_SURVIVOR_SYSTEMCTL_SHIM_LOG: join(artifacts, "systemctl-shim.log"),
-          OPENCLAW_UPGRADE_SURVIVOR_SYSTEMCTL_SHIM_PID_FILE: join(workDir, "missing.pid"),
+          GRANTED_UPGRADE_SURVIVOR_SYSTEMCTL_SHIM_DAEMON_LOG: logPath,
+          GRANTED_UPGRADE_SURVIVOR_SYSTEMCTL_SHIM_LOG: join(artifacts, "systemctl-shim.log"),
+          GRANTED_UPGRADE_SURVIVOR_SYSTEMCTL_SHIM_PID_FILE: join(workDir, "missing.pid"),
         },
       });
       expect(shown.status, shown.stderr).toBe(0);
       expect(shown.stdout).toContain("ExecMainStatus=78");
       const fixtureEnv = {
         HOME: join(workDir, "home"),
-        OPENCLAW_STATE_DIR: state,
-        OPENCLAW_CONFIG_PATH: join(state, "openclaw.json"),
+        GRANTED_STATE_DIR: state,
+        GRANTED_CONFIG_PATH: join(state, "openclaw.json"),
         npm_config_prefix: join(artifacts, "npm-prefix"),
       };
       // One candidate is absent; the other has a redactor that must never execute.
@@ -4667,9 +4667,9 @@ exec ${shellQuote(process.execPath)} "$@"
       const fixtureEnv = {
         ...process.env,
         HOME: workDir,
-        OPENCLAW_UPGRADE_SURVIVOR_SYSTEMCTL_SHIM_DAEMON_LOG: logPath,
-        OPENCLAW_UPGRADE_SURVIVOR_SYSTEMCTL_SHIM_LOG: join(workDir, "systemctl.log"),
-        OPENCLAW_UPGRADE_SURVIVOR_SYSTEMCTL_SHIM_PID_FILE: join(workDir, "supervisor.pid"),
+        GRANTED_UPGRADE_SURVIVOR_SYSTEMCTL_SHIM_DAEMON_LOG: logPath,
+        GRANTED_UPGRADE_SURVIVOR_SYSTEMCTL_SHIM_LOG: join(workDir, "systemctl.log"),
+        GRANTED_UPGRADE_SURVIVOR_SYSTEMCTL_SHIM_PID_FILE: join(workDir, "supervisor.pid"),
       };
       const started = spawnSync("bash", [shimPath, "--user", "start", "openclaw-gateway.service"], {
         encoding: "utf8",
@@ -4716,8 +4716,8 @@ exec ${shellQuote(process.execPath)} "$@"
     const fixtureEnv = {
       ...process.env,
       HOME: workDir,
-      OPENCLAW_STATE_DIR: workDir,
-      OPENCLAW_CONFIG_PATH: join(workDir, "absent"),
+      GRANTED_STATE_DIR: workDir,
+      GRANTED_CONFIG_PATH: join(workDir, "absent"),
     };
     const result = spawnSync(
       process.execPath,
@@ -4778,12 +4778,12 @@ exit ${exitCode}
             env: {
               ...process.env,
               HOME: workDir,
-              OPENCLAW_STATE_DIR: workDir,
-              OPENCLAW_CONFIG_PATH: join(workDir, "absent"),
-              OPENCLAW_UPGRADE_SURVIVOR_BASELINE: "openclaw@2026.7.1-2",
-              OPENCLAW_UPGRADE_SURVIVOR_RUNTIME_ROOT: join(workDir, "runtime"),
-              OPENCLAW_UPGRADE_SURVIVOR_ARTIFACT_ROOT: artifacts,
-              OPENCLAW_UPGRADE_SURVIVOR_SUMMARY_JSON: join(artifacts, "summary.json"),
+              GRANTED_STATE_DIR: workDir,
+              GRANTED_CONFIG_PATH: join(workDir, "absent"),
+              GRANTED_UPGRADE_SURVIVOR_BASELINE: "openclaw@2026.7.1-2",
+              GRANTED_UPGRADE_SURVIVOR_RUNTIME_ROOT: join(workDir, "runtime"),
+              GRANTED_UPGRADE_SURVIVOR_ARTIFACT_ROOT: artifacts,
+              GRANTED_UPGRADE_SURVIVOR_SUMMARY_JSON: join(artifacts, "summary.json"),
             },
           },
         );
@@ -4999,11 +4999,11 @@ exit 0
             PATH: `${binDir}:${process.env.PATH ?? ""}`,
             TEST_REPO_ROOT: process.cwd(),
             TEST_FIXTURE_ROOT: fixtureRoot,
-            OPENCLAW_SKIP_DOCKER_BUILD: "1",
-            OPENCLAW_QA_ALLOW_UPDATE_RUN_SELF: "1",
-            OPENCLAW_UPDATE_RUN_SELF_UPGRADE_ARTIFACT_DIR: artifacts,
-            OPENCLAW_UPDATE_RUN_SELF_UPGRADE_RUNTIME_ROOT: join(workDir, "runtime"),
-            OPENCLAW_DOCKER_ALL_LOG_DIR: publicRoot,
+            GRANTED_SKIP_DOCKER_BUILD: "1",
+            GRANTED_QA_ALLOW_UPDATE_RUN_SELF: "1",
+            GRANTED_UPDATE_RUN_SELF_UPGRADE_ARTIFACT_DIR: artifacts,
+            GRANTED_UPDATE_RUN_SELF_UPGRADE_RUNTIME_ROOT: join(workDir, "runtime"),
+            GRANTED_DOCKER_ALL_LOG_DIR: publicRoot,
           },
         },
       );
@@ -5103,11 +5103,11 @@ set -euo pipefail
 if [ "$1" = run ]; then
   printf "%s\\n" "$@" >"$TMPDIR/docker-args"
   test ! -e "$TMPDIR/public"
-  test ! -e "$OPENCLAW_UPGRADE_SURVIVOR_ARTIFACT_DIR/diagnostics/raw.json"
-  test ! -e "$OPENCLAW_UPGRADE_SURVIVOR_ARTIFACT_DIR/diagnostics/post-core.json"
+  test ! -e "$GRANTED_UPGRADE_SURVIVOR_ARTIFACT_DIR/diagnostics/raw.json"
+  test ! -e "$GRANTED_UPGRADE_SURVIVOR_ARTIFACT_DIR/diagnostics/post-core.json"
   if [ "${capturePresent}" = true ]; then
-    printf "startup failure token=HOST_PUBLICATION_SECRET\\n" >"$OPENCLAW_UPGRADE_SURVIVOR_ARTIFACT_DIR/update.err"
-    ${shellQuote(process.execPath)} ${shellQuote(join(process.cwd(), UPGRADE_SURVIVOR_DIAGNOSTICS_PATH))} capture "$OPENCLAW_UPGRADE_SURVIVOR_ARTIFACT_DIR" update-candidate ${exitCode}
+    printf "startup failure token=HOST_PUBLICATION_SECRET\\n" >"$GRANTED_UPGRADE_SURVIVOR_ARTIFACT_DIR/update.err"
+    ${shellQuote(process.execPath)} ${shellQuote(join(process.cwd(), UPGRADE_SURVIVOR_DIAGNOSTICS_PATH))} capture "$GRANTED_UPGRADE_SURVIVOR_ARTIFACT_DIR" update-candidate ${exitCode}
   fi
   exit ${exitCode}
 fi
@@ -5122,15 +5122,15 @@ exit 0
             HOME: workDir,
             TMPDIR: workDir,
             PATH: `${binDir}:${process.env.PATH ?? ""}`,
-            OPENCLAW_CONFIG_PATH: join(workDir, "absent"),
-            OPENCLAW_STATE_DIR: workDir,
-            OPENCLAW_SKIP_DOCKER_BUILD: "1",
-            OPENCLAW_CURRENT_PACKAGE_TGZ: join(workDir, "candidate.tgz"),
-            OPENCLAW_PREPUBLISH_PLUGIN_REGISTRY_DIR: registry,
-            OPENCLAW_UPGRADE_SURVIVOR_ARTIFACT_DIR: artifacts,
-            OPENCLAW_UPGRADE_SURVIVOR_PUBLISHED_BASELINE: publishedBaseline ? "1" : "0",
-            OPENCLAW_UPGRADE_SURVIVOR_BASELINE_SPEC: "openclaw@2026.7.1-2",
-            OPENCLAW_DOCKER_ALL_LOG_DIR: "public",
+            GRANTED_CONFIG_PATH: join(workDir, "absent"),
+            GRANTED_STATE_DIR: workDir,
+            GRANTED_SKIP_DOCKER_BUILD: "1",
+            GRANTED_CURRENT_PACKAGE_TGZ: join(workDir, "candidate.tgz"),
+            GRANTED_PREPUBLISH_PLUGIN_REGISTRY_DIR: registry,
+            GRANTED_UPGRADE_SURVIVOR_ARTIFACT_DIR: artifacts,
+            GRANTED_UPGRADE_SURVIVOR_PUBLISHED_BASELINE: publishedBaseline ? "1" : "0",
+            GRANTED_UPGRADE_SURVIVOR_BASELINE_SPEC: "openclaw@2026.7.1-2",
+            GRANTED_DOCKER_ALL_LOG_DIR: "public",
           },
         });
         expect(result.status, result.stdout + result.stderr).toBe(exitCode);
@@ -5179,8 +5179,8 @@ exit 0
         env: {
           ...process.env,
           COUNT_FILE: countPath,
-          OPENCLAW_SYSTEMCTL_SHIM_DAEMON_LOG: logPath,
-          OPENCLAW_SYSTEMCTL_SHIM_EXEC_START: command,
+          GRANTED_SYSTEMCTL_SHIM_DAEMON_LOG: logPath,
+          GRANTED_SYSTEMCTL_SHIM_EXEC_START: command,
         },
         stdio: "ignore",
       });
@@ -5213,8 +5213,8 @@ exit 0
       const supervisor = spawn(process.execPath, [supervisorPath], {
         env: {
           ...process.env,
-          OPENCLAW_SYSTEMCTL_SHIM_DAEMON_LOG: logPath,
-          OPENCLAW_SYSTEMCTL_SHIM_EXEC_START: command,
+          GRANTED_SYSTEMCTL_SHIM_DAEMON_LOG: logPath,
+          GRANTED_SYSTEMCTL_SHIM_EXEC_START: command,
           STATE_FILE: statePath,
         },
         stdio: "ignore",
@@ -5243,7 +5243,7 @@ exit 0
     writeFileSync(
       gatewayPath,
       `import fs from "node:fs";
-fs.appendFileSync(process.env.URLS_FILE, process.env.OPENCLAW_CLAWHUB_URL + "\\n");
+fs.appendFileSync(process.env.URLS_FILE, process.env.GRANTED_CLAWHUB_URL + "\\n");
 const starts = fs.readFileSync(process.env.URLS_FILE, "utf8").trim().split("\\n").length;
 process.exit(starts === 1 ? 1 : 78);
 `,
@@ -5263,9 +5263,9 @@ process.exit(starts === 1 ? 1 : 78);
       const supervisor = spawn(process.execPath, [supervisorPath], {
         env: {
           ...process.env,
-          OPENCLAW_CLAWHUB_URL: "http://127.0.0.1:43123",
-          OPENCLAW_SYSTEMCTL_SHIM_DAEMON_LOG: logPath,
-          OPENCLAW_SYSTEMCTL_SHIM_EXEC_START: `${shellQuote(process.execPath)} ${shellQuote(gatewayPath)}`,
+          GRANTED_CLAWHUB_URL: "http://127.0.0.1:43123",
+          GRANTED_SYSTEMCTL_SHIM_DAEMON_LOG: logPath,
+          GRANTED_SYSTEMCTL_SHIM_EXEC_START: `${shellQuote(process.execPath)} ${shellQuote(gatewayPath)}`,
           URLS_FILE: urlsPath,
         },
         stdio: "ignore",
@@ -5328,8 +5328,8 @@ setInterval(() => {}, 1_000);
             ...process.env,
             DESCENDANT_PID_FILE: descendantPidPath,
             DESCENDANT_SCRIPT: descendantPath,
-            OPENCLAW_SYSTEMCTL_SHIM_DAEMON_LOG: logPath,
-            OPENCLAW_SYSTEMCTL_SHIM_EXEC_START: `${shellQuote(process.execPath)} ${shellQuote(gatewayPath)}`,
+            GRANTED_SYSTEMCTL_SHIM_DAEMON_LOG: logPath,
+            GRANTED_SYSTEMCTL_SHIM_EXEC_START: `${shellQuote(process.execPath)} ${shellQuote(gatewayPath)}`,
             STATE_FILE: statePath,
           },
           stdio: "ignore",
@@ -5412,8 +5412,8 @@ if (starts === 1) {
             ...process.env,
             DESCENDANT_PID_FILE: descendantPidPath,
             DESCENDANT_SCRIPT: descendantPath,
-            OPENCLAW_SYSTEMCTL_SHIM_DAEMON_LOG: logPath,
-            OPENCLAW_SYSTEMCTL_SHIM_EXEC_START: `${shellQuote(process.execPath)} ${shellQuote(gatewayPath)}`,
+            GRANTED_SYSTEMCTL_SHIM_DAEMON_LOG: logPath,
+            GRANTED_SYSTEMCTL_SHIM_EXEC_START: `${shellQuote(process.execPath)} ${shellQuote(gatewayPath)}`,
             REPLACEMENT_FILE: replacementPath,
             STARTS_FILE: startsPath,
           },
@@ -5433,17 +5433,17 @@ if (starts === 1) {
   );
 
   it.each([
-    ["start budget", "OPENCLAW_UPGRADE_SURVIVOR_START_BUDGET_SECONDS", "90s"],
-    ["status budget", "OPENCLAW_UPGRADE_SURVIVOR_STATUS_BUDGET_SECONDS", "30s"],
-    ["probe timeout", "OPENCLAW_UPGRADE_SURVIVOR_PROBE_TIMEOUT_MS", "soon"],
-    ["probe attempt timeout", "OPENCLAW_UPGRADE_SURVIVOR_PROBE_ATTEMPT_TIMEOUT_MS", "0"],
-    ["probe body cap", "OPENCLAW_UPGRADE_SURVIVOR_PROBE_MAX_BODY_BYTES", "64bytes"],
+    ["start budget", "GRANTED_UPGRADE_SURVIVOR_START_BUDGET_SECONDS", "90s"],
+    ["status budget", "GRANTED_UPGRADE_SURVIVOR_STATUS_BUDGET_SECONDS", "30s"],
+    ["probe timeout", "GRANTED_UPGRADE_SURVIVOR_PROBE_TIMEOUT_MS", "soon"],
+    ["probe attempt timeout", "GRANTED_UPGRADE_SURVIVOR_PROBE_ATTEMPT_TIMEOUT_MS", "0"],
+    ["probe body cap", "GRANTED_UPGRADE_SURVIVOR_PROBE_MAX_BODY_BYTES", "64bytes"],
   ])("rejects invalid upgrade survivor Docker %s before Docker setup", (_label, envName, value) => {
     const result = spawnSync("bash", [UPGRADE_SURVIVOR_DOCKER_E2E_PATH], {
       encoding: "utf8",
       env: {
         ...process.env,
-        OPENCLAW_UPGRADE_SURVIVOR_E2E_SKIP_BUILD: "1",
+        GRANTED_UPGRADE_SURVIVOR_E2E_SKIP_BUILD: "1",
         [envName]: value,
       },
     });
@@ -5462,12 +5462,12 @@ if (starts === 1) {
       "update_status=$?",
       'if [ "$update_status" -ne 0 ]; then',
       'echo "openclaw update failed" >&2',
-      'openclaw config validate --json >"$OPENCLAW_UPGRADE_SURVIVOR_ARTIFACT_ROOT/post-update-validate.json"',
+      'openclaw config validate --json >"$GRANTED_UPGRADE_SURVIVOR_ARTIFACT_ROOT/post-update-validate.json"',
       'echo "post-update config validation probe status=$validate_status" >&2',
-      'openclaw_e2e_print_log "$OPENCLAW_UPGRADE_SURVIVOR_ARTIFACT_ROOT/post-update-validate.err" >&2 || true',
-      'openclaw_e2e_print_log "$OPENCLAW_UPGRADE_SURVIVOR_ARTIFACT_ROOT/post-update-validate.json" >&2 || true',
-      'openclaw_e2e_print_log "$OPENCLAW_UPGRADE_SURVIVOR_ARTIFACT_ROOT/update.err" >&2 || true',
-      'openclaw_e2e_print_log "$OPENCLAW_UPGRADE_SURVIVOR_ARTIFACT_ROOT/update.json" >&2 || true',
+      'openclaw_e2e_print_log "$GRANTED_UPGRADE_SURVIVOR_ARTIFACT_ROOT/post-update-validate.err" >&2 || true',
+      'openclaw_e2e_print_log "$GRANTED_UPGRADE_SURVIVOR_ARTIFACT_ROOT/post-update-validate.json" >&2 || true',
+      'openclaw_e2e_print_log "$GRANTED_UPGRADE_SURVIVOR_ARTIFACT_ROOT/update.err" >&2 || true',
+      'openclaw_e2e_print_log "$GRANTED_UPGRADE_SURVIVOR_ARTIFACT_ROOT/update.json" >&2 || true',
       'exit "$update_status"',
     ]);
     expectTextToIncludeInOrder(publishedRunner, [
@@ -5496,29 +5496,29 @@ if (starts === 1) {
     expect(publishedRunner).toContain("phase recovery-update-restart update_candidate 1");
 
     expectTextToIncludeAll(runner, [
-      'openclaw_e2e_print_log "$OPENCLAW_UPGRADE_SURVIVOR_ARTIFACT_ROOT/update.err"',
-      'openclaw_e2e_print_log "$OPENCLAW_UPGRADE_SURVIVOR_ARTIFACT_ROOT/update.json"',
-      'openclaw_e2e_print_log "$OPENCLAW_UPGRADE_SURVIVOR_ARTIFACT_ROOT/post-update-validate.err"',
-      'openclaw_e2e_print_log "$OPENCLAW_UPGRADE_SURVIVOR_ARTIFACT_ROOT/post-update-validate.json"',
-      'openclaw_e2e_print_log "$OPENCLAW_UPGRADE_SURVIVOR_ARTIFACT_ROOT/doctor.log"',
-      'openclaw_e2e_print_log "$OPENCLAW_UPGRADE_SURVIVOR_ARTIFACT_ROOT/status.err"',
-      'openclaw_e2e_print_log "$OPENCLAW_UPGRADE_SURVIVOR_ARTIFACT_ROOT/status.json"',
+      'openclaw_e2e_print_log "$GRANTED_UPGRADE_SURVIVOR_ARTIFACT_ROOT/update.err"',
+      'openclaw_e2e_print_log "$GRANTED_UPGRADE_SURVIVOR_ARTIFACT_ROOT/update.json"',
+      'openclaw_e2e_print_log "$GRANTED_UPGRADE_SURVIVOR_ARTIFACT_ROOT/post-update-validate.err"',
+      'openclaw_e2e_print_log "$GRANTED_UPGRADE_SURVIVOR_ARTIFACT_ROOT/post-update-validate.json"',
+      'openclaw_e2e_print_log "$GRANTED_UPGRADE_SURVIVOR_ARTIFACT_ROOT/doctor.log"',
+      'openclaw_e2e_print_log "$GRANTED_UPGRADE_SURVIVOR_ARTIFACT_ROOT/status.err"',
+      'openclaw_e2e_print_log "$GRANTED_UPGRADE_SURVIVOR_ARTIFACT_ROOT/status.json"',
       'openclaw_e2e_print_log "$GATEWAY_LOG"',
       'openclaw_e2e_print_log "$SYSTEMCTL_SHIM_DAEMON_LOG"',
       'openclaw_e2e_print_log "$log_file"',
     ]);
 
-    expect(runner).not.toContain('cat "$OPENCLAW_UPGRADE_SURVIVOR_ARTIFACT_ROOT/update.err"');
-    expect(runner).not.toContain('cat "$OPENCLAW_UPGRADE_SURVIVOR_ARTIFACT_ROOT/update.json"');
+    expect(runner).not.toContain('cat "$GRANTED_UPGRADE_SURVIVOR_ARTIFACT_ROOT/update.err"');
+    expect(runner).not.toContain('cat "$GRANTED_UPGRADE_SURVIVOR_ARTIFACT_ROOT/update.json"');
     expect(runner).not.toContain(
-      'cat "$OPENCLAW_UPGRADE_SURVIVOR_ARTIFACT_ROOT/post-update-validate.err"',
+      'cat "$GRANTED_UPGRADE_SURVIVOR_ARTIFACT_ROOT/post-update-validate.err"',
     );
     expect(runner).not.toContain(
-      'cat "$OPENCLAW_UPGRADE_SURVIVOR_ARTIFACT_ROOT/post-update-validate.json"',
+      'cat "$GRANTED_UPGRADE_SURVIVOR_ARTIFACT_ROOT/post-update-validate.json"',
     );
-    expect(runner).not.toContain('cat "$OPENCLAW_UPGRADE_SURVIVOR_ARTIFACT_ROOT/doctor.log"');
-    expect(runner).not.toContain('cat "$OPENCLAW_UPGRADE_SURVIVOR_ARTIFACT_ROOT/status.err"');
-    expect(runner).not.toContain('cat "$OPENCLAW_UPGRADE_SURVIVOR_ARTIFACT_ROOT/status.json"');
+    expect(runner).not.toContain('cat "$GRANTED_UPGRADE_SURVIVOR_ARTIFACT_ROOT/doctor.log"');
+    expect(runner).not.toContain('cat "$GRANTED_UPGRADE_SURVIVOR_ARTIFACT_ROOT/status.err"');
+    expect(runner).not.toContain('cat "$GRANTED_UPGRADE_SURVIVOR_ARTIFACT_ROOT/status.json"');
     expect(runner).not.toContain('cat "$GATEWAY_LOG"');
     expect(runner).not.toContain('cat "$SYSTEMCTL_SHIM_DAEMON_LOG"');
     expect(runner).not.toContain('cat "$log_file"');
@@ -5636,10 +5636,10 @@ grep -Fxq preserved "$TMPDIR/caller-fd"
       "assert-followthrough",
       "followthrough-turn.mjs",
       "if openclaw_e2e_run_command node scripts/e2e/lib/codex-npm-plugin-live/followthrough-turn.mjs",
-      "docker_e2e_read_positive_int_env OPENCLAW_CODEX_NPM_PLUGIN_AGENT_TIMEOUT_SECONDS 420",
-      'docker_e2e_read_positive_int_env OPENCLAW_CODEX_NPM_PLUGIN_AGENT_TIMEOUT_SECONDS "$AGENT_TURN_TIMEOUT_SECONDS"',
-      '-e "OPENCLAW_CODEX_NPM_PLUGIN_AGENT_TIMEOUT_SECONDS=$AGENT_TURN_TIMEOUT_SECONDS"',
-      '-e "OPENCLAW_E2E_COMMAND_TIMEOUT=$COMMAND_TIMEOUT"',
+      "docker_e2e_read_positive_int_env GRANTED_CODEX_NPM_PLUGIN_AGENT_TIMEOUT_SECONDS 420",
+      'docker_e2e_read_positive_int_env GRANTED_CODEX_NPM_PLUGIN_AGENT_TIMEOUT_SECONDS "$AGENT_TURN_TIMEOUT_SECONDS"',
+      '-e "GRANTED_CODEX_NPM_PLUGIN_AGENT_TIMEOUT_SECONDS=$AGENT_TURN_TIMEOUT_SECONDS"',
+      '-e "GRANTED_E2E_COMMAND_TIMEOUT=$COMMAND_TIMEOUT"',
       '--timeout "$AGENT_TURN_TIMEOUT_SECONDS"',
     ]);
     expect(runner).not.toContain("cat /tmp/openclaw-codex-plugin-pack.log");
@@ -5734,31 +5734,31 @@ grep -Fxq preserved "$TMPDIR/caller-fd"
     [
       "Codex npm plugin live",
       CODEX_NPM_PLUGIN_LIVE_DOCKER_E2E_PATH,
-      "OPENCLAW_CODEX_NPM_PLUGIN_ASSERT_MAX_TEXT_FILE_BYTES",
+      "GRANTED_CODEX_NPM_PLUGIN_ASSERT_MAX_TEXT_FILE_BYTES",
       "64kb",
     ],
     [
       "Codex npm plugin live agent timeout",
       CODEX_NPM_PLUGIN_LIVE_DOCKER_E2E_PATH,
-      "OPENCLAW_CODEX_NPM_PLUGIN_AGENT_TIMEOUT_SECONDS",
+      "GRANTED_CODEX_NPM_PLUGIN_AGENT_TIMEOUT_SECONDS",
       "420s",
     ],
     [
       "npm onboard channel-agent",
       NPM_ONBOARD_CHANNEL_AGENT_DOCKER_E2E_PATH,
-      "OPENCLAW_NPM_ONBOARD_JSON_ARTIFACT_MAX_BYTES",
+      "GRANTED_NPM_ONBOARD_JSON_ARTIFACT_MAX_BYTES",
       "64kb",
     ],
     [
       "plugins",
       PLUGINS_DOCKER_E2E_PATH,
-      "OPENCLAW_PLUGINS_E2E_CLAWHUB_PREFLIGHT_TIMEOUT_MS",
+      "GRANTED_PLUGINS_E2E_CLAWHUB_PREFLIGHT_TIMEOUT_MS",
       "soon",
     ],
     [
       "release user journey",
       RELEASE_USER_JOURNEY_DOCKER_E2E_PATH,
-      "OPENCLAW_RELEASE_USER_JOURNEY_HTTP_BODY_MAX_BYTES",
+      "GRANTED_RELEASE_USER_JOURNEY_HTTP_BODY_MAX_BYTES",
       "64kb",
     ],
   ])(
@@ -5768,7 +5768,7 @@ grep -Fxq preserved "$TMPDIR/caller-fd"
         encoding: "utf8",
         env: {
           ...process.env,
-          OPENCLAW_SKIP_DOCKER_BUILD: "1",
+          GRANTED_SKIP_DOCKER_BUILD: "1",
           [envName]: value,
         },
       });
@@ -5784,33 +5784,33 @@ grep -Fxq preserved "$TMPDIR/caller-fd"
       [
         CODEX_NPM_PLUGIN_LIVE_DOCKER_E2E_PATH,
         [
-          ["OPENCLAW_CODEX_NPM_PLUGIN_ASSERT_MAX_TEXT_FILE_BYTES", "1048576"],
-          ["OPENCLAW_CODEX_NPM_PLUGIN_ASSERT_MAX_ERROR_TAIL_BYTES", "65536"],
-          ["OPENCLAW_CODEX_NPM_PLUGIN_ASSERT_MAX_TRANSCRIPT_FILES", "64"],
-          ["OPENCLAW_CODEX_NPM_PLUGIN_ASSERT_MAX_TRANSCRIPT_WALK_ENTRIES", "4096"],
-          ["OPENCLAW_CODEX_NPM_PLUGIN_ASSERT_MAX_TRANSCRIPT_SCAN_BYTES", "2097152"],
-          ["OPENCLAW_CODEX_NPM_PLUGIN_AGENT_TIMEOUT_SECONDS", "420"],
+          ["GRANTED_CODEX_NPM_PLUGIN_ASSERT_MAX_TEXT_FILE_BYTES", "1048576"],
+          ["GRANTED_CODEX_NPM_PLUGIN_ASSERT_MAX_ERROR_TAIL_BYTES", "65536"],
+          ["GRANTED_CODEX_NPM_PLUGIN_ASSERT_MAX_TRANSCRIPT_FILES", "64"],
+          ["GRANTED_CODEX_NPM_PLUGIN_ASSERT_MAX_TRANSCRIPT_WALK_ENTRIES", "4096"],
+          ["GRANTED_CODEX_NPM_PLUGIN_ASSERT_MAX_TRANSCRIPT_SCAN_BYTES", "2097152"],
+          ["GRANTED_CODEX_NPM_PLUGIN_AGENT_TIMEOUT_SECONDS", "420"],
         ],
       ],
       [
         NPM_ONBOARD_CHANNEL_AGENT_DOCKER_E2E_PATH,
         [
-          ["OPENCLAW_NPM_ONBOARD_JSON_ARTIFACT_MAX_BYTES", "1048576"],
-          ["OPENCLAW_NPM_ONBOARD_STATUS_TEXT_MAX_BYTES", "1048576"],
+          ["GRANTED_NPM_ONBOARD_JSON_ARTIFACT_MAX_BYTES", "1048576"],
+          ["GRANTED_NPM_ONBOARD_STATUS_TEXT_MAX_BYTES", "1048576"],
         ],
       ],
       [
         PLUGINS_DOCKER_E2E_PATH,
         [
-          ["OPENCLAW_PLUGINS_E2E_CLAWHUB_PREFLIGHT_BODY_MAX_BYTES", "1048576"],
-          ["OPENCLAW_PLUGINS_E2E_CLAWHUB_PREFLIGHT_TIMEOUT_MS", "30000"],
+          ["GRANTED_PLUGINS_E2E_CLAWHUB_PREFLIGHT_BODY_MAX_BYTES", "1048576"],
+          ["GRANTED_PLUGINS_E2E_CLAWHUB_PREFLIGHT_TIMEOUT_MS", "30000"],
         ],
       ],
       [
         RELEASE_USER_JOURNEY_DOCKER_E2E_PATH,
         [
-          ["OPENCLAW_RELEASE_USER_JOURNEY_HTTP_TIMEOUT_MS", "5000"],
-          ["OPENCLAW_RELEASE_USER_JOURNEY_HTTP_BODY_MAX_BYTES", "1048576"],
+          ["GRANTED_RELEASE_USER_JOURNEY_HTTP_TIMEOUT_MS", "5000"],
+          ["GRANTED_RELEASE_USER_JOURNEY_HTTP_BODY_MAX_BYTES", "1048576"],
         ],
       ],
     ] as const;
@@ -5829,7 +5829,7 @@ grep -Fxq preserved "$TMPDIR/caller-fd"
   it("gives Codex on-demand package installs enough time to reach Codex assertions", () => {
     const runner = readFileSync(CODEX_ON_DEMAND_DOCKER_E2E_PATH, "utf8");
     expect(runner).toContain(
-      'export OPENCLAW_E2E_NPM_INSTALL_TIMEOUT="${OPENCLAW_E2E_NPM_INSTALL_TIMEOUT:-1200s}"',
+      'export GRANTED_E2E_NPM_INSTALL_TIMEOUT="${GRANTED_E2E_NPM_INSTALL_TIMEOUT:-1200s}"',
     );
   });
 
@@ -5838,15 +5838,15 @@ grep -Fxq preserved "$TMPDIR/caller-fd"
     const registryHelper = readFileSync(PREPUBLISH_PLUGIN_REGISTRY_HELPER_PATH, "utf8");
 
     expectTextToIncludeAll(runner, [
-      "OPENCLAW_DOCKER_ALL_LANES=codex-on-demand",
+      "GRANTED_DOCKER_ALL_LANES=codex-on-demand",
       "source scripts/e2e/lib/prepublish-plugin-registry.sh",
       "openclaw_prepublish_plugin_registry_configure_docker_args",
       "openclaw_prepublish_plugin_registry_start_mounted",
       "'[\"@openclaw/codex\"]'",
     ]);
     expectTextToIncludeAll(registryHelper, [
-      'OPENCLAW_NPM_REGISTRY_DIST_TAGS="$dist_tags"',
-      "OPENCLAW_NPM_REGISTRY_UPSTREAM=https://registry.npmjs.org",
+      'GRANTED_NPM_REGISTRY_DIST_TAGS="$dist_tags"',
+      "GRANTED_NPM_REGISTRY_UPSTREAM=https://registry.npmjs.org",
     ]);
     expect(runner.indexOf("openclaw_e2e_install_package")).toBeLessThan(
       runner.indexOf("\nconfigure_plugin_registry\n"),
@@ -5891,25 +5891,25 @@ grep -Fxq preserved "$TMPDIR/caller-fd"
     const runner = readFileSync(LIVE_PLUGIN_TOOL_DOCKER_E2E_PATH, "utf8");
     expectTextToIncludeAll(runner, [
       'source "$ROOT_DIR/scripts/lib/openclaw-e2e-instance.sh"',
-      'AGENT_TURN_TIMEOUT_SECONDS="$(openclaw_e2e_read_positive_int_env OPENCLAW_LIVE_PLUGIN_TOOL_TIMEOUT_SECONDS 300)"',
-      'AGENT_TURN_TIMEOUT_SECONDS="$(openclaw_e2e_read_positive_int_env OPENCLAW_LIVE_PLUGIN_TOOL_TIMEOUT_SECONDS "$AGENT_TURN_TIMEOUT_SECONDS")"',
-      'COMMAND_TIMEOUT="${OPENCLAW_E2E_COMMAND_TIMEOUT:-$((10#$AGENT_TURN_TIMEOUT_SECONDS + 60))s}"',
-      'AGENT_OUTPUT_MAX_BYTES="$(openclaw_e2e_read_positive_int_env OPENCLAW_LIVE_PLUGIN_TOOL_AGENT_OUTPUT_MAX_BYTES 1048576)"',
-      'AGENT_OUTPUT_DUMP_BYTES="$(openclaw_e2e_read_nonnegative_int_env OPENCLAW_LIVE_PLUGIN_TOOL_AGENT_OUTPUT_DUMP_BYTES 16384)"',
-      'SESSION_SCAN_MAX_ENTRIES="$(openclaw_e2e_read_positive_int_env OPENCLAW_LIVE_PLUGIN_TOOL_SESSION_SCAN_MAX_ENTRIES 50000)"',
-      '-e "OPENCLAW_LIVE_PLUGIN_TOOL_AGENT_OUTPUT_DUMP_BYTES=$AGENT_OUTPUT_DUMP_BYTES"',
-      '-e "OPENCLAW_LIVE_PLUGIN_TOOL_AGENT_OUTPUT_MAX_BYTES=$AGENT_OUTPUT_MAX_BYTES"',
-      '-e "OPENCLAW_LIVE_PLUGIN_TOOL_SESSION_SCAN_MAX_ENTRIES=$SESSION_SCAN_MAX_ENTRIES"',
-      '-e "OPENCLAW_E2E_COMMAND_TIMEOUT=$COMMAND_TIMEOUT"',
-      "OPENCLAW_LIVE_PLUGIN_TOOL_AGENT_OUTPUT_DUMP_BYTES",
+      'AGENT_TURN_TIMEOUT_SECONDS="$(openclaw_e2e_read_positive_int_env GRANTED_LIVE_PLUGIN_TOOL_TIMEOUT_SECONDS 300)"',
+      'AGENT_TURN_TIMEOUT_SECONDS="$(openclaw_e2e_read_positive_int_env GRANTED_LIVE_PLUGIN_TOOL_TIMEOUT_SECONDS "$AGENT_TURN_TIMEOUT_SECONDS")"',
+      'COMMAND_TIMEOUT="${GRANTED_E2E_COMMAND_TIMEOUT:-$((10#$AGENT_TURN_TIMEOUT_SECONDS + 60))s}"',
+      'AGENT_OUTPUT_MAX_BYTES="$(openclaw_e2e_read_positive_int_env GRANTED_LIVE_PLUGIN_TOOL_AGENT_OUTPUT_MAX_BYTES 1048576)"',
+      'AGENT_OUTPUT_DUMP_BYTES="$(openclaw_e2e_read_nonnegative_int_env GRANTED_LIVE_PLUGIN_TOOL_AGENT_OUTPUT_DUMP_BYTES 16384)"',
+      'SESSION_SCAN_MAX_ENTRIES="$(openclaw_e2e_read_positive_int_env GRANTED_LIVE_PLUGIN_TOOL_SESSION_SCAN_MAX_ENTRIES 50000)"',
+      '-e "GRANTED_LIVE_PLUGIN_TOOL_AGENT_OUTPUT_DUMP_BYTES=$AGENT_OUTPUT_DUMP_BYTES"',
+      '-e "GRANTED_LIVE_PLUGIN_TOOL_AGENT_OUTPUT_MAX_BYTES=$AGENT_OUTPUT_MAX_BYTES"',
+      '-e "GRANTED_LIVE_PLUGIN_TOOL_SESSION_SCAN_MAX_ENTRIES=$SESSION_SCAN_MAX_ENTRIES"',
+      '-e "GRANTED_E2E_COMMAND_TIMEOUT=$COMMAND_TIMEOUT"',
+      "GRANTED_LIVE_PLUGIN_TOOL_AGENT_OUTPUT_DUMP_BYTES",
       'tail -c "$agent_output_dump_bytes" /tmp/openclaw-agent.json',
     ]);
     const earlyTimeoutEnvIndex = runner.indexOf(
-      "openclaw_e2e_read_positive_int_env OPENCLAW_LIVE_PLUGIN_TOOL_TIMEOUT_SECONDS 300",
+      "openclaw_e2e_read_positive_int_env GRANTED_LIVE_PLUGIN_TOOL_TIMEOUT_SECONDS 300",
     );
     const profileSourceIndex = runner.indexOf('source "$PROFILE_FILE"');
     const finalTimeoutEnvIndex = runner.lastIndexOf(
-      "openclaw_e2e_read_positive_int_env OPENCLAW_LIVE_PLUGIN_TOOL_TIMEOUT_SECONDS",
+      "openclaw_e2e_read_positive_int_env GRANTED_LIVE_PLUGIN_TOOL_TIMEOUT_SECONDS",
     );
     const dockerBuildIndex = runner.indexOf("docker_e2e_build_or_reuse");
     expect(earlyTimeoutEnvIndex).toBeGreaterThanOrEqual(0);
@@ -5919,7 +5919,7 @@ grep -Fxq preserved "$TMPDIR/caller-fd"
     expect(finalTimeoutEnvIndex).toBeGreaterThan(profileSourceIndex);
 
     expect(runner).not.toContain(
-      'AGENT_OUTPUT_MAX_BYTES="${OPENCLAW_LIVE_PLUGIN_TOOL_AGENT_OUTPUT_MAX_BYTES:-1048576}"',
+      'AGENT_OUTPUT_MAX_BYTES="${GRANTED_LIVE_PLUGIN_TOOL_AGENT_OUTPUT_MAX_BYTES:-1048576}"',
     );
 
     const dumpLogsStart = runner.indexOf("openclaw_e2e_dump_logs \\");
@@ -5928,10 +5928,10 @@ grep -Fxq preserved "$TMPDIR/caller-fd"
   });
 
   it.each([
-    ["timeout", "OPENCLAW_LIVE_PLUGIN_TOOL_TIMEOUT_SECONDS", "1e3"],
-    ["output cap", "OPENCLAW_LIVE_PLUGIN_TOOL_AGENT_OUTPUT_MAX_BYTES", "64kb"],
-    ["output dump cap", "OPENCLAW_LIVE_PLUGIN_TOOL_AGENT_OUTPUT_DUMP_BYTES", "64kb"],
-    ["session scan cap", "OPENCLAW_LIVE_PLUGIN_TOOL_SESSION_SCAN_MAX_ENTRIES", "0"],
+    ["timeout", "GRANTED_LIVE_PLUGIN_TOOL_TIMEOUT_SECONDS", "1e3"],
+    ["output cap", "GRANTED_LIVE_PLUGIN_TOOL_AGENT_OUTPUT_MAX_BYTES", "64kb"],
+    ["output dump cap", "GRANTED_LIVE_PLUGIN_TOOL_AGENT_OUTPUT_DUMP_BYTES", "64kb"],
+    ["session scan cap", "GRANTED_LIVE_PLUGIN_TOOL_SESSION_SCAN_MAX_ENTRIES", "0"],
   ])(
     "rejects invalid live plugin tool Docker %s values before Docker setup",
     (_label, envName, value) => {
@@ -5939,8 +5939,8 @@ grep -Fxq preserved "$TMPDIR/caller-fd"
         encoding: "utf8",
         env: {
           ...process.env,
-          OPENCLAW_LIVE_PLUGIN_TOOL_HOST_BUILD: "0",
-          OPENCLAW_SKIP_DOCKER_BUILD: "1",
+          GRANTED_LIVE_PLUGIN_TOOL_HOST_BUILD: "0",
+          GRANTED_SKIP_DOCKER_BUILD: "1",
           [envName]: value,
         },
       });
@@ -5991,8 +5991,8 @@ grep -Fxq preserved "$TMPDIR/caller-fd"
   });
 
   it.each([
-    ["printed log bytes", "OPENCLAW_DOCKER_E2E_LOG_PRINT_BYTES", "64kb"],
-    ["heartbeat termination grace", "OPENCLAW_DOCKER_E2E_HEARTBEAT_TERM_GRACE_SECONDS", "soon"],
+    ["printed log bytes", "GRANTED_DOCKER_E2E_LOG_PRINT_BYTES", "64kb"],
+    ["heartbeat termination grace", "GRANTED_DOCKER_E2E_HEARTBEAT_TERM_GRACE_SECONDS", "soon"],
   ])("rejects invalid Docker E2E %s before setup", (_label, envName, value) => {
     const workDir = tempDirs.make("openclaw-docker-e2e-log-invalid-");
     const script = repoShell(workDir)`
@@ -6013,7 +6013,7 @@ run_logged_print_heartbeat plugins-run 30 bash -c 'printf "should not print\\\\n
   it("rejects invalid Docker E2E log heartbeat env before harness setup", () => {
     const workDir = tempDirs.make("openclaw-docker-e2e-log-heartbeat-invalid-");
     const script = repoShell(workDir)`
-export OPENCLAW_DOCKER_E2E_LOG_HEARTBEAT_SECONDS=1e3
+export GRANTED_DOCKER_E2E_LOG_HEARTBEAT_SECONDS=1e3
 
 source "$ROOT_DIR/scripts/lib/docker-e2e-package.sh"
 
@@ -6027,7 +6027,7 @@ docker_e2e_run_logged_print_with_harness plugins-run image-name
     const result = spawnSync("bash", ["-lc", script], { encoding: "utf8" });
 
     expect(result.status).toBe(2);
-    expect(result.stderr).toContain("invalid OPENCLAW_DOCKER_E2E_LOG_HEARTBEAT_SECONDS: 1e3");
+    expect(result.stderr).toContain("invalid GRANTED_DOCKER_E2E_LOG_HEARTBEAT_SECONDS: 1e3");
     expect(result.stdout).toBe("");
   });
 
@@ -6115,14 +6115,14 @@ source "$ROOT_DIR/scripts/lib/docker-e2e-logs.sh"
   it("keeps onboarding Docker E2E resource-guarded", () => {
     const runner = readFileSync(ONBOARD_DOCKER_E2E_PATH, "utf8");
     expectTextToIncludeAll(runner, [
-      "OPENCLAW_ONBOARD_MAX_MEMORY_MIB",
-      "OPENCLAW_ONBOARD_MAX_CPU_PERCENT",
-      'COMMAND_TIMEOUT="${OPENCLAW_ONBOARD_COMMAND_TIMEOUT:-${OPENCLAW_E2E_COMMAND_TIMEOUT:-300s}}"',
-      'GATEWAY_WAIT_ATTEMPTS="$(openclaw_e2e_read_positive_int_env OPENCLAW_ONBOARD_GATEWAY_WAIT_ATTEMPTS 20)"',
-      'GATEWAY_WAIT_INTERVAL_S="$(docker_e2e_read_nonnegative_decimal_env OPENCLAW_ONBOARD_GATEWAY_WAIT_INTERVAL_S 1)"',
-      '-e "OPENCLAW_E2E_COMMAND_TIMEOUT=$COMMAND_TIMEOUT"',
-      '-e "OPENCLAW_ONBOARD_GATEWAY_WAIT_ATTEMPTS=$GATEWAY_WAIT_ATTEMPTS"',
-      '-e "OPENCLAW_ONBOARD_GATEWAY_WAIT_INTERVAL_S=$GATEWAY_WAIT_INTERVAL_S"',
+      "GRANTED_ONBOARD_MAX_MEMORY_MIB",
+      "GRANTED_ONBOARD_MAX_CPU_PERCENT",
+      'COMMAND_TIMEOUT="${GRANTED_ONBOARD_COMMAND_TIMEOUT:-${GRANTED_E2E_COMMAND_TIMEOUT:-300s}}"',
+      'GATEWAY_WAIT_ATTEMPTS="$(openclaw_e2e_read_positive_int_env GRANTED_ONBOARD_GATEWAY_WAIT_ATTEMPTS 20)"',
+      'GATEWAY_WAIT_INTERVAL_S="$(docker_e2e_read_nonnegative_decimal_env GRANTED_ONBOARD_GATEWAY_WAIT_INTERVAL_S 1)"',
+      '-e "GRANTED_E2E_COMMAND_TIMEOUT=$COMMAND_TIMEOUT"',
+      '-e "GRANTED_ONBOARD_GATEWAY_WAIT_ATTEMPTS=$GATEWAY_WAIT_ATTEMPTS"',
+      '-e "GRANTED_ONBOARD_GATEWAY_WAIT_INTERVAL_S=$GATEWAY_WAIT_INTERVAL_S"',
       '--name "$CONTAINER_NAME"',
       "docker_e2e_sample_stats_until_exit \\",
       '"$STATS_LOG" \\',
@@ -6147,7 +6147,7 @@ source "$ROOT_DIR/scripts/lib/docker-e2e-logs.sh"
       expect(runner, path).toContain(
         'DOCKER_COMMAND_TIMEOUT="$DOCKER_RUN_TIMEOUT" docker_e2e_docker_run_cmd run --name "$CONTAINER_NAME"',
       );
-      expect(runner, path).toContain('DOCKER_RUN_TIMEOUT="${OPENCLAW_');
+      expect(runner, path).toContain('DOCKER_RUN_TIMEOUT="${GRANTED_');
       expect(runner, path).toContain("docker_e2e_sample_stats_until_exit \\");
       expect(runner, path).toContain('"$STATS_LOG" \\');
       expect(runner, path).toContain('"$RUN_LOG" \\');
@@ -6186,19 +6186,19 @@ source "$ROOT_DIR/scripts/lib/docker-e2e-logs.sh"
     expect(pluginBinding).toContain("const scanBytes = 65536");
     expect(pluginBinding).toContain("fs.statSync(logPath)");
     expect(pluginBinding).toContain("fs.readSync(fd, buffer, 0, length, stat.size - length)");
-    expect(pluginBinding).not.toContain("process.env.OPENCLAW_DOCKER_E2E_LOG_PRINT_BYTES");
+    expect(pluginBinding).not.toContain("process.env.GRANTED_DOCKER_E2E_LOG_PRINT_BYTES");
     expect(pluginBinding).not.toContain('readFileSync(logPath, "utf8")');
   });
 
   it("keeps Open WebUI Docker E2E resource-guarded", () => {
     const runner = readFileSync(OPENWEBUI_DOCKER_E2E_PATH, "utf8");
     expectTextToIncludeAll(runner, [
-      'validate_positive_int OPENCLAW_OPENWEBUI_PROVIDER_TIMEOUT_SECONDS "$PROVIDER_TIMEOUT_SECONDS"',
-      'validate_positive_int OPENCLAW_OPENWEBUI_FETCH_TIMEOUT_MS "$PROBE_FETCH_TIMEOUT_MS"',
-      "docker_e2e_read_tcp_port_env OPENCLAW_OPENWEBUI_GATEWAY_PORT 18789",
-      "docker_e2e_read_tcp_port_env OPENCLAW_OPENWEBUI_PORT 8080",
-      "OPENCLAW_OPENWEBUI_MAX_MEMORY_MIB",
-      "OPENCLAW_OPENWEBUI_MAX_CPU_PERCENT",
+      'validate_positive_int GRANTED_OPENWEBUI_PROVIDER_TIMEOUT_SECONDS "$PROVIDER_TIMEOUT_SECONDS"',
+      'validate_positive_int GRANTED_OPENWEBUI_FETCH_TIMEOUT_MS "$PROBE_FETCH_TIMEOUT_MS"',
+      "docker_e2e_read_tcp_port_env GRANTED_OPENWEBUI_GATEWAY_PORT 18789",
+      "docker_e2e_read_tcp_port_env GRANTED_OPENWEBUI_PORT 8080",
+      "GRANTED_OPENWEBUI_MAX_MEMORY_MIB",
+      "GRANTED_OPENWEBUI_MAX_CPU_PERCENT",
       'STATS_LOG="$(mktemp',
       'PROBE_LOG="$(mktemp',
       'STATS_STOP_FILE="$(mktemp',
@@ -6227,8 +6227,8 @@ source "$ROOT_DIR/scripts/lib/docker-e2e-logs.sh"
   });
 
   it.each([
-    ["gateway", "OPENCLAW_OPENWEBUI_GATEWAY_PORT", "1e3"],
-    ["webui", "OPENCLAW_OPENWEBUI_PORT", "65536"],
+    ["gateway", "GRANTED_OPENWEBUI_GATEWAY_PORT", "1e3"],
+    ["webui", "GRANTED_OPENWEBUI_PORT", "65536"],
   ])("rejects invalid Open WebUI Docker %s ports before Docker setup", (_label, envName, value) => {
     const result = spawnSync("bash", [OPENWEBUI_DOCKER_E2E_PATH], {
       encoding: "utf8",
@@ -6244,8 +6244,8 @@ source "$ROOT_DIR/scripts/lib/docker-e2e-logs.sh"
   });
 
   it.each([
-    ["provider", "OPENCLAW_OPENWEBUI_PROVIDER_TIMEOUT_SECONDS", "300s"],
-    ["fetch", "OPENCLAW_OPENWEBUI_FETCH_TIMEOUT_MS", "8000ms"],
+    ["provider", "GRANTED_OPENWEBUI_PROVIDER_TIMEOUT_SECONDS", "300s"],
+    ["fetch", "GRANTED_OPENWEBUI_FETCH_TIMEOUT_MS", "8000ms"],
   ])(
     "rejects invalid Open WebUI Docker %s timeouts before Docker setup",
     (_label, envName, value) => {
@@ -6269,10 +6269,10 @@ source "$ROOT_DIR/scripts/lib/docker-e2e-logs.sh"
       env: {
         ...process.env,
         OPENAI_API_KEY: "",
-        OPENCLAW_OPENWEBUI_FETCH_TIMEOUT_MS: "09000",
-        OPENCLAW_OPENWEBUI_GATEWAY_PORT: "018789",
-        OPENCLAW_OPENWEBUI_PORT: "08080",
-        OPENCLAW_OPENWEBUI_PROVIDER_TIMEOUT_SECONDS: "08",
+        GRANTED_OPENWEBUI_FETCH_TIMEOUT_MS: "09000",
+        GRANTED_OPENWEBUI_GATEWAY_PORT: "018789",
+        GRANTED_OPENWEBUI_PORT: "08080",
+        GRANTED_OPENWEBUI_PROVIDER_TIMEOUT_SECONDS: "08",
       },
     });
 
@@ -6282,12 +6282,12 @@ source "$ROOT_DIR/scripts/lib/docker-e2e-logs.sh"
   });
 
   it.each([
-    [MCP_CODE_MODE_GATEWAY_DOCKER_E2E_PATH, "OPENCLAW_MCP_CODE_MODE_GATEWAY_PORT", "1e3"],
-    [MCP_CODE_MODE_GATEWAY_DOCKER_E2E_PATH, "OPENCLAW_MCP_CODE_MODE_MOCK_PORT", "65536"],
-    [MCP_CODE_MODE_GATEWAY_LIVE_DOCKER_E2E_PATH, "OPENCLAW_MCP_CODE_MODE_LIVE_GATEWAY_PORT", "0"],
-    [CODEX_MEDIA_PATH_DOCKER_E2E_PATH, "OPENCLAW_CODEX_MEDIA_PATH_PORT", "18790tcp"],
-    [OPENAI_CHAT_TOOLS_DOCKER_E2E_PATH, "OPENCLAW_OPENAI_CHAT_TOOLS_PORT", "0"],
-    [OPENAI_WEB_SEARCH_MINIMAL_E2E_PATH, "OPENCLAW_OPENAI_WEB_SEARCH_MINIMAL_PORT", "18789tcp"],
+    [MCP_CODE_MODE_GATEWAY_DOCKER_E2E_PATH, "GRANTED_MCP_CODE_MODE_GATEWAY_PORT", "1e3"],
+    [MCP_CODE_MODE_GATEWAY_DOCKER_E2E_PATH, "GRANTED_MCP_CODE_MODE_MOCK_PORT", "65536"],
+    [MCP_CODE_MODE_GATEWAY_LIVE_DOCKER_E2E_PATH, "GRANTED_MCP_CODE_MODE_LIVE_GATEWAY_PORT", "0"],
+    [CODEX_MEDIA_PATH_DOCKER_E2E_PATH, "GRANTED_CODEX_MEDIA_PATH_PORT", "18790tcp"],
+    [OPENAI_CHAT_TOOLS_DOCKER_E2E_PATH, "GRANTED_OPENAI_CHAT_TOOLS_PORT", "0"],
+    [OPENAI_WEB_SEARCH_MINIMAL_E2E_PATH, "GRANTED_OPENAI_WEB_SEARCH_MINIMAL_PORT", "18789tcp"],
   ])("rejects invalid Docker E2E ports before setup", (scriptPath, envName, value) => {
     const result = spawnSync("bash", [scriptPath], {
       encoding: "utf8",
@@ -6303,15 +6303,15 @@ source "$ROOT_DIR/scripts/lib/docker-e2e-logs.sh"
   });
 
   it.each([
-    ["timeout", "OPENCLAW_CODEX_MEDIA_PATH_TIMEOUT_SECONDS", "180s"],
-    ["log tail cap", "OPENCLAW_CODEX_MEDIA_PATH_LOG_TAIL_MAX_BYTES", "64kb"],
+    ["timeout", "GRANTED_CODEX_MEDIA_PATH_TIMEOUT_SECONDS", "180s"],
+    ["log tail cap", "GRANTED_CODEX_MEDIA_PATH_LOG_TAIL_MAX_BYTES", "64kb"],
   ])("rejects invalid Codex media path Docker %s before Docker setup", (_label, envName, value) => {
     const result = spawnSync("bash", [CODEX_MEDIA_PATH_DOCKER_E2E_PATH], {
       encoding: "utf8",
       env: {
         ...process.env,
         [envName]: value,
-        OPENCLAW_SKIP_DOCKER_BUILD: "1",
+        GRANTED_SKIP_DOCKER_BUILD: "1",
       },
     });
 
@@ -6323,24 +6323,24 @@ source "$ROOT_DIR/scripts/lib/docker-e2e-logs.sh"
   it("forwards Codex media path client limits into Docker", () => {
     const runner = readFileSync(CODEX_MEDIA_PATH_DOCKER_E2E_PATH, "utf8");
     expect(runner).toContain(
-      'LOG_TAIL_MAX_BYTES="$(docker_e2e_read_positive_int_env OPENCLAW_CODEX_MEDIA_PATH_LOG_TAIL_MAX_BYTES 2097152)"',
+      'LOG_TAIL_MAX_BYTES="$(docker_e2e_read_positive_int_env GRANTED_CODEX_MEDIA_PATH_LOG_TAIL_MAX_BYTES 2097152)"',
     );
     expect(runner).toContain(
-      '-e "OPENCLAW_CODEX_MEDIA_PATH_LOG_TAIL_MAX_BYTES=$LOG_TAIL_MAX_BYTES"',
+      '-e "GRANTED_CODEX_MEDIA_PATH_LOG_TAIL_MAX_BYTES=$LOG_TAIL_MAX_BYTES"',
     );
   });
 
   it.each([
-    [MCP_CODE_MODE_GATEWAY_DOCKER_E2E_PATH, "OPENCLAW_MCP_CODE_MODE_CLIENT_TIMEOUT_MS", "1e3"],
+    [MCP_CODE_MODE_GATEWAY_DOCKER_E2E_PATH, "GRANTED_MCP_CODE_MODE_CLIENT_TIMEOUT_MS", "1e3"],
     [
       MCP_CODE_MODE_GATEWAY_DOCKER_E2E_PATH,
-      "OPENCLAW_MCP_CODE_MODE_CLIENT_BODY_MAX_BYTES",
+      "GRANTED_MCP_CODE_MODE_CLIENT_BODY_MAX_BYTES",
       "64bytes",
     ],
-    [MCP_CODE_MODE_GATEWAY_LIVE_DOCKER_E2E_PATH, "OPENCLAW_MCP_CODE_MODE_CLIENT_TIMEOUT_MS", "1e3"],
+    [MCP_CODE_MODE_GATEWAY_LIVE_DOCKER_E2E_PATH, "GRANTED_MCP_CODE_MODE_CLIENT_TIMEOUT_MS", "1e3"],
     [
       MCP_CODE_MODE_GATEWAY_LIVE_DOCKER_E2E_PATH,
-      "OPENCLAW_MCP_CODE_MODE_CLIENT_BODY_MAX_BYTES",
+      "GRANTED_MCP_CODE_MODE_CLIENT_BODY_MAX_BYTES",
       "64bytes",
     ],
   ])("rejects invalid MCP code-mode client env before setup", (scriptPath, envName, value) => {
@@ -6349,7 +6349,7 @@ source "$ROOT_DIR/scripts/lib/docker-e2e-logs.sh"
       env: {
         ...process.env,
         [envName]: value,
-        OPENCLAW_SKIP_DOCKER_BUILD: "1",
+        GRANTED_SKIP_DOCKER_BUILD: "1",
       },
     });
 
@@ -6365,17 +6365,17 @@ source "$ROOT_DIR/scripts/lib/docker-e2e-logs.sh"
       const runner = readFileSync(scriptPath, "utf8");
 
       expectTextToIncludeAll(runner, [
-        'CLIENT_TIMEOUT_MS="$(docker_e2e_read_positive_int_env OPENCLAW_MCP_CODE_MODE_CLIENT_TIMEOUT_MS 300000)"',
-        'CLIENT_BODY_MAX_BYTES="$(docker_e2e_read_positive_int_env OPENCLAW_MCP_CODE_MODE_CLIENT_BODY_MAX_BYTES 1048576)"',
-        '-e "OPENCLAW_MCP_CODE_MODE_CLIENT_TIMEOUT_MS=$CLIENT_TIMEOUT_MS"',
-        '-e "OPENCLAW_MCP_CODE_MODE_CLIENT_BODY_MAX_BYTES=$CLIENT_BODY_MAX_BYTES"',
+        'CLIENT_TIMEOUT_MS="$(docker_e2e_read_positive_int_env GRANTED_MCP_CODE_MODE_CLIENT_TIMEOUT_MS 300000)"',
+        'CLIENT_BODY_MAX_BYTES="$(docker_e2e_read_positive_int_env GRANTED_MCP_CODE_MODE_CLIENT_BODY_MAX_BYTES 1048576)"',
+        '-e "GRANTED_MCP_CODE_MODE_CLIENT_TIMEOUT_MS=$CLIENT_TIMEOUT_MS"',
+        '-e "GRANTED_MCP_CODE_MODE_CLIENT_BODY_MAX_BYTES=$CLIENT_BODY_MAX_BYTES"',
       ]);
     },
   );
 
   it.each([
-    ["timeout", "OPENCLAW_OPENAI_CHAT_TOOLS_TIMEOUT_SECONDS", "180s"],
-    ["body cap", "OPENCLAW_OPENAI_CHAT_TOOLS_MAX_BODY_BYTES", "64kb"],
+    ["timeout", "GRANTED_OPENAI_CHAT_TOOLS_TIMEOUT_SECONDS", "180s"],
+    ["body cap", "GRANTED_OPENAI_CHAT_TOOLS_MAX_BODY_BYTES", "64kb"],
   ])("rejects invalid OpenAI chat tools Docker %s before auth setup", (_label, envName, value) => {
     const result = spawnSync("bash", [OPENAI_CHAT_TOOLS_DOCKER_E2E_PATH], {
       encoding: "utf8",
@@ -6396,12 +6396,12 @@ source "$ROOT_DIR/scripts/lib/docker-e2e-logs.sh"
     const client = readFileSync("scripts/e2e/lib/openai-chat-tools/client.mjs", "utf8");
     const writer = readFileSync("scripts/e2e/lib/openai-chat-tools/write-config.mjs", "utf8");
     const consumed = new Set(
-      [...`${client}\n${writer}`.matchAll(/["`](OPENCLAW_OPENAI_CHAT_TOOLS_[A-Z0-9_]+)["`]/gu)]
+      [...`${client}\n${writer}`.matchAll(/["`](GRANTED_OPENAI_CHAT_TOOLS_[A-Z0-9_]+)["`]/gu)]
         .map((match) => match[1])
         .filter((envName): envName is string => envName !== undefined),
     );
     const forwarded = new Set(
-      [...runner.matchAll(/-e\s+"(OPENCLAW_OPENAI_CHAT_TOOLS_[A-Z0-9_]+)=/gu)]
+      [...runner.matchAll(/-e\s+"(GRANTED_OPENAI_CHAT_TOOLS_[A-Z0-9_]+)=/gu)]
         .map((match) => match[1])
         .filter((envName): envName is string => envName !== undefined),
     );
@@ -6416,12 +6416,12 @@ source "$ROOT_DIR/scripts/lib/docker-e2e-logs.sh"
     const runner = readFileSync(KITCHEN_SINK_RPC_DOCKER_E2E_PATH, "utf8");
     const walk = readFileSync("scripts/e2e/kitchen-sink-rpc-walk.mts", "utf8");
     const consumed = new Set(
-      [...walk.matchAll(/\b(?:env|process\.env)\.(OPENCLAW_KITCHEN_SINK_[A-Z0-9_]+)/gu)]
+      [...walk.matchAll(/\b(?:env|process\.env)\.(GRANTED_KITCHEN_SINK_[A-Z0-9_]+)/gu)]
         .map((match) => match[1])
         .filter((envName): envName is string => envName !== undefined),
     );
     const forwarded = new Set(
-      [...runner.matchAll(/\b(OPENCLAW_KITCHEN_SINK_[A-Z0-9_]+)\b/gu)]
+      [...runner.matchAll(/\b(GRANTED_KITCHEN_SINK_[A-Z0-9_]+)\b/gu)]
         .map((match) => match[1])
         .filter((envName): envName is string => envName !== undefined),
     );
@@ -6435,7 +6435,7 @@ source "$ROOT_DIR/scripts/lib/docker-e2e-logs.sh"
   it("keeps the kitchen-sink RPC Docker watchdog above the internal walk budgets", () => {
     const runner = readFileSync(KITCHEN_SINK_RPC_DOCKER_E2E_PATH, "utf8");
     expect(runner).toContain(
-      'DOCKER_RUN_TIMEOUT="${OPENCLAW_KITCHEN_SINK_RPC_DOCKER_RUN_TIMEOUT:-1500s}"',
+      'DOCKER_RUN_TIMEOUT="${GRANTED_KITCHEN_SINK_RPC_DOCKER_RUN_TIMEOUT:-1500s}"',
     );
   });
 
@@ -6444,11 +6444,11 @@ source "$ROOT_DIR/scripts/lib/docker-e2e-logs.sh"
     const sweep = readFileSync("scripts/e2e/lib/kitchen-sink-plugin/sweep.sh", "utf8");
 
     expectTextToIncludeAll(runner, [
-      'KITCHEN_SINK_CLI_TIMEOUT="${OPENCLAW_KITCHEN_SINK_PLUGIN_CLI_TIMEOUT:-${KITCHEN_SINK_CLI_TIMEOUT:-180s}}"',
-      "docker_e2e_read_positive_int_env OPENCLAW_DOCKER_E2E_LOG_PRINT_BYTES 65536",
-      "docker_e2e_read_positive_int_env OPENCLAW_CLAWHUB_FIXTURE_WAIT_ATTEMPTS 600",
-      '-e "OPENCLAW_CLAWHUB_FIXTURE_WAIT_ATTEMPTS=$CLAW_HUB_FIXTURE_WAIT_ATTEMPTS"',
-      '-e "OPENCLAW_DOCKER_E2E_LOG_PRINT_BYTES=$OPENCLAW_DOCKER_E2E_LOG_PRINT_BYTES"',
+      'KITCHEN_SINK_CLI_TIMEOUT="${GRANTED_KITCHEN_SINK_PLUGIN_CLI_TIMEOUT:-${KITCHEN_SINK_CLI_TIMEOUT:-180s}}"',
+      "docker_e2e_read_positive_int_env GRANTED_DOCKER_E2E_LOG_PRINT_BYTES 65536",
+      "docker_e2e_read_positive_int_env GRANTED_CLAWHUB_FIXTURE_WAIT_ATTEMPTS 600",
+      '-e "GRANTED_CLAWHUB_FIXTURE_WAIT_ATTEMPTS=$CLAW_HUB_FIXTURE_WAIT_ATTEMPTS"',
+      '-e "GRANTED_DOCKER_E2E_LOG_PRINT_BYTES=$GRANTED_DOCKER_E2E_LOG_PRINT_BYTES"',
       '-e "KITCHEN_SINK_CLI_TIMEOUT=$KITCHEN_SINK_CLI_TIMEOUT"',
     ]);
 
@@ -6460,7 +6460,7 @@ source "$ROOT_DIR/scripts/lib/docker-e2e-logs.sh"
     ]);
 
     for (const line of sweep.split("\n")) {
-      if (!line.includes('node "$OPENCLAW_ENTRY" plugins')) {
+      if (!line.includes('node "$GRANTED_ENTRY" plugins')) {
         continue;
       }
 
@@ -6489,7 +6489,7 @@ source "$ROOT_DIR/scripts/lib/docker-e2e-logs.sh"
     expect(packageRunner).not.toMatch(/(^|\n)\s*docker rm -f/u);
     expect(packageRunner).toContain("docker_e2e_docker_cmd rm -f");
     expect(packageRunner).toContain(
-      'DOCKER_RUN_TIMEOUT="${OPENCLAW_DOCKER_PACKAGE_INSTALL_RUN_TIMEOUT:-120s}"',
+      'DOCKER_RUN_TIMEOUT="${GRANTED_DOCKER_PACKAGE_INSTALL_RUN_TIMEOUT:-120s}"',
     );
     expect(packageRunner).toContain(
       'DOCKER_COMMAND_TIMEOUT="$DOCKER_RUN_TIMEOUT" docker_e2e_docker_run_cmd run -d',
@@ -6570,7 +6570,7 @@ source "$ROOT_DIR/scripts/lib/docker-e2e-logs.sh"
       "bun@1.4.0",
       'test "$(command -v openclaw)" = "/usr/local/bin/openclaw"',
       'test "$(command -v openclaw)" = "$PNPM_HOME/bin/openclaw"',
-      "OPENCLAW_BUN_GLOBAL_SMOKE_PROOF_PATH",
+      "GRANTED_BUN_GLOBAL_SMOKE_PROOF_PATH",
       'BUN_HARNESS_DIR="$(mktemp -d',
       "chmod -R a+rX",
       '-v "$BUN_HARNESS_DIR:/repo:ro"',
@@ -6591,7 +6591,7 @@ source "$ROOT_DIR/scripts/lib/docker-e2e-logs.sh"
       "apt-get install -y --no-install-recommends curl",
       "command -v curl >/dev/null",
       'chmod 0555 "$SOURCE_PROOF_SCRIPT"',
-      'SOURCE_MEMORY="${OPENCLAW_CLI_INSTALLER_SOURCE_MEMORY:-16g}"',
+      'SOURCE_MEMORY="${GRANTED_CLI_INSTALLER_SOURCE_MEMORY:-16g}"',
       '--memory "$SOURCE_MEMORY"',
       "runuser -u appuser",
       'test -r "$0"',
@@ -6606,8 +6606,8 @@ source "$ROOT_DIR/scripts/lib/docker-e2e-logs.sh"
     );
     expectTextToIncludeAll(updateRunner, [
       "openclaw update --channel beta",
-      'OPENCLAW_NPM_REGISTRY_DIST_TAGS="latest=0.0.0,beta=$package_version"',
-      "OPENCLAW_NPM_REGISTRY_UPSTREAM=https://registry.npmjs.org",
+      'GRANTED_NPM_REGISTRY_DIST_TAGS="latest=0.0.0,beta=$package_version"',
+      "GRANTED_NPM_REGISTRY_UPSTREAM=https://registry.npmjs.org",
       "assert-update beta",
       "assert-config-channel beta",
       "assert-installed-version",
@@ -6650,8 +6650,8 @@ source "$ROOT_DIR/scripts/lib/docker-e2e-logs.sh"
   });
 
   it.each([
-    ["connect", "OPENCLAW_GATEWAY_NETWORK_CLIENT_CONNECT_TIMEOUT_MS", "100ms"],
-    ["ready", "OPENCLAW_GATEWAY_NETWORK_CONNECT_READY_TIMEOUT_MS", "1e3"],
+    ["connect", "GRANTED_GATEWAY_NETWORK_CLIENT_CONNECT_TIMEOUT_MS", "100ms"],
+    ["ready", "GRANTED_GATEWAY_NETWORK_CONNECT_READY_TIMEOUT_MS", "1e3"],
   ])(
     "rejects invalid gateway network client %s timeout before Docker setup",
     (_label, envName, value) => {
@@ -6660,7 +6660,7 @@ source "$ROOT_DIR/scripts/lib/docker-e2e-logs.sh"
         env: {
           ...process.env,
           [envName]: value,
-          OPENCLAW_SKIP_DOCKER_BUILD: "1",
+          GRANTED_SKIP_DOCKER_BUILD: "1",
         },
       });
 
@@ -6673,10 +6673,10 @@ source "$ROOT_DIR/scripts/lib/docker-e2e-logs.sh"
   it("forwards gateway network client timeout env into the Docker client", () => {
     const runner = readFileSync(GATEWAY_NETWORK_DOCKER_E2E_PATH, "utf8");
     expectTextToIncludeAll(runner, [
-      "docker_e2e_read_positive_int_env OPENCLAW_GATEWAY_NETWORK_CLIENT_CONNECT_TIMEOUT_MS 80000",
-      "docker_e2e_read_positive_int_env OPENCLAW_GATEWAY_NETWORK_CONNECT_READY_TIMEOUT_MS 80000",
-      '-e "OPENCLAW_GATEWAY_NETWORK_CLIENT_CONNECT_TIMEOUT_MS=$CLIENT_CONNECT_TIMEOUT_MS"',
-      '-e "OPENCLAW_GATEWAY_NETWORK_CONNECT_READY_TIMEOUT_MS=$CONNECT_READY_TIMEOUT_MS"',
+      "docker_e2e_read_positive_int_env GRANTED_GATEWAY_NETWORK_CLIENT_CONNECT_TIMEOUT_MS 80000",
+      "docker_e2e_read_positive_int_env GRANTED_GATEWAY_NETWORK_CONNECT_READY_TIMEOUT_MS 80000",
+      '-e "GRANTED_GATEWAY_NETWORK_CLIENT_CONNECT_TIMEOUT_MS=$CLIENT_CONNECT_TIMEOUT_MS"',
+      '-e "GRANTED_GATEWAY_NETWORK_CONNECT_READY_TIMEOUT_MS=$CONNECT_READY_TIMEOUT_MS"',
       '"${CLIENT_LIMIT_ENV_ARGS[@]}"',
     ]);
   });
@@ -6774,7 +6774,7 @@ done
     expect(scheduler).toContain("path.dirname(process.execPath)");
     expect(scheduler).toContain("env.PATH = [...new Set(pathEntries)].join(path.delimiter)");
     expect(scheduler).toContain(
-      'env.push(["OPENCLAW_DOCKER_ALL_PNPM_COMMAND", baseEnv.OPENCLAW_DOCKER_ALL_PNPM_COMMAND]);',
+      'env.push(["GRANTED_DOCKER_ALL_PNPM_COMMAND", baseEnv.GRANTED_DOCKER_ALL_PNPM_COMMAND]);',
     );
   });
 
@@ -6783,19 +6783,19 @@ done
     const openWebUiRunner = readFileSync(OPENWEBUI_DOCKER_E2E_PATH, "utf8");
 
     expect(scenarios).toContain(
-      '"OPENCLAW_INSTALL_TAG=beta OPENCLAW_E2E_MODELS=openai OPENCLAW_INSTALL_E2E_IMAGE=openclaw-install-e2e-openai:local OPENCLAW_INSTALL_E2E_AGENT_TOOL_SMOKE=0 OPENCLAW_INSTALL_E2E_OPENAI_MODEL=openai/gpt-5.4-mini OPENCLAW_INSTALL_E2E_AGENT_TURN_TIMEOUT_SECONDS=120 OPENCLAW_INSTALL_E2E_OPENAI_PROVIDER_TIMEOUT_SECONDS=120"',
+      '"GRANTED_INSTALL_TAG=beta GRANTED_E2E_MODELS=openai GRANTED_INSTALL_E2E_IMAGE=openclaw-install-e2e-openai:local GRANTED_INSTALL_E2E_AGENT_TOOL_SMOKE=0 GRANTED_INSTALL_E2E_OPENAI_MODEL=openai/gpt-5.4-mini GRANTED_INSTALL_E2E_AGENT_TURN_TIMEOUT_SECONDS=120 GRANTED_INSTALL_E2E_OPENAI_PROVIDER_TIMEOUT_SECONDS=120"',
     );
     expect(scenarios).toContain(
-      '"OPENCLAW_INSTALL_TAG=beta OPENCLAW_E2E_MODELS=anthropic OPENCLAW_INSTALL_E2E_IMAGE=openclaw-install-e2e-anthropic:local"',
+      '"GRANTED_INSTALL_TAG=beta GRANTED_E2E_MODELS=anthropic GRANTED_INSTALL_E2E_IMAGE=openclaw-install-e2e-anthropic:local"',
     );
     expect(scenarios).toContain('"test-install-sh-e2e-docker.sh"');
     expect(scenarios).not.toContain("pnpm test:install:e2e");
     expect(scenarios).toContain(
-      '"OPENCLAW_OPENWEBUI_MODEL=openai/gpt-5.4-mini OPENCLAW_OPENWEBUI_PROVIDER_TIMEOUT_SECONDS=300 OPENCLAW_SKIP_DOCKER_BUILD=1 pnpm test:docker:openwebui"',
+      '"GRANTED_OPENWEBUI_MODEL=openai/gpt-5.4-mini GRANTED_OPENWEBUI_PROVIDER_TIMEOUT_SECONDS=300 GRANTED_SKIP_DOCKER_BUILD=1 pnpm test:docker:openwebui"',
     );
     expect(scenarios).not.toContain("OPENWEBUI_SMOKE_MODE=models");
     expect(openWebUiRunner).toContain(
-      'SMOKE_MODE="${OPENWEBUI_SMOKE_MODE:-${OPENCLAW_OPENWEBUI_SMOKE_MODE:-chat}}"',
+      'SMOKE_MODE="${OPENWEBUI_SMOKE_MODE:-${GRANTED_OPENWEBUI_SMOKE_MODE:-chat}}"',
     );
     expect(openWebUiRunner).toContain('-e "OPENWEBUI_SMOKE_MODE=$SMOKE_MODE"');
   });
@@ -6805,8 +6805,8 @@ done
     const wrapper = readFileSync("scripts/test-install-sh-e2e-docker.sh", "utf8");
 
     expectTextToIncludeAll(runner, [
-      'AGENT_TURNS_PARALLEL="$(read_boolean_env OPENCLAW_INSTALL_E2E_AGENT_TURNS_PARALLEL 1)"',
-      'AGENT_TOOL_SMOKE="$(read_boolean_env OPENCLAW_INSTALL_E2E_AGENT_TOOL_SMOKE 1)"',
+      'AGENT_TURNS_PARALLEL="$(read_boolean_env GRANTED_INSTALL_E2E_AGENT_TURNS_PARALLEL 1)"',
+      'AGENT_TOOL_SMOKE="$(read_boolean_env GRANTED_INSTALL_E2E_AGENT_TOOL_SMOKE 1)"',
       "time_phase",
       "phase_mark_start",
       "run_agent_turn_bg",
@@ -6815,24 +6815,24 @@ done
       "SKIP: Anthropic billing drift during installer agent tool smoke",
       'run_agent_turn_bg "image write"',
       'run_agent_turn_logged_or_skip_profile "read proof copy"',
-      "OPENCLAW_INSTALL_E2E_OPENAI_MODEL",
-      "OPENCLAW_INSTALL_E2E_OPENAI_PROVIDER_TIMEOUT_SECONDS",
-      'AGENT_TURN_TIMEOUT_SECONDS="$(read_positive_int_env OPENCLAW_INSTALL_E2E_AGENT_TURN_TIMEOUT_SECONDS 300)"',
+      "GRANTED_INSTALL_E2E_OPENAI_MODEL",
+      "GRANTED_INSTALL_E2E_OPENAI_PROVIDER_TIMEOUT_SECONDS",
+      'AGENT_TURN_TIMEOUT_SECONDS="$(read_positive_int_env GRANTED_INSTALL_E2E_AGENT_TURN_TIMEOUT_SECONDS 300)"',
     ]);
 
     expect(runner).not.toContain('run_agent_turn_bg "read proof"');
 
     expectTextToIncludeAll(wrapper, [
-      "OPENCLAW_INSTALL_E2E_AGENT_TURNS_PARALLEL",
-      "OPENCLAW_INSTALL_E2E_AGENT_TOOL_SMOKE",
-      "OPENCLAW_INSTALL_E2E_OPENAI_MODEL",
-      "OPENCLAW_INSTALL_E2E_OPENAI_PROVIDER_TIMEOUT_SECONDS",
-      "docker_e2e_read_positive_int_env OPENCLAW_INSTALL_E2E_AGENT_TURN_TIMEOUT_SECONDS 300",
-      'docker_e2e_read_positive_int_env OPENCLAW_INSTALL_E2E_OPENAI_PROVIDER_TIMEOUT_SECONDS "$AGENT_TURN_TIMEOUT_SECONDS"',
-      '-e OPENCLAW_INSTALL_E2E_AGENT_TURN_TIMEOUT_SECONDS="$AGENT_TURN_TIMEOUT_SECONDS"',
-      "OPENCLAW_INSTALL_E2E_PROFILE_FILE",
-      "OPENCLAW_PROFILE_FILE",
-      "OPENCLAW_TESTBOX_PROFILE_FILE",
+      "GRANTED_INSTALL_E2E_AGENT_TURNS_PARALLEL",
+      "GRANTED_INSTALL_E2E_AGENT_TOOL_SMOKE",
+      "GRANTED_INSTALL_E2E_OPENAI_MODEL",
+      "GRANTED_INSTALL_E2E_OPENAI_PROVIDER_TIMEOUT_SECONDS",
+      "docker_e2e_read_positive_int_env GRANTED_INSTALL_E2E_AGENT_TURN_TIMEOUT_SECONDS 300",
+      'docker_e2e_read_positive_int_env GRANTED_INSTALL_E2E_OPENAI_PROVIDER_TIMEOUT_SECONDS "$AGENT_TURN_TIMEOUT_SECONDS"',
+      '-e GRANTED_INSTALL_E2E_AGENT_TURN_TIMEOUT_SECONDS="$AGENT_TURN_TIMEOUT_SECONDS"',
+      "GRANTED_INSTALL_E2E_PROFILE_FILE",
+      "GRANTED_PROFILE_FILE",
+      "GRANTED_TESTBOX_PROFILE_FILE",
       "read_profile_env_value",
       'source "$PROFILE_FILE"',
       'export "$key"',
@@ -6847,7 +6847,7 @@ done
     expect(scenarios).toContain('"plugins-offline"');
     expect(scenarios).toContain("`bundled-plugin-install-uninstall-${index}`");
     expect(scenarios).toContain("pnpm test:docker:bundled-plugin-install-uninstall");
-    expect(scenarios).toContain("OPENCLAW_PLUGINS_E2E_CLAWHUB=0");
+    expect(scenarios).toContain("GRANTED_PLUGINS_E2E_CLAWHUB=0");
   });
 
   it("allows plugin update smoke to tolerate config metadata migrations", () => {
@@ -6964,7 +6964,7 @@ done
       "scripts/e2e/lib/doctor-install-switch/scenario.sh",
     );
     expectTextToIncludeAll(doctorScenario, [
-      "OPENCLAW_UPDATE_PARENT_ALLOWS_GATEWAY_SERVICE_REPAIR=1",
+      "GRANTED_UPDATE_PARENT_ALLOWS_GATEWAY_SERVICE_REPAIR=1",
       "scripts/e2e/lib/package-compat.mjs",
     ]);
 
@@ -6982,7 +6982,7 @@ done
 
     expect(pluginsSweep).toContain("scripts/e2e/lib/package-compat.mjs");
     expect(pluginUpdateProbe).toContain("../package-compat.mjs");
-    expect(scripts.join("\n")).toContain("OPENCLAW_PACKAGE_ACCEPTANCE_LEGACY_COMPAT");
+    expect(scripts.join("\n")).toContain("GRANTED_PACKAGE_ACCEPTANCE_LEGACY_COMPAT");
     expect(scripts.join("\n")).toContain(
       "Package $package_version must support gateway install --wrapper.",
     );
@@ -7023,7 +7023,7 @@ done
         "[Service]",
         'ExecStart=/usr/bin/node "/opt/openclaw git/dist/index.js" gateway --port 18789',
         'WorkingDirectory="/opt/openclaw git"',
-        'Environment="GREETING=hello world" OPENCLAW_PROFILE=fixture',
+        'Environment="GREETING=hello world" GRANTED_PROFILE=fixture',
         "EnvironmentFile=-%h/.openclaw/gateway.systemd.env",
         "UnsetEnvironment=STALE_FLAG",
       ].join("\n"),
@@ -7083,7 +7083,7 @@ done
         data: [[programArguments[0], programArguments, false, ...Array(7).fill(0)]],
       },
       { type: "s", data: "/opt/openclaw git" },
-      { type: "as", data: ["GREETING=hello world", "OPENCLAW_PROFILE=fixture"] },
+      { type: "as", data: ["GREETING=hello world", "GRANTED_PROFILE=fixture"] },
       { type: "a(sb)", data: [[join(home, ".openclaw", "gateway.systemd.env"), true]] },
       { type: "as", data: ["STALE_FLAG"] },
     ]);
@@ -7114,7 +7114,7 @@ done
       await import("../../src/daemon/systemd-service-files.js");
     expect(
       await readSystemdServiceExecStart(
-        { HOME: home, PATH: `${binDir}:${process.env.PATH}`, OPENCLAW_SYSTEMD_UNIT: serviceName },
+        { HOME: home, PATH: `${binDir}:${process.env.PATH}`, GRANTED_SYSTEMD_UNIT: serviceName },
         { requireEffective: true },
       ),
     ).toMatchObject({
@@ -7122,7 +7122,7 @@ done
       workingDirectory: "/opt/openclaw git",
       sourcePath: unitPath,
       definitionPaths: [unitPath],
-      environment: { GREETING: "hello world", OPENCLAW_PROFILE: "fixture" },
+      environment: { GREETING: "hello world", GRANTED_PROFILE: "fixture" },
     });
 
     const unexpected = spawnSync(
@@ -7149,7 +7149,7 @@ done
     const env = {
       HOME: home,
       PATH: `${binDir}:${process.env.PATH}`,
-      OPENCLAW_SYSTEMD_UNIT: "openclaw-gateway-fixture",
+      GRANTED_SYSTEMD_UNIT: "openclaw-gateway-fixture",
     };
     const { readSystemdServiceExecStart } =
       await import("../../src/daemon/systemd-service-files.js");
@@ -7214,20 +7214,20 @@ done
     const scenario = readFileSync(DOCTOR_SWITCH_SCENARIO_PATH, "utf8");
 
     expectTextToIncludeAll(runner, [
-      'NPM_INSTALL_TIMEOUT="${OPENCLAW_E2E_NPM_INSTALL_TIMEOUT:-600s}"',
-      'COMMAND_TIMEOUT="${OPENCLAW_DOCKER_DOCTOR_SWITCH_COMMAND_TIMEOUT:-900s}"',
-      '-e "OPENCLAW_E2E_NPM_INSTALL_TIMEOUT=$NPM_INSTALL_TIMEOUT"',
-      '-e "OPENCLAW_DOCKER_DOCTOR_SWITCH_COMMAND_TIMEOUT=$COMMAND_TIMEOUT"',
+      'NPM_INSTALL_TIMEOUT="${GRANTED_E2E_NPM_INSTALL_TIMEOUT:-600s}"',
+      'COMMAND_TIMEOUT="${GRANTED_DOCKER_DOCTOR_SWITCH_COMMAND_TIMEOUT:-900s}"',
+      '-e "GRANTED_E2E_NPM_INSTALL_TIMEOUT=$NPM_INSTALL_TIMEOUT"',
+      '-e "GRANTED_DOCKER_DOCTOR_SWITCH_COMMAND_TIMEOUT=$COMMAND_TIMEOUT"',
     ]);
 
     expectTextToIncludeAll(scenario, [
-      'command_timeout="${OPENCLAW_DOCKER_DOCTOR_SWITCH_COMMAND_TIMEOUT:-900s}"',
+      'command_timeout="${GRANTED_DOCKER_DOCTOR_SWITCH_COMMAND_TIMEOUT:-900s}"',
       "use_default_service_identity() {",
       "local account_home",
       'account_home="$(node -p \'require("node:os").userInfo().homedir\')"',
       'export HOME="$account_home"',
       'export USERPROFILE="$account_home"',
-      "unset OPENCLAW_HOME OPENCLAW_STATE_DIR OPENCLAW_CONFIG_PATH",
+      "unset GRANTED_HOME GRANTED_STATE_DIR GRANTED_CONFIG_PATH",
       'openclaw_test_state_create "switch-${name}" empty\n  use_default_service_identity',
       'openclaw_e2e_maybe_timeout "$command_timeout" bash -c "$install_cmd"',
       'openclaw_e2e_maybe_timeout "$command_timeout" bash -c "$doctor_cmd"',
@@ -7235,7 +7235,7 @@ done
     ]);
 
     expect(
-      scenario.match(/unset OPENCLAW_HOME OPENCLAW_STATE_DIR OPENCLAW_CONFIG_PATH/gu),
+      scenario.match(/unset GRANTED_HOME GRANTED_STATE_DIR GRANTED_CONFIG_PATH/gu),
     ).toHaveLength(1);
     expect(scenario.match(/export USERPROFILE="\$account_home"/gu)).toHaveLength(1);
     expect(scenario.match(/^ {2}use_default_service_identity$/gmu)).toHaveLength(3);
@@ -7248,51 +7248,51 @@ done
     const directRunner = extractUpgradeSurvivorPayload(wrapper);
 
     expectTextToIncludeAll(wrapper, [
-      'OPENCLAW_TEST_STATE_FUNCTION_B64="$(docker_e2e_test_state_function_b64)"',
-      '-e OPENCLAW_TEST_STATE_FUNCTION_B64="$OPENCLAW_TEST_STATE_FUNCTION_B64"',
+      'GRANTED_TEST_STATE_FUNCTION_B64="$(docker_e2e_test_state_function_b64)"',
+      '-e GRANTED_TEST_STATE_FUNCTION_B64="$GRANTED_TEST_STATE_FUNCTION_B64"',
     ]);
-    expect(wrapper).not.toContain("OPENCLAW_TEST_STATE_SCRIPT_B64");
+    expect(wrapper).not.toContain("GRANTED_TEST_STATE_SCRIPT_B64");
     expectTextToIncludeAll(publishedRunner, [
       'if [ "$UPDATE_RESTART_MODE" = "auto-auth" ]; then',
       'account_home="$(getent passwd "$(id -u)" | cut -d: -f6)"',
       'if [ -z "$account_home" ]; then',
       'export HOME="$account_home"',
       'export USERPROFILE="$account_home"',
-      "unset OPENCLAW_HOME",
-      'export OPENCLAW_STATE_DIR="$account_home/.openclaw"',
-      'export OPENCLAW_CONFIG_PATH="$OPENCLAW_STATE_DIR/openclaw.json"',
+      "unset GRANTED_HOME",
+      'export GRANTED_STATE_DIR="$account_home/.openclaw"',
+      'export GRANTED_CONFIG_PATH="$GRANTED_STATE_DIR/openclaw.json"',
     ]);
 
-    expect(publishedRunner.indexOf("unset OPENCLAW_HOME")).toBeLessThan(
-      publishedRunner.indexOf('export OPENCLAW_STATE_DIR="$account_home/.openclaw"'),
+    expect(publishedRunner.indexOf("unset GRANTED_HOME")).toBeLessThan(
+      publishedRunner.indexOf('export GRANTED_STATE_DIR="$account_home/.openclaw"'),
     );
     expect(
-      publishedRunner.indexOf('export OPENCLAW_CONFIG_PATH="$OPENCLAW_STATE_DIR/openclaw.json"'),
+      publishedRunner.indexOf('export GRANTED_CONFIG_PATH="$GRANTED_STATE_DIR/openclaw.json"'),
     ).toBeLessThan(
       publishedRunner.indexOf("node scripts/e2e/lib/upgrade-survivor/assertions.mjs seed"),
     );
 
     expectTextToIncludeAll(directRunner, [
-      'openclaw_e2e_eval_test_state_from_b64 "${OPENCLAW_TEST_STATE_FUNCTION_B64:?missing OPENCLAW_TEST_STATE_FUNCTION_B64}"',
+      'openclaw_e2e_eval_test_state_from_b64 "${GRANTED_TEST_STATE_FUNCTION_B64:?missing GRANTED_TEST_STATE_FUNCTION_B64}"',
       'if [ "$UPDATE_RESTART_MODE" = "auto-auth" ]; then',
       'account_home="$(getent passwd "$(id -u)" | cut -d: -f6)"',
       'openclaw_test_state_create "$account_home" upgrade-survivor',
       'export HOME="$account_home"',
       'export USERPROFILE="$account_home"',
-      'export OPENCLAW_STATE_DIR="$account_home/.openclaw"',
-      'export OPENCLAW_CONFIG_PATH="$OPENCLAW_STATE_DIR/openclaw.json"',
-      "unset OPENCLAW_HOME",
+      'export GRANTED_STATE_DIR="$account_home/.openclaw"',
+      'export GRANTED_CONFIG_PATH="$GRANTED_STATE_DIR/openclaw.json"',
+      "unset GRANTED_HOME",
       "else",
       "openclaw_test_state_create upgrade-survivor upgrade-survivor",
     ]);
     expect(directRunner.indexOf('openclaw_test_state_create "$account_home"')).toBeLessThan(
-      directRunner.indexOf("unset OPENCLAW_HOME"),
+      directRunner.indexOf("unset GRANTED_HOME"),
     );
-    expect(directRunner.indexOf("unset OPENCLAW_HOME")).toBeLessThan(
+    expect(directRunner.indexOf("unset GRANTED_HOME")).toBeLessThan(
       directRunner.indexOf("prepare_update_restart_probe_current_install"),
     );
     expect(
-      directRunner.indexOf('export OPENCLAW_CONFIG_PATH="$OPENCLAW_STATE_DIR/openclaw.json"'),
+      directRunner.indexOf('export GRANTED_CONFIG_PATH="$GRANTED_STATE_DIR/openclaw.json"'),
     ).toBeLessThan(
       directRunner.indexOf("node scripts/e2e/lib/upgrade-survivor/assertions.mjs seed"),
     );
@@ -7366,28 +7366,28 @@ done
     const probe = readFileSync(BUNDLED_PLUGIN_INSTALL_UNINSTALL_PROBE_PATH, "utf8");
     const runtimeSmoke = readFileSync(BUNDLED_PLUGIN_INSTALL_UNINSTALL_RUNTIME_SMOKE_PATH, "utf8");
     const forwardedRuntimeEnv = [
-      "OPENCLAW_BUNDLED_PLUGIN_LIST_TIMEOUT_MS",
-      "OPENCLAW_BUNDLED_PLUGIN_LIST_MAX_BUFFER_BYTES",
-      "OPENCLAW_BUNDLED_PLUGIN_RUNTIME_OUTPUT_CHARS",
-      "OPENCLAW_BUNDLED_PLUGIN_RUNTIME_LOG_SCAN_BYTES",
-      "OPENCLAW_BUNDLED_PLUGIN_RUNTIME_GATEWAY_LOG_BYTES",
-      "OPENCLAW_BUNDLED_PLUGIN_RUNTIME_READY_MS",
-      "OPENCLAW_BUNDLED_PLUGIN_RUNTIME_RPC_MS",
-      "OPENCLAW_BUNDLED_PLUGIN_RUNTIME_RPC_READY_MS",
-      "OPENCLAW_BUNDLED_PLUGIN_RUNTIME_COMMAND_MS",
-      "OPENCLAW_BUNDLED_PLUGIN_RUNTIME_HTTP_MS",
-      "OPENCLAW_BUNDLED_PLUGIN_RUNTIME_TEARDOWN_GRACE_MS",
-      "OPENCLAW_BUNDLED_PLUGIN_RUNTIME_TEARDOWN_KILL_GRACE_MS",
-      "OPENCLAW_BUNDLED_PLUGIN_RUNTIME_WATCHDOG_MS",
+      "GRANTED_BUNDLED_PLUGIN_LIST_TIMEOUT_MS",
+      "GRANTED_BUNDLED_PLUGIN_LIST_MAX_BUFFER_BYTES",
+      "GRANTED_BUNDLED_PLUGIN_RUNTIME_OUTPUT_CHARS",
+      "GRANTED_BUNDLED_PLUGIN_RUNTIME_LOG_SCAN_BYTES",
+      "GRANTED_BUNDLED_PLUGIN_RUNTIME_GATEWAY_LOG_BYTES",
+      "GRANTED_BUNDLED_PLUGIN_RUNTIME_READY_MS",
+      "GRANTED_BUNDLED_PLUGIN_RUNTIME_RPC_MS",
+      "GRANTED_BUNDLED_PLUGIN_RUNTIME_RPC_READY_MS",
+      "GRANTED_BUNDLED_PLUGIN_RUNTIME_COMMAND_MS",
+      "GRANTED_BUNDLED_PLUGIN_RUNTIME_HTTP_MS",
+      "GRANTED_BUNDLED_PLUGIN_RUNTIME_TEARDOWN_GRACE_MS",
+      "GRANTED_BUNDLED_PLUGIN_RUNTIME_TEARDOWN_KILL_GRACE_MS",
+      "GRANTED_BUNDLED_PLUGIN_RUNTIME_WATCHDOG_MS",
     ] as const;
 
     expectTextToIncludeAll(runner, [
-      "OPENCLAW_BUNDLED_PLUGIN_SWEEP_TOTAL",
-      "OPENCLAW_BUNDLED_PLUGIN_SWEEP_INDEX",
-      "OPENCLAW_BUNDLED_PLUGIN_SWEEP_COMMAND_TIMEOUT",
-      "OPENCLAW_PLUGIN_LIFECYCLE_TRACE",
-      "docker_e2e_read_tcp_port_env OPENCLAW_BUNDLED_PLUGIN_RUNTIME_PORT_BASE 19000",
-      '-e "OPENCLAW_BUNDLED_PLUGIN_RUNTIME_PORT_BASE=$RUNTIME_PORT_BASE"',
+      "GRANTED_BUNDLED_PLUGIN_SWEEP_TOTAL",
+      "GRANTED_BUNDLED_PLUGIN_SWEEP_INDEX",
+      "GRANTED_BUNDLED_PLUGIN_SWEEP_COMMAND_TIMEOUT",
+      "GRANTED_PLUGIN_LIFECYCLE_TRACE",
+      "docker_e2e_read_tcp_port_env GRANTED_BUNDLED_PLUGIN_RUNTIME_PORT_BASE 19000",
+      '-e "GRANTED_BUNDLED_PLUGIN_RUNTIME_PORT_BASE=$RUNTIME_PORT_BASE"',
       "scripts/e2e/lib/bundled-plugin-install-uninstall/sweep.sh",
       'tee "$RUN_LOG"',
     ]);
@@ -7398,19 +7398,19 @@ done
     }
 
     for (const [envName, fallback] of [
-      ["OPENCLAW_BUNDLED_PLUGIN_LIST_TIMEOUT_MS", "30000"],
-      ["OPENCLAW_BUNDLED_PLUGIN_LIST_MAX_BUFFER_BYTES", "4194304"],
-      ["OPENCLAW_BUNDLED_PLUGIN_RUNTIME_OUTPUT_CHARS", "1048576"],
-      ["OPENCLAW_BUNDLED_PLUGIN_RUNTIME_LOG_SCAN_BYTES", "262144"],
-      ["OPENCLAW_BUNDLED_PLUGIN_RUNTIME_GATEWAY_LOG_BYTES", "16777216"],
-      ["OPENCLAW_BUNDLED_PLUGIN_RUNTIME_READY_MS", "900000"],
-      ["OPENCLAW_BUNDLED_PLUGIN_RUNTIME_RPC_MS", "60000"],
-      ["OPENCLAW_BUNDLED_PLUGIN_RUNTIME_RPC_READY_MS", "210000"],
-      ["OPENCLAW_BUNDLED_PLUGIN_RUNTIME_WATCHDOG_MS", "1000"],
-      ["OPENCLAW_BUNDLED_PLUGIN_RUNTIME_COMMAND_MS", "120000"],
-      ["OPENCLAW_BUNDLED_PLUGIN_RUNTIME_HTTP_MS", "5000"],
-      ["OPENCLAW_BUNDLED_PLUGIN_RUNTIME_TEARDOWN_GRACE_MS", "10000"],
-      ["OPENCLAW_BUNDLED_PLUGIN_RUNTIME_TEARDOWN_KILL_GRACE_MS", "1000"],
+      ["GRANTED_BUNDLED_PLUGIN_LIST_TIMEOUT_MS", "30000"],
+      ["GRANTED_BUNDLED_PLUGIN_LIST_MAX_BUFFER_BYTES", "4194304"],
+      ["GRANTED_BUNDLED_PLUGIN_RUNTIME_OUTPUT_CHARS", "1048576"],
+      ["GRANTED_BUNDLED_PLUGIN_RUNTIME_LOG_SCAN_BYTES", "262144"],
+      ["GRANTED_BUNDLED_PLUGIN_RUNTIME_GATEWAY_LOG_BYTES", "16777216"],
+      ["GRANTED_BUNDLED_PLUGIN_RUNTIME_READY_MS", "900000"],
+      ["GRANTED_BUNDLED_PLUGIN_RUNTIME_RPC_MS", "60000"],
+      ["GRANTED_BUNDLED_PLUGIN_RUNTIME_RPC_READY_MS", "210000"],
+      ["GRANTED_BUNDLED_PLUGIN_RUNTIME_WATCHDOG_MS", "1000"],
+      ["GRANTED_BUNDLED_PLUGIN_RUNTIME_COMMAND_MS", "120000"],
+      ["GRANTED_BUNDLED_PLUGIN_RUNTIME_HTTP_MS", "5000"],
+      ["GRANTED_BUNDLED_PLUGIN_RUNTIME_TEARDOWN_GRACE_MS", "10000"],
+      ["GRANTED_BUNDLED_PLUGIN_RUNTIME_TEARDOWN_KILL_GRACE_MS", "1000"],
     ] as const) {
       expect(runner, `${envName} host validation`).toContain(
         `docker_e2e_read_positive_int_env ${envName} ${fallback}`,
@@ -7421,12 +7421,12 @@ done
     expect(runner).not.toContain('cat "$RUN_LOG"');
     expect(probe).toContain('"openclaw.plugin.json"');
     expect(runtimeSmoke).toContain(
-      'readPositiveIntEnv("OPENCLAW_BUNDLED_PLUGIN_RUNTIME_READY_MS", 900000)',
+      'readPositiveIntEnv("GRANTED_BUNDLED_PLUGIN_RUNTIME_READY_MS", 900000)',
     );
     expectTextToIncludeAll(sweep, [
       "read -r plugin_id plugin_dir requires_config",
-      'node "$OPENCLAW_ENTRY" plugins install "$plugin_id"',
-      'node "$OPENCLAW_ENTRY" plugins uninstall "$plugin_id" --force',
+      'node "$GRANTED_ENTRY" plugins install "$plugin_id"',
+      'node "$GRANTED_ENTRY" plugins uninstall "$plugin_id" --force',
       "now_ms()",
       "lifecycle_trace_enabled()",
       "if lifecycle_trace_enabled; then",
@@ -7439,11 +7439,11 @@ done
   });
 
   it.each([
-    ["list timeout", "OPENCLAW_BUNDLED_PLUGIN_LIST_TIMEOUT_MS", "100ms"],
-    ["runtime port base", "OPENCLAW_BUNDLED_PLUGIN_RUNTIME_PORT_BASE", "99999"],
-    ["runtime log scan", "OPENCLAW_BUNDLED_PLUGIN_RUNTIME_LOG_SCAN_BYTES", "64bytes"],
-    ["runtime command timeout", "OPENCLAW_BUNDLED_PLUGIN_RUNTIME_COMMAND_MS", "soon"],
-    ["runtime teardown grace", "OPENCLAW_BUNDLED_PLUGIN_RUNTIME_TEARDOWN_GRACE_MS", "0"],
+    ["list timeout", "GRANTED_BUNDLED_PLUGIN_LIST_TIMEOUT_MS", "100ms"],
+    ["runtime port base", "GRANTED_BUNDLED_PLUGIN_RUNTIME_PORT_BASE", "99999"],
+    ["runtime log scan", "GRANTED_BUNDLED_PLUGIN_RUNTIME_LOG_SCAN_BYTES", "64bytes"],
+    ["runtime command timeout", "GRANTED_BUNDLED_PLUGIN_RUNTIME_COMMAND_MS", "soon"],
+    ["runtime teardown grace", "GRANTED_BUNDLED_PLUGIN_RUNTIME_TEARDOWN_GRACE_MS", "0"],
   ])(
     "rejects invalid bundled plugin Docker %s values before Docker setup",
     (_label, envName, value) => {
@@ -7451,7 +7451,7 @@ done
         encoding: "utf8",
         env: {
           ...process.env,
-          OPENCLAW_SKIP_DOCKER_BUILD: "1",
+          GRANTED_SKIP_DOCKER_BUILD: "1",
           [envName]: value,
         },
       });
@@ -7464,12 +7464,10 @@ done
 
   it("passes installer tag env to bash, not curl", () => {
     const runner = readFileSync(INSTALL_E2E_RUNNER_PATH, "utf8");
-    expect(runner).toContain('OPENCLAW_BETA=1 bash "$installer"');
-    expect(runner).toContain('OPENCLAW_VERSION="$INSTALL_TAG" bash "$installer"');
-    expect(runner).not.toContain('OPENCLAW_BETA=1 curl -fsSL "$INSTALL_URL" | bash');
-    expect(runner).not.toContain(
-      'OPENCLAW_VERSION="$INSTALL_TAG" curl -fsSL "$INSTALL_URL" | bash',
-    );
+    expect(runner).toContain('GRANTED_BETA=1 bash "$installer"');
+    expect(runner).toContain('GRANTED_VERSION="$INSTALL_TAG" bash "$installer"');
+    expect(runner).not.toContain('GRANTED_BETA=1 curl -fsSL "$INSTALL_URL" | bash');
+    expect(runner).not.toContain('GRANTED_VERSION="$INSTALL_TAG" curl -fsSL "$INSTALL_URL" | bash');
   });
 
   it("keeps installer E2E agent turns out of the interactive bootstrap ritual", () => {
@@ -7499,10 +7497,10 @@ done
     expect(start).toBeGreaterThanOrEqual(0);
     expect(end).toBeGreaterThan(start);
     expectTextToIncludeAll(helper, [
-      "OPENCLAW_INSTALL_E2E_SESSION_SCAN_BYTES",
-      "OPENCLAW_INSTALL_E2E_SESSION_LINE_BYTES",
-      "OPENCLAW_INSTALL_E2E_SESSION_SCAN_DEPTH",
-      "OPENCLAW_INSTALL_E2E_SESSION_SCAN_NODES",
+      "GRANTED_INSTALL_E2E_SESSION_SCAN_BYTES",
+      "GRANTED_INSTALL_E2E_SESSION_LINE_BYTES",
+      "GRANTED_INSTALL_E2E_SESSION_SCAN_DEPTH",
+      "GRANTED_INSTALL_E2E_SESSION_SCAN_NODES",
       "fs.createReadStream",
       "Buffer.concat",
       "skippedOversizedLines",
@@ -7536,14 +7534,14 @@ done
     const client = readFileSync(OPENAI_WEB_SEARCH_MINIMAL_CLIENT_PATH, "utf8");
 
     expectTextToIncludeAll(runner, [
-      'PORT="$(docker_e2e_read_tcp_port_env OPENCLAW_OPENAI_WEB_SEARCH_MINIMAL_PORT 18789)"',
+      'PORT="$(docker_e2e_read_tcp_port_env GRANTED_OPENAI_WEB_SEARCH_MINIMAL_PORT 18789)"',
       'MOCK_PORT="443"',
       '-e "PORT=$PORT"',
       '-e "MOCK_PORT=$MOCK_PORT"',
       "scripts/e2e/lib/openai-web-search-minimal/scenario.sh",
     ]);
 
-    expect(runner).not.toContain("OPENCLAW_OPENAI_WEB_SEARCH_MINIMAL_MOCK_PORT");
+    expect(runner).not.toContain("GRANTED_OPENAI_WEB_SEARCH_MINIMAL_MOCK_PORT");
 
     expectTextToIncludeAll(scenario, [
       'export NODE_EXTRA_CA_CERTS="$TLS_CA_CERT"',
@@ -7628,20 +7626,20 @@ done
 
     expectTextToIncludeAll(runner, [
       "scripts/e2e/lib/plugins/sweep.sh",
-      "OPENCLAW_PLUGINS_E2E_LIVE_CLAWHUB",
-      "OPENCLAW_PLUGINS_E2E_LIVE_NPM_REGISTRY",
+      "GRANTED_PLUGINS_E2E_LIVE_CLAWHUB",
+      "GRANTED_PLUGINS_E2E_LIVE_NPM_REGISTRY",
     ]);
 
     expect(sweep).toContain("scripts/e2e/lib/plugins/clawhub.sh");
     expectTextToIncludeAll(clawhub, [
       "start_clawhub_fixture_server()",
-      'OPENCLAW_CLAWHUB_URL="http://127.0.0.1:',
-      "OPENCLAW_PLUGINS_E2E_LIVE_CLAWHUB",
-      "OPENCLAW_PLUGINS_E2E_LIVE_NPM_REGISTRY",
+      'GRANTED_CLAWHUB_URL="http://127.0.0.1:',
+      "GRANTED_PLUGINS_E2E_LIVE_CLAWHUB",
+      "GRANTED_PLUGINS_E2E_LIVE_NPM_REGISTRY",
       "live ClawHub can rate-limit CI",
-      '[[ -n "${OPENCLAW_CLAWHUB_URL:-}" || -n "${CLAWHUB_URL:-}" ]]',
+      '[[ -n "${GRANTED_CLAWHUB_URL:-}" || -n "${CLAWHUB_URL:-}" ]]',
       "Ignoring ambient ClawHub URL for fixture-mode plugin E2E",
-      "unset OPENCLAW_CLAWHUB_URL CLAWHUB_URL",
+      "unset GRANTED_CLAWHUB_URL CLAWHUB_URL",
     ]);
   });
 
@@ -7651,7 +7649,7 @@ done
 
     expectTextToIncludeAll(runner, [
       "--reporter=verbose -t",
-      'DOCKER_RUN_TIMEOUT="${OPENCLAW_PLUGIN_BINDING_COMMAND_ESCAPE_DOCKER_RUN_TIMEOUT:-900s}"',
+      'DOCKER_RUN_TIMEOUT="${GRANTED_PLUGIN_BINDING_COMMAND_ESCAPE_DOCKER_RUN_TIMEOUT:-900s}"',
       'DOCKER_COMMAND_TIMEOUT="$DOCKER_RUN_TIMEOUT" docker_e2e_docker_run_cmd run --rm',
       'docker_e2e_docker_cmd rm -f "$CONTAINER_NAME"',
       "lets authorized gateway-style plugin commands escape plugin-owned bindings",
@@ -7666,7 +7664,7 @@ done
       "keeps unauthorized plugin-owned binding slash text routed to the bound plugin",
     );
 
-    expect(dockerfile).toContain("OPENCLAW_DISABLE_BUNDLED_PLUGIN_POSTINSTALL=1");
+    expect(dockerfile).toContain("GRANTED_DISABLE_BUNDLED_PLUGIN_POSTINSTALL=1");
     expect(dockerfile).toContain(
       "pnpm install --frozen-lockfile --ignore-scripts --filter openclaw",
     );
@@ -7688,9 +7686,9 @@ done
     const npmRegistry = readFileSync(PLUGINS_DOCKER_NPM_REGISTRY_PATH, "utf8");
 
     expectTextToIncludeAll(sweep, [
-      'OPENCLAW_PLUGINS_CLI_TIMEOUT="${OPENCLAW_PLUGINS_CLI_TIMEOUT:-180s}"',
+      'GRANTED_PLUGINS_CLI_TIMEOUT="${GRANTED_PLUGINS_CLI_TIMEOUT:-180s}"',
       "run_plugins_openclaw_capture()",
-      'openclaw_e2e_maybe_timeout "$OPENCLAW_PLUGINS_CLI_TIMEOUT" node "$OPENCLAW_ENTRY" "$@" >"$output_file"',
+      'openclaw_e2e_maybe_timeout "$GRANTED_PLUGINS_CLI_TIMEOUT" node "$GRANTED_ENTRY" "$@" >"$output_file"',
       "plugins_lifecycle_trace_enabled()",
       "print_plugins_stderr_log()",
       "Plugin sweep command timed out after %s: %s",
@@ -7705,10 +7703,10 @@ done
       'plugins install "git:$git_update_repo_url@main" --force',
       "plugins update demo-plugin-git-update",
     ]);
-    expect(runner).toContain('PLUGINS_CLI_TIMEOUT="${OPENCLAW_PLUGINS_CLI_TIMEOUT:-180s}"');
-    expect(runner).toContain('-e "OPENCLAW_PLUGINS_CLI_TIMEOUT=$PLUGINS_CLI_TIMEOUT"');
-    expect(runner).toContain("OPENCLAW_PLUGIN_LIFECYCLE_TRACE");
-    expect(sweep).not.toContain('run_logged install-npm node "$OPENCLAW_ENTRY"');
+    expect(runner).toContain('PLUGINS_CLI_TIMEOUT="${GRANTED_PLUGINS_CLI_TIMEOUT:-180s}"');
+    expect(runner).toContain('-e "GRANTED_PLUGINS_CLI_TIMEOUT=$PLUGINS_CLI_TIMEOUT"');
+    expect(runner).toContain("GRANTED_PLUGIN_LIFECYCLE_TRACE");
+    expect(sweep).not.toContain('run_logged install-npm node "$GRANTED_ENTRY"');
     for (const [path, script] of [
       [PLUGINS_DOCKER_SWEEP_PATH, sweep],
       [PLUGINS_DOCKER_MARKETPLACE_PATH, marketplace],
@@ -7716,7 +7714,7 @@ done
     ] as const) {
       const unboundedPluginCliLines = script
         .split("\n")
-        .filter((line) => line.includes('node "$OPENCLAW_ENTRY" plugins'))
+        .filter((line) => line.includes('node "$GRANTED_ENTRY" plugins'))
         .filter((line) => !line.includes("openclaw_e2e_maybe_timeout"));
 
       expect(unboundedPluginCliLines, path).toEqual([]);
@@ -7733,7 +7731,7 @@ done
     ]);
 
     expectTextToIncludeAll(npmRegistry, [
-      "OPENCLAW_NPM_REGISTRY_DIST_TAGS",
+      "GRANTED_NPM_REGISTRY_DIST_TAGS",
       "Object.fromEntries(distTagOverrides)",
       "existing.latestVersion = version",
       "packageArgs.length % 3",
@@ -7742,7 +7740,7 @@ done
     expectTextToIncludeAll(clawhub, [
       'plugins install "$CLAWHUB_PLUGIN_SPEC"',
       'plugins update "$CLAWHUB_PLUGIN_ID"',
-      'openclaw_e2e_maybe_timeout "$OPENCLAW_PLUGINS_CLI_TIMEOUT"',
+      'openclaw_e2e_maybe_timeout "$GRANTED_PLUGINS_CLI_TIMEOUT"',
       "clawhub:@openclaw/kitchen-sink",
     ]);
   });

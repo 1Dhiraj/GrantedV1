@@ -36,7 +36,7 @@ import {
 } from "./plugins-cli-test-helpers.js";
 import { registerPluginsCli } from "./plugins-cli.js";
 
-const ORIGINAL_OPENCLAW_NIX_MODE = process.env.OPENCLAW_NIX_MODE;
+const ORIGINAL_GRANTED_NIX_MODE = process.env.GRANTED_NIX_MODE;
 const ORIGINAL_STDIN_TTY = Object.getOwnPropertyDescriptor(process.stdin, "isTTY");
 const ORIGINAL_STDOUT_TTY = Object.getOwnPropertyDescriptor(process.stdout, "isTTY");
 
@@ -296,10 +296,10 @@ describe("plugins cli update", () => {
 
   afterEach(() => {
     restoreTty();
-    if (ORIGINAL_OPENCLAW_NIX_MODE === undefined) {
-      delete process.env.OPENCLAW_NIX_MODE;
+    if (ORIGINAL_GRANTED_NIX_MODE === undefined) {
+      delete process.env.GRANTED_NIX_MODE;
     } else {
-      process.env.OPENCLAW_NIX_MODE = ORIGINAL_OPENCLAW_NIX_MODE;
+      process.env.GRANTED_NIX_MODE = ORIGINAL_GRANTED_NIX_MODE;
     }
   });
 
@@ -321,17 +321,17 @@ describe("plugins cli update", () => {
   });
 
   it("refuses plugin updates in Nix mode before package-manager work", async () => {
-    const previous = process.env.OPENCLAW_NIX_MODE;
-    process.env.OPENCLAW_NIX_MODE = "1";
+    const previous = process.env.GRANTED_NIX_MODE;
+    process.env.GRANTED_NIX_MODE = "1";
     try {
       await expect(runPluginsCommand(["plugins", "update", "--all"])).rejects.toThrow(
-        "OPENCLAW_NIX_MODE=1",
+        "GRANTED_NIX_MODE=1",
       );
     } finally {
       if (previous === undefined) {
-        delete process.env.OPENCLAW_NIX_MODE;
+        delete process.env.GRANTED_NIX_MODE;
       } else {
-        process.env.OPENCLAW_NIX_MODE = previous;
+        process.env.GRANTED_NIX_MODE = previous;
       }
     }
 
@@ -341,7 +341,7 @@ describe("plugins cli update", () => {
   });
 
   it("previews plugin updates in Nix mode without acquiring a lease or writing state", async () => {
-    process.env.OPENCLAW_NIX_MODE = "1";
+    process.env.GRANTED_NIX_MODE = "1";
     const config = createTrackedPluginConfig({
       pluginId: "alpha",
       spec: "@acme/alpha@1.0.0",

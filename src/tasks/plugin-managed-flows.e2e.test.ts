@@ -27,7 +27,7 @@ describe("plugin-managed TaskFlows", () => {
   it("loads a real plugin tool that creates and finishes an owner-scoped managed flow", async () => {
     await withOpenClawTestState(
       {
-        env: { OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1" },
+        env: { GRANTED_DISABLE_BUNDLED_PLUGINS: "1" },
         layout: "state-only",
         prefix: "openclaw-plugin-managed-flow-",
       },

@@ -47,7 +47,7 @@ async function writeQaSessionTranscript(
   const sessionId = sessionKey.replace(/[^a-z0-9]+/giu, "-");
   const sessionEnv = {
     ...process.env,
-    OPENCLAW_STATE_DIR: path.join(env.gateway.tempRoot, "state"),
+    GRANTED_STATE_DIR: path.join(env.gateway.tempRoot, "state"),
   };
   await upsertSessionEntry({
     agentId: "qa",
@@ -377,7 +377,7 @@ async function runMockRuntimeToolFixture(params: {
   const toolName = params.toolName ?? "read";
   const env = params.env ?? (await makeEnv({ mock: { baseUrl: MOCK_BASE_URL } }));
   if (params.forceCodex) {
-    env.gateway.runtimeEnv.OPENCLAW_QA_FORCE_RUNTIME = "codex";
+    env.gateway.runtimeEnv.GRANTED_QA_FORCE_RUNTIME = "codex";
   }
   return runRuntimeToolFixture(
     env,
@@ -650,7 +650,7 @@ describe("runtime tool fixture", () => {
         baseUrl: "http://127.0.0.1:1",
         tempRoot: "",
         workspaceDir: "",
-        runtimeEnv: { OPENCLAW_QA_FORCE_RUNTIME: "codex" },
+        runtimeEnv: { GRANTED_QA_FORCE_RUNTIME: "codex" },
         call: vi.fn(),
       },
     });
@@ -710,7 +710,7 @@ describe("runtime tool fixture", () => {
     "patch rejected: writing outside of the project; rejected by user approval settings",
   ])("verifies native Codex patch success and workspace denial: %s", async (failureOutput) => {
     const env = await makeEnv();
-    env.gateway.runtimeEnv.OPENCLAW_QA_FORCE_RUNTIME = "codex";
+    env.gateway.runtimeEnv.GRANTED_QA_FORCE_RUNTIME = "codex";
     await writeCodexNativePatchEvidence(env, failureOutput);
     const promptEvidence: Array<{
       requireSuccessfulTranscriptToolResult?: boolean;
@@ -744,7 +744,7 @@ describe("runtime tool fixture", () => {
 
   it("recognizes forced Codex native patches even when the effective inventory lists apply_patch", async () => {
     const env = await makeEnv();
-    env.gateway.runtimeEnv.OPENCLAW_QA_FORCE_RUNTIME = "codex";
+    env.gateway.runtimeEnv.GRANTED_QA_FORCE_RUNTIME = "codex";
     await writeCodexNativePatchEvidence(
       env,
       "patch rejected: writing outside of the project; rejected by user approval settings",
@@ -775,7 +775,7 @@ describe("runtime tool fixture", () => {
 
   it("rejects a native patch whose recorded working directory changes its target", async () => {
     const env = await makeEnv();
-    env.gateway.runtimeEnv.OPENCLAW_QA_FORCE_RUNTIME = "codex";
+    env.gateway.runtimeEnv.GRANTED_QA_FORCE_RUNTIME = "codex";
     await writeCodexNativePatchEvidence(env, "apply_patch failed: path escapes sandbox root", {
       happyArguments: {
         input:
@@ -810,7 +810,7 @@ describe("runtime tool fixture", () => {
   ])("verifies linked $label without weakening workspace containment", async (testCase) => {
     const { encode } = testCase;
     const env = await makeEnv();
-    env.gateway.runtimeEnv.OPENCLAW_QA_FORCE_RUNTIME = "codex";
+    env.gateway.runtimeEnv.GRANTED_QA_FORCE_RUNTIME = "codex";
     await writeCodexNativePatchEvidence(env, "patch rejected: writing outside of the project", {
       happyArguments: encode(
         "*** Begin Patch\n*** Add File: runtime-tool-fixture-patch.txt\n+runtime patch\n*** End Patch\n",
@@ -832,7 +832,7 @@ describe("runtime tool fixture", () => {
 
   it("recognizes native patch paths through a canonical workspace alias", async () => {
     const env = await makeEnv();
-    env.gateway.runtimeEnv.OPENCLAW_QA_FORCE_RUNTIME = "codex";
+    env.gateway.runtimeEnv.GRANTED_QA_FORCE_RUNTIME = "codex";
     const workspaceAlias = path.join(env.gateway.tempRoot, "workspace-alias");
     await fs.symlink(
       env.gateway.workspaceDir,
@@ -850,7 +850,7 @@ describe("runtime tool fixture", () => {
 
   it("does not accept assistant text as evidence of a native Codex workspace rejection", async () => {
     const env = await makeEnv();
-    env.gateway.runtimeEnv.OPENCLAW_QA_FORCE_RUNTIME = "codex";
+    env.gateway.runtimeEnv.GRANTED_QA_FORCE_RUNTIME = "codex";
     await writeCodexNativePatchEvidence(env, undefined, { omitFailureEvidence: true });
     await writeQaSessionTranscript(env, "agent:qa:runtime-tool:apply_patch:failure", [
       {
@@ -875,7 +875,7 @@ describe("runtime tool fixture", () => {
 
   it("verifies executed patch envelopes with canonical absolute target paths", async () => {
     const env = await makeEnv();
-    env.gateway.runtimeEnv.OPENCLAW_QA_FORCE_RUNTIME = "codex";
+    env.gateway.runtimeEnv.GRANTED_QA_FORCE_RUNTIME = "codex";
     const happyPath = path.join(env.gateway.workspaceDir, "runtime-tool-fixture-patch.txt");
     const deniedPath = path.resolve(
       env.gateway.workspaceDir,
@@ -898,7 +898,7 @@ describe("runtime tool fixture", () => {
 
   it("rejects native patch transcripts that claim success without creating the workspace file", async () => {
     const env = await makeEnv();
-    env.gateway.runtimeEnv.OPENCLAW_QA_FORCE_RUNTIME = "codex";
+    env.gateway.runtimeEnv.GRANTED_QA_FORCE_RUNTIME = "codex";
     await writeCodexNativePatchEvidence(env);
 
     await expect(
@@ -910,7 +910,7 @@ describe("runtime tool fixture", () => {
 
   it("rejects native Codex patch failures that only report missing patch context", async () => {
     const env = await makeEnv();
-    env.gateway.runtimeEnv.OPENCLAW_QA_FORCE_RUNTIME = "codex";
+    env.gateway.runtimeEnv.GRANTED_QA_FORCE_RUNTIME = "codex";
     await writeCodexNativePatchEvidence(
       env,
       "apply_patch failed: failed to find expected lines in runtime-tool-fixture-denied.txt",
@@ -923,7 +923,7 @@ describe("runtime tool fixture", () => {
 
   it("rejects native Codex patch failures without a linked failure result", async () => {
     const env = await makeEnv();
-    env.gateway.runtimeEnv.OPENCLAW_QA_FORCE_RUNTIME = "codex";
+    env.gateway.runtimeEnv.GRANTED_QA_FORCE_RUNTIME = "codex";
     await writeCodexNativePatchEvidence(env, "apply_patch completed", {
       failureStructuredError: false,
     });
@@ -953,7 +953,7 @@ describe("runtime tool fixture", () => {
     },
   ])("rejects linked native Codex patch evidence for the wrong $label", async (testCase) => {
     const env = await makeEnv();
-    env.gateway.runtimeEnv.OPENCLAW_QA_FORCE_RUNTIME = "codex";
+    env.gateway.runtimeEnv.GRANTED_QA_FORCE_RUNTIME = "codex";
     await writeCodexNativePatchEvidence(
       env,
       "apply_patch failed: path escapes sandbox root",
@@ -965,7 +965,7 @@ describe("runtime tool fixture", () => {
 
   it("validates the native patch call linked to its result instead of the first plan", async () => {
     const env = await makeEnv();
-    env.gateway.runtimeEnv.OPENCLAW_QA_FORCE_RUNTIME = "codex";
+    env.gateway.runtimeEnv.GRANTED_QA_FORCE_RUNTIME = "codex";
     await writeQaSessionTranscript(env, "agent:qa:runtime-tool:apply_patch:happy", [
       {
         role: "assistant",
@@ -1015,7 +1015,7 @@ describe("runtime tool fixture", () => {
 
   it("fails closed when required native Codex patch execution has no linked transcript", async () => {
     const env = await makeEnv();
-    env.gateway.runtimeEnv.OPENCLAW_QA_FORCE_RUNTIME = "codex";
+    env.gateway.runtimeEnv.GRANTED_QA_FORCE_RUNTIME = "codex";
     await writeRuntimeToolTranscripts(
       env,
       "apply_patch",

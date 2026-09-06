@@ -8,7 +8,7 @@ import { testing as execApprovalsStoreTesting } from "../infra/exec-approvals-st
 import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
 import { captureEnv, setTestEnvValue } from "../test-utils/env.js";
 
-const envSnapshot = captureEnv(["HOME", "OPENCLAW_HOME", "OPENCLAW_STATE_DIR"]);
+const envSnapshot = captureEnv(["HOME", "GRANTED_HOME", "GRANTED_STATE_DIR"]);
 
 const tempHomes: string[] = [];
 
@@ -16,8 +16,8 @@ function useTempHome(): string {
   const home = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-approval-runtime-"));
   tempHomes.push(home);
   setTestEnvValue("HOME", home);
-  setTestEnvValue("OPENCLAW_HOME", home);
-  setTestEnvValue("OPENCLAW_STATE_DIR", path.join(home, ".openclaw"));
+  setTestEnvValue("GRANTED_HOME", home);
+  setTestEnvValue("GRANTED_STATE_DIR", path.join(home, ".openclaw"));
   closeOpenClawStateDatabaseForTest();
   execApprovalsStoreTesting.reset();
   return home;

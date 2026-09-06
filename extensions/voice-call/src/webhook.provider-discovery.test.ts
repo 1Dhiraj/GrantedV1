@@ -66,10 +66,10 @@ describe("VoiceCallWebhookServer transcription provider discovery", () => {
       };
       await withEnvAsync(
         {
-          OPENCLAW_STATE_DIR: path.join(root, "state"),
-          OPENCLAW_BUNDLED_PLUGINS_DIR: path.join(root, "extensions"),
-          OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR: "1",
-          OPENCLAW_DISABLE_BUNDLED_PLUGINS: undefined,
+          GRANTED_STATE_DIR: path.join(root, "state"),
+          GRANTED_BUNDLED_PLUGINS_DIR: path.join(root, "extensions"),
+          GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR: "1",
+          GRANTED_DISABLE_BUNDLED_PLUGINS: undefined,
         },
         async () => {
           const activeProvider = getRealtimeTranscriptionProvider("active-stt", cfg);

@@ -70,10 +70,10 @@ describe("cross-OS installer fetch", () => {
       const server = createServer((request, response) => {
         response.writeHead(200, { "content-type": "text/plain; charset=utf-8" });
         if (request.url === "/healthy") {
-          response.end('printf "%s" "$1|$2|$3" > "$OPENCLAW_PROOF_HEALTHY_MARKER"\n');
+          response.end('printf "%s" "$1|$2|$3" > "$GRANTED_PROOF_HEALTHY_MARKER"\n');
           return;
         }
-        response.write('printf executed > "$OPENCLAW_PROOF_STALL_MARKER"\n');
+        response.write('printf executed > "$GRANTED_PROOF_STALL_MARKER"\n');
       });
 
       try {
@@ -89,8 +89,8 @@ describe("cross-OS installer fetch", () => {
         const env = {
           ...process.env,
           TMPDIR: dir,
-          OPENCLAW_PROOF_HEALTHY_MARKER: healthyMarker,
-          OPENCLAW_PROOF_STALL_MARKER: stalledMarker,
+          GRANTED_PROOF_HEALTHY_MARKER: healthyMarker,
+          GRANTED_PROOF_STALL_MARKER: stalledMarker,
         };
         const timeouts = { connectTimeoutSeconds: 2, requestTimeoutSeconds: 1 };
 

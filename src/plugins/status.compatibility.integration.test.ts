@@ -25,7 +25,7 @@ function addStartupActivation(pluginDir: string, onStartup: boolean): void {
 
 function buildSnapshotCompatibilityNoticeCodes(plugin: { dir: string; file: string; id: string }) {
   const stateDir = makePluginLoaderTempDir();
-  return withEnv({ OPENCLAW_STATE_DIR: stateDir }, () => {
+  return withEnv({ GRANTED_STATE_DIR: stateDir }, () => {
     useNoBundledPlugins();
     return buildPluginCompatibilitySnapshotNotices({
       config: {
@@ -84,7 +84,7 @@ describe("plugin compatibility snapshot notices", () => {
       },
     };
 
-    withEnv({ OPENCLAW_STATE_DIR: stateDir }, () => {
+    withEnv({ GRANTED_STATE_DIR: stateDir }, () => {
       useNoBundledPlugins();
       const params = { config, workspaceDir: plugin.dir, env: process.env };
 

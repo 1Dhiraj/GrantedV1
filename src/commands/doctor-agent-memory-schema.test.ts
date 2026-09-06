@@ -17,7 +17,7 @@ function createRegisteredAgentDatabase(): {
   env: NodeJS.ProcessEnv;
 } {
   const stateDir = makeTempDir(tempDirs, "doctor-agent-memory-schema-");
-  const env = { OPENCLAW_STATE_DIR: stateDir };
+  const env = { GRANTED_STATE_DIR: stateDir };
   const databasePath = openOpenClawAgentDatabase({ agentId: "worker-1", env }).path;
   closeOpenClawAgentDatabasesForTest();
   closeOpenClawStateDatabaseForTest();

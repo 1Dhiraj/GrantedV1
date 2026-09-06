@@ -65,7 +65,7 @@ export async function runQaGatewayCliCommand(params: {
   const hasStdin = params.stdin !== undefined;
   const child = spawn(params.executablePath, [...params.argsPrefix, ...params.args], {
     cwd: params.cwd,
-    env: { ...params.env, OPENCLAW_CLI: "1" },
+    env: { ...params.env, GRANTED_CLI: "1" },
     detached: process.platform !== "win32",
     stdio: [hasStdin ? "pipe" : "ignore", "pipe", "pipe"],
   });

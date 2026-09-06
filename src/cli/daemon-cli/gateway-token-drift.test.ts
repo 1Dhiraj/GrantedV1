@@ -15,7 +15,7 @@ describe("resolveGatewayTokenForDriftCheck", () => {
         },
       } as OpenClawConfig,
       env: {
-        OPENCLAW_GATEWAY_TOKEN: "env-token",
+        GRANTED_GATEWAY_TOKEN: "env-token",
       } as NodeJS.ProcessEnv,
     });
 
@@ -101,7 +101,7 @@ describe("resolveGatewayTokenForDriftCheck", () => {
         },
       } as OpenClawConfig,
       env: {
-        OPENCLAW_GATEWAY_PASSWORD: "env-password",
+        GRANTED_GATEWAY_PASSWORD: "env-password",
       } as NodeJS.ProcessEnv,
     });
 
@@ -124,7 +124,7 @@ describe("resolveGatewayTokenForDriftCheck", () => {
           },
         } as OpenClawConfig,
         env: {
-          OPENCLAW_GATEWAY_PASSWORD: "env-password",
+          GRANTED_GATEWAY_PASSWORD: "env-password",
         } as NodeJS.ProcessEnv,
       }),
     ).rejects.toThrow(/gateway\.auth\.token/i);

@@ -112,8 +112,8 @@ describe("plugin loader preferOver activation", () => {
       preferOver: ["qqbot"],
     });
     const env = {
-      OPENCLAW_STATE_DIR: makePluginLoaderTempDir(),
-      OPENCLAW_BUNDLED_PLUGINS_DIR: bundledRoot,
+      GRANTED_STATE_DIR: makePluginLoaderTempDir(),
+      GRANTED_BUNDLED_PLUGINS_DIR: bundledRoot,
     };
     const rawConfig = {
       channels: { qqbot: { appId: "app", clientSecret: "secret" } },
@@ -156,8 +156,8 @@ describe("plugin loader preferOver activation", () => {
       channelId: "qqbot",
     });
     const env = {
-      OPENCLAW_STATE_DIR: makePluginLoaderTempDir(),
-      OPENCLAW_BUNDLED_PLUGINS_DIR: bundledRoot,
+      GRANTED_STATE_DIR: makePluginLoaderTempDir(),
+      GRANTED_BUNDLED_PLUGINS_DIR: bundledRoot,
     };
 
     const registry = loadOpenClawPlugins({

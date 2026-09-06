@@ -75,7 +75,7 @@ async function withFlowRegistryTempDir<T>(run: (root: string) => Promise<T>): Pr
     },
     async (state) => {
       const root = state.stateDir;
-      process.env.OPENCLAW_STATE_DIR = root;
+      process.env.GRANTED_STATE_DIR = root;
       resetTaskFlowRegistryForTests({ persist: false });
       try {
         return await run(root);
@@ -86,13 +86,13 @@ async function withFlowRegistryTempDir<T>(run: (root: string) => Promise<T>): Pr
   );
 }
 
-const ORIGINAL_STATE_DIR = process.env.OPENCLAW_STATE_DIR;
+const ORIGINAL_STATE_DIR = process.env.GRANTED_STATE_DIR;
 
 function restoreOriginalStateDir(): void {
   if (ORIGINAL_STATE_DIR === undefined) {
-    delete process.env.OPENCLAW_STATE_DIR;
+    delete process.env.GRANTED_STATE_DIR;
   } else {
-    process.env.OPENCLAW_STATE_DIR = ORIGINAL_STATE_DIR;
+    process.env.GRANTED_STATE_DIR = ORIGINAL_STATE_DIR;
   }
 }
 
@@ -111,7 +111,7 @@ describe("task-flow-registry store runtime", () => {
     await withOpenClawTestState(
       { layout: "state-only", prefix: "openclaw-task-flow-store-readonly-" },
       async (state) => {
-        process.env.OPENCLAW_STATE_DIR = state.stateDir;
+        process.env.GRANTED_STATE_DIR = state.stateDir;
         resetTaskFlowRegistryForTests({ persist: false });
         const statePath = resolveOpenClawStateSqlitePath();
         expect(() => statSync(statePath)).toThrow();

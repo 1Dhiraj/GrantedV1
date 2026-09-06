@@ -340,7 +340,7 @@ describe("check-openclaw-package-tarball", () => {
             "if (args[0] !== '-xf') { throw new Error('unexpected tar operation'); }",
             "const outputDir = args[args.indexOf('-C') + 1];",
             "if (!fs.statSync(outputDir).isDirectory()) { throw new Error('missing extract dir'); }",
-            "fs.writeFileSync(process.env.OPENCLAW_TEST_EXTRACT_DIR_FILE, outputDir);",
+            "fs.writeFileSync(process.env.GRANTED_TEST_EXTRACT_DIR_FILE, outputDir);",
             "console.error('extract denied');",
             "process.exit(7);",
           ].join("\n"),
@@ -353,7 +353,7 @@ describe("check-openclaw-package-tarball", () => {
           encoding: "utf8",
           env: {
             ...process.env,
-            OPENCLAW_TEST_EXTRACT_DIR_FILE: extractDirFile,
+            GRANTED_TEST_EXTRACT_DIR_FILE: extractDirFile,
             PATH: `${fakeBin}${delimiter}${process.env.PATH ?? ""}`,
           },
         });

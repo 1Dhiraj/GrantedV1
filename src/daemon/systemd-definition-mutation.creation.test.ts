@@ -9,7 +9,7 @@ vi.mock("./systemd-exec.js", async (importOriginal) => ({
   execBusctlUser: async (env: Record<string, string | undefined>) => ({
     code: 1,
     stdout: "",
-    stderr: `Call failed: Unit ${env.OPENCLAW_SYSTEMD_UNIT}.service not found.`,
+    stderr: `Call failed: Unit ${env.GRANTED_SYSTEMD_UNIT}.service not found.`,
   }),
 }));
 
@@ -32,11 +32,11 @@ describe.skipIf(process.platform === "win32")("systemd publication directory cre
     async (existing) => {
       const env = {
         HOME: path.join(root, "home"),
-        OPENCLAW_STATE_DIR: path.join(root, "state"),
-        OPENCLAW_SYSTEMD_UNIT: "openclaw-mode-proof",
+        GRANTED_STATE_DIR: path.join(root, "state"),
+        GRANTED_SYSTEMD_UNIT: "openclaw-mode-proof",
       };
       const directory = path.join(env.HOME, ".config/systemd/user");
-      const unit = path.join(directory, `${env.OPENCLAW_SYSTEMD_UNIT}.service`);
+      const unit = path.join(directory, `${env.GRANTED_SYSTEMD_UNIT}.service`);
       await fs.mkdir(env.HOME, { mode: 0o700 });
       if (existing) {
         await fs.mkdir(directory, { recursive: true, mode: 0o700 });

@@ -286,7 +286,7 @@ function buildFallbackStateMismatchError(
           `Approve the current request instead: openclaw devices approve ${pendingRequestIds[0]}`,
         ]
       : [
-          "The running gateway may be using a different OPENCLAW_PROFILE or OPENCLAW_STATE_DIR than this CLI.",
+          "The running gateway may be using a different GRANTED_PROFILE or GRANTED_STATE_DIR than this CLI.",
           "Rerun with the gateway's profile/state-dir; if the gateway uses shared auth, pass --token/--password to approve through it.",
         ];
   return new Error([heading, ...guidance].join("\n"));

@@ -220,7 +220,7 @@ export async function configureGatewayForSetup(
               refHint: t("wizard.gateway.refHint"),
             },
           });
-    const ambientToken = normalizeGatewayTokenInput(process.env.OPENCLAW_GATEWAY_TOKEN);
+    const ambientToken = normalizeGatewayTokenInput(process.env.GRANTED_GATEWAY_TOKEN);
     if (tokenMode === "ref") {
       if (quickstartTokenRef) {
         gatewayTokenInput = quickstartTokenRef;
@@ -246,10 +246,10 @@ export async function configureGatewayForSetup(
           provider: "gateway-auth-token",
           config: nextConfig,
           prompter,
-          preferredEnvVar: "OPENCLAW_GATEWAY_TOKEN",
+          preferredEnvVar: "GRANTED_GATEWAY_TOKEN",
           copy: {
             sourceMessage: t("wizard.gateway.authTokenStoredMessage"),
-            envVarPlaceholder: "OPENCLAW_GATEWAY_TOKEN",
+            envVarPlaceholder: "GRANTED_GATEWAY_TOKEN",
           },
         });
         gatewayTokenInput = resolved.ref;
@@ -315,10 +315,10 @@ export async function configureGatewayForSetup(
           provider: "gateway-auth-password",
           config: nextConfig,
           prompter,
-          preferredEnvVar: "OPENCLAW_GATEWAY_PASSWORD",
+          preferredEnvVar: "GRANTED_GATEWAY_PASSWORD",
           copy: {
             sourceMessage: t("wizard.gateway.authPasswordStoredMessage"),
-            envVarPlaceholder: "OPENCLAW_GATEWAY_PASSWORD",
+            envVarPlaceholder: "GRANTED_GATEWAY_PASSWORD",
           },
         });
         password = resolved.ref;

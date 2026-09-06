@@ -248,7 +248,7 @@ export function runtimeAuthProfileSnapshotSharesOwner(
   // location; never open the cold scope or infer ownership from directory ancestry.
   const candidate =
     owner.location === "state-db"
-      ? resolveOpenClawStateSqlitePath({ OPENCLAW_STATE_DIR: snapshot.scope.stateDir })
+      ? resolveOpenClawStateSqlitePath({ GRANTED_STATE_DIR: snapshot.scope.stateDir })
       : path.join(snapshot.scope.sharedMainDir, "openclaw-agent.sqlite");
   return candidate === owner.sharedDatabasePath;
 }

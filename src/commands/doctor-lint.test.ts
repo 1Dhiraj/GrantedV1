@@ -529,8 +529,8 @@ describe("runDoctorLintCli", () => {
   it("does not require shared state inspection for an unrelated selected check", async () => {
     const rootDir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-doctor-lint-state-"));
     const stateDir = path.join(rootDir, "operator-state");
-    const originalStateDir = process.env.OPENCLAW_STATE_DIR;
-    process.env.OPENCLAW_STATE_DIR = stateDir;
+    const originalStateDir = process.env.GRANTED_STATE_DIR;
+    process.env.GRANTED_STATE_DIR = stateDir;
     const databasePath = resolveOpenClawStateSqlitePath(process.env);
     fs.mkdirSync(path.dirname(databasePath), { recursive: true });
     fs.writeFileSync(databasePath, "not a sqlite database");
@@ -562,9 +562,9 @@ describe("runDoctorLintCli", () => {
     } finally {
       stdout.mockRestore();
       if (originalStateDir === undefined) {
-        delete process.env.OPENCLAW_STATE_DIR;
+        delete process.env.GRANTED_STATE_DIR;
       } else {
-        process.env.OPENCLAW_STATE_DIR = originalStateDir;
+        process.env.GRANTED_STATE_DIR = originalStateDir;
       }
       fs.rmSync(rootDir, { recursive: true, force: true });
     }
@@ -576,7 +576,7 @@ describe("runDoctorLintCli", () => {
     const configPath = path.join(stateDir, "openclaw.json");
     const config = {
       gateway: { mode: "local" },
-      agents: { defaults: { workspace: "${OPENCLAW_STATE_DIR}/workspace" } },
+      agents: { defaults: { workspace: "${GRANTED_STATE_DIR}/workspace" } },
       memory: { search: { provider: "local", fallback: "none" } },
     } satisfies OpenClawConfig;
     fs.mkdirSync(stateDir, { recursive: true });
@@ -584,8 +584,8 @@ describe("runDoctorLintCli", () => {
     const env = {
       ...process.env,
       HOME: stateDir,
-      OPENCLAW_CONFIG_PATH: configPath,
-      OPENCLAW_STATE_DIR: stateDir,
+      GRANTED_CONFIG_PATH: configPath,
+      GRANTED_STATE_DIR: stateDir,
     };
     await writePersistedInstalledPluginIndexInstallRecords(
       {},
@@ -604,12 +604,12 @@ describe("runDoctorLintCli", () => {
     });
     const originalEnv = {
       HOME: process.env.HOME,
-      OPENCLAW_CONFIG_PATH: process.env.OPENCLAW_CONFIG_PATH,
-      OPENCLAW_STATE_DIR: process.env.OPENCLAW_STATE_DIR,
+      GRANTED_CONFIG_PATH: process.env.GRANTED_CONFIG_PATH,
+      GRANTED_STATE_DIR: process.env.GRANTED_STATE_DIR,
     };
     process.env.HOME = stateDir;
-    process.env.OPENCLAW_CONFIG_PATH = configPath;
-    process.env.OPENCLAW_STATE_DIR = stateDir;
+    process.env.GRANTED_CONFIG_PATH = configPath;
+    process.env.GRANTED_STATE_DIR = stateDir;
     mocks.readConfigFileSnapshot.mockImplementation((...args: unknown[]) =>
       mocks.actualReadConfigFileSnapshot(...args),
     );
@@ -665,8 +665,8 @@ describe("runDoctorLintCli", () => {
     const env = {
       ...process.env,
       HOME: stateDir,
-      OPENCLAW_CONFIG_PATH: configPath,
-      OPENCLAW_STATE_DIR: stateDir,
+      GRANTED_CONFIG_PATH: configPath,
+      GRANTED_STATE_DIR: stateDir,
     };
     await writePersistedInstalledPluginIndexInstallRecords(
       {},
@@ -677,12 +677,12 @@ describe("runDoctorLintCli", () => {
     const before = snapshotSqliteFamily(databasePath);
     const originalEnv = {
       HOME: process.env.HOME,
-      OPENCLAW_CONFIG_PATH: process.env.OPENCLAW_CONFIG_PATH,
-      OPENCLAW_STATE_DIR: process.env.OPENCLAW_STATE_DIR,
+      GRANTED_CONFIG_PATH: process.env.GRANTED_CONFIG_PATH,
+      GRANTED_STATE_DIR: process.env.GRANTED_STATE_DIR,
     };
     process.env.HOME = stateDir;
-    process.env.OPENCLAW_CONFIG_PATH = configPath;
-    process.env.OPENCLAW_STATE_DIR = stateDir;
+    process.env.GRANTED_CONFIG_PATH = configPath;
+    process.env.GRANTED_STATE_DIR = stateDir;
     mocks.readConfigFileSnapshot.mockImplementation((...args: unknown[]) =>
       mocks.actualReadConfigFileSnapshot(...args),
     );
@@ -728,8 +728,8 @@ describe("runDoctorLintCli", () => {
     const env = {
       ...process.env,
       HOME: stateDir,
-      OPENCLAW_CONFIG_PATH: configPath,
-      OPENCLAW_STATE_DIR: stateDir,
+      GRANTED_CONFIG_PATH: configPath,
+      GRANTED_STATE_DIR: stateDir,
     };
     await writePersistedInstalledPluginIndexInstallRecords(
       {},
@@ -750,14 +750,14 @@ describe("runDoctorLintCli", () => {
     });
     const originalEnv = {
       HOME: process.env.HOME,
-      OPENCLAW_CONFIG_PATH: process.env.OPENCLAW_CONFIG_PATH,
-      OPENCLAW_STATE_DIR: process.env.OPENCLAW_STATE_DIR,
-      OPENCLAW_UPDATE_POST_CORE_CONVERGENCE: process.env.OPENCLAW_UPDATE_POST_CORE_CONVERGENCE,
+      GRANTED_CONFIG_PATH: process.env.GRANTED_CONFIG_PATH,
+      GRANTED_STATE_DIR: process.env.GRANTED_STATE_DIR,
+      GRANTED_UPDATE_POST_CORE_CONVERGENCE: process.env.GRANTED_UPDATE_POST_CORE_CONVERGENCE,
     };
     process.env.HOME = stateDir;
-    process.env.OPENCLAW_CONFIG_PATH = configPath;
-    process.env.OPENCLAW_STATE_DIR = stateDir;
-    process.env.OPENCLAW_UPDATE_POST_CORE_CONVERGENCE = "1";
+    process.env.GRANTED_CONFIG_PATH = configPath;
+    process.env.GRANTED_STATE_DIR = stateDir;
+    process.env.GRANTED_UPDATE_POST_CORE_CONVERGENCE = "1";
     mocks.readConfigFileSnapshot.mockImplementation((...args: unknown[]) =>
       mocks.actualReadConfigFileSnapshot(...args),
     );
@@ -803,8 +803,8 @@ describe("runDoctorLintCli", () => {
     const env = {
       ...process.env,
       HOME: stateDir,
-      OPENCLAW_CONFIG_PATH: configPath,
-      OPENCLAW_STATE_DIR: stateDir,
+      GRANTED_CONFIG_PATH: configPath,
+      GRANTED_STATE_DIR: stateDir,
     };
     await writePersistedInstalledPluginIndexInstallRecords(
       {},
@@ -815,12 +815,12 @@ describe("runDoctorLintCli", () => {
     createSemanticIndex(stateDir);
     const originalEnv = {
       HOME: process.env.HOME,
-      OPENCLAW_CONFIG_PATH: process.env.OPENCLAW_CONFIG_PATH,
-      OPENCLAW_STATE_DIR: process.env.OPENCLAW_STATE_DIR,
+      GRANTED_CONFIG_PATH: process.env.GRANTED_CONFIG_PATH,
+      GRANTED_STATE_DIR: process.env.GRANTED_STATE_DIR,
     };
     process.env.HOME = stateDir;
-    process.env.OPENCLAW_CONFIG_PATH = configPath;
-    process.env.OPENCLAW_STATE_DIR = stateDir;
+    process.env.GRANTED_CONFIG_PATH = configPath;
+    process.env.GRANTED_STATE_DIR = stateDir;
     mocks.readConfigFileSnapshot.mockImplementation((...args: unknown[]) =>
       mocks.actualReadConfigFileSnapshot(...args),
     );
@@ -875,8 +875,8 @@ describe("runDoctorLintCli", () => {
     const env = {
       ...process.env,
       HOME: stateDir,
-      OPENCLAW_CONFIG_PATH: configPath,
-      OPENCLAW_STATE_DIR: stateDir,
+      GRANTED_CONFIG_PATH: configPath,
+      GRANTED_STATE_DIR: stateDir,
     };
     await writePersistedInstalledPluginIndexInstallRecords(
       {},
@@ -887,12 +887,12 @@ describe("runDoctorLintCli", () => {
     createSemanticIndex(stateDir);
     const originalEnv = {
       HOME: process.env.HOME,
-      OPENCLAW_CONFIG_PATH: process.env.OPENCLAW_CONFIG_PATH,
-      OPENCLAW_STATE_DIR: process.env.OPENCLAW_STATE_DIR,
+      GRANTED_CONFIG_PATH: process.env.GRANTED_CONFIG_PATH,
+      GRANTED_STATE_DIR: process.env.GRANTED_STATE_DIR,
     };
     process.env.HOME = stateDir;
-    process.env.OPENCLAW_CONFIG_PATH = configPath;
-    process.env.OPENCLAW_STATE_DIR = stateDir;
+    process.env.GRANTED_CONFIG_PATH = configPath;
+    process.env.GRANTED_STATE_DIR = stateDir;
     mocks.readConfigFileSnapshot.mockImplementation((...args: unknown[]) =>
       mocks.actualReadConfigFileSnapshot(...args),
     );
@@ -1024,29 +1024,28 @@ function snapshotSqliteFamily(databasePath: string): Array<{
 
 function restoreDoctorLintTestEnv(values: {
   HOME: string | undefined;
-  OPENCLAW_CONFIG_PATH: string | undefined;
-  OPENCLAW_STATE_DIR: string | undefined;
-  OPENCLAW_UPDATE_POST_CORE_CONVERGENCE?: string | undefined;
+  GRANTED_CONFIG_PATH: string | undefined;
+  GRANTED_STATE_DIR: string | undefined;
+  GRANTED_UPDATE_POST_CORE_CONVERGENCE?: string | undefined;
 }): void {
   if (values.HOME === undefined) {
     delete process.env.HOME;
   } else {
     process.env.HOME = values.HOME;
   }
-  if (values.OPENCLAW_CONFIG_PATH === undefined) {
-    delete process.env.OPENCLAW_CONFIG_PATH;
+  if (values.GRANTED_CONFIG_PATH === undefined) {
+    delete process.env.GRANTED_CONFIG_PATH;
   } else {
-    process.env.OPENCLAW_CONFIG_PATH = values.OPENCLAW_CONFIG_PATH;
+    process.env.GRANTED_CONFIG_PATH = values.GRANTED_CONFIG_PATH;
   }
-  if (values.OPENCLAW_STATE_DIR === undefined) {
-    delete process.env.OPENCLAW_STATE_DIR;
+  if (values.GRANTED_STATE_DIR === undefined) {
+    delete process.env.GRANTED_STATE_DIR;
   } else {
-    process.env.OPENCLAW_STATE_DIR = values.OPENCLAW_STATE_DIR;
+    process.env.GRANTED_STATE_DIR = values.GRANTED_STATE_DIR;
   }
-  if (values.OPENCLAW_UPDATE_POST_CORE_CONVERGENCE === undefined) {
-    delete process.env.OPENCLAW_UPDATE_POST_CORE_CONVERGENCE;
+  if (values.GRANTED_UPDATE_POST_CORE_CONVERGENCE === undefined) {
+    delete process.env.GRANTED_UPDATE_POST_CORE_CONVERGENCE;
   } else {
-    process.env.OPENCLAW_UPDATE_POST_CORE_CONVERGENCE =
-      values.OPENCLAW_UPDATE_POST_CORE_CONVERGENCE;
+    process.env.GRANTED_UPDATE_POST_CORE_CONVERGENCE = values.GRANTED_UPDATE_POST_CORE_CONVERGENCE;
   }
 }

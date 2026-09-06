@@ -11,12 +11,12 @@ const suite = createControlUiE2eSuite({
     `Playwright Chromium is not installed or cannot start at ${executablePath}. Run \`pnpm --dir ui exec playwright install --with-deps chromium\`.`,
 });
 
-const expectUploadSurface = process.env.OPENCLAW_TERMINAL_UPLOAD_EXPECT_PRESENT !== "0";
-const requestedScreenshotPath = process.env.OPENCLAW_TERMINAL_UPLOAD_SCREENSHOT?.trim();
+const expectUploadSurface = process.env.GRANTED_TERMINAL_UPLOAD_EXPECT_PRESENT !== "0";
+const requestedScreenshotPath = process.env.GRANTED_TERMINAL_UPLOAD_SCREENSHOT?.trim();
 const requestedProgressScreenshotPath =
-  process.env.OPENCLAW_TERMINAL_UPLOAD_PROGRESS_SCREENSHOT?.trim();
-const requestedErrorScreenshotPath = process.env.OPENCLAW_TERMINAL_UPLOAD_ERROR_SCREENSHOT?.trim();
-const requestedVideoDir = process.env.OPENCLAW_TERMINAL_UPLOAD_VIDEO_DIR?.trim();
+  process.env.GRANTED_TERMINAL_UPLOAD_PROGRESS_SCREENSHOT?.trim();
+const requestedErrorScreenshotPath = process.env.GRANTED_TERMINAL_UPLOAD_ERROR_SCREENSHOT?.trim();
+const requestedVideoDir = process.env.GRANTED_TERMINAL_UPLOAD_VIDEO_DIR?.trim();
 
 suite.define(() => {
   it("uploads picked and dropped files, then pastes staged paths without Enter", async () => {
@@ -57,9 +57,9 @@ suite.define(() => {
         await page.addInitScript(() => {
           (
             window as Window & {
-              ["__OPENCLAW_NATIVE_CONTROL_AUTH__"]?: { gatewayUrl: string; token: string };
+              ["__GRANTED_NATIVE_CONTROL_AUTH__"]?: { gatewayUrl: string; token: string };
             }
-          )["__OPENCLAW_NATIVE_CONTROL_AUTH__"] = {
+          )["__GRANTED_NATIVE_CONTROL_AUTH__"] = {
             gatewayUrl: "ws://gateway.example.test",
             token: "test",
           };

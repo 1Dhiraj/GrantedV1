@@ -11,8 +11,8 @@ const tempDirs = createTempDirTracker();
 
 function sanitizedEnv(overrides: NodeJS.ProcessEnv = {}): NodeJS.ProcessEnv {
   const env: NodeJS.ProcessEnv = { ...process.env };
-  delete env.OPENCLAW_PR_GATES_REMOTE;
-  delete env.OPENCLAW_TESTBOX;
+  delete env.GRANTED_PR_GATES_REMOTE;
+  delete env.GRANTED_TESTBOX;
   return { ...env, ...overrides };
 }
 
@@ -222,10 +222,10 @@ describe("resolve_pr_gates_remote_mode", () => {
     { value: "", expected: "local" },
     { value: "testbox", expected: "testbox" },
     { value: "crabbox-aws", expected: "crabbox-aws" },
-  ])("resolves OPENCLAW_PR_GATES_REMOTE=$value to $expected", ({ value, expected }) => {
+  ])("resolves GRANTED_PR_GATES_REMOTE=$value to $expected", ({ value, expected }) => {
     const env: NodeJS.ProcessEnv = {};
     if (value !== undefined) {
-      env.OPENCLAW_PR_GATES_REMOTE = value;
+      env.GRANTED_PR_GATES_REMOTE = value;
     }
     const result = runGatesBash("resolve_pr_gates_remote_mode", { env });
     expect(result.status).toBe(0);
@@ -234,26 +234,26 @@ describe("resolve_pr_gates_remote_mode", () => {
 
   it("rejects unsupported values", () => {
     const result = runGatesBash("resolve_pr_gates_remote_mode", {
-      env: { OPENCLAW_PR_GATES_REMOTE: "azure" },
+      env: { GRANTED_PR_GATES_REMOTE: "azure" },
     });
     expect(result.status).not.toBe(0);
-    expect(result.stderr).toContain("Unsupported OPENCLAW_PR_GATES_REMOTE=azure");
+    expect(result.stderr).toContain("Unsupported GRANTED_PR_GATES_REMOTE=azure");
   });
 
   it("rejects the hosted-gates conflict before touching the worktree", () => {
     const result = runGatesBash("prepare_gates 424242", {
-      env: { OPENCLAW_PR_GATES_REMOTE: "testbox", OPENCLAW_TESTBOX: "1" },
+      env: { GRANTED_PR_GATES_REMOTE: "testbox", GRANTED_TESTBOX: "1" },
     });
     expect(result.status).toBe(2);
-    expect(result.stdout).toContain("conflicts with OPENCLAW_TESTBOX=1");
+    expect(result.stdout).toContain("conflicts with GRANTED_TESTBOX=1");
   });
 
   it("rejects the Crabbox AWS hosted-gates conflict before touching the worktree", () => {
     const result = runGatesBash("prepare_gates 424242", {
-      env: { OPENCLAW_PR_GATES_REMOTE: "crabbox-aws", OPENCLAW_TESTBOX: "1" },
+      env: { GRANTED_PR_GATES_REMOTE: "crabbox-aws", GRANTED_TESTBOX: "1" },
     });
     expect(result.status).toBe(2);
-    expect(result.stdout).toContain("OPENCLAW_PR_GATES_REMOTE=crabbox-aws conflicts");
+    expect(result.stdout).toContain("GRANTED_PR_GATES_REMOTE=crabbox-aws conflicts");
   });
 });
 
@@ -285,11 +285,11 @@ describe("remote Crabbox AWS gate contract", () => {
     expect(result.stdout).toContain("pnpm build");
     expect(result.stdout).toContain("pnpm check");
     expect(result.stdout).toContain("test/scripts/pr-prepare-gates.test.ts");
-    expect(result.stdout).toContain(`OPENCLAW_CRABBOX_GATE_BASE=${"a".repeat(40)}`);
-    expect(result.stdout).toContain(`OPENCLAW_CRABBOX_GATE_HEAD=${"b".repeat(40)}`);
-    expect(result.stdout).not.toContain("OPENCLAW_CRABBOX_GATE_WORKFLOW=");
+    expect(result.stdout).toContain(`GRANTED_CRABBOX_GATE_BASE=${"a".repeat(40)}`);
+    expect(result.stdout).toContain(`GRANTED_CRABBOX_GATE_HEAD=${"b".repeat(40)}`);
+    expect(result.stdout).not.toContain("GRANTED_CRABBOX_GATE_WORKFLOW=");
     expect(result.stdout).not.toContain("test/scripts/pr-wrappers.test.ts");
-    expect(result.stdout).not.toContain("OPENCLAW_TEST_PROJECTS_PARALLEL");
+    expect(result.stdout).not.toContain("GRANTED_TEST_PROJECTS_PARALLEL");
     expect(result.stdout).not.toContain("pnpm test");
     expect(result.stdout).not.toContain("pnpm check:changed");
   });
@@ -472,7 +472,7 @@ describe("remote testbox gate delegation", () => {
         "--blacksmith-ref main " +
         "--idle-timeout 90m --ttl 240m --timing-json " +
         "--label pr-424242-gates " +
-        "-- env CI=1 OPENCLAW_TESTBOX_REMOTE_RUN=1 " +
+        "-- env CI=1 GRANTED_TESTBOX_REMOTE_RUN=1 " +
         "PNPM_CONFIG_VERIFY_DEPS_BEFORE_RUN=install corepack pnpm test",
     );
   });
@@ -536,7 +536,7 @@ describe("lease-retry gate stamp refresh", () => {
         cwd: repoDir,
         env: {
           PATH: `${stubBin}:${process.env.PATH ?? ""}`,
-          OPENCLAW_PR_GATES_REMOTE: "testbox",
+          GRANTED_PR_GATES_REMOTE: "testbox",
         },
       },
     );
@@ -691,7 +691,7 @@ describe("prepare sync-head transitions", () => {
         "grep -F 'PREP_REPLACED_HOSTED_ANCESTRY=false' .local/prep.env",
         "grep -F 'PREP_AUTHOR_ACCESS=external' .local/prep.env",
       ].join("\n"),
-      { cwd: repoDir, env: { OPENCLAW_TESTBOX: "1" }, sourcePrepareCore: true },
+      { cwd: repoDir, env: { GRANTED_TESTBOX: "1" }, sourcePrepareCore: true },
     );
 
     expect(result.status, result.stderr).toBe(0);
@@ -1078,7 +1078,7 @@ describe("prepare gate stamp transitions", () => {
         "prepare_gates 4242",
         "cat .local/gates.env",
       ].join("\n"),
-      { cwd: repoDir, env: { OPENCLAW_TESTBOX: "1" } },
+      { cwd: repoDir, env: { GRANTED_TESTBOX: "1" } },
     );
 
     expect(result.status).toBe(0);

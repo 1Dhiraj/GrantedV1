@@ -624,7 +624,7 @@ function runResolver(args: {
         }),
         FAKE_VERIFIER_SHA: verifierSha,
         GITHUB_OUTPUT: "",
-        OPENCLAW_RELEASE_CI_SUMMARY_VALIDATOR: args.validatorPath,
+        GRANTED_RELEASE_CI_SUMMARY_VALIDATOR: args.validatorPath,
         PATH: `${args.binDir}:${process.env.PATH}`,
       },
     },

@@ -86,7 +86,7 @@ export function shouldUseRootHelpFastPath(
 ): boolean {
   const invocation = resolveCliArgvInvocation(argv);
   return (
-    env.OPENCLAW_DISABLE_CLI_STARTUP_HELP_FAST_PATH !== "1" &&
+    env.GRANTED_DISABLE_CLI_STARTUP_HELP_FAST_PATH !== "1" &&
     (invocation.isRootHelpInvocation ||
       (invocation.commandPath.length === 1 &&
         ROOT_HELP_ALIASES.has(invocation.commandPath[0] ?? "") &&
@@ -101,7 +101,7 @@ export function shouldUseSetupOnboardConfigureHelpFastPath(
   argv: string[],
   env: NodeJS.ProcessEnv = process.env,
 ): boolean {
-  if (env.OPENCLAW_DISABLE_CLI_STARTUP_HELP_FAST_PATH === "1") {
+  if (env.GRANTED_DISABLE_CLI_STARTUP_HELP_FAST_PATH === "1") {
     return false;
   }
   return isSimpleCommandHelpInvocation(argv, SETUP_ONBOARD_CONFIGURE_HELP_COMMANDS);

@@ -23,7 +23,7 @@ describe("mantis desktop browser smoke runtime", () => {
     const runtimeEnv = {
       PATH: process.env.PATH,
       CRABBOX_COORDINATOR_TOKEN: "runtime-token",
-      OPENCLAW_MANTIS_CRABBOX_PROVIDER: "hetzner",
+      GRANTED_MANTIS_CRABBOX_PROVIDER: "hetzner",
     };
     const runner = vi.fn(
       async (command: string, args: readonly string[], options: { env?: NodeJS.ProcessEnv }) => {
@@ -95,7 +95,7 @@ describe("mantis desktop browser smoke runtime", () => {
     expect(remoteScript).toContain("${BROWSER:-}");
     expect(remoteScript).toContain("${CHROME_BIN:-}");
     expect(remoteScript).toContain("chromium-browser");
-    expect(remoteScript).toContain("${OPENCLAW_MANTIS_BROWSER_PROFILE_TGZ_B64:-}");
+    expect(remoteScript).toContain("${GRANTED_MANTIS_BROWSER_PROFILE_TGZ_B64:-}");
     expect(remoteScript).toContain('"browserProfileRestored": $profile_restored');
     expect(remoteScript).toContain('"temporaryBrowserProfile": $temporary_profile');
     expect(remoteScript).toContain("-t 10");

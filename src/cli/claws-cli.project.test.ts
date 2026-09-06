@@ -45,7 +45,7 @@ const tempDirs = useAutoCleanupTempDirTracker(afterEach);
 
 describe("Claw project CLI", () => {
   beforeEach(() => {
-    vi.stubEnv("OPENCLAW_EXPERIMENTAL_CLAWS", "1");
+    vi.stubEnv("GRANTED_EXPERIMENTAL_CLAWS", "1");
     mocks.payloads.length = 0;
   });
 

@@ -39,8 +39,8 @@ export async function withTwitchIngressTestQueue<T>(
     path.join(resolvePreferredOpenClawTmpDir(), "openclaw-twitch-ingress-"),
   );
   const stateDir = await fs.realpath(createdDir);
-  const previousStateDir = process.env.OPENCLAW_STATE_DIR;
-  process.env.OPENCLAW_STATE_DIR = stateDir;
+  const previousStateDir = process.env.GRANTED_STATE_DIR;
+  process.env.GRANTED_STATE_DIR = stateDir;
   const queue = createChannelIngressQueueForTests<TwitchIngressTestPayload>({
     channelId: "twitch",
     accountId: "default",
@@ -50,9 +50,9 @@ export async function withTwitchIngressTestQueue<T>(
     return await fn(queue);
   } finally {
     if (previousStateDir === undefined) {
-      delete process.env.OPENCLAW_STATE_DIR;
+      delete process.env.GRANTED_STATE_DIR;
     } else {
-      process.env.OPENCLAW_STATE_DIR = previousStateDir;
+      process.env.GRANTED_STATE_DIR = previousStateDir;
     }
     closeOpenClawStateDatabaseForTest();
     await fs.rm(stateDir, { recursive: true, force: true });

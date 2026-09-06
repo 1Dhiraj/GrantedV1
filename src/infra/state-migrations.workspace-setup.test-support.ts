@@ -26,15 +26,15 @@ export function useWorkspaceMigrationTestFixture() {
     const stateDir = path.join(homeDir, ".openclaw");
     const workspaceDir = path.join(homeDir, "workspace");
     fs.mkdirSync(workspaceDir, { recursive: true });
-    envSnapshot ??= captureEnv(["HOME", "OPENCLAW_HOME", "OPENCLAW_STATE_DIR"]);
+    envSnapshot ??= captureEnv(["HOME", "GRANTED_HOME", "GRANTED_STATE_DIR"]);
     setTestEnvValue("HOME", homeDir);
-    setTestEnvValue("OPENCLAW_STATE_DIR", stateDir);
+    setTestEnvValue("GRANTED_STATE_DIR", stateDir);
     const cfg = {
       agents: { defaults: { workspace: workspaceDir } },
     } satisfies OpenClawConfig;
     return {
       cfg,
-      env: { ...process.env, HOME: homeDir, OPENCLAW_STATE_DIR: stateDir },
+      env: { ...process.env, HOME: homeDir, GRANTED_STATE_DIR: stateDir },
       homeDir,
       stateDir,
       workspaceDir,

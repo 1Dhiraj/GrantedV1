@@ -48,14 +48,14 @@ describe.skipIf(process.platform === "win32")("systemd definition mutation owner
       code: 1,
       termination: "exit",
       stdout: "",
-      stderr: `Call failed: Unit ${serviceEnv.OPENCLAW_SYSTEMD_UNIT}.service not found.`,
+      stderr: `Call failed: Unit ${serviceEnv.GRANTED_SYSTEMD_UNIT}.service not found.`,
     }));
     root = await fs.realpath(await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-definition-")));
     stateDir = path.join(root, "state");
     env = {
       HOME: path.join(root, "home"),
-      OPENCLAW_STATE_DIR: stateDir,
-      OPENCLAW_SYSTEMD_UNIT: "openclaw-owned",
+      GRANTED_STATE_DIR: stateDir,
+      GRANTED_SYSTEMD_UNIT: "openclaw-owned",
     };
     unitPath = path.join(env.HOME!, ".config/systemd/user/openclaw-owned.service");
     environmentPath = path.join(stateDir, "gateway.systemd.env");
@@ -84,13 +84,13 @@ describe.skipIf(process.platform === "win32")("systemd definition mutation owner
         "18789",
       ],
       environment: {
-        OPENCLAW_GATEWAY_PORT: "18789",
-        OPENCLAW_GATEWAY_TOKEN: "replacement-secret-canary",
+        GRANTED_GATEWAY_PORT: "18789",
+        GRANTED_GATEWAY_TOKEN: "replacement-secret-canary",
         ...environmentOverrides,
       },
       environmentValueSources: {
-        OPENCLAW_GATEWAY_PORT: "inline",
-        OPENCLAW_GATEWAY_TOKEN: "file",
+        GRANTED_GATEWAY_PORT: "inline",
+        GRANTED_GATEWAY_TOKEN: "file",
       },
     });
 
@@ -894,14 +894,14 @@ describe.skipIf(process.platform === "win32")("systemd definition mutation owner
     await fs.writeFile(environmentPath, "CALLER_SECRET=caller-canary\n");
     await fs.writeFile(effectiveEnvironmentPath, "OPERATOR_SECRET=preserved-canary\n");
 
-    await stage({ OPENCLAW_STATE_DIR: effectiveStateDir });
+    await stage({ GRANTED_STATE_DIR: effectiveStateDir });
 
     expect(await fs.readFile(environmentPath, "utf8")).toBe("CALLER_SECRET=caller-canary\n");
     expect(await fs.readFile(effectiveEnvironmentPath, "utf8")).toContain(
       "OPERATOR_SECRET=preserved-canary",
     );
     expect(await fs.readFile(effectiveEnvironmentPath, "utf8")).toContain(
-      "OPENCLAW_GATEWAY_TOKEN=replacement-secret-canary",
+      "GRANTED_GATEWAY_TOKEN=replacement-secret-canary",
     );
     expect(await fs.readFile(unitPath, "utf8")).toContain(effectiveEnvironmentPath);
   });
@@ -911,7 +911,7 @@ describe.skipIf(process.platform === "win32")("systemd definition mutation owner
       unitPath,
       `[Service]\nExecStart=/usr/bin/node gateway\nEnvironmentFile=${environmentPath}\n`,
     );
-    await fs.writeFile(environmentPath, "OPENCLAW_GATEWAY_TOKEN=retired-secret-canary\n");
+    await fs.writeFile(environmentPath, "GRANTED_GATEWAY_TOKEN=retired-secret-canary\n");
     managerDefinition(unitPath, [], [[environmentPath, false]]);
 
     await stageSystemdService({
@@ -922,8 +922,8 @@ describe.skipIf(process.platform === "win32")("systemd definition mutation owner
         },
       }),
       programArguments: ["/usr/bin/node", "/srv/openclaw/dist/index.js", "gateway"],
-      environment: { OPENCLAW_GATEWAY_PORT: "18789" },
-      environmentValueSources: { OPENCLAW_GATEWAY_TOKEN: "file" },
+      environment: { GRANTED_GATEWAY_PORT: "18789" },
+      environmentValueSources: { GRANTED_GATEWAY_TOKEN: "file" },
     });
 
     expect(await fs.readFile(environmentPath, "utf8")).toBe("");
@@ -944,10 +944,10 @@ describe.skipIf(process.platform === "win32")("systemd definition mutation owner
         await fs.mkdir(replacement);
         await fs.symlink(original, directory);
       } else if (shared === "environment") {
-        other.OPENCLAW_SYSTEMD_UNIT = "openclaw-secondary";
+        other.GRANTED_SYSTEMD_UNIT = "openclaw-secondary";
       } else {
-        other.OPENCLAW_STATE_DIR = path.join(root, "other-state");
-        await fs.mkdir(other.OPENCLAW_STATE_DIR);
+        other.GRANTED_STATE_DIR = path.join(root, "other-state");
+        await fs.mkdir(other.GRANTED_STATE_DIR);
         if (shared === "directory alias") {
           other.HOME = path.join(root, "home-alias");
           await fs.symlink(env.HOME!, other.HOME);

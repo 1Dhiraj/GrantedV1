@@ -55,9 +55,9 @@ describe("CLI installation target", () => {
       );
       await withEnvAsync(
         {
-          OPENCLAW_STATE_DIR: "/fixture/scratch",
-          OPENCLAW_CONFIG_PATH: undefined,
-          OPENCLAW_WORKSPACE_DIR: "/fixture/execution-cwd",
+          GRANTED_STATE_DIR: "/fixture/scratch",
+          GRANTED_CONFIG_PATH: undefined,
+          GRANTED_WORKSPACE_DIR: "/fixture/execution-cwd",
         },
         async () => {
           const run = withInstallationTarget(target, () => executePreparedCliRun(context));
@@ -70,9 +70,9 @@ describe("CLI installation target", () => {
           }
           await expect(run).resolves.toMatchObject({ text: "done" });
           const expectedEnv = {
-            OPENCLAW_STATE_DIR: target.stateDir,
-            OPENCLAW_CONFIG_PATH: target.configPath,
-            OPENCLAW_WORKSPACE_DIR: target.defaultWorkspaceDir,
+            GRANTED_STATE_DIR: target.stateDir,
+            GRANTED_CONFIG_PATH: target.configPath,
+            GRANTED_WORKSPACE_DIR: target.defaultWorkspaceDir,
           };
           if (kind === "process") {
             expect(supervisorSpawnMock).toHaveBeenLastCalledWith(
@@ -81,28 +81,28 @@ describe("CLI installation target", () => {
           } else {
             expect(childEnv).toMatchObject(expectedEnv);
           }
-          expect(process.env.OPENCLAW_STATE_DIR).toBe("/fixture/scratch");
-          expect(process.env.OPENCLAW_CONFIG_PATH).toBeUndefined();
-          expect(process.env.OPENCLAW_WORKSPACE_DIR).toBe("/fixture/execution-cwd");
+          expect(process.env.GRANTED_STATE_DIR).toBe("/fixture/scratch");
+          expect(process.env.GRANTED_CONFIG_PATH).toBeUndefined();
+          expect(process.env.GRANTED_WORKSPACE_DIR).toBe("/fixture/execution-cwd");
           await executePreparedCliRun(context);
           if (kind === "process") {
             expect(supervisorSpawnMock).toHaveBeenLastCalledWith(
               expect.objectContaining({
                 env: expect.objectContaining({
-                  OPENCLAW_STATE_DIR: "/fixture/scratch",
-                  OPENCLAW_WORKSPACE_DIR: "/fixture/execution-cwd",
+                  GRANTED_STATE_DIR: "/fixture/scratch",
+                  GRANTED_WORKSPACE_DIR: "/fixture/execution-cwd",
                 }),
               }),
             );
             expect(supervisorSpawnMock).not.toHaveBeenLastCalledWith(
               expect.objectContaining({
-                env: expect.objectContaining({ OPENCLAW_CONFIG_PATH: expect.anything() }),
+                env: expect.objectContaining({ GRANTED_CONFIG_PATH: expect.anything() }),
               }),
             );
           } else {
-            expect(childEnv?.OPENCLAW_STATE_DIR).toBe("/fixture/scratch");
-            expect(childEnv?.OPENCLAW_CONFIG_PATH).toBeUndefined();
-            expect(childEnv?.OPENCLAW_WORKSPACE_DIR).toBe("/fixture/execution-cwd");
+            expect(childEnv?.GRANTED_STATE_DIR).toBe("/fixture/scratch");
+            expect(childEnv?.GRANTED_CONFIG_PATH).toBeUndefined();
+            expect(childEnv?.GRANTED_WORKSPACE_DIR).toBe("/fixture/execution-cwd");
           }
         },
       );

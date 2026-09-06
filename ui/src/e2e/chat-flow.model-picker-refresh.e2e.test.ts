@@ -10,7 +10,7 @@ import {
 
 const suite = createChatFlowE2eSuite();
 
-const captureUiProof = process.env.OPENCLAW_CAPTURE_UI_PROOF === "1";
+const captureUiProof = process.env.GRANTED_CAPTURE_UI_PROOF === "1";
 
 async function screenshot(page: Page, name: string) {
   if (!captureUiProof) {

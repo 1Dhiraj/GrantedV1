@@ -338,8 +338,8 @@ export function createGatewaySecretsReloader(params: GatewaySecretsReloaderParam
         if (restartTargets.length > 0) {
           const restartChannels = [...new Set(restartTargets.map(({ channel }) => channel))];
           if (
-            isTruthyEnvValue(process.env.OPENCLAW_SKIP_CHANNELS) ||
-            isTruthyEnvValue(process.env.OPENCLAW_SKIP_PROVIDERS)
+            isTruthyEnvValue(process.env.GRANTED_SKIP_CHANNELS) ||
+            isTruthyEnvValue(process.env.GRANTED_SKIP_PROVIDERS)
           ) {
             throw new Error(
               `secrets.reload requires restarting channels: ${restartChannels.join(", ")}`,

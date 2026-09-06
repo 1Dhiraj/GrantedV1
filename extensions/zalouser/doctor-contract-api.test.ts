@@ -58,7 +58,7 @@ describe("zalouser doctor state migration", () => {
     resetPluginStateStoreForTests();
     stateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-zalouser-doctor-"));
     storePath = path.join(stateDir, "sessions.json");
-    env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+    env = { ...process.env, GRANTED_STATE_DIR: stateDir };
   });
 
   afterEach(async () => {

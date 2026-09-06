@@ -70,11 +70,11 @@ const ENV_KEYS = [
   "HOMEDRIVE",
   "HOMEPATH",
   ...GATEWAY_STARTUP_MUTATED_ENV_KEYS,
-  "OPENCLAW_HOME",
-  "OPENCLAW_STATE_DIR",
-  "OPENCLAW_CONFIG_PATH",
-  "OPENCLAW_AGENT_DIR",
-  "OPENCLAW_SERVICE_REPAIR_POLICY",
+  "GRANTED_HOME",
+  "GRANTED_STATE_DIR",
+  "GRANTED_CONFIG_PATH",
+  "GRANTED_AGENT_DIR",
+  "GRANTED_SERVICE_REPAIR_POLICY",
 ] as const;
 
 function resetConfigRuntimeStateForTest(): void {
@@ -209,7 +209,7 @@ function scenarioConfig(options: OpenClawTestStateOptions): Record<string, unkno
 function scenarioEnv(options: OpenClawTestStateOptions): Record<string, string | undefined> {
   if ((options.scenario ?? "empty") === "external-service") {
     return {
-      OPENCLAW_SERVICE_REPAIR_POLICY: "external",
+      GRANTED_SERVICE_REPAIR_POLICY: "external",
     };
   }
   return {};
@@ -228,14 +228,14 @@ function buildEnvVars(params: {
   const agentDirEnv =
     params.agentEnv === "main"
       ? {
-          OPENCLAW_AGENT_DIR: params.agentDir,
+          GRANTED_AGENT_DIR: params.agentDir,
         }
       : {
-          OPENCLAW_AGENT_DIR: undefined,
+          GRANTED_AGENT_DIR: undefined,
         };
   const envVars: Record<string, string | undefined> = {
-    OPENCLAW_STATE_DIR: params.stateDir,
-    OPENCLAW_CONFIG_PATH: params.configPath,
+    GRANTED_STATE_DIR: params.stateDir,
+    GRANTED_CONFIG_PATH: params.configPath,
     ...agentDirEnv,
     PI_CODING_AGENT_DIR: undefined,
     ...params.scenarioEnv,
@@ -245,7 +245,7 @@ function buildEnvVars(params: {
     Object.assign(envVars, {
       HOME: params.home,
       USERPROFILE: params.home,
-      OPENCLAW_HOME: params.home,
+      GRANTED_HOME: params.home,
       ...resolveWindowsHomeEnv(params.home),
     });
   }

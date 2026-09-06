@@ -144,7 +144,7 @@ describe.sequential("local Gateway extension relay wakeup", () => {
       };
       setRuntimeConfigSnapshot(config, config);
       await withEnvAsync(
-        { OPENCLAW_STATE_DIR: stateDir, OPENCLAW_OAUTH_DIR: credentials },
+        { GRANTED_STATE_DIR: stateDir, GRANTED_OAUTH_DIR: credentials },
         async () => {
           try {
             const state = await startBrowserControlServiceFromConfig();
@@ -220,9 +220,9 @@ describe.sequential("local Gateway extension relay wakeup", () => {
 
         await withEnvAsync(
           {
-            OPENCLAW_STATE_DIR: stateDir,
-            OPENCLAW_OAUTH_DIR: path.join(stateDir, "credentials"),
-            OPENCLAW_GATEWAY_PORT: String(gatewayPort),
+            GRANTED_STATE_DIR: stateDir,
+            GRANTED_OAUTH_DIR: path.join(stateDir, "credentials"),
+            GRANTED_GATEWAY_PORT: String(gatewayPort),
           },
           async () => {
             const inventory = {

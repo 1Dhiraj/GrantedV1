@@ -82,7 +82,7 @@ function expectedTrustedCmdExe(): string {
 }
 
 describe("createChildAdapter", () => {
-  const originalServiceMarker = process.env.OPENCLAW_SERVICE_MARKER;
+  const originalServiceMarker = process.env.GRANTED_SERVICE_MARKER;
   const originalPlatformDescriptor = Object.getOwnPropertyDescriptor(process, "platform");
 
   const setPlatform = (platform: NodeJS.Platform) => {
@@ -119,15 +119,15 @@ describe("createChildAdapter", () => {
       kill: vi.fn(),
       dispose: vi.fn(),
     });
-    delete process.env.OPENCLAW_SERVICE_MARKER;
+    delete process.env.GRANTED_SERVICE_MARKER;
     vi.useRealTimers();
   });
 
   afterAll(() => {
     if (originalServiceMarker === undefined) {
-      delete process.env.OPENCLAW_SERVICE_MARKER;
+      delete process.env.GRANTED_SERVICE_MARKER;
     } else {
-      process.env.OPENCLAW_SERVICE_MARKER = originalServiceMarker;
+      process.env.GRANTED_SERVICE_MARKER = originalServiceMarker;
     }
   });
 
@@ -158,7 +158,7 @@ describe("createChildAdapter", () => {
 
     // Detachment flag is now passed to signalProcessTree so it knows whether
     // it can safely group-kill via -pid. (#71662)
-    const expectedDetached = process.platform !== "win32" && !process.env.OPENCLAW_SERVICE_MARKER;
+    const expectedDetached = process.platform !== "win32" && !process.env.GRANTED_SERVICE_MARKER;
     expect(signalProcessTreeMock).toHaveBeenCalledWith(
       4321,
       "SIGKILL",
@@ -168,7 +168,7 @@ describe("createChildAdapter", () => {
   });
 
   it("creates owned worker trees in a dedicated POSIX process group without fallback", async () => {
-    process.env.OPENCLAW_SERVICE_MARKER = "service-managed";
+    process.env.GRANTED_SERVICE_MARKER = "service-managed";
     const { child, disconnectMock, sendMock } = createStubChild();
     spawnWithFallbackMock.mockResolvedValue({ child, usedFallback: false });
 
@@ -522,7 +522,7 @@ describe("createChildAdapter", () => {
   });
 
   it("selects the exact service relay instead of direct shared-group signaling", async () => {
-    process.env.OPENCLAW_SERVICE_MARKER = "1";
+    process.env.GRANTED_SERVICE_MARKER = "1";
     try {
       await createChildAdapter({
         argv: ["node", "-e", "setTimeout(() => {}, 1000)"],
@@ -539,7 +539,7 @@ describe("createChildAdapter", () => {
       expect(spawnWithFallbackMock).not.toHaveBeenCalled();
       expect(signalProcessTreeMock).not.toHaveBeenCalled();
     } finally {
-      delete process.env.OPENCLAW_SERVICE_MARKER;
+      delete process.env.GRANTED_SERVICE_MARKER;
     }
   });
 
@@ -548,7 +548,7 @@ describe("createChildAdapter", () => {
 
     adapter.kill("SIGTERM");
 
-    const expectedDetached = process.platform !== "win32" && !process.env.OPENCLAW_SERVICE_MARKER;
+    const expectedDetached = process.platform !== "win32" && !process.env.GRANTED_SERVICE_MARKER;
     expect(signalProcessTreeMock).toHaveBeenCalledWith(7654, "SIGTERM", {
       detached: expectedDetached,
     });
@@ -888,7 +888,7 @@ describe("createChildAdapter", () => {
 
   it("keeps the service relay out of Windows child mode", async () => {
     setPlatform("win32");
-    process.env.OPENCLAW_SERVICE_MARKER = "openclaw";
+    process.env.GRANTED_SERVICE_MARKER = "openclaw";
 
     await createAdapterHarness({ pid: 7777 });
 

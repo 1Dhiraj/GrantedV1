@@ -21,11 +21,11 @@ function writeCommand(
       "#!/bin/bash",
       "set -euo pipefail",
       "attempts=0",
-      'if [[ -f "$OPENCLAW_RETRY_TEST_COUNTER" ]]; then',
-      '  attempts="$(<"$OPENCLAW_RETRY_TEST_COUNTER")"',
+      'if [[ -f "$GRANTED_RETRY_TEST_COUNTER" ]]; then',
+      '  attempts="$(<"$GRANTED_RETRY_TEST_COUNTER")"',
       "fi",
       'attempts="$((attempts + 1))"',
-      'printf "%s" "$attempts" > "$OPENCLAW_RETRY_TEST_COUNTER"',
+      'printf "%s" "$attempts" > "$GRANTED_RETRY_TEST_COUNTER"',
       ...lines,
       "",
     ].join("\n"),
@@ -36,18 +36,18 @@ function writeCommand(
 
 function runRetryHelper(commandPath: string, counterPath: string) {
   const env = { ...process.env };
-  delete env.OPENCLAW_LIVE_COMMAND_RETRY_PATTERN;
-  delete env.OPENCLAW_LIVE_COMMAND_RATE_LIMIT_PATTERN;
+  delete env.GRANTED_LIVE_COMMAND_RETRY_PATTERN;
+  delete env.GRANTED_LIVE_COMMAND_RATE_LIMIT_PATTERN;
   return spawnSync("/bin/bash", [SCRIPT_PATH], {
     cwd: process.cwd(),
     encoding: "utf8",
     env: {
       ...env,
-      OPENCLAW_LIVE_COMMAND: `/bin/bash ${JSON.stringify(commandPath)}`,
-      OPENCLAW_LIVE_COMMAND_ATTEMPTS: "2",
-      OPENCLAW_LIVE_COMMAND_RETRY_DELAY_SECONDS: "0",
-      OPENCLAW_LIVE_COMMAND_RATE_LIMIT_RETRY_DELAY_SECONDS: "0",
-      OPENCLAW_RETRY_TEST_COUNTER: counterPath,
+      GRANTED_LIVE_COMMAND: `/bin/bash ${JSON.stringify(commandPath)}`,
+      GRANTED_LIVE_COMMAND_ATTEMPTS: "2",
+      GRANTED_LIVE_COMMAND_RETRY_DELAY_SECONDS: "0",
+      GRANTED_LIVE_COMMAND_RATE_LIMIT_RETRY_DELAY_SECONDS: "0",
+      GRANTED_RETRY_TEST_COUNTER: counterPath,
     },
   });
 }

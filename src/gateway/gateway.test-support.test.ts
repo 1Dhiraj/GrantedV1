@@ -6,7 +6,7 @@ describe.each([undefined, "1"])("setupGatewayTempHome with prior minimal mode %s
   it.each([undefined, false, true])(
     "restores minimal mode after minimalGateway=%s",
     async (minimalGateway) => {
-      await withEnvAsync({ OPENCLAW_TEST_MINIMAL_GATEWAY: prior }, async () => {
+      await withEnvAsync({ GRANTED_TEST_MINIMAL_GATEWAY: prior }, async () => {
         const { envSnapshot, tempHome } = await setupGatewayTempHome({
           prefix: "openclaw-gateway-env-",
           minimalGateway,
@@ -14,7 +14,7 @@ describe.each([undefined, "1"])("setupGatewayTempHome with prior minimal mode %s
         try {
           envSnapshot.restore();
           // Assert the fixture's boundary before withEnvAsync or global cleanup can restore it.
-          expect(process.env.OPENCLAW_TEST_MINIMAL_GATEWAY).toBe(prior);
+          expect(process.env.GRANTED_TEST_MINIMAL_GATEWAY).toBe(prior);
         } finally {
           await removeGatewayTempHome(tempHome);
         }

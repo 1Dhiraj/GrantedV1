@@ -66,7 +66,7 @@ describe.skipIf(process.platform === "win32")("Codex failed launcher startup", (
     "reaps inherited-pipe descendants with %s containment after %s refusal",
     async (containment, failure) => {
       const root = await fs.mkdtemp(path.join(os.tmpdir(), "codex-startup-launcher-"));
-      vi.stubEnv("OPENCLAW_STATE_DIR", path.join(root, "state"));
+      vi.stubEnv("GRANTED_STATE_DIR", path.join(root, "state"));
       const { createPluginStateSyncKeyedStore } =
         await import("openclaw/plugin-sdk/plugin-state-store-runtime");
       const store = createPluginStateSyncKeyedStore("codex", {

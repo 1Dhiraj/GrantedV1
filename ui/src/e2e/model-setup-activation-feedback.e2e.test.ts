@@ -15,7 +15,7 @@ const suite = createControlUiE2eSuite({
   name: "Model Setup activation feedback mocked Gateway E2E",
   startServerBeforeBrowser: true,
 });
-const artifactRoot = process.env.OPENCLAW_UI_E2E_ARTIFACT_DIR?.trim();
+const artifactRoot = process.env.GRANTED_UI_E2E_ARTIFACT_DIR?.trim();
 let artifactDir: string | undefined;
 beforeEach(() => {
   artifactDir = artifactRoot

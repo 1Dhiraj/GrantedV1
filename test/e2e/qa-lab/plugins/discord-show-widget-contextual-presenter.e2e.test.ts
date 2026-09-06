@@ -164,8 +164,8 @@ async function writeDiscordFetchPreload(root: string): Promise<string> {
   await writeFile(
     preloadPath,
     `const originalFetch = globalThis.fetch.bind(globalThis);
-const loopbackBase = process.env.OPENCLAW_QA_DISCORD_REST_BASE;
-if (!loopbackBase) throw new Error("OPENCLAW_QA_DISCORD_REST_BASE is required");
+const loopbackBase = process.env.GRANTED_QA_DISCORD_REST_BASE;
+if (!loopbackBase) throw new Error("GRANTED_QA_DISCORD_REST_BASE is required");
 globalThis.fetch = async (input, init) => {
   const sourceUrl = new URL(input instanceof Request ? input.url : String(input));
   if (sourceUrl.origin === "https://discord.com" && sourceUrl.pathname.startsWith("/api/")) {
@@ -351,8 +351,8 @@ describe("Discord show_widget contextual presenter process proof", () => {
         runtimeEnvPatch: {
           DISCORD_BOT_TOKEN: "qa-activities-token",
           NODE_OPTIONS: `--import=${pathToFileURL(preloadPath).href}`,
-          OPENCLAW_QA_DISCORD_REST_BASE: discord.baseUrl,
-          OPENCLAW_SKIP_CHANNELS: "1",
+          GRANTED_QA_DISCORD_REST_BASE: discord.baseUrl,
+          GRANTED_SKIP_CHANNELS: "1",
         },
       });
       const media = path.join(gateway.workspaceDir, "source.pdf");
@@ -479,9 +479,9 @@ describe("Discord show_widget contextual presenter process proof", () => {
         runtimeEnvPatch: {
           DISCORD_BOT_TOKEN: "qa-activities-token",
           NODE_OPTIONS: `--import=${pathToFileURL(preloadPath).href}`,
-          OPENCLAW_QA_DISCORD_REST_BASE: discord.baseUrl,
-          OPENCLAW_SKIP_CANVAS_HOST: undefined,
-          OPENCLAW_SKIP_CHANNELS: "1",
+          GRANTED_QA_DISCORD_REST_BASE: discord.baseUrl,
+          GRANTED_SKIP_CANVAS_HOST: undefined,
+          GRANTED_SKIP_CHANNELS: "1",
         },
       });
 

@@ -36,9 +36,9 @@ export function getInstallationTarget(): InstallationTarget | undefined {
 export function installationTargetEnv(target: InstallationTarget | undefined) {
   return target
     ? Object.freeze({
-        OPENCLAW_STATE_DIR: target.stateDir,
-        OPENCLAW_CONFIG_PATH: target.configPath,
-        OPENCLAW_WORKSPACE_DIR: target.defaultWorkspaceDir,
+        GRANTED_STATE_DIR: target.stateDir,
+        GRANTED_CONFIG_PATH: target.configPath,
+        GRANTED_WORKSPACE_DIR: target.defaultWorkspaceDir,
       })
     : undefined;
 }

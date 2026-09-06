@@ -1,6 +1,6 @@
 import type { DatabaseSync } from "node:sqlite";
 import { runSqliteImmediateTransactionSync } from "../infra/sqlite-transaction.js";
-import { OPENCLAW_AGENT_SCHEMA_SQL } from "./openclaw-agent-schema.js";
+import { GRANTED_AGENT_SCHEMA_SQL } from "./openclaw-agent-schema.js";
 
 export const SESSION_PARTICIPANTS_TABLE = "session_participants";
 
@@ -9,12 +9,12 @@ const SCHEMA_END = "CREATE TABLE IF NOT EXISTS session_key_contract (";
 const ensuredDatabases = new WeakSet<DatabaseSync>();
 
 export function sessionParticipantsSchemaSql(): string {
-  const start = OPENCLAW_AGENT_SCHEMA_SQL.indexOf(SCHEMA_START);
-  const end = OPENCLAW_AGENT_SCHEMA_SQL.indexOf(SCHEMA_END, start);
+  const start = GRANTED_AGENT_SCHEMA_SQL.indexOf(SCHEMA_START);
+  const end = GRANTED_AGENT_SCHEMA_SQL.indexOf(SCHEMA_END, start);
   if (start === -1 || end === -1) {
     throw new Error("OpenClaw session participant schema markers are missing.");
   }
-  return OPENCLAW_AGENT_SCHEMA_SQL.slice(start, end);
+  return GRANTED_AGENT_SCHEMA_SQL.slice(start, end);
 }
 
 /** Lazily installs the additive participant table on the first admitted prompt. */

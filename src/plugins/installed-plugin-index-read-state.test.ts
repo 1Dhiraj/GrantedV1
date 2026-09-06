@@ -37,7 +37,7 @@ function insertPersistedIndexRow(stateDir: string, valueJson: string): void {
         "INSERT INTO config_machine_state (state_key, value_json, updated_at_ms) VALUES ('plugins.installedIndex', ?, 123)",
       ).run(valueJson);
     },
-    { env: { OPENCLAW_STATE_DIR: stateDir } },
+    { env: { GRANTED_STATE_DIR: stateDir } },
   );
 }
 
@@ -144,7 +144,7 @@ describe("installed plugin index read state", () => {
         reason,
         stateDir,
         candidates: [],
-        env: { OPENCLAW_VERSION: "2026.4.25", VITEST: "true" },
+        env: { GRANTED_VERSION: "2026.4.25", VITEST: "true" },
         ...(reason === "policy-changed" ? { installRecords } : {}),
       };
       const refresh = async () =>

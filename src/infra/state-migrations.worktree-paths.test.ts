@@ -20,7 +20,7 @@ import {
 
 describe("managed worktree path state migrations", () => {
   beforeEach(() => {
-    vi.stubEnv("OPENCLAW_DISABLE_BUNDLED_PLUGINS", "1");
+    vi.stubEnv("GRANTED_DISABLE_BUNDLED_PLUGINS", "1");
   });
 
   const tempDirs = useAutoCleanupTempDirTracker((cleanup) => {
@@ -35,7 +35,7 @@ describe("managed worktree path state migrations", () => {
     const stateDir = path.join(root, "state");
     const worktreesDir = path.join(stateDir, "worktrees");
     await fs.mkdir(stateDir, { recursive: true });
-    const env = { ...process.env, HOME: root, OPENCLAW_STATE_DIR: stateDir };
+    const env = { ...process.env, HOME: root, GRANTED_STATE_DIR: stateDir };
 
     const detected = await detectLegacyStateMigrations({
       cfg: {} as OpenClawConfig,
@@ -60,7 +60,7 @@ describe("managed worktree path state migrations", () => {
       const linkedStateDir = path.join(root, "linked-state");
       await fs.mkdir(realStateDir, { recursive: true });
       await fs.symlink(realStateDir, linkedStateDir, "dir");
-      const env = { ...process.env, HOME: root, OPENCLAW_STATE_DIR: linkedStateDir };
+      const env = { ...process.env, HOME: root, GRANTED_STATE_DIR: linkedStateDir };
       const service = new ManagedWorktreeService({ env });
       const live = await service.create({ repoRoot: repo, name: "live", baseRef: "HEAD" });
       const canonicalRoot = path.dirname(path.dirname(live.path));

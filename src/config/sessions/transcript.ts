@@ -17,9 +17,9 @@ import {
 } from "../../shared/chat-message-content.js";
 import {
   CRON_DIRECT_DELIVERY_CONTEXT_KIND,
-  OPENCLAW_DELIVERY_MIRROR_MODEL,
-  OPENCLAW_TRANSCRIPT_ARTIFACT_API,
-  OPENCLAW_TRANSCRIPT_ARTIFACT_PROVIDER,
+  GRANTED_DELIVERY_MIRROR_MODEL,
+  GRANTED_TRANSCRIPT_ARTIFACT_API,
+  GRANTED_TRANSCRIPT_ARTIFACT_PROVIDER,
   isTranscriptOnlyOpenClawAssistantMessage,
 } from "../../shared/transcript-only-openclaw-assistant.js";
 import type { OpenClawConfig } from "../types.openclaw.js";
@@ -461,9 +461,9 @@ export async function appendAssistantMessageToSessionTranscript(params: {
       role: "assistant" as const,
       content,
       ...(displayContent ? { [ASSISTANT_DISPLAY_CONTENT_FIELD]: displayContent } : {}),
-      api: OPENCLAW_TRANSCRIPT_ARTIFACT_API,
-      provider: OPENCLAW_TRANSCRIPT_ARTIFACT_PROVIDER,
-      model: OPENCLAW_DELIVERY_MIRROR_MODEL,
+      api: GRANTED_TRANSCRIPT_ARTIFACT_API,
+      provider: GRANTED_TRANSCRIPT_ARTIFACT_PROVIDER,
+      model: GRANTED_DELIVERY_MIRROR_MODEL,
       usage: {
         input: 0,
         output: 0,
@@ -730,8 +730,8 @@ async function touchSqliteAssistantAppendSessionEntry(params: {
 
 function isRedundantDeliveryMirror(message: SessionTranscriptAssistantMessage): boolean {
   return (
-    message.provider === OPENCLAW_TRANSCRIPT_ARTIFACT_PROVIDER &&
-    message.model === OPENCLAW_DELIVERY_MIRROR_MODEL
+    message.provider === GRANTED_TRANSCRIPT_ARTIFACT_PROVIDER &&
+    message.model === GRANTED_DELIVERY_MIRROR_MODEL
   );
 }
 

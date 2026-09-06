@@ -3,6 +3,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { parse as parseDotEnv } from "dotenv";
+import { LEGACY_PROJECT_NAMES, PROJECT_NAME, STATE_DIRNAME } from "../compat/legacy-names.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";
 import { resolveConfigDir } from "../utils.js";
 import { resolveRequiredHomeDir } from "./home-dir.js";
@@ -164,11 +165,11 @@ export function loadGlobalRuntimeDotEnvFiles(opts?: GlobalRuntimeDotEnvOptions) 
   const globalEnvPaths = [...new Set([stateEnvPath, ...(opts?.additionalEnvPaths ?? [])])];
   const defaultStateEnvPath = path.join(
     resolveRequiredHomeDir(process.env, os.homedir),
-    ".openclaw",
+    STATE_DIRNAME,
     ".env",
   );
   const hasExplicitNonDefaultStateDir =
-    process.env.OPENCLAW_STATE_DIR?.trim() !== undefined &&
+    process.env.GRANTED_STATE_DIR?.trim() !== undefined &&
     path.resolve(stateEnvPath) !== path.resolve(defaultStateEnvPath);
   const globalEnvs = globalEnvPaths.map((filePath) =>
     readDotEnvFile({ entryFilter: opts?.entryFilter, filePath, quiet }),
@@ -176,17 +177,23 @@ export function loadGlobalRuntimeDotEnvFiles(opts?: GlobalRuntimeDotEnvOptions) 
   const parsedFiles = [...globalEnvs];
   let gatewayEnv: LoadedDotEnvFile | null = null;
   if (!hasExplicitNonDefaultStateDir) {
-    gatewayEnv = readDotEnvFile({
-      entryFilter: opts?.entryFilter,
-      filePath: path.join(
-        resolveRequiredHomeDir(process.env, os.homedir),
-        ".config",
-        "openclaw",
-        "gateway.env",
-      ),
-      quiet,
-    });
-    parsedFiles.push(gatewayEnv);
+    // Operators who installed before the rename still have their gateway env
+    // under the old XDG directory, so the current name is preferred and the
+    // previous ones are read only when it is absent.
+    const configHome = path.join(resolveRequiredHomeDir(process.env, os.homedir), ".config");
+    for (const dirName of [PROJECT_NAME, ...LEGACY_PROJECT_NAMES]) {
+      gatewayEnv = readDotEnvFile({
+        entryFilter: opts?.entryFilter,
+        filePath: path.join(configHome, dirName, "gateway.env"),
+        quiet,
+      });
+      if (gatewayEnv) {
+        break;
+      }
+    }
+    if (gatewayEnv) {
+      parsedFiles.push(gatewayEnv);
+    }
   }
   const parsed = parsedFiles.filter((file): file is LoadedDotEnvFile => file !== null);
   const appliedKeysByFile = loadParsedDotEnvFiles(parsed, opts?.overrideKeys);

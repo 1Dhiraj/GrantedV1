@@ -42,7 +42,7 @@ async function withAgentDir(run: (agentDir: string) => Promise<void>): Promise<v
   const agentDir = path.join(root, "agents", "work", "agent");
   fs.mkdirSync(agentDir, { recursive: true });
   try {
-    await withEnvAsync({ OPENCLAW_STATE_DIR: root }, async () => await run(agentDir));
+    await withEnvAsync({ GRANTED_STATE_DIR: root }, async () => await run(agentDir));
   } finally {
     closeOpenClawAgentDatabasesForTest();
     closeOpenClawStateDatabaseForTest();

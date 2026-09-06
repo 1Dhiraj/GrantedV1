@@ -40,7 +40,7 @@ describe("resolveGatewayModelSelectionPolicy", () => {
       }).target,
     ).toBe("session");
     expect(
-      withEnv({ OPENCLAW_NIX_MODE: "1" }, () =>
+      withEnv({ GRANTED_NIX_MODE: "1" }, () =>
         resolveGatewayModelSelectionPolicy({
           agentId: "work",
           callerScopes: ["operator.admin"],

@@ -10,7 +10,7 @@ type CliCommandStartupTimingOptions = {
 let diagnosticsTimelineModulePromise: Promise<DiagnosticsTimelineModule> | undefined;
 
 function hasDiagnosticsTimelinePath(env: NodeJS.ProcessEnv): boolean {
-  return Boolean(env.OPENCLAW_DIAGNOSTICS_TIMELINE_PATH?.trim());
+  return Boolean(env.GRANTED_DIAGNOSTICS_TIMELINE_PATH?.trim());
 }
 
 function loadDiagnosticsTimelineModule(): Promise<DiagnosticsTimelineModule> {

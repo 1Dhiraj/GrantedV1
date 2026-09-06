@@ -66,7 +66,7 @@ describe.skipIf(process.platform !== "win32")("native Windows source CLI shim", 
 
         const stateDir = path.join(root, "state");
         await prepareGatewayAgentCliShim({
-          env: { OPENCLAW_PROFILE: "work" },
+          env: { GRANTED_PROFILE: "work" },
           invocation: fixture.invocation,
           stateDir,
         });

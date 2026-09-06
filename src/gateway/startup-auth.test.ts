@@ -193,7 +193,7 @@ describe("ensureGatewayStartupAuth", () => {
 
     await expectResolvedToken({
       cfg: config,
-      env: { OPENCLAW_GATEWAY_TOKEN: "environment-token" },
+      env: { GRANTED_GATEWAY_TOKEN: "environment-token" },
       expectedToken: "environment-token",
     });
   });
@@ -259,16 +259,16 @@ describe("ensureGatewayStartupAuth", () => {
 
   it("resolves env-template gateway.auth.token before env-token short-circuiting", async () => {
     await expectResolvedToken({
-      cfg: gatewayAuthConfig({ mode: "token", token: "${OPENCLAW_GATEWAY_TOKEN}" }),
+      cfg: gatewayAuthConfig({ mode: "token", token: "${GRANTED_GATEWAY_TOKEN}" }),
       env: {
-        OPENCLAW_GATEWAY_TOKEN: "resolved-token",
+        GRANTED_GATEWAY_TOKEN: "resolved-token",
       } as NodeJS.ProcessEnv,
       expectedToken: "resolved-token",
-      expectedConfiguredToken: "${OPENCLAW_GATEWAY_TOKEN}",
+      expectedConfiguredToken: "${GRANTED_GATEWAY_TOKEN}",
     });
   });
 
-  it("keeps configured token SecretRef ahead of OPENCLAW_GATEWAY_TOKEN", async () => {
+  it("keeps configured token SecretRef ahead of GRANTED_GATEWAY_TOKEN", async () => {
     const configuredToken = gatewayEnvSecretRef("GW_TOKEN");
     await expectResolvedToken({
       cfg: gatewayAuthConfigWithDefaultEnvProvider({
@@ -277,18 +277,18 @@ describe("ensureGatewayStartupAuth", () => {
       }),
       env: {
         GW_TOKEN: "token-from-config-ref",
-        OPENCLAW_GATEWAY_TOKEN: "token-from-env",
+        GRANTED_GATEWAY_TOKEN: "token-from-env",
       } as NodeJS.ProcessEnv,
       expectedToken: "token-from-config-ref",
       expectedConfiguredToken: configuredToken,
     });
   });
 
-  it("does not let OPENCLAW_GATEWAY_TOKEN mask an unresolved configured token ref", async () => {
+  it("does not let GRANTED_GATEWAY_TOKEN mask an unresolved configured token ref", async () => {
     await expect(
       runStartupAuth({
         cfg: createMissingGatewayTokenSecretRefConfig(),
-        env: { OPENCLAW_GATEWAY_TOKEN: "token-from-env" } as NodeJS.ProcessEnv,
+        env: { GRANTED_GATEWAY_TOKEN: "token-from-env" } as NodeJS.ProcessEnv,
         persist: true,
       }),
     ).rejects.toThrow(/MISSING_GW_TOKEN/i);
@@ -317,7 +317,7 @@ describe("ensureGatewayStartupAuth", () => {
     expect(mocks.replaceConfigFile).not.toHaveBeenCalled();
   });
 
-  it("keeps configured password SecretRef ahead of OPENCLAW_GATEWAY_PASSWORD", async () => {
+  it("keeps configured password SecretRef ahead of GRANTED_GATEWAY_PASSWORD", async () => {
     const configuredPassword = gatewayEnvSecretRef("GW_PASSWORD");
     const result = await runStartupAuth({
       cfg: gatewayAuthConfigWithDefaultEnvProvider({
@@ -326,7 +326,7 @@ describe("ensureGatewayStartupAuth", () => {
       }),
       env: {
         GW_PASSWORD: "password-from-config-ref", // pragma: allowlist secret
-        OPENCLAW_GATEWAY_PASSWORD: "password-from-env", // pragma: allowlist secret
+        GRANTED_GATEWAY_PASSWORD: "password-from-env", // pragma: allowlist secret
       } as NodeJS.ProcessEnv,
       persist: true,
     });
@@ -335,14 +335,14 @@ describe("ensureGatewayStartupAuth", () => {
     expect(result.cfg.gateway?.auth?.password).toEqual(configuredPassword);
   });
 
-  it("does not let OPENCLAW_GATEWAY_PASSWORD mask an unresolved configured password ref", async () => {
+  it("does not let GRANTED_GATEWAY_PASSWORD mask an unresolved configured password ref", async () => {
     await expect(
       runStartupAuth({
         cfg: gatewayAuthConfigWithDefaultEnvProvider({
           mode: "password",
           password: gatewayEnvSecretRef("MISSING_GW_PASSWORD"),
         }),
-        env: { OPENCLAW_GATEWAY_PASSWORD: "password-from-env" } as NodeJS.ProcessEnv,
+        env: { GRANTED_GATEWAY_PASSWORD: "password-from-env" } as NodeJS.ProcessEnv,
         persist: true,
       }),
     ).rejects.toThrow(/MISSING_GW_PASSWORD/i);
@@ -456,7 +456,7 @@ describe("ensureGatewayStartupAuth", () => {
         },
       },
       env: {
-        OPENCLAW_GATEWAY_TOKEN: "shared-gateway-token-1234567890",
+        GRANTED_GATEWAY_TOKEN: "shared-gateway-token-1234567890",
       } as NodeJS.ProcessEnv,
       warn,
     });
@@ -520,7 +520,7 @@ describe("ensureGatewayStartupAuth", () => {
         runStartupAuth({
           cfg: {},
           env: {
-            OPENCLAW_GATEWAY_TOKEN: token,
+            GRANTED_GATEWAY_TOKEN: token,
           } as NodeJS.ProcessEnv,
         }),
       ).rejects.toThrow(/example placeholder/i);

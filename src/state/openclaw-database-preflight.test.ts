@@ -8,7 +8,7 @@ import { collectSqliteSchemaIssues } from "../infra/sqlite-schema-contract.js";
 import { runSqliteImmediateTransactionSync } from "../infra/sqlite-transaction.js";
 import {
   closeOpenClawAgentDatabasesForTest,
-  OPENCLAW_AGENT_SCHEMA_VERSION,
+  GRANTED_AGENT_SCHEMA_VERSION,
   openOpenClawAgentDatabase,
 } from "./openclaw-agent-db.js";
 import {
@@ -16,13 +16,13 @@ import {
   preflightOpenClawStateDatabasePath,
   preflightOpenClawDatabaseSchemas,
 } from "./openclaw-database-preflight.js";
-import { OPENCLAW_STATE_SCHEMA_VERSION } from "./openclaw-state-db-contract.js";
+import { GRANTED_STATE_SCHEMA_VERSION } from "./openclaw-state-db-contract.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
 } from "./openclaw-state-db.js";
 import { resolveOpenClawStateSqlitePath } from "./openclaw-state-db.paths.js";
-import { OPENCLAW_STATE_SCHEMA_SQL } from "./openclaw-state-schema.js";
+import { GRANTED_STATE_SCHEMA_SQL } from "./openclaw-state-schema.js";
 
 const tempDirs = useAutoCleanupTempDirTracker(afterEach);
 
@@ -54,7 +54,7 @@ describe("OpenClaw database schema preflight", () => {
     };
   }
 
-  function createExplicitStateDatabase(schemaSql = OPENCLAW_STATE_SCHEMA_SQL): string {
+  function createExplicitStateDatabase(schemaSql = GRANTED_STATE_SCHEMA_SQL): string {
     const stateDir = tempDirs.make("openclaw-explicit-state-preflight-");
     const databasePath = path.join(stateDir, "candidate.sqlite");
     const { DatabaseSync } = requireNodeSqlite();
@@ -62,14 +62,14 @@ describe("OpenClaw database schema preflight", () => {
     try {
       // Match production bootstrap: one durable commit, not one per schema object.
       runSqliteImmediateTransactionSync(database, () => {
-        database.exec(`${schemaSql}; PRAGMA user_version = ${OPENCLAW_STATE_SCHEMA_VERSION};`);
+        database.exec(`${schemaSql}; PRAGMA user_version = ${GRANTED_STATE_SCHEMA_VERSION};`);
         database
           .prepare(
             `INSERT INTO schema_meta (
                meta_key, role, schema_version, agent_id, app_version, created_at, updated_at
              ) VALUES ('primary', 'global', ?, NULL, NULL, 1, 1)`,
           )
-          .run(OPENCLAW_STATE_SCHEMA_VERSION);
+          .run(GRANTED_STATE_SCHEMA_VERSION);
       });
     } finally {
       database.close();
@@ -79,7 +79,7 @@ describe("OpenClaw database schema preflight", () => {
 
   it("reports an exact current schema for one explicit copied database", async () => {
     const stateDir = tempDirs.make("openclaw-runtime-state-preflight-");
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const opened = openOpenClawStateDatabase({ env });
     const databasePath = opened.path;
     expect(
@@ -94,8 +94,8 @@ describe("OpenClaw database schema preflight", () => {
     await expect(preflightOpenClawStateDatabasePath(databasePath)).resolves.toEqual({
       schema: "openclaw.state-schema-preflight.v1",
       databasePath,
-      targetVersion: OPENCLAW_STATE_SCHEMA_VERSION,
-      foundVersion: OPENCLAW_STATE_SCHEMA_VERSION,
+      targetVersion: GRANTED_STATE_SCHEMA_VERSION,
+      foundVersion: GRANTED_STATE_SCHEMA_VERSION,
       ownership: null,
       issues: [],
       status: "exact",
@@ -105,7 +105,7 @@ describe("OpenClaw database schema preflight", () => {
 
   it("treats a supported persistent column definition as exact", async () => {
     const databasePath = createExplicitStateDatabase(
-      OPENCLAW_STATE_SCHEMA_SQL.replace(
+      GRANTED_STATE_SCHEMA_SQL.replace(
         "  kind TEXT NOT NULL,\n  sensitivity TEXT NOT NULL,",
         "  kind TEXT NOT NULL DEFAULT 'followup',\n  sensitivity TEXT NOT NULL,",
       ),
@@ -114,8 +114,8 @@ describe("OpenClaw database schema preflight", () => {
     await expect(preflightOpenClawStateDatabasePath(databasePath)).resolves.toEqual({
       schema: "openclaw.state-schema-preflight.v1",
       databasePath,
-      targetVersion: OPENCLAW_STATE_SCHEMA_VERSION,
-      foundVersion: OPENCLAW_STATE_SCHEMA_VERSION,
+      targetVersion: GRANTED_STATE_SCHEMA_VERSION,
+      foundVersion: GRANTED_STATE_SCHEMA_VERSION,
       ownership: null,
       status: "exact",
       requiresWrite: false,
@@ -142,8 +142,8 @@ describe("OpenClaw database schema preflight", () => {
     await expect(preflightOpenClawStateDatabasePath(databasePath)).resolves.toEqual({
       schema: "openclaw.state-schema-preflight.v1",
       databasePath,
-      targetVersion: OPENCLAW_STATE_SCHEMA_VERSION,
-      foundVersion: OPENCLAW_STATE_SCHEMA_VERSION,
+      targetVersion: GRANTED_STATE_SCHEMA_VERSION,
+      foundVersion: GRANTED_STATE_SCHEMA_VERSION,
       ownership: null,
       status: "exact",
       requiresWrite: false,
@@ -168,8 +168,8 @@ describe("OpenClaw database schema preflight", () => {
     await expect(preflightOpenClawStateDatabasePath(databasePath)).resolves.toEqual({
       schema: "openclaw.state-schema-preflight.v1",
       databasePath,
-      targetVersion: OPENCLAW_STATE_SCHEMA_VERSION,
-      foundVersion: OPENCLAW_STATE_SCHEMA_VERSION,
+      targetVersion: GRANTED_STATE_SCHEMA_VERSION,
+      foundVersion: GRANTED_STATE_SCHEMA_VERSION,
       ownership: null,
       status: "startup-repairable",
       requiresWrite: true,
@@ -185,7 +185,7 @@ describe("OpenClaw database schema preflight", () => {
 
   it("classifies the same-version run-end cleanup column as startup-repairable without touching the source", async () => {
     const sourcePath = createExplicitStateDatabase(
-      OPENCLAW_STATE_SCHEMA_SQL.replace(
+      GRANTED_STATE_SCHEMA_SQL.replace(
         "  removed_at INTEGER,\n  run_end_cleanup_json TEXT\n",
         "  removed_at INTEGER\n",
       ),
@@ -219,7 +219,7 @@ describe("OpenClaw database schema preflight", () => {
       const result = await preflightOpenClawStateDatabasePath(snapshotPath);
 
       expect(result).toMatchObject({
-        foundVersion: OPENCLAW_STATE_SCHEMA_VERSION,
+        foundVersion: GRANTED_STATE_SCHEMA_VERSION,
         status: "startup-repairable",
         requiresWrite: true,
         issues: [
@@ -237,7 +237,7 @@ describe("OpenClaw database schema preflight", () => {
 
   it("accepts first-use session group columns without requiring a startup write", async () => {
     const databasePath = createExplicitStateDatabase(
-      OPENCLAW_STATE_SCHEMA_SQL.replace(
+      GRANTED_STATE_SCHEMA_SQL.replace(
         "  created_at INTEGER NOT NULL,\n  cwd TEXT,\n  worktree INTEGER\n",
         "  created_at INTEGER NOT NULL\n",
       ),
@@ -310,8 +310,8 @@ describe("OpenClaw database schema preflight", () => {
     const { DatabaseSync } = requireNodeSqlite();
     const database = new DatabaseSync(":memory:");
     try {
-      database.exec(OPENCLAW_STATE_SCHEMA_SQL);
-      const olderV6Schema = OPENCLAW_STATE_SCHEMA_SQL.replace(
+      database.exec(GRANTED_STATE_SCHEMA_SQL);
+      const olderV6Schema = GRANTED_STATE_SCHEMA_SQL.replace(
         "  removed_at INTEGER,\n  run_end_cleanup_json TEXT\n",
         "  removed_at INTEGER\n",
       );
@@ -329,14 +329,14 @@ describe("OpenClaw database schema preflight", () => {
 
   it("keeps package schema support metadata aligned", () => {
     expect(packageJson.openclaw.schemaVersions).toEqual({
-      state: OPENCLAW_STATE_SCHEMA_VERSION,
-      agent: OPENCLAW_AGENT_SCHEMA_VERSION,
+      state: GRANTED_STATE_SCHEMA_VERSION,
+      agent: GRANTED_AGENT_SCHEMA_VERSION,
     });
   });
 
   it("accepts a supported state schema", () => {
     const stateDir = tempDirs.make("openclaw-database-preflight-supported-");
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     openOpenClawStateDatabase({ env });
     closeOpenClawStateDatabaseForTest();
 
@@ -345,8 +345,8 @@ describe("OpenClaw database schema preflight", () => {
         env,
         verifyCurrentSchemaShape: true,
         supportedVersions: {
-          state: OPENCLAW_STATE_SCHEMA_VERSION,
-          agent: OPENCLAW_AGENT_SCHEMA_VERSION,
+          state: GRANTED_STATE_SCHEMA_VERSION,
+          agent: GRANTED_AGENT_SCHEMA_VERSION,
         },
       }),
     ).toEqual({ incompatible: [], indeterminate: [] });
@@ -355,7 +355,7 @@ describe("OpenClaw database schema preflight", () => {
 
   it("accepts an older v6 state database without the lazy setup id during restart preflight", () => {
     const stateDir = tempDirs.make("openclaw-database-preflight-older-v6-setup-id-");
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const statePath = openOpenClawStateDatabase({ env }).path;
     closeOpenClawStateDatabaseForTest();
 
@@ -371,7 +371,7 @@ describe("OpenClaw database schema preflight", () => {
 
   it("reports a current but noncanonical state schema as indeterminate", () => {
     const stateDir = tempDirs.make("openclaw-database-preflight-noncanonical-state-");
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const statePath = openOpenClawStateDatabase({ env }).path;
     closeOpenClawStateDatabaseForTest();
 
@@ -391,8 +391,8 @@ describe("OpenClaw database schema preflight", () => {
         env,
         verifyCurrentSchemaShape: true,
         supportedVersions: {
-          state: OPENCLAW_STATE_SCHEMA_VERSION,
-          agent: OPENCLAW_AGENT_SCHEMA_VERSION,
+          state: GRANTED_STATE_SCHEMA_VERSION,
+          agent: GRANTED_AGENT_SCHEMA_VERSION,
         },
       }),
     ).toEqual({
@@ -414,7 +414,7 @@ describe("OpenClaw database schema preflight", () => {
     "checks an unregistered %s store without creating shared state",
     (layout) => {
       const stateDir = tempDirs.make("openclaw-unregistered-readiness-");
-      const env = { OPENCLAW_STATE_DIR: stateDir };
+      const env = { GRANTED_STATE_DIR: stateDir };
       const customPath = path.join(tempDirs.make("openclaw-configured-readiness-"), "agent.sqlite");
       const agent = openOpenClawAgentDatabase({
         agentId: "main",
@@ -457,7 +457,7 @@ describe("OpenClaw database schema preflight", () => {
 
   it("leaves archive-only state alone when no runtime database exists", () => {
     const stateDir = tempDirs.make("openclaw-readiness-archive-only-");
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const archivePath = path.join(
       stateDir,
       "agents",
@@ -482,7 +482,7 @@ describe("OpenClaw database schema preflight", () => {
 
   it("collects newer state and registered agent schemas with writer builds", () => {
     const stateDir = tempDirs.make("openclaw-database-preflight-");
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const statePath = openOpenClawStateDatabase({ env }).path;
     const agentPath = openOpenClawAgentDatabase({ agentId: "worker-1", env }).path;
     closeOpenClawAgentDatabasesForTest();
@@ -491,7 +491,7 @@ describe("OpenClaw database schema preflight", () => {
     const { DatabaseSync } = requireNodeSqlite();
     const state = new DatabaseSync(statePath);
     try {
-      state.exec(`PRAGMA user_version = ${OPENCLAW_STATE_SCHEMA_VERSION + 1};`);
+      state.exec(`PRAGMA user_version = ${GRANTED_STATE_SCHEMA_VERSION + 1};`);
       state
         .prepare("UPDATE schema_meta SET app_version = ? WHERE meta_key = 'primary'")
         .run("state-writer-build");
@@ -500,7 +500,7 @@ describe("OpenClaw database schema preflight", () => {
     }
     const agent = new DatabaseSync(agentPath);
     try {
-      agent.exec(`PRAGMA user_version = ${OPENCLAW_AGENT_SCHEMA_VERSION + 1};`);
+      agent.exec(`PRAGMA user_version = ${GRANTED_AGENT_SCHEMA_VERSION + 1};`);
       agent
         .prepare("UPDATE schema_meta SET app_version = ? WHERE meta_key = 'primary'")
         .run("agent-writer-build");
@@ -512,8 +512,8 @@ describe("OpenClaw database schema preflight", () => {
       preflightOpenClawDatabaseSchemas({
         env,
         supportedVersions: {
-          state: OPENCLAW_STATE_SCHEMA_VERSION,
-          agent: OPENCLAW_AGENT_SCHEMA_VERSION,
+          state: GRANTED_STATE_SCHEMA_VERSION,
+          agent: GRANTED_AGENT_SCHEMA_VERSION,
         },
       }),
     ).toEqual({
@@ -521,16 +521,16 @@ describe("OpenClaw database schema preflight", () => {
         {
           kind: "state",
           path: statePath,
-          foundVersion: OPENCLAW_STATE_SCHEMA_VERSION + 1,
-          supportedVersion: OPENCLAW_STATE_SCHEMA_VERSION,
+          foundVersion: GRANTED_STATE_SCHEMA_VERSION + 1,
+          supportedVersion: GRANTED_STATE_SCHEMA_VERSION,
           writerAppVersion: "state-writer-build",
         },
         {
           kind: "agent",
           path: agentPath,
           agentId: "worker-1",
-          foundVersion: OPENCLAW_AGENT_SCHEMA_VERSION + 1,
-          supportedVersion: OPENCLAW_AGENT_SCHEMA_VERSION,
+          foundVersion: GRANTED_AGENT_SCHEMA_VERSION + 1,
+          supportedVersion: GRANTED_AGENT_SCHEMA_VERSION,
           writerAppVersion: "agent-writer-build",
         },
       ],
@@ -542,7 +542,7 @@ describe("OpenClaw database schema preflight", () => {
     "preflights the %s transcript eligibility index without repairing it",
     (shape) => {
       const stateDir = tempDirs.make("openclaw-transcript-eligibility-preflight-");
-      const env = { OPENCLAW_STATE_DIR: stateDir };
+      const env = { GRANTED_STATE_DIR: stateDir };
       const agentPath = openOpenClawAgentDatabase({ agentId: "worker-1", env }).path;
       closeOpenClawAgentDatabasesForTest();
       closeOpenClawStateDatabaseForTest();
@@ -566,8 +566,8 @@ describe("OpenClaw database schema preflight", () => {
         env,
         verifyCurrentSchemaShape: true,
         supportedVersions: {
-          state: OPENCLAW_STATE_SCHEMA_VERSION,
-          agent: OPENCLAW_AGENT_SCHEMA_VERSION,
+          state: GRANTED_STATE_SCHEMA_VERSION,
+          agent: GRANTED_AGENT_SCHEMA_VERSION,
         },
       });
       expect(result.incompatible).toEqual([]);
@@ -592,7 +592,7 @@ describe("OpenClaw database schema preflight", () => {
             .get(),
         ).toEqual(shape === "absent" ? undefined : { name: "context_eligible" });
         expect(inspected.prepare("PRAGMA user_version").get()).toEqual({
-          user_version: OPENCLAW_AGENT_SCHEMA_VERSION,
+          user_version: GRANTED_AGENT_SCHEMA_VERSION,
         });
       } finally {
         inspected.close();
@@ -602,7 +602,7 @@ describe("OpenClaw database schema preflight", () => {
 
   it("checks every registered owner before permitting Gateway restart", () => {
     const stateDir = tempDirs.make("openclaw-preflight-conflicting-owners-");
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const agentPath = openOpenClawAgentDatabase({ agentId: "main", env }).path;
     const statePath = resolveOpenClawStateSqlitePath(env);
     closeOpenClawAgentDatabasesForTest();
@@ -613,7 +613,7 @@ describe("OpenClaw database schema preflight", () => {
       .prepare(
         "INSERT INTO agent_databases (agent_id, path, schema_version, last_seen_at, size_bytes) VALUES (?, ?, ?, ?, ?)",
       )
-      .run("ops", agentPath, OPENCLAW_AGENT_SCHEMA_VERSION, 1, null);
+      .run("ops", agentPath, GRANTED_AGENT_SCHEMA_VERSION, 1, null);
     registry.close();
 
     expect(() => assertOpenClawDatabasesReady({ env, operation: "gateway-restart" })).toThrow(
@@ -622,8 +622,8 @@ describe("OpenClaw database schema preflight", () => {
     const result = preflightOpenClawDatabaseSchemas({
       env,
       supportedVersions: {
-        state: OPENCLAW_STATE_SCHEMA_VERSION,
-        agent: OPENCLAW_AGENT_SCHEMA_VERSION,
+        state: GRANTED_STATE_SCHEMA_VERSION,
+        agent: GRANTED_AGENT_SCHEMA_VERSION,
       },
       verifyCurrentSchemaShape: true,
       configuredAgentDatabaseCandidatePaths: [agentPath],
@@ -639,7 +639,7 @@ describe("OpenClaw database schema preflight", () => {
 
   it("reports a current but noncanonical registered agent schema as indeterminate", () => {
     const stateDir = tempDirs.make("openclaw-database-preflight-noncanonical-agent-");
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const agentPath = openOpenClawAgentDatabase({ agentId: "worker-1", env }).path;
     closeOpenClawAgentDatabasesForTest();
     closeOpenClawStateDatabaseForTest();
@@ -659,8 +659,8 @@ describe("OpenClaw database schema preflight", () => {
         env,
         verifyCurrentSchemaShape: true,
         supportedVersions: {
-          state: OPENCLAW_STATE_SCHEMA_VERSION,
-          agent: OPENCLAW_AGENT_SCHEMA_VERSION,
+          state: GRANTED_STATE_SCHEMA_VERSION,
+          agent: GRANTED_AGENT_SCHEMA_VERSION,
         },
       }),
     ).toEqual({
@@ -677,7 +677,7 @@ describe("OpenClaw database schema preflight", () => {
 
   it("reports an existing unreadable state database as indeterminate", () => {
     const stateDir = tempDirs.make("openclaw-database-preflight-unreadable-state-");
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const statePath = openOpenClawStateDatabase({ env }).path;
     closeOpenClawStateDatabaseForTest();
     fs.writeFileSync(statePath, "not a sqlite database");
@@ -686,8 +686,8 @@ describe("OpenClaw database schema preflight", () => {
       preflightOpenClawDatabaseSchemas({
         env,
         supportedVersions: {
-          state: OPENCLAW_STATE_SCHEMA_VERSION,
-          agent: OPENCLAW_AGENT_SCHEMA_VERSION,
+          state: GRANTED_STATE_SCHEMA_VERSION,
+          agent: GRANTED_AGENT_SCHEMA_VERSION,
         },
       }),
     ).toEqual({
@@ -700,7 +700,7 @@ describe("OpenClaw database schema preflight", () => {
 
   it("reports a failed agent registry query as indeterminate", () => {
     const stateDir = tempDirs.make("openclaw-database-preflight-registry-");
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const statePath = openOpenClawStateDatabase({ env }).path;
     closeOpenClawStateDatabaseForTest();
     const { DatabaseSync } = requireNodeSqlite();
@@ -715,8 +715,8 @@ describe("OpenClaw database schema preflight", () => {
       preflightOpenClawDatabaseSchemas({
         env,
         supportedVersions: {
-          state: OPENCLAW_STATE_SCHEMA_VERSION,
-          agent: OPENCLAW_AGENT_SCHEMA_VERSION,
+          state: GRANTED_STATE_SCHEMA_VERSION,
+          agent: GRANTED_AGENT_SCHEMA_VERSION,
         },
       }),
     ).toEqual({
@@ -733,7 +733,7 @@ describe("OpenClaw database schema preflight", () => {
 
   it("reports an existing unreadable registered agent database as indeterminate", () => {
     const stateDir = tempDirs.make("openclaw-database-preflight-unreadable-agent-");
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const agentPath = openOpenClawAgentDatabase({ agentId: "worker-1", env }).path;
     closeOpenClawAgentDatabasesForTest();
     closeOpenClawStateDatabaseForTest();
@@ -743,8 +743,8 @@ describe("OpenClaw database schema preflight", () => {
       preflightOpenClawDatabaseSchemas({
         env,
         supportedVersions: {
-          state: OPENCLAW_STATE_SCHEMA_VERSION,
-          agent: OPENCLAW_AGENT_SCHEMA_VERSION,
+          state: GRANTED_STATE_SCHEMA_VERSION,
+          agent: GRANTED_AGENT_SCHEMA_VERSION,
         },
       }),
     ).toEqual({

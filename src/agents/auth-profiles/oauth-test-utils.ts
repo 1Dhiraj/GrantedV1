@@ -13,7 +13,7 @@ import { loadPersistedAuthProfileStore } from "./persisted.js";
 import type { AuthProfileStore, OAuthCredential } from "./types.js";
 
 /** Environment keys OAuth tests override while creating isolated state roots. */
-export const OAUTH_AGENT_ENV_KEYS = ["OPENCLAW_STATE_DIR", "OPENCLAW_AGENT_DIR"];
+export const OAUTH_AGENT_ENV_KEYS = ["GRANTED_STATE_DIR", "GRANTED_AGENT_DIR"];
 
 /** Call resolveApiKeyForProfile with an empty config in tests. */
 export function resolveApiKeyForProfileInTest(
@@ -73,8 +73,8 @@ export async function createOAuthTestTempRoot(prefix: string): Promise<string> {
 /** Create and export the main agent dir for OAuth tests. */
 export async function createOAuthMainAgentDir(stateDir: string): Promise<string> {
   const agentDir = path.join(stateDir, "agents", "main", "agent");
-  setTestEnvValue("OPENCLAW_STATE_DIR", stateDir);
-  setTestEnvValue("OPENCLAW_AGENT_DIR", agentDir);
+  setTestEnvValue("GRANTED_STATE_DIR", stateDir);
+  setTestEnvValue("GRANTED_AGENT_DIR", agentDir);
   await fs.mkdir(agentDir, { recursive: true });
   return agentDir;
 }

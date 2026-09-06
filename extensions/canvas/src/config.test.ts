@@ -8,13 +8,13 @@ import {
 } from "./config.js";
 
 describe("Canvas presenter config", () => {
-  const originalSkipCanvasHost = process.env.OPENCLAW_SKIP_CANVAS_HOST;
+  const originalSkipCanvasHost = process.env.GRANTED_SKIP_CANVAS_HOST;
 
   afterEach(() => {
     if (originalSkipCanvasHost === undefined) {
-      delete process.env.OPENCLAW_SKIP_CANVAS_HOST;
+      delete process.env.GRANTED_SKIP_CANVAS_HOST;
     } else {
-      process.env.OPENCLAW_SKIP_CANVAS_HOST = originalSkipCanvasHost;
+      process.env.GRANTED_SKIP_CANVAS_HOST = originalSkipCanvasHost;
     }
   });
 
@@ -62,7 +62,7 @@ describe("Canvas presenter config", () => {
   });
 
   it("honors the internal skip-host test switch", () => {
-    process.env.OPENCLAW_SKIP_CANVAS_HOST = "1";
+    process.env.GRANTED_SKIP_CANVAS_HOST = "1";
     expect(isCanvasHostEnabled()).toBe(false);
   });
 });

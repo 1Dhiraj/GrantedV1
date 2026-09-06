@@ -46,9 +46,9 @@ exit 0
 
     try {
       const scriptPath = await prepareRestartScript({
-        OPENCLAW_PROFILE: "default",
+        GRANTED_PROFILE: "default",
         HOME: path.join(tmpDir, "home"),
-        OPENCLAW_STATE_DIR: stateDir,
+        GRANTED_STATE_DIR: stateDir,
       });
       if (!scriptPath) {
         throw new Error("expected restart script path");

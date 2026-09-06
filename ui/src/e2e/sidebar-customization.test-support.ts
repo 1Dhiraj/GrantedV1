@@ -8,7 +8,7 @@ export function createSidebarCustomizationSuite(name: string) {
     name,
     trackBrowserContexts: true,
     unavailableMessage: (executablePath) =>
-      `Playwright Chromium is not installed or cannot start at ${executablePath}. Run \`pnpm --dir ui exec playwright install --with-deps chromium\`, or set OPENCLAW_UI_E2E_ALLOW_MISSING_CHROMIUM=1 only when intentionally skipping this lane.`,
+      `Playwright Chromium is not installed or cannot start at ${executablePath}. Run \`pnpm --dir ui exec playwright install --with-deps chromium\`, or set GRANTED_UI_E2E_ALLOW_MISSING_CHROMIUM=1 only when intentionally skipping this lane.`,
   });
 }
 
@@ -17,7 +17,7 @@ export async function captureSidebarUiProof(
   page: Page,
   fileName: string,
 ): Promise<void> {
-  if (process.env.OPENCLAW_CAPTURE_UI_PROOF !== "1") {
+  if (process.env.GRANTED_CAPTURE_UI_PROOF !== "1") {
     return;
   }
   await page.screenshot({
@@ -32,7 +32,7 @@ export async function captureSettingsSidebarUiProof(
   sidebar: Locator,
   fileName: string,
 ): Promise<void> {
-  if (process.env.OPENCLAW_CAPTURE_UI_PROOF !== "1") {
+  if (process.env.GRANTED_CAPTURE_UI_PROOF !== "1") {
     return;
   }
   await sidebar.screenshot({

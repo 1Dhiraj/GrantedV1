@@ -40,8 +40,8 @@ describe("vitest E2E global setup", () => {
         ["scripts/run-node.mjs", "--version"],
         {
           ...process.env,
-          OPENCLAW_BUILD_PRIVATE_QA: "1",
-          OPENCLAW_RUN_NODE_SKIP_DTS_BUILD: "0",
+          GRANTED_BUILD_PRIVATE_QA: "1",
+          GRANTED_RUN_NODE_SKIP_DTS_BUILD: "0",
         },
       ],
       [
@@ -61,7 +61,7 @@ describe("vitest E2E global setup", () => {
     );
   });
 
-  it.each(["OPENCLAW_E2E_SKIP_BUILD", "OPENCLAW_E2E_USE_PREBUILT_DIST"] as const)(
+  it.each(["GRANTED_E2E_SKIP_BUILD", "GRANTED_E2E_USE_PREBUILT_DIST"] as const)(
     "skips rebuilding when %s is set",
     async (envName) => {
       const runCommand = vi.fn<SetupCommandRunner>();

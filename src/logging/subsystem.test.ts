@@ -380,7 +380,7 @@ describe("createSubsystemLogger().isEnabled", () => {
   it("publishes applied config and rebuilds its child for the new generation", () => {
     const firstFile = logPathTracker.nextPath();
     const secondFile = logPathTracker.nextPath();
-    vi.stubEnv("OPENCLAW_TEST_FILE_LOG", "1");
+    vi.stubEnv("GRANTED_TEST_FILE_LOG", "1");
     applyLoggingConfig({ level: "info", consoleLevel: "silent", file: firstFile });
     const getSubLogger = vi.spyOn(TsLogger.prototype, "getSubLogger");
     const log = createSubsystemLogger("diagnostics");

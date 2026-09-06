@@ -14,8 +14,8 @@ const suite = createControlUiE2eSuite({
   startServerBeforeBrowser: true,
 });
 
-const proofStage = process.env.OPENCLAW_UI_PROOF_STAGE ?? "after";
-const captureUiProof = process.env.OPENCLAW_CAPTURE_UI_PROOF === "1";
+const proofStage = process.env.GRANTED_UI_PROOF_STAGE ?? "after";
+const captureUiProof = process.env.GRANTED_CAPTURE_UI_PROOF === "1";
 const captureBeforeProof = captureUiProof && proofStage === "before";
 
 async function captureScreenshot(

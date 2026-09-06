@@ -1,12 +1,12 @@
 import { normalizeToolPolicyName } from "../tool-policy.js";
 
 /** Transport prefix CLI harnesses use for loopback OpenClaw MCP tool names. */
-const OPENCLAW_MCP_TOOL_PREFIX = "mcp__openclaw__";
+const GRANTED_MCP_TOOL_PREFIX = "mcp__openclaw__";
 
 /** Strips the loopback MCP transport prefix so observers see gateway tool names. */
 export function stripOpenClawMcpToolPrefix(toolName: string): string {
-  return toolName.startsWith(OPENCLAW_MCP_TOOL_PREFIX)
-    ? toolName.slice(OPENCLAW_MCP_TOOL_PREFIX.length)
+  return toolName.startsWith(GRANTED_MCP_TOOL_PREFIX)
+    ? toolName.slice(GRANTED_MCP_TOOL_PREFIX.length)
     : toolName;
 }
 

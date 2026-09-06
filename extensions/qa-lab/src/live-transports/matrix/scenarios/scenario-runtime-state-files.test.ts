@@ -28,7 +28,7 @@ describe("Matrix QA persisted state probes", () => {
     return createPluginStateSyncKeyedStoreForTests<unknown>("matrix", {
       namespace,
       maxEntries: 20,
-      env: { ...process.env, OPENCLAW_STATE_DIR: root },
+      env: { ...process.env, GRANTED_STATE_DIR: root },
     });
   }
 
@@ -188,7 +188,7 @@ describe("Matrix QA persisted state probes", () => {
       ttlMs: 30 * 24 * 60 * 60 * 1000,
       memoryMaxSize: 100,
       stateMaxEntries: 100,
-      env: { ...process.env, OPENCLAW_STATE_DIR: accountRoot },
+      env: { ...process.env, GRANTED_STATE_DIR: accountRoot },
     });
     const key = `runtime-default\0${roomId}\0${eventId}`;
     await guard.claim(key);

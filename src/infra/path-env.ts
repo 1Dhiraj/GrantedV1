@@ -196,7 +196,7 @@ function candidateBinDirs(
   // disabled by default; if an operator explicitly enables it, only append (never prepend).
   const allowProjectLocalBin =
     opts.allowProjectLocalBin === true ||
-    isTruthyEnvValue(process.env.OPENCLAW_ALLOW_PROJECT_LOCAL_BIN);
+    isTruthyEnvValue(process.env.GRANTED_ALLOW_PROJECT_LOCAL_BIN);
   if (allowProjectLocalBin && cwd) {
     const localBinDir = path.join(cwd, "node_modules", ".bin");
     if (isExecutable(path.join(localBinDir, "openclaw"))) {
@@ -260,12 +260,12 @@ function candidateBinDirs(
  * under launchd/minimal environments (and inside the macOS app bundle).
  */
 export function ensureOpenClawCliOnPath(opts: EnsureOpenClawPathOpts = {}) {
-  if (isTruthyEnvValue(process.env.OPENCLAW_PATH_BOOTSTRAPPED)) {
+  if (isTruthyEnvValue(process.env.GRANTED_PATH_BOOTSTRAPPED)) {
     return;
   }
   // Mark before filesystem probing so repeated calls from nested bootstraps do
   // not keep reshuffling PATH.
-  process.env.OPENCLAW_PATH_BOOTSTRAPPED = "1";
+  process.env.GRANTED_PATH_BOOTSTRAPPED = "1";
 
   const existing = opts.pathEnv ?? process.env.PATH ?? "";
   const existingPathParts = splitPathParts(existing);

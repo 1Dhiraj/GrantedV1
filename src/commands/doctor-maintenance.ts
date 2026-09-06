@@ -26,12 +26,12 @@ import {
   acquireStateDatabaseCoordinator,
 } from "../infra/state-database-coordinator.js";
 import type { RuntimeEnv } from "../runtime.js";
-import { OPENCLAW_AGENT_SCHEMA_VERSION } from "../state/openclaw-agent-db-contract.js";
+import { GRANTED_AGENT_SCHEMA_VERSION } from "../state/openclaw-agent-db-contract.js";
 import {
   preflightOpenClawDatabaseSchemas,
   OpenClawDatabaseSchemaPreflightError,
 } from "../state/openclaw-database-preflight.js";
-import { OPENCLAW_STATE_SCHEMA_VERSION } from "../state/openclaw-state-db-contract.js";
+import { GRANTED_STATE_SCHEMA_VERSION } from "../state/openclaw-state-db-contract.js";
 import { resolveOpenClawStateSqlitePath } from "../state/openclaw-state-db.paths.js";
 import type { DoctorOptions } from "./doctor-prompter.js";
 import { isDoctorUpdateRepairMode, resolveDoctorRepairMode } from "./doctor-repair-mode.js";
@@ -53,8 +53,8 @@ async function assertDoctorMaintenanceSchemasCompatible(env: NodeJS.ProcessEnv):
   const schemas = preflightOpenClawDatabaseSchemas({
     env,
     supportedVersions: {
-      state: OPENCLAW_STATE_SCHEMA_VERSION,
-      agent: OPENCLAW_AGENT_SCHEMA_VERSION,
+      state: GRANTED_STATE_SCHEMA_VERSION,
+      agent: GRANTED_AGENT_SCHEMA_VERSION,
     },
     configuredAgentDatabaseTargets: (registeredAgentDatabases) =>
       resolveConfiguredAgentDatabaseTargets(cfg, {

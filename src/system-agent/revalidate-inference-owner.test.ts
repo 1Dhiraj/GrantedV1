@@ -44,7 +44,7 @@ function embeddedRoute(agentHarnessRuntimeOverride: string): SystemAgentConfigur
 describe("revalidateSetupInferenceOwner", () => {
   it("loads newly installed package facts after the install lease cached their absence", async () => {
     await withOpenClawTestState(
-      { label: "setup-plugin-generation", env: { OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1" } },
+      { label: "setup-plugin-generation", env: { GRANTED_DISABLE_BUNDLED_PLUGINS: "1" } },
       async (state) => {
         const config = {
           plugins: {

@@ -317,7 +317,7 @@ describe("voice-call plugin", () => {
   });
 
   it("does not start the webhook runtime for CLI-only plugin loading", async () => {
-    vi.stubEnv("OPENCLAW_CLI", "1");
+    vi.stubEnv("GRANTED_CLI", "1");
     const { service } = setup({ provider: "mock" });
 
     await service?.start(createServiceContext());
@@ -327,7 +327,7 @@ describe("voice-call plugin", () => {
 
   it("still starts the webhook runtime for gateway CLI processes", async () => {
     const previousArgv = process.argv;
-    vi.stubEnv("OPENCLAW_CLI", "1");
+    vi.stubEnv("GRANTED_CLI", "1");
     process.argv = ["node", "openclaw", "gateway", "run"];
     const { service } = setup({ provider: "mock" });
 

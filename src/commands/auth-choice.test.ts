@@ -92,7 +92,7 @@ const detectZaiEndpoint = vi.hoisted(() => vi.fn<DetectZaiEndpoint>(async () => 
 vi.mock("../agents/agent-scope.js", () => ({
   resolveDefaultAgentId: () => "main",
   resolveAgentDir: (configForTest: unknown, agentId: string) =>
-    `${process.env.OPENCLAW_STATE_DIR ?? "/tmp/openclaw-state"}/agents/${agentId}/agent`,
+    `${process.env.GRANTED_STATE_DIR ?? "/tmp/openclaw-state"}/agents/${agentId}/agent`,
   resolveAgentWorkspaceDir: (configForTest: unknown, agentId: string) =>
     `/tmp/openclaw-workspaces/${agentId}`,
   // Required by src/agents/model-runtime-policy.ts, which is transitively
@@ -164,7 +164,7 @@ const testAuthProfileStores = vi.hoisted(
 
 // These tests verify profile payloads, not file locking; keep auth stores in memory.
 function resolveTestAuthStoreKey(agentDir?: string): string {
-  return agentDir?.trim() || process.env.OPENCLAW_AGENT_DIR || "__main__";
+  return agentDir?.trim() || process.env.GRANTED_AGENT_DIR || "__main__";
 }
 
 function readTestAuthProfileStore(agentDir?: string): {
@@ -610,8 +610,8 @@ async function createDefaultProviderPlugins(): Promise<ProviderPlugin[]> {
 
 describe("applyAuthChoice", () => {
   const lifecycle = createAuthTestLifecycle([
-    "OPENCLAW_STATE_DIR",
-    "OPENCLAW_AGENT_DIR",
+    "GRANTED_STATE_DIR",
+    "GRANTED_AGENT_DIR",
     "ANTHROPIC_API_KEY",
     "OPENROUTER_API_KEY",
     "HF_TOKEN",
@@ -630,8 +630,8 @@ describe("applyAuthChoice", () => {
     testAuthProfileStores.clear();
     const stateDir = path.join(authTestRoot, `state-${++authStateCounter}`);
     const agentDir = path.join(stateDir, "agent");
-    process.env.OPENCLAW_STATE_DIR = stateDir;
-    process.env.OPENCLAW_AGENT_DIR = agentDir;
+    process.env.GRANTED_STATE_DIR = stateDir;
+    process.env.GRANTED_AGENT_DIR = agentDir;
   }
   function createPrompter(overrides: Partial<WizardPrompter>): WizardPrompter {
     return createWizardPrompter(overrides, { defaultSelect: "" });

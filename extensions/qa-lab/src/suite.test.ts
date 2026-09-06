@@ -391,53 +391,53 @@ describe("qa suite", () => {
     expect(resolveQaSuiteTransportReadyTimeoutMs(undefined, {})).toBe(120_000);
     expect(
       resolveQaSuiteTransportReadyTimeoutMs(undefined, {
-        OPENCLAW_QA_TRANSPORT_READY_TIMEOUT_MS: "180000",
+        GRANTED_QA_TRANSPORT_READY_TIMEOUT_MS: "180000",
       }),
     ).toBe(180_000);
     expect(
       resolveQaSuiteTransportReadyTimeoutMs(undefined, {
-        OPENCLAW_QA_TRANSPORT_READY_TIMEOUT_MS: "bad",
+        GRANTED_QA_TRANSPORT_READY_TIMEOUT_MS: "bad",
       }),
     ).toBe(120_000);
     for (const value of ["0x10", "1e3", "10.5"]) {
       expect(
         resolveQaSuiteTransportReadyTimeoutMs(undefined, {
-          OPENCLAW_QA_TRANSPORT_READY_TIMEOUT_MS: value,
+          GRANTED_QA_TRANSPORT_READY_TIMEOUT_MS: value,
         }),
       ).toBe(120_000);
     }
     expect(resolveQaSuiteTransportReadyTimeoutMs(90_000, {})).toBe(90_000);
   });
 
-  it("applies OPENCLAW_QA_SUITE_PROGRESS override and falls back on invalid values", () => {
+  it("applies GRANTED_QA_SUITE_PROGRESS override and falls back on invalid values", () => {
     expect(
       shouldLogQaSuiteProgress({
         CI: "false",
-        OPENCLAW_QA_SUITE_PROGRESS: "true",
+        GRANTED_QA_SUITE_PROGRESS: "true",
       }),
     ).toBe(true);
     expect(
       shouldLogQaSuiteProgress({
         CI: "true",
-        OPENCLAW_QA_SUITE_PROGRESS: "false",
+        GRANTED_QA_SUITE_PROGRESS: "false",
       }),
     ).toBe(false);
     expect(
       shouldLogQaSuiteProgress({
         CI: "false",
-        OPENCLAW_QA_SUITE_PROGRESS: "on",
+        GRANTED_QA_SUITE_PROGRESS: "on",
       }),
     ).toBe(true);
     expect(
       shouldLogQaSuiteProgress({
         CI: "true",
-        OPENCLAW_QA_SUITE_PROGRESS: "off",
+        GRANTED_QA_SUITE_PROGRESS: "off",
       }),
     ).toBe(false);
     expect(
       shouldLogQaSuiteProgress({
         CI: "true",
-        OPENCLAW_QA_SUITE_PROGRESS: "definitely",
+        GRANTED_QA_SUITE_PROGRESS: "definitely",
       }),
     ).toBe(true);
   });
@@ -796,12 +796,12 @@ describe("qa suite", () => {
   it("arms gateway heap checkpoint env only when requested", () => {
     expect(
       buildQaGatewayHeapCheckpointRuntimeEnvPatch({
-        OPENCLAW_QA_GATEWAY_HEAP_CHECKPOINTS: "0",
+        GRANTED_QA_GATEWAY_HEAP_CHECKPOINTS: "0",
       }),
     ).toBeUndefined();
     expect(
       buildQaGatewayHeapCheckpointRuntimeEnvPatch({
-        OPENCLAW_QA_GATEWAY_HEAP_CHECKPOINTS: "1",
+        GRANTED_QA_GATEWAY_HEAP_CHECKPOINTS: "1",
         NODE_OPTIONS: "--max-old-space-size=4096",
       }),
     ).toEqual({

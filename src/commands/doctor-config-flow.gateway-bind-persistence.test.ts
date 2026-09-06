@@ -20,7 +20,7 @@ describe("Doctor gateway bind persistence", () => {
     ["0.0.0.0", "lan"],
   ] as const)("persists gateway bind %s as %s", async (legacyBind, canonicalBind) => {
     await withTempHome(async (home) => {
-      await withEnvOverride({ OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1" }, async () => {
+      await withEnvOverride({ GRANTED_DISABLE_BUNDLED_PLUGINS: "1" }, async () => {
         // This core writer regression needs the authoritative empty bundled-plugin inventory.
         const configPath = await writeOpenClawConfig(home, {
           gateway: { mode: "local", bind: legacyBind },

@@ -153,7 +153,7 @@ describe("ManagedWorktreeService", () => {
       recursive: true,
     });
     repo = await fs.realpath(repo);
-    env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+    env = { ...process.env, GRANTED_STATE_DIR: stateDir };
     now = 1_700_000_000_000;
     service = new ManagedWorktreeService({ env, now: () => now });
   });
@@ -378,9 +378,7 @@ describe("ManagedWorktreeService", () => {
       expect(await git(repo, "worktree", "list", "--porcelain")).toBe(before);
       expect(await git(repo, "branch", "--list", `openclaw/${name}`)).toBe("");
       expect(await service.list()).toEqual([]);
-      await expect(fs.readdir(path.join(env.OPENCLAW_STATE_DIR!, "worktrees"))).resolves.toEqual(
-        [],
-      );
+      await expect(fs.readdir(path.join(env.GRANTED_STATE_DIR!, "worktrees"))).resolves.toEqual([]);
     },
   );
 
@@ -482,7 +480,7 @@ describe("ManagedWorktreeService", () => {
       });
       if (admission !== "active") {
         await expect(creation).rejects.toMatchObject(
-          admission === "aborted" ? { code: "OPENCLAW_STATE_LEASE_ABORTED" } : closed,
+          admission === "aborted" ? { code: "GRANTED_STATE_LEASE_ABORTED" } : closed,
         );
         expectCheckoutTimeouts(commandSpy, ["origin/main"]);
         expect(await git(repo, "worktree", "list", "--porcelain")).not.toContain("stale-remote");
@@ -569,7 +567,7 @@ describe("ManagedWorktreeService", () => {
     const script = path.join(repo, ".openclaw", "worktree-setup.sh");
     await fs.writeFile(
       script,
-      '#!/bin/sh\nprintf "%s\\n%s\\n" "$OPENCLAW_SOURCE_TREE_PATH" "$OPENCLAW_WORKTREE_PATH" > setup-paths.txt\n',
+      '#!/bin/sh\nprintf "%s\\n%s\\n" "$GRANTED_SOURCE_TREE_PATH" "$GRANTED_WORKTREE_PATH" > setup-paths.txt\n',
       { mode: 0o755 },
     );
     const commandSpy = vi.spyOn(commandRunner, "runCommandWithTimeout");
@@ -620,7 +618,7 @@ describe("ManagedWorktreeService", () => {
     ).join("");
     await fs.writeFile(
       script,
-      `#!/bin/sh\nprintf '%s\\n' "$OPENCLAW_WORKTREE_PATH" > "$OPENCLAW_SOURCE_TREE_PATH/setup-path.txt"\nprintf '%s' '${progress}\n${"x".repeat(65_536)}${fatal}\n' >&2\nexit 23\n`,
+      `#!/bin/sh\nprintf '%s\\n' "$GRANTED_WORKTREE_PATH" > "$GRANTED_SOURCE_TREE_PATH/setup-path.txt"\nprintf '%s' '${progress}\n${"x".repeat(65_536)}${fatal}\n' >&2\nexit 23\n`,
       { mode: 0o755 },
     );
     const failure: unknown = await service

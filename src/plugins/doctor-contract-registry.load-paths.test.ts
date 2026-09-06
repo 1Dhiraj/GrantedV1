@@ -19,10 +19,10 @@ function makeHermeticDoctorEnv(stateDir: string): NodeJS.ProcessEnv {
   return {
     ...process.env,
     HOME: stateDir,
-    OPENCLAW_HOME: stateDir,
-    OPENCLAW_STATE_DIR: stateDir,
-    OPENCLAW_CONFIG_PATH: path.join(stateDir, "openclaw.json"),
-    OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
+    GRANTED_HOME: stateDir,
+    GRANTED_STATE_DIR: stateDir,
+    GRANTED_CONFIG_PATH: path.join(stateDir, "openclaw.json"),
+    GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
   };
 }
 
@@ -427,9 +427,9 @@ describe("doctor contract registry load-path plugins", () => {
       const config = createDoctorPluginConfig(pluginRoot, pluginId);
       const env = {
         ...makeHermeticDoctorEnv(stateDir),
-        OPENCLAW_DISABLE_BUNDLED_PLUGINS: "0",
-        OPENCLAW_BUNDLED_PLUGINS_DIR: bundledPluginsDir,
-        OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR: "1",
+        GRANTED_DISABLE_BUNDLED_PLUGINS: "0",
+        GRANTED_BUNDLED_PLUGINS_DIR: bundledPluginsDir,
+        GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR: "1",
       };
       const sourcePath = path.join(stateDir, pluginId, sourceFile);
       fs.mkdirSync(path.dirname(sourcePath), { recursive: true });

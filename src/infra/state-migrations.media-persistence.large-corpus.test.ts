@@ -22,7 +22,7 @@ function migrationChildEnv(stateDir: string): NodeJS.ProcessEnv {
   return mergeProcessEnv([
     process.env,
     {
-      OPENCLAW_STATE_DIR: stateDir,
+      GRANTED_STATE_DIR: stateDir,
       TMPDIR: loaderTempDir,
       TMP: loaderTempDir,
       TEMP: loaderTempDir,
@@ -145,7 +145,7 @@ const SPARSE_EVENT_CHILD_SCRIPT = String.raw`
 function createCorpus(stateDir: string): void {
   const database = openOpenClawAgentDatabase({
     agentId: "main",
-    env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+    env: { ...process.env, GRANTED_STATE_DIR: stateDir },
   });
   database.db.exec("BEGIN");
   database.db
@@ -191,7 +191,7 @@ function createCorpus(stateDir: string): void {
 function createSessionWindowCorpus(stateDir: string): void {
   const database = openOpenClawAgentDatabase({
     agentId: "main",
-    env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+    env: { ...process.env, GRANTED_STATE_DIR: stateDir },
   });
   database.db.exec("BEGIN");
   database.db
@@ -214,7 +214,7 @@ function createSessionWindowCorpus(stateDir: string): void {
 function createSparseEventCorpus(stateDir: string): void {
   const database = openOpenClawAgentDatabase({
     agentId: "main",
-    env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+    env: { ...process.env, GRANTED_STATE_DIR: stateDir },
   });
   database.db.exec("BEGIN");
   database.db

@@ -52,7 +52,7 @@ function seedManagedRecord(attachmentId: string) {
 }
 
 function dropSessionNodes() {
-  const options = { agentId: "main", env: { OPENCLAW_STATE_DIR: stateDir } };
+  const options = { agentId: "main", env: { GRANTED_STATE_DIR: stateDir } };
   const databasePath = openOpenClawAgentDatabase(options).path;
   closeOpenClawAgentDatabasesForTest();
   const { DatabaseSync } = requireNodeSqlite();
@@ -73,12 +73,12 @@ afterEach(() => {
 
 describe("cleanupManagedOutgoingMediaRecords availability fail-safe", () => {
   it("keeps records and bytes when session_nodes is missing", async () => {
-    const options = { agentId: "main", env: { OPENCLAW_STATE_DIR: stateDir } };
+    const options = { agentId: "main", env: { GRANTED_STATE_DIR: stateDir } };
     openOpenClawAgentDatabase(options);
     const originalPath = seedManagedRecord("aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa");
     dropSessionNodes();
 
-    const result = await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, () =>
+    const result = await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, () =>
       cleanupManagedOutgoingMediaRecords({ stateDir }),
     );
 
@@ -88,11 +88,11 @@ describe("cleanupManagedOutgoingMediaRecords availability fail-safe", () => {
   });
 
   it("still deletes dereferenced records when the store is healthy", async () => {
-    const options = { agentId: "main", env: { OPENCLAW_STATE_DIR: stateDir } };
+    const options = { agentId: "main", env: { GRANTED_STATE_DIR: stateDir } };
     openOpenClawAgentDatabase(options);
     const originalPath = seedManagedRecord("bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb");
 
-    const result = await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, () =>
+    const result = await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, () =>
       cleanupManagedOutgoingMediaRecords({ stateDir }),
     );
 

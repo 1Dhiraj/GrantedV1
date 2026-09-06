@@ -161,7 +161,7 @@ suite.define(() => {
   it("sets and clears session colors through desktop and compact menus", async () => {
     const key = "agent:main:color-proof";
     const now = Date.now();
-    const capture = process.env.OPENCLAW_CAPTURE_UI_PROOF === "1";
+    const capture = process.env.GRANTED_CAPTURE_UI_PROOF === "1";
     const proofDir = capture
       ? createControlUiE2eArtifactDir("session-color-web-proof", "/tmp/session-color-web-proof")
       : "";

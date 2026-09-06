@@ -29,19 +29,19 @@ function buildSuiteProcessEnv(outputDir: string) {
     ...process.env,
     HOME: home,
     USERPROFILE: home,
-    OPENCLAW_HOME: home,
-    OPENCLAW_STATE_DIR: path.join(home, ".openclaw"),
-    OPENCLAW_CONFIG_PATH: path.join(home, ".openclaw", "openclaw.json"),
-    OPENCLAW_QA_SUITE_PROGRESS: "1",
+    GRANTED_HOME: home,
+    GRANTED_STATE_DIR: path.join(home, ".openclaw"),
+    GRANTED_CONFIG_PATH: path.join(home, ".openclaw", "openclaw.json"),
+    GRANTED_QA_SUITE_PROGRESS: "1",
   };
   delete env.VITEST;
   delete env.VITEST_POOL_ID;
   delete env.VITEST_WORKER_ID;
-  delete env.OPENCLAW_VITEST_FS_MODULE_CACHE_PATH;
-  delete env.OPENCLAW_VITEST_FS_MODULE_CACHE_WRITER;
+  delete env.GRANTED_VITEST_FS_MODULE_CACHE_PATH;
+  delete env.GRANTED_VITEST_FS_MODULE_CACHE_WRITER;
   delete env.NODE_COMPILE_CACHE;
   delete env.NODE_DISABLE_COMPILE_CACHE;
-  delete env.OPENCLAW_NODE_COMPILE_CACHE_WRITER;
+  delete env.GRANTED_NODE_COMPILE_CACHE_WRITER;
   if (env.NODE_ENV === "test") {
     delete env.NODE_ENV;
   }

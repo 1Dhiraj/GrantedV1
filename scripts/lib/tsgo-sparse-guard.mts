@@ -29,7 +29,7 @@ const GUARDED_CONFIGS = new Set([
   ...CORE_TEST_CONFIGS,
   ...MANIFEST_TEST_SPARSE_ROOTS.keys(),
 ]);
-const TSGO_SPARSE_SKIP_ENV_KEY = "OPENCLAW_TSGO_SPARSE_SKIP";
+const TSGO_SPARSE_SKIP_ENV_KEY = "GRANTED_TSGO_SPARSE_SKIP";
 const CORE_PROD_SPARSE_ROOTS = ["packages"];
 const UI_PROD_SPARSE_ROOTS = ["packages", "src", "ui/config", "ui/src"];
 const CORE_TEST_SPARSE_ROOTS = ["packages", "ui/config", "ui/src"];

@@ -10,7 +10,7 @@ import { useAutoCleanupTempDirTracker } from "../helpers/temp-dir.js";
 
 const execFileAsync = promisify(execFile);
 const checkerSource = path.resolve(
-  process.env.OPENCLAW_TEST_RELEASE_VALIDATION_CHECKER ??
+  process.env.GRANTED_TEST_RELEASE_VALIDATION_CHECKER ??
     ".agents/skills/openclaw-release-validation/scripts/check-update.mjs",
 );
 const tempDirs = useAutoCleanupTempDirTracker(afterEach);
@@ -18,7 +18,7 @@ const tempDirs = useAutoCleanupTempDirTracker(afterEach);
 async function runChecker(
   scriptPath: string,
   workspace: string,
-  envOverrides: NodeJS.ProcessEnv = { OPENCLAW_STATE_DIR: workspace },
+  envOverrides: NodeJS.ProcessEnv = { GRANTED_STATE_DIR: workspace },
 ) {
   const preloadPath = path.join(path.dirname(workspace), "mock-fetch.mjs");
   await writeFile(
@@ -115,19 +115,19 @@ test.each([".clawhub", ".clawdhub"])(
     const stateLink = path.join(fixture, "state-link");
     await symlink(workspace, stateLink, process.platform === "win32" ? "junction" : "dir");
     const throughStateLink = await runChecker(scriptPath, workspace, {
-      OPENCLAW_STATE_DIR: stateLink,
+      GRANTED_STATE_DIR: stateLink,
     });
     expect(throughStateLink.update?.command).toContain("--global");
 
     const throughConfigPath = await runChecker(scriptPath, workspace, {
-      OPENCLAW_STATE_DIR: "",
-      OPENCLAW_CONFIG_PATH: path.join(workspace, "custom-openclaw.json"),
+      GRANTED_STATE_DIR: "",
+      GRANTED_CONFIG_PATH: path.join(workspace, "custom-openclaw.json"),
     });
     expect(throughConfigPath.update?.command).toContain("--global");
 
     const throughTildeState = await runChecker(scriptPath, workspace, {
-      OPENCLAW_HOME: fixture,
-      OPENCLAW_STATE_DIR: "~/workspace",
+      GRANTED_HOME: fixture,
+      GRANTED_STATE_DIR: "~/workspace",
     });
     expect(throughTildeState.update?.command).toContain("--global");
 

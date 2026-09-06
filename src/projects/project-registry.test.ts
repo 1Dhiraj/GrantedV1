@@ -214,7 +214,7 @@ describe("project registry", () => {
     );
     const options = {
       path: path.join(stateDir, "openclaw.sqlite"),
-      env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+      env: { ...process.env, GRANTED_STATE_DIR: stateDir },
     };
     const project = await registerClonedProjectRegistry(
       { path: checkout, name: "Existing delete race", originUrl },
@@ -260,7 +260,7 @@ describe("project registry", () => {
     );
     const options = {
       path: path.join(stateDir, "openclaw.sqlite"),
-      env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+      env: { ...process.env, GRANTED_STATE_DIR: stateDir },
     };
     const project = await registerClonedProjectRegistry(
       { path: checkout, name: "Delete race", originUrl },

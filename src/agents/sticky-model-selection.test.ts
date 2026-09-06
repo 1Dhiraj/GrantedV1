@@ -244,7 +244,7 @@ describe("persistStickyModelSelection", () => {
     expect(mocks.mutateConfigFileWithRetry).not.toHaveBeenCalled();
     expect(mocks.warn).toHaveBeenCalledOnce();
     expect(mocks.warn).toHaveBeenCalledWith(
-      "skipped sticky model persistence agentId=main model=openai/gpt-5.6-sol reason=config is immutable in OPENCLAW_NIX_MODE",
+      "skipped sticky model persistence agentId=main model=openai/gpt-5.6-sol reason=config is immutable in GRANTED_NIX_MODE",
     );
   });
 });

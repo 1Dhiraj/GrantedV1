@@ -134,7 +134,7 @@ suite.define(() => {
       const artifactDir = path.join(
         createControlUiE2eArtifactDir(
           "virtual-sizing",
-          process.env.OPENCLAW_CONTROL_UI_E2E_ARTIFACT_DIR,
+          process.env.GRANTED_CONTROL_UI_E2E_ARTIFACT_DIR,
         ),
         "after",
         `${reducedMotion}-${interruption}-${recoveryPosition}`,
@@ -599,7 +599,7 @@ suite.define(() => {
   });
 
   it("keeps completed-work and tool disclosures anchored on every expand and collapse frame", async () => {
-    const artifactDirParent = process.env.OPENCLAW_CONTROL_UI_E2E_ARTIFACT_DIR?.trim();
+    const artifactDirParent = process.env.GRANTED_CONTROL_UI_E2E_ARTIFACT_DIR?.trim();
     const artifactDir = artifactDirParent
       ? createControlUiE2eArtifactDir("chat-transcript-disclosure-anchor", artifactDirParent)
       : undefined;
@@ -801,7 +801,7 @@ suite.define(() => {
   });
 
   it("keeps raw tool details anchored at the end and middle of a long transcript", async () => {
-    const artifactDirParent = process.env.OPENCLAW_CONTROL_UI_E2E_ARTIFACT_DIR?.trim();
+    const artifactDirParent = process.env.GRANTED_CONTROL_UI_E2E_ARTIFACT_DIR?.trim();
     const artifactDir = artifactDirParent
       ? createControlUiE2eArtifactDir("chat-transcript-disclosure-anchor", artifactDirParent)
       : undefined;

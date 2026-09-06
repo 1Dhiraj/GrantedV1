@@ -109,7 +109,7 @@ fi
         PATH: `${binDir}:${process.env.PATH ?? ""}`,
         HOME: dir,
         GH_TOKEN: "offline-fixture",
-        OPENCLAW_GH_BIN: bypassPath,
+        GRANTED_GH_BIN: bypassPath,
         FIXTURE: fixturePath,
         REQUEST_LOG: logPath,
         OUTPUT: outputPath,

@@ -634,7 +634,7 @@ export async function runBundledPluginPostinstall(params: LaneCommandParams) {
   const installEnv = {
     ...params.env,
   };
-  delete installEnv.OPENCLAW_DISABLE_BUNDLED_PLUGIN_POSTINSTALL;
+  delete installEnv.GRANTED_DISABLE_BUNDLED_PLUGIN_POSTINSTALL;
   delete installEnv.NPM_CONFIG_PREFIX;
   delete installEnv.npm_config_global;
   delete installEnv.npm_config_location;
@@ -659,18 +659,18 @@ export function buildInstalledBrowserOverrideImportProbeScript(
 import { existsSync } from "node:fs";
 import { startLazyPluginServiceModule } from ${JSON.stringify(runtimeModuleSpecifier)};
 
-const startedPath = process.env.OPENCLAW_BROWSER_OVERRIDE_STARTED_PATH;
-const stoppedPath = process.env.OPENCLAW_BROWSER_OVERRIDE_STOPPED_PATH;
+const startedPath = process.env.GRANTED_BROWSER_OVERRIDE_STARTED_PATH;
+const stoppedPath = process.env.GRANTED_BROWSER_OVERRIDE_STOPPED_PATH;
 
-if (!process.env.OPENCLAW_BROWSER_CONTROL_MODULE) {
-  throw new Error("Missing OPENCLAW_BROWSER_CONTROL_MODULE.");
+if (!process.env.GRANTED_BROWSER_CONTROL_MODULE) {
+  throw new Error("Missing GRANTED_BROWSER_CONTROL_MODULE.");
 }
 if (!startedPath || !stoppedPath) {
   throw new Error("Missing browser override sentinel path env.");
 }
 
 const handle = await startLazyPluginServiceModule({
-  overrideEnvVar: "OPENCLAW_BROWSER_CONTROL_MODULE",
+  overrideEnvVar: "GRANTED_BROWSER_CONTROL_MODULE",
   validateOverrideSpecifier: (specifier) => specifier,
   loadDefaultModule: async () => {
     throw new Error("Default browser control service should not load during override probe.");
@@ -701,11 +701,11 @@ function buildBrowserOverrideProbeServiceModule() {
 import { writeFileSync } from "node:fs";
 
 export async function startBrowserControlService() {
-  writeFileSync(process.env.OPENCLAW_BROWSER_OVERRIDE_STARTED_PATH, "started\\n", "utf8");
+  writeFileSync(process.env.GRANTED_BROWSER_OVERRIDE_STARTED_PATH, "started\\n", "utf8");
 }
 
 export async function stopBrowserControlService() {
-  writeFileSync(process.env.OPENCLAW_BROWSER_OVERRIDE_STOPPED_PATH, "stopped\\n", "utf8");
+  writeFileSync(process.env.GRANTED_BROWSER_OVERRIDE_STOPPED_PATH, "stopped\\n", "utf8");
 }
 `.trim();
 }
@@ -740,9 +740,9 @@ export async function runInstalledBrowserOverrideImportSmoke(
     cwd: packageRoot,
     env: {
       ...params.env,
-      OPENCLAW_BROWSER_CONTROL_MODULE: pathToFileURL(overridePath).href,
-      OPENCLAW_BROWSER_OVERRIDE_STARTED_PATH: startedPath,
-      OPENCLAW_BROWSER_OVERRIDE_STOPPED_PATH: stoppedPath,
+      GRANTED_BROWSER_CONTROL_MODULE: pathToFileURL(overridePath).href,
+      GRANTED_BROWSER_OVERRIDE_STARTED_PATH: startedPath,
+      GRANTED_BROWSER_OVERRIDE_STOPPED_PATH: stoppedPath,
     },
     logPath: params.logPath,
     timeoutMs: 60_000,

@@ -133,7 +133,7 @@ describe("Ollama node inference deadline", () => {
   });
 
   it("applies the requested catalog timeout to guarded DNS preflight", async () => {
-    vi.stubEnv("OPENCLAW_PROXY_ACTIVE", "0");
+    vi.stubEnv("GRANTED_PROXY_ACTIVE", "0");
     const stalledLookup = vi.fn(() => new Promise<never>(() => {})) as unknown as LookupFn;
     const fetchSpy = vi.fn(async () => new Response("DNS should not complete"));
     const startedAtMs = performance.now();

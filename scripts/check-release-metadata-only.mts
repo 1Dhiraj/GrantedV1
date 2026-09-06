@@ -9,7 +9,7 @@ import { RELEASE_METADATA_PATHS } from "./changed-lanes.mts";
 
 const DEFAULT_GIT_TIMEOUT_MS = 60_000;
 const MAX_GIT_TIMEOUT_MS = 10 * 60_000;
-const GIT_TIMEOUT_ENV = "OPENCLAW_RELEASE_METADATA_GIT_TIMEOUT_MS";
+const GIT_TIMEOUT_ENV = "GRANTED_RELEASE_METADATA_GIT_TIMEOUT_MS";
 
 const VERSION_ONLY_TEXT_PATHS = new Set([
   "apps/android/Config/Version.properties",
@@ -156,8 +156,8 @@ function stripPackageVersion(raw: string) {
 
 function normalizeVersionText(raw: string) {
   return raw
-    .replace(/\b20\d{2}\.\d{1,2}\.\d{1,2}(?:-beta\.\d+|-\d+)?\b/gu, "<OPENCLAW_VERSION>")
-    .replace(/\b20\d{6}(?:\d{2})?\b/gu, "<OPENCLAW_BUILD>");
+    .replace(/\b20\d{2}\.\d{1,2}\.\d{1,2}(?:-beta\.\d+|-\d+)?\b/gu, "<GRANTED_VERSION>")
+    .replace(/\b20\d{6}(?:\d{2})?\b/gu, "<GRANTED_BUILD>");
 }
 
 function fail(message: string) {

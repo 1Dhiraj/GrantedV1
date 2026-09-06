@@ -49,7 +49,7 @@ run_logged_print_heartbeat signal-proof 30 bash -c 'printf "old log head%0256dre
       {
         encoding: "utf8",
         timeout: 5_000,
-        env: { ...process.env, TMPDIR: tempDir, OPENCLAW_DOCKER_E2E_LOG_PRINT_BYTES: "64" },
+        env: { ...process.env, TMPDIR: tempDir, GRANTED_DOCKER_E2E_LOG_PRINT_BYTES: "64" },
       },
     );
     expect(result.status, result.stderr).toBe(143);
@@ -127,7 +127,7 @@ fi
           encoding: "utf8",
           timeout: 5_000,
           killSignal: "SIGKILL",
-          env: { ...process.env, TMPDIR: tempDir, OPENCLAW_DOCKER_E2E_LOG_PRINT_BYTES: "64" },
+          env: { ...process.env, TMPDIR: tempDir, GRANTED_DOCKER_E2E_LOG_PRINT_BYTES: "64" },
         },
       );
       expect(result.status, JSON.stringify({ stderr: result.stderr, signal: result.signal })).toBe(

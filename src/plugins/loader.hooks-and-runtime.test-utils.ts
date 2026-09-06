@@ -146,9 +146,9 @@ function loadBuiltArtifactScenario(scenario: BuiltArtifactScenario) {
     scenario.origin === "bundled"
       ? withEnv(
           {
-            OPENCLAW_BUNDLED_PLUGINS_DIR: path.join(repoRoot, "extensions"),
-            OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR: "1",
-            OPENCLAW_DISABLE_BUNDLED_PLUGINS: undefined,
+            GRANTED_BUNDLED_PLUGINS_DIR: path.join(repoRoot, "extensions"),
+            GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR: "1",
+            GRANTED_DISABLE_BUNDLED_PLUGINS: undefined,
           },
           load,
         )
@@ -205,11 +205,11 @@ function loadSourceExternalArtifactScenario(params: {
   };
   const registry = withEnv(
     {
-      OPENCLAW_BUNDLED_PLUGINS_DIR: params.rootBuildBody
+      GRANTED_BUNDLED_PLUGINS_DIR: params.rootBuildBody
         ? path.join(repoRoot, "dist", "extensions")
         : path.join(repoRoot, "extensions"),
-      OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR: "1",
-      OPENCLAW_DISABLE_BUNDLED_PLUGINS: undefined,
+      GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR: "1",
+      GRANTED_DISABLE_BUNDLED_PLUGINS: undefined,
     },
     () => {
       const manifestRegistry = loadPluginManifestRegistryCore({ config });

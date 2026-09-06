@@ -71,7 +71,7 @@ async function withStoredInboundAudio<T>(
   // Realpath the temp root: macOS resolves os.tmpdir() through /private, and the
   // media store returns canonical paths that would otherwise miss the roots.
   const stateDir = await fs.realpath(tempDirs.make("openclaw-media-store-ref-", os.tmpdir()));
-  return await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir, PATH: "" }, async () => {
+  return await withEnvAsync({ GRANTED_STATE_DIR: stateDir, PATH: "" }, async () => {
     // Real inbound store write, exactly what a channel plugin does for an
     // inbound voice note before handing the reference to the agent turn.
     const saved = await saveMediaBuffer(
@@ -87,7 +87,7 @@ async function withStoredInboundDocument<T>(
   run: (saved: { id: string; path: string }) => Promise<T>,
 ): Promise<T> {
   const stateDir = await fs.realpath(tempDirs.make("openclaw-media-store-ref-", os.tmpdir()));
-  return await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir, PATH: "" }, async () => {
+  return await withEnvAsync({ GRANTED_STATE_DIR: stateDir, PATH: "" }, async () => {
     const saved = await saveMediaBuffer(
       Buffer.from("stored document text", "utf8"),
       "text/plain",

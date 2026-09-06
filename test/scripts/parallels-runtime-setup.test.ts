@@ -85,7 +85,7 @@ describe("Parallels Linux runtime prerequisites", () => {
       runShell: (script) => {
         const nodeRunner = shellQuote(process.execPath);
         const nodeCheckRunner = shellQuote(
-          'Object.defineProperty(process.versions, "node", { value: process.env.OPENCLAW_TEST_NODE_RELEASE }); eval(process.argv[1]);',
+          'Object.defineProperty(process.versions, "node", { value: process.env.GRANTED_TEST_NODE_RELEASE }); eval(process.argv[1]);',
         );
         return execFileSync(
           "bash",
@@ -98,7 +98,7 @@ ${script}`,
           ],
           {
             encoding: "utf8",
-            env: { ...process.env, OPENCLAW_TEST_NODE_RELEASE: scenario.nodeVersion },
+            env: { ...process.env, GRANTED_TEST_NODE_RELEASE: scenario.nodeVersion },
             timeout: 10_000,
           },
         );

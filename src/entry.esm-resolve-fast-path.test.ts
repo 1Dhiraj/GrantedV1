@@ -250,7 +250,7 @@ describe.skipIf(!fs.existsSync(DIST_ENTRY_PATH) || !fs.existsSync(DIST_INDEX_PAT
 import { registerHooks } from "node:module";
 function recordTarget(specifier, context, nextResolve) {
   if (specifier.startsWith(${JSON.stringify(targetPrefix)}) && specifier.endsWith(".js")) {
-    appendFileSync(process.env.OPENCLAW_TEST_RESOLVER_HOOK_MARKER, specifier + "\\n");
+    appendFileSync(process.env.GRANTED_TEST_RESOLVER_HOOK_MARKER, specifier + "\\n");
   }
   return nextResolve(specifier, context);
 }
@@ -270,8 +270,8 @@ ${registerSource}
             NODE_DISABLE_COMPILE_CACHE: "1",
             NODE_ENV: undefined,
             NODE_OPTIONS: nodeOptions ? `--im"port" "${hookUrl}"` : undefined,
-            OPENCLAW_NO_RESPAWN: "1",
-            OPENCLAW_TEST_RESOLVER_HOOK_MARKER: markerPath,
+            GRANTED_NO_RESPAWN: "1",
+            GRANTED_TEST_RESOLVER_HOOK_MARKER: markerPath,
             VITEST: undefined,
           },
         });

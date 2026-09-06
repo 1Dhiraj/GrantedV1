@@ -87,7 +87,7 @@ describe("createMSTeamsApp", () => {
   });
 
   it("passes the complete private QA bootstrap into the SDK App", async () => {
-    vi.stubEnv("OPENCLAW_BUILD_PRIVATE_QA", "1");
+    vi.stubEnv("GRANTED_BUILD_PRIVATE_QA", "1");
     vi.stubEnv("CLIENT_SECRET", "ambient-private-qa-secret");
     (
       globalThis as typeof globalThis & {
@@ -133,7 +133,7 @@ describe("createMSTeamsApp", () => {
   });
 
   it("routes a private QA proactive send through the loopback Connector", async () => {
-    vi.stubEnv("OPENCLAW_BUILD_PRIVATE_QA", "1");
+    vi.stubEnv("GRANTED_BUILD_PRIVATE_QA", "1");
     vi.stubEnv("CLIENT_SECRET", "ambient-private-qa-secret");
     const outbound: Array<{
       activity: Record<string, unknown>;

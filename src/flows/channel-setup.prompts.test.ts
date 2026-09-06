@@ -24,7 +24,7 @@ describe("maybeConfigureDmPolicies", () => {
       setPolicy: (cfg: OpenClawConfig) => cfg,
     };
 
-    await withEnvAsync({ OPENCLAW_LOCALE: "zh-CN" }, async () => {
+    await withEnvAsync({ GRANTED_LOCALE: "zh-CN" }, async () => {
       await maybeConfigureDmPolicies({
         cfg: {},
         selection: ["telegram" as never],

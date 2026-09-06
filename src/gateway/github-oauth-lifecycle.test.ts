@@ -228,7 +228,7 @@ function oauthRecord(
 beforeEach(() => {
   closeOpenClawStateDatabaseForTest();
   stateDir = tempDirs.make("openclaw-github-oauth-");
-  vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
+  vi.stubEnv("GRANTED_STATE_DIR", stateDir);
   vi.useFakeTimers();
   vi.setSystemTime(NOW);
   currentConfig = configForScope("system");

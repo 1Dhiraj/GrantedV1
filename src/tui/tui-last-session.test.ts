@@ -57,7 +57,7 @@ describe("tui last session state", () => {
     await expect(readTuiLastSessionKey({ scopeKey, stateDir })).resolves.toBe("agent:main:tui-123");
     expect(
       readConfigMachineStateWithMetadata<string>(`tui.lastSession.${scopeKey}`, {
-        env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+        env: { ...process.env, GRANTED_STATE_DIR: stateDir },
       }),
     ).toEqual({ value: "agent:main:tui-123", updatedAtMs: expect.any(Number) });
     await expect(fs.stat(path.join(stateDir, "tui", "last-session.json"))).rejects.toMatchObject({
@@ -178,7 +178,7 @@ describe("tui last session state", () => {
       stateDir,
     });
     writeConfigMachineState("unrelated.sessionReference", "agent:main:main", {
-      env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+      env: { ...process.env, GRANTED_STATE_DIR: stateDir },
     });
 
     expect(
@@ -196,7 +196,7 @@ describe("tui last session state", () => {
     );
     expect(
       readConfigMachineStateWithMetadata<string>("unrelated.sessionReference", {
-        env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+        env: { ...process.env, GRANTED_STATE_DIR: stateDir },
       })?.value,
     ).toBe("agent:main:main");
   });

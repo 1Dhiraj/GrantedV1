@@ -111,18 +111,18 @@ describe("runDaemonInstall integration", () => {
   beforeAll(async () => {
     envSnapshot = captureEnv([
       "HOME",
-      "OPENCLAW_STATE_DIR",
-      "OPENCLAW_CONFIG_PATH",
-      "OPENCLAW_GATEWAY_TOKEN",
-      "OPENCLAW_GATEWAY_PASSWORD",
+      "GRANTED_STATE_DIR",
+      "GRANTED_CONFIG_PATH",
+      "GRANTED_GATEWAY_TOKEN",
+      "GRANTED_GATEWAY_PASSWORD",
     ]);
     accountHome = await makeTempWorkspace("openclaw-daemon-install-int-");
     tempHome = path.join(accountHome, ".openclaw");
     await fs.mkdir(tempHome);
     configPath = path.join(tempHome, "openclaw.json");
     process.env.HOME = accountHome;
-    process.env.OPENCLAW_STATE_DIR = tempHome;
-    process.env.OPENCLAW_CONFIG_PATH = configPath;
+    process.env.GRANTED_STATE_DIR = tempHome;
+    process.env.GRANTED_CONFIG_PATH = configPath;
   });
 
   afterAll(async () => {
@@ -140,8 +140,8 @@ describe("runDaemonInstall integration", () => {
     resetRuntimeCapture();
     clearRuntimeConfigSnapshot();
     // Keep these defined-but-empty so dotenv won't repopulate from local .env.
-    process.env.OPENCLAW_GATEWAY_TOKEN = "";
-    process.env.OPENCLAW_GATEWAY_PASSWORD = "";
+    process.env.GRANTED_GATEWAY_TOKEN = "";
+    process.env.GRANTED_GATEWAY_PASSWORD = "";
     serviceMock.isLoaded.mockResolvedValue(false);
     serviceMock.readDefinitionMutationCapability.mockResolvedValue({ kind: "writable" });
     serviceMock.readCommand.mockReset();
@@ -209,7 +209,7 @@ describe("runDaemonInstall integration", () => {
         stdout: "",
         stderr: "Call failed: Unit openclaw-gateway.service not found.",
       });
-      const env = { ...process.env, HOME: fixture, OPENCLAW_SYSTEMD_UNIT: "openclaw-gateway" };
+      const env = { ...process.env, HOME: fixture, GRANTED_SYSTEMD_UNIT: "openclaw-gateway" };
       serviceMock.readCommand.mockImplementation((_env, options) =>
         readSystemdServiceExecStart(env, options),
       );
@@ -280,7 +280,7 @@ describe("runDaemonInstall integration", () => {
               })
             : buildSystemdManagerPropertyOutput({ programArguments: ["/usr/bin/node", "gateway"] }),
       }));
-      const env = { ...process.env, HOME: fixture, OPENCLAW_SYSTEMD_UNIT: "openclaw-gateway" };
+      const env = { ...process.env, HOME: fixture, GRANTED_SYSTEMD_UNIT: "openclaw-gateway" };
       serviceMock.readCommand.mockImplementationOnce((_env, options) =>
         readSystemdServiceExecStart(env, options),
       );
@@ -312,7 +312,7 @@ describe("runDaemonInstall integration", () => {
     const dropIn = `${unit}.d/override.conf`;
     const plannedFile = path.join(plannedState, "gateway.systemd.env");
     const effectiveFile = path.join(effectiveState, "gateway.systemd.env");
-    const invocation = captureEnv(["HOME", "OPENCLAW_STATE_DIR", "OPENCLAW_CONFIG_PATH"]);
+    const invocation = captureEnv(["HOME", "GRANTED_STATE_DIR", "GRANTED_CONFIG_PATH"]);
     await fs.mkdir(path.dirname(dropIn), { recursive: true });
     await fs.mkdir(plannedState);
     await fs.mkdir(effectiveState);
@@ -320,19 +320,19 @@ describe("runDaemonInstall integration", () => {
     await fs.writeFile(effectiveFile, "OPERATOR_VALUE=effective\n");
     await fs.writeFile(
       unit,
-      `[Service]\nExecStart=/usr/bin/node gateway\nEnvironment=OPENCLAW_STATE_DIR=${plannedState}\nEnvironmentFile=${plannedFile}\n`,
+      `[Service]\nExecStart=/usr/bin/node gateway\nEnvironment=GRANTED_STATE_DIR=${plannedState}\nEnvironmentFile=${plannedFile}\n`,
     );
     await fs.writeFile(
       dropIn,
-      `[Service]\nEnvironment=OPENCLAW_STATE_DIR=${effectiveState}\nEnvironmentFile=\nEnvironmentFile=${effectiveFile}\n`,
+      `[Service]\nEnvironment=GRANTED_STATE_DIR=${effectiveState}\nEnvironmentFile=\nEnvironmentFile=${effectiveFile}\n`,
     );
     await fs.writeFile(
       configPath,
       JSON.stringify({ gateway: { auth: { mode: "token", token: "existing-token" } } }),
     );
     process.env.HOME = fixture;
-    process.env.OPENCLAW_STATE_DIR = plannedState;
-    process.env.OPENCLAW_CONFIG_PATH = path.join(plannedState, "openclaw.json");
+    process.env.GRANTED_STATE_DIR = plannedState;
+    process.env.GRANTED_CONFIG_PATH = path.join(plannedState, "openclaw.json");
     clearConfigCache();
     const lstat = fs.lstat.bind(fs);
     const owner = vi.spyOn(fs, "lstat").mockImplementation(async (...args) => {
@@ -352,7 +352,7 @@ describe("runDaemonInstall integration", () => {
           ? buildSystemdUnitPropertyOutput({ fragmentPath: unit, dropInPaths: [dropIn] })
           : buildSystemdManagerPropertyOutput({
               programArguments: ["/usr/bin/node", "gateway"],
-              environment: [`OPENCLAW_STATE_DIR=${effectiveState}`],
+              environment: [`GRANTED_STATE_DIR=${effectiveState}`],
               environmentFiles: [[effectiveFile, false]],
             }),
     }));
@@ -526,7 +526,7 @@ describe("runDaemonInstall integration", () => {
     serviceMock.isLoaded.mockResolvedValue(true);
     serviceMock.readCommand.mockResolvedValue({
       programArguments: ["openclaw", "gateway", "run"],
-      environment: { OPENCLAW_GATEWAY_TOKEN: "outdated-token" },
+      environment: { GRANTED_GATEWAY_TOKEN: "outdated-token" },
     } as never);
     serviceMock.readDefinitionMutationCapability.mockResolvedValueOnce({
       kind: "sealed",
@@ -548,10 +548,10 @@ describe("runDaemonInstall integration", () => {
     serviceMock.isLoaded.mockResolvedValue(true);
     serviceMock.readCommand.mockResolvedValue({
       programArguments: ["openclaw", "gateway", "run"],
-      environment: { OPENCLAW_STATE_DIR: effectiveStateDir },
+      environment: { GRANTED_STATE_DIR: effectiveStateDir },
     } as never);
     serviceMock.readDefinitionMutationCapability.mockImplementationOnce(async (args) =>
-      args?.environment?.OPENCLAW_STATE_DIR === effectiveStateDir
+      args?.environment?.GRANTED_STATE_DIR === effectiveStateDir
         ? { kind: "sealed", reason: "foreign-owner" }
         : { kind: "writable" },
     );
@@ -561,8 +561,8 @@ describe("runDaemonInstall integration", () => {
 
     expect(serviceMock.readDefinitionMutationCapability).toHaveBeenCalledWith(
       expect.objectContaining({
-        env: expect.objectContaining({ OPENCLAW_STATE_DIR: tempHome }),
-        environment: expect.objectContaining({ OPENCLAW_STATE_DIR: effectiveStateDir }),
+        env: expect.objectContaining({ GRANTED_STATE_DIR: tempHome }),
+        environment: expect.objectContaining({ GRANTED_STATE_DIR: effectiveStateDir }),
       }),
     );
     expect(await snapshotConfig()).toEqual(before);
@@ -582,11 +582,11 @@ describe("runDaemonInstall integration", () => {
     const missingConfigPath = path.join(stateDir, "openclaw.json");
     const originalHome = process.env.HOME;
     process.env.HOME = isolatedHome;
-    const originalStateDir = process.env.OPENCLAW_STATE_DIR;
-    const originalConfigPath = process.env.OPENCLAW_CONFIG_PATH;
+    const originalStateDir = process.env.GRANTED_STATE_DIR;
+    const originalConfigPath = process.env.GRANTED_CONFIG_PATH;
     const secret = "direct-install-capability-secret-canary";
-    process.env.OPENCLAW_STATE_DIR = stateDir;
-    process.env.OPENCLAW_CONFIG_PATH = missingConfigPath;
+    process.env.GRANTED_STATE_DIR = stateDir;
+    process.env.GRANTED_CONFIG_PATH = missingConfigPath;
     clearConfigCache();
     if (kind === "rejected") {
       serviceMock.readDefinitionMutationCapability.mockRejectedValueOnce(new Error(secret));
@@ -611,8 +611,8 @@ describe("runDaemonInstall integration", () => {
       expect(runtimeLogs.join("\n")).not.toContain(secret);
     } finally {
       process.env.HOME = originalHome;
-      process.env.OPENCLAW_STATE_DIR = originalStateDir;
-      process.env.OPENCLAW_CONFIG_PATH = originalConfigPath;
+      process.env.GRANTED_STATE_DIR = originalStateDir;
+      process.env.GRANTED_CONFIG_PATH = originalConfigPath;
       clearConfigCache();
       await fs.rm(isolatedHome, { recursive: true, force: true });
     }
@@ -645,7 +645,7 @@ describe("runDaemonInstall integration", () => {
     expect(persistedToken).toEqual(expect.stringMatching(/^[0-9a-f]{48}$/));
 
     const installEnv = serviceMock.install.mock.calls[0]?.[0]?.environment;
-    expect(installEnv?.OPENCLAW_GATEWAY_TOKEN).toBeUndefined();
+    expect(installEnv?.GRANTED_GATEWAY_TOKEN).toBeUndefined();
   });
 
   it("logs a generated-token warning without callback indexes or warning arrays", async () => {

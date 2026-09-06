@@ -44,7 +44,7 @@ async function withOAuthTempRoot(
 ): Promise<void> {
   const tempRoot = await fs.mkdtemp(path.join(os.tmpdir(), prefix));
   tempDirs.push(tempRoot);
-  await withEnvAsync({ OPENCLAW_STATE_DIR: tempRoot }, async () => await run(tempRoot));
+  await withEnvAsync({ GRANTED_STATE_DIR: tempRoot }, async () => await run(tempRoot));
 }
 
 async function withOAuthAgentDirs(
@@ -54,7 +54,7 @@ async function withOAuthAgentDirs(
   await withOAuthTempRoot(prefix, async (tempRoot) => {
     const mainAgentDir = path.join(tempRoot, "agents", "main", "agent");
     const agentDir = path.join(tempRoot, "agents", "sub", "agent");
-    await withEnvAsync({ OPENCLAW_AGENT_DIR: mainAgentDir }, async () => {
+    await withEnvAsync({ GRANTED_AGENT_DIR: mainAgentDir }, async () => {
       await fs.mkdir(agentDir, { recursive: true });
       await fs.mkdir(mainAgentDir, { recursive: true });
       await run({ mainAgentDir, agentDir });

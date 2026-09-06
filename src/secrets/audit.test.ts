@@ -181,8 +181,8 @@ async function createAuditFixture(): Promise<AuditFixture> {
     modelsPath,
     envPath,
     env: {
-      OPENCLAW_STATE_DIR: stateDir,
-      OPENCLAW_CONFIG_PATH: configPath,
+      GRANTED_STATE_DIR: stateDir,
+      GRANTED_CONFIG_PATH: configPath,
       OPENAI_API_KEY: "env-openai-key", // pragma: allowlist secret
       PATH: resolveRuntimePathEnv(),
     },
@@ -679,7 +679,7 @@ describe("secrets audit", () => {
     const report = await runSecretsAudit({
       env: {
         ...fixture.env,
-        OPENCLAW_AGENT_DIR: externalAgentDir,
+        GRANTED_AGENT_DIR: externalAgentDir,
       },
     });
     expect(
@@ -739,7 +739,7 @@ describe("secrets audit", () => {
   it("reads a relocated shared store from the explicitly routed state root", async () => {
     const ambientStateDir = path.join(fixture.rootDir, "ambient-state");
     const ambientAgentDir = path.join(ambientStateDir, "agents", "main", "agent");
-    vi.stubEnv("OPENCLAW_STATE_DIR", ambientStateDir);
+    vi.stubEnv("GRANTED_STATE_DIR", ambientStateDir);
     writePersistedAuthProfileStoreRaw(
       {
         version: 1,
@@ -869,7 +869,7 @@ describe("secrets audit", () => {
   });
 
   it("scans .env in legacy .clawdbot state directory via automatic fallback", async () => {
-    // Do NOT set OPENCLAW_STATE_DIR or OPENCLAW_CONFIG_PATH — rely on
+    // Do NOT set GRANTED_STATE_DIR or GRANTED_CONFIG_PATH — rely on
     // resolveStateDir's automatic legacy-directory fallback. A controlled
     // HOME that contains only .clawdbot (no .openclaw) exercises the exact
     // path the old resolveConfigDir call could not reach: resolveConfigDir
@@ -930,7 +930,7 @@ describe("secrets audit", () => {
     await fs.mkdir(configDir, { recursive: true });
     await fs.copyFile(fixture.configPath, configPath);
     await fs.copyFile(fixture.envPath, configEnvPath);
-    fixture.env.OPENCLAW_CONFIG_PATH = configPath;
+    fixture.env.GRANTED_CONFIG_PATH = configPath;
 
     const report = await runSecretsAudit({ env: fixture.env });
 

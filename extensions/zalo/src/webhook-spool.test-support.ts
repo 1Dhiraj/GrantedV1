@@ -40,8 +40,8 @@ export async function withZaloWebhookTestQueue<T>(
     path.join(resolvePreferredOpenClawTmpDir(), "openclaw-zalo-ingress-"),
   );
   const stateDir = await fs.realpath(createdDir);
-  const previousStateDir = process.env.OPENCLAW_STATE_DIR;
-  process.env.OPENCLAW_STATE_DIR = stateDir;
+  const previousStateDir = process.env.GRANTED_STATE_DIR;
+  process.env.GRANTED_STATE_DIR = stateDir;
   const queue = createChannelIngressQueueForTests<ZaloWebhookTestPayload>({
     channelId: "zalo",
     accountId: "default",
@@ -51,9 +51,9 @@ export async function withZaloWebhookTestQueue<T>(
     return await fn(queue);
   } finally {
     if (previousStateDir === undefined) {
-      delete process.env.OPENCLAW_STATE_DIR;
+      delete process.env.GRANTED_STATE_DIR;
     } else {
-      process.env.OPENCLAW_STATE_DIR = previousStateDir;
+      process.env.GRANTED_STATE_DIR = previousStateDir;
     }
     closeOpenClawStateDatabaseForTest();
     await fs.rm(stateDir, { recursive: true, force: true });

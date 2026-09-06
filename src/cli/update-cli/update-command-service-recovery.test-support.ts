@@ -105,7 +105,7 @@ export function registerRecoveryTests(params: {
     });
     expect(before.stopped).toBe(true);
     await writeRecoveryConfig(configPath, "9999.1.1");
-    process.env.OPENCLAW_GATEWAY_PORT = "19999";
+    process.env.GRANTED_GATEWAY_PORT = "19999";
     const command = await mocks.command(process.env);
     if (!command) {
       throw new Error("missing fixture command");
@@ -135,17 +135,17 @@ export function registerRecoveryTests(params: {
         ],
         environment: {
           HOME: root,
-          OPENCLAW_PROFILE: "default",
-          OPENCLAW_STATE_DIR: path.dirname(configPath),
-          OPENCLAW_CONFIG_PATH: configPath,
-          OPENCLAW_SYSTEMD_UNIT:
+          GRANTED_PROFILE: "default",
+          GRANTED_STATE_DIR: path.dirname(configPath),
+          GRANTED_CONFIG_PATH: configPath,
+          GRANTED_SYSTEMD_UNIT:
             change === "unit" ? "openclaw-other.service" : "openclaw-gateway.service",
           ...(change === "profile"
             ? {
-                OPENCLAW_PROFILE: "second",
-                OPENCLAW_SYSTEMD_UNIT: "openclaw-gateway-second.service",
-                OPENCLAW_STATE_DIR: path.join(root, ".openclaw-second"),
-                OPENCLAW_CONFIG_PATH: path.join(root, ".openclaw-second", "openclaw.json"),
+                GRANTED_PROFILE: "second",
+                GRANTED_SYSTEMD_UNIT: "openclaw-gateway-second.service",
+                GRANTED_STATE_DIR: path.join(root, ".openclaw-second"),
+                GRANTED_CONFIG_PATH: path.join(root, ".openclaw-second", "openclaw.json"),
               }
             : {}),
         },
@@ -173,7 +173,7 @@ export function registerRecoveryTests(params: {
       expect(mocks.child.mock.calls[0]?.[0]).toContain("--preserve-definition");
       expect(mocks.restart).not.toHaveBeenCalled();
       expect(mocks.child.mock.calls[0]?.[1]).toMatchObject({ baseEnv: {} });
-      expect(mocks.child.mock.calls[0]?.[1]).not.toHaveProperty("env.OPENCLAW_GATEWAY_PORT");
+      expect(mocks.child.mock.calls[0]?.[1]).not.toHaveProperty("env.GRANTED_GATEWAY_PORT");
     } else if (change === "after readiness") {
       expect(recovered).toBe("failed");
       expect(mocks.child).toHaveBeenCalledOnce();

@@ -11,12 +11,12 @@ const suite = createControlUiE2eSuite({
   name: "embedded terminal document",
   startServerBeforeBrowser: true,
   unavailableMessage: (executablePath) =>
-    `Playwright Chromium is not installed or cannot start at ${executablePath}. Run \`pnpm --dir ui exec playwright install --with-deps chromium\`, or set OPENCLAW_UI_E2E_ALLOW_MISSING_CHROMIUM=1 only when intentionally skipping this lane.`,
+    `Playwright Chromium is not installed or cannot start at ${executablePath}. Run \`pnpm --dir ui exec playwright install --with-deps chromium\`, or set GRANTED_UI_E2E_ALLOW_MISSING_CHROMIUM=1 only when intentionally skipping this lane.`,
 });
 
 const requestedDeadSessionScreenshotPath =
-  process.env.OPENCLAW_TERMINAL_DEAD_SESSION_SCREENSHOT?.trim();
-const requestedDeadSessionVideoDir = process.env.OPENCLAW_TERMINAL_DEAD_SESSION_VIDEO_DIR?.trim();
+  process.env.GRANTED_TERMINAL_DEAD_SESSION_SCREENSHOT?.trim();
+const requestedDeadSessionVideoDir = process.env.GRANTED_TERMINAL_DEAD_SESSION_VIDEO_DIR?.trim();
 
 suite.define(() => {
   it("returns from an unavailable focused terminal", async () => {
@@ -46,9 +46,9 @@ suite.define(() => {
       await page.addInitScript((url) => {
         (
           window as Window & {
-            ["__OPENCLAW_NATIVE_CONTROL_AUTH__"]?: { gatewayUrl: string; token: string };
+            ["__GRANTED_NATIVE_CONTROL_AUTH__"]?: { gatewayUrl: string; token: string };
           }
-        )["__OPENCLAW_NATIVE_CONTROL_AUTH__"] = {
+        )["__GRANTED_NATIVE_CONTROL_AUTH__"] = {
           gatewayUrl: url,
           token: "native-build-identity-token",
         };
@@ -84,9 +84,9 @@ suite.define(() => {
       await page.addInitScript((url) => {
         (
           window as Window & {
-            ["__OPENCLAW_NATIVE_CONTROL_AUTH__"]?: { gatewayUrl: string; token: string };
+            ["__GRANTED_NATIVE_CONTROL_AUTH__"]?: { gatewayUrl: string; token: string };
           }
-        )["__OPENCLAW_NATIVE_CONTROL_AUTH__"] = {
+        )["__GRANTED_NATIVE_CONTROL_AUTH__"] = {
           gatewayUrl: url,
           token: "native-configured-ui-token",
         };
@@ -221,12 +221,12 @@ suite.define(() => {
       await page.addInitScript(() => {
         (
           window as Window & {
-            ["__OPENCLAW_NATIVE_CONTROL_AUTH__"]?: {
+            ["__GRANTED_NATIVE_CONTROL_AUTH__"]?: {
               gatewayUrl: string;
               token: string;
             };
           }
-        )["__OPENCLAW_NATIVE_CONTROL_AUTH__"] = {
+        )["__GRANTED_NATIVE_CONTROL_AUTH__"] = {
           gatewayUrl: "ws://gateway.example.test",
           token: "native-terminal-token",
         };
@@ -369,12 +369,12 @@ suite.define(() => {
         await page.addInitScript(() => {
           (
             window as Window & {
-              ["__OPENCLAW_NATIVE_CONTROL_AUTH__"]?: {
+              ["__GRANTED_NATIVE_CONTROL_AUTH__"]?: {
                 gatewayUrl: string;
                 token: string;
               };
             }
-          )["__OPENCLAW_NATIVE_CONTROL_AUTH__"] = {
+          )["__GRANTED_NATIVE_CONTROL_AUTH__"] = {
             gatewayUrl: "ws://gateway.example.test",
             token: "test",
           };

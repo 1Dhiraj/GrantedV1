@@ -147,7 +147,7 @@ async function fixture(
     source,
     context: { workspace: join(root, `workspace-${params.id ?? "worker"}`) },
   });
-  return { root, plan, env: { OPENCLAW_STATE_DIR: join(root, "state") } };
+  return { root, plan, env: { GRANTED_STATE_DIR: join(root, "state") } };
 }
 
 async function addFixture(
@@ -473,7 +473,7 @@ describe("Claw status and remove", () => {
   it("removes the agent and unchanged files but only releases package refs", async () => {
     const current = await addFixture({ withFile: true });
     const databasePath = join(
-      current.env.OPENCLAW_STATE_DIR,
+      current.env.GRANTED_STATE_DIR,
       "agents",
       "worker",
       "agent",

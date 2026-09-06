@@ -40,10 +40,10 @@ async function requireOwnedEnvironment() {
   const root = await fs.realpath(tmp);
   for (const name of [
     "HOME",
-    "OPENCLAW_HOME",
-    "OPENCLAW_STATE_DIR",
-    "OPENCLAW_CONFIG_PATH",
-    "OPENCLAW_OAUTH_DIR",
+    "GRANTED_HOME",
+    "GRANTED_STATE_DIR",
+    "GRANTED_CONFIG_PATH",
+    "GRANTED_OAUTH_DIR",
     "XDG_CONFIG_HOME",
     "XDG_DATA_HOME",
     "XDG_CACHE_HOME",
@@ -56,7 +56,7 @@ async function requireOwnedEnvironment() {
       `${name} must be inside the owned TMPDIR`,
     );
   }
-  assert.equal(process.env.OPENCLAW_HOME, process.env.HOME);
+  assert.equal(process.env.GRANTED_HOME, process.env.HOME);
   assert.equal(process.env.TMP, tmp);
   assert.equal(process.env.TEMP, tmp);
   return root;
@@ -197,7 +197,7 @@ async function runCases(runtime: Runtime, repoRoot: string, artifactBase: string
     });
     retainedGateway = gateway;
     assert.equal(
-      gateway.runtimeEnv.OPENCLAW_QA_STAGED_RUNTIME_ROOT,
+      gateway.runtimeEnv.GRANTED_QA_STAGED_RUNTIME_ROOT,
       path.join(repoRoot, ".artifacts", "qa-runtime", path.basename(gateway.tempRoot)),
       "Gateway staging root did not match its owned runtime",
     );
@@ -527,7 +527,7 @@ async function runCases(runtime: Runtime, repoRoot: string, artifactBase: string
         }
         // Database paths stay in namespace-owned state until the producer exits.
         // Only separately staged code is removed here, after the Gateway joins.
-        const stagedRoot = retainedGateway.runtimeEnv.OPENCLAW_QA_STAGED_RUNTIME_ROOT;
+        const stagedRoot = retainedGateway.runtimeEnv.GRANTED_QA_STAGED_RUNTIME_ROOT;
         assert.ok(stagedRoot, "Retained Gateway omitted its owned staging root");
         assert.equal(
           stagedRoot,
@@ -639,11 +639,11 @@ async function launch() {
     PATH: process.env.PATH,
     CI: "1",
     HOME: home,
-    OPENCLAW_HOME: home,
-    OPENCLAW_STATE_DIR: state,
-    OPENCLAW_CONFIG_PATH: config,
-    OPENCLAW_OAUTH_DIR: path.join(state, "credentials"),
-    OPENCLAW_BUILD_PRIVATE_QA: "1",
+    GRANTED_HOME: home,
+    GRANTED_STATE_DIR: state,
+    GRANTED_CONFIG_PATH: config,
+    GRANTED_OAUTH_DIR: path.join(state, "credentials"),
+    GRANTED_BUILD_PRIVATE_QA: "1",
     TMPDIR: root,
     TMP: root,
     TEMP: root,
@@ -654,7 +654,7 @@ async function launch() {
   for (const directory of [
     home,
     state,
-    env.OPENCLAW_OAUTH_DIR,
+    env.GRANTED_OAUTH_DIR,
     env.XDG_CONFIG_HOME,
     env.XDG_DATA_HOME,
     env.XDG_CACHE_HOME,

@@ -28,9 +28,9 @@ export function registerControlUiOwnerBootstrapSuite(): void {
       await import("./server/ws-shared-generation.js");
     const { prepareSessionWorkspaceIcon } = await import("./workspace-icon-http.js");
     const { mutateConfigFile } = await import("../config/config.js");
-    const stateDir = process.env.OPENCLAW_STATE_DIR;
+    const stateDir = process.env.GRANTED_STATE_DIR;
     if (!stateDir) {
-      throw new Error("OPENCLAW_STATE_DIR must be set by the gateway test hooks");
+      throw new Error("GRANTED_STATE_DIR must be set by the gateway test hooks");
     }
     const workspace = path.join(stateDir, "owner-icon-workspace");
     await fs.mkdir(workspace, { recursive: true });

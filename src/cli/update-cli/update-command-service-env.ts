@@ -5,13 +5,13 @@ import {
 } from "../../daemon/constants.js";
 
 const SERVICE_REFRESH_PATH_ENV_KEYS = [
-  "OPENCLAW_HOME",
-  "OPENCLAW_STATE_DIR",
-  "OPENCLAW_CONFIG_PATH",
-  "OPENCLAW_WORKSPACE_DIR",
+  "GRANTED_HOME",
+  "GRANTED_STATE_DIR",
+  "GRANTED_CONFIG_PATH",
+  "GRANTED_WORKSPACE_DIR",
 ] as const;
 const MANAGED_UPDATE_SELECTOR_ENV_KEYS = [
-  "OPENCLAW_HOME",
+  "GRANTED_HOME",
   ...GATEWAY_SERVICE_SELECTOR_ENV_KEYS,
 ] as const;
 
@@ -60,9 +60,9 @@ export async function withUpdateInProgressEnv<T>(
   run: () => Promise<T>,
 ): Promise<T> {
   const env = resolveServiceRefreshEnv(process.env, invocationCwd);
-  env.OPENCLAW_UPDATE_IN_PROGRESS = "1";
+  env.GRANTED_UPDATE_IN_PROGRESS = "1";
   const scopedKeys = Object.keys(env).filter(
-    (key) => key === "OPENCLAW_UPDATE_IN_PROGRESS" || env[key] !== process.env[key],
+    (key) => key === "GRANTED_UPDATE_IN_PROGRESS" || env[key] !== process.env[key],
   );
   const previousValues = scopedKeys.map((key) => [key, process.env[key]] as const);
   // Package replacement can remove cwd. All phase owners must share the
@@ -85,8 +85,8 @@ export async function withUpdateInProgressEnv<T>(
 
 export function stripGatewayServiceMarkerEnv(env: NodeJS.ProcessEnv): NodeJS.ProcessEnv {
   const resolvedEnv = { ...env };
-  delete resolvedEnv.OPENCLAW_SERVICE_MARKER;
-  delete resolvedEnv.OPENCLAW_SERVICE_KIND;
+  delete resolvedEnv.GRANTED_SERVICE_MARKER;
+  delete resolvedEnv.GRANTED_SERVICE_KIND;
   delete resolvedEnv[GATEWAY_SERVICE_RUNTIME_PID_ENV];
   return resolvedEnv;
 }

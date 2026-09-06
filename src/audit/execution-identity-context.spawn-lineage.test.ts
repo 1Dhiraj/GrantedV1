@@ -71,7 +71,7 @@ function prepareContext(
   return processExecutionIdentityAdmissionWork(
     { kind: "capture", envelope },
     {
-      env: { OPENCLAW_STATE_DIR: tempDirs.make("openclaw-lineage-") },
+      env: { GRANTED_STATE_DIR: tempDirs.make("openclaw-lineage-") },
       ...(ids.now !== undefined ? { now: ids.now } : {}),
     },
   );

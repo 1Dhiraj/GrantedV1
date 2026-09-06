@@ -27,7 +27,7 @@ type NewOperatorApproval = Parameters<typeof insertOperatorApproval>[0]["approva
 function createDatabaseOptions(): OpenClawStateDatabaseOptions {
   const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-approval-events-"));
   tempDirs.push(stateDir);
-  return { env: { ...process.env, OPENCLAW_STATE_DIR: stateDir } };
+  return { env: { ...process.env, GRANTED_STATE_DIR: stateDir } };
 }
 
 function createClient(params: {

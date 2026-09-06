@@ -199,15 +199,15 @@ describe("update-startup", () => {
       layout: "state-only",
       prefix: "openclaw-update-check-suite-",
       env: {
-        OPENCLAW_PROFILE: undefined,
-        OPENCLAW_NO_AUTO_UPDATE: undefined,
-        OPENCLAW_SUPERVISOR_MODE: undefined,
-        OPENCLAW_SERVICE_KIND: undefined,
-        OPENCLAW_SERVICE_MARKER: undefined,
-        OPENCLAW_GATEWAY_SERVICE_PID: undefined,
-        OPENCLAW_LAUNCHD_LABEL: undefined,
-        OPENCLAW_SYSTEMD_UNIT: undefined,
-        OPENCLAW_WINDOWS_TASK_NAME: undefined,
+        GRANTED_PROFILE: undefined,
+        GRANTED_NO_AUTO_UPDATE: undefined,
+        GRANTED_SUPERVISOR_MODE: undefined,
+        GRANTED_SERVICE_KIND: undefined,
+        GRANTED_SERVICE_MARKER: undefined,
+        GRANTED_GATEWAY_SERVICE_PID: undefined,
+        GRANTED_LAUNCHD_LABEL: undefined,
+        GRANTED_SYSTEMD_UNIT: undefined,
+        GRANTED_WINDOWS_TASK_NAME: undefined,
         INVOCATION_ID: undefined,
         NODE_ENV: "test",
         VITEST: undefined,
@@ -614,7 +614,7 @@ describe("update-startup", () => {
       mockPackageUpdateStatus(channel, version);
       checkTelemetryUpdateMock.mockResolvedValue({ version: "3.0.0" });
       if (external) {
-        process.env.OPENCLAW_SUPERVISOR_MODE = "external";
+        process.env.GRANTED_SUPERVISOR_MODE = "external";
       }
 
       await runGatewayUpdateCheck({
@@ -2193,9 +2193,9 @@ describe("update-startup", () => {
     expect(getUpdateSchedule()).toMatchObject({ channel: "beta", autoEnabled: false });
   });
 
-  it("disables update notices, telemetry, and auto-update with OPENCLAW_NO_AUTO_UPDATE", async () => {
+  it("disables update notices, telemetry, and auto-update with GRANTED_NO_AUTO_UPDATE", async () => {
     mockPackageUpdateStatus("beta", "2.0.0-beta.1");
-    process.env.OPENCLAW_NO_AUTO_UPDATE = "1";
+    process.env.GRANTED_NO_AUTO_UPDATE = "1";
     const log = { info: vi.fn() };
     const runAutoUpdate = createAutoUpdateSuccessMock();
 
@@ -2216,8 +2216,8 @@ describe("update-startup", () => {
 
   it("keeps external auto-update supervision authoritative over native systemd markers", async () => {
     mockPackageUpdateStatus("beta", "2.0.0-beta.1");
-    process.env.OPENCLAW_SUPERVISOR_MODE = "external";
-    process.env.OPENCLAW_SYSTEMD_UNIT = "openclaw-gateway.service";
+    process.env.GRANTED_SUPERVISOR_MODE = "external";
+    process.env.GRANTED_SYSTEMD_UNIT = "openclaw-gateway.service";
     detectRespawnSupervisorMock.mockReturnValue("systemd");
     const log = { info: vi.fn() };
     const runAutoUpdate = createAutoUpdateSuccessMock();
@@ -2239,7 +2239,7 @@ describe("update-startup", () => {
   });
 
   it("keeps a foreground Gateway serving when automatic update has no restart owner", async () => {
-    process.env.OPENCLAW_PROFILE = "work";
+    process.env.GRANTED_PROFILE = "work";
     mockPackageInstallStatus();
     mockNpmChannelTag("beta", "2.0.0-beta.1");
     await runAutoUpdateCheckWithDefaults({ cfg: createBetaAutoUpdateConfig() });

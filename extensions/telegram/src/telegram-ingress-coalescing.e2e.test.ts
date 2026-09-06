@@ -234,7 +234,7 @@ async function assertAlbumTurnAndTombstones(params: { spoolDir: string; updateId
 }
 
 describe("Telegram durable ingress coalescing", () => {
-  const originalStateDir = process.env.OPENCLAW_STATE_DIR;
+  const originalStateDir = process.env.GRANTED_STATE_DIR;
   let stateDir: string;
   let spoolDir: string;
   let activeResources: Array<{
@@ -245,7 +245,7 @@ describe("Telegram durable ingress coalescing", () => {
 
   beforeEach(async () => {
     stateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-telegram-album-ingress-"));
-    process.env.OPENCLAW_STATE_DIR = stateDir;
+    process.env.GRANTED_STATE_DIR = stateDir;
     spoolDir = path.join(stateDir, "telegram", "ingress-spool-default");
     activeResources = [];
     downstreamTurns
@@ -282,9 +282,9 @@ describe("Telegram durable ingress coalescing", () => {
     closeOpenClawStateDatabaseForTest();
     resetPluginStateStoreForTests({ closeDatabase: false });
     if (originalStateDir === undefined) {
-      delete process.env.OPENCLAW_STATE_DIR;
+      delete process.env.GRANTED_STATE_DIR;
     } else {
-      process.env.OPENCLAW_STATE_DIR = originalStateDir;
+      process.env.GRANTED_STATE_DIR = originalStateDir;
     }
     await fs.rm(stateDir, { recursive: true, force: true });
   });

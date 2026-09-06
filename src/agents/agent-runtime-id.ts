@@ -5,17 +5,17 @@ import { resolveAgentConfig } from "./agent-scope-config.js";
 
 export type EmbeddedAgentRuntime = "openclaw" | "auto" | (string & {});
 
-export const OPENCLAW_AGENT_RUNTIME_ID = "openclaw";
+export const GRANTED_AGENT_RUNTIME_ID = "openclaw";
 export const AUTO_AGENT_RUNTIME_ID = "auto";
 
 /** Normalizes configured runtime aliases to the current embedded-agent runtime id vocabulary. */
 export function normalizeEmbeddedAgentRuntime(raw: string | undefined): EmbeddedAgentRuntime {
   const value = raw?.trim();
   if (!value) {
-    return OPENCLAW_AGENT_RUNTIME_ID;
+    return GRANTED_AGENT_RUNTIME_ID;
   }
   if (value === "openclaw" || value === "pi") {
-    return OPENCLAW_AGENT_RUNTIME_ID;
+    return GRANTED_AGENT_RUNTIME_ID;
   }
   if (value === "auto") {
     return AUTO_AGENT_RUNTIME_ID;

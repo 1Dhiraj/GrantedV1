@@ -192,7 +192,7 @@ describe("Gateway startup SecretRef owner isolation", () => {
 
   it("recovers only a repaired credential-file account through secrets.reload without restarting sibling accounts", async () => {
     await withEnvAsync(
-      { OPENCLAW_SKIP_CHANNELS: undefined, OPENCLAW_SKIP_PROVIDERS: undefined },
+      { GRANTED_SKIP_CHANNELS: undefined, GRANTED_SKIP_PROVIDERS: undefined },
       async () => {
         const credentialPath = path.join(tempDirs.make("openclaw-gateway-credential-"), "token");
         const credentialConfigPath = "channels.telegram.accounts.broken.tokenFile";
@@ -264,7 +264,7 @@ describe("Gateway startup SecretRef owner isolation", () => {
             },
           },
         });
-        const configPath = process.env.OPENCLAW_CONFIG_PATH;
+        const configPath = process.env.GRANTED_CONFIG_PATH;
         if (!configPath) {
           throw new Error("Gateway test did not configure a config file path");
         }
@@ -392,7 +392,7 @@ describe("Gateway startup SecretRef owner isolation", () => {
         GEMINI_API_KEY: "test-gemini-api-key",
         HEALTHY_MEMORY_KEY: "healthy-memory-key",
         HEALTHY_SANDBOX_IDENTITY: "healthy-sandbox-identity",
-        OPENCLAW_TEST_ACTIVE_WEB_SEARCH_SECRET: undefined,
+        GRANTED_TEST_ACTIVE_WEB_SEARCH_SECRET: undefined,
         MISSING_MEMORY_KEY: undefined,
         MISSING_SANDBOX_IDENTITY: undefined,
         MISSING_SKILL_KEY: undefined,
@@ -513,7 +513,7 @@ describe("Gateway startup SecretRef owner isolation", () => {
                     apiKey: {
                       source: "env",
                       provider: "default",
-                      id: "OPENCLAW_TEST_ACTIVE_WEB_SEARCH_SECRET",
+                      id: "GRANTED_TEST_ACTIVE_WEB_SEARCH_SECRET",
                     },
                   },
                 },

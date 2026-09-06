@@ -58,6 +58,6 @@ export async function cleanupSessionStateForTest(
     }
   }
   closeOpenClawStateDatabaseByPath(
-    resolveOpenClawStateSqlitePath({ ...process.env, OPENCLAW_STATE_DIR: options.stateDir }),
+    resolveOpenClawStateSqlitePath({ ...process.env, GRANTED_STATE_DIR: options.stateDir }),
   );
 }

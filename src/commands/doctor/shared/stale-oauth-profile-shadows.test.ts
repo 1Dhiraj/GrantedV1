@@ -62,7 +62,7 @@ async function writeRawAuthStore(agentDir: string, store: unknown): Promise<void
 }
 
 describe("stale OAuth profile shadow doctor repair", () => {
-  const envSnapshot = captureEnv(["OPENCLAW_AGENT_DIR", "OPENCLAW_STATE_DIR", "OPENCLAW_HOME"]);
+  const envSnapshot = captureEnv(["GRANTED_AGENT_DIR", "GRANTED_STATE_DIR", "GRANTED_HOME"]);
   let tempRoot = "";
   let stateDir = "";
 
@@ -70,8 +70,8 @@ describe("stale OAuth profile shadow doctor repair", () => {
     clearRuntimeAuthProfileStoreSnapshots();
     tempRoot = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-stale-oauth-shadow-"));
     stateDir = path.join(tempRoot, "state");
-    process.env.OPENCLAW_STATE_DIR = stateDir;
-    process.env.OPENCLAW_HOME = stateDir;
+    process.env.GRANTED_STATE_DIR = stateDir;
+    process.env.GRANTED_HOME = stateDir;
   });
 
   afterEach(async () => {
@@ -173,8 +173,8 @@ describe("stale OAuth profile shadow doctor repair", () => {
     const injectedStateDir = path.join(tempRoot, "injected-state");
     const injectedEnv = {
       ...process.env,
-      OPENCLAW_STATE_DIR: injectedStateDir,
-      OPENCLAW_HOME: injectedStateDir,
+      GRANTED_STATE_DIR: injectedStateDir,
+      GRANTED_HOME: injectedStateDir,
     };
     saveAuthProfileStore(
       storeWith(
@@ -226,15 +226,15 @@ describe("stale OAuth profile shadow doctor repair", () => {
     ]);
   });
 
-  it("repairs shadows against the OPENCLAW_AGENT_DIR shared-main store", async () => {
+  it("repairs shadows against the GRANTED_AGENT_DIR shared-main store", async () => {
     const profileId = "anthropic:default";
     const now = Date.now();
     const relocatedMainAgentDir = path.join(tempRoot, "relocated-main-agent");
     const childAgentDir = path.join(stateDir, "agents", "telegram", "agent");
     const env = {
       ...process.env,
-      OPENCLAW_AGENT_DIR: relocatedMainAgentDir,
-      OPENCLAW_STATE_DIR: stateDir,
+      GRANTED_AGENT_DIR: relocatedMainAgentDir,
+      GRANTED_STATE_DIR: stateDir,
     };
     await writeRawAuthStore(
       relocatedMainAgentDir,

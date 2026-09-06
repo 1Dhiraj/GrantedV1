@@ -12,7 +12,7 @@ const suite = createControlUiE2eSuite({ name: "Control UI Home context updates" 
 
 suite.define(() => {
   it("refreshes open Home context after a roster-only title update", async () => {
-    const proofDir = process.env.OPENCLAW_UI_E2E_ARTIFACT_DIR?.trim()
+    const proofDir = process.env.GRANTED_UI_E2E_ARTIFACT_DIR?.trim()
       ? suite.artifactDir
       : undefined;
     await suite.withPage(

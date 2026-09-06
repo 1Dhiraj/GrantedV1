@@ -40,11 +40,11 @@ describe("plugin conversation bindings through SQLite", () => {
   let registrySnapshot: ReturnType<typeof captureActivePluginRegistrySnapshot>;
 
   beforeEach(async () => {
-    envSnapshot = captureEnv(["OPENCLAW_STATE_DIR"]);
+    envSnapshot = captureEnv(["GRANTED_STATE_DIR"]);
     registrySnapshot = captureActivePluginRegistrySnapshot();
     await drainGlobalSingletonLifecycleState();
     closeOpenClawStateDatabaseForTest();
-    setTestEnvValue("OPENCLAW_STATE_DIR", makeTrackedTempDir("plugin-binding-sqlite", tempDirs));
+    setTestEnvValue("GRANTED_STATE_DIR", makeTrackedTempDir("plugin-binding-sqlite", tempDirs));
     installGenericBindingChannel();
   });
 

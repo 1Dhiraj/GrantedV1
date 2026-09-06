@@ -209,19 +209,19 @@ const GATEWAY_CASES: readonly GatewayBenchCase[] = [
   {
     id: "skipChannels",
     name: "gateway restart, skip channels",
-    env: { OPENCLAW_SKIP_CHANNELS: "1" },
+    env: { GRANTED_SKIP_CHANNELS: "1" },
     config: BASE_CONFIG,
   },
   {
     id: "skipChannelsAcpxProbe",
     name: "gateway restart, skip channels, ACPX startup probe on",
-    env: { OPENCLAW_ACPX_RUNTIME_STARTUP_PROBE: "1", OPENCLAW_SKIP_CHANNELS: "1" },
+    env: { GRANTED_ACPX_RUNTIME_STARTUP_PROBE: "1", GRANTED_SKIP_CHANNELS: "1" },
     config: BASE_CONFIG,
   },
   {
     id: "skipChannelsNoAcpxProbe",
     name: "gateway restart, skip channels, ACPX startup probe off",
-    env: { OPENCLAW_ACPX_RUNTIME_STARTUP_PROBE: "0", OPENCLAW_SKIP_CHANNELS: "1" },
+    env: { GRANTED_ACPX_RUNTIME_STARTUP_PROBE: "0", GRANTED_SKIP_CHANNELS: "1" },
     config: BASE_CONFIG,
   },
   {
@@ -232,7 +232,7 @@ const GATEWAY_CASES: readonly GatewayBenchCase[] = [
   {
     id: "fiftyPlugins",
     name: "gateway restart, 50 manifest plugins",
-    env: { OPENCLAW_SKIP_CHANNELS: "1" },
+    env: { GRANTED_SKIP_CHANNELS: "1" },
     pluginActivationOnStartup: true,
     pluginCount: 50,
     config: BASE_CONFIG,

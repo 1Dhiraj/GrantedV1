@@ -152,7 +152,7 @@ beforeAll(async () => {
 beforeEach(async () => {
   state = await createOpenClawTestState({
     label: "turn-model-reply",
-    env: { OPENCLAW_TEST_FAST: "1" },
+    env: { GRANTED_TEST_FAST: "1" },
   });
   const actualChannelModel = await vi.importActual<
     typeof import("../../channels/model-overrides.js")

@@ -81,7 +81,7 @@ describe("runtime postbuild static assets", () => {
 
     runRuntimePostBuild({
       rootDir,
-      env: { OPENCLAW_RUNTIME_POSTBUILD_STATIC_ASSETS: "0" },
+      env: { GRANTED_RUNTIME_POSTBUILD_STATIC_ASSETS: "0" },
       timings: false,
     });
 
@@ -183,7 +183,7 @@ describe("runtime postbuild static assets", () => {
     { name: "isolated external build", params: { includeExternalPlugins: true }, included: true },
     {
       name: "Docker-selected build",
-      params: { env: { OPENCLAW_INTERNAL_DOCKER_BUILD_PLUGIN_IDS: "external-demo" } },
+      params: { env: { GRANTED_INTERNAL_DOCKER_BUILD_PLUGIN_IDS: "external-demo" } },
       included: true,
     },
   ])("$name handles external plugin assets", async ({ params, included }) => {
@@ -306,8 +306,8 @@ describe("runtime postbuild static assets", () => {
         chunks: [{ dest: sentinelDest, contents: "selected root only\n" }],
         cwd: rootDir,
         env: {
-          OPENCLAW_RUNTIME_POSTBUILD_STATIC_ASSETS: "0",
-          OPENCLAW_CONTROL_UI_BUILD_ID: "source-runtime-build",
+          GRANTED_RUNTIME_POSTBUILD_STATIC_ASSETS: "0",
+          GRANTED_CONTROL_UI_BUILD_ID: "source-runtime-build",
         },
         timings: false,
       };
@@ -348,7 +348,7 @@ describe("runtime postbuild static assets", () => {
 
     runRuntimePostBuild({
       cwd,
-      env: { OPENCLAW_RUNTIME_POSTBUILD_STATIC_ASSETS: "0" },
+      env: { GRANTED_RUNTIME_POSTBUILD_STATIC_ASSETS: "0" },
       repoRoot,
       rootDir,
       timings: false,
@@ -451,7 +451,7 @@ describe("runtime postbuild static assets", () => {
       cwd: rootDir,
       repoRoot: rootDir,
       rootDir,
-      env: { OPENCLAW_RUNTIME_POSTBUILD_STATIC_ASSETS: "0" },
+      env: { GRANTED_RUNTIME_POSTBUILD_STATIC_ASSETS: "0" },
       timings: false,
       warn,
     });

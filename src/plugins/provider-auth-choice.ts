@@ -388,7 +388,7 @@ async function prepareProviderPluginAuthMethod(
       config: nextConfig,
       agentDir,
       ...(params.env ? { env: params.env } : {}),
-      ...(params.env?.OPENCLAW_STATE_DIR ? { stateDir: params.env.OPENCLAW_STATE_DIR } : {}),
+      ...(params.env?.GRANTED_STATE_DIR ? { stateDir: params.env.GRANTED_STATE_DIR } : {}),
     });
     profilesPersisted = true;
   };

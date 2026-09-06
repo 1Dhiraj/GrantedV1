@@ -42,9 +42,9 @@ describe("prepareCodexAttemptConnection", () => {
     const sessionFile = path.join(tempDir, "installation-target.jsonl");
     const params = createParams(sessionFile, path.join(tempDir, "workspace-installation-target"));
     const localProcessEnv = Object.freeze({
-      OPENCLAW_STATE_DIR: "/fixture/diagnosed",
-      OPENCLAW_CONFIG_PATH: "/fixture/custom.json",
-      OPENCLAW_WORKSPACE_DIR: "/fixture/default-workspace",
+      GRANTED_STATE_DIR: "/fixture/diagnosed",
+      GRANTED_CONFIG_PATH: "/fixture/custom.json",
+      GRANTED_WORKSPACE_DIR: "/fixture/default-workspace",
     });
     params.hostCapabilities = Object.freeze({
       ...params.hostCapabilities,
@@ -96,7 +96,7 @@ describe("prepareCodexAttemptConnection", () => {
     const connection = await pending;
     if (placement === "ordinary-loopback-server") {
       expect(connection.shellEnvironment).toBeUndefined();
-      expect(connection.appServer.start.env ?? {}).not.toHaveProperty("OPENCLAW_STATE_DIR");
+      expect(connection.appServer.start.env ?? {}).not.toHaveProperty("GRANTED_STATE_DIR");
       expect(connection.disableLoginShell).toBe(false);
       return;
     }

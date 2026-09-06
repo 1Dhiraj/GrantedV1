@@ -171,7 +171,7 @@ function writeSupervisorOwnerScript(root: string): string {
       const [bundleRoot, stateDir, inputPath] = process.argv.slice(2);
       const supervisor = createNodeWorkerSupervisor({
         bundleRoot,
-        env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+        env: { ...process.env, GRANTED_STATE_DIR: stateDir },
       });
       const shutdown = async () => {
         await supervisor.close();
@@ -202,7 +202,7 @@ function spawnSupervisorOwner(params: {
       "tsx",
       writeSupervisorOwnerScript(params.root),
       params.bundleRoot,
-      params.env.OPENCLAW_STATE_DIR!,
+      params.env.GRANTED_STATE_DIR!,
       inputPath,
     ],
     { stdio: ["ignore", "pipe", "pipe"] },
@@ -466,7 +466,7 @@ describe("node worker supervisor recovery", () => {
         import { NodeWorkerTurnStore } from ${JSON.stringify(turnsUrl)};
         import { requireNodeWorkerProcessIdentity } from ${JSON.stringify(identityUrl)};
         const [stateDir, claimPath] = process.argv.slice(2);
-        const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+        const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
         const store = new NodeWorkerLaunchStore({ env });
         const claim = JSON.parse(fs.readFileSync(claimPath, "utf8"));
         const supervisor = requireNodeWorkerProcessIdentity(process.pid);
@@ -484,7 +484,7 @@ describe("node worker supervisor recovery", () => {
     );
     const owner = spawn(
       process.execPath,
-      ["--import", "tsx", scriptPath, env.OPENCLAW_STATE_DIR!, claimPath],
+      ["--import", "tsx", scriptPath, env.GRANTED_STATE_DIR!, claimPath],
       { stdio: ["ignore", "pipe", "pipe"] },
     );
     spawned.add(owner);

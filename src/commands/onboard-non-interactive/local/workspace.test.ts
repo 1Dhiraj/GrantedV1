@@ -25,15 +25,15 @@ describe("resolveNonInteractiveWorkspaceDir", () => {
       defaultWorkspaceDir,
       env: {
         HOME: home,
-        OPENCLAW_HOME: home,
-        OPENCLAW_STATE_DIR: path.join(home, ".openclaw"),
+        GRANTED_HOME: home,
+        GRANTED_STATE_DIR: path.join(home, ".openclaw"),
       },
     });
 
     expect(resolved).toBe(defaultWorkspaceDir);
   });
 
-  it("preserves OPENCLAW_WORKSPACE_DIR with a non-default state directory", () => {
+  it("preserves GRANTED_WORKSPACE_DIR with a non-default state directory", () => {
     const home = path.join(root, "home");
     const workspaceOverride = path.join(root, "explicit-workspace");
     const resolved = resolveNonInteractiveWorkspaceDir({
@@ -42,16 +42,16 @@ describe("resolveNonInteractiveWorkspaceDir", () => {
       defaultWorkspaceDir: path.join(home, ".openclaw", "workspace"),
       env: {
         HOME: home,
-        OPENCLAW_HOME: home,
-        OPENCLAW_STATE_DIR: path.join(root, "scratch-state"),
-        OPENCLAW_WORKSPACE_DIR: workspaceOverride,
+        GRANTED_HOME: home,
+        GRANTED_STATE_DIR: path.join(root, "scratch-state"),
+        GRANTED_WORKSPACE_DIR: workspaceOverride,
       },
     });
 
     expect(resolved).toBe(workspaceOverride);
   });
 
-  it("ignores a blank OPENCLAW_WORKSPACE_DIR", () => {
+  it("ignores a blank GRANTED_WORKSPACE_DIR", () => {
     const home = path.join(root, "home");
     const stateDir = path.join(root, "scratch-state");
     const resolved = resolveNonInteractiveWorkspaceDir({
@@ -60,9 +60,9 @@ describe("resolveNonInteractiveWorkspaceDir", () => {
       defaultWorkspaceDir: path.join(home, ".openclaw", "workspace"),
       env: {
         HOME: home,
-        OPENCLAW_HOME: home,
-        OPENCLAW_STATE_DIR: stateDir,
-        OPENCLAW_WORKSPACE_DIR: "   ",
+        GRANTED_HOME: home,
+        GRANTED_STATE_DIR: stateDir,
+        GRANTED_WORKSPACE_DIR: "   ",
       },
     });
 
@@ -78,8 +78,8 @@ describe("resolveNonInteractiveWorkspaceDir", () => {
       defaultWorkspaceDir: path.join(home, ".openclaw", "workspace"),
       env: {
         HOME: home,
-        OPENCLAW_HOME: home,
-        OPENCLAW_STATE_DIR: stateDir,
+        GRANTED_HOME: home,
+        GRANTED_STATE_DIR: stateDir,
       },
     });
 

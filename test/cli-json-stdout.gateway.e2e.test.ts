@@ -99,7 +99,7 @@ describe("cli json stdout contract", () => {
                   'import fs from "node:fs";',
                   "const originalExistsSync = fs.existsSync;",
                   "fs.existsSync = function (target, ...args) {",
-                  '  if (String(target) === process.env.OPENCLAW_CONFIG_PATH && new Error().stack?.includes("readNonObservingHealthConfig")) {',
+                  '  if (String(target) === process.env.GRANTED_CONFIG_PATH && new Error().stack?.includes("readNonObservingHealthConfig")) {',
                   `    throw new Error(${JSON.stringify(testCase.message)});`,
                   "  }",
                   "  return originalExistsSync.call(this, target, ...args);",
@@ -116,10 +116,10 @@ describe("cli json stdout contract", () => {
         ).toString("base64");
         const result = runBuiltCli(tempHome, testCase.args, {
           NODE_OPTIONS: `--import=data:text/javascript;base64,${preload}`,
-          OPENCLAW_CONFIG_PATH: configPath,
-          OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-          OPENCLAW_STATE_DIR: stateDir,
-          ...("commander" in testCase ? { OPENCLAW_DISABLE_ROUTE_FIRST: "1" } : {}),
+          GRANTED_CONFIG_PATH: configPath,
+          GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+          GRANTED_STATE_DIR: stateDir,
+          ...("commander" in testCase ? { GRANTED_DISABLE_ROUTE_FIRST: "1" } : {}),
           ...("tty" in testCase ? { FORCE_COLOR: "1", NO_COLOR: undefined } : {}),
         });
 
@@ -196,10 +196,10 @@ describe("cli json stdout contract", () => {
           'Object.defineProperty(process.stdout, "isTTY", { value: true, configurable: true }); Object.defineProperty(process.stderr, "isTTY", { value: true, configurable: true });',
         )}`;
         const result = runBuiltCli(tempHome, testCase.args, {
-          OPENCLAW_STATE_DIR: path.join(tempHome, "isolated-state"),
-          OPENCLAW_CONFIG_PATH: path.join(tempHome, "missing-openclaw.json"),
-          OPENCLAW_GATEWAY_PORT: "29791",
-          ...("commander" in testCase ? { OPENCLAW_DISABLE_ROUTE_FIRST: "1" } : {}),
+          GRANTED_STATE_DIR: path.join(tempHome, "isolated-state"),
+          GRANTED_CONFIG_PATH: path.join(tempHome, "missing-openclaw.json"),
+          GRANTED_GATEWAY_PORT: "29791",
+          ...("commander" in testCase ? { GRANTED_DISABLE_ROUTE_FIRST: "1" } : {}),
           ...("tty" in testCase ? { NODE_OPTIONS: `--import=${preload}`, FORCE_COLOR: "1" } : {}),
         });
         const message = "--timeout must be a positive integer (milliseconds)";
@@ -289,10 +289,10 @@ describe("cli json stdout contract", () => {
         const result = runBuiltCli(tempHome, testCase.args, {
           NODE_OPTIONS: `--permission --allow-fs-read=* --import=data:text/javascript;base64,${denyNetwork}`,
           NODE_DISABLE_COMPILE_CACHE: "1",
-          OPENCLAW_NO_RESPAWN: "1",
-          OPENCLAW_LOG_LEVEL: "silent",
-          OPENCLAW_STATE_DIR: path.join(tempHome, "isolated-state"),
-          OPENCLAW_CONFIG_PATH: path.join(tempHome, "missing-openclaw.json"),
+          GRANTED_NO_RESPAWN: "1",
+          GRANTED_LOG_LEVEL: "silent",
+          GRANTED_STATE_DIR: path.join(tempHome, "isolated-state"),
+          GRANTED_CONFIG_PATH: path.join(tempHome, "missing-openclaw.json"),
         });
 
         expect(result.status, result.stderr).toBe(1);

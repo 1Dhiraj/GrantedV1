@@ -50,8 +50,8 @@ describe("CLI prepared metadata lifetime", () => {
     const cfg = { plugins: { load: { paths: [plugin.dir] }, allow: [plugin.id] } };
     const env = {
       HOME: root,
-      OPENCLAW_STATE_DIR: path.join(root, "state"),
-      OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
+      GRANTED_STATE_DIR: path.join(root, "state"),
+      GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
     };
     const session = createPluginCliLoadSession();
     const params = { cfg, env, session, primaryCommand: "prepared" };
@@ -81,8 +81,8 @@ describe("CLI prepared metadata lifetime", () => {
       cfg: { plugins: { load: { paths: [plugin.dir] }, allow: [plugin.id] } },
       env: {
         HOME: root,
-        OPENCLAW_STATE_DIR: path.join(root, "state"),
-        OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
+        GRANTED_STATE_DIR: path.join(root, "state"),
+        GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
       },
       session: createPluginCliLoadSession(),
       primaryCommand: "prepared",
@@ -129,10 +129,10 @@ describe("CLI prepared metadata lifetime", () => {
       fs.writeFileSync(configPath, JSON.stringify(cfg));
       await withEnvAsync(
         {
-          OPENCLAW_HOME: root,
-          OPENCLAW_STATE_DIR: path.join(root, "state"),
-          OPENCLAW_CONFIG_PATH: configPath,
-          OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
+          GRANTED_HOME: root,
+          GRANTED_STATE_DIR: path.join(root, "state"),
+          GRANTED_CONFIG_PATH: configPath,
+          GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
         },
         async () => {
           const session = createPluginCliLoadSession();
@@ -212,10 +212,10 @@ describe("CLI prepared metadata lifetime", () => {
       );
       await withEnvAsync(
         {
-          OPENCLAW_HOME: root,
-          OPENCLAW_STATE_DIR: path.join(root, "state"),
-          OPENCLAW_BUNDLED_PLUGINS_DIR: bundledDir,
-          OPENCLAW_DISABLE_BUNDLED_PLUGINS: undefined,
+          GRANTED_HOME: root,
+          GRANTED_STATE_DIR: path.join(root, "state"),
+          GRANTED_BUNDLED_PLUGINS_DIR: bundledDir,
+          GRANTED_DISABLE_BUNDLED_PLUGINS: undefined,
           CLI_INPUTS_TOKEN: undefined,
         },
         async () => {
@@ -296,7 +296,7 @@ describe("CLI prepared metadata lifetime", () => {
         filename: "index.cjs",
         body: `module.exports = { id: "environment-cli", register(api) { api.registerCli(() => {}, { descriptors: [{ name: "prepared", description: ${JSON.stringify(label)}, hasSubcommands: false }] }); } };`,
       });
-      return { HOME: root, OPENCLAW_STATE_DIR: stateDir, OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1" };
+      return { HOME: root, GRANTED_STATE_DIR: stateDir, GRANTED_DISABLE_BUNDLED_PLUGINS: "1" };
     });
     const gateway = resolvePluginRuntimeLoadContext({ config: cfg, env: environments[0] });
     expect(gateway.metadataSnapshot).toBeDefined();
@@ -355,8 +355,8 @@ describe("CLI prepared metadata lifetime", () => {
       }
       const env = {
         HOME: root,
-        OPENCLAW_STATE_DIR: path.join(root, "state"),
-        OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
+        GRANTED_STATE_DIR: path.join(root, "state"),
+        GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
       };
       const cfg: OpenClawConfig = {
         plugins: {
@@ -406,8 +406,8 @@ describe("CLI prepared metadata lifetime", () => {
       const root = fs.realpathSync(makePluginLoaderTempDir());
       const env = {
         HOME: root,
-        OPENCLAW_STATE_DIR: path.join(root, "state"),
-        OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
+        GRANTED_STATE_DIR: path.join(root, "state"),
+        GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
       };
       const createWorkspace = (label: string) => {
         const workspace = path.join(root, label);
@@ -487,8 +487,8 @@ describe("CLI prepared metadata lifetime", () => {
       });
       const env = {
         HOME: root,
-        OPENCLAW_STATE_DIR: path.join(root, "state"),
-        OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
+        GRANTED_STATE_DIR: path.join(root, "state"),
+        GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
       };
       const config: OpenClawConfig = {
         plugins: {

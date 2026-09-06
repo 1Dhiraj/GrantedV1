@@ -496,8 +496,8 @@ exec grep "$@"
     chmodSync(join(bin, command), 0o755);
   }
   env.PATH = `${bin}${delimiter}${env.PATH ?? ""}`;
-  env.OPENCLAW_GH_BIN = join(bin, "gh");
-  env.OPENCLAW_TESTBOX = "1";
+  env.GRANTED_GH_BIN = join(bin, "gh");
+  env.GRANTED_TESTBOX = "1";
   // Advance only the real watcher's polling clock, so a stuck CI fixture
   // reaches its normal deadline without an hour-long regression test.
   const clock = join(root, "watch-clock.mjs");

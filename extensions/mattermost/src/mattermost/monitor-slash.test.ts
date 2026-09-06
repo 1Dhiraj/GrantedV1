@@ -89,7 +89,7 @@ describe("mattermost monitor slash", () => {
   });
 
   it("registers deduped default and native skill commands across teams", async () => {
-    vi.stubEnv("OPENCLAW_GATEWAY_PORT", "18888");
+    vi.stubEnv("GRANTED_GATEWAY_PORT", "18888");
     resolveSlashCommandConfig.mockReturnValue({ enabled: true, nativeSkills: true });
     isSlashCommandsEnabled.mockReturnValue(true);
     fetchMattermostUserTeams.mockResolvedValue([{ id: "team-1" }, { id: "team-2" }]);
@@ -164,7 +164,7 @@ describe("mattermost monitor slash", () => {
   });
 
   it("falls back to the configured gateway port when the env port is out of range", async () => {
-    vi.stubEnv("OPENCLAW_GATEWAY_PORT", "65536");
+    vi.stubEnv("GRANTED_GATEWAY_PORT", "65536");
     resolveSlashCommandConfig.mockReturnValue({ enabled: true, nativeSkills: false });
     isSlashCommandsEnabled.mockReturnValue(true);
     fetchMattermostUserTeams.mockResolvedValue([{ id: "team-1" }]);

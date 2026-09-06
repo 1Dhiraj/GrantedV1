@@ -16,19 +16,19 @@ import { useAutoCleanupTempDirTracker } from "../../../helpers/temp-dir.js";
 import { runGatewaySshTunnels } from "./gateway-ssh-tunnels.js";
 
 const tempDirs = useAutoCleanupTempDirTracker(afterEach);
-const describeOnTestbox = process.env.OPENCLAW_TESTBOX === "1" ? describe : describe.skip;
+const describeOnTestbox = process.env.GRANTED_TESTBOX === "1" ? describe : describe.skip;
 const activeChildren = new Set<ChildProcessWithoutNullStreams>();
 const producerPath = path.resolve(process.cwd(), "test/e2e/qa-lab/runtime/gateway-ssh-tunnels.ts");
 const accountKnownHostsPath = path.join(os.userInfo().homedir, ".ssh", "known_hosts");
-const producerReadyMarker = "OPENCLAW_QA_PRODUCER_READY";
+const producerReadyMarker = "GRANTED_QA_PRODUCER_READY";
 const execFile = promisify(execFileCallback);
 const producerChildSource = `
 import { pathToFileURL } from "node:url";
-const producerPath = process.env.OPENCLAW_QA_PRODUCER_PATH;
-const artifactBase = process.env.OPENCLAW_QA_ARTIFACT_BASE;
-const fixtureReadyPath = process.env.OPENCLAW_QA_FIXTURE_READY_PATH;
-const fixtureProcessPath = process.env.OPENCLAW_QA_FIXTURE_PROCESS_PATH;
-const fixtureRoot = process.env.OPENCLAW_QA_FIXTURE_ROOT;
+const producerPath = process.env.GRANTED_QA_PRODUCER_PATH;
+const artifactBase = process.env.GRANTED_QA_ARTIFACT_BASE;
+const fixtureReadyPath = process.env.GRANTED_QA_FIXTURE_READY_PATH;
+const fixtureProcessPath = process.env.GRANTED_QA_FIXTURE_PROCESS_PATH;
+const fixtureRoot = process.env.GRANTED_QA_FIXTURE_ROOT;
 if (!producerPath || !artifactBase) {
   throw new Error("missing producer child paths");
 }
@@ -49,7 +49,7 @@ process.exitCode = evidence.entries[0]?.result.status === "pass" ? 0 : 1;
 describe("Gateway SSH tunnel QA preflight", () => {
   it("records blocked evidence outside Testbox without privileged setup", async () => {
     const artifactBase = tempDirs.make("openclaw-gateway-ssh-guard-");
-    const evidence = await withEnvAsync({ OPENCLAW_TESTBOX: undefined }, async () =>
+    const evidence = await withEnvAsync({ GRANTED_TESTBOX: undefined }, async () =>
       runGatewaySshTunnels({ artifactBase, repoRoot: process.cwd() }),
     );
 
@@ -84,11 +84,11 @@ function startProducer(
       cwd: process.cwd(),
       env: {
         ...process.env,
-        OPENCLAW_QA_ARTIFACT_BASE: artifactBase,
-        OPENCLAW_QA_FIXTURE_PROCESS_PATH: fixture?.processPath,
-        OPENCLAW_QA_FIXTURE_READY_PATH: fixture?.readyPath,
-        OPENCLAW_QA_FIXTURE_ROOT: fixture?.root,
-        OPENCLAW_QA_PRODUCER_PATH: producerPath,
+        GRANTED_QA_ARTIFACT_BASE: artifactBase,
+        GRANTED_QA_FIXTURE_PROCESS_PATH: fixture?.processPath,
+        GRANTED_QA_FIXTURE_READY_PATH: fixture?.readyPath,
+        GRANTED_QA_FIXTURE_ROOT: fixture?.root,
+        GRANTED_QA_PRODUCER_PATH: producerPath,
       },
       stdio: ["pipe", "pipe", "pipe"],
     },

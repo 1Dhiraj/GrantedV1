@@ -67,18 +67,18 @@ describe("doctor transcript and heartbeat session repairs", () => {
   beforeEach(() => {
     envSnapshot = captureEnv([
       "HOME",
-      "OPENCLAW_HOME",
-      "OPENCLAW_STATE_DIR",
-      "OPENCLAW_OAUTH_DIR",
-      "OPENCLAW_AGENT_DIR",
+      "GRANTED_HOME",
+      "GRANTED_STATE_DIR",
+      "GRANTED_OAUTH_DIR",
+      "GRANTED_AGENT_DIR",
     ]);
     tempHome = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-doctor-state-integrity-"));
     const stateDir = path.join(tempHome, ".openclaw");
     setTestEnvValue("HOME", tempHome);
-    setTestEnvValue("OPENCLAW_HOME", tempHome);
-    setTestEnvValue("OPENCLAW_STATE_DIR", stateDir);
-    deleteTestEnvValue("OPENCLAW_OAUTH_DIR");
-    deleteTestEnvValue("OPENCLAW_AGENT_DIR");
+    setTestEnvValue("GRANTED_HOME", tempHome);
+    setTestEnvValue("GRANTED_STATE_DIR", stateDir);
+    deleteTestEnvValue("GRANTED_OAUTH_DIR");
+    deleteTestEnvValue("GRANTED_AGENT_DIR");
     fs.mkdirSync(stateDir, { recursive: true, mode: 0o700 });
     routeStateOwnerState.owners = [];
     noteMock.mockClear();
@@ -297,7 +297,7 @@ describe("doctor transcript and heartbeat session repairs", () => {
         updatedAt: Date.now(),
       },
     });
-    const stateDir = process.env.OPENCLAW_STATE_DIR ?? "";
+    const stateDir = process.env.GRANTED_STATE_DIR ?? "";
     await writeTuiLastSessionKey({
       scopeKey: "default",
       sessionKey: "agent:main:main",

@@ -695,7 +695,7 @@ describe("lmstudio setup", () => {
       customModelId: "missing-model",
     });
     const dockerSetup = ["1", "true", "yes", "on"].includes(
-      process.env.OPENCLAW_DOCKER_SETUP?.trim().toLowerCase() ?? "",
+      process.env.GRANTED_DOCKER_SETUP?.trim().toLowerCase() ?? "",
     );
     const expectedBaseUrl = dockerSetup
       ? LMSTUDIO_DOCKER_HOST_INFERENCE_BASE_URL
@@ -895,7 +895,7 @@ describe("lmstudio setup", () => {
   });
 
   it("interactive Docker setup defaults to the host LM Studio endpoint", async () => {
-    vi.stubEnv("OPENCLAW_DOCKER_SETUP", "1");
+    vi.stubEnv("GRANTED_DOCKER_SETUP", "1");
     const { prompter, text } = createQueuedWizardPrompterHarness({
       baseUrl: "http://host.docker.internal:1234",
       apiKey: "",

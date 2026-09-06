@@ -133,7 +133,7 @@ function createSessionScope(label: string) {
   const stateDir = tempDirs.make(`openclaw-entry-cache-${label}-`);
   return {
     agentId: "main",
-    env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+    env: { ...process.env, GRANTED_STATE_DIR: stateDir },
     sessionKey: `agent:main:${label}`,
     projection: "list" as const,
   };

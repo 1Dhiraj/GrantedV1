@@ -46,7 +46,7 @@ beforeEach(() => {
 });
 
 function env(): NodeJS.ProcessEnv {
-  return { ...process.env, OPENCLAW_STATE_DIR: paths.stateDir };
+  return { ...process.env, GRANTED_STATE_DIR: paths.stateDir };
 }
 
 function transcriptScope(sessionId: string, sessionKey: string) {

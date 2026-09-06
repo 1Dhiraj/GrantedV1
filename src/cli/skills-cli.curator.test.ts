@@ -37,7 +37,7 @@ vi.mock("../gateway/call.js", () => ({
   isGatewayCredentialsRequiredError: (error: unknown) =>
     error instanceof Error && error.name === "GatewayCredentialsRequiredError",
   isImplicitLocalGatewayTarget: async ({ config }: { config?: { gateway?: { mode?: string } } }) =>
-    !process.env.OPENCLAW_GATEWAY_URL && config?.gateway?.mode !== "remote",
+    !process.env.GRANTED_GATEWAY_URL && config?.gateway?.mode !== "remote",
 }));
 vi.mock("../infra/gateway-lock.js", () => ({
   acquireGatewayLock: mocks.acquireGatewayLock,
@@ -194,7 +194,7 @@ describe("skills curator cli", () => {
       if (target === "configured remote") {
         mocks.config.gateway = { mode: "remote" };
       } else {
-        vi.stubEnv("OPENCLAW_GATEWAY_URL", "ws://127.0.0.1:9");
+        vi.stubEnv("GRANTED_GATEWAY_URL", "ws://127.0.0.1:9");
       }
       mocks.callGateway.mockRejectedValue(new Error("remote unavailable"));
 

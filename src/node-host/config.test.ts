@@ -39,7 +39,7 @@ async function runConcurrentImplicitConfigures(
       runManagedCommand({
         bin: process.execPath,
         args: [...resolveRuntimeWorkerArgv(workerUrl), candidate, String(index + 1)],
-        env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+        env: { ...process.env, GRANTED_STATE_DIR: stateDir },
         shell: false,
         stdio: ["ignore", "ignore", "pipe", "ipc"],
         signal: childSignal,
@@ -106,7 +106,7 @@ describe("node-host SQLite config", () => {
 
   function makeTestEnv(): { env: NodeJS.ProcessEnv; stateDir: string } {
     const stateDir = fixture.createTempDir("openclaw-node-host-config-");
-    return { env: { ...process.env, OPENCLAW_STATE_DIR: stateDir }, stateDir };
+    return { env: { ...process.env, GRANTED_STATE_DIR: stateDir }, stateDir };
   }
 
   it("round-trips the complete gateway snapshot across database reopen", async () => {

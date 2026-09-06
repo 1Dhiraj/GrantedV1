@@ -99,28 +99,28 @@ describe("runPostCorePluginConvergence", () => {
     return pluginDir;
   }
 
-  it("calls repair with OPENCLAW_UPDATE_POST_CORE_CONVERGENCE=1 set", async () => {
+  it("calls repair with GRANTED_UPDATE_POST_CORE_CONVERGENCE=1 set", async () => {
     const cfg = { plugins: { entries: {} } } as unknown as OpenClawConfig;
     await runPostCorePluginConvergence({
       cfg,
-      env: { OPENCLAW_UPDATE_IN_PROGRESS: "1" },
+      env: { GRANTED_UPDATE_IN_PROGRESS: "1" },
     });
     expect(mocks.repairMissingConfiguredPluginInstalls).toHaveBeenCalledTimes(1);
     expect(mocks.maybeRepairStaleManagedNpmBundledPlugins).toHaveBeenCalledWith({
       config: cfg,
       env: {
-        OPENCLAW_UPDATE_IN_PROGRESS: "1",
-        OPENCLAW_COMPATIBILITY_HOST_VERSION: VERSION,
-        OPENCLAW_UPDATE_POST_CORE_CONVERGENCE: "1",
+        GRANTED_UPDATE_IN_PROGRESS: "1",
+        GRANTED_COMPATIBILITY_HOST_VERSION: VERSION,
+        GRANTED_UPDATE_POST_CORE_CONVERGENCE: "1",
       },
       prompter: { shouldRepair: true },
     });
     expect(mocks.repairMissingConfiguredPluginInstalls).toHaveBeenCalledWith({
       cfg,
       env: {
-        OPENCLAW_UPDATE_IN_PROGRESS: "1",
-        OPENCLAW_COMPATIBILITY_HOST_VERSION: VERSION,
-        OPENCLAW_UPDATE_POST_CORE_CONVERGENCE: "1",
+        GRANTED_UPDATE_IN_PROGRESS: "1",
+        GRANTED_COMPATIBILITY_HOST_VERSION: VERSION,
+        GRANTED_UPDATE_POST_CORE_CONVERGENCE: "1",
       },
     });
     expect(
@@ -148,11 +148,11 @@ describe("runPostCorePluginConvergence", () => {
       disabled: { source: "npm" as const, installPath: "/p/disabled" },
     };
 
-    await runActivePluginPayloadSmokeCheck({ cfg, records, env: { OPENCLAW_STATE_DIR: "/state" } });
+    await runActivePluginPayloadSmokeCheck({ cfg, records, env: { GRANTED_STATE_DIR: "/state" } });
 
     expect(mocks.runPluginPayloadSmokeCheck).toHaveBeenCalledWith({
       records: { active: records.active },
-      env: { OPENCLAW_STATE_DIR: "/state" },
+      env: { GRANTED_STATE_DIR: "/state" },
     });
     expect(mocks.repairMissingConfiguredPluginInstalls).not.toHaveBeenCalled();
     expect(mocks.relinkOpenClawPeerDependenciesInManagedNpmRoot).not.toHaveBeenCalled();
@@ -162,13 +162,13 @@ describe("runPostCorePluginConvergence", () => {
     const cfg = { plugins: { entries: {} } } as unknown as OpenClawConfig;
     await runPostCorePluginConvergence({
       cfg,
-      env: { OPENCLAW_COMPATIBILITY_HOST_VERSION: "2026.5.12" },
+      env: { GRANTED_COMPATIBILITY_HOST_VERSION: "2026.5.12" },
     });
     expect(mocks.repairMissingConfiguredPluginInstalls).toHaveBeenCalledWith({
       cfg,
       env: {
-        OPENCLAW_COMPATIBILITY_HOST_VERSION: VERSION,
-        OPENCLAW_UPDATE_POST_CORE_CONVERGENCE: "1",
+        GRANTED_COMPATIBILITY_HOST_VERSION: VERSION,
+        GRANTED_UPDATE_POST_CORE_CONVERGENCE: "1",
       },
     });
   });
@@ -177,14 +177,14 @@ describe("runPostCorePluginConvergence", () => {
     const cfg = { plugins: { entries: {} } } as unknown as OpenClawConfig;
     await runPostCorePluginConvergence({
       cfg,
-      env: { OPENCLAW_COMPATIBILITY_HOST_VERSION: "2026.5.12" },
+      env: { GRANTED_COMPATIBILITY_HOST_VERSION: "2026.5.12" },
       compatibilityHostVersion: "2026.7.2-beta.7",
     });
     expect(mocks.repairMissingConfiguredPluginInstalls).toHaveBeenCalledWith({
       cfg,
       env: {
-        OPENCLAW_COMPATIBILITY_HOST_VERSION: "2026.7.2-beta.7",
-        OPENCLAW_UPDATE_POST_CORE_CONVERGENCE: "1",
+        GRANTED_COMPATIBILITY_HOST_VERSION: "2026.7.2-beta.7",
+        GRANTED_UPDATE_POST_CORE_CONVERGENCE: "1",
       },
     });
   });
@@ -247,7 +247,7 @@ describe("runPostCorePluginConvergence", () => {
 
     const result = await runPostCorePluginConvergence({
       cfg: { plugins: { entries: { codex: { enabled: true } } } } as unknown as OpenClawConfig,
-      env: { OPENCLAW_STATE_DIR: "/tmp/openclaw-state" },
+      env: { GRANTED_STATE_DIR: "/tmp/openclaw-state" },
     });
 
     expect(mocks.relinkOpenClawPeerDependenciesInManagedNpmRoot).toHaveBeenNthCalledWith(1, {
@@ -311,7 +311,7 @@ describe("runPostCorePluginConvergence", () => {
 
       const result = await runPostCorePluginConvergence({
         cfg: { plugins: { entries: { email: { enabled: true } } } },
-        env: { OPENCLAW_STATE_DIR: stateDir },
+        env: { GRANTED_STATE_DIR: stateDir },
         baselineInstallRecords: records,
       });
 
@@ -340,8 +340,8 @@ describe("runPostCorePluginConvergence", () => {
     expect(mocks.maybeRepairStaleManagedNpmBundledPlugins).toHaveBeenCalledWith({
       config: cfg,
       env: {
-        OPENCLAW_COMPATIBILITY_HOST_VERSION: VERSION,
-        OPENCLAW_UPDATE_POST_CORE_CONVERGENCE: "1",
+        GRANTED_COMPATIBILITY_HOST_VERSION: VERSION,
+        GRANTED_UPDATE_POST_CORE_CONVERGENCE: "1",
       },
       installRecords: baseline,
       prompter: { shouldRepair: true },
@@ -350,8 +350,8 @@ describe("runPostCorePluginConvergence", () => {
     expect(mocks.repairMissingConfiguredPluginInstalls).toHaveBeenCalledWith({
       cfg,
       env: {
-        OPENCLAW_COMPATIBILITY_HOST_VERSION: VERSION,
-        OPENCLAW_UPDATE_POST_CORE_CONVERGENCE: "1",
+        GRANTED_COMPATIBILITY_HOST_VERSION: VERSION,
+        GRANTED_UPDATE_POST_CORE_CONVERGENCE: "1",
       },
       baselineRecords: baseline,
     });
@@ -385,8 +385,8 @@ describe("runPostCorePluginConvergence", () => {
     const result = await runPostCorePluginConvergence({
       cfg,
       env: {
-        OPENCLAW_BUNDLED_PLUGINS_DIR: bundledRoot,
-        OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR: "1",
+        GRANTED_BUNDLED_PLUGINS_DIR: bundledRoot,
+        GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR: "1",
         VITEST: "true",
       },
       baselineInstallRecords: baseline,
@@ -395,11 +395,11 @@ describe("runPostCorePluginConvergence", () => {
     expect(mocks.repairMissingConfiguredPluginInstalls).toHaveBeenCalledWith({
       cfg,
       env: {
-        OPENCLAW_BUNDLED_PLUGINS_DIR: bundledRoot,
-        OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR: "1",
+        GRANTED_BUNDLED_PLUGINS_DIR: bundledRoot,
+        GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR: "1",
         VITEST: "true",
-        OPENCLAW_COMPATIBILITY_HOST_VERSION: VERSION,
-        OPENCLAW_UPDATE_POST_CORE_CONVERGENCE: "1",
+        GRANTED_COMPATIBILITY_HOST_VERSION: VERSION,
+        GRANTED_UPDATE_POST_CORE_CONVERGENCE: "1",
       },
       baselineRecords: {
         brave: baseline.brave,
@@ -701,7 +701,7 @@ describe("runPostCorePluginConvergence", () => {
       cfg: {
         plugins: { entries: { brave: { enabled: true } } },
       } as unknown as OpenClawConfig,
-      env: { OPENCLAW_STATE_DIR: "/tmp/openclaw-state" },
+      env: { GRANTED_STATE_DIR: "/tmp/openclaw-state" },
     });
 
     expect(result.warnings).toHaveLength(1);
@@ -754,7 +754,7 @@ describe("runPostCorePluginConvergence", () => {
 
     const result = await runPostCorePluginConvergence({
       cfg: { plugins: { enabled: true } } as unknown as OpenClawConfig,
-      env: { OPENCLAW_STATE_DIR: "/tmp/openclaw-state" },
+      env: { GRANTED_STATE_DIR: "/tmp/openclaw-state" },
     });
 
     expect(result.warnings).toHaveLength(1);
@@ -786,7 +786,7 @@ describe("runPostCorePluginConvergence", () => {
       cfg: {
         plugins: { entries: { brave: { enabled: false } } },
       } as unknown as OpenClawConfig,
-      env: { OPENCLAW_STATE_DIR: "/tmp/openclaw-state" },
+      env: { GRANTED_STATE_DIR: "/tmp/openclaw-state" },
     });
 
     expect(mocks.runPluginPayloadSmokeCheck).toHaveBeenCalledWith({
@@ -808,7 +808,7 @@ describe("runPostCorePluginConvergence", () => {
 
     const result = await runPostCorePluginConvergence({
       cfg: { plugins: { entries: {} } } as unknown as OpenClawConfig,
-      env: { OPENCLAW_STATE_DIR: "/tmp/openclaw-state" },
+      env: { GRANTED_STATE_DIR: "/tmp/openclaw-state" },
     });
 
     expect(result.warnings).toStrictEqual([
@@ -838,8 +838,8 @@ describe("runPostCorePluginConvergence", () => {
     expect(mocks.runPluginPayloadSmokeCheck).toHaveBeenCalledWith({
       records,
       env: {
-        OPENCLAW_COMPATIBILITY_HOST_VERSION: VERSION,
-        OPENCLAW_UPDATE_POST_CORE_CONVERGENCE: "1",
+        GRANTED_COMPATIBILITY_HOST_VERSION: VERSION,
+        GRANTED_UPDATE_POST_CORE_CONVERGENCE: "1",
       },
     });
   });

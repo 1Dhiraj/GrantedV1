@@ -30,7 +30,7 @@ describe("inspectQaExecutionIdentityStorage", () => {
       expect(
         inspectQaExecutionIdentityStorage({
           gateway: {
-            runtimeEnv: { OPENCLAW_STATE_DIR: stateDir },
+            runtimeEnv: { GRANTED_STATE_DIR: stateDir },
           } as never,
         }),
       ).toEqual({ contextCount: 2, decisionCount: 2 });
@@ -38,7 +38,7 @@ describe("inspectQaExecutionIdentityStorage", () => {
         inspectQaExecutionIdentityStorage(
           {
             gateway: {
-              runtimeEnv: { OPENCLAW_STATE_DIR: stateDir },
+              runtimeEnv: { GRANTED_STATE_DIR: stateDir },
             } as never,
           },
           {

@@ -2,7 +2,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
-import { OPENCLAW_AGENT_SCHEMA_VERSION } from "./openclaw-agent-db-contract.js";
+import { GRANTED_AGENT_SCHEMA_VERSION } from "./openclaw-agent-db-contract.js";
 import { withOpenClawAgentDatabaseReadOnly } from "./openclaw-agent-db-readonly.js";
 import {
   closeOpenClawAgentDatabaseByPath,
@@ -31,7 +31,7 @@ describe("incognito agent database", () => {
       fs.mkdtempSync(path.join(fs.realpathSync(os.tmpdir()), "openclaw-incognito-read-miss-")),
     );
     tempDirs.push(stateDir);
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const sentinel = resolveIncognitoOpenClawAgentSqlitePath({ agentId: "main", env });
     const before = listOpenIncognitoAgentDatabases();
 
@@ -51,7 +51,7 @@ describe("incognito agent database", () => {
       fs.mkdtempSync(path.join(fs.realpathSync(os.tmpdir()), "openclaw-incognito-collision-")),
     );
     tempDirs.push(stateDir);
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const sentinel = resolveIncognitoOpenClawAgentSqlitePath({ agentId: "main", env });
     fs.mkdirSync(path.dirname(sentinel), { recursive: true });
     fs.writeFileSync(sentinel, "operator data", "utf8");
@@ -82,7 +82,7 @@ describe("incognito agent database", () => {
       fs.mkdtempSync(path.join(fs.realpathSync(os.tmpdir()), "openclaw-incognito-db-")),
     );
     tempDirs.push(stateDir);
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const sentinel = resolveIncognitoOpenClawAgentSqlitePath({ agentId: "main", env });
     const beforeGeneration = readOpenIncognitoAgentDatabaseGeneration();
 
@@ -108,7 +108,7 @@ describe("incognito agent database", () => {
         .get(),
     ).toEqual({ name: "session_nodes" });
     expect(first.db.prepare("PRAGMA user_version").get()).toEqual({
-      user_version: OPENCLAW_AGENT_SCHEMA_VERSION,
+      user_version: GRANTED_AGENT_SCHEMA_VERSION,
     });
     expect(() =>
       withOpenClawAgentDatabaseReadOnly(
@@ -132,7 +132,7 @@ describe("incognito agent database", () => {
       fs.mkdtempSync(path.join(fs.realpathSync(os.tmpdir()), "openclaw-incognito-close-all-")),
     );
     tempDirs.push(stateDir);
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const sentinel = resolveIncognitoOpenClawAgentSqlitePath({ agentId: "main", env });
     openOpenClawAgentDatabase({ agentId: "main", env, path: sentinel });
     const openedGeneration = readOpenIncognitoAgentDatabaseGeneration();

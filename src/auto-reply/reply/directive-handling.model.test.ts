@@ -815,8 +815,8 @@ async function withWorkspaceAuthFixture(
   try {
     await withEnvAsync(
       {
-        OPENCLAW_BUNDLED_PLUGINS_DIR: bundledDir,
-        OPENCLAW_STATE_DIR: stateDir,
+        GRANTED_BUNDLED_PLUGINS_DIR: bundledDir,
+        GRANTED_STATE_DIR: stateDir,
         [fixture.envVar]: credentialPath,
         ...fixture.env,
       },

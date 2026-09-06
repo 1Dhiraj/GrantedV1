@@ -89,7 +89,7 @@ describe("context-engine turn outbox", () => {
     tempDirs.push(stateDir);
     const database = openOpenClawAgentDatabase({
       agentId: "main",
-      env: { OPENCLAW_STATE_DIR: stateDir },
+      env: { GRANTED_STATE_DIR: stateDir },
     });
     const payload = createPayload({
       advancementKey: "session-a:invalid-result",
@@ -142,7 +142,7 @@ describe("context-engine turn outbox", () => {
     tempDirs.push(stateDir);
     const database = openOpenClawAgentDatabase({
       agentId: "main",
-      env: { OPENCLAW_STATE_DIR: stateDir },
+      env: { GRANTED_STATE_DIR: stateDir },
     });
     const payload = createPayload({
       advancementKey: "session-a:missing-state",
@@ -421,7 +421,7 @@ describe("context-engine turn outbox", () => {
     tempDirs.push(stateDir);
     const database = openOpenClawAgentDatabase({
       agentId: "main",
-      env: { OPENCLAW_STATE_DIR: stateDir },
+      env: { GRANTED_STATE_DIR: stateDir },
     });
     const payload = createPayload({
       advancementKey: "session-a:unrecoverable",
@@ -544,7 +544,7 @@ describe("context-engine turn outbox", () => {
     tempDirs.push(stateDir);
     const database = openOpenClawAgentDatabase({
       agentId: "main",
-      env: { OPENCLAW_STATE_DIR: stateDir },
+      env: { GRANTED_STATE_DIR: stateDir },
     });
     const enqueue = (advancementKey: string, sessionId: string, sequence: number) =>
       enqueueContextEngineTurnCommit({
@@ -635,7 +635,7 @@ describe("context-engine turn outbox", () => {
     tempDirs.push(stateDir);
     const database = openOpenClawAgentDatabase({
       agentId: "main",
-      env: { OPENCLAW_STATE_DIR: stateDir },
+      env: { GRANTED_STATE_DIR: stateDir },
     });
     const payload = createPayload({
       advancementKey: "session-a:retry",

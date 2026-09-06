@@ -57,7 +57,7 @@ export function compareCliGatewayStateDirs(params: {
     kind: "refuse",
     message: [
       `No credentials or configuration were written. CLI and ${params.source} use different ${detail}.`,
-      `Fix: run OPENCLAW_STATE_DIR=${quoteCliArg(gatewayStateDir)} OPENCLAW_CONFIG_PATH=${quoteCliArg(gatewayConfigPath)} ${params.command ?? "openclaw configure"}.`,
+      `Fix: run GRANTED_STATE_DIR=${quoteCliArg(gatewayStateDir)} GRANTED_CONFIG_PATH=${quoteCliArg(gatewayConfigPath)} ${params.command ?? "openclaw configure"}.`,
       params.source === "live Gateway"
         ? "To write another local store intentionally, stop the running Gateway first."
         : "To write another local store intentionally, uninstall or reconfigure the divergent Gateway service first.",
@@ -110,8 +110,8 @@ export async function checkCliGatewayStateDir(params: {
 
   const serviceEnv = { ...process.env };
   // Caller path overrides select the write target, not the installed service definition.
-  delete serviceEnv.OPENCLAW_STATE_DIR;
-  delete serviceEnv.OPENCLAW_CONFIG_PATH;
+  delete serviceEnv.GRANTED_STATE_DIR;
+  delete serviceEnv.GRANTED_CONFIG_PATH;
   const serviceState = await readGatewayServiceState(resolveGatewayService(), {
     env: serviceEnv,
     timeoutMs: STATE_DIR_CHECK_TIMEOUT_MS,

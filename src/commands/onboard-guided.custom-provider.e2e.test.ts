@@ -53,8 +53,8 @@ async function runCustomSetup(scenario: Scenario) {
   const initialBytes = `${JSON.stringify(initialConfig)}\n`;
   await fs.mkdir(workspace);
   await fs.writeFile(configPath, initialBytes);
-  setTestEnvValue("OPENCLAW_STATE_DIR", root);
-  setTestEnvValue("OPENCLAW_CONFIG_PATH", configPath);
+  setTestEnvValue("GRANTED_STATE_DIR", root);
+  setTestEnvValue("GRANTED_CONFIG_PATH", configPath);
   setTestEnvValue("CUSTOM_SETUP_FIXTURE_KEY", credential);
 
   const server = createServer((request, response) => {

@@ -87,10 +87,10 @@ describe("Crabbox PR-derived gate plan", () => {
     });
     const digest = crabboxGatePlanDigest(plan);
     const command = buildCrabboxGateCommand(plan, bootstrapSha256);
-    expect(command).toContain(`OPENCLAW_CRABBOX_GATE_BASE=${baseSha}`);
-    expect(command).toContain(`OPENCLAW_CRABBOX_GATE_HEAD=${headSha}`);
-    expect(command).not.toContain("OPENCLAW_CRABBOX_GATE_WORKFLOW=");
-    expect(command).toContain(`OPENCLAW_CRABBOX_GATE_PLAN_SHA256=${digest}`);
+    expect(command).toContain(`GRANTED_CRABBOX_GATE_BASE=${baseSha}`);
+    expect(command).toContain(`GRANTED_CRABBOX_GATE_HEAD=${headSha}`);
+    expect(command).not.toContain("GRANTED_CRABBOX_GATE_WORKFLOW=");
+    expect(command).toContain(`GRANTED_CRABBOX_GATE_PLAN_SHA256=${digest}`);
     expect(command).toContain("test/scripts/pr-merge.test.ts");
 
     const summary = formatCrabboxGateCheckSummary({

@@ -79,7 +79,7 @@ function runTestNativeSlashFastReply(
 describe("maybeResolveNativeSlashCommandFastReply", () => {
   beforeEach(() => {
     vi.restoreAllMocks();
-    vi.stubEnv("OPENCLAW_TEST_FAST", "1");
+    vi.stubEnv("GRANTED_TEST_FAST", "1");
     cliBackendsTesting.setDepsForTest({
       resolveRuntimeCliBackends: () => [{ id: "claude-cli", modelProvider: "anthropic" }] as never,
       resolvePluginSetupCliBackend: () => {
@@ -265,7 +265,7 @@ describe("maybeResolveNativeSlashCommandFastReply", () => {
   );
 
   it("applies native model selections using the admitted catalog without rediscovery", async () => {
-    vi.stubEnv("OPENCLAW_TEST_FAST", "0");
+    vi.stubEnv("GRANTED_TEST_FAST", "0");
     const storePath = path.join(tempDirs.make("openclaw-native-prepared-model-"), "sessions.json");
     vi.mocked(preparedModelCatalog.loadPreparedModelCatalogSnapshot).mockRejectedValue(
       new Error("native selection must not rediscover the prepared catalog"),

@@ -35,7 +35,7 @@ type ApplicationStartupSettings = {
 
 declare global {
   interface Window {
-    __OPENCLAW_NATIVE_CONTROL_AUTH__?: NativeControlAuth;
+    __GRANTED_NATIVE_CONTROL_AUTH__?: NativeControlAuth;
   }
 }
 
@@ -85,12 +85,12 @@ export function resolveApplicationStartupSettings(
   };
 
   const nativeAuth =
-    typeof window === "undefined" ? undefined : window["__OPENCLAW_NATIVE_CONTROL_AUTH__"];
+    typeof window === "undefined" ? undefined : window["__GRANTED_NATIVE_CONTROL_AUTH__"];
   if (nativeAuth) {
     try {
-      delete window["__OPENCLAW_NATIVE_CONTROL_AUTH__"];
+      delete window["__GRANTED_NATIVE_CONTROL_AUTH__"];
     } catch {
-      window["__OPENCLAW_NATIVE_CONTROL_AUTH__"] = undefined;
+      window["__GRANTED_NATIVE_CONTROL_AUTH__"] = undefined;
     }
 
     const gatewayUrl = normalizeOptionalString(nativeAuth.gatewayUrl);

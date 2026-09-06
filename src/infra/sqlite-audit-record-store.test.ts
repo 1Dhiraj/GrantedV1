@@ -13,7 +13,7 @@ describe("SQLite audit record store", () => {
       const store = createSqliteAuditRecordStore<{ value: number }>({
         scope: "bounded-test",
         maxEntries: 2,
-        env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+        env: { ...process.env, GRANTED_STATE_DIR: stateDir },
       });
 
       store.register("one", { value: 1 }, 1);
@@ -30,7 +30,7 @@ describe("SQLite audit record store", () => {
       const store = createSqliteAuditRecordStore<{ value: number }>({
         scope: "latest-test",
         maxEntries: 10,
-        env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+        env: { ...process.env, GRANTED_STATE_DIR: stateDir },
       });
 
       store.register("one", { value: 1 }, 100);
@@ -52,7 +52,7 @@ describe("SQLite audit record store", () => {
       const store = createSqliteAuditRecordStore<{ value: number }>({
         scope: "tied-timestamps",
         maxEntries: 2,
-        env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+        env: { ...process.env, GRANTED_STATE_DIR: stateDir },
       });
 
       store.register("z-first", { value: 1 }, 1);
@@ -69,7 +69,7 @@ describe("SQLite audit record store", () => {
       const store = createSqliteAuditRecordStore<{ value: number }>({
         scope: "clock-skew",
         maxEntries: 2,
-        env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+        env: { ...process.env, GRANTED_STATE_DIR: stateDir },
       });
 
       store.register("future-first", { value: 1 }, 4_000_000_000_000);
@@ -85,7 +85,7 @@ describe("SQLite audit record store", () => {
       const store = createSqliteAuditRecordStore<{ value: number }>({
         scope: "batch-test",
         maxEntries: 2,
-        env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+        env: { ...process.env, GRANTED_STATE_DIR: stateDir },
       });
 
       store.registerLegacyMany([
@@ -103,7 +103,7 @@ describe("SQLite audit record store", () => {
       const store = createSqliteAuditRecordStore<{ value: number }>({
         scope: "upsert-test",
         maxEntries: 2,
-        env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+        env: { ...process.env, GRANTED_STATE_DIR: stateDir },
       });
 
       store.register("one", { value: 1 }, 1);
@@ -151,7 +151,7 @@ describe("SQLite audit record store", () => {
       const store = createSqliteAuditRecordStore<{ value: number }>({
         scope: "legacy-order",
         maxEntries: 4,
-        env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+        env: { ...process.env, GRANTED_STATE_DIR: stateDir },
       });
 
       store.register("runtime", { value: 3 }, 3);

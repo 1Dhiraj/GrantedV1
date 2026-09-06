@@ -203,7 +203,7 @@ export function formatPluginFailureSummary(failedPlugins: PluginRecord[]): strin
 }
 
 function isPluginLoadDebugEnabled(env: NodeJS.ProcessEnv): boolean {
-  return parseBooleanValue(env.OPENCLAW_PLUGIN_LOAD_DEBUG) === true;
+  return parseBooleanValue(env.GRANTED_PLUGIN_LOAD_DEBUG) === true;
 }
 
 function describePluginModuleExportShape(

@@ -57,7 +57,7 @@ describe("google prompt cache", () => {
   });
 
   it("registers parsed OAuth headers when sentinels are disabled", async () => {
-    vi.stubEnv("OPENCLAW_SECRET_SENTINELS", "off");
+    vi.stubEnv("GRANTED_SECRET_SENTINELS", "off");
     const fetchMock = createCacheFetchMock({
       name: "cachedContents/oauth-cache",
       expireTime: new Date(2_000_000).toISOString(),

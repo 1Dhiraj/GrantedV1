@@ -1,7 +1,7 @@
 export function createInstallGitCommitFixtureScript(source: "bundle" | "remote") {
   return `
     set -euo pipefail
-    source "$OPENCLAW_INSTALLER_SCRIPT"
+    source "$GRANTED_INSTALLER_SCRIPT"
     run_quiet_step() { shift; "$@"; }
     tmp="$(mktemp -d)"
     trap 'rm -rf "$tmp"' EXIT

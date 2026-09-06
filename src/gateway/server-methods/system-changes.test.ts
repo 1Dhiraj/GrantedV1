@@ -37,7 +37,7 @@ describe("openclaw.changes.list", () => {
 
   it("merges journals, collapses matching writes, and skips non-history records", async () => {
     await withTestDir({ prefix: "openclaw-system-changes-" }, async (stateDir) => {
-      const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+      const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
       const systemStore = createSqliteAuditRecordStore<SystemAgentAuditEntry>({
         scope: SYSTEM_AGENT_AUDIT_SCOPE,
         maxEntries: SYSTEM_AGENT_AUDIT_MAX_ENTRIES,
@@ -160,7 +160,7 @@ describe("openclaw.changes.list", () => {
 
   it("classifies legacy redacted argv when origin is absent", async () => {
     await withTestDir({ prefix: "openclaw-system-changes-argv-" }, async (stateDir) => {
-      const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+      const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
       const store = createSqliteAuditRecordStore<ConfigAuditRecord>({
         scope: CONFIG_AUDIT_SCOPE,
         maxEntries: CONFIG_AUDIT_MAX_ENTRIES,
@@ -204,7 +204,7 @@ describe("openclaw.changes.list", () => {
 
   it("keeps pages newest-first while suppressing an older collapse partner", async () => {
     await withTestDir({ prefix: "openclaw-system-changes-collapse-cursor-" }, async (stateDir) => {
-      const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+      const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
       const systemStore = createSqliteAuditRecordStore<SystemAgentAuditEntry>({
         scope: SYSTEM_AGENT_AUDIT_SCOPE,
         maxEntries: SYSTEM_AGENT_AUDIT_MAX_ENTRIES,
@@ -289,7 +289,7 @@ describe("openclaw.changes.list", () => {
 
   it("keeps an outside-window repeated transition on a later page", async () => {
     await withTestDir({ prefix: "openclaw-system-changes-pending-window-" }, async (stateDir) => {
-      const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+      const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
       const systemStore = createSqliteAuditRecordStore<SystemAgentAuditEntry>({
         scope: SYSTEM_AGENT_AUDIT_SCOPE,
         maxEntries: SYSTEM_AGENT_AUDIT_MAX_ENTRIES,
@@ -368,7 +368,7 @@ describe("openclaw.changes.list", () => {
 
   it("does not collapse a repeated transition outside the operation window", async () => {
     await withTestDir({ prefix: "openclaw-system-changes-collapse-window-" }, async (stateDir) => {
-      const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+      const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
       const systemStore = createSqliteAuditRecordStore<SystemAgentAuditEntry>({
         scope: SYSTEM_AGENT_AUDIT_SCOPE,
         maxEntries: SYSTEM_AGENT_AUDIT_MAX_ENTRIES,
@@ -414,7 +414,7 @@ describe("openclaw.changes.list", () => {
     await withTestDir(
       { prefix: "openclaw-system-changes-repeated-transition-" },
       async (stateDir) => {
-        const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+        const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
         const systemStore = createSqliteAuditRecordStore<SystemAgentAuditEntry>({
           scope: SYSTEM_AGENT_AUDIT_SCOPE,
           maxEntries: SYSTEM_AGENT_AUDIT_MAX_ENTRIES,
@@ -489,7 +489,7 @@ describe("openclaw.changes.list", () => {
 
   it("paginates equal timestamps by per-scope sequence and freezes the scope heads", async () => {
     await withTestDir({ prefix: "openclaw-system-changes-cursor-" }, async (stateDir) => {
-      const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+      const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
       const store = createSqliteAuditRecordStore<ConfigAuditRecord>({
         scope: CONFIG_AUDIT_SCOPE,
         maxEntries: CONFIG_AUDIT_MAX_ENTRIES,
@@ -536,7 +536,7 @@ describe("openclaw.changes.list", () => {
 
   it("freezes an untouched scope before the first page is emitted", async () => {
     await withTestDir({ prefix: "openclaw-system-changes-frozen-heads-" }, async (stateDir) => {
-      const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+      const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
       const systemStore = createSqliteAuditRecordStore<SystemAgentAuditEntry>({
         scope: SYSTEM_AGENT_AUDIT_SCOPE,
         maxEntries: SYSTEM_AGENT_AUDIT_MAX_ENTRIES,
@@ -599,7 +599,7 @@ describe("openclaw.changes.list", () => {
 
   it("uses store insertion order when a producer clock moves backwards", async () => {
     await withTestDir({ prefix: "openclaw-system-changes-insertion-order-" }, async (stateDir) => {
-      const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+      const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
       const store = createSqliteAuditRecordStore<ConfigAuditRecord>({
         scope: CONFIG_AUDIT_SCOPE,
         maxEntries: CONFIG_AUDIT_MAX_ENTRIES,
@@ -646,7 +646,7 @@ describe("openclaw.changes.list", () => {
 
   it("bounds filtered journal scans and resumes from the scanned frontier", async () => {
     await withTestDir({ prefix: "openclaw-system-changes-scan-budget-" }, async (stateDir) => {
-      const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+      const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
       const configStore = createSqliteAuditRecordStore<ConfigAuditRecord>({
         scope: CONFIG_AUDIT_SCOPE,
         maxEntries: CONFIG_AUDIT_MAX_ENTRIES,

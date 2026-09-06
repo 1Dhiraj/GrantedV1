@@ -50,7 +50,7 @@ export function resolveCanvasHostConfig(params: {
 
 /** Returns whether Canvas-owned document and renderer routes should be active. */
 export function isCanvasHostEnabled(config?: OpenClawConfig): boolean {
-  if (isTruthyEnvValue(process.env.OPENCLAW_SKIP_CANVAS_HOST)) {
+  if (isTruthyEnvValue(process.env.GRANTED_SKIP_CANVAS_HOST)) {
     return false;
   }
   return resolveCanvasHostConfig({ config }).enabled !== false;

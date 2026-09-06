@@ -47,7 +47,7 @@ function configuredTimeout(name, fallback) {
 }
 
 function createOperationDeadline() {
-  const deadline = Date.now() + configuredTimeout("OPENCLAW_FRV_TIMEOUT_MS", DEFAULT_TIMEOUT_MS);
+  const deadline = Date.now() + configuredTimeout("GRANTED_FRV_TIMEOUT_MS", DEFAULT_TIMEOUT_MS);
   if (!Number.isSafeInteger(deadline)) {
     throw new Error("FRV operation deadline is invalid");
   }
@@ -511,7 +511,7 @@ function controllerRunAttempt(run, sourceAttempt, expectedAttempt) {
 }
 
 async function waitForTerminal(runIds, client, operationDeadline, expectedAttempts = new Map()) {
-  const pollMs = configuredTimeout("OPENCLAW_FRV_POLL_MS", DEFAULT_POLL_MS);
+  const pollMs = configuredTimeout("GRANTED_FRV_POLL_MS", DEFAULT_POLL_MS);
   while (Date.now() < operationDeadline) {
     const runs = await Promise.all(runIds.map((runId) => client.getRun(runId)));
     const ready = runs.every((run) => {
@@ -541,7 +541,7 @@ async function reconcileAttemptStarts(
   const reconcileDeadline = Math.min(
     operationDeadline,
     Date.now() +
-      configuredTimeout("OPENCLAW_FRV_RECONCILE_TIMEOUT_MS", DEFAULT_RECONCILE_TIMEOUT_MS),
+      configuredTimeout("GRANTED_FRV_RECONCILE_TIMEOUT_MS", DEFAULT_RECONCILE_TIMEOUT_MS),
   );
   const hardFailures = mutationResults.filter(
     (result) =>
@@ -573,10 +573,7 @@ async function reconcileAttemptStarts(
         break;
       }
       await sleep(
-        Math.min(
-          configuredTimeout("OPENCLAW_FRV_POLL_MS", DEFAULT_POLL_MS),
-          remainingReconcileTime,
-        ),
+        Math.min(configuredTimeout("GRANTED_FRV_POLL_MS", DEFAULT_POLL_MS), remainingReconcileTime),
       );
     }
   }

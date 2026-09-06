@@ -128,7 +128,7 @@ describe("models-config provider auth provenance", () => {
     requestedProvider = " OPENAI ",
   ) {
     const stateDir = tempDirs.make("discovery-ref-provenance-");
-    await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir, OPENAI_API_KEY: undefined }, async () => {
+    await withEnvAsync({ GRANTED_STATE_DIR: stateDir, OPENAI_API_KEY: undefined }, async () => {
       const { resolveImplicitProviders } = await import("./models-config.providers.implicit.js");
       const { planOpenClawModelsJson } = await import("./models-config.plan.js");
       const { clearRuntimeAuthProfileStoreSnapshots, setRuntimeAuthProfileStoreSnapshot } =

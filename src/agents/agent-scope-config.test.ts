@@ -33,8 +33,8 @@ describe("agent roster resolution", () => {
 
   it("keeps the guidance runnable under a profile", () => {
     const cfg = { agents: { entries: { main: {}, ops: {} } } };
-    const previous = process.env.OPENCLAW_PROFILE;
-    process.env.OPENCLAW_PROFILE = "testprof";
+    const previous = process.env.GRANTED_PROFILE;
+    process.env.GRANTED_PROFILE = "testprof";
     try {
       // A hint the operator cannot paste back is worse than none, so the profile must survive.
       expect(() => resolveConfiguredAgentId(cfg, "nope-zzz")).toThrow(
@@ -42,9 +42,9 @@ describe("agent roster resolution", () => {
       );
     } finally {
       if (previous === undefined) {
-        delete process.env.OPENCLAW_PROFILE;
+        delete process.env.GRANTED_PROFILE;
       } else {
-        process.env.OPENCLAW_PROFILE = previous;
+        process.env.GRANTED_PROFILE = previous;
       }
     }
   });
@@ -288,7 +288,7 @@ describe("agent roster resolution", () => {
     expect(
       resolveAgentWorkspaceDir({}, "main", {
         HOME: "/home/operator",
-        OPENCLAW_STATE_DIR: stateDir,
+        GRANTED_STATE_DIR: stateDir,
       }),
     ).toBe(`${stateDir}/workspace`);
   });

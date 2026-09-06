@@ -103,8 +103,8 @@ async function withAuthProfileTestState<T>(
   try {
     return await withEnvAsync(
       {
-        OPENCLAW_STATE_DIR: stateDir,
-        ...(options.clearOAuthDir ? { OPENCLAW_OAUTH_DIR: undefined } : {}),
+        GRANTED_STATE_DIR: stateDir,
+        ...(options.clearOAuthDir ? { GRANTED_OAUTH_DIR: undefined } : {}),
       },
       async () =>
         await run({

@@ -532,7 +532,7 @@ export function resolveAllowedGeneratedMixBranch(
   env = process.env,
   branchName = resolveChangedBranchName(),
 ) {
-  if (env.GITHUB_ACTIONS === "true" && env.OPENCLAW_ALLOW_RELEASE_GENERATED_MIX !== "true") {
+  if (env.GITHUB_ACTIONS === "true" && env.GRANTED_ALLOW_RELEASE_GENERATED_MIX !== "true") {
     return "";
   }
   if (RELEASE_BRANCH_RE.test(branchName)) {

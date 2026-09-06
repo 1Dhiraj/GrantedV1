@@ -9,8 +9,8 @@ interface OpenClawContainerEnv {
   LITESTREAM_REGION: string;
   LITESTREAM_SECRET_ACCESS_KEY: string;
   OPENAI_API_KEY?: string;
-  OPENCLAW_GATEWAY_TOKEN: string;
-  OPENCLAW_WEBHOOK_ONLY: string;
+  GRANTED_GATEWAY_TOKEN: string;
+  GRANTED_WEBHOOK_ONLY: string;
   SLACK_APP_TOKEN?: string;
   SLACK_BOT_TOKEN?: string;
   TELEGRAM_BOT_TOKEN?: string;
@@ -32,7 +32,7 @@ function buildContainerEnv(env: OpenClawContainerEnv): Record<string, string> {
     LITESTREAM_ENDPOINT: env.LITESTREAM_ENDPOINT,
     LITESTREAM_REGION: env.LITESTREAM_REGION,
     LITESTREAM_SECRET_ACCESS_KEY: env.LITESTREAM_SECRET_ACCESS_KEY,
-    OPENCLAW_GATEWAY_TOKEN: env.OPENCLAW_GATEWAY_TOKEN,
+    GRANTED_GATEWAY_TOKEN: env.GRANTED_GATEWAY_TOKEN,
   };
 
   for (const [name, value] of Object.entries(containerEnv)) {
@@ -68,7 +68,7 @@ export class OpenClawContainer extends Container<OpenClawContainerEnv> {
   constructor(ctx: unknown, env: OpenClawContainerEnv) {
     super(ctx, env);
     this.envVars = buildContainerEnv(env);
-    this.webhookOnly = env.OPENCLAW_WEBHOOK_ONLY === "true";
+    this.webhookOnly = env.GRANTED_WEBHOOK_ONLY === "true";
   }
 
   override async onActivityExpired(): Promise<void> {

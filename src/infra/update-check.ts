@@ -121,7 +121,7 @@ function resolveExtendedStableRegistryTarget(params: {
 }): { registryUrl: string; packageName: string } {
   const env = params.env ?? process.env;
   const packageName = params.packageName?.trim() || PUBLIC_NPM_PACKAGE_NAME;
-  const packageSpecOverride = env.OPENCLAW_UPDATE_PACKAGE_SPEC?.trim();
+  const packageSpecOverride = env.GRANTED_UPDATE_PACKAGE_SPEC?.trim();
   const registryOverride = env.NPM_CONFIG_REGISTRY?.trim() || env.npm_config_registry?.trim() || "";
 
   // A matching package override plus a loopback registry is the explicit local

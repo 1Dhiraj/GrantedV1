@@ -112,7 +112,7 @@ describe("Mattermost account SecretRef inspection", () => {
   const unresolvedRef = {
     source: "env" as const,
     provider: "default",
-    id: "OPENCLAW_TEST_MISSING_MATTERMOST_TOKEN",
+    id: "GRANTED_TEST_MISSING_MATTERMOST_TOKEN",
   };
 
   it.each([

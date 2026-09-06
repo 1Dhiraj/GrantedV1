@@ -143,7 +143,7 @@ function collectGatewayServiceStartRepairIssues(
   const issues: GatewayServiceStartRepairIssue[] = [];
   const servicePort =
     parseTcpPortFromArgs(command.programArguments) ??
-    parseTcpPort(command.environment?.OPENCLAW_GATEWAY_PORT ?? "");
+    parseTcpPort(command.environment?.GRANTED_GATEWAY_PORT ?? "");
   if (expectedPort !== undefined && servicePort !== null && servicePort !== expectedPort) {
     issues.push({
       code: "port-mismatch",

@@ -48,7 +48,7 @@ function createDatabaseOptions(): OpenClawStateDatabaseOptions {
     fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-operator-approval-")),
   );
   tempDirs.push(stateDir);
-  return { env: { ...process.env, OPENCLAW_STATE_DIR: stateDir } };
+  return { env: { ...process.env, GRANTED_STATE_DIR: stateDir } };
 }
 
 function approval(id: string, overrides: Partial<NewOperatorApproval> = {}): NewOperatorApproval {

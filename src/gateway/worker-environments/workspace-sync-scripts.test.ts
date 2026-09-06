@@ -26,7 +26,7 @@ async function fixture() {
   await fs.mkdir(bin);
   await fs.writeFile(
     path.join(bin, "ps"),
-    '#!/bin/sh\ncase "$*" in\n  *"stat=,lstart= -p"*|*"lstart= -p"*) exec /bin/ps "$@" ;;\n  *) printf "%s %s %s S Tue Jul 15 08:00:00 2026\\n" "$$" "$PPID" "$(id -u)"; if [ -f "$OPENCLAW_TEST_PS_EXTRA" ]; then extra_pid=$(cat "$OPENCLAW_TEST_PS_EXTRA"); /bin/ps -o pid=,ppid=,uid=,stat=,lstart= -p "$extra_pid" || true; fi ;;\nesac\n',
+    '#!/bin/sh\ncase "$*" in\n  *"stat=,lstart= -p"*|*"lstart= -p"*) exec /bin/ps "$@" ;;\n  *) printf "%s %s %s S Tue Jul 15 08:00:00 2026\\n" "$$" "$PPID" "$(id -u)"; if [ -f "$GRANTED_TEST_PS_EXTRA" ]; then extra_pid=$(cat "$GRANTED_TEST_PS_EXTRA"); /bin/ps -o pid=,ppid=,uid=,stat=,lstart= -p "$extra_pid" || true; fi ;;\nesac\n',
   );
   await fs.chmod(path.join(bin, "ps"), 0o755);
   return {
@@ -37,7 +37,7 @@ async function fixture() {
     env: {
       ...process.env,
       HOME: home,
-      OPENCLAW_TEST_PS_EXTRA: extraProcessPath,
+      GRANTED_TEST_PS_EXTRA: extraProcessPath,
       PATH: `${bin}:${process.env.PATH ?? ""}`,
     },
   };
@@ -303,7 +303,7 @@ describe("remote workspace quiescence scripts", () => {
 case "$*" in
   *"lstart= -p"*)
     for pid do :; done
-    printf "%s\n" "$pid" > "$OPENCLAW_TEST_WATCHDOG_PID"
+    printf "%s\n" "$pid" > "$GRANTED_TEST_WATCHDOG_PID"
     trap '' TERM
     while true; do sleep 1; done
     ;;
@@ -317,7 +317,7 @@ esac
       [process.execPath, "-e", REMOTE_WORKSPACE_QUIESCE_JS, input.workspace, "10000", "dedicated"],
       {
         timeoutMs: 10_000,
-        baseEnv: { ...input.env, OPENCLAW_TEST_WATCHDOG_PID: watchdogPidPath },
+        baseEnv: { ...input.env, GRANTED_TEST_WATCHDOG_PID: watchdogPidPath },
       },
     );
 

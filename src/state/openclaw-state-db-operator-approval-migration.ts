@@ -2,7 +2,7 @@
 import type { DatabaseSync } from "node:sqlite";
 import { runSqliteImmediateTransactionSync } from "../infra/sqlite-transaction.js";
 import { tableExists } from "./openclaw-state-db-schema-helpers.js";
-import { OPENCLAW_STATE_SCHEMA_SQL } from "./openclaw-state-schema.js";
+import { GRANTED_STATE_SCHEMA_SQL } from "./openclaw-state-schema.js";
 
 const COLUMNS = [
   "approval_id",
@@ -78,15 +78,15 @@ function normalizeDdl(sql: string): string {
 function canonicalOperatorApprovalCreateSql(): string {
   const marker = "CREATE TABLE IF NOT EXISTS operator_approvals (";
   const tableTerminator = "\n) STRICT;";
-  const start = OPENCLAW_STATE_SCHEMA_SQL.indexOf(marker);
-  const end = OPENCLAW_STATE_SCHEMA_SQL.indexOf(
+  const start = GRANTED_STATE_SCHEMA_SQL.indexOf(marker);
+  const end = GRANTED_STATE_SCHEMA_SQL.indexOf(
     `${tableTerminator}\n\nCREATE INDEX IF NOT EXISTS idx_operator_approvals_status_expiry`,
     start,
   );
   if (start < 0 || end < 0) {
     throw new Error("canonical operator approval schema is unavailable");
   }
-  return OPENCLAW_STATE_SCHEMA_SQL.slice(start, end + tableTerminator.length);
+  return GRANTED_STATE_SCHEMA_SQL.slice(start, end + tableTerminator.length);
 }
 
 function alterAppendedResolutionRefCreateSql(sql: string): string {
@@ -137,7 +137,7 @@ function canonicalCreateSql(): string {
 // behind databases whose other tables still lack columns the later additive
 // and STRICT repairs add (e.g. "no such column: agent_id").
 function operatorApprovalIndexSql(): string {
-  const statements = OPENCLAW_STATE_SCHEMA_SQL.split(";")
+  const statements = GRANTED_STATE_SCHEMA_SQL.split(";")
     .map((statement) => statement.trim())
     .filter((statement) =>
       /^CREATE (?:UNIQUE )?INDEX IF NOT EXISTS idx_operator_approvals_/.test(statement),

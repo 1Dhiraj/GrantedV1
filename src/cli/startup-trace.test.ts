@@ -24,8 +24,8 @@ describe("CLI startup trace", () => {
   it("records entry marks and measured spans in the diagnostics timeline", async () => {
     const dir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-startup-trace-"));
     const timelinePath = path.join(dir, "timeline.jsonl");
-    vi.stubEnv("OPENCLAW_DIAGNOSTICS", "timeline");
-    vi.stubEnv("OPENCLAW_DIAGNOSTICS_TIMELINE_PATH", timelinePath);
+    vi.stubEnv("GRANTED_DIAGNOSTICS", "timeline");
+    vi.stubEnv("GRANTED_DIAGNOSTICS_TIMELINE_PATH", timelinePath);
 
     const trace = createGatewayDispatchStartupTrace(
       ["node", "openclaw", "agent", "--local"],
@@ -74,8 +74,8 @@ describe("CLI startup trace", () => {
   it("flushes buffered startup phases when config enables the timeline", async () => {
     const dir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-startup-trace-config-"));
     const timelinePath = path.join(dir, "timeline.jsonl");
-    vi.stubEnv("OPENCLAW_DIAGNOSTICS", "");
-    vi.stubEnv("OPENCLAW_DIAGNOSTICS_TIMELINE_PATH", timelinePath);
+    vi.stubEnv("GRANTED_DIAGNOSTICS", "");
+    vi.stubEnv("GRANTED_DIAGNOSTICS_TIMELINE_PATH", timelinePath);
 
     const trace = createGatewayDispatchStartupTrace(
       ["node", "openclaw", "agent", "--local"],

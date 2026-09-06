@@ -55,13 +55,13 @@ describe("doctor gateway service repair policy", () => {
     { name: "native host", env: {}, expected: true, probes: "none" },
     {
       name: "Doctor-only external repair policy on a native host",
-      env: { OPENCLAW_SERVICE_REPAIR_POLICY: "external" },
+      env: { GRANTED_SERVICE_REPAIR_POLICY: "external" },
       expected: true,
       probes: "none",
     },
     {
       name: "globally external supervision",
-      env: { OPENCLAW_SUPERVISOR_MODE: "external" },
+      env: { GRANTED_SUPERVISOR_MODE: "external" },
       container: true,
       expected: false,
       probes: "none",
@@ -161,7 +161,7 @@ describe("doctor gateway service repair policy", () => {
     }
   });
 
-  it.each(["OPENCLAW_SERVICE_REPAIR_POLICY", "OPENCLAW_SUPERVISOR_MODE"])(
+  it.each(["GRANTED_SERVICE_REPAIR_POLICY", "GRANTED_SUPERVISOR_MODE"])(
     "never confirms a Doctor repair when %s is external",
     async (envKey) => {
       const prompter = createDoctorPrompter({

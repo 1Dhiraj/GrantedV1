@@ -42,7 +42,7 @@ describe("pending-final durable delivery completion", () => {
   });
 
   it("suppresses a second stable caller after the exact pending final was delivered", async () => {
-    process.env.OPENCLAW_STATE_DIR = tmpDir;
+    process.env.GRANTED_STATE_DIR = tmpDir;
     const sessionKey = "agent:main:matrix:direct:123";
     const storePath = path.join(tmpDir, "sessions.json");
     const deliveryId = "pending-final-delivery-1";
@@ -94,7 +94,7 @@ describe("pending-final durable delivery completion", () => {
   });
 
   it("keeps an uncertainty notice owed when a live send returns no delivery identity", async () => {
-    process.env.OPENCLAW_STATE_DIR = tmpDir;
+    process.env.GRANTED_STATE_DIR = tmpDir;
     const sessionKey = "agent:main:matrix:direct:unknown-live";
     const storePath = path.join(tmpDir, "sessions.json");
     const deliveryId = "pending-final-unknown-live";

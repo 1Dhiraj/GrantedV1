@@ -142,7 +142,7 @@ suite.define(() => {
   it("bounds a 240-row title burst and preserves overflow fallbacks", async () => {
     const artifactDir = createControlUiE2eArtifactDir(
       "tool-title-bounds-executable",
-      process.env.OPENCLAW_CONTROL_UI_E2E_ARTIFACT_DIR?.trim() || undefined,
+      process.env.GRANTED_CONTROL_UI_E2E_ARTIFACT_DIR?.trim() || undefined,
     );
     const context = await suite.newBrowserContext({
       locale: "en-US",
@@ -196,7 +196,7 @@ suite.define(() => {
             assetSha256,
             assetSrc,
             baselineAssetSha256: BASELINE_BUNDLE_SHA256,
-            exactHead: process.env.OPENCLAW_TOOL_TITLES_EXACT_HEAD?.trim() ?? null,
+            exactHead: process.env.GRANTED_TOOL_TITLES_EXACT_HEAD?.trim() ?? null,
             fallbackCount: 192,
             generatedCount: 48,
             requestCount: requests.length,
@@ -270,7 +270,7 @@ suite.define(() => {
   });
 
   it("resumes title generation after transcript pruning removes the cursor", async () => {
-    const artifactRoot = process.env.OPENCLAW_CONTROL_UI_E2E_ARTIFACT_DIR?.trim();
+    const artifactRoot = process.env.GRANTED_CONTROL_UI_E2E_ARTIFACT_DIR?.trim();
     const artifactDir = artifactRoot
       ? createControlUiE2eArtifactDir("tool-title-bounds", artifactRoot)
       : undefined;
@@ -368,7 +368,7 @@ suite.define(() => {
           path.join(artifactDir, "metrics.json"),
           `${JSON.stringify(
             {
-              exactHead: process.env.OPENCLAW_TOOL_TITLES_EXACT_HEAD?.trim() ?? null,
+              exactHead: process.env.GRANTED_TOOL_TITLES_EXACT_HEAD?.trim() ?? null,
               finalFallbackCount: 24,
               finalGeneratedCount: 95,
               initialGeneratedCount: 48,
@@ -547,7 +547,7 @@ suite.define(() => {
   });
 
   it("invalidates a rendered title when the gateway client is replaced", async () => {
-    const artifactRoot = process.env.OPENCLAW_CONTROL_UI_E2E_ARTIFACT_DIR?.trim();
+    const artifactRoot = process.env.GRANTED_CONTROL_UI_E2E_ARTIFACT_DIR?.trim();
     const artifactDir = artifactRoot
       ? createControlUiE2eArtifactDir("tool-title-bounds", artifactRoot)
       : undefined;

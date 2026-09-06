@@ -13,7 +13,7 @@ import {
 import { afterEach, beforeEach, expect, test } from "vitest";
 import { startOtelServiceWithHostUsage, stopStartedOtelServices } from "./service.test-helpers.js";
 
-const PRELOAD_ENV = "OPENCLAW_OTEL_PRELOADED";
+const PRELOAD_ENV = "GRANTED_OTEL_PRELOADED";
 const OTEL_GLOBAL_API_KEY = Symbol.for("opentelemetry.js.api.1");
 
 type OtelGlobalRegistrations = {

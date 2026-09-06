@@ -87,7 +87,7 @@ describe("scripts/plugin-release-pretag-pack-check.ts", () => {
     ]);
     expect(callOptions(1)).toMatchObject({
       cwd: repoDir,
-      env: { OPENCLAW_PLUGIN_NPM_RUNTIME_BUILD: "0" },
+      env: { GRANTED_PLUGIN_NPM_RUNTIME_BUILD: "0" },
       stdio: ["inherit", "ignore", "inherit"],
     });
 
@@ -97,9 +97,9 @@ describe("scripts/plugin-release-pretag-pack-check.ts", () => {
     ]);
     expect(callOptions(2)).toMatchObject({
       cwd: repoDir,
-      env: { OPENCLAW_PLUGIN_NPM_RUNTIME_BUILD: "0" },
+      env: { GRANTED_PLUGIN_NPM_RUNTIME_BUILD: "0" },
       stdio: ["inherit", "ignore", "inherit"],
     });
-    expect(callOptions(2).env?.OPENCLAW_CLAWHUB_PACK_OUTPUT_DIR).toContain("clawhub-0");
+    expect(callOptions(2).env?.GRANTED_CLAWHUB_PACK_OUTPUT_DIR).toContain("clawhub-0");
   });
 });

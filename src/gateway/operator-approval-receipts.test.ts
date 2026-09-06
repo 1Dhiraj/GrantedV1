@@ -26,7 +26,7 @@ afterEach(() => {
 const tempDirs = useAutoCleanupTempDirTracker(afterEach);
 
 function databaseOptions() {
-  return { env: { OPENCLAW_STATE_DIR: tempDirs.make("openclaw-approval-receipts-") } };
+  return { env: { GRANTED_STATE_DIR: tempDirs.make("openclaw-approval-receipts-") } };
 }
 
 function approval(

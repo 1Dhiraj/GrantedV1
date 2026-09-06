@@ -70,7 +70,7 @@ describe("meme-maker local rendering", () => {
     expect(fs.existsSync(out)).toBe(false);
   });
 
-  it.runIf(process.env.OPENCLAW_LIVE_TEST === "1")(
+  it.runIf(process.env.GRANTED_LIVE_TEST === "1")(
     "renders a PNG at the template dimensions without Sharp",
     async () => {
       const { out, result } = renderFixture("png");

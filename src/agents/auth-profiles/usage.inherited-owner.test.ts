@@ -47,7 +47,7 @@ function createMainStore(): AuthProfileStore {
 }
 
 describe("inherited auth-profile usage persistence", () => {
-  const env = captureEnv(["OPENCLAW_STATE_DIR", "OPENCLAW_AGENT_DIR"]);
+  const env = captureEnv(["GRANTED_STATE_DIR", "GRANTED_AGENT_DIR"]);
   let rootDir: string;
   let mainAgentDir: string;
   let childAgentDir: string;
@@ -59,8 +59,8 @@ describe("inherited auth-profile usage persistence", () => {
     childAgentDir = path.join(rootDir, "agents", "child", "agent");
     fs.mkdirSync(mainAgentDir, { recursive: true });
     fs.mkdirSync(childAgentDir, { recursive: true });
-    setTestEnvValue("OPENCLAW_STATE_DIR", rootDir);
-    setTestEnvValue("OPENCLAW_AGENT_DIR", mainAgentDir);
+    setTestEnvValue("GRANTED_STATE_DIR", rootDir);
+    setTestEnvValue("GRANTED_AGENT_DIR", mainAgentDir);
     clearRuntimeAuthProfileStoreSnapshots();
   });
 

@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
 import { threadId } from "node:worker_threads";
 import type { TestProject } from "vitest/node";
 
-const PROFILE_ERROR_CODE = "OPENCLAW_VITEST_PROFILE_FAILED";
+const PROFILE_ERROR_CODE = "GRANTED_VITEST_PROFILE_FAILED";
 
 // Vitest serializes worker errors into plain objects, preserving named fields.
 export function isVitestProfileError(error: unknown) {

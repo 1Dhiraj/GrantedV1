@@ -5,12 +5,12 @@ import path from "node:path";
 import type { DatabaseSync, SQLInputValue } from "node:sqlite";
 import { pathToFileURL } from "node:url";
 import { expectDefined } from "../packages/normalization-core/src/expect.js";
-import { OPENCLAW_AGENT_SCHEMA_VERSION } from "../src/state/openclaw-agent-db-contract.js";
+import { GRANTED_AGENT_SCHEMA_VERSION } from "../src/state/openclaw-agent-db-contract.js";
 import {
   openOpenClawAgentDatabase,
   closeOpenClawAgentDatabasesForTest,
 } from "../src/state/openclaw-agent-db.js";
-import { OPENCLAW_STATE_SCHEMA_VERSION } from "../src/state/openclaw-state-db-contract.js";
+import { GRANTED_STATE_SCHEMA_VERSION } from "../src/state/openclaw-state-db-contract.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
@@ -785,7 +785,7 @@ function main(): void {
   const config = applyScale(PROFILES[options.profile]);
   const stateDir =
     options.stateDir ?? fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-sqlite-perf-"));
-  const env = { OPENCLAW_STATE_DIR: stateDir };
+  const env = { GRANTED_STATE_DIR: stateDir };
   const started = nowMs();
   try {
     const stateDatabase = openOpenClawStateDatabase({ env });
@@ -832,9 +832,9 @@ function main(): void {
       profile: options.profile,
       queries,
       versions: {
-        agentSchema: OPENCLAW_AGENT_SCHEMA_VERSION,
+        agentSchema: GRANTED_AGENT_SCHEMA_VERSION,
         sqlite: readSqliteVersion(stateDatabase.db),
-        stateSchema: OPENCLAW_STATE_SCHEMA_VERSION,
+        stateSchema: GRANTED_STATE_SCHEMA_VERSION,
       },
       rows: {
         agentCacheEntries: perAgentEntries * config.agentCount,

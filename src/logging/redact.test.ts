@@ -1871,7 +1871,7 @@ describe("redactSensitiveText", () => {
       },
     }`);
 
-    withEnv({ OPENCLAW_CONFIG_PATH: configPath }, () =>
+    withEnv({ GRANTED_CONFIG_PATH: configPath }, () =>
       expect(redactSensitiveText("OPENAI_API_KEY=sk-1234567890abcdef")).toBe(
         "OPENAI_API_KEY=sk-123…cdef",
       ),
@@ -1944,7 +1944,7 @@ describe("redactSensitiveText", () => {
       },
     }`);
 
-    withEnv({ OPENCLAW_CONFIG_PATH: configPath }, () => {
+    withEnv({ GRANTED_CONFIG_PATH: configPath }, () => {
       expect(redactSensitiveText("ticket internal-12345 should hide")).toBe(
         "ticket *** should hide",
       );

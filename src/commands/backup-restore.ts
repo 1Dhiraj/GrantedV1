@@ -140,7 +140,7 @@ function formatRestoreResult(result: BackupRestoreResult): string {
     "Rollback warnings:",
     ...result.warnings.map((warning) => `- ${warning}`),
     "",
-    "Activation is explicit: stop the Gateway, move the restored asset tree into place or point OPENCLAW_STATE_DIR at the restored state asset, then run `openclaw doctor`.",
+    "Activation is explicit: stop the Gateway, move the restored asset tree into place or point GRANTED_STATE_DIR at the restored state asset, then run `openclaw doctor`.",
   ].join("\n");
 }
 

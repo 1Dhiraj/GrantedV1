@@ -144,7 +144,7 @@ describe("embedded retry transcript ownership", () => {
     async (sessionPersistence, suppliedManager, projection, abort) => {
       const root = tempRoots.make("openclaw-retry-projection-");
       const stateDir = path.join(root, "state");
-      vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
+      vi.stubEnv("GRANTED_STATE_DIR", stateDir);
       const workspaceDir = path.join(root, "workspace");
       const agentDir = path.join(root, "staged", "agent");
       await fs.mkdir(workspaceDir, { recursive: true });

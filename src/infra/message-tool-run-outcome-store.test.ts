@@ -10,7 +10,7 @@ import { recordMessageToolRunOutcome } from "./message-tool-run-outcome-store.js
 const tempDirs = useAutoCleanupTempDirTracker(afterEach);
 
 function createEnv(): NodeJS.ProcessEnv {
-  return { OPENCLAW_STATE_DIR: tempDirs.make("openclaw-message-tool-outcome-") };
+  return { GRANTED_STATE_DIR: tempDirs.make("openclaw-message-tool-outcome-") };
 }
 
 afterEach(() => {

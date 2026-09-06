@@ -2,7 +2,7 @@ import type { DatabaseSync } from "node:sqlite";
 import { isRecord } from "@openclaw/normalization-core/record-coerce";
 import type { TranscriptEvent } from "../config/sessions/session-accessor.sqlite-contract.js";
 import { updateSqliteTranscriptEventJsonInTransaction } from "../config/sessions/session-accessor.sqlite-transcript-store.js";
-import { OPENCLAW_AGENT_SCHEMA_VERSION } from "../state/openclaw-agent-db-contract.js";
+import { GRANTED_AGENT_SCHEMA_VERSION } from "../state/openclaw-agent-db-contract.js";
 import {
   OpenClawAgentDatabaseLeaseActiveError,
   assertAgentDatabaseMaintenanceAuthority,
@@ -17,7 +17,7 @@ import {
   type OpenClawAgentDatabase,
   withAgentDatabaseMaintenanceLease,
 } from "../state/openclaw-agent-db.js";
-import { OPENCLAW_SQLITE_BUSY_TIMEOUT_MS } from "../state/openclaw-state-db.js";
+import { GRANTED_SQLITE_BUSY_TIMEOUT_MS } from "../state/openclaw-state-db.js";
 import {
   clearNodeSqliteKyselyCacheForDatabase,
   executeSqliteQuerySync,
@@ -309,7 +309,7 @@ async function migrateTranscriptSessions(params: {
           assertAgentDatabaseMaintenanceAuthority();
         },
         {
-          busyTimeoutMs: OPENCLAW_SQLITE_BUSY_TIMEOUT_MS,
+          busyTimeoutMs: GRANTED_SQLITE_BUSY_TIMEOUT_MS,
           databaseLabel: params.pathname,
           operationLabel: "historical-transcript-directives",
         },
@@ -330,7 +330,7 @@ async function migrateAgentDatabase(params: {
   migrateOpenClawAgentDatabaseForMaintenance(params);
   const database = openNodeSqliteDatabase(params.pathname);
   try {
-    database.exec(`PRAGMA busy_timeout = ${OPENCLAW_SQLITE_BUSY_TIMEOUT_MS};`);
+    database.exec(`PRAGMA busy_timeout = ${GRANTED_SQLITE_BUSY_TIMEOUT_MS};`);
     assertOpenClawAgentDatabaseForMaintenance(database, params);
     const cursor = readMigrationCursor(database, params.pathname);
     if (cursor.phase === "complete") {
@@ -378,7 +378,7 @@ function agentDatabaseNeedsTranscriptDirectiveMigration(params: {
   const database = openNodeSqliteDatabase(params.pathname, { readOnly: true });
   try {
     const userVersion = Number(database.prepare("PRAGMA user_version").get()?.user_version ?? 0);
-    if (userVersion !== OPENCLAW_AGENT_SCHEMA_VERSION) {
+    if (userVersion !== GRANTED_AGENT_SCHEMA_VERSION) {
       return true;
     }
     try {

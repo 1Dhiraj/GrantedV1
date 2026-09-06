@@ -136,14 +136,14 @@ const SUPPORTED_SUITES = new Set<CrossOsSuite>([
 const SUPPORTED_OS_IDS = new Set<CrossOsOsId>(["ubuntu", "windows", "macos"]);
 
 export const CROSS_OS_AGENT_TURN_TIMEOUT_SECONDS = parsePositiveIntegerEnv(
-  "OPENCLAW_CROSS_OS_AGENT_TURN_TIMEOUT_SECONDS",
+  "GRANTED_CROSS_OS_AGENT_TURN_TIMEOUT_SECONDS",
   600,
 );
 export const CROSS_OS_COMMAND_CAPTURE_TAIL_BYTES = 16 * 1024 * 1024;
 export const CROSS_OS_AGENT_LOG_FALLBACK_TAIL_BYTES = 2 * 1024 * 1024;
 export const CROSS_OS_NPM_DEBUG_LOG_TAIL_BYTES = 256 * 1024;
 export const CROSS_OS_PROCESS_TREE_KILL_AFTER_MS = parsePositiveIntegerEnv(
-  "OPENCLAW_CROSS_OS_PROCESS_TREE_KILL_AFTER_MS",
+  "GRANTED_CROSS_OS_PROCESS_TREE_KILL_AFTER_MS",
   15_000,
 );
 export const CROSS_OS_AGENT_TURN_OPTIONAL = resolveCrossOsAgentTurnOptional();
@@ -179,8 +179,8 @@ export function resolveProviderConfig(provider: string, env = process.env): Prov
     return null;
   }
   const config: ProviderConfig = providerConfig[provider as ProviderId];
-  const providerEnvKey = `OPENCLAW_CROSS_OS_${provider.toUpperCase().replace(/[^A-Z0-9]+/gu, "_")}_MODEL`;
-  const model = env[providerEnvKey]?.trim() || env.OPENCLAW_CROSS_OS_MODEL?.trim() || config.model;
+  const providerEnvKey = `GRANTED_CROSS_OS_${provider.toUpperCase().replace(/[^A-Z0-9]+/gu, "_")}_MODEL`;
+  const model = env[providerEnvKey]?.trim() || env.GRANTED_CROSS_OS_MODEL?.trim() || config.model;
   return { ...config, model };
 }
 
@@ -231,7 +231,7 @@ export const OMITTED_QA_EXTENSION_PREFIXES = [
 export const CROSS_OS_DASHBOARD_SMOKE_TIMEOUT_MS = 120_000;
 export const CROSS_OS_DASHBOARD_FETCH_TIMEOUT_MS = 10_000;
 export const CROSS_OS_DISCORD_FETCH_TIMEOUT_MS = parsePositiveIntegerEnv(
-  "OPENCLAW_CROSS_OS_DISCORD_FETCH_TIMEOUT_MS",
+  "GRANTED_CROSS_OS_DISCORD_FETCH_TIMEOUT_MS",
   10_000,
 );
 export const CROSS_OS_FETCH_BODY_MAX_CHARS = 1024 * 1024;
@@ -250,7 +250,7 @@ export const CROSS_OS_WINDOWS_PACKAGED_UPGRADE_STEP_TIMEOUT_SECONDS = 10 * 60;
 export const CROSS_OS_WINDOWS_PACKAGED_UPGRADE_WRAPPER_TIMEOUT_MS =
   (CROSS_OS_WINDOWS_PACKAGED_UPGRADE_STEP_TIMEOUT_SECONDS + 2 * 60) * 1000;
 export const CROSS_OS_COMMAND_HEARTBEAT_SECONDS = parsePositiveIntegerEnv(
-  "OPENCLAW_CROSS_OS_COMMAND_HEARTBEAT_SECONDS",
+  "GRANTED_CROSS_OS_COMMAND_HEARTBEAT_SECONDS",
   60,
 );
 
@@ -344,7 +344,7 @@ function parseBooleanEnv(name: string, fallback: boolean, env = process.env): bo
 }
 
 export function resolveCrossOsAgentTurnOptional(env = process.env) {
-  return parseBooleanEnv("OPENCLAW_CROSS_OS_AGENT_TURN_OPTIONAL", false, env);
+  return parseBooleanEnv("GRANTED_CROSS_OS_AGENT_TURN_OPTIONAL", false, env);
 }
 
 export function looksLikeReleaseVersionRef(ref: string) {
@@ -516,15 +516,15 @@ export function readRunnerOverrideEnv(env = process.env) {
   return {
     varUbuntuRunner: preferNonEmptyEnv(
       env.VAR_UBUNTU_RUNNER,
-      env.OPENCLAW_RELEASE_CHECKS_UBUNTU_RUNNER,
+      env.GRANTED_RELEASE_CHECKS_UBUNTU_RUNNER,
     ),
     varWindowsRunner: preferNonEmptyEnv(
       env.VAR_WINDOWS_RUNNER,
-      env.OPENCLAW_RELEASE_CHECKS_WINDOWS_RUNNER,
+      env.GRANTED_RELEASE_CHECKS_WINDOWS_RUNNER,
     ),
     varMacosRunner: preferNonEmptyEnv(
       env.VAR_MACOS_RUNNER,
-      env.OPENCLAW_RELEASE_CHECKS_MACOS_RUNNER,
+      env.GRANTED_RELEASE_CHECKS_MACOS_RUNNER,
     ),
   };
 }
@@ -572,10 +572,10 @@ export function shouldRunMainChannelDevUpdate(ref: string) {
 export function buildRealUpdateEnv(env: NodeJS.ProcessEnv) {
   const updateEnv: NodeJS.ProcessEnv = {
     ...env,
-    OPENCLAW_ALLOW_OLDER_BINARY_DESTRUCTIVE_ACTIONS: "1",
+    GRANTED_ALLOW_OLDER_BINARY_DESTRUCTIVE_ACTIONS: "1",
     NODE_DISABLE_COMPILE_CACHE: "1",
   };
-  delete updateEnv.OPENCLAW_DISABLE_BUNDLED_PLUGIN_POSTINSTALL;
+  delete updateEnv.GRANTED_DISABLE_BUNDLED_PLUGIN_POSTINSTALL;
   delete updateEnv.NODE_COMPILE_CACHE;
   return updateEnv;
 }

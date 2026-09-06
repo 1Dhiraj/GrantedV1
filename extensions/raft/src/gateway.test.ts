@@ -135,7 +135,7 @@ function createPersistentWakeDedupe(stateDir: string) {
       pluginId: "raft",
       namespacePrefix: "raft-wake-dedupe",
       stateMaxEntries: 10_000,
-      env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+      env: { ...process.env, GRANTED_STATE_DIR: stateDir },
     },
     buildReplayKey: (event) => event.key,
     namespace: (event) => event.accountId,

@@ -62,45 +62,45 @@ import {
 } from "./live-agent-probes.js";
 
 const LIVE = isLiveTestEnabled();
-const CODEX_HARNESS_LIVE = isTruthyEnvValue(process.env.OPENCLAW_LIVE_CODEX_HARNESS);
-const CODEX_HARNESS_DEBUG = isTruthyEnvValue(process.env.OPENCLAW_LIVE_CODEX_HARNESS_DEBUG);
+const CODEX_HARNESS_LIVE = isTruthyEnvValue(process.env.GRANTED_LIVE_CODEX_HARNESS);
+const CODEX_HARNESS_DEBUG = isTruthyEnvValue(process.env.GRANTED_LIVE_CODEX_HARNESS_DEBUG);
 const CODEX_HARNESS_IMAGE_PROBE = isTruthyEnvValue(
-  process.env.OPENCLAW_LIVE_CODEX_HARNESS_IMAGE_PROBE,
+  process.env.GRANTED_LIVE_CODEX_HARNESS_IMAGE_PROBE,
 );
 const CODEX_HARNESS_CHAT_IMAGE_PROBE = isTruthyEnvValue(
-  process.env.OPENCLAW_LIVE_CODEX_HARNESS_CHAT_IMAGE_PROBE,
+  process.env.GRANTED_LIVE_CODEX_HARNESS_CHAT_IMAGE_PROBE,
 );
-const CODEX_HARNESS_MCP_PROBE = isTruthyEnvValue(process.env.OPENCLAW_LIVE_CODEX_HARNESS_MCP_PROBE);
+const CODEX_HARNESS_MCP_PROBE = isTruthyEnvValue(process.env.GRANTED_LIVE_CODEX_HARNESS_MCP_PROBE);
 const CODEX_HARNESS_SUBAGENT_PROBE = isTruthyEnvValue(
-  process.env.OPENCLAW_LIVE_CODEX_HARNESS_SUBAGENT_PROBE,
+  process.env.GRANTED_LIVE_CODEX_HARNESS_SUBAGENT_PROBE,
 );
 const CODEX_HARNESS_GUARDIAN_PROBE = isTruthyEnvValue(
-  process.env.OPENCLAW_LIVE_CODEX_HARNESS_GUARDIAN_PROBE,
+  process.env.GRANTED_LIVE_CODEX_HARNESS_GUARDIAN_PROBE,
 );
 const CODEX_HARNESS_MULTI_SESSION_PROBE = isTruthyEnvValue(
-  process.env.OPENCLAW_LIVE_CODEX_HARNESS_MULTI_SESSION_PROBE,
+  process.env.GRANTED_LIVE_CODEX_HARNESS_MULTI_SESSION_PROBE,
 );
 const CODEX_HARNESS_CODE_MODE_ONLY = isTruthyEnvValue(
-  process.env.OPENCLAW_LIVE_CODEX_HARNESS_CODE_MODE_ONLY,
+  process.env.GRANTED_LIVE_CODEX_HARNESS_CODE_MODE_ONLY,
 );
 const CODEX_HARNESS_DISABLE_LOOP_RELAY = isTruthyEnvValue(
-  process.env.OPENCLAW_LIVE_CODEX_HARNESS_DISABLE_LOOP_RELAY,
+  process.env.GRANTED_LIVE_CODEX_HARNESS_DISABLE_LOOP_RELAY,
 );
 const CODEX_HARNESS_REQUIRE_GUARDIAN_EVENTS = isTruthyEnvValue(
-  process.env.OPENCLAW_LIVE_CODEX_HARNESS_REQUIRE_GUARDIAN_EVENTS,
+  process.env.GRANTED_LIVE_CODEX_HARNESS_REQUIRE_GUARDIAN_EVENTS,
 );
 const CODEX_HARNESS_RESUME_STRESS = isTruthyEnvValue(
-  process.env.OPENCLAW_LIVE_CODEX_HARNESS_RESUME_STRESS,
+  process.env.GRANTED_LIVE_CODEX_HARNESS_RESUME_STRESS,
 );
 const CODEX_HARNESS_RESUME_STRESS_HISTORY_TURNS = resolveBoundedPositiveIntEnv(
-  "OPENCLAW_LIVE_CODEX_HARNESS_RESUME_STRESS_HISTORY_TURNS",
-  process.env.OPENCLAW_LIVE_CODEX_HARNESS_RESUME_STRESS_HISTORY_TURNS,
+  "GRANTED_LIVE_CODEX_HARNESS_RESUME_STRESS_HISTORY_TURNS",
+  process.env.GRANTED_LIVE_CODEX_HARNESS_RESUME_STRESS_HISTORY_TURNS,
   4,
   20,
 );
 const CODEX_HARNESS_RESUME_STRESS_RESTARTS = resolveBoundedPositiveIntEnv(
-  "OPENCLAW_LIVE_CODEX_HARNESS_RESUME_STRESS_RESTARTS",
-  process.env.OPENCLAW_LIVE_CODEX_HARNESS_RESUME_STRESS_RESTARTS,
+  "GRANTED_LIVE_CODEX_HARNESS_RESUME_STRESS_RESTARTS",
+  process.env.GRANTED_LIVE_CODEX_HARNESS_RESUME_STRESS_RESTARTS,
   3,
   10,
 );
@@ -110,16 +110,16 @@ type CodexCompactionStressMode =
   | { kind: "full"; modelCatalogPath: string };
 
 function resolveCodexCompactionStressMode(): CodexCompactionStressMode {
-  if (isTruthyEnvValue(process.env.OPENCLAW_LIVE_CODEX_HARNESS_FULL_CONTEXT)) {
-    const modelCatalogPath = process.env.OPENCLAW_LIVE_CODEX_HARNESS_MODEL_CATALOG?.trim();
+  if (isTruthyEnvValue(process.env.GRANTED_LIVE_CODEX_HARNESS_FULL_CONTEXT)) {
+    const modelCatalogPath = process.env.GRANTED_LIVE_CODEX_HARNESS_MODEL_CATALOG?.trim();
     if (!modelCatalogPath) {
       throw new Error(
-        "OPENCLAW_LIVE_CODEX_HARNESS_FULL_CONTEXT requires OPENCLAW_LIVE_CODEX_HARNESS_MODEL_CATALOG",
+        "GRANTED_LIVE_CODEX_HARNESS_FULL_CONTEXT requires GRANTED_LIVE_CODEX_HARNESS_MODEL_CATALOG",
       );
     }
     return { kind: "full", modelCatalogPath };
   }
-  return isTruthyEnvValue(process.env.OPENCLAW_LIVE_CODEX_HARNESS_COMPACTION_STRESS)
+  return isTruthyEnvValue(process.env.GRANTED_LIVE_CODEX_HARNESS_COMPACTION_STRESS)
     ? { kind: "reduced" }
     : { kind: "off" };
 }
@@ -128,8 +128,8 @@ const CODEX_HARNESS_COMPACTION_MODE = resolveCodexCompactionStressMode();
 const CODEX_HARNESS_FULL_CONTEXT = CODEX_HARNESS_COMPACTION_MODE.kind === "full";
 const CODEX_HARNESS_COMPACTION_STRESS = CODEX_HARNESS_COMPACTION_MODE.kind !== "off";
 const CODEX_HARNESS_COMPACTION_STRESS_TURNS = resolveBoundedPositiveIntEnv(
-  "OPENCLAW_LIVE_CODEX_HARNESS_COMPACTION_STRESS_TURNS",
-  process.env.OPENCLAW_LIVE_CODEX_HARNESS_COMPACTION_STRESS_TURNS,
+  "GRANTED_LIVE_CODEX_HARNESS_COMPACTION_STRESS_TURNS",
+  process.env.GRANTED_LIVE_CODEX_HARNESS_COMPACTION_STRESS_TURNS,
   CODEX_HARNESS_FULL_CONTEXT ? 8 : 4,
   8,
 );
@@ -137,15 +137,15 @@ if (CODEX_HARNESS_FULL_CONTEXT && CODEX_HARNESS_COMPACTION_STRESS_TURNS !== 8) {
   throw new Error("full-context Codex stress requires exactly 8 compaction stress turns");
 }
 const CODEX_HARNESS_LARGE_OUTPUT_BYTES = resolveBoundedPositiveIntEnv(
-  "OPENCLAW_LIVE_CODEX_HARNESS_LARGE_OUTPUT_BYTES",
-  process.env.OPENCLAW_LIVE_CODEX_HARNESS_LARGE_OUTPUT_BYTES,
+  "GRANTED_LIVE_CODEX_HARNESS_LARGE_OUTPUT_BYTES",
+  process.env.GRANTED_LIVE_CODEX_HARNESS_LARGE_OUTPUT_BYTES,
   CODEX_HARNESS_FULL_CONTEXT ? 600_000 : 300_000,
   CODEX_HARNESS_MAX_LARGE_OUTPUT_BYTES,
   100_000,
 );
 const CODEX_HARNESS_SUBAGENT_COUNT = resolveBoundedPositiveIntEnv(
-  "OPENCLAW_LIVE_CODEX_HARNESS_SUBAGENT_COUNT",
-  process.env.OPENCLAW_LIVE_CODEX_HARNESS_SUBAGENT_COUNT,
+  "GRANTED_LIVE_CODEX_HARNESS_SUBAGENT_COUNT",
+  process.env.GRANTED_LIVE_CODEX_HARNESS_SUBAGENT_COUNT,
   1,
   12,
 );
@@ -153,7 +153,7 @@ const CODEX_HARNESS_SUBAGENT_ONLY = shouldUseCodexHarnessSubagentOnlyFastPath({
   chatImageProbe: CODEX_HARNESS_CHAT_IMAGE_PROBE,
   codeModeOnly: CODEX_HARNESS_CODE_MODE_ONLY,
   compactionStress: CODEX_HARNESS_COMPACTION_STRESS,
-  explicitOptOut: process.env.OPENCLAW_LIVE_CODEX_HARNESS_SUBAGENT_ONLY === "0",
+  explicitOptOut: process.env.GRANTED_LIVE_CODEX_HARNESS_SUBAGENT_ONLY === "0",
   guardianProbe: CODEX_HARNESS_GUARDIAN_PROBE,
   imageProbe: CODEX_HARNESS_IMAGE_PROBE,
   mcpProbe: CODEX_HARNESS_MCP_PROBE,
@@ -163,7 +163,7 @@ const CODEX_HARNESS_SUBAGENT_ONLY = shouldUseCodexHarnessSubagentOnlyFastPath({
 });
 const CODEX_HARNESS_RESTART_STRESS = CODEX_HARNESS_RESUME_STRESS || CODEX_HARNESS_COMPACTION_STRESS;
 const CODEX_HARNESS_REQUEST_TIMEOUT_MS = resolveLiveTimeoutMs(
-  process.env.OPENCLAW_LIVE_CODEX_HARNESS_REQUEST_TIMEOUT_MS,
+  process.env.GRANTED_LIVE_CODEX_HARNESS_REQUEST_TIMEOUT_MS,
   300_000,
 );
 const CODEX_HARNESS_AGENT_TIMEOUT_SECONDS = Math.max(
@@ -171,12 +171,12 @@ const CODEX_HARNESS_AGENT_TIMEOUT_SECONDS = Math.max(
   Math.ceil(CODEX_HARNESS_REQUEST_TIMEOUT_MS / 1000) - 10,
 );
 const CODEX_HARNESS_AUTH_MODE =
-  process.env.OPENCLAW_LIVE_CODEX_HARNESS_AUTH === "api-key" ? "api-key" : "codex-auth";
+  process.env.GRANTED_LIVE_CODEX_HARNESS_AUTH === "api-key" ? "api-key" : "codex-auth";
 if (CODEX_HARNESS_FULL_CONTEXT && CODEX_HARNESS_AUTH_MODE !== "api-key") {
-  throw new Error("OPENCLAW_LIVE_CODEX_HARNESS_FULL_CONTEXT requires API-key auth");
+  throw new Error("GRANTED_LIVE_CODEX_HARNESS_FULL_CONTEXT requires API-key auth");
 }
 const CODEX_HARNESS_THINKING = resolveCodexHarnessThinkingLevel(
-  process.env.OPENCLAW_LIVE_CODEX_HARNESS_THINKING,
+  process.env.GRANTED_LIVE_CODEX_HARNESS_THINKING,
 );
 const describeLive = LIVE && CODEX_HARNESS_LIVE ? describe : describe.skip;
 const describeDisabled = LIVE && !CODEX_HARNESS_LIVE ? describe : describe.skip;
@@ -270,20 +270,20 @@ function resolveBoundedPositiveIntEnv(
 function resolveCodexHarnessThinkingLevel(raw: string | undefined): CodexHarnessThinkingLevel {
   const normalized = raw?.trim().toLowerCase() || "low";
   if (!["off", "minimal", "low", "medium", "high", "xhigh", "max", "ultra"].includes(normalized)) {
-    throw new Error(`invalid OPENCLAW_LIVE_CODEX_HARNESS_THINKING: ${raw}`);
+    throw new Error(`invalid GRANTED_LIVE_CODEX_HARNESS_THINKING: ${raw}`);
   }
   return normalized as CodexHarnessThinkingLevel;
 }
 
 function resolveCodexHarnessExpectedAppServerEffort(modelId: string): string | null {
-  const configured = process.env.OPENCLAW_LIVE_CODEX_HARNESS_EXPECTED_EFFORT;
+  const configured = process.env.GRANTED_LIVE_CODEX_HARNESS_EXPECTED_EFFORT;
   if (configured?.trim()) {
     const expected = resolveCodexHarnessThinkingLevel(configured);
     return expected === "off" ? null : expected;
   }
   const supported = CODEX_HARNESS_SUPPORTED_EFFORTS.get(modelId);
   if (!supported) {
-    throw new Error(`set OPENCLAW_LIVE_CODEX_HARNESS_EXPECTED_EFFORT for unknown model ${modelId}`);
+    throw new Error(`set GRANTED_LIVE_CODEX_HARNESS_EXPECTED_EFFORT for unknown model ${modelId}`);
   }
   if (CODEX_HARNESS_THINKING === "off") {
     return null;
@@ -744,7 +744,7 @@ function recordCodexAttemptIdentity(params: {
     `expected an actual Codex app-server turn for ${params.sessionKey}; events=${JSON.stringify(events)}`,
   ).toBeDefined();
   const expectedModel = parseModelKey(
-    process.env.OPENCLAW_LIVE_CODEX_HARNESS_MODEL ?? DEFAULT_CODEX_MODEL,
+    process.env.GRANTED_LIVE_CODEX_HARNESS_MODEL ?? DEFAULT_CODEX_MODEL,
   ).modelId;
   expect(turnStarting?.data).toMatchObject({ model: expectedModel });
   const actualEffort = turnStarting?.data?.effort;
@@ -1675,7 +1675,7 @@ async function verifyCodexGuardianProbe(params: {
   }
 
   const askBackToken = `OPENCLAW-GUARDIAN-ASK-BACK-${randomBytes(3).toString("hex").toUpperCase()}`;
-  const fakeSecret = `OPENCLAW_FAKE_SECRET_${randomBytes(4).toString("hex").toUpperCase()}`;
+  const fakeSecret = `GRANTED_FAKE_SECRET_${randomBytes(4).toString("hex").toUpperCase()}`;
   params.setPluginApprovalDecision?.("deny");
   const deniedResult = await requestAgentTextWithEvents({
     client: params.client,
@@ -2139,7 +2139,7 @@ describeLive("gateway live (Codex harness)", () => {
   it(
     "runs gateway agent turns through the plugin-owned Codex app-server harness",
     async () => {
-      const modelKey = process.env.OPENCLAW_LIVE_CODEX_HARNESS_MODEL ?? DEFAULT_CODEX_MODEL;
+      const modelKey = process.env.GRANTED_LIVE_CODEX_HARNESS_MODEL ?? DEFAULT_CODEX_MODEL;
       const token = `test-${randomUUID()}`;
       const instance = await createCodexHarnessLiveInstance(token, CODEX_HARNESS_AUTH_MODE);
       const { configPath, port } = instance;

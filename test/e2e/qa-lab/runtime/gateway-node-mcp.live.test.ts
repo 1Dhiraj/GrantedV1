@@ -17,8 +17,8 @@ import {
   waitForNode,
 } from "./gateway-node-mcp.test-support.js";
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY?.trim() ?? "";
-const LIVE_ENABLED = process.env.OPENCLAW_LIVE_TEST === "1" && Boolean(OPENAI_API_KEY);
-const MODEL_ID = process.env.OPENCLAW_MCP_LIVE_MODEL?.trim() || "gpt-5.6-luna";
+const LIVE_ENABLED = process.env.GRANTED_LIVE_TEST === "1" && Boolean(OPENAI_API_KEY);
+const MODEL_ID = process.env.GRANTED_MCP_LIVE_MODEL?.trim() || "gpt-5.6-luna";
 const MODEL_REF = `openai/${MODEL_ID}`;
 const REQUEST_TIMEOUT_MS = 120_000;
 const LIVE_TEST_TIMEOUT_MS = 5 * 60_000;
@@ -152,7 +152,7 @@ describe.skipIf(!LIVE_ENABLED)("OpenAI cross-placement MCP model proof", () => {
           enabledPluginIds: ["codex"],
           runtimeEnvPatch: {
             OPENAI_API_KEY,
-            OPENCLAW_SKIP_CHANNELS: "1",
+            GRANTED_SKIP_CHANNELS: "1",
           },
           mutateConfig: (cfg) => {
             return {
@@ -201,11 +201,11 @@ describe.skipIf(!LIVE_ENABLED)("OpenAI cross-placement MCP model proof", () => {
           home: nodeHome,
           tempDir: nodeTempDir,
           extra: {
-            OPENCLAW_HOME: nodeHome,
-            OPENCLAW_STATE_DIR: nodeStateDir,
-            OPENCLAW_CONFIG_PATH: nodeConfigPath,
-            OPENCLAW_GATEWAY_TOKEN: gateway.token,
-            OPENCLAW_ALLOW_INSECURE_PRIVATE_WS: "1",
+            GRANTED_HOME: nodeHome,
+            GRANTED_STATE_DIR: nodeStateDir,
+            GRANTED_CONFIG_PATH: nodeConfigPath,
+            GRANTED_GATEWAY_TOKEN: gateway.token,
+            GRANTED_ALLOW_INSECURE_PRIVATE_WS: "1",
           },
         });
         expect(nodeEnv).not.toHaveProperty("OPENAI_API_KEY");

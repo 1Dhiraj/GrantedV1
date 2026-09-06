@@ -9,7 +9,7 @@ const SOURCE_CHECKOUT_MARKER_RELATIVE_PATHS = [".git", "pnpm-workspace.yaml"] as
 
 /** Return true when private QA CLI routes should be exposed. */
 export function isPrivateQaCliEnabled(env: NodeJS.ProcessEnv = process.env): boolean {
-  return env.OPENCLAW_ENABLE_PRIVATE_QA_CLI === "1";
+  return env.GRANTED_ENABLE_PRIVATE_QA_CLI === "1";
 }
 
 function resolvePrivateQaSourceModuleSpecifier(params?: {

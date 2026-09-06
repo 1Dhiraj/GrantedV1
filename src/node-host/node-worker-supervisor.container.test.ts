@@ -291,11 +291,11 @@ describe("node worker supervisor container isolation", () => {
         PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
         TMPDIR: "/tmp",
         NODE_COMPILE_CACHE: "/tmp/openclaw-node-worker-compile-cache",
-        OPENCLAW_NO_RESPAWN: "1",
+        GRANTED_NO_RESPAWN: "1",
       });
       expect(create?.container?.env).not.toHaveProperty("NODE_OPTIONS");
       expect(create?.container?.env).not.toHaveProperty("SUPPLIED_SECRET");
-      expect(create?.container?.env).not.toHaveProperty("OPENCLAW_STATE_DIR");
+      expect(create?.container?.env).not.toHaveProperty("GRANTED_STATE_DIR");
       const started = fixture.events().find((event) => event.argv[0] === "start");
       expect(started?.argv).toEqual([
         "start",

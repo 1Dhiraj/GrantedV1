@@ -651,7 +651,7 @@ function shouldSkipIncompatiblePackagePluginApi(params: {
   params.diagnostics.push({
     level: "warn",
     source: path.join(params.packageDir, "package.json"),
-    message: `plugin requires plugin API ${packagePluginApiRange}, but this host is ${compatibilityHostVersion}; skipping discovery (check "openclaw --version", OPENCLAW_COMPATIBILITY_HOST_VERSION, or run "openclaw doctor")`,
+    message: `plugin requires plugin API ${packagePluginApiRange}, but this host is ${compatibilityHostVersion}; skipping discovery (check "openclaw --version", GRANTED_COMPATIBILITY_HOST_VERSION, or run "openclaw doctor")`,
     pluginId: params.pluginId,
   });
   return true;
@@ -1285,8 +1285,8 @@ function discoveryPolicy(env: NodeJS.ProcessEnv, ownershipUid: number | null | u
     // Configured-path classification depends on the host's bundled tree.
     bundledRoot: resolveBundledPluginsDir(env) ?? "",
     nix: resolveIsNixMode(env),
-    sourceOverlaysDisabled: env.OPENCLAW_DISABLE_BUNDLED_SOURCE_OVERLAYS ?? "",
-    home: env.OPENCLAW_HOME ?? "",
+    sourceOverlaysDisabled: env.GRANTED_DISABLE_BUNDLED_SOURCE_OVERLAYS ?? "",
+    home: env.GRANTED_HOME ?? "",
     userHome: env.HOME ?? "",
     userProfile: env.USERPROFILE ?? "",
     cwd: process.cwd(),

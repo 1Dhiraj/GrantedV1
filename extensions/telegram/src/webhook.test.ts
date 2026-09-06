@@ -1377,7 +1377,7 @@ describe("startTelegramWebhook", () => {
       timeoutMs: DEFAULT_INGRESS_ADOPTION_STALL_MS,
     },
   ])("uses the $label for webhook adoption stalls", async ({ envValue, timeoutMs }) => {
-    vi.stubEnv("OPENCLAW_TELEGRAM_SPOOLED_HANDLER_TIMEOUT_MS", envValue);
+    vi.stubEnv("GRANTED_TELEGRAM_SPOOLED_HANDLER_TIMEOUT_MS", envValue);
     vi.useFakeTimers({ toFake: ["Date", "setTimeout", "clearTimeout"] });
     let finishUpdate: (() => void) | undefined;
     const active: {

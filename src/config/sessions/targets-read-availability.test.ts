@@ -11,7 +11,7 @@ import {
 describe("session store availability", () => {
   it("reads cross-agent rows from a migrated fixed store", async () => {
     await withTempHome(async (home) => {
-      const env = { ...process.env, OPENCLAW_STATE_DIR: path.join(home, ".openclaw") };
+      const env = { ...process.env, GRANTED_STATE_DIR: path.join(home, ".openclaw") };
       const storePath = path.join(home, "shared.sqlite");
       const cfg: OpenClawConfig = {
         session: { store: storePath },
@@ -43,7 +43,7 @@ describe("session store availability", () => {
 
   it("does not let a missing configured store poison readable discovered siblings", async () => {
     await withTempHome(async (home) => {
-      const env = { ...process.env, OPENCLAW_STATE_DIR: path.join(home, ".openclaw") };
+      const env = { ...process.env, GRANTED_STATE_DIR: path.join(home, ".openclaw") };
       // Sessions live in the discovered default per-agent store...
       await replaceSessionEntry(
         { agentId: "main", env, sessionKey: "agent:main:main" },
@@ -69,7 +69,7 @@ describe("session store availability", () => {
 
   it("reports database-missing only when no candidate store exists", async () => {
     await withTempHome(async (home) => {
-      const env = { ...process.env, OPENCLAW_STATE_DIR: path.join(home, ".openclaw") };
+      const env = { ...process.env, GRANTED_STATE_DIR: path.join(home, ".openclaw") };
       const cfg: OpenClawConfig = {
         session: { store: path.join(home, "custom", "{agentId}", "sessions.sqlite") },
       };
@@ -83,7 +83,7 @@ describe("session store availability", () => {
 
   it("reads ownerless fixed-store rows under the requested agent", async () => {
     await withTempHome(async (home) => {
-      const env = { ...process.env, OPENCLAW_STATE_DIR: path.join(home, ".openclaw") };
+      const env = { ...process.env, GRANTED_STATE_DIR: path.join(home, ".openclaw") };
       const storePath = path.join(home, "ownerless-shared.sqlite");
       const cfg: OpenClawConfig = {
         session: { store: storePath },

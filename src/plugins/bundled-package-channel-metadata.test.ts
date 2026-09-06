@@ -15,19 +15,19 @@ import { listBundledPackageChannelMetadata } from "./bundled-package-channel-met
 import { clearPluginMetadataLifecycleCaches } from "./plugin-metadata-lifecycle.js";
 
 const tempDirs: string[] = [];
-const originalBundledPluginsDir = process.env.OPENCLAW_BUNDLED_PLUGINS_DIR;
-const originalTrustBundledPluginsDir = process.env.OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR;
+const originalBundledPluginsDir = process.env.GRANTED_BUNDLED_PLUGINS_DIR;
+const originalTrustBundledPluginsDir = process.env.GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR;
 
 afterEach(() => {
   if (originalBundledPluginsDir === undefined) {
-    delete process.env.OPENCLAW_BUNDLED_PLUGINS_DIR;
+    delete process.env.GRANTED_BUNDLED_PLUGINS_DIR;
   } else {
-    process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = originalBundledPluginsDir;
+    process.env.GRANTED_BUNDLED_PLUGINS_DIR = originalBundledPluginsDir;
   }
   if (originalTrustBundledPluginsDir === undefined) {
-    delete process.env.OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR;
+    delete process.env.GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR;
   } else {
-    process.env.OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR = originalTrustBundledPluginsDir;
+    process.env.GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR = originalTrustBundledPluginsDir;
   }
   cleanupTempDirs(tempDirs);
   clearPluginMetadataLifecycleCaches();
@@ -36,8 +36,8 @@ afterEach(() => {
 });
 
 function useBundledPluginsDir(extensionsRoot: string): void {
-  process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = extensionsRoot;
-  process.env.OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR = "1";
+  process.env.GRANTED_BUNDLED_PLUGINS_DIR = extensionsRoot;
+  process.env.GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR = "1";
   vi.mocked(resolveBundledPluginsDir).mockReturnValue(extensionsRoot);
 }
 

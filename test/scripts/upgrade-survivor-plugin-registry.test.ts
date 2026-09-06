@@ -48,14 +48,14 @@ if [[ "\${1:-}" != */scripts/test-docker-all.mjs ]] || [ "\${2:-}" != "--prepare
 fi
 printf '%s\n' "$*" >>"$CAPTURE_DIR/node-args"
 printf '%s|%s|%s\n' \
-  "$OPENCLAW_DOCKER_ALL_LANES" \
-  "\${OPENCLAW_UPGRADE_SURVIVOR_BASELINE_SPECS:-}" \
-  "$OPENCLAW_UPGRADE_SURVIVOR_SCENARIOS" >>"$CAPTURE_DIR/node-env"
-mkdir -p "$OPENCLAW_DOCKER_ALL_LOG_DIR/prepublish-plugin-registry"
-printf '%s' "$OPENCLAW_DOCKER_ALL_LOG_DIR" >"$CAPTURE_DIR/preparation-dir"
+  "$GRANTED_DOCKER_ALL_LANES" \
+  "\${GRANTED_UPGRADE_SURVIVOR_BASELINE_SPECS:-}" \
+  "$GRANTED_UPGRADE_SURVIVOR_SCENARIOS" >>"$CAPTURE_DIR/node-env"
+mkdir -p "$GRANTED_DOCKER_ALL_LOG_DIR/prepublish-plugin-registry"
+printf '%s' "$GRANTED_DOCKER_ALL_LOG_DIR" >"$CAPTURE_DIR/preparation-dir"
 printf '%s' "$REGISTRY_MANIFEST" \
-  >"$OPENCLAW_DOCKER_ALL_LOG_DIR/prepublish-plugin-registry/prepublish-plugin-registry.json"
-printf '{"dir":"%s"}\n' "$OPENCLAW_DOCKER_ALL_LOG_DIR/prepublish-plugin-registry"
+  >"$GRANTED_DOCKER_ALL_LOG_DIR/prepublish-plugin-registry/prepublish-plugin-registry.json"
+printf '{"dir":"%s"}\n' "$GRANTED_DOCKER_ALL_LOG_DIR/prepublish-plugin-registry"
 `,
   );
   writeExecutable(
@@ -85,19 +85,19 @@ done
     env: {
       ...process.env,
       CAPTURE_DIR: captureDir,
-      OPENCLAW_DOCKER_E2E_SELECTED_SHA: SOURCE_SHA,
+      GRANTED_DOCKER_E2E_SELECTED_SHA: SOURCE_SHA,
       REAL_NODE: process.execPath,
       REGISTRY_MANIFEST: registryManifest(),
-      OPENCLAW_CURRENT_PACKAGE_TGZ: packageTarball,
-      OPENCLAW_DOCKER_E2E_DISABLE_RESOURCE_LIMITS: "1",
-      OPENCLAW_SKIP_CHANNELS: "1",
-      OPENCLAW_SKIP_PROVIDERS: "1",
-      OPENCLAW_UPGRADE_SURVIVOR_ARTIFACT_DIR: join(root, "artifacts"),
-      OPENCLAW_UPGRADE_SURVIVOR_ARTIFACT_ROOT: join(root, "artifacts"),
-      OPENCLAW_UPGRADE_SURVIVOR_RUNTIME_ROOT: join(root, "runtime"),
-      OPENCLAW_UPGRADE_SURVIVOR_BASELINE_SPEC: "openclaw@2026.7.1-2",
-      OPENCLAW_UPGRADE_SURVIVOR_E2E_SKIP_BUILD: "1",
-      OPENCLAW_UPGRADE_SURVIVOR_PUBLISHED_BASELINE: "1",
+      GRANTED_CURRENT_PACKAGE_TGZ: packageTarball,
+      GRANTED_DOCKER_E2E_DISABLE_RESOURCE_LIMITS: "1",
+      GRANTED_SKIP_CHANNELS: "1",
+      GRANTED_SKIP_PROVIDERS: "1",
+      GRANTED_UPGRADE_SURVIVOR_ARTIFACT_DIR: join(root, "artifacts"),
+      GRANTED_UPGRADE_SURVIVOR_ARTIFACT_ROOT: join(root, "artifacts"),
+      GRANTED_UPGRADE_SURVIVOR_RUNTIME_ROOT: join(root, "runtime"),
+      GRANTED_UPGRADE_SURVIVOR_BASELINE_SPEC: "openclaw@2026.7.1-2",
+      GRANTED_UPGRADE_SURVIVOR_E2E_SKIP_BUILD: "1",
+      GRANTED_UPGRADE_SURVIVOR_PUBLISHED_BASELINE: "1",
       PATH: `${binDir}:${process.env.PATH ?? ""}`,
       TMPDIR: root,
       ...overrides,
@@ -115,8 +115,8 @@ describe("standalone upgrade survivor plugin registry", () => {
       it("reaches the direct child invocation with empty optional arguments", () => {
         const { captureDir, result } = runSurvivor(
           {
-            OPENCLAW_UPGRADE_SURVIVOR_PUBLISHED_BASELINE: "0",
-            OPENCLAW_UPGRADE_SURVIVOR_UPDATE_RESTART_MODE: "auto-auth",
+            GRANTED_UPGRADE_SURVIVOR_PUBLISHED_BASELINE: "0",
+            GRANTED_UPGRADE_SURVIVOR_UPDATE_RESTART_MODE: "auto-auth",
           },
           shell,
         );
@@ -130,7 +130,7 @@ describe("standalone upgrade survivor plugin registry", () => {
           .split("\0")
           .slice(0, -1);
         expect(args).toContain("run");
-        expect(args).toContain("OPENCLAW_UPGRADE_SURVIVOR_UPDATE_RESTART_MODE=auto-auth");
+        expect(args).toContain("GRANTED_UPGRADE_SURVIVOR_UPDATE_RESTART_MODE=auto-auth");
         expect(args).not.toContain("--user");
         expect(args).not.toContain("");
         expect(args.at(-2)).toBe("-lc");
@@ -146,7 +146,7 @@ describe("standalone upgrade survivor plugin registry", () => {
           {
             BASH_ENV: prelude,
             SURVIVOR_UNSET_PREFLIGHT: undefined,
-            OPENCLAW_UPGRADE_SURVIVOR_PUBLISHED_BASELINE: "0",
+            GRANTED_UPGRADE_SURVIVOR_PUBLISHED_BASELINE: "0",
           },
           shell,
         );
@@ -160,7 +160,7 @@ describe("standalone upgrade survivor plugin registry", () => {
       it("preserves child failure through cleanup", () => {
         const { captureDir, result } = runSurvivor(
           {
-            OPENCLAW_UPGRADE_SURVIVOR_PUBLISHED_BASELINE: "0",
+            GRANTED_UPGRADE_SURVIVOR_PUBLISHED_BASELINE: "0",
             FIXTURE_RUN_EXIT: "42",
           },
           shell,
@@ -182,7 +182,7 @@ describe("standalone upgrade survivor plugin registry", () => {
           {
             BASH_ENV: prelude,
             FIXTURE_PAYLOAD_SHELL: shell,
-            OPENCLAW_UPGRADE_SURVIVOR_PUBLISHED_BASELINE: "0",
+            GRANTED_UPGRADE_SURVIVOR_PUBLISHED_BASELINE: "0",
           },
           shell,
         );
@@ -203,17 +203,17 @@ describe("standalone upgrade survivor plugin registry", () => {
       writeFileSync(manifestPath, registryManifest());
 
       const { captureDir, result } = runSurvivor({
-        OPENCLAW_PREPUBLISH_PLUGIN_REGISTRY_DIR: registryDir,
-        OPENCLAW_PREPUBLISH_PLUGIN_REGISTRY_MANIFEST_SHA256: createHash("sha256")
+        GRANTED_PREPUBLISH_PLUGIN_REGISTRY_DIR: registryDir,
+        GRANTED_PREPUBLISH_PLUGIN_REGISTRY_MANIFEST_SHA256: createHash("sha256")
           .update(readFileSync(manifestPath))
           .digest("hex"),
         ...(mode === "direct"
           ? {
-              OPENCLAW_UPGRADE_SURVIVOR_BASELINE_SPEC: undefined,
-              OPENCLAW_UPGRADE_SURVIVOR_PUBLISHED_BASELINE: "0",
-              OPENCLAW_UPGRADE_SURVIVOR_UPDATE_RESTART_MODE: "auto-auth",
+              GRANTED_UPGRADE_SURVIVOR_BASELINE_SPEC: undefined,
+              GRANTED_UPGRADE_SURVIVOR_PUBLISHED_BASELINE: "0",
+              GRANTED_UPGRADE_SURVIVOR_UPDATE_RESTART_MODE: "auto-auth",
             }
-          : { OPENCLAW_UPGRADE_SURVIVOR_SCENARIO: "external-only-scenario" }),
+          : { GRANTED_UPGRADE_SURVIVOR_SCENARIO: "external-only-scenario" }),
       });
 
       expect(result.status, result.stderr).toBe(0);
@@ -226,7 +226,7 @@ describe("standalone upgrade survivor plugin registry", () => {
 
   it("prepares and mounts a planner-owned registry for the current candidate", () => {
     const { captureDir, result } = runSurvivor({
-      OPENCLAW_UPGRADE_SURVIVOR_SCENARIO: "configured-plugin-installs",
+      GRANTED_UPGRADE_SURVIVOR_SCENARIO: "configured-plugin-installs",
     });
 
     expect(result.status, result.stderr).toBe(0);
@@ -243,9 +243,9 @@ describe("standalone upgrade survivor plugin registry", () => {
 
   it("does not prepare a registry for a published candidate", () => {
     const { captureDir, packageTarball, result } = runSurvivor({
-      OPENCLAW_CURRENT_PACKAGE_TGZ: undefined,
-      OPENCLAW_UPGRADE_SURVIVOR_CANDIDATE: "openclaw@2026.8.1",
-      OPENCLAW_UPGRADE_SURVIVOR_SCENARIO: "published-only-scenario",
+      GRANTED_CURRENT_PACKAGE_TGZ: undefined,
+      GRANTED_UPGRADE_SURVIVOR_CANDIDATE: "openclaw@2026.8.1",
+      GRANTED_UPGRADE_SURVIVOR_SCENARIO: "published-only-scenario",
     });
 
     expect(result.status, result.stderr).toBe(0);
@@ -261,13 +261,13 @@ describe("standalone upgrade survivor live OpenAI probe", () => {
   it("fails closed before Docker when the opted-in key is missing", () => {
     const { captureDir, result } = runSurvivor({
       OPENAI_API_KEY: undefined,
-      OPENCLAW_UPGRADE_SURVIVOR_LIVE_OPENAI: "1",
+      GRANTED_UPGRADE_SURVIVOR_LIVE_OPENAI: "1",
     });
 
     expect(result.status).toBe(2);
     expectFinalFailure(result.stderr, 2);
     expect(result.stderr).toContain(
-      "OPENCLAW_UPGRADE_SURVIVOR_LIVE_OPENAI=1 requires OPENAI_API_KEY",
+      "GRANTED_UPGRADE_SURVIVOR_LIVE_OPENAI=1 requires OPENAI_API_KEY",
     );
     expect(existsSync(join(captureDir, "docker-args"))).toBe(false);
   });
@@ -276,14 +276,14 @@ describe("standalone upgrade survivor live OpenAI probe", () => {
     const key = "live-openai-key-must-not-appear-in-arguments";
     const { captureDir, result } = runSurvivor({
       OPENAI_API_KEY: key,
-      OPENCLAW_UPGRADE_SURVIVOR_LIVE_OPENAI: "1",
-      OPENCLAW_UPGRADE_SURVIVOR_LIVE_OPENAI_MODEL: "openai/test-model",
+      GRANTED_UPGRADE_SURVIVOR_LIVE_OPENAI: "1",
+      GRANTED_UPGRADE_SURVIVOR_LIVE_OPENAI_MODEL: "openai/test-model",
     });
 
     expect(result.status, result.stderr).toBe(0);
     const args = readFileSync(join(captureDir, "docker-args"), "utf8");
     expect(args).toContain("-e OPENAI_API_KEY");
-    expect(args).toContain("-e OPENCLAW_UPGRADE_SURVIVOR_LIVE_OPENAI_MODEL=openai/test-model");
+    expect(args).toContain("-e GRANTED_UPGRADE_SURVIVOR_LIVE_OPENAI_MODEL=openai/test-model");
     expect(args).not.toContain(key);
   });
 });

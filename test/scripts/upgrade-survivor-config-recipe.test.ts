@@ -32,15 +32,15 @@ describe("upgrade survivor config recipe command resolution", () => {
   it("uses trusted tsx or the candidate compiled config recipe entrypoint", () => {
     const runner = readFileSync(RUN_PATH, "utf8");
     const dockerRunner = readFileSync(DOCKER_RUNNER_PATH, "utf8");
-    expect(runner).toContain("OPENCLAW_UPGRADE_SURVIVOR_TSX_IMPORT:-tsx");
+    expect(runner).toContain("GRANTED_UPGRADE_SURVIVOR_TSX_IMPORT:-tsx");
     expect(runner).toContain(
       'node --import "$tsx_import" scripts/e2e/lib/upgrade-survivor/config-recipe.mts',
     );
     expect(runner).toContain(
       "recipe_runner=(node scripts/e2e/lib/upgrade-survivor/config-recipe.mjs)",
     );
-    expect(runner).toContain('OPENCLAW_UPGRADE_SURVIVOR_UPDATE_CHANNEL="beta"');
-    expect(runner).toContain("OPENCLAW_PREPUBLISH_PLUGIN_REGISTRY_CANDIDATE_VERSION");
+    expect(runner).toContain('GRANTED_UPGRADE_SURVIVOR_UPDATE_CHANNEL="beta"');
+    expect(runner).toContain("GRANTED_PREPUBLISH_PLUGIN_REGISTRY_CANDIDATE_VERSION");
     expect(runner).toContain('"${recipe_runner[@]}" apply');
     expect(dockerRunner).toContain(
       'TRUSTED_TSX_IMPORT="$TRUSTED_TSX_NODE_MODULES/tsx/dist/loader.mjs"',
@@ -50,7 +50,7 @@ describe("upgrade survivor config recipe command resolution", () => {
   it("keeps trusted tsx dependencies resolvable at the Docker mount target", () => {
     const dockerRunner = readFileSync(DOCKER_RUNNER_PATH, "utf8");
     const loaderTarget = dockerRunner.match(
-      /OPENCLAW_UPGRADE_SURVIVOR_TSX_IMPORT=(\/tmp\/\S+\/loader\.mjs)/u,
+      /GRANTED_UPGRADE_SURVIVOR_TSX_IMPORT=(\/tmp\/\S+\/loader\.mjs)/u,
     )?.[1];
     const mountTarget = dockerRunner.match(
       /-v "\$TRUSTED_TSX_NODE_MODULES:(\/tmp\/[^:"]+):ro"/u,
@@ -353,7 +353,7 @@ process.exit(0);
         {
           env: {
             ...process.env,
-            OPENCLAW_UPGRADE_SURVIVOR_SCENARIO: "acpx-openclaw-tools-bridge",
+            GRANTED_UPGRADE_SURVIVOR_SCENARIO: "acpx-openclaw-tools-bridge",
             PATH: `${binDir}${process.platform === "win32" ? ";" : ":"}${process.env.PATH ?? ""}`,
           },
           stdio: "pipe",

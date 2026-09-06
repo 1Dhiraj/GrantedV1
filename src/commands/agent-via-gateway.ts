@@ -289,7 +289,7 @@ async function loadRuntimeConfig(): Promise<OpenClawConfig> {
 
 function usesRemoteGateway(cfg: OpenClawConfig): boolean {
   return Boolean(
-    cfg.gateway?.mode === "remote" || normalizeOptionalString(process.env.OPENCLAW_GATEWAY_URL),
+    cfg.gateway?.mode === "remote" || normalizeOptionalString(process.env.GRANTED_GATEWAY_URL),
   );
 }
 

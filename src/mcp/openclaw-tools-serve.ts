@@ -15,7 +15,7 @@ import { getRuntimeConfig } from "../config/config.js";
 import type { OpenClawConfig } from "../config/types.openclaw.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import {
-  OPENCLAW_TOOLS_MCP_AGENT_SESSION_KEY_ENV,
+  GRANTED_TOOLS_MCP_AGENT_SESSION_KEY_ENV,
   resolveToolsMcpAgentSessionKey,
   resolveToolsMcpAgentId,
   resolveToolsMcpSessionContext,
@@ -29,11 +29,11 @@ import {
 import { connectToolsMcpServerToStdio, createToolsMcpServer } from "./tools-stdio-server.js";
 
 export {
-  OPENCLAW_TOOLS_MCP_SYSTEM_AGENT_SURFACE_ENV,
-  OPENCLAW_TOOLS_MCP_TOOLS_ENV,
+  GRANTED_TOOLS_MCP_SYSTEM_AGENT_SURFACE_ENV,
+  GRANTED_TOOLS_MCP_TOOLS_ENV,
 } from "./openclaw-tools-serve-config.js";
 
-export { OPENCLAW_TOOLS_MCP_AGENT_SESSION_KEY_ENV } from "./agent-session-env.js";
+export { GRANTED_TOOLS_MCP_AGENT_SESSION_KEY_ENV } from "./agent-session-env.js";
 
 export function resolveOpenClawToolsMcpAgentSessionKey(
   env: NodeJS.ProcessEnv = process.env,
@@ -63,7 +63,7 @@ export function resolveOpenClawToolsForMcp(
       params.agentSessionKey ?? resolveOpenClawToolsMcpAgentSessionKey()
     )?.trim();
     if (!agentSessionKey) {
-      throw new Error(`${OPENCLAW_TOOLS_MCP_AGENT_SESSION_KEY_ENV} is required`);
+      throw new Error(`${GRANTED_TOOLS_MCP_AGENT_SESSION_KEY_ENV} is required`);
     }
     const context = resolveToolsMcpSessionContext({ agentSessionKey, agentId: params.agentId });
     return createCronTool({

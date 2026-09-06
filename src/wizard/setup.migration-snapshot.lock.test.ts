@@ -8,7 +8,7 @@ const tempDirs = useAutoCleanupTempDirTracker(afterEach);
 
 describe("setup migration target lock", () => {
   it("rejects a concurrent profile operation with the active holder", async () => {
-    await withEnvAsync({ OPENCLAW_PROFILE: "lock-test" }, async () => {
+    await withEnvAsync({ GRANTED_PROFILE: "lock-test" }, async () => {
       const stateDir = tempDirs.make("openclaw-setup-target-lock-");
       const firstAcquired = createDeferred();
       const releaseFirst = createDeferred();

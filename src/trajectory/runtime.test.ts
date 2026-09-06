@@ -714,7 +714,7 @@ describe("trajectory runtime", () => {
   it("does not record runtime events when explicitly disabled", () => {
     const recorder = createTrajectoryRuntimeRecorder({
       env: {
-        OPENCLAW_TRAJECTORY: "0",
+        GRANTED_TRAJECTORY: "0",
       },
       sessionId: "session-1",
       sessionKey: "agent:main:session-1",

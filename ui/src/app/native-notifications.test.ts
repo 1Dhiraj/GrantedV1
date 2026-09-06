@@ -14,7 +14,7 @@ type NativeNotificationsMessage = {
 };
 
 type NativeNotificationsTestWindow = Window & {
-  __OPENCLAW_NATIVE_NOTIFICATIONS__?: unknown;
+  __GRANTED_NATIVE_NOTIFICATIONS__?: unknown;
 };
 
 let capability: NativeNotificationsCapability | null = null;
@@ -24,7 +24,7 @@ afterEach(() => {
   capability = null;
   Reflect.deleteProperty(
     window as NativeNotificationsTestWindow,
-    "__OPENCLAW_NATIVE_NOTIFICATIONS__",
+    "__GRANTED_NATIVE_NOTIFICATIONS__",
   );
   vi.unstubAllGlobals();
 });
@@ -53,7 +53,7 @@ describe("native notifications", () => {
 
   it("accepts the permission-only native snapshot", () => {
     installBridge();
-    (window as NativeNotificationsTestWindow)["__OPENCLAW_NATIVE_NOTIFICATIONS__"] = {
+    (window as NativeNotificationsTestWindow)["__GRANTED_NATIVE_NOTIFICATIONS__"] = {
       permission: "granted",
     };
 

@@ -18,7 +18,7 @@ import {
   type ExtraGatewayService,
 } from "../daemon/inspect.js";
 import { execLaunchctl, isLaunchctlNotLoaded } from "../daemon/launchd-exec.js";
-import { OPENCLAW_WRAPPER_ENV_KEY } from "../daemon/program-args.js";
+import { GRANTED_WRAPPER_ENV_KEY } from "../daemon/program-args.js";
 import { renderSystemNodeWarning, resolveSystemNodeInfo } from "../daemon/runtime-paths.js";
 import { readWindowsStartupFallbackRuntimeForUpdate } from "../daemon/schtasks.js";
 import {
@@ -220,7 +220,7 @@ function isOperatorOwnedEnvironmentIssue(
     case SERVICE_AUDIT_CODES.gatewayTokenEmbedded:
     case SERVICE_AUDIT_CODES.gatewayTokenMismatch:
     case SERVICE_AUDIT_CODES.gatewayTokenDrift:
-      return hasGatewayServiceEnvironmentOverride(command, ["OPENCLAW_GATEWAY_TOKEN"], {
+      return hasGatewayServiceEnvironmentOverride(command, ["GRANTED_GATEWAY_TOKEN"], {
         environmentValueSources,
       });
     case SERVICE_AUDIT_CODES.gatewayManagedEnvEmbedded:
@@ -534,16 +534,16 @@ export async function maybeRepairGatewayServiceConfig(
     ),
     "Gateway heap",
   );
-  const managedWrapperPath = managedDefinition.environment?.[OPENCLAW_WRAPPER_ENV_KEY]?.trim();
+  const managedWrapperPath = managedDefinition.environment?.[GRANTED_WRAPPER_ENV_KEY]?.trim();
   const serviceInstallEnv =
-    managedWrapperPath && !Object.hasOwn(process.env, OPENCLAW_WRAPPER_ENV_KEY)
-      ? { ...process.env, [OPENCLAW_WRAPPER_ENV_KEY]: managedWrapperPath }
+    managedWrapperPath && !Object.hasOwn(process.env, GRANTED_WRAPPER_ENV_KEY)
+      ? { ...process.env, [GRANTED_WRAPPER_ENV_KEY]: managedWrapperPath }
       : process.env;
   const serviceWrapperPath = normalizeOptionalString(
-    command.environment?.[OPENCLAW_WRAPPER_ENV_KEY],
+    command.environment?.[GRANTED_WRAPPER_ENV_KEY],
   );
   if (serviceWrapperPath) {
-    note(`Gateway service invokes ${OPENCLAW_WRAPPER_ENV_KEY}: ${serviceWrapperPath}`, "Gateway");
+    note(`Gateway service invokes ${GRANTED_WRAPPER_ENV_KEY}: ${serviceWrapperPath}`, "Gateway");
   }
   const serviceLayout = await summarizeGatewayServiceLayout(command);
   const sourceCheckoutWarning = serviceLayout?.entrypointSourceCheckout
@@ -597,7 +597,7 @@ export async function maybeRepairGatewayServiceConfig(
     audit.issues.push({
       code: SERVICE_AUDIT_CODES.gatewayTokenMismatch,
       message:
-        "Gateway service OPENCLAW_GATEWAY_TOKEN should be unset when gateway.auth.token is SecretRef-managed",
+        "Gateway service GRANTED_GATEWAY_TOKEN should be unset when gateway.auth.token is SecretRef-managed",
       detail: "service token is stale",
       level: "recommended",
     });
@@ -809,13 +809,12 @@ export async function maybeRepairGatewayServiceConfig(
     ...serviceInstallEnv,
     ...managedDefinition.environment,
   };
-  const installedWindowsTaskName =
-    managedDefinition.environment?.OPENCLAW_WINDOWS_TASK_NAME?.trim();
+  const installedWindowsTaskName = managedDefinition.environment?.GRANTED_WINDOWS_TASK_NAME?.trim();
   const serviceRepairEnv =
     updateRepairWillRewriteWindowsTask && installedWindowsTaskName
       ? {
           ...serviceInstallEnv,
-          OPENCLAW_WINDOWS_TASK_NAME: installedWindowsTaskName,
+          GRANTED_WINDOWS_TASK_NAME: installedWindowsTaskName,
         }
       : serviceInstallEnv;
   const updateRepairCanActivateGateway =
@@ -937,7 +936,7 @@ export async function maybeRepairGatewayServiceConfig(
       if (installedWindowsTaskName) {
         // Scheduled Task identity is caller-owned; a canonical rebuilt plan must
         // not redirect restart/cleanup to the default task after profile repair.
-        restartEnv.OPENCLAW_WINDOWS_TASK_NAME = installedWindowsTaskName;
+        restartEnv.GRANTED_WINDOWS_TASK_NAME = installedWindowsTaskName;
       }
       await service.restart({
         env: restartEnv,

@@ -38,7 +38,7 @@ afterEach(async () => {
 async function createExplicitOwnerConfig() {
   state = await createOpenClawTestState({
     label: "explicit-reply",
-    env: { OPENCLAW_TEST_FAST: "0" },
+    env: { GRANTED_TEST_FAST: "0" },
   });
   const cfg = withFullRuntimeReplyConfig({
     agents: {

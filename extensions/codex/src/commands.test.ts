@@ -423,7 +423,7 @@ describe("codex command", () => {
   beforeEach(async () => {
     resetCodexTestBindingStore();
     tempDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-codex-command-"));
-    vi.stubEnv("OPENCLAW_STATE_DIR", tempDir);
+    vi.stubEnv("GRANTED_STATE_DIR", tempDir);
   });
 
   afterEach(async () => {

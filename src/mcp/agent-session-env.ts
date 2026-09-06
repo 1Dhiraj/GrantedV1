@@ -1,6 +1,6 @@
 import { normalizeAgentId, parseAgentSessionKey } from "../routing/session-key.js";
 
-export const OPENCLAW_TOOLS_MCP_AGENT_SESSION_KEY_ENV = "OPENCLAW_TOOLS_MCP_AGENT_SESSION_KEY";
+export const GRANTED_TOOLS_MCP_AGENT_SESSION_KEY_ENV = "GRANTED_TOOLS_MCP_AGENT_SESSION_KEY";
 
 /** Private generated-helper argv selects context, never approval or execution authority. */
 export function resolveToolsMcpAgentId(
@@ -30,7 +30,7 @@ export function resolveToolsMcpSessionContext(params: {
     (!sessionKey && agentId)
   ) {
     throw new Error(
-      `${OPENCLAW_TOOLS_MCP_AGENT_SESSION_KEY_ENV} must be a canonical agent session key or have a matching explicit OpenClaw owner`,
+      `${GRANTED_TOOLS_MCP_AGENT_SESSION_KEY_ENV} must be a canonical agent session key or have a matching explicit OpenClaw owner`,
     );
   }
   return sessionKey ? { sessionKey, agentId } : {};
@@ -39,5 +39,5 @@ export function resolveToolsMcpSessionContext(params: {
 export function resolveToolsMcpAgentSessionKey(
   env: NodeJS.ProcessEnv = process.env,
 ): string | undefined {
-  return env[OPENCLAW_TOOLS_MCP_AGENT_SESSION_KEY_ENV]?.trim() || undefined;
+  return env[GRANTED_TOOLS_MCP_AGENT_SESSION_KEY_ENV]?.trim() || undefined;
 }

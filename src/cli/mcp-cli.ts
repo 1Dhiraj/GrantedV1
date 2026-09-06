@@ -642,7 +642,7 @@ async function probeMcpServersOrFail(params: {
   }
 }
 
-const OPENCLAW_MCP_REGISTRY_SCOPE_NOTE =
+const GRANTED_MCP_REGISTRY_SCOPE_NOTE =
   "Note: this command only shows OpenClaw-managed mcp.servers entries and does not include mcporter servers from config/mcporter.json.";
 
 export function registerMcpCli(program: Command) {
@@ -712,7 +712,7 @@ export function registerMcpCli(program: Command) {
         defaultRuntime.log(
           `No OpenClaw-managed MCP servers configured in ${loaded.path}. Add one with ${formatCliCommand('openclaw mcp set <name> \'{"command":"uvx","args":["context7-mcp"]}\'')}.`,
         );
-        defaultRuntime.log(OPENCLAW_MCP_REGISTRY_SCOPE_NOTE);
+        defaultRuntime.log(GRANTED_MCP_REGISTRY_SCOPE_NOTE);
         return;
       }
       defaultRuntime.log(`OpenClaw-managed MCP servers (${loaded.path}):`);
@@ -725,7 +725,7 @@ export function registerMcpCli(program: Command) {
         defaultRuntime.log(`- ${name}${connected}`);
       }
       defaultRuntime.log("");
-      defaultRuntime.log(OPENCLAW_MCP_REGISTRY_SCOPE_NOTE);
+      defaultRuntime.log(GRANTED_MCP_REGISTRY_SCOPE_NOTE);
     });
 
   mcp

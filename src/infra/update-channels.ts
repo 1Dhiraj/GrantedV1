@@ -19,9 +19,9 @@ export const EXTENDED_STABLE_TAG_UNSUPPORTED_REASON = "extended-stable-tag-unsup
  * (e.g. the git/dev channel a source update actually ran on) without making it a
  * *requested* channel. Convergence uses it as a fallback; it is never persisted
  * to `update.channel`. Mirrors the CLI post-core resume's effective/requested
- * channel split (`OPENCLAW_UPDATE_POST_CORE_CHANNEL` vs `…_REQUESTED_CHANNEL`).
+ * channel split (`GRANTED_UPDATE_POST_CORE_CHANNEL` vs `…_REQUESTED_CHANNEL`).
  */
-export const UPDATE_EFFECTIVE_CHANNEL_ENV = "OPENCLAW_UPDATE_EFFECTIVE_CHANNEL";
+export const UPDATE_EFFECTIVE_CHANNEL_ENV = "GRANTED_UPDATE_EFFECTIVE_CHANNEL";
 /** Git branch that represents the development update stream. */
 export const DEV_BRANCH = "main";
 

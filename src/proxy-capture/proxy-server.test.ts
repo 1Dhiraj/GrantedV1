@@ -19,15 +19,15 @@ vi.mock("./ca.js", () => ({
 }));
 
 let testRoot: string | undefined;
-const originalStateDir = process.env.OPENCLAW_STATE_DIR;
+const originalStateDir = process.env.GRANTED_STATE_DIR;
 
 async function cleanupTestRoot(): Promise<void> {
   closeDebugProxyCaptureStore();
   closeOpenClawStateDatabaseForTest();
   if (originalStateDir === undefined) {
-    delete process.env.OPENCLAW_STATE_DIR;
+    delete process.env.GRANTED_STATE_DIR;
   } else {
-    process.env.OPENCLAW_STATE_DIR = originalStateDir;
+    process.env.GRANTED_STATE_DIR = originalStateDir;
   }
   if (!testRoot) {
     return;
@@ -40,7 +40,7 @@ async function cleanupTestRoot(): Promise<void> {
 async function makeSettings(): Promise<DebugProxySettings> {
   testRoot = await mkdtemp(join(tmpdir(), "openclaw-debug-proxy-server-"));
   const certDir = join(testRoot, "certs");
-  process.env.OPENCLAW_STATE_DIR = testRoot;
+  process.env.GRANTED_STATE_DIR = testRoot;
   return {
     enabled: true,
     required: false,

@@ -21,7 +21,7 @@ let stopGateway: (() => Promise<void>) | undefined;
 
 beforeEach(async () => {
   stateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-dreaming-startup-"));
-  vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
+  vi.stubEnv("GRANTED_STATE_DIR", stateDir);
 });
 
 afterEach(async () => {

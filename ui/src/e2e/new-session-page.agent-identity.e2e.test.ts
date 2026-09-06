@@ -9,8 +9,8 @@ import {
 } from "./new-session-page.test-support.ts";
 
 const suite = createNewSessionPageE2eSuite();
-const captureProof = process.env.OPENCLAW_CAPTURE_UI_PROOF === "1";
-const proofStage = process.env.OPENCLAW_AGENT_IDENTITY_PROOF_STAGE ?? "after";
+const captureProof = process.env.GRANTED_CAPTURE_UI_PROOF === "1";
+const proofStage = process.env.GRANTED_AGENT_IDENTITY_PROOF_STAGE ?? "after";
 const captureBefore = proofStage === "before";
 
 const agentsList = {

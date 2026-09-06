@@ -87,8 +87,8 @@ describe("getBlockedBindReason", () => {
     });
   });
 
-  it("still blocks OS-home credential paths when OPENCLAW_HOME points elsewhere", () => {
-    withEnv({ HOME: "/home/tester", OPENCLAW_HOME: "/srv/openclaw-home" }, () => {
+  it("still blocks OS-home credential paths when GRANTED_HOME points elsewhere", () => {
+    withEnv({ HOME: "/home/tester", GRANTED_HOME: "/srv/openclaw-home" }, () => {
       const reason = expectBlockedTargetReason("/home/tester/.gnupg/secring.gpg:/mnt/gnupg:ro");
       expect(reason?.blockedPath).toBe("/home/tester/.gnupg");
     });

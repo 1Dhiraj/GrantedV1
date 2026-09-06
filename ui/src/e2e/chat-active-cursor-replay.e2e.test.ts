@@ -14,7 +14,7 @@ const suite = createChatFlowE2eSuite();
 
 suite.define(() => {
   it("restores active commentary when an evicted session revalidates from its cursor", async () => {
-    const artifactRoot = process.env.OPENCLAW_UI_E2E_ARTIFACT_DIR?.trim();
+    const artifactRoot = process.env.GRANTED_UI_E2E_ARTIFACT_DIR?.trim();
     const artifactDir = artifactRoot
       ? createControlUiE2eArtifactDir("chat-active-cursor-replay", artifactRoot)
       : undefined;

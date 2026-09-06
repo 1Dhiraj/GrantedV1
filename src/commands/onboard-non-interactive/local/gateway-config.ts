@@ -32,7 +32,7 @@ function resolveGeneratedTokenInput(params: {
     return params.token ?? randomToken();
   }
   if (params.ambientEnvOnly) {
-    return createGatewayEnvSecretRef(params.config, "OPENCLAW_GATEWAY_TOKEN");
+    return createGatewayEnvSecretRef(params.config, "GRANTED_GATEWAY_TOKEN");
   }
   return provisionGatewayTokenStoreRef({
     config: params.config,
@@ -127,7 +127,7 @@ export function applyNonInteractiveGatewayConfig(params: {
 
   let nextConfig = params.nextConfig;
   const explicitGatewayToken = normalizeGatewayTokenInput(opts.gatewayToken);
-  const envGatewayToken = normalizeGatewayTokenInput(process.env.OPENCLAW_GATEWAY_TOKEN);
+  const envGatewayToken = normalizeGatewayTokenInput(process.env.GRANTED_GATEWAY_TOKEN);
   const existingTokenInput = nextConfig.gateway?.auth?.token;
   const existingTokenRef = resolveSecretInputRef({
     value: existingTokenInput,
@@ -135,7 +135,7 @@ export function applyNonInteractiveGatewayConfig(params: {
   }).ref;
   const existingPlaintextToken = normalizeGatewayTokenInput(existingTokenInput);
   // Resolution order on re-onboard: explicit --gateway-token > persisted
-  // plaintext > ambient OPENCLAW_GATEWAY_TOKEN > randomToken(). Ambient env
+  // plaintext > ambient GRANTED_GATEWAY_TOKEN > randomToken(). Ambient env
   // must not rotate a token already written to disk — a stale shell or
   // launchd env var otherwise breaks already-paired clients.
   const gatewayToken =
@@ -150,7 +150,7 @@ export function applyNonInteractiveGatewayConfig(params: {
         rejectOnboardingOption(
           opts,
           runtime,
-          "Invalid --gateway-token-ref-env. Use an environment variable name like OPENCLAW_GATEWAY_TOKEN.",
+          "Invalid --gateway-token-ref-env. Use an environment variable name like GRANTED_GATEWAY_TOKEN.",
         );
         return null;
       }
@@ -186,7 +186,7 @@ export function applyNonInteractiveGatewayConfig(params: {
       };
     } else if (!explicitGatewayToken && existingTokenRef) {
       // Preserve an already-configured SecretRef on re-onboard. Without this
-      // branch, an ambient OPENCLAW_GATEWAY_TOKEN (or randomToken() fallback)
+      // branch, an ambient GRANTED_GATEWAY_TOKEN (or randomToken() fallback)
       // would silently overwrite {source, provider, id} with a plaintext
       // literal, de-secretref-ing the gateway.
       nextConfig = {
@@ -202,7 +202,7 @@ export function applyNonInteractiveGatewayConfig(params: {
       };
     } else {
       // `--secret-input-mode ref` covers the gateway token too. An ambient
-      // OPENCLAW_GATEWAY_TOKEN keeps its env ref so a later rotation still wins;
+      // GRANTED_GATEWAY_TOKEN keeps its env ref so a later rotation still wins;
       // copying it into the store would silently pin the stale value. Anything else
       // is a value setup itself holds, with nothing for an env/file/exec ref to point
       // at, so the shared secret store keeps it and config keeps only the reference.
@@ -232,7 +232,7 @@ export function applyNonInteractiveGatewayConfig(params: {
     const password =
       input === undefined
         ? (nextConfig.gateway?.auth?.password ??
-          normalizeOptionalString(process.env.OPENCLAW_GATEWAY_PASSWORD))
+          normalizeOptionalString(process.env.GRANTED_GATEWAY_PASSWORD))
         : normalizeOptionalString(input);
     if (!password) {
       rejectOnboardingOption(
@@ -253,7 +253,7 @@ export function applyNonInteractiveGatewayConfig(params: {
             ? {
                 password:
                   opts.secretInputMode === "ref"
-                    ? createGatewayEnvSecretRef(nextConfig, "OPENCLAW_GATEWAY_PASSWORD")
+                    ? createGatewayEnvSecretRef(nextConfig, "GRANTED_GATEWAY_PASSWORD")
                     : password,
               }
             : {}),

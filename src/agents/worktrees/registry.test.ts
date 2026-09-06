@@ -30,7 +30,7 @@ describe("managed worktree registry", () => {
   beforeEach(async () => {
     const tempRoot = await fs.realpath(os.tmpdir());
     root = await fs.mkdtemp(path.join(tempRoot, "openclaw-worktree-registry-"));
-    env = { ...process.env, OPENCLAW_STATE_DIR: path.join(root, "state") };
+    env = { ...process.env, GRANTED_STATE_DIR: path.join(root, "state") };
   });
 
   afterEach(async () => {
@@ -41,7 +41,7 @@ describe("managed worktree registry", () => {
   it("inspects absent legacy worktrees without creating the state database", async () => {
     expect(hasLegacyRegistryWorktrees(env)).toBe(false);
     expect(listRegistryWorktreesForMigration(env)).toEqual([]);
-    await expect(fs.stat(env.OPENCLAW_STATE_DIR!)).rejects.toMatchObject({ code: "ENOENT" });
+    await expect(fs.stat(env.GRANTED_STATE_DIR!)).rejects.toMatchObject({ code: "ENOENT" });
   });
 
   it("persists, orders, updates, and deletes worktree rows through Kysely", () => {

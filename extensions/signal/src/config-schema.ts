@@ -45,7 +45,7 @@ const SignalTransportUrlSchema = z
   );
 
 function projectSignalConfigForUpdateValidation(value: unknown): unknown {
-  if (process.env.OPENCLAW_UPDATE_IN_PROGRESS !== "1" || !isRecord(value)) {
+  if (process.env.GRANTED_UPDATE_IN_PROGRESS !== "1" || !isRecord(value)) {
     return value;
   }
   const next = { ...value };

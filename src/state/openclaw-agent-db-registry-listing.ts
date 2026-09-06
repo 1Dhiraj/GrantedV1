@@ -4,7 +4,7 @@ import { executeSqliteQuerySync, getNodeSqliteKysely } from "../infra/kysely-syn
 import { resolveSqliteDatabaseFilePaths } from "../infra/sqlite-files.js";
 import { normalizeAgentId } from "../routing/session-key.js";
 import {
-  OPENCLAW_AGENT_SCHEMA_VERSION,
+  GRANTED_AGENT_SCHEMA_VERSION,
   type OpenClawRegisteredAgentDatabase,
 } from "./openclaw-agent-db-contract.js";
 import { withExistingOpenClawStateDatabaseReadOnly } from "./openclaw-state-db-readonly.js";
@@ -115,7 +115,7 @@ export function listOpenClawRegisteredAgentDatabases(
     const entries = cloneRegisteredAgentDatabases(memo.entries);
     return options.includeIncompatibleSchemaVersions
       ? entries
-      : entries.filter((entry) => entry.schemaVersion === OPENCLAW_AGENT_SCHEMA_VERSION);
+      : entries.filter((entry) => entry.schemaVersion === GRANTED_AGENT_SCHEMA_VERSION);
   }
   // Discovery runs per row in list hot paths, so the legacy-schema gate and the
   // query share one process-held state handle instead of opening two connections.
@@ -162,5 +162,5 @@ export function listOpenClawRegisteredAgentDatabases(
   const cloned = cloneRegisteredAgentDatabases(entries);
   return options.includeIncompatibleSchemaVersions
     ? cloned
-    : cloned.filter((entry) => entry.schemaVersion === OPENCLAW_AGENT_SCHEMA_VERSION);
+    : cloned.filter((entry) => entry.schemaVersion === GRANTED_AGENT_SCHEMA_VERSION);
 }

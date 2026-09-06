@@ -341,18 +341,18 @@ Delete the files or model their real entrypoints in Knip.`,
           "const { spawn } = require('node:child_process');",
           "const fs = require('node:fs');",
           `const child = spawn(process.execPath, ['-e', ${JSON.stringify(childScript)}], { stdio: 'ignore' });`,
-          "fs.writeFileSync(process.env.OPENCLAW_TEST_CHILD_PID, String(child.pid));",
+          "fs.writeFileSync(process.env.GRANTED_TEST_CHILD_PID, String(child.pid));",
           "process.on('SIGTERM', () => process.exit(0));",
           "setInterval(() => {}, 1000);",
         ].join("");
 
         const resultPromise = runKnip(KNIP_UNUSED_FILE_ARGS, {
-          env: { ...process.env, OPENCLAW_TEST_CHILD_PID: childPidPath },
+          env: { ...process.env, GRANTED_TEST_CHILD_PID: childPidPath },
           killGraceMs: 50,
           spawnCommand(_command: string, _args: string[], options: unknown) {
             const parent = spawn(process.execPath, ["-e", parentScript], {
               ...(options as Parameters<typeof spawn>[2]),
-              env: { ...process.env, OPENCLAW_TEST_CHILD_PID: childPidPath },
+              env: { ...process.env, GRANTED_TEST_CHILD_PID: childPidPath },
             });
             childPid = waitForPidFileSync(childPidPath, 2_000);
             return parent;

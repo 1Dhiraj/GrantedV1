@@ -37,8 +37,8 @@ it.each([
     const bundledDir = state.path("empty-bundled");
     await fs.mkdir(pluginDir, { recursive: true });
     await fs.mkdir(bundledDir, { recursive: true });
-    vi.stubEnv("OPENCLAW_BUNDLED_PLUGINS_DIR", bundledDir);
-    vi.stubEnv("OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR", "1");
+    vi.stubEnv("GRANTED_BUNDLED_PLUGINS_DIR", bundledDir);
+    vi.stubEnv("GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR", "1");
     await fs.writeFile(
       path.join(pluginDir, "index.js"),
       "throw new Error('Doctor must not execute this plugin runtime');\n",
@@ -112,8 +112,8 @@ it.each([
   state = await createOpenClawTestState({ label: "doctor-qqbot-promotion", applyEnv: true });
   const bundledDir = state.path("empty-bundled");
   await fs.mkdir(bundledDir, { recursive: true });
-  vi.stubEnv("OPENCLAW_BUNDLED_PLUGINS_DIR", bundledDir);
-  vi.stubEnv("OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR", "1");
+  vi.stubEnv("GRANTED_BUNDLED_PLUGINS_DIR", bundledDir);
+  vi.stubEnv("GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR", "1");
 
   if (enabled !== undefined) {
     const pluginDir = state.statePath("extensions", "openclaw-qqbot");

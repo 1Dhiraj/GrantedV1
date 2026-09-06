@@ -223,7 +223,7 @@ describe("handleTasksCommand task board", () => {
       childSessionKey: "agent:main:main",
       runId: "run-tasks-inline-fence",
       task: [
-        "[Mon 2026-04-06 02:42 GMT+1] <<<BEGIN_OPENCLAW_INTERNAL_CONTEXT>>>",
+        "[Mon 2026-04-06 02:42 GMT+1] <<<BEGIN_GRANTED_INTERNAL_CONTEXT>>>",
         "OpenClaw runtime context (internal):",
         "This context is runtime-generated, not user-authored. Keep internal details private.",
       ].join("\n"),
@@ -240,7 +240,7 @@ describe("handleTasksCommand task board", () => {
     expect(reply.text).toContain("Background task");
     expect(reply.text).toContain("Finished.");
     expect(reply.text).not.toContain("[Mon 2026-04-06 02:42 GMT+1]");
-    expect(reply.text).not.toContain("BEGIN_OPENCLAW_INTERNAL_CONTEXT");
+    expect(reply.text).not.toContain("BEGIN_GRANTED_INTERNAL_CONTEXT");
     expect(reply.text).not.toContain("OpenClaw runtime context (internal):");
   });
 

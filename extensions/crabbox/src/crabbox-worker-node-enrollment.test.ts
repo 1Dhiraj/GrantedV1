@@ -52,7 +52,7 @@ async function packageFixture(build: string): Promise<Buffer> {
     `import fs from "node:fs";
 import path from "node:path";
 const args = process.argv.slice(2);
-const state = process.env.OPENCLAW_STATE_DIR;
+const state = process.env.GRANTED_STATE_DIR;
 if (args[0] === "--version") {
   console.log("OpenClaw 2026.8.1");
 } else if (args[0] === "plugins" && args[1] === "enable") {

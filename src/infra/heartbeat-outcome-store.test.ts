@@ -19,7 +19,7 @@ const tempDirs: string[] = [];
 async function createEnv(): Promise<NodeJS.ProcessEnv> {
   const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-heartbeat-outcome-"));
   tempDirs.push(stateDir);
-  const env = { OPENCLAW_STATE_DIR: stateDir };
+  const env = { GRANTED_STATE_DIR: stateDir };
   await upsertSessionEntryCore(
     { agentId: "main", env, sessionKey: "agent:main:main" },
     { sessionId: "heartbeat-outcome-test", updatedAt: 1 },

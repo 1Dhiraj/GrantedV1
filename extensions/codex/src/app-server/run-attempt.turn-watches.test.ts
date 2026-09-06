@@ -489,7 +489,7 @@ describe("runCodexAppServerAttempt turn watches", () => {
   it("preserves raw image-generation media when Codex never sends turn completion", async () => {
     const harness = createStartedThreadHarness();
     const params = makeTestParams({ timeoutMs: 200 });
-    vi.stubEnv("OPENCLAW_STATE_DIR", path.join(tempDir, "state"));
+    vi.stubEnv("GRANTED_STATE_DIR", path.join(tempDir, "state"));
 
     const run = runCodexAppServerAttempt(params, {
       pluginConfig: { appServer: { turnCompletionIdleTimeoutMs: 5 } },

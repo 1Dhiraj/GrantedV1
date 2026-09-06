@@ -807,7 +807,7 @@ async function runTurn(
   const started = await rpc<{ runId?: string; status?: string }>("agent", {
     sessionKey: options?.sessionKey ?? `agent:main:gateway-concurrency-${index + 1}`,
     message: toolEvents
-      ? `OPENCLAW_E2E_DRAFTPROOF benchmark tool stream ${index + 1}.`
+      ? `GRANTED_E2E_DRAFTPROOF benchmark tool stream ${index + 1}.`
       : `Reply with benchmark stream ${index + 1}.`,
     deliver: false,
     idempotencyKey: requestedRunId,
@@ -1041,11 +1041,11 @@ async function runGatewaySample(options: {
               caseEnv: {
                 ...(options.diagnosticsTimeline
                   ? {
-                      OPENCLAW_DIAGNOSTICS: "timeline",
-                      OPENCLAW_DIAGNOSTICS_TIMELINE_PATH: timelinePath,
+                      GRANTED_DIAGNOSTICS: "timeline",
+                      GRANTED_DIAGNOSTICS_TIMELINE_PATH: timelinePath,
                     }
                   : {}),
-                OPENCLAW_SKIP_CHANNELS: "1",
+                GRANTED_SKIP_CHANNELS: "1",
               },
             }),
             OPENAI_API_KEY: "gateway-concurrency-benchmark",

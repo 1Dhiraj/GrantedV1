@@ -104,7 +104,7 @@ vi.mock("openclaw/plugin-sdk/agent-harness-runtime", async (importOriginal) => (
   ).AgentHarnessPreflightError,
   embeddedAgentLog: mocks.embeddedAgentLog,
   formatErrorMessage: (error: unknown) => String(error),
-  OPENCLAW_VERSION: "test",
+  GRANTED_VERSION: "test",
 }));
 
 vi.mock("openclaw/plugin-sdk/agent-runtime", () => ({

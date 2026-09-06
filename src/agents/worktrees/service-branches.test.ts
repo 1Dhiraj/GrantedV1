@@ -33,7 +33,7 @@ describe("ManagedWorktreeService branch discovery", () => {
     await git(repo, "add", "README.md");
     await git(repo, "commit", "-m", "initial");
     service = new ManagedWorktreeService({
-      env: { ...process.env, OPENCLAW_STATE_DIR: path.join(root, "state") },
+      env: { ...process.env, GRANTED_STATE_DIR: path.join(root, "state") },
     });
   });
 

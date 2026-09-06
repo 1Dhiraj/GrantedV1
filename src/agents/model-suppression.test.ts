@@ -26,7 +26,7 @@ import {
   shouldSuppressBuiltInModelCore,
 } from "./model-suppression.js";
 
-const originalBundledPluginsDir = process.env.OPENCLAW_BUNDLED_PLUGINS_DIR;
+const originalBundledPluginsDir = process.env.GRANTED_BUNDLED_PLUGINS_DIR;
 
 describe("model suppression", () => {
   beforeEach(() => {
@@ -38,9 +38,9 @@ describe("model suppression", () => {
     vi.restoreAllMocks();
     setCurrentPluginMetadataSnapshot(undefined);
     if (originalBundledPluginsDir === undefined) {
-      delete process.env.OPENCLAW_BUNDLED_PLUGINS_DIR;
+      delete process.env.GRANTED_BUNDLED_PLUGINS_DIR;
     } else {
-      process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = originalBundledPluginsDir;
+      process.env.GRANTED_BUNDLED_PLUGINS_DIR = originalBundledPluginsDir;
     }
   });
 
@@ -268,12 +268,12 @@ describe("model suppression", () => {
       .mockReturnValueOnce(firstResolver)
       .mockReturnValueOnce(secondResolver);
 
-    process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = "/tmp/openclaw-bundled-a";
+    process.env.GRANTED_BUNDLED_PLUGINS_DIR = "/tmp/openclaw-bundled-a";
     expect(shouldSuppressBuiltInModelCore({ provider: "openai", id: "gpt-5.3", config })).toBe(
       false,
     );
 
-    process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = "/tmp/openclaw-bundled-b";
+    process.env.GRANTED_BUNDLED_PLUGINS_DIR = "/tmp/openclaw-bundled-b";
     expect(shouldSuppressBuiltInModelCore({ provider: "openai", id: "gpt-5.3", config })).toBe(
       false,
     );

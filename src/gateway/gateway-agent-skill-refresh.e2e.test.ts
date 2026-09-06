@@ -21,18 +21,18 @@ import { buildMockOpenAiResponsesProvider } from "./test-openai-responses-model.
 const execFileAsync = promisify(execFile);
 const ENV_KEYS = [
   "HOME",
-  "OPENCLAW_STATE_DIR",
-  "OPENCLAW_CONFIG_PATH",
-  "OPENCLAW_GATEWAY_TOKEN",
-  "OPENCLAW_TEST_MINIMAL_GATEWAY",
-  "OPENCLAW_SKIP_CHANNELS",
-  "OPENCLAW_SKIP_GMAIL_WATCHER",
-  "OPENCLAW_SKIP_CRON",
-  "OPENCLAW_SKIP_CANVAS_HOST",
-  "OPENCLAW_SKIP_BROWSER_CONTROL_SERVER",
-  "OPENCLAW_SKIP_PROVIDERS",
-  "OPENCLAW_BUNDLED_PLUGINS_DIR",
-  "OPENCLAW_DISABLE_BUNDLED_PLUGINS",
+  "GRANTED_STATE_DIR",
+  "GRANTED_CONFIG_PATH",
+  "GRANTED_GATEWAY_TOKEN",
+  "GRANTED_TEST_MINIMAL_GATEWAY",
+  "GRANTED_SKIP_CHANNELS",
+  "GRANTED_SKIP_GMAIL_WATCHER",
+  "GRANTED_SKIP_CRON",
+  "GRANTED_SKIP_CANVAS_HOST",
+  "GRANTED_SKIP_BROWSER_CONTROL_SERVER",
+  "GRANTED_SKIP_PROVIDERS",
+  "GRANTED_BUNDLED_PLUGINS_DIR",
+  "GRANTED_DISABLE_BUNDLED_PLUGINS",
 ] as const;
 
 function resetGatewayState(): void {
@@ -67,20 +67,20 @@ describe("Gateway agent skill refresh", () => {
       await initializeGitWorkspace(workspace);
       for (const [key, value] of Object.entries({
         HOME: home,
-        OPENCLAW_STATE_DIR: stateDir,
-        OPENCLAW_SKIP_CHANNELS: "1",
-        OPENCLAW_SKIP_GMAIL_WATCHER: "1",
-        OPENCLAW_SKIP_CRON: "1",
-        OPENCLAW_SKIP_CANVAS_HOST: "1",
-        OPENCLAW_SKIP_BROWSER_CONTROL_SERVER: "1",
-        OPENCLAW_SKIP_PROVIDERS: "1",
-        OPENCLAW_BUNDLED_PLUGINS_DIR: bundledPluginsDir,
-        OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
+        GRANTED_STATE_DIR: stateDir,
+        GRANTED_SKIP_CHANNELS: "1",
+        GRANTED_SKIP_GMAIL_WATCHER: "1",
+        GRANTED_SKIP_CRON: "1",
+        GRANTED_SKIP_CANVAS_HOST: "1",
+        GRANTED_SKIP_BROWSER_CONTROL_SERVER: "1",
+        GRANTED_SKIP_PROVIDERS: "1",
+        GRANTED_BUNDLED_PLUGINS_DIR: bundledPluginsDir,
+        GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
       })) {
         setTestEnvValue(key, value);
       }
-      deleteTestEnvValue("OPENCLAW_CONFIG_PATH");
-      deleteTestEnvValue("OPENCLAW_TEST_MINIMAL_GATEWAY");
+      deleteTestEnvValue("GRANTED_CONFIG_PATH");
+      deleteTestEnvValue("GRANTED_TEST_MINIMAL_GATEWAY");
       resetGatewayState();
 
       const requests: string[] = [];

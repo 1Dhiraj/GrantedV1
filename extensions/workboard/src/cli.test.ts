@@ -85,7 +85,7 @@ describe("registerWorkboardCli", () => {
     gatewayRuntime.callGatewayFromCli.mockReset();
     gatewayRuntime.getRuntimeConfig.mockReset();
     gatewayRuntime.getRuntimeConfig.mockReturnValue({});
-    delete process.env.OPENCLAW_GATEWAY_URL;
+    delete process.env.GRANTED_GATEWAY_URL;
   });
 
   it("records full-host authority on locally created cards", async () => {

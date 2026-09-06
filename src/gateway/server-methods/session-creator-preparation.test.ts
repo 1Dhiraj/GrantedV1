@@ -95,7 +95,7 @@ async function withCreatorRows(
     {
       scenario: "minimal",
       env: {
-        OPENCLAW_STATE_DIR: undefined,
+        GRANTED_STATE_DIR: undefined,
         VITEST: undefined,
         VITEST_POOL_ID: undefined,
         VITEST_WORKER_ID: undefined,
@@ -103,7 +103,7 @@ async function withCreatorRows(
       },
     },
     async (state) => {
-      expect(process.env.OPENCLAW_STATE_DIR).toBeUndefined();
+      expect(process.env.GRANTED_STATE_DIR).toBeUndefined();
       expect(process.env.VITEST).toBeUndefined();
       expect(process.env.NODE_ENV).toBe("production");
       expect(process.env.HOME).toBe(state.home);
@@ -159,7 +159,7 @@ describe("creator preparation at synchronous fan-out boundaries", () => {
       {
         scenario: "minimal",
         env: {
-          OPENCLAW_STATE_DIR: undefined,
+          GRANTED_STATE_DIR: undefined,
           VITEST: undefined,
           VITEST_POOL_ID: undefined,
           VITEST_WORKER_ID: undefined,
@@ -241,7 +241,7 @@ describe("creator preparation at synchronous fan-out boundaries", () => {
       const receive = () => canReceiveSessionEvent({ cfg: {}, client, sessionKeys: [sessionKey] });
       expect(receive()).toBe(true);
       const alternateRoot = `${stateDir}/absent-state`;
-      await withEnvAsync({ OPENCLAW_STATE_DIR: alternateRoot }, async () => {
+      await withEnvAsync({ GRANTED_STATE_DIR: alternateRoot }, async () => {
         expect(receive()).toBe(false);
         expect(fs.existsSync(alternateRoot)).toBe(false);
       });

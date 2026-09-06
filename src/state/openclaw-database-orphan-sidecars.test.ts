@@ -66,7 +66,7 @@ afterEach(() => {
 
 function prepareCase(kind: (typeof databaseKinds)[number]) {
   const stateDir = fs.realpathSync(tempStateDirs.make("openclaw-orphan-sidecar-"));
-  const env = { OPENCLAW_STATE_DIR: stateDir };
+  const env = { GRANTED_STATE_DIR: stateDir };
   const databasePath =
     kind === "state"
       ? resolveOpenClawStateSqlitePath(env)

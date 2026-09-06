@@ -24,10 +24,10 @@ afterEach(() => {
 
 function createScope(prefix: string) {
   const stateDir = tempDirs.make(prefix);
-  vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
+  vi.stubEnv("GRANTED_STATE_DIR", stateDir);
   return {
     agentId: "main",
-    env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+    env: { ...process.env, GRANTED_STATE_DIR: stateDir },
     sessionId: `${prefix}-session`,
     sessionKey: `agent:main:${prefix}`,
   };

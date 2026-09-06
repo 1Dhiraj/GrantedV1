@@ -6,7 +6,7 @@ import { resolveDefaultSecretProviderAlias } from "../secrets/ref-contract.js";
 import { readSecretStoreValue, writeSecretStoreEntry } from "../secrets/store/secret-store.js";
 
 /** Store entry name for the gateway token; mirrors the documented env-var contract. */
-const GATEWAY_AUTH_TOKEN_STORE_NAME = "OPENCLAW_GATEWAY_TOKEN";
+const GATEWAY_AUTH_TOKEN_STORE_NAME = "GRANTED_GATEWAY_TOKEN";
 
 const GATEWAY_AUTH_TOKEN_STORE_SCOPE = { kind: "team" } as const;
 

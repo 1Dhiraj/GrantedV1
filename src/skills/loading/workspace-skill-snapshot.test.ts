@@ -348,7 +348,7 @@ describe("buildSkillSnapshot", () => {
       });
     try {
       const defaultSnapshot = withEnv(
-        { HOME: home, OPENCLAW_STATE_DIR: path.join(home, ".openclaw") },
+        { HOME: home, GRANTED_STATE_DIR: path.join(home, ".openclaw") },
         buildHomeSnapshot,
       );
       expectSnapshotNamesAndPrompt(defaultSnapshot, { contains: ["personal-compat"] });
@@ -357,7 +357,7 @@ describe("buildSkillSnapshot", () => {
       );
 
       const isolatedSnapshot = withEnv(
-        { HOME: home, OPENCLAW_STATE_DIR: path.join(home, "scratch-state") },
+        { HOME: home, GRANTED_STATE_DIR: path.join(home, "scratch-state") },
         buildHomeSnapshot,
       );
       expectSnapshotNamesAndPrompt(isolatedSnapshot, { omits: ["personal-compat"] });

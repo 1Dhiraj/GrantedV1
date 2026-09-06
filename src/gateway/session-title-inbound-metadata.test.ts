@@ -25,9 +25,9 @@ describe("session titles with inbound Gateway metadata", () => {
   let envSnapshot: ReturnType<typeof captureEnv>;
 
   beforeEach(() => {
-    envSnapshot = captureEnv(["OPENCLAW_STATE_DIR"]);
+    envSnapshot = captureEnv(["GRANTED_STATE_DIR"]);
     tempDir = tempDirs.make("openclaw-session-title-inbound-");
-    setTestEnvValue("OPENCLAW_STATE_DIR", tempDir);
+    setTestEnvValue("GRANTED_STATE_DIR", tempDir);
   });
 
   afterEach(() => {

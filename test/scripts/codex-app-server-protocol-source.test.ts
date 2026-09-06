@@ -25,13 +25,13 @@ import {
 import { createScriptTestHarness } from "./test-helpers.js";
 
 const { createTempDir } = createScriptTestHarness();
-const originalOpenClawCodexRepo = process.env.OPENCLAW_CODEX_REPO;
+const originalOpenClawCodexRepo = process.env.GRANTED_CODEX_REPO;
 
 afterEach(() => {
   if (originalOpenClawCodexRepo === undefined) {
-    delete process.env.OPENCLAW_CODEX_REPO;
+    delete process.env.GRANTED_CODEX_REPO;
   } else {
-    process.env.OPENCLAW_CODEX_REPO = originalOpenClawCodexRepo;
+    process.env.GRANTED_CODEX_REPO = originalOpenClawCodexRepo;
   }
 });
 
@@ -220,7 +220,7 @@ version = "9.9.9"
   });
 
   it("allows an explicit local disk headroom override", () => {
-    expect(resolveCodexProtocolMinFreeBytes({ OPENCLAW_CODEX_PROTOCOL_MIN_FREE_BYTES: "0" })).toBe(
+    expect(resolveCodexProtocolMinFreeBytes({ GRANTED_CODEX_PROTOCOL_MIN_FREE_BYTES: "0" })).toBe(
       0,
     );
     expect(() =>
@@ -234,7 +234,7 @@ version = "9.9.9"
 
   it("rejects malformed local disk headroom overrides", () => {
     expect(() =>
-      resolveCodexProtocolMinFreeBytes({ OPENCLAW_CODEX_PROTOCOL_MIN_FREE_BYTES: "nope" }),
+      resolveCodexProtocolMinFreeBytes({ GRANTED_CODEX_PROTOCOL_MIN_FREE_BYTES: "nope" }),
     ).toThrow(/non-negative byte count/);
   });
 
@@ -296,11 +296,11 @@ version = "9.9.9"
     });
   });
 
-  it("uses OPENCLAW_CODEX_REPO when provided", async () => {
+  it("uses GRANTED_CODEX_REPO when provided", async () => {
     const root = createTempDir("openclaw-protocol-source-root-");
     const codexRepo = createTempDir("openclaw-protocol-source-codex-");
     createProtocolSchema(codexRepo);
-    process.env.OPENCLAW_CODEX_REPO = codexRepo;
+    process.env.GRANTED_CODEX_REPO = codexRepo;
 
     await expect(resolveCodexAppServerProtocolSource(root)).resolves.toEqual({
       codexRepo,
@@ -322,7 +322,7 @@ version = "9.9.9"
       `gitdir: ${path.join(primaryOpenClaw, ".git", "worktrees", "codex-harness")}\n`,
     );
     createProtocolSchema(codexRepo);
-    delete process.env.OPENCLAW_CODEX_REPO;
+    delete process.env.GRANTED_CODEX_REPO;
 
     await expect(resolveCodexAppServerProtocolSource(worktreeRoot)).resolves.toEqual({
       codexRepo,

@@ -216,7 +216,7 @@ function resolveExpectedBundledSkillPath(params: {
   pathExists: (filePath: string) => boolean;
   env?: NodeJS.ProcessEnv;
 }): string | undefined {
-  // Snapshot paths use shell `~` semantics. OPENCLAW_HOME may point at an isolated
+  // Snapshot paths use shell `~` semantics. GRANTED_HOME may point at an isolated
   // runtime profile, so expanding against it would make the active runtime look stale.
   const osHomeDir = resolveOsHomeDir(params.env);
   const expandedCachedPath = osHomeDir

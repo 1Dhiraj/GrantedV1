@@ -169,9 +169,9 @@ describe("plugin capability consent", () => {
       const runtimePaths = explicitPath ? [path.join(artifactDir, configuredEntry)] : [];
       const env = {
         HOME: artifactDir,
-        OPENCLAW_STATE_DIR: path.join(artifactDir, "state"),
-        OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-        OPENCLAW_DISABLE_BUNDLED_SOURCE_OVERLAYS: "1",
+        GRANTED_STATE_DIR: path.join(artifactDir, "state"),
+        GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+        GRANTED_DISABLE_BUNDLED_SOURCE_OVERLAYS: "1",
       };
       const runtime = loadInstalledPluginIndexWithDiscovery({
         config: { plugins: { load: { paths: runtimePaths } } },

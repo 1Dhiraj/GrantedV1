@@ -104,7 +104,7 @@ const bundledChatNpmSpec = "@openclaw/bundled-chat@1.2.3";
 const bundledChatIntegrity = "sha512-bundled-chat";
 const bundledChatForkNpmSpec = "@vendor/bundled-chat-fork@1.2.3";
 const bundledChatForkIntegrity = "sha512-vendor-bundled-chat-fork";
-const ORIGINAL_OPENCLAW_STATE_DIR = process.env.OPENCLAW_STATE_DIR;
+const ORIGINAL_GRANTED_STATE_DIR = process.env.GRANTED_STATE_DIR;
 const tempDirs = useAutoCleanupTempDirTracker(afterEach);
 
 const baseEntry: ChannelPluginCatalogEntry = {
@@ -222,10 +222,10 @@ beforeEach(() => {
 
 afterEach(() => {
   clearPluginMetadataLifecycleCaches();
-  if (ORIGINAL_OPENCLAW_STATE_DIR === undefined) {
-    delete process.env.OPENCLAW_STATE_DIR;
+  if (ORIGINAL_GRANTED_STATE_DIR === undefined) {
+    delete process.env.GRANTED_STATE_DIR;
   } else {
-    process.env.OPENCLAW_STATE_DIR = ORIGINAL_OPENCLAW_STATE_DIR;
+    process.env.GRANTED_STATE_DIR = ORIGINAL_GRANTED_STATE_DIR;
   }
 });
 
@@ -351,7 +351,7 @@ describe("ensureChannelSetupPluginInstalled", () => {
       confirm: vi.fn(async () => true),
     });
     const profileStateDir = tempDirs.make("openclaw-ledger-channel-");
-    process.env.OPENCLAW_STATE_DIR = profileStateDir;
+    process.env.GRANTED_STATE_DIR = profileStateDir;
     installPluginFromNpmSpec.mockResolvedValue({
       ok: true,
       pluginId: "bundled-chat",

@@ -93,7 +93,7 @@ async function fixture(mode: "persistent" | "oneshot" = "persistent", sessionKey
     openPluginStateKeyedStore: (options) =>
       createPluginStateKeyedStoreForTests("acpx", {
         ...options,
-        env: { ...process.env, OPENCLAW_STATE_DIR: directory },
+        env: { ...process.env, GRANTED_STATE_DIR: directory },
       }),
     inspectAcpSessionClaims: async () => ({
       claims: structuredClone(claims),
@@ -111,7 +111,7 @@ async function fixture(mode: "persistent" | "oneshot" = "persistent", sessionKey
   };
   const input = {
     config: {},
-    env: { ...process.env, OPENCLAW_STATE_DIR: directory },
+    env: { ...process.env, GRANTED_STATE_DIR: directory },
     stateDir: directory,
     oauthDir: path.join(directory, "oauth"),
     serviceWorkspaceDir: directory,
@@ -152,7 +152,7 @@ it.each(["missing", "empty"])(
     await expect(
       acpxSessionOwnerMigration.detectLegacyState({
         config: {},
-        env: { ...process.env, OPENCLAW_STATE_DIR: directory },
+        env: { ...process.env, GRANTED_STATE_DIR: directory },
         stateDir: directory,
         oauthDir: path.join(directory, "oauth"),
         serviceWorkspaceDir: directory,

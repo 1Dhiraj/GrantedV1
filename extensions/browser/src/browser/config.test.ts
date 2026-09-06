@@ -14,7 +14,7 @@ import {
 } from "./config.js";
 import { getBrowserProfileCapabilities } from "./profile-capabilities.js";
 
-const BROWSER_HEADLESS_ENV_KEY = "OPENCLAW_BROWSER_HEADLESS";
+const BROWSER_HEADLESS_ENV_KEY = "GRANTED_BROWSER_HEADLESS";
 
 function resolveRequiredProfile(config: BrowserConfig, profileName: string) {
   const profile = resolveProfile(resolveBrowserConfig(config), profileName);
@@ -162,7 +162,7 @@ describe("browser config", () => {
       const credentials = path.join(stateDir, "credentials");
       fs.mkdirSync(credentials, { mode: 0o700 });
       const secretPath = path.join(credentials, "browser-extension-relay.secret");
-      withEnv({ OPENCLAW_STATE_DIR: stateDir, OPENCLAW_OAUTH_DIR: credentials }, () => {
+      withEnv({ GRANTED_STATE_DIR: stateDir, GRANTED_OAUTH_DIR: credentials }, () => {
         const withoutSecret = resolveBrowserConfig(undefined);
         fs.writeFileSync(secretPath, content, { flag: "wx", mode: 0o600 });
         expect(resolveBrowserConfig(undefined)).toEqual(withoutSecret);
@@ -195,8 +195,8 @@ describe("browser config", () => {
     ).toBe(false);
   });
 
-  it("derives default ports from OPENCLAW_GATEWAY_PORT when unset", () => {
-    withEnv({ OPENCLAW_GATEWAY_PORT: "19001" }, () => {
+  it("derives default ports from GRANTED_GATEWAY_PORT when unset", () => {
+    withEnv({ GRANTED_GATEWAY_PORT: "19001" }, () => {
       const resolved = resolveBrowserConfig(undefined);
       expect(resolved.controlPort).toBe(19003);
       expect(resolveProfile(resolved, "chrome-relay")).toBe(null);
@@ -208,7 +208,7 @@ describe("browser config", () => {
   });
 
   it("derives default ports from gateway.port when env is unset", () => {
-    withEnv({ OPENCLAW_GATEWAY_PORT: undefined }, () => {
+    withEnv({ GRANTED_GATEWAY_PORT: undefined }, () => {
       const resolved = resolveBrowserConfig(undefined, { gateway: { port: 19011 } });
       expect(resolved.controlPort).toBe(19013);
       expect(resolveProfile(resolved, "chrome-relay")).toBe(null);
@@ -385,7 +385,7 @@ describe("browser config", () => {
         expected: { headless: false, source: "config" },
       },
       {
-        name: "lets OPENCLAW_BROWSER_HEADLESS override profile/global config",
+        name: "lets GRANTED_BROWSER_HEADLESS override profile/global config",
         config: withProfile("openclaw", { cdpPort: 18800, headless: false }),
         profileName: "openclaw",
         headlessEnv: "1",

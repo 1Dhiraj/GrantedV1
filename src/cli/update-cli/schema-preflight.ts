@@ -1,5 +1,5 @@
 import {
-  OPENCLAW_DATABASE_SCHEMA_DOCS_URL,
+  GRANTED_DATABASE_SCHEMA_DOCS_URL,
   preflightOpenClawDatabaseSchemas,
   type IncompatibleOpenClawDatabase,
   type IndeterminateOpenClawDatabase,
@@ -24,7 +24,7 @@ export function formatSchemaRefusalLines(
       (database) =>
         `${prefix}: could not inspect ${database.kind} database ${database.path}: ${database.reason}; retry once the gateway releases it.`,
     ),
-    OPENCLAW_DATABASE_SCHEMA_DOCS_URL,
+    GRANTED_DATABASE_SCHEMA_DOCS_URL,
     "Installing manually via npm bypasses this guard; back up first and verify compatibility.",
   ];
 }

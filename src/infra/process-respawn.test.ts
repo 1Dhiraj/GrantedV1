@@ -87,7 +87,7 @@ function expectLaunchdSupervisedWithHandoff(params?: { launchJobLabel?: string }
   if (params?.launchJobLabel) {
     process.env.LAUNCH_JOB_LABEL = params.launchJobLabel;
   }
-  process.env.OPENCLAW_LAUNCHD_LABEL = "ai.openclaw.gateway";
+  process.env.GRANTED_LAUNCHD_LABEL = "ai.openclaw.gateway";
   const result = restartGatewayProcessWithFreshPid();
   expect(result.mode).toBe("supervised");
   expect(result.handoffSpawned).toBeInstanceOf(Promise);
@@ -100,17 +100,17 @@ function expectLaunchdSupervisedWithHandoff(params?: { launchJobLabel?: string }
 }
 
 describe("restartGatewayProcessWithFreshPid", () => {
-  it("returns disabled when OPENCLAW_NO_RESPAWN is set", () => {
-    process.env.OPENCLAW_NO_RESPAWN = "1";
+  it("returns disabled when GRANTED_NO_RESPAWN is set", () => {
+    process.env.GRANTED_NO_RESPAWN = "1";
     const result = restartGatewayProcessWithFreshPid();
     expect(result.mode).toBe("disabled");
     expect(spawnMock).not.toHaveBeenCalled();
   });
 
-  it("keeps OPENCLAW_NO_RESPAWN ahead of inherited supervisor hints", () => {
+  it("keeps GRANTED_NO_RESPAWN ahead of inherited supervisor hints", () => {
     clearSupervisorHints();
     setPlatform("darwin");
-    process.env.OPENCLAW_NO_RESPAWN = "1";
+    process.env.GRANTED_NO_RESPAWN = "1";
     process.env.LAUNCH_JOB_LABEL = "ai.openclaw.gateway";
 
     const result = restartGatewayProcessWithFreshPid();
@@ -158,7 +158,7 @@ describe("restartGatewayProcessWithFreshPid", () => {
   it("returns failed when the launchd handoff cannot be scheduled", () => {
     clearSupervisorHints();
     setPlatform("darwin");
-    process.env.OPENCLAW_LAUNCHD_LABEL = "ai.openclaw.gateway";
+    process.env.GRANTED_LAUNCHD_LABEL = "ai.openclaw.gateway";
     scheduleLaunchdHandoffMock.mockReturnValue({ ok: false, error: "spawn EPERM" });
 
     expect(restartGatewayProcessWithFreshPid()).toEqual({
@@ -170,7 +170,7 @@ describe("restartGatewayProcessWithFreshPid", () => {
   it("launchd supervisor never returns failed regardless of triggerOpenClawRestart outcome", () => {
     clearSupervisorHints();
     setPlatform("darwin");
-    process.env.OPENCLAW_LAUNCHD_LABEL = "ai.openclaw.gateway";
+    process.env.GRANTED_LAUNCHD_LABEL = "ai.openclaw.gateway";
     // Even if triggerOpenClawRestart *would* fail, launchd path must not call it.
     triggerOpenClawRestartMock.mockReturnValue({
       ok: false,
@@ -187,7 +187,7 @@ describe("restartGatewayProcessWithFreshPid", () => {
   it("does not schedule kickstart on non-darwin platforms", () => {
     setPlatform("linux");
     process.env.INVOCATION_ID = "abc123";
-    process.env.OPENCLAW_LAUNCHD_LABEL = "ai.openclaw.gateway";
+    process.env.GRANTED_LAUNCHD_LABEL = "ai.openclaw.gateway";
 
     const result = restartGatewayProcessWithFreshPid();
 
@@ -201,7 +201,7 @@ describe("restartGatewayProcessWithFreshPid", () => {
     clearSupervisorHints();
     setPlatform("darwin");
     process.env.XPC_SERVICE_NAME = "ai.openclaw.mac";
-    process.env.OPENCLAW_PROFILE = "mac";
+    process.env.GRANTED_PROFILE = "mac";
 
     const result = restartGatewayProcessWithFreshPid();
 
@@ -214,7 +214,7 @@ describe("restartGatewayProcessWithFreshPid", () => {
   });
 
   it("uses in-process restart on unmanaged Unix so custom supervisors keep the tracked PID", () => {
-    delete process.env.OPENCLAW_NO_RESPAWN;
+    delete process.env.GRANTED_NO_RESPAWN;
     clearSupervisorHints();
     setPlatform("linux");
     process.execArgv = ["--import", "tsx"];
@@ -230,15 +230,15 @@ describe("restartGatewayProcessWithFreshPid", () => {
     expect(spawnMock).not.toHaveBeenCalled();
   });
 
-  it("returns supervised when OPENCLAW_LAUNCHD_LABEL is set (stock launchd plist)", () => {
+  it("returns supervised when GRANTED_LAUNCHD_LABEL is set (stock launchd plist)", () => {
     clearSupervisorHints();
     expectLaunchdSupervisedWithHandoff();
   });
 
-  it("returns supervised when OPENCLAW_SYSTEMD_UNIT is set", () => {
+  it("returns supervised when GRANTED_SYSTEMD_UNIT is set", () => {
     clearSupervisorHints();
     setPlatform("linux");
-    process.env.OPENCLAW_SYSTEMD_UNIT = "openclaw-gateway.service";
+    process.env.GRANTED_SYSTEMD_UNIT = "openclaw-gateway.service";
     const result = restartGatewayProcessWithFreshPid();
     expect(result.mode).toBe("supervised");
     expect(spawnMock).not.toHaveBeenCalled();
@@ -247,8 +247,8 @@ describe("restartGatewayProcessWithFreshPid", () => {
   it("exits to external supervision without invoking inherited native restart hooks", () => {
     clearSupervisorHints();
     setPlatform("win32");
-    process.env.OPENCLAW_SUPERVISOR_MODE = "external";
-    process.env.OPENCLAW_WINDOWS_TASK_NAME = "OpenClaw Gateway";
+    process.env.GRANTED_SUPERVISOR_MODE = "external";
+    process.env.GRANTED_WINDOWS_TASK_NAME = "OpenClaw Gateway";
 
     const result = restartGatewayProcessWithFreshPid();
 
@@ -260,8 +260,8 @@ describe("restartGatewayProcessWithFreshPid", () => {
   it("returns supervised when OpenClaw gateway task markers are set on Windows", () => {
     clearSupervisorHints();
     setPlatform("win32");
-    process.env.OPENCLAW_SERVICE_MARKER = "openclaw";
-    process.env.OPENCLAW_SERVICE_KIND = "gateway";
+    process.env.GRANTED_SERVICE_MARKER = "openclaw";
+    process.env.GRANTED_SERVICE_KIND = "gateway";
     triggerOpenClawRestartMock.mockReturnValue({ ok: true, method: "schtasks" });
     const result = restartGatewayProcessWithFreshPid();
     expect(result.mode).toBe("supervised");
@@ -272,8 +272,8 @@ describe("restartGatewayProcessWithFreshPid", () => {
   it("keeps generic service markers out of non-Windows supervisor detection", () => {
     clearSupervisorHints();
     setPlatform("linux");
-    process.env.OPENCLAW_SERVICE_MARKER = "openclaw";
-    process.env.OPENCLAW_SERVICE_KIND = "gateway";
+    process.env.GRANTED_SERVICE_MARKER = "openclaw";
+    process.env.GRANTED_SERVICE_KIND = "gateway";
 
     const result = restartGatewayProcessWithFreshPid();
 
@@ -297,7 +297,7 @@ describe("restartGatewayProcessWithFreshPid", () => {
   });
 
   it("returns disabled in containers so PID 1 stays alive for in-process restart", () => {
-    delete process.env.OPENCLAW_NO_RESPAWN;
+    delete process.env.GRANTED_NO_RESPAWN;
     clearSupervisorHints();
     setPlatform("linux");
     isContainerEnvironmentMock.mockReturnValue(true);
@@ -314,10 +314,10 @@ describe("restartGatewayProcessWithFreshPid", () => {
   it("ignores node task script hints for gateway restart detection on Windows", () => {
     clearSupervisorHints();
     setPlatform("win32");
-    process.env.OPENCLAW_TASK_SCRIPT = "C:\\openclaw\\node.cmd";
-    process.env.OPENCLAW_TASK_SCRIPT_NAME = "node.cmd";
-    process.env.OPENCLAW_SERVICE_MARKER = "openclaw";
-    process.env.OPENCLAW_SERVICE_KIND = "node";
+    process.env.GRANTED_TASK_SCRIPT = "C:\\openclaw\\node.cmd";
+    process.env.GRANTED_TASK_SCRIPT_NAME = "node.cmd";
+    process.env.GRANTED_SERVICE_MARKER = "openclaw";
+    process.env.GRANTED_SERVICE_KIND = "node";
 
     const result = restartGatewayProcessWithFreshPid();
 
@@ -327,7 +327,7 @@ describe("restartGatewayProcessWithFreshPid", () => {
   });
 
   it("does not attempt detached spawn on unmanaged Unix even if spawn would throw", () => {
-    delete process.env.OPENCLAW_NO_RESPAWN;
+    delete process.env.GRANTED_NO_RESPAWN;
     clearSupervisorHints();
     setPlatform("linux");
 
@@ -344,13 +344,13 @@ describe("restartGatewayProcessWithFreshPid", () => {
 });
 
 describe("respawnGatewayProcessForUpdate", () => {
-  it("keeps OPENCLAW_NO_RESPAWN semantics for update restarts", () => {
+  it("keeps GRANTED_NO_RESPAWN semantics for update restarts", () => {
     clearSupervisorHints();
-    process.env.OPENCLAW_NO_RESPAWN = "1";
+    process.env.GRANTED_NO_RESPAWN = "1";
 
     const result = respawnGatewayProcessForUpdate();
 
-    expect(result).toEqual({ mode: "disabled", detail: "OPENCLAW_NO_RESPAWN" });
+    expect(result).toEqual({ mode: "disabled", detail: "GRANTED_NO_RESPAWN" });
     expect(spawnMock).not.toHaveBeenCalled();
   });
 
@@ -470,7 +470,7 @@ describe("respawnGatewayProcessForUpdate", () => {
   });
 
   it("returns failed when update detached respawn throws", () => {
-    delete process.env.OPENCLAW_NO_RESPAWN;
+    delete process.env.GRANTED_NO_RESPAWN;
     clearSupervisorHints();
     setPlatform("linux");
 

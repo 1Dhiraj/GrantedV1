@@ -63,8 +63,8 @@ describe("Docker plugin selection", () => {
         encoding: "utf8",
         env: {
           PATH: process.env.PATH,
-          OPENCLAW_LIVE_PROVIDERS: "ollama",
-          OPENCLAW_LIVE_GATEWAY_MODELS: "mistral/mistral-large-latest",
+          GRANTED_LIVE_PROVIDERS: "ollama",
+          GRANTED_LIVE_GATEWAY_MODELS: "mistral/mistral-large-latest",
         },
       },
     );
@@ -154,9 +154,9 @@ describe("Docker plugin selection", () => {
     writePlugin(extensionsRoot, "other-source", "shared");
 
     for (const [selection, message] of [
-      ["missing-plugin", "unknown OPENCLAW_EXTENSIONS plugin id: missing-plugin"],
-      ["../invalid", "invalid OPENCLAW_EXTENSIONS plugin id: ../invalid"],
-      ["shared", "ambiguous OPENCLAW_EXTENSIONS plugin id: shared"],
+      ["missing-plugin", "unknown GRANTED_EXTENSIONS plugin id: missing-plugin"],
+      ["../invalid", "invalid GRANTED_EXTENSIONS plugin id: ../invalid"],
+      ["shared", "ambiguous GRANTED_EXTENSIONS plugin id: shared"],
     ] as const) {
       const result = runSelector(extensionsRoot, selection);
       expect(result.status).toBe(1);

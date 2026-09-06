@@ -17,9 +17,9 @@ import {
 const port =
   process.env.MOCK_PORT != null
     ? readTcpPortEnv("MOCK_PORT")
-    : readTcpPortEnv("OPENCLAW_MOCK_OPENAI_PORT");
+    : readTcpPortEnv("GRANTED_MOCK_OPENAI_PORT");
 const bindHost = process.env.MOCK_BIND_HOST ?? "127.0.0.1";
-const successMarker = process.env.SUCCESS_MARKER ?? "OPENCLAW_E2E_OK";
+const successMarker = process.env.SUCCESS_MARKER ?? "GRANTED_E2E_OK";
 const requestLog = process.env.MOCK_REQUEST_LOG;
 // Absolute record ordinal, stamped at the producer: consumers expose a bounded
 // tail of the log, so entries must carry their own position. The server starts
@@ -493,7 +493,7 @@ function preambleThenToolCallEvents(preamble, name, args) {
 /** Two-turn draft scenario: preamble + shell call, then a final answer. */
 function progressDraftEvents(body, bodyText) {
   const allText = collectText(body).join("\n");
-  if (!allText.includes("OPENCLAW_E2E_DRAFTPROOF")) {
+  if (!allText.includes("GRANTED_E2E_DRAFTPROOF")) {
     return null;
   }
   if (!collectFunctionCallOutputText(body)) {
@@ -504,7 +504,7 @@ function progressDraftEvents(body, bodyText) {
       command: "sleep 3 && echo openclaw-draft-proof",
     });
   }
-  return responseEvents("OPENCLAW_E2E_DRAFTPROOF");
+  return responseEvents("GRANTED_E2E_DRAFTPROOF");
 }
 
 function toolCallEvents(name, args) {
@@ -655,7 +655,7 @@ function writeImageGeneration(res) {
 }
 
 function resolveResponseText(bodyText) {
-  const matches = Array.from(bodyText.matchAll(/\bOPENCLAW_E2E_[A-Z0-9]+(?:_[A-Z0-9]+)*\b/gu));
+  const matches = Array.from(bodyText.matchAll(/\bGRANTED_E2E_[A-Z0-9]+(?:_[A-Z0-9]+)*\b/gu));
   return matches.at(-1)?.[0] ?? successMarker;
 }
 
@@ -904,7 +904,7 @@ const server = http.createServer((req, res) => {
       // Progress-draft proof needs assistant content followed by a tool call in
       // one streamed turn: the completions transport tags that leading text as
       // commentary, which channels render as the draft status headline.
-      if (!responseControl && bodyText.includes("OPENCLAW_E2E_DRAFTPROOF")) {
+      if (!responseControl && bodyText.includes("GRANTED_E2E_DRAFTPROOF")) {
         const messages = Array.isArray(body.messages) ? body.messages : [];
         const toolTurnDone = messages.some((message) => message?.role === "tool");
         if (!toolTurnDone) {
@@ -921,7 +921,7 @@ const server = http.createServer((req, res) => {
         // gate. Without this the whole turn finishes in well under a second and
         // no draft is created, which is correct behavior but proves nothing.
         await delay(readPositiveIntEnv("MOCK_DRAFTPROOF_FINAL_DELAY_MS", 6000));
-        writeChatCompletion(res, body.stream !== false, "OPENCLAW_E2E_DRAFTPROOF");
+        writeChatCompletion(res, body.stream !== false, "GRANTED_E2E_DRAFTPROOF");
         return;
       }
       const response = selectedResponse?.response ?? selectCurrentResponse().response;

@@ -181,7 +181,7 @@ async function runVitestSpec(spec: VitestRunSpec, reports: VitestReportOwner) {
 }
 
 function applyDefaultParallelVitestWorkerBudget(specs: VitestRunSpec[], env: NodeJS.ProcessEnv) {
-  if (env.OPENCLAW_VITEST_MAX_WORKERS || env.OPENCLAW_TEST_WORKERS || isCiLikeEnv(env)) {
+  if (env.GRANTED_VITEST_MAX_WORKERS || env.GRANTED_TEST_WORKERS || isCiLikeEnv(env)) {
     return specs;
   }
   const { vitestMaxWorkers } = resolveLocalFullSuiteProfile(env);
@@ -189,7 +189,7 @@ function applyDefaultParallelVitestWorkerBudget(specs: VitestRunSpec[], env: Nod
     ...spec,
     env: {
       ...spec.env,
-      OPENCLAW_VITEST_MAX_WORKERS: String(vitestMaxWorkers),
+      GRANTED_VITEST_MAX_WORKERS: String(vitestMaxWorkers),
     },
   }));
 }
@@ -433,8 +433,7 @@ export async function runTestProjects(exitBySignal: typeof exitVitestBySignal) {
           configs: [spec.config],
           // Owned lists are written when readers start; inherited lists remain caller-owned.
           includePatterns:
-            spec.includePatterns ??
-            loadPatternListFromEnv("OPENCLAW_VITEST_INCLUDE_FILE", spec.env),
+            spec.includePatterns ?? loadPatternListFromEnv("GRANTED_VITEST_INCLUDE_FILE", spec.env),
         })),
         baseEnv,
       );
@@ -456,7 +455,7 @@ export async function runTestProjects(exitBySignal: typeof exitVitestBySignal) {
       changedTargetArgs === null &&
       !runSpecs.some((spec) => spec.watchMode);
     const isExplicitParallelMultiConfigRun =
-      Boolean(baseEnv.OPENCLAW_TEST_PROJECTS_PARALLEL) &&
+      Boolean(baseEnv.GRANTED_TEST_PROJECTS_PARALLEL) &&
       runSpecs.length > 1 &&
       !runSpecs.some((spec) => spec.watchMode);
     const isParallelShardRun =

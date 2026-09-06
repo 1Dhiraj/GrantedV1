@@ -23,7 +23,7 @@ import { parseClawManifest } from "./schema.js";
 import type { ClawSourceIdentity } from "./types.js";
 
 const tempDirs = useAutoCleanupTempDirTracker(afterEach);
-const envSnapshot = captureEnv(["OPENCLAW_STATE_DIR"]);
+const envSnapshot = captureEnv(["GRANTED_STATE_DIR"]);
 
 afterEach(() => {
   closeOpenClawStateDatabaseForTest();
@@ -65,8 +65,8 @@ describe("Claw exec approvals removal", () => {
     const addPlan = await buildApprovalFixture();
 
     await withTempHomeConfig({}, async ({ home }) => {
-      const env = { OPENCLAW_STATE_DIR: join(home, ".openclaw") };
-      setTestEnvValue("OPENCLAW_STATE_DIR", env.OPENCLAW_STATE_DIR);
+      const env = { GRANTED_STATE_DIR: join(home, ".openclaw") };
+      setTestEnvValue("GRANTED_STATE_DIR", env.GRANTED_STATE_DIR);
       let config: OpenClawConfig = {};
       await applyClawAddPlan(addPlan, {
         consentPlanIntegrity: addPlan.planIntegrity,
@@ -131,8 +131,8 @@ describe("Claw exec approvals removal", () => {
     const addPlan = await buildApprovalFixture();
 
     await withTempHomeConfig({}, async ({ home }) => {
-      const env = { OPENCLAW_STATE_DIR: join(home, ".openclaw") };
-      setTestEnvValue("OPENCLAW_STATE_DIR", env.OPENCLAW_STATE_DIR);
+      const env = { GRANTED_STATE_DIR: join(home, ".openclaw") };
+      setTestEnvValue("GRANTED_STATE_DIR", env.GRANTED_STATE_DIR);
       let config: OpenClawConfig = {};
       await applyClawAddPlan(addPlan, {
         consentPlanIntegrity: addPlan.planIntegrity,
@@ -169,8 +169,8 @@ describe("Claw exec approvals removal", () => {
     const addPlan = await buildApprovalFixture();
 
     await withTempHomeConfig({}, async ({ home }) => {
-      const env = { OPENCLAW_STATE_DIR: join(home, ".openclaw") };
-      setTestEnvValue("OPENCLAW_STATE_DIR", env.OPENCLAW_STATE_DIR);
+      const env = { GRANTED_STATE_DIR: join(home, ".openclaw") };
+      setTestEnvValue("GRANTED_STATE_DIR", env.GRANTED_STATE_DIR);
       let config: OpenClawConfig = {};
       await applyClawAddPlan(addPlan, {
         consentPlanIntegrity: addPlan.planIntegrity,
@@ -221,7 +221,7 @@ describe("Claw exec approvals removal", () => {
     { label: "rolls back the journal it opened", seedJournal: false },
   ])("$label when the config commit fails", async ({ seedJournal }) => {
     const root = tempDirs.make("openclaw-claw-remove-journal-");
-    setTestEnvValue("OPENCLAW_STATE_DIR", join(root, "state"));
+    setTestEnvValue("GRANTED_STATE_DIR", join(root, "state"));
     if (seedJournal) {
       beginAgentDeletion({
         agentId: "worker",

@@ -30,7 +30,7 @@ describe("renderTriagePrompt", () => {
     expect(prompt.indexOf("[error]")).toBeLessThan(prompt.indexOf("[warning]"));
     expect(prompt.indexOf("[warning]")).toBeLessThan(prompt.indexOf("[info]"));
     expect(prompt).toContain("Fix: Run `openclaw doctor --fix`.");
-    expect(prompt).toContain("Sanitized ZIP: $OPENCLAW_STATE_DIR/diagnostics.zip");
+    expect(prompt).toContain("Sanitized ZIP: $GRANTED_STATE_DIR/diagnostics.zip");
     expect(prompt).toContain(
       "The diagnostics archive excludes secrets, tokens, raw chat payloads, and raw logs",
     );
@@ -51,7 +51,7 @@ describe("renderTriagePrompt", () => {
     });
 
     expect(prompt).toContain(
-      "[error] ~/checks/config: Config: $OPENCLAW_STATE_DIR/openclaw.json needs repair",
+      "[error] ~/checks/config: Config: $GRANTED_STATE_DIR/openclaw.json needs repair",
     );
     expect(prompt).toContain("Fix: Inspect ~/logs/gateway.log");
     expect(prompt).toContain("Sanitized ZIP: ~/Downloads/diagnostics.zip");
@@ -193,7 +193,7 @@ describe("renderTriagePrompt", () => {
         kind: "unavailable" as const,
         reason: `Gateway config: ${redaction.stateDir}/openclaw.json`,
       },
-      text: "Diagnostics export unavailable: Gateway config: $OPENCLAW_STATE_DIR/openclaw.json",
+      text: "Diagnostics export unavailable: Gateway config: $GRANTED_STATE_DIR/openclaw.json",
     },
     {
       bundle: { kind: "deferred" as const },

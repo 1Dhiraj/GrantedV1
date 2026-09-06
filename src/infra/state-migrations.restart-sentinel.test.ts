@@ -41,7 +41,7 @@ describe("legacy restart sentinel migration", () => {
 
   function useStateDir(): { env: NodeJS.ProcessEnv; stateDir: string } {
     const stateDir = tempDirs.make("openclaw-restart-sentinel-migration-");
-    return { env: { ...process.env, OPENCLAW_STATE_DIR: stateDir }, stateDir };
+    return { env: { ...process.env, GRANTED_STATE_DIR: stateDir }, stateDir };
   }
 
   function payload(ts = 123): RestartSentinelPayload {

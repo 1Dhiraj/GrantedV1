@@ -76,7 +76,7 @@ describe("memory wiki source sync malformed human Notes", () => {
       ].join("\n");
       await fs.writeFile(pageAbsPath, pageContent, "utf8");
 
-      const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+      const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
       const store = createMemoryWikiSourceSyncStateStore(<T>(options: OpenKeyedStoreOptions) =>
         createPluginStateKeyedStoreForTests<T>("memory-wiki", { ...options, env }),
       );

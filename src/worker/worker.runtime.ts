@@ -67,10 +67,10 @@ async function assertWorkerDirectory(pathname: string, label: string): Promise<s
 export async function createWorkerRuntimeEnvironment(sessionId: string) {
   const stateDir = await mkdtemp(path.join(tmpdir(), "openclaw-worker-"));
   await chmod(stateDir, 0o700);
-  const previousStateDir = process.env.OPENCLAW_STATE_DIR;
-  const previousConfigPath = process.env.OPENCLAW_CONFIG_PATH;
-  process.env.OPENCLAW_STATE_DIR = stateDir;
-  process.env.OPENCLAW_CONFIG_PATH = path.join(stateDir, "openclaw.json");
+  const previousStateDir = process.env.GRANTED_STATE_DIR;
+  const previousConfigPath = process.env.GRANTED_CONFIG_PATH;
+  process.env.GRANTED_STATE_DIR = stateDir;
+  process.env.GRANTED_CONFIG_PATH = path.join(stateDir, "openclaw.json");
   let closing: Promise<void> | undefined;
   return {
     stateDir,
@@ -83,19 +83,19 @@ export async function createWorkerRuntimeEnvironment(sessionId: string) {
         await waitForExecScope(scopeKey);
         // Exec finalizers can open state; release its handle before Windows removes the file.
         closeOpenClawStateDatabaseByPath(
-          resolveOpenClawStateSqlitePath({ OPENCLAW_STATE_DIR: stateDir }),
+          resolveOpenClawStateSqlitePath({ GRANTED_STATE_DIR: stateDir }),
         );
         // Process completion writes its task outcome into this environment's state.
         // Restore the ambient directory only after those callbacks have settled.
         if (previousStateDir === undefined) {
-          delete process.env.OPENCLAW_STATE_DIR;
+          delete process.env.GRANTED_STATE_DIR;
         } else {
-          process.env.OPENCLAW_STATE_DIR = previousStateDir;
+          process.env.GRANTED_STATE_DIR = previousStateDir;
         }
         if (previousConfigPath === undefined) {
-          delete process.env.OPENCLAW_CONFIG_PATH;
+          delete process.env.GRANTED_CONFIG_PATH;
         } else {
-          process.env.OPENCLAW_CONFIG_PATH = previousConfigPath;
+          process.env.GRANTED_CONFIG_PATH = previousConfigPath;
         }
         await rm(stateDir, { recursive: true, force: true });
       })()),

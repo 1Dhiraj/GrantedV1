@@ -32,7 +32,7 @@ function assert(condition, message) {
 
 function configPath() {
   return (
-    process.env.OPENCLAW_CONFIG_PATH ??
+    process.env.GRANTED_CONFIG_PATH ??
     path.join(process.env.HOME ?? "", ".openclaw", "openclaw.json")
   );
 }
@@ -53,7 +53,7 @@ function authProfilesPath() {
 }
 
 function stateDir() {
-  return process.env.OPENCLAW_STATE_DIR ?? path.dirname(configPath());
+  return process.env.GRANTED_STATE_DIR ?? path.dirname(configPath());
 }
 
 function readStateText() {
@@ -171,7 +171,7 @@ function assertImageDescribe() {
   assert(payload.ok === true, `image describe failed: ${JSON.stringify(payload)}`);
   assert(payload.capability === "image.describe", "wrong image describe capability");
   const output = payload.outputs?.[0];
-  assert(output?.text?.includes("OPENCLAW_E2E_OK"), "image description marker missing");
+  assert(output?.text?.includes("GRANTED_E2E_OK"), "image description marker missing");
   assert(output.provider === "openai", `unexpected image provider: ${output?.provider}`);
   assert(
     fileContainsText(requestLogPath, "/v1/responses"),

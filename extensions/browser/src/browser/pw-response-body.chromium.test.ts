@@ -11,7 +11,7 @@ import { getFreePort } from "./test-port.js";
 
 const tempDirs = useAutoCleanupTempDirTracker(afterEach);
 
-describe.runIf(process.env.OPENCLAW_BROWSER_RESPONSE_E2E === "1")(
+describe.runIf(process.env.GRANTED_BROWSER_RESPONSE_E2E === "1")(
   "Chromium response body deadline",
   () => {
     it("settles a streamed response without closing the tab or consuming late body bytes", async () => {

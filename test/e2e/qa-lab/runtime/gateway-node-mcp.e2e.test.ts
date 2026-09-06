@@ -122,9 +122,9 @@ describe("Gateway and node-host MCP live process parity", () => {
           transportBaseUrl: "http://127.0.0.1",
           controlUiEnabled: false,
           runtimeEnvPatch: {
-            OPENCLAW_SKIP_CHANNELS: "1",
-            OPENCLAW_SKIP_PROVIDERS: "1",
-            OPENCLAW_TEST_MINIMAL_GATEWAY: "1",
+            GRANTED_SKIP_CHANNELS: "1",
+            GRANTED_SKIP_PROVIDERS: "1",
+            GRANTED_TEST_MINIMAL_GATEWAY: "1",
           },
           mutateConfig: (cfg) => {
             return {
@@ -161,13 +161,13 @@ describe("Gateway and node-host MCP live process parity", () => {
           home: nodeHome,
           tempDir: nodeTempDir,
           extra: {
-            OPENCLAW_HOME: nodeHome,
-            OPENCLAW_STATE_DIR: nodeStateDir,
-            OPENCLAW_CONFIG_PATH: nodeConfigPath,
-            OPENCLAW_GATEWAY_TOKEN: gateway.token,
-            OPENCLAW_ALLOW_INSECURE_PRIVATE_WS: "1",
-            OPENCLAW_SKIP_CHANNELS: "1",
-            OPENCLAW_SKIP_PROVIDERS: "1",
+            GRANTED_HOME: nodeHome,
+            GRANTED_STATE_DIR: nodeStateDir,
+            GRANTED_CONFIG_PATH: nodeConfigPath,
+            GRANTED_GATEWAY_TOKEN: gateway.token,
+            GRANTED_ALLOW_INSECURE_PRIVATE_WS: "1",
+            GRANTED_SKIP_CHANNELS: "1",
+            GRANTED_SKIP_PROVIDERS: "1",
           },
         });
 

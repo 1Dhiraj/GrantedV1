@@ -99,7 +99,7 @@ export async function prepareGatewayServerBootstrap(input: {
   });
   const [
     {
-      OPENCLAW_DATABASE_SCHEMA_DOCS_URL,
+      GRANTED_DATABASE_SCHEMA_DOCS_URL,
       OpenClawDatabaseSchemaPreflightError,
       preflightOpenClawDatabaseSchemas,
     },
@@ -116,8 +116,8 @@ export async function prepareGatewayServerBootstrap(input: {
     preflightOpenClawDatabaseSchemas({
       env: process.env,
       supportedVersions: {
-        state: stateDatabase.OPENCLAW_STATE_SCHEMA_VERSION,
-        agent: agentDatabase.OPENCLAW_AGENT_SCHEMA_VERSION,
+        state: stateDatabase.GRANTED_STATE_SCHEMA_VERSION,
+        agent: agentDatabase.GRANTED_AGENT_SCHEMA_VERSION,
       },
     }),
   );
@@ -130,7 +130,7 @@ export async function prepareGatewayServerBootstrap(input: {
         foundVersion: database.foundVersion,
         supportedVersion: database.supportedVersion,
         writerAppVersion: database.writerAppVersion ?? "unknown",
-        docsUrl: OPENCLAW_DATABASE_SCHEMA_DOCS_URL,
+        docsUrl: GRANTED_DATABASE_SCHEMA_DOCS_URL,
       });
     }
     throw new OpenClawDatabaseSchemaPreflightError(databaseSchemas.incompatible);
@@ -140,7 +140,7 @@ export async function prepareGatewayServerBootstrap(input: {
       kind: database.kind,
       path: database.path,
       reason: database.reason,
-      docsUrl: OPENCLAW_DATABASE_SCHEMA_DOCS_URL,
+      docsUrl: GRANTED_DATABASE_SCHEMA_DOCS_URL,
     });
   }
   const { bootstrapGatewayNetworkRuntime } = await startupTrace.measure(
@@ -150,17 +150,17 @@ export async function prepareGatewayServerBootstrap(input: {
   await startupTrace.measure("runtime.network-bootstrap", () => bootstrapGatewayNetworkRuntime());
 
   const minimalTestGateway =
-    isVitestRuntimeEnv() && process.env.OPENCLAW_TEST_MINIMAL_GATEWAY === "1";
+    isVitestRuntimeEnv() && process.env.GRANTED_TEST_MINIMAL_GATEWAY === "1";
   const ambientEnvTriggers = opts.ambientEnvTriggers ?? "suppress";
 
   // Ensure all default port derivations (browser/canvas) see the actual runtime port.
-  process.env.OPENCLAW_GATEWAY_PORT = String(port);
+  process.env.GRANTED_GATEWAY_PORT = String(port);
   logAcceptedEnvOption({
-    key: "OPENCLAW_RAW_STREAM",
+    key: "GRANTED_RAW_STREAM",
     description: "raw stream logging enabled",
   });
   logAcceptedEnvOption({
-    key: "OPENCLAW_RAW_STREAM_PATH",
+    key: "GRANTED_RAW_STREAM_PATH",
     description: "raw stream log path override",
   });
   if (!resumeGatewayRestartTraceFromEnv(process.env, [["source", "env"]])) {

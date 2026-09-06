@@ -163,8 +163,8 @@ let previousAppliedHash: string | null = null;
 async function makeVerificationContext() {
   const stateDir = systemAgentTempDirs.make("openclaw-setup-verification-");
   const configPath = path.join(stateDir, "openclaw.json");
-  vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
-  vi.stubEnv("OPENCLAW_CONFIG_PATH", configPath);
+  vi.stubEnv("GRANTED_STATE_DIR", stateDir);
+  vi.stubEnv("GRANTED_CONFIG_PATH", configPath);
   fs.writeFileSync(configPath, "{}\n");
   const snapshot = await readConfigFileSnapshot();
   setRuntimeConfigAppliedHash(hashRuntimeConfigValue(snapshot.sourceConfig));
@@ -893,8 +893,8 @@ describe("openclaw.chat", () => {
     const approvalStarted = createDeferred();
     const releaseApproval = createDeferred();
     const stateDir = systemAgentTempDirs.make("openclaw-approved-gateway-restart-");
-    vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
-    vi.stubEnv("OPENCLAW_CONFIG_PATH", path.join(stateDir, "openclaw.json"));
+    vi.stubEnv("GRANTED_STATE_DIR", stateDir);
+    vi.stubEnv("GRANTED_CONFIG_PATH", path.join(stateDir, "openclaw.json"));
     fs.writeFileSync(path.join(stateDir, "openclaw.json"), JSON.stringify(verifiedConfig));
     const runGatewayRestart = vi.fn(async () => {
       approvalStarted.resolve();

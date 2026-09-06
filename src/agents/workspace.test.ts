@@ -60,9 +60,9 @@ afterEach(async () => {
 });
 
 describe("resolveDefaultAgentWorkspaceDir", () => {
-  it("uses OPENCLAW_HOME for default workspace resolution", () => {
+  it("uses GRANTED_HOME for default workspace resolution", () => {
     const dir = resolveDefaultAgentWorkspaceDir({
-      OPENCLAW_HOME: "/srv/openclaw-home",
+      GRANTED_HOME: "/srv/openclaw-home",
       HOME: "/home/other",
     } as NodeJS.ProcessEnv);
 
@@ -71,8 +71,8 @@ describe("resolveDefaultAgentWorkspaceDir", () => {
 
   it("roots named profile workspaces inside the profile state directory", () => {
     const dir = resolveDefaultAgentWorkspaceDir({
-      OPENCLAW_PROFILE: "work",
-      OPENCLAW_HOME: "/srv/openclaw-home",
+      GRANTED_PROFILE: "work",
+      GRANTED_HOME: "/srv/openclaw-home",
       HOME: "/home/other",
     } as NodeJS.ProcessEnv);
 
@@ -82,17 +82,17 @@ describe("resolveDefaultAgentWorkspaceDir", () => {
   it("rejects invalid environment-only profile names", () => {
     expect(() =>
       resolveDefaultAgentWorkspaceDir({
-        OPENCLAW_PROFILE: "../escape",
+        GRANTED_PROFILE: "../escape",
         HOME: "/home/peter",
       } as NodeJS.ProcessEnv),
     ).toThrow('Invalid profile name: "../escape"');
   });
 
-  it("prefers OPENCLAW_WORKSPACE_DIR for default workspace resolution", () => {
+  it("prefers GRANTED_WORKSPACE_DIR for default workspace resolution", () => {
     const dir = resolveDefaultAgentWorkspaceDir({
-      OPENCLAW_WORKSPACE_DIR: "/srv/openclaw-workspace",
-      OPENCLAW_PROFILE: "work",
-      OPENCLAW_HOME: "/srv/openclaw-home",
+      GRANTED_WORKSPACE_DIR: "/srv/openclaw-workspace",
+      GRANTED_PROFILE: "work",
+      GRANTED_HOME: "/srv/openclaw-home",
       HOME: "/home/other",
     } as NodeJS.ProcessEnv);
 

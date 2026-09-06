@@ -113,7 +113,7 @@ async function withKnownMarketplaceRegistry<T>(
     await fs.mkdir(path.dirname(registryPath), { recursive: true });
     await fs.mkdir(openClawHome, { recursive: true });
     await fs.writeFile(registryPath, JSON.stringify(marketplaces));
-    return await withEnvAsync({ HOME: homeDir, OPENCLAW_HOME: openClawHome }, async () =>
+    return await withEnvAsync({ HOME: homeDir, GRANTED_HOME: openClawHome }, async () =>
       run(homeDir),
     );
   });
@@ -567,7 +567,7 @@ describe("marketplace plugins", () => {
       );
 
       const shortcut = await withEnvAsync(
-        { HOME: homeDir, OPENCLAW_HOME: openClawHome },
+        { HOME: homeDir, GRANTED_HOME: openClawHome },
         async () => await resolveMarketplaceInstallShortcut("superpowers@claude-plugins-official"),
       );
 

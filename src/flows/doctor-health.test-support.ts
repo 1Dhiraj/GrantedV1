@@ -122,7 +122,7 @@ vi.mock("../config/config.js", async (importOriginal) => ({
 
 vi.mock("../infra/update-doctor-result.js", () => ({
   UPDATE_POST_INSTALL_DOCTOR_ADVISORY_EXIT_CODE: 86,
-  UPDATE_POST_INSTALL_DOCTOR_RESULT_PATH_ENV: "OPENCLAW_UPDATE_POST_INSTALL_DOCTOR_RESULT_PATH",
+  UPDATE_POST_INSTALL_DOCTOR_RESULT_PATH_ENV: "GRANTED_UPDATE_POST_INSTALL_DOCTOR_RESULT_PATH",
   writeUpdatePostInstallDoctorResult: mocks.writeUpdatePostInstallDoctorResult,
 }));
 

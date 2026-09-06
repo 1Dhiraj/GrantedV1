@@ -490,7 +490,7 @@ export async function collectPluginsTrustFindings(params: {
   }
 
   const hookInstalls = readHookInstalls({
-    env: { ...process.env, OPENCLAW_STATE_DIR: params.stateDir },
+    env: { ...process.env, GRANTED_STATE_DIR: params.stateDir },
   });
   const npmHookInstalls = Object.entries(hookInstalls).filter(
     ([, record]) => record?.source === "npm",

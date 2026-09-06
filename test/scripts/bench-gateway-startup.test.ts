@@ -147,8 +147,8 @@ describe("gateway startup benchmark script", () => {
       name: "gateway default",
     });
 
-    expect(env.OPENCLAW_LOCAL_CHECK).toBeUndefined();
-    expect(env.OPENCLAW_GATEWAY_STARTUP_TRACE).toBe("1");
+    expect(env.GRANTED_LOCAL_CHECK).toBeUndefined();
+    expect(env.GRANTED_GATEWAY_STARTUP_TRACE).toBe("1");
   });
 
   it("forces incident packaged-plugin cases to load built plugin entries", () => {
@@ -163,17 +163,17 @@ describe("gateway startup benchmark script", () => {
       benchCase,
     );
 
-    expect(env.OPENCLAW_DISABLE_BUNDLED_ENTRY_SOURCE_FALLBACK).toBe("1");
-    expect(env.OPENCLAW_DISABLE_BUNDLED_SOURCE_OVERLAYS).toBeUndefined();
+    expect(env.GRANTED_DISABLE_BUNDLED_ENTRY_SOURCE_FALLBACK).toBe("1");
+    expect(env.GRANTED_DISABLE_BUNDLED_SOURCE_OVERLAYS).toBeUndefined();
   });
 
   it("requires the full packaged plugin inventory even when a build filter is set", () => {
-    const filteredEnv = { ...process.env, OPENCLAW_BUNDLED_PLUGIN_BUILD_IDS: "telegram" };
+    const filteredEnv = { ...process.env, GRANTED_BUNDLED_PLUGIN_BUILD_IDS: "telegram" };
 
     expect(testing.listIncidentPackagedPluginArtifacts(filteredEnv)).toEqual(
       testing.listIncidentPackagedPluginArtifacts({
         ...process.env,
-        OPENCLAW_BUNDLED_PLUGIN_BUILD_IDS: undefined,
+        GRANTED_BUNDLED_PLUGIN_BUILD_IDS: undefined,
       }),
     );
   });

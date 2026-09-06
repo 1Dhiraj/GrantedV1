@@ -77,7 +77,7 @@ describe("exhausted delivery producer recovery", () => {
 
   function queueStatus(id: string) {
     return openOpenClawStateDatabase({
-      env: { ...process.env, OPENCLAW_STATE_DIR: tmpDir() },
+      env: { ...process.env, GRANTED_STATE_DIR: tmpDir() },
     })
       .db.prepare("SELECT status FROM delivery_queue_entries WHERE queue_name = ? AND id = ?")
       .get(OUTBOUND_DELIVERY_QUEUE_NAME, id)?.status;
@@ -379,7 +379,7 @@ describe("exhausted delivery producer recovery", () => {
       .mockRejectedValueOnce(new Error("synthetic owner fault"));
     await recover("startup");
     const database = openOpenClawStateDatabase({
-      env: { ...process.env, OPENCLAW_STATE_DIR: tmpDir() },
+      env: { ...process.env, GRANTED_STATE_DIR: tmpDir() },
     });
     database.db
       .prepare("UPDATE schema_meta SET app_version = ? WHERE meta_key = 'primary'")

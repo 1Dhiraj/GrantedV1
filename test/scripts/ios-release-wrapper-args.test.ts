@@ -132,7 +132,7 @@ describe("iOS release shell wrapper arguments", () => {
       ["--version", "2026.7.2", "--revision", "1", "--build-number", "3"],
       {
         IOS_DEVELOPMENT_TEAM: "FWJYW4S8P8",
-        OPENCLAW_PUSH_RELAY_BASE_URL: "https://relay.example.com",
+        GRANTED_PUSH_RELAY_BASE_URL: "https://relay.example.com",
       },
     );
 
@@ -145,7 +145,7 @@ describe("iOS release shell wrapper arguments", () => {
   it("requires stamped build metadata for App Store release preparation", () => {
     const script = readFileSync(path.join(process.cwd(), "scripts/ios-release-prepare.sh"), "utf8");
 
-    expect(script).toContain("OPENCLAW_REQUIRE_BUILD_METADATA=1");
+    expect(script).toContain("GRANTED_REQUIRE_BUILD_METADATA=1");
     expect(script).toContain(
       'RELEASE_SOURCE_HELPER="${ROOT_DIR}/scripts/apple-release-source-check.sh"',
     );
@@ -167,7 +167,7 @@ describe("iOS release shell wrapper arguments", () => {
     writeFileSync(
       bundle,
       "#!/usr/bin/env bash\n" +
-        '[[ "$BUNDLE_GEMFILE" == "$OPENCLAW_FASTLANE_EXPECTED_GEMFILE" ]] || exit 91\n' +
+        '[[ "$BUNDLE_GEMFILE" == "$GRANTED_FASTLANE_EXPECTED_GEMFILE" ]] || exit 91\n' +
         '[[ "${1:-}" == "_2.6.9_" ]] || exit 92\n' +
         '[[ "${2:-}" != "check" ]] || exit 0\n' +
         '[[ "${2:-}" == "exec" && "${3:-}" == "fastlane" ]] || exit 93\n' +
@@ -190,7 +190,7 @@ describe("iOS release shell wrapper arguments", () => {
         env: {
           ...process.env,
           BUNDLE_GEMFILE: options.bundleGemfile ?? "",
-          OPENCLAW_FASTLANE_EXPECTED_GEMFILE: gemfilePath,
+          GRANTED_FASTLANE_EXPECTED_GEMFILE: gemfilePath,
           PATH: `${binDir}:${process.env.PATH ?? ""}`,
         },
         encoding: "utf8",

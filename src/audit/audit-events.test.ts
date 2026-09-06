@@ -25,7 +25,7 @@ let auditTestRunSequence = 0;
 let currentAuditTestRunId = "run-test-0";
 
 function createDatabaseOptions() {
-  return { env: { OPENCLAW_STATE_DIR: makeTempDir(tempDirs, "openclaw-audit-") } };
+  return { env: { GRANTED_STATE_DIR: makeTempDir(tempDirs, "openclaw-audit-") } };
 }
 
 function auditInput(overrides: Partial<AuditEventInput> = {}): AuditEventInput {

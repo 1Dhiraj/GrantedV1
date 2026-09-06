@@ -150,7 +150,7 @@ function formatBrowserDoctorGatewayError(error: unknown): string {
   if (!isGatewaySecretRefUnavailableErrorShape(error)) {
     return String(error);
   }
-  return "Gateway auth SecretRef is unavailable in this command path; browser doctor cannot reach the admin-scoped browser.request endpoint. Set OPENCLAW_GATEWAY_TOKEN or OPENCLAW_GATEWAY_PASSWORD, then retry.";
+  return "Gateway auth SecretRef is unavailable in this command path; browser doctor cannot reach the admin-scoped browser.request endpoint. Set GRANTED_GATEWAY_TOKEN or GRANTED_GATEWAY_PASSWORD, then retry.";
 }
 
 async function runBrowserDoctor(parent: BrowserParentOpts, profile?: string, deep?: boolean) {

@@ -302,7 +302,7 @@ function createCredentialReloadHarness(options: CredentialReloadHarnessOptions =
 }
 
 // Other gateway test helpers (e.g. test-helpers.mocks.ts, test-helpers.server.ts)
-// set OPENCLAW_SKIP_CHANNELS / OPENCLAW_SKIP_PROVIDERS at module load. When a
+// set GRANTED_SKIP_CHANNELS / GRANTED_SKIP_PROVIDERS at module load. When a
 // shared vitest worker imports those helpers before this file's tests run,
 // the leaked env vars route the secrets.reload skip-mode branch and prevent
 // the channel restart loop from firing. Reset them before every test so this
@@ -312,8 +312,8 @@ beforeEach(() => {
   // exercised in server-secrets-reload.model-runtime.test.ts.
   vi.spyOn(modelRuntimeReload, "refreshModelRuntimeAfterHotReload").mockResolvedValue(undefined);
   resetPreparedModelRuntimeSnapshotsForTest();
-  delete process.env.OPENCLAW_SKIP_CHANNELS;
-  delete process.env.OPENCLAW_SKIP_PROVIDERS;
+  delete process.env.GRANTED_SKIP_CHANNELS;
+  delete process.env.GRANTED_SKIP_PROVIDERS;
   secretStoreMocks.deleteEntry.mockReset();
   secretStoreMocks.listEntries.mockReset().mockReturnValue([]);
   secretStoreMocks.purgeEntries.mockReset().mockReturnValue(0);
@@ -324,8 +324,8 @@ afterEach(() => {
   vi.restoreAllMocks();
   resetPreparedModelRuntimeSnapshotsForTest();
   clearSecretsRuntimeSnapshot();
-  delete process.env.OPENCLAW_SKIP_CHANNELS;
-  delete process.env.OPENCLAW_SKIP_PROVIDERS;
+  delete process.env.GRANTED_SKIP_CHANNELS;
+  delete process.env.GRANTED_SKIP_PROVIDERS;
 });
 
 describe("gateway aux handlers", () => {
@@ -840,7 +840,7 @@ describe("gateway aux handlers", () => {
 
   it("fails reload when channel restarts are required but skip flags block them", async () => {
     const buildReloadPlan = buildRestartChannelsPlan("slack");
-    process.env.OPENCLAW_SKIP_CHANNELS = "1";
+    process.env.GRANTED_SKIP_CHANNELS = "1";
     activateSnapshot(slackConfig("old-slack-secret"));
     const activateRuntimeSecrets = mockResolvedSecrets(slackConfig("new-slack-secret"));
 

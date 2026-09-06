@@ -19,7 +19,7 @@ describe("gateway startup secret surfaces", () => {
     expect(resolveGatewayStartupSourceConfig(config, {})).toBe(config);
   });
 
-  it.each(["OPENCLAW_SKIP_CHANNELS", "OPENCLAW_SKIP_PROVIDERS"] as const)(
+  it.each(["GRANTED_SKIP_CHANNELS", "GRANTED_SKIP_PROVIDERS"] as const)(
     "preserves explicit %s behavior",
     (key) => {
       expect(

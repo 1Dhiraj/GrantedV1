@@ -131,7 +131,7 @@ describe("plugin npm extended-stable workflow", () => {
       "${{ inputs.npm_dist_tag == 'extended-stable' && inputs.npm_dist_tag || '' }}";
     for (const name of ["Preview publish command", "Preview npm pack contents"]) {
       expect(step(parsed.jobs?.preview_plugin_pack, name).env).toMatchObject({
-        OPENCLAW_PLUGIN_NPM_PUBLISH_TAG: expectedOverride,
+        GRANTED_PLUGIN_NPM_PUBLISH_TAG: expectedOverride,
       });
     }
   });

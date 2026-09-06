@@ -398,7 +398,7 @@ describe("write-cli-startup-metadata", () => {
           sourceRootDir: tempRoot,
           renderBundledRootHelpText: async () => "Usage: openclaw\n",
           renderSourceBrowserHelpText: (renderContext, taskContext) => {
-            renderStateDir = renderContext.env?.OPENCLAW_STATE_DIR ?? "";
+            renderStateDir = renderContext.env?.GRANTED_STATE_DIR ?? "";
             if (!taskContext) {
               throw new Error("missing render task context");
             }
@@ -679,7 +679,7 @@ describe("write-cli-startup-metadata", () => {
           "const { writeFileSync } = await import('node:fs');",
           "const renderCommand = (commandPath, failureMessage) => (context, taskContext) => {",
           "  if (!taskContext) throw new Error('missing render task context');",
-          `  writeFileSync(${JSON.stringify(renderStatePath)}, context.env.OPENCLAW_STATE_DIR);`,
+          `  writeFileSync(${JSON.stringify(renderStatePath)}, context.env.GRANTED_STATE_DIR);`,
           "  return testing.spawnText([commandPath], {",
           `    cwd: ${JSON.stringify(tempRoot)},`,
           "    env: process.env,",
@@ -1023,7 +1023,7 @@ describe("write-cli-startup-metadata", () => {
       sourceRootDir: tempRoot,
       renderBundledRootHelpText: async () => "Usage: openclaw\n",
       renderSourceBrowserHelpText: async (renderContext) => {
-        stateDir = renderContext.env?.OPENCLAW_STATE_DIR ?? "";
+        stateDir = renderContext.env?.GRANTED_STATE_DIR ?? "";
         const sqliteDir = path.join(stateDir, "state");
         mkdirSync(sqliteDir, { recursive: true });
         for (const suffix of ["", "-shm", "-wal"]) {
@@ -1098,7 +1098,7 @@ describe("write-cli-startup-metadata", () => {
           sourceRootDir: tempRoot,
           renderBundledRootHelpText: async () => "Usage: openclaw\n",
           renderSourceBrowserHelpText: (renderContext) => {
-            renderStateDir = renderContext.env?.OPENCLAW_STATE_DIR ?? "";
+            renderStateDir = renderContext.env?.GRANTED_STATE_DIR ?? "";
             throw new Error("primary browser failure");
           },
           renderSourceSecretsHelpText: () => "Usage: openclaw secrets\n",

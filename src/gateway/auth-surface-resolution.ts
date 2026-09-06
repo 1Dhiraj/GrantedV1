@@ -79,8 +79,8 @@ export async function resolveGatewayProbeSurfaceAuth(params: {
           path: "gateway.remote.password",
           value: params.config.gateway?.remote?.password,
         });
-    const envToken = trimToUndefined(env.OPENCLAW_GATEWAY_TOKEN);
-    const envPassword = trimToUndefined(env.OPENCLAW_GATEWAY_PASSWORD);
+    const envToken = trimToUndefined(env.GRANTED_GATEWAY_TOKEN);
+    const envPassword = trimToUndefined(env.GRANTED_GATEWAY_PASSWORD);
     const hasConfiguredAuth = Boolean(remoteToken.value || remotePassword.value);
     // A failed remote ref may retain a healthy configured sibling, never an
     // ambient credential that would hide the operator's selected secret owner.
@@ -98,8 +98,8 @@ export async function resolveGatewayProbeSurfaceAuth(params: {
     return {};
   }
 
-  const envToken = trimToUndefined(env.OPENCLAW_GATEWAY_TOKEN);
-  const envPassword = trimToUndefined(env.OPENCLAW_GATEWAY_PASSWORD);
+  const envToken = trimToUndefined(env.GRANTED_GATEWAY_TOKEN);
+  const envPassword = trimToUndefined(env.GRANTED_GATEWAY_PASSWORD);
 
   if (authMode === "token" || authMode === "password") {
     const credential = await resolveGatewayCredential({
@@ -191,10 +191,10 @@ export async function resolveGatewayInteractiveSurfaceAuth(params: {
   }
   const envToken = params.suppressEnvAuthFallback
     ? undefined
-    : trimToUndefined(env.OPENCLAW_GATEWAY_TOKEN);
+    : trimToUndefined(env.GRANTED_GATEWAY_TOKEN);
   const envPassword = params.suppressEnvAuthFallback
     ? undefined
-    : trimToUndefined(env.OPENCLAW_GATEWAY_PASSWORD);
+    : trimToUndefined(env.GRANTED_GATEWAY_PASSWORD);
 
   if (params.surface === "remote") {
     const remoteToken = explicitToken

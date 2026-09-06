@@ -440,7 +440,7 @@ async function noteSessionSqliteMigrationHealth(params: {
   }
   if (params.shouldRepair && report.migrationRun && report.totals.archivedTranscriptFiles > 0) {
     lines.push(
-      `- After verifying the upgrade, preview rollback retirement with "${formatCliCommand("openclaw update cleanup --dry-run", params.env)}" for state ${resolveStateDir(params.env)}. Keep the same OPENCLAW_STATE_DIR and OPENCLAW_CONFIG_PATH overrides.`,
+      `- After verifying the upgrade, preview rollback retirement with "${formatCliCommand("openclaw update cleanup --dry-run", params.env)}" for state ${resolveStateDir(params.env)}. Keep the same GRANTED_STATE_DIR and GRANTED_CONFIG_PATH overrides.`,
     );
   }
   note(lines.join("\n"), "Session SQLite");

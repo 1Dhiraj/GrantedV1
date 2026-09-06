@@ -4,13 +4,13 @@ import { afterEach, describe, expect, it } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
 import { requireNodeSqlite } from "../infra/node-sqlite.js";
 import { CLAW_FIRST_USE_ADDITIVE_STATE_COLUMN_DEFINITIONS } from "./openclaw-state-db-additive-columns.js";
-import { OPENCLAW_STATE_SCHEMA_VERSION } from "./openclaw-state-db-contract.js";
+import { GRANTED_STATE_SCHEMA_VERSION } from "./openclaw-state-db-contract.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
   repairOpenClawStateDatabaseSchema,
 } from "./openclaw-state-db.js";
-import { OPENCLAW_STATE_SCHEMA_SQL } from "./openclaw-state-schema.js";
+import { GRANTED_STATE_SCHEMA_SQL } from "./openclaw-state-schema.js";
 
 const tempDirs = useAutoCleanupTempDirTracker(afterEach);
 
@@ -29,7 +29,7 @@ function makePreStrictDatabaseWithoutColumns(params: {
   columnNames: readonly string[];
   seed?: (database: InstanceType<ReturnType<typeof requireNodeSqlite>["DatabaseSync"]>) => void;
 }): string {
-  const options = { env: { OPENCLAW_STATE_DIR: params.stateDir } };
+  const options = { env: { GRANTED_STATE_DIR: params.stateDir } };
   const databasePath = openOpenClawStateDatabase(options).path;
   closeOpenClawStateDatabaseForTest();
 
@@ -87,13 +87,13 @@ describe("first-use additive column definitions", () => {
       dataType: string;
       tableName: string;
     };
-    const tableStart = OPENCLAW_STATE_SCHEMA_SQL.indexOf(
+    const tableStart = GRANTED_STATE_SCHEMA_SQL.indexOf(
       `CREATE TABLE IF NOT EXISTS ${tableName} (`,
     );
     expect(tableStart).toBeGreaterThanOrEqual(0);
-    const tableBody = OPENCLAW_STATE_SCHEMA_SQL.slice(
+    const tableBody = GRANTED_STATE_SCHEMA_SQL.slice(
       tableStart,
-      OPENCLAW_STATE_SCHEMA_SQL.indexOf(") STRICT;", tableStart),
+      GRANTED_STATE_SCHEMA_SQL.indexOf(") STRICT;", tableStart),
     );
     const declaration = tableBody
       .split("\n")
@@ -107,7 +107,7 @@ describe("first-use additive column definitions", () => {
 describe("first-use additive column STRICT migration", () => {
   it("repairs device_bootstrap_tokens without setup_id while migrating to STRICT", () => {
     const stateDir = tempDirs.make("openclaw-state-first-use-column-");
-    const options = { env: { OPENCLAW_STATE_DIR: stateDir } };
+    const options = { env: { GRANTED_STATE_DIR: stateDir } };
     makePreStrictDatabaseWithoutColumns({
       stateDir,
       tableName: "device_bootstrap_tokens",
@@ -129,7 +129,7 @@ describe("first-use additive column STRICT migration", () => {
 
     const migrated = openOpenClawStateDatabase(options);
     expect(migrated.db.prepare("PRAGMA user_version").get()).toEqual({
-      user_version: OPENCLAW_STATE_SCHEMA_VERSION,
+      user_version: GRANTED_STATE_SCHEMA_VERSION,
     });
     expect(
       migrated.db
@@ -145,7 +145,7 @@ describe("first-use additive column STRICT migration", () => {
 
   it("repairs session_groups without the folder default columns", () => {
     const stateDir = tempDirs.make("openclaw-state-first-use-group-");
-    const options = { env: { OPENCLAW_STATE_DIR: stateDir } };
+    const options = { env: { GRANTED_STATE_DIR: stateDir } };
     makePreStrictDatabaseWithoutColumns({
       stateDir,
       tableName: "session_groups",
@@ -157,7 +157,7 @@ describe("first-use additive column STRICT migration", () => {
 
     const migrated = openOpenClawStateDatabase(options);
     expect(migrated.db.prepare("PRAGMA user_version").get()).toEqual({
-      user_version: OPENCLAW_STATE_SCHEMA_VERSION,
+      user_version: GRANTED_STATE_SCHEMA_VERSION,
     });
     expect(
       migrated.db
@@ -174,7 +174,7 @@ describe("first-use additive column STRICT migration", () => {
 
   it("migrates on a writable cold open without a doctor repair", () => {
     const stateDir = tempDirs.make("openclaw-state-first-use-cold-open-");
-    const options = { env: { OPENCLAW_STATE_DIR: stateDir } };
+    const options = { env: { GRANTED_STATE_DIR: stateDir } };
     makePreStrictDatabaseWithoutColumns({
       stateDir,
       tableName: "device_bootstrap_tokens",
@@ -186,7 +186,7 @@ describe("first-use additive column STRICT migration", () => {
     // path has to clear the STRICT rebuild without doctor running first.
     const opened = openOpenClawStateDatabase(options);
     expect(opened.db.prepare("PRAGMA user_version").get()).toEqual({
-      user_version: OPENCLAW_STATE_SCHEMA_VERSION,
+      user_version: GRANTED_STATE_SCHEMA_VERSION,
     });
     expect(
       opened.db

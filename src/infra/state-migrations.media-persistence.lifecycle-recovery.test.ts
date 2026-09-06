@@ -24,7 +24,7 @@ afterEach(() => {
 describe("media persistence gateway lifecycle recovery", () => {
   it("repairs repeated typed startup failures after a successful v14 migration", async () => {
     const stateDir = tempDirs.make("media-persistence-startup-recovery-");
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const databasePath = openOpenClawAgentDatabase({ agentId: "main", env }).path;
     closeOpenClawAgentDatabasesForTest();
 

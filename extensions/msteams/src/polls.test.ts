@@ -247,7 +247,7 @@ describe("state poll store", () => {
 
   it("deletes vote buckets when pruning over the poll cap", async () => {
     const stateDir = tempDirs.make("openclaw-msteams-polls-");
-    const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+    const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
     const metadataStore = createPluginStateKeyedStoreForTests<Omit<MSTeamsPoll, "votes">>(
       "msteams",
       {

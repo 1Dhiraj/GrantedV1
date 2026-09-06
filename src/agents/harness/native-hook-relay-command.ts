@@ -93,7 +93,7 @@ export function buildNativeHookRelayCommandWithStateDatabase(params: {
 }
 
 function resolveOpenClawCliExecutable(): string {
-  const envPath = process.env.OPENCLAW_CLI_PATH?.trim();
+  const envPath = process.env.GRANTED_CLI_PATH?.trim();
   if (envPath && existsSync(envPath)) {
     return envPath;
   }

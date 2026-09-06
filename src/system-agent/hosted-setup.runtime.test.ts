@@ -194,8 +194,8 @@ describe("SystemAgentChatEngine runtime", () => {
       gateway: { mode: "local" },
     };
     const appendAuditEntry = vi.fn(async () => "state/openclaw.sqlite");
-    vi.stubEnv("OPENCLAW_GATEWAY_TOKEN", "");
-    vi.stubEnv("OPENCLAW_GATEWAY_PASSWORD", "");
+    vi.stubEnv("GRANTED_GATEWAY_TOKEN", "");
+    vi.stubEnv("GRANTED_GATEWAY_PASSWORD", "");
     mocks.readSetupConfigFileSnapshot.mockResolvedValue({
       exists: true,
       valid: true,
@@ -263,8 +263,8 @@ describe("SystemAgentChatEngine runtime", () => {
       gateway: { mode: "local" },
     };
     const currentConfig = structuredClone(baseConfig);
-    vi.stubEnv("OPENCLAW_GATEWAY_TOKEN", "");
-    vi.stubEnv("OPENCLAW_GATEWAY_PASSWORD", "");
+    vi.stubEnv("GRANTED_GATEWAY_TOKEN", "");
+    vi.stubEnv("GRANTED_GATEWAY_PASSWORD", "");
     mocks.readSetupConfigFileSnapshot.mockResolvedValue({
       exists: true,
       valid: true,

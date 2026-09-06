@@ -65,10 +65,10 @@ describe("config io shell env expected keys", () => {
       });
       const env = {
         HOME: home,
-        OPENCLAW_STATE_DIR: path.dirname(configPath),
-        OPENCLAW_BUNDLED_PLUGINS_DIR: path.join(home, "empty-bundled"),
+        GRANTED_STATE_DIR: path.dirname(configPath),
+        GRANTED_BUNDLED_PLUGINS_DIR: path.join(home, "empty-bundled"),
       };
-      fs.mkdirSync(env.OPENCLAW_BUNDLED_PLUGINS_DIR);
+      fs.mkdirSync(env.GRANTED_BUNDLED_PLUGINS_DIR);
 
       await createConfigIO({ configPath, env, homedir: () => home, observe: false })[read]();
 
@@ -79,7 +79,7 @@ describe("config io shell env expected keys", () => {
         "SHELL_FIXTURE_CHANNEL_KEY",
       ]);
       expect(expectedKeys).toEqual(
-        expect.arrayContaining(["OPENCLAW_GATEWAY_TOKEN", "OPENCLAW_GATEWAY_PASSWORD"]),
+        expect.arrayContaining(["GRANTED_GATEWAY_TOKEN", "GRANTED_GATEWAY_PASSWORD"]),
       );
     },
   );

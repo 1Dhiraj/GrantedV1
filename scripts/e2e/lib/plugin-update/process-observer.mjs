@@ -20,7 +20,7 @@ function descendants(pid, seen) {
     const argv = readProc(`/proc/${child}/cmdline`)?.split("\0").filter(Boolean);
     const postCore = argv
       ? (argv.includes("update") || argv[0] === "openclaw-update") &&
-        (readProc(`/proc/${child}/environ`)?.split("\0").includes("OPENCLAW_UPDATE_POST_CORE=1") ??
+        (readProc(`/proc/${child}/environ`)?.split("\0").includes("GRANTED_UPDATE_POST_CORE=1") ??
           null)
       : null;
     const previous = seen.get(child);

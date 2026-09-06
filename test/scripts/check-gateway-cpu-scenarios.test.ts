@@ -348,17 +348,17 @@ describe("gateway CPU scenario guard", () => {
     expect(calls[0]?.args).toEqual(["--import", "tsx", "scripts/build-all.mts", "qaRuntime"]);
     expect(calls[0]?.env).toMatchObject({
       HOME: path.join(outputDir, "qa-state-root", "home"),
-      OPENCLAW_BUILD_PRIVATE_QA: "1",
-      OPENCLAW_CONFIG_PATH: path.join(outputDir, "qa-state-root", "state", "openclaw.json"),
-      OPENCLAW_ENABLE_PRIVATE_QA_CLI: "1",
-      OPENCLAW_HOME: path.join(outputDir, "qa-state-root", "home"),
-      OPENCLAW_RUN_NODE_SKIP_DTS_BUILD: "1",
-      OPENCLAW_STATE_DIR: path.join(outputDir, "qa-state-root", "state"),
-      OPENCLAW_TEST_DISABLE_UPDATE_CHECK: "1",
+      GRANTED_BUILD_PRIVATE_QA: "1",
+      GRANTED_CONFIG_PATH: path.join(outputDir, "qa-state-root", "state", "openclaw.json"),
+      GRANTED_ENABLE_PRIVATE_QA_CLI: "1",
+      GRANTED_HOME: path.join(outputDir, "qa-state-root", "home"),
+      GRANTED_RUN_NODE_SKIP_DTS_BUILD: "1",
+      GRANTED_STATE_DIR: path.join(outputDir, "qa-state-root", "state"),
+      GRANTED_TEST_DISABLE_UPDATE_CHECK: "1",
       PNPM_CONFIG_VERIFY_DEPS_BEFORE_RUN: "false",
       USERPROFILE: path.join(outputDir, "qa-state-root", "home"),
     });
-    expect(calls[0]?.env?.OPENCLAW_BUNDLED_PLUGIN_BUILD_IDS).toBeUndefined();
+    expect(calls[0]?.env?.GRANTED_BUNDLED_PLUGIN_BUILD_IDS).toBeUndefined();
   });
 
   it("does not prebuild private QA dist when the required entries already exist", async () => {
@@ -381,9 +381,9 @@ describe("gateway CPU scenario guard", () => {
       cwd,
       env: {
         HOME: "/real/user/home",
-        OPENCLAW_CONFIG_PATH: "/real/user/.openclaw/openclaw.json",
-        OPENCLAW_HOME: "/real/user/home",
-        OPENCLAW_STATE_DIR: "/real/user/.openclaw",
+        GRANTED_CONFIG_PATH: "/real/user/.openclaw/openclaw.json",
+        GRANTED_HOME: "/real/user/home",
+        GRANTED_STATE_DIR: "/real/user/.openclaw",
       },
       silent: true,
       spawnSync: (_command: string, args: string[], opts?: Pick<SpawnSyncOptions, "env">) => {
@@ -403,9 +403,9 @@ describe("gateway CPU scenario guard", () => {
     expect(calls.some((call) => call.args[0] === "scripts/build-all.mts")).toBe(false);
     expect(calls[0]?.env).toMatchObject({
       HOME: path.join(outputDir, "qa-state-root", "home"),
-      OPENCLAW_CONFIG_PATH: path.join(outputDir, "qa-state-root", "state", "openclaw.json"),
-      OPENCLAW_HOME: path.join(outputDir, "qa-state-root", "home"),
-      OPENCLAW_STATE_DIR: path.join(outputDir, "qa-state-root", "state"),
+      GRANTED_CONFIG_PATH: path.join(outputDir, "qa-state-root", "state", "openclaw.json"),
+      GRANTED_HOME: path.join(outputDir, "qa-state-root", "home"),
+      GRANTED_STATE_DIR: path.join(outputDir, "qa-state-root", "state"),
       PNPM_CONFIG_VERIFY_DEPS_BEFORE_RUN: "false",
       USERPROFILE: path.join(outputDir, "qa-state-root", "home"),
     });

@@ -188,7 +188,7 @@ const replaceConfigFile = vi.hoisted(() =>
 );
 const resolveGatewayPort = vi.hoisted(() =>
   vi.fn((_cfg?: unknown, env?: NodeJS.ProcessEnv) => {
-    const raw = env?.OPENCLAW_GATEWAY_PORT ?? process.env.OPENCLAW_GATEWAY_PORT;
+    const raw = env?.GRANTED_GATEWAY_PORT ?? process.env.GRANTED_GATEWAY_PORT;
     const port = raw ? Number.parseInt(raw, 10) : Number.NaN;
     return Number.isFinite(port) && port > 0 ? port : 18789;
   }),
@@ -982,7 +982,7 @@ describe("runSetupWizard", () => {
       const runtime = createRuntime();
 
       if (remoteKey === "password") {
-        vi.stubEnv("OPENCLAW_GATEWAY_TOKEN", "ambient-gateway-token");
+        vi.stubEnv("GRANTED_GATEWAY_TOKEN", "ambient-gateway-token");
       }
       try {
         await runSetupWizard(
@@ -1106,7 +1106,7 @@ describe("runSetupWizard", () => {
       }),
     );
     vi.stubEnv("REMOTE_SECRET_TOKEN", "resolved-remote-token");
-    vi.stubEnv("OPENCLAW_GATEWAY_PASSWORD", "env-password"); // pragma: allowlist secret
+    vi.stubEnv("GRANTED_GATEWAY_PASSWORD", "env-password"); // pragma: allowlist secret
 
     try {
       await runSetupWizard(
@@ -1137,8 +1137,8 @@ describe("runSetupWizard", () => {
         },
       }),
     );
-    const previousToken = process.env.OPENCLAW_GATEWAY_TOKEN;
-    process.env.OPENCLAW_GATEWAY_TOKEN = "ambient-token"; // pragma: allowlist secret
+    const previousToken = process.env.GRANTED_GATEWAY_TOKEN;
+    process.env.GRANTED_GATEWAY_TOKEN = "ambient-token"; // pragma: allowlist secret
 
     try {
       await runSetupWizard(
@@ -1148,9 +1148,9 @@ describe("runSetupWizard", () => {
       );
     } finally {
       if (previousToken === undefined) {
-        delete process.env.OPENCLAW_GATEWAY_TOKEN;
+        delete process.env.GRANTED_GATEWAY_TOKEN;
       } else {
-        process.env.OPENCLAW_GATEWAY_TOKEN = previousToken;
+        process.env.GRANTED_GATEWAY_TOKEN = previousToken;
       }
     }
 
@@ -1176,7 +1176,7 @@ describe("runSetupWizard", () => {
         },
       }),
     );
-    vi.stubEnv("OPENCLAW_GATEWAY_PASSWORD", "ambient-password"); // pragma: allowlist secret
+    vi.stubEnv("GRANTED_GATEWAY_PASSWORD", "ambient-password"); // pragma: allowlist secret
 
     try {
       await runSetupWizard(
@@ -2636,8 +2636,8 @@ describe("runSetupWizard", () => {
   });
 
   it("resolves gateway.auth.password SecretRef for local setup probe", async () => {
-    const previous = process.env.OPENCLAW_GATEWAY_PASSWORD;
-    process.env.OPENCLAW_GATEWAY_PASSWORD = "gateway-ref-password"; // pragma: allowlist secret
+    const previous = process.env.GRANTED_GATEWAY_PASSWORD;
+    process.env.GRANTED_GATEWAY_PASSWORD = "gateway-ref-password"; // pragma: allowlist secret
     probeGatewayReachable.mockClear();
     readConfigFileSnapshot.mockResolvedValueOnce(
       configSnapshot({
@@ -2647,7 +2647,7 @@ describe("runSetupWizard", () => {
             password: {
               source: "env",
               provider: "default",
-              id: "OPENCLAW_GATEWAY_PASSWORD",
+              id: "GRANTED_GATEWAY_PASSWORD",
             },
           },
         },
@@ -2661,9 +2661,9 @@ describe("runSetupWizard", () => {
       await runWizard({ mode: "local" }, runtime, prompter);
     } finally {
       if (previous === undefined) {
-        delete process.env.OPENCLAW_GATEWAY_PASSWORD;
+        delete process.env.GRANTED_GATEWAY_PASSWORD;
       } else {
-        process.env.OPENCLAW_GATEWAY_PASSWORD = previous;
+        process.env.GRANTED_GATEWAY_PASSWORD = previous;
       }
     }
 
@@ -2840,8 +2840,8 @@ describe("runSetupWizard", () => {
   });
 
   it("shows the resolved gateway port in quickstart for fresh envs", async () => {
-    const previousPort = process.env.OPENCLAW_GATEWAY_PORT;
-    process.env.OPENCLAW_GATEWAY_PORT = "18791";
+    const previousPort = process.env.GRANTED_GATEWAY_PORT;
+    process.env.GRANTED_GATEWAY_PORT = "18791";
     const note: WizardPrompter["note"] = vi.fn(async () => {});
     const prompter = buildWizardPrompter({ note });
     const runtime = createRuntime();
@@ -2850,9 +2850,9 @@ describe("runSetupWizard", () => {
       await runWizard({}, runtime, prompter);
     } finally {
       if (previousPort === undefined) {
-        delete process.env.OPENCLAW_GATEWAY_PORT;
+        delete process.env.GRANTED_GATEWAY_PORT;
       } else {
-        process.env.OPENCLAW_GATEWAY_PORT = previousPort;
+        process.env.GRANTED_GATEWAY_PORT = previousPort;
       }
     }
 
@@ -2867,10 +2867,10 @@ describe("runSetupWizard", () => {
   });
 
   it("localizes the quickstart summary", async () => {
-    const previousPort = process.env.OPENCLAW_GATEWAY_PORT;
-    const previousLocale = process.env.OPENCLAW_LOCALE;
-    process.env.OPENCLAW_GATEWAY_PORT = "18791";
-    process.env.OPENCLAW_LOCALE = "zh-CN";
+    const previousPort = process.env.GRANTED_GATEWAY_PORT;
+    const previousLocale = process.env.GRANTED_LOCALE;
+    process.env.GRANTED_GATEWAY_PORT = "18791";
+    process.env.GRANTED_LOCALE = "zh-CN";
     const note: WizardPrompter["note"] = vi.fn(async () => {});
     const prompter = buildWizardPrompter({ note });
     const runtime = createRuntime();
@@ -2879,14 +2879,14 @@ describe("runSetupWizard", () => {
       await runWizard({}, runtime, prompter);
     } finally {
       if (previousPort === undefined) {
-        delete process.env.OPENCLAW_GATEWAY_PORT;
+        delete process.env.GRANTED_GATEWAY_PORT;
       } else {
-        process.env.OPENCLAW_GATEWAY_PORT = previousPort;
+        process.env.GRANTED_GATEWAY_PORT = previousPort;
       }
       if (previousLocale === undefined) {
-        delete process.env.OPENCLAW_LOCALE;
+        delete process.env.GRANTED_LOCALE;
       } else {
-        process.env.OPENCLAW_LOCALE = previousLocale;
+        process.env.GRANTED_LOCALE = previousLocale;
       }
     }
 

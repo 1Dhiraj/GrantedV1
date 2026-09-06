@@ -929,9 +929,9 @@ describe("ACP session metadata SQLite store", () => {
     });
   });
 
-  it("honors OPENCLAW_STATE_DIR when joining listed SQLite rows to session stores", async () => {
+  it("honors GRANTED_STATE_DIR when joining listed SQLite rows to session stores", async () => {
     await withTestDir({ prefix: "openclaw-acp-meta-" }, async (dir) => {
-      const env = { ...process.env, OPENCLAW_STATE_DIR: dir } as NodeJS.ProcessEnv;
+      const env = { ...process.env, GRANTED_STATE_DIR: dir } as NodeJS.ProcessEnv;
       const cfg = {} as OpenClawConfig;
       const sessionKey = "agent:codex:acp:s1";
       const storePath = path.join(dir, "agents", "codex", "sessions", "sessions.json");

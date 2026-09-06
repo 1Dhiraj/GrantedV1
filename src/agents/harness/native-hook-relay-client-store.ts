@@ -11,8 +11,8 @@ import {
   readSqliteUserVersion,
 } from "../../infra/sqlite-user-version.js";
 import {
-  OPENCLAW_SQLITE_BUSY_TIMEOUT_MS,
-  OPENCLAW_STATE_SCHEMA_VERSION,
+  GRANTED_SQLITE_BUSY_TIMEOUT_MS,
+  GRANTED_STATE_SCHEMA_VERSION,
 } from "../../state/openclaw-state-db-contract.js";
 import type { DB as OpenClawStateKyselyDatabase } from "../../state/openclaw-state-db.generated.js";
 import { resolveOpenClawStateSqlitePath } from "../../state/openclaw-state-db.paths.js";
@@ -25,12 +25,12 @@ type NativeHookRelayBridgeDatabase = Pick<OpenClawStateKyselyDatabase, "native_h
 
 function assertSupportedSchemaVersion(db: DatabaseSync, pathname: string): void {
   const userVersion = readSqliteUserVersion(db);
-  if (userVersion > OPENCLAW_STATE_SCHEMA_VERSION) {
+  if (userVersion > GRANTED_STATE_SCHEMA_VERSION) {
     throw createNewerSqliteSchemaVersionError(
       "OpenClaw state database",
       pathname,
       userVersion,
-      OPENCLAW_STATE_SCHEMA_VERSION,
+      GRANTED_STATE_SCHEMA_VERSION,
     );
   }
 }
@@ -43,7 +43,7 @@ export function readNativeHookRelayClientBridgeRecord(params: {
   const pathname = path.resolve(params.stateDbPath ?? resolveOpenClawStateSqlitePath());
   const db = openNodeSqliteDatabase(pathname, { readOnly: true });
   try {
-    db.exec(`PRAGMA busy_timeout = ${OPENCLAW_SQLITE_BUSY_TIMEOUT_MS};`);
+    db.exec(`PRAGMA busy_timeout = ${GRANTED_SQLITE_BUSY_TIMEOUT_MS};`);
     assertSupportedSchemaVersion(db, pathname);
     const query = getNodeSqliteKysely<NativeHookRelayBridgeDatabase>(db)
       .selectFrom("native_hook_relay_bridges")

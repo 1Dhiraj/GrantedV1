@@ -18,8 +18,8 @@ const suite = createControlUiE2eSuite({
 
 const baseTime = 1_700_000_000_000;
 let artifactDir: string;
-const captureOwnershipProof = process.env.OPENCLAW_CAPTURE_UI_PROOF === "1";
-const ownershipProofPhase = process.env.OPENCLAW_UI_PROOF_PHASE?.trim() || "candidate";
+const captureOwnershipProof = process.env.GRANTED_CAPTURE_UI_PROOF === "1";
+const ownershipProofPhase = process.env.GRANTED_UI_PROOF_PHASE?.trim() || "candidate";
 let ownershipProofDir: string;
 
 const authStatusWithUsage = {

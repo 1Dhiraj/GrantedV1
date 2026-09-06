@@ -4,8 +4,8 @@
  *
  * Prerequisites: Docker or Podman, Node >=22.19, pnpm install, and the selected image.
  * Usage:
- *   OPENCLAW_SANDBOX_E2E_ENGINE=podman \
- *   OPENCLAW_SANDBOX_E2E_IMAGE=alpine:3.24 \
+ *   GRANTED_SANDBOX_E2E_ENGINE=podman \
+ *   GRANTED_SANDBOX_E2E_IMAGE=alpine:3.24 \
  *   node --import tsx scripts/e2e-sandbox-bind-conflict.mts
  */
 import { spawnSync } from "node:child_process";
@@ -24,9 +24,9 @@ type WorkspaceMountModule = Pick<
 >;
 
 const repoRoot = resolveRepoRoot(import.meta.url);
-const engine = process.env.OPENCLAW_SANDBOX_E2E_ENGINE?.trim() || "docker";
-const image = process.env.OPENCLAW_SANDBOX_E2E_IMAGE?.trim() || "e2e-sleep:latest";
-const useSudo = process.env.OPENCLAW_SANDBOX_E2E_SUDO === "1";
+const engine = process.env.GRANTED_SANDBOX_E2E_ENGINE?.trim() || "docker";
+const image = process.env.GRANTED_SANDBOX_E2E_IMAGE?.trim() || "e2e-sleep:latest";
+const useSudo = process.env.GRANTED_SANDBOX_E2E_SUDO === "1";
 if (engine !== "docker" && engine !== "podman") {
   throw new Error(`Unsupported container engine "${engine}". Use docker or podman.`);
 }

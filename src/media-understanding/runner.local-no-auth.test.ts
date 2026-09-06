@@ -64,7 +64,7 @@ vi.mock("../plugins/provider-runtime.js", async (importOriginal) => ({
 const AUTH_ENV = {
   LOCAL_AUDIO_API_KEY: undefined,
   REMOTE_AUDIO_API_KEY: undefined,
-  OPENCLAW_AGENT_DIR: undefined,
+  GRANTED_AGENT_DIR: undefined,
 } satisfies Record<string, string | undefined>;
 
 beforeEach(() => {

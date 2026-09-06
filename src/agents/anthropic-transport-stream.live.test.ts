@@ -249,7 +249,7 @@ describeOpusTupleLive("anthropic Opus tuple schema provider live", () => {
 
 describeProviderLive("anthropic transport stream provider live", () => {
   it("keeps a healthy forced tool when a sibling descriptor is unreadable", async () => {
-    const modelId = process.env.OPENCLAW_LIVE_ANTHROPIC_TOOL_MODEL || "claude-haiku-4-5-20251001";
+    const modelId = process.env.GRANTED_LIVE_ANTHROPIC_TOOL_MODEL || "claude-haiku-4-5-20251001";
     const model: AnthropicMessagesModel = {
       id: modelId,
       name: modelId,
@@ -315,7 +315,7 @@ describeProviderLive("anthropic transport stream provider live", () => {
   }, 45_000);
 
   it("keeps a healthy forced tool through the Anthropic SDK provider", async () => {
-    const modelId = process.env.OPENCLAW_LIVE_ANTHROPIC_TOOL_MODEL || "claude-haiku-4-5-20251001";
+    const modelId = process.env.GRANTED_LIVE_ANTHROPIC_TOOL_MODEL || "claude-haiku-4-5-20251001";
     const model: AnthropicMessagesModel = {
       id: modelId,
       name: modelId,

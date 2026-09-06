@@ -140,10 +140,10 @@ describe("resolveGatewayConnection", () => {
 
   beforeEach(() => {
     envSnapshot = captureEnv([
-      "OPENCLAW_GATEWAY_URL",
-      "OPENCLAW_GATEWAY_PORT",
-      "OPENCLAW_GATEWAY_TOKEN",
-      "OPENCLAW_GATEWAY_PASSWORD",
+      "GRANTED_GATEWAY_URL",
+      "GRANTED_GATEWAY_PORT",
+      "GRANTED_GATEWAY_TOKEN",
+      "GRANTED_GATEWAY_PASSWORD",
     ]);
     loadConfig.mockReset();
     loadDeviceIdentityIfPresentMock.mockReset().mockReturnValue(null);
@@ -154,16 +154,16 @@ describe("resolveGatewayConnection", () => {
     resolveConfigPath.mockReset();
     resolveGatewayPort.mockReturnValue(18789);
     resolveStateDir.mockImplementation(
-      (env: NodeJS.ProcessEnv) => env.OPENCLAW_STATE_DIR ?? "/tmp/openclaw",
+      (env: NodeJS.ProcessEnv) => env.GRANTED_STATE_DIR ?? "/tmp/openclaw",
     );
     resolveConfigPath.mockImplementation(
       (env: NodeJS.ProcessEnv, stateDir: string) =>
-        env.OPENCLAW_CONFIG_PATH ?? `${stateDir}/openclaw.json`,
+        env.GRANTED_CONFIG_PATH ?? `${stateDir}/openclaw.json`,
     );
-    delete process.env.OPENCLAW_GATEWAY_URL;
-    delete process.env.OPENCLAW_GATEWAY_PORT;
-    delete process.env.OPENCLAW_GATEWAY_TOKEN;
-    delete process.env.OPENCLAW_GATEWAY_PASSWORD;
+    delete process.env.GRANTED_GATEWAY_URL;
+    delete process.env.GRANTED_GATEWAY_PORT;
+    delete process.env.GRANTED_GATEWAY_TOKEN;
+    delete process.env.GRANTED_GATEWAY_PASSWORD;
   });
 
   afterEach(() => {
@@ -181,8 +181,8 @@ describe("resolveGatewayConnection", () => {
 
     await withEnvAsync(
       {
-        OPENCLAW_GATEWAY_URL: "wss://env.example/ws",
-        OPENCLAW_GATEWAY_TOKEN: "test-token",
+        GRANTED_GATEWAY_URL: "wss://env.example/ws",
+        GRANTED_GATEWAY_TOKEN: "test-token",
       },
       async () => {
         const result = await resolveBoundGatewayConnection({
@@ -213,7 +213,7 @@ describe("resolveGatewayConnection", () => {
       gateway: { mode: "local", auth: { token: "configured-token" } },
     });
 
-    await withEnvAsync({ OPENCLAW_GATEWAY_TOKEN: "override-shell-auth" }, async () => {
+    await withEnvAsync({ GRANTED_GATEWAY_TOKEN: "override-shell-auth" }, async () => {
       await expect(
         resolveGatewayConnection({ url: "wss://override.example/ws/?ignored=1" }),
       ).rejects.toThrow(/pass --token or --password once to request pairing/i);
@@ -278,8 +278,8 @@ describe("resolveGatewayConnection", () => {
 
     await withEnvAsync(
       {
-        OPENCLAW_GATEWAY_URL: "wss://gateway-b.example/ws",
-        OPENCLAW_GATEWAY_TOKEN: "gateway-b-token",
+        GRANTED_GATEWAY_URL: "wss://gateway-b.example/ws",
+        GRANTED_GATEWAY_TOKEN: "gateway-b-token",
       },
       async () => {
         const result = await resolveGatewayConnection({
@@ -315,7 +315,7 @@ describe("resolveGatewayConnection", () => {
     await withEnvAsync(
       {
         PROFILE_GATEWAY_TOKEN: "resolved-profile-token",
-        OPENCLAW_GATEWAY_TOKEN: "unrelated-ambient-token",
+        GRANTED_GATEWAY_TOKEN: "unrelated-ambient-token",
       },
       async () => {
         const result = await resolveGatewayConnection({
@@ -554,7 +554,7 @@ describe("resolveGatewayConnection", () => {
     });
     readActiveGatewayLockPortMock.mockResolvedValue(48789);
 
-    await withEnvAsync({ OPENCLAW_GATEWAY_PORT: "19001" }, async () => {
+    await withEnvAsync({ GRANTED_GATEWAY_PORT: "19001" }, async () => {
       const result = await resolveGatewayConnection({});
 
       expect(result.url).toBe("ws://127.0.0.1:19001");
@@ -564,16 +564,16 @@ describe("resolveGatewayConnection", () => {
   it("uses config auth token for local mode when both config and env tokens are set", async () => {
     loadConfig.mockReturnValue({ gateway: { mode: "local", auth: { token: "config-token" } } });
 
-    await withEnvAsync({ OPENCLAW_GATEWAY_TOKEN: "local-competing-shell-auth" }, async () => {
+    await withEnvAsync({ GRANTED_GATEWAY_TOKEN: "local-competing-shell-auth" }, async () => {
       const result = await resolveGatewayConnection({});
       expect(result.token).toBe("config-token");
     });
   });
 
-  it("falls back to OPENCLAW_GATEWAY_TOKEN when config token is missing", async () => {
+  it("falls back to GRANTED_GATEWAY_TOKEN when config token is missing", async () => {
     loadConfig.mockReturnValue({ gateway: { mode: "local" } });
 
-    await withEnvAsync({ OPENCLAW_GATEWAY_TOKEN: "local-shell-fallback-auth" }, async () => {
+    await withEnvAsync({ GRANTED_GATEWAY_TOKEN: "local-shell-fallback-auth" }, async () => {
       const result = await resolveGatewayConnection({});
       expect(result.token).toBe("local-shell-fallback-auth");
     });
@@ -605,7 +605,7 @@ describe("resolveGatewayConnection", () => {
       },
     });
 
-    await withEnvAsync({ OPENCLAW_GATEWAY_PASSWORD: "local-shell-pass-value" }, async () => {
+    await withEnvAsync({ GRANTED_GATEWAY_PASSWORD: "local-shell-pass-value" }, async () => {
       const result = await resolveGatewayConnection({});
       expect(result.password).toBe("local-config-pass-value");
     });
@@ -622,12 +622,12 @@ describe("resolveGatewayConnection", () => {
         mode: "local",
         auth: {
           mode: "password",
-          password: { source: "env", provider: "default", id: "OPENCLAW_GATEWAY_PASSWORD" },
+          password: { source: "env", provider: "default", id: "GRANTED_GATEWAY_PASSWORD" },
         },
       },
     });
 
-    await withEnvAsync({ OPENCLAW_GATEWAY_PASSWORD: "resolved-ref-password" }, async () => {
+    await withEnvAsync({ GRANTED_GATEWAY_PASSWORD: "resolved-ref-password" }, async () => {
       const result = await resolveGatewayConnection({});
       expect(result.password).toBe("resolved-ref-password");
     });
@@ -681,7 +681,7 @@ describe("resolveGatewayConnection", () => {
     );
   });
 
-  it("prefers OPENCLAW_GATEWAY_PASSWORD over remote password fallback", async () => {
+  it("prefers GRANTED_GATEWAY_PASSWORD over remote password fallback", async () => {
     loadConfig.mockReturnValue({
       gateway: {
         mode: "remote",
@@ -693,7 +693,7 @@ describe("resolveGatewayConnection", () => {
       },
     });
 
-    const gatewayPasswordEnv = "OPENCLAW_GATEWAY_PASSWORD"; // pragma: allowlist secret
+    const gatewayPasswordEnv = "GRANTED_GATEWAY_PASSWORD"; // pragma: allowlist secret
     const gatewayPassword = "env-pass"; // pragma: allowlist secret
     await withEnvAsync({ [gatewayPasswordEnv]: gatewayPassword }, async () => {
       const result = await resolveGatewayConnection({});

@@ -4,19 +4,19 @@ import { resolveLaunchAgentLabel } from "./launchd-label.js";
 
 describe("resolveLaunchAgentLabel", () => {
   it("resolves default, profile, and explicit labels", () => {
-    expect(resolveLaunchAgentLabel()).toBe("ai.openclaw.gateway");
-    expect(resolveLaunchAgentLabel({ OPENCLAW_PROFILE: "work" })).toBe("ai.openclaw.work");
+    expect(resolveLaunchAgentLabel()).toBe("ai.granted.gateway");
+    expect(resolveLaunchAgentLabel({ GRANTED_PROFILE: "work" })).toBe("ai.granted.work");
     expect(
       resolveLaunchAgentLabel({
-        OPENCLAW_PROFILE: "work",
-        OPENCLAW_LAUNCHD_LABEL: "com.example.gateway",
+        GRANTED_PROFILE: "work",
+        GRANTED_LAUNCHD_LABEL: "com.example.gateway",
       }),
     ).toBe("com.example.gateway");
   });
 
   it("rejects labels that cannot be passed safely to launchd", () => {
     expect(() =>
-      resolveLaunchAgentLabel({ OPENCLAW_LAUNCHD_LABEL: "ai.openclaw.$(echo injected)" }),
+      resolveLaunchAgentLabel({ GRANTED_LAUNCHD_LABEL: "ai.granted.$(echo injected)" }),
     ).toThrow("Invalid launchd label");
   });
 });

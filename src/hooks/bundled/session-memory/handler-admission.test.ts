@@ -74,7 +74,7 @@ describe("session-memory gateway admission", () => {
     await withEnvAsync(
       {
         NODE_ENV: "production",
-        OPENCLAW_TEST_FAST: undefined,
+        GRANTED_TEST_FAST: undefined,
         VITEST: undefined,
         VITEST_POOL_ID: undefined,
         VITEST_WORKER_ID: undefined,

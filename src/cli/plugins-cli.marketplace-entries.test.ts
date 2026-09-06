@@ -248,8 +248,8 @@ describe("plugins marketplace entries", () => {
 
   it("emits bounded diagnostics for feed entry listing", async () => {
     const timelinePath = await createTimelinePath();
-    vi.stubEnv("OPENCLAW_DIAGNOSTICS", "1");
-    vi.stubEnv("OPENCLAW_DIAGNOSTICS_TIMELINE_PATH", timelinePath);
+    vi.stubEnv("GRANTED_DIAGNOSTICS", "1");
+    vi.stubEnv("GRANTED_DIAGNOSTICS_TIMELINE_PATH", timelinePath);
     mocks.getRuntimeConfig.mockReturnValue({});
     mocks.loadConfiguredHostedOfficialExternalPluginCatalogEntries.mockResolvedValue({
       source: "hosted-snapshot",

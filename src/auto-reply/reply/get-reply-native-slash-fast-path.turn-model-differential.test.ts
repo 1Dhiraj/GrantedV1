@@ -139,7 +139,7 @@ async function observeStatusSelection(
 
 describe("turn model selection status-path differential", () => {
   beforeEach(() => {
-    vi.stubEnv("OPENCLAW_TEST_FAST", "1");
+    vi.stubEnv("GRANTED_TEST_FAST", "1");
     resetPluginRuntimeStateForTest();
     setActivePluginRegistry(createSessionConversationTestRegistry());
     vi.spyOn(preparedModelCatalog, "loadPreparedModelCatalog").mockResolvedValue([]);

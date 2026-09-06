@@ -254,7 +254,7 @@ if ($commandPath -match '(?i)\\.ps1$') {
   }
 }
 $version = (& $commandPath --version 2>&1 | Out-String).Trim()
-Write-Output "__OPENCLAW_PATH__=$commandPath"
+Write-Output "__GRANTED_PATH__=$commandPath"
 Write-Output $version
 if ('${expectedNeedle}'.Length -gt 0 -and $version -notmatch [regex]::Escape('${expectedNeedle}')) {
   throw "version mismatch: expected substring ${expectedNeedle}"
@@ -321,7 +321,7 @@ export async function verifyFreshShellCommand(params: {
       timeoutMs: 2 * 60 * 1000,
     });
     const cliPath = normalizeWindowsInstalledCliPath(
-      parseMarkerLine(result.stdout, "__OPENCLAW_PATH__=") ?? "",
+      parseMarkerLine(result.stdout, "__GRANTED_PATH__=") ?? "",
     );
     if (!cliPath) {
       throw new Error("Failed to resolve installed openclaw path from fresh Windows shell.");
@@ -336,7 +336,7 @@ export async function verifyFreshShellCommand(params: {
     "set -euo pipefail",
     'if [ -f "$HOME/.bashrc" ]; then . "$HOME/.bashrc"; fi',
     "command -v openclaw >/dev/null 2>&1",
-    'printf "__OPENCLAW_PATH__=%s\\n" "$(command -v openclaw)"',
+    'printf "__GRANTED_PATH__=%s\\n" "$(command -v openclaw)"',
     "openclaw --version",
   ].join("\n");
   const result = await runPosixShellScript(script, {
@@ -345,7 +345,7 @@ export async function verifyFreshShellCommand(params: {
     logPath: params.logPath,
     timeoutMs: 2 * 60 * 1000,
   });
-  const cliPath = parseMarkerLine(result.stdout, "__OPENCLAW_PATH__=");
+  const cliPath = parseMarkerLine(result.stdout, "__GRANTED_PATH__=");
   const versionOutput = `${result.stdout}\n${result.stderr}`.trim();
   if (!cliPath) {
     throw new Error("Failed to resolve installed openclaw path from fresh POSIX shell.");

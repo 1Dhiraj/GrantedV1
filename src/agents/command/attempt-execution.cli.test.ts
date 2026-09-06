@@ -665,8 +665,8 @@ describe("CLI attempt execution", () => {
   }
 
   beforeEach(async () => {
-    homeEnvSnapshot = captureEnv(["HOME", "OPENCLAW_STATE_DIR"]);
-    setTestEnvValue("OPENCLAW_STATE_DIR", suiteRoot);
+    homeEnvSnapshot = captureEnv(["HOME", "GRANTED_STATE_DIR"]);
+    setTestEnvValue("GRANTED_STATE_DIR", suiteRoot);
     tmpDir = await fixtureRoot.make();
     runCliAgentMock.mockReset();
     runEmbeddedAgentMock.mockReset();
@@ -770,7 +770,7 @@ describe("CLI attempt execution", () => {
     for (const database of listOpenClawAgentDatabasesForTest()) {
       if (database.path.startsWith(`${suiteRoot}${path.sep}`)) {
         disposeOpenClawAgentDatabaseByPath(database.path, {
-          env: { OPENCLAW_STATE_DIR: suiteRoot },
+          env: { GRANTED_STATE_DIR: suiteRoot },
         });
       }
     }
@@ -2055,7 +2055,7 @@ describe("CLI attempt execution", () => {
       const sessionId = `internal-${visibleSessionId}`;
       const sessionKey = `agent:main:internal-session-effects:${visibleSessionId}`;
       setTestEnvValue("HOME", tmpDir);
-      setTestEnvValue("OPENCLAW_STATE_DIR", path.join(tmpDir, "state"));
+      setTestEnvValue("GRANTED_STATE_DIR", path.join(tmpDir, "state"));
       const internalStorePath = storePath;
       const internalSessionFile = formatSqliteSessionFileMarker({
         agentId: "main",
@@ -2478,9 +2478,9 @@ describe("CLI attempt execution", () => {
 
     await persistCliTranscriptEntry({
       body: [
-        "<<<BEGIN_OPENCLAW_INTERNAL_CONTEXT>>>",
+        "<<<BEGIN_GRANTED_INTERNAL_CONTEXT>>>",
         "secret runtime context",
-        "<<<END_OPENCLAW_INTERNAL_CONTEXT>>>",
+        "<<<END_GRANTED_INTERNAL_CONTEXT>>>",
         "",
         "visible ask",
       ].join("\n"),

@@ -49,8 +49,8 @@ vi.mock("./env.js", () => ({
 describe("ensureOpenClawCliOnPath", () => {
   const envKeys = [
     "PATH",
-    "OPENCLAW_PATH_BOOTSTRAPPED",
-    "OPENCLAW_ALLOW_PROJECT_LOCAL_BIN",
+    "GRANTED_PATH_BOOTSTRAPPED",
+    "GRANTED_ALLOW_PROJECT_LOCAL_BIN",
     "MISE_DATA_DIR",
     "XDG_DATA_HOME",
     "LOCALAPPDATA",
@@ -106,8 +106,8 @@ describe("ensureOpenClawCliOnPath", () => {
 
   function resetBootstrapEnv(pathValue = "/usr/bin") {
     process.env.PATH = pathValue;
-    delete process.env.OPENCLAW_PATH_BOOTSTRAPPED;
-    delete process.env.OPENCLAW_ALLOW_PROJECT_LOCAL_BIN;
+    delete process.env.GRANTED_PATH_BOOTSTRAPPED;
+    delete process.env.GRANTED_ALLOW_PROJECT_LOCAL_BIN;
     delete process.env.HOMEBREW_PREFIX;
     delete process.env.HOMEBREW_BREW_FILE;
     delete process.env.XDG_BIN_HOME;
@@ -164,7 +164,7 @@ describe("ensureOpenClawCliOnPath", () => {
 
   it("is idempotent", () => {
     process.env.PATH = "/bin";
-    process.env.OPENCLAW_PATH_BOOTSTRAPPED = "1";
+    process.env.GRANTED_PATH_BOOTSTRAPPED = "1";
     ensureOpenClawCliOnPath({
       execPath: "/tmp/does-not-matter",
       cwd: "/tmp",
@@ -328,9 +328,9 @@ describe("ensureOpenClawCliOnPath", () => {
 
       resetBootstrapEnv();
       if (envValue === undefined) {
-        delete process.env.OPENCLAW_ALLOW_PROJECT_LOCAL_BIN;
+        delete process.env.GRANTED_ALLOW_PROJECT_LOCAL_BIN;
       } else {
-        process.env.OPENCLAW_ALLOW_PROJECT_LOCAL_BIN = envValue;
+        process.env.GRANTED_ALLOW_PROJECT_LOCAL_BIN = envValue;
       }
 
       const withOptIn = bootstrapPath({
@@ -350,7 +350,7 @@ describe("ensureOpenClawCliOnPath", () => {
     setDir(localBinDir);
     setExe(path.join(localBinDir, "openclaw"));
     resetBootstrapEnv();
-    process.env.OPENCLAW_ALLOW_PROJECT_LOCAL_BIN = "1";
+    process.env.GRANTED_ALLOW_PROJECT_LOCAL_BIN = "1";
     const cwdSpy = vi.spyOn(process, "cwd").mockImplementation(() => {
       throw new Error("ENOENT: uv_cwd");
     });

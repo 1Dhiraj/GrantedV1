@@ -327,7 +327,7 @@ async function main(): Promise<void> {
   const rootDir = await fs.realpath(
     await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-agent-plugin-gateway-")),
   );
-  const keep = process.env.OPENCLAW_AGENT_PLUGIN_GATEWAY_E2E_KEEP === "1";
+  const keep = process.env.GRANTED_AGENT_PLUGIN_GATEWAY_E2E_KEEP === "1";
   const stateDir = path.join(rootDir, "state");
   const configPath = path.join(stateDir, "openclaw.json");
   const fixtureDir = path.join(rootDir, "weather-helper");
@@ -340,11 +340,11 @@ async function main(): Promise<void> {
   const childEnv: NodeJS.ProcessEnv = {
     ...process.env,
     OPENAI_API_KEY: "agent-plugin-gateway-e2e",
-    OPENCLAW_CONFIG_PATH: configPath,
-    OPENCLAW_NO_RESPAWN: "1",
-    OPENCLAW_SKIP_CHANNELS: "1",
-    OPENCLAW_SKIP_STARTUP_MODEL_PREWARM: "1",
-    OPENCLAW_STATE_DIR: stateDir,
+    GRANTED_CONFIG_PATH: configPath,
+    GRANTED_NO_RESPAWN: "1",
+    GRANTED_SKIP_CHANNELS: "1",
+    GRANTED_SKIP_STARTUP_MODEL_PREWARM: "1",
+    GRANTED_STATE_DIR: stateDir,
   };
   let mock: CapturedChild | undefined;
   let gateway: CapturedChild | undefined;

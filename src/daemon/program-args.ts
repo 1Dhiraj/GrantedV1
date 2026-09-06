@@ -17,7 +17,7 @@ type GatewayProgramArgs = {
   workingDirectory?: string;
 };
 
-export const OPENCLAW_WRAPPER_ENV_KEY = "OPENCLAW_WRAPPER";
+export const GRANTED_WRAPPER_ENV_KEY = "GRANTED_WRAPPER";
 
 async function resolveCliEntrypointPathForService(): Promise<string> {
   const argv1 = process.argv[1];
@@ -173,7 +173,7 @@ export async function resolveOpenClawWrapperPath(
   } catch (error) {
     const detail = error instanceof Error ? ` (${error.message})` : "";
     throw new Error(
-      `${OPENCLAW_WRAPPER_ENV_KEY} must point to an executable file: ${resolved}${detail}`,
+      `${GRANTED_WRAPPER_ENV_KEY} must point to an executable file: ${resolved}${detail}`,
       { cause: error },
     );
   }

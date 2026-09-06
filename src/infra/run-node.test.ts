@@ -75,10 +75,10 @@ const DIST_RUNTIME_EXTENSION_INDEX = "dist-runtime/extensions/demo/index.js";
 const DIST_RUNTIME_EXTENSION_MANIFEST = "dist-runtime/extensions/demo/openclaw.plugin.json";
 const DIST_RUNTIME_EXTENSION_PACKAGE = "dist-runtime/extensions/demo/package.json";
 const DIST_RUNTIME_EXTENSION_SKILL = "dist-runtime/extensions/demo/skills/SKILL.md";
-const DIST_OPENCLAW_ALIAS_PACKAGE = "dist/extensions/node_modules/openclaw/package.json";
-const DIST_OPENCLAW_ALIAS_PLUGIN_SDK_CORE =
+const DIST_GRANTED_ALIAS_PACKAGE = "dist/extensions/node_modules/openclaw/package.json";
+const DIST_GRANTED_ALIAS_PLUGIN_SDK_CORE =
   "dist/extensions/node_modules/openclaw/plugin-sdk/core.js";
-const DIST_OPENCLAW_ALIAS_PLUGIN_SDK_STRING_COERCE =
+const DIST_GRANTED_ALIAS_PLUGIN_SDK_STRING_COERCE =
   "dist/extensions/node_modules/openclaw/plugin-sdk/string-coerce-runtime.js";
 const DIFFS_PACKAGE = "extensions/diffs/package.json";
 const DIFFS_VIEWER_RUNTIME_SOURCE = "extensions/diffs/assets/viewer-runtime.js";
@@ -168,9 +168,9 @@ async function writeRuntimePostBuildScaffold(tmp: string): Promise<void> {
     [DIST_BUILD_INFO]: '{"buildId":"test-build"}\n',
     [DIST_LEGACY_CLI_EXIT_COMPAT]: "export function hasMemoryRuntime() { return false; }\n",
     [DIST_LEGACY_CLI_EXIT_COMPAT_ALT]: "export function hasMemoryRuntime() { return false; }\n",
-    [DIST_OPENCLAW_ALIAS_PACKAGE]:
+    [DIST_GRANTED_ALIAS_PACKAGE]:
       '{"name":"openclaw","type":"module","exports":{"./plugin-sdk/core":"./plugin-sdk/core.js"}}\n',
-    [DIST_OPENCLAW_ALIAS_PLUGIN_SDK_CORE]: "export * from '../../../../plugin-sdk/core.js';\n",
+    [DIST_GRANTED_ALIAS_PLUGIN_SDK_CORE]: "export * from '../../../../plugin-sdk/core.js';\n",
   });
   await touchProjectFiles(
     tmp,
@@ -180,8 +180,8 @@ async function writeRuntimePostBuildScaffold(tmp: string): Promise<void> {
       DIST_PLUGIN_SDK_CORE,
       DIST_LEGACY_CLI_EXIT_COMPAT,
       DIST_LEGACY_CLI_EXIT_COMPAT_ALT,
-      DIST_OPENCLAW_ALIAS_PACKAGE,
-      DIST_OPENCLAW_ALIAS_PLUGIN_SDK_CORE,
+      DIST_GRANTED_ALIAS_PACKAGE,
+      DIST_GRANTED_ALIAS_PLUGIN_SDK_CORE,
     ],
     BUILD_TIME,
   );
@@ -378,7 +378,7 @@ async function runNodeCommand(tmp: string, options: RunNodeTestOptions): Promise
     cwd: tmp,
     args: ["status"],
     ...overrides,
-    env: { ...process.env, OPENCLAW_RUNNER_LOG: "0", ...env },
+    env: { ...process.env, GRANTED_RUNNER_LOG: "0", ...env },
     execPath: process.execPath,
     platform: options.platform ?? process.platform,
   } as RunNodeTestOptions);
@@ -442,7 +442,7 @@ describe("run-node script", () => {
     const exitCode = await runStatusCommand({
       tmp,
       spawn,
-      env: { OPENCLAW_FORCE_BUILD: "1" },
+      env: { GRANTED_FORCE_BUILD: "1" },
       runRuntimePostBuild: syncBundledPluginMetadata,
     });
 
@@ -475,7 +475,7 @@ describe("run-node script", () => {
     };
 
     const exitCode = await runNodeCommand(tmp, {
-      env: { OPENCLAW_FORCE_BUILD: "1" },
+      env: { GRANTED_FORCE_BUILD: "1" },
       spawn,
       runRuntimePostBuild: skipRuntimePostBuild,
     });
@@ -496,9 +496,9 @@ describe("run-node script", () => {
       "--no-clean",
     ]);
     expect(spawnCalls[2]?.args).toEqual(["openclaw.mjs", "status"]);
-    expect(spawnCalls[0]?.env.OPENCLAW_RUN_NODE_SKIP_DTS_BUILD).toBeUndefined();
-    expect(spawnCalls[1]?.env.OPENCLAW_RUN_NODE_SKIP_DTS_BUILD).toBe("1");
-    expect(spawnCalls[2]?.env.OPENCLAW_RUN_NODE_SKIP_DTS_BUILD).toBeUndefined();
+    expect(spawnCalls[0]?.env.GRANTED_RUN_NODE_SKIP_DTS_BUILD).toBeUndefined();
+    expect(spawnCalls[1]?.env.GRANTED_RUN_NODE_SKIP_DTS_BUILD).toBe("1");
+    expect(spawnCalls[2]?.env.GRANTED_RUN_NODE_SKIP_DTS_BUILD).toBeUndefined();
   });
 
   it("tees launcher output into the requested generic output log", async ({ tmp }) => {
@@ -527,9 +527,9 @@ describe("run-node script", () => {
 
     const exitCode = await runNodeCommand(tmp, {
       env: {
-        OPENCLAW_FORCE_BUILD: "1",
-        OPENCLAW_RUNNER_LOG: "1",
-        OPENCLAW_RUN_NODE_OUTPUT_LOG: outputPath,
+        GRANTED_FORCE_BUILD: "1",
+        GRANTED_RUNNER_LOG: "1",
+        GRANTED_RUN_NODE_OUTPUT_LOG: outputPath,
       },
       spawn,
       stderr: mutedStream,
@@ -542,7 +542,7 @@ describe("run-node script", () => {
     await expect(fs.readFile(outputPath, "utf-8")).resolves.toContain("child stderr\n");
     await expect(fs.readFile(outputPath, "utf-8")).resolves.toContain("[openclaw]");
     expect(spawnCalls.at(-1)?.args).toEqual(["openclaw.mjs", "status"]);
-    expect(spawnCalls.at(-1)?.env.OPENCLAW_RUN_NODE_OUTPUT_LOG).toBe(outputPath);
+    expect(spawnCalls.at(-1)?.env.GRANTED_RUN_NODE_OUTPUT_LOG).toBe(outputPath);
     expect(spawnCalls.at(-1)?.stdio).toEqual(["inherit", "pipe", "pipe"]);
   });
 
@@ -581,7 +581,7 @@ describe("run-node script", () => {
 
     const exitCode = await runNodeCommand(tmp, {
       args: ["plugins", "list", "--json"],
-      env: { OPENCLAW_FORCE_BUILD: "1", OPENCLAW_RUN_NODE_OUTPUT_LOG: outputPath },
+      env: { GRANTED_FORCE_BUILD: "1", GRANTED_RUN_NODE_OUTPUT_LOG: outputPath },
       spawn,
       stdout,
       stderr,
@@ -626,8 +626,8 @@ describe("run-node script", () => {
 
     const exitCode = await runNodeCommand(tmp, {
       env: {
-        OPENCLAW_RUN_NODE_FILTER_SYNC_IO_STDERR: "1",
-        OPENCLAW_RUN_NODE_OUTPUT_LOG: outputPath,
+        GRANTED_RUN_NODE_FILTER_SYNC_IO_STDERR: "1",
+        GRANTED_RUN_NODE_OUTPUT_LOG: outputPath,
       },
       spawn,
       stderr,
@@ -665,7 +665,7 @@ describe("run-node script", () => {
     const { spawnSync } = createCurrentGitSpawnRecorder();
 
     const exitCode = await runNodeCommand(tmp, {
-      env: { OPENCLAW_RUN_NODE_CPU_PROF_DIR: ".artifacts/profiles" },
+      env: { GRANTED_RUN_NODE_CPU_PROF_DIR: ".artifacts/profiles" },
       spawn,
       spawnSync,
       runRuntimePostBuild: skipRuntimePostBuild,
@@ -680,7 +680,7 @@ describe("run-node script", () => {
       /^--cpu-prof-name=openclaw-status-4242-\d{4}-\d{2}-\d{2}T.*\.cpuprofile$/,
     );
     expect(childArgs.slice(3)).toEqual(["openclaw.mjs", "status"]);
-    expect(spawnCalls.at(-1)?.env.OPENCLAW_RUN_NODE_CPU_PROF_DIR).toBe(profileDir);
+    expect(spawnCalls.at(-1)?.env.GRANTED_RUN_NODE_CPU_PROF_DIR).toBe(profileDir);
     expect(fsSync.existsSync(profileDir)).toBe(true);
   });
 
@@ -706,8 +706,8 @@ describe("run-node script", () => {
 
     const exitCode = await runNodeCommand(tmp, {
       env: {
-        OPENCLAW_RUN_NODE_CPU_PROF_DIR: ".artifacts/profiles",
-        OPENCLAW_RUN_NODE_CPU_PROF_MAX_FILES: "2",
+        GRANTED_RUN_NODE_CPU_PROF_DIR: ".artifacts/profiles",
+        GRANTED_RUN_NODE_CPU_PROF_MAX_FILES: "2",
       },
       spawn,
       spawnSync,
@@ -747,7 +747,7 @@ describe("run-node script", () => {
 
     const exitCode = await runNodeCommand(tmp, {
       args: ["gateway", "--force"],
-      env: { OPENCLAW_TRACE_SYNC_IO: "1" },
+      env: { GRANTED_TRACE_SYNC_IO: "1" },
       spawn,
       spawnSync,
       runRuntimePostBuild: skipRuntimePostBuild,
@@ -771,7 +771,7 @@ describe("run-node script", () => {
     } as unknown as NodeJS.WriteStream;
 
     const exitCode = await runNodeCommand(tmp, {
-      env: { OPENCLAW_RUN_NODE_OUTPUT_LOG: outputPath },
+      env: { GRANTED_RUN_NODE_OUTPUT_LOG: outputPath },
       spawn,
       stderr: mutedStream,
       stdout: mutedStream,
@@ -805,7 +805,7 @@ describe("run-node script", () => {
     expect(exitCode).toBe(0);
     const childArgs = spawnCalls.at(-1)?.args ?? [];
     expect(childArgs).toEqual(["openclaw.mjs", "qa", "matrix"]);
-    expect(spawnCalls.at(-1)?.env.OPENCLAW_RUN_NODE_OUTPUT_LOG).toBeUndefined();
+    expect(spawnCalls.at(-1)?.env.GRANTED_RUN_NODE_OUTPUT_LOG).toBeUndefined();
   });
 
   it("skips rebuilding when dist is current and the source tree is clean", async ({ tmp }) => {
@@ -830,7 +830,7 @@ describe("run-node script", () => {
       const { spawnSync } = createCurrentGitSpawnRecorder();
       let childEnv: NodeJS.ProcessEnv | undefined;
       const exitCode = await runNodeCommand(tmp, {
-        env: { OPENCLAW_DEV_SOURCE_ROOT: override },
+        env: { GRANTED_DEV_SOURCE_ROOT: override },
         spawn: (_cmd, _args, options) => {
           childEnv = options.env;
           return createExitedProcess(0);
@@ -839,7 +839,7 @@ describe("run-node script", () => {
         runRuntimePostBuild: skipRuntimePostBuild,
       });
       expect(exitCode).toBe(0);
-      expect(childEnv?.OPENCLAW_DEV_SOURCE_ROOT).toBe(override ?? tmp);
+      expect(childEnv?.GRANTED_DEV_SOURCE_ROOT).toBe(override ?? tmp);
     },
   );
 
@@ -932,9 +932,9 @@ describe("run-node script", () => {
       | { cwd?: string; env?: Record<string, string | undefined> }
       | undefined;
     expect(postBuildParams?.cwd).toBe(tmp);
-    expect(postBuildParams?.env?.OPENCLAW_BUILD_PRIVATE_QA).toBe("1");
-    expect(postBuildParams?.env?.OPENCLAW_ENABLE_PRIVATE_QA_CLI).toBe("1");
-    expect(postBuildParams?.env?.OPENCLAW_DISABLE_BUNDLED_PLUGINS).toBe("0");
+    expect(postBuildParams?.env?.GRANTED_BUILD_PRIVATE_QA).toBe("1");
+    expect(postBuildParams?.env?.GRANTED_ENABLE_PRIVATE_QA_CLI).toBe("1");
+    expect(postBuildParams?.env?.GRANTED_DISABLE_BUNDLED_PLUGINS).toBe("0");
   });
 
   it("preserves an explicit bundled plugin disable flag for QA runs", async ({ tmp }) => {
@@ -950,14 +950,14 @@ describe("run-node script", () => {
       spawn,
       spawnSync,
       runRuntimePostBuild,
-      env: { OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1" },
+      env: { GRANTED_DISABLE_BUNDLED_PLUGINS: "1" },
     });
 
     expect(exitCode).toBe(0);
     const postBuildParams = firstMockCall(runRuntimePostBuild)?.[0] as
       | { cwd?: string; env?: Record<string, string | undefined> }
       | undefined;
-    expect(postBuildParams?.env?.OPENCLAW_DISABLE_BUNDLED_PLUGINS).toBe("1");
+    expect(postBuildParams?.env?.GRANTED_DISABLE_BUNDLED_PLUGINS).toBe("1");
   });
 
   it("derives private QA facade checks from distRoot for direct freshness checks", async ({
@@ -969,7 +969,7 @@ describe("run-node script", () => {
     });
 
     const requirement = resolveBuildRequirement(
-      createBuildRequirementDeps(tmp, { env: { OPENCLAW_BUILD_PRIVATE_QA: "1" } }),
+      createBuildRequirementDeps(tmp, { env: { GRANTED_BUILD_PRIVATE_QA: "1" } }),
     );
 
     expect(requirement).toEqual({
@@ -989,7 +989,7 @@ describe("run-node script", () => {
       tmp,
       spawn,
       spawnSync,
-      env: { OPENCLAW_WATCH_MODE: "1" },
+      env: { GRANTED_WATCH_MODE: "1" },
       runRuntimePostBuild,
     });
 
@@ -1008,7 +1008,7 @@ describe("run-node script", () => {
       },
       oldPaths: [ROOT_SRC, ROOT_TSCONFIG, ROOT_PACKAGE],
     });
-    await fs.rm(resolvePath(tmp, DIST_OPENCLAW_ALIAS_PACKAGE));
+    await fs.rm(resolvePath(tmp, DIST_GRANTED_ALIAS_PACKAGE));
 
     const runRuntimePostBuild = vi.fn();
     const { spawnCalls, spawn, spawnSync } = createCurrentGitSpawnRecorder();
@@ -1016,7 +1016,7 @@ describe("run-node script", () => {
       tmp,
       spawn,
       spawnSync,
-      env: { OPENCLAW_WATCH_MODE: "1" },
+      env: { GRANTED_WATCH_MODE: "1" },
       runRuntimePostBuild,
     });
 
@@ -1044,7 +1044,7 @@ describe("run-node script", () => {
       tmp,
       spawn,
       spawnSync,
-      env: { OPENCLAW_WATCH_MODE: "1" },
+      env: { GRANTED_WATCH_MODE: "1" },
       runRuntimePostBuild,
     });
 
@@ -1154,7 +1154,7 @@ describe("run-node script", () => {
     },
     {
       label: "runtime postbuild output",
-      missingPath: DIST_OPENCLAW_ALIAS_PACKAGE,
+      missingPath: DIST_GRANTED_ALIAS_PACKAGE,
       expectedReason: "required runtime postbuild output missing",
     },
   ]) {
@@ -1249,7 +1249,7 @@ describe("run-node script", () => {
         spawn,
         spawnSync,
         env: {
-          OPENCLAW_RUN_NODE_BUILD_LOCK_POLL_MS: "1",
+          GRANTED_RUN_NODE_BUILD_LOCK_POLL_MS: "1",
         },
         runRuntimePostBuild,
       }),
@@ -1258,7 +1258,7 @@ describe("run-node script", () => {
         spawn,
         spawnSync,
         env: {
-          OPENCLAW_RUN_NODE_BUILD_LOCK_POLL_MS: "1",
+          GRANTED_RUN_NODE_BUILD_LOCK_POLL_MS: "1",
         },
         runRuntimePostBuild,
       }),
@@ -1281,7 +1281,7 @@ describe("run-node script", () => {
       return createExitedProcess(0);
     };
 
-    const exitCode = await runNodeCommand(tmp, { env: { OPENCLAW_FORCE_BUILD: "1" }, spawn });
+    const exitCode = await runNodeCommand(tmp, { env: { GRANTED_FORCE_BUILD: "1" }, spawn });
 
     expect(exitCode).toBe(23);
   });
@@ -1303,7 +1303,7 @@ describe("run-node script", () => {
       return createExitedProcess(0);
     };
 
-    const exitCode = await runNodeCommand(tmp, { env: { OPENCLAW_FORCE_BUILD: "1" }, spawn });
+    const exitCode = await runNodeCommand(tmp, { env: { GRANTED_FORCE_BUILD: "1" }, spawn });
 
     expect(exitCode).toBe(1);
     expect(fsSync.existsSync(path.join(tmp, ".artifacts", "run-node-build.lock"))).toBe(false);
@@ -1477,7 +1477,7 @@ describe("run-node script", () => {
     } as unknown as NodeJS.WriteStream;
 
     const exitCode = await runNodeCommand(tmp, {
-      env: { CI: "false", OPENCLAW_FORCE_BUILD: "1" },
+      env: { CI: "false", GRANTED_FORCE_BUILD: "1" },
       spawn,
       spawnSync,
       stderr,
@@ -1649,7 +1649,7 @@ describe("run-node script", () => {
     const releaseLock = await acquireRunNodeBuildLock({
       cwd: tmp,
       args: ["gateway"],
-      env: { OPENCLAW_RUNNER_LOG: "0" },
+      env: { GRANTED_RUNNER_LOG: "0" },
       fs: fsSync,
       process: lockProcess,
       stderr: { write: () => true } as unknown as NodeJS.WriteStream,
@@ -1672,7 +1672,7 @@ describe("run-node script", () => {
     });
     const clientRun = runNodeCommand(tmp, {
       args: ["dashboard", "--no-open", "--yes"],
-      env: { OPENCLAW_RUNNER_LOG: "1", OPENCLAW_RUN_NODE_BUILD_LOCK_POLL_MS: "1" },
+      env: { GRANTED_RUNNER_LOG: "1", GRANTED_RUN_NODE_BUILD_LOCK_POLL_MS: "1" },
       spawn,
       spawnSync,
       process: lockProcess,
@@ -1874,22 +1874,22 @@ describe("run-node script", () => {
         [ROOT_PACKAGE]:
           '{"name":"openclaw-test","exports":{"./plugin-sdk/core":"./dist/plugin-sdk/core.js"}}\n',
         [DIST_PLUGIN_SDK_CORE]: "export const core = true;\n",
-        [DIST_OPENCLAW_ALIAS_PACKAGE]:
+        [DIST_GRANTED_ALIAS_PACKAGE]:
           '{"name":"openclaw","type":"module","exports":{"./plugin-sdk/core":"./plugin-sdk/core.js"}}\n',
-        [DIST_OPENCLAW_ALIAS_PLUGIN_SDK_CORE]: "export * from '../../../../plugin-sdk/core.js';\n",
+        [DIST_GRANTED_ALIAS_PLUGIN_SDK_CORE]: "export * from '../../../../plugin-sdk/core.js';\n",
         [RUNTIME_POSTBUILD_STAMP]: '{"head":"abc123"}\n',
       },
       buildPaths: [
         ROOT_SRC,
         DIST_ENTRY,
         DIST_PLUGIN_SDK_CORE,
-        DIST_OPENCLAW_ALIAS_PACKAGE,
-        DIST_OPENCLAW_ALIAS_PLUGIN_SDK_CORE,
+        DIST_GRANTED_ALIAS_PACKAGE,
+        DIST_GRANTED_ALIAS_PLUGIN_SDK_CORE,
         BUILD_STAMP,
         RUNTIME_POSTBUILD_STAMP,
       ],
     });
-    await fs.rm(resolvePath(tmp, DIST_OPENCLAW_ALIAS_PLUGIN_SDK_CORE));
+    await fs.rm(resolvePath(tmp, DIST_GRANTED_ALIAS_PLUGIN_SDK_CORE));
 
     const requirement = resolveRuntimePostBuildRequirement(createBuildRequirementDeps(tmp));
 
@@ -1916,9 +1916,9 @@ describe("run-node script", () => {
         ),
         "dist/plugin-sdk/string-coerce-runtime.js": "export const publicRuntime = true;\n",
         "dist/plugin-sdk/ssrf-runtime-internal.js": "export const internal = true;\n",
-        [DIST_OPENCLAW_ALIAS_PACKAGE]:
+        [DIST_GRANTED_ALIAS_PACKAGE]:
           '{"name":"openclaw","type":"module","exports":{"./plugin-sdk/string-coerce-runtime":"./plugin-sdk/string-coerce-runtime.js"}}\n',
-        [DIST_OPENCLAW_ALIAS_PLUGIN_SDK_STRING_COERCE]:
+        [DIST_GRANTED_ALIAS_PLUGIN_SDK_STRING_COERCE]:
           "export * from '../../../../plugin-sdk/string-coerce-runtime.js';\n",
         [RUNTIME_POSTBUILD_STAMP]: '{"head":"abc123"}\n',
       },
@@ -1976,7 +1976,7 @@ describe("run-node script", () => {
     });
 
     const requirement = resolveRuntimePostBuildRequirement(
-      createBuildRequirementDeps(tmp, { env: { OPENCLAW_RUNTIME_POSTBUILD_STATIC_ASSETS: "0" } }),
+      createBuildRequirementDeps(tmp, { env: { GRANTED_RUNTIME_POSTBUILD_STATIC_ASSETS: "0" } }),
     );
 
     expect(requirement).toEqual({
@@ -2301,7 +2301,7 @@ describe("run-node script", () => {
     const lockDeps = (tmp: string, fakeProcess: NodeJS.Process) => ({
       cwd: tmp,
       args: ["status"],
-      env: { OPENCLAW_RUNNER_LOG: "0" },
+      env: { GRANTED_RUNNER_LOG: "0" },
       fs: fsSync,
       process: fakeProcess,
       stderr: { write: () => true } as unknown as NodeJS.WriteStream,

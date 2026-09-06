@@ -50,7 +50,7 @@ async function withBashCompletionHome(
     {
       HOME: homeDir,
       USERPROFILE: homeDir,
-      OPENCLAW_STATE_DIR: stateDir,
+      GRANTED_STATE_DIR: stateDir,
       XDG_CONFIG_HOME: undefined,
       ZDOTDIR: undefined,
     },
@@ -98,14 +98,14 @@ describe("completion-runtime", () => {
     await withEnvAsync(
       {
         HOME: homeDir,
-        OPENCLAW_STATE_DIR: stateDir,
+        GRANTED_STATE_DIR: stateDir,
         ZDOTDIR: testCase.variable === "ZDOTDIR" ? configDir : undefined,
         XDG_CONFIG_HOME: testCase.variable === "XDG_CONFIG_HOME" ? configDir : undefined,
       },
       async () => {
         const cachePath = resolveCompletionCachePath(testCase.shell, "openclaw");
         await fs.mkdir(path.dirname(cachePath), { recursive: true });
-        await fs.writeFile(cachePath, "OPENCLAW_COMPLETION_LOADED=ready\n", "utf-8");
+        await fs.writeFile(cachePath, "GRANTED_COMPLETION_LOADED=ready\n", "utf-8");
 
         await installCompletion(testCase.shell, true, "openclaw");
 
@@ -115,7 +115,7 @@ describe("completion-runtime", () => {
         await expect(isCompletionInstalled(testCase.shell, "openclaw")).resolves.toBe(true);
 
         if (testCase.shell === "zsh") {
-          const shell = spawnSync("zsh", ["-ic", '[[ "$OPENCLAW_COMPLETION_LOADED" = ready ]]'], {
+          const shell = spawnSync("zsh", ["-ic", '[[ "$GRANTED_COMPLETION_LOADED" = ready ]]'], {
             encoding: "utf8",
             env: process.env,
           });
@@ -157,7 +157,7 @@ describe("completion-runtime", () => {
             async () => {
               const cachePath = resolveCompletionCachePath(testCase.shell, "openclaw");
               await fs.mkdir(path.dirname(cachePath), { recursive: true });
-              await fs.writeFile(cachePath, "OPENCLAW_COMPLETION_LOADED=ready\n", "utf8");
+              await fs.writeFile(cachePath, "GRANTED_COMPLETION_LOADED=ready\n", "utf8");
 
               await installCompletion(testCase.shell, true, "openclaw");
 
@@ -197,7 +197,7 @@ describe("completion-runtime", () => {
           {
             HOME: `${linkedHome}${path.sep}..`,
             USERPROFILE: `${linkedHome}${path.sep}..`,
-            OPENCLAW_STATE_DIR: stateDir,
+            GRANTED_STATE_DIR: stateDir,
             XDG_CONFIG_HOME: undefined,
             ZDOTDIR: undefined,
           },
@@ -467,7 +467,7 @@ describe("completion-runtime", () => {
       await withBashCompletionHome(async ({ stateDir }) => {
         const previousStateDir = tempDirs.make("openclaw-completion-previous-state-");
         let previousCachePath = "";
-        await withEnvAsync({ OPENCLAW_STATE_DIR: previousStateDir }, async () => {
+        await withEnvAsync({ GRANTED_STATE_DIR: previousStateDir }, async () => {
           previousCachePath = resolveCompletionCachePath(shell, "openclaw");
           await fs.mkdir(path.dirname(previousCachePath), { recursive: true });
           await fs.writeFile(previousCachePath, "# previous completion\n", "utf-8");
@@ -676,13 +676,13 @@ describe("completion-runtime", () => {
     async (shellName) => {
       const profileDir = tempDirs.make(`openclaw ${shellName} Ada's !42 reload profile-`);
       const profilePath = path.join(profileDir, ".shellrc");
-      await fs.writeFile(profilePath, "OPENCLAW_COMPLETION_LOADED=ready\n", "utf-8");
+      await fs.writeFile(profilePath, "GRANTED_COMPLETION_LOADED=ready\n", "utf-8");
 
       const reloadCommand = formatCompletionReloadCommand(shellName, profilePath);
       expect(reloadCommand).toBe(`source '${profilePath.replaceAll("'", "'\\''")}'`);
       const shell = spawnSync(
         shellName,
-        ["-c", `${reloadCommand}; [ "$OPENCLAW_COMPLETION_LOADED" = ready ]`],
+        ["-c", `${reloadCommand}; [ "$GRANTED_COMPLETION_LOADED" = ready ]`],
         {
           encoding: "utf8",
         },

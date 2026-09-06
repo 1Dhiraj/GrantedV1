@@ -9,7 +9,7 @@ describe("probeMattermost preflight timeout", () => {
   });
 
   it("times out when preflight lookup stalls before HTTP dispatch", async () => {
-    vi.stubEnv("OPENCLAW_PROXY_ACTIVE", "0");
+    vi.stubEnv("GRANTED_PROXY_ACTIVE", "0");
     const stalledLookup: LookupFn = (() => new Promise<never>(() => {})) as LookupFn;
     const fetchSpy = vi.fn(async () => new Response("should not run"));
 

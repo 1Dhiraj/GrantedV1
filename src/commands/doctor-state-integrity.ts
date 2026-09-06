@@ -554,7 +554,7 @@ export function formatLinuxSdBackedStateDirWarning(
   return [
     `- State directory appears to be on SD/eMMC storage (${displayStateDir}; device ${safeSource}, fs ${safeFsType}, mount ${safeMountPoint}).`,
     "- SD/eMMC media can be slower for random I/O and wear faster under session/log churn.",
-    "- For better startup and state durability, prefer SSD/NVMe (or USB SSD on Raspberry Pi) for OPENCLAW_STATE_DIR.",
+    "- For better startup and state durability, prefer SSD/NVMe (or USB SSD on Raspberry Pi) for GRANTED_STATE_DIR.",
   ].join("\n");
 }
 
@@ -620,7 +620,7 @@ export function formatLinuxVolatileStateDirWarning(
   return [
     `- State directory is on a volatile filesystem (${displayStateDir}; fs ${safeFsType}, mount ${safeMountPoint}).`,
     "- Sessions, credentials, config, and SQLite state (including WAL/journal sidecars) will be lost on reboot.",
-    "- Move OPENCLAW_STATE_DIR to a persistent filesystem to avoid data loss.",
+    "- Move GRANTED_STATE_DIR to a persistent filesystem to avoid data loss.",
   ].join("\n");
 }
 
@@ -642,7 +642,7 @@ export function detectMacCloudSyncedStateDir(
   }
 
   // Cloud-sync roots should always be anchored to the OS account home on macOS.
-  // OPENCLAW_HOME can relocate app data defaults, but iCloud/CloudStorage remain under the OS home.
+  // GRANTED_HOME can relocate app data defaults, but iCloud/CloudStorage remain under the OS home.
   const homedir = deps?.homedir ?? os.homedir();
   const roots = [
     {
@@ -697,7 +697,7 @@ function hasPairingPolicy(value: unknown): boolean {
 }
 
 function shouldRequireOAuthDir(cfg: OpenClawConfig, env: NodeJS.ProcessEnv): boolean {
-  if (env.OPENCLAW_OAUTH_DIR?.trim()) {
+  if (env.GRANTED_OAUTH_DIR?.trim()) {
     return true;
   }
   const channels = asNullableObjectRecord(cfg.channels);
@@ -874,7 +874,7 @@ export function stateIntegrityIssueToHealthFinding(
         severity: "warning",
         message: `State directory is under macOS cloud-synced storage (${issue.storage}), which can cause slow I/O and sync races.`,
         path: issue.path,
-        fixHint: "Move OPENCLAW_STATE_DIR to local non-synced storage such as ~/.openclaw.",
+        fixHint: "Move GRANTED_STATE_DIR to local non-synced storage such as ~/.openclaw.",
       };
     case "linux-sd-state-dir":
       return {
@@ -883,7 +883,7 @@ export function stateIntegrityIssueToHealthFinding(
         message: `State directory appears to be on SD/eMMC storage (${issue.source}, ${issue.fsType}), which can hurt startup and durability.`,
         path: issue.path,
         target: issue.mountPoint,
-        fixHint: "Move OPENCLAW_STATE_DIR to SSD/NVMe-backed storage.",
+        fixHint: "Move GRANTED_STATE_DIR to SSD/NVMe-backed storage.",
       };
     case "linux-volatile-state-dir":
       return {
@@ -892,7 +892,7 @@ export function stateIntegrityIssueToHealthFinding(
         message: `State directory is on volatile ${issue.fsType} storage and may disappear on reboot.`,
         path: issue.path,
         target: issue.mountPoint,
-        fixHint: "Move OPENCLAW_STATE_DIR to persistent local storage.",
+        fixHint: "Move GRANTED_STATE_DIR to persistent local storage.",
       };
     case "missing-state-dir":
       return {
@@ -1047,7 +1047,7 @@ export async function noteStateIntegrity(
         `- State directory is under macOS cloud-synced storage (${displayStateDir}; ${cloudSyncedStateDir.storage}).`,
         "- This can cause slow I/O and sync/lock races for sessions and credentials.",
         "- Prefer a local non-synced state dir (for example: ~/.openclaw).",
-        `  Set locally: OPENCLAW_STATE_DIR=~/.openclaw ${formatCliCommand("openclaw doctor")}`,
+        `  Set locally: GRANTED_STATE_DIR=~/.openclaw ${formatCliCommand("openclaw doctor")}`,
       ].join("\n"),
     );
   }

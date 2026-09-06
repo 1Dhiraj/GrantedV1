@@ -85,9 +85,9 @@ function createDoctorParams(stateDir: string, shouldRepair: boolean) {
   return {
     stateDir,
     env: {
-      OPENCLAW_BUNDLED_PLUGINS_DIR: undefined,
-      OPENCLAW_STATE_DIR: stateDir,
-      OPENCLAW_VERSION: "2026.4.25",
+      GRANTED_BUNDLED_PLUGINS_DIR: undefined,
+      GRANTED_STATE_DIR: stateDir,
+      GRANTED_VERSION: "2026.4.25",
       VITEST: "true",
     },
     config: {},

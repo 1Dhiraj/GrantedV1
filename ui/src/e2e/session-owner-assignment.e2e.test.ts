@@ -17,7 +17,7 @@ const suite = createControlUiE2eSuite({
   startServerBeforeBrowser: true,
 });
 const sessionKey = "agent:main:owner-outcome";
-const proofPhase = process.env.OPENCLAW_OWNER_ASSIGNMENT_PROOF_PHASE;
+const proofPhase = process.env.GRANTED_OWNER_ASSIGNMENT_PROOF_PHASE;
 let proofDir: string;
 beforeEach(() => {
   if (proofPhase) {

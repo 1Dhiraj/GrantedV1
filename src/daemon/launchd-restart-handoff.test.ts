@@ -58,7 +58,7 @@ async function executeHandoff(
     const home = path.join(stubDir, "home");
     const stateDir = path.join(home, ".openclaw");
     const systemDaemonsDir = path.join(stubDir, "LaunchDaemons");
-    const handoffEnv = { HOME: home, OPENCLAW_PROFILE: "default", OPENCLAW_STATE_DIR: stateDir };
+    const handoffEnv = { HOME: home, GRANTED_PROFILE: "default", GRANTED_STATE_DIR: stateDir };
     const callsPath = path.join(stubDir, "launchctl.calls");
     fs.mkdirSync(path.join(stateDir, "logs"), { recursive: true });
     fs.mkdirSync(systemDaemonsDir);
@@ -66,7 +66,7 @@ async function executeHandoff(
       path.join(stubDir, "launchctl"),
       `#!/bin/sh
 printf '%s\\n' "$*" >> "$LAUNCHCTL_CALLS_PATH"
-if [ "$1" = "print" ] && [ "$2" = "system/ai.openclaw.gateway" ]; then
+if [ "$1" = "print" ] && [ "$2" = "system/ai.granted.gateway" ]; then
   ${systemOwnership === "loaded" ? "exit 0" : "printf 'Could not find service\\n' >&2; exit 113"}
 fi
 ${launchctlStub}
@@ -133,7 +133,7 @@ ${launchctlStub}
       .readFileSync(callsPath, "utf8")
       .trim()
       .split("\n")
-      .filter((call) => call !== "print system/ai.openclaw.gateway");
+      .filter((call) => call !== "print system/ai.granted.gateway");
     const log = fs.readFileSync(path.join(stateDir, "logs", "gateway-restart.log"), "utf8");
     return { calls, exitCode, log };
   } finally {
@@ -151,7 +151,7 @@ describe("scheduleDetachedLaunchdRestartHandoff", () => {
   it("waits for the caller pid before kickstarting launchd", () => {
     const env = {
       HOME: "/Users/test",
-      OPENCLAW_PROFILE: "default",
+      GRANTED_PROFILE: "default",
     };
     spawnMock.mockReturnValue({ pid: 4242, unref: unrefMock, once: vi.fn() });
 
@@ -190,7 +190,7 @@ describe("scheduleDetachedLaunchdRestartHandoff", () => {
     scheduleDetachedLaunchdRestartHandoff({
       env: {
         HOME: "/Users/test",
-        OPENCLAW_PROFILE: "default",
+        GRANTED_PROFILE: "default",
       },
       mode: "start-after-exit",
     });
@@ -227,7 +227,7 @@ describe("scheduleDetachedLaunchdRestartHandoff", () => {
     expect(result.exitCode).toBe(78);
     expect(result.calls).toEqual([]);
     expect(result.log).toContain("restart blocked");
-    expect(result.log).toContain("loaded system LaunchDaemon system/ai.openclaw.gateway");
+    expect(result.log).toContain("loaded system LaunchDaemon system/ai.granted.gateway");
   });
 
   it("parks the service with bootout after the caller exits", async () => {
@@ -247,7 +247,7 @@ describe("scheduleDetachedLaunchdRestartHandoff", () => {
     scheduleDetachedLaunchdRestartHandoff({
       env: {
         HOME: "/Users/test",
-        OPENCLAW_PROFILE: "default",
+        GRANTED_PROFILE: "default",
       },
       mode: "reload",
       waitForPid: 9876,
@@ -355,7 +355,7 @@ esac`,
     scheduleDetachedLaunchdRestartHandoff({
       env: {
         HOME: "/Users/test",
-        OPENCLAW_PROFILE: "default",
+        GRANTED_PROFILE: "default",
         PATH: "/tmp/evil-bin",
         DYLD_INSERT_LIBRARIES: "/tmp/evil.dylib",
         NPM_CONFIG_GLOBALCONFIG: "/tmp/evil-npmrc",
@@ -368,7 +368,7 @@ esac`,
     expect(args[1]).not.toContain("/tmp/evil-bin");
     expect(args[1]).not.toContain("/tmp/evil.dylib");
     expect(args[1]).not.toContain("/tmp/evil-npmrc");
-    expect(options.env.OPENCLAW_PROFILE).toBe("default");
+    expect(options.env.GRANTED_PROFILE).toBe("default");
     expect(options.env.PATH).not.toBe("/tmp/evil-bin");
     expect(options.env.DYLD_INSERT_LIBRARIES).toBeUndefined();
     expect(options.env.NPM_CONFIG_GLOBALCONFIG).toBeUndefined();
@@ -379,7 +379,7 @@ esac`,
       scheduleDetachedLaunchdRestartHandoff({
         env: {
           HOME: "/Users/test",
-          OPENCLAW_LAUNCHD_LABEL: "../evil/\n\u001b[31mlabel\u001b[0m",
+          GRANTED_LAUNCHD_LABEL: "../evil/\n\u001b[31mlabel\u001b[0m",
         },
         mode: "kickstart",
       });

@@ -154,7 +154,7 @@ describe("managed plugin install transactions", () => {
       const installed = installManagedPluginSource({
         request,
         snapshot,
-        env: { HOME: home, OPENCLAW_STATE_DIR: path.join(home, "state") },
+        env: { HOME: home, GRANTED_STATE_DIR: path.join(home, "state") },
         onCapabilityConsent,
       });
       if (failure === "none") {

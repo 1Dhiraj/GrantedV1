@@ -121,7 +121,7 @@ import {
   type QaToolCoverageSuiteSummary,
 } from "./tool-coverage-report.js";
 
-const QA_CREDENTIAL_PAYLOAD_MAX_BYTES_ENV = "OPENCLAW_QA_CREDENTIAL_PAYLOAD_MAX_BYTES";
+const QA_CREDENTIAL_PAYLOAD_MAX_BYTES_ENV = "GRANTED_QA_CREDENTIAL_PAYLOAD_MAX_BYTES";
 const DEFAULT_QA_CREDENTIAL_PAYLOAD_MAX_BYTES = 64 * 1024 * 1024;
 type InterruptibleServer = {
   baseUrl: string;
@@ -820,15 +820,15 @@ function formatQaRunProfileFilterList(
 }
 
 async function withTemporaryQaProfileEnv<T>(profile: string, run: () => Promise<T>): Promise<T> {
-  const previousProfile = process.env.OPENCLAW_QA_PROFILE;
-  process.env.OPENCLAW_QA_PROFILE = profile;
+  const previousProfile = process.env.GRANTED_QA_PROFILE;
+  process.env.GRANTED_QA_PROFILE = profile;
   try {
     return await run();
   } finally {
     if (previousProfile === undefined) {
-      delete process.env.OPENCLAW_QA_PROFILE;
+      delete process.env.GRANTED_QA_PROFILE;
     } else {
-      process.env.OPENCLAW_QA_PROFILE = previousProfile;
+      process.env.GRANTED_QA_PROFILE = previousProfile;
     }
   }
 }
@@ -1631,7 +1631,7 @@ export async function runQaLabUiCommand(opts: {
     advertiseHost: opts.advertiseHost,
     advertisePort: Number.isFinite(opts.advertisePort) ? opts.advertisePort : undefined,
     controlUiUrl: opts.controlUiUrl,
-    controlUiProxyToken: process.env.OPENCLAW_QA_CONTROL_UI_PROXY_TOKEN,
+    controlUiProxyToken: process.env.GRANTED_QA_CONTROL_UI_PROXY_TOKEN,
     controlUiProxyTarget: opts.controlUiProxyTarget,
     uiDistDir: opts.uiDistDir,
     autoKickoffTarget: opts.autoKickoffTarget,

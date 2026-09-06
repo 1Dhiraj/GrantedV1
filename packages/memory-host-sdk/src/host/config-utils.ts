@@ -148,12 +148,12 @@ function resolveRawOsHomeDir(env: NodeJS.ProcessEnv, homedir: () => string): str
   );
 }
 
-/** Resolve OPENCLAW_HOME or the OS home, falling back to cwd for hermetic tests. */
+/** Resolve GRANTED_HOME or the OS home, falling back to cwd for hermetic tests. */
 function resolveRequiredHomeDir(
   env: NodeJS.ProcessEnv = process.env,
   homedir: () => string = os.homedir,
 ): string {
-  const explicitHome = normalizeHomeValue(env.OPENCLAW_HOME);
+  const explicitHome = normalizeHomeValue(env.GRANTED_HOME);
   const rawHome = explicitHome
     ? explicitHome.replace(/^~(?=$|[\\/])/, () => resolveRawOsHomeDir(env, homedir) ?? "")
     : resolveRawOsHomeDir(env, homedir);
@@ -196,7 +196,7 @@ function isFastTestRuntimeEnv(env: NodeJS.ProcessEnv): boolean {
         process.env.VITEST_POOL_ID !== undefined ||
         process.env.VITEST_WORKER_ID !== undefined ||
         process.env.NODE_ENV === "test"));
-  return isTestRuntime && env.OPENCLAW_TEST_FAST === "1";
+  return isTestRuntime && env.GRANTED_TEST_FAST === "1";
 }
 
 /** Resolve the current state root while preserving shipped legacy installs when present. */
@@ -204,7 +204,7 @@ function resolveStateDir(
   env: NodeJS.ProcessEnv = process.env,
   homedir: () => string = os.homedir,
 ): string {
-  const override = env.OPENCLAW_STATE_DIR?.trim();
+  const override = env.GRANTED_STATE_DIR?.trim();
   if (override) {
     return resolveMemoryHostUserPath(override, env, homedir);
   }
@@ -224,17 +224,17 @@ function resolveStateDir(
   return existingLegacy ?? nextDir;
 }
 
-/** Resolve the default agent workspace, partitioned by OPENCLAW_PROFILE when set. */
+/** Resolve the default agent workspace, partitioned by GRANTED_PROFILE when set. */
 function resolveDefaultAgentWorkspaceDir(env: NodeJS.ProcessEnv = process.env): string {
-  const workspaceDir = env.OPENCLAW_WORKSPACE_DIR?.trim();
+  const workspaceDir = env.GRANTED_WORKSPACE_DIR?.trim();
   if (workspaceDir) {
     return resolveMemoryHostUserPath(workspaceDir, env);
   }
-  if (env.OPENCLAW_STATE_DIR?.trim()) {
+  if (env.GRANTED_STATE_DIR?.trim()) {
     return path.join(resolveStateDir(env), "workspace");
   }
   const home = resolveRequiredHomeDir(env, os.homedir);
-  const profile = env.OPENCLAW_PROFILE?.trim();
+  const profile = env.GRANTED_PROFILE?.trim();
   if (profile && normalizeLowercaseStringOrEmpty(profile) !== "default") {
     return path.join(resolveStateDir(env), "workspace");
   }

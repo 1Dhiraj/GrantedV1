@@ -82,8 +82,8 @@ describe("monitorZaloProvider lifecycle", () => {
   beforeEach(async () => {
     const createdDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-zalo-monitor-"));
     testStateDir = await fs.realpath(createdDir);
-    previousStateDir = process.env.OPENCLAW_STATE_DIR;
-    process.env.OPENCLAW_STATE_DIR = testStateDir;
+    previousStateDir = process.env.GRANTED_STATE_DIR;
+    process.env.GRANTED_STATE_DIR = testStateDir;
     const core = createPluginRuntimeMock();
     core.state.openChannelIngressQueue = (<T>(options: { accountId?: string }) =>
       createChannelIngressQueueForTests<T>({
@@ -108,9 +108,9 @@ describe("monitorZaloProvider lifecycle", () => {
       testStateDir = undefined;
     }
     if (previousStateDir === undefined) {
-      delete process.env.OPENCLAW_STATE_DIR;
+      delete process.env.GRANTED_STATE_DIR;
     } else {
-      process.env.OPENCLAW_STATE_DIR = previousStateDir;
+      process.env.GRANTED_STATE_DIR = previousStateDir;
       previousStateDir = undefined;
     }
   });

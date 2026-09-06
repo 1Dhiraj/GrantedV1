@@ -26,7 +26,7 @@ describe("doctor --fix with a validation-blocked candidate", () => {
 
   it("never reports unpersisted fixes and leaves the config untouched", async () => {
     await withTempHome(async (home) => {
-      await withEnvOverride({ OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1" }, async () => {
+      await withEnvOverride({ GRANTED_DISABLE_BUNDLED_PLUGINS: "1" }, async () => {
         const configPath = await writeOpenClawConfig(home, {
           gatway: { port: 12345 },
           agents: { defaults: { heartbeat: { every: 5 } } },

@@ -72,7 +72,7 @@ describe("voice-call doctor state migration", () => {
     const warmEnv = {
       ...process.env,
       HOME: warmStateDir,
-      OPENCLAW_STATE_DIR: warmStateDir,
+      GRANTED_STATE_DIR: warmStateDir,
     };
     try {
       installStateRuntime();
@@ -122,7 +122,7 @@ describe("voice-call doctor state migration", () => {
     resetPluginStateStoreForTests();
     stateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-voice-call-doctor-"));
     storePath = createTestStorePath();
-    env = { ...process.env, HOME: stateDir, OPENCLAW_STATE_DIR: stateDir };
+    env = { ...process.env, HOME: stateDir, GRANTED_STATE_DIR: stateDir };
     installStateRuntime();
   });
 
@@ -231,7 +231,7 @@ describe("voice-call doctor state migration", () => {
     expect(history[0]?.callId).toBe("call-doctor");
   });
 
-  it("honors OPENCLAW_STATE_DIR for the default store", async () => {
+  it("honors GRANTED_STATE_DIR for the default store", async () => {
     const defaultStorePath = path.join(stateDir, "voice-calls");
     const call = makePersistedCall({
       callId: "call-isolated-state",
@@ -279,7 +279,7 @@ describe("voice-call doctor state migration", () => {
     });
     await fs.mkdir(dollarStorePath, { recursive: true });
     writeLegacyCallsJsonl(dollarStorePath, [call]);
-    const dollarEnv = { ...process.env, HOME: dollarHome, OPENCLAW_STATE_DIR: stateDir };
+    const dollarEnv = { ...process.env, HOME: dollarHome, GRANTED_STATE_DIR: stateDir };
 
     const migration = expectDefined(stateMigrations[0], "voice-call state migration");
     const params = {

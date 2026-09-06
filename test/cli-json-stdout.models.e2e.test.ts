@@ -4,7 +4,7 @@ import { DatabaseSync } from "node:sqlite";
 import { withTempHome } from "openclaw/plugin-sdk/test-env";
 import { describe, expect, it } from "vitest";
 import { readConfigMachineState } from "../src/state/config-machine-state.js";
-import { OPENCLAW_STATE_SCHEMA_SQL } from "../src/state/openclaw-state-schema.js";
+import { GRANTED_STATE_SCHEMA_SQL } from "../src/state/openclaw-state-schema.js";
 import { runBuiltCli } from "./cli-json-stdout.test-support.js";
 
 async function seedPendingStateMigration(stateDir: string) {
@@ -12,7 +12,7 @@ async function seedPendingStateMigration(stateDir: string) {
   await fs.mkdir(path.dirname(databasePath), { recursive: true });
   const database = new DatabaseSync(databasePath);
   try {
-    database.exec(OPENCLAW_STATE_SCHEMA_SQL);
+    database.exec(GRANTED_STATE_SCHEMA_SQL);
     database.exec("PRAGMA user_version = 0;");
   } finally {
     database.close();
@@ -53,9 +53,9 @@ describe("cli json stdout contract", () => {
         ).toString("base64");
         const result = runBuiltCli(tempHome, testCase.args, {
           NODE_OPTIONS: `--import=data:text/javascript;base64,${preload}`,
-          OPENCLAW_CONFIG_PATH: path.join(tempHome, "missing-openclaw.json"),
-          OPENCLAW_STATE_DIR: path.join(tempHome, "isolated-state"),
-          ...("commander" in testCase ? { OPENCLAW_DISABLE_ROUTE_FIRST: "1" } : {}),
+          GRANTED_CONFIG_PATH: path.join(tempHome, "missing-openclaw.json"),
+          GRANTED_STATE_DIR: path.join(tempHome, "isolated-state"),
+          ...("commander" in testCase ? { GRANTED_DISABLE_ROUTE_FIRST: "1" } : {}),
           ...("tty" in testCase ? { FORCE_COLOR: "1" } : {}),
         });
         const message = "Remote catalog refresh failed: Error: offline fixture";
@@ -151,8 +151,8 @@ describe("cli json stdout contract", () => {
           {
             CI: "1",
             NO_COLOR: "1",
-            OPENCLAW_CONFIG_PATH: configPath,
-            OPENCLAW_STATE_DIR: stateDir,
+            GRANTED_CONFIG_PATH: configPath,
+            GRANTED_STATE_DIR: stateDir,
           },
           { inheritEnvironment: false },
         );
@@ -176,8 +176,8 @@ describe("cli json stdout contract", () => {
           const result = runBuiltCli(tempHome, ["models", "auth", "list", "--provider", provider], {
             CI: "1",
             NO_COLOR: "1",
-            OPENCLAW_CONFIG_PATH: path.join(tempHome, "missing-openclaw.json"),
-            OPENCLAW_STATE_DIR: path.join(tempHome, "isolated-state"),
+            GRANTED_CONFIG_PATH: path.join(tempHome, "missing-openclaw.json"),
+            GRANTED_STATE_DIR: path.join(tempHome, "isolated-state"),
           });
 
           expect(result.status, result.stderr).toBe(0);
@@ -233,8 +233,8 @@ describe("cli json stdout contract", () => {
         ) =>
           runBuiltCli(tempHome, ["models", ...args], {
             NODE_OPTIONS: `--import=data:text/javascript;base64,${preloadFor(response)}`,
-            OPENCLAW_CONFIG_PATH: configPath,
-            OPENCLAW_STATE_DIR: stateDir,
+            GRANTED_CONFIG_PATH: configPath,
+            GRANTED_STATE_DIR: stateDir,
           });
         const readCatalogRow = () =>
           readConfigMachineState<{ generated_at: number; bundle_json: string }>(

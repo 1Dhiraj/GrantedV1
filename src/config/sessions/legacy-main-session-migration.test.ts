@@ -56,7 +56,7 @@ function createFixture(cfg: OpenClawConfig = { agents: { entries: { ops: {} } } 
   fs.mkdirSync(stateDir, { recursive: true });
   return {
     cfg,
-    env: { ...process.env, OPENCLAW_AGENT_DIR: undefined, OPENCLAW_STATE_DIR: stateDir },
+    env: { ...process.env, GRANTED_AGENT_DIR: undefined, GRANTED_STATE_DIR: stateDir },
     stateDir,
   };
 }
@@ -1035,7 +1035,7 @@ describe("legacy main session migration", () => {
       databasePath: databasePath(fixture.stateDir, "main"),
       key: "agent:main:chat",
     });
-    const env = { ...fixture.env, OPENCLAW_STATE_DIR: stateAlias };
+    const env = { ...fixture.env, GRANTED_STATE_DIR: stateAlias };
 
     const result = await migrateLegacyMainSessionKeys({
       cfg: fixture.cfg,

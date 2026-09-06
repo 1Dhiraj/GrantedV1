@@ -45,8 +45,8 @@ describe("plugin npm publish verifier command limits", () => {
   it("accepts strict npm command timeout and buffer overrides", () => {
     expect(
       readPluginNpmCommandOptions({
-        OPENCLAW_PLUGIN_NPM_COMMAND_MAX_BUFFER_BYTES: "33554432",
-        OPENCLAW_PLUGIN_NPM_COMMAND_TIMEOUT_MS: "120000",
+        GRANTED_PLUGIN_NPM_COMMAND_MAX_BUFFER_BYTES: "33554432",
+        GRANTED_PLUGIN_NPM_COMMAND_TIMEOUT_MS: "120000",
       }),
     ).toMatchObject({
       maxBuffer: 32 * 1024 * 1024,
@@ -57,22 +57,22 @@ describe("plugin npm publish verifier command limits", () => {
   it("rejects loose npm command timeout and buffer overrides", () => {
     for (const value of ["60s", "1e3", "0"]) {
       expect(() =>
-        readPluginNpmCommandOptions({ OPENCLAW_PLUGIN_NPM_COMMAND_TIMEOUT_MS: value }),
-      ).toThrow(`invalid OPENCLAW_PLUGIN_NPM_COMMAND_TIMEOUT_MS: ${value}`);
+        readPluginNpmCommandOptions({ GRANTED_PLUGIN_NPM_COMMAND_TIMEOUT_MS: value }),
+      ).toThrow(`invalid GRANTED_PLUGIN_NPM_COMMAND_TIMEOUT_MS: ${value}`);
     }
     expect(() =>
       readPluginNpmCommandOptions({
-        OPENCLAW_PLUGIN_NPM_COMMAND_MAX_BUFFER_BYTES: "16mb",
+        GRANTED_PLUGIN_NPM_COMMAND_MAX_BUFFER_BYTES: "16mb",
       }),
-    ).toThrow("invalid OPENCLAW_PLUGIN_NPM_COMMAND_MAX_BUFFER_BYTES: 16mb");
+    ).toThrow("invalid GRANTED_PLUGIN_NPM_COMMAND_MAX_BUFFER_BYTES: 16mb");
   });
 
   it("runs npm metadata commands with bounded exec options", () => {
     const calls: unknown[] = [];
     const output = runPluginNpmCommand(["view", "@openclaw/discord", "readme"], {
       env: {
-        OPENCLAW_PLUGIN_NPM_COMMAND_MAX_BUFFER_BYTES: "1024",
-        OPENCLAW_PLUGIN_NPM_COMMAND_TIMEOUT_MS: "2500",
+        GRANTED_PLUGIN_NPM_COMMAND_MAX_BUFFER_BYTES: "1024",
+        GRANTED_PLUGIN_NPM_COMMAND_TIMEOUT_MS: "2500",
       },
       execFileSyncImpl(command: string, args: string[], options: unknown) {
         calls.push({ args, command, options });

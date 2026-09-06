@@ -20,7 +20,7 @@ import { createIsolatedCodexAppServerClient } from "./shared-client.js";
 const CodexNativeSubagentMonitor = codexNativeSubagentMonitorRuntime.Monitor;
 
 const LIVE =
-  process.env.OPENCLAW_LIVE_TEST === "1" && process.env.OPENCLAW_LIVE_CODEX_NATIVE_SUBAGENT === "1";
+  process.env.GRANTED_LIVE_TEST === "1" && process.env.GRANTED_LIVE_CODEX_NATIVE_SUBAGENT === "1";
 const describeLive = LIVE ? describe : describe.skip;
 
 type RecordedDelivery = {

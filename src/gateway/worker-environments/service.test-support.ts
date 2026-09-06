@@ -121,7 +121,7 @@ export function setupWorkerEnvironmentServiceSuite() {
       path.join(await fs.realpath(os.tmpdir()), "openclaw-worker-service-"),
     );
     testState.stateDb = openOpenClawStateDatabase({
-      env: { OPENCLAW_STATE_DIR: testState.root },
+      env: { GRANTED_STATE_DIR: testState.root },
     });
     testState.nowMs = 1_000;
     testState.providersEnabled = true;
@@ -170,7 +170,7 @@ export async function reopenWorkerEnvironmentStore() {
   testState.service = undefined;
   closeOpenClawStateDatabaseForTest();
   testState.stateDb = openOpenClawStateDatabase({
-    env: { OPENCLAW_STATE_DIR: testState.root },
+    env: { GRANTED_STATE_DIR: testState.root },
   });
   testState.store = createWorkerEnvironmentStore({
     database: testState.stateDb,

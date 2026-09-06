@@ -150,7 +150,7 @@ async function stageQaPackagedMockAuthProfiles(params: {
             buildQaMockProfileId(provider),
           ],
           cwd: params.command.cwd ?? params.cwd,
-          env: { ...params.env, OPENCLAW_CONFIG_PATH: params.configPath },
+          env: { ...params.env, GRANTED_CONFIG_PATH: params.configPath },
           stdin: `${createQaPackagedMockApiKey()}\n`,
         }),
     );
@@ -387,8 +387,8 @@ export async function prepareQaGatewayChild(
                 providerBaseUrl: params.providerBaseUrl,
                 codexModelCatalogPath,
                 nativeAppServerArgs:
-                  params.runtimeEnvPatch?.OPENCLAW_CODEX_APP_SERVER_ARGS ??
-                  process.env.OPENCLAW_CODEX_APP_SERVER_ARGS,
+                  params.runtimeEnvPatch?.GRANTED_CODEX_APP_SERVER_ARGS ??
+                  process.env.GRANTED_CODEX_APP_SERVER_ARGS,
               }),
             },
             forwardHostHomeForClaudeCli: liveProviderIds.includes("claude-cli"),

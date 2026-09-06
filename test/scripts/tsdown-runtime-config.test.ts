@@ -3,8 +3,8 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 import { bundledPluginRoot } from "openclaw/plugin-sdk/test-fixtures";
 import { describe, expect, it } from "vitest";
-import { OPENCLAW_AGENT_SCHEMA_SQL } from "../../src/state/openclaw-agent-schema.js";
-import { OPENCLAW_STATE_SCHEMA_SQL } from "../../src/state/openclaw-state-schema.js";
+import { GRANTED_AGENT_SCHEMA_SQL } from "../../src/state/openclaw-agent-schema.js";
+import { GRANTED_STATE_SCHEMA_SQL } from "../../src/state/openclaw-state-schema.js";
 import tsdownConfig, {
   createStateSchemaInlinePlugin,
   STATE_SCHEMA_INLINE_PLUGIN_NAME,
@@ -113,16 +113,16 @@ describe("tsdown config", () => {
 
   it.each([
     {
-      exportName: "OPENCLAW_STATE_SCHEMA_SQL",
+      exportName: "GRANTED_STATE_SCHEMA_SQL",
       modulePath: "src/state/openclaw-state-schema.ts",
       schemaPath: "src/state/openclaw-state-schema.sql",
-      sourceValue: OPENCLAW_STATE_SCHEMA_SQL,
+      sourceValue: GRANTED_STATE_SCHEMA_SQL,
     },
     {
-      exportName: "OPENCLAW_AGENT_SCHEMA_SQL",
+      exportName: "GRANTED_AGENT_SCHEMA_SQL",
       modulePath: "src/state/openclaw-agent-schema.ts",
       schemaPath: "src/state/openclaw-agent-schema.sql",
-      sourceValue: OPENCLAW_AGENT_SCHEMA_SQL,
+      sourceValue: GRANTED_AGENT_SCHEMA_SQL,
     },
   ])("inlines canonical schema bytes for $modulePath", (schema) => {
     const rootDir = process.cwd();

@@ -4,7 +4,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { observePostCoreCommand } from "../../scripts/e2e/lib/plugin-update/process-observer.mjs";
 
 const argv = "node\0entry.js\0update\0--json\0";
-const marker = "OPENCLAW_UPDATE_POST_CORE=1\0";
+const marker = "GRANTED_UPDATE_POST_CORE=1\0";
 const procError = (code: string) => Object.assign(new Error(`proc read: ${code}`), { code });
 
 describe("plugin update command observation", () => {
@@ -70,7 +70,7 @@ describe("plugin update command observation", () => {
     "does not manufacture positive handoff evidence when %s is inaccessible",
     async (file) => {
       files.set("/proc/10/task/10/children", "11");
-      files.set("/proc/11/environ", "OPENCLAW_UPDATE_POST_CORE=0\0");
+      files.set("/proc/11/environ", "GRANTED_UPDATE_POST_CORE=0\0");
       files.set(`/proc/11/${file}`, procError("EACCES"));
       const outcome = observePostCoreCommand(child, "update");
       await vi.advanceTimersByTimeAsync(20);

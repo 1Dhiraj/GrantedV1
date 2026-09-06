@@ -52,7 +52,7 @@ describe("transcripts auto-start stop reporting", () => {
     },
   ])("$name preserves state and finishes siblings", async ({ blocked, outcome, manual }) => {
     const stateDir = await fs.realpath(tempDirs.make("openclaw-transcripts-auto-stop-"));
-    const options = { env: { ...process.env, OPENCLAW_STATE_DIR: stateDir } };
+    const options = { env: { ...process.env, GRANTED_STATE_DIR: stateDir } };
     const databasePath = path.resolve(resolveOpenClawStateSqlitePath(options.env));
     const exportRoot = path.join(stateDir, "transcripts");
     const store = new TranscriptsStore(exportRoot, options);

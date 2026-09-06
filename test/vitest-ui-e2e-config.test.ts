@@ -13,7 +13,7 @@ const tempDirs: string[] = [];
 
 beforeEach(() => {
   vi.resetModules();
-  vi.stubEnv("OPENCLAW_CI_TEST_TIMINGS", undefined);
+  vi.stubEnv("GRANTED_CI_TEST_TIMINGS", undefined);
 });
 
 afterEach(() => {

@@ -116,11 +116,11 @@ function hasErrorCode(error: unknown, code: string) {
 
 const ACTIVE_CHILD_KILLERS = new Set<KillChild>();
 const PACKAGE_BUILD_PLUGIN_SELECTION_ENV_NAMES = [
-  "OPENCLAW_EXTENSIONS",
-  "OPENCLAW_DOCKER_BUILD_EXTENSIONS",
+  "GRANTED_EXTENSIONS",
+  "GRANTED_DOCKER_BUILD_EXTENSIONS",
   DOCKER_SELECTED_PLUGIN_BUILD_IDS_ENV,
   // Public package builds must not inherit a smoke lane's private QA entrypoints.
-  "OPENCLAW_BUILD_PRIVATE_QA",
+  "GRANTED_BUILD_PRIVATE_QA",
 ];
 const SIGNAL_EXIT_CODES = {
   SIGHUP: 129,
@@ -439,8 +439,8 @@ export async function buildPackageArtifacts(
   const runImpl = packageOptions.runImpl ?? run;
   const buildEnv: NodeJS.ProcessEnv = {
     ...process.env,
-    OPENCLAW_BUILD_ALL_NO_PNPM: "1",
-    OPENCLAW_RUN_NODE_SKIP_DTS_BUILD: "0",
+    GRANTED_BUILD_ALL_NO_PNPM: "1",
+    GRANTED_RUN_NODE_SKIP_DTS_BUILD: "0",
   };
   for (const envName of PACKAGE_BUILD_PLUGIN_SELECTION_ENV_NAMES) {
     delete buildEnv[envName];
@@ -452,7 +452,7 @@ export async function buildPackageArtifacts(
     buildEnv[DOCKER_SELECTED_PLUGIN_BUILD_IDS_ENV] = selectedPlugins.map(({ id }) => id).join(",");
   }
   const timeoutMs = resolveTimeoutMs(
-    "OPENCLAW_DOCKER_PACKAGE_BUILD_TIMEOUT_MS",
+    "GRANTED_DOCKER_PACKAGE_BUILD_TIMEOUT_MS",
     DEFAULT_PACKAGE_BUILD_TIMEOUT_MS,
   );
   const distDir = path.join(sourceDir, "dist");
@@ -591,7 +591,7 @@ export async function prepareBundledAiRuntimePackage(
         path.dirname(tarballPath),
         {
           timeoutMs: resolveTimeoutMs(
-            "OPENCLAW_DOCKER_PACKAGE_PACK_TIMEOUT_MS",
+            "GRANTED_DOCKER_PACKAGE_PACK_TIMEOUT_MS",
             DEFAULT_PACKAGE_PACK_TIMEOUT_MS,
           ),
         },
@@ -690,7 +690,7 @@ export async function prepareBundledAiRuntimePackage(
         sourceDir,
         {
           timeoutMs: resolveTimeoutMs(
-            "OPENCLAW_DOCKER_PACKAGE_PACK_TIMEOUT_MS",
+            "GRANTED_DOCKER_PACKAGE_PACK_TIMEOUT_MS",
             DEFAULT_PACKAGE_PACK_TIMEOUT_MS,
           ),
         },
@@ -775,7 +775,7 @@ async function normalizeOpenClawTarballModes(tarballPath: string) {
   // packed it, keeping executable bits. Stays on the system tar contract like
   // the bundled AI runtime extraction above.
   const timeoutMs = resolveTimeoutMs(
-    "OPENCLAW_DOCKER_PACKAGE_PACK_TIMEOUT_MS",
+    "GRANTED_DOCKER_PACKAGE_PACK_TIMEOUT_MS",
     DEFAULT_PACKAGE_PACK_TIMEOUT_MS,
   );
   const stageDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-package-modes-"));
@@ -990,7 +990,7 @@ export async function packOpenClawPackageForDocker(
             ];
       packOutput = await runCaptureImpl(packTool, packArgs, sourcePath, {
         timeoutMs: resolveTimeoutMs(
-          "OPENCLAW_DOCKER_PACKAGE_PACK_TIMEOUT_MS",
+          "GRANTED_DOCKER_PACKAGE_PACK_TIMEOUT_MS",
           DEFAULT_PACKAGE_PACK_TIMEOUT_MS,
         ),
       });
@@ -1036,7 +1036,7 @@ export async function packOpenClawPackageForDocker(
         {
           stdoutFilePath: packReceiptPath,
           timeoutMs: resolveTimeoutMs(
-            "OPENCLAW_DOCKER_PACKAGE_PACK_TIMEOUT_MS",
+            "GRANTED_DOCKER_PACKAGE_PACK_TIMEOUT_MS",
             DEFAULT_PACKAGE_PACK_TIMEOUT_MS,
           ),
         },
@@ -1084,7 +1084,7 @@ export async function writePackageInventoryForDocker(
     sourceDir,
     {
       timeoutMs: resolveTimeoutMs(
-        "OPENCLAW_DOCKER_PACKAGE_INVENTORY_TIMEOUT_MS",
+        "GRANTED_DOCKER_PACKAGE_INVENTORY_TIMEOUT_MS",
         DEFAULT_PACKAGE_INVENTORY_TIMEOUT_MS,
       ),
     },
@@ -1124,7 +1124,7 @@ async function main() {
     sourceDir,
     {
       timeoutMs: resolveTimeoutMs(
-        "OPENCLAW_DOCKER_PACKAGE_TARBALL_CHECK_TIMEOUT_MS",
+        "GRANTED_DOCKER_PACKAGE_TARBALL_CHECK_TIMEOUT_MS",
         DEFAULT_PACKAGE_TARBALL_CHECK_TIMEOUT_MS,
       ),
     },

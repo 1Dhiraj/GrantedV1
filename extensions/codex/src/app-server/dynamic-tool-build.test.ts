@@ -1299,8 +1299,8 @@ describe("Codex app-server dynamic tool build", () => {
       "message",
     ].map((name) => ({ name }));
     const privateQaCodexEnv = {
-      OPENCLAW_BUILD_PRIVATE_QA: "1",
-      OPENCLAW_QA_FORCE_RUNTIME: "codex",
+      GRANTED_BUILD_PRIVATE_QA: "1",
+      GRANTED_QA_FORCE_RUNTIME: "codex",
     };
 
     expect(filterCodexDynamicTools(tools, {}, privateQaCodexEnv).map((tool) => tool.name)).toEqual([
@@ -2173,8 +2173,8 @@ describe("Codex app-server dynamic tool build", () => {
   });
 
   it("quarantines exposed Codex memory writes and edits after a network tool", async () => {
-    vi.stubEnv("OPENCLAW_BUILD_PRIVATE_QA", "1");
-    vi.stubEnv("OPENCLAW_QA_FORCE_RUNTIME", "codex");
+    vi.stubEnv("GRANTED_BUILD_PRIVATE_QA", "1");
+    vi.stubEnv("GRANTED_QA_FORCE_RUNTIME", "codex");
     const workspaceDir = path.join(tempDir, "workspace");
     await fs.mkdir(path.join(workspaceDir, "memory"), { recursive: true });
     {
@@ -2537,8 +2537,8 @@ describe("Codex app-server dynamic tool build", () => {
   });
 
   it("enables gateway subagent binding for forced private QA Codex runs", async () => {
-    vi.stubEnv("OPENCLAW_BUILD_PRIVATE_QA", "1");
-    vi.stubEnv("OPENCLAW_QA_FORCE_RUNTIME", "codex");
+    vi.stubEnv("GRANTED_BUILD_PRIVATE_QA", "1");
+    vi.stubEnv("GRANTED_QA_FORCE_RUNTIME", "codex");
     const sessionFile = path.join(tempDir, "session.jsonl");
     const workspaceDir = path.join(tempDir, "workspace");
     const params = createParams(sessionFile, workspaceDir);

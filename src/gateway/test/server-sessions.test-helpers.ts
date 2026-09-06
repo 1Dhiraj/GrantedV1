@@ -444,9 +444,9 @@ function createGatewaySessionsTestHarness(startServer: boolean, setup?: GatewayS
       });
     }
 
-    const configPath = process.env.OPENCLAW_CONFIG_PATH;
+    const configPath = process.env.GRANTED_CONFIG_PATH;
     if (!configPath) {
-      throw new Error("OPENCLAW_CONFIG_PATH is required");
+      throw new Error("GRANTED_CONFIG_PATH is required");
     }
     await fs.writeFile(
       configPath,

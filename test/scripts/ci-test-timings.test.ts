@@ -540,7 +540,7 @@ if (args[0] === "api" && args[1] === "--help") {
           {
             cwd: root,
             encoding: "utf8",
-            env: { ...process.env, OPENCLAW_GH_BIN: fakeGh, GH_TOKEN: "fixture-token" },
+            env: { ...process.env, GRANTED_GH_BIN: fakeGh, GH_TOKEN: "fixture-token" },
           },
         );
       try {
@@ -678,7 +678,7 @@ describe("committed CI timing loader", () => {
 
   async function readTimings(contents: string | Error) {
     vi.resetModules();
-    vi.stubEnv("OPENCLAW_CI_TEST_TIMINGS", undefined);
+    vi.stubEnv("GRANTED_CI_TEST_TIMINGS", undefined);
     const original = fs.readFileSync;
     const timingPath = fileURLToPath(new URL("../../config/ci-test-timings.json", import.meta.url));
     const read = vi.spyOn(fs, "readFileSync").mockImplementation((file, options) => {
@@ -722,12 +722,12 @@ describe("committed CI timing loader", () => {
     expect(loader.readRepoE2eFileTimings()).toEqual(data.repoE2eFileSeconds);
     expect(loader.readCompactGroupTimings("blacksmith")).toEqual({ group: 110 });
     expect(loader.readCompactGroupTimings("github")).toEqual({ group: 181 });
-    vi.stubEnv("OPENCLAW_CI_TEST_TIMINGS", "0");
+    vi.stubEnv("GRANTED_CI_TEST_TIMINGS", "0");
     expect(loader.readUiE2eFileTimings()).toEqual({ fileSeconds: {}, perFileOverheadSeconds: 0 });
     expect(loader.readRepoE2eFileTimings()).toEqual({});
     expect(loader.readCompactGroupTimings("blacksmith")).toEqual({});
     expect(loader.readCompactGroupTimings("github")).toEqual({});
-    vi.stubEnv("OPENCLAW_CI_TEST_TIMINGS", undefined);
+    vi.stubEnv("GRANTED_CI_TEST_TIMINGS", undefined);
     expect(loader.readCompactGroupTimings("github")).toEqual({ group: 181 });
     expect(
       read.mock.calls.filter(([file]) => file instanceof URL && fileURLToPath(file) === timingPath),

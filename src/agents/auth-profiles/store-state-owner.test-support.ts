@@ -59,12 +59,12 @@ export function createAuthOwnerTestFixtures() {
     }
     const original = fs.readFileSync(databasePath);
     const relocated = path.join(stateDir, "unrelated-relocated-agent");
-    vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
-    vi.stubEnv("OPENCLAW_AGENT_DIR", relocated);
+    vi.stubEnv("GRANTED_STATE_DIR", stateDir);
+    vi.stubEnv("GRANTED_AGENT_DIR", relocated);
     return () => {
       expect(fs.readFileSync(databasePath)).toEqual(original);
-      expect(process.env.OPENCLAW_STATE_DIR).toBe(stateDir);
-      expect(process.env.OPENCLAW_AGENT_DIR).toBe(relocated);
+      expect(process.env.GRANTED_STATE_DIR).toBe(stateDir);
+      expect(process.env.GRANTED_AGENT_DIR).toBe(relocated);
       expect(fs.existsSync(relocated)).toBe(false);
     };
   }
@@ -73,7 +73,7 @@ export function createAuthOwnerTestFixtures() {
     const stateDir = tempDirs.make("openclaw-auth-owner-root-");
     // Deliberately outside the state root: directory ancestry cannot identify inheritance.
     const agentDir = tempDirs.make("openclaw-auth-owner-custom-agent-");
-    const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir, OPENCLAW_AGENT_DIR: undefined };
+    const env = { ...process.env, GRANTED_STATE_DIR: stateDir, GRANTED_AGENT_DIR: undefined };
     await persistAuthProfileBatch({
       stateDir,
       profiles: [{ profileId: "shared", credential: apiKey(key) }],

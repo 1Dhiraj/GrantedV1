@@ -47,7 +47,7 @@ async function fixture() {
     source,
     context: { workspace: join(root, "workspace"), agentId: "worker-two" },
   });
-  return { root, plan, env: { OPENCLAW_STATE_DIR: join(root, "state") } };
+  return { root, plan, env: { GRANTED_STATE_DIR: join(root, "state") } };
 }
 
 function listedCronJob(

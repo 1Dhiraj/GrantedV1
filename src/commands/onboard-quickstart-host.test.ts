@@ -43,10 +43,10 @@ function createHostHarness(config: OpenClawConfig = { gateway: { auth: { mode: "
 
 describe("runQuickstartForegroundGateway", () => {
   beforeEach(() => {
-    vi.stubEnv("OPENCLAW_GATEWAY_TOKEN", "");
-    vi.stubEnv("OPENCLAW_GATEWAY_PASSWORD", "");
-    vi.stubEnv("OPENCLAW_GATEWAY_PORT", "");
-    vi.stubEnv("OPENCLAW_LOCALE", "en");
+    vi.stubEnv("GRANTED_GATEWAY_TOKEN", "");
+    vi.stubEnv("GRANTED_GATEWAY_PASSWORD", "");
+    vi.stubEnv("GRANTED_GATEWAY_PORT", "");
+    vi.stubEnv("GRANTED_LOCALE", "en");
   });
 
   afterEach(() => {

@@ -31,8 +31,8 @@ export function resolveScheduledTaskCommandPort(
 ): number | null {
   return (
     parseTcpPortFromArgs(command?.programArguments) ??
-    parseTcpPort(command?.environment?.OPENCLAW_GATEWAY_PORT) ??
-    parseTcpPort(env.OPENCLAW_GATEWAY_PORT)
+    parseTcpPort(command?.environment?.GRANTED_GATEWAY_PORT) ??
+    parseTcpPort(env.GRANTED_GATEWAY_PORT)
   );
 }
 
@@ -119,7 +119,7 @@ async function resolveScheduledTaskNodeHostProcess(
 }
 
 export function shouldManageGatewayListenerPort(env: GatewayServiceEnv): boolean {
-  return normalizeLowercaseStringOrEmpty(env.OPENCLAW_SERVICE_KIND) !== NODE_SERVICE_KIND;
+  return normalizeLowercaseStringOrEmpty(env.GRANTED_SERVICE_KIND) !== NODE_SERVICE_KIND;
 }
 
 export async function resolveScheduledTaskGatewayContext(env: GatewayServiceEnv): Promise<{

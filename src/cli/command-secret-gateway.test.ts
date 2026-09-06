@@ -121,7 +121,7 @@ describe("resolveCommandSecretRefsViaGateway", () => {
       "process.stdin.on('data', (chunk) => { stdin += chunk; });",
       "process.stdin.on('end', () => {",
       "  const request = JSON.parse(stdin);",
-      "  fs.writeFileSync(process.env.OPENCLAW_EXEC_MARKER, 'executed');",
+      "  fs.writeFileSync(process.env.GRANTED_EXEC_MARKER, 'executed');",
       "  const values = Object.fromEntries(request.ids.map((id) => [id, 'exec-local-key']));",
       "  process.stdout.write(JSON.stringify({ protocolVersion: 1, values }));",
       "});",
@@ -140,7 +140,7 @@ describe("resolveCommandSecretRefsViaGateway", () => {
               source: "exec",
               command: process.execPath,
               args: ["-e", resolverScript],
-              env: { OPENCLAW_EXEC_MARKER: markerPath },
+              env: { GRANTED_EXEC_MARKER: markerPath },
               allowInsecurePath: true,
               allowSymlinkCommand: true,
               jsonOnly: true,
@@ -813,8 +813,8 @@ describe("resolveCommandSecretRefsViaGateway", () => {
   it("skips gateway resolution when gateway credentials would execute exec SecretRefs", async () => {
     await withEnvAsync(
       {
-        OPENCLAW_GATEWAY_PASSWORD: undefined,
-        OPENCLAW_GATEWAY_TOKEN: undefined,
+        GRANTED_GATEWAY_PASSWORD: undefined,
+        GRANTED_GATEWAY_TOKEN: undefined,
         TALK_API_KEY: "local-fallback-key",
       },
       async () => {

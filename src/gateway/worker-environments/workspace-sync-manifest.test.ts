@@ -341,19 +341,19 @@ const renameSync = fs.renameSync;
 let applyGated = false;
 fs.renameSync = function(source, destination) {
   const result = renameSync.apply(this, arguments);
-  if (!applyGated && process.argv[1] === "apply" && source === process.env.OPENCLAW_TEST_GATE_SOURCE && destination.includes(path.sep + "backup" + path.sep)) {
+  if (!applyGated && process.argv[1] === "apply" && source === process.env.GRANTED_TEST_GATE_SOURCE && destination.includes(path.sep + "backup" + path.sep)) {
     applyGated = true;
-    fs.writeFileSync(process.env.OPENCLAW_TEST_APPLY_MARKER, "");
-    fs.readFileSync(process.env.OPENCLAW_TEST_GATE);
+    fs.writeFileSync(process.env.GRANTED_TEST_APPLY_MARKER, "");
+    fs.readFileSync(process.env.GRANTED_TEST_GATE);
   }
   return result;
 };
 const kill = process.kill.bind(process);
 let contenderMarked = false;
 process.kill = function(pid, signal) {
-  if (!contenderMarked && signal === 0 && process.argv[1] === process.env.OPENCLAW_TEST_CONTENDER) {
+  if (!contenderMarked && signal === 0 && process.argv[1] === process.env.GRANTED_TEST_CONTENDER) {
     contenderMarked = true;
-    fs.writeFileSync(process.env.OPENCLAW_TEST_CONTENDER_MARKER, "");
+    fs.writeFileSync(process.env.GRANTED_TEST_CONTENDER_MARKER, "");
   }
   return kill(pid, signal);
 };
@@ -361,11 +361,11 @@ process.kill = function(pid, signal) {
       );
       const env = {
         ...process.env,
-        OPENCLAW_TEST_GATE: gate,
-        OPENCLAW_TEST_GATE_SOURCE: path.join(workspace, "result.txt"),
-        OPENCLAW_TEST_APPLY_MARKER: applyMarker,
-        OPENCLAW_TEST_CONTENDER: contender,
-        OPENCLAW_TEST_CONTENDER_MARKER: contenderMarker,
+        GRANTED_TEST_GATE: gate,
+        GRANTED_TEST_GATE_SOURCE: path.join(workspace, "result.txt"),
+        GRANTED_TEST_APPLY_MARKER: applyMarker,
+        GRANTED_TEST_CONTENDER: contender,
+        GRANTED_TEST_CONTENDER_MARKER: contenderMarker,
       };
       const nonce = contender === "rollback" ? "3".repeat(32) : "4".repeat(32);
       const begin = await runCommandWithTimeout(

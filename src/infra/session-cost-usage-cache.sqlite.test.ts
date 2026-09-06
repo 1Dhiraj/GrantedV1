@@ -40,7 +40,7 @@ afterEach(() => {
 describe("session cost usage SQLite cache", () => {
   it("reads only requested rollups, including an empty selection", () => {
     const stateDir = makeTempDir(tempDirs, "openclaw-usage-cache-selection-");
-    withEnv({ OPENCLAW_STATE_DIR: stateDir }, () => {
+    withEnv({ GRANTED_STATE_DIR: stateDir }, () => {
       const agentId = "worker-1";
       for (const rollupId of ["selected.jsonl", "unrelated.jsonl"]) {
         writeSessionCostUsageRollup({
@@ -62,7 +62,7 @@ describe("session cost usage SQLite cache", () => {
   it("removes a persisted refresh lock owned by a Linux zombie", () => {
     const stateDir = makeTempDir(tempDirs, "openclaw-usage-cache-zombie-lock-");
 
-    withEnv({ OPENCLAW_STATE_DIR: stateDir }, () => {
+    withEnv({ GRANTED_STATE_DIR: stateDir }, () => {
       const agentId = "worker-1";
       const zombiePid = 4242;
       const database = openOpenClawAgentDatabase({ agentId });
@@ -95,7 +95,7 @@ describe("session cost usage SQLite cache", () => {
   it("returns empty values without creating a missing agent database", () => {
     const stateDir = makeTempDir(tempDirs, "openclaw-usage-cache-missing-");
 
-    withEnv({ OPENCLAW_STATE_DIR: stateDir }, () => {
+    withEnv({ GRANTED_STATE_DIR: stateDir }, () => {
       const databasePath = resolveOpenClawAgentSqlitePath({ agentId: "worker-1" });
 
       expect(readSessionCostUsageRollupRows("worker-1", databasePath)).toEqual([]);
@@ -108,7 +108,7 @@ describe("session cost usage SQLite cache", () => {
   it("does not register readonly cache reads while writes still register", () => {
     const stateDir = makeTempDir(tempDirs, "openclaw-usage-cache-registry-");
 
-    withEnv({ OPENCLAW_STATE_DIR: stateDir }, () => {
+    withEnv({ GRANTED_STATE_DIR: stateDir }, () => {
       const agentId = "worker-1";
       const database = openOpenClawAgentDatabase({ agentId });
       const databasePath = database.path;
@@ -142,7 +142,7 @@ describe("session cost usage SQLite cache", () => {
   ])("preserves a refreshed usage rollup with $label during pruning", ({ refreshedValue }) => {
     const stateDir = makeTempDir(tempDirs, "openclaw-usage-cache-prune-race-");
 
-    withEnv({ OPENCLAW_STATE_DIR: stateDir }, () => {
+    withEnv({ GRANTED_STATE_DIR: stateDir }, () => {
       const agentId = "worker-1";
       const rollupId = "session.jsonl";
       const staleValue = '{"totalTokens":1}';
@@ -186,7 +186,7 @@ describe("session cost usage SQLite cache", () => {
   it("reads only v2 rollups and prunes retired usage cache rows by scope", () => {
     const stateDir = makeTempDir(tempDirs, "openclaw-usage-cache-retired-");
 
-    withEnv({ OPENCLAW_STATE_DIR: stateDir }, () => {
+    withEnv({ GRANTED_STATE_DIR: stateDir }, () => {
       const agentId = "worker-1";
       expect(
         writeSessionCostUsageRollup({

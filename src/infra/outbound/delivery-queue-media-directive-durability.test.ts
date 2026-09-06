@@ -92,7 +92,7 @@ describe("delivery-queue MEDIA-directive durability (end-to-end)", () => {
 
   beforeEach(async () => {
     tmpDir = fixtures.tmpDir();
-    process.env.OPENCLAW_STATE_DIR = tmpDir;
+    process.env.GRANTED_STATE_DIR = tmpDir;
     spoolRoot = path.join(tmpDir, "delivery-queue-media");
     sourceDir = await fs.realpath(await fs.mkdtemp(path.join(tmpDir, "src-")));
   });

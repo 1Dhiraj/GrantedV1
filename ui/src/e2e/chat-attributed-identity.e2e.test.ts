@@ -13,7 +13,7 @@ const suite = createControlUiE2eSuite({
 
 let proofArtifactDir: string | undefined;
 beforeEach(() => {
-  const parent = process.env.OPENCLAW_CONTROL_UI_E2E_ARTIFACT_DIR?.trim();
+  const parent = process.env.GRANTED_CONTROL_UI_E2E_ARTIFACT_DIR?.trim();
   proofArtifactDir = parent
     ? createControlUiE2eArtifactDir("chat-attributed-identity", parent)
     : undefined;
@@ -446,7 +446,7 @@ suite.define(() => {
   });
 
   it("keeps an attributed failed send in the transcript with one-line retry metadata", async () => {
-    const artifactRoot = process.env.OPENCLAW_BUBBLE_DELIVERY_ARTIFACT_DIR?.trim();
+    const artifactRoot = process.env.GRANTED_BUBBLE_DELIVERY_ARTIFACT_DIR?.trim();
     const artifactDir = artifactRoot
       ? createControlUiE2eArtifactDir("bubble-delivery", artifactRoot)
       : undefined;

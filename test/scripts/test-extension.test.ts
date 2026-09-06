@@ -600,7 +600,7 @@ describe("scripts/test-extension.mts", () => {
       });
     });
     const runPromise = runExtensionBatchPlan(createConcurrentExtensionBatchPlan(), {
-      env: { OPENCLAW_EXTENSION_BATCH_PARALLEL: "2" },
+      env: { GRANTED_EXTENSION_BATCH_PARALLEL: "2" },
       runGroup: runGroup as NonNullable<
         NonNullable<Parameters<typeof runExtensionBatchPlan>[1]>["runGroup"]
       >,
@@ -625,8 +625,8 @@ describe("scripts/test-extension.mts", () => {
       args: ["--reporter=dot"],
       config: "heavy",
       env: {
-        OPENCLAW_EXTENSION_BATCH_PARALLEL: "2",
-        OPENCLAW_VITEST_FS_MODULE_CACHE_PATH: path.join(
+        GRANTED_EXTENSION_BATCH_PARALLEL: "2",
+        GRANTED_VITEST_FS_MODULE_CACHE_PATH: path.join(
           process.cwd(),
           ".cache",
           "vitest",
@@ -653,7 +653,7 @@ describe("scripts/test-extension.mts", () => {
       });
     });
     const runPromise = runExtensionBatchPlan(createConcurrentExtensionBatchPlan(), {
-      env: { OPENCLAW_EXTENSION_BATCH_PARALLEL: "2" },
+      env: { GRANTED_EXTENSION_BATCH_PARALLEL: "2" },
       runGroup: runGroup as NonNullable<
         NonNullable<Parameters<typeof runExtensionBatchPlan>[1]>["runGroup"]
       >,
@@ -673,16 +673,16 @@ describe("scripts/test-extension.mts", () => {
   });
 
   it("keeps extension batch parallelism bounded by group count", () => {
-    expect(resolveExtensionBatchParallelism(3, { OPENCLAW_EXTENSION_BATCH_PARALLEL: "2" })).toBe(2);
-    expect(resolveExtensionBatchParallelism(1, { OPENCLAW_EXTENSION_BATCH_PARALLEL: "4" })).toBe(1);
+    expect(resolveExtensionBatchParallelism(3, { GRANTED_EXTENSION_BATCH_PARALLEL: "2" })).toBe(2);
+    expect(resolveExtensionBatchParallelism(1, { GRANTED_EXTENSION_BATCH_PARALLEL: "4" })).toBe(1);
     expect(resolveExtensionBatchParallelism(3, {})).toBe(1);
   });
 
   it("rejects malformed extension batch parallelism", () => {
     for (const value of ["nope", "2x", "0"]) {
       expect(() =>
-        resolveExtensionBatchParallelism(3, { OPENCLAW_EXTENSION_BATCH_PARALLEL: value }),
-      ).toThrow("OPENCLAW_EXTENSION_BATCH_PARALLEL must be a positive integer");
+        resolveExtensionBatchParallelism(3, { GRANTED_EXTENSION_BATCH_PARALLEL: value }),
+      ).toThrow("GRANTED_EXTENSION_BATCH_PARALLEL must be a positive integer");
     }
   });
 
@@ -753,7 +753,7 @@ export default {root:${JSON.stringify(root)},cacheDir:${JSON.stringify(path.join
       } satisfies VitestBatchRunParams;
       writeFileSync(
         entry,
-        `import {runVitestBatch} from ${JSON.stringify(path.join(process.cwd(), "scripts/lib/vitest-batch-runner.mts"))};process.exitCode=await runVitestBatch({...${JSON.stringify(params)},env:{...process.env,OPENCLAW_VITEST_ENABLE_MAGLEV:${JSON.stringify(enableMaglev ? "1" : "")}}});`,
+        `import {runVitestBatch} from ${JSON.stringify(path.join(process.cwd(), "scripts/lib/vitest-batch-runner.mts"))};process.exitCode=await runVitestBatch({...${JSON.stringify(params)},env:{...process.env,GRANTED_VITEST_ENABLE_MAGLEV:${JSON.stringify(enableMaglev ? "1" : "")}}});`,
       );
       try {
         const result = spawnSync(
@@ -766,8 +766,8 @@ export default {root:${JSON.stringify(root)},cacheDir:${JSON.stringify(path.join
               PATH: "",
               HOME: home,
               USERPROFILE: home,
-              OPENCLAW_LIVE_TEST: realHomeReplay ? "1" : "0",
-              OPENCLAW_LIVE_USE_REAL_HOME: realHomeReplay ? "1" : "0",
+              GRANTED_LIVE_TEST: realHomeReplay ? "1" : "0",
+              GRANTED_LIVE_USE_REAL_HOME: realHomeReplay ? "1" : "0",
               TMPDIR: root,
               TMP: root,
               TEMP: root,

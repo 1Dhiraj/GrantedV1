@@ -50,7 +50,7 @@ describe("agent cleanup timeout", () => {
       cleanup,
       log,
       env: {
-        OPENCLAW_TRAJECTORY_FLUSH_TIMEOUT_MS: "25000",
+        GRANTED_TRAJECTORY_FLUSH_TIMEOUT_MS: "25000",
       },
     });
 
@@ -206,7 +206,7 @@ describe("agent cleanup timeout", () => {
       cleanup,
       log,
       env: {
-        OPENCLAW_AGENT_CLEANUP_TIMEOUT_MS: "1500",
+        GRANTED_AGENT_CLEANUP_TIMEOUT_MS: "1500",
       },
     });
 
@@ -229,8 +229,8 @@ describe("agent cleanup timeout", () => {
       cleanup,
       log,
       env: {
-        OPENCLAW_TRAJECTORY_FLUSH_TIMEOUT_MS: "25000",
-        OPENCLAW_AGENT_CLEANUP_TIMEOUT_MS: "15000",
+        GRANTED_TRAJECTORY_FLUSH_TIMEOUT_MS: "25000",
+        GRANTED_AGENT_CLEANUP_TIMEOUT_MS: "15000",
       },
     });
 
@@ -256,7 +256,7 @@ describe("agent cleanup timeout", () => {
       cleanup,
       log,
       env: {
-        OPENCLAW_TRAJECTORY_FLUSH_TIMEOUT_MS: "25000",
+        GRANTED_TRAJECTORY_FLUSH_TIMEOUT_MS: "25000",
       },
     });
 
@@ -273,16 +273,16 @@ describe("agent cleanup timeout", () => {
       runId: "run-invalid-env-number",
       sessionId: "session-invalid-env-number",
       env: {
-        OPENCLAW_TRAJECTORY_FLUSH_TIMEOUT_MS: "0",
-        OPENCLAW_AGENT_CLEANUP_TIMEOUT_MS: "not-a-number",
+        GRANTED_TRAJECTORY_FLUSH_TIMEOUT_MS: "0",
+        GRANTED_AGENT_CLEANUP_TIMEOUT_MS: "not-a-number",
       },
     },
     {
       runId: "run-invalid-env-format",
       sessionId: "session-invalid-env-format",
       env: {
-        OPENCLAW_TRAJECTORY_FLUSH_TIMEOUT_MS: "1e3",
-        OPENCLAW_AGENT_CLEANUP_TIMEOUT_MS: "0x10",
+        GRANTED_TRAJECTORY_FLUSH_TIMEOUT_MS: "1e3",
+        GRANTED_AGENT_CLEANUP_TIMEOUT_MS: "0x10",
       },
     },
   ])("ignores invalid cleanup timeout environment values", async ({ runId, sessionId, env }) => {

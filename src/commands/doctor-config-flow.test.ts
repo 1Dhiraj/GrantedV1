@@ -1375,9 +1375,9 @@ vi.mock("./doctor-config-preflight.js", async () => {
 
   function resolveConfigPath() {
     const stateDir =
-      process.env.OPENCLAW_STATE_DIR ||
+      process.env.GRANTED_STATE_DIR ||
       (process.env.HOME ? pathLocal.join(process.env.HOME, ".openclaw") : "");
-    return process.env.OPENCLAW_CONFIG_PATH || pathLocal.join(stateDir, "openclaw.json");
+    return process.env.GRANTED_CONFIG_PATH || pathLocal.join(stateDir, "openclaw.json");
   }
 
   return {
@@ -2449,7 +2449,7 @@ describe("doctor config flow", () => {
               enabled: true,
               handler: "./hooks/custom.ts",
               extraDirs: ["./hooks"],
-              env: { OPENCLAW_CUSTOM_HOOK: "1" },
+              env: { GRANTED_CUSTOM_HOOK: "1" },
             },
             "valid-hook": {
               enabled: true,

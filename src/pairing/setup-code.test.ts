@@ -297,13 +297,13 @@ describe("pairing setup code", () => {
 
   beforeEach(() => {
     gatewayEnvSnapshot = captureEnv([
-      "OPENCLAW_GATEWAY_TOKEN",
-      "OPENCLAW_GATEWAY_PASSWORD",
-      "OPENCLAW_GATEWAY_PORT",
+      "GRANTED_GATEWAY_TOKEN",
+      "GRANTED_GATEWAY_PASSWORD",
+      "GRANTED_GATEWAY_PORT",
     ]);
-    process.env.OPENCLAW_GATEWAY_TOKEN = "";
-    process.env.OPENCLAW_GATEWAY_PASSWORD = "";
-    process.env.OPENCLAW_GATEWAY_PORT = "";
+    process.env.GRANTED_GATEWAY_TOKEN = "";
+    process.env.GRANTED_GATEWAY_PASSWORD = "";
+    process.env.GRANTED_GATEWAY_PORT = "";
   });
 
   beforeEach(() => {
@@ -502,7 +502,7 @@ describe("pairing setup code", () => {
       expectedError: "MISSING_GW_TOKEN",
     },
     {
-      name: "does not let OPENCLAW_GATEWAY_PASSWORD mask a configured password SecretRef",
+      name: "does not let GRANTED_GATEWAY_PASSWORD mask a configured password SecretRef",
       config: createCustomGatewayConfig(
         {
           mode: "password",
@@ -511,7 +511,7 @@ describe("pairing setup code", () => {
         defaultEnvSecretProviderConfig,
       ),
       options: {
-        env: { OPENCLAW_GATEWAY_PASSWORD: "password-from-env" },
+        env: { GRANTED_GATEWAY_PASSWORD: "password-from-env" },
       },
       expectedError: "MISSING_GW_PASSWORD",
     },
@@ -531,7 +531,7 @@ describe("pairing setup code", () => {
       },
       {
         env: {
-          OPENCLAW_GATEWAY_PASSWORD: "password-from-env", // pragma: allowlist secret
+          GRANTED_GATEWAY_PASSWORD: "password-from-env", // pragma: allowlist secret
         },
       },
     );
@@ -618,7 +618,7 @@ describe("pairing setup code", () => {
       } satisfies ResolveSetupConfig,
       options: {
         env: {
-          OPENCLAW_GATEWAY_TOKEN: "new-token",
+          GRANTED_GATEWAY_TOKEN: "new-token",
         },
       } satisfies ResolveSetupOptions,
       expected: {

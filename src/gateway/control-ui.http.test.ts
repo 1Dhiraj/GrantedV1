@@ -471,7 +471,7 @@ describe("handleControlUiHttpRequest", () => {
   }) {
     const tempHome = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-ui-device-token-"));
     try {
-      return await withEnvAsync({ OPENCLAW_HOME: tempHome }, async () => {
+      return await withEnvAsync({ GRANTED_HOME: tempHome }, async () => {
         const deviceId = "control-ui-device";
         const requested = await requestDevicePairing({
           deviceId,
@@ -516,7 +516,7 @@ describe("handleControlUiHttpRequest", () => {
     fn: (bearer: string) => Promise<T>;
   }) {
     const tempHome = testTempDirs.make("openclaw-ui-scoped-device-");
-    return await withEnvAsync({ OPENCLAW_HOME: tempHome }, async () => {
+    return await withEnvAsync({ GRANTED_HOME: tempHome }, async () => {
       const deviceId = `control-ui-device-${randomUUID()}`;
       const requested = await requestDevicePairing({
         deviceId,
@@ -2113,7 +2113,7 @@ describe("handleControlUiHttpRequest", () => {
 
   it("penalizes both credential scopes when a Control UI read token is invalid", async () => {
     const tempHome = testTempDirs.make("openclaw-ui-invalid-token-");
-    await withEnvAsync({ OPENCLAW_HOME: tempHome }, async () => {
+    await withEnvAsync({ GRANTED_HOME: tempHome }, async () => {
       await withControlUiRoot({
         fn: async (tmp) => {
           const rateLimiter = createAuthRateLimiterSpy();
@@ -2185,7 +2185,7 @@ describe("handleControlUiHttpRequest", () => {
 
   it("rejects a rate-limited Control UI read when no valid device token is presented", async () => {
     const tempHome = testTempDirs.make("openclaw-ui-rate-limited-token-");
-    await withEnvAsync({ OPENCLAW_HOME: tempHome }, async () => {
+    await withEnvAsync({ GRANTED_HOME: tempHome }, async () => {
       await withControlUiRoot({
         fn: async (tmp) => {
           const rateLimiter = createAuthRateLimiterSpy();

@@ -3,7 +3,7 @@ import { extractDocumentContent } from "../../../../src/media/document-extractor
 import { extractPdfContent } from "../../../../src/media/pdf-extract.js";
 import { resolvePluginDocumentExtractors } from "../../../../src/plugins/document-extractors.runtime.js";
 
-const SENTINEL = "OPENCLAW_PDF_DISPATCH_SENTINEL";
+const SENTINEL = "GRANTED_PDF_DISPATCH_SENTINEL";
 
 function createInlinePdf(text: string): Buffer {
   const escapedText = text.replace(/[\\()]/gu, "\\$&");

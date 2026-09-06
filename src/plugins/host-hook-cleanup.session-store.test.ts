@@ -14,7 +14,7 @@ import { createEmptyPluginRegistry } from "./registry-empty.js";
 
 describe("plugin host cleanup session stores", () => {
   let stateDir: string | undefined;
-  const envSnapshot = captureEnv(["OPENCLAW_STATE_DIR"]);
+  const envSnapshot = captureEnv(["GRANTED_STATE_DIR"]);
 
   afterEach(async () => {
     closeOpenClawAgentDatabasesForTest();
@@ -30,7 +30,7 @@ describe("plugin host cleanup session stores", () => {
     stateDir = await fs.mkdtemp(
       path.join(resolvePreferredOpenClawTmpDir(), "openclaw-host-cleanup-noop-"),
     );
-    setTestEnvValue("OPENCLAW_STATE_DIR", stateDir);
+    setTestEnvValue("GRANTED_STATE_DIR", stateDir);
     const storePath = path.join(stateDir, "sessions.json");
     await replaceSessionEntry({ sessionKey: "agent:main:main", storePath }, {
       sessionId: "session-id",
@@ -53,7 +53,7 @@ describe("plugin host cleanup session stores", () => {
     stateDir = await fs.mkdtemp(
       path.join(resolvePreferredOpenClawTmpDir(), "openclaw-host-cleanup-deferred-"),
     );
-    setTestEnvValue("OPENCLAW_STATE_DIR", stateDir);
+    setTestEnvValue("GRANTED_STATE_DIR", stateDir);
     const storePath = path.join(stateDir, "sessions.json");
     await replaceSessionEntry({ sessionKey: "agent:main:main", storePath }, {
       sessionId: "session-id",
@@ -87,7 +87,7 @@ describe("plugin host cleanup session stores", () => {
     stateDir = await fs.mkdtemp(
       path.join(resolvePreferredOpenClawTmpDir(), "openclaw-host-cleanup-multistore-"),
     );
-    setTestEnvValue("OPENCLAW_STATE_DIR", stateDir);
+    setTestEnvValue("GRANTED_STATE_DIR", stateDir);
     const firstStorePath = path.join(stateDir, "agents", "a", "sessions", "sessions.json");
     const secondStorePath = path.join(stateDir, "agents", "b", "sessions", "sessions.json");
     const beforeUpdatedAt = 100;
@@ -175,7 +175,7 @@ describe("plugin host cleanup session stores", () => {
     stateDir = await fs.mkdtemp(
       path.join(resolvePreferredOpenClawTmpDir(), "openclaw-host-cleanup-shared-custom-"),
     );
-    setTestEnvValue("OPENCLAW_STATE_DIR", stateDir);
+    setTestEnvValue("GRANTED_STATE_DIR", stateDir);
     const sharedStorePath = path.join(stateDir, "custom", "sessions.json");
     const beforeUpdatedAt = 100;
     const entry: SessionEntry = {
@@ -225,7 +225,7 @@ describe("plugin host cleanup session stores", () => {
     stateDir = await fs.mkdtemp(
       path.join(resolvePreferredOpenClawTmpDir(), "openclaw-host-cleanup-locked-harness-"),
     );
-    setTestEnvValue("OPENCLAW_STATE_DIR", stateDir);
+    setTestEnvValue("GRANTED_STATE_DIR", stateDir);
     const storePath = path.join(stateDir, "sessions.json");
     const updatedAt = 100;
     const registry = createEmptyPluginRegistry();

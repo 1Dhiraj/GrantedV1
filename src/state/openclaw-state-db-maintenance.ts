@@ -10,15 +10,15 @@ import {
   readSqliteUserVersion,
 } from "../infra/sqlite-user-version.js";
 import {
-  OPENCLAW_DATABASE_SCHEMA_DOCS_URL,
+  GRANTED_DATABASE_SCHEMA_DOCS_URL,
   LAZY_ADDITIVE_STATE_TABLES,
-  OPENCLAW_STATE_SCHEMA_VERSION,
+  GRANTED_STATE_SCHEMA_VERSION,
   type OpenClawStateDatabaseOptions,
 } from "./openclaw-state-db-contract.js";
 import { tableExists, tableHasColumn } from "./openclaw-state-db-schema-helpers.js";
 import { resolveOpenClawStateSqlitePath } from "./openclaw-state-db.paths.js";
-import { OPENCLAW_STATE_MAINTENANCE_SCHEMA_COMPATIBILITY } from "./openclaw-state-schema-compatibility.js";
-import { OPENCLAW_STATE_SCHEMA_SQL } from "./openclaw-state-schema.js";
+import { GRANTED_STATE_MAINTENANCE_SCHEMA_COMPATIBILITY } from "./openclaw-state-schema-compatibility.js";
+import { GRANTED_STATE_SCHEMA_SQL } from "./openclaw-state-schema.js";
 
 const STATE_V6_ADDITIVE_TABLES = [
   // v6-v12 databases may predate this former same-version lazy table.
@@ -70,7 +70,7 @@ export function createOpenClawDatabaseVerificationError(
   // Doctor's clearing hooks run after a full integrity assertion, so a still-
   // corrupt file cannot be cleared directly: the file must be healthy first.
   const error = new Error(
-    `OpenClaw ${kind} database ${pathname} is quarantined after integrity verification failed: ${storedError ?? "unknown integrity error"}. Restore the database from a backup or repair it, then run openclaw doctor --fix to clear the quarantine. See ${OPENCLAW_DATABASE_SCHEMA_DOCS_URL}.`,
+    `OpenClaw ${kind} database ${pathname} is quarantined after integrity verification failed: ${storedError ?? "unknown integrity error"}. Restore the database from a backup or repair it, then run openclaw doctor --fix to clear the quarantine. See ${GRANTED_DATABASE_SCHEMA_DOCS_URL}.`,
   );
   error.name = "SqliteIntegrityError";
   return error;
@@ -78,12 +78,12 @@ export function createOpenClawDatabaseVerificationError(
 
 export function assertSupportedSchemaVersion(db: DatabaseSync, pathname: string): void {
   const userVersion = readSqliteUserVersion(db);
-  if (userVersion > OPENCLAW_STATE_SCHEMA_VERSION) {
+  if (userVersion > GRANTED_STATE_SCHEMA_VERSION) {
     throw createNewerSqliteSchemaVersionError(
       "OpenClaw state database",
       pathname,
       userVersion,
-      OPENCLAW_STATE_SCHEMA_VERSION,
+      GRANTED_STATE_SCHEMA_VERSION,
     );
   }
 }
@@ -116,15 +116,15 @@ export function assertOpenClawStateDatabaseForMaintenance(
   readTable?: SqliteTableContractReader,
 ): void {
   const userVersion = readSqliteUserVersion(database);
-  if (userVersion > OPENCLAW_STATE_SCHEMA_VERSION) {
+  if (userVersion > GRANTED_STATE_SCHEMA_VERSION) {
     throw createNewerSqliteSchemaVersionError(
       "OpenClaw state database",
       options.pathname,
       userVersion,
-      OPENCLAW_STATE_SCHEMA_VERSION,
+      GRANTED_STATE_SCHEMA_VERSION,
     );
   }
-  if (userVersion !== OPENCLAW_STATE_SCHEMA_VERSION) {
+  if (userVersion !== GRANTED_STATE_SCHEMA_VERSION) {
     throw new Error(
       `OpenClaw state database ${options.pathname} uses schema version ${userVersion}; run openclaw doctor --fix before compacting it.`,
     );
@@ -134,18 +134,18 @@ export function assertOpenClawStateDatabaseForMaintenance(
   const metadata = database
     .prepare("SELECT schema_version FROM schema_meta WHERE meta_key = 'primary' LIMIT 1")
     .get() as { schema_version?: unknown } | undefined;
-  if (metadata?.schema_version !== OPENCLAW_STATE_SCHEMA_VERSION) {
+  if (metadata?.schema_version !== GRANTED_STATE_SCHEMA_VERSION) {
     const schemaVersion =
       typeof metadata?.schema_version === "number" ? metadata.schema_version : "invalid";
     throw new Error(
-      `OpenClaw state database ${options.pathname} metadata schema version ${schemaVersion} does not match ${OPENCLAW_STATE_SCHEMA_VERSION}; run openclaw doctor --fix before compacting it.`,
+      `OpenClaw state database ${options.pathname} metadata schema version ${schemaVersion} does not match ${GRANTED_STATE_SCHEMA_VERSION}; run openclaw doctor --fix before compacting it.`,
     );
   }
   assertSqliteSchemaContains(
     database,
     options.pathname,
-    OPENCLAW_STATE_SCHEMA_SQL,
-    OPENCLAW_STATE_MAINTENANCE_SCHEMA_COMPATIBILITY,
+    GRANTED_STATE_SCHEMA_SQL,
+    GRANTED_STATE_MAINTENANCE_SCHEMA_COMPATIBILITY,
     readTable,
   );
 }
@@ -171,7 +171,7 @@ function assertOpenClawStateDatabaseVersionForMigration(
       `OpenClaw state database ${options.pathname} metadata schema version ${schemaVersion} does not match ${options.version}; repair the ownership metadata before migrating it.`,
     );
   }
-  assertSqliteSchemaTablesPresent(database, options.pathname, OPENCLAW_STATE_SCHEMA_SQL, {
+  assertSqliteSchemaTablesPresent(database, options.pathname, GRANTED_STATE_SCHEMA_SQL, {
     allowedMissingTables: STATE_MIGRATION_ALLOWED_MISSING_TABLES[options.version],
   });
 }
@@ -271,7 +271,7 @@ export function markCurrentStateSchemaVersion(
   if (!tableExists(db, "audit_events")) {
     return;
   }
-  db.exec(`PRAGMA user_version = ${OPENCLAW_STATE_SCHEMA_VERSION};`);
+  db.exec(`PRAGMA user_version = ${GRANTED_STATE_SCHEMA_VERSION};`);
   if (
     tableExists(db, "schema_meta") &&
     ["meta_key", "schema_version", "updated_at"].every((column) =>
@@ -290,12 +290,12 @@ export function markCurrentStateSchemaVersion(
          ON CONFLICT(meta_key) DO UPDATE SET
            schema_version = excluded.schema_version,
            updated_at = excluded.updated_at`,
-      ).run(OPENCLAW_STATE_SCHEMA_VERSION, now, now);
+      ).run(GRANTED_STATE_SCHEMA_VERSION, now, now);
       return;
     }
     db.prepare(
       "UPDATE schema_meta SET schema_version = ?, updated_at = ? WHERE meta_key = 'primary'",
-    ).run(OPENCLAW_STATE_SCHEMA_VERSION, now);
+    ).run(GRANTED_STATE_SCHEMA_VERSION, now);
   }
 }
 

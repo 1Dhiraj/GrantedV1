@@ -6,20 +6,20 @@ import { appendSystemAgentAuditEntry, SYSTEM_AGENT_AUDIT_STORE_LABEL } from "./a
 import { listSystemAgentAuditEntriesForTests } from "./audit.test-support.js";
 
 describe("OpenClaw audit log", () => {
-  const previousStateDir = process.env.OPENCLAW_STATE_DIR;
+  const previousStateDir = process.env.GRANTED_STATE_DIR;
 
   afterEach(() => {
     resetPluginStateStoreForTests();
     if (previousStateDir === undefined) {
-      delete process.env.OPENCLAW_STATE_DIR;
+      delete process.env.GRANTED_STATE_DIR;
     } else {
-      process.env.OPENCLAW_STATE_DIR = previousStateDir;
+      process.env.GRANTED_STATE_DIR = previousStateDir;
     }
   });
 
   it("writes records into shared SQLite state", async () => {
     await withTestDir({ prefix: "openclaw-audit-" }, async (tempDir) => {
-      vi.stubEnv("OPENCLAW_STATE_DIR", tempDir);
+      vi.stubEnv("GRANTED_STATE_DIR", tempDir);
 
       const auditStore = await appendSystemAgentAuditEntry({
         operation: "config.setDefaultModel",

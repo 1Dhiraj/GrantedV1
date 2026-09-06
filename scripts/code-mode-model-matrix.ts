@@ -675,8 +675,8 @@ async function buildMatrixCliArtifacts(repoRoot: string): Promise<void> {
       encoding: "utf8",
       env: {
         ...process.env,
-        OPENCLAW_BUILD_ALL_NO_PNPM: "1",
-        OPENCLAW_RUN_NODE_SKIP_DTS_BUILD: "1",
+        GRANTED_BUILD_ALL_NO_PNPM: "1",
+        GRANTED_RUN_NODE_SKIP_DTS_BUILD: "1",
       },
       maxBuffer: 8 * 1024 * 1024,
       timeout: 10 * 60 * 1_000,
@@ -909,7 +909,7 @@ export function buildCodeModeMatrixAgentEnv(
   const env: NodeJS.ProcessEnv = {
     ...baseEnv,
     NODE_DISABLE_COMPILE_CACHE: "1",
-    OPENCLAW_BUNDLED_PLUGINS_DIR: path.join(runtimeCwd, "dist", "extensions"),
+    GRANTED_BUNDLED_PLUGINS_DIR: path.join(runtimeCwd, "dist", "extensions"),
   };
   // The local Ollama provider uses a non-secret opt-in marker. Keep cloud and
   // custom credentials caller-owned, but make the local acceptance path work.

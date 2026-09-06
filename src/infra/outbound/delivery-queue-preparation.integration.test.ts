@@ -31,7 +31,7 @@ describe("stable delivery preparation cross-process ownership", () => {
     const id = "cross-process-stable-intent";
     child = spawn(process.execPath, ["--import", "tsx", CHILD_SCRIPT, stateDir, id], {
       stdio: ["ignore", "pipe", "pipe"],
-      env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+      env: { ...process.env, GRANTED_STATE_DIR: stateDir },
     });
     await new Promise<void>((resolve, reject) => {
       let stdout = "";

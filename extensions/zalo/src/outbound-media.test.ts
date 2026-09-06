@@ -24,7 +24,7 @@ import { setZaloRuntime } from "./runtime.js";
 
 const testStateEnv: NodeJS.ProcessEnv = {
   ...process.env,
-  OPENCLAW_STATE_DIR: fs.mkdtempSync(
+  GRANTED_STATE_DIR: fs.mkdtempSync(
     path.join(resolvePreferredOpenClawTmpDir(), "openclaw-zalo-media-"),
   ),
 };

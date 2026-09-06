@@ -127,7 +127,7 @@ function appendNodeOption(raw: string | undefined, option: string) {
 }
 
 export function shouldCaptureGatewayHeapCheckpoints(env: NodeJS.ProcessEnv = process.env) {
-  return parseBooleanValue(env.OPENCLAW_QA_GATEWAY_HEAP_CHECKPOINTS) === true;
+  return parseBooleanValue(env.GRANTED_QA_GATEWAY_HEAP_CHECKPOINTS) === true;
 }
 
 export function buildQaGatewayHeapCheckpointRuntimeEnvPatch(

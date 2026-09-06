@@ -24,7 +24,7 @@ const migrate = (storePath: string, env: NodeJS.ProcessEnv) =>
 
 function fixture(label: string) {
   const root = tempDirs.make(label);
-  const env = { OPENCLAW_STATE_DIR: root } as NodeJS.ProcessEnv;
+  const env = { GRANTED_STATE_DIR: root } as NodeJS.ProcessEnv;
   const storePath = path.join(root, "cron", "jobs.json");
   const storeKey = cronStoreKey(storePath);
   const database = openOpenClawStateDatabase({ env }).db;
@@ -67,7 +67,7 @@ it("preserves a session-scoped owner stored only in job JSON", async () => {
 
 it("materializes before scheduler startup", async () => {
   const { env, storePath } = fixture("openclaw-cron-startup-");
-  vi.stubEnv("OPENCLAW_STATE_DIR", env.OPENCLAW_STATE_DIR);
+  vi.stubEnv("GRANTED_STATE_DIR", env.GRANTED_STATE_DIR);
   closeOpenClawStateDatabaseForTest();
   const cron = new CronService({
     storePath,
@@ -88,7 +88,7 @@ it("materializes before scheduler startup", async () => {
 
 it("owns rows imported from a JSON-only store on first startup load", async () => {
   const root = tempDirs.make("openclaw-cron-json-startup-");
-  const env = { OPENCLAW_STATE_DIR: root } as NodeJS.ProcessEnv;
+  const env = { GRANTED_STATE_DIR: root } as NodeJS.ProcessEnv;
   const storePath = path.join(root, "cron", "jobs.json");
   const storeKey = cronStoreKey(storePath);
   await fs.mkdir(path.dirname(storePath), { recursive: true });
@@ -96,7 +96,7 @@ it("owns rows imported from a JSON-only store on first startup load", async () =
     storePath,
     JSON.stringify({ version: 1, jobs: [makeCronJob({ id: "json-only" })] }),
   );
-  vi.stubEnv("OPENCLAW_STATE_DIR", env.OPENCLAW_STATE_DIR);
+  vi.stubEnv("GRANTED_STATE_DIR", env.GRANTED_STATE_DIR);
 
   const realLoad = cronStoreModule.loadCronJobsStoreWithConfigJobs;
   let imported = false;

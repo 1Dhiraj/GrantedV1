@@ -22,7 +22,7 @@ describe("worker placement workspace journal", () => {
 
   beforeEach(() => {
     root = tempDirs.make("openclaw-journal-");
-    database = openOpenClawStateDatabase({ env: { OPENCLAW_STATE_DIR: root } });
+    database = openOpenClawStateDatabase({ env: { GRANTED_STATE_DIR: root } });
     store = createWorkerSessionPlacementStore({ database, now: () => 1_000 });
   });
 

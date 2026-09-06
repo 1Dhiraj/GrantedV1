@@ -23,11 +23,11 @@ describe("installation target ownership", () => {
           stateDir = state.path("custom state");
           configPath = state.path("separate config", "custom.json");
           defaultWorkspaceDir = state.path("custom workspace");
-          env.OPENCLAW_STATE_DIR =
+          env.GRANTED_STATE_DIR =
             selector === "relative" ? path.relative(process.cwd(), stateDir) : stateDir;
-          env.OPENCLAW_CONFIG_PATH =
+          env.GRANTED_CONFIG_PATH =
             selector === "relative" ? path.relative(process.cwd(), configPath) : configPath;
-          env.OPENCLAW_WORKSPACE_DIR =
+          env.GRANTED_WORKSPACE_DIR =
             selector === "relative"
               ? path.relative(process.cwd(), defaultWorkspaceDir)
               : defaultWorkspaceDir;
@@ -44,15 +44,15 @@ describe("installation target ownership", () => {
           await fs.writeFile(configPath, "{}");
         }
         const target = resolveInstallationTarget(env);
-        env.OPENCLAW_STATE_DIR = state.path("scratch");
-        delete env.OPENCLAW_CONFIG_PATH;
-        env.OPENCLAW_WORKSPACE_DIR = state.path("execution cwd");
+        env.GRANTED_STATE_DIR = state.path("scratch");
+        delete env.GRANTED_CONFIG_PATH;
+        env.GRANTED_WORKSPACE_DIR = state.path("execution cwd");
         expect(target).toEqual({ stateDir, configPath, defaultWorkspaceDir });
         expect(Object.isFrozen(target)).toBe(true);
         expect(installationTargetEnv(target)).toEqual({
-          OPENCLAW_STATE_DIR: stateDir,
-          OPENCLAW_CONFIG_PATH: configPath,
-          OPENCLAW_WORKSPACE_DIR: defaultWorkspaceDir,
+          GRANTED_STATE_DIR: stateDir,
+          GRANTED_CONFIG_PATH: configPath,
+          GRANTED_WORKSPACE_DIR: defaultWorkspaceDir,
         });
       });
     },

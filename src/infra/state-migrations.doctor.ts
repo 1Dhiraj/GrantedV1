@@ -244,7 +244,7 @@ async function detectManagedWorktreeStateMigration(params: {
   doctorOnlyStateMigrations?: boolean;
 }): Promise<LegacyStateDetection["worktrees"]> {
   const rawRoot = path.join(params.stateDir, "worktrees");
-  const stateEnv = { ...params.env, OPENCLAW_STATE_DIR: params.stateDir };
+  const stateEnv = { ...params.env, GRANTED_STATE_DIR: params.stateDir };
   const databaseExists = migrationFileExists(resolveOpenClawStateSqlitePath(stateEnv));
   const hasCurrentSchema = params.stateSchemaMigrations.length === 0;
   const hasLegacy =
@@ -409,7 +409,7 @@ export async function detectLegacyStateMigrations(params: {
   const hasPluginInstallIndex = migrationFileExists(pluginInstallIndexPath);
   const debugProxyCaptureSidecar = detectLegacyDebugProxyCaptureSidecar(stateDir, env);
   const stateSchemaMigrations = detectOpenClawStateDatabaseSchemaMigrations({
-    env: { ...env, OPENCLAW_STATE_DIR: stateDir },
+    env: { ...env, GRANTED_STATE_DIR: stateDir },
   });
   const worktrees = await detectManagedWorktreeStateMigration({
     env,
@@ -860,7 +860,7 @@ function migrateLegacyStateSchema(
   warnings: string[];
 } {
   return repairOpenClawStateDatabaseSchema({
-    env: { ...env, OPENCLAW_STATE_DIR: detected.stateDir },
+    env: { ...env, GRANTED_STATE_DIR: detected.stateDir },
   });
 }
 
@@ -919,7 +919,7 @@ function buildLegacyStateMigrationSteps(
 
   const managedWorktreePrelude: LegacyStateMigrationStep[] = [
     finalStep(() => {
-      const stateEnv = { ...env, OPENCLAW_STATE_DIR: stateDir };
+      const stateEnv = { ...env, GRANTED_STATE_DIR: stateDir };
       const discardedWorktrees =
         isDoctor && detected.worktrees.hasLegacy ? discardLegacyRegistryWorktrees(stateEnv) : 0;
       const canonicalizedWorktrees = rewriteRegistryWorktreePathsForMigration(
@@ -1019,7 +1019,7 @@ function buildLegacyStateMigrationSteps(
     finalStep(() =>
       migrateLegacyChannelPairingState({
         detected: detected.channelPairing,
-        env: { ...env, OPENCLAW_STATE_DIR: stateDir },
+        env: { ...env, GRANTED_STATE_DIR: stateDir },
       }),
     ),
     finalStep(
@@ -1062,7 +1062,7 @@ function buildLegacyStateMigrationSteps(
       ...finalStep(() =>
         migrateLegacyAcpSessionMetadata({
           cfg: params.sessionConfig ?? params.config,
-          env: isDoctor ? { ...env, OPENCLAW_STATE_DIR: stateDir } : env,
+          env: isDoctor ? { ...env, GRANTED_STATE_DIR: stateDir } : env,
           now,
           ...(isDoctor ? {} : { pluginSessionStoreAgentIds: params.pluginSessionStoreAgentIds }),
           legacySessionSurfaces: params.legacySessionSurfaces,
@@ -1188,7 +1188,7 @@ export async function autoMigrateLegacyState(params: {
   });
   const stateDir = resolveStateDir(env, homedir);
   autoMigrateChecked.add(`${path.resolve(stateDir)}\0${migrationMode}`);
-  const stateSchemaOptions = { env: { ...env, OPENCLAW_STATE_DIR: stateDir } };
+  const stateSchemaOptions = { env: { ...env, GRANTED_STATE_DIR: stateDir } };
   const stateSchema =
     params.doctorOnlyStateMigrations === true
       ? repairOpenClawStateDatabaseSchema(stateSchemaOptions)
@@ -1204,7 +1204,7 @@ export async function autoMigrateLegacyState(params: {
   }
   const agentMigrationOptions = {
     configuredAgentDatabaseTargets: resolveConfiguredAgentDatabaseTargets(params.cfg, { env }),
-    env: { ...env, OPENCLAW_STATE_DIR: stateDir },
+    env: { ...env, GRANTED_STATE_DIR: stateDir },
   };
   // Media owns the historical cutover and stopped-writer lease before current consumers.
   const mediaPersistence =
@@ -1245,7 +1245,7 @@ export async function autoMigrateLegacyState(params: {
   const pluginDoctorConfig = params.pluginDoctorConfig ?? params.cfg;
   const configMachineState = migrateLegacyConfigMachineState({
     config: pluginDoctorConfig,
-    env: { ...env, OPENCLAW_STATE_DIR: stateDir },
+    env: { ...env, GRANTED_STATE_DIR: stateDir },
   });
   const pluginSessionStoreAgentIds = listPluginDoctorSessionStoreAgentIds({
     config: pluginDoctorConfig,
@@ -1334,7 +1334,7 @@ export async function autoMigrateLegacyState(params: {
     stateDir: detected.stateDir,
     now: params.now,
   });
-  const hasCustomAgentDir = env.OPENCLAW_AGENT_DIR?.trim() || env.PI_CODING_AGENT_DIR?.trim();
+  const hasCustomAgentDir = env.GRANTED_AGENT_DIR?.trim() || env.PI_CODING_AGENT_DIR?.trim();
   const migrationSteps = buildLegacyStateMigrationSteps({
     mode: "automatic",
     detected,

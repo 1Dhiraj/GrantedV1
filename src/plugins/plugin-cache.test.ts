@@ -210,9 +210,9 @@ describe("plugin package facts", () => {
       'throw new Error("metadata executed runtime");',
     );
     const env = {
-      OPENCLAW_HOME: path.join(root, "home"),
-      OPENCLAW_BUNDLED_PLUGINS_DIR: bundledDir,
-      OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR: "1",
+      GRANTED_HOME: path.join(root, "home"),
+      GRANTED_BUNDLED_PLUGINS_DIR: bundledDir,
+      GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR: "1",
     };
     const discovery = discoverOpenClawPlugins({ env, installRecords: {} });
     expect(

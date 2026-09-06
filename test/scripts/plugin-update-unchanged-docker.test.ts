@@ -29,10 +29,10 @@ function seedInstallState(root: string, initialized: boolean) {
   const env = {
     ...process.env,
     HOME: root,
-    OPENCLAW_CONFIG_PATH: configPath,
-    OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-    OPENCLAW_STATE_DIR: stateDir,
-    OPENCLAW_VERSION: "2026.8.1",
+    GRANTED_CONFIG_PATH: configPath,
+    GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+    GRANTED_STATE_DIR: stateDir,
+    GRANTED_VERSION: "2026.8.1",
     VITEST: "true",
   };
   if (initialized) {
@@ -168,7 +168,7 @@ describe("plugin update unchanged Docker E2E", () => {
   it("bounds the update command and prints diagnostics on hangs", () => {
     const script = readFileSync(PLUGIN_UPDATE_SCENARIO_SCRIPT, "utf8");
 
-    expect(script).toContain("OPENCLAW_PLUGIN_UPDATE_TIMEOUT_SECONDS");
+    expect(script).toContain("GRANTED_PLUGIN_UPDATE_TIMEOUT_SECONDS");
     expect(script).toContain("registry_port_file=/tmp/openclaw-e2e-registry.port");
     expect(script).toContain(
       'node scripts/e2e/lib/plugin-update/registry-server.mjs "$registry_port_file"',
@@ -178,13 +178,13 @@ describe("plugin update unchanged Docker E2E", () => {
     );
     expect(script).toContain('export npm_config_registry="$NPM_CONFIG_REGISTRY"');
     expect(script).toContain(
-      "openclaw_e2e_read_positive_int_env OPENCLAW_PLUGIN_UPDATE_TIMEOUT_SECONDS 180",
+      "openclaw_e2e_read_positive_int_env GRANTED_PLUGIN_UPDATE_TIMEOUT_SECONDS 180",
     );
     expect(script).toContain(
       'openclaw_e2e_maybe_timeout "${plugin_update_timeout_seconds}s" node "$entry" plugins update',
     );
     expect(script).not.toContain(
-      'plugin_update_timeout_seconds="${OPENCLAW_PLUGIN_UPDATE_TIMEOUT_SECONDS:-180}"',
+      'plugin_update_timeout_seconds="${GRANTED_PLUGIN_UPDATE_TIMEOUT_SECONDS:-180}"',
     );
     expect(script).not.toMatch(
       /^\s*timeout "\$\{plugin_update_timeout_seconds\}s" node "\$entry"/mu,
@@ -278,25 +278,25 @@ describe("plugin update unchanged Docker E2E", () => {
 
     expect(script).toContain('plugins install "npm:@openclaw/demo-corrupt-plugin@0.0.1" --force');
     expect(script).toContain("config set plugins.allow '[\"demo-corrupt-plugin\"]'");
-    expect(script).toContain("OPENCLAW_UPDATE_CORRUPT_PLUGIN_TIMEOUT_SECONDS");
+    expect(script).toContain("GRANTED_UPDATE_CORRUPT_PLUGIN_TIMEOUT_SECONDS");
     expect(script).toContain(
-      "openclaw_e2e_read_positive_int_env OPENCLAW_UPDATE_CORRUPT_PLUGIN_TIMEOUT_SECONDS 900",
+      "openclaw_e2e_read_positive_int_env GRANTED_UPDATE_CORRUPT_PLUGIN_TIMEOUT_SECONDS 900",
     );
-    expect(script).toContain("OPENCLAW_UPDATE_CORRUPT_PLUGIN_STEP_TIMEOUT_SECONDS");
+    expect(script).toContain("GRANTED_UPDATE_CORRUPT_PLUGIN_STEP_TIMEOUT_SECONDS");
     expect(script).toContain(
       "default_update_step_timeout_seconds=$((10#$update_timeout_seconds - 30))",
     );
     expect(script).not.toContain(
-      'update_timeout_seconds="${OPENCLAW_UPDATE_CORRUPT_PLUGIN_TIMEOUT_SECONDS:-900}"',
+      'update_timeout_seconds="${GRANTED_UPDATE_CORRUPT_PLUGIN_TIMEOUT_SECONDS:-900}"',
     );
     expect(
       script.match(/openclaw_e2e_maybe_timeout "\$\{update_timeout_seconds\}s" \\/gu)?.length,
     ).toBe(2);
     expect(script).toContain("--channel beta");
     expect(script.match(/--timeout "\$update_step_timeout_seconds"/g)).toHaveLength(2);
-    expect(script).toContain("OPENCLAW_UPDATE_POST_CORE=1");
+    expect(script).toContain("GRANTED_UPDATE_POST_CORE=1");
     expect(script).not.toContain(
-      'node "$entry" update --channel beta --tag "${OPENCLAW_CURRENT_PACKAGE_TGZ',
+      'node "$entry" update --channel beta --tag "${GRANTED_CURRENT_PACKAGE_TGZ',
     );
     expect(script).toContain(
       "openclaw update failed or timed out after ${update_timeout_seconds}s",

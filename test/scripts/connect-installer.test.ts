@@ -92,7 +92,7 @@ function runWrapper(
     encoding: "utf8",
     env: {
       ...process.env,
-      OPENCLAW_INSTALL_CLI_URL: fixture.installer,
+      GRANTED_INSTALL_CLI_URL: fixture.installer,
       FAKE_INSTALL_ARGS: fixture.installArgs,
       FAKE_HELP_ARGS: fixture.helpArgs,
       FAKE_CONNECT_ARGS: fixture.connectArgs,
@@ -192,12 +192,12 @@ describe("scripts/connect.sh", () => {
     expect(`${result.stdout}\n${result.stderr}`).not.toContain(target);
   });
 
-  it("respects OPENCLAW_PREFIX when --prefix is omitted", () => {
+  it("respects GRANTED_PREFIX when --prefix is omitted", () => {
     const fixture = createFixture();
     const prefix = join(fixture.root, "env-prefix");
 
     const result = runWrapper(fixture, ["--version", "2026.8.1", "setup-code"], {
-      OPENCLAW_PREFIX: prefix,
+      GRANTED_PREFIX: prefix,
     });
 
     expect(result.status, result.stderr).toBe(0);
@@ -249,7 +249,7 @@ describe("scripts/connect.sh", () => {
 
     const result = runWrapper(fixture, args, {
       HOME: undefined,
-      OPENCLAW_PREFIX: undefined,
+      GRANTED_PREFIX: undefined,
     });
 
     expect(result.status).toBe(1);

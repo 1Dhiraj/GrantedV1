@@ -128,20 +128,20 @@ const publicAccessorAdapter: AccessorAdapter = {
   name: "public-accessor",
   entryScope: (paths) => ({
     agentId: "main",
-    env: { ...process.env, OPENCLAW_STATE_DIR: paths.stateDir },
+    env: { ...process.env, GRANTED_STATE_DIR: paths.stateDir },
     sessionKey: "agent:main:main",
     storePath: paths.sqlitePath,
   }),
   transcriptScope: (paths, id = "session-1") => ({
     agentId: "main",
-    env: { ...process.env, OPENCLAW_STATE_DIR: paths.stateDir },
+    env: { ...process.env, GRANTED_STATE_DIR: paths.stateDir },
     sessionId: id,
     sessionKey: "agent:main:main",
     storePath: paths.sqlitePath,
   }),
   transcriptReadScope: (paths, id = "session-1") => ({
     agentId: "main",
-    env: { ...process.env, OPENCLAW_STATE_DIR: paths.stateDir },
+    env: { ...process.env, GRANTED_STATE_DIR: paths.stateDir },
     sessionId: id,
     storePath: paths.sqlitePath,
   }),
@@ -164,20 +164,20 @@ const sqliteAdapter: AccessorAdapter = {
   name: "sqlite",
   entryScope: (paths) => ({
     agentId: "main",
-    env: { ...process.env, OPENCLAW_STATE_DIR: paths.stateDir },
+    env: { ...process.env, GRANTED_STATE_DIR: paths.stateDir },
     sessionKey: "agent:main:main",
     storePath: paths.sqlitePath,
   }),
   transcriptScope: (paths, id = "session-1") => ({
     agentId: "main",
-    env: { ...process.env, OPENCLAW_STATE_DIR: paths.stateDir },
+    env: { ...process.env, GRANTED_STATE_DIR: paths.stateDir },
     sessionId: id,
     sessionKey: "agent:main:main",
     storePath: paths.sqlitePath,
   }),
   transcriptReadScope: (paths, id = "session-1") => ({
     agentId: "main",
-    env: { ...process.env, OPENCLAW_STATE_DIR: paths.stateDir },
+    env: { ...process.env, GRANTED_STATE_DIR: paths.stateDir },
     sessionId: id,
     storePath: paths.sqlitePath,
   }),
@@ -467,7 +467,7 @@ describe.each([publicAccessorAdapter, sqliteAdapter])(
       expect(fs.existsSync(cleanupStorePath)).toBe(false);
       const database = openOpenClawAgentDatabase({
         agentId: "main",
-        env: { ...process.env, OPENCLAW_STATE_DIR: paths.stateDir },
+        env: { ...process.env, GRANTED_STATE_DIR: paths.stateDir },
         path: path.join(paths.stateDir, "agents", "main", "agent", "openclaw-agent.sqlite"),
       });
       const db = getNodeSqliteKysely<OpenClawAgentKyselyDatabase>(database.db);
@@ -573,7 +573,7 @@ describe.each([publicAccessorAdapter, sqliteAdapter])(
         "openclaw-agent.sqlite",
       );
       const scope = {
-        env: { ...process.env, OPENCLAW_STATE_DIR: paths.stateDir },
+        env: { ...process.env, GRANTED_STATE_DIR: paths.stateDir },
         sessionKey: "agent:voice:voice:123",
         storePath: legacyStorePath,
       };
@@ -612,7 +612,7 @@ describe.each([publicAccessorAdapter, sqliteAdapter])(
       const customStorePath = path.join(paths.tempDir, "custom-sessions.json");
       const sqlitePath = path.join(paths.tempDir, "custom-sessions.voice.sqlite");
       const scope = {
-        env: { ...process.env, OPENCLAW_STATE_DIR: paths.stateDir },
+        env: { ...process.env, GRANTED_STATE_DIR: paths.stateDir },
         sessionKey: "agent:voice:main",
         storePath: customStorePath,
       };
@@ -641,7 +641,7 @@ describe.each([publicAccessorAdapter, sqliteAdapter])(
       );
       const scope = {
         agentId: "support",
-        env: { ...process.env, OPENCLAW_STATE_DIR: paths.stateDir },
+        env: { ...process.env, GRANTED_STATE_DIR: paths.stateDir },
         sessionKey: "agent:support:main",
         storePath: customStorePath,
       };
@@ -1184,7 +1184,7 @@ describe("sqlite session normalization", () => {
   });
 
   it("maintains normalized session node and window rows", async () => {
-    const env = { ...process.env, OPENCLAW_STATE_DIR: paths.stateDir };
+    const env = { ...process.env, GRANTED_STATE_DIR: paths.stateDir };
     await upsertSessionEntryCore(
       {
         agentId: "main",
@@ -1280,7 +1280,7 @@ describe("sqlite session normalization", () => {
   });
 
   it("marks identity-only row updates pending validation", async () => {
-    const env = { ...process.env, OPENCLAW_STATE_DIR: paths.stateDir };
+    const env = { ...process.env, GRANTED_STATE_DIR: paths.stateDir };
     const sessionKey = "agent:main:identity-update";
     await replaceSessionEntry(
       { agentId: "main", env, sessionKey, storePath: paths.sqlitePath },
@@ -1299,7 +1299,7 @@ describe("sqlite session normalization", () => {
   });
 
   it("writes a valid session beside an unrelated malformed legacy row", async () => {
-    const env = { ...process.env, OPENCLAW_STATE_DIR: paths.stateDir };
+    const env = { ...process.env, GRANTED_STATE_DIR: paths.stateDir };
     const database = openOpenClawAgentDatabase({ agentId: "main", env, path: paths.sqlitePath });
     database.db
       .prepare(
@@ -1326,7 +1326,7 @@ describe("sqlite session normalization", () => {
   });
 
   it("exposes same-key rollover lineage when a killed session is replaced", async () => {
-    const env = { ...process.env, OPENCLAW_STATE_DIR: paths.stateDir };
+    const env = { ...process.env, GRANTED_STATE_DIR: paths.stateDir };
     const sessionKey = "agent:main:telegram:group:-1003774691294:topic:29020";
     const oldSessionId = "f1321535-878b-47cd-b35e-2f5f4bae2bb5";
     const newSessionId = "c0daccb0-0555-47d8-8747-9b53addf1fe2";
@@ -1396,7 +1396,7 @@ describe("sqlite session normalization", () => {
   });
 
   it("keeps exact SQLite replacement entries free of inferred rollover lineage", async () => {
-    const env = { ...process.env, OPENCLAW_STATE_DIR: paths.stateDir };
+    const env = { ...process.env, GRANTED_STATE_DIR: paths.stateDir };
     const scope = {
       agentId: "main",
       env,
@@ -1421,7 +1421,7 @@ describe("sqlite session normalization", () => {
   });
 
   it("skips parent fork when transcript rows exceed the token budget and entry totals are stale", async () => {
-    const env = { ...process.env, OPENCLAW_STATE_DIR: paths.stateDir };
+    const env = { ...process.env, GRANTED_STATE_DIR: paths.stateDir };
     const parentKey = "agent:main:parent";
     const childKey = "agent:main:subagent:child";
     await upsertSessionEntryCore(
@@ -1485,7 +1485,7 @@ describe("sqlite session normalization", () => {
   });
 
   it("does not move current nodes back to stale transcript session ids", async () => {
-    const env = { ...process.env, OPENCLAW_STATE_DIR: paths.stateDir };
+    const env = { ...process.env, GRANTED_STATE_DIR: paths.stateDir };
     const scope = {
       agentId: "main",
       env,
@@ -1534,7 +1534,7 @@ describe("sqlite session normalization", () => {
         },
       },
     });
-    const env = { ...process.env, OPENCLAW_STATE_DIR: paths.stateDir };
+    const env = { ...process.env, GRANTED_STATE_DIR: paths.stateDir };
     const scopeFor = (sessionKey: string) => ({
       agentId: "main",
       env,
@@ -1666,7 +1666,7 @@ describe("sqlite session normalization", () => {
     vi.mocked(getRuntimeConfig).mockReturnValue({
       session: { maintenance: { mode: "enforce", pruneAfter: "1d", maxEntries: 2 } },
     });
-    const env = { ...process.env, OPENCLAW_STATE_DIR: paths.stateDir };
+    const env = { ...process.env, GRANTED_STATE_DIR: paths.stateDir };
     const scopeFor = (sessionKey: string) => ({
       agentId: "main",
       env,
@@ -1733,7 +1733,7 @@ describe("sqlite session normalization", () => {
         },
       },
     });
-    const env = { ...process.env, OPENCLAW_STATE_DIR: paths.stateDir };
+    const env = { ...process.env, GRANTED_STATE_DIR: paths.stateDir };
     const scopeFor = (sessionKey: string) => ({
       agentId: "main",
       env,
@@ -1794,7 +1794,7 @@ describe("sqlite session normalization", () => {
         },
       },
     });
-    const env = { ...process.env, OPENCLAW_STATE_DIR: paths.stateDir };
+    const env = { ...process.env, GRANTED_STATE_DIR: paths.stateDir };
     const now = Date.now();
     const scopeFor = (sessionKey: string) => ({
       agentId: "main",
@@ -1886,7 +1886,7 @@ describe("sqlite session normalization", () => {
         },
       },
     });
-    const env = { ...process.env, OPENCLAW_STATE_DIR: paths.stateDir };
+    const env = { ...process.env, GRANTED_STATE_DIR: paths.stateDir };
     const scopeFor = (sessionKey: string) => ({
       agentId: "main",
       env,
@@ -1964,7 +1964,7 @@ describe("sqlite session normalization", () => {
         },
       },
     });
-    const env = { ...process.env, OPENCLAW_STATE_DIR: paths.stateDir };
+    const env = { ...process.env, GRANTED_STATE_DIR: paths.stateDir };
     const scopeFor = (sessionKey: string) => ({
       agentId: "main",
       env,
@@ -2034,7 +2034,7 @@ describe("sqlite session normalization", () => {
         },
       },
     });
-    const env = { ...process.env, OPENCLAW_STATE_DIR: paths.stateDir };
+    const env = { ...process.env, GRANTED_STATE_DIR: paths.stateDir };
     const scopeFor = (sessionKey: string) => ({
       agentId: "main",
       env,
@@ -2145,7 +2145,7 @@ describe("sqlite session normalization", () => {
   });
 
   it("fails loud for delivery-confirmed lowercased SQLite session aliases", async () => {
-    const env = { ...process.env, OPENCLAW_STATE_DIR: paths.stateDir };
+    const env = { ...process.env, GRANTED_STATE_DIR: paths.stateDir };
     const canonicalKey = "agent:main:matrix:channel:!MixedCase:example.org";
     const legacyKey = canonicalKey.toLowerCase();
     const entry = {
@@ -2218,7 +2218,7 @@ describe("sqlite session normalization", () => {
   });
 
   it("fails loud for invalid live rows instead of treating them as retained tombstones", () => {
-    const env = { ...process.env, OPENCLAW_STATE_DIR: paths.stateDir };
+    const env = { ...process.env, GRANTED_STATE_DIR: paths.stateDir };
     const sessionKey = "agent:main:invalid-live-row";
     const sessionId = "invalid-live-session";
     const database = openOpenClawAgentDatabase({ agentId: "main", env, path: paths.sqlitePath });
@@ -2239,7 +2239,7 @@ describe("sqlite session normalization", () => {
   });
 
   it("revalidates an open database after its canonical main key changes", () => {
-    const env = { ...process.env, OPENCLAW_STATE_DIR: paths.stateDir };
+    const env = { ...process.env, GRANTED_STATE_DIR: paths.stateDir };
     const storePath = paths.sqlitePath;
     replaceSessionEntrySync(
       { agentId: "main", env, sessionKey: "agent:main:main", storePath },
@@ -2256,7 +2256,7 @@ describe("sqlite session normalization", () => {
   });
 
   it("fails loud when promoted lineage disagrees with canonical entry JSON", () => {
-    const env = { ...process.env, OPENCLAW_STATE_DIR: paths.stateDir };
+    const env = { ...process.env, GRANTED_STATE_DIR: paths.stateDir };
     const sessionKey = "agent:main:lineage-mismatch";
     const sessionId = "lineage-mismatch-session";
     const entry = {
@@ -2288,7 +2288,7 @@ describe("sqlite session normalization", () => {
   });
 
   it("normalizes missing entry updatedAt before writing root and entry rows", async () => {
-    const env = { ...process.env, OPENCLAW_STATE_DIR: paths.stateDir };
+    const env = { ...process.env, GRANTED_STATE_DIR: paths.stateDir };
     await replaceSessionEntry(
       {
         agentId: "main",
@@ -2372,7 +2372,7 @@ describe("sqlite session normalization", () => {
   });
 
   it("branches a checkpoint by copying SQLite rows and creating the entry transactionally", async () => {
-    const env = { ...process.env, OPENCLAW_STATE_DIR: paths.stateDir };
+    const env = { ...process.env, GRANTED_STATE_DIR: paths.stateDir };
     const sourceScope = {
       agentId: "main",
       env,
@@ -2486,7 +2486,7 @@ describe("sqlite session normalization", () => {
   });
 
   it("falls back to post-compaction SQLite rows when no pre-compaction rows exist", async () => {
-    const env = { ...process.env, OPENCLAW_STATE_DIR: paths.stateDir };
+    const env = { ...process.env, GRANTED_STATE_DIR: paths.stateDir };
     const sourceScope = {
       agentId: "main",
       env,
@@ -2558,7 +2558,7 @@ describe("sqlite session normalization", () => {
   });
 
   it("restores a checkpoint by copying SQLite rows and replacing the entry transactionally", async () => {
-    const env = { ...process.env, OPENCLAW_STATE_DIR: paths.stateDir };
+    const env = { ...process.env, GRANTED_STATE_DIR: paths.stateDir };
     const sourceScope = {
       agentId: "main",
       env,

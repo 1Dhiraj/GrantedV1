@@ -6,10 +6,10 @@ import { z } from "zod";
 import type { WhatsAppQaConfigOverrides, WhatsAppQaRuntimeEnv } from "./whatsapp-live.contracts.js";
 
 const WHATSAPP_QA_ENV_KEYS = [
-  "OPENCLAW_QA_WHATSAPP_DRIVER_PHONE_E164",
-  "OPENCLAW_QA_WHATSAPP_SUT_PHONE_E164",
-  "OPENCLAW_QA_WHATSAPP_DRIVER_AUTH_ARCHIVE_BASE64",
-  "OPENCLAW_QA_WHATSAPP_SUT_AUTH_ARCHIVE_BASE64",
+  "GRANTED_QA_WHATSAPP_DRIVER_PHONE_E164",
+  "GRANTED_QA_WHATSAPP_SUT_PHONE_E164",
+  "GRANTED_QA_WHATSAPP_DRIVER_AUTH_ARCHIVE_BASE64",
+  "GRANTED_QA_WHATSAPP_SUT_AUTH_ARCHIVE_BASE64",
 ] as const;
 const whatsappQaCredentialPayloadSchema = z.object({
   driverPhoneE164: z.string().trim().min(1),
@@ -56,16 +56,16 @@ export function resolveWhatsAppQaRuntimeEnv(
 ): WhatsAppQaRuntimeEnv {
   return validateWhatsAppQaRuntimeEnv(
     {
-      driverPhoneE164: resolveEnvValue(env, "OPENCLAW_QA_WHATSAPP_DRIVER_PHONE_E164"),
-      sutPhoneE164: resolveEnvValue(env, "OPENCLAW_QA_WHATSAPP_SUT_PHONE_E164"),
+      driverPhoneE164: resolveEnvValue(env, "GRANTED_QA_WHATSAPP_DRIVER_PHONE_E164"),
+      sutPhoneE164: resolveEnvValue(env, "GRANTED_QA_WHATSAPP_SUT_PHONE_E164"),
       driverAuthArchiveBase64: resolveEnvValue(
         env,
-        "OPENCLAW_QA_WHATSAPP_DRIVER_AUTH_ARCHIVE_BASE64",
+        "GRANTED_QA_WHATSAPP_DRIVER_AUTH_ARCHIVE_BASE64",
       ),
-      sutAuthArchiveBase64: resolveEnvValue(env, "OPENCLAW_QA_WHATSAPP_SUT_AUTH_ARCHIVE_BASE64"),
-      groupJid: env.OPENCLAW_QA_WHATSAPP_GROUP_JID?.trim() || undefined,
+      sutAuthArchiveBase64: resolveEnvValue(env, "GRANTED_QA_WHATSAPP_SUT_AUTH_ARCHIVE_BASE64"),
+      groupJid: env.GRANTED_QA_WHATSAPP_GROUP_JID?.trim() || undefined,
     },
-    "OPENCLAW_QA_WHATSAPP",
+    "GRANTED_QA_WHATSAPP",
   );
 }
 

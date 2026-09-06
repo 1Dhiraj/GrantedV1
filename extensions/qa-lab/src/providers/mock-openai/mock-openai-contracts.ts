@@ -180,8 +180,8 @@ export type MockOpenAiRequestSnapshotInput = Omit<MockOpenAiRequestSnapshot, "cu
 
 // Runtime-context delimiters are owned by src/agents/internal-runtime-context.ts.
 // This mock mirrors the wire shape so delimiter drift fails through QA timeouts.
-export const INTERNAL_RUNTIME_CONTEXT_BEGIN = "<<<BEGIN_OPENCLAW_INTERNAL_CONTEXT>>>";
-export const INTERNAL_RUNTIME_CONTEXT_END = "<<<END_OPENCLAW_INTERNAL_CONTEXT>>>";
+export const INTERNAL_RUNTIME_CONTEXT_BEGIN = "<<<BEGIN_GRANTED_INTERNAL_CONTEXT>>>";
+export const INTERNAL_RUNTIME_CONTEXT_END = "<<<END_GRANTED_INTERNAL_CONTEXT>>>";
 
 // Anthropic /v1/messages request/response shapes the mock actually needs.
 // This is a subset of the real Anthropic Messages API — just enough so the
@@ -364,7 +364,7 @@ const QA_AUDIO_TRANSCRIPTION_TEXT =
   "Reply with only this exact marker: WHATSAPP_QA_AUDIO_TRANSCRIPT_OK";
 const QA_GROUP_AUDIO_TRANSCRIPTION_TEXT =
   "openclawqa reply with only this exact marker after group audio preflight: WHATSAPP_QA_GROUP_AUDIO_TRANSCRIPT_OK";
-const QA_GROUP_AUDIO_TRIGGER_SENTINEL = "OPENCLAW_QA_GROUP_AUDIO_TRIGGER";
+const QA_GROUP_AUDIO_TRIGGER_SENTINEL = "GRANTED_QA_GROUP_AUDIO_TRIGGER";
 const QA_MATRIX_VOICE_TRANSCRIPTION_TRIGGER = "MATRIX_QA_VOICE_PREFLIGHT_TRIGGER";
 const QA_MATRIX_VOICE_TRANSCRIPTION_TEXT =
   "C3PLQA reply with only these words Matrix QA voice pre-flight OK.";

@@ -759,7 +759,7 @@ describe("readSessionMessages", () => {
       { type: "session", version: 1, id: sessionId },
       { message: { role: "assistant", content: "newer legacy archive" } },
     ]);
-    await withEnvAsync({ OPENCLAW_HOME: tmpDir }, async () => {
+    await withEnvAsync({ GRANTED_HOME: tmpDir }, async () => {
       const fullMessages = await readSessionMessagesAsync(sessionId, storePath, undefined, {
         mode: "full",
         reason: "test cross-root reset archive fallback",
@@ -1617,8 +1617,8 @@ describe("readLatestSessionUsageFromTranscript", () => {
 });
 
 describe("resolveSessionTranscriptCandidates", () => {
-  test("fallback candidate uses OPENCLAW_HOME instead of os.homedir()", () => {
-    withEnv({ OPENCLAW_HOME: "/srv/openclaw-home", HOME: "/home/other" }, () => {
+  test("fallback candidate uses GRANTED_HOME instead of os.homedir()", () => {
+    withEnv({ GRANTED_HOME: "/srv/openclaw-home", HOME: "/home/other" }, () => {
       const candidates = resolveSessionTranscriptCandidates("sess-1", undefined);
       const fallback = candidates[candidates.length - 1];
       expect(fallback).toBe(
@@ -1988,14 +1988,14 @@ describe("oversized transcript line guards", () => {
           { type: "text", text: "keep prefix text" },
           { type: "image", data: encoded },
         ],
-        { message: { compactNumbers: "__OPENCLAW_COMPACT_NUMBERS__" } },
+        { message: { compactNumbers: "__GRANTED_COMPACT_NUMBERS__" } },
       ),
     ]);
     const compactNumbers = Array.from({ length: 13_000 }, () => "1e20").join(",");
     const archive = fs.readFileSync(archivePath, "utf8");
     fs.writeFileSync(
       archivePath,
-      archive.replace('"__OPENCLAW_COMPACT_NUMBERS__"', `[${compactNumbers}]`),
+      archive.replace('"__GRANTED_COMPACT_NUMBERS__"', `[${compactNumbers}]`),
       "utf8",
     );
 

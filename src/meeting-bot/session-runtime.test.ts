@@ -316,7 +316,7 @@ describe("MeetingSessionRuntime durable transcripts", () => {
     await runtime.leave(session.id);
 
     const store = new TranscriptsStore(path.join(stateDir, "transcripts"), {
-      env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+      env: { ...process.env, GRANTED_STATE_DIR: stateDir },
     });
     const storedSession = await store.readSession(session.id);
     expect(storedSession).toMatchObject({
@@ -420,7 +420,7 @@ describe("MeetingSessionRuntime durable transcripts", () => {
     expect(releaseBrowserTab).toHaveBeenCalledOnce();
 
     const store = new TranscriptsStore(path.join(stateDir, "transcripts"), {
-      env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+      env: { ...process.env, GRANTED_STATE_DIR: stateDir },
     });
     const stored = await store.readSession(session.id);
     expect(await store.readUtterancesForSession(stored!)).toHaveLength(1);

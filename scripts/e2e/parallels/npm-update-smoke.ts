@@ -163,7 +163,7 @@ let cachedFreshLaneTimeoutKillGraceMs: number | undefined;
 
 function resolveUpdateTimeouts(): UpdateTimeouts {
   return (cachedUpdateTimeouts ??= (() => {
-    const seconds = readPositiveIntEnv("OPENCLAW_PARALLELS_NPM_UPDATE_TIMEOUT_S", 2700);
+    const seconds = readPositiveIntEnv("GRANTED_PARALLELS_NPM_UPDATE_TIMEOUT_S", 2700);
     const timeoutMs = resolveSecondsTimerMs(seconds);
     return {
       seconds,
@@ -175,7 +175,7 @@ function resolveUpdateTimeouts(): UpdateTimeouts {
 
 function resolveFreshLaneTimeoutKillGraceMs(): number {
   return (cachedFreshLaneTimeoutKillGraceMs ??= readPositiveIntEnv(
-    "OPENCLAW_PARALLELS_NPM_UPDATE_FRESH_TIMEOUT_KILL_GRACE_MS",
+    "GRANTED_PARALLELS_NPM_UPDATE_FRESH_TIMEOUT_KILL_GRACE_MS",
     2_000,
   ));
 }
@@ -186,7 +186,7 @@ let loggedExitCleanupInstalled = false;
 export function freshLaneTimeoutMs(platform: Platform): number {
   const defaultSeconds = platform === "windows" ? 90 * 60 : 75 * 60;
   return resolveSecondsTimerMs(
-    readPositiveIntEnv("OPENCLAW_PARALLELS_NPM_UPDATE_FRESH_TIMEOUT_S", defaultSeconds),
+    readPositiveIntEnv("GRANTED_PARALLELS_NPM_UPDATE_FRESH_TIMEOUT_S", defaultSeconds),
   );
 }
 
@@ -740,7 +740,7 @@ export class NpmUpdateSmoke {
     if (this.options.platforms.has("linux")) {
       jobs.push(
         this.spawnFresh("Linux", "linux", ["--vm", this.linuxVm], {
-          OPENCLAW_PARALLELS_LINUX_DISABLE_BONJOUR: "1",
+          GRANTED_PARALLELS_LINUX_DISABLE_BONJOUR: "1",
         }),
       );
     }
@@ -780,7 +780,7 @@ export class NpmUpdateSmoke {
           "linux",
           ["--vm", this.linuxVm],
           {
-            OPENCLAW_PARALLELS_LINUX_DISABLE_BONJOUR: "1",
+            GRANTED_PARALLELS_LINUX_DISABLE_BONJOUR: "1",
           },
           this.freshTargetSpec,
           "fresh-target",
@@ -1324,7 +1324,7 @@ export class NpmUpdateSmoke {
           this.linuxVm,
           "/usr/bin/env",
           "HOME=/root",
-          "OPENCLAW_ALLOW_ROOT=1",
+          "GRANTED_ALLOW_ROOT=1",
           "PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/snap/bin",
           "bash",
           scriptPath,
@@ -1624,7 +1624,7 @@ export class NpmUpdateSmoke {
   }
 
   private assertPublishedTargetMatchesHarnessCheckout(): void {
-    if (process.env.OPENCLAW_PARALLELS_ALLOW_HARNESS_TARGET_MISMATCH === "1") {
+    if (process.env.GRANTED_PARALLELS_ALLOW_HARNESS_TARGET_MISMATCH === "1") {
       return;
     }
     const candidateVersion =
@@ -1642,7 +1642,7 @@ export class NpmUpdateSmoke {
       return;
     }
     die(
-      `refusing to run Parallels ${candidateVersion} target with harness checkout ${this.harnessCheckoutVersion || "unknown"}; checkout the matching release branch or set OPENCLAW_PARALLELS_ALLOW_HARNESS_TARGET_MISMATCH=1 for an intentional cross-version harness run`,
+      `refusing to run Parallels ${candidateVersion} target with harness checkout ${this.harnessCheckoutVersion || "unknown"}; checkout the matching release branch or set GRANTED_PARALLELS_ALLOW_HARNESS_TARGET_MISMATCH=1 for an intentional cross-version harness run`,
     );
   }
 

@@ -180,5 +180,5 @@ export const testConfigRoot = resolveGlobalSingleton(GATEWAY_TEST_CONFIG_ROOT_KE
 /** Updates the config root used by gateway config-module mocks. */
 export function setTestConfigRoot(root: string): void {
   testConfigRoot.value = root;
-  process.env.OPENCLAW_CONFIG_PATH = path.join(root, "openclaw.json");
+  process.env.GRANTED_CONFIG_PATH = path.join(root, "openclaw.json");
 }

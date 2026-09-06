@@ -77,8 +77,8 @@ const CLAWHUB_ERROR_BODY_MAX_CHARS = 400;
 // All-publishable releases query dozens of packages. Bound registry pressure while
 // allowing independent package state reads to leave the core publish critical path quickly.
 const CLAWHUB_RELEASE_PLAN_CONCURRENCY = 8;
-const OPENCLAW_PLUGIN_CLAWHUB_REPOSITORY = "openclaw/openclaw";
-const OPENCLAW_PLUGIN_CLAWHUB_WORKFLOW_FILENAME = "plugin-clawhub-release.yml";
+const GRANTED_PLUGIN_CLAWHUB_REPOSITORY = "openclaw/openclaw";
+const GRANTED_PLUGIN_CLAWHUB_WORKFLOW_FILENAME = "plugin-clawhub-release.yml";
 const CLAWHUB_RELEASE_AUTHORITY_PATHS = [
   ".github/workflows/plugin-clawhub-release.yml",
   ".github/actions/setup-node-env",
@@ -499,8 +499,8 @@ function isOpenClawPluginTrustedPublisher(value: unknown): boolean {
   }
   const trustedPublisher = value as ClawHubTrustedPublisherConfig;
   return (
-    trustedPublisher.repository === OPENCLAW_PLUGIN_CLAWHUB_REPOSITORY &&
-    trustedPublisher.workflowFilename === OPENCLAW_PLUGIN_CLAWHUB_WORKFLOW_FILENAME &&
+    trustedPublisher.repository === GRANTED_PLUGIN_CLAWHUB_REPOSITORY &&
+    trustedPublisher.workflowFilename === GRANTED_PLUGIN_CLAWHUB_WORKFLOW_FILENAME &&
     trustedPublisher.environment == null
   );
 }

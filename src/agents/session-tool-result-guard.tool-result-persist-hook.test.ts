@@ -17,8 +17,8 @@ type ToolResultMessage = Extract<AgentMessage, { role: "toolResult" }>;
 type PersistedToolResultMessage = ToolResultMessage & { details: Record<string, unknown> };
 
 const EMPTY_PLUGIN_SCHEMA = { type: "object", additionalProperties: false, properties: {} };
-const originalBundledPluginsDir = process.env.OPENCLAW_BUNDLED_PLUGINS_DIR;
-const originalConfigPath = process.env.OPENCLAW_CONFIG_PATH;
+const originalBundledPluginsDir = process.env.GRANTED_BUNDLED_PLUGINS_DIR;
+const originalConfigPath = process.env.GRANTED_CONFIG_PATH;
 const LONE_SURROGATE_RE = /[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?<![\uD800-\uDBFF])[\uDC00-\uDFFF]/u;
 let tempDirs: string[] = [];
 
@@ -120,7 +120,7 @@ function requireToolResultText(message: ToolResultMessage): string {
 
 function initializeTempPlugin(params: { tmpPrefix: string; id: string; body: string }) {
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), params.tmpPrefix));
-  process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = "/nonexistent/bundled/plugins";
+  process.env.GRANTED_BUNDLED_PLUGINS_DIR = "/nonexistent/bundled/plugins";
   const plugin = writeTempPlugin({
     dir: tmp,
     id: params.id,
@@ -158,14 +158,14 @@ function expectPersistedToolResultDetailsCapped(sm: ReturnType<typeof SessionMan
 afterEach(() => {
   resetGlobalHookRunner();
   if (originalBundledPluginsDir === undefined) {
-    delete process.env.OPENCLAW_BUNDLED_PLUGINS_DIR;
+    delete process.env.GRANTED_BUNDLED_PLUGINS_DIR;
   } else {
-    process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = originalBundledPluginsDir;
+    process.env.GRANTED_BUNDLED_PLUGINS_DIR = originalBundledPluginsDir;
   }
   if (originalConfigPath === undefined) {
-    deleteTestEnvValue("OPENCLAW_CONFIG_PATH");
+    deleteTestEnvValue("GRANTED_CONFIG_PATH");
   } else {
-    setTestEnvValue("OPENCLAW_CONFIG_PATH", originalConfigPath);
+    setTestEnvValue("GRANTED_CONFIG_PATH", originalConfigPath);
   }
   for (const dir of tempDirs) {
     fs.rmSync(dir, { force: true, recursive: true });
@@ -306,7 +306,7 @@ describe("tool_result_persist hook", () => {
     const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-redact-config-"));
     tempDirs.push(tempDir);
     const configPath = path.join(tempDir, "openclaw.json");
-    setTestEnvValue("OPENCLAW_CONFIG_PATH", configPath);
+    setTestEnvValue("GRANTED_CONFIG_PATH", configPath);
     fs.writeFileSync(
       configPath,
       JSON.stringify({ logging: { redactPatterns: ["/[a-z0-9]{30,}/g"] } }),
@@ -757,7 +757,7 @@ describe("tool_result_persist hook", () => {
 
   it("loads tool_result_persist hooks without breaking persistence", () => {
     const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-toolpersist-"));
-    process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = "/nonexistent/bundled/plugins";
+    process.env.GRANTED_BUNDLED_PLUGINS_DIR = "/nonexistent/bundled/plugins";
 
     const pluginA = writeTempPlugin({
       dir: tmp,

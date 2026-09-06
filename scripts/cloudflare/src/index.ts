@@ -9,7 +9,7 @@ interface ContainerNamespace {
 }
 
 interface WorkerEnv {
-  OPENCLAW_CONTAINER: ContainerNamespace;
+  GRANTED_CONTAINER: ContainerNamespace;
 }
 
 interface WorkerHandler {
@@ -22,7 +22,7 @@ const INSTALLATION_INSTANCE = "openclaw-installation";
 
 const worker: WorkerHandler = {
   async fetch(request, env) {
-    return env.OPENCLAW_CONTAINER.getByName(INSTALLATION_INSTANCE).fetch(request);
+    return env.GRANTED_CONTAINER.getByName(INSTALLATION_INSTANCE).fetch(request);
   },
 };
 

@@ -36,7 +36,7 @@ function useLoggingConfig(name: string, logging: Record<string, unknown>): void 
   }
   const configPath = path.join(tempDir, name);
   fs.writeFileSync(configPath, `${JSON.stringify({ logging })}\n`, "utf8");
-  setTestEnvValue("OPENCLAW_CONFIG_PATH", configPath);
+  setTestEnvValue("GRANTED_CONFIG_PATH", configPath);
 }
 
 async function writeSessionStore(
@@ -118,7 +118,7 @@ function readMessageId(message: unknown): string | undefined {
 
 describe("sessions_history redaction", () => {
   beforeAll(async () => {
-    previousConfigPath = process.env.OPENCLAW_CONFIG_PATH;
+    previousConfigPath = process.env.GRANTED_CONFIG_PATH;
     tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-sessions-history-redact-"));
     useLoggingConfig("redaction-off.json", { redactSensitive: "off" });
     ({ createSessionsHistoryTool } = await import("./sessions-history-tool.js"));
@@ -126,9 +126,9 @@ describe("sessions_history redaction", () => {
 
   afterAll(() => {
     if (previousConfigPath === undefined) {
-      deleteTestEnvValue("OPENCLAW_CONFIG_PATH");
+      deleteTestEnvValue("GRANTED_CONFIG_PATH");
     } else {
-      setTestEnvValue("OPENCLAW_CONFIG_PATH", previousConfigPath);
+      setTestEnvValue("GRANTED_CONFIG_PATH", previousConfigPath);
     }
     if (tempDir) {
       fs.rmSync(tempDir, { recursive: true, force: true });

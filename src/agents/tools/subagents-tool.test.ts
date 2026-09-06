@@ -349,7 +349,7 @@ describe("subagents tool", () => {
           taskId: "with-internal-context",
           runtime: "subagent",
           status: "failed",
-          error: `Permission denied by ACP runtime.\n<<<BEGIN_OPENCLAW_INTERNAL_CONTEXT>>>\n${internalContext}\n<<<END_OPENCLAW_INTERNAL_CONTEXT>>>`,
+          error: `Permission denied by ACP runtime.\n<<<BEGIN_GRANTED_INTERNAL_CONTEXT>>>\n${internalContext}\n<<<END_GRANTED_INTERNAL_CONTEXT>>>`,
         }),
         task({
           taskId: "only-internal-context",

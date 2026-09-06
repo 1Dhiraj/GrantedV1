@@ -7,6 +7,7 @@ import { existsSync, readFileSync } from "node:fs";
 import { homedir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { LEGACY_STATE_DIRNAMES, PROJECT_NAME, STATE_DIRNAME } from "../compat/legacy-names.js";
 
 // =============================================================================
 // Package Detection
@@ -37,7 +38,7 @@ export const isBunBinary =
  */
 function getPackageDir(): string {
   // Allow override via environment variable (useful for Nix/Guix where store paths tokenize poorly)
-  const envDir = process.env.OPENCLAW_PACKAGE_DIR;
+  const envDir = process.env.GRANTED_PACKAGE_DIR;
   if (envDir) {
     if (envDir === "~") {
       return homedir();
@@ -99,11 +100,17 @@ interface PackageJson {
 
 const workerVersion = typeof WORKER_DEPLOY_VERSION === "string" ? WORKER_DEPLOY_VERSION : undefined;
 const pkg: PackageJson = workerVersion
-  ? { name: "openclaw", version: workerVersion }
+  ? { name: PROJECT_NAME, version: workerVersion }
   : (JSON.parse(readFileSync(getPackageJsonPath(), "utf-8")) as PackageJson);
 
-const openClawConfigName: string | undefined = pkg.openclawConfig?.name;
-export const APP_NAME: string = openClawConfigName || "openclaw";
+const packagedConfigName: string | undefined = pkg.openclawConfig?.name;
+export const APP_NAME: string = packagedConfigName || PROJECT_NAME;
+/**
+ * Project-local config directory (`<repo>/.openclaw/skills`, prompts, themes,
+ * settings). Distinct from the home-scoped state dir below: it lives in the
+ * user's own repositories, so it is renamed with the workspace-path stage,
+ * where every reader can gain a fallback at the same time.
+ */
 export const CONFIG_DIR_NAME: string = pkg.openclawConfig?.configDir || ".openclaw";
 export const PACKAGE_MANIFEST_VERSION: string = pkg.version || "0.0.0";
 
@@ -120,16 +127,26 @@ function expandTildePath(path: string): string {
 }
 
 // =============================================================================
-// User Config Paths (~/.openclaw/agent/*)
+// User Config Paths (~/.granted/agent/*)
 // =============================================================================
 
-/** Get the agent config directory (e.g., ~/.openclaw/agent/) */
+/** Get the agent config directory (e.g., ~/.granted/agent/) */
 export function getAgentDir(): string {
   const envDir = process.env[ENV_AGENT_DIR];
   if (envDir) {
     return expandTildePath(envDir);
   }
-  return join(homedir(), CONFIG_DIR_NAME, "agent");
+  const home = homedir();
+  const current = join(home, STATE_DIRNAME, "agent");
+  if (existsSync(current)) {
+    return current;
+  }
+  // An install from before the rename keeps its agent dir instead of silently
+  // starting over with no auth profiles or managed binaries.
+  const adopted = LEGACY_STATE_DIRNAMES.map((dirname) => join(home, dirname, "agent")).find(
+    (candidate) => existsSync(candidate),
+  );
+  return adopted ?? current;
 }
 
 /** Get path to managed binaries directory (fd, rg) */

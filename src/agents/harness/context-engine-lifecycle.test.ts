@@ -4,7 +4,7 @@ import { describe, expect, it, vi } from "vitest";
 import { buildMemorySystemPromptAddition } from "../../context-engine/delegate.js";
 import {
   CODEX_APP_SERVER_CONTEXT_ENGINE_HOST,
-  OPENCLAW_EMBEDDED_CONTEXT_ENGINE_HOST,
+  GRANTED_EMBEDDED_CONTEXT_ENGINE_HOST,
 } from "../../context-engine/host-compat.js";
 import {
   registerContextEngineForOwner,
@@ -23,7 +23,7 @@ import {
   type MemoryPromptSectionParams,
 } from "../../plugins/memory-state.test-fixtures.js";
 import { compactContextEngineWithSafetyTimeout } from "../embedded-agent-runner/compaction-safety-timeout.js";
-import { OPENCLAW_RUNTIME_CONTEXT_CUSTOM_TYPE } from "../internal-runtime-context.js";
+import { GRANTED_RUNTIME_CONTEXT_CUSTOM_TYPE } from "../internal-runtime-context.js";
 import {
   assembleHarnessContextEngine,
   bootstrapHarnessContextEngine,
@@ -52,7 +52,7 @@ function runtimeContextMessage(content: string, timestamp: number): AgentMessage
   // user/assistant transcript messages, not this internal custom channel.
   return {
     role: "custom",
-    customType: OPENCLAW_RUNTIME_CONTEXT_CUSTOM_TYPE,
+    customType: GRANTED_RUNTIME_CONTEXT_CUSTOM_TYPE,
     content,
     display: false,
     details: { source: "openclaw-runtime-context" },
@@ -438,7 +438,7 @@ describe("harness context engine lifecycle", () => {
     });
 
     const compactRuntimeSettings = buildContextEngineRuntimeSettings({
-      contextEngineHost: OPENCLAW_EMBEDDED_CONTEXT_ENGINE_HOST,
+      contextEngineHost: GRANTED_EMBEDDED_CONTEXT_ENGINE_HOST,
       provider: "openai",
       requestedModel: "openai/gpt-5.5",
       resolvedModel: "anthropic/claude-sonnet-4-6",

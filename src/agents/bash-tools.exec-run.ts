@@ -118,7 +118,7 @@ export function createExecTool(
       }),
     ));
   const defaultBackgroundMs = clampWithDefault(
-    defaults?.backgroundMs ?? readEnvInt("OPENCLAW_BASH_YIELD_MS", "PI_BASH_YIELD_MS"),
+    defaults?.backgroundMs ?? readEnvInt("GRANTED_BASH_YIELD_MS", "PI_BASH_YIELD_MS"),
     10_000,
     10,
     120_000,

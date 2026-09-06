@@ -1,6 +1,7 @@
 // Profile name validation and normalization helpers for root CLI profile routing.
 import path from "node:path";
 import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
+import { STATE_DIRNAME } from "../compat/legacy-names.js";
 import { resolveRequiredHomeDir } from "../infra/home-dir.js";
 
 const PROFILE_NAME_RE = /^[a-z0-9][a-z0-9_-]{0,63}$/i;
@@ -38,5 +39,5 @@ export function resolveProfileStateDir(
     throw new Error(`Invalid profile name: ${JSON.stringify(profile)}`);
   }
   const suffix = normalizeLowercaseStringOrEmpty(trimmed) === "default" ? "" : `-${trimmed}`;
-  return path.join(resolveRequiredHomeDir(env, homedir), `.openclaw${suffix}`);
+  return path.join(resolveRequiredHomeDir(env, homedir), `${STATE_DIRNAME}${suffix}`);
 }

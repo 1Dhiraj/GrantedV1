@@ -21,8 +21,8 @@ describe("resolveInstalledPluginIndexPolicyHash", () => {
       await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-index-policy-")),
     );
     if (mode) {
-      const envSnapshot = captureEnv(["OPENCLAW_STATE_DIR"]);
-      setTestEnvValue("OPENCLAW_STATE_DIR", stateDir);
+      const envSnapshot = captureEnv(["GRANTED_STATE_DIR"]);
+      setTestEnvValue("GRANTED_STATE_DIR", stateDir);
       try {
         writeConfigMachineState("plugins.bundledDiscovery", mode);
       } finally {
@@ -34,7 +34,7 @@ describe("resolveInstalledPluginIndexPolicyHash", () => {
 
   const envForRoot = (stateDir: string): NodeJS.ProcessEnv => ({
     ...process.env,
-    OPENCLAW_STATE_DIR: stateDir,
+    GRANTED_STATE_DIR: stateDir,
   });
 
   it("changes when the machine-state bundled discovery mode changes", async () => {
@@ -65,8 +65,8 @@ describe("resolveInstalledPluginIndexPolicyHash", () => {
     // that env's mode or persisted indexes leak decisions across roots.
     const compatRoot = await makeStateRoot("compat");
     const plainRoot = await makeStateRoot();
-    const envSnapshot = captureEnv(["OPENCLAW_STATE_DIR"]);
-    setTestEnvValue("OPENCLAW_STATE_DIR", plainRoot);
+    const envSnapshot = captureEnv(["GRANTED_STATE_DIR"]);
+    setTestEnvValue("GRANTED_STATE_DIR", plainRoot);
     try {
       clearBundledDiscoveryModeMemo();
       const config = { plugins: { allow: ["rollover"] } };

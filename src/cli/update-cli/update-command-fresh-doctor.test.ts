@@ -92,7 +92,7 @@ describe("post-plugin update readiness", () => {
       ["/opt/openclaw/dist/index.js", "doctor", "--lint", "--json", "--severity-min", "error"],
     ]);
     expect(mocks.runExec.mock.calls[2]?.[2]).toMatchObject({
-      env: { OPENCLAW_UPDATE_POST_CORE_CONVERGENCE: "1" },
+      env: { GRANTED_UPDATE_POST_CORE_CONVERGENCE: "1" },
     });
   });
 

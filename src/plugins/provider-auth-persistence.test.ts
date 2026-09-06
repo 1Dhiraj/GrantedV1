@@ -26,12 +26,12 @@ describe("provider auth protected persistence", () => {
     await fs.writeFile(configPath, "{}\n", "utf8");
     const env = {
       ...process.env,
-      OPENCLAW_CONFIG_PATH: configPath,
-      OPENCLAW_STATE_DIR: stateDir,
+      GRANTED_CONFIG_PATH: configPath,
+      GRANTED_STATE_DIR: stateDir,
     };
 
     await withEnvAsync(
-      { OPENCLAW_CONFIG_PATH: configPath, OPENCLAW_STATE_DIR: stateDir },
+      { GRANTED_CONFIG_PATH: configPath, GRANTED_STATE_DIR: stateDir },
       async () => {
         const persisted = await persistProviderAuthProfileBatch({
           profiles: [

@@ -18,12 +18,12 @@ import { openChatSidePanelType } from "./chat-side-panel.test-support.ts";
 
 const chromiumExecutablePath = resolvePlaywrightChromiumExecutablePath(chromium.executablePath());
 const chromiumAvailable = canRunPlaywrightChromium(chromiumExecutablePath);
-const allowMissingChromium = process.env.OPENCLAW_UI_E2E_ALLOW_MISSING_CHROMIUM === "1";
+const allowMissingChromium = process.env.GRANTED_UI_E2E_ALLOW_MISSING_CHROMIUM === "1";
 const describeControlUiE2e = chromiumAvailable || !allowMissingChromium ? describe : describe.skip;
 const sessionKey = "agent:main:board-split-transcript";
 let proofDir: string;
 beforeEach(() => {
-  if (process.env.OPENCLAW_UI_E2E_RECORD === "1") {
+  if (process.env.GRANTED_UI_E2E_RECORD === "1") {
     proofDir = createControlUiE2eArtifactDir("dashboard-side-chat-tabs");
   }
 });
@@ -274,7 +274,7 @@ describeControlUiE2e("Board split transcript restore", () => {
   }, 120_000);
 
   it("transitions between Dashboard and Split with the whole side panel", async () => {
-    const recordProof = process.env.OPENCLAW_UI_E2E_RECORD === "1";
+    const recordProof = process.env.GRANTED_UI_E2E_RECORD === "1";
     const context = await browser.newContext({
       viewport: { width: 1400, height: 900 },
       ...(recordProof
@@ -381,7 +381,7 @@ describeControlUiE2e("Board split transcript restore", () => {
   }, 120_000);
 
   it("activates Side chat from a split dashboard panel", async () => {
-    const recordProof = process.env.OPENCLAW_UI_E2E_RECORD === "1";
+    const recordProof = process.env.GRANTED_UI_E2E_RECORD === "1";
     const context = await browser.newContext({
       viewport: { width: 1400, height: 900 },
       ...(recordProof
@@ -443,7 +443,7 @@ describeControlUiE2e("Board split transcript restore", () => {
   }, 120_000);
 
   it("does not offer Discussion when the gateway has no discussion provider", async () => {
-    const recordProof = process.env.OPENCLAW_UI_E2E_RECORD === "1";
+    const recordProof = process.env.GRANTED_UI_E2E_RECORD === "1";
     const context = await browser.newContext({
       viewport: { width: 1400, height: 900 },
       ...(recordProof

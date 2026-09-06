@@ -45,8 +45,8 @@ function createFixture() {
     origin: "bundled",
   };
   const env = {
-    OPENCLAW_STATE_DIR: stateDir,
-    OPENCLAW_VERSION: "2026.4.25",
+    GRANTED_STATE_DIR: stateDir,
+    GRANTED_VERSION: "2026.4.25",
     VITEST: "true",
   };
   return { candidate, env, stateDir };
@@ -74,7 +74,7 @@ describe("bundled provider compatibility in installed plugin indexes", () => {
           },
         },
       ],
-      env: { ...env, OPENCLAW_VERSION: "2099.1.1" },
+      env: { ...env, GRANTED_VERSION: "2099.1.1" },
     });
 
     expect(index.plugins.map((plugin) => plugin.pluginId)).toEqual([PLUGIN_ID]);

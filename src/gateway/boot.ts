@@ -6,7 +6,7 @@ import path from "node:path";
 import {
   INTERNAL_RUNTIME_CONTEXT_BEGIN,
   INTERNAL_RUNTIME_CONTEXT_END,
-  OPENCLAW_RUNTIME_CONTEXT_NOTICE,
+  GRANTED_RUNTIME_CONTEXT_NOTICE,
   escapeInternalRuntimeContextDelimiters,
 } from "../agents/internal-runtime-context.js";
 import { SILENT_REPLY_TOKEN } from "../auto-reply/tokens.js";
@@ -55,7 +55,7 @@ function buildBootPrompt(content: string) {
     "You are running a boot check. Follow BOOT.md instructions exactly.",
     "",
     INTERNAL_RUNTIME_CONTEXT_BEGIN,
-    OPENCLAW_RUNTIME_CONTEXT_NOTICE,
+    GRANTED_RUNTIME_CONTEXT_NOTICE,
     "",
     "BOOT.md:",
     safeContent,

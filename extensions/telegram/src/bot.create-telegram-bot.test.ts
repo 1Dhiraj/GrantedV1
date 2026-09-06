@@ -430,17 +430,17 @@ describe("createTelegramBot", () => {
     pluginStateTestRuntime.resetPluginStateStoreForTests();
     clearPluginInteractiveHandlers();
     if (previousStateDir === undefined) {
-      delete process.env.OPENCLAW_STATE_DIR;
+      delete process.env.GRANTED_STATE_DIR;
     } else {
-      process.env.OPENCLAW_STATE_DIR = previousStateDir;
+      process.env.GRANTED_STATE_DIR = previousStateDir;
     }
     for (const dir of tempStateDirs.splice(0)) {
       rmSync(dir, { recursive: true, force: true });
     }
   });
   beforeEach(async () => {
-    previousStateDir = process.env.OPENCLAW_STATE_DIR;
-    process.env.OPENCLAW_STATE_DIR = createTelegramBotTestStateDir();
+    previousStateDir = process.env.GRANTED_STATE_DIR;
+    process.env.GRANTED_STATE_DIR = createTelegramBotTestStateDir();
     clearPluginInteractiveHandlers();
     resetTelegramAccountThrottlersForTest();
     throttlerSpy.mockReset();

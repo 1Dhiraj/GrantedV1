@@ -99,8 +99,8 @@ async function seedCanonicalTranscript(
 
 async function createIsolatedWorkspace(prefix: string): Promise<string> {
   const workspaceDir = await harness.createTempWorkspace(prefix);
-  vi.stubEnv("OPENCLAW_STATE_DIR", path.join(workspaceDir, "state"));
-  vi.stubEnv("OPENCLAW_CONFIG_PATH", path.join(workspaceDir, "openclaw.json"));
+  vi.stubEnv("GRANTED_STATE_DIR", path.join(workspaceDir, "state"));
+  vi.stubEnv("GRANTED_CONFIG_PATH", path.join(workspaceDir, "openclaw.json"));
   clearRuntimeConfigSnapshot();
   clearConfigCache();
   return workspaceDir;

@@ -144,7 +144,7 @@ async function createTimeoutOwnershipFixture(): Promise<{
   );
   await fs.writeFile(
     nodeWrapperPath,
-    ["#!/bin/sh", 'exec "$OPENCLAW_TEST_NODE" --import tsx "$@"', ""].join("\n"),
+    ["#!/bin/sh", 'exec "$GRANTED_TEST_NODE" --import tsx "$@"', ""].join("\n"),
   );
   await fs.chmod(nodeWrapperPath, 0o755);
   return { nodeWrapperPath, pidLogPath, preloadPath, readyMarkerPath, stateDir };
@@ -268,9 +268,9 @@ describe("hooks CLI process lifecycle", () => {
           VITEST: undefined,
           NODE_COMPILE_CACHE: path.join(fixture.stateDir, "node-compile-cache"),
           NODE_OPTIONS: `--import=${pathToFileURL(fixture.preloadPath).href}`,
-          OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-          OPENCLAW_STATE_DIR: fixture.stateDir,
-          OPENCLAW_TEST_NODE: process.execPath,
+          GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+          GRANTED_STATE_DIR: fixture.stateDir,
+          GRANTED_TEST_NODE: process.execPath,
           RELAY_PID_LOG: fixture.pidLogPath,
           RELAY_READY_MARKER: fixture.readyMarkerPath,
         },
@@ -352,8 +352,8 @@ describe("hooks CLI process lifecycle", () => {
       env: {
         LINGER_MARKER: fixture.markerPath,
         NODE_OPTIONS: `--import=${pathToFileURL(fixture.preloadPath).href}`,
-        OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-        OPENCLAW_STATE_DIR: fixture.stateDir,
+        GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+        GRANTED_STATE_DIR: fixture.stateDir,
       },
       stdin: JSON.stringify({ hook_event_name: "PostToolUse" }),
     });
@@ -374,10 +374,10 @@ describe("hooks CLI process lifecycle", () => {
       label: "hooks list",
       env: {
         LINGER_MARKER: fixture.markerPath,
-        OPENCLAW_CONFIG_PATH: fixture.configPath,
-        OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-        OPENCLAW_GATEWAY_PORT: String(unavailableGatewayPort),
-        OPENCLAW_STATE_DIR: fixture.stateDir,
+        GRANTED_CONFIG_PATH: fixture.configPath,
+        GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+        GRANTED_GATEWAY_PORT: String(unavailableGatewayPort),
+        GRANTED_STATE_DIR: fixture.stateDir,
       },
     });
 

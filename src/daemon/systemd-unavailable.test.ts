@@ -185,7 +185,7 @@ describe.skipIf(process.platform === "win32")("systemd process availability", ()
 
   describe.each([
     { unitName: "clawdbot-gateway.service", uninstall: uninstallLegacySystemdUnits },
-    { unitName: "openclaw-gateway.service", uninstall: uninstallUserSystemdGatewayUnit },
+    { unitName: "granted-gateway.service", uninstall: uninstallUserSystemdGatewayUnit },
   ])("$unitName cleanup", ({ unitName, uninstall }) => {
     it.each([
       { availability: "signal", disableFails: true },

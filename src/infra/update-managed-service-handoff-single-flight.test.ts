@@ -166,7 +166,7 @@ describe("managed service update handoff single-flight", () => {
         root,
         handoffId: "system-handoff",
         supervisor: "systemd",
-        env: { OPENCLAW_SYSTEMD_UNIT: "openclaw-gateway.service" },
+        env: { GRANTED_SYSTEMD_UNIT: "openclaw-gateway.service" },
         meta: {},
       }),
     ).rejects.toThrow(/user-scope systemd unit.*manual system-service update/);
@@ -255,7 +255,7 @@ describe("managed service update handoff single-flight", () => {
         parentPid: parent.pid,
         execPath: process.execPath,
         argv1: process.argv[1],
-        env: { ...process.env, OPENCLAW_STATE_DIR: root },
+        env: { ...process.env, GRANTED_STATE_DIR: root },
         meta: {},
       });
       if (started.status !== "started" || !started.pid) {
@@ -344,7 +344,7 @@ describe("managed service update handoff single-flight", () => {
           parentPid: parent.pid,
           execPath: process.execPath,
           argv1: updaterPath,
-          env: { ...process.env, OPENCLAW_STATE_DIR: root },
+          env: { ...process.env, GRANTED_STATE_DIR: root },
           meta: {},
         });
       const started = await start();
@@ -518,7 +518,7 @@ describe("managed service update handoff single-flight", () => {
       parentPid: parent.pid,
       execPath: process.execPath,
       argv1: process.argv[1],
-      env: { ...process.env, OPENCLAW_STATE_DIR: root },
+      env: { ...process.env, GRANTED_STATE_DIR: root },
       meta: {},
     });
     if (started.status !== "started") {
@@ -667,7 +667,7 @@ describe("managed service update handoff single-flight", () => {
         parentPid: parent.pid,
         execPath: process.execPath,
         argv1: updaterPath,
-        env: { ...process.env, OPENCLAW_STATE_DIR: root },
+        env: { ...process.env, GRANTED_STATE_DIR: root },
         meta: {},
       });
     const started = await start();

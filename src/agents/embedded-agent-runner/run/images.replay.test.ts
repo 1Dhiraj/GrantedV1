@@ -597,8 +597,8 @@ describe("structured prompt media replay", () => {
     await fs.mkdir(workspaceDir, { recursive: true });
     await fs.mkdir(inboundDir, { recursive: true });
     await fs.writeFile(imagePath, Buffer.from(TINY_PNG_BASE64, "base64"));
-    const envSnapshot = captureEnv(["OPENCLAW_STATE_DIR"]);
-    setTestEnvValue("OPENCLAW_STATE_DIR", stateDir);
+    const envSnapshot = captureEnv(["GRANTED_STATE_DIR"]);
+    setTestEnvValue("GRANTED_STATE_DIR", stateDir);
 
     try {
       const result = await detectAndLoadPromptImages({

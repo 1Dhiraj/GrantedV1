@@ -33,14 +33,14 @@ describe("formatCliJsonFailure", () => {
     expect(formatCliJsonFailure(error, { env: {} }).error.message).toBe(
       "Promotion is not available.",
     );
-    expect(formatCliJsonFailure(error, { env: { OPENCLAW_DEBUG: "1" } }).error.message).toBe(
+    expect(formatCliJsonFailure(error, { env: { GRANTED_DEBUG: "1" } }).error.message).toBe(
       "Promotion is not available. | ClawHub /api/v1/promotions/nope failed (404)",
     );
   });
 
   it.each([
     { label: "default output", env: {} },
-    { label: "debug output", env: { OPENCLAW_DEBUG: "1" } },
+    { label: "debug output", env: { GRANTED_DEBUG: "1" } },
   ])("keeps the full parse guidance unchanged in $label", ({ env }) => {
     const error = Object.assign(
       new ExpectedCliError({
@@ -79,7 +79,7 @@ describe("formatCliJsonFailure", () => {
 
   it.each([
     { label: "default output", env: {} },
-    { label: "debug output", env: { OPENCLAW_DEBUG: "1" } },
+    { label: "debug output", env: { GRANTED_DEBUG: "1" } },
   ])("keeps gateway credential guidance unchanged in $label", ({ env }) => {
     const error = new GatewayCredentialsRequiredError({
       method: "device.pair.list",
@@ -99,7 +99,7 @@ describe("formatCliJsonFailure", () => {
 describe("formatCliFailureLines", () => {
   it.each([
     { label: "default output", env: {} },
-    { label: "debug output", env: { OPENCLAW_DEBUG: "1" } },
+    { label: "debug output", env: { GRANTED_DEBUG: "1" } },
   ])("emits expected guidance only when not already written in $label", ({ env }) => {
     const pending = new ExpectedCliError({
       message: "bad input",
@@ -133,7 +133,7 @@ describe("formatCliFailureLines", () => {
     expect(lines).toEqual([
       "[openclaw] Could not start the CLI.",
       "[openclaw] Reason: config file is invalid",
-      "[openclaw] Debug: set OPENCLAW_DEBUG=1 to include the stack trace.",
+      "[openclaw] Debug: set GRANTED_DEBUG=1 to include the stack trace.",
       "[openclaw] Try: openclaw doctor",
       "[openclaw] Help: openclaw --help",
     ]);
@@ -180,14 +180,14 @@ describe("formatCliFailureLines", () => {
       const lines = formatCliFailureLines({
         title: "The CLI command failed.",
         error,
-        env: { OPENCLAW_DEBUG: "1" },
+        env: { GRANTED_DEBUG: "1" },
       });
 
       expect(lines).toEqual(error.message.split("\n"));
       const output = lines.join("\n");
       expect(output).not.toContain("[openclaw] The CLI command failed.");
       expect(output).not.toContain("[openclaw] Reason:");
-      expect(output).not.toContain("OPENCLAW_DEBUG");
+      expect(output).not.toContain("GRANTED_DEBUG");
       expect(output).not.toContain("Stack:");
       expect(output).not.toContain("openclaw doctor");
     },
@@ -197,7 +197,7 @@ describe("formatCliFailureLines", () => {
     const lines = formatCliFailureLines({
       title: "The CLI command failed.",
       error: new Error("boom"),
-      env: { OPENCLAW_DEBUG: "1" },
+      env: { GRANTED_DEBUG: "1" },
     });
 
     expect(lines.slice(0, 4)).toEqual([
@@ -233,7 +233,7 @@ describe("formatCliFailureLines", () => {
       });
 
       expect(lines).not.toContain("[openclaw] Stack:");
-      expect(lines).toContain("[openclaw] Debug: set OPENCLAW_DEBUG=1 to include the stack trace.");
+      expect(lines).toContain("[openclaw] Debug: set GRANTED_DEBUG=1 to include the stack trace.");
     },
   );
 });

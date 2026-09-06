@@ -49,7 +49,7 @@ function renderTriageTail(bundle: TriageBundle, redaction: SupportRedactionConte
     "",
     "## Privacy",
     "",
-    "The diagnostics archive excludes secrets, tokens, raw chat payloads, and raw logs. Failed-update excerpts are sanitized and byte-bounded; local paths are relative to `~` or `$OPENCLAW_STATE_DIR`.",
+    "The diagnostics archive excludes secrets, tokens, raw chat payloads, and raw logs. Failed-update excerpts are sanitized and byte-bounded; local paths are relative to `~` or `$GRANTED_STATE_DIR`.",
     "",
   ];
 }
@@ -75,7 +75,7 @@ export function renderTriagePrompt(params: {
     `- OpenClaw: ${VERSION}`,
     `- Platform: ${process.platform}`,
     `- Node.js: ${process.versions.node} (the runtime executing OpenClaw, which may differ from the shell default)`,
-    "- Local shell commands inherit `OPENCLAW_STATE_DIR`, `OPENCLAW_CONFIG_PATH`, and `OPENCLAW_WORKSPACE_DIR` for the diagnosed installation and its default workspace; expand archive references in that shell. In embedded triage, in-process config and session tools use temporary agent run state. The execution cwd is separate from the installation's default workspace. Do not substitute a remote or sandbox installation for this local target.",
+    "- Local shell commands inherit `GRANTED_STATE_DIR`, `GRANTED_CONFIG_PATH`, and `GRANTED_WORKSPACE_DIR` for the diagnosed installation and its default workspace; expand archive references in that shell. In embedded triage, in-process config and session tools use temporary agent run state. The execution cwd is separate from the installation's default workspace. Do not substitute a remote or sandbox installation for this local target.",
     "",
   ];
 

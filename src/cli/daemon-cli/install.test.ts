@@ -49,8 +49,8 @@ const createInstallPlanFixture = vi.hoisted(() => {
     environmentValueSources?: Record<string, string | undefined>;
   }> => {
     const environment: Record<string, string | undefined> = {};
-    if (params?.wrapperPath || params?.env?.OPENCLAW_WRAPPER) {
-      environment.OPENCLAW_WRAPPER = params.wrapperPath ?? params.env?.OPENCLAW_WRAPPER;
+    if (params?.wrapperPath || params?.env?.GRANTED_WRAPPER) {
+      environment.GRANTED_WRAPPER = params.wrapperPath ?? params.env?.GRANTED_WRAPPER;
     }
     return {
       programArguments: params?.wrapperPath
@@ -145,7 +145,7 @@ vi.mock("../../commands/daemon-install-helpers.js", () => ({
 }));
 
 vi.mock("../../daemon/program-args.js", () => ({
-  OPENCLAW_WRAPPER_ENV_KEY: "OPENCLAW_WRAPPER",
+  GRANTED_WRAPPER_ENV_KEY: "GRANTED_WRAPPER",
   resolveOpenClawWrapperPath: async (value: string | undefined) => value?.trim() || undefined,
 }));
 
@@ -239,10 +239,10 @@ function expectLastEmittedResult(result: string): void {
 
 function mockResolvedGatewayTokenSecretRef() {
   resolveSecretInputRefMock.mockReturnValue({
-    ref: { source: "env", provider: "default", id: "OPENCLAW_GATEWAY_TOKEN" },
+    ref: { source: "env", provider: "default", id: "GRANTED_GATEWAY_TOKEN" },
   });
   resolveSecretRefValuesMock.mockResolvedValue(
-    new Map([["env:default:OPENCLAW_GATEWAY_TOKEN", "resolved-from-secretref"]]),
+    new Map([["env:default:GRANTED_GATEWAY_TOKEN", "resolved-from-secretref"]]),
   );
 }
 
@@ -309,7 +309,7 @@ describe("runDaemonInstall", () => {
       NODE_EXTRA_CA_CERTS: undefined,
       NODE_USE_SYSTEM_CA: undefined,
     });
-    delete process.env.OPENCLAW_GATEWAY_TOKEN;
+    delete process.env.GRANTED_GATEWAY_TOKEN;
   });
 
   afterEach(() => {
@@ -319,7 +319,7 @@ describe("runDaemonInstall", () => {
 
   it("fails install when token auth requires an unresolved token SecretRef", async () => {
     resolveSecretInputRefMock.mockReturnValue({
-      ref: { source: "env", provider: "default", id: "OPENCLAW_GATEWAY_TOKEN" },
+      ref: { source: "env", provider: "default", id: "GRANTED_GATEWAY_TOKEN" },
     });
     resolveSecretRefValuesMock.mockRejectedValue(new Error("secret unavailable"));
 
@@ -332,7 +332,7 @@ describe("runDaemonInstall", () => {
   });
 
   it("blocks external-supervisor installs before reading or mutating config", async () => {
-    process.env.OPENCLAW_SUPERVISOR_MODE = "external";
+    process.env.GRANTED_SUPERVISOR_MODE = "external";
 
     await runDaemonInstall({ json: true });
 
@@ -377,7 +377,7 @@ describe("runDaemonInstall", () => {
   });
 
   it("blocks non-default install identities before inspecting host services", async () => {
-    process.env.OPENCLAW_STATE_DIR = "/tmp/openclaw-non-default-service-state";
+    process.env.GRANTED_STATE_DIR = "/tmp/openclaw-non-default-service-state";
 
     await runDaemonInstall({ json: true });
 
@@ -464,7 +464,7 @@ describe("runDaemonInstall", () => {
 
   it("does not treat env-template gateway.auth.token as plaintext during install", async () => {
     loadConfigMock.mockReturnValue({
-      gateway: { auth: { mode: "token", token: "${OPENCLAW_GATEWAY_TOKEN}" } },
+      gateway: { auth: { mode: "token", token: "${GRANTED_GATEWAY_TOKEN}" } },
     });
     mockResolvedGatewayTokenSecretRef();
 
@@ -758,7 +758,7 @@ describe("runDaemonInstall", () => {
     expectLastEmittedResult("already-installed");
   });
 
-  it("reinstalls when the loaded service still embeds OPENCLAW_GATEWAY_TOKEN", async () => {
+  it("reinstalls when the loaded service still embeds GRANTED_GATEWAY_TOKEN", async () => {
     const programArguments = [
       "/usr/bin/node",
       "--max-old-space-size=24576",
@@ -770,7 +770,7 @@ describe("runDaemonInstall", () => {
     const managedDefinition = {
       programArguments,
       environment: {
-        OPENCLAW_GATEWAY_TOKEN: "stale-service-token",
+        GRANTED_GATEWAY_TOKEN: "stale-service-token",
       },
     };
     const existingCommand = {
@@ -788,7 +788,7 @@ describe("runDaemonInstall", () => {
       expect(options).toEqual(expect.objectContaining({ existingCommand }));
     }
     expect(actionState.warnings).toContain(
-      "Gateway service OPENCLAW_GATEWAY_TOKEN differs from the current install plan; refreshing the install.",
+      "Gateway service GRANTED_GATEWAY_TOKEN differs from the current install plan; refreshing the install.",
     );
   });
 
@@ -797,14 +797,14 @@ describe("runDaemonInstall", () => {
     service.readCommand.mockResolvedValue({
       programArguments: ["openclaw", "gateway", "run"],
       environment: {
-        OPENCLAW_GATEWAY_TOKEN: "durable-token",
+        GRANTED_GATEWAY_TOKEN: "durable-token",
       },
     } as never);
     buildGatewayInstallPlanMock.mockResolvedValueOnce({
       programArguments: ["openclaw", "gateway", "run"],
       workingDirectory: "/tmp",
       environment: {
-        OPENCLAW_GATEWAY_TOKEN: "durable-token",
+        GRANTED_GATEWAY_TOKEN: "durable-token",
       },
     });
 
@@ -817,27 +817,27 @@ describe("runDaemonInstall", () => {
   });
 
   it("preserves managed base wrapper, environment, and provenance during forced reinstall", async () => {
-    for (const key of ["OPENAI_API_KEY", "OPENCLAW_WRAPPER"]) {
+    for (const key of ["OPENAI_API_KEY", "GRANTED_WRAPPER"]) {
       delete process.env[key];
     }
     const environment = {
       OPENAI_API_KEY: "managed-service-key",
-      OPENCLAW_WRAPPER: "/usr/local/bin/openclaw-doppler",
+      GRANTED_WRAPPER: "/usr/local/bin/openclaw-doppler",
     };
     const environmentValueSources = {
       OPENAI_API_KEY: "file",
-      OPENCLAW_WRAPPER: "inline",
+      GRANTED_WRAPPER: "inline",
     };
     service.isLoaded.mockResolvedValue(false);
     service.readCommand.mockResolvedValue({
       programArguments: ["/operator/drop-in-wrapper", "gateway", "run"],
       environment: {
         OPENAI_API_KEY: "operator-drop-in-key",
-        OPENCLAW_WRAPPER: "/operator/drop-in-wrapper",
+        GRANTED_WRAPPER: "/operator/drop-in-wrapper",
       },
       environmentValueSources: { OPENAI_API_KEY: "inline" },
       managedDefinition: {
-        programArguments: [environment.OPENCLAW_WRAPPER, "gateway", "run"],
+        programArguments: [environment.GRANTED_WRAPPER, "gateway", "run"],
         environment,
         environmentValueSources,
       },
@@ -848,7 +848,7 @@ describe("runDaemonInstall", () => {
     expect(service.readCommand).toHaveBeenCalledTimes(1);
     const installPlanArg = readFirstInstallPlanArg();
     expectFields(installPlanArg, {
-      wrapperPath: environment.OPENCLAW_WRAPPER,
+      wrapperPath: environment.GRANTED_WRAPPER,
       existingEnvironment: environment,
       existingEnvironmentValueSources: environmentValueSources,
     });
@@ -938,7 +938,7 @@ describe("runDaemonInstall", () => {
 
     expect(installDaemonServiceAndEmitMock).toHaveBeenCalledTimes(1);
     expect(actionState.warnings).toContain(
-      "Gateway service OPENCLAW_WRAPPER differs from the current wrapper install plan; refreshing the install.",
+      "Gateway service GRANTED_WRAPPER differs from the current wrapper install plan; refreshing the install.",
     );
   });
 
@@ -947,14 +947,14 @@ describe("runDaemonInstall", () => {
     service.readCommand.mockResolvedValue({
       programArguments: ["openclaw", "gateway", "run"],
       environment: {
-        OPENCLAW_GATEWAY_TOKEN: "stale-service-token",
+        GRANTED_GATEWAY_TOKEN: "stale-service-token",
       },
     } as never);
     buildGatewayInstallPlanMock.mockResolvedValueOnce({
       programArguments: ["openclaw", "gateway", "run"],
       workingDirectory: "/tmp",
       environment: {
-        OPENCLAW_GATEWAY_TOKEN: "fresh-token",
+        GRANTED_GATEWAY_TOKEN: "fresh-token",
       },
     });
 
@@ -962,20 +962,20 @@ describe("runDaemonInstall", () => {
 
     expect(installDaemonServiceAndEmitMock).toHaveBeenCalledTimes(1);
     expect(actionState.warnings).toContain(
-      "Gateway service OPENCLAW_GATEWAY_TOKEN differs from the current install plan; refreshing the install.",
+      "Gateway service GRANTED_GATEWAY_TOKEN differs from the current install plan; refreshing the install.",
     );
   });
 
   it.each([
     { name: "an env file", source: "file", operatorOwned: false },
     { name: "an operator-only drop-in", source: "inline", operatorOwned: true },
-  ])("does not reinstall when OPENCLAW_GATEWAY_TOKEN comes from $name", async (testCase) => {
+  ])("does not reinstall when GRANTED_GATEWAY_TOKEN comes from $name", async (testCase) => {
     service.isLoaded.mockResolvedValue(true);
     const programArguments = ["openclaw", "gateway", "run"];
     service.readCommand.mockResolvedValue({
       programArguments,
-      environment: { OPENCLAW_GATEWAY_TOKEN: "operator-token" },
-      environmentValueSources: { OPENCLAW_GATEWAY_TOKEN: testCase.source },
+      environment: { GRANTED_GATEWAY_TOKEN: "operator-token" },
+      environmentValueSources: { GRANTED_GATEWAY_TOKEN: testCase.source },
       ...(testCase.operatorOwned && {
         managedDefinition: { programArguments, environment: {} },
       }),
@@ -1049,9 +1049,9 @@ describe("runDaemonInstall", () => {
     service.readCommand.mockResolvedValue({
       programArguments: ["openclaw", "gateway", "run"],
       environment: {
-        OPENCLAW_STATE_DIR: "/tmp/openclaw-doctor-manual",
-        OPENCLAW_CONFIG_PATH: "/tmp/openclaw-doctor-manual/openclaw.json",
-        OPENCLAW_GATEWAY_TOKEN: "stale-service-token",
+        GRANTED_STATE_DIR: "/tmp/openclaw-doctor-manual",
+        GRANTED_CONFIG_PATH: "/tmp/openclaw-doctor-manual/openclaw.json",
+        GRANTED_GATEWAY_TOKEN: "stale-service-token",
         PATH: "/tmp/doctor-bin:/usr/bin",
         NODE_OPTIONS: "--require /tmp/evil.js",
         OPENAI_API_KEY: "service-openai-key",
@@ -1065,9 +1065,9 @@ describe("runDaemonInstall", () => {
       OPENAI_API_KEY: "service-openai-key",
     });
     const env = readFirstInstallPlanArg().env as Record<string, string | undefined>;
-    expect(env.OPENCLAW_STATE_DIR).toBeUndefined();
-    expect(env.OPENCLAW_CONFIG_PATH).toBeUndefined();
-    expect(env.OPENCLAW_GATEWAY_TOKEN).toBeUndefined();
+    expect(env.GRANTED_STATE_DIR).toBeUndefined();
+    expect(env.GRANTED_CONFIG_PATH).toBeUndefined();
+    expect(env.GRANTED_GATEWAY_TOKEN).toBeUndefined();
     expect(env.NODE_OPTIONS).toBeUndefined();
     expect(env.PATH).not.toContain("/tmp/doctor-bin");
     expect(installDaemonServiceAndEmitMock).toHaveBeenCalledTimes(1);

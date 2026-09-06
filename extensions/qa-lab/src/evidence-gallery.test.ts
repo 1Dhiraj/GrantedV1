@@ -87,7 +87,7 @@ describe("evidence gallery", () => {
         { kind: "log", path: "runner/output.log" },
       ],
       env: {
-        OPENCLAW_QA_REF: "gallery-test",
+        GRANTED_QA_REF: "gallery-test",
       } as NodeJS.ProcessEnv,
       generatedAt: "2026-06-17T12:00:00.000Z",
       primaryModel: "mock-openai/gpt-5.6-luna",

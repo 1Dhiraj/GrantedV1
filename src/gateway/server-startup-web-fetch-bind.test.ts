@@ -101,8 +101,8 @@ describe("gateway startup web fetch config", () => {
   let server: Awaited<ReturnType<typeof startTestGatewayServer>> | undefined;
 
   beforeAll(async () => {
-    previousMinimal = process.env.OPENCLAW_TEST_MINIMAL_GATEWAY;
-    process.env.OPENCLAW_TEST_MINIMAL_GATEWAY = "0";
+    previousMinimal = process.env.GRANTED_TEST_MINIMAL_GATEWAY;
+    process.env.GRANTED_TEST_MINIMAL_GATEWAY = "0";
     await writeConfig({
       gateway: {
         mode: "local",
@@ -136,9 +136,9 @@ describe("gateway startup web fetch config", () => {
       await server.close();
     }
     if (previousMinimal === undefined) {
-      delete process.env.OPENCLAW_TEST_MINIMAL_GATEWAY;
+      delete process.env.GRANTED_TEST_MINIMAL_GATEWAY;
     } else {
-      process.env.OPENCLAW_TEST_MINIMAL_GATEWAY = previousMinimal;
+      process.env.GRANTED_TEST_MINIMAL_GATEWAY = previousMinimal;
     }
   });
 

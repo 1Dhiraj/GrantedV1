@@ -110,9 +110,9 @@ describe("config io write", () => {
     const home = await suiteRootTracker.make("case");
     return withEnvAsync(
       {
-        OPENCLAW_DEFER_SHELL_ENV_FALLBACK: undefined,
-        OPENCLAW_LOAD_SHELL_ENV: undefined,
-        OPENCLAW_SHELL_ENV_TIMEOUT_MS: undefined,
+        GRANTED_DEFER_SHELL_ENV_FALLBACK: undefined,
+        GRANTED_LOAD_SHELL_ENV: undefined,
+        GRANTED_SHELL_ENV_TIMEOUT_MS: undefined,
       },
       () => fn(home),
     );
@@ -241,7 +241,7 @@ describe("config io write", () => {
 
   const createFastConfigIO = (home: string, options: ConfigIoOptions = {}) =>
     createHomeConfigIO(home, {
-      env: { OPENCLAW_TEST_FAST: "1" } as NodeJS.ProcessEnv,
+      env: { GRANTED_TEST_FAST: "1" } as NodeJS.ProcessEnv,
       ...options,
     });
 
@@ -413,8 +413,8 @@ describe("config io write", () => {
     const io = createHomeConfigIO(home, {
       configPath,
       env: {
-        OPENCLAW_STATE_DIR: path.join(home, ".openclaw"),
-        OPENCLAW_TEST_FAST: "1",
+        GRANTED_STATE_DIR: path.join(home, ".openclaw"),
+        GRANTED_TEST_FAST: "1",
       } as NodeJS.ProcessEnv,
       logger: { warn, error: vi.fn() },
       observe: true,
@@ -440,8 +440,8 @@ describe("config io write", () => {
     const io = createHomeConfigIO(home, {
       configPath,
       env: {
-        OPENCLAW_NIX_MODE: "1",
-        OPENCLAW_TEST_FAST: "1",
+        GRANTED_NIX_MODE: "1",
+        GRANTED_TEST_FAST: "1",
       } as NodeJS.ProcessEnv,
     });
 
@@ -457,7 +457,7 @@ describe("config io write", () => {
     async (home) => {
       const warn = vi.fn();
       const io = createHomeConfigIO(home, {
-        env: { HOME: home, OPENCLAW_TEST_FAST: "1" } as NodeJS.ProcessEnv,
+        env: { HOME: home, GRANTED_TEST_FAST: "1" } as NodeJS.ProcessEnv,
         logger: { warn, error: vi.fn() },
       });
       const staleConfig = {
@@ -493,14 +493,14 @@ describe("config io write", () => {
   );
 
   itWithHome(
-    "keeps writes inside an OPENCLAW_STATE_DIR override even when the real home config exists",
+    "keeps writes inside an GRANTED_STATE_DIR override even when the real home config exists",
     async (home) => {
       const liveConfigPath = configPathForHome(home);
       await fs.mkdir(path.dirname(liveConfigPath), { recursive: true });
       await writeConfigJson(liveConfigPath, { gateway: { mode: "local", port: 18789 } });
 
       const overrideDir = path.join(home, "isolated-state");
-      const env = { OPENCLAW_STATE_DIR: overrideDir } as NodeJS.ProcessEnv;
+      const env = { GRANTED_STATE_DIR: overrideDir } as NodeJS.ProcessEnv;
       const io = createHomeConfigIO(home, {
         env,
       });
@@ -598,14 +598,14 @@ describe("config io write", () => {
     {
       name: "prints missing-meta write anomalies when test anomaly logging is requested",
       seedExistingConfig: true,
-      env: { OPENCLAW_TEST_CONFIG_WRITE_LOG: "1" },
+      env: { GRANTED_TEST_CONFIG_WRITE_LOG: "1" },
       logPrefix: "Config write anomaly:",
       expectedWarnings: ["Config write anomaly:", "missing-meta-before-write"],
     },
     {
       name: "suppresses overwrite audit output when skipOutputLogs is set",
       seedExistingConfig: true,
-      env: { VITEST: "true", OPENCLAW_TEST_CONFIG_WRITE_LOG: "1" },
+      env: { VITEST: "true", GRANTED_TEST_CONFIG_WRITE_LOG: "1" },
       logPrefix: "Config overwrite:",
       skipOutputLogs: true,
     },
@@ -1116,21 +1116,21 @@ describe("config io write", () => {
       await writeConfigFixture(home, {
         gateway: {
           mode: "local",
-          auth: { mode: "token", token: "${OPENCLAW_GATEWAY_TOKEN}" },
+          auth: { mode: "token", token: "${GRANTED_GATEWAY_TOKEN}" },
         },
         channels: { "test-plugin-channel": { enabled: true } },
       });
       const io = createHomeConfigIO(home, {
         env: {
-          OPENCLAW_GATEWAY_TOKEN: "gateway-token-at-read",
-          OPENCLAW_TEST_FAST: "1",
+          GRANTED_GATEWAY_TOKEN: "gateway-token-at-read",
+          GRANTED_TEST_FAST: "1",
         } as NodeJS.ProcessEnv,
       });
 
       const result = await io.readConfigFileSnapshotForWrite();
 
       expect(result.snapshot.valid).toBe(false);
-      expect(result.writeOptions.envSnapshotForRestore?.OPENCLAW_GATEWAY_TOKEN).toBe(
+      expect(result.writeOptions.envSnapshotForRestore?.GRANTED_GATEWAY_TOKEN).toBe(
         "gateway-token-at-read",
       );
     },
@@ -1142,7 +1142,7 @@ describe("config io write", () => {
       await writeConfigFixture(home, {
         gateway: {
           mode: "local",
-          auth: { mode: "token", token: "${OPENCLAW_GATEWAY_TOKEN}" },
+          auth: { mode: "token", token: "${GRANTED_GATEWAY_TOKEN}" },
         },
         channels: { "test-plugin-channel": { enabled: true } },
       });
@@ -1151,15 +1151,15 @@ describe("config io write", () => {
       });
       const io = createHomeConfigIO(home, {
         env: {
-          OPENCLAW_GATEWAY_TOKEN: "gateway-token-at-read",
-          OPENCLAW_TEST_FAST: "1",
+          GRANTED_GATEWAY_TOKEN: "gateway-token-at-read",
+          GRANTED_TEST_FAST: "1",
         } as NodeJS.ProcessEnv,
       });
 
       const result = await io.readConfigFileSnapshotForWrite();
 
       expect(result.snapshot.valid).toBe(false);
-      expect(result.writeOptions.envSnapshotForRestore?.OPENCLAW_GATEWAY_TOKEN).toBe(
+      expect(result.writeOptions.envSnapshotForRestore?.GRANTED_GATEWAY_TOKEN).toBe(
         "gateway-token-at-read",
       );
     },
@@ -1193,13 +1193,13 @@ describe("config io write", () => {
     await fs.writeFile(firstConfigPath, "{}", "utf-8");
     await fs.writeFile(secondConfigPath, "{}", "utf-8");
     const env = {
-      OPENCLAW_CONFIG_PATH: firstConfigPath,
-      OPENCLAW_TEST_FAST: "1",
+      GRANTED_CONFIG_PATH: firstConfigPath,
+      GRANTED_TEST_FAST: "1",
     } as NodeJS.ProcessEnv;
     const io = createHomeConfigIO(home, { env });
 
     const result = await io.readConfigFileSnapshotForWrite();
-    env.OPENCLAW_CONFIG_PATH = secondConfigPath;
+    env.GRANTED_CONFIG_PATH = secondConfigPath;
 
     expect(() => result.writeOptions.assertConfigPathForWrite?.()).toThrow(
       "config path changed since last load",
@@ -1215,11 +1215,11 @@ describe("config io write", () => {
       await fs.writeFile(firstConfigPath, "{}", "utf-8");
       await fs.writeFile(secondConfigPath, "{}", "utf-8");
       const env = {
-        OPENCLAW_CONFIG_PATH: firstConfigPath,
-        OPENCLAW_TEST_FAST: "1",
+        GRANTED_CONFIG_PATH: firstConfigPath,
+        GRANTED_TEST_FAST: "1",
       } as NodeJS.ProcessEnv;
       const io = createHomeConfigIO(home, { env });
-      env.OPENCLAW_CONFIG_PATH = secondConfigPath;
+      env.GRANTED_CONFIG_PATH = secondConfigPath;
 
       await expect(io.readConfigFileSnapshotForWrite()).rejects.toThrow(
         "config path changed since last load",
@@ -1236,8 +1236,8 @@ describe("config io write", () => {
 
     await withEnvAsync(
       {
-        OPENCLAW_CONFIG_PATH: activeConfigPath,
-        OPENCLAW_TEST_FAST: "1",
+        GRANTED_CONFIG_PATH: activeConfigPath,
+        GRANTED_TEST_FAST: "1",
       },
       async () => {
         await writeConfigFile(
@@ -1323,11 +1323,11 @@ describe("config io write", () => {
       await fs.writeFile(secondConfigPath, originalRaw, "utf-8");
       const firstIo = createHomeConfigIO(home, {
         configPath: firstConfigPath,
-        env: { OPENCLAW_TEST_FAST: "1" } as NodeJS.ProcessEnv,
+        env: { GRANTED_TEST_FAST: "1" } as NodeJS.ProcessEnv,
       });
       const secondIo = createHomeConfigIO(home, {
         configPath: secondConfigPath,
-        env: { OPENCLAW_TEST_FAST: "1" } as NodeJS.ProcessEnv,
+        env: { GRANTED_TEST_FAST: "1" } as NodeJS.ProcessEnv,
       });
       const firstSnapshot = await firstIo.readConfigFileSnapshot();
 
@@ -1500,8 +1500,8 @@ describe("config io write", () => {
 
     await withEnvAsync(
       {
-        OPENCLAW_CONFIG_PATH: configPath,
-        OPENCLAW_TEST_FAST: "1",
+        GRANTED_CONFIG_PATH: configPath,
+        GRANTED_TEST_FAST: "1",
       },
       async () => {
         await writeConfigFile(
@@ -1569,15 +1569,15 @@ describe("config io write", () => {
       await fs.mkdir(path.dirname(configPath), { recursive: true });
       await writeConfigJson(includePath, {
         mode: "local",
-        auth: { mode: "token", token: "${OPENCLAW_GATEWAY_TOKEN}" },
+        auth: { mode: "token", token: "${GRANTED_GATEWAY_TOKEN}" },
         invalid: true,
       });
       await writeConfigJson(configPath, { gateway: { $include: "./gateway.json5" } });
       const originalRootRaw = await fs.readFile(configPath, "utf-8");
       const io = createHomeConfigIO(home, {
         env: {
-          OPENCLAW_GATEWAY_TOKEN: "gateway-token-runtime",
-          OPENCLAW_TEST_FAST: "1",
+          GRANTED_GATEWAY_TOKEN: "gateway-token-runtime",
+          GRANTED_TEST_FAST: "1",
         } as NodeJS.ProcessEnv,
       });
       const snapshot = await io.readConfigFileSnapshot();
@@ -1594,7 +1594,7 @@ describe("config io write", () => {
 
       await expect(fs.readFile(configPath, "utf-8")).resolves.toBe(originalRootRaw);
       await expect(fs.readFile(includePath, "utf-8")).resolves.toContain(
-        '"token": "${OPENCLAW_GATEWAY_TOKEN}"',
+        '"token": "${GRANTED_GATEWAY_TOKEN}"',
       );
     },
   );
@@ -1649,7 +1649,7 @@ describe("config io write", () => {
         "utf-8",
       );
       const io = createHomeConfigIO(home, {
-        env: { GATEWAY_MODE: "local", OPENCLAW_TEST_FAST: "1" } as NodeJS.ProcessEnv,
+        env: { GATEWAY_MODE: "local", GRANTED_TEST_FAST: "1" } as NodeJS.ProcessEnv,
       });
       const snapshot = await io.readConfigFileSnapshot();
 
@@ -1864,7 +1864,7 @@ describe("config io write", () => {
       });
       const io = createHomeConfigIO(home, {
         env: {
-          OPENCLAW_TEST_FAST: "1",
+          GRANTED_TEST_FAST: "1",
           ROOT_LITERAL_TOKEN: "secret",
         } as NodeJS.ProcessEnv,
       });
@@ -1886,7 +1886,7 @@ describe("config io write", () => {
     const configPath = configPathForHome(home);
     const includePath = path.join(home, ".openclaw", "main-agent.json5");
     await fs.mkdir(path.dirname(configPath), { recursive: true });
-    await writeConfigJson(includePath, { workspace: "${OPENCLAW_AGENT_WORKSPACE}" });
+    await writeConfigJson(includePath, { workspace: "${GRANTED_AGENT_WORKSPACE}" });
     await writeConfigJson(configPath, {
       agents: {
         defaults: { params: { stale: true } },
@@ -1897,8 +1897,8 @@ describe("config io write", () => {
     const originalRootRaw = await fs.readFile(configPath, "utf-8");
     const io = createHomeConfigIO(home, {
       env: {
-        OPENCLAW_AGENT_WORKSPACE: "/resolved/agent-workspace",
-        OPENCLAW_TEST_FAST: "1",
+        GRANTED_AGENT_WORKSPACE: "/resolved/agent-workspace",
+        GRANTED_TEST_FAST: "1",
       } as NodeJS.ProcessEnv,
     });
     const snapshot = await io.readConfigFileSnapshot();
@@ -1921,7 +1921,7 @@ describe("config io write", () => {
       main: { $include: "./main-agent.json5" },
     });
     await expect(fs.readFile(includePath, "utf-8")).resolves.toContain(
-      '"workspace": "${OPENCLAW_AGENT_WORKSPACE}"',
+      '"workspace": "${GRANTED_AGENT_WORKSPACE}"',
     );
   });
 
@@ -1983,7 +1983,7 @@ describe("config io write", () => {
       ...createProviderConfigFixture(),
     });
 
-    await withEnvAsync({ OPENCLAW_CONFIG_PATH: configPath }, async () => {
+    await withEnvAsync({ GRANTED_CONFIG_PATH: configPath }, async () => {
       setRuntimeConfigSnapshot(
         {
           gateway: { mode: "local" },
@@ -2030,7 +2030,7 @@ describe("config io write", () => {
       const { configPath } = await writeConfigFixture(home, {
         gateway: {
           mode: "local",
-          auth: { mode: "token", token: "${OPENCLAW_GATEWAY_TOKEN}" },
+          auth: { mode: "token", token: "${GRANTED_GATEWAY_TOKEN}" },
         },
         agents: { defaults: { model: { primary: "openai/gpt-5.4" } } },
       });
@@ -2042,8 +2042,8 @@ describe("config io write", () => {
       try {
         await withEnvAsync(
           {
-            OPENCLAW_CONFIG_PATH: configPath,
-            OPENCLAW_GATEWAY_TOKEN: "gateway-token-runtime",
+            GRANTED_CONFIG_PATH: configPath,
+            GRANTED_GATEWAY_TOKEN: "gateway-token-runtime",
           },
           async () => {
             setRuntimeConfigSnapshot(
@@ -2076,7 +2076,7 @@ describe("config io write", () => {
             const persisted = JSON.parse(await fs.readFile(configPath, "utf-8")) as {
               gateway?: { auth?: { token?: string } };
             };
-            expect(persisted.gateway?.auth?.token).toBe("${OPENCLAW_GATEWAY_TOKEN}");
+            expect(persisted.gateway?.auth?.token).toBe("${GRANTED_GATEWAY_TOKEN}");
             expect(observedSources).toHaveLength(1);
             const observedSource = requireRecord(observedSources[0], "observed source config");
             expect(observedSource.gateway).toEqual({
@@ -2127,7 +2127,7 @@ describe("config io write", () => {
       );
 
       try {
-        await withEnvAsync({ OPENCLAW_CONFIG_PATH: configPath }, async () => {
+        await withEnvAsync({ GRANTED_CONFIG_PATH: configPath }, async () => {
           setRuntimeConfigSnapshot(initialConfig, initialConfig);
           await writeConfigFile(
             { ...initialConfig, logging: { level: "debug" } },
@@ -2147,11 +2147,11 @@ describe("config io write", () => {
 
   itWithHome("stages managed root-write config env until the owner accepts it", async (home) => {
     const configPath = configPathForHome(home);
-    const envKey = "OPENCLAW_TEST_MANAGED_ROOT_ENV";
+    const envKey = "GRANTED_TEST_MANAGED_ROOT_ENV";
     const initialAuthoredConfig = {
       gateway: {
         mode: "local" as const,
-        auth: { mode: "token" as const, token: "${OPENCLAW_TEST_MANAGED_ROOT_ENV}" },
+        auth: { mode: "token" as const, token: "${GRANTED_TEST_MANAGED_ROOT_ENV}" },
       },
       env: { vars: { [envKey]: "old" } },
     } satisfies OpenClawConfig;
@@ -2184,7 +2184,7 @@ describe("config io write", () => {
     );
 
     try {
-      await withEnvAsync({ OPENCLAW_CONFIG_PATH: configPath, [envKey]: "old" }, async () => {
+      await withEnvAsync({ GRANTED_CONFIG_PATH: configPath, [envKey]: "old" }, async () => {
         setRuntimeConfigSnapshot(initialConfig, initialConfig);
         initializePublishedConfigRuntimeEnv(initialConfig, {
           ownedEnv: { [envKey]: "old" },
@@ -2207,19 +2207,19 @@ describe("config io write", () => {
     "resolves watcher candidates after removing the accepted config env layer",
     async (home) => {
       const configPath = configPathForHome(home);
-      const envKey = "OPENCLAW_TEST_WATCHER_ENV";
+      const envKey = "GRANTED_TEST_WATCHER_ENV";
       const activeConfig = {
         env: { vars: { [envKey]: "old" } },
         gateway: { auth: { mode: "token" as const, token: "old" } },
       } satisfies OpenClawConfig;
       const candidate = {
         env: { vars: { [envKey]: "new" } },
-        gateway: { auth: { mode: "token" as const, token: "${OPENCLAW_TEST_WATCHER_ENV}" } },
+        gateway: { auth: { mode: "token" as const, token: "${GRANTED_TEST_WATCHER_ENV}" } },
       } satisfies OpenClawConfig;
       await fs.mkdir(path.dirname(configPath), { recursive: true });
       await writeConfigJson(configPath, candidate);
 
-      await withEnvAsync({ OPENCLAW_CONFIG_PATH: configPath, [envKey]: "old" }, async () => {
+      await withEnvAsync({ GRANTED_CONFIG_PATH: configPath, [envKey]: "old" }, async () => {
         initializePublishedConfigRuntimeEnv(activeConfig, {
           ownedEnv: { [envKey]: "old" },
         });
@@ -2235,7 +2235,7 @@ describe("config io write", () => {
     "rereads a managed write against an env transaction accepted during preflight",
     async (home) => {
       const configPath = configPathForHome(home);
-      const envKey = "OPENCLAW_TEST_INTERLEAVED_WRITE_ENV";
+      const envKey = "GRANTED_TEST_INTERLEAVED_WRITE_ENV";
       const makeConfig = (value: string, token: string): OpenClawConfig => ({
         env: { vars: { [envKey]: value } },
         gateway: { mode: "local", auth: { mode: "token", token } },
@@ -2273,7 +2273,7 @@ describe("config io write", () => {
       );
 
       try {
-        await withEnvAsync({ OPENCLAW_CONFIG_PATH: configPath, [envKey]: "a" }, async () => {
+        await withEnvAsync({ GRANTED_CONFIG_PATH: configPath, [envKey]: "a" }, async () => {
           setRuntimeConfigSnapshot(configA, configA);
           initializePublishedConfigRuntimeEnv(configA, {
             ownedEnv: { [envKey]: "a" },
@@ -2297,7 +2297,7 @@ describe("config io write", () => {
       });
       const io = createHomeConfigIO(home, {
         env: {
-          OPENCLAW_TEST_FAST: "1",
+          GRANTED_TEST_FAST: "1",
           PLUGIN_A: "same-plugin",
           PLUGIN_B: "same-plugin",
         } as NodeJS.ProcessEnv,
@@ -2374,7 +2374,7 @@ describe("config io write", () => {
       });
 
       try {
-        await withEnvAsync({ OPENCLAW_CONFIG_PATH: configPath }, async () => {
+        await withEnvAsync({ GRANTED_CONFIG_PATH: configPath }, async () => {
           setRuntimeConfigSnapshot(runtimeConfig, sourceConfig);
 
           await writeConfigFile({
@@ -2387,7 +2387,7 @@ describe("config io write", () => {
           });
 
           const postWriteSnapshot = await createHomeConfigIO(home, {
-            env: { OPENCLAW_CONFIG_PATH: configPath, VITEST: "true" } as NodeJS.ProcessEnv,
+            env: { GRANTED_CONFIG_PATH: configPath, VITEST: "true" } as NodeJS.ProcessEnv,
           }).readConfigFileSnapshot();
 
           expect(postWriteSnapshot.valid).toBe(true);
@@ -2428,7 +2428,7 @@ describe("config io write", () => {
     expect(warn).toHaveBeenCalledTimes(1);
 
     try {
-      await withEnvAsync({ OPENCLAW_CONFIG_PATH: configPath }, async () => {
+      await withEnvAsync({ GRANTED_CONFIG_PATH: configPath }, async () => {
         setRuntimeConfigSnapshotRefreshHandler({
           refresh: () => {
             throw new Error("synthetic refresh failure");
@@ -2461,7 +2461,7 @@ describe("config io write", () => {
       const baseSnapshot = createExistingConfigSnapshot(configPath, initialConfig, null);
 
       try {
-        await withEnvAsync({ OPENCLAW_CONFIG_PATH: configPath }, async () => {
+        await withEnvAsync({ GRANTED_CONFIG_PATH: configPath }, async () => {
           setRuntimeConfigSnapshotRefreshHandler({
             refresh: () => {
               throw new Error("synthetic refresh failure");
@@ -2495,7 +2495,7 @@ describe("config io write", () => {
       const concurrentRaw = formatConfig({ gateway: { mode: "local", port: 19191 } });
 
       try {
-        await withEnvAsync({ OPENCLAW_CONFIG_PATH: configPath }, async () => {
+        await withEnvAsync({ GRANTED_CONFIG_PATH: configPath }, async () => {
           setRuntimeConfigSnapshotRefreshHandler({
             refresh: async () => {
               await fs.writeFile(configPath, concurrentRaw, "utf-8");
@@ -2524,7 +2524,7 @@ describe("config io write", () => {
     await fs.writeFile(configPath, initialRaw, "utf-8");
 
     try {
-      await withEnvAsync({ OPENCLAW_CONFIG_PATH: configPath }, async () => {
+      await withEnvAsync({ GRANTED_CONFIG_PATH: configPath }, async () => {
         setRuntimeConfigSnapshotRefreshHandler({
           preflight: async ({ sourceConfig }) => {
             observedSource = sourceConfig;
@@ -2559,7 +2559,7 @@ describe("config io write", () => {
       await fs.writeFile(configPath, initialRaw, "utf-8");
 
       try {
-        await withEnvAsync({ OPENCLAW_CONFIG_PATH: configPath }, async () => {
+        await withEnvAsync({ GRANTED_CONFIG_PATH: configPath }, async () => {
           setRuntimeConfigSnapshotRefreshHandler({
             preflight: () => {
               events.push("runtime");
@@ -2596,7 +2596,7 @@ describe("config io write", () => {
       const initialRaw = formatConfig({ gateway: { mode: "local" } });
       const env = {
         ...process.env,
-        OPENCLAW_CONFIG_PATH: configPath,
+        GRANTED_CONFIG_PATH: configPath,
       } as NodeJS.ProcessEnv;
       let observedSource: OpenClawConfig | undefined;
 
@@ -2630,7 +2630,7 @@ describe("config io write", () => {
     "restores config env vars when post-write runtime refresh rollback succeeds",
     async (home) => {
       const configPath = configPathForHome(home);
-      const envKey = "OPENCLAW_TEST_RUNTIME_ROLLBACK_ENV";
+      const envKey = "GRANTED_TEST_RUNTIME_ROLLBACK_ENV";
       const initialConfig = { gateway: { mode: "local", port: 18789 } } satisfies OpenClawConfig;
       const initialRaw = formatConfig(initialConfig);
 
@@ -2640,7 +2640,7 @@ describe("config io write", () => {
       try {
         await withEnvAsync(
           {
-            OPENCLAW_CONFIG_PATH: configPath,
+            GRANTED_CONFIG_PATH: configPath,
             [envKey]: undefined,
           },
           async () => {
@@ -2678,7 +2678,7 @@ describe("config io write", () => {
 
       try {
         await withEnvAsync(
-          { OPENCLAW_CONFIG_PATH: configPath, OPENCLAW_TEST_FAST: "1" },
+          { GRANTED_CONFIG_PATH: configPath, GRANTED_TEST_FAST: "1" },
           async () => {
             await writeConfigFile(initialConfig, { skipRuntimeSnapshotRefresh: true });
             const priorSlot = readConfigSnapshotAuditRecord({
@@ -2739,7 +2739,7 @@ describe("config io write", () => {
       });
 
       try {
-        await withEnvAsync({ OPENCLAW_CONFIG_PATH: configPath }, async () => {
+        await withEnvAsync({ GRANTED_CONFIG_PATH: configPath }, async () => {
           setRuntimeConfigSnapshot(initialConfig, initialConfig);
           initializePublishedConfigRuntimeEnv(initialConfig);
 
@@ -2767,8 +2767,8 @@ describe("config io write", () => {
       await fs.mkdir(path.dirname(configPath), { recursive: true });
       await fs.writeFile(configPath, initialRaw, "utf-8");
       const env = {
-        OPENCLAW_CONFIG_PATH: configPath,
-        OPENCLAW_TEST_FAST: "1",
+        GRANTED_CONFIG_PATH: configPath,
+        GRANTED_TEST_FAST: "1",
       } as NodeJS.ProcessEnv;
       const readFile = fsNode.promises.readFile.bind(fsNode.promises);
       const rename = fsNode.promises.rename.bind(fsNode.promises);
@@ -2788,7 +2788,7 @@ describe("config io write", () => {
             await rename(from, to);
             if (!committed && to === configPath) {
               committed = true;
-              env.OPENCLAW_CONFIG_PATH = otherConfigPath;
+              env.GRANTED_CONFIG_PATH = otherConfigPath;
             }
           },
         },
@@ -2884,7 +2884,7 @@ describe("config io write", () => {
       } satisfies ConfigFileSnapshot["config"];
 
       try {
-        await withEnvAsync({ OPENCLAW_CONFIG_PATH: configPath }, async () => {
+        await withEnvAsync({ GRANTED_CONFIG_PATH: configPath }, async () => {
           setRuntimeConfigSnapshot(runtimeConfig, sourceConfig);
 
           await writeConfigFile(runtimeConfig, {
@@ -2952,7 +2952,7 @@ describe("config io write", () => {
           plugins: { entries: { "strict-plugin": { enabled: true } } },
         };
 
-        await withEnvAsync({ OPENCLAW_CONFIG_PATH: configPath }, async () => {
+        await withEnvAsync({ GRANTED_CONFIG_PATH: configPath }, async () => {
           await writeConfigFile(cfg, { skipPluginValidation: true });
           await expect(fs.readFile(configPath, "utf-8")).resolves.toContain('"strict-plugin"');
 
@@ -3017,7 +3017,7 @@ gateway: { mode: "local", port: 18789 }
       commentWarnings.push(message);
     });
     const io = createHomeConfigIO(home, {
-      env: { OPENCLAW_TEST_FAST: "1" } as NodeJS.ProcessEnv,
+      env: { GRANTED_TEST_FAST: "1" } as NodeJS.ProcessEnv,
       logger: { warn, error: vi.fn() },
     });
     const nextConfig = { gateway: { mode: "local" as const, port: 18790 } };
@@ -3061,7 +3061,7 @@ gateway: { mode: "local", port: 18789 }
       const result = await io.writeConfigFile(nextConfig, { auditOrigin: "doctor" });
 
       const record = listConfigAuditRecordsForTests({
-        env: { OPENCLAW_TEST_FAST: "1" } as NodeJS.ProcessEnv,
+        env: { GRANTED_TEST_FAST: "1" } as NodeJS.ProcessEnv,
         homedir: () => home,
       })
         .filter((candidate) => candidate.event === "config.write")
@@ -3082,7 +3082,7 @@ gateway: { mode: "local", port: 18789 }
       ]);
 
       const slot = readConfigSnapshotAuditRecord({
-        env: { OPENCLAW_TEST_FAST: "1" } as NodeJS.ProcessEnv,
+        env: { GRANTED_TEST_FAST: "1" } as NodeJS.ProcessEnv,
         homedir: () => home,
         configPath,
       });
@@ -3111,9 +3111,9 @@ gateway: { mode: "local", port: 18789 }
       await fs.mkdir(path.dirname(configPath), { recursive: true });
       await withEnvAsync(
         {
-          OPENCLAW_CONFIG_PATH: configPath,
-          OPENCLAW_STATE_DIR: path.join(home, ".openclaw"),
-          OPENCLAW_TEST_FAST: "1",
+          GRANTED_CONFIG_PATH: configPath,
+          GRANTED_STATE_DIR: path.join(home, ".openclaw"),
+          GRANTED_TEST_FAST: "1",
         },
         async () => {
           const io = createHomeConfigIO(home, {
@@ -3153,9 +3153,9 @@ gateway: { mode: "local", port: 18789 }
       const stateDir = path.join(home, ".openclaw");
       await withEnvAsync(
         {
-          OPENCLAW_CONFIG_PATH: configPath,
-          OPENCLAW_STATE_DIR: stateDir,
-          OPENCLAW_TEST_FAST: "1",
+          GRANTED_CONFIG_PATH: configPath,
+          GRANTED_STATE_DIR: stateDir,
+          GRANTED_TEST_FAST: "1",
         },
         async () => {
           const io = createHomeConfigIO(home, {
@@ -3244,9 +3244,9 @@ gateway: { mode: "local", port: 18789 }
       const stateDir = path.join(home, ".openclaw");
       await withEnvAsync(
         {
-          OPENCLAW_CONFIG_PATH: configPathA,
-          OPENCLAW_STATE_DIR: stateDir,
-          OPENCLAW_TEST_FAST: "1",
+          GRANTED_CONFIG_PATH: configPathA,
+          GRANTED_STATE_DIR: stateDir,
+          GRANTED_TEST_FAST: "1",
         },
         async () => {
           const io = createHomeConfigIO(home, {
@@ -3256,7 +3256,7 @@ gateway: { mode: "local", port: 18789 }
           await io.writeConfigFile({ gateway: { port: 18789 } });
           await writeConfigJson(configPathB, { gateway: { port: 18790 } });
 
-          await withEnvAsync({ OPENCLAW_CONFIG_PATH: configPathB }, async () => {
+          await withEnvAsync({ GRANTED_CONFIG_PATH: configPathB }, async () => {
             const snapshot = await readConfigFileSnapshotForRuntimeTransaction({});
             const watcher = {
               options: { usePolling: false },

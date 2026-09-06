@@ -99,30 +99,30 @@ async function requireDirectory(value: string, label: string): Promise<string> {
 }
 
 function setAgentExecEnvironment(params: { stateDir: string; cwd: string }): () => void {
-  const previousStateDir = process.env.OPENCLAW_STATE_DIR;
+  const previousStateDir = process.env.GRANTED_STATE_DIR;
   // Repointing the state dir would otherwise make the config resolve relative to
   // it (see `resolveConfigDir`), so clear any inherited path override and let the
   // published runtime snapshot own config for this run.
-  const previousConfigPath = process.env.OPENCLAW_CONFIG_PATH;
-  const previousWorkspaceDir = process.env.OPENCLAW_WORKSPACE_DIR;
-  process.env.OPENCLAW_STATE_DIR = params.stateDir;
-  delete process.env.OPENCLAW_CONFIG_PATH;
-  process.env.OPENCLAW_WORKSPACE_DIR = params.cwd;
+  const previousConfigPath = process.env.GRANTED_CONFIG_PATH;
+  const previousWorkspaceDir = process.env.GRANTED_WORKSPACE_DIR;
+  process.env.GRANTED_STATE_DIR = params.stateDir;
+  delete process.env.GRANTED_CONFIG_PATH;
+  process.env.GRANTED_WORKSPACE_DIR = params.cwd;
   return () => {
     if (previousStateDir === undefined) {
-      delete process.env.OPENCLAW_STATE_DIR;
+      delete process.env.GRANTED_STATE_DIR;
     } else {
-      process.env.OPENCLAW_STATE_DIR = previousStateDir;
+      process.env.GRANTED_STATE_DIR = previousStateDir;
     }
     if (previousConfigPath === undefined) {
-      delete process.env.OPENCLAW_CONFIG_PATH;
+      delete process.env.GRANTED_CONFIG_PATH;
     } else {
-      process.env.OPENCLAW_CONFIG_PATH = previousConfigPath;
+      process.env.GRANTED_CONFIG_PATH = previousConfigPath;
     }
     if (previousWorkspaceDir === undefined) {
-      delete process.env.OPENCLAW_WORKSPACE_DIR;
+      delete process.env.GRANTED_WORKSPACE_DIR;
     } else {
-      process.env.OPENCLAW_WORKSPACE_DIR = previousWorkspaceDir;
+      process.env.GRANTED_WORKSPACE_DIR = previousWorkspaceDir;
     }
   };
 }
@@ -259,7 +259,7 @@ export async function agentExecCommand(
     const runConfig = buildExecRunConfig({ base: baseConfig, cwd, opts });
     // Installed plugins belong to the operator config resolved above, not to
     // the disposable state root used for this run. Capture all roots before
-    // OPENCLAW_STATE_DIR moves so discovery and the installed-index DB agree.
+    // GRANTED_STATE_DIR moves so discovery and the installed-index DB agree.
     const inheritInstalledPlugins = opts.isolated !== true && opts.authEnvOnly !== true;
     const pluginInstallContext = inheritInstalledPlugins
       ? await import("../plugins/install-root-context.js")
@@ -316,7 +316,7 @@ export async function agentExecCommand(
     // The runtime snapshot is the only in-process config cache (`clearConfigCache`
     // is a no-op shim), so publishing the composed config here is what makes the
     // run use it. Serializing it to a temporary file and repointing
-    // OPENCLAW_CONFIG_PATH would only feed this same snapshot, while writing
+    // GRANTED_CONFIG_PATH would only feed this same snapshot, while writing
     // env-substituted provider keys to disk where the run's own exec tool
     // could read them.
     snapshotIo.setRuntimeConfigSnapshot(runConfig);

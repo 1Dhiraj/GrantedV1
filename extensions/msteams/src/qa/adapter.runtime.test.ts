@@ -47,8 +47,8 @@ describe("Microsoft Teams QA transport adapter", () => {
     });
 
     const env = adapter.createRuntimeEnvPatch?.();
-    expect(env?.OPENCLAW_BUILD_PRIVATE_QA).toBe("1");
-    expect(env).not.toHaveProperty("OPENCLAW_QA_MSTEAMS_CONNECTOR_URL");
+    expect(env?.GRANTED_BUILD_PRIVATE_QA).toBe("1");
+    expect(env).not.toHaveProperty("GRANTED_QA_MSTEAMS_CONNECTOR_URL");
     const bootstrapUrl = /--import=(\S+)/u.exec(env?.NODE_OPTIONS ?? "")?.[1];
     expect(bootstrapUrl).toMatch(/^file:/u);
     const bootstrapPath = fileURLToPath(bootstrapUrl!);

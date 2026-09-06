@@ -331,7 +331,7 @@ describe("plugins marketplace refresh", () => {
 
   it("emits bounded diagnostics for refresh without raw feed URLs", async () => {
     const timelinePath = await createTimelinePath();
-    vi.stubEnv("OPENCLAW_DIAGNOSTICS_TIMELINE_PATH", timelinePath);
+    vi.stubEnv("GRANTED_DIAGNOSTICS_TIMELINE_PATH", timelinePath);
     const config = {
       diagnostics: { flags: ["timeline"] },
     };

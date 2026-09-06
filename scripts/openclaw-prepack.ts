@@ -21,10 +21,10 @@ const requiredPreparedPathGroups = [
 const requiredControlUiAssetPrefix = "dist/control-ui/assets/";
 const requiredControlUiCompressionSuffixes = [".br", ".gz"] as const;
 const DEFAULT_PREPACK_COMMAND_TIMEOUT_MS = 30 * 60 * 1000;
-const ALLOW_UNRELEASED_CHANGELOG_ENV = "OPENCLAW_PREPACK_ALLOW_UNRELEASED_CHANGELOG";
-const PREPARED_RELEASE_ENV = "OPENCLAW_PREPACK_PREPARED";
+const ALLOW_UNRELEASED_CHANGELOG_ENV = "GRANTED_PREPACK_ALLOW_UNRELEASED_CHANGELOG";
+const PREPARED_RELEASE_ENV = "GRANTED_PREPACK_PREPARED";
 const OCM_INTERNAL_NPM_BIN_ENV = "OCM_INTERNAL_NPM_BIN";
-const OCM_WORKSPACE_DIRS_ENV = "OPENCLAW_OCM_WORKSPACE_DEPENDENCY_DIRS";
+const OCM_WORKSPACE_DIRS_ENV = "GRANTED_OCM_WORKSPACE_DEPENDENCY_DIRS";
 const OCM_ADAPTER_BASENAME = "ocm-npm-workspace-deps.mts";
 const NPM_COMMAND_ENV = "npm_command";
 const SELF_CONTAINED_SOURCE_PACK_COMMAND =
@@ -181,7 +181,7 @@ function ensurePreparedArtifacts(): void {
 
 export function resolvePrepackCommandTimeoutMs(env: NodeJS.ProcessEnv = process.env): number {
   return readPositiveEnvInt(
-    "OPENCLAW_PREPACK_COMMAND_TIMEOUT_MS",
+    "GRANTED_PREPACK_COMMAND_TIMEOUT_MS",
     env,
     DEFAULT_PREPACK_COMMAND_TIMEOUT_MS,
   );

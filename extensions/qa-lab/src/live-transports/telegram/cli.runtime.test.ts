@@ -48,7 +48,7 @@ vi.mock("./scenario-selection.js", () => ({
 
 import { runQaTelegramCommand, runQaTelegramSuite } from "./cli.runtime.js";
 
-const SUT_COMMAND_ENV = "OPENCLAW_QA_TELEGRAM_SUT_OPENCLAW_COMMAND";
+const SUT_COMMAND_ENV = "GRANTED_QA_TELEGRAM_SUT_GRANTED_COMMAND";
 
 describe("Telegram live QA scenario gate", () => {
   const originalSutCommand = process.env[SUT_COMMAND_ENV];

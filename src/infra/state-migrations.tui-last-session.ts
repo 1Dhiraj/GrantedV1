@@ -209,7 +209,7 @@ export function migrateLegacyTuiLastSessions(params: {
           importedCount += 1;
         }
       },
-      { env: { ...process.env, OPENCLAW_STATE_DIR: params.stateDir } },
+      { env: { ...process.env, GRANTED_STATE_DIR: params.stateDir } },
     );
   } catch (error) {
     warnings.push(`Failed migrating legacy TUI last-session state: ${String(error)}`);
@@ -219,7 +219,7 @@ export function migrateLegacyTuiLastSessions(params: {
   try {
     params.beforeVerify?.();
     const database = openOpenClawStateDatabase({
-      env: { ...process.env, OPENCLAW_STATE_DIR: params.stateDir },
+      env: { ...process.env, GRANTED_STATE_DIR: params.stateDir },
     });
     const tuiDb = getNodeSqliteKysely<TuiLastSessionMigrationDatabase>(database.db);
     for (const expected of expectedRows.values()) {

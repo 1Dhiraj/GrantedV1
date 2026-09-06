@@ -55,7 +55,7 @@ function createContext(
       HOME: "/tmp/claude-login-home",
       CLAUDE_CONFIG_DIR: "/tmp/claude-login-home/custom-config",
       PATH: "/usr/local/bin:/usr/bin",
-      OPENCLAW_MCP_TOKEN: "test-grant-not-a-real-secret",
+      GRANTED_MCP_TOKEN: "test-grant-not-a-real-secret",
     },
     prompt: "Remember the launch code.",
     modelId: "claude-sonnet-4-6",
@@ -969,7 +969,7 @@ describe("Anthropic Agent SDK runtime ownership", () => {
     );
     expect(
       JSON.stringify({ mcpServers: sdkOptions().mcpServers, extraArgs: sdkOptions().extraArgs }),
-    ).not.toContain(context.env.OPENCLAW_MCP_TOKEN);
+    ).not.toContain(context.env.GRANTED_MCP_TOKEN);
   });
 
   it("preserves variadic directories, tools, and managed plugin MCP isolation", async () => {

@@ -1,5 +1,5 @@
 // Enrollment roots its identity, device token, bundles, and node-host workspaces
-// under OPENCLAW_STATE_DIR here; deleting it is the cross-session data boundary.
+// under GRANTED_STATE_DIR here; deleting it is the cross-session data boundary.
 // Crabbox's separate checkpoint workdir never receives session files (--no-sync).
 // SSH session workspaces must also be scrubbed; sibling bundle installs and git-seeds
 // in .openclaw-worker are machine-level caches and intentionally survive.
@@ -31,7 +31,7 @@ const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
       const runtime = fs.realpathSync(path.join(stateDir, "runtime"));
       const cwd = fs.realpathSync(path.join("/proc", pidText, "cwd"));
       const env = fs.readFileSync(path.join("/proc", pidText, "environ"), "utf8").split("\\0");
-      if (!runtime.startsWith(runtimeRoot) || cwd !== runtime || Number(fields[2]) !== pid || !env.includes("OPENCLAW_STATE_DIR=" + stateDir)) throw new Error("Cannot scrub a worker whose live node ownership does not match");
+      if (!runtime.startsWith(runtimeRoot) || cwd !== runtime || Number(fields[2]) !== pid || !env.includes("GRANTED_STATE_DIR=" + stateDir)) throw new Error("Cannot scrub a worker whose live node ownership does not match");
       return true;
     };
     if (!owned()) continue;

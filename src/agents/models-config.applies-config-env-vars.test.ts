@@ -61,7 +61,7 @@ vi.mock("./model-auth-env-vars.js", () => ({
   }),
 }));
 
-const TEST_ENV_VAR = "OPENCLAW_MODELS_CONFIG_TEST_ENV";
+const TEST_ENV_VAR = "GRANTED_MODELS_CONFIG_TEST_ENV";
 
 afterEach(() => {
   providerRuntimeMocks.normalizeProviderConfigWithPlugin.mockReset();

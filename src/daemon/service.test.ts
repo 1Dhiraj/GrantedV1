@@ -65,10 +65,10 @@ describe("resolveGatewayService", () => {
   });
 
   it("guards mutating service adapters when config was written by a newer OpenClaw", async () => {
-    const tempHome = await makeTempWorkspace("openclaw-service-future-config-");
-    const stateDir = path.join(tempHome, ".openclaw");
-    const configPath = path.join(stateDir, "openclaw.json");
-    const envSnapshot = captureEnv(["HOME", "OPENCLAW_STATE_DIR", "OPENCLAW_CONFIG_PATH"]);
+    const tempHome = await makeTempWorkspace("granted-service-future-config-");
+    const stateDir = path.join(tempHome, ".granted");
+    const configPath = path.join(stateDir, "granted.json");
+    const envSnapshot = captureEnv(["HOME", "GRANTED_STATE_DIR", "GRANTED_CONFIG_PATH"]);
     try {
       await fs.mkdir(stateDir, { recursive: true });
       await fs.writeFile(
@@ -84,8 +84,8 @@ describe("resolveGatewayService", () => {
         ),
       );
       process.env.HOME = tempHome;
-      process.env.OPENCLAW_STATE_DIR = stateDir;
-      process.env.OPENCLAW_CONFIG_PATH = configPath;
+      process.env.GRANTED_STATE_DIR = stateDir;
+      process.env.GRANTED_CONFIG_PATH = configPath;
       clearConfigCache();
       clearRuntimeConfigSnapshot();
 
@@ -105,7 +105,7 @@ describe("resolveGatewayService", () => {
   it("guards every native service mutation when an external supervisor owns lifecycle", async () => {
     setPlatform("darwin");
     const service = resolveGatewayService();
-    const env = { OPENCLAW_SUPERVISOR_MODE: "external" };
+    const env = { GRANTED_SUPERVISOR_MODE: "external" };
     const installArgs = {
       env,
       stdout: process.stdout,
@@ -152,14 +152,14 @@ describe("readGatewayServiceState", () => {
       const keys = [
         "HOME",
         "PATH",
-        "OPENCLAW_HOME",
-        "OPENCLAW_STATE_DIR",
-        "OPENCLAW_CONFIG_PATH",
-        "OPENCLAW_PROFILE",
-        "OPENCLAW_SUPERVISOR_MODE",
-        "OPENCLAW_SERVICE_MARKER",
-        "OPENCLAW_SERVICE_KIND",
-        "OPENCLAW_SYSTEMD_UNIT",
+        "GRANTED_HOME",
+        "GRANTED_STATE_DIR",
+        "GRANTED_CONFIG_PATH",
+        "GRANTED_PROFILE",
+        "GRANTED_SUPERVISOR_MODE",
+        "GRANTED_SERVICE_MARKER",
+        "GRANTED_SERVICE_KIND",
+        "GRANTED_SYSTEMD_UNIT",
         "DBUS_SESSION_BUS_ADDRESS",
         "DBUS_SYSTEM_BUS_ADDRESS",
         "XDG_RUNTIME_DIR",
@@ -222,13 +222,13 @@ describe("readGatewayServiceState", () => {
         isLoaded: vi.fn(async () => true),
         readCommand: vi.fn(async () => ({
           programArguments: ["openclaw", "gateway", "run"],
-          environment: { OPENCLAW_GATEWAY_PORT: "18789" },
+          environment: { GRANTED_GATEWAY_PORT: "18789" },
         })),
         readRuntime: vi.fn(async () => ({ status: "running" })),
       });
 
       const state = await readGatewayServiceState(service, {
-        env: { OPENCLAW_GATEWAY_PORT: "1" },
+        env: { GRANTED_GATEWAY_PORT: "1" },
         requireEffective,
         timeoutMs: 100,
       });
@@ -236,12 +236,12 @@ describe("readGatewayServiceState", () => {
       expect(state.installed).toBe(true);
       expect(state.loadState).toEqual({ status: "loaded" });
       expect(state.running).toBe(true);
-      expect(state.env.OPENCLAW_GATEWAY_PORT).toBe("18789");
+      expect(state.env.GRANTED_GATEWAY_PORT).toBe("18789");
       expect(hasInstalledDefinition).not.toHaveBeenCalled();
       if (requireEffective) {
         expect(readDefinitionMutationCapability).toHaveBeenCalledWith({
-          env: { OPENCLAW_GATEWAY_PORT: "1" },
-          environment: { OPENCLAW_GATEWAY_PORT: "18789" },
+          env: { GRANTED_GATEWAY_PORT: "1" },
+          environment: { GRANTED_GATEWAY_PORT: "18789" },
           timeoutMs: 100,
         });
         expect(state.definitionMutationCapability).toEqual(
@@ -268,7 +268,7 @@ describe("readGatewayServiceState", () => {
       return scenario.definition ?? false;
     });
     const service = createService({ hasInstalledDefinition });
-    const env = { OPENCLAW_SYSTEMD_UNIT: "openclaw-gateway.service" };
+    const env = { GRANTED_SYSTEMD_UNIT: "granted-gateway.service" };
 
     const state = await readGatewayServiceState(service, { env, timeoutMs: 100 });
 
@@ -285,21 +285,21 @@ describe("readGatewayServiceState", () => {
       readCommand: vi.fn(async () => ({
         programArguments: ["openclaw", "gateway", "run"],
         environment: {
-          OPENCLAW_GATEWAY_PORT: "18789",
-          OPENCLAW_SYSTEMD_UNIT: "openclaw-gateway.service",
+          GRANTED_GATEWAY_PORT: "18789",
+          GRANTED_SYSTEMD_UNIT: "granted-gateway.service",
         },
       })),
       readRuntime,
     });
 
     const state = await readGatewayServiceState(service, {
-      env: { OPENCLAW_SYSTEMD_UNIT: "openclaw-gateway-maintenance.service" },
+      env: { GRANTED_SYSTEMD_UNIT: "granted-gateway-maintenance.service" },
     });
 
-    expect(state.env.OPENCLAW_SYSTEMD_UNIT).toBe("openclaw-gateway-maintenance.service");
+    expect(state.env.GRANTED_SYSTEMD_UNIT).toBe("granted-gateway-maintenance.service");
     expect(readRuntime).toHaveBeenCalledWith(
       expect.objectContaining({
-        OPENCLAW_SYSTEMD_UNIT: "openclaw-gateway-maintenance.service",
+        GRANTED_SYSTEMD_UNIT: "granted-gateway-maintenance.service",
       }),
       { timeoutMs: undefined },
     );
@@ -384,7 +384,7 @@ describe("readGatewayServiceState", () => {
       readDefinitionMutationCapability,
       readCommand: vi.fn(async () => ({
         programArguments: ["openclaw", "gateway", "run"],
-        environment: { OPENCLAW_SYSTEMD_UNIT: "openclaw-gateway.service" },
+        environment: { GRANTED_SYSTEMD_UNIT: "granted-gateway.service" },
       })),
       readRuntime,
     });
@@ -394,10 +394,10 @@ describe("readGatewayServiceState", () => {
         env: {},
         requireEffective: true,
         validateEnvBeforeStatusRead: (env) => {
-          throw new Error(`refused ${env.OPENCLAW_SYSTEMD_UNIT}`);
+          throw new Error(`refused ${env.GRANTED_SYSTEMD_UNIT}`);
         },
       }),
-    ).rejects.toThrow("refused openclaw-gateway.service");
+    ).rejects.toThrow("refused granted-gateway.service");
 
     expect(isLoaded).not.toHaveBeenCalled();
     expect(readRuntime).not.toHaveBeenCalled();
@@ -421,7 +421,7 @@ describe("startGatewayService", () => {
   it("starts stopped installed services and returns post-start state", async () => {
     const readCommand = vi.fn(async () => ({
       programArguments: ["openclaw", "gateway", "run"],
-      environment: { OPENCLAW_GATEWAY_PORT: "18789" },
+      environment: { GRANTED_GATEWAY_PORT: "18789" },
     }));
     const isLoaded = vi
       .fn<GatewayService["isLoaded"]>()
@@ -559,7 +559,7 @@ describe("startGatewayService", () => {
     const service = createService({
       readCommand: vi.fn(async () => ({
         programArguments: ["openclaw", "gateway", "run"],
-        environment: { OPENCLAW_SERVICE_VERSION: "2026.4.24" },
+        environment: { GRANTED_SERVICE_VERSION: "2026.4.24" },
       })),
       isLoaded: vi.fn(async () => true),
       readRuntime: vi.fn(async () => ({ status: "running", pid: 4242 })),
@@ -581,7 +581,7 @@ describe("startGatewayService", () => {
     const service = createService({
       readCommand: vi.fn(async () => ({
         programArguments: ["openclaw", "gateway", "run"],
-        environment: { OPENCLAW_SERVICE_VERSION: "2026.4.24" },
+        environment: { GRANTED_SERVICE_VERSION: "2026.4.24" },
       })),
       isLoaded: vi.fn(async () => true),
       readRuntime: vi.fn(async () => ({ status: "stopped" })),
@@ -600,7 +600,7 @@ describe("startGatewayService", () => {
     const service = createService({
       readCommand: vi.fn(async () => ({
         programArguments: ["openclaw", "gateway", "--port", "18789"],
-        environment: { OPENCLAW_GATEWAY_PORT: "19001" },
+        environment: { GRANTED_GATEWAY_PORT: "19001" },
       })),
       isLoaded: vi.fn(async () => true),
       readRuntime: vi.fn(async () => ({ status: "stopped" })),
@@ -629,7 +629,7 @@ describe("startGatewayService", () => {
     const service = createService({
       readCommand: vi.fn(async () => ({
         programArguments: ["openclaw", "gateway", "--port", "19001"],
-        environment: { OPENCLAW_GATEWAY_PORT: "18789" },
+        environment: { GRANTED_GATEWAY_PORT: "18789" },
       })),
       isLoaded: vi.fn(async () => true),
       readRuntime: vi.fn(async () => ({ status: "stopped" })),
@@ -651,7 +651,7 @@ describe("startGatewayService", () => {
   describe("service program paths", () => {
     const entrypoint = path.resolve("openclaw.mjs");
     const missing = path.resolve("missing-gateway-entrypoint.cjs");
-    const temporary = path.join(os.tmpdir(), "openclaw-service-layout", "index.js");
+    const temporary = path.join(os.tmpdir(), "granted-service-layout", "index.js");
     const heapFlag = "--max-old-space-size=16384";
 
     describe.each([

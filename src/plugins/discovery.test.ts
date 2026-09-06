@@ -29,7 +29,7 @@ vi.mock("./bundled-dir.js", async (importOriginal) => {
   return {
     ...actual,
     resolveBundledPluginsDir: (env: NodeJS.ProcessEnv = process.env) =>
-      env.OPENCLAW_BUNDLED_PLUGINS_DIR ?? actual.resolveBundledPluginsDir(env),
+      env.GRANTED_BUNDLED_PLUGINS_DIR ?? actual.resolveBundledPluginsDir(env),
   };
 });
 
@@ -103,10 +103,10 @@ function buildDiscoveryEnv(stateDir: string): NodeJS.ProcessEnv {
   const bundledPluginsDir = path.join(stateDir, "empty-bundled-plugins");
   mkdirSafe(bundledPluginsDir);
   return {
-    OPENCLAW_STATE_DIR: stateDir,
-    OPENCLAW_HOME: undefined,
-    OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-    OPENCLAW_BUNDLED_PLUGINS_DIR: bundledPluginsDir,
+    GRANTED_STATE_DIR: stateDir,
+    GRANTED_HOME: undefined,
+    GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+    GRANTED_BUNDLED_PLUGINS_DIR: bundledPluginsDir,
   };
 }
 
@@ -115,11 +115,11 @@ function buildDiscoveryEnvWithOverrides(
   overrides: Partial<NodeJS.ProcessEnv> = {},
 ): NodeJS.ProcessEnv {
   const enablesBundledOverride =
-    Object.hasOwn(overrides, "OPENCLAW_BUNDLED_PLUGINS_DIR") &&
-    overrides.OPENCLAW_BUNDLED_PLUGINS_DIR !== undefined;
+    Object.hasOwn(overrides, "GRANTED_BUNDLED_PLUGINS_DIR") &&
+    overrides.GRANTED_BUNDLED_PLUGINS_DIR !== undefined;
   return {
     ...buildDiscoveryEnv(stateDir),
-    ...(enablesBundledOverride ? { OPENCLAW_DISABLE_BUNDLED_PLUGINS: undefined } : {}),
+    ...(enablesBundledOverride ? { GRANTED_DISABLE_BUNDLED_PLUGINS: undefined } : {}),
     ...overrides,
   };
 }
@@ -127,8 +127,8 @@ function buildDiscoveryEnvWithOverrides(
 function buildBundledDiscoveryEnv(stateDir: string): NodeJS.ProcessEnv {
   return {
     ...buildDiscoveryEnv(stateDir),
-    OPENCLAW_DISABLE_BUNDLED_PLUGINS: undefined,
-    OPENCLAW_BUNDLED_PLUGINS_DIR: undefined,
+    GRANTED_DISABLE_BUNDLED_PLUGINS: undefined,
+    GRANTED_BUNDLED_PLUGINS_DIR: undefined,
   };
 }
 
@@ -819,8 +819,8 @@ describe("discoverOpenClawPlugins", () => {
       discoverOpenClawPlugins({
         env: {
           ...buildDiscoveryEnv(stateDir),
-          OPENCLAW_DISABLE_BUNDLED_PLUGINS: undefined,
-          OPENCLAW_BUNDLED_PLUGINS_DIR: bundledDir,
+          GRANTED_DISABLE_BUNDLED_PLUGINS: undefined,
+          GRANTED_BUNDLED_PLUGINS_DIR: bundledDir,
         },
       }),
     );
@@ -854,8 +854,8 @@ describe("discoverOpenClawPlugins", () => {
       discoverOpenClawPlugins({
         env: {
           ...buildDiscoveryEnv(stateDir),
-          OPENCLAW_DISABLE_BUNDLED_PLUGINS: undefined,
-          OPENCLAW_BUNDLED_PLUGINS_DIR: bundledRoot,
+          GRANTED_DISABLE_BUNDLED_PLUGINS: undefined,
+          GRANTED_BUNDLED_PLUGINS_DIR: bundledRoot,
         },
       }),
     );
@@ -907,8 +907,8 @@ describe("discoverOpenClawPlugins", () => {
       discoverOpenClawPlugins({
         env: {
           ...buildDiscoveryEnv(stateDir),
-          OPENCLAW_DISABLE_BUNDLED_PLUGINS: undefined,
-          OPENCLAW_BUNDLED_PLUGINS_DIR: bundledRoot,
+          GRANTED_DISABLE_BUNDLED_PLUGINS: undefined,
+          GRANTED_BUNDLED_PLUGINS_DIR: bundledRoot,
         },
       }),
     );
@@ -1217,7 +1217,7 @@ describe("discoverOpenClawPlugins", () => {
     symlinkDirectory(pluginDir, aliasDir);
     const env = buildDiscoveryEnvWithOverrides(
       stateDir,
-      scenario.bundled ? { OPENCLAW_BUNDLED_PLUGINS_DIR: bundledDir } : {},
+      scenario.bundled ? { GRANTED_BUNDLED_PLUGINS_DIR: bundledDir } : {},
     );
     const record: PluginInstallRecord = {
       source: "npm",
@@ -1530,7 +1530,7 @@ describe("discoverOpenClawPlugins", () => {
 
     const result = discoverOpenClawPlugins({
       env: buildDiscoveryEnvWithOverrides(stateDir, {
-        OPENCLAW_BUNDLED_PLUGINS_DIR: bundledDir,
+        GRANTED_BUNDLED_PLUGINS_DIR: bundledDir,
       }),
       installRecords: {
         discord: {
@@ -1574,7 +1574,7 @@ describe("discoverOpenClawPlugins", () => {
     writePluginManifest({ pluginDir: packageDir, id: "package" });
     writePluginEntry(path.join(packageDir, "index.js"));
     const env = buildDiscoveryEnvWithOverrides(stateDir, {
-      OPENCLAW_BUNDLED_PLUGINS_DIR: bundledDir,
+      GRANTED_BUNDLED_PLUGINS_DIR: bundledDir,
     });
     const installRecords = {
       "plain-owner": { source: "path", installPath: plainDir },
@@ -2210,7 +2210,7 @@ describe("discoverOpenClawPlugins", () => {
 
     const { candidates, diagnostics } = discoverOpenClawPlugins({
       env: buildDiscoveryEnvWithOverrides(stateDir, {
-        OPENCLAW_COMPATIBILITY_HOST_VERSION: "2026.5.27-beta.1",
+        GRANTED_COMPATIBILITY_HOST_VERSION: "2026.5.27-beta.1",
       }),
     });
 
@@ -2221,7 +2221,7 @@ describe("discoverOpenClawPlugins", () => {
       pluginId: "future-channel",
       source: path.join(pluginDir, "package.json"),
       messageIncludes:
-        'plugin requires plugin API >=2026.5.27-beta.2, but this host is 2026.5.27-beta.1; skipping discovery (check "openclaw --version", OPENCLAW_COMPATIBILITY_HOST_VERSION, or run "openclaw doctor")',
+        'plugin requires plugin API >=2026.5.27-beta.2, but this host is 2026.5.27-beta.1; skipping discovery (check "openclaw --version", GRANTED_COMPATIBILITY_HOST_VERSION, or run "openclaw doctor")',
     });
   });
 
@@ -2246,7 +2246,7 @@ describe("discoverOpenClawPlugins", () => {
 
     const { candidates, diagnostics } = discoverOpenClawPlugins({
       env: buildDiscoveryEnvWithOverrides(stateDir, {
-        OPENCLAW_COMPATIBILITY_HOST_VERSION: "2026.5.27",
+        GRANTED_COMPATIBILITY_HOST_VERSION: "2026.5.27",
       }),
     });
 
@@ -2314,7 +2314,7 @@ describe("discoverOpenClawPlugins", () => {
 
       const result = discoverOpenClawPlugins({
         env: buildDiscoveryEnvWithOverrides(stateDir, {
-          OPENCLAW_COMPATIBILITY_HOST_VERSION: "2026.5.27-beta.1",
+          GRANTED_COMPATIBILITY_HOST_VERSION: "2026.5.27-beta.1",
         }),
       });
 
@@ -2348,7 +2348,7 @@ describe("discoverOpenClawPlugins", () => {
 
     const { candidates, diagnostics } = discoverOpenClawPlugins({
       env: buildDiscoveryEnvWithOverrides(stateDir, {
-        OPENCLAW_COMPATIBILITY_HOST_VERSION: "2026.5.27-beta.1",
+        GRANTED_COMPATIBILITY_HOST_VERSION: "2026.5.27-beta.1",
       }),
     });
 
@@ -2376,7 +2376,7 @@ describe("discoverOpenClawPlugins", () => {
 
     const { candidates, diagnostics } = discoverOpenClawPlugins({
       env: buildDiscoveryEnvWithOverrides(stateDir, {
-        OPENCLAW_COMPATIBILITY_HOST_VERSION: "2026.5.27-beta.1",
+        GRANTED_COMPATIBILITY_HOST_VERSION: "2026.5.27-beta.1",
       }),
     });
 
@@ -2405,7 +2405,7 @@ describe("discoverOpenClawPlugins", () => {
 
     const { candidates } = discoverOpenClawPlugins({
       env: buildDiscoveryEnvWithOverrides(stateDir, {
-        OPENCLAW_BUNDLED_PLUGINS_DIR: bundledDir,
+        GRANTED_BUNDLED_PLUGINS_DIR: bundledDir,
       }),
     });
 
@@ -2432,7 +2432,7 @@ describe("discoverOpenClawPlugins", () => {
 
     const { candidates, diagnostics } = discoverOpenClawPlugins({
       env: buildDiscoveryEnvWithOverrides(stateDir, {
-        OPENCLAW_BUNDLED_PLUGINS_DIR: bundledDir,
+        GRANTED_BUNDLED_PLUGINS_DIR: bundledDir,
       }),
     });
 
@@ -2488,7 +2488,7 @@ describe("discoverOpenClawPlugins", () => {
 
     const { candidates } = discoverOpenClawPlugins({
       env: buildDiscoveryEnvWithOverrides(stateDir, {
-        OPENCLAW_BUNDLED_PLUGINS_DIR: bundledDir,
+        GRANTED_BUNDLED_PLUGINS_DIR: bundledDir,
       }),
     });
 
@@ -3057,7 +3057,7 @@ describe("discoverOpenClawPlugins", () => {
       });
       fs.chmodSync(pluginDir, 0o777);
       const result = discoverOpenClawPlugins({
-        env: buildDiscoveryEnvWithOverrides(stateDir, { OPENCLAW_BUNDLED_PLUGINS_DIR: bundledDir }),
+        env: buildDiscoveryEnvWithOverrides(stateDir, { GRANTED_BUNDLED_PLUGINS_DIR: bundledDir }),
         extraPaths: [pluginDir, pluginDir],
       });
       // A host-owned path gets bundled policy on the first attempt, so the repair
@@ -3087,7 +3087,7 @@ describe("discoverOpenClawPlugins", () => {
       for (const extraPaths of [[], [outsideDir]]) {
         const result = discoverOpenClawPlugins({
           env: buildDiscoveryEnvWithOverrides(stateDir, {
-            OPENCLAW_BUNDLED_PLUGINS_DIR: bundledDir,
+            GRANTED_BUNDLED_PLUGINS_DIR: bundledDir,
           }),
           extraPaths,
         });
@@ -3188,7 +3188,7 @@ describe("discoverOpenClawPlugins", () => {
       const result = discoverOpenClawPlugins({
         env: {
           ...buildDiscoveryEnv(stateDir),
-          OPENCLAW_PLUGINS_PATHS: blockedDir,
+          GRANTED_PLUGINS_PATHS: blockedDir,
         },
       });
       const blockedDiagnostics = result.diagnostics.filter(
@@ -3246,7 +3246,7 @@ describe("discoverOpenClawPlugins", () => {
       entryPath: "index.js",
     });
     const env = buildDiscoveryEnvWithOverrides(stateDir, {
-      OPENCLAW_BUNDLED_PLUGINS_DIR: bundledDir,
+      GRANTED_BUNDLED_PLUGINS_DIR: bundledDir,
     });
     const packageManifestPath = path.resolve(pluginDir, "package.json");
 
@@ -3280,7 +3280,7 @@ describe("discoverOpenClawPlugins", () => {
       entryPath: "index.js",
     });
     const env = buildDiscoveryEnvWithOverrides(stateDir, {
-      OPENCLAW_BUNDLED_PLUGINS_DIR: bundledDir,
+      GRANTED_BUNDLED_PLUGINS_DIR: bundledDir,
     });
     const packageManifestPath = path.join(pluginDir, "package.json");
     const unchangedTimestamp = new Date("2025-01-01T00:00:00.000Z");
@@ -3423,8 +3423,8 @@ describe("discoverOpenClawPlugins", () => {
 
     const env = {
       ...buildDiscoveryEnv(stateDir),
-      OPENCLAW_DISABLE_BUNDLED_PLUGINS: undefined,
-      OPENCLAW_BUNDLED_PLUGINS_DIR: bundledDir,
+      GRANTED_DISABLE_BUNDLED_PLUGINS: undefined,
+      GRANTED_BUNDLED_PLUGINS_DIR: bundledDir,
     };
     const first = withOpenClawPackageArgv(packageRoot, () =>
       discoverWithEnv({ workspaceDir: workspaceA, env }),

@@ -157,7 +157,7 @@ describe("gateway lifetime sidecars", () => {
   ])(
     "owns startup and scheduled handoff expiry when minimalTestGateway=$minimalTestGateway",
     async ({ minimalTestGateway, expectedHandoffRows }) => {
-      await withEnvAsync({ OPENCLAW_STATE_DIR: createStateDir() }, async () => {
+      await withEnvAsync({ GRANTED_STATE_DIR: createStateDir() }, async () => {
         vi.useFakeTimers();
         vi.setSystemTime(new Date("2026-01-01T00:00:00.000Z"));
         const startupHandoff = "github-setup-55555555555555555555555555555555";

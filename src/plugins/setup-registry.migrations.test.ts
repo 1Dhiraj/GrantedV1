@@ -8,7 +8,7 @@ function runMigration(config: OpenClawConfig) {
   return runPluginSetupConfigMigrations({
     env: {
       ...process.env,
-      OPENCLAW_BUNDLED_PLUGINS_DIR: path.resolve("extensions"),
+      GRANTED_BUNDLED_PLUGINS_DIR: path.resolve("extensions"),
     },
     config,
   });

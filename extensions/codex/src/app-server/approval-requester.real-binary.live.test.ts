@@ -22,8 +22,8 @@ import {
 import { createIsolatedCodexAppServerClient } from "./shared-client.js";
 
 const LIVE =
-  process.env.OPENCLAW_LIVE_TEST === "1" &&
-  process.env.OPENCLAW_LIVE_CODEX_APPROVAL_REQUESTER === "1";
+  process.env.GRANTED_LIVE_TEST === "1" &&
+  process.env.GRANTED_LIVE_CODEX_APPROVAL_REQUESTER === "1";
 const describeLive = LIVE ? describe : describe.skip;
 
 afterEach(() => {
@@ -38,7 +38,7 @@ describeLive("Codex app-server approval requester real-binary bridge", () => {
       const agentDir = path.join(root, "agent");
       const target = path.join(workspace, "memory", "real-binary-owner.md");
       await fs.mkdir(path.dirname(target), { recursive: true });
-      vi.stubEnv("OPENCLAW_STATE_DIR", path.join(root, "state"));
+      vi.stubEnv("GRANTED_STATE_DIR", path.join(root, "state"));
 
       const runtime = resolveCodexAppServerRuntimeOptions({
         pluginConfig: { appServer: { homeScope: "user" } },

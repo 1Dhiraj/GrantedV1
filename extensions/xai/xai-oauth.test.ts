@@ -98,7 +98,7 @@ describe("xAI OAuth", () => {
   });
 
   it("refreshes with the cached token endpoint and preserves refresh fallback", async () => {
-    vi.stubEnv("OPENCLAW_VERSION", "2026.3.22");
+    vi.stubEnv("GRANTED_VERSION", "2026.3.22");
     const fetchImpl = vi.fn<typeof fetch>(async (_url, init) => {
       expect(init?.method).toBe("POST");
       expect(typeof init?.body).toBe("string");
@@ -327,7 +327,7 @@ describe("xAI OAuth", () => {
   });
 
   it("logs in with xAI device code without a localhost callback", async () => {
-    vi.stubEnv("OPENCLAW_VERSION", "2026.3.22");
+    vi.stubEnv("GRANTED_VERSION", "2026.3.22");
     const progress = {
       update: vi.fn(),
       stop: vi.fn(),

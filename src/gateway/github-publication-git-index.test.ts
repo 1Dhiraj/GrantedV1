@@ -128,14 +128,14 @@ describe("GitHub publication index update", () => {
     const remote = await makeDirectory("remote");
     const hooks = await makeDirectory("hooks");
     const marker = path.join(hooks, "invoked");
-    const hookEnv = { ...process.env, OPENCLAW_PUBLICATION_HOOK_MARKER: marker };
+    const hookEnv = { ...process.env, GRANTED_PUBLICATION_HOOK_MARKER: marker };
     await git(remote, ["init", "--bare"]);
     await Promise.all(
       ["pre-push", "post-index-change", "reference-transaction"].map(
         async (hook) =>
           await fs.writeFile(
             path.join(hooks, hook),
-            '#!/bin/sh\nprintf invoked > "$OPENCLAW_PUBLICATION_HOOK_MARKER"\nexit 97\n',
+            '#!/bin/sh\nprintf invoked > "$GRANTED_PUBLICATION_HOOK_MARKER"\nexit 97\n',
             { mode: 0o755 },
           ),
       ),

@@ -224,7 +224,7 @@ function runPeekabooSourceCommitHarness(packageResolved: string, expectedRevisio
   return runHelper(`
     set -euo pipefail
     ROOT_DIR=${JSON.stringify(root)}
-    ${expectedRevision ? `export OPENCLAW_EXPECTED_PEEKABOO_SOURCE_COMMIT=${JSON.stringify(expectedRevision)}` : "unset OPENCLAW_EXPECTED_PEEKABOO_SOURCE_COMMIT"}
+    ${expectedRevision ? `export GRANTED_EXPECTED_PEEKABOO_SOURCE_COMMIT=${JSON.stringify(expectedRevision)}` : "unset GRANTED_EXPECTED_PEEKABOO_SOURCE_COMMIT"}
     ${getPeekabooSourceCommitHelperBlock()}
     resolve_peekaboo_source_commit
   `);
@@ -756,7 +756,7 @@ describe("package-mac-app plist stamping", () => {
       source scripts/lib/build-metadata.sh
       node() { echo "unexpected Node invocation" >&2; return 97; }
       GIT_COMMIT=${JSON.stringify(commit)}
-      OPENCLAW_BUILD_TIMESTAMP=2026-07-10T12:34:56.7Z
+      GRANTED_BUILD_TIMESTAMP=2026-07-10T12:34:56.7Z
       printf '%s\n%s\n' "$(openclaw_resolve_git_commit "$PWD")" "$(openclaw_resolve_build_timestamp)"
     `);
     const invalidCommit = runHelper(`
@@ -772,7 +772,7 @@ describe("package-mac-app plist stamping", () => {
     `);
     const invalidTimestamp = runHelper(`
       source scripts/lib/build-metadata.sh
-      OPENCLAW_BUILD_TIMESTAMP=2026-99-99T12:34:56Z
+      GRANTED_BUILD_TIMESTAMP=2026-99-99T12:34:56Z
       openclaw_resolve_build_timestamp
     `);
     const missingLocalCommit = runHelper(`
@@ -785,7 +785,7 @@ describe("package-mac-app plist stamping", () => {
       source scripts/lib/build-metadata.sh
       unset GIT_COMMIT GIT_SHA GITHUB_SHA
       empty_root="$(mktemp -d)"
-      OPENCLAW_REQUIRE_BUILD_METADATA=1 openclaw_resolve_git_commit "$empty_root"
+      GRANTED_REQUIRE_BUILD_METADATA=1 openclaw_resolve_git_commit "$empty_root"
     `);
     const ambientGithubCommit = runHelper(`
       source scripts/lib/build-metadata.sh
@@ -815,7 +815,7 @@ describe("package-mac-app plist stamping", () => {
     expect(validAlias.stdout).toBe(commit.toLowerCase());
     expect(invalidTimestamp.status).toBe(1);
     expect(invalidTimestamp.stderr).toContain(
-      "OPENCLAW_BUILD_TIMESTAMP must be an ISO-8601 UTC timestamp",
+      "GRANTED_BUILD_TIMESTAMP must be an ISO-8601 UTC timestamp",
     );
     expect(missingLocalCommit.status).toBe(0);
     expect(missingLocalCommit.stdout).toBe("unknown");
@@ -838,7 +838,7 @@ describe("package-mac-app plist stamping", () => {
         2000-02-29T23:59:59.7Z \
         2024-02-29T12:34:56.78Z \
         2026-07-10T12:34:56.789Z; do
-        OPENCLAW_BUILD_TIMESTAMP="$value" openclaw_resolve_build_timestamp
+        GRANTED_BUILD_TIMESTAMP="$value" openclaw_resolve_build_timestamp
         printf '\n'
       done
       for value in \
@@ -850,11 +850,11 @@ describe("package-mac-app plist stamping", () => {
         2026-01-01T00:60:00Z \
         2026-01-01T00:00:60Z \
         2026-01-01T00:00:00+00:00; do
-        if OPENCLAW_BUILD_TIMESTAMP="$value" openclaw_resolve_build_timestamp >/dev/null 2>&1; then
+        if GRANTED_BUILD_TIMESTAMP="$value" openclaw_resolve_build_timestamp >/dev/null 2>&1; then
           exit 1
         fi
       done
-      unset OPENCLAW_BUILD_TIMESTAMP
+      unset GRANTED_BUILD_TIMESTAMP
       generated="$(openclaw_resolve_build_timestamp)"
       [[ "$generated" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}[.]000Z$ ]]
     `);
@@ -878,7 +878,7 @@ describe("package-mac-app plist stamping", () => {
     expect(script).toContain('source "$ROOT_DIR/scripts/lib/build-metadata.sh"');
     expect(script).toContain('BUILD_GIT_COMMIT="$(openclaw_resolve_git_commit "$ROOT_DIR")"');
     expect(script).toContain('BUILD_TS="$(openclaw_resolve_build_timestamp)"');
-    expect(script).toContain('export OPENCLAW_BUILD_TIMESTAMP="$BUILD_TS"');
+    expect(script).toContain('export GRANTED_BUILD_TIMESTAMP="$BUILD_TS"');
     expect(script).toContain('export GIT_COMMIT="$BUILD_GIT_COMMIT"');
     expect(script).not.toContain("git rev-parse --short HEAD");
   });
@@ -1138,40 +1138,40 @@ describe("package-mac-app plist stamping", () => {
     },
   );
 
-  it("skips the MLX TTS helper build and copy when OPENCLAW_SKIP_MLX_TTS=1", () => {
+  it("skips the MLX TTS helper build and copy when GRANTED_SKIP_MLX_TTS=1", () => {
     const script = readFileSync(scriptPath, "utf8");
 
     // Both the per-arch build and the bundle copy are gated on the same flag so
     // a skipped build never tries to copy a helper binary that was not built.
     expect(script).toContain(
-      'if [[ "$SKIP_MLX_TTS" == "1" ]]; then\n    echo "🔇 Skipping $MLX_TTS_HELPER_PRODUCT (OPENCLAW_SKIP_MLX_TTS=1)',
+      'if [[ "$SKIP_MLX_TTS" == "1" ]]; then\n    echo "🔇 Skipping $MLX_TTS_HELPER_PRODUCT (GRANTED_SKIP_MLX_TTS=1)',
     );
     expect(script).toContain(
-      'if [[ "$SKIP_MLX_TTS" == "1" ]]; then\n  echo "🔇 Skipping MLX TTS helper copy (OPENCLAW_SKIP_MLX_TTS=1)',
+      'if [[ "$SKIP_MLX_TTS" == "1" ]]; then\n  echo "🔇 Skipping MLX TTS helper copy (GRANTED_SKIP_MLX_TTS=1)',
     );
   });
 
-  it("refuses OPENCLAW_SKIP_MLX_TTS for release builds but allows it for dev builds", () => {
+  it("refuses GRANTED_SKIP_MLX_TTS for release builds but allows it for dev builds", () => {
     const script = readFileSync(scriptPath, "utf8");
 
     // Run the real guard snippet from the script (not a copy) so the release
     // safety invariant stays coupled to source: release bundles must ship the
     // voice helper, which notarization later verifies.
-    const guardStart = script.indexOf('SKIP_MLX_TTS="${OPENCLAW_SKIP_MLX_TTS:-0}"');
+    const guardStart = script.indexOf('SKIP_MLX_TTS="${GRANTED_SKIP_MLX_TTS:-0}"');
     const guardEnd = script.indexOf("BUILD_TS=", guardStart);
     expect(guardStart).toBeGreaterThanOrEqual(0);
     expect(guardEnd).toBeGreaterThan(guardStart);
     const guard = script.slice(guardStart, guardEnd);
 
     const released = runHelper(
-      `set -euo pipefail\nexport OPENCLAW_SKIP_MLX_TTS=1\nBUILD_CONFIG=release\n${guard}\necho reached-build`,
+      `set -euo pipefail\nexport GRANTED_SKIP_MLX_TTS=1\nBUILD_CONFIG=release\n${guard}\necho reached-build`,
     );
     expect(released.status).toBe(1);
     expect(released.stderr).toContain("not allowed for release builds");
     expect(released.stdout).not.toContain("reached-build");
 
     const dev = runHelper(
-      `set -euo pipefail\nexport OPENCLAW_SKIP_MLX_TTS=1\nBUILD_CONFIG=debug\n${guard}\necho reached-build`,
+      `set -euo pipefail\nexport GRANTED_SKIP_MLX_TTS=1\nBUILD_CONFIG=debug\n${guard}\necho reached-build`,
     );
     expect(dev.status, dev.stderr).toBe(0);
     expect(dev.stdout).toContain("reached-build");
@@ -1189,7 +1189,7 @@ describe("package-mac-app plist stamping", () => {
       [
         "#!/usr/bin/env bash",
         "set -euo pipefail",
-        'printf \'%s|%s\\n\' "$PWD" "$*" >> "$OPENCLAW_TEST_LOG"',
+        'printf \'%s|%s\\n\' "$PWD" "$*" >> "$GRANTED_TEST_LOG"',
         'if [[ "${1:-}" == "pnpm" && "${2:-}" == "--version" ]]; then',
         "  echo '11.2.2'",
         "fi",
@@ -1202,8 +1202,8 @@ describe("package-mac-app plist stamping", () => {
     const result = runHelper(`
       set -euo pipefail
       ROOT_DIR=${JSON.stringify(tempRoot)}
-      OPENCLAW_TEST_LOG=${JSON.stringify(logPath)}
-      export OPENCLAW_TEST_LOG
+      GRANTED_TEST_LOG=${JSON.stringify(logPath)}
+      export GRANTED_TEST_LOG
       PATH=${JSON.stringify(`${toolsDir}:/usr/bin:/bin`)}
       ${helperBlock}
       run_pnpm install --frozen-lockfile --config.node-linker=hoisted
@@ -1238,7 +1238,7 @@ describe("package-mac-app plist stamping", () => {
       [
         "#!/usr/bin/env bash",
         "set -euo pipefail",
-        'printf "global|%s|%s\\n" "$PWD" "$*" >> "$OPENCLAW_TEST_LOG"',
+        'printf "global|%s|%s\\n" "$PWD" "$*" >> "$GRANTED_TEST_LOG"',
         'if [[ "${1:-}" == "--version" ]]; then echo "11.8.0"; fi',
         "",
       ].join("\n"),
@@ -1249,7 +1249,7 @@ describe("package-mac-app plist stamping", () => {
       [
         "#!/usr/bin/env bash",
         "set -euo pipefail",
-        'printf "corepack|%s|%s\\n" "$PWD" "$*" >> "$OPENCLAW_TEST_LOG"',
+        'printf "corepack|%s|%s\\n" "$PWD" "$*" >> "$GRANTED_TEST_LOG"',
         'if [[ "${1:-}" == "pnpm" && "${2:-}" == "--version" ]]; then',
         '  if grep -q "pnpm@11.2.2" package.json 2>/dev/null; then echo "11.2.2"; else echo "11.8.0"; fi',
         "fi",
@@ -1263,8 +1263,8 @@ describe("package-mac-app plist stamping", () => {
     const result = runHelper(`
       set -euo pipefail
       ROOT_DIR=${JSON.stringify(tempRoot)}
-      OPENCLAW_TEST_LOG=${JSON.stringify(logPath)}
-      export OPENCLAW_TEST_LOG
+      GRANTED_TEST_LOG=${JSON.stringify(logPath)}
+      export GRANTED_TEST_LOG
       PATH=${JSON.stringify(`${toolsDir}:/usr/bin:/bin`)}
       cd ${JSON.stringify(outerRoot)}
       ${helperBlock}
@@ -1431,7 +1431,7 @@ describe("package-mac-app plist stamping", () => {
       [
         "#!/usr/bin/env bash",
         "set -euo pipefail",
-        'if [[ "$PWD" != "$OPENCLAW_ROOT" ]]; then',
+        'if [[ "$PWD" != "$GRANTED_ROOT" ]]; then',
         '  echo "node ran outside repo root: $PWD" >&2',
         "  exit 1",
         "fi",
@@ -1445,9 +1445,9 @@ describe("package-mac-app plist stamping", () => {
     const result = runHelper(`
       set -euo pipefail
       ROOT_DIR=${JSON.stringify(tempRoot)}
-      OPENCLAW_ROOT=${JSON.stringify(tempRoot)}
+      GRANTED_ROOT=${JSON.stringify(tempRoot)}
       PATH=${JSON.stringify(`${toolsDir}:/usr/bin:/bin`)}
-      export OPENCLAW_ROOT PATH
+      export GRANTED_ROOT PATH
       cd /tmp
       ${helperBlock}
       sparkle_canonical_build_from_version 2026.6.2
@@ -1929,8 +1929,8 @@ describe("package-mac-app plist stamping", () => {
   it("omits the CUA driver only from elevation-host packages", () => {
     const packageScript = readFileSync(scriptPath, "utf8");
     const variantBlock = packageScript.slice(
-      packageScript.indexOf('SIGNING_VARIANT="${OPENCLAW_MAC_SIGNING_VARIANT:-standard}"'),
-      packageScript.indexOf("# OPENCLAW_SKIP_MLX_TTS"),
+      packageScript.indexOf('SIGNING_VARIANT="${GRANTED_MAC_SIGNING_VARIANT:-standard}"'),
+      packageScript.indexOf("# GRANTED_SKIP_MLX_TTS"),
     );
     const cuaBlock = packageScript.slice(
       packageScript.indexOf('if [[ "$SIGNING_VARIANT" == "elevation-host" ]]'),
@@ -1938,7 +1938,7 @@ describe("package-mac-app plist stamping", () => {
     );
 
     expect(variantBlock).toContain("standard | elevation-host");
-    expect(variantBlock).toContain("Unknown OPENCLAW_MAC_SIGNING_VARIANT value");
+    expect(variantBlock).toContain("Unknown GRANTED_MAC_SIGNING_VARIANT value");
     expect(cuaBlock).toContain("Omitting embedded CUA driver from elevation-host package");
     expect(cuaBlock).toContain("else");
     expect(cuaBlock).toContain("Staging embedded CUA driver");

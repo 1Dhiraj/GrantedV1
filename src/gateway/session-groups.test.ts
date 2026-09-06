@@ -33,7 +33,7 @@ describe("session groups catalog", () => {
   beforeEach(async () => {
     const tempRoot = await fs.realpath(os.tmpdir());
     root = await fs.mkdtemp(path.join(tempRoot, "openclaw-session-groups-"));
-    env = { ...process.env, OPENCLAW_STATE_DIR: root };
+    env = { ...process.env, GRANTED_STATE_DIR: root };
   });
 
   afterEach(async () => {

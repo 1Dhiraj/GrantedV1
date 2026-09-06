@@ -14,13 +14,13 @@ import {
   registerCrabboxWorkerProviderDoctorChecks,
 } from "./doctor.js";
 
-const OPENCLAW_ROOT = path.resolve(path.sep, "workspace", "openclaw");
+const GRANTED_ROOT = path.resolve(path.sep, "workspace", "openclaw");
 const CRABBOX_WARM_IMAGES_CHECK_ID = "crabbox/warm-images";
 
 function captureCrabboxDoctorCheck(id = CRABBOX_CLOUD_WORKER_PROFILE_CHECK_ID): HealthCheck {
   const checks = new Map<string, HealthCheck>();
   registerCrabboxWorkerProviderDoctorChecks({
-    openclawRoot: OPENCLAW_ROOT,
+    openclawRoot: GRANTED_ROOT,
     getHealthCheck: (key) => checks.get(key),
     registerHealthCheck(value) {
       checks.set(value.id, value);
@@ -176,7 +176,7 @@ describe("Crabbox warm-image doctor", () => {
   ] as const)(
     "reports $name without repairing state or probing providers",
     async ({ operation, severity }) => {
-      const env = { OPENCLAW_STATE_DIR: tempDirs.make("openclaw-crabbox-warm-doctor-") };
+      const env = { GRANTED_STATE_DIR: tempDirs.make("openclaw-crabbox-warm-doctor-") };
       const store = openCrabboxWarmImageStore(env);
       const now = Date.now();
       const record: WarmProfileRecord = {
@@ -251,7 +251,7 @@ describe("Crabbox warm-image doctor", () => {
       const checks = new Map([[existingId, captureCrabboxDoctorCheck(existingId)]]);
       const registerHealthCheck = vi.fn((check: HealthCheck) => checks.set(check.id, check));
       const host = {
-        openclawRoot: OPENCLAW_ROOT,
+        openclawRoot: GRANTED_ROOT,
         getHealthCheck: (id: string) => checks.get(id),
         registerHealthCheck,
       };

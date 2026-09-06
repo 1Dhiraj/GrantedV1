@@ -91,7 +91,7 @@ export type QaSuiteRunParams = QaSuiteBaseRunParams & {
 };
 
 export function shouldLogQaSuiteProgress(env: NodeJS.ProcessEnv = process.env) {
-  const override = parseBooleanValue(env.OPENCLAW_QA_SUITE_PROGRESS);
+  const override = parseBooleanValue(env.GRANTED_QA_SUITE_PROGRESS);
   if (override !== undefined) {
     return override;
   }
@@ -109,7 +109,7 @@ export function resolveQaSuiteTransportReadyTimeoutMs(
   ) {
     return Math.floor(explicitTimeoutMs);
   }
-  const raw = env.OPENCLAW_QA_TRANSPORT_READY_TIMEOUT_MS;
+  const raw = env.GRANTED_QA_TRANSPORT_READY_TIMEOUT_MS;
   if (!raw) {
     return 120_000;
   }

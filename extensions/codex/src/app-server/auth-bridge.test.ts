@@ -125,7 +125,7 @@ vi.mock("openclaw/plugin-sdk/agent-runtime", async (importOriginal) => {
         if (refreshed?.access) {
           oauthCredential = refreshed as typeof oauthCredential;
           params.store.profiles[params.profileId] = oauthCredential;
-          if (params.agentDir || process.env.OPENCLAW_STATE_DIR) {
+          if (params.agentDir || process.env.GRANTED_STATE_DIR) {
             actual.saveAuthProfileStore(params.store, params.agentDir);
           }
         }
@@ -2439,7 +2439,7 @@ describe("bridgeCodexAppServerStartOptions", () => {
     const agentDir = path.join(openClawHome, "agents", "main", "agent");
     const request = vi.fn(async () => ({ type: "chatgptAuthTokens" }));
     vi.stubEnv("HOME", osHome);
-    vi.stubEnv("OPENCLAW_HOME", openClawHome);
+    vi.stubEnv("GRANTED_HOME", openClawHome);
     vi.stubEnv("CODEX_HOME", undefined);
     try {
       await writeCodexCliAuthFile(path.join(osHome, ".codex"));
@@ -3336,8 +3336,8 @@ describe("bridgeCodexAppServerStartOptions", () => {
     const stateDir = path.join(root, "state");
     const childAgentDir = path.join(stateDir, "agents", "worker", "agent");
     const childAuthPath = path.join(childAgentDir, "auth-profiles.json");
-    vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
-    vi.stubEnv("OPENCLAW_AGENT_DIR", "");
+    vi.stubEnv("GRANTED_STATE_DIR", stateDir);
+    vi.stubEnv("GRANTED_AGENT_DIR", "");
     oauthMocks.refreshOpenAICodexToken.mockResolvedValueOnce({
       access: "main-refreshed-access-token",
       refresh: "main-refreshed-refresh-token",
@@ -3386,8 +3386,8 @@ describe("bridgeCodexAppServerStartOptions", () => {
     const root = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-codex-app-server-"));
     const stateDir = path.join(root, "state");
     const childAgentDir = path.join(stateDir, "agents", "worker", "agent");
-    vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
-    vi.stubEnv("OPENCLAW_AGENT_DIR", "");
+    vi.stubEnv("GRANTED_STATE_DIR", stateDir);
+    vi.stubEnv("GRANTED_AGENT_DIR", "");
     oauthMocks.refreshOpenAICodexToken.mockResolvedValueOnce({
       access: "main-refreshed-access-token",
       refresh: "main-refreshed-refresh-token",

@@ -16,7 +16,7 @@ function createArchiveFixture(bytes: Uint8Array): {
   env: NodeJS.ProcessEnv;
 } {
   const stateDir = fs.realpathSync(makeTempDir(tempDirs, "media-persistence-archive-"));
-  const env = { OPENCLAW_STATE_DIR: stateDir };
+  const env = { GRANTED_STATE_DIR: stateDir };
   openOpenClawAgentDatabase({ agentId: "main", env });
   closeOpenClawAgentDatabasesForTest();
   const archivePath = path.join(

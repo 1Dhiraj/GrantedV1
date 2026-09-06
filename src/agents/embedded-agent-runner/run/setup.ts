@@ -18,7 +18,7 @@ import {
 import {
   isDefaultAgentRuntimeId,
   normalizeOptionalAgentRuntimeId,
-  OPENCLAW_AGENT_RUNTIME_ID,
+  GRANTED_AGENT_RUNTIME_ID,
 } from "../../agent-runtime-id.js";
 import {
   evaluateContextWindowGuard,
@@ -172,7 +172,7 @@ export function resolveNativeModelOwnedHarnessId(params: {
   if (
     !requestedHarnessId ||
     isDefaultAgentRuntimeId(requestedHarnessId) ||
-    requestedHarnessId === OPENCLAW_AGENT_RUNTIME_ID ||
+    requestedHarnessId === GRANTED_AGENT_RUNTIME_ID ||
     requestedHarnessId !== selectedHarnessId
   ) {
     return undefined;

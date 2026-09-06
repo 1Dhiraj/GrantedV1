@@ -269,8 +269,8 @@ function buildGatewayCronService(params: Parameters<typeof buildGatewayCronServi
   }
   const env = {
     ...process.env,
-    OPENCLAW_SKIP_CRON: "0",
-    OPENCLAW_STATE_DIR: path.dirname(legacyStore),
+    GRANTED_SKIP_CRON: "0",
+    GRANTED_STATE_DIR: path.dirname(legacyStore),
   };
   // These fixtures predate the config-to-SQLite move; seed the canonical machine-state owner.
   writeConfigMachineState("cron.store", legacyStore, { env });
@@ -763,7 +763,7 @@ describe("buildGatewayCronService", () => {
   });
 
   it("stops on-exit watcher children when the direct cron service stops", async () => {
-    vi.stubEnv("OPENCLAW_SKIP_CRON", "0");
+    vi.stubEnv("GRANTED_SKIP_CRON", "0");
     const cancelRun = vi.fn();
     const cancelScope = vi.fn();
     const spawn = vi.fn(async () => ({
@@ -1716,7 +1716,7 @@ describe("buildGatewayCronService", () => {
   it.each(["command", "script"] as const)(
     "retries proven pre-dispatch failure before delivering one-shot %s cron output",
     async (payloadKind) => {
-      vi.stubEnv("OPENCLAW_TEST_FAST", "1");
+      vi.stubEnv("GRANTED_TEST_FAST", "1");
       const cfg = createCronConfig(`server-cron-${payloadKind}-announce-retry`);
       cfg.cron = { ...cfg.cron, triggers: { enabled: true } };
       loadConfigMock.mockReturnValue(cfg);
@@ -1886,7 +1886,7 @@ describe("buildGatewayCronService", () => {
   ] as const)(
     "never resends accepted $payloadKind output after a $errorKind partial-delivery failure",
     async ({ payloadKind, errorKind }) => {
-      vi.stubEnv("OPENCLAW_TEST_FAST", "1");
+      vi.stubEnv("GRANTED_TEST_FAST", "1");
       const cfg = createCronConfig(`server-cron-${payloadKind}-${errorKind}-partial`);
       cfg.cron = { ...cfg.cron, triggers: { enabled: true } };
       loadConfigMock.mockReturnValue(cfg);
@@ -1963,7 +1963,7 @@ describe("buildGatewayCronService", () => {
       }),
     },
   ])("does not duplicate a command announcement after $name", async ({ error }) => {
-    vi.stubEnv("OPENCLAW_TEST_FAST", "1");
+    vi.stubEnv("GRANTED_TEST_FAST", "1");
     const cfg = createCronConfig("server-cron-command-no-unsafe-retry");
     loadConfigMock.mockReturnValue(cfg);
     sendCronAnnouncePayloadStrictMock.mockRejectedValueOnce(error);
@@ -1995,7 +1995,7 @@ describe("buildGatewayCronService", () => {
   });
 
   it("does not retry a command announcement after its cron run is cancelled", async () => {
-    vi.stubEnv("OPENCLAW_TEST_FAST", "1");
+    vi.stubEnv("GRANTED_TEST_FAST", "1");
     const cfg = createCronConfig("server-cron-command-cancelled-retry");
     loadConfigMock.mockReturnValue(cfg);
     let deliverySignal: AbortSignal | undefined;

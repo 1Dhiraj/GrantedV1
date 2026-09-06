@@ -45,11 +45,11 @@ export function requireMcpConfigPath(args: readonly string[] | undefined): strin
 export function setupCliBundleMcpTestHarness(): void {
   beforeAll(async () => {
     // Use an empty bundled-dir override so only temp fixture plugins participate.
-    envSnapshot = captureEnv(["OPENCLAW_BUNDLED_PLUGINS_DIR"]);
+    envSnapshot = captureEnv(["GRANTED_BUNDLED_PLUGINS_DIR"]);
     bundleProbeHomeDir = await tempHarness.createTempDir("openclaw-cli-bundle-mcp-home-");
     bundleProbeWorkspaceDir = await tempHarness.createTempDir("openclaw-cli-bundle-mcp-workspace-");
     const emptyBundledDir = await tempHarness.createTempDir("openclaw-cli-bundle-mcp-bundled-");
-    setTestEnvValue("OPENCLAW_BUNDLED_PLUGINS_DIR", emptyBundledDir);
+    setTestEnvValue("GRANTED_BUNDLED_PLUGINS_DIR", emptyBundledDir);
     ({ serverPath: bundleProbeServerPath } = await createBundleProbePlugin(bundleProbeHomeDir));
   });
 

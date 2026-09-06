@@ -32,7 +32,7 @@ describe("worker placement dispatch reclaim", () => {
 
   beforeEach(async () => {
     root = tempDirs.make("openclaw-dispatch-");
-    database = openOpenClawStateDatabase({ env: { OPENCLAW_STATE_DIR: root } });
+    database = openOpenClawStateDatabase({ env: { GRANTED_STATE_DIR: root } });
     placementStore = createWorkerSessionPlacementStore({ database, now: () => 1_000 });
   });
 

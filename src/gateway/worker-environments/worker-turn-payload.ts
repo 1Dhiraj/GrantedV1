@@ -11,7 +11,7 @@ import {
 import {
   isDefaultAgentRuntimeId,
   normalizeOptionalAgentRuntimeId,
-  OPENCLAW_AGENT_RUNTIME_ID,
+  GRANTED_AGENT_RUNTIME_ID,
 } from "../../agents/agent-runtime-id.js";
 import {
   buildUsageAgentMetaFields,
@@ -363,7 +363,7 @@ export function assertSupportedTurn(params: SessionPlacementTurnParams): {
           agentId: params.agentId,
           sessionKey: params.sessionKey,
         });
-  if (runtime !== OPENCLAW_AGENT_RUNTIME_ID) {
+  if (runtime !== GRANTED_AGENT_RUNTIME_ID) {
     throw new Error(`Cloud worker turns require the OpenClaw runtime, not ${runtime}`);
   }
   return modelRef;

@@ -410,7 +410,7 @@ describe("resolveToolsBySender", () => {
     expect(warningSpy).toHaveBeenCalledTimes(1);
     const [warningMessage, warningMeta] = firstWarningCall(warningSpy);
     expect(String(warningMessage)).toContain(`toolsBySender key "${legacyKey}"`);
-    expect(warningMeta?.code).toBe("OPENCLAW_TOOLS_BY_SENDER_UNTYPED_KEY");
+    expect(warningMeta?.code).toBe("GRANTED_TOOLS_BY_SENDER_UNTYPED_KEY");
   });
 
   describe("legacy key warning dedupe cache", () => {

@@ -181,13 +181,13 @@ const GATEWAY_STARTUP_CORE_RUNNER = DEFAULT_NODE_TEST_RUNNER;
 // This cold gateway graph can stall after warming Vitest's module cache; its
 // retry completes in seconds, so do not spend the global five-minute timeout.
 const GATEWAY_STARTUP_HEALTH_RUNTIME_ENV = {
-  OPENCLAW_VITEST_NO_OUTPUT_TIMEOUT_MS: "60000",
+  GRANTED_VITEST_NO_OUTPUT_TIMEOUT_MS: "60000",
 };
 // The first embedded-agent file owns 157 serial tests and can stay quiet for
 // more than five minutes on a cold GitHub-hosted fork runner. Keep the outer
 // watchdog above the scoped 600-second hook budget so it cannot preempt Vitest.
 const AGENTS_EMBEDDED_AGENT_ENV = {
-  OPENCLAW_VITEST_NO_OUTPUT_TIMEOUT_MS: "660000",
+  GRANTED_VITEST_NO_OUTPUT_TIMEOUT_MS: "660000",
 };
 const COMPACT_EMBEDDED_BASE_GROUP_NAME = "agentic-agents-embedded-base";
 const COMPACT_EMBEDDED_GROUP_NAMES = [
@@ -666,7 +666,7 @@ function isExclusiveCompactGroup(group: NodeTestShardGroup): boolean {
 // and hit worker-startup timeouts under contention before serialization.
 const PINNED_WORKER_COMPACT_GROUP_RE =
   /^core-tooling(?:-\d+(?:-hosted-\d+)?|-isolated)$|^core-runtime-tui-pty$|^core-runtime-infra-process$|^core-runtime-config$|^core-runtime-media-ui-(?:\d+|support)$|^agentic-cli(?:-process)?$|^agentic-gateway-(?:core-\d+|methods)$/u;
-const PINNED_COMPACT_GROUP_ENV = { OPENCLAW_VITEST_MAX_WORKERS: "2" };
+const PINNED_COMPACT_GROUP_ENV = { GRANTED_VITEST_MAX_WORKERS: "2" };
 
 function applyCompactGroupWorkerPins(group: NodeTestShardGroup): NodeTestShardGroup {
   if (!PINNED_WORKER_COMPACT_GROUP_RE.test(group.shard_name)) {
@@ -1857,8 +1857,8 @@ const SPLIT_NODE_SHARDS = new Map<string, NodeTestSplitShard[]>([
         shardName: "core-runtime-tui-pty",
         configs: ["test/vitest/vitest.tui-pty.config.ts"],
         env: {
-          OPENCLAW_TUI_PTY_INCLUDE_LOCAL: "1",
-          OPENCLAW_TUI_PTY_USE_BUILT_CLI: "1",
+          GRANTED_TUI_PTY_INCLUDE_LOCAL: "1",
+          GRANTED_TUI_PTY_USE_BUILT_CLI: "1",
         },
         requiresDist: true,
         runner: "blacksmith-4vcpu-ubuntu-2404",
@@ -2100,7 +2100,7 @@ export function createVitestCacheWarmGroups(): Array<{
     {
       // Seed the same root/aliases as checks-ui; repository-root UI transforms have different keys.
       configs: ["ui/vitest.config.ts"],
-      env: { OPENCLAW_VITEST_MAX_WORKERS: "1" },
+      env: { GRANTED_VITEST_MAX_WORKERS: "1" },
       includePatterns: [
         "ui/src/components/app-sidebar.test.ts",
         "ui/src/pages/chat/chat-view.test.ts",

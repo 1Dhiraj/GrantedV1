@@ -49,7 +49,7 @@ describeNonWin("exec live OpenClaw state SQLite guard", () => {
       ).resolves.toBe("live-state-sqlite");
       await expect(
         detectUnsafeExecControlShellCommand(
-          'sqlite3 -cmd ".timeout 1000" "$OPENCLAW_STATE_DIR/state/openclaw.sqlite"',
+          'sqlite3 -cmd ".timeout 1000" "$GRANTED_STATE_DIR/state/openclaw.sqlite"',
           context,
         ),
       ).resolves.toBe("live-state-sqlite");
@@ -145,8 +145,8 @@ describeNonWin("exec live OpenClaw state SQLite guard", () => {
         {
           HOME: root,
           USERPROFILE: root,
-          OPENCLAW_HOME: root,
-          OPENCLAW_STATE_DIR: stateDir,
+          GRANTED_HOME: root,
+          GRANTED_STATE_DIR: stateDir,
         },
         async () => {
           const tool = createExecTool({

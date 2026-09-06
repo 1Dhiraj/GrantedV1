@@ -3216,7 +3216,7 @@ describe("deliverOutboundPayloads", () => {
       to: "!room",
       payloads: [
         {
-          text: "before <<<BEGIN_OPENCLAW_INTERNAL_CONTEXT>>>private runtime metadata<<<END_OPENCLAW_INTERNAL_CONTEXT>>> after",
+          text: "before <<<BEGIN_GRANTED_INTERNAL_CONTEXT>>>private runtime metadata<<<END_GRANTED_INTERNAL_CONTEXT>>> after",
         },
       ],
     });
@@ -4919,19 +4919,19 @@ describe("deliverOutboundPayloads", () => {
         {
           text: [
             "visible",
-            "<<<BEGIN_OPENCLAW_INTERNAL_CONTEXT>>>",
+            "<<<BEGIN_GRANTED_INTERNAL_CONTEXT>>>",
             "OpenClaw runtime context (internal):",
             "<<<BEGIN_UNTRUSTED_CHILD_RESULT>>>",
             "raw child output",
             "<<<END_UNTRUSTED_CHILD_RESULT>>>",
-            "<<<END_OPENCLAW_INTERNAL_CONTEXT>>>",
+            "<<<END_GRANTED_INTERNAL_CONTEXT>>>",
             "after",
           ].join("\n"),
           channelData: {
             internal: [
-              "<<<BEGIN_OPENCLAW_INTERNAL_CONTEXT>>>",
+              "<<<BEGIN_GRANTED_INTERNAL_CONTEXT>>>",
               "internal metadata",
-              "<<<END_OPENCLAW_INTERNAL_CONTEXT>>>",
+              "<<<END_GRANTED_INTERNAL_CONTEXT>>>",
             ].join("\n"),
           },
         },

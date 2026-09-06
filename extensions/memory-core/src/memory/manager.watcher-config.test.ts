@@ -125,17 +125,17 @@ const {
 
 const CHOKIDAR_FACTORY_KEY = Symbol.for("openclaw.test.memoryWatchFactory");
 const NATIVE_FACTORY_KEY = Symbol.for("openclaw.test.memoryNativeWatchFactory");
-const originalWatcherStateDir = process.env.OPENCLAW_STATE_DIR;
+const originalWatcherStateDir = process.env.GRANTED_STATE_DIR;
 
 function setWatcherStateDir(stateDir: string): void {
-  Reflect.set(process.env, "OPENCLAW_STATE_DIR", stateDir);
+  Reflect.set(process.env, "GRANTED_STATE_DIR", stateDir);
 }
 
 function restoreWatcherStateDir(): void {
   if (originalWatcherStateDir === undefined) {
-    Reflect.deleteProperty(process.env, "OPENCLAW_STATE_DIR");
+    Reflect.deleteProperty(process.env, "GRANTED_STATE_DIR");
   } else {
-    Reflect.set(process.env, "OPENCLAW_STATE_DIR", originalWatcherStateDir);
+    Reflect.set(process.env, "GRANTED_STATE_DIR", originalWatcherStateDir);
   }
 }
 

@@ -375,8 +375,8 @@ merge_run 123 "\${1:-false}" "\${2:-}" "\${3:-}"
     FIXTURE_REMOTE: remote,
     FIXTURE_SCRIPTS: scripts,
     FIXTURE_GH: gh,
-    OPENCLAW_PR_MERGE_METHOD: "squash",
-    OPENCLAW_PR_STRICT_DRIFT: "",
+    GRANTED_PR_MERGE_METHOD: "squash",
+    GRANTED_PR_STRICT_DRIFT: "",
   };
   const run = (
     auto = false,
@@ -395,7 +395,7 @@ merge_run 123 "\${1:-false}" "\${2:-}" "\${3:-}"
         recoveryOid,
         replacementHead,
       ],
-      { cwd, env: { ...env, OPENCLAW_PR_MERGE_METHOD: method }, encoding: "utf8", timeout: 20_000 },
+      { cwd, env: { ...env, GRANTED_PR_MERGE_METHOD: method }, encoding: "utf8", timeout: 20_000 },
     );
     return { ...result, output: result.stdout + result.stderr };
   };

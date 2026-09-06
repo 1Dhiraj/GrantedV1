@@ -53,10 +53,8 @@ export function parseMode(argv: string[] = process.argv.slice(2)) {
   return mode;
 }
 export function resolveBoundaryRootShimsTimeoutMs(env: NodeJS.ProcessEnv = process.env) {
-  const raw = env.OPENCLAW_PLUGIN_SDK_BOUNDARY_ROOT_SHIMS_TIMEOUT_MS?.trim();
-  return raw
-    ? parsePositiveInt(raw, "OPENCLAW_PLUGIN_SDK_BOUNDARY_ROOT_SHIMS_TIMEOUT_MS")
-    : 300_000;
+  const raw = env.GRANTED_PLUGIN_SDK_BOUNDARY_ROOT_SHIMS_TIMEOUT_MS?.trim();
+  return raw ? parsePositiveInt(raw, "GRANTED_PLUGIN_SDK_BOUNDARY_ROOT_SHIMS_TIMEOUT_MS") : 300_000;
 }
 /**
  * Prefixes streamed child output line-by-line without breaking partial chunks.

@@ -26,7 +26,7 @@ const temps = useAutoCleanupTempDirTracker((cleanup) =>
 const content =
   "---\nname: ordinary\ndescription: An ordinary personal procedure\n---\n# Ordinary\nUse this procedure when asked.\n";
 function setup() {
-  vi.stubEnv("OPENCLAW_STATE_DIR", temps.make("personal-authoring-"));
+  vi.stubEnv("GRANTED_STATE_DIR", temps.make("personal-authoring-"));
   const alice = ensureProfileForEmail("alice@example.test");
   const bob = ensureProfileForEmail("bob@example.test");
   const request = (profileId: string): SkillLibraryRequestOwner => ({

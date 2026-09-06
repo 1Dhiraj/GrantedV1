@@ -114,7 +114,7 @@ describe("cross-OS release checks workflow", () => {
 
     expect(run).toContain("run_cross_os_release_checks() {");
     expect(run).toContain("if run_cross_os_release_checks; then");
-    expect(run).toContain('"${OPENCLAW_RELEASE_CHECK_OS}" != "windows"');
+    expect(run).toContain('"${GRANTED_RELEASE_CHECK_OS}" != "windows"');
     expect(run).toContain('"$status" -ne 127');
     expect(run).toContain('dashboard_log="${OUTPUT_DIR}/logs/${MODE}-dashboard.log"');
     expect(run).toContain('-f "${OUTPUT_DIR}/summary.json"');
@@ -579,7 +579,7 @@ describe("cross-OS release checks workflow", () => {
       '"$(jq -r \'.prepublishPluginRegistryManifestSha256\' <<< "$PLUGIN_REGISTRY_JSON")"',
     );
     expect(run.run).not.toContain("--required-companion-packages-json");
-    expect(run.run).not.toContain("OPENCLAW_PLUGIN_INSTALL_OVERRIDES");
+    expect(run.run).not.toContain("GRANTED_PLUGIN_INSTALL_OVERRIDES");
     expect(JSON.stringify(workflow)).not.toContain("@openclaw/codex");
   });
 
@@ -626,7 +626,7 @@ describe("cross-OS release checks workflow", () => {
       {
         cwd: process.cwd(),
         encoding: "utf8",
-        env: { ...process.env, OPENCLAW_RELEASE_CHECKS_SCRIPT: SCRIPT_PATH },
+        env: { ...process.env, GRANTED_RELEASE_CHECKS_SCRIPT: SCRIPT_PATH },
       },
     );
     expect(result.stderr).toBe("");
@@ -671,7 +671,7 @@ describe("cross-OS release checks workflow", () => {
         encoding: "utf8",
         env: {
           ...process.env,
-          OPENCLAW_RELEASE_CHECKS_SCRIPT: SCRIPT_PATH,
+          GRANTED_RELEASE_CHECKS_SCRIPT: SCRIPT_PATH,
         },
       },
     );

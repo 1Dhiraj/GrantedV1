@@ -31,7 +31,7 @@ export {
   readBoundedGitHubJson,
 };
 
-const securityTeamSlug = process.env.OPENCLAW_SECURITY_TEAM_SLUG ?? "openclaw-secops";
+const securityTeamSlug = process.env.GRANTED_SECURITY_TEAM_SLUG ?? "openclaw-secops";
 const maxListedFiles = 25;
 const securitySensitiveFiles = [
   {
@@ -359,14 +359,14 @@ async function main() {
   }
 
   const api = createGitHubApi(token, { userAgent: "openclaw-security-sensitive-guard" });
-  const explicitSecurityApprovers = normalizeGuardLoginSet(process.env.OPENCLAW_SECURITY_APPROVERS);
+  const explicitSecurityApprovers = normalizeGuardLoginSet(process.env.GRANTED_SECURITY_APPROVERS);
   const trustedCommentAuthors = securitySensitiveGuardCommentAuthors(
-    process.env.OPENCLAW_SECURITY_SENSITIVE_GUARD_COMMENT_BOTS,
+    process.env.GRANTED_SECURITY_SENSITIVE_GUARD_COMMENT_BOTS,
   );
   const issuePath = `/repos/${owner}/${repo}/issues/${eventPullRequest.number}`;
   const pullPath = `/repos/${owner}/${repo}/pulls/${eventPullRequest.number}`;
   const pullRequest = await api.request(pullPath);
-  const mode = process.env.OPENCLAW_SECURITY_SENSITIVE_GUARD_MODE ?? "enforce";
+  const mode = process.env.GRANTED_SECURITY_SENSITIVE_GUARD_MODE ?? "enforce";
   const files = await api.paginate(`${pullPath}/files`);
   const securitySensitiveChanges = collectSecuritySensitiveChanges(files);
 

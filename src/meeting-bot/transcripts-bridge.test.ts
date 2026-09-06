@@ -73,7 +73,7 @@ describe("MeetingDurableTranscriptBridge", () => {
       const attach = (sessionId: string) =>
         execute({ action: "start", providerId: "meeting", meetingUrl: current.url, sessionId });
       const store = new TranscriptsStore(path.join(stateDir, "transcripts"), {
-        env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+        env: { ...process.env, GRANTED_STATE_DIR: stateDir },
       });
       await bridge.start(current, async () => {});
       await bridge.ingest(current, [{ text: "existing note" }]);
@@ -179,7 +179,7 @@ describe("MeetingDurableTranscriptBridge", () => {
       onUtterance.mock.calls.map(([utterance]) => utterance.id),
     );
     const store = new TranscriptsStore(path.join(stateDir, "transcripts"), {
-      env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+      env: { ...process.env, GRANTED_STATE_DIR: stateDir },
     });
     const stored = await store.readSession(current.id);
     expect(await store.readSummary(stored!)).toMatchObject({
@@ -330,7 +330,7 @@ describe("MeetingDurableTranscriptBridge", () => {
     await expect(bridge.ingest(current, [{ text: "second" }])).resolves.toBeUndefined();
 
     const store = new TranscriptsStore(path.join(stateDir, "transcripts"), {
-      env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+      env: { ...process.env, GRANTED_STATE_DIR: stateDir },
     });
     const stored = await store.readSession(current.id);
     expect(await store.readUtterancesForSession(stored!)).toHaveLength(2);
@@ -489,7 +489,7 @@ describe("MeetingDurableTranscriptBridge", () => {
     ).resolves.toBe(true);
 
     const store = new TranscriptsStore(path.join(stateDir, "transcripts"), {
-      env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+      env: { ...process.env, GRANTED_STATE_DIR: stateDir },
     });
     await expect(store.readSession(current.id)).resolves.toMatchObject({
       metadata: {

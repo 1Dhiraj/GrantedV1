@@ -6,7 +6,7 @@ import path from "node:path";
 
 /**
  * Runs a PowerShell script and parses the last stdout line as JSON. Dynamic
- * arguments are passed through the OPENCLAW_DESKTOP_ARGS environment variable
+ * arguments are passed through the GRANTED_DESKTOP_ARGS environment variable
  * so scripts stay static.
  *
  * Scripts are written once to hash-named temp .ps1 files and executed with
@@ -46,7 +46,7 @@ export async function runPowerShellJson<T>(
       "powershell.exe",
       ["-NoProfile", "-NonInteractive", "-ExecutionPolicy", "Bypass", "-File", scriptFile],
       {
-        env: { ...process.env, OPENCLAW_DESKTOP_ARGS: JSON.stringify(args ?? {}) },
+        env: { ...process.env, GRANTED_DESKTOP_ARGS: JSON.stringify(args ?? {}) },
         windowsHide: true,
         stdio: ["ignore", "pipe", "pipe"],
       },

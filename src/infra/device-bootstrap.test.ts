@@ -66,7 +66,7 @@ async function issueCloudWorkerSetupToken(baseDir: string) {
     profile: CLOUD_WORKER_PAIRING_SETUP_BOOTSTRAP_PROFILE,
   });
   const { db } = openOpenClawStateDatabase({
-    env: { ...process.env, OPENCLAW_STATE_DIR: baseDir },
+    env: { ...process.env, GRANTED_STATE_DIR: baseDir },
   });
   db.prepare(
     `INSERT INTO worker_environments (
@@ -158,7 +158,7 @@ describe("device bootstrap tokens", () => {
       throw new Error("expected pending setup credential");
     }
     const database = openOpenClawStateDatabase({
-      env: { ...process.env, OPENCLAW_STATE_DIR: baseDir },
+      env: { ...process.env, GRANTED_STATE_DIR: baseDir },
     });
     database.db
       .prepare(
@@ -178,7 +178,7 @@ describe("device bootstrap tokens", () => {
 
   it("adds setup correlation storage only on first setup issuance", async () => {
     const baseDir = await createTempDir();
-    const databaseOptions = { env: { ...process.env, OPENCLAW_STATE_DIR: baseDir } };
+    const databaseOptions = { env: { ...process.env, GRANTED_STATE_DIR: baseDir } };
     const initial = openOpenClawStateDatabase(databaseOptions);
     initial.db.exec("ALTER TABLE device_bootstrap_tokens DROP COLUMN setup_id;");
     closeOpenClawStateDatabaseForTest();
@@ -313,7 +313,7 @@ describe("device bootstrap tokens", () => {
       await verifyBootstrapToken(baseDir, issued.token);
       await consumeDeviceBootstrapTokenWithSetupCompletion(completion);
       const { db } = openOpenClawStateDatabase({
-        env: { ...process.env, OPENCLAW_STATE_DIR: baseDir },
+        env: { ...process.env, GRANTED_STATE_DIR: baseDir },
       });
       db.prepare("UPDATE worker_environments SET state = ? WHERE node_setup_id = ?").run(
         state,
@@ -347,7 +347,7 @@ describe("device bootstrap tokens", () => {
       const issued = await issueCloudWorkerSetupToken(baseDir);
       await verifyBootstrapToken(baseDir, issued.token);
       const { db } = openOpenClawStateDatabase({
-        env: { ...process.env, OPENCLAW_STATE_DIR: baseDir },
+        env: { ...process.env, GRANTED_STATE_DIR: baseDir },
       });
       db.prepare("UPDATE worker_environments SET state = ? WHERE node_setup_id = ?").run(
         state,
@@ -379,7 +379,7 @@ describe("device bootstrap tokens", () => {
       await verifyBootstrapToken(baseDir, issued.token);
       await consumeDeviceBootstrapTokenWithSetupCompletion(completion);
       const { db } = openOpenClawStateDatabase({
-        env: { ...process.env, OPENCLAW_STATE_DIR: baseDir },
+        env: { ...process.env, GRANTED_STATE_DIR: baseDir },
       });
       db.prepare("UPDATE worker_environments SET state = ? WHERE node_setup_id = ?").run(
         state,
@@ -407,7 +407,7 @@ describe("device bootstrap tokens", () => {
     await verifyBootstrapToken(baseDir, issued.token);
     await consumeDeviceBootstrapTokenWithSetupCompletion(completion);
     const { db } = openOpenClawStateDatabase({
-      env: { ...process.env, OPENCLAW_STATE_DIR: baseDir },
+      env: { ...process.env, GRANTED_STATE_DIR: baseDir },
     });
     db.prepare(
       "UPDATE worker_environments SET destroy_requested_at_ms = ? WHERE node_setup_id = ?",
@@ -488,7 +488,7 @@ describe("device bootstrap tokens", () => {
     });
     await verifyBootstrapToken(baseDir, issued.token);
     const { db } = openOpenClawStateDatabase({
-      env: { ...process.env, OPENCLAW_STATE_DIR: baseDir },
+      env: { ...process.env, GRANTED_STATE_DIR: baseDir },
     });
     db.exec("DROP TABLE IF EXISTS device_pair_setup_completions");
 
@@ -531,7 +531,7 @@ describe("device bootstrap tokens", () => {
       expect(found === null).toBe(!expectFound);
       if (!expectFound) {
         const { db } = openOpenClawStateDatabase({
-          env: { ...process.env, OPENCLAW_STATE_DIR: baseDir },
+          env: { ...process.env, GRANTED_STATE_DIR: baseDir },
         });
         const row = executeSqliteQueryTakeFirstSync(
           db,

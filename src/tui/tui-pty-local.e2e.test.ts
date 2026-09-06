@@ -74,7 +74,7 @@ type GatewayScenario = MockModelBehavior & {
 const SHARED_GATEWAY_AGENT_ID = "tui-pty-gateway";
 // These cases spawn openclaw.mjs outside the source TUI runner. CI opts in only
 // after the exact head has a complete build, so source-mode PTY smoke must skip them.
-const itWithBuiltCli = process.env.OPENCLAW_TUI_PTY_USE_BUILT_CLI === "1" ? it : it.skip;
+const itWithBuiltCli = process.env.GRANTED_TUI_PTY_USE_BUILT_CLI === "1" ? it : it.skip;
 
 const GATEWAY_SCENARIOS = {
   validation: {
@@ -449,7 +449,7 @@ function buildTuiCliScript(args: string[]) {
 }
 
 function buildTuiProcessArgs(args: string[]) {
-  if (process.env.OPENCLAW_TUI_PTY_USE_BUILT_CLI === "1") {
+  if (process.env.GRANTED_TUI_PTY_USE_BUILT_CLI === "1") {
     return [path.join(process.cwd(), "openclaw.mjs"), ...args];
   }
   return ["--import", "tsx", "--eval", buildTuiCliScript(args)];
@@ -569,17 +569,17 @@ async function startLocalModeTui(
   const configPath = path.join(tempDir, "openclaw.json");
   const env: NodeJS.ProcessEnv = {
     HOME: homeDir,
-    OPENCLAW_HOME: homeDir,
-    OPENCLAW_CONFIG_PATH: configPath,
-    OPENCLAW_STATE_DIR: stateDir,
-    OPENCLAW_TUI_LOCAL_RUN_SHUTDOWN_GRACE_MS: "500",
-    OPENCLAW_AGENT_DIR: undefined,
-    OPENCLAW_SKIP_PROVIDERS: undefined,
+    GRANTED_HOME: homeDir,
+    GRANTED_CONFIG_PATH: configPath,
+    GRANTED_STATE_DIR: stateDir,
+    GRANTED_TUI_LOCAL_RUN_SHUTDOWN_GRACE_MS: "500",
+    GRANTED_AGENT_DIR: undefined,
+    GRANTED_SKIP_PROVIDERS: undefined,
     XDG_CONFIG_HOME: xdgConfigHome,
     XDG_DATA_HOME: xdgDataHome,
     XDG_CACHE_HOME: xdgCacheHome,
-    OPENCLAW_THEME: "dark",
-    OPENCLAW_CODEX_DISCOVERY_LIVE: "0",
+    GRANTED_THEME: "dark",
+    GRANTED_CODEX_DISCOVERY_LIVE: "0",
     NO_COLOR: undefined,
   };
   const mockModel = await startMockModelServer(replyText, {
@@ -750,8 +750,8 @@ async function startSharedGatewayFixture(): Promise<SharedGatewayFixture> {
       gatewayToken: "tui-pty-local",
       config: buildGatewayModeConfig({ tempDir, providerBaseUrl: mockModel.baseUrl }),
       env: {
-        OPENCLAW_CODEX_DISCOVERY_LIVE: "0",
-        OPENCLAW_SKIP_PROVIDERS: undefined,
+        GRANTED_CODEX_DISCOVERY_LIVE: "0",
+        GRANTED_SKIP_PROVIDERS: undefined,
       },
     });
     await gateway.startGateway();
@@ -792,7 +792,7 @@ async function startSharedGatewayFixture(): Promise<SharedGatewayFixture> {
         cwd: process.cwd(),
         env: {
           ...gateway.env,
-          OPENCLAW_THEME: "dark",
+          GRANTED_THEME: "dark",
           NO_COLOR: undefined,
         },
         exitTimeoutMs: LOCAL_EXIT_TIMEOUT_MS,
@@ -974,13 +974,13 @@ async function startIsolatedGatewayPty(params: {
       env: {
         ...gateway.env,
         HOME: tempDir,
-        OPENCLAW_HOME: tempDir,
-        OPENCLAW_CONFIG_PATH: path.join(tempDir, "openclaw.json"),
-        OPENCLAW_STATE_DIR: tempDir,
-        OPENCLAW_AGENT_DIR: undefined,
-        OPENCLAW_GATEWAY_TOKEN: undefined,
-        OPENCLAW_GATEWAY_PASSWORD: undefined,
-        OPENCLAW_THEME: "dark",
+        GRANTED_HOME: tempDir,
+        GRANTED_CONFIG_PATH: path.join(tempDir, "openclaw.json"),
+        GRANTED_STATE_DIR: tempDir,
+        GRANTED_AGENT_DIR: undefined,
+        GRANTED_GATEWAY_TOKEN: undefined,
+        GRANTED_GATEWAY_PASSWORD: undefined,
+        GRANTED_THEME: "dark",
         NO_COLOR: undefined,
       },
       exitTimeoutMs: LOCAL_EXIT_TIMEOUT_MS,
@@ -1100,7 +1100,7 @@ describe("TUI PTY real backends", () => {
         {
           cwd: process.cwd(),
           env: {
-            OPENCLAW_THEME: "dark",
+            GRANTED_THEME: "dark",
             NO_COLOR: undefined,
           },
           exitTimeoutMs: LOCAL_EXIT_TIMEOUT_MS,
@@ -1195,7 +1195,7 @@ describe("TUI PTY real backends", () => {
           "steer the active local turn",
         );
         await fixture.run.waitForOutput("LOCAL_STEER_COMPLETE");
-        if (process.env.OPENCLAW_BEHAVIOR_EVIDENCE === "1") {
+        if (process.env.GRANTED_BEHAVIOR_EVIDENCE === "1") {
           console.info(
             "[behavior-evidence] local-steer",
             JSON.stringify({
@@ -1388,7 +1388,7 @@ describe("TUI PTY real backends", () => {
         );
         await fixture.run.waitForOutput("local ready", LOCAL_STARTUP_TIMEOUT_MS);
         await fixture.run.write(
-          "!node -e \"console.log('T06_STDOUT'); console.error('T06_STDERR'); console.log('T06_ENV='+process.env.OPENCLAW_SHELL); process.exitCode=7\"\r",
+          "!node -e \"console.log('T06_STDOUT'); console.error('T06_STDERR'); console.log('T06_ENV='+process.env.GRANTED_SHELL); process.exitCode=7\"\r",
         );
         await fixture.run.waitForOutput("Allow local shell commands for this session?");
         await fixture.run.waitForOutput("Select Yes/No (arrows + Enter), Esc to cancel.");
@@ -1446,7 +1446,7 @@ describe("TUI PTY real backends", () => {
           [cliPath, "config", "validate", "--json"],
           {
             cwd: process.cwd(),
-            env: { ...fixture.env, OPENCLAW_TEST_RUNTIME_LOG: "1" },
+            env: { ...fixture.env, GRANTED_TEST_RUNTIME_LOG: "1" },
             logOutput: false,
             timeoutMs: LOCAL_OUTPUT_TIMEOUT_MS,
           },
@@ -1595,7 +1595,7 @@ export default {
         const agentDir = path.join(fixture.stateDir, "agents", "main", "agent");
         const sqlitePath = path.join(agentDir, "openclaw-agent.sqlite");
         expect(await stat(sqlitePath).then((entry) => entry.isFile())).toBe(true);
-        const store = withEnv({ OPENCLAW_STATE_DIR: fixture.stateDir }, () => {
+        const store = withEnv({ GRANTED_STATE_DIR: fixture.stateDir }, () => {
           reloadSharedAuthStoreOwnership();
           return loadAuthProfileStoreForRuntime(agentDir, {
             readOnly: true,

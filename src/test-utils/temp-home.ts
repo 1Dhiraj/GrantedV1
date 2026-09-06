@@ -11,7 +11,7 @@ const HOME_ENV_KEYS = [
   "USERPROFILE",
   "HOMEDRIVE",
   "HOMEPATH",
-  "OPENCLAW_STATE_DIR",
+  "GRANTED_STATE_DIR",
 ] as const;
 
 export type TempHomeEnv = {
@@ -56,7 +56,7 @@ export async function createTempHomeEnv(prefix: string): Promise<TempHomeEnv> {
     await fs.mkdir(stateDir, { recursive: true });
     setTestEnvValue("HOME", home);
     setTestEnvValue("USERPROFILE", home);
-    setTestEnvValue("OPENCLAW_STATE_DIR", stateDir);
+    setTestEnvValue("GRANTED_STATE_DIR", stateDir);
 
     if (process.platform === "win32") {
       const match = home.match(/^([A-Za-z]:)(.*)$/);

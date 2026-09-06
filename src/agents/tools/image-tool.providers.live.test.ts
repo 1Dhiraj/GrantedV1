@@ -26,13 +26,13 @@ import { testing } from "./image-tool.test-support.js";
 
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY?.trim() ?? "";
 const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY?.trim() ?? "";
-const LIVE_IMAGE_TOOL_ENABLED = isLiveTestEnabled(["OPENCLAW_LIVE_IMAGE_TOOL_TEST"]);
+const LIVE_IMAGE_TOOL_ENABLED = isLiveTestEnabled(["GRANTED_LIVE_IMAGE_TOOL_TEST"]);
 const LIVE_OPENAI_MODEL =
-  process.env.OPENCLAW_LIVE_IMAGE_TOOL_OPENAI_MODEL?.trim() ||
-  process.env.OPENCLAW_LIVE_IMAGE_TOOL_MODEL?.trim() ||
+  process.env.GRANTED_LIVE_IMAGE_TOOL_OPENAI_MODEL?.trim() ||
+  process.env.GRANTED_LIVE_IMAGE_TOOL_MODEL?.trim() ||
   "gpt-4.1-mini";
 const LIVE_ANTHROPIC_MODEL =
-  process.env.OPENCLAW_LIVE_IMAGE_TOOL_ANTHROPIC_MODEL?.trim() || "claude-sonnet-4-6";
+  process.env.GRANTED_LIVE_IMAGE_TOOL_ANTHROPIC_MODEL?.trim() || "claude-sonnet-4-6";
 const MODEL_SIDE_LIMIT = 512;
 
 type LiveProviderCase = {

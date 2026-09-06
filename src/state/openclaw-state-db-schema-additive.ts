@@ -19,7 +19,7 @@ import {
   repairLegacySubagentTaskBindings,
 } from "./openclaw-state-db-legacy-backfills.js";
 import { ensureColumn } from "./openclaw-state-db-schema-helpers.js";
-import { OPENCLAW_STATE_SCHEMA_SQL } from "./openclaw-state-schema.js";
+import { GRANTED_STATE_SCHEMA_SQL } from "./openclaw-state-schema.js";
 
 const SECRET_STORE_SCHEMA_START = "CREATE TABLE IF NOT EXISTS secret_store_entries (";
 const SECRET_STORE_SCHEMA_END =
@@ -34,13 +34,13 @@ const CONFIG_REVISION_KEY_SCHEMA_START = "CREATE TABLE IF NOT EXISTS config_revi
 const CONFIG_REVISION_KEY_SCHEMA_END = "\n) STRICT;";
 
 function secretStoreSchemaSql(): string {
-  const start = OPENCLAW_STATE_SCHEMA_SQL.indexOf(SECRET_STORE_SCHEMA_START);
-  const endMarkerStart = OPENCLAW_STATE_SCHEMA_SQL.indexOf(SECRET_STORE_SCHEMA_END, start);
+  const start = GRANTED_STATE_SCHEMA_SQL.indexOf(SECRET_STORE_SCHEMA_START);
+  const endMarkerStart = GRANTED_STATE_SCHEMA_SQL.indexOf(SECRET_STORE_SCHEMA_END, start);
   const hasBoundedSchema = start >= 0 && endMarkerStart >= start;
   if (!hasBoundedSchema) {
     throw new Error("OpenClaw secret store schema marker is missing.");
   }
-  return OPENCLAW_STATE_SCHEMA_SQL.slice(start, endMarkerStart + SECRET_STORE_SCHEMA_END.length);
+  return GRANTED_STATE_SCHEMA_SQL.slice(start, endMarkerStart + SECRET_STORE_SCHEMA_END.length);
 }
 
 /** Lazily install the additive secret store table and index on first write. */
@@ -51,20 +51,20 @@ export function ensureSecretStoreSchema(database: DatabaseSync): void {
 
 /** Lazily install durable MCP OAuth callback correlation on first feature use. */
 export function ensureMcpOAuthPendingSchema(database: DatabaseSync): void {
-  const start = OPENCLAW_STATE_SCHEMA_SQL.indexOf(MCP_OAUTH_PENDING_SCHEMA_START);
-  const endMarkerStart = OPENCLAW_STATE_SCHEMA_SQL.indexOf(MCP_OAUTH_PENDING_SCHEMA_END, start);
+  const start = GRANTED_STATE_SCHEMA_SQL.indexOf(MCP_OAUTH_PENDING_SCHEMA_START);
+  const endMarkerStart = GRANTED_STATE_SCHEMA_SQL.indexOf(MCP_OAUTH_PENDING_SCHEMA_END, start);
   if (start < 0 || endMarkerStart < start) {
     throw new Error("OpenClaw MCP OAuth pending schema marker is missing.");
   }
   database.exec(
-    OPENCLAW_STATE_SCHEMA_SQL.slice(start, endMarkerStart + MCP_OAUTH_PENDING_SCHEMA_END.length),
+    GRANTED_STATE_SCHEMA_SQL.slice(start, endMarkerStart + MCP_OAUTH_PENDING_SCHEMA_END.length),
   ); // sqlite-allow-raw -- Canonical additive DDL only.
 }
 
 /** Lazily install the additive device join-code table on first mint or redemption. */
 export function ensureDevicePairingJoinCodeSchema(database: DatabaseSync): void {
-  const start = OPENCLAW_STATE_SCHEMA_SQL.indexOf(DEVICE_PAIRING_JOIN_CODE_SCHEMA_START);
-  const endMarkerStart = OPENCLAW_STATE_SCHEMA_SQL.indexOf(
+  const start = GRANTED_STATE_SCHEMA_SQL.indexOf(DEVICE_PAIRING_JOIN_CODE_SCHEMA_START);
+  const endMarkerStart = GRANTED_STATE_SCHEMA_SQL.indexOf(
     DEVICE_PAIRING_JOIN_CODE_SCHEMA_END,
     start,
   );
@@ -72,7 +72,7 @@ export function ensureDevicePairingJoinCodeSchema(database: DatabaseSync): void 
     throw new Error("OpenClaw device pairing join-code schema marker is missing.");
   }
   database.exec(
-    OPENCLAW_STATE_SCHEMA_SQL.slice(
+    GRANTED_STATE_SCHEMA_SQL.slice(
       start,
       endMarkerStart + DEVICE_PAIRING_JOIN_CODE_SCHEMA_END.length,
     ),
@@ -81,13 +81,13 @@ export function ensureDevicePairingJoinCodeSchema(database: DatabaseSync): void 
 
 /** Lazily installs the Gateway's installation-local config revision key owner. */
 export function ensureConfigRevisionKeySchema(database: DatabaseSync): void {
-  const start = OPENCLAW_STATE_SCHEMA_SQL.indexOf(CONFIG_REVISION_KEY_SCHEMA_START);
-  const endMarkerStart = OPENCLAW_STATE_SCHEMA_SQL.indexOf(CONFIG_REVISION_KEY_SCHEMA_END, start);
+  const start = GRANTED_STATE_SCHEMA_SQL.indexOf(CONFIG_REVISION_KEY_SCHEMA_START);
+  const endMarkerStart = GRANTED_STATE_SCHEMA_SQL.indexOf(CONFIG_REVISION_KEY_SCHEMA_END, start);
   if (start < 0 || endMarkerStart < start) {
     throw new Error("OpenClaw config revision key schema marker is missing.");
   }
   database.exec(
-    OPENCLAW_STATE_SCHEMA_SQL.slice(start, endMarkerStart + CONFIG_REVISION_KEY_SCHEMA_END.length),
+    GRANTED_STATE_SCHEMA_SQL.slice(start, endMarkerStart + CONFIG_REVISION_KEY_SCHEMA_END.length),
   ); // sqlite-allow-raw -- Canonical additive DDL only; key rows use Kysely.
 }
 
@@ -316,15 +316,15 @@ export function ensureGitHubPublicationSchema(db: DatabaseSync): void {
 
 /** First personal publication write only; status and old readers leave this surface dormant. */
 export function ensurePersonalGitHubPublicationSchema(db: DatabaseSync): void {
-  const start = OPENCLAW_STATE_SCHEMA_SQL.indexOf(
+  const start = GRANTED_STATE_SCHEMA_SQL.indexOf(
     "CREATE TABLE IF NOT EXISTS github_personal_publication_requests (",
   );
   const marker = "ON github_personal_publication_requests(status, updated_at_ms, request_id);";
-  const end = OPENCLAW_STATE_SCHEMA_SQL.indexOf(marker, start);
+  const end = GRANTED_STATE_SCHEMA_SQL.indexOf(marker, start);
   if (start < 0 || end < start) {
     throw new Error("Personal GitHub publication schema marker is missing.");
   }
-  db.exec(OPENCLAW_STATE_SCHEMA_SQL.slice(start, end + marker.length)); // sqlite-allow-raw -- Canonical lazy additive DDL only.
+  db.exec(GRANTED_STATE_SCHEMA_SQL.slice(start, end + marker.length)); // sqlite-allow-raw -- Canonical lazy additive DDL only.
 }
 
 /**

@@ -430,7 +430,7 @@ describe("monitorSlackProvider tool results", () => {
     expect(latestCtx?.RawBody).toBe("caption\n\n[slack attachment unavailable]");
     expect(mockFetch).toHaveBeenCalledOnce();
 
-    if (process.env.OPENCLAW_SLACK_FORWARDED_IMAGE_PROOF === "1") {
+    if (process.env.GRANTED_SLACK_FORWARDED_IMAGE_PROOF === "1") {
       console.log(
         JSON.stringify({
           verdict: "PASS",

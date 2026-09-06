@@ -39,8 +39,8 @@ function createAuthMonitorHarness() {
       'if [ "$1" = "models" ]; then',
       "  exit 1",
       "fi",
-      'printf "called\\n" >> "$FAKE_OPENCLAW_LOG"',
-      'exit "$FAKE_OPENCLAW_EXIT_CODE"',
+      'printf "called\\n" >> "$FAKE_GRANTED_LOG"',
+      'exit "$FAKE_GRANTED_EXIT_CODE"',
       "",
     ].join("\n"),
     { mode: 0o755 },
@@ -85,8 +85,8 @@ function createAuthMonitorHarness() {
           ...process.env,
           FAKE_CURL_EXIT_CODE: String(curlExitCode),
           FAKE_CURL_LOG: curlLog,
-          FAKE_OPENCLAW_EXIT_CODE: String(openclawExitCode),
-          FAKE_OPENCLAW_LOG: openclawLog,
+          FAKE_GRANTED_EXIT_CODE: String(openclawExitCode),
+          FAKE_GRANTED_LOG: openclawLog,
           HOME: home,
           NOTIFY_NTFY: notifyNtfy,
           NOTIFY_PHONE: notifyPhone,
@@ -103,7 +103,7 @@ describe("auth monitoring scripts", () => {
     const service = readScript(AUTH_MONITOR_SERVICE_PATH);
     const timer = readScript(AUTH_MONITOR_TIMER_PATH);
 
-    expect(service).toContain("ExecStart=@OPENCLAW_AUTH_MONITOR_PATH@");
+    expect(service).toContain("ExecStart=@GRANTED_AUTH_MONITOR_PATH@");
     expect(setup).toContain('AUTH_MONITOR_PATH="$SCRIPT_DIR/auth-monitor.sh"');
     expect(setup).toContain(
       'RENDERED_EXEC_START="ExecStart=$(systemd_quote_arg "$AUTH_MONITOR_PATH")"',
@@ -123,7 +123,7 @@ describe("auth monitoring scripts", () => {
     expect(joined).not.toContain(privateHostAlias);
     expect(joined).toContain("Run on the OpenClaw host: ${SCRIPT_DIR}/mobile-reauth.sh");
     for (const script of TERMUX_WIDGET_PATHS.map(readScript)) {
-      expect(script).toContain('SERVER="${OPENCLAW_SERVER:-openclaw-host}"');
+      expect(script).toContain('SERVER="${GRANTED_SERVER:-openclaw-host}"');
     }
     expect(readScript("scripts/termux-sync-widget.sh")).toContain(
       "'$HOME/openclaw/scripts/sync-claude-code-auth.sh'",

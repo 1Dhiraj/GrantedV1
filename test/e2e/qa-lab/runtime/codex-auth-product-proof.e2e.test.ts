@@ -208,9 +208,9 @@ describe("Codex auth product proof", () => {
       instance = await createOpenClawTestInstance({
         name: "qa-codex-auth-product-proof",
         env: {
-          OPENCLAW_AGENT_HARNESS_FALLBACK: "none",
-          OPENCLAW_QA_CODEX_APP_SERVER_VERSION: CODEX_APP_SERVER_VERSION,
-          OPENCLAW_SKIP_PROVIDERS: undefined,
+          GRANTED_AGENT_HARNESS_FALLBACK: "none",
+          GRANTED_QA_CODEX_APP_SERVER_VERSION: CODEX_APP_SERVER_VERSION,
+          GRANTED_SKIP_PROVIDERS: undefined,
         },
         config: {
           plugins: {
@@ -245,7 +245,7 @@ describe("Codex auth product proof", () => {
       });
 
       const requestLog = instance.state.path("codex-auth-app-server.jsonl");
-      instance.env.OPENCLAW_QA_CODEX_AUTH_APP_SERVER_LOG = requestLog;
+      instance.env.GRANTED_QA_CODEX_AUTH_APP_SERVER_LOG = requestLog;
       const appServerLog = createJsonlRequestTailer<AppServerLogEntry>(requestLog);
       const canonicalStore = await runCodexAuthDoctorMigrationProof(instance, {
         accountId: ACCOUNT_ID,
@@ -373,9 +373,9 @@ describe("Codex auth product proof", () => {
       instance = await createOpenClawTestInstance({
         name: "qa-codex-missing-auth-profile",
         env: {
-          OPENCLAW_AGENT_HARNESS_FALLBACK: "none",
-          OPENCLAW_QA_CODEX_APP_SERVER_VERSION: CODEX_APP_SERVER_VERSION,
-          OPENCLAW_SKIP_PROVIDERS: undefined,
+          GRANTED_AGENT_HARNESS_FALLBACK: "none",
+          GRANTED_QA_CODEX_APP_SERVER_VERSION: CODEX_APP_SERVER_VERSION,
+          GRANTED_SKIP_PROVIDERS: undefined,
         },
         config: {
           plugins: {
@@ -413,7 +413,7 @@ describe("Codex auth product proof", () => {
       });
 
       const requestLog = instance.state.path("codex-auth-app-server.jsonl");
-      instance.env.OPENCLAW_QA_CODEX_AUTH_APP_SERVER_LOG = requestLog;
+      instance.env.GRANTED_QA_CODEX_AUTH_APP_SERVER_LOG = requestLog;
       const appServerLog = createJsonlRequestTailer<AppServerLogEntry>(requestLog);
       await instance.state.writeAuthProfiles({
         version: 1,

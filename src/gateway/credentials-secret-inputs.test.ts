@@ -39,8 +39,8 @@ function createRemoteModeConfig() {
 }
 
 const DEFAULT_ENV = {
-  OPENCLAW_GATEWAY_TOKEN: "env-token",
-  OPENCLAW_GATEWAY_PASSWORD: "env-password", // pragma: allowlist secret
+  GRANTED_GATEWAY_TOKEN: "env-token",
+  GRANTED_GATEWAY_PASSWORD: "env-password", // pragma: allowlist secret
 } as NodeJS.ProcessEnv;
 
 describe("resolveGatewayCredentialsWithSecretInputs", () => {
@@ -205,10 +205,10 @@ describe("resolveGatewayCredentialsWithSecretInputs", () => {
         config: cfg({
           gateway: {
             mode: "local",
-            auth: { mode: "token", token: "${OPENCLAW_GATEWAY_TOKEN}" },
+            auth: { mode: "token", token: "${GRANTED_GATEWAY_TOKEN}" },
           },
         }),
-        env: { OPENCLAW_GATEWAY_TOKEN: "env-token" },
+        env: { GRANTED_GATEWAY_TOKEN: "env-token" },
       }),
     ).resolves.toEqual({ token: "env-token", password: undefined });
   });
@@ -269,7 +269,7 @@ describe("resolveGatewayCredentialsWithSecretInputs", () => {
       },
     });
     const env = {
-      OPENCLAW_GATEWAY_TOKEN: "env-token",
+      GRANTED_GATEWAY_TOKEN: "env-token",
       CONFIG_FIRST_TOKEN: "config-first-token",
     } as NodeJS.ProcessEnv;
 
@@ -299,7 +299,7 @@ describe("resolveGatewayCredentialsWithSecretInputs", () => {
       },
     });
     const env = {
-      OPENCLAW_GATEWAY_PASSWORD: "env-password", // pragma: allowlist secret
+      GRANTED_GATEWAY_PASSWORD: "env-password", // pragma: allowlist secret
       CONFIG_FIRST_PASSWORD: "config-first-password", // pragma: allowlist secret
     } as NodeJS.ProcessEnv;
 
@@ -328,7 +328,7 @@ describe("resolveGatewayCredentialsWithSecretInputs", () => {
       },
     });
     const env = {
-      OPENCLAW_GATEWAY_TOKEN: "env-token",
+      GRANTED_GATEWAY_TOKEN: "env-token",
     } as NodeJS.ProcessEnv;
 
     await expect(
@@ -355,7 +355,7 @@ describe("resolveGatewayCredentialsWithSecretInputs", () => {
       },
     });
     const env = {
-      OPENCLAW_GATEWAY_PASSWORD: "env-password", // pragma: allowlist secret
+      GRANTED_GATEWAY_PASSWORD: "env-password", // pragma: allowlist secret
     } as NodeJS.ProcessEnv;
 
     await expect(

@@ -193,10 +193,10 @@ describe("Gateway copied Codex session resume", () => {
         name: "copied-codex-session-resume",
         config,
         env: {
-          OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-          OPENCLAW_SKIP_PROVIDERS: undefined,
-          OPENCLAW_TEST_MINIMAL_GATEWAY: undefined,
-          ...(cron ? { OPENCLAW_SKIP_CRON: undefined } : {}),
+          GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+          GRANTED_SKIP_PROVIDERS: undefined,
+          GRANTED_TEST_MINIMAL_GATEWAY: undefined,
+          ...(cron ? { GRANTED_SKIP_CRON: undefined } : {}),
         },
       });
       instances.push(instance);

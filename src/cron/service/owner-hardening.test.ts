@@ -177,7 +177,7 @@ function spawnRunner(params: {
       params.outputPath,
     ],
     {
-      env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+      env: { ...process.env, GRANTED_STATE_DIR: stateDir },
       stdio: ["ignore", "pipe", "pipe"],
     },
   );

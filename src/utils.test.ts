@@ -143,19 +143,19 @@ describe("resolveConfigDir", () => {
     });
   });
 
-  it("expands OPENCLAW_STATE_DIR using the provided env", () => {
+  it("expands GRANTED_STATE_DIR using the provided env", () => {
     const env = {
       HOME: "/tmp/openclaw-home",
-      OPENCLAW_STATE_DIR: "~/state",
+      GRANTED_STATE_DIR: "~/state",
     } as NodeJS.ProcessEnv;
 
     expect(resolveConfigDir(env)).toBe(path.resolve("/tmp/openclaw-home", "state"));
   });
 
-  it("falls back to the config file directory when only OPENCLAW_CONFIG_PATH is set", () => {
+  it("falls back to the config file directory when only GRANTED_CONFIG_PATH is set", () => {
     const env = {
       HOME: "/tmp/openclaw-home",
-      OPENCLAW_CONFIG_PATH: "~/profiles/dev/openclaw.json",
+      GRANTED_CONFIG_PATH: "~/profiles/dev/openclaw.json",
     } as NodeJS.ProcessEnv;
 
     expect(resolveConfigDir(env)).toBe(path.resolve("/tmp/openclaw-home", "profiles", "dev"));
@@ -167,45 +167,45 @@ describe("resolveConfigDir", () => {
     try {
       expect(
         pinConfigDir({
-          OPENCLAW_STATE_DIR: selectedConfigDir,
-          OPENCLAW_TEST_FAST: "1",
+          GRANTED_STATE_DIR: selectedConfigDir,
+          GRANTED_TEST_FAST: "1",
         }),
       ).toBe(selectedConfigDir);
       expect(CONFIG_DIR).toBe(selectedConfigDir);
     } finally {
       pinConfigDir({
-        OPENCLAW_STATE_DIR: originalConfigDir,
-        OPENCLAW_TEST_FAST: "1",
+        GRANTED_STATE_DIR: originalConfigDir,
+        GRANTED_TEST_FAST: "1",
       });
     }
   });
 });
 
 describe("resolveHomeDir", () => {
-  it("prefers OPENCLAW_HOME over HOME", () => {
-    withEnv({ OPENCLAW_HOME: "/srv/openclaw-home", HOME: "/home/other" }, () => {
+  it("prefers GRANTED_HOME over HOME", () => {
+    withEnv({ GRANTED_HOME: "/srv/openclaw-home", HOME: "/home/other" }, () => {
       expect(resolveHomeDir()).toBe(path.resolve("/srv/openclaw-home"));
     });
   });
 });
 
 describe("shortenHomePath", () => {
-  it("uses $OPENCLAW_HOME prefix when OPENCLAW_HOME is set", () => {
-    withEnv({ OPENCLAW_HOME: "/srv/openclaw-home", HOME: "/home/other" }, () => {
+  it("uses $GRANTED_HOME prefix when GRANTED_HOME is set", () => {
+    withEnv({ GRANTED_HOME: "/srv/openclaw-home", HOME: "/home/other" }, () => {
       expect(shortenHomePath(`${path.resolve("/srv/openclaw-home")}/.openclaw/openclaw.json`)).toBe(
-        "$OPENCLAW_HOME/.openclaw/openclaw.json",
+        "$GRANTED_HOME/.openclaw/openclaw.json",
       );
     });
   });
 
   it.skipIf(process.platform === "win32")("keeps POSIX home matching case-sensitive", () => {
-    withEnv({ OPENCLAW_HOME: "/srv/OpenClaw-Home", HOME: "/home/other" }, () => {
+    withEnv({ GRANTED_HOME: "/srv/OpenClaw-Home", HOME: "/home/other" }, () => {
       expect(shortenHomePath("/srv/openclaw-home/workspace")).toBe("/srv/openclaw-home/workspace");
     });
   });
 
   it.skipIf(process.platform !== "win32")("keeps relative Windows paths relative", () => {
-    withEnv({ OPENCLAW_HOME: process.cwd() }, () => {
+    withEnv({ GRANTED_HOME: process.cwd() }, () => {
       expect(shortenHomePath(`relative${path.sep}workspace`)).toBe(`relative${path.sep}workspace`);
     });
   });
@@ -219,9 +219,9 @@ describe("shortenHomePath", () => {
         const extendedAlias = `\\\\?\\${workspace.toUpperCase()}`;
         expect(fs.statSync(extendedAlias).isDirectory()).toBe(true);
 
-        withEnv({ OPENCLAW_HOME: home }, () => {
+        withEnv({ GRANTED_HOME: home }, () => {
           const display = shortenHomePath(extendedAlias);
-          expect(display).toBe(`$OPENCLAW_HOME${path.sep}WORKSPACE`);
+          expect(display).toBe(`$GRANTED_HOME${path.sep}WORKSPACE`);
           expect(display).not.toContain(home.toUpperCase());
         });
       });
@@ -230,20 +230,20 @@ describe("shortenHomePath", () => {
 });
 
 describe("shortenHomeInString", () => {
-  it("uses $OPENCLAW_HOME replacement when OPENCLAW_HOME is set", () => {
-    withEnv({ OPENCLAW_HOME: "/srv/openclaw-home", HOME: "/home/other" }, () => {
+  it("uses $GRANTED_HOME replacement when GRANTED_HOME is set", () => {
+    withEnv({ GRANTED_HOME: "/srv/openclaw-home", HOME: "/home/other" }, () => {
       expect(
         shortenHomeInString(
           `config: ${path.resolve("/srv/openclaw-home")}/.openclaw/openclaw.json`,
         ),
-      ).toBe("config: $OPENCLAW_HOME/.openclaw/openclaw.json");
+      ).toBe("config: $GRANTED_HOME/.openclaw/openclaw.json");
     });
   });
 
   it.skipIf(process.platform === "win32")(
     "keeps embedded POSIX home matching case-sensitive",
     () => {
-      withEnv({ OPENCLAW_HOME: "/srv/OpenClaw-Home", HOME: "/home/other" }, () => {
+      withEnv({ GRANTED_HOME: "/srv/OpenClaw-Home", HOME: "/home/other" }, () => {
         expect(shortenHomeInString("config: /srv/openclaw-home/openclaw.json")).toBe(
           "config: /srv/openclaw-home/openclaw.json",
         );
@@ -258,9 +258,9 @@ describe("shortenHomeInString", () => {
         const homeAlias = home.toUpperCase();
         expect(fs.statSync(homeAlias).isDirectory()).toBe(true);
 
-        withEnv({ OPENCLAW_HOME: home }, () => {
+        withEnv({ GRANTED_HOME: home }, () => {
           expect(shortenHomeInString(`config: ${homeAlias}\\openclaw.json`)).toBe(
-            "config: $OPENCLAW_HOME\\openclaw.json",
+            "config: $GRANTED_HOME\\openclaw.json",
           );
         });
       });
@@ -283,8 +283,8 @@ describe("resolveUserPath", () => {
     expect(resolveUserPath("tmp/dir")).toBe(path.resolve("tmp/dir"));
   });
 
-  it("prefers OPENCLAW_HOME for tilde expansion", () => {
-    withEnv({ OPENCLAW_HOME: "/srv/openclaw-home", HOME: "/home/other" }, () => {
+  it("prefers GRANTED_HOME for tilde expansion", () => {
+    withEnv({ GRANTED_HOME: "/srv/openclaw-home", HOME: "/home/other" }, () => {
       expect(resolveUserPath("~/openclaw")).toBe(path.resolve("/srv/openclaw-home", "openclaw"));
     });
   });
@@ -292,7 +292,7 @@ describe("resolveUserPath", () => {
   it("uses the provided env for tilde expansion", () => {
     const env = {
       HOME: "/tmp/openclaw-home",
-      OPENCLAW_HOME: "/srv/openclaw-home",
+      GRANTED_HOME: "/srv/openclaw-home",
     } as NodeJS.ProcessEnv;
 
     expect(resolveUserPath("~/openclaw", env)).toBe(path.resolve("/srv/openclaw-home", "openclaw"));

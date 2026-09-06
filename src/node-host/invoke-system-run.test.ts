@@ -108,8 +108,8 @@ describe("handleSystemRunInvoke mac app exec host routing", () => {
   }
 
   beforeEach(() => {
-    previousOpenClawHome = process.env.OPENCLAW_HOME;
-    process.env.OPENCLAW_HOME = sharedOpenClawHome;
+    previousOpenClawHome = process.env.GRANTED_HOME;
+    process.env.GRANTED_HOME = sharedOpenClawHome;
     execApprovalsStoreTesting.reset();
     // Cases isolate the canonical policy row, not shared-state schema bootstrap.
     deleteExecApprovalsConfigRow(openOpenClawStateDatabase().db);
@@ -120,9 +120,9 @@ describe("handleSystemRunInvoke mac app exec host routing", () => {
     execApprovalsStoreTesting.reset();
     clearRuntimeConfigSnapshot();
     if (previousOpenClawHome === undefined) {
-      delete process.env.OPENCLAW_HOME;
+      delete process.env.GRANTED_HOME;
     } else {
-      process.env.OPENCLAW_HOME = previousOpenClawHome;
+      process.env.GRANTED_HOME = previousOpenClawHome;
     }
   });
 
@@ -444,7 +444,7 @@ describe("handleSystemRunInvoke mac app exec host routing", () => {
     run: (ctx: { tempHome: string }) => Promise<T>,
   ): Promise<T> {
     const tempHome = sharedOpenClawHome;
-    return await withEnvAsync({ OPENCLAW_HOME: tempHome }, async () => {
+    return await withEnvAsync({ GRANTED_HOME: tempHome }, async () => {
       saveExecApprovals(approvals);
       return await run({ tempHome });
     });
@@ -1281,8 +1281,8 @@ describe("handleSystemRunInvoke mac app exec host routing", () => {
         "allowlist",
         "off",
         {
-          command: ["/bin/sh", "-lc", "head -c${IFS}16${IFS}${OPENCLAW_CONFIG_PATH}"],
-          rawCommand: "head -c${IFS}16${IFS}${OPENCLAW_CONFIG_PATH}",
+          command: ["/bin/sh", "-lc", "head -c${IFS}16${IFS}${GRANTED_CONFIG_PATH}"],
+          rawCommand: "head -c${IFS}16${IFS}${GRANTED_CONFIG_PATH}",
         },
       );
 
@@ -1860,7 +1860,7 @@ describe("handleSystemRunInvoke mac app exec host routing", () => {
     const { runCommand, sendInvokeResult } = await runLocalSystemInvokeWithPolicy("full", "off", {
       command: ["/bin/sh", "./script.sh"],
       env: {
-        OPENCLAW_TEST: "1",
+        GRANTED_TEST: "1",
         LANG: "C",
         LC_TIME: "C",
       },

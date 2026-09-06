@@ -176,11 +176,11 @@ export async function createSkillLibraryWireInstance(): Promise<OpenClawTestInst
     name: "skill-library-wire",
     startTimeoutMs: 120_000,
     env: {
-      OPENCLAW_GATEWAY_TOKEN: undefined,
-      OPENCLAW_GATEWAY_PASSWORD: undefined,
-      OPENCLAW_TEST_MINIMAL_GATEWAY: undefined,
-      OPENCLAW_SKIP_CHANNELS: undefined,
-      OPENCLAW_SKIP_PROVIDERS: undefined,
+      GRANTED_GATEWAY_TOKEN: undefined,
+      GRANTED_GATEWAY_PASSWORD: undefined,
+      GRANTED_TEST_MINIMAL_GATEWAY: undefined,
+      GRANTED_SKIP_CHANNELS: undefined,
+      GRANTED_SKIP_PROVIDERS: undefined,
       VITEST: undefined,
       VITEST_POOL_ID: undefined,
       VITEST_WORKER_ID: undefined,
@@ -188,7 +188,7 @@ export async function createSkillLibraryWireInstance(): Promise<OpenClawTestInst
       CODEX_HOME: undefined,
       OPENAI_API_KEY: undefined,
       ANTHROPIC_API_KEY: undefined,
-      OPENCLAW_BUILD_PRIVATE_QA: "1",
+      GRANTED_BUILD_PRIVATE_QA: "1",
     },
   });
   await instance.state.writeConfig({

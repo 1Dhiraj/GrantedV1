@@ -1,7 +1,7 @@
 // Verifies harness lifecycle capability checks, diagnostics, and trace scoping.
 import type { Model } from "openclaw/plugin-sdk/llm";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { OPENCLAW_EMBEDDED_CONTEXT_ENGINE_HOST } from "../../context-engine/host-compat.js";
+import { GRANTED_EMBEDDED_CONTEXT_ENGINE_HOST } from "../../context-engine/host-compat.js";
 import type { ContextEngine } from "../../context-engine/types.js";
 import {
   onTrustedInternalDiagnosticEvent,
@@ -429,7 +429,7 @@ describe("AgentHarness lifecycle runner", () => {
     const harness = createOpenClawAgentHarness();
 
     expect(harness.contextEngineHostCapabilities).toEqual(
-      OPENCLAW_EMBEDDED_CONTEXT_ENGINE_HOST.capabilities,
+      GRANTED_EMBEDDED_CONTEXT_ENGINE_HOST.capabilities,
     );
   });
 

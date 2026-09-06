@@ -274,10 +274,10 @@ suite.define(() => {
 
   it("restores only the unpersisted assistant response after reconnecting", async () => {
     const artifactDir =
-      process.env.OPENCLAW_CAPTURE_UI_PROOF === "1"
+      process.env.GRANTED_CAPTURE_UI_PROOF === "1"
         ? path.join(suite.artifactDir, "chat-inflight-reconnect")
         : "";
-    const captureProof = process.env.OPENCLAW_CAPTURE_UI_PROOF === "1";
+    const captureProof = process.env.GRANTED_CAPTURE_UI_PROOF === "1";
     const context = await suite.newBrowserContext({
       viewport: { height: 800, width: 1200 },
       ...(captureProof
@@ -585,10 +585,10 @@ suite.define(() => {
 
   it("renders a safe self-abort diagnostic without leaving stale composer status", async () => {
     const artifactDir =
-      process.env.OPENCLAW_CAPTURE_UI_PROOF === "1"
+      process.env.GRANTED_CAPTURE_UI_PROOF === "1"
         ? path.join(suite.artifactDir, "chat-abort-diagnostic")
         : "";
-    const captureProof = process.env.OPENCLAW_CAPTURE_UI_PROOF === "1";
+    const captureProof = process.env.GRANTED_CAPTURE_UI_PROOF === "1";
     const context = await suite.newBrowserContext({ viewport: { height: 800, width: 1200 } });
     const currentPage = await context.newPage();
     page = currentPage;

@@ -26,7 +26,7 @@ suite.define(() => {
   ] as const)(
     "keeps $reason model availability honest in the composer and picker",
     async ({ reason, blocked, message }) => {
-      const artifactRoot = process.env.OPENCLAW_UI_E2E_ARTIFACT_DIR?.trim();
+      const artifactRoot = process.env.GRANTED_UI_E2E_ARTIFACT_DIR?.trim();
       const artifactDir = artifactRoot
         ? createControlUiE2eArtifactDir("chat-composer-redesign", artifactRoot)
         : undefined;
@@ -134,7 +134,7 @@ suite.define(() => {
   });
 
   it("keeps the loading model picker beside the microphone", async () => {
-    const artifactRoot = process.env.OPENCLAW_UI_E2E_ARTIFACT_DIR?.trim();
+    const artifactRoot = process.env.GRANTED_UI_E2E_ARTIFACT_DIR?.trim();
     const artifactDir = artifactRoot
       ? createControlUiE2eArtifactDir("chat-composer-redesign", artifactRoot)
       : undefined;
@@ -264,7 +264,7 @@ suite.define(() => {
   });
 
   it("keeps the model in the bottom bar, session settings in the header, and holds send beside the microphone in every input state", async () => {
-    const artifactRoot = process.env.OPENCLAW_UI_E2E_ARTIFACT_DIR?.trim();
+    const artifactRoot = process.env.GRANTED_UI_E2E_ARTIFACT_DIR?.trim();
     const artifactDir = artifactRoot
       ? createControlUiE2eArtifactDir("chat-composer-redesign", artifactRoot)
       : undefined;

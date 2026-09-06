@@ -220,8 +220,8 @@ export function resolveModelRuntimePolicy(params: {
   const callerProvider = normalizeProviderId(params.provider ?? "");
   const effectiveProvider = resolveEffectiveProvider(params.provider, params.modelId);
   const inferredMatchedProvider = callerProvider ? undefined : effectiveProvider;
-  if (process.env.OPENCLAW_BUILD_PRIVATE_QA === "1") {
-    const forcedRuntime = process.env.OPENCLAW_QA_FORCE_RUNTIME?.trim().toLowerCase();
+  if (process.env.GRANTED_BUILD_PRIVATE_QA === "1") {
+    const forcedRuntime = process.env.GRANTED_QA_FORCE_RUNTIME?.trim().toLowerCase();
     if (forcedRuntime === "openclaw" || forcedRuntime === "codex") {
       return { policy: { id: forcedRuntime }, source: "model", forcedByEnvironment: true };
     }

@@ -91,7 +91,7 @@ describe("Gateway session-end shutdown", () => {
       const instance = await createOpenClawTestInstance({
         name: "session-end-shutdown",
         config,
-        env: { OPENCLAW_TEST_MINIMAL_GATEWAY: undefined },
+        env: { GRANTED_TEST_MINIMAL_GATEWAY: undefined },
         stopTimeoutMs: 10_000,
       });
       instances.push(instance);

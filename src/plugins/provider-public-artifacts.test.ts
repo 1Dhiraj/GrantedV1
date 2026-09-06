@@ -42,19 +42,19 @@ function writeExternalPolicyFixture(): string {
 }
 
 describe("provider public artifacts", () => {
-  const originalBundledPluginsDir = process.env.OPENCLAW_BUNDLED_PLUGINS_DIR;
-  const originalTrustBundledPluginsDir = process.env.OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR;
+  const originalBundledPluginsDir = process.env.GRANTED_BUNDLED_PLUGINS_DIR;
+  const originalTrustBundledPluginsDir = process.env.GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR;
 
   function restoreBundledPluginEnv() {
     if (originalBundledPluginsDir === undefined) {
-      delete process.env.OPENCLAW_BUNDLED_PLUGINS_DIR;
+      delete process.env.GRANTED_BUNDLED_PLUGINS_DIR;
     } else {
-      process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = originalBundledPluginsDir;
+      process.env.GRANTED_BUNDLED_PLUGINS_DIR = originalBundledPluginsDir;
     }
     if (originalTrustBundledPluginsDir === undefined) {
-      delete process.env.OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR;
+      delete process.env.GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR;
     } else {
-      process.env.OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR = originalTrustBundledPluginsDir;
+      process.env.GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR = originalTrustBundledPluginsDir;
     }
   }
 
@@ -208,8 +208,8 @@ describe("provider public artifacts", () => {
     const pluginRoot = writeExternalPolicyFixture();
 
     try {
-      process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = bundledPluginsDir;
-      process.env.OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR = "1";
+      process.env.GRANTED_BUNDLED_PLUGINS_DIR = bundledPluginsDir;
+      process.env.GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR = "1";
       const fixturePlugin = {
         id: "fixture-provider",
         origin: "external",
@@ -351,8 +351,8 @@ describe("provider public artifacts", () => {
     const pluginRoot = writeExternalPolicyFixture();
 
     try {
-      process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = bundledPluginsDir;
-      process.env.OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR = "1";
+      process.env.GRANTED_BUNDLED_PLUGINS_DIR = bundledPluginsDir;
+      process.env.GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR = "1";
       const fixturePlugin = {
         id: "fixture-provider",
         origin: "external",
@@ -436,8 +436,8 @@ describe("provider public artifacts", () => {
         resolveBundledPluginsDir: () => bundledPluginsDir,
       };
     });
-    process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = bundledPluginsDir;
-    process.env.OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR = "1";
+    process.env.GRANTED_BUNDLED_PLUGINS_DIR = bundledPluginsDir;
+    process.env.GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR = "1";
     vi.doMock("./public-surface-loader.js", () => ({
       loadBundledPluginPublicArtifactModuleSync,
     }));
@@ -638,8 +638,8 @@ describe("provider public artifacts", () => {
     vi.doMock("./public-surface-loader.js", () => ({
       loadBundledPluginPublicArtifactModuleSync,
     }));
-    process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = bundledPluginsDir;
-    process.env.OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR = "1";
+    process.env.GRANTED_BUNDLED_PLUGINS_DIR = bundledPluginsDir;
+    process.env.GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR = "1";
 
     try {
       writePlugin("first", ["fixture-provider"], 1);

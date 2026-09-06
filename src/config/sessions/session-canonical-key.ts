@@ -11,7 +11,7 @@ import {
   parseAgentSessionKey,
 } from "../../routing/session-key.js";
 import {
-  OPENCLAW_AGENT_SCHEMA_VERSION,
+  GRANTED_AGENT_SCHEMA_VERSION,
   type OpenClawAgentDatabaseOptions,
 } from "../../state/openclaw-agent-db-contract.js";
 import { withOpenClawAgentDatabaseReadOnly } from "../../state/openclaw-agent-db-readonly.js";
@@ -279,7 +279,7 @@ export function isCanonicalSqliteSessionMainKeyCurrent(
       database.db,
       db.selectFrom("schema_meta").select("schema_version").where("meta_key", "=", "primary"),
     );
-    if (schema?.schema_version !== OPENCLAW_AGENT_SCHEMA_VERSION) {
+    if (schema?.schema_version !== GRANTED_AGENT_SCHEMA_VERSION) {
       return false;
     }
     return (

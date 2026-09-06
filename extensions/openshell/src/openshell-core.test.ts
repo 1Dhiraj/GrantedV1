@@ -903,9 +903,9 @@ async function readOpenShellSshConfig(params: {
     name: "openshell-ssh-config",
     script: [
       "#!/bin/sh",
-      "cat <<'OPENCLAW_SSH_CONFIG'",
+      "cat <<'GRANTED_SSH_CONFIG'",
       params.configText,
-      "OPENCLAW_SSH_CONFIG",
+      "GRANTED_SSH_CONFIG",
     ].join("\n"),
   });
   const session = await createOpenShellSshSession({

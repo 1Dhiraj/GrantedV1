@@ -11,9 +11,9 @@ import { splitCommandParts } from "./command-line.js";
 import { ACPX_PROCESS_LEASE_MAX_ENTRIES, ACPX_PROCESS_LEASE_NAMESPACE } from "./state.js";
 
 /** CLI argument carrying the ACPX process lease id. */
-export const OPENCLAW_ACPX_LEASE_ID_ARG = "--openclaw-acpx-lease-id";
+export const GRANTED_ACPX_LEASE_ID_ARG = "--openclaw-acpx-lease-id";
 /** CLI argument carrying the owning gateway instance id. */
-export const OPENCLAW_GATEWAY_INSTANCE_ID_ARG = "--openclaw-gateway-instance-id";
+export const GRANTED_GATEWAY_INSTANCE_ID_ARG = "--openclaw-gateway-instance-id";
 /** Synthetic session identity for generated-wrapper health probes. */
 export const ACPX_PROBE_LEASE_SESSION_KEY = "openclaw:acpx:probe";
 
@@ -27,8 +27,8 @@ export function readAcpxProcessLeaseIdentity(
   command: string | undefined,
 ): AcpxProcessLeaseIdentity | undefined {
   const parts = splitCommandParts(command?.trim() ?? "");
-  const leaseIndex = parts.lastIndexOf(OPENCLAW_ACPX_LEASE_ID_ARG);
-  const gatewayIndex = parts.lastIndexOf(OPENCLAW_GATEWAY_INSTANCE_ID_ARG);
+  const leaseIndex = parts.lastIndexOf(GRANTED_ACPX_LEASE_ID_ARG);
+  const gatewayIndex = parts.lastIndexOf(GRANTED_GATEWAY_INSTANCE_ID_ARG);
   const leaseId = leaseIndex >= 0 ? parts[leaseIndex + 1]?.trim() : "";
   const gatewayInstanceId = gatewayIndex >= 0 ? parts[gatewayIndex + 1]?.trim() : "";
   if (!leaseId || !gatewayInstanceId) {
@@ -196,9 +196,9 @@ function appendAcpxLeaseArgs(params: {
 }): string {
   return [
     params.command,
-    OPENCLAW_ACPX_LEASE_ID_ARG,
+    GRANTED_ACPX_LEASE_ID_ARG,
     quoteEnvValue(params.leaseId),
-    OPENCLAW_GATEWAY_INSTANCE_ID_ARG,
+    GRANTED_GATEWAY_INSTANCE_ID_ARG,
     quoteEnvValue(params.gatewayInstanceId),
   ].join(" ");
 }

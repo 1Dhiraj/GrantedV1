@@ -74,7 +74,7 @@ describe("acp prompt cwd prefix", () => {
   async function runPromptWithCwd(cwd: string) {
     const pinnedHome = os.homedir();
     return await withEnvAsync(
-      { OPENCLAW_HOME: undefined, HOME: pinnedHome },
+      { GRANTED_HOME: undefined, HOME: pinnedHome },
       async () => await runPromptAndCaptureRequest({ cwd, prefixCwd: true }),
     );
   }

@@ -265,7 +265,7 @@ it(${JSON.stringify(fixtureTests[0][1])}, () => {
   const reopened = openOpenClawStateDatabase();
   const fallback = openOpenClawStateDatabase({ env: {} });
   expect(fallback.path).toBe(fallbackPath);
-  const explicit = openOpenClawStateDatabase({ env: { OPENCLAW_STATE_DIR: ${JSON.stringify(path.dirname(path.dirname(explicitPath)))} } });
+  const explicit = openOpenClawStateDatabase({ env: { GRANTED_STATE_DIR: ${JSON.stringify(path.dirname(path.dirname(explicitPath)))} } });
   globalThis[Symbol.for("openclaw.stateLeakFixture")] = { reopened, fallback, explicit, resources, assertHomeBoundary, pid: process.pid };
   fs.writeFileSync(${JSON.stringify(receiptPath)}, JSON.stringify({ path: reopened.path }));
   ${failFirstFile ? `expect.fail(${JSON.stringify(counterfactualFailure)});` : ""}
@@ -297,7 +297,7 @@ it(${JSON.stringify(fixtureTests[1][1])}, () => {
   expect(resources.home).toBe(previous.resources.home);
   expect(resources.roots).not.toEqual(previous.resources.roots);
   fs.writeFileSync(${JSON.stringify(receiptPath)}, JSON.stringify({ path: current.path, resetVerified: true, resources: [previous.resources, resources] }));
-  if (process.env.OPENCLAW_TUI_PTY_MIRROR_PATH) fs.appendFileSync(process.env.OPENCLAW_TUI_PTY_MIRROR_PATH, "namespace fixture frame\\n");
+  if (process.env.GRANTED_TUI_PTY_MIRROR_PATH) fs.appendFileSync(process.env.GRANTED_TUI_PTY_MIRROR_PATH, "namespace fixture frame\\n");
   ${failRun ? `expect.fail(${JSON.stringify(intentionalFailure)});` : ""}
 });
 `,
@@ -353,8 +353,8 @@ export default {
       XDG_DATA_HOME: path.join(home, "data"),
       XDG_STATE_HOME: path.join(home, "state"),
       LIVE: "0",
-      OPENCLAW_LIVE_TEST: "0",
-      OPENCLAW_LIVE_GATEWAY: "0",
+      GRANTED_LIVE_TEST: "0",
+      GRANTED_LIVE_GATEWAY: "0",
       CI: "1",
       PNPM_CONFIG_VERIFY_DEPS_BEFORE_RUN: "false",
       pnpm_config_verify_deps_before_run: "false",
@@ -368,9 +368,9 @@ export default {
       fs.writeFileSync(path.join(home, ".bashrc"), "export VITEST_UNREQUESTED_PROFILE=bashrc\n");
     }
     if (homePolicy !== "isolated") {
-      env.OPENCLAW_LIVE_TEST = profileOnly ? "0" : "1";
-      env.OPENCLAW_LIVE_USE_REAL_HOME = staged ? "0" : "1";
-      env.OPENCLAW_LIVE_TEST_QUIET = "1";
+      env.GRANTED_LIVE_TEST = profileOnly ? "0" : "1";
+      env.GRANTED_LIVE_USE_REAL_HOME = staged ? "0" : "1";
+      env.GRANTED_LIVE_TEST_QUIET = "1";
     }
     const vitestArgs = ["--root", root, "--configLoader", "native"];
     const profileDir = path.join(root, "profiles");
@@ -668,9 +668,9 @@ it.each([
       TMP: tmp,
       TEMP: tmp,
       LIVE: "1",
-      OPENCLAW_LIVE_TEST: "1",
-      OPENCLAW_LIVE_GATEWAY: "1",
-      OPENCLAW_LIVE_USE_REAL_HOME: "yes",
+      GRANTED_LIVE_TEST: "1",
+      GRANTED_LIVE_GATEWAY: "1",
+      GRANTED_LIVE_USE_REAL_HOME: "yes",
     };
     const selectionArgs = args.map((arg) =>
       arg === "custom.config.ts" ? path.join(root, arg) : arg,

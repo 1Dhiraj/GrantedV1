@@ -49,7 +49,7 @@ export function migrateLegacyProfileWorkspace(params: {
 }): { changes: string[]; warnings: string[] } {
   const env = params.env ?? process.env;
   const homedir = params.homedir ?? os.homedir;
-  const profile = env.OPENCLAW_PROFILE?.trim();
+  const profile = env.GRANTED_PROFILE?.trim();
   if (!profile || normalizeLowercaseStringOrEmpty(profile) === "default") {
     return { changes: [], warnings: [] };
   }
@@ -192,7 +192,7 @@ export async function autoMigrateLegacyStateDir(params: {
   const warnings: string[] = [];
   const changes: string[] = [];
   const notices: string[] = [];
-  const hasCustomStateDir = Boolean(env.OPENCLAW_STATE_DIR?.trim());
+  const hasCustomStateDir = Boolean(env.GRANTED_STATE_DIR?.trim());
   const targetDir = hasCustomStateDir ? resolveStateDir(env, homedir) : resolveNewStateDir(homedir);
   const migratePluginInstallIndex = async () => {
     const result = await migrateLegacyInstalledPluginIndex({ stateDir: targetDir });
@@ -377,7 +377,7 @@ export async function autoMigrateLegacyStateDir(params: {
           `State dir moved but failed to link legacy path (${legacyDir ?? "unknown"} → ${targetDir}): ${String(fallbackErr)}`,
         );
         warnings.push(
-          `Rollback failed; set OPENCLAW_STATE_DIR=${targetDir} to avoid split state: ${String(rollbackErr)}`,
+          `Rollback failed; set GRANTED_STATE_DIR=${targetDir} to avoid split state: ${String(rollbackErr)}`,
         );
         changes.push(`State dir: ${legacyDir ?? "unknown"} → ${targetDir}`);
       }

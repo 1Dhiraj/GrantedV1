@@ -159,7 +159,7 @@ it("refuses a legacy JSON import when rows were committed after the repair snaps
 it("does not reactivate quarantined automations during startup repair", async () => {
   tempRoot = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-cron-startup-quarantine-"));
   const storePath = path.join(tempRoot, "cron", "jobs.json");
-  vi.stubEnv("OPENCLAW_STATE_DIR", tempRoot);
+  vi.stubEnv("GRANTED_STATE_DIR", tempRoot);
   await saveCronStore(storePath, { version: 1, jobs: [] });
   saveCronQuarantinedJobs({
     storePath,

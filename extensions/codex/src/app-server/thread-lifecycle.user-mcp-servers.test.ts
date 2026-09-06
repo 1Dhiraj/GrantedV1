@@ -81,7 +81,7 @@ async function writePolicyProbeServer(dir: string): Promise<string> {
     filePath,
     `import readline from "node:readline";
 import { appendFileSync } from "node:fs";
-if (process.env.OPENCLAW_POLICY_PROBE_STARTED) appendFileSync(process.env.OPENCLAW_POLICY_PROBE_STARTED, "started\\n");
+if (process.env.GRANTED_POLICY_PROBE_STARTED) appendFileSync(process.env.GRANTED_POLICY_PROBE_STARTED, "started\\n");
 const lines = readline.createInterface({ input: process.stdin });
 const send = (id, result) => process.stdout.write(JSON.stringify({ jsonrpc: "2.0", id, result }) + "\\n");
 lines.on("line", (line) => {
@@ -298,7 +298,7 @@ describe("startOrResumeThread — user mcp.servers projection (regression: #8081
             transport: "stdio",
             command: process.execPath,
             args: [serverPath],
-            env: { OPENCLAW_POLICY_PROBE_STARTED: startedPath },
+            env: { GRANTED_POLICY_PROBE_STARTED: startedPath },
             codex: { agents: ["worker"] },
           },
         },

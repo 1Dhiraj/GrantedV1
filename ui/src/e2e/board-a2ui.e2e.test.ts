@@ -22,10 +22,10 @@ import {
 
 const chromiumExecutablePath = resolvePlaywrightChromiumExecutablePath(chromium.executablePath());
 const chromiumAvailable = canRunPlaywrightChromium(chromiumExecutablePath);
-const allowMissingChromium = process.env.OPENCLAW_UI_E2E_ALLOW_MISSING_CHROMIUM === "1";
+const allowMissingChromium = process.env.GRANTED_UI_E2E_ALLOW_MISSING_CHROMIUM === "1";
 const describeControlUiE2e = chromiumAvailable || !allowMissingChromium ? describe : describe.skip;
 const sessionKey = "agent:main:board-a2ui";
-const scrollbarProofLabel = process.env.OPENCLAW_WIDGET_SCROLLBAR_PROOF_LABEL;
+const scrollbarProofLabel = process.env.GRANTED_WIDGET_SCROLLBAR_PROOF_LABEL;
 const basicCatalog = "https://a2ui.org/specification/v0_9/catalogs/basic/catalog.json";
 
 let browser: Browser;

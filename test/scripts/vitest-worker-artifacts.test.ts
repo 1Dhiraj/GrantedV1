@@ -98,7 +98,7 @@ describe.concurrent("fresh compiled subprocess invocation", () => {
               TMPDIR: relocated,
               TMP: relocated,
               TEMP: relocated,
-              OPENCLAW_FS_SAFE_NATIVE_MODE: mode,
+              GRANTED_FS_SAFE_NATIVE_MODE: mode,
             },
           );
           expect(result.code, result.stderr + result.stdout).toBe(0);
@@ -534,8 +534,8 @@ describe.concurrent("fresh compiled subprocess invocation", () => {
           root,
           {
             ...process.env,
-            OPENCLAW_BUNDLED_PLUGINS_DIR: bundled,
-            OPENCLAW_DISABLE_BUNDLED_PLUGINS: undefined,
+            GRANTED_BUNDLED_PLUGINS_DIR: bundled,
+            GRANTED_DISABLE_BUNDLED_PLUGINS: undefined,
           },
         );
         console.log(JSON.stringify({ preparationMs: manifest.durationMs }));
@@ -705,8 +705,8 @@ describe.concurrent("fresh compiled subprocess invocation", () => {
               root,
               {
                 ...process.env,
-                OPENCLAW_BUNDLED_PLUGINS_DIR: bundled,
-                OPENCLAW_DISABLE_BUNDLED_PLUGINS: undefined,
+                GRANTED_BUNDLED_PLUGINS_DIR: bundled,
+                GRANTED_DISABLE_BUNDLED_PLUGINS: undefined,
               },
             );
             console.log(result.stdout);

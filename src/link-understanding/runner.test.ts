@@ -128,8 +128,8 @@ describe("runLinkUnderstanding", () => {
     );
     expect(runCommandWithTimeout).toHaveBeenCalledWith(["summarize", "--source"], {
       env: {
-        OPENCLAW_LINK_FINAL_URL: "https://example.com/final",
-        OPENCLAW_LINK_URL: "https://example.com/page",
+        GRANTED_LINK_FINAL_URL: "https://example.com/final",
+        GRANTED_LINK_URL: "https://example.com/page",
       },
       input: "page body",
       signal: controller.signal,

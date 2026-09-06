@@ -22,7 +22,7 @@ describe("fleet cell registry", () => {
 
   beforeEach(async () => {
     root = await tempRoot.setup();
-    env = { ...process.env, OPENCLAW_STATE_DIR: root };
+    env = { ...process.env, GRANTED_STATE_DIR: root };
   });
 
   afterEach(async () => {

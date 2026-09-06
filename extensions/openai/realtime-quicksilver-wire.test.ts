@@ -26,7 +26,7 @@ afterEach(() => {
 
 describe("Realtime call creation", () => {
   it("uses the ChatGPT JSON call route for OAuth and preserves the Platform multipart route", async () => {
-    vi.stubEnv("OPENCLAW_VERSION", "2026.7.2-test");
+    vi.stubEnv("GRANTED_VERSION", "2026.7.2-test");
     const requests: Array<{ url: string; init?: RequestInit }> = [];
     const fetchImpl = vi.fn(async (url: string | URL | Request, init?: RequestInit) => {
       const resolvedUrl = typeof url === "string" ? url : url instanceof URL ? url.href : url.url;
@@ -113,7 +113,7 @@ describe("Realtime call creation", () => {
   it.each(["gpt-realtime-2.1", "gpt-realtime-2.1-mini", "gpt-realtime-2"])(
     "uses multipart session initialization without a sideband for %s OAuth",
     async (model) => {
-      vi.stubEnv("OPENCLAW_VERSION", "2026.7.2-test");
+      vi.stubEnv("GRANTED_VERSION", "2026.7.2-test");
       let capturedUrl: string | undefined;
       let capturedInit: RequestInit | undefined;
       const fetchImpl = vi.fn(async (url: string | URL | Request, init?: RequestInit) => {

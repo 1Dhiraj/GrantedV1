@@ -53,7 +53,7 @@ function shouldResolveLocalGatewayPasswordSecret(
   env: NodeJS.ProcessEnv,
 ): boolean {
   // Default/implicit password auth may require resolving a local SecretRef before encoding setup.
-  if (trimToUndefined(env.OPENCLAW_GATEWAY_PASSWORD)) {
+  if (trimToUndefined(env.GRANTED_GATEWAY_PASSWORD)) {
     return false;
   }
   const authMode = cfg.gateway?.auth?.mode;
@@ -63,7 +63,7 @@ function shouldResolveLocalGatewayPasswordSecret(
   if (authMode === "token" || authMode === "none" || authMode === "trusted-proxy") {
     return false;
   }
-  const envToken = trimToUndefined(env.OPENCLAW_GATEWAY_TOKEN);
+  const envToken = trimToUndefined(env.GRANTED_GATEWAY_TOKEN);
   const configTokenConfigured = hasConfiguredSecretInput(
     cfg.gateway?.auth?.token,
     cfg.secrets?.defaults,

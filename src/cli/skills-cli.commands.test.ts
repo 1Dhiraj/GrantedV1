@@ -270,7 +270,7 @@ vi.mock("../gateway/call.js", () => ({
   isGatewayCredentialsRequiredError: (error: unknown) =>
     error instanceof Error && error.name === "GatewayCredentialsRequiredError",
   isImplicitLocalGatewayTarget: async ({ config }: { config?: { gateway?: { mode?: string } } }) =>
-    !process.env.OPENCLAW_GATEWAY_URL && config?.gateway?.mode !== "remote",
+    !process.env.GRANTED_GATEWAY_URL && config?.gateway?.mode !== "remote",
 }));
 
 vi.mock("../utils.js", async (importOriginal) => ({
@@ -1501,8 +1501,8 @@ describe("skills cli commands", () => {
       ),
     },
   ])("exits nonzero for missing skill info in $label mode", async ({ argv, expected }) => {
-    vi.stubEnv("OPENCLAW_PROFILE", "");
-    vi.stubEnv("OPENCLAW_CONTAINER_HINT", "");
+    vi.stubEnv("GRANTED_PROFILE", "");
+    vi.stubEnv("GRANTED_CONTAINER_HINT", "");
 
     await expect(runCommand(argv)).rejects.toThrow("__exit__:1");
 
@@ -1642,7 +1642,7 @@ describe("skills cli commands", () => {
   )("does not substitute local skills after $label", async ({ target, command, json }) => {
     loadConfigMock.mockReturnValue(target.config);
     if (target.url) {
-      vi.stubEnv("OPENCLAW_GATEWAY_URL", target.url);
+      vi.stubEnv("GRANTED_GATEWAY_URL", target.url);
     }
     callGatewayMock.mockRejectedValue(new Error(target.message));
 

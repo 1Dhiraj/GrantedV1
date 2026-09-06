@@ -49,8 +49,8 @@ function createAcpProcessEnv(baseEnv: NodeJS.ProcessEnv): NodeJS.ProcessEnv {
     NODE_ENV: undefined,
     NODE_OPTIONS: "--use-openssl-ca",
     NODE_USE_SYSTEM_CA: "0",
-    OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-    OPENCLAW_NO_RESPAWN: "1",
+    GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+    GRANTED_NO_RESPAWN: "1",
     VITEST: undefined,
   };
 }

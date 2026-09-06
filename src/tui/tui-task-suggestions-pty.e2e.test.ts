@@ -18,7 +18,7 @@ it.each(["accept", "dismiss"])(
     const tempDir = tempDirs.make("openclaw-tui-task-action-");
     const releasePath = path.join(tempDir, "release");
     const fixture = await startTuiFixture({
-      env: { OPENCLAW_TUI_PTY_TASK_RELEASE_PATH: releasePath },
+      env: { GRANTED_TUI_PTY_TASK_RELEASE_PATH: releasePath },
     });
     try {
       await fixture.run.waitForOutput("local ready", STARTUP_TIMEOUT_MS);

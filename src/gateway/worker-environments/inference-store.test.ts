@@ -100,7 +100,7 @@ describe("worker inference SQLite store", () => {
   beforeEach(async () => {
     root = await fs.mkdtemp(path.join(await fs.realpath(os.tmpdir()), "openclaw-inference-store-"));
     nowMs = 1_000;
-    database = openOpenClawStateDatabase({ env: { OPENCLAW_STATE_DIR: root } });
+    database = openOpenClawStateDatabase({ env: { GRANTED_STATE_DIR: root } });
     createWorkerEnvironmentStore({ database, now: () => nowMs }).createIntent({
       environmentId: ENVIRONMENT_ID,
       providerId: "fixture-provider",
@@ -118,7 +118,7 @@ describe("worker inference SQLite store", () => {
 
   function reopenStore(): WorkerInferenceStore {
     closeOpenClawStateDatabaseForTest();
-    database = openOpenClawStateDatabase({ env: { OPENCLAW_STATE_DIR: root } });
+    database = openOpenClawStateDatabase({ env: { GRANTED_STATE_DIR: root } });
     return createWorkerInferenceStore({ database, now: () => nowMs });
   }
 

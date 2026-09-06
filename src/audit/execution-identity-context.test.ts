@@ -33,7 +33,7 @@ afterEach(() => {
 const tempDirs = useAutoCleanupTempDirTracker(afterEach);
 
 function databaseOptions() {
-  return { env: { OPENCLAW_STATE_DIR: tempDirs.make("openclaw-identity-") } };
+  return { env: { GRANTED_STATE_DIR: tempDirs.make("openclaw-identity-") } };
 }
 
 function openIndependentStateDatabase(path: string): OpenClawStateDatabase {

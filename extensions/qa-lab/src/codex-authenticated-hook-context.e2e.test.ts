@@ -150,7 +150,7 @@ describe("Codex authenticated hook context product proof", () => {
     expect(captures.afterCompaction.length).toBeGreaterThan(0);
     expectAuthenticatedContext(captures.beforeCompaction.at(-1));
     expectAuthenticatedContext(captures.afterCompaction.at(-1));
-    const verdictPath = process.env.OPENCLAW_QA_VERDICT_PATH?.trim();
+    const verdictPath = process.env.GRANTED_QA_VERDICT_PATH?.trim();
     if (verdictPath) {
       await fs.mkdir(path.dirname(verdictPath), { recursive: true });
       await fs.writeFile(

@@ -7,11 +7,11 @@ import { delimiter, join, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { resolveBuildIdentityEnvironment } from "./lib/build-identity.mts";
 
-const WORKSPACE_DIRS_ENV = "OPENCLAW_OCM_WORKSPACE_DEPENDENCY_DIRS";
-const REAL_NPM_ENV = "OPENCLAW_OCM_REAL_NPM_BIN";
+const WORKSPACE_DIRS_ENV = "GRANTED_OCM_WORKSPACE_DEPENDENCY_DIRS";
+const REAL_NPM_ENV = "GRANTED_OCM_REAL_NPM_BIN";
 const INTERNAL_NPM_BIN_ENV = "OCM_INTERNAL_NPM_BIN";
-const ALLOW_UNRELEASED_CHANGELOG_ENV = "OPENCLAW_PREPACK_ALLOW_UNRELEASED_CHANGELOG";
-const RUNTIME_BUILD_PROFILE_ENV = "OPENCLAW_OCM_RUNTIME_BUILD_PROFILE";
+const ALLOW_UNRELEASED_CHANGELOG_ENV = "GRANTED_PREPACK_ALLOW_UNRELEASED_CHANGELOG";
+const RUNTIME_BUILD_PROFILE_ENV = "GRANTED_OCM_RUNTIME_BUILD_PROFILE";
 const supportedRuntimeBuildProfiles = new Set(["sourcePerformance"]);
 
 type WorkspacePackage = { name: string; version: string; tarball: string };

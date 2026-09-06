@@ -79,7 +79,7 @@ export function migrateLegacyJsonState<Value>(params: {
   let outcome: LegacyJsonImportOutcome;
   try {
     outcome = runOpenClawStateWriteTransaction(({ db }) => params.migrate(db, value), {
-      env: { ...process.env, OPENCLAW_STATE_DIR: params.stateDir },
+      env: { ...process.env, GRANTED_STATE_DIR: params.stateDir },
     });
   } catch (err) {
     warnings.push(`Failed migrating legacy ${params.label}: ${String(err)}`);

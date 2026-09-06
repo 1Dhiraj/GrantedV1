@@ -13,7 +13,7 @@ describe("fetchOllamaModels preflight timeout", () => {
 
   it("aborts at the configured deadline when preflight lookup stalls", async () => {
     vi.useFakeTimers();
-    vi.stubEnv("OPENCLAW_PROXY_ACTIVE", "0");
+    vi.stubEnv("GRANTED_PROXY_ACTIVE", "0");
     let lookupCalls = 0;
     const stalledLookup: LookupFn = (() => {
       lookupCalls += 1;
@@ -40,7 +40,7 @@ describe("fetchOllamaModels preflight timeout", () => {
   });
 
   it("still dispatches the fetch when preflight lookup resolves", async () => {
-    vi.stubEnv("OPENCLAW_PROXY_ACTIVE", "0");
+    vi.stubEnv("GRANTED_PROXY_ACTIVE", "0");
     let lookupCalls = 0;
     const resolvingLookup: LookupFn = (async () => {
       lookupCalls += 1;

@@ -51,17 +51,17 @@ describe("generateToolCallTitles", () => {
     resolveUtilityModelRefForAgent.mockReturnValue("openai/gpt-test");
     // realpath: macOS tmpdir is a /var -> /private/var symlink and DB paths resolve canonically.
     stateDir = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-tool-titles-")));
-    previousStateDir = process.env.OPENCLAW_STATE_DIR;
-    process.env.OPENCLAW_STATE_DIR = stateDir;
+    previousStateDir = process.env.GRANTED_STATE_DIR;
+    process.env.GRANTED_STATE_DIR = stateDir;
   });
 
   afterEach(() => {
     closeOpenClawAgentDatabases();
     closeOpenClawStateDatabaseForTest();
     if (previousStateDir === undefined) {
-      delete process.env.OPENCLAW_STATE_DIR;
+      delete process.env.GRANTED_STATE_DIR;
     } else {
-      process.env.OPENCLAW_STATE_DIR = previousStateDir;
+      process.env.GRANTED_STATE_DIR = previousStateDir;
     }
     fs.rmSync(stateDir, { recursive: true, force: true });
   });

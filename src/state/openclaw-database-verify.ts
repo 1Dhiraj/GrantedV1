@@ -3,8 +3,8 @@ import { createSubsystemLogger } from "../logging/subsystem.js";
 import {
   applyOpenClawDatabaseVerificationResults,
   collectOpenClawDatabaseVerifyTargets,
-  OPENCLAW_DATABASE_VERIFY_INITIAL_DELAY_MS,
-  OPENCLAW_DATABASE_VERIFY_INTERVAL_MS,
+  GRANTED_DATABASE_VERIFY_INITIAL_DELAY_MS,
+  GRANTED_DATABASE_VERIFY_INTERVAL_MS,
   runDatabaseVerifyWorker,
   terminateDatabaseVerifyWorker,
 } from "./openclaw-database-verify.impl.js";
@@ -44,12 +44,12 @@ export function startOpenClawDatabaseIntegrityVerifier(options: { env: NodeJS.Pr
     } finally {
       activeWorker = undefined;
       if (!stopped) {
-        schedule(OPENCLAW_DATABASE_VERIFY_INTERVAL_MS);
+        schedule(GRANTED_DATABASE_VERIFY_INTERVAL_MS);
       }
     }
   };
 
-  schedule(OPENCLAW_DATABASE_VERIFY_INITIAL_DELAY_MS);
+  schedule(GRANTED_DATABASE_VERIFY_INITIAL_DELAY_MS);
   return {
     stop: async () => {
       stopped = true;

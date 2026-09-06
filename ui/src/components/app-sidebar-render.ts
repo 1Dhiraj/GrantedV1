@@ -83,8 +83,8 @@ function readSidebarNativeGateway(): SidebarNativeGateway | null {
     return null;
   }
   const snapshot = (
-    window as Window & { __OPENCLAW_NATIVE_GATEWAYS__?: SidebarNativeGatewaysSnapshot }
-  )["__OPENCLAW_NATIVE_GATEWAYS__"];
+    window as Window & { __GRANTED_NATIVE_GATEWAYS__?: SidebarNativeGatewaysSnapshot }
+  )["__GRANTED_NATIVE_GATEWAYS__"];
   if (!snapshot || !Array.isArray(snapshot.gateways) || snapshot.gateways.length < 2) {
     return null;
   }

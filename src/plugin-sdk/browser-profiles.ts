@@ -14,13 +14,13 @@ export type {
 } from "./browser-types.js";
 
 /** Default global browser plugin enabled state. */
-export const DEFAULT_OPENCLAW_BROWSER_ENABLED = true;
+export const DEFAULT_GRANTED_BROWSER_ENABLED = true;
 /** Default setting for model/tool browser page evaluation. */
 export const DEFAULT_BROWSER_EVALUATE_ENABLED = true;
 /** Default browser profile accent color shown in UI surfaces. */
-export const DEFAULT_OPENCLAW_BROWSER_COLOR = "#FF4500";
+export const DEFAULT_GRANTED_BROWSER_COLOR = "#FF4500";
 /** Default OpenClaw-managed browser profile name. */
-export const DEFAULT_OPENCLAW_BROWSER_PROFILE_NAME = "openclaw";
+export const DEFAULT_GRANTED_BROWSER_PROFILE_NAME = "openclaw";
 /** Default browser profile selected when config omits a profile name. */
 export const DEFAULT_BROWSER_DEFAULT_PROFILE_NAME = "openclaw";
 /** Default timeout for browser actions issued through the browser plugin. */

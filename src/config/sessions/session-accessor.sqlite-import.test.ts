@@ -299,7 +299,7 @@ it.each(["implicit", "leaf", "root", "opaque"])(
           message: {
             role: "user",
             content:
-              "hello\n\n<<<BEGIN_OPENCLAW_INTERNAL_CONTEXT>>>\nretired context\n<<<END_OPENCLAW_INTERNAL_CONTEXT>>>",
+              "hello\n\n<<<BEGIN_GRANTED_INTERNAL_CONTEXT>>>\nretired context\n<<<END_GRANTED_INTERNAL_CONTEXT>>>",
           },
         },
         {

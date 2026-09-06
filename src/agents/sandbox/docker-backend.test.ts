@@ -173,14 +173,14 @@ describe("docker sandbox backend manager", () => {
     expect(execSpec.argv).toContain("/workspace/project");
     expect(execSpec.argv.slice(-4, -1)).toEqual(["sandbox-container", "/bin/sh", "-lc"]);
     expect(execSpec.argv.at(-1)).toBe(
-      'export PATH="${OPENCLAW_PREPEND_PATH}:$PATH"; unset OPENCLAW_PREPEND_PATH; printf ready',
+      'export PATH="${GRANTED_PREPEND_PATH}:$PATH"; unset GRANTED_PREPEND_PATH; printf ready',
     );
     expect(execSpec.stdinMode).toBe("pipe-open");
     const envFile = execSpec.argv[execSpec.argv.indexOf("--env-file") + 1];
     expect(envFile).toBeDefined();
     const envFileContent = fs.readFileSync(envFile!, "utf8");
     expect(envFileContent).toContain(`CONFIGURED_VALUE=${sentinel}\n`);
-    expect(envFileContent).toContain(`OPENCLAW_PREPEND_PATH=${requestedPath}\n`);
+    expect(envFileContent).toContain(`GRANTED_PREPEND_PATH=${requestedPath}\n`);
     expect(envFileContent).not.toMatch(/^PATH=/m);
     expect(backend.finalizeExec).toBeDefined();
 
@@ -201,7 +201,7 @@ describe("docker sandbox backend manager", () => {
       description: "never interpolates shell metacharacters from PATH into the command",
       requestedPath: "$(touch /tmp/openclaw-path-injection)",
       expectedCommand:
-        'export PATH="${OPENCLAW_PREPEND_PATH}:$PATH"; unset OPENCLAW_PREPEND_PATH; echo hello',
+        'export PATH="${GRANTED_PREPEND_PATH}:$PATH"; unset GRANTED_PREPEND_PATH; echo hello',
     },
     {
       description: "does not add a PATH export when PATH is absent",
@@ -222,9 +222,9 @@ describe("docker sandbox backend manager", () => {
       const envFileContent = fs.readFileSync(envFile!, "utf8");
       if (requestedPath) {
         expect(execSpec.argv.join(" ")).not.toContain(requestedPath);
-        expect(envFileContent).toContain(`OPENCLAW_PREPEND_PATH=${requestedPath}\n`);
+        expect(envFileContent).toContain(`GRANTED_PREPEND_PATH=${requestedPath}\n`);
       } else {
-        expect(envFileContent).not.toContain("OPENCLAW_PREPEND_PATH=");
+        expect(envFileContent).not.toContain("GRANTED_PREPEND_PATH=");
       }
     } finally {
       await backend.finalizeExec?.({

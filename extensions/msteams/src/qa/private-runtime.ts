@@ -5,7 +5,7 @@ import {
   ssrfPolicyFromHttpBaseUrlAllowedOrigin,
 } from "openclaw/plugin-sdk/ssrf-runtime";
 
-const PRIVATE_QA_BUILD_ENV = "OPENCLAW_BUILD_PRIVATE_QA";
+const PRIVATE_QA_BUILD_ENV = "GRANTED_BUILD_PRIVATE_QA";
 const PRIVATE_QA_NONCE_HEADER = "x-openclaw-msteams-qa-nonce";
 const PRIVATE_QA_RUNTIME_SYMBOL = Symbol.for("openclaw.msteams.privateQaRuntime");
 
@@ -138,7 +138,7 @@ export function resolveMSTeamsPrivateQaRuntime(
     return undefined;
   }
   if (env[PRIVATE_QA_BUILD_ENV] !== "1") {
-    throw new Error("Microsoft Teams private QA runtime requires OPENCLAW_BUILD_PRIVATE_QA=1");
+    throw new Error("Microsoft Teams private QA runtime requires GRANTED_BUILD_PRIVATE_QA=1");
   }
   const connectorUrl = bootstrap.connectorUrl?.trim();
   const nonce = bootstrap.nonce?.trim();

@@ -118,7 +118,7 @@ function requireMatrixQaAccountReload(context: MatrixQaScenarioContext) {
 export async function runMatrixQaAllowlistHotReloadScenario(
   context: MatrixQaScenarioContext,
 ): Promise<MatrixQaScenarioExecution> {
-  const configPath = context.gatewayRuntimeEnv?.OPENCLAW_CONFIG_PATH;
+  const configPath = context.gatewayRuntimeEnv?.GRANTED_CONFIG_PATH;
   const accountId = context.sutAccountId;
   if (!configPath || !accountId) {
     throw new Error("Matrix QA allowlist reload requires the gateway config path and account id");

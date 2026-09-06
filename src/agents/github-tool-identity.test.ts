@@ -96,7 +96,7 @@ describe("GitHub tool identity", () => {
       managedLocalIdentity: false,
     });
 
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const expectedProfileDir = resolveManagedGitHubProfileDir({
       agentId: "main",
       scope: "agent",
@@ -279,7 +279,7 @@ describe("GitHub tool identity", () => {
 
   it("keeps the selected scope distinct from the effective agent override", async () => {
     const root = tempDirs.make("openclaw-github-scope-status-");
-    const env = { OPENCLAW_STATE_DIR: root };
+    const env = { GRANTED_STATE_DIR: root };
     const systemProfileId = "ghp_12121212121212121212121212121212";
     const agentProfileId = "ghp_34343434343434343434343434343434";
     const systemProfileDir = resolveManagedGitHubProfileDir({
@@ -408,7 +408,7 @@ describe("GitHub tool identity", () => {
     { failure: undefined, pendingRefresh: undefined, refreshExpiresAtMs: 1, expected: "expired" },
   ] as const)("reports OAuth refresh state $expected", async (testCase) => {
     const root = tempDirs.make("openclaw-github-refresh-status-");
-    const env = { OPENCLAW_STATE_DIR: root };
+    const env = { GRANTED_STATE_DIR: root };
     const profileId = "ghp_56565656565656565656565656565656";
     const profileDir = resolveManagedGitHubProfileDir({
       agentId: "main",
@@ -501,7 +501,7 @@ describe("GitHub tool identity", () => {
     const root = tempDirs.make("openclaw-github-publication-env-");
     const profileId = "ghp_bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb";
     const env = {
-      OPENCLAW_STATE_DIR: root,
+      GRANTED_STATE_DIR: root,
       GH_TOKEN: "ambient-primary",
       GITHUB_TOKEN: "ambient-fallback",
       PREVIEW_SERVICE_TOKEN: "preview-only",
@@ -614,7 +614,7 @@ describe("GitHub tool identity", () => {
   ])("reports a managed $label honestly", async (testCase) => {
     const root = tempDirs.make("openclaw-github-status-");
     const profileId = "ghp_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-    const env = { OPENCLAW_STATE_DIR: root };
+    const env = { GRANTED_STATE_DIR: root };
     const profileDir = resolveManagedGitHubProfileDir({
       agentId: "main",
       scope: "agent",
@@ -681,7 +681,7 @@ describe("GitHub tool identity", () => {
 
   it("atomically refreshes the credential seen by an already-prepared stable profile", async () => {
     const root = tempDirs.make("openclaw-github-stable-refresh-");
-    const env = { OPENCLAW_STATE_DIR: root };
+    const env = { GRANTED_STATE_DIR: root };
     const profileId = "ghp_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
     const config = { tools: { github: { profileId, kind: "oauth" as const } } };
     const profileDir = resolveManagedGitHubProfileDir({

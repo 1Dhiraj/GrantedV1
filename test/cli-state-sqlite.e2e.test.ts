@@ -22,12 +22,12 @@ describe("SQLite CLI maintenance ownership", () => {
           ...process.env,
           HOME: tempHome,
           USERPROFILE: tempHome,
-          OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-          OPENCLAW_STATE_DIR: stateDir,
-          OPENCLAW_TEST_FAST: "1",
+          GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+          GRANTED_STATE_DIR: stateDir,
+          GRANTED_TEST_FAST: "1",
         };
-        delete env.OPENCLAW_CONFIG_PATH;
-        delete env.OPENCLAW_HOME;
+        delete env.GRANTED_CONFIG_PATH;
+        delete env.GRANTED_HOME;
         delete env.VITEST;
 
         try {
@@ -98,12 +98,12 @@ describe("SQLite CLI maintenance ownership", () => {
             ...process.env,
             HOME: tempHome,
             USERPROFILE: tempHome,
-            OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-            OPENCLAW_STATE_DIR: stateDir,
-            OPENCLAW_TEST_FAST: "1",
+            GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+            GRANTED_STATE_DIR: stateDir,
+            GRANTED_TEST_FAST: "1",
           };
-          delete env.OPENCLAW_CONFIG_PATH;
-          delete env.OPENCLAW_HOME;
+          delete env.GRANTED_CONFIG_PATH;
+          delete env.GRANTED_HOME;
           delete env.VITEST;
 
           const database = openOpenClawStateDatabase({ env });
@@ -165,12 +165,12 @@ describe("SQLite CLI maintenance ownership", () => {
           ...process.env,
           HOME: tempHome,
           USERPROFILE: tempHome,
-          OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-          OPENCLAW_STATE_DIR: stateDir,
-          OPENCLAW_TEST_FAST: "1",
+          GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+          GRANTED_STATE_DIR: stateDir,
+          GRANTED_TEST_FAST: "1",
         };
-        delete env.OPENCLAW_CONFIG_PATH;
-        delete env.OPENCLAW_HOME;
+        delete env.GRANTED_CONFIG_PATH;
+        delete env.GRANTED_HOME;
         delete env.VITEST;
 
         const entry = path.resolve(process.cwd(), "src/entry.ts");
@@ -222,12 +222,12 @@ describe("SQLite CLI maintenance ownership", () => {
           ...process.env,
           HOME: tempHome,
           USERPROFILE: tempHome,
-          OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-          OPENCLAW_STATE_DIR: stateDir,
-          OPENCLAW_TEST_FAST: "1",
+          GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+          GRANTED_STATE_DIR: stateDir,
+          GRANTED_TEST_FAST: "1",
         };
-        delete env.OPENCLAW_CONFIG_PATH;
-        delete env.OPENCLAW_HOME;
+        delete env.GRANTED_CONFIG_PATH;
+        delete env.GRANTED_HOME;
         delete env.VITEST;
 
         const entry = path.resolve(process.cwd(), "src/entry.ts");
@@ -284,12 +284,12 @@ describe("SQLite CLI maintenance ownership", () => {
             ...process.env,
             HOME: tempHome,
             USERPROFILE: tempHome,
-            OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-            OPENCLAW_STATE_DIR: stateDir,
-            OPENCLAW_TEST_FAST: "1",
+            GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+            GRANTED_STATE_DIR: stateDir,
+            GRANTED_TEST_FAST: "1",
           };
-          delete env.OPENCLAW_CONFIG_PATH;
-          delete env.OPENCLAW_HOME;
+          delete env.GRANTED_CONFIG_PATH;
+          delete env.GRANTED_HOME;
           delete env.VITEST;
 
           const entry = path.resolve(process.cwd(), "src/entry.ts");
@@ -341,12 +341,12 @@ describe("SQLite CLI maintenance ownership", () => {
           ...process.env,
           HOME: tempHome,
           USERPROFILE: tempHome,
-          OPENCLAW_CONFIG_PATH: configPath,
-          OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-          OPENCLAW_STATE_DIR: stateDir,
-          OPENCLAW_TEST_FAST: "1",
+          GRANTED_CONFIG_PATH: configPath,
+          GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+          GRANTED_STATE_DIR: stateDir,
+          GRANTED_TEST_FAST: "1",
         };
-        delete env.OPENCLAW_HOME;
+        delete env.GRANTED_HOME;
         delete env.VITEST;
 
         const database = openOpenClawAgentDatabase({

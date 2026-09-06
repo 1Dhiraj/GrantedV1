@@ -68,7 +68,7 @@ export function createWarmProvider(
   stateDir = tempDirs.make("openclaw-crabbox-warm-image-"),
   dependencies: Pick<Parameters<typeof createCrabboxWorkerProvider>[0], "sleep"> = {},
 ) {
-  vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
+  vi.stubEnv("GRANTED_STATE_DIR", stateDir);
   const calls: CommandCall[] = [];
   const warn = vi.fn();
   const provider = createCrabboxWorkerProvider({

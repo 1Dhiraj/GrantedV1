@@ -296,6 +296,10 @@ export class ChatStateController<TState extends ChatPageHost> implements Reactiv
       invalidateImageLightbox(state);
       clearSessionWorkspaceTimers(state);
       stopChatRealtimeTalk(state);
+      // Talk mode stopping re-arms the wake word by design; the pane going away
+      // is the one case where the background microphone must be released too.
+      state.wakeWord?.stop();
+      state.wakeWord = null;
       state.resetToolStream?.();
     }
   }

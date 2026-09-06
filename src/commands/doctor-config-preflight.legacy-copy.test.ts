@@ -6,7 +6,7 @@ import { afterEach, describe, expect, it } from "vitest";
 import { withTempDir } from "../test-utils/temp-dir.js";
 import { runDoctorConfigPreflight } from "./doctor-config-preflight.js";
 
-const envKeys = ["HOME", "OPENCLAW_CONFIG_PATH", "OPENCLAW_STATE_DIR"] as const;
+const envKeys = ["HOME", "GRANTED_CONFIG_PATH", "GRANTED_STATE_DIR"] as const;
 const savedEnv = new Map<string, string | undefined>();
 
 function setEnv(values: Partial<Record<(typeof envKeys)[number], string>>) {
@@ -47,8 +47,8 @@ describe("doctor legacy config migration failures", () => {
         await fs.chmod(targetDir, 0o555);
         setEnv({
           HOME: home,
-          OPENCLAW_CONFIG_PATH: path.join(targetDir, "openclaw.json"),
-          OPENCLAW_STATE_DIR: path.join(home, "state"),
+          GRANTED_CONFIG_PATH: path.join(targetDir, "openclaw.json"),
+          GRANTED_STATE_DIR: path.join(home, "state"),
         });
 
         try {
@@ -70,8 +70,8 @@ describe("doctor legacy config migration failures", () => {
       const targetPath = path.join(home, "state-root", "openclaw.json");
       setEnv({
         HOME: home,
-        OPENCLAW_CONFIG_PATH: targetPath,
-        OPENCLAW_STATE_DIR: path.join(home, "state"),
+        GRANTED_CONFIG_PATH: targetPath,
+        GRANTED_STATE_DIR: path.join(home, "state"),
       });
 
       await runDoctorConfigPreflight({ migrateState: false, invalidConfigNote: false });

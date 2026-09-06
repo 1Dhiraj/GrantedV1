@@ -43,13 +43,13 @@ describe("tailscale helpers", () => {
 
   beforeEach(() => {
     envSnapshot = captureEnv([
-      "OPENCLAW_TEST_TAILSCALE_BINARY",
-      "OPENCLAW_TEST_TAILSCALE_FIXTURE_MARKER",
+      "GRANTED_TEST_TAILSCALE_BINARY",
+      "GRANTED_TEST_TAILSCALE_FIXTURE_MARKER",
       "NODE_ENV",
       "PATH",
       "VITEST",
     ]);
-    process.env.OPENCLAW_TEST_TAILSCALE_BINARY = "tailscale";
+    process.env.GRANTED_TEST_TAILSCALE_BINARY = "tailscale";
     process.env.VITEST ??= "true";
   });
 
@@ -213,7 +213,7 @@ describe("tailscale helpers", () => {
   it.runIf(process.platform !== "win32")(
     "holds a foreground route claim until cleanup stops its owner",
     async () => {
-      process.env.OPENCLAW_TEST_TAILSCALE_BINARY = fileURLToPath(
+      process.env.GRANTED_TEST_TAILSCALE_BINARY = fileURLToPath(
         new URL("../../test/fixtures/tailscale-foreground-fixture.mjs", import.meta.url),
       );
 
@@ -235,7 +235,7 @@ describe("tailscale helpers", () => {
       const fakeBin = tempDirs.make("openclaw-tailscale-bin-");
       symlinkSync(fixture, path.join(fakeBin, "sudo"));
       process.env.PATH = `${fakeBin}${path.delimiter}${process.env.PATH ?? ""}`;
-      process.env.OPENCLAW_TEST_TAILSCALE_BINARY = fixture;
+      process.env.GRANTED_TEST_TAILSCALE_BINARY = fixture;
 
       await expect(claimTailscaleRoute("serve", 18789)).rejects.toThrow(
         "ownership OpenClaw cannot prove; it was not modified",
@@ -252,8 +252,8 @@ describe("tailscale helpers", () => {
       );
       const fixtureDir = tempDirs.make("openclaw-tailscale-fixture-");
       const marker = path.join(fixtureDir, "started");
-      process.env.OPENCLAW_TEST_TAILSCALE_BINARY = fixture;
-      process.env.OPENCLAW_TEST_TAILSCALE_FIXTURE_MARKER = marker;
+      process.env.GRANTED_TEST_TAILSCALE_BINARY = fixture;
+      process.env.GRANTED_TEST_TAILSCALE_FIXTURE_MARKER = marker;
 
       const markerWritten = new Promise<void>((resolve) => {
         const watcher = watch(fixtureDir, (_event, filename) => {

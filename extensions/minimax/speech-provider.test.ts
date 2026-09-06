@@ -118,8 +118,8 @@ describe("buildMinimaxSpeechProvider", () => {
       tempStateDir = await mkdtemp(path.join(tmpdir(), "openclaw-minimax-tts-auth-"));
       tempAgentDir = path.join(tempStateDir, "agents", "main", "agent");
       await mkdir(tempAgentDir, { recursive: true });
-      vi.stubEnv("OPENCLAW_STATE_DIR", tempStateDir);
-      vi.stubEnv("OPENCLAW_AGENT_DIR", tempAgentDir);
+      vi.stubEnv("GRANTED_STATE_DIR", tempStateDir);
+      vi.stubEnv("GRANTED_AGENT_DIR", tempAgentDir);
       clearMinimaxAuthEnv();
       clearRuntimeAuthProfileStoreSnapshots();
     });
@@ -359,8 +359,8 @@ describe("buildMinimaxSpeechProvider", () => {
       tempStateDir = await mkdtemp(path.join(tmpdir(), "openclaw-minimax-tts-synth-"));
       tempAgentDir = path.join(tempStateDir, "agents", "main", "agent");
       await mkdir(tempAgentDir, { recursive: true });
-      vi.stubEnv("OPENCLAW_AGENT_DIR", tempAgentDir);
-      vi.stubEnv("OPENCLAW_STATE_DIR", tempStateDir);
+      vi.stubEnv("GRANTED_AGENT_DIR", tempAgentDir);
+      vi.stubEnv("GRANTED_STATE_DIR", tempStateDir);
       clearMinimaxAuthEnv();
       clearRuntimeAuthProfileStoreSnapshots();
       vi.stubGlobal("fetch", vi.fn());

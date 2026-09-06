@@ -52,7 +52,7 @@ const { runClawsAddCommand } = await import("./claws-cli.runtime.js");
 const tempDirs = useAutoCleanupTempDirTracker(afterEach);
 
 beforeEach(() => {
-  vi.stubEnv("OPENCLAW_EXPERIMENTAL_CLAWS", "1");
+  vi.stubEnv("GRANTED_EXPERIMENTAL_CLAWS", "1");
   mocks.logs.length = 0;
   mocks.loadConfig.mockReset();
   mocks.listConfiguredMcpServers.mockResolvedValue({ ok: true, path: "config", mcpServers: {} });
@@ -76,7 +76,7 @@ describe("claws add legacy v1 resume", () => {
     async (toolProfile) => {
       const root = tempDirs.make("openclaw-claws-v1-profile-resume-");
       const workspace = join(root, "workspace");
-      vi.stubEnv("OPENCLAW_STATE_DIR", join(tempDirs.make("openclaw-state-"), "state"));
+      vi.stubEnv("GRANTED_STATE_DIR", join(tempDirs.make("openclaw-state-"), "state"));
       await mkdir(join(root, "profiles"));
       const manifestPath = join(root, "openclaw.claw.json");
       await writeFile(

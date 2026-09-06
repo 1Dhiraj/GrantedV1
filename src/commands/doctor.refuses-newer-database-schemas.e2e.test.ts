@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { requireNodeSqlite } from "../infra/node-sqlite.js";
-import { OPENCLAW_STATE_SCHEMA_VERSION } from "../state/openclaw-state-db-contract.js";
+import { GRANTED_STATE_SCHEMA_VERSION } from "../state/openclaw-state-db-contract.js";
 import { resolveOpenClawStateSqlitePath } from "../state/openclaw-state-db.paths.js";
 import {
   autoMigrateLegacyStateDir,
@@ -24,7 +24,7 @@ describe("doctor database schema preflight", () => {
   });
 
   it("lets a successful interactive update replace the stale doctor", async () => {
-    writeStateSchemaVersion(OPENCLAW_STATE_SCHEMA_VERSION + 1);
+    writeStateSchemaVersion(GRANTED_STATE_SCHEMA_VERSION + 1);
     mockDoctorConfigSnapshot();
     mockInteractiveGitUpdate("ok");
 
@@ -36,7 +36,7 @@ describe("doctor database schema preflight", () => {
   });
 
   it("refuses after an interactive update does not handle doctor", async () => {
-    writeStateSchemaVersion(OPENCLAW_STATE_SCHEMA_VERSION + 1);
+    writeStateSchemaVersion(GRANTED_STATE_SCHEMA_VERSION + 1);
     mockDoctorConfigSnapshot();
     mockInteractiveGitUpdate("skipped");
 
@@ -50,7 +50,7 @@ describe("doctor database schema preflight", () => {
   });
 
   it("refuses before config repair flows when updates are disabled", async () => {
-    writeStateSchemaVersion(OPENCLAW_STATE_SCHEMA_VERSION + 1);
+    writeStateSchemaVersion(GRANTED_STATE_SCHEMA_VERSION + 1);
     mockDoctorConfigSnapshot();
 
     await expect(doctorCommand(createDoctorRuntime(), { nonInteractive: true })).rejects.toThrow(
@@ -92,7 +92,7 @@ describe("doctor database schema preflight", () => {
 });
 
 function mockInteractiveGitUpdate(status: "ok" | "skipped"): void {
-  delete process.env.OPENCLAW_UPDATE_IN_PROGRESS;
+  delete process.env.GRANTED_UPDATE_IN_PROGRESS;
   resolveOpenClawPackageRoot.mockResolvedValue("/repo");
   runCommandWithTimeout.mockResolvedValue({
     stdout: "/repo\n",

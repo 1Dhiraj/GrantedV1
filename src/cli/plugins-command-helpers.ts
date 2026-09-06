@@ -95,7 +95,7 @@ export function formatPluginInstallWithHookFallbackError(
   ) {
     return formattedPluginError;
   }
-  if (hookFallback.code === HOOK_INSTALL_ERROR_CODE.MISSING_OPENCLAW_HOOKS) {
+  if (hookFallback.code === HOOK_INSTALL_ERROR_CODE.MISSING_GRANTED_HOOKS) {
     return formattedPluginError;
   }
   return `${formattedPluginError}\nAlso not a valid hook pack: ${formattedHookError}`;

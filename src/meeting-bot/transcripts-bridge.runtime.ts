@@ -96,7 +96,7 @@ export function createMeetingDurableTranscriptBridge<
   const config = resolveTranscriptsConfig(params.options.config);
   const stateDir = params.options.stateDir ?? resolveStateDir();
   const store = new TranscriptsStore(path.join(stateDir, "transcripts"), {
-    env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+    env: { ...process.env, GRANTED_STATE_DIR: stateDir },
   });
   const captures = new Map<string, ActiveCapture<TSession>>();
   const pendingSubscribers = new Map<string, Subscriber>();

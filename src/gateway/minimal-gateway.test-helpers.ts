@@ -94,14 +94,14 @@ export async function startMinimalRealGateway(
   const token = "minimal-real-gateway-token";
   const state = await testState.createOpenClawTestState({
     env: {
-      OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-      OPENCLAW_SKIP_BROWSER_CONTROL_SERVER: "1",
-      OPENCLAW_SKIP_CANVAS_HOST: "1",
-      OPENCLAW_SKIP_CHANNELS: "1",
-      OPENCLAW_SKIP_CRON: "1",
-      OPENCLAW_SKIP_GMAIL_WATCHER: "1",
-      OPENCLAW_SKIP_PROVIDERS: "1",
-      OPENCLAW_TEST_MINIMAL_GATEWAY: "1",
+      GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+      GRANTED_SKIP_BROWSER_CONTROL_SERVER: "1",
+      GRANTED_SKIP_CANVAS_HOST: "1",
+      GRANTED_SKIP_CHANNELS: "1",
+      GRANTED_SKIP_CRON: "1",
+      GRANTED_SKIP_GMAIL_WATCHER: "1",
+      GRANTED_SKIP_PROVIDERS: "1",
+      GRANTED_TEST_MINIMAL_GATEWAY: "1",
     },
   });
   const sessionListRequests: Record<string, unknown>[] = [];

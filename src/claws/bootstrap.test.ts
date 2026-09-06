@@ -100,7 +100,7 @@ describe("package-root BOOTSTRAP.md", () => {
       throw new Error("expected package bootstrap");
     }
     const workspace = join(root, "workspace");
-    const env = { OPENCLAW_STATE_DIR: join(root, "state") };
+    const env = { GRANTED_STATE_DIR: join(root, "state") };
     const plan = await buildClawAddPlan({
       manifest: read.manifest,
       clawMarkdownBody: read.clawMarkdownBody,
@@ -146,7 +146,7 @@ describe("package-root BOOTSTRAP.md", () => {
       throw new Error("expected package bootstrap");
     }
     const workspace = join(root, "workspace");
-    const env = { OPENCLAW_STATE_DIR: join(root, "state") };
+    const env = { GRANTED_STATE_DIR: join(root, "state") };
     const plan = await buildClawAddPlan({
       manifest: read.manifest,
       clawMarkdownBody: read.clawMarkdownBody,
@@ -182,7 +182,7 @@ describe("package-root BOOTSTRAP.md", () => {
       throw new Error("expected package bootstrap");
     }
     const workspace = join(root, "workspace");
-    const env = { OPENCLAW_STATE_DIR: join(root, "state") };
+    const env = { GRANTED_STATE_DIR: join(root, "state") };
     const plan = await buildClawAddPlan({
       manifest: read.manifest,
       clawMarkdownBody: read.clawMarkdownBody,
@@ -239,7 +239,7 @@ describe("package-root BOOTSTRAP.md", () => {
       throw new Error("expected package bootstrap");
     }
     const workspace = join(root, "workspace");
-    const env = { OPENCLAW_STATE_DIR: join(root, "state") };
+    const env = { GRANTED_STATE_DIR: join(root, "state") };
     const plan = await buildClawAddPlan({
       manifest: read.manifest,
       clawMarkdownBody: read.clawMarkdownBody,
@@ -289,7 +289,7 @@ describe("package-root BOOTSTRAP.md", () => {
       throw new Error("expected package bootstrap");
     }
     const workspace = join(root, "workspace");
-    const env = { OPENCLAW_STATE_DIR: join(root, "state") };
+    const env = { GRANTED_STATE_DIR: join(root, "state") };
     const addPlan = await buildClawAddPlan({
       manifest: read.manifest,
       clawMarkdownBody: read.clawMarkdownBody,
@@ -340,7 +340,7 @@ describe("package-root BOOTSTRAP.md", () => {
       throw new Error("expected package bootstrap");
     }
     const workspace = join(root, "workspace");
-    const env = { OPENCLAW_STATE_DIR: join(root, "state") };
+    const env = { GRANTED_STATE_DIR: join(root, "state") };
     const addPlan = await buildClawAddPlan({
       manifest: read.manifest,
       clawMarkdownBody: read.clawMarkdownBody,
@@ -420,7 +420,7 @@ describe("package-root BOOTSTRAP.md", () => {
     if (!read.ok || !read.packageBootstrap) {
       throw new Error("expected package bootstrap");
     }
-    const env = { OPENCLAW_STATE_DIR: join(root, "state") };
+    const env = { GRANTED_STATE_DIR: join(root, "state") };
     const context = { workspace: join(root, "workspace") };
     const addPlan = await buildClawAddPlan({
       manifest: read.manifest,
@@ -451,7 +451,7 @@ describe("package-root BOOTSTRAP.md", () => {
       throw new Error("expected package bootstrap");
     }
     const workspace = join(root, "workspace");
-    const env = { OPENCLAW_STATE_DIR: join(root, "state") };
+    const env = { GRANTED_STATE_DIR: join(root, "state") };
     const addPlan = await buildClawAddPlan({
       manifest: read.manifest,
       packageBootstrap: read.packageBootstrap,
@@ -501,7 +501,7 @@ describe("package-root BOOTSTRAP.md", () => {
       throw new Error("expected package bootstrap");
     }
     const workspace = join(root, "workspace");
-    const env = { OPENCLAW_STATE_DIR: join(root, "state") };
+    const env = { GRANTED_STATE_DIR: join(root, "state") };
     const addPlan = await buildClawAddPlan({
       manifest: read.manifest,
       packageBootstrap: read.packageBootstrap,
@@ -549,7 +549,7 @@ describe("package-root BOOTSTRAP.md", () => {
       throw new Error("expected package bootstrap");
     }
     const workspace = join(root, "workspace");
-    const env = { OPENCLAW_STATE_DIR: join(root, "state") };
+    const env = { GRANTED_STATE_DIR: join(root, "state") };
     const addPlan = await buildClawAddPlan({
       manifest: read.manifest,
       packageBootstrap: read.packageBootstrap,

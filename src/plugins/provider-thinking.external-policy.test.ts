@@ -5,8 +5,8 @@ import path from "node:path";
 import { afterAll, describe, expect, it, vi } from "vitest";
 
 const fixtureState = vi.hoisted(() => ({ pluginRoot: "" }));
-const originalBundledPluginsDir = process.env.OPENCLAW_BUNDLED_PLUGINS_DIR;
-const originalTrustBundledPluginsDir = process.env.OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR;
+const originalBundledPluginsDir = process.env.GRANTED_BUNDLED_PLUGINS_DIR;
+const originalTrustBundledPluginsDir = process.env.GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR;
 const emptyBundledPluginsDir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-empty-plugins-"));
 const externalPluginRoot = fs.mkdtempSync(
   path.join(os.tmpdir(), "openclaw-provider-policy-external-"),
@@ -24,8 +24,8 @@ fs.writeFileSync(
   "utf8",
 );
 fixtureState.pluginRoot = externalPluginRoot;
-process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = emptyBundledPluginsDir;
-process.env.OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR = "1";
+process.env.GRANTED_BUNDLED_PLUGINS_DIR = emptyBundledPluginsDir;
+process.env.GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR = "1";
 
 vi.mock("./current-plugin-metadata-snapshot.js", async (importOriginal) => ({
   ...(await importOriginal<typeof import("./current-plugin-metadata-snapshot.js")>()),
@@ -50,14 +50,14 @@ const { isThinkingLevelSupported, listThinkingLevels, resolveThinkingDefaultForM
 
 afterAll(() => {
   if (originalBundledPluginsDir === undefined) {
-    delete process.env.OPENCLAW_BUNDLED_PLUGINS_DIR;
+    delete process.env.GRANTED_BUNDLED_PLUGINS_DIR;
   } else {
-    process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = originalBundledPluginsDir;
+    process.env.GRANTED_BUNDLED_PLUGINS_DIR = originalBundledPluginsDir;
   }
   if (originalTrustBundledPluginsDir === undefined) {
-    delete process.env.OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR;
+    delete process.env.GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR;
   } else {
-    process.env.OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR = originalTrustBundledPluginsDir;
+    process.env.GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR = originalTrustBundledPluginsDir;
   }
   fs.rmSync(emptyBundledPluginsDir, { recursive: true, force: true });
   fs.rmSync(externalPluginRoot, { recursive: true, force: true });

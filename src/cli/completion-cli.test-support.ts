@@ -88,7 +88,7 @@ export function runGeneratedFishCompletion(program: Command, commandLine: string
 function findPowerShell(): string | null {
   const executable = process.platform === "win32" ? "pwsh.exe" : "pwsh";
   const candidates = [
-    process.env.OPENCLAW_TEST_PWSH,
+    process.env.GRANTED_TEST_PWSH,
     ...(process.env.PATH ?? "")
       .split(path.delimiter)
       .filter(Boolean)
@@ -197,7 +197,7 @@ export class PowerShellCompletionRunner {
   private closing = false;
   private exitPromise: Promise<{ code: number | null; signal: NodeJS.Signals | null }> | undefined;
   private failure: Error | undefined;
-  private readonly framePrefix = `OPENCLAW_PWSH_V1:${randomBytes(8).toString("hex")}:`;
+  private readonly framePrefix = `GRANTED_PWSH_V1:${randomBytes(8).toString("hex")}:`;
   private pending = new Map<string, PendingPowerShellCompletion>();
   private queue: Promise<void> = Promise.resolve();
   private readyPromise: Promise<void> | undefined;

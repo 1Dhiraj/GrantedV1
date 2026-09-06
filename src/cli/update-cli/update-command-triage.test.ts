@@ -45,10 +45,10 @@ async function createInstalledTriage(exitCode = 0) {
     fs.writeFileSync(path.join(process.cwd(), "receipt.json"), JSON.stringify({
       args,
       failure: JSON.parse(fs.readFileSync(input, "utf8")),
-      stateDir: process.env.OPENCLAW_STATE_DIR,
-      configPath: process.env.OPENCLAW_CONFIG_PATH,
-      updateInProgress: process.env.OPENCLAW_UPDATE_IN_PROGRESS,
-      serviceMarker: process.env.OPENCLAW_SERVICE_MARKER,
+      stateDir: process.env.GRANTED_STATE_DIR,
+      configPath: process.env.GRANTED_CONFIG_PATH,
+      updateInProgress: process.env.GRANTED_UPDATE_IN_PROGRESS,
+      serviceMarker: process.env.GRANTED_SERVICE_MARKER,
       released: fs.existsSync(path.join(process.cwd(), "released")),
     }));
     process.stdout.write(args.includes("--json")
@@ -63,10 +63,10 @@ async function createInstalledTriage(exitCode = 0) {
     env: {
       HOME: root,
       USERPROFILE: root,
-      OPENCLAW_STATE_DIR: path.join(root, "named-state"),
-      OPENCLAW_CONFIG_PATH: path.join(root, "custom-config.json"),
-      OPENCLAW_UPDATE_IN_PROGRESS: "1",
-      OPENCLAW_SERVICE_MARKER: "openclaw",
+      GRANTED_STATE_DIR: path.join(root, "named-state"),
+      GRANTED_CONFIG_PATH: path.join(root, "custom-config.json"),
+      GRANTED_UPDATE_IN_PROGRESS: "1",
+      GRANTED_SERVICE_MARKER: "openclaw",
     },
   } satisfies UpdateTriageTarget;
 }
@@ -97,7 +97,7 @@ async function createManagedTriageTarget() {
     }),
   );
   Object.assign(target.env, {
-    OPENCLAW_UPDATE_RUN_HANDOFF: "1",
+    GRANTED_UPDATE_RUN_HANDOFF: "1",
     [CONTROL_PLANE_UPDATE_SENTINEL_META_ENV]: metaPath,
   });
   return { target, contextPath };
@@ -151,8 +151,8 @@ describe("update failure triage boundary", () => {
       const receipt = await readReceipt(target);
       expect(receipt).toMatchObject({
         released: true,
-        stateDir: target.env.OPENCLAW_STATE_DIR,
-        configPath: target.env.OPENCLAW_CONFIG_PATH,
+        stateDir: target.env.GRANTED_STATE_DIR,
+        configPath: target.env.GRANTED_CONFIG_PATH,
         failure: {
           result: { mode: "npm", reason: "global-install-failed", before: { version: "2026.8.1" } },
         },
@@ -267,7 +267,7 @@ describe("update failure triage boundary", () => {
 
   it.each([
     { name: "preview", opts: { dryRun: true }, env: {} },
-    { name: "managed helper child", opts: {}, env: { OPENCLAW_UPDATE_RUN_HANDOFF: "1" } },
+    { name: "managed helper child", opts: {}, env: { GRANTED_UPDATE_RUN_HANDOFF: "1" } },
     { name: "post-core child", opts: {}, env: { [POST_CORE_UPDATE_ENV]: "1" } },
   ])("leaves triage to the owner for $name", async ({ opts, env }) => {
     const target = await createInstalledTriage();
@@ -280,7 +280,7 @@ describe("update failure triage boundary", () => {
     await expect(fs.stat(path.join(target.root, "receipt.json"))).rejects.toMatchObject({
       code: "ENOENT",
     });
-    await expect(fs.stat(target.env.OPENCLAW_STATE_DIR)).rejects.toMatchObject({ code: "ENOENT" });
+    await expect(fs.stat(target.env.GRANTED_STATE_DIR)).rejects.toMatchObject({ code: "ENOENT" });
     expect(defaultRuntime.exit).not.toHaveBeenCalled();
   });
 
@@ -322,7 +322,7 @@ describe("update failure triage boundary", () => {
 
   it("preserves the original failure when diagnostics cannot be written", async () => {
     const target = await createInstalledTriage();
-    await fs.writeFile(target.env.OPENCLAW_STATE_DIR, "not a directory");
+    await fs.writeFile(target.env.GRANTED_STATE_DIR, "not a directory");
     const failure = new Error("Original update failure");
     await expect(
       withUpdateFailureTriage({}, target, async () => {
@@ -377,12 +377,12 @@ describe("update failure triage boundary", () => {
               `fs.appendFileSync(${JSON.stringify(receiptPath)}, JSON.stringify({\n` +
               `  cwd: fs.realpathSync(process.cwd()),\n` +
               `  home: process.env.HOME,\n` +
-              `  stateDir: process.env.OPENCLAW_STATE_DIR,\n` +
-              `  configPath: process.env.OPENCLAW_CONFIG_PATH,\n` +
-              `  workspaceDir: process.env.OPENCLAW_WORKSPACE_DIR,\n` +
+              `  stateDir: process.env.GRANTED_STATE_DIR,\n` +
+              `  configPath: process.env.GRANTED_CONFIG_PATH,\n` +
+              `  workspaceDir: process.env.GRANTED_WORKSPACE_DIR,\n` +
               `  path: process.env.PATH,\n` +
               `  nodeOptions: process.env.NODE_OPTIONS,\n` +
-              `  updateInProgress: process.env.OPENCLAW_UPDATE_IN_PROGRESS,\n` +
+              `  updateInProgress: process.env.GRANTED_UPDATE_IN_PROGRESS,\n` +
               `  released: fs.existsSync(${JSON.stringify(releasedPath)}),\n` +
               `  prompt: process.argv[2],\n` +
               `}) + "\\n");\n` +
@@ -395,7 +395,7 @@ describe("update failure triage boundary", () => {
               NODE_OPTIONS: "--no-warnings",
               HOME: state.home,
               USERPROFILE: state.home,
-              OPENCLAW_WORKSPACE_DIR: state.workspaceDir,
+              GRANTED_WORKSPACE_DIR: state.workspaceDir,
             },
             () =>
               withTerminal(async () => {
@@ -412,8 +412,8 @@ describe("update failure triage boundary", () => {
                         HOME: state.path("service-home"),
                         PATH: state.path("service-tools"),
                         NODE_OPTIONS: "--trace-warnings",
-                        OPENCLAW_STATE_DIR: brokenStateDir,
-                        OPENCLAW_UPDATE_IN_PROGRESS: "1",
+                        GRANTED_STATE_DIR: brokenStateDir,
+                        GRANTED_UPDATE_IN_PROGRESS: "1",
                       };
                       process.env.HOME = state.path("later-home");
                       process.env.USERPROFILE = state.path("later-home");

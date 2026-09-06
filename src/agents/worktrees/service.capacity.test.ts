@@ -49,7 +49,7 @@ describe("ManagedWorktreeService capacity", () => {
     );
     repo = await initializeRepository(root);
     stateDir = path.join(root, "state");
-    env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+    env = { ...process.env, GRANTED_STATE_DIR: stateDir };
     service = new ManagedWorktreeService({ env });
     const stats = fsSync.statfsSync(root);
     availableBytes = 100 * GiB;
@@ -104,7 +104,7 @@ describe("ManagedWorktreeService capacity", () => {
   it("budgets repository setup separately from a small Git checkout", async () => {
     const script = path.join(repo, ".openclaw", "worktree-setup.sh");
     await fs.mkdir(path.dirname(script));
-    await fs.writeFile(script, '#!/bin/sh\nprintf ran > "$OPENCLAW_SOURCE_TREE_PATH/setup-ran"\n', {
+    await fs.writeFile(script, '#!/bin/sh\nprintf ran > "$GRANTED_SOURCE_TREE_PATH/setup-ran"\n', {
       mode: 0o755,
     });
     availableBytes = 18 * GiB;
@@ -193,7 +193,7 @@ describe("ManagedWorktreeService capacity", () => {
     const script = path.join(repo, ".openclaw", "worktree-setup.sh");
     const marker = path.join(repo, "setup-ran");
     await fs.mkdir(path.dirname(script));
-    await fs.writeFile(script, '#!/bin/sh\nprintf ran > "$OPENCLAW_SOURCE_TREE_PATH/setup-ran"\n', {
+    await fs.writeFile(script, '#!/bin/sh\nprintf ran > "$GRANTED_SOURCE_TREE_PATH/setup-ran"\n', {
       mode: 0o755,
     });
     const realRun = commandExec.runCommandWithTimeout;

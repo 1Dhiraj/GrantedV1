@@ -1271,7 +1271,7 @@ describe("google transport stream", () => {
   });
 
   it("rotates Gemini LLM API keys when a pre-stream request is rate limited", async () => {
-    vi.stubEnv("OPENCLAW_LIVE_GEMINI_KEY", "");
+    vi.stubEnv("GRANTED_LIVE_GEMINI_KEY", "");
     vi.stubEnv("GEMINI_API_KEYS", "gemini-key-2");
     guardedFetchMock.mockResolvedValueOnce(buildRateLimitResponse()).mockResolvedValueOnce(
       buildSseResponse([
@@ -1343,7 +1343,7 @@ describe("google transport stream", () => {
         "http://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:streamGenerateContent?alt=sse",
     },
   ])("$name", async ({ model, options, expectedHeaders, expectedUrl, omitApiKeyHeader }) => {
-    vi.stubEnv("OPENCLAW_LIVE_GEMINI_KEY", "");
+    vi.stubEnv("GRANTED_LIVE_GEMINI_KEY", "");
     vi.stubEnv("GEMINI_API_KEYS", "gemini-env-key");
     guardedFetchMock.mockResolvedValueOnce(buildRateLimitResponse());
 
@@ -1766,7 +1766,7 @@ describe("google transport stream", () => {
   it.each(["request headers", "response body"] as const)(
     "retries Gemini 3 requests with lean thinking when the first %s stalls",
     async (stalledPhase) => {
-      vi.stubEnv("OPENCLAW_GOOGLE_GEMINI_FIRST_RESPONSE_RETRY_MS", "10");
+      vi.stubEnv("GRANTED_GOOGLE_GEMINI_FIRST_RESPONSE_RETRY_MS", "10");
       guardedFetchMock
         .mockImplementationOnce((_url: string, init?: RequestInit) =>
           stalledPhase === "response body"
@@ -1834,7 +1834,7 @@ describe("google transport stream", () => {
   );
 
   it("does not retry when provider acceptance observation fails", async () => {
-    vi.stubEnv("OPENCLAW_GOOGLE_GEMINI_FIRST_RESPONSE_RETRY_MS", "10");
+    vi.stubEnv("GRANTED_GOOGLE_GEMINI_FIRST_RESPONSE_RETRY_MS", "10");
     let cancelCalled = false;
     guardedFetchMock.mockResolvedValueOnce(
       buildOpenRawSseResponse({
@@ -1862,7 +1862,7 @@ describe("google transport stream", () => {
   });
 
   it("aborts a pending response callback without retrying", async () => {
-    vi.stubEnv("OPENCLAW_GOOGLE_GEMINI_FIRST_RESPONSE_RETRY_MS", "1000");
+    vi.stubEnv("GRANTED_GOOGLE_GEMINI_FIRST_RESPONSE_RETRY_MS", "1000");
     const controller = new AbortController();
     const cancel = vi.fn();
     guardedFetchMock.mockResolvedValueOnce(
@@ -1906,7 +1906,7 @@ describe("google transport stream", () => {
   });
 
   it("retries when a pending response callback reaches the Gemini first-response deadline", async () => {
-    vi.stubEnv("OPENCLAW_GOOGLE_GEMINI_FIRST_RESPONSE_RETRY_MS", "10");
+    vi.stubEnv("GRANTED_GOOGLE_GEMINI_FIRST_RESPONSE_RETRY_MS", "10");
     const controller = new AbortController();
     const cancel = vi.fn();
     guardedFetchMock
@@ -1952,7 +1952,7 @@ describe("google transport stream", () => {
   });
 
   it("keeps oversized-video shedding in the Gemini 3 retry payload", async () => {
-    vi.stubEnv("OPENCLAW_GOOGLE_GEMINI_FIRST_RESPONSE_RETRY_MS", "10");
+    vi.stubEnv("GRANTED_GOOGLE_GEMINI_FIRST_RESPONSE_RETRY_MS", "10");
     guardedFetchMock
       .mockResolvedValueOnce(
         new Response(new ReadableStream<Uint8Array>(), {
@@ -1998,7 +1998,7 @@ describe("google transport stream", () => {
   });
 
   it("does not retry a genuinely empty Gemini 3 response", async () => {
-    vi.stubEnv("OPENCLAW_GOOGLE_GEMINI_FIRST_RESPONSE_RETRY_MS", "10");
+    vi.stubEnv("GRANTED_GOOGLE_GEMINI_FIRST_RESPONSE_RETRY_MS", "10");
     guardedFetchMock.mockResolvedValueOnce(buildRawSseResponse(""));
 
     const result = await runGeminiStreamResult({
@@ -2014,7 +2014,7 @@ describe("google transport stream", () => {
   });
 
   it("does not retry when an external abort interrupts a stalled Gemini 3 response body", async () => {
-    vi.stubEnv("OPENCLAW_GOOGLE_GEMINI_FIRST_RESPONSE_RETRY_MS", "1000");
+    vi.stubEnv("GRANTED_GOOGLE_GEMINI_FIRST_RESPONSE_RETRY_MS", "1000");
     const controller = new AbortController();
     let resolveBodyRead!: () => void;
     const bodyRead = new Promise<void>((resolve) => {
@@ -2052,7 +2052,7 @@ describe("google transport stream", () => {
   });
 
   it("keeps streaming after the first Gemini 3 chunk arrives before the retry deadline", async () => {
-    vi.stubEnv("OPENCLAW_GOOGLE_GEMINI_FIRST_RESPONSE_RETRY_MS", "10");
+    vi.stubEnv("GRANTED_GOOGLE_GEMINI_FIRST_RESPONSE_RETRY_MS", "10");
     guardedFetchMock.mockResolvedValueOnce(
       buildDelayedSecondSseResponse({
         first: {

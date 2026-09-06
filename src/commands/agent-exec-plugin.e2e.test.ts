@@ -148,11 +148,11 @@ async function writeConfig(
 function buildChildEnv(stateDir: string): NodeJS.ProcessEnv {
   const childEnv: NodeJS.ProcessEnv = {
     ...process.env,
-    OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-    OPENCLAW_STATE_DIR: stateDir,
+    GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+    GRANTED_STATE_DIR: stateDir,
   };
   delete childEnv.NODE_ENV;
-  delete childEnv.OPENCLAW_RUN_NODE_OUTPUT_LOG;
+  delete childEnv.GRANTED_RUN_NODE_OUTPUT_LOG;
   delete childEnv.VITEST;
   delete childEnv.VITEST_POOL_ID;
   delete childEnv.VITEST_WORKER_ID;

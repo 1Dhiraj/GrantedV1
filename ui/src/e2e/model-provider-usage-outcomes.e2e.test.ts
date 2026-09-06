@@ -12,7 +12,7 @@ const suite = createControlUiE2eSuite({
     `Playwright Chromium is not available at ${executablePath}`,
 });
 const now = Date.now();
-const recordVisuals = process.env.OPENCLAW_UI_E2E_RECORD === "1";
+const recordVisuals = process.env.GRANTED_UI_E2E_RECORD === "1";
 const unavailableMessage =
   "Provider usage is unavailable; the last request failed. Refresh to retry.";
 

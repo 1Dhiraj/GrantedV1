@@ -36,7 +36,7 @@ const activePluginLifecycleLease = new AsyncLocalStorage<ActivePluginLifecycleLe
 
 function resolveLifecycleLeaseEnv(env: NodeJS.ProcessEnv | undefined): NodeJS.ProcessEnv {
   const requested = env ?? process.env;
-  if (!process.env.VITEST || requested.VITEST || requested.OPENCLAW_STATE_DIR) {
+  if (!process.env.VITEST || requested.VITEST || requested.GRANTED_STATE_DIR) {
     return requested;
   }
   return {
@@ -72,7 +72,7 @@ export async function withPluginLifecycleLease<T>(
     if (active.databasePath !== databasePath) {
       throw new OpenClawStateLeaseError(
         "nested plugin lifecycle lease cannot switch the shared state database",
-        { code: "OPENCLAW_STATE_LEASE_INVALID_INPUT" },
+        { code: "GRANTED_STATE_LEASE_INVALID_INPUT" },
       );
     }
     options.signal?.throwIfAborted();

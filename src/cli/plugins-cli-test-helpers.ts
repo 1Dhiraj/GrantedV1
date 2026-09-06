@@ -258,10 +258,10 @@ vi.mock("./plugins-update-gateway-signal.js", () => ({
 
 vi.mock("../config/config.js", () => ({
   assertConfigWriteAllowedInCurrentMode: () => {
-    if (process.env.OPENCLAW_NIX_MODE === "1") {
+    if (process.env.GRANTED_NIX_MODE === "1") {
       throw new Error(
         [
-          "Config is managed by Nix (`OPENCLAW_NIX_MODE=1`), so OpenClaw treats openclaw.json as immutable.",
+          "Config is managed by Nix (`GRANTED_NIX_MODE=1`), so OpenClaw treats openclaw.json as immutable.",
           "Do not run setup, onboarding, openclaw update, plugin install/update/uninstall/enable, doctor repair/token-generation, or config set against this file.",
           "Agent-first Nix setup: https://github.com/openclaw/nix-openclaw#quick-start",
           "OpenClaw Nix overview: https://docs.openclaw.ai/install/nix",
@@ -766,8 +766,8 @@ vi.mock("../plugins/git-install.js", () => ({
 
 vi.mock("../hooks/install.js", () => ({
   HOOK_INSTALL_ERROR_CODE: {
-    MISSING_OPENCLAW_HOOKS: "missing_openclaw_hooks",
-    EMPTY_OPENCLAW_HOOKS: "empty_openclaw_hooks",
+    MISSING_GRANTED_HOOKS: "missing_openclaw_hooks",
+    EMPTY_GRANTED_HOOKS: "empty_openclaw_hooks",
   },
   installHooksFromNpmSpec: ((
     ...args: Parameters<(typeof import("../hooks/install.js"))["installHooksFromNpmSpec"]>

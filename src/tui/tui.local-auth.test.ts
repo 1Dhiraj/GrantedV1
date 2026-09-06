@@ -33,7 +33,7 @@ describe("formatTuiAuthCommandArgv", () => {
       const token = "sk-proof-only-1234567890";
       const customSecret = "project-secret-12345";
 
-      const rendered = withEnv({ OPENCLAW_CONFIG_PATH: configPath }, () =>
+      const rendered = withEnv({ GRANTED_CONFIG_PATH: configPath }, () =>
         formatTuiAuthCommandArgv("codex", ["login", token, customSecret]),
       );
 

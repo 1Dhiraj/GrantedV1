@@ -20,7 +20,7 @@ import { createSubsystemLogger } from "../../logging/subsystem.js";
 import { withPluginRuntimeGenerationScope } from "../../plugins/runtime/generation-scope.js";
 import type { SkillSnapshot } from "../../skills/types.js";
 import { createPreparedEmbeddedAgentSettingsManager as createPreparedEmbeddedAgentSettingsManagerImpl } from "../agent-project-settings.js";
-import { OPENCLAW_AGENT_RUNTIME_ID, normalizeOptionalAgentRuntimeId } from "../agent-runtime-id.js";
+import { GRANTED_AGENT_RUNTIME_ID, normalizeOptionalAgentRuntimeId } from "../agent-runtime-id.js";
 import {
   applyAgentAutoCompactionGuard as applyAgentAutoCompactionGuardImpl,
   resolveEffectiveCompactionMode,
@@ -184,7 +184,7 @@ function isNativeHarnessCompactionSession(
   provider: string,
 ): sessionEntry is SessionEntry {
   const harnessId = sessionEntry?.agentHarnessId?.trim().toLowerCase();
-  if (!harnessId || normalizeOptionalAgentRuntimeId(harnessId) === OPENCLAW_AGENT_RUNTIME_ID) {
+  if (!harnessId || normalizeOptionalAgentRuntimeId(harnessId) === GRANTED_AGENT_RUNTIME_ID) {
     return false;
   }
   const providerId = provider.trim().toLowerCase();
@@ -675,7 +675,7 @@ export async function runCliTurnCompactionLifecycle(
   const lockedHarnessRuntime = normalizeOptionalAgentRuntimeId(params.sessionEntry?.agentHarnessId);
   if (
     params.sessionEntry?.modelSelectionLocked === true &&
-    lockedHarnessRuntime !== OPENCLAW_AGENT_RUNTIME_ID &&
+    lockedHarnessRuntime !== GRANTED_AGENT_RUNTIME_ID &&
     !isNativeHarnessCompactionSession(params.sessionEntry, params.provider)
   ) {
     throw new Error("CLI compaction cannot replace a model-locked native harness runtime");

@@ -22,7 +22,7 @@ function sanitizeTriggers(triggers: string[] | undefined | null): string[] {
 }
 
 function stateDatabaseOptions(stateDir?: string) {
-  return stateDir ? { env: { ...process.env, OPENCLAW_STATE_DIR: stateDir } } : {};
+  return stateDir ? { env: { ...process.env, GRANTED_STATE_DIR: stateDir } } : {};
 }
 
 /** Return the built-in voice wake trigger list. */

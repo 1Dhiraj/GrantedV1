@@ -94,9 +94,9 @@ describe("triageCommand", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     stateDir = tempDirs.make("openclaw-triage-test-");
-    vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
-    vi.stubEnv("OPENCLAW_CONFIG_PATH", undefined);
-    vi.stubEnv("OPENCLAW_WORKSPACE_DIR", undefined);
+    vi.stubEnv("GRANTED_STATE_DIR", stateDir);
+    vi.stubEnv("GRANTED_CONFIG_PATH", undefined);
+    vi.stubEnv("GRANTED_WORKSPACE_DIR", undefined);
     mocks.collectDoctorFindings.mockResolvedValue([]);
     mocks.resolveExecutablePath.mockReturnValue(undefined);
     mocks.spawn.mockImplementation(() => {
@@ -141,11 +141,11 @@ describe("triageCommand", () => {
               expect.stringContaining("& openclaw triage --run"),
             ]
           : [
-              `env OPENCLAW_STATE_DIR='${stateDir}' OPENCLAW_CONFIG_PATH='${path.join(stateDir, "openclaw.json")}' OPENCLAW_WORKSPACE_DIR='${path.join(stateDir, "workspace")}' claude -p < '${promptPath}'`,
-              `env OPENCLAW_STATE_DIR='${stateDir}' OPENCLAW_CONFIG_PATH='${path.join(stateDir, "openclaw.json")}' OPENCLAW_WORKSPACE_DIR='${path.join(stateDir, "workspace")}' codex exec --skip-git-repo-check - < '${promptPath}'`,
-              `env OPENCLAW_STATE_DIR='${stateDir}' OPENCLAW_CONFIG_PATH='${path.join(stateDir, "openclaw.json")}' OPENCLAW_WORKSPACE_DIR='${path.join(stateDir, "workspace")}' opencode run < '${promptPath}'`,
-              `env OPENCLAW_STATE_DIR='${stateDir}' OPENCLAW_CONFIG_PATH='${path.join(stateDir, "openclaw.json")}' OPENCLAW_WORKSPACE_DIR='${path.join(stateDir, "workspace")}' pi --print < '${promptPath}'`,
-              `env OPENCLAW_STATE_DIR='${stateDir}' OPENCLAW_CONFIG_PATH='${path.join(stateDir, "openclaw.json")}' OPENCLAW_WORKSPACE_DIR='${path.join(stateDir, "workspace")}' openclaw triage --run`,
+              `env GRANTED_STATE_DIR='${stateDir}' GRANTED_CONFIG_PATH='${path.join(stateDir, "openclaw.json")}' GRANTED_WORKSPACE_DIR='${path.join(stateDir, "workspace")}' claude -p < '${promptPath}'`,
+              `env GRANTED_STATE_DIR='${stateDir}' GRANTED_CONFIG_PATH='${path.join(stateDir, "openclaw.json")}' GRANTED_WORKSPACE_DIR='${path.join(stateDir, "workspace")}' codex exec --skip-git-repo-check - < '${promptPath}'`,
+              `env GRANTED_STATE_DIR='${stateDir}' GRANTED_CONFIG_PATH='${path.join(stateDir, "openclaw.json")}' GRANTED_WORKSPACE_DIR='${path.join(stateDir, "workspace")}' opencode run < '${promptPath}'`,
+              `env GRANTED_STATE_DIR='${stateDir}' GRANTED_CONFIG_PATH='${path.join(stateDir, "openclaw.json")}' GRANTED_WORKSPACE_DIR='${path.join(stateDir, "workspace")}' pi --print < '${promptPath}'`,
+              `env GRANTED_STATE_DIR='${stateDir}' GRANTED_CONFIG_PATH='${path.join(stateDir, "openclaw.json")}' GRANTED_WORKSPACE_DIR='${path.join(stateDir, "workspace")}' openclaw triage --run`,
             ],
     });
     expect(await fs.readFile(promptPath, "utf8")).toContain("[error] core/error: broken");
@@ -167,21 +167,21 @@ describe("triageCommand", () => {
       const bin = path.join(home, "bin");
       await fs.mkdir(bin, { recursive: true });
       vi.stubEnv("HOME", home);
-      vi.stubEnv("OPENCLAW_HOME", home);
-      vi.stubEnv("OPENCLAW_STATE_DIR", undefined);
-      vi.stubEnv("OPENCLAW_CONFIG_PATH", undefined);
+      vi.stubEnv("GRANTED_HOME", home);
+      vi.stubEnv("GRANTED_STATE_DIR", undefined);
+      vi.stubEnv("GRANTED_CONFIG_PATH", undefined);
       // Doctor's dotenv phase can establish the original custom selectors.
       mocks.collectDoctorFindings.mockImplementation(async () => {
-        process.env.OPENCLAW_CONFIG_PATH = configPath;
+        process.env.GRANTED_CONFIG_PATH = configPath;
         if (workspaceSelector === "custom") {
-          process.env.OPENCLAW_WORKSPACE_DIR = defaultWorkspaceDir;
+          process.env.GRANTED_WORKSPACE_DIR = defaultWorkspaceDir;
         }
         return [];
       });
       for (const command of ["claude", "codex", "opencode", "pi", "openclaw"]) {
         await fs.writeFile(
           path.join(bin, command),
-          `#!/bin/sh\nprintf "%s\\n" "$OPENCLAW_STATE_DIR" "$OPENCLAW_CONFIG_PATH" "$OPENCLAW_WORKSPACE_DIR"\n${command === "openclaw" ? "" : "cat\n"}`,
+          `#!/bin/sh\nprintf "%s\\n" "$GRANTED_STATE_DIR" "$GRANTED_CONFIG_PATH" "$GRANTED_WORKSPACE_DIR"\n${command === "openclaw" ? "" : "cat\n"}`,
           { mode: 0o700 },
         );
       }
@@ -202,7 +202,7 @@ describe("triageCommand", () => {
         );
       }
       expect(await fs.readFile(report.promptPath, "utf8")).not.toContain(home);
-      expect(process.env.OPENCLAW_STATE_DIR).toBeUndefined();
+      expect(process.env.GRANTED_STATE_DIR).toBeUndefined();
     },
   );
 
@@ -243,11 +243,11 @@ describe("triageCommand", () => {
     };
     expect(report.bundlePath).toBeNull();
     expect(report.bundleError).toContain("Gateway unreachable");
-    expect(report.bundleError).toContain("Config: $OPENCLAW_STATE_DIR/openclaw.json");
+    expect(report.bundleError).toContain("Config: $GRANTED_STATE_DIR/openclaw.json");
     expect(report.bundleError).not.toContain(secret);
     const prompt = await fs.readFile(report.promptPath, "utf8");
     expect(prompt).toContain("Diagnostics export unavailable: Gateway unreachable");
-    expect(prompt).toContain("Config: $OPENCLAW_STATE_DIR/openclaw.json");
+    expect(prompt).toContain("Config: $GRANTED_STATE_DIR/openclaw.json");
     expect(prompt).not.toContain(stateDir);
   });
 
@@ -280,7 +280,7 @@ describe("triageCommand", () => {
           ? runtime.writeJson.mock.calls[0]?.[0]?.promptPath
           : String(runtime.log.mock.calls[0]?.[0]).replace("Debugging prompt: ", "");
       const prompt = await fs.readFile(promptPath, "utf8");
-      expect(prompt).toContain("Original update failed at $OPENCLAW_STATE_DIR");
+      expect(prompt).toContain("Original update failed at $GRANTED_STATE_DIR");
       expect(prompt).toContain("Doctor checks unavailable:");
       expect(prompt).toContain("Diagnostics export unavailable:");
       expect(prompt).not.toContain(secret);
@@ -333,7 +333,7 @@ describe("triageCommand", () => {
       writeDiagnosticSupportExport({
         ...options,
         stateDir,
-        env: { HOME: stateDir, OPENCLAW_CONFIG_PATH: configPath },
+        env: { HOME: stateDir, GRANTED_CONFIG_PATH: configPath },
         readLogTail: async () => ({
           file: path.join(stateDir, "gateway.log"),
           cursor: 0,
@@ -403,7 +403,7 @@ describe("triageCommand", () => {
     expect(report.suggestedCommands[0]).toContain(report.promptPath);
     expect(report.suggestedCommands[1]).toContain(report.promptPath);
     expect(await fs.readFile(report.promptPath, "utf8")).toContain(
-      "Sanitized ZIP: $OPENCLAW_STATE_DIR/diagnostics.zip",
+      "Sanitized ZIP: $GRANTED_STATE_DIR/diagnostics.zip",
     );
     expect(mocks.gatherDaemonStatus).toHaveBeenCalledWith({
       rpc: { timeout: "3000", json: true },
@@ -580,8 +580,8 @@ describe("triageCommand", () => {
       expect(options?.stdio).toBe("inherit");
       expect(options?.shell).not.toBe(true);
       expect(options?.windowsHide).not.toBe(true);
-      expect(options?.env.OPENCLAW_STATE_DIR).toBe(stateDir);
-      expect(options?.env.OPENCLAW_CONFIG_PATH).toBe(path.join(stateDir, "openclaw.json"));
+      expect(options?.env.GRANTED_STATE_DIR).toBe(stateDir);
+      expect(options?.env.GRANTED_CONFIG_PATH).toBe(path.join(stateDir, "openclaw.json"));
       expect(runtime.exit).not.toHaveBeenCalled();
     },
   );
@@ -593,7 +593,7 @@ describe("triageCommand", () => {
     "keeps unresolved Windows $agent wrappers as executable PowerShell manual handoffs",
     async ({ agent, executablePath }) => {
       const configPath = path.join(stateDir, "operator's $config`file.json");
-      vi.stubEnv("OPENCLAW_CONFIG_PATH", configPath);
+      vi.stubEnv("GRANTED_CONFIG_PATH", configPath);
       const platform = vi.spyOn(process, "platform", "get").mockReturnValue("win32");
       mocks.resolveExecutablePath.mockImplementation((binary: string) =>
         binary === agent ? executablePath : undefined,
@@ -662,9 +662,9 @@ describe("triageCommand", () => {
         stdio: "inherit",
         env: {
           ...process.env,
-          OPENCLAW_STATE_DIR: stateDir,
-          OPENCLAW_CONFIG_PATH: path.join(stateDir, "openclaw.json"),
-          OPENCLAW_WORKSPACE_DIR: path.join(stateDir, "workspace"),
+          GRANTED_STATE_DIR: stateDir,
+          GRANTED_CONFIG_PATH: path.join(stateDir, "openclaw.json"),
+          GRANTED_WORKSPACE_DIR: path.join(stateDir, "workspace"),
         },
       },
     );

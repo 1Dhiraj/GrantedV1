@@ -32,7 +32,7 @@ describe("core/doctor/bootstrap-size", () => {
     tmp = await fs.mkdtemp(join(tmpdir(), "openclaw-health-bootstrap-readonly-"));
     await fs.writeFile(join(tmp, "AGENTS.md"), "bootstrap", "utf-8");
     const stateDir = join(tmp, "state-root");
-    vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
+    vi.stubEnv("GRANTED_STATE_DIR", stateDir);
 
     await expect(
       getBootstrapSizeCheck().detect({

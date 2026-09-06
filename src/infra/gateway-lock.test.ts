@@ -33,8 +33,8 @@ async function makeEnv() {
   await fs.writeFile(configPath, "{}", "utf8");
   return {
     ...process.env,
-    OPENCLAW_STATE_DIR: dir,
-    OPENCLAW_CONFIG_PATH: configPath,
+    GRANTED_STATE_DIR: dir,
+    GRANTED_CONFIG_PATH: configPath,
   };
 }
 
@@ -179,13 +179,13 @@ describe("gateway lock", () => {
     await fs.writeFile(configB, "{}", "utf8");
     const envA = {
       ...process.env,
-      OPENCLAW_CONFIG_PATH: configA,
-      OPENCLAW_STATE_DIR: stateDir,
+      GRANTED_CONFIG_PATH: configA,
+      GRANTED_STATE_DIR: stateDir,
     };
     const envB = {
       ...process.env,
-      OPENCLAW_CONFIG_PATH: configB,
-      OPENCLAW_STATE_DIR: stateDir,
+      GRANTED_CONFIG_PATH: configB,
+      GRANTED_STATE_DIR: stateDir,
     };
     const lock = expectGatewayLock(
       await acquireForTest(envA, {
@@ -219,13 +219,13 @@ describe("gateway lock", () => {
       await fs.symlink(stateDir, stateAlias);
       const envA = {
         ...process.env,
-        OPENCLAW_CONFIG_PATH: configA,
-        OPENCLAW_STATE_DIR: stateDir,
+        GRANTED_CONFIG_PATH: configA,
+        GRANTED_STATE_DIR: stateDir,
       };
       const envB = {
         ...process.env,
-        OPENCLAW_CONFIG_PATH: configB,
-        OPENCLAW_STATE_DIR: stateAlias,
+        GRANTED_CONFIG_PATH: configB,
+        GRANTED_STATE_DIR: stateAlias,
       };
       const lock = expectGatewayLock(await acquireForTest(envA, { platform: "darwin" }));
 
@@ -323,7 +323,7 @@ describe("gateway lock", () => {
   it("reads the active runtime port from state ownership without a config lock", async () => {
     const env = {
       ...(await makeEnv()),
-      OPENCLAW_ALLOW_MULTI_GATEWAY: "1",
+      GRANTED_ALLOW_MULTI_GATEWAY: "1",
       VITEST: "",
     };
     const lock = expectGatewayLock(
@@ -354,7 +354,7 @@ describe("gateway lock", () => {
     const envA = await makeEnv();
     const configB = path.join(resolveStateDir(envA), "gateway-b.json");
     await fs.writeFile(configB, "{}", "utf8");
-    const envB = { ...envA, OPENCLAW_CONFIG_PATH: configB };
+    const envB = { ...envA, GRANTED_CONFIG_PATH: configB };
     const lock = expectGatewayLock(
       await acquireForTest(envA, {
         platform: "darwin",
@@ -853,7 +853,7 @@ describe("gateway lock", () => {
     const lock = expectGatewayLock(
       await acquireGatewayLock({
         allowInTests: true,
-        env: { ...env, OPENCLAW_ALLOW_MULTI_GATEWAY: "1", VITEST: "" },
+        env: { ...env, GRANTED_ALLOW_MULTI_GATEWAY: "1", VITEST: "" },
         lockDir: resolveTestLockDir(env),
       }),
     );

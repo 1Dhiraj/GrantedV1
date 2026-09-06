@@ -53,7 +53,7 @@ if (command === "descendant") {
     const child = spawn(process.execPath, [process.argv[1], record, phase, mode, "descendant"],
       { stdio: ["ignore", mode === "closed-pipes" ? "ignore" : "inherit", mode === "closed-pipes" ? "ignore" : "inherit", "ipc"] });
     await once(child, "message");
-    write("ready", { descendant: child.pid, tempRoot: process.env.OPENCLAW_QA_TEMP_ROOT,
+    write("ready", { descendant: child.pid, tempRoot: process.env.GRANTED_QA_TEMP_ROOT,
       ...(mode === "failure" ? { submittedKey: input.trim() } : {}) });
     if (mode !== "running") {
       if (mode === "failure") fs.writeSync(2, "Authorization: Bearer " + input.trim() + "\ncontext retained\n" + "diagnostic ".repeat(400));
@@ -88,9 +88,9 @@ const dirs = createTempDirHarness();
 const cleanups: Array<() => Promise<void>> = [];
 const realKill = process.kill.bind(process);
 beforeEach(() => {
-  vi.stubEnv("OPENCLAW_QA_LIVE_ANTHROPIC_SETUP_TOKEN", undefined);
-  vi.stubEnv("OPENCLAW_LIVE_SETUP_TOKEN_VALUE", undefined);
-  vi.stubEnv("OPENCLAW_QA_KEEP_TEMP", undefined);
+  vi.stubEnv("GRANTED_QA_LIVE_ANTHROPIC_SETUP_TOKEN", undefined);
+  vi.stubEnv("GRANTED_LIVE_SETUP_TOKEN_VALUE", undefined);
+  vi.stubEnv("GRANTED_QA_KEEP_TEMP", undefined);
 });
 afterEach(async () => {
   vi.useRealTimers();

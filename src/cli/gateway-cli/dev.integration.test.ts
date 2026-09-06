@@ -24,9 +24,9 @@ describe("ensureDevGatewayConfig integration", () => {
 
     await withEnvAsync(
       {
-        OPENCLAW_CONFIG_PATH: configPath,
-        OPENCLAW_STATE_DIR: stateDir,
-        OPENCLAW_WORKSPACE_DIR: workspace,
+        GRANTED_CONFIG_PATH: configPath,
+        GRANTED_STATE_DIR: stateDir,
+        GRANTED_WORKSPACE_DIR: workspace,
       },
       async () => {
         resetConfigRuntimeState();

@@ -128,7 +128,7 @@ function shouldShowDebugDetails(
   argv: string[] | undefined = process.argv,
   env: NodeJS.ProcessEnv = process.env,
 ): boolean {
-  return hasDebugArg(argv) || isTruthyEnvValue(env.OPENCLAW_DEBUG);
+  return hasDebugArg(argv) || isTruthyEnvValue(env.GRANTED_DEBUG);
 }
 
 export function formatCliOperatorError(
@@ -170,7 +170,7 @@ export function formatCliFailureLines(options: FormatCliFailureOptions): string[
     lines.push("[openclaw] Stack:");
     pushPrefixed(lines, formatUncaughtError(options.error));
   } else {
-    lines.push("[openclaw] Debug: set OPENCLAW_DEBUG=1 to include the stack trace.");
+    lines.push("[openclaw] Debug: set GRANTED_DEBUG=1 to include the stack trace.");
   }
 
   if (options.includeDoctorHint !== false) {

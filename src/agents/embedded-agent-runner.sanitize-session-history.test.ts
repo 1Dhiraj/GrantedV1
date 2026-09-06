@@ -8,7 +8,7 @@ import type {
 } from "openclaw/plugin-sdk/llm";
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { markInboundContextLabel } from "../auto-reply/reply/inbound-context-marker.js";
-import { OPENCLAW_TRANSCRIPT_ARTIFACT_API } from "../shared/transcript-only-openclaw-assistant.js";
+import { GRANTED_TRANSCRIPT_ARTIFACT_API } from "../shared/transcript-only-openclaw-assistant.js";
 import {
   expectOpenAIResponsesStrictSanitizeCall,
   loadSanitizeSessionHistoryWithCleanMocks,
@@ -939,7 +939,7 @@ describe("sanitizeSessionHistory", () => {
         role: "assistant",
         provider: "openclaw",
         model: "delivery-mirror",
-        api: OPENCLAW_TRANSCRIPT_ARTIFACT_API,
+        api: GRANTED_TRANSCRIPT_ARTIFACT_API,
         content: [{ type: "text", text: "visible reply" }],
         stopReason: "stop",
       }),

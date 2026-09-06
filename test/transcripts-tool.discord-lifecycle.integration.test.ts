@@ -65,7 +65,7 @@ defineDiscordVoiceTests(
         const execute = (params: Record<string, unknown>) =>
           withPluginRuntimeRegistryScope(registry, () => tool.execute("transcripts", params));
         const store = new TranscriptsStore(path.join(stateDir, "transcripts"), {
-          env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+          env: { ...process.env, GRANTED_STATE_DIR: stateDir },
         });
         const source = { providerId: "discord-voice", accountId, guildId: "g1", channelId: "1001" };
         const providerStop = vi.spyOn(discordVoiceTranscriptsSourceProvider, "stop");

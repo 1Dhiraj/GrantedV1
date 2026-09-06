@@ -11,10 +11,10 @@ import {
   hasInternalRuntimeContext,
   INTERNAL_RUNTIME_CONTEXT_BEGIN,
   INTERNAL_RUNTIME_CONTEXT_END,
-  OPENCLAW_NEXT_TURN_RUNTIME_CONTEXT_HEADER,
-  OPENCLAW_RUNTIME_CONTEXT_CUSTOM_TYPE,
-  OPENCLAW_RUNTIME_CONTEXT_NOTICE,
-  OPENCLAW_RUNTIME_EVENT_HEADER,
+  GRANTED_NEXT_TURN_RUNTIME_CONTEXT_HEADER,
+  GRANTED_RUNTIME_CONTEXT_CUSTOM_TYPE,
+  GRANTED_RUNTIME_CONTEXT_NOTICE,
+  GRANTED_RUNTIME_EVENT_HEADER,
   relocateCurrentRuntimeContextCarrierToTail,
   stripInternalRuntimeContext,
 } from "./internal-runtime-context.js";
@@ -22,7 +22,7 @@ import {
 type TestMessage = { role: string; content: string; customType?: string };
 
 function carrier(content = "runtime ctx"): TestMessage {
-  return { role: "custom", customType: OPENCLAW_RUNTIME_CONTEXT_CUSTOM_TYPE, content };
+  return { role: "custom", customType: GRANTED_RUNTIME_CONTEXT_CUSTOM_TYPE, content };
 }
 function user(content: string): TestMessage {
   return { role: "user", content };
@@ -109,14 +109,14 @@ describe("internal runtime context codec", () => {
   });
 
   it.each([
-    ["current turn", OPENCLAW_NEXT_TURN_RUNTIME_CONTEXT_HEADER],
+    ["current turn", GRANTED_NEXT_TURN_RUNTIME_CONTEXT_HEADER],
     [
       "previous current turn",
       "OpenClaw runtime context for the immediately preceding user message.",
     ],
-    ["runtime event", OPENCLAW_RUNTIME_EVENT_HEADER],
+    ["runtime event", GRANTED_RUNTIME_EVENT_HEADER],
   ])("detects and strips the %s prompt preface", (_name, header) => {
-    const preface = [header, OPENCLAW_RUNTIME_CONTEXT_NOTICE].join("\n");
+    const preface = [header, GRANTED_RUNTIME_CONTEXT_NOTICE].join("\n");
     const input = [
       preface,
       "",
@@ -132,7 +132,7 @@ describe("internal runtime context codec", () => {
     expect(stripInternalRuntimeContext(input)).toBe("Visible reply");
     expect(
       stripInternalRuntimeContext(
-        ` \t${header}\r\n ${OPENCLAW_RUNTIME_CONTEXT_NOTICE} \r\n\r\nVisible reply`,
+        ` \t${header}\r\n ${GRANTED_RUNTIME_CONTEXT_NOTICE} \r\n\r\nVisible reply`,
       ),
     ).toBe("Visible reply");
   });
@@ -147,8 +147,8 @@ describe("internal runtime context codec", () => {
 
   it("preserves text when the runtime-context header or notice does not match", () => {
     for (const input of [
-      [OPENCLAW_NEXT_TURN_RUNTIME_CONTEXT_HEADER, "Ordinary user text"].join("\n"),
-      ["OpenClaw runtime context for another message.", OPENCLAW_RUNTIME_CONTEXT_NOTICE].join("\n"),
+      [GRANTED_NEXT_TURN_RUNTIME_CONTEXT_HEADER, "Ordinary user text"].join("\n"),
+      ["OpenClaw runtime context for another message.", GRANTED_RUNTIME_CONTEXT_NOTICE].join("\n"),
     ]) {
       expect(hasInternalRuntimeContext(input)).toBe(false);
       expect(stripInternalRuntimeContext(input)).toBe(input);

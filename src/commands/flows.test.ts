@@ -92,7 +92,7 @@ describe("flows commands", () => {
   let envSnapshot: ReturnType<typeof captureEnv>;
 
   beforeEach(() => {
-    envSnapshot = captureEnv(["OPENCLAW_STATE_DIR"]);
+    envSnapshot = captureEnv(["GRANTED_STATE_DIR"]);
   });
 
   afterEach(() => {

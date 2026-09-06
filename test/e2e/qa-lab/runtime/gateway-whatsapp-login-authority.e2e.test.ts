@@ -35,7 +35,7 @@ describe("Gateway WhatsApp login authority", () => {
       instance = await createOpenClawTestInstance({
         name: "qa-whatsapp-login-authority",
         env: {
-          OPENCLAW_BUNDLED_PLUGINS_DIR: path.join(process.cwd(), "dist", "extensions"),
+          GRANTED_BUNDLED_PLUGINS_DIR: path.join(process.cwd(), "dist", "extensions"),
         },
         config: {
           plugins: {

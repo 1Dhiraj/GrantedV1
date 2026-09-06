@@ -305,7 +305,7 @@ describe("secrets runtime fast path", () => {
     const root = mkdtempSync(path.join(tmpdir(), "openclaw-runtime-fast-path-"));
     const env: NodeJS.ProcessEnv = {
       HOME: root,
-      OPENCLAW_STATE_DIR: root,
+      GRANTED_STATE_DIR: root,
     };
     const mainAgentDir = path.join(root, "agents", "main", "agent");
     const agentDir = path.join(root, "custom-agent");
@@ -332,7 +332,7 @@ describe("secrets runtime fast path", () => {
     const { assertAuthProfileMigrationReady, hasLegacyAuthProfileSourcesForStartup } =
       await import("../agents/auth-profiles/legacy-source-diagnostic.js");
     const root = mkdtempSync(path.join(tmpdir(), "openclaw-runtime-legacy-preflight-"));
-    const env: NodeJS.ProcessEnv = { HOME: root, OPENCLAW_STATE_DIR: root };
+    const env: NodeJS.ProcessEnv = { HOME: root, GRANTED_STATE_DIR: root };
     const credentialsPath = resolveLegacyOAuthPath(env);
     mkdirSync(path.dirname(credentialsPath), { recursive: true });
     writeFileSync(credentialsPath, '{"openai":{"access":"fake"}}\n');
@@ -360,7 +360,7 @@ describe("secrets runtime fast path", () => {
     const root = mkdtempSync(path.join(tmpdir(), "openclaw-runtime-fast-path-refresh-"));
     const env: NodeJS.ProcessEnv = {
       HOME: root,
-      OPENCLAW_STATE_DIR: root,
+      GRANTED_STATE_DIR: root,
     };
     const agentDir = path.join(root, "custom-agent");
     mkdirSync(agentDir, { recursive: true });
@@ -547,7 +547,7 @@ describe("secrets runtime fast path", () => {
     const root = mkdtempSync(path.join(tmpdir(), "openclaw-runtime-fast-path-empty-store-"));
     const env: NodeJS.ProcessEnv = {
       HOME: root,
-      OPENCLAW_STATE_DIR: root,
+      GRANTED_STATE_DIR: root,
     };
     const agentDir = path.join(root, "custom-agent");
     mkdirSync(agentDir, { recursive: true });

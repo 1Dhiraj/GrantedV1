@@ -64,7 +64,7 @@ const posixIt = process.platform === "win32" ? it.skip : it;
     repoRoot,
     "extensions/provider/live.test.ts",
     `
-const LIVE = process.env.OPENCLAW_LIVE_TEST === "1";
+const LIVE = process.env.GRANTED_LIVE_TEST === "1";
 const describeLive = LIVE ? describe : describe.skip;
 describeLive("provider live", () => {});
 `,

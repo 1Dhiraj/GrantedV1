@@ -18,7 +18,7 @@ suite.define(() => {
   it.each(["retry", "discard", "exact authoritative history proof"] as const)(
     "parks an ACK-lost send for review until %s",
     async (action) => {
-      const artifactDir = process.env.OPENCLAW_UI_E2E_ARTIFACT_DIR?.trim();
+      const artifactDir = process.env.GRANTED_UI_E2E_ARTIFACT_DIR?.trim();
       if (artifactDir) {
         await mkdir(artifactDir, { recursive: true });
       }

@@ -116,7 +116,7 @@ export async function loadVoiceWakeRoutingConfig(
 ): Promise<VoiceWakeRoutingConfig> {
   const config = readConfigMachineState<VoiceWakeRoutingConfig>(
     VOICEWAKE_ROUTING_STATE_KEY,
-    baseDir ? { env: { ...process.env, OPENCLAW_STATE_DIR: baseDir } } : {},
+    baseDir ? { env: { ...process.env, GRANTED_STATE_DIR: baseDir } } : {},
   );
   return config ? normalizeVoiceWakeRoutingConfig(config) : { ...DEFAULT_ROUTING };
 }

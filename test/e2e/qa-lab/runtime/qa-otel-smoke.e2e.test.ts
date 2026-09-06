@@ -32,9 +32,9 @@ describe("qa-otel-smoke receiver bounds", () => {
         encoding: "utf8",
         env: {
           ...process.env,
-          OPENCLAW_QA_OTEL_MAX_CAPTURED_BODY_TEXT_BYTES: "1024",
-          OPENCLAW_QA_OTEL_MAX_COMPRESSED_BODY_BYTES: "2048",
-          OPENCLAW_QA_OTEL_MAX_DECODED_BODY_BYTES: "4096",
+          GRANTED_QA_OTEL_MAX_CAPTURED_BODY_TEXT_BYTES: "1024",
+          GRANTED_QA_OTEL_MAX_COMPRESSED_BODY_BYTES: "2048",
+          GRANTED_QA_OTEL_MAX_DECODED_BODY_BYTES: "4096",
         },
       },
     );

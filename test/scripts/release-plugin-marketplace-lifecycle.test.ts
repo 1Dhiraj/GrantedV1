@@ -66,8 +66,8 @@ function runHelper(home: string, args: string[]) {
     env: {
       ...process.env,
       HOME: home,
-      OPENCLAW_CONFIG_PATH: path.join(stateDir, "openclaw.json"),
-      OPENCLAW_STATE_DIR: stateDir,
+      GRANTED_CONFIG_PATH: path.join(stateDir, "openclaw.json"),
+      GRANTED_STATE_DIR: stateDir,
     },
   });
 }

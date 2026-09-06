@@ -18,7 +18,7 @@ describe("hasAuthProfileStoreSourceForProvider", () => {
     const agentDir = path.join(root, "agent");
     await fs.mkdir(agentDir, { recursive: true });
     await fs.mkdir(stateDir, { recursive: true });
-    vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
+    vi.stubEnv("GRANTED_STATE_DIR", stateDir);
     writePersistedAuthProfileStoreRaw({ version: 1, profiles }, agentDir);
     return { agentDir };
   }
@@ -29,7 +29,7 @@ describe("hasAuthProfileStoreSourceForProvider", () => {
     const agentDir = path.join(root, "agent");
     await fs.mkdir(agentDir, { recursive: true });
     await fs.mkdir(stateDir, { recursive: true });
-    vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
+    vi.stubEnv("GRANTED_STATE_DIR", stateDir);
     await fs.writeFile(path.join(agentDir, "auth.json"), JSON.stringify(profiles));
     return { agentDir };
   }

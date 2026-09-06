@@ -89,7 +89,7 @@ async function expectImage(
   expect(pixels).toEqual(points.map(({ rgb }) => rgb));
 }
 
-describe.runIf(process.env.OPENCLAW_BROWSER_SNAPSHOT_E2E === "1")(
+describe.runIf(process.env.GRANTED_BROWSER_SNAPSHOT_E2E === "1")(
   "Chromium screenshot ownership",
   () => {
     it("captures a native full page without changing the page geometry", async () => {

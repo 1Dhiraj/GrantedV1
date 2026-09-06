@@ -22,7 +22,7 @@ export async function resolveGatewayConnectionTlsFingerprint(params: {
   const remoteTlsFingerprint =
     params.config.gateway?.mode === "remote" &&
     (params.urlSource === "config gateway.remote.url" ||
-      params.urlSource === "env OPENCLAW_GATEWAY_URL")
+      params.urlSource === "env GRANTED_GATEWAY_URL")
       ? params.config.gateway.remote?.tlsFingerprint
         ? requireTlsFingerprint(params.config.gateway.remote.tlsFingerprint)
         : undefined

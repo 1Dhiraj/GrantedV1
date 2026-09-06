@@ -19,7 +19,7 @@ import {
 import { writeConfigMachineState } from "../state/config-machine-state.js";
 import {
   closeOpenClawAgentDatabasesForTest,
-  OPENCLAW_AGENT_SCHEMA_VERSION,
+  GRANTED_AGENT_SCHEMA_VERSION,
   openOpenClawAgentDatabase,
 } from "../state/openclaw-agent-db.js";
 import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
@@ -97,8 +97,8 @@ async function withAgentDirEnv(
     fs.mkdirSync(agentDir, { recursive: true });
     await withEnvAsync(
       {
-        OPENCLAW_STATE_DIR: root,
-        OPENCLAW_AGENT_DIR: agentDir,
+        GRANTED_STATE_DIR: root,
+        GRANTED_AGENT_DIR: agentDir,
       },
       async () => await run(agentDir, root),
     );
@@ -497,7 +497,7 @@ describe("auth profile sqlite store", () => {
   it("rejects a newer agent database that has no current auth table", async () => {
     await withAgentDirEnv("openclaw-auth-sqlite-newer-schema-", (agentDir) => {
       const database = new DatabaseSync(resolveAuthProfileDatabasePath(agentDir));
-      database.exec(`PRAGMA user_version = ${OPENCLAW_AGENT_SCHEMA_VERSION + 1};`);
+      database.exec(`PRAGMA user_version = ${GRANTED_AGENT_SCHEMA_VERSION + 1};`);
       database.close();
 
       expect(inspectPersistedAuthProfileStoreRaw(agentDir)).toEqual({ status: "unreadable" });
@@ -738,7 +738,7 @@ describe("auth profile sqlite store", () => {
       const alias = path.join(stateDir, "agent-alias");
       const missing = path.join(stateDir, "missing", "agent");
       fs.symlinkSync(agentDir, alias, "junction");
-      withEnv({ OPENCLAW_HOME: stateDir }, () => {
+      withEnv({ GRANTED_HOME: stateDir }, () => {
         const databasePath = path.join(agentDir, "openclaw-agent.sqlite");
         expect(resolveAuthProfileDatabasePath("")).toBe(databasePath);
         const realpath = vi.spyOn(fs.realpathSync, "native");

@@ -59,7 +59,7 @@ async function scenario(
 ) {
   const root = await fs.mkdtemp(path.join(os.tmpdir(), "worker-stop-"));
   roots.push(root);
-  const database = openOpenClawStateDatabase({ env: { OPENCLAW_STATE_DIR: root } });
+  const database = openOpenClawStateDatabase({ env: { GRANTED_STATE_DIR: root } });
   const placements = createWorkerSessionPlacementStore({ database, now: () => 1000 });
   const storePath = path.join(root, "sessions.sqlite");
   const worktreePath = path.join(root, "workspace");
@@ -591,7 +591,7 @@ it.each(["missing", "local"] as const)(
   async (state) => {
     const root = await fs.mkdtemp(path.join(os.tmpdir(), "worker-stop-local-"));
     roots.push(root);
-    const database = openOpenClawStateDatabase({ env: { OPENCLAW_STATE_DIR: root } });
+    const database = openOpenClawStateDatabase({ env: { GRANTED_STATE_DIR: root } });
     const placements = createWorkerSessionPlacementStore({ database });
     const storePath = path.join(root, "sessions.sqlite");
     const entry = { sessionId: REQUEST.sessionId, updatedAt: Date.now() };

@@ -24,7 +24,7 @@ let originalStateDir: string | undefined;
 
 beforeEach(() => {
   originalHome = process.env.HOME;
-  originalStateDir = process.env.OPENCLAW_STATE_DIR;
+  originalStateDir = process.env.GRANTED_STATE_DIR;
 });
 
 afterEach(async () => {
@@ -36,9 +36,9 @@ afterEach(async () => {
     process.env.HOME = originalHome;
   }
   if (originalStateDir === undefined) {
-    delete process.env.OPENCLAW_STATE_DIR;
+    delete process.env.GRANTED_STATE_DIR;
   } else {
-    process.env.OPENCLAW_STATE_DIR = originalStateDir;
+    process.env.GRANTED_STATE_DIR = originalStateDir;
   }
   await Promise.all(tempDirs.splice(0).map((dir) => fs.rm(dir, { recursive: true, force: true })));
 });
@@ -51,7 +51,7 @@ async function createFixture() {
   const workspace = path.join(root, "workspace");
   await fs.mkdir(workspace, { recursive: true });
   process.env.HOME = home;
-  process.env.OPENCLAW_STATE_DIR = stateDir;
+  process.env.GRANTED_STATE_DIR = stateDir;
   const cfg = {
     agents: {
       defaults: { heartbeat: { every: "30m" } },

@@ -4,7 +4,7 @@ import { asNullableRecord } from "@openclaw/normalization-core/record-coerce";
 import { quoteSqliteIdentifier } from "../infra/sqlite-schema-sql.js";
 import { repairLegacySubagentRetainedResults } from "./openclaw-state-db-legacy-backfills.js";
 import { tableExists, tableHasColumn } from "./openclaw-state-db-schema-helpers.js";
-import { OPENCLAW_STATE_SCHEMA_SQL } from "./openclaw-state-schema.js";
+import { GRANTED_STATE_SCHEMA_SQL } from "./openclaw-state-schema.js";
 
 const FAILURE_DESTINATION_COLUMNS = [
   ["failure_delivery_mode", "mode"],
@@ -94,13 +94,13 @@ function rebuildJsonCanonicalTable(db: DatabaseSync, tableName: string): void {
     throw new Error(`OpenClaw v13 migration table already exists: ${migrationTable}`);
   }
   const startMarker = `CREATE TABLE IF NOT EXISTS ${tableName} (`;
-  const start = OPENCLAW_STATE_SCHEMA_SQL.indexOf(startMarker);
+  const start = GRANTED_STATE_SCHEMA_SQL.indexOf(startMarker);
   const endMarker = "\n) STRICT;";
-  const end = start >= 0 ? OPENCLAW_STATE_SCHEMA_SQL.indexOf(endMarker, start) : -1;
+  const end = start >= 0 ? GRANTED_STATE_SCHEMA_SQL.indexOf(endMarker, start) : -1;
   if (start < 0 || end < 0) {
     throw new Error(`Canonical ${tableName} schema block is missing`);
   }
-  const migrationSchema = OPENCLAW_STATE_SCHEMA_SQL.slice(start, end + endMarker.length).replace(
+  const migrationSchema = GRANTED_STATE_SCHEMA_SQL.slice(start, end + endMarker.length).replace(
     startMarker,
     `CREATE TABLE ${migrationTable} (`,
   );

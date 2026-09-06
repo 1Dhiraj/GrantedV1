@@ -53,7 +53,7 @@ async function writeExplicitFleetConfig(): Promise<{
     fs.mkdir(betaWorkspace, { recursive: true }),
   ]);
   const configPath = join(workspaceDir, "openclaw.jsonc");
-  vi.stubEnv("OPENCLAW_CONFIG_PATH", configPath);
+  vi.stubEnv("GRANTED_CONFIG_PATH", configPath);
   await writeFixture(configPath, {
     agents: {
       ownership: "explicit",
@@ -75,7 +75,7 @@ async function writeExplicitFleetConfig(): Promise<{
 describe("policy CLI agent ownership", () => {
   beforeEach(async () => {
     workspaceDir = await fs.mkdtemp(join(tmpdir(), "policy-cli-owner-"));
-    vi.stubEnv("OPENCLAW_WORKSPACE_DIR", workspaceDir);
+    vi.stubEnv("GRANTED_WORKSPACE_DIR", workspaceDir);
   });
 
   afterEach(async () => {
@@ -191,8 +191,8 @@ describe("policy CLI agent ownership", () => {
     },
   ])("rejects an unknown explicit owner for $name with runnable guidance", async (testCase) => {
     await writeExplicitFleetConfig();
-    vi.stubEnv("OPENCLAW_PROFILE", testCase.profile);
-    vi.stubEnv("OPENCLAW_CONTAINER_HINT", testCase.container);
+    vi.stubEnv("GRANTED_PROFILE", testCase.profile);
+    vi.stubEnv("GRANTED_CONTAINER_HINT", testCase.container);
 
     const { exitCode, output } = await runPolicyCli(testCase.args);
 

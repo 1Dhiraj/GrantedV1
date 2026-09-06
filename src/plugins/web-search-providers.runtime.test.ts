@@ -115,7 +115,7 @@ function createBraveAllowConfig() {
 
 function createWebSearchEnv(overrides?: Partial<NodeJS.ProcessEnv>) {
   return {
-    OPENCLAW_HOME: "/tmp/openclaw-home",
+    GRANTED_HOME: "/tmp/openclaw-home",
     ...overrides,
   } as NodeJS.ProcessEnv;
 }
@@ -579,7 +579,7 @@ describe("resolvePluginWebSearchProviders", () => {
 
   it("resolves current config contents when config changes in place", () => {
     const config = createBraveAllowConfig();
-    const env = createWebSearchEnv({ OPENCLAW_HOME: "/tmp/openclaw-home-a" });
+    const env = createWebSearchEnv({ GRANTED_HOME: "/tmp/openclaw-home-a" });
 
     expectSnapshotLoaderCalls({
       config,
@@ -593,13 +593,13 @@ describe("resolvePluginWebSearchProviders", () => {
 
   it("resolves current env contents when env changes in place", () => {
     const config = createBraveAllowConfig();
-    const env = createWebSearchEnv({ OPENCLAW_HOME: "/tmp/openclaw-home-a" });
+    const env = createWebSearchEnv({ GRANTED_HOME: "/tmp/openclaw-home-a" });
 
     expectSnapshotLoaderCalls({
       config,
       env,
       mutate: () => {
-        env.OPENCLAW_HOME = "/tmp/openclaw-home-b";
+        env.GRANTED_HOME = "/tmp/openclaw-home-b";
       },
       expectedLoaderCalls: 2,
     });

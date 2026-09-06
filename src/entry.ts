@@ -28,6 +28,7 @@ import {
 import { installDistEsmResolveFastPath } from "./entry.esm-resolve-fast-path.js";
 import { buildCliRespawnPlan, runCliRespawnPlan } from "./entry.respawn.js";
 import { tryHandleRootVersionFastPath } from "./entry.version-fast-path.js";
+import { applyLegacyEnvAliases } from "./infra/env-legacy-aliases.js";
 import { normalizeEnv } from "./infra/env.js";
 import { isMainModule } from "./infra/is-main.js";
 import { ensureOpenClawExecMarkerOnProcess } from "./infra/openclaw-exec-env.js";
@@ -122,9 +123,13 @@ if (
   const entryFile = fileURLToPath(import.meta.url);
   const installRoot = resolveEntryInstallRoot(entryFile);
   installDistEsmResolveFastPath(import.meta.url);
-  process.title = "openclaw";
+  process.title = "granted";
   ensureOpenClawExecMarkerOnProcess();
   installProcessWarningFilter();
+  // Before anything reads configuration: machines set up under the project's
+  // previous names still export GRANTED_*/CLAWDBOT_*, and those must keep
+  // driving the run rather than being silently ignored.
+  applyLegacyEnvAliases(process.env);
   normalizeEnv();
   process.argv = normalizeWindowsArgv(process.argv);
   const earlyProfile = parseCliProfileArgs(process.argv);
@@ -157,7 +162,7 @@ if (
     });
 
     if (shouldForceReadOnlyAuthStore(process.argv)) {
-      process.env.OPENCLAW_AUTH_STORE_READONLY = "1";
+      process.env.GRANTED_AUTH_STORE_READONLY = "1";
     }
 
     if (process.argv.includes("--no-color")) {
@@ -226,7 +231,7 @@ export async function tryHandleRootHelpFastPath(
 ): Promise<boolean> {
   const env = deps.env ?? process.env;
   if (
-    env.OPENCLAW_DISABLE_CLI_STARTUP_HELP_FAST_PATH === "1" ||
+    env.GRANTED_DISABLE_CLI_STARTUP_HELP_FAST_PATH === "1" ||
     resolveCliContainerTarget(argv, env)
   ) {
     return false;

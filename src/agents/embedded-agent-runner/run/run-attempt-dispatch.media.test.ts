@@ -105,8 +105,8 @@ describe("plugin harness prompt media", () => {
     await fs.mkdir(inboundDir, { recursive: true });
     await fs.writeFile(imagePath, testCase.bytes);
     const media = [{ path: imagePath, contentType: testCase.contentType, kind: testCase.kind }];
-    const envSnapshot = captureEnv(["OPENCLAW_STATE_DIR"]);
-    setTestEnvValue("OPENCLAW_STATE_DIR", stateDir);
+    const envSnapshot = captureEnv(["GRANTED_STATE_DIR"]);
+    setTestEnvValue("GRANTED_STATE_DIR", stateDir);
 
     try {
       const result = await preparePluginHarnessPromptImages({
@@ -150,8 +150,8 @@ describe("plugin harness prompt media", () => {
     await fs.mkdir(workspaceDir, { recursive: true });
     await fs.mkdir(inboundDir, { recursive: true });
     await fs.writeFile(imagePath, Buffer.from(TINY_PNG_BASE64, "base64"));
-    const envSnapshot = captureEnv(["OPENCLAW_STATE_DIR"]);
-    setTestEnvValue("OPENCLAW_STATE_DIR", stateDir);
+    const envSnapshot = captureEnv(["GRANTED_STATE_DIR"]);
+    setTestEnvValue("GRANTED_STATE_DIR", stateDir);
     const documentFact = {
       path: path.join(workspaceDir, "misleading.png"),
       contentType: "application/pdf",
@@ -218,8 +218,8 @@ describe("plugin harness prompt media", () => {
     await fs.mkdir(path.dirname(siblingImagePath), { recursive: true });
     await fs.writeFile(imagePath, image);
     await fs.writeFile(siblingImagePath, image);
-    const envSnapshot = captureEnv(["OPENCLAW_STATE_DIR"]);
-    setTestEnvValue("OPENCLAW_STATE_DIR", stateDir);
+    const envSnapshot = captureEnv(["GRANTED_STATE_DIR"]);
+    setTestEnvValue("GRANTED_STATE_DIR", stateDir);
     const config = {
       agents: {
         entries: {
@@ -272,8 +272,8 @@ describe("plugin harness prompt media", () => {
     await fs.mkdir(path.dirname(siblingImagePath), { recursive: true });
     await fs.writeFile(imagePath, image);
     await fs.writeFile(siblingImagePath, image);
-    const envSnapshot = captureEnv(["OPENCLAW_STATE_DIR"]);
-    setTestEnvValue("OPENCLAW_STATE_DIR", stateDir);
+    const envSnapshot = captureEnv(["GRANTED_STATE_DIR"]);
+    setTestEnvValue("GRANTED_STATE_DIR", stateDir);
 
     try {
       const hydrate = (mediaPath: string, sessionId: string) =>

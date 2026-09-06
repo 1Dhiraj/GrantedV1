@@ -40,7 +40,7 @@ export async function withTempState<T>(fn: (stateDir: string) => Promise<T>): Pr
 }
 
 export function seedPendingBacklog(stateDir: string, total: number): void {
-  const database = openOpenClawStateDatabase({ env: { OPENCLAW_STATE_DIR: stateDir } });
+  const database = openOpenClawStateDatabase({ env: { GRANTED_STATE_DIR: stateDir } });
   const kysely = getNodeSqliteKysely<Pick<OpenClawStateKyselyDatabase, "channel_ingress_events">>(
     database.db,
   );

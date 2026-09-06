@@ -167,8 +167,8 @@ function matchesStoppedService(
     state.command &&
     verdict &&
     "fingerprint" in verdict &&
-    resolveGatewayProfileSuffix(before.serviceEnv.OPENCLAW_PROFILE) ===
-      resolveGatewayProfileSuffix(state.env.OPENCLAW_PROFILE) &&
+    resolveGatewayProfileSuffix(before.serviceEnv.GRANTED_PROFILE) ===
+      resolveGatewayProfileSuffix(state.env.GRANTED_PROFILE) &&
     resolveName(before.serviceEnv) === resolveName(state.env) &&
     (refreshDefinition ||
       ("fingerprint" in inspection && inspection.fingerprint === verdict.fingerprint)),
@@ -525,7 +525,7 @@ export async function maybeStopManagedServiceBeforeMutableUpdate(params: {
     serviceState.loadState.status === "loaded" &&
     (process.platform === "darwin"
       ? (await service.isEnabled?.({ env: serviceState.env })) === true
-      : process.env.OPENCLAW_UPDATE_RUN_HANDOFF === "1");
+      : process.env.GRANTED_UPDATE_RUN_HANDOFF === "1");
   if (!params.shouldRestart || (!serviceState.running && !supervisorMayRespawn)) {
     if (!params.shouldRestart && !params.jsonMode && serviceState.running) {
       const warning = `--no-restart is set while the managed gateway service is running; the ${params.updateInstallKind} update will not stop or restart that process.`;

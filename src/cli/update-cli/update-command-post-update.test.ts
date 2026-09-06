@@ -142,8 +142,8 @@ function createManagedServiceIdentityFixture() {
   const keys = [
     "HOME",
     "USERPROFILE",
-    "OPENCLAW_HOME",
-    "OPENCLAW_SUPERVISOR_MODE",
+    "GRANTED_HOME",
+    "GRANTED_SUPERVISOR_MODE",
     ...GATEWAY_SERVICE_SELECTOR_ENV_KEYS,
   ];
   const env = captureEnv(keys);
@@ -484,29 +484,29 @@ describe("successful update finalization ordering", () => {
     };
     const ownedManagedUpdateEnv = {
       ...process.env,
-      OPENCLAW_LIFECYCLE_TEST_MARKER: "owned",
+      GRANTED_LIFECYCLE_TEST_MARKER: "owned",
     };
     mocks.readConfig.mockImplementationOnce(async () => {
       expect(mocks.leaseActive).toBe(true);
-      expect(process.env.OPENCLAW_LIFECYCLE_TEST_MARKER).toBe("owned");
+      expect(process.env.GRANTED_LIFECYCLE_TEST_MARKER).toBe("owned");
       return validConfigSnapshot;
     });
     mocks.loadPluginRecords.mockImplementationOnce(async () => {
       expect(mocks.leaseActive).toBe(true);
-      expect(process.env.OPENCLAW_LIFECYCLE_TEST_MARKER).toBe("owned");
+      expect(process.env.GRANTED_LIFECYCLE_TEST_MARKER).toBe("owned");
       return pluginInstallRecords;
     });
     mocks.updatePlugins.mockImplementationOnce(
       async (params: { pluginInstallRecords: unknown }) => {
         expect(mocks.leaseActive).toBe(true);
-        expect(process.env.OPENCLAW_LIFECYCLE_TEST_MARKER).toBe("owned");
+        expect(process.env.GRANTED_LIFECYCLE_TEST_MARKER).toBe("owned");
         expect(params.pluginInstallRecords).toBe(pluginInstallRecords);
         return successfulPluginUpdate;
       },
     );
     mocks.completePluginUpdate.mockImplementationOnce(async () => {
       expect(mocks.leaseActive).toBe(false);
-      expect(process.env.OPENCLAW_LIFECYCLE_TEST_MARKER).toBe("owned");
+      expect(process.env.GRANTED_LIFECYCLE_TEST_MARKER).toBe("owned");
       return {
         pluginUpdate: successfulPluginUpdate,
         configSnapshot: validConfigSnapshot,
@@ -593,9 +593,9 @@ describe("successful update finalization ordering", () => {
     const managedEnvironment = {
       ANTHROPIC_API_KEY: "managed-provider",
       MANAGED_VALUE: "base",
-      OPENCLAW_SERVICE_MARKER: "openclaw",
-      OPENCLAW_SERVICE_KIND: "gateway",
-      OPENCLAW_LAUNCHD_LABEL: "ai.openclaw.work",
+      GRANTED_SERVICE_MARKER: "openclaw",
+      GRANTED_SERVICE_KIND: "gateway",
+      GRANTED_LAUNCHD_LABEL: "ai.openclaw.work",
     };
     const effectiveEnvironment = {
       ...managedEnvironment,
@@ -619,13 +619,13 @@ describe("successful update finalization ordering", () => {
     vi.stubEnv("OPENAI_API_KEY", effectiveEnvironment.OPENAI_API_KEY);
     vi.stubEnv("UNSET_PROVIDER_KEY", "removed-by-drop-in");
     vi.stubEnv("GEMINI_API_KEY", "allowed-runtime-credential");
-    vi.stubEnv("OPENCLAW_PROFILE", "caller-only-profile");
+    vi.stubEnv("GRANTED_PROFILE", "caller-only-profile");
     const callerStateDir = path.join(identity.home, ".openclaw-caller-only-profile");
-    vi.stubEnv("OPENCLAW_STATE_DIR", callerStateDir);
-    vi.stubEnv("OPENCLAW_CONFIG_PATH", path.join(callerStateDir, "openclaw.json"));
+    vi.stubEnv("GRANTED_STATE_DIR", callerStateDir);
+    vi.stubEnv("GRANTED_CONFIG_PATH", path.join(callerStateDir, "openclaw.json"));
     try {
       const ownedUpdateEnvironment: NodeJS.ProcessEnv = { ...process.env, ...effectiveEnvironment };
-      for (const key of ["OPENCLAW_PROFILE", "OPENCLAW_STATE_DIR", "OPENCLAW_CONFIG_PATH"]) {
+      for (const key of ["GRANTED_PROFILE", "GRANTED_STATE_DIR", "GRANTED_CONFIG_PATH"]) {
         delete ownedUpdateEnvironment[key];
       }
       await finishSuccessfulPackageSwitch({
@@ -640,12 +640,12 @@ describe("successful update finalization ordering", () => {
       expect(installEnv?.ANTHROPIC_API_KEY).toBe("managed-provider");
       expect(installEnv?.MANAGED_VALUE).toBe("base");
       expect(installEnv?.GEMINI_API_KEY).toBe("allowed-runtime-credential");
-      expect(installEnv?.OPENCLAW_PROFILE).toBeUndefined();
-      expect(installEnv?.OPENCLAW_STATE_DIR).toBeUndefined();
-      expect(installEnv?.OPENCLAW_CONFIG_PATH).toBeUndefined();
-      expect(installEnv?.OPENCLAW_SERVICE_MARKER).toBeUndefined();
-      expect(installEnv?.OPENCLAW_SERVICE_KIND).toBeUndefined();
-      expect(installEnv?.OPENCLAW_LAUNCHD_LABEL).toBe("ai.openclaw.work");
+      expect(installEnv?.GRANTED_PROFILE).toBeUndefined();
+      expect(installEnv?.GRANTED_STATE_DIR).toBeUndefined();
+      expect(installEnv?.GRANTED_CONFIG_PATH).toBeUndefined();
+      expect(installEnv?.GRANTED_SERVICE_MARKER).toBeUndefined();
+      expect(installEnv?.GRANTED_SERVICE_KIND).toBeUndefined();
+      expect(installEnv?.GRANTED_LAUNCHD_LABEL).toBe("ai.openclaw.work");
     } finally {
       vi.unstubAllEnvs();
       identity.restore();
@@ -663,8 +663,8 @@ describe("successful update finalization ordering", () => {
       expect(
         await resolveUpdatedGatewayRestartPort({
           config: { gateway: { port: 19601 } },
-          processEnv: { OPENCLAW_GATEWAY_PORT: "19602" },
-          serviceEnv: { HOME: home, OPENCLAW_STATE_DIR: home, OPENCLAW_CONFIG_PATH: configPath },
+          processEnv: { GRANTED_GATEWAY_PORT: "19602" },
+          serviceEnv: { HOME: home, GRANTED_STATE_DIR: home, GRANTED_CONFIG_PATH: configPath },
           serviceCommand: {
             programArguments: ["/usr/bin/node", "/srv/openclaw/dist/index.js", "gateway"],
           },
@@ -757,7 +757,7 @@ describe("successful update finalization ordering", () => {
       mocks.createServiceConfigIO.mockReturnValue({
         readBestEffortConfig: async () => ({ gateway: { port: 19304 } }),
       });
-      vi.stubEnv("OPENCLAW_GATEWAY_PORT", "");
+      vi.stubEnv("GRANTED_GATEWAY_PORT", "");
       await finishSuccessfulPackageSwitch({
         previousRoot: "/tmp/openclaw-update",
         packageRoot: "/tmp/openclaw-update",

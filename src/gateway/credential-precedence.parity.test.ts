@@ -23,8 +23,8 @@ type TestCase = {
 };
 
 const gatewayEnv = {
-  OPENCLAW_GATEWAY_TOKEN: "env-token", // pragma: allowlist secret
-  OPENCLAW_GATEWAY_PASSWORD: "env-password", // pragma: allowlist secret
+  GRANTED_GATEWAY_TOKEN: "env-token", // pragma: allowlist secret
+  GRANTED_GATEWAY_PASSWORD: "env-password", // pragma: allowlist secret
 } as NodeJS.ProcessEnv;
 
 function makeRemoteGatewayConfig(remote: { token?: string; password?: string }): OpenClawConfig {
@@ -43,9 +43,9 @@ function makeRemoteGatewayConfig(remote: { token?: string; password?: string }):
 function withGatewayAuthEnv<T>(env: NodeJS.ProcessEnv, fn: () => T): T {
   return withEnv(
     {
-      OPENCLAW_GATEWAY_TOKEN: env.OPENCLAW_GATEWAY_TOKEN,
-      OPENCLAW_GATEWAY_PASSWORD: env.OPENCLAW_GATEWAY_PASSWORD,
-      OPENCLAW_SERVICE_KIND: env.OPENCLAW_SERVICE_KIND,
+      GRANTED_GATEWAY_TOKEN: env.GRANTED_GATEWAY_TOKEN,
+      GRANTED_GATEWAY_PASSWORD: env.GRANTED_GATEWAY_PASSWORD,
+      GRANTED_SERVICE_KIND: env.GRANTED_SERVICE_KIND,
     },
     fn,
   );
@@ -65,8 +65,8 @@ describe("gateway credential precedence coverage", () => {
         },
       } as OpenClawConfig,
       env: {
-        OPENCLAW_GATEWAY_TOKEN: "env-token", // pragma: allowlist secret
-        OPENCLAW_GATEWAY_PASSWORD: "env-password", // pragma: allowlist secret
+        GRANTED_GATEWAY_TOKEN: "env-token", // pragma: allowlist secret
+        GRANTED_GATEWAY_PASSWORD: "env-password", // pragma: allowlist secret
       } as NodeJS.ProcessEnv,
       expected: {
         call: { token: "config-token", password: "config-password" }, // pragma: allowlist secret
@@ -114,9 +114,9 @@ describe("gateway credential precedence coverage", () => {
         },
       } as OpenClawConfig,
       env: {
-        OPENCLAW_GATEWAY_TOKEN: "env-token",
-        OPENCLAW_GATEWAY_PASSWORD: "env-password", // pragma: allowlist secret
-        OPENCLAW_SERVICE_KIND: "gateway",
+        GRANTED_GATEWAY_TOKEN: "env-token",
+        GRANTED_GATEWAY_PASSWORD: "env-password", // pragma: allowlist secret
+        GRANTED_SERVICE_KIND: "gateway",
       } as NodeJS.ProcessEnv,
       expected: {
         call: { token: "config-token", password: "config-password" }, // pragma: allowlist secret

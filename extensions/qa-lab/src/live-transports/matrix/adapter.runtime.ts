@@ -426,13 +426,13 @@ export async function createMatrixQaTransportAdapter(
         topology: provisioning.topology,
       }),
     createRuntimeEnvPatch: () => ({
-      OPENCLAW_QA_MATRIX_DRIVER_USER_ID: provisioning.driver.userId,
-      OPENCLAW_QA_MATRIX_OBSERVER_USER_ID: provisioning.observer.userId,
-      OPENCLAW_QA_MATRIX_SUT_ACCOUNT_ID: accountId,
-      OPENCLAW_QA_MATRIX_MAIN_ROOM_ID:
+      GRANTED_QA_MATRIX_DRIVER_USER_ID: provisioning.driver.userId,
+      GRANTED_QA_MATRIX_OBSERVER_USER_ID: provisioning.observer.userId,
+      GRANTED_QA_MATRIX_SUT_ACCOUNT_ID: accountId,
+      GRANTED_QA_MATRIX_MAIN_ROOM_ID:
         provisioning.topology.rooms.find((room) => room.key === "main")?.roomId ??
         provisioning.roomId,
-      OPENCLAW_QA_MATRIX_SECONDARY_ROOM_ID:
+      GRANTED_QA_MATRIX_SECONDARY_ROOM_ID:
         provisioning.topology.rooms.find((room) => room.key === "secondary")?.roomId ?? "",
     }),
     prepareFlow: scenarioEnvironment.prepareFlow,

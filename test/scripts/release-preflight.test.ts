@@ -51,14 +51,14 @@ function makeFakePnpm(): { binDir: string; eventsPath: string; logPath: string }
 import { appendFileSync } from "node:fs";
 
 const command = ${JSON.stringify(bin)} + " " + process.argv.slice(2).join(" ");
-appendFileSync(process.env.OPENCLAW_RELEASE_PREFLIGHT_PNPM_LOG, command + "\\n");
-appendFileSync(process.env.OPENCLAW_RELEASE_PREFLIGHT_PNPM_EVENTS, "start " + command + "\\n");
-const delayMs = Number(process.env.OPENCLAW_RELEASE_PREFLIGHT_DELAY_MS ?? "0");
+appendFileSync(process.env.GRANTED_RELEASE_PREFLIGHT_PNPM_LOG, command + "\\n");
+appendFileSync(process.env.GRANTED_RELEASE_PREFLIGHT_PNPM_EVENTS, "start " + command + "\\n");
+const delayMs = Number(process.env.GRANTED_RELEASE_PREFLIGHT_DELAY_MS ?? "0");
 if (delayMs > 0) {
   Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, delayMs);
 }
-appendFileSync(process.env.OPENCLAW_RELEASE_PREFLIGHT_PNPM_EVENTS, "end " + command + "\\n");
-const failures = new Set((process.env.OPENCLAW_RELEASE_PREFLIGHT_FAIL_COMMANDS ?? "").split(";").filter(Boolean));
+appendFileSync(process.env.GRANTED_RELEASE_PREFLIGHT_PNPM_EVENTS, "end " + command + "\\n");
+const failures = new Set((process.env.GRANTED_RELEASE_PREFLIGHT_FAIL_COMMANDS ?? "").split(";").filter(Boolean));
 process.exit(failures.has(command) ? 7 : 0);
 `,
       { mode: 0o755 },
@@ -82,8 +82,8 @@ function runPreflight(
       ...extraEnv,
       ...(fakePnpm
         ? {
-            OPENCLAW_RELEASE_PREFLIGHT_PNPM_LOG: fakePnpm.logPath,
-            OPENCLAW_RELEASE_PREFLIGHT_PNPM_EVENTS: fakePnpm.eventsPath,
+            GRANTED_RELEASE_PREFLIGHT_PNPM_LOG: fakePnpm.logPath,
+            GRANTED_RELEASE_PREFLIGHT_PNPM_EVENTS: fakePnpm.eventsPath,
             PATH: `${fakePnpm.binDir}${delimiter}${process.env.PATH ?? ""}`,
           }
         : {}),
@@ -210,7 +210,7 @@ describe("scripts/release-preflight.mjs", () => {
   it("runs every check command and reports all failed release artifact checks", () => {
     const fakePnpm = makeFakePnpm();
     const result = runPreflight(["--check"], fakePnpm, {
-      OPENCLAW_RELEASE_PREFLIGHT_FAIL_COMMANDS:
+      GRANTED_RELEASE_PREFLIGHT_FAIL_COMMANDS:
         "node --import tsx scripts/sync-plugin-versions.ts --check;pnpm config:docs:check",
     });
 
@@ -229,10 +229,10 @@ describe("scripts/release-preflight.mjs", () => {
       encoding: "utf8",
       env: {
         ...process.env,
-        OPENCLAW_RELEASE_PREFLIGHT_FAIL_COMMANDS:
+        GRANTED_RELEASE_PREFLIGHT_FAIL_COMMANDS:
           "node --import tsx scripts/generate-plugin-inventory-doc.mts --write",
-        OPENCLAW_RELEASE_PREFLIGHT_PNPM_EVENTS: fakePnpm.eventsPath,
-        OPENCLAW_RELEASE_PREFLIGHT_PNPM_LOG: fakePnpm.logPath,
+        GRANTED_RELEASE_PREFLIGHT_PNPM_EVENTS: fakePnpm.eventsPath,
+        GRANTED_RELEASE_PREFLIGHT_PNPM_LOG: fakePnpm.logPath,
         PATH: `${fakePnpm.binDir}${delimiter}${process.env.PATH ?? ""}`,
       },
     });
@@ -251,7 +251,7 @@ describe("scripts/release-preflight.mjs", () => {
       ["--fix", "--jobs", "8"],
       fakePnpm,
       {
-        OPENCLAW_RELEASE_PREFLIGHT_DELAY_MS: "40",
+        GRANTED_RELEASE_PREFLIGHT_DELAY_MS: "40",
       },
       root,
     );

@@ -105,13 +105,13 @@ export function createOnboardTestConfigStore() {
   const configStore = new Map<string, OpenClawConfig>();
 
   function resolveConfigPath() {
-    const override = process.env.OPENCLAW_CONFIG_PATH?.trim();
+    const override = process.env.GRANTED_CONFIG_PATH?.trim();
     if (override) {
       return override;
     }
-    const stateDir = process.env.OPENCLAW_STATE_DIR?.trim();
+    const stateDir = process.env.GRANTED_STATE_DIR?.trim();
     if (!stateDir) {
-      throw new Error("OPENCLAW_STATE_DIR must be set before config IO in this test");
+      throw new Error("GRANTED_STATE_DIR must be set before config IO in this test");
     }
     return path.join(stateDir, "openclaw.json");
   }
@@ -152,8 +152,8 @@ export function createOnboardStateDirHarness(getTempHome: () => string | undefin
       throw new Error("temp home not initialized");
     }
     const stateDir = await fs.realpath(await fs.mkdtemp(path.join(tempHome, prefix)));
-    setTestEnvValue("OPENCLAW_STATE_DIR", stateDir);
-    deleteTestEnvValue("OPENCLAW_CONFIG_PATH");
+    setTestEnvValue("GRANTED_STATE_DIR", stateDir);
+    deleteTestEnvValue("GRANTED_CONFIG_PATH");
     try {
       await run(stateDir);
     } finally {
@@ -167,23 +167,23 @@ export function createOnboardStateDirHarness(getTempHome: () => string | undefin
 export function prepareOnboardGatewayTestEnv() {
   const snapshot = captureEnv([
     "HOME",
-    "OPENCLAW_STATE_DIR",
-    "OPENCLAW_CONFIG_PATH",
-    "OPENCLAW_SKIP_CHANNELS",
-    "OPENCLAW_SKIP_GMAIL_WATCHER",
-    "OPENCLAW_SKIP_CRON",
-    "OPENCLAW_SKIP_CANVAS_HOST",
-    "OPENCLAW_SKIP_BROWSER_CONTROL_SERVER",
-    "OPENCLAW_GATEWAY_TOKEN",
-    "OPENCLAW_GATEWAY_PASSWORD",
+    "GRANTED_STATE_DIR",
+    "GRANTED_CONFIG_PATH",
+    "GRANTED_SKIP_CHANNELS",
+    "GRANTED_SKIP_GMAIL_WATCHER",
+    "GRANTED_SKIP_CRON",
+    "GRANTED_SKIP_CANVAS_HOST",
+    "GRANTED_SKIP_BROWSER_CONTROL_SERVER",
+    "GRANTED_GATEWAY_TOKEN",
+    "GRANTED_GATEWAY_PASSWORD",
   ]);
-  setTestEnvValue("OPENCLAW_SKIP_CHANNELS", "1");
-  setTestEnvValue("OPENCLAW_SKIP_GMAIL_WATCHER", "1");
-  setTestEnvValue("OPENCLAW_SKIP_CRON", "1");
-  setTestEnvValue("OPENCLAW_SKIP_CANVAS_HOST", "1");
-  setTestEnvValue("OPENCLAW_SKIP_BROWSER_CONTROL_SERVER", "1");
-  deleteTestEnvValue("OPENCLAW_GATEWAY_TOKEN");
-  deleteTestEnvValue("OPENCLAW_GATEWAY_PASSWORD");
+  setTestEnvValue("GRANTED_SKIP_CHANNELS", "1");
+  setTestEnvValue("GRANTED_SKIP_GMAIL_WATCHER", "1");
+  setTestEnvValue("GRANTED_SKIP_CRON", "1");
+  setTestEnvValue("GRANTED_SKIP_CANVAS_HOST", "1");
+  setTestEnvValue("GRANTED_SKIP_BROWSER_CONTROL_SERVER", "1");
+  deleteTestEnvValue("GRANTED_GATEWAY_TOKEN");
+  deleteTestEnvValue("GRANTED_GATEWAY_PASSWORD");
   return snapshot;
 }
 

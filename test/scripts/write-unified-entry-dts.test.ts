@@ -259,7 +259,7 @@ describe("write-unified-entry-dts", () => {
     );
     expect(changedCacheGroups.size).toBe(1);
     const mixedGeneration = treeHashes(path.join(root, "dist"));
-    const cold = runUnifiedWriter(root, { OPENCLAW_BUILD_CACHE: "0" });
+    const cold = runUnifiedWriter(root, { GRANTED_BUILD_CACHE: "0" });
     expect(cold.status, cold.stdout + cold.stderr).toBe(0);
     expect(
       (cold.stdout + cold.stderr).match(/\[tsdown-build\] invocation \d\/6 finished/gu),
@@ -270,7 +270,7 @@ describe("write-unified-entry-dts", () => {
 
   it("records successful empty partitions for a bounded plugin selection", () => {
     const { root } = createFixture(TSDOWN_NON_SDK_DTS_CONFIG_GROUPS);
-    const env = { OPENCLAW_BUNDLED_PLUGIN_BUILD_IDS: "fixture-a" };
+    const env = { GRANTED_BUNDLED_PLUGIN_BUILD_IDS: "fixture-a" };
     const initial = runUnifiedWriter(root, env);
     expect(initial.status, initial.stdout + initial.stderr).toBe(0);
     expect(

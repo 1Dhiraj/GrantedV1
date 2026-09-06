@@ -162,7 +162,7 @@ describe("private Windows SQLite directory diagnostics", () => {
   it("preserves the EEXIST contract from child output", async () => {
     vi.spyOn(process, "platform", "get").mockReturnValue("win32");
     childProcess.execFile.mockImplementation((_file, _args, _options, callback) => {
-      callback(new Error("failed"), "", "OPENCLAW_SQLITE_DIRECTORY_EXISTS");
+      callback(new Error("failed"), "", "GRANTED_SQLITE_DIRECTORY_EXISTS");
     });
 
     const error = await createPrivateSqliteDirectory("C:\\existing").catch(

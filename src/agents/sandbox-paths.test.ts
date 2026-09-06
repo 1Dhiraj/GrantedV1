@@ -39,7 +39,7 @@ function makeTmpProbePath(prefix: string): string {
 async function withManagedMediaRoot<T>(run: (ctx: { stateDir: string }) => Promise<T>) {
   const stateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-managed-media-"));
   try {
-    return await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () => {
+    return await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {
       await fs.mkdir(path.join(stateDir, "media", "outbound"), { recursive: true });
       await fs.mkdir(path.join(stateDir, "media", "tool-file-transfer"), { recursive: true });
       await fs.mkdir(path.join(stateDir, "media", "tool-image-generation"), { recursive: true });
@@ -95,7 +95,7 @@ async function withOutsideHardlinkInOpenClawTmp<T>(
 describe("resolveSandboxPath", () => {
   it("keeps home-sibling roots absolute in escape diagnostics", async () => {
     const home = path.join(os.homedir(), "test-home");
-    await withEnvAsync({ HOME: home, OPENCLAW_HOME: undefined }, async () => {
+    await withEnvAsync({ HOME: home, GRANTED_HOME: undefined }, async () => {
       const root = path.resolve(`${home}-sibling`);
       const outside = path.dirname(root);
 
@@ -107,7 +107,7 @@ describe("resolveSandboxPath", () => {
 
   it("still shortens roots beneath the home directory", async () => {
     const home = path.join(os.homedir(), "test-home");
-    await withEnvAsync({ HOME: home, OPENCLAW_HOME: undefined }, async () => {
+    await withEnvAsync({ HOME: home, GRANTED_HOME: undefined }, async () => {
       const root = path.join(home, "openclaw-sandbox");
       const outside = path.dirname(root);
 

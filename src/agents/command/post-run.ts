@@ -25,7 +25,7 @@ import {
   classifyAgentRunTerminalOutcome,
   mergeAgentRunTerminalOutcome,
 } from "../agent-run-terminal-outcome.js";
-import { OPENCLAW_AGENT_RUNTIME_ID } from "../agent-runtime-id.js";
+import { GRANTED_AGENT_RUNTIME_ID } from "../agent-runtime-id.js";
 import { isHeartbeatLifecycleRunKind } from "../bootstrap-mode.js";
 import type { AcceptedCompactionSuccessor } from "../embedded-agent-runner/compaction-successor.js";
 import { buildMainSessionRecoveryClearPatch } from "../main-session-recovery/main-session-recovery-clear.js";
@@ -404,7 +404,7 @@ export async function finalizeEmbeddedAgentCommand(params: {
     let embeddedCompactionRun =
       followupRun &&
       transcriptPersistenceRunner === "embedded" &&
-      agentMeta?.agentHarnessId === OPENCLAW_AGENT_RUNTIME_ID &&
+      agentMeta?.agentHarnessId === GRANTED_AGENT_RUNTIME_ID &&
       sessionEntry?.sessionId === runOwnedSessionId &&
       !fallbackExhausted &&
       terminal.outcome.status === "ok" &&

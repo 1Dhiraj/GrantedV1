@@ -205,7 +205,7 @@ export function resolveGatewayOptions(opts?: GatewayCallOptions) {
     typeof opts?.timeoutMs === "number" && Number.isFinite(opts.timeoutMs)
       ? Math.max(1, Math.floor(opts.timeoutMs))
       : 30_000;
-  const envGatewayUrl = trimToUndefined(process.env.OPENCLAW_GATEWAY_URL);
+  const envGatewayUrl = trimToUndefined(process.env.GRANTED_GATEWAY_URL);
   const target =
     validatedOverride?.target ??
     resolveDefaultGatewayTarget({

@@ -19,7 +19,7 @@ let outputDir: string;
 beforeEach(() => {
   outputDir = createControlUiE2eArtifactDir("session-activity-feed");
 });
-const proofPhase = process.env.OPENCLAW_MENU_THEME_PROOF_PHASE;
+const proofPhase = process.env.GRANTED_MENU_THEME_PROOF_PHASE;
 
 suite.define(() => {
   it("captures online, global activity, and person-filtered activity surfaces", async () => {

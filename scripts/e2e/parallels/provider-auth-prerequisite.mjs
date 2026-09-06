@@ -30,7 +30,7 @@ export function resolveParallelsProviderAuth(input, env) {
   }
   const apiKeyEnv = input.apiKeyEnv || `${input.provider.toUpperCase()}_API_KEY`;
   const apiKeyValue = Object.hasOwn(env, apiKeyEnv) ? (env[apiKeyEnv] ?? "") : "";
-  const genericModel = env[`OPENCLAW_PARALLELS_${input.provider.toUpperCase()}_MODEL`];
+  const genericModel = env[`GRANTED_PARALLELS_${input.provider.toUpperCase()}_MODEL`];
   const windowsOpenAi = input.platform === "windows" && input.provider === "openai";
   const auth = {
     apiKeyEnv,
@@ -39,7 +39,7 @@ export function resolveParallelsProviderAuth(input, env) {
     authKeyFlag: `${input.provider}-api-key`,
     modelId:
       input.modelId ||
-      (windowsOpenAi ? env.OPENCLAW_PARALLELS_WINDOWS_OPENAI_MODEL?.trim() : undefined) ||
+      (windowsOpenAi ? env.GRANTED_PARALLELS_WINDOWS_OPENAI_MODEL?.trim() : undefined) ||
       (windowsOpenAi ? genericModel?.trim() && genericModel : genericModel) ||
       defaultModel,
     ...(input.provider === "minimax" ? {} : { tokenProvider: input.provider }),

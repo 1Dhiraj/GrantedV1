@@ -41,7 +41,7 @@ afterEach(() => {
 
 function createLifecycleDb() {
   const stateDir = tempDirs.make("openclaw-gateway-boot-");
-  const env = { OPENCLAW_STATE_DIR: stateDir } as NodeJS.ProcessEnv;
+  const env = { GRANTED_STATE_DIR: stateDir } as NodeJS.ProcessEnv;
   const { db } = openOpenClawStateDatabase({ env });
   const kysely = getNodeSqliteKysely<GatewayBootLifecycleTestDatabase>(db);
   return { env, db, kysely };
@@ -400,8 +400,8 @@ describe("formatGatewayCrashLoopManualChannelStartHint", () => {
       command: "openclaw --container demo",
     },
   ])("targets the active gateway for $name", ({ profile, container, command }) => {
-    vi.stubEnv("OPENCLAW_PROFILE", profile);
-    vi.stubEnv("OPENCLAW_CONTAINER_HINT", container);
+    vi.stubEnv("GRANTED_PROFILE", profile);
+    vi.stubEnv("GRANTED_CONTAINER_HINT", container);
 
     expect(
       formatGatewayCrashLoopManualChannelStartHint({ channelId: "telegram", accountId: "work" }),

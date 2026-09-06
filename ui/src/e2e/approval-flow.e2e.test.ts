@@ -14,7 +14,7 @@ const suite = createControlUiE2eSuite({
 // Browser contexts preserve test isolation; keep one process warm for this file.
 let page: Page | undefined;
 const activeSessionKey = "agent:main:main";
-const captureUiProof = process.env.OPENCLAW_CAPTURE_UI_PROOF === "1";
+const captureUiProof = process.env.GRANTED_CAPTURE_UI_PROOF === "1";
 let proofDir: string;
 beforeEach(() => {
   if (captureUiProof) {

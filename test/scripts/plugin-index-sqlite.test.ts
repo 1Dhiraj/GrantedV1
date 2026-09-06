@@ -187,7 +187,7 @@ describe("plugin index SQLite E2E helpers", () => {
       writeLegacyIndex(root, JSON.stringify({ records: {}, filler: "x".repeat(128) }));
 
       const { readPluginInstallRecords } = await loadPluginIndex({
-        OPENCLAW_PLUGIN_INDEX_JSON_MAX_BYTES: "64",
+        GRANTED_PLUGIN_INDEX_JSON_MAX_BYTES: "64",
       });
 
       expect(() =>
@@ -319,7 +319,7 @@ describe("plugin index SQLite E2E helpers", () => {
       write(root);
 
       const { readPluginInstallIndex } = await loadPluginIndex({
-        OPENCLAW_PLUGIN_INDEX_JSON_MAX_BYTES: "64",
+        GRANTED_PLUGIN_INDEX_JSON_MAX_BYTES: "64",
       });
 
       expect(() =>

@@ -8,7 +8,7 @@ import { controlUiSessionUrl, installMockGateway } from "../test-helpers/control
 import { createControlUiE2eSuite } from "./control-ui-e2e-suite.test-support.ts";
 
 const suite = createControlUiE2eSuite({ name: "Control UI warm owner-first refresh" });
-const captureProof = process.env.OPENCLAW_CAPTURE_UI_PROOF === "1";
+const captureProof = process.env.GRANTED_CAPTURE_UI_PROOF === "1";
 
 function sessionRow(ownerId: string, key: string, label: string, updatedAt: number) {
   const owner = {

@@ -225,7 +225,7 @@ const RUNTIME_PARITY_SESSION_KEY_DETAIL_PREFIX = "RUNTIME_PARITY_SESSION_KEY=";
 const BOOT_STATE_LINE_RE =
   /\b(?:FailoverError|No API key found|Codex app-server|agent harness selected|auth profile|runtime policy|restart mode:|plugin|doctor)\b/i;
 const TOOL_RESULT_ERROR_RE = /\b(?:error|failed|failure|timeout|denied|enoent|not found)\b/i;
-const OPENCLAW_FALLBACK_SELECTION_RE =
+const GRANTED_FALLBACK_SELECTION_RE =
   /\bagent harness selected\b.*\brequested=codex\b.*\bselected=openclaw\b.*\breason=plugin_declared_fallback_openclaw\b/iu;
 
 function normalizeTextForParity(text: string) {
@@ -1299,7 +1299,7 @@ function isRuntimeParityRootSession(entry: RuntimeParitySessionEntry) {
 }
 
 function runtimeParitySessionEnv(stateDir: string): NodeJS.ProcessEnv {
-  return { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+  return { ...process.env, GRANTED_STATE_DIR: stateDir };
 }
 
 async function readRuntimeParitySessionEntries(params: {
@@ -1496,7 +1496,7 @@ export async function captureRuntimeParityCell(
   const forcedCodexRuntimeLeak =
     params.runtime === "codex" &&
     params.mockBaseUrl !== undefined &&
-    (OPENCLAW_FALLBACK_SELECTION_RE.test(gatewayLogs ?? "") ||
+    (GRANTED_FALLBACK_SELECTION_RE.test(gatewayLogs ?? "") ||
       hasForcedCodexOpenClawResponsesRecord(transcriptRecords));
   const terminalImageResultProven = hasProvenTerminalImageResult(params.scenarioResult);
   return {

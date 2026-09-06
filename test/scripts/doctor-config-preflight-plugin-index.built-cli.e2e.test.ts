@@ -29,10 +29,10 @@ describe("Doctor plugin index persistence built CLI proof", () => {
     const instance = await createOpenClawTestInstance({
       name: "doctor-empty-legacy-state-dir",
       env: {
-        OPENCLAW_CONFIG_PATH: undefined,
-        OPENCLAW_HOME: undefined,
-        OPENCLAW_STATE_DIR: undefined,
-        OPENCLAW_TEST_FAST: "1",
+        GRANTED_CONFIG_PATH: undefined,
+        GRANTED_HOME: undefined,
+        GRANTED_STATE_DIR: undefined,
+        GRANTED_TEST_FAST: "1",
       },
       startTimeoutMs: 90_000,
     });
@@ -53,7 +53,7 @@ describe("Doctor plugin index persistence built CLI proof", () => {
     const instance = await createOpenClawTestInstance({
       name: "doctor-plugin-index-persistence",
       env: {
-        OPENCLAW_TEST_FAST: "1",
+        GRANTED_TEST_FAST: "1",
       },
       startTimeoutMs: 90_000,
     });

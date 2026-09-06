@@ -75,8 +75,8 @@ describe("scripts/ui windows spawn behavior", () => {
     const rebuiltUi = normalizeControlUiBuildInfo({
       version: "2026.8.1",
       commit: env.GIT_COMMIT,
-      builtAt: env.OPENCLAW_BUILD_TIMESTAMP,
-      buildId: env.OPENCLAW_CONTROL_UI_BUILD_ID,
+      builtAt: env.GRANTED_BUILD_TIMESTAMP,
+      buildId: env.GRANTED_CONTROL_UI_BUILD_ID,
     });
 
     expect(rebuiltUi).toMatchObject({
@@ -102,15 +102,15 @@ describe("scripts/ui windows spawn behavior", () => {
 
     expect(env).toMatchObject({
       GIT_COMMIT: "b".repeat(40),
-      OPENCLAW_BUILD_TIMESTAMP: "2026-08-14T23:05:00.000Z",
+      GRANTED_BUILD_TIMESTAMP: "2026-08-14T23:05:00.000Z",
     });
-    expect(env.OPENCLAW_CONTROL_UI_BUILD_ID).toBeUndefined();
+    expect(env.GRANTED_CONTROL_UI_BUILD_ID).toBeUndefined();
   });
 
   it("does not reuse non-release build info for a release UI build", () => {
     const commit = "a".repeat(40);
     const env = resolveUiBuildEnvironment({
-      env: { OPENCLAW_CONTROL_UI_RELEASE_BUILD: "1" },
+      env: { GRANTED_CONTROL_UI_RELEASE_BUILD: "1" },
       now: () => new Date("2026-08-14T23:05:00.000Z"),
       readBuildInfo: () => ({
         version: "2026.8.1",
@@ -124,9 +124,9 @@ describe("scripts/ui windows spawn behavior", () => {
 
     expect(env).toMatchObject({
       GIT_COMMIT: commit,
-      OPENCLAW_BUILD_TIMESTAMP: "2026-08-14T23:05:00.000Z",
+      GRANTED_BUILD_TIMESTAMP: "2026-08-14T23:05:00.000Z",
     });
-    expect(env.OPENCLAW_CONTROL_UI_BUILD_ID).toBeUndefined();
+    expect(env.GRANTED_CONTROL_UI_BUILD_ID).toBeUndefined();
   });
 
   it("wraps Windows command launchers with cmd.exe without enabling shell mode", () => {
@@ -282,7 +282,7 @@ describe("scripts/ui windows spawn behavior", () => {
       encoding: "utf8",
       env: {
         ...process.env,
-        OPENCLAW_BUILD_ALL_NO_PNPM: "1",
+        GRANTED_BUILD_ALL_NO_PNPM: "1",
         PATH: "",
       },
     });
@@ -399,8 +399,8 @@ require("node:module").syncBuiltinESMExports();
             XDG_CACHE_HOME: path.join(tempDir, "xdg-cache"),
             NODE_COMPILE_CACHE: path.join(tempDir, "node-cache"),
             NODE_OPTIONS: `--require ${JSON.stringify(guard)}`,
-            OPENCLAW_BUILD_ALL_NO_PNPM: noPnpm ? "1" : "0",
-            OPENCLAW_BUILD_TIMESTAMP: "2026-08-27T00:00:00.000Z",
+            GRANTED_BUILD_ALL_NO_PNPM: noPnpm ? "1" : "0",
+            GRANTED_BUILD_TIMESTAMP: "2026-08-27T00:00:00.000Z",
             GIT_COMMIT: "a".repeat(40),
             npm_execpath: pnpm,
             TSX_DISABLE_CACHE: undefined,

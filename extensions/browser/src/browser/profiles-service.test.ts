@@ -153,7 +153,7 @@ function writtenBrowserConfig(): Record<string, unknown> {
   return cfg.browser;
 }
 
-const OPENCLAW_PROFILE = { cdpPort: 18800, color: "#FF4500" } as const;
+const GRANTED_PROFILE = { cdpPort: 18800, color: "#FF4500" } as const;
 
 function createDeletionFixture(params: {
   name?: string;
@@ -167,7 +167,7 @@ function createDeletionFixture(params: {
     browser: {
       defaultProfile: "openclaw",
       profiles: {
-        openclaw: OPENCLAW_PROFILE,
+        openclaw: GRANTED_PROFILE,
         [name]: params.persistedProfile ?? params.resolvedProfile,
       },
     },

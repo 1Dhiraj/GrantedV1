@@ -34,8 +34,8 @@ describe("OpenAI-compatible embedding destination credential ownership", () => {
   beforeEach(async () => {
     vi.stubEnv("NO_PROXY", "127.0.0.1");
     vi.stubEnv("no_proxy", "127.0.0.1");
-    vi.stubEnv("OPENCLAW_TEST_EMBEDDING_LITERAL_KEY", "ambient-key-bait");
-    vi.stubEnv("OPENCLAW_TEST_EMBEDDING_LITERAL_HEADER", "ambient-header-bait");
+    vi.stubEnv("GRANTED_TEST_EMBEDDING_LITERAL_KEY", "ambient-key-bait");
+    vi.stubEnv("GRANTED_TEST_EMBEDDING_LITERAL_HEADER", "ambient-header-bait");
     requests = [];
     server = createServer((request, response) => {
       request.resume();
@@ -155,11 +155,11 @@ describe("OpenAI-compatible embedding destination credential ownership", () => {
     {
       name: "resolved template-looking remote credentials reach HTTP literally",
       remote: {
-        apiKey: "${OPENCLAW_TEST_EMBEDDING_LITERAL_KEY}",
-        headers: { "X-Literal": "$OPENCLAW_TEST_EMBEDDING_LITERAL_HEADER" },
+        apiKey: "${GRANTED_TEST_EMBEDDING_LITERAL_KEY}",
+        headers: { "X-Literal": "$GRANTED_TEST_EMBEDDING_LITERAL_HEADER" },
       },
-      authorization: "Bearer ${OPENCLAW_TEST_EMBEDDING_LITERAL_KEY}",
-      expectedHeaders: { "x-literal": "$OPENCLAW_TEST_EMBEDDING_LITERAL_HEADER" },
+      authorization: "Bearer ${GRANTED_TEST_EMBEDDING_LITERAL_KEY}",
+      expectedHeaders: { "x-literal": "$GRANTED_TEST_EMBEDDING_LITERAL_HEADER" },
     },
   ])(
     "$name",
@@ -496,11 +496,11 @@ describe("OpenAI-compatible embedding destination credential ownership", () => {
   it.each(["apiKey", "header", "providerApiKey"])(
     "rejects an unresolved %s before egress",
     async (field) => {
-      vi.stubEnv("OPENCLAW_TEST_EMBEDDING_UNRESOLVED_SECRET", "ambient-secret-bait");
+      vi.stubEnv("GRANTED_TEST_EMBEDDING_UNRESOLVED_SECRET", "ambient-secret-bait");
       const ref = {
         source: "env" as const,
         provider: "default",
-        id: "OPENCLAW_TEST_EMBEDDING_UNRESOLVED_SECRET",
+        id: "GRANTED_TEST_EMBEDDING_UNRESOLVED_SECRET",
       };
       const remote: NonNullable<EmbeddingProviderCreateOptions["remote"]> =
         field === "apiKey"

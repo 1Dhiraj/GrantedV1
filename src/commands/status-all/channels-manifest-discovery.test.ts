@@ -45,18 +45,18 @@ async function runStatusChannels(channelIds: readonly string[]) {
 }
 
 beforeEach(() => {
-  vi.stubEnv("OPENCLAW_DISABLE_BUNDLED_PLUGINS", "1");
-  vi.stubEnv("OPENCLAW_DISABLE_UPDATE_CHECK", "1");
-  vi.stubEnv("OPENCLAW_HOME", path.join(tempRoot, "home"));
-  vi.stubEnv("OPENCLAW_STATE_DIR", path.join(tempRoot, "state"));
-  vi.stubEnv("OPENCLAW_CONFIG_PATH", path.join(tempRoot, "openclaw.json"));
+  vi.stubEnv("GRANTED_DISABLE_BUNDLED_PLUGINS", "1");
+  vi.stubEnv("GRANTED_DISABLE_UPDATE_CHECK", "1");
+  vi.stubEnv("GRANTED_HOME", path.join(tempRoot, "home"));
+  vi.stubEnv("GRANTED_STATE_DIR", path.join(tempRoot, "state"));
+  vi.stubEnv("GRANTED_CONFIG_PATH", path.join(tempRoot, "openclaw.json"));
   vi.stubEnv("FEISHU_APP_ID", "");
   vi.stubEnv("FEISHU_APP_SECRET", "");
   vi.stubEnv("GOOGLE_CHAT_SERVICE_ACCOUNT", "");
   vi.stubEnv("GOOGLE_CHAT_SERVICE_ACCOUNT_FILE", "");
   vi.stubEnv("MATRIX_HOMESERVER", "");
   vi.stubEnv("MATRIX_ACCESS_TOKEN", "");
-  vi.stubEnv("OPENCLAW_TWITCH_ACCESS_TOKEN", "");
+  vi.stubEnv("GRANTED_TWITCH_ACCESS_TOKEN", "");
 });
 
 afterAll(() => {

@@ -340,7 +340,7 @@ describe("local gateway request context", () => {
 
   it("commits agent deletion through the canonical cron store", async () => {
     const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-local-cron-delete-"));
-    vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
+    vi.stubEnv("GRANTED_STATE_DIR", stateDir);
     const cfg = {
       cron: { store: path.join(stateDir, "cron", "jobs.json") },
       agents: {

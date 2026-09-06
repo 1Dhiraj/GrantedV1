@@ -47,7 +47,7 @@ async function fixture(agentId = "worker", root?: string) {
     source,
     context: { workspace: join(packageRoot, "workspace") },
   });
-  return { root: packageRoot, plan, env: { OPENCLAW_STATE_DIR: join(packageRoot, "state") } };
+  return { root: packageRoot, plan, env: { GRANTED_STATE_DIR: join(packageRoot, "state") } };
 }
 
 function listedMcpServers(mcpServers: Record<string, Record<string, unknown>> = {}) {

@@ -665,7 +665,7 @@ async function withTranscriptFixtureState(
   run: (fixtureDir: string) => Promise<void>,
 ): Promise<void> {
   const fixtureDir = await createTranscriptFixture(prefix);
-  await withEnvAsync({ OPENCLAW_STATE_DIR: suiteFixtureRoot }, async () => await run(fixtureDir));
+  await withEnvAsync({ GRANTED_STATE_DIR: suiteFixtureRoot }, async () => await run(fixtureDir));
 }
 
 async function withSqliteTranscriptFixtureState(
@@ -673,7 +673,7 @@ async function withSqliteTranscriptFixtureState(
   run: (fixtureDir: string) => Promise<void>,
 ): Promise<void> {
   const fixtureDir = await createSqliteTranscriptFixture(prefix);
-  await withEnvAsync({ OPENCLAW_STATE_DIR: suiteFixtureRoot }, async () => await run(fixtureDir));
+  await withEnvAsync({ GRANTED_STATE_DIR: suiteFixtureRoot }, async () => await run(fixtureDir));
 }
 
 function transcriptScope(): SessionTranscriptReadScope {
@@ -1445,7 +1445,7 @@ async function expectImageOnlyFinal(params: {
 beforeAll(() => {
   suiteFixtureRoot = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-chat-directive-suite-"));
   suiteDatabasePath = path.join(suiteFixtureRoot, "openclaw-agent.sqlite");
-  suiteFixtureEnv = { ...process.env, OPENCLAW_STATE_DIR: suiteFixtureRoot };
+  suiteFixtureEnv = { ...process.env, GRANTED_STATE_DIR: suiteFixtureRoot };
   mockState.storePath = suiteDatabasePath;
   openOpenClawAgentDatabase({
     agentId: "main",

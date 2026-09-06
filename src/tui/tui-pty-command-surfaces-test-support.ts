@@ -21,10 +21,10 @@ export async function exerciseTuiCommandSurface(
 ) {
   const fixture = await startFixture({
     env: {
-      OPENCLAW_TUI_PTY_COLS: "100",
-      OPENCLAW_TUI_PTY_ROWS: "24",
-      ...(surface === "slash-commands" ? { OPENCLAW_TUI_PTY_SAFE_THINKING_LABEL: "max" } : {}),
-      ...(surface === "pickers" ? { OPENCLAW_TUI_PTY_PICKER_FIXTURE: "1" } : {}),
+      GRANTED_TUI_PTY_COLS: "100",
+      GRANTED_TUI_PTY_ROWS: "24",
+      ...(surface === "slash-commands" ? { GRANTED_TUI_PTY_SAFE_THINKING_LABEL: "max" } : {}),
+      ...(surface === "pickers" ? { GRANTED_TUI_PTY_PICKER_FIXTURE: "1" } : {}),
     },
   });
   try {

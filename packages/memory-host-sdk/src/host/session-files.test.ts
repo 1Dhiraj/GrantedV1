@@ -47,10 +47,10 @@ beforeEach(() => {
   tmpDir = path.join(fixtureRoot, `case-${fixtureId++}`);
   fsSync.mkdirSync(tmpDir, { recursive: true });
   envSnapshot = {
-    OPENCLAW_STATE_DIR: process.env.OPENCLAW_STATE_DIR,
-    OPENCLAW_CONFIG_PATH: process.env.OPENCLAW_CONFIG_PATH,
+    GRANTED_STATE_DIR: process.env.GRANTED_STATE_DIR,
+    GRANTED_CONFIG_PATH: process.env.GRANTED_CONFIG_PATH,
   };
-  Reflect.set(process.env, "OPENCLAW_STATE_DIR", tmpDir);
+  Reflect.set(process.env, "GRANTED_STATE_DIR", tmpDir);
   clearRuntimeConfigSnapshot();
   clearConfigCache();
 });
@@ -629,7 +629,7 @@ describe("listSessionTranscriptCorpusEntriesForAgent", () => {
     fsSync.mkdirSync(sessionsDir, { recursive: true });
     fsSync.writeFileSync(sessionFile, "");
     fsSync.writeFileSync(configPath, JSON.stringify({ session: { store: storePath } }));
-    Reflect.set(process.env, "OPENCLAW_CONFIG_PATH", configPath);
+    Reflect.set(process.env, "GRANTED_CONFIG_PATH", configPath);
     clearRuntimeConfigSnapshot();
     clearConfigCache();
     await upsertTestSessionEntries(storePath, {
@@ -661,7 +661,7 @@ describe("listSessionTranscriptCorpusEntriesForAgent", () => {
       configPath,
       JSON.stringify({ session: { store: path.join(sessionsDir, "sessions.json") } }),
     );
-    Reflect.set(process.env, "OPENCLAW_CONFIG_PATH", configPath);
+    Reflect.set(process.env, "GRANTED_CONFIG_PATH", configPath);
     clearRuntimeConfigSnapshot();
     clearConfigCache();
 
@@ -693,7 +693,7 @@ describe("listSessionTranscriptCorpusEntriesForAgent", () => {
     fsSync.writeFileSync(sessionFile, "");
     fsSync.writeFileSync(archivePath, "");
     fsSync.writeFileSync(configPath, JSON.stringify({ session: { store: storePath } }));
-    Reflect.set(process.env, "OPENCLAW_CONFIG_PATH", configPath);
+    Reflect.set(process.env, "GRANTED_CONFIG_PATH", configPath);
     clearRuntimeConfigSnapshot();
     clearConfigCache();
     await upsertTestSessionEntries(storePath, {
@@ -745,7 +745,7 @@ describe("listSessionTranscriptCorpusEntriesForAgent", () => {
       configPath,
       JSON.stringify({ agents: { entries: { ops: { default: true } } } }),
     );
-    Reflect.set(process.env, "OPENCLAW_CONFIG_PATH", configPath);
+    Reflect.set(process.env, "GRANTED_CONFIG_PATH", configPath);
     clearRuntimeConfigSnapshot();
     clearConfigCache();
 

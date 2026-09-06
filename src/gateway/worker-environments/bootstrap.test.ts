@@ -22,7 +22,7 @@ const BUNDLE_HASH = "a".repeat(64);
 const TARBALL_SHA256 = "b".repeat(64);
 const VERSION = "2026.7.11";
 const NPM_INTEGRITY = `sha512-${Buffer.alloc(64).toString("base64")}`;
-const OUTPUT_TAG = "OPENCLAW_WORKER_BOOTSTRAP_V1";
+const OUTPUT_TAG = "GRANTED_WORKER_BOOTSTRAP_V1";
 const OPERATION_ID = "provision-operation-1";
 const OPERATION_TOKEN = createHash("sha256").update(OPERATION_ID).digest("hex");
 const UPLOAD_FILENAME = `openclaw-upload-${BUNDLE_HASH}.tgz.${OPERATION_TOKEN}`;
@@ -361,7 +361,7 @@ describe("bootstrapWorker", () => {
     const runner = fakeRunner([
       result({
         code: 42,
-        stderr: "OPENCLAW_WORKER_NODE_MISSING\n",
+        stderr: "GRANTED_WORKER_NODE_MISSING\n",
       }),
       result(),
     ]);
@@ -379,7 +379,7 @@ describe("bootstrapWorker", () => {
     const runner = fakeRunner([
       result({
         code: 45,
-        stderr: "OPENCLAW_WORKER_NODE_UNSUPPORTED: v24.14.1\n",
+        stderr: "GRANTED_WORKER_NODE_UNSUPPORTED: v24.14.1\n",
       }),
       result(),
     ]);

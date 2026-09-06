@@ -33,7 +33,7 @@ export async function closeQaRuntimeStores(tempRoot: string): Promise<void> {
   auth.closeAuthProfileReadPool({ kind: "root", rootPath: tempRoot });
   agents.closeOpenClawAgentDatabases(tempRoot);
   state.closeOpenClawStateDatabaseByPath(
-    paths.resolveOpenClawStateSqlitePath({ OPENCLAW_STATE_DIR: path.join(tempRoot, "state") }),
+    paths.resolveOpenClawStateSqlitePath({ GRANTED_STATE_DIR: path.join(tempRoot, "state") }),
   );
 }
 

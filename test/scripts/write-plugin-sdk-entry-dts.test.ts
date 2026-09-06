@@ -52,20 +52,20 @@ describe("write-plugin-sdk-entry-dts", () => {
       {
         name: "bounded plugins",
         badPlugin: "broken",
-        before: { OPENCLAW_BUNDLED_PLUGIN_BUILD_IDS: "plain" },
+        before: { GRANTED_BUNDLED_PLUGIN_BUILD_IDS: "plain" },
         after: {},
       },
       {
         name: "optional plugins",
         badPlugin: "acpx",
-        before: { OPENCLAW_INCLUDE_OPTIONAL_BUNDLED: "0" },
+        before: { GRANTED_INCLUDE_OPTIONAL_BUNDLED: "0" },
         after: {},
       },
       {
         name: "Docker plugins",
         badPlugin: "external",
         before: {},
-        after: { OPENCLAW_INTERNAL_DOCKER_BUILD_PLUGIN_IDS: "external" },
+        after: { GRANTED_INTERNAL_DOCKER_BUILD_PLUGIN_IDS: "external" },
       },
     ],
   )(

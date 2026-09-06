@@ -18,9 +18,9 @@ export { resolveMatrixCredentialsDir, resolveMatrixCredentialsPath } from "../st
 export function openMatrixCredentialsStore(env: NodeJS.ProcessEnv = process.env) {
   const runtime = getOptionalMatrixRuntime();
   const resolvedEnv =
-    env.OPENCLAW_STATE_DIR?.trim() || !runtime
+    env.GRANTED_STATE_DIR?.trim() || !runtime
       ? env
-      : { ...env, OPENCLAW_STATE_DIR: runtime.state.resolveStateDir(env) };
+      : { ...env, GRANTED_STATE_DIR: runtime.state.resolveStateDir(env) };
   return createPluginStateSyncKeyedStore<MatrixCredentialStateRecord>("matrix", {
     namespace: MATRIX_CREDENTIALS_NAMESPACE,
     maxEntries: MATRIX_CREDENTIALS_MAX_ENTRIES,

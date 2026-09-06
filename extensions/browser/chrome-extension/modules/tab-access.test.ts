@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { OPENCLAW_TAB_GROUP_TITLE } from "./relay-core.js";
+import { GRANTED_TAB_GROUP_TITLE } from "./relay-core.js";
 import { createTabAccessPolicy } from "./tab-access.js";
 import { tabEligibility } from "./tab-eligibility.js";
 
@@ -308,7 +308,7 @@ describe("tab access policy", () => {
 
     const listing = policy.listAccessibleTabs();
     await vi.waitFor(() => expect(isSelectedTab).toHaveBeenCalledOnce());
-    policy.invalidateGroup({ id: 7, title: OPENCLAW_TAB_GROUP_TITLE });
+    policy.invalidateGroup({ id: 7, title: GRANTED_TAB_GROUP_TITLE });
     releaseFirst(false);
 
     await expect(listing).resolves.toEqual([{ id: 1, url: "https://one.example", groupId: 7 }]);

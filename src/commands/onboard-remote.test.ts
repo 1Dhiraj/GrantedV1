@@ -12,7 +12,7 @@ const resolveWideAreaDiscoveryDomain = vi.hoisted(() => vi.fn(() => undefined));
 const detectBinary = vi.hoisted(() => vi.fn<(name: string) => Promise<boolean>>());
 const INSECURE_WS_URL_MESSAGE =
   "Use wss:// for remote hosts, or ws://127.0.0.1/localhost via SSH tunnel. " +
-  "Break-glass: OPENCLAW_ALLOW_INSECURE_PRIVATE_WS=1 for trusted private networks.";
+  "Break-glass: GRANTED_ALLOW_INSECURE_PRIVATE_WS=1 for trusted private networks.";
 
 vi.mock("../infra/bonjour-discovery.js", async () => {
   const actual = await vi.importActual<typeof import("../infra/bonjour-discovery.js")>(
@@ -59,7 +59,7 @@ function createGatewayDiscoveryBeacon(): GatewayBonjourBeacon {
 }
 
 describe("promptRemoteGatewayConfig", () => {
-  const envSnapshot = captureEnv(["OPENCLAW_ALLOW_INSECURE_PRIVATE_WS", "OPENCLAW_GATEWAY_TOKEN"]);
+  const envSnapshot = captureEnv(["GRANTED_ALLOW_INSECURE_PRIVATE_WS", "GRANTED_GATEWAY_TOKEN"]);
 
   async function runRemotePrompt(params: {
     cfg?: OpenClawConfig;
@@ -80,7 +80,7 @@ describe("promptRemoteGatewayConfig", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     envSnapshot.restore();
-    delete process.env.OPENCLAW_ALLOW_INSECURE_PRIVATE_WS;
+    delete process.env.GRANTED_ALLOW_INSECURE_PRIVATE_WS;
     detectBinary.mockResolvedValue(false);
     discoverGatewayBeacons.mockResolvedValue([]);
     resolveWideAreaDiscoveryDomain.mockReturnValue(undefined);
@@ -450,8 +450,8 @@ describe("promptRemoteGatewayConfig", () => {
     expect(next.gateway?.remote?.token).toBeUndefined();
   });
 
-  it("allows ws:// hostname remote URLs when OPENCLAW_ALLOW_INSECURE_PRIVATE_WS=1", async () => {
-    process.env.OPENCLAW_ALLOW_INSECURE_PRIVATE_WS = "1";
+  it("allows ws:// hostname remote URLs when GRANTED_ALLOW_INSECURE_PRIVATE_WS=1", async () => {
+    process.env.GRANTED_ALLOW_INSECURE_PRIVATE_WS = "1";
     const text: WizardPrompter["text"] = vi.fn(async (params) => {
       if (params.message === "Gateway WebSocket URL") {
         expect(params.validate?.("ws://openclaw-gateway.ai:18789")).toBeUndefined();
@@ -472,13 +472,13 @@ describe("promptRemoteGatewayConfig", () => {
   });
 
   it("supports storing remote auth as an external env secret ref", async () => {
-    process.env.OPENCLAW_GATEWAY_TOKEN = "remote-token-value";
+    process.env.GRANTED_GATEWAY_TOKEN = "remote-token-value";
     const text: WizardPrompter["text"] = vi.fn(async (params) => {
       if (params.message === "Gateway WebSocket URL") {
         return "wss://remote.example.com:18789";
       }
       if (params.message === "Environment variable name") {
-        return "OPENCLAW_GATEWAY_TOKEN";
+        return "GRANTED_GATEWAY_TOKEN";
       }
       return "";
     }) as WizardPrompter["text"];
@@ -510,7 +510,7 @@ describe("promptRemoteGatewayConfig", () => {
     expect(next.gateway?.remote?.token).toEqual({
       source: "env",
       provider: "default",
-      id: "OPENCLAW_GATEWAY_TOKEN",
+      id: "GRANTED_GATEWAY_TOKEN",
     });
   });
 

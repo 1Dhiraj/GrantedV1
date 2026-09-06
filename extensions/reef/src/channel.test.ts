@@ -148,7 +148,7 @@ describe("Reef conversation directory", () => {
     runtime.state.openSyncKeyedStore = <T>(options: OpenKeyedStoreOptions) =>
       createPluginStateSyncKeyedStoreForTests<T>("reef", {
         ...options,
-        env: { OPENCLAW_STATE_DIR: stateDir },
+        env: { GRANTED_STATE_DIR: stateDir },
       });
     setReefRuntime(runtime);
     const identity = generateIdentity();
@@ -237,7 +237,7 @@ describe("Reef gateway account ownership", () => {
     runtime.state.openSyncKeyedStore = <T>(options: OpenKeyedStoreOptions) =>
       createPluginStateSyncKeyedStoreForTests<T>("reef", {
         ...options,
-        env: { OPENCLAW_STATE_DIR: stateDir },
+        env: { GRANTED_STATE_DIR: stateDir },
       });
     runtime.state.resolveStateDir = () => stateDir;
     await generateAndStoreKeys(runtime);

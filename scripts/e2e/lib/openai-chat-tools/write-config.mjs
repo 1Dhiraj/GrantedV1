@@ -11,16 +11,16 @@ function requireEnv(name) {
   return value;
 }
 
-const configPath = requireEnv("OPENCLAW_CONFIG_PATH");
-const stateDir = requireEnv("OPENCLAW_STATE_DIR");
-const workspaceDir = requireEnv("OPENCLAW_TEST_WORKSPACE_DIR");
-const modelRef = requireEnv("OPENCLAW_OPENAI_CHAT_TOOLS_MODEL");
-const token = requireEnv("OPENCLAW_GATEWAY_TOKEN");
-const timeoutSeconds = readPositiveIntEnv("OPENCLAW_OPENAI_CHAT_TOOLS_TIMEOUT_SECONDS", 180);
+const configPath = requireEnv("GRANTED_CONFIG_PATH");
+const stateDir = requireEnv("GRANTED_STATE_DIR");
+const workspaceDir = requireEnv("GRANTED_TEST_WORKSPACE_DIR");
+const modelRef = requireEnv("GRANTED_OPENAI_CHAT_TOOLS_MODEL");
+const token = requireEnv("GRANTED_GATEWAY_TOKEN");
+const timeoutSeconds = readPositiveIntEnv("GRANTED_OPENAI_CHAT_TOOLS_TIMEOUT_SECONDS", 180);
 const gatewayPort = readTcpPortEnv("PORT", 18789);
 const [providerId, modelId] = modelRef.split("/");
 if (providerId !== "openai" || !modelId) {
-  throw new Error(`OPENCLAW_OPENAI_CHAT_TOOLS_MODEL must be openai/*, got ${modelRef}`);
+  throw new Error(`GRANTED_OPENAI_CHAT_TOOLS_MODEL must be openai/*, got ${modelRef}`);
 }
 
 const config = {

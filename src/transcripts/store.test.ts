@@ -19,7 +19,7 @@ function createStore(): { stateDir: string; store: TranscriptsStore } {
   return {
     stateDir,
     store: new TranscriptsStore(path.join(stateDir, "transcripts"), {
-      env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+      env: { ...process.env, GRANTED_STATE_DIR: stateDir },
     }),
   };
 }
@@ -225,7 +225,7 @@ describe("TranscriptsStore", () => {
     const upper = session("Capital", "2026-07-01T10:00:00.000Z");
     const lower = session("capital", "2026-07-01T11:00:00.000Z");
     await store.writeSession(upper);
-    openOpenClawStateDatabase({ env: { ...process.env, OPENCLAW_STATE_DIR: stateDir } })
+    openOpenClawStateDatabase({ env: { ...process.env, GRANTED_STATE_DIR: stateDir } })
       .db.prepare(
         "UPDATE meeting_transcript_sessions SET export_pending_json = ? WHERE session_id = ?",
       )
@@ -362,7 +362,7 @@ describe("TranscriptsStore", () => {
     );
     closeOpenClawStateDatabaseForTest();
     const reopened = new TranscriptsStore(path.join(stateDir, "transcripts"), {
-      env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+      env: { ...process.env, GRANTED_STATE_DIR: stateDir },
     });
     await expect(reopened.readSummary(target)).resolves.toMatchObject({
       summary: { sessionId: target.sessionId },
@@ -377,7 +377,7 @@ describe("TranscriptsStore", () => {
       summarizeTranscripts({ session: target, utterances: [{ text: "stale" }] }),
       target,
     );
-    openOpenClawStateDatabase({ env: { ...process.env, OPENCLAW_STATE_DIR: stateDir } })
+    openOpenClawStateDatabase({ env: { ...process.env, GRANTED_STATE_DIR: stateDir } })
       .db.prepare("DELETE FROM meeting_transcript_summaries WHERE session_id = ?")
       .run(target.sessionId);
 
@@ -397,7 +397,7 @@ describe("TranscriptsStore", () => {
       summarizeTranscripts({ session: target, utterances: [{ text: "recover me" }] }),
       target,
     );
-    openOpenClawStateDatabase({ env: { ...process.env, OPENCLAW_STATE_DIR: stateDir } })
+    openOpenClawStateDatabase({ env: { ...process.env, GRANTED_STATE_DIR: stateDir } })
       .db.prepare(
         "UPDATE meeting_transcript_sessions SET export_manifest_json = '{}' WHERE session_id = ?",
       )
@@ -411,7 +411,7 @@ describe("TranscriptsStore", () => {
     ).resolves.toHaveLength(2);
 
     const manifest = openOpenClawStateDatabase({
-      env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+      env: { ...process.env, GRANTED_STATE_DIR: stateDir },
     })
       .db.prepare(
         "SELECT export_manifest_json FROM meeting_transcript_sessions WHERE session_id = ?",

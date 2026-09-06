@@ -64,7 +64,7 @@ export async function createUpdatePlanFixture(root: string) {
     integrity: "sha256:base",
     byteLength: 100,
   };
-  const env = { OPENCLAW_STATE_DIR: join(root, "state") };
+  const env = { GRANTED_STATE_DIR: join(root, "state") };
   const addPlan = await buildClawAddPlan({
     manifest: parsed.manifest,
     source,

@@ -16,9 +16,9 @@ const suite = createControlUiE2eSuite({
     `Playwright Chromium is not available at ${executablePath}`,
 });
 
-const captureUiProof = process.env.OPENCLAW_CAPTURE_UI_PROOF === "1";
+const captureUiProof = process.env.GRANTED_CAPTURE_UI_PROOF === "1";
 const proofDir = path.resolve(
-  process.env.OPENCLAW_UI_E2E_ARTIFACT_DIR?.trim() || ".artifacts/control-ui-e2e",
+  process.env.GRANTED_UI_E2E_ARTIFACT_DIR?.trim() || ".artifacts/control-ui-e2e",
   "logs-lifecycle",
 );
 const viewport = { height: 900, width: 1_440 };
@@ -56,13 +56,13 @@ suite.define(() => {
       label: "control-ui-logs-lifecycle",
       layout: "home",
       env: {
-        OPENCLAW_SKIP_BROWSER_CONTROL_SERVER: "1",
-        OPENCLAW_SKIP_CANVAS_HOST: "1",
-        OPENCLAW_SKIP_CHANNELS: "1",
-        OPENCLAW_SKIP_CRON: "1",
-        OPENCLAW_SKIP_GMAIL_WATCHER: "1",
-        OPENCLAW_SKIP_PROVIDERS: "1",
-        OPENCLAW_TEST_MINIMAL_GATEWAY: "1",
+        GRANTED_SKIP_BROWSER_CONTROL_SERVER: "1",
+        GRANTED_SKIP_CANVAS_HOST: "1",
+        GRANTED_SKIP_CHANNELS: "1",
+        GRANTED_SKIP_CRON: "1",
+        GRANTED_SKIP_GMAIL_WATCHER: "1",
+        GRANTED_SKIP_PROVIDERS: "1",
+        GRANTED_TEST_MINIMAL_GATEWAY: "1",
         VITEST: "1",
       },
     });

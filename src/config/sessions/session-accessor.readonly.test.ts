@@ -57,7 +57,7 @@ afterEach(() => {
 describe("session accessor readonly listing", () => {
   it("returns the same entries as the writable listing for a populated agent database", async () => {
     const stateDir = makeTempDir(tempDirs, "openclaw-session-readonly-populated-");
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const listScope = { agentId: "worker-1", env };
 
     await upsertSessionEntryCore(
@@ -93,7 +93,7 @@ describe("session accessor readonly listing", () => {
 
   it("returns an empty list without creating or registering a missing agent database", () => {
     const stateDir = makeTempDir(tempDirs, "openclaw-session-readonly-missing-");
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const agentId = "worker-1";
     const databasePath = resolveOpenClawAgentSqlitePath({ agentId, env });
     clearRegisteredAgentDatabases(env);
@@ -118,7 +118,7 @@ describe("session accessor readonly listing", () => {
   });
 
   it("summarizes pending rows, hidden keys, retained windows, and ties with listing semantics", () => {
-    const env = { OPENCLAW_STATE_DIR: autoTempDirs.make("openclaw-session-summary-rows-") };
+    const env = { GRANTED_STATE_DIR: autoTempDirs.make("openclaw-session-summary-rows-") };
     const scope = { agentId: "main", env };
     for (const [key, updatedAt] of [
       ["zero", 0],
@@ -198,7 +198,7 @@ describe("session accessor readonly listing", () => {
 
   it("surfaces missing canonical transcript tables through single and batched reads", async () => {
     const stateDir = makeTempDir(tempDirs, "openclaw-session-readonly-missing-transcript-table-");
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const scope = {
       agentId: "worker-1",
       env,
@@ -221,7 +221,7 @@ describe("session accessor readonly listing", () => {
 
   it("probes lifecycle status without creating or registering a missing database", () => {
     const stateDir = makeTempDir(tempDirs, "openclaw-session-readonly-status-missing-");
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const agentId = "worker-1";
     const databasePath = resolveOpenClawAgentSqlitePath({ agentId, env });
     clearRegisteredAgentDatabases(env);
@@ -233,7 +233,7 @@ describe("session accessor readonly listing", () => {
 
   it("distinguishes non-session agent state from a running session row", async () => {
     const stateDir = makeTempDir(tempDirs, "openclaw-session-readonly-status-existing-");
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const agentId = "worker-1";
     const databasePath = resolveOpenClawAgentSqlitePath({ agentId, env });
     openOpenClawAgentDatabase({ agentId, env, path: databasePath });
@@ -257,7 +257,7 @@ describe("session accessor readonly listing", () => {
 
   it("resolves a missing session identity without creating or registering a database", () => {
     const stateDir = makeTempDir(tempDirs, "openclaw-session-readonly-missing-identity-");
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const agentId = "worker-1";
     const databasePath = resolveOpenClawAgentSqlitePath({ agentId, env });
     clearRegisteredAgentDatabases(env);
@@ -271,7 +271,7 @@ describe("session accessor readonly listing", () => {
 
   it("resolves an existing session identity without registering its database", async () => {
     const stateDir = makeTempDir(tempDirs, "openclaw-session-readonly-existing-identity-");
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const agentId = "worker-1";
     const sessionKey = "agent:worker-1:main";
     await upsertSessionEntryCore(
@@ -289,7 +289,7 @@ describe("session accessor readonly listing", () => {
 
   it("batches exact, moved, absent, and unreadable session identity evidence", async () => {
     const stateDir = autoTempDirs.make("openclaw-session-readonly-evidence-");
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const agentId = "worker-1";
     const sessionKey = "agent:worker-1:moved";
     const sessionId = "session-1";
@@ -369,7 +369,7 @@ describe("session accessor readonly listing", () => {
 
   it("does not prefer a main key when only a shared physical session identity is known", async () => {
     const stateDir = autoTempDirs.make("openclaw-session-readonly-shared-identity-");
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const agentId = "worker-1";
     const sessionId = "shared-generation";
     const mainKey = "agent:worker-1:main";
@@ -395,7 +395,7 @@ describe("session accessor readonly listing", () => {
 
   it("rejects stale valid projections for unreadable session identity evidence", async () => {
     const stateDir = autoTempDirs.make("openclaw-session-readonly-stale-valid-evidence-");
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const agentId = "worker-1";
     const sessionId = "session-1";
     const sessionKey = "agent:worker-1:main";
@@ -439,7 +439,7 @@ describe("session accessor readonly listing", () => {
 
   it("uses the current-session-id index for fallback identity probes", async () => {
     const stateDir = autoTempDirs.make("openclaw-session-readonly-evidence-index-");
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const agentId = "worker-1";
     const database = openOpenClawAgentDatabase({ agentId, env });
     const detail = database.db
@@ -458,7 +458,7 @@ describe("session accessor readonly listing", () => {
 
   it("does not register a populated database during readonly health-style listing", async () => {
     const stateDir = makeTempDir(tempDirs, "openclaw-session-readonly-registry-");
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const agentId = "worker-1";
     const scope = { agentId, env };
 

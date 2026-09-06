@@ -72,8 +72,8 @@ describe("doctor managed npm generation repair", () => {
     const stateDir = tempDirs.make("openclaw-doctor-plugin-scope-");
     const env = {
       ...process.env,
-      OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-      OPENCLAW_STATE_DIR: stateDir,
+      GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+      GRANTED_STATE_DIR: stateDir,
     };
     await writePersistedInstalledPluginIndexInstallRecords(
       {
@@ -128,7 +128,7 @@ describe("doctor managed npm generation repair", () => {
 
     await expect(
       maybeRepairStaleManagedNpmInstallGenerations({
-        env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+        env: { ...process.env, GRANTED_STATE_DIR: stateDir },
         prompter: { shouldRepair: true },
         stateDir,
       }),
@@ -164,7 +164,7 @@ describe("doctor managed npm generation repair", () => {
           entries: { [PLUGIN_ID]: { enabled: true } },
         },
       },
-      env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+      env: { ...process.env, GRANTED_STATE_DIR: stateDir },
       prompter: { shouldRepair: true },
       stateDir,
     });

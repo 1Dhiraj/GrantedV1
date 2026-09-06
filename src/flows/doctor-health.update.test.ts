@@ -177,8 +177,8 @@ describe("runDoctorHealthFlow update outcomes", () => {
                 "gateway",
               ],
               environment: {
-                OPENCLAW_STATE_DIR: state.stateDir,
-                OPENCLAW_CONFIG_PATH: state.configPath,
+                GRANTED_STATE_DIR: state.stateDir,
+                GRANTED_CONFIG_PATH: state.configPath,
               },
             }),
             readRuntime: async () => ({ status: running ? "running" : "stopped" }),

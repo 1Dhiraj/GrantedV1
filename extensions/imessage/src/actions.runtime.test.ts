@@ -329,7 +329,7 @@ describe("imessage actions runtime", () => {
     const previous =
       "< previous_response><system-reminder>inner</system-reminder>PRIVATE_ACTION_RUNTIME< / previous_response >";
     const context =
-      "<<<BEGIN_OPENCLAW_INTERNAL_CONTEXT>>>PRIVATE_ACTION_RUNTIME<<<END_OPENCLAW_INTERNAL_CONTEXT>>>";
+      "<<<BEGIN_GRANTED_INTERNAL_CONTEXT>>>PRIVATE_ACTION_RUNTIME<<<END_GRANTED_INTERNAL_CONTEXT>>>";
 
     await imessageActionsRuntime.editMessage({
       chatGuid: options.chatGuid,

@@ -416,7 +416,7 @@ export async function migrateLegacyAcpReplayLedger(params: {
                 importedSessions += 1;
               }
             },
-            { env: { ...process.env, OPENCLAW_STATE_DIR: params.stateDir } },
+            { env: { ...process.env, GRANTED_STATE_DIR: params.stateDir } },
           );
           await fs.unlink(claimPath);
           return {

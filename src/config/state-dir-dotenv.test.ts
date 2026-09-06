@@ -36,8 +36,8 @@ describe("readStateDirDotEnvFromStateDir", () => {
 
   it("skips values that are unresolved shell variable references", async () => {
     const content = [
-      'SUPERMEMORY_OPENCLAW_API_KEY="${SUPERMEMORY_OPENCLAW_KEY}"',
-      "QUOTED_SUPERMEMORY_OPENCLAW_API_KEY='\"$SUPERMEMORY_OPENCLAW_KEY\"'",
+      'SUPERMEMORY_GRANTED_API_KEY="${SUPERMEMORY_GRANTED_KEY}"',
+      "QUOTED_SUPERMEMORY_GRANTED_API_KEY='\"$SUPERMEMORY_GRANTED_KEY\"'",
       "QUOTED_CURLY_KEY=\"'${ANOTHER_VAR}'\"",
       "BRACE_DEFAULT_KEY=${ANOTHER_VAR:-fallback}",
       "QUOTED_BRACE_DEFAULT_KEY='\"${ANOTHER_VAR:-fallback}\"'",
@@ -52,8 +52,8 @@ describe("readStateDirDotEnvFromStateDir", () => {
 
     await withDotEnv(content, async (dir) => {
       const result = readStateDirDotEnvFromStateDir(dir).entries;
-      expect(Object.keys(result)).not.toContain("SUPERMEMORY_OPENCLAW_API_KEY");
-      expect(Object.keys(result)).not.toContain("QUOTED_SUPERMEMORY_OPENCLAW_API_KEY");
+      expect(Object.keys(result)).not.toContain("SUPERMEMORY_GRANTED_API_KEY");
+      expect(Object.keys(result)).not.toContain("QUOTED_SUPERMEMORY_GRANTED_API_KEY");
       expect(Object.keys(result)).not.toContain("QUOTED_CURLY_KEY");
       expect(Object.keys(result)).not.toContain("BRACE_DEFAULT_KEY");
       expect(Object.keys(result)).not.toContain("QUOTED_BRACE_DEFAULT_KEY");

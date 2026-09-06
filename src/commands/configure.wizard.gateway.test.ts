@@ -295,7 +295,7 @@ describe("runConfigureWizard", () => {
     setupBaseWizardState(unresolvedConfig);
     queueWizardPrompts({ select: ["remote"], confirm: [] });
     mocks.promptRemoteGatewayConfig.mockResolvedValueOnce(unresolvedConfig);
-    await withEnvAsync({ OPENCLAW_GATEWAY_PASSWORD: "ambient-password" }, async () => {
+    await withEnvAsync({ GRANTED_GATEWAY_PASSWORD: "ambient-password" }, async () => {
       await runConfigureWizard({ command: "configure", sections: ["health"] }, createRuntime());
     });
 
@@ -364,7 +364,7 @@ describe("runConfigureWizard", () => {
           },
         },
       });
-      await withEnvAsync({ OPENCLAW_GATEWAY_PASSWORD: "env-password" }, async () => {
+      await withEnvAsync({ GRANTED_GATEWAY_PASSWORD: "env-password" }, async () => {
         await runConfigureWizard({ command: "configure", sections: ["gateway"] }, createRuntime());
       });
 
@@ -399,13 +399,13 @@ describe("runConfigureWizard", () => {
         auth: { token: "configured-token", password: "configured-password" },
       },
     });
-    process.env.OPENCLAW_GATEWAY_TOKEN = "";
-    process.env.OPENCLAW_GATEWAY_PASSWORD = "";
+    process.env.GRANTED_GATEWAY_TOKEN = "";
+    process.env.GRANTED_GATEWAY_PASSWORD = "";
     try {
       await runConfigureWizard({ command: "configure", sections: ["gateway"] }, createRuntime());
     } finally {
-      delete process.env.OPENCLAW_GATEWAY_TOKEN;
-      delete process.env.OPENCLAW_GATEWAY_PASSWORD;
+      delete process.env.GRANTED_GATEWAY_TOKEN;
+      delete process.env.GRANTED_GATEWAY_PASSWORD;
     }
 
     const probeRequests = mocks.probeGatewayReachable.mock.calls.map(([request]) =>
@@ -430,7 +430,7 @@ describe("runConfigureWizard", () => {
     maybeInstallDaemon.mockResolvedValueOnce("succeeded");
 
     await withEnvAsync(
-      { OPENCLAW_GATEWAY_TOKEN: "ambient-token", WIZARD_GATEWAY_TOKEN: "configured-token" },
+      { GRANTED_GATEWAY_TOKEN: "ambient-token", WIZARD_GATEWAY_TOKEN: "configured-token" },
       () =>
         runConfigureWizard(
           { command: "configure", sections: ["gateway", "daemon", "health"] },
@@ -469,7 +469,7 @@ describe("runConfigureWizard", () => {
     });
     queueWizardPrompts({ select: ["local"], confirm: [] });
 
-    await withEnvAsync({ OPENCLAW_GATEWAY_PASSWORD: "ambient-password" }, () =>
+    await withEnvAsync({ GRANTED_GATEWAY_PASSWORD: "ambient-password" }, () =>
       runConfigureWizard(
         { command: "configure", sections: ["gateway", "health"] },
         createRuntime(),
@@ -513,7 +513,7 @@ describe("runConfigureWizard", () => {
       port: 18789,
     }));
 
-    await withEnvAsync({ OPENCLAW_GATEWAY_PASSWORD: "ambient-password" }, () =>
+    await withEnvAsync({ GRANTED_GATEWAY_PASSWORD: "ambient-password" }, () =>
       runConfigureWizard({ command: "configure", sections: ["gateway"] }, createRuntime()),
     );
 

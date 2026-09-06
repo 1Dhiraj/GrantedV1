@@ -19,7 +19,7 @@ import {
 import { getPluginCache } from "./plugin-cache.js";
 
 const DISABLED_BUNDLED_PLUGINS_DIR = path.join(os.tmpdir(), "openclaw-empty-bundled-plugins");
-const TEST_TRUST_BUNDLED_PLUGINS_DIR_ENV = "OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR";
+const TEST_TRUST_BUNDLED_PLUGINS_DIR_ENV = "GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR";
 
 /** Diagnostic emitted when source-checkout bundled plugins lack dependency installs. */
 type SourceCheckoutDependencyDiagnostic = {
@@ -29,7 +29,7 @@ type SourceCheckoutDependencyDiagnostic = {
 
 /** Returns true when env disables bundled plugin discovery. */
 export function areBundledPluginsDisabled(env: NodeJS.ProcessEnv = process.env): boolean {
-  const raw = normalizeOptionalLowercaseString(env.OPENCLAW_DISABLE_BUNDLED_PLUGINS);
+  const raw = normalizeOptionalLowercaseString(env.GRANTED_DISABLE_BUNDLED_PLUGINS);
   return raw === "1" || raw === "true";
 }
 
@@ -186,7 +186,7 @@ function resolveBundledPluginsDirUncached(env: NodeJS.ProcessEnv): string | unde
     return resolveDisabledBundledPluginsDir();
   }
 
-  const override = env.OPENCLAW_BUNDLED_PLUGINS_DIR?.trim();
+  const override = env.GRANTED_BUNDLED_PLUGINS_DIR?.trim();
   let rejectedExistingOverride: string | null = null;
   if (override) {
     const resolvedOverride = resolveUserPath(override, env);
@@ -265,7 +265,7 @@ function resolveBundledPluginsDirUncached(env: NodeJS.ProcessEnv): string | unde
 
 export function resolveBundledPluginsDir(env: NodeJS.ProcessEnv = process.env): string | undefined {
   const disabled = areBundledPluginsDisabled(env);
-  const override = disabled ? undefined : env.OPENCLAW_BUNDLED_PLUGINS_DIR?.trim();
+  const override = disabled ? undefined : env.GRANTED_BUNDLED_PLUGINS_DIR?.trim();
   const key = JSON.stringify([
     import.meta.url,
     disabled,

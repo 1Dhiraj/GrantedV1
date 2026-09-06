@@ -32,17 +32,17 @@ describe("auth profile path helpers (direct-import coverage attribution)", () =>
 
   it("resolveAuthStorePath falls back to the default agent dir when agentDir is omitted", () => {
     // Omitting agentDir exercises the default agent-dir branch. With
-    // OPENCLAW_STATE_DIR set to our tempdir, the resolved path must live under it.
-    withEnv({ OPENCLAW_STATE_DIR: stateDir }, () => {
+    // GRANTED_STATE_DIR set to our tempdir, the resolved path must live under it.
+    withEnv({ GRANTED_STATE_DIR: stateDir }, () => {
       const resolved = resolveAuthStorePath();
       expect(resolved.startsWith(stateDir)).toBe(true);
       expect(path.basename(resolved)).toMatch(/auth-profiles/);
     });
   });
 
-  it("honors OPENCLAW_AGENT_DIR in both no-argument auth path implementations", () => {
+  it("honors GRANTED_AGENT_DIR in both no-argument auth path implementations", () => {
     const relocatedAgentDir = path.join(stateDir, "relocated-main-agent");
-    withEnv({ OPENCLAW_STATE_DIR: stateDir, OPENCLAW_AGENT_DIR: relocatedAgentDir }, () => {
+    withEnv({ GRANTED_STATE_DIR: stateDir, GRANTED_AGENT_DIR: relocatedAgentDir }, () => {
       expect(path.dirname(resolveAuthStorePath())).toBe(relocatedAgentDir);
       expect(resolveAuthStorePathForDisplay()).toBe(
         path.join(relocatedAgentDir, "openclaw-agent.sqlite"),
@@ -58,7 +58,7 @@ describe("auth profile path helpers (direct-import coverage attribution)", () =>
   });
 
   it("resolveLegacyAuthStorePath falls back to the default agent dir", () => {
-    withEnv({ OPENCLAW_STATE_DIR: stateDir }, () => {
+    withEnv({ GRANTED_STATE_DIR: stateDir }, () => {
       const resolved = resolveLegacyAuthStorePath();
       expect(resolved.startsWith(stateDir)).toBe(true);
     });
@@ -71,14 +71,14 @@ describe("auth profile path helpers (direct-import coverage attribution)", () =>
   });
 
   it("resolveAuthStatePath falls back to the default agent dir", () => {
-    withEnv({ OPENCLAW_STATE_DIR: stateDir }, () => {
+    withEnv({ GRANTED_STATE_DIR: stateDir }, () => {
       const resolved = resolveAuthStatePath();
       expect(resolved.startsWith(stateDir)).toBe(true);
     });
   });
 
   it("falls back to the shared owner for an agent dir that has no local store", () => {
-    withEnv({ OPENCLAW_STATE_DIR: stateDir }, () => {
+    withEnv({ GRANTED_STATE_DIR: stateDir }, () => {
       // A tilde-rooted dir resolveUserPath cannot expand still must not be reported as the owner:
       // without a local store the loader reads the shared database, so display must name that.
       const resolved = resolveAuthStorePathForDisplay("~fake-openclaw-no-expand");

@@ -292,7 +292,7 @@ export async function tryInstallPluginOrHookPackFromNpmSpec(params: {
     if (
       result.installSource?.source === "clawhub" ||
       (params.officialRequest &&
-        result.code !== PLUGIN_INSTALL_ERROR_CODE.MISSING_OPENCLAW_EXTENSIONS) ||
+        result.code !== PLUGIN_INSTALL_ERROR_CODE.MISSING_GRANTED_EXTENSIONS) ||
       isTerminalPluginInstallFailure(result.code)
     ) {
       runtime.error(result.error);

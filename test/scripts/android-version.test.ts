@@ -231,8 +231,8 @@ describe("renderAndroidVersionProperties", () => {
       versionCode: 2026060201,
     });
 
-    expect(properties).toContain("OPENCLAW_ANDROID_VERSION_NAME=2026.6.2");
-    expect(properties).toContain("OPENCLAW_ANDROID_VERSION_CODE=2026060201");
+    expect(properties).toContain("GRANTED_ANDROID_VERSION_NAME=2026.6.2");
+    expect(properties).toContain("GRANTED_ANDROID_VERSION_CODE=2026060201");
   });
 });
 

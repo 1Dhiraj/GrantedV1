@@ -1,4 +1,4 @@
-import { OPENCLAW_TAB_GROUP_TITLE } from "./relay-core.js";
+import { GRANTED_TAB_GROUP_TITLE } from "./relay-core.js";
 
 async function isOpenClawGroupId(groupId) {
   if (!Number.isInteger(groupId) || groupId < 0) {
@@ -6,7 +6,7 @@ async function isOpenClawGroupId(groupId) {
   }
   try {
     const group = await chrome.tabGroups.get(groupId);
-    return group.title === OPENCLAW_TAB_GROUP_TITLE;
+    return group.title === GRANTED_TAB_GROUP_TITLE;
   } catch {
     return false;
   }
@@ -24,7 +24,7 @@ export async function addTabToOpenClawGroup(tabId, { chromeApi, getGroupColor, c
     throw new Error(`tab ${tabId} changed during creation`);
   }
   const groups = await chromeApi.tabGroups
-    .query({ title: OPENCLAW_TAB_GROUP_TITLE })
+    .query({ title: GRANTED_TAB_GROUP_TITLE })
     .catch(() => []);
   assertCurrent();
   const group = groups.find((candidate) => candidate.windowId === tab.windowId);
@@ -51,7 +51,7 @@ export async function addTabToOpenClawGroup(tabId, { chromeApi, getGroupColor, c
     if (created) {
       created.namingGroup = groupId;
     }
-    await chromeApi.tabGroups.update(groupId, { title: OPENCLAW_TAB_GROUP_TITLE, color });
+    await chromeApi.tabGroups.update(groupId, { title: GRANTED_TAB_GROUP_TITLE, color });
     assertCurrent();
   }
 }

@@ -710,7 +710,7 @@ describe("gateway usage helpers", () => {
   it("aggregates all-agent cost over the gateway agent universe, including on-disk system agents", async () => {
     await withTestDir({ prefix: "openclaw-usage-universe-" }, async (stateDir) => {
       await fs.mkdir(`${stateDir}/agents/openclaw`, { recursive: true });
-      await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () => {
+      await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {
         await expectDefined(
           usageHandlers["usage.cost"],
           'usageHandlers["usage.cost"] test invariant',

@@ -9,7 +9,7 @@ import { openNodeSqliteDatabase } from "../infra/node-sqlite.js";
 import { assertSqliteIntegrity } from "../infra/sqlite-integrity.js";
 import { runSqliteImmediateTransactionSync } from "../infra/sqlite-transaction.js";
 import { configureSqliteWalMaintenance, type SqliteWalMaintenance } from "../infra/sqlite-wal.js";
-import { OPENCLAW_SQLITE_BUSY_TIMEOUT_MS } from "./openclaw-state-db-contract.js";
+import { GRANTED_SQLITE_BUSY_TIMEOUT_MS } from "./openclaw-state-db-contract.js";
 import {
   assertOpenClawStateDatabaseForMaintenance,
   resolveDatabasePath,
@@ -104,11 +104,11 @@ function repairMalformedOwnershipClaim(
       const database = openNodeSqliteDatabase(databasePath);
       let walMaintenance: SqliteWalMaintenance | undefined;
       try {
-        database.exec(`PRAGMA busy_timeout = ${OPENCLAW_SQLITE_BUSY_TIMEOUT_MS};`);
+        database.exec(`PRAGMA busy_timeout = ${GRANTED_SQLITE_BUSY_TIMEOUT_MS};`);
         assertSqliteIntegrity(database, databasePath);
         assertOpenClawStateDatabaseForMaintenance(database, { pathname: databasePath });
         walMaintenance = configureSqliteWalMaintenance(database, {
-          busyTimeoutMs: OPENCLAW_SQLITE_BUSY_TIMEOUT_MS,
+          busyTimeoutMs: GRANTED_SQLITE_BUSY_TIMEOUT_MS,
           checkpointIntervalMs: 0,
           checkpointMode: "TRUNCATE",
           databaseLabel: "OpenClaw shared state ownership",
@@ -121,7 +121,7 @@ function repairMalformedOwnershipClaim(
             return claimOwnershipRow(database, databasePath, managerId, true);
           },
           {
-            busyTimeoutMs: OPENCLAW_SQLITE_BUSY_TIMEOUT_MS,
+            busyTimeoutMs: GRANTED_SQLITE_BUSY_TIMEOUT_MS,
             databaseLabel: databasePath,
             operationLabel: "state.ownership.repair",
           },
@@ -145,7 +145,7 @@ export function claimOpenClawStateOwnership(
   const env = options.env ?? process.env;
   if (!isGatewayExternallySupervised(env)) {
     throw new Error(
-      "Claiming external shared-state ownership requires OPENCLAW_SUPERVISOR_MODE=external.",
+      "Claiming external shared-state ownership requires GRANTED_SUPERVISOR_MODE=external.",
     );
   }
   const normalizedManagerId = normalizeOpenClawStateManagerId(managerId);

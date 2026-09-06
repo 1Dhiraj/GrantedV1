@@ -56,7 +56,7 @@ export async function fetchCodexUsage(
   timeoutMs: number,
   fetchFn: typeof fetch,
 ): Promise<ProviderUsageSnapshot> {
-  const version = process.env.OPENCLAW_VERSION?.trim();
+  const version = process.env.GRANTED_VERSION?.trim();
   const defaultHeaders: Record<string, string> = {
     Authorization: `Bearer ${token}`,
     Accept: "application/json",

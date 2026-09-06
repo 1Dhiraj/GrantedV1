@@ -223,7 +223,7 @@ async function persistCredentials(params: {
     ? loadPersistedAuthProfileStore(params.agentDir)
     : loadPersistedSharedAuthProfileStore({
         ...process.env,
-        OPENCLAW_STATE_DIR: params.stateDir,
+        GRANTED_STATE_DIR: params.stateDir,
       });
   const effectivePersisted = params.inheritedStore
     ? mergeAuthProfileStores(params.inheritedStore, persisted ?? emptyStore())

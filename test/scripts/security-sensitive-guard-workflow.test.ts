@@ -83,7 +83,7 @@ describe("security-sensitive guard workflow", () => {
       expect(steps.at(-1)?.run).toBe("node scripts/github/security-sensitive-guard.mjs");
     }
 
-    expect(workflow).not.toContain("OPENCLAW_SECURITY_SENSITIVE_GUARD_ROLLOUT_SHA");
+    expect(workflow).not.toContain("GRANTED_SECURITY_SENSITIVE_GUARD_ROLLOUT_SHA");
     expect(workflow).not.toContain("Check security-sensitive guard rollout eligibility");
     expect(workflow).not.toContain("steps.rollout.outputs.ready");
     expect(workflow).not.toContain("/compare/");
@@ -98,10 +98,10 @@ describe("security-sensitive guard workflow", () => {
 
     expect(finalJob?.needs).toEqual(["security-sensitive-guard-detect"]);
     expect(finalJob?.if).toContain("always()");
-    expect(detectSteps.at(-1)?.env?.OPENCLAW_SECURITY_SENSITIVE_GUARD_MODE).toBe("detect");
-    expect(finalSteps.at(-1)?.env?.OPENCLAW_SECURITY_SENSITIVE_GUARD_MODE).toBe("enforce");
-    expect(finalSteps.at(-1)?.env?.OPENCLAW_SECURITY_TEAM_SLUG).toBe("openclaw-secops");
-    expect(finalSteps.at(-1)?.env?.OPENCLAW_SECURITY_APPROVERS).toBe(
+    expect(detectSteps.at(-1)?.env?.GRANTED_SECURITY_SENSITIVE_GUARD_MODE).toBe("detect");
+    expect(finalSteps.at(-1)?.env?.GRANTED_SECURITY_SENSITIVE_GUARD_MODE).toBe("enforce");
+    expect(finalSteps.at(-1)?.env?.GRANTED_SECURITY_TEAM_SLUG).toBe("openclaw-secops");
+    expect(finalSteps.at(-1)?.env?.GRANTED_SECURITY_APPROVERS).toBe(
       "vincentkoc,steipete,joshavant",
     );
   });

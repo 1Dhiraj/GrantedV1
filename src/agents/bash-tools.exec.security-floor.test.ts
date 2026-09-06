@@ -91,15 +91,15 @@ describe("exec security floor", () => {
       "USERPROFILE",
       "HOMEDRIVE",
       "HOMEPATH",
-      "OPENCLAW_HOME",
-      "OPENCLAW_STATE_DIR",
+      "GRANTED_HOME",
+      "GRANTED_STATE_DIR",
       "SHELL",
     ]);
     tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-exec-security-floor-"));
     setTestEnvValue("HOME", tempRoot);
     setTestEnvValue("USERPROFILE", tempRoot);
-    setTestEnvValue("OPENCLAW_HOME", tempRoot);
-    setTestEnvValue("OPENCLAW_STATE_DIR", path.join(tempRoot, "state"));
+    setTestEnvValue("GRANTED_HOME", tempRoot);
+    setTestEnvValue("GRANTED_STATE_DIR", path.join(tempRoot, "state"));
     if (process.platform === "win32") {
       const parsed = path.parse(tempRoot);
       setTestEnvValue("HOMEDRIVE", parsed.root.slice(0, 2));

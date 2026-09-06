@@ -8,7 +8,7 @@ import { withTempDir } from "openclaw/plugin-sdk/test-env";
 import { describe, expect, it } from "vitest";
 import { buildCliSpeechProvider } from "./speech-provider.js";
 
-const describeLive = process.env.OPENCLAW_LIVE_TEST === "1" ? describe : describe.skip;
+const describeLive = process.env.GRANTED_LIVE_TEST === "1" ? describe : describe.skip;
 
 function firstOggPacketPrefix(buffer: Buffer, length: number): string {
   const segmentCount = buffer[26] ?? 0;

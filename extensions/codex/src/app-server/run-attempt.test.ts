@@ -1720,7 +1720,7 @@ describe("runCodexAppServerAttempt", () => {
     initializeGlobalHookRunner(
       createMockPluginRegistry([{ hookName: "llm_input", handler: llmInput }]),
     );
-    vi.stubEnv("OPENCLAW_TRAJECTORY", "1");
+    vi.stubEnv("GRANTED_TRAJECTORY", "1");
     const { sessionFile, workspaceDir } = createRunPaths();
     const harness = createStartedThreadHarness();
     const params = createParams(sessionFile, workspaceDir);
@@ -5261,8 +5261,8 @@ describe("runCodexAppServerAttempt", () => {
     initializeGlobalHookRunner(
       createMockPluginRegistry([{ hookName: "before_tool_call", handler: vi.fn() }]),
     );
-    vi.stubEnv("OPENCLAW_CODEX_APP_SERVER_MODE", " ");
-    vi.stubEnv("OPENCLAW_CODEX_APP_SERVER_APPROVAL_POLICY", "always");
+    vi.stubEnv("GRANTED_CODEX_APP_SERVER_MODE", " ");
+    vi.stubEnv("GRANTED_CODEX_APP_SERVER_APPROVAL_POLICY", "always");
     const { sessionFile, workspaceDir } = createRunPaths();
     const harness = createStartedThreadHarness();
     const run = runCodexAppServerAttempt(createParams(sessionFile, workspaceDir));
@@ -7368,7 +7368,7 @@ describe("runCodexAppServerAttempt", () => {
     async (storeSelection) => {
       const { sessionFile, workspaceDir } = createRunPaths();
       const sessionKey = "agent:main:ephemeral-helper";
-      vi.stubEnv("OPENCLAW_STATE_DIR", path.join(tempDir, "ephemeral-state"));
+      vi.stubEnv("GRANTED_STATE_DIR", path.join(tempDir, "ephemeral-state"));
       const storePath = path.join(tempDir, "ephemeral-sessions.json");
       let generation = 0;
       const harness = createStartedThreadHarness(async (method) => {
@@ -7425,7 +7425,7 @@ describe("runCodexAppServerAttempt", () => {
       const { sessionFile, workspaceDir } = createRunPaths();
       const sessionKey = "agent:main:durable-generation";
       const durableSessionId = "session-durable-current";
-      vi.stubEnv("OPENCLAW_STATE_DIR", path.join(tempDir, "durable-state"));
+      vi.stubEnv("GRANTED_STATE_DIR", path.join(tempDir, "durable-state"));
       const storePath =
         storeSelection === "default"
           ? resolveStorePath(undefined, { agentId: "main" })

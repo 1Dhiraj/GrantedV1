@@ -47,7 +47,7 @@ function writeFakeCurl(binDir: string) {
     curlPath,
     `#!/usr/bin/env bash
 set -euo pipefail
-printf '%s\\n' "$*" >> "$OPENCLAW_FAKE_CURL_LOG"
+printf '%s\\n' "$*" >> "$GRANTED_FAKE_CURL_LOG"
 output=""
 url=""
 while [[ $# -gt 0 ]]; do
@@ -65,7 +65,7 @@ while [[ $# -gt 0 ]]; do
       ;;
   esac
 done
-if [[ -n "\${OPENCLAW_FAKE_CURL_FAIL_SUFFIX:-}" && "$url" == *"\${OPENCLAW_FAKE_CURL_FAIL_SUFFIX:-}" ]]; then
+if [[ -n "\${GRANTED_FAKE_CURL_FAIL_SUFFIX:-}" && "$url" == *"\${GRANTED_FAKE_CURL_FAIL_SUFFIX:-}" ]]; then
   if [[ -n "$output" ]]; then
     printf '%s' 'partial archive' > "$output"
   fi
@@ -146,7 +146,7 @@ describe("setup-pnpm-store-cache ensure-node", () => {
             RUNNER_TOOL_CACHE: join(root, "missing-toolcache"),
             AGENT_TOOLSDIRECTORY: join(root, "missing-agent-tools"),
             ACTIONS_RUNNER_TOOL_CACHE: join(root, "missing-actions-cache"),
-            OPENCLAW_CONTAINER_TOOL_CACHE: join(root, "missing-container-cache"),
+            GRANTED_CONTAINER_TOOL_CACHE: join(root, "missing-container-cache"),
           },
         },
       );
@@ -258,7 +258,7 @@ exit 1
       const toolcacheNode = writeFakeNode(toolcacheBin, "24.99.99");
       const result = runEnsureNode(root, "24.99.99", {
         PATH: `${activeBin}:${process.env.PATH ?? ""}`,
-        OPENCLAW_CONTAINER_TOOL_CACHE: join(root, "__t"),
+        GRANTED_CONTAINER_TOOL_CACHE: join(root, "__t"),
         RUNNER_TOOL_CACHE: join(root, "hostedtoolcache"),
       });
 
@@ -302,7 +302,7 @@ exit 1
       const result = runEnsureNode(root, "24.x", {
         PATH: `${activeBin}:${process.env.PATH ?? ""}`,
         RUNNER_TOOL_CACHE: join(root, "toolcache"),
-        OPENCLAW_NODE_TOOLCHAIN_ROOT: join(root, "cached", "node"),
+        GRANTED_NODE_TOOLCHAIN_ROOT: join(root, "cached", "node"),
       });
 
       expect(result.status).toBe(0);
@@ -363,8 +363,8 @@ exit 1
           [
             "set -euo pipefail",
             `export PATH=${JSON.stringify(`${helperBin}:${process.env.PATH ?? ""}`)}`,
-            `export OPENCLAW_FAKE_CURL_LOG=${JSON.stringify(join(root, "curl.log"))}`,
-            `export OPENCLAW_NODE_TOOLCHAIN_ROOT=${JSON.stringify(toolchainRoot)}`,
+            `export GRANTED_FAKE_CURL_LOG=${JSON.stringify(join(root, "curl.log"))}`,
+            `export GRANTED_NODE_TOOLCHAIN_ROOT=${JSON.stringify(toolchainRoot)}`,
             `source "${ensureNodeScript}"`,
             "openclaw_prepend_node_bin() { :; }",
             'openclaw_node_download_platform() { printf "linux-x64\\n"; }',
@@ -396,7 +396,7 @@ exit 1
           [
             "set -euo pipefail",
             `export PATH=${JSON.stringify(`${helperBin}:${process.env.PATH ?? ""}`)}`,
-            `export OPENCLAW_FAKE_CURL_LOG=${JSON.stringify(curlLog)}`,
+            `export GRANTED_FAKE_CURL_LOG=${JSON.stringify(curlLog)}`,
             `source "${ensureNodeScript}"`,
             'openclaw_resolve_node_download_version "24.x"',
             "openclaw_prepend_node_bin() { :; }",
@@ -442,8 +442,8 @@ exit 1
           [
             "set -uo pipefail",
             `export PATH=${JSON.stringify(`${helperBin}:${process.env.PATH ?? ""}`)}`,
-            `export OPENCLAW_FAKE_CURL_LOG=${JSON.stringify(join(root, "curl.log"))}`,
-            `export OPENCLAW_FAKE_CURL_FAIL_SUFFIX=${JSON.stringify(".tar.xz")}`,
+            `export GRANTED_FAKE_CURL_LOG=${JSON.stringify(join(root, "curl.log"))}`,
+            `export GRANTED_FAKE_CURL_FAIL_SUFFIX=${JSON.stringify(".tar.xz")}`,
             `source "${ensureNodeScript}"`,
             "openclaw_prepend_node_bin() { :; }",
             'openclaw_node_download_platform() { printf "linux-x64\\n"; }',

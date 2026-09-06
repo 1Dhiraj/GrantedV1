@@ -24,7 +24,7 @@ import { registerSqliteCacheExitClose } from "../../infra/sqlite-wal.js";
 import type { DB as OpenClawAgentKyselyDatabase } from "../../state/openclaw-agent-db.generated.js";
 import {
   deferOpenClawAgentPostCommitPublication,
-  OPENCLAW_AGENT_SCHEMA_VERSION,
+  GRANTED_AGENT_SCHEMA_VERSION,
   runOpenClawAgentWriteTransaction,
   type OpenClawAgentDatabase,
 } from "../../state/openclaw-agent-db.js";
@@ -32,7 +32,7 @@ import { withExistingOpenClawStateDatabaseReadOnly } from "../../state/openclaw-
 import type { DB as OpenClawStateKyselyDatabase } from "../../state/openclaw-state-db.generated.js";
 import {
   openOpenClawStateDatabase,
-  OPENCLAW_SQLITE_BUSY_TIMEOUT_MS,
+  GRANTED_SQLITE_BUSY_TIMEOUT_MS,
   runOpenClawStateWriteTransaction,
   type OpenClawStateDatabase,
 } from "../../state/openclaw-state-db.js";
@@ -81,7 +81,7 @@ export function resolveAuthProfileStoreOwner(
 }
 
 function prepareAuthProfileSharedOwner(env: NodeJS.ProcessEnv) {
-  const preparedEnv = { ...env, OPENCLAW_STATE_DIR: resolveStateDir(env) };
+  const preparedEnv = { ...env, GRANTED_STATE_DIR: resolveStateDir(env) };
   return {
     env: preparedEnv,
     sharedDatabasePath: resolveSharedAuthStorePath(preparedEnv),
@@ -402,8 +402,8 @@ function acquireAuthProfileReadDatabase(
     enableNodeSqliteKyselyStatementCache(db);
     // The pooled reader bypasses canonical agent DB bootstrap, but it shares
     // the same busy policy and validates the process-stable schema on open.
-    db.exec(`PRAGMA busy_timeout = ${OPENCLAW_SQLITE_BUSY_TIMEOUT_MS};`);
-    if (readSqliteUserVersion(db) > OPENCLAW_AGENT_SCHEMA_VERSION) {
+    db.exec(`PRAGMA busy_timeout = ${GRANTED_SQLITE_BUSY_TIMEOUT_MS};`);
+    if (readSqliteUserVersion(db) > GRANTED_AGENT_SCHEMA_VERSION) {
       clearNodeSqliteKyselyCacheForDatabase(db);
       db.close();
       return { status: "unreadable" };
@@ -685,7 +685,7 @@ export function runAuthProfileWriteTransaction<T>(
   const env = {
     ...(options.env ?? process.env),
     ...(!options.env && options.stateDir
-      ? { OPENCLAW_STATE_DIR: options.stateDir, OPENCLAW_AGENT_DIR: undefined }
+      ? { GRANTED_STATE_DIR: options.stateDir, GRANTED_AGENT_DIR: undefined }
       : {}),
   };
   const sharedStoreWrite = prepareFreshSharedAuthStoreWrite({

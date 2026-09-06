@@ -91,7 +91,7 @@ function expectNativeStreamingSupported(overrides: Partial<Model>): void {
 beforeEach(() => {
   // Endpoint capabilities come from manifests. Keep source tests independent
   // from partial dist output left by an earlier build in the same checkout.
-  vi.stubEnv("OPENCLAW_BUNDLED_PLUGINS_DIR", path.join(process.cwd(), "extensions"));
+  vi.stubEnv("GRANTED_BUNDLED_PLUGINS_DIR", path.join(process.cwd(), "extensions"));
   providerRuntimeMocks.resolveProviderModernModelRef.mockReset();
   providerRuntimeMocks.resolveProviderModernModelRef.mockReturnValue(undefined);
 });

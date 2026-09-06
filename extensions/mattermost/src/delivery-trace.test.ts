@@ -6,7 +6,7 @@
 // events are the raw REST calls (POST/PUT/DELETE /posts). The monitor's
 // per-activity glue (partial dedupe, boundary rotation) is replicated inline in
 // block-preview mode; the scripted steps stand in for the dispatcher callbacks.
-// Refresh goldens with OPENCLAW_TRACE_UPDATE=1 (see delivery-trace harness docs).
+// Refresh goldens with GRANTED_TRACE_UPDATE=1 (see delivery-trace harness docs).
 import {
   deliveryTraceScenarios,
   expectDeliveryTraceMatchesGolden,

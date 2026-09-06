@@ -113,8 +113,8 @@ describe("plugins search command", () => {
 
     await withEnvAsync(
       {
-        OPENCLAW_PROFILE: scenario.profile,
-        OPENCLAW_CONTAINER_HINT: scenario.container,
+        GRANTED_PROFILE: scenario.profile,
+        GRANTED_CONTAINER_HINT: scenario.container,
       },
       () => runPluginsSearchCommand(["calendar"], { limit: 5 }, mocks.runtime),
     );

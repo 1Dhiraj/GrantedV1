@@ -2,7 +2,7 @@
 import { createHash } from "node:crypto";
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
 import { uniqueStrings } from "@openclaw/normalization-core/string-normalization";
-import { MANIFEST_KEY } from "../compat/legacy-names.js";
+import { MANIFEST_KEY, readManifestSection } from "../compat/legacy-names.js";
 import { normalizeClawHubSha256Integrity } from "../infra/clawhub-artifacts.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import { cancelUnreadResponseBody, readResponseWithLimit } from "../infra/http-body.js";
@@ -1247,8 +1247,8 @@ function normalizeNpmExpectedIntegrity(value: unknown): string | undefined {
 export function getOfficialExternalPluginCatalogManifest(
   entry: OfficialExternalPluginCatalogEntry,
 ): OfficialExternalPluginCatalogManifest | undefined {
-  const manifest = entry[MANIFEST_KEY];
-  return isRecord(manifest) ? manifest : undefined;
+  const manifest = readManifestSection(entry);
+  return isRecord(manifest) ? (manifest as OfficialExternalPluginCatalogManifest) : undefined;
 }
 
 export function resolveOfficialExternalPluginId(

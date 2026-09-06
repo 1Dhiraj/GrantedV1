@@ -201,7 +201,7 @@ describe("worker transcript commit application", () => {
       storePath,
     });
     const database = openOpenClawStateDatabase({
-      env: { OPENCLAW_STATE_DIR: path.join(root, "state") },
+      env: { GRANTED_STATE_DIR: path.join(root, "state") },
     });
     ledgerStore = createWorkerTranscriptCommitStore({ database });
     committer = createWorkerTranscriptCommitter({

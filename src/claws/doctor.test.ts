@@ -5,7 +5,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
 import type { McpServerConfig } from "../config/types.mcp.js";
 import type { OpenClawConfig } from "../config/types.openclaw.js";
-import { OPENCLAW_STATE_SCHEMA_VERSION } from "../state/openclaw-state-db-contract.js";
+import { GRANTED_STATE_SCHEMA_VERSION } from "../state/openclaw-state-db-contract.js";
 import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
 import { resolveOpenClawStateSqlitePath } from "../state/openclaw-state-db.paths.js";
 import { applyClawAddPlan } from "./add.js";
@@ -74,8 +74,8 @@ async function fixture(
     context: { workspace: join(root, "workspace-worker") },
   });
   const env = {
-    OPENCLAW_STATE_DIR: join(root, "state"),
-    OPENCLAW_EXPERIMENTAL_CLAWS: "1",
+    GRANTED_STATE_DIR: join(root, "state"),
+    GRANTED_EXPERIMENTAL_CLAWS: "1",
   };
   return { root, plan, env };
 }
@@ -197,7 +197,7 @@ describe("collectClawStateHealthFindings", () => {
     const databasePath = resolveOpenClawStateSqlitePath(current.env);
     await mkdir(dirname(databasePath), { recursive: true });
     const database = new DatabaseSync(databasePath);
-    const newerSchemaVersion = OPENCLAW_STATE_SCHEMA_VERSION + 1;
+    const newerSchemaVersion = GRANTED_STATE_SCHEMA_VERSION + 1;
     database.exec(`PRAGMA user_version = ${newerSchemaVersion}`);
     database.close();
 
@@ -254,7 +254,7 @@ describe("collectClawStateHealthFindings", () => {
     const current = await fixture();
     await expect(
       collectClawStateHealthFindings({
-        env: { ...current.env, OPENCLAW_EXPERIMENTAL_CLAWS: "" },
+        env: { ...current.env, GRANTED_EXPERIMENTAL_CLAWS: "" },
         cfg: {},
       }),
     ).resolves.toEqual([]);

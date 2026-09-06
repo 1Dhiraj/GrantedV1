@@ -102,6 +102,8 @@ type ConfigPageSetting =
   | "sidebarLiveActivity"
   | "chatMessageMaxWidth"
   | "chatCollapseTaskProgress"
+  | "wakeWordEnabled"
+  | "wakeWordPhrase"
   | "showAdvancedSettings"
   | "chatSendShortcut"
   | "chatFollowUpMode"
@@ -1264,6 +1266,10 @@ export class ConfigPage extends OpenClawLightDomElement {
       chatCollapseTaskProgress: this.settings.chatCollapseTaskProgress === true,
       setChatCollapseTaskProgress: (enabled) =>
         this.setSetting("chatCollapseTaskProgress", enabled),
+      wakeWordEnabled: this.settings.wakeWordEnabled === true,
+      setWakeWordEnabled: (enabled) => this.setSetting("wakeWordEnabled", enabled),
+      wakeWordPhrase: this.settings.wakeWordPhrase,
+      setWakeWordPhrase: (value) => this.setSetting("wakeWordPhrase", value),
       showAdvancedSettings: this.settings.showAdvancedSettings === true,
       setShowAdvancedSettings: (enabled) => this.setSetting("showAdvancedSettings", enabled),
       forceShowAdvanced: this.pageId === "advanced",

@@ -4,7 +4,7 @@ import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { OPENCLAW_STATE_SCHEMA_VERSION } from "../state/openclaw-state-db-contract.js";
+import { GRANTED_STATE_SCHEMA_VERSION } from "../state/openclaw-state-db-contract.js";
 import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
 import { withTempDir } from "../test-utils/temp-dir.js";
 import { resolveDeviceIdentityCoordinatorPaths } from "./device-identity-coordinator-paths.js";
@@ -35,7 +35,7 @@ afterEach(() => {
 
 function storeOptions(rootDir: string, identityKey?: string): DeviceIdentityStoreOptions {
   return {
-    env: { ...process.env, OPENCLAW_STATE_DIR: rootDir },
+    env: { ...process.env, GRANTED_STATE_DIR: rootDir },
     path: path.join(rootDir, "state", "openclaw.sqlite"),
     ...(identityKey ? { identityKey } : {}),
   };
@@ -81,10 +81,10 @@ async function runConcurrentIdentityLoads(rootDir: string): Promise<DeviceIdenti
   const moduleUrl = new URL("./device-identity.ts", import.meta.url).href;
   const workerSource = `
     import fs from "node:fs";
-    const { loadOrCreateDeviceIdentity } = await import(process.env.OPENCLAW_IDENTITY_MODULE);
-    fs.writeFileSync(process.env.OPENCLAW_IDENTITY_READY_PATH, "ready");
+    const { loadOrCreateDeviceIdentity } = await import(process.env.GRANTED_IDENTITY_MODULE);
+    fs.writeFileSync(process.env.GRANTED_IDENTITY_READY_PATH, "ready");
     const deadline = Date.now() + 15_000;
-    while (!fs.existsSync(process.env.OPENCLAW_IDENTITY_START_PATH)) {
+    while (!fs.existsSync(process.env.GRANTED_IDENTITY_START_PATH)) {
       if (Date.now() >= deadline) {
         throw new Error("timed out waiting for concurrent identity start");
       }
@@ -93,8 +93,8 @@ async function runConcurrentIdentityLoads(rootDir: string): Promise<DeviceIdenti
       });
     }
     const identity = loadOrCreateDeviceIdentity({
-      env: { ...process.env, OPENCLAW_STATE_DIR: process.env.OPENCLAW_IDENTITY_STATE_DIR },
-      path: process.env.OPENCLAW_IDENTITY_DATABASE_PATH,
+      env: { ...process.env, GRANTED_STATE_DIR: process.env.GRANTED_IDENTITY_STATE_DIR },
+      path: process.env.GRANTED_IDENTITY_DATABASE_PATH,
     });
     console.log(JSON.stringify(identity));
   `;
@@ -106,11 +106,11 @@ async function runConcurrentIdentityLoads(rootDir: string): Promise<DeviceIdenti
       {
         env: {
           ...process.env,
-          OPENCLAW_IDENTITY_DATABASE_PATH: path.join(rootDir, "state", "openclaw.sqlite"),
-          OPENCLAW_IDENTITY_MODULE: moduleUrl,
-          OPENCLAW_IDENTITY_READY_PATH: readyPath,
-          OPENCLAW_IDENTITY_START_PATH: startPath,
-          OPENCLAW_IDENTITY_STATE_DIR: rootDir,
+          GRANTED_IDENTITY_DATABASE_PATH: path.join(rootDir, "state", "openclaw.sqlite"),
+          GRANTED_IDENTITY_MODULE: moduleUrl,
+          GRANTED_IDENTITY_READY_PATH: readyPath,
+          GRANTED_IDENTITY_START_PATH: startPath,
+          GRANTED_IDENTITY_STATE_DIR: rootDir,
         },
         stdio: ["ignore", "pipe", "pipe"],
       },
@@ -159,28 +159,28 @@ async function startPausedBootstrapCreator(rootDir: string): Promise<{
     import fs from "node:fs";
     import path from "node:path";
     import { DatabaseSync } from "node:sqlite";
-    const { acquireDeviceIdentityCoordinator } = await import(process.env.OPENCLAW_COORDINATOR_MODULE);
+    const { acquireDeviceIdentityCoordinator } = await import(process.env.GRANTED_COORDINATOR_MODULE);
     const { generateStoredDeviceIdentity, insertStoredDeviceIdentityIfAbsent } =
-      await import(process.env.OPENCLAW_IDENTITY_STORE_MODULE);
+      await import(process.env.GRANTED_IDENTITY_STORE_MODULE);
     const options = {
-      env: { ...process.env, OPENCLAW_STATE_DIR: process.env.OPENCLAW_IDENTITY_STATE_DIR },
-      path: process.env.OPENCLAW_IDENTITY_DATABASE_PATH,
+      env: { ...process.env, GRANTED_STATE_DIR: process.env.GRANTED_IDENTITY_STATE_DIR },
+      path: process.env.GRANTED_IDENTITY_DATABASE_PATH,
     };
     const coordinator = acquireDeviceIdentityCoordinator({
       databasePath: options.path,
-      stateDir: process.env.OPENCLAW_IDENTITY_STATE_DIR,
+      stateDir: process.env.GRANTED_IDENTITY_STATE_DIR,
     });
     try {
       fs.mkdirSync(path.dirname(options.path), { recursive: true });
       new DatabaseSync(options.path).close();
-      fs.writeFileSync(process.env.OPENCLAW_IDENTITY_READY_PATH, "ready");
+      fs.writeFileSync(process.env.GRANTED_IDENTITY_READY_PATH, "ready");
       const deadline = Date.now() + 15_000;
-      while (!fs.existsSync(process.env.OPENCLAW_IDENTITY_CONTINUE_PATH)) {
+      while (!fs.existsSync(process.env.GRANTED_IDENTITY_CONTINUE_PATH)) {
         if (Date.now() >= deadline) throw new Error("timed out waiting to continue bootstrap");
         await new Promise((resolve) => setTimeout(resolve, 2));
       }
       const stored = insertStoredDeviceIdentityIfAbsent(generateStoredDeviceIdentity(), options);
-      fs.writeFileSync(process.env.OPENCLAW_IDENTITY_COMMITTED_PATH, "committed");
+      fs.writeFileSync(process.env.GRANTED_IDENTITY_COMMITTED_PATH, "committed");
       console.log(JSON.stringify({
         deviceId: stored.deviceId,
         publicKeyPem: stored.publicKeyPem,
@@ -196,13 +196,13 @@ async function startPausedBootstrapCreator(rootDir: string): Promise<{
     {
       env: {
         ...process.env,
-        OPENCLAW_IDENTITY_COMMITTED_PATH: committedPath,
-        OPENCLAW_COORDINATOR_MODULE: coordinatorModuleUrl,
-        OPENCLAW_IDENTITY_CONTINUE_PATH: continuePath,
-        OPENCLAW_IDENTITY_DATABASE_PATH: databasePath,
-        OPENCLAW_IDENTITY_READY_PATH: readyPath,
-        OPENCLAW_IDENTITY_STATE_DIR: rootDir,
-        OPENCLAW_IDENTITY_STORE_MODULE: storeModuleUrl,
+        GRANTED_IDENTITY_COMMITTED_PATH: committedPath,
+        GRANTED_COORDINATOR_MODULE: coordinatorModuleUrl,
+        GRANTED_IDENTITY_CONTINUE_PATH: continuePath,
+        GRANTED_IDENTITY_DATABASE_PATH: databasePath,
+        GRANTED_IDENTITY_READY_PATH: readyPath,
+        GRANTED_IDENTITY_STATE_DIR: rootDir,
+        GRANTED_IDENTITY_STORE_MODULE: storeModuleUrl,
       },
       stdio: ["ignore", "pipe", "pipe"],
     },
@@ -421,13 +421,13 @@ describe("device identity SQLite store", () => {
       closeOpenClawStateDatabaseForTest();
       const verified = new sqlite.DatabaseSync(options.path!, { readOnly: true });
       expect(verified.prepare("PRAGMA user_version").get()).toEqual({
-        user_version: OPENCLAW_STATE_SCHEMA_VERSION,
+        user_version: GRANTED_STATE_SCHEMA_VERSION,
       });
       expect(
         verified
           .prepare("SELECT role, schema_version FROM schema_meta WHERE meta_key = 'primary'")
           .get(),
-      ).toEqual({ role: "global", schema_version: OPENCLAW_STATE_SCHEMA_VERSION });
+      ).toEqual({ role: "global", schema_version: GRANTED_STATE_SCHEMA_VERSION });
       verified.close();
     });
   });

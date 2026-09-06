@@ -7,8 +7,8 @@ import { createStatusCommandReportDataParams } from "./status.test-support.ts";
 
 describe("buildStatusCommandReportData", () => {
   beforeEach(() => {
-    vi.stubEnv("OPENCLAW_PROFILE", undefined);
-    vi.stubEnv("OPENCLAW_CONTAINER_HINT", undefined);
+    vi.stubEnv("GRANTED_PROFILE", undefined);
+    vi.stubEnv("GRANTED_CONTAINER_HINT", undefined);
   });
   afterEach(() => vi.unstubAllEnvs());
 

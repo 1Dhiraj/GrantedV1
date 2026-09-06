@@ -62,8 +62,8 @@ async function withMcpConfigHome(run: () => Promise<void>): Promise<void> {
       prefix: "openclaw-mcp-config-oauth-",
       skipSessionCleanup: true,
       env: {
-        OPENCLAW_CONFIG_PATH: undefined,
-        OPENCLAW_STATE_DIR: (home) => path.join(home, ".openclaw"),
+        GRANTED_CONFIG_PATH: undefined,
+        GRANTED_STATE_DIR: (home) => path.join(home, ".openclaw"),
       },
     },
   );

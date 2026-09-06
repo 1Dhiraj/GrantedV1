@@ -24,13 +24,13 @@ describe("recovery survivor evidence", () => {
     expect(recoveryVolumeSpec({})).toEqual({ sessions: 2, eventsPerSession: 8 });
     expect(
       recoveryVolumeSpec({
-        OPENCLAW_UPGRADE_SURVIVOR_VOLUME_SESSIONS: "1",
-        OPENCLAW_UPGRADE_SURVIVOR_VOLUME_EVENTS_PER_SESSION: "150000",
+        GRANTED_UPGRADE_SURVIVOR_VOLUME_SESSIONS: "1",
+        GRANTED_UPGRADE_SURVIVOR_VOLUME_EVENTS_PER_SESSION: "150000",
       }),
     ).toEqual({ sessions: 1, eventsPerSession: 150000 });
     for (const invalid of ["0", "-1", "1.5", "9007199254740992"]) {
       expect(() =>
-        recoveryVolumeSpec({ OPENCLAW_UPGRADE_SURVIVOR_VOLUME_EVENTS_PER_SESSION: invalid }),
+        recoveryVolumeSpec({ GRANTED_UPGRADE_SURVIVOR_VOLUME_EVENTS_PER_SESSION: invalid }),
       ).toThrow();
     }
   });

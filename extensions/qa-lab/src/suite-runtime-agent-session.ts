@@ -384,7 +384,7 @@ async function readSkillStatus(env: QaGatewayCallEnv, agentId = "qa") {
 function qaSessionRuntimeEnv(tempRoot: string): NodeJS.ProcessEnv {
   return {
     ...process.env,
-    OPENCLAW_STATE_DIR: path.join(tempRoot, "state"),
+    GRANTED_STATE_DIR: path.join(tempRoot, "state"),
   };
 }
 

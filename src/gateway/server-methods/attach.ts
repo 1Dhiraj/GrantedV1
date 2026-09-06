@@ -75,7 +75,7 @@ export const attachHandlers: GatewayRequestHandlers = {
       expiresAtMs: grant.expiresAtMs,
       mcpConfig: createMcpAttachGrantServerConfig(runtime.port),
       env: {
-        OPENCLAW_MCP_TOKEN: grant.token,
+        GRANTED_MCP_TOKEN: grant.token,
       },
     });
   },

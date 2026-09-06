@@ -26,7 +26,7 @@ afterEach(async () => {
 async function createFixture() {
   const root = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-cron-scratch-"));
   tempDirs.push(root);
-  const env = { ...process.env, OPENCLAW_STATE_DIR: path.join(root, "state") };
+  const env = { ...process.env, GRANTED_STATE_DIR: path.join(root, "state") };
   const fixture = {
     storePath: path.join(root, "cron", "jobs.json"),
     options: { env },

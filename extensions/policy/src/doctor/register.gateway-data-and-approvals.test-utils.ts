@@ -887,10 +887,10 @@ describe("registerPolicyDoctorChecks", () => {
     ]);
   });
 
-  it("uses OPENCLAW_HOME for the default exec approvals artifact path", async () => {
+  it("uses GRANTED_HOME for the default exec approvals artifact path", async () => {
     const openclawHome = join(workspaceDir, "home");
     const approvalsDir = join(openclawHome, ".openclaw");
-    const previousOpenClawHome = process.env.OPENCLAW_HOME;
+    const previousOpenClawHome = process.env.GRANTED_HOME;
     await fs.mkdir(approvalsDir, { recursive: true });
     const configPath = await writeExecApprovalsPolicyFixture({
       defaults: { allowSecurity: ["deny"] },
@@ -901,7 +901,7 @@ describe("registerPolicyDoctorChecks", () => {
       "utf-8",
     );
 
-    process.env.OPENCLAW_HOME = openclawHome;
+    process.env.GRANTED_HOME = openclawHome;
     try {
       const result = await runRegisteredPolicyDoctor(configPath, cfgWithPolicy());
 
@@ -913,14 +913,14 @@ describe("registerPolicyDoctorChecks", () => {
       ]);
     } finally {
       if (previousOpenClawHome === undefined) {
-        delete process.env.OPENCLAW_HOME;
+        delete process.env.GRANTED_HOME;
       } else {
-        process.env.OPENCLAW_HOME = previousOpenClawHome;
+        process.env.GRANTED_HOME = previousOpenClawHome;
       }
     }
   });
 
-  it("uses OPENCLAW_STATE_DIR for the exec approvals artifact path", async () => {
+  it("uses GRANTED_STATE_DIR for the exec approvals artifact path", async () => {
     const stateDir = join(workspaceDir, "state");
     await fs.mkdir(stateDir, { recursive: true });
     const configPath = await writeExecApprovalsPolicyFixture({
@@ -937,7 +937,7 @@ describe("registerPolicyDoctorChecks", () => {
       "utf-8",
     );
 
-    process.env.OPENCLAW_STATE_DIR = stateDir;
+    process.env.GRANTED_STATE_DIR = stateDir;
 
     const result = await runRegisteredPolicyDoctor(configPath, cfgWithPolicy());
 

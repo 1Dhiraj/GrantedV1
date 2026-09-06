@@ -17,7 +17,7 @@ const tempDirs = useAutoCleanupTempDirTracker(afterEach);
 afterEach(() => closeOpenClawStateDatabaseForTest());
 
 /** Reproduces a current-main same-version database that predates the additive columns. */
-function createBaseShapeClawState(env: { OPENCLAW_STATE_DIR: string }): string {
+function createBaseShapeClawState(env: { GRANTED_STATE_DIR: string }): string {
   const database = openOpenClawStateDatabase({ env });
   const databasePath = database.path;
   database.db.exec(`
@@ -145,7 +145,7 @@ describe("findResumableIntroducedPluginRequirement", () => {
   });
 
   it("previews a same-version base-shape database without mutating it", async () => {
-    const env = { OPENCLAW_STATE_DIR: tempDirs.make("openclaw-claw-resume-base-") };
+    const env = { GRANTED_STATE_DIR: tempDirs.make("openclaw-claw-resume-base-") };
     const databasePath = createBaseShapeClawState(env);
     const before = await readFile(databasePath);
 

@@ -16,7 +16,7 @@ import {
 } from "./crabbox-worker-warm-image.test-support.js";
 
 function fixture(failCreate = false, onCommand?: (argv: string[]) => void) {
-  vi.stubEnv("OPENCLAW_STATE_DIR", tempDirs.make("openclaw-crabbox-allocation-"));
+  vi.stubEnv("GRANTED_STATE_DIR", tempDirs.make("openclaw-crabbox-allocation-"));
   const calls: string[][] = [];
   const manager = () =>
     createCrabboxWarmImageManager({

@@ -125,8 +125,8 @@ describe("prepareCliPromptImagePayload prompt references", () => {
     await fs.mkdir(path.dirname(siblingImagePath), { recursive: true });
     await fs.writeFile(imagePath, image);
     await fs.writeFile(siblingImagePath, image);
-    const envSnapshot = captureEnv(["OPENCLAW_STATE_DIR"]);
-    setTestEnvValue("OPENCLAW_STATE_DIR", stateDir);
+    const envSnapshot = captureEnv(["GRANTED_STATE_DIR"]);
+    setTestEnvValue("GRANTED_STATE_DIR", stateDir);
     const config = {
       agents: {
         entries: {
@@ -715,8 +715,8 @@ describe("writeCliImages", () => {
     await fs.mkdir(inboundDir, { recursive: true });
     await fs.writeFile(path.join(inboundDir, mediaId), offloadedImage);
     await fs.writeFile(historyImagePath, historyImage);
-    const envSnapshot = captureEnv(["OPENCLAW_STATE_DIR"]);
-    setTestEnvValue("OPENCLAW_STATE_DIR", stateDir);
+    const envSnapshot = captureEnv(["GRANTED_STATE_DIR"]);
+    setTestEnvValue("GRANTED_STATE_DIR", stateDir);
     const currentTurn = `compare these\n[media attached: media://inbound/${mediaId}]`;
 
     try {

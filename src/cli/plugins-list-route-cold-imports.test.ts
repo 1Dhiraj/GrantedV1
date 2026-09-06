@@ -76,10 +76,10 @@ it("renders the default list from metadata without loading plugin modules", asyn
   });
   const bundledRoot = path.join(tempRoot, "bundled");
   fs.mkdirSync(bundledRoot, { recursive: true });
-  vi.stubEnv("OPENCLAW_BUNDLED_PLUGINS_DIR", bundledRoot);
-  vi.stubEnv("OPENCLAW_DISABLE_BUNDLED_PLUGINS", "1");
-  vi.stubEnv("OPENCLAW_HOME", path.join(tempRoot, "home"));
-  vi.stubEnv("OPENCLAW_STATE_DIR", path.join(tempRoot, "state"));
+  vi.stubEnv("GRANTED_BUNDLED_PLUGINS_DIR", bundledRoot);
+  vi.stubEnv("GRANTED_DISABLE_BUNDLED_PLUGINS", "1");
+  vi.stubEnv("GRANTED_HOME", path.join(tempRoot, "home"));
+  vi.stubEnv("GRANTED_STATE_DIR", path.join(tempRoot, "state"));
   testState.config = {
     plugins: {
       load: { paths: [pluginRoot] },

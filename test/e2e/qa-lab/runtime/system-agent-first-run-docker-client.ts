@@ -214,13 +214,13 @@ async function main() {
   const tempState = await createE2eStateDir("openclaw-system-agent-first-run-");
   tempState.registerExitCleanup();
   const stateDir = tempState.stateDir;
-  const configPath = process.env.OPENCLAW_CONFIG_PATH ?? path.join(stateDir, "openclaw.json");
+  const configPath = process.env.GRANTED_CONFIG_PATH ?? path.join(stateDir, "openclaw.json");
   // Keep mutable logs/config outside the hashed package tree. Every file below
   // this root is part of the durable CLI owner checked before persistent setup.
   const fakeBinDir = path.join(stateDir, "fake-claude-package", "bin");
   const promptLogPath = path.join(stateDir, "fake-claude-prompts.jsonl");
-  setEnvValue("OPENCLAW_STATE_DIR", stateDir);
-  setEnvValue("OPENCLAW_CONFIG_PATH", configPath);
+  setEnvValue("GRANTED_STATE_DIR", stateDir);
+  setEnvValue("GRANTED_CONFIG_PATH", configPath);
   setEnvValue("PATH", `${fakeBinDir}:${process.env.PATH ?? ""}`);
   Reflect.deleteProperty(process.env, "OPENAI_API_KEY");
   Reflect.deleteProperty(process.env, "ANTHROPIC_API_KEY");
@@ -313,7 +313,7 @@ async function main() {
       assert(
         output.includes(
           "Gateway: OpenClaw gateway lifecycle is managed by an external supervisor " +
-            "(OPENCLAW_SUPERVISOR_MODE=external). Use that supervisor to start the gateway.",
+            "(GRANTED_SUPERVISOR_MODE=external). Use that supervisor to start the gateway.",
         ),
         `OpenClaw setup did not report the externally supervised gateway: ${output}`,
       );

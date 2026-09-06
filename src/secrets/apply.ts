@@ -296,7 +296,7 @@ async function projectPlanState(params: {
   const stateDir = resolveStateDir(params.env, os.homedir);
   const authStoreEnv = {
     ...params.env,
-    OPENCLAW_STATE_DIR: stateDir,
+    GRANTED_STATE_DIR: stateDir,
   };
   const changedFiles = new Set<string>();
   const warnings: string[] = [];
@@ -585,8 +585,8 @@ function resolveAuthStoreTargetForAgent(params: {
 }): Extract<AuthProfileStoreTarget, { kind: "agent" }> {
   const scopedEnv = {
     ...params.env,
-    OPENCLAW_STATE_DIR: params.stateDir,
-    OPENCLAW_AGENT_DIR: undefined,
+    GRANTED_STATE_DIR: params.stateDir,
+    GRANTED_AGENT_DIR: undefined,
   };
   const agentDir = resolveAgentDir(params.nextConfig, params.agentId, scopedEnv);
   return { kind: "agent", agentDir, path: resolveAuthProfileDatabasePath(agentDir) };

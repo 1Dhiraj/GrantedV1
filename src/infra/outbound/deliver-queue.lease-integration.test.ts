@@ -23,7 +23,7 @@ import {
 let deliverOutboundPayloads: typeof import("./deliver.js").deliverOutboundPayloads;
 
 async function startBlockedFreshDelivery(params: { tmpDir: string }) {
-  process.env.OPENCLAW_STATE_DIR = params.tmpDir;
+  process.env.GRANTED_STATE_DIR = params.tmpDir;
   const preparationEntered = createDeferred();
   const releasePreparation = createDeferred();
   const queueIdReady = createDeferred<string>();
@@ -80,7 +80,7 @@ async function startBlockedStableDelivery(params: {
   deliveryIntentId: string;
   requiresProducerClaim: boolean;
 }) {
-  process.env.OPENCLAW_STATE_DIR = params.tmpDir;
+  process.env.GRANTED_STATE_DIR = params.tmpDir;
   const preparationEntered = createDeferred();
   const releasePreparation = createDeferred();
   const messageId = `${params.deliveryIntentId}-message`;
@@ -148,7 +148,7 @@ async function startBlockedRenderedStableDelivery(params: {
   tmpDir: string;
   deliveryIntentId: string;
 }) {
-  process.env.OPENCLAW_STATE_DIR = params.tmpDir;
+  process.env.GRANTED_STATE_DIR = params.tmpDir;
   const renderEntered = createDeferred();
   const releaseRender = createDeferred();
   const messageId = `${params.deliveryIntentId}-message`;
@@ -225,7 +225,7 @@ async function startBlockedProviderStableDelivery(params: {
   tmpDir: string;
   deliveryIntentId: string;
 }) {
-  process.env.OPENCLAW_STATE_DIR = params.tmpDir;
+  process.env.GRANTED_STATE_DIR = params.tmpDir;
   const providerEntered = createDeferred();
   const releaseProvider = createDeferred();
   const messageId = `${params.deliveryIntentId}-message`;

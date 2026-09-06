@@ -39,7 +39,7 @@ function createContext(env?: NodeJS.ProcessEnv): PluginDoctorStateMigrationConte
 }
 
 function createMigrationParams(stateDir: string) {
-  const env = { OPENCLAW_STATE_DIR: stateDir };
+  const env = { GRANTED_STATE_DIR: stateDir };
   return {
     config: {} as OpenClawConfig,
     env,

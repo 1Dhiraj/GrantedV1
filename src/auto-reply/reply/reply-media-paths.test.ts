@@ -11,7 +11,7 @@ import { getReplyPayloadMetadata, setReplyPayloadMetadata } from "../reply-paylo
 const ensureSandboxWorkspaceForSession = vi.hoisted(() => vi.fn());
 const resolveOutboundAttachmentFromUrl = vi.hoisted(() => vi.fn());
 const resolveAgentScopedOutboundMediaAccess = vi.hoisted(() => vi.fn());
-const stateDirEnvSnapshot = captureEnv(["OPENCLAW_STATE_DIR"]);
+const stateDirEnvSnapshot = captureEnv(["GRANTED_STATE_DIR"]);
 
 vi.mock("../../agents/sandbox.js", () => ({
   ensureSandboxWorkspaceForSession,
@@ -425,7 +425,7 @@ describe("createReplyMediaPathNormalizer", () => {
   });
 
   it("keeps managed generated media under the shared media root", async () => {
-    setTestEnvValue("OPENCLAW_STATE_DIR", "/Users/peter/.openclaw");
+    setTestEnvValue("GRANTED_STATE_DIR", "/Users/peter/.openclaw");
     const normalize = createTestReplyMediaNormalizer();
 
     const result = await normalize({
@@ -443,7 +443,7 @@ describe("createReplyMediaPathNormalizer", () => {
       workspaceDir: "/tmp/sandboxes/session-1",
       containerWorkdir: "/workspace",
     });
-    setTestEnvValue("OPENCLAW_STATE_DIR", "/Users/peter/.openclaw");
+    setTestEnvValue("GRANTED_STATE_DIR", "/Users/peter/.openclaw");
     const normalize = createTestReplyMediaNormalizer();
 
     const result = await normalize({
@@ -468,7 +468,7 @@ describe("createReplyMediaPathNormalizer", () => {
       await fs.mkdir(path.dirname(symlinkPath), { recursive: true });
       await fs.writeFile(outsideFile, "secret", "utf8");
       await fs.symlink(outsideFile, symlinkPath);
-      setTestEnvValue("OPENCLAW_STATE_DIR", stateDir);
+      setTestEnvValue("GRANTED_STATE_DIR", stateDir);
       const normalize = createTestReplyMediaNormalizer();
 
       const result = await normalize({

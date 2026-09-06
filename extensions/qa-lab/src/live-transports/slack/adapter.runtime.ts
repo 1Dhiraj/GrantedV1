@@ -310,8 +310,8 @@ export async function createSlackQaTransportAdapter(
         sutBotToken: runtimeEnv.sutBotToken,
       }),
     createRuntimeEnvPatch: () => ({
-      OPENCLAW_DEBUG_PROXY_ENABLED: "1",
-      OPENCLAW_DEBUG_PROXY_SESSION_ID: captureSessionId,
+      GRANTED_DEBUG_PROXY_ENABLED: "1",
+      GRANTED_DEBUG_PROXY_SESSION_ID: captureSessionId,
     }),
     prepareFlow: async (input) => {
       captureStoreLease ??= acquireDebugProxyCaptureStore({

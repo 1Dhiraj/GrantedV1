@@ -477,7 +477,7 @@ describe("scripts/ios-validate-app-store-ipa.sh", () => {
     const root = mkdtempSync(path.join(os.tmpdir(), "openclaw-ios-ipa-"));
     tempDirs.push(root);
     const fixture = await writeValidFixture(root, {
-      localizedDisplayName: "$(OPENCLAW_APP_DISPLAY_NAME)",
+      localizedDisplayName: "$(GRANTED_APP_DISPLAY_NAME)",
     });
 
     const result = runValidator(fixture);

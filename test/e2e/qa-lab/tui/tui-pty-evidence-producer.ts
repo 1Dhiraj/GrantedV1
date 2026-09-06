@@ -263,21 +263,21 @@ export function buildTuiPtyVitestCommand(params: {
   const usesLocalPty = testFiles.includes(LOCAL_PTY_TEST_FILE);
   const env: NodeJS.ProcessEnv = {
     ...process.env,
-    OPENCLAW_BEHAVIOR_EVIDENCE: "1",
-    OPENCLAW_VITEST_FS_MODULE_CACHE_PATH: path.join(
+    GRANTED_BEHAVIOR_EVIDENCE: "1",
+    GRANTED_VITEST_FS_MODULE_CACHE_PATH: path.join(
       path.dirname(params.reportPath),
       "vitest-fs-module-cache",
     ),
   };
   if (usesLocalPty) {
-    env.OPENCLAW_TUI_PTY_INCLUDE_LOCAL = "1";
+    env.GRANTED_TUI_PTY_INCLUDE_LOCAL = "1";
   } else {
-    delete env.OPENCLAW_TUI_PTY_INCLUDE_LOCAL;
+    delete env.GRANTED_TUI_PTY_INCLUDE_LOCAL;
   }
   if (params.cliMode === "built") {
-    env.OPENCLAW_TUI_PTY_USE_BUILT_CLI = "1";
+    env.GRANTED_TUI_PTY_USE_BUILT_CLI = "1";
   } else {
-    delete env.OPENCLAW_TUI_PTY_USE_BUILT_CLI;
+    delete env.GRANTED_TUI_PTY_USE_BUILT_CLI;
   }
   return {
     command: process.execPath,

@@ -87,7 +87,7 @@ describe("mcp show redaction e2e", () => {
       const instance = await createOpenClawTestInstance({
         name: "mcp-show-redact",
         env: {
-          OPENCLAW_TEST_FAST: "1",
+          GRANTED_TEST_FAST: "1",
         },
         config: {
           commands: {

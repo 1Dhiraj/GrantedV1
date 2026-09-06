@@ -53,13 +53,13 @@ export function resolveParallelsModelTimeoutSeconds(platform?: Platform): number
   const platformEnvName =
     platform === undefined
       ? undefined
-      : `OPENCLAW_PARALLELS_${platform.toUpperCase()}_MODEL_TIMEOUT_S`;
+      : `GRANTED_PARALLELS_${platform.toUpperCase()}_MODEL_TIMEOUT_S`;
   const platformEnv = platformEnvName === undefined ? undefined : process.env[platformEnvName];
   const defaultSeconds = platform === "macos" || platform === "windows" ? 1800 : 900;
   if (platformEnvName && platformEnv?.trim()) {
     return parsePositiveInt(platformEnv, platformEnvName);
   }
-  return readPositiveIntEnv("OPENCLAW_PARALLELS_MODEL_TIMEOUT_S", defaultSeconds);
+  return readPositiveIntEnv("GRANTED_PARALLELS_MODEL_TIMEOUT_S", defaultSeconds);
 }
 
 function providerTimeoutConfigJson(

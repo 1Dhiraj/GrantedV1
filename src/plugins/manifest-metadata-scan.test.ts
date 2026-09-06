@@ -57,8 +57,8 @@ function createGlobalPluginFixture(pluginName: string) {
     pluginDir,
     manifestPath,
     env: {
-      OPENCLAW_HOME: home,
-      OPENCLAW_BUNDLED_PLUGINS_DIR: path.join(root, "empty-bundled"),
+      GRANTED_HOME: home,
+      GRANTED_BUNDLED_PLUGINS_DIR: path.join(root, "empty-bundled"),
     },
   };
 }
@@ -98,8 +98,8 @@ describe("listOpenClawPluginManifestMetadata", () => {
       const bundledRoot = path.join(root, "bundled");
       const pluginDir = path.join(bundledRoot, "startup-owner");
       const env = {
-        OPENCLAW_HOME: path.join(root, "home"),
-        OPENCLAW_BUNDLED_PLUGINS_DIR: bundledRoot,
+        GRANTED_HOME: path.join(root, "home"),
+        GRANTED_BUNDLED_PLUGINS_DIR: bundledRoot,
       };
       const writePackage = (generation: string, pluginId = "startup-owner") => {
         const targetDir = path.join(bundledRoot, pluginId);
@@ -174,8 +174,8 @@ describe("listOpenClawPluginManifestMetadata", () => {
     const manifestPath = path.join(pluginDir, "openclaw.plugin.json");
     const env = {
       HOME: home,
-      OPENCLAW_HOME: home,
-      OPENCLAW_BUNDLED_PLUGINS_DIR: bundledRoot,
+      GRANTED_HOME: home,
+      GRANTED_BUNDLED_PLUGINS_DIR: bundledRoot,
     };
     const writeManifest = (generation: string) =>
       writeJson(manifestPath, { id: "lifecycle-catalog", generation });
@@ -258,8 +258,8 @@ describe("listOpenClawPluginManifestMetadata", () => {
     );
 
     const records = listOpenClawPluginManifestMetadata({
-      OPENCLAW_HOME: home,
-      OPENCLAW_BUNDLED_PLUGINS_DIR: bundledRoot,
+      GRANTED_HOME: home,
+      GRANTED_BUNDLED_PLUGINS_DIR: bundledRoot,
     });
 
     const openai = records.find((record) => record.manifest.id === "openai");
@@ -280,8 +280,8 @@ describe("listOpenClawPluginManifestMetadata", () => {
     });
 
     const records = listOpenClawPluginManifestMetadata({
-      OPENCLAW_HOME: home,
-      OPENCLAW_BUNDLED_PLUGINS_DIR: partialBundledRoot,
+      GRANTED_HOME: home,
+      GRANTED_BUNDLED_PLUGINS_DIR: partialBundledRoot,
     });
 
     const openai = records.find((record) => record.manifest.id === "openai");
@@ -301,9 +301,9 @@ describe("listOpenClawPluginManifestMetadata", () => {
     writeJson(path.join(pluginDir, "openclaw.plugin.json"), { id: "example" });
 
     const records = listOpenClawPluginManifestMetadata({
-      OPENCLAW_HOME: "   ",
+      GRANTED_HOME: "   ",
       HOME: home,
-      OPENCLAW_BUNDLED_PLUGINS_DIR: path.join(root, "bundled"),
+      GRANTED_BUNDLED_PLUGINS_DIR: path.join(root, "bundled"),
     });
 
     expect(records).toContainEqual({
@@ -336,8 +336,8 @@ describe("listOpenClawPluginManifestMetadata", () => {
     writeJson(path.join(pluginDir, "openclaw.plugin.json"), manifest);
 
     const records = listOpenClawPluginManifestMetadata({
-      OPENCLAW_HOME: home,
-      OPENCLAW_BUNDLED_PLUGINS_DIR: path.join(root, "empty-bundled"),
+      GRANTED_HOME: home,
+      GRANTED_BUNDLED_PLUGINS_DIR: path.join(root, "empty-bundled"),
     });
 
     expect(records).toContainEqual({
@@ -385,8 +385,8 @@ describe("listOpenClawPluginManifestMetadata", () => {
     expect(fs.statSync(oversizedPath).size).toBeGreaterThan(256 * 1024);
 
     const env = {
-      OPENCLAW_HOME: home,
-      OPENCLAW_BUNDLED_PLUGINS_DIR: path.join(root, "empty-bundled"),
+      GRANTED_HOME: home,
+      GRANTED_BUNDLED_PLUGINS_DIR: path.join(root, "empty-bundled"),
     };
     const records = listOpenClawPluginManifestMetadata(env);
     const cachedRecords = listOpenClawPluginManifestMetadata(env);
@@ -474,8 +474,8 @@ describe("listOpenClawPluginManifestMetadata", () => {
     expect(Buffer.byteLength(fs.readFileSync(exactPath), "utf8")).toBe(256 * 1024);
 
     const records = listOpenClawPluginManifestMetadata({
-      OPENCLAW_HOME: home,
-      OPENCLAW_BUNDLED_PLUGINS_DIR: path.join(root, "empty-bundled"),
+      GRANTED_HOME: home,
+      GRANTED_BUNDLED_PLUGINS_DIR: path.join(root, "empty-bundled"),
     });
 
     expect(records.find((record) => record.manifest.id === "exact-plugin")).toBeTruthy();

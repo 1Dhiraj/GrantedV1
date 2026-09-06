@@ -128,13 +128,13 @@ process.stderr.write = (chunk, ...args) => {
 };
 `,
   );
-  const env: NodeJS.ProcessEnv = { ...process.env, OPENCLAW_OXLINT_SHARDS_SERIAL: "1" };
+  const env: NodeJS.ProcessEnv = { ...process.env, GRANTED_OXLINT_SHARDS_SERIAL: "1" };
   for (const key of [
     "NODE_OPTIONS",
     "NODE_PATH",
     "PNPM_CONFIG_MODULES_DIR",
     "npm_config_modules_dir",
-    "OPENCLAW_OXLINT_SKIP_PREPARE",
+    "GRANTED_OXLINT_SKIP_PREPARE",
   ]) {
     delete env[key];
   }
@@ -196,9 +196,9 @@ async function runLintFixture(
       ],
       {
         ...env,
-        OPENCLAW_OXLINT_SHARDS_SERIAL: parallel ? "0" : "1",
-        OPENCLAW_OXLINT_SHARD_HEARTBEAT_MS: "0",
-        OPENCLAW_OXLINT_SHARD_TIMEOUT_MS: timeout ? "1500" : "0",
+        GRANTED_OXLINT_SHARDS_SERIAL: parallel ? "0" : "1",
+        GRANTED_OXLINT_SHARD_HEARTBEAT_MS: "0",
+        GRANTED_OXLINT_SHARD_TIMEOUT_MS: timeout ? "1500" : "0",
       },
       10_000,
       {

@@ -61,7 +61,7 @@ async function startGatewayCron(label: string): Promise<StartedGatewayCron> {
     cfg,
     deps: {} as CliDeps,
     broadcast: () => {},
-    env: { ...process.env, OPENCLAW_SKIP_CRON: "0", OPENCLAW_STATE_DIR: stateDir },
+    env: { ...process.env, GRANTED_SKIP_CRON: "0", GRANTED_STATE_DIR: stateDir },
   });
   await state.cron.start();
   await state.cron.add({

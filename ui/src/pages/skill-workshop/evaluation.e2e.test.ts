@@ -15,7 +15,7 @@ const describeBrowser = canRunPlaywrightChromium(chromiumExecutablePath) ? descr
 const DRAFT_HASH = "a".repeat(64);
 const REVISION_HASH = "b".repeat(64);
 const ISO_NOW = "2026-07-29T10:00:00.000Z";
-const configuredArtifactDir = process.env.OPENCLAW_UI_E2E_ARTIFACT_DIR?.trim();
+const configuredArtifactDir = process.env.GRANTED_UI_E2E_ARTIFACT_DIR?.trim();
 const artifactDir = configuredArtifactDir
   ? path.join(path.resolve(process.cwd(), configuredArtifactDir), "skill-workshop-evaluation")
   : undefined;

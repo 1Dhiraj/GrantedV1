@@ -90,10 +90,10 @@ function subscriptionIncludesKind(
 
 describe("Buzz mention delivery", () => {
   beforeEach(() => {
-    previousStateDir = process.env.OPENCLAW_STATE_DIR;
+    previousStateDir = process.env.GRANTED_STATE_DIR;
     // openclaw-temp-dir: allow extension tests cannot import root test helpers.
     stateDir = mkdtempSync(path.join(tmpdir(), "openclaw-buzz-mentions-"));
-    process.env.OPENCLAW_STATE_DIR = stateDir;
+    process.env.GRANTED_STATE_DIR = stateDir;
     vi.clearAllMocks();
     relayMocks.profileEvents = [];
     relayMocks.subscriptions.length = 0;
@@ -129,9 +129,9 @@ describe("Buzz mention delivery", () => {
 
   afterEach(() => {
     if (previousStateDir === undefined) {
-      delete process.env.OPENCLAW_STATE_DIR;
+      delete process.env.GRANTED_STATE_DIR;
     } else {
-      process.env.OPENCLAW_STATE_DIR = previousStateDir;
+      process.env.GRANTED_STATE_DIR = previousStateDir;
     }
     rmSync(stateDir, { recursive: true, force: true });
   });

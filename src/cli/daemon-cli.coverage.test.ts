@@ -77,9 +77,9 @@ const buildGatewayInstallPlan = vi.fn(
     programArguments: ["/bin/node", "cli", "gateway", "--port", String(params.port)],
     workingDirectory: process.cwd(),
     environment: {
-      OPENCLAW_GATEWAY_PORT: String(params.port),
-      ...(params.wrapperPath ? { OPENCLAW_WRAPPER: params.wrapperPath } : {}),
-      ...(params.token ? { OPENCLAW_GATEWAY_TOKEN: params.token } : {}),
+      GRANTED_GATEWAY_PORT: String(params.port),
+      ...(params.wrapperPath ? { GRANTED_WRAPPER: params.wrapperPath } : {}),
+      ...(params.token ? { GRANTED_GATEWAY_TOKEN: params.token } : {}),
     },
   }),
 );
@@ -101,7 +101,7 @@ vi.mock("../gateway/probe-auth.js", () => ({
 }));
 
 vi.mock("../daemon/program-args.js", () => ({
-  OPENCLAW_WRAPPER_ENV_KEY: "OPENCLAW_WRAPPER",
+  GRANTED_WRAPPER_ENV_KEY: "GRANTED_WRAPPER",
   resolveGatewayProgramArguments: (opts: unknown) => resolveGatewayProgramArguments(opts),
   resolveOpenClawWrapperPath: async (value: string | undefined) => value?.trim() || undefined,
 }));
@@ -214,17 +214,17 @@ describe("daemon-cli coverage", () => {
     tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-daemon-cli-"));
     envSnapshot = captureEnv([
       "HOME",
-      "OPENCLAW_STATE_DIR",
-      "OPENCLAW_CONFIG_PATH",
-      "OPENCLAW_GATEWAY_PORT",
-      "OPENCLAW_PROFILE",
+      "GRANTED_STATE_DIR",
+      "GRANTED_CONFIG_PATH",
+      "GRANTED_GATEWAY_PORT",
+      "GRANTED_PROFILE",
     ]);
     setTestEnvValue("HOME", tmpDir);
-    setTestEnvValue("OPENCLAW_STATE_DIR", path.join(tmpDir, ".openclaw"));
-    setTestEnvValue("OPENCLAW_CONFIG_PATH", path.join(tmpDir, ".openclaw", "openclaw.json"));
+    setTestEnvValue("GRANTED_STATE_DIR", path.join(tmpDir, ".openclaw"));
+    setTestEnvValue("GRANTED_CONFIG_PATH", path.join(tmpDir, ".openclaw", "openclaw.json"));
     mockSystemAccountHome();
-    deleteTestEnvValue("OPENCLAW_GATEWAY_PORT");
-    deleteTestEnvValue("OPENCLAW_PROFILE");
+    deleteTestEnvValue("GRANTED_GATEWAY_PORT");
+    deleteTestEnvValue("GRANTED_PROFILE");
     serviceReadCommand.mockResolvedValue(null);
     resolveGatewayProbeAuthSafeWithSecretInputs.mockClear();
     findExtraGatewayServices.mockClear();
@@ -262,10 +262,10 @@ describe("daemon-cli coverage", () => {
     serviceReadCommand.mockResolvedValueOnce({
       programArguments: ["/bin/node", "cli", "gateway", "--port", "19001"],
       environment: {
-        OPENCLAW_PROFILE: "dev",
-        OPENCLAW_STATE_DIR: "/tmp/openclaw-daemon-state",
-        OPENCLAW_CONFIG_PATH: "/tmp/openclaw-daemon-state/openclaw.json",
-        OPENCLAW_GATEWAY_PORT: "19001",
+        GRANTED_PROFILE: "dev",
+        GRANTED_STATE_DIR: "/tmp/openclaw-daemon-state",
+        GRANTED_CONFIG_PATH: "/tmp/openclaw-daemon-state/openclaw.json",
+        GRANTED_GATEWAY_PORT: "19001",
       },
       sourcePath: "/tmp/ai.openclaw.gateway.plist",
     });
@@ -337,7 +337,7 @@ describe("daemon-cli coverage", () => {
     serviceReadCommand.mockResolvedValueOnce({
       programArguments: ["/bin/node", "cli", "gateway", "--port", "18789"],
       environment: {
-        OPENCLAW_WRAPPER: "/usr/local/bin/openclaw-doppler",
+        GRANTED_WRAPPER: "/usr/local/bin/openclaw-doppler",
         PATH: "/custom/go/bin:/usr/bin",
         GOPATH: "/Users/test/.local/gopath",
         GOBIN: "/Users/test/.local/gopath/bin",
@@ -353,11 +353,11 @@ describe("daemon-cli coverage", () => {
     );
     expect(installPlanParams.existingEnvironment).toEqual({
       PATH: "/custom/go/bin:/usr/bin",
-      OPENCLAW_WRAPPER: "/usr/local/bin/openclaw-doppler",
+      GRANTED_WRAPPER: "/usr/local/bin/openclaw-doppler",
       GOPATH: "/Users/test/.local/gopath",
       GOBIN: "/Users/test/.local/gopath/bin",
     });
-    expect((installPlanParams.env as NodeJS.ProcessEnv).OPENCLAW_WRAPPER).toBe(
+    expect((installPlanParams.env as NodeJS.ProcessEnv).GRANTED_WRAPPER).toBe(
       "/usr/local/bin/openclaw-doppler",
     );
   });

@@ -143,13 +143,13 @@ const GATEWAY_CASES: readonly GatewayBenchCase[] = [
   {
     id: "skipChannels",
     name: "gateway, skip channels",
-    env: { OPENCLAW_SKIP_CHANNELS: "1" },
+    env: { GRANTED_SKIP_CHANNELS: "1" },
     config: BASE_CONFIG,
   },
   {
     id: "preparedRuntimeCatalogStall",
     name: "gateway, prepared runtime with CPU-stalling live catalog",
-    env: { OPENCLAW_SKIP_CHANNELS: "1" },
+    env: { GRANTED_SKIP_CHANNELS: "1" },
     providerCatalogStallMs: 2_000,
     config: {
       ...BASE_CONFIG,
@@ -170,7 +170,7 @@ const GATEWAY_CASES: readonly GatewayBenchCase[] = [
     name: "gateway, prepared runtime scale with one agent",
     agentTopology: "single",
     completionTracePhase: "sidecars.ready",
-    env: { OPENCLAW_SKIP_CHANNELS: "1" },
+    env: { GRANTED_SKIP_CHANNELS: "1" },
     providerStaticCatalogModelCount: 64,
     providerStaticCatalogStallMs: 100,
     config: {
@@ -192,7 +192,7 @@ const GATEWAY_CASES: readonly GatewayBenchCase[] = [
     name: "gateway, prepared runtime scale with 11 shared-workspace agents and one distinct",
     agentTopology: "shared-eleven-plus-distinct-one",
     completionTracePhase: "sidecars.ready",
-    env: { OPENCLAW_SKIP_CHANNELS: "1" },
+    env: { GRANTED_SKIP_CHANNELS: "1" },
     providerStaticCatalogModelCount: 64,
     providerStaticCatalogStallMs: 100,
     config: {
@@ -212,7 +212,7 @@ const GATEWAY_CASES: readonly GatewayBenchCase[] = [
   {
     id: "oneInternalHook",
     name: "gateway, one configured internal hook",
-    env: { OPENCLAW_SKIP_CHANNELS: "1" },
+    env: { GRANTED_SKIP_CHANNELS: "1" },
     config: {
       ...BASE_CONFIG,
       hooks: {
@@ -227,7 +227,7 @@ const GATEWAY_CASES: readonly GatewayBenchCase[] = [
   {
     id: "allInternalHooks",
     name: "gateway, all internal hooks",
-    env: { OPENCLAW_SKIP_CHANNELS: "1" },
+    env: { GRANTED_SKIP_CHANNELS: "1" },
     config: {
       ...BASE_CONFIG,
       hooks: {
@@ -240,7 +240,7 @@ const GATEWAY_CASES: readonly GatewayBenchCase[] = [
   {
     id: "fiftyPlugins",
     name: "gateway, 50 manifest plugins",
-    env: { OPENCLAW_SKIP_CHANNELS: "1" },
+    env: { GRANTED_SKIP_CHANNELS: "1" },
     pluginActivationOnStartup: true,
     pluginCount: 50,
     config: BASE_CONFIG,
@@ -248,7 +248,7 @@ const GATEWAY_CASES: readonly GatewayBenchCase[] = [
   {
     id: "fiftyStartupLazyPlugins",
     name: "gateway, 50 startup-lazy manifest plugins",
-    env: { OPENCLAW_SKIP_CHANNELS: "1" },
+    env: { GRANTED_SKIP_CHANNELS: "1" },
     pluginActivationOnStartup: false,
     pluginCount: 50,
     config: BASE_CONFIG,
@@ -278,7 +278,7 @@ const GATEWAY_CASES: readonly GatewayBenchCase[] = [
   {
     id: "incidentPackagedPlugins",
     name: "gateway, packaged plugin inventory",
-    env: { OPENCLAW_DISABLE_BUNDLED_ENTRY_SOURCE_FALLBACK: "1" },
+    env: { GRANTED_DISABLE_BUNDLED_ENTRY_SOURCE_FALLBACK: "1" },
     incidentFixture: "packaged-plugins",
     runByDefault: false,
     config: BASE_CONFIG,
@@ -287,7 +287,7 @@ const GATEWAY_CASES: readonly GatewayBenchCase[] = [
     id: "incidentCombined",
     name: "gateway, incident-scale combined load",
     agentTopology: "incident-scale",
-    env: { OPENCLAW_DISABLE_BUNDLED_ENTRY_SOURCE_FALLBACK: "1" },
+    env: { GRANTED_DISABLE_BUNDLED_ENTRY_SOURCE_FALLBACK: "1" },
     incidentFixture: "combined",
     runByDefault: false,
     config: BASE_CONFIG,
@@ -618,7 +618,7 @@ function fixtureIncludesPackagedPlugins(kind: IncidentFixtureOptions["kind"]): b
 
 function listIncidentPackagedPluginArtifacts(env = process.env): string[] {
   return listBundledPluginPackArtifacts({
-    env: { ...env, OPENCLAW_BUNDLED_PLUGIN_BUILD_IDS: undefined },
+    env: { ...env, GRANTED_BUNDLED_PLUGIN_BUILD_IDS: undefined },
   });
 }
 
@@ -699,7 +699,7 @@ async function writeIncidentFixture(root: string, options: IncidentFixtureOption
   if (!fixtureIncludesDatabase(options.kind)) {
     return;
   }
-  const env = { OPENCLAW_STATE_DIR: path.join(root, "state") };
+  const env = { GRANTED_STATE_DIR: path.join(root, "state") };
   const [{ DatabaseSync }, agentDatabase, stateDatabase] = await Promise.all([
     import("node:sqlite"),
     import("../src/state/openclaw-agent-db.js"),

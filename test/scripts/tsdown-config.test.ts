@@ -77,7 +77,7 @@ describe("tsdown config", () => {
   it.each([false, true])(
     "runs the bundled memory store with only production dependencies (verbose=%s)",
     async (verbose) => {
-      vi.stubEnv("OPENCLAW_BUILD_VERBOSE", verbose ? "1" : "0");
+      vi.stubEnv("GRANTED_BUILD_VERBOSE", verbose ? "1" : "0");
       const selected = configs.find((config) => config.name === TSDOWN_UNIFIED_CONFIG_GROUP);
       const entryName = "extensions/memory-lancedb/lancedb-store";
       const source = (selected?.entry as Record<string, string> | undefined)?.[entryName];
@@ -402,13 +402,13 @@ describe("tsdown config", () => {
         if (worker) {
           await join([
             probe("default", "off", "fallback"),
-            ...["FS_SAFE_NATIVE_MODE", "OPENCLAW_FS_SAFE_NATIVE_MODE"].map((key) =>
+            ...["FS_SAFE_NATIVE_MODE", "GRANTED_FS_SAFE_NATIVE_MODE"].map((key) =>
               probe(key, "off", "fallback", { [key]: "require" }),
             ),
           ]);
         } else {
           await join([
-            ...["FS_SAFE_NATIVE_MODE", "OPENCLAW_FS_SAFE_NATIVE_MODE"].map((key) =>
+            ...["FS_SAFE_NATIVE_MODE", "GRANTED_FS_SAFE_NATIVE_MODE"].map((key) =>
               probe(key, "require", "native", { [key]: "require" }),
             ),
             probe("shared-config", "configured", "native"),
@@ -438,7 +438,7 @@ describe("tsdown config", () => {
   )(
     "preserves dependency package boundaries for $target (verbose=$verbose)",
     async ({ target, verbose }) => {
-      vi.stubEnv("OPENCLAW_BUILD_VERBOSE", verbose ? "1" : "0");
+      vi.stubEnv("GRANTED_BUILD_VERBOSE", verbose ? "1" : "0");
       const root = fs.realpathSync(createTempDir("openclaw-tsdown-dependencies-"));
       const declarations = target === "declarations";
       const bundleAll = target === "worker" || target === "receiver";

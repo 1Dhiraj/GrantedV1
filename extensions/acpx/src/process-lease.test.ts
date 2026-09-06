@@ -10,8 +10,8 @@ import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import {
   createAcpxProcessLeaseStore,
   openAcpxProcessLeaseStateStore,
-  OPENCLAW_ACPX_LEASE_ID_ARG,
-  OPENCLAW_GATEWAY_INSTANCE_ID_ARG,
+  GRANTED_ACPX_LEASE_ID_ARG,
+  GRANTED_GATEWAY_INSTANCE_ID_ARG,
   readAcpxProcessLeaseIdentity,
   withAcpxLeaseEnvironment,
   type AcpxProcessLease,
@@ -39,7 +39,7 @@ describe("createAcpxProcessLeaseStore", () => {
   beforeEach(async () => {
     resetPluginStateStoreForTests();
     stateDir = await mkdtemp(path.join(tmpdir(), "openclaw-acpx-leases-"));
-    env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+    env = { ...process.env, GRANTED_STATE_DIR: stateDir };
   });
 
   afterEach(async () => {
@@ -106,9 +106,9 @@ describe("withAcpxLeaseEnvironment", () => {
     expect(command).toBe(
       [
         "node /tmp/openclaw/acpx/codex-acp-wrapper.mjs",
-        OPENCLAW_ACPX_LEASE_ID_ARG,
+        GRANTED_ACPX_LEASE_ID_ARG,
         "lease-test",
-        OPENCLAW_GATEWAY_INSTANCE_ID_ARG,
+        GRANTED_GATEWAY_INSTANCE_ID_ARG,
         "gateway-test",
       ].join(" "),
     );
@@ -124,9 +124,9 @@ describe("withAcpxLeaseEnvironment", () => {
     expect(command).toBe(
       [
         "node C:/openclaw/acpx/codex-acp-wrapper.mjs",
-        OPENCLAW_ACPX_LEASE_ID_ARG,
+        GRANTED_ACPX_LEASE_ID_ARG,
         "'lease test'",
-        OPENCLAW_GATEWAY_INSTANCE_ID_ARG,
+        GRANTED_GATEWAY_INSTANCE_ID_ARG,
         "gateway-test",
       ].join(" "),
     );
@@ -139,9 +139,9 @@ describe("readAcpxProcessLeaseIdentity", () => {
       readAcpxProcessLeaseIdentity(
         [
           "node /tmp/openclaw/acpx/codex-acp-wrapper.mjs",
-          OPENCLAW_ACPX_LEASE_ID_ARG,
+          GRANTED_ACPX_LEASE_ID_ARG,
           "'lease test'",
-          OPENCLAW_GATEWAY_INSTANCE_ID_ARG,
+          GRANTED_GATEWAY_INSTANCE_ID_ARG,
           '"gateway test"',
         ].join(" "),
       ),
@@ -153,7 +153,7 @@ describe("readAcpxProcessLeaseIdentity", () => {
 
   it("rejects incomplete lease identity", () => {
     expect(
-      readAcpxProcessLeaseIdentity(`node wrapper.mjs ${OPENCLAW_ACPX_LEASE_ID_ARG} lease-test`),
+      readAcpxProcessLeaseIdentity(`node wrapper.mjs ${GRANTED_ACPX_LEASE_ID_ARG} lease-test`),
     ).toBeUndefined();
     expect(readAcpxProcessLeaseIdentity(undefined)).toBeUndefined();
   });

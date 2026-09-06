@@ -174,11 +174,11 @@ suite.define(() => {
     if (webChrome) {
       await page.addInitScript(() => {
         const nativeWindow = window as Window & {
-          __OPENCLAW_NATIVE_WEB_CHROME__?: boolean;
-          __OPENCLAW_NATIVE_HISTORY__?: { canGoBack: boolean; canGoForward: boolean };
+          __GRANTED_NATIVE_WEB_CHROME__?: boolean;
+          __GRANTED_NATIVE_HISTORY__?: { canGoBack: boolean; canGoForward: boolean };
         };
-        nativeWindow["__OPENCLAW_NATIVE_WEB_CHROME__"] = true;
-        nativeWindow["__OPENCLAW_NATIVE_HISTORY__"] = {
+        nativeWindow["__GRANTED_NATIVE_WEB_CHROME__"] = true;
+        nativeWindow["__GRANTED_NATIVE_HISTORY__"] = {
           canGoBack: false,
           canGoForward: false,
         };

@@ -70,7 +70,7 @@ async function makePlan(params?: {
 }
 
 function stateEnv(root: string) {
-  return { OPENCLAW_STATE_DIR: join(root, "state") };
+  return { GRANTED_STATE_DIR: join(root, "state") };
 }
 
 type WorkspaceFileRow = {

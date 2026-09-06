@@ -9,18 +9,18 @@ import { createJsonlRequestTailer } from "./jsonl-request-tail.mts";
 import { readPositiveIntEnv, readTcpPortEnv } from "./limits.mjs";
 
 const portText = process.env.PORT;
-const token = process.env.OPENCLAW_GATEWAY_TOKEN;
+const token = process.env.GRANTED_GATEWAY_TOKEN;
 const appServerLog =
-  process.env.OPENCLAW_CODEX_MEDIA_PATH_APP_SERVER_LOG ??
+  process.env.GRANTED_CODEX_MEDIA_PATH_APP_SERVER_LOG ??
   "/tmp/openclaw-codex-media-path-app-server.jsonl";
-const timeoutSeconds = readPositiveIntEnv("OPENCLAW_CODEX_MEDIA_PATH_TIMEOUT_SECONDS", 180);
+const timeoutSeconds = readPositiveIntEnv("GRANTED_CODEX_MEDIA_PATH_TIMEOUT_SECONDS", 180);
 const logTailMaxBytes = readPositiveIntEnv(
-  "OPENCLAW_CODEX_MEDIA_PATH_LOG_TAIL_MAX_BYTES",
+  "GRANTED_CODEX_MEDIA_PATH_LOG_TAIL_MAX_BYTES",
   2 * 1024 * 1024,
 );
 
 if (!portText || !token) {
-  throw new Error("missing PORT/OPENCLAW_GATEWAY_TOKEN");
+  throw new Error("missing PORT/GRANTED_GATEWAY_TOKEN");
 }
 const port = readTcpPortEnv("PORT", portText);
 

@@ -1861,7 +1861,7 @@ describeBrowserLayout.concurrent("chat responsive browser layout", () => {
             scrollWidth: node.scrollWidth,
           }));
         expect(labelWidths.scrollWidth).toBeLessThanOrEqual(labelWidths.clientWidth);
-        const artifactDir = process.env.OPENCLAW_UI_E2E_ARTIFACT_DIR?.trim();
+        const artifactDir = process.env.GRANTED_UI_E2E_ARTIFACT_DIR?.trim();
         if (artifactDir) {
           await mkdir(artifactDir, { recursive: true });
           await page.screenshot({
@@ -2044,7 +2044,7 @@ describeBrowserLayout.concurrent("chat responsive browser layout", () => {
             0,
           );
         }
-        const artifactDir = process.env.OPENCLAW_UI_E2E_ARTIFACT_DIR?.trim();
+        const artifactDir = process.env.GRANTED_UI_E2E_ARTIFACT_DIR?.trim();
         if (artifactDir) {
           await mkdir(artifactDir, { recursive: true });
           await page.screenshot({
@@ -4596,7 +4596,7 @@ describeBrowserLayout.concurrent("chat responsive browser layout", () => {
           .isDisabled(),
       ).toBe(true);
 
-      const artifactDir = process.env.OPENCLAW_UI_E2E_ARTIFACT_DIR?.trim();
+      const artifactDir = process.env.GRANTED_UI_E2E_ARTIFACT_DIR?.trim();
       if (artifactDir) {
         await mkdir(artifactDir, { recursive: true });
         for (const { mode, runtime, variant } of reachableCells) {
@@ -4882,7 +4882,7 @@ describeBrowserLayout.concurrent("chat responsive browser layout", () => {
       expect((await summary.boundingBox())?.y).toBeCloseTo(expandedBefore.y, 1);
       expect(await page.evaluate(() => window.scrollY)).toBe(0);
 
-      const artifactDir = process.env.OPENCLAW_UI_E2E_ARTIFACT_DIR?.trim();
+      const artifactDir = process.env.GRANTED_UI_E2E_ARTIFACT_DIR?.trim();
       if (artifactDir) {
         await mkdir(artifactDir, { recursive: true });
         await body.evaluate((node) => {
@@ -5209,7 +5209,7 @@ describeBrowserLayout.concurrent("chat responsive browser layout", () => {
       await page.mouse.move(box.x + box.width - 1, box.y + box.height / 2, { steps: 8 });
       await page.mouse.up();
 
-      const artifactDir = process.env.OPENCLAW_UI_E2E_ARTIFACT_DIR?.trim();
+      const artifactDir = process.env.GRANTED_UI_E2E_ARTIFACT_DIR?.trim();
       if (artifactDir) {
         await mkdir(artifactDir, { recursive: true });
         await page.screenshot({

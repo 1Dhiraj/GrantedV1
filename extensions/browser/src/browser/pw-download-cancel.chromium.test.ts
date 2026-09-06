@@ -11,7 +11,7 @@ import { closePlaywrightBrowserConnection, getPageForTargetId } from "./pw-sessi
 import { downloadViaPlaywright, waitForDownloadViaPlaywright } from "./pw-tools-core.downloads.js";
 import { getFreePort } from "./test-port.js";
 
-const runChromiumProof = process.env.OPENCLAW_BROWSER_DOWNLOAD_E2E === "1";
+const runChromiumProof = process.env.GRANTED_BROWSER_DOWNLOAD_E2E === "1";
 const tempDirs = useAutoCleanupTempDirTracker(afterEach);
 
 function listen(server: Server): Promise<number> {

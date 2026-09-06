@@ -76,7 +76,7 @@ export async function runNonInteractiveRemoteSetup(params: {
           ? {
               token:
                 opts.secretInputMode === "ref"
-                  ? createGatewayEnvSecretRef(baseConfig, "OPENCLAW_GATEWAY_TOKEN")
+                  ? createGatewayEnvSecretRef(baseConfig, "GRANTED_GATEWAY_TOKEN")
                   : remoteToken,
             }
           : {}),
@@ -84,7 +84,7 @@ export async function runNonInteractiveRemoteSetup(params: {
           ? {
               password:
                 opts.secretInputMode === "ref"
-                  ? createGatewayEnvSecretRef(baseConfig, "OPENCLAW_GATEWAY_PASSWORD")
+                  ? createGatewayEnvSecretRef(baseConfig, "GRANTED_GATEWAY_PASSWORD")
                   : remotePassword,
             }
           : {}),

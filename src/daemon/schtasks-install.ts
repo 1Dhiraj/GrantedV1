@@ -49,9 +49,9 @@ import type {
 } from "./service-types.js";
 
 const CALLER_OWNED_SERVICE_IDENTITY_KEYS = [
-  "OPENCLAW_LAUNCHD_LABEL",
-  "OPENCLAW_SYSTEMD_UNIT",
-  "OPENCLAW_WINDOWS_TASK_NAME",
+  "GRANTED_LAUNCHD_LABEL",
+  "GRANTED_SYSTEMD_UNIT",
+  "GRANTED_WINDOWS_TASK_NAME",
 ] as const;
 
 function resolveScheduledTaskRenderEnv(
@@ -86,13 +86,13 @@ function resolveScheduledTaskScriptEnvironment(
 }
 
 const SCHEDULED_TASK_ACTIVATION_KEYS = [
-  "OPENCLAW_WINDOWS_TASK_HIDDEN_LAUNCHER",
-  "OPENCLAW_TASK_SCRIPT_NAME",
-  "OPENCLAW_TASK_SCRIPT",
-  "OPENCLAW_SERVICE_KIND",
-  "OPENCLAW_GATEWAY_PORT",
-  "OPENCLAW_STATE_DIR",
-  "OPENCLAW_PROFILE",
+  "GRANTED_WINDOWS_TASK_HIDDEN_LAUNCHER",
+  "GRANTED_TASK_SCRIPT_NAME",
+  "GRANTED_TASK_SCRIPT",
+  "GRANTED_SERVICE_KIND",
+  "GRANTED_GATEWAY_PORT",
+  "GRANTED_STATE_DIR",
+  "GRANTED_PROFILE",
 ] as const;
 
 function resolveScheduledTaskActivationEnv(
@@ -185,7 +185,7 @@ async function updateExistingScheduledTask(params: {
   // Best effort: failure keeps the prior settings rather than losing the task.
   const upgradeXmlPath = await writeTaskXmlTempFile(
     buildScheduledTaskXml({
-      taskDescription: params.description ?? "OpenClaw Gateway",
+      taskDescription: params.description ?? "Granted Gateway",
       taskUser: resolveTaskUser(params.env),
       launchPath: params.taskLaunchPath,
     }),
@@ -218,7 +218,7 @@ async function activateScheduledTask(params: {
   taskLaunchPath: string;
   description?: string;
 }): Promise<ScheduledTaskActivation | "startup-fallback"> {
-  const taskDescription = params.description ?? "OpenClaw Gateway";
+  const taskDescription = params.description ?? "Granted Gateway";
   const taskName = resolveTaskName(params.env);
   const quotedLaunchPath = quoteSchtasksArg(params.taskLaunchPath);
   const existingActivation = await updateExistingScheduledTask({

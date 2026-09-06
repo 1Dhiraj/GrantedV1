@@ -698,7 +698,7 @@ describe("main-session-restart-recovery", () => {
   });
 
   it("marks an admitted custom-store turn after a deleted agent leaves its directory behind", async () => {
-    await withEnvAsync({ OPENCLAW_STATE_DIR: tmpDir }, async () => {
+    await withEnvAsync({ GRANTED_STATE_DIR: tmpDir }, async () => {
       const staleSessionsDir = await makeSessionsDir("retired-probe");
       await writeMainSession({
         sessionsDir: staleSessionsDir,
@@ -1192,7 +1192,7 @@ describe("main-session-restart-recovery", () => {
         },
         makeAssistantTextMessage("The Gateway is restarting; retry after it comes back."),
       ]);
-      await withEnvAsync({ OPENCLAW_STATE_DIR: tmpDir }, async () => {
+      await withEnvAsync({ GRANTED_STATE_DIR: tmpDir }, async () => {
         await persistGatewaySessionLifecycleEvent({
           sessionKey,
           agentId: "main",
@@ -1437,8 +1437,8 @@ describe("main-session-restart-recovery", () => {
       resetGlobalHookRunner();
       initializeGlobalHookRunner(registry);
       setActivePluginRegistry(registry);
-      const previousStateDir = process.env.OPENCLAW_STATE_DIR;
-      process.env.OPENCLAW_STATE_DIR = tmpDir;
+      const previousStateDir = process.env.GRANTED_STATE_DIR;
+      process.env.GRANTED_STATE_DIR = tmpDir;
 
       await writeMainSession({
         sessionsDir,
@@ -1518,9 +1518,9 @@ describe("main-session-restart-recovery", () => {
         resetGlobalHookRunner();
         setActivePluginRegistry(createEmptyPluginRegistry());
         if (previousStateDir === undefined) {
-          delete process.env.OPENCLAW_STATE_DIR;
+          delete process.env.GRANTED_STATE_DIR;
         } else {
-          process.env.OPENCLAW_STATE_DIR = previousStateDir;
+          process.env.GRANTED_STATE_DIR = previousStateDir;
         }
       }
     },
@@ -1594,8 +1594,8 @@ describe("main-session-restart-recovery", () => {
         },
       ]),
     );
-    const previousStateDir = process.env.OPENCLAW_STATE_DIR;
-    process.env.OPENCLAW_STATE_DIR = tmpDir;
+    const previousStateDir = process.env.GRANTED_STATE_DIR;
+    process.env.GRANTED_STATE_DIR = tmpDir;
 
     vi.mocked(callGateway).mockImplementationOnce(async ({ params }) => {
       const request = params as Record<string, unknown>;
@@ -1680,9 +1680,9 @@ describe("main-session-restart-recovery", () => {
       resetGlobalHookRunner();
       setActivePluginRegistry(createEmptyPluginRegistry());
       if (previousStateDir === undefined) {
-        delete process.env.OPENCLAW_STATE_DIR;
+        delete process.env.GRANTED_STATE_DIR;
       } else {
-        process.env.OPENCLAW_STATE_DIR = previousStateDir;
+        process.env.GRANTED_STATE_DIR = previousStateDir;
       }
     }
   });
@@ -3083,7 +3083,7 @@ describe("main-session-restart-recovery", () => {
 
   it("does not enter the writer lane for agent databases without running sessions", async () => {
     const agentIds = Array.from({ length: 12 }, (_, index) => `agent-${index + 1}`);
-    const env = { ...process.env, OPENCLAW_STATE_DIR: tmpDir };
+    const env = { ...process.env, GRANTED_STATE_DIR: tmpDir };
     for (const agentId of agentIds) {
       openOpenClawAgentDatabase({
         agentId,
@@ -5090,7 +5090,7 @@ describe("main-session-restart-recovery", () => {
         content: [{ type: "text", text: "" }],
         stopReason: "error",
         errorMessage: "This operation was aborted",
-        errorCode: "OPENCLAW_FIRST_EVENT_TIMEOUT",
+        errorCode: "GRANTED_FIRST_EVENT_TIMEOUT",
       },
     ],
   ])(
@@ -5717,7 +5717,7 @@ describe("main-session-restart-recovery", () => {
         role: "assistant",
         content: [],
         stopReason: "aborted",
-        errorCode: "OPENCLAW_RESTART_ABORT",
+        errorCode: "GRANTED_RESTART_ABORT",
         errorMessage: "agent run aborted for restart",
       },
     ]);

@@ -111,9 +111,9 @@ export async function startNpmRegistryServer(input: {
     {
       env: {
         ...process.env,
-        OPENCLAW_NPM_REGISTRY_BIND_HOST: "0.0.0.0",
-        OPENCLAW_NPM_REGISTRY_PORT: String(port),
-        OPENCLAW_NPM_REGISTRY_UPSTREAM: "https://registry.npmjs.org",
+        GRANTED_NPM_REGISTRY_BIND_HOST: "0.0.0.0",
+        GRANTED_NPM_REGISTRY_PORT: String(port),
+        GRANTED_NPM_REGISTRY_UPSTREAM: "https://registry.npmjs.org",
       },
       stdio: ["ignore", "pipe", "pipe"],
     },

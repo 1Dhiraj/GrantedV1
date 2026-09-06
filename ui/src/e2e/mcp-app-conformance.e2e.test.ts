@@ -51,13 +51,13 @@ import {
 const require = createRequire(import.meta.url);
 const chromiumExecutablePath = resolvePlaywrightChromiumExecutablePath(chromium.executablePath());
 const chromiumAvailable = canRunPlaywrightChromium(chromiumExecutablePath);
-const allowMissingChromium = process.env.OPENCLAW_UI_E2E_ALLOW_MISSING_CHROMIUM === "1";
+const allowMissingChromium = process.env.GRANTED_UI_E2E_ALLOW_MISSING_CHROMIUM === "1";
 const describeConformance = chromiumAvailable || !allowMissingChromium ? describe : describe.skip;
 const authValue = "test";
 const sessionKey = "agent:main:mcp-app-conformance";
-const captureUiProof = process.env.OPENCLAW_CAPTURE_UI_PROOF === "1";
+const captureUiProof = process.env.GRANTED_CAPTURE_UI_PROOF === "1";
 const proofDir = path.resolve(
-  process.env.OPENCLAW_UI_E2E_ARTIFACT_DIR?.trim() || ".artifacts/control-ui-e2e",
+  process.env.GRANTED_UI_E2E_ARTIFACT_DIR?.trim() || ".artifacts/control-ui-e2e",
   "mcp-app-request-lifetime",
 );
 const proofOptions = { proofDir, captureUiProof };
@@ -91,14 +91,14 @@ describeConformance("MCP App Control UI and standalone host conformance", () => 
     }
     envSnapshot = captureEnv([
       "HOME",
-      "OPENCLAW_STATE_DIR",
-      "OPENCLAW_CONFIG_PATH",
-      "OPENCLAW_GATEWAY_TOKEN",
-      "OPENCLAW_SKIP_CHANNELS",
-      "OPENCLAW_SKIP_CRON",
-      "OPENCLAW_SKIP_PROVIDERS",
-      "OPENCLAW_TEST_MINIMAL_GATEWAY",
-      "OPENCLAW_BUNDLED_PLUGINS_DIR",
+      "GRANTED_STATE_DIR",
+      "GRANTED_CONFIG_PATH",
+      "GRANTED_GATEWAY_TOKEN",
+      "GRANTED_SKIP_CHANNELS",
+      "GRANTED_SKIP_CRON",
+      "GRANTED_SKIP_PROVIDERS",
+      "GRANTED_TEST_MINIMAL_GATEWAY",
+      "GRANTED_BUNDLED_PLUGINS_DIR",
     ]);
     tempRoot = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-mcp-app-conformance-"));
     const stateDir = path.join(tempRoot, "state");
@@ -171,14 +171,14 @@ describeConformance("MCP App Control UI and standalone host conformance", () => 
     await fs.mkdir(stateDir, { recursive: true });
     await fs.writeFile(configPath, `${JSON.stringify(cfg, null, 2)}\n`);
     setTestEnvValue("HOME", tempRoot);
-    setTestEnvValue("OPENCLAW_STATE_DIR", stateDir);
-    setTestEnvValue("OPENCLAW_CONFIG_PATH", configPath);
-    setTestEnvValue("OPENCLAW_GATEWAY_TOKEN", authValue);
-    setTestEnvValue("OPENCLAW_SKIP_CHANNELS", "1");
-    setTestEnvValue("OPENCLAW_SKIP_CRON", "1");
-    setTestEnvValue("OPENCLAW_SKIP_PROVIDERS", "1");
-    setTestEnvValue("OPENCLAW_TEST_MINIMAL_GATEWAY", "1");
-    setTestEnvValue("OPENCLAW_BUNDLED_PLUGINS_DIR", path.join(tempRoot, "empty-plugins"));
+    setTestEnvValue("GRANTED_STATE_DIR", stateDir);
+    setTestEnvValue("GRANTED_CONFIG_PATH", configPath);
+    setTestEnvValue("GRANTED_GATEWAY_TOKEN", authValue);
+    setTestEnvValue("GRANTED_SKIP_CHANNELS", "1");
+    setTestEnvValue("GRANTED_SKIP_CRON", "1");
+    setTestEnvValue("GRANTED_SKIP_PROVIDERS", "1");
+    setTestEnvValue("GRANTED_TEST_MINIMAL_GATEWAY", "1");
+    setTestEnvValue("GRANTED_BUNDLED_PLUGINS_DIR", path.join(tempRoot, "empty-plugins"));
     clearConfigCache();
     clearRuntimeConfigSnapshot();
     runtime = await getOrCreateSessionMcpRuntime({

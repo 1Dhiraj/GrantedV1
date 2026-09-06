@@ -311,7 +311,7 @@ export async function createPairedNodeWorkerHost(
     ...process.env,
     HOME: path.join(options.root, `${label}-home`),
     NODE_DISABLE_COMPILE_CACHE: undefined,
-    OPENCLAW_STATE_DIR: nodeStateDir,
+    GRANTED_STATE_DIR: nodeStateDir,
     ...options.workerEnv,
   };
   await fs.mkdir(nodeEnv.HOME, { recursive: true });

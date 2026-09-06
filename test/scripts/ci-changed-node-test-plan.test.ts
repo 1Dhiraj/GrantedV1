@@ -589,7 +589,7 @@ describe("CI changed Node test plan", () => {
     const shardArgs = (shards: typeof direct) => shards.map((shard) => shard.env);
     expect(shardArgs(direct)).toEqual(
       direct.map((_, index) => ({
-        OPENCLAW_NODE_TEST_VITEST_ARGS_JSON: JSON.stringify([
+        GRANTED_NODE_TEST_VITEST_ARGS_JSON: JSON.stringify([
           `--shard=${index + 1}/${direct.length}`,
         ]),
       })),

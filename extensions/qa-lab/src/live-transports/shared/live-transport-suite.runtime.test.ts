@@ -32,7 +32,7 @@ const tempDirs = useAutoCleanupTempDirTracker(afterEach);
 
 describe("live transport suite runtime", () => {
   beforeEach(() => {
-    vi.stubEnv("OPENCLAW_QA_CREDENTIAL_SOURCE", "");
+    vi.stubEnv("GRANTED_QA_CREDENTIAL_SOURCE", "");
     vi.clearAllMocks();
     runQaSuiteCommand.mockReset();
     loadMatrixQaE2eeRuntime.mockReset();
@@ -47,7 +47,7 @@ describe("live transport suite runtime", () => {
   it.each([undefined, 1, 2])(
     "forwards the dedicated Matrix concurrency %s through parsing and the live suite host",
     async (concurrency) => {
-      vi.stubEnv("OPENCLAW_QA_MATRIX_DISABLE_FORCE_EXIT", "1");
+      vi.stubEnv("GRANTED_QA_MATRIX_DISABLE_FORCE_EXIT", "1");
       const qa = new Command().exitOverride().configureOutput({ writeErr: () => {} });
       matrixQaCliRegistration.register(qa);
 
@@ -85,7 +85,7 @@ describe("live transport suite runtime", () => {
     ["default selection", "failed"],
     ["plain selection", "ready"],
   ] as const)("prepares %s Matrix flows before workers start (%s)", async (caller, outcome) => {
-    vi.stubEnv("OPENCLAW_QA_MATRIX_DISABLE_FORCE_EXIT", "1");
+    vi.stubEnv("GRANTED_QA_MATRIX_DISABLE_FORCE_EXIT", "1");
     const outputDir = tempDirs.make("matrix-suite-preparation-");
     const initialization = createDeferred<void>();
     const initializationStarted = createDeferred<void>();
@@ -209,7 +209,7 @@ describe("live transport suite runtime", () => {
   it.each(["0", "1.5", "2junk"])(
     "rejects invalid dedicated Matrix concurrency %s before suite dispatch",
     async (concurrency) => {
-      vi.stubEnv("OPENCLAW_QA_MATRIX_DISABLE_FORCE_EXIT", "1");
+      vi.stubEnv("GRANTED_QA_MATRIX_DISABLE_FORCE_EXIT", "1");
       const qa = new Command().exitOverride().configureOutput({ writeErr: () => {} });
       matrixQaCliRegistration.register(qa);
 
@@ -320,7 +320,7 @@ describe("live transport suite runtime", () => {
   });
 
   it("normalizes the shared credential source environment override", async () => {
-    vi.stubEnv("OPENCLAW_QA_CREDENTIAL_SOURCE", " convex ");
+    vi.stubEnv("GRANTED_QA_CREDENTIAL_SOURCE", " convex ");
 
     await runLiveTransportQaSuiteCommand({
       channelId: "buzz",

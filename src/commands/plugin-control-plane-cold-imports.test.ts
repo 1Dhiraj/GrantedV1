@@ -36,7 +36,7 @@ describe("command control-plane plugin discovery", () => {
     async (enabled) => {
       await withOpenClawTestState(
         {
-          env: { OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1", OPENCLAW_BUNDLED_PLUGINS_DIR: undefined },
+          env: { GRANTED_DISABLE_BUNDLED_PLUGINS: "1", GRANTED_BUNDLED_PLUGINS_DIR: undefined },
         },
         async (state) => {
           const finding = {

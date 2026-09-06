@@ -75,7 +75,7 @@ describe("sendMSTeamsActivityWithReference SDK import ordering", () => {
       };
 
       const { sendMSTeamsActivityWithReference } =
-        require(process.env.OPENCLAW_MSTEAMS_PROACTIVE_ARTIFACT);
+        require(process.env.GRANTED_MSTEAMS_PROACTIVE_ARTIFACT);
       const quotedCreates = [];
       const posts = [];
       const app = {
@@ -153,7 +153,7 @@ describe("sendMSTeamsActivityWithReference SDK import ordering", () => {
         env: {
           ...process.env,
           NODE_DISABLE_COMPILE_CACHE: "1",
-          OPENCLAW_MSTEAMS_PROACTIVE_ARTIFACT: proactiveArtifact,
+          GRANTED_MSTEAMS_PROACTIVE_ARTIFACT: proactiveArtifact,
           VITEST: undefined,
         },
       },

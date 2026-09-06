@@ -1895,7 +1895,7 @@ describe("WhatsApp QA live runtime", () => {
 
   it("defines group audio gating as captionless audio driven by mock transcription sentinel", () => {
     const { run: scenarioRun } = requireWhatsAppMessageScenario("whatsapp-group-audio-gating");
-    const triggerSentinel = Buffer.from("OPENCLAW_QA_GROUP_AUDIO_TRIGGER", "utf8");
+    const triggerSentinel = Buffer.from("GRANTED_QA_GROUP_AUDIO_TRIGGER", "utf8");
 
     expect(scenarioRun.input).toBe("");
     expect(scenarioRun.matchText).toBe("WHATSAPP_QA_GROUP_AUDIO_TRANSCRIPT_OK");

@@ -189,7 +189,7 @@ describe("Codex app-server startup retry", () => {
   beforeEach(async () => {
     const stateDir = await fs.mkdtemp(path.join(os.tmpdir(), "codex-startup-state-"));
     tempRoots.add(stateDir);
-    vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
+    vi.stubEnv("GRANTED_STATE_DIR", stateDir);
     vi.stubEnv("CODEX_API_KEY", "");
     vi.stubEnv("OPENAI_API_KEY", "");
     clearSharedCodexAppServerClient();

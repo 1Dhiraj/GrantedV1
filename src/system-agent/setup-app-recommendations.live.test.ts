@@ -11,9 +11,9 @@ import {
   type CompleteSetupInferenceResult,
 } from "./setup-inference.js";
 
-const LIVE = process.env.OPENCLAW_LIVE_TEST === "1" && Boolean(process.env.OPENAI_API_KEY?.trim());
+const LIVE = process.env.GRANTED_LIVE_TEST === "1" && Boolean(process.env.OPENAI_API_KEY?.trim());
 const describeLive = LIVE ? describe : describe.skip;
-const modelId = process.env.OPENCLAW_LIVE_APP_RECOMMENDATIONS_MODEL ?? "gpt-5.6-luna";
+const modelId = process.env.GRANTED_LIVE_APP_RECOMMENDATIONS_MODEL ?? "gpt-5.6-luna";
 
 const config: OpenClawConfig = {
   models: {

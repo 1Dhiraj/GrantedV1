@@ -34,12 +34,12 @@ describe.each([
       const run = startPty(process.execPath, ["--import", "tsx", scriptPath], {
         cwd: process.cwd(),
         env: {
-          OPENCLAW_THEME: "dark",
-          OPENCLAW_TUI_PTY_LOG_PATH: logPath,
-          OPENCLAW_TUI_PTY_RESET_RELEASE_PATH: resetReleasePath,
-          OPENCLAW_TUI_PTY_SUBMIT_BURST_WINDOW_MS: nativePaste ? undefined : "1000",
-          OPENCLAW_TUI_PTY_TYPE_CHUNK_SIZE: "1",
-          OPENCLAW_TUI_PTY_TYPE_DELAY_MS: "2",
+          GRANTED_THEME: "dark",
+          GRANTED_TUI_PTY_LOG_PATH: logPath,
+          GRANTED_TUI_PTY_RESET_RELEASE_PATH: resetReleasePath,
+          GRANTED_TUI_PTY_SUBMIT_BURST_WINDOW_MS: nativePaste ? undefined : "1000",
+          GRANTED_TUI_PTY_TYPE_CHUNK_SIZE: "1",
+          GRANTED_TUI_PTY_TYPE_DELAY_MS: "2",
           // Emulate iTerm for Darwin's default coalescing, without Apple Terminal's
           // host modifier-state lookup for synthetic Return.
           TERM_PROGRAM: nativePaste ? "iTerm.app" : undefined,

@@ -1065,7 +1065,7 @@ console.log(JSON.stringify(command === "health" ? {
 const args = process.argv.slice(2);
 appendFileSync(${JSON.stringify(callsPath)}, JSON.stringify({
   args,
-  port: process.env.OPENCLAW_GATEWAY_PORT,
+  port: process.env.GRANTED_GATEWAY_PORT,
 }) + "\\n");
 if (args.includes("--port")) process.exit(2);
 console.log(JSON.stringify({ ok: true, channels: {} }));
@@ -1242,7 +1242,7 @@ console.log(JSON.stringify({ ok: true, channels: {} }));
     writeFileSync(configPath, "{}\n");
     writeFileSync(
       capture,
-      'import fs from "node:fs"; console.log(JSON.stringify({ argv: process.argv.slice(2), config: JSON.parse(fs.readFileSync(process.env.OPENCLAW_CONFIG_PATH, "utf8")), hasToken: Boolean(process.env.OPENCLAW_GATEWAY_TOKEN), url: process.env.OPENCLAW_GATEWAY_URL ?? null }));\n',
+      'import fs from "node:fs"; console.log(JSON.stringify({ argv: process.argv.slice(2), config: JSON.parse(fs.readFileSync(process.env.GRANTED_CONFIG_PATH, "utf8")), hasToken: Boolean(process.env.GRANTED_GATEWAY_TOKEN), url: process.env.GRANTED_GATEWAY_URL ?? null }));\n',
     );
 
     const result = JSON.parse(
@@ -1256,7 +1256,7 @@ console.log(JSON.stringify({ ok: true, channels: {} }));
           executable: process.execPath,
           invocationPrefix: [capture],
           port: 19001,
-          serviceEnvironment: { OPENCLAW_GATEWAY_TOKEN: ["fixture", "value"].join("-") },
+          serviceEnvironment: { GRANTED_GATEWAY_TOKEN: ["fixture", "value"].join("-") },
           wrapperPath: null,
         },
       ),
@@ -2650,10 +2650,10 @@ console.log(JSON.stringify({ ok: true, channels: {} }));
       "prove gateway stopped",
       "pnpm build",
       "install replacement plist",
-      `/bin/launchctl setenv OPENCLAW_GATEWAY_STARTUP_TRACE 1`,
+      `/bin/launchctl setenv GRANTED_GATEWAY_STARTUP_TRACE 1`,
       `/bin/launchctl enable gui/${uid}/ai.openclaw.gateway`,
       `/bin/launchctl bootstrap gui/${uid} ${plistPath}`,
-      `/bin/launchctl unsetenv OPENCLAW_GATEWAY_STARTUP_TRACE`,
+      `/bin/launchctl unsetenv GRANTED_GATEWAY_STARTUP_TRACE`,
     ]);
   });
 
@@ -2750,10 +2750,10 @@ console.log(JSON.stringify({ ok: true, channels: {} }));
       "assert system ownership",
       "install replacement plist",
       "assert system ownership",
-      `/bin/launchctl setenv OPENCLAW_GATEWAY_STARTUP_TRACE 1`,
+      `/bin/launchctl setenv GRANTED_GATEWAY_STARTUP_TRACE 1`,
       `/bin/launchctl enable gui/${uid}/ai.openclaw.gateway`,
       `/bin/launchctl bootstrap gui/${uid} ${plistPath}`,
-      `/bin/launchctl unsetenv OPENCLAW_GATEWAY_STARTUP_TRACE`,
+      `/bin/launchctl unsetenv GRANTED_GATEWAY_STARTUP_TRACE`,
       "verify replacement readiness",
       `/bin/launchctl bootout gui/${uid}/ai.openclaw.gateway`,
       "prove gateway stopped",
@@ -3086,10 +3086,10 @@ console.log(JSON.stringify({ ok: true, channels: {} }));
       "prove gateway stopped",
       "sleep 250",
       "prove gateway stopped",
-      `/bin/launchctl setenv OPENCLAW_GATEWAY_STARTUP_TRACE 1`,
+      `/bin/launchctl setenv GRANTED_GATEWAY_STARTUP_TRACE 1`,
       `/bin/launchctl enable gui/${uid}/ai.openclaw.gateway`,
       `/bin/launchctl bootstrap gui/${uid} ${plistPath}`,
-      `/bin/launchctl unsetenv OPENCLAW_GATEWAY_STARTUP_TRACE`,
+      `/bin/launchctl unsetenv GRANTED_GATEWAY_STARTUP_TRACE`,
     ]);
   });
 
@@ -3164,10 +3164,10 @@ console.log(JSON.stringify({ ok: true, channels: {} }));
     expect(commands.calls).toEqual([
       "pnpm install --frozen-lockfile",
       "pnpm build",
-      `/bin/launchctl setenv OPENCLAW_GATEWAY_STARTUP_TRACE 1`,
+      `/bin/launchctl setenv GRANTED_GATEWAY_STARTUP_TRACE 1`,
       `/bin/launchctl enable gui/${uid}/ai.openclaw.gateway`,
       `/bin/launchctl bootstrap gui/${uid} ${plistPath}`,
-      `/bin/launchctl unsetenv OPENCLAW_GATEWAY_STARTUP_TRACE`,
+      `/bin/launchctl unsetenv GRANTED_GATEWAY_STARTUP_TRACE`,
     ]);
   });
 
@@ -3291,10 +3291,10 @@ console.log(JSON.stringify({ ok: true, channels: {} }));
     });
     expect(commands.calls).toEqual([
       "arm launchd environment restore",
-      `/bin/launchctl setenv OPENCLAW_GATEWAY_STARTUP_TRACE 1`,
+      `/bin/launchctl setenv GRANTED_GATEWAY_STARTUP_TRACE 1`,
       `/bin/launchctl enable gui/${uid}/ai.openclaw.gateway`,
       `/bin/launchctl bootstrap gui/${uid} ${plistPath}`,
-      `/bin/launchctl setenv OPENCLAW_GATEWAY_STARTUP_TRACE already-enabled`,
+      `/bin/launchctl setenv GRANTED_GATEWAY_STARTUP_TRACE already-enabled`,
       "disarm launchd environment restore",
     ]);
   });

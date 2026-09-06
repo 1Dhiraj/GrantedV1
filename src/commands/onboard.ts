@@ -113,9 +113,9 @@ function validatePreflightOptions(opts: OnboardOptions, runtime: RuntimeEnv): bo
   }
   if (opts.nonInteractive && opts.secretInputMode === "ref") {
     const gatewayCredentials = [
-      ["--gateway-password", opts.gatewayPassword, "OPENCLAW_GATEWAY_PASSWORD"],
-      ["--remote-token", opts.remoteToken, "OPENCLAW_GATEWAY_TOKEN"],
-      ["--remote-password", opts.remotePassword, "OPENCLAW_GATEWAY_PASSWORD"],
+      ["--gateway-password", opts.gatewayPassword, "GRANTED_GATEWAY_PASSWORD"],
+      ["--remote-token", opts.remoteToken, "GRANTED_GATEWAY_TOKEN"],
+      ["--remote-password", opts.remotePassword, "GRANTED_GATEWAY_PASSWORD"],
     ] as const;
     for (const [flag, value, envName] of gatewayCredentials) {
       if (value === undefined) {
@@ -182,7 +182,7 @@ function validatePreflightOptions(opts: OnboardOptions, runtime: RuntimeEnv): bo
       return rejectOption(
         opts,
         runtime,
-        "Invalid --gateway-token-ref-env. Use an environment variable name like OPENCLAW_GATEWAY_TOKEN.",
+        "Invalid --gateway-token-ref-env. Use an environment variable name like GRANTED_GATEWAY_TOKEN.",
       );
     }
     if (opts.gatewayToken !== undefined) {

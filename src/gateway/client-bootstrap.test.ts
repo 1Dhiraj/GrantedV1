@@ -260,7 +260,7 @@ describe("resolveGatewayClientBootstrap", () => {
     },
     {
       url: "wss://override.example/ws",
-      urlSource: "env OPENCLAW_GATEWAY_URL",
+      urlSource: "env GRANTED_GATEWAY_URL",
     },
   ])("returns the configured remote pin for $urlSource", async ({ url, urlSource }) => {
     mockState.buildGatewayConnectionDetails.mockReturnValue({

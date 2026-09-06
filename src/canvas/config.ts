@@ -10,7 +10,7 @@ export function isCoreCanvasHostEnabled(
 ): boolean {
   // Canvas owned these shipped operator switches before hosting moved into core.
   // Core keeps reading them so existing disablement still covers the whole Canvas family.
-  if (isTruthyEnvValue(env.OPENCLAW_SKIP_CANVAS_HOST)) {
+  if (isTruthyEnvValue(env.GRANTED_SKIP_CANVAS_HOST)) {
     return false;
   }
   const host = config?.plugins?.entries?.canvas?.config?.host;

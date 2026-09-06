@@ -66,12 +66,12 @@ export function createUiE2eVitestConfig(
   const baseTest = sharedVitestConfig.test ?? {};
   const baseSequence = (baseTest as { sequence?: object }).sequence;
   const realGatewayExclude =
-    env.OPENCLAW_UI_E2E_SKIP_REAL_GATEWAY === "1" ? uiE2eRealGatewayTestFiles : [];
+    env.GRANTED_UI_E2E_SKIP_REAL_GATEWAY === "1" ? uiE2eRealGatewayTestFiles : [];
   const exclude = [
     ...(baseTest.exclude ?? []).filter((pattern) => pattern !== "**/*.e2e.test.ts"),
     ...realGatewayExclude,
   ];
-  const includeFromEnv = loadPatternListFromEnv("OPENCLAW_VITEST_INCLUDE_FILE", env);
+  const includeFromEnv = loadPatternListFromEnv("GRANTED_VITEST_INCLUDE_FILE", env);
   const include =
     includeFromEnv ??
     narrowIncludePatternsForCli(uiE2eIncludePatterns, argv) ??

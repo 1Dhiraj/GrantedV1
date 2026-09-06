@@ -4,7 +4,7 @@ import { SANDBOX_DOCKER_CREATE_ARGS_EPOCH } from "./sandbox/constants.js";
 import { buildSandboxCreateArgs } from "./sandbox/docker.js";
 import type { SandboxDockerConfig } from "./sandbox/types.js";
 
-const OPENCLAW_CLI_ENV_VALUE = "1";
+const GRANTED_CLI_ENV_VALUE = "1";
 
 describe("buildSandboxCreateArgs", () => {
   function createSandboxConfig(
@@ -123,7 +123,7 @@ describe("buildSandboxCreateArgs", () => {
     expectFlagValues(args, "--memory-swap", ["1024"]);
     expectFlagValues(args, "--cpus", ["1.5"]);
     expect(args).not.toContain("--env");
-    expect(env).toEqual({ LANG: "C.UTF-8", OPENCLAW_CLI: OPENCLAW_CLI_ENV_VALUE });
+    expect(env).toEqual({ LANG: "C.UTF-8", GRANTED_CLI: GRANTED_CLI_ENV_VALUE });
     expectFlagValues(args, "--ulimit", ["nofile=1024:2048", "nproc=128", "core=0"]);
   });
 
@@ -185,7 +185,7 @@ describe("buildSandboxCreateArgs", () => {
     expect(args).not.toContain("--env");
     expect(env).toEqual({
       ...cfg.env,
-      OPENCLAW_CLI: OPENCLAW_CLI_ENV_VALUE,
+      GRANTED_CLI: GRANTED_CLI_ENV_VALUE,
     });
   });
 

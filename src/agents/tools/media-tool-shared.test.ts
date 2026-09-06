@@ -75,7 +75,7 @@ describe("resolveMediaToolLocalRoots", () => {
     const picturesDir =
       process.platform === "win32" ? "C:\\Users\\peter\\Pictures" : "/Users/peter/Pictures";
 
-    const { localRoots } = await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, () =>
+    const { localRoots } = await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, () =>
       resolveMediaToolReferenceAccess({
         input: path.join(picturesDir, "photo.png"),
         isDataUrl: false,

@@ -43,9 +43,9 @@ describe("resolveGatewayClientBootstrap interactive auth policy", () => {
     const env: NodeJS.ProcessEnv = {
       HOME: root,
       USERPROFILE: root,
-      OPENCLAW_CONFIG_PATH: configPath,
-      OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-      OPENCLAW_STATE_DIR: path.join(root, "state"),
+      GRANTED_CONFIG_PATH: configPath,
+      GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+      GRANTED_STATE_DIR: path.join(root, "state"),
       VITEST: "true",
     };
     fs.writeFileSync(
@@ -74,9 +74,9 @@ describe("resolveGatewayClientBootstrap interactive auth policy", () => {
     const env: NodeJS.ProcessEnv = {
       HOME: root,
       USERPROFILE: root,
-      OPENCLAW_CONFIG_PATH: configPath,
-      OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-      OPENCLAW_STATE_DIR: path.join(root, "state"),
+      GRANTED_CONFIG_PATH: configPath,
+      GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+      GRANTED_STATE_DIR: path.join(root, "state"),
       SOURCE: "${OTHER}",
       VITEST: "true",
     };
@@ -100,7 +100,7 @@ describe("resolveGatewayClientBootstrap interactive auth policy", () => {
     expect(result.auth).toEqual({ token: "${OTHER}", password: undefined });
   });
 
-  it("keeps configured local password ahead of OPENCLAW_GATEWAY_PASSWORD", async () => {
+  it("keeps configured local password ahead of GRANTED_GATEWAY_PASSWORD", async () => {
     await expectInteractiveAuth(
       {
         config: {
@@ -109,7 +109,7 @@ describe("resolveGatewayClientBootstrap interactive auth policy", () => {
             auth: { mode: "password", password: "local-config-auth-value" }, // pragma: allowlist secret
           },
         },
-        env: { OPENCLAW_GATEWAY_PASSWORD: "shell-password-value" }, // pragma: allowlist secret
+        env: { GRANTED_GATEWAY_PASSWORD: "shell-password-value" }, // pragma: allowlist secret
       },
       {
         token: undefined,
@@ -118,11 +118,11 @@ describe("resolveGatewayClientBootstrap interactive auth policy", () => {
     );
   });
 
-  it("falls back to OPENCLAW_GATEWAY_PASSWORD without configured local password", async () => {
+  it("falls back to GRANTED_GATEWAY_PASSWORD without configured local password", async () => {
     await expectInteractiveAuth(
       {
         config: { gateway: { mode: "local", auth: { mode: "password" } } },
-        env: { OPENCLAW_GATEWAY_PASSWORD: "shell-password-value" }, // pragma: allowlist secret
+        env: { GRANTED_GATEWAY_PASSWORD: "shell-password-value" }, // pragma: allowlist secret
       },
       {
         token: undefined,
@@ -131,21 +131,21 @@ describe("resolveGatewayClientBootstrap interactive auth policy", () => {
     );
   });
 
-  it("uses OPENCLAW_GATEWAY_TOKEN as remote interactive fallback", async () => {
+  it("uses GRANTED_GATEWAY_TOKEN as remote interactive fallback", async () => {
     await expectInteractiveAuth(
       {
         config: remoteGatewayConfig(),
-        env: { OPENCLAW_GATEWAY_TOKEN: "shell-token-value" },
+        env: { GRANTED_GATEWAY_TOKEN: "shell-token-value" },
       },
       { token: "shell-token-value", password: undefined },
     );
   });
 
-  it("keeps configured remote token ahead of OPENCLAW_GATEWAY_TOKEN", async () => {
+  it("keeps configured remote token ahead of GRANTED_GATEWAY_TOKEN", async () => {
     await expectInteractiveAuth(
       {
         config: remoteGatewayConfig({ token: "remote-config-auth-value" }),
-        env: { OPENCLAW_GATEWAY_TOKEN: "shell-token-value" },
+        env: { GRANTED_GATEWAY_TOKEN: "shell-token-value" },
       },
       { token: "remote-config-auth-value", password: undefined },
     );
@@ -156,7 +156,7 @@ describe("resolveGatewayClientBootstrap interactive auth policy", () => {
       config: remoteGatewayConfig({
         token: { source: "env", provider: "default", id: "ABSENT_BOOTSTRAP_REMOTE_TOKEN" },
       }),
-      env: { OPENCLAW_GATEWAY_TOKEN: "shell-token-value" },
+      env: { GRANTED_GATEWAY_TOKEN: "shell-token-value" },
       authPolicy: "interactive",
     });
 
@@ -171,7 +171,7 @@ describe("resolveGatewayClientBootstrap interactive auth policy", () => {
           gateway: { mode: "local", auth: { token: "configured-auth-value" } },
         },
         gatewayUrl: "wss://override.example/rpc",
-        env: { OPENCLAW_GATEWAY_TOKEN: "shell-token-value" },
+        env: { GRANTED_GATEWAY_TOKEN: "shell-token-value" },
         authPolicy: "interactive",
         overrideAuthErrorHint: "Fix: pass explicit auth.",
       }),
@@ -184,8 +184,8 @@ describe("resolveGatewayClientBootstrap interactive auth policy", () => {
         gateway: { mode: "local", auth: { token: "configured-auth-value" } },
       },
       env: {
-        OPENCLAW_GATEWAY_URL: "wss://override.example/rpc",
-        OPENCLAW_GATEWAY_TOKEN: "shell-token-value",
+        GRANTED_GATEWAY_URL: "wss://override.example/rpc",
+        GRANTED_GATEWAY_TOKEN: "shell-token-value",
       },
       authPolicy: "interactive",
       overrideAuthErrorHint: "Fix: pass explicit auth.",
@@ -201,7 +201,7 @@ describe("resolveGatewayClientBootstrap interactive auth policy", () => {
       },
       gatewayUrl: "wss://override.example/rpc",
       explicitAuth: { token: "caller-auth-value" },
-      env: { OPENCLAW_GATEWAY_TOKEN: "shell-token-value" },
+      env: { GRANTED_GATEWAY_TOKEN: "shell-token-value" },
       authPolicy: "interactive",
       overrideAuthErrorHint: "Fix: pass explicit auth.",
     });

@@ -59,9 +59,9 @@ describe("sessionsTailCommand", () => {
   let previousStateDir: string | undefined;
 
   beforeEach(() => {
-    previousStateDir = process.env.OPENCLAW_STATE_DIR;
+    previousStateDir = process.env.GRANTED_STATE_DIR;
     tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-sessions-tail-"));
-    process.env.OPENCLAW_STATE_DIR = path.join(tmpDir, "state");
+    process.env.GRANTED_STATE_DIR = path.join(tmpDir, "state");
     mocks.getRuntimeConfig.mockReturnValue({
       agents: {
         list: [{ id: "main" }, { id: "ops" }],
@@ -73,9 +73,9 @@ describe("sessionsTailCommand", () => {
   afterEach(() => {
     vi.useRealTimers();
     if (previousStateDir === undefined) {
-      delete process.env.OPENCLAW_STATE_DIR;
+      delete process.env.GRANTED_STATE_DIR;
     } else {
-      process.env.OPENCLAW_STATE_DIR = previousStateDir;
+      process.env.GRANTED_STATE_DIR = previousStateDir;
     }
     closeOpenClawAgentDatabasesForTest();
     closeOpenClawStateDatabaseForTest();
@@ -392,7 +392,7 @@ describe("sessionsTailCommand", () => {
   it("resolves the target store from a fully qualified non-default agent session key", async () => {
     const runtime = makeRuntime();
     const opsSessionKey = "agent:ops:telegram:direct:owner";
-    const opsSessionsDir = path.join(process.env.OPENCLAW_STATE_DIR!, "agents", "ops", "sessions");
+    const opsSessionsDir = path.join(process.env.GRANTED_STATE_DIR!, "agents", "ops", "sessions");
     const opsStorePath = path.join(opsSessionsDir, "sessions.json");
     await upsertSessionEntryCore(
       { sessionKey: opsSessionKey, storePath: opsStorePath },

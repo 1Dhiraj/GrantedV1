@@ -61,7 +61,7 @@ describe("Codex process registration", () => {
 
   beforeEach(async () => {
     root = await fs.mkdtemp(path.join(os.tmpdir(), "codex-process-registration-"));
-    vi.stubEnv("OPENCLAW_STATE_DIR", root);
+    vi.stubEnv("GRANTED_STATE_DIR", root);
     vi.spyOn(process, "platform", "get").mockReturnValue("darwin");
     store = await openStore();
     vi.mocked(readCodexAppServerProcessSnapshot).mockResolvedValue([

@@ -79,7 +79,7 @@ describe("proxy validation", () => {
     }
   });
 
-  it("prefers the configured proxy URL over OPENCLAW_PROXY_URL", async () => {
+  it("prefers the configured proxy URL over GRANTED_PROXY_URL", async () => {
     const fetchCheck = vi.fn().mockResolvedValue({ ok: true, status: 200 });
 
     const result = await runProxyValidation({
@@ -87,7 +87,7 @@ describe("proxy validation", () => {
         proxyUrl: "http://config-proxy.example:3128",
       },
       env: {
-        OPENCLAW_PROXY_URL: "http://env-proxy.example:3128",
+        GRANTED_PROXY_URL: "http://env-proxy.example:3128",
       },
       allowedUrls: ["https://example.com/"],
       deniedUrls: [],
@@ -112,7 +112,7 @@ describe("proxy validation", () => {
 
     const result = await runProxyValidation({
       config: { enabled: false },
-      env: { OPENCLAW_PROXY_URL: "http://env-proxy.example:3128" },
+      env: { GRANTED_PROXY_URL: "http://env-proxy.example:3128" },
       fetchCheck,
     });
 
@@ -158,7 +158,7 @@ describe("proxy validation", () => {
       config: {
         enabled: false,
         source: "disabled",
-        errors: ["proxy validation requires proxy.proxyUrl, OPENCLAW_PROXY_URL, or --proxy-url"],
+        errors: ["proxy validation requires proxy.proxyUrl, GRANTED_PROXY_URL, or --proxy-url"],
       },
       checks: [],
     });

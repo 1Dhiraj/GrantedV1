@@ -135,7 +135,7 @@ async function runCli(args: string[]) {
 
 describe("claws cli", () => {
   beforeEach(() => {
-    vi.stubEnv("OPENCLAW_EXPERIMENTAL_CLAWS", "1");
+    vi.stubEnv("GRANTED_EXPERIMENTAL_CLAWS", "1");
     mocks.logs.length = 0;
     mocks.errors.length = 0;
     mocks.runtime.log.mockClear();
@@ -308,7 +308,7 @@ describe("claws cli", () => {
   });
 
   it("does not register without the process opt-in", () => {
-    vi.stubEnv("OPENCLAW_EXPERIMENTAL_CLAWS", "");
+    vi.stubEnv("GRANTED_EXPERIMENTAL_CLAWS", "");
     const program = new Command();
 
     registerClawsCli(program);
@@ -527,7 +527,7 @@ describe("claws cli", () => {
     const manifestPath = await writeManifest();
     const workspace = join(tempDirs.make("openclaw-claws-add-"), "workspace");
     const stateRoot = tempDirs.make("openclaw-claws-state-");
-    vi.stubEnv("OPENCLAW_STATE_DIR", join(stateRoot, "state"));
+    vi.stubEnv("GRANTED_STATE_DIR", join(stateRoot, "state"));
 
     await runCli(["claws", "add", manifestPath, "--dry-run", "--workspace", workspace, "--json"]);
     const plan = JSON.parse(mocks.logs[0] ?? "{}");
@@ -562,7 +562,7 @@ describe("claws cli", () => {
     const manifestPath = await writeManifest();
     const workspace = join(tempDirs.make("openclaw-claws-add-"), "workspace");
     const stateRoot = tempDirs.make("openclaw-claws-state-");
-    vi.stubEnv("OPENCLAW_STATE_DIR", join(stateRoot, "state"));
+    vi.stubEnv("GRANTED_STATE_DIR", join(stateRoot, "state"));
 
     await runCli(["claws", "add", manifestPath, "--dry-run", "--workspace", workspace, "--json"]);
     const plan = JSON.parse(mocks.logs[0] ?? "{}");
@@ -596,7 +596,7 @@ describe("claws cli", () => {
     const manifestPath = await writeManifest();
     const workspace = join(tempDirs.make("openclaw-claws-add-"), "workspace");
     const stateRoot = tempDirs.make("openclaw-claws-state-");
-    vi.stubEnv("OPENCLAW_STATE_DIR", join(stateRoot, "state"));
+    vi.stubEnv("GRANTED_STATE_DIR", join(stateRoot, "state"));
 
     await runCli(["claws", "add", manifestPath, "--dry-run", "--workspace", workspace, "--json"]);
     const plan = JSON.parse(mocks.logs[0] ?? "{}");
@@ -629,7 +629,7 @@ describe("claws cli", () => {
     const manifestPath = await writeManifest();
     const workspace = join(tempDirs.make("openclaw-claws-add-"), "workspace");
     const stateRoot = tempDirs.make("openclaw-claws-state-");
-    vi.stubEnv("OPENCLAW_STATE_DIR", join(stateRoot, "state"));
+    vi.stubEnv("GRANTED_STATE_DIR", join(stateRoot, "state"));
 
     await runCli(["claws", "add", manifestPath, "--dry-run", "--workspace", workspace, "--json"]);
     const plan = JSON.parse(mocks.logs[0] ?? "{}");
@@ -662,7 +662,7 @@ describe("claws cli", () => {
     const manifestPath = await writeManifest();
     const workspace = join(tempDirs.make("openclaw-claws-add-"), "workspace");
     const stateRoot = tempDirs.make("openclaw-claws-state-");
-    vi.stubEnv("OPENCLAW_STATE_DIR", join(stateRoot, "state"));
+    vi.stubEnv("GRANTED_STATE_DIR", join(stateRoot, "state"));
 
     await runCli(["claws", "add", manifestPath, "--dry-run", "--workspace", workspace, "--json"]);
     const plan = JSON.parse(mocks.logs[0] ?? "{}");

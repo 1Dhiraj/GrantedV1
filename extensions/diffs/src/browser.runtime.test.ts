@@ -101,7 +101,7 @@ describe("PlaywrightDiffScreenshotter", () => {
       value: "win32",
     });
     vi.stubEnv("PATH", "");
-    vi.stubEnv("OPENCLAW_BROWSER_EXECUTABLE_PATH", "");
+    vi.stubEnv("GRANTED_BROWSER_EXECUTABLE_PATH", "");
     vi.stubEnv("BROWSER_EXECUTABLE_PATH", "");
     vi.stubEnv("PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH", "");
     vi.stubEnv("LOCALAPPDATA", params.localAppData);

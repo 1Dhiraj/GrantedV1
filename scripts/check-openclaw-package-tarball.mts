@@ -319,7 +319,7 @@ function collectRequiredBundledWorkspaceDependencyErrors(
   return errors;
 }
 
-const phaseTimingsEnabled = process.env.OPENCLAW_PACKAGE_TARBALL_CHECK_TIMINGS !== "0";
+const phaseTimingsEnabled = process.env.GRANTED_PACKAGE_TARBALL_CHECK_TIMINGS !== "0";
 // Self-contained artifacts can exceed Node's 1 MiB spawnSync output default.
 const TAR_LIST_MAX_BUFFER_BYTES = 64 * 1024 * 1024;
 function runPhase<Result>(label: string, action: () => Result): Result {

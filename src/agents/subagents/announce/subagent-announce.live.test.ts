@@ -20,7 +20,7 @@ import { GATEWAY_CLIENT_MODES, GATEWAY_CLIENT_NAMES } from "../../../utils/messa
 import { isLiveTestEnabled } from "../../live-test-helpers.js";
 import { listSubagentRunsForRequester } from "../registry/subagent-registry.test-helpers.js";
 
-const LIVE = isLiveTestEnabled() && isTruthyEnvValue(process.env.OPENCLAW_LIVE_SUBAGENT_E2E);
+const LIVE = isLiveTestEnabled() && isTruthyEnvValue(process.env.GRANTED_LIVE_SUBAGENT_E2E);
 const describeLive = LIVE ? describe : describe.skip;
 
 type AgentPayload = {
@@ -45,7 +45,7 @@ type LiveSubagentModelConfig = {
 type LiveSubagentModelProviders = NonNullable<NonNullable<OpenClawConfig["models"]>["providers"]>;
 
 function resolveLiveSubagentModelConfig(): LiveSubagentModelConfig {
-  const modelKey = process.env.OPENCLAW_LIVE_SUBAGENT_E2E_MODEL?.trim() || "openai/gpt-5.6-luna";
+  const modelKey = process.env.GRANTED_LIVE_SUBAGENT_E2E_MODEL?.trim() || "openai/gpt-5.6-luna";
   if (modelKey.startsWith("google/")) {
     return {
       modelKey,
@@ -214,9 +214,9 @@ describeLive("subagent announce live", () => {
   it(
     "keeps issue 82913 busy-parent completion announce pending until transcript delivery",
     async ({ skip }) => {
-      if (!isTruthyEnvValue(process.env.OPENCLAW_SUBAGENT_ISSUE_82913_REPRO)) {
+      if (!isTruthyEnvValue(process.env.GRANTED_SUBAGENT_ISSUE_82913_REPRO)) {
         skip(
-          "[issue-82913] skip: set OPENCLAW_SUBAGENT_ISSUE_82913_REPRO=1 to run this focused repro",
+          "[issue-82913] skip: set GRANTED_SUBAGENT_ISSUE_82913_REPRO=1 to run this focused repro",
         );
         return;
       }
@@ -235,17 +235,17 @@ describeLive("subagent announce live", () => {
         label: "subagent-issue-82913-live",
         layout: "split",
         env: {
-          OPENCLAW_SKIP_CHANNELS: "1",
-          OPENCLAW_SKIP_CRON: "1",
-          OPENCLAW_SKIP_BROWSER_CONTROL_SERVER: "1",
-          OPENCLAW_SKIP_CANVAS_HOST: "1",
+          GRANTED_SKIP_CHANNELS: "1",
+          GRANTED_SKIP_CRON: "1",
+          GRANTED_SKIP_BROWSER_CONTROL_SERVER: "1",
+          GRANTED_SKIP_CANVAS_HOST: "1",
           // Agent admission needs the reply runtime published by normal startup.
-          OPENCLAW_TEST_MINIMAL_GATEWAY: "0",
-          OPENCLAW_DISABLE_BUNDLED_PLUGINS: undefined,
-          OPENCLAW_BUNDLED_PLUGINS_DIR: path.resolve("extensions"),
-          OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR: "1",
-          OPENCLAW_PLUGIN_CATALOG_PATHS: undefined,
-          OPENCLAW_PLUGINS_PATHS: undefined,
+          GRANTED_TEST_MINIMAL_GATEWAY: "0",
+          GRANTED_DISABLE_BUNDLED_PLUGINS: undefined,
+          GRANTED_BUNDLED_PLUGINS_DIR: path.resolve("extensions"),
+          GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR: "1",
+          GRANTED_PLUGIN_CATALOG_PATHS: undefined,
+          GRANTED_PLUGINS_PATHS: undefined,
         },
       });
       await state.writeConfig(
@@ -359,7 +359,7 @@ describeLive("subagent announce live", () => {
       const modelConfig = resolveLiveSubagentModelConfig();
       if (!modelConfig.modelKey.startsWith("google/")) {
         skip(
-          "[subagent-stress] skip: set OPENCLAW_LIVE_SUBAGENT_E2E_MODEL=google/gemini-3.1-pro-preview",
+          "[subagent-stress] skip: set GRANTED_LIVE_SUBAGENT_E2E_MODEL=google/gemini-3.1-pro-preview",
         );
         return;
       }
@@ -376,19 +376,19 @@ describeLive("subagent announce live", () => {
         label: "subagent-gemini-stress-live",
         layout: "split",
         env: {
-          OPENCLAW_SKIP_CHANNELS: "1",
-          OPENCLAW_SKIP_CRON: "1",
-          OPENCLAW_SKIP_BROWSER_CONTROL_SERVER: "1",
-          OPENCLAW_SKIP_CANVAS_HOST: "1",
-          OPENCLAW_TEST_MINIMAL_GATEWAY: "0",
-          OPENCLAW_DISABLE_BUNDLED_PLUGINS: undefined,
-          OPENCLAW_BUNDLED_PLUGINS_DIR: path.resolve("extensions"),
-          OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR: "1",
-          OPENCLAW_PLUGIN_CATALOG_PATHS: undefined,
-          OPENCLAW_PLUGINS_PATHS: undefined,
-          OPENCLAW_DEBUG_MODEL_TRANSPORT: "1",
-          OPENCLAW_DEBUG_MODEL_PAYLOAD: "tools",
-          OPENCLAW_DEBUG_SSE: "events",
+          GRANTED_SKIP_CHANNELS: "1",
+          GRANTED_SKIP_CRON: "1",
+          GRANTED_SKIP_BROWSER_CONTROL_SERVER: "1",
+          GRANTED_SKIP_CANVAS_HOST: "1",
+          GRANTED_TEST_MINIMAL_GATEWAY: "0",
+          GRANTED_DISABLE_BUNDLED_PLUGINS: undefined,
+          GRANTED_BUNDLED_PLUGINS_DIR: path.resolve("extensions"),
+          GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR: "1",
+          GRANTED_PLUGIN_CATALOG_PATHS: undefined,
+          GRANTED_PLUGINS_PATHS: undefined,
+          GRANTED_DEBUG_MODEL_TRANSPORT: "1",
+          GRANTED_DEBUG_MODEL_PAYLOAD: "tools",
+          GRANTED_DEBUG_SSE: "events",
         },
       });
       await fs.writeFile(

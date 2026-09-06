@@ -10,7 +10,7 @@ const suite = createControlUiE2eSuite({
   name: "Control UI GitHub connections",
   startServerBeforeBrowser: true,
 });
-const captureUiProof = process.env.OPENCLAW_CAPTURE_UI_PROOF === "1";
+const captureUiProof = process.env.GRANTED_CAPTURE_UI_PROOF === "1";
 let proofDir: string;
 beforeEach(() => {
   if (captureUiProof) {

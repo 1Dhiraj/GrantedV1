@@ -16,10 +16,10 @@ import { SessionManager } from "./session-manager.js";
 import { SettingsManager } from "./settings-manager.js";
 
 const API_KEY = process.env.OPENAI_API_KEY?.trim() ?? "";
-const LIVE = isTruthyEnvValue(process.env.OPENCLAW_LIVE_OPENAI_COMPACTION) && API_KEY.length > 0;
-const FULL_CONTEXT = isTruthyEnvValue(process.env.OPENCLAW_LIVE_OPENAI_COMPACTION_FULL);
+const LIVE = isTruthyEnvValue(process.env.GRANTED_LIVE_OPENAI_COMPACTION) && API_KEY.length > 0;
+const FULL_CONTEXT = isTruthyEnvValue(process.env.GRANTED_LIVE_OPENAI_COMPACTION_FULL);
 const describeLive = LIVE ? describe : describe.skip;
-const MODEL_ID = process.env.OPENCLAW_LIVE_OPENAI_COMPACTION_MODEL?.trim() || "gpt-5.6-luna";
+const MODEL_ID = process.env.GRANTED_LIVE_OPENAI_COMPACTION_MODEL?.trim() || "gpt-5.6-luna";
 const STRESS_PROFILE = FULL_CONTEXT
   ? {
       contextTokens: 922_000,

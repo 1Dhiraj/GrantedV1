@@ -33,9 +33,9 @@ async function withLogsGateway(
     {
       label: "logs-port",
       env: {
-        OPENCLAW_GATEWAY_URL:
+        GRANTED_GATEWAY_URL:
           options.source === "environment" ? "ws://remote.example:19001" : undefined,
-        OPENCLAW_ALLOW_INSECURE_PRIVATE_WS: undefined,
+        GRANTED_ALLOW_INSECURE_PRIVATE_WS: undefined,
       },
     },
     async (state) => {

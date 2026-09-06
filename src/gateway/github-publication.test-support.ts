@@ -180,7 +180,7 @@ export let commandCalls: Array<{ argv: string[]; input?: string }>;
 export function installGitHubPublicationTestHarness(): void {
   beforeEach(async () => {
     root = await fs.mkdtemp(path.join(await fs.realpath(os.tmpdir()), "openclaw-publication-"));
-    vi.stubEnv("OPENCLAW_STATE_DIR", root);
+    vi.stubEnv("GRANTED_STATE_DIR", root);
     insertRegistryWorktree(process.env, {
       id: "worktree-1",
       name: "publication",

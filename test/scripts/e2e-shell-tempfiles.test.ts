@@ -27,7 +27,7 @@ async function listShellScripts(dir: string): Promise<string[]> {
 async function extractClawhubSkillInstallVerifier(): Promise<string> {
   const script = await readFile("scripts/e2e/lib/skills/clawhub-install-proof.sh", "utf8");
   const marker =
-    'node --input-type=module - "$OPENCLAW_CONFIG_PATH" "$skill_dir" "$origin_json" "$lock_json" "$info_json" "$slug" <<\'NODE\'\n';
+    'node --input-type=module - "$GRANTED_CONFIG_PATH" "$skill_dir" "$origin_json" "$lock_json" "$info_json" "$slug" <<\'NODE\'\n';
   const start = script.indexOf(marker);
   if (start === -1) {
     throw new Error("ClawHub skill install verifier heredoc was not found");
@@ -62,9 +62,9 @@ describe("e2e shell tempfile hygiene", () => {
       `#!/usr/bin/env bash
 set -euo pipefail
 
-export OPENCLAW_ONBOARD_SCENARIO_SOURCE_ONLY=1
-export OPENCLAW_ONBOARD_E2E_TMPDIR=${JSON.stringify(tempRoot)}
-OPENCLAW_ENTRY=node
+export GRANTED_ONBOARD_SCENARIO_SOURCE_ONLY=1
+export GRANTED_ONBOARD_E2E_TMPDIR=${JSON.stringify(tempRoot)}
+GRANTED_ENTRY=node
 openclaw_test_state_create() { :; }
 source scripts/e2e/lib/onboard/scenario.sh
 
@@ -106,9 +106,9 @@ run_wizard_cmd failing-wizard fake-state "node fake-wizard" send_noop false
       `#!/usr/bin/env bash
 set -euo pipefail
 
-export OPENCLAW_ONBOARD_SCENARIO_SOURCE_ONLY=1
-export OPENCLAW_ONBOARD_E2E_TMPDIR=${JSON.stringify(tempRoot)}
-OPENCLAW_ENTRY=node
+export GRANTED_ONBOARD_SCENARIO_SOURCE_ONLY=1
+export GRANTED_ONBOARD_E2E_TMPDIR=${JSON.stringify(tempRoot)}
+GRANTED_ENTRY=node
 source scripts/e2e/lib/onboard/scenario.sh
 
 sleep() { :; }
@@ -136,10 +136,10 @@ test ! -s ${JSON.stringify(sentPath)}
     expect(contents).toContain(
       'ONBOARD_TMP_DIR="$(mktemp -d "$ONBOARD_TMP_ROOT/openclaw-onboard.XXXXXX")"',
     );
-    expect(contents).toContain('OPENCLAW_E2E_LOG_DIR="$ONBOARD_TMP_DIR/logs"');
+    expect(contents).toContain('GRANTED_E2E_LOG_DIR="$ONBOARD_TMP_DIR/logs"');
     expect(contents).toContain('GATEWAY_LOG_PATH="$ONBOARD_TMP_DIR/gateway-e2e.log"');
     expect(contents).not.toContain("/tmp/gateway-e2e.log");
-    expect(contents).toContain('validate_local_basic_log "$OPENCLAW_E2E_LAST_LOG_PATH"');
+    expect(contents).toContain('validate_local_basic_log "$GRANTED_E2E_LAST_LOG_PATH"');
     expect(contents).not.toContain(
       "validate_local_basic_log /tmp/openclaw-onboard-local-basic.log",
     );
@@ -156,9 +156,9 @@ test ! -s ${JSON.stringify(sentPath)}
       `#!/usr/bin/env bash
 set -euo pipefail
 
-export OPENCLAW_ONBOARD_SCENARIO_SOURCE_ONLY=1
-export OPENCLAW_ONBOARD_E2E_TMPDIR=${JSON.stringify(tempRoot)}
-OPENCLAW_ENTRY=node
+export GRANTED_ONBOARD_SCENARIO_SOURCE_ONLY=1
+export GRANTED_ONBOARD_E2E_TMPDIR=${JSON.stringify(tempRoot)}
+GRANTED_ENTRY=node
 source scripts/e2e/lib/onboard/scenario.sh
 
 openclaw_e2e_probe_tcp() { return 0; }
@@ -195,11 +195,11 @@ test ! -e "$ONBOARD_TMP_DIR"
       `#!/usr/bin/env bash
 set -euo pipefail
 
-export OPENCLAW_ONBOARD_SCENARIO_SOURCE_ONLY=1
-export OPENCLAW_ONBOARD_E2E_TMPDIR=${JSON.stringify(tempRoot)}
-export OPENCLAW_ONBOARD_GATEWAY_WAIT_ATTEMPTS=2
-export OPENCLAW_ONBOARD_GATEWAY_WAIT_INTERVAL_S=0.1
-OPENCLAW_ENTRY=node
+export GRANTED_ONBOARD_SCENARIO_SOURCE_ONLY=1
+export GRANTED_ONBOARD_E2E_TMPDIR=${JSON.stringify(tempRoot)}
+export GRANTED_ONBOARD_GATEWAY_WAIT_ATTEMPTS=2
+export GRANTED_ONBOARD_GATEWAY_WAIT_INTERVAL_S=0.1
+GRANTED_ENTRY=node
 source scripts/e2e/lib/onboard/scenario.sh
 
 openclaw_e2e_probe_tcp() { return 1; }
@@ -238,10 +238,10 @@ test ! -e "$ONBOARD_TMP_DIR"
       `#!/usr/bin/env bash
 set -euo pipefail
 
-export OPENCLAW_ONBOARD_SCENARIO_SOURCE_ONLY=1
-export OPENCLAW_ONBOARD_E2E_TMPDIR=${JSON.stringify(tempRoot)}
-export OPENCLAW_ONBOARD_GATEWAY_WAIT_ATTEMPTS=2x
-OPENCLAW_ENTRY=node
+export GRANTED_ONBOARD_SCENARIO_SOURCE_ONLY=1
+export GRANTED_ONBOARD_E2E_TMPDIR=${JSON.stringify(tempRoot)}
+export GRANTED_ONBOARD_GATEWAY_WAIT_ATTEMPTS=2x
+GRANTED_ENTRY=node
 source scripts/e2e/lib/onboard/scenario.sh
 
 openclaw_e2e_probe_tcp() {
@@ -264,7 +264,7 @@ exit "$status"
       });
 
       expect(result.status).toBe(2);
-      expect(result.stderr).toContain("invalid OPENCLAW_ONBOARD_GATEWAY_WAIT_ATTEMPTS: 2x");
+      expect(result.stderr).toContain("invalid GRANTED_ONBOARD_GATEWAY_WAIT_ATTEMPTS: 2x");
       expect(result.stderr).not.toContain("probe should not run");
     } finally {
       await rm(tempRoot, { force: true, recursive: true });
@@ -291,8 +291,8 @@ exit 42
         encoding: "utf8",
         env: {
           ...process.env,
-          OPENCLAW_CURRENT_PACKAGE_TGZ: "",
-          OPENCLAW_TEST_STATE_SCRIPT_B64: "",
+          GRANTED_CURRENT_PACKAGE_TGZ: "",
+          GRANTED_TEST_STATE_SCRIPT_B64: "",
           PATH: `${fakeBin}:${process.env.PATH ?? ""}`,
           TMPDIR: scratchRoot,
         },

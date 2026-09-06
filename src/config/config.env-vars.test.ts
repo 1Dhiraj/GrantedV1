@@ -197,7 +197,7 @@ describe("config env vars", () => {
   });
 
   it("does not infer an equal-valued ambient env entry as config-owned", async () => {
-    const key = "OPENCLAW_TEST_EQUAL_AMBIENT_ENV";
+    const key = "GRANTED_TEST_EQUAL_AMBIENT_ENV";
     await withEnvOverride({ [key]: "shared" }, async () => {
       try {
         const previousConfig = { env: { vars: { [key]: "shared" } } };
@@ -220,7 +220,7 @@ describe("config env vars", () => {
   });
 
   it("unwinds overlapping same-value publications after both roll back", async () => {
-    const key = "OPENCLAW_TEST_OVERLAPPING_ENV";
+    const key = "GRANTED_TEST_OVERLAPPING_ENV";
     await withEnvOverride({ [key]: "old" }, async () => {
       try {
         const previousConfig = { env: { vars: { [key]: "old" } } };
@@ -252,7 +252,7 @@ describe("config env vars", () => {
   it.each(["older-first", "newer-first"] as const)(
     "unwinds different-value publications in %s rollback order",
     async (rollbackOrder) => {
-      const key = "OPENCLAW_TEST_OVERLAPPING_DIFFERENT_ENV";
+      const key = "GRANTED_TEST_OVERLAPPING_DIFFERENT_ENV";
       await withEnvOverride({ [key]: "old" }, async () => {
         try {
           const previousConfig = { env: { vars: { [key]: "old" } } };
@@ -297,7 +297,7 @@ describe("config env vars", () => {
   );
 
   it("lets a newer committed publication supersede an older late rollback", async () => {
-    const key = "OPENCLAW_TEST_COMMITTED_OVERLAPPING_ENV";
+    const key = "GRANTED_TEST_COMMITTED_OVERLAPPING_ENV";
     await withEnvOverride({ [key]: "old" }, async () => {
       try {
         const previousConfig = { env: { vars: { [key]: "old" } } };
@@ -326,7 +326,7 @@ describe("config env vars", () => {
   });
 
   it("lets a newer publication remove a key added by an overlapping predecessor", async () => {
-    const key = "OPENCLAW_TEST_OVERLAPPING_REMOVED_ENV";
+    const key = "GRANTED_TEST_OVERLAPPING_REMOVED_ENV";
     await withEnvOverride({ [key]: undefined }, async () => {
       try {
         const previousConfig = {};
@@ -352,20 +352,20 @@ describe("config env vars", () => {
     expect(() =>
       assertGatewayConfigEnvSelectionUnchanged(
         {},
-        { env: { vars: { OPENCLAW_CONFIG_PATH: "/tmp/other.json" } } },
+        { env: { vars: { GRANTED_CONFIG_PATH: "/tmp/other.json" } } },
       ),
-    ).toThrow("process-stable Gateway selector OPENCLAW_CONFIG_PATH");
+    ).toThrow("process-stable Gateway selector GRANTED_CONFIG_PATH");
   });
 
   it("preserves Windows case-insensitive env precedence in merged runtime env", () => {
     const platformSpy = vi.spyOn(process, "platform", "get").mockReturnValue("win32");
     try {
       const merged = createConfigRuntimeEnv(
-        { env: { vars: { OPENCLAW_LOAD_SHELL_ENV: "1" } } } as OpenClawConfig,
+        { env: { vars: { GRANTED_LOAD_SHELL_ENV: "1" } } } as OpenClawConfig,
         { OpenClaw_Load_Shell_Env: "0" },
       );
 
-      expect(merged.OPENCLAW_LOAD_SHELL_ENV).toBe("0");
+      expect(merged.GRANTED_LOAD_SHELL_ENV).toBe("0");
       expect(Object.keys(merged)).toEqual(["OpenClaw_Load_Shell_Env"]);
     } finally {
       platformSpy.mockRestore();
@@ -455,8 +455,8 @@ describe("config env vars", () => {
         SHELL: undefined,
         HOME: undefined,
         ZDOTDIR: undefined,
-        OPENCLAW_ALLOW_OLDER_BINARY_DESTRUCTIVE_ACTIONS: undefined,
-        OPENCLAW_INCLUDE_ROOTS: undefined,
+        GRANTED_ALLOW_OLDER_BINARY_DESTRUCTIVE_ACTIONS: undefined,
+        GRANTED_INCLUDE_ROOTS: undefined,
         openclaw_allow_older_binary_destructive_actions: undefined,
         OPENROUTER_API_KEY: undefined,
       },
@@ -468,8 +468,8 @@ describe("config env vars", () => {
               SHELL: "/tmp/evil-shell",
               HOME: "/tmp/evil-home",
               ZDOTDIR: "/tmp/evil-zdotdir",
-              OPENCLAW_ALLOW_OLDER_BINARY_DESTRUCTIVE_ACTIONS: "1",
-              OPENCLAW_INCLUDE_ROOTS: "/tmp/evil-include-root",
+              GRANTED_ALLOW_OLDER_BINARY_DESTRUCTIVE_ACTIONS: "1",
+              GRANTED_INCLUDE_ROOTS: "/tmp/evil-include-root",
               openclaw_allow_older_binary_destructive_actions: "1",
               OPENROUTER_API_KEY: "config-key",
             },
@@ -480,8 +480,8 @@ describe("config env vars", () => {
         expect(entries.SHELL).toBeUndefined();
         expect(entries.HOME).toBeUndefined();
         expect(entries.ZDOTDIR).toBeUndefined();
-        expect(entries.OPENCLAW_ALLOW_OLDER_BINARY_DESTRUCTIVE_ACTIONS).toBeUndefined();
-        expect(entries.OPENCLAW_INCLUDE_ROOTS).toBeUndefined();
+        expect(entries.GRANTED_ALLOW_OLDER_BINARY_DESTRUCTIVE_ACTIONS).toBeUndefined();
+        expect(entries.GRANTED_INCLUDE_ROOTS).toBeUndefined();
         expect(entries.openclaw_allow_older_binary_destructive_actions).toBeUndefined();
         expect(entries.OPENROUTER_API_KEY).toBe("config-key");
 
@@ -490,8 +490,8 @@ describe("config env vars", () => {
         expect(process.env.SHELL).toBeUndefined();
         expect(process.env.HOME).toBeUndefined();
         expect(process.env.ZDOTDIR).toBeUndefined();
-        expect(process.env.OPENCLAW_ALLOW_OLDER_BINARY_DESTRUCTIVE_ACTIONS).toBeUndefined();
-        expect(process.env.OPENCLAW_INCLUDE_ROOTS).toBeUndefined();
+        expect(process.env.GRANTED_ALLOW_OLDER_BINARY_DESTRUCTIVE_ACTIONS).toBeUndefined();
+        expect(process.env.GRANTED_INCLUDE_ROOTS).toBeUndefined();
         expect(process.env.openclaw_allow_older_binary_destructive_actions).toBeUndefined();
         expect(process.env.OPENROUTER_API_KEY).toBe("config-key");
       },
@@ -564,9 +564,9 @@ describe("config env vars", () => {
   it("loads ${VAR} substitutions from ~/.openclaw/.env on repeated runtime loads", async () => {
     await withTempHome(async (_home) => {
       await withEnvOverride({ BRAVE_API_KEY: undefined }, async () => {
-        const stateDir = process.env.OPENCLAW_STATE_DIR?.trim();
+        const stateDir = process.env.GRANTED_STATE_DIR?.trim();
         if (!stateDir) {
-          throw new Error("Expected OPENCLAW_STATE_DIR to be set by withTempHome");
+          throw new Error("Expected GRANTED_STATE_DIR to be set by withTempHome");
         }
         await fs.mkdir(stateDir, { recursive: true });
         await fs.writeFile(path.join(stateDir, ".env"), "BRAVE_API_KEY=from-dotenv\n", "utf-8");
@@ -629,26 +629,26 @@ describe("config env vars", () => {
   it("drops dangerous and empty values from the state-dir .env file", async () => {
     await withTempHome(async (_home) => {
       await writeStateDirDotEnv(
-        "NODE_OPTIONS=--require /tmp/evil.js\nOPENCLAW_ALLOW_OLDER_BINARY_DESTRUCTIVE_ACTIONS=1\nEMPTY=\nVALID=ok\n",
+        "NODE_OPTIONS=--require /tmp/evil.js\nGRANTED_ALLOW_OLDER_BINARY_DESTRUCTIVE_ACTIONS=1\nEMPTY=\nVALID=ok\n",
         { env: process.env },
       );
       const vars = collectDurableServiceEnvVars({ env: process.env });
       expect(vars.NODE_OPTIONS).toBeUndefined();
-      expect(vars.OPENCLAW_ALLOW_OLDER_BINARY_DESTRUCTIVE_ACTIONS).toBeUndefined();
+      expect(vars.GRANTED_ALLOW_OLDER_BINARY_DESTRUCTIVE_ACTIONS).toBeUndefined();
       expect(vars.EMPTY).toBeUndefined();
       expect(vars.VALID).toBe("ok");
     });
   });
 
-  it("respects OPENCLAW_STATE_DIR when reading state-dir .env vars", async () => {
+  it("respects GRANTED_STATE_DIR when reading state-dir .env vars", async () => {
     await withTempHome(async (_home) => {
-      const customStateDir = path.join(process.env.OPENCLAW_STATE_DIR ?? "", "custom-state");
+      const customStateDir = path.join(process.env.GRANTED_STATE_DIR ?? "", "custom-state");
       await writeStateDirDotEnv("CUSTOM_KEY=from-override\n", {
         stateDir: customStateDir,
       });
       expect(
         collectDurableServiceEnvVars({
-          env: { OPENCLAW_STATE_DIR: customStateDir },
+          env: { GRANTED_STATE_DIR: customStateDir },
         }).CUSTOM_KEY,
       ).toBe("from-override");
     });

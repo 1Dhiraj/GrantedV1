@@ -141,7 +141,7 @@ export async function runGatewaySupportExportRuntime(options: GatewaySupportExpo
         diagnostics: { enabled: true },
       },
       env: {
-        OPENCLAW_TEST_FILE_LOG: "1",
+        GRANTED_TEST_FILE_LOG: "1",
       },
     });
     await instance.startGateway();

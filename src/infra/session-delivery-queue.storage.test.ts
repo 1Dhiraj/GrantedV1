@@ -30,7 +30,7 @@ describe("session-delivery queue storage", () => {
 
   function readSessionQueueStatus(tempDir: string, id: string): string | undefined {
     const { db } = openOpenClawStateDatabase({
-      env: { ...process.env, OPENCLAW_STATE_DIR: tempDir },
+      env: { ...process.env, GRANTED_STATE_DIR: tempDir },
     });
     const row = db
       .prepare("SELECT status FROM delivery_queue_entries WHERE queue_name = 'session' AND id = ?")

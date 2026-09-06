@@ -150,9 +150,9 @@ process.exit(result.status ?? 1);
       ...process.env,
       TSX_TSCONFIG_PATH: path.resolve("tsconfig.json"),
     };
-    delete env.OPENCLAW_PREPACK_PREPARED;
+    delete env.GRANTED_PREPACK_PREPARED;
     if (prepared) {
-      env.OPENCLAW_PREPACK_PREPARED = "1";
+      env.GRANTED_PREPACK_PREPARED = "1";
     }
     return spawnSync("pnpm", ["pack", "--silent", "--pack-destination", packDir], {
       cwd: rootDir,
@@ -203,9 +203,9 @@ function runStandaloneBundledChannelSmoke(entrySource: string, layout: BundledCh
     TMP: temporaryRoot,
     TEMP: temporaryRoot,
   };
-  delete env.OPENCLAW_BUNDLED_CHANNEL_SMOKE_INSTALLED_LAYOUT;
+  delete env.GRANTED_BUNDLED_CHANNEL_SMOKE_INSTALLED_LAYOUT;
   if (layout === "installed-env") {
-    env.OPENCLAW_BUNDLED_CHANNEL_SMOKE_INSTALLED_LAYOUT = "1";
+    env.GRANTED_BUNDLED_CHANNEL_SMOKE_INSTALLED_LAYOUT = "1";
   }
 
   const result = spawnSync(
@@ -461,35 +461,35 @@ describe("collectSourcePackWorkspaceDependencyErrors", () => {
     ]);
     expect(
       collectSourcePackWorkspaceDependencyErrors(rootPackageJson, {
-        OPENCLAW_PREPACK_PREPARED: "1",
+        GRANTED_PREPACK_PREPARED: "1",
       }),
     ).toEqual([]);
     expect(
       collectSourcePackWorkspaceDependencyErrors(rootPackageJson, {
         npm_command: "pack",
         OCM_INTERNAL_NPM_BIN: path.join(rootDir, "scripts", "ocm-npm-workspace-deps.mts"),
-        OPENCLAW_OCM_WORKSPACE_DEPENDENCY_DIRS: aiDir,
+        GRANTED_OCM_WORKSPACE_DEPENDENCY_DIRS: aiDir,
       }),
     ).toEqual([]);
     expect(
       collectSourcePackWorkspaceDependencyErrors(rootPackageJson, {
         npm_command: "pack",
         OCM_INTERNAL_NPM_BIN: path.join(rootDir, "scripts", "ocm-npm-workspace-deps.mts"),
-        OPENCLAW_OCM_WORKSPACE_DEPENDENCY_DIRS: rootDir,
+        GRANTED_OCM_WORKSPACE_DEPENDENCY_DIRS: rootDir,
       }),
     ).toHaveLength(2);
     expect(
       collectSourcePackWorkspaceDependencyErrors(rootPackageJson, {
         npm_command: "pack",
         OCM_INTERNAL_NPM_BIN: path.join(rootDir, "scripts", "other-npm-wrapper.mjs"),
-        OPENCLAW_OCM_WORKSPACE_DEPENDENCY_DIRS: aiDir,
+        GRANTED_OCM_WORKSPACE_DEPENDENCY_DIRS: aiDir,
       }),
     ).toHaveLength(2);
     expect(
       collectSourcePackWorkspaceDependencyErrors(rootPackageJson, {
         npm_command: "publish",
         OCM_INTERNAL_NPM_BIN: path.join(rootDir, "scripts", "ocm-npm-workspace-deps.mts"),
-        OPENCLAW_OCM_WORKSPACE_DEPENDENCY_DIRS: aiDir,
+        GRANTED_OCM_WORKSPACE_DEPENDENCY_DIRS: aiDir,
       }),
     ).toHaveLength(2);
   });
@@ -559,22 +559,22 @@ describe("resolvePrepackAllowUnreleasedChangelog", () => {
     for (const raw of [undefined, "", "0", "false"]) {
       expect(
         resolvePrepackAllowUnreleasedChangelog({
-          OPENCLAW_PREPACK_ALLOW_UNRELEASED_CHANGELOG: raw,
+          GRANTED_PREPACK_ALLOW_UNRELEASED_CHANGELOG: raw,
         }),
       ).toBe(false);
     }
     for (const raw of ["1", "true"]) {
       expect(
         resolvePrepackAllowUnreleasedChangelog({
-          OPENCLAW_PREPACK_ALLOW_UNRELEASED_CHANGELOG: raw,
+          GRANTED_PREPACK_ALLOW_UNRELEASED_CHANGELOG: raw,
         }),
       ).toBe(true);
     }
     expect(() =>
       resolvePrepackAllowUnreleasedChangelog({
-        OPENCLAW_PREPACK_ALLOW_UNRELEASED_CHANGELOG: "yes",
+        GRANTED_PREPACK_ALLOW_UNRELEASED_CHANGELOG: "yes",
       }),
-    ).toThrow("invalid OPENCLAW_PREPACK_ALLOW_UNRELEASED_CHANGELOG: yes");
+    ).toThrow("invalid GRANTED_PREPACK_ALLOW_UNRELEASED_CHANGELOG: yes");
   });
 });
 
@@ -589,14 +589,14 @@ describe("resolvePrepackBuildEnvironment", () => {
       ),
     ).toMatchObject({
       GIT_COMMIT: commit,
-      OPENCLAW_BUILD_TIMESTAMP: "2026-07-10T12:34:56.000Z",
+      GRANTED_BUILD_TIMESTAMP: "2026-07-10T12:34:56.000Z",
     });
     expect(
       resolvePrepackBuildEnvironment(
-        { OPENCLAW_BUILD_TIMESTAMP: "2026-07-10T01:02:03.7Z" },
+        { GRANTED_BUILD_TIMESTAMP: "2026-07-10T01:02:03.7Z" },
         () => new Date("2026-07-11T00:00:00.000Z"),
         () => commit,
-      ).OPENCLAW_BUILD_TIMESTAMP,
+      ).GRANTED_BUILD_TIMESTAMP,
     ).toBe("2026-07-10T01:02:03.7Z");
   });
 
@@ -721,17 +721,17 @@ describe("runPrepackCommand", () => {
 describe("resolvePrepackCommandTimeoutMs", () => {
   it("parses only positive integer environment timeouts", () => {
     expect(resolvePrepackCommandTimeoutMs({})).toBe(30 * 60 * 1000);
-    expect(resolvePrepackCommandTimeoutMs({ OPENCLAW_PREPACK_COMMAND_TIMEOUT_MS: "" })).toBe(
+    expect(resolvePrepackCommandTimeoutMs({ GRANTED_PREPACK_COMMAND_TIMEOUT_MS: "" })).toBe(
       30 * 60 * 1000,
     );
-    expect(resolvePrepackCommandTimeoutMs({ OPENCLAW_PREPACK_COMMAND_TIMEOUT_MS: "1234" })).toBe(
+    expect(resolvePrepackCommandTimeoutMs({ GRANTED_PREPACK_COMMAND_TIMEOUT_MS: "1234" })).toBe(
       1234,
     );
 
     for (const raw of ["nope", "10m", "1e3", "0", "-1", "9007199254740992"]) {
       expect(() =>
-        resolvePrepackCommandTimeoutMs({ OPENCLAW_PREPACK_COMMAND_TIMEOUT_MS: raw }),
-      ).toThrow(`invalid OPENCLAW_PREPACK_COMMAND_TIMEOUT_MS: ${raw}`);
+        resolvePrepackCommandTimeoutMs({ GRANTED_PREPACK_COMMAND_TIMEOUT_MS: raw }),
+      ).toThrow(`invalid GRANTED_PREPACK_COMMAND_TIMEOUT_MS: ${raw}`);
     }
   });
 });

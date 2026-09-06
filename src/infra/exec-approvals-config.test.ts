@@ -33,10 +33,10 @@ describe.sequential("exec approval temp fixture cleanup", () => {
 describe("exec approvals wildcard agent", () => {
   it("merges wildcard allowlist entries with agent entries", () => {
     const dir = makeExecApprovalsTempDir();
-    const prevOpenClawHome = process.env.OPENCLAW_HOME;
+    const prevOpenClawHome = process.env.GRANTED_HOME;
 
     try {
-      process.env.OPENCLAW_HOME = dir;
+      process.env.GRANTED_HOME = dir;
       saveExecApprovals({
         version: 1,
         agents: {
@@ -53,9 +53,9 @@ describe("exec approvals wildcard agent", () => {
     } finally {
       closeOpenClawStateDatabaseForTest();
       if (prevOpenClawHome === undefined) {
-        delete process.env.OPENCLAW_HOME;
+        delete process.env.GRANTED_HOME;
       } else {
-        process.env.OPENCLAW_HOME = prevOpenClawHome;
+        process.env.GRANTED_HOME = prevOpenClawHome;
       }
     }
   });

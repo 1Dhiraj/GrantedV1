@@ -32,9 +32,9 @@ function createContext(root: string) {
   const env: NodeJS.ProcessEnv = {
     HOME: root,
     USERPROFILE: root,
-    OPENCLAW_CONFIG_PATH: configPath,
-    OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-    OPENCLAW_STATE_DIR: path.join(root, "state"),
+    GRANTED_CONFIG_PATH: configPath,
+    GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+    GRANTED_STATE_DIR: path.join(root, "state"),
     VITEST: "true",
   };
   return createConfigIoContext({

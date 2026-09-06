@@ -22,7 +22,7 @@ function readOutputDirValue(argv: string[], index: number): string {
  */
 export function parseArgs(argv: string[]) {
   let mode = "";
-  let outputDir = process.env.OPENCLAW_VITEST_PROFILE_DIR?.trim() || "";
+  let outputDir = process.env.GRANTED_VITEST_PROFILE_DIR?.trim() || "";
   let vitestArgs: string[] = [];
 
   for (let i = 0; i < argv.length; i += 1) {

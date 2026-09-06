@@ -135,7 +135,7 @@ export function buildStatusCommandOverviewRows(
   });
   const updatesDisabled =
     params.surface.cfg.update?.checkOnStart === false ||
-    isTruthyEnvValue(params.env.OPENCLAW_NO_AUTO_UPDATE) ||
+    isTruthyEnvValue(params.env.GRANTED_NO_AUTO_UPDATE) ||
     resolveIsNixMode(params.env);
   const doNotTrack = params.env.DO_NOT_TRACK?.trim().toLowerCase();
   const telemetryValue = updatesDisabled

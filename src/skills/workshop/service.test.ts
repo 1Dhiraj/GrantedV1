@@ -49,17 +49,17 @@ beforeAll(async () => {
   stateDir = await stateDirs.make("openclaw-skill-workshop-state-");
   testEnv = {
     ...process.env,
-    OPENCLAW_STATE_DIR: stateDir,
-    OPENCLAW_CONFIG_PATH: path.join(stateDir, "openclaw.json"),
-    OPENCLAW_AGENT_DIR: undefined,
+    GRANTED_STATE_DIR: stateDir,
+    GRANTED_CONFIG_PATH: path.join(stateDir, "openclaw.json"),
+    GRANTED_AGENT_DIR: undefined,
   };
   await listSkillProposals({ env: testEnv });
 });
 
 beforeEach(async () => {
-  vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
-  vi.stubEnv("OPENCLAW_CONFIG_PATH", path.join(stateDir, "openclaw.json"));
-  vi.stubEnv("OPENCLAW_AGENT_DIR", undefined);
+  vi.stubEnv("GRANTED_STATE_DIR", stateDir);
+  vi.stubEnv("GRANTED_CONFIG_PATH", path.join(stateDir, "openclaw.json"));
+  vi.stubEnv("GRANTED_AGENT_DIR", undefined);
   const database = openOpenClawStateDatabase({ env: testEnv });
   database.db.exec(`
     DELETE FROM skill_workshop_proposal_events;
@@ -1291,7 +1291,7 @@ describe("skill workshop proposals", () => {
       const configDir = await tempDirs.make("openclaw-workshop-recovery-env-config-");
       const configPath = path.join(configDir, "openclaw.json");
       await fs.writeFile(configPath, JSON.stringify(config), "utf8");
-      const env = { ...testEnv, OPENCLAW_CONFIG_PATH: configPath };
+      const env = { ...testEnv, GRANTED_CONFIG_PATH: configPath };
       const proposal = await proposeCreateSkill({
         workspaceDir,
         config,

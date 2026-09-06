@@ -33,7 +33,7 @@ function projectedInput(history: string, current = childTask) {
 function completionInput(result: string, status = "completed; ready for parent review") {
   return userInput(
     [
-      "<<<BEGIN_OPENCLAW_INTERNAL_CONTEXT>>>",
+      "<<<BEGIN_GRANTED_INTERNAL_CONTEXT>>>",
       "[Internal task completion event]",
       "source: subagent",
       "task: qa-fork-context",
@@ -42,7 +42,7 @@ function completionInput(result: string, status = "completed; ready for parent r
       "<prompt-data>",
       result,
       "</prompt-data>",
-      "<<<END_OPENCLAW_INTERNAL_CONTEXT>>>",
+      "<<<END_GRANTED_INTERNAL_CONTEXT>>>",
     ].join("\n"),
   );
 }

@@ -59,10 +59,10 @@ function parseArgs(argv: readonly string[], env = process.env) {
     argv,
     {
       config: "test/vitest/vitest.unit.config.ts",
-      maxWallMs: readBudgetEnvNumber("OPENCLAW_TEST_PERF_MAX_WALL_MS", env),
-      baselineWallMs: readBudgetEnvNumber("OPENCLAW_TEST_PERF_BASELINE_WALL_MS", env),
-      maxRegressionPct: readBudgetEnvNumber("OPENCLAW_TEST_PERF_MAX_REGRESSION_PCT", env) ?? 10,
-      reportOnly: isStrictAffirmativeValue(env.OPENCLAW_TEST_PERF_REPORT_ONLY),
+      maxWallMs: readBudgetEnvNumber("GRANTED_TEST_PERF_MAX_WALL_MS", env),
+      baselineWallMs: readBudgetEnvNumber("GRANTED_TEST_PERF_BASELINE_WALL_MS", env),
+      maxRegressionPct: readBudgetEnvNumber("GRANTED_TEST_PERF_MAX_REGRESSION_PCT", env) ?? 10,
+      reportOnly: isStrictAffirmativeValue(env.GRANTED_TEST_PERF_REPORT_ONLY),
     },
     [
       stringFlag("--config", "config"),

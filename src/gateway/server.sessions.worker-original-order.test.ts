@@ -150,7 +150,7 @@ class OriginalOrderSshRunner implements WorkerSshRunner {
       }
       await fs.mkdir(path.dirname(this.bootstrapUploadPath), { recursive: true });
       await fs.writeFile(this.bootstrapUploadPath, "");
-      return success(`OPENCLAW_WORKER_BOOTSTRAP_V1\tinstall\t${this.bootstrapUploadPath}\n`);
+      return success(`GRANTED_WORKER_BOOTSTRAP_V1\tinstall\t${this.bootstrapUploadPath}\n`);
     }
     if (argv[0] === "scp") {
       this.events.push(`bootstrap:transfer:${port}`);
@@ -162,7 +162,7 @@ class OriginalOrderSshRunner implements WorkerSshRunner {
       await fs.mkdir(path.dirname(this.bootstrapReceiptPath), { recursive: true });
       await fs.writeFile(this.bootstrapReceiptPath, `${JSON.stringify(RECEIPT)}\n`);
       await fs.rm(this.bootstrapUploadPath, { force: true });
-      return success(`OPENCLAW_WORKER_BOOTSTRAP_V1\treceipt\t${JSON.stringify(RECEIPT)}\n`);
+      return success(`GRANTED_WORKER_BOOTSTRAP_V1\treceipt\t${JSON.stringify(RECEIPT)}\n`);
     }
     if (argv[0] === "ssh" && input.includes("operation_token=$2")) {
       this.events.push(`bootstrap:cleanup:${port}`);
@@ -324,7 +324,7 @@ test("preserves ordered fallback through restart, workspace sync, and safe sessi
     },
   };
 
-  database = openOpenClawStateDatabase({ env: { OPENCLAW_STATE_DIR: stateDir } });
+  database = openOpenClawStateDatabase({ env: { GRANTED_STATE_DIR: stateDir } });
   const environmentStore = createWorkerEnvironmentStore({ database, now: () => 2_000 });
   const placements = createWorkerSessionPlacementStore({ database, now: () => 3_000 });
   tunnelManager = createWorkerTunnelManager({ runner });
@@ -353,7 +353,7 @@ test("preserves ordered fallback through restart, workspace sync, and safe sessi
       });
       closeOpenClawStateDatabaseForTest();
       events.push("gateway:reopen");
-      database = openOpenClawStateDatabase({ env: { OPENCLAW_STATE_DIR: stateDir } });
+      database = openOpenClawStateDatabase({ env: { GRANTED_STATE_DIR: stateDir } });
       expect(
         createWorkerEnvironmentStore({ database, now: () => 2_000 }).get(ENVIRONMENT_ID),
       ).toMatchObject({ state: "bootstrapping", sshEndpoint: SSH_ENDPOINT });

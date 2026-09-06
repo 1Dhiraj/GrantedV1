@@ -16,7 +16,7 @@ const fingerprint = createHash("sha256")
 
 afterEach(async () => {
   vi.restoreAllMocks();
-  pinConfigDir({ OPENCLAW_STATE_DIR: originalConfigDir });
+  pinConfigDir({ GRANTED_STATE_DIR: originalConfigDir });
   await tempDirs.cleanup();
 });
 
@@ -31,7 +31,7 @@ function resolveLocalPin(tls: GatewayTlsConfig) {
 describe("Gateway client certificate inspection", () => {
   it.each(["default", "custom"])("does not provision missing %s TLS files", async (location) => {
     const root = await tempDirs.make("openclaw-tls-owner-client-");
-    pinConfigDir({ OPENCLAW_STATE_DIR: root });
+    pinConfigDir({ GRANTED_STATE_DIR: root });
     const tlsDir = path.join(root, location === "default" ? "gateway/tls" : "custom/tls");
     const tls =
       location === "default"
@@ -52,7 +52,7 @@ describe("Gateway client certificate inspection", () => {
     "pins existing public certificate (%j) without a key or CA",
     async (location) => {
       const root = await tempDirs.make("openclaw-tls-owner-client-");
-      pinConfigDir({ OPENCLAW_STATE_DIR: root });
+      pinConfigDir({ GRANTED_STATE_DIR: root });
       const certPath = path.join(
         root,
         location === "custom" ? "custom.pem" : "gateway/tls/gateway-cert.pem",

@@ -77,7 +77,7 @@ function rollbackImportedSnapshots(params: {
         db.deleteFrom("migration_runs").where("id", "=", params.runId),
       );
     },
-    { env: { ...params.env, OPENCLAW_STATE_DIR: params.stateDir } },
+    { env: { ...params.env, GRANTED_STATE_DIR: params.stateDir } },
     { operationLabel: "meeting-transcripts.legacy-import.rollback" },
   );
 }
@@ -117,7 +117,7 @@ function finishPendingMigration(params: {
           .where("id", "=", params.runId),
       );
     },
-    { env: { ...params.env, OPENCLAW_STATE_DIR: params.stateDir } },
+    { env: { ...params.env, GRANTED_STATE_DIR: params.stateDir } },
     { operationLabel: "meeting-transcripts.legacy-import.finish" },
   );
 }
@@ -169,7 +169,7 @@ function readPendingImportRuns(params: {
   sourceRoot: string;
 }): PendingImportRun[] {
   const database = openOpenClawStateDatabase({
-    env: { ...params.env, OPENCLAW_STATE_DIR: params.stateDir },
+    env: { ...params.env, GRANTED_STATE_DIR: params.stateDir },
   });
   const db = migrationDb(database.db);
   const rows = executeSqliteQuerySync(
@@ -278,7 +278,7 @@ async function resumePendingImports(params: {
           throw new Error("archived source hashes do not match migration receipts");
         }
         const database = openOpenClawStateDatabase({
-          env: { ...params.env, OPENCLAW_STATE_DIR: params.stateDir },
+          env: { ...params.env, GRANTED_STATE_DIR: params.stateDir },
         });
         await verifyImportedMeetingTranscriptSnapshots({
           store: params.store,
@@ -318,7 +318,7 @@ async function resumePendingImports(params: {
         ...run.canonicalRelativeDirs,
         ...(await listCanonicalMeetingTranscriptExportDirs({
           rootDir: params.sourceRoot,
-          env: { ...params.env, OPENCLAW_STATE_DIR: params.stateDir },
+          env: { ...params.env, GRANTED_STATE_DIR: params.stateDir },
         })),
       ]),
     ];
@@ -341,7 +341,7 @@ async function resumePendingImports(params: {
       continue;
     }
     const database = openOpenClawStateDatabase({
-      env: { ...params.env, OPENCLAW_STATE_DIR: params.stateDir },
+      env: { ...params.env, GRANTED_STATE_DIR: params.stateDir },
     });
     await verifyImportedMeetingTranscriptSnapshots({
       store: params.store,
@@ -387,7 +387,7 @@ export async function migrateLegacyMeetingTranscripts(params: {
   try {
     lock = await acquireGatewayLock({
       allowInTests: true,
-      env: { ...env, OPENCLAW_STATE_DIR: params.stateDir },
+      env: { ...env, GRANTED_STATE_DIR: params.stateDir },
       role: "sqlite-maintenance",
       timeoutMs: 5_000,
     });
@@ -417,7 +417,7 @@ export async function migrateLegacyMeetingTranscripts(params: {
     const stage = openLegacyMeetingTranscriptStage(stagePath);
     stageDatabase = stage;
     await validateMeetingTranscriptRoot(detected.sourceDir, { allowMissing: true });
-    const databaseOptions = { env: { ...env, OPENCLAW_STATE_DIR: params.stateDir } };
+    const databaseOptions = { env: { ...env, GRANTED_STATE_DIR: params.stateDir } };
     ensureMeetingTranscriptsSchema(databaseOptions);
     // Repair only oversized ASCII projections before classifying exports. Keep
     // identity/content intact; a selector conflict rolls back the entire repair.
@@ -475,7 +475,7 @@ export async function migrateLegacyMeetingTranscripts(params: {
     const sessionRelativeDirs = await listLegacyMeetingTranscriptSessionDirs(detected.sourceDir);
     const sessionRelativeDirSet = new Set(sessionRelativeDirs);
     const detectionState = readMeetingTranscriptMigrationDetectionState({
-      env: { ...env, OPENCLAW_STATE_DIR: params.stateDir },
+      env: { ...env, GRANTED_STATE_DIR: params.stateDir },
     });
     const legacyRelativeDirs: string[] = [];
     const partialRelativeDirs: string[] = [];
@@ -576,7 +576,7 @@ export async function migrateLegacyMeetingTranscripts(params: {
     const archiveRoot = resolveArchiveRoot(detected.sourceDir, now);
     const canonicalRelativeDirs = await listCanonicalMeetingTranscriptExportDirs({
       rootDir: detected.sourceDir,
-      env: { ...env, OPENCLAW_STATE_DIR: params.stateDir },
+      env: { ...env, GRANTED_STATE_DIR: params.stateDir },
     });
     insertMeetingTranscriptSnapshots({
       snapshots,

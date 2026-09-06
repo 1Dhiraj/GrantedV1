@@ -36,8 +36,8 @@ describe.skipIf(process.platform !== "win32")("PowerShell profile encoding", () 
         {
           HOME: homeDir,
           USERPROFILE: homeDir,
-          OPENCLAW_HOME: undefined,
-          OPENCLAW_STATE_DIR: path.join(homeDir, "state"),
+          GRANTED_HOME: undefined,
+          GRANTED_STATE_DIR: path.join(homeDir, "state"),
           SHELL: "powershell.exe",
         },
         async () => {

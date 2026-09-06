@@ -41,7 +41,7 @@ import {
 import { createDiagnosticsOtelService } from "./service.js";
 import { createOtelContext, emitRealSdkSignals, startOtelService } from "./service.test-helpers.js";
 
-const PRELOAD_ENV = "OPENCLAW_OTEL_PRELOADED";
+const PRELOAD_ENV = "GRANTED_OTEL_PRELOADED";
 const OWNERSHIP_ENV_KEYS = [
   PRELOAD_ENV,
   "OTEL_SDK_DISABLED",

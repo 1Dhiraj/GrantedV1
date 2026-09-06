@@ -134,7 +134,7 @@ suite.define(() => {
           await expect
             .poll(() => model.evaluate((node) => node === document.activeElement))
             .toBe(true);
-          const artifactRoot = process.env.OPENCLAW_UI_E2E_ARTIFACT_DIR?.trim();
+          const artifactRoot = process.env.GRANTED_UI_E2E_ARTIFACT_DIR?.trim();
           const artifactDir = artifactRoot
             ? createControlUiE2eArtifactDir("chat-model-controls", artifactRoot)
             : undefined;
@@ -237,7 +237,7 @@ suite.define(() => {
               ),
             )
             .toBe(true);
-          const artifactRoot = process.env.OPENCLAW_UI_E2E_ARTIFACT_DIR?.trim();
+          const artifactRoot = process.env.GRANTED_UI_E2E_ARTIFACT_DIR?.trim();
           const artifactDir = artifactRoot
             ? createControlUiE2eArtifactDir("chat-model-controls", artifactRoot)
             : undefined;
@@ -340,7 +340,7 @@ suite.define(() => {
         await expect
           .poll(() => effort.evaluate((node) => node === document.activeElement))
           .toBe(true);
-        const artifactRoot = process.env.OPENCLAW_UI_E2E_ARTIFACT_DIR?.trim();
+        const artifactRoot = process.env.GRANTED_UI_E2E_ARTIFACT_DIR?.trim();
         const artifactDir = artifactRoot
           ? createControlUiE2eArtifactDir("chat-model-controls", artifactRoot)
           : undefined;

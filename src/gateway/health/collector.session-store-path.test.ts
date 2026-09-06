@@ -43,7 +43,7 @@ describe("health session store paths", () => {
 
   it("reports the SQLite database that supplied the session count", async () => {
     const stateDir = tempDirs.make("openclaw-health-session-store-");
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const agentId = "main";
     const storePath = resolveSessionStorePathCore(undefined, { agentId, env });
     const databasePath = resolveOpenClawAgentSqlitePath({ agentId, env });
@@ -65,7 +65,7 @@ describe("health session store paths", () => {
     "counts and orders bounded %s session projections without cloning full entries",
     async (layout) => {
       const stateDir = tempDirs.make("openclaw-health-session-projection-");
-      const env = { OPENCLAW_STATE_DIR: stateDir };
+      const env = { GRANTED_STATE_DIR: stateDir };
       const agentIds = layout === "shared" ? ["main", "other"] : ["main"];
       const storePath =
         layout === "shared"
@@ -136,7 +136,7 @@ describe("health session store paths", () => {
     "scopes %s stores and recovers from transient reads",
     async (layout) => {
       const stateDir = tempDirs.make("openclaw-health-session-template-");
-      const env = { OPENCLAW_STATE_DIR: stateDir };
+      const env = { GRANTED_STATE_DIR: stateDir };
       const storeTemplate = path.join(
         stateDir,
         "stores",

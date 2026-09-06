@@ -105,8 +105,8 @@ describe("getSecretTargetRegistry metadata reuse", () => {
           id: origin === "bundled" ? path.basename(record.rootDir) : record.id,
         }),
       );
-      vi.stubEnv("OPENCLAW_BUNDLED_PLUGINS_DIR", path.dirname(healthy.rootDir));
-      vi.stubEnv("OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR", "1");
+      vi.stubEnv("GRANTED_BUNDLED_PLUGINS_DIR", path.dirname(healthy.rootDir));
+      vi.stubEnv("GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR", "1");
       metadataMocks.resolvePluginMetadataSnapshot.mockReturnValue({ plugins: records } as never);
       const { getSecretTargetRegistry } = await import("./target-registry-data.js");
       const { buildSecretRefCredentialMatrix } =
@@ -425,8 +425,8 @@ describe("getSecretTargetRegistry metadata reuse", () => {
     fs.writeFileSync(configPath, JSON.stringify(config));
     const { testing } = await import("./apply.js");
     const env = {
-      OPENCLAW_STATE_DIR: rootDir,
-      OPENCLAW_CONFIG_PATH: configPath,
+      GRANTED_STATE_DIR: rootDir,
+      GRANTED_CONFIG_PATH: configPath,
       DOTTED_PLUGIN_TOKEN: "dotted-secret",
       NESTED_PLUGIN_TOKEN: "nested-secret",
       ARRAY_PLUGIN_TOKEN: "array-secret",

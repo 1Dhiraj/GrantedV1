@@ -65,7 +65,7 @@ function createDatabaseOptions(): OpenClawStateDatabaseOptions {
     fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-approval-handler-")),
   );
   tempDirs.push(stateDir);
-  return { env: { ...process.env, OPENCLAW_STATE_DIR: stateDir } };
+  return { env: { ...process.env, GRANTED_STATE_DIR: stateDir } };
 }
 
 function createManagers(databaseOptions: OpenClawStateDatabaseOptions) {
@@ -471,11 +471,11 @@ describe("unified approval handlers", () => {
 
   it("hides foreign pending and terminal approvals from roles without foreign-session access", async () => {
     const databaseOptions = createDatabaseOptions();
-    const stateDir = databaseOptions.env?.OPENCLAW_STATE_DIR;
+    const stateDir = databaseOptions.env?.GRANTED_STATE_DIR;
     if (!stateDir) {
       throw new Error("expected isolated approval state directory");
     }
-    await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () => {
+    await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {
       const profile = ensureProfileForEmail("approval-guest@example.test", databaseOptions);
       setUserProfileRole(profile.id, "guest", databaseOptions);
       const ownerKey = "agent:main:approval-owned";

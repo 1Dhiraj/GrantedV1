@@ -1,7 +1,7 @@
 // Fresh-store reads remain empty after checkpoint bootstrap; missing canonical tables stay errors.
 import { DatabaseSync } from "node:sqlite";
 import { afterEach, describe, expect, it } from "vitest";
-import { OPENCLAW_STATE_SCHEMA_VERSION } from "../state/openclaw-state-db-contract.js";
+import { GRANTED_STATE_SCHEMA_VERSION } from "../state/openclaw-state-db-contract.js";
 import { withOpenClawStateStartupMigrationCheckpointDatabase } from "../state/openclaw-state-db.js";
 import { resolveOpenClawStateSqlitePath } from "../state/openclaw-state-db.paths.js";
 import { withOpenClawTestState } from "../test-utils/openclaw-test-state.js";
@@ -66,7 +66,7 @@ describe("plugin state fresh-store reads", () => {
         const verify = new DatabaseSync(databasePath, { readOnly: true });
         try {
           expect(verify.prepare("PRAGMA user_version").get()).toEqual({
-            user_version: OPENCLAW_STATE_SCHEMA_VERSION,
+            user_version: GRANTED_STATE_SCHEMA_VERSION,
           });
           expect(
             verify

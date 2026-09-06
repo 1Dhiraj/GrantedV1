@@ -47,7 +47,7 @@ it("keys the startup shortcut to source layout and makes Doctor rescan", async (
   const root = fs.realpathSync.native(tempDirs.make("openclaw-legacy-main-layout-"));
   const stateDir = path.join(root, "state");
   fs.mkdirSync(stateDir, { recursive: true });
-  const env = { ...process.env, OPENCLAW_AGENT_DIR: undefined, OPENCLAW_STATE_DIR: stateDir };
+  const env = { ...process.env, GRANTED_AGENT_DIR: undefined, GRANTED_STATE_DIR: stateDir };
   const cfg = { agents: { entries: { ops: {} } } };
   const mainPath = databasePath(stateDir, "main");
   const opsPath = databasePath(stateDir, "ops");

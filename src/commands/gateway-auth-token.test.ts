@@ -48,7 +48,7 @@ describe("gatewayAuthTokenCommand", () => {
   });
 
   it("prints only the resolved token for an interactive operator", async () => {
-    const env = { OPENCLAW_GATEWAY_TOKEN: "environment-value" };
+    const env = { GRANTED_GATEWAY_TOKEN: "environment-value" };
 
     await gatewayAuthTokenCommand(runtime, { env, interactive: true });
 
@@ -109,7 +109,7 @@ describe("gatewayAuthTokenCommand", () => {
     await expect(
       gatewayAuthTokenCommand(runtime, {
         interactive: true,
-        env: { OPENCLAW_GATEWAY_TOKEN: "ambient-fallback" },
+        env: { GRANTED_GATEWAY_TOKEN: "ambient-fallback" },
       }),
     ).rejects.toThrow("gateway.auth.token SecretRef is unresolved");
 
@@ -163,7 +163,7 @@ describe("gatewayAuthTokenCommand", () => {
     await expect(
       gatewayAuthTokenCommand(runtime, {
         interactive: true,
-        env: { OPENCLAW_GATEWAY_PASSWORD: "active-password" },
+        env: { GRANTED_GATEWAY_PASSWORD: "active-password" },
       }),
     ).rejects.toThrow("Gateway auth mode is password");
 

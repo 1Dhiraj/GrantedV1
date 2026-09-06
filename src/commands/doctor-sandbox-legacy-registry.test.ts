@@ -5,7 +5,7 @@ import { afterAll, afterEach, describe, expect, it, vi } from "vitest";
 
 const {
   TEST_STATE_DIR,
-  PREVIOUS_OPENCLAW_STATE_DIR,
+  PREVIOUS_GRANTED_STATE_DIR,
   SANDBOX_REGISTRY_PATH,
   SANDBOX_BROWSER_REGISTRY_PATH,
   SANDBOX_CONTAINERS_DIR,
@@ -15,12 +15,12 @@ const {
   const { mkdtempSync } = require("node:fs");
   const { tmpdir } = require("node:os");
   const baseDir = mkdtempSync(nodePath.join(tmpdir(), "openclaw-sandbox-registry-"));
-  const previousStateDir = process.env.OPENCLAW_STATE_DIR;
-  Reflect.set(process.env, "OPENCLAW_STATE_DIR", baseDir);
+  const previousStateDir = process.env.GRANTED_STATE_DIR;
+  Reflect.set(process.env, "GRANTED_STATE_DIR", baseDir);
 
   return {
     TEST_STATE_DIR: baseDir,
-    PREVIOUS_OPENCLAW_STATE_DIR: previousStateDir,
+    PREVIOUS_GRANTED_STATE_DIR: previousStateDir,
     SANDBOX_REGISTRY_PATH: nodePath.join(baseDir, "containers.json"),
     SANDBOX_BROWSER_REGISTRY_PATH: nodePath.join(baseDir, "browsers.json"),
     SANDBOX_CONTAINERS_DIR: nodePath.join(baseDir, "containers"),
@@ -67,10 +67,10 @@ afterEach(async () => {
 afterAll(async () => {
   closeOpenClawStateDatabaseForTest();
   await fs.rm(TEST_STATE_DIR, { recursive: true, force: true });
-  if (PREVIOUS_OPENCLAW_STATE_DIR === undefined) {
-    deleteTestEnvValue("OPENCLAW_STATE_DIR");
+  if (PREVIOUS_GRANTED_STATE_DIR === undefined) {
+    deleteTestEnvValue("GRANTED_STATE_DIR");
   } else {
-    setTestEnvValue("OPENCLAW_STATE_DIR", PREVIOUS_OPENCLAW_STATE_DIR);
+    setTestEnvValue("GRANTED_STATE_DIR", PREVIOUS_GRANTED_STATE_DIR);
   }
 });
 

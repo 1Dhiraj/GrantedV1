@@ -1,5 +1,6 @@
 /** Detects whether the current process is running inside a launchd service label. */
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
+import { isGatewayServiceMarker } from "./constants.js";
 
 type CurrentProcessLaunchdServiceLabelOptions = {
   allowConfiguredLabelFallback?: boolean;
@@ -24,13 +25,13 @@ export function isCurrentProcessLaunchdServiceLabel(
     }
   }
 
-  const configuredLabel = normalizeOptionalString(env.OPENCLAW_LAUNCHD_LABEL);
+  const configuredLabel = normalizeOptionalString(env.GRANTED_LAUNCHD_LABEL);
   if (!configuredLabel || configuredLabel !== label) {
     return false;
   }
   if (
-    normalizeOptionalString(env.OPENCLAW_SERVICE_MARKER) === "openclaw" &&
-    Boolean(normalizeOptionalString(env.OPENCLAW_SERVICE_KIND))
+    isGatewayServiceMarker(normalizeOptionalString(env.GRANTED_SERVICE_MARKER)) &&
+    Boolean(normalizeOptionalString(env.GRANTED_SERVICE_KIND))
   ) {
     // Managed wrappers inject service metadata; trust it when launchd's own
     // label variables are absent or renamed by the host environment.

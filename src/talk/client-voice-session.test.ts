@@ -55,7 +55,7 @@ vi.mock("../channels/message/runtime.js", () => ({
   sendDurableMessageBatchCore: sendDurableMessageBatch,
 }));
 
-const envSnapshot = captureEnv(["OPENCLAW_STATE_DIR"]);
+const envSnapshot = captureEnv(["GRANTED_STATE_DIR"]);
 let tempDir: string;
 
 async function seedSession(sessionKey: string, context: DeliveryContext = {}): Promise<void> {
@@ -107,7 +107,7 @@ describe("client voice session", () => {
     tempDir = await fs.realpath(
       await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-voice-session-")),
     );
-    setTestEnvValue("OPENCLAW_STATE_DIR", tempDir);
+    setTestEnvValue("GRANTED_STATE_DIR", tempDir);
     sendDurableMessageBatch.mockReset().mockResolvedValue({ status: "sent" });
     sessionAccessorMocks.appendTranscriptMessage.mockReset();
     // Resolve the real append here rather than capturing it inside the mock factory:

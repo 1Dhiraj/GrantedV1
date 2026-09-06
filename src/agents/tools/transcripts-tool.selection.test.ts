@@ -65,7 +65,7 @@ function harness() {
   const tool = createTranscriptsTool(ctx);
   const execute = (params: Record<string, unknown>) => tool.execute("selection", params);
   const store = new TranscriptsStore(path.join(stateDir, "transcripts"), {
-    env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+    env: { ...process.env, GRANTED_STATE_DIR: stateDir },
   });
   const start = async (id: string, date: string) => {
     vi.setSystemTime(new Date(`${date}T10:00:00.000Z`));

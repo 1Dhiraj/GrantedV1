@@ -182,13 +182,13 @@ describe("native plugin alias preparation", () => {
         JSON.stringify({ name: "fixture-external" }),
       );
       const pluginEntry = writeFile(path.dirname(entry), "index.cjs", "module.exports = {};");
-      vi.stubEnv("OPENCLAW_DEV_SOURCE_ROOT", a.root);
+      vi.stubEnv("GRANTED_DEV_SOURCE_ROOT", a.root);
       installOpenClawPluginSdkNativeResolver({ pluginModulePath: pluginEntry });
       const requirePlugin = createRequire(pluginEntry);
       if (resolveFirst) {
         expect(requirePlugin.resolve("@openclaw/plugin-sdk/used")).toBe(a.used);
       }
-      vi.stubEnv("OPENCLAW_DEV_SOURCE_ROOT", b.root);
+      vi.stubEnv("GRANTED_DEV_SOURCE_ROOT", b.root);
       vi.spyOn(process, "cwd").mockReturnValue(b.root);
       const argv = vi
         .spyOn(process, "argv", "get")
@@ -219,7 +219,7 @@ describe("native plugin alias preparation", () => {
       );
       writeFile(a.root, "src/plugin-sdk/used.ts", 'export const value = "host-a";');
       writeFile(b.root, "src/plugin-sdk/used.ts", 'export const value = "host-b";');
-      vi.stubEnv("OPENCLAW_DEV_SOURCE_ROOT", "");
+      vi.stubEnv("GRANTED_DEV_SOURCE_ROOT", "");
       vi.stubEnv("NODE_ENV", "development");
       const cwd = vi.spyOn(process, "cwd").mockReturnValue(hint === "cwd" ? a.root : external);
       const argv = vi
@@ -249,10 +249,10 @@ describe("native plugin alias preparation", () => {
       JSON.stringify(["qa-runtime"]),
     );
     writeFile(f.root, "dist/plugin-sdk/qa-runtime.js", "export const privateValue = true;");
-    vi.stubEnv("OPENCLAW_ENABLE_PRIVATE_QA_CLI", "0");
+    vi.stubEnv("GRANTED_ENABLE_PRIVATE_QA_CLI", "0");
     const load = createPluginModuleLoader({ devSourceRoot: f.root });
     const metadata = load(f.entry) as { load: (name: string) => unknown };
-    vi.stubEnv("OPENCLAW_ENABLE_PRIVATE_QA_CLI", "1");
+    vi.stubEnv("GRANTED_ENABLE_PRIVATE_QA_CLI", "1");
     expect(() => metadata.load("@openclaw/plugin-sdk/qa-runtime")).toThrow();
     installOpenClawPluginSdkNativeResolver({ pluginModulePath: f.entry, devSourceRoot: f.root });
     expect(metadata.load("@openclaw/plugin-sdk/qa-runtime")).toMatchObject({ privateValue: true });
@@ -271,7 +271,7 @@ describe("native plugin alias preparation", () => {
 
   it("does not reuse a bundled private alias grant for an external plugin", () => {
     const f = fixture();
-    vi.stubEnv("OPENCLAW_ENABLE_PRIVATE_QA_CLI", "0");
+    vi.stubEnv("GRANTED_ENABLE_PRIVATE_QA_CLI", "0");
     writeFile(
       f.root,
       "scripts/lib/plugin-sdk-private-local-only-subpaths.json",
@@ -292,7 +292,7 @@ describe("native plugin alias preparation", () => {
     "captures private owner authorization=%s before a package rename",
     (authorized) => {
       const f = fixture();
-      vi.stubEnv("OPENCLAW_ENABLE_PRIVATE_QA_CLI", "0");
+      vi.stubEnv("GRANTED_ENABLE_PRIVATE_QA_CLI", "0");
       const packageName = "@openclaw/llama-cpp-provider";
       const packageRoot = path.join(f.root, "node_modules", packageName);
       const manifest = writeFile(
@@ -326,7 +326,7 @@ describe("native plugin alias preparation", () => {
     (staleDist) => {
       const a = fixture();
       const b = fixture();
-      vi.stubEnv("OPENCLAW_DEV_SOURCE_ROOT", a.root);
+      vi.stubEnv("GRANTED_DEV_SOURCE_ROOT", a.root);
       vi.stubEnv("NODE_ENV", staleDist ? "production" : "development");
       if (staleDist) {
         fs.writeFileSync(a.used, 'export { value } from "./missing.js";');
@@ -343,7 +343,7 @@ describe("native plugin alias preparation", () => {
         tryNative: false,
       });
       expect(read.mock.calls.filter(([target]) => target === a.unused)).toEqual([]);
-      vi.stubEnv("OPENCLAW_DEV_SOURCE_ROOT", b.root);
+      vi.stubEnv("GRANTED_DEV_SOURCE_ROOT", b.root);
       vi.stubEnv("NODE_ENV", "production");
       expect(loader(entry)).toMatchObject({ marker: "source" });
       expect(
@@ -406,10 +406,10 @@ describe("native plugin alias preparation", () => {
     };
     const env = {
       HOME: f.root,
-      OPENCLAW_STATE_DIR: path.join(f.root, "state"),
-      OPENCLAW_CONFIG_PATH: path.join(f.root, "openclaw.json"),
-      OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-      OPENCLAW_DEV_SOURCE_ROOT: f.root,
+      GRANTED_STATE_DIR: path.join(f.root, "state"),
+      GRANTED_CONFIG_PATH: path.join(f.root, "openclaw.json"),
+      GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+      GRANTED_DEV_SOURCE_ROOT: f.root,
     };
     const program = new Command().exitOverride();
     const parse = () =>
@@ -438,7 +438,7 @@ describe("native plugin alias preparation", () => {
       for (const [key, value] of Object.entries(env)) {
         vi.stubEnv(key, value);
       }
-      fs.writeFileSync(env.OPENCLAW_CONFIG_PATH, JSON.stringify(cfg));
+      fs.writeFileSync(env.GRANTED_CONFIG_PATH, JSON.stringify(cfg));
       const name =
         registration === "nodes"
           ? "nodes"

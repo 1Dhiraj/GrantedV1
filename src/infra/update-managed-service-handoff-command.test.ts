@@ -188,7 +188,7 @@ describe("managed service update handoff command", () => {
       channel: "beta",
       env: {
         KEEP: "value",
-        OPENCLAW_UPDATE_DEV_TARGET_REF: "stale-ref",
+        GRANTED_UPDATE_DEV_TARGET_REF: "stale-ref",
       },
       devTarget: {
         mode: "tracked",

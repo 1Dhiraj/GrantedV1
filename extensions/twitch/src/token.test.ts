@@ -13,7 +13,7 @@ import type { OpenClawConfig } from "../api.js";
 import { resolveTwitchToken } from "./token.js";
 
 describe("token", () => {
-  const originalAccessToken = process.env.OPENCLAW_TWITCH_ACCESS_TOKEN;
+  const originalAccessToken = process.env.GRANTED_TWITCH_ACCESS_TOKEN;
 
   // Multi-account config for testing non-default accounts
   const mockMultiAccountConfig = {
@@ -50,9 +50,9 @@ describe("token", () => {
   afterEach(() => {
     vi.restoreAllMocks();
     if (originalAccessToken === undefined) {
-      delete process.env.OPENCLAW_TWITCH_ACCESS_TOKEN;
+      delete process.env.GRANTED_TWITCH_ACCESS_TOKEN;
     } else {
-      process.env.OPENCLAW_TWITCH_ACCESS_TOKEN = originalAccessToken;
+      process.env.GRANTED_TWITCH_ACCESS_TOKEN = originalAccessToken;
     }
   });
 
@@ -93,7 +93,7 @@ describe("token", () => {
     });
 
     it("should prioritize config token over env var (simplified config)", () => {
-      process.env.OPENCLAW_TWITCH_ACCESS_TOKEN = "oauth:env-token";
+      process.env.GRANTED_TWITCH_ACCESS_TOKEN = "oauth:env-token";
 
       const result = resolveTwitchToken(mockSimplifiedConfig, { accountId: "default" });
 
@@ -103,7 +103,7 @@ describe("token", () => {
     });
 
     it("should use env var when config token is empty (simplified config)", () => {
-      process.env.OPENCLAW_TWITCH_ACCESS_TOKEN = "oauth:env-token";
+      process.env.GRANTED_TWITCH_ACCESS_TOKEN = "oauth:env-token";
 
       const configWithEmptyToken = {
         channels: {
@@ -137,7 +137,7 @@ describe("token", () => {
     });
 
     it("should not use env var for non-default accounts (multi-account)", () => {
-      process.env.OPENCLAW_TWITCH_ACCESS_TOKEN = "oauth:env-token";
+      process.env.GRANTED_TWITCH_ACCESS_TOKEN = "oauth:env-token";
 
       const configWithoutToken = {
         channels: {

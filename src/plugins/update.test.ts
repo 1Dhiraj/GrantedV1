@@ -1892,7 +1892,7 @@ describe("updateNpmInstalledPlugins", () => {
       assertFullOutcome: false,
     },
   ] as const)("$name", async ({ compatibility, assertFullOutcome }) => {
-    vi.stubEnv("OPENCLAW_COMPATIBILITY_HOST_VERSION", "2026.5.28-beta.3");
+    vi.stubEnv("GRANTED_COMPATIBILITY_HOST_VERSION", "2026.5.28-beta.3");
     const { config } = createNpmUpdateFixture({
       pluginId: "msteams",
       packageName: "@openclaw/msteams",
@@ -2077,7 +2077,7 @@ describe("updateNpmInstalledPlugins", () => {
       });
       installPluginFromNpmSpecMock.mockRejectedValue(new Error("installer should not run"));
 
-      const result = await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () =>
+      const result = await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () =>
         updateNpmInstalledPlugins({
           config: {
             plugins: {
@@ -2153,7 +2153,7 @@ describe("updateNpmInstalledPlugins", () => {
       },
     );
 
-    const result = await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () =>
+    const result = await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () =>
       updateNpmInstalledPlugins({
         config: createPeerLinkInstallConfig({ plugins, installPaths }),
         pluginIds: plugins.map((plugin) => plugin.pluginId),
@@ -2210,7 +2210,7 @@ describe("updateNpmInstalledPlugins", () => {
       );
     });
 
-    await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () =>
+    await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () =>
       updateNpmInstalledPlugins({
         config: createPeerLinkInstallConfig({ plugins, installPaths }),
         pluginIds: ["codex"],
@@ -2300,7 +2300,7 @@ describe("updateNpmInstalledPlugins", () => {
         );
       });
 
-      await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () =>
+      await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () =>
         updateNpmInstalledPlugins({
           config: createPeerLinkInstallConfig({
             plugins,
@@ -2374,7 +2374,7 @@ describe("updateNpmInstalledPlugins", () => {
     });
     const warnMessages: string[] = [];
 
-    await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () =>
+    await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () =>
       updateNpmInstalledPlugins({
         config: createPeerLinkInstallConfig({
           plugins,
@@ -4994,7 +4994,7 @@ describe("syncPluginsForUpdateChannel", () => {
 
   it("forwards an explicit env to bundled plugin source resolution", async () => {
     resolveBundledPluginSourcesMock.mockReturnValue(new Map());
-    const env = { OPENCLAW_HOME: "/srv/openclaw-home" } as NodeJS.ProcessEnv;
+    const env = { GRANTED_HOME: "/srv/openclaw-home" } as NodeJS.ProcessEnv;
 
     await syncPluginsForUpdateChannel({
       channel: "beta",
@@ -5022,7 +5022,7 @@ describe("syncPluginsForUpdateChannel", () => {
         channel: "beta",
         env: {
           ...process.env,
-          OPENCLAW_HOME: bundledHome,
+          GRANTED_HOME: bundledHome,
           HOME: "/tmp/ignored-home",
         },
         config: {

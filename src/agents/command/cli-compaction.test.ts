@@ -1206,7 +1206,7 @@ describe("runCliTurnCompactionLifecycle", () => {
         `export { default } from ${JSON.stringify(resolveRuntimeWorkerUrl(entry).href)};`,
       );
       await fs.copyFile(path.join(pluginRoot, "setup-api.mjs"), path.join(pluginRoot, "index.mjs"));
-      const backend = withEnv({ OPENCLAW_BUNDLED_PLUGINS_DIR: bundled }, () =>
+      const backend = withEnv({ GRANTED_BUNDLED_PLUGINS_DIR: bundled }, () =>
         resolveCliBackendConfig(provider),
       );
       expect(backend).not.toBeNull();

@@ -45,8 +45,8 @@ describe("embedded transcript cursor settlement", () => {
         name: "embedded-transcript-cursor",
         config: createTestConfig(modelServer.baseUrl),
         env: {
-          OPENCLAW_SKIP_PROVIDERS: undefined,
-          OPENCLAW_TEST_MINIMAL_GATEWAY: undefined,
+          GRANTED_SKIP_PROVIDERS: undefined,
+          GRANTED_TEST_MINIMAL_GATEWAY: undefined,
         },
       });
       instances.push(instance);

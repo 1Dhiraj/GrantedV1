@@ -16,10 +16,7 @@ export function startGatewayChannelHealthMonitor(params: {
   const env = params.env ?? process.env;
   // Process-level channel suppression also owns recovery: otherwise the health
   // monitor restarts configured transports after the startup grace period.
-  if (
-    isTruthyEnvValue(env.OPENCLAW_SKIP_CHANNELS) ||
-    isTruthyEnvValue(env.OPENCLAW_SKIP_PROVIDERS)
-  ) {
+  if (isTruthyEnvValue(env.GRANTED_SKIP_CHANNELS) || isTruthyEnvValue(env.GRANTED_SKIP_PROVIDERS)) {
     return null;
   }
   return startChannelHealthMonitor({

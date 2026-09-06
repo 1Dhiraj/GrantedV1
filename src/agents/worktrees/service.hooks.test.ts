@@ -33,7 +33,7 @@ describe("ManagedWorktreeService repository code isolation", () => {
     }
     await execFileAsync("git", ["-C", repo, "config", "core.hooksPath", "git-hooks"]);
     service = new ManagedWorktreeService({
-      env: { ...process.env, OPENCLAW_STATE_DIR: path.join(root, "state") },
+      env: { ...process.env, GRANTED_STATE_DIR: path.join(root, "state") },
     });
   });
 
@@ -128,7 +128,7 @@ describe("ManagedWorktreeService repository code isolation", () => {
     await fs.mkdir(setup);
     await fs.writeFile(
       path.join(setup, "worktree-setup.sh"),
-      '#!/bin/sh\nprintf "%s" "$$" > "$OPENCLAW_SOURCE_TREE_PATH/.openclaw/setup-pid"\nwhile [ ! -f "$OPENCLAW_SOURCE_TREE_PATH/.openclaw/release" ]; do sleep 0.05; done\n',
+      '#!/bin/sh\nprintf "%s" "$$" > "$GRANTED_SOURCE_TREE_PATH/.openclaw/setup-pid"\nwhile [ ! -f "$GRANTED_SOURCE_TREE_PATH/.openclaw/release" ]; do sleep 0.05; done\n',
       { mode: 0o755 },
     );
     const controller = new AbortController();

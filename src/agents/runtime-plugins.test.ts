@@ -272,7 +272,7 @@ describe("agent runtime plugin registries", () => {
   it.each([
     {
       name: "custom environment",
-      input: { env: { OPENCLAW_STATE_DIR: "/tmp/custom-state" } },
+      input: { env: { GRANTED_STATE_DIR: "/tmp/custom-state" } },
     },
     {
       name: "non-bindable mode",
@@ -342,7 +342,7 @@ describe("agent runtime plugin registries", () => {
 
   it("keeps direct no-current loads on the requested workspace", () => {
     const config = {} as never;
-    const env = { OPENCLAW_STATE_DIR: "/tmp/openclaw-state" };
+    const env = { GRANTED_STATE_DIR: "/tmp/openclaw-state" };
     const selections = [{ provider: "openai", modelId: "gpt-5.5", runtime: "codex" }];
 
     expect(
@@ -499,7 +499,7 @@ describe("agent runtime plugin registries", () => {
 
   it("loads selected runtimes from the Gateway metadata workspace", () => {
     const config = {} as never;
-    const env = { OPENCLAW_STATE_DIR: "/tmp/openclaw-state" };
+    const env = { GRANTED_STATE_DIR: "/tmp/openclaw-state" };
     const snapshot = createMetadataSnapshot();
 
     loadAgentRuntimePluginRegistryHandle({

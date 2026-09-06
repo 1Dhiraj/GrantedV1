@@ -127,7 +127,7 @@ async function withManagedInboundPdf(
   await fs.mkdir(inboundDir, { recursive: true });
   await fs.writeFile(mediaPath, FAKE_PDF_MEDIA.buffer);
   try {
-    await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () => {
+    await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {
       await run({ stateDir, mediaId, mediaPath });
     });
   } finally {

@@ -736,9 +736,9 @@ describe("thread binding lifecycle", () => {
 
   it("persists touched activity timestamps across restart when persistence is enabled", async () => {
     vi.useFakeTimers();
-    const previousStateDir = process.env.OPENCLAW_STATE_DIR;
+    const previousStateDir = process.env.GRANTED_STATE_DIR;
     const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-thread-bindings-"));
-    process.env.OPENCLAW_STATE_DIR = stateDir;
+    process.env.GRANTED_STATE_DIR = stateDir;
     try {
       resetThreadBindingsForTests();
       vi.setSystemTime(new Date("2026-02-20T00:00:00.000Z"));
@@ -784,9 +784,9 @@ describe("thread binding lifecycle", () => {
     } finally {
       resetThreadBindingsForTests();
       if (previousStateDir === undefined) {
-        delete process.env.OPENCLAW_STATE_DIR;
+        delete process.env.GRANTED_STATE_DIR;
       } else {
-        process.env.OPENCLAW_STATE_DIR = previousStateDir;
+        process.env.GRANTED_STATE_DIR = previousStateDir;
       }
       fs.rmSync(stateDir, { recursive: true, force: true });
       vi.useRealTimers();
@@ -1883,9 +1883,9 @@ describe("thread binding lifecycle", () => {
   });
 
   it("persists unbinds even when no manager is active", () => {
-    const previousStateDir = process.env.OPENCLAW_STATE_DIR;
+    const previousStateDir = process.env.GRANTED_STATE_DIR;
     const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-thread-bindings-"));
-    process.env.OPENCLAW_STATE_DIR = stateDir;
+    process.env.GRANTED_STATE_DIR = stateDir;
     try {
       resetThreadBindingsForTests();
       const now = Date.now();
@@ -1915,9 +1915,9 @@ describe("thread binding lifecycle", () => {
     } finally {
       resetThreadBindingsForTests();
       if (previousStateDir === undefined) {
-        delete process.env.OPENCLAW_STATE_DIR;
+        delete process.env.GRANTED_STATE_DIR;
       } else {
-        process.env.OPENCLAW_STATE_DIR = previousStateDir;
+        process.env.GRANTED_STATE_DIR = previousStateDir;
       }
       fs.rmSync(stateDir, { recursive: true, force: true });
     }

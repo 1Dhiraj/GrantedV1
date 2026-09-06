@@ -295,7 +295,7 @@ describe("runtime parity suite transport cleanup", () => {
   it.each([true, false])(
     "preserves runtime preparation publication ownership with parity=%s",
     async (parity) => {
-      vi.stubEnv("OPENCLAW_QA_SUITE_PROGRESS", "1");
+      vi.stubEnv("GRANTED_QA_SUITE_PROGRESS", "1");
       mocks.writeQaSuiteArtifacts.mockClear();
       const repoRoot = await tempDirs.makeTempDir("qa-runtime-publication-");
       const scenario = makeQaSuiteTestScenario("runtime-cleanup");

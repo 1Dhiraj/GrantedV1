@@ -97,11 +97,11 @@ type MantisDiscordSmokeSummary = {
 };
 
 const DISCORD_API_BASE_URL = "https://discord.com/api/v10";
-const DEFAULT_MANTIS_TOKEN_ENV = "OPENCLAW_QA_DISCORD_MANTIS_BOT_TOKEN";
-const DEFAULT_MANTIS_TOKEN_FILE_ENV = "OPENCLAW_QA_DISCORD_MANTIS_BOT_TOKEN_FILE";
-const DEFAULT_GUILD_ID_ENV = "OPENCLAW_QA_DISCORD_GUILD_ID";
-const DEFAULT_CHANNEL_ID_ENV = "OPENCLAW_QA_DISCORD_CHANNEL_ID";
-const QA_REDACT_PUBLIC_METADATA_ENV = "OPENCLAW_QA_REDACT_PUBLIC_METADATA";
+const DEFAULT_MANTIS_TOKEN_ENV = "GRANTED_QA_DISCORD_MANTIS_BOT_TOKEN";
+const DEFAULT_MANTIS_TOKEN_FILE_ENV = "GRANTED_QA_DISCORD_MANTIS_BOT_TOKEN_FILE";
+const DEFAULT_GUILD_ID_ENV = "GRANTED_QA_DISCORD_GUILD_ID";
+const DEFAULT_CHANNEL_ID_ENV = "GRANTED_QA_DISCORD_CHANNEL_ID";
+const QA_REDACT_PUBLIC_METADATA_ENV = "GRANTED_QA_REDACT_PUBLIC_METADATA";
 const DISCORD_API_RESPONSE_MAX_BYTES = 16 * 1024 * 1024;
 const MANTIS_DISCORD_TOKEN_FILE_MAX_BYTES = 4 * 1024;
 
@@ -161,12 +161,12 @@ function assertMantisDiscordChannelInGuild(params: {
 }) {
   if (!params.guildChannels.some((channel) => channel.id === params.channelId)) {
     throw new Error(
-      `OPENCLAW_QA_DISCORD_CHANNEL_ID ${params.channelId} is not in guild ${params.guildId}.`,
+      `GRANTED_QA_DISCORD_CHANNEL_ID ${params.channelId} is not in guild ${params.guildId}.`,
     );
   }
   if (params.channel.guild_id && params.channel.guild_id !== params.guildId) {
     throw new Error(
-      `OPENCLAW_QA_DISCORD_CHANNEL_ID ${params.channelId} belongs to guild ${params.channel.guild_id}, not ${params.guildId}.`,
+      `GRANTED_QA_DISCORD_CHANNEL_ID ${params.channelId} belongs to guild ${params.channel.guild_id}, not ${params.guildId}.`,
     );
   }
 }

@@ -140,9 +140,9 @@ async function withDeclaredCommandPlugin(
     );
     await withEnvAsync(
       {
-        OPENCLAW_STATE_DIR: path.join(tempDir, "state"),
-        OPENCLAW_CONFIG_PATH: path.join(tempDir, "openclaw.json"),
-        OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
+        GRANTED_STATE_DIR: path.join(tempDir, "state"),
+        GRANTED_CONFIG_PATH: path.join(tempDir, "openclaw.json"),
+        GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
       },
       async () => {
         registry = loadOpenClawPlugins({

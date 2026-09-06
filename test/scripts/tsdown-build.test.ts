@@ -176,7 +176,7 @@ describe("resolveTsdownBuildInvocation", () => {
   });
 
   it.each([
-    ["environment", [], { OPENCLAW_RUN_NODE_SKIP_DTS_BUILD: "1" }],
+    ["environment", [], { GRANTED_RUN_NODE_SKIP_DTS_BUILD: "1" }],
     ["CLI", ["--no-dts"], {}],
   ])("keeps %s no-DTS builds in one main invocation", (_source, args, env) => {
     const results = resolveTsdownBuildInvocations({
@@ -199,7 +199,7 @@ describe("resolveTsdownBuildInvocation", () => {
       platform: "linux",
       nodeExecPath: "/usr/bin/node",
       npmExecPath: "/tmp/pnpm.cjs",
-      env: { OPENCLAW_RUN_NODE_SKIP_DTS_BUILD: "1" },
+      env: { GRANTED_RUN_NODE_SKIP_DTS_BUILD: "1" },
       ...NO_MEMORY_LIMIT,
     });
 
@@ -646,7 +646,7 @@ describe("resolveTsdownBuildInvocation", () => {
   });
 
   it.each([
-    ["Docker default", [], { OPENCLAW_RUN_NODE_SKIP_DTS_BUILD: "1" }],
+    ["Docker default", [], { GRANTED_RUN_NODE_SKIP_DTS_BUILD: "1" }],
     ["CLI override", ["--no-dts"], {}],
   ])("applies the unified-runtime threshold to a %s plan", (_label, args, env) => {
     const result = resolveTsdownBuildPlan({
@@ -666,7 +666,7 @@ describe("resolveTsdownBuildInvocation", () => {
   it("restores declaration-build admission when --dts overrides the Docker default", () => {
     const result = resolveTsdownBuildPlan({
       args: ["--dts"],
-      env: { OPENCLAW_RUN_NODE_SKIP_DTS_BUILD: "1" },
+      env: { GRANTED_RUN_NODE_SKIP_DTS_BUILD: "1" },
       cgroupMemoryLimitBytes: 2 * 1024 * 1024 * 1024,
     });
 
@@ -816,7 +816,7 @@ describe("resolveTsdownBuildInvocation", () => {
 
     expect(shortfall?.fatal).toBe(true);
     expect(shortfall?.message).toContain("resolved OpenClaw build heap is 732MB");
-    expect(shortfall?.message).toContain("OPENCLAW_TSDOWN_MAX_OLD_SPACE_MB=<MB>");
+    expect(shortfall?.message).toContain("GRANTED_TSDOWN_MAX_OLD_SPACE_MB=<MB>");
   });
 
   it("refuses a host whose slice cannot hold the whole-build peak", () => {
@@ -830,13 +830,13 @@ describe("resolveTsdownBuildInvocation", () => {
 
   it("points Docker refusals at the public build heap override", () => {
     const shortfall = describeInsufficientTsdownHeap({
-      env: { OPENCLAW_INTERNAL_DOCKER_BUILD_PLUGIN_IDS: "" },
+      env: { GRANTED_INTERNAL_DOCKER_BUILD_PLUGIN_IDS: "" },
       cgroupMemoryLimitBytes: 4 * 1024 * 1024 * 1024,
     });
 
     expect(shortfall?.fatal).toBe(true);
-    expect(shortfall?.message).toContain("set OPENCLAW_DOCKER_BUILD_TSDOWN_MAX_OLD_SPACE_MB=<MB>");
-    expect(shortfall?.message).not.toContain("set OPENCLAW_TSDOWN_MAX_OLD_SPACE_MB=<MB>");
+    expect(shortfall?.message).toContain("set GRANTED_DOCKER_BUILD_TSDOWN_MAX_OLD_SPACE_MB=<MB>");
+    expect(shortfall?.message).not.toContain("set GRANTED_TSDOWN_MAX_OLD_SPACE_MB=<MB>");
   });
 
   it("admits the smallest slice measured to complete a full build", () => {
@@ -847,13 +847,13 @@ describe("resolveTsdownBuildInvocation", () => {
 
   it("uses an explicit heap override as the operator's opt-in for the complete plan", () => {
     const plan = resolveTsdownBuildPlan({
-      env: { OPENCLAW_TSDOWN_MAX_OLD_SPACE_MB: "4096" },
+      env: { GRANTED_TSDOWN_MAX_OLD_SPACE_MB: "4096" },
       cgroupMemoryLimitBytes: 4 * 1024 * 1024 * 1024,
     });
 
     expect(plan.heapShortfall?.fatal).toBe(false);
     expect(plan.heapShortfall?.message).toContain(
-      "Continuing because OPENCLAW_TSDOWN_MAX_OLD_SPACE_MB explicitly requests 4096MB",
+      "Continuing because GRANTED_TSDOWN_MAX_OLD_SPACE_MB explicitly requests 4096MB",
     );
     for (const invocation of plan.invocations) {
       expect(invocation.options.env.NODE_OPTIONS).toBe("--max-old-space-size=4096");
@@ -875,7 +875,7 @@ describe("resolveTsdownBuildInvocation", () => {
     const optedInCleanup = vi.fn();
     const optedInPlan = prepareTsdownBuildExecution(
       {
-        env: { OPENCLAW_TSDOWN_MAX_OLD_SPACE_MB: "4096" },
+        env: { GRANTED_TSDOWN_MAX_OLD_SPACE_MB: "4096" },
         cgroupMemoryLimitBytes: 4 * 1024 * 1024 * 1024,
       },
       { cleanup: optedInCleanup },
@@ -1180,7 +1180,7 @@ describe("resolveTsdownBuildInvocation", () => {
     expect(cleanup).not.toHaveBeenCalled();
 
     const optedIn = resolveTsdownBuildPlan({
-      env: { OPENCLAW_TSDOWN_MAX_OLD_SPACE_MB: "4096" },
+      env: { GRANTED_TSDOWN_MAX_OLD_SPACE_MB: "4096" },
       fs: fsFixture,
     });
     expect(optedIn.maxOldSpaceMb).toBe(4096);
@@ -1624,32 +1624,32 @@ describe("resolveTsdownBuildInvocation", () => {
     expect(nodeOptions).toBe("--trace-warnings --max-old-space-size=6400");
   });
 
-  it("honors OPENCLAW_TSDOWN_MAX_OLD_SPACE_MB over platform and memory defaults", () => {
+  it("honors GRANTED_TSDOWN_MAX_OLD_SPACE_MB over platform and memory defaults", () => {
     const nodeOptions = resolveTestNodeOptions({
-      env: { OPENCLAW_TSDOWN_MAX_OLD_SPACE_MB: "3072" },
+      env: { GRANTED_TSDOWN_MAX_OLD_SPACE_MB: "3072" },
       cgroupMemoryLimitBytes: 7 * 1024 * 1024 * 1024,
     });
 
     expect(nodeOptions).toBe("--max-old-space-size=3072");
   });
 
-  it("keeps memory detection when OPENCLAW_TSDOWN_MAX_OLD_SPACE_MB is blank", () => {
+  it("keeps memory detection when GRANTED_TSDOWN_MAX_OLD_SPACE_MB is blank", () => {
     const nodeOptions = resolveTestNodeOptions({
-      env: { OPENCLAW_TSDOWN_MAX_OLD_SPACE_MB: "  " },
+      env: { GRANTED_TSDOWN_MAX_OLD_SPACE_MB: "  " },
       cgroupMemoryLimitBytes: 7 * 1024 * 1024 * 1024,
     });
 
     expect(nodeOptions).toBe("--max-old-space-size=6400");
   });
 
-  it("uses OPENCLAW_TSDOWN_MAX_OLD_SPACE_MB to normalize inherited NODE_OPTIONS", () => {
+  it("uses GRANTED_TSDOWN_MAX_OLD_SPACE_MB to normalize inherited NODE_OPTIONS", () => {
     const result = resolveTsdownBuildInvocation({
       platform: "win32",
       nodeExecPath: "C:\\Program Files\\nodejs\\node.exe",
       npmExecPath: "C:\\repo\\pnpm.cjs",
       env: {
         NODE_OPTIONS: "--trace-warnings --max-old-space-size=12288",
-        OPENCLAW_TSDOWN_MAX_OLD_SPACE_MB: "4096",
+        GRANTED_TSDOWN_MAX_OLD_SPACE_MB: "4096",
       },
       ...NO_MEMORY_LIMIT,
     });
@@ -1657,16 +1657,16 @@ describe("resolveTsdownBuildInvocation", () => {
     expect(result.options.env.NODE_OPTIONS).toBe("--trace-warnings --max-old-space-size=4096");
   });
 
-  it("rejects malformed OPENCLAW_TSDOWN_MAX_OLD_SPACE_MB values", () => {
+  it("rejects malformed GRANTED_TSDOWN_MAX_OLD_SPACE_MB values", () => {
     for (const value of ["0", "-1", "1.5", "1e3", "4096mb", "9007199254740992"]) {
       expect(() =>
         resolveTsdownBuildInvocation({
           nodeExecPath: "/usr/bin/node",
           npmExecPath: "/tmp/pnpm.cjs",
-          env: { OPENCLAW_TSDOWN_MAX_OLD_SPACE_MB: value },
+          env: { GRANTED_TSDOWN_MAX_OLD_SPACE_MB: value },
           ...NO_MEMORY_LIMIT,
         }),
-      ).toThrow("OPENCLAW_TSDOWN_MAX_OLD_SPACE_MB must be");
+      ).toThrow("GRANTED_TSDOWN_MAX_OLD_SPACE_MB must be");
     }
   });
 
@@ -1689,7 +1689,7 @@ describe("resolveTsdownBuildInvocation", () => {
     const result = resolveTsdownBuildInvocation({
       platform: "linux",
       nodeExecPath: "/usr/bin/node",
-      env: { OPENCLAW_BUILD_ALL_NO_PNPM: "1" },
+      env: { GRANTED_BUILD_ALL_NO_PNPM: "1" },
       ...NO_MEMORY_LIMIT,
     });
 
@@ -1709,7 +1709,7 @@ describe("resolveTsdownBuildInvocation", () => {
         windowsVerbatimArguments: undefined,
         env: {
           NODE_OPTIONS: "--max-old-space-size=12288",
-          OPENCLAW_BUILD_ALL_NO_PNPM: "1",
+          GRANTED_BUILD_ALL_NO_PNPM: "1",
         },
       },
     });
@@ -1880,8 +1880,8 @@ describe("resolveTsdownBuildInvocation", () => {
             encoding: "utf8",
             env: {
               ...process.env,
-              OPENCLAW_RUN_NODE_SKIP_DTS_BUILD: skipDts,
-              OPENCLAW_PRESERVE_CLI_STARTUP_METADATA: preserveMetadata,
+              GRANTED_RUN_NODE_SKIP_DTS_BUILD: skipDts,
+              GRANTED_PRESERVE_CLI_STARTUP_METADATA: preserveMetadata,
             },
           },
         );
@@ -2049,7 +2049,7 @@ describe("resolveTsdownBuildInvocation", () => {
         cleanTsdownOutputRoots({
           cwd: rootDir,
           roots: ["dist"],
-          env: { OPENCLAW_PRESERVE_CLI_STARTUP_METADATA: "1" },
+          env: { GRANTED_PRESERVE_CLI_STARTUP_METADATA: "1" },
         }),
       ).toThrow(/symbolic link/u);
 
@@ -2072,7 +2072,7 @@ describe("resolveTsdownBuildInvocation", () => {
       cleanTsdownOutputRoots({
         cwd: "/workspace",
         roots: ["dist"],
-        env: { OPENCLAW_RUN_NODE_SKIP_DTS_BUILD: "1" },
+        env: { GRANTED_RUN_NODE_SKIP_DTS_BUILD: "1" },
         fs: fsImpl,
       }),
     ).toThrow(/symbolic link/u);
@@ -2302,8 +2302,8 @@ describe("runTsdownBuildInvocation", () => {
         stderr: output.sink,
         env: {
           ...process.env,
-          OPENCLAW_TSDOWN_HEARTBEAT_MS: "0",
-          OPENCLAW_TSDOWN_TIMEOUT_MS: "250",
+          GRANTED_TSDOWN_HEARTBEAT_MS: "0",
+          GRANTED_TSDOWN_TIMEOUT_MS: "250",
         },
       },
     );
@@ -2399,7 +2399,7 @@ describe("runTsdownBuildInvocation", () => {
         {
           stdout: output.sink,
           stderr: output.sink,
-          env: { ...process.env, OPENCLAW_TSDOWN_HEARTBEAT_MS: "0" },
+          env: { ...process.env, GRANTED_TSDOWN_HEARTBEAT_MS: "0" },
         },
       );
 
@@ -2485,7 +2485,7 @@ describe("runTsdownBuildInvocation", () => {
       }),
   );
 
-  it("rejects malformed OPENCLAW_TSDOWN_TIMEOUT_MS values", () =>
+  it("rejects malformed GRANTED_TSDOWN_TIMEOUT_MS values", () =>
     fixture.run(async () => {
       const invocation = {
         command: process.execPath,
@@ -2502,14 +2502,14 @@ describe("runTsdownBuildInvocation", () => {
           runTsdownBuildInvocation(invocation, {
             env: {
               ...process.env,
-              OPENCLAW_TSDOWN_TIMEOUT_MS: value,
+              GRANTED_TSDOWN_TIMEOUT_MS: value,
             },
           }),
-        ).rejects.toThrow("OPENCLAW_TSDOWN_TIMEOUT_MS must be");
+        ).rejects.toThrow("GRANTED_TSDOWN_TIMEOUT_MS must be");
       }
     }));
 
-  it("rejects malformed OPENCLAW_TSDOWN_HEARTBEAT_MS values", () =>
+  it("rejects malformed GRANTED_TSDOWN_HEARTBEAT_MS values", () =>
     fixture.run(async () => {
       const invocation = {
         command: process.execPath,
@@ -2526,14 +2526,14 @@ describe("runTsdownBuildInvocation", () => {
           runTsdownBuildInvocation(invocation, {
             env: {
               ...process.env,
-              OPENCLAW_TSDOWN_HEARTBEAT_MS: value,
+              GRANTED_TSDOWN_HEARTBEAT_MS: value,
             },
           }),
-        ).rejects.toThrow("OPENCLAW_TSDOWN_HEARTBEAT_MS must be");
+        ).rejects.toThrow("GRANTED_TSDOWN_HEARTBEAT_MS must be");
       }
     }));
 
-  it("terminates the child when OPENCLAW_TSDOWN_TIMEOUT_MS elapses", () =>
+  it("terminates the child when GRANTED_TSDOWN_TIMEOUT_MS elapses", () =>
     fixture.run(async () => {
       const output = createWriteSink();
       const result = await runTsdownBuildInvocation(
@@ -2551,8 +2551,8 @@ describe("runTsdownBuildInvocation", () => {
           stderr: output.sink,
           env: {
             ...process.env,
-            OPENCLAW_TSDOWN_HEARTBEAT_MS: "0",
-            OPENCLAW_TSDOWN_TIMEOUT_MS: "50",
+            GRANTED_TSDOWN_HEARTBEAT_MS: "0",
+            GRANTED_TSDOWN_TIMEOUT_MS: "50",
           },
         },
       );
@@ -2758,7 +2758,7 @@ describe("runTsdownBuildInvocation", () => {
             `import { runTsdownBuildInvocation } from ${JSON.stringify(scriptUrl)};`,
             "const result = await runTsdownBuildInvocation(",
             `  { command: process.execPath, args: ['-e', ${JSON.stringify(parentScript)}], options: { stdio: ['ignore', 'pipe', 'pipe'], shell: false, env: process.env } },`,
-            "  { env: { ...process.env, OPENCLAW_TSDOWN_HEARTBEAT_MS: '0' } },",
+            "  { env: { ...process.env, GRANTED_TSDOWN_HEARTBEAT_MS: '0' } },",
             "); process.exitCode = result.status ?? 1;",
           ].join("\n");
 

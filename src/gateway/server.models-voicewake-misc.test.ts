@@ -105,7 +105,7 @@ type AgentCatalogFixtureEntry = {
   contextWindow?: number;
 };
 
-const OPENCLAW_DEVICE_PLACEMENT: NonNullable<GatewayAgentRuntime["devicePlacement"]> = {
+const GRANTED_DEVICE_PLACEMENT: NonNullable<GatewayAgentRuntime["devicePlacement"]> = {
   requiredNodeCommands: [],
   consumesWorkerSlot: true,
 };
@@ -155,7 +155,7 @@ const expectedSortedCatalog = (gptTestZTags?: string[]): ModelCatalogRpcEntry[] 
       id: "openclaw",
       cloudPlacementSupported: true,
       cloudPlacementExecutionMode: "worker-turn",
-      devicePlacement: OPENCLAW_DEVICE_PLACEMENT,
+      devicePlacement: GRANTED_DEVICE_PLACEMENT,
       devicePlacementSupported: true,
       source: "implicit",
     },
@@ -170,7 +170,7 @@ const expectedSortedCatalog = (gptTestZTags?: string[]): ModelCatalogRpcEntry[] 
       id: "openclaw",
       cloudPlacementSupported: true,
       cloudPlacementExecutionMode: "worker-turn",
-      devicePlacement: OPENCLAW_DEVICE_PLACEMENT,
+      devicePlacement: GRANTED_DEVICE_PLACEMENT,
       devicePlacementSupported: true,
       source: "implicit",
     },
@@ -272,7 +272,7 @@ describe("gateway server models + voicewake", () => {
   }) =>
     withEnvAsync(
       {
-        OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
+        GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
         CODEX_API_KEY: undefined,
         OPENAI_API_KEY: undefined,
         OPENAI_OAUTH_TOKEN: undefined,
@@ -305,9 +305,9 @@ describe("gateway server models + voicewake", () => {
   };
 
   const withModelsConfig = async <T>(config: unknown, run: () => Promise<T>): Promise<T> => {
-    const configPath = process.env.OPENCLAW_CONFIG_PATH;
+    const configPath = process.env.GRANTED_CONFIG_PATH;
     if (!configPath) {
-      throw new Error("Missing OPENCLAW_CONFIG_PATH");
+      throw new Error("Missing GRANTED_CONFIG_PATH");
     }
     let previousConfig: string | undefined;
     try {
@@ -571,9 +571,9 @@ describe("gateway server models + voicewake", () => {
   });
 
   test("prepared agent read RPCs preserve explicit and system owners without live fallback", async () => {
-    const configPath = process.env.OPENCLAW_CONFIG_PATH;
+    const configPath = process.env.GRANTED_CONFIG_PATH;
     if (!configPath) {
-      throw new Error("Missing OPENCLAW_CONFIG_PATH");
+      throw new Error("Missing GRANTED_CONFIG_PATH");
     }
     const workspaceRoot = path.dirname(configPath);
     const startupModels = [
@@ -804,7 +804,7 @@ describe("gateway server models + voicewake", () => {
               id: "openclaw",
               cloudPlacementSupported: true,
               cloudPlacementExecutionMode: "worker-turn",
-              devicePlacement: OPENCLAW_DEVICE_PLACEMENT,
+              devicePlacement: GRANTED_DEVICE_PLACEMENT,
               devicePlacementSupported: true,
               source: "implicit",
             },
@@ -863,7 +863,7 @@ describe("gateway server models + voicewake", () => {
             id: "openclaw",
             cloudPlacementSupported: true,
             cloudPlacementExecutionMode: "worker-turn",
-            devicePlacement: OPENCLAW_DEVICE_PLACEMENT,
+            devicePlacement: GRANTED_DEVICE_PLACEMENT,
             devicePlacementSupported: true,
             source: "implicit",
           },
@@ -889,7 +889,7 @@ describe("gateway server models + voicewake", () => {
             id: "openclaw",
             cloudPlacementSupported: true,
             cloudPlacementExecutionMode: "worker-turn",
-            devicePlacement: OPENCLAW_DEVICE_PLACEMENT,
+            devicePlacement: GRANTED_DEVICE_PLACEMENT,
             devicePlacementSupported: true,
             source: "implicit",
           },

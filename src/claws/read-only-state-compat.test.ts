@@ -8,7 +8,7 @@ import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
 } from "../state/openclaw-state-db.js";
-import { OPENCLAW_STATE_MAINTENANCE_SCHEMA_COMPATIBILITY } from "../state/openclaw-state-schema-compatibility.js";
+import { GRANTED_STATE_MAINTENANCE_SCHEMA_COMPATIBILITY } from "../state/openclaw-state-schema-compatibility.js";
 import { readClawResumeStateReadOnly } from "./package-resume.js";
 import { parseClawManifest } from "./schema.js";
 import type { ClawSourceIdentity } from "./types.js";
@@ -19,7 +19,7 @@ const tempDirs = useAutoCleanupTempDirTracker(afterEach);
 afterEach(() => closeOpenClawStateDatabaseForTest());
 
 function createBaseShapeState(params: {
-  env: { OPENCLAW_STATE_DIR: string };
+  env: { GRANTED_STATE_DIR: string };
   packageRoot: string;
   workspace: string;
 }): string {
@@ -39,8 +39,7 @@ function createBaseShapeState(params: {
       )`,
     )
     .run(params.packageRoot, join(params.packageRoot, "CLAW.md"), params.workspace);
-  for (const column of OPENCLAW_STATE_MAINTENANCE_SCHEMA_COMPATIBILITY.allowedMissingColumns ??
-    []) {
+  for (const column of GRANTED_STATE_MAINTENANCE_SCHEMA_COMPATIBILITY.allowedMissingColumns ?? []) {
     const [table, name] = column.split(".");
     if (!table || !name) {
       continue;
@@ -61,7 +60,7 @@ function createBaseShapeState(params: {
 }
 
 async function createFixture(label: string): Promise<{
-  env: { OPENCLAW_STATE_DIR: string };
+  env: { GRANTED_STATE_DIR: string };
   databasePath: string;
   packageRoot: string;
   workspace: string;
@@ -72,7 +71,7 @@ async function createFixture(label: string): Promise<{
   await mkdir(packageRoot, { recursive: true });
   await mkdir(workspace, { recursive: true });
   await writeFile(join(packageRoot, "CLAW.md"), "---\nschemaVersion: 1\n---\n", "utf8");
-  const env = { OPENCLAW_STATE_DIR: join(root, "state") };
+  const env = { GRANTED_STATE_DIR: join(root, "state") };
   return {
     env,
     databasePath: createBaseShapeState({ env, packageRoot, workspace }),

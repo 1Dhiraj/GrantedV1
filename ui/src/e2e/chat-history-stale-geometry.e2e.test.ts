@@ -27,7 +27,7 @@ function historyMessage(seq: number, text: string) {
 
 suite.define(() => {
   it("discards stale transcript geometry before restored history bootstrap", async () => {
-    const artifactRoot = process.env.OPENCLAW_UI_E2E_ARTIFACT_DIR?.trim();
+    const artifactRoot = process.env.GRANTED_UI_E2E_ARTIFACT_DIR?.trim();
     const artifactDir = artifactRoot
       ? createControlUiE2eArtifactDir("chat-history-stale-geometry", artifactRoot)
       : undefined;

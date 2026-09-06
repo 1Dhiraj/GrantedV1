@@ -185,7 +185,7 @@ describe("OpenClaw performance workflow", () => {
     expect(readWorkflow().jobs?.kova?.env?.KOVA_REF).toBe(
       "${{ needs.resolve_target.outputs.kova_ref }}",
     );
-    expect(readWorkflow().jobs?.kova?.env?.KOVA_OPENCLAW_CONFIG_CONTRACT).toBe(
+    expect(readWorkflow().jobs?.kova?.env?.KOVA_GRANTED_CONFIG_CONTRACT).toBe(
       "${{ needs.resolve_target.outputs.kova_config_contract }}",
     );
     expect(readWorkflow().jobs?.kova?.env?.KOVA_REF_TRUSTED_FOR_LIVE).toBe(
@@ -541,8 +541,8 @@ describe("OpenClaw performance workflow", () => {
   it("builds only the QA and startup artifacts required by source probes", () => {
     const run = findStep("Run OpenClaw source performance probes", "source_performance").run ?? "";
     const typedBuild =
-      "OPENCLAW_BUILD_PRIVATE_QA=1 node --import tsx scripts/build-all.mts sourcePerformance";
-    const nativeBuild = "OPENCLAW_BUILD_PRIVATE_QA=1 node scripts/build-all.mjs sourcePerformance";
+      "GRANTED_BUILD_PRIVATE_QA=1 node --import tsx scripts/build-all.mts sourcePerformance";
+    const nativeBuild = "GRANTED_BUILD_PRIVATE_QA=1 node scripts/build-all.mjs sourcePerformance";
 
     expect(run).toContain("scripts/profile-extension-memory.{mts,mjs}");
     expect(run).toContain("scripts/build-all.mts --help");
@@ -1218,8 +1218,8 @@ printf '%s\\n' \
       "Configure OCM local workspace dependencies",
     );
     expect(workflowText).not.toContain("OCM_INTERNAL_NPM_BIN");
-    expect(workflowText).not.toContain("OPENCLAW_OCM_NPM_WRAPPER");
-    expect(workflowText).not.toContain("OPENCLAW_OCM_WORKSPACE_DEPENDENCY_DIRS");
+    expect(workflowText).not.toContain("GRANTED_OCM_NPM_WRAPPER");
+    expect(workflowText).not.toContain("GRANTED_OCM_WORKSPACE_DEPENDENCY_DIRS");
     expect(steps[installIndex + 1]?.name).toBe("Kova version and plan sanity");
   });
 

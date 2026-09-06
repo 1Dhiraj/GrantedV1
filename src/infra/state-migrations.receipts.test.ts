@@ -27,7 +27,7 @@ describe("shared legacy migration receipts", () => {
   function createFixture() {
     const stateDir = tempDirs.make("openclaw-migration-receipts-");
     const sourcePath = path.join(stateDir, "legacy.json");
-    const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+    const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
     const receipt = {
       sourceKey: resolveLegacyMigrationSourceKey("test-json", sourcePath),
       migrationKind: "legacy-test-json",

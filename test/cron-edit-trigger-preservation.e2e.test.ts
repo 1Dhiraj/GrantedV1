@@ -27,7 +27,7 @@ describe("cron edit trigger preservation", () => {
       const instance = await createOpenClawTestInstance({
         name: "cron-edit-trigger-preservation",
         config: { cron: { enabled: true, triggers: { enabled: true } } },
-        env: { OPENCLAW_SKIP_CRON: "0" },
+        env: { GRANTED_SKIP_CRON: "0" },
       });
       instances.push(instance);
       const initialScriptPath = path.join(instance.homeDir, "initial-trigger.js");

@@ -53,7 +53,7 @@ it("builds plugin metadata once for a status scan", async () => {
     {
       prefix: "openclaw-status-plugin-metadata-",
       layout: "split",
-      env: { OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1" },
+      env: { GRANTED_DISABLE_BUNDLED_PLUGINS: "1" },
     },
     async (state) => {
       const pluginDir = state.path("cold-plugin");
@@ -62,7 +62,7 @@ it("builds plugin metadata once for a status scan", async () => {
       await state.writeConfig({
         memory: {
           search: {
-            remote: { apiKey: "${OPENCLAW_STATUS_PLUGIN_METADATA_KEY}" },
+            remote: { apiKey: "${GRANTED_STATUS_PLUGIN_METADATA_KEY}" },
           },
         },
         plugins: {

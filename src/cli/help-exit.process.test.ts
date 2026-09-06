@@ -134,9 +134,9 @@ async function runCliProcess(params: {
       NODE_ENV: undefined,
       NODE_OPTIONS: undefined,
       NODE_USE_SYSTEM_CA: "1",
-      OPENCLAW_CONFIG_PATH: params.pristineHome ? undefined : fixture.configPath,
-      OPENCLAW_NO_RESPAWN: params.allowRespawn ? undefined : "1",
-      OPENCLAW_STATE_DIR: params.pristineHome ? undefined : fixture.stateDir,
+      GRANTED_CONFIG_PATH: params.pristineHome ? undefined : fixture.configPath,
+      GRANTED_NO_RESPAWN: params.allowRespawn ? undefined : "1",
+      GRANTED_STATE_DIR: params.pristineHome ? undefined : fixture.stateDir,
       VITEST: undefined,
       ...params.env,
     },
@@ -202,7 +202,7 @@ describe("CLI help process exit", () => {
     const result = await runCliProcess({
       args: ["gateway", "--help"],
       config: { logging: { consoleStyle: "json", level: "silent" } },
-      env: { OPENCLAW_GATEWAY_STARTUP_TRACE: "1" },
+      env: { GRANTED_GATEWAY_STARTUP_TRACE: "1" },
     });
 
     expect(parseJsonLines(result.stderr)).toEqual(
@@ -327,13 +327,13 @@ describe("models list JSON failure process output", () => {
         name: `routed ${provider}`,
         provider,
         message,
-        env: { OPENCLAW_DISABLE_ROUTE_FIRST: undefined },
+        env: { GRANTED_DISABLE_ROUTE_FIRST: undefined },
       },
       {
         name: `Commander ${provider}`,
         provider,
         message,
-        env: { OPENCLAW_DISABLE_ROUTE_FIRST: "1" },
+        env: { GRANTED_DISABLE_ROUTE_FIRST: "1" },
       },
     ]),
   )("renders $name as one clean canonical JSON document", async ({ provider, message, env }) => {
@@ -403,10 +403,10 @@ await runMessageAction("broadcast", {
         HOME: root,
         NODE_ENV: undefined,
         NODE_OPTIONS: undefined,
-        OPENCLAW_CONFIG_PATH: configPath,
-        OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-        OPENCLAW_NO_RESPAWN: "1",
-        OPENCLAW_STATE_DIR: stateDir,
+        GRANTED_CONFIG_PATH: configPath,
+        GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+        GRANTED_NO_RESPAWN: "1",
+        GRANTED_STATE_DIR: stateDir,
         VITEST: undefined,
       },
       timeout: CLI_PROCESS_DEADLOCK_GUARD_MS,
@@ -434,12 +434,12 @@ describe("JSON console style process output", () => {
         args: ["--container"],
         config: {
           logging: {
-            consoleStyle: "${OPENCLAW_TEST_CONSOLE_STYLE}",
+            consoleStyle: "${GRANTED_TEST_CONSOLE_STYLE}",
             level: "silent",
           },
         },
-        env: { OPENCLAW_TEST_CONSOLE_STYLE: undefined },
-        stateEnv: () => ({ OPENCLAW_TEST_CONSOLE_STYLE: "json" }),
+        env: { GRANTED_TEST_CONSOLE_STYLE: undefined },
+        stateEnv: () => ({ GRANTED_TEST_CONSOLE_STYLE: "json" }),
         timeoutMs: SLOW_DOTENV_CHILD_PROCESS_TIMEOUT_MS,
         expectedExitCode: 2,
       });
@@ -461,16 +461,16 @@ describe("JSON console style process output", () => {
         args: ["gateway", "status"],
         config: {
           logging: {
-            consoleStyle: "${OPENCLAW_TEST_CONSOLE_STYLE}",
+            consoleStyle: "${GRANTED_TEST_CONSOLE_STYLE}",
             level: "silent",
           },
         },
         env: {
-          OPENCLAW_GATEWAY_STARTUP_TRACE: "1",
-          OPENCLAW_TEST_CONSOLE_STYLE: undefined,
+          GRANTED_GATEWAY_STARTUP_TRACE: "1",
+          GRANTED_TEST_CONSOLE_STYLE: undefined,
         },
         failRunMainImport: true,
-        stateEnv: () => ({ OPENCLAW_TEST_CONSOLE_STYLE: "json" }),
+        stateEnv: () => ({ GRANTED_TEST_CONSOLE_STYLE: "json" }),
         timeoutMs: SLOW_DOTENV_CHILD_PROCESS_TIMEOUT_MS,
         expectedExitCode: 1,
       });
@@ -496,7 +496,7 @@ describe("JSON console style process output", () => {
       args: ["gateway", "status"],
       allowRespawn: true,
       config: loggingConfig,
-      env: { OPENCLAW_GATEWAY_STARTUP_TRACE: "1" },
+      env: { GRANTED_GATEWAY_STARTUP_TRACE: "1" },
     });
 
     const bootstrapRecords = parseJsonLines(result.stderr).filter(

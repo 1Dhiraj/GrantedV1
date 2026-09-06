@@ -62,12 +62,12 @@ function readPositiveIntegerEnv(name, fallback) {
 
 export function getVolumeSpec() {
   return {
-    sessions: readPositiveIntegerEnv("OPENCLAW_UPGRADE_SURVIVOR_VOLUME_SESSIONS", 4800),
+    sessions: readPositiveIntegerEnv("GRANTED_UPGRADE_SURVIVOR_VOLUME_SESSIONS", 4800),
     eventsPerSession: readPositiveIntegerEnv(
-      "OPENCLAW_UPGRADE_SURVIVOR_VOLUME_EVENTS_PER_SESSION",
+      "GRANTED_UPGRADE_SURVIVOR_VOLUME_EVENTS_PER_SESSION",
       5,
     ),
-    cronJobs: readPositiveIntegerEnv("OPENCLAW_UPGRADE_SURVIVOR_VOLUME_CRON_JOBS", 2200),
+    cronJobs: readPositiveIntegerEnv("GRANTED_UPGRADE_SURVIVOR_VOLUME_CRON_JOBS", 2200),
   };
 }
 

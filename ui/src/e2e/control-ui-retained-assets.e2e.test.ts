@@ -20,8 +20,8 @@ import { withEnvAsync } from "../../../src/test-utils/env.ts";
 import { createControlUiE2eArtifactDir } from "../test-helpers/control-ui-e2e-artifacts.ts";
 import { resolvePlaywrightChromiumExecutablePath } from "../test-helpers/control-ui-e2e.ts";
 
-const captureUiProof = process.env.OPENCLAW_CAPTURE_UI_PROOF === "1";
-const useWebKit = process.env.OPENCLAW_CONTROL_UI_E2E_BROWSER === "webkit";
+const captureUiProof = process.env.GRANTED_CAPTURE_UI_PROOF === "1";
+const useWebKit = process.env.GRANTED_CONTROL_UI_E2E_BROWSER === "webkit";
 const browserName = useWebKit ? "webkit" : "chromium";
 const chromiumExecutablePath = resolvePlaywrightChromiumExecutablePath(chromium.executablePath());
 
@@ -129,7 +129,7 @@ it("keeps an old document's unvisited lazy module available across builds", asyn
     await writeOldDocumentBuild(buildA);
     await writeReplacementBuild(buildB);
 
-    await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () => {
+    await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {
       const retainedA = createControlUiAssetRetention(buildA);
       await retainedA.prepare();
       const root: Extract<ControlUiRootState, { kind: "bundled" }> = {

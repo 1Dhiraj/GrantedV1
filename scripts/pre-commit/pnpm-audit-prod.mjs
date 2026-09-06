@@ -719,16 +719,13 @@ function parsePositiveIntegerEnv(name, fallback) {
 
 function resolveBulkAdvisoryRequestTimeoutMs() {
   return clampBulkAdvisoryTimeoutMs(
-    parsePositiveIntegerEnv(
-      "OPENCLAW_PNPM_AUDIT_BULK_TIMEOUT_MS",
-      BULK_ADVISORY_REQUEST_TIMEOUT_MS,
-    ),
+    parsePositiveIntegerEnv("GRANTED_PNPM_AUDIT_BULK_TIMEOUT_MS", BULK_ADVISORY_REQUEST_TIMEOUT_MS),
   );
 }
 
 function resolveBulkAdvisoryResponseBodyMaxBytes() {
   return parsePositiveIntegerEnv(
-    "OPENCLAW_PNPM_AUDIT_BULK_RESPONSE_MAX_BYTES",
+    "GRANTED_PNPM_AUDIT_BULK_RESPONSE_MAX_BYTES",
     BULK_ADVISORY_RESPONSE_BODY_MAX_BYTES,
   );
 }

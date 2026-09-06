@@ -83,7 +83,7 @@ describe("read tool", () => {
 
     const tool = createReadToolDefinition("/workspace", { autoResizeImages: false });
     try {
-      await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () => {
+      await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {
         const result = await tool.execute(
           "call-1",
           { path: `media://inbound/${mediaId}` },

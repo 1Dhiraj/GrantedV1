@@ -29,15 +29,15 @@ function runWithStubbedKubectl(
     path.join(binDir, "kubectl"),
     `#!/usr/bin/env bash
 set -euo pipefail
-printf '%s\\n' "$*" >> "$OPENCLAW_KUBECTL_LOG"
+printf '%s\\n' "$*" >> "$GRANTED_KUBECTL_LOG"
 if [[ "$1" == "delete" && "$2" == "-k" ]]; then
-  exit "\${OPENCLAW_KUBECTL_DELETE_KUSTOMIZE_STATUS:-0}"
+  exit "\${GRANTED_KUBECTL_DELETE_KUSTOMIZE_STATUS:-0}"
 fi
 if [[ "$1" == "delete" && "$2" == "namespace" ]]; then
-  exit "\${OPENCLAW_KUBECTL_DELETE_NAMESPACE_STATUS:-0}"
+  exit "\${GRANTED_KUBECTL_DELETE_NAMESPACE_STATUS:-0}"
 fi
 if [[ "$1" == "delete" && "$2" == "secret" ]]; then
-  exit "\${OPENCLAW_KUBECTL_DELETE_SECRET_STATUS:-0}"
+  exit "\${GRANTED_KUBECTL_DELETE_SECRET_STATUS:-0}"
 fi
 if [[ "$1" == "get" && "$2" == "namespace" ]]; then
   exit 99
@@ -55,11 +55,11 @@ esac
     encoding: "utf8",
     env: {
       ...process.env,
-      OPENCLAW_KUBECTL_DELETE_KUSTOMIZE_STATUS: String(options.deleteKustomizeStatus ?? 0),
-      OPENCLAW_KUBECTL_DELETE_NAMESPACE_STATUS: String(options.deleteNamespaceStatus ?? 0),
-      OPENCLAW_KUBECTL_DELETE_SECRET_STATUS: String(options.deleteSecretStatus ?? 0),
-      OPENCLAW_KUBECTL_LOG: logPath,
-      OPENCLAW_NAMESPACE: namespace,
+      GRANTED_KUBECTL_DELETE_KUSTOMIZE_STATUS: String(options.deleteKustomizeStatus ?? 0),
+      GRANTED_KUBECTL_DELETE_NAMESPACE_STATUS: String(options.deleteNamespaceStatus ?? 0),
+      GRANTED_KUBECTL_DELETE_SECRET_STATUS: String(options.deleteSecretStatus ?? 0),
+      GRANTED_KUBECTL_LOG: logPath,
+      GRANTED_NAMESPACE: namespace,
       PATH: `${binDir}:${process.env.PATH ?? ""}`,
     },
   });

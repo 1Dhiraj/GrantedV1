@@ -109,17 +109,17 @@ function createTestClaim(params: {
 }
 
 beforeEach(() => {
-  previousStateDir = process.env.OPENCLAW_STATE_DIR;
-  process.env.OPENCLAW_STATE_DIR = createStateDir();
+  previousStateDir = process.env.GRANTED_STATE_DIR;
+  process.env.GRANTED_STATE_DIR = createStateDir();
   resetPluginStateStoreForTests({ closeDatabase: false });
 });
 
 afterEach(() => {
   resetPluginStateStoreForTests();
   if (previousStateDir === undefined) {
-    delete process.env.OPENCLAW_STATE_DIR;
+    delete process.env.GRANTED_STATE_DIR;
   } else {
-    process.env.OPENCLAW_STATE_DIR = previousStateDir;
+    process.env.GRANTED_STATE_DIR = previousStateDir;
   }
   for (const dir of tempDirs.splice(0)) {
     rmSync(dir, { recursive: true, force: true });

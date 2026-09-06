@@ -79,8 +79,8 @@ describe("resolveControlUiHandoffTarget", () => {
           },
         },
         env: {
-          OPENCLAW_GATEWAY_TOKEN: "ambient-token",
-          OPENCLAW_GATEWAY_PASSWORD: ambientPassword,
+          GRANTED_GATEWAY_TOKEN: "ambient-token",
+          GRANTED_GATEWAY_PASSWORD: ambientPassword,
         },
       });
 

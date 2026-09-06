@@ -281,7 +281,7 @@ describe("Crabbox plugin generation lifecycle", () => {
   });
 
   it("holds plugin service stop until an aborted image deletion settles", async () => {
-    vi.stubEnv("OPENCLAW_STATE_DIR", tempDirs.make("openclaw-crabbox-maintenance-generation-"));
+    vi.stubEnv("GRANTED_STATE_DIR", tempDirs.make("openclaw-crabbox-maintenance-generation-"));
     const store = createPluginStateSyncKeyedStoreForTests<WarmProfileRecord>("crabbox", {
       namespace: "warm-images",
       maxEntries: 128,

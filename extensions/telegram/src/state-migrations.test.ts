@@ -52,7 +52,7 @@ afterEach(() => {
 describe("telegram state migrations", () => {
   it("does not require a migration owner when multi-agent startup has no legacy artifacts", async () => {
     const dir = await mkdtemp(path.join(os.tmpdir(), "openclaw-telegram-state-migration-"));
-    const env = { ...process.env, OPENCLAW_STATE_DIR: dir };
+    const env = { ...process.env, GRANTED_STATE_DIR: dir };
     try {
       const cfg = {
         agents: {
@@ -69,7 +69,7 @@ describe("telegram state migrations", () => {
 
   it("uses the materialized Telegram binding as legacy-state owner after H2 normalization", async () => {
     const dir = await mkdtemp(path.join(os.tmpdir(), "openclaw-telegram-state-migration-"));
-    const env = { ...process.env, OPENCLAW_STATE_DIR: dir };
+    const env = { ...process.env, GRANTED_STATE_DIR: dir };
     const legacyStorePath = path.join(dir, "sessions", "sessions.json");
     const messageCachePath = resolveTelegramMessageCachePath(legacyStorePath);
     const sentMessagePath = `${legacyStorePath}.telegram-sent-messages.json`;
@@ -121,7 +121,7 @@ describe("telegram state migrations", () => {
 
   it("retains raw legacy default-marker ownership during rollback compatibility", async () => {
     const dir = await mkdtemp(path.join(os.tmpdir(), "openclaw-telegram-state-migration-"));
-    const env = { ...process.env, OPENCLAW_STATE_DIR: dir };
+    const env = { ...process.env, GRANTED_STATE_DIR: dir };
     const legacyStorePath = path.join(dir, "sessions", "sessions.json");
     const sentMessagePath = `${legacyStorePath}.telegram-sent-messages.json`;
     const ownerStorePath = resolveStorePath(undefined, { env, agentId: "ops" });
@@ -147,7 +147,7 @@ describe("telegram state migrations", () => {
 
   it("fails closed when legacy Telegram state has no explicit multi-agent owner", async () => {
     const dir = await mkdtemp(path.join(os.tmpdir(), "openclaw-telegram-state-migration-"));
-    const env = { ...process.env, OPENCLAW_STATE_DIR: dir };
+    const env = { ...process.env, GRANTED_STATE_DIR: dir };
     const legacyStorePath = path.join(dir, "sessions", "sessions.json");
     const sentMessagePath = `${legacyStorePath}.telegram-sent-messages.json`;
     try {
@@ -168,7 +168,7 @@ describe("telegram state migrations", () => {
 
   it("keeps agent sidecars local while ambiguous global state fails closed", async () => {
     const dir = await mkdtemp(path.join(os.tmpdir(), "openclaw-telegram-state-migration-"));
-    const env = { ...process.env, OPENCLAW_STATE_DIR: dir };
+    const env = { ...process.env, GRANTED_STATE_DIR: dir };
     const legacyStorePath = path.join(dir, "sessions", "sessions.json");
     const sentMessagePath = `${legacyStorePath}.telegram-sent-messages.json`;
     const stores = ["main", "ops"].map((agentId) => {
@@ -237,7 +237,7 @@ describe("telegram state migrations", () => {
 
   it("imports an account-scoped topic cache without requiring a global migration owner", async () => {
     const dir = await mkdtemp(path.join(os.tmpdir(), "openclaw-telegram-state-migration-"));
-    const env = { ...process.env, OPENCLAW_STATE_DIR: dir };
+    const env = { ...process.env, GRANTED_STATE_DIR: dir };
     const opsStorePath = resolveStorePath(undefined, { env, agentId: "ops" });
     const topicNamePath = resolveTopicNameCachePath(opsStorePath);
     try {
@@ -264,7 +264,7 @@ describe("telegram state migrations", () => {
 
   it("detects legacy bot-info cache import", async () => {
     const dir = await mkdtemp(path.join(os.tmpdir(), "openclaw-telegram-state-migration-"));
-    const env = { ...process.env, OPENCLAW_STATE_DIR: dir };
+    const env = { ...process.env, GRANTED_STATE_DIR: dir };
     const persistedPath = resolveTelegramBotInfoCachePath("ops", env);
     try {
       await mkdir(path.dirname(persistedPath), { recursive: true });
@@ -332,7 +332,7 @@ describe("telegram state migrations", () => {
 
   it("detects legacy message-cache import for the runtime sidecar path", async () => {
     const dir = await mkdtemp(path.join(os.tmpdir(), "openclaw-telegram-state-migration-"));
-    const env = { ...process.env, OPENCLAW_STATE_DIR: dir };
+    const env = { ...process.env, GRANTED_STATE_DIR: dir };
     const storePath = resolveStorePath(undefined, { env, agentId: "main" });
     const persistedPath = resolveTelegramMessageCachePath(storePath);
     try {
@@ -412,7 +412,7 @@ describe("telegram state migrations", () => {
 
   it("detects legacy topic-name cache import for an account-scoped runtime sidecar path", async () => {
     const dir = await mkdtemp(path.join(os.tmpdir(), "openclaw-telegram-state-migration-"));
-    const env = { ...process.env, OPENCLAW_STATE_DIR: dir };
+    const env = { ...process.env, GRANTED_STATE_DIR: dir };
     const storePath = resolveStorePath(undefined, { env, agentId: "ops" });
     const persistedPath = resolveTopicNameCachePath(storePath);
     const namespace = resolveTopicNameCacheNamespace(resolveTopicNameCacheScope(storePath));
@@ -476,7 +476,7 @@ describe("telegram state migrations", () => {
 
   it("detects legacy topic-name cache import for the global sidecar path", async () => {
     const dir = await mkdtemp(path.join(os.tmpdir(), "openclaw-telegram-state-migration-"));
-    const env = { ...process.env, OPENCLAW_STATE_DIR: dir };
+    const env = { ...process.env, GRANTED_STATE_DIR: dir };
     const legacyStorePath = path.join(dir, "sessions", "sessions.json");
     const persistedPath = resolveTopicNameCachePath(legacyStorePath);
     const defaultAccountStorePath = resolveStorePath(undefined, { env, agentId: "ops" });
@@ -543,7 +543,7 @@ describe("telegram state migrations", () => {
 
   it("detects remaining Telegram JSON sidecars for plugin-state import", async () => {
     const dir = await mkdtemp(path.join(os.tmpdir(), "openclaw-telegram-state-migration-"));
-    const env = { ...process.env, OPENCLAW_STATE_DIR: dir };
+    const env = { ...process.env, GRANTED_STATE_DIR: dir };
     const storePath = resolveStorePath(undefined, { env, agentId: "main" });
     const now = Date.now();
     const updateOffsetPath = path.join(dir, "telegram", "update-offset-ops.json");
@@ -736,7 +736,7 @@ describe("telegram state migrations", () => {
     vi.useFakeTimers();
     vi.setSystemTime(new Date("2026-07-15T12:00:00.000Z"));
     const dir = await mkdtemp(path.join(os.tmpdir(), "openclaw-telegram-state-migration-"));
-    const env = { ...process.env, OPENCLAW_STATE_DIR: dir };
+    const env = { ...process.env, GRANTED_STATE_DIR: dir };
     const storePath = resolveStorePath(undefined, { env, agentId: "main" });
     const sentMessagePath = `${storePath}.telegram-sent-messages.json`;
     const expiredAt = Date.now() - 8 * 24 * 60 * 60 * 1000;
@@ -777,7 +777,7 @@ describe("telegram state migrations", () => {
 
   it("detects Telegram account sidecars even after the account was removed from config", async () => {
     const dir = await mkdtemp(path.join(os.tmpdir(), "openclaw-telegram-state-migration-"));
-    const env = { ...process.env, OPENCLAW_STATE_DIR: dir };
+    const env = { ...process.env, GRANTED_STATE_DIR: dir };
     const updateOffsetPath = path.join(dir, "telegram", "update-offset-oldbot.json");
     const threadBindingsPath = path.join(dir, "telegram", "thread-bindings-oldbot.json");
     const now = Date.now();
@@ -838,7 +838,7 @@ describe("telegram state migrations", () => {
 
   it("imports legacy sent-message sidecars into the current runtime scope", async () => {
     const dir = await mkdtemp(path.join(os.tmpdir(), "openclaw-telegram-state-migration-"));
-    const env = { ...process.env, OPENCLAW_STATE_DIR: dir };
+    const env = { ...process.env, GRANTED_STATE_DIR: dir };
     const storePath = resolveStorePath(undefined, { env, agentId: "main" });
     const legacyStorePath = path.join(dir, "sessions", "sessions.json");
     const currentSentPath = `${storePath}.telegram-sent-messages.json`;

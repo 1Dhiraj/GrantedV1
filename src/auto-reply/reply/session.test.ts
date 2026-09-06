@@ -484,7 +484,7 @@ describe("initSessionState guarded initialization", () => {
     const storePath = path.join(stateDir, "sessions.json");
     const groupSessionKey = "agent:main:telegram:group:family";
 
-    await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () => {
+    await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {
       await initSessionState({
         ctx: {
           Body: "hello group",
@@ -509,7 +509,7 @@ describe("initSessionState guarded initialization", () => {
 
   it("pins an admitted non-default-agent incognito session to its process-local store", async () => {
     const stateDir = await makeCaseDir("openclaw-session-incognito-init-");
-    await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () => {
+    await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {
       const agentId = "work";
       const sessionId = "incognito-work-session";
       const sessionKey = "agent:work:dashboard:incognito-work-session";
@@ -1866,7 +1866,7 @@ describe("initSessionState RawBody", () => {
       const sessionKey = "agent:main:dashboard:created";
 
       const result = await withEnvAsync(
-        { OPENCLAW_STATE_DIR: path.join(root, "state") },
+        { GRANTED_STATE_DIR: path.join(root, "state") },
         async () => {
           const initialized = await initSessionState({
             ctx: {
@@ -2527,7 +2527,7 @@ describe("initSessionState RawBody", () => {
     const sessionFile = path.join(stateDir, "agents", agentId, "sessions", `${sessionId}.jsonl`);
     const storePath = path.join(stateDir, "agents", agentId, "sessions", "sessions.json");
 
-    await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () => {
+    await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {
       await fs.mkdir(path.dirname(storePath), { recursive: true });
       await writeSessionStoreFast(storePath, {
         [sessionKey]: {

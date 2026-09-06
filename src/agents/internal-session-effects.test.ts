@@ -43,7 +43,7 @@ describe("internal session effects", () => {
 
   it("does not archive an incognito internal-effects transcript during rotation", async () => {
     await withTestDir({ prefix: "openclaw-incognito-internal-rotation-" }, async (dir) => {
-      await withEnvAsync({ OPENCLAW_STATE_DIR: dir }, async () => {
+      await withEnvAsync({ GRANTED_STATE_DIR: dir }, async () => {
         const storePath = resolveIncognitoOpenClawAgentSqlitePath({ agentId: "main" });
         try {
           const target = await prepareInternalSessionEffectsSession({

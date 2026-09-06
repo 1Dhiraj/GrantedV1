@@ -80,7 +80,7 @@ export function detectLegacyExecApprovals(params: {
   stateDir: string;
   doctorOnlyStateMigrations?: boolean;
 }): LegacyExecApprovalsDetection {
-  const env = { ...process.env, OPENCLAW_STATE_DIR: params.stateDir };
+  const env = { ...process.env, GRANTED_STATE_DIR: params.stateDir };
   const sourcePath = resolveExecApprovalsPath(env);
   const sourcePresent = legacyMigrationSourceOrClaimMayExist(sourcePath, DOCTOR_CLAIM_SUFFIX);
   return {
@@ -221,7 +221,7 @@ function decideAndRecordMigration(params: {
         decisionMessage(decision, removeSource) +
         (legacy.ok
           ? ""
-          : ` First problem: ${legacy.error}. Repair exec-approvals.json locally, then rerun \`openclaw doctor --fix\` with the same OPENCLAW_STATE_DIR.`);
+          : ` First problem: ${legacy.error}. Repair exec-approvals.json locally, then rerun \`openclaw doctor --fix\` with the same GRANTED_STATE_DIR.`);
       return { message, removeSource, sourceKey };
     },
     { env: params.env },

@@ -216,10 +216,10 @@ describe("Gateway Active Memory", () => {
           config: cfg,
           gatewayToken: token,
           env: {
-            OPENCLAW_TEST_MINIMAL_GATEWAY: undefined,
-            OPENCLAW_BUNDLED_PLUGINS_DIR: undefined,
-            OPENCLAW_DISABLE_BUNDLED_PLUGINS: undefined,
-            OPENCLAW_GATEWAY_STARTUP_TRACE: "1",
+            GRANTED_TEST_MINIMAL_GATEWAY: undefined,
+            GRANTED_BUNDLED_PLUGINS_DIR: undefined,
+            GRANTED_DISABLE_BUNDLED_PLUGINS: undefined,
+            GRANTED_GATEWAY_STARTUP_TRACE: "1",
           },
         });
         const preparedConfig = JSON.parse(

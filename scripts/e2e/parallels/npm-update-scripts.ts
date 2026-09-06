@@ -31,7 +31,7 @@ const startupMigrationRestartPrefix =
   "OpenClaw plugin migration inputs changed during startup convergence;";
 const macosGuestPath =
   "/opt/homebrew/bin:/opt/homebrew/opt/node/bin:/usr/local/bin:/usr/local/sbin:/opt/homebrew/sbin:/usr/bin:/bin:/usr/sbin:/sbin";
-const macosOpenClawCommand = '"$OPENCLAW_BIN"';
+const macosOpenClawCommand = '"$GRANTED_BIN"';
 
 function posixProviderApiKeyFunction(auth: ProviderAuth): string {
   return `with_provider_api_key() {
@@ -80,7 +80,7 @@ if [ "$provider_config_exit" -ne 0 ]; then exit "$provider_config_exit"; fi`;
 function posixPrintLogTailFunction(): string {
   return `print_log_tail() {
   log_file="$1"
-  max_bytes="\${OPENCLAW_PARALLELS_NPM_UPDATE_LOG_TAIL_BYTES:-262144}"
+  max_bytes="\${GRANTED_PARALLELS_NPM_UPDATE_LOG_TAIL_BYTES:-262144}"
   case "$max_bytes" in
     ''|*[!0-9]*) max_bytes=262144 ;;
     *) [ "$max_bytes" -gt 0 ] || max_bytes=262144 ;;
@@ -116,7 +116,7 @@ for attempt in 1 2; do
   rm -f "$HOME/.openclaw/agents/main/sessions/$session_id.jsonl"
   output_file="$(mktemp)"
   set +e
-  OPENCLAW_ALLOW_ROOT="\${OPENCLAW_ALLOW_ROOT:-}" with_provider_api_key ${command} agent --local --agent main --session-id "$session_id" --message 'Reply with exact ASCII text OK only.' --thinking off --timeout ${resolveParallelsModelTimeoutSeconds(platform)} --json >"$output_file" 2>&1
+  GRANTED_ALLOW_ROOT="\${GRANTED_ALLOW_ROOT:-}" with_provider_api_key ${command} agent --local --agent main --session-id "$session_id" --message 'Reply with exact ASCII text OK only.' --thinking off --timeout ${resolveParallelsModelTimeoutSeconds(platform)} --json >"$output_file" 2>&1
   rc=$?
   set -e
   print_log_tail "$output_file"
@@ -151,7 +151,7 @@ function windowsUpdateWithScopedEnv(input: NpmUpdateScriptInput): string {
     ? `$env:NPM_CONFIG_REGISTRY = ${psSingleQuote(input.npmRegistry)}\n`
     : "";
   return `${registryScript}$script:OpenClawUpdateExit = 0
-$updateOutput = Invoke-WithScopedEnv @{ OPENCLAW_ALLOW_OLDER_BINARY_DESTRUCTIVE_ACTIONS = '1' } {
+$updateOutput = Invoke-WithScopedEnv @{ GRANTED_ALLOW_OLDER_BINARY_DESTRUCTIVE_ACTIONS = '1' } {
   Invoke-OpenClaw update --tag ${psSingleQuote(input.updateTarget)} --yes --json --no-restart 2>&1
   $script:OpenClawUpdateExit = $LASTEXITCODE
 }
@@ -174,14 +174,14 @@ function Start-OpenClawGateway {
   } else {
     "& '$gatewayCommandPath' gateway run --bind loopback --port 18789 --force"
   }
-  $gatewayScript = "\`$ErrorActionPreference = 'Continue'\`n$gatewayInvocation *>> \`$env:OPENCLAW_PARALLELS_GATEWAY_LOG\`nexit \`$LASTEXITCODE"
+  $gatewayScript = "\`$ErrorActionPreference = 'Continue'\`n$gatewayInvocation *>> \`$env:GRANTED_PARALLELS_GATEWAY_LOG\`nexit \`$LASTEXITCODE"
   $gatewayEncodedScript = [Convert]::ToBase64String([Text.Encoding]::Unicode.GetBytes($gatewayScript))
   $gatewayPowerShell = (Get-Process -Id $PID).Path
   Invoke-WithScopedEnv @{
-    OPENCLAW_HOME = $env:USERPROFILE
-    OPENCLAW_STATE_DIR = (Join-Path $env:USERPROFILE '.openclaw')
-    OPENCLAW_CONFIG_PATH = (Join-Path $env:USERPROFILE '.openclaw\\openclaw.json')
-    OPENCLAW_PARALLELS_GATEWAY_LOG = $script:gatewayLogPath
+    GRANTED_HOME = $env:USERPROFILE
+    GRANTED_STATE_DIR = (Join-Path $env:USERPROFILE '.openclaw')
+    GRANTED_CONFIG_PATH = (Join-Path $env:USERPROFILE '.openclaw\\openclaw.json')
+    GRANTED_PARALLELS_GATEWAY_LOG = $script:gatewayLogPath
     ${input.auth.apiKeyEnv} = ${psSingleQuote(input.auth.apiKeyValue)}
   } {
     $script:gatewayProcess = Start-Process -FilePath $gatewayPowerShell -ArgumentList @('-NoProfile', '-NonInteractive', '-EncodedCommand', $gatewayEncodedScript) -WindowStyle Hidden -PassThru
@@ -265,7 +265,7 @@ resolve_required_command() {
     exit 127
   }
 }
-OPENCLAW_BIN="$(resolve_required_command openclaw)"
+GRANTED_BIN="$(resolve_required_command openclaw)"
 scrub_future_plugin_entries() {
   python3 - <<'PY'
 import json
@@ -292,7 +292,7 @@ path.write_text(json.dumps(config, indent=2) + "\n")
 PY
 }
 stop_openclaw_gateway_processes() {
-  OPENCLAW_DISABLE_BUNDLED_PLUGINS=1 "$OPENCLAW_BIN" gateway stop || true
+  GRANTED_DISABLE_BUNDLED_PLUGINS=1 "$GRANTED_BIN" gateway stop || true
   pkill -f 'openclaw.*gateway' >/dev/null 2>&1 || true
   if command -v lsof >/dev/null 2>&1; then
     pids="$(lsof -tiTCP:18789 -sTCP:LISTEN 2>/dev/null || true)"
@@ -313,14 +313,14 @@ start_openclaw_gateway() {
   stop_openclaw_gateway_processes
   gateway_launch_log_offset="$(wc -c <"$gateway_log" 2>/dev/null | tr -d '[:space:]' || echo 0)"
   trap '' HUP
-  with_provider_api_key /usr/bin/env OPENCLAW_HOME="$HOME" OPENCLAW_STATE_DIR="$HOME/.openclaw" OPENCLAW_CONFIG_PATH="$HOME/.openclaw/openclaw.json" "$OPENCLAW_BIN" gateway run --bind loopback --port 18789 --force >>"$gateway_log" 2>&1 </dev/null &
+  with_provider_api_key /usr/bin/env GRANTED_HOME="$HOME" GRANTED_STATE_DIR="$HOME/.openclaw" GRANTED_CONFIG_PATH="$HOME/.openclaw/openclaw.json" "$GRANTED_BIN" gateway run --bind loopback --port 18789 --force >>"$gateway_log" 2>&1 </dev/null &
   gateway_pid=$!
   sleep 1
 }
 wait_for_gateway() {
   deadline=$((SECONDS + 240))
   while [ "$SECONDS" -lt "$deadline" ]; do
-    if "$OPENCLAW_BIN" gateway status --deep --require-rpc --timeout 15000; then
+    if "$GRANTED_BIN" gateway status --deep --require-rpc --timeout 15000; then
       return
     fi
     if ! kill -0 "$gateway_pid" 2>/dev/null; then
@@ -346,15 +346,15 @@ wait_for_gateway() {
 }
 scrub_future_plugin_entries
 stop_openclaw_gateway_processes
-${posixNpmRegistryEnv(input.npmRegistry)}OPENCLAW_ALLOW_OLDER_BINARY_DESTRUCTIVE_ACTIONS=1 "$OPENCLAW_BIN" update --tag ${shellQuote(input.updateTarget)} --yes --json --no-restart
+${posixNpmRegistryEnv(input.npmRegistry)}GRANTED_ALLOW_OLDER_BINARY_DESTRUCTIVE_ACTIONS=1 "$GRANTED_BIN" update --tag ${shellQuote(input.updateTarget)} --yes --json --no-restart
 ${posixVersionCheck(macosOpenClawCommand, input.expectedNeedle)}
 start_openclaw_gateway
 wait_for_gateway
 ${posixStopGatewayScript()}
-"$OPENCLAW_BIN" models set ${shellQuote(input.auth.modelId)}
+"$GRANTED_BIN" models set ${shellQuote(input.auth.modelId)}
 ${posixModelProviderConfigCommands(macosOpenClawCommand, input.auth.modelId, "macos")}
-"$OPENCLAW_BIN" config set agents.defaults.skipBootstrap true --strict-json
-"$OPENCLAW_BIN" config set tools.profile minimal
+"$GRANTED_BIN" config set agents.defaults.skipBootstrap true --strict-json
+"$GRANTED_BIN" config set tools.profile minimal
 ${posixAgentWorkspaceScript("Parallels npm update smoke test assistant.")}
 ${posixAssertAgentOkScript(macosOpenClawCommand, input, "macos", "parallels-npm-update-macos")}`;
 }
@@ -438,7 +438,7 @@ ${windowsAssertAgentOkScript(input)}`;
 export function linuxUpdateScript(input: NpmUpdateScriptInput): string {
   return String.raw`set -euo pipefail
 export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/snap/bin
-export OPENCLAW_ALLOW_ROOT=1
+export GRANTED_ALLOW_ROOT=1
 ${posixProviderApiKeyFunction(input.auth)}
 ${posixPrintLogTailFunction()}
 scrub_future_plugin_entries() {
@@ -463,7 +463,7 @@ fs.writeFileSync(configPath, JSON.stringify(config, null, 2) + "\n");
 JS
 }
 stop_openclaw_gateway_processes() {
-  OPENCLAW_DISABLE_BUNDLED_PLUGINS=1 OPENCLAW_ALLOW_ROOT=1 openclaw gateway stop || true
+  GRANTED_DISABLE_BUNDLED_PLUGINS=1 GRANTED_ALLOW_ROOT=1 openclaw gateway stop || true
   pkill -f 'openclaw.*gateway' >/dev/null 2>&1 || true
 }
 gateway_log=/tmp/openclaw-parallels-linux-gateway.log
@@ -476,7 +476,7 @@ start_openclaw_gateway() {
   pkill -f "openclaw gateway run" >/dev/null 2>&1 || true
   gateway_launch_log_offset="$(wc -c <"$gateway_log" 2>/dev/null | tr -d '[:space:]' || echo 0)"
   with_provider_api_key setsid sh -lc ${shellQuote(
-    "exec env OPENCLAW_HOME=/root OPENCLAW_STATE_DIR=/root/.openclaw OPENCLAW_CONFIG_PATH=/root/.openclaw/openclaw.json OPENCLAW_DISABLE_BONJOUR=1 OPENCLAW_ALLOW_ROOT=1 openclaw gateway run --bind loopback --port 18789 --force >>/tmp/openclaw-parallels-linux-gateway.log 2>&1",
+    "exec env GRANTED_HOME=/root GRANTED_STATE_DIR=/root/.openclaw GRANTED_CONFIG_PATH=/root/.openclaw/openclaw.json GRANTED_DISABLE_BONJOUR=1 GRANTED_ALLOW_ROOT=1 openclaw gateway run --bind loopback --port 18789 --force >>/tmp/openclaw-parallels-linux-gateway.log 2>&1",
   )} >/dev/null 2>&1 < /dev/null &
   gateway_pid=$!
 }
@@ -509,7 +509,7 @@ wait_for_gateway() {
 }
 scrub_future_plugin_entries
 stop_openclaw_gateway_processes
-${posixNpmRegistryEnv(input.npmRegistry)}OPENCLAW_ALLOW_OLDER_BINARY_DESTRUCTIVE_ACTIONS=1 openclaw update --tag ${shellQuote(input.updateTarget)} --yes --json --no-restart
+${posixNpmRegistryEnv(input.npmRegistry)}GRANTED_ALLOW_OLDER_BINARY_DESTRUCTIVE_ACTIONS=1 openclaw update --tag ${shellQuote(input.updateTarget)} --yes --json --no-restart
 ${posixVersionCheck("openclaw", input.expectedNeedle)}
 start_openclaw_gateway
 wait_for_gateway

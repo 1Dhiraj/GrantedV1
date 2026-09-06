@@ -16,8 +16,8 @@ const legacyAbsenceCache = new Set<string>();
  */
 function doctorFixInstruction(filePath: string): string {
   const command = "Run `openclaw doctor --fix`";
-  return process.env.OPENCLAW_STATE_DIR?.trim()
-    ? `${command} with OPENCLAW_STATE_DIR set to ${path.dirname(filePath)}`
+  return process.env.GRANTED_STATE_DIR?.trim()
+    ? `${command} with GRANTED_STATE_DIR set to ${path.dirname(filePath)}`
     : command;
 }
 

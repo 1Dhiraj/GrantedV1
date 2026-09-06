@@ -97,8 +97,8 @@ function runCodexOnDemandAssertions(root: string) {
       ...process.env,
       HOME: path.join(root, "home"),
       NODE_OPTIONS: nodeOptionsWithoutExperimentalWarnings(),
-      OPENCLAW_CONFIG_PATH: path.join(root, "state", "openclaw.json"),
-      OPENCLAW_STATE_DIR: path.join(root, "state"),
+      GRANTED_CONFIG_PATH: path.join(root, "state", "openclaw.json"),
+      GRANTED_STATE_DIR: path.join(root, "state"),
     },
   });
 }
@@ -126,10 +126,9 @@ function runCodexNpmPluginLiveAssertions(params: {
         ...process.env,
         HOME: path.join(params.root, "home"),
         NODE_OPTIONS: nodeOptionsWithoutExperimentalWarnings(),
-        OPENCLAW_STATE_DIR: path.join(params.root, "state"),
-        OPENCLAW_CODEX_NPM_PLUGIN_BINDING_STORE_CONTRACT:
-          params.bindingStoreContract ?? "plugin-kv",
-        OPENCLAW_CODEX_NPM_PLUGIN_SESSION_STORE_CONTRACT: params.sessionStoreContract ?? "sqlite",
+        GRANTED_STATE_DIR: path.join(params.root, "state"),
+        GRANTED_CODEX_NPM_PLUGIN_BINDING_STORE_CONTRACT: params.bindingStoreContract ?? "plugin-kv",
+        GRANTED_CODEX_NPM_PLUGIN_SESSION_STORE_CONTRACT: params.sessionStoreContract ?? "sqlite",
       },
     },
   );
@@ -165,10 +164,9 @@ function runCodexNpmPluginLiveFollowthroughAssertions(params: {
         ...process.env,
         HOME: path.join(params.root, "home"),
         NODE_OPTIONS: nodeOptionsWithoutExperimentalWarnings(),
-        OPENCLAW_STATE_DIR: path.join(params.root, "state"),
-        OPENCLAW_CODEX_NPM_PLUGIN_BINDING_STORE_CONTRACT:
-          params.bindingStoreContract ?? "plugin-kv",
-        OPENCLAW_CODEX_NPM_PLUGIN_SESSION_STORE_CONTRACT: params.sessionStoreContract ?? "sqlite",
+        GRANTED_STATE_DIR: path.join(params.root, "state"),
+        GRANTED_CODEX_NPM_PLUGIN_BINDING_STORE_CONTRACT: params.bindingStoreContract ?? "plugin-kv",
+        GRANTED_CODEX_NPM_PLUGIN_SESSION_STORE_CONTRACT: params.sessionStoreContract ?? "sqlite",
         ...params.assertionEnv,
       },
     },
@@ -182,8 +180,8 @@ function runCodexNpmPluginLiveConfigure(root: string) {
       ...process.env,
       HOME: path.join(root, "home"),
       NODE_OPTIONS: nodeOptionsWithoutExperimentalWarnings(),
-      OPENCLAW_CONFIG_PATH: path.join(root, "state", "openclaw.json"),
-      OPENCLAW_STATE_DIR: path.join(root, "state"),
+      GRANTED_CONFIG_PATH: path.join(root, "state", "openclaw.json"),
+      GRANTED_STATE_DIR: path.join(root, "state"),
     },
   });
 }
@@ -198,8 +196,8 @@ function runCodexNpmPluginLivePluginAssertions(root: string) {
         ...process.env,
         HOME: path.join(root, "home"),
         NODE_OPTIONS: nodeOptionsWithoutExperimentalWarnings(),
-        OPENCLAW_CONFIG_PATH: path.join(root, "state", "openclaw.json"),
-        OPENCLAW_STATE_DIR: path.join(root, "state"),
+        GRANTED_CONFIG_PATH: path.join(root, "state", "openclaw.json"),
+        GRANTED_STATE_DIR: path.join(root, "state"),
       },
     },
   );
@@ -212,8 +210,8 @@ function runCodexNpmPluginLiveDependencyAssertions(root: string) {
       ...process.env,
       HOME: path.join(root, "home"),
       NODE_OPTIONS: nodeOptionsWithoutExperimentalWarnings(),
-      OPENCLAW_CONFIG_PATH: path.join(root, "state", "openclaw.json"),
-      OPENCLAW_STATE_DIR: path.join(root, "state"),
+      GRANTED_CONFIG_PATH: path.join(root, "state", "openclaw.json"),
+      GRANTED_STATE_DIR: path.join(root, "state"),
     },
   });
 }
@@ -980,14 +978,14 @@ describe("Codex install helpers", () => {
           [
             sessionStoreContract,
             "event count",
-            "OPENCLAW_CODEX_NPM_PLUGIN_ASSERT_MAX_TRANSCRIPT_WALK_ENTRIES",
+            "GRANTED_CODEX_NPM_PLUGIN_ASSERT_MAX_TRANSCRIPT_WALK_ENTRIES",
             "2",
             "exceeded 2 events",
           ],
           [
             sessionStoreContract,
             "aggregate bytes",
-            "OPENCLAW_CODEX_NPM_PLUGIN_ASSERT_MAX_TRANSCRIPT_SCAN_BYTES",
+            "GRANTED_CODEX_NPM_PLUGIN_ASSERT_MAX_TRANSCRIPT_SCAN_BYTES",
             "128",
             "exceeded 128 bytes",
           ],

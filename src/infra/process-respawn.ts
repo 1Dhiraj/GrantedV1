@@ -23,14 +23,14 @@ type GatewayRespawnOptions = {
   env?: NodeJS.ProcessEnv;
 };
 
-const PNPM_VERSIONED_OPENCLAW_ENTRY_PATTERN =
+const PNPM_VERSIONED_GRANTED_ENTRY_PATTERN =
   /^(.*?)([\\/])node_modules\2\.pnpm\2openclaw@[^\\/]+\2node_modules\2openclaw\2.+$/;
 
 function rewritePnpmVersionedOpenClawEntryPath(entryPath: string): string {
   // pnpm can expose argv[1] as a versioned realpath that self-update removes.
   // Respawn through the stable OpenClaw package wrapper instead.
   return entryPath.replace(
-    PNPM_VERSIONED_OPENCLAW_ENTRY_PATTERN,
+    PNPM_VERSIONED_GRANTED_ENTRY_PATTERN,
     "$1$2node_modules$2openclaw$2openclaw.mjs",
   );
 }
@@ -38,14 +38,14 @@ function rewritePnpmVersionedOpenClawEntryPath(entryPath: string): string {
 /**
  * Attempt to restart this process with a fresh PID.
  * - supervised environments (launchd/systemd/schtasks): caller should exit and let supervisor restart
- * - OPENCLAW_NO_RESPAWN=1: caller should keep in-process restart behavior (tests/dev)
+ * - GRANTED_NO_RESPAWN=1: caller should keep in-process restart behavior (tests/dev)
  * - unmanaged environments: caller should keep in-process restart behavior so
  *   custom supervisors keep tracking the same gateway PID
  */
 export function restartGatewayProcessWithFreshPid(
   _opts: GatewayRespawnOptions = {},
 ): GatewayRespawnResult {
-  if (isTruthyEnvValue(process.env.OPENCLAW_NO_RESPAWN)) {
+  if (isTruthyEnvValue(process.env.GRANTED_NO_RESPAWN)) {
     return { mode: "disabled" };
   }
   const supervisor = detectGatewayRespawnSupervisor(process.env);
@@ -90,8 +90,8 @@ export function restartGatewayProcessWithFreshPid(
 export function respawnGatewayProcessForUpdate(
   opts: GatewayRespawnOptions = {},
 ): GatewayUpdateRespawnResult {
-  if (isTruthyEnvValue(process.env.OPENCLAW_NO_RESPAWN)) {
-    return { mode: "disabled", detail: "OPENCLAW_NO_RESPAWN" };
+  if (isTruthyEnvValue(process.env.GRANTED_NO_RESPAWN)) {
+    return { mode: "disabled", detail: "GRANTED_NO_RESPAWN" };
   }
   try {
     const [entryArg, ...entryArgs] = process.argv.slice(1);

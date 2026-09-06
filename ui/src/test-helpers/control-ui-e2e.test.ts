@@ -19,7 +19,7 @@ describe("shared proof capture", () => {
 
   it("keeps each failure screenshot and report in its own retained directory", async () => {
     const parent = tempDirs.make("control-ui-failure-proof-");
-    vi.stubEnv("OPENCLAW_UI_E2E_DIAGNOSTIC_DIR", parent);
+    vi.stubEnv("GRANTED_UI_E2E_DIAGNOSTIC_DIR", parent);
     writeFileSync(path.join(parent, "prior.png"), "prior-proof");
     // SAFETY: this fixture implements the Page boundary used by failure diagnostics.
     const page = {
@@ -57,8 +57,8 @@ describe("shared proof capture", () => {
 
   it("keeps shared capture disabled until its gate is enabled and uses the supplied owner", async () => {
     const parent = tempDirs.make("control-ui-proof-capture-");
-    vi.stubEnv("OPENCLAW_UI_E2E_ARTIFACT_DIR", parent);
-    vi.stubEnv("OPENCLAW_CAPTURE_UI_PROOF", "0");
+    vi.stubEnv("GRANTED_UI_E2E_ARTIFACT_DIR", parent);
+    vi.stubEnv("GRANTED_CAPTURE_UI_PROOF", "0");
     let directory: string | undefined;
     const owner = {
       get artifactDir() {
@@ -78,7 +78,7 @@ describe("shared proof capture", () => {
     expect(readdirSync(parent)).toEqual([]);
     expect(screenshot).not.toHaveBeenCalled();
 
-    vi.stubEnv("OPENCLAW_CAPTURE_UI_PROOF", "1");
+    vi.stubEnv("GRANTED_CAPTURE_UI_PROOF", "1");
     await captureSidebarUiProof(owner, page, "state.png");
     expect(readFileSync(path.join(owner.artifactDir, "state.png"), "utf8")).toBe("sidebar-proof");
   });

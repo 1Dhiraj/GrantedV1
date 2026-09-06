@@ -44,7 +44,7 @@ export function validateGatewayWebSocketUrl(value: string): string | undefined {
   }
   if (
     !isSecureWebSocketUrl(trimmed, {
-      allowPrivateWs: process.env.OPENCLAW_ALLOW_INSECURE_PRIVATE_WS === "1",
+      allowPrivateWs: process.env.GRANTED_ALLOW_INSECURE_PRIVATE_WS === "1",
     })
   ) {
     return t("wizard.remote.insecureRemoteUrl");
@@ -209,10 +209,10 @@ export async function promptRemoteGatewayConfig(
         provider: "gateway-remote-token",
         config: cfg,
         prompter,
-        preferredEnvVar: "OPENCLAW_GATEWAY_TOKEN",
+        preferredEnvVar: "GRANTED_GATEWAY_TOKEN",
         copy: {
           sourceMessage: t("wizard.remote.gatewayTokenStoredMessage"),
-          envVarPlaceholder: "OPENCLAW_GATEWAY_TOKEN",
+          envVarPlaceholder: "GRANTED_GATEWAY_TOKEN",
         },
       });
       token = resolved.ref;
@@ -254,10 +254,10 @@ export async function promptRemoteGatewayConfig(
         provider: "gateway-remote-password",
         config: cfg,
         prompter,
-        preferredEnvVar: "OPENCLAW_GATEWAY_PASSWORD",
+        preferredEnvVar: "GRANTED_GATEWAY_PASSWORD",
         copy: {
           sourceMessage: t("wizard.remote.gatewayPasswordStoredMessage"),
-          envVarPlaceholder: "OPENCLAW_GATEWAY_PASSWORD",
+          envVarPlaceholder: "GRANTED_GATEWAY_PASSWORD",
         },
       });
       password = resolved.ref;

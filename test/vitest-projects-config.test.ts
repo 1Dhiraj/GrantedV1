@@ -134,28 +134,28 @@ describe("projects vitest config", () => {
     expect(
       requireTestConfig(
         createGatewayMethodsIsolatedVitestConfig({
-          OPENCLAW_VITEST_INCLUDE_FILE: methodsIncludeFile,
+          GRANTED_VITEST_INCLUDE_FILE: methodsIncludeFile,
         }),
       ).include,
     ).toEqual(scopedGatewayMethodsIsolatedTestFiles);
     expect(
       requireTestConfig(
         createGatewayServerIsolatedVitestConfig({
-          OPENCLAW_VITEST_INCLUDE_FILE: serverIncludeFile,
+          GRANTED_VITEST_INCLUDE_FILE: serverIncludeFile,
         }),
       ).include,
     ).toEqual(gatewayServerIsolatedTestFiles);
     expect(
       requireTestConfig(
         createGatewayMethodsIsolatedVitestConfig({
-          OPENCLAW_VITEST_INCLUDE_FILE: unrelatedIncludeFile,
+          GRANTED_VITEST_INCLUDE_FILE: unrelatedIncludeFile,
         }),
       ).include,
     ).toEqual([]);
     expect(
       requireTestConfig(
         createGatewayServerIsolatedVitestConfig({
-          OPENCLAW_VITEST_INCLUDE_FILE: unrelatedIncludeFile,
+          GRANTED_VITEST_INCLUDE_FILE: unrelatedIncludeFile,
         }),
       ).include,
     ).toEqual([]);
@@ -182,10 +182,10 @@ describe("projects vitest config", () => {
     ]);
 
     expect(
-      requireTestConfig(createConfig({ OPENCLAW_VITEST_INCLUDE_FILE: mixedIncludeFile })).include,
+      requireTestConfig(createConfig({ GRANTED_VITEST_INCLUDE_FILE: mixedIncludeFile })).include,
     ).toEqual([owned]);
     expect(
-      requireTestConfig(createConfig({ OPENCLAW_VITEST_INCLUDE_FILE: unrelatedIncludeFile }))
+      requireTestConfig(createConfig({ GRANTED_VITEST_INCLUDE_FILE: unrelatedIncludeFile }))
         .include,
     ).toEqual([]);
   });
@@ -313,7 +313,7 @@ describe("projects vitest config", () => {
   it("honors explicit worker caps in CI vitest lanes", () => {
     expect(
       resolveSharedVitestWorkerConfig({
-        env: { CI: "true", OPENCLAW_VITEST_MAX_WORKERS: "1" },
+        env: { CI: "true", GRANTED_VITEST_MAX_WORKERS: "1" },
         isCI: true,
         isWindows: false,
         localScheduling: {
@@ -390,7 +390,7 @@ describe("projects vitest config", () => {
     const config = createContractsVitestConfig(
       ["src/channels/plugins/contracts/*-shard-a.contract.test.ts"],
       {
-        OPENCLAW_VITEST_INCLUDE_FILE: includeFile,
+        GRANTED_VITEST_INCLUDE_FILE: includeFile,
       },
     );
 

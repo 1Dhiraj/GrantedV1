@@ -45,7 +45,7 @@ describe("WebSocket message handler load failures", () => {
   });
 
   it("names the restart remedy when the running install changed", async () => {
-    vi.stubEnv("OPENCLAW_PROFILE", "r13");
+    vi.stubEnv("GRANTED_PROFILE", "r13");
     const missingChunk = path.join(
       path.dirname(fileURLToPath(import.meta.url)),
       "missing-message-handler-chunk.js",

@@ -31,16 +31,16 @@ const UNKNOWN_AGENT_ID = "ghost";
 const UNKNOWN_SESSION_KEY = `agent:${UNKNOWN_AGENT_ID}:zzz`;
 
 function requireStateDir(): string {
-  const stateDir = process.env.OPENCLAW_STATE_DIR;
+  const stateDir = process.env.GRANTED_STATE_DIR;
   if (!stateDir) {
-    throw new Error("OPENCLAW_STATE_DIR is required");
+    throw new Error("GRANTED_STATE_DIR is required");
   }
   return stateDir;
 }
 
 function expectAgentStoreAbsent(agentId: string): void {
-  const env = { OPENCLAW_STATE_DIR: requireStateDir() };
-  expect(fs.existsSync(path.join(env.OPENCLAW_STATE_DIR, "agents", agentId))).toBe(false);
+  const env = { GRANTED_STATE_DIR: requireStateDir() };
+  expect(fs.existsSync(path.join(env.GRANTED_STATE_DIR, "agents", agentId))).toBe(false);
   expect(fs.existsSync(resolveOpenClawAgentSqlitePath({ agentId, env }))).toBe(false);
   expect(listOpenClawRegisteredAgentDatabases({ env }).map((entry) => entry.agentId)).not.toContain(
     agentId,
@@ -501,7 +501,7 @@ test("sessions.describe reads a pre-existing store after its agent is removed fr
   );
   await setAgentsConfig({ list: [{ id: "main", default: true }] });
   const registeredBefore = listOpenClawRegisteredAgentDatabases({
-    env: { OPENCLAW_STATE_DIR: requireStateDir() },
+    env: { GRANTED_STATE_DIR: requireStateDir() },
   });
 
   const described = await directSessionReq<{ session: { key: string; sessionId: string } | null }>(
@@ -516,7 +516,7 @@ test("sessions.describe reads a pre-existing store after its agent is removed fr
   expect(await listAgentIdsViaRpc()).toEqual(["main"]);
   expect(
     listOpenClawRegisteredAgentDatabases({
-      env: { OPENCLAW_STATE_DIR: requireStateDir() },
+      env: { GRANTED_STATE_DIR: requireStateDir() },
     }),
   ).toEqual(registeredBefore);
 });
@@ -691,7 +691,7 @@ test("session reads do not provision missing stores for default or configured ag
       fs.existsSync(
         resolveOpenClawAgentSqlitePath({
           agentId,
-          env: { OPENCLAW_STATE_DIR: requireStateDir() },
+          env: { GRANTED_STATE_DIR: requireStateDir() },
         }),
       ),
     ).toBe(false);
@@ -699,7 +699,7 @@ test("session reads do not provision missing stores for default or configured ag
 
   expect(
     listOpenClawRegisteredAgentDatabases({
-      env: { OPENCLAW_STATE_DIR: requireStateDir() },
+      env: { GRANTED_STATE_DIR: requireStateDir() },
     })
       .map((entry) => entry.agentId)
       .filter((agentId) => agentId === "main" || agentId === "work"),

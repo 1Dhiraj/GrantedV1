@@ -43,7 +43,7 @@ describe("resolveSqliteTargetFromSessionStorePath", () => {
   });
 
   it("keeps an incognito sentinel owned by its requested agent", () => {
-    const env = { OPENCLAW_STATE_DIR: tempDirs.make("openclaw-incognito-target-") };
+    const env = { GRANTED_STATE_DIR: tempDirs.make("openclaw-incognito-target-") };
     const databasePath = resolveIncognitoOpenClawAgentSqlitePath({ agentId: "ops", env });
 
     expect(

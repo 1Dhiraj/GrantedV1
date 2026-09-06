@@ -16,9 +16,9 @@ let tempDir: string | undefined;
 let previousStateDir: string | undefined;
 
 beforeEach(() => {
-  previousStateDir = process.env.OPENCLAW_STATE_DIR;
+  previousStateDir = process.env.GRANTED_STATE_DIR;
   tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-feishu-dedup-"));
-  process.env.OPENCLAW_STATE_DIR = tempDir;
+  process.env.GRANTED_STATE_DIR = tempDir;
   feishuDedupeState.reset();
 });
 
@@ -26,9 +26,9 @@ afterEach(() => {
   vi.useRealTimers();
   resetPluginStateStoreForTests();
   if (previousStateDir === undefined) {
-    delete process.env.OPENCLAW_STATE_DIR;
+    delete process.env.GRANTED_STATE_DIR;
   } else {
-    process.env.OPENCLAW_STATE_DIR = previousStateDir;
+    process.env.GRANTED_STATE_DIR = previousStateDir;
   }
   if (tempDir) {
     fs.rmSync(tempDir, { recursive: true, force: true });
@@ -125,7 +125,7 @@ describe("Feishu claimable dedupe", () => {
     // A regular file where the state dir should be makes every SQLite open fail.
     const blockedPath = path.join(tempDir as string, "not-a-dir");
     fs.writeFileSync(blockedPath, "x", "utf8");
-    process.env.OPENCLAW_STATE_DIR = path.join(blockedPath, "nested");
+    process.env.GRANTED_STATE_DIR = path.join(blockedPath, "nested");
     const log = vi.fn();
 
     await expect(

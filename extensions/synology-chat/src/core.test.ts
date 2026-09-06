@@ -86,7 +86,7 @@ beforeEach(() => {
   vi.stubEnv("SYNOLOGY_NAS_HOST", undefined);
   vi.stubEnv("SYNOLOGY_ALLOWED_USER_IDS", undefined);
   vi.stubEnv("SYNOLOGY_RATE_LIMIT", undefined);
-  vi.stubEnv("OPENCLAW_BOT_NAME", undefined);
+  vi.stubEnv("GRANTED_BOT_NAME", undefined);
 });
 
 describe("synology-chat core", () => {
@@ -315,7 +315,7 @@ describe("synology-chat account resolution", () => {
     vi.stubEnv("SYNOLOGY_CHAT_TOKEN", padded);
     vi.stubEnv("SYNOLOGY_CHAT_INCOMING_URL", " https://nas/incoming ");
     vi.stubEnv("SYNOLOGY_NAS_HOST", " 192.0.2.1 ");
-    vi.stubEnv("OPENCLAW_BOT_NAME", " TestBot ");
+    vi.stubEnv("GRANTED_BOT_NAME", " TestBot ");
 
     const cfg = { channels: { "synology-chat": {} } };
     const account = resolveAccount(cfg);
@@ -331,7 +331,7 @@ describe("synology-chat account resolution", () => {
     vi.stubEnv("SYNOLOGY_CHAT_INCOMING_URL", whitespace);
     vi.stubEnv("SYNOLOGY_NAS_HOST", whitespace);
     vi.stubEnv("SYNOLOGY_ALLOWED_USER_IDS", whitespace);
-    vi.stubEnv("OPENCLAW_BOT_NAME", whitespace);
+    vi.stubEnv("GRANTED_BOT_NAME", whitespace);
 
     const account = resolveAccount({ channels: { "synology-chat": {} } });
 

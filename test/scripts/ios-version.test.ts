@@ -22,8 +22,8 @@ describe("resolveIosVersion", () => {
     const script = fs.readFileSync("scripts/ios-write-version-xcconfig.sh", "utf8");
 
     expect(script).toContain('source "${ROOT_DIR}/scripts/lib/build-metadata.sh"');
-    expect(script).toContain("OPENCLAW_GIT_COMMIT = ${RESOLVED_GIT_COMMIT}");
-    expect(script).toContain("OPENCLAW_BUILD_TIMESTAMP = ${RESOLVED_BUILD_TIMESTAMP}");
+    expect(script).toContain("GRANTED_GIT_COMMIT = ${RESOLVED_GIT_COMMIT}");
+    expect(script).toContain("GRANTED_BUILD_TIMESTAMP = ${RESOLVED_BUILD_TIMESTAMP}");
     expect(script).toContain('openclaw_resolve_git_commit "${ROOT_DIR}"');
     expect(script).toContain("openclaw_resolve_build_timestamp");
   });

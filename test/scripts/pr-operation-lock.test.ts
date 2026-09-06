@@ -192,7 +192,7 @@ function bashSource(repoDir: string, supervised = false) {
     "set -euo pipefail",
     ...(supervised
       ? []
-      : ["unset OPENCLAW_PR_LOCK_NOTIFY_FD", "unset OPENCLAW_PR_LOCK_SUPERVISOR_PID"]),
+      : ["unset GRANTED_PR_LOCK_NOTIFY_FD", "unset GRANTED_PR_LOCK_SUPERVISOR_PID"]),
     `source '${worktreeScript}'`,
     `source '${lockScript}'`,
     `source '${commonScript}'`,
@@ -732,9 +732,9 @@ describe("scripts/pr process-group platform guard", () => {
         cwd: repoDir,
         env: {
           ...process.env,
-          OPENCLAW_PR_DEDICATED_PROCESS_GROUP: "1",
-          OPENCLAW_PR_LOCK_NOTIFY_FD: "3",
-          OPENCLAW_PR_LOCK_SUPERVISOR_PID: String(process.pid),
+          GRANTED_PR_DEDICATED_PROCESS_GROUP: "1",
+          GRANTED_PR_LOCK_NOTIFY_FD: "3",
+          GRANTED_PR_LOCK_SUPERVISOR_PID: String(process.pid),
         },
         stdio: "ignore",
       });
@@ -905,18 +905,18 @@ describePosix("scripts/pr per-PR operation lock", () => {
         "#!/usr/bin/env bash",
         "set -euo pipefail",
         'case "$*" in',
-        '  "auth token") printf "token:1\\n" >> "$OPENCLAW_TEST_GH_EVENTS"; exit 1 ;;',
+        '  "auth token") printf "token:1\\n" >> "$GRANTED_TEST_GH_EVENTS"; exit 1 ;;',
         '  "api graphql -f query=query { viewer { login } } --jq .data.viewer.login")',
-        '    if [ "$OPENCLAW_TEST_AUTH_FAILURE" = 1 ]; then',
-        '      printf "viewer:1\\n" >> "$OPENCLAW_TEST_GH_EVENTS"; exit 1',
+        '    if [ "$GRANTED_TEST_AUTH_FAILURE" = 1 ]; then',
+        '      printf "viewer:1\\n" >> "$GRANTED_TEST_GH_EVENTS"; exit 1',
         "    fi",
-        '    printf "viewer:0\\n" >> "$OPENCLAW_TEST_GH_EVENTS"',
+        '    printf "viewer:0\\n" >> "$GRANTED_TEST_GH_EVENTS"',
         '    printf "fixture-user\\n" ;;',
         '  "pr view 42 --json headRefOid")',
-        '    cat "$OPENCLAW_TEST_PR_METADATA"; printf "head:0\\n" >> "$OPENCLAW_TEST_GH_EVENTS" ;;',
+        '    cat "$GRANTED_TEST_PR_METADATA"; printf "head:0\\n" >> "$GRANTED_TEST_GH_EVENTS" ;;',
         '  "pr view 42 --json number,title,state,isDraft,author,baseRefName,headRefName,headRefOid,headRepository,headRepositoryOwner,url,body,labels,assignees,changedFiles,additions,deletions,statusCheckRollup,files")',
-        '    cat "$OPENCLAW_TEST_PR_METADATA"; printf "metadata:0\\n" >> "$OPENCLAW_TEST_GH_EVENTS" ;;',
-        '  *) printf "unexpected:99\\n" >> "$OPENCLAW_TEST_GH_EVENTS"; echo "unexpected fixture gh request" >&2; exit 99 ;;',
+        '    cat "$GRANTED_TEST_PR_METADATA"; printf "metadata:0\\n" >> "$GRANTED_TEST_GH_EVENTS" ;;',
+        '  *) printf "unexpected:99\\n" >> "$GRANTED_TEST_GH_EVENTS"; echo "unexpected fixture gh request" >&2; exit 99 ;;',
         "esac",
       ]);
       chmodSync(gh, 0o755);
@@ -931,29 +931,29 @@ describePosix("scripts/pr per-PR operation lock", () => {
         "#!/usr/bin/env bash",
         "set -euo pipefail",
         'original=("$@")',
-        'prefix=("$OPENCLAW_TEST_REAL_GIT")',
+        'prefix=("$GRANTED_TEST_REAL_GIT")',
         'if [ "${1-}" = -C ]; then prefix+=("$1" "$2"); shift 2; fi',
         'case "${1-}" in --git-dir=*) prefix+=("$1"); shift ;; esac',
         'if [ "${1-}" = fetch ]; then',
         '  refspec=""; for arg in "$@"; do case "$arg" in -*) ;; *) refspec="$arg" ;; esac; done',
         '  target="$refspec"; case "$refspec" in refs/heads/main|+refs/heads/main:*) target=main ;; esac',
-        '  result=0; "$OPENCLAW_TEST_REAL_GIT" "${original[@]}" || result=$?',
-        '  printf "fetch:%s:%s\\n" "$target" "$result" >> "$OPENCLAW_TEST_EVENTS"',
+        '  result=0; "$GRANTED_TEST_REAL_GIT" "${original[@]}" || result=$?',
+        '  printf "fetch:%s:%s\\n" "$target" "$result" >> "$GRANTED_TEST_EVENTS"',
         '  if [ "$target" = main ] && [ "$result" -eq 0 ]; then',
         '    destination=FETCH_HEAD; case "$refspec" in *:*) destination="${refspec#*:}" ;; esac',
         '    fetched=$("${prefix[@]}" rev-parse "$destination")',
-        '    if [ "$destination" = FETCH_HEAD ]; then printf "checkpoint:%s\\n" "$fetched" >> "$OPENCLAW_TEST_EVENTS"; fi',
-        '    if [ "$OPENCLAW_TEST_FAILURE" = second ] && [ ! -e "$OPENCLAW_TEST_FIRST_MAIN" ]; then',
-        '      printf "%s\\n" "$fetched" > "$OPENCLAW_TEST_FIRST_MAIN"',
-        '      "$OPENCLAW_TEST_REAL_GIT" --git-dir="$OPENCLAW_TEST_ORIGIN" update-ref -d refs/heads/main',
+        '    if [ "$destination" = FETCH_HEAD ]; then printf "checkpoint:%s\\n" "$fetched" >> "$GRANTED_TEST_EVENTS"; fi',
+        '    if [ "$GRANTED_TEST_FAILURE" = second ] && [ ! -e "$GRANTED_TEST_FIRST_MAIN" ]; then',
+        '      printf "%s\\n" "$fetched" > "$GRANTED_TEST_FIRST_MAIN"',
+        '      "$GRANTED_TEST_REAL_GIT" --git-dir="$GRANTED_TEST_ORIGIN" update-ref -d refs/heads/main',
         "    fi",
         "  fi",
         '  exit "$result"',
         "fi",
         'case "${1-} ${2-}" in',
-        '  "worktree add"|"checkout "*|"restore "*) printf "mutation:%s\\n" "$1" >> "$OPENCLAW_TEST_EVENTS" ;;',
+        '  "worktree add"|"checkout "*|"restore "*) printf "mutation:%s\\n" "$1" >> "$GRANTED_TEST_EVENTS" ;;',
         "esac",
-        'exec "$OPENCLAW_TEST_REAL_GIT" "${original[@]}"',
+        'exec "$GRANTED_TEST_REAL_GIT" "${original[@]}"',
       ]);
       chmodSync(gitProxy, 0o755);
       if (failure === "first") {
@@ -961,15 +961,15 @@ describePosix("scripts/pr per-PR operation lock", () => {
       }
       const childEnv: NodeJS.ProcessEnv = {
         ...env,
-        OPENCLAW_GH_BIN: gh,
-        OPENCLAW_TEST_PR_METADATA: metadataPath,
-        OPENCLAW_TEST_GH_EVENTS: ghEventsPath,
-        OPENCLAW_TEST_REAL_GIT: realGit,
-        OPENCLAW_TEST_ORIGIN: originDir,
-        OPENCLAW_TEST_EVENTS: eventsPath,
-        OPENCLAW_TEST_FIRST_MAIN: firstMainPath,
-        OPENCLAW_TEST_FAILURE: failure,
-        OPENCLAW_TEST_AUTH_FAILURE: failure === "auth" ? "1" : "0",
+        GRANTED_GH_BIN: gh,
+        GRANTED_TEST_PR_METADATA: metadataPath,
+        GRANTED_TEST_GH_EVENTS: ghEventsPath,
+        GRANTED_TEST_REAL_GIT: realGit,
+        GRANTED_TEST_ORIGIN: originDir,
+        GRANTED_TEST_EVENTS: eventsPath,
+        GRANTED_TEST_FIRST_MAIN: firstMainPath,
+        GRANTED_TEST_FAILURE: failure,
+        GRANTED_TEST_AUTH_FAILURE: failure === "auth" ? "1" : "0",
       };
       const controller = spawn(
         cli,
@@ -1370,11 +1370,11 @@ describePosix("scripts/pr per-PR operation lock", () => {
     installRequiredPrCommandStubs(binDir);
     const env: NodeJS.ProcessEnv = {
       ...process.env,
-      OPENCLAW_PR_DEDICATED_PROCESS_GROUP: "1",
+      GRANTED_PR_DEDICATED_PROCESS_GROUP: "1",
       PATH: `${binDir}:${process.env.PATH ?? ""}`,
     };
-    delete env.OPENCLAW_PR_LOCK_NOTIFY_FD;
-    delete env.OPENCLAW_PR_LOCK_SUPERVISOR_PID;
+    delete env.GRANTED_PR_LOCK_NOTIFY_FD;
+    delete env.GRANTED_PR_LOCK_SUPERVISOR_PID;
     const result = spawnSync(cli, ["review-init", "42"], {
       cwd: repoDir,
       encoding: "utf8",
@@ -1732,7 +1732,7 @@ describePosix("scripts/pr per-PR operation lock", () => {
         "acquire_pr_operation_lock 42",
         `printf '%s\\n' "$PR_OPERATION_LOCK_OWNER_OID" > '${ownerFile}'`,
         "begin_pr_operation_validation_phase",
-        ...(failure === "notification" ? ["OPENCLAW_PR_LOCK_NOTIFY_FD=invalid"] : []),
+        ...(failure === "notification" ? ["GRANTED_PR_LOCK_NOTIFY_FD=invalid"] : []),
         "fetch_count=0",
         "gh_plain() {",
         `  printf 'auth\\n' >> '${traceFile}'`,
@@ -1855,21 +1855,21 @@ describePosix("scripts/pr per-PR operation lock", () => {
         'case "$*" in',
         '  "auth token") exit 1 ;;',
         '  "api graphql --hostname "*)',
-        '    state=OPEN; if grep -q "^merged$" "$OPENCLAW_TEST_LIFECYCLE"; then state=MERGED; fi',
+        '    state=OPEN; if grep -q "^merged$" "$GRANTED_TEST_LIFECYCLE"; then state=MERGED; fi',
         `    jq -cn --arg state "$state" --arg head '${preparedHead}' '{data:{repository:{id:"fixture-repo",url:"https://github.com/fixture/repo",nameWithOwner:"fixture/repo",ref:{target:{oid:$head}},pullRequest:{id:"fixture-pr",number:42,url:"https://github.com/fixture/repo/pull/42",state:$state,headRefOid:$head,baseRefName:"main",isDraft:false,mergeCommit:(if $state=="MERGED" then {oid:$head} else null end),autoMergeRequest:null,isInMergeQueue:false,isMergeQueueEnabled:false,mergeable:"MERGEABLE",mergeStateStatus:"CLEAN"}}}}' ;;`,
         '  "api graphql "*) printf "fixture-user\\n" ;;',
         '  "pr merge 42 "*)',
-        '    git rev-parse refs/openclaw/pr-operation-locks/42 > "$OPENCLAW_TEST_OWNER"',
-        '    if [ "$OPENCLAW_TEST_FAILURE" = merge ]; then echo "fixture merge failed" >&2; exit 7; fi',
-        '    printf "merged\\n" >> "$OPENCLAW_TEST_LIFECYCLE" ;;',
+        '    git rev-parse refs/openclaw/pr-operation-locks/42 > "$GRANTED_TEST_OWNER"',
+        '    if [ "$GRANTED_TEST_FAILURE" = merge ]; then echo "fixture merge failed" >&2; exit 7; fi',
+        '    printf "merged\\n" >> "$GRANTED_TEST_LIFECYCLE" ;;',
         '  "pr view 42 --json state --jq .state") printf "MERGED\\n" ;;',
         '  "repo view --json id,nameWithOwner,url")',
-        '    printf "invocation\\t%s\\n" "$PWD" >> "$OPENCLAW_TEST_LIFECYCLE"',
+        '    printf "invocation\\t%s\\n" "$PWD" >> "$GRANTED_TEST_LIFECYCLE"',
         `    printf '%s\\n' '{"id":"fixture-repo","url":"https://github.com/fixture/repo","nameWithOwner":"fixture/repo"}' ;;`,
         '  "repo view "*) printf "fixture/repo\\n" ;;',
         `  "api --hostname github.com --paginate --slurp repos/fixture/repo/issues/42/comments?per_page=100 -H Cache-Control: max-age=0") printf '%s\\n' ${JSON.stringify(reviewComments)} ;;`,
         '  "api --hostname github.com --method POST repos/fixture/repo/issues/42/comments "*)',
-        '    printf "comment\\n" >> "$OPENCLAW_TEST_LIFECYCLE"',
+        '    printf "comment\\n" >> "$GRANTED_TEST_LIFECYCLE"',
         '    printf "https://example.invalid/comment\\n" ;;',
         `  "pr view 42 --repo "*) printf '%s\\n' '{"headRefName":""}' ;;`,
         '  *) echo "unexpected fixture gh call: $*" >&2; exit 99 ;;',
@@ -1883,17 +1883,17 @@ describePosix("scripts/pr per-PR operation lock", () => {
         "set -euo pipefail",
         'case "$*" in',
         '  "worktree remove "*)',
-        '    "$OPENCLAW_TEST_REAL_GIT" "$@"',
-        '    printf "removed\\n" >> "$OPENCLAW_TEST_LIFECYCLE"',
-        '    if [ "$OPENCLAW_TEST_FAILURE" = release ]; then : > "$OPENCLAW_TEST_REF_LOCK"; fi',
+        '    "$GRANTED_TEST_REAL_GIT" "$@"',
+        '    printf "removed\\n" >> "$GRANTED_TEST_LIFECYCLE"',
+        '    if [ "$GRANTED_TEST_FAILURE" = release ]; then : > "$GRANTED_TEST_REF_LOCK"; fi',
         "    exit 0 ;;",
         '  *"update-ref --no-deref -d refs/openclaw/pr-operation-locks/42 "*)',
-        '    pwd -P > "$OPENCLAW_TEST_RELEASE_CWD"',
-        '    "$OPENCLAW_TEST_REAL_GIT" "$@"',
-        '    printf "released\\n" >> "$OPENCLAW_TEST_LIFECYCLE"',
+        '    pwd -P > "$GRANTED_TEST_RELEASE_CWD"',
+        '    "$GRANTED_TEST_REAL_GIT" "$@"',
+        '    printf "released\\n" >> "$GRANTED_TEST_LIFECYCLE"',
         "    exit 0 ;;",
         "esac",
-        'exec "$OPENCLAW_TEST_REAL_GIT" "$@"',
+        'exec "$GRANTED_TEST_REAL_GIT" "$@"',
       ]);
       chmodSync(gitShim, 0o755);
       const result = spawnSync(
@@ -1905,15 +1905,15 @@ describePosix("scripts/pr per-PR operation lock", () => {
           timeout: 15_000,
           env: {
             ...process.env,
-            OPENCLAW_GH_BIN: gh,
-            OPENCLAW_PR_AUTO_MERGE: "0",
-            OPENCLAW_PR_MERGE_METHOD: "merge",
-            OPENCLAW_TEST_FAILURE: failure,
-            OPENCLAW_TEST_LIFECYCLE: lifecycle,
-            OPENCLAW_TEST_OWNER: ownerFile,
-            OPENCLAW_TEST_REAL_GIT: realGit,
-            OPENCLAW_TEST_REF_LOCK: refLock,
-            OPENCLAW_TEST_RELEASE_CWD: releaseCwd,
+            GRANTED_GH_BIN: gh,
+            GRANTED_PR_AUTO_MERGE: "0",
+            GRANTED_PR_MERGE_METHOD: "merge",
+            GRANTED_TEST_FAILURE: failure,
+            GRANTED_TEST_LIFECYCLE: lifecycle,
+            GRANTED_TEST_OWNER: ownerFile,
+            GRANTED_TEST_REAL_GIT: realGit,
+            GRANTED_TEST_REF_LOCK: refLock,
+            GRANTED_TEST_RELEASE_CWD: releaseCwd,
             PATH: `${binDir}${delimiter}${process.env.PATH ?? ""}`,
           },
         },
@@ -1956,7 +1956,7 @@ describePosix("scripts/pr per-PR operation lock", () => {
   it("reports exact recovery when lock notification fails", () => {
     const repoDir = createRepo();
     const result = runLockShell(repoDir, [
-      "OPENCLAW_PR_LOCK_NOTIFY_FD=9",
+      "GRANTED_PR_LOCK_NOTIFY_FD=9",
       "set +e",
       "acquire_pr_operation_lock 42",
       "lock_status=$?",
@@ -1981,7 +1981,7 @@ describePosix("scripts/pr per-PR operation lock", () => {
       const foreignOid = refOid(repoDir, foreignRef);
       const result = await runSupervisedOperation(repoDir, "forged-notification.sh", [
         "acquire_pr_operation_lock 42",
-        `printf '%s\\t%s\\n' '${foreignRef}' '${foreignOid}' >&"$OPENCLAW_PR_LOCK_NOTIFY_FD"`,
+        `printf '%s\\t%s\\n' '${foreignRef}' '${foreignOid}' >&"$GRANTED_PR_LOCK_NOTIFY_FD"`,
       ]);
       expect(result.status, `${result.stdout}\n${result.stderr}`).toBe(1);
       expect(refOid(repoDir, foreignRef)).toBe(foreignOid);
@@ -2016,7 +2016,7 @@ describePosix("scripts/pr per-PR operation lock", () => {
     const repoDir = createRepo();
     const result = await runSupervisedOperation(repoDir, fixture, [
       "acquire_pr_operation_lock 42",
-      `${command} >&"$OPENCLAW_PR_LOCK_NOTIFY_FD"`,
+      `${command} >&"$GRANTED_PR_LOCK_NOTIFY_FD"`,
     ]);
     const ownerOid = refOid(repoDir);
     expect(result.status, `${result.stdout}\n${result.stderr}`).toBe(1);

@@ -59,7 +59,7 @@ function approvalPreferences(params: {
     ? getUserPreferences(
         profileId,
         [WEB_PUSH_USER_PREFERENCES_KEY],
-        params.stateDir ? { env: { ...process.env, OPENCLAW_STATE_DIR: params.stateDir } } : {},
+        params.stateDir ? { env: { ...process.env, GRANTED_STATE_DIR: params.stateDir } } : {},
       )[WEB_PUSH_USER_PREFERENCES_KEY]
     : undefined;
   return resolveEffectiveWebPushPreferences({
@@ -272,7 +272,7 @@ export function createApprovalWebPushDelivery(params: {
         : getOperatorApprovalDetailed({
             id: approval.id,
             databaseOptions: params.stateDir
-              ? { env: { ...process.env, OPENCLAW_STATE_DIR: params.stateDir } }
+              ? { env: { ...process.env, GRANTED_STATE_DIR: params.stateDir } }
               : undefined,
           });
       const durableRecord = durableLookup?.outcome === "found" ? durableLookup.record : null;

@@ -47,7 +47,7 @@ async function registerDirectApnsRegistration(params: {
 }
 
 function databaseEnv(baseDir: string): NodeJS.ProcessEnv {
-  return { ...process.env, OPENCLAW_STATE_DIR: baseDir };
+  return { ...process.env, GRANTED_STATE_DIR: baseDir };
 }
 
 afterEach(async () => {

@@ -462,7 +462,7 @@ describe("resolveGatewayProgramArguments", () => {
         runtime: "node",
         wrapperPath,
       }),
-    ).rejects.toThrow("OPENCLAW_WRAPPER must point to an executable file");
+    ).rejects.toThrow("GRANTED_WRAPPER must point to an executable file");
   });
 });
 

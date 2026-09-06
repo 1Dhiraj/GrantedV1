@@ -693,7 +693,7 @@ describe("prepareAgentRuntimeAuthPlan", () => {
             keyRef: {
               source: "env",
               provider: "default",
-              id: "OPENCLAW_TEST_MISSING_PREPARED_AUTH",
+              id: "GRANTED_TEST_MISSING_PREPARED_AUTH",
             },
           },
           "openai:backup": openAIApiKeyProfile("backup-key"),

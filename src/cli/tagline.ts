@@ -317,7 +317,7 @@ export function pickTagline(options: TaglineOptions = {}): string {
     return DEFAULT_TAGLINE;
   }
   const env = options.env ?? process.env;
-  const override = env?.OPENCLAW_TAGLINE_INDEX;
+  const override = env?.GRANTED_TAGLINE_INDEX;
   if (override !== undefined) {
     const parsed = parseStrictNonNegativeInteger(override);
     if (parsed !== undefined) {

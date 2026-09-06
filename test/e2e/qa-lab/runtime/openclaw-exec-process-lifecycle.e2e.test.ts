@@ -110,7 +110,7 @@ test("OpenClaw executes and controls the complete real process lifecycle", async
       getProcessSupervisor().spawn({
         mode: "child",
         argv: ["/definitely/not/a/real-openclaw-command"],
-        env: { OPENCLAW_CHILD_OOM_SCORE_ADJ: "0" },
+        env: { GRANTED_CHILD_OOM_SCORE_ADJ: "0" },
         runId: missingRunId,
         sessionId: missingRunId,
         backendId: "qa-process-lifecycle",
@@ -124,8 +124,8 @@ test("OpenClaw executes and controls the complete real process lifecycle", async
     const shellMarker = `shell-route-${process.pid}`;
     const foregroundCommand =
       process.platform === "win32"
-        ? `Write-Output -NoNewline ${shellQuote(shellMarker)}; Write-Output -NoNewline "|$env:OPENCLAW_SHELL"`
-        : `printf '%s' ${shellQuote(shellMarker)} && printf '|%s' "$OPENCLAW_SHELL"`;
+        ? `Write-Output -NoNewline ${shellQuote(shellMarker)}; Write-Output -NoNewline "|$env:GRANTED_SHELL"`
+        : `printf '%s' ${shellQuote(shellMarker)} && printf '|%s' "$GRANTED_SHELL"`;
     const foreground = await foregroundExecTool.execute("foreground-shell", {
       command: foregroundCommand,
     });
@@ -202,7 +202,7 @@ test("OpenClaw executes and controls the complete real process lifecycle", async
     const ptyMarker = `pty-route-${process.pid}`;
     const pty = await foregroundExecTool.execute("foreground-pty", {
       command: nodeEvalCommand(
-        `process.stdout.write(${JSON.stringify(ptyMarker + ":")} + String(Boolean(process.stdout.isTTY)) + ":" + (process.env.OPENCLAW_SHELL || ""));`,
+        `process.stdout.write(${JSON.stringify(ptyMarker + ":")} + String(Boolean(process.stdout.isTTY)) + ":" + (process.env.GRANTED_SHELL || ""));`,
       ),
       pty: true,
     });

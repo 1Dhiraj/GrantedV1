@@ -22,8 +22,8 @@ export function listAuthProfileStoreTargets(
   // ambient process env, so scans do not include unrelated host-global stores.
   const scopedEnv = {
     ...env,
-    OPENCLAW_STATE_DIR: stateDir,
-    OPENCLAW_AGENT_DIR: undefined,
+    GRANTED_STATE_DIR: stateDir,
+    GRANTED_AGENT_DIR: undefined,
   };
   const addTarget = (target: AuthProfileStoreTarget) => {
     const key = path.resolve(target.path);

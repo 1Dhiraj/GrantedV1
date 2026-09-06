@@ -9,8 +9,8 @@ import { CODEX_INTERACTIVE_THREAD_SOURCE_KINDS } from "./app-server/protocol.js"
 import { createIsolatedCodexAppServerClient } from "./app-server/shared-client.js";
 
 const LIVE =
-  process.env.OPENCLAW_LIVE_TEST === "1" &&
-  process.env.OPENCLAW_LIVE_CODEX_THREAD_COEXISTENCE === "1";
+  process.env.GRANTED_LIVE_TEST === "1" &&
+  process.env.GRANTED_LIVE_CODEX_THREAD_COEXISTENCE === "1";
 const describeLive = LIVE ? describe : describe.skip;
 
 async function withClient<T>(

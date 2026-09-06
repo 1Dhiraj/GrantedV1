@@ -21,12 +21,12 @@ const QA_GATEWAY_CHILD_BLOCKED_ENV_VARS = Object.freeze([
   "BASH_ENV",
   "BASHOPTS",
   "ENV",
-  "OPENCLAW_QA_CONVEX_SECRET_CI",
-  "OPENCLAW_QA_CONVEX_SECRET_MAINTAINER",
-  "OPENCLAW_QA_SUT_FORBIDDEN_SENTINEL",
-  "OPENCLAW_QA_TELEGRAM_GROUP_ID",
-  "OPENCLAW_QA_TELEGRAM_DRIVER_BOT_TOKEN",
-  "OPENCLAW_QA_TELEGRAM_SUT_BOT_TOKEN",
+  "GRANTED_QA_CONVEX_SECRET_CI",
+  "GRANTED_QA_CONVEX_SECRET_MAINTAINER",
+  "GRANTED_QA_SUT_FORBIDDEN_SENTINEL",
+  "GRANTED_QA_TELEGRAM_GROUP_ID",
+  "GRANTED_QA_TELEGRAM_DRIVER_BOT_TOKEN",
+  "GRANTED_QA_TELEGRAM_SUT_BOT_TOKEN",
   "SHELLOPTS",
 ]);
 
@@ -88,43 +88,43 @@ export function buildQaRuntimeEnv(params: {
           claudeCliAuthMode: params.claudeCliAuthMode,
         })
       : {}),
-    OPENCLAW_HOME: params.homeDir,
-    OPENCLAW_CONFIG_PATH: params.configPath,
-    OPENCLAW_STATE_DIR: params.stateDir,
-    OPENCLAW_OAUTH_DIR: path.join(params.stateDir, "credentials"),
-    OPENCLAW_GATEWAY_TOKEN: params.gatewayToken,
-    OPENCLAW_SKIP_BROWSER_CONTROL_SERVER: "1",
-    OPENCLAW_SKIP_GMAIL_WATCHER: "1",
-    OPENCLAW_SKIP_CANVAS_HOST: "1",
-    OPENCLAW_SKIP_STARTUP_MODEL_PREWARM: "1",
-    OPENCLAW_NO_RESPAWN: "1",
-    OPENCLAW_TEST_FAST: "1",
-    OPENCLAW_EMBEDDED_ABORT_SETTLE_TIMEOUT_MS: "2000",
-    OPENCLAW_QA_PARENT_PID: String(process.pid),
-    OPENCLAW_QA_TEMP_ROOT: params.tempRoot,
+    GRANTED_HOME: params.homeDir,
+    GRANTED_CONFIG_PATH: params.configPath,
+    GRANTED_STATE_DIR: params.stateDir,
+    GRANTED_OAUTH_DIR: path.join(params.stateDir, "credentials"),
+    GRANTED_GATEWAY_TOKEN: params.gatewayToken,
+    GRANTED_SKIP_BROWSER_CONTROL_SERVER: "1",
+    GRANTED_SKIP_GMAIL_WATCHER: "1",
+    GRANTED_SKIP_CANVAS_HOST: "1",
+    GRANTED_SKIP_STARTUP_MODEL_PREWARM: "1",
+    GRANTED_NO_RESPAWN: "1",
+    GRANTED_TEST_FAST: "1",
+    GRANTED_EMBEDDED_ABORT_SETTLE_TIMEOUT_MS: "2000",
+    GRANTED_QA_PARENT_PID: String(process.pid),
+    GRANTED_QA_TEMP_ROOT: params.tempRoot,
     ...(params.stagedBundledPluginsRoot
-      ? { OPENCLAW_QA_STAGED_RUNTIME_ROOT: params.stagedBundledPluginsRoot }
+      ? { GRANTED_QA_STAGED_RUNTIME_ROOT: params.stagedBundledPluginsRoot }
       : {}),
-    OPENCLAW_QA_ALLOW_LOCAL_IMAGE_PROVIDER: "1",
+    GRANTED_QA_ALLOW_LOCAL_IMAGE_PROVIDER: "1",
     // QA uses the fast runtime envelope for speed, but it still exercises
     // normal config-driven heartbeats and runtime config writes.
-    OPENCLAW_ALLOW_SLOW_REPLY_TESTS: "1",
+    GRANTED_ALLOW_SLOW_REPLY_TESTS: "1",
     XDG_CONFIG_HOME: params.xdgConfigHome,
     XDG_DATA_HOME: params.xdgDataHome,
     XDG_CACHE_HOME: params.xdgCacheHome,
-    ...(params.bundledPluginsDir ? { OPENCLAW_BUNDLED_PLUGINS_DIR: params.bundledPluginsDir } : {}),
+    ...(params.bundledPluginsDir ? { GRANTED_BUNDLED_PLUGINS_DIR: params.bundledPluginsDir } : {}),
     ...(params.compatibilityHostVersion
-      ? { OPENCLAW_COMPATIBILITY_HOST_VERSION: params.compatibilityHostVersion }
+      ? { GRANTED_COMPATIBILITY_HOST_VERSION: params.compatibilityHostVersion }
       : {}),
   };
   const normalizedEnv = normalizeQaProviderModeEnv(env, params.providerMode);
   // Test-runner skip flags are parent controls; each QA child declares its own runtime needs.
-  delete normalizedEnv.OPENCLAW_SKIP_CHANNELS;
-  delete normalizedEnv.OPENCLAW_SKIP_PROVIDERS;
+  delete normalizedEnv.GRANTED_SKIP_CHANNELS;
+  delete normalizedEnv.GRANTED_SKIP_PROVIDERS;
   Object.assign(normalizedEnv, params.runtimeEnvPatch);
   // Parent shell startup controls must be removed after caller patches so no
   // launcher or runtime child can import them before its own allowlist runs.
-  normalizedEnv.OPENCLAW_BUILD_PRIVATE_QA = "1";
+  normalizedEnv.GRANTED_BUILD_PRIVATE_QA = "1";
   delete normalizedEnv[QA_LIVE_ANTHROPIC_SETUP_TOKEN_ENV];
   delete normalizedEnv[QA_LIVE_SETUP_TOKEN_VALUE_ENV];
   return scrubQaGatewayChildEnv(scrubQaGatewayChildTestRunnerEnv(normalizedEnv));
@@ -169,14 +169,14 @@ export function buildQaForcedRuntimeEnvPatch(params: {
     return undefined;
   }
   const patch: NodeJS.ProcessEnv = {
-    OPENCLAW_BUILD_PRIVATE_QA: "1",
-    OPENCLAW_QA_FORCE_RUNTIME: params.forcedRuntime,
+    GRANTED_BUILD_PRIVATE_QA: "1",
+    GRANTED_QA_FORCE_RUNTIME: params.forcedRuntime,
   };
   if (params.forcedRuntime !== "codex") {
     return patch;
   }
   if (params.providerMode !== "mock-openai") {
-    patch.OPENCLAW_CODEX_APP_SERVER_ARGS = buildQaCodexAppServerArgs({
+    patch.GRANTED_CODEX_APP_SERVER_ARGS = buildQaCodexAppServerArgs({
       existingArgs: params.nativeAppServerArgs,
     });
     return patch;
@@ -188,7 +188,7 @@ export function buildQaForcedRuntimeEnvPatch(params: {
   if (!params.codexModelCatalogPath) {
     throw new Error("forced Codex mock QA requires the staged native model catalog");
   }
-  patch.OPENCLAW_CODEX_APP_SERVER_ARGS = buildQaCodexAppServerArgs({
+  patch.GRANTED_CODEX_APP_SERVER_ARGS = buildQaCodexAppServerArgs({
     providerBaseUrl,
     modelCatalogPath: params.codexModelCatalogPath,
   });

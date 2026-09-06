@@ -21,13 +21,13 @@ const ROUND_TRIP_VALUES = [
 
 describe("systemd unit value round-trips", () => {
   it.each(ROUND_TRIP_VALUES)("round-trips %p through Environment=", (value) => {
-    const rendered = renderSystemdEnvAssignment("OPENCLAW_TOKEN", value);
-    expect(parseSystemdEnvAssignments(rendered)).toEqual([{ key: "OPENCLAW_TOKEN", value }]);
+    const rendered = renderSystemdEnvAssignment("GRANTED_TOKEN", value);
+    expect(parseSystemdEnvAssignments(rendered)).toEqual([{ key: "GRANTED_TOKEN", value }]);
   });
 
   it.each(ROUND_TRIP_VALUES)("round-trips %p through ExecStart=", (value) => {
     const unit = buildSystemdUnit({
-      description: "OpenClaw Gateway",
+      description: "Granted Gateway",
       programArguments: ["/usr/bin/openclaw", "gateway", value],
       environment: {},
     });
@@ -64,7 +64,7 @@ describe("buildSystemdUnit", () => {
 
   it("quotes arguments with whitespace", () => {
     const unit = buildSystemdUnit({
-      description: "OpenClaw Gateway",
+      description: "Granted Gateway",
       programArguments: ["/usr/bin/openclaw", "gateway", "--name", "My Bot"],
       environment: {},
     });
@@ -74,7 +74,7 @@ describe("buildSystemdUnit", () => {
 
   it("renders control-group kill mode for child-process cleanup", () => {
     const unit = buildSystemdUnit({
-      description: "OpenClaw Gateway",
+      description: "Granted Gateway",
       programArguments: ["/usr/bin/openclaw", "gateway", "run"],
       environment: {},
     });
@@ -91,7 +91,7 @@ describe("buildSystemdUnit", () => {
   it("rejects environment values with line breaks", () => {
     expect(() =>
       buildSystemdUnit({
-        description: "OpenClaw Gateway",
+        description: "Granted Gateway",
         programArguments: ["/usr/bin/openclaw", "gateway", "start"],
         environment: {
           INJECT: "ok\nExecStartPre=/bin/touch /tmp/oc15789_rce",
@@ -102,17 +102,17 @@ describe("buildSystemdUnit", () => {
 
   it("renders EnvironmentFile entries before inline Environment values", () => {
     const unit = buildSystemdUnit({
-      description: "OpenClaw Gateway",
+      description: "Granted Gateway",
       programArguments: ["/usr/bin/openclaw", "gateway", "run"],
       environmentFiles: ["/home/test/.openclaw/.env"],
       environment: {
-        OPENCLAW_GATEWAY_PORT: "18789",
+        GRANTED_GATEWAY_PORT: "18789",
       },
     });
     expect(unit).toContain("EnvironmentFile=-/home/test/.openclaw/.env");
-    expect(unit).toContain("Environment=OPENCLAW_GATEWAY_PORT=18789");
+    expect(unit).toContain("Environment=GRANTED_GATEWAY_PORT=18789");
     expect(unit.indexOf("EnvironmentFile=-/home/test/.openclaw/.env")).toBeLessThan(
-      unit.indexOf("Environment=OPENCLAW_GATEWAY_PORT=18789"),
+      unit.indexOf("Environment=GRANTED_GATEWAY_PORT=18789"),
     );
   });
 });

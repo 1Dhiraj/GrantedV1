@@ -29,7 +29,7 @@ describe("memory forget curated writes", () => {
     stateDir = await fs.realpath(await createTempWorkspace("memory-forget-curated-writes-"));
     workspaceDir = path.join(stateDir, "workspace");
     await fs.mkdir(workspaceDir);
-    vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
+    vi.stubEnv("GRANTED_STATE_DIR", stateDir);
     await configureMemoryCoreDreamingStateForTests();
     cfg = {
       agents: { defaults: { workspace: workspaceDir }, list: [{ id: "main", default: true }] },

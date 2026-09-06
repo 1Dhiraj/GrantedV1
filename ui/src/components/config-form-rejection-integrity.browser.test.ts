@@ -322,7 +322,7 @@ describe("config form rejection integrity", () => {
             type: "object",
             additionalProperties: { type: "string" },
           },
-          value: { primary: "__OPENCLAW_REDACTED__", plain: "visible" },
+          value: { primary: "__GRANTED_REDACTED__", plain: "visible" },
           path: ["secrets"],
           hints: {},
           unsupported: new Set(),
@@ -353,7 +353,7 @@ describe("config form rejection integrity", () => {
     plainKey.value = "renamed";
     plainKey.dispatchEvent(new Event("change", { bubbles: true }));
     expect(onPatch).toHaveBeenCalledWith(["secrets"], {
-      primary: "__OPENCLAW_REDACTED__",
+      primary: "__GRANTED_REDACTED__",
       renamed: "visible",
     });
     container.remove();

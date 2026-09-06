@@ -30,7 +30,7 @@ describe("Nostr SecretRef runtime ownership", () => {
       }
       const root = tempDirs.make("openclaw-nostr-secret-");
       const env = {
-        OPENCLAW_STATE_DIR: path.join(root, "state"),
+        GRANTED_STATE_DIR: path.join(root, "state"),
         PATH: process.env.PATH ?? "",
         NOSTR_ENV_KEY: NOSTR_TEST_PRIVATE_KEY,
       };

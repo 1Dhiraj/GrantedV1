@@ -254,8 +254,8 @@ async function materializeAuditGatewayAuthRefs(params: {
     mode: params.cfg.gateway?.auth?.mode,
     hasTokenOverride: false,
     hasPasswordOverride: false,
-    hasTokenFallback: Boolean(normalizeOptionalString(params.env.OPENCLAW_GATEWAY_TOKEN)),
-    hasPasswordFallback: Boolean(normalizeOptionalString(params.env.OPENCLAW_GATEWAY_PASSWORD)),
+    hasTokenFallback: Boolean(normalizeOptionalString(params.env.GRANTED_GATEWAY_TOKEN)),
+    hasPasswordFallback: Boolean(normalizeOptionalString(params.env.GRANTED_GATEWAY_PASSWORD)),
   };
   if (!canMaterializeGatewayAuthSecretRefsWithoutExec(materializeParams)) {
     return params.cfg;

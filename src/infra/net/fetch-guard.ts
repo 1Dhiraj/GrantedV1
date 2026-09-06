@@ -141,7 +141,7 @@ type GuardedFetchPresetOptions = Omit<
 >;
 
 const DEFAULT_MAX_REDIRECTS = 3;
-const OPENCLAW_DEBUG_PROXY_ENABLED = "OPENCLAW_DEBUG_PROXY_ENABLED";
+const GRANTED_DEBUG_PROXY_ENABLED = "GRANTED_DEBUG_PROXY_ENABLED";
 
 function getRedirectVisitKey(url: string, init: RequestInit | undefined): string {
   return `${init?.method?.toUpperCase() ?? "GET"} ${url}`;
@@ -182,7 +182,7 @@ function resolveGuardedFetchMode(params: GuardedFetchOptions): GuardedFetchMode 
 }
 
 function isManagedProxyActive(): boolean {
-  return process.env["OPENCLAW_PROXY_ACTIVE"] === "1";
+  return process.env["GRANTED_PROXY_ACTIVE"] === "1";
 }
 
 function assertExplicitProxySupportsPinnedDns(
@@ -306,7 +306,7 @@ async function captureGuardedFetchExchange(params: {
   auditContext?: string;
   capturedByGlobalFetchPatch?: boolean;
 }): Promise<void> {
-  if (params.capture === false || !isTruthyEnvValue(process.env[OPENCLAW_DEBUG_PROXY_ENABLED])) {
+  if (params.capture === false || !isTruthyEnvValue(process.env[GRANTED_DEBUG_PROXY_ENABLED])) {
     return;
   }
   const { captureHttpExchange, isDebugProxyGlobalFetchPatchInstalled } =

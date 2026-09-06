@@ -83,7 +83,7 @@ export const tempDirs: string[] = [];
 beforeEach(() => {
   const stateDir = fsSync.mkdtempSync(path.join(os.tmpdir(), "codex-catalog-owner-"));
   tempDirs.push(stateDir);
-  vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
+  vi.stubEnv("GRANTED_STATE_DIR", stateDir);
   nodeHostMocks.runNodePtyCommand.mockClear();
   nodeHostMocks.userShellPaths.clear();
   commandRpcMocks.codexControlRequest.mockReset();

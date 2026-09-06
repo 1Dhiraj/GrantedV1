@@ -786,15 +786,15 @@ describe.runIf(nativeIntegrationEnabled)("schtasks Windows integration", () => {
       APPDATA: path.join(rootDir, "appdata"),
       HOME: accountHome,
       USERPROFILE: accountHome,
-      OPENCLAW_CONFIG_PATH: path.join(stateDir, "openclaw.json"),
-      OPENCLAW_GATEWAY_PORT: String(gatewayPort),
-      OPENCLAW_HOME: undefined,
-      OPENCLAW_PROFILE: profile,
-      OPENCLAW_STATE_DIR: stateDir,
-      OPENCLAW_TASK_SCRIPT: undefined,
-      OPENCLAW_TASK_SCRIPT_NAME: undefined,
-      OPENCLAW_WINDOWS_TASK_HIDDEN_LAUNCHER: "1",
-      OPENCLAW_WINDOWS_TASK_NAME: undefined,
+      GRANTED_CONFIG_PATH: path.join(stateDir, "openclaw.json"),
+      GRANTED_GATEWAY_PORT: String(gatewayPort),
+      GRANTED_HOME: undefined,
+      GRANTED_PROFILE: profile,
+      GRANTED_STATE_DIR: stateDir,
+      GRANTED_TASK_SCRIPT: undefined,
+      GRANTED_TASK_SCRIPT_NAME: undefined,
+      GRANTED_WINDOWS_TASK_HIDDEN_LAUNCHER: "1",
+      GRANTED_WINDOWS_TASK_NAME: undefined,
     };
     const scriptPath = resolveTaskScriptPath(env);
     const launcherPath = resolveTaskLauncherScriptPath(env, scriptPath);
@@ -814,7 +814,7 @@ describe.runIf(nativeIntegrationEnabled)("schtasks Windows integration", () => {
     try {
       await withEnvAsync(env, async () => {
         const startupFallbackProof = await proof.proveNativeStartupFallbackLaunch({ env, rootDir });
-        const defaultTaskBefore = await readTaskDefinitionSnapshot("OpenClaw Gateway");
+        const defaultTaskBefore = await readTaskDefinitionSnapshot("Granted Gateway");
         const service = resolveGatewayService();
         const readRuntime = () => service.readRuntime(env);
 
@@ -828,8 +828,8 @@ describe.runIf(nativeIntegrationEnabled)("schtasks Windows integration", () => {
           programArguments,
           workingDirectory: rootDir,
           environment: {
-            OPENCLAW_GATEWAY_PORT: String(gatewayPort),
-            OPENCLAW_SERVICE_KIND: "gateway",
+            GRANTED_GATEWAY_PORT: String(gatewayPort),
+            GRANTED_SERVICE_KIND: "gateway",
           },
           description: `OpenClaw CI Scheduled Task integration ${id}`,
         });
@@ -856,8 +856,8 @@ describe.runIf(nativeIntegrationEnabled)("schtasks Windows integration", () => {
         }
         const command = await service.readCommand(env);
         expect(command?.programArguments).toEqual(programArguments);
-        expect(command?.environment?.OPENCLAW_GATEWAY_PORT).toBe(String(gatewayPort));
-        expect(command?.environment?.OPENCLAW_SERVICE_KIND).toBe("gateway");
+        expect(command?.environment?.GRANTED_GATEWAY_PORT).toBe(String(gatewayPort));
+        expect(command?.environment?.GRANTED_SERVICE_KIND).toBe("gateway");
         const installedRun = await proof.waitForExactProbeRun(eventsPath, 1);
         const installedPid = installedRun.pid;
         const installedProcesses = await waitForGatewayTaskSupervisorProcesses({
@@ -958,7 +958,7 @@ describe.runIf(nativeIntegrationEnabled)("schtasks Windows integration", () => {
         await expect(fs.access(scriptPath)).rejects.toThrow();
         await expect(fs.access(launcherPath)).rejects.toThrow();
         expect(await canBindLoopbackPort(gatewayPort)).toBe(true);
-        expect(await readTaskDefinitionSnapshot("OpenClaw Gateway")).toEqual(defaultTaskBefore);
+        expect(await readTaskDefinitionSnapshot("Granted Gateway")).toEqual(defaultTaskBefore);
         const proofPath = process.env.CI_WINDOWS_SCHTASKS_PROOF_PATH?.trim();
         if (proofPath) {
           const proofHead = process.env.CI_WINDOWS_SCHTASKS_HEAD?.trim();

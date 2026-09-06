@@ -23,13 +23,13 @@ export {
   listImportedBundledPluginFacadeIds,
 } from "./facade-loader.js";
 
-const OPENCLAW_PACKAGE_ROOT =
+const GRANTED_PACKAGE_ROOT =
   resolveLoaderPackageRoot({
     modulePath: fileURLToPath(import.meta.url),
     moduleUrl: import.meta.url,
   }) ?? fileURLToPath(new URL("../..", import.meta.url));
 const CURRENT_MODULE_PATH = fileURLToPath(import.meta.url);
-const OPENCLAW_SOURCE_EXTENSIONS_ROOT = path.resolve(OPENCLAW_PACKAGE_ROOT, "extensions");
+const GRANTED_SOURCE_EXTENSIONS_ROOT = path.resolve(GRANTED_PACKAGE_ROOT, "extensions");
 function createFacadeResolutionKey(params: {
   dirName: string;
   artifactBasename: string;
@@ -62,7 +62,7 @@ function resolveFacadeModuleLocationUncached(params: {
     const bundledLocation = resolveBundledFacadeModuleLocation({
       ...params,
       currentModulePath: CURRENT_MODULE_PATH,
-      packageRoot: OPENCLAW_PACKAGE_ROOT,
+      packageRoot: GRANTED_PACKAGE_ROOT,
       bundledPluginsDir,
     });
     if (bundledLocation) {
@@ -83,7 +83,7 @@ function resolveFacadeModuleLocation(params: {
     return resolveFacadeModuleLocationUncached(params);
   }
   const resolutionKey = `facade-registry:${createFacadeResolutionKey(params)}`;
-  const artifacts = getPluginCacheRoot(OPENCLAW_PACKAGE_ROOT).artifacts;
+  const artifacts = getPluginCacheRoot(GRANTED_PACKAGE_ROOT).artifacts;
   const cached = artifacts.get(resolutionKey);
   if (cached !== undefined) {
     return cached;
@@ -188,7 +188,7 @@ function buildFacadeActivationCheckParams(
   return {
     ...params,
     location,
-    sourceExtensionsRoot: OPENCLAW_SOURCE_EXTENSIONS_ROOT,
+    sourceExtensionsRoot: GRANTED_SOURCE_EXTENSIONS_ROOT,
   };
 }
 

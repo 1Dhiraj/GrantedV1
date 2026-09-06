@@ -18,7 +18,7 @@ import {
   CODEX_ACP_BIN,
   CODEX_ACP_PACKAGE,
   LEGACY_CODEX_ACP_PACKAGE,
-  OPENCLAW_CODEX_CONFIG_ARG,
+  GRANTED_CODEX_CONFIG_ARG,
 } from "./codex-adapter.js";
 import {
   extractTrustedCodexProjectPaths,
@@ -27,7 +27,7 @@ import {
 import { quoteCommandPart, splitCommandParts } from "./command-line.js";
 import { resolveAcpxPluginRoot } from "./config.js";
 import type { ResolvedAcpxPluginConfig } from "./config.js";
-import { OPENCLAW_ACPX_LEASE_ID_ARG, OPENCLAW_GATEWAY_INSTANCE_ID_ARG } from "./process-lease.js";
+import { GRANTED_ACPX_LEASE_ID_ARG, GRANTED_GATEWAY_INSTANCE_ID_ARG } from "./process-lease.js";
 
 const CLAUDE_ACP_PACKAGE = "@agentclientprotocol/claude-agent-acp";
 const CLAUDE_ACP_BIN = "claude-agent-acp";
@@ -251,8 +251,8 @@ const stderrLogFileNamePrefix = ${params.stderrLogFileNamePrefix ? JSON.stringif
 const stderrLogMaxChars = 256 * 1024;
 
 const openClawWrapperArgs = new Set([
-  ${quoteCommandPart(OPENCLAW_ACPX_LEASE_ID_ARG)},
-  ${quoteCommandPart(OPENCLAW_GATEWAY_INSTANCE_ID_ARG)},
+  ${quoteCommandPart(GRANTED_ACPX_LEASE_ID_ARG)},
+  ${quoteCommandPart(GRANTED_GATEWAY_INSTANCE_ID_ARG)},
   ${(params.openClawWrapperArgs ?? []).map(quoteCommandPart).join(",\n  ")}
 ]);
 
@@ -290,7 +290,7 @@ function resolveStderrLogPath(args) {
     return undefined;
   }
   const leaseId =
-    readOpenClawWrapperArg(args, ${quoteCommandPart(OPENCLAW_ACPX_LEASE_ID_ARG)}) ||
+    readOpenClawWrapperArg(args, ${quoteCommandPart(GRANTED_ACPX_LEASE_ID_ARG)}) ||
     "pid-" + process.pid;
   const fileName = stderrLogFileNamePrefix + "." + safeDiagnosticFilePart(leaseId) + ".log";
   return fileURLToPath(new URL("./" + fileName, import.meta.url));
@@ -580,7 +580,7 @@ function buildCodexAcpWrapperScript(installedBinPath?: string): string {
     binName: CODEX_ACP_BIN,
     installedBinPath,
     stderrLogFileNamePrefix: "codex-acp-wrapper.stderr",
-    openClawWrapperArgs: [OPENCLAW_CODEX_CONFIG_ARG],
+    openClawWrapperArgs: [GRANTED_CODEX_CONFIG_ARG],
     envSetup: `const codexHome = fileURLToPath(new URL("./codex-home/", import.meta.url));
 const codexAuthPath = fileURLToPath(new URL("./codex-home/auth.json", import.meta.url));
 const codexApiKey = (process.env.CODEX_API_KEY || process.env.OPENAI_API_KEY || "").trim();
@@ -633,7 +633,7 @@ function mergeCodexConfig(base, override) {
 
 const openClawCodexConfigs = readOpenClawWrapperArgs(
   rawConfiguredArgs,
-  ${quoteCommandPart(OPENCLAW_CODEX_CONFIG_ARG)},
+  ${quoteCommandPart(GRANTED_CODEX_CONFIG_ARG)},
 );
 if (openClawCodexConfigs.length > 0) {
   let existingCodexConfig = {};
@@ -890,7 +890,7 @@ function resolveCodexAdapterLaunch(configuredCommand?: string): CodexAdapterLaun
     return {
       args: [
         ...(migration.hadOverrides
-          ? [OPENCLAW_CODEX_CONFIG_ARG, JSON.stringify(migration.config)]
+          ? [GRANTED_CODEX_CONFIG_ARG, JSON.stringify(migration.config)]
           : []),
         ...migration.forwardedArgs,
       ],

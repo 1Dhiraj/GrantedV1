@@ -9,10 +9,10 @@ const suite = createControlUiE2eSuite({
   name: "Control UI settings layout mocked Gateway E2E",
   startServerBeforeBrowser: true,
   unavailableMessage: (executablePath) =>
-    `Playwright Chromium is not installed or cannot start at ${executablePath}. Run \`pnpm --dir ui exec playwright install --with-deps chromium\`, or set OPENCLAW_UI_E2E_ALLOW_MISSING_CHROMIUM=1 only when intentionally skipping this lane.`,
+    `Playwright Chromium is not installed or cannot start at ${executablePath}. Run \`pnpm --dir ui exec playwright install --with-deps chromium\`, or set GRANTED_UI_E2E_ALLOW_MISSING_CHROMIUM=1 only when intentionally skipping this lane.`,
 });
 
-const proofEnabled = process.env.OPENCLAW_CAPTURE_UI_PROOF === "1";
+const proofEnabled = process.env.GRANTED_CAPTURE_UI_PROOF === "1";
 
 const introRoutes = [
   "appearance",

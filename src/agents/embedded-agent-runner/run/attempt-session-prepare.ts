@@ -3,7 +3,7 @@
  * It may assume attempt configuration and tool inputs are ready.
  */
 import type { SessionTranscriptRuntimeTarget } from "../../../config/sessions/session-accessor.js";
-import { OPENCLAW_EMBEDDED_CONTEXT_ENGINE_HOST } from "../../../context-engine/host-compat.js";
+import { GRANTED_EMBEDDED_CONTEXT_ENGINE_HOST } from "../../../context-engine/host-compat.js";
 import {
   attachRuntimePromptMediaFacts,
   readPersistedMediaFacts,
@@ -637,7 +637,7 @@ export async function prepareEmbeddedAttemptSessionManager(input: {
         activeAgentId: input.sessionAgentId,
         contextEnginePluginId: input.resolveActiveContextEnginePluginId(),
       }),
-      contextEngineHostSupport: OPENCLAW_EMBEDDED_CONTEXT_ENGINE_HOST,
+      contextEngineHostSupport: GRANTED_EMBEDDED_CONTEXT_ENGINE_HOST,
       providerId: attempt.provider,
       requestedModelId: attempt.requestedModelId,
       modelId: attempt.modelId,

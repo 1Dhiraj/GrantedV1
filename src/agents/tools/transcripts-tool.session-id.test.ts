@@ -29,7 +29,7 @@ const note = "Keep the captured notes.";
 
 function createHarness() {
   const stateDir = tempDirs.make("openclaw-transcript-ids-");
-  const databaseOptions = { env: { ...process.env, OPENCLAW_STATE_DIR: stateDir } };
+  const databaseOptions = { env: { ...process.env, GRANTED_STATE_DIR: stateDir } };
   const start = vi.fn<NonNullable<TranscriptSourceProvider["start"]>>(async (request) => {
     await request.onUtterance({ text: note, final: true });
     return { ok: true, session: request.session };

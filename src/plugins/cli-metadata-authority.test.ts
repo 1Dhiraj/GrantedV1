@@ -45,8 +45,8 @@ it.each(["retained-agent", "install-roots", "install-state"] as const)(
     };
     const env = {
       HOME: root,
-      OPENCLAW_STATE_DIR: path.join(root, "state"),
-      OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
+      GRANTED_STATE_DIR: path.join(root, "state"),
+      GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
     };
     if (kind === "install-state") {
       for (const id of ["alpha", "beta"]) {
@@ -120,8 +120,8 @@ it("retains the exact new config object when a fresh read has identical serializ
   const root = fs.realpathSync(makePluginLoaderTempDir());
   const env = {
     HOME: root,
-    OPENCLAW_STATE_DIR: path.join(root, "state"),
-    OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
+    GRANTED_STATE_DIR: path.join(root, "state"),
+    GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
   };
   const cfg = { plugins: { enabled: false } };
   const fresh = { ...cfg };

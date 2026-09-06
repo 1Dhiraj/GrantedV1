@@ -166,7 +166,7 @@ describe("run-with-env", () => {
   it("parses leading env assignments before the command separator", () => {
     expect(
       parseRunWithEnvArgs([
-        "OPENCLAW_GATEWAY_PROJECT_SHARDS=1",
+        "GRANTED_GATEWAY_PROJECT_SHARDS=1",
         "EMPTY=",
         "--",
         "node",
@@ -175,7 +175,7 @@ describe("run-with-env", () => {
       ]),
     ).toEqual({
       env: {
-        OPENCLAW_GATEWAY_PROJECT_SHARDS: "1",
+        GRANTED_GATEWAY_PROJECT_SHARDS: "1",
         EMPTY: "",
       },
       command: "node",
@@ -184,7 +184,7 @@ describe("run-with-env", () => {
   });
 
   it("rejects missing command separators", () => {
-    expect(() => parseRunWithEnvArgs(["OPENCLAW_GATEWAY_PROJECT_SHARDS=1", "node"])).toThrow(
+    expect(() => parseRunWithEnvArgs(["GRANTED_GATEWAY_PROJECT_SHARDS=1", "node"])).toThrow(
       /Usage:/u,
     );
   });
@@ -206,7 +206,7 @@ describe("run-with-env", () => {
 
   it("keeps command help passthrough after the separator", () => {
     expect(
-      isRunWithEnvHelpRequest(["OPENCLAW_GATEWAY_PROJECT_SHARDS=1", "--", "node", "--help"]),
+      isRunWithEnvHelpRequest(["GRANTED_GATEWAY_PROJECT_SHARDS=1", "--", "node", "--help"]),
     ).toBe(false);
   });
 
@@ -266,16 +266,16 @@ describe("run-with-env", () => {
 
   it("rejects malformed force-kill grace configuration before spawning", () => {
     expect(resolveForceKillDelayMs({})).toBe(5_000);
-    expect(resolveForceKillDelayMs({ OPENCLAW_RUN_WITH_ENV_FORCE_KILL_MS: "  " })).toBe(5_000);
-    expect(resolveForceKillDelayMs({ OPENCLAW_RUN_WITH_ENV_FORCE_KILL_MS: "250" })).toBe(250);
+    expect(resolveForceKillDelayMs({ GRANTED_RUN_WITH_ENV_FORCE_KILL_MS: "  " })).toBe(5_000);
+    expect(resolveForceKillDelayMs({ GRANTED_RUN_WITH_ENV_FORCE_KILL_MS: "250" })).toBe(250);
     expect(
       resolveForceKillDelayMs({
-        OPENCLAW_RUN_WITH_ENV_FORCE_KILL_MS: String(MAX_TIMER_TIMEOUT_MS + 1),
+        GRANTED_RUN_WITH_ENV_FORCE_KILL_MS: String(MAX_TIMER_TIMEOUT_MS + 1),
       }),
     ).toBe(MAX_TIMER_TIMEOUT_MS);
     for (const value of ["0", "-1", "1e3", "100ms"]) {
-      expect(() => resolveForceKillDelayMs({ OPENCLAW_RUN_WITH_ENV_FORCE_KILL_MS: value })).toThrow(
-        "OPENCLAW_RUN_WITH_ENV_FORCE_KILL_MS must be a positive integer",
+      expect(() => resolveForceKillDelayMs({ GRANTED_RUN_WITH_ENV_FORCE_KILL_MS: value })).toThrow(
+        "GRANTED_RUN_WITH_ENV_FORCE_KILL_MS must be a positive integer",
       );
     }
 
@@ -285,7 +285,7 @@ describe("run-with-env", () => {
         "--import",
         "tsx",
         "scripts/run-with-env.mts",
-        "OPENCLAW_RUN_WITH_ENV_SIGNAL_TEST=1",
+        "GRANTED_RUN_WITH_ENV_SIGNAL_TEST=1",
         "--",
         "node",
         "-e",
@@ -294,14 +294,14 @@ describe("run-with-env", () => {
       {
         cwd: process.cwd(),
         encoding: "utf8",
-        env: { ...process.env, OPENCLAW_RUN_WITH_ENV_FORCE_KILL_MS: "100ms" },
+        env: { ...process.env, GRANTED_RUN_WITH_ENV_FORCE_KILL_MS: "100ms" },
       },
     );
 
     expect(result.status).toBe(2);
     expect(result.stdout).toBe("");
     expect(result.stderr).toContain(
-      "OPENCLAW_RUN_WITH_ENV_FORCE_KILL_MS must be a positive integer",
+      "GRANTED_RUN_WITH_ENV_FORCE_KILL_MS must be a positive integer",
     );
   });
 
@@ -372,7 +372,7 @@ describe("run-with-env", () => {
           `GRANDCHILD_PID_FILE=${grandchildPidFile}`,
         ],
         childScript,
-        { ...process.env, OPENCLAW_RUN_WITH_ENV_FORCE_KILL_MS: "200" },
+        { ...process.env, GRANTED_RUN_WITH_ENV_FORCE_KILL_MS: "200" },
       );
 
       await runQaGatewayFixture(async () => {
@@ -433,7 +433,7 @@ describe("run-with-env", () => {
         childScript,
         {
           ...process.env,
-          OPENCLAW_RUN_WITH_ENV_FORCE_KILL_MS: String(MAX_TIMER_TIMEOUT_MS + 1),
+          GRANTED_RUN_WITH_ENV_FORCE_KILL_MS: String(MAX_TIMER_TIMEOUT_MS + 1),
         },
       );
 
@@ -459,7 +459,7 @@ describe("run-with-env", () => {
         "--import",
         "tsx",
         "scripts/run-with-env.mts",
-        "OPENCLAW_RUN_WITH_ENV_SIGNAL_TEST=1",
+        "GRANTED_RUN_WITH_ENV_SIGNAL_TEST=1",
         "--",
         "node",
         "-e",
@@ -479,7 +479,7 @@ describe("run-with-env", () => {
         "--import",
         "tsx",
         "scripts/run-with-env.mts",
-        "OPENCLAW_RUN_WITH_ENV_SIGNAL_TEST=1",
+        "GRANTED_RUN_WITH_ENV_SIGNAL_TEST=1",
         "--",
         "node",
         "-e",

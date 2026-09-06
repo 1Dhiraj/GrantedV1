@@ -5,7 +5,7 @@ import { addActiveManagedProxyTlsOptions } from "./proxy/managed-proxy-undici.js
 import { withUndiciErrorDiagnostics } from "./undici-error-diagnostics.js";
 import { resolveUndiciAutoSelectFamilyConnectOptions } from "./undici-family-policy.js";
 
-const TEST_UNDICI_RUNTIME_DEPS_KEY = "__OPENCLAW_TEST_UNDICI_RUNTIME_DEPS__";
+const TEST_UNDICI_RUNTIME_DEPS_KEY = "__GRANTED_TEST_UNDICI_RUNTIME_DEPS__";
 const requireUndici = createRequire(import.meta.url);
 
 type UndiciAgentOptions = ConstructorParameters<typeof import("undici").Agent>[0];

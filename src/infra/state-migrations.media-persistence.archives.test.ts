@@ -20,7 +20,7 @@ afterEach(() => {
 describe("legacy media persistence archive doctor migration", () => {
   it("rejects ambiguous sparse arrays and ignores stale interrupted temp files", async () => {
     const stateDir = makeTempDir(tempDirs, "media-persistence-sparse-");
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     createLegacyDatabaseFixture({ env, eventsBySession: {} });
     const archiveDir = path.join(stateDir, "agents", "main", "sessions");
     const archivePath = path.join(archiveDir, "sparse.jsonl.bak.2026-07-24T01-02-03.000Z");

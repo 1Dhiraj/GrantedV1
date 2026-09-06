@@ -41,12 +41,12 @@ function resolveRawOsHomeDir(env: NodeJS.ProcessEnv, homedir: () => string): str
   );
 }
 
-/** Resolve raw home with OPENCLAW_HOME tilde expansion. */
+/** Resolve raw home with GRANTED_HOME tilde expansion. */
 function resolveRawHomeDir(
   env: NodeJS.ProcessEnv = process.env,
   homedir: () => string = os.homedir,
 ): string | undefined {
-  const explicitHome = normalize(env.OPENCLAW_HOME);
+  const explicitHome = normalize(env.GRANTED_HOME);
   if (explicitHome) {
     const fallbackHome = resolveRawOsHomeDir(env, homedir);
     return fallbackHome ? explicitHome.replace(/^~(?=$|[\\/])/, () => fallbackHome) : explicitHome;
@@ -69,8 +69,8 @@ function resolveHomeDisplayPrefix(): { home: string; prefix: string } | undefine
   if (!home) {
     return undefined;
   }
-  const explicitHome = process.env.OPENCLAW_HOME?.trim();
-  return explicitHome ? { home, prefix: "$OPENCLAW_HOME" } : { home, prefix: "~" };
+  const explicitHome = process.env.GRANTED_HOME?.trim();
+  return explicitHome ? { home, prefix: "$GRANTED_HOME" } : { home, prefix: "~" };
 }
 
 /** Find a case-insensitive Windows path without changing offsets in the original string. */

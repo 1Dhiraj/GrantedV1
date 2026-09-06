@@ -18,8 +18,8 @@ describe("measureAgentStartup", () => {
     tempDirs.push(dir);
     const path = join(dir, "timeline.jsonl");
     const env = {
-      OPENCLAW_DIAGNOSTICS: "timeline",
-      OPENCLAW_DIAGNOSTICS_TIMELINE_PATH: path,
+      GRANTED_DIAGNOSTICS: "timeline",
+      GRANTED_DIAGNOSTICS_TIMELINE_PATH: path,
     } as NodeJS.ProcessEnv;
 
     await expect(measureAgentStartup("command-import", async () => "ready", { env })).resolves.toBe(

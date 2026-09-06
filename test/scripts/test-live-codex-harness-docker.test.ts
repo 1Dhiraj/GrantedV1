@@ -41,13 +41,13 @@ describe("scripts/test-live-codex-harness-docker.sh", () => {
     const script = fs.readFileSync(SCRIPT_PATH, "utf8");
 
     expect(script).toContain(
-      "OPENCLAW_LIVE_CODEX_HARNESS_AUTH=codex-auth requires ~/.codex/auth.json before building the live Docker image",
+      "GRANTED_LIVE_CODEX_HARNESS_AUTH=codex-auth requires ~/.codex/auth.json before building the live Docker image",
     );
     expect(script).toContain(
-      "If this is a Testbox/API-key run, set OPENCLAW_LIVE_CODEX_HARNESS_AUTH=api-key and run through openclaw-testbox-env.",
+      "If this is a Testbox/API-key run, set GRANTED_LIVE_CODEX_HARNESS_AUTH=api-key and run through openclaw-testbox-env.",
     );
     expect(script.indexOf("requires ~/.codex/auth.json before building")).toBeLessThan(
-      script.indexOf('OPENCLAW_LIVE_DOCKER_REPO_ROOT="$ROOT_DIR"'),
+      script.indexOf('GRANTED_LIVE_DOCKER_REPO_ROOT="$ROOT_DIR"'),
     );
   });
 
@@ -105,13 +105,13 @@ describe("scripts/test-live-codex-harness-docker.sh", () => {
     const script = fs.readFileSync(SCRIPT_PATH, "utf8");
 
     expect(script).toContain(
-      '-e OPENCLAW_LIVE_CODEX_BIND_PROVIDER="${OPENCLAW_LIVE_CODEX_BIND_PROVIDER:-}"',
+      '-e GRANTED_LIVE_CODEX_BIND_PROVIDER="${GRANTED_LIVE_CODEX_BIND_PROVIDER:-}"',
     );
     expect(script).toContain(
-      '-e OPENCLAW_LIVE_CODEX_BIND_REQUEST_TIMEOUT_MS="${OPENCLAW_LIVE_CODEX_BIND_REQUEST_TIMEOUT_MS:-}"',
+      '-e GRANTED_LIVE_CODEX_BIND_REQUEST_TIMEOUT_MS="${GRANTED_LIVE_CODEX_BIND_REQUEST_TIMEOUT_MS:-}"',
     );
     expect(script).toContain(
-      '-e OPENCLAW_LIVE_CODEX_BIND_TIMEOUT_MS="${OPENCLAW_LIVE_CODEX_BIND_TIMEOUT_MS:-}"',
+      '-e GRANTED_LIVE_CODEX_BIND_TIMEOUT_MS="${GRANTED_LIVE_CODEX_BIND_TIMEOUT_MS:-}"',
     );
   });
 
@@ -119,37 +119,37 @@ describe("scripts/test-live-codex-harness-docker.sh", () => {
     const script = fs.readFileSync(SCRIPT_PATH, "utf8");
 
     expect(script).toContain(
-      '-e OPENCLAW_LIVE_CODEX_HARNESS_MULTI_SESSION_PROBE="${OPENCLAW_LIVE_CODEX_HARNESS_MULTI_SESSION_PROBE:-0}"',
+      '-e GRANTED_LIVE_CODEX_HARNESS_MULTI_SESSION_PROBE="${GRANTED_LIVE_CODEX_HARNESS_MULTI_SESSION_PROBE:-0}"',
     );
     expect(script).toContain(
-      '-e OPENCLAW_LIVE_CODEX_HARNESS_RESUME_STRESS="${OPENCLAW_LIVE_CODEX_HARNESS_RESUME_STRESS:-0}"',
+      '-e GRANTED_LIVE_CODEX_HARNESS_RESUME_STRESS="${GRANTED_LIVE_CODEX_HARNESS_RESUME_STRESS:-0}"',
     );
     expect(script).toContain(
-      '-e OPENCLAW_LIVE_CODEX_HARNESS_EXPECTED_EFFORT="${OPENCLAW_LIVE_CODEX_HARNESS_EXPECTED_EFFORT:-}"',
+      '-e GRANTED_LIVE_CODEX_HARNESS_EXPECTED_EFFORT="${GRANTED_LIVE_CODEX_HARNESS_EXPECTED_EFFORT:-}"',
     );
     expect(script).toContain(
-      '-e OPENCLAW_LIVE_CODEX_HARNESS_RESUME_STRESS_HISTORY_TURNS="${OPENCLAW_LIVE_CODEX_HARNESS_RESUME_STRESS_HISTORY_TURNS:-4}"',
+      '-e GRANTED_LIVE_CODEX_HARNESS_RESUME_STRESS_HISTORY_TURNS="${GRANTED_LIVE_CODEX_HARNESS_RESUME_STRESS_HISTORY_TURNS:-4}"',
     );
     expect(script).toContain(
-      '-e OPENCLAW_LIVE_CODEX_HARNESS_RESUME_STRESS_RESTARTS="${OPENCLAW_LIVE_CODEX_HARNESS_RESUME_STRESS_RESTARTS:-3}"',
+      '-e GRANTED_LIVE_CODEX_HARNESS_RESUME_STRESS_RESTARTS="${GRANTED_LIVE_CODEX_HARNESS_RESUME_STRESS_RESTARTS:-3}"',
     );
     expect(script).toContain(
-      '-e OPENCLAW_LIVE_CODEX_HARNESS_SUBAGENT_COUNT="${OPENCLAW_LIVE_CODEX_HARNESS_SUBAGENT_COUNT:-1}"',
+      '-e GRANTED_LIVE_CODEX_HARNESS_SUBAGENT_COUNT="${GRANTED_LIVE_CODEX_HARNESS_SUBAGENT_COUNT:-1}"',
     );
     expect(script).toContain(
-      '-e OPENCLAW_LIVE_CODEX_HARNESS_COMPACTION_STRESS="${OPENCLAW_LIVE_CODEX_HARNESS_COMPACTION_STRESS:-0}"',
+      '-e GRANTED_LIVE_CODEX_HARNESS_COMPACTION_STRESS="${GRANTED_LIVE_CODEX_HARNESS_COMPACTION_STRESS:-0}"',
     );
     expect(script).toContain(
-      '-e OPENCLAW_LIVE_CODEX_HARNESS_COMPACTION_STRESS_TURNS="${OPENCLAW_LIVE_CODEX_HARNESS_COMPACTION_STRESS_TURNS:-4}"',
+      '-e GRANTED_LIVE_CODEX_HARNESS_COMPACTION_STRESS_TURNS="${GRANTED_LIVE_CODEX_HARNESS_COMPACTION_STRESS_TURNS:-4}"',
     );
     expect(script).toContain(
-      '-e OPENCLAW_LIVE_CODEX_HARNESS_LARGE_OUTPUT_BYTES="${OPENCLAW_LIVE_CODEX_HARNESS_LARGE_OUTPUT_BYTES:-300000}"',
+      '-e GRANTED_LIVE_CODEX_HARNESS_LARGE_OUTPUT_BYTES="${GRANTED_LIVE_CODEX_HARNESS_LARGE_OUTPUT_BYTES:-300000}"',
     );
     expect(script).toContain(
-      '-e OPENCLAW_LIVE_CODEX_HARNESS_CODE_MODE_ONLY="${OPENCLAW_LIVE_CODEX_HARNESS_CODE_MODE_ONLY:-0}"',
+      '-e GRANTED_LIVE_CODEX_HARNESS_CODE_MODE_ONLY="${GRANTED_LIVE_CODEX_HARNESS_CODE_MODE_ONLY:-0}"',
     );
     expect(script).toContain(
-      '-e OPENCLAW_LIVE_CODEX_HARNESS_DISABLE_LOOP_RELAY="${OPENCLAW_LIVE_CODEX_HARNESS_DISABLE_LOOP_RELAY:-0}"',
+      '-e GRANTED_LIVE_CODEX_HARNESS_DISABLE_LOOP_RELAY="${GRANTED_LIVE_CODEX_HARNESS_DISABLE_LOOP_RELAY:-0}"',
     );
   });
 
@@ -158,9 +158,9 @@ describe("scripts/test-live-codex-harness-docker.sh", () => {
 
     expect(script).toContain('"$ROOT_DIR/extensions/codex/package.json"');
     expect(script).toContain("process.stdout.write(`@openai/codex@${version}`);");
-    expect(script).toContain('-e OPENCLAW_LIVE_CODEX_CLI_PACKAGE_SPEC="$CODEX_CLI_PACKAGE_SPEC"');
+    expect(script).toContain('-e GRANTED_LIVE_CODEX_CLI_PACKAGE_SPEC="$CODEX_CLI_PACKAGE_SPEC"');
     expect(script).toContain(
-      'run_setup_command npm install -g "$OPENCLAW_LIVE_CODEX_CLI_PACKAGE_SPEC"',
+      'run_setup_command npm install -g "$GRANTED_LIVE_CODEX_CLI_PACKAGE_SPEC"',
     );
     expect(script).not.toContain("run_setup_command npm install -g @openai/codex");
   });
@@ -188,7 +188,7 @@ describe("scripts/test-live-codex-harness-docker.sh", () => {
         .replaceAll("/app/dist", path.join(root, "dist"));
       const result = spawnSync(
         "bash",
-        ["-c", `${executableSelection}\nprintf '%s' "$OPENCLAW_BUNDLED_PLUGINS_DIR"`],
+        ["-c", `${executableSelection}\nprintf '%s' "$GRANTED_BUNDLED_PLUGINS_DIR"`],
         {
           encoding: "utf8",
           env: { ...process.env, tmp_dir: stagedRoot },
@@ -207,7 +207,7 @@ describe("scripts/test-live-codex-harness-docker.sh", () => {
 
     expect(script).toContain("Failed to extract accountId from token");
     expect(script).toContain(
-      "ERROR: Codex auth cannot extract accountId from the available token; refresh OPENCLAW_CODEX_AUTH_JSON or use OPENCLAW_LIVE_CODEX_HARNESS_AUTH=api-key.",
+      "ERROR: Codex auth cannot extract accountId from the available token; refresh GRANTED_CODEX_AUTH_JSON or use GRANTED_LIVE_CODEX_HARNESS_AUTH=api-key.",
     );
     expect(script).not.toContain(
       "SKIP: Codex auth cannot extract accountId from the available token; skipping live Codex harness lane.",
@@ -227,13 +227,13 @@ describe("scripts/test-live-codex-harness-docker.sh", () => {
       encoding: "utf8",
       env: {
         ...process.env,
-        OPENCLAW_LIVE_CODEX_HARNESS_SETUP_TIMEOUT_SECONDS: "180s",
+        GRANTED_LIVE_CODEX_HARNESS_SETUP_TIMEOUT_SECONDS: "180s",
       },
     });
 
     expect(result.status).toBe(2);
     expect(result.stderr).toContain(
-      "invalid OPENCLAW_LIVE_CODEX_HARNESS_SETUP_TIMEOUT_SECONDS: 180s",
+      "invalid GRANTED_LIVE_CODEX_HARNESS_SETUP_TIMEOUT_SECONDS: 180s",
     );
     expect(result.stderr).not.toContain("requires ~/.codex/auth.json");
     expect(result.stderr).not.toContain("docker");

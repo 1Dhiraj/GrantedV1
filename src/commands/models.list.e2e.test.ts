@@ -638,8 +638,8 @@ describe("models list/status", () => {
     try {
       await withEnvAsync(
         {
-          OPENCLAW_BUNDLED_PLUGINS_DIR: bundledDir,
-          OPENCLAW_STATE_DIR: stateDir,
+          GRANTED_BUNDLED_PLUGINS_DIR: bundledDir,
+          GRANTED_STATE_DIR: stateDir,
           WORKSPACE_CLOUD_CREDENTIALS: credentialsPath,
         },
         () => modelsListCommand({ all: true, provider: "workspace-cloud", json: true }, runtime),

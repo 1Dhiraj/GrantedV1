@@ -1,4 +1,4 @@
-import { OPENCLAW_SQLITE_BUSY_TIMEOUT_MS } from "./openclaw-state-db-contract.js";
+import { GRANTED_SQLITE_BUSY_TIMEOUT_MS } from "./openclaw-state-db-contract.js";
 
 const DATABASE_VERIFY_CHILD_ARG = "--openclaw-database-verify-child";
 
@@ -48,7 +48,7 @@ async function verifyOpenClawDatabase(
       database = sqlite.openNodeSqliteDatabase(prepared.location, {
         readOnly: true,
       });
-      database.exec(`PRAGMA busy_timeout = ${OPENCLAW_SQLITE_BUSY_TIMEOUT_MS};`);
+      database.exec(`PRAGMA busy_timeout = ${GRANTED_SQLITE_BUSY_TIMEOUT_MS};`);
       integrity.assertSqliteIntegrity(database, target.label);
       return { path: target.path, ok: true };
     } catch (error) {

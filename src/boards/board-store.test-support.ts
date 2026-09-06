@@ -14,7 +14,7 @@ import { SqliteBoardStore } from "./sqlite-board-store.js";
 export function createTestBoardStore(options: { stateDir?: string } = {}): SqliteBoardStore {
   const ownsStateDir = options.stateDir === undefined;
   const stateDir = options.stateDir ?? mkdtempSync(path.join(tmpdir(), "openclaw-board-store-"));
-  const env = { OPENCLAW_STATE_DIR: stateDir };
+  const env = { GRANTED_STATE_DIR: stateDir };
   const seededSessions = new Set<string>();
 
   if (ownsStateDir) {

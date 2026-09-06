@@ -4,8 +4,8 @@ import { resolveSqliteDatabaseFilePaths } from "../infra/sqlite-files.js";
 import type { OpenClawAgentDatabaseOptions } from "./openclaw-agent-db-contract.js";
 import { resolveOpenClawAgentSqlitePath } from "./openclaw-agent-db.paths.js";
 
-const OPENCLAW_AGENT_DB_DIR_MODE = 0o700;
-const OPENCLAW_AGENT_DB_FILE_MODE = 0o600;
+const GRANTED_AGENT_DB_DIR_MODE = 0o700;
+const GRANTED_AGENT_DB_FILE_MODE = 0o600;
 
 export function ensureOpenClawAgentDatabasePermissions(
   pathname: string,
@@ -18,14 +18,14 @@ export function ensureOpenClawAgentDatabasePermissions(
   });
   const isDefaultAgentDatabase = path.resolve(pathname) === path.resolve(defaultPath);
   const dirExisted = existsSync(dir);
-  mkdirSync(dir, { recursive: true, mode: OPENCLAW_AGENT_DB_DIR_MODE });
+  mkdirSync(dir, { recursive: true, mode: GRANTED_AGENT_DB_DIR_MODE });
   // Default agent state is private by contract; custom pre-existing dirs keep caller ownership.
   if (isDefaultAgentDatabase || !dirExisted) {
-    chmodSync(dir, OPENCLAW_AGENT_DB_DIR_MODE);
+    chmodSync(dir, GRANTED_AGENT_DB_DIR_MODE);
   }
   for (const candidate of resolveSqliteDatabaseFilePaths(pathname)) {
     try {
-      chmodSync(candidate, OPENCLAW_AGENT_DB_FILE_MODE);
+      chmodSync(candidate, GRANTED_AGENT_DB_FILE_MODE);
     } catch (error) {
       // WAL/SHM/journal sidecars are transient: SQLite removes them at
       // checkpoint/close, so a concurrent worker can race this sweep. A

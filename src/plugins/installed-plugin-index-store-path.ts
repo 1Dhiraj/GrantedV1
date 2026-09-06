@@ -19,10 +19,10 @@ export type InstalledPluginIndexStoreOptions = {
 function resolveStoreEnv(options: InstalledPluginIndexStoreOptions): NodeJS.ProcessEnv {
   const env = options.env ?? process.env;
   if (options.stateDir) {
-    return { ...env, OPENCLAW_STATE_DIR: options.stateDir };
+    return { ...env, GRANTED_STATE_DIR: options.stateDir };
   }
   if (hasActivePluginInstallRoots()) {
-    return { ...env, OPENCLAW_STATE_DIR: resolveActivePluginInstallRoots(env).stateDir };
+    return { ...env, GRANTED_STATE_DIR: resolveActivePluginInstallRoots(env).stateDir };
   }
   return env;
 }

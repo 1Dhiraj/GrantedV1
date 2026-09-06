@@ -16,10 +16,10 @@ const suite = createControlUiE2eSuite({
   name: "Control UI sidebar customization mocked Gateway E2E",
   startServerBeforeBrowser: true,
   unavailableMessage: (executablePath) =>
-    `Playwright Chromium is not installed or cannot start at ${executablePath}. Run \`pnpm --dir ui exec playwright install --with-deps chromium\`, or set OPENCLAW_UI_E2E_ALLOW_MISSING_CHROMIUM=1 only when intentionally skipping this lane.`,
+    `Playwright Chromium is not installed or cannot start at ${executablePath}. Run \`pnpm --dir ui exec playwright install --with-deps chromium\`, or set GRANTED_UI_E2E_ALLOW_MISSING_CHROMIUM=1 only when intentionally skipping this lane.`,
 });
 
-const captureUiProofEnabled = process.env.OPENCLAW_CAPTURE_UI_PROOF === "1";
+const captureUiProofEnabled = process.env.GRANTED_CAPTURE_UI_PROOF === "1";
 const hiddenSessionCatalogsStorageKey = "openclaw:sidebar:sessions:hidden-catalogs";
 
 async function trimmedTextContents(locator: Locator): Promise<string[]> {
@@ -483,7 +483,7 @@ suite.define(() => {
       await expect.poll(() => settingsSearch.inputValue()).toBe("channel");
       await captureSettingsSidebarProof(
         settingsSidebar,
-        `settings-navigation-${process.env.OPENCLAW_UI_PROOF_LABEL ?? "current"}.png`,
+        `settings-navigation-${process.env.GRANTED_UI_PROOF_LABEL ?? "current"}.png`,
       );
       await expect.poll(() => channelsResult.getAttribute("aria-current")).toBe("page");
       await captureSettingsSidebarProof(settingsSidebar, "01f-settings-search-navigated.png");

@@ -24,8 +24,8 @@ vi.mock("../infra/openclaw-root.js", () => ({
 
 describe("plugin-sdk qa-runtime", () => {
   const tempDirs: string[] = [];
-  const originalPrivateQaCli = process.env.OPENCLAW_ENABLE_PRIVATE_QA_CLI;
-  const originalBundledPluginsDir = process.env.OPENCLAW_BUNDLED_PLUGINS_DIR;
+  const originalPrivateQaCli = process.env.GRANTED_ENABLE_PRIVATE_QA_CLI;
+  const originalBundledPluginsDir = process.env.GRANTED_BUNDLED_PLUGINS_DIR;
 
   beforeAll(() => {
     vi.resetModules();
@@ -34,8 +34,8 @@ describe("plugin-sdk qa-runtime", () => {
   beforeEach(() => {
     loadBundledPluginPublicSurfaceModuleSync.mockReset();
     resolveOpenClawPackageRootSync.mockReset().mockReturnValue(null);
-    delete process.env.OPENCLAW_ENABLE_PRIVATE_QA_CLI;
-    delete process.env.OPENCLAW_BUNDLED_PLUGINS_DIR;
+    delete process.env.GRANTED_ENABLE_PRIVATE_QA_CLI;
+    delete process.env.GRANTED_BUNDLED_PLUGINS_DIR;
   });
 
   afterEach(() => {
@@ -43,9 +43,9 @@ describe("plugin-sdk qa-runtime", () => {
     cleanupTempDirs(tempDirs);
     restorePrivateQaCliEnv(originalPrivateQaCli);
     if (originalBundledPluginsDir === undefined) {
-      delete process.env.OPENCLAW_BUNDLED_PLUGINS_DIR;
+      delete process.env.GRANTED_BUNDLED_PLUGINS_DIR;
     } else {
-      process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = originalBundledPluginsDir;
+      process.env.GRANTED_BUNDLED_PLUGINS_DIR = originalBundledPluginsDir;
     }
   });
 

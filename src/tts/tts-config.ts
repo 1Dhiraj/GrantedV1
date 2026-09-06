@@ -134,7 +134,7 @@ function resolveTtsPrefsPathValue(
   if (prefsPath?.trim()) {
     return resolveUserPath(prefsPath.trim());
   }
-  const envPath = process.env.OPENCLAW_TTS_PREFS?.trim();
+  const envPath = process.env.GRANTED_TTS_PREFS?.trim();
   if (envPath) {
     return resolveUserPath(envPath);
   }

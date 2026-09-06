@@ -54,7 +54,7 @@ export async function withUpdateFailureTriage(
             ...(target.failureResult ? { result: target.failureResult } : {}),
             error: formatErrorMessage(error),
           };
-      if (target.env.OPENCLAW_UPDATE_RUN_HANDOFF === "1") {
+      if (target.env.GRANTED_UPDATE_RUN_HANDOFF === "1") {
         // This code was loaded before replacement. The helper stays dependency-free
         // and starts installed triage only after its own recovery has settled.
         try {

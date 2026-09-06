@@ -46,15 +46,15 @@ function jsonResponse(body: unknown, init: ResponseInit = {}): Response {
 }
 
 async function withGithubApiTimeoutEnv<T>(value: string, fn: () => Promise<T>): Promise<T> {
-  const previous = process.env.OPENCLAW_RELEASE_CANDIDATE_GITHUB_API_TIMEOUT_MS;
-  process.env.OPENCLAW_RELEASE_CANDIDATE_GITHUB_API_TIMEOUT_MS = value;
+  const previous = process.env.GRANTED_RELEASE_CANDIDATE_GITHUB_API_TIMEOUT_MS;
+  process.env.GRANTED_RELEASE_CANDIDATE_GITHUB_API_TIMEOUT_MS = value;
   try {
     return await fn();
   } finally {
     if (previous === undefined) {
-      delete process.env.OPENCLAW_RELEASE_CANDIDATE_GITHUB_API_TIMEOUT_MS;
+      delete process.env.GRANTED_RELEASE_CANDIDATE_GITHUB_API_TIMEOUT_MS;
     } else {
-      process.env.OPENCLAW_RELEASE_CANDIDATE_GITHUB_API_TIMEOUT_MS = previous;
+      process.env.GRANTED_RELEASE_CANDIDATE_GITHUB_API_TIMEOUT_MS = previous;
     }
   }
 }
@@ -204,8 +204,8 @@ describe("release candidate checklist", () => {
   it("passes scoped environment overrides to release child commands", () => {
     const output = run(
       process.execPath,
-      ["-e", "process.stdout.write(process.env.OPENCLAW_RELEASE_TEST_VALUE ?? '')"],
-      { capture: true, env: { OPENCLAW_RELEASE_TEST_VALUE: "passed" } },
+      ["-e", "process.stdout.write(process.env.GRANTED_RELEASE_TEST_VALUE ?? '')"],
+      { capture: true, env: { GRANTED_RELEASE_TEST_VALUE: "passed" } },
     );
 
     expect(output).toBe("passed");
@@ -1814,7 +1814,7 @@ ${declareIdentity ? "      trusted_workflow_json: {}\n" : ""}`;
             token: "test-token",
           }),
         ).rejects.toThrow(
-          "OPENCLAW_RELEASE_CANDIDATE_GITHUB_API_TIMEOUT_MS must be a positive integer",
+          "GRANTED_RELEASE_CANDIDATE_GITHUB_API_TIMEOUT_MS must be a positive integer",
         );
       });
       expect(fetchImpl).not.toHaveBeenCalled();

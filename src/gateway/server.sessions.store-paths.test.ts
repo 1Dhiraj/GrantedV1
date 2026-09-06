@@ -34,9 +34,9 @@ test("session RPC paths name the physical SQLite store", async () => {
 });
 
 test("sessions.list reports multiple physical agent stores", async () => {
-  const stateDir = process.env.OPENCLAW_STATE_DIR;
+  const stateDir = process.env.GRANTED_STATE_DIR;
   if (!stateDir) {
-    throw new Error("OPENCLAW_STATE_DIR is required for gateway session tests");
+    throw new Error("GRANTED_STATE_DIR is required for gateway session tests");
   }
   const storeTemplate = path.join(stateDir, "agents", "{agentId}", "sessions", "sessions.json");
   testState.sessionConfig = { store: storeTemplate };
@@ -59,9 +59,9 @@ test("sessions.list reports multiple physical agent stores", async () => {
 test.runIf(process.platform !== "win32")(
   "requested-agent path projection collapses physical store aliases",
   async () => {
-    const stateDir = process.env.OPENCLAW_STATE_DIR;
+    const stateDir = process.env.GRANTED_STATE_DIR;
     if (!stateDir) {
-      throw new Error("OPENCLAW_STATE_DIR is required for gateway session tests");
+      throw new Error("GRANTED_STATE_DIR is required for gateway session tests");
     }
     const aliasStateDir = `${stateDir}-alias`;
     fsSync.symlinkSync(stateDir, aliasStateDir, "dir");
@@ -105,12 +105,12 @@ test.runIf(process.platform !== "win32")(
 );
 
 test("configured-only multi-store target preparation is reused across distinct lists", async () => {
-  const rootStateDir = process.env.OPENCLAW_STATE_DIR;
+  const rootStateDir = process.env.GRANTED_STATE_DIR;
   if (!rootStateDir) {
-    throw new Error("OPENCLAW_STATE_DIR is required for gateway session tests");
+    throw new Error("GRANTED_STATE_DIR is required for gateway session tests");
   }
   const stateDir = path.join(rootStateDir, "configured-path-scaling");
-  await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () => {
+  await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {
     const agentIds = Array.from({ length: 29 }, (_, index) => `agent-${index}`);
     const storeTemplate = path.join(stateDir, "agents", "{agentId}", "sessions", "sessions.json");
     testState.sessionConfig = { store: storeTemplate };
@@ -172,12 +172,12 @@ test("configured-only multi-store target preparation is reused across distinct l
 });
 
 test("configured-only parent-owned stores keep lineage children without directory discovery", async () => {
-  const rootStateDir = process.env.OPENCLAW_STATE_DIR;
+  const rootStateDir = process.env.GRANTED_STATE_DIR;
   if (!rootStateDir) {
-    throw new Error("OPENCLAW_STATE_DIR is required for gateway session tests");
+    throw new Error("GRANTED_STATE_DIR is required for gateway session tests");
   }
   const stateDir = path.join(rootStateDir, "fixed-configured-list-regression");
-  await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () => {
+  await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {
     const storeTemplate = path.join(stateDir, "agents", "{agentId}", "sessions", "sessions.json");
     const storePath = storeTemplate.replace("{agentId}", "ops");
     const mainKey = "agent:ops:main";

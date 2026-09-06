@@ -29,7 +29,7 @@ describe("media understanding scope", () => {
 });
 
 const originalFetch = globalThis.fetch;
-const stateDirEnvSnapshot = captureEnv(["OPENCLAW_STATE_DIR"]);
+const stateDirEnvSnapshot = captureEnv(["GRANTED_STATE_DIR"]);
 
 function restoreProcessState() {
   stateDirEnvSnapshot.restore();
@@ -286,7 +286,7 @@ describe("media understanding attachments SSRF", () => {
       await fs.mkdir(path.dirname(attachmentPath), { recursive: true });
       await fs.mkdir(cwd, { recursive: true });
       await fs.writeFile(attachmentPath, "state-media");
-      setTestEnvValue("OPENCLAW_STATE_DIR", stateDir);
+      setTestEnvValue("GRANTED_STATE_DIR", stateDir);
       vi.spyOn(process, "cwd").mockReturnValue(cwd);
 
       const cache = new MediaAttachmentCache([{ index: 0, path: relativePath }], {
@@ -301,7 +301,7 @@ describe("media understanding attachments SSRF", () => {
 
   it("resolves managed inbound media URI attachments", async () => {
     await withTestDir({ prefix: "openclaw-media-cache-managed-inbound-" }, async (stateDir) => {
-      setTestEnvValue("OPENCLAW_STATE_DIR", stateDir);
+      setTestEnvValue("GRANTED_STATE_DIR", stateDir);
       const saved = await saveMediaBuffer(Buffer.from("managed-media"), "text/plain", "inbound");
 
       const cache = new MediaAttachmentCache(
@@ -337,7 +337,7 @@ describe("media understanding attachments SSRF", () => {
       await fs.mkdir(stateDir, { recursive: true });
       await fs.mkdir(path.dirname(attachmentPath), { recursive: true });
       await fs.writeFile(attachmentPath, "cwd-media");
-      setTestEnvValue("OPENCLAW_STATE_DIR", stateDir);
+      setTestEnvValue("GRANTED_STATE_DIR", stateDir);
       vi.spyOn(process, "cwd").mockReturnValue(cwd);
 
       const cache = new MediaAttachmentCache([{ index: 0, path: relativePath }], {
@@ -361,7 +361,7 @@ describe("media understanding attachments SSRF", () => {
       await fs.mkdir(path.dirname(statePath), { recursive: true });
       await fs.writeFile(cwdPath, "cwd-media");
       await fs.writeFile(statePath, "state-media");
-      setTestEnvValue("OPENCLAW_STATE_DIR", stateDir);
+      setTestEnvValue("GRANTED_STATE_DIR", stateDir);
       vi.spyOn(process, "cwd").mockReturnValue(cwd);
 
       const cache = new MediaAttachmentCache([{ index: 0, path: relativePath }], {
@@ -384,7 +384,7 @@ describe("media understanding attachments SSRF", () => {
       await fs.mkdir(path.dirname(statePath), { recursive: true });
       await fs.writeFile(cwdPath, "blocked-cwd-media");
       await fs.writeFile(statePath, "state-media");
-      setTestEnvValue("OPENCLAW_STATE_DIR", stateDir);
+      setTestEnvValue("GRANTED_STATE_DIR", stateDir);
       vi.spyOn(process, "cwd").mockReturnValue(cwd);
 
       const cache = new MediaAttachmentCache([{ index: 0, path: relativePath }], {

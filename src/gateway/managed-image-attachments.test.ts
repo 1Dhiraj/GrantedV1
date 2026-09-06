@@ -228,14 +228,14 @@ function requireManagedOriginalPath(stateDir: string, attachmentId: string): str
 }
 
 function prepareAgentSessionStore(stateDir: string, agentId: string): void {
-  const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+  const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
   openOpenClawAgentDatabase({ agentId, env });
   closeOpenClawAgentDatabasesForTest();
 }
 
 async function prepareManagedSessionStore(stateDir: string): Promise<void> {
   closeOpenClawAgentDatabasesForTest();
-  const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+  const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
   const storePath = path.join(stateDir, "sessions.sqlite");
   await replaceTestSessionEntry(
     {
@@ -437,7 +437,7 @@ describe("handleManagedOutgoingImageHttpRequest", () => {
     const { attachmentId, sessionKey } = await createFixture(stateDir);
     expect(
       resolveExistingAgentSessionStoreTargetsReadOnlyResult(getRuntimeConfigMock(), "main", {
-        env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+        env: { ...process.env, GRANTED_STATE_DIR: stateDir },
       }),
     ).toMatchObject({
       available: true,
@@ -1033,9 +1033,9 @@ describe("handleManagedOutgoingImageHttpRequest", () => {
     try {
       await withEnvAsync(
         {
-          OPENCLAW_CONFIG_PATH: path.join(externalConfigDir, "config.json"),
-          OPENCLAW_HOME: isolatedHome,
-          OPENCLAW_STATE_DIR: undefined,
+          GRANTED_CONFIG_PATH: path.join(externalConfigDir, "config.json"),
+          GRANTED_HOME: isolatedHome,
+          GRANTED_STATE_DIR: undefined,
         },
         async () => {
           const pathName = `/api/chat/media/outgoing/${encodeURIComponent(fixture.sessionKey)}/${fixture.attachmentId}/full`;
@@ -1765,7 +1765,7 @@ describe("createManagedOutgoingImageBlocks", () => {
       await fs.mkdir(path.dirname(sourcePath), { recursive: true });
       await fs.writeFile(sourcePath, Buffer.from(TINY_PNG_BASE64, "base64"));
 
-      await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () => {
+      await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {
         const blocks = await createManagedOutgoingImageBlocks({
           stateDir,
           sessionKey: "agent:main:main",
@@ -1816,7 +1816,7 @@ describe("createManagedOutgoingImageBlocks", () => {
     });
 
     try {
-      await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () => {
+      await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {
         const sourceUrl = `http://127.0.0.1:${address.port}/remote-cat.png?sig=secret`;
         const blocks = await createManagedOutgoingImageBlocks({
           stateDir,
@@ -1861,9 +1861,9 @@ describe("createManagedOutgoingImageBlocks", () => {
     try {
       await withEnvAsync(
         {
-          OPENCLAW_HOME: openClawHome,
-          OPENCLAW_CONFIG_PATH: path.join(externalConfigDir, "config.json"),
-          OPENCLAW_STATE_DIR: undefined,
+          GRANTED_HOME: openClawHome,
+          GRANTED_CONFIG_PATH: path.join(externalConfigDir, "config.json"),
+          GRANTED_STATE_DIR: undefined,
         },
         async () => {
           await prepareManagedSessionStore(splitStateDir);
@@ -2187,7 +2187,7 @@ describe("createManagedOutgoingImageBlocks", () => {
     });
 
     try {
-      await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () => {
+      await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {
         const blocks = await createManagedOutgoingImageBlocks({
           sessionKey: "agent:main:main",
           mediaUrls: [`http://127.0.0.1:${address.port}/large-image.png`],
@@ -2246,7 +2246,7 @@ describe("createManagedOutgoingImageBlocks", () => {
     await fs.mkdir(path.dirname(inboundPath), { recursive: true });
     await fs.writeFile(inboundPath, Buffer.from(TINY_PNG_BASE64, "base64"));
 
-    await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () => {
+    await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {
       const blocks = await createManagedOutgoingImageBlocks({
         sessionKey: "agent:main:main",
         mediaUrls: [inboundPath],
@@ -2690,7 +2690,7 @@ describe("cleanupManagedOutgoingImageRecords", () => {
 
   it("retains history records when the session table is unavailable", async () => {
     const fixture = await createFixture(stateDir);
-    const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+    const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
     const databasePath = openOpenClawAgentDatabase({ agentId: "main", env }).path;
     closeOpenClawAgentDatabasesForTest();
     const { DatabaseSync } = requireNodeSqlite();
@@ -2710,7 +2710,7 @@ describe("cleanupManagedOutgoingImageRecords", () => {
 
   it("retains history records when the session row is unreadable", async () => {
     const fixture = await createFixture(stateDir);
-    const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+    const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
     const opened = openOpenClawAgentDatabase({ agentId: "main", env });
     opened.db
       .prepare(
@@ -2722,7 +2722,7 @@ describe("cleanupManagedOutgoingImageRecords", () => {
     getRuntimeConfigMock.mockReturnValue({ session: { store: databasePath } });
     loadSessionEntryMock.mockReturnValue({ storePath: databasePath, entry: undefined });
 
-    const result = await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, () =>
+    const result = await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, () =>
       cleanupManagedOutgoingImageRecords({ stateDir }),
     );
 
@@ -2734,7 +2734,7 @@ describe("cleanupManagedOutgoingImageRecords", () => {
 
   it("does not let a valid fallback mask an unreadable exact row", async () => {
     const fixture = await createFixture(stateDir);
-    const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+    const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
     const opened = openOpenClawAgentDatabase({ agentId: "main", env });
     opened.db
       .prepare(
@@ -2749,7 +2749,7 @@ describe("cleanupManagedOutgoingImageRecords", () => {
       entry: { sessionId: "fallback-session", sessionFile: "/tmp/fallback.jsonl" },
     });
 
-    const result = await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, () =>
+    const result = await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, () =>
       cleanupManagedOutgoingImageRecords({ stateDir }),
     );
 
@@ -2767,7 +2767,7 @@ describe("cleanupManagedOutgoingImageRecords", () => {
     });
     loadSessionEntryMock.mockReturnValue({ storePath, entry: undefined });
 
-    const result = await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, () =>
+    const result = await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, () =>
       cleanupManagedOutgoingImageRecords({ stateDir }),
     );
 
@@ -2779,7 +2779,7 @@ describe("cleanupManagedOutgoingImageRecords", () => {
 
   it("retains history when a healthy configured store masks an unreadable candidate", async () => {
     const fixture = await createFixture(stateDir);
-    const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+    const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
     const storeTemplate = path.join(stateDir, "custom", "{agentId}", "sessions.json");
     const configuredStorePath = storeTemplate.replace("{agentId}", "main");
     const configuredTarget = resolveSqliteTargetFromSessionStorePath(configuredStorePath, {
@@ -2797,7 +2797,7 @@ describe("cleanupManagedOutgoingImageRecords", () => {
     getRuntimeConfigMock.mockReturnValue({ session: { store: storeTemplate } });
     loadSessionEntryMock.mockReturnValue({ storePath: configuredStorePath, entry: undefined });
 
-    const result = await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, () =>
+    const result = await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, () =>
       cleanupManagedOutgoingImageRecords({ stateDir }),
     );
 
@@ -2810,7 +2810,7 @@ describe("cleanupManagedOutgoingImageRecords", () => {
 
   it("retains history when a healthy discovered store masks a missing configured store", async () => {
     const fixture = await createFixture(stateDir);
-    const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+    const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
     const storeTemplate = path.join(stateDir, "missing-custom", "{agentId}", "sessions.json");
     const discovered = openOpenClawAgentDatabase({ agentId: "main", env });
     discovered.db
@@ -2830,7 +2830,7 @@ describe("cleanupManagedOutgoingImageRecords", () => {
       entry: undefined,
     });
 
-    const result = await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, () =>
+    const result = await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, () =>
       cleanupManagedOutgoingImageRecords({ stateDir }),
     );
 
@@ -2847,7 +2847,7 @@ describe("cleanupManagedOutgoingImageRecords", () => {
     getRuntimeConfigMock.mockReturnValue({ session: { store: storePath } });
     loadSessionEntryMock.mockReturnValue({ storePath, entry: undefined });
 
-    const result = await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, () =>
+    const result = await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, () =>
       cleanupManagedOutgoingImageRecords({ stateDir }),
     );
 
@@ -2864,7 +2864,7 @@ describe("cleanupManagedOutgoingImageRecords", () => {
       sessionKey: "agent:retired:main",
     });
     const storePath = path.join(stateDir, "current-sessions.json");
-    const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+    const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
     const target = resolveSqliteTargetFromSessionStorePath(storePath, { agentId: "main", env });
     const opened = openOpenClawAgentDatabase({ agentId: "main", env, path: target.path });
     opened.db
@@ -2876,7 +2876,7 @@ describe("cleanupManagedOutgoingImageRecords", () => {
     getRuntimeConfigMock.mockReturnValue({ session: { store: storePath } });
     loadSessionEntryMock.mockReturnValue({ storePath, entry: undefined });
 
-    const result = await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, () =>
+    const result = await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, () =>
       cleanupManagedOutgoingImageRecords({ stateDir }),
     );
 
@@ -2893,7 +2893,7 @@ describe("cleanupManagedOutgoingImageRecords", () => {
       sessionKey: "agent:retired:main",
     });
     const storePath = path.join(stateDir, "retired-readable-sessions.json");
-    const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+    const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
     await replaceTestSessionEntry(
       { agentId: "retired", env, storePath, sessionKey: "agent:retired:main" },
       { sessionId: "retired-session", updatedAt: Date.now() },
@@ -2919,7 +2919,7 @@ describe("cleanupManagedOutgoingImageRecords", () => {
     });
     readSessionMessagesMock.mockReturnValue([]);
 
-    const result = await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, () =>
+    const result = await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, () =>
       cleanupManagedOutgoingImageRecords({ stateDir }),
     );
 
@@ -2934,7 +2934,7 @@ describe("cleanupManagedOutgoingImageRecords", () => {
       sessionKey: "agent:retired:main",
     });
     const storePath = path.join(stateDir, "retired-sessions.json");
-    const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+    const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
     const target = resolveSqliteTargetFromSessionStorePath(storePath, {
       agentId: "retired",
       env,
@@ -2952,7 +2952,7 @@ describe("cleanupManagedOutgoingImageRecords", () => {
       resolveExistingAgentSessionStoreTargetsReadOnlyResult(config, "retired", { env }),
     ).toEqual({ available: false, reason: "schema-missing" });
 
-    const result = await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, () =>
+    const result = await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, () =>
       cleanupManagedOutgoingImageRecords({ stateDir }),
     );
 
@@ -3068,7 +3068,7 @@ describe("cleanupManagedOutgoingImageRecords", () => {
     await replaceTestSessionEntry(
       {
         agentId: "main",
-        env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+        env: { ...process.env, GRANTED_STATE_DIR: stateDir },
         sessionKey: "global",
         storePath: path.join(stateDir, "sessions.sqlite"),
       },
@@ -3127,7 +3127,7 @@ describe("cleanupManagedOutgoingImageRecords", () => {
     await replaceTestSessionEntry(
       {
         agentId: "work",
-        env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+        env: { ...process.env, GRANTED_STATE_DIR: stateDir },
         sessionKey,
       },
       { sessionId: "sess-work", updatedAt: Date.now() },
@@ -3165,7 +3165,7 @@ describe("cleanupManagedOutgoingImageRecords", () => {
     await replaceTestSessionEntry(
       {
         agentId: "work",
-        env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+        env: { ...process.env, GRANTED_STATE_DIR: stateDir },
         sessionKey: "global",
       },
       { sessionId: "sess-work-global", updatedAt: Date.now() },
@@ -3173,7 +3173,7 @@ describe("cleanupManagedOutgoingImageRecords", () => {
     closeOpenClawAgentDatabasesForTest();
     expect(
       resolveExistingAgentSessionStoreTargetsReadOnlyResult(config, "work", {
-        env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+        env: { ...process.env, GRANTED_STATE_DIR: stateDir },
       }),
     ).toMatchObject({ available: true });
     const { loadExactSessionEntryReadOnlyResult } =
@@ -3181,7 +3181,7 @@ describe("cleanupManagedOutgoingImageRecords", () => {
     expect(
       loadExactSessionEntryReadOnlyResult({
         agentId: "work",
-        env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+        env: { ...process.env, GRANTED_STATE_DIR: stateDir },
         sessionKey: "global",
       }),
     ).toMatchObject({ found: true, value: { sessionKey: "global" } });
@@ -3238,7 +3238,7 @@ describe("cleanupManagedOutgoingImageRecords", () => {
     await replaceTestSessionEntry(
       {
         agentId: "work",
-        env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+        env: { ...process.env, GRANTED_STATE_DIR: stateDir },
         sessionKey: "global",
         storePath: path.join(stateDir, "sessions.sqlite"),
       },

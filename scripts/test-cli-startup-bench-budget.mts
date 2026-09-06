@@ -78,7 +78,7 @@ if (process.argv.slice(2).includes("--help")) {
       "",
       "Non-x64 runs skip fixture regression checks by default because the",
       "checked-in startup fixture is a canonical x64 budget. Response contracts still run. Set",
-      "OPENCLAW_STARTUP_BENCH_ENFORCE_NONCANONICAL_ARCH=1 to force them.",
+      "GRANTED_STARTUP_BENCH_ENFORCE_NONCANONICAL_ARCH=1 to force them.",
       "  --help                        Show this help text",
       "",
       "Example:",
@@ -101,11 +101,11 @@ function parseOptions() {
         warmup: 0,
         timeoutMs: 30_000,
         maxDurationRegressionPct:
-          readBudgetEnvNumber("OPENCLAW_STARTUP_BENCH_MAX_DURATION_REGRESSION_PCT") ?? 20,
+          readBudgetEnvNumber("GRANTED_STARTUP_BENCH_MAX_DURATION_REGRESSION_PCT") ?? 20,
         maxFirstOutputRegressionPct:
-          readBudgetEnvNumber("OPENCLAW_STARTUP_BENCH_MAX_FIRST_OUTPUT_REGRESSION_PCT") ?? 20,
+          readBudgetEnvNumber("GRANTED_STARTUP_BENCH_MAX_FIRST_OUTPUT_REGRESSION_PCT") ?? 20,
         maxRssRegressionPct:
-          readBudgetEnvNumber("OPENCLAW_STARTUP_BENCH_MAX_RSS_REGRESSION_PCT") ?? 20,
+          readBudgetEnvNumber("GRANTED_STARTUP_BENCH_MAX_RSS_REGRESSION_PCT") ?? 20,
         skipBaseline: false,
         skipResponseBudgets: false,
       },
@@ -132,10 +132,10 @@ function parseOptions() {
 let opts = parseOptions();
 
 const shouldAutoSkipNonCanonicalBaselineChecks =
-  process.arch !== "x64" && process.env.OPENCLAW_STARTUP_BENCH_ENFORCE_NONCANONICAL_ARCH !== "1";
+  process.arch !== "x64" && process.env.GRANTED_STARTUP_BENCH_ENFORCE_NONCANONICAL_ARCH !== "1";
 if (shouldAutoSkipNonCanonicalBaselineChecks && !opts.skipBaseline) {
   console.warn(
-    `[test-cli-startup-bench-budget] skipping x64 startup fixture budgets on ${process.arch}; response contracts and sample output validation still ran. Set OPENCLAW_STARTUP_BENCH_ENFORCE_NONCANONICAL_ARCH=1 to force fixture checks.`,
+    `[test-cli-startup-bench-budget] skipping x64 startup fixture budgets on ${process.arch}; response contracts and sample output validation still ran. Set GRANTED_STARTUP_BENCH_ENFORCE_NONCANONICAL_ARCH=1 to force fixture checks.`,
   );
   opts = {
     ...opts,

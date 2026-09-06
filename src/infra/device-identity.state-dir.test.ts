@@ -48,8 +48,8 @@ describe("device identity state dir defaults", () => {
       const env = {
         ...process.env,
         HOME: fakeHome,
-        OPENCLAW_HOME: fakeHome,
-        OPENCLAW_STATE_DIR: stateDir,
+        GRANTED_HOME: fakeHome,
+        GRANTED_STATE_DIR: stateDir,
       };
 
       loadOrCreateDeviceIdentity({ env });

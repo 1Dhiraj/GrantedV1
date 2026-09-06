@@ -262,9 +262,9 @@ describe("resolvePluginRuntimeArtifact", () => {
 
     const [first, second] = withEnv(
       {
-        OPENCLAW_BUNDLED_PLUGINS_DIR: path.dirname(fixture.rootDir),
-        OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR: "1",
-        OPENCLAW_DISABLE_BUNDLED_PLUGINS: undefined,
+        GRANTED_BUNDLED_PLUGINS_DIR: path.dirname(fixture.rootDir),
+        GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR: "1",
+        GRANTED_DISABLE_BUNDLED_PLUGINS: undefined,
       },
       () => {
         const sourceRegistry = loadOpenClawPlugins({

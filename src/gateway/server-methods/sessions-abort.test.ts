@@ -20,9 +20,9 @@ import { createActiveRun, createChatAbortContext } from "./chat.abort.test-helpe
 setupGatewaySessionsHandlerTestHarness();
 
 function requireStateDir(): string {
-  const stateDir = process.env.OPENCLAW_STATE_DIR;
+  const stateDir = process.env.GRANTED_STATE_DIR;
   if (!stateDir) {
-    throw new Error("OPENCLAW_STATE_DIR is required");
+    throw new Error("GRANTED_STATE_DIR is required");
   }
   return stateDir;
 }
@@ -64,8 +64,8 @@ test("sessions.abort rejects an unknown agent without provisioning its store", a
     ok: false,
     error: { code: "INVALID_REQUEST", message: 'agent "ghost" not found' },
   });
-  const env = { OPENCLAW_STATE_DIR: requireStateDir() };
-  expect(fs.existsSync(path.join(env.OPENCLAW_STATE_DIR, "agents", "ghost"))).toBe(false);
+  const env = { GRANTED_STATE_DIR: requireStateDir() };
+  expect(fs.existsSync(path.join(env.GRANTED_STATE_DIR, "agents", "ghost"))).toBe(false);
   expect(fs.existsSync(resolveOpenClawAgentSqlitePath({ agentId: "ghost", env }))).toBe(false);
   expect(listOpenClawRegisteredAgentDatabases({ env }).map((entry) => entry.agentId)).not.toContain(
     "ghost",
@@ -119,8 +119,8 @@ test("sessions.abort aborts an exact active run for an unconfigured agent withou
     payload: { ok: true, abortedRunId: runId, status: "aborted" },
   });
   expect(activeRun.controller.signal.aborted).toBe(true);
-  const env = { OPENCLAW_STATE_DIR: requireStateDir() };
-  expect(fs.existsSync(path.join(env.OPENCLAW_STATE_DIR, "agents", agentId))).toBe(false);
+  const env = { GRANTED_STATE_DIR: requireStateDir() };
+  expect(fs.existsSync(path.join(env.GRANTED_STATE_DIR, "agents", agentId))).toBe(false);
   expect(fs.existsSync(resolveOpenClawAgentSqlitePath({ agentId, env }))).toBe(false);
   expect(listOpenClawRegisteredAgentDatabases({ env }).map((entry) => entry.agentId)).not.toContain(
     agentId,
@@ -238,7 +238,7 @@ test.each(["main", "work"])("sessions.abort still resolves the %s agent store", 
     fs.existsSync(
       resolveOpenClawAgentSqlitePath({
         agentId,
-        env: { OPENCLAW_STATE_DIR: requireStateDir() },
+        env: { GRANTED_STATE_DIR: requireStateDir() },
       }),
     ),
   ).toBe(true);

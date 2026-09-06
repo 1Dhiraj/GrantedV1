@@ -52,7 +52,7 @@ describe("Doctor legacy config composition", () => {
     await withTempHome(async (home) => {
       await withEnvOverride(
         {
-          OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
+          GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
           DOCTOR_AGENT_ID: "research",
           DOCTOR_MEMORY_KEY: shape === "list with config env" ? undefined : "memory-secret-canary",
         },
@@ -135,7 +135,7 @@ describe("Doctor legacy config composition", () => {
 
   it.each(["root", "list", "entries"])("preserves message policy from %s", async (scope) => {
     await withTempHome(async (home) => {
-      await withEnvOverride({ OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1" }, async () => {
+      await withEnvOverride({ GRANTED_DISABLE_BUNDLED_PLUGINS: "1" }, async () => {
         const message = { allowCrossContextSend: true, broadcast: { enabled: false } };
         const agent = scope === "root" ? {} : { tools: { message } };
         const configPath = await writeOpenClawConfig(home, {
@@ -160,7 +160,7 @@ describe("Doctor legacy config composition", () => {
   });
   it("preserves inherited message policy when an agent opts out of the legacy bypass", async () => {
     await withTempHome(async (home) => {
-      await withEnvOverride({ OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1" }, async () => {
+      await withEnvOverride({ GRANTED_DISABLE_BUNDLED_PLUGINS: "1" }, async () => {
         const configPath = await writeOpenClawConfig(home, {
           tools: { message: { allowCrossContextSend: true } },
           agents: {
@@ -191,7 +191,7 @@ describe("Doctor legacy config composition", () => {
     async (apiKey) => {
       await withTempHome(async (home) => {
         await withEnvOverride(
-          { OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1", DOCTOR_MEMORY_KEY: "memory-secret-canary" },
+          { GRANTED_DISABLE_BUNDLED_PLUGINS: "1", DOCTOR_MEMORY_KEY: "memory-secret-canary" },
           async () => {
             const configPath = await writeOpenClawConfig(home, {
               memory: { search: { enabled: false, query: { maxResults: 9 } } },
@@ -244,7 +244,7 @@ describe("Doctor legacy config composition", () => {
     "preserves the shipped message bypass precedence for root %s",
     async (globalBypass) => {
       await withTempHome(async (home) => {
-        await withEnvOverride({ OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1" }, async () => {
+        await withEnvOverride({ GRANTED_DISABLE_BUNDLED_PLUGINS: "1" }, async () => {
           const denied = { allowWithinProvider: false, allowAcrossProviders: false };
           const configPath = await writeOpenClawConfig(home, {
             tools: { message: { allowCrossContextSend: globalBypass, crossContext: denied } },

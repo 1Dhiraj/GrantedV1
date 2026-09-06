@@ -226,8 +226,8 @@ async function existingPaths(paths: readonly string[]): Promise<string[]> {
 async function acquireStateCleanupOwnership(cleanup: CleanupResolvedPaths) {
   const env = {
     ...process.env,
-    OPENCLAW_CONFIG_PATH: cleanup.configPath,
-    OPENCLAW_STATE_DIR: cleanup.stateDir,
+    GRANTED_CONFIG_PATH: cleanup.configPath,
+    GRANTED_STATE_DIR: cleanup.stateDir,
   };
   let lock: Awaited<ReturnType<typeof acquireGatewayLock>>;
   try {
@@ -448,7 +448,7 @@ export async function removeStateAndLinkedPaths(
     }
     const databasePath = resolveOpenClawStateSqlitePath({
       ...process.env,
-      OPENCLAW_STATE_DIR: stateDir,
+      GRANTED_STATE_DIR: stateDir,
     });
     stateCoordinator = acquireStateDatabaseCoordinator({
       databasePath,

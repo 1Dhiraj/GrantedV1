@@ -325,12 +325,12 @@ describe("installHooksFromPath", () => {
     {
       openclaw: {},
       error: "package.json missing openclaw.hooks",
-      code: HOOK_INSTALL_ERROR_CODE.MISSING_OPENCLAW_HOOKS,
+      code: HOOK_INSTALL_ERROR_CODE.MISSING_GRANTED_HOOKS,
     },
     {
       openclaw: { hooks: [] },
       error: "package.json openclaw.hooks is empty",
-      code: HOOK_INSTALL_ERROR_CODE.EMPTY_OPENCLAW_HOOKS,
+      code: HOOK_INSTALL_ERROR_CODE.EMPTY_GRANTED_HOOKS,
     },
   ])("returns a stable code for $error", async ({ openclaw, error, code }) => {
     const pkgDir = makeTempDir();

@@ -97,10 +97,10 @@ describe.skipIf(process.platform === "win32")("Doctor native repair authority or
     const programArguments = [wrapperPath, "gateway", "--port", "18789"];
     const environment = {
       HOME: home,
-      OPENCLAW_STATE_DIR: installedStateDir,
-      OPENCLAW_CONFIG_PATH: configPath,
-      OPENCLAW_WRAPPER: wrapperPath,
-      OPENCLAW_GATEWAY_TOKEN: embeddedToken,
+      GRANTED_STATE_DIR: installedStateDir,
+      GRANTED_CONFIG_PATH: configPath,
+      GRANTED_WRAPPER: wrapperPath,
+      GRANTED_GATEWAY_TOKEN: embeddedToken,
       PATH: "/usr/local/bin:/usr/bin:/bin",
     };
     const originalUnit = buildSystemdUnit({ programArguments, environment });
@@ -246,21 +246,21 @@ describe.skipIf(process.platform === "win32")("Doctor native repair authority or
       {
         HOME: home,
         USERPROFILE: home,
-        OPENCLAW_HOME: undefined,
-        OPENCLAW_STATE_DIR: stateDir,
-        OPENCLAW_CONFIG_PATH: configPath,
-        OPENCLAW_PROFILE: undefined,
-        OPENCLAW_SYSTEMD_UNIT: undefined,
-        OPENCLAW_SERVICE_KIND: undefined,
-        OPENCLAW_NIX_MODE: undefined,
-        OPENCLAW_SUPERVISOR_MODE: undefined,
-        OPENCLAW_SERVICE_REPAIR_POLICY: undefined,
-        OPENCLAW_GATEWAY_TOKEN: undefined,
-        OPENCLAW_GATEWAY_PASSWORD: undefined,
-        OPENCLAW_GATEWAY_PORT: undefined,
-        OPENCLAW_WRAPPER: wrapperPath,
-        OPENCLAW_UPDATE_IN_PROGRESS: update ? "1" : undefined,
-        OPENCLAW_UPDATE_PARENT_ALLOWS_GATEWAY_SERVICE_REPAIR: update ? "1" : undefined,
+        GRANTED_HOME: undefined,
+        GRANTED_STATE_DIR: stateDir,
+        GRANTED_CONFIG_PATH: configPath,
+        GRANTED_PROFILE: undefined,
+        GRANTED_SYSTEMD_UNIT: undefined,
+        GRANTED_SERVICE_KIND: undefined,
+        GRANTED_NIX_MODE: undefined,
+        GRANTED_SUPERVISOR_MODE: undefined,
+        GRANTED_SERVICE_REPAIR_POLICY: undefined,
+        GRANTED_GATEWAY_TOKEN: undefined,
+        GRANTED_GATEWAY_PASSWORD: undefined,
+        GRANTED_GATEWAY_PORT: undefined,
+        GRANTED_WRAPPER: wrapperPath,
+        GRANTED_UPDATE_IN_PROGRESS: update ? "1" : undefined,
+        GRANTED_UPDATE_PARENT_ALLOWS_GATEWAY_SERVICE_REPAIR: update ? "1" : undefined,
       },
       async () => {
         expect(isDefaultInstallIdentity()).toBe(true);
@@ -272,7 +272,7 @@ describe.skipIf(process.platform === "win32")("Doctor native repair authority or
         const plannedCapability = blockedTarget
           ? await service.readDefinitionMutationCapability!({
               env: process.env,
-              environment: { ...environment, OPENCLAW_STATE_DIR: stateDir },
+              environment: { ...environment, GRANTED_STATE_DIR: stateDir },
             })
           : undefined;
         if (scenario === "rejected") {

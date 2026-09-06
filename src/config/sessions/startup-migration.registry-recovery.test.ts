@@ -31,7 +31,7 @@ it("does not create a missing configured agent database during startup maintenan
   const root = fs.realpathSync.native(tempDirs.make("openclaw-startup-missing-agent-db-"));
   const stateDir = path.join(root, "state");
   const storePath = path.join(stateDir, "agents", "idle", "sessions", "sessions.json");
-  const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+  const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
   const cfg: OpenClawConfig = {
     agents: { entries: { idle: { default: true } } },
     session: { store: path.join(stateDir, "agents", "{agentId}", "sessions", "sessions.json") },
@@ -69,7 +69,7 @@ it("does not create a missing configured agent database during startup maintenan
 it("re-registers durable lineage children before configured-only runtime reads", async () => {
   const root = fs.realpathSync.native(tempDirs.make("openclaw-startup-registry-recovery-"));
   const stateDir = path.join(root, "state");
-  await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () => {
+  await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {
     const env = { ...process.env };
     const storeTemplate = path.join(stateDir, "agents", "{agentId}", "sessions", "sessions.json");
     const cfg: OpenClawConfig = {
@@ -163,7 +163,7 @@ it("keeps copied state directories self-contained for combined gateway reads", a
   };
   const sessionKey = "agent:main:copied-state";
 
-  await withEnvAsync({ OPENCLAW_STATE_DIR: canonicalSourceStateDir }, async () => {
+  await withEnvAsync({ GRANTED_STATE_DIR: canonicalSourceStateDir }, async () => {
     const env = { ...process.env };
     await replaceSessionEntry(
       { agentId: "main", env, sessionKey },
@@ -176,7 +176,7 @@ it("keeps copied state directories self-contained for combined gateway reads", a
 
   fs.cpSync(canonicalSourceStateDir, copiedStateDir, { recursive: true });
   const canonicalCopiedStateDir = fs.realpathSync.native(copiedStateDir);
-  await withEnvAsync({ OPENCLAW_STATE_DIR: canonicalCopiedStateDir }, async () => {
+  await withEnvAsync({ GRANTED_STATE_DIR: canonicalCopiedStateDir }, async () => {
     const env = { ...process.env };
     expect(repairOpenClawStateDatabaseSchemaIfNeeded({ env }).warnings).toEqual([]);
     const combined = loadCombinedSessionStoreForGatewayCore(cfg, {

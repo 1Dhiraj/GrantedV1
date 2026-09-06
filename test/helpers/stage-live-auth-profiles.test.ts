@@ -35,7 +35,7 @@ function createAuthSource(stateDir: string): string {
             "openai:test": {
               type: "api_key",
               provider: "openai",
-              keyRef: { source: "env", provider: "default", id: "OPENCLAW_LIVE_OPENAI_KEY" },
+              keyRef: { source: "env", provider: "default", id: "GRANTED_LIVE_OPENAI_KEY" },
             },
           },
         },

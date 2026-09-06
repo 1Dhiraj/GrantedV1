@@ -147,7 +147,7 @@ const respawnGatewayProcessForUpdate = vi.fn<
     detail?: string;
     child?: { kill: () => void };
   }
->(() => ({ mode: "disabled", detail: "OPENCLAW_NO_RESPAWN" }));
+>(() => ({ mode: "disabled", detail: "GRANTED_NO_RESPAWN" }));
 const markUpdateRestartSentinelFailure = vi.fn<(reason: string) => Promise<null>>(
   async (_reason: string) => null,
 );
@@ -514,7 +514,7 @@ beforeEach(async () => {
   respawnGatewayProcessForUpdate.mockReset();
   respawnGatewayProcessForUpdate.mockReturnValue({
     mode: "disabled",
-    detail: "OPENCLAW_NO_RESPAWN",
+    detail: "GRANTED_NO_RESPAWN",
   });
   hasManagedProviderLocalServices.mockReset();
   hasManagedProviderLocalServices.mockReturnValue(false);
@@ -723,8 +723,8 @@ describe("runGatewayLoop", () => {
           { type: "mark", name: "gateway.stop" },
           {
             env: {
-              OPENCLAW_DIAGNOSTICS: "timeline",
-              OPENCLAW_DIAGNOSTICS_TIMELINE_PATH: timelinePath,
+              GRANTED_DIAGNOSTICS: "timeline",
+              GRANTED_DIAGNOSTICS_TIMELINE_PATH: timelinePath,
             },
           },
         );
@@ -1327,7 +1327,7 @@ describe("runGatewayLoop", () => {
     peekGatewaySigusr1RestartReason.mockReturnValue(undefined);
     respawnGatewayProcessForUpdate.mockReturnValue({
       mode: "disabled",
-      detail: "OPENCLAW_NO_RESPAWN",
+      detail: "GRANTED_NO_RESPAWN",
     });
     markUpdateRestartSentinelFailure.mockClear();
     let releaseFirstCronTaskDrain: (() => void) | undefined;
@@ -1486,7 +1486,7 @@ describe("runGatewayLoop", () => {
     peekGatewaySigusr1RestartReason.mockReturnValue(undefined);
     respawnGatewayProcessForUpdate.mockReturnValue({
       mode: "disabled",
-      detail: "OPENCLAW_NO_RESPAWN",
+      detail: "GRANTED_NO_RESPAWN",
     });
 
     await withIsolatedSignals(async ({ captureSignal }) => {
@@ -1520,7 +1520,7 @@ describe("runGatewayLoop", () => {
     peekGatewaySigusr1RestartReason.mockReturnValue(undefined);
     respawnGatewayProcessForUpdate.mockReturnValue({
       mode: "disabled",
-      detail: "OPENCLAW_NO_RESPAWN",
+      detail: "GRANTED_NO_RESPAWN",
     });
 
     await withIsolatedSignals(async ({ captureSignal }) => {
@@ -1723,7 +1723,7 @@ describe("runGatewayLoop", () => {
     peekGatewaySigusr1RestartReason.mockReturnValue(undefined);
     respawnGatewayProcessForUpdate.mockReturnValue({
       mode: "disabled",
-      detail: "OPENCLAW_NO_RESPAWN",
+      detail: "GRANTED_NO_RESPAWN",
     });
 
     await withIsolatedSignals(async ({ captureSignal }) => {
@@ -1791,7 +1791,7 @@ describe("runGatewayLoop", () => {
     peekGatewaySigusr1RestartReason.mockReturnValue(undefined);
     respawnGatewayProcessForUpdate.mockReturnValue({
       mode: "disabled",
-      detail: "OPENCLAW_NO_RESPAWN",
+      detail: "GRANTED_NO_RESPAWN",
     });
 
     await withIsolatedSignals(async ({ captureSignal }) => {
@@ -1868,7 +1868,7 @@ describe("runGatewayLoop", () => {
     peekGatewaySigusr1RestartReason.mockReturnValue(undefined);
     respawnGatewayProcessForUpdate.mockReturnValue({
       mode: "disabled",
-      detail: "OPENCLAW_NO_RESPAWN",
+      detail: "GRANTED_NO_RESPAWN",
     });
 
     try {
@@ -1956,7 +1956,7 @@ describe("runGatewayLoop", () => {
     peekGatewaySigusr1RestartReason.mockReturnValue(undefined);
     respawnGatewayProcessForUpdate.mockReturnValue({
       mode: "disabled",
-      detail: "OPENCLAW_NO_RESPAWN",
+      detail: "GRANTED_NO_RESPAWN",
     });
 
     await withIsolatedSignals(async ({ captureSignal }) => {
@@ -2129,9 +2129,9 @@ describe("runGatewayLoop", () => {
   it("releases the lock before exiting on supervised restart", async () => {
     vi.clearAllMocks();
     peekGatewaySigusr1RestartReason.mockReturnValue(undefined);
-    const originalTraceEnv = process.env.OPENCLAW_GATEWAY_RESTART_TRACE;
-    process.env.OPENCLAW_GATEWAY_RESTART_TRACE = "1";
-    process.env.OPENCLAW_SUPERVISOR_MODE = "external";
+    const originalTraceEnv = process.env.GRANTED_GATEWAY_RESTART_TRACE;
+    process.env.GRANTED_GATEWAY_RESTART_TRACE = "1";
+    process.env.GRANTED_SUPERVISOR_MODE = "external";
 
     try {
       await withIsolatedSignals(async ({ captureSignal }) => {
@@ -2156,16 +2156,16 @@ describe("runGatewayLoop", () => {
         expect(runtime.exit).toHaveBeenCalledWith(0);
         expect(exitCallOrder).toEqual(["lockRelease", "exit"]);
         const [respawnOpts] = restartGatewayProcessWithFreshPid.mock.calls[0] ?? [];
-        expect(respawnOpts?.env?.OPENCLAW_GATEWAY_RESTART_TRACE_STARTED_AT_MS).toMatch(/^\d/u);
-        expect(respawnOpts?.env?.OPENCLAW_GATEWAY_RESTART_TRACE_LAST_AT_MS).toMatch(/^\d/u);
+        expect(respawnOpts?.env?.GRANTED_GATEWAY_RESTART_TRACE_STARTED_AT_MS).toMatch(/^\d/u);
+        expect(respawnOpts?.env?.GRANTED_GATEWAY_RESTART_TRACE_LAST_AT_MS).toMatch(/^\d/u);
         expect(writeGatewayRestartHandoffSync).toHaveBeenCalledOnce();
       });
     } finally {
-      delete process.env.OPENCLAW_SUPERVISOR_MODE;
+      delete process.env.GRANTED_SUPERVISOR_MODE;
       if (originalTraceEnv === undefined) {
-        delete process.env.OPENCLAW_GATEWAY_RESTART_TRACE;
+        delete process.env.GRANTED_GATEWAY_RESTART_TRACE;
       } else {
-        process.env.OPENCLAW_GATEWAY_RESTART_TRACE = originalTraceEnv;
+        process.env.GRANTED_GATEWAY_RESTART_TRACE = originalTraceEnv;
       }
     }
   });
@@ -2175,7 +2175,7 @@ describe("runGatewayLoop", () => {
     peekGatewaySigusr1RestartReason.mockReturnValue(undefined);
     try {
       setPlatform("darwin");
-      process.env.OPENCLAW_LAUNCHD_LABEL = "ai.openclaw.gateway";
+      process.env.GRANTED_LAUNCHD_LABEL = "ai.openclaw.gateway";
       restartGatewayProcessWithFreshPid.mockReturnValueOnce({
         mode: "supervised",
         handoffSpawned: Promise.resolve(true),
@@ -2201,7 +2201,7 @@ describe("runGatewayLoop", () => {
       });
     } finally {
       vi.useRealTimers();
-      delete process.env.OPENCLAW_LAUNCHD_LABEL;
+      delete process.env.GRANTED_LAUNCHD_LABEL;
       if (originalPlatformDescriptor) {
         Object.defineProperty(process, "platform", originalPlatformDescriptor);
       }
@@ -2213,7 +2213,7 @@ describe("runGatewayLoop", () => {
     peekGatewaySigusr1RestartReason.mockReturnValue(undefined);
     try {
       setPlatform("darwin");
-      process.env.OPENCLAW_LAUNCHD_LABEL = "ai.openclaw.gateway";
+      process.env.GRANTED_LAUNCHD_LABEL = "ai.openclaw.gateway";
       restartGatewayProcessWithFreshPid.mockReturnValueOnce({
         mode: "supervised",
         handoffSpawned: Promise.resolve(false),
@@ -2240,7 +2240,7 @@ describe("runGatewayLoop", () => {
       });
     } finally {
       vi.useRealTimers();
-      delete process.env.OPENCLAW_LAUNCHD_LABEL;
+      delete process.env.GRANTED_LAUNCHD_LABEL;
       if (originalPlatformDescriptor) {
         Object.defineProperty(process, "platform", originalPlatformDescriptor);
       }
@@ -2252,7 +2252,7 @@ describe("runGatewayLoop", () => {
     consumeGatewayRestartIntentPayloadSync.mockReturnValueOnce({ reason: "gateway.restart" });
     try {
       setPlatform("darwin");
-      process.env.OPENCLAW_LAUNCHD_LABEL = "ai.openclaw.gateway";
+      process.env.GRANTED_LAUNCHD_LABEL = "ai.openclaw.gateway";
       restartGatewayProcessWithFreshPid.mockReturnValueOnce({
         mode: "supervised",
         handoffSpawned: Promise.resolve(true),
@@ -2275,7 +2275,7 @@ describe("runGatewayLoop", () => {
       });
     } finally {
       vi.useRealTimers();
-      delete process.env.OPENCLAW_LAUNCHD_LABEL;
+      delete process.env.GRANTED_LAUNCHD_LABEL;
       if (originalPlatformDescriptor) {
         Object.defineProperty(process, "platform", originalPlatformDescriptor);
       }
@@ -2285,8 +2285,8 @@ describe("runGatewayLoop", () => {
   it("records external ownership even when native supervisor markers are inherited", async () => {
     vi.clearAllMocks();
     peekGatewaySigusr1RestartReason.mockReturnValue(undefined);
-    process.env.OPENCLAW_SUPERVISOR_MODE = "external";
-    process.env.OPENCLAW_LAUNCHD_LABEL = "ai.openclaw.gateway";
+    process.env.GRANTED_SUPERVISOR_MODE = "external";
+    process.env.GRANTED_LAUNCHD_LABEL = "ai.openclaw.gateway";
     restartGatewayProcessWithFreshPid.mockReturnValueOnce({
       mode: "supervised",
     });
@@ -2306,15 +2306,15 @@ describe("runGatewayLoop", () => {
         });
       });
     } finally {
-      delete process.env.OPENCLAW_SUPERVISOR_MODE;
-      delete process.env.OPENCLAW_LAUNCHD_LABEL;
+      delete process.env.GRANTED_SUPERVISOR_MODE;
+      delete process.env.GRANTED_LAUNCHD_LABEL;
     }
   });
 
   it("falls back in-process when an external restart handoff cannot be persisted", async () => {
     vi.clearAllMocks();
     peekGatewaySigusr1RestartReason.mockReturnValue(undefined);
-    process.env.OPENCLAW_SUPERVISOR_MODE = "external";
+    process.env.GRANTED_SUPERVISOR_MODE = "external";
     restartGatewayProcessWithFreshPid.mockReturnValueOnce({
       mode: "supervised",
     });
@@ -2342,7 +2342,7 @@ describe("runGatewayLoop", () => {
         await expect(exited).resolves.toBe(0);
       });
     } finally {
-      delete process.env.OPENCLAW_SUPERVISOR_MODE;
+      delete process.env.GRANTED_SUPERVISOR_MODE;
     }
   });
 
@@ -2459,7 +2459,7 @@ describe("runGatewayLoop", () => {
       });
       try {
         setPlatform("freebsd");
-        process.env.OPENCLAW_SUPERVISOR_MODE = "external";
+        process.env.GRANTED_SUPERVISOR_MODE = "external";
         await withIsolatedSignals(async ({ captureSignal }) => {
           const { runtime, exited } = await createSignaledLoopHarness();
           const sigusr1 = captureSignal("SIGUSR1");
@@ -2476,7 +2476,7 @@ describe("runGatewayLoop", () => {
           expect(respawnGatewayProcessForUpdate).not.toHaveBeenCalled();
         });
       } finally {
-        delete process.env.OPENCLAW_SUPERVISOR_MODE;
+        delete process.env.GRANTED_SUPERVISOR_MODE;
         if (originalPlatformDescriptor) {
           Object.defineProperty(process, "platform", originalPlatformDescriptor);
         }
@@ -2493,7 +2493,7 @@ describe("runGatewayLoop", () => {
     });
     try {
       setPlatform("darwin");
-      process.env.OPENCLAW_LAUNCHD_LABEL = "ai.openclaw.gateway";
+      process.env.GRANTED_LAUNCHD_LABEL = "ai.openclaw.gateway";
       await withIsolatedSignals(async ({ captureSignal }) => {
         const { start, runtime, exited } = await createSignaledLoopHarness();
         const sigusr1 = captureSignal("SIGUSR1");
@@ -2514,7 +2514,7 @@ describe("runGatewayLoop", () => {
       });
     } finally {
       vi.useRealTimers();
-      delete process.env.OPENCLAW_LAUNCHD_LABEL;
+      delete process.env.GRANTED_LAUNCHD_LABEL;
       if (originalPlatformDescriptor) {
         Object.defineProperty(process, "platform", originalPlatformDescriptor);
       }
@@ -2524,7 +2524,7 @@ describe("runGatewayLoop", () => {
   it("keeps running when an external update restart handoff cannot be persisted", async () => {
     vi.clearAllMocks();
     peekGatewaySigusr1RestartReason.mockReturnValue("update.run");
-    process.env.OPENCLAW_SUPERVISOR_MODE = "external";
+    process.env.GRANTED_SUPERVISOR_MODE = "external";
     restartGatewayProcessWithFreshPid.mockReturnValueOnce({
       mode: "supervised",
     });
@@ -2551,7 +2551,7 @@ describe("runGatewayLoop", () => {
         await expect(exited).resolves.toBe(0);
       });
     } finally {
-      delete process.env.OPENCLAW_SUPERVISOR_MODE;
+      delete process.env.GRANTED_SUPERVISOR_MODE;
     }
   });
 
@@ -2570,7 +2570,7 @@ describe("runGatewayLoop", () => {
         }),
     );
     setPlatform("freebsd");
-    process.env.OPENCLAW_SUPERVISOR_MODE = "external";
+    process.env.GRANTED_SUPERVISOR_MODE = "external";
     try {
       await withIsolatedSignals(async ({ captureSignal }) => {
         const { start, started } = createSignaledStart(close);
@@ -2604,7 +2604,7 @@ describe("runGatewayLoop", () => {
       });
     } finally {
       releaseClose();
-      delete process.env.OPENCLAW_SUPERVISOR_MODE;
+      delete process.env.GRANTED_SUPERVISOR_MODE;
     }
   });
 
@@ -2623,7 +2623,7 @@ describe("runGatewayLoop", () => {
       await lockReleaseBlocked;
     });
     acquireGatewayLock.mockResolvedValueOnce({ release: lockRelease });
-    process.env.OPENCLAW_SUPERVISOR_MODE = "external";
+    process.env.GRANTED_SUPERVISOR_MODE = "external";
     try {
       await withIsolatedSignals(async ({ captureSignal }) => {
         const { runtime, exited } = await createSignaledLoopHarness();
@@ -2649,7 +2649,7 @@ describe("runGatewayLoop", () => {
       });
     } finally {
       releaseLock();
-      delete process.env.OPENCLAW_SUPERVISOR_MODE;
+      delete process.env.GRANTED_SUPERVISOR_MODE;
     }
   });
 
@@ -2672,8 +2672,8 @@ describe("runGatewayLoop", () => {
       return true;
     });
     setPlatform("linux");
-    process.env.OPENCLAW_SERVICE_MARKER = "openclaw";
-    process.env.OPENCLAW_SERVICE_KIND = "gateway";
+    process.env.GRANTED_SERVICE_MARKER = "openclaw";
+    process.env.GRANTED_SERVICE_KIND = "gateway";
     try {
       await withIsolatedSignals(async ({ captureSignal }) => {
         const { start, runtime, exited } = await createSignaledLoopHarness();
@@ -2716,8 +2716,8 @@ describe("runGatewayLoop", () => {
       });
     } finally {
       releaseCommit();
-      delete process.env.OPENCLAW_SERVICE_MARKER;
-      delete process.env.OPENCLAW_SERVICE_KIND;
+      delete process.env.GRANTED_SERVICE_MARKER;
+      delete process.env.GRANTED_SERVICE_KIND;
     }
   });
 
@@ -2737,8 +2737,8 @@ describe("runGatewayLoop", () => {
       return "restored-in-process";
     });
     setPlatform("linux");
-    process.env.OPENCLAW_SERVICE_MARKER = "openclaw";
-    process.env.OPENCLAW_SERVICE_KIND = "gateway";
+    process.env.GRANTED_SERVICE_MARKER = "openclaw";
+    process.env.GRANTED_SERVICE_KIND = "gateway";
 
     try {
       await withIsolatedSignals(async ({ captureSignal }) => {
@@ -2771,8 +2771,8 @@ describe("runGatewayLoop", () => {
       });
     } finally {
       releaseHelperExit();
-      delete process.env.OPENCLAW_SERVICE_MARKER;
-      delete process.env.OPENCLAW_SERVICE_KIND;
+      delete process.env.GRANTED_SERVICE_MARKER;
+      delete process.env.GRANTED_SERVICE_KIND;
     }
   });
 

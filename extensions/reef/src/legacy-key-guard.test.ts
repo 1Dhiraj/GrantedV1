@@ -64,7 +64,7 @@ describe("Reef legacy key guard", () => {
     fs.writeFileSync(path.join(legacyDir, "keys.json"), "{}");
 
     await expect(
-      assertLegacyReefKeysMigrated(undefined, { OPENCLAW_STATE_DIR: isolatedStateDir }, homeDir),
+      assertLegacyReefKeysMigrated(undefined, { GRANTED_STATE_DIR: isolatedStateDir }, homeDir),
     ).resolves.toBeUndefined();
   });
 
@@ -77,7 +77,7 @@ describe("Reef legacy key guard", () => {
     fs.writeFileSync(path.join(legacyDir, "keys.json"), "{}");
 
     await expect(
-      assertLegacyReefKeysMigrated(legacyDir, { OPENCLAW_STATE_DIR: isolatedStateDir }, homeDir),
+      assertLegacyReefKeysMigrated(legacyDir, { GRANTED_STATE_DIR: isolatedStateDir }, homeDir),
     ).rejects.toThrow("Legacy Reef identity keys must be imported");
   });
 });

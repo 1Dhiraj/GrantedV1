@@ -36,8 +36,8 @@ function makeTempDir(): string {
 
 function hermeticEnv(): NodeJS.ProcessEnv {
   return {
-    OPENCLAW_BUNDLED_PLUGINS_DIR: undefined,
-    OPENCLAW_VERSION: "2026.4.25",
+    GRANTED_BUNDLED_PLUGINS_DIR: undefined,
+    GRANTED_VERSION: "2026.4.25",
     VITEST: "true",
   };
 }
@@ -213,7 +213,7 @@ describe("plugin registry inspection", () => {
       }),
       "utf8",
     );
-    const env = { ...hermeticEnv(), OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1" };
+    const env = { ...hermeticEnv(), GRANTED_DISABLE_BUNDLED_PLUGINS: "1" };
     const config = { plugins: { load: { paths: [pluginDir] } } };
     const refreshed = await refreshPluginRegistry({ reason: "manual", stateDir, config, env });
     expect(expectDefined(refreshed.plugins[0], "refreshed plugin").packageBuild).toEqual({
@@ -250,8 +250,8 @@ describe("plugin registry inspection", () => {
     createPackagedCandidate(sourceDir);
     const env = {
       ...hermeticEnv(),
-      OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-      OPENCLAW_STATE_DIR: stateDir,
+      GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+      GRANTED_STATE_DIR: stateDir,
     };
     const config = { plugins: { entries: { demo: { enabled: true } } } };
     await refreshPluginRegistry({
@@ -297,7 +297,7 @@ describe("plugin registry inspection", () => {
     const pluginDir = path.join(workspaceDir, ".openclaw", "extensions", "demo");
     fs.mkdirSync(pluginDir, { recursive: true });
     createCandidate(pluginDir);
-    const env = { ...hermeticEnv(), OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1" };
+    const env = { ...hermeticEnv(), GRANTED_DISABLE_BUNDLED_PLUGINS: "1" };
     const config = {
       agents: {
         ownership: "explicit" as const,

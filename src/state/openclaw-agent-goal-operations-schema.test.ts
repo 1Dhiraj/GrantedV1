@@ -8,27 +8,27 @@ import {
   openOpenClawAgentDatabase,
 } from "./openclaw-agent-db.js";
 import { ensureSessionGoalOperationsSchema } from "./openclaw-agent-goal-operations-schema.js";
-import { OPENCLAW_AGENT_SCHEMA_SQL } from "./openclaw-agent-schema.js";
+import { GRANTED_AGENT_SCHEMA_SQL } from "./openclaw-agent-schema.js";
 
 const tempDirs = useAutoCleanupTempDirTracker(afterEach);
 afterEach(() => closeOpenClawAgentDatabasesForTest());
 
 function previousSchema(): string {
-  const start = OPENCLAW_AGENT_SCHEMA_SQL.indexOf(
+  const start = GRANTED_AGENT_SCHEMA_SQL.indexOf(
     "CREATE TABLE IF NOT EXISTS session_goal_operations (",
   );
-  const end = OPENCLAW_AGENT_SCHEMA_SQL.indexOf(
+  const end = GRANTED_AGENT_SCHEMA_SQL.indexOf(
     "CREATE TABLE IF NOT EXISTS transcript_events (",
     start,
   );
-  return OPENCLAW_AGENT_SCHEMA_SQL.slice(0, start) + OPENCLAW_AGENT_SCHEMA_SQL.slice(end);
+  return GRANTED_AGENT_SCHEMA_SQL.slice(0, start) + GRANTED_AGENT_SCHEMA_SQL.slice(end);
 }
 
 describe("Goal operation additive schema", () => {
   it("keeps old databases table-free on reads, lazily installs once, and survives older-reader use and candidate reopen", () => {
     const options = {
       agentId: "main",
-      env: { OPENCLAW_STATE_DIR: tempDirs.make("openclaw-goal-schema-") },
+      env: { GRANTED_STATE_DIR: tempDirs.make("openclaw-goal-schema-") },
     };
     const initial = openOpenClawAgentDatabase(options);
     const databasePath = initial.path;
@@ -92,7 +92,7 @@ describe("Goal operation additive schema", () => {
   it("rejects a drifted receipt table instead of treating it as an optional absence", () => {
     const options = {
       agentId: "main",
-      env: { OPENCLAW_STATE_DIR: tempDirs.make("openclaw-goal-schema-drift-") },
+      env: { GRANTED_STATE_DIR: tempDirs.make("openclaw-goal-schema-drift-") },
     };
     const pathname = openOpenClawAgentDatabase(options).path;
     closeOpenClawAgentDatabasesForTest();

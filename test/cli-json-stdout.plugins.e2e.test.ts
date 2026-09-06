@@ -24,8 +24,8 @@ describe("cli json stdout contract", () => {
         )}`;
         const result = runBuiltCli(tempHome, testCase.args, {
           NODE_OPTIONS: `--import=${preload}`,
-          OPENCLAW_STATE_DIR: path.join(tempHome, "isolated-state"),
-          OPENCLAW_CONFIG_PATH: path.join(tempHome, "missing-openclaw.json"),
+          GRANTED_STATE_DIR: path.join(tempHome, "isolated-state"),
+          GRANTED_CONFIG_PATH: path.join(tempHome, "missing-openclaw.json"),
           CLAWHUB_CONFIG_PATH: path.join(tempHome, "missing-clawhub.json"),
           CLAWHUB_TOKEN: "",
           CLAWHUB_AUTH_TOKEN: "",
@@ -106,10 +106,10 @@ describe("cli json stdout contract", () => {
           {
             GIT_SSH_COMMAND: `${JSON.stringify(process.execPath)} -e "process.exit(1)"`,
             GIT_TERMINAL_PROMPT: "0",
-            OPENCLAW_CONFIG_PATH: configPath,
-            OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-            OPENCLAW_STATE_DIR: stateDir,
-            ...("commander" in testCase ? { OPENCLAW_DISABLE_ROUTE_FIRST: "1" } : {}),
+            GRANTED_CONFIG_PATH: configPath,
+            GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+            GRANTED_STATE_DIR: stateDir,
+            ...("commander" in testCase ? { GRANTED_DISABLE_ROUTE_FIRST: "1" } : {}),
             ...("tty" in testCase
               ? { NODE_OPTIONS: `--import=data:text/javascript;base64,${ttyPreload}` }
               : {}),

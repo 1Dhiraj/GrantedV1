@@ -1,12 +1,14 @@
 // CLI-name helpers keep generated examples aligned with the binary the user invoked.
 import path from "node:path";
 
-const DEFAULT_CLI_NAME = "openclaw";
+const DEFAULT_CLI_NAME = "granted";
 
-const KNOWN_CLI_NAMES = new Set([DEFAULT_CLI_NAME]);
-const CLI_PREFIX_RE = /^(?:((?:pnpm|npm|bunx|npx)\s+))?(openclaw)\b/;
+// `openclaw` stays recognized so a user who still has the old binary on PATH
+// sees generated examples matching what they actually typed.
+const KNOWN_CLI_NAMES = new Set([DEFAULT_CLI_NAME, "openclaw"]);
+const CLI_PREFIX_RE = /^(?:((?:pnpm|npm|bunx|npx)\s+))?(granted|openclaw)\b/;
 
-/** Resolve the displayed CLI binary name from argv, falling back to `openclaw`. */
+/** Resolve the displayed CLI binary name from argv, falling back to `granted`. */
 export function resolveCliName(argv: string[] = process.argv): string {
   const argv1 = argv[1];
   if (!argv1) {

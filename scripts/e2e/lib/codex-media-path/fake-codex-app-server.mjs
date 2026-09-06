@@ -6,7 +6,7 @@ import {
 } from "../codex-app-server-fixture.mjs";
 
 const requestLog =
-  process.env.OPENCLAW_CODEX_MEDIA_PATH_APP_SERVER_LOG ??
+  process.env.GRANTED_CODEX_MEDIA_PATH_APP_SERVER_LOG ??
   "/tmp/openclaw-codex-media-path-app-server.jsonl";
 let turnCount = 0;
 

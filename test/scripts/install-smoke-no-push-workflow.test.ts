@@ -218,7 +218,7 @@ describe("install smoke no-push root image transport", () => {
     );
     const manifest = step(preflight, "Build install-smoke CI manifest");
     expect(manifest.env).toEqual({
-      OPENCLAW_CI_WORKFLOW_BUN_GLOBAL_INSTALL_SMOKE:
+      GRANTED_CI_WORKFLOW_BUN_GLOBAL_INSTALL_SMOKE:
         "${{ inputs.run_bun_global_install_smoke || 'false' }}",
     });
     expect(manifest.run).toContain(
@@ -308,7 +308,7 @@ describe("install smoke no-push root image transport", () => {
     for (const jobName of ["root_dockerfile_smokes"]) {
       const consumer = job(workflow, jobName);
       expect(consumer.needs, jobName).toContain("root_dockerfile_image_ready");
-      expect(consumer.env?.OPENCLAW_DOCKER_E2E_REQUIRE_LOCAL_IMAGE, jobName).toBe("1");
+      expect(consumer.env?.GRANTED_DOCKER_E2E_REQUIRE_LOCAL_IMAGE, jobName).toBe("1");
       expect(step(consumer, "Checkout trusted release harness").if, jobName).toBeUndefined();
       expect(
         consumer.steps?.find((candidate) => candidate.name === "Log in to GHCR"),
@@ -484,9 +484,9 @@ describe("install smoke no-push root image transport", () => {
 
       const load = step(consumer, pair.loadName);
       expect(load.env, pair.consumerName).toMatchObject({
-        OPENCLAW_SHARED_IMAGE_ARCHIVE_SHA256: `\${{ needs.${pair.producerName}.outputs.archive_sha256 }}`,
-        OPENCLAW_SHARED_IMAGE_RUN_ATTEMPT: `\${{ needs.${pair.producerName}.outputs.artifact_run_attempt }}`,
-        OPENCLAW_SHARED_IMAGE_RUN_ID: `\${{ needs.${pair.producerName}.outputs.artifact_run_id }}`,
+        GRANTED_SHARED_IMAGE_ARCHIVE_SHA256: `\${{ needs.${pair.producerName}.outputs.archive_sha256 }}`,
+        GRANTED_SHARED_IMAGE_RUN_ATTEMPT: `\${{ needs.${pair.producerName}.outputs.artifact_run_attempt }}`,
+        GRANTED_SHARED_IMAGE_RUN_ID: `\${{ needs.${pair.producerName}.outputs.artifact_run_id }}`,
         TARGET_SHA: `\${{ needs.${pair.producerName}.outputs.target_sha }}`,
         WORKFLOW_SHA: `\${{ needs.${pair.producerName}.outputs.workflow_sha }}`,
       });
@@ -500,9 +500,9 @@ describe("install smoke no-push root image transport", () => {
         ),
       ).toBe(false);
       expect(step(consumer, pair.testName).env).toMatchObject({
-        OPENCLAW_INSTALL_SMOKE_FROZEN_PAYLOAD_DIR:
+        GRANTED_INSTALL_SMOKE_FROZEN_PAYLOAD_DIR:
           "${{ runner.temp }}/install-smoke-candidate-payload",
-        OPENCLAW_INSTALL_SMOKE_GROUP: pair.group,
+        GRANTED_INSTALL_SMOKE_GROUP: pair.group,
       });
     }
 
@@ -547,14 +547,14 @@ describe("install smoke no-push root image transport", () => {
     expect(step(bunConsumer, "Run Bun global install candidate-payload smoke")).toMatchObject({
       "working-directory": ".release-harness",
       env: {
-        OPENCLAW_BUN_GLOBAL_SMOKE_HOST_BUILD: "0",
-        OPENCLAW_BUN_GLOBAL_SMOKE_PACKAGE_TGZ:
+        GRANTED_BUN_GLOBAL_SMOKE_HOST_BUILD: "0",
+        GRANTED_BUN_GLOBAL_SMOKE_PACKAGE_TGZ:
           "${{ runner.temp }}/install-smoke-candidate-payload/candidate.tgz",
       },
       run: "bash scripts/e2e/bun-global-install-smoke.sh",
     });
     expect(JSON.stringify(bunConsumer)).not.toContain("root_dockerfile_image");
-    expect(JSON.stringify(bunConsumer)).not.toContain("OPENCLAW_BUN_GLOBAL_SMOKE_DIST_IMAGE");
+    expect(JSON.stringify(bunConsumer)).not.toContain("GRANTED_BUN_GLOBAL_SMOKE_DIST_IMAGE");
     expect(JSON.stringify(bunConsumer)).not.toContain(
       "./.release-harness/.github/actions/setup-node-env",
     );
@@ -715,7 +715,7 @@ describe("install smoke no-push root image transport", () => {
     expect(packageCandidate.run).not.toContain("[[ -f scripts/package-openclaw-for-docker.mts ]]");
     expect(packageCandidate.run).toContain("package_args+=(--allow-unreleased-changelog)");
     expect(JSON.stringify(job(workflow, "bun_global_install_smoke"))).not.toContain(
-      "OPENCLAW_BUN_GLOBAL_SMOKE_ALLOW_UNRELEASED_CHANGELOG",
+      "GRANTED_BUN_GLOBAL_SMOKE_ALLOW_UNRELEASED_CHANGELOG",
     );
   });
 });

@@ -65,16 +65,16 @@ import { loadGatewaySessionEntryReadOnly } from "./session-utils.js";
 import { extractPayloadText } from "./test-helpers.agent-results.js";
 
 const LIVE = isLiveTestEnabled();
-const CLI_LIVE = isTruthyEnvValue(process.env.OPENCLAW_LIVE_CLI_BACKEND);
-const CLI_CACHE_PROBE = isTruthyEnvValue(process.env.OPENCLAW_LIVE_CLI_BACKEND_CACHE_PROBE);
+const CLI_LIVE = isTruthyEnvValue(process.env.GRANTED_LIVE_CLI_BACKEND);
+const CLI_CACHE_PROBE = isTruthyEnvValue(process.env.GRANTED_LIVE_CLI_BACKEND_CACHE_PROBE);
 const CLI_RESUME =
-  CLI_CACHE_PROBE || isTruthyEnvValue(process.env.OPENCLAW_LIVE_CLI_BACKEND_RESUME_PROBE);
-const CLI_DEBUG = isTruthyEnvValue(process.env.OPENCLAW_LIVE_CLI_BACKEND_DEBUG);
+  CLI_CACHE_PROBE || isTruthyEnvValue(process.env.GRANTED_LIVE_CLI_BACKEND_RESUME_PROBE);
+const CLI_DEBUG = isTruthyEnvValue(process.env.GRANTED_LIVE_CLI_BACKEND_DEBUG);
 const CLI_CI_SAFE_CODEX_CONFIG = isTruthyEnvValue(
-  process.env.OPENCLAW_LIVE_CLI_BACKEND_USE_CI_SAFE_CODEX_CONFIG,
+  process.env.GRANTED_LIVE_CLI_BACKEND_USE_CI_SAFE_CODEX_CONFIG,
 );
 const CLI_MCP_SCHEMA_PROBE = isTruthyEnvValue(
-  process.env.OPENCLAW_LIVE_CLI_BACKEND_MCP_SCHEMA_PROBE,
+  process.env.GRANTED_LIVE_CLI_BACKEND_MCP_SCHEMA_PROBE,
 );
 const CLI_ALLOW_PROVIDER_SKIP = shouldAllowCliBackendLiveProviderSkip();
 const describeLive = LIVE && CLI_LIVE ? describe : describe.skip;
@@ -94,7 +94,7 @@ const DEFAULT_PROVIDER = "claude-cli";
 const DEFAULT_MODEL =
   resolveCliBackendLiveTest(DEFAULT_PROVIDER)?.defaultModelRef ?? "claude-cli/claude-sonnet-4-6";
 const CLI_BACKEND_REQUEST_TIMEOUT_MS = parsePositiveIntegerEnv(
-  "OPENCLAW_LIVE_CLI_BACKEND_REQUEST_TIMEOUT_MS",
+  "GRANTED_LIVE_CLI_BACKEND_REQUEST_TIMEOUT_MS",
   15 * 60_000,
 );
 const CLI_BACKEND_CODEX_TIMEOUT_RETRY_ATTEMPTS = 2;
@@ -272,8 +272,8 @@ describeLive("gateway live (cli backend)", () => {
     async () => {
       const preservedEnv = new Set(
         parseJsonStringArray(
-          "OPENCLAW_LIVE_CLI_BACKEND_PRESERVE_ENV",
-          process.env.OPENCLAW_LIVE_CLI_BACKEND_PRESERVE_ENV,
+          "GRANTED_LIVE_CLI_BACKEND_PRESERVE_ENV",
+          process.env.GRANTED_LIVE_CLI_BACKEND_PRESERVE_ENV,
         ) ?? [],
       );
       const previousEnv = snapshotCliBackendLiveEnv();
@@ -282,11 +282,11 @@ describeLive("gateway live (cli backend)", () => {
       applyCliBackendLiveEnv(preservedEnv);
 
       const token = `test-${randomUUID()}`;
-      setTestEnvValue("OPENCLAW_GATEWAY_TOKEN", token);
+      setTestEnvValue("GRANTED_GATEWAY_TOKEN", token);
       const port = await getCliBackendPortBlock();
       logCliBackendLiveStep("env-ready", { port });
 
-      const rawModel = process.env.OPENCLAW_LIVE_CLI_BACKEND_MODEL ?? DEFAULT_MODEL;
+      const rawModel = process.env.GRANTED_LIVE_CLI_BACKEND_MODEL ?? DEFAULT_MODEL;
       const initialParsed = parseModelRef(rawModel, "claude-cli");
       const initialProviderId = initialParsed?.provider ?? "";
       const initialModelKey = initialParsed
@@ -306,7 +306,7 @@ describeLive("gateway live (cli backend)", () => {
       const configModelKey = modelSelection.configModelKey;
       const backendResolved = resolveCliBackendConfig(providerId);
       if (CLI_CACHE_PROBE && providerId !== "claude-cli") {
-        throw new Error("OPENCLAW_LIVE_CLI_BACKEND_CACHE_PROBE requires provider claude-cli");
+        throw new Error("GRANTED_LIVE_CLI_BACKEND_CACHE_PROBE requires provider claude-cli");
       }
       const enableCliImageProbe = !CLI_CACHE_PROBE && shouldRunCliImageProbe(providerId);
       const enableCliMcpProbe = !CLI_CACHE_PROBE && shouldRunCliMcpProbe(providerId);
@@ -341,10 +341,10 @@ describeLive("gateway live (cli backend)", () => {
       });
       const providerDefaults = backendResolved?.config;
 
-      const cliCommand = process.env.OPENCLAW_LIVE_CLI_BACKEND_COMMAND ?? providerDefaults?.command;
+      const cliCommand = process.env.GRANTED_LIVE_CLI_BACKEND_COMMAND ?? providerDefaults?.command;
       if (!cliCommand) {
         throw new Error(
-          `OPENCLAW_LIVE_CLI_BACKEND_COMMAND is required for provider "${providerId}".`,
+          `GRANTED_LIVE_CLI_BACKEND_COMMAND is required for provider "${providerId}".`,
         );
       }
 
@@ -356,8 +356,8 @@ describeLive("gateway live (cli backend)", () => {
 
       const cliClearEnv =
         parseJsonStringArray(
-          "OPENCLAW_LIVE_CLI_BACKEND_CLEAR_ENV",
-          process.env.OPENCLAW_LIVE_CLI_BACKEND_CLEAR_ENV,
+          "GRANTED_LIVE_CLI_BACKEND_CLEAR_ENV",
+          process.env.GRANTED_LIVE_CLI_BACKEND_CLEAR_ENV,
         ) ??
         providerDefaults?.clearEnv ??
         [];
@@ -368,13 +368,13 @@ describeLive("gateway live (cli backend)", () => {
           .filter((entry): entry is [string, string] => typeof entry[1] === "string"),
       );
       const cliImageArg =
-        process.env.OPENCLAW_LIVE_CLI_BACKEND_IMAGE_ARG?.trim() || providerDefaults?.imageArg;
+        process.env.GRANTED_LIVE_CLI_BACKEND_IMAGE_ARG?.trim() || providerDefaults?.imageArg;
       const cliImageMode =
-        parseImageMode(process.env.OPENCLAW_LIVE_CLI_BACKEND_IMAGE_MODE) ??
+        parseImageMode(process.env.GRANTED_LIVE_CLI_BACKEND_IMAGE_MODE) ??
         providerDefaults?.imageMode;
       if (cliImageMode && !cliImageArg) {
         throw new Error(
-          "OPENCLAW_LIVE_CLI_BACKEND_IMAGE_MODE requires OPENCLAW_LIVE_CLI_BACKEND_IMAGE_ARG.",
+          "GRANTED_LIVE_CLI_BACKEND_IMAGE_MODE requires GRANTED_LIVE_CLI_BACKEND_IMAGE_ARG.",
         );
       }
       if (!backendResolved || !providerDefaults) {
@@ -400,13 +400,13 @@ describeLive("gateway live (cli backend)", () => {
           : undefined;
       const probePluginPath = probePlugin?.pluginPath;
       const useMinimalToolsProfile = providerId === "codex-cli" && !enableMcpSchemaProbe;
-      setTestEnvValue("OPENCLAW_STATE_DIR", stateDir);
+      setTestEnvValue("GRANTED_STATE_DIR", stateDir);
       const bundleMcp = backendResolved.bundleMcp;
       const bootstrapWorkspace = await createBootstrapWorkspace(tempDir);
       if (CLI_CACHE_PROBE) {
         await initializeCacheProbeGitWorkspace(bootstrapWorkspace.workspaceRootDir);
       }
-      const disableMcpConfig = process.env.OPENCLAW_LIVE_CLI_BACKEND_DISABLE_MCP_CONFIG !== "0";
+      const disableMcpConfig = process.env.GRANTED_LIVE_CLI_BACKEND_DISABLE_MCP_CONFIG !== "0";
       let cliArgs = baseCliArgs;
       if (
         bundleMcp &&
@@ -548,7 +548,7 @@ describeLive("gateway live (cli backend)", () => {
       };
       const tempConfigPath = path.join(tempDir, "openclaw.json");
       await fs.writeFile(tempConfigPath, `${JSON.stringify(nextCfg, null, 2)}\n`);
-      setTestEnvValue("OPENCLAW_CONFIG_PATH", tempConfigPath);
+      setTestEnvValue("GRANTED_CONFIG_PATH", tempConfigPath);
       const cacheProbeBackend = CLI_CACHE_PROBE
         ? prepareClaudeCacheProbeBackend({ config: nextCfg, liveBackend, providerId })
         : undefined;

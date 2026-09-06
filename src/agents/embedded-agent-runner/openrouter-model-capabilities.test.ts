@@ -15,7 +15,7 @@ async function withOpenRouterStateDir(run: (stateDir: string) => Promise<void>) 
   try {
     await withEnvAsync(
       {
-        OPENCLAW_STATE_DIR: stateDir,
+        GRANTED_STATE_DIR: stateDir,
         ALL_PROXY: "",
         all_proxy: "",
         HTTP_PROXY: "",

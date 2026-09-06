@@ -19,20 +19,20 @@ import {
 import { setNostrRuntime } from "./runtime.js";
 
 async function withTempStateDir<T>(fn: (dir: string) => Promise<T>) {
-  const previous = process.env.OPENCLAW_STATE_DIR;
+  const previous = process.env.GRANTED_STATE_DIR;
   const dir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-nostr-"));
-  process.env.OPENCLAW_STATE_DIR = dir;
+  process.env.GRANTED_STATE_DIR = dir;
   resetPluginStateStoreForTests();
   setNostrRuntime({
     state: {
       openKeyedStore: (options: OpenKeyedStoreOptions) =>
         createPluginStateKeyedStoreForTests("nostr", {
           ...options,
-          env: { ...process.env, OPENCLAW_STATE_DIR: dir },
+          env: { ...process.env, GRANTED_STATE_DIR: dir },
         }),
       resolveStateDir: (env, homedir) => {
         const stateEnv = env ?? process.env;
-        const override = stateEnv.OPENCLAW_STATE_DIR?.trim();
+        const override = stateEnv.GRANTED_STATE_DIR?.trim();
         if (override) {
           return override;
         }
@@ -45,9 +45,9 @@ async function withTempStateDir<T>(fn: (dir: string) => Promise<T>) {
     return await fn(dir);
   } finally {
     if (previous === undefined) {
-      delete process.env.OPENCLAW_STATE_DIR;
+      delete process.env.GRANTED_STATE_DIR;
     } else {
-      process.env.OPENCLAW_STATE_DIR = previous;
+      process.env.GRANTED_STATE_DIR = previous;
     }
     // The keyed store keeps the state database open under the temporary dir, so Windows
     // fails the removal with EBUSY unless the cached handle is released first.

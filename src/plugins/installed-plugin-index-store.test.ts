@@ -7,7 +7,7 @@ import {
   acquireStartupMigrationLease,
   STARTUP_MIGRATION_LEASE_TTL_MS,
 } from "../infra/startup-migration-checkpoint.js";
-import { OPENCLAW_STATE_SCHEMA_VERSION } from "../state/openclaw-state-db-contract.js";
+import { GRANTED_STATE_SCHEMA_VERSION } from "../state/openclaw-state-db-contract.js";
 import {
   closeOpenClawStateDatabaseForTest,
   runOpenClawStateWriteTransaction,
@@ -222,7 +222,7 @@ function insertPersistedIndexRow(
         `,
       ).run(valueJson);
     },
-    { env: { ...process.env, OPENCLAW_STATE_DIR: stateDir } },
+    { env: { ...process.env, GRANTED_STATE_DIR: stateDir } },
   );
   return valueJson;
 }
@@ -245,7 +245,7 @@ function readPersistedIndexRevision(stateDir: string): number | null {
       const revision = (JSON.parse(row.value_json) as { revision?: unknown }).revision;
       return typeof revision === "number" ? revision : null;
     },
-    { env: { ...process.env, OPENCLAW_STATE_DIR: stateDir } },
+    { env: { ...process.env, GRANTED_STATE_DIR: stateDir } },
   );
 }
 
@@ -256,7 +256,7 @@ describe("installed plugin index persistence", () => {
       const stateDir = makeTempDir();
       const pluginDir = path.join(stateDir, "demo");
       fs.mkdirSync(pluginDir);
-      const env = { OPENCLAW_STATE_DIR: stateDir, OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1" };
+      const env = { GRANTED_STATE_DIR: stateDir, GRANTED_DISABLE_BUNDLED_PLUGINS: "1" };
       const config = {};
       const index = await refreshPersistedInstalledPluginIndex({
         reason: "manual",
@@ -421,7 +421,7 @@ describe("installed plugin index persistence", () => {
 
   it("rejects a stale leased write without replacing the successor index", async () => {
     const stateDir = makeTempDir();
-    const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+    const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
     const nowMs = Date.now();
     const staleLease = acquireStartupMigrationLease({ env, nowMs, owner: "stale" });
     const successorLease = acquireStartupMigrationLease({
@@ -465,8 +465,8 @@ describe("installed plugin index persistence", () => {
       },
     };
     const env = {
-      OPENCLAW_BUNDLED_PLUGINS_DIR: undefined,
-      OPENCLAW_VERSION: "2026.4.25",
+      GRANTED_BUNDLED_PLUGINS_DIR: undefined,
+      GRANTED_VERSION: "2026.4.25",
       VITEST: "true",
     };
 
@@ -494,8 +494,8 @@ describe("installed plugin index persistence", () => {
     const candidate = createCandidate(pluginDir);
     const contractPath = path.join(pluginDir, "doctor-contract-api.ts");
     const env = {
-      OPENCLAW_BUNDLED_PLUGINS_DIR: undefined,
-      OPENCLAW_VERSION: "2026.4.25",
+      GRANTED_BUNDLED_PLUGINS_DIR: undefined,
+      GRANTED_VERSION: "2026.4.25",
       VITEST: "true",
     };
     fs.writeFileSync(contractPath, "export const legacyConfigRules = [];\n", "utf8");
@@ -700,8 +700,8 @@ describe("installed plugin index persistence", () => {
     const pluginDir = path.join(stateDir, "plugins", "demo");
     fs.mkdirSync(pluginDir, { recursive: true });
     const env = {
-      OPENCLAW_BUNDLED_PLUGINS_DIR: undefined,
-      OPENCLAW_VERSION: "2026.4.25",
+      GRANTED_BUNDLED_PLUGINS_DIR: undefined,
+      GRANTED_VERSION: "2026.4.25",
       VITEST: "true",
     };
     const candidate = createCandidate(pluginDir, { configPaths: ["browser"] });
@@ -752,7 +752,7 @@ describe("installed plugin index persistence", () => {
               WHERE state_key = 'plugins.installedIndex'`,
           )
           .get() as { value_json: string; updated_at_ms: number | bigint },
-      { env: { ...process.env, OPENCLAW_STATE_DIR: stateDir } },
+      { env: { ...process.env, GRANTED_STATE_DIR: stateDir } },
     );
     expect(row).toEqual({ value_json: persistedValueJson, updated_at_ms: 123 });
   });
@@ -772,13 +772,13 @@ describe("installed plugin index persistence", () => {
     const databasePath = resolveInstalledPluginIndexStorePath({ stateDir });
     const { DatabaseSync } = requireNodeSqlite();
     const database = new DatabaseSync(databasePath);
-    database.exec(`PRAGMA user_version = ${OPENCLAW_STATE_SCHEMA_VERSION + 1};`);
+    database.exec(`PRAGMA user_version = ${GRANTED_STATE_SCHEMA_VERSION + 1};`);
     database.close();
 
     await expect(readPersistedInstalledPluginIndex({ stateDir })).rejects.toMatchObject({
       name: "SqliteSchemaVersionError",
       message: expect.stringContaining(
-        `uses newer schema version ${OPENCLAW_STATE_SCHEMA_VERSION + 1}`,
+        `uses newer schema version ${GRANTED_STATE_SCHEMA_VERSION + 1}`,
       ),
     });
   });
@@ -810,8 +810,8 @@ describe("installed plugin index persistence", () => {
       stateDir,
       candidates: [candidate],
       env: {
-        OPENCLAW_BUNDLED_PLUGINS_DIR: undefined,
-        OPENCLAW_VERSION: "2026.4.25",
+        GRANTED_BUNDLED_PLUGINS_DIR: undefined,
+        GRANTED_VERSION: "2026.4.25",
         VITEST: "true",
       },
     });
@@ -834,8 +834,8 @@ describe("installed plugin index persistence", () => {
       orphaned: { source: "path", installPath: path.join(stateDir, "missing") },
     } satisfies InstalledPluginIndex["installRecords"];
     const env = {
-      OPENCLAW_BUNDLED_PLUGINS_DIR: undefined,
-      OPENCLAW_VERSION: "2026.4.25",
+      GRANTED_BUNDLED_PLUGINS_DIR: undefined,
+      GRANTED_VERSION: "2026.4.25",
       VITEST: "true",
     };
     const initial = await refreshPersistedInstalledPluginIndex({
@@ -910,8 +910,8 @@ describe("installed plugin index persistence", () => {
     const candidate = createCandidate(pluginDir);
     const nextCandidate = createCandidate(nextPluginDir, { id: "next-demo" });
     const env = {
-      OPENCLAW_BUNDLED_PLUGINS_DIR: undefined,
-      OPENCLAW_VERSION: "2026.4.25",
+      GRANTED_BUNDLED_PLUGINS_DIR: undefined,
+      GRANTED_VERSION: "2026.4.25",
       VITEST: "true",
     };
     await refreshPersistedInstalledPluginIndex({
@@ -952,8 +952,8 @@ describe("installed plugin index persistence", () => {
         demo: { source, installPath: pluginDir },
       } satisfies InstalledPluginIndex["installRecords"];
       const env = {
-        OPENCLAW_BUNDLED_PLUGINS_DIR: undefined,
-        OPENCLAW_VERSION: "2026.4.25",
+        GRANTED_BUNDLED_PLUGINS_DIR: undefined,
+        GRANTED_VERSION: "2026.4.25",
         VITEST: "true",
       };
       const initial = await refreshPersistedInstalledPluginIndex({
@@ -999,8 +999,8 @@ describe("installed plugin index persistence", () => {
       stateDir,
       candidates: [],
       env: {
-        OPENCLAW_BUNDLED_PLUGINS_DIR: undefined,
-        OPENCLAW_VERSION: "2026.4.25",
+        GRANTED_BUNDLED_PLUGINS_DIR: undefined,
+        GRANTED_VERSION: "2026.4.25",
         VITEST: "true",
       },
     });
@@ -1062,8 +1062,8 @@ describe("installed plugin index persistence", () => {
       stateDir,
       candidates: [],
       env: {
-        OPENCLAW_BUNDLED_PLUGINS_DIR: undefined,
-        OPENCLAW_VERSION: "2026.4.25",
+        GRANTED_BUNDLED_PLUGINS_DIR: undefined,
+        GRANTED_VERSION: "2026.4.25",
         VITEST: "true",
       },
     });

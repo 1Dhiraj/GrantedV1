@@ -26,10 +26,10 @@ const gatewayConfigMocks = vi.hoisted(() => ({
   inspectGatewayTlsCertificate: vi.fn(),
   resolveConfigPath: vi.fn(
     (env: NodeJS.ProcessEnv, stateDir: string) =>
-      env.OPENCLAW_CONFIG_PATH ?? `${stateDir}/openclaw.json`,
+      env.GRANTED_CONFIG_PATH ?? `${stateDir}/openclaw.json`,
   ),
   resolveGatewayPort: vi.fn(),
-  resolveStateDir: vi.fn((env: NodeJS.ProcessEnv) => env.OPENCLAW_STATE_DIR ?? "/tmp/openclaw"),
+  resolveStateDir: vi.fn((env: NodeJS.ProcessEnv) => env.GRANTED_STATE_DIR ?? "/tmp/openclaw"),
   useActualDispatchConfig: false,
 }));
 const getRuntimeConfig = gatewayConfigMocks.getRuntimeConfig;
@@ -399,23 +399,23 @@ function makeRemotePasswordGatewayConfig(remotePassword: string, localPassword =
 
 describe("callGateway url resolution", () => {
   const envSnapshot = captureEnv([
-    "OPENCLAW_ALLOW_INSECURE_PRIVATE_WS",
-    "OPENCLAW_CONFIG_PATH",
-    "OPENCLAW_GATEWAY_PORT",
-    "OPENCLAW_GATEWAY_URL",
-    "OPENCLAW_GATEWAY_TOKEN",
-    "OPENCLAW_STATE_DIR",
+    "GRANTED_ALLOW_INSECURE_PRIVATE_WS",
+    "GRANTED_CONFIG_PATH",
+    "GRANTED_GATEWAY_PORT",
+    "GRANTED_GATEWAY_URL",
+    "GRANTED_GATEWAY_TOKEN",
+    "GRANTED_STATE_DIR",
   ]);
 
   beforeEach(() => {
     resetConfigRuntimeState();
     envSnapshot.restore();
-    deleteTestEnvValue("OPENCLAW_ALLOW_INSECURE_PRIVATE_WS");
-    deleteTestEnvValue("OPENCLAW_CONFIG_PATH");
-    deleteTestEnvValue("OPENCLAW_GATEWAY_PORT");
-    deleteTestEnvValue("OPENCLAW_GATEWAY_URL");
-    deleteTestEnvValue("OPENCLAW_GATEWAY_TOKEN");
-    deleteTestEnvValue("OPENCLAW_STATE_DIR");
+    deleteTestEnvValue("GRANTED_ALLOW_INSECURE_PRIVATE_WS");
+    deleteTestEnvValue("GRANTED_CONFIG_PATH");
+    deleteTestEnvValue("GRANTED_GATEWAY_PORT");
+    deleteTestEnvValue("GRANTED_GATEWAY_URL");
+    deleteTestEnvValue("GRANTED_GATEWAY_TOKEN");
+    deleteTestEnvValue("GRANTED_STATE_DIR");
     resetGatewayCallMocks();
   });
 
@@ -432,7 +432,7 @@ describe("callGateway url resolution", () => {
       false,
     );
 
-    process.env.OPENCLAW_GATEWAY_URL = "wss://gateway.example/ws";
+    process.env.GRANTED_GATEWAY_URL = "wss://gateway.example/ws";
     await expect(isImplicitLocalGatewayTarget({})).resolves.toBe(false);
   });
 
@@ -734,7 +734,7 @@ describe("callGateway url resolution", () => {
   it("keeps CLI device identity when an ambient token is inactive under auth mode none", async () => {
     setGatewayConfig({ mode: "local", bind: "loopback", auth: { mode: "none" } });
     setGatewayNetworkDefaults();
-    process.env.OPENCLAW_GATEWAY_TOKEN = "inactive-env-token";
+    process.env.GRANTED_GATEWAY_TOKEN = "inactive-env-token";
 
     await callGatewayCli({ method: "health" });
 
@@ -787,12 +787,12 @@ describe("callGateway url resolution", () => {
     expect(lastClientOptions?.deviceIdentity).toBeNull();
   });
 
-  it("uses OPENCLAW_GATEWAY_URL env override in remote mode when remote URL is missing", async () => {
+  it("uses GRANTED_GATEWAY_URL env override in remote mode when remote URL is missing", async () => {
     setGatewayConfig({ mode: "remote", bind: "loopback", remote: {} });
     resolveGatewayPort.mockReturnValue(18789);
     pickPrimaryTailnetIPv4.mockReturnValue(undefined);
-    process.env.OPENCLAW_GATEWAY_URL = "wss://gateway-in-container.internal:9443/ws";
-    process.env.OPENCLAW_GATEWAY_TOKEN = "env-token";
+    process.env.GRANTED_GATEWAY_URL = "wss://gateway-in-container.internal:9443/ws";
+    process.env.GRANTED_GATEWAY_TOKEN = "env-token";
 
     await callGateway({
       method: "health",
@@ -807,12 +807,12 @@ describe("callGateway url resolution", () => {
     setGatewayConfig({ mode: "local", bind: "loopback" });
     resolveGatewayPort.mockImplementation((_config?: unknown, env?: unknown) => {
       const candidateEnv = env as NodeJS.ProcessEnv | undefined;
-      return Number(candidateEnv?.OPENCLAW_GATEWAY_PORT ?? 18789);
+      return Number(candidateEnv?.GRANTED_GATEWAY_PORT ?? 18789);
     });
     pickPrimaryTailnetIPv4.mockReturnValue(undefined);
-    process.env.OPENCLAW_GATEWAY_URL = "wss://gateway-in-container.internal:9443/ws";
-    process.env.OPENCLAW_GATEWAY_PORT = "19001";
-    process.env.OPENCLAW_GATEWAY_TOKEN = "env-token";
+    process.env.GRANTED_GATEWAY_URL = "wss://gateway-in-container.internal:9443/ws";
+    process.env.GRANTED_GATEWAY_PORT = "19001";
+    process.env.GRANTED_GATEWAY_TOKEN = "env-token";
 
     await callGateway({
       method: "health",
@@ -853,8 +853,8 @@ describe("callGateway url resolution", () => {
     });
     resolveGatewayPort.mockReturnValue(18789);
     pickPrimaryTailnetIPv4.mockReturnValue(undefined);
-    process.env.OPENCLAW_GATEWAY_URL = "wss://gateway-in-container.internal:9443/ws";
-    process.env.OPENCLAW_GATEWAY_TOKEN = "env-token";
+    process.env.GRANTED_GATEWAY_URL = "wss://gateway-in-container.internal:9443/ws";
+    process.env.GRANTED_GATEWAY_TOKEN = "env-token";
 
     await callGateway({
       method: "health",
@@ -875,8 +875,8 @@ describe("callGateway url resolution", () => {
     });
     setGatewayNetworkDefaults(18789);
     pickPrimaryTailnetIPv4.mockReturnValue(undefined);
-    process.env.OPENCLAW_GATEWAY_URL = "wss://gateway-in-container.internal:9443/ws";
-    process.env.OPENCLAW_GATEWAY_TOKEN = "env-token";
+    process.env.GRANTED_GATEWAY_URL = "wss://gateway-in-container.internal:9443/ws";
+    process.env.GRANTED_GATEWAY_TOKEN = "env-token";
 
     await callGateway({
       method: "health",
@@ -1535,13 +1535,13 @@ describe("buildGatewayConnectionDetails", () => {
     } satisfies OpenClawConfig;
     resolveGatewayPort.mockImplementation((_config?: unknown, env?: unknown) => {
       const candidateEnv = env as NodeJS.ProcessEnv | undefined;
-      return Number(candidateEnv?.OPENCLAW_GATEWAY_PORT ?? 18789);
+      return Number(candidateEnv?.GRANTED_GATEWAY_PORT ?? 18789);
     });
-    const prevUrl = process.env.OPENCLAW_GATEWAY_URL;
-    const prevPort = process.env.OPENCLAW_GATEWAY_PORT;
+    const prevUrl = process.env.GRANTED_GATEWAY_URL;
+    const prevPort = process.env.GRANTED_GATEWAY_PORT;
     try {
-      process.env.OPENCLAW_GATEWAY_URL = "wss://env-gateway.example/ws";
-      process.env.OPENCLAW_GATEWAY_PORT = "19001";
+      process.env.GRANTED_GATEWAY_URL = "wss://env-gateway.example/ws";
+      process.env.GRANTED_GATEWAY_PORT = "19001";
 
       const details = await buildGatewayProbeConnectionDetails({
         config,
@@ -1552,14 +1552,14 @@ describe("buildGatewayConnectionDetails", () => {
       expect(details.urlSource).toBe("local loopback");
     } finally {
       if (prevUrl === undefined) {
-        delete process.env.OPENCLAW_GATEWAY_URL;
+        delete process.env.GRANTED_GATEWAY_URL;
       } else {
-        process.env.OPENCLAW_GATEWAY_URL = prevUrl;
+        process.env.GRANTED_GATEWAY_URL = prevUrl;
       }
       if (prevPort === undefined) {
-        delete process.env.OPENCLAW_GATEWAY_PORT;
+        delete process.env.GRANTED_GATEWAY_PORT;
       } else {
-        process.env.OPENCLAW_GATEWAY_PORT = prevPort;
+        process.env.GRANTED_GATEWAY_PORT = prevPort;
       }
     }
   });
@@ -1571,9 +1571,9 @@ describe("buildGatewayConnectionDetails", () => {
         remote: { url: "wss://selected-gateway.example/ws" },
       },
     } satisfies OpenClawConfig;
-    const prevUrl = process.env.OPENCLAW_GATEWAY_URL;
+    const prevUrl = process.env.GRANTED_GATEWAY_URL;
     try {
-      process.env.OPENCLAW_GATEWAY_URL = "wss://unrelated-gateway.example/ws";
+      process.env.GRANTED_GATEWAY_URL = "wss://unrelated-gateway.example/ws";
 
       const details = await buildGatewayProbeConnectionDetails({
         config,
@@ -1584,9 +1584,9 @@ describe("buildGatewayConnectionDetails", () => {
       expect(details.urlSource).toBe("config gateway.remote.url");
     } finally {
       if (prevUrl === undefined) {
-        delete process.env.OPENCLAW_GATEWAY_URL;
+        delete process.env.GRANTED_GATEWAY_URL;
       } else {
-        process.env.OPENCLAW_GATEWAY_URL = prevUrl;
+        process.env.GRANTED_GATEWAY_URL = prevUrl;
       }
     }
   });
@@ -1663,24 +1663,24 @@ describe("buildGatewayConnectionDetails", () => {
     expect(details.remoteFallbackNote).toBeUndefined();
   });
 
-  it("uses env OPENCLAW_GATEWAY_URL when set", () => {
+  it("uses env GRANTED_GATEWAY_URL when set", () => {
     setGatewayConfig({ mode: "local", bind: "loopback" });
     resolveGatewayPort.mockReturnValue(18800);
     pickPrimaryTailnetIPv4.mockReturnValue(undefined);
-    const prevUrl = process.env.OPENCLAW_GATEWAY_URL;
+    const prevUrl = process.env.GRANTED_GATEWAY_URL;
     try {
-      process.env.OPENCLAW_GATEWAY_URL = "wss://browser-gateway.local:9443/ws";
+      process.env.GRANTED_GATEWAY_URL = "wss://browser-gateway.local:9443/ws";
 
       const details = buildGatewayConnectionDetails();
 
       expect(details.url).toBe("wss://browser-gateway.local:9443/ws");
-      expect(details.urlSource).toBe("env OPENCLAW_GATEWAY_URL");
+      expect(details.urlSource).toBe("env GRANTED_GATEWAY_URL");
       expect(details.bindDetail).toBeUndefined();
     } finally {
       if (prevUrl === undefined) {
-        delete process.env.OPENCLAW_GATEWAY_URL;
+        delete process.env.GRANTED_GATEWAY_URL;
       } else {
-        process.env.OPENCLAW_GATEWAY_URL = prevUrl;
+        process.env.GRANTED_GATEWAY_URL = prevUrl;
       }
     }
   });
@@ -1689,14 +1689,14 @@ describe("buildGatewayConnectionDetails", () => {
     setGatewayConfig({ mode: "local", bind: "loopback" });
     resolveGatewayPort.mockImplementation((_config?: unknown, env?: unknown) => {
       const candidateEnv = env as NodeJS.ProcessEnv | undefined;
-      return Number(candidateEnv?.OPENCLAW_GATEWAY_PORT ?? 18789);
+      return Number(candidateEnv?.GRANTED_GATEWAY_PORT ?? 18789);
     });
     pickPrimaryTailnetIPv4.mockReturnValue(undefined);
-    const prevUrl = process.env.OPENCLAW_GATEWAY_URL;
-    const prevPort = process.env.OPENCLAW_GATEWAY_PORT;
+    const prevUrl = process.env.GRANTED_GATEWAY_URL;
+    const prevPort = process.env.GRANTED_GATEWAY_PORT;
     try {
-      process.env.OPENCLAW_GATEWAY_URL = "wss://browser-gateway.local:9443/ws";
-      process.env.OPENCLAW_GATEWAY_PORT = "19001";
+      process.env.GRANTED_GATEWAY_URL = "wss://browser-gateway.local:9443/ws";
+      process.env.GRANTED_GATEWAY_PORT = "19001";
 
       const details = buildGatewayConnectionDetails({ localPortOverride: 19082 });
 
@@ -1705,14 +1705,14 @@ describe("buildGatewayConnectionDetails", () => {
       expect(details.bindDetail).toBe("Bind: loopback");
     } finally {
       if (prevUrl === undefined) {
-        delete process.env.OPENCLAW_GATEWAY_URL;
+        delete process.env.GRANTED_GATEWAY_URL;
       } else {
-        process.env.OPENCLAW_GATEWAY_URL = prevUrl;
+        process.env.GRANTED_GATEWAY_URL = prevUrl;
       }
       if (prevPort === undefined) {
-        delete process.env.OPENCLAW_GATEWAY_PORT;
+        delete process.env.GRANTED_GATEWAY_PORT;
       } else {
-        process.env.OPENCLAW_GATEWAY_PORT = prevPort;
+        process.env.GRANTED_GATEWAY_PORT = prevPort;
       }
     }
   });
@@ -1728,8 +1728,8 @@ describe("buildGatewayConnectionDetails", () => {
         channels: { telegram: { dmPolicy: 42 } },
       }),
     );
-    setTestEnvValue("OPENCLAW_STATE_DIR", tempStateDir);
-    setTestEnvValue("OPENCLAW_CONFIG_PATH", configPath);
+    setTestEnvValue("GRANTED_STATE_DIR", tempStateDir);
+    setTestEnvValue("GRANTED_CONFIG_PATH", configPath);
     try {
       gatewayConfigMocks.useActualDispatchConfig = true;
       deviceIdentityState.throwOnLoad = true;
@@ -1756,8 +1756,8 @@ describe("buildGatewayConnectionDetails", () => {
         gateway: { mode: "local", bind: "loopback", port: 18800, auth: { mode: "none" } },
       }),
     );
-    setTestEnvValue("OPENCLAW_STATE_DIR", tempStateDir);
-    setTestEnvValue("OPENCLAW_CONFIG_PATH", configPath);
+    setTestEnvValue("GRANTED_STATE_DIR", tempStateDir);
+    setTestEnvValue("GRANTED_CONFIG_PATH", configPath);
     setRuntimeConfigSnapshot({
       gateway: { mode: "local", bind: "loopback", port: 18801, auth: { mode: "none" } },
     });
@@ -1833,8 +1833,8 @@ describe("buildGatewayConnectionDetails", () => {
     expect(details.urlSource).toBe("config gateway.remote.url");
   });
 
-  it("allows ws:// hostname remote URLs when OPENCLAW_ALLOW_INSECURE_PRIVATE_WS=1", () => {
-    process.env.OPENCLAW_ALLOW_INSECURE_PRIVATE_WS = "1";
+  it("allows ws:// hostname remote URLs when GRANTED_ALLOW_INSECURE_PRIVATE_WS=1", () => {
+    process.env.GRANTED_ALLOW_INSECURE_PRIVATE_WS = "1";
     setGatewayConfig({
       mode: "remote",
       bind: "loopback",
@@ -2372,9 +2372,9 @@ describe("callGateway error details", () => {
   });
 
   it("keeps the default wrapper timeout aligned with env handshake timeout", async () => {
-    const envSnapshot = captureEnv(["OPENCLAW_HANDSHAKE_TIMEOUT_MS"]);
+    const envSnapshot = captureEnv(["GRANTED_HANDSHAKE_TIMEOUT_MS"]);
     try {
-      process.env.OPENCLAW_HANDSHAKE_TIMEOUT_MS = "30000";
+      process.env.GRANTED_HANDSHAKE_TIMEOUT_MS = "30000";
       startMode = "silent";
       setLocalLoopbackGatewayConfig();
 
@@ -2723,14 +2723,14 @@ describe("callGateway url override auth requirements", () => {
 
   beforeEach(() => {
     envSnapshot = captureEnv([
-      "OPENCLAW_GATEWAY_TOKEN",
-      "OPENCLAW_GATEWAY_PASSWORD",
-      "OPENCLAW_GATEWAY_URL",
+      "GRANTED_GATEWAY_TOKEN",
+      "GRANTED_GATEWAY_PASSWORD",
+      "GRANTED_GATEWAY_URL",
     ]);
     resetGatewayCallMocks();
-    delete process.env.OPENCLAW_GATEWAY_TOKEN;
-    delete process.env.OPENCLAW_GATEWAY_PASSWORD;
-    delete process.env.OPENCLAW_GATEWAY_URL;
+    delete process.env.GRANTED_GATEWAY_TOKEN;
+    delete process.env.GRANTED_GATEWAY_PASSWORD;
+    delete process.env.GRANTED_GATEWAY_URL;
     setGatewayNetworkDefaults(18789);
   });
 
@@ -2739,8 +2739,8 @@ describe("callGateway url override auth requirements", () => {
   });
 
   it("throws when url override is set without explicit credentials", async () => {
-    process.env.OPENCLAW_GATEWAY_TOKEN = "env-token";
-    process.env.OPENCLAW_GATEWAY_PASSWORD = "env-password";
+    process.env.GRANTED_GATEWAY_TOKEN = "env-token";
+    process.env.GRANTED_GATEWAY_PASSWORD = "env-password";
     setGatewayConfig({
       mode: "local",
       auth: { token: "local-token", password: "local-password" },
@@ -2752,14 +2752,14 @@ describe("callGateway url override auth requirements", () => {
   });
 
   it("throws when env URL override is set without env credentials", async () => {
-    process.env.OPENCLAW_GATEWAY_URL = "wss://override.example/ws";
+    process.env.GRANTED_GATEWAY_URL = "wss://override.example/ws";
     setGatewayConfig({
       mode: "local",
       auth: { token: "local-token", password: "local-password" },
     });
 
     await expect(callGateway({ method: "health" })).rejects.toThrow(
-      /OPENCLAW_GATEWAY_TOKEN or OPENCLAW_GATEWAY_PASSWORD/i,
+      /GRANTED_GATEWAY_TOKEN or GRANTED_GATEWAY_PASSWORD/i,
     );
   });
 });
@@ -2770,7 +2770,7 @@ describe("callGateway password resolution", () => {
     {
       label: "password",
       authKey: "password", // pragma: allowlist secret
-      envKey: "OPENCLAW_GATEWAY_PASSWORD",
+      envKey: "GRANTED_GATEWAY_PASSWORD",
       envValue: "from-env",
       configValue: "from-config",
       explicitValue: "explicit-password",
@@ -2778,7 +2778,7 @@ describe("callGateway password resolution", () => {
     {
       label: "token",
       authKey: "token", // pragma: allowlist secret
-      envKey: "OPENCLAW_GATEWAY_TOKEN",
+      envKey: "GRANTED_GATEWAY_TOKEN",
       envValue: "env-token",
       configValue: "local-token",
       explicitValue: "explicit-token",
@@ -2787,16 +2787,16 @@ describe("callGateway password resolution", () => {
 
   beforeEach(() => {
     envSnapshot = captureEnv([
-      "OPENCLAW_GATEWAY_PASSWORD",
-      "OPENCLAW_GATEWAY_TOKEN",
+      "GRANTED_GATEWAY_PASSWORD",
+      "GRANTED_GATEWAY_TOKEN",
       "LOCAL_REMOTE_FALLBACK_TOKEN",
       "LOCAL_REF_PASSWORD",
       "REMOTE_REF_TOKEN",
       "REMOTE_REF_PASSWORD",
     ]);
     resetGatewayCallMocks();
-    delete process.env.OPENCLAW_GATEWAY_PASSWORD;
-    delete process.env.OPENCLAW_GATEWAY_TOKEN;
+    delete process.env.GRANTED_GATEWAY_PASSWORD;
+    delete process.env.GRANTED_GATEWAY_TOKEN;
     delete process.env.LOCAL_REMOTE_FALLBACK_TOKEN;
     delete process.env.LOCAL_REF_PASSWORD;
     delete process.env.REMOTE_REF_TOKEN;
@@ -2847,7 +2847,7 @@ describe("callGateway password resolution", () => {
     },
   ])("$label", async ({ envPassword, config, expectedPassword }) => {
     if (envPassword !== undefined) {
-      process.env.OPENCLAW_GATEWAY_PASSWORD = envPassword;
+      process.env.GRANTED_GATEWAY_PASSWORD = envPassword;
     }
     getRuntimeConfig.mockReturnValue(config);
 
@@ -2873,7 +2873,7 @@ describe("callGateway password resolution", () => {
   });
 
   it("does not let env password mask an unresolved local password ref", async () => {
-    process.env.OPENCLAW_GATEWAY_PASSWORD = "from-env";
+    process.env.GRANTED_GATEWAY_PASSWORD = "from-env";
     setEnvSecretGatewayConfig({
       mode: "local",
       bind: "loopback",

@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import { buildOpenAIRealtimeVoiceProvider } from "./realtime-voice-provider.js";
 
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY?.trim() ?? "";
-const LIVE_ENABLED = OPENAI_API_KEY.length > 0 && process.env.OPENCLAW_LIVE_TEST === "1";
+const LIVE_ENABLED = OPENAI_API_KEY.length > 0 && process.env.GRANTED_LIVE_TEST === "1";
 const describeLive = LIVE_ENABLED ? describe : describe.skip;
 
 describeLive("OpenAI realtime voice lifecycle live", () => {

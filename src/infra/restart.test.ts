@@ -31,7 +31,7 @@ vi.mock("./ports-lsof.js", () => ({
 vi.mock("../config/paths.js", () => ({
   resolveGatewayPort: (...args: unknown[]) => resolveGatewayPortMock(...args),
   resolveStateDir: (env: NodeJS.ProcessEnv = process.env) =>
-    env.OPENCLAW_STATE_DIR ?? "/tmp/openclaw-state",
+    env.GRANTED_STATE_DIR ?? "/tmp/openclaw-state",
 }));
 
 const { cleanStaleGatewayProcessesSync, findGatewayPidsOnPortSync } =
@@ -200,7 +200,7 @@ describe("triggerOpenClawRestart", () => {
   it("does not kickstart after bootstrap registers an unloaded LaunchAgent", () => {
     setPlatform("darwin");
     withEnv(
-      { VITEST: undefined, NODE_ENV: undefined, HOME: "/Users/test", OPENCLAW_PROFILE: "default" },
+      { VITEST: undefined, NODE_ENV: undefined, HOME: "/Users/test", GRANTED_PROFILE: "default" },
       () => {
         const uid = typeof process.getuid === "function" ? process.getuid() : 501;
         spawnSyncMock.mockImplementation((command: string, args: string[]) => {
@@ -233,7 +233,7 @@ describe("triggerOpenClawRestart", () => {
   it("continues when launchctl bootstrap reports the service is already loaded", () => {
     setPlatform("darwin");
     withEnv(
-      { VITEST: undefined, NODE_ENV: undefined, HOME: "/Users/test", OPENCLAW_PROFILE: "default" },
+      { VITEST: undefined, NODE_ENV: undefined, HOME: "/Users/test", GRANTED_PROFILE: "default" },
       () => {
         const uid = typeof process.getuid === "function" ? process.getuid() : 501;
         spawnSyncMock.mockImplementation((command: string, args: string[]) => {

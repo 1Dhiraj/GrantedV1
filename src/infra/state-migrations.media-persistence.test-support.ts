@@ -9,7 +9,7 @@ import { reconcileSessionTranscriptIndexInTransaction } from "../config/sessions
 import { registerOpenClawAgentDatabase } from "../state/openclaw-agent-db-registry.js";
 import {
   closeOpenClawAgentDatabasesForTest,
-  OPENCLAW_AGENT_SCHEMA_VERSION,
+  GRANTED_AGENT_SCHEMA_VERSION,
   openOpenClawAgentDatabase,
 } from "../state/openclaw-agent-db.js";
 import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
@@ -49,7 +49,7 @@ export function createLegacyDatabaseFixture(params: {
   const database = new DatabaseSync(databasePath);
   try {
     database.exec("PRAGMA foreign_keys = ON;");
-    if (schemaVersion < OPENCLAW_AGENT_SCHEMA_VERSION) {
+    if (schemaVersion < GRANTED_AGENT_SCHEMA_VERSION) {
       database.exec("DROP TABLE session_participants;");
     }
     database.exec(`PRAGMA user_version = ${schemaVersion};`);

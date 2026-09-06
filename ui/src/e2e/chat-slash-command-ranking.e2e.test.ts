@@ -14,7 +14,7 @@ suite.define(() => {
   it.each(["/export-session", "/export"])(
     "shows an empty export result and retains staged attachments for %s",
     async (command) => {
-      const artifactRoot = process.env.OPENCLAW_UI_E2E_ARTIFACT_DIR?.trim();
+      const artifactRoot = process.env.GRANTED_UI_E2E_ARTIFACT_DIR?.trim();
       const artifactDir = artifactRoot
         ? createControlUiE2eArtifactDir("chat-slash-command-ranking", artifactRoot)
         : undefined;
@@ -103,7 +103,7 @@ suite.define(() => {
   });
 
   it("keeps visible search results and keyboard selection in relevance order", async () => {
-    const artifactRoot = process.env.OPENCLAW_UI_E2E_ARTIFACT_DIR?.trim();
+    const artifactRoot = process.env.GRANTED_UI_E2E_ARTIFACT_DIR?.trim();
     const artifactDir = artifactRoot
       ? createControlUiE2eArtifactDir("chat-slash-command-ranking", artifactRoot)
       : undefined;

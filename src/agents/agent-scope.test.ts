@@ -1132,9 +1132,9 @@ describe("resolveAgentConfig", () => {
     expect(result?.workspace).toBe("~/openclaw");
   });
 
-  it("uses OPENCLAW_HOME for default agent workspace", () => {
+  it("uses GRANTED_HOME for default agent workspace", () => {
     const home = path.join(path.sep, "srv", "openclaw-home");
-    withEnv({ OPENCLAW_HOME: home }, () => {
+    withEnv({ GRANTED_HOME: home }, () => {
       const workspace = resolveAgentWorkspaceDir(
         { agents: { entries: { main: { default: true } } } },
         "main",
@@ -1143,12 +1143,12 @@ describe("resolveAgentConfig", () => {
     });
   });
 
-  it("uses OPENCLAW_WORKSPACE_DIR for default agent workspace", () => {
+  it("uses GRANTED_WORKSPACE_DIR for default agent workspace", () => {
     const workspaceDir = path.join(path.sep, "srv", "openclaw-workspace");
     withEnv(
       {
-        OPENCLAW_WORKSPACE_DIR: workspaceDir,
-        OPENCLAW_HOME: path.join(path.sep, "srv", "openclaw-home"),
+        GRANTED_WORKSPACE_DIR: workspaceDir,
+        GRANTED_HOME: path.join(path.sep, "srv", "openclaw-home"),
       },
       () => {
         const workspace = resolveAgentWorkspaceDir(
@@ -1160,9 +1160,9 @@ describe("resolveAgentConfig", () => {
     );
   });
 
-  it("uses OPENCLAW_HOME for default agentDir", () => {
+  it("uses GRANTED_HOME for default agentDir", () => {
     const home = path.join(path.sep, "srv", "openclaw-home");
-    withEnv({ OPENCLAW_HOME: home, OPENCLAW_STATE_DIR: "" }, () => {
+    withEnv({ GRANTED_HOME: home, GRANTED_STATE_DIR: "" }, () => {
       const agentDir = resolveAgentDir({} as OpenClawConfig, "main");
       expect(agentDir).toBe(path.join(path.resolve(home), ".openclaw", "agents", "main", "agent"));
     });
@@ -1176,7 +1176,7 @@ describe("resolveAgentConfig", () => {
       },
     };
 
-    const agentDir = withEnv({ OPENCLAW_STATE_DIR: stateDir }, () => resolveDefaultAgentDir(cfg));
+    const agentDir = withEnv({ GRANTED_STATE_DIR: stateDir }, () => resolveDefaultAgentDir(cfg));
 
     expect(agentDir).toBe(path.resolve(stateDir, "agents", "ops", "agent"));
   });
@@ -1210,7 +1210,7 @@ describe("resolveAgentConfig", () => {
         list: [{ id: "main" }, { id: "work", default: true, workspace: "/work-ws" }],
       },
     };
-    const workspace = withEnv({ OPENCLAW_STATE_DIR: stateDir }, () =>
+    const workspace = withEnv({ GRANTED_STATE_DIR: stateDir }, () =>
       resolveAgentWorkspaceDir(cfg, "main"),
     );
     expect(workspace).toBe(path.resolve(stateDir, "workspace-main"));

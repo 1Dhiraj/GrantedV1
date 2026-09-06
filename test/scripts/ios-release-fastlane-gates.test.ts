@@ -58,13 +58,13 @@ function runIosScreenshotsCommand(
   };
   writeExecutable(
     "bundle",
-    '[[ "$BUNDLE_GEMFILE" == "$OPENCLAW_FASTLANE_EXPECTED_GEMFILE" ]] || exit 91\n' +
+    '[[ "$BUNDLE_GEMFILE" == "$GRANTED_FASTLANE_EXPECTED_GEMFILE" ]] || exit 91\n' +
       '[[ "${1:-}" == "_2.6.9_" ]] || exit 92\n' +
       `[[ "\${2:-}" != "check" ]] || exit ${options.bundleCheckExit ?? 0}\n` +
-      'printf "bundle:%s\\n" "$*" >> "$OPENCLAW_FASTLANE_TEST_TRACE"\n' +
+      'printf "bundle:%s\\n" "$*" >> "$GRANTED_FASTLANE_TEST_TRACE"\n' +
       `exit ${options.bundleExit ?? 0}`,
   );
-  writeExecutable("fastlane", 'printf "direct:%s\\n" "$*" >> "$OPENCLAW_FASTLANE_TEST_TRACE"');
+  writeExecutable("fastlane", 'printf "direct:%s\\n" "$*" >> "$GRANTED_FASTLANE_TEST_TRACE"');
 
   try {
     const result = spawnSync("bash", [screenshotsScriptPath], {
@@ -72,8 +72,8 @@ function runIosScreenshotsCommand(
       env: {
         ...process.env,
         BUNDLE_GEMFILE: options.conflictingGemfile ? path.join(fixture, "Gemfile") : "",
-        OPENCLAW_FASTLANE_EXPECTED_GEMFILE: gemfilePath,
-        OPENCLAW_FASTLANE_TEST_TRACE: tracePath,
+        GRANTED_FASTLANE_EXPECTED_GEMFILE: gemfilePath,
+        GRANTED_FASTLANE_TEST_TRACE: tracePath,
         PATH: `${fixture}:/usr/bin:/bin`,
       },
     });
@@ -184,7 +184,7 @@ describe("iOS Fastlane release upload gates", () => {
     const tracePath = path.join(fixture, "trace.log");
     writeFileSync(
       bundlePath,
-      '#!/usr/bin/env bash\nprintf "%s\\n" "$BUNDLE_GEMFILE" > "$OPENCLAW_FASTLANE_TEST_TRACE"\n',
+      '#!/usr/bin/env bash\nprintf "%s\\n" "$BUNDLE_GEMFILE" > "$GRANTED_FASTLANE_TEST_TRACE"\n',
       "utf8",
     );
     chmodSync(bundlePath, 0o755);
@@ -199,7 +199,7 @@ describe("iOS Fastlane release upload gates", () => {
           env: {
             ...process.env,
             BUNDLE_GEMFILE: path.join(fixture, "Gemfile"),
-            OPENCLAW_FASTLANE_TEST_TRACE: tracePath,
+            GRANTED_FASTLANE_TEST_TRACE: tracePath,
             PATH: `${fixture}:/usr/bin:/bin`,
           },
         },
@@ -256,7 +256,7 @@ describe("iOS Fastlane release upload gates", () => {
     const fastlanePath = path.join(binDir, "fastlane");
     writeFileSync(
       fastlanePath,
-      '#!/usr/bin/env bash\nprintf "direct:%s\\n" "$*" >> "$OPENCLAW_FASTLANE_TEST_TRACE"\n',
+      '#!/usr/bin/env bash\nprintf "direct:%s\\n" "$*" >> "$GRANTED_FASTLANE_TEST_TRACE"\n',
       "utf8",
     );
     chmodSync(fastlanePath, 0o755);
@@ -270,7 +270,7 @@ describe("iOS Fastlane release upload gates", () => {
           env: {
             ...process.env,
             BUNDLE_GEMFILE: inheritedGemfile,
-            OPENCLAW_FASTLANE_TEST_TRACE: tracePath,
+            GRANTED_FASTLANE_TEST_TRACE: tracePath,
             PATH: `${binDir}:/usr/bin:/bin`,
           },
         },
@@ -301,7 +301,7 @@ describe("iOS Fastlane release upload gates", () => {
   it("routes the package upload wrapper through the guarded Fastlane lane", () => {
     const script = readFileSync(uploadScriptPath, "utf8");
 
-    expect(script).toContain("OPENCLAW_IOS_RELEASE_WRAPPER=1");
+    expect(script).toContain("GRANTED_IOS_RELEASE_WRAPPER=1");
     expect(script).not.toContain("Missing required --version.");
     expect(script).not.toContain("Missing required --revision.");
     expect(script).toContain('"release_version:${RELEASE_VERSION}"');
@@ -327,7 +327,7 @@ describe("iOS Fastlane release upload gates", () => {
     const releaseUpload = laneBody(fastfile, "release_upload");
     const prepareContext = laneBody(fastfile, "prepare_app_store_context");
 
-    expect(releaseUpload).toContain('ENV["OPENCLAW_IOS_RELEASE_WRAPPER"] == "1"');
+    expect(releaseUpload).toContain('ENV["GRANTED_IOS_RELEASE_WRAPPER"] == "1"');
     expect(releaseUpload).toContain("Use `pnpm ios:release:upload`");
     expect(prepareContext).toContain("options[:release_version]");
     expect(prepareContext).toContain("options[:app_store_revision]");
@@ -541,10 +541,10 @@ describe("iOS Fastlane release upload gates", () => {
     const verifier = functionBody(fastfile, "verify_release_ios_screenshot_manifest!");
 
     expect(fastfile).toContain("REQUIRED_IOS_SCREENSHOT_NAMES");
-    expect(snapshotDevices).toContain('ENV["OPENCLAW_SNAPSHOT_DEVICES"]');
+    expect(snapshotDevices).toContain('ENV["GRANTED_SNAPSHOT_DEVICES"]');
     expect(snapshotDevices).toContain("return default_snapshot_devices if raw.empty?");
     expect(defaultSnapshotDevices).toContain("available_simulator_devices");
-    expect(defaultSnapshotDevices).toContain('ENV["OPENCLAW_SNAPSHOT_DEVICE_FAMILY"]');
+    expect(defaultSnapshotDevices).toContain('ENV["GRANTED_SNAPSHOT_DEVICE_FAMILY"]');
     expect(defaultSnapshotDevices).toContain("families = DEFAULT_SNAPSHOT_DEVICE_FAMILIES");
     expect(defaultSnapshotDevices).toContain("families = [family]");
     expect(verifier).toContain("expected_names - actual_names");
@@ -557,7 +557,7 @@ describe("iOS Fastlane release upload gates", () => {
     expect(screenshots.indexOf("verify_release_ios_screenshot_manifest!")).toBeLessThan(
       screenshots.indexOf("watch_screenshot("),
     );
-    expect(screenshots).toContain('ENV["OPENCLAW_SNAPSHOT_SKIP_WATCH"] == "1"');
+    expect(screenshots).toContain('ENV["GRANTED_SNAPSHOT_SKIP_WATCH"] == "1"');
   });
 
   it("runs screenshot shards alongside builds without changing runner authorization", () => {
@@ -579,7 +579,7 @@ describe("iOS Fastlane release upload gates", () => {
     expect(shardJob).toContain("needs: [preflight]");
     expect(shardJob).toContain("max-parallel: 2");
     expect(shardJob).toContain("device_family: [iphone, ipad-13]");
-    expect(shardJob).toContain('OPENCLAW_SNAPSHOT_SKIP_WATCH: "1"');
+    expect(shardJob).toContain('GRANTED_SNAPSHOT_SKIP_WATCH: "1"');
     expect(shardJob).toContain("if: matrix.device_family == 'iphone'");
     expect(shardJob).toContain("run_ios_fastlane ios watch_screenshot");
     expect(shardJob).toContain("run: pnpm ios:screenshots");

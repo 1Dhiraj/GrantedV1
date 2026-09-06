@@ -64,7 +64,7 @@ describe("Codex session doctor health owner", () => {
 
   it("applies the exact ephemeral auth map after earlier session migration owners", async () => {
     const authProfileIdMap = new Map([["openai-codex:default", "openai:chatgpt-default"]]);
-    const env = { OPENCLAW_STATE_DIR: "/tmp/openclaw-doctor-session-owner" };
+    const env = { GRANTED_STATE_DIR: "/tmp/openclaw-doctor-session-owner" };
     const cfg = {};
     const ctx = createDoctorHealthContext({
       cfg,

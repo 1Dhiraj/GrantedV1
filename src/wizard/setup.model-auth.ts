@@ -132,7 +132,7 @@ export async function runSetupModelAuthStep(params: {
   preserveExistingModelSelection?: boolean;
 }): Promise<SetupModelAuthCandidate> {
   const { opts, prompter, runtime } = params;
-  const env = params.stateDir ? { ...process.env, OPENCLAW_STATE_DIR: params.stateDir } : undefined;
+  const env = params.stateDir ? { ...process.env, GRANTED_STATE_DIR: params.stateDir } : undefined;
   let nextConfig = params.stagedCandidate?.config ?? params.config;
   let replacementBaseConfig = params.config;
   let authProfiles: PreparedAuthChoiceResult["authProfiles"] =

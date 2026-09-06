@@ -54,7 +54,7 @@ const CLAUDE_BYPASS_PERMISSION_MODE = "bypassPermissions";
 const CLAUDE_DEFAULT_PERMISSION_MODE = "default";
 const CLAUDE_NO_TOOLS_VALUE = "";
 const CLAUDE_DENY_MCP_TOOLS_VALUE = "mcp__*";
-const OPENCLAW_MCP_TOOL_PREFIX = "mcp__openclaw__";
+const GRANTED_MCP_TOOL_PREFIX = "mcp__openclaw__";
 const CLAUDE_RESTRICTED_SETTINGS =
   '{"disableAllHooks":true,"enabledPlugins":{},"autoMemoryEnabled":false,"claudeMdExcludes":["**/CLAUDE.md","**/CLAUDE.local.md","**/.claude/rules/**"]}';
 
@@ -446,7 +446,7 @@ function resolveClaudeCliRestrictedExecutionArgs(
   if (availability.openClaw.length > 0) {
     normalized.push(
       CLAUDE_ALLOWED_TOOLS_ARG,
-      availability.openClaw.map((toolName) => `${OPENCLAW_MCP_TOOL_PREFIX}${toolName}`).join(","),
+      availability.openClaw.map((toolName) => `${GRANTED_MCP_TOOL_PREFIX}${toolName}`).join(","),
     );
   }
   const denials = [

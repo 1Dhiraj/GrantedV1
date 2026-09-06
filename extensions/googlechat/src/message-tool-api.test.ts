@@ -7,7 +7,7 @@ import { describeGoogleChatMessageTool } from "./message-tool-api.js";
 const unresolvedRef = {
   source: "env",
   provider: "default",
-  id: "OPENCLAW_TEST_MISSING_GOOGLE_CHAT_SERVICE_ACCOUNT",
+  id: "GRANTED_TEST_MISSING_GOOGLE_CHAT_SERVICE_ACCOUNT",
 } as const;
 
 function buildTwoAccountConfig(): OpenClawConfig {

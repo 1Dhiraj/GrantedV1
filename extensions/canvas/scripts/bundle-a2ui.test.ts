@@ -94,8 +94,8 @@ describe("scripts/bundle-a2ui.mjs", () => {
           const scriptPath = path.resolve("extensions/canvas/scripts/bundle-a2ui.mjs");
           const baseEnv = {
             ...process.env,
-            OPENCLAW_A2UI_BUNDLE_HASH_FILE: hashFile,
-            OPENCLAW_A2UI_BUNDLE_OUT: outputFile,
+            GRANTED_A2UI_BUNDLE_HASH_FILE: hashFile,
+            GRANTED_A2UI_BUNDLE_OUT: outputFile,
           };
           await fs.mkdir(fakeBinDir, { recursive: true });
           await fs.writeFile(fakeGitPath, `#!${process.execPath}\nprocess.exit(1);\n`, "utf8");

@@ -104,8 +104,8 @@ describe("buildPluginRegistrySnapshotReport", () => {
     const gadget = createWorkspacePluginFixture(gadgetWorkspace, "gadget-plugin");
     const env = {
       ...createColdPluginHermeticEnv(tempRoot, { bundledPluginsDir: makeTempDir() }),
-      OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-      OPENCLAW_STATE_DIR: path.join(tempRoot, "state"),
+      GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+      GRANTED_STATE_DIR: path.join(tempRoot, "state"),
     };
     const config = {
       agents: {
@@ -164,8 +164,8 @@ describe("buildPluginRegistrySnapshotReport", () => {
     const gadget = createWorkspacePluginFixture(gadgetWorkspace, "gadget-plugin");
     const env = {
       ...createColdPluginHermeticEnv(tempRoot, { bundledPluginsDir: makeTempDir() }),
-      OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-      OPENCLAW_STATE_DIR: stateDir,
+      GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+      GRANTED_STATE_DIR: stateDir,
     };
     const makeConfig = (reverse: boolean) => ({
       agents: {
@@ -224,8 +224,8 @@ describe("buildPluginRegistrySnapshotReport", () => {
     const gadget = createWorkspacePluginFixture(gadgetWorkspace, "gadget-plugin");
     const env = {
       ...createColdPluginHermeticEnv(tempRoot, { bundledPluginsDir: makeTempDir() }),
-      OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-      OPENCLAW_STATE_DIR: stateDir,
+      GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+      GRANTED_STATE_DIR: stateDir,
     };
     const ownerlessConfig = {
       agents: {
@@ -348,8 +348,8 @@ describe("buildPluginRegistrySnapshotReport", () => {
       const fixture = createGlobalPluginFixture(stateDir, "consent-demo");
       const env = {
         ...createColdPluginHermeticEnv(tempRoot, { bundledPluginsDir: makeTempDir() }),
-        OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-        OPENCLAW_STATE_DIR: stateDir,
+        GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+        GRANTED_STATE_DIR: stateDir,
       };
       const config = {
         plugins: { entries: { [fixture.pluginId]: { enabled } } },
@@ -414,8 +414,8 @@ describe("buildPluginRegistrySnapshotReport", () => {
       ...createColdPluginHermeticEnv(tempRoot, {
         bundledPluginsDir: makeTempDir(),
       }),
-      OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-      OPENCLAW_STATE_DIR: stateDir,
+      GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+      GRANTED_STATE_DIR: stateDir,
     };
     const config = {
       plugins: {
@@ -506,7 +506,7 @@ describe("buildPluginRegistrySnapshotReport", () => {
       };
       const env = {
         ...createColdPluginHermeticEnv(tempRoot, { bundledPluginsDir: makeTempDir() }),
-        OPENCLAW_STATE_DIR: stateDir,
+        GRANTED_STATE_DIR: stateDir,
       };
       if (state !== "missing") {
         const index = loadInstalledPluginIndex({ config, env, workspaceDir });
@@ -596,7 +596,7 @@ describe("buildPluginRegistrySnapshotReport", () => {
       const config = createColdPluginConfig(rootDir, fixture.pluginId);
       const env = {
         ...createColdPluginHermeticEnv(rootDir, { bundledPluginsDir: makeTempDir() }),
-        OPENCLAW_STATE_DIR: path.join(rootDir, "state"),
+        GRANTED_STATE_DIR: path.join(rootDir, "state"),
       };
       const params = { config, env, workspaceDir: rootDir };
       const coldReport = buildPluginRegistrySnapshotReport(params);
@@ -641,8 +641,8 @@ describe("buildPluginRegistrySnapshotReport", () => {
     const fixture = createWorkspacePluginFixture(workspaceDir, "configured-workspace-plugin");
     const env = {
       ...createColdPluginHermeticEnv(tempRoot, { bundledPluginsDir: makeTempDir() }),
-      OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-      OPENCLAW_STATE_DIR: path.join(tempRoot, "state"),
+      GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+      GRANTED_STATE_DIR: path.join(tempRoot, "state"),
     };
     const config = {
       agents: { defaults: { workspace: workspaceDir } },
@@ -670,8 +670,8 @@ describe("buildPluginRegistrySnapshotReport", () => {
     const fixture = createWorkspacePluginFixture(workspaceDir, "selected-agent-plugin");
     const env = {
       ...createColdPluginHermeticEnv(tempRoot, { bundledPluginsDir: makeTempDir() }),
-      OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-      OPENCLAW_STATE_DIR: path.join(tempRoot, "state"),
+      GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+      GRANTED_STATE_DIR: path.join(tempRoot, "state"),
     };
     const config = {
       agents: {
@@ -702,8 +702,8 @@ describe("buildPluginRegistrySnapshotReport", () => {
     const explicit = createWorkspacePluginFixture(explicitWorkspace, "explicit-plugin");
     const env = {
       ...createColdPluginHermeticEnv(tempRoot, { bundledPluginsDir: makeTempDir() }),
-      OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-      OPENCLAW_STATE_DIR: path.join(tempRoot, "state"),
+      GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+      GRANTED_STATE_DIR: path.join(tempRoot, "state"),
     };
     const config = {
       agents: { defaults: { workspace: configuredWorkspace } },
@@ -735,8 +735,8 @@ describe("buildPluginRegistrySnapshotReport", () => {
     const fixture = createWorkspacePluginFixture(workspaceDir, "workspace-demo");
     const env = {
       ...createColdPluginHermeticEnv(rootDir, { bundledPluginsDir: makeTempDir() }),
-      OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-      OPENCLAW_STATE_DIR: stateDir,
+      GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+      GRANTED_STATE_DIR: stateDir,
     };
     const config = {
       agents: { defaults: { workspace: workspaceDir } },
@@ -788,8 +788,8 @@ describe("buildPluginRegistrySnapshotReport", () => {
     const explicit = createWorkspacePluginFixture(explicitWorkspace, "explicit-plugin");
     const env = {
       ...createColdPluginHermeticEnv(rootDir, { bundledPluginsDir: makeTempDir() }),
-      OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-      OPENCLAW_STATE_DIR: stateDir,
+      GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+      GRANTED_STATE_DIR: stateDir,
     };
 
     const refreshed = await refreshPluginRegistry({

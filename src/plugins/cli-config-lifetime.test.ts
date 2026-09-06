@@ -93,11 +93,11 @@ describe("CLI config producer lifetime", () => {
       }
       await withEnvAsync(
         {
-          OPENCLAW_HOME: root,
-          OPENCLAW_STATE_DIR: path.join(root, "state"),
-          OPENCLAW_CONFIG_PATH: configPath,
-          OPENCLAW_BUNDLED_PLUGINS_DIR: bundledDir,
-          OPENCLAW_DISABLE_BUNDLED_PLUGINS: undefined,
+          GRANTED_HOME: root,
+          GRANTED_STATE_DIR: path.join(root, "state"),
+          GRANTED_CONFIG_PATH: configPath,
+          GRANTED_BUNDLED_PLUGINS_DIR: bundledDir,
+          GRANTED_DISABLE_BUNDLED_PLUGINS: undefined,
           ANTHROPIC_API_KEY: kind.includes("provider") ? "synthetic-token" : undefined,
           ANTHROPIC_OAUTH_TOKEN: undefined,
         },
@@ -196,10 +196,10 @@ describe("CLI config producer lifetime", () => {
     );
     await withEnvAsync(
       {
-        OPENCLAW_HOME: root,
-        OPENCLAW_STATE_DIR: path.join(root, "state"),
-        OPENCLAW_CONFIG_PATH: configPath,
-        OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
+        GRANTED_HOME: root,
+        GRANTED_STATE_DIR: path.join(root, "state"),
+        GRANTED_CONFIG_PATH: configPath,
+        GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
       },
       async () => {
         const discover = vi.spyOn(discovery, "discoverOpenClawPlugins");

@@ -134,7 +134,7 @@ suite.define(() => {
   });
 
   it("restores reasoning and tool activity after navigating away from a session", async () => {
-    const artifactDirParent = process.env.OPENCLAW_UI_E2E_ARTIFACT_DIR?.trim();
+    const artifactDirParent = process.env.GRANTED_UI_E2E_ARTIFACT_DIR?.trim();
     const artifactDir = artifactDirParent
       ? createControlUiE2eArtifactDir("chat-flow.history-recovery", artifactDirParent)
       : undefined;
@@ -425,7 +425,7 @@ suite.define(() => {
   });
 
   it("keeps evicted paginated history stable when returning to a session", async () => {
-    const artifactDirParent = process.env.OPENCLAW_UI_E2E_ARTIFACT_DIR?.trim();
+    const artifactDirParent = process.env.GRANTED_UI_E2E_ARTIFACT_DIR?.trim();
     const artifactDir = artifactDirParent
       ? createControlUiE2eArtifactDir("chat-flow.history-recovery", artifactDirParent)
       : undefined;
@@ -698,7 +698,7 @@ suite.define(() => {
   });
 
   it("stores new input while offline and sends it after reconnect", async () => {
-    const artifactDirParent = process.env.OPENCLAW_UI_E2E_ARTIFACT_DIR?.trim();
+    const artifactDirParent = process.env.GRANTED_UI_E2E_ARTIFACT_DIR?.trim();
     const artifactDir = artifactDirParent
       ? createControlUiE2eArtifactDir("chat-flow.history-recovery", artifactDirParent)
       : undefined;
@@ -865,7 +865,7 @@ suite.define(() => {
       if (artifactDir) {
         await page.screenshot({ path: `${artifactDir}/03-online-delivered.png`, fullPage: true });
       }
-      if (process.env.OPENCLAW_BEHAVIOR_PROOF === "1") {
+      if (process.env.GRANTED_BEHAVIOR_PROOF === "1") {
         process.stdout.write(
           `${JSON.stringify({
             proof: "offline-chat-reconnect",

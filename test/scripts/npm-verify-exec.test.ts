@@ -57,22 +57,22 @@ describe("npm verifier command execution", () => {
   it("rejects malformed command limit environment values", () => {
     const root = tempDirs.make("openclaw-npm-verify-exec-");
 
-    withEnv({ OPENCLAW_NPM_VERIFY_COMMAND_TIMEOUT_MS: "5m" }, () => {
+    withEnv({ GRANTED_NPM_VERIFY_COMMAND_TIMEOUT_MS: "5m" }, () => {
       expect(() =>
         runNpmVerifyCommand(
           { command: process.execPath, args: ["-e", "process.stdout.write('ok')"] },
           root,
         ),
-      ).toThrow("invalid OPENCLAW_NPM_VERIFY_COMMAND_TIMEOUT_MS: 5m");
+      ).toThrow("invalid GRANTED_NPM_VERIFY_COMMAND_TIMEOUT_MS: 5m");
     });
 
-    withEnv({ OPENCLAW_NPM_VERIFY_COMMAND_MAX_BUFFER_BYTES: "16mb" }, () => {
+    withEnv({ GRANTED_NPM_VERIFY_COMMAND_MAX_BUFFER_BYTES: "16mb" }, () => {
       expect(() =>
         runNpmVerifyCommand(
           { command: process.execPath, args: ["-e", "process.stdout.write('ok')"] },
           root,
         ),
-      ).toThrow("invalid OPENCLAW_NPM_VERIFY_COMMAND_MAX_BUFFER_BYTES: 16mb");
+      ).toThrow("invalid GRANTED_NPM_VERIFY_COMMAND_MAX_BUFFER_BYTES: 16mb");
     });
   });
 });

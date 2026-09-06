@@ -1,17 +1,17 @@
 // Identifies OpenClaw-authored assistant rows that are transcript bookkeeping,
 // not provider model output. Some history surfaces keep gateway-injected rows
 // visible, so use the narrower delivery-mirror predicate when visibility matters.
-export const OPENCLAW_TRANSCRIPT_ARTIFACT_API = "openclaw-transcript" as const;
-export const OPENCLAW_TRANSCRIPT_ARTIFACT_PROVIDER = "openclaw" as const;
-export const OPENCLAW_DELIVERY_MIRROR_MODEL = "delivery-mirror" as const;
+export const GRANTED_TRANSCRIPT_ARTIFACT_API = "openclaw-transcript" as const;
+export const GRANTED_TRANSCRIPT_ARTIFACT_PROVIDER = "openclaw" as const;
+export const GRANTED_DELIVERY_MIRROR_MODEL = "delivery-mirror" as const;
 export const CRON_DIRECT_DELIVERY_CONTEXT_KIND = "cron-direct-delivery-context" as const;
-const OPENCLAW_GATEWAY_INJECTED_MODEL = "gateway-injected" as const;
+const GRANTED_GATEWAY_INJECTED_MODEL = "gateway-injected" as const;
 
-const TRANSCRIPT_ONLY_OPENCLAW_ASSISTANT_MODELS = new Set<string>([
-  OPENCLAW_DELIVERY_MIRROR_MODEL,
-  OPENCLAW_GATEWAY_INJECTED_MODEL,
+const TRANSCRIPT_ONLY_GRANTED_ASSISTANT_MODELS = new Set<string>([
+  GRANTED_DELIVERY_MIRROR_MODEL,
+  GRANTED_GATEWAY_INJECTED_MODEL,
 ]);
-const OPENCLAW_DELIVERY_MIRROR_KINDS = new Set([
+const GRANTED_DELIVERY_MIRROR_KINDS = new Set([
   "channel-final",
   "channel-final-suppressed",
   "message-tool-source-reply",
@@ -23,14 +23,14 @@ function isOpenClawDeliveryMirrorMarker(value: unknown): boolean {
     return false;
   }
   const kind = (value as { kind?: unknown }).kind;
-  return typeof kind === "string" && OPENCLAW_DELIVERY_MIRROR_KINDS.has(kind);
+  return typeof kind === "string" && GRANTED_DELIVERY_MIRROR_KINDS.has(kind);
 }
 
 export function isTranscriptOnlyOpenClawAssistantModel(provider: unknown, model: unknown): boolean {
   return (
-    provider === OPENCLAW_TRANSCRIPT_ARTIFACT_PROVIDER &&
+    provider === GRANTED_TRANSCRIPT_ARTIFACT_PROVIDER &&
     typeof model === "string" &&
-    TRANSCRIPT_ONLY_OPENCLAW_ASSISTANT_MODELS.has(model)
+    TRANSCRIPT_ONLY_GRANTED_ASSISTANT_MODELS.has(model)
   );
 }
 
@@ -89,7 +89,7 @@ export function isOpenClawDeliveryMirrorAssistantMessage(message: unknown): bool
   const entry = message as { role?: unknown; provider?: unknown; model?: unknown };
   return (
     entry.role === "assistant" &&
-    entry.provider === OPENCLAW_TRANSCRIPT_ARTIFACT_PROVIDER &&
-    entry.model === OPENCLAW_DELIVERY_MIRROR_MODEL
+    entry.provider === GRANTED_TRANSCRIPT_ARTIFACT_PROVIDER &&
+    entry.model === GRANTED_DELIVERY_MIRROR_MODEL
   );
 }

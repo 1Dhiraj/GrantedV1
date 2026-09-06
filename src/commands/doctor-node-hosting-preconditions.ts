@@ -1,7 +1,7 @@
 // Doctor node-hosting preconditions expose config combinations that leave browser auth healthy
 // while machine authentication or onboarding remains unavailable.
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
-import { OPENCLAW_AGENT_RUNTIME_ID } from "../agents/agent-runtime-id.js";
+import { GRANTED_AGENT_RUNTIME_ID } from "../agents/agent-runtime-id.js";
 import { listAgentIds } from "../agents/agent-scope-config.js";
 import { resolveDefaultModelForAgent } from "../agents/model-selection.js";
 import { resolveEffectiveAgentRuntime } from "../agents/thinking-runtime.js";
@@ -68,7 +68,7 @@ function lacksDeviceCapableRuntimeRoute(cfg: OpenClawConfig): boolean {
       modelId: model.model,
       agentId,
     });
-    if (runtime === OPENCLAW_AGENT_RUNTIME_ID) {
+    if (runtime === GRANTED_AGENT_RUNTIME_ID) {
       return false;
     }
     const harness = registry?.agentHarnesses.find((entry) => entry.harness.id === runtime)?.harness;

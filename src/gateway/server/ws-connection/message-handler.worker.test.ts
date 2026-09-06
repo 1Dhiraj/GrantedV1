@@ -708,7 +708,7 @@ describe("dedicated worker websocket protocol", () => {
     const stateDir = await fs.mkdtemp(
       path.join(await fs.realpath(os.tmpdir()), "openclaw-worker-suspension-"),
     );
-    const database = openOpenClawStateDatabase({ env: { OPENCLAW_STATE_DIR: stateDir } });
+    const database = openOpenClawStateDatabase({ env: { GRANTED_STATE_DIR: stateDir } });
     const placements = createWorkerSessionPlacementStore({ database });
     let placementActive = true;
     vi.spyOn(placements, "validateTurnClaim").mockImplementation(

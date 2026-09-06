@@ -89,7 +89,7 @@ describe("resolveRunWorkspaceDir", () => {
         workspaceDir: null,
         sessionKey: "custom-main-key",
         config: undefined,
-        env: { ...process.env, OPENCLAW_WORKSPACE_DIR: workspaceDir },
+        env: { ...process.env, GRANTED_WORKSPACE_DIR: workspaceDir },
       }),
     ).toThrow(expect.objectContaining({ code: "RUN_WORKSPACE_ROSTER_REQUIRED" }));
   });
@@ -108,8 +108,8 @@ describe("resolveRunWorkspaceDir", () => {
     const env = {
       ...process.env,
       HOME: "/home/runner",
-      OPENCLAW_HOME: undefined,
-      OPENCLAW_STATE_DIR: "/tmp/openclaw-state",
+      GRANTED_HOME: undefined,
+      GRANTED_STATE_DIR: "/tmp/openclaw-state",
     } satisfies NodeJS.ProcessEnv;
     expect(() =>
       resolveRunWorkspaceDir({

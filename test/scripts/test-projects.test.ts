@@ -415,7 +415,7 @@ describe("scripts/test-projects changed-target routing", () => {
         ["--changed", "origin/main"],
         process.cwd(),
         () => ["test/vitest/vitest.shared.config.ts", "src/utils/provider-utils.ts"],
-        { env: { OPENCLAW_TEST_CHANGED_BROAD: "1" } },
+        { env: { GRANTED_TEST_CHANGED_BROAD: "1" } },
       ),
     ).toBeNull();
   });
@@ -2652,7 +2652,7 @@ describe("scripts/test-projects changed-target routing", () => {
           ["--changed", "origin/main"],
           cwd,
           () => ["test/helpers/unmapped-helper.ts"],
-          { env: { OPENCLAW_TEST_CHANGED_BROAD: "1" } },
+          { env: { GRANTED_TEST_CHANGED_BROAD: "1" } },
         );
       },
     );
@@ -2790,7 +2790,7 @@ describe("scripts/test-projects changed-target routing", () => {
       "[test] no precise changed test targets; skipping Vitest.",
       "[test] 1 changed path require broad Vitest fallback:",
       "[test]   unknown-root-surface.txt",
-      "[test] run `OPENCLAW_TEST_CHANGED_BROAD=1 pnpm test:changed` for broad coverage.",
+      "[test] run `GRANTED_TEST_CHANGED_BROAD=1 pnpm test:changed` for broad coverage.",
     ]);
   });
 
@@ -2800,7 +2800,7 @@ describe("scripts/test-projects changed-target routing", () => {
         ["--changed", "origin/main"],
         process.cwd(),
         () => ["unknown/file.txt"],
-        { env: { OPENCLAW_TEST_CHANGED_BROAD: "1" } },
+        { env: { GRANTED_TEST_CHANGED_BROAD: "1" } },
       ),
     ).toBeNull();
   });
@@ -2832,7 +2832,7 @@ describe("scripts/test-projects changed-target routing", () => {
       ["--changed", "origin/main"],
       process.cwd(),
       () => ["src/plugin-sdk/provider-entry.ts"],
-      { env: { OPENCLAW_TEST_CHANGED_BROAD: "1" } },
+      { env: { GRANTED_TEST_CHANGED_BROAD: "1" } },
     );
 
     expect(plans).toEqual([
@@ -2934,7 +2934,7 @@ describe("scripts/test-projects changed-target routing", () => {
       const includeFile = path.join(tempDir, "ci-shard.json");
       fs.writeFileSync(includeFile, JSON.stringify(files));
       const specs = createVitestRunSpecs([config], {
-        baseEnv: { OPENCLAW_VITEST_INCLUDE_FILE: includeFile },
+        baseEnv: { GRANTED_VITEST_INCLUDE_FILE: includeFile },
       });
 
       expect(specs).toHaveLength(5);
@@ -2942,8 +2942,8 @@ describe("scripts/test-projects changed-target routing", () => {
         specs.every((spec) => spec.config === config && (spec.includePatterns?.length ?? 0) === 1),
       ).toBe(true);
       expect(specs.map((spec) => spec.includePatterns?.[0])).toEqual(files);
-      expect(new Set(specs.map((spec) => spec.env.OPENCLAW_VITEST_INCLUDE_FILE)).size).toBe(5);
-      expect(specs.every((spec) => spec.env.OPENCLAW_VITEST_INCLUDE_FILE !== includeFile)).toBe(
+      expect(new Set(specs.map((spec) => spec.env.GRANTED_VITEST_INCLUDE_FILE)).size).toBe(5);
+      expect(specs.every((spec) => spec.env.GRANTED_VITEST_INCLUDE_FILE !== includeFile)).toBe(
         true,
       );
     } finally {
@@ -2960,7 +2960,7 @@ describe("scripts/test-projects changed-target routing", () => {
   ])("preserves an externally scoped $channel config target", ({ config }) => {
     expect(
       buildVitestRunPlans([config], process.cwd(), () => [], {
-        env: { OPENCLAW_VITEST_INCLUDE_FILE: "ci-shard.json" },
+        env: { GRANTED_VITEST_INCLUDE_FILE: "ci-shard.json" },
       }),
     ).toEqual([
       {
@@ -2989,12 +2989,12 @@ describe("scripts/test-projects changed-target routing", () => {
       const includeFile = path.join(tempDir, "ci-shard.json");
       fs.writeFileSync(includeFile, JSON.stringify([`${directory}/src/example.test.ts`]));
       const [spec] = createVitestRunSpecs([directory], {
-        baseEnv: { OPENCLAW_VITEST_INCLUDE_FILE: includeFile },
+        baseEnv: { GRANTED_VITEST_INCLUDE_FILE: includeFile },
       });
 
       expect(spec).toMatchObject({
         config,
-        env: { OPENCLAW_VITEST_INCLUDE_FILE: includeFile },
+        env: { GRANTED_VITEST_INCLUDE_FILE: includeFile },
         includeFilePath: null,
         includePatterns: null,
       });
@@ -3567,7 +3567,7 @@ describe("scripts/test-projects changed-target routing", () => {
       ["--changed", "origin/main"],
       process.cwd(),
       () => ["src/plugin-sdk/facade-runtime.ts"],
-      { env: { OPENCLAW_TEST_CHANGED_BROAD: "1" } },
+      { env: { GRANTED_TEST_CHANGED_BROAD: "1" } },
     );
 
     expect(plans).toEqual([
@@ -3613,7 +3613,7 @@ describe("scripts/test-projects changed-target routing", () => {
   it("keeps broad changed fallback available through explicit env", () => {
     expect(
       resolveChangedTestTargetPlan(["package.json", "src/commands/channels.add.ts"], {
-        env: { OPENCLAW_TEST_CHANGED_BROAD: "1" },
+        env: { GRANTED_TEST_CHANGED_BROAD: "1" },
       }),
     ).toEqual({
       mode: "broad",
@@ -3933,7 +3933,7 @@ describe("scripts/test-projects full-suite sharding", () => {
           61,
           {
             CI: ciValue,
-            OPENCLAW_VITEST_MAX_WORKERS: "3",
+            GRANTED_VITEST_MAX_WORKERS: "3",
           },
           {
             cpuCount: 14,
@@ -3948,9 +3948,9 @@ describe("scripts/test-projects full-suite sharding", () => {
   it("keeps CI=1 full-suite runs on aggregate shard configs", () => {
     vi.stubEnv("CI", "1");
     vi.stubEnv("GITHUB_ACTIONS", "");
-    vi.stubEnv("OPENCLAW_TESTBOX_REMOTE_RUN", "");
-    vi.stubEnv("OPENCLAW_TEST_PROJECTS_LEAF_SHARDS", "");
-    vi.stubEnv("OPENCLAW_TEST_PROJECTS_PARALLEL", "");
+    vi.stubEnv("GRANTED_TESTBOX_REMOTE_RUN", "");
+    vi.stubEnv("GRANTED_TEST_PROJECTS_LEAF_SHARDS", "");
+    vi.stubEnv("GRANTED_TEST_PROJECTS_PARALLEL", "");
     try {
       const configs = buildFullSuiteVitestRunPlans([], process.cwd()).map((plan) => plan.config);
 
@@ -4017,9 +4017,9 @@ describe("scripts/test-projects full-suite sharding", () => {
   it("splits the Testbox agentic and extension shards into bounded processes", () => {
     vi.stubEnv("CI", "1");
     vi.stubEnv("GITHUB_ACTIONS", "");
-    vi.stubEnv("OPENCLAW_TESTBOX_REMOTE_RUN", "1");
-    vi.stubEnv("OPENCLAW_TEST_PROJECTS_LEAF_SHARDS", "");
-    vi.stubEnv("OPENCLAW_TEST_PROJECTS_PARALLEL", "");
+    vi.stubEnv("GRANTED_TESTBOX_REMOTE_RUN", "1");
+    vi.stubEnv("GRANTED_TEST_PROJECTS_LEAF_SHARDS", "");
+    vi.stubEnv("GRANTED_TEST_PROJECTS_PARALLEL", "");
     try {
       const plans = buildFullSuiteVitestRunPlans([], process.cwd());
       const configs = plans.map((plan) => plan.config);
@@ -4043,7 +4043,7 @@ describe("scripts/test-projects full-suite sharding", () => {
       resolveParallelFullSuiteConcurrency(
         61,
         {
-          OPENCLAW_TEST_PROJECTS_PARALLEL: "3",
+          GRANTED_TEST_PROJECTS_PARALLEL: "3",
         },
         {
           cpuCount: 14,
@@ -4059,7 +4059,7 @@ describe("scripts/test-projects full-suite sharding", () => {
       resolveParallelFullSuiteConcurrency(
         61,
         {
-          OPENCLAW_TEST_PROJECTS_PARALLEL: "3x",
+          GRANTED_TEST_PROJECTS_PARALLEL: "3x",
         },
         {
           cpuCount: 14,
@@ -4067,13 +4067,13 @@ describe("scripts/test-projects full-suite sharding", () => {
           totalMemoryBytes: 48 * 1024 ** 3,
         },
       ),
-    ).toThrow("OPENCLAW_TEST_PROJECTS_PARALLEL must be a positive integer; got: 3x");
+    ).toThrow("GRANTED_TEST_PROJECTS_PARALLEL must be a positive integer; got: 3x");
 
     expect(() =>
       resolveParallelFullSuiteConcurrency(
         61,
         {
-          OPENCLAW_TEST_PROJECTS_PARALLEL: "0",
+          GRANTED_TEST_PROJECTS_PARALLEL: "0",
         },
         {
           cpuCount: 14,
@@ -4081,7 +4081,7 @@ describe("scripts/test-projects full-suite sharding", () => {
           totalMemoryBytes: 48 * 1024 ** 3,
         },
       ),
-    ).toThrow("OPENCLAW_TEST_PROJECTS_PARALLEL must be a positive integer; got: 0");
+    ).toThrow("GRANTED_TEST_PROJECTS_PARALLEL must be a positive integer; got: 0");
   });
 
   it("rejects malformed conservative worker budget values", () => {
@@ -4089,7 +4089,7 @@ describe("scripts/test-projects full-suite sharding", () => {
       resolveParallelFullSuiteConcurrency(
         61,
         {
-          OPENCLAW_VITEST_MAX_WORKERS: "1e0",
+          GRANTED_VITEST_MAX_WORKERS: "1e0",
         },
         {
           cpuCount: 14,
@@ -4097,13 +4097,13 @@ describe("scripts/test-projects full-suite sharding", () => {
           totalMemoryBytes: 48 * 1024 ** 3,
         },
       ),
-    ).toThrow("OPENCLAW_VITEST_MAX_WORKERS must be a positive integer; got: 1e0");
+    ).toThrow("GRANTED_VITEST_MAX_WORKERS must be a positive integer; got: 1e0");
 
     expect(() =>
       resolveParallelFullSuiteConcurrency(
         61,
         {
-          OPENCLAW_TEST_WORKERS: "1 worker",
+          GRANTED_TEST_WORKERS: "1 worker",
         },
         {
           cpuCount: 14,
@@ -4111,24 +4111,24 @@ describe("scripts/test-projects full-suite sharding", () => {
           totalMemoryBytes: 48 * 1024 ** 3,
         },
       ),
-    ).toThrow("OPENCLAW_TEST_WORKERS must be a positive integer; got: 1 worker");
+    ).toThrow("GRANTED_TEST_WORKERS must be a positive integer; got: 1 worker");
   });
 
   it("keeps serial untargeted local runs on leaf project configs", () => {
     withEnv(
       {
-        OPENCLAW_TEST_PROJECTS_LEAF_SHARDS: "1",
-        OPENCLAW_TEST_SKIP_FULL_EXTENSIONS_SHARD: "1",
+        GRANTED_TEST_PROJECTS_LEAF_SHARDS: "1",
+        GRANTED_TEST_SKIP_FULL_EXTENSIONS_SHARD: "1",
       },
       () => {
         withEnv(
           {
-            OPENCLAW_TEST_PROJECTS_LEAF_SHARDS: undefined,
-            OPENCLAW_TEST_SKIP_FULL_EXTENSIONS_SHARD: undefined,
-            OPENCLAW_TEST_PROJECTS_PARALLEL: undefined,
+            GRANTED_TEST_PROJECTS_LEAF_SHARDS: undefined,
+            GRANTED_TEST_SKIP_FULL_EXTENSIONS_SHARD: undefined,
+            GRANTED_TEST_PROJECTS_PARALLEL: undefined,
             CI: undefined,
             GITHUB_ACTIONS: undefined,
-            OPENCLAW_TEST_PROJECTS_SERIAL: "1",
+            GRANTED_TEST_PROJECTS_SERIAL: "1",
           },
           () => {
             const configs = buildFullSuiteVitestRunPlans([], process.cwd()).map(
@@ -4143,8 +4143,8 @@ describe("scripts/test-projects full-suite sharding", () => {
           },
         );
 
-        expect(process.env.OPENCLAW_TEST_PROJECTS_LEAF_SHARDS).toBe("1");
-        expect(process.env.OPENCLAW_TEST_SKIP_FULL_EXTENSIONS_SHARD).toBe("1");
+        expect(process.env.GRANTED_TEST_PROJECTS_LEAF_SHARDS).toBe("1");
+        expect(process.env.GRANTED_TEST_SKIP_FULL_EXTENSIONS_SHARD).toBe("1");
       },
     );
   });
@@ -4152,13 +4152,13 @@ describe("scripts/test-projects full-suite sharding", () => {
   it("expands untargeted local runs to leaf project configs by default", () => {
     withEnv(
       {
-        OPENCLAW_TEST_PROJECTS_LEAF_SHARDS: undefined,
-        OPENCLAW_TEST_PROJECTS_PARALLEL: undefined,
-        OPENCLAW_TEST_PROJECTS_SERIAL: undefined,
+        GRANTED_TEST_PROJECTS_LEAF_SHARDS: undefined,
+        GRANTED_TEST_PROJECTS_PARALLEL: undefined,
+        GRANTED_TEST_PROJECTS_SERIAL: undefined,
         CI: undefined,
         GITHUB_ACTIONS: undefined,
-        OPENCLAW_VITEST_MAX_WORKERS: undefined,
-        OPENCLAW_TEST_WORKERS: undefined,
+        GRANTED_VITEST_MAX_WORKERS: undefined,
+        GRANTED_TEST_WORKERS: undefined,
       },
       () => {
         const plans = buildFullSuiteVitestRunPlans([], process.cwd());
@@ -4184,13 +4184,13 @@ describe("scripts/test-projects full-suite sharding", () => {
   it("expands conservative local worker runs to leaf project configs", () => {
     withEnv(
       {
-        OPENCLAW_TEST_PROJECTS_LEAF_SHARDS: undefined,
-        OPENCLAW_TEST_PROJECTS_PARALLEL: undefined,
-        OPENCLAW_TEST_PROJECTS_SERIAL: undefined,
+        GRANTED_TEST_PROJECTS_LEAF_SHARDS: undefined,
+        GRANTED_TEST_PROJECTS_PARALLEL: undefined,
+        GRANTED_TEST_PROJECTS_SERIAL: undefined,
         CI: undefined,
         GITHUB_ACTIONS: undefined,
-        OPENCLAW_VITEST_MAX_WORKERS: "1",
-        OPENCLAW_TEST_WORKERS: undefined,
+        GRANTED_VITEST_MAX_WORKERS: "1",
+        GRANTED_TEST_WORKERS: undefined,
       },
       () => {
         const configs = buildFullSuiteVitestRunPlans([], process.cwd()).map((plan) => plan.config);
@@ -4205,10 +4205,10 @@ describe("scripts/test-projects full-suite sharding", () => {
   it("can skip the aggregate extension shard when CI runs dedicated extension shards", () => {
     withEnv(
       {
-        OPENCLAW_TEST_PROJECTS_PARALLEL: undefined,
-        OPENCLAW_TEST_PROJECTS_SERIAL: "1",
+        GRANTED_TEST_PROJECTS_PARALLEL: undefined,
+        GRANTED_TEST_PROJECTS_SERIAL: "1",
         CI: "true",
-        OPENCLAW_TEST_SKIP_FULL_EXTENSIONS_SHARD: "1",
+        GRANTED_TEST_SKIP_FULL_EXTENSIONS_SHARD: "1",
       },
       () => {
         const configs = buildFullSuiteVitestRunPlans([], process.cwd()).map((plan) => plan.config);
@@ -4305,8 +4305,8 @@ describe("scripts/test-projects full-suite sharding", () => {
   it("skips extension project configs when leaf sharding and the aggregate extension shard is disabled", () => {
     withEnv(
       {
-        OPENCLAW_TEST_PROJECTS_LEAF_SHARDS: "1",
-        OPENCLAW_TEST_SKIP_FULL_EXTENSIONS_SHARD: "1",
+        GRANTED_TEST_PROJECTS_LEAF_SHARDS: "1",
+        GRANTED_TEST_SKIP_FULL_EXTENSIONS_SHARD: "1",
       },
       () => {
         const configs = buildFullSuiteVitestRunPlans([], process.cwd()).map((plan) => plan.config);
@@ -4321,8 +4321,8 @@ describe("scripts/test-projects full-suite sharding", () => {
   it("expands full-suite shards before running them in parallel", () => {
     withEnv(
       {
-        OPENCLAW_TEST_PROJECTS_LEAF_SHARDS: undefined,
-        OPENCLAW_TEST_PROJECTS_PARALLEL: "6",
+        GRANTED_TEST_PROJECTS_LEAF_SHARDS: undefined,
+        GRANTED_TEST_PROJECTS_PARALLEL: "6",
       },
       () => {
         const configs = buildFullSuiteVitestRunPlans([], process.cwd()).map((plan) => plan.config);
@@ -4336,12 +4336,12 @@ describe("scripts/test-projects full-suite sharding", () => {
   it("rejects malformed full-suite expansion parallel overrides", () => {
     withEnv(
       {
-        OPENCLAW_TEST_PROJECTS_LEAF_SHARDS: undefined,
-        OPENCLAW_TEST_PROJECTS_PARALLEL: "6x",
+        GRANTED_TEST_PROJECTS_LEAF_SHARDS: undefined,
+        GRANTED_TEST_PROJECTS_PARALLEL: "6x",
       },
       () => {
         expect(() => buildFullSuiteVitestRunPlans([], process.cwd())).toThrow(
-          "OPENCLAW_TEST_PROJECTS_PARALLEL must be a positive integer; got: 6x",
+          "GRANTED_TEST_PROJECTS_PARALLEL must be a positive integer; got: 6x",
         );
       },
     );
@@ -4365,19 +4365,19 @@ describe("scripts/test-projects parallel cache paths", () => {
       [
         {
           config: "test/vitest/vitest.gateway.config.ts",
-          env: { OPENCLAW_VITEST_FS_MODULE_CACHE_PATH: "/tmp/cache" },
+          env: { GRANTED_VITEST_FS_MODULE_CACHE_PATH: "/tmp/cache" },
           pnpmArgs: [],
         },
         {
           config: "test/vitest/vitest.extension-telegram.config.ts",
-          env: { OPENCLAW_VITEST_FS_MODULE_CACHE_PATH: "/tmp/cache" },
+          env: { GRANTED_VITEST_FS_MODULE_CACHE_PATH: "/tmp/cache" },
           pnpmArgs: [],
         },
       ],
-      { cwd: "/repo", env: { OPENCLAW_VITEST_FS_MODULE_CACHE_PATH: "/tmp/cache" } },
+      { cwd: "/repo", env: { GRANTED_VITEST_FS_MODULE_CACHE_PATH: "/tmp/cache" } },
     );
 
-    expect(specs.map((spec) => spec.env.OPENCLAW_VITEST_FS_MODULE_CACHE_PATH)).toEqual([
+    expect(specs.map((spec) => spec.env.GRANTED_VITEST_FS_MODULE_CACHE_PATH)).toEqual([
       path.join("/tmp/cache", "0-test-vitest-vitest.gateway.config.ts"),
       path.join("/tmp/cache", "1-test-vitest-vitest.extension-telegram.config.ts"),
     ]);
@@ -4388,14 +4388,14 @@ describe("scripts/test-projects parallel cache paths", () => {
       [
         {
           config: "test/vitest/vitest.gateway.config.ts",
-          env: { OPENCLAW_VITEST_FS_MODULE_CACHE_PATH: "/tmp/cache/gateway" },
+          env: { GRANTED_VITEST_FS_MODULE_CACHE_PATH: "/tmp/cache/gateway" },
           pnpmArgs: [],
         },
       ],
-      { cwd: "/repo", env: { OPENCLAW_VITEST_FS_MODULE_CACHE_PATH: "/tmp/cache" } },
+      { cwd: "/repo", env: { GRANTED_VITEST_FS_MODULE_CACHE_PATH: "/tmp/cache" } },
     );
 
-    expect(spec?.env.OPENCLAW_VITEST_FS_MODULE_CACHE_PATH).toBe("/tmp/cache/gateway");
+    expect(spec?.env.GRANTED_VITEST_FS_MODULE_CACHE_PATH).toBe("/tmp/cache/gateway");
   });
 });
 
@@ -4453,10 +4453,10 @@ describe("scripts/test-projects Vitest stall watchdog", () => {
       { env: { PATH: "/usr/bin" } },
     );
 
-    expect(spec?.env.OPENCLAW_VITEST_NO_OUTPUT_TIMEOUT_MS).toBe(
+    expect(spec?.env.GRANTED_VITEST_NO_OUTPUT_TIMEOUT_MS).toBe(
       DEFAULT_TEST_PROJECTS_VITEST_NO_OUTPUT_TIMEOUT_MS,
     );
-    expect(spec?.env.OPENCLAW_VITEST_NO_OUTPUT_HEARTBEAT_MS).toBe(
+    expect(spec?.env.GRANTED_VITEST_NO_OUTPUT_HEARTBEAT_MS).toBe(
       DEFAULT_TEST_PROJECTS_VITEST_NO_OUTPUT_HEARTBEAT_MS,
     );
   });
@@ -4508,11 +4508,11 @@ describe("scripts/test-projects Vitest stall watchdog", () => {
       { env: { PATH: "/usr/bin" } },
     );
 
-    expect(specs[0]?.env.OPENCLAW_VITEST_NO_OUTPUT_TIMEOUT_MS).toBe("2400000");
-    expect(specs[1]?.env.OPENCLAW_VITEST_NO_OUTPUT_TIMEOUT_MS).toBe("2400000");
-    expect(specs[2]?.env.OPENCLAW_VITEST_NO_OUTPUT_TIMEOUT_MS).toBe("2400000");
-    expect(specs[3]?.env.OPENCLAW_VITEST_NO_OUTPUT_TIMEOUT_MS).toBe("2400000");
-    expect(specs[4]?.env.OPENCLAW_VITEST_NO_OUTPUT_TIMEOUT_MS).toBe(
+    expect(specs[0]?.env.GRANTED_VITEST_NO_OUTPUT_TIMEOUT_MS).toBe("2400000");
+    expect(specs[1]?.env.GRANTED_VITEST_NO_OUTPUT_TIMEOUT_MS).toBe("2400000");
+    expect(specs[2]?.env.GRANTED_VITEST_NO_OUTPUT_TIMEOUT_MS).toBe("2400000");
+    expect(specs[3]?.env.GRANTED_VITEST_NO_OUTPUT_TIMEOUT_MS).toBe("2400000");
+    expect(specs[4]?.env.GRANTED_VITEST_NO_OUTPUT_TIMEOUT_MS).toBe(
       DEFAULT_TEST_PROJECTS_VITEST_NO_OUTPUT_TIMEOUT_MS,
     );
   });
@@ -4531,8 +4531,8 @@ describe("scripts/test-projects Vitest stall watchdog", () => {
         {
           config: "test/vitest/vitest.extension-memory.config.ts",
           env: {
-            OPENCLAW_VITEST_NO_OUTPUT_HEARTBEAT_MS: "25000",
-            OPENCLAW_VITEST_NO_OUTPUT_TIMEOUT_MS: "0",
+            GRANTED_VITEST_NO_OUTPUT_HEARTBEAT_MS: "25000",
+            GRANTED_VITEST_NO_OUTPUT_TIMEOUT_MS: "0",
             PATH: "/usr/bin",
           },
           includeFilePath: null,
@@ -4544,10 +4544,10 @@ describe("scripts/test-projects Vitest stall watchdog", () => {
       { env: { PATH: "/usr/bin" } },
     );
 
-    expect(specs[0]?.env.OPENCLAW_VITEST_NO_OUTPUT_TIMEOUT_MS).toBeUndefined();
-    expect(specs[0]?.env.OPENCLAW_VITEST_NO_OUTPUT_HEARTBEAT_MS).toBeUndefined();
-    expect(specs[1]?.env.OPENCLAW_VITEST_NO_OUTPUT_TIMEOUT_MS).toBe("0");
-    expect(specs[1]?.env.OPENCLAW_VITEST_NO_OUTPUT_HEARTBEAT_MS).toBe("25000");
+    expect(specs[0]?.env.GRANTED_VITEST_NO_OUTPUT_TIMEOUT_MS).toBeUndefined();
+    expect(specs[0]?.env.GRANTED_VITEST_NO_OUTPUT_HEARTBEAT_MS).toBeUndefined();
+    expect(specs[1]?.env.GRANTED_VITEST_NO_OUTPUT_TIMEOUT_MS).toBe("0");
+    expect(specs[1]?.env.GRANTED_VITEST_NO_OUTPUT_HEARTBEAT_MS).toBe("25000");
   });
 
   it("allows changed checks to disable automatic silent-run retries", () => {
@@ -4557,18 +4557,18 @@ describe("scripts/test-projects Vitest stall watchdog", () => {
   });
 
   it("raises short shard no-output timeouts for the retry attempt", () => {
-    const spec = { env: { OPENCLAW_VITEST_NO_OUTPUT_TIMEOUT_MS: "60000" } };
-    expect(withRetryNoOutputTimeout(spec).env.OPENCLAW_VITEST_NO_OUTPUT_TIMEOUT_MS).toBe("300000");
-    const generous = { env: { OPENCLAW_VITEST_NO_OUTPUT_TIMEOUT_MS: "600000" } };
+    const spec = { env: { GRANTED_VITEST_NO_OUTPUT_TIMEOUT_MS: "60000" } };
+    expect(withRetryNoOutputTimeout(spec).env.GRANTED_VITEST_NO_OUTPUT_TIMEOUT_MS).toBe("300000");
+    const generous = { env: { GRANTED_VITEST_NO_OUTPUT_TIMEOUT_MS: "600000" } };
     expect(withRetryNoOutputTimeout(generous)).toBe(generous);
-    const disabled = { env: { OPENCLAW_VITEST_NO_OUTPUT_TIMEOUT_MS: "0" } };
+    const disabled = { env: { GRANTED_VITEST_NO_OUTPUT_TIMEOUT_MS: "0" } };
     expect(withRetryNoOutputTimeout(disabled)).toBe(disabled);
     const unset = { env: {} };
     expect(withRetryNoOutputTimeout(unset)).toBe(unset);
     expect(shouldRetryVitestNoOutputTimeout({ GITHUB_ACTIONS: "true" })).toBe(false);
-    expect(shouldRetryVitestNoOutputTimeout({ OPENCLAW_VITEST_NO_OUTPUT_RETRY: "1" })).toBe(true);
-    expect(shouldRetryVitestNoOutputTimeout({ OPENCLAW_VITEST_NO_OUTPUT_RETRY: "0" })).toBe(false);
-    expect(shouldRetryVitestNoOutputTimeout({ OPENCLAW_VITEST_NO_OUTPUT_RETRY: "false" })).toBe(
+    expect(shouldRetryVitestNoOutputTimeout({ GRANTED_VITEST_NO_OUTPUT_RETRY: "1" })).toBe(true);
+    expect(shouldRetryVitestNoOutputTimeout({ GRANTED_VITEST_NO_OUTPUT_RETRY: "0" })).toBe(false);
+    expect(shouldRetryVitestNoOutputTimeout({ GRANTED_VITEST_NO_OUTPUT_RETRY: "false" })).toBe(
       false,
     );
   });
@@ -4579,7 +4579,7 @@ describe("scripts/test-projects Vitest cache isolation", () => {
     const specs = [
       {
         config: "test/vitest/vitest.extension-telegram.config.ts",
-        env: { OPENCLAW_VITEST_FS_MODULE_CACHE_PATH: "/tmp/cache" },
+        env: { GRANTED_VITEST_FS_MODULE_CACHE_PATH: "/tmp/cache" },
         includeFilePath: null,
         includePatterns: ["extensions/telegram/src/a.test.ts"],
         pnpmArgs: [],
@@ -4587,7 +4587,7 @@ describe("scripts/test-projects Vitest cache isolation", () => {
       },
       {
         config: "test/vitest/vitest.extension-telegram.config.ts",
-        env: { OPENCLAW_VITEST_FS_MODULE_CACHE_PATH: "/tmp/cache" },
+        env: { GRANTED_VITEST_FS_MODULE_CACHE_PATH: "/tmp/cache" },
         includeFilePath: null,
         includePatterns: ["extensions/telegram/src/b.test.ts"],
         pnpmArgs: [],
@@ -4597,10 +4597,10 @@ describe("scripts/test-projects Vitest cache isolation", () => {
 
     const configured = applyDefaultMultiSpecVitestCachePaths(specs, {
       cwd: "/repo",
-      env: { OPENCLAW_VITEST_FS_MODULE_CACHE_PATH: "/tmp/cache" },
+      env: { GRANTED_VITEST_FS_MODULE_CACHE_PATH: "/tmp/cache" },
     });
 
-    expect(configured.map((spec) => spec.env.OPENCLAW_VITEST_FS_MODULE_CACHE_PATH)).toEqual([
+    expect(configured.map((spec) => spec.env.GRANTED_VITEST_FS_MODULE_CACHE_PATH)).toEqual([
       "/tmp/cache",
       "/tmp/cache",
     ]);
@@ -4629,7 +4629,7 @@ describe("scripts/test-projects Vitest cache isolation", () => {
       { cwd: "/repo", env: {} },
     );
 
-    expect(specs.map((spec) => spec.env.OPENCLAW_VITEST_FS_MODULE_CACHE_PATH)).toEqual([
+    expect(specs.map((spec) => spec.env.GRANTED_VITEST_FS_MODULE_CACHE_PATH)).toEqual([
       path.join("/repo", ".cache", "vitest", "0-test-vitest-vitest.unit-fast.config.ts"),
       path.join("/repo", ".cache", "vitest", "1-test-vitest-vitest.extension-memory.config.ts"),
     ]);

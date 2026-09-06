@@ -30,7 +30,7 @@ describe("listMemoryCorePublicArtifacts", () => {
 
   it("lists public workspace artifacts with stable kinds", async () => {
     const workspaceDir = path.join(fixtureRoot, "workspace-stable-kinds");
-    vi.stubEnv("OPENCLAW_STATE_DIR", fixtureRoot);
+    vi.stubEnv("GRANTED_STATE_DIR", fixtureRoot);
     await fs.mkdir(path.join(workspaceDir, "memory", "dreaming"), { recursive: true });
     await fs.writeFile(path.join(workspaceDir, "MEMORY.md"), "# Durable Memory\n", "utf8");
     await fs.writeFile(

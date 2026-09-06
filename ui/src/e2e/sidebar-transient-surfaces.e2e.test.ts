@@ -14,7 +14,7 @@ import { createSidebarCustomizationSuite } from "./sidebar-customization.test-su
 const suite = createSidebarCustomizationSuite(
   "Control UI transient surface tokens mocked Gateway E2E",
 );
-const captureProof = process.env.OPENCLAW_CAPTURE_UI_PROOF === "1";
+const captureProof = process.env.GRANTED_CAPTURE_UI_PROOF === "1";
 
 const themes = [
   { colorScheme: "light", resolvedTheme: "light", theme: "claw" },

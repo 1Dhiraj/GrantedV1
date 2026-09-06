@@ -29,7 +29,7 @@ import { consumeEmbeddedToolReceipt } from "./embedded-agent-runner/tool-send-re
 import { cleanupTempPluginTestEnvironment } from "./test-helpers/temp-plugin-extension-fixtures.js";
 import { jsonResult } from "./tools/common.js";
 
-const originalBundledPluginsDir = process.env.OPENCLAW_BUNDLED_PLUGINS_DIR;
+const originalBundledPluginsDir = process.env.GRANTED_BUNDLED_PLUGINS_DIR;
 const tempDirs: string[] = [];
 
 afterEach(() => {

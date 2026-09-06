@@ -230,9 +230,9 @@ describe("TUI PTY evidence producer", () => {
   });
 
   it("builds fake and local PTY commands with the required environment", () => {
-    vi.stubEnv("OPENCLAW_TUI_PTY_INCLUDE_LOCAL", "1");
-    vi.stubEnv("OPENCLAW_TUI_PTY_USE_BUILT_CLI", "inherited");
-    vi.stubEnv("OPENCLAW_VITEST_FS_MODULE_CACHE_PATH", "/shared/vitest-cache");
+    vi.stubEnv("GRANTED_TUI_PTY_INCLUDE_LOCAL", "1");
+    vi.stubEnv("GRANTED_TUI_PTY_USE_BUILT_CLI", "inherited");
+    vi.stubEnv("GRANTED_VITEST_FS_MODULE_CACHE_PATH", "/shared/vitest-cache");
     const fake = buildTuiPtyVitestCommand({
       cases: [makeCase()],
       cliMode: "source",
@@ -250,10 +250,10 @@ describe("TUI PTY evidence producer", () => {
         "--outputFile.json=/artifacts/report.json",
       ]),
     );
-    expect(fake.env.OPENCLAW_BEHAVIOR_EVIDENCE).toBe("1");
-    expect(fake.env.OPENCLAW_TUI_PTY_INCLUDE_LOCAL).toBeUndefined();
-    expect(fake.env.OPENCLAW_TUI_PTY_USE_BUILT_CLI).toBeUndefined();
-    expect(fake.env.OPENCLAW_VITEST_FS_MODULE_CACHE_PATH).toBe(
+    expect(fake.env.GRANTED_BEHAVIOR_EVIDENCE).toBe("1");
+    expect(fake.env.GRANTED_TUI_PTY_INCLUDE_LOCAL).toBeUndefined();
+    expect(fake.env.GRANTED_TUI_PTY_USE_BUILT_CLI).toBeUndefined();
+    expect(fake.env.GRANTED_VITEST_FS_MODULE_CACHE_PATH).toBe(
       path.join("/artifacts", "vitest-fs-module-cache"),
     );
 
@@ -272,13 +272,13 @@ describe("TUI PTY evidence producer", () => {
       reportPath: "/artifacts-local/report.json",
     });
     expect(local.args).toContain(LOCAL_FILE);
-    expect(local.env.OPENCLAW_TUI_PTY_INCLUDE_LOCAL).toBe("1");
-    expect(local.env.OPENCLAW_TUI_PTY_USE_BUILT_CLI).toBe("1");
-    expect(oracle.env.OPENCLAW_VITEST_FS_MODULE_CACHE_PATH).toBe(
-      fake.env.OPENCLAW_VITEST_FS_MODULE_CACHE_PATH,
+    expect(local.env.GRANTED_TUI_PTY_INCLUDE_LOCAL).toBe("1");
+    expect(local.env.GRANTED_TUI_PTY_USE_BUILT_CLI).toBe("1");
+    expect(oracle.env.GRANTED_VITEST_FS_MODULE_CACHE_PATH).toBe(
+      fake.env.GRANTED_VITEST_FS_MODULE_CACHE_PATH,
     );
-    expect(local.env.OPENCLAW_VITEST_FS_MODULE_CACHE_PATH).not.toBe(
-      fake.env.OPENCLAW_VITEST_FS_MODULE_CACHE_PATH,
+    expect(local.env.GRANTED_VITEST_FS_MODULE_CACHE_PATH).not.toBe(
+      fake.env.GRANTED_VITEST_FS_MODULE_CACHE_PATH,
     );
   });
 

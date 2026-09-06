@@ -108,7 +108,7 @@ describe("resolveSessionStoreTargets", () => {
 
   it("keeps a colliding fixed-store target on the configured default", async () => {
     await withTempHome(async (home) => {
-      const env = { ...process.env, OPENCLAW_STATE_DIR: path.join(home, ".openclaw") };
+      const env = { ...process.env, GRANTED_STATE_DIR: path.join(home, ".openclaw") };
       const storePath = path.join(home, "ops.json");
       const diagnostics: string[] = [];
       const cfg: OpenClawConfig = {
@@ -126,7 +126,7 @@ describe("resolveSessionStoreTargets", () => {
 
   it("lands colliding fixed-store writes in distinct owner databases", async () => {
     await withTempHome(async (home) => {
-      const env = { ...process.env, OPENCLAW_STATE_DIR: path.join(home, ".openclaw") };
+      const env = { ...process.env, GRANTED_STATE_DIR: path.join(home, ".openclaw") };
       const storePath = path.join(home, "ops.json");
 
       await replaceSessionEntry(
@@ -184,7 +184,7 @@ describe("resolveSessionStoreTargets", () => {
 
   it("keeps a promoted default on its registered suffixed database", async () => {
     await withTempHome(async (home) => {
-      const env = { ...process.env, OPENCLAW_STATE_DIR: path.join(home, ".openclaw") };
+      const env = { ...process.env, GRANTED_STATE_DIR: path.join(home, ".openclaw") };
       const storePath = path.join(home, "shared.json");
       await replaceSessionEntry(
         {
@@ -242,7 +242,7 @@ describe("resolveSessionStoreTargets", () => {
 
   it("does not let durable metadata override ambiguous suffix registration", async () => {
     await withTempHome(async (home) => {
-      const env = { ...process.env, OPENCLAW_STATE_DIR: path.join(home, ".openclaw") };
+      const env = { ...process.env, GRANTED_STATE_DIR: path.join(home, ".openclaw") };
       const storePath = path.join(home, "shared.json");
       await replaceSessionEntry(
         {
@@ -273,7 +273,7 @@ describe("resolveSessionStoreTargets", () => {
 
   it("retains a shared-store claimant when the physical owner left the roster", async () => {
     await withTempHome(async (home) => {
-      const env = { ...process.env, OPENCLAW_STATE_DIR: path.join(home, ".openclaw") };
+      const env = { ...process.env, GRANTED_STATE_DIR: path.join(home, ".openclaw") };
       const storePath = path.join(home, "shared.sqlite");
       await replaceSessionEntry(
         {
@@ -315,7 +315,7 @@ describe("resolveSessionStoreTargets", () => {
   it("honors a registered owner over the configured default for a fixed-store collision", async () => {
     await withTempHome(async (home) => {
       const stateDir = path.join(home, ".openclaw");
-      const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+      const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
       const storePath = path.join(home, "ops.json");
       const cfg: OpenClawConfig = {
         session: { store: storePath },
@@ -349,7 +349,7 @@ describe("resolveSessionStoreTargets", () => {
   it("honors durable database ownership after its registry row is removed", async () => {
     await withTempHome(async (home) => {
       const stateDir = path.join(home, ".openclaw");
-      const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+      const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
       const storePath = path.join(home, "ops.json");
       await replaceSessionEntry(
         {
@@ -401,7 +401,7 @@ describe("resolveSessionStoreTargets", () => {
   it("does not let a scoped losing owner claim an unregistered fixed-store database", async () => {
     await withTempHome(async (home) => {
       const stateDir = path.join(home, ".openclaw");
-      const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+      const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
       const storePath = path.join(home, "ops.json");
       const databasePath = resolveSqliteTargetFromSessionStorePath(storePath, {
         agentId: "main",
@@ -426,7 +426,7 @@ describe("resolveSessionStoreTargets", () => {
   it("keeps ambiguous registry ownership off the unsuffixed target", async () => {
     await withTempHome(async (home) => {
       const stateDir = path.join(home, ".openclaw");
-      const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+      const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
       const storePath = path.join(home, "ops.json");
       const databasePath = resolveSqliteTargetFromSessionStorePath(storePath).path;
       registerOpenClawAgentDatabase({ agentId: "ops", env, path: databasePath });
@@ -450,7 +450,7 @@ describe("resolveSessionStoreTargets", () => {
   it("prefers a canonical database-path owner over a conflicting registry row", async () => {
     await withTempHome(async (home) => {
       const stateDir = path.join(home, ".openclaw");
-      const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+      const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
       const storePath = path.join(stateDir, "agents", "main", "sessions", "sessions.json");
       const databasePath = resolveSqliteTargetFromSessionStorePath(storePath).path;
       registerOpenClawAgentDatabase({ agentId: "ops", env, path: databasePath });
@@ -468,7 +468,7 @@ describe("resolveSessionStoreTargets", () => {
   it("fails closed when the ownership registry cannot be read", async () => {
     await withTempHome(async (home) => {
       const stateDir = path.join(home, ".openclaw");
-      const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+      const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
       const registryPath = resolveOpenClawStateSqlitePath(env);
       await fs.mkdir(path.dirname(registryPath), { recursive: true });
       await fs.writeFile(registryPath, "not a sqlite database", "utf-8");
@@ -485,7 +485,7 @@ describe("resolveSessionStoreTargets", () => {
     await withTempHome(async (home) => {
       const stateDir = path.join(home, ".openclaw");
       const storePaths = await createAgentSessionStores(stateDir, ["codex-proof"]);
-      const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+      const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
 
       expect(
         resolveSessionStoreTargets(

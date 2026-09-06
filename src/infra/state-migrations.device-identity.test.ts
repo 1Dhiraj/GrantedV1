@@ -47,7 +47,7 @@ describe("legacy device identity Doctor migration", () => {
   function useStateDir(): { env: NodeJS.ProcessEnv; stateDir: string } {
     const stateDir = tempDirs.make("openclaw-device-identity-migration-");
     return {
-      env: { ...process.env, HOME: stateDir, OPENCLAW_STATE_DIR: stateDir },
+      env: { ...process.env, HOME: stateDir, GRANTED_STATE_DIR: stateDir },
       stateDir,
     };
   }

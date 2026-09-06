@@ -115,8 +115,8 @@ describe("ensureSkillsWatcher", () => {
       await withEnvAsync(
         {
           HOME: root,
-          OPENCLAW_HOME: undefined,
-          OPENCLAW_STATE_DIR: path.join(root, "scratch-state"),
+          GRANTED_HOME: undefined,
+          GRANTED_STATE_DIR: path.join(root, "scratch-state"),
         },
         async () => {
           await fs.mkdir(path.join(root, ".agents", "skills"), { recursive: true });

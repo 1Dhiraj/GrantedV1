@@ -99,7 +99,7 @@ describe("createSmsIngressSpool", () => {
     let now = 1_700_000_000_000;
     const nowSpy = vi.spyOn(Date, "now").mockImplementation(() => now);
     disposers.push(() => nowSpy.mockRestore());
-    vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
+    vi.stubEnv("GRANTED_STATE_DIR", stateDir);
     disposers.push(() => {
       vi.unstubAllEnvs();
     });

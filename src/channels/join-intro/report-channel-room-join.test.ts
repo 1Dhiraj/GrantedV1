@@ -36,7 +36,7 @@ function createJoinParams(conversationId: string, cfg: OpenClawConfig = {}) {
 beforeAll(async () => {
   resetPluginStateStoreForTests();
   stateDir = await fs.realpath(await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-join-intro-")));
-  vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
+  vi.stubEnv("GRANTED_STATE_DIR", stateDir);
 });
 
 afterAll(async () => {

@@ -1,6 +1,7 @@
 import path from "node:path";
 import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
 import JSON5 from "json5";
+import { CONFIG_FILENAME } from "../compat/legacy-names.js";
 import { VERSION } from "../version.js";
 import { formatConfigIssueLines } from "./issue-format.js";
 import { isSensitiveConfigPath } from "./sensitive-paths.js";
@@ -347,7 +348,7 @@ function attachConfigIssueDiagnostics(
   const sourceFile =
     typeof params.configPath === "string" && params.configPath.trim()
       ? path.basename(params.configPath)
-      : "openclaw.json";
+      : CONFIG_FILENAME;
   return issues.map((issue) => {
     const segments = issue.pathSegments;
     if (!segments || segments.length === 0) {

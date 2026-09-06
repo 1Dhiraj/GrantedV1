@@ -10,7 +10,7 @@ describe("session store target dedupe", () => {
     "refreshes aliased SQLite locators between dedupe calls",
     async () => {
       await withTempHome(async (home) => {
-        const env = { ...process.env, OPENCLAW_STATE_DIR: path.join(home, ".openclaw") };
+        const env = { ...process.env, GRANTED_STATE_DIR: path.join(home, ".openclaw") };
         const realDir = path.join(home, "real-stores");
         const aliasDir = path.join(home, "alias-stores");
         await fs.mkdir(realDir, { recursive: true });

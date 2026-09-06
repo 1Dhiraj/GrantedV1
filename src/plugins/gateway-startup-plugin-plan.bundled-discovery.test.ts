@@ -88,11 +88,11 @@ describe("gateway startup plan under bundledDiscovery compat", () => {
     const plainRoot = await fs.realpath(
       await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-plan-plain-")),
     );
-    const envSnapshot = captureEnv(["OPENCLAW_STATE_DIR"]);
+    const envSnapshot = captureEnv(["GRANTED_STATE_DIR"]);
     try {
-      setTestEnvValue("OPENCLAW_STATE_DIR", compatRoot);
+      setTestEnvValue("GRANTED_STATE_DIR", compatRoot);
       writeConfigMachineState("plugins.bundledDiscovery", "compat");
-      setTestEnvValue("OPENCLAW_STATE_DIR", plainRoot);
+      setTestEnvValue("GRANTED_STATE_DIR", plainRoot);
       clearBundledDiscoveryModeMemo();
 
       const { index, manifestRegistry } = buildStartupFixture();
@@ -109,7 +109,7 @@ describe("gateway startup plan under bundledDiscovery compat", () => {
         agents: { defaults: { model: { primary: "openai/gpt-5.4" } } },
         plugins: { allow: ["some-other-plugin"] },
       };
-      const planEnv = { ...process.env, OPENCLAW_STATE_DIR: compatRoot };
+      const planEnv = { ...process.env, GRANTED_STATE_DIR: compatRoot };
 
       const compatPlan = resolveGatewayStartupPluginPlanFromRegistry({
         config,

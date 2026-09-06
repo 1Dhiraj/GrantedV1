@@ -145,8 +145,8 @@ const serviceReadCommand = vi.fn<
 >(async (_env?: NodeJS.ProcessEnv) => ({
   programArguments: ["/bin/node", "cli", "gateway", "--port", "19001"],
   environment: {
-    OPENCLAW_STATE_DIR: "/tmp/openclaw-daemon",
-    OPENCLAW_CONFIG_PATH: "/tmp/openclaw-daemon/openclaw.json",
+    GRANTED_STATE_DIR: "/tmp/openclaw-daemon",
+    GRANTED_CONFIG_PATH: "/tmp/openclaw-daemon/openclaw.json",
   },
 }));
 const resolveGatewayBindHost = vi.fn(
@@ -159,10 +159,10 @@ const resolveAdvertisedControlUiLinks = vi.fn(async (_opts?: unknown) => ({
 const pickPrimaryTailnetIPv4 = vi.fn(() => "100.64.0.9");
 const resolveGatewayPort = vi.fn((_cfg?: unknown, _env?: unknown) => 18789);
 const resolveStateDir = vi.fn(
-  (env: NodeJS.ProcessEnv) => env.OPENCLAW_STATE_DIR ?? "/tmp/openclaw-cli",
+  (env: NodeJS.ProcessEnv) => env.GRANTED_STATE_DIR ?? "/tmp/openclaw-cli",
 );
 const resolveConfigPath = vi.fn((env: NodeJS.ProcessEnv, stateDir: string) => {
-  return env.OPENCLAW_CONFIG_PATH ?? `${stateDir}/openclaw.json`;
+  return env.GRANTED_CONFIG_PATH ?? `${stateDir}/openclaw.json`;
 });
 const createConfigIOCalls = vi.fn(
   (configPath: string, pluginValidation?: "full" | "skip", observe?: boolean) => ({
@@ -370,15 +370,15 @@ async function withStatusConfig<T>(
   if (rawConfig !== undefined) {
     await fs.writeFile(configPath, rawConfig);
   }
-  setTestEnvValue("OPENCLAW_STATE_DIR", tmp);
-  setTestEnvValue("OPENCLAW_CONFIG_PATH", configPath);
+  setTestEnvValue("GRANTED_STATE_DIR", tmp);
+  setTestEnvValue("GRANTED_CONFIG_PATH", configPath);
   serviceReadCommand.mockResolvedValueOnce({
     programArguments: ["/bin/node", "cli", "gateway", "--port", "19001"],
     ...(includeServiceEnv
       ? {
           environment: {
-            OPENCLAW_STATE_DIR: tmp,
-            OPENCLAW_CONFIG_PATH: configPath,
+            GRANTED_STATE_DIR: tmp,
+            GRANTED_CONFIG_PATH: configPath,
           },
         }
       : {}),
@@ -404,18 +404,18 @@ describe("gatherDaemonStatus", () => {
       return await readFile(filePath, options);
     });
     envSnapshot = captureEnv([
-      "OPENCLAW_STATE_DIR",
-      "OPENCLAW_CONFIG_PATH",
-      "OPENCLAW_GATEWAY_PORT",
-      "OPENCLAW_GATEWAY_TOKEN",
-      "OPENCLAW_GATEWAY_PASSWORD",
+      "GRANTED_STATE_DIR",
+      "GRANTED_CONFIG_PATH",
+      "GRANTED_GATEWAY_PORT",
+      "GRANTED_GATEWAY_TOKEN",
+      "GRANTED_GATEWAY_PASSWORD",
       "DAEMON_GATEWAY_TOKEN",
       "DAEMON_GATEWAY_PASSWORD",
     ]);
-    setTestEnvValue("OPENCLAW_STATE_DIR", "/tmp/openclaw-cli");
-    setTestEnvValue("OPENCLAW_CONFIG_PATH", "/tmp/openclaw-cli/openclaw.json");
-    deleteTestEnvValue("OPENCLAW_GATEWAY_TOKEN");
-    deleteTestEnvValue("OPENCLAW_GATEWAY_PASSWORD");
+    setTestEnvValue("GRANTED_STATE_DIR", "/tmp/openclaw-cli");
+    setTestEnvValue("GRANTED_CONFIG_PATH", "/tmp/openclaw-cli/openclaw.json");
+    deleteTestEnvValue("GRANTED_GATEWAY_TOKEN");
+    deleteTestEnvValue("GRANTED_GATEWAY_PASSWORD");
     deleteTestEnvValue("DAEMON_GATEWAY_TOKEN");
     deleteTestEnvValue("DAEMON_GATEWAY_PASSWORD");
     isDefaultInstallIdentity.mockReset().mockReturnValue(true);
@@ -665,8 +665,8 @@ describe("gatherDaemonStatus", () => {
     serviceReadCommand.mockResolvedValueOnce({
       programArguments: ["/bin/node", "--max-heap-size=8192", "cli", "gateway", "--port", "19001"],
       environment: {
-        OPENCLAW_STATE_DIR: "/tmp/openclaw-daemon",
-        OPENCLAW_CONFIG_PATH: "/tmp/openclaw-daemon/openclaw.json",
+        GRANTED_STATE_DIR: "/tmp/openclaw-daemon",
+        GRANTED_CONFIG_PATH: "/tmp/openclaw-daemon/openclaw.json",
         NODE_OPTIONS: "--max-old-space-size=6144",
       },
     });
@@ -809,19 +809,19 @@ describe("gatherDaemonStatus", () => {
   ])(
     "uses the active %s context instead of an unrelated native service",
     async (_, isDefault, external) => {
-      setTestEnvValue("OPENCLAW_GATEWAY_PORT", "18900");
+      setTestEnvValue("GRANTED_GATEWAY_PORT", "18900");
       isDefaultInstallIdentity.mockReturnValue(isDefault);
       isGatewayExternallySupervised.mockReturnValue(external);
       serviceReadCommand.mockResolvedValueOnce({
         programArguments: ["/bin/node", "cli", "gateway", "--port", "18789"],
         environment: {
-          OPENCLAW_GATEWAY_PORT: "18789",
-          OPENCLAW_CONFIG_PATH: "/tmp/legacy-openclaw/openclaw.json",
-          OPENCLAW_STATE_DIR: "/tmp/legacy-openclaw",
+          GRANTED_GATEWAY_PORT: "18789",
+          GRANTED_CONFIG_PATH: "/tmp/legacy-openclaw/openclaw.json",
+          GRANTED_STATE_DIR: "/tmp/legacy-openclaw",
         },
       });
       resolveGatewayPort.mockImplementation((_cfg?: unknown, env?: unknown) =>
-        Number((env as NodeJS.ProcessEnv | undefined)?.OPENCLAW_GATEWAY_PORT ?? 18789),
+        Number((env as NodeJS.ProcessEnv | undefined)?.GRANTED_GATEWAY_PORT ?? 18789),
       );
       callGatewayStatusProbe.mockResolvedValueOnce({
         ok: false,
@@ -846,7 +846,7 @@ describe("gatherDaemonStatus", () => {
         env?: NodeJS.ProcessEnv;
       };
       expect(authInput.cfg).toBe(cliLoadedConfig);
-      expect(authInput.env?.OPENCLAW_GATEWAY_PORT).toBe("18900");
+      expect(authInput.env?.GRANTED_GATEWAY_PORT).toBe("18900");
       expect(status.service.targetRole).toBe("diagnostic-only");
       expect(inspectGatewayRestart).not.toHaveBeenCalled();
     },
@@ -880,20 +880,20 @@ describe("gatherDaemonStatus", () => {
     serviceReadCommand.mockResolvedValueOnce({
       programArguments: ["/bin/node", "cli", "gateway", "--port", "19001"],
       environment: {
-        OPENCLAW_GATEWAY_PORT: "19001",
-        OPENCLAW_CONFIG_PATH: "/tmp/openclaw-daemon/openclaw.json",
-        OPENCLAW_STATE_DIR: "/tmp/openclaw-daemon",
+        GRANTED_GATEWAY_PORT: "19001",
+        GRANTED_CONFIG_PATH: "/tmp/openclaw-daemon/openclaw.json",
+        GRANTED_STATE_DIR: "/tmp/openclaw-daemon",
       } as Record<string, string>,
     });
     serviceReadRuntime.mockImplementationOnce(async (env?: NodeJS.ProcessEnv) => ({
-      status: env?.OPENCLAW_GATEWAY_PORT === "19001" ? "running" : "unknown",
-      detail: env?.OPENCLAW_GATEWAY_PORT ?? "missing-port",
+      status: env?.GRANTED_GATEWAY_PORT === "19001" ? "running" : "unknown",
+      detail: env?.GRANTED_GATEWAY_PORT ?? "missing-port",
     }));
 
     const status = await gatherStatus({ probe: false });
 
     expect(
-      serviceReadRuntime.mock.calls.some(([env]) => env?.OPENCLAW_GATEWAY_PORT === "19001"),
+      serviceReadRuntime.mock.calls.some(([env]) => env?.GRANTED_GATEWAY_PORT === "19001"),
     ).toBe(true);
     expect(status.service.loaded).toBe(true);
     expect(status.service.runtime?.status).toBe("running");
@@ -1035,8 +1035,8 @@ describe("gatherDaemonStatus", () => {
     const status = await gatherStatus({ probe: false, deep: true });
 
     const handoffInput = callArg(readGatewayRestartHandoffSync) as NodeJS.ProcessEnv;
-    expect(handoffInput.OPENCLAW_STATE_DIR).toBe("/tmp/openclaw-daemon");
-    expect(handoffInput.OPENCLAW_CONFIG_PATH).toBe("/tmp/openclaw-daemon/openclaw.json");
+    expect(handoffInput.GRANTED_STATE_DIR).toBe("/tmp/openclaw-daemon");
+    expect(handoffInput.GRANTED_CONFIG_PATH).toBe("/tmp/openclaw-daemon/openclaw.json");
     expect(status.service.restartHandoff?.reason).toBe("plugin source changed");
     expect(status.service.restartHandoff?.restartKind).toBe("full-process");
     expect(status.service.restartHandoff?.supervisorMode).toBe("launchd");
@@ -1048,9 +1048,9 @@ describe("gatherDaemonStatus", () => {
       serviceReadCommand.mockResolvedValueOnce({
         programArguments: ["/bin/node", "cli", "gateway", "--port", "19001"],
         environment: {
-          OPENCLAW_STATE_DIR: "/tmp/openclaw-daemon",
-          OPENCLAW_CONFIG_PATH: "/tmp/openclaw-daemon/openclaw.json",
-          OPENCLAW_LAUNCHD_LABEL: "ai.openclaw.manual-update.gateway",
+          GRANTED_STATE_DIR: "/tmp/openclaw-daemon",
+          GRANTED_CONFIG_PATH: "/tmp/openclaw-daemon/openclaw.json",
+          GRANTED_LAUNCHD_LABEL: "ai.openclaw.manual-update.gateway",
         },
       });
       findStaleOpenClawUpdateLaunchdJobs.mockResolvedValueOnce([
@@ -1067,9 +1067,9 @@ describe("gatherDaemonStatus", () => {
       const status = await gatherStatus({ probe: false, deep: true });
 
       const staleScanEnv = findStaleOpenClawUpdateLaunchdJobs.mock.calls[0]?.[0];
-      expect(staleScanEnv?.OPENCLAW_STATE_DIR).toBe("/tmp/openclaw-daemon");
-      expect(staleScanEnv?.OPENCLAW_CONFIG_PATH).toBe("/tmp/openclaw-daemon/openclaw.json");
-      expect(staleScanEnv?.OPENCLAW_LAUNCHD_LABEL).toBe("ai.openclaw.manual-update.gateway");
+      expect(staleScanEnv?.GRANTED_STATE_DIR).toBe("/tmp/openclaw-daemon");
+      expect(staleScanEnv?.GRANTED_CONFIG_PATH).toBe("/tmp/openclaw-daemon/openclaw.json");
+      expect(staleScanEnv?.GRANTED_LAUNCHD_LABEL).toBe("ai.openclaw.manual-update.gateway");
       expect(status.service.staleUpdateLaunchdJobs).toEqual([
         {
           label: "ai.openclaw.update.2026.5.12",
@@ -1361,7 +1361,7 @@ describe("gatherDaemonStatus", () => {
         },
       },
     };
-    setTestEnvValue("OPENCLAW_GATEWAY_PASSWORD", "ambient-password"); // pragma: allowlist secret
+    setTestEnvValue("GRANTED_GATEWAY_PASSWORD", "ambient-password"); // pragma: allowlist secret
 
     const status = await gatherDaemonStatus({
       rpc: {},
@@ -1535,8 +1535,8 @@ describe("gatherDaemonStatus", () => {
         },
       },
     };
-    setTestEnvValue("OPENCLAW_GATEWAY_TOKEN", "env-token");
-    setTestEnvValue("OPENCLAW_GATEWAY_PASSWORD", "env-password"); // pragma: allowlist secret
+    setTestEnvValue("GRANTED_GATEWAY_TOKEN", "env-token");
+    setTestEnvValue("GRANTED_GATEWAY_PASSWORD", "env-password"); // pragma: allowlist secret
 
     await gatherStatus();
 
@@ -1607,8 +1607,8 @@ describe("gatherDaemonStatus", () => {
 
     expect(readLastGatewayErrorLine).toHaveBeenCalledWith(
       expect.objectContaining({
-        OPENCLAW_STATE_DIR: "/tmp/openclaw-daemon",
-        OPENCLAW_CONFIG_PATH: "/tmp/openclaw-daemon/openclaw.json",
+        GRANTED_STATE_DIR: "/tmp/openclaw-daemon",
+        GRANTED_CONFIG_PATH: "/tmp/openclaw-daemon/openclaw.json",
       }),
       { requirePatternMatch: true },
     );
@@ -1731,13 +1731,13 @@ describe("gatherDaemonStatus", () => {
   it("reads install records from the merged daemon service environment, not the CLI process env", async () => {
     await gatherStatus({ deep: true });
 
-    // The mock daemon service command sets OPENCLAW_STATE_DIR=/tmp/openclaw-daemon,
-    // distinct from the CLI process OPENCLAW_STATE_DIR=/tmp/openclaw-cli. Drift
+    // The mock daemon service command sets GRANTED_STATE_DIR=/tmp/openclaw-daemon,
+    // distinct from the CLI process GRANTED_STATE_DIR=/tmp/openclaw-cli. Drift
     // detection must inspect the daemon profile's install records.
     expect(loadInstalledPluginIndexInstallRecords).toHaveBeenCalledWith(
       expect.objectContaining({
         env: expect.objectContaining({
-          OPENCLAW_STATE_DIR: "/tmp/openclaw-daemon",
+          GRANTED_STATE_DIR: "/tmp/openclaw-daemon",
         }),
       }),
     );
@@ -1757,7 +1757,7 @@ describe("gatherDaemonStatus", () => {
     expect(loadInstalledPluginIndexInstallRecords).toHaveBeenCalledWith(
       expect.objectContaining({
         env: expect.objectContaining({
-          OPENCLAW_STATE_DIR: "/tmp/openclaw-daemon",
+          GRANTED_STATE_DIR: "/tmp/openclaw-daemon",
         }),
       }),
     );

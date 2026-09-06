@@ -37,7 +37,7 @@ function waitForExit(child: ReturnType<typeof spawn>) {
 describe("E2E temp state dirs", () => {
   it("cleans generated state dirs", async () => {
     const state = await createE2eStateDir("openclaw-e2e-temp-state-test-", {
-      OPENCLAW_STATE_DIR: "",
+      GRANTED_STATE_DIR: "",
     });
 
     expect(state.created).toBe(true);
@@ -50,7 +50,7 @@ describe("E2E temp state dirs", () => {
     const root = mkdtempSync(path.join(tmpdir(), "openclaw-e2e-temp-state-existing-"));
     try {
       const state = await createE2eStateDir("openclaw-e2e-temp-state-test-", {
-        OPENCLAW_STATE_DIR: root,
+        GRANTED_STATE_DIR: root,
       });
 
       expect(state).toMatchObject({ created: false, stateDir: root });
@@ -71,7 +71,7 @@ describe("E2E temp state dirs", () => {
       const state = await createE2eStateDir(
         `${path.relative(tmpdir(), lockedParent)}${path.sep}state-`,
         {
-          OPENCLAW_STATE_DIR: "",
+          GRANTED_STATE_DIR: "",
         },
       );
 
@@ -102,7 +102,7 @@ describe("E2E temp state dirs", () => {
 import { createE2eStateDir } from ${JSON.stringify(helperUrl)};
 
 const state = await createE2eStateDir("openclaw-e2e-temp-state-signal-", {
-  OPENCLAW_STATE_DIR: "",
+  GRANTED_STATE_DIR: "",
 });
 state.registerExitCleanup();
 // Publish atomically so the polling parent cannot observe an empty state-path file.

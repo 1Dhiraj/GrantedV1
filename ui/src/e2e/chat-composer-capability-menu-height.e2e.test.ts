@@ -142,11 +142,11 @@ suite.define(() => {
       await dropdown.locator('[value="open-skills"]').click();
       await expect.poll(() => dropdown.getAttribute("data-view")).toBe("skills");
 
-      const artifactDirParent = process.env.OPENCLAW_UI_E2E_ARTIFACT_DIR?.trim();
+      const artifactDirParent = process.env.GRANTED_UI_E2E_ARTIFACT_DIR?.trim();
       const artifactDir = artifactDirParent
         ? createControlUiE2eArtifactDir("chat-composer-capability-menu-height", artifactDirParent)
         : undefined;
-      const captureStage = process.env.OPENCLAW_UI_E2E_CAPTURE_STAGE?.trim();
+      const captureStage = process.env.GRANTED_UI_E2E_CAPTURE_STAGE?.trim();
       const capture = async (view: string, theme: "dark" | "light") => {
         if (!artifactDir || !captureStage) {
           return;

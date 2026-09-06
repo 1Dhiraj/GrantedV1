@@ -29,20 +29,20 @@ import { useAutoCleanupTempDirTracker } from "../../../helpers/temp-dir.js";
 
 const ISOLATED_GATEWAY_ENV_KEYS = [
   "HOME",
-  "OPENCLAW_STATE_DIR",
-  "OPENCLAW_CONFIG_PATH",
-  "OPENCLAW_GATEWAY_TOKEN",
-  "OPENCLAW_TEST_GATEWAY_OVERRIDE_TOKEN",
-  "OPENCLAW_TEST_RUNTIME_OVERRIDE_TOKEN",
-  "OPENCLAW_TEST_MINIMAL_GATEWAY",
-  "OPENCLAW_SKIP_CHANNELS",
-  "OPENCLAW_SKIP_GMAIL_WATCHER",
-  "OPENCLAW_SKIP_CRON",
-  "OPENCLAW_SKIP_CANVAS_HOST",
-  "OPENCLAW_SKIP_BROWSER_CONTROL_SERVER",
-  "OPENCLAW_SKIP_PROVIDERS",
-  "OPENCLAW_BUNDLED_PLUGINS_DIR",
-  "OPENCLAW_DISABLE_BUNDLED_PLUGINS",
+  "GRANTED_STATE_DIR",
+  "GRANTED_CONFIG_PATH",
+  "GRANTED_GATEWAY_TOKEN",
+  "GRANTED_TEST_GATEWAY_OVERRIDE_TOKEN",
+  "GRANTED_TEST_RUNTIME_OVERRIDE_TOKEN",
+  "GRANTED_TEST_MINIMAL_GATEWAY",
+  "GRANTED_SKIP_CHANNELS",
+  "GRANTED_SKIP_GMAIL_WATCHER",
+  "GRANTED_SKIP_CRON",
+  "GRANTED_SKIP_CANVAS_HOST",
+  "GRANTED_SKIP_BROWSER_CONTROL_SERVER",
+  "GRANTED_SKIP_PROVIDERS",
+  "GRANTED_BUNDLED_PLUGINS_DIR",
+  "GRANTED_DISABLE_BUNDLED_PLUGINS",
 ] as const;
 
 let sequence = 0;
@@ -127,21 +127,21 @@ describe("Gateway task and automation RPCs", () => {
       const token = nextId("gateway-automation-token");
       for (const [key, value] of Object.entries({
         HOME: tempHome,
-        OPENCLAW_STATE_DIR: stateDir,
-        OPENCLAW_GATEWAY_TOKEN: token,
-        OPENCLAW_SKIP_CHANNELS: "1",
-        OPENCLAW_SKIP_GMAIL_WATCHER: "1",
-        OPENCLAW_SKIP_CRON: "0",
-        OPENCLAW_SKIP_CANVAS_HOST: "1",
-        OPENCLAW_SKIP_BROWSER_CONTROL_SERVER: "1",
-        OPENCLAW_SKIP_PROVIDERS: "1",
-        OPENCLAW_BUNDLED_PLUGINS_DIR: bundledPluginsDir,
-        OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
+        GRANTED_STATE_DIR: stateDir,
+        GRANTED_GATEWAY_TOKEN: token,
+        GRANTED_SKIP_CHANNELS: "1",
+        GRANTED_SKIP_GMAIL_WATCHER: "1",
+        GRANTED_SKIP_CRON: "0",
+        GRANTED_SKIP_CANVAS_HOST: "1",
+        GRANTED_SKIP_BROWSER_CONTROL_SERVER: "1",
+        GRANTED_SKIP_PROVIDERS: "1",
+        GRANTED_BUNDLED_PLUGINS_DIR: bundledPluginsDir,
+        GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
       })) {
         setTestEnvValue(key, value);
       }
-      deleteTestEnvValue("OPENCLAW_CONFIG_PATH");
-      deleteTestEnvValue("OPENCLAW_TEST_MINIMAL_GATEWAY");
+      deleteTestEnvValue("GRANTED_CONFIG_PATH");
+      deleteTestEnvValue("GRANTED_TEST_MINIMAL_GATEWAY");
 
       const taskPrompt = nextId("create-tracked-task");
       const wakeText = nextId("wake-heartbeat");

@@ -80,7 +80,7 @@ describe("wide-area DNS discovery domain helpers", () => {
     {
       name: "prefers config domain over env",
       params: {
-        env: { OPENCLAW_WIDE_AREA_DOMAIN: "env.internal" } as NodeJS.ProcessEnv,
+        env: { GRANTED_WIDE_AREA_DOMAIN: "env.internal" } as NodeJS.ProcessEnv,
         configDomain: "config.internal",
       },
       expected: "config.internal.",
@@ -88,14 +88,14 @@ describe("wide-area DNS discovery domain helpers", () => {
     {
       name: "falls back to env domain",
       params: {
-        env: { OPENCLAW_WIDE_AREA_DOMAIN: "env.internal" } as NodeJS.ProcessEnv,
+        env: { GRANTED_WIDE_AREA_DOMAIN: "env.internal" } as NodeJS.ProcessEnv,
       },
       expected: "env.internal.",
     },
     {
       name: "returns null when both sources are blank",
       params: {
-        env: { OPENCLAW_WIDE_AREA_DOMAIN: "   " } as NodeJS.ProcessEnv,
+        env: { GRANTED_WIDE_AREA_DOMAIN: "   " } as NodeJS.ProcessEnv,
         configDomain: " ",
       },
       expected: null,
@@ -103,7 +103,7 @@ describe("wide-area DNS discovery domain helpers", () => {
     {
       name: "returns null for invalid config domains",
       params: {
-        env: { OPENCLAW_WIDE_AREA_DOMAIN: "env.internal" } as NodeJS.ProcessEnv,
+        env: { GRANTED_WIDE_AREA_DOMAIN: "env.internal" } as NodeJS.ProcessEnv,
         configDomain: "foo/bar",
       },
       expected: null,
@@ -111,7 +111,7 @@ describe("wide-area DNS discovery domain helpers", () => {
     {
       name: "returns null for invalid env domains",
       params: {
-        env: { OPENCLAW_WIDE_AREA_DOMAIN: "foo/bar" } as NodeJS.ProcessEnv,
+        env: { GRANTED_WIDE_AREA_DOMAIN: "foo/bar" } as NodeJS.ProcessEnv,
       },
       expected: null,
     },
@@ -292,7 +292,7 @@ describe("wide-area DNS zone writes", () => {
           {
             cwd: process.cwd(),
             encoding: "utf8",
-            env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+            env: { ...process.env, GRANTED_STATE_DIR: stateDir },
           },
         );
 

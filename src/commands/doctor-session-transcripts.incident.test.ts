@@ -66,7 +66,7 @@ describe("doctor incident-scale Codex binding repair", () => {
     incidentStateDir = await fs.realpath(
       await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-codex-doctor-incident-")),
     );
-    vi.stubEnv("OPENCLAW_STATE_DIR", incidentStateDir);
+    vi.stubEnv("GRANTED_STATE_DIR", incidentStateDir);
     const env = process.env;
     const config: OpenClawConfig = {
       agents: { entries: { main: { default: true } } },

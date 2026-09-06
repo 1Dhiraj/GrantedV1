@@ -22,11 +22,11 @@ describe.runIf(process.platform === "win32")("OpenClawStdioClientTransport on Wi
         command: process.execPath,
         args: [
           "-e",
-          'require("node:fs").writeFileSync(process.env.OPENCLAW_MCP_ENV_CAPTURE, process.env.TEMP)',
+          'require("node:fs").writeFileSync(process.env.GRANTED_MCP_ENV_CAPTURE, process.env.TEMP)',
         ],
         env: {
           temp: configuredTemp,
-          OPENCLAW_MCP_ENV_CAPTURE: capturePath,
+          GRANTED_MCP_ENV_CAPTURE: capturePath,
         },
       });
       expect(resolved.ok).toBe(true);

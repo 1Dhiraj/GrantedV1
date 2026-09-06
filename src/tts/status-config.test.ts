@@ -27,8 +27,8 @@ async function withStatusTempHome(run: (home: string) => Promise<void>): Promise
     {
       HOME: home,
       USERPROFILE: home,
-      OPENCLAW_HOME: undefined,
-      OPENCLAW_STATE_DIR: path.join(home, ".openclaw"),
+      GRANTED_HOME: undefined,
+      GRANTED_STATE_DIR: path.join(home, ".openclaw"),
     },
     async () => await run(home),
   );
@@ -381,7 +381,7 @@ describe("resolveStatusTtsSnapshot", () => {
     });
   });
 
-  it("derives the default prefs path from OPENCLAW_CONFIG_PATH when set", async () => {
+  it("derives the default prefs path from GRANTED_CONFIG_PATH when set", async () => {
     await withStatusTempHome(async (home) => {
       const stateDir = path.join(home, ".openclaw-dev");
       const prefsPath = path.join(stateDir, "settings", "tts.json");
@@ -398,8 +398,8 @@ describe("resolveStatusTtsSnapshot", () => {
 
       await withEnvAsync(
         {
-          OPENCLAW_STATE_DIR: undefined,
-          OPENCLAW_CONFIG_PATH: path.join(stateDir, "openclaw.json"),
+          GRANTED_STATE_DIR: undefined,
+          GRANTED_CONFIG_PATH: path.join(stateDir, "openclaw.json"),
         },
         async () => {
           expect(

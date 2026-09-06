@@ -17,7 +17,7 @@ const tempDirs = useAutoCleanupTempDirTracker(afterEach);
 
 describe("claws inspect extensions", () => {
   beforeEach(() => {
-    vi.stubEnv("OPENCLAW_EXPERIMENTAL_CLAWS", "1");
+    vi.stubEnv("GRANTED_EXPERIMENTAL_CLAWS", "1");
     mocks.preflightClawPackage.mockReset();
   });
 

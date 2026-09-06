@@ -9,8 +9,8 @@ import path from "node:path";
 import { loadJsonFile, saveJsonFile } from "openclaw/plugin-sdk/json-store";
 import { asNullableRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
 import {
-  DEFAULT_OPENCLAW_BROWSER_COLOR,
-  DEFAULT_OPENCLAW_BROWSER_PROFILE_NAME,
+  DEFAULT_GRANTED_BROWSER_COLOR,
+  DEFAULT_GRANTED_BROWSER_PROFILE_NAME,
 } from "./constants.js";
 
 const CHROME_NETWORK_PREDICTION_DISABLED = 2;
@@ -138,8 +138,8 @@ export function decorateOpenClawProfile(
   userDataDir: string,
   opts?: { name?: string; color?: string; downloadDir?: string; mockKeychain?: boolean },
 ) {
-  const desiredName = opts?.name ?? DEFAULT_OPENCLAW_BROWSER_PROFILE_NAME;
-  const desiredColor = (opts?.color ?? DEFAULT_OPENCLAW_BROWSER_COLOR).toUpperCase();
+  const desiredName = opts?.name ?? DEFAULT_GRANTED_BROWSER_PROFILE_NAME;
+  const desiredColor = (opts?.color ?? DEFAULT_GRANTED_BROWSER_COLOR).toUpperCase();
   const desiredColorInt = parseHexRgbToSignedArgbInt(desiredColor);
 
   const localStatePath = path.join(userDataDir, "Local State");

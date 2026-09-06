@@ -1,6 +1,6 @@
 import type { DatabaseSync } from "node:sqlite";
 import { runSqliteImmediateTransactionSync } from "../infra/sqlite-transaction.js";
-import { OPENCLAW_AGENT_SCHEMA_SQL } from "./openclaw-agent-schema.js";
+import { GRANTED_AGENT_SCHEMA_SQL } from "./openclaw-agent-schema.js";
 
 export const STANDING_INTENTS_TABLE = "standing_intents";
 export const STANDING_INTENTS_FTS_TABLE = "standing_intents_fts";
@@ -16,12 +16,12 @@ const STANDING_INTENTS_SCHEMA_END = "CREATE TABLE IF NOT EXISTS session_transcri
 type StandingIntentColumnInfo = { name?: unknown };
 
 function standingIntentsSchemaSql(): string {
-  const start = OPENCLAW_AGENT_SCHEMA_SQL.indexOf(STANDING_INTENTS_SCHEMA_START);
-  const end = OPENCLAW_AGENT_SCHEMA_SQL.indexOf(STANDING_INTENTS_SCHEMA_END, start);
+  const start = GRANTED_AGENT_SCHEMA_SQL.indexOf(STANDING_INTENTS_SCHEMA_START);
+  const end = GRANTED_AGENT_SCHEMA_SQL.indexOf(STANDING_INTENTS_SCHEMA_END, start);
   if (start === -1 || end === -1) {
     throw new Error("OpenClaw standing-intents schema markers are missing.");
   }
-  return OPENCLAW_AGENT_SCHEMA_SQL.slice(start, end);
+  return GRANTED_AGENT_SCHEMA_SQL.slice(start, end);
 }
 
 function ensureStandingIntentCreatorColumn(db: DatabaseSync): void {

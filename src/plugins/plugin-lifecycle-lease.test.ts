@@ -117,7 +117,7 @@ describe("plugin lifecycle lease", () => {
       const releaseFirst = createDeferred();
       const events: string[] = [];
       const leaseOptions = (caller: string) => ({
-        env: explicitPath ? { ...state.env, OPENCLAW_STATE_DIR: state.path(caller) } : state.env,
+        env: explicitPath ? { ...state.env, GRANTED_STATE_DIR: state.path(caller) } : state.env,
         ...(explicitPath ? { path: state.path("shared-plugin-lifecycle.sqlite") } : {}),
         leaseMs: 1_000,
         waitMs: 3_000,
@@ -166,7 +166,7 @@ describe("plugin lifecycle lease", () => {
           import fs from "node:fs/promises";
           import { withPluginLifecycleLease } from ${JSON.stringify(leaseModuleUrl)};
           const [role, stateDir, releaseMarker, secondMarker, secondResult] = process.argv.slice(2);
-          const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+          const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
           if (role === "second") {
             process.stdout.write("ready\\n");
             try {
@@ -207,7 +207,7 @@ describe("plugin lifecycle lease", () => {
         let assertionError: unknown;
         try {
           await expect(fs.readFile(secondResult, "utf8")).resolves.toBe(
-            "OPENCLAW_STATE_LEASE_TIMEOUT",
+            "GRANTED_STATE_LEASE_TIMEOUT",
           );
           await expect(fs.access(secondMarker)).rejects.toMatchObject({ code: "ENOENT" });
         } catch (error) {
@@ -245,8 +245,8 @@ describe("plugin lifecycle lease", () => {
             writePersistedInstalledPluginIndexInstallRecords,
           } from ${JSON.stringify(recordsModuleUrl)};
           const [pluginId, stateDir, goMarker] = process.argv.slice(2);
-          process.env.OPENCLAW_STATE_DIR = stateDir;
-          const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+          process.env.GRANTED_STATE_DIR = stateDir;
+          const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
           await loadInstalledPluginIndexInstallRecords();
           process.stdout.write("ready\\n");
           while (true) {

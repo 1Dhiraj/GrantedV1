@@ -287,9 +287,9 @@ function controllerClient(
 }
 
 async function withFastPolling<T>(run: () => Promise<T>, reconcileTimeoutMs?: string) {
-  vi.stubEnv("OPENCLAW_FRV_POLL_MS", "1");
+  vi.stubEnv("GRANTED_FRV_POLL_MS", "1");
   if (reconcileTimeoutMs) {
-    vi.stubEnv("OPENCLAW_FRV_RECONCILE_TIMEOUT_MS", reconcileTimeoutMs);
+    vi.stubEnv("GRANTED_FRV_RECONCILE_TIMEOUT_MS", reconcileTimeoutMs);
   }
   try {
     return await run();

@@ -11,9 +11,9 @@ import { fileURLToPath } from "node:url";
 const pluginDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const rootDir = path.resolve(pluginDir, "../..");
 
-const srcDir = process.env.OPENCLAW_CHROME_EXT_SRC_DIR ?? path.join(pluginDir, "chrome-extension");
+const srcDir = process.env.GRANTED_CHROME_EXT_SRC_DIR ?? path.join(pluginDir, "chrome-extension");
 const outDir =
-  process.env.OPENCLAW_CHROME_EXT_OUT_DIR ??
+  process.env.GRANTED_CHROME_EXT_OUT_DIR ??
   path.join(rootDir, "dist", "extensions", "browser", "chrome-extension");
 
 async function pathExists(target) {
@@ -27,10 +27,7 @@ async function pathExists(target) {
 
 async function main() {
   if (!(await pathExists(srcDir))) {
-    if (
-      process.env.OPENCLAW_SPARSE_PROFILE ||
-      process.env.OPENCLAW_CHROME_EXT_SKIP_MISSING === "1"
-    ) {
+    if (process.env.GRANTED_SPARSE_PROFILE || process.env.GRANTED_CHROME_EXT_SKIP_MISSING === "1") {
       return;
     }
     throw new Error(`Chrome extension source not found: ${srcDir}`);

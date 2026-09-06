@@ -25,7 +25,7 @@ const { closeOpenClawStateDatabaseForTest, openOpenClawStateDatabase } =
 
 function createOptions(stateDir: string) {
   return {
-    env: { OPENCLAW_STATE_DIR: stateDir, OPENCLAW_TEST_FAST: "1" },
+    env: { GRANTED_STATE_DIR: stateDir, GRANTED_TEST_FAST: "1" },
     path: path.join(stateDir, "state", "openclaw.sqlite"),
   };
 }

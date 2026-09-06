@@ -1,7 +1,7 @@
 // Formats OpenClaw CLI command snippets for chat-facing command responses.
 import { resolveCurrentOpenClawCliInvocation } from "../../infra/openclaw-cli-invocation.js";
 
-const TEST_RUNNER_ENV_PREFIXES = ["VITEST_", "OPENCLAW_VITEST_"];
+const TEST_RUNNER_ENV_PREFIXES = ["VITEST_", "GRANTED_VITEST_"];
 
 function quoteShellArg(value: string): string {
   if (process.platform === "win32") {

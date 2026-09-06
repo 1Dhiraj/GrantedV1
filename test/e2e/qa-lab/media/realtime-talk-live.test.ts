@@ -168,7 +168,7 @@ describe("realtime Talk live QA producer", () => {
   it("builds catalog-compatible evidence for the live scenario", async () => {
     const options = await makeOptions();
     const evidence = buildRealtimeTalkLiveEvidence({
-      env: { OPENCLAW_QA_REF: "test-ref" },
+      env: { GRANTED_QA_REF: "test-ref" },
       options,
       result: {
         details: "proof passed",

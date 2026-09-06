@@ -78,7 +78,7 @@ vi.mock("../../agents/realtime-bootstrap-context.js", () => ({
   resolveRealtimeBootstrapContextInstructions: async () => undefined,
 }));
 
-const envSnapshot = captureEnv(["OPENCLAW_STATE_DIR"]);
+const envSnapshot = captureEnv(["GRANTED_STATE_DIR"]);
 const sessionKey = "agent:main:main";
 const sessionId = "voice-transcript-session";
 let tempDir: string;
@@ -231,7 +231,7 @@ describe("talk.client.transcript", () => {
     tempDir = await fs.realpath(
       await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-talk-transcript-")),
     );
-    setTestEnvValue("OPENCLAW_STATE_DIR", tempDir);
+    setTestEnvValue("GRANTED_STATE_DIR", tempDir);
     await replaceSessionEntry(
       { agentId: "main", sessionKey },
       { sessionId, updatedAt: Date.now() },

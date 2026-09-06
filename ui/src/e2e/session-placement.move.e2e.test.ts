@@ -11,8 +11,8 @@ import {
 import { tooltipTitleText } from "./control-ui-e2e-suite.test-support.ts";
 
 const suite = createChatFlowE2eSuite();
-const captureProof = process.env.OPENCLAW_CAPTURE_UI_PROOF === "1";
-const runnerOfflineProofName = process.env.OPENCLAW_RUNNER_OFFLINE_SCREENSHOT;
+const captureProof = process.env.GRANTED_CAPTURE_UI_PROOF === "1";
+const runnerOfflineProofName = process.env.GRANTED_RUNNER_OFFLINE_SCREENSHOT;
 
 async function capture(page: Page, name: string): Promise<void> {
   if (captureProof) {

@@ -108,8 +108,8 @@ describe("onboard (non-interactive): gateway auth token storage", () => {
       return;
     }
     await withStateDir("state-lan-", async (stateDir) => {
-      setTestEnvValue("OPENCLAW_STATE_DIR", stateDir);
-      setTestEnvValue("OPENCLAW_CONFIG_PATH", path.join(stateDir, "openclaw.json"));
+      setTestEnvValue("GRANTED_STATE_DIR", stateDir);
+      setTestEnvValue("GRANTED_CONFIG_PATH", path.join(stateDir, "openclaw.json"));
 
       const port = getPseudoPort(40_000);
       const workspace = path.join(stateDir, "openclaw");
@@ -150,8 +150,8 @@ describe("onboard (non-interactive): gateway auth token storage", () => {
       return;
     }
     await withStateDir("state-token-ref-", async (stateDir) => {
-      setTestEnvValue("OPENCLAW_STATE_DIR", stateDir);
-      setTestEnvValue("OPENCLAW_CONFIG_PATH", path.join(stateDir, "openclaw.json"));
+      setTestEnvValue("GRANTED_STATE_DIR", stateDir);
+      setTestEnvValue("GRANTED_CONFIG_PATH", path.join(stateDir, "openclaw.json"));
 
       const port = getPseudoPort(41_000);
 
@@ -177,14 +177,14 @@ describe("onboard (non-interactive): gateway auth token storage", () => {
       expect(cfg.gateway?.auth?.token).toEqual({
         source: "store",
         provider: "default",
-        id: "OPENCLAW_GATEWAY_TOKEN",
+        id: "GRANTED_GATEWAY_TOKEN",
       });
 
       // A ref persisted without its value would leave the gateway unauthenticatable.
       const { readSecretStoreValue } = await import("../secrets/store/secret-store.js");
       const stored = readSecretStoreValue({
         scope: { kind: "team" },
-        name: "OPENCLAW_GATEWAY_TOKEN",
+        name: "GRANTED_GATEWAY_TOKEN",
       });
       expect(stored.ok).toBe(true);
       expect(stored.ok && stored.value.length).toBeGreaterThan(8);
@@ -197,9 +197,9 @@ describe("onboard (non-interactive): gateway auth token storage", () => {
       return;
     }
     await withStateDir("state-token-ref-env-", async (stateDir) => {
-      setTestEnvValue("OPENCLAW_STATE_DIR", stateDir);
-      setTestEnvValue("OPENCLAW_CONFIG_PATH", path.join(stateDir, "openclaw.json"));
-      setTestEnvValue("OPENCLAW_GATEWAY_TOKEN", "ambient-gateway-token");
+      setTestEnvValue("GRANTED_STATE_DIR", stateDir);
+      setTestEnvValue("GRANTED_CONFIG_PATH", path.join(stateDir, "openclaw.json"));
+      setTestEnvValue("GRANTED_GATEWAY_TOKEN", "ambient-gateway-token");
 
       await runNonInteractiveSetup(
         {
@@ -220,13 +220,13 @@ describe("onboard (non-interactive): gateway auth token storage", () => {
       expect(cfg.gateway?.auth?.token).toEqual({
         source: "env",
         provider: "default",
-        id: "OPENCLAW_GATEWAY_TOKEN",
+        id: "GRANTED_GATEWAY_TOKEN",
       });
 
       // A store copy would silently outlive a later rotation of the env var.
       const { readSecretStoreValue } = await import("../secrets/store/secret-store.js");
       expect(
-        readSecretStoreValue({ scope: { kind: "team" }, name: "OPENCLAW_GATEWAY_TOKEN" }).ok,
+        readSecretStoreValue({ scope: { kind: "team" }, name: "GRANTED_GATEWAY_TOKEN" }).ok,
       ).toBe(false);
     });
   }, 60_000);

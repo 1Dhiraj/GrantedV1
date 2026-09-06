@@ -13,20 +13,20 @@ let gatewayTestSeq = 0;
 export const GATEWAY_TEST_ENV_KEYS = [
   "HOME",
   ...GATEWAY_STARTUP_MUTATED_ENV_KEYS,
-  "OPENCLAW_STATE_DIR",
-  "OPENCLAW_CONFIG_PATH",
-  "OPENCLAW_GATEWAY_TOKEN",
-  "OPENCLAW_TEST_GATEWAY_OVERRIDE_TOKEN",
-  "OPENCLAW_TEST_RUNTIME_OVERRIDE_TOKEN",
-  "OPENCLAW_TEST_MINIMAL_GATEWAY",
-  "OPENCLAW_SKIP_CHANNELS",
-  "OPENCLAW_SKIP_GMAIL_WATCHER",
-  "OPENCLAW_SKIP_CRON",
-  "OPENCLAW_SKIP_CANVAS_HOST",
-  "OPENCLAW_SKIP_BROWSER_CONTROL_SERVER",
-  "OPENCLAW_SKIP_PROVIDERS",
-  "OPENCLAW_BUNDLED_PLUGINS_DIR",
-  "OPENCLAW_DISABLE_BUNDLED_PLUGINS",
+  "GRANTED_STATE_DIR",
+  "GRANTED_CONFIG_PATH",
+  "GRANTED_GATEWAY_TOKEN",
+  "GRANTED_TEST_GATEWAY_OVERRIDE_TOKEN",
+  "GRANTED_TEST_RUNTIME_OVERRIDE_TOKEN",
+  "GRANTED_TEST_MINIMAL_GATEWAY",
+  "GRANTED_SKIP_CHANNELS",
+  "GRANTED_SKIP_GMAIL_WATCHER",
+  "GRANTED_SKIP_CRON",
+  "GRANTED_SKIP_CANVAS_HOST",
+  "GRANTED_SKIP_BROWSER_CONTROL_SERVER",
+  "GRANTED_SKIP_PROVIDERS",
+  "GRANTED_BUNDLED_PLUGINS_DIR",
+  "GRANTED_DISABLE_BUNDLED_PLUGINS",
 ] as const;
 
 export function nextGatewayId(prefix: string): string {
@@ -59,24 +59,24 @@ export async function setupGatewayTempHome(params: { prefix: string; minimalGate
 
   const tempHome = await fs.mkdtemp(path.join(os.tmpdir(), params.prefix));
   setTestEnvValue("HOME", tempHome);
-  setTestEnvValue("OPENCLAW_STATE_DIR", path.join(tempHome, ".openclaw"));
-  deleteTestEnvValue("OPENCLAW_CONFIG_PATH");
-  setTestEnvValue("OPENCLAW_SKIP_CHANNELS", "1");
-  setTestEnvValue("OPENCLAW_SKIP_GMAIL_WATCHER", "1");
-  setTestEnvValue("OPENCLAW_SKIP_CRON", "1");
-  setTestEnvValue("OPENCLAW_SKIP_CANVAS_HOST", "1");
-  setTestEnvValue("OPENCLAW_SKIP_BROWSER_CONTROL_SERVER", "1");
-  setTestEnvValue("OPENCLAW_SKIP_PROVIDERS", "1");
+  setTestEnvValue("GRANTED_STATE_DIR", path.join(tempHome, ".openclaw"));
+  deleteTestEnvValue("GRANTED_CONFIG_PATH");
+  setTestEnvValue("GRANTED_SKIP_CHANNELS", "1");
+  setTestEnvValue("GRANTED_SKIP_GMAIL_WATCHER", "1");
+  setTestEnvValue("GRANTED_SKIP_CRON", "1");
+  setTestEnvValue("GRANTED_SKIP_CANVAS_HOST", "1");
+  setTestEnvValue("GRANTED_SKIP_BROWSER_CONTROL_SERVER", "1");
+  setTestEnvValue("GRANTED_SKIP_PROVIDERS", "1");
   if (params.minimalGateway) {
-    setTestEnvValue("OPENCLAW_TEST_MINIMAL_GATEWAY", "1");
+    setTestEnvValue("GRANTED_TEST_MINIMAL_GATEWAY", "1");
   } else {
-    deleteTestEnvValue("OPENCLAW_TEST_MINIMAL_GATEWAY");
+    deleteTestEnvValue("GRANTED_TEST_MINIMAL_GATEWAY");
   }
 
   const workspaceDir = path.join(tempHome, "openclaw");
   await fs.mkdir(workspaceDir, { recursive: true });
-  setTestEnvValue("OPENCLAW_BUNDLED_PLUGINS_DIR", await createEmptyBundledPluginsDir(tempHome));
-  setTestEnvValue("OPENCLAW_DISABLE_BUNDLED_PLUGINS", "1");
+  setTestEnvValue("GRANTED_BUNDLED_PLUGINS_DIR", await createEmptyBundledPluginsDir(tempHome));
+  setTestEnvValue("GRANTED_DISABLE_BUNDLED_PLUGINS", "1");
   return { envSnapshot, tempHome, workspaceDir };
 }
 

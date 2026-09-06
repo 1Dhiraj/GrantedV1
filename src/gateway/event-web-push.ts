@@ -103,7 +103,7 @@ function preferenceFor(subscription: BoundWebPushSubscription, stateDir?: string
     ? getUserPreferences(
         profileId,
         [WEB_PUSH_USER_PREFERENCES_KEY],
-        stateDir ? { env: { ...process.env, OPENCLAW_STATE_DIR: stateDir } } : {},
+        stateDir ? { env: { ...process.env, GRANTED_STATE_DIR: stateDir } } : {},
       )[WEB_PUSH_USER_PREFERENCES_KEY]
     : undefined;
   return resolveEffectiveWebPushPreferences({ user, device: subscription.devicePreferences });

@@ -42,16 +42,16 @@ describe("Hermes migration provider", () => {
     expect(captured.migrationProviders.map((provider) => provider.id)).toEqual(["hermes"]);
   });
 
-  it("resolves tilde source paths against the OS home when OPENCLAW_HOME is set", () => {
-    const previous = process.env.OPENCLAW_HOME;
-    process.env.OPENCLAW_HOME = path.join(path.sep, "tmp", "openclaw-home");
+  it("resolves tilde source paths against the OS home when GRANTED_HOME is set", () => {
+    const previous = process.env.GRANTED_HOME;
+    process.env.GRANTED_HOME = path.join(path.sep, "tmp", "openclaw-home");
     try {
       expect(resolveHomePath("~/.hermes")).toBe(path.join(os.homedir(), ".hermes"));
     } finally {
       if (previous === undefined) {
-        delete process.env.OPENCLAW_HOME;
+        delete process.env.GRANTED_HOME;
       } else {
-        process.env.OPENCLAW_HOME = previous;
+        process.env.GRANTED_HOME = previous;
       }
     }
   });

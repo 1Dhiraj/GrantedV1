@@ -14,7 +14,7 @@ import {
   sanitizeSystemRunEnvOverrides,
 } from "./host-env-security.js";
 
-const OPENCLAW_CLI_ENV_VALUE = "1";
+const GRANTED_CLI_ENV_VALUE = "1";
 
 function findSystemCommandPath(command: string) {
   if (process.platform === "win32") {
@@ -279,7 +279,7 @@ NODE_REPL_HISTORY=/tmp/node-repl-history | NODE_V8_COVERAGE=/tmp/coverage | OK=1
     });
 
     expect(env).toEqual(
-      envRecord(`OPENCLAW_CLI=${OPENCLAW_CLI_ENV_VALUE} | PATH=/usr/bin:/bin
+      envRecord(`GRANTED_CLI=${GRANTED_CLI_ENV_VALUE} | PATH=/usr/bin:/bin
 AWS_CONFIG_FILE=/tmp/aws-config | KUBECONFIG=/tmp/kubeconfig
 GOOGLE_APPLICATION_CREDENTIALS=/tmp/gcp.json | AWS_SHARED_CREDENTIALS_FILE=/tmp/aws-credentials
 AWS_WEB_IDENTITY_TOKEN_FILE=/tmp/aws-web-token | AZURE_AUTH_LOCATION=/tmp/azure-auth.json
@@ -413,7 +413,7 @@ PHPRC=/tmp/evil-php.ini | XDG_CONFIG_HOME=/tmp/evil-config | SAFE=ok`);
     });
 
     expect(env.PATH).toBe("/usr/bin:/bin");
-    expect(env.OPENCLAW_CLI).toBe(OPENCLAW_CLI_ENV_VALUE);
+    expect(env.GRANTED_CLI).toBe(GRANTED_CLI_ENV_VALUE);
     expectEnvKeysUndefined(
       env,
       `BASH_ENV BROWSER GIT_ALLOW_PROTOCOL GIT_EDITOR GIT_DIR GIT_WORK_TREE GIT_COMMON_DIR CC CXX
@@ -482,7 +482,7 @@ CONDA_DEFAULT_ENV CONDA_PREFIX`,
     });
 
     expect(env.PATH).toBe("/usr/bin:/bin");
-    expect(env.OPENCLAW_CLI).toBe(OPENCLAW_CLI_ENV_VALUE);
+    expect(env.GRANTED_CLI).toBe(GRANTED_CLI_ENV_VALUE);
     expectEnvKeysUndefined(
       env,
       "VIMINIT EXINIT LUA_INIT_5_4 HOSTALIASES BASHOPTS FPATH KSH_ENV TCLLIBPATH",
@@ -531,7 +531,7 @@ NPM_TOKEN=npm-test | SSH_AUTH_SOCK=/tmp/evil-agent.sock | SAFE=ok`),
     });
 
     expect(env.PATH).toBe("/usr/bin:/bin");
-    expect(env.OPENCLAW_CLI).toBe(OPENCLAW_CLI_ENV_VALUE);
+    expect(env.GRANTED_CLI).toBe(GRANTED_CLI_ENV_VALUE);
     expectEnvKeysUndefined(
       env,
       `VIMINIT HOSTALIASES BASHOPTS FPATH KSH_ENV TCLLIBPATH AWS_CONTAINER_CREDENTIALS_FULL_URI
@@ -588,7 +588,7 @@ NODE_TLS_REJECT_UNAUTHORIZED=1 | DOCKER_TLS_VERIFY=0`),
     });
 
     expect(env).toEqual(
-      envRecord(`OPENCLAW_CLI=${OPENCLAW_CLI_ENV_VALUE} | PATH=/usr/bin:/bin
+      envRecord(`GRANTED_CLI=${GRANTED_CLI_ENV_VALUE} | PATH=/usr/bin:/bin
 HTTP_PROXY=http://trusted-proxy.example.test:8080 | HTTPS_PROXY=http://trusted-proxy.example.test:8443
 NODE_TLS_REJECT_UNAUTHORIZED=0 | SSL_CERT_DIR=/etc/ssl/certs
 CURL_CA_BUNDLE=/etc/ssl/cert.pem | DOCKER_TLS_VERIFY=1`),
@@ -615,7 +615,7 @@ CURL_CA_BUNDLE=/etc/ssl/cert.pem | DOCKER_TLS_VERIFY=1`),
     });
 
     expect(env.PATH).toBe("/usr/bin:/bin");
-    expect(env.OPENCLAW_CLI).toBe(OPENCLAW_CLI_ENV_VALUE);
+    expect(env.GRANTED_CLI).toBe(GRANTED_CLI_ENV_VALUE);
     expect(env.OK).toBe("1");
     expectEnvKeysUndefined(env, "SHELLOPTS PS4");
   });
@@ -633,7 +633,7 @@ CURL_CA_BUNDLE=/etc/ssl/cert.pem | DOCKER_TLS_VERIFY=1`),
     });
 
     expect(env.GOOD_KEY).toBe("ok");
-    expect(env.OPENCLAW_CLI).toBe(OPENCLAW_CLI_ENV_VALUE);
+    expect(env.GRANTED_CLI).toBe(GRANTED_CLI_ENV_VALUE);
     expect(env[" BAD KEY"]).toBeUndefined();
     expect(env["NOT-PORTABLE"]).toBeUndefined();
   });
@@ -650,7 +650,7 @@ CURL_CA_BUNDLE=/etc/ssl/cert.pem | DOCKER_TLS_VERIFY=1`),
     });
 
     expect(env.PATH).toBe("/custom/bin");
-    expect(env.OPENCLAW_CLI).toBe(OPENCLAW_CLI_ENV_VALUE);
+    expect(env.GRANTED_CLI).toBe(GRANTED_CLI_ENV_VALUE);
   });
 
   it("drops non-string inherited values while preserving non-portable inherited keys", () => {
@@ -665,7 +665,7 @@ CURL_CA_BUNDLE=/etc/ssl/cert.pem | DOCKER_TLS_VERIFY=1`),
     });
 
     expect(env).toEqual({
-      OPENCLAW_CLI: OPENCLAW_CLI_ENV_VALUE,
+      GRANTED_CLI: GRANTED_CLI_ENV_VALUE,
       PATH: "/usr/bin:/bin",
       GOOD: "1",
       "NOT-PORTABLE": "x",
@@ -889,12 +889,12 @@ describe("sanitizeSystemRunEnvOverrides", () => {
     const overrides = sanitizeSystemRunEnvOverrides({
       shellWrapper: false,
       overrides: {
-        OPENCLAW_TEST: "1",
+        GRANTED_TEST: "1",
         TOKEN: "abc",
       },
     });
     expect(overrides).toEqual({
-      OPENCLAW_TEST: "1",
+      GRANTED_TEST: "1",
       TOKEN: "abc",
     });
   });
@@ -903,7 +903,7 @@ describe("sanitizeSystemRunEnvOverrides", () => {
     const overrides = sanitizeSystemRunEnvOverrides({
       shellWrapper: true,
       overrides: {
-        OPENCLAW_TEST: "1",
+        GRANTED_TEST: "1",
         TOKEN: "abc",
         LANG: "C",
         LC_ALL: "C",

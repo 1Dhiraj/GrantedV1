@@ -34,34 +34,34 @@ function createFakeGh() {
   mkdirSync(binDir);
   const fakeGhScript = `#!/usr/bin/env bash
 set -euo pipefail
-printf '%s\\t%s\\n' "$(basename "$0")" "$*" >> "$OPENCLAW_TEST_GH_CALLS"
+printf '%s\\t%s\\n' "$(basename "$0")" "$*" >> "$GRANTED_TEST_GH_CALLS"
 case "$1 $2" in
   "auth token") printf 'forwarded-test-token\\n' ;;
   "pr view")
-    if [ -e "$OPENCLAW_TEST_GH_DISPATCHED" ] && [ "\${OPENCLAW_TEST_GH_MODE:-}" = "head-change" ]; then
-      printf '%s\\n' "$OPENCLAW_TEST_CHANGED_HEAD_SHA"
+    if [ -e "$GRANTED_TEST_GH_DISPATCHED" ] && [ "\${GRANTED_TEST_GH_MODE:-}" = "head-change" ]; then
+      printf '%s\\n' "$GRANTED_TEST_CHANGED_HEAD_SHA"
     else
-      printf '%s\\n' "$OPENCLAW_TEST_HEAD_SHA"
+      printf '%s\\n' "$GRANTED_TEST_HEAD_SHA"
     fi
     ;;
   "workflow run")
     test "\${GH_TOKEN-}" = "forwarded-test-token"
-    : > "$OPENCLAW_TEST_GH_DISPATCHED"
+    : > "$GRANTED_TEST_GH_DISPATCHED"
     ;;
   "api --method")
     case "$4" in
       *"/actions/workflows/"*"/runs")
-        if [ -e "$OPENCLAW_TEST_GH_DISPATCHED" ]; then
-          printf '%s\\n' "$OPENCLAW_TEST_RUN_LIST"
+        if [ -e "$GRANTED_TEST_GH_DISPATCHED" ]; then
+          printf '%s\\n' "$GRANTED_TEST_RUN_LIST"
         else
           printf '{"workflow_runs":[]}\\n'
         fi
         ;;
-      *"/actions/runs/99") printf '%s\\n' "$OPENCLAW_TEST_RUN" ;;
+      *"/actions/runs/99") printf '%s\\n' "$GRANTED_TEST_RUN" ;;
       *) echo "unexpected API: $*" >&2; exit 2 ;;
     esac
     ;;
-  "api --paginate") printf '%s\\n' "$OPENCLAW_TEST_CHECK_PAGES" ;;
+  "api --paginate") printf '%s\\n' "$GRANTED_TEST_CHECK_PAGES" ;;
   *) echo "unexpected gh invocation: $*" >&2; exit 2 ;;
 esac
 `;
@@ -113,9 +113,9 @@ function runDispatch(
   };
   const env: NodeJS.ProcessEnv = {
     ...process.env,
-    OPENCLAW_GH_BIN: fakeGh.realGh,
-    OPENCLAW_TEST_CHANGED_HEAD_SHA: changedSha,
-    OPENCLAW_TEST_CHECK_PAGES: JSON.stringify([
+    GRANTED_GH_BIN: fakeGh.realGh,
+    GRANTED_TEST_CHANGED_HEAD_SHA: changedSha,
+    GRANTED_TEST_CHECK_PAGES: JSON.stringify([
       {
         check_runs: options.checkOnLaterPage
           ? [{ ...check, id: 77, name: "unrelated/check" }]
@@ -123,11 +123,11 @@ function runDispatch(
       },
       ...(options.checkOnLaterPage ? [{ check_runs: [check] }] : []),
     ]),
-    OPENCLAW_TEST_GH_CALLS: fakeGh.calls,
-    OPENCLAW_TEST_GH_DISPATCHED: fakeGh.dispatched,
-    OPENCLAW_TEST_GH_MODE: options.mode ?? "",
-    OPENCLAW_TEST_HEAD_SHA: headSha,
-    OPENCLAW_TEST_RUN: JSON.stringify({
+    GRANTED_TEST_GH_CALLS: fakeGh.calls,
+    GRANTED_TEST_GH_DISPATCHED: fakeGh.dispatched,
+    GRANTED_TEST_GH_MODE: options.mode ?? "",
+    GRANTED_TEST_HEAD_SHA: headSha,
+    GRANTED_TEST_RUN: JSON.stringify({
       conclusion: "success",
       event: "workflow_dispatch",
       head_branch: "main",
@@ -137,7 +137,7 @@ function runDispatch(
       path: ".github/workflows/pr-crabbox-gate-publisher.yml",
       status: "completed",
     }),
-    OPENCLAW_TEST_RUN_LIST: JSON.stringify(runList),
+    GRANTED_TEST_RUN_LIST: JSON.stringify(runList),
     PATH: `${fakeGh.binDir}:${process.env.PATH ?? ""}`,
   };
   for (const name of [
@@ -239,8 +239,8 @@ describePosix("scripts/pr ci-dispatch", () => {
         encoding: "utf8",
         env: {
           ...process.env,
-          OPENCLAW_GH_BIN: fakeGh.realGh,
-          OPENCLAW_TEST_GH_CALLS: fakeGh.calls,
+          GRANTED_GH_BIN: fakeGh.realGh,
+          GRANTED_TEST_GH_CALLS: fakeGh.calls,
           PATH: `${fakeGh.binDir}:${process.env.PATH ?? ""}`,
         },
       },
@@ -272,8 +272,8 @@ describePosix("scripts/pr ci-dispatch", () => {
         encoding: "utf8",
         env: {
           ...process.env,
-          OPENCLAW_GH_BIN: fakeGh.realGh,
-          OPENCLAW_TEST_GH_CALLS: fakeGh.calls,
+          GRANTED_GH_BIN: fakeGh.realGh,
+          GRANTED_TEST_GH_CALLS: fakeGh.calls,
           PATH: `${fakeGh.binDir}:${process.env.PATH ?? ""}`,
         },
       },

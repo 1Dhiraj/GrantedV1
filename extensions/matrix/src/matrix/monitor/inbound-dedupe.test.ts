@@ -21,7 +21,7 @@ describe("Matrix inbound event dedupe", () => {
   function createStateEnv(): NodeJS.ProcessEnv {
     const dir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-matrix-inbound-dedupe-"));
     tempDirs.push(dir);
-    return { ...process.env, OPENCLAW_STATE_DIR: dir };
+    return { ...process.env, GRANTED_STATE_DIR: dir };
   }
 
   const auth = { accountId: "ops" } as const;
@@ -68,13 +68,13 @@ describe("Matrix inbound event dedupe", () => {
 
   it("keeps committed events in memory when plugin-state persistence fails", async () => {
     const warnSpy = vi.spyOn(LogService, "warn").mockImplementation(() => {});
-    const blockedDir = createStateEnv().OPENCLAW_STATE_DIR as string;
+    const blockedDir = createStateEnv().GRANTED_STATE_DIR as string;
     // A regular file where the state dir should be makes every SQLite open fail.
     const filePath = path.join(blockedDir, "not-a-dir");
     fs.writeFileSync(filePath, "x", "utf8");
     const deduper = createMatrixInboundEventDeduper({
       auth,
-      env: { ...process.env, OPENCLAW_STATE_DIR: path.join(filePath, "nested") },
+      env: { ...process.env, GRANTED_STATE_DIR: path.join(filePath, "nested") },
     });
 
     const claim = await deduper.claim(event);

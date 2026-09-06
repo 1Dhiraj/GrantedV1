@@ -46,7 +46,7 @@ import {
   projectCodexExecutableDynamicTools,
 } from "./dynamic-tools.js";
 import {
-  CODEX_OPENCLAW_DIRECT_DYNAMIC_TOOL_NAMESPACE,
+  CODEX_GRANTED_DIRECT_DYNAMIC_TOOL_NAMESPACE,
   type CodexDynamicToolFunctionSpec,
   type CodexDynamicToolSpec,
   type JsonValue,
@@ -54,7 +54,7 @@ import {
 import type { CodexRemoteWorkspaceFileReader } from "./remote-workspace-media.js";
 import { codexDynamicToolsFingerprint } from "./thread-fingerprints.js";
 
-const CODEX_OPENCLAW_DYNAMIC_TOOL_NAMESPACE = "openclaw";
+const CODEX_GRANTED_DYNAMIC_TOOL_NAMESPACE = "openclaw";
 const MEMORY_STORE_ARGS: JsonValue = { text: "Tuesday 09:00 release window" };
 const MEMORY_FORGET_ARGS: JsonValue = {
   memoryId: "9e107d9d-3729-4ff5-a8c0-01d29c61f49d",
@@ -218,8 +218,8 @@ const STRICT_INSTRUCTION_SCHEMA = {
 
 type SchemaToolNamespace =
   | null
-  | typeof CODEX_OPENCLAW_DIRECT_DYNAMIC_TOOL_NAMESPACE
-  | typeof CODEX_OPENCLAW_DYNAMIC_TOOL_NAMESPACE;
+  | typeof CODEX_GRANTED_DIRECT_DYNAMIC_TOOL_NAMESPACE
+  | typeof CODEX_GRANTED_DYNAMIC_TOOL_NAMESPACE;
 
 async function runSchemaToolCall(params: {
   arguments: JsonValue;
@@ -241,9 +241,8 @@ async function runSchemaToolCall(params: {
   const bridge = createCodexDynamicToolBridge({
     tools: [tool],
     signal: new AbortController().signal,
-    loading: namespace === CODEX_OPENCLAW_DYNAMIC_TOOL_NAMESPACE ? "searchable" : undefined,
-    directToolNames:
-      namespace === CODEX_OPENCLAW_DIRECT_DYNAMIC_TOOL_NAMESPACE ? [name] : undefined,
+    loading: namespace === CODEX_GRANTED_DYNAMIC_TOOL_NAMESPACE ? "searchable" : undefined,
+    directToolNames: namespace === CODEX_GRANTED_DIRECT_DYNAMIC_TOOL_NAMESPACE ? [name] : undefined,
   });
   const response = await bridge.handleToolCall({
     threadId: "thread-1",
@@ -279,7 +278,7 @@ describe("createCodexDynamicToolBridge", () => {
     const { execute, response } = await runSchemaToolCall({
       arguments: { instruction: 47 },
       callId: "call-deferred-invalid",
-      namespace: CODEX_OPENCLAW_DYNAMIC_TOOL_NAMESPACE,
+      namespace: CODEX_GRANTED_DYNAMIC_TOOL_NAMESPACE,
     });
 
     expectSchemaRejection(response, execute, "instruction: must be string");
@@ -295,7 +294,7 @@ describe("createCodexDynamicToolBridge", () => {
         properties: { sessionKey: { type: "string" } },
         additionalProperties: false,
       },
-      namespace: CODEX_OPENCLAW_DIRECT_DYNAMIC_TOOL_NAMESPACE,
+      namespace: CODEX_GRANTED_DIRECT_DYNAMIC_TOOL_NAMESPACE,
     });
 
     expectSchemaRejection(response, execute, "sessionKey: must be string");
@@ -357,7 +356,7 @@ describe("createCodexDynamicToolBridge", () => {
         additionalProperties: false,
       },
       prepareArguments,
-      namespace: CODEX_OPENCLAW_DIRECT_DYNAMIC_TOOL_NAMESPACE,
+      namespace: CODEX_GRANTED_DIRECT_DYNAMIC_TOOL_NAMESPACE,
     });
 
     expect(prepareArguments).toHaveBeenCalledWith(null);
@@ -714,17 +713,17 @@ describe("createCodexDynamicToolBridge", () => {
 
     expectDynamicSpec(webSearch, {
       name: "web_search",
-      namespace: CODEX_OPENCLAW_DYNAMIC_TOOL_NAMESPACE,
+      namespace: CODEX_GRANTED_DYNAMIC_TOOL_NAMESPACE,
       deferLoading: true,
     });
     expectDynamicSpec(message, {
       name: "message",
-      namespace: CODEX_OPENCLAW_DYNAMIC_TOOL_NAMESPACE,
+      namespace: CODEX_GRANTED_DYNAMIC_TOOL_NAMESPACE,
       deferLoading: true,
     });
     expectDynamicSpec(heartbeat, {
       name: HEARTBEAT_RESPONSE_TOOL_NAME,
-      namespace: CODEX_OPENCLAW_DYNAMIC_TOOL_NAMESPACE,
+      namespace: CODEX_GRANTED_DYNAMIC_TOOL_NAMESPACE,
       deferLoading: true,
     });
     expectNoNamespace(agentsList);
@@ -751,7 +750,7 @@ describe("createCodexDynamicToolBridge", () => {
       specs.find((tool) => tool.name === "web_search"),
       {
         name: "web_search",
-        namespace: CODEX_OPENCLAW_DYNAMIC_TOOL_NAMESPACE,
+        namespace: CODEX_GRANTED_DYNAMIC_TOOL_NAMESPACE,
         deferLoading: true,
       },
     );
@@ -771,7 +770,7 @@ describe("createCodexDynamicToolBridge", () => {
     expectNoNamespace(progressCard);
     expectDynamicSpec(webSearch, {
       name: "web_search",
-      namespace: CODEX_OPENCLAW_DYNAMIC_TOOL_NAMESPACE,
+      namespace: CODEX_GRANTED_DYNAMIC_TOOL_NAMESPACE,
       deferLoading: true,
     });
   });
@@ -791,7 +790,7 @@ describe("createCodexDynamicToolBridge", () => {
       specs.find((tool) => tool.name === "computer"),
       {
         name: "computer",
-        namespace: CODEX_OPENCLAW_DIRECT_DYNAMIC_TOOL_NAMESPACE,
+        namespace: CODEX_GRANTED_DIRECT_DYNAMIC_TOOL_NAMESPACE,
       },
     );
     expect(specs.find((tool) => tool.name === "computer")).not.toHaveProperty("deferLoading");
@@ -831,14 +830,14 @@ describe("createCodexDynamicToolBridge", () => {
     ]);
     expect(forward.specs.filter((spec) => spec.type === "namespace")).toEqual([
       expect.objectContaining({
-        name: CODEX_OPENCLAW_DYNAMIC_TOOL_NAMESPACE,
+        name: CODEX_GRANTED_DYNAMIC_TOOL_NAMESPACE,
         tools: [
           expect.objectContaining({ name: "message", deferLoading: true }),
           expect.objectContaining({ name: "web_search", deferLoading: true }),
         ],
       }),
       expect.objectContaining({
-        name: CODEX_OPENCLAW_DIRECT_DYNAMIC_TOOL_NAMESPACE,
+        name: CODEX_GRANTED_DIRECT_DYNAMIC_TOOL_NAMESPACE,
         tools: [
           expect.objectContaining({ name: "browser" }),
           expect.objectContaining({ name: "computer" }),
@@ -1440,13 +1439,13 @@ describe("createCodexDynamicToolBridge", () => {
     if (testCase.placement === "searchable") {
       expect(siblingSpec).toMatchObject({
         name: "valid_sibling",
-        namespace: CODEX_OPENCLAW_DYNAMIC_TOOL_NAMESPACE,
+        namespace: CODEX_GRANTED_DYNAMIC_TOOL_NAMESPACE,
         deferLoading: true,
       });
     } else if (testCase.placement === "direct-only") {
       expect(siblingSpec).toMatchObject({
         name: "valid_sibling",
-        namespace: CODEX_OPENCLAW_DIRECT_DYNAMIC_TOOL_NAMESPACE,
+        namespace: CODEX_GRANTED_DIRECT_DYNAMIC_TOOL_NAMESPACE,
       });
       expect(siblingSpec).not.toHaveProperty("deferLoading");
     } else {

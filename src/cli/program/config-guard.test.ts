@@ -108,10 +108,10 @@ describe("ensureConfigReady", () => {
   function useTempOpenClawHome(): string {
     const root = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-config-guard-"));
     tempRoots.push(root);
-    setTestEnvValue("OPENCLAW_HOME", root);
-    deleteTestEnvValue("OPENCLAW_NIX_MODE");
-    deleteTestEnvValue("OPENCLAW_PROFILE");
-    deleteTestEnvValue("OPENCLAW_STATE_DIR");
+    setTestEnvValue("GRANTED_HOME", root);
+    deleteTestEnvValue("GRANTED_NIX_MODE");
+    deleteTestEnvValue("GRANTED_PROFILE");
+    deleteTestEnvValue("GRANTED_STATE_DIR");
     return root;
   }
 
@@ -137,10 +137,10 @@ describe("ensureConfigReady", () => {
   beforeEach(() => {
     envSnapshot = captureEnv([
       "HOME",
-      "OPENCLAW_HOME",
-      "OPENCLAW_NIX_MODE",
-      "OPENCLAW_PROFILE",
-      "OPENCLAW_STATE_DIR",
+      "GRANTED_HOME",
+      "GRANTED_NIX_MODE",
+      "GRANTED_PROFILE",
+      "GRANTED_STATE_DIR",
     ]);
     vi.clearAllMocks();
     resetConfigGuardStateForTests();
@@ -506,7 +506,7 @@ describe("ensureConfigReady", () => {
     async ({ commandPath, source }) => {
       const root = useTempOpenClawHome();
       const stateDir = path.join(root, "custom-state");
-      setTestEnvValue("OPENCLAW_STATE_DIR", stateDir);
+      setTestEnvValue("GRANTED_STATE_DIR", stateDir);
       writeStateMarker(root, source);
       const sourcePath = path.join(root, ".openclaw", source);
       const sourceRaw = fs.readFileSync(sourcePath, "utf8");
@@ -522,8 +522,8 @@ describe("ensureConfigReady", () => {
 
   it("keeps named profiles isolated from default-profile approval migrations", async () => {
     const root = useTempOpenClawHome();
-    setTestEnvValue("OPENCLAW_PROFILE", "work");
-    setTestEnvValue("OPENCLAW_STATE_DIR", path.join(root, ".openclaw-work"));
+    setTestEnvValue("GRANTED_PROFILE", "work");
+    setTestEnvValue("GRANTED_STATE_DIR", path.join(root, ".openclaw-work"));
     writeStateMarker(root, "exec-approvals.json");
     writeStateMarker(root, "plugin-binding-approvals.json");
 
@@ -553,12 +553,12 @@ describe("ensureConfigReady", () => {
     expect(loadAndMaybeMigrateDoctorConfigMock).toHaveBeenCalledOnce();
   });
 
-  it("uses shared tilde expansion for OPENCLAW_HOME in the startup detector", async () => {
+  it("uses shared tilde expansion for GRANTED_HOME in the startup detector", async () => {
     const root = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-config-guard-home-"));
     tempRoots.push(root);
     setTestEnvValue("HOME", root);
-    setTestEnvValue("OPENCLAW_HOME", "~/svc");
-    deleteTestEnvValue("OPENCLAW_STATE_DIR");
+    setTestEnvValue("GRANTED_HOME", "~/svc");
+    deleteTestEnvValue("GRANTED_STATE_DIR");
     writeLegacyTaskSidecarMarker(path.join(root, "svc"));
 
     await runEnsureConfigReady(["status"]);
@@ -892,7 +892,7 @@ describe("ensureConfigReady", () => {
 
   it("keeps invalid Nix-managed config on the manual recovery path", async () => {
     setInvalidSnapshot();
-    setTestEnvValue("OPENCLAW_NIX_MODE", "1");
+    setTestEnvValue("GRANTED_NIX_MODE", "1");
     const runtime = makeRuntime();
     const confirm = vi.fn(async () => true);
 

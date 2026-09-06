@@ -24,7 +24,7 @@ beforeEach(() => {
     artifactDir = createControlUiE2eArtifactDir("service-worker-update");
   }
 });
-const captureUiProof = process.env.OPENCLAW_CAPTURE_UI_PROOF === "1";
+const captureUiProof = process.env.GRANTED_CAPTURE_UI_PROOF === "1";
 
 const buildA = "service-worker-build-a";
 const buildB = "service-worker-build-b";

@@ -118,7 +118,7 @@ export function seedV17AdditiveRepairDatabase(
   try {
     ensureOpenClawAgentDatabaseSchema(database, {
       agentId: "main",
-      env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+      env: { ...process.env, GRANTED_STATE_DIR: stateDir },
       path: databasePath,
       register: false,
     });

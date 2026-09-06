@@ -130,10 +130,10 @@ describe("installed channel legacy session surfaces", () => {
     });
     const env = {
       HOME: rootDir,
-      OPENCLAW_STATE_DIR: stateDir,
-      OPENCLAW_BUNDLED_PLUGINS_DIR: bundledDir,
-      OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-      OPENCLAW_VERSION: "2026.8.1",
+      GRANTED_STATE_DIR: stateDir,
+      GRANTED_BUNDLED_PLUGINS_DIR: bundledDir,
+      GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+      GRANTED_VERSION: "2026.8.1",
       VITEST: "true",
     } as NodeJS.ProcessEnv;
     const config = {
@@ -236,10 +236,10 @@ describe("installed channel legacy session surfaces", () => {
     });
     const env = {
       HOME: rootDir,
-      OPENCLAW_STATE_DIR: stateDir,
-      OPENCLAW_BUNDLED_PLUGINS_DIR: bundledDir,
-      OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-      OPENCLAW_VERSION: "2026.8.1",
+      GRANTED_STATE_DIR: stateDir,
+      GRANTED_BUNDLED_PLUGINS_DIR: bundledDir,
+      GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+      GRANTED_VERSION: "2026.8.1",
       VITEST: "true",
     } as NodeJS.ProcessEnv;
     const config = {
@@ -310,10 +310,10 @@ export const legacySessionSurface = {
     );
     const env = {
       HOME: rootDir,
-      OPENCLAW_STATE_DIR: stateDir,
-      OPENCLAW_BUNDLED_PLUGINS_DIR: bundledDir,
-      OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-      OPENCLAW_VERSION: "2026.8.1",
+      GRANTED_STATE_DIR: stateDir,
+      GRANTED_BUNDLED_PLUGINS_DIR: bundledDir,
+      GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+      GRANTED_VERSION: "2026.8.1",
       VITEST: "true",
     } as NodeJS.ProcessEnv;
     const config = {

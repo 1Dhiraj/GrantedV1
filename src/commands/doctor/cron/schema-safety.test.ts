@@ -6,7 +6,7 @@ import { DatabaseSync } from "node:sqlite";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import type { OpenClawConfig } from "../../../config/types.openclaw.js";
 import { isSqliteSchemaVersionError } from "../../../infra/sqlite-user-version.js";
-import { OPENCLAW_STATE_SCHEMA_VERSION } from "../../../state/openclaw-state-db-contract.js";
+import { GRANTED_STATE_SCHEMA_VERSION } from "../../../state/openclaw-state-db-contract.js";
 import { closeOpenClawStateDatabaseForTest } from "../../../state/openclaw-state-db.js";
 import { resolveOpenClawStateSqlitePath } from "../../../state/openclaw-state-db.paths.js";
 import { collectLegacyCronStoreHealthFindings, maybeRepairLegacyCronStore } from "./index.js";
@@ -45,7 +45,7 @@ async function writeFutureSchema(databasePath: string): Promise<void> {
     database.exec(`
       CREATE TABLE preserved_sentinel (value TEXT NOT NULL) STRICT;
       INSERT INTO preserved_sentinel (value) VALUES ('keep-me');
-      PRAGMA user_version = ${OPENCLAW_STATE_SCHEMA_VERSION + 1};
+      PRAGMA user_version = ${GRANTED_STATE_SCHEMA_VERSION + 1};
     `);
   } finally {
     database.close();
@@ -54,7 +54,7 @@ async function writeFutureSchema(databasePath: string): Promise<void> {
 
 async function createFixture(options: { futureSchema: boolean }): Promise<FutureSchemaFixture> {
   tempRoot = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-doctor-cron-schema-"));
-  vi.stubEnv("OPENCLAW_STATE_DIR", tempRoot);
+  vi.stubEnv("GRANTED_STATE_DIR", tempRoot);
   const storePath = path.join(tempRoot, "cron", "jobs.json");
   await fs.mkdir(path.dirname(storePath), { recursive: true });
   await fs.writeFile(storePath, JSON.stringify({ version: 1, jobs: [] }), "utf8");
@@ -169,7 +169,7 @@ describe("future shared-state schema safety", () => {
       PRAGMA wal_autocheckpoint = 0;
       CREATE TABLE preserved_sentinel (value TEXT NOT NULL) STRICT;
       INSERT INTO preserved_sentinel (value) VALUES ('keep-me');
-      PRAGMA user_version = ${OPENCLAW_STATE_SCHEMA_VERSION + 1};
+      PRAGMA user_version = ${GRANTED_STATE_SCHEMA_VERSION + 1};
     `);
 
     await expectSchemaRefusalWithoutMutation(fixture, async () => {

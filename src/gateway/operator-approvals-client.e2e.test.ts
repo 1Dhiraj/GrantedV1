@@ -32,11 +32,11 @@ import {
 const TEST_ENV_KEYS = [
   "HOME",
   ...MANUAL_GATEWAY_ENV_KEYS,
-  "OPENCLAW_STATE_DIR",
-  "OPENCLAW_CONFIG_PATH",
-  "OPENCLAW_GATEWAY_URL",
-  "OPENCLAW_GATEWAY_TOKEN",
-  "OPENCLAW_GATEWAY_PASSWORD",
+  "GRANTED_STATE_DIR",
+  "GRANTED_CONFIG_PATH",
+  "GRANTED_GATEWAY_URL",
+  "GRANTED_GATEWAY_TOKEN",
+  "GRANTED_GATEWAY_PASSWORD",
 ];
 
 type Cleanup = () => Promise<void> | void;
@@ -79,10 +79,10 @@ describe("operator approval gateway client e2e", () => {
   it("uses runtime authority only for generated local gateway URLs", async () => {
     const envSnapshot = captureEnv(TEST_ENV_KEYS);
     cleanup.push(() => envSnapshot.restore());
-    deleteTestEnvValue("OPENCLAW_CONFIG_PATH");
-    deleteTestEnvValue("OPENCLAW_GATEWAY_URL");
-    deleteTestEnvValue("OPENCLAW_GATEWAY_TOKEN");
-    deleteTestEnvValue("OPENCLAW_GATEWAY_PASSWORD");
+    deleteTestEnvValue("GRANTED_CONFIG_PATH");
+    deleteTestEnvValue("GRANTED_GATEWAY_URL");
+    deleteTestEnvValue("GRANTED_GATEWAY_TOKEN");
+    deleteTestEnvValue("GRANTED_GATEWAY_PASSWORD");
 
     const tempHome = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-approval-client-e2e-"));
     cleanup.push(() => fs.rm(tempHome, { recursive: true, force: true, maxRetries: 5 }));
@@ -90,13 +90,13 @@ describe("operator approval gateway client e2e", () => {
     const stateDir = path.join(tempHome, ".openclaw");
     await fs.mkdir(stateDir, { recursive: true });
     setTestEnvValue("HOME", tempHome);
-    setTestEnvValue("OPENCLAW_STATE_DIR", stateDir);
+    setTestEnvValue("GRANTED_STATE_DIR", stateDir);
     configureManualGatewayBackgroundEnv(tempHome);
 
     const port = await getGatewayE2ePortBlock();
     const token = "approval-client-e2e-token";
     const url = `ws://127.0.0.1:${port}`;
-    setTestEnvValue("OPENCLAW_GATEWAY_PORT", String(port));
+    setTestEnvValue("GRANTED_GATEWAY_PORT", String(port));
 
     const server = await startGatewayServer(port, {
       bind: "loopback",
@@ -184,10 +184,10 @@ describe("operator approval gateway client e2e", () => {
   it("resolves one approval from distinct devices with first-answer-wins semantics", async () => {
     const envSnapshot = captureEnv(TEST_ENV_KEYS);
     cleanup.push(() => envSnapshot.restore());
-    deleteTestEnvValue("OPENCLAW_CONFIG_PATH");
-    deleteTestEnvValue("OPENCLAW_GATEWAY_URL");
-    deleteTestEnvValue("OPENCLAW_GATEWAY_TOKEN");
-    deleteTestEnvValue("OPENCLAW_GATEWAY_PASSWORD");
+    deleteTestEnvValue("GRANTED_CONFIG_PATH");
+    deleteTestEnvValue("GRANTED_GATEWAY_URL");
+    deleteTestEnvValue("GRANTED_GATEWAY_TOKEN");
+    deleteTestEnvValue("GRANTED_GATEWAY_PASSWORD");
 
     const tempHome = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-approval-surfaces-e2e-"));
     cleanup.push(() => fs.rm(tempHome, { recursive: true, force: true, maxRetries: 5 }));
@@ -195,7 +195,7 @@ describe("operator approval gateway client e2e", () => {
     const stateDir = path.join(tempHome, ".openclaw");
     await fs.mkdir(stateDir, { recursive: true });
     setTestEnvValue("HOME", tempHome);
-    setTestEnvValue("OPENCLAW_STATE_DIR", stateDir);
+    setTestEnvValue("GRANTED_STATE_DIR", stateDir);
     configureManualGatewayBackgroundEnv(tempHome);
 
     const requesterIdentity = loadOrCreateDeviceIdentity({
@@ -212,7 +212,7 @@ describe("operator approval gateway client e2e", () => {
     const port = await getGatewayE2ePortBlock();
     const token = "approval-surfaces-e2e-token";
     const url = `ws://127.0.0.1:${port}`;
-    setTestEnvValue("OPENCLAW_GATEWAY_PORT", String(port));
+    setTestEnvValue("GRANTED_GATEWAY_PORT", String(port));
 
     const server = await startGatewayServer(port, {
       bind: "loopback",

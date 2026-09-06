@@ -225,7 +225,7 @@ describe("music generation controls QA product proof", () => {
     }
 
     const stateDir = tempDirs.make("openclaw-qa-music-controls-");
-    await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () => {
+    await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {
       const vocalResult = (await fixture.tool.execute("music-vocal-fallback", {
         prompt: "bright QA chorus",
         lyrics: "OpenClaw keeps the signal clear",

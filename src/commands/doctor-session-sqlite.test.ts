@@ -32,7 +32,7 @@ import { ExitError } from "../runtime.js";
 import {
   closeOpenClawAgentDatabasesForTest,
   openOpenClawAgentDatabase,
-  OPENCLAW_AGENT_SCHEMA_VERSION,
+  GRANTED_AGENT_SCHEMA_VERSION,
   resolveOpenClawAgentSqlitePath,
 } from "../state/openclaw-agent-db.js";
 import {
@@ -80,8 +80,8 @@ type TestStore = {
 };
 
 const previousEnv = {
-  OPENCLAW_CONFIG_PATH: process.env.OPENCLAW_CONFIG_PATH,
-  OPENCLAW_STATE_DIR: process.env.OPENCLAW_STATE_DIR,
+  GRANTED_CONFIG_PATH: process.env.GRANTED_CONFIG_PATH,
+  GRANTED_STATE_DIR: process.env.GRANTED_STATE_DIR,
 };
 const autoCleanupTempDirs = useAutoCleanupTempDirTracker(afterEach);
 // Vitest canonicalizes TMPDIR; alias coverage needs the platform's /tmp path.
@@ -97,8 +97,8 @@ beforeEach(() => {
 afterEach(() => {
   closeOpenClawAgentDatabasesForTest();
   closeOpenClawStateDatabaseForTest();
-  restoreEnvValue("OPENCLAW_CONFIG_PATH", previousEnv.OPENCLAW_CONFIG_PATH);
-  restoreEnvValue("OPENCLAW_STATE_DIR", previousEnv.OPENCLAW_STATE_DIR);
+  restoreEnvValue("GRANTED_CONFIG_PATH", previousEnv.GRANTED_CONFIG_PATH);
+  restoreEnvValue("GRANTED_STATE_DIR", previousEnv.GRANTED_STATE_DIR);
 });
 
 describe("runDoctorSessionSqlite", () => {
@@ -1771,7 +1771,7 @@ describe("runDoctorSessionSqlite", () => {
           message: {
             role: "user",
             content:
-              "hello\n\n<<<BEGIN_OPENCLAW_INTERNAL_CONTEXT>>>\nretired context\n<<<END_OPENCLAW_INTERNAL_CONTEXT>>>",
+              "hello\n\n<<<BEGIN_GRANTED_INTERNAL_CONTEXT>>>\nretired context\n<<<END_GRANTED_INTERNAL_CONTEXT>>>",
           },
         }),
         JSON.stringify({
@@ -1901,7 +1901,7 @@ describe("runDoctorSessionSqlite", () => {
     const storePath = path.join(stateDir, "shared", "sessions.json");
     const report = await runDoctorSessionSqlite({
       agent: "ops",
-      env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+      env: { ...process.env, GRANTED_STATE_DIR: stateDir },
       mode: "inspect",
       store: storePath,
     });
@@ -2038,7 +2038,7 @@ describe("runDoctorSessionSqlite", () => {
   it("imports zero legacy records without parsing canonical entry JSON", async () => {
     const stateDir = autoCleanupTempDirs.make("openclaw-doctor-empty-import-");
     const storePath = path.join(stateDir, "agents", "main", "sessions", "sessions.json");
-    const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+    const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
     fs.mkdirSync(path.dirname(storePath), { recursive: true });
     fs.writeFileSync(storePath, "{}\n", { mode: 0o600 });
     const database = openOpenClawAgentDatabase({ agentId: "main", env });
@@ -2163,7 +2163,7 @@ describe("runDoctorSessionSqlite", () => {
     try {
       const stateDir = path.join(tempDir, "state");
       const storePath = path.join(stateDir, "agents", "main", "sessions", "sessions.json");
-      const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+      const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
       await upsertSessionEntryCore(
         { agentId: "main", env, sessionKey: "agent:main:main", storePath },
         { sessionId: "sqlite-session", updatedAt: Date.now() },
@@ -2191,7 +2191,7 @@ describe("runDoctorSessionSqlite", () => {
   it("migrates a dormant historical agent database before all-agent import compaction", async () => {
     const tempDir = autoCleanupTempDirs.make("openclaw-doctor-session-sqlite-");
     const stateDir = path.join(tempDir, "state");
-    const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+    const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
     const agentIds = ["dormant", "current"] as const;
     for (const agentId of agentIds) {
       const sessionsDir = path.join(stateDir, "agents", agentId, "sessions");
@@ -2231,13 +2231,13 @@ describe("runDoctorSessionSqlite", () => {
     const currentAfter = new sqlite.DatabaseSync(currentPath);
     try {
       expect(dormantAfter.prepare("PRAGMA user_version").get()).toEqual({
-        user_version: OPENCLAW_AGENT_SCHEMA_VERSION,
+        user_version: GRANTED_AGENT_SCHEMA_VERSION,
       });
       expect(
         dormantAfter
           .prepare("SELECT schema_version FROM schema_meta WHERE meta_key = 'primary'")
           .get(),
-      ).toEqual({ schema_version: OPENCLAW_AGENT_SCHEMA_VERSION });
+      ).toEqual({ schema_version: GRANTED_AGENT_SCHEMA_VERSION });
       expect(
         dormantAfter
           .prepare("PRAGMA table_info(session_windows)")
@@ -2259,7 +2259,7 @@ describe("runDoctorSessionSqlite", () => {
           .prepare("SELECT schema_version, updated_at FROM schema_meta WHERE meta_key = 'primary'")
           .get(),
       ).toEqual({
-        schema_version: OPENCLAW_AGENT_SCHEMA_VERSION,
+        schema_version: GRANTED_AGENT_SCHEMA_VERSION,
         updated_at: currentUpdatedAt,
       });
     } finally {
@@ -2272,7 +2272,7 @@ describe("runDoctorSessionSqlite", () => {
     const tempDir = autoCleanupTempDirs.make("openclaw-doctor-session-sqlite-");
     const stateDir = path.join(tempDir, "token=supersecret", "state");
     const sessionsDir = path.join(stateDir, "agents", "drifted", "sessions");
-    const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+    const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
     fs.mkdirSync(sessionsDir, { recursive: true });
     fs.writeFileSync(path.join(sessionsDir, "sessions.json"), "{}\n", { mode: 0o600 });
     const sqlitePath = openOpenClawAgentDatabase({ agentId: "drifted", env }).path;
@@ -2405,7 +2405,7 @@ describe("runDoctorSessionSqlite", () => {
     );
     try {
       expect(migrated.prepare("PRAGMA user_version").get()).toEqual({
-        user_version: OPENCLAW_AGENT_SCHEMA_VERSION,
+        user_version: GRANTED_AGENT_SCHEMA_VERSION,
       });
       expect(
         migrated
@@ -2924,14 +2924,14 @@ describe("runDoctorSessionSqlite", () => {
       mutate: (database: DatabaseSync) => {
         database
           .prepare("UPDATE schema_meta SET schema_version = ? WHERE meta_key = 'primary'")
-          .run(OPENCLAW_AGENT_SCHEMA_VERSION - 1);
+          .run(GRANTED_AGENT_SCHEMA_VERSION - 1);
       },
       message: /metadata schema version .* does not match/iu,
     },
     {
       label: "stale user version",
       mutate: (database: DatabaseSync) => {
-        database.exec(`PRAGMA user_version = ${OPENCLAW_AGENT_SCHEMA_VERSION - 1};`);
+        database.exec(`PRAGMA user_version = ${GRANTED_AGENT_SCHEMA_VERSION - 1};`);
       },
       message: /run openclaw doctor --fix before compacting/iu,
     },
@@ -3063,7 +3063,7 @@ describe("runDoctorSessionSqlite", () => {
       const { sqlitePath, store } = await createImportedStoreForCompaction();
       createCanonicalCacheIndexDrift(sqlitePath);
       if (failure !== "I/O error") {
-        const version = failure === "newer schema" ? OPENCLAW_AGENT_SCHEMA_VERSION + 1 : 1;
+        const version = failure === "newer schema" ? GRANTED_AGENT_SCHEMA_VERSION + 1 : 1;
         const database = new (nodeSqlite.requireNodeSqlite().DatabaseSync)(sqlitePath);
         try {
           database.exec(`PRAGMA user_version = ${version};`);
@@ -5401,7 +5401,7 @@ describe("runDoctorSessionSqlite", () => {
       const storePath = path.join(sessionDir, "sessions.json");
       const mainTranscriptPath = path.join(sessionDir, "main-session.jsonl");
       const workTranscriptPath = path.join(sessionDir, "work-session.jsonl");
-      const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+      const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
       fs.mkdirSync(sessionDir, { recursive: true });
       fs.writeFileSync(
         storePath,
@@ -5468,7 +5468,7 @@ describe("runDoctorSessionSqlite", () => {
     const stateDir = autoCleanupTempDirs.make("openclaw-doctor-retired-sessions-");
     const sessionDir = path.join(stateDir, "sessions");
     const storePath = path.join(sessionDir, "sessions.json");
-    const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+    const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
     fs.mkdirSync(sessionDir, { recursive: true });
     fs.writeFileSync(
       storePath,
@@ -5565,7 +5565,7 @@ describe("runDoctorSessionSqlite", () => {
         const mainTranscriptPath = path.join(sessionDir, "main-session.jsonl");
         const workTranscriptPath = path.join(sessionDir, "work-session.jsonl");
         const orphanTranscriptPath = path.join(sessionDir, "orphan.jsonl");
-        const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+        const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
         fs.mkdirSync(sessionDir, { recursive: true });
         fs.writeFileSync(
           storePath,
@@ -6595,11 +6595,11 @@ function createLegacyStore(
   });
   const env = {
     ...process.env,
-    OPENCLAW_CONFIG_PATH: configPath,
-    OPENCLAW_STATE_DIR: stateDir,
+    GRANTED_CONFIG_PATH: configPath,
+    GRANTED_STATE_DIR: stateDir,
   };
-  process.env.OPENCLAW_CONFIG_PATH = configPath;
-  process.env.OPENCLAW_STATE_DIR = stateDir;
+  process.env.GRANTED_CONFIG_PATH = configPath;
+  process.env.GRANTED_STATE_DIR = stateDir;
   return {
     configPath,
     env,

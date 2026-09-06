@@ -67,8 +67,8 @@ async function withHostedDocumentServer<T>(
 
   return await withEnvAsync(
     {
-      OPENCLAW_SKIP_CANVAS_HOST: params.skipHost,
-      OPENCLAW_STATE_DIR: stateDir,
+      GRANTED_SKIP_CANVAS_HOST: params.skipHost,
+      GRANTED_STATE_DIR: stateDir,
     },
     async () => {
       const server = createGatewayHttpServer({
@@ -163,7 +163,7 @@ describe("core Canvas Gateway host switches", () => {
         plugins: { entries: { canvas: { config: { host: { enabled: false } } } } },
       },
     },
-    { label: "OPENCLAW_SKIP_CANVAS_HOST", config: {}, skipHost: "1" },
+    { label: "GRANTED_SKIP_CANVAS_HOST", config: {}, skipHost: "1" },
   ])("does not register the core widget route for $label", async ({ config, skipHost }) => {
     const response = await requestHostedDocument({ config, skipHost });
     expect(response.status).toBe(404);

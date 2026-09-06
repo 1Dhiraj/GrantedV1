@@ -274,7 +274,7 @@ describe("runSearchSetupFlow", () => {
       select: select as never,
     });
 
-    await withEnvAsync({ OPENCLAW_LOCALE: "zh-CN" }, async () => {
+    await withEnvAsync({ GRANTED_LOCALE: "zh-CN" }, async () => {
       await runSearchSetupFlow(
         { plugins: { allow: ["xai"] } },
         createNonExitingRuntime(),

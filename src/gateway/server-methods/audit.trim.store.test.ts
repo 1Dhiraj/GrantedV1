@@ -11,12 +11,12 @@ import { auditHandlers } from "./audit.js";
 const tempDirs: string[] = [];
 
 function createDatabaseOptions(): OpenClawStateDatabaseOptions {
-  return { env: { OPENCLAW_STATE_DIR: makeTempDir(tempDirs, "openclaw-audit-trim-") } };
+  return { env: { GRANTED_STATE_DIR: makeTempDir(tempDirs, "openclaw-audit-trim-") } };
 }
 
 afterEach(() => {
   closeOpenClawStateDatabaseForTest();
-  delete process.env.OPENCLAW_STATE_DIR;
+  delete process.env.GRANTED_STATE_DIR;
 });
 
 afterAll(() => {
@@ -26,8 +26,8 @@ afterAll(() => {
 describe("audit.list padded filters against a real audit store", () => {
   it("returns the planted run for padded agentId/runId filters", async () => {
     const database = createDatabaseOptions();
-    const stateDir = expectDefined(database.env?.OPENCLAW_STATE_DIR, "temp state dir");
-    process.env.OPENCLAW_STATE_DIR = stateDir;
+    const stateDir = expectDefined(database.env?.GRANTED_STATE_DIR, "temp state dir");
+    process.env.GRANTED_STATE_DIR = stateDir;
 
     recordAuditEvent(
       {

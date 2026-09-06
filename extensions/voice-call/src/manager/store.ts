@@ -63,7 +63,7 @@ export function resolveVoiceCallLegacyCallLogPath(storePath: string): string {
 
 /** Build env for plugin state stores rooted at the voice-call store path. */
 function resolvePluginStateEnv(storePath: string): NodeJS.ProcessEnv {
-  return { ...process.env, OPENCLAW_STATE_DIR: storePath };
+  return { ...process.env, GRANTED_STATE_DIR: storePath };
 }
 
 /** Open the plugin state stores when the runtime is available. */

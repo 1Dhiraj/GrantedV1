@@ -119,8 +119,8 @@ describe("plugin-registry-loader", () => {
   it("attributes module import separately from runtime loading", async () => {
     const dir = tempDirs.make("openclaw-plugin-registry-startup-");
     const timelinePath = join(dir, "timeline.jsonl");
-    vi.stubEnv("OPENCLAW_DIAGNOSTICS", "timeline");
-    vi.stubEnv("OPENCLAW_DIAGNOSTICS_TIMELINE_PATH", timelinePath);
+    vi.stubEnv("GRANTED_DIAGNOSTICS", "timeline");
+    vi.stubEnv("GRANTED_DIAGNOSTICS_TIMELINE_PATH", timelinePath);
 
     await measureCliCommandStartup("plugin-registry", () =>
       ensureCliPluginRegistryLoaded({

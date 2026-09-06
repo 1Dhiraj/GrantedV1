@@ -92,9 +92,9 @@ describe("anonymous telemetry", () => {
       env: {
         CI: undefined,
         DO_NOT_TRACK: undefined,
-        OPENCLAW_NIX_MODE: undefined,
-        OPENCLAW_NO_AUTO_UPDATE: undefined,
-        OPENCLAW_TELEMETRY_ENDPOINT: undefined,
+        GRANTED_NIX_MODE: undefined,
+        GRANTED_NO_AUTO_UPDATE: undefined,
+        GRANTED_TELEMETRY_ENDPOINT: undefined,
       },
     });
     installPluginRegistry(
@@ -350,8 +350,8 @@ describe("anonymous telemetry", () => {
     expect(readConfigMachineState(TELEMETRY_STATE_KEY)).toBeUndefined();
   });
 
-  it("never sends a request when OPENCLAW_NO_AUTO_UPDATE disables update checks", async () => {
-    setTestEnvValue("OPENCLAW_NO_AUTO_UPDATE", "1");
+  it("never sends a request when GRANTED_NO_AUTO_UPDATE disables update checks", async () => {
+    setTestEnvValue("GRANTED_NO_AUTO_UPDATE", "1");
 
     await expect(
       checkTelemetryUpdate(createFeatureConfig(), {
@@ -384,7 +384,7 @@ describe("anonymous telemetry", () => {
   it("still reports from an automated environment when an endpoint is configured for it", async () => {
     const customEndpoint = "https://telemetry.example.invalid/api/latest-version";
     setTestEnvValue("CI", "true");
-    setTestEnvValue("OPENCLAW_TELEMETRY_ENDPOINT", customEndpoint);
+    setTestEnvValue("GRANTED_TELEMETRY_ENDPOINT", customEndpoint);
     mockHttp.intercept({ url: customEndpoint, reply: { json: { version: "2026.8.24" } } });
 
     await expect(
@@ -395,7 +395,7 @@ describe("anonymous telemetry", () => {
   });
 
   it("never sends a request for Nix-managed installations", async () => {
-    setTestEnvValue("OPENCLAW_NIX_MODE", "1");
+    setTestEnvValue("GRANTED_NIX_MODE", "1");
 
     await expect(
       checkTelemetryUpdate(createFeatureConfig(), {
@@ -417,7 +417,7 @@ describe("anonymous telemetry", () => {
 
   it("uses the configured telemetry endpoint instead of the public endpoint", async () => {
     const customEndpoint = "https://telemetry.example.invalid/api/latest-version";
-    setTestEnvValue("OPENCLAW_TELEMETRY_ENDPOINT", customEndpoint);
+    setTestEnvValue("GRANTED_TELEMETRY_ENDPOINT", customEndpoint);
     mockHttp.intercept({
       url: customEndpoint,
       reply: { json: { version: "2026.8.24" } },

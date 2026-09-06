@@ -132,6 +132,6 @@ describe("formatLinuxVolatileStateDirWarning", () => {
     expect(warning).toContain("SQLite state");
     expect(warning).toContain("WAL/journal sidecars");
     expect(warning).toContain("lost on reboot");
-    expect(warning).toContain("OPENCLAW_STATE_DIR");
+    expect(warning).toContain("GRANTED_STATE_DIR");
   });
 });

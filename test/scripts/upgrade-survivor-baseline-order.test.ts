@@ -57,8 +57,8 @@ it.each([
 import fs from "node:fs";
 import path from "node:path";
 import { assertSessionStoreMigrationComplete } from ${JSON.stringify(startupModule.href)};
-const state = process.env.OPENCLAW_STATE_DIR;
-const volume = process.env.OPENCLAW_UPGRADE_SURVIVOR_SCENARIO === "sqlite-volume";
+const state = process.env.GRANTED_STATE_DIR;
+const volume = process.env.GRANTED_UPGRADE_SURVIVOR_SCENARIO === "sqlite-volume";
 const stores = volume
   ? ["agents/main/sessions/sessions.json", "agents/ops/sessions/sessions.json"]
   : ["sessions/sessions.json"];
@@ -74,7 +74,7 @@ if (process.argv[2] === "startup") {
   fs.writeFileSync(process.env.PROBE_LIVE, "live");
 } else {
   assert.equal(process.argv[2], "update");
-  if (process.env.OPENCLAW_UPGRADE_SURVIVOR_UPDATE_RESTART_MODE === "auto-auth") {
+  if (process.env.GRANTED_UPGRADE_SURVIVOR_UPDATE_RESTART_MODE === "auto-auth") {
     assert.equal(fs.readFileSync(process.env.PROBE_READY, "utf8"), "ready");
     assert.equal(fs.existsSync(process.env.PROBE_LIVE), false, "baseline must be offline before specimens and initial update");
   }
@@ -100,11 +100,11 @@ if (process.argv[2] === "startup") {
 trap - EXIT ERR INT TERM
 openclaw_e2e_eval_test_state_from_b64() { :; }
 openclaw_test_state_create() {
-  export OPENCLAW_STATE_DIR="$FIXTURE_HOME/.openclaw"
-  export OPENCLAW_CONFIG_PATH="$OPENCLAW_STATE_DIR/openclaw.json"
-  export OPENCLAW_TEST_WORKSPACE_DIR="$FIXTURE_HOME/workspace"
-  mkdir -p "$OPENCLAW_STATE_DIR" "$OPENCLAW_TEST_WORKSPACE_DIR"
-  cp "$AUTHORED_CONFIG" "$OPENCLAW_CONFIG_PATH"
+  export GRANTED_STATE_DIR="$FIXTURE_HOME/.openclaw"
+  export GRANTED_CONFIG_PATH="$GRANTED_STATE_DIR/openclaw.json"
+  export GRANTED_TEST_WORKSPACE_DIR="$FIXTURE_HOME/workspace"
+  mkdir -p "$GRANTED_STATE_DIR" "$GRANTED_TEST_WORKSPACE_DIR"
+  cp "$AUTHORED_CONFIG" "$GRANTED_CONFIG_PATH"
 }
 getent() { printf 'fixture:x:1000:1000:fixture:%s:/bin/bash\n' "$FIXTURE_HOME"; }
 install_update_restart_systemctl_shim() { :; }
@@ -143,16 +143,16 @@ ${phases}
       PROBE_READY: path.join(root, "ready"),
       PROBE_LIVE: path.join(root, "live"),
       TSX_IMPORT: path.resolve("node_modules/tsx/dist/loader.mjs"),
-      OPENCLAW_TEST_STATE_FUNCTION_B64: "Og==",
-      OPENCLAW_UPGRADE_SURVIVOR_BASELINE: "openclaw@2026.8.1",
-      OPENCLAW_UPGRADE_SURVIVOR_UPDATE_RESTART_MODE: mode,
-      OPENCLAW_UPGRADE_SURVIVOR_SCENARIO: scenario,
-      OPENCLAW_UPGRADE_SURVIVOR_RUNTIME_ROOT: path.join(root, "runtime"),
-      OPENCLAW_UPGRADE_SURVIVOR_SUMMARY_JSON: path.join(root, "artifacts", "summary.json"),
-      OPENCLAW_UPGRADE_SURVIVOR_VOLUME_SESSIONS: "12",
-      OPENCLAW_UPGRADE_SURVIVOR_VOLUME_EVENTS_PER_SESSION: "3",
-      OPENCLAW_UPGRADE_SURVIVOR_VOLUME_CRON_JOBS: "6",
-      OPENCLAW_PREPUBLISH_PLUGIN_REGISTRY_DIR: "",
+      GRANTED_TEST_STATE_FUNCTION_B64: "Og==",
+      GRANTED_UPGRADE_SURVIVOR_BASELINE: "openclaw@2026.8.1",
+      GRANTED_UPGRADE_SURVIVOR_UPDATE_RESTART_MODE: mode,
+      GRANTED_UPGRADE_SURVIVOR_SCENARIO: scenario,
+      GRANTED_UPGRADE_SURVIVOR_RUNTIME_ROOT: path.join(root, "runtime"),
+      GRANTED_UPGRADE_SURVIVOR_SUMMARY_JSON: path.join(root, "artifacts", "summary.json"),
+      GRANTED_UPGRADE_SURVIVOR_VOLUME_SESSIONS: "12",
+      GRANTED_UPGRADE_SURVIVOR_VOLUME_EVENTS_PER_SESSION: "3",
+      GRANTED_UPGRADE_SURVIVOR_VOLUME_CRON_JOBS: "6",
+      GRANTED_PREPUBLISH_PLUGIN_REGISTRY_DIR: "",
     },
   });
   expect(result.status, result.stdout + result.stderr).toBe(0);

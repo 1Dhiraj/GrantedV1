@@ -844,8 +844,8 @@ describe("runWithModelFallback", () => {
   });
 
   it("uses the opt-in auth skip cache on the second turn for the same session", async () => {
-    const previous = process.env.OPENCLAW_FALLBACK_SKIP_TTL_MS;
-    process.env.OPENCLAW_FALLBACK_SKIP_TTL_MS = "60000";
+    const previous = process.env.GRANTED_FALLBACK_SKIP_TTL_MS;
+    process.env.GRANTED_FALLBACK_SKIP_TTL_MS = "60000";
     try {
       const cfg = makeCfg({
         agents: {
@@ -905,9 +905,9 @@ describe("runWithModelFallback", () => {
       );
     } finally {
       if (previous === undefined) {
-        delete process.env.OPENCLAW_FALLBACK_SKIP_TTL_MS;
+        delete process.env.GRANTED_FALLBACK_SKIP_TTL_MS;
       } else {
-        process.env.OPENCLAW_FALLBACK_SKIP_TTL_MS = previous;
+        process.env.GRANTED_FALLBACK_SKIP_TTL_MS = previous;
       }
     }
   });
@@ -918,8 +918,8 @@ describe("runWithModelFallback", () => {
   ])(
     "scopes auth skip markers to the explicit profile for %s",
     async (_label, harnessOwnedAuth) => {
-      const previous = process.env.OPENCLAW_FALLBACK_SKIP_TTL_MS;
-      process.env.OPENCLAW_FALLBACK_SKIP_TTL_MS = "60000";
+      const previous = process.env.GRANTED_FALLBACK_SKIP_TTL_MS;
+      process.env.GRANTED_FALLBACK_SKIP_TTL_MS = "60000";
       try {
         const provider = `scoped-auth-skip-${crypto.randomUUID()}`;
         if (harnessOwnedAuth) {
@@ -996,17 +996,17 @@ describe("runWithModelFallback", () => {
         );
       } finally {
         if (previous === undefined) {
-          delete process.env.OPENCLAW_FALLBACK_SKIP_TTL_MS;
+          delete process.env.GRANTED_FALLBACK_SKIP_TTL_MS;
         } else {
-          process.env.OPENCLAW_FALLBACK_SKIP_TTL_MS = previous;
+          process.env.GRANTED_FALLBACK_SKIP_TTL_MS = previous;
         }
       }
     },
   );
 
   it("scopes automatic auth skips to the selected profile", async () => {
-    const previous = process.env.OPENCLAW_FALLBACK_SKIP_TTL_MS;
-    process.env.OPENCLAW_FALLBACK_SKIP_TTL_MS = "60000";
+    const previous = process.env.GRANTED_FALLBACK_SKIP_TTL_MS;
+    process.env.GRANTED_FALLBACK_SKIP_TTL_MS = "60000";
     try {
       const provider = `automatic-auth-skip-${crypto.randomUUID()}`;
       const lockedProfile = "openai:locked";
@@ -1085,9 +1085,9 @@ describe("runWithModelFallback", () => {
       );
     } finally {
       if (previous === undefined) {
-        delete process.env.OPENCLAW_FALLBACK_SKIP_TTL_MS;
+        delete process.env.GRANTED_FALLBACK_SKIP_TTL_MS;
       } else {
-        process.env.OPENCLAW_FALLBACK_SKIP_TTL_MS = previous;
+        process.env.GRANTED_FALLBACK_SKIP_TTL_MS = previous;
       }
     }
   });

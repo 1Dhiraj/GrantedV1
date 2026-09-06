@@ -75,7 +75,7 @@ describe("agent-runtime model catalog compatibility", () => {
     expectTypeOf<PluginMetadataSnapshot>().toMatchTypeOf<AcceptedMetadataSnapshot>();
     mocks.loadCatalog.mockResolvedValue([]);
     const config = {};
-    const env = { OPENCLAW_STATE_DIR: "/tmp/plugin-state" };
+    const env = { GRANTED_STATE_DIR: "/tmp/plugin-state" };
 
     await loadModelCatalog({
       agentDir: "/tmp/plugin-agent",

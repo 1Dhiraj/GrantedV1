@@ -22,8 +22,8 @@ describe("runNodeIdentityShow", () => {
 
   beforeEach(() => {
     stateDir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-node-identity-"));
-    prevStateDir = process.env.OPENCLAW_STATE_DIR;
-    process.env.OPENCLAW_STATE_DIR = stateDir;
+    prevStateDir = process.env.GRANTED_STATE_DIR;
+    process.env.GRANTED_STATE_DIR = stateDir;
     stdout = [];
     logSpy = vi.spyOn(defaultRuntime, "log").mockImplementation(() => {});
     errorSpy = vi.spyOn(defaultRuntime, "error").mockImplementation(() => {});
@@ -38,9 +38,9 @@ describe("runNodeIdentityShow", () => {
 
   afterEach(() => {
     if (prevStateDir === undefined) {
-      delete process.env.OPENCLAW_STATE_DIR;
+      delete process.env.GRANTED_STATE_DIR;
     } else {
-      process.env.OPENCLAW_STATE_DIR = prevStateDir;
+      process.env.GRANTED_STATE_DIR = prevStateDir;
     }
     logSpy.mockRestore();
     errorSpy.mockRestore();

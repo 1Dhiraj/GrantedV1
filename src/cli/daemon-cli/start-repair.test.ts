@@ -33,19 +33,19 @@ const readConfigFileSnapshotForWriteMock = vi.hoisted(() => vi.fn());
 const resolveGatewayPortMock = vi.hoisted(() =>
   vi.fn(
     (config: { gateway?: { port?: number } } | undefined, env: NodeJS.ProcessEnv = process.env) => {
-      const portMatch = env.OPENCLAW_GATEWAY_PORT?.trim().match(/(?:^|:)(\d+)$/);
+      const portMatch = env.GRANTED_GATEWAY_PORT?.trim().match(/(?:^|:)(\d+)$/);
       return Number(portMatch?.[1]) || config?.gateway?.port || 18_789;
     },
   ),
 );
 const resolveStateDirMock = vi.hoisted(() =>
-  vi.fn((env: NodeJS.ProcessEnv) => env.OPENCLAW_STATE_DIR?.trim() || `${env.HOME}/.openclaw`),
+  vi.fn((env: NodeJS.ProcessEnv) => env.GRANTED_STATE_DIR?.trim() || `${env.HOME}/.openclaw`),
 );
 const resolveConfigPathCandidateMock = vi.hoisted(() =>
   vi.fn(
     (env: NodeJS.ProcessEnv) =>
-      env.OPENCLAW_CONFIG_PATH?.trim() ||
-      `${env.OPENCLAW_STATE_DIR?.trim() || `${env.HOME}/.openclaw`}/openclaw.json`,
+      env.GRANTED_CONFIG_PATH?.trim() ||
+      `${env.GRANTED_STATE_DIR?.trim() || `${env.HOME}/.openclaw`}/openclaw.json`,
   ),
 );
 const resolveOpenClawWrapperPathMock = vi.hoisted(() => vi.fn());
@@ -79,7 +79,7 @@ vi.mock("../../config/paths.js", () => ({
 }));
 
 vi.mock("../../daemon/program-args.js", () => ({
-  OPENCLAW_WRAPPER_ENV_KEY: "OPENCLAW_WRAPPER",
+  GRANTED_WRAPPER_ENV_KEY: "GRANTED_WRAPPER",
   resolveOpenClawWrapperPath: resolveOpenClawWrapperPathMock,
 }));
 
@@ -112,11 +112,11 @@ function readFirstInstallPlanArg(): Record<string, unknown> {
 describe("repairLoadedGatewayServiceForStart", () => {
   beforeEach(() => {
     vi.stubEnv("HOME", "/home/openclaw");
-    vi.stubEnv("OPENCLAW_CONFIG_PATH", "");
-    vi.stubEnv("OPENCLAW_GATEWAY_PORT", "");
-    vi.stubEnv("OPENCLAW_HOME", "");
-    vi.stubEnv("OPENCLAW_PROFILE", "");
-    vi.stubEnv("OPENCLAW_STATE_DIR", "");
+    vi.stubEnv("GRANTED_CONFIG_PATH", "");
+    vi.stubEnv("GRANTED_GATEWAY_PORT", "");
+    vi.stubEnv("GRANTED_HOME", "");
+    vi.stubEnv("GRANTED_PROFILE", "");
+    vi.stubEnv("GRANTED_STATE_DIR", "");
     buildGatewayInstallPlanMock.mockClear();
     resolveGatewayInstallTokenMock.mockReset();
     readConfigFileSnapshotForWriteMock.mockReset();
@@ -218,12 +218,12 @@ describe("repairLoadedGatewayServiceForStart", () => {
     };
     const existingEnvironment = {
       HOME: "/home/openclaw",
-      OPENCLAW_SERVICE_VERSION: "2026.4.24",
-      OPENCLAW_WRAPPER: "/usr/bin/openclaw",
+      GRANTED_SERVICE_VERSION: "2026.4.24",
+      GRANTED_WRAPPER: "/usr/bin/openclaw",
       TELEGRAM_DEFAULT_BOTTOKEN: "existing-env-file-token",
     };
     const existingEnvironmentValueSources = {
-      OPENCLAW_SERVICE_VERSION: "inline" as const,
+      GRANTED_SERVICE_VERSION: "inline" as const,
       TELEGRAM_DEFAULT_BOTTOKEN: "file" as const,
     };
     const programArguments = [
@@ -242,7 +242,7 @@ describe("repairLoadedGatewayServiceForStart", () => {
         programArguments,
         environment: {
           ...existingEnvironment,
-          OPENCLAW_WRAPPER: "/srv/operator/openclaw",
+          GRANTED_WRAPPER: "/srv/operator/openclaw",
           OPERATOR_DROPIN_ONLY: "operator-owned",
           NODE_OPTIONS: "--max-old-space-size=512",
           TELEGRAM_DEFAULT_BOTTOKEN: "operator-drop-in-token",
@@ -308,7 +308,7 @@ describe("repairLoadedGatewayServiceForStart", () => {
             "--port",
             "18789",
           ],
-          environment: { HOME: "/home/openclaw", OPENCLAW_GATEWAY_PORT: "18789" },
+          environment: { HOME: "/home/openclaw", GRANTED_GATEWAY_PORT: "18789" },
         },
       };
 
@@ -340,8 +340,8 @@ describe("repairLoadedGatewayServiceForStart", () => {
     ["working directory", { launcher: "working-directory" as const }, undefined],
     [
       "gateway target environment",
-      { environment: { keys: ["OPENCLAW_STATE_DIR"] } },
-      { HOME: "/home/openclaw", OPENCLAW_STATE_DIR: "/srv/operator-state" },
+      { environment: { keys: ["GRANTED_STATE_DIR"] } },
+      { HOME: "/home/openclaw", GRANTED_STATE_DIR: "/srv/operator-state" },
     ],
   ])(
     "refuses an ineffective stopped-service repair for a %s drop-in",
@@ -387,8 +387,8 @@ describe("repairLoadedGatewayServiceForStart", () => {
   it.each(["start", "restart"] as const)(
     "refuses %s repair when ambient state, config, and port target a different service",
     async (action) => {
-      vi.stubEnv("OPENCLAW_STATE_DIR", "/home/openclaw/stress-state");
-      vi.stubEnv("OPENCLAW_CONFIG_PATH", "/home/openclaw/stress-state/openclaw.json");
+      vi.stubEnv("GRANTED_STATE_DIR", "/home/openclaw/stress-state");
+      vi.stubEnv("GRANTED_CONFIG_PATH", "/home/openclaw/stress-state/openclaw.json");
       readConfigFileSnapshotForWriteMock.mockResolvedValue({
         snapshot: {
           exists: true,
@@ -402,7 +402,7 @@ describe("repairLoadedGatewayServiceForStart", () => {
       const originalUnit = [
         "ExecStart=/usr/bin/openclaw gateway --port 18789",
         "EnvironmentFile=-/home/openclaw/.openclaw/gateway.systemd.env",
-        "Environment=OPENCLAW_SERVICE_MANAGED_ENV_KEYS=OPENAI_API_KEY,OPENCLAW_GATEWAY_PASSWORD",
+        "Environment=GRANTED_SERVICE_MANAGED_ENV_KEYS=OPENAI_API_KEY,GRANTED_GATEWAY_PASSWORD",
       ].join("\n");
       let unit = originalUnit;
       const installMock = vi.fn(async () => {
@@ -422,16 +422,16 @@ describe("repairLoadedGatewayServiceForStart", () => {
           environment: {
             HOME: "/home/openclaw",
             OPENAI_API_KEY: "file-backed-openai-key",
-            OPENCLAW_GATEWAY_PASSWORD: "file-backed-password",
-            OPENCLAW_GATEWAY_PORT: "18789",
-            OPENCLAW_SERVICE_MANAGED_ENV_KEYS: "OPENAI_API_KEY,OPENCLAW_GATEWAY_PASSWORD",
+            GRANTED_GATEWAY_PASSWORD: "file-backed-password",
+            GRANTED_GATEWAY_PORT: "18789",
+            GRANTED_SERVICE_MANAGED_ENV_KEYS: "OPENAI_API_KEY,GRANTED_GATEWAY_PASSWORD",
           },
           environmentValueSources: {
             HOME: "inline",
             OPENAI_API_KEY: "file",
-            OPENCLAW_GATEWAY_PASSWORD: "file",
-            OPENCLAW_GATEWAY_PORT: "inline",
-            OPENCLAW_SERVICE_MANAGED_ENV_KEYS: "inline",
+            GRANTED_GATEWAY_PASSWORD: "file",
+            GRANTED_GATEWAY_PORT: "inline",
+            GRANTED_SERVICE_MANAGED_ENV_KEYS: "inline",
           },
         },
       };
@@ -450,8 +450,8 @@ describe("repairLoadedGatewayServiceForStart", () => {
       await expect(repair).rejects.toThrow(
         [
           "Refusing to repair the managed Gateway service because the current invocation targets a different Gateway:",
-          '- OPENCLAW_STATE_DIR: installed="/home/openclaw/.openclaw", ambient="/home/openclaw/stress-state"',
-          '- OPENCLAW_CONFIG_PATH: installed="/home/openclaw/.openclaw/openclaw.json", ambient="/home/openclaw/stress-state/openclaw.json"',
+          '- GRANTED_STATE_DIR: installed="/home/openclaw/.openclaw", ambient="/home/openclaw/stress-state"',
+          '- GRANTED_CONFIG_PATH: installed="/home/openclaw/.openclaw/openclaw.json", ambient="/home/openclaw/stress-state/openclaw.json"',
           '- gateway.port: installed="18789", ambient="18999"',
           `Run \`openclaw gateway ${action}\` with the installed state directory, config path, and port (or unset conflicting environment overrides). To retarget intentionally, run \`openclaw gateway install --force\`.`,
         ].join("\n"),
@@ -465,7 +465,7 @@ describe("repairLoadedGatewayServiceForStart", () => {
   );
 
   it("refuses a port-less stale service repair when ambient port overrides its config port", async () => {
-    vi.stubEnv("OPENCLAW_GATEWAY_PORT", "18999");
+    vi.stubEnv("GRANTED_GATEWAY_PORT", "18999");
     readConfigFileSnapshotForWriteMock.mockResolvedValue({
       snapshot: {
         exists: true,
@@ -520,7 +520,7 @@ describe("repairLoadedGatewayServiceForStart", () => {
         programArguments: ["/usr/bin/openclaw", "gateway"],
         environment: {
           HOME: "/home/openclaw",
-          OPENCLAW_GATEWAY_PORT: "127.0.0.1:19000",
+          GRANTED_GATEWAY_PORT: "127.0.0.1:19000",
         },
       },
     };
@@ -553,7 +553,7 @@ describe("repairLoadedGatewayServiceForStart", () => {
       env: {},
       command: {
         programArguments: ["/usr/bin/openclaw", "gateway", "--port", "18789"],
-        environment: { OPENCLAW_GATEWAY_PORT: "18789" },
+        environment: { GRANTED_GATEWAY_PORT: "18789" },
       },
     };
 

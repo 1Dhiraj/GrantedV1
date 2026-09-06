@@ -46,7 +46,7 @@ describe("resolveMemoryWikiConfig", () => {
       { vault: { scope } },
       {
         homedir: "/Users/tester",
-        env: { HOME: "/Users/tester", OPENCLAW_STATE_DIR: stateDir },
+        env: { HOME: "/Users/tester", GRANTED_STATE_DIR: stateDir },
       },
     );
 
@@ -56,7 +56,7 @@ describe("resolveMemoryWikiConfig", () => {
   it("uses the configured state directory for schema-resolved defaults", () => {
     const stateDir = "/tmp/openclaw-schema-state";
 
-    withEnv({ OPENCLAW_STATE_DIR: stateDir }, () => {
+    withEnv({ GRANTED_STATE_DIR: stateDir }, () => {
       const parsed = memoryWikiConfigSchema.safeParse?.(undefined);
 
       expect(parsed).toMatchObject({
@@ -77,7 +77,7 @@ describe("resolveMemoryWikiConfig", () => {
       },
       {
         homedir: "/Users/tester",
-        env: { HOME: "/Users/tester", OPENCLAW_STATE_DIR: "/tmp/openclaw-isolated-state" },
+        env: { HOME: "/Users/tester", GRANTED_STATE_DIR: "/tmp/openclaw-isolated-state" },
       },
     );
 

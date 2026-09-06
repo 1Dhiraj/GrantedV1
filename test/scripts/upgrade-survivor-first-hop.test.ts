@@ -24,7 +24,7 @@ import { spawnSync } from 'node:child_process';
 if (process.argv[2] === 'update') {
   fs.writeFileSync(${JSON.stringify(manifest)}, JSON.stringify({name:'openclaw',version:'2026.8.1'}));
   const child = spawnSync(process.execPath, ['--import', ${JSON.stringify(observer)}, process.argv[1], 'doctor', '--non-interactive', '--fix'], {
-    env: {...process.env, OPENCLAW_UPDATE_IN_PROGRESS:'1'}, stdio:'inherit'
+    env: {...process.env, GRANTED_UPDATE_IN_PROGRESS:'1'}, stdio:'inherit'
   });
   process.exitCode = child.status;
 } else {
@@ -41,8 +41,8 @@ if (process.argv[2] === 'update') {
         timeout: 10_000,
         env: {
           ...process.env,
-          OPENCLAW_UPGRADE_SURVIVOR_ARTIFACT_ROOT: artifacts,
-          OPENCLAW_GATEWAY_TOKEN: "private-environment-value",
+          GRANTED_UPGRADE_SURVIVOR_ARTIFACT_ROOT: artifacts,
+          GRANTED_GATEWAY_TOKEN: "private-environment-value",
         },
       },
     );
@@ -82,7 +82,7 @@ if (process.argv[2] === 'update') {
     const result = spawnSync(process.execPath, ["--import", observer, entrypoint, "update"], {
       encoding: "utf8",
       timeout: 10_000,
-      env: { ...process.env, OPENCLAW_UPGRADE_SURVIVOR_ARTIFACT_ROOT: root },
+      env: { ...process.env, GRANTED_UPGRADE_SURVIVOR_ARTIFACT_ROOT: root },
     });
     expect(result.status).toBeNull();
     expect(result.signal).toBe("SIGTERM");

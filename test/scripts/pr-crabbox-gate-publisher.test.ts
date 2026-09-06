@@ -112,17 +112,17 @@ function command() {
 
 function retainedLog() {
   return [
-    "OPENCLAW_CRABBOX_GATE_VERSION=1",
-    "OPENCLAW_CRABBOX_GATE_MODE=remote_crabbox_aws",
-    `OPENCLAW_CRABBOX_GATE_BASE=${baseSha}`,
-    `OPENCLAW_CRABBOX_GATE_HEAD=${headSha}`,
-    `OPENCLAW_CRABBOX_GATE_PLAN_SHA256=${crabboxGatePlanDigest(gatePlan())}`,
-    "OPENCLAW_CRABBOX_GATE_TARGET_COUNT=1",
-    `OPENCLAW_CRABBOX_BOOTSTRAP_SHA256=${bootstrapSha256}`,
-    "OPENCLAW_CRABBOX_GATE_STAGE=build:ok",
-    "OPENCLAW_CRABBOX_GATE_STAGE=check:ok",
-    "OPENCLAW_CRABBOX_GATE_STAGE=test:ok",
-    "OPENCLAW_CRABBOX_GATE_RESULT=success",
+    "GRANTED_CRABBOX_GATE_VERSION=1",
+    "GRANTED_CRABBOX_GATE_MODE=remote_crabbox_aws",
+    `GRANTED_CRABBOX_GATE_BASE=${baseSha}`,
+    `GRANTED_CRABBOX_GATE_HEAD=${headSha}`,
+    `GRANTED_CRABBOX_GATE_PLAN_SHA256=${crabboxGatePlanDigest(gatePlan())}`,
+    "GRANTED_CRABBOX_GATE_TARGET_COUNT=1",
+    `GRANTED_CRABBOX_BOOTSTRAP_SHA256=${bootstrapSha256}`,
+    "GRANTED_CRABBOX_GATE_STAGE=build:ok",
+    "GRANTED_CRABBOX_GATE_STAGE=check:ok",
+    "GRANTED_CRABBOX_GATE_STAGE=test:ok",
+    "GRANTED_CRABBOX_GATE_RESULT=success",
   ].join("\n");
 }
 
@@ -712,9 +712,9 @@ describe("Crabbox gate workflow", () => {
     expect(job.steps.at(-1)).toMatchObject({
       env: {
         CRABBOX_COORDINATOR:
-          "${{ secrets.CRABBOX_COORDINATOR || secrets.OPENCLAW_QA_MANTIS_CRABBOX_COORDINATOR }}",
+          "${{ secrets.CRABBOX_COORDINATOR || secrets.GRANTED_QA_MANTIS_CRABBOX_COORDINATOR }}",
         CRABBOX_COORDINATOR_TOKEN:
-          "${{ secrets.CRABBOX_COORDINATOR_TOKEN || secrets.OPENCLAW_QA_MANTIS_CRABBOX_COORDINATOR_TOKEN }}",
+          "${{ secrets.CRABBOX_COORDINATOR_TOKEN || secrets.GRANTED_QA_MANTIS_CRABBOX_COORDINATOR_TOKEN }}",
       },
       run: "node scripts/pr-crabbox-gate-publisher.mjs",
     });

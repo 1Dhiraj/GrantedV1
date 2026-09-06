@@ -36,8 +36,8 @@ describe("evidence summary", () => {
       channelId: "qa-channel",
       channelDriver: "local-shim",
       env: {
-        OPENCLAW_QA_CHANNEL_DRIVER: "local-shim",
-        OPENCLAW_QA_REF: "abc123",
+        GRANTED_QA_CHANNEL_DRIVER: "local-shim",
+        GRANTED_QA_REF: "abc123",
       } as NodeJS.ProcessEnv,
       generatedAt: "2026-06-07T12:00:00.000Z",
       primaryModel: "mock-openai/gpt-5.6-luna",
@@ -158,7 +158,7 @@ describe("evidence summary", () => {
       "explicit synthetic driver ignores requested environment metadata",
       "telegram",
       "qa-channel",
-      { OPENCLAW_QA_CHANNEL_DRIVER: "live" },
+      { GRANTED_QA_CHANNEL_DRIVER: "live" },
       "qa-channel",
       false,
     ],
@@ -224,7 +224,7 @@ describe("evidence summary", () => {
         { kind: "runner-result", path: "vitest-results/runtime-boundary.vitest.json" },
       ],
       env: {
-        OPENCLAW_QA_REF: "abc123",
+        GRANTED_QA_REF: "abc123",
       } as NodeJS.ProcessEnv,
       generatedAt: "2026-06-07T12:06:00.000Z",
       primaryModel: "mock-openai/gpt-5.6-luna",
@@ -400,7 +400,7 @@ describe("evidence summary", () => {
       ],
       channelId: "qa-channel",
       env: {
-        OPENCLAW_QA_PROFILE: "experimental-profile",
+        GRANTED_QA_PROFILE: "experimental-profile",
       } as NodeJS.ProcessEnv,
       generatedAt: "2026-06-07T12:09:00.000Z",
       primaryModel: "mock-openai/gpt-5.6-luna",

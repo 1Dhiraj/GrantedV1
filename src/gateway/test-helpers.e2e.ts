@@ -64,7 +64,7 @@ export async function connectGatewayClient(params: {
   const role = params.role ?? "operator";
   const scopes = params.scopes ?? (role === "node" ? [] : undefined);
   const platform = params.platform ?? process.platform;
-  const identityRoot = process.env.OPENCLAW_STATE_DIR ?? process.env.HOME ?? os.tmpdir();
+  const identityRoot = process.env.GRANTED_STATE_DIR ?? process.env.HOME ?? os.tmpdir();
   const deviceIdentity =
     params.deviceIdentity ??
     loadOrCreateDeviceIdentity({
@@ -275,7 +275,7 @@ export async function startGatewayWithClient(params: {
   let server: Awaited<ReturnType<typeof startGatewayServer>> | undefined;
   try {
     await writeFile(params.configPath, `${JSON.stringify(params.cfg, null, 2)}\n`);
-    process.env.OPENCLAW_CONFIG_PATH = params.configPath;
+    process.env.GRANTED_CONFIG_PATH = params.configPath;
     clearRuntimeConfigSnapshot();
     clearConfigCache();
     clearSessionStoreCacheForTest();

@@ -89,9 +89,9 @@ it(
         name: "cold-agent-abort",
         config,
         env: {
-          OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-          OPENCLAW_SKIP_PROVIDERS: undefined,
-          OPENCLAW_TEST_MINIMAL_GATEWAY: undefined,
+          GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+          GRANTED_SKIP_PROVIDERS: undefined,
+          GRANTED_TEST_MINIMAL_GATEWAY: undefined,
         },
       });
       await instance.startGateway();

@@ -771,7 +771,7 @@ describe("skill collection reconciliation", () => {
         .mockReturnValue(startedAt + 5_001);
       try {
         await expect(operation()).rejects.toMatchObject({
-          code: "OPENCLAW_STATE_LEASE_TIMEOUT",
+          code: "GRANTED_STATE_LEASE_TIMEOUT",
         });
       } finally {
         clockSpy.mockRestore();

@@ -41,7 +41,7 @@ function runInstallShell(script: string, env: NodeJS.ProcessEnv = {}) {
         ...env,
         BASH_ENV: "",
         ENV: "",
-        OPENCLAW_INSTALL_SH_NO_RUN: "1",
+        GRANTED_INSTALL_SH_NO_RUN: "1",
       },
     });
   } finally {
@@ -59,10 +59,10 @@ describe("install.sh", () => {
   it("runs installer snippets without inherited shell startup files", () => {
     const tmp = mkdtempSync(join(tmpdir(), "openclaw-install-shell-env-"));
     const bashEnvPath = join(tmp, "bash_env");
-    writeFileSync(bashEnvPath, "export OPENCLAW_BASH_ENV_LEAKED=1\n");
+    writeFileSync(bashEnvPath, "export GRANTED_BASH_ENV_LEAKED=1\n");
 
     try {
-      const result = runInstallShell('printf "leaked=%s\\n" "${OPENCLAW_BASH_ENV_LEAKED:-0}"', {
+      const result = runInstallShell('printf "leaked=%s\\n" "${GRANTED_BASH_ENV_LEAKED:-0}"', {
         BASH_ENV: bashEnvPath,
       });
 
@@ -827,7 +827,7 @@ NODE
       cliInstaller,
       [
         "#!/usr/bin/env bash",
-        'PREFIX="${OPENCLAW_PREFIX:?}"',
+        'PREFIX="${GRANTED_PREFIX:?}"',
         "node_dir() { printf '%s/tools/node-v24.19.0\\n' \"$PREFIX\"; }",
         "os_detect() { printf 'linux\\n'; }",
         "arch_detect() { printf 'x64\\n'; }",
@@ -1203,7 +1203,7 @@ EOF
         npm_command_path() { printf '%s\n' "$fake_npm"; }
         npm_global_bin_dir() { printf '%s\n' "$bin"; }
         GIT_DIR="$repo"
-        OPENCLAW_VERSION="$root/candidate.tgz"
+        GRANTED_VERSION="$root/candidate.tgz"
         export NPM_FAKE_ROOT="$npm_root" NPM_FAKE_PREFIX="$HOME/.local" NPM_FAKE_MODE=${mode}
         prepare_git_wrapper_backup_for_npm "$GIT_DIR"
         set +e
@@ -1291,7 +1291,7 @@ EOF
       ui_error() { :; }
       ui_success() { :; }
       INSTALL_METHOD=npm
-      OPENCLAW_VERSION="$root/candidate.tgz"
+      GRANTED_VERSION="$root/candidate.tgz"
       export NPM_CANDIDATE_CALLS="$calls" NPM_FAKE_ROOT="$npm_root" NPM_FAKE_PREFIX="$HOME/.local"
       set +e
       (set -e; main)
@@ -1637,7 +1637,7 @@ EOF
     }
   });
 
-  it("uses OPENCLAW_HOME for git defaults", () => {
+  it("uses GRANTED_HOME for git defaults", () => {
     const tmp = mkdtempSync(join(tmpdir(), "openclaw-install-home-"));
     const osHome = join(tmp, "os-home");
     const openclawHome = join(tmp, "openclaw-home");
@@ -1654,8 +1654,8 @@ EOF
         ].join("\n"),
         {
           HOME: osHome,
-          OPENCLAW_HOME: openclawHome,
-          OPENCLAW_GIT_DIR: undefined,
+          GRANTED_HOME: openclawHome,
+          GRANTED_GIT_DIR: undefined,
           TERM: "dumb",
         },
       );
@@ -1684,7 +1684,7 @@ EOF
       args: "--install-method git",
       envGitDir: "/env-target",
       expected: "/env-target",
-      name: "prefers OPENCLAW_GIT_DIR over the detected checkout",
+      name: "prefers GRANTED_GIT_DIR over the detected checkout",
     },
     {
       args: "--install-method git --git-dir /effective-home/openclaw",
@@ -1736,8 +1736,8 @@ EOF
         main
       `,
       {
-        OPENCLAW_GIT_DIR: envGitDir,
-        OPENCLAW_HOME: "/effective-home",
+        GRANTED_GIT_DIR: envGitDir,
+        GRANTED_HOME: "/effective-home",
         TERM: "dumb",
       },
     );
@@ -1788,7 +1788,7 @@ EOF
     expect(result.stdout).toContain("/.openclaw-clone.");
   });
 
-  it("does not treat OS HOME config as active when OPENCLAW_HOME is set", () => {
+  it("does not treat OS HOME config as active when GRANTED_HOME is set", () => {
     const tmp = mkdtempSync(join(tmpdir(), "openclaw-install-legacy-config-"));
     const osHome = join(tmp, "os-home");
     const openclawHome = join(tmp, "openclaw-home");
@@ -1807,8 +1807,8 @@ EOF
         ].join("\n"),
         {
           HOME: osHome,
-          OPENCLAW_HOME: openclawHome,
-          OPENCLAW_CONFIG_PATH: undefined,
+          GRANTED_HOME: openclawHome,
+          GRANTED_CONFIG_PATH: undefined,
           TERM: "dumb",
         },
       );
@@ -1822,7 +1822,7 @@ EOF
   });
 
   it.each(["openclaw.json", "clawdbot.json"])(
-    "detects %s under OPENCLAW_STATE_DIR",
+    "detects %s under GRANTED_STATE_DIR",
     (configName) => {
       const tmp = mkdtempSync(join(tmpdir(), "openclaw-install-state-config-"));
       const stateDir = join(tmp, "state");
@@ -1838,8 +1838,8 @@ EOF
             'if has_openclaw_config; then printf "configured=1\\n"; else printf "configured=0\\n"; fi',
           ].join("\n"),
           {
-            OPENCLAW_CONFIG_PATH: undefined,
-            OPENCLAW_STATE_DIR: stateDir,
+            GRANTED_CONFIG_PATH: undefined,
+            GRANTED_STATE_DIR: stateDir,
             TERM: "dumb",
           },
         );
@@ -1853,7 +1853,7 @@ EOF
     },
   );
 
-  it("does not fall back to home config when OPENCLAW_STATE_DIR is set", () => {
+  it("does not fall back to home config when GRANTED_STATE_DIR is set", () => {
     const tmp = mkdtempSync(join(tmpdir(), "openclaw-install-state-override-"));
     const home = join(tmp, "home");
     const stateDir = join(tmp, "state");
@@ -1871,9 +1871,9 @@ EOF
         ].join("\n"),
         {
           HOME: home,
-          OPENCLAW_CONFIG_PATH: undefined,
-          OPENCLAW_HOME: undefined,
-          OPENCLAW_STATE_DIR: stateDir,
+          GRANTED_CONFIG_PATH: undefined,
+          GRANTED_HOME: undefined,
+          GRANTED_STATE_DIR: stateDir,
           TERM: "dumb",
         },
       );
@@ -2094,7 +2094,7 @@ EOF
         `parse_args --npm --no-onboard ${args}`,
         "main",
       ].join("\n"),
-      { OPENCLAW_DRY_RUN: dryRunEnv },
+      { GRANTED_DRY_RUN: dryRunEnv },
     );
     expect(result.status, result.stdout + result.stderr).toBe(dryRun ? 0 : 73);
     expect(result.stdout).toContain("Install plan");
@@ -2288,13 +2288,13 @@ EOF
           main
         `,
         {
-          OPENCLAW_CONFIG_PATH: "",
-          OPENCLAW_HOME: "",
-          OPENCLAW_STATE_DIR: "",
-          OPENCLAW_INSTALL_METHOD: "",
-          OPENCLAW_VERIFY_INSTALL: "0",
-          OPENCLAW_NO_ONBOARD: "0",
-          OPENCLAW_NO_PROMPT: "0",
+          GRANTED_CONFIG_PATH: "",
+          GRANTED_HOME: "",
+          GRANTED_STATE_DIR: "",
+          GRANTED_INSTALL_METHOD: "",
+          GRANTED_VERIFY_INSTALL: "0",
+          GRANTED_NO_ONBOARD: "0",
+          GRANTED_NO_PROMPT: "0",
           SCENARIO_CONFIGURED: configured ? "1" : "0",
           SCENARIO_UPGRADE: upgrade ? "1" : "0",
           SCENARIO_VERIFY: verify ? "1" : "0",
@@ -2383,7 +2383,7 @@ EOF
       set -euo pipefail
       source "${SCRIPT_PATH}"
       set +e
-      OPENCLAW_VERSION=main
+      GRANTED_VERSION=main
       USE_BETA=0
       install_openclaw
       status=$?
@@ -2535,7 +2535,7 @@ EOF
             "set -euo pipefail",
             `source ${JSON.stringify(SCRIPT_PATH)}`,
             `PATH=${JSON.stringify(`${bin}:/usr/bin:/bin`)}`,
-            `OPENCLAW_VERSION=${requested}`,
+            `GRANTED_VERSION=${requested}`,
             "USE_BETA=0",
             "NPM_LOGLEVEL=error",
             `npm_global_bin_dir() { printf '%s\\n' ${JSON.stringify(bin)}; }`,
@@ -2590,7 +2590,7 @@ EOF
           "set -euo pipefail",
           `source ${JSON.stringify(SCRIPT_PATH)}`,
           `PATH=${JSON.stringify(`${bin}:/usr/bin:/bin`)}`,
-          "OPENCLAW_VERSION=latest",
+          "GRANTED_VERSION=latest",
           "USE_BETA=0",
           "NPM_LOGLEVEL=error",
           `npm_global_bin_dir() { printf '%s\\n' ${JSON.stringify(bin)}; }`,
@@ -2756,7 +2756,7 @@ EOF
           PROBE_EXIT: String(probeExit),
           WATCHDOG_PID: join(root, "sleep.pid"),
           WATCHDOG_READY: join(root, "ready"),
-          OPENCLAW_INSTALL_PROBE_TIMEOUT_SECONDS: undefined,
+          GRANTED_INSTALL_PROBE_TIMEOUT_SECONDS: undefined,
         },
       );
 
@@ -2793,7 +2793,7 @@ EOF
       const result = runInstallShell(
         [`source ${JSON.stringify(SCRIPT_PATH)}`, "npm_global_bin_dir"].join("\n"),
         {
-          OPENCLAW_INSTALL_PROBE_TIMEOUT_SECONDS: "1",
+          GRANTED_INSTALL_PROBE_TIMEOUT_SECONDS: "1",
           PATH: `${tmp}:${process.env.PATH ?? ""}`,
         },
       );
@@ -2834,7 +2834,7 @@ EOF
           '  printf "not-loaded\\n"',
           "fi",
         ].join("\n"),
-        { OPENCLAW_INSTALL_PROBE_TIMEOUT_SECONDS: "0.01" },
+        { GRANTED_INSTALL_PROBE_TIMEOUT_SECONDS: "0.01" },
       );
 
       expect(result.status).toBe(0);
@@ -3435,7 +3435,7 @@ EOF
               SHELL: "/bin/bash",
               BASH_ENV: "",
               ENV: "",
-              OPENCLAW_INSTALL_SH_NO_RUN: "1",
+              GRANTED_INSTALL_SH_NO_RUN: "1",
             },
           },
         );
@@ -3514,7 +3514,7 @@ EOF
               PATH: "/usr/bin:/bin",
               BASH_ENV: "",
               ENV: "",
-              OPENCLAW_INSTALL_SH_NO_RUN: "1",
+              GRANTED_INSTALL_SH_NO_RUN: "1",
             },
           },
         );
@@ -3797,7 +3797,7 @@ EOF
       result = runInstallShell(`
         set -euo pipefail
         source "${SCRIPT_PATH}"
-        OPENCLAW_BIN=${JSON.stringify(openclawBin)}
+        GRANTED_BIN=${JSON.stringify(openclawBin)}
         ORIGINAL_PATH=${JSON.stringify(`${staleBin}:${currentBin}:/usr/bin:/bin`)}
         VERIFY_INSTALL=1
         is_gateway_daemon_loaded() { return 0; }
@@ -3832,7 +3832,7 @@ EOF
         `
           set -euo pipefail
           source "${SCRIPT_PATH}"
-          OPENCLAW_BIN=${JSON.stringify(openclawBin)}
+          GRANTED_BIN=${JSON.stringify(openclawBin)}
           is_gateway_daemon_loaded() { return 0; }
           run_quiet_step() {
             local title="$1"
@@ -3882,7 +3882,7 @@ EOF
         [
           "set -euo pipefail",
           `source ${JSON.stringify(SCRIPT_PATH)}`,
-          `OPENCLAW_BIN=${JSON.stringify(openclaw)}`,
+          `GRANTED_BIN=${JSON.stringify(openclaw)}`,
           "is_gateway_daemon_loaded() { return 0; }",
           "set -x",
           "refresh_gateway_service_if_loaded",
@@ -3944,13 +3944,13 @@ EOF
         fi
         return 1
       }
-      OPENCLAW_VERSION=v2026.5.12-beta.3
+      GRANTED_VERSION=v2026.5.12-beta.3
       printf 'tag=%s\\n' "$(resolve_git_openclaw_ref)"
-      OPENCLAW_VERSION=2026.5.12-beta.3
+      GRANTED_VERSION=2026.5.12-beta.3
       printf 'semver=%s\\n' "$(resolve_git_openclaw_ref)"
-      OPENCLAW_VERSION=beta
+      GRANTED_VERSION=beta
       printf 'beta=%s\\n' "$(resolve_git_openclaw_ref)"
-      OPENCLAW_VERSION=main
+      GRANTED_VERSION=main
       printf 'main=%s\\n' "$(resolve_git_openclaw_ref)"
     `);
 
@@ -3978,7 +3978,7 @@ EOF
 
   it.each(["bundle", "remote"] as const)("pins a full commit from a %s", (source) => {
     const result = runInstallShell(createInstallGitCommitFixtureScript(source), {
-      OPENCLAW_INSTALLER_SCRIPT: SCRIPT_PATH,
+      GRANTED_INSTALLER_SCRIPT: SCRIPT_PATH,
     });
 
     expect(result.status, result.stdout + result.stderr).toBe(0);
@@ -4638,7 +4638,7 @@ describe("install.sh duplicate OpenClaw install detection", () => {
       printf '{"version":"2026.3.7"}\\n' > "$root/brew/openclaw/package.json"
       printf '{"version":"2026.3.1"}\\n' > "$root/fnm/openclaw/package.json"
       collect_openclaw_npm_root_candidates() { printf '%s\\n' "$root/brew" "$root/fnm"; }
-      OPENCLAW_BIN="$root/fnm/.bin/openclaw"
+      GRANTED_BIN="$root/fnm/.bin/openclaw"
       ui_warn() { echo "WARN: $*"; }
       warn_duplicate_openclaw_global_installs
     `);
@@ -4683,7 +4683,7 @@ describe("install.sh duplicate OpenClaw install detection", () => {
         env: {
           ...process.env,
           HOME: tmpdir(),
-          OPENCLAW_INSTALL_SH_NO_RUN: "1",
+          GRANTED_INSTALL_SH_NO_RUN: "1",
           BASH_ENV: "",
           ENV: "",
         },
@@ -4777,7 +4777,7 @@ describe("install.sh duplicate OpenClaw install detection", () => {
             ...process.env,
             HOME: tmpdir(),
             NO_PROMPT: "1",
-            OPENCLAW_INSTALL_SH_NO_RUN: "1",
+            GRANTED_INSTALL_SH_NO_RUN: "1",
             BASH_ENV: "",
             ENV: "",
           },
@@ -4813,7 +4813,7 @@ describe("install.sh duplicate OpenClaw install detection", () => {
           env: {
             ...process.env,
             HOME: tmpdir(),
-            OPENCLAW_INSTALL_SH_NO_RUN: "1",
+            GRANTED_INSTALL_SH_NO_RUN: "1",
             BASH_ENV: "",
             ENV: "",
           },
@@ -4848,7 +4848,7 @@ describe("install.sh duplicate OpenClaw install detection", () => {
             ...process.env,
             HOME: tmpdir(),
             NO_PROMPT: "1",
-            OPENCLAW_INSTALL_SH_NO_RUN: "1",
+            GRANTED_INSTALL_SH_NO_RUN: "1",
             BASH_ENV: "",
             ENV: "",
           },
@@ -4873,7 +4873,7 @@ describe("install.sh doctor cancellation and dashboard guard", () => {
 
   it("preserves plugin update stdin for direct interactive upgrades", () => {
     expect(script).toContain(
-      'OPENCLAW_UPDATE_IN_PROGRESS=1 run_with_safe_stdin "$claw" plugins update --all || true',
+      'GRANTED_UPDATE_IN_PROGRESS=1 run_with_safe_stdin "$claw" plugins update --all || true',
     );
   });
 

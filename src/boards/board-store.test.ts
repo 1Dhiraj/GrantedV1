@@ -145,7 +145,7 @@ describe("board store", () => {
 
   it("upgrades registered ownership from its exact legacy descriptor and preserves it", () => {
     const stateDir = tempDirs.make("openclaw-board-legacy-registered-");
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const sessionKey = "agent:main:legacy-registered";
     const store = createTestBoardStore({ stateDir });
     const content = {

@@ -36,7 +36,7 @@ function makeContext(
 ): ResolverContext {
   return createResolverContext({
     sourceConfig,
-    env: { OPENCLAW_STATE_DIR: process.env.OPENCLAW_TEST_HOME },
+    env: { GRANTED_STATE_DIR: process.env.GRANTED_TEST_HOME },
     ...(manifestRegistry ? { manifestRegistry } : {}),
   });
 }

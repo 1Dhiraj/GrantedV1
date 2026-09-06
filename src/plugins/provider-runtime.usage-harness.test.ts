@@ -56,7 +56,7 @@ function makeCodexManifestEnv(): NodeJS.ProcessEnv {
       },
     };\n`,
   );
-  return makeIsolatedEnv({ OPENCLAW_BUNDLED_PLUGINS_DIR: bundledPluginsDir });
+  return makeIsolatedEnv({ GRANTED_BUNDLED_PLUGINS_DIR: bundledPluginsDir });
 }
 
 describe("provider runtime harness usage", () => {
@@ -131,11 +131,11 @@ describe("provider runtime harness usage", () => {
   ])("preserves $name in cold usage diagnostics", async ({ config, expectedReason }) => {
     const workspaceDir = makeTempDir();
     const env = makeCodexManifestEnv();
-    vi.stubEnv("OPENCLAW_STATE_DIR", env.OPENCLAW_STATE_DIR ?? "");
-    vi.stubEnv("OPENCLAW_BUNDLED_PLUGINS_DIR", env.OPENCLAW_BUNDLED_PLUGINS_DIR ?? "");
+    vi.stubEnv("GRANTED_STATE_DIR", env.GRANTED_STATE_DIR ?? "");
+    vi.stubEnv("GRANTED_BUNDLED_PLUGINS_DIR", env.GRANTED_BUNDLED_PLUGINS_DIR ?? "");
     vi.stubEnv(
-      "OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR",
-      env.OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR ?? "",
+      "GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR",
+      env.GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR ?? "",
     );
 
     const error = await resolveProviderUsageSnapshotWithPlugin({

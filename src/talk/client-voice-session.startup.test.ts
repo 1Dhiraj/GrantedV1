@@ -24,14 +24,14 @@ import {
 import { clientVoiceSessionTesting } from "./client-voice-session.test-support.js";
 
 describe("client voice session startup", () => {
-  const envSnapshot = captureEnv(["OPENCLAW_STATE_DIR"]);
+  const envSnapshot = captureEnv(["GRANTED_STATE_DIR"]);
   let tempDir: string;
 
   beforeEach(async () => {
     tempDir = await fs.realpath(
       await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-voice-startup-")),
     );
-    setTestEnvValue("OPENCLAW_STATE_DIR", tempDir);
+    setTestEnvValue("GRANTED_STATE_DIR", tempDir);
   });
 
   afterEach(async () => {

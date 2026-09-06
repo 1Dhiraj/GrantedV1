@@ -1,5 +1,5 @@
 // Qa Lab tests cover qa gateway config plugin behavior.
-import { OPENCLAW_VERSION } from "openclaw/plugin-sdk/agent-harness-runtime";
+import { GRANTED_VERSION } from "openclaw/plugin-sdk/agent-harness-runtime";
 import { describe, expect, it } from "vitest";
 import {
   buildQaGatewayConfig,
@@ -92,7 +92,7 @@ describe("buildQaGatewayConfig", () => {
         ...createQaChannelTransportParams(),
       });
 
-      expect(cfg.meta).toEqual({ lastTouchedVersion: OPENCLAW_VERSION });
+      expect(cfg.meta).toEqual({ lastTouchedVersion: GRANTED_VERSION });
       expect(cfg.logging?.file).toBe(`${workspaceDir}/logs/openclaw-YYYY-MM-DD.log`);
       expect(cfg.plugins?.allow).toEqual(["memory-core", "qa-lab", "qa-channel"]);
       expect(getPrimaryModel(cfg.agents?.defaults?.model)).toBe("mock-openai/gpt-5.6-luna");

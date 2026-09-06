@@ -79,9 +79,9 @@ describe.each(["startup", "repair"] as const)("%s consent inventory", (first) =>
       const fixture = createColdPluginFixture({ rootDir, pluginId, packageName });
       const env = {
         HOME: home,
-        OPENCLAW_STATE_DIR: path.join(home, "state"),
-        OPENCLAW_BUNDLED_PLUGINS_DIR: bundledRoot,
-        OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR: "1",
+        GRANTED_STATE_DIR: path.join(home, "state"),
+        GRANTED_BUNDLED_PLUGINS_DIR: bundledRoot,
+        GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR: "1",
         VITEST: "true",
       };
       const cfg = { plugins: { allow: ["selected-fixture"] } };
@@ -136,9 +136,9 @@ describe.each(["startup", "repair"] as const)("%s consent inventory", (first) =>
       fs.mkdirSync(bundledRoot, { recursive: true });
       const env = {
         HOME: home,
-        OPENCLAW_STATE_DIR: path.join(home, "state"),
-        OPENCLAW_BUNDLED_PLUGINS_DIR: bundledRoot,
-        OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR: "1",
+        GRANTED_STATE_DIR: path.join(home, "state"),
+        GRANTED_BUNDLED_PLUGINS_DIR: bundledRoot,
+        GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR: "1",
         VITEST: "true",
         [envVar]: "synthetic-credential",
       };

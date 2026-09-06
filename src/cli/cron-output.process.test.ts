@@ -85,8 +85,8 @@ describe("cron process output", () => {
     `;
       const env: NodeJS.ProcessEnv = {
         ...process.env,
-        OPENCLAW_STATE_DIR: path.join(root, "state"),
-        OPENCLAW_CONFIG_PATH: path.join(root, "openclaw.json"),
+        GRANTED_STATE_DIR: path.join(root, "state"),
+        GRANTED_CONFIG_PATH: path.join(root, "openclaw.json"),
         TMPDIR: root,
         TSX_DISABLE_CACHE: "1",
         NODE_DISABLE_COMPILE_CACHE: "1",

@@ -66,7 +66,7 @@ describe("delivery queue pending terminal transition", () => {
         retained: true,
       });
       const { db } = openOpenClawStateDatabase({
-        env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+        env: { ...process.env, GRANTED_STATE_DIR: stateDir },
       });
       const row = db
         .prepare(
@@ -159,7 +159,7 @@ describe("delivery queue pending terminal transition", () => {
 
   it("groups backfilled bounded count limits by producer prefix during exact lookup", () => {
     const { db } = openOpenClawStateDatabase({
-      env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+      env: { ...process.env, GRANTED_STATE_DIR: stateDir },
     });
     const insert = db.prepare(
       `INSERT INTO delivery_queue_entries (
@@ -205,7 +205,7 @@ describe("delivery queue pending terminal transition", () => {
   it("keeps health reads immutable and expires tombstones during maintenance", () => {
     const retention = { idPrefix: "health:", maxAgeMs: 1_000, maxEntries: 1 } as const;
     const { db } = openOpenClawStateDatabase({
-      env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+      env: { ...process.env, GRANTED_STATE_DIR: stateDir },
     });
     const insertFailed = db.prepare(
       `INSERT INTO delivery_queue_entries (
@@ -318,7 +318,7 @@ describe("delivery queue pending terminal transition", () => {
       vi.useRealTimers();
     }
     const { db } = openOpenClawStateDatabase({
-      env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+      env: { ...process.env, GRANTED_STATE_DIR: stateDir },
     });
     db.prepare(
       "UPDATE delivery_queue_entries SET failed_at = NULL WHERE queue_name = 'session'",
@@ -443,7 +443,7 @@ describe("delivery queue pending terminal transition", () => {
           retained ? "failed" : undefined,
         );
         const { db } = openOpenClawStateDatabase({
-          env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+          env: { ...process.env, GRANTED_STATE_DIR: stateDir },
         });
         const row = db
           .prepare(

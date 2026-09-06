@@ -29,8 +29,8 @@ async function writeLegacySidecarThatNeedsKeychain(): Promise<{
     layout: "state-only",
     prefix: "openclaw-legacy-oauth-keychain-warn-",
     env: {
-      OPENCLAW_AGENT_DIR: undefined,
-      OPENCLAW_AUTH_PROFILE_SECRET_KEY: undefined,
+      GRANTED_AGENT_DIR: undefined,
+      GRANTED_AUTH_PROFILE_SECRET_KEY: undefined,
     },
   });
   states.push(state);

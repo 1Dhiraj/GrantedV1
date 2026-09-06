@@ -6,8 +6,8 @@ import type { OpenClawConfig } from "../config/types.openclaw.js";
 import { deleteTestEnvValue, setTestEnvValue } from "../test-utils/env.js";
 import { resolveModelRuntimePolicy as resolveModelRuntimePolicyBase } from "./model-runtime-policy.js";
 
-const ORIGINAL_BUILD_PRIVATE_QA = process.env.OPENCLAW_BUILD_PRIVATE_QA;
-const ORIGINAL_QA_FORCE_RUNTIME = process.env.OPENCLAW_QA_FORCE_RUNTIME;
+const ORIGINAL_BUILD_PRIVATE_QA = process.env.GRANTED_BUILD_PRIVATE_QA;
+const ORIGINAL_QA_FORCE_RUNTIME = process.env.GRANTED_QA_FORCE_RUNTIME;
 
 function resolveModelRuntimePolicy(
   params: Parameters<typeof resolveModelRuntimePolicyBase>[0],
@@ -38,7 +38,7 @@ const createModelConfig = (
 });
 
 function restoreEnv(
-  name: "OPENCLAW_BUILD_PRIVATE_QA" | "OPENCLAW_QA_FORCE_RUNTIME",
+  name: "GRANTED_BUILD_PRIVATE_QA" | "GRANTED_QA_FORCE_RUNTIME",
   value: string | undefined,
 ): void {
   // Tests mutate private QA env gates; restore exact process state after each.
@@ -64,14 +64,14 @@ function makeProviderRuntimeConfig(runtime: string): OpenClawConfig {
 }
 
 afterEach(() => {
-  restoreEnv("OPENCLAW_BUILD_PRIVATE_QA", ORIGINAL_BUILD_PRIVATE_QA);
-  restoreEnv("OPENCLAW_QA_FORCE_RUNTIME", ORIGINAL_QA_FORCE_RUNTIME);
+  restoreEnv("GRANTED_BUILD_PRIVATE_QA", ORIGINAL_BUILD_PRIVATE_QA);
+  restoreEnv("GRANTED_QA_FORCE_RUNTIME", ORIGINAL_QA_FORCE_RUNTIME);
 });
 
 describe("resolveModelRuntimePolicy", () => {
   it("ignores the QA force-runtime override when the private QA gate is unset", () => {
-    deleteTestEnvValue("OPENCLAW_BUILD_PRIVATE_QA");
-    setTestEnvValue("OPENCLAW_QA_FORCE_RUNTIME", "openclaw");
+    deleteTestEnvValue("GRANTED_BUILD_PRIVATE_QA");
+    setTestEnvValue("GRANTED_QA_FORCE_RUNTIME", "openclaw");
 
     expect(
       resolveModelRuntimePolicy({
@@ -88,8 +88,8 @@ describe("resolveModelRuntimePolicy", () => {
   it("respects the QA force-runtime override when the private QA gate is set", () => {
     // The force-runtime override is intentionally gated to private QA builds so
     // normal users cannot accidentally change model runtime selection via env.
-    setTestEnvValue("OPENCLAW_BUILD_PRIVATE_QA", "1");
-    setTestEnvValue("OPENCLAW_QA_FORCE_RUNTIME", "openclaw");
+    setTestEnvValue("GRANTED_BUILD_PRIVATE_QA", "1");
+    setTestEnvValue("GRANTED_QA_FORCE_RUNTIME", "openclaw");
 
     expect(
       resolveModelRuntimePolicy({
@@ -105,8 +105,8 @@ describe("resolveModelRuntimePolicy", () => {
   });
 
   it("ignores invalid QA force-runtime values even when the private QA gate is set", () => {
-    setTestEnvValue("OPENCLAW_BUILD_PRIVATE_QA", "1");
-    setTestEnvValue("OPENCLAW_QA_FORCE_RUNTIME", "bogus");
+    setTestEnvValue("GRANTED_BUILD_PRIVATE_QA", "1");
+    setTestEnvValue("GRANTED_QA_FORCE_RUNTIME", "bogus");
 
     expect(
       resolveModelRuntimePolicy({

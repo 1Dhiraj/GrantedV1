@@ -109,7 +109,7 @@ suite.define(() => {
           const held = gesture === "held Enter";
           const capture = held && attachment;
           const proofDir = path.resolve(
-            process.env.OPENCLAW_UI_E2E_DIAGNOSTIC_DIR?.trim() || ".artifacts/control-ui-e2e",
+            process.env.GRANTED_UI_E2E_DIAGNOSTIC_DIR?.trim() || ".artifacts/control-ui-e2e",
             "held-enter",
           );
           if (capture) {
@@ -407,7 +407,7 @@ suite.define(() => {
         await gateway.setOnline(true);
         await expect.poll(() => composer.inputValue()).toBe(text);
         await expect.poll(() => page.locator(".chat-attachment-thumb").count()).toBe(1);
-        const artifactDir = process.env.OPENCLAW_UI_E2E_ARTIFACT_DIR?.trim();
+        const artifactDir = process.env.GRANTED_UI_E2E_ARTIFACT_DIR?.trim();
         if (artifactDir) {
           await mkdir(artifactDir, { recursive: true });
           await page.screenshot({ path: path.join(artifactDir, "offline-draft-restored.png") });
@@ -443,7 +443,7 @@ suite.define(() => {
       ],
       ts: Date.now(),
     };
-    const artifactDir = process.env.OPENCLAW_UI_E2E_ARTIFACT_DIR?.trim();
+    const artifactDir = process.env.GRANTED_UI_E2E_ARTIFACT_DIR?.trim();
     if (artifactDir) {
       await mkdir(artifactDir, { recursive: true });
     }
@@ -589,7 +589,7 @@ suite.define(() => {
         await expect.poll(() => page.locator(".chat-attachment-thumb").count()).toBe(2);
         await expect.poll(() => composer.inputValue()).toBe("Send both files");
 
-        const artifactDir = process.env.OPENCLAW_UI_E2E_ARTIFACT_DIR?.trim();
+        const artifactDir = process.env.GRANTED_UI_E2E_ARTIFACT_DIR?.trim();
         if (artifactDir) {
           await mkdir(artifactDir, { recursive: true });
           await page.screenshot({ path: path.join(artifactDir, "attachment-frame-rejected.png") });

@@ -50,14 +50,14 @@ const tempDirs = useAutoCleanupTempDirTracker((cleanup) => {
 
 function createEnv(external = false): NodeJS.ProcessEnv {
   return {
-    OPENCLAW_STATE_DIR: tempDirs.make("openclaw-state-ownership-"),
-    ...(external ? { OPENCLAW_SUPERVISOR_MODE: "external" } : {}),
+    GRANTED_STATE_DIR: tempDirs.make("openclaw-state-ownership-"),
+    ...(external ? { GRANTED_SUPERVISOR_MODE: "external" } : {}),
   };
 }
 
 function withoutExternalMarker(env: NodeJS.ProcessEnv): NodeJS.ProcessEnv {
   const next = { ...env };
-  delete next.OPENCLAW_SUPERVISOR_MODE;
+  delete next.GRANTED_SUPERVISOR_MODE;
   return next;
 }
 
@@ -155,8 +155,8 @@ describe("external shared-state ownership", () => {
     const databasePath = path.join(stateDir, "state", "openclaw.sqlite");
     const env = {
       HOME: home,
-      OPENCLAW_CONFIG_PATH: configPath,
-      OPENCLAW_STATE_DIR: stateDir,
+      GRANTED_CONFIG_PATH: configPath,
+      GRANTED_STATE_DIR: stateDir,
     };
     fs.mkdirSync(stateDir, { recursive: true });
     fs.writeFileSync(configPath, "{}\n");
@@ -188,10 +188,10 @@ describe("external shared-state ownership", () => {
       await withEnvAsync(
         {
           HOME: home,
-          OPENCLAW_CONFIG_PATH: path.join(home, "openclaw.json"),
-          OPENCLAW_PROFILE: undefined,
-          OPENCLAW_STATE_DIR: env.OPENCLAW_STATE_DIR,
-          OPENCLAW_SUPERVISOR_MODE: env.OPENCLAW_SUPERVISOR_MODE,
+          GRANTED_CONFIG_PATH: path.join(home, "openclaw.json"),
+          GRANTED_PROFILE: undefined,
+          GRANTED_STATE_DIR: env.GRANTED_STATE_DIR,
+          GRANTED_SUPERVISOR_MODE: env.GRANTED_SUPERVISOR_MODE,
         },
         async () =>
           await runDoctorConfigPreflight({
@@ -475,7 +475,7 @@ describe("external shared-state ownership", () => {
 
   it("inspects consolidated ownership without modifying its SQLite family or state tree", () => {
     const fixture = claimFixture();
-    const stateDir = fixture.externalEnv.OPENCLAW_STATE_DIR;
+    const stateDir = fixture.externalEnv.GRANTED_STATE_DIR;
     if (!stateDir) {
       throw new Error("ownership fixture state directory is unavailable");
     }
@@ -545,9 +545,9 @@ describe("external shared-state ownership", () => {
   it("requires the external marker and makes claims idempotent only for one manager", () => {
     const env = createEnv();
     expect(() => claimOpenClawStateOwnership("gateway-supervisor", { env })).toThrow(
-      /OPENCLAW_SUPERVISOR_MODE=external/u,
+      /GRANTED_SUPERVISOR_MODE=external/u,
     );
-    const externalEnv = { ...env, OPENCLAW_SUPERVISOR_MODE: "external" };
+    const externalEnv = { ...env, GRANTED_SUPERVISOR_MODE: "external" };
     const first = claimOpenClawStateOwnership("gateway-supervisor", { env: externalEnv });
     expect(claimOpenClawStateOwnership("gateway-supervisor", { env: externalEnv })).toEqual(first);
     expect(
@@ -847,7 +847,7 @@ describe("external shared-state ownership", () => {
     );
     const healthDeps = {
       env: fixture.unmarkedEnv,
-      homedir: () => fixture.unmarkedEnv.OPENCLAW_STATE_DIR ?? "",
+      homedir: () => fixture.unmarkedEnv.GRANTED_STATE_DIR ?? "",
       logger: { warn: () => undefined },
     };
     expect(() => readConfigHealthStateFromStore(healthDeps)).toThrow(OpenClawStateOwnershipError);

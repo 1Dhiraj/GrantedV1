@@ -41,7 +41,7 @@ export async function resolveGatewayAuthToken(params: {
     path: "gateway.auth.token",
     unresolvedReasonStyle: params.unresolvedReasonStyle,
     ...(params.envFallback !== "never"
-      ? { readFallback: () => params.env.OPENCLAW_GATEWAY_TOKEN }
+      ? { readFallback: () => params.env.GRANTED_GATEWAY_TOKEN }
       : {}),
   });
   return {

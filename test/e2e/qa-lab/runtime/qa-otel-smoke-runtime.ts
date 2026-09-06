@@ -67,7 +67,7 @@ type StdoutDiagnosticLogRecord = {
 };
 
 const DEFAULT_DOCKER_COLLECTOR_IMAGE =
-  process.env.OPENCLAW_QA_OTEL_COLLECTOR_IMAGE || "otel/opentelemetry-collector:0.159.0";
+  process.env.GRANTED_QA_OTEL_COLLECTOR_IMAGE || "otel/opentelemetry-collector:0.159.0";
 const REQUIRED_SPAN_NAMES = [
   "openclaw.run",
   "openclaw.harness.run",
@@ -104,7 +104,7 @@ const DISALLOWED_BODY_NEEDLES = [
 ];
 const COLLECTOR_OUTPUT_TAIL_BYTES = 16_000;
 const MAX_STDOUT_DIAGNOSTIC_LINE_BYTES = readPositiveIntegerEnv(
-  "OPENCLAW_QA_OTEL_MAX_STDOUT_DIAGNOSTIC_LINE_BYTES",
+  "GRANTED_QA_OTEL_MAX_STDOUT_DIAGNOSTIC_LINE_BYTES",
   512 * 1024,
 );
 const QA_OTEL_ENV_TO_CLEAR = [

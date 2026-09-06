@@ -205,7 +205,7 @@ describe("config write guard after unreadable config", () => {
       try {
         fsNode.chmodSync(configPath, 0o000);
         await withEnvAsync(
-          { OPENCLAW_CONFIG_PATH: configPath, OPENCLAW_TEST_FAST: "1" },
+          { GRANTED_CONFIG_PATH: configPath, GRANTED_TEST_FAST: "1" },
           async () => {
             await expect(
               writeConfigFile({ channels: { telegram: { enabled: true } } }),

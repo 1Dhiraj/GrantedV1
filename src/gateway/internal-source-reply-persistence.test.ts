@@ -59,7 +59,7 @@ async function createSourceReplyFixture(state: OpenClawTestState) {
   );
   await replaceSessionEntry(scope, entry);
   const database = openOpenClawStateDatabase({
-    env: { ...process.env, OPENCLAW_STATE_DIR: state.stateDir },
+    env: { ...process.env, GRANTED_STATE_DIR: state.stateDir },
   });
   const records = () => listManagedImageRecordEntries({ stateDir: state.stateDir, sessionKey });
   const updates: SessionTranscriptUpdate[] = [];

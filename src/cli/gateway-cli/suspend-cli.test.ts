@@ -91,8 +91,8 @@ describe("gateway suspend CLI", () => {
   ])(
     "prints a correctly scoped resume hint for $name",
     async ({ rpcOpts, profile, container, command }) => {
-      vi.stubEnv("OPENCLAW_PROFILE", profile);
-      vi.stubEnv("OPENCLAW_CONTAINER_HINT", container);
+      vi.stubEnv("GRANTED_PROFILE", profile);
+      vi.stubEnv("GRANTED_CONTAINER_HINT", container);
       const runtime = createRuntime();
 
       await runGatewaySuspend(

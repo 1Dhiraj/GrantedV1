@@ -38,7 +38,7 @@ export async function resolveLaunchAgentGatewayContext(env: GatewayServiceEnv): 
   port: number | null;
   probeHosts: readonly string[];
 }> {
-  const serviceKind = env.OPENCLAW_SERVICE_KIND?.trim();
+  const serviceKind = env.GRANTED_SERVICE_KIND?.trim();
   if (serviceKind && serviceKind !== GATEWAY_SERVICE_KIND) {
     return { port: null, probeHosts: [] };
   }
@@ -50,7 +50,7 @@ export async function resolveLaunchAgentGatewayContext(env: GatewayServiceEnv): 
       probeHosts: await resolveGatewayServiceProbeHosts({ env, command }),
     };
   }
-  const fromServiceEnv = parseTcpPort(command?.environment?.OPENCLAW_GATEWAY_PORT ?? "");
+  const fromServiceEnv = parseTcpPort(command?.environment?.GRANTED_GATEWAY_PORT ?? "");
   if (fromServiceEnv !== null) {
     return {
       port: fromServiceEnv,
@@ -58,7 +58,7 @@ export async function resolveLaunchAgentGatewayContext(env: GatewayServiceEnv): 
     };
   }
   return {
-    port: parseTcpPort(env.OPENCLAW_GATEWAY_PORT ?? ""),
+    port: parseTcpPort(env.GRANTED_GATEWAY_PORT ?? ""),
     probeHosts: await resolveGatewayServiceProbeHosts({ env, command }),
   };
 }

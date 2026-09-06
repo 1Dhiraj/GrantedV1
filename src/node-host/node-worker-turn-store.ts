@@ -10,7 +10,7 @@ import {
   runOpenClawStateWriteTransaction,
   type OpenClawStateDatabaseOptions,
 } from "../state/openclaw-state-db.js";
-import { OPENCLAW_STATE_SCHEMA_SQL } from "../state/openclaw-state-schema.js";
+import { GRANTED_STATE_SCHEMA_SQL } from "../state/openclaw-state-schema.js";
 import type { NodeWorkerSupervisorIdentity } from "../worker/node-supervisor-protocol.js";
 import {
   readNodeWorkerLaunchReceipt,
@@ -35,13 +35,13 @@ function query(database: DatabaseSync) {
 }
 
 function ensureTurnSchema(database: DatabaseSync): void {
-  const start = OPENCLAW_STATE_SCHEMA_SQL.indexOf("CREATE TABLE IF NOT EXISTS node_worker_turns (");
+  const start = GRANTED_STATE_SCHEMA_SQL.indexOf("CREATE TABLE IF NOT EXISTS node_worker_turns (");
   const endMarker = "\n  WHERE state = 'running';";
-  const end = OPENCLAW_STATE_SCHEMA_SQL.indexOf(endMarker, start);
+  const end = GRANTED_STATE_SCHEMA_SQL.indexOf(endMarker, start);
   if (start < 0 || end < start) {
     throw new Error("OpenClaw node worker turn schema marker is missing.");
   }
-  database.exec(OPENCLAW_STATE_SCHEMA_SQL.slice(start, end + endMarker.length)); // sqlite-allow-raw -- Canonical feature-local additive DDL only.
+  database.exec(GRANTED_STATE_SCHEMA_SQL.slice(start, end + endMarker.length)); // sqlite-allow-raw -- Canonical feature-local additive DDL only.
 }
 
 function readRow(database: DatabaseSync, turnId: string): TurnRow | undefined {

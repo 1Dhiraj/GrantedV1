@@ -46,10 +46,10 @@ function withCodexSupervisionEnabled(config: OpenClawConfig): OpenClawConfig {
   const codexConfig = (codex.config ??= {}) as Record<string, unknown>;
   const supervision = (codexConfig.supervision ??= {}) as Record<string, unknown>;
   supervision.enabled = true;
-  if (process.env.OPENCLAW_CODEX_SUPERVISOR_ALLOW_RAW_TRANSCRIPTS === "1") {
+  if (process.env.GRANTED_CODEX_SUPERVISOR_ALLOW_RAW_TRANSCRIPTS === "1") {
     supervision.allowRawTranscripts = true;
   }
-  if (process.env.OPENCLAW_CODEX_SUPERVISOR_ALLOW_WRITE_CONTROLS === "1") {
+  if (process.env.GRANTED_CODEX_SUPERVISOR_ALLOW_WRITE_CONTROLS === "1") {
     supervision.allowWriteControls = true;
   }
   return next;

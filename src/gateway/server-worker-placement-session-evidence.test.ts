@@ -82,7 +82,7 @@ async function resolvePlacementEvidence(placement: WorkerSessionPlacementRecord)
 describe("worker placement session evidence", () => {
   it("keeps ordinary discovery failures independent from incognito evidence", async () => {
     const stateDir = tempDirs.make("openclaw-placement-session-read-failed-");
-    await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () => {
+    await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {
       const ordinary = localPlacement("session-read-failed", "agent:main:read-failed");
       const currentIncognito = localPlacement(
         "session-incognito-current",
@@ -134,7 +134,7 @@ describe("worker placement session evidence", () => {
 
   it("canonicalizes legacy default-main placements before batching", async () => {
     const stateDir = tempDirs.make("openclaw-placement-session-canonical-main-");
-    await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () => {
+    await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {
       const storeTemplate = path.join(stateDir, "agents", "{agentId}", "sessions", "sessions.json");
       const cfg: OpenClawConfig = {
         session: { store: storeTemplate },
@@ -164,7 +164,7 @@ describe("worker placement session evidence", () => {
 
   it("keeps a listed deleted-main placement current after default-agent migration", async () => {
     const stateDir = tempDirs.make("openclaw-placement-session-legacy-main-");
-    await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () => {
+    await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {
       const cfg: OpenClawConfig = {
         session: {
           store: path.join(stateDir, "agents", "{agentId}", "sessions", "sessions.json"),
@@ -186,7 +186,7 @@ describe("worker placement session evidence", () => {
 
   it("reports absence when the configured session database is genuinely missing", async () => {
     const stateDir = tempDirs.make("openclaw-placement-session-database-missing-");
-    await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () => {
+    await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {
       await expect(
         resolvePlacementEvidence(localPlacement("session-missing", "agent:main:missing")),
       ).resolves.toBe("absent");
@@ -197,7 +197,7 @@ describe("worker placement session evidence", () => {
     const stateDir = tempDirs.make("openclaw-placement-session-registry-unreadable-");
     fsSync.mkdirSync(path.join(stateDir, "state", "openclaw.sqlite"), { recursive: true });
 
-    await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () => {
+    await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {
       await expect(
         resolvePlacementEvidence(
           localPlacement("session-unreadable", "agent:retired:unreadable", "retired"),
@@ -208,7 +208,7 @@ describe("worker placement session evidence", () => {
 
   it("keeps a placement when its session database is migration-invalid", async () => {
     const stateDir = tempDirs.make("openclaw-placement-session-evidence-");
-    await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () => {
+    await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {
       const sessionId = "session-1";
       const sessionKey = "agent:main:main";
       await sessionAccessor.upsertSessionEntryCore(
@@ -227,7 +227,7 @@ describe("worker placement session evidence", () => {
 
   it("warns instead of silently swallowing resolver pipeline failures", async () => {
     const stateDir = tempDirs.make("openclaw-placement-session-pipeline-failure-");
-    await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () => {
+    await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {
       resolveTargetsReadOnlySpy.mockImplementationOnce(() => {
         throw new Error("evidence pipeline exploded");
       });
@@ -244,7 +244,7 @@ describe("worker placement session evidence", () => {
 
   it("prepares targets once and reads only exact session rows for a placement batch", async () => {
     const stateDir = tempDirs.make("openclaw-placement-session-evidence-batch-");
-    await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () => {
+    await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {
       const placements = Array.from({ length: 20 }, (_, index) => {
         const agentId = index % 2 === 0 ? "main" : "ops";
         const sessionId = `session-${index}`;

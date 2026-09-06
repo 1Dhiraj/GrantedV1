@@ -40,8 +40,8 @@ export async function startTuiFixture(opts: { env?: NodeJS.ProcessEnv; execPath?
     activeRuns,
     cwd: process.cwd(),
     env: {
-      OPENCLAW_THEME: "dark",
-      OPENCLAW_TUI_PTY_LOG_PATH: logPath,
+      GRANTED_THEME: "dark",
+      GRANTED_TUI_PTY_LOG_PATH: logPath,
       NO_COLOR: undefined,
       ...opts.env,
     },
@@ -81,20 +81,20 @@ export async function writeTuiPtyFixtureScript(dir: string) {
       import type { TuiBackend } from ${JSON.stringify(tuiBackendTypeUrl)};
       import { runTui } from ${JSON.stringify(tuiModuleUrl)};
 
-      const actionLogPath = process.env.OPENCLAW_TUI_PTY_LOG_PATH;
-      const gatewayStatus = process.env.OPENCLAW_TUI_PTY_GATEWAY_STATUS ?? "fixture gateway ok";
-      const startupDelayMs = Number(process.env.OPENCLAW_TUI_PTY_STARTUP_DELAY_MS ?? 0);
+      const actionLogPath = process.env.GRANTED_TUI_PTY_LOG_PATH;
+      const gatewayStatus = process.env.GRANTED_TUI_PTY_GATEWAY_STATUS ?? "fixture gateway ok";
+      const startupDelayMs = Number(process.env.GRANTED_TUI_PTY_STARTUP_DELAY_MS ?? 0);
       ${TUI_PTY_STARTUP_SESSION_FIXTURE.variables}
-      const footerModel = process.env.OPENCLAW_TUI_PTY_MODEL;
-      const footerThinkingLevel = process.env.OPENCLAW_TUI_PTY_THINKING_LEVEL;
-      let verboseLevel = process.env.OPENCLAW_TUI_PTY_VERBOSE_LEVEL;
+      const footerModel = process.env.GRANTED_TUI_PTY_MODEL;
+      const footerThinkingLevel = process.env.GRANTED_TUI_PTY_THINKING_LEVEL;
+      let verboseLevel = process.env.GRANTED_TUI_PTY_VERBOSE_LEVEL;
       let modeTargetTraceLevel: string | undefined;
-      const launchThinkingLevel = process.env.OPENCLAW_TUI_PTY_LAUNCH_THINKING;
-      const initialMessage = process.env.OPENCLAW_TUI_PTY_INITIAL_MESSAGE;
-      const inFlightRunText = process.env.OPENCLAW_TUI_PTY_IN_FLIGHT_TEXT;
-      const dynamicCommandDescription = process.env.OPENCLAW_TUI_PTY_DYNAMIC_COMMAND_DESCRIPTION;
-      const thinkingLabel = process.env.OPENCLAW_TUI_PTY_THINKING_LABEL;
-      const safeThinkingLabel = process.env.OPENCLAW_TUI_PTY_SAFE_THINKING_LABEL;
+      const launchThinkingLevel = process.env.GRANTED_TUI_PTY_LAUNCH_THINKING;
+      const initialMessage = process.env.GRANTED_TUI_PTY_INITIAL_MESSAGE;
+      const inFlightRunText = process.env.GRANTED_TUI_PTY_IN_FLIGHT_TEXT;
+      const dynamicCommandDescription = process.env.GRANTED_TUI_PTY_DYNAMIC_COMMAND_DESCRIPTION;
+      const thinkingLabel = process.env.GRANTED_TUI_PTY_THINKING_LABEL;
+      const safeThinkingLabel = process.env.GRANTED_TUI_PTY_SAFE_THINKING_LABEL;
       const liveReplyHistory: unknown[] = [];
       let liveReplySequence = 0;
       const thinkingLevels = [
@@ -102,18 +102,18 @@ export async function writeTuiPtyFixtureScript(dir: string) {
         ...(safeThinkingLabel ? [{ id: "fixture-thinking-safe", label: safeThinkingLabel }] : []),
       ];
       ${TUI_PTY_RECONNECT_FIXTURE.variables}
-      const enablePickerFixture = process.env.OPENCLAW_TUI_PTY_PICKER_FIXTURE === "1";
-      const pickerModelValue = process.env.OPENCLAW_TUI_PTY_PICKER_MODEL_VALUE ?? "fixture-provider/fixture-model-2";
-      const pickerModelName = process.env.OPENCLAW_TUI_PTY_PICKER_MODEL_NAME ?? "Fixture 2";
-      const pickerSessionKey = process.env.OPENCLAW_TUI_PTY_PICKER_SESSION_KEY ?? "agent:main:picker-target";
-      const pickerSessionTitle = process.env.OPENCLAW_TUI_PTY_PICKER_SESSION_TITLE;
-      const pickerSessionPreview = process.env.OPENCLAW_TUI_PTY_PICKER_SESSION_PREVIEW;
-      const pickerSessionDisplayName = process.env.OPENCLAW_TUI_PTY_PICKER_SESSION_DISPLAY_NAME ?? "Picker target";
-      const initialPluginApprovalSessionKey = process.env.OPENCLAW_TUI_PTY_INITIAL_APPROVAL_SESSION_KEY;
+      const enablePickerFixture = process.env.GRANTED_TUI_PTY_PICKER_FIXTURE === "1";
+      const pickerModelValue = process.env.GRANTED_TUI_PTY_PICKER_MODEL_VALUE ?? "fixture-provider/fixture-model-2";
+      const pickerModelName = process.env.GRANTED_TUI_PTY_PICKER_MODEL_NAME ?? "Fixture 2";
+      const pickerSessionKey = process.env.GRANTED_TUI_PTY_PICKER_SESSION_KEY ?? "agent:main:picker-target";
+      const pickerSessionTitle = process.env.GRANTED_TUI_PTY_PICKER_SESSION_TITLE;
+      const pickerSessionPreview = process.env.GRANTED_TUI_PTY_PICKER_SESSION_PREVIEW;
+      const pickerSessionDisplayName = process.env.GRANTED_TUI_PTY_PICKER_SESSION_DISPLAY_NAME ?? "Picker target";
+      const initialPluginApprovalSessionKey = process.env.GRANTED_TUI_PTY_INITIAL_APPROVAL_SESSION_KEY;
       const xaiLimitError = '403 {"code":"The caller does not have permission to execute the specified operation","error":"Your team team-redacted has either used all available credits or reached its monthly spending limit. To continue making API requests, please purchase more credits or raise your spending limit."}';
       let currentModel = footerModel ?? "fixture-provider/fixture-model";
       let currentThinkingLevel = footerThinkingLevel;
-      let fastMode = process.env.OPENCLAW_TUI_PTY_FAST_MODE === "true";
+      let fastMode = process.env.GRANTED_TUI_PTY_FAST_MODE === "true";
       function pluginApproval(sessionKey: string) {
         return {
           id: "plugin:skill-pty",
@@ -290,7 +290,7 @@ export async function writeTuiPtyFixtureScript(dir: string) {
                   kind: "btw",
                   runId,
                   sessionKey: opts.sessionKey,
-                  question: process.env.OPENCLAW_TUI_PTY_BTW_QUESTION ?? "picker focus proof",
+                  question: process.env.GRANTED_TUI_PTY_BTW_QUESTION ?? "picker focus proof",
                   text: "PTY_SIDE_OK",
                 },
               });
@@ -648,8 +648,8 @@ export async function writeTuiPtyFixtureScript(dir: string) {
             },
             session: { scope: "per-sender", mainKey: "main" },
           },
-          deliver: process.env.OPENCLAW_TUI_PTY_DELIVER === "1",
-          session: process.env.OPENCLAW_TUI_PTY_SESSION,
+          deliver: process.env.GRANTED_TUI_PTY_DELIVER === "1",
+          session: process.env.GRANTED_TUI_PTY_SESSION,
           thinking: launchThinkingLevel,
           message: initialMessage,
           historyLimit: 5,

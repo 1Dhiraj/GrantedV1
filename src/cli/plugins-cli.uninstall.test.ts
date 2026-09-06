@@ -31,7 +31,7 @@ import {
 
 const CLI_STATE_ROOT = "/tmp/openclaw-state";
 const ALPHA_INSTALL_PATH = installedPluginRoot(CLI_STATE_ROOT, "alpha");
-const ORIGINAL_OPENCLAW_NIX_MODE = process.env.OPENCLAW_NIX_MODE;
+const ORIGINAL_GRANTED_NIX_MODE = process.env.GRANTED_NIX_MODE;
 const tempDirs = useAutoCleanupTempDirTracker(afterEach);
 
 function primeUninstallPlan(
@@ -99,25 +99,25 @@ describe("plugins cli uninstall", () => {
 
   afterEach(() => {
     closeOpenClawStateDatabaseForTest();
-    if (ORIGINAL_OPENCLAW_NIX_MODE === undefined) {
-      delete process.env.OPENCLAW_NIX_MODE;
+    if (ORIGINAL_GRANTED_NIX_MODE === undefined) {
+      delete process.env.GRANTED_NIX_MODE;
     } else {
-      process.env.OPENCLAW_NIX_MODE = ORIGINAL_OPENCLAW_NIX_MODE;
+      process.env.GRANTED_NIX_MODE = ORIGINAL_GRANTED_NIX_MODE;
     }
   });
 
   it("refuses plugin uninstalls in Nix mode before planning file removal", async () => {
-    const previous = process.env.OPENCLAW_NIX_MODE;
-    process.env.OPENCLAW_NIX_MODE = "1";
+    const previous = process.env.GRANTED_NIX_MODE;
+    process.env.GRANTED_NIX_MODE = "1";
     try {
       await expect(runPluginsCommand(["plugins", "uninstall", "alpha", "--force"])).rejects.toThrow(
-        "OPENCLAW_NIX_MODE=1",
+        "GRANTED_NIX_MODE=1",
       );
     } finally {
       if (previous === undefined) {
-        delete process.env.OPENCLAW_NIX_MODE;
+        delete process.env.GRANTED_NIX_MODE;
       } else {
-        process.env.OPENCLAW_NIX_MODE = previous;
+        process.env.GRANTED_NIX_MODE = previous;
       }
     }
 
@@ -127,7 +127,7 @@ describe("plugins cli uninstall", () => {
   });
 
   it("shows uninstall dry-run preview without mutating config or acquiring write mode", async () => {
-    process.env.OPENCLAW_NIX_MODE = "1";
+    process.env.GRANTED_NIX_MODE = "1";
     pluginCliConfigMock.mockReturnValue({
       plugins: {
         entries: {
@@ -318,8 +318,8 @@ describe("plugins cli uninstall", () => {
   });
 
   it("warns but proceeds when a shared plugin has an uncertain Claw reference", async () => {
-    const previousStateDir = process.env.OPENCLAW_STATE_DIR;
-    process.env.OPENCLAW_STATE_DIR = tempDirs.make("openclaw-claw-plugin-ref-");
+    const previousStateDir = process.env.GRANTED_STATE_DIR;
+    process.env.GRANTED_STATE_DIR = tempDirs.make("openclaw-claw-plugin-ref-");
     closeOpenClawStateDatabaseForTest();
     try {
       const installRecord = {
@@ -366,9 +366,9 @@ describe("plugins cli uninstall", () => {
       expectInstallRecordsWrittenWithLease({}, { plugins: { entries: {} } });
     } finally {
       if (previousStateDir === undefined) {
-        delete process.env.OPENCLAW_STATE_DIR;
+        delete process.env.GRANTED_STATE_DIR;
       } else {
-        process.env.OPENCLAW_STATE_DIR = previousStateDir;
+        process.env.GRANTED_STATE_DIR = previousStateDir;
       }
       closeOpenClawStateDatabaseForTest();
     }

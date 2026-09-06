@@ -27,17 +27,15 @@ import { restoreLiveEnv, snapshotLiveEnv, type LiveEnvSnapshot } from "./live-en
 import { startGatewayServer } from "./server.js";
 
 const LIVE = isLiveTestEnabled();
-const ACP_SPAWN_DEFAULTS_LIVE = isTruthyEnvValue(process.env.OPENCLAW_LIVE_ACP_SPAWN_DEFAULTS);
-const ACP_THINKING_CONTROLS_LIVE = isTruthyEnvValue(
-  process.env.OPENCLAW_LIVE_ACP_THINKING_CONTROLS,
-);
+const ACP_SPAWN_DEFAULTS_LIVE = isTruthyEnvValue(process.env.GRANTED_LIVE_ACP_SPAWN_DEFAULTS);
+const ACP_THINKING_CONTROLS_LIVE = isTruthyEnvValue(process.env.GRANTED_LIVE_ACP_THINKING_CONTROLS);
 const describeLive = LIVE && ACP_SPAWN_DEFAULTS_LIVE ? describe : describe.skip;
 const CONNECT_TIMEOUT_MS = resolvePositiveInteger(
-  process.env.OPENCLAW_LIVE_ACP_SPAWN_DEFAULTS_CONNECT_TIMEOUT_MS,
+  process.env.GRANTED_LIVE_ACP_SPAWN_DEFAULTS_CONNECT_TIMEOUT_MS,
   90_000,
 );
 const LIVE_TIMEOUT_MS = resolvePositiveInteger(
-  process.env.OPENCLAW_LIVE_ACP_SPAWN_DEFAULTS_TIMEOUT_MS,
+  process.env.GRANTED_LIVE_ACP_SPAWN_DEFAULTS_TIMEOUT_MS,
   240_000,
 );
 
@@ -51,11 +49,11 @@ function resolvePositiveInteger(raw: string | undefined, fallback: number): numb
 }
 
 function resolveSubagentModel(): string {
-  return process.env.OPENCLAW_LIVE_ACP_SPAWN_DEFAULTS_MODEL?.trim() || "openai/gpt-5.6-luna";
+  return process.env.GRANTED_LIVE_ACP_SPAWN_DEFAULTS_MODEL?.trim() || "openai/gpt-5.6-luna";
 }
 
 function resolveThinking(): string {
-  return process.env.OPENCLAW_LIVE_ACP_SPAWN_DEFAULTS_THINKING?.trim() || "high";
+  return process.env.GRANTED_LIVE_ACP_SPAWN_DEFAULTS_THINKING?.trim() || "high";
 }
 
 function resolveHarnessReasoningEffort(): string | undefined {
@@ -90,11 +88,11 @@ function findRuntimeConfigOption(status: unknown, id: string): Record<string, un
 }
 
 function resolveHarnessModel(): string {
-  return process.env.OPENCLAW_LIVE_ACP_BIND_CODEX_MODEL?.trim() || "gpt-5.6-luna";
+  return process.env.GRANTED_LIVE_ACP_BIND_CODEX_MODEL?.trim() || "gpt-5.6-luna";
 }
 
 function resolveAcpAgentId(): string {
-  return process.env.OPENCLAW_LIVE_ACP_SPAWN_DEFAULTS_AGENT?.trim() || "codex";
+  return process.env.GRANTED_LIVE_ACP_SPAWN_DEFAULTS_AGENT?.trim() || "codex";
 }
 
 function resolveAcpAgentCommand(agentId: string): { command: string; args?: string[] } {
@@ -468,14 +466,14 @@ describeLive("gateway live (ACP spawn defaults)", () => {
       const sessionKeys: string[] = [];
       let server: Awaited<ReturnType<typeof startGatewayServer>> | undefined;
 
-      setTestEnvValue("OPENCLAW_CONFIG_PATH", tempConfigPath);
-      setTestEnvValue("OPENCLAW_STATE_DIR", tempStateDir);
-      process.env.OPENCLAW_SKIP_CHANNELS = "1";
-      process.env.OPENCLAW_SKIP_GMAIL_WATCHER = "1";
-      process.env.OPENCLAW_SKIP_CRON = "1";
-      process.env.OPENCLAW_SKIP_CANVAS_HOST = "1";
-      process.env.OPENCLAW_GATEWAY_TOKEN = token;
-      process.env.OPENCLAW_GATEWAY_PORT = String(port);
+      setTestEnvValue("GRANTED_CONFIG_PATH", tempConfigPath);
+      setTestEnvValue("GRANTED_STATE_DIR", tempStateDir);
+      process.env.GRANTED_SKIP_CHANNELS = "1";
+      process.env.GRANTED_SKIP_GMAIL_WATCHER = "1";
+      process.env.GRANTED_SKIP_CRON = "1";
+      process.env.GRANTED_SKIP_CANVAS_HOST = "1";
+      process.env.GRANTED_GATEWAY_TOKEN = token;
+      process.env.GRANTED_GATEWAY_PORT = String(port);
       if (acpAgentId === "codex") {
         await prepareCodexHomeForLiveSpawnDefaultsTest(tempRoot);
       }

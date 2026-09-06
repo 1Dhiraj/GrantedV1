@@ -27,7 +27,7 @@ function healthyInspection(): Extract<FleetContainerInspectResult, { kind: "ok" 
       "openclaw.fleet.tenant": "acme",
       "openclaw.fleet.owner": cellOwnerId(record.dataDir),
     },
-    environment: { OPENCLAW_GATEWAY_TOKEN: "secret" },
+    environment: { GRANTED_GATEWAY_TOKEN: "secret" },
     imageId: "sha256:image",
     memory: "2147483648",
     cpus: "2",
@@ -77,7 +77,7 @@ function runtimeMock(
 
 beforeEach(async () => {
   root = await tempRoot.setup();
-  env = { ...process.env, OPENCLAW_STATE_DIR: root };
+  env = { ...process.env, GRANTED_STATE_DIR: root };
   record = reserveFleetCell(env, {
     tenantId: "acme",
     createdAtMs: 0,
@@ -230,7 +230,7 @@ describe("fleet doctor", () => {
       "gateway-token-env",
       "fail",
       (inspection: ReturnType<typeof healthyInspection>) => {
-        inspection.environment.OPENCLAW_GATEWAY_TOKEN = "";
+        inspection.environment.GRANTED_GATEWAY_TOKEN = "";
       },
     ],
     [

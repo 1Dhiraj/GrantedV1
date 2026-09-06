@@ -39,7 +39,7 @@ function makeLog() {
 describe("runStartupSessionMigration", () => {
   it("does not create databases for agents without durable sessions", async () => {
     const stateDir = tempDirs.make("openclaw-empty-session-startup-");
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const reconcileSessionTranscriptIndexes = vi.fn(async () => ({ reconciledSessions: 0 }));
     await runStartupSessionMigration({
       cfg: { agents: { entries: { main: {}, ops: {} } } },
@@ -58,7 +58,7 @@ describe("runStartupSessionMigration", () => {
     async (layout) => {
       const root = fs.realpathSync.native(tempDirs.make("openclaw-sqlite-session-startup-"));
       const stateDir = path.join(root, "state");
-      await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () => {
+      await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {
         const env = { ...process.env };
         const agentId = "qa";
         const storePath =
@@ -118,7 +118,7 @@ describe("runStartupSessionMigration", () => {
     "preserves the %s legacy source and requires explicit Doctor import",
     async (layout) => {
       const stateDir = fs.realpathSync.native(tempDirs.make("openclaw-legacy-session-startup-"));
-      const env = { OPENCLAW_STATE_DIR: stateDir, OPENCLAW_PROFILE: "migration" };
+      const env = { GRANTED_STATE_DIR: stateDir, GRANTED_PROFILE: "migration" };
       const storePath =
         layout === "configured"
           ? path.join(stateDir, "custom", "sessions.json")

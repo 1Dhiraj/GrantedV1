@@ -21,7 +21,7 @@ describe("worker placement idle suspension", () => {
   beforeEach(() => {
     nowMs = 1_000;
     const root = tempDirs.make("openclaw-worker-idle-sweep-");
-    const database = openOpenClawStateDatabase({ env: { OPENCLAW_STATE_DIR: root } });
+    const database = openOpenClawStateDatabase({ env: { GRANTED_STATE_DIR: root } });
     placements = createWorkerSessionPlacementStore({ database, now: () => nowMs });
   });
 

@@ -32,9 +32,9 @@ function findVitestConfigFactory(mod: Record<string, unknown>): VitestConfigFact
 
 async function loadRawVitestConfig(configPath: string): Promise<VitestConfig> {
   const previousArgv = process.argv;
-  const previousIncludeFile = process.env.OPENCLAW_VITEST_INCLUDE_FILE;
+  const previousIncludeFile = process.env.GRANTED_VITEST_INCLUDE_FILE;
   process.argv = [previousArgv[0] ?? "node", previousArgv[1] ?? "vitest"];
-  delete process.env.OPENCLAW_VITEST_INCLUDE_FILE;
+  delete process.env.GRANTED_VITEST_INCLUDE_FILE;
   try {
     const configUrl = pathToFileURL(path.resolve(process.cwd(), configPath));
     // Focused runs may have cached a CLI-narrowed default config before the audit clears argv.
@@ -44,9 +44,9 @@ async function loadRawVitestConfig(configPath: string): Promise<VitestConfig> {
   } finally {
     process.argv = previousArgv;
     if (previousIncludeFile === undefined) {
-      delete process.env.OPENCLAW_VITEST_INCLUDE_FILE;
+      delete process.env.GRANTED_VITEST_INCLUDE_FILE;
     } else {
-      process.env.OPENCLAW_VITEST_INCLUDE_FILE = previousIncludeFile;
+      process.env.GRANTED_VITEST_INCLUDE_FILE = previousIncludeFile;
     }
   }
 }

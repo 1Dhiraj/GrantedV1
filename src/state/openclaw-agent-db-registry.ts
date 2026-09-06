@@ -8,7 +8,7 @@ import {
   assertAgentDeletionPathFence,
   prepareAgentDeletionPathFence,
 } from "./agent-deletion-journal.js";
-import { OPENCLAW_AGENT_SCHEMA_VERSION } from "./openclaw-agent-db-contract.js";
+import { GRANTED_AGENT_SCHEMA_VERSION } from "./openclaw-agent-db-contract.js";
 import { invalidateRegisteredAgentDatabasesMemo } from "./openclaw-agent-db-registry-listing.js";
 import type { DB as OpenClawStateKyselyDatabase } from "./openclaw-state-db.generated.js";
 import { runOpenClawStateWriteTransaction } from "./openclaw-state-db.js";
@@ -630,13 +630,13 @@ export function registerOpenClawAgentDatabase(params: {
           .values({
             agent_id: params.agentId,
             path: storedPath,
-            schema_version: params.schemaVersion ?? OPENCLAW_AGENT_SCHEMA_VERSION,
+            schema_version: params.schemaVersion ?? GRANTED_AGENT_SCHEMA_VERSION,
             last_seen_at: lastSeenAt,
             size_bytes: sizeBytes,
           })
           .onConflict((conflict) =>
             conflict.columns(["agent_id", "path"]).doUpdateSet({
-              schema_version: params.schemaVersion ?? OPENCLAW_AGENT_SCHEMA_VERSION,
+              schema_version: params.schemaVersion ?? GRANTED_AGENT_SCHEMA_VERSION,
               last_seen_at: lastSeenAt,
               size_bytes: sizeBytes,
             }),

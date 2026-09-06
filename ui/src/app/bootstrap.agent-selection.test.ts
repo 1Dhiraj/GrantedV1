@@ -158,7 +158,7 @@ it.each([
       lastActiveSessionKey: "agent:dummy:main",
       selectedAgentId: "dummy",
     });
-    window["__OPENCLAW_NATIVE_CONTROL_AUTH__"] = {
+    window["__GRANTED_NATIVE_CONTROL_AUTH__"] = {
       gatewayUrl: targetGatewayUrl,
       token: "native-token",
     };
@@ -177,7 +177,7 @@ it.each([
     });
   } finally {
     runtime?.stop();
-    delete window["__OPENCLAW_NATIVE_CONTROL_AUTH__"];
+    delete window["__GRANTED_NATIVE_CONTROL_AUTH__"];
     localStorage.removeItem(targetSettingsKey);
     window.history.replaceState({}, "", previousUrl);
     saveSettings(previousSettings);

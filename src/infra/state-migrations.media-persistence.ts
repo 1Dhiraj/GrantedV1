@@ -26,13 +26,13 @@ import {
 } from "../state/openclaw-agent-db-schema.js";
 import type { DB as OpenClawAgentKyselyDatabase } from "../state/openclaw-agent-db.generated.js";
 import {
-  OPENCLAW_AGENT_SCHEMA_VERSION,
+  GRANTED_AGENT_SCHEMA_VERSION,
   withAgentDatabaseMaintenanceLease,
   type OpenClawAgentDatabase,
 } from "../state/openclaw-agent-db.js";
 import { withLegacySessionParticipantsSchema } from "../state/openclaw-agent-participants-migration.js";
-import { OPENCLAW_AGENT_SCHEMA_SQL } from "../state/openclaw-agent-schema.js";
-import { OPENCLAW_SQLITE_BUSY_TIMEOUT_MS } from "../state/openclaw-state-db.js";
+import { GRANTED_AGENT_SCHEMA_SQL } from "../state/openclaw-agent-schema.js";
+import { GRANTED_SQLITE_BUSY_TIMEOUT_MS } from "../state/openclaw-state-db.js";
 import { VERSION } from "../version.js";
 import { repairGatewayAgentMediaMigrationStartupFailures } from "./gateway-boot-lifecycle.js";
 import {
@@ -369,7 +369,7 @@ function migrateAgentDatabase(params: {
 }) {
   const database = openNodeSqliteDatabase(params.pathname);
   try {
-    database.exec(`PRAGMA busy_timeout = ${OPENCLAW_SQLITE_BUSY_TIMEOUT_MS};`);
+    database.exec(`PRAGMA busy_timeout = ${GRANTED_SQLITE_BUSY_TIMEOUT_MS};`);
     let metadata = assertOpenClawAgentDatabaseOwner(database, {
       agentId: params.agentId,
       pathname: params.pathname,
@@ -401,11 +401,11 @@ function migrateAgentDatabase(params: {
       });
       userVersion = readSqliteUserVersion(database);
     }
-    const schemaMode = userVersion < OPENCLAW_AGENT_SCHEMA_VERSION ? "legacy" : "current";
+    const schemaMode = userVersion < GRANTED_AGENT_SCHEMA_VERSION ? "legacy" : "current";
     const schemaSql =
       schemaMode === "legacy"
-        ? withLegacySessionParticipantsSchema(OPENCLAW_AGENT_SCHEMA_SQL)
-        : OPENCLAW_AGENT_SCHEMA_SQL;
+        ? withLegacySessionParticipantsSchema(GRANTED_AGENT_SCHEMA_SQL)
+        : GRANTED_AGENT_SCHEMA_SQL;
     // Remove after 2026-10-12: drop the v15-to-v16 media cutover once schema 16 is the support floor.
     if (userVersion === PREVIOUS_MEDIA_SCHEMA_VERSION) {
       repairCanonicalSqliteIndexes(database, params.pathname, schemaSql, {
@@ -474,7 +474,7 @@ function migrateAgentDatabase(params: {
         return { rewrittenSessions, rewrittenTrajectoryRows };
       },
       {
-        busyTimeoutMs: OPENCLAW_SQLITE_BUSY_TIMEOUT_MS,
+        busyTimeoutMs: GRANTED_SQLITE_BUSY_TIMEOUT_MS,
         databaseLabel: params.pathname,
         operationLabel: "media-persistence-retirement",
       },
@@ -664,7 +664,7 @@ export async function migrateLegacyMediaPersistence(
           }
           if (result.rewrittenSessions > 0 || result.rewrittenTrajectoryRows > 0) {
             changes.push(
-              `Migrated media persistence in ${pathname}: ${result.rewrittenSessions} transcript session(s), ${result.rewrittenTrajectoryRows} trajectory row(s), schema v${OPENCLAW_AGENT_SCHEMA_VERSION}.`,
+              `Migrated media persistence in ${pathname}: ${result.rewrittenSessions} transcript session(s), ${result.rewrittenTrajectoryRows} trajectory row(s), schema v${GRANTED_AGENT_SCHEMA_VERSION}.`,
             );
           }
         } catch (error) {

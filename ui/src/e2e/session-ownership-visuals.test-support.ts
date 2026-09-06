@@ -2,7 +2,7 @@ import path from "node:path";
 import type { Locator, Page } from "playwright";
 import { expect } from "vitest";
 
-export const captureUiProofEnabled = process.env.OPENCLAW_CAPTURE_UI_PROOF === "1";
+export const captureUiProofEnabled = process.env.GRANTED_CAPTURE_UI_PROOF === "1";
 
 type AvatarFixture = {
   id: string;

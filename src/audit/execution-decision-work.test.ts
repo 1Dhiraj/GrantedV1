@@ -101,7 +101,7 @@ describe("private execution decision work", () => {
 
   it("projects private refs inside the admission FIFO without retaining raw owners", async () => {
     const stateDir = tempDirs.make("openclaw-audit-private-decision-");
-    const database = { env: { OPENCLAW_STATE_DIR: stateDir } };
+    const database = { env: { GRANTED_STATE_DIR: stateDir } };
     const errors: string[] = [];
     const writer = createAuditEventWriter({ stateDir, onError: (error) => errors.push(error) });
     const admittedAt = Date.now();
@@ -189,7 +189,7 @@ describe("private execution decision work", () => {
         executionId: `execution-${params.suffix}`,
         now,
       });
-      const database = { env: { OPENCLAW_STATE_DIR: params.stateDir } };
+      const database = { env: { GRANTED_STATE_DIR: params.stateDir } };
       const writer = createAuditEventWriter({ stateDir: params.stateDir });
       const clearAdmissionSink = configureExecutionIdentityAdmissionSink(
         writer.recordExecutionIdentity,

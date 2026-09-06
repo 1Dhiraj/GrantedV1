@@ -181,7 +181,7 @@ export function createStatusScanResultFixture(
   overrides: Partial<StatusScanResult> = {},
 ): StatusScanResult {
   return {
-    env: { OPENCLAW_STATE_DIR: STATUS_TEST_STATE_DIR },
+    env: { GRANTED_STATE_DIR: STATUS_TEST_STATE_DIR },
     cfg: baseStatusCfg,
     sourceConfig: baseStatusCfg,
     configDiagnostics: null,
@@ -257,7 +257,7 @@ export function createStatusCommandOverviewRowsParams(
   overrides: Partial<StatusCommandOverviewRowsParams> = {},
 ): StatusCommandOverviewRowsParams {
   return {
-    env: { OPENCLAW_STATE_DIR: STATUS_TEST_STATE_DIR },
+    env: { GRANTED_STATE_DIR: STATUS_TEST_STATE_DIR },
     opts: { deep: true },
     surface: baseStatusOverviewSurface,
     osLabel: "macOS",
@@ -280,7 +280,7 @@ export function createStatusCommandReportDataParams(
   overrides: Partial<StatusCommandReportDataParams> = {},
 ): StatusCommandReportDataParams {
   return {
-    env: { OPENCLAW_STATE_DIR: STATUS_TEST_STATE_DIR },
+    env: { GRANTED_STATE_DIR: STATUS_TEST_STATE_DIR },
     opts: { deep: true, verbose: true },
     surface: baseStatusOverviewSurface,
     osSummary: { label: "macOS" } as never,

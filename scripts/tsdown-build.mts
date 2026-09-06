@@ -41,7 +41,7 @@ import {
 } from "./lib/tsdown-output-roots.mts";
 import { resolvePnpmRunner } from "./pnpm-runner.mts";
 
-const logLevel = process.env.OPENCLAW_BUILD_VERBOSE ? "info" : "warn";
+const logLevel = process.env.GRANTED_BUILD_VERBOSE ? "info" : "warn";
 const INEFFECTIVE_DYNAMIC_IMPORT_MARKER = "[INEFFECTIVE_DYNAMIC_IMPORT]";
 const ANSI_ESCAPE_RE = new RegExp(String.raw`\u001B\[[0-9;]*m`, "g");
 const DEPENDENCY_PATH_MARKERS = ["node_modules/", "openclaw-pnpm-node-modules/"];
@@ -50,8 +50,8 @@ const DEFAULT_CAPTURE_BYTES = 8 * 1024 * 1024;
 const DEFAULT_HEARTBEAT_MS = 30_000;
 const DEFAULT_TSDOWN_MAX_OLD_SPACE_MB = 12288;
 const DEFAULT_WINDOWS_TSDOWN_MAX_OLD_SPACE_MB = 8192;
-export const TSDOWN_MAX_OLD_SPACE_MB_ENV = "OPENCLAW_TSDOWN_MAX_OLD_SPACE_MB";
-const DOCKER_TSDOWN_MAX_OLD_SPACE_MB_ENV = "OPENCLAW_DOCKER_BUILD_TSDOWN_MAX_OLD_SPACE_MB";
+export const TSDOWN_MAX_OLD_SPACE_MB_ENV = "GRANTED_TSDOWN_MAX_OLD_SPACE_MB";
+const DOCKER_TSDOWN_MAX_OLD_SPACE_MB_ENV = "GRANTED_DOCKER_BUILD_TSDOWN_MAX_OLD_SPACE_MB";
 const TSDOWN_CGROUP_MEMORY_HEADROOM_MB = 768;
 const DEFAULT_CGROUP_V2_MOUNT_PATH = "/sys/fs/cgroup";
 const DEFAULT_CGROUP_V1_MEMORY_MOUNT_PATH = "/sys/fs/cgroup/memory";
@@ -75,11 +75,11 @@ const TERMINATION_GRACE_MS = 250;
 const POST_FORCE_KILL_WAIT_MS = 250;
 const ROOT_TSDOWN_OUTPUT_ROOTS = ["dist", "dist-runtime"];
 const PRESERVED_TSDOWN_OUTPUT_FILES = ["dist/cli-startup-metadata.json"];
-const PRESERVE_CLI_STARTUP_METADATA_ENV = "OPENCLAW_PRESERVE_CLI_STARTUP_METADATA";
+const PRESERVE_CLI_STARTUP_METADATA_ENV = "GRANTED_PRESERVE_CLI_STARTUP_METADATA";
 const GENERATED_SOURCE_DECLARATION_PATHSPEC = ":(glob)extensions/**/*.d.ts";
 export const TSDOWN_DECLARATION_EXTENSIONS = [".d.ts", ".d.mts", ".d.cts"];
 const SOURCE_DECLARATION_SOURCE_EXTENSIONS = [".ts", ".tsx", ".mts", ".cts", ".js", ".mjs", ".cjs"];
-const RUN_NODE_SKIP_DTS_BUILD_ENV = "OPENCLAW_RUN_NODE_SKIP_DTS_BUILD";
+const RUN_NODE_SKIP_DTS_BUILD_ENV = "GRANTED_RUN_NODE_SKIP_DTS_BUILD";
 
 const TSDOWN_SOURCE_EXTENSIONS = [
   ".cjs",
@@ -128,7 +128,7 @@ export const TSDOWN_PACKAGES_CACHE_INPUT = {
   excludeDirectories: ["dist", "node_modules"],
 };
 export const TSDOWN_UNIFIED_CACHE_ENV = [
-  "OPENCLAW_BUILD_PRIVATE_QA",
+  "GRANTED_BUILD_PRIVATE_QA",
   ...BUNDLED_PLUGIN_BUILD_ENV_NAMES,
 ];
 
@@ -1197,7 +1197,7 @@ export function describeInsufficientTsdownHeap(
     env[TSDOWN_MAX_OLD_SPACE_MB_ENV],
     TSDOWN_MAX_OLD_SPACE_MB_ENV,
   );
-  const heapOverrideEnv = Object.hasOwn(env, "OPENCLAW_INTERNAL_DOCKER_BUILD_PLUGIN_IDS")
+  const heapOverrideEnv = Object.hasOwn(env, "GRANTED_INTERNAL_DOCKER_BUILD_PLUGIN_IDS")
     ? DOCKER_TSDOWN_MAX_OLD_SPACE_MB_ENV
     : TSDOWN_MAX_OLD_SPACE_MB_ENV;
   const fatal = explicitHeapMb === null;
@@ -1382,7 +1382,7 @@ export function resolveTsdownBuildInvocation(
     "--no-clean",
     ...forwardedArgs,
   ];
-  if (env.OPENCLAW_BUILD_ALL_NO_PNPM === "1") {
+  if (env.GRANTED_BUILD_ALL_NO_PNPM === "1") {
     return {
       command: params.nodeExecPath ?? process.execPath,
       args: ["node_modules/tsdown/dist/run.mjs", ...tsdownArgs],
@@ -1619,11 +1619,11 @@ export async function runTsdownBuildInvocation(
   const env = params.env ?? process.env;
   const scanner = params.scanner ?? createTsdownOutputScanner();
   const timeoutMs = parsePositiveIntegerEnv(
-    env.OPENCLAW_TSDOWN_TIMEOUT_MS,
-    "OPENCLAW_TSDOWN_TIMEOUT_MS",
+    env.GRANTED_TSDOWN_TIMEOUT_MS,
+    "GRANTED_TSDOWN_TIMEOUT_MS",
   );
   const heartbeatMs =
-    parseNonNegativeIntegerEnv(env.OPENCLAW_TSDOWN_HEARTBEAT_MS, "OPENCLAW_TSDOWN_HEARTBEAT_MS") ??
+    parseNonNegativeIntegerEnv(env.GRANTED_TSDOWN_HEARTBEAT_MS, "GRANTED_TSDOWN_HEARTBEAT_MS") ??
     DEFAULT_HEARTBEAT_MS;
   let timedOut = false;
   let parentSignal: NodeJS.Signals | undefined;

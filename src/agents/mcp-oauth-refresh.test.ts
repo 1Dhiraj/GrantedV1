@@ -25,17 +25,17 @@ async function withTempHome<T>(
   options: Parameters<typeof withBaseTempHome>[1],
 ): Promise<T> {
   return withBaseTempHome(async (home) => {
-    const previousStateDir = process.env.OPENCLAW_STATE_DIR;
-    process.env.OPENCLAW_STATE_DIR = path.join(home, ".openclaw");
+    const previousStateDir = process.env.GRANTED_STATE_DIR;
+    process.env.GRANTED_STATE_DIR = path.join(home, ".openclaw");
     closeOpenClawStateDatabaseForTest();
     try {
       return await run(home);
     } finally {
       closeOpenClawStateDatabaseForTest();
       if (previousStateDir === undefined) {
-        delete process.env.OPENCLAW_STATE_DIR;
+        delete process.env.GRANTED_STATE_DIR;
       } else {
-        process.env.OPENCLAW_STATE_DIR = previousStateDir;
+        process.env.GRANTED_STATE_DIR = previousStateDir;
       }
     }
   }, options);
@@ -98,8 +98,8 @@ describe("MCP OAuth provider", () => {
         prefix: "openclaw-mcp-oauth-fresh-token-",
         skipSessionCleanup: true,
         env: {
-          OPENCLAW_CONFIG_PATH: undefined,
-          OPENCLAW_STATE_DIR: undefined,
+          GRANTED_CONFIG_PATH: undefined,
+          GRANTED_STATE_DIR: undefined,
         },
       },
     );
@@ -150,7 +150,7 @@ describe("MCP OAuth provider", () => {
         await started;
         controller.abort(new Error("request stopped"));
 
-        await expect(refresh).rejects.toMatchObject({ code: "OPENCLAW_STATE_LEASE_ABORTED" });
+        await expect(refresh).rejects.toMatchObject({ code: "GRANTED_STATE_LEASE_ABORTED" });
         expect(refreshSignal).toMatchObject({ aborted: true });
         expect(provider.tokens()).toMatchObject({
           access_token: "decoy-token",
@@ -164,7 +164,7 @@ describe("MCP OAuth provider", () => {
       {
         prefix: "openclaw-mcp-oauth-aborted-refresh-",
         skipSessionCleanup: true,
-        env: { OPENCLAW_CONFIG_PATH: undefined, OPENCLAW_STATE_DIR: undefined },
+        env: { GRANTED_CONFIG_PATH: undefined, GRANTED_STATE_DIR: undefined },
       },
     );
   });
@@ -207,8 +207,8 @@ describe("MCP OAuth provider", () => {
         prefix: "openclaw-mcp-oauth-expired-token-",
         skipSessionCleanup: true,
         env: {
-          OPENCLAW_CONFIG_PATH: undefined,
-          OPENCLAW_STATE_DIR: undefined,
+          GRANTED_CONFIG_PATH: undefined,
+          GRANTED_STATE_DIR: undefined,
         },
       },
     );
@@ -266,8 +266,8 @@ describe("MCP OAuth provider", () => {
         prefix: "openclaw-mcp-oauth-concurrent-refresh-",
         skipSessionCleanup: true,
         env: {
-          OPENCLAW_CONFIG_PATH: undefined,
-          OPENCLAW_STATE_DIR: undefined,
+          GRANTED_CONFIG_PATH: undefined,
+          GRANTED_STATE_DIR: undefined,
         },
       },
     );
@@ -331,7 +331,7 @@ describe("MCP OAuth provider", () => {
       {
         prefix: "openclaw-mcp-oauth-concurrent-challenge-",
         skipSessionCleanup: true,
-        env: { OPENCLAW_CONFIG_PATH: undefined, OPENCLAW_STATE_DIR: undefined },
+        env: { GRANTED_CONFIG_PATH: undefined, GRANTED_STATE_DIR: undefined },
       },
     );
   });
@@ -382,7 +382,7 @@ describe("MCP OAuth provider", () => {
       {
         prefix: "openclaw-mcp-oauth-refresh-logout-",
         skipSessionCleanup: true,
-        env: { OPENCLAW_CONFIG_PATH: undefined, OPENCLAW_STATE_DIR: undefined },
+        env: { GRANTED_CONFIG_PATH: undefined, GRANTED_STATE_DIR: undefined },
       },
     );
   });
@@ -426,7 +426,7 @@ describe("MCP OAuth provider", () => {
       {
         prefix: "openclaw-mcp-oauth-rejected-token-",
         skipSessionCleanup: true,
-        env: { OPENCLAW_CONFIG_PATH: undefined, OPENCLAW_STATE_DIR: undefined },
+        env: { GRANTED_CONFIG_PATH: undefined, GRANTED_STATE_DIR: undefined },
       },
     );
   });

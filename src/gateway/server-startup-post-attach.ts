@@ -60,7 +60,7 @@ const ACP_BACKEND_READY_POLL_MS = 50;
 const PROVIDER_AUTH_PREWARM_START_DELAY_MS = 5_000;
 const PROVIDER_AUTH_REWARM_DELAY_MS = 1_000;
 const DEFERRED_SIDECAR_START_DELAY_MS = 100;
-const SKIP_STARTUP_MODEL_PREWARM_ENV = "OPENCLAW_SKIP_STARTUP_MODEL_PREWARM";
+const SKIP_STARTUP_MODEL_PREWARM_ENV = "GRANTED_SKIP_STARTUP_MODEL_PREWARM";
 type Awaitable<T> = T | Promise<T>;
 
 const loadMainSessionRestartRecoveryModule = createLazyRuntimeModule(
@@ -657,8 +657,8 @@ export async function startGatewaySidecars(params: {
   const mainSessionRecoveryStartupCheckedStorePaths =
     params.mainSessionRecoveryStartupCheckedStorePaths ?? new Set<string>();
   const skipChannels =
-    isTruthyEnvValue(process.env.OPENCLAW_SKIP_CHANNELS) ||
-    isTruthyEnvValue(process.env.OPENCLAW_SKIP_PROVIDERS);
+    isTruthyEnvValue(process.env.GRANTED_SKIP_CHANNELS) ||
+    isTruthyEnvValue(process.env.GRANTED_SKIP_PROVIDERS);
   // These runs were orphaned by the previous Gateway lifecycle. Record that fact
   // even if this process later fails model preparation and never starts channels.
   await measureStartup(params.startupTrace, "sidecars.main-session-recovery", async () => {
@@ -723,7 +723,7 @@ export async function startGatewaySidecars(params: {
     const channelStart = skipChannels
       ? measureStartup(params.startupTrace, "sidecars.channel-skip", () =>
           params.logChannels.info(
-            "skipping channel start (OPENCLAW_SKIP_CHANNELS=1 or OPENCLAW_SKIP_PROVIDERS=1)",
+            "skipping channel start (GRANTED_SKIP_CHANNELS=1 or GRANTED_SKIP_PROVIDERS=1)",
           ),
         )
       : shouldStartChannels

@@ -222,7 +222,7 @@ describe("secret store mutation lifecycle", () => {
         };
         const runtimeOptions = {
           config: {},
-          env: { OPENCLAW_STATE_DIR: state.stateDir },
+          env: { GRANTED_STATE_DIR: state.stateDir },
           agentDirs: [state.agentDir()],
           includeConfigRefs: false,
           loadAuthStore: () => store,

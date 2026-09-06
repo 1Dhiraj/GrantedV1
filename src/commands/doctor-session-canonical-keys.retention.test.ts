@@ -23,7 +23,7 @@ afterEach(() => closeOpenClawAgentDatabasesForTest());
 describe("doctor canonical session-key retention repair", () => {
   it("copies only a cross-store winner and archives its stale same-store duplicate", async () => {
     await withStateDirEnv("openclaw-doctor-canonical-cross-store-", async ({ stateDir }) => {
-      const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+      const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
       const storeTemplate = path.join(stateDir, "agents", "{agentId}", "sessions.json");
       const mainStore = resolveSessionStorePathCore(storeTemplate, { agentId: "main", env });
       const opsStore = resolveSessionStorePathCore(storeTemplate, { agentId: "ops", env });
@@ -212,7 +212,7 @@ describe("doctor canonical session-key retention repair", () => {
     await withStateDirEnv(
       "openclaw-doctor-canonical-cross-store-delivery-",
       async ({ stateDir }) => {
-        const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+        const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
         const storeTemplate = path.join(stateDir, "agents", "{agentId}", "sessions.json");
         const mainStore = resolveSessionStorePathCore(storeTemplate, { agentId: "main", env });
         const opsStore = resolveSessionStorePathCore(storeTemplate, { agentId: "ops", env });

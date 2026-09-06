@@ -20,11 +20,11 @@ import type {
 import { WINDOWS_TASK_SUPERVISOR_FLAG } from "./windows-task-supervisor-contract.js";
 
 export function resolveTaskName(env: GatewayServiceEnv): string {
-  const override = env.OPENCLAW_WINDOWS_TASK_NAME?.trim();
+  const override = env.GRANTED_WINDOWS_TASK_NAME?.trim();
   if (override) {
     return override;
   }
-  return resolveGatewayWindowsTaskName(env.OPENCLAW_PROFILE);
+  return resolveGatewayWindowsTaskName(env.GRANTED_PROFILE);
 }
 
 // Keeps the service gateway's stdin off the (possibly hidden) console so TTY
@@ -200,7 +200,7 @@ export function resolveTaskUser(env: GatewayServiceEnv): string | null {
 }
 
 export function shouldUseHiddenWindowsTaskLauncher(env: GatewayServiceEnv): boolean {
-  const value = normalizeLowercaseStringOrEmpty(env.OPENCLAW_WINDOWS_TASK_HIDDEN_LAUNCHER);
+  const value = normalizeLowercaseStringOrEmpty(env.GRANTED_WINDOWS_TASK_HIDDEN_LAUNCHER);
   return value === "1" || value === "true" || value === "yes";
 }
 
@@ -307,7 +307,7 @@ export function buildTaskScript({
   // block forever on a console no one can see (#112173). With stdin at NUL
   // the gateway and its workers correctly take non-interactive paths.
   const commandArguments =
-    environment?.OPENCLAW_SERVICE_KIND === "gateway"
+    environment?.GRANTED_SERVICE_KIND === "gateway"
       ? [...programArguments, WINDOWS_TASK_SUPERVISOR_FLAG]
       : programArguments;
   lines.push(

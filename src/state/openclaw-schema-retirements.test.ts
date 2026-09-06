@@ -2,9 +2,9 @@ import { readFileSync } from "node:fs";
 import { DatabaseSync } from "node:sqlite";
 import { isRecord } from "@openclaw/normalization-core/record-coerce";
 import { expect, it } from "vitest";
-import { OPENCLAW_AGENT_SCHEMA_VERSION } from "./openclaw-agent-db-contract.js";
+import { GRANTED_AGENT_SCHEMA_VERSION } from "./openclaw-agent-db-contract.js";
 import retirementManifest from "./openclaw-schema-retirements.json" with { type: "json" };
-import { OPENCLAW_STATE_SCHEMA_VERSION } from "./openclaw-state-db-contract.js";
+import { GRANTED_STATE_SCHEMA_VERSION } from "./openclaw-state-db-contract.js";
 
 type DatabaseOwner = "state" | "agent";
 type RetirementStatus = "planned" | "completed";
@@ -91,12 +91,12 @@ it("keeps the schema retirement ledger aligned with canonical database schemas",
 
   const databases = {
     state: {
-      currentVersion: OPENCLAW_STATE_SCHEMA_VERSION,
+      currentVersion: GRANTED_STATE_SCHEMA_VERSION,
       schemaUrl: new URL("./openclaw-state-schema.sql", import.meta.url),
       database: new DatabaseSync(":memory:"),
     },
     agent: {
-      currentVersion: OPENCLAW_AGENT_SCHEMA_VERSION,
+      currentVersion: GRANTED_AGENT_SCHEMA_VERSION,
       schemaUrl: new URL("./openclaw-agent-schema.sql", import.meta.url),
       database: new DatabaseSync(":memory:"),
     },

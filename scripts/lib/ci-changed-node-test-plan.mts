@@ -397,7 +397,7 @@ function createChangedExtensionConfigShards(extensionRoots: string[]) {
                   // Counts size jobs only. Vitest owns the complete config inventory,
                   // including unrelated plugin roots, excludes and untracked tests.
                   env: {
-                    OPENCLAW_NODE_TEST_VITEST_ARGS_JSON: JSON.stringify([
+                    GRANTED_NODE_TEST_VITEST_ARGS_JSON: JSON.stringify([
                       `--shard=${index + 1}/${chunks.length}`,
                     ]),
                   },

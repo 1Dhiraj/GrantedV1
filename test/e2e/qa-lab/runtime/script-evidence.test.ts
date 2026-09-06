@@ -169,7 +169,7 @@ describe("QA script evidence writer", () => {
       `${JSON.stringify({ logging: { redactPatterns: ["/internal-\\d+/g"] } })}\n`,
       "utf8",
     );
-    vi.stubEnv("OPENCLAW_CONFIG_PATH", configPath);
+    vi.stubEnv("GRANTED_CONFIG_PATH", configPath);
     writer.appendLog(`${"x".repeat(16_380)}inter`);
     writer.appendLog("nal-12345 should hide password=s");
     writer.appendLog("k-split-secret-1234567890");

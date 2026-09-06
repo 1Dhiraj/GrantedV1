@@ -22,7 +22,7 @@ describe("configured managed worktree root", () => {
     worktreeRoot = undefined;
     now = Date.now();
     service = new ManagedWorktreeService({
-      env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+      env: { ...process.env, GRANTED_STATE_DIR: stateDir },
       now: () => now,
       getConfig: () => ({ worktreeRoot }),
     });

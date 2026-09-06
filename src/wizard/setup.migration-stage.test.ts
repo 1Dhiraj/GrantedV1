@@ -157,7 +157,7 @@ describe("setup migration stage", () => {
     expect(updated?.profiles["openai:imported"]).toBeDefined();
     expect(
       listOpenClawRegisteredAgentDatabases({
-        env: { ...process.env, OPENCLAW_STATE_DIR: stagedStateDir },
+        env: { ...process.env, GRANTED_STATE_DIR: stagedStateDir },
       }),
     ).toEqual([
       expect.objectContaining({
@@ -167,7 +167,7 @@ describe("setup migration stage", () => {
     ]);
     expect(
       listOpenClawRegisteredAgentDatabases({
-        env: { ...process.env, OPENCLAW_STATE_DIR: liveStateDir },
+        env: { ...process.env, GRANTED_STATE_DIR: liveStateDir },
       }),
     ).toEqual([]);
     await expect(fs.access(path.join(liveStateDir, "state", "openclaw.sqlite"))).rejects.toThrow();
@@ -188,7 +188,7 @@ describe("setup migration stage", () => {
     });
     const { disposeOpenClawAgentDatabaseByPath } = await import("../state/openclaw-agent-db.js");
     disposeOpenClawAgentDatabaseByPath(path.join(stage.staged.agentDir, "openclaw-agent.sqlite"), {
-      env: { ...process.env, OPENCLAW_STATE_DIR: stage.staged.stateDir },
+      env: { ...process.env, GRANTED_STATE_DIR: stage.staged.stateDir },
     });
 
     const promoted = await stage.promote({
@@ -200,7 +200,7 @@ describe("setup migration stage", () => {
 
     expect(
       listOpenClawRegisteredAgentDatabases({
-        env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+        env: { ...process.env, GRANTED_STATE_DIR: stateDir },
       }),
     ).toEqual([
       expect.objectContaining({

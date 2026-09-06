@@ -45,17 +45,17 @@ describe("TTS runtime native voice-note routing", () => {
   });
 
   it("prefers the environment preference path over migrated machine state", () => {
-    const previousEnvPath = process.env.OPENCLAW_TTS_PREFS;
+    const previousEnvPath = process.env.GRANTED_TTS_PREFS;
     const envPath = prefsPathFor("env-override");
     setTtsMachinePrefsPathResolver(() => prefsPathFor("machine-state"));
-    process.env.OPENCLAW_TTS_PREFS = envPath;
+    process.env.GRANTED_TTS_PREFS = envPath;
     try {
       expect(resolveTtsPrefsPath(resolveTtsConfig({}))).toBe(envPath);
     } finally {
       if (previousEnvPath === undefined) {
-        delete process.env.OPENCLAW_TTS_PREFS;
+        delete process.env.GRANTED_TTS_PREFS;
       } else {
-        process.env.OPENCLAW_TTS_PREFS = previousEnvPath;
+        process.env.GRANTED_TTS_PREFS = previousEnvPath;
       }
     }
   });

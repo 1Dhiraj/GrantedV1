@@ -195,7 +195,7 @@ describe("getReplyFromConfig auto-fallback primary probes", () => {
 
   beforeEach(() => {
     vi.unstubAllEnvs();
-    delete process.env.OPENCLAW_TEST_FAST;
+    delete process.env.GRANTED_TEST_FAST;
     mocks.resolveReplyDirectives.mockReset();
     mocks.handleInlineActions.mockReset();
     mocks.initSessionState.mockReset();

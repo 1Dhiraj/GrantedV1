@@ -14,7 +14,7 @@ const suite = createControlUiE2eSuite({
 const primaryModel = "openai/gpt-5.4";
 const inheritedFallback = "anthropic/claude-sonnet-4-6";
 const writerWorkspace = "/tmp/agents/writer";
-const captureUiProof = process.env.OPENCLAW_CAPTURE_UI_PROOF === "1";
+const captureUiProof = process.env.GRANTED_CAPTURE_UI_PROOF === "1";
 let proofDir: string;
 beforeEach(() => {
   if (captureUiProof) {
@@ -130,7 +130,7 @@ suite.define(() => {
             fullPage: true,
             path: path.join(
               proofDir,
-              `${process.env.OPENCLAW_UI_PROOF_LABEL ?? "agent-context"}.png`,
+              `${process.env.GRANTED_UI_PROOF_LABEL ?? "agent-context"}.png`,
             ),
           });
         }

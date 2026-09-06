@@ -40,7 +40,7 @@ describe("plugin runtime inspection", () => {
       },
     };
 
-    withEnv({ OPENCLAW_STATE_DIR: makePluginLoaderTempDir() }, () => {
+    withEnv({ GRANTED_STATE_DIR: makePluginLoaderTempDir() }, () => {
       useNoBundledPlugins();
       const bootConfig = { plugins: { enabled: false } };
       const boot = loadPluginMetadataSnapshot({ config: bootConfig, env: process.env });
@@ -87,7 +87,7 @@ describe("plugin runtime inspection", () => {
       },
     };
 
-    withEnv({ OPENCLAW_STATE_DIR: stateDir }, () => {
+    withEnv({ GRANTED_STATE_DIR: stateDir }, () => {
       useNoBundledPlugins();
       const params = { config, workspaceDir: plugin.dir, env: process.env };
 

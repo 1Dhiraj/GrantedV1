@@ -45,7 +45,7 @@ const ENV_KEYS = [
   "MSTEAMS_CERTIFICATE_THUMBPRINT",
   "MSTEAMS_USE_MANAGED_IDENTITY",
   "MSTEAMS_MANAGED_IDENTITY_CLIENT_ID",
-  "OPENCLAW_STATE_DIR",
+  "GRANTED_STATE_DIR",
 ] as const;
 
 let savedEnv: Record<string, string | undefined> = {};
@@ -416,7 +416,7 @@ describe("resolveDelegatedAccessToken", () => {
     setMSTeamsRuntime(msteamsRuntimeStub);
     saveAndClearEnv();
     stateDir = mkdtempSync(path.join(os.tmpdir(), "openclaw-msteams-token-"));
-    process.env.OPENCLAW_STATE_DIR = stateDir;
+    process.env.GRANTED_STATE_DIR = stateDir;
     oauthTokenMocks.refreshMSTeamsDelegatedTokens.mockReset();
   });
 

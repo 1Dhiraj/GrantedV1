@@ -34,8 +34,8 @@ const RELOAD_BOOTSTRAP_RETRY_COUNT = 15;
 type LaunchdRestartLogEnv = {
   HOME?: string;
   USERPROFILE?: string;
-  OPENCLAW_STATE_DIR?: string;
-  OPENCLAW_PROFILE?: string;
+  GRANTED_STATE_DIR?: string;
+  GRANTED_PROFILE?: string;
 };
 
 function resolveGuiDomain(): string {
@@ -61,8 +61,8 @@ function collectRestartLogEnv(env?: Record<string, string | undefined>): Launchd
   return {
     HOME: source.HOME,
     USERPROFILE: source.USERPROFILE,
-    OPENCLAW_STATE_DIR: source.OPENCLAW_STATE_DIR,
-    OPENCLAW_PROFILE: source.OPENCLAW_PROFILE,
+    GRANTED_STATE_DIR: source.GRANTED_STATE_DIR,
+    GRANTED_PROFILE: source.GRANTED_PROFILE,
   };
 }
 

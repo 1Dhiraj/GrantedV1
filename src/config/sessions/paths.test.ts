@@ -70,7 +70,7 @@ describe("resolveStorePath", () => {
     const stateDir = path.join(path.parse(process.cwd()).root, "openclaw-test-state");
     const env = {
       ...process.env,
-      OPENCLAW_STATE_DIR: stateDir,
+      GRANTED_STATE_DIR: stateDir,
     };
     const expected = path.join(stateDir, "agents", "work", "sessions", "sessions.json");
 

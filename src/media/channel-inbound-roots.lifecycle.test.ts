@@ -47,9 +47,9 @@ describe("channel media artifact cache ownership", () => {
       ) =>
         withEnv(
           {
-            OPENCLAW_BUNDLED_PLUGINS_DIR: rootDir,
-            OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR: "1",
-            OPENCLAW_DISABLE_BUNDLED_PLUGINS: undefined,
+            GRANTED_BUNDLED_PLUGINS_DIR: rootDir,
+            GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR: "1",
+            GRANTED_DISABLE_BUNDLED_PLUGINS: undefined,
           },
           () =>
             withPluginCache(cache, () =>

@@ -473,7 +473,7 @@ describe("crabline transport", () => {
             /whatsapp-provider-server\.jsonl$/u,
           ),
           CRABLINE_WHATSAPP_SELF_JID: "15550000000@s.whatsapp.net",
-          OPENCLAW_WHATSAPP_WEB_SOCKET_URL: expect.stringMatching(
+          GRANTED_WHATSAPP_WEB_SOCKET_URL: expect.stringMatching(
             /^ws:\/\/127\.0\.0\.1:\d+\/ws\/chat\?access_token=/u,
           ),
         });

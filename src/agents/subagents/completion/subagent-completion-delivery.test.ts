@@ -31,7 +31,7 @@ describe("subagent completion recovery identity", () => {
       "openclaw-completion-recovery-",
       resolvePreferredOpenClawTmpDir(),
     );
-    vi.stubEnv("OPENCLAW_STATE_DIR", tempDir);
+    vi.stubEnv("GRANTED_STATE_DIR", tempDir);
     database = openOpenClawStateDatabase();
     resumeSubagentRun.mockClear();
   });

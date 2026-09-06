@@ -31,7 +31,7 @@ async function writeSecureFile(filePath: string, content: string, mode = 0o600):
 
 describe("secrets runtime snapshot request secret refs", () => {
   it("can skip auth-profile SecretRef resolution when includeAuthStoreRefs is false", async () => {
-    const missingEnvVar = `OPENCLAW_MISSING_AUTH_PROFILE_SECRET_${Date.now()}`;
+    const missingEnvVar = `GRANTED_MISSING_AUTH_PROFILE_SECRET_${Date.now()}`;
     delete process.env[missingEnvVar];
 
     const loadAuthStore = () =>
@@ -64,8 +64,8 @@ describe("secrets runtime snapshot request secret refs", () => {
   });
 
   it("can skip auth-profile SecretRef resolution during active runtime refresh", async () => {
-    const initialEnvVar = `OPENCLAW_INITIAL_AUTH_PROFILE_SECRET_${Date.now()}`;
-    const missingEnvVar = `OPENCLAW_MISSING_AUTH_PROFILE_SECRET_${Date.now()}`;
+    const initialEnvVar = `GRANTED_INITIAL_AUTH_PROFILE_SECRET_${Date.now()}`;
+    const missingEnvVar = `GRANTED_MISSING_AUTH_PROFILE_SECRET_${Date.now()}`;
     delete process.env[missingEnvVar];
 
     let useMissingProfileRef = false;

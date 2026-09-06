@@ -333,7 +333,7 @@ export function resetSlackTestState(config: Record<string, unknown> = defaultSla
     fs.mkdtempSync(path.join(resolvePreferredOpenClawTmpDir(), "openclaw-slack-monitor-state-")),
   );
   lastSlackTestStateDir = stateDir;
-  process.env.OPENCLAW_STATE_DIR = stateDir;
+  process.env.GRANTED_STATE_DIR = stateDir;
   setSlackRuntime({
     state: {
       openChannelIngressQueue: (

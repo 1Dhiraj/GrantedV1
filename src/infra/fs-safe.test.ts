@@ -650,13 +650,13 @@ describe("tilde expansion in file tools", () => {
     const { expandHomePrefix } = await import("./home-dir.js");
     const fakeHome = path.resolve(path.sep, "tmp", "fake-home-test");
 
-    withEnv({ HOME: fakeHome, OPENCLAW_HOME: fakeHome }, () => {
+    withEnv({ HOME: fakeHome, GRANTED_HOME: fakeHome }, () => {
       const result = expandHomePrefix("~/file.txt");
       expect(path.normalize(result)).toBe(path.join(fakeHome, "file.txt"));
     });
 
     const root = await tempDirs.make("openclaw-tilde-test-");
-    await withEnvAsync({ HOME: root, OPENCLAW_HOME: root }, async () => {
+    await withEnvAsync({ HOME: root, GRANTED_HOME: root }, async () => {
       await fs.writeFile(path.join(root, "hello.txt"), "tilde-works");
       const rootFs = await openRoot(root);
       const result = await rootFs.open("~/hello.txt");

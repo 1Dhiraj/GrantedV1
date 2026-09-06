@@ -23,14 +23,14 @@ export function runNpmVerifyCommand(
   const timeoutMs =
     options.timeoutMs ??
     readPositiveEnvInt(
-      "OPENCLAW_NPM_VERIFY_COMMAND_TIMEOUT_MS",
+      "GRANTED_NPM_VERIFY_COMMAND_TIMEOUT_MS",
       process.env,
       DEFAULT_NPM_VERIFY_COMMAND_TIMEOUT_MS,
     );
   const maxBuffer =
     options.maxBufferBytes ??
     readPositiveEnvInt(
-      "OPENCLAW_NPM_VERIFY_COMMAND_MAX_BUFFER_BYTES",
+      "GRANTED_NPM_VERIFY_COMMAND_MAX_BUFFER_BYTES",
       process.env,
       DEFAULT_NPM_VERIFY_COMMAND_MAX_BUFFER_BYTES,
     );

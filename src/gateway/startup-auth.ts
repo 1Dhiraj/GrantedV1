@@ -118,7 +118,7 @@ function hasGatewayTokenCandidate(params: {
   env: NodeJS.ProcessEnv;
   authOverride?: GatewayAuthConfig;
 }): boolean {
-  const envToken = trimToUndefined(params.env.OPENCLAW_GATEWAY_TOKEN);
+  const envToken = trimToUndefined(params.env.GRANTED_GATEWAY_TOKEN);
   if (envToken) {
     return true;
   }
@@ -191,7 +191,7 @@ export async function ensureGatewayStartupAuth(params: {
       hasPasswordOverride:
         hasGatewayPasswordOverrideCandidate({ authOverride: params.authOverride }) ||
         passwordAlreadySubstituted,
-      hasTokenFallback: Boolean(trimToUndefined(env.OPENCLAW_GATEWAY_TOKEN)),
+      hasTokenFallback: Boolean(trimToUndefined(env.GRANTED_GATEWAY_TOKEN)),
       hasPasswordFallback: Boolean(
         credentialPlan.envPassword ||
         credentialPlan.localPassword.value ||
@@ -208,7 +208,7 @@ export async function ensureGatewayStartupAuth(params: {
       hasTokenOverride:
         hasGatewayTokenOverrideCandidate({ authOverride: params.authOverride }) ||
         tokenAlreadySubstituted,
-      hasPasswordFallback: Boolean(trimToUndefined(env.OPENCLAW_GATEWAY_PASSWORD)),
+      hasPasswordFallback: Boolean(trimToUndefined(env.GRANTED_GATEWAY_PASSWORD)),
       hasTokenFallback: hasGatewayTokenCandidate({
         cfg: params.cfg,
         env,

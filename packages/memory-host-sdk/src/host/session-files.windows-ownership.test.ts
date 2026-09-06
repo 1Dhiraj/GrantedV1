@@ -112,11 +112,11 @@ describe("memory session directory ownership", () => {
     const platform = vi.spyOn(process, "platform", "get").mockReturnValue("win32");
     const tempDirs = createTempDirTracker();
     const tmpDir = tempDirs.make("session-windows-ownership-");
-    const originalStateDir = process.env.OPENCLAW_STATE_DIR;
-    const originalConfigPath = process.env.OPENCLAW_CONFIG_PATH;
+    const originalStateDir = process.env.GRANTED_STATE_DIR;
+    const originalConfigPath = process.env.GRANTED_CONFIG_PATH;
     try {
-      process.env.OPENCLAW_STATE_DIR = tmpDir;
-      delete process.env.OPENCLAW_CONFIG_PATH;
+      process.env.GRANTED_STATE_DIR = tmpDir;
+      delete process.env.GRANTED_CONFIG_PATH;
       clearRuntimeConfigSnapshot();
       clearConfigCache();
 
@@ -144,14 +144,14 @@ describe("memory session directory ownership", () => {
       closeOpenClawAgentDatabasesForTest();
       closeOpenClawStateDatabaseForTest();
       if (originalStateDir === undefined) {
-        delete process.env.OPENCLAW_STATE_DIR;
+        delete process.env.GRANTED_STATE_DIR;
       } else {
-        process.env.OPENCLAW_STATE_DIR = originalStateDir;
+        process.env.GRANTED_STATE_DIR = originalStateDir;
       }
       if (originalConfigPath === undefined) {
-        delete process.env.OPENCLAW_CONFIG_PATH;
+        delete process.env.GRANTED_CONFIG_PATH;
       } else {
-        process.env.OPENCLAW_CONFIG_PATH = originalConfigPath;
+        process.env.GRANTED_CONFIG_PATH = originalConfigPath;
       }
       clearRuntimeConfigSnapshot();
       clearConfigCache();

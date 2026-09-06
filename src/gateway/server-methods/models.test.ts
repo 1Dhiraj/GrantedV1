@@ -32,7 +32,7 @@ import {
 import { modelsHandlers } from "./models.js";
 import type { RespondFn } from "./types.js";
 
-const OPENCLAW_DEVICE_PLACEMENT: NonNullable<GatewayAgentRuntime["devicePlacement"]> = {
+const GRANTED_DEVICE_PLACEMENT: NonNullable<GatewayAgentRuntime["devicePlacement"]> = {
   requiredNodeCommands: [],
   consumesWorkerSlot: true,
 };
@@ -1007,7 +1007,7 @@ describe("models.list", () => {
                   id: "openclaw",
                   cloudPlacementSupported: true,
                   cloudPlacementExecutionMode: "worker-turn",
-                  devicePlacement: OPENCLAW_DEVICE_PLACEMENT,
+                  devicePlacement: GRANTED_DEVICE_PLACEMENT,
                   devicePlacementSupported: true,
                   source: "implicit",
                 },
@@ -1070,7 +1070,7 @@ describe("models.list", () => {
                   id: "openclaw",
                   cloudPlacementSupported: true,
                   cloudPlacementExecutionMode: "worker-turn",
-                  devicePlacement: OPENCLAW_DEVICE_PLACEMENT,
+                  devicePlacement: GRANTED_DEVICE_PLACEMENT,
                   devicePlacementSupported: true,
                   source: "implicit",
                 },
@@ -1124,7 +1124,7 @@ describe("models.list", () => {
                 id: "openclaw",
                 cloudPlacementSupported: true,
                 cloudPlacementExecutionMode: "worker-turn",
-                devicePlacement: OPENCLAW_DEVICE_PLACEMENT,
+                devicePlacement: GRANTED_DEVICE_PLACEMENT,
                 devicePlacementSupported: true,
                 source: "implicit",
               },
@@ -2294,7 +2294,7 @@ describe("models.list", () => {
           prefix: `openclaw-models-list-provider-${fixture.name}-profile-`,
           agentEnv: "main",
           env: {
-            OPENCLAW_TEST_PROFILE_API_KEY: "test-token",
+            GRANTED_TEST_PROFILE_API_KEY: "test-token",
             VLLM_API_KEY: undefined,
           },
         },
@@ -2308,7 +2308,7 @@ describe("models.list", () => {
                 keyRef: {
                   source: "env",
                   provider: "default",
-                  id: "OPENCLAW_TEST_PROFILE_API_KEY",
+                  id: "GRANTED_TEST_PROFILE_API_KEY",
                 },
               },
             },

@@ -11,8 +11,8 @@ describe("withZalouserIngressTestQueue", () => {
     const parentDir = await fs.realpath(
       await fs.mkdtemp(path.join(resolvePreferredOpenClawTmpDir(), "openclaw-zalouser-parent-")),
     );
-    const previousStateDir = process.env.OPENCLAW_STATE_DIR;
-    process.env.OPENCLAW_STATE_DIR = parentDir;
+    const previousStateDir = process.env.GRANTED_STATE_DIR;
+    process.env.GRANTED_STATE_DIR = parentDir;
     try {
       await withZalouserIngressTestQueue(async () => {
         // A processed inbound message opens the per-agent DB under the child state
@@ -25,9 +25,9 @@ describe("withZalouserIngressTestQueue", () => {
       expect(await fs.readdir(parentDir)).toEqual([]);
     } finally {
       if (previousStateDir === undefined) {
-        delete process.env.OPENCLAW_STATE_DIR;
+        delete process.env.GRANTED_STATE_DIR;
       } else {
-        process.env.OPENCLAW_STATE_DIR = previousStateDir;
+        process.env.GRANTED_STATE_DIR = previousStateDir;
       }
       await fs.rm(parentDir, { recursive: true, force: true });
     }

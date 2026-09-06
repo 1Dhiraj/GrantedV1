@@ -492,7 +492,7 @@ test.each([false, true])(
     const release = path.join(setup, "release");
     await fs.writeFile(
       path.join(setup, "worktree-setup.sh"),
-      '#!/bin/sh\necho started >> "$OPENCLAW_SOURCE_TREE_PATH/.openclaw/starts"\nif [ -f "$OPENCLAW_SOURCE_TREE_PATH/.openclaw/first-started" ]; then touch "$OPENCLAW_SOURCE_TREE_PATH/.openclaw/second-started"; else touch "$OPENCLAW_SOURCE_TREE_PATH/.openclaw/first-started"; fi\nwhile [ ! -f "$OPENCLAW_SOURCE_TREE_PATH/.openclaw/release" ]; do sleep 0.05; done\n',
+      '#!/bin/sh\necho started >> "$GRANTED_SOURCE_TREE_PATH/.openclaw/starts"\nif [ -f "$GRANTED_SOURCE_TREE_PATH/.openclaw/first-started" ]; then touch "$GRANTED_SOURCE_TREE_PATH/.openclaw/second-started"; else touch "$GRANTED_SOURCE_TREE_PATH/.openclaw/first-started"; fi\nwhile [ ! -f "$GRANTED_SOURCE_TREE_PATH/.openclaw/release" ]; do sleep 0.05; done\n',
       { mode: 0o755 },
     );
     const context = {

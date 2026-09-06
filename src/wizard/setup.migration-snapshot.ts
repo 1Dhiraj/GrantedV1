@@ -359,7 +359,7 @@ export async function withSetupMigrationTargetLock<T>(
     const pid = payload?.pid;
     const holderPid =
       typeof pid === "number" && Number.isSafeInteger(pid) && pid > 0 ? pid : undefined;
-    throw new SetupTargetLockedError(holderPid, process.env.OPENCLAW_PROFILE?.trim(), error);
+    throw new SetupTargetLockedError(holderPid, process.env.GRANTED_PROFILE?.trim(), error);
   }
 }
 

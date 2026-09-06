@@ -27,7 +27,7 @@ const exclude = sharedTest.exclude ?? [];
 export function loadExtraExcludePatternsFromEnv(
   env: Record<string, string | undefined> = process.env,
 ): string[] {
-  return loadPatternListFromEnv("OPENCLAW_VITEST_EXTRA_EXCLUDE_FILE", env) ?? [];
+  return loadPatternListFromEnv("GRANTED_VITEST_EXTRA_EXCLUDE_FILE", env) ?? [];
 }
 
 const defaultUnitCoverageRoots = ["src", "packages", "test"] as const;
@@ -108,7 +108,7 @@ export function createUnitVitestConfigWithOptions(
 ) {
   const isolate = resolveVitestIsolation(env);
   const argv = options.argv ?? process.argv;
-  const envIncludePatterns = loadPatternListFromEnv("OPENCLAW_VITEST_INCLUDE_FILE", env);
+  const envIncludePatterns = loadPatternListFromEnv("GRANTED_VITEST_INCLUDE_FILE", env);
   const defaultIncludePatterns = options.includePatterns ?? unitTestIncludePatterns;
   const cliIncludePatterns = narrowIncludePatternsForCli(defaultIncludePatterns, argv);
   const unitFastTestFiles = getUnitFastTestFiles(envIncludePatterns ?? cliIncludePatterns);

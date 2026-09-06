@@ -23,9 +23,9 @@ describe("environment docs", () => {
       "OpenClaw ignores provider credentials and protected runtime controls from workspace `.env`",
     );
     expect(markdown).toContain("~/.openclaw/.env");
-    expect(markdown).toContain("$OPENCLAW_STATE_DIR/.env");
+    expect(markdown).toContain("$GRANTED_STATE_DIR/.env");
     expect(markdown).toContain("The config `env` block");
-    expect(markdown).toContain("OPENCLAW_LOAD_SHELL_ENV=1");
+    expect(markdown).toContain("GRANTED_LOAD_SHELL_ENV=1");
 
     for (const key of providerCredentialExamples) {
       expect(markdown).toContain(key);
@@ -40,7 +40,7 @@ describe("environment docs", () => {
     );
     expect(markdown).toContain("provider auth keys declared by installed trusted plugins");
     expect(markdown).toContain("~/.openclaw/.env");
-    expect(markdown).toContain("$OPENCLAW_STATE_DIR/.env");
+    expect(markdown).toContain("$GRANTED_STATE_DIR/.env");
 
     for (const key of providerCredentialExamples) {
       expect(markdown).toContain(key);

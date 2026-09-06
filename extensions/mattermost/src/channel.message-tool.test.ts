@@ -12,7 +12,7 @@ describe("Mattermost message-tool SecretRef inspection", () => {
             botToken: {
               source: "env",
               provider: "default",
-              id: "OPENCLAW_TEST_MISSING_MATTERMOST_TOKEN",
+              id: "GRANTED_TEST_MISSING_MATTERMOST_TOKEN",
             },
             baseUrl: "https://mm.example.com",
           },

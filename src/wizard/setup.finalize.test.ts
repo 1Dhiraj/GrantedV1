@@ -521,8 +521,8 @@ describe("finalizeSetupWizard", () => {
   });
 
   it("resolves gateway password SecretRef for probe but omits auth from TUI hatch", async () => {
-    const previous = process.env.OPENCLAW_GATEWAY_PASSWORD;
-    process.env.OPENCLAW_GATEWAY_PASSWORD = "resolved-gateway-password"; // pragma: allowlist secret
+    const previous = process.env.GRANTED_GATEWAY_PASSWORD;
+    process.env.GRANTED_GATEWAY_PASSWORD = "resolved-gateway-password"; // pragma: allowlist secret
     resolveSetupSecretInputString.mockResolvedValueOnce("resolved-gateway-password");
     const select = vi.fn(async (params: { message: string }) => {
       if (params.message === "How do you want to hatch your agent?") {
@@ -547,7 +547,7 @@ describe("finalizeSetupWizard", () => {
                 password: {
                   source: "env",
                   provider: "default",
-                  id: "OPENCLAW_GATEWAY_PASSWORD",
+                  id: "GRANTED_GATEWAY_PASSWORD",
                 },
               },
             },
@@ -558,9 +558,9 @@ describe("finalizeSetupWizard", () => {
       );
     } finally {
       if (previous === undefined) {
-        delete process.env.OPENCLAW_GATEWAY_PASSWORD;
+        delete process.env.GRANTED_GATEWAY_PASSWORD;
       } else {
-        process.env.OPENCLAW_GATEWAY_PASSWORD = previous;
+        process.env.GRANTED_GATEWAY_PASSWORD = previous;
       }
     }
 
@@ -712,7 +712,7 @@ describe("finalizeSetupWizard", () => {
             tls: tlsConfig,
           }),
         }),
-        env: expect.objectContaining({ OPENCLAW_GATEWAY_PORT: "19876" }),
+        env: expect.objectContaining({ GRANTED_GATEWAY_PORT: "19876" }),
       }),
     );
     expect(waitForControlUiDocument).toHaveBeenCalledWith(
@@ -963,8 +963,8 @@ describe("finalizeSetupWizard", () => {
   });
 
   it("localizes the bootstrap hatch TUI seed message", async () => {
-    const previousLocale = process.env.OPENCLAW_LOCALE;
-    process.env.OPENCLAW_LOCALE = "zh-CN";
+    const previousLocale = process.env.GRANTED_LOCALE;
+    process.env.GRANTED_LOCALE = "zh-CN";
     vi.spyOn(fs, "access").mockResolvedValueOnce(undefined);
     const select = vi.fn(async (params: { message: string }) => {
       if (params.message === "你想如何启动 agent？") {
@@ -988,9 +988,9 @@ describe("finalizeSetupWizard", () => {
       });
     } finally {
       if (previousLocale === undefined) {
-        delete process.env.OPENCLAW_LOCALE;
+        delete process.env.GRANTED_LOCALE;
       } else {
-        process.env.OPENCLAW_LOCALE = previousLocale;
+        process.env.GRANTED_LOCALE = previousLocale;
       }
     }
   });
@@ -1069,7 +1069,7 @@ describe("finalizeSetupWizard", () => {
               token: {
                 source: "env",
                 provider: "default",
-                id: "OPENCLAW_GATEWAY_TOKEN",
+                id: "GRANTED_GATEWAY_TOKEN",
               },
             },
           },
@@ -1271,7 +1271,7 @@ describe("finalizeSetupWizard", () => {
   });
 
   it("localizes managed service recovery at the finalize boundary", async () => {
-    await withEnvAsync({ OPENCLAW_LOCALE: "zh-CN" }, async () => {
+    await withEnvAsync({ GRANTED_LOCALE: "zh-CN" }, async () => {
       waitForGatewayReachable.mockResolvedValue({ ok: false, detail: "readiness timed out" });
       probeGatewayReachable.mockResolvedValue({ ok: false, detail: "readiness timed out" });
       const prompter = createLaterPrompter();
@@ -1314,7 +1314,7 @@ describe("finalizeSetupWizard", () => {
     "never enables lingering or installs services for explicit skips ($systemdAvailable, $supervisor)",
     async ({ systemdAvailable, supervisor }) => {
       await withPlatform("linux", async () => {
-        await withEnvAsync({ OPENCLAW_SUPERVISOR_MODE: supervisor }, async () => {
+        await withEnvAsync({ GRANTED_SUPERVISOR_MODE: supervisor }, async () => {
           isSystemdUserServiceAvailable.mockResolvedValue(systemdAvailable);
           const prompter = createLaterPrompter();
 
@@ -1340,7 +1340,7 @@ describe("finalizeSetupWizard", () => {
 
   it("recognizes external supervision before probing Linux systemd", async () => {
     await withPlatform("linux", async () => {
-      await withEnvAsync({ OPENCLAW_SUPERVISOR_MODE: "external" }, async () => {
+      await withEnvAsync({ GRANTED_SUPERVISOR_MODE: "external" }, async () => {
         isSystemdUserServiceAvailable.mockResolvedValue(false);
         isContainerEnvironment.mockReturnValue(true);
         const prompter = createLaterPrompter();
@@ -1373,7 +1373,7 @@ describe("finalizeSetupWizard", () => {
 
   it("preserves external supervision through unreachable container recovery", async () => {
     await withPlatform("linux", async () => {
-      await withEnvAsync({ OPENCLAW_SUPERVISOR_MODE: "external" }, async () => {
+      await withEnvAsync({ GRANTED_SUPERVISOR_MODE: "external" }, async () => {
         isSystemdUserServiceAvailable.mockResolvedValue(false);
         isContainerEnvironment.mockReturnValue(true);
         waitForGatewayReachable.mockResolvedValue({
@@ -1400,7 +1400,7 @@ describe("finalizeSetupWizard", () => {
         expectNoteNotContains(prompter, "openclaw onboard --install-daemon");
         expect(prompter.outro).toHaveBeenCalledWith(
           "Gateway not detected yet. OpenClaw gateway lifecycle is managed by an external " +
-            "supervisor (OPENCLAW_SUPERVISOR_MODE=external). Use that supervisor to start the " +
+            "supervisor (GRANTED_SUPERVISOR_MODE=external). Use that supervisor to start the " +
             "gateway.",
         );
       });
@@ -1675,17 +1675,17 @@ describe("finalizeSetupWizard", () => {
   });
 
   it("localizes finalize non-prompt notes", async () => {
-    const previousLocale = process.env.OPENCLAW_LOCALE;
-    process.env.OPENCLAW_LOCALE = "zh-CN";
+    const previousLocale = process.env.GRANTED_LOCALE;
+    process.env.GRANTED_LOCALE = "zh-CN";
     const prompter = createLaterPrompter();
 
     try {
       await finalizeSetupWizard(createFinalizeArgs("advanced", { prompter }));
     } finally {
       if (previousLocale === undefined) {
-        delete process.env.OPENCLAW_LOCALE;
+        delete process.env.GRANTED_LOCALE;
       } else {
-        process.env.OPENCLAW_LOCALE = previousLocale;
+        process.env.GRANTED_LOCALE = previousLocale;
       }
     }
 
@@ -1878,7 +1878,7 @@ describe("finalizeSetupWizard", () => {
   });
 
   it("uses the setup token for health checks to avoid local env token drift", async () => {
-    vi.stubEnv("OPENCLAW_GATEWAY_TOKEN", "env-token");
+    vi.stubEnv("GRANTED_GATEWAY_TOKEN", "env-token");
     const prompter = createLaterPrompter();
 
     await finalizeSetupWizard(
@@ -2075,7 +2075,7 @@ describe("finalizeSetupWizard", () => {
   });
 
   it("uses the resolved setup password for health checks", async () => {
-    vi.stubEnv("OPENCLAW_GATEWAY_PASSWORD", "env-password");
+    vi.stubEnv("GRANTED_GATEWAY_PASSWORD", "env-password");
     resolveSetupSecretInputString.mockResolvedValueOnce("session-password");
     const prompter = createLaterPrompter();
 
@@ -2090,7 +2090,7 @@ describe("finalizeSetupWizard", () => {
               password: {
                 source: "env",
                 provider: "default",
-                id: "OPENCLAW_GATEWAY_PASSWORD",
+                id: "GRANTED_GATEWAY_PASSWORD",
               },
             },
           },

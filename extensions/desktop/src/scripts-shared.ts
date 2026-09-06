@@ -1,13 +1,13 @@
 /**
  * Static PowerShell scripts for Windows desktop automation.
- * Dynamic values are read from the OPENCLAW_DESKTOP_ARGS env var (JSON) so the
+ * Dynamic values are read from the GRANTED_DESKTOP_ARGS env var (JSON) so the
  * scripts never need string interpolation. Each script prints exactly one
  * compact JSON line on success.
  */
 
 export const PREAMBLE = `
 $ErrorActionPreference = 'Stop'
-$A = if ($env:OPENCLAW_DESKTOP_ARGS) { $env:OPENCLAW_DESKTOP_ARGS | ConvertFrom-Json } else { $null }
+$A = if ($env:GRANTED_DESKTOP_ARGS) { $env:GRANTED_DESKTOP_ARGS | ConvertFrom-Json } else { $null }
 $DeskSrc = @'
 using System;
 using System.Runtime.InteropServices;

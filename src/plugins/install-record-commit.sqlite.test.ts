@@ -209,7 +209,7 @@ describe("plugin install record commit rollback", () => {
           import { setTimeout as delay } from "node:timers/promises";
           import { commitConfigWriteWithPendingPluginInstalls } from ${JSON.stringify(commitModuleUrl)};
           const [stateDir, pluginId, enteredPath, releasePath] = process.argv.slice(2);
-          process.env.OPENCLAW_STATE_DIR = stateDir;
+          process.env.GRANTED_STATE_DIR = stateDir;
           process.send?.("ready");
           process.disconnect?.();
           try {

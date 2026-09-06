@@ -229,7 +229,7 @@ describe("enableConsoleCapture", () => {
     const warn = vi.fn();
     console.warn = warn;
 
-    withEnv({ OPENCLAW_CONFIG_PATH: configPath, MISSING_LOG_FILE: undefined }, () => {
+    withEnv({ GRANTED_CONFIG_PATH: configPath, MISSING_LOG_FILE: undefined }, () => {
       createSubsystemLogger("sensitive-one\nsensitive-two").warn(
         "prefix sensitive-one\nsensitive-two suffix",
         {
@@ -271,7 +271,7 @@ describe("enableConsoleCapture", () => {
     const error = vi.fn();
     console.error = error;
 
-    withEnv({ OPENCLAW_CONFIG_PATH: configPath, MISSING_LOG_FILE: undefined }, () => {
+    withEnv({ GRANTED_CONFIG_PATH: configPath, MISSING_LOG_FILE: undefined }, () => {
       enableConsoleCapture();
       console.trace("custom-only-secret");
     });
@@ -390,7 +390,7 @@ describe("enableConsoleCapture", () => {
   });
 
   it("uses the current applied logger generation for each forwarded console call", async () => {
-    vi.stubEnv("OPENCLAW_TEST_FILE_LOG", "1");
+    vi.stubEnv("GRANTED_TEST_FILE_LOG", "1");
     const firstFile = tempLogPath();
     const secondFile = tempLogPath();
     applyLoggingConfig({ level: "info", file: firstFile });
@@ -412,7 +412,7 @@ describe("enableConsoleCapture", () => {
   ])(
     "routes non-subsystem $name logs through one file and console sink",
     async ({ log, consoleMethod }) => {
-      vi.stubEnv("OPENCLAW_TEST_RUNTIME_LOG", "1");
+      vi.stubEnv("GRANTED_TEST_RUNTIME_LOG", "1");
       const logPath = tempLogPath();
       setLoggerOverride({ level: "info", file: logPath });
       const consoleSpy = vi.fn();

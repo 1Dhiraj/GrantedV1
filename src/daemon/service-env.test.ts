@@ -524,16 +524,16 @@ describe("buildServiceEnvironment", () => {
     } else {
       expect(env.PATH).toContain("/usr/bin");
     }
-    expect(env.OPENCLAW_GATEWAY_PORT).toBe("18789");
-    expect(env.OPENCLAW_GATEWAY_TOKEN).toBeUndefined();
-    expect(env.OPENCLAW_SERVICE_MARKER).toBe("openclaw");
-    expect(env.OPENCLAW_SERVICE_KIND).toBe("gateway");
-    expect(env).not.toHaveProperty("OPENCLAW_SERVICE_VERSION");
-    expect(env.OPENCLAW_SYSTEMD_UNIT).toBe("openclaw-gateway.service");
-    expect(env.OPENCLAW_WINDOWS_TASK_NAME).toBe("OpenClaw Gateway");
-    expect(env.OPENCLAW_WINDOWS_TASK_HIDDEN_LAUNCHER).toBe("1");
+    expect(env.GRANTED_GATEWAY_PORT).toBe("18789");
+    expect(env.GRANTED_GATEWAY_TOKEN).toBeUndefined();
+    expect(env.GRANTED_SERVICE_MARKER).toBe("granted");
+    expect(env.GRANTED_SERVICE_KIND).toBe("gateway");
+    expect(env).not.toHaveProperty("GRANTED_SERVICE_VERSION");
+    expect(env.GRANTED_SYSTEMD_UNIT).toBe("granted-gateway.service");
+    expect(env.GRANTED_WINDOWS_TASK_NAME).toBe("Granted Gateway");
+    expect(env.GRANTED_WINDOWS_TASK_HIDDEN_LAUNCHER).toBe("1");
     if (process.platform === "darwin") {
-      expect(env.OPENCLAW_LAUNCHD_LABEL).toBe("ai.openclaw.gateway");
+      expect(env.GRANTED_LAUNCHD_LABEL).toBe("ai.granted.gateway");
     }
   });
 
@@ -544,19 +544,19 @@ describe("buildServiceEnvironment", () => {
       platform: "darwin",
     });
 
-    expect(env.OPENCLAW_LAUNCHD_LABEL).toBe("ai.openclaw.gateway");
+    expect(env.GRANTED_LAUNCHD_LABEL).toBe("ai.granted.gateway");
   });
 
-  it("passes through OPENCLAW_WRAPPER for gateway services", () => {
+  it("passes through GRANTED_WRAPPER for gateway services", () => {
     const env = buildServiceEnvironment({
       env: {
         HOME: "/home/user",
-        OPENCLAW_WRAPPER: " /usr/local/bin/openclaw-doppler ",
+        GRANTED_WRAPPER: " /usr/local/bin/openclaw-doppler ",
       },
       port: 18789,
     });
 
-    expect(env.OPENCLAW_WRAPPER).toBe("/usr/local/bin/openclaw-doppler");
+    expect(env.GRANTED_WRAPPER).toBe("/usr/local/bin/openclaw-doppler");
   });
 
   it("forwards TMPDIR from the host environment on Linux", () => {
@@ -606,13 +606,13 @@ describe("buildServiceEnvironment", () => {
 
   it("uses profile-specific unit and label", () => {
     const env = buildServiceEnvironment({
-      env: { HOME: "/home/user", OPENCLAW_PROFILE: "work" },
+      env: { HOME: "/home/user", GRANTED_PROFILE: "work" },
       port: 18789,
     });
-    expect(env.OPENCLAW_SYSTEMD_UNIT).toBe("openclaw-gateway-work.service");
-    expect(env.OPENCLAW_WINDOWS_TASK_NAME).toBe("OpenClaw Gateway (work)");
+    expect(env.GRANTED_SYSTEMD_UNIT).toBe("granted-gateway-work.service");
+    expect(env.GRANTED_WINDOWS_TASK_NAME).toBe("Granted Gateway (work)");
     if (process.platform === "darwin") {
-      expect(env.OPENCLAW_LAUNCHD_LABEL).toBe("ai.openclaw.work");
+      expect(env.GRANTED_LAUNCHD_LABEL).toBe("ai.granted.work");
     }
   });
 
@@ -620,37 +620,37 @@ describe("buildServiceEnvironment", () => {
     const env = buildServiceEnvironment({
       env: {
         HOME: "/home/user",
-        OPENCLAW_PROFILE: "work",
-        OPENCLAW_SYSTEMD_UNIT: "openclaw-gateway-maintenance",
+        GRANTED_PROFILE: "work",
+        GRANTED_SYSTEMD_UNIT: "granted-gateway-maintenance",
       },
       port: 18789,
       platform: "linux",
     });
 
-    expect(env.OPENCLAW_SYSTEMD_UNIT).toBe("openclaw-gateway-maintenance.service");
+    expect(env.GRANTED_SYSTEMD_UNIT).toBe("granted-gateway-maintenance.service");
   });
 
   it("preserves explicit systemd unit overrides with service suffix", () => {
     const env = buildServiceEnvironment({
       env: {
         HOME: "/home/user",
-        OPENCLAW_SYSTEMD_UNIT: "openclaw-gateway-maintenance.service",
+        GRANTED_SYSTEMD_UNIT: "granted-gateway-maintenance.service",
       },
       port: 18789,
       platform: "linux",
     });
 
-    expect(env.OPENCLAW_SYSTEMD_UNIT).toBe("openclaw-gateway-maintenance.service");
+    expect(env.GRANTED_SYSTEMD_UNIT).toBe("granted-gateway-maintenance.service");
   });
 
   it("sets a profile-specific launchd marker for macOS gateway services", () => {
     const env = buildServiceEnvironment({
-      env: { HOME: "/Users/user", OPENCLAW_PROFILE: "work" },
+      env: { HOME: "/Users/user", GRANTED_PROFILE: "work" },
       port: 18789,
       platform: "darwin",
     });
 
-    expect(env.OPENCLAW_LAUNCHD_LABEL).toBe("ai.openclaw.work");
+    expect(env.GRANTED_LAUNCHD_LABEL).toBe("ai.granted.work");
   });
 
   it("does not persist ambient proxy environment variables for launchd/systemd runtime", () => {
@@ -677,12 +677,12 @@ describe("buildServiceEnvironment", () => {
     const env = buildServiceEnvironment({
       env: {
         HOME: "/home/user",
-        OPENCLAW_PROXY_URL: " http://127.0.0.1:3128 ",
+        GRANTED_PROXY_URL: " http://127.0.0.1:3128 ",
       },
       port: 18789,
     });
 
-    expect(env.OPENCLAW_PROXY_URL).toBe("http://127.0.0.1:3128");
+    expect(env.GRANTED_PROXY_URL).toBe("http://127.0.0.1:3128");
   });
 
   it("omits PATH on Windows so Scheduled Tasks can inherit the current shell path", () => {
@@ -696,7 +696,7 @@ describe("buildServiceEnvironment", () => {
     });
 
     expect(env).not.toHaveProperty("PATH");
-    expect(env.OPENCLAW_WINDOWS_TASK_NAME).toBe("OpenClaw Gateway");
+    expect(env.GRANTED_WINDOWS_TASK_NAME).toBe("Granted Gateway");
   });
 
   it("prepends extra runtime directories to the gateway service PATH", () => {
@@ -739,7 +739,7 @@ describe("buildServiceEnvironment NODE_OPTIONS", () => {
       try {
         expect(
           buildServiceEnvironment({
-            env: { HOME: "/home/user", OPENCLAW_WRAPPER: wrapper },
+            env: { HOME: "/home/user", GRANTED_WRAPPER: wrapper },
             port: 18789,
             runtime: "bun",
           }).NODE_OPTIONS,
@@ -794,7 +794,7 @@ describe("buildNodeServiceEnvironment", () => {
       env: { HOME: "/home/user" },
     });
     expect(env.HOME).toBe("/home/user");
-    expect(env).not.toHaveProperty("OPENCLAW_SERVICE_VERSION");
+    expect(env).not.toHaveProperty("GRANTED_SERVICE_VERSION");
   });
 
   it("sets the OpenClaw-owned launchd marker for macOS node services", () => {
@@ -803,7 +803,7 @@ describe("buildNodeServiceEnvironment", () => {
       platform: "darwin",
     });
 
-    expect(env.OPENCLAW_LAUNCHD_LABEL).toBe("ai.openclaw.node");
+    expect(env.GRANTED_LAUNCHD_LABEL).toBe("ai.granted.node");
   });
 
   it("fences inherited Node compile cache in macOS node LaunchAgents", () => {
@@ -815,10 +815,10 @@ describe("buildNodeServiceEnvironment", () => {
       platform: "darwin",
     });
     const plist = buildLaunchAgentPlist({
-      label: "ai.openclaw.node",
+      label: "ai.granted.node",
       programArguments: ["/usr/local/bin/node", "dist/index.js", "node", "run"],
-      stdoutPath: "/tmp/openclaw-node.log",
-      stderrPath: "/tmp/openclaw-node.err.log",
+      stdoutPath: "/tmp/granted-node.log",
+      stderrPath: "/tmp/granted-node.err.log",
       environment,
     });
 
@@ -844,18 +844,18 @@ describe("buildNodeServiceEnvironment", () => {
     },
   );
 
-  it("passes through OPENCLAW_GATEWAY_TOKEN for node services", () => {
+  it("passes through GRANTED_GATEWAY_TOKEN for node services", () => {
     const env = buildNodeServiceEnvironment({
-      env: { HOME: "/home/user", OPENCLAW_GATEWAY_TOKEN: " node-token " },
+      env: { HOME: "/home/user", GRANTED_GATEWAY_TOKEN: " node-token " },
     });
-    expect(env.OPENCLAW_GATEWAY_TOKEN).toBe("node-token");
+    expect(env.GRANTED_GATEWAY_TOKEN).toBe("node-token");
   });
 
-  it("passes through OPENCLAW_GATEWAY_PASSWORD for node services", () => {
+  it("passes through GRANTED_GATEWAY_PASSWORD for node services", () => {
     const env = buildNodeServiceEnvironment({
-      env: { HOME: "/home/user", OPENCLAW_GATEWAY_PASSWORD: " node-password " },
+      env: { HOME: "/home/user", GRANTED_GATEWAY_PASSWORD: " node-password " },
     });
-    expect(env.OPENCLAW_GATEWAY_PASSWORD).toBe("node-password");
+    expect(env.GRANTED_GATEWAY_PASSWORD).toBe("node-password");
   });
 
   it("passes through the Cloudflare Access service-token pair for node services", () => {
@@ -870,21 +870,21 @@ describe("buildNodeServiceEnvironment", () => {
     expect(env.CF_ACCESS_CLIENT_SECRET).toBe("cf-client-secret");
   });
 
-  it("passes through OPENCLAW_ALLOW_INSECURE_PRIVATE_WS for node services", () => {
+  it("passes through GRANTED_ALLOW_INSECURE_PRIVATE_WS for node services", () => {
     const env = buildNodeServiceEnvironment({
-      env: { HOME: "/home/user", OPENCLAW_ALLOW_INSECURE_PRIVATE_WS: " 1 " },
+      env: { HOME: "/home/user", GRANTED_ALLOW_INSECURE_PRIVATE_WS: " 1 " },
     });
-    expect(env.OPENCLAW_ALLOW_INSECURE_PRIVATE_WS).toBe("1");
+    expect(env.GRANTED_ALLOW_INSECURE_PRIVATE_WS).toBe("1");
   });
 
-  it("omits OPENCLAW_GATEWAY_TOKEN when the env var is empty", () => {
+  it("omits GRANTED_GATEWAY_TOKEN when the env var is empty", () => {
     const env = buildNodeServiceEnvironment({
       env: {
         HOME: "/home/user",
-        OPENCLAW_GATEWAY_TOKEN: "   ",
+        GRANTED_GATEWAY_TOKEN: "   ",
       },
     });
-    expect(env.OPENCLAW_GATEWAY_TOKEN).toBeUndefined();
+    expect(env.GRANTED_GATEWAY_TOKEN).toBeUndefined();
   });
 
   it("does not persist ambient proxy environment variables for node services", () => {
@@ -904,11 +904,11 @@ describe("buildNodeServiceEnvironment", () => {
     const env = buildNodeServiceEnvironment({
       env: {
         HOME: "/home/user",
-        OPENCLAW_PROXY_URL: " http://127.0.0.1:3128 ",
+        GRANTED_PROXY_URL: " http://127.0.0.1:3128 ",
       },
     });
 
-    expect(env.OPENCLAW_PROXY_URL).toBe("http://127.0.0.1:3128");
+    expect(env.GRANTED_PROXY_URL).toBe("http://127.0.0.1:3128");
   });
 
   it("forwards TMPDIR for node services on Linux", () => {
@@ -953,9 +953,9 @@ describe("buildNodeServiceEnvironment", () => {
       platform: "win32",
     });
 
-    expect(env.OPENCLAW_WINDOWS_TASK_NAME).toBe("OpenClaw Node");
-    expect(env.OPENCLAW_WINDOWS_TASK_HIDDEN_LAUNCHER).toBe("1");
-    expect(env.OPENCLAW_TASK_SCRIPT_NAME).toBe("node.cmd");
+    expect(env.GRANTED_WINDOWS_TASK_NAME).toBe("Granted Node");
+    expect(env.GRANTED_WINDOWS_TASK_HIDDEN_LAUNCHER).toBe("1");
+    expect(env.GRANTED_TASK_SCRIPT_NAME).toBe("node.cmd");
   });
 });
 
@@ -1011,32 +1011,32 @@ describe("resolveGatewayStateDir", () => {
   });
 
   it("appends the profile suffix when set", () => {
-    const env = { HOME: "/Users/test", OPENCLAW_PROFILE: "rescue" };
+    const env = { HOME: "/Users/test", GRANTED_PROFILE: "rescue" };
     expect(resolveGatewayStateDir(env)).toBe(path.join("/Users/test", ".openclaw-rescue"));
   });
 
   it("treats default profiles as the base state dir", () => {
-    const env = { HOME: "/Users/test", OPENCLAW_PROFILE: "Default" };
+    const env = { HOME: "/Users/test", GRANTED_PROFILE: "Default" };
     expect(resolveGatewayStateDir(env)).toBe(path.join("/Users/test", ".openclaw"));
   });
 
-  it("uses OPENCLAW_STATE_DIR when provided", () => {
-    const env = { HOME: "/Users/test", OPENCLAW_STATE_DIR: "/var/lib/openclaw" };
+  it("uses GRANTED_STATE_DIR when provided", () => {
+    const env = { HOME: "/Users/test", GRANTED_STATE_DIR: "/var/lib/openclaw" };
     expect(resolveGatewayStateDir(env)).toBe(path.resolve("/var/lib/openclaw"));
   });
 
-  it("expands ~ in OPENCLAW_STATE_DIR", () => {
-    const env = { HOME: "/Users/test", OPENCLAW_STATE_DIR: "~/openclaw-state" };
+  it("expands ~ in GRANTED_STATE_DIR", () => {
+    const env = { HOME: "/Users/test", GRANTED_STATE_DIR: "~/openclaw-state" };
     expect(resolveGatewayStateDir(env)).toBe(path.resolve("/Users/test/openclaw-state"));
   });
 
-  it("does not interpret $ patterns in HOME when expanding ~ in OPENCLAW_STATE_DIR", () => {
-    const env = { HOME: "/home/$&user", OPENCLAW_STATE_DIR: "~/openclaw-state" };
+  it("does not interpret $ patterns in HOME when expanding ~ in GRANTED_STATE_DIR", () => {
+    const env = { HOME: "/home/$&user", GRANTED_STATE_DIR: "~/openclaw-state" };
     expect(resolveGatewayStateDir(env)).toBe(path.resolve("/home/$&user/openclaw-state"));
   });
 
   it("preserves Windows absolute paths without HOME", () => {
-    const env = { OPENCLAW_STATE_DIR: "C:\\State\\openclaw" };
+    const env = { GRANTED_STATE_DIR: "C:\\State\\openclaw" };
     expect(resolveGatewayStateDir(env)).toBe("C:\\State\\openclaw");
   });
 });

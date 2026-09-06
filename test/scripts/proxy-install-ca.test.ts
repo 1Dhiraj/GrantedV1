@@ -18,7 +18,7 @@ function runProxyInstallCa(args: string[], certDir: string) {
     encoding: "utf8",
     env: {
       ...process.env,
-      OPENCLAW_DEBUG_PROXY_CERT_DIR: certDir,
+      GRANTED_DEBUG_PROXY_CERT_DIR: certDir,
     },
   });
 }

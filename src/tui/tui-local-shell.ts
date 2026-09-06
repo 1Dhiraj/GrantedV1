@@ -138,7 +138,7 @@ export function createLocalShellRunner(deps: LocalShellDeps) {
         backendId: "tui-local-shell",
         scopeKey,
         cwd,
-        env: { ...env, OPENCLAW_SHELL: "tui-local" },
+        env: { ...env, GRANTED_SHELL: "tui-local" },
         captureOutput: false,
         onStdout: (chunk) => {
           stdout = sliceUtf16Safe(stdout + chunk, -maxChars);

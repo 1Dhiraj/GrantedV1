@@ -179,7 +179,7 @@ describe("channel ingress dead letters", () => {
         await queue.fail(claim, { reason: "handler-error", failedAt });
       }
       const { db } = openOpenClawStateDatabase({
-        env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+        env: { ...process.env, GRANTED_STATE_DIR: stateDir },
       });
       db.prepare(
         "UPDATE channel_ingress_events SET failed_at = NULL WHERE channel_id = 'line'",

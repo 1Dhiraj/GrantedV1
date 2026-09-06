@@ -62,11 +62,11 @@ vi.mock("../gateway/call.js", () => ({
               openclaw: {
                 type: "http",
                 url: "http://127.0.0.1:9999/mcp",
-                headers: { Authorization: "Bearer ${OPENCLAW_MCP_TOKEN}" },
+                headers: { Authorization: "Bearer ${GRANTED_MCP_TOKEN}" },
               },
             },
           },
-          env: { OPENCLAW_MCP_TOKEN: "tok-123" },
+          env: { GRANTED_MCP_TOKEN: "tok-123" },
         };
       }
       return {};
@@ -245,7 +245,7 @@ describe("openclaw attach (action)", () => {
     expect(out).toContain("agent:main:cli");
     expect(out).toContain("--mcp-config");
     expect(out).toContain("--strict-mcp-config");
-    expect(out).toContain("OPENCLAW_MCP_TOKEN");
+    expect(out).toContain("GRANTED_MCP_TOKEN");
     expect(out).not.toContain("attach.revoke");
   });
 
@@ -377,7 +377,7 @@ describe("openclaw attach (action)", () => {
         token: "tok-123",
         expiresAtMs: 2_000_000_000_000,
         mcpConfig: { mcpServers: { openclaw: {} } },
-        env: { OPENCLAW_MCP_TOKEN: "tok-123" },
+        env: { GRANTED_MCP_TOKEN: "tok-123" },
       } as never;
     });
     vi.mocked(callGateway).mockImplementationOnce(async (p) => {

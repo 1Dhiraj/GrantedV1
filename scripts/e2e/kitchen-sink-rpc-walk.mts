@@ -31,7 +31,7 @@ type JsonRecord = Record<string, unknown>;
 type ProcessEnv = Record<string, string | undefined>;
 type KitchenSinkEnv = {
   [key: string]: string | undefined;
-  OPENCLAW_CONFIG_PATH: string;
+  GRANTED_CONFIG_PATH: string;
 };
 type CapturedOutput = { text: string; truncatedChars: number };
 type CommandChild = ChildProcess;
@@ -120,8 +120,8 @@ type PosixProcessRow = {
 type MalformedProcessRow = { pidRaw: string; ppidRaw: string };
 
 const PLUGIN_SPEC =
-  process.env.OPENCLAW_KITCHEN_SINK_NPM_SPEC || "npm:@openclaw/kitchen-sink@latest";
-const PLUGIN_ID = process.env.OPENCLAW_KITCHEN_SINK_PLUGIN_ID || "openclaw-kitchen-sink-fixture";
+  process.env.GRANTED_KITCHEN_SINK_NPM_SPEC || "npm:@openclaw/kitchen-sink@latest";
+const PLUGIN_ID = process.env.GRANTED_KITCHEN_SINK_PLUGIN_ID || "openclaw-kitchen-sink-fixture";
 const CHANNEL_ID = "kitchen-sink-channel";
 const CHANNEL_ACCOUNT_ID = "local";
 const TOKEN = "kitchen-sink-rpc-token";
@@ -220,21 +220,21 @@ function usage() {
 Runs the external Kitchen Sink plugin RPC walk against a built OpenClaw entry.
 
 Environment:
-  OPENCLAW_ENTRY                         Built OpenClaw entrypoint. Defaults to dist/index.mjs or dist/index.js.
-  OPENCLAW_KITCHEN_SINK_NPM_SPEC         Plugin package spec. Default: npm:@openclaw/kitchen-sink@latest.
-  OPENCLAW_KITCHEN_SINK_PLUGIN_ID        Plugin id. Default: openclaw-kitchen-sink-fixture.
-  OPENCLAW_KITCHEN_SINK_PERSONALITY      Plugin fixture personality. Default: conformance.
-  OPENCLAW_KITCHEN_SINK_RPC_PORT         Gateway loopback port. Default: OS-selected free port.
-  OPENCLAW_KITCHEN_SINK_RPC_READY_MS     Gateway readiness timeout.
-  OPENCLAW_KITCHEN_SINK_RPC_COMMAND_MS   OpenClaw command timeout.
-  OPENCLAW_KITCHEN_SINK_RPC_INSTALL_MS   Plugin install timeout.
-  OPENCLAW_KITCHEN_SINK_RPC_CALL_MS      RPC call timeout.
-  OPENCLAW_KITCHEN_SINK_RPC_FETCH_MS     HTTP readiness probe timeout.
-  OPENCLAW_KITCHEN_SINK_RPC_FETCH_BODY_BYTES  HTTP readiness probe response ceiling.
-  OPENCLAW_KITCHEN_SINK_MAX_RSS_MIB      Gateway RSS ceiling.
-  OPENCLAW_KITCHEN_SINK_COMMAND_MAX_RSS_MIB  Install/CLI command RSS ceiling.
-  OPENCLAW_KITCHEN_SINK_OUTPUT_CAPTURE_CHARS  Per-command stdout/stderr capture ceiling.
-  OPENCLAW_KITCHEN_SINK_KEEP_TMP=1       Preserve the isolated temp home.
+  GRANTED_ENTRY                         Built OpenClaw entrypoint. Defaults to dist/index.mjs or dist/index.js.
+  GRANTED_KITCHEN_SINK_NPM_SPEC         Plugin package spec. Default: npm:@openclaw/kitchen-sink@latest.
+  GRANTED_KITCHEN_SINK_PLUGIN_ID        Plugin id. Default: openclaw-kitchen-sink-fixture.
+  GRANTED_KITCHEN_SINK_PERSONALITY      Plugin fixture personality. Default: conformance.
+  GRANTED_KITCHEN_SINK_RPC_PORT         Gateway loopback port. Default: OS-selected free port.
+  GRANTED_KITCHEN_SINK_RPC_READY_MS     Gateway readiness timeout.
+  GRANTED_KITCHEN_SINK_RPC_COMMAND_MS   OpenClaw command timeout.
+  GRANTED_KITCHEN_SINK_RPC_INSTALL_MS   Plugin install timeout.
+  GRANTED_KITCHEN_SINK_RPC_CALL_MS      RPC call timeout.
+  GRANTED_KITCHEN_SINK_RPC_FETCH_MS     HTTP readiness probe timeout.
+  GRANTED_KITCHEN_SINK_RPC_FETCH_BODY_BYTES  HTTP readiness probe response ceiling.
+  GRANTED_KITCHEN_SINK_MAX_RSS_MIB      Gateway RSS ceiling.
+  GRANTED_KITCHEN_SINK_COMMAND_MAX_RSS_MIB  Install/CLI command RSS ceiling.
+  GRANTED_KITCHEN_SINK_OUTPUT_CAPTURE_CHARS  Per-command stdout/stderr capture ceiling.
+  GRANTED_KITCHEN_SINK_KEEP_TMP=1       Preserve the isolated temp home.
 `;
 }
 
@@ -279,51 +279,51 @@ export function readPositiveTimerMs(raw: string | undefined, fallback: number, l
 
 export function resolveKitchenSinkRpcConfig(env: ProcessEnv = process.env) {
   const commandTimeoutMs = readPositiveTimerMs(
-    env.OPENCLAW_KITCHEN_SINK_RPC_COMMAND_MS,
+    env.GRANTED_KITCHEN_SINK_RPC_COMMAND_MS,
     DEFAULT_COMMAND_TIMEOUT_MS,
-    "OPENCLAW_KITCHEN_SINK_RPC_COMMAND_MS",
+    "GRANTED_KITCHEN_SINK_RPC_COMMAND_MS",
   );
   return {
     commandMaxRssMiB: readPositiveInt(
-      env.OPENCLAW_KITCHEN_SINK_COMMAND_MAX_RSS_MIB,
+      env.GRANTED_KITCHEN_SINK_COMMAND_MAX_RSS_MIB,
       DEFAULT_MAX_COMMAND_RSS_MIB,
-      "OPENCLAW_KITCHEN_SINK_COMMAND_MAX_RSS_MIB",
+      "GRANTED_KITCHEN_SINK_COMMAND_MAX_RSS_MIB",
     ),
     commandTimeoutMs,
     fetchBodyMaxBytes: readPositiveInt(
-      env.OPENCLAW_KITCHEN_SINK_RPC_FETCH_BODY_BYTES,
+      env.GRANTED_KITCHEN_SINK_RPC_FETCH_BODY_BYTES,
       DEFAULT_FETCH_BODY_MAX_BYTES,
-      "OPENCLAW_KITCHEN_SINK_RPC_FETCH_BODY_BYTES",
+      "GRANTED_KITCHEN_SINK_RPC_FETCH_BODY_BYTES",
     ),
     fetchTimeoutMs: readPositiveTimerMs(
-      env.OPENCLAW_KITCHEN_SINK_RPC_FETCH_MS,
+      env.GRANTED_KITCHEN_SINK_RPC_FETCH_MS,
       DEFAULT_FETCH_TIMEOUT_MS,
-      "OPENCLAW_KITCHEN_SINK_RPC_FETCH_MS",
+      "GRANTED_KITCHEN_SINK_RPC_FETCH_MS",
     ),
     installTimeoutMs: readPositiveTimerMs(
-      env.OPENCLAW_KITCHEN_SINK_RPC_INSTALL_MS,
+      env.GRANTED_KITCHEN_SINK_RPC_INSTALL_MS,
       Math.max(commandTimeoutMs, DEFAULT_INSTALL_TIMEOUT_MS),
-      "OPENCLAW_KITCHEN_SINK_RPC_INSTALL_MS",
+      "GRANTED_KITCHEN_SINK_RPC_INSTALL_MS",
     ),
     maxRssMiB: readPositiveInt(
-      env.OPENCLAW_KITCHEN_SINK_MAX_RSS_MIB,
+      env.GRANTED_KITCHEN_SINK_MAX_RSS_MIB,
       DEFAULT_MAX_RSS_MIB,
-      "OPENCLAW_KITCHEN_SINK_MAX_RSS_MIB",
+      "GRANTED_KITCHEN_SINK_MAX_RSS_MIB",
     ),
     outputCaptureChars: readPositiveInt(
-      env.OPENCLAW_KITCHEN_SINK_OUTPUT_CAPTURE_CHARS,
+      env.GRANTED_KITCHEN_SINK_OUTPUT_CAPTURE_CHARS,
       DEFAULT_OUTPUT_CAPTURE_CHARS,
-      "OPENCLAW_KITCHEN_SINK_OUTPUT_CAPTURE_CHARS",
+      "GRANTED_KITCHEN_SINK_OUTPUT_CAPTURE_CHARS",
     ),
     readyTimeoutMs: readPositiveTimerMs(
-      env.OPENCLAW_KITCHEN_SINK_RPC_READY_MS,
+      env.GRANTED_KITCHEN_SINK_RPC_READY_MS,
       DEFAULT_READY_TIMEOUT_MS,
-      "OPENCLAW_KITCHEN_SINK_RPC_READY_MS",
+      "GRANTED_KITCHEN_SINK_RPC_READY_MS",
     ),
     rpcTimeoutMs: readPositiveTimerMs(
-      env.OPENCLAW_KITCHEN_SINK_RPC_CALL_MS,
+      env.GRANTED_KITCHEN_SINK_RPC_CALL_MS,
       DEFAULT_RPC_TIMEOUT_MS,
-      "OPENCLAW_KITCHEN_SINK_RPC_CALL_MS",
+      "GRANTED_KITCHEN_SINK_RPC_CALL_MS",
     ),
   };
 }
@@ -368,12 +368,12 @@ export async function resolveKitchenSinkRpcPort(
   env: ProcessEnv = process.env,
   options: { findAvailablePort?: () => Promise<number> } = {},
 ) {
-  const rawPort = (env.OPENCLAW_KITCHEN_SINK_RPC_PORT || "").trim();
+  const rawPort = (env.GRANTED_KITCHEN_SINK_RPC_PORT || "").trim();
   if (rawPort) {
-    const port = readPositiveInt(rawPort, 0, "OPENCLAW_KITCHEN_SINK_RPC_PORT");
+    const port = readPositiveInt(rawPort, 0, "GRANTED_KITCHEN_SINK_RPC_PORT");
     if (port > 65535) {
       throw new Error(
-        `OPENCLAW_KITCHEN_SINK_RPC_PORT must be a TCP port from 1 to 65535. Got: ${JSON.stringify(rawPort)}`,
+        `GRANTED_KITCHEN_SINK_RPC_PORT must be a TCP port from 1 to 65535. Got: ${JSON.stringify(rawPort)}`,
       );
     }
     return port;
@@ -382,11 +382,11 @@ export async function resolveKitchenSinkRpcPort(
 }
 
 function resolveOpenClawRunner(): OpenClawRunner {
-  if (process.env.OPENCLAW_ENTRY) {
+  if (process.env.GRANTED_ENTRY) {
     return {
       command: "node",
-      baseArgs: [process.env.OPENCLAW_ENTRY],
-      label: process.env.OPENCLAW_ENTRY,
+      baseArgs: [process.env.GRANTED_ENTRY],
+      label: process.env.GRANTED_ENTRY,
     };
   }
   for (const candidate of ["dist/index.mjs", "dist/index.js"]) {
@@ -409,13 +409,13 @@ export function makeEnv() {
       ...process.env,
       HOME: home,
       USERPROFILE: home,
-      OPENCLAW_HOME: home,
-      OPENCLAW_STATE_DIR: stateDir,
-      OPENCLAW_CONFIG_PATH: path.join(stateDir, "openclaw.json"),
-      OPENCLAW_NO_ONBOARD: "1",
-      OPENCLAW_SKIP_PROVIDERS: "0",
-      OPENCLAW_KITCHEN_SINK_PERSONALITY:
-        process.env.OPENCLAW_KITCHEN_SINK_PERSONALITY || "conformance",
+      GRANTED_HOME: home,
+      GRANTED_STATE_DIR: stateDir,
+      GRANTED_CONFIG_PATH: path.join(stateDir, "openclaw.json"),
+      GRANTED_NO_ONBOARD: "1",
+      GRANTED_SKIP_PROVIDERS: "0",
+      GRANTED_KITCHEN_SINK_PERSONALITY:
+        process.env.GRANTED_KITCHEN_SINK_PERSONALITY || "conformance",
     },
   };
 }
@@ -708,7 +708,7 @@ async function shutdownActiveCommands(signal: NodeJS.Signals) {
 }
 
 function resolveCommandParentSignalKillGraceMs(env: ProcessEnv) {
-  const raw = env.VITEST && env.OPENCLAW_TEST_KITCHEN_SINK_PARENT_SIGNAL_KILL_GRACE_MS;
+  const raw = env.VITEST && env.GRANTED_TEST_KITCHEN_SINK_PARENT_SIGNAL_KILL_GRACE_MS;
   if (!raw) {
     return COMMAND_PARENT_SIGNAL_KILL_GRACE_MS;
   }
@@ -1077,8 +1077,8 @@ async function rpcCall(method: string, params: unknown, options: RpcCallOptions)
   const module = await loadCallGatewayModule(options.runner);
   const payload = module
     ? await module.callGateway({
-        config: readJson(options.env.OPENCLAW_CONFIG_PATH),
-        configPath: options.env.OPENCLAW_CONFIG_PATH,
+        config: readJson(options.env.GRANTED_CONFIG_PATH),
+        configPath: options.env.GRANTED_CONFIG_PATH,
         url: `ws://127.0.0.1:${options.port}`,
         token: TOKEN,
         method,
@@ -1170,7 +1170,7 @@ export function usesBuiltOpenClawEntry(
     return false;
   }
   const entry = runner.baseArgs[0];
-  if (env.OPENCLAW_ENTRY && entry === env.OPENCLAW_ENTRY) {
+  if (env.GRANTED_ENTRY && entry === env.GRANTED_ENTRY) {
     return true;
   }
   const relative = path.relative(path.resolve(cwd, "dist"), path.resolve(cwd, entry));
@@ -1338,7 +1338,7 @@ async function delayWithAbort(delayMs: number, signal?: AbortSignal) {
 }
 
 function configureKitchenSink(env: KitchenSinkEnv, port: number) {
-  const configPath = env.OPENCLAW_CONFIG_PATH;
+  const configPath = env.GRANTED_CONFIG_PATH;
   const config = asRecord(fs.existsSync(configPath) ? readJson(configPath) : {});
   const gateway = asRecord(config.gateway);
   const plugins = asRecord(config.plugins);
@@ -1372,7 +1372,7 @@ function configureKitchenSink(env: KitchenSinkEnv, port: number) {
         enabled: true,
         config: {
           ...asRecord(pluginEntry.config),
-          personality: env.OPENCLAW_KITCHEN_SINK_PERSONALITY,
+          personality: env.GRANTED_KITCHEN_SINK_PERSONALITY,
         },
         hooks: {
           ...asRecord(pluginEntry.hooks),
@@ -2738,7 +2738,7 @@ async function main() {
   const port = await resolveKitchenSinkRpcPort();
   const { root, env } = makeEnv();
   const logPath = path.join(root, "gateway.log");
-  const keepTmp = process.env.OPENCLAW_KITCHEN_SINK_KEEP_TMP === "1";
+  const keepTmp = process.env.GRANTED_KITCHEN_SINK_KEEP_TMP === "1";
   let failed = false;
   let child: GatewayChild | undefined;
 
@@ -2934,7 +2934,7 @@ async function main() {
 
     const uiDescriptors = await retryRpcCall("plugins.uiDescriptors", {}, rpcOptions);
     assertKitchenSinkUiDescriptors(uiDescriptors, {
-      expectDescriptor: env.OPENCLAW_KITCHEN_SINK_PERSONALITY !== "conformance",
+      expectDescriptor: env.GRANTED_KITCHEN_SINK_PERSONALITY !== "conformance",
     });
     const stability = await retryRpcCall("diagnostics.stability", {}, rpcOptions);
     assertDiagnosticStabilityClean(stability);

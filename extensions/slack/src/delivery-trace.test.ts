@@ -9,7 +9,7 @@
 // @slack/web-api ChatStreamer so the SDK's buffered-ack contract is captured as-is:
 // append() returns null and issues NO network call until its local buffer crosses
 // buffer_size (256 chars), and stop() can be the first network call for short replies.
-// Refresh goldens with OPENCLAW_TRACE_UPDATE=1 (see delivery-trace harness docs).
+// Refresh goldens with GRANTED_TRACE_UPDATE=1 (see delivery-trace harness docs).
 import { ChatStreamer } from "@slack/web-api/dist/chat-stream.js";
 import {
   expectDeliveryTraceMatchesGolden,
@@ -815,7 +815,7 @@ function buildSlackDeliveryProofVerdict(params: {
 }
 
 describe("slack delivery trace goldens", () => {
-  const headSha = process.env.OPENCLAW_DELIVERY_PROOF_SHA ?? "";
+  const headSha = process.env.GRANTED_DELIVERY_PROOF_SHA ?? "";
   for (const scenarioName of Object.keys(slackTraceScenarios) as SlackTraceScenarioName[]) {
     it(`records ${scenarioName}`, async () => {
       const events = await runDeliveryTraceScenario({
@@ -834,7 +834,7 @@ describe("slack delivery trace goldens", () => {
         scenarioName === "preview-exec-failed-then-prose"
       ) {
         expect(wireTexts.some((text) => text.includes(EXEC_FAILED_PROSE))).toBe(true);
-        if (process.env.OPENCLAW_DELIVERY_PROOF === "1") {
+        if (process.env.GRANTED_DELIVERY_PROOF === "1") {
           process.stdout.write(
             `${JSON.stringify(buildSlackDeliveryProofVerdict({ scenario: scenarioName, events, headSha }), null, 2)}\n`,
           );

@@ -68,7 +68,7 @@ function seedPointer(params: {
           }),
       );
     },
-    { env: { ...process.env, OPENCLAW_STATE_DIR: params.stateDir } },
+    { env: { ...process.env, GRANTED_STATE_DIR: params.stateDir } },
   );
 }
 
@@ -110,7 +110,7 @@ describe("legacy TUI last-session migration", () => {
     );
     expect(
       readConfigMachineStateWithMetadata<string>("tui.lastSession.terminal", {
-        env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+        env: { ...process.env, GRANTED_STATE_DIR: stateDir },
       }),
     ).toEqual({ value: "agent:main:tui-123", updatedAtMs: 100 });
     await expect(readTuiLastSessionKey({ scopeKey: "heartbeat", stateDir })).resolves.toBeNull();

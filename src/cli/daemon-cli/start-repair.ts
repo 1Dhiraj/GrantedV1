@@ -9,7 +9,7 @@ import {
   resolveGatewayPort,
   resolveStateDir,
 } from "../../config/paths.js";
-import { OPENCLAW_WRAPPER_ENV_KEY, resolveOpenClawWrapperPath } from "../../daemon/program-args.js";
+import { GRANTED_WRAPPER_ENV_KEY, resolveOpenClawWrapperPath } from "../../daemon/program-args.js";
 import { resolveBunRuntimeInfo } from "../../daemon/runtime-paths.js";
 import {
   assertServiceDefinitionWritable,
@@ -48,11 +48,11 @@ type GatewayServiceRepairResult<TResult extends "restarted" | "started"> = {
 const GATEWAY_TARGET_ENV_KEYS = [
   "HOME",
   "USERPROFILE",
-  "OPENCLAW_HOME",
-  "OPENCLAW_PROFILE",
-  "OPENCLAW_STATE_DIR",
-  "OPENCLAW_CONFIG_PATH",
-  "OPENCLAW_GATEWAY_PORT",
+  "GRANTED_HOME",
+  "GRANTED_PROFILE",
+  "GRANTED_STATE_DIR",
+  "GRANTED_CONFIG_PATH",
+  "GRANTED_GATEWAY_PORT",
 ] as const;
 
 function resolveInstalledGatewayTargetEnvironment(
@@ -82,9 +82,9 @@ function assertGatewayRepairTargetMatches(params: {
   installedPort: number | null;
 }): number {
   const installedEnv = resolveInstalledGatewayTargetEnvironment(params.existingEnvironment);
-  const installedStateOverride = installedEnv.OPENCLAW_STATE_DIR?.trim();
+  const installedStateOverride = installedEnv.GRANTED_STATE_DIR?.trim();
   const installedHome =
-    installedEnv.OPENCLAW_HOME?.trim() ||
+    installedEnv.GRANTED_HOME?.trim() ||
     installedEnv.HOME?.trim() ||
     installedEnv.USERPROFILE?.trim();
   if (!installedStateOverride && !installedHome) {
@@ -105,8 +105,8 @@ function assertGatewayRepairTargetMatches(params: {
   const differences: Array<{ name: string; installed: string; ambient: string }> = [];
 
   for (const [name, installed, ambient] of [
-    ["OPENCLAW_STATE_DIR", installedStateDir, ambientStateDir],
-    ["OPENCLAW_CONFIG_PATH", installedConfigPath, ambientConfigPath],
+    ["GRANTED_STATE_DIR", installedStateDir, ambientStateDir],
+    ["GRANTED_CONFIG_PATH", installedConfigPath, ambientConfigPath],
   ] as const) {
     if (normalizeTargetPath(installed) !== normalizeTargetPath(ambient)) {
       differences.push({ name, installed, ambient });
@@ -183,7 +183,7 @@ export async function repairLoadedGatewayServiceForStart(
     env: process.env,
     existingServiceEnv: existingEnvironment,
   });
-  const wrapperPath = await resolveOpenClawWrapperPath(installEnv[OPENCLAW_WRAPPER_ENV_KEY]);
+  const wrapperPath = await resolveOpenClawWrapperPath(installEnv[GRANTED_WRAPPER_ENV_KEY]);
   const installedRuntime = resolveGatewayDaemonRuntime(managedCommand?.programArguments);
   const installedRuntimePath =
     installedRuntime === "bun" ? managedCommand?.programArguments[0] : undefined;

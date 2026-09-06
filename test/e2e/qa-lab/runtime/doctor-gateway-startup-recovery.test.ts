@@ -27,13 +27,13 @@ describe("doctor gateway startup recovery producer", () => {
       "qa-doctor-policy",
       {
         HOME: "/tmp/sandbox-home",
-        OPENCLAW_CONFIG_PATH: "/tmp/host-config.json",
-        OPENCLAW_GATEWAY_PORT: "28789",
-        OPENCLAW_GATEWAY_TOKEN: "host-token",
-        OPENCLAW_GATEWAY_URL: "wss://ambient.example.invalid",
-        OPENCLAW_SERVICE_REPAIR_POLICY: "external",
-        OPENCLAW_STATE_DIR: "/tmp/host-state",
-        OPENCLAW_SUPERVISOR_MODE: "external",
+        GRANTED_CONFIG_PATH: "/tmp/host-config.json",
+        GRANTED_GATEWAY_PORT: "28789",
+        GRANTED_GATEWAY_TOKEN: "host-token",
+        GRANTED_GATEWAY_URL: "wss://ambient.example.invalid",
+        GRANTED_SERVICE_REPAIR_POLICY: "external",
+        GRANTED_STATE_DIR: "/tmp/host-state",
+        GRANTED_SUPERVISOR_MODE: "external",
         PATH: "/usr/bin",
         DBUS_SESSION_BUS_ADDRESS: "unix:path=/run/user/999/bus",
         SUDO_COMMAND: "/usr/bin/sudo openclaw doctor",
@@ -49,18 +49,18 @@ describe("doctor gateway startup recovery producer", () => {
     expect(env).toMatchObject({
       DBUS_SESSION_BUS_ADDRESS: "unix:path=/run/user/1001/bus",
       HOME: accountHome,
-      OPENCLAW_CONFIG_PATH: path.join(accountHome, ".openclaw-qa-doctor-policy", "openclaw.json"),
-      OPENCLAW_PROFILE: "qa-doctor-policy",
-      OPENCLAW_SKIP_CHANNELS: "1",
-      OPENCLAW_STATE_DIR: path.join(accountHome, ".openclaw-qa-doctor-policy"),
+      GRANTED_CONFIG_PATH: path.join(accountHome, ".openclaw-qa-doctor-policy", "openclaw.json"),
+      GRANTED_PROFILE: "qa-doctor-policy",
+      GRANTED_SKIP_CHANNELS: "1",
+      GRANTED_STATE_DIR: path.join(accountHome, ".openclaw-qa-doctor-policy"),
       PATH: "/usr/bin",
       XDG_RUNTIME_DIR: "/run/user/1001",
     });
-    expect(env.OPENCLAW_GATEWAY_TOKEN).toBeUndefined();
-    expect(env.OPENCLAW_GATEWAY_PORT).toBeUndefined();
-    expect(env.OPENCLAW_GATEWAY_URL).toBeUndefined();
-    expect(env.OPENCLAW_SERVICE_REPAIR_POLICY).toBeUndefined();
-    expect(env.OPENCLAW_SUPERVISOR_MODE).toBeUndefined();
+    expect(env.GRANTED_GATEWAY_TOKEN).toBeUndefined();
+    expect(env.GRANTED_GATEWAY_PORT).toBeUndefined();
+    expect(env.GRANTED_GATEWAY_URL).toBeUndefined();
+    expect(env.GRANTED_SERVICE_REPAIR_POLICY).toBeUndefined();
+    expect(env.GRANTED_SUPERVISOR_MODE).toBeUndefined();
     expect(env.SUDO_COMMAND).toBeUndefined();
     expect(env.SUDO_GID).toBeUndefined();
     expect(env.SUDO_UID).toBeUndefined();
@@ -95,9 +95,9 @@ describe("doctor gateway startup recovery producer", () => {
     expect(resolveSystemdRecoveryPermission({})).toEqual({
       available: false,
       reason:
-        "blocked native systemd recovery proof; set OPENCLAW_QA_ALLOW_SYSTEMD_RECOVERY=1 on a prepared host",
+        "blocked native systemd recovery proof; set GRANTED_QA_ALLOW_SYSTEMD_RECOVERY=1 on a prepared host",
     });
-    expect(resolveSystemdRecoveryPermission({ OPENCLAW_QA_ALLOW_SYSTEMD_RECOVERY: "1" })).toEqual({
+    expect(resolveSystemdRecoveryPermission({ GRANTED_QA_ALLOW_SYSTEMD_RECOVERY: "1" })).toEqual({
       available: true,
     });
   });
@@ -132,7 +132,7 @@ describe("doctor gateway startup recovery producer", () => {
     expect(diskEvidence.entries[0]).toMatchObject({
       result: {
         failure: {
-          reason: expect.stringContaining("OPENCLAW_QA_ALLOW_SYSTEMD_RECOVERY=1"),
+          reason: expect.stringContaining("GRANTED_QA_ALLOW_SYSTEMD_RECOVERY=1"),
         },
         status: "blocked",
       },

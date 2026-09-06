@@ -20,7 +20,7 @@ import { getDeterministicFreePortBlock } from "../src/test-utils/ports.js";
 const execFileAsync = promisify(execFile);
 const openAiApiKey = process.env.OPENAI_API_KEY?.trim() ?? "";
 const describeLive = isLiveTestEnabled() && openAiApiKey.length > 0 ? describe : describe.skip;
-const replyMarker = "OPENCLAW_OPENAI_ONBOARDING_OK";
+const replyMarker = "GRANTED_OPENAI_ONBOARDING_OK";
 
 async function runOpenClaw(args: string[], env: NodeJS.ProcessEnv): Promise<string> {
   try {
@@ -188,20 +188,20 @@ describeLive("fresh OpenAI onboarding live", () => {
         VITEST: undefined,
         VITEST_POOL_ID: undefined,
         VITEST_WORKER_ID: undefined,
-        OPENCLAW_TEST_FAST: undefined,
-        OPENCLAW_TEST_HOME: undefined,
-        OPENCLAW_TEST_MINIMAL_GATEWAY: undefined,
-        OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR: undefined,
-        OPENCLAW_BUNDLED_PLUGINS_DIR: undefined,
-        OPENCLAW_DISABLE_BUNDLED_PLUGINS: undefined,
-        OPENCLAW_PLUGIN_CATALOG_PATHS: undefined,
-        OPENCLAW_PLUGINS_PATHS: undefined,
-        OPENCLAW_WORKSPACE_DIR: undefined,
-        OPENCLAW_PROFILE: undefined,
-        OPENCLAW_GATEWAY_TOKEN: undefined,
-        OPENCLAW_GATEWAY_PASSWORD: undefined,
-        OPENCLAW_GATEWAY_URL: undefined,
-        OPENCLAW_GATEWAY_PORT: undefined,
+        GRANTED_TEST_FAST: undefined,
+        GRANTED_TEST_HOME: undefined,
+        GRANTED_TEST_MINIMAL_GATEWAY: undefined,
+        GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR: undefined,
+        GRANTED_BUNDLED_PLUGINS_DIR: undefined,
+        GRANTED_DISABLE_BUNDLED_PLUGINS: undefined,
+        GRANTED_PLUGIN_CATALOG_PATHS: undefined,
+        GRANTED_PLUGINS_PATHS: undefined,
+        GRANTED_WORKSPACE_DIR: undefined,
+        GRANTED_PROFILE: undefined,
+        GRANTED_GATEWAY_TOKEN: undefined,
+        GRANTED_GATEWAY_PASSWORD: undefined,
+        GRANTED_GATEWAY_URL: undefined,
+        GRANTED_GATEWAY_PORT: undefined,
       },
     });
 
@@ -249,7 +249,7 @@ describeLive("fresh OpenAI onboarding live", () => {
         expect(config.gateway?.auth?.token).toEqual({
           source: "store",
           provider: "default",
-          id: "OPENCLAW_GATEWAY_TOKEN",
+          id: "GRANTED_GATEWAY_TOKEN",
         });
         assertOpenAiEnvProfile(state.env);
       }

@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { requireNodeSqlite } from "../../infra/node-sqlite.js";
-import { OPENCLAW_STATE_SCHEMA_VERSION } from "../../state/openclaw-state-db-contract.js";
+import { GRANTED_STATE_SCHEMA_VERSION } from "../../state/openclaw-state-db-contract.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
@@ -113,7 +113,7 @@ describe("Skill Workshop SQLite store", () => {
         .get("claim_released_time"),
     ).toEqual({ name: "claim_released_time", type: "INTEGER", notnull: 0 });
     expect(reopened.db.prepare("PRAGMA user_version").get()).toEqual({
-      user_version: OPENCLAW_STATE_SCHEMA_VERSION,
+      user_version: GRANTED_STATE_SCHEMA_VERSION,
     });
   });
 
@@ -140,7 +140,7 @@ describe("Skill Workshop SQLite store", () => {
         .get("claim_released_time"),
     ).toEqual({ name: "claim_released_time", type: "INTEGER", notnull: 0 });
     expect(reopened.db.prepare("PRAGMA user_version").get()).toEqual({
-      user_version: OPENCLAW_STATE_SCHEMA_VERSION,
+      user_version: GRANTED_STATE_SCHEMA_VERSION,
     });
   });
 

@@ -500,21 +500,21 @@ async function main() {
   const args = parseArgs(process.argv.slice(2));
   const retryOptions = {
     attempts: positiveInteger(
-      process.env.OPENCLAW_CLAWHUB_VERIFY_ATTEMPTS,
+      process.env.GRANTED_CLAWHUB_VERIFY_ATTEMPTS,
       DEFAULT_ATTEMPTS,
-      "OPENCLAW_CLAWHUB_VERIFY_ATTEMPTS",
+      "GRANTED_CLAWHUB_VERIFY_ATTEMPTS",
       MAX_ATTEMPTS,
     ),
     delayMs: positiveInteger(
-      process.env.OPENCLAW_CLAWHUB_VERIFY_DELAY_MS,
+      process.env.GRANTED_CLAWHUB_VERIFY_DELAY_MS,
       DEFAULT_DELAY_MS,
-      "OPENCLAW_CLAWHUB_VERIFY_DELAY_MS",
+      "GRANTED_CLAWHUB_VERIFY_DELAY_MS",
       MAX_DELAY_MS,
     ),
     timeoutMs: positiveInteger(
-      process.env.OPENCLAW_CLAWHUB_VERIFY_ATTEMPT_TIMEOUT_MS,
+      process.env.GRANTED_CLAWHUB_VERIFY_ATTEMPT_TIMEOUT_MS,
       DEFAULT_ATTEMPT_TIMEOUT_MS,
-      "OPENCLAW_CLAWHUB_VERIFY_ATTEMPT_TIMEOUT_MS",
+      "GRANTED_CLAWHUB_VERIFY_ATTEMPT_TIMEOUT_MS",
     ),
   };
   const directMode = [

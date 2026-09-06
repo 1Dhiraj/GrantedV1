@@ -31,7 +31,7 @@ import {
 } from "../../plugins/providers.js";
 import {
   isDefaultAgentRuntimeId,
-  OPENCLAW_AGENT_RUNTIME_ID,
+  GRANTED_AGENT_RUNTIME_ID,
   normalizeOptionalAgentRuntimeId,
 } from "../agent-runtime-id.js";
 import { collectConfiguredAgentHarnessRuntimes } from "../harness-runtimes.js";
@@ -148,7 +148,7 @@ function resolveAgentRuntimeMetadataPluginIds(params: {
     selections
       .map((selection) => resolveSelectedAgentHarnessRuntime(selection, params.config))
       .filter(
-        (runtime) => !isDefaultAgentRuntimeId(runtime) && runtime !== OPENCLAW_AGENT_RUNTIME_ID,
+        (runtime) => !isDefaultAgentRuntimeId(runtime) && runtime !== GRANTED_AGENT_RUNTIME_ID,
       ),
   );
   if (!lookup.hasAgentHarnessOwners(runtimeIds)) {
@@ -301,7 +301,7 @@ export function requiresAgentHarnessPluginSelection(
   config?: OpenClawConfig,
 ): boolean {
   const runtime = resolveSelectedAgentHarnessRuntime(selection, config);
-  if (isDefaultAgentRuntimeId(runtime) || runtime === OPENCLAW_AGENT_RUNTIME_ID) {
+  if (isDefaultAgentRuntimeId(runtime) || runtime === GRANTED_AGENT_RUNTIME_ID) {
     return false;
   }
   // Codex is a native plugin harness, never a CLI backend alias. Keep this hot-path decision

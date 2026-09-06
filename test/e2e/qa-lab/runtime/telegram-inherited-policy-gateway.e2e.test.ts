@@ -175,7 +175,7 @@ test.each(["allowlist", "open"] as const)(
               },
               controlUiEnabled: false,
               runtimeEnvPatch: {
-                OPENCLAW_TEST_MINIMAL_GATEWAY: undefined,
+                GRANTED_TEST_MINIMAL_GATEWAY: undefined,
                 TELEGRAM_BOT_TOKEN: undefined,
               },
               mutateConfig: (cfg) => {

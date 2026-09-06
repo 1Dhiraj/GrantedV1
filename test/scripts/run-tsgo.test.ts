@@ -242,12 +242,12 @@ describe("run-tsgo sparse guard", () => {
   });
 
   it("recognizes the check:changed sparse-skip env", () => {
-    expect(shouldSkipSparseTsgoGuardError({ OPENCLAW_TSGO_SPARSE_SKIP: "1" })).toBe(true);
-    expect(shouldSkipSparseTsgoGuardError({ OPENCLAW_TSGO_SPARSE_SKIP: "true" })).toBe(true);
-    expect(shouldSkipSparseTsgoGuardError({ OPENCLAW_TSGO_SPARSE_SKIP: "0" })).toBe(false);
+    expect(shouldSkipSparseTsgoGuardError({ GRANTED_TSGO_SPARSE_SKIP: "1" })).toBe(true);
+    expect(shouldSkipSparseTsgoGuardError({ GRANTED_TSGO_SPARSE_SKIP: "true" })).toBe(true);
+    expect(shouldSkipSparseTsgoGuardError({ GRANTED_TSGO_SPARSE_SKIP: "0" })).toBe(false);
     expect(createSparseTsgoSkipEnv({ PATH: "/usr/bin" })).toStrictEqual({
       PATH: "/usr/bin",
-      OPENCLAW_TSGO_SPARSE_SKIP: "1",
+      GRANTED_TSGO_SPARSE_SKIP: "1",
     });
   });
 });
@@ -255,8 +255,8 @@ describe("run-tsgo sparse guard", () => {
 describe.skipIf(process.platform === "win32")("run-tsgo watchdog", () => {
   it("keeps the watchdog opt-in", () => {
     expect(resolveTsgoTimeoutMs({})).toBeUndefined();
-    expect(resolveTsgoTimeoutMs({ OPENCLAW_TSGO_TIMEOUT_MS: "  " })).toBeUndefined();
-    expect(resolveTsgoTimeoutMs({ OPENCLAW_TSGO_TIMEOUT_MS: "30000" })).toBe(30_000);
+    expect(resolveTsgoTimeoutMs({ GRANTED_TSGO_TIMEOUT_MS: "  " })).toBeUndefined();
+    expect(resolveTsgoTimeoutMs({ GRANTED_TSGO_TIMEOUT_MS: "30000" })).toBe(30_000);
   });
 
   function writeFakeTsgo(cwd: string, body: string) {
@@ -320,7 +320,7 @@ describe.skipIf(process.platform === "win32")("run-tsgo watchdog", () => {
     timeoutMs: string | undefined,
     onBeforeReap?: (pid: number | undefined) => void,
   ) {
-    const { OPENCLAW_TSGO_TIMEOUT_MS: _unset, ...baseEnv } = process.env;
+    const { GRANTED_TSGO_TIMEOUT_MS: _unset, ...baseEnv } = process.env;
     try {
       return spawnSync(
         process.execPath,
@@ -330,7 +330,7 @@ describe.skipIf(process.platform === "win32")("run-tsgo watchdog", () => {
           encoding: "utf8",
           env: withSupervisorClock(
             cwd,
-            timeoutMs === undefined ? baseEnv : { ...baseEnv, OPENCLAW_TSGO_TIMEOUT_MS: timeoutMs },
+            timeoutMs === undefined ? baseEnv : { ...baseEnv, GRANTED_TSGO_TIMEOUT_MS: timeoutMs },
           ),
           // spawnSync blocks this thread, so vitest's own per-test budget can never
           // fire; a regression here would hang the worker instead of failing.
@@ -404,7 +404,7 @@ child.once("message", () => process.exit(0));
   }, 30_000);
 
   it.each([{ bound: "0" }, { bound: "abc" }])(
-    "explains a rejected OPENCLAW_TSGO_TIMEOUT_MS of $bound instead of crashing",
+    "explains a rejected GRANTED_TSGO_TIMEOUT_MS of $bound instead of crashing",
     ({ bound }) => {
       const cwd = createTempDir("openclaw-run-tsgo-watchdog-");
       writeFakeTsgo(cwd, "#!/bin/sh\nexit 0\n");

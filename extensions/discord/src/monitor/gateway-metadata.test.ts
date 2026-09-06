@@ -70,17 +70,17 @@ describe("Discord gateway metadata", () => {
   it("resolves gateway info timeouts from strict integer env values", () => {
     expect(
       resolveDiscordGatewayInfoTimeoutMs({
-        env: { OPENCLAW_DISCORD_GATEWAY_INFO_TIMEOUT_MS: "90000" },
+        env: { GRANTED_DISCORD_GATEWAY_INFO_TIMEOUT_MS: "90000" },
       }),
     ).toBe(90_000);
     expect(
       resolveDiscordGatewayInfoTimeoutMs({
-        env: { OPENCLAW_DISCORD_GATEWAY_INFO_TIMEOUT_MS: "0x1000" },
+        env: { GRANTED_DISCORD_GATEWAY_INFO_TIMEOUT_MS: "0x1000" },
       }),
     ).toBe(30_000);
     expect(
       resolveDiscordGatewayInfoTimeoutMs({
-        env: { OPENCLAW_DISCORD_GATEWAY_INFO_TIMEOUT_MS: "1e3" },
+        env: { GRANTED_DISCORD_GATEWAY_INFO_TIMEOUT_MS: "1e3" },
       }),
     ).toBe(30_000);
   });

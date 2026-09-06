@@ -19,7 +19,7 @@ describe("isReplyProfilerEnabled", () => {
     expect(isReplyProfilerEnabled({ config: cfg, env: {} as NodeJS.ProcessEnv })).toBe(true);
     expect(
       isReplyProfilerEnabled({
-        env: { OPENCLAW_DIAGNOSTICS: "profiler" } as NodeJS.ProcessEnv,
+        env: { GRANTED_DIAGNOSTICS: "profiler" } as NodeJS.ProcessEnv,
       }),
     ).toBe(true);
   });
@@ -43,7 +43,7 @@ describe("createReplyTimingTracker", () => {
     const warn = vi.fn();
     const tracker = createReplyTimingTracker({
       log: { warn },
-      env: { OPENCLAW_DIAGNOSTICS: "reply.profiler" } as NodeJS.ProcessEnv,
+      env: { GRANTED_DIAGNOSTICS: "reply.profiler" } as NodeJS.ProcessEnv,
       totalWarnMs: 0,
       stageWarnMs: 0,
     });

@@ -16,7 +16,7 @@ const suite = createControlUiE2eSuite({
     `Playwright Chromium is not installed or cannot start at ${executablePath}. Run \`pnpm --dir ui exec playwright install --with-deps chromium\`.`,
 });
 
-const screenshotDirParent = process.env.OPENCLAW_TERMINAL_LAYOUT_SCREENSHOT_DIR?.trim();
+const screenshotDirParent = process.env.GRANTED_TERMINAL_LAYOUT_SCREENSHOT_DIR?.trim();
 let screenshotDir: string | undefined;
 beforeEach(() => {
   screenshotDir = screenshotDirParent

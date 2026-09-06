@@ -121,10 +121,10 @@ describe("buildWorkspaceSkillsPrompt — .agents/skills/ directories", () => {
       description: "Personal only skill",
     });
 
-    setTestEnvValue("OPENCLAW_STATE_DIR", path.join(fakeHome, ".openclaw"));
+    setTestEnvValue("GRANTED_STATE_DIR", path.join(fakeHome, ".openclaw"));
     expect(buildSkillsPrompt(workspaceDir, managedDir, bundledDir)).toContain("personal-only");
 
-    setTestEnvValue("OPENCLAW_STATE_DIR", path.join(fakeHome, "scratch-state"));
+    setTestEnvValue("GRANTED_STATE_DIR", path.join(fakeHome, "scratch-state"));
     expect(buildSkillsPrompt(workspaceDir, managedDir, bundledDir)).not.toContain("personal-only");
   });
 

@@ -433,7 +433,7 @@ describe("isolated QA suite transport cleanup", () => {
   });
 
   it("preserves nested publication ownership through concurrent worker runtime preparation", async () => {
-    vi.stubEnv("OPENCLAW_QA_SUITE_PROGRESS", "1");
+    vi.stubEnv("GRANTED_QA_SUITE_PROGRESS", "1");
     const stderrWrite = vi.spyOn(process.stderr, "write").mockImplementation(() => true);
     const lab = createCleanupTestLab();
     const selection = {

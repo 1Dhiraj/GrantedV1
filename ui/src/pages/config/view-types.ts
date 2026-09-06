@@ -152,6 +152,10 @@ export type ConfigProps = {
   setChatMessageMaxWidth: (value: string | undefined) => void;
   chatCollapseTaskProgress: boolean;
   setChatCollapseTaskProgress: (enabled: boolean) => void;
+  wakeWordEnabled?: boolean;
+  setWakeWordEnabled?: (enabled: boolean) => void;
+  wakeWordPhrase?: string;
+  setWakeWordPhrase?: (value: string | undefined) => void;
   showAdvancedSettings: boolean;
   setShowAdvancedSettings: (enabled: boolean) => void;
   forceShowAdvanced?: boolean;

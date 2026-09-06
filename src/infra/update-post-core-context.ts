@@ -2,15 +2,15 @@ import type { OpenClawConfig } from "../config/types.openclaw.js";
 import { mergeProcessEnv } from "./process-env.js";
 import type { UpdateChannel } from "./update-channels.js";
 
-export const POST_CORE_UPDATE_ENV = "OPENCLAW_UPDATE_POST_CORE";
-export const POST_CORE_UPDATE_CHANNEL_ENV = "OPENCLAW_UPDATE_POST_CORE_CHANNEL";
-export const POST_CORE_UPDATE_RESULT_PATH_ENV = "OPENCLAW_UPDATE_POST_CORE_RESULT_PATH";
+export const POST_CORE_UPDATE_ENV = "GRANTED_UPDATE_POST_CORE";
+export const POST_CORE_UPDATE_CHANNEL_ENV = "GRANTED_UPDATE_POST_CORE_CHANNEL";
+export const POST_CORE_UPDATE_RESULT_PATH_ENV = "GRANTED_UPDATE_POST_CORE_RESULT_PATH";
 export const POST_CORE_UPDATE_INSTALL_RECORDS_PATH_ENV =
-  "OPENCLAW_UPDATE_POST_CORE_INSTALL_RECORDS_PATH";
-export const POST_CORE_UPDATE_STARTED_AT_ENV = "OPENCLAW_UPDATE_POST_CORE_STARTED_AT_MS";
-export const POST_CORE_UPDATE_REQUESTED_CHANNEL_ENV = "OPENCLAW_UPDATE_POST_CORE_REQUESTED_CHANNEL";
+  "GRANTED_UPDATE_POST_CORE_INSTALL_RECORDS_PATH";
+export const POST_CORE_UPDATE_STARTED_AT_ENV = "GRANTED_UPDATE_POST_CORE_STARTED_AT_MS";
+export const POST_CORE_UPDATE_REQUESTED_CHANNEL_ENV = "GRANTED_UPDATE_POST_CORE_REQUESTED_CHANNEL";
 export const POST_CORE_UPDATE_SOURCE_CONFIG_PATH_ENV =
-  "OPENCLAW_UPDATE_POST_CORE_SOURCE_CONFIG_PATH";
+  "GRANTED_UPDATE_POST_CORE_SOURCE_CONFIG_PATH";
 
 export function buildPostCoreHandoffEnv(params: {
   baseEnv: NodeJS.ProcessEnv;
@@ -21,7 +21,7 @@ export function buildPostCoreHandoffEnv(params: {
   return mergeProcessEnv([
     params.baseEnv,
     {
-      OPENCLAW_COMPATIBILITY_HOST_VERSION: params.compatHostVersion || undefined,
+      GRANTED_COMPATIBILITY_HOST_VERSION: params.compatHostVersion || undefined,
       [POST_CORE_UPDATE_REQUESTED_CHANNEL_ENV]: params.requestedChannel || undefined,
       [POST_CORE_UPDATE_SOURCE_CONFIG_PATH_ENV]: params.sourceConfigPath || undefined,
     },

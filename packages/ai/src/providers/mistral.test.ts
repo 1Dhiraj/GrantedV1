@@ -720,7 +720,7 @@ describe("Mistral provider", () => {
     };
     const systemMessage = payload.messages.find((message) => message.role === "system");
     expect(systemMessage?.content).toBe("Stable\nDynamic");
-    expect(JSON.stringify(payload)).not.toContain("OPENCLAW_CACHE_BOUNDARY");
+    expect(JSON.stringify(payload)).not.toContain("GRANTED_CACHE_BOUNDARY");
   });
 
   it("uses prompt cache affinity unless caching is disabled", async () => {

@@ -173,8 +173,8 @@ const MXC_TEST_ENV_KEYS = [
   "ComSpec",
   "LOCALAPPDATA",
   "NUMBER_OF_PROCESSORS",
-  "OPENCLAW_MXC_HOST_SECRET_TEST",
-  "OPENCLAW_MXC_SECRET_TEST",
+  "GRANTED_MXC_HOST_SECRET_TEST",
+  "GRANTED_MXC_SECRET_TEST",
   "ProgramData",
   "ProgramFiles",
   "ProgramFiles(x86)",
@@ -323,7 +323,7 @@ describeOnWindows("createMxcSandboxBackendHandle (Windows-only MXC backend tests
   });
 
   test("buildExecSpec keeps command and env payload out of process argv", async () => {
-    await withProcessEnv({ OPENCLAW_MXC_HOST_SECRET_TEST: "host-secret" }, async () => {
+    await withProcessEnv({ GRANTED_MXC_HOST_SECRET_TEST: "host-secret" }, async () => {
       const handle = createMxcSandboxBackendHandle(baseParams);
       const spec = await handle.buildExecSpec({
         command: "printf secret-command",
@@ -335,7 +335,7 @@ describeOnWindows("createMxcSandboxBackendHandle (Windows-only MXC backend tests
       expect(serializedArgv).not.toContain("secret-command");
       expect(serializedArgv).not.toContain("SECRET_TOKEN");
       expect(serializedArgv).not.toContain("secret-env-value");
-      expect(spec.env.OPENCLAW_MXC_HOST_SECRET_TEST).toBeUndefined();
+      expect(spec.env.GRANTED_MXC_HOST_SECRET_TEST).toBeUndefined();
       expect(spec.argv[2]).toBe("--payload-file");
 
       const payloadFile = spec.argv[3];
@@ -369,7 +369,7 @@ describeOnWindows("createMxcSandboxBackendHandle (Windows-only MXC backend tests
         ProgramData: "C:\\ProgramData",
         "ProgramFiles(x86)": "C:\\Program Files (x86)",
         NUMBER_OF_PROCESSORS: "8",
-        OPENCLAW_MXC_SECRET_TEST: "do-not-leak",
+        GRANTED_MXC_SECRET_TEST: "do-not-leak",
       },
       async () => {
         const handle = createMxcSandboxBackendHandle({
@@ -403,7 +403,7 @@ describeOnWindows("createMxcSandboxBackendHandle (Windows-only MXC backend tests
         expect(env).toContain("CUSTOM_ENV=caller");
         expect(env).toContain("comspec=C:\\Tools\\custom-cmd.exe");
         expect(env.filter((entry) => entry.toLowerCase().startsWith("comspec="))).toHaveLength(1);
-        expect(env.some((entry) => entry.startsWith("OPENCLAW_MXC_SECRET_TEST="))).toBe(false);
+        expect(env.some((entry) => entry.startsWith("GRANTED_MXC_SECRET_TEST="))).toBe(false);
         const envKeys = env.map((entry) => entry.slice(0, entry.indexOf("=")));
         expect(envKeys).toEqual([...envKeys].toSorted((a, b) => a.localeCompare(b)));
       },
@@ -1333,7 +1333,7 @@ describeOnWindows("createMxcSandboxBackendHandle (Windows-only MXC backend tests
         SystemRoot: "C:\\Windows",
         SystemDrive: "C:",
         USERPROFILE: "C:\\Users\\openclaw",
-        OPENCLAW_MXC_SECRET_TEST: "do-not-leak",
+        GRANTED_MXC_SECRET_TEST: "do-not-leak",
       },
       async () => {
         let bridgeScript: string | undefined;
@@ -1386,9 +1386,9 @@ describeOnWindows("createMxcSandboxBackendHandle (Windows-only MXC backend tests
         expect(env).toContain("SystemRoot=C:\\Windows");
         expect(env).toContain("SystemDrive=C:");
         expect(env).toContain("USERPROFILE=C:\\Users\\openclaw");
-        expect(env.some((entry) => entry.startsWith("OPENCLAW_MXC_SECRET_TEST="))).toBe(false);
+        expect(env.some((entry) => entry.startsWith("GRANTED_MXC_SECRET_TEST="))).toBe(false);
         expect(launcherEnv?.SystemRoot).toBe("C:\\Windows");
-        expect(launcherEnv?.OPENCLAW_MXC_SECRET_TEST).toBeUndefined();
+        expect(launcherEnv?.GRANTED_MXC_SECRET_TEST).toBeUndefined();
         expect(launcherInput).toEqual(Buffer.from("shell-input", "utf-8"));
         expect(commandFile ? existsSync(path.dirname(commandFile)) : true).toBe(false);
       },

@@ -52,7 +52,7 @@ export class QaGatewayChildLifecycle {
   private operation: Promise<unknown> | null = null;
   private stopping: Promise<QaGatewayStopResult> | null = null;
   private artifactsFinalized = false;
-  private readonly keepTemp = process.env.OPENCLAW_QA_KEEP_TEMP === "1";
+  private readonly keepTemp = process.env.GRANTED_QA_KEEP_TEMP === "1";
 
   repoRoot?: string;
 

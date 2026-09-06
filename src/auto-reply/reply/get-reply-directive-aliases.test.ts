@@ -156,7 +156,7 @@ async function resolveModelDirective(params: {
 describe("reply directive resolution", () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    vi.stubEnv("OPENCLAW_TEST_FAST", "1");
+    vi.stubEnv("GRANTED_TEST_FAST", "1");
     textRoutingMocks.shouldHandle.mockImplementation(
       (params: { cfg: OpenClawConfig }) => params.cfg.commands?.text !== false,
     );

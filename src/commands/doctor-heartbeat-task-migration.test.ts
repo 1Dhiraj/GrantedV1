@@ -46,7 +46,7 @@ function createTestCronService(storePath: string, cfg: OpenClawConfig, nowMs: nu
 
 beforeEach(() => {
   originalHome = process.env.HOME;
-  originalStateDir = process.env.OPENCLAW_STATE_DIR;
+  originalStateDir = process.env.GRANTED_STATE_DIR;
 });
 
 afterEach(async () => {
@@ -59,9 +59,9 @@ afterEach(async () => {
     process.env.HOME = originalHome;
   }
   if (originalStateDir === undefined) {
-    delete process.env.OPENCLAW_STATE_DIR;
+    delete process.env.GRANTED_STATE_DIR;
   } else {
-    process.env.OPENCLAW_STATE_DIR = originalStateDir;
+    process.env.GRANTED_STATE_DIR = originalStateDir;
   }
   await Promise.all(tempDirs.splice(0).map((dir) => fs.rm(dir, { recursive: true, force: true })));
 });
@@ -83,9 +83,9 @@ tasks:
 ) {
   const root = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-heartbeat-task-migration-"));
   tempDirs.push(root);
-  const env = { ...process.env, HOME: path.join(root, "home"), OPENCLAW_STATE_DIR: root };
+  const env = { ...process.env, HOME: path.join(root, "home"), GRANTED_STATE_DIR: root };
   process.env.HOME = env.HOME;
-  process.env.OPENCLAW_STATE_DIR = env.OPENCLAW_STATE_DIR;
+  process.env.GRANTED_STATE_DIR = env.GRANTED_STATE_DIR;
   const cfg = {
     agents: { defaults: { heartbeat: { every: "30m" } }, list: [{ id: "main" }] },
   } as OpenClawConfig;
@@ -191,7 +191,7 @@ describe("heartbeat scratch task cron migration", () => {
   it("does not create shared state while detecting heartbeat tasks", async () => {
     const root = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-heartbeat-task-detect-"));
     tempDirs.push(root);
-    const env = { ...process.env, HOME: path.join(root, "home"), OPENCLAW_STATE_DIR: root };
+    const env = { ...process.env, HOME: path.join(root, "home"), GRANTED_STATE_DIR: root };
     const cfg = {
       agents: { defaults: { heartbeat: { every: "30m" } }, list: [{ id: "main" }] },
     } as OpenClawConfig;

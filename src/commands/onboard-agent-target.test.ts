@@ -115,7 +115,7 @@ describe("onboarding agent target", () => {
     const stateDir = tempDirs.make("openclaw-pending-onboard-target-");
     const workspaceDir = path.join(stateDir, "requested-workspace");
 
-    await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () => {
+    await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {
       for (const entries of [undefined, { main: {} }, { main: { default: true } }] as const) {
         const config = {
           agents: { defaults: { workspace: workspaceDir }, ...(entries ? { entries } : {}) },
@@ -357,7 +357,7 @@ describe("onboarding agent target", () => {
     const opsWorkspace = path.join(stateDir, "ops-workspace");
     const runtime = { log: vi.fn() } as unknown as RuntimeEnv;
 
-    await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () => {
+    await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {
       const config = {
         agents: {
           defaults: { workspace: globalWorkspace },

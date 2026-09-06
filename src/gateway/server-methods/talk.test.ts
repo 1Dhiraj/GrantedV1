@@ -1361,9 +1361,9 @@ describe("talk.config handler", () => {
     const providers = realtime.providers as Record<string, unknown> | undefined;
     expectRecordFields(providers?.openai, {
       apiKey: {
-        source: "__OPENCLAW_REDACTED__",
-        provider: "__OPENCLAW_REDACTED__",
-        id: "__OPENCLAW_REDACTED__",
+        source: "__GRANTED_REDACTED__",
+        provider: "__GRANTED_REDACTED__",
+        id: "__GRANTED_REDACTED__",
       },
       azureEndpoint: "https://example.openai.azure.com",
       azureDeployment: "realtime-prod",
@@ -1462,7 +1462,7 @@ describe("talk.config handler", () => {
     expectRecordFields(talkConfig, { provider: "acme" });
     const resolved = talkConfig?.resolved as Record<string, unknown> | undefined;
     expectRecordFields(resolved, { provider: "acme" });
-    expectRecordFields(resolved?.config, { apiKey: "__OPENCLAW_REDACTED__" });
+    expectRecordFields(resolved?.config, { apiKey: "__GRANTED_REDACTED__" });
   });
 
   it("returns runtime-resolved Talk provider SecretRefs to authorized clients", async () => {
@@ -1642,8 +1642,8 @@ describe("talk.config handler", () => {
     expectRecordFields(resolved?.config, {
       apiKey: "runtime-resolved-talk-key",
       voiceId: "resolver-voice",
-      clientSecret: "__OPENCLAW_REDACTED__",
-      authToken: "__OPENCLAW_REDACTED__",
+      clientSecret: "__GRANTED_REDACTED__",
+      authToken: "__GRANTED_REDACTED__",
     });
     const serialized = JSON.stringify(response);
     expect(serialized).not.toContain("resolver-client-secret");
@@ -1722,7 +1722,7 @@ describe("talk.config handler", () => {
     const resolved = response.config?.talk?.resolved as Record<string, unknown> | undefined;
     expectRecordFields(resolved?.config, {
       apiKey: "runtime-active-talk-key",
-      clientSecret: "__OPENCLAW_REDACTED__",
+      clientSecret: "__GRANTED_REDACTED__",
     });
     const serialized = JSON.stringify(response);
     expect(serialized).toContain("runtime-active-talk-key");
@@ -1766,9 +1766,9 @@ describe("talk.config handler", () => {
     expectRecordFields(resolved, { provider: "acme" });
     const resolvedConfig = expectRecordFields(resolved?.config, {});
     expectRecordFields(resolvedConfig.apiKey, {
-      source: "__OPENCLAW_REDACTED__",
-      provider: "__OPENCLAW_REDACTED__",
-      id: "__OPENCLAW_REDACTED__",
+      source: "__GRANTED_REDACTED__",
+      provider: "__GRANTED_REDACTED__",
+      id: "__GRANTED_REDACTED__",
     });
     const serialized = JSON.stringify(response);
     expect(serialized).not.toContain("runtime-resolved-talk-key");

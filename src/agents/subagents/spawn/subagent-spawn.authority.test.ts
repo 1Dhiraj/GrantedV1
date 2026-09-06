@@ -75,13 +75,13 @@ import { testing as spawnTesting } from "./subagent-spawn.test-support.js";
 const parentSessionKey = "agent:main:main";
 const parentRunId = "pending-spawn-parent";
 const groupId = "pending-spawn";
-const env = captureEnv(["OPENCLAW_STATE_DIR", "OPENCLAW_CONFIG_PATH"]);
+const env = captureEnv(["GRANTED_STATE_DIR", "GRANTED_CONFIG_PATH"]);
 let stateDir = "";
 
 beforeEach(async () => {
   stateDir = await realpath(await mkdtemp(path.join(os.tmpdir(), "openclaw-spawn-authority-")));
-  setTestEnvValue("OPENCLAW_STATE_DIR", stateDir);
-  setTestEnvValue("OPENCLAW_CONFIG_PATH", path.join(stateDir, "openclaw.json"));
+  setTestEnvValue("GRANTED_STATE_DIR", stateDir);
+  setTestEnvValue("GRANTED_CONFIG_PATH", path.join(stateDir, "openclaw.json"));
   await writeFile(
     path.join(stateDir, "openclaw.json"),
     JSON.stringify({

@@ -186,8 +186,8 @@ function createRootTestLintFixture() {
     OXC_LOG: "debug",
     PATH: `${binDir}${path.delimiter}${process.env.PATH ?? ""}`,
   };
-  delete env.OPENCLAW_TESTBOX;
-  delete env.OPENCLAW_OXLINT_SKIP_PREPARE;
+  delete env.GRANTED_TESTBOX;
+  delete env.GRANTED_OXLINT_SKIP_PREPARE;
   return {
     dir,
     run: (script: string, args: string[]) =>
@@ -272,8 +272,8 @@ if (bin === "pnpm" && args[0] === ${JSON.stringify(failingCommand)}) {
     ...createNestedGitEnv(),
     CI: "",
     GITHUB_ACTIONS: "",
-    OPENCLAW_CHECK_CHANGED_REMOTE_CHILD: "1",
-    OPENCLAW_CHECK_CHANGED_SKIP_DEADCODE: "",
+    GRANTED_CHECK_CHANGED_REMOTE_CHILD: "1",
+    GRANTED_CHECK_CHANGED_SKIP_DEADCODE: "",
     PATH: `${binDir}${path.delimiter}${process.env.PATH ?? ""}`,
   });
   const events: { event: string; bin: string; args: string[] }[] = readFileSync(eventsPath, "utf8")
@@ -355,7 +355,7 @@ describe("scripts/changed-lanes", () => {
   ])("$name", ({ script, expected }) => {
     const result = runRepoScript(script, ["--help"], {
       ...createNestedGitEnv(),
-      OPENCLAW_TESTBOX: "1",
+      GRANTED_TESTBOX: "1",
     });
 
     expect(result.status).toBe(0);
@@ -391,8 +391,8 @@ describe("scripts/changed-lanes", () => {
         ...createNestedGitEnv(),
         CI: "",
         GITHUB_ACTIONS: "",
-        OPENCLAW_CHECK_CHANGED_REMOTE_CHILD: "",
-        OPENCLAW_TESTBOX: "1",
+        GRANTED_CHECK_CHANGED_REMOTE_CHILD: "",
+        GRANTED_TESTBOX: "1",
         PATH: `${binDir}:${process.env.PATH ?? ""}`,
       },
     });
@@ -424,8 +424,8 @@ describe("scripts/changed-lanes", () => {
           ...createNestedGitEnv(),
           CI: "",
           GITHUB_ACTIONS: "",
-          OPENCLAW_CHECK_CHANGED_REMOTE_CHILD: "",
-          OPENCLAW_TESTBOX: "",
+          GRANTED_CHECK_CHANGED_REMOTE_CHILD: "",
+          GRANTED_TESTBOX: "",
           PATH: `${binDir}:${process.env.PATH ?? ""}`,
         },
       },
@@ -454,7 +454,7 @@ describe("scripts/changed-lanes", () => {
   ])("$name", ({ script, option, expected }) => {
     const result = runRepoScript(script, [option], {
       ...createNestedGitEnv(),
-      OPENCLAW_TESTBOX: "1",
+      GRANTED_TESTBOX: "1",
     });
 
     expect(result.status).toBe(1);
@@ -642,23 +642,23 @@ describe("scripts/changed-lanes", () => {
     mkdirSync(path.join(dir, "src"), { recursive: true });
     writeFileSync(path.join(dir, "src", "feature.ts"), "export const value = 1;\n", "utf8");
 
-    const previousRawSync = process.env.OPENCLAW_CHANGED_LANES_RAW_SYNC;
-    delete process.env.OPENCLAW_CHANGED_LANES_RAW_SYNC;
+    const previousRawSync = process.env.GRANTED_CHANGED_LANES_RAW_SYNC;
+    delete process.env.GRANTED_CHANGED_LANES_RAW_SYNC;
     try {
       const normalPaths = listChangedPathsFromGit({ base: "origin/main", cwd: dir });
       expect(normalPaths.length).toBeGreaterThan(200);
       expect(normalPaths).toContain("baseline-0.txt");
       expect(normalPaths).toContain("src/feature.ts");
 
-      process.env.OPENCLAW_CHANGED_LANES_RAW_SYNC = "1";
+      process.env.GRANTED_CHANGED_LANES_RAW_SYNC = "1";
       expect(listChangedPathsFromGit({ base: "origin/main", cwd: dir })).toEqual([
         "src/feature.ts",
       ]);
     } finally {
       if (previousRawSync === undefined) {
-        delete process.env.OPENCLAW_CHANGED_LANES_RAW_SYNC;
+        delete process.env.GRANTED_CHANGED_LANES_RAW_SYNC;
       } else {
-        process.env.OPENCLAW_CHANGED_LANES_RAW_SYNC = previousRawSync;
+        process.env.GRANTED_CHANGED_LANES_RAW_SYNC = previousRawSync;
       }
     }
   });
@@ -1070,7 +1070,7 @@ describe("scripts/changed-lanes", () => {
     expect(plan.commands.map((command) => command.args[0])).toContain("tsgo:core:test");
     expect(plan.commands.find((command) => command.args[0] === "tsgo:core")?.env).toEqual({
       PATH: "/usr/bin",
-      OPENCLAW_TSGO_SPARSE_SKIP: "1",
+      GRANTED_TSGO_SPARSE_SKIP: "1",
     });
     expect(plan.commands.find((command) => command.name === "lint core changed file")).toEqual({
       name: "lint core changed file",
@@ -1491,12 +1491,12 @@ describe("scripts/changed-lanes", () => {
   it("reenables local-check policy for changed typecheck commands", () => {
     const result = detectChangedLanes(["packages/normalization-core/src/string-normalization.ts"]);
     const plan = createChangedCheckPlan(result, {
-      env: { OPENCLAW_LOCAL_CHECK: "0", PATH: "/usr/bin" },
+      env: { GRANTED_LOCAL_CHECK: "0", PATH: "/usr/bin" },
     });
 
     expect(plan.commands.find((command) => command.args[0] === "tsgo:core")?.env).toEqual({
-      OPENCLAW_LOCAL_CHECK: "1",
-      OPENCLAW_TSGO_SPARSE_SKIP: "1",
+      GRANTED_LOCAL_CHECK: "1",
+      GRANTED_TSGO_SPARSE_SKIP: "1",
       PATH: "/usr/bin",
     });
   });
@@ -1548,7 +1548,7 @@ describe("scripts/changed-lanes", () => {
         { result },
       ),
     ).toBe(false);
-    expect(shouldDelegateChangedCheckToCrabbox([], { OPENCLAW_TESTBOX: "1" }, { result })).toBe(
+    expect(shouldDelegateChangedCheckToCrabbox([], { GRANTED_TESTBOX: "1" }, { result })).toBe(
       true,
     );
 
@@ -1564,8 +1564,8 @@ describe("scripts/changed-lanes", () => {
       "--timing-json",
       "--",
       "env",
-      "OPENCLAW_CHECK_CHANGED_REMOTE_CHILD=1",
-      "OPENCLAW_CHANGED_LANES_RAW_SYNC=1",
+      "GRANTED_CHECK_CHANGED_REMOTE_CHILD=1",
+      "GRANTED_CHANGED_LANES_RAW_SYNC=1",
       "CI=1",
       "PNPM_CONFIG_VERIFY_DEPS_BEFORE_RUN=false",
       "corepack",
@@ -1586,7 +1586,7 @@ describe("scripts/changed-lanes", () => {
 
   it("adds the dead export scan only for production source changes", () => {
     const command = {
-      name: "dead export scan (skip with OPENCLAW_CHECK_CHANGED_SKIP_DEADCODE=1)",
+      name: "dead export scan (skip with GRANTED_CHECK_CHANGED_SKIP_DEADCODE=1)",
       bin: "node",
       args: ["--import", "tsx", "scripts/check-deadcode-exports.mts"],
       env: expect.any(Object),
@@ -1598,7 +1598,7 @@ describe("scripts/changed-lanes", () => {
     expect(createChangedCheckPlan(toolingResult).commands).not.toContainEqual(command);
     expect(
       createChangedCheckPlan(sourceResult, {
-        env: { OPENCLAW_CHECK_CHANGED_SKIP_DEADCODE: "1" },
+        env: { GRANTED_CHECK_CHANGED_SKIP_DEADCODE: "1" },
       }).commands,
     ).not.toContainEqual(command);
   });
@@ -1615,7 +1615,7 @@ describe("scripts/changed-lanes", () => {
       expect(shouldDelegateChangedCheckToCrabbox([], {}, { result })).toBe(false);
     }
     for (const result of [docsResult, metadataResult, mixedResult]) {
-      expect(shouldDelegateChangedCheckToCrabbox([], { OPENCLAW_TESTBOX: "1" }, { result })).toBe(
+      expect(shouldDelegateChangedCheckToCrabbox([], { GRANTED_TESTBOX: "1" }, { result })).toBe(
         true,
       );
     }
@@ -1668,7 +1668,7 @@ describe("scripts/changed-lanes", () => {
     expect(shouldDelegateChangedCheckToCrabbox([], { GITHUB_ACTIONS: "true" })).toBe(false);
     expect(shouldDelegateChangedCheckToCrabbox([], { CI: "1" })).toBe(false);
     expect(
-      shouldDelegateChangedCheckToCrabbox([], { OPENCLAW_CHECK_CHANGED_REMOTE_CHILD: "1" }),
+      shouldDelegateChangedCheckToCrabbox([], { GRANTED_CHECK_CHANGED_REMOTE_CHILD: "1" }),
     ).toBe(false);
   });
 
@@ -1884,7 +1884,7 @@ describe("scripts/changed-lanes", () => {
       // These live-Docker paths include `src/gateway/*.live.test.ts`, and the
       // full-tree knip scan sees test files, so a deleted last consumer can
       // orphan an export here too.
-      "dead export scan (skip with OPENCLAW_CHECK_CHANGED_SKIP_DEADCODE=1)",
+      "dead export scan (skip with GRANTED_CHECK_CHANGED_SKIP_DEADCODE=1)",
       "lint core",
       "lint scripts",
       "live Docker shell syntax",
@@ -1909,8 +1909,8 @@ describe("scripts/changed-lanes", () => {
     );
     expect(schedulerDryRun?.bin).toBe("node");
     expect(schedulerDryRun?.args).toEqual(["scripts/test-docker-all.mjs"]);
-    expect(schedulerDryRun?.env?.OPENCLAW_DOCKER_ALL_DRY_RUN).toBe("1");
-    expect(schedulerDryRun?.env?.OPENCLAW_DOCKER_ALL_LIVE_MODE).toBe("only");
+    expect(schedulerDryRun?.env?.GRANTED_DOCKER_ALL_DRY_RUN).toBe("1");
+    expect(schedulerDryRun?.env?.GRANTED_DOCKER_ALL_LIVE_MODE).toBe("only");
   });
 
   it("routes live Docker package script-only changes through the focused gate", () => {
@@ -1924,7 +1924,7 @@ describe("scripts/changed-lanes", () => {
       scripts: {
         "test:docker:all": "node scripts/test-docker-all.mjs",
         "test:docker:live-acp-bind:droid":
-          "OPENCLAW_LIVE_ACP_BIND_AGENT=droid bash scripts/test-live-acp-bind-docker.sh",
+          "GRANTED_LIVE_ACP_BIND_AGENT=droid bash scripts/test-live-acp-bind-docker.sh",
       },
       dependencies: { leftpad: "1.0.0" },
     });
@@ -1955,7 +1955,7 @@ describe("scripts/changed-lanes", () => {
         scripts: {
           "test:docker:all": "node scripts/test-docker-all.mjs",
           "test:docker:live-acp-bind:droid":
-            "OPENCLAW_LIVE_ACP_BIND_AGENT=droid bash scripts/test-live-acp-bind-docker.sh",
+            "GRANTED_LIVE_ACP_BIND_AGENT=droid bash scripts/test-live-acp-bind-docker.sh",
         },
       },
       expected: { liveDockerTooling: true },
@@ -1995,7 +1995,7 @@ describe("scripts/changed-lanes", () => {
       name: "fixture",
       scripts: {
         "test:docker:live-acp-bind:droid":
-          "OPENCLAW_LIVE_ACP_BIND_AGENT=droid bash scripts/test-live-acp-bind-docker.sh",
+          "GRANTED_LIVE_ACP_BIND_AGENT=droid bash scripts/test-live-acp-bind-docker.sh",
       },
       dependencies: { leftpad: "1.0.1" },
     });

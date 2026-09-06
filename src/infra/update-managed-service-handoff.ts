@@ -47,13 +47,13 @@ import { looksLikeGitCheckout } from "./update-runner-install-surface.js";
 // budget, and its bounded parent-exit shutdown reserve. (#99666)
 const PARENT_EXIT_SHUTDOWN_RESERVE_MS = 30_000;
 const HANDOFF_READY_TIMEOUT_MS = 30_000;
-const HANDOFF_READY_MARKER = "OPENCLAW_UPDATE_HANDOFF_READY\n";
+const HANDOFF_READY_MARKER = "GRANTED_UPDATE_HANDOFF_READY\n";
 const HANDOFF_BUSY_MARKER = "HANDOFF_BUSY ";
 const HANDOFF_STATE_DATABASE_BUSY_TIMEOUT_MS = 5_000;
 const SERVICE_IDENTITY_ENV_VARS = new Set<string>([
-  "OPENCLAW_LAUNCHD_LABEL",
-  "OPENCLAW_SYSTEMD_UNIT",
-  "OPENCLAW_WINDOWS_TASK_NAME",
+  "GRANTED_LAUNCHD_LABEL",
+  "GRANTED_SYSTEMD_UNIT",
+  "GRANTED_WINDOWS_TASK_NAME",
 ] as const);
 type HandoffChild = ChildProcess & {
   stdin: NonNullable<ChildProcess["stdin"]>;
@@ -224,11 +224,11 @@ function assertStateDatabaseWriteAllowed(database) {
     ) {
       throw new Error("shared-state ownership metadata is malformed");
     }
-    if ((process.env.OPENCLAW_SUPERVISOR_MODE || "").trim().toLowerCase() !== "external") {
+    if ((process.env.GRANTED_SUPERVISOR_MODE || "").trim().toLowerCase() !== "external") {
       throw new Error(
         "shared state is externally supervised by " +
           value.managerId +
-          "; use that external supervisor with OPENCLAW_SUPERVISOR_MODE=external",
+          "; use that external supervisor with GRANTED_SUPERVISOR_MODE=external",
       );
     }
   } finally {
@@ -1422,7 +1422,7 @@ function resolveGatewayServiceRecovery(
   }
   if (supervisor === "schtasks") {
     const taskName =
-      env.OPENCLAW_WINDOWS_TASK_NAME?.trim() || resolveGatewayWindowsTaskName(env.OPENCLAW_PROFILE);
+      env.GRANTED_WINDOWS_TASK_NAME?.trim() || resolveGatewayWindowsTaskName(env.GRANTED_PROFILE);
     return { kind: "schtasks", taskName };
   }
   return undefined;
@@ -1629,7 +1629,7 @@ async function spawnManagedServiceUpdateHandoff(
     const childEnv: NodeJS.ProcessEnv = {
       ...serviceEnv,
       [CONTROL_PLANE_UPDATE_SENTINEL_META_ENV]: metaPath,
-      OPENCLAW_UPDATE_RUN_HANDOFF: "1",
+      GRANTED_UPDATE_RUN_HANDOFF: "1",
     };
     for (const key of SUPERVISOR_HINT_ENV_VARS) {
       if (!SERVICE_IDENTITY_ENV_VARS.has(key)) {

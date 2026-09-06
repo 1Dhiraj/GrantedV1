@@ -77,8 +77,8 @@ vi.mock("../../runtime.js", () => ({
 vi.mock("../../plugin-sdk/browser-profiles.js", () => ({
   DEFAULT_BROWSER_ACTION_TIMEOUT_MS: 60_000,
   DEFAULT_BROWSER_EVALUATE_ENABLED: true,
-  DEFAULT_OPENCLAW_BROWSER_COLOR: "#FF4500",
-  DEFAULT_OPENCLAW_BROWSER_PROFILE_NAME: "openclaw",
+  DEFAULT_GRANTED_BROWSER_COLOR: "#FF4500",
+  DEFAULT_GRANTED_BROWSER_PROFILE_NAME: "openclaw",
   resolveProfile: (
     resolved: { cdpHost: string; cdpIsLoopback: boolean; profiles?: Record<string, unknown> },
     profileName: string,
@@ -355,20 +355,20 @@ describe("ensureSandboxBrowser create args", () => {
     expect(createArgs).not.toContain("--env");
     const envEntries = requireDockerCreateEnvEntries();
     expect(envEntries).toContain(`BROWSER_TRANSPORT_SENTINEL=${configuredSentinel}`);
-    expect(envEntries).toContain("OPENCLAW_BROWSER_NO_SANDBOX=1");
+    expect(envEntries).toContain("GRANTED_BROWSER_NO_SANDBOX=1");
     const passwordEntry = envEntries.find((entry) =>
-      entry.startsWith("OPENCLAW_BROWSER_NOVNC_PASSWORD="),
+      entry.startsWith("GRANTED_BROWSER_NOVNC_PASSWORD="),
     );
-    expect(passwordEntry).toMatch(/^OPENCLAW_BROWSER_NOVNC_PASSWORD=[A-Za-z0-9]{8}$/);
+    expect(passwordEntry).toMatch(/^GRANTED_BROWSER_NOVNC_PASSWORD=[A-Za-z0-9]{8}$/);
     const authEntry = envEntries.find((entry) =>
-      entry.startsWith("OPENCLAW_BROWSER_CDP_AUTH_TOKEN="),
+      entry.startsWith("GRANTED_BROWSER_CDP_AUTH_TOKEN="),
     );
-    expect(authEntry).toMatch(/^OPENCLAW_BROWSER_CDP_AUTH_TOKEN=[0-9a-f]{48}$/);
+    expect(authEntry).toMatch(/^GRANTED_BROWSER_CDP_AUTH_TOKEN=[0-9a-f]{48}$/);
     const noVncPassword = requireValue(passwordEntry, "noVNC password env").slice(
-      "OPENCLAW_BROWSER_NOVNC_PASSWORD=".length,
+      "GRANTED_BROWSER_NOVNC_PASSWORD=".length,
     );
     const cdpAuthToken = requireValue(authEntry, "CDP auth env").slice(
-      "OPENCLAW_BROWSER_CDP_AUTH_TOKEN=".length,
+      "GRANTED_BROWSER_CDP_AUTH_TOKEN=".length,
     );
     expect(createArgs.some((arg) => arg.includes(noVncPassword))).toBe(false);
     expect(createArgs.some((arg) => arg.includes(cdpAuthToken))).toBe(false);
@@ -398,7 +398,7 @@ describe("ensureSandboxBrowser create args", () => {
       running: created,
     }));
     dockerMocks.readDockerContainerEnvVar.mockImplementation(async (_containerName, key) =>
-      key === "OPENCLAW_BROWSER_CDP_AUTH_TOKEN" ? (cdpAuthToken ?? null) : null,
+      key === "GRANTED_BROWSER_CDP_AUTH_TOKEN" ? (cdpAuthToken ?? null) : null,
     );
     dockerMocks.readDockerContainerLabel.mockImplementation(async () => configHash ?? null);
     dockerMocks.execDocker.mockImplementation(async (args: string[]) => {
@@ -415,8 +415,8 @@ describe("ensureSandboxBrowser create args", () => {
           "docker create environment file",
         );
         cdpAuthToken = envEntries
-          .find((entry) => entry.startsWith("OPENCLAW_BROWSER_CDP_AUTH_TOKEN="))
-          ?.slice("OPENCLAW_BROWSER_CDP_AUTH_TOKEN=".length);
+          .find((entry) => entry.startsWith("GRANTED_BROWSER_CDP_AUTH_TOKEN="))
+          ?.slice("GRANTED_BROWSER_CDP_AUTH_TOKEN=".length);
         configHash = collectDockerFlagValues(args, "--label")
           .find((entry) => entry.startsWith("openclaw.configHash="))
           ?.slice("openclaw.configHash=".length);
@@ -537,7 +537,7 @@ describe("ensureSandboxBrowser create args", () => {
 
     const envEntries = requireDockerCreateEnvEntries();
     expect(
-      envEntries.filter((entry) => entry.startsWith("OPENCLAW_BROWSER_NOVNC_PASSWORD=")),
+      envEntries.filter((entry) => entry.startsWith("GRANTED_BROWSER_NOVNC_PASSWORD=")),
     ).toStrictEqual([]);
     expect(result?.noVncUrl).toBeUndefined();
   });
@@ -975,13 +975,13 @@ describe("ensureSandboxBrowser create args", () => {
 
     const envEntries = requireDockerCreateEnvEntries();
     const authEntry = envEntries.find((entry) =>
-      entry.startsWith("OPENCLAW_BROWSER_CDP_AUTH_TOKEN="),
+      entry.startsWith("GRANTED_BROWSER_CDP_AUTH_TOKEN="),
     );
-    expect(authEntry).toMatch(/^OPENCLAW_BROWSER_CDP_AUTH_TOKEN=[0-9a-f]{48}$/);
-    expect(envEntries).not.toContain("OPENCLAW_BROWSER_CDP_SOURCE_RANGE=172.21.0.1/32");
+    expect(authEntry).toMatch(/^GRANTED_BROWSER_CDP_AUTH_TOKEN=[0-9a-f]{48}$/);
+    expect(envEntries).not.toContain("GRANTED_BROWSER_CDP_SOURCE_RANGE=172.21.0.1/32");
 
     const token = requireValue(authEntry, "CDP auth env").slice(
-      "OPENCLAW_BROWSER_CDP_AUTH_TOKEN=".length,
+      "GRANTED_BROWSER_CDP_AUTH_TOKEN=".length,
     );
     const profiles = latestBridgeResolved().profiles as Record<
       string,
@@ -1003,7 +1003,7 @@ describe("ensureSandboxBrowser create args", () => {
     });
 
     const envEntries = requireDockerCreateEnvEntries();
-    expect(envEntries).toContain("OPENCLAW_BROWSER_CDP_SOURCE_RANGE=10.0.0.0/24");
+    expect(envEntries).toContain("GRANTED_BROWSER_CDP_SOURCE_RANGE=10.0.0.0/24");
   });
 
   it("recreates existing browser containers that do not expose relay auth", async () => {

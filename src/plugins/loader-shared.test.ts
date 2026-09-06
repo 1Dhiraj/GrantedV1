@@ -279,7 +279,7 @@ describe.each(["runtime", "cli", "descriptors"] as const)(
       "validates the exact source only for declared secretInputs (%s)",
       async (scenario) => {
         await withOpenClawTestState(
-          { label: "plugin-source-validation", env: { OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1" } },
+          { label: "plugin-source-validation", env: { GRANTED_DISABLE_BUNDLED_PLUGINS: "1" } },
           async (state) => {
             const id = "source-fixture";
             const configId = scenario === "mixed-case" ? "Source-Fixture" : id;

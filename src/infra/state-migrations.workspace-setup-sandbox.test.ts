@@ -45,11 +45,11 @@ describe("sandbox workspace Doctor migration", () => {
     const stateDir = path.join(homeDir, ".openclaw");
     const workspaceDir = path.join(homeDir, "workspace");
     fs.mkdirSync(workspaceDir, { recursive: true });
-    envSnapshot ??= captureEnv(["HOME", "OPENCLAW_HOME", "OPENCLAW_STATE_DIR"]);
+    envSnapshot ??= captureEnv(["HOME", "GRANTED_HOME", "GRANTED_STATE_DIR"]);
     setTestEnvValue("HOME", homeDir);
-    setTestEnvValue("OPENCLAW_STATE_DIR", stateDir);
+    setTestEnvValue("GRANTED_STATE_DIR", stateDir);
     return {
-      env: { ...process.env, HOME: homeDir, OPENCLAW_STATE_DIR: stateDir },
+      env: { ...process.env, HOME: homeDir, GRANTED_STATE_DIR: stateDir },
       homeDir,
       stateDir,
       workspaceDir,
@@ -102,7 +102,7 @@ describe("sandbox workspace Doctor migration", () => {
     const context = setup();
     const env = {
       ...context.env,
-      OPENCLAW_CONFIG_PATH: path.join(context.stateDir, "openclaw.json"),
+      GRANTED_CONFIG_PATH: path.join(context.stateDir, "openclaw.json"),
     };
     const sandboxRoot = path.join(context.homeDir, "sandboxes");
     const configuredSandboxRoot = "~/sandboxes";
@@ -523,7 +523,7 @@ describe("sandbox workspace Doctor migration", () => {
   it("derives the default sandbox root from the requested state profile", async () => {
     const context = setup();
     const requestedStateDir = path.join(context.homeDir, "requested-profile");
-    const requestedEnv = { ...context.env, OPENCLAW_STATE_DIR: requestedStateDir };
+    const requestedEnv = { ...context.env, GRANTED_STATE_DIR: requestedStateDir };
     const sessionKey = "agent:main:telegram:direct:requested-default-root";
     const cfg = {
       agents: {
@@ -557,9 +557,9 @@ describe("sandbox workspace Doctor migration", () => {
         "utf8",
       );
     }
-    setTestEnvValue("OPENCLAW_STATE_DIR", requestedStateDir);
+    setTestEnvValue("GRANTED_STATE_DIR", requestedStateDir);
     await registerSandboxSession(sessionKey);
-    setTestEnvValue("OPENCLAW_STATE_DIR", context.stateDir);
+    setTestEnvValue("GRANTED_STATE_DIR", context.stateDir);
 
     const detected = detectLegacyWorkspaceState({
       cfg,
@@ -590,7 +590,7 @@ describe("sandbox workspace Doctor migration", () => {
   it("reads persisted session ownership from the requested state profile", async () => {
     const context = setup();
     const requestedStateDir = path.join(context.homeDir, "requested-profile");
-    const requestedEnv = { ...context.env, OPENCLAW_STATE_DIR: requestedStateDir };
+    const requestedEnv = { ...context.env, GRANTED_STATE_DIR: requestedStateDir };
     const sandboxRoot = path.join(context.homeDir, "sandboxes");
     const cfg = {
       agents: {
@@ -624,9 +624,9 @@ describe("sandbox workspace Doctor migration", () => {
       await fsp.writeFile(setupPath, JSON.stringify({ version: 1 }), "utf8");
     }
 
-    setTestEnvValue("OPENCLAW_STATE_DIR", requestedStateDir);
+    setTestEnvValue("GRANTED_STATE_DIR", requestedStateDir);
     await registerSandboxSession(requestedSession);
-    setTestEnvValue("OPENCLAW_STATE_DIR", context.stateDir);
+    setTestEnvValue("GRANTED_STATE_DIR", context.stateDir);
     await registerSandboxSession(ambientSession);
 
     expect(listSessionEntryKeysReadOnly({ agentId: "main", env: requestedEnv })).toEqual([
@@ -853,11 +853,11 @@ describe("sandbox workspace Doctor migration", () => {
   it("repairs sandbox workspace copies beneath the configured OpenClaw home", async () => {
     const context = setup();
     const effectiveHome = path.join(context.homeDir, "effective-openclaw-home");
-    setTestEnvValue("OPENCLAW_HOME", effectiveHome);
+    setTestEnvValue("GRANTED_HOME", effectiveHome);
     const env = {
       ...context.env,
-      OPENCLAW_HOME: effectiveHome,
-      OPENCLAW_CONFIG_PATH: path.join(context.stateDir, "openclaw.json"),
+      GRANTED_HOME: effectiveHome,
+      GRANTED_CONFIG_PATH: path.join(context.stateDir, "openclaw.json"),
     };
     const sandboxRoot = path.join(effectiveHome, "sandboxes");
     const cfg = {

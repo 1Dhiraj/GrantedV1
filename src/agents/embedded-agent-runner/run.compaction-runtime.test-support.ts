@@ -49,7 +49,7 @@ async function createRecoveryFixture(state: OpenClawTestState, options: FixtureO
   const { createHookRunnerWithRegistry } = await import("../../plugins/hooks.test-fixtures.js");
   const { buildContextEngineRuntimeSettings } =
     await import("../../context-engine/runtime-settings.js");
-  const { OPENCLAW_EMBEDDED_CONTEXT_ENGINE_HOST } =
+  const { GRANTED_EMBEDDED_CONTEXT_ENGINE_HOST } =
     await import("../../context-engine/host-compat.js");
 
   const memoryManager = options.inMemory ? SessionManager.inMemory(state.workspaceDir) : undefined;
@@ -291,7 +291,7 @@ async function createRecoveryFixture(state: OpenClawTestState, options: FixtureO
         resolveContextEnginePluginId: () => undefined,
         buildRuntimeSettings: ({ tokenBudget, degradedReason }) =>
           buildContextEngineRuntimeSettings({
-            contextEngineHost: OPENCLAW_EMBEDDED_CONTEXT_ENGINE_HOST,
+            contextEngineHost: GRANTED_EMBEDDED_CONTEXT_ENGINE_HOST,
             promptTokenBudget: tokenBudget,
             degradedReason,
           }),

@@ -40,7 +40,7 @@ describe("readLoggingConfig", () => {
     process.argv = ["node", "openclaw", "config", "schema"];
     const configPath = writeConfig(`{ logging: { consoleStyle: "json" } }`);
 
-    withEnv({ OPENCLAW_CONFIG_PATH: configPath }, () => {
+    withEnv({ GRANTED_CONFIG_PATH: configPath }, () => {
       expect(readLoggingConfig()).toStrictEqual({ consoleStyle: "json" });
     });
   });
@@ -54,7 +54,7 @@ describe("readLoggingConfig", () => {
       },
     }`);
 
-    withEnv({ OPENCLAW_CONFIG_PATH: configPath }, () => {
+    withEnv({ GRANTED_CONFIG_PATH: configPath }, () => {
       expect(readLoggingConfig()).toStrictEqual({
         level: "debug",
         file: "/tmp/openclaw-custom.log",
@@ -71,7 +71,7 @@ describe("readLoggingConfig", () => {
       },
     }`);
 
-    withEnv({ OPENCLAW_CONFIG_PATH: configPath }, () => {
+    withEnv({ GRANTED_CONFIG_PATH: configPath }, () => {
       expect(readLoggingConfig()).toStrictEqual({
         consoleLevel: "warn",
       });
@@ -82,13 +82,13 @@ describe("readLoggingConfig", () => {
     const configPath = writeConfig(`{ logging: { $include: "./logging.json5" } }`);
     fs.writeFileSync(
       path.join(path.dirname(configPath), "logging.json5"),
-      `{ consoleStyle: "\${OPENCLAW_TEST_CONSOLE_STYLE}", file: "\${MISSING_LOG_FILE}" }`,
+      `{ consoleStyle: "\${GRANTED_TEST_CONSOLE_STYLE}", file: "\${MISSING_LOG_FILE}" }`,
     );
 
     withEnv(
       {
-        OPENCLAW_CONFIG_PATH: configPath,
-        OPENCLAW_TEST_CONSOLE_STYLE: "json",
+        GRANTED_CONFIG_PATH: configPath,
+        GRANTED_TEST_CONSOLE_STYLE: "json",
         MISSING_LOG_FILE: undefined,
       },
       () => {
@@ -106,7 +106,7 @@ describe("readLoggingConfig", () => {
 
     withEnv(
       {
-        OPENCLAW_CONFIG_PATH: configPath,
+        GRANTED_CONFIG_PATH: configPath,
         MISSING_DEMO_KEY: undefined,
         MISSING_LOG_FILE: undefined,
       },
@@ -128,7 +128,7 @@ describe("readLoggingConfig", () => {
 
     withEnv(
       {
-        OPENCLAW_CONFIG_PATH: configPath,
+        GRANTED_CONFIG_PATH: configPath,
         MISSING_LOG_FILE: undefined,
       },
       () => {
@@ -141,15 +141,15 @@ describe("readLoggingConfig", () => {
     const configPath = writeConfig(`{
       logging: {
         consoleStyle: "json",
-        file: "\${OPENCLAW_TEST_LOG_FILE}",
+        file: "\${GRANTED_TEST_LOG_FILE}",
         level: "debug",
       },
     }`);
 
     withEnv(
       {
-        OPENCLAW_CONFIG_PATH: configPath,
-        OPENCLAW_TEST_LOG_FILE: undefined,
+        GRANTED_CONFIG_PATH: configPath,
+        GRANTED_TEST_LOG_FILE: undefined,
       },
       () => {
         expect(readLoggingConfig()).toStrictEqual({ consoleStyle: "json" });
@@ -158,8 +158,8 @@ describe("readLoggingConfig", () => {
 
     withEnv(
       {
-        OPENCLAW_CONFIG_PATH: configPath,
-        OPENCLAW_TEST_LOG_FILE: "/tmp/openclaw-env-backed.log",
+        GRANTED_CONFIG_PATH: configPath,
+        GRANTED_TEST_LOG_FILE: "/tmp/openclaw-env-backed.log",
       },
       () => {
         expect(readLoggingConfig()).toStrictEqual({
@@ -182,7 +182,7 @@ describe("readLoggingConfig", () => {
 
     withEnv(
       {
-        OPENCLAW_CONFIG_PATH: configPath,
+        GRANTED_CONFIG_PATH: configPath,
         MISSING_LOG_FILE: undefined,
       },
       () => {
@@ -195,15 +195,12 @@ describe("readLoggingConfig", () => {
   });
 
   it("returns undefined for missing or malformed config files", () => {
-    withEnv(
-      { OPENCLAW_CONFIG_PATH: path.join(os.tmpdir(), "openclaw-missing-config.json") },
-      () => {
-        expect(readLoggingConfig()).toBeUndefined();
-      },
-    );
+    withEnv({ GRANTED_CONFIG_PATH: path.join(os.tmpdir(), "openclaw-missing-config.json") }, () => {
+      expect(readLoggingConfig()).toBeUndefined();
+    });
 
     const configPath = writeConfig(`{ logging: `);
-    withEnv({ OPENCLAW_CONFIG_PATH: configPath }, () => {
+    withEnv({ GRANTED_CONFIG_PATH: configPath }, () => {
       expect(readLoggingConfig()).toBeUndefined();
     });
   });
@@ -216,11 +213,11 @@ describe("readLoggingConfig", () => {
     const existsSync = vi.spyOn(fs, "existsSync");
 
     try {
-      withEnv({ OPENCLAW_CONFIG_PATH: firstPath }, () => {
+      withEnv({ GRANTED_CONFIG_PATH: firstPath }, () => {
         expect(readLoggingConfig()).toBeUndefined();
         expect(readLoggingConfig()).toBeUndefined();
       });
-      withEnv({ OPENCLAW_CONFIG_PATH: secondPath }, () => {
+      withEnv({ GRANTED_CONFIG_PATH: secondPath }, () => {
         expect(readLoggingConfig()).toBeUndefined();
       });
 

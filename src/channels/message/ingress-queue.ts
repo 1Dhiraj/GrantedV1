@@ -266,7 +266,7 @@ type ChannelIngressRow = Selectable<ChannelIngressEvents>;
 
 // Failed rows need to distinguish a retained JSON null payload from the "null"
 // scrub marker written by older versions. Invalid JSON cannot collide with enqueue output.
-const FAILED_NULL_PAYLOAD_SENTINEL = "OPENCLAW_CHANNEL_INGRESS_FAILED_NULL_V1";
+const FAILED_NULL_PAYLOAD_SENTINEL = "GRANTED_CHANNEL_INGRESS_FAILED_NULL_V1";
 
 function normalizePart(value: string | undefined, fallback: string): string {
   const normalized = value?.trim();
@@ -279,7 +279,7 @@ function createStateDirEnv(
   baseEnv: NodeJS.ProcessEnv = process.env,
 ): NodeJS.ProcessEnv {
   const env = Object.create(baseEnv) as NodeJS.ProcessEnv;
-  env.OPENCLAW_STATE_DIR = stateDir;
+  env.GRANTED_STATE_DIR = stateDir;
   return env;
 }
 

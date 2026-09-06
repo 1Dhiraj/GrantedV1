@@ -10,7 +10,7 @@ beforeEach(() => {
     proofDir = createControlUiE2eArtifactDir("duplicate-session-naming");
   }
 });
-const capture = process.env.OPENCLAW_CAPTURE_UI_PROOF === "1";
+const capture = process.env.GRANTED_CAPTURE_UI_PROOF === "1";
 
 suite.define(() => {
   it("preserves tool and approval activity received before the send ACK", async () => {

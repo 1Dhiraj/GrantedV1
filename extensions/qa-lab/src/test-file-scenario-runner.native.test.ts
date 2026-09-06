@@ -62,7 +62,7 @@ describe("qa test file scenario runner", () => {
         };
       },
       env: {
-        OPENCLAW_QA_REF: "scenario-ref",
+        GRANTED_QA_REF: "scenario-ref",
       } as NodeJS.ProcessEnv,
     });
 

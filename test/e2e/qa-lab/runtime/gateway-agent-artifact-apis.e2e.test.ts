@@ -109,17 +109,17 @@ vi.mock("../../../../src/gateway/server-request-context.js", async () => {
 const ENV_KEYS = [
   "HOME",
   ...GATEWAY_STARTUP_MUTATED_ENV_KEYS,
-  "OPENCLAW_STATE_DIR",
-  "OPENCLAW_CONFIG_PATH",
-  "OPENCLAW_GATEWAY_TOKEN",
-  "OPENCLAW_GATEWAY_PASSWORD",
-  "OPENCLAW_SKIP_CHANNELS",
-  "OPENCLAW_SKIP_GMAIL_WATCHER",
-  "OPENCLAW_SKIP_CRON",
-  "OPENCLAW_SKIP_CANVAS_HOST",
-  "OPENCLAW_SKIP_BROWSER_CONTROL_SERVER",
-  "OPENCLAW_SKIP_PROVIDERS",
-  "OPENCLAW_DISABLE_BUNDLED_PLUGINS",
+  "GRANTED_STATE_DIR",
+  "GRANTED_CONFIG_PATH",
+  "GRANTED_GATEWAY_TOKEN",
+  "GRANTED_GATEWAY_PASSWORD",
+  "GRANTED_SKIP_CHANNELS",
+  "GRANTED_SKIP_GMAIL_WATCHER",
+  "GRANTED_SKIP_CRON",
+  "GRANTED_SKIP_CANVAS_HOST",
+  "GRANTED_SKIP_BROWSER_CONTROL_SERVER",
+  "GRANTED_SKIP_PROVIDERS",
+  "GRANTED_DISABLE_BUNDLED_PLUGINS",
 ] as const;
 
 type Cleanup = () => Promise<void> | void;
@@ -174,22 +174,22 @@ describe("Gateway agent and artifact APIs", () => {
     );
 
     setTestEnvValue("HOME", tempHome);
-    setTestEnvValue("OPENCLAW_STATE_DIR", stateDir);
-    setTestEnvValue("OPENCLAW_CONFIG_PATH", configPath);
-    setTestEnvValue("OPENCLAW_GATEWAY_TOKEN", token);
-    setTestEnvValue("OPENCLAW_SKIP_CHANNELS", "1");
-    setTestEnvValue("OPENCLAW_SKIP_GMAIL_WATCHER", "1");
-    setTestEnvValue("OPENCLAW_SKIP_CRON", "1");
-    setTestEnvValue("OPENCLAW_SKIP_CANVAS_HOST", "1");
-    setTestEnvValue("OPENCLAW_SKIP_BROWSER_CONTROL_SERVER", "1");
-    setTestEnvValue("OPENCLAW_SKIP_PROVIDERS", "1");
-    setTestEnvValue("OPENCLAW_DISABLE_BUNDLED_PLUGINS", "1");
+    setTestEnvValue("GRANTED_STATE_DIR", stateDir);
+    setTestEnvValue("GRANTED_CONFIG_PATH", configPath);
+    setTestEnvValue("GRANTED_GATEWAY_TOKEN", token);
+    setTestEnvValue("GRANTED_SKIP_CHANNELS", "1");
+    setTestEnvValue("GRANTED_SKIP_GMAIL_WATCHER", "1");
+    setTestEnvValue("GRANTED_SKIP_CRON", "1");
+    setTestEnvValue("GRANTED_SKIP_CANVAS_HOST", "1");
+    setTestEnvValue("GRANTED_SKIP_BROWSER_CONTROL_SERVER", "1");
+    setTestEnvValue("GRANTED_SKIP_PROVIDERS", "1");
+    setTestEnvValue("GRANTED_DISABLE_BUNDLED_PLUGINS", "1");
     clearRuntimeConfigSnapshot();
     clearConfigCache();
     clearSessionStoreCacheForTest();
 
     const port = await getGatewayE2ePortBlock();
-    setTestEnvValue("OPENCLAW_GATEWAY_PORT", String(port));
+    setTestEnvValue("GRANTED_GATEWAY_PORT", String(port));
     let server = await startGatewayServer(port, {
       bind: "loopback",
       auth: { mode: "token", token },

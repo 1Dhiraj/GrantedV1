@@ -38,8 +38,8 @@ describe("state-dir-gateway-check", () => {
     cliStateDir = path.join(root, "cli");
     cliConfigPath = path.join(cliStateDir, "openclaw.json");
     await fs.mkdir(cliStateDir, { recursive: true });
-    vi.stubEnv("OPENCLAW_STATE_DIR", cliStateDir);
-    vi.stubEnv("OPENCLAW_CONFIG_PATH", cliConfigPath);
+    vi.stubEnv("GRANTED_STATE_DIR", cliStateDir);
+    vi.stubEnv("GRANTED_CONFIG_PATH", cliConfigPath);
     mocks.callGateway.mockReset().mockRejectedValue(new Error("ECONNREFUSED"));
     mocks.probeGateway.mockReset().mockResolvedValue({ ok: false });
     mocks.readGatewayServiceState.mockReset().mockResolvedValue({
@@ -85,8 +85,8 @@ describe("state-dir-gateway-check", () => {
           running,
           env: {
             ...options.env,
-            OPENCLAW_STATE_DIR: gatewayStateDir,
-            OPENCLAW_CONFIG_PATH: gatewayConfigPath,
+            GRANTED_STATE_DIR: gatewayStateDir,
+            GRANTED_CONFIG_PATH: gatewayConfigPath,
           },
         }),
       );
@@ -95,8 +95,8 @@ describe("state-dir-gateway-check", () => {
         checkCliGatewayStateDir({ command: "openclaw channels add", config: {} }),
       ).resolves.toMatchObject({ kind: "refuse" });
       const inspectedEnv = mocks.readGatewayServiceState.mock.calls[0]?.[1]?.env;
-      expect(inspectedEnv).not.toHaveProperty("OPENCLAW_STATE_DIR");
-      expect(inspectedEnv).not.toHaveProperty("OPENCLAW_CONFIG_PATH");
+      expect(inspectedEnv).not.toHaveProperty("GRANTED_STATE_DIR");
+      expect(inspectedEnv).not.toHaveProperty("GRANTED_CONFIG_PATH");
     },
   );
 
@@ -105,8 +105,8 @@ describe("state-dir-gateway-check", () => {
       installed: true,
       running: false,
       env: {
-        OPENCLAW_STATE_DIR: cliStateDir,
-        OPENCLAW_CONFIG_PATH: cliConfigPath,
+        GRANTED_STATE_DIR: cliStateDir,
+        GRANTED_CONFIG_PATH: cliConfigPath,
       },
     });
 

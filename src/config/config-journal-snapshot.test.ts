@@ -29,7 +29,7 @@ describe("config journal snapshots", () => {
         gateway: { auth: { token: "test-token" }, port: 18789 },
       },
       {
-        env: { OPENCLAW_STATE_DIR: stateDir } as NodeJS.ProcessEnv,
+        env: { GRANTED_STATE_DIR: stateDir } as NodeJS.ProcessEnv,
         homedir: () => home,
       },
     );
@@ -47,7 +47,7 @@ describe("config journal snapshots", () => {
 
     // Type-only edits must change the fingerprint: "1" vs 1 vs true vs "true".
     const context = {
-      env: { OPENCLAW_STATE_DIR: stateDir } as NodeJS.ProcessEnv,
+      env: { GRANTED_STATE_DIR: stateDir } as NodeJS.ProcessEnv,
       homedir: () => home,
     };
     const fingerprintOf = (value: unknown) =>
@@ -64,7 +64,7 @@ describe("config journal snapshots", () => {
 
   it("hands the snapshot slot to another config path via the unfiltered CAS token", async () => {
     const home = await suiteRootTracker.make("snapshot-path-transfer");
-    const env = { OPENCLAW_STATE_DIR: path.join(home, ".openclaw") } as NodeJS.ProcessEnv;
+    const env = { GRANTED_STATE_DIR: path.join(home, ".openclaw") } as NodeJS.ProcessEnv;
     const context = { env, homedir: () => home };
     const pathA = path.join(home, ".openclaw", "config-a.json");
     const pathB = path.join(home, ".openclaw", "config-b.json");
@@ -95,7 +95,7 @@ describe("config journal snapshots", () => {
   it("does not restore a snapshot slot after another writer replaces it", async () => {
     const home = await suiteRootTracker.make("snapshot-compare-and-set");
     const configPath = path.join(home, ".openclaw", "openclaw.json");
-    const env = { OPENCLAW_STATE_DIR: path.join(home, ".openclaw") } as NodeJS.ProcessEnv;
+    const env = { GRANTED_STATE_DIR: path.join(home, ".openclaw") } as NodeJS.ProcessEnv;
     const context = { env, homedir: () => home };
     const prior = upsertConfigSnapshotAuditRecord({
       ...context,
@@ -135,7 +135,7 @@ describe("config journal snapshots", () => {
     expect(
       fingerprintConfigSnapshotAuthoredConfig(
         { gateway: { auth: { token: "test-token" } } },
-        { env: { OPENCLAW_STATE_DIR: statePath } as NodeJS.ProcessEnv, homedir: () => home },
+        { env: { GRANTED_STATE_DIR: statePath } as NodeJS.ProcessEnv, homedir: () => home },
       ),
     ).toEqual({ gateway: { auth: { token: "***" } } });
   });

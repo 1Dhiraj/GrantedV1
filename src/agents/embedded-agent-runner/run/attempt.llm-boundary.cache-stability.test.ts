@@ -36,7 +36,7 @@ import {
 } from "../../../sessions/user-turn-transcript.js";
 import { persistUserTurnTranscript } from "../../../sessions/user-turn-transcript.test-support.js";
 import {
-  OPENCLAW_RUNTIME_CONTEXT_CUSTOM_TYPE,
+  GRANTED_RUNTIME_CONTEXT_CUSTOM_TYPE,
   relocateCurrentRuntimeContextCarrierToTail,
 } from "../../internal-runtime-context.js";
 import { convertToLlm } from "../../sessions/messages.js";
@@ -498,7 +498,7 @@ describe("append-only late media (issue #99495)", () => {
 function runtimeCarrier(content: string, timestamp: number): AgentMsg {
   return {
     role: "custom",
-    customType: OPENCLAW_RUNTIME_CONTEXT_CUSTOM_TYPE,
+    customType: GRANTED_RUNTIME_CONTEXT_CUSTOM_TYPE,
     content,
     display: false,
     details: { source: "openclaw-runtime-context", runtimeContextCarrier: true },
@@ -510,7 +510,7 @@ function isCarrier(message: unknown): boolean {
   return Boolean(
     message &&
     typeof message === "object" &&
-    (message as { customType?: unknown }).customType === OPENCLAW_RUNTIME_CONTEXT_CUSTOM_TYPE,
+    (message as { customType?: unknown }).customType === GRANTED_RUNTIME_CONTEXT_CUSTOM_TYPE,
   );
 }
 

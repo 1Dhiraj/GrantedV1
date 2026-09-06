@@ -17,11 +17,11 @@ import { resolvePreferredOpenClawTmpDir } from "openclaw/plugin-sdk/temp-path";
 import { vi } from "vitest";
 import { setIMessageRuntime } from "../runtime.js";
 
-function createIMessageTestEnv(): NodeJS.ProcessEnv & { OPENCLAW_STATE_DIR: string } {
+function createIMessageTestEnv(): NodeJS.ProcessEnv & { GRANTED_STATE_DIR: string } {
   const stateDir = fs.realpathSync(
     fs.mkdtempSync(path.join(resolvePreferredOpenClawTmpDir(), "openclaw-imessage-state-")),
   );
-  return { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+  return { ...process.env, GRANTED_STATE_DIR: stateDir };
 }
 
 let imessageTestEnv = createIMessageTestEnv();
@@ -41,14 +41,14 @@ export function installIMessageStateRuntimeForTest(): void {
   resetPluginStateStoreForTests();
   setIMessageRuntime({
     state: {
-      resolveStateDir: () => imessageTestEnv.OPENCLAW_STATE_DIR,
+      resolveStateDir: () => imessageTestEnv.GRANTED_STATE_DIR,
       openChannelIngressQueue: (
         options?: Omit<Parameters<typeof createChannelIngressQueueForTests>[0], "channelId">,
       ) =>
         createChannelIngressQueueForTests({
           ...options,
           channelId: "imessage",
-          stateDir: options?.stateDir ?? imessageTestEnv.OPENCLAW_STATE_DIR,
+          stateDir: options?.stateDir ?? imessageTestEnv.GRANTED_STATE_DIR,
         }),
       openKeyedStore: ((options) =>
         createPluginStateKeyedStoreForTests("imessage", {
@@ -84,14 +84,14 @@ export async function loadFreshIMessageReplyCacheForTest(options?: {
   const { setIMessageRuntime: setFreshIMessageRuntime } = await import("../runtime.js");
   setFreshIMessageRuntime({
     state: {
-      resolveStateDir: () => imessageTestEnv.OPENCLAW_STATE_DIR,
+      resolveStateDir: () => imessageTestEnv.GRANTED_STATE_DIR,
       openChannelIngressQueue: (
         queueOptions?: Omit<Parameters<typeof createChannelIngressQueueForTests>[0], "channelId">,
       ) =>
         createChannelIngressQueueForTests({
           ...queueOptions,
           channelId: "imessage",
-          stateDir: queueOptions?.stateDir ?? imessageTestEnv.OPENCLAW_STATE_DIR,
+          stateDir: queueOptions?.stateDir ?? imessageTestEnv.GRANTED_STATE_DIR,
         }),
       openKeyedStore: ((storeOptions) =>
         createPluginStateKeyedStoreForTests("imessage", {
@@ -121,14 +121,14 @@ export function installIMessageFailingStateRuntimeForTest(): void {
   imessageTestEnv = createIMessageTestEnv();
   setIMessageRuntime({
     state: {
-      resolveStateDir: () => imessageTestEnv.OPENCLAW_STATE_DIR,
+      resolveStateDir: () => imessageTestEnv.GRANTED_STATE_DIR,
       openChannelIngressQueue: (
         options?: Omit<Parameters<typeof createChannelIngressQueueForTests>[0], "channelId">,
       ) =>
         createChannelIngressQueueForTests({
           ...options,
           channelId: "imessage",
-          stateDir: options?.stateDir ?? imessageTestEnv.OPENCLAW_STATE_DIR,
+          stateDir: options?.stateDir ?? imessageTestEnv.GRANTED_STATE_DIR,
         }),
       openKeyedStore: (() => {
         throw new Error("test plugin-state failure");

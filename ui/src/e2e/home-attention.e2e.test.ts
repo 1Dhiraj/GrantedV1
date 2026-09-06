@@ -19,8 +19,8 @@ const suite = createControlUiE2eSuite({
 });
 
 const mainSessionKey = "agent:main:main";
-const captureUiProof = process.env.OPENCLAW_CAPTURE_UI_PROOF === "1";
-const proofVariant = process.env.OPENCLAW_HOME_ATTENTION_PROOF_VARIANT || "candidate";
+const captureUiProof = process.env.GRANTED_CAPTURE_UI_PROOF === "1";
+const proofVariant = process.env.GRANTED_HOME_ATTENTION_PROOF_VARIANT || "candidate";
 let proofDir: string;
 beforeEach(() => {
   if (captureUiProof) {

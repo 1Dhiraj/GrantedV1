@@ -179,7 +179,7 @@ describe("release version planning", () => {
     });
     expect(
       fs.readFileSync(path.join(root, "apps", "android", "Config", "Version.properties"), "utf8"),
-    ).toContain("OPENCLAW_ANDROID_VERSION_CODE=2026070102");
+    ).toContain("GRANTED_ANDROID_VERSION_CODE=2026070102");
     expect(
       fs.readFileSync(
         path.join(

@@ -27,12 +27,12 @@ afterEach(() => {
 
 function makeStore() {
   const root = makeTempDir(cleanupDirs, "openclaw-proxy-capture-");
-  return new DebugProxyCaptureStore({ env: { OPENCLAW_STATE_DIR: root } });
+  return new DebugProxyCaptureStore({ env: { GRANTED_STATE_DIR: root } });
 }
 
 function makeStateEnv(prefix: string): NodeJS.ProcessEnv {
   const root = makeTempDir(cleanupDirs, prefix);
-  return { OPENCLAW_STATE_DIR: root };
+  return { GRANTED_STATE_DIR: root };
 }
 
 function readMode(target: string): number {
@@ -82,9 +82,9 @@ describe("DebugProxyCaptureStore", () => {
   it("fences a shared store that was opened before external ownership was claimed", () => {
     const env = makeStateEnv("openclaw-proxy-capture-preclaim-");
     const store = new DebugProxyCaptureStore({ env });
-    env.OPENCLAW_SUPERVISOR_MODE = "external";
+    env.GRANTED_SUPERVISOR_MODE = "external";
     claimOpenClawStateOwnership("gateway-supervisor", { env });
-    delete env.OPENCLAW_SUPERVISOR_MODE;
+    delete env.GRANTED_SUPERVISOR_MODE;
 
     expect(() =>
       store.upsertSession({
@@ -279,7 +279,7 @@ describe("DebugProxyCaptureStore", () => {
     "stores capture blobs in the private shared state database",
     () => {
       const env = makeStateEnv("openclaw-proxy-capture-permissions-");
-      const root = env.OPENCLAW_STATE_DIR!;
+      const root = env.GRANTED_STATE_DIR!;
       const store = new DebugProxyCaptureStore({ env });
       const blob = store.persistPayload(Buffer.from("authorization: Bearer secret"));
       const row = store.db

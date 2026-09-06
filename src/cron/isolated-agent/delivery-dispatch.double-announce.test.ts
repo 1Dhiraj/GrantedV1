@@ -2517,7 +2517,7 @@ describe("dispatchCronDelivery — double-announce guard", () => {
   });
 
   it("does not retry permanent typed pre-dispatch rejections", async () => {
-    vi.stubEnv("OPENCLAW_TEST_FAST", "1");
+    vi.stubEnv("GRANTED_TEST_FAST", "1");
     const rejection = new PlatformMessageNotDispatchedError("payload rejected", {
       cause: new Error("invalid payload"),
       retryable: false,
@@ -2530,14 +2530,14 @@ describe("dispatchCronDelivery — double-announce guard", () => {
     expect(deliverOutboundPayloads).toHaveBeenCalledTimes(1);
     expect(state.deliveryState).toMatchObject({
       status: "not-delivered",
-      error: "payload rejected | OPENCLAW_PLATFORM_MESSAGE_NOT_DISPATCHED | invalid payload",
+      error: "payload rejected | GRANTED_PLATFORM_MESSAGE_NOT_DISPATCHED | invalid payload",
     });
   });
 
   it.each(["structured", "threaded"] as const)(
     "retries proven-not-sent %s cron delivery without duplicating a message",
     async (deliveryKind) => {
-      vi.stubEnv("OPENCLAW_TEST_FAST", "1");
+      vi.stubEnv("GRANTED_TEST_FAST", "1");
       vi.mocked(deliverOutboundPayloads)
         .mockRejectedValueOnce(
           new PlatformMessageNotDispatchedError("upload stopped before final dispatch", {
@@ -2563,7 +2563,7 @@ describe("dispatchCronDelivery — double-announce guard", () => {
   );
 
   it("does not retry ambiguous direct announce send errors", async () => {
-    vi.stubEnv("OPENCLAW_TEST_FAST", "1");
+    vi.stubEnv("GRANTED_TEST_FAST", "1");
     vi.mocked(deliverOutboundPayloads).mockRejectedValueOnce(
       Object.assign(new Error("read ECONNRESET after send"), {
         code: "ECONNRESET",
@@ -2614,7 +2614,7 @@ describe("dispatchCronDelivery — double-announce guard", () => {
         }),
       },
     );
-    vi.stubEnv("OPENCLAW_TEST_FAST", "1");
+    vi.stubEnv("GRANTED_TEST_FAST", "1");
     vi.mocked(deliverOutboundPayloads).mockImplementationOnce(async (deliveryParams) => {
       deliveryParams.onPayloadDeliveryOutcome?.(firstOutcome as never);
       deliveryParams.onPayloadDeliveryOutcome?.({
@@ -2640,7 +2640,7 @@ describe("dispatchCronDelivery — double-announce guard", () => {
     expect(state.deliveryState).toMatchObject({
       status: "not-delivered",
       error:
-        "second payload stopped before final dispatch | OPENCLAW_PLATFORM_MESSAGE_NOT_DISPATCHED | connect ECONNREFUSED | ECONNREFUSED",
+        "second payload stopped before final dispatch | GRANTED_PLATFORM_MESSAGE_NOT_DISPATCHED | connect ECONNREFUSED | ECONNREFUSED",
     });
     expect(enqueueSystemEvent).toHaveBeenCalledExactlyOnceWith(
       [
@@ -3026,7 +3026,7 @@ describe("dispatchCronDelivery — double-announce guard", () => {
   });
 
   it("does not retry permanent direct announce failures", async () => {
-    vi.stubEnv("OPENCLAW_TEST_FAST", "1");
+    vi.stubEnv("GRANTED_TEST_FAST", "1");
     vi.mocked(deliverOutboundPayloads).mockRejectedValue(new Error("chat not found"));
 
     const params = makeBaseParams({ synthesizedText: "This should fail once." });
@@ -3360,7 +3360,7 @@ describe("dispatchCronDelivery — double-announce guard", () => {
       )
       .mockResolvedValueOnce([{ ok: true } as never]);
 
-    vi.stubEnv("OPENCLAW_TEST_FAST", "1");
+    vi.stubEnv("GRANTED_TEST_FAST", "1");
     try {
       const params = makeBaseParams({ synthesizedText: "Retry test." });
       const state = await dispatchCronDelivery(params);
@@ -4203,7 +4203,7 @@ describe("dispatchCronDelivery — double-announce guard", () => {
       });
       harness.resolveDeliveryTargetMock.mockResolvedValue(makeResolvedDelivery());
       vi.mocked(deliverOutboundPayloads).mockImplementation(realDeliver);
-      vi.stubEnv("OPENCLAW_TEST_FAST", "1");
+      vi.stubEnv("GRANTED_TEST_FAST", "1");
     });
 
     afterEach(() => {

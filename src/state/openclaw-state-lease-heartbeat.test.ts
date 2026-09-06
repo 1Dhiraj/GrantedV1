@@ -74,13 +74,13 @@ describe("maintenance lease heartbeat", () => {
           block(100);
           expect(Number(readLease(state.env)?.expires_at)).toBeGreaterThan(Date.now());
           expect(() => lease.assertOwned()).toThrowError(
-            expect.objectContaining({ code: "OPENCLAW_STATE_LEASE_LOST" }),
+            expect.objectContaining({ code: "GRANTED_STATE_LEASE_LOST" }),
           );
           // The database alone still grants the old lease: only fresh worker
           // liveness can reject this assertion before the queued exit callback.
           expect(Number(readLease(state.env)?.expires_at)).toBeGreaterThan(Date.now());
         }),
-      ).rejects.toMatchObject({ code: "OPENCLAW_STATE_LEASE_LOST" });
+      ).rejects.toMatchObject({ code: "GRANTED_STATE_LEASE_LOST" });
       expect(readLease(state.env)).toBeUndefined();
     });
   });
@@ -97,7 +97,7 @@ describe("maintenance lease heartbeat", () => {
           withOpenClawStateLease(options(state.env), async () => {
             entered = true;
           }),
-        ).rejects.toMatchObject({ code: "OPENCLAW_STATE_LEASE_LOST" });
+        ).rejects.toMatchObject({ code: "GRANTED_STATE_LEASE_LOST" });
         expect(entered).toBe(false);
         expect(readLease(state.env)).toBeUndefined();
       } finally {
@@ -130,11 +130,11 @@ describe("maintenance lease heartbeat", () => {
             changed = readLease(state.env);
             block(450);
             expect(() => lease.assertOwned()).toThrowError(
-              expect.objectContaining({ code: "OPENCLAW_STATE_LEASE_LOST" }),
+              expect.objectContaining({ code: "GRANTED_STATE_LEASE_LOST" }),
             );
             expect(readLease(state.env)).toEqual(changed);
           }),
-        ).rejects.toMatchObject({ code: "OPENCLAW_STATE_LEASE_LOST" });
+        ).rejects.toMatchObject({ code: "GRANTED_STATE_LEASE_LOST" });
         expect(readLease(state.env)).toEqual(failure === "replacement" ? changed : undefined);
       });
     },

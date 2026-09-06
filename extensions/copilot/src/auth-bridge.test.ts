@@ -104,10 +104,10 @@ describe("resolveCopilotAuth - copilotHome resolution", () => {
     );
   });
 
-  it("respects OPENCLAW_HOME env var as the home root", () => {
+  it("respects GRANTED_HOME env var as the home root", () => {
     const result = resolveCopilotAuth({
       agentId: "agent-1",
-      env: { OPENCLAW_HOME: "/custom/openclaw" } as NodeJS.ProcessEnv,
+      env: { GRANTED_HOME: "/custom/openclaw" } as NodeJS.ProcessEnv,
       homeDir: fakeHomeDir,
     });
     expect(result.copilotHome).toBe(
@@ -287,7 +287,7 @@ describe("resolveCopilotAuth - contract-resolved auth (resolvedApiKey + authProf
       resolvedApiKey: "contract-token",
       authProfileId: "p",
       env: {
-        OPENCLAW_GITHUB_TOKEN: "env-should-be-ignored",
+        GRANTED_GITHUB_TOKEN: "env-should-be-ignored",
         COPILOT_GITHUB_TOKEN: "copilot-env-should-be-ignored",
         GH_TOKEN: "gh-env-should-be-ignored",
         GITHUB_TOKEN: "github-env-should-be-ignored",
@@ -323,17 +323,17 @@ describe("resolveCopilotAuth - env var fallbacks", () => {
     expect(result.authProfileVersion).toBe(tokenFingerprint("env-token-123"));
   });
 
-  it("OPENCLAW_GITHUB_TOKEN takes precedence over GITHUB_TOKEN", () => {
+  it("GRANTED_GITHUB_TOKEN takes precedence over GITHUB_TOKEN", () => {
     const result = resolveCopilotAuth({
       agentId: "agent-1",
       env: {
-        OPENCLAW_GITHUB_TOKEN: "openclaw-tok",
+        GRANTED_GITHUB_TOKEN: "openclaw-tok",
         GITHUB_TOKEN: "github-tok",
       } as NodeJS.ProcessEnv,
       homeDir: fakeHomeDir,
     });
     expect(result.gitHubToken).toBe("openclaw-tok");
-    expect(result.authProfileId).toBe("env:OPENCLAW_GITHUB_TOKEN");
+    expect(result.authProfileId).toBe("env:GRANTED_GITHUB_TOKEN");
     expect(result.authProfileVersion).toBe(tokenFingerprint("openclaw-tok"));
   });
 
@@ -361,11 +361,11 @@ describe("resolveCopilotAuth - env var fallbacks", () => {
     expect(result.authProfileVersion).toBe(tokenFingerprint("gh-tok-456"));
   });
 
-  it("OPENCLAW_GITHUB_TOKEN takes precedence over COPILOT_GITHUB_TOKEN, GH_TOKEN and GITHUB_TOKEN", () => {
+  it("GRANTED_GITHUB_TOKEN takes precedence over COPILOT_GITHUB_TOKEN, GH_TOKEN and GITHUB_TOKEN", () => {
     const result = resolveCopilotAuth({
       agentId: "agent-1",
       env: {
-        OPENCLAW_GITHUB_TOKEN: "openclaw-tok",
+        GRANTED_GITHUB_TOKEN: "openclaw-tok",
         COPILOT_GITHUB_TOKEN: "copilot-tok",
         GH_TOKEN: "gh-tok",
         GITHUB_TOKEN: "github-tok",
@@ -373,7 +373,7 @@ describe("resolveCopilotAuth - env var fallbacks", () => {
       homeDir: fakeHomeDir,
     });
     expect(result.gitHubToken).toBe("openclaw-tok");
-    expect(result.authProfileId).toBe("env:OPENCLAW_GITHUB_TOKEN");
+    expect(result.authProfileId).toBe("env:GRANTED_GITHUB_TOKEN");
   });
 
   it("COPILOT_GITHUB_TOKEN takes precedence over GH_TOKEN and GITHUB_TOKEN", () => {
@@ -421,7 +421,7 @@ describe("resolveCopilotAuth - env var fallbacks", () => {
     const result = resolveCopilotAuth({
       agentId: "agent-1",
       auth: { useLoggedInUser: true },
-      env: { OPENCLAW_GITHUB_TOKEN: "env-tok" } as NodeJS.ProcessEnv,
+      env: { GRANTED_GITHUB_TOKEN: "env-tok" } as NodeJS.ProcessEnv,
       homeDir: fakeHomeDir,
     });
     expect(result.authMode).toBe("useLoggedInUser");
@@ -431,7 +431,7 @@ describe("resolveCopilotAuth - env var fallbacks", () => {
     const result = resolveCopilotAuth({
       agentId: "agent-1",
       auth: { gitHubToken: "explicit", profileId: "p", profileVersion: "v" },
-      env: { OPENCLAW_GITHUB_TOKEN: "env-tok" } as NodeJS.ProcessEnv,
+      env: { GRANTED_GITHUB_TOKEN: "env-tok" } as NodeJS.ProcessEnv,
       homeDir: fakeHomeDir,
     });
     expect(result.authMode).toBe("gitHubToken");
@@ -445,7 +445,7 @@ describe("resolveCopilotAuth - env var fallbacks", () => {
       agentId: "agent-1",
       env: {
         GITHUB_TOKEN: "",
-        OPENCLAW_GITHUB_TOKEN: "",
+        GRANTED_GITHUB_TOKEN: "",
         COPILOT_GITHUB_TOKEN: "",
         GH_TOKEN: "",
       } as NodeJS.ProcessEnv,
@@ -458,10 +458,10 @@ describe("resolveCopilotAuth - env var fallbacks", () => {
 describe("resolveCopilotAuth - defaults wiring", () => {
   beforeEach(() => {
     vi.stubEnv("GITHUB_TOKEN", undefined);
-    vi.stubEnv("OPENCLAW_GITHUB_TOKEN", undefined);
+    vi.stubEnv("GRANTED_GITHUB_TOKEN", undefined);
     vi.stubEnv("COPILOT_GITHUB_TOKEN", undefined);
     vi.stubEnv("GH_TOKEN", undefined);
-    vi.stubEnv("OPENCLAW_HOME", undefined);
+    vi.stubEnv("GRANTED_HOME", undefined);
   });
 
   afterEach(() => {

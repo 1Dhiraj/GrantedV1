@@ -35,7 +35,7 @@ describe("memory entry origins", () => {
     stateDir = await fs.realpath(
       await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-memory-origin-")),
     );
-    vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
+    vi.stubEnv("GRANTED_STATE_DIR", stateDir);
     await configureMemoryCoreDreamingStateForTests();
     await fs.mkdir(path.dirname(resolveOpenClawAgentSqlitePath({ agentId: "main" })), {
       recursive: true,

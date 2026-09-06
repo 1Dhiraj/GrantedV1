@@ -2,9 +2,9 @@
 import { afterEach, vi } from "vitest";
 
 const DEBUG_PROXY_ENV_KEYS = [
-  "OPENCLAW_DEBUG_PROXY_ENABLED",
-  "OPENCLAW_DEBUG_PROXY_SESSION_ID",
-  "OPENCLAW_STATE_DIR",
+  "GRANTED_DEBUG_PROXY_ENABLED",
+  "GRANTED_DEBUG_PROXY_SESSION_ID",
+  "GRANTED_STATE_DIR",
 ] as const;
 
 type DebugProxyEnvKey = (typeof DEBUG_PROXY_ENV_KEYS)[number];

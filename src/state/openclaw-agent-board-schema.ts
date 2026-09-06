@@ -1,5 +1,5 @@
 import type { DatabaseSync } from "node:sqlite";
-import { OPENCLAW_AGENT_SCHEMA_SQL } from "./openclaw-agent-schema.js";
+import { GRANTED_AGENT_SCHEMA_SQL } from "./openclaw-agent-schema.js";
 
 const BOARD_SCHEMA_START = "CREATE TABLE IF NOT EXISTS board_tabs (";
 const BOARD_SCHEMA_END = "CREATE TABLE IF NOT EXISTS session_progress_cards (";
@@ -23,19 +23,19 @@ function splitBoardSchema(sql: string): { board: string; withoutBoard: string } 
   };
 }
 
-const boardSchema = splitBoardSchema(OPENCLAW_AGENT_SCHEMA_SQL);
+const boardSchema = splitBoardSchema(GRANTED_AGENT_SCHEMA_SQL);
 
-const OPENCLAW_AGENT_BOARD_SCHEMA_SQL = boardSchema.board;
-export const AGENT_V14_BOARD_SCHEMA_SQL = OPENCLAW_AGENT_BOARD_SCHEMA_SQL;
-export const OPENCLAW_AGENT_SCHEMA_WITHOUT_BOARD_SQL = boardSchema.withoutBoard;
+const GRANTED_AGENT_BOARD_SCHEMA_SQL = boardSchema.board;
+export const AGENT_V14_BOARD_SCHEMA_SQL = GRANTED_AGENT_BOARD_SCHEMA_SQL;
+export const GRANTED_AGENT_SCHEMA_WITHOUT_BOARD_SQL = boardSchema.withoutBoard;
 
 function canonicalBoardWidgetsCreateSql(): string {
-  const start = OPENCLAW_AGENT_BOARD_SCHEMA_SQL.indexOf(BOARD_WIDGETS_SCHEMA_START);
-  const end = OPENCLAW_AGENT_BOARD_SCHEMA_SQL.indexOf(BOARD_WIDGETS_SCHEMA_END, start);
+  const start = GRANTED_AGENT_BOARD_SCHEMA_SQL.indexOf(BOARD_WIDGETS_SCHEMA_START);
+  const end = GRANTED_AGENT_BOARD_SCHEMA_SQL.indexOf(BOARD_WIDGETS_SCHEMA_END, start);
   if (start === -1 || end === -1) {
     throw new Error("OpenClaw agent board widget schema markers are missing.");
   }
-  return OPENCLAW_AGENT_BOARD_SCHEMA_SQL.slice(start, end).trim();
+  return GRANTED_AGENT_BOARD_SCHEMA_SQL.slice(start, end).trim();
 }
 
 function legacyBoardWidgetsCreateSql(): string {
@@ -65,7 +65,7 @@ export function ensureOpenClawAgentBoardSchemaInTransaction(db: DatabaseSync): v
   if (!db.isTransaction) {
     throw new Error("board schema ensure requires an active transaction");
   }
-  db.exec(OPENCLAW_AGENT_BOARD_SCHEMA_SQL); // sqlite-allow-raw -- Canonical DDL bootstrap for the lazy board schema.
+  db.exec(GRANTED_AGENT_BOARD_SCHEMA_SQL); // sqlite-allow-raw -- Canonical DDL bootstrap for the lazy board schema.
   const row = db // sqlite-allow-raw -- Inspect the table DDL before the bounded same-version migration.
     .prepare("SELECT sql FROM sqlite_schema WHERE type = 'table' AND name = 'board_widgets'")
     .get() as { sql?: unknown } | undefined;
@@ -108,5 +108,5 @@ export function ensureOpenClawAgentBoardSchemaInTransaction(db: DatabaseSync): v
     DROP TABLE board_widgets;
     ALTER TABLE ${BOARD_WIDGETS_MIGRATION_TABLE} RENAME TO board_widgets;
   `);
-  db.exec(OPENCLAW_AGENT_BOARD_SCHEMA_SQL); // sqlite-allow-raw -- Restore the canonical board index after the rebuild.
+  db.exec(GRANTED_AGENT_BOARD_SCHEMA_SQL); // sqlite-allow-raw -- Restore the canonical board index after the rebuild.
 }

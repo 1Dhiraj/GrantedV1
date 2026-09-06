@@ -13,7 +13,7 @@ type TelegramBotApiOptions = {
 };
 
 const DEFAULT_BASE_URL =
-  process.env.OPENCLAW_TELEGRAM_USER_BOT_API_BASE_URL ?? "https://api.telegram.org";
+  process.env.GRANTED_TELEGRAM_USER_BOT_API_BASE_URL ?? "https://api.telegram.org";
 type TelegramBotApiLimits = {
   bodyMaxBytes: number;
   timeoutMs: number;
@@ -24,11 +24,11 @@ export function readTelegramBotApiLimits(
 ): TelegramBotApiLimits {
   return {
     bodyMaxBytes: readPositiveIntEnv(
-      "OPENCLAW_TELEGRAM_USER_BOT_API_BODY_MAX_BYTES",
+      "GRANTED_TELEGRAM_USER_BOT_API_BODY_MAX_BYTES",
       1024 * 1024,
       env,
     ),
-    timeoutMs: readPositiveIntEnv("OPENCLAW_TELEGRAM_USER_BOT_API_TIMEOUT_MS", 30000, env),
+    timeoutMs: readPositiveIntEnv("GRANTED_TELEGRAM_USER_BOT_API_TIMEOUT_MS", 30000, env),
   };
 }
 

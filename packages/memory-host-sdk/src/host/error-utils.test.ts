@@ -91,7 +91,7 @@ describe("formatErrorMessage", () => {
     const providerToken = `ghp_${"a".repeat(20)}`;
     const customSecret = "internal-ticket-12345";
 
-    const output = withEnv({ OPENCLAW_CONFIG_PATH: configPath }, () =>
+    const output = withEnv({ GRANTED_CONFIG_PATH: configPath }, () =>
       formatErrorMessage(`memory failed: ${providerToken} ${customSecret}`),
     );
 

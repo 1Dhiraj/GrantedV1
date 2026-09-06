@@ -22,8 +22,8 @@ describe("native video transcript replay", () => {
     const inboundDir = path.join(stateDir, "media", "inbound");
     await fs.mkdir(inboundDir, { recursive: true });
     await fs.writeFile(path.join(inboundDir, "history.mp4"), MP4);
-    const env = captureEnv(["OPENCLAW_STATE_DIR"]);
-    setTestEnvValue("OPENCLAW_STATE_DIR", stateDir);
+    const env = captureEnv(["GRANTED_STATE_DIR"]);
+    setTestEnvValue("GRANTED_STATE_DIR", stateDir);
     const target = {
       agentId: "main",
       sessionId: "video-replay",

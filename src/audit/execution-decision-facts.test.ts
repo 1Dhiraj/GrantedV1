@@ -43,7 +43,7 @@ afterEach(() => {
 const tempDirs = useAutoCleanupTempDirTracker(afterEach);
 
 function databaseOptions() {
-  return { env: { OPENCLAW_STATE_DIR: tempDirs.make("openclaw-decision-facts-") } };
+  return { env: { GRANTED_STATE_DIR: tempDirs.make("openclaw-decision-facts-") } };
 }
 
 function seedExecutionContext(

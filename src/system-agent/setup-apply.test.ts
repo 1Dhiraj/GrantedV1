@@ -260,7 +260,7 @@ describe("applySystemAgentSetup transaction boundaries", () => {
     async ({ agents }) => {
       const stateDir = testTempDirs.make("openclaw-setup-state-");
       await fs.mkdir(path.join(stateDir, "agents", "main", "sessions"), { recursive: true });
-      await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () => {
+      await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {
         const sourceConfig: OpenClawConfig = {
           agents: {
             ...agents,
@@ -308,7 +308,7 @@ describe("applySystemAgentSetup transaction boundaries", () => {
   it("moves a configured workspace with existing state after explicit approval", async () => {
     const stateDir = testTempDirs.make("openclaw-setup-state-");
     await fs.mkdir(path.join(stateDir, "agents", "main", "sessions"), { recursive: true });
-    await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () => {
+    await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {
       const sourceConfig: OpenClawConfig = {
         agents: { defaults: { workspace: "/tmp/current-workspace" }, entries: {} },
       };
@@ -345,7 +345,7 @@ describe("applySystemAgentSetup transaction boundaries", () => {
 
   it("uses the requested workspace when configured state is fresh", async () => {
     const stateDir = testTempDirs.make("openclaw-setup-state-");
-    await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () => {
+    await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {
       const sourceConfig: OpenClawConfig = {
         agents: { defaults: { workspace: "/tmp/current-workspace" }, entries: {} },
       };

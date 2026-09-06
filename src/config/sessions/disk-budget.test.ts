@@ -110,7 +110,7 @@ describe("enforceSessionDiskBudget", () => {
   it("counts durable fixed-store agent partitions and their WAL files", async () => {
     await withTestDir({ prefix: "openclaw-disk-budget-partition-" }, async (dir) => {
       const stateDir = path.join(dir, "state");
-      const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+      const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
       const storePath = path.join(dir, "shared.json");
       const partitionPath = resolveSqliteTargetFromSessionStorePath(storePath, {
         agentId: "ops",

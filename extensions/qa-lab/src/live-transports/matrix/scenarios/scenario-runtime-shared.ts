@@ -80,7 +80,7 @@ export type MatrixQaScenarioContext = {
 };
 
 const NO_REPLY_WINDOW_MS = 8_000;
-const NO_REPLY_WINDOW_ENV = "OPENCLAW_QA_MATRIX_NO_REPLY_WINDOW_MS";
+const NO_REPLY_WINDOW_ENV = "GRANTED_QA_MATRIX_NO_REPLY_WINDOW_MS";
 const MATRIX_QA_PREVIEW_LIMIT = 200;
 
 export function truncateMatrixQaPreview(value: string | null | undefined) {

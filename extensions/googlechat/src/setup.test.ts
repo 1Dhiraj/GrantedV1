@@ -498,7 +498,7 @@ describe("resolveGoogleChatAccount", () => {
     tempWorkspaces.push(workspace);
     const homeDir = workspace.dir;
     fs.writeFileSync(path.join(homeDir, "service-account.json"), "{}", { mode: 0o600 });
-    vi.stubEnv("OPENCLAW_HOME", homeDir);
+    vi.stubEnv("GRANTED_HOME", homeDir);
     try {
       const resolved = resolveGoogleChatAccount({
         cfg: {

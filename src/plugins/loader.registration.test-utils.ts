@@ -580,8 +580,8 @@ describe("loadOpenClawPlugins", () => {
       enabledByDefault: true,
       providers: ["unscoped-provider"],
     });
-    process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = bundledDir;
-    delete process.env.OPENCLAW_DISABLE_BUNDLED_PLUGINS;
+    process.env.GRANTED_BUNDLED_PLUGINS_DIR = bundledDir;
+    delete process.env.GRANTED_DISABLE_BUNDLED_PLUGINS;
 
     const scoped = loadOpenClawPlugins({
       cache: false,
@@ -627,8 +627,8 @@ describe("loadOpenClawPlugins", () => {
         };`,
     });
     updatePluginManifest(bundled, { enabledByDefault: true });
-    process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = bundledDir;
-    delete process.env.OPENCLAW_DISABLE_BUNDLED_PLUGINS;
+    process.env.GRANTED_BUNDLED_PLUGINS_DIR = bundledDir;
+    delete process.env.GRANTED_DISABLE_BUNDLED_PLUGINS;
 
     const bundledRegistry = loadOpenClawPlugins({
       cache: false,
@@ -1716,7 +1716,7 @@ describe("loadOpenClawPlugins", () => {
               ...options,
               env: {
                 ...process.env,
-                OPENCLAW_BUNDLED_PLUGINS_DIR: bundledA,
+                GRANTED_BUNDLED_PLUGINS_DIR: bundledA,
               },
             }),
           loadSecond: () =>
@@ -1724,7 +1724,7 @@ describe("loadOpenClawPlugins", () => {
               ...options,
               env: {
                 ...process.env,
-                OPENCLAW_BUNDLED_PLUGINS_DIR: bundledB,
+                GRANTED_BUNDLED_PLUGINS_DIR: bundledB,
               },
             }),
         };
@@ -1774,9 +1774,9 @@ describe("loadOpenClawPlugins", () => {
               env: {
                 ...process.env,
                 HOME: homeA,
-                OPENCLAW_HOME: undefined,
-                OPENCLAW_STATE_DIR: stateDir,
-                OPENCLAW_BUNDLED_PLUGINS_DIR: bundledDir,
+                GRANTED_HOME: undefined,
+                GRANTED_STATE_DIR: stateDir,
+                GRANTED_BUNDLED_PLUGINS_DIR: bundledDir,
               },
             }),
           loadSecond: () =>
@@ -1785,9 +1785,9 @@ describe("loadOpenClawPlugins", () => {
               env: {
                 ...process.env,
                 HOME: homeB,
-                OPENCLAW_HOME: undefined,
-                OPENCLAW_STATE_DIR: stateDir,
-                OPENCLAW_BUNDLED_PLUGINS_DIR: bundledDir,
+                GRANTED_HOME: undefined,
+                GRANTED_STATE_DIR: stateDir,
+                GRANTED_BUNDLED_PLUGINS_DIR: bundledDir,
               },
             }),
         };

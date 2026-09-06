@@ -29,7 +29,7 @@ import {
 type MigrationDatabase = Pick<OpenClawStateKyselyDatabase, "migration_runs" | "migration_sources">;
 
 describe("legacy exec approvals migration", () => {
-  const envSnapshot = captureEnv(["OPENCLAW_STATE_DIR"]);
+  const envSnapshot = captureEnv(["GRANTED_STATE_DIR"]);
   const tempDirs = useAutoCleanupTempDirTracker((cleanup) => {
     afterEach(() => {
       closeOpenClawStateDatabaseForTest();
@@ -41,7 +41,7 @@ describe("legacy exec approvals migration", () => {
 
   function useStateDir(): { env: NodeJS.ProcessEnv; stateDir: string; sourcePath: string } {
     const stateDir = tempDirs.make("openclaw-exec-approvals-migration-");
-    const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+    const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
     return { env, stateDir, sourcePath: resolveExecApprovalsPath(env) };
   }
 
@@ -126,7 +126,7 @@ describe("legacy exec approvals migration", () => {
       },
     };
     await writeLegacy(sourcePath, expected);
-    setTestEnvValue("OPENCLAW_STATE_DIR", stateDir);
+    setTestEnvValue("GRANTED_STATE_DIR", stateDir);
     execApprovalsStoreTesting.reset();
     expect(() => loadExecApprovals()).toThrow(ExecApprovalsMigrationRequiredError);
 
@@ -267,14 +267,14 @@ describe("legacy exec approvals migration", () => {
       const { env, stateDir, sourcePath } = useStateDir();
       const original = Buffer.from(raw);
       await fsp.writeFile(sourcePath, original);
-      setTestEnvValue("OPENCLAW_STATE_DIR", stateDir);
+      setTestEnvValue("GRANTED_STATE_DIR", stateDir);
       expect(() => loadExecApprovals()).toThrow(ExecApprovalsMigrationRequiredError);
 
       const result = await migrate({ env, stateDir });
 
       expect(result.changes).toEqual([]);
       expect(result.warnings).toEqual([
-        `Preserved malformed legacy exec approvals for operator recovery. First problem: ${problem}. Repair exec-approvals.json locally, then rerun \`openclaw doctor --fix\` with the same OPENCLAW_STATE_DIR.`,
+        `Preserved malformed legacy exec approvals for operator recovery. First problem: ${problem}. Repair exec-approvals.json locally, then rerun \`openclaw doctor --fix\` with the same GRANTED_STATE_DIR.`,
       ]);
       expect(result.warnings[0]?.length).toBeLessThan(400);
       expect(JSON.stringify(result)).not.toContain("private-marker");
@@ -450,7 +450,7 @@ describe("legacy exec approvals migration", () => {
   it("keeps store APIs blocked until Doctor completes the import", async () => {
     const { env, stateDir, sourcePath } = useStateDir();
     await writeLegacy(sourcePath, { version: 1, defaults: { security: "deny" }, agents: {} });
-    setTestEnvValue("OPENCLAW_STATE_DIR", stateDir);
+    setTestEnvValue("GRANTED_STATE_DIR", stateDir);
     execApprovalsStoreTesting.reset();
     expect(() => loadExecApprovals()).toThrow(ExecApprovalsMigrationRequiredError);
 

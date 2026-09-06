@@ -79,7 +79,7 @@ describe("node PTY command", () => {
     expect(spawnCalls[0]?.[0].cwd).toBe(os.homedir());
     expect(spawnCalls[0]?.[0].env?.PATH).toBe("/shell/bin:/usr/bin");
     expect(spawnCalls[0]?.[0].env?.CODEX_HOME).toBe("/catalog/codex-home");
-    expect(spawnCalls[0]?.[0].env?.OPENCLAW_TERMINAL).toBe("1");
+    expect(spawnCalls[0]?.[0].env?.GRANTED_TERMINAL).toBe("1");
 
     onData?.("output");
     await vi.waitFor(() => expect(emitChunk).toHaveBeenCalledWith("output"));

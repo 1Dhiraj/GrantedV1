@@ -20,11 +20,11 @@ import { readTextFileBounded, readTextFileTail } from "../text-file-utils.mjs";
 const command = process.argv[2];
 const ERROR_DETAIL_TAIL_BYTES = 16 * 1024;
 const JSON_ARTIFACT_MAX_BYTES = readPositiveIntEnv(
-  "OPENCLAW_NPM_ONBOARD_JSON_ARTIFACT_MAX_BYTES",
+  "GRANTED_NPM_ONBOARD_JSON_ARTIFACT_MAX_BYTES",
   1024 * 1024,
 );
 const STATUS_TEXT_MAX_BYTES = readPositiveIntEnv(
-  "OPENCLAW_NPM_ONBOARD_STATUS_TEXT_MAX_BYTES",
+  "GRANTED_NPM_ONBOARD_STATUS_TEXT_MAX_BYTES",
   1024 * 1024,
 );
 const ansiEscapePattern = new RegExp(String.raw`\u001b\[[0-?]*[ -/]*[@-~]`, "g");

@@ -10,7 +10,7 @@ import {
   type ControlUiE2eServer,
 } from "../test-helpers/control-ui-e2e.ts";
 
-const proofDirParent = process.env.OPENCLAW_MEDIA_PROOF_DIR?.trim() || null;
+const proofDirParent = process.env.GRANTED_MEDIA_PROOF_DIR?.trim() || null;
 let proofDir: string | undefined;
 beforeEach(() => {
   proofDir = proofDirParent

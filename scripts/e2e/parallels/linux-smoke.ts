@@ -178,11 +178,8 @@ export function parseArgs(argv: string[]): LinuxOptions {
 
 class LinuxSmoke extends SmokeRunController<LinuxOptions> {
   private auth: ProviderAuth;
-  private disableBonjour = parseBoolEnv(process.env.OPENCLAW_PARALLELS_LINUX_DISABLE_BONJOUR);
-  private agentTimeoutSeconds = readPositiveIntEnv(
-    "OPENCLAW_PARALLELS_LINUX_AGENT_TIMEOUT_S",
-    1500,
-  );
+  private disableBonjour = parseBoolEnv(process.env.GRANTED_PARALLELS_LINUX_DISABLE_BONJOUR);
+  private agentTimeoutSeconds = readPositiveIntEnv("GRANTED_PARALLELS_LINUX_AGENT_TIMEOUT_S", 1500);
   private artifact: PackageArtifact | null = null;
   private latestVersion = "";
   private snapshot!: SnapshotInfo;
@@ -451,7 +448,7 @@ rm -f /tmp/openclaw-parallels-linux-gateway.log`);
     if (this.options.installVersion) {
       this.guestExec([
         "/usr/bin/env",
-        "OPENCLAW_NO_ONBOARD=1",
+        "GRANTED_NO_ONBOARD=1",
         "bash",
         "/tmp/openclaw-install.sh",
         "--version",
@@ -461,7 +458,7 @@ rm -f /tmp/openclaw-parallels-linux-gateway.log`);
     } else {
       this.guestExec([
         "/usr/bin/env",
-        "OPENCLAW_NO_ONBOARD=1",
+        "GRANTED_NO_ONBOARD=1",
         "bash",
         "/tmp/openclaw-install.sh",
         "--no-onboard",
@@ -601,13 +598,13 @@ PY`);
   }
 
   private startGatewayBackground(): void {
-    const bonjourEnv = this.disableBonjour ? " OPENCLAW_DISABLE_BONJOUR=1" : "";
+    const bonjourEnv = this.disableBonjour ? " GRANTED_DISABLE_BONJOUR=1" : "";
     this.guestBash(
       String.raw`pkill -f "openclaw gateway run" >/dev/null 2>&1 || true
 rm -f /tmp/openclaw-parallels-linux-gateway.log
 setsid sh -lc ` +
         shellQuote(
-          `exec env OPENCLAW_HOME=/root OPENCLAW_STATE_DIR=/root/.openclaw OPENCLAW_CONFIG_PATH=/root/.openclaw/openclaw.json OPENCLAW_ALLOW_ROOT=1${bonjourEnv} ${this.auth.apiKeyEnv}=${shellQuote(
+          `exec env GRANTED_HOME=/root GRANTED_STATE_DIR=/root/.openclaw GRANTED_CONFIG_PATH=/root/.openclaw/openclaw.json GRANTED_ALLOW_ROOT=1${bonjourEnv} ${this.auth.apiKeyEnv}=${shellQuote(
             this.auth.apiKeyValue,
           )} openclaw gateway run --bind loopback --port 18789 --force >/tmp/openclaw-parallels-linux-gateway.log 2>&1`,
         ) +
@@ -729,7 +726,7 @@ for attempt in 1 2; do
   rm -f "$HOME/.openclaw/agents/main/sessions/$session_id.jsonl"
   output_file="$(mktemp)"
   set +e
-  /usr/bin/env OPENCLAW_ALLOW_ROOT=1 ${shellQuote(`${this.auth.apiKeyEnv}=${this.auth.apiKeyValue}`)} openclaw agent --local --agent main --session-id "$session_id" --message ${shellQuote(
+  /usr/bin/env GRANTED_ALLOW_ROOT=1 ${shellQuote(`${this.auth.apiKeyEnv}=${this.auth.apiKeyValue}`)} openclaw agent --local --agent main --session-id "$session_id" --message ${shellQuote(
     "Reply with exact ASCII text OK only.",
   )} --thinking off --timeout ${resolveParallelsModelTimeoutSeconds("linux")} --json >"$output_file" 2>&1
   rc=$?

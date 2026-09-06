@@ -100,7 +100,7 @@ function resolvePathFromAgentSessionsDir(
 }
 
 // Absolute sessionFile paths recorded under another state root (restored
-// backups, moved OPENCLAW_STATE_DIR, rehearsal copies) never satisfy the
+// backups, moved GRANTED_STATE_DIR, rehearsal copies) never satisfy the
 // relative-containment check above. Re-root the canonical
 // `agents/<id>/sessions/<suffix>` tail onto the current sessions dir, but only
 // when the file exists there: genuine cross-root layouts keep their foreign

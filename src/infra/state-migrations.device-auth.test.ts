@@ -18,7 +18,7 @@ describe("legacy device-auth Doctor migration", () => {
 
   function useStateDir() {
     const stateDir = tempDirs.make("openclaw-device-auth-migration-");
-    const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+    const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
     const sourcePath = path.join(stateDir, "identity", "device-auth.json");
     return { stateDir, env, sourcePath };
   }

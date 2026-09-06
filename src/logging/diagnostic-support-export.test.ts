@@ -237,7 +237,7 @@ describe("diagnostic support export", () => {
       env: {
         ...process.env,
         HOME: tempDir,
-        OPENCLAW_STATE_DIR: tempDir,
+        GRANTED_STATE_DIR: tempDir,
       },
       stateDir: tempDir,
       outputPath,
@@ -253,7 +253,7 @@ describe("diagnostic support export", () => {
             programArguments: ["openclaw", "gateway", "run", "--token", fakeToken],
             environment: {
               HOME: tempDir,
-              OPENCLAW_GATEWAY_TOKEN: fakeToken,
+              GRANTED_GATEWAY_TOKEN: fakeToken,
             },
           },
         },
@@ -323,14 +323,14 @@ describe("diagnostic support export", () => {
     expect(combined).not.toContain(requestAuthValue);
     expect(combined).not.toContain(requestTlsPassphrase);
     expect(combined).not.toContain(proxyTlsPassphrase);
-    expect(combined).not.toContain("__OPENCLAW_REDACTED__");
+    expect(combined).not.toContain("__GRANTED_REDACTED__");
     expect(combined).not.toContain("gateway-session-15555551212");
     expect(combined).not.toContain("supportEventSecret");
     expect(combined).not.toContain(fakeAwsKey);
     expect(combined).not.toContain(fakeJwt);
     expect(combined).toContain("payload.large");
     expect(combined).toContain("gateway.http.json");
-    expect(combined).toContain("$OPENCLAW_STATE_DIR");
+    expect(combined).toContain("$GRANTED_STATE_DIR");
     expect(combined).toContain("<redacted-hostname>");
     expect(combined).toContain("gateway-status.json");
     expect(combined).toContain("gateway-health.json");
@@ -382,7 +382,7 @@ describe("diagnostic support export", () => {
       "--token",
       "<redacted>",
     ]);
-    expect(status.data?.service?.command?.environment?.OPENCLAW_GATEWAY_TOKEN).toBe("<redacted>");
+    expect(status.data?.service?.command?.environment?.GRANTED_GATEWAY_TOKEN).toBe("<redacted>");
     expect(JSON.stringify(status)).toContain(
       "wss://<redacted>:<redacted>@gateway.example/ws?token=<redacted>",
     );
@@ -496,7 +496,7 @@ describe("diagnostic support export", () => {
       const configPath = path.join(tempDir, "openclaw.json");
       fs.writeFileSync(configPath, JSON.stringify({ agents }));
       const result = await writeDiagnosticSupportExport({
-        env: { HOME: tempDir, OPENCLAW_CONFIG_PATH: configPath },
+        env: { HOME: tempDir, GRANTED_CONFIG_PATH: configPath },
         stateDir: tempDir,
         readLogTail: async () => ({
           file: path.join(tempDir, "openclaw.log"),
@@ -553,7 +553,7 @@ describe("diagnostic support export", () => {
       env: {
         ...process.env,
         HOME: tempDir,
-        OPENCLAW_STATE_DIR: tempDir,
+        GRANTED_STATE_DIR: tempDir,
       },
       stateDir: tempDir,
       outputPath,
@@ -623,9 +623,9 @@ describe("diagnostic support export", () => {
       env: {
         ...process.env,
         HOME: tempDir,
-        OPENCLAW_CONFIG_PATH: configPath,
-        OPENCLAW_DISABLE_BONJOUR: "1",
-        OPENCLAW_STATE_DIR: tempDir,
+        GRANTED_CONFIG_PATH: configPath,
+        GRANTED_DISABLE_BONJOUR: "1",
+        GRANTED_STATE_DIR: tempDir,
       },
       stateDir: tempDir,
       outputPath,
@@ -700,7 +700,7 @@ describe("diagnostic support export", () => {
       env: {
         ...process.env,
         HOME: tempDir,
-        OPENCLAW_STATE_DIR: tempDir,
+        GRANTED_STATE_DIR: tempDir,
       },
       stateDir: tempDir,
       outputPath,
@@ -741,7 +741,7 @@ describe("diagnostic support export", () => {
       env: {
         ...process.env,
         HOME: tempDir,
-        OPENCLAW_STATE_DIR: tempDir,
+        GRANTED_STATE_DIR: tempDir,
       },
       stateDir: tempDir,
       outputPath,
@@ -780,8 +780,8 @@ describe("diagnostic support export", () => {
         env: {
           ...process.env,
           HOME: tempDir,
-          OPENCLAW_CONFIG_PATH: configPath,
-          OPENCLAW_STATE_DIR: tempDir,
+          GRANTED_CONFIG_PATH: configPath,
+          GRANTED_STATE_DIR: tempDir,
         },
         stateDir: tempDir,
         outputPath,
@@ -817,8 +817,8 @@ describe("diagnostic support export", () => {
       env: {
         ...process.env,
         HOME: tempDir,
-        OPENCLAW_CONFIG_PATH: configPath,
-        OPENCLAW_STATE_DIR: tempDir,
+        GRANTED_CONFIG_PATH: configPath,
+        GRANTED_STATE_DIR: tempDir,
       },
       stateDir: tempDir,
       outputPath,

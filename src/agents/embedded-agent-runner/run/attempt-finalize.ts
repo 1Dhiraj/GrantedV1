@@ -4,7 +4,7 @@ import { parseStrictPositiveInteger } from "@openclaw/normalization-core/number-
  * It may assume stream execution and transcript writes are settled.
  */
 import { readActiveTranscriptEntryAnchor } from "../../../config/sessions/session-accessor.js";
-import { OPENCLAW_EMBEDDED_CONTEXT_ENGINE_HOST } from "../../../context-engine/host-compat.js";
+import { GRANTED_EMBEDDED_CONTEXT_ENGINE_HOST } from "../../../context-engine/host-compat.js";
 import type { ContextEngine } from "../../../context-engine/types.js";
 import { freezeDiagnosticTraceContext } from "../../../infra/diagnostic-trace-context.js";
 import { isFastTestRuntimeEnv } from "../../../infra/env.js";
@@ -295,7 +295,7 @@ export async function completeEmbeddedAttemptAfterTurn(
           state.contextEngineAfterTurnCheckpoint ?? state.prePromptMessageCount,
         tokenBudget: attempt.contextTokenBudget,
         runtimeContext: afterTurnRuntimeContext,
-        contextEngineHostSupport: OPENCLAW_EMBEDDED_CONTEXT_ENGINE_HOST,
+        contextEngineHostSupport: GRANTED_EMBEDDED_CONTEXT_ENGINE_HOST,
         providerId: attempt.provider,
         requestedModelId: attempt.requestedModelId,
         modelId: attempt.modelId,
@@ -635,7 +635,7 @@ export function createEmbeddedAttemptRunAbort(input: {
  */
 
 type AbortSettleTimeoutEnv = Partial<
-  Pick<NodeJS.ProcessEnv, "OPENCLAW_EMBEDDED_ABORT_SETTLE_TIMEOUT_MS" | "OPENCLAW_TEST_FAST">
+  Pick<NodeJS.ProcessEnv, "GRANTED_EMBEDDED_ABORT_SETTLE_TIMEOUT_MS" | "GRANTED_TEST_FAST">
 >;
 
 /**
@@ -646,7 +646,7 @@ type AbortSettleTimeoutEnv = Partial<
 export function resolveEmbeddedAbortSettleTimeoutMs(
   env: AbortSettleTimeoutEnv = process.env,
 ): number {
-  const override = parseStrictPositiveInteger(env.OPENCLAW_EMBEDDED_ABORT_SETTLE_TIMEOUT_MS);
+  const override = parseStrictPositiveInteger(env.GRANTED_EMBEDDED_ABORT_SETTLE_TIMEOUT_MS);
   if (override !== undefined) {
     return override;
   }

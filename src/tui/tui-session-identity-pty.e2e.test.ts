@@ -77,8 +77,8 @@ afterEach(async () => {
 it("submits provider-specific thinking labels with one Enter", async () => {
   const fixture = await startTuiFixture({
     env: {
-      OPENCLAW_TUI_PTY_THINKING_LABEL: "on",
-      OPENCLAW_TUI_PTY_SAFE_THINKING_LABEL: "always on",
+      GRANTED_TUI_PTY_THINKING_LABEL: "on",
+      GRANTED_TUI_PTY_SAFE_THINKING_LABEL: "always on",
     },
   });
 
@@ -170,9 +170,9 @@ it("hides a stale approval when startup restores the remembered session", async 
   await seedRememberedSession(stateDir);
   const fixture = await startTuiFixture({
     env: {
-      OPENCLAW_STATE_DIR: stateDir,
-      OPENCLAW_TUI_PTY_INITIAL_APPROVAL_SESSION_KEY: "agent:main:main",
-      OPENCLAW_TUI_PTY_PICKER_FIXTURE: "1",
+      GRANTED_STATE_DIR: stateDir,
+      GRANTED_TUI_PTY_INITIAL_APPROVAL_SESSION_KEY: "agent:main:main",
+      GRANTED_TUI_PTY_PICKER_FIXTURE: "1",
     },
   });
 
@@ -206,10 +206,10 @@ it("restores a remembered global session while keeping pre-ready input editable"
   await seedRememberedSession(stateDir, "global");
   const fixture = await startTuiFixture({
     env: {
-      OPENCLAW_STATE_DIR: stateDir,
-      OPENCLAW_TUI_PTY_PICKER_FIXTURE: "1",
-      OPENCLAW_TUI_PTY_PICKER_SESSION_KEY: "global",
-      OPENCLAW_TUI_PTY_RESTORE_DELAY_MS: "400",
+      GRANTED_STATE_DIR: stateDir,
+      GRANTED_TUI_PTY_PICKER_FIXTURE: "1",
+      GRANTED_TUI_PTY_PICKER_SESSION_KEY: "global",
+      GRANTED_TUI_PTY_RESTORE_DELAY_MS: "400",
     },
   });
 
@@ -258,9 +258,9 @@ it("keeps input editable while remembered startup history is loading", async () 
   await seedRememberedSession(stateDir);
   const fixture = await startTuiFixture({
     env: {
-      OPENCLAW_STATE_DIR: stateDir,
-      OPENCLAW_TUI_PTY_PICKER_FIXTURE: "1",
-      OPENCLAW_TUI_PTY_STARTUP_DELAY_MS: "400",
+      GRANTED_STATE_DIR: stateDir,
+      GRANTED_TUI_PTY_PICKER_FIXTURE: "1",
+      GRANTED_TUI_PTY_STARTUP_DELAY_MS: "400",
     },
   });
 
@@ -303,10 +303,10 @@ it("keeps reconnect input editable until restored history is stable", async () =
   await seedRememberedSession(stateDir);
   const fixture = await startTuiFixture({
     env: {
-      OPENCLAW_STATE_DIR: stateDir,
-      OPENCLAW_TUI_PTY_PICKER_FIXTURE: "1",
-      OPENCLAW_TUI_PTY_DISCONNECT_REASON: "fixture transport loss",
-      OPENCLAW_TUI_PTY_RECONNECT_HISTORY_DELAY_MS: "400",
+      GRANTED_STATE_DIR: stateDir,
+      GRANTED_TUI_PTY_PICKER_FIXTURE: "1",
+      GRANTED_TUI_PTY_DISCONNECT_REASON: "fixture transport loss",
+      GRANTED_TUI_PTY_RECONNECT_HISTORY_DELAY_MS: "400",
     },
   });
 
@@ -351,9 +351,9 @@ it("keeps an explicit launch session authoritative over remembered state", async
   await seedRememberedSession(stateDir);
   const fixture = await startTuiFixture({
     env: {
-      OPENCLAW_STATE_DIR: stateDir,
-      OPENCLAW_TUI_PTY_PICKER_FIXTURE: "1",
-      OPENCLAW_TUI_PTY_SESSION: explicitSession,
+      GRANTED_STATE_DIR: stateDir,
+      GRANTED_TUI_PTY_PICKER_FIXTURE: "1",
+      GRANTED_TUI_PTY_SESSION: explicitSession,
     },
   });
 
@@ -382,9 +382,9 @@ it("falls back to the default session when remembered lookup fails", async () =>
   await seedRememberedSession(stateDir);
   const fixture = await startTuiFixture({
     env: {
-      OPENCLAW_STATE_DIR: stateDir,
-      OPENCLAW_TUI_PTY_PICKER_FIXTURE: "1",
-      OPENCLAW_TUI_PTY_RESTORE_FAILURES: "1",
+      GRANTED_STATE_DIR: stateDir,
+      GRANTED_TUI_PTY_PICKER_FIXTURE: "1",
+      GRANTED_TUI_PTY_RESTORE_FAILURES: "1",
     },
   });
 
@@ -409,10 +409,10 @@ it("abandons a stale restore generation without sending or duplicating input", a
   await seedRememberedSession(stateDir);
   const fixture = await startTuiFixture({
     env: {
-      OPENCLAW_STATE_DIR: stateDir,
-      OPENCLAW_TUI_PTY_PICKER_FIXTURE: "1",
-      OPENCLAW_TUI_PTY_RECONNECT_DURING_RESTORE: "1",
-      OPENCLAW_TUI_PTY_RESTORE_DELAY_MS: "400",
+      GRANTED_STATE_DIR: stateDir,
+      GRANTED_TUI_PTY_PICKER_FIXTURE: "1",
+      GRANTED_TUI_PTY_RECONNECT_DURING_RESTORE: "1",
+      GRANTED_TUI_PTY_RESTORE_DELAY_MS: "400",
     },
   });
 

@@ -6,8 +6,8 @@ import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
 } from "../state/openclaw-state-db.js";
-import { OPENCLAW_STATE_MAINTENANCE_SCHEMA_COMPATIBILITY } from "../state/openclaw-state-schema-compatibility.js";
-import { OPENCLAW_STATE_SCHEMA_SQL } from "../state/openclaw-state-schema.js";
+import { GRANTED_STATE_MAINTENANCE_SCHEMA_COMPATIBILITY } from "../state/openclaw-state-schema-compatibility.js";
+import { GRANTED_STATE_SCHEMA_SQL } from "../state/openclaw-state-schema.js";
 import {
   NodeWorkerLaunchStore,
   type NodeWorkerContainerIdentity,
@@ -24,7 +24,7 @@ const tempDirs = useAutoCleanupTempDirTracker(afterEach);
 afterEach(() => closeOpenClawStateDatabaseForTest());
 
 function fixture() {
-  const env = { OPENCLAW_STATE_DIR: tempDirs.make("node-worker-turn-store-") };
+  const env = { GRANTED_STATE_DIR: tempDirs.make("node-worker-turn-store-") };
   const launches = new NodeWorkerLaunchStore({ env });
   const turns = new NodeWorkerTurnStore({ env });
   const supervisor = requireNodeWorkerProcessIdentity(process.pid);
@@ -296,21 +296,21 @@ describe("node worker turn journal", () => {
     const initialVersion = opened.db.prepare("PRAGMA user_version").get();
     closeOpenClawStateDatabaseForTest();
 
-    const start = OPENCLAW_STATE_SCHEMA_SQL.indexOf(
+    const start = GRANTED_STATE_SCHEMA_SQL.indexOf(
       "CREATE TABLE IF NOT EXISTS node_worker_turns (",
     );
     const endMarker = "\n  WHERE state = 'running';";
-    const end = OPENCLAW_STATE_SCHEMA_SQL.indexOf(endMarker, start) + endMarker.length;
+    const end = GRANTED_STATE_SCHEMA_SQL.indexOf(endMarker, start) + endMarker.length;
     const predecessorSchema =
-      OPENCLAW_STATE_SCHEMA_SQL.slice(0, start) + OPENCLAW_STATE_SCHEMA_SQL.slice(end);
+      GRANTED_STATE_SCHEMA_SQL.slice(0, start) + GRANTED_STATE_SCHEMA_SQL.slice(end);
     const predecessor = new DatabaseSync(opened.path);
     try {
       predecessor.exec("PRAGMA foreign_keys = ON");
       expect(() =>
         assertSqliteSchemaContains(predecessor, "predecessor shared state", predecessorSchema, {
-          ...OPENCLAW_STATE_MAINTENANCE_SCHEMA_COMPATIBILITY,
+          ...GRANTED_STATE_MAINTENANCE_SCHEMA_COMPATIBILITY,
           allowedMissingTables:
-            OPENCLAW_STATE_MAINTENANCE_SCHEMA_COMPATIBILITY.allowedMissingTables?.filter(
+            GRANTED_STATE_MAINTENANCE_SCHEMA_COMPATIBILITY.allowedMissingTables?.filter(
               (table) => table !== "node_worker_turns",
             ),
         }),

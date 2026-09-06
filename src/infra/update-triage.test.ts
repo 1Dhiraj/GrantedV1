@@ -30,7 +30,7 @@ async function createInstalledTriage(params: { hang?: boolean; promptPath?: stri
     target: {
       root,
       nodeRunner: process.execPath,
-      env: { HOME: root, USERPROFILE: root, OPENCLAW_STATE_DIR: path.join(root, "state") },
+      env: { HOME: root, USERPROFILE: root, GRANTED_STATE_DIR: path.join(root, "state") },
     },
   };
 }
@@ -206,13 +206,13 @@ describe("update triage child lifecycle", () => {
     async (platformName) => {
       const { target } = await createInstalledTriage();
       vi.spyOn(process, "platform", "get").mockReturnValue(platformName);
-      target.env.OPENCLAW_STATE_DIR = path.join(target.root, "state directory's");
+      target.env.GRANTED_STATE_DIR = path.join(target.root, "state directory's");
       const configPath = path.join(target.root, "custom config.json");
       const workspaceDir = path.join(target.root, "custom workspace");
       const targetEnv = {
         ...target.env,
-        OPENCLAW_CONFIG_PATH: configPath,
-        OPENCLAW_WORKSPACE_DIR: workspaceDir,
+        GRANTED_CONFIG_PATH: configPath,
+        GRANTED_WORKSPACE_DIR: workspaceDir,
       };
       const credential = "synthetic-triage-bearer-value";
       vi.spyOn(exec, "runCommandWithTimeout").mockRejectedValueOnce(
@@ -236,16 +236,16 @@ describe("update triage child lifecycle", () => {
           expect(guidance).toContain(
             `& openclaw triage --update-result '${result.contextPath!.replaceAll("'", "''")}'`,
           );
-          for (const selector of [targetEnv.OPENCLAW_STATE_DIR, configPath, workspaceDir]) {
+          for (const selector of [targetEnv.GRANTED_STATE_DIR, configPath, workspaceDir]) {
             expect(guidance).toContain(`'${selector.replaceAll("'", "''")}'`);
           }
         } else {
           expect(guidance).toContain(`--update-result ${quoteCliArg(result.contextPath!)}`);
           expect(guidance).toContain(
-            `OPENCLAW_STATE_DIR=${quoteCliArg(targetEnv.OPENCLAW_STATE_DIR)}`,
+            `GRANTED_STATE_DIR=${quoteCliArg(targetEnv.GRANTED_STATE_DIR)}`,
           );
-          expect(guidance).toContain(`OPENCLAW_CONFIG_PATH=${quoteCliArg(configPath)}`);
-          expect(guidance).toContain(`OPENCLAW_WORKSPACE_DIR=${quoteCliArg(workspaceDir)}`);
+          expect(guidance).toContain(`GRANTED_CONFIG_PATH=${quoteCliArg(configPath)}`);
+          expect(guidance).toContain(`GRANTED_WORKSPACE_DIR=${quoteCliArg(workspaceDir)}`);
         }
         await expect(fs.stat(result.contextPath!)).resolves.toMatchObject({
           size: expect.any(Number),

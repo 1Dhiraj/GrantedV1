@@ -50,20 +50,20 @@ function setupFixture(
   const trustedScript = `
 const fs = require('node:fs');
 fs.appendFileSync(${JSON.stringify(marker)}, JSON.stringify({
-  lane: process.env.OPENCLAW_DOCKER_ALL_LANE_NAME,
+  lane: process.env.GRANTED_DOCKER_ALL_LANE_NAME,
   cwd: process.cwd(),
   phase: process.argv[2],
-  registry: process.env.OPENCLAW_PREPUBLISH_PLUGIN_REGISTRY_DIR,
-  registryVersion: process.env.OPENCLAW_PREPUBLISH_PLUGIN_REGISTRY_CANDIDATE_VERSION,
-  registrySha256: process.env.OPENCLAW_PREPUBLISH_PLUGIN_REGISTRY_MANIFEST_SHA256,
-  target: process.env.OPENCLAW_DOCKER_E2E_REPO_ROOT,
-  harness: process.env.OPENCLAW_DOCKER_E2E_TRUSTED_HARNESS_DIR,
-  liveTarget: process.env.OPENCLAW_LIVE_DOCKER_REPO_ROOT,
-  package: process.env.OPENCLAW_CURRENT_PACKAGE_TGZ,
-  sha256: process.env.OPENCLAW_CURRENT_PACKAGE_SHA256,
-  selectedSha: process.env.OPENCLAW_DOCKER_E2E_SELECTED_SHA,
-  cache: process.env.OPENCLAW_DOCKER_CACHE_HOME_DIR,
-  tools: process.env.OPENCLAW_DOCKER_CLI_TOOLS_DIR,
+  registry: process.env.GRANTED_PREPUBLISH_PLUGIN_REGISTRY_DIR,
+  registryVersion: process.env.GRANTED_PREPUBLISH_PLUGIN_REGISTRY_CANDIDATE_VERSION,
+  registrySha256: process.env.GRANTED_PREPUBLISH_PLUGIN_REGISTRY_MANIFEST_SHA256,
+  target: process.env.GRANTED_DOCKER_E2E_REPO_ROOT,
+  harness: process.env.GRANTED_DOCKER_E2E_TRUSTED_HARNESS_DIR,
+  liveTarget: process.env.GRANTED_LIVE_DOCKER_REPO_ROOT,
+  package: process.env.GRANTED_CURRENT_PACKAGE_TGZ,
+  sha256: process.env.GRANTED_CURRENT_PACKAGE_SHA256,
+  selectedSha: process.env.GRANTED_DOCKER_E2E_SELECTED_SHA,
+  cache: process.env.GRANTED_DOCKER_CACHE_HOME_DIR,
+  tools: process.env.GRANTED_DOCKER_CLI_TOOLS_DIR,
 }) + '\\n');
 `;
   const poisonedScript = `require('node:fs').writeFileSync(${JSON.stringify(poison)}, 'old harness'); process.exit(47);`;
@@ -196,24 +196,24 @@ function runFixture(
       timeout: 30_000,
       env: {
         ...process.env,
-        OPENCLAW_DOCKER_ALL_BUILD: "0",
-        OPENCLAW_DOCKER_ALL_PREFLIGHT: "0",
-        OPENCLAW_DOCKER_ALL_TIMINGS: "0",
-        OPENCLAW_DOCKER_ALL_START_STAGGER_MS: "0",
-        OPENCLAW_DOCKER_ALL_LIVE_RETRIES: "0",
-        OPENCLAW_DOCKER_ALL_LANES: lanes.join(","),
-        OPENCLAW_DOCKER_ALL_LOG_DIR: logDir,
-        OPENCLAW_DOCKER_ALL_PNPM_COMMAND: fixture.pinnedPnpm,
-        OPENCLAW_DOCKER_E2E_REPO_ROOT: mode === "local" ? "" : fixture.target,
-        OPENCLAW_DOCKER_E2E_TRUSTED_HARNESS_DIR:
+        GRANTED_DOCKER_ALL_BUILD: "0",
+        GRANTED_DOCKER_ALL_PREFLIGHT: "0",
+        GRANTED_DOCKER_ALL_TIMINGS: "0",
+        GRANTED_DOCKER_ALL_START_STAGGER_MS: "0",
+        GRANTED_DOCKER_ALL_LIVE_RETRIES: "0",
+        GRANTED_DOCKER_ALL_LANES: lanes.join(","),
+        GRANTED_DOCKER_ALL_LOG_DIR: logDir,
+        GRANTED_DOCKER_ALL_PNPM_COMMAND: fixture.pinnedPnpm,
+        GRANTED_DOCKER_E2E_REPO_ROOT: mode === "local" ? "" : fixture.target,
+        GRANTED_DOCKER_E2E_TRUSTED_HARNESS_DIR:
           mode === "override" ? path.relative(fixture.target, fixture.selectedHarness) : "",
-        OPENCLAW_DOCKER_E2E_SELECTED_SHA: fixture.selectedSha,
-        OPENCLAW_CURRENT_PACKAGE_TGZ: fixture.tarball,
-        OPENCLAW_CURRENT_PACKAGE_VERSION: "2026.8.1",
-        OPENCLAW_CURRENT_PACKAGE_SHA256: fixture.sha256,
-        OPENCLAW_PREPUBLISH_PLUGIN_REGISTRY_DIR: fixture.registry,
-        OPENCLAW_PREPUBLISH_PLUGIN_REGISTRY_CANDIDATE_VERSION: "2026.8.1",
-        OPENCLAW_PREPUBLISH_PLUGIN_REGISTRY_MANIFEST_SHA256: fixture.registrySha256,
+        GRANTED_DOCKER_E2E_SELECTED_SHA: fixture.selectedSha,
+        GRANTED_CURRENT_PACKAGE_TGZ: fixture.tarball,
+        GRANTED_CURRENT_PACKAGE_VERSION: "2026.8.1",
+        GRANTED_CURRENT_PACKAGE_SHA256: fixture.sha256,
+        GRANTED_PREPUBLISH_PLUGIN_REGISTRY_DIR: fixture.registry,
+        GRANTED_PREPUBLISH_PLUGIN_REGISTRY_CANDIDATE_VERSION: "2026.8.1",
+        GRANTED_PREPUBLISH_PLUGIN_REGISTRY_MANIFEST_SHA256: fixture.registrySha256,
         ...options.env,
       },
     },
@@ -263,9 +263,9 @@ if (${JSON.stringify(failure)} === "timeout") {
       ["live-models", "gateway-concurrency"],
       {
         env: {
-          OPENCLAW_DOCKER_ALL_LIVE_RETRIES: "1",
-          OPENCLAW_DOCKER_ALL_FAIL_FAST: "0",
-          OPENCLAW_DOCKER_ALL_PARALLELISM: "1",
+          GRANTED_DOCKER_ALL_LIVE_RETRIES: "1",
+          GRANTED_DOCKER_ALL_FAIL_FAST: "0",
+          GRANTED_DOCKER_ALL_PARALLELISM: "1",
         },
       },
     );
@@ -286,9 +286,9 @@ if (${JSON.stringify(failure)} === "timeout") {
       const fixture = setupFixture(mode, false, true);
       const { result, logDir } = runFixture(fixture, mode, laneNames, {
         env: {
-          OPENCLAW_DOCKER_ALL_PNPM_COMMAND: path.relative(fixture.target, fixture.pinnedPnpm),
-          OPENCLAW_DOCKER_CACHE_HOME_DIR: "relative cache",
-          OPENCLAW_DOCKER_CLI_TOOLS_DIR: "relative tools",
+          GRANTED_DOCKER_ALL_PNPM_COMMAND: path.relative(fixture.target, fixture.pinnedPnpm),
+          GRANTED_DOCKER_CACHE_HOME_DIR: "relative cache",
+          GRANTED_DOCKER_CLI_TOOLS_DIR: "relative tools",
         },
       });
       expect(result.status, result.stdout + result.stderr).toBe(0);
@@ -340,8 +340,8 @@ if (${JSON.stringify(failure)} === "timeout") {
             timeout: 30_000,
             env: {
               ...process.env,
-              OPENCLAW_DOCKER_ALL_LOG_DIR: path.join(fixture.root, "rerun logs"),
-              OPENCLAW_DOCKER_ALL_TIMINGS: "0",
+              GRANTED_DOCKER_ALL_LOG_DIR: path.join(fixture.root, "rerun logs"),
+              GRANTED_DOCKER_ALL_TIMINGS: "0",
             },
           },
         );
@@ -387,9 +387,9 @@ console.log('fixture-docker');
     chmodSync(docker, 0o755);
     const { result } = runFixture(fixture, "split", laneNames, {
       env: {
-        OPENCLAW_DOCKER_ALL_BUILD: "1",
-        OPENCLAW_DOCKER_ALL_PREFLIGHT: "1",
-        OPENCLAW_DOCKER_ALL_PREFLIGHT_CLEANUP: "0",
+        GRANTED_DOCKER_ALL_BUILD: "1",
+        GRANTED_DOCKER_ALL_PREFLIGHT: "1",
+        GRANTED_DOCKER_ALL_PREFLIGHT_CLEANUP: "0",
         PATH: `${bin}${path.delimiter}${process.env.PATH}`,
       },
     });

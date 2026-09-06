@@ -94,14 +94,14 @@ describe("runNonInteractiveRemoteSetup", () => {
       name: "token",
       option: "remoteToken" as const,
       field: "token" as const,
-      envName: "OPENCLAW_GATEWAY_TOKEN",
+      envName: "GRANTED_GATEWAY_TOKEN",
       previousField: "password" as const,
     },
     {
       name: "password",
       option: "remotePassword" as const,
       field: "password" as const,
-      envName: "OPENCLAW_GATEWAY_PASSWORD",
+      envName: "GRANTED_GATEWAY_PASSWORD",
       previousField: "token" as const,
     },
   ])(

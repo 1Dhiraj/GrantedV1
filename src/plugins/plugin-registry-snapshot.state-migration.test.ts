@@ -97,10 +97,10 @@ describe("persisted plugin registry Doctor contract freshness", () => {
     }
     const env = {
       HOME: rootDir,
-      OPENCLAW_HOME: rootDir,
-      OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-      OPENCLAW_STATE_DIR: stateDir,
-      OPENCLAW_VERSION: "2026.7.1",
+      GRANTED_HOME: rootDir,
+      GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+      GRANTED_STATE_DIR: stateDir,
+      GRANTED_VERSION: "2026.7.1",
       VITEST: "true",
     };
     const config: OpenClawConfig = {
@@ -182,10 +182,10 @@ describe("persisted plugin registry Doctor contract freshness", () => {
     const stateDir = path.join(rootDir, "state");
     const env = {
       HOME: rootDir,
-      OPENCLAW_BUNDLED_PLUGINS_DIR: path.join(rootDir, "bundled"),
-      OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-      OPENCLAW_STATE_DIR: stateDir,
-      OPENCLAW_VERSION: "2026.7.1",
+      GRANTED_BUNDLED_PLUGINS_DIR: path.join(rootDir, "bundled"),
+      GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+      GRANTED_STATE_DIR: stateDir,
+      GRANTED_VERSION: "2026.7.1",
       VITEST: "true",
     };
     const pluginId = "doctor-replay";

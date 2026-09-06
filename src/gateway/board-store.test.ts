@@ -24,7 +24,7 @@ afterEach(() => {
 
 it("keeps global boards under each owner's canonical session row across reopen", async () => {
   const stateDir = tempDirs.make("openclaw-gateway-global-boards-");
-  vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
+  vi.stubEnv("GRANTED_STATE_DIR", stateDir);
   const cfg = {
     agents: { ownership: "explicit" as const, entries: { main: {}, work: {} } },
     session: { scope: "global" as const },
@@ -83,7 +83,7 @@ it("keeps global boards under each owner's canonical session row across reopen",
 it("reopens separate boards and progress cards in a shared database owned by another agent", () => {
   const stateDir = tempDirs.make("openclaw-gateway-shared-boards-");
   const storePath = path.join(stateDir, "shared.sqlite");
-  vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
+  vi.stubEnv("GRANTED_STATE_DIR", stateDir);
   const cfg = {
     agents: { entries: { alpha: { default: true }, beta: {} } },
     session: { store: storePath },

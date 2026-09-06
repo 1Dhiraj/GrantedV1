@@ -17,7 +17,7 @@ afterEach(() => closeOpenClawStateDatabaseForTest());
 describe("Claw runtime provenance cache", () => {
   it("treats an absent first-run state database as empty ownership", () => {
     const root = tempDirs.make("openclaw-claw-runtime-provenance-first-run-");
-    const options = { env: { OPENCLAW_STATE_DIR: root } };
+    const options = { env: { GRANTED_STATE_DIR: root } };
 
     initializeCachedClawInstallSchemaVersions(options);
 
@@ -29,7 +29,7 @@ describe("Claw runtime provenance cache", () => {
 
   it("refreshes install ownership written by another process", () => {
     const root = tempDirs.make("openclaw-claw-runtime-provenance-");
-    const options = { env: { OPENCLAW_STATE_DIR: root } };
+    const options = { env: { GRANTED_STATE_DIR: root } };
     const database = openOpenClawStateDatabase(options);
 
     initializeCachedClawInstallSchemaVersions(options);

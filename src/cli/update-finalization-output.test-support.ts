@@ -18,7 +18,7 @@ export async function doctorCommand() {
     console.log(JSON.stringify({ ok: true, checksRun: 1, checksSkipped: 0, findings: [] }));
     return;
   }
-  if (process.env.OPENCLAW_UPDATE_PARENT_ALLOWS_GATEWAY_ACTIVATION !== '0') {
+  if (process.env.GRANTED_UPDATE_PARENT_ALLOWS_GATEWAY_ACTIVATION !== '0') {
     throw new Error('Update Doctor unexpectedly allowed gateway activation');
   }
   intro('OpenClaw doctor');
@@ -41,7 +41,7 @@ async function triageCommand() {
   const contextIndex = process.argv.indexOf('--update-result');
   if (contextIndex < 0) throw new Error('Missing update failure artifact');
   await fs.readFile(process.argv[contextIndex + 1], 'utf8');
-  const promptPath = path.join(process.env.OPENCLAW_STATE_DIR, 'logs', 'support', 'triage-fixture-prompt.md');
+  const promptPath = path.join(process.env.GRANTED_STATE_DIR, 'logs', 'support', 'triage-fixture-prompt.md');
   await fs.mkdir(path.dirname(promptPath), { recursive: true });
   await fs.writeFile(promptPath, 'Synthetic update failure debugging prompt.\\n');
   const suggestedCommands = ['openclaw triage --run'];

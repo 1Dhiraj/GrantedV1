@@ -21,7 +21,7 @@ const tempDirs = createTempDirHarness();
 async function createQaAuthState(prefix = "openclaw-qa-auth-store-") {
   const stateDir = await tempDirs.makeTempDir(prefix);
   const agentId = "main";
-  vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
+  vi.stubEnv("GRANTED_STATE_DIR", stateDir);
   return {
     agentDir: path.join(stateDir, "agents", agentId, "agent"),
     agentId,
@@ -41,7 +41,7 @@ describe("QA auth profile store", () => {
     const hostStateDir = await tempDirs.makeTempDir("openclaw-qa-auth-host-state-");
     const qaStateDir = await tempDirs.makeTempDir("openclaw-qa-auth-isolated-state-");
     const hostDatabase = openOpenClawStateDatabase({
-      env: { ...process.env, OPENCLAW_STATE_DIR: hostStateDir },
+      env: { ...process.env, GRANTED_STATE_DIR: hostStateDir },
     });
     const hostDatabasePath = hostDatabase.path;
     closeOpenClawStateDatabaseForTest();
@@ -51,7 +51,7 @@ describe("QA auth profile store", () => {
       UPDATE schema_meta SET schema_version = 6 WHERE meta_key = 'primary';
     `);
     legacyHostDatabase.close();
-    vi.stubEnv("OPENCLAW_STATE_DIR", hostStateDir);
+    vi.stubEnv("GRANTED_STATE_DIR", hostStateDir);
 
     await writeQaAuthProfiles({
       agentId: "main",
@@ -77,7 +77,7 @@ describe("QA auth profile store", () => {
         .get(),
     ).toEqual({ schema_version: 6 });
     preservedHostDatabase.close();
-    vi.stubEnv("OPENCLAW_STATE_DIR", qaStateDir);
+    vi.stubEnv("GRANTED_STATE_DIR", qaStateDir);
     const qaAgentDir = path.join(qaStateDir, "agents", "main", "agent");
     expect(readQaAuthProfiles(qaAgentDir).profiles).toMatchObject({
       "qa-mock-openai": { provider: "openai" },
@@ -102,8 +102,8 @@ describe("QA auth profile store", () => {
         tempDirs.makeTempDir("openclaw-qa-auth-first-"),
         tempDirs.makeTempDir("openclaw-qa-auth-second-"),
       ]);
-      vi.stubEnv("OPENCLAW_STATE_DIR", hostStateDir);
-      vi.stubEnv("OPENCLAW_AGENT_DIR", path.join(hostStateDir, "relocated-agent"));
+      vi.stubEnv("GRANTED_STATE_DIR", hostStateDir);
+      vi.stubEnv("GRANTED_AGENT_DIR", path.join(hostStateDir, "relocated-agent"));
 
       const configs = await Promise.all(
         qaRoots.map((stateDir, index) =>
@@ -132,8 +132,8 @@ describe("QA auth profile store", () => {
         });
       }
       expect(await fs.readFile(hostDatabasePath)).toEqual(hostBefore);
-      expect(process.env.OPENCLAW_STATE_DIR).toBe(hostStateDir);
-      expect(process.env.OPENCLAW_AGENT_DIR).toBe(path.join(hostStateDir, "relocated-agent"));
+      expect(process.env.GRANTED_STATE_DIR).toBe(hostStateDir);
+      expect(process.env.GRANTED_AGENT_DIR).toBe(path.join(hostStateDir, "relocated-agent"));
     },
   );
 
@@ -261,7 +261,7 @@ describe("QA auth profile store", () => {
 
   it("can replace an existing profile set for deterministic fixture seeding", async () => {
     const { agentDir, agentId, stateDir } = await createQaAuthState();
-    vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
+    vi.stubEnv("GRANTED_STATE_DIR", stateDir);
     saveAuthProfileStore(
       {
         version: 1,

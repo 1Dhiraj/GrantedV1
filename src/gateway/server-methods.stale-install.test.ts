@@ -32,7 +32,7 @@ describe("gateway stale install errors", () => {
   });
 
   it("turns a missing module from the OpenClaw install into restart guidance", async () => {
-    vi.stubEnv("OPENCLAW_PROFILE", "sd1");
+    vi.stubEnv("GRANTED_PROFILE", "sd1");
     const missingChunk = path.join(
       path.dirname(fileURLToPath(import.meta.url)),
       "missing-own-chunk.js",

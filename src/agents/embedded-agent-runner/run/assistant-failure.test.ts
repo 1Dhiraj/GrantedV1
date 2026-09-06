@@ -734,8 +734,8 @@ describe("handleEmbeddedAssistantFailure", () => {
   });
 
   it("does not cache an exact credential-file failure from a fallback candidate", async () => {
-    const previous = process.env.OPENCLAW_FALLBACK_SKIP_TTL_MS;
-    process.env.OPENCLAW_FALLBACK_SKIP_TTL_MS = "60000";
+    const previous = process.env.GRANTED_FALLBACK_SKIP_TTL_MS;
+    process.env.GRANTED_FALLBACK_SKIP_TTL_MS = "60000";
     try {
       const config = {
         agents: {
@@ -785,9 +785,9 @@ describe("handleEmbeddedAssistantFailure", () => {
       ]);
     } finally {
       if (previous === undefined) {
-        delete process.env.OPENCLAW_FALLBACK_SKIP_TTL_MS;
+        delete process.env.GRANTED_FALLBACK_SKIP_TTL_MS;
       } else {
-        process.env.OPENCLAW_FALLBACK_SKIP_TTL_MS = previous;
+        process.env.GRANTED_FALLBACK_SKIP_TTL_MS = previous;
       }
     }
   });

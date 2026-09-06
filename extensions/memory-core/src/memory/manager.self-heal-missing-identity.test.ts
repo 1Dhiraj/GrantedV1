@@ -19,17 +19,17 @@ const createEmbeddingProviderMock = vi.hoisted(() =>
     providerUnavailableReason: "No embeddings provider available.",
   })),
 );
-const originalSelfHealStateDir = process.env.OPENCLAW_STATE_DIR;
+const originalSelfHealStateDir = process.env.GRANTED_STATE_DIR;
 
 function setSelfHealStateDir(stateDir: string): void {
-  Reflect.set(process.env, "OPENCLAW_STATE_DIR", stateDir);
+  Reflect.set(process.env, "GRANTED_STATE_DIR", stateDir);
 }
 
 function restoreSelfHealStateDir(): void {
   if (originalSelfHealStateDir === undefined) {
-    Reflect.deleteProperty(process.env, "OPENCLAW_STATE_DIR");
+    Reflect.deleteProperty(process.env, "GRANTED_STATE_DIR");
   } else {
-    Reflect.set(process.env, "OPENCLAW_STATE_DIR", originalSelfHealStateDir);
+    Reflect.set(process.env, "GRANTED_STATE_DIR", originalSelfHealStateDir);
   }
 }
 

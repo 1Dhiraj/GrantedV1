@@ -21,8 +21,8 @@ import { chunkTextForOutbound } from "openclaw/plugin-sdk/text-chunking";
 import { sendMessageMatrix, sendPollMatrix } from "./matrix/send.js";
 import type { MatrixExtraContentFields } from "./matrix/send/types.js";
 
-const MATRIX_OPENCLAW_PRESENTATION_KEY = "com.openclaw.presentation" as const;
-const MATRIX_OPENCLAW_PRESENTATION_TYPE = "message.presentation" as const;
+const MATRIX_GRANTED_PRESENTATION_KEY = "com.openclaw.presentation" as const;
+const MATRIX_GRANTED_PRESENTATION_TYPE = "message.presentation" as const;
 const MATRIX_EMPTY_PRESENTATION_FALLBACK_TEXT = "---";
 
 const MATRIX_PRESENTATION_CAPABILITIES = {
@@ -57,7 +57,7 @@ function buildMatrixPresentationContent(presentation: MessagePresentation) {
   return {
     ...presentation,
     version: 1,
-    type: MATRIX_OPENCLAW_PRESENTATION_TYPE,
+    type: MATRIX_GRANTED_PRESENTATION_TYPE,
   };
 }
 
@@ -65,11 +65,11 @@ function resolveMatrixPresentationContent(
   payload: ReplyPayload,
 ): Record<string, unknown> | undefined {
   const extraContent = asOptionalRecord(resolveMatrixChannelData(payload).extraContent);
-  const presentation = asOptionalRecord(extraContent?.[MATRIX_OPENCLAW_PRESENTATION_KEY]);
+  const presentation = asOptionalRecord(extraContent?.[MATRIX_GRANTED_PRESENTATION_KEY]);
   if (
     !presentation ||
     presentation.version !== 1 ||
-    presentation.type !== MATRIX_OPENCLAW_PRESENTATION_TYPE
+    presentation.type !== MATRIX_GRANTED_PRESENTATION_TYPE
   ) {
     return undefined;
   }
@@ -94,7 +94,7 @@ function renderMatrixPresentationPayload(params: {
       matrix: {
         ...matrixData,
         extraContent: {
-          [MATRIX_OPENCLAW_PRESENTATION_KEY]: buildMatrixPresentationContent(params.presentation),
+          [MATRIX_GRANTED_PRESENTATION_KEY]: buildMatrixPresentationContent(params.presentation),
         },
       },
     },
@@ -125,7 +125,7 @@ export function resolveMatrixExtraContent(
   payload: ReplyPayload,
 ): MatrixExtraContentFields | undefined {
   const presentation = resolveMatrixPresentationContent(payload);
-  return presentation ? { [MATRIX_OPENCLAW_PRESENTATION_KEY]: presentation } : undefined;
+  return presentation ? { [MATRIX_GRANTED_PRESENTATION_KEY]: presentation } : undefined;
 }
 
 function resolveMatrixDeliveryProgress(

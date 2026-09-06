@@ -27,7 +27,7 @@ describe("context-engine turn outbox schema", () => {
     tempDirs.push(stateDir);
     const options = {
       agentId: "main",
-      env: { OPENCLAW_STATE_DIR: stateDir },
+      env: { GRANTED_STATE_DIR: stateDir },
     };
     const initial = openOpenClawAgentDatabase(options);
     const databasePath = initial.path;

@@ -628,7 +628,7 @@ describe("ollama plugin", () => {
 
     await provider.auth[0].appGuidedSetup?.detectAvailability?.({
       config: {},
-      env: { OPENCLAW_DOCKER_SETUP: "1" },
+      env: { GRANTED_DOCKER_SETUP: "1" },
     });
 
     expect(fetchOllamaModelsMock).toHaveBeenCalledWith("http://host.docker.internal:11434", {});

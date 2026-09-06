@@ -81,7 +81,7 @@ let inFlightUpdate: Promise<TelemetryUpdate | null> | undefined;
  * means the caller is deliberately exercising this path, so it still reports.
  */
 function isAutomatedEnvironment(): boolean {
-  if (process.env.OPENCLAW_TELEMETRY_ENDPOINT?.trim()) {
+  if (process.env.GRANTED_TELEMETRY_ENDPOINT?.trim()) {
     return false;
   }
   return isTruthyEnvValue(process.env.CI);
@@ -90,7 +90,7 @@ function isAutomatedEnvironment(): boolean {
 function isUpdateCheckDisabled(config: OpenClawConfig): boolean {
   return (
     config.update?.checkOnStart === false ||
-    isTruthyEnvValue(process.env.OPENCLAW_NO_AUTO_UPDATE) ||
+    isTruthyEnvValue(process.env.GRANTED_NO_AUTO_UPDATE) ||
     isAutomatedEnvironment() ||
     resolveIsNixMode()
   );
@@ -124,7 +124,7 @@ function countRecentSessions(nowMs: number): number {
 }
 
 function resolveTelemetryEndpoint(): string {
-  return process.env.OPENCLAW_TELEMETRY_ENDPOINT?.trim() || DEFAULT_TELEMETRY_ENDPOINT;
+  return process.env.GRANTED_TELEMETRY_ENDPOINT?.trim() || DEFAULT_TELEMETRY_ENDPOINT;
 }
 
 export function buildTelemetryUserAgent(surface: TelemetrySurface): string {
@@ -241,7 +241,7 @@ export async function checkTelemetryUpdate(
     : null;
   const nowMs = options.nowMs ?? Date.now();
   const endpoint = resolveTelemetryEndpoint();
-  const stateDirectory = process.env.OPENCLAW_STATE_DIR;
+  const stateDirectory = process.env.GRANTED_STATE_DIR;
   if (
     state.lastPingAt !== undefined &&
     nowMs >= state.lastPingAt &&

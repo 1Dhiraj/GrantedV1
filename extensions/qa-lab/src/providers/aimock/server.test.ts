@@ -27,9 +27,9 @@ describe("qa aimock server", () => {
     const userText = "Recover the research answer";
     const toolOutput = "approval-unavailable: initiating-platform-disabled";
     const carrier = [
-      "<<<BEGIN_OPENCLAW_INTERNAL_CONTEXT>>>",
+      "<<<BEGIN_GRANTED_INTERNAL_CONTEXT>>>",
       "Synthetic runtime context",
-      "<<<END_OPENCLAW_INTERNAL_CONTEXT>>>",
+      "<<<END_GRANTED_INTERNAL_CONTEXT>>>",
     ].join("\n");
     const call = {
       type: "function_call" as const,
@@ -367,7 +367,7 @@ describe("qa aimock server", () => {
         {
           role: "user",
           content:
-            "<<<BEGIN_OPENCLAW_INTERNAL_CONTEXT>>>\nprivate runtime context\n<<<END_OPENCLAW_INTERNAL_CONTEXT>>>",
+            "<<<BEGIN_GRANTED_INTERNAL_CONTEXT>>>\nprivate runtime context\n<<<END_GRANTED_INTERNAL_CONTEXT>>>",
         },
       ]);
       const requests = await fetch(`${server.baseUrl}/debug/requests`);

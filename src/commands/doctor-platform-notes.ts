@@ -146,11 +146,9 @@ async function collectMacLaunchctlGatewayEnvOverrideWarning(
   }
 
   const getenv = deps?.getenv ?? launchctlGetenv;
-  const tokenEntries = [
-    ["OPENCLAW_GATEWAY_TOKEN", await getenv("OPENCLAW_GATEWAY_TOKEN")],
-  ] as const;
+  const tokenEntries = [["GRANTED_GATEWAY_TOKEN", await getenv("GRANTED_GATEWAY_TOKEN")]] as const;
   const passwordEntries = [
-    ["OPENCLAW_GATEWAY_PASSWORD", await getenv("OPENCLAW_GATEWAY_PASSWORD")],
+    ["GRANTED_GATEWAY_PASSWORD", await getenv("GRANTED_GATEWAY_PASSWORD")],
   ] as const;
   const tokenEntry = tokenEntries.find(([, value]) => normalizeOptionalString(value));
   const passwordEntry = passwordEntries.find(([, value]) => normalizeOptionalString(value));
@@ -169,7 +167,7 @@ async function collectMacLaunchctlGatewayEnvOverrideWarning(
       ? `- \`${envTokenKey}\` is set; explicit environment URL or node-host targets can use a different token than gateway.auth.token.`
       : undefined,
     envPassword
-      ? `- \`${envPasswordKey ?? "OPENCLAW_GATEWAY_PASSWORD"}\` is set; explicit environment URL or node-host targets can use a different password than gateway.auth.password.`
+      ? `- \`${envPasswordKey ?? "GRANTED_GATEWAY_PASSWORD"}\` is set; explicit environment URL or node-host targets can use a different password than gateway.auth.password.`
       : undefined,
     "- Clear overrides and restart the app/gateway:",
     envTokenKey ? `  launchctl unsetenv ${envTokenKey}` : undefined,
@@ -279,7 +277,7 @@ export function noteStartupOptimizationHints(
   const noteFn = deps?.noteFn ?? note;
   const compileCache = normalizeOptionalString(env.NODE_COMPILE_CACHE) ?? "";
   const disableCompileCache = normalizeOptionalString(env.NODE_DISABLE_COMPILE_CACHE) ?? "";
-  const noRespawn = normalizeOptionalString(env.OPENCLAW_NO_RESPAWN) ?? "";
+  const noRespawn = normalizeOptionalString(env.GRANTED_NO_RESPAWN) ?? "";
   const lines: string[] = [];
 
   if (!compileCache) {
@@ -298,7 +296,7 @@ export function noteStartupOptimizationHints(
 
   if (noRespawn !== "1") {
     lines.push(
-      "- OPENCLAW_NO_RESPAWN is not set to 1; set it when you want routine gateway restarts to stay in-process instead of handing off to a managed supervisor.",
+      "- GRANTED_NO_RESPAWN is not set to 1; set it when you want routine gateway restarts to stay in-process instead of handing off to a managed supervisor.",
     );
   }
 
@@ -310,7 +308,7 @@ export function noteStartupOptimizationHints(
     "- Suggested env for low-power hosts:",
     "  export NODE_COMPILE_CACHE=/var/tmp/openclaw-compile-cache",
     "  mkdir -p /var/tmp/openclaw-compile-cache",
-    "  export OPENCLAW_NO_RESPAWN=1",
+    "  export GRANTED_NO_RESPAWN=1",
     disableCompileCache ? "  unset NODE_DISABLE_COMPILE_CACHE" : undefined,
   ].filter((line): line is string => Boolean(line));
 

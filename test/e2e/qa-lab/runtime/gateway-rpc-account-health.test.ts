@@ -49,7 +49,7 @@ describe("Gateway RPC account health producer", () => {
     expect(statusSummaryMentions(status, "qa-channel")).toBe(false);
   });
 
-  it.runIf(process.env.OPENCLAW_QA_REAL_GATEWAY === "1")(
+  it.runIf(process.env.GRANTED_QA_REAL_GATEWAY === "1")(
     "proves authenticated health/status RPC and a targeted account config reload",
     async () => {
       const proof = await runGatewayRpcAccountHealthProof(

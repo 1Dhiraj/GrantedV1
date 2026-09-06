@@ -27,12 +27,12 @@ import {
 
 const chromiumExecutablePath = resolvePlaywrightChromiumExecutablePath(chromium.executablePath());
 const chromiumAvailable = canRunPlaywrightChromium(chromiumExecutablePath);
-const allowMissingChromium = process.env.OPENCLAW_UI_E2E_ALLOW_MISSING_CHROMIUM === "1";
+const allowMissingChromium = process.env.GRANTED_UI_E2E_ALLOW_MISSING_CHROMIUM === "1";
 const describeControlUiE2e = chromiumAvailable || !allowMissingChromium ? describe : describe.skip;
-const captureUiProofEnabled = process.env.OPENCLAW_CAPTURE_UI_PROOF === "1";
+const captureUiProofEnabled = process.env.GRANTED_CAPTURE_UI_PROOF === "1";
 const artifactDir = path.resolve(
   process.cwd(),
-  process.env.OPENCLAW_UI_E2E_ARTIFACT_DIR?.trim() ||
+  process.env.GRANTED_UI_E2E_ARTIFACT_DIR?.trim() ||
     ".artifacts/control-ui-e2e/control-ui-auth-transports",
 );
 const viewport = { height: 900, width: 1280 };
@@ -401,15 +401,15 @@ async function startRealGateway(allowedOrigin: string): Promise<RealGateway> {
     label: "control-ui-auth-transports",
     layout: "home",
     env: {
-      OPENCLAW_GATEWAY_PASSWORD: undefined,
-      OPENCLAW_GATEWAY_TOKEN: undefined,
-      OPENCLAW_SKIP_BROWSER_CONTROL_SERVER: "1",
-      OPENCLAW_SKIP_CANVAS_HOST: "1",
-      OPENCLAW_SKIP_CHANNELS: "1",
-      OPENCLAW_SKIP_CRON: "1",
-      OPENCLAW_SKIP_GMAIL_WATCHER: "1",
-      OPENCLAW_SKIP_PROVIDERS: "1",
-      OPENCLAW_TEST_MINIMAL_GATEWAY: "1",
+      GRANTED_GATEWAY_PASSWORD: undefined,
+      GRANTED_GATEWAY_TOKEN: undefined,
+      GRANTED_SKIP_BROWSER_CONTROL_SERVER: "1",
+      GRANTED_SKIP_CANVAS_HOST: "1",
+      GRANTED_SKIP_CHANNELS: "1",
+      GRANTED_SKIP_CRON: "1",
+      GRANTED_SKIP_GMAIL_WATCHER: "1",
+      GRANTED_SKIP_PROVIDERS: "1",
+      GRANTED_TEST_MINIMAL_GATEWAY: "1",
       VITEST: "1",
     },
   });

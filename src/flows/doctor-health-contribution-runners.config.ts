@@ -22,7 +22,7 @@ function isExplicitOptOutEnvValue(value: string | undefined): boolean {
 
 function shouldSkipLegacyUpdateDoctorConfigWrite(env: NodeJS.ProcessEnv): boolean {
   return (
-    isExplicitOptOutEnvValue(env.OPENCLAW_UPDATE_IN_PROGRESS) &&
+    isExplicitOptOutEnvValue(env.GRANTED_UPDATE_IN_PROGRESS) &&
     !isExplicitOptOutEnvValue(env[UPDATE_PARENT_SUPPORTS_DOCTOR_CONFIG_WRITE_ENV])
   );
 }

@@ -25,7 +25,7 @@ describe("retired commitments Doctor cleanup", () => {
 
   function useStateDir(): { env: NodeJS.ProcessEnv; stateDir: string } {
     const stateDir = tempDirs.make("openclaw-commitments-cleanup-");
-    return { env: { ...process.env, OPENCLAW_STATE_DIR: stateDir }, stateDir };
+    return { env: { ...process.env, GRANTED_STATE_DIR: stateDir }, stateDir };
   }
 
   async function writeLegacy(stateDir: string, value: unknown): Promise<string> {

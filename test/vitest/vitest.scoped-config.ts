@@ -208,7 +208,7 @@ export function createScopedVitestConfig(
   const scopedDir = options?.dir;
   const resolvedScopedDir = scopedDir ? path.join(repoRoot, scopedDir) : undefined;
   const env = options?.env;
-  const externalIncludePatterns = loadPatternListFromEnv("OPENCLAW_VITEST_INCLUDE_FILE", env);
+  const externalIncludePatterns = loadPatternListFromEnv("GRANTED_VITEST_INCLUDE_FILE", env);
   const includeFromEnv = options?.intersectIncludeFile
     ? intersectIncludePatterns(include, externalIncludePatterns)
     : externalIncludePatterns;

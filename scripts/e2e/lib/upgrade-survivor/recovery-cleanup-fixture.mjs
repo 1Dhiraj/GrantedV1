@@ -47,8 +47,8 @@ export function recoveryVolumeSpec(env = process.env) {
     return value;
   };
   return {
-    sessions: positive("OPENCLAW_UPGRADE_SURVIVOR_VOLUME_SESSIONS", 2),
-    eventsPerSession: positive("OPENCLAW_UPGRADE_SURVIVOR_VOLUME_EVENTS_PER_SESSION", 8),
+    sessions: positive("GRANTED_UPGRADE_SURVIVOR_VOLUME_SESSIONS", 2),
+    eventsPerSession: positive("GRANTED_UPGRADE_SURVIVOR_VOLUME_EVENTS_PER_SESSION", 8),
   };
 }
 
@@ -107,7 +107,7 @@ export function seedRecoveryFixture(stateDir, spec) {
   const retired = recoveryEvent(branch.sessionId, 1);
   retired.id = "retired-branch";
   retired.message.content[0].text +=
-    "\n\n<<<BEGIN_OPENCLAW_INTERNAL_CONTEXT>>>\nretired context\n<<<END_OPENCLAW_INTERNAL_CONTEXT>>>";
+    "\n\n<<<BEGIN_GRANTED_INTERNAL_CONTEXT>>>\nretired context\n<<<END_GRANTED_INTERNAL_CONTEXT>>>";
   const user = recoveryEvent(branch.sessionId, 1);
   const reply = recoveryEvent(branch.sessionId, 2);
   reply.message.provider = "openai-codex";

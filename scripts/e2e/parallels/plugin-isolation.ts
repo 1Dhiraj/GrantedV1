@@ -13,7 +13,7 @@ export function posixCodexPlatformPackageRepairFunction(): string {
   return `repair_missing_codex_platform_package() {
   output_file="$1"
   grep -F 'Missing optional dependency @openai/codex-' "$output_file" >/dev/null 2>&1 || return 1
-  state_home="\${OPENCLAW_PARALLELS_HOME:-\${HOME:-}}"
+  state_home="\${GRANTED_PARALLELS_HOME:-\${HOME:-}}"
   codex_manifest=""
   for candidate in "$state_home"/.openclaw/npm/projects/*/node_modules/@openclaw/codex/package.json; do
     [ -f "$candidate" ] || continue
@@ -94,7 +94,7 @@ function providerOnlyPluginId(modelId: string, fallbackPluginId: string): string
 export function posixProviderOnlyPluginIsolationScript(options: PluginIsolationOptions): string {
   const nodeCommand = shellQuote(options.nodeCommand ?? "node");
   const homeEnv = options.homeFallback
-    ? `OPENCLAW_PARALLELS_HOME=${shellQuote(options.homeFallback)} `
+    ? `GRANTED_PARALLELS_HOME=${shellQuote(options.homeFallback)} `
     : "";
   return `/usr/bin/env ${homeEnv}${nodeCommand} - <<'JS'
 ${providerOnlyPluginIsolationNodeScript(options)}
@@ -106,7 +106,7 @@ export function windowsProviderOnlyPluginIsolationScript(options: PluginIsolatio
     modelId: options.modelId,
     pluginId: providerOnlyPluginId(options.modelId, options.fallbackPluginId),
   });
-  return `$env:OPENCLAW_PARALLELS_PLUGIN_ISOLATION = @'
+  return `$env:GRANTED_PARALLELS_PLUGIN_ISOLATION = @'
 ${payloadJson}
 '@
 $isolationScriptPath = Join-Path ([System.IO.Path]::GetTempPath()) ('openclaw-parallels-plugin-isolation-' + [guid]::NewGuid().ToString('N') + '.cjs')
@@ -118,7 +118,7 @@ node.exe $isolationScriptPath
 if ($LASTEXITCODE -ne 0) { throw "plugin isolation failed with exit code $LASTEXITCODE" }
 } finally {
   Remove-Item $isolationScriptPath -Force -ErrorAction SilentlyContinue
-  Remove-Item Env:OPENCLAW_PARALLELS_PLUGIN_ISOLATION -Force -ErrorAction SilentlyContinue
+  Remove-Item Env:GRANTED_PARALLELS_PLUGIN_ISOLATION -Force -ErrorAction SilentlyContinue
 }`;
 }
 
@@ -128,7 +128,7 @@ function providerOnlyPluginIsolationNodeScript(options: PluginIsolationOptions):
     modelId: options.modelId,
     pluginId: providerOnlyPluginId(options.modelId, options.fallbackPluginId),
   });
-  return `process.env.OPENCLAW_PARALLELS_PLUGIN_ISOLATION = ${JSON.stringify(payloadJson)};
+  return `process.env.GRANTED_PARALLELS_PLUGIN_ISOLATION = ${JSON.stringify(payloadJson)};
 ${providerOnlyPluginIsolationNodeSource()}`;
 }
 
@@ -136,9 +136,9 @@ function providerOnlyPluginIsolationNodeSource(): string {
   return String.raw`const fs = require("node:fs");
 const path = require("node:path");
 
-const payload = JSON.parse(process.env.OPENCLAW_PARALLELS_PLUGIN_ISOLATION || "{}");
+const payload = JSON.parse(process.env.GRANTED_PARALLELS_PLUGIN_ISOLATION || "{}");
 const home =
-  process.env.OPENCLAW_PARALLELS_HOME ||
+  process.env.GRANTED_PARALLELS_HOME ||
   payload.homeFallback ||
   process.env.HOME ||
   process.env.USERPROFILE ||

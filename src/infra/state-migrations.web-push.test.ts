@@ -39,8 +39,8 @@ describe("legacy Web Push Doctor migration", () => {
 
   function useStateDir(): string {
     const stateDir = tempDirs.make("openclaw-web-push-migration-");
-    envSnapshot ??= captureEnv(["OPENCLAW_STATE_DIR", "OPENCLAW_VAPID_SUBJECT"]);
-    setTestEnvValue("OPENCLAW_STATE_DIR", stateDir);
+    envSnapshot ??= captureEnv(["GRANTED_STATE_DIR", "GRANTED_VAPID_SUBJECT"]);
+    setTestEnvValue("GRANTED_STATE_DIR", stateDir);
     return stateDir;
   }
 
@@ -139,7 +139,7 @@ describe("legacy Web Push Doctor migration", () => {
       stateDir,
       subscriptions: [subscription()],
     });
-    const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+    const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
     const gatewayLock = await acquireGatewayLock({
       allowInTests: true,
       env,
@@ -219,7 +219,7 @@ describe("legacy Web Push Doctor migration", () => {
     ],
   ])("normalizes a %s", async (_label, legacySubject, injectedSubject, expectedSubject) => {
     const stateDir = useStateDir();
-    setTestEnvValue("OPENCLAW_VAPID_SUBJECT", "mailto:ambient@example.com");
+    setTestEnvValue("GRANTED_VAPID_SUBJECT", "mailto:ambient@example.com");
     const legacyKeys = vapidKeys({ subject: legacySubject ?? "" });
     if (legacySubject === undefined) {
       delete (legacyKeys as Partial<VapidKeyPair>).subject;
@@ -228,7 +228,7 @@ describe("legacy Web Push Doctor migration", () => {
 
     const result = await migrateLegacyWebPush({
       detected: detectLegacyWebPush({ stateDir, doctorOnlyStateMigrations: true }),
-      env: { ...process.env, OPENCLAW_VAPID_SUBJECT: injectedSubject },
+      env: { ...process.env, GRANTED_VAPID_SUBJECT: injectedSubject },
       stateDir,
     });
 
@@ -245,7 +245,7 @@ describe("legacy Web Push Doctor migration", () => {
 
     const result = await migrateLegacyWebPush({
       detected: detectLegacyWebPush({ stateDir, doctorOnlyStateMigrations: true }),
-      env: { ...process.env, OPENCLAW_VAPID_SUBJECT: "mailto:fallback@example.com" },
+      env: { ...process.env, GRANTED_VAPID_SUBJECT: "mailto:fallback@example.com" },
       stateDir,
     });
 

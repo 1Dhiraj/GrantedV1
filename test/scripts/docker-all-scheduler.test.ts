@@ -193,10 +193,10 @@ function candidateFixture(packageName = "openclaw", packageVersion = "2026.8.1")
     version,
     packagePath,
     env: {
-      OPENCLAW_DOCKER_E2E_SELECTED_SHA: sourceSha,
-      OPENCLAW_CURRENT_PACKAGE_TGZ: packagePath,
-      OPENCLAW_CURRENT_PACKAGE_VERSION: version,
-      OPENCLAW_CURRENT_PACKAGE_SHA256: sha256(packagePath),
+      GRANTED_DOCKER_E2E_SELECTED_SHA: sourceSha,
+      GRANTED_CURRENT_PACKAGE_TGZ: packagePath,
+      GRANTED_CURRENT_PACKAGE_VERSION: version,
+      GRANTED_CURRENT_PACKAGE_SHA256: sha256(packagePath),
     },
   };
 }
@@ -224,11 +224,11 @@ function runCandidatePrep(fixture: ReturnType<typeof candidateFixture>) {
       encoding: "utf8",
       env: {
         ...process.env,
-        OPENCLAW_DOCKER_ALL_LANES: "gateway-network",
-        OPENCLAW_DOCKER_ALL_LOG_DIR: path.join(fixture.root, "logs"),
-        OPENCLAW_DOCKER_ALL_TIMINGS: "0",
-        OPENCLAW_DOCKER_E2E_REPO_ROOT: fixture.root,
-        OPENCLAW_DOCKER_E2E_TRUSTED_HARNESS_DIR: fixture.root,
+        GRANTED_DOCKER_ALL_LANES: "gateway-network",
+        GRANTED_DOCKER_ALL_LOG_DIR: path.join(fixture.root, "logs"),
+        GRANTED_DOCKER_ALL_TIMINGS: "0",
+        GRANTED_DOCKER_E2E_REPO_ROOT: fixture.root,
+        GRANTED_DOCKER_E2E_TRUSTED_HARNESS_DIR: fixture.root,
       },
     },
   );
@@ -264,9 +264,9 @@ function addRegistry(
   );
   return {
     ...fixture.env,
-    OPENCLAW_PREPUBLISH_PLUGIN_REGISTRY_DIR: registryDir,
-    OPENCLAW_PREPUBLISH_PLUGIN_REGISTRY_CANDIDATE_VERSION: fixture.version,
-    OPENCLAW_PREPUBLISH_PLUGIN_REGISTRY_MANIFEST_SHA256: sha256(manifestPath),
+    GRANTED_PREPUBLISH_PLUGIN_REGISTRY_DIR: registryDir,
+    GRANTED_PREPUBLISH_PLUGIN_REGISTRY_CANDIDATE_VERSION: fixture.version,
+    GRANTED_PREPUBLISH_PLUGIN_REGISTRY_MANIFEST_SHA256: sha256(manifestPath),
   };
 }
 
@@ -397,7 +397,7 @@ describe("scripts/test-docker-all scheduler", () => {
     expect(result.stderr).toBe("");
     expect(result.stdout).toContain("--prepare-only=<manifest>");
     expect(result.stdout).toContain("--prepare-plugin-registry");
-    expect(result.stdout).toContain("OPENCLAW_DOCKER_ALL_* env vars");
+    expect(result.stdout).toContain("GRANTED_DOCKER_ALL_* env vars");
   });
 
   it("passes the exact planner-selected survivor packages to registry preparation", () => {
@@ -465,9 +465,9 @@ describe("scripts/test-docker-all scheduler", () => {
         encoding: "utf8",
         env: {
           ...process.env,
-          OPENCLAW_DOCKER_ALL_LANES: "live-gateway",
-          OPENCLAW_DOCKER_ALL_LOG_DIR: path.join(root, "logs"),
-          OPENCLAW_DOCKER_ALL_TIMINGS: "0",
+          GRANTED_DOCKER_ALL_LANES: "live-gateway",
+          GRANTED_DOCKER_ALL_LOG_DIR: path.join(root, "logs"),
+          GRANTED_DOCKER_ALL_TIMINGS: "0",
         },
       },
     );
@@ -537,14 +537,14 @@ describe("scripts/test-docker-all scheduler", () => {
     expect(() => validateDockerCandidateEnvironment(fixture.env, plan, fixture.root)).not.toThrow();
     expect(() =>
       validateDockerCandidateEnvironment(
-        { OPENCLAW_CURRENT_PACKAGE_TGZ: fixture.packagePath },
+        { GRANTED_CURRENT_PACKAGE_TGZ: fixture.packagePath },
         plan,
         fixture.root,
       ),
     ).not.toThrow();
     for (const field of [
-      "OPENCLAW_CURRENT_PACKAGE_VERSION",
-      "OPENCLAW_CURRENT_PACKAGE_SHA256",
+      "GRANTED_CURRENT_PACKAGE_VERSION",
+      "GRANTED_CURRENT_PACKAGE_SHA256",
     ] as const) {
       const env: NodeJS.ProcessEnv = { ...fixture.env };
       delete env[field];
@@ -553,10 +553,10 @@ describe("scripts/test-docker-all scheduler", () => {
       );
     }
     for (const env of [
-      { ...fixture.env, OPENCLAW_CURRENT_PACKAGE_TGZ: "relative.tgz" },
-      { ...fixture.env, OPENCLAW_DOCKER_E2E_SELECTED_SHA: "a".repeat(40) },
-      { ...fixture.env, OPENCLAW_CURRENT_PACKAGE_SHA256: "b".repeat(64) },
-      { ...fixture.env, OPENCLAW_CURRENT_PACKAGE_VERSION: "0.0.0" },
+      { ...fixture.env, GRANTED_CURRENT_PACKAGE_TGZ: "relative.tgz" },
+      { ...fixture.env, GRANTED_DOCKER_E2E_SELECTED_SHA: "a".repeat(40) },
+      { ...fixture.env, GRANTED_CURRENT_PACKAGE_SHA256: "b".repeat(64) },
+      { ...fixture.env, GRANTED_CURRENT_PACKAGE_VERSION: "0.0.0" },
     ]) {
       expect(() => validateDockerCandidateEnvironment(env, plan, fixture.root)).toThrow();
     }
@@ -566,10 +566,10 @@ describe("scripts/test-docker-all scheduler", () => {
     const fixture = candidateFixture();
     const registryDir = path.join(fixture.root, "registry");
     const env: NodeJS.ProcessEnv = addRegistry(fixture);
-    delete env.OPENCLAW_CURRENT_PACKAGE_VERSION;
-    delete env.OPENCLAW_CURRENT_PACKAGE_SHA256;
-    env.OPENCLAW_CURRENT_PACKAGE_TGZ = path.relative(process.cwd(), fixture.packagePath);
-    env.OPENCLAW_PREPUBLISH_PLUGIN_REGISTRY_DIR = path.relative(process.cwd(), registryDir);
+    delete env.GRANTED_CURRENT_PACKAGE_VERSION;
+    delete env.GRANTED_CURRENT_PACKAGE_SHA256;
+    env.GRANTED_CURRENT_PACKAGE_TGZ = path.relative(process.cwd(), fixture.packagePath);
+    env.GRANTED_PREPUBLISH_PLUGIN_REGISTRY_DIR = path.relative(process.cwd(), registryDir);
 
     expect(() =>
       validateDockerCandidateEnvironment(
@@ -578,15 +578,15 @@ describe("scripts/test-docker-all scheduler", () => {
         fixture.root,
       ),
     ).not.toThrow();
-    expect(env.OPENCLAW_CURRENT_PACKAGE_TGZ).toBe(fixture.packagePath);
-    expect(env.OPENCLAW_PREPUBLISH_PLUGIN_REGISTRY_DIR).toBe(registryDir);
+    expect(env.GRANTED_CURRENT_PACKAGE_TGZ).toBe(fixture.packagePath);
+    expect(env.GRANTED_PREPUBLISH_PLUGIN_REGISTRY_DIR).toBe(registryDir);
   });
 
   it("does not inspect package files for package-free plans", () => {
     const fixture = candidateFixture();
     expect(() =>
       validateDockerCandidateEnvironment(
-        { ...fixture.env, OPENCLAW_CURRENT_PACKAGE_TGZ: path.join(fixture.root, "missing.tgz") },
+        { ...fixture.env, GRANTED_CURRENT_PACKAGE_TGZ: path.join(fixture.root, "missing.tgz") },
         candidatePlan({ needsPackage: false }),
         fixture.root,
       ),
@@ -615,12 +615,12 @@ describe("scripts/test-docker-all scheduler", () => {
     ).toThrow("requires a prepublish plugin registry tuple");
     expect(() =>
       validateDockerCandidateEnvironment(
-        { ...fixture.env, OPENCLAW_PREPUBLISH_PLUGIN_REGISTRY_DIR: "/tmp/partial" },
+        { ...fixture.env, GRANTED_PREPUBLISH_PLUGIN_REGISTRY_DIR: "/tmp/partial" },
         candidatePlan(),
         fixture.root,
       ),
     ).toThrow("must be complete");
-    writeFileSync(path.join(env.OPENCLAW_PREPUBLISH_PLUGIN_REGISTRY_DIR, "extra"), "extra");
+    writeFileSync(path.join(env.GRANTED_PREPUBLISH_PLUGIN_REGISTRY_DIR, "extra"), "extra");
     expect(() => validateDockerCandidateEnvironment(env, candidatePlan(), fixture.root)).toThrow(
       "missing, extra, or non-file",
     );
@@ -631,13 +631,13 @@ describe("scripts/test-docker-all scheduler", () => {
     const env = addRegistry(fixture);
     const command = buildLaneRerunCommand("gateway-network", env);
     for (const key of [
-      "OPENCLAW_DOCKER_E2E_SELECTED_SHA",
-      "OPENCLAW_CURRENT_PACKAGE_TGZ",
-      "OPENCLAW_CURRENT_PACKAGE_VERSION",
-      "OPENCLAW_CURRENT_PACKAGE_SHA256",
-      "OPENCLAW_PREPUBLISH_PLUGIN_REGISTRY_DIR",
-      "OPENCLAW_PREPUBLISH_PLUGIN_REGISTRY_CANDIDATE_VERSION",
-      "OPENCLAW_PREPUBLISH_PLUGIN_REGISTRY_MANIFEST_SHA256",
+      "GRANTED_DOCKER_E2E_SELECTED_SHA",
+      "GRANTED_CURRENT_PACKAGE_TGZ",
+      "GRANTED_CURRENT_PACKAGE_VERSION",
+      "GRANTED_CURRENT_PACKAGE_SHA256",
+      "GRANTED_PREPUBLISH_PLUGIN_REGISTRY_DIR",
+      "GRANTED_PREPUBLISH_PLUGIN_REGISTRY_CANDIDATE_VERSION",
+      "GRANTED_PREPUBLISH_PLUGIN_REGISTRY_MANIFEST_SHA256",
     ] as const) {
       expect(command).toContain(`${key}='${env[key]}'`);
     }
@@ -657,9 +657,9 @@ describe("scripts/test-docker-all scheduler", () => {
         encoding: "utf8",
         env: {
           ...process.env,
-          OPENCLAW_DOCKER_ALL_PLAN_RELEASE_ALL: "1",
-          OPENCLAW_DOCKER_ALL_PROFILE: "release-path",
-          OPENCLAW_UPGRADE_SURVIVOR_TARGET_ROOT: process.cwd(),
+          GRANTED_DOCKER_ALL_PLAN_RELEASE_ALL: "1",
+          GRANTED_DOCKER_ALL_PROFILE: "release-path",
+          GRANTED_UPGRADE_SURVIVOR_TARGET_ROOT: process.cwd(),
         },
       },
     );
@@ -674,13 +674,13 @@ describe("scripts/test-docker-all scheduler", () => {
       encoding: "utf8",
       env: {
         ...process.env,
-        OPENCLAW_DOCKER_ALL_PARALLELISM: "1e3",
+        GRANTED_DOCKER_ALL_PARALLELISM: "1e3",
       },
     });
 
     expect(result.status).toBe(1);
     expect(result.stdout).toBe("");
-    expect(result.stderr).toContain("OPENCLAW_DOCKER_ALL_PARALLELISM must be a positive integer");
+    expect(result.stderr).toContain("GRANTED_DOCKER_ALL_PARALLELISM must be a positive integer");
     expect(result.stderr).not.toContain("at ");
   });
 
@@ -690,11 +690,11 @@ describe("scripts/test-docker-all scheduler", () => {
       encoding: "utf8",
       env: {
         ...process.env,
-        OPENCLAW_DOCKER_ALL_BUILD: "0",
-        OPENCLAW_DOCKER_ALL_DRY_RUN: "1",
-        OPENCLAW_DOCKER_ALL_LANES: "cli-installer-distribution",
-        OPENCLAW_DOCKER_ALL_PREFLIGHT: "0",
-        OPENCLAW_DOCKER_ALL_TIMINGS: "0",
+        GRANTED_DOCKER_ALL_BUILD: "0",
+        GRANTED_DOCKER_ALL_DRY_RUN: "1",
+        GRANTED_DOCKER_ALL_LANES: "cli-installer-distribution",
+        GRANTED_DOCKER_ALL_PREFLIGHT: "0",
+        GRANTED_DOCKER_ALL_TIMINGS: "0",
       },
     });
 
@@ -710,9 +710,9 @@ describe("scripts/test-docker-all scheduler", () => {
     const localCommand = githubWorkflowRerunCommand(["install-e2e"], "a".repeat(40), {
       GITHUB_REF_NAME: "full-release-validation-temp-deleted",
       GITHUB_RUN_ID: "12345",
-      OPENCLAW_DOCKER_E2E_BARE_IMAGE: "openclaw-docker-e2e-bare:local",
-      OPENCLAW_DOCKER_E2E_FUNCTIONAL_IMAGE: "openclaw-docker-e2e-functional:local",
-      OPENCLAW_DOCKER_E2E_PACKAGE_ARTIFACT_NAME: "docker-e2e-package",
+      GRANTED_DOCKER_E2E_BARE_IMAGE: "openclaw-docker-e2e-bare:local",
+      GRANTED_DOCKER_E2E_FUNCTIONAL_IMAGE: "openclaw-docker-e2e-functional:local",
+      GRANTED_DOCKER_E2E_PACKAGE_ARTIFACT_NAME: "docker-e2e-package",
     });
     expect(localCommand).not.toContain("--ref 'full-release-validation-temp-deleted'");
     expect(localCommand).not.toContain("package_artifact_run_id=");
@@ -723,13 +723,13 @@ describe("scripts/test-docker-all scheduler", () => {
     expectDeclaredDispatchInputs(localCommand);
 
     const registryCommand = githubWorkflowRerunCommand(["install-e2e"], "b".repeat(40), {
-      OPENCLAW_DOCKER_E2E_BARE_IMAGE: "ghcr.io/openclaw/openclaw-docker-e2e-bare:test",
-      OPENCLAW_DOCKER_E2E_FUNCTIONAL_IMAGE: "ghcr.io/openclaw/openclaw-docker-e2e-functional:test",
-      OPENCLAW_DOCKER_E2E_ALLOW_UNRELEASED_CHANGELOG: "true",
-      OPENCLAW_DOCKER_E2E_WORKFLOW_REF: "main",
-      OPENCLAW_UPGRADE_SURVIVOR_BASELINE_SPEC: "openclaw@2026.5.3",
-      OPENCLAW_UPGRADE_SURVIVOR_BASELINE_SPECS: "openclaw@2026.5.3 openclaw@2026.5.2",
-      OPENCLAW_UPGRADE_SURVIVOR_SCENARIOS: "plugin-dependency-cleanup",
+      GRANTED_DOCKER_E2E_BARE_IMAGE: "ghcr.io/openclaw/openclaw-docker-e2e-bare:test",
+      GRANTED_DOCKER_E2E_FUNCTIONAL_IMAGE: "ghcr.io/openclaw/openclaw-docker-e2e-functional:test",
+      GRANTED_DOCKER_E2E_ALLOW_UNRELEASED_CHANGELOG: "true",
+      GRANTED_DOCKER_E2E_WORKFLOW_REF: "main",
+      GRANTED_UPGRADE_SURVIVOR_BASELINE_SPEC: "openclaw@2026.5.3",
+      GRANTED_UPGRADE_SURVIVOR_BASELINE_SPECS: "openclaw@2026.5.3 openclaw@2026.5.2",
+      GRANTED_UPGRADE_SURVIVOR_SCENARIOS: "plugin-dependency-cleanup",
     });
     expect(registryCommand).toContain("--ref 'main'");
     expect(registryCommand).toContain(
@@ -756,8 +756,8 @@ describe("scripts/test-docker-all scheduler", () => {
         },
         {
           ...process.env,
-          OPENCLAW_DOCKER_E2E_ALLOW_UNRELEASED_CHANGELOG: "true",
-          OPENCLAW_DOCKER_E2E_SELECTED_SHA: selectedSha,
+          GRANTED_DOCKER_E2E_ALLOW_UNRELEASED_CHANGELOG: "true",
+          GRANTED_DOCKER_E2E_SELECTED_SHA: selectedSha,
         },
       );
 
@@ -796,19 +796,17 @@ describe("scripts/test-docker-all scheduler", () => {
         encoding: "utf8",
         env: {
           ...process.env,
-          OPENCLAW_DOCKER_ALL_BUILD: "0",
-          OPENCLAW_DOCKER_ALL_DOCKER_LIMIT: "1e3",
-          OPENCLAW_DOCKER_ALL_DRY_RUN: "1",
-          OPENCLAW_DOCKER_ALL_LOG_DIR: logDir,
-          OPENCLAW_DOCKER_ALL_PREFLIGHT: "0",
-          OPENCLAW_DOCKER_ALL_TIMINGS: "0",
+          GRANTED_DOCKER_ALL_BUILD: "0",
+          GRANTED_DOCKER_ALL_DOCKER_LIMIT: "1e3",
+          GRANTED_DOCKER_ALL_DRY_RUN: "1",
+          GRANTED_DOCKER_ALL_LOG_DIR: logDir,
+          GRANTED_DOCKER_ALL_PREFLIGHT: "0",
+          GRANTED_DOCKER_ALL_TIMINGS: "0",
         },
       });
 
       expect(result.status).toBe(1);
-      expect(result.stderr).toContain(
-        "OPENCLAW_DOCKER_ALL_DOCKER_LIMIT must be a positive integer",
-      );
+      expect(result.stderr).toContain("GRANTED_DOCKER_ALL_DOCKER_LIMIT must be a positive integer");
       expect(result.stderr).not.toContain("at ");
     } finally {
       rmSync(logDir, { force: true, recursive: true });
@@ -823,13 +821,13 @@ describe("scripts/test-docker-all scheduler", () => {
         encoding: "utf8",
         env: {
           ...process.env,
-          OPENCLAW_DOCKER_ALL_CHUNK: "openwebui",
-          OPENCLAW_DOCKER_ALL_DRY_RUN: "1",
-          OPENCLAW_DOCKER_ALL_INCLUDE_OPENWEBUI: "0",
-          OPENCLAW_DOCKER_ALL_LOG_DIR: logDir,
-          OPENCLAW_DOCKER_ALL_PREFLIGHT: "0",
-          OPENCLAW_DOCKER_ALL_PROFILE: "release-path",
-          OPENCLAW_DOCKER_ALL_TIMINGS: "0",
+          GRANTED_DOCKER_ALL_CHUNK: "openwebui",
+          GRANTED_DOCKER_ALL_DRY_RUN: "1",
+          GRANTED_DOCKER_ALL_INCLUDE_OPENWEBUI: "0",
+          GRANTED_DOCKER_ALL_LOG_DIR: logDir,
+          GRANTED_DOCKER_ALL_PREFLIGHT: "0",
+          GRANTED_DOCKER_ALL_PROFILE: "release-path",
+          GRANTED_DOCKER_ALL_TIMINGS: "0",
         },
       });
 
@@ -863,11 +861,11 @@ describe("scripts/test-docker-all scheduler", () => {
         encoding: "utf8",
         env: {
           ...process.env,
-          OPENCLAW_ALLOW_FROZEN_TARGET_SCENARIO_OMISSIONS: "0",
-          OPENCLAW_DOCKER_ALL_DRY_RUN: "1",
-          OPENCLAW_DOCKER_ALL_LANES: "published-upgrade-survivor",
-          OPENCLAW_DOCKER_ALL_TIMINGS: "0",
-          OPENCLAW_UPGRADE_SURVIVOR_TARGET_ROOT: root,
+          GRANTED_ALLOW_FROZEN_TARGET_SCENARIO_OMISSIONS: "0",
+          GRANTED_DOCKER_ALL_DRY_RUN: "1",
+          GRANTED_DOCKER_ALL_LANES: "published-upgrade-survivor",
+          GRANTED_DOCKER_ALL_TIMINGS: "0",
+          GRANTED_UPGRADE_SURVIVOR_TARGET_ROOT: root,
         },
       });
 
@@ -890,13 +888,13 @@ describe("scripts/test-docker-all scheduler", () => {
         encoding: "utf8",
         env: {
           ...process.env,
-          OPENCLAW_ALLOW_FROZEN_TARGET_SCENARIO_OMISSIONS: "1",
-          OPENCLAW_DOCKER_ALL_BUILD: "0",
-          OPENCLAW_DOCKER_ALL_LANES: "published-upgrade-survivor",
-          OPENCLAW_DOCKER_ALL_LOG_DIR: logDir,
-          OPENCLAW_DOCKER_ALL_TIMINGS: "0",
-          OPENCLAW_UPGRADE_SURVIVOR_SCENARIOS: "reported-issues",
-          OPENCLAW_UPGRADE_SURVIVOR_TARGET_ROOT: root,
+          GRANTED_ALLOW_FROZEN_TARGET_SCENARIO_OMISSIONS: "1",
+          GRANTED_DOCKER_ALL_BUILD: "0",
+          GRANTED_DOCKER_ALL_LANES: "published-upgrade-survivor",
+          GRANTED_DOCKER_ALL_LOG_DIR: logDir,
+          GRANTED_DOCKER_ALL_TIMINGS: "0",
+          GRANTED_UPGRADE_SURVIVOR_SCENARIOS: "reported-issues",
+          GRANTED_UPGRADE_SURVIVOR_TARGET_ROOT: root,
         },
       });
 
@@ -933,14 +931,14 @@ describe("scripts/test-docker-all scheduler", () => {
         encoding: "utf8",
         env: {
           ...process.env,
-          OPENCLAW_ALLOW_FROZEN_TARGET_SCENARIO_OMISSIONS: "1",
-          OPENCLAW_DOCKER_ALL_BUILD: "0",
-          OPENCLAW_DOCKER_ALL_DRY_RUN: dryRun ? "1" : "0",
-          OPENCLAW_DOCKER_ALL_LANES: "published-upgrade-survivor",
-          OPENCLAW_DOCKER_ALL_LOG_DIR: logDir,
-          OPENCLAW_DOCKER_ALL_TIMINGS: "0",
-          OPENCLAW_UPGRADE_SURVIVOR_SCENARIOS: "reported-issues",
-          OPENCLAW_UPGRADE_SURVIVOR_TARGET_ROOT: root,
+          GRANTED_ALLOW_FROZEN_TARGET_SCENARIO_OMISSIONS: "1",
+          GRANTED_DOCKER_ALL_BUILD: "0",
+          GRANTED_DOCKER_ALL_DRY_RUN: dryRun ? "1" : "0",
+          GRANTED_DOCKER_ALL_LANES: "published-upgrade-survivor",
+          GRANTED_DOCKER_ALL_LOG_DIR: logDir,
+          GRANTED_DOCKER_ALL_TIMINGS: "0",
+          GRANTED_UPGRADE_SURVIVOR_SCENARIOS: "reported-issues",
+          GRANTED_UPGRADE_SURVIVOR_TARGET_ROOT: root,
         },
       });
 
@@ -969,12 +967,12 @@ describe("scripts/test-docker-all scheduler", () => {
         encoding: "utf8",
         env: {
           ...process.env,
-          OPENCLAW_ALLOW_FROZEN_TARGET_SCENARIO_OMISSIONS: "1",
-          OPENCLAW_DOCKER_ALL_DRY_RUN: "1",
-          OPENCLAW_DOCKER_ALL_LANES: "published-upgrade-survivor,plugin-binding-command-escape",
-          OPENCLAW_DOCKER_ALL_TIMINGS: "0",
-          OPENCLAW_UPGRADE_SURVIVOR_SCENARIOS: "reported-issues",
-          OPENCLAW_UPGRADE_SURVIVOR_TARGET_ROOT: root,
+          GRANTED_ALLOW_FROZEN_TARGET_SCENARIO_OMISSIONS: "1",
+          GRANTED_DOCKER_ALL_DRY_RUN: "1",
+          GRANTED_DOCKER_ALL_LANES: "published-upgrade-survivor,plugin-binding-command-escape",
+          GRANTED_DOCKER_ALL_TIMINGS: "0",
+          GRANTED_UPGRADE_SURVIVOR_SCENARIOS: "reported-issues",
+          GRANTED_UPGRADE_SURVIVOR_TARGET_ROOT: root,
         },
       });
 
@@ -1010,7 +1008,7 @@ process.exit(0);
     try {
       const baseEnv = {
         ...process.env,
-        OPENCLAW_DOCKER_E2E_IMAGE: "openclaw-test-image",
+        GRANTED_DOCKER_E2E_IMAGE: "openclaw-test-image",
         PATH: `${root}${path.delimiter}${process.env.PATH ?? ""}`,
       };
       const cleanupFailure = await runCleanupSmokePhase(baseEnv, logDir, phases);
@@ -1020,7 +1018,7 @@ process.exit(0);
       }
       await writeRunSummary(logDir, {
         failures: [cleanupFailure],
-        image: baseEnv.OPENCLAW_DOCKER_E2E_IMAGE,
+        image: baseEnv.GRANTED_DOCKER_E2E_IMAGE,
         images: {
           bare: "openclaw-test-bare",
           functional: "openclaw-test-image",

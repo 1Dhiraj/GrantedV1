@@ -15,7 +15,7 @@ import { captureEnv, setTestEnvValue } from "../test-utils/env.js";
 import { runStartupMigrations } from "./startup-state-migrations.js";
 
 describe("node-host startup state migrations", () => {
-  const envSnapshot = captureEnv(["OPENCLAW_STATE_DIR"]);
+  const envSnapshot = captureEnv(["GRANTED_STATE_DIR"]);
   const log = {
     info: vi.fn<(message: string) => void>(),
     warn: vi.fn<(message: string) => void>(),
@@ -36,7 +36,7 @@ describe("node-host startup state migrations", () => {
   function useStateDir(): { env: NodeJS.ProcessEnv; stateDir: string } {
     const stateDir = fs.realpathSync(tempDirs.make("openclaw-node-host-migrations-"));
     return {
-      env: { ...process.env, HOME: stateDir, OPENCLAW_STATE_DIR: stateDir },
+      env: { ...process.env, HOME: stateDir, GRANTED_STATE_DIR: stateDir },
       stateDir,
     };
   }
@@ -107,7 +107,7 @@ describe("node-host startup state migrations", () => {
   it("migrates legacy null exec usage metadata into the canonical store", async () => {
     const { env, stateDir } = useStateDir();
     const sourcePath = await writeExecApprovals(env);
-    setTestEnvValue("OPENCLAW_STATE_DIR", stateDir);
+    setTestEnvValue("GRANTED_STATE_DIR", stateDir);
     execApprovalsStoreTesting.reset();
 
     await runStartupMigrations({ env, log });

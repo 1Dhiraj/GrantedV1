@@ -108,8 +108,8 @@ describe("backup commands", () => {
     await fs.writeFile(path.join(stateDir, "openclaw.json"), JSON.stringify({}), "utf8");
     await fs.writeFile(configPath, '{"agents": { defaults: { workspace: ', "utf8");
 
-    const envSnapshot = captureEnv(["OPENCLAW_CONFIG_PATH"]);
-    setTestEnvValue("OPENCLAW_CONFIG_PATH", configPath);
+    const envSnapshot = captureEnv(["GRANTED_CONFIG_PATH"]);
+    setTestEnvValue("GRANTED_CONFIG_PATH", configPath);
     const runtime = createBackupTestRuntime();
     try {
       return await fn(runtime);
@@ -239,9 +239,9 @@ describe("backup commands", () => {
     let capturedManifest: CapturedBackupManifest | null = null;
     let capturedEntryPaths: string[] = [];
     let capturedOnWriteEntry: ((entry: { path: string }) => void) | null = null;
-    const envSnapshot = captureEnv(["OPENCLAW_CONFIG_PATH"]);
+    const envSnapshot = captureEnv(["GRANTED_CONFIG_PATH"]);
     try {
-      setTestEnvValue("OPENCLAW_CONFIG_PATH", configPath);
+      setTestEnvValue("GRANTED_CONFIG_PATH", configPath);
       await fs.writeFile(
         configPath,
         JSON.stringify({
@@ -479,7 +479,7 @@ describe("backup commands", () => {
     const operatorMessage = `Backup archive creation failed: ${outputPath}. ${detail}: ${outputParent}. ${recovery}`;
     expect(formatCliOperatorError(error, { argv: [], env: {} })).toBe(operatorMessage);
     const debugMessage = `${operatorMessage} | ${code}: filesystem error, mkdir '${outputParent}' | ${code}`;
-    expect(formatCliOperatorError(error, { argv: [], env: { OPENCLAW_DEBUG: "1" } })).toBe(
+    expect(formatCliOperatorError(error, { argv: [], env: { GRANTED_DEBUG: "1" } })).toBe(
       debugMessage,
     );
   });
@@ -498,7 +498,7 @@ describe("backup commands", () => {
     expect(error).toBeInstanceOf(Error);
     const operatorMessage = `Backup archive creation failed: ${outputPath}. Backup output parent is not a directory: ${outputParent}. Choose a directory path and run \`openclaw backup create --output <archive>\` again.`;
     expect(formatCliOperatorError(error, { argv: [], env: {} })).toBe(operatorMessage);
-    expect(formatCliOperatorError(error, { argv: [], env: { OPENCLAW_DEBUG: "1" } })).toMatch(
+    expect(formatCliOperatorError(error, { argv: [], env: { GRANTED_DEBUG: "1" } })).toMatch(
       /\| EEXIST: .*mkdir.*\| EEXIST/u,
     );
   });
@@ -641,8 +641,8 @@ describe("backup commands", () => {
     await fs.mkdir(workspaceDir, { recursive: true });
     await fs.writeFile(configPath, originalRaw, "utf8");
     const canonicalWorkspaceDir = await fs.realpath(workspaceDir);
-    const envSnapshot = captureEnv(["OPENCLAW_CONFIG_PATH"]);
-    setTestEnvValue("OPENCLAW_CONFIG_PATH", configPath);
+    const envSnapshot = captureEnv(["GRANTED_CONFIG_PATH"]);
+    setTestEnvValue("GRANTED_CONFIG_PATH", configPath);
     try {
       const plan = await resolveBackupPlanFromDisk({ nowMs: 123 });
 

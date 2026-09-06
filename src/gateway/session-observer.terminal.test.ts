@@ -793,7 +793,7 @@ describe("session observer terminal, persistence, synthesis, and races", () => {
     const harness = createHarness();
     startAndAddToolNotes(harness.observer);
     emitEvent(harness, "assistant", {
-      delta: "prose before\n<<<BEGIN_OPENCLAW_INTERNAL_CONTEXT>>>\n",
+      delta: "prose before\n<<<BEGIN_GRANTED_INTERNAL_CONTEXT>>>\n",
     });
     emitEvent(harness, "assistant", { delta: "private-context-body-must-not-leave" });
     await advanceAndFlush(12_000);
@@ -803,7 +803,7 @@ describe("session observer terminal, persistence, synthesis, and races", () => {
     expect(openPrompt).not.toContain("Assistant:");
 
     emitEvent(harness, "assistant", {
-      delta: "\n<<<END_OPENCLAW_INTERNAL_CONTEXT>>>\nvisible prose after",
+      delta: "\n<<<END_GRANTED_INTERNAL_CONTEXT>>>\nvisible prose after",
     });
     startAndAddToolNotes(harness.observer, { count: 4 });
     await advanceAndFlush(12_000);

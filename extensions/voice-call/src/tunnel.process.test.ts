@@ -54,7 +54,7 @@ describe.skipIf(process.platform === "win32")("voice-call tunnel child process",
           'const fs = require("node:fs");',
           "const token = process.env.NGROK_AUTHTOKEN;",
           "fs.writeFileSync(",
-          "  process.env.OPENCLAW_NGROK_AUTH_EVIDENCE_FILE,",
+          "  process.env.GRANTED_NGROK_AUTH_EVIDENCE_FILE,",
           "  JSON.stringify({ argvContainsToken: process.argv.includes(token), envHasToken: Boolean(token) }),",
           ");",
           'process.stdout.write(JSON.stringify({ msg: "started tunnel", url: "https://auth.ngrok.test" }) + "\\n");',
@@ -65,7 +65,7 @@ describe.skipIf(process.platform === "win32")("voice-call tunnel child process",
       await withEnvAsync(
         {
           PATH: `${tempDir}${path.delimiter}${process.env.PATH ?? ""}`,
-          OPENCLAW_NGROK_AUTH_EVIDENCE_FILE: evidencePath,
+          GRANTED_NGROK_AUTH_EVIDENCE_FILE: evidencePath,
         },
         async () => {
           const tunnel = await startTunnel({
@@ -98,7 +98,7 @@ describe.skipIf(process.platform === "win32")("voice-call tunnel child process",
     const pidPath = path.join(tempDir, "ngrok.pid");
     const ngrokPath = path.join(tempDir, "ngrok");
     const previousPath = process.env.PATH;
-    const previousPidPath = process.env.OPENCLAW_NGROK_PID_FILE;
+    const previousPidPath = process.env.GRANTED_NGROK_PID_FILE;
     let childPid: number | undefined;
 
     await fs.writeFile(
@@ -107,14 +107,14 @@ describe.skipIf(process.platform === "win32")("voice-call tunnel child process",
         "#!/usr/bin/env node",
         'const fs = require("node:fs");',
         'process.on("SIGTERM", () => {});',
-        "fs.writeFileSync(process.env.OPENCLAW_NGROK_PID_FILE, String(process.pid));",
+        "fs.writeFileSync(process.env.GRANTED_NGROK_PID_FILE, String(process.pid));",
         'process.stdout.write(JSON.stringify({ msg: "started tunnel", url: "https://bounded.ngrok.test" }) + "\\n");',
         "setInterval(() => {}, 1000);",
       ].join("\n"),
       { mode: 0o755 },
     );
     process.env.PATH = `${tempDir}${path.delimiter}${previousPath ?? ""}`;
-    process.env.OPENCLAW_NGROK_PID_FILE = pidPath;
+    process.env.GRANTED_NGROK_PID_FILE = pidPath;
 
     try {
       const tunnel = await startTunnel({
@@ -133,9 +133,9 @@ describe.skipIf(process.platform === "win32")("voice-call tunnel child process",
     } finally {
       process.env.PATH = previousPath;
       if (previousPidPath === undefined) {
-        delete process.env.OPENCLAW_NGROK_PID_FILE;
+        delete process.env.GRANTED_NGROK_PID_FILE;
       } else {
-        process.env.OPENCLAW_NGROK_PID_FILE = previousPidPath;
+        process.env.GRANTED_NGROK_PID_FILE = previousPidPath;
       }
       if (childPid && isProcessAlive(childPid)) {
         process.kill(childPid, "SIGKILL");
@@ -151,8 +151,8 @@ describe.skipIf(process.platform === "win32")("voice-call tunnel child process",
     const signalPath = path.join(tempDir, "ngrok.signal");
     const ngrokPath = path.join(tempDir, "ngrok");
     const previousPath = process.env.PATH;
-    const previousPidPath = process.env.OPENCLAW_NGROK_PID_FILE;
-    const previousSignalPath = process.env.OPENCLAW_NGROK_SIGNAL_FILE;
+    const previousPidPath = process.env.GRANTED_NGROK_PID_FILE;
+    const previousSignalPath = process.env.GRANTED_NGROK_SIGNAL_FILE;
     let childPid: number | undefined;
 
     await fs.writeFile(
@@ -160,15 +160,15 @@ describe.skipIf(process.platform === "win32")("voice-call tunnel child process",
       [
         "#!/usr/bin/env node",
         'const fs = require("node:fs");',
-        'process.on("SIGTERM", () => fs.writeFileSync(process.env.OPENCLAW_NGROK_SIGNAL_FILE, "SIGTERM"));',
-        "fs.writeFileSync(process.env.OPENCLAW_NGROK_PID_FILE, String(process.pid));",
+        'process.on("SIGTERM", () => fs.writeFileSync(process.env.GRANTED_NGROK_SIGNAL_FILE, "SIGTERM"));',
+        "fs.writeFileSync(process.env.GRANTED_NGROK_PID_FILE, String(process.pid));",
         "setInterval(() => {}, 1000);",
       ].join("\n"),
       { mode: 0o755 },
     );
     process.env.PATH = `${tempDir}${path.delimiter}${previousPath ?? ""}`;
-    process.env.OPENCLAW_NGROK_PID_FILE = pidPath;
-    process.env.OPENCLAW_NGROK_SIGNAL_FILE = signalPath;
+    process.env.GRANTED_NGROK_PID_FILE = pidPath;
+    process.env.GRANTED_NGROK_SIGNAL_FILE = signalPath;
 
     try {
       const result = startTunnel({
@@ -196,14 +196,14 @@ describe.skipIf(process.platform === "win32")("voice-call tunnel child process",
     } finally {
       process.env.PATH = previousPath;
       if (previousPidPath === undefined) {
-        delete process.env.OPENCLAW_NGROK_PID_FILE;
+        delete process.env.GRANTED_NGROK_PID_FILE;
       } else {
-        process.env.OPENCLAW_NGROK_PID_FILE = previousPidPath;
+        process.env.GRANTED_NGROK_PID_FILE = previousPidPath;
       }
       if (previousSignalPath === undefined) {
-        delete process.env.OPENCLAW_NGROK_SIGNAL_FILE;
+        delete process.env.GRANTED_NGROK_SIGNAL_FILE;
       } else {
-        process.env.OPENCLAW_NGROK_SIGNAL_FILE = previousSignalPath;
+        process.env.GRANTED_NGROK_SIGNAL_FILE = previousSignalPath;
       }
       if (childPid && isProcessAlive(childPid)) {
         process.kill(childPid, "SIGKILL");

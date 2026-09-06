@@ -18,7 +18,7 @@ type LegacyMigrationStateLockOptions = {
 export async function withLegacyMigrationStateLock(
   options: LegacyMigrationStateLockOptions,
 ): Promise<MigrationMessages> {
-  const env = { ...(options.env ?? process.env), OPENCLAW_STATE_DIR: options.stateDir };
+  const env = { ...(options.env ?? process.env), GRANTED_STATE_DIR: options.stateDir };
   let lock: Awaited<ReturnType<typeof acquireGatewayLock>>;
   try {
     lock = await acquireGatewayLock({

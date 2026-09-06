@@ -83,7 +83,7 @@ describe("Gateway agent command execution identity", () => {
     cleanupSink = configureExecutionIdentityAdmissionSink(() => true);
     let prepared: ReturnType<typeof prepareAgentCommandExecutionIdentity> | undefined;
     try {
-      await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () => {
+      await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {
         await replaceSessionEntry({ sessionKey, storePath }, sessionEntry);
         prepared = prepareAgentCommandExecutionIdentity({
           opts: {

@@ -26,9 +26,9 @@ import { createCodeExecutionTool } from "./code-execution.js";
 import plugin from "./index.js";
 
 const XAI_API_KEY = process.env.XAI_API_KEY ?? "";
-const LIVE_IMAGE_MODEL = process.env.OPENCLAW_LIVE_XAI_IMAGE_MODEL?.trim() || "grok-imagine-image";
-const ENABLE_VIDEO_LIVE = process.env.OPENCLAW_LIVE_XAI_VIDEO === "1";
-const liveEnabled = XAI_API_KEY.trim().length > 0 && process.env.OPENCLAW_LIVE_TEST === "1";
+const LIVE_IMAGE_MODEL = process.env.GRANTED_LIVE_XAI_IMAGE_MODEL?.trim() || "grok-imagine-image";
+const ENABLE_VIDEO_LIVE = process.env.GRANTED_LIVE_XAI_VIDEO === "1";
+const liveEnabled = XAI_API_KEY.trim().length > 0 && process.env.GRANTED_LIVE_TEST === "1";
 const describeLive = liveEnabled ? describe : describe.skip;
 const EMPTY_AUTH_STORE = { version: 1, profiles: {} } as const;
 
@@ -484,7 +484,7 @@ describeLive("xai plugin live", () => {
     const realtimeProvider = buildXaiRealtimeVoiceProvider();
     const speechProvider = requireRegisteredProvider(speechProviders, "xai");
     const cfg = createLiveConfig();
-    const marker = "OPENCLAW_XAI_RESUME_42";
+    const marker = "GRANTED_XAI_RESUME_42";
     const input = await speechProvider.synthesizeTelephony?.({
       text: "Stop counting now.",
       cfg,
@@ -719,7 +719,7 @@ describeLive("xai plugin live", () => {
 
   it("runs realtime voice tool calls with valid object arguments and continuation", async () => {
     const realtimeProvider = registerXaiRealtimeVoiceProvider();
-    const marker = "OPENCLAW_XAI_TOOL_ARGS_OK";
+    const marker = "GRANTED_XAI_TOOL_ARGS_OK";
     const finalAssistantTranscripts: string[] = [];
     const toolCalls: Array<{ callId: string; name: string; args: unknown }> = [];
     const errors: Error[] = [];
@@ -880,7 +880,7 @@ describeLive("xai plugin live", () => {
           }
           expect(video.mimeType.startsWith("video/")).toBe(true);
           expect(video.buffer.byteLength).toBeGreaterThan(1_000);
-          const outputPath = process.env.OPENCLAW_LIVE_XAI_VIDEO_OUTPUT?.trim();
+          const outputPath = process.env.GRANTED_LIVE_XAI_VIDEO_OUTPUT?.trim();
           if (outputPath) {
             await fs.writeFile(outputPath, video.buffer);
           }
@@ -930,7 +930,7 @@ describeLive("xai plugin live", () => {
           }
           expect(video.mimeType.startsWith("video/")).toBe(true);
           expect(video.buffer.byteLength).toBeGreaterThan(1_000);
-          const outputPath = process.env.OPENCLAW_LIVE_XAI_VIDEO_15_OUTPUT?.trim();
+          const outputPath = process.env.GRANTED_LIVE_XAI_VIDEO_15_OUTPUT?.trim();
           if (outputPath) {
             await fs.writeFile(outputPath, video.buffer);
           }

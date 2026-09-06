@@ -1,5 +1,5 @@
 import type { DatabaseSync } from "node:sqlite";
-import { OPENCLAW_AGENT_SCHEMA_WITHOUT_BOARD_SQL } from "./openclaw-agent-board-schema.js";
+import { GRANTED_AGENT_SCHEMA_WITHOUT_BOARD_SQL } from "./openclaw-agent-board-schema.js";
 
 export const SESSION_PROGRESS_CARDS_TABLE = "session_progress_cards";
 const PROGRESS_CARD_SCHEMA_START = `CREATE TABLE IF NOT EXISTS ${SESSION_PROGRESS_CARDS_TABLE} (`;
@@ -20,7 +20,7 @@ function splitProgressCardSchema(sql: string): {
   };
 }
 
-const progressCardSchema = splitProgressCardSchema(OPENCLAW_AGENT_SCHEMA_WITHOUT_BOARD_SQL);
+const progressCardSchema = splitProgressCardSchema(GRANTED_AGENT_SCHEMA_WITHOUT_BOARD_SQL);
 
 export const AGENT_PROGRESS_CARD_SCHEMA_SQL = progressCardSchema.progressCard;
 export const AGENT_SCHEMA_WITHOUT_PROGRESS_CARD_SQL = progressCardSchema.withoutProgressCard;

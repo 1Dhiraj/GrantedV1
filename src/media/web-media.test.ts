@@ -773,7 +773,7 @@ describe("loadWebMedia", () => {
   });
 
   it("resolves home-relative local media paths through allowed local roots", async () => {
-    await withEnvAsync({ OPENCLAW_HOME: fixtureRoot }, async () => {
+    await withEnvAsync({ GRANTED_HOME: fixtureRoot }, async () => {
       const result = await loadWebMedia("~/workspace/chart.png", {
         maxBytes: 1024 * 1024,
         localRoots: [workspaceDir],
@@ -867,7 +867,7 @@ describe("loadWebMedia", () => {
   it("allows exact marked outbound HTML bytes and rejects same-size replacements", async () => {
     const stateRoot = await fs.mkdtemp(path.join(os.tmpdir(), "web-media-state-"));
     try {
-      await withEnvAsync({ OPENCLAW_STATE_DIR: stateRoot }, async () => {
+      await withEnvAsync({ GRANTED_STATE_DIR: stateRoot }, async () => {
         const { saveMediaBuffer } = await import("./store.js");
         const { markTrustedGeneratedHtmlPath } = await import("./web-media.js");
         const original = Buffer.from("<!doctype html><h1>A</h1>", "utf8");
@@ -910,7 +910,7 @@ describe("loadWebMedia", () => {
   it("rejects unmarked outbound HTML", async () => {
     const stateRoot = await fs.mkdtemp(path.join(os.tmpdir(), "web-media-state-"));
     try {
-      await withEnvAsync({ OPENCLAW_STATE_DIR: stateRoot }, async () => {
+      await withEnvAsync({ GRANTED_STATE_DIR: stateRoot }, async () => {
         const { saveMediaBuffer } = await import("./store.js");
         const saved = await saveMediaBuffer(
           Buffer.from("<!doctype html><h1>untrusted</h1>", "utf8"),
@@ -939,7 +939,7 @@ describe("loadWebMedia", () => {
       path.join(resolvePreferredOpenClawTmpDir(), "web-media-overlap-state-"),
     );
     try {
-      await withEnvAsync({ OPENCLAW_STATE_DIR: stateRoot }, async () => {
+      await withEnvAsync({ GRANTED_STATE_DIR: stateRoot }, async () => {
         const { saveMediaBuffer } = await import("./store.js");
         const saved = await saveMediaBuffer(
           Buffer.from("<!doctype html><h1>unmarked overlap</h1>", "utf8"),
@@ -967,7 +967,7 @@ describe("loadWebMedia", () => {
   it("prunes markers whose staged file was removed", async () => {
     const stateRoot = await fs.mkdtemp(path.join(os.tmpdir(), "web-media-state-"));
     try {
-      await withEnvAsync({ OPENCLAW_STATE_DIR: stateRoot }, async () => {
+      await withEnvAsync({ GRANTED_STATE_DIR: stateRoot }, async () => {
         const { saveMediaBuffer } = await import("./store.js");
         const { markTrustedGeneratedHtmlPath, pruneStaleTrustedGeneratedHtmlMarkers } =
           await import("./web-media.js");
@@ -1002,7 +1002,7 @@ describe("loadWebMedia", () => {
   it("keeps markers when filesystem inspection fails transiently", async () => {
     const stateRoot = await fs.mkdtemp(path.join(os.tmpdir(), "web-media-state-"));
     try {
-      await withEnvAsync({ OPENCLAW_STATE_DIR: stateRoot }, async () => {
+      await withEnvAsync({ GRANTED_STATE_DIR: stateRoot }, async () => {
         const { saveMediaBuffer } = await import("./store.js");
         const { markTrustedGeneratedHtmlPath, pruneStaleTrustedGeneratedHtmlMarkers } =
           await import("./web-media.js");
@@ -1040,7 +1040,7 @@ describe("loadWebMedia", () => {
   it("prunes more stale markers than one SQLite parameter batch", async () => {
     const stateRoot = await fs.mkdtemp(path.join(os.tmpdir(), "web-media-state-"));
     try {
-      await withEnvAsync({ OPENCLAW_STATE_DIR: stateRoot }, async () => {
+      await withEnvAsync({ GRANTED_STATE_DIR: stateRoot }, async () => {
         const { executeSqliteQuerySync, executeSqliteQueryTakeFirstSync, getNodeSqliteKysely } =
           await import("../infra/kysely-sync.js");
         const { openOpenClawStateDatabase, runOpenClawStateWriteTransaction } =

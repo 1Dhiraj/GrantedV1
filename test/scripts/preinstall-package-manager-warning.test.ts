@@ -364,7 +364,7 @@ describe("install runtime enforcement", () => {
           ].join(";"),
           NODE_OPTIONS: "--require=first.cjs",
           Node_Options: "--require=second.cjs",
-          OPENCLAW_PROBE_SENTINEL: "preserved",
+          GRANTED_PROBE_SENTINEL: "preserved",
         },
         platform: "win32",
         run: (_command, _args, options) => {
@@ -391,7 +391,7 @@ describe("install runtime enforcement", () => {
         "C:\\node_modules\\.bin",
         "C:\\node",
       ].join(";"),
-      OPENCLAW_PROBE_SENTINEL: "preserved",
+      GRANTED_PROBE_SENTINEL: "preserved",
     });
   });
 

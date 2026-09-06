@@ -70,8 +70,7 @@ async function resolveLiveModel(
   modelsPath: string,
   authStorage: AuthStorage,
 ): Promise<{ model: Model; modelRegistry: ModelRegistry }> {
-  const requestedModelId =
-    process.env.OPENCLAW_LIVE_AGENT_SESSION_MODEL?.trim() || DEFAULT_MODEL_ID;
+  const requestedModelId = process.env.GRANTED_LIVE_AGENT_SESSION_MODEL?.trim() || DEFAULT_MODEL_ID;
   // This suite owns AgentSession behavior, so keep its provider fixture independent from the
   // operator's config and refreshable catalog state. Catalog discovery has dedicated live lanes.
   await writeFile(

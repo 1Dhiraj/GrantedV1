@@ -104,9 +104,9 @@ describe("runPostCoreFinalizeAfterGatewayUpdate", () => {
     ]);
     expect(call.argv).not.toContain("--channel");
     // Configured channel is carried as the effective convergence channel via env.
-    expect(call.env.OPENCLAW_UPDATE_EFFECTIVE_CHANNEL).toBe("stable");
+    expect(call.env.GRANTED_UPDATE_EFFECTIVE_CHANNEL).toBe("stable");
     // Host-compat resolution is pinned to the just-installed core version.
-    expect(call.env.OPENCLAW_COMPATIBILITY_HOST_VERSION).toBe("2026.6.1");
+    expect(call.env.GRANTED_COMPATIBILITY_HOST_VERSION).toBe("2026.6.1");
     // Outer whole-process timeout is decoupled from the per-step --timeout (120s):
     // a generous floor so a valid multi-step finalize is not killed prematurely.
     expect(call.timeoutMs).toBe(30 * 60_000);
@@ -120,9 +120,9 @@ describe("runPostCoreFinalizeAfterGatewayUpdate", () => {
       spawnFinalize,
       env: {
         PATH: "/usr/bin",
-        OPENCLAW_SERVICE_MARKER: "openclaw",
-        OPENCLAW_SERVICE_KIND: "gateway",
-        OPENCLAW_GATEWAY_SERVICE_PID: "4242",
+        GRANTED_SERVICE_MARKER: "openclaw",
+        GRANTED_SERVICE_KIND: "gateway",
+        GRANTED_GATEWAY_SERVICE_PID: "4242",
       },
     });
     const { env } = expectDefined(
@@ -130,19 +130,19 @@ describe("runPostCoreFinalizeAfterGatewayUpdate", () => {
       "spawnFinalize.mock.calls[0] test invariant",
     )[0];
     expect(env.PATH).toBe("/usr/bin");
-    expect(env.OPENCLAW_SERVICE_MARKER).toBeUndefined();
-    expect(env.OPENCLAW_SERVICE_KIND).toBeUndefined();
-    expect(env.OPENCLAW_GATEWAY_SERVICE_PID).toBeUndefined();
+    expect(env.GRANTED_SERVICE_MARKER).toBeUndefined();
+    expect(env.GRANTED_SERVICE_KIND).toBeUndefined();
+    expect(env.GRANTED_GATEWAY_SERVICE_PID).toBeUndefined();
   });
 
   it("isolates stale handoff values at the RPC finalizer boundary", async () => {
     const spawnFinalize = vi.fn<PostCoreFinalizeSpawner>(async () => ({ code: 0 }));
     const baseEnv: NodeJS.ProcessEnv = {
       PATH: "/usr/bin",
-      OPENCLAW_COMPATIBILITY_HOST_VERSION: "stale-version",
-      OPENCLAW_UPDATE_POST_CORE_REQUESTED_CHANNEL: "dev",
-      OPENCLAW_UPDATE_POST_CORE_SOURCE_CONFIG_PATH: "/tmp/stale-config.json",
-      OPENCLAW_UNRELATED: "preserved",
+      GRANTED_COMPATIBILITY_HOST_VERSION: "stale-version",
+      GRANTED_UPDATE_POST_CORE_REQUESTED_CHANNEL: "dev",
+      GRANTED_UPDATE_POST_CORE_SOURCE_CONFIG_PATH: "/tmp/stale-config.json",
+      GRANTED_UNRELATED: "preserved",
     };
     await runPostCoreFinalizeAfterGatewayUpdate({
       result: gitOkResult({ after: undefined }),
@@ -155,13 +155,13 @@ describe("runPostCoreFinalizeAfterGatewayUpdate", () => {
       spawnFinalize.mock.calls[0],
       "spawnFinalize.mock.calls[0] test invariant",
     )[0];
-    expect(env.OPENCLAW_COMPATIBILITY_HOST_VERSION).toBeUndefined();
-    expect(env.OPENCLAW_UPDATE_POST_CORE_REQUESTED_CHANNEL).toBeUndefined();
-    expect(env.OPENCLAW_UPDATE_POST_CORE_SOURCE_CONFIG_PATH).toBeUndefined();
-    expect(env.OPENCLAW_UNRELATED).toBe("preserved");
-    expect(baseEnv.OPENCLAW_COMPATIBILITY_HOST_VERSION).toBe("stale-version");
-    expect(baseEnv.OPENCLAW_UPDATE_POST_CORE_REQUESTED_CHANNEL).toBe("dev");
-    expect(baseEnv.OPENCLAW_UPDATE_POST_CORE_SOURCE_CONFIG_PATH).toBe("/tmp/stale-config.json");
+    expect(env.GRANTED_COMPATIBILITY_HOST_VERSION).toBeUndefined();
+    expect(env.GRANTED_UPDATE_POST_CORE_REQUESTED_CHANNEL).toBeUndefined();
+    expect(env.GRANTED_UPDATE_POST_CORE_SOURCE_CONFIG_PATH).toBeUndefined();
+    expect(env.GRANTED_UNRELATED).toBe("preserved");
+    expect(baseEnv.GRANTED_COMPATIBILITY_HOST_VERSION).toBe("stale-version");
+    expect(baseEnv.GRANTED_UPDATE_POST_CORE_REQUESTED_CHANNEL).toBe("dev");
+    expect(baseEnv.GRANTED_UPDATE_POST_CORE_SOURCE_CONFIG_PATH).toBe("/tmp/stale-config.json");
   });
 
   it("keeps the default process wrapper from restoring ambient handoff values", async () => {
@@ -171,20 +171,20 @@ describe("runPostCoreFinalizeAfterGatewayUpdate", () => {
     await fs.writeFile(
       entrypoint,
       `import fs from "node:fs";
-fs.writeFileSync(process.env.OPENCLAW_TEST_OUTPUT_PATH, JSON.stringify({
-  compatibilityHostVersion: process.env.OPENCLAW_COMPATIBILITY_HOST_VERSION ?? null,
-  requestedChannel: process.env.OPENCLAW_UPDATE_POST_CORE_REQUESTED_CHANNEL ?? null,
-  sourceConfigPath: process.env.OPENCLAW_UPDATE_POST_CORE_SOURCE_CONFIG_PATH ?? null,
+fs.writeFileSync(process.env.GRANTED_TEST_OUTPUT_PATH, JSON.stringify({
+  compatibilityHostVersion: process.env.GRANTED_COMPATIBILITY_HOST_VERSION ?? null,
+  requestedChannel: process.env.GRANTED_UPDATE_POST_CORE_REQUESTED_CHANNEL ?? null,
+  sourceConfigPath: process.env.GRANTED_UPDATE_POST_CORE_SOURCE_CONFIG_PATH ?? null,
 }));`,
       "utf8",
     );
     try {
       await withEnvAsync(
         {
-          OPENCLAW_COMPATIBILITY_HOST_VERSION: "stale-version",
-          OPENCLAW_TEST_OUTPUT_PATH: outputPath,
-          OPENCLAW_UPDATE_POST_CORE_REQUESTED_CHANNEL: "beta",
-          OPENCLAW_UPDATE_POST_CORE_SOURCE_CONFIG_PATH: "/tmp/stale-config.json",
+          GRANTED_COMPATIBILITY_HOST_VERSION: "stale-version",
+          GRANTED_TEST_OUTPUT_PATH: outputPath,
+          GRANTED_UPDATE_POST_CORE_REQUESTED_CHANNEL: "beta",
+          GRANTED_UPDATE_POST_CORE_SOURCE_CONFIG_PATH: "/tmp/stale-config.json",
         },
         async () => {
           const outcome = await runPostCoreFinalizeAfterGatewayUpdate({
@@ -215,7 +215,7 @@ fs.writeFileSync(process.env.OPENCLAW_TEST_OUTPUT_PATH, JSON.stringify({
 
     expect(
       expectDefined(spawnFinalize.mock.calls[0], "spawnFinalize.mock.calls[0] test invariant")[0]
-        .env.OPENCLAW_SERVICE_REPAIR_POLICY,
+        .env.GRANTED_SERVICE_REPAIR_POLICY,
     ).toBe("external");
   });
 
@@ -233,7 +233,7 @@ fs.writeFileSync(process.env.OPENCLAW_TEST_OUTPUT_PATH, JSON.stringify({
     // No configured channel → effective channel defaults to the git/dev channel
     // the core update ran on, carried via env (convergence-only, not persisted),
     // never as `--channel` (which `update finalize` would persist to openclaw.json).
-    expect(call.env.OPENCLAW_UPDATE_EFFECTIVE_CHANNEL).toBe("dev");
+    expect(call.env.GRANTED_UPDATE_EFFECTIVE_CHANNEL).toBe("dev");
     expect(call.argv).not.toContain("--channel");
     expect(call.argv).not.toContain("--timeout");
     // No per-step timeout requested → outer backstop is the floor.
@@ -255,7 +255,7 @@ fs.writeFileSync(process.env.OPENCLAW_TEST_OUTPUT_PATH, JSON.stringify({
     };
     let sourceConfigPath: string | undefined;
     const spawnFinalize = vi.fn<PostCoreFinalizeSpawner>(async ({ env }) => {
-      sourceConfigPath = env.OPENCLAW_UPDATE_POST_CORE_SOURCE_CONFIG_PATH;
+      sourceConfigPath = env.GRANTED_UPDATE_POST_CORE_SOURCE_CONFIG_PATH;
       expect(sourceConfigPath).toEqual(expect.any(String));
       await expect(fs.readFile(sourceConfigPath!, "utf-8")).resolves.toBe(
         `${JSON.stringify(preUpdateConfig)}\n`,

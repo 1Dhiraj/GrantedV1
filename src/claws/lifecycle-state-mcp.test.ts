@@ -46,7 +46,7 @@ async function addMcpFixture() {
     source,
     context: { workspace: join(root, "workspace-worker") },
   });
-  const env = { OPENCLAW_STATE_DIR: join(root, "state") };
+  const env = { GRANTED_STATE_DIR: join(root, "state") };
   let config: OpenClawConfig = {};
   await applyClawAddPlan(plan, {
     consentPlanIntegrity: plan.planIntegrity,

@@ -27,7 +27,7 @@ describe("managed GitHub profile startup cleanup", () => {
 
   it("removes only unreferenced generations inside exact system and agent roots", async () => {
     const stateDir = await fs.realpath(tempDirs.make("openclaw-github-cleanup-"));
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const agentDir = path.join(stateDir, "mutable-agent-dir");
     const systemRoot = resolveManagedGitHubProfileRoot({
       agentId: "system",
@@ -85,7 +85,7 @@ describe("managed GitHub profile startup cleanup", () => {
 
   it("removes the complete safe profile root for an agent no longer configured", async () => {
     const stateDir = await fs.realpath(tempDirs.make("openclaw-github-cleanup-removed-agent-"));
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const removedRoot = resolveManagedGitHubProfileRoot({
       agentId: "removed-agent",
       scope: "agent",
@@ -107,7 +107,7 @@ describe("managed GitHub profile startup cleanup", () => {
 
   it("preserves a durable recovery generation until its OAuth record retires", async () => {
     const stateDir = await fs.realpath(tempDirs.make("openclaw-github-cleanup-recovery-"));
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const systemRoot = resolveManagedGitHubProfileRoot({
       agentId: "system",
       scope: "system",
@@ -165,7 +165,7 @@ describe("managed GitHub profile startup cleanup", () => {
 
     const result = await cleanupRetiredManagedGitHubProfiles({
       config: {},
-      env: { OPENCLAW_STATE_DIR: stateDir },
+      env: { GRANTED_STATE_DIR: stateDir },
     });
 
     expect(result.removed).toBe(0);

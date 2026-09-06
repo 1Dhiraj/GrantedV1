@@ -21,9 +21,9 @@ describe("probeTelegram startup retry loop honors abortSignal", () => {
       "http_proxy",
       "https_proxy",
       "all_proxy",
-      "OPENCLAW_PROXY_URL",
-      "OPENCLAW_DEBUG_PROXY_ENABLED",
-      "OPENCLAW_DEBUG_PROXY_URL",
+      "GRANTED_PROXY_URL",
+      "GRANTED_DEBUG_PROXY_ENABLED",
+      "GRANTED_DEBUG_PROXY_URL",
     ]) {
       vi.stubEnv(name, "");
     }

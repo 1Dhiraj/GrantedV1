@@ -128,13 +128,13 @@ describe("cli json stdout contract", () => {
         )}`;
         const result = runBuiltCli(tempHome, testCase.args, {
           NODE_OPTIONS: `--import=${preload}`,
-          OPENCLAW_STATE_DIR: path.join(tempHome, "isolated-state"),
-          OPENCLAW_CONFIG_PATH: configPath,
-          OPENCLAW_GATEWAY_PORT: "1",
+          GRANTED_STATE_DIR: path.join(tempHome, "isolated-state"),
+          GRANTED_CONFIG_PATH: configPath,
+          GRANTED_GATEWAY_PORT: "1",
           ...("explicitGateway" in testCase
             ? {
-                OPENCLAW_GATEWAY_URL: "ws://127.0.0.1:9",
-                OPENCLAW_GATEWAY_TOKEN: "fixture-token",
+                GRANTED_GATEWAY_URL: "ws://127.0.0.1:9",
+                GRANTED_GATEWAY_TOKEN: "fixture-token",
               }
             : {}),
         });
@@ -173,9 +173,9 @@ describe("cli json stdout contract", () => {
         )}`;
         const result = runBuiltCli(tempHome, ["skills", "search", "fixture"], {
           NODE_OPTIONS: `--import=${preload}`,
-          OPENCLAW_DEBUG: testCase.debug,
-          OPENCLAW_STATE_DIR: path.join(tempHome, "isolated-state"),
-          OPENCLAW_CONFIG_PATH: path.join(tempHome, "missing-openclaw.json"),
+          GRANTED_DEBUG: testCase.debug,
+          GRANTED_STATE_DIR: path.join(tempHome, "isolated-state"),
+          GRANTED_CONFIG_PATH: path.join(tempHome, "missing-openclaw.json"),
         });
 
         expect(result.status, result.stderr).toBe(1);

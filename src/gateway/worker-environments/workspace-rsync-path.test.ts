@@ -54,13 +54,13 @@ describe.skipIf(process.platform === "win32")("workspace rsync receiver path", (
     const rsync = resolvedRsync.stdout.trim();
     await fs.writeFile(
       path.join(tools, "rsync"),
-      '#!/bin/sh\nset -eu\nprintf "%s\\0" "$@" > "$OPENCLAW_TEST_RECEIVER_ARGV"\nexec "$OPENCLAW_TEST_REAL_RSYNC" "$@"\n',
+      '#!/bin/sh\nset -eu\nprintf "%s\\0" "$@" > "$GRANTED_TEST_RECEIVER_ARGV"\nexec "$GRANTED_TEST_REAL_RSYNC" "$@"\n',
       { mode: 0o755 },
     );
     const fakeSsh = path.join(tools, "ssh");
     await fs.writeFile(
       fakeSsh,
-      '#!/bin/sh\nset -eu\nshift\nprintf "%s\\0" "$@" > "$OPENCLAW_TEST_SSH_ARGV"\ncd "$HOME"\nexec sh -c "$*"\n',
+      '#!/bin/sh\nset -eu\nshift\nprintf "%s\\0" "$@" > "$GRANTED_TEST_SSH_ARGV"\ncd "$HOME"\nexec sh -c "$*"\n',
       { mode: 0o755 },
     );
 
@@ -121,9 +121,9 @@ describe.skipIf(process.platform === "win32")("workspace rsync receiver path", (
           ...process.env,
           HOME: canonicalHome,
           PATH: `${tools}:${process.env.PATH ?? ""}`,
-          OPENCLAW_TEST_REAL_RSYNC: rsync,
-          OPENCLAW_TEST_RECEIVER_ARGV: receiverArgvPath,
-          OPENCLAW_TEST_SSH_ARGV: sshArgvPath,
+          GRANTED_TEST_REAL_RSYNC: rsync,
+          GRANTED_TEST_RECEIVER_ARGV: receiverArgvPath,
+          GRANTED_TEST_SSH_ARGV: sshArgvPath,
         },
       },
     );

@@ -17,7 +17,7 @@ function runMutateMetadata(configPath: string) {
     encoding: "utf8",
     env: {
       ...process.env,
-      OPENCLAW_CONFIG_PATH: configPath,
+      GRANTED_CONFIG_PATH: configPath,
     },
   });
 }

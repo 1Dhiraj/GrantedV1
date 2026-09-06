@@ -65,7 +65,7 @@ describe("remote workspace mutation receiver script", () => {
       expect(fifo.code).toBe(0);
       await fs.writeFile(
         path.join(bin, "rsync"),
-        '#!/bin/sh\nset -eu\n( : > "$OPENCLAW_TEST_RECEIVER_MARKER"; read -r _ < "$OPENCLAW_TEST_RECEIVER_GATE"; printf "late\\n" > "$OPENCLAW_TEST_RECEIVER_WORKSPACE/late.txt" ) </dev/null >/dev/null 2>&1 &\nexit 0\n',
+        '#!/bin/sh\nset -eu\n( : > "$GRANTED_TEST_RECEIVER_MARKER"; read -r _ < "$GRANTED_TEST_RECEIVER_GATE"; printf "late\\n" > "$GRANTED_TEST_RECEIVER_WORKSPACE/late.txt" ) </dev/null >/dev/null 2>&1 &\nexit 0\n',
         { mode: 0o755 },
       );
       await fs.writeFile(
@@ -73,8 +73,8 @@ describe("remote workspace mutation receiver script", () => {
         String.raw`const fs = require("node:fs");
 const kill = process.kill.bind(process);
 process.kill = function(pid, signal) {
-  if (signal === 0 && pid < 0 && process.argv[4] === process.env.OPENCLAW_TEST_RESET_NONCE) {
-    fs.writeFileSync(process.env.OPENCLAW_TEST_CONTENDER_MARKER, "");
+  if (signal === 0 && pid < 0 && process.argv[4] === process.env.GRANTED_TEST_RESET_NONCE) {
+    fs.writeFileSync(process.env.GRANTED_TEST_CONTENDER_MARKER, "");
   }
   return kill(pid, signal);
 };
@@ -86,11 +86,11 @@ process.kill = function(pid, signal) {
         ...process.env,
         HOME: home,
         PATH: `${bin}:${process.env.PATH ?? ""}`,
-        OPENCLAW_TEST_RECEIVER_GATE: gate,
-        OPENCLAW_TEST_RECEIVER_MARKER: receiverMarker,
-        OPENCLAW_TEST_RECEIVER_WORKSPACE: workspace,
-        OPENCLAW_TEST_RESET_NONCE: resetNonce,
-        OPENCLAW_TEST_CONTENDER_MARKER: contenderMarker,
+        GRANTED_TEST_RECEIVER_GATE: gate,
+        GRANTED_TEST_RECEIVER_MARKER: receiverMarker,
+        GRANTED_TEST_RECEIVER_WORKSPACE: workspace,
+        GRANTED_TEST_RESET_NONCE: resetNonce,
+        GRANTED_TEST_CONTENDER_MARKER: contenderMarker,
       };
       const receiverCommand = createWorkerWorkspaceRsyncReceiverPathFactory({
         receiverEntryPath: workerWorkspaceRsyncReceiverEntryPath(BUNDLE_HASH),
@@ -212,11 +212,11 @@ process.kill = function(pid, signal) {
 const renameSync = fs.renameSync.bind(fs);
 fs.renameSync = function(source, destination) {
   if (
-    process.argv[4] === process.env.OPENCLAW_TEST_RECEIVER_NONCE &&
+    process.argv[4] === process.env.GRANTED_TEST_RECEIVER_NONCE &&
     destination.includes(".released.")
   ) {
-    fs.writeFileSync(process.env.OPENCLAW_TEST_RELEASE_MARKER, "");
-    if (fs.readFileSync(process.env.OPENCLAW_TEST_RELEASE_GATE, "utf8").trim() !== "release") {
+    fs.writeFileSync(process.env.GRANTED_TEST_RELEASE_MARKER, "");
+    if (fs.readFileSync(process.env.GRANTED_TEST_RELEASE_GATE, "utf8").trim() !== "release") {
       throw new Error("invalid receiver controller release gate");
     }
   }
@@ -227,10 +227,10 @@ process.kill = function(pid, signal) {
   const result = kill(pid, signal);
   if (
     signal === 0 &&
-    process.argv[4] === process.env.OPENCLAW_TEST_RESET_NONCE &&
-    pid === Number(process.env.OPENCLAW_TEST_CONTROLLER_PID)
+    process.argv[4] === process.env.GRANTED_TEST_RESET_NONCE &&
+    pid === Number(process.env.GRANTED_TEST_CONTROLLER_PID)
   ) {
-    fs.writeFileSync(process.env.OPENCLAW_TEST_CONTENDER_MARKER, "");
+    fs.writeFileSync(process.env.GRANTED_TEST_CONTENDER_MARKER, "");
   }
   return result;
 };
@@ -242,11 +242,11 @@ process.kill = function(pid, signal) {
         ...process.env,
         HOME: home,
         PATH: `${bin}:${process.env.PATH ?? ""}`,
-        OPENCLAW_TEST_RECEIVER_NONCE: receiverNonce,
-        OPENCLAW_TEST_RESET_NONCE: resetNonce,
-        OPENCLAW_TEST_RELEASE_GATE: releaseGate,
-        OPENCLAW_TEST_RELEASE_MARKER: releaseMarker,
-        OPENCLAW_TEST_CONTENDER_MARKER: contenderMarker,
+        GRANTED_TEST_RECEIVER_NONCE: receiverNonce,
+        GRANTED_TEST_RESET_NONCE: resetNonce,
+        GRANTED_TEST_RELEASE_GATE: releaseGate,
+        GRANTED_TEST_RELEASE_MARKER: releaseMarker,
+        GRANTED_TEST_CONTENDER_MARKER: contenderMarker,
       };
       const receiverCommand = createWorkerWorkspaceRsyncReceiverPathFactory({
         receiverEntryPath: workerWorkspaceRsyncReceiverEntryPath(BUNDLE_HASH),
@@ -307,7 +307,7 @@ process.kill = function(pid, signal) {
           ],
           {
             timeoutMs: 10_000,
-            baseEnv: { ...env, OPENCLAW_TEST_CONTROLLER_PID: String(owner.controllerPid) },
+            baseEnv: { ...env, GRANTED_TEST_CONTROLLER_PID: String(owner.controllerPid) },
           },
         );
         void reset.then(

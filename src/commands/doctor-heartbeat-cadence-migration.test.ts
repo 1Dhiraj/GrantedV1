@@ -19,7 +19,7 @@ let originalStateDir: string | undefined;
 
 beforeEach(() => {
   originalHome = process.env.HOME;
-  originalStateDir = process.env.OPENCLAW_STATE_DIR;
+  originalStateDir = process.env.GRANTED_STATE_DIR;
 });
 
 afterEach(async () => {
@@ -31,9 +31,9 @@ afterEach(async () => {
     process.env.HOME = originalHome;
   }
   if (originalStateDir === undefined) {
-    delete process.env.OPENCLAW_STATE_DIR;
+    delete process.env.GRANTED_STATE_DIR;
   } else {
-    process.env.OPENCLAW_STATE_DIR = originalStateDir;
+    process.env.GRANTED_STATE_DIR = originalStateDir;
   }
   await Promise.all(tempDirs.splice(0).map((dir) => fs.rm(dir, { recursive: true, force: true })));
 });
@@ -42,7 +42,7 @@ async function createFixture(every = "15m") {
   const root = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-heartbeat-cadence-"));
   tempDirs.push(root);
   process.env.HOME = path.join(root, "home");
-  process.env.OPENCLAW_STATE_DIR = root;
+  process.env.GRANTED_STATE_DIR = root;
   const env = process.env;
   const cfg = {
     agents: {
@@ -216,12 +216,12 @@ describe("heartbeat cadence cron migration", () => {
     );
     tempDirs.push(ambientRoot, suppliedRoot);
     process.env.HOME = path.join(ambientRoot, "home");
-    process.env.OPENCLAW_STATE_DIR = ambientRoot;
+    process.env.GRANTED_STATE_DIR = ambientRoot;
     const ambientEnv = { ...process.env };
     const suppliedEnv = {
       ...process.env,
       HOME: path.join(suppliedRoot, "home"),
-      OPENCLAW_STATE_DIR: suppliedRoot,
+      GRANTED_STATE_DIR: suppliedRoot,
     };
     const ambientIdentity = loadOrCreateDeviceIdentity({ env: ambientEnv });
     const suppliedIdentity = loadOrCreateDeviceIdentity({ env: suppliedEnv });

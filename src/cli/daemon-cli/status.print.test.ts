@@ -141,14 +141,14 @@ describe("printDaemonStatus", () => {
     const command: GatewayServiceCommandConfig = {
       programArguments: ["node"],
       environment: {
-        OPENCLAW_STATE_DIR: "/tmp",
-        OPENCLAW_GATEWAY_TOKEN: "effective-gateway-token",
+        GRANTED_STATE_DIR: "/tmp",
+        GRANTED_GATEWAY_TOKEN: "effective-gateway-token",
       },
       managedDefinition: {
         programArguments: ["node"],
-        environment: { OPENCLAW_GATEWAY_TOKEN: "managed-base-gateway-token" },
+        environment: { GRANTED_GATEWAY_TOKEN: "managed-base-gateway-token" },
       },
-      managedOverrides: { launcher: "command", environment: { keys: ["OPENCLAW_GATEWAY_TOKEN"] } },
+      managedOverrides: { launcher: "command", environment: { keys: ["GRANTED_GATEWAY_TOKEN"] } },
       definitionPaths: ["/etc/systemd/user/private-definition.conf"],
       reloadPending: true,
     };
@@ -296,7 +296,7 @@ describe("printDaemonStatus", () => {
         const logFileAlias = logFile.toUpperCase();
         expect(fs.statSync(logFileAlias).isFile()).toBe(true);
 
-        await withEnv({ OPENCLAW_HOME: home }, async () => {
+        await withEnv({ GRANTED_HOME: home }, async () => {
           printDaemonStatus(
             {
               service: {
@@ -314,7 +314,7 @@ describe("printDaemonStatus", () => {
 
         expectMockLineContains(
           runtime.log,
-          `File logs: $OPENCLAW_HOME${path.sep}LOGS${path.sep}GATEWAY.LOG`,
+          `File logs: $GRANTED_HOME${path.sep}LOGS${path.sep}GATEWAY.LOG`,
         );
         expect(runtime.log.mock.calls.flat().join("\n")).not.toContain(home.toUpperCase());
       });

@@ -45,7 +45,7 @@ function createDatabase() {
 describe("repairLegacySubagentSuspensionReasons", () => {
   it("rewrites the shipped reason on open and stays canonical after a second open", () => {
     const stateDir = tempDirs.make("openclaw-subagent-suspension-backfill-");
-    const options = { env: { OPENCLAW_STATE_DIR: stateDir } };
+    const options = { env: { GRANTED_STATE_DIR: stateDir } };
     const initial = openOpenClawStateDatabase(options);
     const runId = "legacy-retry-limit";
     initial.db

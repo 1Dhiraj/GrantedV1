@@ -388,7 +388,7 @@ export function createMatrixQaScenarioEnvironment(params: MatrixQaScenarioEnviro
       observerPassword: params.provisioning.observer.password,
       observerUserId: params.provisioning.observer.userId,
       gatewayRuntimeEnv: input.gateway.runtimeEnv,
-      gatewayStateDir: input.gateway.runtimeEnv.OPENCLAW_STATE_DIR,
+      gatewayStateDir: input.gateway.runtimeEnv.GRANTED_STATE_DIR,
       gatewayWorkspaceDir: input.gateway.workspaceDir,
       gatewayCall: async (
         method: string,

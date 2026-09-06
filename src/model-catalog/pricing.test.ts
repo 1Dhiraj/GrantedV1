@@ -398,7 +398,7 @@ describe("hosted model pricing", () => {
     },
   ])("requires exact authoritative hosted zero evidence: $name", (scenario) => {
     const agentDir = tempDirs.make("openclaw-native-zero-policy-");
-    vi.stubEnv("OPENCLAW_STATE_DIR", agentDir);
+    vi.stubEnv("GRANTED_STATE_DIR", agentDir);
     const config: OpenClawConfig = {
       plugins: { allow: ["venice"], entries: { venice: { enabled: !scenario.disabled } } },
       ...(scenario.private
@@ -588,7 +588,7 @@ describe("hosted model pricing", () => {
       };
       setRuntimeConfigSnapshot(runtime, source);
       const agentDir = tempDirs.make("openclaw-authored-pricing-");
-      vi.stubEnv("OPENCLAW_STATE_DIR", agentDir);
+      vi.stubEnv("GRANTED_STATE_DIR", agentDir);
       const fetch = vi.fn(() => {
         throw new Error("pricing display must not use the network");
       });

@@ -194,7 +194,7 @@ export function setupBundledDreamingMemoryPlugins(params?: {
     { dir: selectedMemoryDir },
     { kind: params?.selectedKind ?? "memory", configSchema: openSchema },
   );
-  process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = bundledDir;
+  process.env.GRANTED_BUNDLED_PLUGINS_DIR = bundledDir;
   return { bundledDir, selectedId };
 }
 
@@ -216,8 +216,8 @@ export function writeBundledPlugin(params: {
     filename: params.filename ?? "index.cjs",
     body: params.body ?? simplePluginBody(params.id),
   });
-  delete process.env.OPENCLAW_DISABLE_BUNDLED_PLUGINS;
-  process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = bundledDir;
+  delete process.env.GRANTED_DISABLE_BUNDLED_PLUGINS;
+  process.env.GRANTED_BUNDLED_PLUGINS_DIR = bundledDir;
   return { bundledDir, plugin };
 }
 
@@ -250,7 +250,7 @@ export function writeWorkspacePlugin(params: {
 
 export function withStateDir<T>(run: (stateDir: string) => T) {
   const stateDir = makePluginLoaderTempDir();
-  return withEnv({ OPENCLAW_STATE_DIR: stateDir }, () => run(stateDir));
+  return withEnv({ GRANTED_STATE_DIR: stateDir }, () => run(stateDir));
 }
 
 export function loadBundledMemoryPluginRegistry(options?: {
@@ -259,7 +259,7 @@ export function loadBundledMemoryPluginRegistry(options?: {
   pluginFilename?: string;
 }) {
   if (!options && cachedBundledMemoryDir) {
-    process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = cachedBundledMemoryDir;
+    process.env.GRANTED_BUNDLED_PLUGINS_DIR = cachedBundledMemoryDir;
     return loadOpenClawPlugins({
       cache: false,
       workspaceDir: cachedBundledMemoryDir,
@@ -308,7 +308,7 @@ export function loadBundledMemoryPluginRegistry(options?: {
   if (!options) {
     cachedBundledMemoryDir = bundledDir;
   }
-  process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = bundledDir;
+  process.env.GRANTED_BUNDLED_PLUGINS_DIR = bundledDir;
 
   return loadOpenClawPlugins({
     cache: false,
@@ -333,7 +333,7 @@ export function setupBundledTelegramPlugin() {
       filename: "telegram.cjs",
     });
   }
-  process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = cachedBundledTelegramDir;
+  process.env.GRANTED_BUNDLED_PLUGINS_DIR = cachedBundledTelegramDir;
 }
 
 export function expectTelegramLoaded(registry: ReturnType<typeof loadOpenClawPlugins>) {
@@ -881,10 +881,10 @@ export function createEnvResolvedPluginFixture(pluginId: string) {
   });
   const env = {
     ...process.env,
-    OPENCLAW_HOME: openclawHome,
+    GRANTED_HOME: openclawHome,
     HOME: ignoredHome,
-    OPENCLAW_STATE_DIR: stateDir,
-    OPENCLAW_BUNDLED_PLUGINS_DIR: "/nonexistent/bundled/plugins",
+    GRANTED_STATE_DIR: stateDir,
+    GRANTED_BUNDLED_PLUGINS_DIR: "/nonexistent/bundled/plugins",
   };
   return { plugin, env };
 }

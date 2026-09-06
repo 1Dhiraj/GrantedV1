@@ -1,7 +1,7 @@
 import type { EmbeddedRunAttemptParamsV2 as EmbeddedRunAttemptParams } from "openclaw/plugin-sdk/agent-harness-runtime";
 import { describe, expect, it } from "vitest";
 import {
-  CODEX_OPENCLAW_DIRECT_DYNAMIC_TOOL_NAMESPACE,
+  CODEX_GRANTED_DIRECT_DYNAMIC_TOOL_NAMESPACE,
   type CodexDynamicToolSpec,
 } from "./protocol.js";
 import { buildDeveloperInstructions } from "./thread-prompt.js";
@@ -27,7 +27,7 @@ const delegationTools: CodexDynamicToolSpec[] = [
   },
   {
     type: "namespace",
-    name: CODEX_OPENCLAW_DIRECT_DYNAMIC_TOOL_NAMESPACE,
+    name: CODEX_GRANTED_DIRECT_DYNAMIC_TOOL_NAMESPACE,
     description: "Direct OpenClaw tools",
     tools: [
       {

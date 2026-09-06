@@ -49,7 +49,7 @@ function createDatabaseOptions(): OpenClawStateDatabaseOptions {
     fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-standing-grant-")),
   );
   tempDirs.push(stateDir);
-  return { env: { ...process.env, OPENCLAW_STATE_DIR: stateDir } };
+  return { env: { ...process.env, GRANTED_STATE_DIR: stateDir } };
 }
 
 afterEach(() => {

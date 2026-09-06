@@ -67,7 +67,7 @@ export function buildGatewayConnectionDetailsWithResolvers(
   const envUrlOverride =
     cliUrlOverride || options.ignoreEnvUrlOverride || options.localPortOverride !== undefined
       ? undefined
-      : normalizeOptionalString(process.env.OPENCLAW_GATEWAY_URL);
+      : normalizeOptionalString(process.env.GRANTED_GATEWAY_URL);
   const urlOverride = cliUrlOverride ?? envUrlOverride;
   const remoteUrl = normalizeOptionalString(remote?.url);
   const remoteMisconfigured = isRemoteMode && !urlOverride && !remoteUrl;
@@ -77,7 +77,7 @@ export function buildGatewayConnectionDetailsWithResolvers(
   const displayUrl = redactSensitiveUrlLikeString(url);
   const urlSource = urlOverride
     ? urlSourceHint === "env"
-      ? "env OPENCLAW_GATEWAY_URL"
+      ? "env GRANTED_GATEWAY_URL"
       : "cli --url"
     : remoteUrl
       ? "config gateway.remote.url"
@@ -89,7 +89,7 @@ export function buildGatewayConnectionDetailsWithResolvers(
     ? "Warn: gateway.mode=remote but gateway.remote.url is missing; set gateway.remote.url or switch gateway.mode=local."
     : undefined;
 
-  const allowPrivateWs = process.env.OPENCLAW_ALLOW_INSECURE_PRIVATE_WS === "1";
+  const allowPrivateWs = process.env.GRANTED_ALLOW_INSECURE_PRIVATE_WS === "1";
   if (!isSecureWebSocketUrl(url, { allowPrivateWs })) {
     throw new Error(
       [
@@ -103,7 +103,7 @@ export function buildGatewayConnectionDetailsWithResolvers(
         "- or use Tailscale Serve/Funnel for HTTPS remote access",
         allowPrivateWs
           ? undefined
-          : "Break-glass (trusted private networks only): set OPENCLAW_ALLOW_INSECURE_PRIVATE_WS=1",
+          : "Break-glass (trusted private networks only): set GRANTED_ALLOW_INSECURE_PRIVATE_WS=1",
         "Doctor: openclaw doctor --fix",
         "Docs: https://docs.openclaw.ai/gateway/remote",
       ].join("\n"),

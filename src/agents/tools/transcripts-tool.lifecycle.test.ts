@@ -65,7 +65,7 @@ function harness() {
       meetingUrl: "https://meeting.example/room?private=opaque#fragment",
     });
   const store = new TranscriptsStore(path.join(stateDir, "transcripts"), {
-    env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+    env: { ...process.env, GRANTED_STATE_DIR: stateDir },
   });
   const session = async () => {
     const value = await store.readSession("notes");

@@ -156,7 +156,7 @@ describe("auth publication owner receipts", () => {
     async ({ unreadableLocal, populated }) => {
       const root = await seedRoot("original");
       const oauthDir = tempDirs.make("openclaw-auth-owner-late-oauth-");
-      const env = { ...root.env, OPENCLAW_OAUTH_DIR: oauthDir };
+      const env = { ...root.env, GRANTED_OAUTH_DIR: oauthDir };
       withEnv(env, () =>
         setRuntimeAuthProfileStoreSnapshot(
           loadAuthProfileStoreWithoutExternalProfiles(root.agentDir),
@@ -353,7 +353,7 @@ describe("auth publication owner receipts", () => {
   it("retains a prepared owner's relocated legacy OAuth discovery during local rebuild", async () => {
     const root = await seedRoot("original");
     const oauthDir = tempDirs.make("openclaw-auth-owner-legacy-oauth-");
-    const env = { ...root.env, OPENCLAW_OAUTH_DIR: oauthDir };
+    const env = { ...root.env, GRANTED_OAUTH_DIR: oauthDir };
     withEnv(env, () => {
       saveAuthProfileStore({ version: 1, profiles: {} }, undefined, saveOptions);
       setRuntimeAuthProfileStoreSnapshot(
@@ -465,7 +465,7 @@ describe("auth publication owner receipts", () => {
   it("keeps the original shared owner after a bounded temporary-state exec save", async () => {
     const original = await seedRoot("original");
     const temporary = tempDirs.make("openclaw-auth-owner-bounded-temp-");
-    withEnv({ ...original.env, OPENCLAW_STATE_DIR: temporary }, () => {
+    withEnv({ ...original.env, GRANTED_STATE_DIR: temporary }, () => {
       withAuthProfileStoreAgentDir(original.agentDir, original.stateDir, () => {
         const current = ensureAuthProfileStoreWithoutExternalProfiles();
         saveAuthProfileStore(current, undefined, saveOptions);
@@ -493,7 +493,7 @@ describe("auth publication owner receipts", () => {
     });
     expect(snapshotAt(original.agentPath)?.profiles["shared-oauth"]).toEqual(oauth);
     const temporary = tempDirs.make("openclaw-auth-owner-bounded-oauth-");
-    withEnv({ ...original.env, OPENCLAW_STATE_DIR: temporary }, () => {
+    withEnv({ ...original.env, GRANTED_STATE_DIR: temporary }, () => {
       withAuthProfileStoreAgentDir(original.agentDir, original.stateDir, () => {
         const current = ensureAuthProfileStoreWithoutExternalProfiles();
         expect(current.profiles["shared-oauth"]).toBeUndefined();
@@ -582,8 +582,8 @@ describe("auth publication owner receipts", () => {
         agentDir: tempDirs.make("openclaw-auth-owner-aliased-agent-"),
         env: {
           ...process.env,
-          OPENCLAW_STATE_DIR: tempDirs.make("openclaw-auth-owner-aliased-root-"),
-          OPENCLAW_AGENT_DIR: sharedDir,
+          GRANTED_STATE_DIR: tempDirs.make("openclaw-auth-owner-aliased-root-"),
+          GRANTED_AGENT_DIR: sharedDir,
         },
       }));
       writePersistedAuthProfileStoreRaw(store("original"), sharedDir);

@@ -399,7 +399,7 @@ describe("applyClawUpdatePlan", () => {
 
   it("preserves cron prerequisites when the gateway mutation outcome is uncertain", async () => {
     const root = tempDirs.make("openclaw-claw-update-apply-");
-    const env = { OPENCLAW_STATE_DIR: join(root, "state") };
+    const env = { GRANTED_STATE_DIR: join(root, "state") };
     const currentAddPlan: ClawAddPlan = {
       ...addPlan,
       claw: install.claw,
@@ -845,7 +845,7 @@ describe("applyClawUpdatePlan", () => {
         );
       }
       const updatePlan = plan(actions);
-      const env = { OPENCLAW_STATE_DIR: join(tempDirs.make("openclaw-claw-rollback-"), "state") };
+      const env = { GRANTED_STATE_DIR: join(tempDirs.make("openclaw-claw-rollback-"), "state") };
       const failure =
         stage === "package"
           ? new ClawPackageUpdateError("package failed", true)

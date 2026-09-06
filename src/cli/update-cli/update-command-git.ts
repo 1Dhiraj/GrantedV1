@@ -13,7 +13,7 @@ import {
 import { readCurrentGitUpdateRecovery } from "../../infra/update-runner-git-recovery.js";
 import { runGatewayUpdate, type UpdateRunResult } from "../../infra/update-runner.js";
 import { defaultRuntime } from "../../runtime.js";
-import { OPENCLAW_DATABASE_SCHEMA_DOCS_URL } from "../../state/openclaw-database-preflight.js";
+import { GRANTED_DATABASE_SCHEMA_DOCS_URL } from "../../state/openclaw-database-preflight.js";
 import type { OpenClawSchemaVersions } from "../../state/openclaw-schema-versions.js";
 import { splitShellArgs } from "../../utils/shell-argv.js";
 import { createUpdateProgress } from "./progress.js";
@@ -134,7 +134,7 @@ export function createBeforeGitMutation(params: {
     if (target?.metadataUnreadable) {
       throw new UpdatePreMutationError(
         "target-metadata-preflight",
-        `Update refused: could not inspect the target's schema support (${target.metadataUnreadable}). Retry, or see ${OPENCLAW_DATABASE_SCHEMA_DOCS_URL}.`,
+        `Update refused: could not inspect the target's schema support (${target.metadataUnreadable}). Retry, or see ${GRANTED_DATABASE_SCHEMA_DOCS_URL}.`,
       );
     }
     const preStopSchemas = checkTargetDatabaseSchemas(target?.schemaVersions);

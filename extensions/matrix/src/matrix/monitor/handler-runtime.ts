@@ -1,6 +1,6 @@
 import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
 import type { MatrixClient } from "../sdk.js";
-import { MATRIX_OPENCLAW_FINALIZED_PREVIEW_KEY } from "../send/types.js";
+import { MATRIX_GRANTED_FINALIZED_PREVIEW_KEY } from "../send/types.js";
 
 export type MatrixDraftStreamHandle = {
   update: (text: string) => void;
@@ -27,7 +27,7 @@ export async function redactMatrixDraftEvent(
 }
 
 export function buildMatrixFinalizedPreviewContent(): Record<string, unknown> {
-  return { [MATRIX_OPENCLAW_FINALIZED_PREVIEW_KEY]: true };
+  return { [MATRIX_GRANTED_FINALIZED_PREVIEW_KEY]: true };
 }
 
 export const loadMatrixSendModule = createLazyRuntimeModule(() => import("../send.js"));

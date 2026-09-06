@@ -111,7 +111,7 @@ describe("SQLite transcript history events", () => {
   beforeEach(() => {
     scope = {
       agentId: "main",
-      env: { ...process.env, OPENCLAW_STATE_DIR: tempDirs.make("openclaw-history-events-") },
+      env: { ...process.env, GRANTED_STATE_DIR: tempDirs.make("openclaw-history-events-") },
       sessionId: "history-events-test",
       sessionKey: "agent:main:history-events-test",
     };

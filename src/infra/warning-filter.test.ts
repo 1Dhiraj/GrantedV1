@@ -83,14 +83,14 @@ describe("warning filter", () => {
   it("routes only Node's warning printer at WARN across repeated capture setup", () => {
     const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-warning-filter-"));
     const logFile = path.join(tempDir, "warning.log");
-    const marker = "OPENCLAW_WARNING_LEVEL_PROBE";
-    const applicationMarker = "OPENCLAW_FORGED_WARNING_PREFIX_ERROR";
+    const marker = "GRANTED_WARNING_LEVEL_PROBE";
+    const applicationMarker = "GRANTED_FORGED_WARNING_PREFIX_ERROR";
     const source = `
       process.on("warning", () => console.error("(" + process.release.name + ":" + process.pid + ") ${applicationMarker}"));
       const { installProcessWarningFilter } = await import("./src/infra/warning-filter.ts");
       const { enableConsoleCapture } = await import("./src/logging/console.ts");
       const { flushLogger, setLoggerOverride } = await import("./src/logging/logger.ts");
-      setLoggerOverride({ level: "trace", file: process.env.OPENCLAW_WARNING_LOG, consoleLevel: "silent" });
+      setLoggerOverride({ level: "trace", file: process.env.GRANTED_WARNING_LOG, consoleLevel: "silent" });
       installProcessWarningFilter();
       enableConsoleCapture();
       enableConsoleCapture();
@@ -100,7 +100,7 @@ describe("warning filter", () => {
     `;
 
     try {
-      const childEnv: NodeJS.ProcessEnv = { ...process.env, OPENCLAW_WARNING_LOG: logFile };
+      const childEnv: NodeJS.ProcessEnv = { ...process.env, GRANTED_WARNING_LOG: logFile };
       delete childEnv.NODE_OPTIONS;
       delete childEnv.NODE_REDIRECT_WARNINGS;
       delete childEnv.NODE_NO_WARNINGS;
@@ -175,22 +175,22 @@ describe("warning filter", () => {
         ),
       ).toBeUndefined();
 
-      emitWarning("Visible warning", { type: "Warning", code: "OPENCLAW_TEST_WARNING" });
+      emitWarning("Visible warning", { type: "Warning", code: "GRANTED_TEST_WARNING" });
       emitWarning(
         Object.assign(new Error("The punycode module is deprecated."), {
           name: "DeprecationWarning",
           code: "DEP0040",
         }),
-        { type: "Warning", code: "OPENCLAW_VISIBLE_OVERRIDE" },
+        { type: "Warning", code: "GRANTED_VISIBLE_OVERRIDE" },
       );
       await flushWarnings();
-      expect(
-        seenWarnings.find((warning) => warning.code === "OPENCLAW_TEST_WARNING"),
-      ).toStrictEqual({
-        code: "OPENCLAW_TEST_WARNING",
-        name: "Warning",
-        message: "Visible warning",
-      });
+      expect(seenWarnings.find((warning) => warning.code === "GRANTED_TEST_WARNING")).toStrictEqual(
+        {
+          code: "GRANTED_TEST_WARNING",
+          name: "Warning",
+          message: "Visible warning",
+        },
+      );
       expect(seenWarnings.find((warning) => warning.code === "DEP0040")).toStrictEqual({
         code: "DEP0040",
         name: "DeprecationWarning",

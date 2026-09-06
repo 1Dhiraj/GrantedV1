@@ -151,7 +151,7 @@ describe("automatic startup config repair", () => {
     const root = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-startup-repair-preview-"));
     try {
       await fs.mkdir(path.join(root, "state", "openclaw.sqlite"), { recursive: true });
-      await withEnvOverride({ OPENCLAW_STATE_DIR: root }, async () => {
+      await withEnvOverride({ GRANTED_STATE_DIR: root }, async () => {
         const snapshot = invalidSnapshot({
           config: { session: { idleMinutes: 45 } } as OpenClawConfig,
           issuePaths: ["session.idleMinutes"],

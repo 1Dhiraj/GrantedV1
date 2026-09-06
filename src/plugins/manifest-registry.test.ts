@@ -173,8 +173,8 @@ function loadRegistry(candidates: PluginCandidate[]) {
 
 function hermeticEnv(overrides: NodeJS.ProcessEnv = {}): NodeJS.ProcessEnv {
   return {
-    OPENCLAW_BUNDLED_PLUGINS_DIR: undefined,
-    OPENCLAW_VERSION: undefined,
+    GRANTED_BUNDLED_PLUGINS_DIR: undefined,
+    GRANTED_VERSION: undefined,
     VITEST: "true",
     ...overrides,
   };
@@ -499,7 +499,7 @@ describe("loadPluginManifestRegistry", () => {
       configSchema: { type: "object" },
     });
     const env = hermeticEnv({
-      OPENCLAW_STATE_DIR: stateDir,
+      GRANTED_STATE_DIR: stateDir,
     });
 
     const first = loadPluginManifestRegistryCore({ env });
@@ -861,7 +861,7 @@ describe("loadPluginManifestRegistry", () => {
       writeManifest(globalDir, manifest);
 
       const registry = loadPluginManifestRegistryCore({
-        env: hermeticEnv({ OPENCLAW_DEV_SOURCE_ROOT: devSourceRoot }),
+        env: hermeticEnv({ GRANTED_DEV_SOURCE_ROOT: devSourceRoot }),
         installRecords: {
           codex: {
             source: "npm",
@@ -2882,14 +2882,14 @@ describe("loadPluginManifestRegistry", () => {
     {
       name: "skips plugins whose minHostVersion is newer than the current host",
       minHostVersion: ">=2026.3.22",
-      env: { OPENCLAW_VERSION: "2026.3.21" } as NodeJS.ProcessEnv,
+      env: { GRANTED_VERSION: "2026.3.21" } as NodeJS.ProcessEnv,
       expectedMessage: "plugin requires OpenClaw >=2026.3.22, but this host is 2026.3.21",
       expectWarn: true,
     },
     {
       name: "skips plugins whose beta minHostVersion is newer than the current host",
       minHostVersion: ">=2026.5.1-beta.1",
-      env: { OPENCLAW_VERSION: "2026.4.30" } as NodeJS.ProcessEnv,
+      env: { GRANTED_VERSION: "2026.4.30" } as NodeJS.ProcessEnv,
       expectedMessage: "plugin requires OpenClaw >=2026.5.1-beta.1, but this host is 2026.4.30",
       expectWarn: true,
     },
@@ -2902,7 +2902,7 @@ describe("loadPluginManifestRegistry", () => {
     {
       name: "warns distinctly when host version cannot be determined",
       minHostVersion: ">=2026.3.22",
-      env: { OPENCLAW_VERSION: "unknown" } as NodeJS.ProcessEnv,
+      env: { GRANTED_VERSION: "unknown" } as NodeJS.ProcessEnv,
       expectedMessage: "host version could not be determined",
       expectWarn: true,
     },
@@ -2976,7 +2976,7 @@ describe("loadPluginManifestRegistry", () => {
           },
         }),
       ],
-      env: { OPENCLAW_VERSION: "2026.4.30" } as NodeJS.ProcessEnv,
+      env: { GRANTED_VERSION: "2026.4.30" } as NodeJS.ProcessEnv,
     });
 
     expect(registry.plugins.map((plugin) => plugin.id)).toContain("codex");
@@ -2990,13 +2990,13 @@ describe("loadPluginManifestRegistry", () => {
     const registry = loadRegistryForPluginApiCase({
       rootDir: dir,
       pluginApi: ">=2026.5.27",
-      env: { OPENCLAW_VERSION: "2026.5.10-beta.1" } as NodeJS.ProcessEnv,
+      env: { GRANTED_VERSION: "2026.5.10-beta.1" } as NodeJS.ProcessEnv,
     });
 
     expect(registry.plugins).toStrictEqual([]);
     expectRegistryDiagnosticContains(
       registry,
-      'plugin requires plugin API >=2026.5.27, but this host is 2026.5.10-beta.1; skipping load (check "openclaw --version", OPENCLAW_COMPATIBILITY_HOST_VERSION, or run "openclaw doctor")',
+      'plugin requires plugin API >=2026.5.27, but this host is 2026.5.10-beta.1; skipping load (check "openclaw --version", GRANTED_COMPATIBILITY_HOST_VERSION, or run "openclaw doctor")',
     );
     expect(registry.diagnostics.map((diag) => diag.level)).toContain("warn");
   });
@@ -3008,7 +3008,7 @@ describe("loadPluginManifestRegistry", () => {
     const registry = loadRegistryForPluginApiCase({
       rootDir: dir,
       pluginApi: 20260527,
-      env: { OPENCLAW_VERSION: "2026.5.27" } as NodeJS.ProcessEnv,
+      env: { GRANTED_VERSION: "2026.5.27" } as NodeJS.ProcessEnv,
     });
 
     expect(registry.plugins).toStrictEqual([]);
@@ -3026,7 +3026,7 @@ describe("loadPluginManifestRegistry", () => {
     const registry = loadRegistryForPluginApiCase({
       rootDir: dir,
       pluginApi: ">=2026.5.27",
-      env: { OPENCLAW_VERSION: "2026.5.27-beta.1" } as NodeJS.ProcessEnv,
+      env: { GRANTED_VERSION: "2026.5.27-beta.1" } as NodeJS.ProcessEnv,
     });
 
     expect(registry.plugins.map((plugin) => plugin.id)).toEqual(["synology-chat"]);
@@ -3042,7 +3042,7 @@ describe("loadPluginManifestRegistry", () => {
       pluginApi: ">=2026.5.27",
       origin: "bundled",
       idHint: "codex",
-      env: { OPENCLAW_VERSION: "2026.5.10-beta.1" } as NodeJS.ProcessEnv,
+      env: { GRANTED_VERSION: "2026.5.10-beta.1" } as NodeJS.ProcessEnv,
     });
 
     expect(registry.plugins.map((plugin) => plugin.id)).toContain("codex");
@@ -3344,7 +3344,7 @@ describe("loadPluginManifestRegistry", () => {
       return;
     }
     const registry = loadPluginManifestRegistryCore({
-      env: hermeticEnv({ OPENCLAW_NIX_MODE: "1" }),
+      env: hermeticEnv({ GRANTED_NIX_MODE: "1" }),
       candidates: [
         createPluginCandidate({
           idHint: "unsafe-config-hardlink",
@@ -3403,16 +3403,16 @@ describe("loadPluginManifestRegistry", () => {
       config,
       env: hermeticEnv({
         HOME: homeA,
-        OPENCLAW_HOME: undefined,
-        OPENCLAW_STATE_DIR: path.join(homeA, ".state"),
+        GRANTED_HOME: undefined,
+        GRANTED_STATE_DIR: path.join(homeA, ".state"),
       }),
     });
     const second = loadPluginManifestRegistryCore({
       config,
       env: hermeticEnv({
         HOME: homeB,
-        OPENCLAW_HOME: undefined,
-        OPENCLAW_STATE_DIR: path.join(homeB, ".state"),
+        GRANTED_HOME: undefined,
+        GRANTED_STATE_DIR: path.join(homeB, ".state"),
       }),
     });
 
@@ -3447,13 +3447,13 @@ describe("loadPluginManifestRegistry", () => {
     const olderHost = loadPluginManifestRegistryCore({
       candidates,
       env: hermeticEnv({
-        OPENCLAW_VERSION: "2026.3.21",
+        GRANTED_VERSION: "2026.3.21",
       }),
     });
     const newerHost = loadPluginManifestRegistryCore({
       candidates,
       env: hermeticEnv({
-        OPENCLAW_VERSION: "2026.3.22",
+        GRANTED_VERSION: "2026.3.22",
       }),
     });
 

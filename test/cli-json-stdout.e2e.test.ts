@@ -12,7 +12,7 @@ describe("cli json stdout contract", () => {
       context: "automation with an explicit endpoint",
       env: {
         CI: "1",
-        OPENCLAW_TELEMETRY_ENDPOINT: "https://telemetry.example.invalid/api/latest-version",
+        GRANTED_TELEMETRY_ENDPOINT: "https://telemetry.example.invalid/api/latest-version",
       },
       reason: "never-asked",
     },
@@ -46,8 +46,8 @@ describe("cli json stdout contract", () => {
             {
               ...env,
               NODE_OPTIONS: `--import=data:text/javascript;base64,${preload}`,
-              OPENCLAW_CONFIG_PATH: path.join(tempHome, "missing-openclaw.json"),
-              OPENCLAW_STATE_DIR: path.join(tempHome, "isolated-state"),
+              GRANTED_CONFIG_PATH: path.join(tempHome, "missing-openclaw.json"),
+              GRANTED_STATE_DIR: path.join(tempHome, "isolated-state"),
               ...(tty ? { FORCE_COLOR: "1" } : {}),
             },
             { inheritEnvironment: false },
@@ -55,7 +55,7 @@ describe("cli json stdout contract", () => {
 
           expect(result.status, result.stderr).toBe(0);
           const endpoint =
-            env.OPENCLAW_TELEMETRY_ENDPOINT ?? "https://telemetry.openclaw.ai/api/latest-version";
+            env.GRANTED_TELEMETRY_ENDPOINT ?? "https://telemetry.openclaw.ai/api/latest-version";
           if (format === "JSON") {
             expect(result.stdout, result.stderr).not.toMatch(/[\u001B\u0007]/u);
             const payload = JSON.parse(result.stdout);
@@ -201,10 +201,10 @@ describe("cli json stdout contract", () => {
           ).toString("base64");
           const result = runBuiltCli(tempHome, testCase.args, {
             NODE_OPTIONS: `--import=data:text/javascript;base64,${preload}`,
-            OPENCLAW_STATE_DIR: path.join(tempHome, "isolated-state"),
-            OPENCLAW_CONFIG_PATH: path.join(tempHome, "missing-openclaw.json"),
-            OPENCLAW_GATEWAY_PORT: "29871",
-            ...("commander" in testCase ? { OPENCLAW_DISABLE_ROUTE_FIRST: "1" } : {}),
+            GRANTED_STATE_DIR: path.join(tempHome, "isolated-state"),
+            GRANTED_CONFIG_PATH: path.join(tempHome, "missing-openclaw.json"),
+            GRANTED_GATEWAY_PORT: "29871",
+            ...("commander" in testCase ? { GRANTED_DISABLE_ROUTE_FIRST: "1" } : {}),
             ...("tty" in testCase ? { FORCE_COLOR: "1" } : {}),
           });
 
@@ -265,8 +265,8 @@ describe("cli json stdout contract", () => {
           },
         ]) {
           const result = runBuiltCli(tempHome, [...testCase.command, "--json", ...conflict.args], {
-            OPENCLAW_CONFIG_PATH: path.join(tempHome, "missing-openclaw.json"),
-            OPENCLAW_STATE_DIR: path.join(tempHome, "isolated-state"),
+            GRANTED_CONFIG_PATH: path.join(tempHome, "missing-openclaw.json"),
+            GRANTED_STATE_DIR: path.join(tempHome, "isolated-state"),
           });
 
           expect(result.status, result.stderr).toBe(1);
@@ -403,7 +403,7 @@ describe("cli json stdout contract", () => {
         expect(result.stderr.split(testCase.suggestion)).toHaveLength(2);
         expect(result.stderr).not.toContain("The CLI command failed.");
         expect(result.stderr).not.toContain("Could not start the CLI.");
-        expect(result.stderr).not.toContain("OPENCLAW_DEBUG");
+        expect(result.stderr).not.toContain("GRANTED_DEBUG");
         expect(result.stderr).not.toContain("openclaw doctor");
         if (testCase.args.includes("--help")) {
           expect(result.stdout).not.toContain("Usage: openclaw [options] [command]");
@@ -441,7 +441,7 @@ describe("cli json stdout contract", () => {
         expect(payload.error.message).toContain(testCase.diagnostic);
         expect(payload.error.message).not.toMatch(/^error:/i);
         expect(payload.error.message).toContain(`Did you mean this?\n  ${testCase.suggestion}`);
-        expect(payload.error.message).not.toContain("OPENCLAW_DEBUG");
+        expect(payload.error.message).not.toContain("GRANTED_DEBUG");
         expect(payload.error.message).not.toContain("openclaw doctor");
         expect(result.stderr).toContain(testCase.diagnostic);
         expect(result.stderr).toContain(`Did you mean this?\n  ${testCase.suggestion}`);
@@ -449,7 +449,7 @@ describe("cli json stdout contract", () => {
         expect(result.stderr.split(testCase.suggestion)).toHaveLength(2);
         expect(result.stderr).not.toContain("The CLI command failed.");
         expect(result.stderr).not.toContain("Could not start the CLI.");
-        expect(result.stderr).not.toContain("OPENCLAW_DEBUG");
+        expect(result.stderr).not.toContain("GRANTED_DEBUG");
         expect(result.stderr).not.toContain("openclaw doctor");
       },
       { prefix: "openclaw-unknown-command-json-e2e-" },
@@ -513,8 +513,8 @@ describe("cli json stdout contract", () => {
             "--json",
           ],
           {
-            OPENCLAW_BUNDLED_PLUGINS_DIR: bundledPluginsDir,
-            OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR: "1",
+            GRANTED_BUNDLED_PLUGINS_DIR: bundledPluginsDir,
+            GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR: "1",
           },
         );
 

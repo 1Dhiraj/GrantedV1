@@ -4,7 +4,7 @@
  */
 import { randomUUID } from "node:crypto";
 import { createInterface, type Interface as ReadlineInterface } from "node:readline";
-import { embeddedAgentLog, OPENCLAW_VERSION } from "openclaw/plugin-sdk/agent-harness-runtime";
+import { embeddedAgentLog, GRANTED_VERSION } from "openclaw/plugin-sdk/agent-harness-runtime";
 import { coerceErrorMessage, toStringifiedError } from "openclaw/plugin-sdk/error-runtime";
 import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
 import { sliceUtf16Safe, truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
@@ -333,7 +333,7 @@ export class CodexAppServerClient {
       clientInfo: {
         name: "openclaw",
         title: "OpenClaw",
-        version: OPENCLAW_VERSION,
+        version: GRANTED_VERSION,
       },
       capabilities: {
         experimentalApi: true,

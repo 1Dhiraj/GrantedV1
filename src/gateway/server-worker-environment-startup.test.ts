@@ -47,7 +47,7 @@ describe("gateway worker environment startup", () => {
     await fs.mkdir(staleRoot, { recursive: true });
     await fs.writeFile(path.join(staleRoot, "base.pack"), "stale");
 
-    await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () => {
+    await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {
       const startup = await loadGatewayWorkerEnvironmentStartupState();
       const registry = createEmptyPluginRegistry();
       const runtime = await createGatewayWorkerEnvironmentRuntime({
@@ -73,7 +73,7 @@ describe("gateway worker environment startup", () => {
 
   it("composes idle provider maintenance and drains it during shutdown", async () => {
     const stateDir = tempDirs.make("openclaw-worker-maintenance-startup-");
-    await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () => {
+    await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {
       type MaintenanceContext = Parameters<NonNullable<WorkerProvider["maintain"]>>[0];
       const entered = createDeferredCore<MaintenanceContext>();
       const aborted = createDeferredCore();
@@ -155,7 +155,7 @@ describe("gateway worker environment startup", () => {
   it("binds device revocation to the persisted profile settings", async () => {
     const stateDir = tempDirs.make("openclaw-worker-startup-");
     try {
-      await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () => {
+      await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {
         const startup = await loadGatewayWorkerEnvironmentStartupState();
         startup.store.createIntent({
           environmentId: "device-environment",
@@ -231,7 +231,7 @@ describe("gateway worker environment startup", () => {
 
   it("composes node desktop control into the worker environment runtime", async () => {
     const stateDir = tempDirs.make("openclaw-worker-node-desktop-startup-");
-    await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () => {
+    await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {
       setRuntimeConfigSnapshot({ cloudWorkers: { desktop: true } });
       const startup = await loadGatewayWorkerEnvironmentStartupState();
       const intent = startup.store.createIntent({

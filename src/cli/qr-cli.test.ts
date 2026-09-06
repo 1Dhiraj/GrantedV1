@@ -186,8 +186,8 @@ describe("registerQrCli", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     resetRuntimeCapture();
-    vi.stubEnv("OPENCLAW_GATEWAY_TOKEN", "");
-    vi.stubEnv("OPENCLAW_GATEWAY_PASSWORD", "");
+    vi.stubEnv("GRANTED_GATEWAY_TOKEN", "");
+    vi.stubEnv("GRANTED_GATEWAY_PASSWORD", "");
     runtimeExit.mockImplementation(() => {
       throw new Error("exit");
     });
@@ -417,8 +417,8 @@ describe("registerQrCli", () => {
     expect(resolveCommandSecretRefsViaGateway).not.toHaveBeenCalled();
   });
 
-  it("does not let OPENCLAW_GATEWAY_PASSWORD mask a local password SecretRef", async () => {
-    vi.stubEnv("OPENCLAW_GATEWAY_PASSWORD", "password-from-env");
+  it("does not let GRANTED_GATEWAY_PASSWORD mask a local password SecretRef", async () => {
+    vi.stubEnv("GRANTED_GATEWAY_PASSWORD", "password-from-env");
     loadConfig.mockReturnValue(
       createLocalGatewayConfigWithAuth(
         createLocalGatewayPasswordRefAuth("MISSING_LOCAL_GATEWAY_PASSWORD"),

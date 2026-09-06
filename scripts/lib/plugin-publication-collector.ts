@@ -77,7 +77,7 @@ type PublishablePluginPackageSource = Pick<
   "extensionId" | "packageDir" | "packageName"
 >;
 
-export const OPENCLAW_PLUGIN_NPM_REPOSITORY_URL = "https://github.com/openclaw/openclaw";
+export const GRANTED_PLUGIN_NPM_REPOSITORY_URL = "https://github.com/openclaw/openclaw";
 const SAFE_CLAWHUB_EXTENSION_ID = /^[a-z0-9][a-z0-9._-]*$/;
 
 /** Explicit core ownership defers staged external publication until the plugin is externalized. */
@@ -184,9 +184,9 @@ export function collectPublishablePluginPackageErrors(
   if (!candidate.readmeText?.trim()) {
     errors.push("README.md must exist and contain package documentation.");
   }
-  if (repositoryUrl !== OPENCLAW_PLUGIN_NPM_REPOSITORY_URL) {
+  if (repositoryUrl !== GRANTED_PLUGIN_NPM_REPOSITORY_URL) {
     errors.push(
-      `package.json repository.url must be "${OPENCLAW_PLUGIN_NPM_REPOSITORY_URL}" so npm provenance can validate GitHub trusted publishing; found "${repositoryUrl || "<missing>"}".`,
+      `package.json repository.url must be "${GRANTED_PLUGIN_NPM_REPOSITORY_URL}" so npm provenance can validate GitHub trusted publishing; found "${repositoryUrl || "<missing>"}".`,
     );
   }
   if (!packageVersion) {

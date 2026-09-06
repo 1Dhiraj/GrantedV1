@@ -561,7 +561,7 @@ describe("parallel web search provider", () => {
         logging: { redactPatterns: ["acme-internal-[a-z0-9-]+", "api[_-]?key"] },
       }),
     );
-    vi.stubEnv("OPENCLAW_CONFIG_PATH", configPath);
+    vi.stubEnv("GRANTED_CONFIG_PATH", configPath);
     try {
       endpointMockState.responses.push(
         new Response(

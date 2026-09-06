@@ -58,7 +58,7 @@ function insertPendingApproval(id: string): void {
       createdAtMs: 1_000,
       expiresAtMs: 60_000,
     },
-    databaseOptions: { env: { ...process.env, OPENCLAW_STATE_DIR: tmpDir } },
+    databaseOptions: { env: { ...process.env, GRANTED_STATE_DIR: tmpDir } },
   });
   if (inserted.outcome !== "inserted") {
     throw new Error("expected pending approval insert");
@@ -157,13 +157,13 @@ describe("resolveVapidKeys", () => {
       "mailto:env@test.com",
     );
     const envSnapshot = captureEnv([
-      "OPENCLAW_VAPID_PUBLIC_KEY",
-      "OPENCLAW_VAPID_PRIVATE_KEY",
-      "OPENCLAW_VAPID_SUBJECT",
+      "GRANTED_VAPID_PUBLIC_KEY",
+      "GRANTED_VAPID_PRIVATE_KEY",
+      "GRANTED_VAPID_SUBJECT",
     ]);
-    setTestEnvValue("OPENCLAW_VAPID_PUBLIC_KEY", `  ${environmentKeys.publicKey}  `);
-    setTestEnvValue("OPENCLAW_VAPID_PRIVATE_KEY", `  ${environmentKeys.privateKey}  `);
-    setTestEnvValue("OPENCLAW_VAPID_SUBJECT", `  ${environmentKeys.subject}  `);
+    setTestEnvValue("GRANTED_VAPID_PUBLIC_KEY", `  ${environmentKeys.publicKey}  `);
+    setTestEnvValue("GRANTED_VAPID_PRIVATE_KEY", `  ${environmentKeys.privateKey}  `);
+    setTestEnvValue("GRANTED_VAPID_SUBJECT", `  ${environmentKeys.subject}  `);
     try {
       await expect(resolveVapidKeys(tmpDir)).resolves.toEqual(environmentKeys);
       expect(readPersistedVapidKeyPair(tmpDir)).toBeNull();
@@ -175,13 +175,13 @@ describe("resolveVapidKeys", () => {
 
   it("treats blank environment values as unset", async () => {
     const envSnapshot = captureEnv([
-      "OPENCLAW_VAPID_PUBLIC_KEY",
-      "OPENCLAW_VAPID_PRIVATE_KEY",
-      "OPENCLAW_VAPID_SUBJECT",
+      "GRANTED_VAPID_PUBLIC_KEY",
+      "GRANTED_VAPID_PRIVATE_KEY",
+      "GRANTED_VAPID_SUBJECT",
     ]);
-    setTestEnvValue("OPENCLAW_VAPID_PUBLIC_KEY", "   ");
-    setTestEnvValue("OPENCLAW_VAPID_PRIVATE_KEY", "   ");
-    setTestEnvValue("OPENCLAW_VAPID_SUBJECT", "   ");
+    setTestEnvValue("GRANTED_VAPID_PUBLIC_KEY", "   ");
+    setTestEnvValue("GRANTED_VAPID_PRIVATE_KEY", "   ");
+    setTestEnvValue("GRANTED_VAPID_SUBJECT", "   ");
     try {
       const keys = await resolveVapidKeys(tmpDir);
       expect(keys).toEqual(
@@ -200,7 +200,7 @@ describe("resolveVapidKeys", () => {
 
   it("applies the current subject to a persisted identity", async () => {
     const initial = await resolveVapidKeys(tmpDir);
-    process.env.OPENCLAW_VAPID_SUBJECT = "mailto:changed@test.com";
+    process.env.GRANTED_VAPID_SUBJECT = "mailto:changed@test.com";
     try {
       await expect(resolveVapidKeys(tmpDir)).resolves.toEqual({
         ...initial,
@@ -208,7 +208,7 @@ describe("resolveVapidKeys", () => {
       });
       expect(readPersistedVapidKeyPair(tmpDir)?.subject).toBe("https://openclaw.ai");
     } finally {
-      delete process.env.OPENCLAW_VAPID_SUBJECT;
+      delete process.env.GRANTED_VAPID_SUBJECT;
     }
   });
 });
@@ -237,7 +237,7 @@ describe("subscription CRUD", () => {
   });
 
   it("lazily adds and persists authenticated device bindings", async () => {
-    const environment = { ...process.env, OPENCLAW_STATE_DIR: tmpDir };
+    const environment = { ...process.env, GRANTED_STATE_DIR: tmpDir };
     const database = openOpenClawStateDatabase({ env: environment });
     database.db.exec("ALTER TABLE web_push_subscriptions DROP COLUMN device_id;");
     database.db.exec("ALTER TABLE web_push_subscriptions DROP COLUMN user_profile_id;");
@@ -568,7 +568,7 @@ describe("approval delivery target persistence", () => {
       devicePreferences: defaultDevicePreferences,
     };
     const database = openOpenClawStateDatabase({
-      env: { ...process.env, OPENCLAW_STATE_DIR: tmpDir },
+      env: { ...process.env, GRANTED_STATE_DIR: tmpDir },
     });
     expect(tableExists(database.db, "web_push_approval_deliveries")).toBe(false);
 
@@ -610,7 +610,7 @@ describe("approval delivery target persistence", () => {
         decision: "deny",
         resolver: { kind: "system", id: null },
         nowMs: 3_000,
-        databaseOptions: { env: { ...process.env, OPENCLAW_STATE_DIR: tmpDir } },
+        databaseOptions: { env: { ...process.env, GRANTED_STATE_DIR: tmpDir } },
       }).outcome,
     ).toBe("resolved");
     expect(listTerminalWebPushApprovalDeliveryIds({ stateDir: tmpDir })).toEqual({
@@ -693,7 +693,7 @@ describe("approval delivery target persistence", () => {
         decision: "deny",
         resolver: { kind: "system", id: null },
         nowMs: 3_000,
-        databaseOptions: { env: { ...process.env, OPENCLAW_STATE_DIR: tmpDir } },
+        databaseOptions: { env: { ...process.env, GRANTED_STATE_DIR: tmpDir } },
       }).outcome,
     ).toBe("resolved");
     closeOpenClawStateDatabase();

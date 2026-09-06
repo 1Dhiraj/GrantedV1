@@ -13,14 +13,14 @@ const suite = createControlUiE2eSuite({
   unavailableMessage: (executablePath) => `Playwright Chromium is unavailable at ${executablePath}`,
 });
 
-const proofDirectoryParent = process.env.OPENCLAW_TRIGGER_UI_PROOF_DIR;
+const proofDirectoryParent = process.env.GRANTED_TRIGGER_UI_PROOF_DIR;
 let proofDirectory: string | undefined;
 beforeEach(() => {
   proofDirectory = proofDirectoryParent
     ? createControlUiE2eArtifactDir("cron-trigger-authoring", proofDirectoryParent)
     : undefined;
 });
-const proofStage = process.env.OPENCLAW_TRIGGER_UI_PROOF_STAGE ?? "after";
+const proofStage = process.env.GRANTED_TRIGGER_UI_PROOF_STAGE ?? "after";
 type CronTriggerTestApp = HTMLElement & { runtime?: { context: ApplicationContext } };
 
 const scriptJob = {

@@ -179,9 +179,9 @@ describeLaunchdIntegration("launchd integration", () => {
     );
     const gatewayEnv: GatewayServiceEnv = {
       HOME: gatewayHomeDir,
-      OPENCLAW_LAUNCHD_LABEL: `ai.openclaw.launchd-int-gw-${testId}`,
-      OPENCLAW_LOG_PREFIX: `gateway-launchd-int-gw-${testId}`,
-      OPENCLAW_GATEWAY_PORT: String(gatewayPort),
+      GRANTED_LAUNCHD_LABEL: `ai.granted.launchd-int-gw-${testId}`,
+      GRANTED_LOG_PREFIX: `gateway-launchd-int-gw-${testId}`,
+      GRANTED_GATEWAY_PORT: String(gatewayPort),
     };
 
     // Real "node-host" LaunchAgent, co-located on the same machine, tagged
@@ -191,10 +191,10 @@ describeLaunchdIntegration("launchd integration", () => {
     );
     const nodeEnv: GatewayServiceEnv = {
       HOME: nodeHomeDir,
-      OPENCLAW_LAUNCHD_LABEL: `ai.openclaw.launchd-int-node-${testId}`,
-      OPENCLAW_LOG_PREFIX: `gateway-launchd-int-node-${testId}`,
-      OPENCLAW_SERVICE_KIND: "node",
-      OPENCLAW_GATEWAY_PORT: String(gatewayPort),
+      GRANTED_LAUNCHD_LABEL: `ai.granted.launchd-int-node-${testId}`,
+      GRANTED_LOG_PREFIX: `gateway-launchd-int-node-${testId}`,
+      GRANTED_SERVICE_KIND: "node",
+      GRANTED_GATEWAY_PORT: String(gatewayPort),
     };
 
     try {
@@ -277,8 +277,8 @@ describeLaunchdIntegration("launchd integration", () => {
     homeDir = await fs.mkdtemp(path.join(os.tmpdir(), `openclaw-launchd-int-${testId}-`));
     env = {
       HOME: homeDir,
-      OPENCLAW_LAUNCHD_LABEL: `ai.openclaw.launchd-int-${testId}`,
-      OPENCLAW_LOG_PREFIX: `gateway-launchd-int-${testId}`,
+      GRANTED_LAUNCHD_LABEL: `ai.granted.launchd-int-${testId}`,
+      GRANTED_LOG_PREFIX: `gateway-launchd-int-${testId}`,
     };
   });
 
@@ -310,12 +310,12 @@ describeLaunchdIntegration("launchd integration", () => {
     const stateDir = path.join(accountHome, `.openclaw-${profile}`);
     const profileEnv: GatewayServiceEnv = {
       HOME: accountHome,
-      OPENCLAW_HOME: undefined,
-      OPENCLAW_PROFILE: profile,
-      OPENCLAW_STATE_DIR: stateDir,
-      OPENCLAW_CONFIG_PATH: path.join(stateDir, "openclaw.json"),
-      OPENCLAW_LAUNCHD_LABEL: undefined,
-      OPENCLAW_SUPERVISOR_MODE: undefined,
+      GRANTED_HOME: undefined,
+      GRANTED_PROFILE: profile,
+      GRANTED_STATE_DIR: stateDir,
+      GRANTED_CONFIG_PATH: path.join(stateDir, "openclaw.json"),
+      GRANTED_LAUNCHD_LABEL: undefined,
+      GRANTED_SUPERVISOR_MODE: undefined,
     };
 
     await withEnvAsync(profileEnv, async () => {
@@ -350,15 +350,15 @@ describeLaunchdIntegration("launchd integration", () => {
     });
   }, 60_000);
 
-  it("refuses a relocated OPENCLAW_HOME before launchd mutation", async () => {
+  it("refuses a relocated GRANTED_HOME before launchd mutation", async () => {
     const testId = randomUUID().slice(0, 8);
     const relocatedHome = await fs.mkdtemp(
       path.join(os.tmpdir(), `openclaw-relocated-home-${testId}-`),
     );
     const relocatedEnv: GatewayServiceEnv = {
       HOME: os.userInfo().homedir,
-      OPENCLAW_HOME: relocatedHome,
-      OPENCLAW_PROFILE: `launchd-int-${testId}`,
+      GRANTED_HOME: relocatedHome,
+      GRANTED_PROFILE: `launchd-int-${testId}`,
     };
 
     try {

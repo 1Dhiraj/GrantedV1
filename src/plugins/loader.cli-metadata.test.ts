@@ -199,7 +199,7 @@ module.exports = { id: "packaged-cli-metadata", register() {} };`,
 
     const warnings: string[] = [];
     const registry = await loadOpenClawPluginCliRegistry({
-      env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+      env: { ...process.env, GRANTED_STATE_DIR: stateDir },
       logger: {
         info: () => {},
         warn: (msg: string) => warnings.push(msg),
@@ -377,7 +377,7 @@ module.exports = {
     const fullMarker = path.join(pluginDir, "full-loaded.txt");
 
     fs.mkdirSync(pluginDir, { recursive: true });
-    process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = bundledRoot;
+    process.env.GRANTED_BUNDLED_PLUGINS_DIR = bundledRoot;
 
     writePluginMetadata({
       dir: pluginDir,
@@ -430,7 +430,7 @@ module.exports = {
     const cliMarker = path.join(pluginDir, "cli-loaded.txt");
 
     fs.mkdirSync(pluginDir, { recursive: true });
-    process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = bundledRoot;
+    process.env.GRANTED_BUNDLED_PLUGINS_DIR = bundledRoot;
 
     writePluginMetadata({
       dir: pluginDir,
@@ -506,7 +506,7 @@ module.exports = {
     const fullMarker = path.join(pluginDir, "full-loaded.txt");
 
     fs.mkdirSync(pluginDir, { recursive: true });
-    process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = bundledRoot;
+    process.env.GRANTED_BUNDLED_PLUGINS_DIR = bundledRoot;
 
     writePluginMetadata({
       dir: pluginDir,

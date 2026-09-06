@@ -70,7 +70,7 @@ let pluginMetadataSnapshot: SystemAgentPluginMetadataTestSnapshot | undefined;
 function useTempStateDir(): string {
   const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-turn-"));
   tempDirs.push(stateDir);
-  vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
+  vi.stubEnv("GRANTED_STATE_DIR", stateDir);
   pluginMetadataSnapshot?.rebindForCurrentEnv();
   return stateDir;
 }

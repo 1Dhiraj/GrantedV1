@@ -15,8 +15,8 @@ import { startBrowserBridgeServer } from "../../plugin-sdk/browser-bridge.js";
 import {
   DEFAULT_BROWSER_ACTION_TIMEOUT_MS,
   DEFAULT_BROWSER_EVALUATE_ENABLED,
-  DEFAULT_OPENCLAW_BROWSER_COLOR,
-  DEFAULT_OPENCLAW_BROWSER_PROFILE_NAME,
+  DEFAULT_GRANTED_BROWSER_COLOR,
+  DEFAULT_GRANTED_BROWSER_PROFILE_NAME,
   resolveProfile,
   type ResolvedBrowserConfig,
 } from "../../plugin-sdk/browser-profiles.js";
@@ -70,8 +70,8 @@ import {
 } from "./workspace-mounts.js";
 
 const HOT_BROWSER_WINDOW_MS = 5 * 60 * 1000;
-const CDP_SOURCE_RANGE_ENV_KEY = "OPENCLAW_BROWSER_CDP_SOURCE_RANGE";
-const CDP_AUTH_TOKEN_ENV_KEY = "OPENCLAW_BROWSER_CDP_AUTH_TOKEN";
+const CDP_SOURCE_RANGE_ENV_KEY = "GRANTED_BROWSER_CDP_SOURCE_RANGE";
+const CDP_AUTH_TOKEN_ENV_KEY = "GRANTED_BROWSER_CDP_AUTH_TOKEN";
 const SANDBOX_BROWSER_IMAGE_CONTRACT_LABEL = "org.openclaw.sandbox-browser.contract";
 const browserContainerLifecycleQueue = new KeyedAsyncQueue();
 const browserNetworkLifecycleQueue = new KeyedAsyncQueue();
@@ -150,12 +150,12 @@ function buildSandboxBrowserResolvedConfig(params: {
     localLaunchTimeoutMs: 15_000,
     localCdpReadyTimeoutMs: 8_000,
     actionTimeoutMs: DEFAULT_BROWSER_ACTION_TIMEOUT_MS,
-    color: DEFAULT_OPENCLAW_BROWSER_COLOR,
+    color: DEFAULT_GRANTED_BROWSER_COLOR,
     executablePath: undefined,
     headless: params.headless,
     noSandbox: false,
     attachOnly: true,
-    defaultProfile: DEFAULT_OPENCLAW_BROWSER_PROFILE_NAME,
+    defaultProfile: DEFAULT_GRANTED_BROWSER_PROFILE_NAME,
     extraArgs: [],
     tabCleanup: {
       enabled: true,
@@ -164,13 +164,13 @@ function buildSandboxBrowserResolvedConfig(params: {
       sweepMinutes: 5,
     },
     profiles: {
-      [DEFAULT_OPENCLAW_BROWSER_PROFILE_NAME]: {
+      [DEFAULT_GRANTED_BROWSER_PROFILE_NAME]: {
         cdpPort: params.cdpPort,
         cdpUrl: buildSandboxCdpUrl({
           cdpPort: params.cdpPort,
           authToken: params.cdpAuthToken,
         }),
-        color: DEFAULT_OPENCLAW_BROWSER_COLOR,
+        color: DEFAULT_GRANTED_BROWSER_COLOR,
       },
     },
     ssrfPolicy: params.ssrfPolicy,
@@ -432,14 +432,14 @@ async function ensureSandboxBrowserContainer(
       args.push("-p", `127.0.0.1::${params.cfg.browser.noVncPort}`);
     }
     Object.assign(env, {
-      OPENCLAW_BROWSER_HEADLESS: params.cfg.browser.headless ? "1" : "0",
-      OPENCLAW_BROWSER_ENABLE_NOVNC: params.cfg.browser.noVncEnabled ? "1" : "0",
-      OPENCLAW_BROWSER_CDP_PORT: String(params.cfg.browser.cdpPort),
+      GRANTED_BROWSER_HEADLESS: params.cfg.browser.headless ? "1" : "0",
+      GRANTED_BROWSER_ENABLE_NOVNC: params.cfg.browser.noVncEnabled ? "1" : "0",
+      GRANTED_BROWSER_CDP_PORT: String(params.cfg.browser.cdpPort),
       [CDP_AUTH_TOKEN_ENV_KEY]: cdpAuthToken,
-      OPENCLAW_BROWSER_AUTO_START_TIMEOUT_MS: String(params.cfg.browser.autoStartTimeoutMs),
-      OPENCLAW_BROWSER_VNC_PORT: String(params.cfg.browser.vncPort),
-      OPENCLAW_BROWSER_NOVNC_PORT: String(params.cfg.browser.noVncPort),
-      OPENCLAW_BROWSER_NO_SANDBOX: "1",
+      GRANTED_BROWSER_AUTO_START_TIMEOUT_MS: String(params.cfg.browser.autoStartTimeoutMs),
+      GRANTED_BROWSER_VNC_PORT: String(params.cfg.browser.vncPort),
+      GRANTED_BROWSER_NOVNC_PORT: String(params.cfg.browser.noVncPort),
+      GRANTED_BROWSER_NO_SANDBOX: "1",
     });
     if (cdpSourceRange) {
       env[CDP_SOURCE_RANGE_ENV_KEY] = cdpSourceRange;
@@ -474,7 +474,7 @@ async function ensureSandboxBrowserContainer(
   }
 
   const existingProfile = existing
-    ? resolveProfile(existing.bridge.state.resolved, DEFAULT_OPENCLAW_BROWSER_PROFILE_NAME)
+    ? resolveProfile(existing.bridge.state.resolved, DEFAULT_GRANTED_BROWSER_PROFILE_NAME)
     : null;
   const desiredEvaluateEnabled = params.evaluateEnabled ?? DEFAULT_BROWSER_EVALUATE_ENABLED;
 

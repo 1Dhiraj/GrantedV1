@@ -70,9 +70,9 @@ describe("post-core bundled plugin retirement", () => {
       plugins: { allow: ["codex"], entries: { codex: { enabled: true } } },
     };
     const env = {
-      OPENCLAW_STATE_DIR: stateDir,
-      OPENCLAW_BUNDLED_PLUGINS_DIR: bundledRoot,
-      OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR: "1",
+      GRANTED_STATE_DIR: stateDir,
+      GRANTED_BUNDLED_PLUGINS_DIR: bundledRoot,
+      GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR: "1",
       VITEST: "true",
     };
     const bundledDir = path.join(bundledRoot, "codex");

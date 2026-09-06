@@ -16,7 +16,7 @@ function envRef(id: string) {
 const explicitMainRoster: NonNullable<OpenClawConfig["agents"]> = {
   list: [{ id: "main", default: true }],
 };
-const isolatedEnv: NodeJS.ProcessEnv = { OPENCLAW_STATE_DIR: process.env.OPENCLAW_TEST_HOME };
+const isolatedEnv: NodeJS.ProcessEnv = { GRANTED_STATE_DIR: process.env.GRANTED_TEST_HOME };
 
 describe("collectPluginConfigAssignments bundled plugin manifests", () => {
   it("assigns each webhooks route SecretRef to its exact runtime owner", () => {

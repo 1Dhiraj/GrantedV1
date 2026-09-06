@@ -49,7 +49,7 @@ describe("scripts/ci-hydrate-testbox-env.sh", () => {
 
     const output = runBash([helperPath, "env"], {
       HOME: home,
-      OPENCLAW_TESTBOX_PROFILE_FILE: "",
+      GRANTED_TESTBOX_PROFILE_FILE: "",
     });
     expect(output).toContain("OPENAI_API_KEY=testbox-sentinel-key\n");
   });

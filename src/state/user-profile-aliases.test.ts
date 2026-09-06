@@ -93,7 +93,7 @@ describe("profile alias reader lifecycle", () => {
     const source = ensureProfileForEmail("source@aliases.test", options);
     const target = ensureProfileForEmail("target@aliases.test", options);
     linkEmail("source@aliases.test", target.id, options);
-    const env = { OPENCLAW_STATE_DIR: path.dirname(path.dirname(other.path)) };
+    const env = { GRANTED_STATE_DIR: path.dirname(path.dirname(other.path)) };
     expect(readUserProfileAliases(target.id, { ...options, env })).toEqual(
       new Set([source.id, target.id]),
     );
@@ -130,7 +130,7 @@ describe("profile alias reader lifecycle", () => {
         expect(readUserProfileAliases(target.id)).toEqual(new Set([target.id]));
         expect(fs.existsSync(path.join(newRoot, "state"))).toBe(false);
         expect(
-          readUserProfileAliases(target.id, { env: { OPENCLAW_STATE_DIR: legacyRoot } }),
+          readUserProfileAliases(target.id, { env: { GRANTED_STATE_DIR: legacyRoot } }),
         ).toEqual(new Set([source.id, target.id]));
       },
     );

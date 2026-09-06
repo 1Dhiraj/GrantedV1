@@ -25,7 +25,7 @@ describe("onboarding authored config persistence", () => {
   let envSnapshot: ReturnType<typeof captureEnv>;
 
   beforeEach(() => {
-    envSnapshot = captureEnv(["OPENCLAW_AGENT_DIR", "OPENCLAW_STATE_DIR", "OPENCLAW_TOKEN"]);
+    envSnapshot = captureEnv(["GRANTED_AGENT_DIR", "GRANTED_STATE_DIR", "GRANTED_TOKEN"]);
   });
 
   afterEach(() => {
@@ -50,10 +50,10 @@ describe("onboarding authored config persistence", () => {
           configPath,
           `{
           $include: "./channels.json",
-          gateway: { auth: { mode: "token", token: "\${OPENCLAW_TOKEN}" } }
+          gateway: { auth: { mode: "token", token: "\${GRANTED_TOKEN}" } }
         }`,
         );
-        setTestEnvValue("OPENCLAW_TOKEN", "plaintext-secret");
+        setTestEnvValue("GRANTED_TOKEN", "plaintext-secret");
         resetConfigRuntimeState();
 
         const snapshot = await readConfigFileSnapshot();
@@ -78,7 +78,7 @@ describe("onboarding authored config persistence", () => {
             workspace: path.join(home, "workspace"),
           }),
         });
-        expect(persistedRaw).toContain("${OPENCLAW_TOKEN}");
+        expect(persistedRaw).toContain("${GRANTED_TOKEN}");
         expect(persistedRaw).not.toContain("plaintext-secret");
         expect(persistedRaw).toContain("./channels.json");
         expect(await fs.readFile(includePath, "utf8")).toBe(includeRaw);
@@ -124,8 +124,8 @@ describe("onboarding authored config persistence", () => {
     await withTempHome(async (rawHome) => {
       const home = await fs.realpath(rawHome);
       const stateDir = path.join(home, ".openclaw");
-      setTestEnvValue("OPENCLAW_STATE_DIR", stateDir);
-      deleteTestEnvValue("OPENCLAW_AGENT_DIR");
+      setTestEnvValue("GRANTED_STATE_DIR", stateDir);
+      deleteTestEnvValue("GRANTED_AGENT_DIR");
       resetConfigRuntimeState();
       await replaceConfigFile({ nextConfig: {}, afterWrite: { mode: "auto" } });
 
@@ -198,8 +198,8 @@ describe("onboarding authored config persistence", () => {
     await withTempHome(async (rawHome) => {
       const home = await fs.realpath(rawHome);
       const stateDir = path.join(home, ".openclaw");
-      setTestEnvValue("OPENCLAW_STATE_DIR", stateDir);
-      deleteTestEnvValue("OPENCLAW_AGENT_DIR");
+      setTestEnvValue("GRANTED_STATE_DIR", stateDir);
+      deleteTestEnvValue("GRANTED_AGENT_DIR");
       resetConfigRuntimeState();
       await replaceConfigFile({ nextConfig: {}, afterWrite: { mode: "auto" } });
 

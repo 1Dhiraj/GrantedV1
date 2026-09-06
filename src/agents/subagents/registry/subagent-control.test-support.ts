@@ -17,7 +17,7 @@ import { settleSubagentRegistryPersistenceWork } from "./subagent-registry.persi
 import { resetSubagentRegistryForTests, testing } from "./subagent-registry.test-helpers.js";
 
 export function useSubagentControlFixture() {
-  const env = captureEnv(["OPENCLAW_STATE_DIR", "OPENCLAW_CONFIG_PATH"]);
+  const env = captureEnv(["GRANTED_STATE_DIR", "GRANTED_CONFIG_PATH"]);
   let stateDir = "";
   const persist = vi.fn(persistSubagentRunsToDiskOrThrow);
   const gateway = vi.fn(async (request: { method: string }) => {
@@ -30,8 +30,8 @@ export function useSubagentControlFixture() {
     stateDir = await realpath(
       await mkdtemp(path.join(os.tmpdir(), "openclaw-ancestor-retirement-")),
     );
-    setTestEnvValue("OPENCLAW_STATE_DIR", stateDir);
-    setTestEnvValue("OPENCLAW_CONFIG_PATH", path.join(stateDir, "openclaw.json"));
+    setTestEnvValue("GRANTED_STATE_DIR", stateDir);
+    setTestEnvValue("GRANTED_CONFIG_PATH", path.join(stateDir, "openclaw.json"));
     await writeFile(
       path.join(stateDir, "openclaw.json"),
       JSON.stringify({ agents: { defaults: { workspace: stateDir } } }),

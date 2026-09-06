@@ -7,12 +7,12 @@ const STATE_SCHEMA_MODULES = [
   {
     modulePath: "src/state/openclaw-state-schema.ts",
     schemaPath: "src/state/openclaw-state-schema.sql",
-    exportName: "OPENCLAW_STATE_SCHEMA_SQL",
+    exportName: "GRANTED_STATE_SCHEMA_SQL",
   },
   {
     modulePath: "src/state/openclaw-agent-schema.ts",
     schemaPath: "src/state/openclaw-agent-schema.sql",
-    exportName: "OPENCLAW_AGENT_SCHEMA_SQL",
+    exportName: "GRANTED_AGENT_SCHEMA_SQL",
   },
 ] as const;
 

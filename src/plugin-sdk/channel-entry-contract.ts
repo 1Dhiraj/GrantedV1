@@ -138,7 +138,7 @@ export type BundledChannelSetupEntryContract<TPlugin = ChannelPlugin> = {
   features?: BundledChannelSetupEntryFeatures;
 };
 
-const disableBundledEntrySourceFallbackEnv = "OPENCLAW_DISABLE_BUNDLED_ENTRY_SOURCE_FALLBACK";
+const disableBundledEntrySourceFallbackEnv = "GRANTED_DISABLE_BUNDLED_ENTRY_SOURCE_FALLBACK";
 
 function isBundledEntrySourceFallbackDisabled(value: string | undefined): boolean {
   // Presence-based disable is a shipped operator contract; canonical opt-in

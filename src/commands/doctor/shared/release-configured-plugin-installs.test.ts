@@ -639,16 +639,16 @@ describe("configured plugin install release step", () => {
       currentVersion: "2026.5.2-beta.1",
       touchedVersion: "2026.5.1",
       env: {
-        OPENCLAW_UPDATE_IN_PROGRESS: "1",
-        OPENCLAW_UPDATE_DEFER_CONFIGURED_PLUGIN_INSTALL_REPAIR: "1",
+        GRANTED_UPDATE_IN_PROGRESS: "1",
+        GRANTED_UPDATE_DEFER_CONFIGURED_PLUGIN_INSTALL_REPAIR: "1",
       },
     });
 
     const repairCall = readOnlyMissingPluginInstallRepairCall();
     expect(repairCall.pluginIds).toEqual(["codex"]);
     expect(repairCall.env).toEqual({
-      OPENCLAW_UPDATE_IN_PROGRESS: "1",
-      OPENCLAW_UPDATE_DEFER_CONFIGURED_PLUGIN_INSTALL_REPAIR: "1",
+      GRANTED_UPDATE_IN_PROGRESS: "1",
+      GRANTED_UPDATE_DEFER_CONFIGURED_PLUGIN_INSTALL_REPAIR: "1",
     });
     expect(result).toEqual({
       changes: [
@@ -686,8 +686,8 @@ describe("configured plugin install release step", () => {
       currentVersion: "2026.5.2-beta.1",
       touchedVersion: "2026.5.1",
       env: {
-        OPENCLAW_UPDATE_IN_PROGRESS: "1",
-        OPENCLAW_UPDATE_DEFER_CONFIGURED_PLUGIN_INSTALL_REPAIR: "1",
+        GRANTED_UPDATE_IN_PROGRESS: "1",
+        GRANTED_UPDATE_DEFER_CONFIGURED_PLUGIN_INSTALL_REPAIR: "1",
       },
     });
 
@@ -720,14 +720,14 @@ describe("configured plugin install release step", () => {
       currentVersion: "2026.5.2-beta.1",
       touchedVersion: "2026.5.1",
       env: {
-        OPENCLAW_UPDATE_IN_PROGRESS: "1",
-        OPENCLAW_UPDATE_PARENT_SUPPORTS_DOCTOR_CONFIG_WRITE: "1",
+        GRANTED_UPDATE_IN_PROGRESS: "1",
+        GRANTED_UPDATE_PARENT_SUPPORTS_DOCTOR_CONFIG_WRITE: "1",
       },
     });
 
     expect(readOnlyMissingPluginInstallRepairCall().env).toEqual({
-      OPENCLAW_UPDATE_IN_PROGRESS: "1",
-      OPENCLAW_UPDATE_PARENT_SUPPORTS_DOCTOR_CONFIG_WRITE: "1",
+      GRANTED_UPDATE_IN_PROGRESS: "1",
+      GRANTED_UPDATE_PARENT_SUPPORTS_DOCTOR_CONFIG_WRITE: "1",
     });
     expect(result).toEqual({
       changes: [

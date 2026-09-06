@@ -52,7 +52,7 @@ describe("plugin control-plane context", () => {
     const config = { plugins: { allow: ["demo"] } };
     const base = resolvePluginControlPlaneFingerprint({
       config,
-      env: { HOME: "/home/a", OPENCLAW_HOME: "/openclaw/a" } as NodeJS.ProcessEnv,
+      env: { HOME: "/home/a", GRANTED_HOME: "/openclaw/a" } as NodeJS.ProcessEnv,
       index: createIndex("demo"),
       activationFingerprint: "activation-a",
     });
@@ -60,7 +60,7 @@ describe("plugin control-plane context", () => {
     expect(
       resolvePluginControlPlaneFingerprint({
         config,
-        env: { HOME: "/home/a", OPENCLAW_HOME: "/openclaw/a" } as NodeJS.ProcessEnv,
+        env: { HOME: "/home/a", GRANTED_HOME: "/openclaw/a" } as NodeJS.ProcessEnv,
         index: createIndex("other"),
         activationFingerprint: "activation-a",
       }),
@@ -68,7 +68,7 @@ describe("plugin control-plane context", () => {
     expect(
       resolvePluginControlPlaneFingerprint({
         config,
-        env: { HOME: "/home/a", OPENCLAW_HOME: "/openclaw/a" } as NodeJS.ProcessEnv,
+        env: { HOME: "/home/a", GRANTED_HOME: "/openclaw/a" } as NodeJS.ProcessEnv,
         index: createIndex("demo"),
         activationFingerprint: "activation-b",
       }),
@@ -76,7 +76,7 @@ describe("plugin control-plane context", () => {
     expect(
       resolvePluginControlPlaneFingerprint({
         config: { plugins: { deny: ["demo"] } },
-        env: { HOME: "/home/a", OPENCLAW_HOME: "/openclaw/a" } as NodeJS.ProcessEnv,
+        env: { HOME: "/home/a", GRANTED_HOME: "/openclaw/a" } as NodeJS.ProcessEnv,
         index: createIndex("demo"),
         activationFingerprint: "activation-a",
       }),
@@ -128,7 +128,7 @@ describe("plugin control-plane context", () => {
     const resolveControlPlaneFingerprint = (index: InstalledPluginIndex) =>
       resolvePluginControlPlaneFingerprint({
         config: { plugins: { allow: ["demo"] } },
-        env: { HOME: "/home/a", OPENCLAW_HOME: "/openclaw/a" } as NodeJS.ProcessEnv,
+        env: { HOME: "/home/a", GRANTED_HOME: "/openclaw/a" } as NodeJS.ProcessEnv,
         index,
         activationFingerprint: "activation-a",
       });

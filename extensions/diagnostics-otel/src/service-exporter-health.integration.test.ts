@@ -17,7 +17,7 @@ import {
   type ReportedExporterHealth,
 } from "./service.test-helpers.js";
 
-const PRELOAD_ENV = "OPENCLAW_OTEL_PRELOADED";
+const PRELOAD_ENV = "GRANTED_OTEL_PRELOADED";
 const IMMEDIATE_RETRY_AFTER = "Thu, 01 Jan 1970 00:00:00 GMT";
 const OTEL_ENV_KEYS = [
   "OTEL_SDK_DISABLED",

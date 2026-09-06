@@ -39,7 +39,7 @@ export function inspectQaExecutionIdentityStorage(
   contextCount: number;
   decisionCount: number;
 } {
-  const stateDir = env.gateway.runtimeEnv.OPENCLAW_STATE_DIR?.trim();
+  const stateDir = env.gateway.runtimeEnv.GRANTED_STATE_DIR?.trim();
   if (!stateDir) {
     throw new Error("QA Gateway did not expose its isolated state directory");
   }

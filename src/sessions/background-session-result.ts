@@ -9,8 +9,8 @@ import {
 } from "../config/sessions/transcript.js";
 import type { OpenClawConfig } from "../config/types.openclaw.js";
 import {
-  OPENCLAW_TRANSCRIPT_ARTIFACT_API,
-  OPENCLAW_TRANSCRIPT_ARTIFACT_PROVIDER,
+  GRANTED_TRANSCRIPT_ARTIFACT_API,
+  GRANTED_TRANSCRIPT_ARTIFACT_PROVIDER,
 } from "../shared/transcript-only-openclaw-assistant.js";
 import {
   getSessionWorkAdmissionRelease,
@@ -91,8 +91,8 @@ export async function commitBackgroundResultToSession(params: {
       const message = {
         role: "assistant",
         content: [{ type: "text", text }],
-        api: OPENCLAW_TRANSCRIPT_ARTIFACT_API,
-        provider: OPENCLAW_TRANSCRIPT_ARTIFACT_PROVIDER,
+        api: GRANTED_TRANSCRIPT_ARTIFACT_API,
+        provider: GRANTED_TRANSCRIPT_ARTIFACT_PROVIDER,
         model: AUTOMATION_RESULT_MODEL,
         usage: {
           input: 0,

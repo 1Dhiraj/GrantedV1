@@ -78,7 +78,7 @@ async function runStatus(config: OpenClawConfig, options: StatusOptions): Promis
     config,
     options.providerAlias,
   );
-  const authMethod = normalizeOptionalString(process.env.OPENCLAW_VAULT_AUTH_METHOD) ?? "token";
+  const authMethod = normalizeOptionalString(process.env.GRANTED_VAULT_AUTH_METHOD) ?? "token";
   const result = {
     providerAlias,
     provider,
@@ -86,13 +86,13 @@ async function runStatus(config: OpenClawConfig, options: StatusOptions): Promis
     vaultAddr: normalizeOptionalString(process.env.VAULT_ADDR),
     authMethod,
     authMount:
-      normalizeOptionalString(process.env.OPENCLAW_VAULT_AUTH_MOUNT) ??
+      normalizeOptionalString(process.env.GRANTED_VAULT_AUTH_MOUNT) ??
       (authMethod === "kubernetes" ? "kubernetes" : "jwt"),
-    authRole: normalizeOptionalString(process.env.OPENCLAW_VAULT_AUTH_ROLE),
-    hasJwtFile: Boolean(normalizeOptionalString(process.env.OPENCLAW_VAULT_JWT_FILE)),
+    authRole: normalizeOptionalString(process.env.GRANTED_VAULT_AUTH_ROLE),
+    hasJwtFile: Boolean(normalizeOptionalString(process.env.GRANTED_VAULT_JWT_FILE)),
     hasVaultTokenFile: Boolean(normalizeOptionalString(process.env.VAULT_TOKEN_FILE)),
-    kvMount: normalizeOptionalString(process.env.OPENCLAW_VAULT_KV_MOUNT) ?? "secret",
-    kvVersion: normalizeOptionalString(process.env.OPENCLAW_VAULT_KV_VERSION) ?? "2",
+    kvMount: normalizeOptionalString(process.env.GRANTED_VAULT_KV_MOUNT) ?? "secret",
+    kvVersion: normalizeOptionalString(process.env.GRANTED_VAULT_KV_VERSION) ?? "2",
     hasVaultToken: Boolean(normalizeOptionalString(process.env.VAULT_TOKEN)),
   };
   if (options.json) {
@@ -118,7 +118,7 @@ async function runStatus(config: OpenClawConfig, options: StatusOptions): Promis
   writeLine(`VAULT_TOKEN_FILE: ${result.hasVaultTokenFile ? "set" : "not set"}`);
   writeLine(`Auth mount: ${result.authMount}`);
   writeLine(`Auth role: ${result.authRole ?? "not set"}`);
-  writeLine(`OPENCLAW_VAULT_JWT_FILE: ${result.hasJwtFile ? "set" : "not set"}`);
+  writeLine(`GRANTED_VAULT_JWT_FILE: ${result.hasJwtFile ? "set" : "not set"}`);
   writeLine(`KV mount: ${result.kvMount}`);
   writeLine(`KV version: ${result.kvVersion}`);
 }

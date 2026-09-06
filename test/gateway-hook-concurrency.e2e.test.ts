@@ -55,7 +55,7 @@ describe("Gateway hook concurrency", () => {
       const instance = await createOpenClawTestInstance({
         name: "gateway-hook-concurrency",
         config: createTestConfig(modelServer.url),
-        env: { OPENCLAW_SKIP_CRON: undefined, OPENCLAW_SKIP_PROVIDERS: undefined },
+        env: { GRANTED_SKIP_CRON: undefined, GRANTED_SKIP_PROVIDERS: undefined },
       });
       instances.push(instance);
       await instance.startGateway();

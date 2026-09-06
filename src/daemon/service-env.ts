@@ -38,7 +38,7 @@ type SharedServiceEnvironmentFields = {
 };
 
 export const SERVICE_PROXY_ENV_KEYS = [
-  "OPENCLAW_PROXY_URL",
+  "GRANTED_PROXY_URL",
   "HTTP_PROXY",
   "HTTPS_PROXY",
   "NO_PROXY",
@@ -54,8 +54,8 @@ function readServiceProxyEnvironment(
 ): Record<string, string | undefined> {
   // Service env intentionally preserves only the canonical OpenClaw proxy knob;
   // generic shell proxy vars are audited but not frozen into services.
-  const proxyUrl = normalizeOptionalString(env.OPENCLAW_PROXY_URL);
-  return proxyUrl ? { OPENCLAW_PROXY_URL: proxyUrl } : {};
+  const proxyUrl = normalizeOptionalString(env.GRANTED_PROXY_URL);
+  return proxyUrl ? { GRANTED_PROXY_URL: proxyUrl } : {};
 }
 
 function normalizeServicePathDir(dir: string | undefined): string | undefined {
@@ -323,11 +323,11 @@ function buildMinimalServicePath(options: MinimalServicePathOptions = {}): strin
 }
 
 function resolveGatewaySystemdUnitEnv(env: Record<string, string | undefined>): string {
-  const override = normalizeOptionalString(env.OPENCLAW_SYSTEMD_UNIT);
+  const override = normalizeOptionalString(env.GRANTED_SYSTEMD_UNIT);
   if (override) {
     return override.endsWith(".service") ? override : `${override}.service`;
   }
-  return `${resolveGatewaySystemdServiceName(env.OPENCLAW_PROFILE)}.service`;
+  return `${resolveGatewaySystemdServiceName(env.GRANTED_PROFILE)}.service`;
 }
 
 export function buildServiceEnvironment(params: {
@@ -348,8 +348,8 @@ export function buildServiceEnvironment(params: {
     extraPathDirs,
     params.execPath,
   );
-  const profile = env.OPENCLAW_PROFILE;
-  const wrapperPath = normalizeOptionalString(env.OPENCLAW_WRAPPER);
+  const profile = env.GRANTED_PROFILE;
+  const wrapperPath = normalizeOptionalString(env.GRANTED_WRAPPER);
   const resolvedLaunchdLabel =
     launchdLabel || (platform === "darwin" ? resolveGatewayLaunchAgentLabel(profile) : undefined);
   const systemdUnit = resolveGatewaySystemdUnitEnv(env);
@@ -361,15 +361,15 @@ export function buildServiceEnvironment(params: {
       params.existingNodeOptions,
       wrapperPath ? undefined : params.runtime,
     ),
-    OPENCLAW_PROFILE: profile,
-    OPENCLAW_WRAPPER: wrapperPath,
-    OPENCLAW_GATEWAY_PORT: String(port),
-    OPENCLAW_LAUNCHD_LABEL: resolvedLaunchdLabel,
-    OPENCLAW_SYSTEMD_UNIT: systemdUnit,
-    OPENCLAW_WINDOWS_TASK_NAME: resolveGatewayWindowsTaskName(profile),
-    OPENCLAW_WINDOWS_TASK_HIDDEN_LAUNCHER: "1",
-    OPENCLAW_SERVICE_MARKER: GATEWAY_SERVICE_MARKER,
-    OPENCLAW_SERVICE_KIND: GATEWAY_SERVICE_KIND,
+    GRANTED_PROFILE: profile,
+    GRANTED_WRAPPER: wrapperPath,
+    GRANTED_GATEWAY_PORT: String(port),
+    GRANTED_LAUNCHD_LABEL: resolvedLaunchdLabel,
+    GRANTED_SYSTEMD_UNIT: systemdUnit,
+    GRANTED_WINDOWS_TASK_NAME: resolveGatewayWindowsTaskName(profile),
+    GRANTED_WINDOWS_TASK_HIDDEN_LAUNCHER: "1",
+    GRANTED_SERVICE_MARKER: GATEWAY_SERVICE_MARKER,
+    GRANTED_SERVICE_KIND: GATEWAY_SERVICE_KIND,
   };
 }
 
@@ -387,18 +387,18 @@ export function buildNodeServiceEnvironment(params: {
     extraPathDirs,
     params.execPath,
   );
-  const gatewayToken = normalizeOptionalString(env.OPENCLAW_GATEWAY_TOKEN);
-  const gatewayPassword = normalizeOptionalString(env.OPENCLAW_GATEWAY_PASSWORD);
+  const gatewayToken = normalizeOptionalString(env.GRANTED_GATEWAY_TOKEN);
+  const gatewayPassword = normalizeOptionalString(env.GRANTED_GATEWAY_PASSWORD);
   const cloudflareAccessClientId = normalizeOptionalString(env.CF_ACCESS_CLIENT_ID);
   const cloudflareAccessClientSecret = normalizeOptionalString(env.CF_ACCESS_CLIENT_SECRET);
-  const allowInsecurePrivateWs = normalizeOptionalString(env.OPENCLAW_ALLOW_INSECURE_PRIVATE_WS);
+  const allowInsecurePrivateWs = normalizeOptionalString(env.GRANTED_ALLOW_INSECURE_PRIVATE_WS);
   return {
     ...buildCommonServiceEnvironment(env, sharedEnv),
-    OPENCLAW_GATEWAY_TOKEN: gatewayToken,
-    OPENCLAW_GATEWAY_PASSWORD: gatewayPassword,
+    GRANTED_GATEWAY_TOKEN: gatewayToken,
+    GRANTED_GATEWAY_PASSWORD: gatewayPassword,
     CF_ACCESS_CLIENT_ID: cloudflareAccessClientId,
     CF_ACCESS_CLIENT_SECRET: cloudflareAccessClientSecret,
-    OPENCLAW_ALLOW_INSECURE_PRIVATE_WS: allowInsecurePrivateWs,
+    GRANTED_ALLOW_INSECURE_PRIVATE_WS: allowInsecurePrivateWs,
     // launchd manager variables outlive the installer. Worker snapshots scope
     // this host fence by the canonical managed-node service identity.
     NODE_DISABLE_COMPILE_CACHE: platform === "darwin" ? "1" : undefined,
@@ -415,8 +415,8 @@ function buildCommonServiceEnvironment(
     TMPDIR: sharedEnv.tmpDir,
     NODE_EXTRA_CA_CERTS: sharedEnv.nodeCaCerts,
     NODE_USE_SYSTEM_CA: sharedEnv.nodeUseSystemCa,
-    OPENCLAW_STATE_DIR: sharedEnv.stateDir,
-    OPENCLAW_CONFIG_PATH: sharedEnv.configPath,
+    GRANTED_STATE_DIR: sharedEnv.stateDir,
+    GRANTED_CONFIG_PATH: sharedEnv.configPath,
     ...sharedEnv.proxyEnv,
   };
   if (sharedEnv.minimalPath) {
@@ -445,8 +445,8 @@ function resolveSharedServiceEnvironmentFields(
   extraPathDirs: string[] | undefined,
   execPath?: string,
 ): SharedServiceEnvironmentFields {
-  const stateDir = env.OPENCLAW_STATE_DIR;
-  const configPath = env.OPENCLAW_CONFIG_PATH;
+  const stateDir = env.GRANTED_STATE_DIR;
+  const configPath = env.GRANTED_CONFIG_PATH;
   const tmpDir = resolveServiceTmpDir(env, platform);
   // On macOS, launchd services don't inherit the shell environment, so Node's undici/fetch
   // cannot locate the system CA bundle. Default to /etc/ssl/cert.pem so TLS verification

@@ -106,7 +106,7 @@ describe("bench-cli-startup", () => {
             encoding: "utf8",
             env: {
               ...process.env,
-              OPENCLAW_TEST_CLI_STARTUP_TIMEOUT_KILL_GRACE_MS: "50",
+              GRANTED_TEST_CLI_STARTUP_TIMEOUT_KILL_GRACE_MS: "50",
               VITEST: "1",
             },
             timeout: 8_000,
@@ -460,9 +460,7 @@ describe("bench-cli-startup", () => {
       },
     ]) {
       expect(
-        withEnv({ OPENCLAW_GATEWAY_PORT: undefined }, () =>
-          testing.buildConfigFixture(commandCase),
-        ),
+        withEnv({ GRANTED_GATEWAY_PORT: undefined }, () => testing.buildConfigFixture(commandCase)),
       ).toEqual(unauthenticatedFixture);
     }
 
@@ -481,9 +479,7 @@ describe("bench-cli-startup", () => {
       },
     ]) {
       expect(
-        withEnv({ OPENCLAW_GATEWAY_PORT: undefined }, () =>
-          testing.buildConfigFixture(commandCase),
-        ),
+        withEnv({ GRANTED_GATEWAY_PORT: undefined }, () => testing.buildConfigFixture(commandCase)),
       ).toEqual({
         gateway: {
           auth: { mode: "token" },
@@ -508,7 +504,7 @@ describe("bench-cli-startup", () => {
       "gatewayHealthJsonFreshState",
     ]) {
       expect(
-        withEnv({ OPENCLAW_GATEWAY_PORT: "45678" }, () =>
+        withEnv({ GRANTED_GATEWAY_PORT: "45678" }, () =>
           testing.buildConfigFixture({
             id,
             name: "gateway health --json",
@@ -521,7 +517,7 @@ describe("bench-cli-startup", () => {
 
     for (const invalid of ["45678abc", "127.0.0.1:45678abc"]) {
       expect(() =>
-        withEnv({ OPENCLAW_GATEWAY_PORT: invalid }, () =>
+        withEnv({ GRANTED_GATEWAY_PORT: invalid }, () =>
           testing.buildConfigFixture({
             id: "gatewayHealthJson",
             name: "gateway health --json",
@@ -529,7 +525,7 @@ describe("bench-cli-startup", () => {
             presets: ["real"],
           }),
         ),
-      ).toThrow("OPENCLAW_GATEWAY_PORT must be an integer >= 1");
+      ).toThrow("GRANTED_GATEWAY_PORT must be an integer >= 1");
     }
   });
 });

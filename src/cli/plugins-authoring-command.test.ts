@@ -317,7 +317,7 @@ describe("plugin authoring commands", () => {
 
     try {
       await expect(
-        withEnvAsync({ OPENCLAW_HOME: homeDir }, async () => {
+        withEnvAsync({ GRANTED_HOME: homeDir }, async () => {
           await runPluginsValidateCommand({ root: rootDir, json: true });
         }),
       ).rejects.toThrow("expected runtime exit 1");
@@ -325,7 +325,7 @@ describe("plugin authoring commands", () => {
       expect(writeJson).toHaveBeenCalledWith({
         valid: false,
         errors: [
-          "plugin manifest not found: $OPENCLAW_HOME/plugins/invalid-json/openclaw.plugin.json",
+          "plugin manifest not found: $GRANTED_HOME/plugins/invalid-json/openclaw.plugin.json",
         ],
       });
       expect(error).toHaveBeenCalledWith(

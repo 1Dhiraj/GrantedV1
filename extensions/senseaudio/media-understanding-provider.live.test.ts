@@ -8,7 +8,7 @@ import { describe, expect, it } from "vitest";
 import { senseaudioMediaUnderstandingProvider } from "./media-understanding-provider.js";
 
 const apiKey = process.env.SENSEAUDIO_API_KEY ?? "";
-const liveEnabled = process.env.OPENCLAW_LIVE_TEST === "1" && apiKey.length > 0;
+const liveEnabled = process.env.GRANTED_LIVE_TEST === "1" && apiKey.length > 0;
 const hasSay =
   liveEnabled &&
   spawnSync("sh", ["-lc", "command -v say"], { encoding: "utf8", timeout: 5_000 }).status === 0;

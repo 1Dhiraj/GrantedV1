@@ -3184,9 +3184,9 @@ describe("loadChatHistory retry handling", () => {
       createTextChatMessage(
         "user",
         [
-          "<<<BEGIN_OPENCLAW_INTERNAL_CONTEXT>>>",
+          "<<<BEGIN_GRANTED_INTERNAL_CONTEXT>>>",
           "subagent completion payload",
-          "<<<END_OPENCLAW_INTERNAL_CONTEXT>>>",
+          "<<<END_GRANTED_INTERNAL_CONTEXT>>>",
         ].join("\n"),
       ),
       { role: "assistant", content: [{ type: "text", text: "visible answer" }] },

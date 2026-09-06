@@ -52,7 +52,7 @@ describe("Hugging Face OpenClaw local-app CLI contract", () => {
         name: `hf-local-app-${providerId}`,
         env: {
           CUSTOM_API_KEY: undefined,
-          OPENCLAW_TEST_FAST: "1",
+          GRANTED_TEST_FAST: "1",
         },
       });
       instances.push(instance);

@@ -107,7 +107,7 @@ describe("loadPluginManifestRegistryForPluginRegistry current snapshot", () => {
     const config: OpenClawConfig = { plugins: { allow: ["enabled"] } };
     const env = {
       HOME: "/tmp/openclaw-test-home",
-      OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
+      GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
     };
     const workspaceDir = "/workspace";
     const snapshot = createSnapshot({ config, workspaceDir });
@@ -124,7 +124,7 @@ describe("loadPluginManifestRegistryForPluginRegistry current snapshot", () => {
     const config: OpenClawConfig = { plugins: { allow: ["enabled"] } };
     const env = {
       HOME: "/tmp/openclaw-test-home",
-      OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
+      GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
     };
     const workspaceDir = "/workspace";
     const snapshot = createSnapshot({ config, workspaceDir });
@@ -175,7 +175,7 @@ describe("loadPluginManifestRegistryForPluginRegistry current snapshot", () => {
     const config: OpenClawConfig = {};
     const env = {
       HOME: "/tmp/openclaw-test-home",
-      OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
+      GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
     };
     const workspaceDir = "/workspace";
     setCurrentPluginMetadataSnapshot(createSnapshot({ config, workspaceDir }), {
@@ -222,7 +222,7 @@ describe("loadPluginManifestRegistryForPluginRegistry current snapshot", () => {
     const config: OpenClawConfig = {};
     const env = {
       HOME: "/tmp/openclaw-test-home",
-      OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
+      GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
     };
     const workspaceDir = "/workspace";
     setCurrentPluginMetadataSnapshot(createSnapshot({ config, workspaceDir }), {

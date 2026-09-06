@@ -19,7 +19,7 @@ const RUNTIME_INJECTION_ENVIRONMENT_KEYS = new Set([
   "LD_LIBRARY_PATH",
   "LD_PRELOAD",
 ]);
-const QA_PARENT_PID_ENV = "OPENCLAW_QA_PARENT_PID";
+const QA_PARENT_PID_ENV = "GRANTED_QA_PARENT_PID";
 
 type CodexAppServerSpawnRuntime = {
   platform: NodeJS.Platform;

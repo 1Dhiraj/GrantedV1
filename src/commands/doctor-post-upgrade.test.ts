@@ -52,7 +52,7 @@ function writeRawIndexFixture(root: string, valueJson: string): void {
          VALUES ('plugins.installedIndex', ?, 1)`,
       ).run(valueJson);
     },
-    { env: { ...process.env, OPENCLAW_STATE_DIR: root } },
+    { env: { ...process.env, GRANTED_STATE_DIR: root } },
   );
 }
 

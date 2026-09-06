@@ -19,7 +19,7 @@ import {
   acquireStateDatabaseCoordinator,
   StateDatabaseCoordinatorContentionError,
 } from "../infra/state-database-coordinator.js";
-import { OPENCLAW_SQLITE_BUSY_TIMEOUT_MS } from "./openclaw-state-db-contract.js";
+import { GRANTED_SQLITE_BUSY_TIMEOUT_MS } from "./openclaw-state-db-contract.js";
 import { tableExists } from "./openclaw-state-db-schema-helpers.js";
 
 export const STATE_SUPERVISION_KEY = "gateway.supervision";
@@ -46,7 +46,7 @@ export class OpenClawStateOwnershipMetadataError extends OpenClawStateOwnershipE
   ) {
     super(
       `OpenClaw shared state ownership metadata is invalid at ${databasePath}: ${message}. ` +
-        "Repair it with OPENCLAW_SUPERVISOR_MODE=external openclaw database ownership claim --manager <manager-id>.",
+        "Repair it with GRANTED_SUPERVISOR_MODE=external openclaw database ownership claim --manager <manager-id>.",
     );
     this.name = "OpenClawStateOwnershipMetadataError";
   }
@@ -59,7 +59,7 @@ class OpenClawStateExternalOwnershipError extends OpenClawStateOwnershipError {
   ) {
     super(
       `OpenClaw shared state database ${databasePath} is externally supervised by ${managerId}. ` +
-        "Use that external supervisor with OPENCLAW_SUPERVISOR_MODE=external for writable operations.",
+        "Use that external supervisor with GRANTED_SUPERVISOR_MODE=external for writable operations.",
     );
     this.name = "OpenClawStateExternalOwnershipError";
   }
@@ -141,7 +141,7 @@ function inspectOwnershipThroughConnection(
   const database = openNodeSqliteDatabase(location, { readOnly: true });
   try {
     database.exec(
-      `PRAGMA busy_timeout = ${OPENCLAW_SQLITE_BUSY_TIMEOUT_MS}; PRAGMA query_only = ON; PRAGMA trusted_schema = OFF;`,
+      `PRAGMA busy_timeout = ${GRANTED_SQLITE_BUSY_TIMEOUT_MS}; PRAGMA query_only = ON; PRAGMA trusted_schema = OFF;`,
     );
     return inspectOpenClawStateOwnershipFromDatabase(database, databasePath);
   } finally {
@@ -189,7 +189,7 @@ export function runWithOpenClawStateOwnershipCoordinator<T>(
   operation: () => T,
 ): T {
   return runWithSqliteCoordinator(
-    acquireOpenClawStateOwnershipCoordinator(databasePath, OPENCLAW_SQLITE_BUSY_TIMEOUT_MS),
+    acquireOpenClawStateOwnershipCoordinator(databasePath, GRANTED_SQLITE_BUSY_TIMEOUT_MS),
     operationLabel,
     operation,
   );
@@ -224,7 +224,7 @@ function acquireOpenClawStateWriteAccess(options: {
 }): { release: () => void } {
   const resolvedPath = path.resolve(options.databasePath);
   const busyTimeoutMs = normalizeSqliteNonNegativeInteger(
-    options.busyTimeoutMs ?? OPENCLAW_SQLITE_BUSY_TIMEOUT_MS,
+    options.busyTimeoutMs ?? GRANTED_SQLITE_BUSY_TIMEOUT_MS,
     "busyTimeoutMs",
   );
   const access = acquireOpenClawStateOwnershipCoordinator(resolvedPath, busyTimeoutMs);

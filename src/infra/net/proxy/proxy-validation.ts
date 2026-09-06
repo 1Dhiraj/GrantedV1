@@ -95,7 +95,7 @@ type ProxyValidationApnsCheck = (
 /** Inputs used to resolve proxy validation config before network probes run. */
 type ResolveProxyValidationConfigOptions = {
   config?: ProxyConfig;
-  env?: NodeJS.ProcessEnv | Partial<Record<"OPENCLAW_PROXY_URL", string | undefined>>;
+  env?: NodeJS.ProcessEnv | Partial<Record<"GRANTED_PROXY_URL", string | undefined>>;
   proxyUrlOverride?: string;
   proxyCaFileOverride?: string;
 };
@@ -118,7 +118,7 @@ function normalizeProxyUrl(value: string | undefined): string | undefined {
 
 function validateProxyUrl(value: string | undefined): string[] {
   if (!value) {
-    return ["proxy validation requires proxy.proxyUrl, --proxy-url, or OPENCLAW_PROXY_URL"];
+    return ["proxy validation requires proxy.proxyUrl, --proxy-url, or GRANTED_PROXY_URL"];
   }
   if (!isHttpUrl(value)) {
     return ["proxyUrl must use http:// or https://"];
@@ -164,7 +164,7 @@ function resolveProxyValidationConfig(
     };
   }
 
-  const envUrl = normalizeProxyUrl(options.env?.OPENCLAW_PROXY_URL);
+  const envUrl = normalizeProxyUrl(options.env?.GRANTED_PROXY_URL);
   if (envUrl) {
     const proxyCaFile = resolveManagedProxyCaFileForUrl({
       proxyUrl: envUrl,
@@ -194,7 +194,7 @@ function resolveProxyValidationConfig(
   return {
     enabled: false,
     source: "disabled",
-    errors: ["proxy validation requires proxy.proxyUrl, OPENCLAW_PROXY_URL, or --proxy-url"],
+    errors: ["proxy validation requires proxy.proxyUrl, GRANTED_PROXY_URL, or --proxy-url"],
   };
 }
 
@@ -526,7 +526,7 @@ export async function runProxyValidation(
         config: {
           ...config,
           errors: [
-            "Proxy validation is disabled. Configure proxy.proxyUrl, OPENCLAW_PROXY_URL, or pass --proxy-url to run validation.",
+            "Proxy validation is disabled. Configure proxy.proxyUrl, GRANTED_PROXY_URL, or pass --proxy-url to run validation.",
           ],
         },
         checks: [],

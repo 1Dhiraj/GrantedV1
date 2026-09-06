@@ -715,7 +715,7 @@ describe("registerPluginCommand", () => {
     });
     const env = {
       ...process.env,
-      OPENCLAW_BUNDLED_PLUGINS_DIR: path.resolve("extensions"),
+      GRANTED_BUNDLED_PLUGINS_DIR: path.resolve("extensions"),
     };
 
     expect(getPluginCommandSpecs("discord", { env })).toStrictEqual([]);

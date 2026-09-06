@@ -11,7 +11,7 @@ describe("update failure triage diagnostics", () => {
   it("writes only bounded sanitized failure evidence and preserves the original update result", async () => {
     const home = tempDirs.make("openclaw-update-triage-");
     const stateDir = path.join(home, ".openclaw");
-    const env = { HOME: home, OPENCLAW_STATE_DIR: stateDir };
+    const env = { HOME: home, GRANTED_STATE_DIR: stateDir };
     const secret = "sk-test-update-triage-secret-1234567890";
     const result: UpdateRunResult = {
       status: "error",
@@ -75,7 +75,7 @@ describe("update failure triage diagnostics", () => {
 
   it("preserves a post-install activation error even when the core update succeeded", async () => {
     const stateDir = tempDirs.make("openclaw-update-triage-");
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const failure = {
       result: {
         status: "ok" as const,
@@ -95,7 +95,7 @@ describe("update failure triage diagnostics", () => {
 
   it("retains actual plugin sync and npm errors after a successful core replacement", async () => {
     const stateDir = tempDirs.make("openclaw-update-triage-");
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const failure = {
       result: {
         status: "error" as const,
@@ -137,7 +137,7 @@ describe("update failure triage diagnostics", () => {
 
   it("retains fresh Doctor failure warnings through repeated diagnostic handoffs", async () => {
     const stateDir = tempDirs.make("openclaw-update-triage-");
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const failure = {
       result: {
         status: "error" as const,
@@ -179,7 +179,7 @@ describe("update failure triage diagnostics", () => {
 
   it("reserves the terminal plugin warning before earlier errors exhaust the diagnostic budget", async () => {
     const stateDir = tempDirs.make("openclaw-update-triage-");
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const outputPath = await writeTriageUpdateFailure(
       {
         result: {
@@ -219,7 +219,7 @@ describe("update failure triage diagnostics", () => {
     "accepts skipped %s attempts classified as failures",
     async (reason) => {
       const stateDir = tempDirs.make("openclaw-update-triage-");
-      const env = { OPENCLAW_STATE_DIR: stateDir };
+      const env = { GRANTED_STATE_DIR: stateDir };
       const failure = {
         result: { status: "skipped" as const, mode: "git" as const, reason, steps: [] },
       };

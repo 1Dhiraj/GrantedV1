@@ -3475,9 +3475,9 @@ describe("runCopilotAttempt", () => {
 
       // No env tokens, no contract token, no explicit token: falls
       // through to default useLoggedInUser mode.
-      const prevOpenclaw = process.env.OPENCLAW_GITHUB_TOKEN;
+      const prevOpenclaw = process.env.GRANTED_GITHUB_TOKEN;
       const prevGithub = process.env.GITHUB_TOKEN;
-      delete process.env.OPENCLAW_GITHUB_TOKEN;
+      delete process.env.GRANTED_GITHUB_TOKEN;
       delete process.env.GITHUB_TOKEN;
       try {
         await runCopilotAttempt(makeParams({ auth: {} as never }), { pool });
@@ -3485,7 +3485,7 @@ describe("runCopilotAttempt", () => {
         expect("gitHubToken" in cfg).toBe(false);
       } finally {
         if (prevOpenclaw !== undefined) {
-          process.env.OPENCLAW_GITHUB_TOKEN = prevOpenclaw;
+          process.env.GRANTED_GITHUB_TOKEN = prevOpenclaw;
         }
         if (prevGithub !== undefined) {
           process.env.GITHUB_TOKEN = prevGithub;

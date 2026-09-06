@@ -510,7 +510,7 @@ export function getSecretTargetRegistry(params?: {
     return loadSecretTargetRegistryFromPluginMetadata({
       env: {
         ...process.env,
-        OPENCLAW_BUNDLED_PLUGINS_DIR: process.env.OPENCLAW_BUNDLED_PLUGINS_DIR ?? "extensions",
+        GRANTED_BUNDLED_PLUGINS_DIR: process.env.GRANTED_BUNDLED_PLUGINS_DIR ?? "extensions",
       },
       preferPersisted: false,
       throwOnLoadError: true,

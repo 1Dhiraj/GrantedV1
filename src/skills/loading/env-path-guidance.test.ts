@@ -14,7 +14,7 @@ type GuidanceCase = {
 const CASES: GuidanceCase[] = [
   {
     file: "skills/session-logs/SKILL.md",
-    required: ["OPENCLAW_STATE_DIR"],
+    required: ["GRANTED_STATE_DIR"],
     forbidden: [
       "for f in ~/.openclaw/agents/<agentId>/sessions/*.jsonl",
       'rg -l "phrase" ~/.openclaw/agents/<agentId>/sessions/*.jsonl',
@@ -23,28 +23,28 @@ const CASES: GuidanceCase[] = [
   },
   {
     file: "skills/gh-issues/SKILL.md",
-    required: ["OPENCLAW_CONFIG_PATH"],
+    required: ["GRANTED_CONFIG_PATH"],
     forbidden: ["cat ~/.openclaw/openclaw.json"],
   },
   {
     file: "extensions/canvas/skills/canvas/SKILL.md",
     forbidden: [
-      "OPENCLAW_CONFIG_PATH",
-      "OPENCLAW_STATE_DIR",
+      "GRANTED_CONFIG_PATH",
+      "GRANTED_STATE_DIR",
       "~/.openclaw/canvas",
       "cat ~/.openclaw/openclaw.json",
     ],
   },
   {
     file: "skills/openai-whisper-api/SKILL.md",
-    required: ["OPENCLAW_CONFIG_PATH"],
+    required: ["GRANTED_CONFIG_PATH"],
   },
   {
     file: "skills/sherpa-onnx-tts/SKILL.md",
     required: [
-      "OPENCLAW_STATE_DIR",
-      "OPENCLAW_CONFIG_PATH",
-      'STATE_DIR="${OPENCLAW_STATE_DIR:-$HOME/.openclaw}"',
+      "GRANTED_STATE_DIR",
+      "GRANTED_CONFIG_PATH",
+      'STATE_DIR="${GRANTED_STATE_DIR:-$HOME/.openclaw}"',
     ],
     forbidden: [
       'SHERPA_ONNX_RUNTIME_DIR: "~/.openclaw/tools/sherpa-onnx-tts/runtime"',
@@ -55,7 +55,7 @@ const CASES: GuidanceCase[] = [
   {
     file: "skills/coding-agent/SKILL.md",
     required: [
-      "OPENCLAW_STATE_DIR",
+      "GRANTED_STATE_DIR",
       "CODEX_WORKER_HOME",
       'CODEX_HOME="$CODEX_WORKER_HOME" codex login status',
       "env -u CODEX_API_KEY -u CODEX_ACCESS_TOKEN -u OPENAI_API_KEY",

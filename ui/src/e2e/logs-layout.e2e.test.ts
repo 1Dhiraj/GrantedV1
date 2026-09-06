@@ -14,14 +14,14 @@ const suite = createControlUiE2eSuite({
   unavailableMessage: (executablePath) => `Playwright Chromium is unavailable at ${executablePath}`,
 });
 
-const artifactRoot = process.env.OPENCLAW_UI_E2E_ARTIFACT_DIR?.trim();
+const artifactRoot = process.env.GRANTED_UI_E2E_ARTIFACT_DIR?.trim();
 let artifactDir: string | undefined;
 beforeEach(() => {
   artifactDir = artifactRoot
     ? createControlUiE2eArtifactDir("logs-layout", artifactRoot)
     : undefined;
 });
-const proofLabel = process.env.OPENCLAW_UI_E2E_PROOF_LABEL?.trim() || "logs-layout";
+const proofLabel = process.env.GRANTED_UI_E2E_PROOF_LABEL?.trim() || "logs-layout";
 const viewport = { height: 584, width: 863 };
 
 const logLines = Array.from({ length: 40 }, (_value, index) =>
@@ -51,11 +51,11 @@ suite.define(() => {
         await page.addInitScript((settingsKey) => {
           localStorage.setItem(settingsKey, JSON.stringify({ textScale: 125, themeMode: "dark" }));
           const nativeWindow = window as Window & {
-            __OPENCLAW_NATIVE_WEB_CHROME__?: boolean;
-            __OPENCLAW_NATIVE_HISTORY__?: { canGoBack: boolean; canGoForward: boolean };
+            __GRANTED_NATIVE_WEB_CHROME__?: boolean;
+            __GRANTED_NATIVE_HISTORY__?: { canGoBack: boolean; canGoForward: boolean };
           };
-          nativeWindow["__OPENCLAW_NATIVE_WEB_CHROME__"] = true;
-          nativeWindow["__OPENCLAW_NATIVE_HISTORY__"] = {
+          nativeWindow["__GRANTED_NATIVE_WEB_CHROME__"] = true;
+          nativeWindow["__GRANTED_NATIVE_HISTORY__"] = {
             canGoBack: false,
             canGoForward: false,
           };

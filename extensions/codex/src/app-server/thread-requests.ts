@@ -14,7 +14,7 @@ import {
 import { mergeCodexThreadConfigs } from "./plugin-thread-config.js";
 import { buildCodexProjectDocThreadConfig } from "./project-doc-thread-config.js";
 import {
-  CODEX_OPENCLAW_DIRECT_DYNAMIC_TOOL_NAMESPACE,
+  CODEX_GRANTED_DIRECT_DYNAMIC_TOOL_NAMESPACE,
   isJsonObject,
   type CodexConfigReadResponse,
   type CodexConfigRequirementsReadResponse,
@@ -389,7 +389,7 @@ function resolveDirectOnlyToolNamespaces(
   return (dynamicTools ?? [])
     .filter(
       (tool) =>
-        tool.type === "namespace" && tool.name === CODEX_OPENCLAW_DIRECT_DYNAMIC_TOOL_NAMESPACE,
+        tool.type === "namespace" && tool.name === CODEX_GRANTED_DIRECT_DYNAMIC_TOOL_NAMESPACE,
     )
     .map((tool) => tool.name);
 }

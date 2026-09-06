@@ -10,8 +10,8 @@ import { resolveConfigPath, resolveIncludeRoots } from "./paths.js";
 import type { OpenClawConfig } from "./types.openclaw.js";
 
 const GATEWAY_DISPATCH_SHELL_ENV_EXPECTED_KEYS = [
-  "OPENCLAW_GATEWAY_TOKEN",
-  "OPENCLAW_GATEWAY_PASSWORD",
+  "GRANTED_GATEWAY_TOKEN",
+  "GRANTED_GATEWAY_PASSWORD",
 ] as const;
 
 const GATEWAY_DISPATCH_TOP_LEVEL_KEYS = [

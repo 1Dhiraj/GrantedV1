@@ -211,11 +211,11 @@ async function runOwnershipHelper(params: {
   let stateDir = tmpDir;
   while (
     params.deepStatePath &&
-    resolveOpenClawStateSqlitePath({ OPENCLAW_STATE_DIR: stateDir }).length <= 260
+    resolveOpenClawStateSqlitePath({ GRANTED_STATE_DIR: stateDir }).length <= 260
   ) {
     stateDir = path.join(stateDir, `segment-${"x".repeat(24)}`);
   }
-  const env = { OPENCLAW_STATE_DIR: stateDir } as NodeJS.ProcessEnv;
+  const env = { GRANTED_STATE_DIR: stateDir } as NodeJS.ProcessEnv;
 
   await startManagedServiceUpdateHandoff({
     root: tmpDir,
@@ -333,7 +333,7 @@ childProcess.spawn = function(command, args, options) {
       helper.once("close", (code, signal) => resolve({ code, signal }));
     },
   );
-  await waitForHandoffLine(helper.stdout, "OPENCLAW_UPDATE_HANDOFF_READY");
+  await waitForHandoffLine(helper.stdout, "GRANTED_UPDATE_HANDOFF_READY");
   const parked = waitForHandoffLine(helper.stdout, "parked");
   helperInput.write("park\n");
   await parked;
@@ -375,7 +375,7 @@ describe("managed service update handoff state ownership and sentinel persistenc
     const { result, env, logPath } = await runOwnershipHelper({
       commandExitCode: 7,
       prepareStateDatabase: async (stateEnv) => {
-        const externalEnv = { ...stateEnv, OPENCLAW_SUPERVISOR_MODE: "external" };
+        const externalEnv = { ...stateEnv, GRANTED_SUPERVISOR_MODE: "external" };
         claimOpenClawStateOwnership("gateway-supervisor", { env: externalEnv });
         closeOpenClawStateDatabaseForTest();
         const databasePath = resolveOpenClawStateSqlitePath(stateEnv);
@@ -406,7 +406,7 @@ describe("managed service update handoff state ownership and sentinel persistenc
       mtimeMs: stat.mtimeMs,
     }).toEqual(before);
     await expect(fs.readFile(logPath, "utf8")).resolves.toMatch(
-      /gateway-supervisor.*OPENCLAW_SUPERVISOR_MODE=external/u,
+      /gateway-supervisor.*GRANTED_SUPERVISOR_MODE=external/u,
     );
   });
 
@@ -508,7 +508,7 @@ describe("managed service update handoff state ownership and sentinel persistenc
       verifyDb.close();
     }
     await expect(fs.readFile(helperResult.logPath, "utf8")).resolves.toMatch(
-      /race-supervisor.*OPENCLAW_SUPERVISOR_MODE=external/u,
+      /race-supervisor.*GRANTED_SUPERVISOR_MODE=external/u,
     );
   });
 

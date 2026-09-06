@@ -15,8 +15,8 @@ import {
   type OpenClawAgentDatabaseOptions,
   withAgentDatabaseMaintenanceLease,
 } from "../state/openclaw-agent-db.js";
-import { OPENCLAW_AGENT_SCHEMA_SQL } from "../state/openclaw-agent-schema.js";
-import { OPENCLAW_SQLITE_BUSY_TIMEOUT_MS } from "../state/openclaw-state-db.js";
+import { GRANTED_AGENT_SCHEMA_SQL } from "../state/openclaw-agent-schema.js";
+import { GRANTED_SQLITE_BUSY_TIMEOUT_MS } from "../state/openclaw-state-db.js";
 import {
   createSessionSqliteMigrationFailureIssue,
   writeSessionSqliteMigrationFailureReports,
@@ -45,7 +45,7 @@ type SessionSqliteRecoverTargetValidator = (
 ) => Promise<DoctorSessionSqliteTargetReport>;
 
 const CANONICAL_AGENT_INDEX_NAMES = getCanonicalSqliteNamedIndexContracts(
-  OPENCLAW_AGENT_SCHEMA_SQL,
+  GRANTED_AGENT_SCHEMA_SQL,
 ).map((index) => index.name);
 
 /** Restores the latest failed migration run and validates only selected manifest targets. */
@@ -203,7 +203,7 @@ function inspectSqliteForRecovery(
     // Writable inspection of the disposable copy lets SQLite roll back a hot
     // journal without changing the original forensic file set.
     database = openNodeSqliteDatabase(inspectionPath);
-    database.exec(`PRAGMA busy_timeout = ${OPENCLAW_SQLITE_BUSY_TIMEOUT_MS};`);
+    database.exec(`PRAGMA busy_timeout = ${GRANTED_SQLITE_BUSY_TIMEOUT_MS};`);
     database.exec("PRAGMA trusted_schema = OFF;");
     assertSqliteIntegrity(database, inspectionPath);
   } catch (error) {

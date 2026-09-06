@@ -350,10 +350,10 @@ node    1234 user   12u  IPv4    0t0      TCP localhost:1234
       name: "gateway restart, skip channels",
     });
 
-    expect(env.OPENCLAW_GATEWAY_STARTUP_TRACE).toBe("1");
-    expect(env.OPENCLAW_GATEWAY_RESTART_TRACE).toBe("1");
-    expect(env.OPENCLAW_NO_RESPAWN).toBe("1");
-    expect(env.OPENCLAW_LOCAL_CHECK).toBeUndefined();
+    expect(env.GRANTED_GATEWAY_STARTUP_TRACE).toBe("1");
+    expect(env.GRANTED_GATEWAY_RESTART_TRACE).toBe("1");
+    expect(env.GRANTED_NO_RESPAWN).toBe("1");
+    expect(env.GRANTED_LOCAL_CHECK).toBeUndefined();
   });
 
   it("can pin ACPX startup probe policy per benchmark case", () => {
@@ -362,13 +362,13 @@ node    1234 user   12u  IPv4    0t0      TCP localhost:1234
       "/tmp/openclaw-bench/config.json",
       {
         config: {},
-        env: { OPENCLAW_ACPX_RUNTIME_STARTUP_PROBE: "0" },
+        env: { GRANTED_ACPX_RUNTIME_STARTUP_PROBE: "0" },
         id: "skipChannelsNoAcpxProbe",
         name: "gateway restart, skip channels, ACPX startup probe off",
       },
     );
 
-    expect(probeOffEnv.OPENCLAW_ACPX_RUNTIME_STARTUP_PROBE).toBe("0");
+    expect(probeOffEnv.GRANTED_ACPX_RUNTIME_STARTUP_PROBE).toBe("0");
   });
 
   it("parses restart trace metrics including resource Count fields", () => {
@@ -811,7 +811,7 @@ node    1234 user   12u  IPv4    0t0      TCP localhost:1234
   it("writes restart intent files for the target gateway pid", () => {
     const root = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-restart-bench-test-"));
     try {
-      const env = { OPENCLAW_STATE_DIR: path.join(root, "state") };
+      const env = { GRANTED_STATE_DIR: path.join(root, "state") };
 
       expect(testing.writeRestartIntent(env, 12345, "gateway-restart-bench")).toBe(true);
       const row = readRestartIntentRow(env);

@@ -91,8 +91,8 @@ function extractWindowsBackgroundControlMarkers(decoded: string): {
     return match[0];
   };
   return {
-    done: marker("__OPENCLAW_BACKGROUND_DONE__", false),
-    exitPrefix: marker("__OPENCLAW_BACKGROUND_EXIT__", true),
+    done: marker("__GRANTED_BACKGROUND_DONE__", false),
+    exitPrefix: marker("__GRANTED_BACKGROUND_EXIT__", true),
   };
 }
 
@@ -107,9 +107,9 @@ function runPrerequisiteCli(args: string[], env: NodeJS.ProcessEnv = {}) {
     env: {
       ...childEnv,
       ...env,
-      OPENCLAW_PARALLELS_NPM_UPDATE_FRESH_TIMEOUT_KILL_GRACE_MS: "invalid",
-      OPENCLAW_PARALLELS_NPM_UPDATE_FRESH_TIMEOUT_S: "invalid",
-      OPENCLAW_PARALLELS_NPM_UPDATE_TIMEOUT_S: "invalid",
+      GRANTED_PARALLELS_NPM_UPDATE_FRESH_TIMEOUT_KILL_GRACE_MS: "invalid",
+      GRANTED_PARALLELS_NPM_UPDATE_FRESH_TIMEOUT_S: "invalid",
+      GRANTED_PARALLELS_NPM_UPDATE_TIMEOUT_S: "invalid",
     },
     timeout: 10_000,
   });
@@ -552,7 +552,7 @@ exit 1
           "-c",
           `
 export HOME='${root}'
-unset OPENCLAW_WORKSPACE_DIR
+unset GRANTED_WORKSPACE_DIR
 node() { cat >/dev/null; }
 python3() { cat >/dev/null; }
 function /usr/bin/env() { cat >/dev/null; }
@@ -735,7 +735,7 @@ ${script}`,
     expect(script).toContain("assertPublishedTargetMatchesHarnessCheckout");
     expect(script).toContain("readHarnessCheckoutVersion");
     expect(script).toContain("openClawVersionFamily");
-    expect(script).toContain("OPENCLAW_PARALLELS_ALLOW_HARNESS_TARGET_MISMATCH");
+    expect(script).toContain("GRANTED_PARALLELS_ALLOW_HARNESS_TARGET_MISMATCH");
     expect(script).toContain("checkout the matching release branch");
   });
 
@@ -785,7 +785,7 @@ ${script}`,
     ].join("\n");
 
     expect(scripts).toContain("print_log_tail()");
-    expect(scripts).toContain("OPENCLAW_PARALLELS_NPM_UPDATE_LOG_TAIL_BYTES");
+    expect(scripts).toContain("GRANTED_PARALLELS_NPM_UPDATE_LOG_TAIL_BYTES");
     expect(scripts).toContain('print_log_tail "$output_file"');
     expect(scripts).toContain('print_log_tail "$gateway_log" >&2');
     expect(scripts).not.toContain('cat "$output_file"');
@@ -800,9 +800,9 @@ ${script}`,
     };
     withEnv(
       {
-        OPENCLAW_PARALLELS_LINUX_MODEL_TIMEOUT_S: undefined,
-        OPENCLAW_PARALLELS_MACOS_MODEL_TIMEOUT_S: undefined,
-        OPENCLAW_PARALLELS_MODEL_TIMEOUT_S: undefined,
+        GRANTED_PARALLELS_LINUX_MODEL_TIMEOUT_S: undefined,
+        GRANTED_PARALLELS_MACOS_MODEL_TIMEOUT_S: undefined,
+        GRANTED_PARALLELS_MODEL_TIMEOUT_S: undefined,
       },
       () => {
         expect(macosUpdateScript(input)).toContain("--timeout 1800 --json");
@@ -811,8 +811,8 @@ ${script}`,
     );
     withEnv(
       {
-        OPENCLAW_PARALLELS_LINUX_MODEL_TIMEOUT_S: "321",
-        OPENCLAW_PARALLELS_MACOS_MODEL_TIMEOUT_S: "654",
+        GRANTED_PARALLELS_LINUX_MODEL_TIMEOUT_S: "321",
+        GRANTED_PARALLELS_MACOS_MODEL_TIMEOUT_S: "654",
       },
       () => {
         expect(macosUpdateScript(input)).toContain("--timeout 654 --json");
@@ -844,18 +844,18 @@ ${script}`,
   });
 
   it("sets platform-aware fresh lane timeouts", () => {
-    withEnv({ OPENCLAW_PARALLELS_NPM_UPDATE_FRESH_TIMEOUT_S: undefined }, () => {
+    withEnv({ GRANTED_PARALLELS_NPM_UPDATE_FRESH_TIMEOUT_S: undefined }, () => {
       expect(freshLaneTimeoutMs("macos")).toBe(75 * 60 * 1000);
       expect(freshLaneTimeoutMs("linux")).toBe(75 * 60 * 1000);
       expect(freshLaneTimeoutMs("windows")).toBe(90 * 60 * 1000);
     });
 
-    withEnv({ OPENCLAW_PARALLELS_NPM_UPDATE_FRESH_TIMEOUT_S: "3" }, () => {
+    withEnv({ GRANTED_PARALLELS_NPM_UPDATE_FRESH_TIMEOUT_S: "3" }, () => {
       expect(freshLaneTimeoutMs("macos")).toBe(3000);
     });
 
     withEnv(
-      { OPENCLAW_PARALLELS_NPM_UPDATE_FRESH_TIMEOUT_S: String(Number.MAX_SAFE_INTEGER) },
+      { GRANTED_PARALLELS_NPM_UPDATE_FRESH_TIMEOUT_S: String(Number.MAX_SAFE_INTEGER) },
       () => {
         expect(freshLaneTimeoutMs("linux")).toBe(MAX_TIMER_TIMEOUT_MS);
       },
@@ -1066,8 +1066,8 @@ ${script}`,
 
     expect(script).toContain("runWindowsBackgroundPowerShell");
     expect(transports).toContain("runWindowsBackgroundPowerShell");
-    expect(transports).toContain("__OPENCLAW_BACKGROUND_EXIT__");
-    expect(transports).toContain("__OPENCLAW_BACKGROUND_DONE__");
+    expect(transports).toContain("__GRANTED_BACKGROUND_EXIT__");
+    expect(transports).toContain("__GRANTED_BACKGROUND_DONE__");
     expect(transports).toContain("${options.label} timed out");
   });
 
@@ -1192,7 +1192,7 @@ ${script}`,
       }
       if (args.includes("cmd.exe")) {
         const command = args.at(-1) ?? "";
-        if (command.includes("__OPENCLAW_BACKGROUND_DONE__")) {
+        if (command.includes("__GRANTED_BACKGROUND_DONE__")) {
           logProbes++;
           const markers = extractWindowsBackgroundControlMarkers(command);
           return {
@@ -1448,7 +1448,7 @@ exit 7
     );
     expect(windowsScript).toContain("Remove-FuturePluginEntries\nStop-OpenClawGatewayProcesses");
     expect(script).toContain("scrub_future_plugin_entries\nstop_openclaw_gateway_processes");
-    expect(macosScript).toContain('OPENCLAW_BIN="$(resolve_required_command openclaw)"');
+    expect(macosScript).toContain('GRANTED_BIN="$(resolve_required_command openclaw)"');
     expect(macosScript).toContain("/usr/local/bin:/usr/local/sbin");
     expect(macosScript).not.toContain("/opt/homebrew/bin/openclaw");
   });
@@ -1468,16 +1468,14 @@ exit 7
 
     expect(updateLines).not.toContain(undefined);
     for (const updateLine of updateLines) {
-      expect(updateLine).not.toContain("OPENCLAW_DISABLE_BUNDLED_PLUGINS");
+      expect(updateLine).not.toContain("GRANTED_DISABLE_BUNDLED_PLUGINS");
     }
     expect(windowsScript).toContain(
-      "Invoke-WithScopedEnv @{ OPENCLAW_ALLOW_OLDER_BINARY_DESTRUCTIVE_ACTIONS = '1'",
+      "Invoke-WithScopedEnv @{ GRANTED_ALLOW_OLDER_BINARY_DESTRUCTIVE_ACTIONS = '1'",
     );
-    expect(macosScript).toContain(
-      'OPENCLAW_DISABLE_BUNDLED_PLUGINS=1 "$OPENCLAW_BIN" gateway stop',
-    );
+    expect(macosScript).toContain('GRANTED_DISABLE_BUNDLED_PLUGINS=1 "$GRANTED_BIN" gateway stop');
     expect(linuxScript).toContain(
-      "OPENCLAW_DISABLE_BUNDLED_PLUGINS=1 OPENCLAW_ALLOW_ROOT=1 openclaw gateway stop",
+      "GRANTED_DISABLE_BUNDLED_PLUGINS=1 GRANTED_ALLOW_ROOT=1 openclaw gateway stop",
     );
   });
 
@@ -1490,7 +1488,7 @@ exit 7
 
     const updateIndex = script.indexOf("Invoke-OpenClaw update --tag");
     const scopedIndex = script.indexOf(
-      "Invoke-WithScopedEnv @{ OPENCLAW_ALLOW_OLDER_BINARY_DESTRUCTIVE_ACTIONS",
+      "Invoke-WithScopedEnv @{ GRANTED_ALLOW_OLDER_BINARY_DESTRUCTIVE_ACTIONS",
     );
     const versionIndex = script.indexOf("Invoke-OpenClaw --version", scopedIndex);
     const startIndex = script.indexOf("\nStart-OpenClawGateway\n", updateIndex);
@@ -1502,7 +1500,7 @@ exit 7
     expect(versionIndex).toBeGreaterThan(updateIndex);
     expect(startIndex).toBeGreaterThan(updateIndex);
     expect(agentIndex).toBeGreaterThan(updateIndex);
-    expect(script).not.toContain("OPENCLAW_DISABLE_BUNDLED_PLUGINS");
+    expect(script).not.toContain("GRANTED_DISABLE_BUNDLED_PLUGINS");
   });
 
   it("generates a .NET-safe Windows stale import regex in the update-failure guard", () => {

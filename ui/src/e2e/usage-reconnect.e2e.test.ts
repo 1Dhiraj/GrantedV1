@@ -18,7 +18,7 @@ const suite = createControlUiE2eSuite({
 // Mirrors the module-private default usage TTL asserted by this flow.
 const USAGE_PAYLOAD_TTL_MS = 5 * 60_000;
 
-const artifactRoot = process.env.OPENCLAW_UI_E2E_ARTIFACT_DIR?.trim();
+const artifactRoot = process.env.GRANTED_UI_E2E_ARTIFACT_DIR?.trim();
 let proofDir: string | undefined;
 beforeEach(() => {
   proofDir = artifactRoot

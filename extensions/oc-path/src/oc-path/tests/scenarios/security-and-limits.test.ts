@@ -190,7 +190,7 @@ describe("path-string and traversal caps", () => {
 
 describe("sentinel literal at format boundary", () => {
   it("formatOcPath rejects a struct carrying the redaction sentinel", () => {
-    expect(() => formatOcPath({ file: "AGENTS.md", section: "__OPENCLAW_REDACTED__" })).toThrow(
+    expect(() => formatOcPath({ file: "AGENTS.md", section: "__GRANTED_REDACTED__" })).toThrow(
       /sentinel literal/,
     );
   });

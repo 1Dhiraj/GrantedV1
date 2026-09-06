@@ -29,7 +29,7 @@ function inspection(running = false): Extract<FleetContainerInspectResult, { kin
       "openclaw.fleet.env-keys": "",
       "openclaw.fleet.disk-limit": "10g",
     },
-    environment: { OPENCLAW_GATEWAY_TOKEN: "old-token" },
+    environment: { GRANTED_GATEWAY_TOKEN: "old-token" },
     imageId: "sha256:image",
     memory: "2147483648",
     cpus: "2",
@@ -605,11 +605,11 @@ describe("fleet restore runtime", () => {
       await fs.readFile(path.join(record.dataDir, "openclaw.json"), "utf8"),
     ) as { gateway?: { controlUi?: { allowedOrigins?: string[] } } };
     expect(config.gateway?.controlUi?.allowedOrigins).toContain("http://127.0.0.1:19100");
-    expect(containers.run.mock.calls[0]?.[0].environment.OPENCLAW_GATEWAY_TOKEN).toBe("new-token");
+    expect(containers.run.mock.calls[0]?.[0].environment.GRANTED_GATEWAY_TOKEN).toBe("new-token");
     // The disk limit must survive restore via the fleet label even on Podman,
     // whose inspect schema has no HostConfig.StorageOpt.
     expect(containers.run.mock.calls[0]?.[0].diskSize).toBe("10g");
-    expect(containers.run.mock.calls[0]?.[0].environment.OPENCLAW_GATEWAY_TOKEN).not.toBe(
+    expect(containers.run.mock.calls[0]?.[0].environment.GRANTED_GATEWAY_TOKEN).not.toBe(
       "old-token",
     );
     expect(containers.run).toHaveBeenCalledWith(expect.any(Object), false);

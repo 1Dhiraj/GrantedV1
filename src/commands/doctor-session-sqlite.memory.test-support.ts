@@ -16,8 +16,8 @@ export const sqliteImportMemorySupportUrl = import.meta.url;
 async function main() {
   const [stateDir, scenario] = process.argv.slice(2);
   assert(stateDir && scenario);
-  process.env.OPENCLAW_STATE_DIR = stateDir;
-  process.env.OPENCLAW_CONFIG_PATH = path.join(stateDir, "openclaw.json");
+  process.env.GRANTED_STATE_DIR = stateDir;
+  process.env.GRANTED_CONFIG_PATH = path.join(stateDir, "openclaw.json");
   const sessionCount = scenario === "batch" ? 256 : 1;
   const eventCount =
     scenario === "deep" || scenario === "public" ? 100_000 : scenario === "batch" ? 64 : 8;

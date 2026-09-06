@@ -67,10 +67,10 @@ function withProfile<T>(profile: string | undefined, run: () => Promise<T>): Pro
     {
       HOME: home,
       USERPROFILE: home,
-      OPENCLAW_HOME: undefined,
-      OPENCLAW_PROFILE: profile,
-      OPENCLAW_STATE_DIR: stateDir,
-      OPENCLAW_CONFIG_PATH: path.join(stateDir, "openclaw.json"),
+      GRANTED_HOME: undefined,
+      GRANTED_PROFILE: profile,
+      GRANTED_STATE_DIR: stateDir,
+      GRANTED_CONFIG_PATH: path.join(stateDir, "openclaw.json"),
     },
     run,
   );

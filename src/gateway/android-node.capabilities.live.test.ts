@@ -22,7 +22,7 @@ import { resolveGatewayCredentialsFromConfig } from "./credentials.js";
 import { resolveNodeCommandAllowlist } from "./node-command-policy.js";
 
 const LIVE = isLiveTestEnabled();
-const LIVE_ANDROID_NODE = isTruthyEnvValue(process.env.OPENCLAW_LIVE_ANDROID_NODE);
+const LIVE_ANDROID_NODE = isTruthyEnvValue(process.env.GRANTED_LIVE_ANDROID_NODE);
 const describeLive = LIVE && LIVE_ANDROID_NODE ? describe : describe.skip;
 const SKIPPED_INTERACTIVE_COMMANDS = new Set([
   "screen.record",
@@ -270,13 +270,13 @@ const COMMAND_PROFILES: Record<string, CommandProfile> = {
 
 async function resolveGatewayConnection() {
   const cfg = await readLiveTestConfig();
-  const urlOverride = normalizeNullableString(process.env.OPENCLAW_ANDROID_GATEWAY_URL);
+  const urlOverride = normalizeNullableString(process.env.GRANTED_ANDROID_GATEWAY_URL);
   const details = buildGatewayConnectionDetails({
     config: cfg,
     ...(urlOverride ? { url: urlOverride } : {}),
   });
-  const tokenOverride = normalizeNullableString(process.env.OPENCLAW_ANDROID_GATEWAY_TOKEN);
-  const passwordOverride = normalizeNullableString(process.env.OPENCLAW_ANDROID_GATEWAY_PASSWORD);
+  const tokenOverride = normalizeNullableString(process.env.GRANTED_ANDROID_GATEWAY_TOKEN);
+  const passwordOverride = normalizeNullableString(process.env.GRANTED_ANDROID_GATEWAY_PASSWORD);
   const creds = resolveGatewayCredentialsFromConfig({
     cfg,
     explicitAuth: {
@@ -399,24 +399,24 @@ function isAndroidNode(node: NodeListNode): boolean {
 }
 
 function selectTargetNode(nodes: NodeListNode[]): NodeListNode {
-  const nodeIdOverride = normalizeNullableString(process.env.OPENCLAW_ANDROID_NODE_ID);
+  const nodeIdOverride = normalizeNullableString(process.env.GRANTED_ANDROID_NODE_ID);
   if (nodeIdOverride) {
     const match = nodes.find((node) => node.nodeId === nodeIdOverride);
     if (!match) {
-      throw new Error(`OPENCLAW_ANDROID_NODE_ID not found in node.list: ${nodeIdOverride}`);
+      throw new Error(`GRANTED_ANDROID_NODE_ID not found in node.list: ${nodeIdOverride}`);
     }
     return match;
   }
 
   const nodeNameOverride = normalizeNullableString(
-    process.env.OPENCLAW_ANDROID_NODE_NAME,
+    process.env.GRANTED_ANDROID_NODE_NAME,
   )?.toLowerCase();
   if (nodeNameOverride) {
     const match = nodes.find(
       (node) => normalizeNullableString(node.displayName)?.toLowerCase() === nodeNameOverride,
     );
     if (!match) {
-      throw new Error(`OPENCLAW_ANDROID_NODE_NAME not found in node.list: ${nodeNameOverride}`);
+      throw new Error(`GRANTED_ANDROID_NODE_NAME not found in node.list: ${nodeNameOverride}`);
     }
     return match;
   }

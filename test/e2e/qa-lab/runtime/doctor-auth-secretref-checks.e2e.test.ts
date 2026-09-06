@@ -80,7 +80,7 @@ describe.skipIf(process.platform === "win32")("doctor auth and SecretRef product
       expect(resolvedOutput).not.toContain(resolvedValue);
 
       delete instance.env.QA_DOCTOR_MISSING_GATEWAY_TOKEN;
-      instance.env.OPENCLAW_GATEWAY_TOKEN = "qa-ambient-token-must-not-win";
+      instance.env.GRANTED_GATEWAY_TOKEN = "qa-ambient-token-must-not-win";
       const unresolvedRef = {
         source: "env" as const,
         provider: "default",
@@ -184,7 +184,7 @@ describe.skipIf(process.platform === "win32")("doctor auth and SecretRef product
         expect(execAllowedOutput).not.toContain("qa-exec-token");
       });
 
-      delete instance.env.OPENCLAW_GATEWAY_TOKEN;
+      delete instance.env.GRANTED_GATEWAY_TOKEN;
       await writeConfig(localGatewayConfig());
       const generated = await instance.cli(
         [

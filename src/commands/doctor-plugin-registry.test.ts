@@ -49,8 +49,8 @@ async function readRequiredPersistedInstalledPluginIndex(
 
 function hermeticEnv(overrides: NodeJS.ProcessEnv = {}): NodeJS.ProcessEnv {
   return {
-    OPENCLAW_BUNDLED_PLUGINS_DIR: undefined,
-    OPENCLAW_VERSION: "2026.4.25",
+    GRANTED_BUNDLED_PLUGINS_DIR: undefined,
+    GRANTED_VERSION: "2026.4.25",
     VITEST: "true",
     ...overrides,
   };
@@ -587,7 +587,7 @@ describe("maybeRepairPluginRegistryState", () => {
           `,
         ).run(valueJson);
       },
-      { env: { ...process.env, OPENCLAW_STATE_DIR: stateDir } },
+      { env: { ...process.env, GRANTED_STATE_DIR: stateDir } },
     );
 
     await expect(
@@ -614,7 +614,7 @@ describe("maybeRepairPluginRegistryState", () => {
               WHERE state_key = 'plugins.installedIndex'`,
           )
           .get() as { value_json: string; updated_at_ms: number | bigint },
-      { env: { ...process.env, OPENCLAW_STATE_DIR: stateDir } },
+      { env: { ...process.env, GRANTED_STATE_DIR: stateDir } },
     );
     expect(row.updated_at_ms).toBe(123);
     expect(row.value_json).toContain(installRecordsJson);

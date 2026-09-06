@@ -2004,7 +2004,7 @@ describe("activateSetupInference", () => {
     closeOpenClawStateDatabaseForTest();
     const stateDir = await suiteTempRootTracker.make("case");
     await fs.mkdir(path.join(stateDir, "state"), { recursive: true });
-    vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
+    vi.stubEnv("GRANTED_STATE_DIR", stateDir);
     const events: string[] = [];
     const ensureCodex = vi.fn(
       async (params: {
@@ -6107,7 +6107,7 @@ describe("verifySetupInference", () => {
 
   it("binds a runtime-only Codex profile after activation and runs the first OpenClaw turn", async () => {
     const stateDir = await suiteTempRootTracker.make("case");
-    vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
+    vi.stubEnv("GRANTED_STATE_DIR", stateDir);
     const profileId = "openai:default";
     const credential = {
       type: "oauth" as const,

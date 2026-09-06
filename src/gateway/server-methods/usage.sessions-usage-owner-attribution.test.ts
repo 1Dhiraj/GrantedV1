@@ -68,7 +68,7 @@ async function queryUsage(options: {
   params?: Record<string, unknown>;
 }): Promise<SessionsUsageResult> {
   return await withTempDir("usage-owner-", async (stateDir) =>
-    withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () => {
+    withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {
       const fixtureStore = {
         durableTargets: [],
         storePath: "(multiple)",

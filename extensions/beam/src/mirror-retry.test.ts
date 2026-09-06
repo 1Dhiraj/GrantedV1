@@ -158,7 +158,7 @@ describe("Beam terminal retry policy", () => {
     const targetThreadId = "session-273";
     const targetBeamId = beamMirrorId("claude", "gateway:local", targetThreadId);
     const stateDir = tempDirs.make("beam-capacity-");
-    const stateEnv: NodeJS.ProcessEnv = { OPENCLAW_STATE_DIR: stateDir };
+    const stateEnv: NodeJS.ProcessEnv = { GRANTED_STATE_DIR: stateDir };
     resetPluginStateStoreForTests();
     const keyedStore = createPluginStateKeyedStoreForTests<BeamStoredSession>("beam-capacity", {
       namespace: "sessions",

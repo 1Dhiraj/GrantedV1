@@ -12,7 +12,7 @@ afterEach(() => {
 describe("hook install machine state", () => {
   it("merges independently recorded hook packs", () => {
     const stateDir = mkdtempSync(join(tmpdir(), "openclaw-hook-installs-"));
-    const options = { env: { ...process.env, OPENCLAW_STATE_DIR: stateDir } };
+    const options = { env: { ...process.env, GRANTED_STATE_DIR: stateDir } };
 
     recordHookInstall({}, { hookId: "alpha", source: "npm" }, options);
     recordHookInstall({}, { hookId: "beta", source: "path" }, options);

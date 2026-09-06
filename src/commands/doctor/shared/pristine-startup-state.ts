@@ -263,7 +263,7 @@ export function planPristineStartupStateMigrations(
   if (!homeDir) {
     return { skipAllStateMigrations: false, skipCoreStateMigrations: false };
   }
-  const explicitStateDir = env.OPENCLAW_STATE_DIR?.trim();
+  const explicitStateDir = env.GRANTED_STATE_DIR?.trim();
   const legacyStateAbsent =
     Boolean(explicitStateDir) ||
     resolveLegacyStateDirs(() => homeDir).every((legacyDir) => {

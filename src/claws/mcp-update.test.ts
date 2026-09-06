@@ -27,7 +27,7 @@ const tempDirs = useAutoCleanupTempDirTracker(afterEach);
 let leaseEnv: NodeJS.ProcessEnv;
 
 beforeEach(() => {
-  leaseEnv = { OPENCLAW_STATE_DIR: join(tempDirs.make("openclaw-mcp-update-"), "state") };
+  leaseEnv = { GRANTED_STATE_DIR: join(tempDirs.make("openclaw-mcp-update-"), "state") };
 });
 afterEach(() => closeOpenClawStateDatabaseForTest());
 
@@ -265,7 +265,7 @@ describe("applyClawMcpUpdate", () => {
 
   it("restores complete MCP ownership through a real release rollback", async () => {
     const root = tempDirs.make("openclaw-mcp-release-");
-    const stateOptions = { env: { OPENCLAW_STATE_DIR: join(root, "state") } };
+    const stateOptions = { env: { GRANTED_STATE_DIR: join(root, "state") } };
     const independent = {
       ...ref("legacy", legacy),
       relationship: "referenced" as const,
@@ -300,7 +300,7 @@ describe("applyClawMcpUpdate", () => {
 
   it("does not compensate a config write rejected before mutation", async () => {
     const root = tempDirs.make("openclaw-mcp-update-rejected-");
-    const stateOptions = { env: { OPENCLAW_STATE_DIR: join(root, "state") } };
+    const stateOptions = { env: { GRANTED_STATE_DIR: join(root, "state") } };
     const previous = ref("docs", oldDocs);
     upsertClawMcpServerRef(previous, stateOptions);
     const setServer = vi.fn(async () => ({ ok: false as const, path: "config", error: "changed" }));
@@ -335,7 +335,7 @@ describe("applyClawMcpUpdate", () => {
 
   it("deletes pending ownership when an added server write is rejected", async () => {
     const root = tempDirs.make("openclaw-mcp-add-rejected-");
-    const stateOptions = { env: { OPENCLAW_STATE_DIR: join(root, "state") } };
+    const stateOptions = { env: { GRANTED_STATE_DIR: join(root, "state") } };
 
     await expect(
       applyClawMcpUpdate(
@@ -367,7 +367,7 @@ describe("applyClawMcpUpdate", () => {
 
   it("restores complete ownership when a removal write is rejected", async () => {
     const root = tempDirs.make("openclaw-mcp-remove-rejected-");
-    const stateOptions = { env: { OPENCLAW_STATE_DIR: join(root, "state") } };
+    const stateOptions = { env: { GRANTED_STATE_DIR: join(root, "state") } };
     const previous = ref("legacy", legacy);
     upsertClawMcpServerRef(previous, stateOptions);
 

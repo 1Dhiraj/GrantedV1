@@ -41,7 +41,7 @@ export async function offerLiveModelVerification(params: {
     import("../state/openclaw-agent-db.js"),
   ]);
   const stagedEnv = params.stateDir
-    ? { ...process.env, OPENCLAW_STATE_DIR: params.stateDir }
+    ? { ...process.env, GRANTED_STATE_DIR: params.stateDir }
     : undefined;
   const verify = async (candidate: SetupModelAuthCandidate) => {
     const progress = params.prompter.progress(t("wizard.setup.testAiProgress"));

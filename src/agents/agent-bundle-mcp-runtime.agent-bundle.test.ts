@@ -146,11 +146,11 @@ it("discovers an installed Agent Plugins bundle and executes its real stdio tool
   };
   await withEnvAsync(
     {
-      OPENCLAW_STATE_DIR: stateDir,
-      OPENCLAW_HOME: undefined,
-      OPENCLAW_CONFIG_PATH: undefined,
-      OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-      OPENCLAW_BUNDLED_PLUGINS_DIR: bundledPluginsDir,
+      GRANTED_STATE_DIR: stateDir,
+      GRANTED_HOME: undefined,
+      GRANTED_CONFIG_PATH: undefined,
+      GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+      GRANTED_BUNDLED_PLUGINS_DIR: bundledPluginsDir,
     },
     async () => {
       clearPluginMetadataLifecycleCaches();

@@ -212,7 +212,7 @@ describe("runDoctorConfigPreflight", () => {
     await withTempHome(async (home) => {
       const configPath = await writeOpenClawConfig(home, config);
       const original = await fs.readFile(configPath, "utf-8");
-      await withEnvOverride({ OPENCLAW_UPDATE_IN_PROGRESS: updating }, async () => {
+      await withEnvOverride({ GRANTED_UPDATE_IN_PROGRESS: updating }, async () => {
         await expect(
           runDoctorConfigPreflight({
             ...startupCheckpointOptions,
@@ -303,9 +303,9 @@ describe("runDoctorConfigPreflight", () => {
 
       await withEnvOverride(
         {
-          OPENCLAW_CONFIG_PATH: undefined,
-          OPENCLAW_PROFILE: undefined,
-          OPENCLAW_STATE_DIR: stateDir,
+          GRANTED_CONFIG_PATH: undefined,
+          GRANTED_PROFILE: undefined,
+          GRANTED_STATE_DIR: stateDir,
         },
         async () => {
           const preflight = await runDoctorConfigPreflight({
@@ -329,9 +329,9 @@ describe("runDoctorConfigPreflight", () => {
 
       await withEnvOverride(
         {
-          OPENCLAW_CONFIG_PATH: configPath,
-          OPENCLAW_PROFILE: undefined,
-          OPENCLAW_STATE_DIR: undefined,
+          GRANTED_CONFIG_PATH: configPath,
+          GRANTED_PROFILE: undefined,
+          GRANTED_STATE_DIR: undefined,
         },
         async () => {
           const preflight = await runDoctorConfigPreflight({
@@ -354,9 +354,9 @@ describe("runDoctorConfigPreflight", () => {
 
       await withEnvOverride(
         {
-          OPENCLAW_CONFIG_PATH: undefined,
-          OPENCLAW_PROFILE: undefined,
-          OPENCLAW_STATE_DIR: undefined,
+          GRANTED_CONFIG_PATH: undefined,
+          GRANTED_PROFILE: undefined,
+          GRANTED_STATE_DIR: undefined,
         },
         async () => {
           applyCliProfileEnv({ profile: "work", homedir: () => home });
@@ -375,17 +375,17 @@ describe("runDoctorConfigPreflight", () => {
   it("skips plugin schema validation while doctor is running inside update", () => {
     expect(
       shouldSkipPluginValidationForDoctorConfigPreflight({
-        OPENCLAW_UPDATE_IN_PROGRESS: "1",
+        GRANTED_UPDATE_IN_PROGRESS: "1",
       } as NodeJS.ProcessEnv),
     ).toBe(true);
     expect(
       shouldSkipPluginValidationForDoctorConfigPreflight({
-        OPENCLAW_UPDATE_IN_PROGRESS: "true",
+        GRANTED_UPDATE_IN_PROGRESS: "true",
       } as NodeJS.ProcessEnv),
     ).toBe(true);
     expect(
       shouldSkipPluginValidationForDoctorConfigPreflight({
-        OPENCLAW_UPDATE_IN_PROGRESS: "0",
+        GRANTED_UPDATE_IN_PROGRESS: "0",
       } as NodeJS.ProcessEnv),
     ).toBe(false);
   });
@@ -486,7 +486,7 @@ describe("runDoctorConfigPreflight", () => {
       });
       expect(inspectOnly.snapshot.valid).toBe(false);
 
-      const repaired = await withEnvOverride({ OPENCLAW_UPDATE_IN_PROGRESS: "1" }, () =>
+      const repaired = await withEnvOverride({ GRANTED_UPDATE_IN_PROGRESS: "1" }, () =>
         runDoctorConfigPreflight({
           migrateState: false,
           migrateLegacyConfig: false,
@@ -560,7 +560,7 @@ describe("runDoctorConfigPreflight", () => {
         "utf-8",
       );
 
-      const repaired = await withEnvOverride({ OPENCLAW_UPDATE_IN_PROGRESS: "1" }, () =>
+      const repaired = await withEnvOverride({ GRANTED_UPDATE_IN_PROGRESS: "1" }, () =>
         runDoctorConfigPreflight({
           migrateState: true,
           migrateLegacyConfig: false,
@@ -581,7 +581,7 @@ describe("runDoctorConfigPreflight", () => {
       const entries = await fs.readdir(path.dirname(configPath));
       expect(entries.filter((entry) => entry.startsWith("openclaw.json.clobbered."))).toEqual([]);
 
-      const converged = await withEnvOverride({ OPENCLAW_UPDATE_IN_PROGRESS: "1" }, () =>
+      const converged = await withEnvOverride({ GRANTED_UPDATE_IN_PROGRESS: "1" }, () =>
         runDoctorConfigPreflight({
           migrateState: false,
           migrateLegacyConfig: false,
@@ -628,7 +628,7 @@ describe("runDoctorConfigPreflight", () => {
       await fs.mkdir(path.dirname(configPath), { recursive: true });
       await fs.writeFile(configPath, brokenRaw, "utf-8");
 
-      await withEnvOverride({ OPENCLAW_CONTAINER_HINT: "repair-test" }, async () => {
+      await withEnvOverride({ GRANTED_CONTAINER_HINT: "repair-test" }, async () => {
         const failures: unknown[] = [];
         for (let attempt = 0; attempt < 3; attempt += 1) {
           failures.push(
@@ -705,7 +705,7 @@ describe("runDoctorConfigPreflight", () => {
         "utf-8",
       );
 
-      const repaired = await withEnvOverride({ OPENCLAW_UPDATE_IN_PROGRESS: "1" }, () =>
+      const repaired = await withEnvOverride({ GRANTED_UPDATE_IN_PROGRESS: "1" }, () =>
         runDoctorConfigPreflight({
           migrateState: false,
           migrateLegacyConfig: false,
@@ -724,7 +724,7 @@ describe("runDoctorConfigPreflight", () => {
         fs.readFile(path.join(path.dirname(configPath), clobbered[0]!), "utf-8"),
       ).resolves.toContain('"port": 19092');
 
-      const converged = await withEnvOverride({ OPENCLAW_UPDATE_IN_PROGRESS: "1" }, () =>
+      const converged = await withEnvOverride({ GRANTED_UPDATE_IN_PROGRESS: "1" }, () =>
         runDoctorConfigPreflight({
           migrateState: false,
           migrateLegacyConfig: false,

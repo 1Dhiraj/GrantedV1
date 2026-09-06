@@ -32,7 +32,7 @@ describe("ManagedWorktreeService naming", () => {
     await git(repo, "commit", "-m", "initial");
     repo = await fs.realpath(repo);
     service = new ManagedWorktreeService({
-      env: { ...process.env, OPENCLAW_STATE_DIR: path.join(root, "state") },
+      env: { ...process.env, GRANTED_STATE_DIR: path.join(root, "state") },
     });
   });
 

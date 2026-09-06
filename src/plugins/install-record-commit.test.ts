@@ -486,7 +486,7 @@ describe("commitConfigWithPendingPluginInstalls", () => {
     fs.mkdirSync(nextInstallPath, { recursive: true });
 
     try {
-      await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () => {
+      await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {
         await commitPluginInstallRecordsWithConfig({
           previousInstallRecords: {
             codex: {
@@ -530,7 +530,7 @@ describe("commitConfigWithPendingPluginInstalls", () => {
     mocks.replaceConfigFile.mockRejectedValueOnce(new Error("config changed"));
 
     try {
-      await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () => {
+      await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {
         await expect(
           commitPluginInstallRecordsWithConfig({
             previousInstallRecords,
@@ -580,7 +580,7 @@ describe("commitConfigWithPendingPluginInstalls", () => {
     fs.mkdirSync(nextInstallPath, { recursive: true });
 
     try {
-      await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () => {
+      await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {
         await commitPluginInstallRecordsWithConfig({
           previousInstallRecords: {
             codex: {
@@ -631,7 +631,7 @@ describe("commitConfigWithPendingPluginInstalls", () => {
     fs.mkdirSync(nextInstallPath, { recursive: true });
 
     try {
-      await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () => {
+      await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {
         await commitPluginInstallRecordsWithConfig({
           previousInstallRecords: {
             "voice-call": {
@@ -682,7 +682,7 @@ describe("commitConfigWithPendingPluginInstalls", () => {
     mocks.replaceConfigFile.mockRejectedValueOnce(new Error("config changed"));
 
     try {
-      await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () => {
+      await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {
         await expect(
           commitPluginInstallRecordsWithConfig({
             previousInstallRecords: {
@@ -759,7 +759,7 @@ describe("commitConfigWithPendingPluginInstalls", () => {
     );
 
     try {
-      await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () => {
+      await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {
         await expect(
           commitPluginInstallRecordsWithConfig({
             previousInstallRecords: {
@@ -821,7 +821,7 @@ describe("commitConfigWithPendingPluginInstalls", () => {
       if (rolledBack) {
         mocks.replaceConfigFile.mockRejectedValueOnce(new Error("config changed"));
       }
-      await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () => {
+      await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {
         const commit = commitPluginInstallRecordsWithConfig({
           previousInstallRecords: {},
           nextInstallRecords: {

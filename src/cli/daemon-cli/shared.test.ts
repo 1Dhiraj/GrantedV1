@@ -31,7 +31,7 @@ describe("renderGatewayServiceStartHints", () => {
     },
     {
       name: "a named profile",
-      env: { OPENCLAW_PROFILE: "work" },
+      env: { GRANTED_PROFILE: "work" },
       installCommand: "openclaw --profile work gateway install",
       startCommand: "openclaw --profile work gateway start",
     },
@@ -48,21 +48,21 @@ describe("renderGatewayServiceStartHints", () => {
     ).toContain("logged-in macOS GUI session");
   });
 
-  it("prepends a single container restart hint when OPENCLAW_CONTAINER is set", () => {
+  it("prepends a single container restart hint when GRANTED_CONTAINER is set", () => {
     expect(
       renderGatewayServiceStartHints({
-        OPENCLAW_CONTAINER: "openclaw-demo-container",
+        GRANTED_CONTAINER: "openclaw-demo-container",
       } as NodeJS.ProcessEnv),
     ).toContain(
       "Restart the container or the service that manages it for openclaw-demo-container.",
     );
   });
 
-  it("prepends a single container restart hint when OPENCLAW_CONTAINER_HINT is set", () => {
+  it("prepends a single container restart hint when GRANTED_CONTAINER_HINT is set", () => {
     expect(
       renderGatewayServiceStartHints({
-        OPENCLAW_CONTAINER_HINT: "openclaw-demo-container",
-        OPENCLAW_PROFILE: "work",
+        GRANTED_CONTAINER_HINT: "openclaw-demo-container",
+        GRANTED_PROFILE: "work",
       } as NodeJS.ProcessEnv),
     ).toEqual([
       "Restart the container or the service that manages it for openclaw-demo-container.",
@@ -71,26 +71,26 @@ describe("renderGatewayServiceStartHints", () => {
 });
 
 describe("filterContainerGenericHints", () => {
-  it("drops the generic container foreground hint when OPENCLAW_CONTAINER is set", () => {
+  it("drops the generic container foreground hint when GRANTED_CONTAINER is set", () => {
     expect(
       filterContainerGenericHints(
         [
           "systemd user services are unavailable; install/enable systemd or run the gateway under your supervisor.",
           "If you're in a container, run the gateway in the foreground instead of `openclaw gateway`.",
         ],
-        { OPENCLAW_CONTAINER: "openclaw-demo-container" } as NodeJS.ProcessEnv,
+        { GRANTED_CONTAINER: "openclaw-demo-container" } as NodeJS.ProcessEnv,
       ),
     ).toStrictEqual([]);
   });
 
-  it("drops the generic container foreground hint when OPENCLAW_CONTAINER_HINT is set", () => {
+  it("drops the generic container foreground hint when GRANTED_CONTAINER_HINT is set", () => {
     expect(
       filterContainerGenericHints(
         [
           "systemd user services are unavailable; install/enable systemd or run the gateway under your supervisor.",
           "If you're in a container, run the gateway in the foreground instead of `openclaw gateway`.",
         ],
-        { OPENCLAW_CONTAINER_HINT: "openclaw-demo-container" } as NodeJS.ProcessEnv,
+        { GRANTED_CONTAINER_HINT: "openclaw-demo-container" } as NodeJS.ProcessEnv,
       ),
     ).toStrictEqual([]);
   });

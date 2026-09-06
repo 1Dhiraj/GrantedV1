@@ -416,9 +416,9 @@ function createIsolatedRootHelpRenderContext(
     LC_ALL: process.env.LC_ALL ?? "C.UTF-8",
     TERM: process.env.TERM ?? "dumb",
     NO_COLOR: "1",
-    OPENCLAW_BUNDLED_PLUGINS_DIR: bundledPluginsDir,
-    OPENCLAW_DISABLE_BUNDLED_PLUGINS: "",
-    OPENCLAW_STATE_DIR: stateDir,
+    GRANTED_BUNDLED_PLUGINS_DIR: bundledPluginsDir,
+    GRANTED_DISABLE_BUNDLED_PLUGINS: "",
+    GRANTED_STATE_DIR: stateDir,
   };
   const config: OpenClawConfig = {
     agents: {
@@ -832,7 +832,7 @@ async function renderSourceCommandHelpText(
     cwd: rootDir,
     env: {
       ...renderContext.env,
-      OPENCLAW_DISABLE_CLI_STARTUP_HELP_FAST_PATH: "1",
+      GRANTED_DISABLE_CLI_STARTUP_HELP_FAST_PATH: "1",
     },
     failureMessage: `Failed to render source ${command} help`,
     onTerminalFailure: taskContext?.reportFailure,

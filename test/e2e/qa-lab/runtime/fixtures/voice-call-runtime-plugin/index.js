@@ -15,7 +15,7 @@ export default {
         throw new Error("Voice Call fixture is bridge-only");
       },
       createBridge(request) {
-        append(process.env.OPENCLAW_QA_VOICE_BRIDGE_CALLS_PATH, {
+        append(process.env.GRANTED_QA_VOICE_BRIDGE_CALLS_PATH, {
           instructions: request.instructions,
           tools: request.tools?.map((tool) => tool.name) ?? [],
         });
@@ -41,7 +41,7 @@ export default {
           sendAudio() {},
           setMediaTimestamp() {},
           submitToolResult(callId, result, options) {
-            append(process.env.OPENCLAW_QA_VOICE_TOOL_RESULTS_PATH, { callId, result, options });
+            append(process.env.GRANTED_QA_VOICE_TOOL_RESULTS_PATH, { callId, result, options });
           },
           acknowledgeMark() {},
           close() {

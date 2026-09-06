@@ -37,7 +37,7 @@ function gatewayTransportError(params: {
 describe("session target parsing", () => {
   beforeEach(() => {
     callGatewayMock.mockReset();
-    delete process.env.OPENCLAW_ALLOW_INSECURE_PRIVATE_WS;
+    delete process.env.GRANTED_ALLOW_INSECURE_PRIVATE_WS;
   });
 
   it.each([

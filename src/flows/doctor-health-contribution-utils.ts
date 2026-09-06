@@ -6,7 +6,7 @@ import type { DoctorHealthFlowContext } from "./doctor-health-contribution-types
 export function isUpdateDoctorRun(
   env: NodeJS.ProcessEnv | Record<string, string | undefined>,
 ): boolean {
-  const value = env.OPENCLAW_UPDATE_IN_PROGRESS;
+  const value = env.GRANTED_UPDATE_IN_PROGRESS;
   return value === "1" || value === "true";
 }
 

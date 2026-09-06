@@ -14,7 +14,7 @@ import {
   LAZY_ADDITIVE_STATE_INDEXES,
   LAZY_ADDITIVE_STATE_TABLES,
 } from "./openclaw-state-db-contract.js";
-import { OPENCLAW_STATE_SCHEMA_SQL } from "./openclaw-state-schema.js";
+import { GRANTED_STATE_SCHEMA_SQL } from "./openclaw-state-schema.js";
 
 // Same-version databases may lack additive columns that only a writable open
 // can ensure, while read-only planning must keep accepting the older shape.
@@ -45,7 +45,7 @@ let openClawStateCanonicalNamedIndexSet: ReadonlySet<string> | undefined;
 
 function getOpenClawStateCanonicalNamedIndexSet(): ReadonlySet<string> {
   openClawStateCanonicalNamedIndexSet ??= new Set(
-    getCanonicalSqliteNamedIndexContracts(OPENCLAW_STATE_SCHEMA_SQL).map((index) => index.name),
+    getCanonicalSqliteNamedIndexContracts(GRANTED_STATE_SCHEMA_SQL).map((index) => index.name),
   );
   return openClawStateCanonicalNamedIndexSet;
 }
@@ -54,7 +54,7 @@ function getOpenClawStateCanonicalNamedIndexSet(): ReadonlySet<string> {
 export function getOpenClawStateRuntimeSchema(options: {
   includeVersionLazyAdditiveTables: boolean;
 }): string {
-  let schema = OPENCLAW_STATE_SCHEMA_SQL;
+  let schema = GRANTED_STATE_SCHEMA_SQL;
   const omittedTables = options.includeVersionLazyAdditiveTables
     ? FIRST_USE_STATE_TABLES
     : LAZY_ADDITIVE_STATE_TABLES;
@@ -109,7 +109,7 @@ export const STATE_PERSISTENT_SCHEMA_COMPATIBILITY: SqliteSchemaCompatibility = 
   },
 };
 
-export const OPENCLAW_STATE_MAINTENANCE_SCHEMA_COMPATIBILITY: SqliteSchemaCompatibility = {
+export const GRANTED_STATE_MAINTENANCE_SCHEMA_COMPATIBILITY: SqliteSchemaCompatibility = {
   ...STATE_PERSISTENT_SCHEMA_COMPATIBILITY,
   allowedMissingTables: [...LAZY_ADDITIVE_STATE_TABLES, ...CLAW_STARTUP_ADDITIVE_STATE_TABLES],
   allowedMissingIndexes: CLAW_READONLY_OPTIONAL_STATE_INDEXES,

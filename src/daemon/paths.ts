@@ -37,28 +37,26 @@ function resolveUserPathWithHome(input: string, home?: string): string {
 }
 
 export function resolveGatewayStateDir(env: Record<string, string | undefined>): string {
-  const override = normalizeOptionalString(env.OPENCLAW_STATE_DIR);
+  const override = normalizeOptionalString(env.GRANTED_STATE_DIR);
   if (override) {
     const home = override.startsWith("~") ? resolveDaemonHomeDir(env) : undefined;
     return resolveUserPathWithHome(override, home);
   }
   const home = resolveDaemonHomeDir(env);
-  const suffix = resolveGatewayProfileSuffix(env.OPENCLAW_PROFILE);
+  const suffix = resolveGatewayProfileSuffix(env.GRANTED_PROFILE);
   // Profile suffixes isolate managed service files while preserving the default
   // historical ~/.openclaw state path.
   return path.join(home, `.openclaw${suffix}`);
 }
 
 export function resolveGatewayTaskScriptPath(env: Record<string, string | undefined>): string {
-  const override = normalizeOptionalString(env.OPENCLAW_TASK_SCRIPT);
+  const override = normalizeOptionalString(env.GRANTED_TASK_SCRIPT);
   if (override) {
     return override;
   }
-  const scriptName = normalizeOptionalString(env.OPENCLAW_TASK_SCRIPT_NAME) || "gateway.cmd";
+  const scriptName = normalizeOptionalString(env.GRANTED_TASK_SCRIPT_NAME) || "gateway.cmd";
   if (/[/\\]|\.\./.test(scriptName)) {
-    throw new Error(
-      `OPENCLAW_TASK_SCRIPT_NAME must be a file name only, not a path: ${scriptName}`,
-    );
+    throw new Error(`GRANTED_TASK_SCRIPT_NAME must be a file name only, not a path: ${scriptName}`);
   }
   return path.join(resolveGatewayStateDir(env), scriptName);
 }

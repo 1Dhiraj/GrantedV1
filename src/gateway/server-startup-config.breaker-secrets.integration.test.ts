@@ -58,10 +58,10 @@ describe("gateway breaker SecretRef integration", () => {
         {
           [GATEWAY_TOKEN_ENV]: "resolved-gateway-token",
           [CHANNEL_TOKEN_ENV]: undefined,
-          OPENCLAW_BUNDLED_PLUGINS_DIR: undefined,
-          OPENCLAW_SKIP_CHANNELS: undefined,
-          OPENCLAW_SKIP_PROVIDERS: undefined,
-          OPENCLAW_VERSION: undefined,
+          GRANTED_BUNDLED_PLUGINS_DIR: undefined,
+          GRANTED_SKIP_CHANNELS: undefined,
+          GRANTED_SKIP_PROVIDERS: undefined,
+          GRANTED_VERSION: undefined,
         },
         async () => {
           const gatewayTokenRef = {

@@ -32,10 +32,10 @@ it.each([
 const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const path = require("node:path");
-const state = process.env.OPENCLAW_STATE_DIR;
+const state = process.env.GRANTED_STATE_DIR;
 const read = (file) => JSON.parse(fs.readFileSync(file, "utf8"));
 const original = fs.readFileSync(process.env.FIXTURE_AUTHORED_PATH, "utf8");
-const config = fs.readFileSync(process.env.OPENCLAW_CONFIG_PATH, "utf8");
+const config = fs.readFileSync(process.env.GRANTED_CONFIG_PATH, "utf8");
 const args = process.argv.slice(2);
 const boot = path.join(process.env.FIXTURE_ROOT, "booted");
 const live = path.join(process.env.FIXTURE_ROOT, "live");
@@ -49,7 +49,7 @@ if (args[0] === "fixture-systemctl") {
   if (args[2] === "stop") {
     assert.equal(fs.existsSync(boot), true);
     fs.unlinkSync(live);
-    fs.unlinkSync(process.env.OPENCLAW_UPGRADE_SURVIVOR_SYSTEMCTL_SHIM_PID_FILE);
+    fs.unlinkSync(process.env.GRANTED_UPGRADE_SURVIVOR_SYSTEMCTL_SHIM_PID_FILE);
   } else {
     assert.equal(args[2], "start");
     assert.equal(fs.existsSync(live), false);
@@ -57,7 +57,7 @@ if (args[0] === "fixture-systemctl") {
     assert.equal(fs.existsSync(path.join(process.env.FIXTURE_ROOT, "survival")), true,
       "start must follow migration survival assertions");
     fs.writeFileSync(live, "candidate");
-    fs.writeFileSync(process.env.OPENCLAW_UPGRADE_SURVIVOR_SYSTEMCTL_SHIM_PID_FILE, "1");
+    fs.writeFileSync(process.env.GRANTED_UPGRADE_SURVIVOR_SYSTEMCTL_SHIM_PID_FILE, "1");
   }
   process.exit(0);
 }
@@ -84,8 +84,8 @@ if (args[0] === "config") {
   process.stdout.write(JSON.stringify({ rpc: { ok: true }, status: "running" }));
 } else if (args[0] === "gateway") {
   assert.deepEqual(args, ["gateway", "install", "--force", "--json"]);
-  assert.equal(process.env.OPENCLAW_GATEWAY_TOKEN, undefined);
-  assert.equal(process.env.OPENCLAW_GATEWAY_PASSWORD, undefined);
+  assert.equal(process.env.GRANTED_GATEWAY_TOKEN, undefined);
+  assert.equal(process.env.GRANTED_GATEWAY_PASSWORD, undefined);
   assert.deepEqual(JSON.parse(config), {
     plugins: { enabled: false },
     gateway: { port: 18789, mode: "local", bind: "loopback", controlUi: { enabled: false },
@@ -105,7 +105,7 @@ if (args[0] === "config") {
   fs.writeFileSync(path.join(unitDir, "openclaw-gateway.service"), "fixture unit");
   fs.writeFileSync(boot, "ready");
   fs.writeFileSync(live, "baseline");
-  fs.writeFileSync(process.env.OPENCLAW_UPGRADE_SURVIVOR_SYSTEMCTL_SHIM_PID_FILE, "1");
+  fs.writeFileSync(process.env.GRANTED_UPGRADE_SURVIVOR_SYSTEMCTL_SHIM_PID_FILE, "1");
 } else {
   assert.equal(args[0], "fixture-update");
   if (args[1] === "1") {
@@ -116,17 +116,17 @@ if (args[0] === "config") {
   }
   assert.equal(fs.existsSync(live), false, "legacy migration specimens require an offline baseline");
   assert.equal(config, original, "the updater must receive the authored config bytes");
-  assert.equal(fs.existsSync(boot), process.env.OPENCLAW_UPGRADE_SURVIVOR_UPDATE_RESTART_MODE === "auto-auth");
+  assert.equal(fs.existsSync(boot), process.env.GRANTED_UPGRADE_SURVIVOR_UPDATE_RESTART_MODE === "auto-auth");
   const sessions = read(path.join(state, "sessions", "sessions.json"));
   assert.deepEqual(Object.values(sessions).map((entry) => entry.sessionId),
     ["upgrade-main-session", "upgrade-direct-session", "upgrade-group-session"]);
   for (const entry of Object.values(sessions)) assert.equal(read(entry.sessionFile).id, entry.sessionId);
   assert.equal(read(path.join(state, "agents", "main", "sessions", "legacy-session.json")).id, "legacy-session");
-  assert.equal(fs.existsSync(path.join(process.env.OPENCLAW_TEST_WORKSPACE_DIR, "IDENTITY.md")), true);
+  assert.equal(fs.existsSync(path.join(process.env.GRANTED_TEST_WORKSPACE_DIR, "IDENTITY.md")), true);
   for (const plugin of ["discord", "telegram", "whatsapp"]) {
     assert.equal(read(path.join(state, "plugin-runtime-deps", plugin, ".openclaw-runtime-deps-stamp.json")).stale, true);
   }
-  if (process.env.OPENCLAW_UPGRADE_SURVIVOR_SCENARIO === "cron-scheduled-authority") {
+  if (process.env.GRANTED_UPGRADE_SURVIVOR_SCENARIO === "cron-scheduled-authority") {
     const jobs = read(path.join(state, "cron", "jobs.json")).jobs;
     assert.deepEqual(jobs.map((job) => job.id), ["cron-pre-cap", "cron-ownerless-cap", "cron-owner-session", "cron-encoded-account", "cron-agent-mismatch"]);
     assert.equal(jobs.every((job) => job.scheduledToolPolicy === undefined), true);
@@ -155,8 +155,8 @@ trap - EXIT ERR HUP INT TERM
 storage_preflight() { :; }
 install_baseline() { baseline_version=2026.8.1; }
 apply_baseline_config_recipe() {
-  mkdir -p "$OPENCLAW_STATE_DIR"
-  cp "$FIXTURE_AUTHORED_PATH" "$OPENCLAW_CONFIG_PATH"
+  mkdir -p "$GRANTED_STATE_DIR"
+  cp "$FIXTURE_AUTHORED_PATH" "$GRANTED_CONFIG_PATH"
   printf '{"acceptedIntents":[]}\\n' > "$CONFIG_COVERAGE_JSON"
 }
 resolve_candidate_version() { candidate_version=2026.8.2; }
@@ -183,16 +183,16 @@ repair_fixture_plugin_consent
     env: {
       ...process.env,
       PATH: `${binDir}:${process.env.PATH ?? ""}`,
-      OPENCLAW_TEST_STATE_FUNCTION_B64: stateFunction.toString("base64"),
-      OPENCLAW_UPGRADE_SURVIVOR_BASELINE: "openclaw@2026.8.1",
-      OPENCLAW_UPGRADE_SURVIVOR_SCENARIO: scenario,
-      OPENCLAW_UPGRADE_SURVIVOR_UPDATE_RESTART_MODE: mode,
-      OPENCLAW_UPGRADE_SURVIVOR_RUNTIME_ROOT: path.join(root, "runtime"),
-      OPENCLAW_UPGRADE_SURVIVOR_STATE_HOME_ROOT: accountHome,
-      OPENCLAW_UPGRADE_SURVIVOR_SUMMARY_JSON: path.join(root, "artifacts", "summary.json"),
-      OPENCLAW_PREPUBLISH_PLUGIN_REGISTRY_DIR: "",
-      OPENCLAW_GATEWAY_TOKEN: "fixture-override-must-be-cleared",
-      OPENCLAW_GATEWAY_PASSWORD: "fixture-override-must-be-cleared",
+      GRANTED_TEST_STATE_FUNCTION_B64: stateFunction.toString("base64"),
+      GRANTED_UPGRADE_SURVIVOR_BASELINE: "openclaw@2026.8.1",
+      GRANTED_UPGRADE_SURVIVOR_SCENARIO: scenario,
+      GRANTED_UPGRADE_SURVIVOR_UPDATE_RESTART_MODE: mode,
+      GRANTED_UPGRADE_SURVIVOR_RUNTIME_ROOT: path.join(root, "runtime"),
+      GRANTED_UPGRADE_SURVIVOR_STATE_HOME_ROOT: accountHome,
+      GRANTED_UPGRADE_SURVIVOR_SUMMARY_JSON: path.join(root, "artifacts", "summary.json"),
+      GRANTED_PREPUBLISH_PLUGIN_REGISTRY_DIR: "",
+      GRANTED_GATEWAY_TOKEN: "fixture-override-must-be-cleared",
+      GRANTED_GATEWAY_PASSWORD: "fixture-override-must-be-cleared",
       FIXTURE_ROOT: root,
       FIXTURE_ACCOUNT_HOME: accountHome,
       FIXTURE_AUTHORED_PATH: authoredPath,

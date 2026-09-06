@@ -23,7 +23,7 @@ async function seedForcedRuntimeTranscript(params: {
   sessionId: string;
 }) {
   const tempRoot = await tempDirs.makeTempDir("openclaw-qa-forced-runtime-");
-  const env = { ...process.env, OPENCLAW_STATE_DIR: path.join(tempRoot, "state") };
+  const env = { ...process.env, GRANTED_STATE_DIR: path.join(tempRoot, "state") };
   const sessionKey = `agent:qa:${params.sessionId}`;
   const storePath = resolveStorePath(undefined, { agentId: "qa", env });
   await upsertSessionEntry({

@@ -17,14 +17,12 @@ export function isLiveTestEnabled(
   extraEnvVars: readonly string[] = [],
   env: NodeJS.ProcessEnv = process.env,
 ): boolean {
-  return [...extraEnvVars, "LIVE", "OPENCLAW_LIVE_TEST"].some((name) =>
-    isTruthyEnvValue(env[name]),
-  );
+  return [...extraEnvVars, "LIVE", "GRANTED_LIVE_TEST"].some((name) => isTruthyEnvValue(env[name]));
 }
 
 /** Return whether live tests must prefer profile credentials over env keys. */
 export function isLiveProfileKeyModeEnabled(env: NodeJS.ProcessEnv = process.env): boolean {
-  return isTruthyEnvValue(env.OPENCLAW_LIVE_REQUIRE_PROFILE_KEYS);
+  return isTruthyEnvValue(env.GRANTED_LIVE_REQUIRE_PROFILE_KEYS);
 }
 
 /** Build a single user-message prompt for simple live model probes. */

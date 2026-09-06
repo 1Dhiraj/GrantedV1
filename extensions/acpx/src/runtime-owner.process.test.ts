@@ -119,7 +119,7 @@ it.each(["global", "shared-project"])(
               name,
               command: process.execPath,
               args: ["server.mjs", "--openclaw-agent-id", agentId],
-              env: [{ name: "OPENCLAW_TOOLS_MCP_AGENT_SESSION_KEY", value: sessionKey }],
+              env: [{ name: "GRANTED_TOOLS_MCP_AGENT_SESSION_KEY", value: sessionKey }],
             })),
             { name: "user-server", command: process.execPath, args: ["server.mjs"], env: [] },
           ]);

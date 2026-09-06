@@ -72,7 +72,7 @@ afterEach(() => {
 function createTestEnv(): { stateDir: string; env: NodeJS.ProcessEnv } {
   const stateDir = path.join(fixtureRoot, `case-${caseId++}`);
   fs.mkdirSync(stateDir, { recursive: true });
-  return { stateDir, env: { ...process.env, OPENCLAW_STATE_DIR: stateDir } };
+  return { stateDir, env: { ...process.env, GRANTED_STATE_DIR: stateDir } };
 }
 
 function requireFirstPairingRequest(

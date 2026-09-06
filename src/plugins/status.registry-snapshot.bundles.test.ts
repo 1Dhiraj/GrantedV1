@@ -58,7 +58,7 @@ describe("buildPluginRegistrySnapshotReport", () => {
         workspaceDir,
         env: {
           ...createColdPluginHermeticEnv(workspaceDir, { bundledPluginsDir: makeTempDir() }),
-          OPENCLAW_STATE_DIR: stateDir,
+          GRANTED_STATE_DIR: stateDir,
         },
       };
       if (registrySource === "persisted") {

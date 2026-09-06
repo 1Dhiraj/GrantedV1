@@ -20,7 +20,7 @@ type QueueStatus = "pending" | "failed" | "completed";
 
 function openStateDatabase(stateDir?: string) {
   return openOpenClawStateDatabase({
-    env: stateDir ? { ...process.env, OPENCLAW_STATE_DIR: stateDir } : process.env,
+    env: stateDir ? { ...process.env, GRANTED_STATE_DIR: stateDir } : process.env,
   });
 }
 

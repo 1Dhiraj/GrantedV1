@@ -30,7 +30,7 @@ vi.mock("../channels/message/runtime.js", () => ({
   sendDurableMessageBatchCore: sendDurableMessageBatch,
 }));
 
-const envSnapshot = captureEnv(["OPENCLAW_STATE_DIR"]);
+const envSnapshot = captureEnv(["GRANTED_STATE_DIR"]);
 let tempDir: string;
 
 async function seedSession(sessionKey: string, context: DeliveryContext = {}): Promise<void> {
@@ -82,7 +82,7 @@ describe("client voice session digest retry", () => {
     tempDir = await fs.realpath(
       await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-voice-digest-retry-")),
     );
-    setTestEnvValue("OPENCLAW_STATE_DIR", tempDir);
+    setTestEnvValue("GRANTED_STATE_DIR", tempDir);
     sendDurableMessageBatch.mockReset().mockResolvedValue({ status: "sent" });
   });
 

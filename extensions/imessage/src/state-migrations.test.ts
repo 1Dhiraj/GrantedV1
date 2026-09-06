@@ -249,7 +249,7 @@ describe("detectIMessageLegacyStateMigrations", () => {
     if (!migration) {
       throw new Error("expected iMessage migration");
     }
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const input = {
       config: {},
       env,

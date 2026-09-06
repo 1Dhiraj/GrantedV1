@@ -41,7 +41,7 @@ let registrations: string;
 beforeEach(async () => {
   state = await createOpenClawTestState({
     prefix: "openclaw-cron-preparation-",
-    env: { OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1" },
+    env: { GRANTED_DISABLE_BUNDLED_PLUGINS: "1" },
   });
   registrations = state.path("registrations.jsonl");
   const dir = state.path("plugin");

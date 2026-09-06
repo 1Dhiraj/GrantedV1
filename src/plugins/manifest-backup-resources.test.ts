@@ -47,9 +47,9 @@ function createPluginFixture(params: {
     workspaceDir,
     env: {
       HOME: root,
-      OPENCLAW_HOME: root,
-      OPENCLAW_STATE_DIR: stateDir,
-      OPENCLAW_BUNDLED_PLUGINS_DIR: path.join(root, "no-bundled-plugins"),
+      GRANTED_HOME: root,
+      GRANTED_STATE_DIR: stateDir,
+      GRANTED_BUNDLED_PLUGINS_DIR: path.join(root, "no-bundled-plugins"),
     },
   };
 }

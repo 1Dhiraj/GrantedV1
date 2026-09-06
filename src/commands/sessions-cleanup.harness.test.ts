@@ -116,8 +116,8 @@ describe("offline sessions cleanup harness ownership", () => {
       await withOpenClawTestState({ label: "offline-harness-cleanup" }, async (state) => {
         const bundledRoot = state.path("bundled-plugins");
         const { owner, unrelated } = writeCleanupPlugins(bundledRoot);
-        vi.stubEnv("OPENCLAW_DISABLE_BUNDLED_PLUGINS", undefined);
-        vi.stubEnv("OPENCLAW_BUNDLED_PLUGINS_DIR", bundledRoot);
+        vi.stubEnv("GRANTED_DISABLE_BUNDLED_PLUGINS", undefined);
+        vi.stubEnv("GRANTED_BUNDLED_PLUGINS_DIR", bundledRoot);
         const cfg: OpenClawConfig = {
           agents: {
             defaults: { model: { primary: "other-provider/other-model" } },

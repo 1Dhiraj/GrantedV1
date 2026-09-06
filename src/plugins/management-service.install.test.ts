@@ -30,7 +30,7 @@ const mocks = vi.hoisted(() => ({
 
 vi.mock("../config/config.js", () => ({
   assertConfigWriteAllowedInCurrentMode: (params?: { env?: NodeJS.ProcessEnv }) => {
-    if (params?.env?.OPENCLAW_NIX_MODE === "1") {
+    if (params?.env?.GRANTED_NIX_MODE === "1") {
       throw new Error("Config is managed by Nix");
     }
   },

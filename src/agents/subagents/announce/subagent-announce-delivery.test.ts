@@ -1237,8 +1237,8 @@ describe("deliverSubagentAnnouncement active requester steering", () => {
       retryWindowMs: 500,
     },
   ] as const)("$name", async ({ outcomes, announceTimeoutMs, retryWindowMs }) => {
-    const previousTestFast = process.env.OPENCLAW_TEST_FAST;
-    process.env.OPENCLAW_TEST_FAST = "1";
+    const previousTestFast = process.env.GRANTED_TEST_FAST;
+    process.env.GRANTED_TEST_FAST = "1";
     try {
       // Compaction remains retryable beyond the backoff schedule, but each
       // attempt must receive only the remaining delivery-timeout window.
@@ -1263,9 +1263,9 @@ describe("deliverSubagentAnnouncement active requester steering", () => {
       }
     } finally {
       if (previousTestFast === undefined) {
-        delete process.env.OPENCLAW_TEST_FAST;
+        delete process.env.GRANTED_TEST_FAST;
       } else {
-        process.env.OPENCLAW_TEST_FAST = previousTestFast;
+        process.env.GRANTED_TEST_FAST = previousTestFast;
       }
     }
   });
@@ -1507,8 +1507,8 @@ describe("deliverSubagentAnnouncement completion delivery", () => {
   });
 
   it("waits through compaction on the completion handoff wake (86566)", async () => {
-    const previousTestFast = process.env.OPENCLAW_TEST_FAST;
-    process.env.OPENCLAW_TEST_FAST = "1";
+    const previousTestFast = process.env.GRANTED_TEST_FAST;
+    process.env.GRANTED_TEST_FAST = "1";
     try {
       // The generated-completion active wake (expectsCompletionMessage) must also
       // wait through a compacting run and re-steer the same wake instead of
@@ -1531,9 +1531,9 @@ describe("deliverSubagentAnnouncement completion delivery", () => {
       expect(callGateway).not.toHaveBeenCalled();
     } finally {
       if (previousTestFast === undefined) {
-        delete process.env.OPENCLAW_TEST_FAST;
+        delete process.env.GRANTED_TEST_FAST;
       } else {
-        process.env.OPENCLAW_TEST_FAST = previousTestFast;
+        process.env.GRANTED_TEST_FAST = previousTestFast;
       }
     }
   });
@@ -2884,8 +2884,8 @@ describe("deliverSubagentAnnouncement completion delivery", () => {
   });
 
   it("persists fallback-steered completion provenance after the requester session rotates", async () => {
-    const previousTestFast = process.env.OPENCLAW_TEST_FAST;
-    process.env.OPENCLAW_TEST_FAST = "1";
+    const previousTestFast = process.env.GRANTED_TEST_FAST;
+    process.env.GRANTED_TEST_FAST = "1";
     try {
       const transcriptA = await createRequesterTranscriptFixture("requester-session-direct");
       const transcriptB = await createRequesterTranscriptFixture("requester-session-fallback");
@@ -2983,9 +2983,9 @@ describe("deliverSubagentAnnouncement completion delivery", () => {
       expect(JSON.stringify(history)).not.toContain("child done");
     } finally {
       if (previousTestFast === undefined) {
-        delete process.env.OPENCLAW_TEST_FAST;
+        delete process.env.GRANTED_TEST_FAST;
       } else {
-        process.env.OPENCLAW_TEST_FAST = previousTestFast;
+        process.env.GRANTED_TEST_FAST = previousTestFast;
       }
     }
   });

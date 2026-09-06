@@ -222,7 +222,7 @@ export class ComposedGatewayHarness {
       },
     };
     this.database = stateDb.openOpenClawStateDatabase({
-      env: { OPENCLAW_STATE_DIR: stateDir },
+      env: { GRANTED_STATE_DIR: stateDir },
     });
     this.store = envStore.createWorkerEnvironmentStore({ database: this.database });
     this.placementStore = placements.createWorkerSessionPlacementStore({

@@ -135,7 +135,7 @@ describe("session usage reporting pricing", () => {
         }
       : {};
 
-    await withEnvAsync({ OPENCLAW_STATE_DIR: root }, async () => {
+    await withEnvAsync({ GRANTED_STATE_DIR: root }, async () => {
       const params = { agentId: "main", sessionFile, config };
       const logs = await loadSessionLogs(params);
       expect(logs).toEqual([

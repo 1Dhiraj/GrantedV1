@@ -108,8 +108,8 @@ describe("canonical declaration stage", () => {
     "does not mask a timeout when the child exits zero on SIGTERM",
     async () => {
       const { staging, dist, invocation } = fixture();
-      vi.stubEnv("OPENCLAW_TSDOWN_TIMEOUT_MS", "1500");
-      vi.stubEnv("OPENCLAW_TSDOWN_HEARTBEAT_MS", "0");
+      vi.stubEnv("GRANTED_TSDOWN_TIMEOUT_MS", "1500");
+      vi.stubEnv("GRANTED_TSDOWN_HEARTBEAT_MS", "0");
       const first = invocation({});
       first.args = [
         "-e",

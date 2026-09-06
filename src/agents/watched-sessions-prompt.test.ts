@@ -13,7 +13,7 @@ const sessionReadTools = ["sessions_history", "sessions_search", "sessions_list"
 
 function stubStateDir() {
   const stateDir = makeTempDir(tempDirs, "openclaw-watched-sessions-");
-  vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
+  vi.stubEnv("GRANTED_STATE_DIR", stateDir);
 }
 
 function watchGroup(sessionKey: string) {

@@ -76,14 +76,14 @@ describe("isTruthyEnvValue", () => {
 });
 
 describe("isFastTestRuntimeEnv", () => {
-  it("ignores OPENCLAW_TEST_FAST outside a test runtime", () => {
+  it("ignores GRANTED_TEST_FAST outside a test runtime", () => {
     withEnv(
       {
         NODE_ENV: "production",
         VITEST: undefined,
         VITEST_POOL_ID: undefined,
         VITEST_WORKER_ID: undefined,
-        OPENCLAW_TEST_FAST: "1",
+        GRANTED_TEST_FAST: "1",
       },
       () => {
         expect(isFastTestRuntimeEnv()).toBe(false);
@@ -91,8 +91,8 @@ describe("isFastTestRuntimeEnv", () => {
     );
   });
 
-  it("honors OPENCLAW_TEST_FAST inside a detected test runtime", () => {
-    expect(isFastTestRuntimeEnv({ VITEST: "1", OPENCLAW_TEST_FAST: "1" })).toBe(true);
+  it("honors GRANTED_TEST_FAST inside a detected test runtime", () => {
+    expect(isFastTestRuntimeEnv({ VITEST: "1", GRANTED_TEST_FAST: "1" })).toBe(true);
   });
 });
 
@@ -104,16 +104,16 @@ describe("logAcceptedEnvOption", () => {
       {
         VITEST: "",
         NODE_ENV: "development",
-        OPENCLAW_TEST_ENV: "  line one\nline two  ",
+        GRANTED_TEST_ENV: "  line one\nline two  ",
       },
       () => {
         logAcceptedEnvOption({
-          key: "OPENCLAW_TEST_ENV",
+          key: "GRANTED_TEST_ENV",
           description: "test option",
           redact: true,
         });
         logAcceptedEnvOption({
-          key: "OPENCLAW_TEST_ENV",
+          key: "GRANTED_TEST_ENV",
           description: "test option",
           redact: true,
         });
@@ -122,9 +122,7 @@ describe("logAcceptedEnvOption", () => {
 
     await withTestTimeout(logged, 1_000, "redacted accepted env option did not log");
     expect(loggerMocks.info).toHaveBeenCalledTimes(1);
-    expect(loggerMocks.info).toHaveBeenCalledWith(
-      "env: OPENCLAW_TEST_ENV=<redacted> (test option)",
-    );
+    expect(loggerMocks.info).toHaveBeenCalledWith("env: GRANTED_TEST_ENV=<redacted> (test option)");
   });
 
   it("skips blank values and test-mode logging", () => {
@@ -132,11 +130,11 @@ describe("logAcceptedEnvOption", () => {
       {
         VITEST: "1",
         NODE_ENV: "development",
-        OPENCLAW_BLANK_ENV: "value",
+        GRANTED_BLANK_ENV: "value",
       },
       () => {
         logAcceptedEnvOption({
-          key: "OPENCLAW_BLANK_ENV",
+          key: "GRANTED_BLANK_ENV",
           description: "skipped in vitest",
         });
       },
@@ -146,11 +144,11 @@ describe("logAcceptedEnvOption", () => {
       {
         VITEST: "",
         NODE_ENV: "development",
-        OPENCLAW_BLANK_ENV: "   ",
+        GRANTED_BLANK_ENV: "   ",
       },
       () => {
         logAcceptedEnvOption({
-          key: "OPENCLAW_BLANK_ENV",
+          key: "GRANTED_BLANK_ENV",
           description: "blank value",
         });
       },
@@ -165,11 +163,11 @@ describe("logAcceptedEnvOption", () => {
       {
         VITEST: "",
         NODE_ENV: "development",
-        OPENCLAW_UTF16_TEST_ENV: `${"x".repeat(159)}🚀tail`,
+        GRANTED_UTF16_TEST_ENV: `${"x".repeat(159)}🚀tail`,
       },
       () => {
         logAcceptedEnvOption({
-          key: "OPENCLAW_UTF16_TEST_ENV",
+          key: "GRANTED_UTF16_TEST_ENV",
           description: "UTF-16 test",
         });
       },
@@ -178,7 +176,7 @@ describe("logAcceptedEnvOption", () => {
     await withTestTimeout(logged, 1_000, "UTF-16 accepted env option did not log");
     expect(loggerMocks.info).toHaveBeenCalledTimes(1);
     expect(loggerMocks.info).toHaveBeenCalledWith(
-      `env: OPENCLAW_UTF16_TEST_ENV=${"x".repeat(159)}… (UTF-16 test)`,
+      `env: GRANTED_UTF16_TEST_ENV=${"x".repeat(159)}… (UTF-16 test)`,
     );
   });
 });

@@ -98,7 +98,7 @@ async function runPolicyCompareFixture(baseline: unknown, policy: unknown = {}) 
 describe("policy commands", () => {
   beforeEach(async () => {
     workspaceDir = await fs.mkdtemp(join(tmpdir(), "policy-cli-"));
-    vi.stubEnv("OPENCLAW_WORKSPACE_DIR", workspaceDir);
+    vi.stubEnv("GRANTED_WORKSPACE_DIR", workspaceDir);
   });
 
   afterEach(async () => {
@@ -167,7 +167,7 @@ describe("policy commands", () => {
   it("checks authored routing probes without exposing route identifiers", async () => {
     const peerId = "+15555550123-private";
     const configPath = join(workspaceDir, "openclaw.jsonc");
-    vi.stubEnv("OPENCLAW_CONFIG_PATH", configPath);
+    vi.stubEnv("GRANTED_CONFIG_PATH", configPath);
     await writeFixture(configPath, {
       plugins: { entries: { policy: { enabled: true, config: { enabled: true } } } },
       agents: { entries: { main: {} } },
@@ -243,7 +243,7 @@ describe("policy commands", () => {
 
   it("links policy findings to evidence and policy requirement refs", async () => {
     const configPath = join(workspaceDir, "openclaw.jsonc");
-    vi.stubEnv("OPENCLAW_CONFIG_PATH", configPath);
+    vi.stubEnv("GRANTED_CONFIG_PATH", configPath);
     await writeFixture(configPath, {
       plugins: {
         entries: {
@@ -311,7 +311,7 @@ describe("policy commands", () => {
 
   it("attests underlying policy findings when the accepted attestation is stale", async () => {
     const configPath = join(workspaceDir, "openclaw.jsonc");
-    vi.stubEnv("OPENCLAW_CONFIG_PATH", configPath);
+    vi.stubEnv("GRANTED_CONFIG_PATH", configPath);
     await writeFixture(configPath, {
       plugins: {
         entries: {
@@ -348,7 +348,7 @@ describe("policy commands", () => {
 
   it("reports stale accepted attestations in policy watch", async () => {
     const configPath = join(workspaceDir, "openclaw.jsonc");
-    vi.stubEnv("OPENCLAW_CONFIG_PATH", configPath);
+    vi.stubEnv("GRANTED_CONFIG_PATH", configPath);
     await writeFixture(configPath, {
       plugins: {
         entries: {
@@ -409,7 +409,7 @@ describe("policy commands", () => {
 
   it("reports findings before stale when accepted attestation exists", async () => {
     const configPath = join(workspaceDir, "openclaw.jsonc");
-    vi.stubEnv("OPENCLAW_CONFIG_PATH", configPath);
+    vi.stubEnv("GRANTED_CONFIG_PATH", configPath);
     await writeFixture(configPath, {
       plugins: {
         entries: {
@@ -455,7 +455,7 @@ describe("policy commands", () => {
 
   it("fails closed when the OpenClaw config is invalid", async () => {
     const configPath = join(workspaceDir, "openclaw.jsonc");
-    vi.stubEnv("OPENCLAW_CONFIG_PATH", configPath);
+    vi.stubEnv("GRANTED_CONFIG_PATH", configPath);
     await writeFixture(configPath, "{");
     const { exitCode, parsed } = await runPolicyCheckJson();
 
@@ -860,7 +860,7 @@ describe("policy commands", () => {
     const agentWorkspace = join(workspaceDir, "agent-workspace");
     await fs.mkdir(agentWorkspace, { recursive: true });
     const configPath = join(workspaceDir, "openclaw.jsonc");
-    vi.stubEnv("OPENCLAW_CONFIG_PATH", configPath);
+    vi.stubEnv("GRANTED_CONFIG_PATH", configPath);
     await writeFixture(configPath, {
       agents: { defaults: { workspace: agentWorkspace } },
       plugins: {

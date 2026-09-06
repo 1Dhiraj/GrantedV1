@@ -18,21 +18,21 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 const { buildSessionEntryMock } = vi.hoisted(() => ({
   buildSessionEntryMock: vi.fn(),
 }));
-const originalSyncYieldStateDir = process.env.OPENCLAW_STATE_DIR;
+const originalSyncYieldStateDir = process.env.GRANTED_STATE_DIR;
 
 function setSyncYieldStateDir(): void {
   Reflect.set(
     process.env,
-    "OPENCLAW_STATE_DIR",
+    "GRANTED_STATE_DIR",
     path.join(os.tmpdir(), "openclaw-session-sync-yield"),
   );
 }
 
 function restoreSyncYieldStateDir(): void {
   if (originalSyncYieldStateDir === undefined) {
-    Reflect.deleteProperty(process.env, "OPENCLAW_STATE_DIR");
+    Reflect.deleteProperty(process.env, "GRANTED_STATE_DIR");
   } else {
-    Reflect.set(process.env, "OPENCLAW_STATE_DIR", originalSyncYieldStateDir);
+    Reflect.set(process.env, "GRANTED_STATE_DIR", originalSyncYieldStateDir);
   }
 }
 

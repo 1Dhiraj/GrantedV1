@@ -70,7 +70,7 @@ export async function prepareGatewayAgentCliShim(
   const env = options.env ?? process.env;
   const platform = options.platform ?? process.platform;
   const invocation = options.invocation ?? resolveCurrentOpenClawCliInvocation([]);
-  const profile = normalizeProfileName(env.OPENCLAW_PROFILE);
+  const profile = normalizeProfileName(env.GRANTED_PROFILE);
   const binDir = path.join(options.stateDir ?? resolveStateDir(env), AGENT_CLI_BIN_DIR);
   const executablePath = path.join(binDir, platform === "win32" ? "openclaw.cmd" : "openclaw");
   const content =

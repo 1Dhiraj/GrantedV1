@@ -6,7 +6,7 @@ import {
   readSqliteUserVersion,
 } from "../infra/sqlite-user-version.js";
 import { normalizeAgentId } from "../routing/session-key.js";
-import { OPENCLAW_AGENT_SCHEMA_VERSION } from "./openclaw-agent-db-contract.js";
+import { GRANTED_AGENT_SCHEMA_VERSION } from "./openclaw-agent-db-contract.js";
 import {
   assertExistingAgentSchemaOwner,
   assertOpenClawAgentSchemaContains,
@@ -14,8 +14,8 @@ import {
   readExistingAgentSchemaMeta,
 } from "./openclaw-agent-db-schema-helpers.js";
 import { ensureOpenClawAgentDatabaseSchema } from "./openclaw-agent-db-schema.js";
-import { OPENCLAW_AGENT_SCHEMA_SQL } from "./openclaw-agent-schema.js";
-import { OPENCLAW_SQLITE_BUSY_TIMEOUT_MS } from "./openclaw-state-db.js";
+import { GRANTED_AGENT_SCHEMA_SQL } from "./openclaw-agent-schema.js";
+import { GRANTED_SQLITE_BUSY_TIMEOUT_MS } from "./openclaw-state-db.js";
 
 /** Require exact agent ownership without requiring the latest schema. */
 export function assertOpenClawAgentDatabaseOwner(
@@ -46,25 +46,25 @@ export function assertOpenClawAgentDatabaseForMaintenance(
   const metadata = assertOpenClawAgentDatabaseOwner(database, options);
 
   const userVersion = readSqliteUserVersion(database);
-  if (userVersion > OPENCLAW_AGENT_SCHEMA_VERSION) {
+  if (userVersion > GRANTED_AGENT_SCHEMA_VERSION) {
     throw createNewerSqliteSchemaVersionError(
       "OpenClaw agent database",
       options.pathname,
       userVersion,
-      OPENCLAW_AGENT_SCHEMA_VERSION,
+      GRANTED_AGENT_SCHEMA_VERSION,
     );
   }
-  if (userVersion !== OPENCLAW_AGENT_SCHEMA_VERSION) {
+  if (userVersion !== GRANTED_AGENT_SCHEMA_VERSION) {
     throw new Error(
       `OpenClaw agent database ${options.pathname} uses schema version ${userVersion}; run openclaw doctor --fix before compacting it.`,
     );
   }
-  if (metadata.schemaVersion !== OPENCLAW_AGENT_SCHEMA_VERSION) {
+  if (metadata.schemaVersion !== GRANTED_AGENT_SCHEMA_VERSION) {
     throw new Error(
-      `OpenClaw agent database ${options.pathname} metadata schema version ${metadata.schemaVersion ?? "invalid"} does not match ${OPENCLAW_AGENT_SCHEMA_VERSION}; run openclaw doctor --fix before compacting it.`,
+      `OpenClaw agent database ${options.pathname} metadata schema version ${metadata.schemaVersion ?? "invalid"} does not match ${GRANTED_AGENT_SCHEMA_VERSION}; run openclaw doctor --fix before compacting it.`,
     );
   }
-  assertOpenClawAgentSchemaContains(database, options.pathname, OPENCLAW_AGENT_SCHEMA_SQL);
+  assertOpenClawAgentSchemaContains(database, options.pathname, GRANTED_AGENT_SCHEMA_SQL);
 }
 
 /** Upgrade or repair a supported owned schema before strict offline maintenance. */
@@ -75,7 +75,7 @@ export function migrateOpenClawAgentDatabaseForMaintenance(options: {
   const agentId = normalizeAgentId(options.agentId);
   const database = openNodeSqliteDatabase(options.pathname);
   try {
-    database.exec(`PRAGMA busy_timeout = ${OPENCLAW_SQLITE_BUSY_TIMEOUT_MS};`);
+    database.exec(`PRAGMA busy_timeout = ${GRANTED_SQLITE_BUSY_TIMEOUT_MS};`);
     const metadata = readExistingAgentSchemaMeta(database);
     if (!metadata) {
       return;
@@ -85,15 +85,15 @@ export function migrateOpenClawAgentDatabaseForMaintenance(options: {
     const userVersion = readSqliteUserVersion(database);
     const metadataVersion = metadata.schemaVersion;
     const hasCurrentVersion =
-      userVersion === OPENCLAW_AGENT_SCHEMA_VERSION &&
-      metadataVersion === OPENCLAW_AGENT_SCHEMA_VERSION;
+      userVersion === GRANTED_AGENT_SCHEMA_VERSION &&
+      metadataVersion === GRANTED_AGENT_SCHEMA_VERSION;
     const hasSupportedOlderVersion =
       userVersion >= 1 &&
-      userVersion < OPENCLAW_AGENT_SCHEMA_VERSION &&
+      userVersion < GRANTED_AGENT_SCHEMA_VERSION &&
       metadataVersion !== null &&
       metadataVersion === userVersion &&
       metadataVersion >= 1 &&
-      metadataVersion < OPENCLAW_AGENT_SCHEMA_VERSION;
+      metadataVersion < GRANTED_AGENT_SCHEMA_VERSION;
     if (!hasCurrentVersion && !hasSupportedOlderVersion) {
       return;
     }

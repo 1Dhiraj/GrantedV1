@@ -251,7 +251,7 @@ const sharedRecipe: ConfigStep[] = [
 
 export function resolveUpgradeSurvivorConfigSteps(
   scenario = "base",
-  configuredUpdateChannel = process.env.OPENCLAW_UPGRADE_SURVIVOR_UPDATE_CHANNEL,
+  configuredUpdateChannel = process.env.GRANTED_UPGRADE_SURVIVOR_UPDATE_CHANNEL,
 ): ConfigStep[] {
   const validateStep = sharedRecipe.at(-1);
   const updateChannel =
@@ -288,7 +288,7 @@ export function resolveUpgradeSurvivorConfigSteps(
 }
 
 function selectedScenario() {
-  return process.env.OPENCLAW_UPGRADE_SURVIVOR_SCENARIO || "base";
+  return process.env.GRANTED_UPGRADE_SURVIVOR_SCENARIO || "base";
 }
 
 function adaptStepForBaseline(

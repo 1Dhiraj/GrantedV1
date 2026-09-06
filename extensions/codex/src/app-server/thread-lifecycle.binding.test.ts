@@ -330,7 +330,7 @@ async function createManualResumeFixture(
 ) {
   const dynamicTools = options.dynamicTools ?? [];
   vi.stubEnv("HOME", tempDir);
-  vi.stubEnv("OPENCLAW_STATE_DIR", path.join(tempDir, "isolated-state"));
+  vi.stubEnv("GRANTED_STATE_DIR", path.join(tempDir, "isolated-state"));
   const sessionFile = path.join(tempDir, "manual-resume-session.jsonl");
   const workspaceDir = path.join(tempDir, "manual-resume-workspace");
   const agentDir = path.join(tempDir, "agent");
@@ -1559,7 +1559,7 @@ describe("Codex app-server thread lifecycle bindings", () => {
 
   it("reuses an isolated retained thread without dropping native skill isolation", async () => {
     vi.stubEnv("HOME", tempDir);
-    vi.stubEnv("OPENCLAW_STATE_DIR", path.join(tempDir, "isolated-state"));
+    vi.stubEnv("GRANTED_STATE_DIR", path.join(tempDir, "isolated-state"));
     const sessionFile = path.join(tempDir, "warm-isolated-session.jsonl");
     const workspaceDir = path.join(tempDir, "warm-isolated-workspace");
     const personalSkill = path.join(tempDir, ".claude", "skills", "personal", "SKILL.md");

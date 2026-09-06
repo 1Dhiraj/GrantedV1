@@ -102,7 +102,7 @@ const SHA256_DIGEST_PATTERN = /^sha256:[a-f0-9]{64}$/u;
 const SHA256_HEX_PATTERN = /^[a-f0-9]{64}$/u;
 const RELEASE_CANDIDATE_STATE_VERSION = 2;
 const RELEASE_CANDIDATE_STATE_FILE = "release-candidate-state.json";
-const TRUSTED_TOOLING_SHA_ENV = "OPENCLAW_RELEASE_CANDIDATE_TRUSTED_TOOLING_SHA";
+const TRUSTED_TOOLING_SHA_ENV = "GRANTED_RELEASE_CANDIDATE_TRUSTED_TOOLING_SHA";
 const RELEASE_CANDIDATE_STATE_KEYS = [
   "repo",
   "tag",
@@ -532,16 +532,16 @@ function updateReleaseCandidateState(
 }
 
 function githubApiTimeoutMs() {
-  const raw = process.env.OPENCLAW_RELEASE_CANDIDATE_GITHUB_API_TIMEOUT_MS;
+  const raw = process.env.GRANTED_RELEASE_CANDIDATE_GITHUB_API_TIMEOUT_MS;
   if (!raw) {
     return DEFAULT_GITHUB_API_TIMEOUT_MS;
   }
   if (!/^[1-9]\d*$/u.test(raw)) {
-    throw new Error("OPENCLAW_RELEASE_CANDIDATE_GITHUB_API_TIMEOUT_MS must be a positive integer");
+    throw new Error("GRANTED_RELEASE_CANDIDATE_GITHUB_API_TIMEOUT_MS must be a positive integer");
   }
   const value = Number(raw);
   if (!Number.isSafeInteger(value)) {
-    throw new Error("OPENCLAW_RELEASE_CANDIDATE_GITHUB_API_TIMEOUT_MS must be a positive integer");
+    throw new Error("GRANTED_RELEASE_CANDIDATE_GITHUB_API_TIMEOUT_MS must be a positive integer");
   }
   return value;
 }
@@ -1756,11 +1756,11 @@ async function runParallelsIfNeeded(
     timeoutBin,
     dependencyTarballPaths,
     registryPackageTarballPaths,
-    process.env.OPENCLAW_PARALLELS_MACOS_SNAPSHOT_HINT?.trim() ?? "",
+    process.env.GRANTED_PARALLELS_MACOS_SNAPSHOT_HINT?.trim() ?? "",
   );
   run("bash", ["-lc", command], {
     env: {
-      OPENCLAW_PARALLELS_ARTIFACT_ROOT: join(process.cwd(), ".artifacts", "parallels"),
+      GRANTED_PARALLELS_ARTIFACT_ROOT: join(process.cwd(), ".artifacts", "parallels"),
     },
   });
   return {

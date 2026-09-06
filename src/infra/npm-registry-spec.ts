@@ -8,7 +8,7 @@ import {
 } from "semver";
 import { compareOpenClawSemver, isOpenClawCorrectionSemver } from "./semver.js";
 
-const OPENCLAW_RELEASE_PREFIX_RE = /^\d{4}\./;
+const GRANTED_RELEASE_PREFIX_RE = /^\d{4}\./;
 const DIST_TAG_RE = /^[A-Za-z0-9][A-Za-z0-9._-]*$/;
 
 /**
@@ -162,7 +162,7 @@ export function isExactSemverVersion(value: string): boolean {
 /** Parses OpenClaw's monthly patch stable/alpha/beta/correction version format. */
 function parseOpenClawReleaseVersion(value: string): SemVer | null {
   const trimmed = value.trim();
-  const parsed = OPENCLAW_RELEASE_PREFIX_RE.test(trimmed) ? parseSemver(trimmed) : null;
+  const parsed = GRANTED_RELEASE_PREFIX_RE.test(trimmed) ? parseSemver(trimmed) : null;
   if (!parsed || parsed.build.length > 0) {
     return null;
   }

@@ -43,64 +43,64 @@ describe("check-env-var-count", () => {
   it("keeps an empty index separate from untracked worktree sources", () => {
     const { root, write } = createRepo();
     expect(collectEnvVarNames(root, { staged: true })).toEqual([]);
-    write("src/runtime.ts", "OPENCLAW_UNTRACKED");
+    write("src/runtime.ts", "GRANTED_UNTRACKED");
     expect(collectEnvVarNames(root, { staged: true })).toEqual([]);
-    expect(collectEnvVarNames(root)).toEqual(["OPENCLAW_UNTRACKED"]);
+    expect(collectEnvVarNames(root)).toEqual(["GRANTED_UNTRACKED"]);
   });
 
   it("collects distinct names from the whole selected snapshot without crossing file boundaries", () => {
     const { root, git, write } = createRepo({
       ".gitignore": "src/ignored.ts\n",
-      "src/partial.ts": "OPENCLAW_HEAD",
-      "src/modified.ts": "OPENCLAW_OLD",
-      "src/removed.ts": "OPENCLAW_REMOVED",
-      "src/gone.ts": "OPENCLAW_GONE",
+      "src/partial.ts": "GRANTED_HEAD",
+      "src/modified.ts": "GRANTED_OLD",
+      "src/removed.ts": "GRANTED_REMOVED",
+      "src/gone.ts": "GRANTED_GONE",
       "src/empty.ts": "",
-      "src/boundary-a.ts": "OPENCLAW_",
+      "src/boundary-a.ts": "GRANTED_",
       "src/boundary-b.ts": "BOUNDARY_TRAP",
-      "src/unchanged.ts": "é 🦞 東京\nOPENCLAW_SHARED\0OPENCLAW_UNICODE",
-      "packages/api/index.mts": "OPENCLAW_SHARED OPENCLAW_SHARED",
-      "extensions/demo/index.cjs": "OPENCLAW_PLUGIN",
-      "src/runtime.test.ts": "OPENCLAW_EXCLUDED",
-      "src/__tests__/index.ts": "OPENCLAW_EXCLUDED",
-      "packages/api/test/index.ts": "OPENCLAW_EXCLUDED",
-      "extensions/demo/index.spec.ts": "OPENCLAW_EXCLUDED",
-      "extensions/qa-lab/index.ts": "OPENCLAW_EXCLUDED",
-      "extensions/test-support/index.ts": "OPENCLAW_EXCLUDED",
-      "src/runtime.json": "OPENCLAW_EXCLUDED",
-      "ui/src/runtime.ts": "OPENCLAW_EXCLUDED",
+      "src/unchanged.ts": "é 🦞 東京\nGRANTED_SHARED\0GRANTED_UNICODE",
+      "packages/api/index.mts": "GRANTED_SHARED GRANTED_SHARED",
+      "extensions/demo/index.cjs": "GRANTED_PLUGIN",
+      "src/runtime.test.ts": "GRANTED_EXCLUDED",
+      "src/__tests__/index.ts": "GRANTED_EXCLUDED",
+      "packages/api/test/index.ts": "GRANTED_EXCLUDED",
+      "extensions/demo/index.spec.ts": "GRANTED_EXCLUDED",
+      "extensions/qa-lab/index.ts": "GRANTED_EXCLUDED",
+      "extensions/test-support/index.ts": "GRANTED_EXCLUDED",
+      "src/runtime.json": "GRANTED_EXCLUDED",
+      "ui/src/runtime.ts": "GRANTED_EXCLUDED",
     });
     git("add", ".");
     git("commit", "-m", "base");
-    write("src/partial.ts", "OPENCLAW_INDEX");
-    write("src/modified.ts", "OPENCLAW_MODIFIED");
-    write("src/added.ts", "OPENCLAW_ADDED");
+    write("src/partial.ts", "GRANTED_INDEX");
+    write("src/modified.ts", "GRANTED_MODIFIED");
+    write("src/added.ts", "GRANTED_ADDED");
     git("add", ".");
-    write("src/partial.ts", "OPENCLAW_WORKTREE");
-    write("src/added.ts", "OPENCLAW_UNSTAGED_ADDITION");
+    write("src/partial.ts", "GRANTED_WORKTREE");
+    write("src/added.ts", "GRANTED_UNSTAGED_ADDITION");
     git("rm", "--cached", "src/removed.ts");
     fs.rmSync(path.join(root, "src/gone.ts"));
-    write("src/untracked.ts", "OPENCLAW_UNTRACKED");
-    write("src/ignored.ts", "OPENCLAW_IGNORED");
+    write("src/untracked.ts", "GRANTED_UNTRACKED");
+    write("src/ignored.ts", "GRANTED_IGNORED");
 
-    const shared = ["OPENCLAW_MODIFIED", "OPENCLAW_PLUGIN", "OPENCLAW_SHARED", "OPENCLAW_UNICODE"];
+    const shared = ["GRANTED_MODIFIED", "GRANTED_PLUGIN", "GRANTED_SHARED", "GRANTED_UNICODE"];
     expect(collectEnvVarNames(root, { staged: true })).toEqual(
-      [...shared, "OPENCLAW_ADDED", "OPENCLAW_GONE", "OPENCLAW_INDEX"].toSorted(),
+      [...shared, "GRANTED_ADDED", "GRANTED_GONE", "GRANTED_INDEX"].toSorted(),
     );
     expect(collectEnvVarNames(root)).toEqual(
       [
         ...shared,
-        "OPENCLAW_REMOVED",
-        "OPENCLAW_UNSTAGED_ADDITION",
-        "OPENCLAW_UNTRACKED",
-        "OPENCLAW_WORKTREE",
+        "GRANTED_REMOVED",
+        "GRANTED_UNSTAGED_ADDITION",
+        "GRANTED_UNTRACKED",
+        "GRANTED_WORKTREE",
       ].toSorted(),
     );
   });
 
   it("uses a constant number of Git processes as the staged source set grows", () => {
     const counts = [8, 16].map((fileCount) => {
-      const names = Array.from({ length: fileCount }, (_, index) => `OPENCLAW_N${index}`);
+      const names = Array.from({ length: fileCount }, (_, index) => `GRANTED_N${index}`);
       const { root, git } = createRepo(
         Object.fromEntries(names.map((name, index) => [`src/file-${index}.ts`, name])),
       );
@@ -123,17 +123,17 @@ describe("check-env-var-count", () => {
 
   it.skipIf(process.platform === "win32")("preserves valid unusual staged filenames", () => {
     const { root, git } = createRepo({
-      "src/space name.ts": "OPENCLAW_SPACE",
-      "packages/api/tab\tname.ts": "OPENCLAW_TAB",
-      "extensions/demo/newline\nname.ts": "OPENCLAW_NEWLINE",
-      "src/conflict blob 0\n\nx blob 0\n\nx blob 0\n\n.ts": "OPENCLAW_HEADER",
+      "src/space name.ts": "GRANTED_SPACE",
+      "packages/api/tab\tname.ts": "GRANTED_TAB",
+      "extensions/demo/newline\nname.ts": "GRANTED_NEWLINE",
+      "src/conflict blob 0\n\nx blob 0\n\nx blob 0\n\n.ts": "GRANTED_HEADER",
     });
     git("add", ".");
     expect(collectEnvVarNames(root, { staged: true })).toEqual([
-      "OPENCLAW_HEADER",
-      "OPENCLAW_NEWLINE",
-      "OPENCLAW_SPACE",
-      "OPENCLAW_TAB",
+      "GRANTED_HEADER",
+      "GRANTED_NEWLINE",
+      "GRANTED_SPACE",
+      "GRANTED_TAB",
     ]);
   });
 
@@ -141,10 +141,10 @@ describe("check-env-var-count", () => {
     "src/conflict.ts",
     ...(process.platform === "win32" ? [] : ["src/conflict blob 0\n\nx blob 0\n\nx blob 0\n\n.ts"]),
   ])("rejects an unresolved stage-zero source: %s", (file) => {
-    const { root } = createRepo({ [file]: "OPENCLAW_WORKTREE" });
+    const { root } = createRepo({ [file]: "GRANTED_WORKTREE" });
     const oid = execFileSync("git", ["hash-object", "-w", "--stdin"], {
       cwd: root,
-      input: "OPENCLAW_CONFLICT",
+      input: "GRANTED_CONFLICT",
       encoding: "utf8",
     }).trim();
     execFileSync("git", ["update-index", "-z", "--index-info"], {
@@ -163,7 +163,7 @@ describe("check-env-var-count", () => {
     // Shallow clones and grafted agent checkouts resolve the base but truncate its history.
     const { root, git, write } = createRepo({
       "config/env-var-count-budget.txt": "1\n",
-      "src/runtime.ts": "process.env.OPENCLAW_ONLY;\n",
+      "src/runtime.ts": "process.env.GRANTED_ONLY;\n",
     });
     git("add", ".");
     git("commit", "-m", "detached base");
@@ -174,20 +174,20 @@ describe("check-env-var-count", () => {
     git("commit", "-m", "severed history");
     expect(() => main(["--base", "severed-base"], root)).not.toThrow();
 
-    write("src/runtime.ts", "process.env.OPENCLAW_ONE; process.env.OPENCLAW_TWO;\n");
+    write("src/runtime.ts", "process.env.GRANTED_ONE; process.env.GRANTED_TWO;\n");
     expect(() => main(["--base", "severed-base"], root)).toThrow(/exceeds budget/u);
   });
 
   it("compares against the fork budget when the base branch later shrinks", () => {
     const { root, git, write } = createRepo({
       "config/env-var-count-budget.txt": "2\n",
-      "src/runtime.ts": "process.env.OPENCLAW_ONE; process.env.OPENCLAW_TWO;\n",
+      "src/runtime.ts": "process.env.GRANTED_ONE; process.env.GRANTED_TWO;\n",
     });
     git("add", ".");
     git("commit", "-m", "base");
     git("branch", "release");
     write("config/env-var-count-budget.txt", "1\n");
-    write("src/runtime.ts", "process.env.OPENCLAW_ONE;\n");
+    write("src/runtime.ts", "process.env.GRANTED_ONE;\n");
     git("add", ".");
     git("commit", "-m", "shrink main");
     git("branch", "moving-main");
@@ -217,7 +217,7 @@ describe("check-env-var-count", () => {
     ])("checks $name", ({ base, budget, count, error }) => {
       const { root, git, write } = createRepo({
         "config/env-var-count-budget.txt": `${base}\n`,
-        "src/runtime.ts": Array.from({ length: base }, (_, index) => `OPENCLAW_BASE_${index}`).join(
+        "src/runtime.ts": Array.from({ length: base }, (_, index) => `GRANTED_BASE_${index}`).join(
           "\n",
         ),
       });
@@ -226,7 +226,7 @@ describe("check-env-var-count", () => {
       write("config/env-var-count-budget.txt", `${budget}\n`);
       write(
         "src/runtime.ts",
-        Array.from({ length: count }, (_, index) => `OPENCLAW_NEXT_${index}`).join("\n"),
+        Array.from({ length: count }, (_, index) => `GRANTED_NEXT_${index}`).join("\n"),
       );
       if (staged) {
         git("add", ".");

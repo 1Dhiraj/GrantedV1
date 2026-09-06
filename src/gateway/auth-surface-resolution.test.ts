@@ -6,8 +6,8 @@ import {
 } from "./auth-surface-resolution.js";
 
 const ambientAuth = {
-  OPENCLAW_GATEWAY_TOKEN: "ambient-token",
-  OPENCLAW_GATEWAY_PASSWORD: "ambient-password", // pragma: allowlist secret
+  GRANTED_GATEWAY_TOKEN: "ambient-token",
+  GRANTED_GATEWAY_PASSWORD: "ambient-password", // pragma: allowlist secret
 } as NodeJS.ProcessEnv;
 
 function missingSecretRef(id: string) {

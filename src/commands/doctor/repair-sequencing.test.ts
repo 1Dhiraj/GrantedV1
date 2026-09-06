@@ -323,7 +323,7 @@ describe("doctor repair sequencing", () => {
   });
 
   it("runs the doctor-only Tailscale profile identity migration", async () => {
-    const env = { OPENCLAW_STATE_DIR: "/tmp/openclaw-doctor-test" };
+    const env = { GRANTED_STATE_DIR: "/tmp/openclaw-doctor-test" };
     const candidate = {} as OpenClawConfig;
     mocks.migrateLegacyTailscaleProfileIdentities.mockReturnValue({
       changes: ["Migrated Tailscale profile identity."],
@@ -342,7 +342,7 @@ describe("doctor repair sequencing", () => {
   });
 
   it("retains the exact auth profile map after import for later session-owner repair", async () => {
-    const env = { OPENCLAW_STATE_DIR: "/tmp/openclaw-doctor-test" };
+    const env = { GRANTED_STATE_DIR: "/tmp/openclaw-doctor-test" };
     const candidate = {} as OpenClawConfig;
     const profileIdMap = new Map([["openai-codex:default", "openai:chatgpt-default"]]);
     mocks.collectOpenAICodexAuthProfileStoreIdMap.mockReturnValue(profileIdMap);
@@ -1471,7 +1471,7 @@ describe("doctor repair sequencing", () => {
       },
       doctorFixCommand: "openclaw doctor --fix",
       env: {
-        OPENCLAW_UPDATE_IN_PROGRESS: "1",
+        GRANTED_UPDATE_IN_PROGRESS: "1",
       },
     });
 

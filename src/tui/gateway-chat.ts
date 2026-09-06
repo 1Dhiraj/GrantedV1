@@ -97,7 +97,7 @@ function throwGatewayAuthResolutionError(reason: string): never {
   throw new Error(
     [
       reason,
-      "Fix: set OPENCLAW_GATEWAY_TOKEN/OPENCLAW_GATEWAY_PASSWORD, pass --token/--password,",
+      "Fix: set GRANTED_GATEWAY_TOKEN/GRANTED_GATEWAY_PASSWORD, pass --token/--password,",
       "or resolve the configured secret provider for this credential.",
     ].join("\n"),
   );
@@ -589,13 +589,13 @@ async function resolveGatewayConnection(
   const urlOverride = resolveGatewayUrlOverride({ gatewayUrl: opts.url, env });
   const explicitAuth = resolveExplicitGatewayAuth({ token: opts.token, password: opts.password });
   const hasExplicitGatewayTarget = Boolean(
-    urlOverride.url || env.OPENCLAW_GATEWAY_PORT?.trim() || isRemoteMode,
+    urlOverride.url || env.GRANTED_GATEWAY_PORT?.trim() || isRemoteMode,
   );
   const resumeMayMatchLocalTarget =
     opts.allowConfiguredAuthForExactTarget === true &&
     urlOverride.source === "cli" &&
     !isRemoteMode &&
-    !env.OPENCLAW_GATEWAY_PORT?.trim();
+    !env.GRANTED_GATEWAY_PORT?.trim();
   const activeLocalGatewayPort =
     !hasExplicitGatewayTarget || resumeMayMatchLocalTarget
       ? await readActiveGatewayLockPort()

@@ -615,7 +615,7 @@ describe("prepared model runtime owner selection", () => {
       prepareModelRuntimeSnapshot({
         config,
         agentDir: state.agentDir("default"),
-        env: { ...process.env, OPENCLAW_PREPARED_RUNTIME_TEST_SCOPE: "different" },
+        env: { ...process.env, GRANTED_PREPARED_RUNTIME_TEST_SCOPE: "different" },
       }),
     ).rejects.toThrow("prepared model runtime owner was not published");
   });

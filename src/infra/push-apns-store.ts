@@ -101,9 +101,7 @@ const MAX_SEND_GRANT_LENGTH = 1024;
 const APNS_REGISTRATION_LOOKUP_CHUNK_SIZE = 500;
 
 function apnsStateDatabaseOptions(stateDir?: string): OpenClawStateDatabaseOptions {
-  return stateDir
-    ? { env: { ...process.env, OPENCLAW_STATE_DIR: stateDir } }
-    : { env: process.env };
+  return stateDir ? { env: { ...process.env, GRANTED_STATE_DIR: stateDir } } : { env: process.env };
 }
 
 export function normalizeApnsNodeId(value: string): string {

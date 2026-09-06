@@ -119,7 +119,7 @@ const GOOGLE_REQUEST_BYTES_EXCLUSIVE = 20_000_000;
 type GoogleVideoSlots = Map<Record<string, unknown>, VideoContent>;
 
 const GOOGLE_GEMINI3_FIRST_RESPONSE_RETRY_DEFAULT_MS = 45_000;
-const GOOGLE_GEMINI3_FIRST_RESPONSE_RETRY_ENV = "OPENCLAW_GOOGLE_GEMINI_FIRST_RESPONSE_RETRY_MS";
+const GOOGLE_GEMINI3_FIRST_RESPONSE_RETRY_ENV = "GRANTED_GOOGLE_GEMINI_FIRST_RESPONSE_RETRY_MS";
 const GOOGLE_SSE_EVENT_BOUNDARY_RE = /(?:\r\n|\r(?!\n)|\n){2}/u;
 // Compare Google-owned publisher resources without changing outbound request paths.
 const GOOGLE_VERTEX_MODEL_RESOURCE_PREFIX =

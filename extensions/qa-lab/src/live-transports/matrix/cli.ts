@@ -10,7 +10,7 @@ import {
 } from "../shared/live-transport-cli.js";
 import { resolveCatalogLiveTransportQaScenarioIds } from "../shared/scenario-selection.js";
 
-const DISABLE_MATRIX_QA_FORCE_EXIT_ENV = "OPENCLAW_QA_MATRIX_DISABLE_FORCE_EXIT";
+const DISABLE_MATRIX_QA_FORCE_EXIT_ENV = "GRANTED_QA_MATRIX_DISABLE_FORCE_EXIT";
 
 const loadMatrixQaAdapterRuntime = createLazyCliRuntimeLoader<
   typeof import("./adapter.runtime.js")

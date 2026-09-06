@@ -118,7 +118,7 @@ suite.define(() => {
     },
   ])("keeps GitHub selection inert and $name", async ({ failure, worktree }) => {
     // Both capture gates share this attempt's screenshots, custody report, and video.
-    const artifactDir = process.env.OPENCLAW_UI_E2E_ARTIFACT_DIR?.trim()
+    const artifactDir = process.env.GRANTED_UI_E2E_ARTIFACT_DIR?.trim()
       ? path.join(suite.artifactDir, "project-registry")
       : undefined;
     const context = await suite.browser.newContext({

@@ -42,7 +42,7 @@ export const MOVED_WORKSPACE = "/home/peter/openclaw-next";
 const LOCATOR_TEXT_READ_TIMEOUT_MS = 500;
 const LOCATOR_TEXT_POLL_TIMEOUT_MS = 10_000;
 
-export const captureUiProofEnabled = process.env.OPENCLAW_CAPTURE_UI_PROOF === "1";
+export const captureUiProofEnabled = process.env.GRANTED_CAPTURE_UI_PROOF === "1";
 
 export const ONE_PIXEL_PNG_B64 =
   "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/woAAn8B9FD5fHAAAAAASUVORK5CYII=";
@@ -159,7 +159,7 @@ export async function captureEnvironmentMetadataUiProof(
   owner: { readonly artifactDir: string },
   page: Page,
 ) {
-  const proofName = process.env.OPENCLAW_ENVIRONMENT_METADATA_PROOF;
+  const proofName = process.env.GRANTED_ENVIRONMENT_METADATA_PROOF;
   if (proofName !== "before" && proofName !== "after") {
     return;
   }

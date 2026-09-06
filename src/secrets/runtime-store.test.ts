@@ -40,7 +40,7 @@ describe("store SecretRef runtime degradation", () => {
         agents: { list: [{ id: "main", default: true }] },
         skills: { entries: { unavailable: { apiKey: ref } } },
       }),
-      env: { OPENCLAW_STATE_DIR: path.join(root, "state") },
+      env: { GRANTED_STATE_DIR: path.join(root, "state") },
       includeAuthStoreRefs: false,
       allowUnavailableSecretOwners: true,
       loadablePluginOrigins: new Map(),
@@ -67,7 +67,7 @@ describe("store SecretRef runtime degradation", () => {
     });
     const runtimeOptions = {
       config,
-      env: { OPENCLAW_STATE_DIR: path.join(root, "state") },
+      env: { GRANTED_STATE_DIR: path.join(root, "state") },
       includeAuthStoreRefs: false,
       allowUnavailableSecretOwners: true,
       loadablePluginOrigins: new Map(),

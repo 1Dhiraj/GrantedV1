@@ -34,7 +34,7 @@ describe("gh-read helpers", () => {
     }
 
     expect(stderr).toContain("usage: scripts/gh-read <gh args...>");
-    expect(stderr).toContain("OPENCLAW_GH_READ_APP_ID");
+    expect(stderr).toContain("GRANTED_GH_READ_APP_ID");
   });
 
   it("finds repo from gh args", () => {
@@ -243,7 +243,7 @@ describe("gh-read helpers", () => {
   it("rejects invalid GitHub API timeout values", () => {
     expect(resolveGitHubFetchTimeoutMs("1000")).toBe(1000);
     expect(() => resolveGitHubFetchTimeoutMs("1s")).toThrow(
-      /OPENCLAW_GH_READ_FETCH_TIMEOUT_MS must be an integer/u,
+      /GRANTED_GH_READ_FETCH_TIMEOUT_MS must be an integer/u,
     );
   });
 });

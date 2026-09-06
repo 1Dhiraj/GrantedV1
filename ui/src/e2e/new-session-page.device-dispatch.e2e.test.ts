@@ -163,7 +163,7 @@ suite.define(() => {
       const context = await suite.browser.newContext({
         locale: "en-US",
         serviceWorkers: "block",
-        ...(process.env.OPENCLAW_CAPTURE_UI_PROOF === "1"
+        ...(process.env.GRANTED_CAPTURE_UI_PROOF === "1"
           ? { recordVideo: { dir: path.join(suite.artifactDir, "device-runtime-gating") } }
           : {}),
       });

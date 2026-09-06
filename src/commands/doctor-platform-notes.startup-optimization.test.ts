@@ -13,7 +13,7 @@ describe("noteStartupOptimizationHints", () => {
     noteStartupOptimizationHints(
       {
         NODE_COMPILE_CACHE: "/var/tmp/openclaw-compile-cache",
-        OPENCLAW_NO_RESPAWN: "1",
+        GRANTED_NO_RESPAWN: "1",
       },
       { platform: "linux", arch: "arm64", totalMemBytes: 4 * 1024 ** 3, noteFn },
     );
@@ -37,11 +37,11 @@ describe("noteStartupOptimizationHints", () => {
     expect(message).toBe(
       [
         "- NODE_COMPILE_CACHE points to /tmp; use /var/tmp so cache survives reboots and warms startup reliably.",
-        "- OPENCLAW_NO_RESPAWN is not set to 1; set it when you want routine gateway restarts to stay in-process instead of handing off to a managed supervisor.",
+        "- GRANTED_NO_RESPAWN is not set to 1; set it when you want routine gateway restarts to stay in-process instead of handing off to a managed supervisor.",
         "- Suggested env for low-power hosts:",
         "  export NODE_COMPILE_CACHE=/var/tmp/openclaw-compile-cache",
         "  mkdir -p /var/tmp/openclaw-compile-cache",
-        "  export OPENCLAW_NO_RESPAWN=1",
+        "  export GRANTED_NO_RESPAWN=1",
       ].join("\n"),
     );
   });
@@ -52,7 +52,7 @@ describe("noteStartupOptimizationHints", () => {
     noteStartupOptimizationHints(
       {
         NODE_COMPILE_CACHE: "/var/tmp/openclaw-compile-cache",
-        OPENCLAW_NO_RESPAWN: "1",
+        GRANTED_NO_RESPAWN: "1",
         NODE_DISABLE_COMPILE_CACHE: "1",
       },
       { platform: "linux", arch: "arm64", totalMemBytes: 4 * 1024 ** 3, noteFn },
@@ -66,7 +66,7 @@ describe("noteStartupOptimizationHints", () => {
         "- Suggested env for low-power hosts:",
         "  export NODE_COMPILE_CACHE=/var/tmp/openclaw-compile-cache",
         "  mkdir -p /var/tmp/openclaw-compile-cache",
-        "  export OPENCLAW_NO_RESPAWN=1",
+        "  export GRANTED_NO_RESPAWN=1",
         "  unset NODE_DISABLE_COMPILE_CACHE",
       ].join("\n"),
     );

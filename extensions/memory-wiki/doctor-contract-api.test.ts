@@ -46,7 +46,7 @@ function resolveLegacyImportRunRecordPath(vaultRoot: string, runId: string): str
 }
 
 function migrationParams(params: { stateDir: string; vaultRoot: string; agentIds?: string[] }) {
-  const env = { ...process.env, HOME: params.stateDir, OPENCLAW_STATE_DIR: params.stateDir };
+  const env = { ...process.env, HOME: params.stateDir, GRANTED_STATE_DIR: params.stateDir };
   return {
     config: {
       ...(params.agentIds ? { agents: { list: params.agentIds.map((id) => ({ id })) } } : {}),
@@ -131,7 +131,7 @@ describe("memory-wiki doctor source sync migration", () => {
     const params = {
       ...migrationParams({ stateDir, vaultRoot: stateVault }),
       config: { plugins: { entries: { "memory-wiki": { config: {} } } } },
-      env: { ...process.env, HOME: homeDir, OPENCLAW_STATE_DIR: stateDir },
+      env: { ...process.env, HOME: homeDir, GRANTED_STATE_DIR: stateDir },
     };
     const migration = requireStateMigration("memory-wiki-compiled-cache-file-cleanup");
 
@@ -210,7 +210,7 @@ describe("memory-wiki doctor source sync migration", () => {
     const params = {
       ...migrationParams({ stateDir, vaultRoot }),
       config: { plugins: { entries: { "memory-wiki": { config: {} } } } },
-      env: { ...process.env, HOME: homeDir, OPENCLAW_STATE_DIR: stateDir },
+      env: { ...process.env, HOME: homeDir, GRANTED_STATE_DIR: stateDir },
     };
     const migration = requireStateMigration("memory-wiki-source-sync-json-to-plugin-state");
 
@@ -327,7 +327,7 @@ describe("memory-wiki doctor source sync migration", () => {
     await expect(fs.readFile(snapshotPath, "utf8")).resolves.toBe("previous page\n");
 
     configureMemoryWikiImportRunStateStore(store);
-    const blobStoreEnv = { ...process.env, HOME: stateDir, OPENCLAW_STATE_DIR: stateDir };
+    const blobStoreEnv = { ...process.env, HOME: stateDir, GRANTED_STATE_DIR: stateDir };
     configureMemoryWikiCompiledCacheStore(
       createMemoryWikiCompiledCacheStore(<T>(options: OpenBlobStoreOptions) =>
         createPluginBlobStoreForTests<T>("memory-wiki", options, blobStoreEnv),

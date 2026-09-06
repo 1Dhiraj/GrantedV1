@@ -3,22 +3,22 @@ import { GATEWAY_LAUNCH_AGENT_LABEL, resolveGatewayLaunchAgentLabel } from "../d
 import { isGatewayExternallySupervised } from "./gateway-supervision.js";
 
 const SUPERVISOR_HINTS = {
-  launchd: ["OPENCLAW_LAUNCHD_LABEL"],
-  systemd: ["OPENCLAW_SYSTEMD_UNIT", "INVOCATION_ID", "SYSTEMD_EXEC_PID", "JOURNAL_STREAM"],
-  schtasks: ["OPENCLAW_WINDOWS_TASK_NAME"],
+  launchd: ["GRANTED_LAUNCHD_LABEL"],
+  systemd: ["GRANTED_SYSTEMD_UNIT", "INVOCATION_ID", "SYSTEMD_EXEC_PID", "JOURNAL_STREAM"],
+  schtasks: ["GRANTED_WINDOWS_TASK_NAME"],
 } as const;
 
 /** Environment keys that imply the gateway process is supervised by an external respawner. */
 export const SUPERVISOR_HINT_ENV_VARS = [
-  "OPENCLAW_SUPERVISOR_MODE",
+  "GRANTED_SUPERVISOR_MODE",
   "LAUNCH_JOB_LABEL",
   "LAUNCH_JOB_NAME",
   "XPC_SERVICE_NAME",
   ...SUPERVISOR_HINTS.launchd,
   ...SUPERVISOR_HINTS.systemd,
   ...SUPERVISOR_HINTS.schtasks,
-  "OPENCLAW_SERVICE_MARKER",
-  "OPENCLAW_SERVICE_KIND",
+  "GRANTED_SERVICE_MARKER",
+  "GRANTED_SERVICE_KIND",
 ] as const;
 
 /** Supported supervisor families that can respawn the gateway after update/restart handoff. */
@@ -38,13 +38,13 @@ function hasAnyHint(env: NodeJS.ProcessEnv, keys: readonly string[]): boolean {
 
 function hasOpenClawGatewayServiceMarker(env: NodeJS.ProcessEnv): boolean {
   return (
-    env.OPENCLAW_SERVICE_MARKER?.trim() === "openclaw" &&
-    env.OPENCLAW_SERVICE_KIND?.trim() === "gateway"
+    env.GRANTED_SERVICE_MARKER?.trim() === "openclaw" &&
+    env.GRANTED_SERVICE_KIND?.trim() === "gateway"
   );
 }
 
 function isCurrentGatewayLaunchdJob(env: NodeJS.ProcessEnv): boolean {
-  const expectedLabel = resolveGatewayLaunchAgentLabel(env.OPENCLAW_PROFILE);
+  const expectedLabel = resolveGatewayLaunchAgentLabel(env.GRANTED_PROFILE);
   if (
     [env.LAUNCH_JOB_LABEL, env.LAUNCH_JOB_NAME].some((value) => value?.trim() === expectedLabel)
   ) {

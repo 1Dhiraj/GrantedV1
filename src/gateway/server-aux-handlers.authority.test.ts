@@ -263,7 +263,7 @@ describe("gateway auxiliary authority lifecycle", () => {
     const root = fs.mkdtempSync(path.join(fs.realpathSync(os.tmpdir()), "openclaw-aux-worker-"));
     tempDirs.push(root);
     closeOpenClawStateDatabaseForTest();
-    const database = openOpenClawStateDatabase({ env: { OPENCLAW_STATE_DIR: root } });
+    const database = openOpenClawStateDatabase({ env: { GRANTED_STATE_DIR: root } });
     const placements = createWorkerSessionPlacementStore({ database });
     const identity = {
       sessionId: "session-worker-close",

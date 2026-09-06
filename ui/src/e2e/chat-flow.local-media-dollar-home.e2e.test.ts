@@ -8,7 +8,7 @@ const suite = createChatFlowE2eSuite();
 
 suite.define(() => {
   it("allows tilde local media previews when the preview root home contains a literal $ pattern", async () => {
-    const artifactDirParent = process.env.OPENCLAW_UI_E2E_ARTIFACT_DIR?.trim();
+    const artifactDirParent = process.env.GRANTED_UI_E2E_ARTIFACT_DIR?.trim();
     const artifactDir = artifactDirParent
       ? createControlUiE2eArtifactDir("chat-flow.local-media-dollar-home", artifactDirParent)
       : undefined;

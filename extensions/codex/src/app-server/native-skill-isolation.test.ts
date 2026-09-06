@@ -18,7 +18,7 @@ it("reuses one authoritative native skill reload per physical client and workspa
     const client = { request } as unknown as CodexAppServerClient;
 
     await withEnvAsync(
-      { HOME: home, OPENCLAW_STATE_DIR: path.join(home, "scratch-state") },
+      { HOME: home, GRANTED_STATE_DIR: path.join(home, "scratch-state") },
       async () => {
         const params = { client, cwd: home };
         const [first, second] = await Promise.all([
@@ -51,7 +51,7 @@ it("retries a failed native skill reload instead of caching its rejection", asyn
     const client = { request } as unknown as CodexAppServerClient;
 
     await withEnvAsync(
-      { HOME: home, OPENCLAW_STATE_DIR: path.join(home, "scratch-state") },
+      { HOME: home, GRANTED_STATE_DIR: path.join(home, "scratch-state") },
       async () => {
         const params = { client, cwd: home };
         await expect(resolveCodexNativeSkillIsolation(params)).rejects.toThrow(
@@ -80,7 +80,7 @@ it("does not share native skill reloads across independently cancellable turns",
     const secondSignal = new AbortController();
 
     await withEnvAsync(
-      { HOME: home, OPENCLAW_STATE_DIR: path.join(home, "scratch-state") },
+      { HOME: home, GRANTED_STATE_DIR: path.join(home, "scratch-state") },
       async () => {
         await Promise.all([
           resolveCodexNativeSkillIsolation({ client, cwd: home, signal: firstSignal.signal }),
@@ -208,7 +208,7 @@ it("disables native user-scope skills only for non-default state directories", a
     const client = { request } as unknown as CodexAppServerClient;
 
     await withEnvAsync(
-      { HOME: home, OPENCLAW_STATE_DIR: path.join(home, ".openclaw") },
+      { HOME: home, GRANTED_STATE_DIR: path.join(home, ".openclaw") },
       async () => {
         await expect(
           resolveCodexNativeSkillIsolation({ client, codexHome: customCodexHome, cwd: workspace }),
@@ -220,7 +220,7 @@ it("disables native user-scope skills only for non-default state directories", a
     const isolation = await withEnvAsync(
       {
         HOME: path.join(home, "gateway-home"),
-        OPENCLAW_STATE_DIR: path.join(home, "scratch-state"),
+        GRANTED_STATE_DIR: path.join(home, "scratch-state"),
       },
       async () =>
         await resolveCodexNativeSkillIsolation({
@@ -292,7 +292,7 @@ it.runIf(process.platform !== "win32")(
       } as unknown as CodexAppServerClient;
 
       const isolation = await withEnvAsync(
-        { HOME: home, OPENCLAW_STATE_DIR: path.join(home, "scratch-state") },
+        { HOME: home, GRANTED_STATE_DIR: path.join(home, "scratch-state") },
         async () => await resolveCodexNativeSkillIsolation({ client, cwd: home }),
       );
       expect(isolation?.disabledUserSkillPaths).toEqual([
@@ -319,7 +319,7 @@ it("captures a personal skill created during the authoritative Codex reload", as
     } as unknown as CodexAppServerClient;
 
     const isolation = await withEnvAsync(
-      { HOME: home, OPENCLAW_STATE_DIR: path.join(home, "scratch-state") },
+      { HOME: home, GRANTED_STATE_DIR: path.join(home, "scratch-state") },
       async () => await resolveCodexNativeSkillIsolation({ client, cwd: home }),
     );
     expect(isolation?.disabledUserSkillPaths).toEqual([await fs.realpath(skillPath)]);
@@ -357,7 +357,7 @@ it("preserves direct skills under a state-owned default Codex home", async () =>
     } as unknown as CodexAppServerClient;
 
     const isolation = await withEnvAsync(
-      { HOME: stateHome, OPENCLAW_STATE_DIR: stateHome },
+      { HOME: stateHome, GRANTED_STATE_DIR: stateHome },
       async () => await resolveCodexNativeSkillIsolation({ client, cwd: stateHome }),
     );
     expect(isolation?.disabledUserSkillPaths).toEqual([]);

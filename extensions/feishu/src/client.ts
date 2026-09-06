@@ -169,7 +169,7 @@ function normalizeMultipartUploadData<D>(
 }
 
 function isManagedProxyActive() {
-  return process.env["OPENCLAW_PROXY_ACTIVE"] === "1";
+  return process.env["GRANTED_PROXY_ACTIVE"] === "1";
 }
 
 let cachedFeishuProxyAgent: Agent | undefined;

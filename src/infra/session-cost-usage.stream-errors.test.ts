@@ -66,7 +66,7 @@ describe("session cost usage stream errors", () => {
       });
     await fs.writeFile(sessionFile, `${usageEntry("2026-07-06T12:00:00.000Z", 10)}\n`, "utf-8");
 
-    await withEnvAsync({ OPENCLAW_STATE_DIR: tempDir }, async () => {
+    await withEnvAsync({ GRANTED_STATE_DIR: tempDir }, async () => {
       const range = {
         startMs: Date.UTC(2026, 6, 6),
         endMs: Date.UTC(2026, 6, 7),

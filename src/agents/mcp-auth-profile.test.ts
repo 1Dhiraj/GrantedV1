@@ -54,7 +54,7 @@ describe("mcp auth profile bearer projection", () => {
     expect(resolved.config.mcpServers.docs).toMatchObject({
       url: "https://mcp.example.com/mcp",
       headers: {
-        Authorization: expect.stringMatching(/^Bearer \$\{OPENCLAW_MCP_AUTH_[A-F0-9]{12}_TOKEN}$/),
+        Authorization: expect.stringMatching(/^Bearer \$\{GRANTED_MCP_AUTH_[A-F0-9]{12}_TOKEN}$/),
       },
     });
     expect(resolved.config.mcpServers.docs?.auth).toBeUndefined();
@@ -158,7 +158,7 @@ describe("mcp auth profile bearer projection", () => {
     expect(server.auth).toBeUndefined();
     expect(server.oauth).toBeUndefined();
     expect(server.headers).toEqual({
-      Authorization: expect.stringMatching(/^Bearer \$\{OPENCLAW_MCP_AUTH_[A-F0-9]{12}_TOKEN}$/),
+      Authorization: expect.stringMatching(/^Bearer \$\{GRANTED_MCP_AUTH_[A-F0-9]{12}_TOKEN}$/),
       "X-Trace": "keep",
     });
     expect(JSON.stringify(resolved.config)).not.toContain("refresh-token-must-not-project");

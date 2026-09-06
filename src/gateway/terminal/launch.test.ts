@@ -408,7 +408,7 @@ describe("buildTerminalEnv", () => {
     expect(env.PATH).toBe("/usr/bin");
     expect(env.FOO).toBe("bar");
     expect(env.TERM).toBe("xterm-256color");
-    expect(env.OPENCLAW_TERMINAL).toBe("1");
+    expect(env.GRANTED_TERMINAL).toBe("1");
   });
 
   it("preserves an existing TERM", () => {

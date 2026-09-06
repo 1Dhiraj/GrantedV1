@@ -75,17 +75,17 @@ function expectContainerExec(
       "-i",
       ...(params.tty ? ["-t"] : []),
       envFlag,
-      `OPENCLAW_CONTAINER_HINT=${params.container ?? "demo"}`,
+      `GRANTED_CONTAINER_HINT=${params.container ?? "demo"}`,
       envFlag,
-      "OPENCLAW_CLI_CONTAINER_BYPASS=1",
-      ...(params.proxyUrl ? [envFlag, `OPENCLAW_PROXY_URL=${params.proxyUrl}`] : []),
+      "GRANTED_CLI_CONTAINER_BYPASS=1",
+      ...(params.proxyUrl ? [envFlag, `GRANTED_PROXY_URL=${params.proxyUrl}`] : []),
       params.container ?? "demo",
       "openclaw",
       ...(params.argv ?? ["status"]),
     ],
     {
       stdio: "inherit",
-      env: { ...params.env, OPENCLAW_CONTAINER: "" },
+      env: { ...params.env, GRANTED_CONTAINER: "" },
     },
   );
 }
@@ -177,14 +177,14 @@ describe("parseCliContainerArgs", () => {
 });
 
 describe("resolveCliContainerTarget", () => {
-  it("uses argv first and falls back to OPENCLAW_CONTAINER", () => {
+  it("uses argv first and falls back to GRANTED_CONTAINER", () => {
     expect(
       resolveCliContainerTarget(["node", "openclaw", "--container", "demo", "status"], {}),
     ).toBe("demo");
     expect(resolveCliContainerTarget(["node", "openclaw", "status"], {})).toBeNull();
     expect(
       resolveCliContainerTarget(["node", "openclaw", "status"], {
-        OPENCLAW_CONTAINER: "demo",
+        GRANTED_CONTAINER: "demo",
       } as NodeJS.ProcessEnv),
     ).toBe("demo");
   });
@@ -209,7 +209,7 @@ describe("maybeRunCliInContainer", () => {
 
     expect(
       maybeRunCliInContainer(["node", "openclaw", "status"], {
-        env: { OPENCLAW_CONTAINER: "demo" } as NodeJS.ProcessEnv,
+        env: { GRANTED_CONTAINER: "demo" } as NodeJS.ProcessEnv,
         spawnSync,
       }),
     ).toEqual({
@@ -230,7 +230,7 @@ describe("maybeRunCliInContainer", () => {
       let thrown: unknown;
       try {
         maybeRunCliInContainer(["node", "openclaw", "status"], {
-          env: { OPENCLAW_CONTAINER: "demo" } as NodeJS.ProcessEnv,
+          env: { GRANTED_CONTAINER: "demo" } as NodeJS.ProcessEnv,
           spawnSync,
         });
       } catch (error) {
@@ -241,12 +241,12 @@ describe("maybeRunCliInContainer", () => {
     },
   );
 
-  it("uses OPENCLAW_CONTAINER when the flag is absent", () => {
+  it("uses GRANTED_CONTAINER when the flag is absent", () => {
     const spawnSync = mockSpawn(runningContainer, missingContainer, successfulExec);
 
     expect(
       maybeRunCliInContainer(["node", "openclaw", "status"], {
-        env: { OPENCLAW_CONTAINER: "demo" } as NodeJS.ProcessEnv,
+        env: { GRANTED_CONTAINER: "demo" } as NodeJS.ProcessEnv,
         spawnSync,
       }),
     ).toEqual({
@@ -262,12 +262,12 @@ describe("maybeRunCliInContainer", () => {
 
     maybeRunCliInContainer(["node", "openclaw", "status"], {
       env: {
-        OPENCLAW_CONTAINER: "demo",
-        OPENCLAW_PROFILE: "work",
-        OPENCLAW_GATEWAY_PORT: "19001",
-        OPENCLAW_GATEWAY_URL: "ws://127.0.0.1:18789",
-        OPENCLAW_GATEWAY_TOKEN: "token",
-        OPENCLAW_GATEWAY_PASSWORD: "password",
+        GRANTED_CONTAINER: "demo",
+        GRANTED_PROFILE: "work",
+        GRANTED_GATEWAY_PORT: "19001",
+        GRANTED_GATEWAY_URL: "ws://127.0.0.1:18789",
+        GRANTED_GATEWAY_TOKEN: "token",
+        GRANTED_GATEWAY_PASSWORD: "password",
       } as NodeJS.ProcessEnv,
       spawnSync,
     });
@@ -280,15 +280,15 @@ describe("maybeRunCliInContainer", () => {
 
     maybeRunCliInContainer(["node", "openclaw", "status"], {
       env: {
-        OPENCLAW_CONTAINER: "demo",
-        OPENCLAW_PROXY_URL: " http://proxy.internal:3128 ",
+        GRANTED_CONTAINER: "demo",
+        GRANTED_PROXY_URL: " http://proxy.internal:3128 ",
       } as NodeJS.ProcessEnv,
       spawnSync,
     });
 
     expectContainerExec(spawnSync, {
       proxyUrl: "http://proxy.internal:3128",
-      env: { OPENCLAW_PROXY_URL: " http://proxy.internal:3128 " },
+      env: { GRANTED_PROXY_URL: " http://proxy.internal:3128 " },
     });
   });
 
@@ -305,8 +305,8 @@ describe("maybeRunCliInContainer", () => {
     expect(() =>
       maybeRunCliInContainer(["node", "openclaw", "status"], {
         env: {
-          OPENCLAW_CONTAINER: "demo",
-          OPENCLAW_PROXY_URL: ` ${proxyUrl} `,
+          GRANTED_CONTAINER: "demo",
+          GRANTED_PROXY_URL: ` ${proxyUrl} `,
         } as NodeJS.ProcessEnv,
         spawnSync,
       }),
@@ -322,8 +322,8 @@ describe("maybeRunCliInContainer", () => {
     try {
       maybeRunCliInContainer(["node", "openclaw", "status"], {
         env: {
-          OPENCLAW_CONTAINER: "demo",
-          OPENCLAW_PROXY_URL:
+          GRANTED_CONTAINER: "demo",
+          GRANTED_PROXY_URL:
             "http://proxy-user:proxy-secret@127.1:3128?token=proxy-query-secret#proxy-fragment-secret",
         } as NodeJS.ProcessEnv,
         spawnSync,
@@ -332,7 +332,7 @@ describe("maybeRunCliInContainer", () => {
       message = err instanceof Error ? err.message : String(err);
     }
 
-    expect(message).toContain("OPENCLAW_PROXY_URL=http://redacted:redacted@127.0.0.1:3128/");
+    expect(message).toContain("GRANTED_PROXY_URL=http://redacted:redacted@127.0.0.1:3128/");
     expect(message).not.toContain("proxy-user");
     expect(message).not.toContain("proxy-secret");
     expect(message).not.toContain("proxy-query-secret");
@@ -347,16 +347,16 @@ describe("maybeRunCliInContainer", () => {
 
     maybeRunCliInContainer(["node", "openclaw", "status"], {
       env: {
-        OPENCLAW_CONTAINER: "demo",
-        OPENCLAW_PROXY_URL: " http://127.0.0.1:3128 ",
-        OPENCLAW_CONTAINER_ALLOW_LOOPBACK_PROXY_URL: "1",
+        GRANTED_CONTAINER: "demo",
+        GRANTED_PROXY_URL: " http://127.0.0.1:3128 ",
+        GRANTED_CONTAINER_ALLOW_LOOPBACK_PROXY_URL: "1",
       } as NodeJS.ProcessEnv,
       spawnSync,
     });
 
     const podmanCall = requireSpawnCall(spawnSync, 2);
     expect(podmanCall[0]).toBe("podman");
-    expect(podmanCall[1]).toContain("OPENCLAW_PROXY_URL=http://127.0.0.1:3128");
+    expect(podmanCall[1]).toContain("GRANTED_PROXY_URL=http://127.0.0.1:3128");
     if (podmanCall[2] === undefined) {
       throw new Error("Expected podman spawn options");
     }
@@ -460,12 +460,12 @@ describe("maybeRunCliInContainer", () => {
     expectContainerExec(spawnSync, { argv: ["setup"], tty: true });
   });
 
-  it("prefers --container over OPENCLAW_CONTAINER", () => {
+  it("prefers --container over GRANTED_CONTAINER", () => {
     const spawnSync = mockSpawn(runningContainer, missingContainer, successfulExec);
 
     expect(
       maybeRunCliInContainer(["node", "openclaw", "--container", "flag-demo", "health"], {
-        env: { OPENCLAW_CONTAINER: "env-demo" } as NodeJS.ProcessEnv,
+        env: { GRANTED_CONTAINER: "env-demo" } as NodeJS.ProcessEnv,
         spawnSync,
       }),
     ).toEqual({
@@ -490,7 +490,7 @@ describe("maybeRunCliInContainer", () => {
   it("skips recursion when the bypass env is set", () => {
     expect(
       maybeRunCliInContainer(["node", "openclaw", "--container", "demo", "status"], {
-        env: { OPENCLAW_CLI_CONTAINER_BYPASS: "1" } as NodeJS.ProcessEnv,
+        env: { GRANTED_CLI_CONTAINER_BYPASS: "1" } as NodeJS.ProcessEnv,
       }),
     ).toEqual({
       handled: false,

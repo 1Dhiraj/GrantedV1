@@ -15,7 +15,7 @@ import {
 } from "./public-surface-runtime.js";
 import { resolveLoaderPackageRoot } from "./sdk-alias.js";
 
-const OPENCLAW_PACKAGE_ROOT =
+const GRANTED_PACKAGE_ROOT =
   resolveLoaderPackageRoot({
     modulePath: fileURLToPath(import.meta.url),
     moduleUrl: import.meta.url,
@@ -41,7 +41,7 @@ function resolvePublicSurfaceLocationUncached(params: {
 }): PublicSurfaceLocation | null {
   const bundledPluginsDir = resolveBundledPluginsDir(params.env);
   const modulePath = resolveBundledPluginPublicSurfacePath({
-    rootDir: OPENCLAW_PACKAGE_ROOT,
+    rootDir: GRANTED_PACKAGE_ROOT,
     ...(bundledPluginsDir ? { bundledPluginsDir, bundledPluginsDirMode: "explicit" as const } : {}),
     dirName: params.dirName,
     artifactBasename: params.artifactBasename,
@@ -55,7 +55,7 @@ function resolvePublicSurfaceLocationUncached(params: {
     boundaryRoot:
       bundledPluginsDir && modulePath.startsWith(path.resolve(bundledPluginsDir) + path.sep)
         ? path.resolve(bundledPluginsDir)
-        : OPENCLAW_PACKAGE_ROOT,
+        : GRANTED_PACKAGE_ROOT,
   };
 }
 
@@ -65,7 +65,7 @@ function resolvePublicSurfaceLocation(params: {
   env?: NodeJS.ProcessEnv;
 }): PublicSurfaceLocation | null {
   const key = createResolutionKey(params);
-  const artifacts = getPluginCacheRoot(OPENCLAW_PACKAGE_ROOT).artifacts;
+  const artifacts = getPluginCacheRoot(GRANTED_PACKAGE_ROOT).artifacts;
   const cached = artifacts.get(`public:${key}`);
   if (cached !== undefined) {
     return cached;
@@ -113,7 +113,7 @@ function loadBundledPublicSurfaceAtLocation(params: {
     modulePath: params.location.modulePath,
     boundaryRoot: params.location.boundaryRoot,
     boundaryLabel:
-      params.location.boundaryRoot === OPENCLAW_PACKAGE_ROOT
+      params.location.boundaryRoot === GRANTED_PACKAGE_ROOT
         ? "OpenClaw package root"
         : "plugin root",
     surfaceLabel: `bundled plugin public surface ${params.dirName}/${params.artifactBasename}`,

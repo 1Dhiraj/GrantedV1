@@ -66,7 +66,7 @@ async function initializeRepository(root: string): Promise<{ baseCommit: string;
   const setupScript = path.join(repo, ".openclaw", "worktree-setup.sh");
   await fs.writeFile(
     setupScript,
-    '#!/bin/sh\nset -eu\nprintf "%s\\n%s\\n" "$OPENCLAW_SOURCE_TREE_PATH" "$OPENCLAW_WORKTREE_PATH" > "$OPENCLAW_WORKTREE_PATH/setup-marker.txt"\n',
+    '#!/bin/sh\nset -eu\nprintf "%s\\n%s\\n" "$GRANTED_SOURCE_TREE_PATH" "$GRANTED_WORKTREE_PATH" > "$GRANTED_WORKTREE_PATH/setup-marker.txt"\n',
   );
   await fs.chmod(setupScript, 0o755);
   await git(repo, "add", "README.md", ".gitignore", ".worktreeinclude", setupScript);

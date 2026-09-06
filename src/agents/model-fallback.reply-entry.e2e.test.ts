@@ -85,7 +85,7 @@ beforeAll(async () => {
 });
 
 beforeEach(() => {
-  vi.stubEnv("OPENCLAW_ALLOW_SLOW_REPLY_TESTS", "1");
+  vi.stubEnv("GRANTED_ALLOW_SLOW_REPLY_TESTS", "1");
   resetFallbackSkipCacheForTest();
   runEmbeddedAttemptMock.mockReset();
   suspendSessionMock.mockClear();

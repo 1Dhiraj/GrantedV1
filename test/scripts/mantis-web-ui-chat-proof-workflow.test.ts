@@ -105,8 +105,8 @@ describe("Mantis Web UI chat proof workflow", () => {
 
     expect(allocate?.run).toContain('mktemp -d "$output_parent/run.XXXXXX"');
     expect(capture?.run).toContain(`root="${rootOutput}"`);
-    expect(capture?.run).toContain('OPENCLAW_MANTIS_WEB_UI_CHAT_OUTPUT_DIR="$root"');
-    expect(capture?.run).toContain('OPENCLAW_UI_E2E_ARTIFACT_DIR="$root"');
+    expect(capture?.run).toContain('GRANTED_MANTIS_WEB_UI_CHAT_OUTPUT_DIR="$root"');
+    expect(capture?.run).toContain('GRANTED_UI_E2E_ARTIFACT_DIR="$root"');
     // Older candidates need the allocator imported by both overlaid harness files.
     expect(capture?.run).toContain(
       '"${GITHUB_WORKSPACE}/ui/src/test-helpers/control-ui-e2e-artifacts.ts"',

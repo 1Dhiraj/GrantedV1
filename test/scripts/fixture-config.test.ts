@@ -19,11 +19,11 @@ function runFixture(
     encoding: "utf8",
     env: {
       ...process.env,
-      OPENCLAW_CONFIG_BATCH_PATH: path.join(root, "batch.json"),
-      OPENCLAW_CONFIG_PATH: path.join(root, "openclaw.json"),
-      OPENCLAW_GATEWAY_TOKEN: "test-token",
-      OPENCLAW_OPENWEBUI_MODEL: "openai/gpt-5.4-mini",
-      OPENCLAW_STATE_DIR: root,
+      GRANTED_CONFIG_BATCH_PATH: path.join(root, "batch.json"),
+      GRANTED_CONFIG_PATH: path.join(root, "openclaw.json"),
+      GRANTED_GATEWAY_TOKEN: "test-token",
+      GRANTED_OPENWEBUI_MODEL: "openai/gpt-5.4-mini",
+      GRANTED_STATE_DIR: root,
       ...env,
     },
   });
@@ -38,8 +38,8 @@ describe("scripts/e2e/lib/fixture.mjs config commands", () => {
     [
       "openwebui-config",
       ["test-key"],
-      { OPENCLAW_OPENWEBUI_PROVIDER_TIMEOUT_SECONDS: "300s" },
-      "invalid OPENCLAW_OPENWEBUI_PROVIDER_TIMEOUT_SECONDS: 300s",
+      { GRANTED_OPENWEBUI_PROVIDER_TIMEOUT_SECONDS: "300s" },
+      "invalid GRANTED_OPENWEBUI_PROVIDER_TIMEOUT_SECONDS: 300s",
     ],
   ])("rejects %s arguments %j and env %j", (command, args, env, message) => {
     const root = tempRoots.make("openclaw-fixture-config-");
@@ -67,7 +67,7 @@ describe("scripts/e2e/lib/fixture.mjs config commands", () => {
   it("writes strict positive Open WebUI provider timeouts into generated config", () => {
     const root = tempRoots.make("openclaw-fixture-config-");
     const result = runFixture(root, "openwebui-config", ["test-key"], {
-      OPENCLAW_OPENWEBUI_PROVIDER_TIMEOUT_SECONDS: "300",
+      GRANTED_OPENWEBUI_PROVIDER_TIMEOUT_SECONDS: "300",
     });
 
     expect(result.status).toBe(0);

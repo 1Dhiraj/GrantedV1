@@ -123,16 +123,16 @@ describe("run-additional-boundary-checks", () => {
   });
 
   it("rejects malformed timeout and output limit integers", () => {
-    expect(resolvePositiveInteger("25", 50, "OPENCLAW_ADDITIONAL_BOUNDARY_TIMEOUT_MS")).toBe(25);
-    expect(resolvePositiveInteger(undefined, 50, "OPENCLAW_ADDITIONAL_BOUNDARY_TIMEOUT_MS")).toBe(
+    expect(resolvePositiveInteger("25", 50, "GRANTED_ADDITIONAL_BOUNDARY_TIMEOUT_MS")).toBe(25);
+    expect(resolvePositiveInteger(undefined, 50, "GRANTED_ADDITIONAL_BOUNDARY_TIMEOUT_MS")).toBe(
       50,
     );
     expect(() =>
-      resolvePositiveInteger("1000ms", 50, "OPENCLAW_ADDITIONAL_BOUNDARY_TIMEOUT_MS"),
-    ).toThrow("OPENCLAW_ADDITIONAL_BOUNDARY_TIMEOUT_MS must be a positive integer; got: 1000ms");
+      resolvePositiveInteger("1000ms", 50, "GRANTED_ADDITIONAL_BOUNDARY_TIMEOUT_MS"),
+    ).toThrow("GRANTED_ADDITIONAL_BOUNDARY_TIMEOUT_MS must be a positive integer; got: 1000ms");
     expect(() =>
-      resolvePositiveInteger("1e3", 50, "OPENCLAW_ADDITIONAL_BOUNDARY_OUTPUT_MAX_BYTES"),
-    ).toThrow("OPENCLAW_ADDITIONAL_BOUNDARY_OUTPUT_MAX_BYTES must be a positive integer; got: 1e3");
+      resolvePositiveInteger("1e3", 50, "GRANTED_ADDITIONAL_BOUNDARY_OUTPUT_MAX_BYTES"),
+    ).toThrow("GRANTED_ADDITIONAL_BOUNDARY_OUTPUT_MAX_BYTES must be a positive integer; got: 1e3");
   });
 
   it("formats command display text", () => {
@@ -191,7 +191,7 @@ describe("run-additional-boundary-checks", () => {
     expect(parseCliArgs(["--help"], {})).toEqual({ help: true, shardSpec: "" });
     expect(parseCliArgs(["--shard", "2/4"], {})).toEqual({ help: false, shardSpec: "2/4" });
     expect(parseCliArgs(["--shard=3/4"], {})).toEqual({ help: false, shardSpec: "3/4" });
-    expect(parseCliArgs([], { OPENCLAW_ADDITIONAL_BOUNDARY_SHARD: "4/4" })).toEqual({
+    expect(parseCliArgs([], { GRANTED_ADDITIONAL_BOUNDARY_SHARD: "4/4" })).toEqual({
       help: false,
       shardSpec: "4/4",
     });
@@ -383,8 +383,8 @@ describe("run-additional-boundary-checks", () => {
           "const { spawn } = require('node:child_process');",
           "const fs = require('node:fs');",
           `const child = spawn(process.execPath, ['-e', ${JSON.stringify(childScript)}], { stdio: 'ignore' });`,
-          "fs.writeFileSync(process.env.OPENCLAW_TEST_CHILD_PID + '.tmp', String(child.pid));",
-          "fs.renameSync(process.env.OPENCLAW_TEST_CHILD_PID + '.tmp', process.env.OPENCLAW_TEST_CHILD_PID);",
+          "fs.writeFileSync(process.env.GRANTED_TEST_CHILD_PID + '.tmp', String(child.pid));",
+          "fs.renameSync(process.env.GRANTED_TEST_CHILD_PID + '.tmp', process.env.GRANTED_TEST_CHILD_PID);",
           "setInterval(() => {}, 1000);",
         ].join("");
 
@@ -397,7 +397,7 @@ describe("run-additional-boundary-checks", () => {
           {
             checkTimeoutMs: 100,
             cwd: process.cwd(),
-            env: { ...process.env, OPENCLAW_TEST_CHILD_PID: childPidPath },
+            env: { ...process.env, GRANTED_TEST_CHILD_PID: childPidPath },
             outputMaxBytes: 4096,
           },
         );
@@ -434,9 +434,9 @@ describe("run-additional-boundary-checks", () => {
           "const { spawn } = require('node:child_process');",
           "const fs = require('node:fs');",
           `const child = spawn(process.execPath, ['-e', ${JSON.stringify(childScript)}], { stdio: 'ignore' });`,
-          "fs.writeFileSync(process.env.OPENCLAW_TEST_CHILD_PID + '.tmp', String(child.pid));",
-          "fs.renameSync(process.env.OPENCLAW_TEST_CHILD_PID + '.tmp', process.env.OPENCLAW_TEST_CHILD_PID);",
-          "fs.writeFileSync(process.env.OPENCLAW_TEST_READY, 'ready');",
+          "fs.writeFileSync(process.env.GRANTED_TEST_CHILD_PID + '.tmp', String(child.pid));",
+          "fs.renameSync(process.env.GRANTED_TEST_CHILD_PID + '.tmp', process.env.GRANTED_TEST_CHILD_PID);",
+          "fs.writeFileSync(process.env.GRANTED_TEST_READY, 'ready');",
           "process.on('SIGTERM', () => process.exit(0));",
           "setInterval(() => {}, 1000);",
         ].join("");
@@ -466,8 +466,8 @@ await runChecks(
           cwd: process.cwd(),
           env: {
             ...process.env,
-            OPENCLAW_TEST_CHILD_PID: childPidPath,
-            OPENCLAW_TEST_READY: readyPath,
+            GRANTED_TEST_CHILD_PID: childPidPath,
+            GRANTED_TEST_READY: readyPath,
           },
           stdio: ["ignore", "ignore", "pipe"],
         });

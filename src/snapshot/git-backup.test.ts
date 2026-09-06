@@ -10,8 +10,8 @@ import { readBackupFreshness } from "../commands/backup-health.js";
 import { createTestRuntime } from "../commands/test-runtime-config-helpers.js";
 import { executeGitCommand, requireGitCommand as requireGit } from "../infra/git-exec.js";
 import { writeConfigMachineState } from "../state/config-machine-state.js";
-import { OPENCLAW_AGENT_SCHEMA_VERSION } from "../state/openclaw-agent-db-contract.js";
-import { OPENCLAW_STATE_SCHEMA_VERSION } from "../state/openclaw-state-db-contract.js";
+import { GRANTED_AGENT_SCHEMA_VERSION } from "../state/openclaw-agent-db-contract.js";
+import { GRANTED_STATE_SCHEMA_VERSION } from "../state/openclaw-state-db-contract.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
@@ -87,7 +87,7 @@ async function createFormatFixture(databasePath: string): Promise<void> {
   try {
     await loadSqliteVecExtension({ db: database });
     database.exec(`
-      PRAGMA user_version = ${OPENCLAW_STATE_SCHEMA_VERSION};
+      PRAGMA user_version = ${GRANTED_STATE_SCHEMA_VERSION};
       CREATE TABLE schema_meta (
         meta_key TEXT NOT NULL PRIMARY KEY,
         role TEXT NOT NULL,
@@ -142,7 +142,7 @@ async function createFormatFixture(databasePath: string): Promise<void> {
            (meta_key, role, schema_version, agent_id, app_version, created_at, updated_at)
          VALUES ('primary', 'global', ?, NULL, NULL, 1, 1)`,
       )
-      .run(OPENCLAW_STATE_SCHEMA_VERSION);
+      .run(GRANTED_STATE_SCHEMA_VERSION);
     database
       .prepare("INSERT INTO content (id, body, huge, bytes, optional) VALUES (?, ?, ?, ?, ?)")
       .run(1, "hello lobster", 9_007_199_254_740_993n, Buffer.from([0, 1, 254, 255]), "");
@@ -185,7 +185,7 @@ function createAgentFixture(databasePath: string, agentId: string): void {
   const database = new DatabaseSync(databasePath);
   try {
     database.exec(`
-      PRAGMA user_version = ${OPENCLAW_AGENT_SCHEMA_VERSION};
+      PRAGMA user_version = ${GRANTED_AGENT_SCHEMA_VERSION};
       CREATE TABLE schema_meta (
         meta_key TEXT NOT NULL PRIMARY KEY,
         role TEXT NOT NULL,
@@ -202,7 +202,7 @@ function createAgentFixture(databasePath: string, agentId: string): void {
            (meta_key, role, schema_version, agent_id, app_version, created_at, updated_at)
          VALUES ('primary', 'agent', ?, ?, NULL, 1, 1)`,
       )
-      .run(OPENCLAW_AGENT_SCHEMA_VERSION, agentId);
+      .run(GRANTED_AGENT_SCHEMA_VERSION, agentId);
   } finally {
     database.close();
   }
@@ -246,7 +246,7 @@ function createStateDatabaseFixture(root: string): {
   database: { path: string; identity: { role: "global" } };
 } {
   const stateDir = path.join(root, "state");
-  const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+  const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
   openOpenClawStateDatabase({ env });
   closeOpenClawStateDatabaseForTest();
   return {
@@ -319,14 +319,14 @@ describe("Git-backed SQLite snapshots", () => {
       await import("../state/openclaw-agent-db.js");
     const agentDatabase = openOpenClawAgentDatabase({
       agentId: "main",
-      env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+      env: { ...process.env, GRANTED_STATE_DIR: stateDir },
       path: path.join(agentDir, "openclaw-agent.sqlite"),
     });
     closeOpenClawAgentDatabaseByPath(agentDatabase.path);
     await fs.writeFile(configPath, JSON.stringify({ agents: { entries: { main: { agentDir } } } }));
 
     await withEnvAsync(
-      { OPENCLAW_STATE_DIR: stateDir, OPENCLAW_CONFIG_PATH: configPath },
+      { GRANTED_STATE_DIR: stateDir, GRANTED_CONFIG_PATH: configPath },
       async () => {
         for (const { scope, selection } of [
           { scope: "explicit", selection: { agents: ["main"] } },
@@ -562,7 +562,7 @@ describe("Git-backed SQLite snapshots", () => {
 
     const warning =
       "repository history contains non-backup commits; use a dedicated backup repository";
-    await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () => {
+    await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {
       const result = await backupGitCreateCommand(createTestRuntime(), {
         repository: repositoryPath,
         global: true,
@@ -740,7 +740,7 @@ describe("Git-backed SQLite snapshots", () => {
   it("redacts secret machine-state keys while retaining ordinary machine state", async () => {
     const root = await tempRoot();
     const { stateDir, database } = createStateDatabaseFixture(root);
-    const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+    const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
     const nodeSecret = "synthetic-node-host-gateway-secret";
     const pushSecret = "synthetic-web-push-private-key";
     writeConfigMachineState("nodeHost.config", { gateway: { token: nodeSecret } }, { env });

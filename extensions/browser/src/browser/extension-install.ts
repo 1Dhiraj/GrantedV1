@@ -63,8 +63,8 @@ function resolveInstallStateDir(deps: ExtensionInstallDeps): string {
 
 function resolveInstallConfigPath(deps: ExtensionInstallDeps): string | undefined {
   const env = deps.env ?? process.env;
-  const explicit = env.OPENCLAW_CONFIG_PATH?.trim();
-  return explicit ? resolveStateDir({ ...env, OPENCLAW_STATE_DIR: explicit }) : undefined;
+  const explicit = env.GRANTED_CONFIG_PATH?.trim();
+  return explicit ? resolveStateDir({ ...env, GRANTED_STATE_DIR: explicit }) : undefined;
 }
 
 function shellQuote(value: string): string {
@@ -156,7 +156,7 @@ function parseOwnedLauncherTargets(params: {
     ]),
   ].join(" ");
   const pattern = new RegExp(
-    `^#!/bin/sh\\n${escapeRegExp(OWNED_LAUNCHER_MARKER)}\\nexport OPENCLAW_STATE_DIR=${quotedValue}\\n(?:export OPENCLAW_CONFIG_PATH=${quotedValue}\\n)?exec ${command} "\\$@"\\n$`,
+    `^#!/bin/sh\\n${escapeRegExp(OWNED_LAUNCHER_MARKER)}\\nexport GRANTED_STATE_DIR=${quotedValue}\\n(?:export GRANTED_CONFIG_PATH=${quotedValue}\\n)?exec ${command} "\\$@"\\n$`,
     "u",
   );
   // Decode only shellQuote's two target words after the entire ownership grammar matches.
@@ -219,8 +219,8 @@ async function resolveLauncherInstall(params: {
     content: [
       "#!/bin/sh",
       OWNED_LAUNCHER_MARKER,
-      `export OPENCLAW_STATE_DIR=${shellQuote(resolveInstallStateDir(params.deps))}`,
-      ...(configPath ? [`export OPENCLAW_CONFIG_PATH=${shellQuote(configPath)}`] : []),
+      `export GRANTED_STATE_DIR=${shellQuote(resolveInstallStateDir(params.deps))}`,
+      ...(configPath ? [`export GRANTED_CONFIG_PATH=${shellQuote(configPath)}`] : []),
       `exec ${command.map(shellQuote).join(" ")} "$@"`,
       "",
     ].join("\n"),

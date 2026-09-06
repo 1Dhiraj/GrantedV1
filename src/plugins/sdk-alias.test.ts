@@ -540,7 +540,7 @@ describe("plugin sdk alias helpers", () => {
       "utf-8",
     );
 
-    const subpaths = withEnv({ OPENCLAW_ENABLE_PRIVATE_QA_CLI: "1" }, () =>
+    const subpaths = withEnv({ GRANTED_ENABLE_PRIVATE_QA_CLI: "1" }, () =>
       listPluginSdkExportedSubpaths({
         modulePath: path.join(fixture.root, "src", "plugins", "loader.ts"),
       }),
@@ -574,12 +574,11 @@ describe("plugin sdk alias helpers", () => {
       bundledPluginFile("demo", "src/index.ts"),
     );
 
-    const subpaths = withEnv({ OPENCLAW_ENABLE_PRIVATE_QA_CLI: undefined }, () =>
+    const subpaths = withEnv({ GRANTED_ENABLE_PRIVATE_QA_CLI: undefined }, () =>
       listPluginSdkExportedSubpaths({ modulePath: sourcePluginEntry }),
     );
-    const aliases = withEnv(
-      { OPENCLAW_ENABLE_PRIVATE_QA_CLI: undefined, NODE_ENV: undefined },
-      () => buildPluginLoaderAliasMap(sourcePluginEntry),
+    const aliases = withEnv({ GRANTED_ENABLE_PRIVATE_QA_CLI: undefined, NODE_ENV: undefined }, () =>
+      buildPluginLoaderAliasMap(sourcePluginEntry),
     );
 
     expect(subpaths).toEqual(["core", "qa-runner-runtime"]);
@@ -593,7 +592,7 @@ describe("plugin sdk alias helpers", () => {
       packageName: "@example/external",
     });
     const externalAliases = withEnv(
-      { OPENCLAW_ENABLE_PRIVATE_QA_CLI: undefined, NODE_ENV: undefined },
+      { GRANTED_ENABLE_PRIVATE_QA_CLI: undefined, NODE_ENV: undefined },
       () => buildPluginLoaderAliasMap(externalEntry, path.join(fixture.root, "openclaw.mjs")),
     );
     expect(externalAliases["openclaw/plugin-sdk/qa-runner-runtime"]).toBeUndefined();
@@ -653,18 +652,18 @@ describe("plugin sdk alias helpers", () => {
     );
     fs.writeFileSync(shadowCodexEntry, 'export const plugin = "shadow";\n', "utf-8");
 
-    const codexSubpaths = withEnv({ OPENCLAW_ENABLE_PRIVATE_QA_CLI: undefined }, () =>
+    const codexSubpaths = withEnv({ GRANTED_ENABLE_PRIVATE_QA_CLI: undefined }, () =>
       listPluginSdkExportedSubpaths({
         modulePath: sourceCodexEntry,
       }),
     );
-    const otherSubpaths = withEnv({ OPENCLAW_ENABLE_PRIVATE_QA_CLI: undefined }, () =>
+    const otherSubpaths = withEnv({ GRANTED_ENABLE_PRIVATE_QA_CLI: undefined }, () =>
       listPluginSdkExportedSubpaths({
         modulePath: sourceOtherEntry,
       }),
     );
     const installedCodexSubpaths = withCwd(installedCodexRoot, () =>
-      withEnv({ OPENCLAW_ENABLE_PRIVATE_QA_CLI: undefined }, () =>
+      withEnv({ GRANTED_ENABLE_PRIVATE_QA_CLI: undefined }, () =>
         listPluginSdkExportedSubpaths({
           modulePath: installedCodexEntry,
           argv1: path.join(fixture.root, "openclaw.mjs"),
@@ -672,7 +671,7 @@ describe("plugin sdk alias helpers", () => {
       ),
     );
     const installedOtherSubpaths = withCwd(installedOtherRoot, () =>
-      withEnv({ OPENCLAW_ENABLE_PRIVATE_QA_CLI: undefined }, () =>
+      withEnv({ GRANTED_ENABLE_PRIVATE_QA_CLI: undefined }, () =>
         listPluginSdkExportedSubpaths({
           modulePath: installedOtherEntry,
           argv1: path.join(fixture.root, "openclaw.mjs"),
@@ -680,7 +679,7 @@ describe("plugin sdk alias helpers", () => {
       ),
     );
     const shadowCodexSubpaths = withCwd(shadowCodexRoot, () =>
-      withEnv({ OPENCLAW_ENABLE_PRIVATE_QA_CLI: undefined }, () =>
+      withEnv({ GRANTED_ENABLE_PRIVATE_QA_CLI: undefined }, () =>
         listPluginSdkExportedSubpaths({
           modulePath: shadowCodexEntry,
           argv1: path.join(fixture.root, "openclaw.mjs"),
@@ -733,7 +732,7 @@ describe("plugin sdk alias helpers", () => {
       }),
     ).toEqual(["core"]);
 
-    const privateSubpaths = withEnv({ OPENCLAW_ENABLE_PRIVATE_QA_CLI: "1" }, () =>
+    const privateSubpaths = withEnv({ GRANTED_ENABLE_PRIVATE_QA_CLI: "1" }, () =>
       listPluginSdkExportedSubpaths({
         modulePath: path.join(fixture.root, "src", "plugins", "loader.ts"),
       }),
@@ -843,7 +842,7 @@ describe("plugin sdk alias helpers", () => {
       bundledPluginFile("qa-runner-fixture", "src/index.ts"),
     );
 
-    const aliases = withEnv({ OPENCLAW_ENABLE_PRIVATE_QA_CLI: "1", NODE_ENV: undefined }, () =>
+    const aliases = withEnv({ GRANTED_ENABLE_PRIVATE_QA_CLI: "1", NODE_ENV: undefined }, () =>
       buildPluginLoaderAliasMap(sourcePluginEntry),
     );
 
@@ -977,16 +976,15 @@ describe("plugin sdk alias helpers", () => {
     );
     fs.writeFileSync(shadowCodexEntry, 'export const plugin = "shadow";\n', "utf-8");
 
-    const aliases = withEnv(
-      { OPENCLAW_ENABLE_PRIVATE_QA_CLI: undefined, NODE_ENV: undefined },
-      () => buildPluginLoaderAliasMap(sourcePluginEntry),
+    const aliases = withEnv({ GRANTED_ENABLE_PRIVATE_QA_CLI: undefined, NODE_ENV: undefined }, () =>
+      buildPluginLoaderAliasMap(sourcePluginEntry),
     );
     const otherAliases = withEnv(
-      { OPENCLAW_ENABLE_PRIVATE_QA_CLI: undefined, NODE_ENV: undefined },
+      { GRANTED_ENABLE_PRIVATE_QA_CLI: undefined, NODE_ENV: undefined },
       () => buildPluginLoaderAliasMap(sourceOtherPluginEntry),
     );
     const devRootAliases = withEnv(
-      { OPENCLAW_ENABLE_PRIVATE_QA_CLI: undefined, NODE_ENV: undefined },
+      { GRANTED_ENABLE_PRIVATE_QA_CLI: undefined, NODE_ENV: undefined },
       () =>
         buildPluginLoaderAliasMap(
           distCodexEntry,
@@ -997,7 +995,7 @@ describe("plugin sdk alias helpers", () => {
         ),
     );
     const installedAliases = withCwd(installedCodexRoot, () =>
-      withEnv({ OPENCLAW_ENABLE_PRIVATE_QA_CLI: undefined, NODE_ENV: undefined }, () =>
+      withEnv({ GRANTED_ENABLE_PRIVATE_QA_CLI: undefined, NODE_ENV: undefined }, () =>
         buildPluginLoaderAliasMap(
           installedCodexEntry,
           path.join(fixture.root, "openclaw.mjs"),
@@ -1007,7 +1005,7 @@ describe("plugin sdk alias helpers", () => {
       ),
     );
     const shadowCodexAliases = withCwd(shadowCodexRoot, () =>
-      withEnv({ OPENCLAW_ENABLE_PRIVATE_QA_CLI: undefined, NODE_ENV: undefined }, () =>
+      withEnv({ GRANTED_ENABLE_PRIVATE_QA_CLI: undefined, NODE_ENV: undefined }, () =>
         buildPluginLoaderAliasMap(
           shadowCodexEntry,
           path.join(fixture.root, "openclaw.mjs"),
@@ -1017,7 +1015,7 @@ describe("plugin sdk alias helpers", () => {
       ),
     );
     const installedOtherAliases = withCwd(installedOtherRoot, () =>
-      withEnv({ OPENCLAW_ENABLE_PRIVATE_QA_CLI: undefined, NODE_ENV: undefined }, () =>
+      withEnv({ GRANTED_ENABLE_PRIVATE_QA_CLI: undefined, NODE_ENV: undefined }, () =>
         buildPluginLoaderAliasMap(
           installedOtherEntry,
           path.join(fixture.root, "openclaw.mjs"),
@@ -1148,18 +1146,18 @@ describe("plugin sdk alias helpers", () => {
       });
 
     for (const owner of owners.filter(({ resolution }) => resolution === undefined)) {
-      const sourceSubpaths = withEnv({ OPENCLAW_ENABLE_PRIVATE_QA_CLI: undefined }, () =>
+      const sourceSubpaths = withEnv({ GRANTED_ENABLE_PRIVATE_QA_CLI: undefined }, () =>
         listPluginSdkExportedSubpaths({ modulePath: owner.entry }),
       );
       expect(sourceSubpaths).toEqual(["core", "ssrf-runtime-internal"]);
     }
-    const privateQaOtherSubpaths = withEnv({ OPENCLAW_ENABLE_PRIVATE_QA_CLI: "1" }, () =>
+    const privateQaOtherSubpaths = withEnv({ GRANTED_ENABLE_PRIVATE_QA_CLI: "1" }, () =>
       listPluginSdkExportedSubpaths({
         modulePath: sourceOtherPluginEntry,
       }),
     );
     const ownersWithAliases = owners.map((owner) => ({
-      aliases: withEnv({ OPENCLAW_ENABLE_PRIVATE_QA_CLI: undefined, NODE_ENV: undefined }, () =>
+      aliases: withEnv({ GRANTED_ENABLE_PRIVATE_QA_CLI: undefined, NODE_ENV: undefined }, () =>
         owner.resolution === "dist"
           ? buildPluginLoaderAliasMap(owner.entry, undefined, undefined, "dist")
           : buildPluginLoaderAliasMap(owner.entry),
@@ -1170,15 +1168,15 @@ describe("plugin sdk alias helpers", () => {
       tryNative: owner.tryNative,
     }));
     const otherAliases = withEnv(
-      { OPENCLAW_ENABLE_PRIVATE_QA_CLI: undefined, NODE_ENV: undefined },
+      { GRANTED_ENABLE_PRIVATE_QA_CLI: undefined, NODE_ENV: undefined },
       () => buildPluginLoaderAliasMap(sourceOtherPluginEntry),
     );
     const privateQaOtherAliases = withEnv(
-      { OPENCLAW_ENABLE_PRIVATE_QA_CLI: "1", NODE_ENV: undefined },
+      { GRANTED_ENABLE_PRIVATE_QA_CLI: "1", NODE_ENV: undefined },
       () => buildPluginLoaderAliasMap(sourceOtherPluginEntry),
     );
     const installedAliases = withCwd(installedOllamaRoot, () =>
-      withEnv({ OPENCLAW_ENABLE_PRIVATE_QA_CLI: undefined, NODE_ENV: undefined }, () =>
+      withEnv({ GRANTED_ENABLE_PRIVATE_QA_CLI: undefined, NODE_ENV: undefined }, () =>
         buildPluginLoaderAliasMap(
           installedOllamaEntry,
           path.join(fixture.root, "openclaw.mjs"),
@@ -1188,7 +1186,7 @@ describe("plugin sdk alias helpers", () => {
       ),
     );
     const installedLlamaAliases = withCwd(installedLlamaRoot, () =>
-      withEnv({ OPENCLAW_ENABLE_PRIVATE_QA_CLI: undefined, NODE_ENV: undefined }, () =>
+      withEnv({ GRANTED_ENABLE_PRIVATE_QA_CLI: undefined, NODE_ENV: undefined }, () =>
         buildPluginLoaderAliasMap(
           installedLlamaEntry,
           path.join(fixture.root, "openclaw.mjs"),
@@ -1443,7 +1441,7 @@ describe("plugin sdk alias helpers", () => {
       bundledPluginFile("qa-lab", "src/live-transports/slack/slack-live.runtime.ts"),
     );
 
-    const aliases = withEnv({ OPENCLAW_ENABLE_PRIVATE_QA_CLI: "1", NODE_ENV: undefined }, () =>
+    const aliases = withEnv({ GRANTED_ENABLE_PRIVATE_QA_CLI: "1", NODE_ENV: undefined }, () =>
       buildPluginLoaderAliasMap(sourcePluginEntry),
     );
 
@@ -2008,7 +2006,7 @@ describe("buildPluginLoaderAliasMap memoization", () => {
       bundledPluginFile("memo-demo", "src/index.ts"),
     );
 
-    withEnv({ OPENCLAW_DEV_SOURCE_ROOT: fixture.root }, () => {
+    withEnv({ GRANTED_DEV_SOURCE_ROOT: fixture.root }, () => {
       const first = buildPluginLoaderAliasMap(sourcePluginEntry);
       const reads = [
         vi.spyOn(fs, "readFileSync"),
@@ -2108,10 +2106,10 @@ describe("buildPluginLoaderAliasMap memoization", () => {
     fs.writeFileSync(sourceQaRuntimePath, "export const qaRuntime = true;\n", "utf-8");
     const entry = writePluginEntry(fixture.root, bundledPluginFile("private-qa", "src/index.ts"));
 
-    const publicAliases = withEnv({ OPENCLAW_ENABLE_PRIVATE_QA_CLI: undefined }, () =>
+    const publicAliases = withEnv({ GRANTED_ENABLE_PRIVATE_QA_CLI: undefined }, () =>
       buildPluginLoaderAliasMap(entry),
     );
-    const privateAliases = withEnv({ OPENCLAW_ENABLE_PRIVATE_QA_CLI: "1" }, () =>
+    const privateAliases = withEnv({ GRANTED_ENABLE_PRIVATE_QA_CLI: "1" }, () =>
       buildPluginLoaderAliasMap(entry),
     );
 
@@ -2178,7 +2176,7 @@ describe("buildPluginLoaderJitiOptions", () => {
         {
           XDG_CACHE_HOME: xdgCacheHome,
           LOCALAPPDATA: undefined,
-          OPENCLAW_HOME: homeDir,
+          GRANTED_HOME: homeDir,
         },
         () => buildPluginLoaderJitiOptions({}, { modulePath: path.join(root, "dist", "plugins") }),
       );
@@ -2202,7 +2200,7 @@ describe("buildPluginLoaderJitiOptions", () => {
         {
           XDG_CACHE_HOME: undefined,
           LOCALAPPDATA: `  ${localAppData}  `,
-          OPENCLAW_HOME: path.join(root, "home"),
+          GRANTED_HOME: path.join(root, "home"),
         },
         () => buildPluginLoaderJitiOptions({}, { modulePath: path.join(root, "dist", "plugins") }),
       );

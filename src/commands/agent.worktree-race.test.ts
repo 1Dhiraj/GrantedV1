@@ -32,7 +32,7 @@ const runtime = createThrowingTestRuntime();
 const sessionKey = "agent:main:worktree-race";
 
 function recordProof(line: string): void {
-  const out = process.env.OPENCLAW_PROOF_OUT;
+  const out = process.env.GRANTED_PROOF_OUT;
   if (out) {
     fsSync.appendFileSync(out, `${line}\n`);
   }

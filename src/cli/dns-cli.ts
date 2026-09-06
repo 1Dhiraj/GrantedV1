@@ -173,7 +173,7 @@ export function registerDnsCli(program: Command) {
       defaultRuntime.log("");
       defaultRuntime.log(
         theme.heading(
-          "Recommended config ($OPENCLAW_CONFIG_PATH, default ~/.openclaw/openclaw.json):",
+          "Recommended config ($GRANTED_CONFIG_PATH, default ~/.openclaw/openclaw.json):",
         ),
       );
       defaultRuntime.writeJson({
@@ -269,7 +269,7 @@ export function registerDnsCli(program: Command) {
         defaultRuntime.log("");
         defaultRuntime.log(
           theme.muted(
-            "Note: set discovery.wideArea.domain in the active OpenClaw config ($OPENCLAW_CONFIG_PATH, default ~/.openclaw/openclaw.json) on the gateway and restart the gateway so it writes the DNS-SD zone.",
+            "Note: set discovery.wideArea.domain in the active OpenClaw config ($GRANTED_CONFIG_PATH, default ~/.openclaw/openclaw.json) on the gateway and restart the gateway so it writes the DNS-SD zone.",
           ),
         );
       }

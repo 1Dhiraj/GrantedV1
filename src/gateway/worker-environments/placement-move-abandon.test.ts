@@ -22,7 +22,7 @@ describe("offline device placement abandonment", () => {
 
   beforeEach(() => {
     root = tempDirs.make("openclaw-device-abandon-");
-    database = openOpenClawStateDatabase({ env: { OPENCLAW_STATE_DIR: root } });
+    database = openOpenClawStateDatabase({ env: { GRANTED_STATE_DIR: root } });
     placements = createWorkerSessionPlacementStore({ database, now: () => 1_000 });
   });
 

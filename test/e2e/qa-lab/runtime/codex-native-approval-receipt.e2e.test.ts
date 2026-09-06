@@ -200,9 +200,9 @@ describe("Codex native approval receipt", () => {
       instance = await createOpenClawTestInstance({
         name: "qa-codex-native-approval-receipt",
         env: {
-          OPENCLAW_AGENT_HARNESS_FALLBACK: "none",
-          OPENCLAW_QA_CODEX_APP_SERVER_VERSION: CODEX_APP_SERVER_VERSION,
-          OPENCLAW_SKIP_PROVIDERS: undefined,
+          GRANTED_AGENT_HARNESS_FALLBACK: "none",
+          GRANTED_QA_CODEX_APP_SERVER_VERSION: CODEX_APP_SERVER_VERSION,
+          GRANTED_SKIP_PROVIDERS: undefined,
         },
         config: {
           logging: { audit: { enabled: true, executionIdentity: true } },
@@ -239,7 +239,7 @@ describe("Codex native approval receipt", () => {
       });
 
       const appServerLogPath = instance.state.path("codex-native-approval-app-server.jsonl");
-      instance.env.OPENCLAW_QA_CODEX_NATIVE_APPROVAL_LOG = appServerLogPath;
+      instance.env.GRANTED_QA_CODEX_NATIVE_APPROVAL_LOG = appServerLogPath;
       writePersistedAuthProfileStoreRaw(
         {
           version: 1,

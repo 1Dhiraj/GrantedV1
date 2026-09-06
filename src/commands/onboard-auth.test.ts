@@ -33,7 +33,7 @@ const providerEnvVarsById = vi.hoisted(
 
 vi.mock("../config/paths.js", async (importOriginal) => ({
   ...(await importOriginal<typeof import("../config/paths.js")>()),
-  resolveStateDir: () => process.env.OPENCLAW_STATE_DIR ?? "/tmp/openclaw-state",
+  resolveStateDir: () => process.env.GRANTED_STATE_DIR ?? "/tmp/openclaw-state",
 }));
 
 vi.mock("../agents/provider-auth-aliases.js", () => ({
@@ -74,9 +74,9 @@ function readEffectiveAuthProfiles(agentDir: string) {
 
 describe("writeOAuthCredentials", () => {
   const lifecycle = createAuthTestLifecycle([
-    "OPENCLAW_STATE_DIR",
-    "OPENCLAW_AGENT_DIR",
-    "OPENCLAW_OAUTH_DIR",
+    "GRANTED_STATE_DIR",
+    "GRANTED_AGENT_DIR",
+    "GRANTED_OAUTH_DIR",
   ]);
 
   afterEach(async () => {
@@ -122,7 +122,7 @@ describe("writeOAuthCredentials", () => {
     await fs.mkdir(kidAgentDir, { recursive: true });
     await fs.mkdir(workerAgentDir, { recursive: true });
 
-    setTestEnvValue("OPENCLAW_AGENT_DIR", kidAgentDir);
+    setTestEnvValue("GRANTED_AGENT_DIR", kidAgentDir);
 
     const creds = {
       refresh: "refresh-sync",
@@ -164,7 +164,7 @@ describe("writeOAuthCredentials", () => {
     await fs.mkdir(mainAgentDir, { recursive: true });
     await fs.mkdir(kidAgentDir, { recursive: true });
 
-    setTestEnvValue("OPENCLAW_AGENT_DIR", kidAgentDir);
+    setTestEnvValue("GRANTED_AGENT_DIR", kidAgentDir);
 
     const creds = {
       refresh: "refresh-kid",
@@ -185,12 +185,12 @@ describe("writeOAuthCredentials", () => {
     );
   });
 
-  it("syncs siblings from explicit agentDir outside OPENCLAW_STATE_DIR", async () => {
+  it("syncs siblings from explicit agentDir outside GRANTED_STATE_DIR", async () => {
     const env = await setupAuthTestEnv("openclaw-oauth-external-");
     lifecycle.track(env);
     const tempStateDir = env.stateDir;
 
-    // Create standard-layout agents tree *outside* OPENCLAW_STATE_DIR
+    // Create standard-layout agents tree *outside* GRANTED_STATE_DIR
     const externalRoot = path.join(tempStateDir, "external", "agents");
     const extMain = path.join(externalRoot, "main", "agent");
     const extKid = path.join(externalRoot, "kid", "agent");
@@ -231,8 +231,8 @@ describe("writeOAuthCredentials", () => {
 
 describe("upsertApiKeyProfile secret refs", () => {
   const lifecycle = createAuthTestLifecycle([
-    "OPENCLAW_STATE_DIR",
-    "OPENCLAW_AGENT_DIR",
+    "GRANTED_STATE_DIR",
+    "GRANTED_AGENT_DIR",
     "MOONSHOT_API_KEY",
     "OPENAI_API_KEY",
     "CLOUDFLARE_AI_GATEWAY_API_KEY",
@@ -393,7 +393,7 @@ describe("upsertApiKeyProfile secret refs", () => {
 });
 
 describe("upsertApiKeyProfile", () => {
-  const lifecycle = createAuthTestLifecycle(["OPENCLAW_STATE_DIR", "OPENCLAW_AGENT_DIR"]);
+  const lifecycle = createAuthTestLifecycle(["GRANTED_STATE_DIR", "GRANTED_AGENT_DIR"]);
 
   afterEach(async () => {
     await lifecycle.cleanup();

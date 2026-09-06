@@ -538,7 +538,7 @@ function isSafeGatewayProbeTarget(target: GatewayProbeTarget): boolean {
     return isSafeRemoteGatewayProbeUrl(target.url);
   }
   return isSecureWebSocketUrl(target.url, {
-    allowPrivateWs: process.env.OPENCLAW_ALLOW_INSECURE_PRIVATE_WS === "1",
+    allowPrivateWs: process.env.GRANTED_ALLOW_INSECURE_PRIVATE_WS === "1",
   });
 }
 
@@ -560,7 +560,7 @@ function isSafeRemoteGatewayProbeUrl(url: string): boolean {
     return true;
   }
   return (
-    process.env.OPENCLAW_ALLOW_INSECURE_PRIVATE_WS === "1" &&
+    process.env.GRANTED_ALLOW_INSECURE_PRIVATE_WS === "1" &&
     isSecureWebSocketUrl(url, { allowPrivateWs: true })
   );
 }
@@ -589,7 +589,7 @@ async function resolveLocalGatewayProbeTargets(
   ]);
   const gateway = config.gateway;
   const configuredPort = resolveGatewayPort(config);
-  const hasExplicitPort = Boolean(normalizeOptionalString(process.env.OPENCLAW_GATEWAY_PORT));
+  const hasExplicitPort = Boolean(normalizeOptionalString(process.env.GRANTED_GATEWAY_PORT));
   const activePort = hasExplicitPort ? undefined : await readActiveGatewayLockPort();
   const port = activePort ?? configuredPort;
   // Supplying the selected local port keeps inherited remote URL overrides out
@@ -801,8 +801,8 @@ async function ensureCliEnvProxyDispatcher(): Promise<void> {
 
 function isDebugProxyCaptureEnvEnabled(env: NodeJS.ProcessEnv = process.env): boolean {
   return (
-    isTruthyEnvValue(env.OPENCLAW_DEBUG_PROXY_ENABLED) ||
-    isTruthyEnvValue(env.OPENCLAW_DEBUG_PROXY_REQUIRE)
+    isTruthyEnvValue(env.GRANTED_DEBUG_PROXY_ENABLED) ||
+    isTruthyEnvValue(env.GRANTED_DEBUG_PROXY_REQUIRE)
   );
 }
 
@@ -1101,7 +1101,7 @@ async function runCliWithPreparedOutputMode(
   }
   const parsedProfile = parseCliProfileArgs(parsedContainer.argv);
   const containerTargetName =
-    parsedContainer.container ?? normalizeOptionalString(process.env.OPENCLAW_CONTAINER) ?? null;
+    parsedContainer.container ?? normalizeOptionalString(process.env.GRANTED_CONTAINER) ?? null;
   const hasPreHelpValidationError =
     !parsedProfile.ok || (containerTargetName !== null && parsedProfile.profile !== null);
   // Console formatting is a process-wide invariant. Install capture before

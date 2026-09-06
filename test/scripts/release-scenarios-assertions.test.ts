@@ -134,13 +134,13 @@ describe("release scenario assertions", () => {
         },
         env: {
           vars: {
-            OPENCLAW_TEST_SECRET: secretSentinel,
+            GRANTED_TEST_SECRET: secretSentinel,
           },
         },
       });
 
       const result = runAssertion(["assert-session-memory-hook-enabled"], {
-        OPENCLAW_CONFIG_PATH: configPath,
+        GRANTED_CONFIG_PATH: configPath,
       });
 
       expect(result.status).not.toBe(0);
@@ -163,7 +163,7 @@ describe("release scenario assertions", () => {
       writeJson(outputPath, {
         capability: "image.describe",
         ok: true,
-        outputs: [{ provider: "openai", text: "OPENCLAW_E2E_OK describe" }],
+        outputs: [{ provider: "openai", text: "GRANTED_E2E_OK describe" }],
       });
       const endpointPrefix = "/v1/res";
       writeFileSync(
@@ -263,8 +263,8 @@ describe("release scenario assertions", () => {
 
       const result = runAssertion(["assert-openai-env-ref", "sk-test-raw-key"], {
         HOME: home,
-        OPENCLAW_CONFIG_PATH: configPath,
-        OPENCLAW_STATE_DIR: stateDir,
+        GRANTED_CONFIG_PATH: configPath,
+        GRANTED_STATE_DIR: stateDir,
       });
 
       expect(result.status).toBe(0);
@@ -300,8 +300,8 @@ describe("release scenario assertions", () => {
 
       const result = runAssertion(["assert-openai-env-ref", "sk-test-raw-key"], {
         HOME: home,
-        OPENCLAW_CONFIG_PATH: configPath,
-        OPENCLAW_STATE_DIR: stateDir,
+        GRANTED_CONFIG_PATH: configPath,
+        GRANTED_STATE_DIR: stateDir,
       });
 
       expect(result.status).not.toBe(0);
@@ -338,8 +338,8 @@ describe("release scenario assertions", () => {
 
       const result = runAssertion(["assert-openai-env-ref", "sk-test-raw-key"], {
         HOME: home,
-        OPENCLAW_CONFIG_PATH: configPath,
-        OPENCLAW_STATE_DIR: stateDir,
+        GRANTED_CONFIG_PATH: configPath,
+        GRANTED_STATE_DIR: stateDir,
       });
 
       expect(result.status).not.toBe(0);
@@ -381,8 +381,8 @@ describe("release scenario assertions", () => {
 
       const result = runAssertion(["assert-openai-env-ref", "sk-test-raw-key"], {
         HOME: home,
-        OPENCLAW_CONFIG_PATH: configPath,
-        OPENCLAW_STATE_DIR: stateDir,
+        GRANTED_CONFIG_PATH: configPath,
+        GRANTED_STATE_DIR: stateDir,
       });
 
       expect(result.status).not.toBe(0);

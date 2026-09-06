@@ -9,11 +9,11 @@ function assert(condition, message) {
 }
 
 function stateDir() {
-  return process.env.OPENCLAW_STATE_DIR || path.join(process.env.HOME ?? "", ".openclaw");
+  return process.env.GRANTED_STATE_DIR || path.join(process.env.HOME ?? "", ".openclaw");
 }
 
 function configPath() {
-  return process.env.OPENCLAW_CONFIG_PATH || path.join(stateDir(), "openclaw.json");
+  return process.env.GRANTED_CONFIG_PATH || path.join(stateDir(), "openclaw.json");
 }
 
 function readJson(file) {

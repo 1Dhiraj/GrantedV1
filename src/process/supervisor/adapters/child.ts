@@ -78,7 +78,7 @@ type WorkerChildAdapter = ChildAdapter & {
 const WORKER_START_MESSAGE = { type: "openclaw-worker-start-v1" } as const;
 
 function isServiceManagedRuntime(): boolean {
-  return Boolean(process.env.OPENCLAW_SERVICE_MARKER?.trim());
+  return Boolean(process.env.GRANTED_SERVICE_MARKER?.trim());
 }
 
 type ChildAdapterInput = {

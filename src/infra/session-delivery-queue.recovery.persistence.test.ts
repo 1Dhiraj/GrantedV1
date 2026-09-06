@@ -25,7 +25,7 @@ describe("session-delivery recovery persistence", () => {
           tempDir,
         );
         const { db } = openOpenClawStateDatabase({
-          env: { ...process.env, OPENCLAW_STATE_DIR: tempDir },
+          env: { ...process.env, GRANTED_STATE_DIR: tempDir },
         });
         const deliver = vi.fn(async () => {
           db.exec("PRAGMA query_only = ON");

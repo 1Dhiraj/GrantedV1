@@ -131,7 +131,7 @@ describe("xai tts", () => {
 
   describe("listXaiTtsVoices", () => {
     it("maps the authenticated catalog and sends the expected request", async () => {
-      vi.stubEnv("OPENCLAW_VERSION", "2026.7.9");
+      vi.stubEnv("GRANTED_VERSION", "2026.7.9");
       const fetchMock = vi.fn(
         async (_input: RequestInfo | URL, _init?: RequestInit) =>
           new Response(
@@ -568,7 +568,7 @@ describe("xai tts", () => {
     });
 
     it("sends an openclaw User-Agent on xAI TTS requests", async () => {
-      vi.stubEnv("OPENCLAW_VERSION", "2026.3.22");
+      vi.stubEnv("GRANTED_VERSION", "2026.3.22");
       const fetchMock = vi.fn(
         async (_input: RequestInfo | URL, _init?: RequestInit) =>
           new Response(Buffer.from("audio-bytes"), {

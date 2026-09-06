@@ -392,7 +392,7 @@ export async function acquireGatewayLock(
     stateLifecycle.release();
     throw error;
   }
-  const shouldAcquireConfigLock = role !== "gateway" || env.OPENCLAW_ALLOW_MULTI_GATEWAY !== "1";
+  const shouldAcquireConfigLock = role !== "gateway" || env.GRANTED_ALLOW_MULTI_GATEWAY !== "1";
   if (!shouldAcquireConfigLock) {
     let inTreeReleased = false;
     const releaseInTree = async () => {

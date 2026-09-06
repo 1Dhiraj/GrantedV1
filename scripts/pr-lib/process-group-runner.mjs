@@ -213,9 +213,9 @@ const child = spawn(script, args, {
   env: {
     ...process.env,
     GIT_CONFIG_PARAMETERS: gitConfigParameters,
-    OPENCLAW_PR_DEDICATED_PROCESS_GROUP: "1",
-    OPENCLAW_PR_LOCK_NOTIFY_FD: "3",
-    OPENCLAW_PR_LOCK_SUPERVISOR_PID: String(process.pid),
+    GRANTED_PR_DEDICATED_PROCESS_GROUP: "1",
+    GRANTED_PR_LOCK_NOTIFY_FD: "3",
+    GRANTED_PR_LOCK_SUPERVISOR_PID: String(process.pid),
   },
   stdio: ["inherit", "inherit", "inherit", "pipe"],
 });
@@ -432,7 +432,7 @@ async function waitForOperationDrain() {
 
 function releaseLock({ lockRef, ownerOid }) {
   const env = { ...process.env };
-  delete env.OPENCLAW_PR_LOCK_NOTIFY_FD;
+  delete env.GRANTED_PR_LOCK_NOTIFY_FD;
   const result = spawnSync(
     "bash",
     [

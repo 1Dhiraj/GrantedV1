@@ -149,7 +149,7 @@ async function expectPathMissing(targetPath: string): Promise<void> {
 
 function skillUploadExists(stateDir: string, uploadId: string): boolean {
   const { db } = openOpenClawStateDatabase({
-    env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+    env: { ...process.env, GRANTED_STATE_DIR: stateDir },
   });
   return Boolean(
     db.prepare("SELECT 1 AS found FROM skill_uploads WHERE upload_id = ?").get(uploadId),
@@ -404,7 +404,7 @@ describe("skill upload gateway handlers", () => {
       archive: await makeSkillArchive({}),
       slug: "expired-skill",
     });
-    openOpenClawStateDatabase({ env: { ...process.env, OPENCLAW_STATE_DIR: stateDir } })
+    openOpenClawStateDatabase({ env: { ...process.env, GRANTED_STATE_DIR: stateDir } })
       .db.prepare("UPDATE skill_uploads SET expires_at = ? WHERE upload_id = ?")
       .run(Date.now() - 1, upload.uploadId);
 

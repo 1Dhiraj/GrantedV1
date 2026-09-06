@@ -17,7 +17,7 @@ async function expectSavedMediaMissing(saved: SavedMedia): Promise<void> {
 describe("persistGeneratedMediaBatch filesystem rollback", () => {
   it("removes a real file when a later sequential save fails", async () => {
     await withTestDir({ prefix: "openclaw-generated-media-batch-" }, async (stateDir) => {
-      await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () => {
+      await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {
         const payload = Buffer.from("persisted before failure");
         let saved: SavedMedia | undefined;
         const failure = new Error("later save failed");
@@ -48,7 +48,7 @@ describe("persistGeneratedMediaBatch filesystem rollback", () => {
 
   it("drains and removes a real concurrent write that finishes after failure", async () => {
     await withTestDir({ prefix: "openclaw-generated-media-batch-" }, async (stateDir) => {
-      await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () => {
+      await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {
         const releaseLateSave = createDeferred();
         const payload = Buffer.from("persisted after failure");
         let saved: SavedMedia | undefined;

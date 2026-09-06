@@ -79,7 +79,7 @@ describe("Control UI Vite config", () => {
       resolveControlUiBuildInfo({
         env: {
           GIT_COMMIT: "0123456789abcdef0123456789abcdef01234567",
-          OPENCLAW_BUILD_TIMESTAMP: "2026-07-10T12:34:56Z",
+          GRANTED_BUILD_TIMESTAMP: "2026-07-10T12:34:56Z",
         },
         readGitCommit,
         readGitCommitTimestamp,
@@ -173,8 +173,8 @@ describe("Control UI Vite config", () => {
     expect(
       resolveControlUiBuildInfo({
         env: {
-          OPENCLAW_CONTROL_UI_RELEASE_BUILD: "1",
-          OPENCLAW_BUILD_TIMESTAMP: "2026-07-10T13:14:15.000Z",
+          GRANTED_CONTROL_UI_RELEASE_BUILD: "1",
+          GRANTED_BUILD_TIMESTAMP: "2026-07-10T13:14:15.000Z",
         },
         readGitCommit: () => "a".repeat(40),
         readGitCommitTimestamp: () => null,
@@ -195,11 +195,11 @@ describe("Control UI Vite config", () => {
   it("rejects malformed release-build identity", () => {
     expect(() =>
       resolveControlUiBuildInfo({
-        env: { OPENCLAW_CONTROL_UI_RELEASE_BUILD: "true" },
+        env: { GRANTED_CONTROL_UI_RELEASE_BUILD: "true" },
         readGitCommit: () => null,
         readPackageVersion: () => "2026.7.10",
       }),
-    ).toThrow("OPENCLAW_CONTROL_UI_RELEASE_BUILD must be 1 when set");
+    ).toThrow("GRANTED_CONTROL_UI_RELEASE_BUILD must be 1 when set");
   });
 
   it("uses checked-out Git instead of unverified GitHub workflow context", () => {
@@ -322,8 +322,8 @@ describe("Control UI Vite config", () => {
     expect(
       resolveControlUiBuildInfo({
         env: {
-          OPENCLAW_VERSION: "latest",
-          OPENCLAW_BUILD_TIMESTAMP: "2026-07-10T13:14:15.000Z",
+          GRANTED_VERSION: "latest",
+          GRANTED_BUILD_TIMESTAMP: "2026-07-10T13:14:15.000Z",
         },
         readGitCommit: () => "a".repeat(40),
         readPackageVersion: () => "2026.7.10",
@@ -335,8 +335,8 @@ describe("Control UI Vite config", () => {
     expect(
       resolveControlUiBuildInfo({
         env: {
-          OPENCLAW_CONTROL_UI_BUILD_ID: "   ",
-          OPENCLAW_BUILD_TIMESTAMP: "2026-07-10T13:14:15.000Z",
+          GRANTED_CONTROL_UI_BUILD_ID: "   ",
+          GRANTED_BUILD_TIMESTAMP: "2026-07-10T13:14:15.000Z",
         },
         readGitCommit: () => "a".repeat(40),
         readPackageVersion: () => "2026.7.10",
@@ -357,11 +357,11 @@ describe("Control UI Vite config", () => {
 
     expect(() =>
       resolveControlUiBuildInfo({
-        env: { OPENCLAW_BUILD_TIMESTAMP: "2026-07-10 12:34:56" },
+        env: { GRANTED_BUILD_TIMESTAMP: "2026-07-10 12:34:56" },
         readGitCommit: () => "a".repeat(40),
         readPackageVersion: () => "2026.7.10",
       }),
-    ).toThrow("OPENCLAW_BUILD_TIMESTAMP must be a valid UTC ISO-8601 timestamp ending in Z");
+    ).toThrow("GRANTED_BUILD_TIMESTAMP must be a valid UTC ISO-8601 timestamp ending in Z");
   });
 
   it("resolves root tsconfig package aliases for source imports", () => {

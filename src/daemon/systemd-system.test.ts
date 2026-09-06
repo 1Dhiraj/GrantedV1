@@ -91,8 +91,8 @@ describe("system systemd ownership", () => {
   it("reports a unit loaded by the system manager", async () => {
     state.systemctl = { stdout: "loaded\n", stderr: "", code: 0, termination: "exit" };
 
-    await expect(assertNoSystemSystemdOwnership("openclaw-gateway.service")).rejects.toMatchObject({
-      ownership: { status: "loaded", unitName: "openclaw-gateway.service" },
+    await expect(assertNoSystemSystemdOwnership("granted-gateway.service")).rejects.toMatchObject({
+      ownership: { status: "loaded", unitName: "granted-gateway.service" },
     });
   });
 
@@ -122,9 +122,9 @@ describe("system systemd ownership", () => {
 
       const capability = await readSystemdDefinitionMutationCapability({
         HOME: "/home/openclaw-test",
-        OPENCLAW_STATE_DIR: "/state/openclaw-test",
-        OPENCLAW_SYSTEMD_UNIT: unitName,
-        OPENCLAW_SERVICE_KIND: "node",
+        GRANTED_STATE_DIR: "/state/openclaw-test",
+        GRANTED_SYSTEMD_UNIT: unitName,
+        GRANTED_SERVICE_KIND: "node",
       });
 
       expect(capability).toEqual({
@@ -146,27 +146,27 @@ describe("system systemd ownership", () => {
   );
 
   it.each([
-    "/etc/systemd/system/openclaw-gateway.service",
-    "/run/systemd/system/openclaw-gateway.service",
-    "/usr/local/lib/systemd/system/openclaw-gateway.service",
+    "/etc/systemd/system/granted-gateway.service",
+    "/run/systemd/system/granted-gateway.service",
+    "/usr/local/lib/systemd/system/granted-gateway.service",
   ])("detects a custom same-name system unit at %s", async (unitPath) => {
     state.paths.add(unitPath);
 
-    await expect(assertNoSystemSystemdOwnership("openclaw-gateway.service")).rejects.toMatchObject({
+    await expect(assertNoSystemSystemdOwnership("granted-gateway.service")).rejects.toMatchObject({
       ownership: {
         status: "installed",
-        unitName: "openclaw-gateway.service",
+        unitName: "granted-gateway.service",
         unitPath,
       },
     });
   });
 
   it("ignores differently named profile and custom units", async () => {
-    state.paths.add("/etc/systemd/system/openclaw-gateway-rescue.service");
+    state.paths.add("/etc/systemd/system/granted-gateway-rescue.service");
     state.paths.add("/etc/systemd/system/vendor-openclaw.service");
 
     await expect(
-      assertNoSystemSystemdOwnership("openclaw-gateway-primary.service"),
+      assertNoSystemSystemdOwnership("granted-gateway-primary.service"),
     ).resolves.toBeUndefined();
     expect(execFileUtf8).toHaveBeenCalledTimes(3);
   });
@@ -180,7 +180,7 @@ describe("system systemd ownership", () => {
     });
     try {
       await expect(
-        assertNoSystemSystemdOwnership("openclaw-gateway.service", 50),
+        assertNoSystemSystemdOwnership("granted-gateway.service", 50),
       ).resolves.toBeUndefined();
       expect(
         execFileUtf8.mock.calls.map((call) => ({
@@ -194,9 +194,9 @@ describe("system systemd ownership", () => {
       ]);
       expect(execFileUtf8.mock.calls.every((call) => call[2]?.env === process.env)).toBe(true);
       expect(execFileUtf8.mock.calls.map(([command, args]) => [command, args])).toEqual([
-        ["systemctl", ["show", "--property=LoadState", "--value", "openclaw-gateway.service"]],
+        ["systemctl", ["show", "--property=LoadState", "--value", "granted-gateway.service"]],
         ["systemctl", ["show", "--property=UnitPath", "--value"]],
-        ["systemctl", ["show", "--property=LoadState", "--value", "openclaw-gateway.service"]],
+        ["systemctl", ["show", "--property=LoadState", "--value", "granted-gateway.service"]],
       ]);
     } finally {
       clock.mockRestore();
@@ -212,10 +212,10 @@ describe("system systemd ownership", () => {
   ])("fails closed when manager absence cannot be proven: %s", async (detail) => {
     state.systemctl = { stdout: "", stderr: detail, code: 1, termination: "exit" };
 
-    await expect(assertNoSystemSystemdOwnership("openclaw-gateway.service")).rejects.toMatchObject({
+    await expect(assertNoSystemSystemdOwnership("granted-gateway.service")).rejects.toMatchObject({
       ownership: {
         status: "unverifiable",
-        unitName: "openclaw-gateway.service",
+        unitName: "granted-gateway.service",
         operation: "systemctl",
         detail,
       },
@@ -226,10 +226,10 @@ describe("system systemd ownership", () => {
   it.each(["exit", "timeout", "signal"] as const)(
     "accepts system-manager absence only after a completed query (%s)",
     async (termination) => {
-      const detail = "Unit openclaw-gateway.service could not be found.";
+      const detail = "Unit granted-gateway.service could not be found.";
       state.systemctl = { stdout: "", stderr: detail, code: 1, termination };
 
-      const result = assertNoSystemSystemdOwnership("openclaw-gateway.service");
+      const result = assertNoSystemSystemdOwnership("granted-gateway.service");
       if (termination === "exit") {
         await expect(result).resolves.toBeUndefined();
       } else {
@@ -241,13 +241,13 @@ describe("system systemd ownership", () => {
   );
 
   it("fails closed when an exact system path cannot be inspected", async () => {
-    const unitPath = "/etc/systemd/system/openclaw-gateway.service";
+    const unitPath = "/etc/systemd/system/granted-gateway.service";
     state.pathErrors.set(unitPath, "EACCES");
 
-    await expect(assertNoSystemSystemdOwnership("openclaw-gateway.service")).rejects.toMatchObject({
+    await expect(assertNoSystemSystemdOwnership("granted-gateway.service")).rejects.toMatchObject({
       ownership: {
         status: "unverifiable",
-        unitName: "openclaw-gateway.service",
+        unitName: "granted-gateway.service",
         operation: "filesystem",
         detail: `${unitPath}: EACCES: ${unitPath}`,
       },
@@ -262,7 +262,7 @@ describe("system systemd ownership", () => {
       termination: "exit",
     };
 
-    await expect(assertNoSystemSystemdOwnership("openclaw-gateway.service")).rejects.toMatchObject({
+    await expect(assertNoSystemSystemdOwnership("granted-gateway.service")).rejects.toMatchObject({
       ownership: {
         status: "unverifiable",
         operation: "systemctl",
@@ -283,8 +283,8 @@ describe("system systemd ownership", () => {
         : { stdout: "loaded\n", stderr: "", code: 0, termination: "exit" };
     });
 
-    await expect(assertNoSystemSystemdOwnership("openclaw-gateway.service")).rejects.toMatchObject({
-      ownership: { status: "loaded", unitName: "openclaw-gateway.service" },
+    await expect(assertNoSystemSystemdOwnership("granted-gateway.service")).rejects.toMatchObject({
+      ownership: { status: "loaded", unitName: "granted-gateway.service" },
     });
   });
 
@@ -297,10 +297,10 @@ describe("system systemd ownership", () => {
       configurable: true,
       value: () => uid,
     });
-    state.paths.add("/etc/systemd/system/openclaw-gateway.service");
+    state.paths.add("/etc/systemd/system/granted-gateway.service");
 
     try {
-      const error = await assertNoSystemSystemdOwnership("openclaw-gateway.service").catch(
+      const error = await assertNoSystemSystemdOwnership("granted-gateway.service").catch(
         (caught: unknown) => caught,
       );
 
@@ -310,8 +310,8 @@ describe("system systemd ownership", () => {
         ownership: { status: "installed" },
       });
       expect(String(error)).toContain("--force does not override system ownership");
-      expect(String(error)).toContain(`${prefix}systemctl disable --now openclaw-gateway.service`);
-      expect(String(error)).toContain(`${prefix}rm /etc/systemd/system/openclaw-gateway.service`);
+      expect(String(error)).toContain(`${prefix}systemctl disable --now granted-gateway.service`);
+      expect(String(error)).toContain(`${prefix}rm /etc/systemd/system/granted-gateway.service`);
     } finally {
       if (existingGeteuid) {
         Object.defineProperty(process, "geteuid", existingGeteuid);
@@ -322,13 +322,13 @@ describe("system systemd ownership", () => {
   });
 
   it("does not recommend deleting package- or generator-owned units", async () => {
-    state.paths.add("/usr/lib/systemd/system/openclaw-gateway.service");
+    state.paths.add("/usr/lib/systemd/system/granted-gateway.service");
 
-    const error = await assertNoSystemSystemdOwnership("openclaw-gateway.service").catch(
+    const error = await assertNoSystemSystemdOwnership("granted-gateway.service").catch(
       (caught: unknown) => caught,
     );
 
     expect(String(error)).toContain("uninstall or reconfigure the package, generator");
-    expect(String(error)).not.toContain("rm /usr/lib/systemd/system/openclaw-gateway.service");
+    expect(String(error)).not.toContain("rm /usr/lib/systemd/system/granted-gateway.service");
   });
 });

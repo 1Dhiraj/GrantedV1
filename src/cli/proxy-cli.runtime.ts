@@ -196,7 +196,7 @@ function formatProxyValidationNextSteps(result: ProxyValidationResult): string[]
   }
   if (result.config.errors.length > 0) {
     return [
-      "Fix proxy.proxyUrl, OPENCLAW_PROXY_URL, or --proxy-url so it uses a reachable http:// or https:// proxy.",
+      "Fix proxy.proxyUrl, GRANTED_PROXY_URL, or --proxy-url so it uses a reachable http:// or https:// proxy.",
     ];
   }
   if (result.checks.some((check) => !check.ok && check.kind === "allowed")) {

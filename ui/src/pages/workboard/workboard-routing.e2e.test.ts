@@ -15,7 +15,7 @@ const suite = createControlUiE2eSuite({
     `Playwright Chromium is not installed at ${executablePath}.`,
 });
 
-const captureUiProofEnabled = process.env.OPENCLAW_CAPTURE_UI_PROOF === "1";
+const captureUiProofEnabled = process.env.GRANTED_CAPTURE_UI_PROOF === "1";
 const artifactDir = path.resolve(process.cwd(), ".artifacts/control-ui-e2e/workboard-routing");
 const boards = [
   { id: "default", total: 0, active: 0, archived: 0, byStatus: {} },

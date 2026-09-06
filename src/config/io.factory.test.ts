@@ -24,7 +24,7 @@ describe("config factory writer boundary", () => {
     const env: NodeJS.ProcessEnv = {
       HOME: home,
       NODE_ENV: "test",
-      OPENCLAW_CONFIG_PATH: configPath,
+      GRANTED_CONFIG_PATH: configPath,
     };
     const { createConfigIO } = await import("./io.factory.js");
     const io = createConfigIO({
@@ -109,7 +109,7 @@ describe("config factory writer boundary", () => {
       try {
         await entered.promise;
         if (change === "path") {
-          env.OPENCLAW_CONFIG_PATH = secondPath;
+          env.GRANTED_CONFIG_PATH = secondPath;
         } else {
           expectedRaw = JSON.stringify({ gateway: { mode: "local", port: 19003 } });
           await fs.writeFile(configPath, expectedRaw);

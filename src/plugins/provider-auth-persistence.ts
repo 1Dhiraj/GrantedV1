@@ -195,7 +195,7 @@ export async function persistProviderAuthProfileBatch(
   params: PersistProviderAuthProfileBatchParams,
 ): Promise<{ profiles: ProviderAuthProfile[]; rollback: () => void }> {
   const env = params.stateDir
-    ? { ...(params.env ?? process.env), OPENCLAW_STATE_DIR: params.stateDir }
+    ? { ...(params.env ?? process.env), GRANTED_STATE_DIR: params.stateDir }
     : params.env;
   const prepared = prepareProviderAuthProfilesForPersistence({
     profiles: params.profiles,

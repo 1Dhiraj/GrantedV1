@@ -33,7 +33,7 @@ type TelegramLoopback = {
 
 function readQueueTerminal(stateDir: string): { retryCount: number; status: string } | undefined {
   const { db } = openOpenClawStateDatabase({
-    env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+    env: { ...process.env, GRANTED_STATE_DIR: stateDir },
   });
   const row = db
     // sqlite-allow-raw: The proof reads one exact queue owner after terminalization.

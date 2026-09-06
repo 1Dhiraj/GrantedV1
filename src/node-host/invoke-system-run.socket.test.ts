@@ -18,7 +18,7 @@ describe.runIf(process.platform !== "win32")("enforced exec host transport bound
   it("does not replay locally when a completed execution loses its socket response", async () => {
     await withTestDir({ prefix: "oc-run-", parentDir: "/tmp" }, async (dir) => {
       await withEnvAsync(
-        { OPENCLAW_HOME: dir, OPENCLAW_STATE_DIR: path.join(dir, "state") },
+        { GRANTED_HOME: dir, GRANTED_STATE_DIR: path.join(dir, "state") },
         async () => {
           closeOpenClawStateDatabaseForTest();
           approvalsTesting.reset();

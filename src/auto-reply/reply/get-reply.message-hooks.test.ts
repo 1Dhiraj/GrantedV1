@@ -137,7 +137,7 @@ function verboseMessages(): string[] {
 
 async function resetMessageHookTestState() {
   await loadGetReplyRuntimeForTest();
-  delete process.env.OPENCLAW_TEST_FAST;
+  delete process.env.GRANTED_TEST_FAST;
   mocks.applyMediaUnderstanding.mockReset();
   mocks.applyLinkUnderstanding.mockReset();
   mocks.createInternalHookEvent.mockReset();
@@ -918,7 +918,7 @@ describe("getReplyFromConfig message hooks", () => {
 
   it("skips message hooks in fast test mode", async () => {
     await withOpenClawTestState(
-      { label: "reply-message-hooks-fast", env: { OPENCLAW_TEST_FAST: "1" } },
+      { label: "reply-message-hooks-fast", env: { GRANTED_TEST_FAST: "1" } },
       async (state) => {
         const storePath = path.join(state.sessionsDir("main"), "sessions.json");
         const cfg = withFastReplyConfig({

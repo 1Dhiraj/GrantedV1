@@ -40,7 +40,7 @@
       "configuredState": {
         "env": {
           "anyOf": [
-            "OPENCLAW_TWITCH_ACCESS_TOKEN"
+            "GRANTED_TWITCH_ACCESS_TOKEN"
           ]
         }
       },

@@ -56,15 +56,15 @@ describe("openclaw test state", () => {
     );
     const prefix = path.join(path.basename(parent), "fixture-");
     const unrelated = openOpenClawStateDatabase({
-      env: { OPENCLAW_STATE_DIR: path.join(parent, "unrelated") },
+      env: { GRANTED_STATE_DIR: path.join(parent, "unrelated") },
     });
     try {
       await withEnvAsync(
         {
-          OPENCLAW_AGENT_DIR: path.join(parent, "previous-agent"),
+          GRANTED_AGENT_DIR: path.join(parent, "previous-agent"),
           PI_CODING_AGENT_DIR: path.join(parent, "previous-legacy-agent"),
-          OPENCLAW_ACQUISITION_EMPTY: "",
-          OPENCLAW_ACQUISITION_ABSENT: undefined,
+          GRANTED_ACQUISITION_EMPTY: "",
+          GRANTED_ACQUISITION_ABSENT: undefined,
         },
         async () => {
           const keys = [
@@ -72,13 +72,13 @@ describe("openclaw test state", () => {
             "USERPROFILE",
             "HOMEDRIVE",
             "HOMEPATH",
-            "OPENCLAW_HOME",
-            "OPENCLAW_STATE_DIR",
-            "OPENCLAW_CONFIG_PATH",
-            "OPENCLAW_AGENT_DIR",
+            "GRANTED_HOME",
+            "GRANTED_STATE_DIR",
+            "GRANTED_CONFIG_PATH",
+            "GRANTED_AGENT_DIR",
             "PI_CODING_AGENT_DIR",
-            "OPENCLAW_ACQUISITION_EMPTY",
-            "OPENCLAW_ACQUISITION_ABSENT",
+            "GRANTED_ACQUISITION_EMPTY",
+            "GRANTED_ACQUISITION_ABSENT",
           ];
           const previous = Object.fromEntries(keys.map((key) => [key, process.env[key]]));
           const snapshot = captureEnv(keys);
@@ -120,8 +120,8 @@ describe("openclaw test state", () => {
                 scenario: "minimal",
                 applyEnv: stage !== "config",
                 env: {
-                  OPENCLAW_ACQUISITION_EMPTY: "changed",
-                  OPENCLAW_ACQUISITION_ABSENT: "added",
+                  GRANTED_ACQUISITION_EMPTY: "changed",
+                  GRANTED_ACQUISITION_ABSENT: "added",
                 },
               }),
             ).rejects.toBe(fault);
@@ -149,7 +149,7 @@ describe("openclaw test state", () => {
               expect(JSON.parse(await fs.readFile(recovered.configPath, "utf8"))).toEqual({});
               recovered.applyEnv();
               expect(process.env.HOME).toBe(recovered.home);
-              expect(process.env.OPENCLAW_STATE_DIR).toBe(recovered.stateDir);
+              expect(process.env.GRANTED_STATE_DIR).toBe(recovered.stateDir);
             } finally {
               await recovered.cleanup();
             }
@@ -174,9 +174,9 @@ describe("openclaw test state", () => {
 
   it("creates an isolated home layout with spawn env and restores process env", async () => {
     const previousHome = process.env.HOME;
-    const previousOpenClawHome = process.env.OPENCLAW_HOME;
-    const previousStateDir = process.env.OPENCLAW_STATE_DIR;
-    const previousConfigPath = process.env.OPENCLAW_CONFIG_PATH;
+    const previousOpenClawHome = process.env.GRANTED_HOME;
+    const previousStateDir = process.env.GRANTED_STATE_DIR;
+    const previousConfigPath = process.env.GRANTED_CONFIG_PATH;
     const previousGatewayStartupEnv = snapshotGatewayStartupEnv();
 
     const state = await createOpenClawTestState({
@@ -190,11 +190,11 @@ describe("openclaw test state", () => {
       expect(state.configPath).toBe(path.join(state.stateDir, "openclaw.json"));
       expect(state.workspaceDir).toBe(path.join(state.home, "workspace"));
       expect(state.env.HOME).toBe(state.home);
-      expect(state.env.OPENCLAW_HOME).toBe(state.home);
-      expect(state.env.OPENCLAW_STATE_DIR).toBe(state.stateDir);
-      expect(state.env.OPENCLAW_CONFIG_PATH).toBe(state.configPath);
+      expect(state.env.GRANTED_HOME).toBe(state.home);
+      expect(state.env.GRANTED_STATE_DIR).toBe(state.stateDir);
+      expect(state.env.GRANTED_CONFIG_PATH).toBe(state.configPath);
       expect(process.env.HOME).toBe(state.home);
-      expect(process.env.OPENCLAW_HOME).toBe(state.home);
+      expect(process.env.GRANTED_HOME).toBe(state.home);
       expect(JSON.parse(await fs.readFile(state.configPath, "utf8"))).toStrictEqual({});
       for (const key of GATEWAY_STARTUP_MUTATED_ENV_KEYS) {
         setTestEnvValue(key, `mutated-${key}`);
@@ -204,9 +204,9 @@ describe("openclaw test state", () => {
     }
 
     expect(process.env.HOME).toBe(previousHome);
-    expect(process.env.OPENCLAW_HOME).toBe(previousOpenClawHome);
-    expect(process.env.OPENCLAW_STATE_DIR).toBe(previousStateDir);
-    expect(process.env.OPENCLAW_CONFIG_PATH).toBe(previousConfigPath);
+    expect(process.env.GRANTED_HOME).toBe(previousOpenClawHome);
+    expect(process.env.GRANTED_STATE_DIR).toBe(previousStateDir);
+    expect(process.env.GRANTED_CONFIG_PATH).toBe(previousConfigPath);
     expect(snapshotGatewayStartupEnv()).toEqual(previousGatewayStartupEnv);
     await expectPathMissing(state.root);
   });
@@ -221,8 +221,8 @@ describe("openclaw test state", () => {
       },
       async (state) => {
         expect(process.env.HOME).toBe(previousHome);
-        expect(process.env.OPENCLAW_STATE_DIR).toBe(state.stateDir);
-        expect(process.env.OPENCLAW_CONFIG_PATH).toBe(state.configPath);
+        expect(process.env.GRANTED_STATE_DIR).toBe(state.stateDir);
+        expect(process.env.GRANTED_CONFIG_PATH).toBe(state.configPath);
         expect(state.env.HOME).toBe(previousHome);
         await expectPathMissing(state.configPath);
       },
@@ -238,7 +238,7 @@ describe("openclaw test state", () => {
     "isolates inherited agent selectors with $agentEnv and applyEnv=$applyEnv",
     async ({ agentEnv, applyEnv }) => {
       const inherited = {
-        OPENCLAW_AGENT_DIR: "/tmp/outside-openclaw-agent",
+        GRANTED_AGENT_DIR: "/tmp/outside-openclaw-agent",
         PI_CODING_AGENT_DIR: "/tmp/outside-legacy-agent",
       };
       await withEnvAsync(inherited, async () => {
@@ -250,10 +250,10 @@ describe("openclaw test state", () => {
 
         try {
           const expectedAgentDir = agentEnv === "main" ? state.agentDir() : undefined;
-          expect(state.env.OPENCLAW_AGENT_DIR).toBe(expectedAgentDir);
+          expect(state.env.GRANTED_AGENT_DIR).toBe(expectedAgentDir);
           expect(state.env.PI_CODING_AGENT_DIR).toBeUndefined();
-          expect(process.env.OPENCLAW_AGENT_DIR).toBe(
-            applyEnv ? expectedAgentDir : inherited.OPENCLAW_AGENT_DIR,
+          expect(process.env.GRANTED_AGENT_DIR).toBe(
+            applyEnv ? expectedAgentDir : inherited.GRANTED_AGENT_DIR,
           );
           expect(process.env.PI_CODING_AGENT_DIR).toBe(
             applyEnv ? undefined : inherited.PI_CODING_AGENT_DIR,
@@ -263,7 +263,7 @@ describe("openclaw test state", () => {
           await state.cleanup();
         }
 
-        expect(process.env.OPENCLAW_AGENT_DIR).toBe(inherited.OPENCLAW_AGENT_DIR);
+        expect(process.env.GRANTED_AGENT_DIR).toBe(inherited.GRANTED_AGENT_DIR);
         expect(process.env.PI_CODING_AGENT_DIR).toBe(inherited.PI_CODING_AGENT_DIR);
       });
     },
@@ -272,24 +272,24 @@ describe("openclaw test state", () => {
   it.each([undefined, "main"] as const)(
     "allows explicit agent-dir overrides with agentEnv=%s and restores absent or empty selectors",
     async (agentEnv) => {
-      await withEnvAsync({ OPENCLAW_AGENT_DIR: undefined, PI_CODING_AGENT_DIR: "" }, async () => {
+      await withEnvAsync({ GRANTED_AGENT_DIR: undefined, PI_CODING_AGENT_DIR: "" }, async () => {
         const overrides = {
-          OPENCLAW_AGENT_DIR: "/tmp/explicit-openclaw-agent",
+          GRANTED_AGENT_DIR: "/tmp/explicit-openclaw-agent",
           PI_CODING_AGENT_DIR: "/tmp/explicit-legacy-agent",
         };
         const state = await createOpenClawTestState({ agentEnv, applyEnv: false, env: overrides });
         try {
-          expect(state.env.OPENCLAW_AGENT_DIR).toBe(overrides.OPENCLAW_AGENT_DIR);
+          expect(state.env.GRANTED_AGENT_DIR).toBe(overrides.GRANTED_AGENT_DIR);
           expect(state.env.PI_CODING_AGENT_DIR).toBe(overrides.PI_CODING_AGENT_DIR);
-          expect(process.env.OPENCLAW_AGENT_DIR).toBeUndefined();
+          expect(process.env.GRANTED_AGENT_DIR).toBeUndefined();
           expect(process.env.PI_CODING_AGENT_DIR).toBe("");
           state.applyEnv();
-          expect(process.env.OPENCLAW_AGENT_DIR).toBe(overrides.OPENCLAW_AGENT_DIR);
+          expect(process.env.GRANTED_AGENT_DIR).toBe(overrides.GRANTED_AGENT_DIR);
           expect(process.env.PI_CODING_AGENT_DIR).toBe(overrides.PI_CODING_AGENT_DIR);
         } finally {
           await state.cleanup();
         }
-        expect(process.env.OPENCLAW_AGENT_DIR).toBeUndefined();
+        expect(process.env.GRANTED_AGENT_DIR).toBeUndefined();
         expect(process.env.PI_CODING_AGENT_DIR).toBe("");
       });
     },
@@ -328,13 +328,13 @@ describe("openclaw test state", () => {
   });
 
   it("closes only fixture-owned databases before restoring env", async () => {
-    const previousStateDir = process.env.OPENCLAW_STATE_DIR;
+    const previousStateDir = process.env.GRANTED_STATE_DIR;
     const unrelatedRoot = await fs.mkdtemp(
       path.join(os.tmpdir(), "openclaw-test-state-unrelated-"),
     );
     const unrelatedEnv = {
       ...process.env,
-      OPENCLAW_STATE_DIR: path.join(unrelatedRoot, "state"),
+      GRANTED_STATE_DIR: path.join(unrelatedRoot, "state"),
     };
     const state = await createOpenClawTestState({
       layout: "state-only",
@@ -400,7 +400,7 @@ describe("openclaw test state", () => {
       return originalRm(...args);
     });
     state.restoreEnv = () => {
-      expect(process.env.OPENCLAW_STATE_DIR).toBe(state.stateDir);
+      expect(process.env.GRANTED_STATE_DIR).toBe(state.stateDir);
       expect(fixtureAuthReader.isOpen).toBe(false);
       expect(fixtureShared.db.isOpen).toBe(false);
       expect(fixtureAgent.db.isOpen).toBe(false);
@@ -413,7 +413,7 @@ describe("openclaw test state", () => {
     try {
       await state.cleanup();
 
-      expect(process.env.OPENCLAW_STATE_DIR).toBe(previousStateDir);
+      expect(process.env.GRANTED_STATE_DIR).toBe(previousStateDir);
       expect(rmSpy).toHaveBeenCalledWith(state.root, {
         recursive: true,
         force: true,
@@ -489,7 +489,7 @@ describe("openclaw test state", () => {
         await expectPathMissing(state.root);
       } else {
         expect(agent.db.isOpen).toBe(true);
-        expect(process.env.OPENCLAW_STATE_DIR).toBe(state.stateDir);
+        expect(process.env.GRANTED_STATE_DIR).toBe(state.stateDir);
       }
       resumeReconcile?.();
       await reconcile;
@@ -556,18 +556,18 @@ describe("openclaw test state", () => {
   });
 
   it("keeps external-service env scoped to the fixture", async () => {
-    const previousPolicy = process.env.OPENCLAW_SERVICE_REPAIR_POLICY;
+    const previousPolicy = process.env.GRANTED_SERVICE_REPAIR_POLICY;
 
     await withOpenClawTestState(
       {
         scenario: "external-service",
       },
       async (state) => {
-        expect(process.env.OPENCLAW_SERVICE_REPAIR_POLICY).toBe("external");
-        expect(state.env.OPENCLAW_SERVICE_REPAIR_POLICY).toBe("external");
+        expect(process.env.GRANTED_SERVICE_REPAIR_POLICY).toBe("external");
+        expect(state.env.GRANTED_SERVICE_REPAIR_POLICY).toBe("external");
       },
     );
 
-    expect(process.env.OPENCLAW_SERVICE_REPAIR_POLICY).toBe(previousPolicy);
+    expect(process.env.GRANTED_SERVICE_REPAIR_POLICY).toBe(previousPolicy);
   });
 });

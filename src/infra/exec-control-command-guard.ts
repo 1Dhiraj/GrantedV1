@@ -205,7 +205,7 @@ function expandSqliteDatabaseToken(token: string, stateDir: string): string | nu
     return null;
   }
   const stateVariable = expanded.match(
-    /^\$(?:OPENCLAW_STATE_DIR|\{OPENCLAW_STATE_DIR\})(?=$|[\\/])/u,
+    /^\$(?:GRANTED_STATE_DIR|\{GRANTED_STATE_DIR\})(?=$|[\\/])/u,
   );
   if (stateVariable) {
     expanded = `${stateDir}${expanded.slice(stateVariable[0].length)}`;
@@ -355,7 +355,7 @@ export async function rejectUnsafeExecLiveStateSqliteShellCommand(
   throw new Error(
     [
       "external sqlite3 cannot open databases under the active OpenClaw state directory.",
-      "Use OpenClaw commands for live state, or inspect a private backup copy outside `OPENCLAW_STATE_DIR`.",
+      "Use OpenClaw commands for live state, or inspect a private backup copy outside `GRANTED_STATE_DIR`.",
     ].join(" "),
   );
 }

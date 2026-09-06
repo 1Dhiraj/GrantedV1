@@ -17,14 +17,14 @@ const suite = createControlUiE2eSuite({
 });
 
 const sessionKey = "agent:main:rail-tabs";
-const proofDirParent = process.env.OPENCLAW_UI_RAIL_PROOF_DIR?.trim();
+const proofDirParent = process.env.GRANTED_UI_RAIL_PROOF_DIR?.trim();
 let proofDir: string | undefined;
 beforeEach(() => {
   proofDir = proofDirParent
     ? createControlUiE2eArtifactDir("chat-rail-columns", proofDirParent)
     : undefined;
 });
-const videoDirParent = process.env.OPENCLAW_UI_RAIL_VIDEO_DIR?.trim();
+const videoDirParent = process.env.GRANTED_UI_RAIL_VIDEO_DIR?.trim();
 let videoDir: string | undefined;
 beforeEach(() => {
   videoDir = videoDirParent

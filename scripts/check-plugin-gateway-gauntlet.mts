@@ -138,8 +138,8 @@ export function parseArgs(argv: string[]) {
       new Date().toISOString().replace(/[:.]/g, "-"),
     ),
     pluginIds,
-    shardTotal: readOptionalPositiveIntEnv("OPENCLAW_PLUGIN_GATEWAY_GAUNTLET_TOTAL") ?? 1,
-    shardIndex: readOptionalNonNegativeIntEnv("OPENCLAW_PLUGIN_GATEWAY_GAUNTLET_INDEX") ?? 0,
+    shardTotal: readOptionalPositiveIntEnv("GRANTED_PLUGIN_GATEWAY_GAUNTLET_TOTAL") ?? 1,
+    shardIndex: readOptionalNonNegativeIntEnv("GRANTED_PLUGIN_GATEWAY_GAUNTLET_INDEX") ?? 0,
     limit: undefined as number | undefined,
     skipPrebuild: false,
     skipLifecycle: false,
@@ -159,10 +159,10 @@ export function parseArgs(argv: string[]) {
     buildTimeoutMs: 600_000,
     qaTimeoutMs: 900_000,
     allowEmpty: false,
-    failOnObservation: process.env.OPENCLAW_PLUGIN_GATEWAY_GAUNTLET_FAIL_ON_OBSERVATION === "1",
-    keepRunRoot: process.env.OPENCLAW_PLUGIN_GATEWAY_GAUNTLET_KEEP_RUN_ROOT === "1",
+    failOnObservation: process.env.GRANTED_PLUGIN_GATEWAY_GAUNTLET_FAIL_ON_OBSERVATION === "1",
+    keepRunRoot: process.env.GRANTED_PLUGIN_GATEWAY_GAUNTLET_KEEP_RUN_ROOT === "1",
   };
-  const envIds = normalizeCsvOrLooseStringList(process.env.OPENCLAW_PLUGIN_GATEWAY_GAUNTLET_IDS);
+  const envIds = normalizeCsvOrLooseStringList(process.env.GRANTED_PLUGIN_GATEWAY_GAUNTLET_IDS);
   options.pluginIds.push(...envIds);
   const seenSingleValueFlags = new Set<string>();
   parseArgv: for (let index = 0; index < args.length; index += 1) {
@@ -323,12 +323,12 @@ Options:
   --keep-run-root               Preserve isolated HOME/state/log temp root after success
 
 Environment:
-  OPENCLAW_PLUGIN_GATEWAY_GAUNTLET_IDS   Comma-separated plugin ids to include
-  OPENCLAW_PLUGIN_GATEWAY_GAUNTLET_TOTAL Total plugin shards
-  OPENCLAW_PLUGIN_GATEWAY_GAUNTLET_INDEX Zero-based shard index
-  OPENCLAW_PLUGIN_GATEWAY_GAUNTLET_FAIL_ON_OBSERVATION=1
-  OPENCLAW_PLUGIN_GATEWAY_GAUNTLET_KEEP_RUN_ROOT=1
-  OPENCLAW_PLUGIN_GATEWAY_GAUNTLET_QA_SUMMARY_MAX_BYTES  QA summary read ceiling
+  GRANTED_PLUGIN_GATEWAY_GAUNTLET_IDS   Comma-separated plugin ids to include
+  GRANTED_PLUGIN_GATEWAY_GAUNTLET_TOTAL Total plugin shards
+  GRANTED_PLUGIN_GATEWAY_GAUNTLET_INDEX Zero-based shard index
+  GRANTED_PLUGIN_GATEWAY_GAUNTLET_FAIL_ON_OBSERVATION=1
+  GRANTED_PLUGIN_GATEWAY_GAUNTLET_KEEP_RUN_ROOT=1
+  GRANTED_PLUGIN_GATEWAY_GAUNTLET_QA_SUMMARY_MAX_BYTES  QA summary read ceiling
 `);
 }
 
@@ -461,10 +461,10 @@ function createIsolatedEnv(repoRoot: string, runRoot: string) {
     XDG_CONFIG_HOME: path.join(home, ".config"),
     XDG_CACHE_HOME: path.join(home, ".cache"),
     XDG_DATA_HOME: path.join(home, ".local", "share"),
-    OPENCLAW_STATE_DIR: stateDir,
-    OPENCLAW_CONFIG_PATH: path.join(stateDir, "openclaw.json"),
-    OPENCLAW_LOG_DIR: path.join(runRoot, "logs"),
-    OPENCLAW_QA_SUITE_PROGRESS: process.env.OPENCLAW_QA_SUITE_PROGRESS ?? "1",
+    GRANTED_STATE_DIR: stateDir,
+    GRANTED_CONFIG_PATH: path.join(stateDir, "openclaw.json"),
+    GRANTED_LOG_DIR: path.join(runRoot, "logs"),
+    GRANTED_QA_SUITE_PROGRESS: process.env.GRANTED_QA_SUITE_PROGRESS ?? "1",
     PATH: process.env.PATH,
     PWD: repoRoot,
   };

@@ -51,7 +51,7 @@ afterEach(() => {
 describe("gateway worker session-tool startup", () => {
   it("creates one executor on concurrent first use", async () => {
     const stateDir = tempDirs.make("openclaw-worker-session-tool-lazy-");
-    await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () => {
+    await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {
       const startup = await loadGatewayWorkerEnvironmentStartupState();
       const registry = createEmptyPluginRegistry();
       await createGatewayWorkerEnvironmentRuntime({

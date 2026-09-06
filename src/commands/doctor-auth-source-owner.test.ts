@@ -29,9 +29,9 @@ async function createOwners(env: Record<string, string | undefined> = {}) {
       layout: "split",
       applyEnv: false,
       env: {
-        OPENCLAW_AGENT_DIR: undefined,
+        GRANTED_AGENT_DIR: undefined,
         PI_CODING_AGENT_DIR: undefined,
-        OPENCLAW_OAUTH_DIR: undefined,
+        GRANTED_OAUTH_DIR: undefined,
         ...env,
       },
     });
@@ -163,7 +163,7 @@ describe("Doctor auth migration source ownership", () => {
       ]);
   });
 
-  it.each(["OPENCLAW_AGENT_DIR", "PI_CODING_AGENT_DIR"] as const)(
+  it.each(["GRANTED_AGENT_DIR", "PI_CODING_AGENT_DIR"] as const)(
     "resolves a tilde %s relocation against the selected home before importing",
     async (agentDirVariable) => {
       const { selected, ambient } = await createOwners({ [agentDirVariable]: "~/relocated-auth" });

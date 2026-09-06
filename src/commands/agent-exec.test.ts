@@ -226,7 +226,7 @@ describe("agent exec command composition", () => {
       {
         cwd: path.resolve(import.meta.dirname, "../.."),
         encoding: "utf8",
-        env: { ...process.env, OPENCLAW_TEST_RUNTIME_LOG: "1" },
+        env: { ...process.env, GRANTED_TEST_RUNTIME_LOG: "1" },
       },
     );
 
@@ -300,8 +300,8 @@ describe("agent exec command composition", () => {
     let observedConfig: unknown;
     const result = await agentExecCommand("inspect", { authEnvOnly: true }, runtime, {
       runAgent: vi.fn(async () => {
-        observedStateDir = process.env.OPENCLAW_STATE_DIR ?? "";
-        observedConfigPath = process.env.OPENCLAW_CONFIG_PATH;
+        observedStateDir = process.env.GRANTED_STATE_DIR ?? "";
+        observedConfigPath = process.env.GRANTED_CONFIG_PATH;
         // The published snapshot is what the run reads; exec writes no config file.
         observedConfig = getRuntimeConfigSnapshot();
         await expect(fs.stat(observedStateDir)).resolves.toBeDefined();
@@ -404,15 +404,15 @@ describe("agent exec command composition", () => {
       "utf8",
     );
     await fs.writeFile(path.join(pluginDir, "index.js"), "export default {}\n", "utf8");
-    const previousStateDir = process.env.OPENCLAW_STATE_DIR;
-    process.env.OPENCLAW_STATE_DIR = operatorStateDir;
+    const previousStateDir = process.env.GRANTED_STATE_DIR;
+    process.env.GRANTED_STATE_DIR = operatorStateDir;
     const { runtime } = createRuntime();
     let runtimeStateDir = "";
     let discoveredRoot = "";
     try {
       await agentExecCommand("inspect", {}, runtime, {
         runAgent: vi.fn(async () => {
-          runtimeStateDir = process.env.OPENCLAW_STATE_DIR ?? "";
+          runtimeStateDir = process.env.GRANTED_STATE_DIR ?? "";
           const { resolvePluginMetadataSnapshot } =
             await import("../plugins/plugin-metadata-snapshot.js");
           const snapshot = resolvePluginMetadataSnapshot({
@@ -427,9 +427,9 @@ describe("agent exec command composition", () => {
       });
     } finally {
       if (previousStateDir === undefined) {
-        delete process.env.OPENCLAW_STATE_DIR;
+        delete process.env.GRANTED_STATE_DIR;
       } else {
-        process.env.OPENCLAW_STATE_DIR = previousStateDir;
+        process.env.GRANTED_STATE_DIR = previousStateDir;
       }
     }
 
@@ -440,8 +440,8 @@ describe("agent exec command composition", () => {
 
   it("keeps operator-installed plugins hidden under --isolated", async () => {
     const operatorStateDir = tempDirs.make("openclaw-agent-exec-plugin-isolated-");
-    const previousStateDir = process.env.OPENCLAW_STATE_DIR;
-    process.env.OPENCLAW_STATE_DIR = operatorStateDir;
+    const previousStateDir = process.env.GRANTED_STATE_DIR;
+    process.env.GRANTED_STATE_DIR = operatorStateDir;
     const { runtime } = createRuntime();
     let resolvedExtensionsDir = "";
     try {
@@ -454,9 +454,9 @@ describe("agent exec command composition", () => {
       });
     } finally {
       if (previousStateDir === undefined) {
-        delete process.env.OPENCLAW_STATE_DIR;
+        delete process.env.GRANTED_STATE_DIR;
       } else {
-        process.env.OPENCLAW_STATE_DIR = previousStateDir;
+        process.env.GRANTED_STATE_DIR = previousStateDir;
       }
     }
 
@@ -467,14 +467,14 @@ describe("agent exec command composition", () => {
   it("keeps --state-dir scoped to run state instead of plugin installs", async () => {
     const operatorStateDir = tempDirs.make("openclaw-agent-exec-plugin-operator-");
     const retainedRunStateDir = tempDirs.make("openclaw-agent-exec-retained-state-");
-    const previousStateDir = process.env.OPENCLAW_STATE_DIR;
-    process.env.OPENCLAW_STATE_DIR = operatorStateDir;
+    const previousStateDir = process.env.GRANTED_STATE_DIR;
+    process.env.GRANTED_STATE_DIR = operatorStateDir;
     const { runtime } = createRuntime();
     let resolvedExtensionsDir = "";
     try {
       await agentExecCommand("inspect", { stateDir: retainedRunStateDir }, runtime, {
         runAgent: vi.fn(async () => {
-          expect(process.env.OPENCLAW_STATE_DIR).toBe(retainedRunStateDir);
+          expect(process.env.GRANTED_STATE_DIR).toBe(retainedRunStateDir);
           const { resolveDefaultPluginExtensionsDir } = await import("../plugins/install-paths.js");
           resolvedExtensionsDir = resolveDefaultPluginExtensionsDir();
           return successResult();
@@ -482,9 +482,9 @@ describe("agent exec command composition", () => {
       });
     } finally {
       if (previousStateDir === undefined) {
-        delete process.env.OPENCLAW_STATE_DIR;
+        delete process.env.GRANTED_STATE_DIR;
       } else {
-        process.env.OPENCLAW_STATE_DIR = previousStateDir;
+        process.env.GRANTED_STATE_DIR = previousStateDir;
       }
     }
 
@@ -581,7 +581,7 @@ describe("agent exec command composition", () => {
 
     const result = await agentExecCommand("inspect", { json: true }, runtime, {
       runAgent: async () => {
-        observedStateDir = process.env.OPENCLAW_STATE_DIR ?? "";
+        observedStateDir = process.env.GRANTED_STATE_DIR ?? "";
         if (failure.thrown) {
           throw Object.assign(new Error("original run failure"), {
             name: failure.kind === "timeout" ? "TimeoutError" : "Error",
@@ -617,7 +617,7 @@ describe("agent exec command composition", () => {
 
     const result = await agentExecCommand("inspect", { json: true }, runtime, {
       runAgent: vi.fn(async () => {
-        observedStateDir = process.env.OPENCLAW_STATE_DIR ?? "";
+        observedStateDir = process.env.GRANTED_STATE_DIR ?? "";
         return successResult();
       }),
     });
@@ -701,7 +701,7 @@ describe("agent exec command composition", () => {
     const seedPath = path.join(seedDir, "openclaw.json");
     await fs.writeFile(
       seedPath,
-      JSON.stringify({ env: { vars: { OPENCLAW_EXEC_ENV_PROBE: "from-config" } } }),
+      JSON.stringify({ env: { vars: { GRANTED_EXEC_ENV_PROBE: "from-config" } } }),
       "utf8",
     );
     const { runtime } = createRuntime();
@@ -709,7 +709,7 @@ describe("agent exec command composition", () => {
 
     await agentExecCommand("inspect", { config: seedPath }, runtime, {
       runAgent: vi.fn(async () => {
-        observedDuringRun = process.env.OPENCLAW_EXEC_ENV_PROBE;
+        observedDuringRun = process.env.GRANTED_EXEC_ENV_PROBE;
         return successResult();
       }),
     });
@@ -717,7 +717,7 @@ describe("agent exec command composition", () => {
     expect(observedDuringRun).toBe("from-config");
     // Config-applied values must not outlive the command, or a later isolated
     // run in the same process would inherit them.
-    expect(process.env.OPENCLAW_EXEC_ENV_PROBE).toBeUndefined();
+    expect(process.env.GRANTED_EXEC_ENV_PROBE).toBeUndefined();
   });
 
   it("leaves no runtime config snapshot behind when the caller had none", async () => {
@@ -769,7 +769,7 @@ describe("agent exec command composition", () => {
     await fs.writeFile(
       seedPath,
       JSON.stringify({
-        env: { vars: { OPENCLAW_EXEC_FAILED_PROBE: "from-rejected-config" } },
+        env: { vars: { GRANTED_EXEC_FAILED_PROBE: "from-rejected-config" } },
         agents: { defaults: { sandbox: { mode: "not-a-real-mode" } } },
       }),
       "utf8",
@@ -781,7 +781,7 @@ describe("agent exec command composition", () => {
     });
 
     expect(result.exitCode).not.toBe(0);
-    expect(process.env.OPENCLAW_EXEC_FAILED_PROBE).toBeUndefined();
+    expect(process.env.GRANTED_EXEC_FAILED_PROBE).toBeUndefined();
   });
 
   it("leaves an explicit state directory untouched", async () => {
@@ -792,7 +792,7 @@ describe("agent exec command composition", () => {
 
     await agentExecCommand("inspect", { stateDir }, runtime, {
       runAgent: vi.fn(async () => {
-        expect(process.env.OPENCLAW_STATE_DIR).toBe(stateDir);
+        expect(process.env.GRANTED_STATE_DIR).toBe(stateDir);
         return successResult();
       }),
     });

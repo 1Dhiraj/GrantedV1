@@ -13,7 +13,7 @@ const POSIX_WORKER_ENV_KEYS = new Set([
   "TZ",
   "NODE_EXTRA_CA_CERTS",
   "NODE_USE_SYSTEM_CA",
-  "OPENCLAW_ALLOW_INSECURE_PRIVATE_WS",
+  "GRANTED_ALLOW_INSECURE_PRIVATE_WS",
 ]);
 const WINDOWS_WORKER_ENV_KEYS = new Set([
   ...POSIX_WORKER_ENV_KEYS,
@@ -53,8 +53,8 @@ export function snapshotNodeWorkerEnv(source: NodeJS.ProcessEnv): NodeJS.Process
   }
   const hostCacheFenced =
     source.NODE_DISABLE_COMPILE_CACHE !== undefined &&
-    source.OPENCLAW_SERVICE_KIND === NODE_SERVICE_KIND &&
-    source.OPENCLAW_LAUNCHD_LABEL === resolveNodeLaunchAgentLabel();
+    source.GRANTED_SERVICE_KIND === NODE_SERVICE_KIND &&
+    source.GRANTED_LAUNCHD_LABEL === resolveNodeLaunchAgentLabel();
   const workerCacheDisabled = source.NODE_DISABLE_COMPILE_CACHE !== undefined && !hostCacheFenced;
   if (!workerCacheDisabled) {
     const requestedCache = hostCacheFenced ? undefined : source.NODE_COMPILE_CACHE?.trim();
@@ -65,6 +65,6 @@ export function snapshotNodeWorkerEnv(source: NodeJS.ProcessEnv): NodeJS.Process
   }
   // The supervised start gate is carried by Node IPC. Launcher respawns do not
   // inherit that channel, so workers must stay in the owned child process.
-  snapshot.OPENCLAW_NO_RESPAWN = "1";
+  snapshot.GRANTED_NO_RESPAWN = "1";
   return snapshot;
 }

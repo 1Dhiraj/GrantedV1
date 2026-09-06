@@ -139,7 +139,7 @@ describe("qa suite runtime agent tools helpers", () => {
             tempRoot: gatewayTempRoot,
             runtimeEnv: {
               PATH: "/usr/bin",
-              OPENCLAW_KEY: "1",
+              GRANTED_KEY: "1",
               EMPTY: undefined,
             },
           },
@@ -163,7 +163,7 @@ describe("qa suite runtime agent tools helpers", () => {
       cwd: repoRoot,
       env: {
         PATH: "/usr/bin",
-        OPENCLAW_KEY: "1",
+        GRANTED_KEY: "1",
       },
     });
     expect(stderrOnMock).toHaveBeenCalledWith("data", expect.any(Function));

@@ -26,9 +26,9 @@ import {
 } from "./recovery-cleanup-fixture.mjs";
 
 const run = promisify(execFile);
-const stateDir = process.env.OPENCLAW_STATE_DIR;
-const artifactRoot = process.env.OPENCLAW_UPGRADE_SURVIVOR_ARTIFACT_ROOT;
-const runtimeRoot = process.env.OPENCLAW_UPGRADE_SURVIVOR_RUNTIME_ROOT;
+const stateDir = process.env.GRANTED_STATE_DIR;
+const artifactRoot = process.env.GRANTED_UPGRADE_SURVIVOR_ARTIFACT_ROOT;
+const runtimeRoot = process.env.GRANTED_UPGRADE_SURVIVOR_RUNTIME_ROOT;
 assert(stateDir && artifactRoot && runtimeRoot, "recovery proof requires isolated survivor roots");
 const evidencePath = path.join(artifactRoot, "recovery-evidence.json");
 const fixturePath = path.join(artifactRoot, "recovery-fixture.json");
@@ -109,7 +109,7 @@ function roots() {
   return [
     process.env.HOME,
     stateDir,
-    process.env.OPENCLAW_CONFIG_PATH,
+    process.env.GRANTED_CONFIG_PATH,
     process.env.TMPDIR,
     process.env.npm_config_cache,
   ];
@@ -118,7 +118,7 @@ function roots() {
 function preservedFiles(originals) {
   const files = [
     ...originals.map((item) => item.archive),
-    process.env.OPENCLAW_CONFIG_PATH,
+    process.env.GRANTED_CONFIG_PATH,
     ...readRecoveryMoves(stateDir).map((move) => move.manifestPath),
   ];
   return Object.fromEntries(
@@ -298,9 +298,9 @@ async function live() {
   assert.equal(refused.totals?.removedBytes ?? 0, 0);
   assert.deepEqual(preservedFiles(originals), before, "live apply changed recovery/config files");
   const wrongEnv = { ...process.env };
-  delete wrongEnv.OPENCLAW_STATE_DIR;
-  delete wrongEnv.OPENCLAW_CONFIG_PATH;
-  delete wrongEnv.OPENCLAW_PROFILE;
+  delete wrongEnv.GRANTED_STATE_DIR;
+  delete wrongEnv.GRANTED_CONFIG_PATH;
+  delete wrongEnv.GRANTED_PROFILE;
   const wrong = await command(
     "wrong-profile",
     ["--profile", "recovery-other", "update", "cleanup", "--yes", "--json"],
@@ -383,9 +383,9 @@ async function customRestore() {
     ...process.env,
     HOME: home,
     USERPROFILE: home,
-    OPENCLAW_HOME: home,
-    OPENCLAW_STATE_DIR: customState,
-    OPENCLAW_CONFIG_PATH: customConfig,
+    GRANTED_HOME: home,
+    GRANTED_STATE_DIR: customState,
+    GRANTED_CONFIG_PATH: customConfig,
   };
   fs.mkdirSync(home, { recursive: true });
   await command(

@@ -28,7 +28,7 @@ import { redactSensitiveText } from "openclaw/plugin-sdk/security-runtime";
 import { normalizeStringEntries } from "openclaw/plugin-sdk/string-coerce-runtime";
 import { sliceUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
 import { AcpRuntimeError, type AcpRuntime, type AcpRuntimeErrorCode } from "../runtime-api.js";
-import { CODEX_ACP_PACKAGE, OPENCLAW_CODEX_CONFIG_ARG } from "./codex-adapter.js";
+import { CODEX_ACP_PACKAGE, GRANTED_CODEX_CONFIG_ARG } from "./codex-adapter.js";
 import { splitCommandParts } from "./command-line.js";
 import {
   ACPX_PROBE_LEASE_SESSION_KEY,
@@ -75,8 +75,8 @@ type AcpxDelegateEnsureInput = Parameters<BaseAcpxRuntime["ensureSession"]>[0];
 type AcpxMcpServer = NonNullable<AcpRuntimeOptions["mcpServers"]>[number];
 
 const ACPX_PLUGIN_TOOLS_MCP_SERVER_NAME = "openclaw-plugin-tools";
-const ACPX_OPENCLAW_TOOLS_MCP_SERVER_NAME = "openclaw-tools";
-const OPENCLAW_TOOLS_MCP_AGENT_SESSION_KEY_ENV = "OPENCLAW_TOOLS_MCP_AGENT_SESSION_KEY";
+const ACPX_GRANTED_TOOLS_MCP_SERVER_NAME = "openclaw-tools";
+const GRANTED_TOOLS_MCP_AGENT_SESSION_KEY_ENV = "GRANTED_TOOLS_MCP_AGENT_SESSION_KEY";
 type ResetAwareSessionStore = AcpSessionStore & {
   markFresh: (sessionKey: string) => void;
 };
@@ -382,14 +382,14 @@ function createResetAwareSessionStore(
   };
 }
 
-const OPENCLAW_BRIDGE_EXECUTABLE = "openclaw";
-const OPENCLAW_BRIDGE_SUBCOMMAND = "acp";
+const GRANTED_BRIDGE_EXECUTABLE = "openclaw";
+const GRANTED_BRIDGE_SUBCOMMAND = "acp";
 const CODEX_ACP_AGENT_ID = "codex";
-const CODEX_ACP_OPENCLAW_PREFIX = "openai/";
+const CODEX_ACP_GRANTED_PREFIX = "openai/";
 // Documented OpenClaw provider prefixes the Claude Agent SDK does not understand.
 // Strip only these; a generic first-slash split would corrupt native Bedrock
 // inference-profile ids and ARNs the SDK accepts as-is.
-const CLAUDE_ACP_OPENCLAW_PREFIX = /^(?:anthropic|amazon-bedrock)\//i;
+const CLAUDE_ACP_GRANTED_PREFIX = /^(?:anthropic|amazon-bedrock)\//i;
 const CODEX_ACP_THINKING_ALIASES = new Map<string, string | undefined>([
   ["off", undefined],
   ["minimal", "low"],
@@ -514,14 +514,14 @@ function isOpenClawBridgeCommand(command: string | undefined): boolean {
     return false;
   }
   const parts = unwrapEnvCommand(splitCommandParts(command.trim()));
-  if (basename(parts[0] ?? "") === OPENCLAW_BRIDGE_EXECUTABLE) {
-    return parts[1] === OPENCLAW_BRIDGE_SUBCOMMAND;
+  if (basename(parts[0] ?? "") === GRANTED_BRIDGE_EXECUTABLE) {
+    return parts[1] === GRANTED_BRIDGE_SUBCOMMAND;
   }
   if (basename(parts[0] ?? "") !== "node") {
     return false;
   }
   const scriptName = basename(parts[1] ?? "");
-  return /^openclaw(?:\.[cm]?js)?$/i.test(scriptName) && parts[2] === OPENCLAW_BRIDGE_SUBCOMMAND;
+  return /^openclaw(?:\.[cm]?js)?$/i.test(scriptName) && parts[2] === GRANTED_BRIDGE_SUBCOMMAND;
 }
 
 function isCodexAcpCommand(command: string | undefined): boolean {
@@ -604,8 +604,8 @@ function classifyCodexAcpModelRequest(
 
   let value = raw;
   let hadOpenAiQualifier = false;
-  if (value.toLowerCase().startsWith(CODEX_ACP_OPENCLAW_PREFIX)) {
-    value = value.slice(CODEX_ACP_OPENCLAW_PREFIX.length);
+  if (value.toLowerCase().startsWith(CODEX_ACP_GRANTED_PREFIX)) {
+    value = value.slice(CODEX_ACP_GRANTED_PREFIX.length);
     hadOpenAiQualifier = true;
   }
 
@@ -657,7 +657,7 @@ function normalizeClaudeAcpModelOverride(rawModel: string | undefined): string |
   if (!raw) {
     return undefined;
   }
-  const prefix = raw.match(CLAUDE_ACP_OPENCLAW_PREFIX);
+  const prefix = raw.match(CLAUDE_ACP_GRANTED_PREFIX);
   if (!prefix) {
     return raw;
   }
@@ -717,7 +717,7 @@ function appendCodexAcpConfigOverrides(command: string, override: CodexAcpModelO
   if (Object.keys(config).length === 0) {
     return command;
   }
-  return `${command} ${OPENCLAW_CODEX_CONFIG_ARG} ${quoteShellArg(JSON.stringify(config))}`;
+  return `${command} ${GRANTED_CODEX_CONFIG_ARG} ${quoteShellArg(JSON.stringify(config))}`;
 }
 
 function createModelScopedAgentRegistry(params: {
@@ -784,15 +784,15 @@ function withManagedToolsMcpSessionEnv(params: {
     const isManagedPluginTools =
       params.pluginToolsEnabled && server.name === ACPX_PLUGIN_TOOLS_MCP_SERVER_NAME;
     const isManagedOpenClawTools =
-      params.openclawToolsEnabled && server.name === ACPX_OPENCLAW_TOOLS_MCP_SERVER_NAME;
+      params.openclawToolsEnabled && server.name === ACPX_GRANTED_TOOLS_MCP_SERVER_NAME;
     if ((!isManagedPluginTools && !isManagedOpenClawTools) || !("command" in server)) {
       return server;
     }
     changed = true;
     const env = [
-      ...server.env.filter((entry) => entry.name !== OPENCLAW_TOOLS_MCP_AGENT_SESSION_KEY_ENV),
+      ...server.env.filter((entry) => entry.name !== GRANTED_TOOLS_MCP_AGENT_SESSION_KEY_ENV),
       {
-        name: OPENCLAW_TOOLS_MCP_AGENT_SESSION_KEY_ENV,
+        name: GRANTED_TOOLS_MCP_AGENT_SESSION_KEY_ENV,
         value: sessionKey,
       },
     ];

@@ -14,7 +14,7 @@ import { hasActiveStartupMigrationLease } from "../infra/startup-migration-check
 import { getFileLockProcessStartTime } from "../shared/pid-alive.js";
 import {
   ensureOpenClawAgentDatabaseSchema,
-  OPENCLAW_AGENT_SCHEMA_VERSION,
+  GRANTED_AGENT_SCHEMA_VERSION,
 } from "../state/openclaw-agent-db.js";
 import {
   createBuiltRuntime,
@@ -93,7 +93,7 @@ function seedOwnerlessSchemaOnlyAgentDatabase(stateDir: string): string {
   try {
     ensureOpenClawAgentDatabaseSchema(database, {
       agentId: "openclaw",
-      env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+      env: { ...process.env, GRANTED_STATE_DIR: stateDir },
       path: databasePath,
       register: false,
     });
@@ -115,10 +115,10 @@ describe("doctor invalid config process exit", () => {
     const runtimeRoot = createBuiltRuntime(root);
     const env: NodeJS.ProcessEnv = {
       ...process.env,
-      OPENCLAW_CONFIG_PATH: configPath,
-      OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-      OPENCLAW_STATE_DIR: stateDir,
-      OPENCLAW_TEST_FAST: "1",
+      GRANTED_CONFIG_PATH: configPath,
+      GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+      GRANTED_STATE_DIR: stateDir,
+      GRANTED_TEST_FAST: "1",
       NO_COLOR: "1",
     };
     const args = ["doctor", "--fix", "--non-interactive", "--yes", "--no-workspace-suggestions"];
@@ -131,7 +131,7 @@ describe("doctor invalid config process exit", () => {
     const repaired = new DatabaseSync(databasePath, { readOnly: true });
     try {
       expect(repaired.prepare("PRAGMA user_version").get()?.user_version).toBe(
-        OPENCLAW_AGENT_SCHEMA_VERSION,
+        GRANTED_AGENT_SCHEMA_VERSION,
       );
       expect(
         repaired
@@ -177,7 +177,7 @@ describe("doctor invalid config process exit", () => {
         ...process.env,
         HOME: root,
         USERPROFILE: root,
-        OPENCLAW_STATE_DIR: path.join(root, "state"),
+        GRANTED_STATE_DIR: path.join(root, "state"),
       },
       [
         "--input-type=module",
@@ -205,14 +205,14 @@ describe("doctor invalid config process exit", () => {
       ...process.env,
       HOME: root,
       USERPROFILE: root,
-      OPENCLAW_CONFIG_PATH: configPath,
-      OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-      OPENCLAW_STATE_DIR: stateDir,
-      OPENCLAW_TEST_FAST: "1",
+      GRANTED_CONFIG_PATH: configPath,
+      GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+      GRANTED_STATE_DIR: stateDir,
+      GRANTED_TEST_FAST: "1",
       NO_COLOR: "1",
     };
     delete env.NODE_ENV;
-    delete env.OPENCLAW_HOME;
+    delete env.GRANTED_HOME;
     delete env.VITEST;
 
     fs.mkdirSync(stateDir, { recursive: true });
@@ -325,20 +325,20 @@ describe("doctor invalid config process exit", () => {
       ...process.env,
       HOME: root,
       USERPROFILE: root,
-      OPENCLAW_CONFIG_PATH: configPath,
-      OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-      OPENCLAW_NO_RESPAWN: "1",
-      OPENCLAW_SKIP_CHANNELS: "1",
-      OPENCLAW_STATE_DIR: stateDir,
-      OPENCLAW_TEST_FAST: "1",
+      GRANTED_CONFIG_PATH: configPath,
+      GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+      GRANTED_NO_RESPAWN: "1",
+      GRANTED_SKIP_CHANNELS: "1",
+      GRANTED_STATE_DIR: stateDir,
+      GRANTED_TEST_FAST: "1",
       NO_COLOR: "1",
     };
     delete env.NODE_ENV;
     delete env.NODE_OPTIONS;
-    delete env.OPENCLAW_GATEWAY_PASSWORD;
-    delete env.OPENCLAW_GATEWAY_TOKEN;
-    delete env.OPENCLAW_GATEWAY_URL;
-    delete env.OPENCLAW_HOME;
+    delete env.GRANTED_GATEWAY_PASSWORD;
+    delete env.GRANTED_GATEWAY_TOKEN;
+    delete env.GRANTED_GATEWAY_URL;
+    delete env.GRANTED_HOME;
     delete env.VITEST;
     delete env.VITEST_POOL_ID;
     delete env.VITEST_WORKER_ID;
@@ -374,21 +374,21 @@ describe("gateway startup-migration refusal", () => {
       env: {
         NODE_ENV: undefined,
         NO_COLOR: "1",
-        OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-        OPENCLAW_HOME: undefined,
-        OPENCLAW_NO_RESPAWN: "1",
-        OPENCLAW_SKIP_CHANNELS: "1",
-        OPENCLAW_TEST_FAST: "1",
+        GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+        GRANTED_HOME: undefined,
+        GRANTED_NO_RESPAWN: "1",
+        GRANTED_SKIP_CHANNELS: "1",
+        GRANTED_TEST_FAST: "1",
         VITEST: undefined,
         // Preserve full startup; the shared fixture otherwise skips sidecar readiness.
-        OPENCLAW_GATEWAY_TOKEN: process.env.OPENCLAW_GATEWAY_TOKEN,
-        OPENCLAW_GATEWAY_PASSWORD: process.env.OPENCLAW_GATEWAY_PASSWORD,
-        OPENCLAW_SKIP_PROVIDERS: process.env.OPENCLAW_SKIP_PROVIDERS,
-        OPENCLAW_SKIP_GMAIL_WATCHER: process.env.OPENCLAW_SKIP_GMAIL_WATCHER,
-        OPENCLAW_SKIP_CRON: process.env.OPENCLAW_SKIP_CRON,
-        OPENCLAW_SKIP_BROWSER_CONTROL_SERVER: process.env.OPENCLAW_SKIP_BROWSER_CONTROL_SERVER,
-        OPENCLAW_SKIP_CANVAS_HOST: process.env.OPENCLAW_SKIP_CANVAS_HOST,
-        OPENCLAW_TEST_MINIMAL_GATEWAY: process.env.OPENCLAW_TEST_MINIMAL_GATEWAY,
+        GRANTED_GATEWAY_TOKEN: process.env.GRANTED_GATEWAY_TOKEN,
+        GRANTED_GATEWAY_PASSWORD: process.env.GRANTED_GATEWAY_PASSWORD,
+        GRANTED_SKIP_PROVIDERS: process.env.GRANTED_SKIP_PROVIDERS,
+        GRANTED_SKIP_GMAIL_WATCHER: process.env.GRANTED_SKIP_GMAIL_WATCHER,
+        GRANTED_SKIP_CRON: process.env.GRANTED_SKIP_CRON,
+        GRANTED_SKIP_BROWSER_CONTROL_SERVER: process.env.GRANTED_SKIP_BROWSER_CONTROL_SERVER,
+        GRANTED_SKIP_CANVAS_HOST: process.env.GRANTED_SKIP_CANVAS_HOST,
+        GRANTED_TEST_MINIMAL_GATEWAY: process.env.GRANTED_TEST_MINIMAL_GATEWAY,
       },
     });
     const { env, port, stateDir } = instance;
@@ -465,14 +465,14 @@ describe("gateway startup-migration refusal", () => {
       ...process.env,
       HOME: root,
       USERPROFILE: root,
-      OPENCLAW_CONFIG_PATH: configPath,
-      OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-      OPENCLAW_STATE_DIR: stateDir,
-      OPENCLAW_TEST_FAST: "1",
+      GRANTED_CONFIG_PATH: configPath,
+      GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+      GRANTED_STATE_DIR: stateDir,
+      GRANTED_TEST_FAST: "1",
       NO_COLOR: "1",
     };
     delete env.NODE_ENV;
-    delete env.OPENCLAW_HOME;
+    delete env.GRANTED_HOME;
     delete env.VITEST;
 
     fs.mkdirSync(stateDir, { recursive: true });
@@ -555,14 +555,14 @@ describe("gateway startup-migration refusal", () => {
       ...process.env,
       HOME: root,
       USERPROFILE: root,
-      OPENCLAW_CONFIG_PATH: configPath,
-      OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-      OPENCLAW_STATE_DIR: stateDir,
-      OPENCLAW_TEST_FAST: "1",
+      GRANTED_CONFIG_PATH: configPath,
+      GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+      GRANTED_STATE_DIR: stateDir,
+      GRANTED_TEST_FAST: "1",
       NO_COLOR: "1",
     };
     delete env.NODE_ENV;
-    delete env.OPENCLAW_HOME;
+    delete env.GRANTED_HOME;
     delete env.VITEST;
 
     fs.mkdirSync(stateDir, { recursive: true });
@@ -619,14 +619,14 @@ describe("gateway startup-migration refusal", () => {
       ...process.env,
       HOME: root,
       USERPROFILE: root,
-      OPENCLAW_CONFIG_PATH: configPath,
-      OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-      OPENCLAW_STATE_DIR: stateDir,
-      OPENCLAW_TEST_FAST: "1",
+      GRANTED_CONFIG_PATH: configPath,
+      GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+      GRANTED_STATE_DIR: stateDir,
+      GRANTED_TEST_FAST: "1",
       NO_COLOR: "1",
     };
     delete env.NODE_ENV;
-    delete env.OPENCLAW_HOME;
+    delete env.GRANTED_HOME;
     delete env.VITEST;
 
     fs.mkdirSync(path.dirname(legacyPath), { recursive: true });
@@ -664,14 +664,14 @@ describe("gateway startup-migration refusal", () => {
       ...process.env,
       HOME: root,
       USERPROFILE: root,
-      OPENCLAW_CONFIG_PATH: configPath,
-      OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-      OPENCLAW_STATE_DIR: stateDir,
-      OPENCLAW_TEST_FAST: "1",
+      GRANTED_CONFIG_PATH: configPath,
+      GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+      GRANTED_STATE_DIR: stateDir,
+      GRANTED_TEST_FAST: "1",
       NO_COLOR: "1",
     };
     delete env.NODE_ENV;
-    delete env.OPENCLAW_HOME;
+    delete env.GRANTED_HOME;
     delete env.VITEST;
 
     try {
@@ -726,14 +726,14 @@ describe("gateway startup-migration refusal", () => {
       ...process.env,
       HOME: root,
       USERPROFILE: root,
-      OPENCLAW_CONFIG_PATH: configPath,
-      OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-      OPENCLAW_STATE_DIR: stateDir,
-      OPENCLAW_TEST_FAST: "1",
+      GRANTED_CONFIG_PATH: configPath,
+      GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+      GRANTED_STATE_DIR: stateDir,
+      GRANTED_TEST_FAST: "1",
       NO_COLOR: "1",
     };
     delete env.NODE_ENV;
-    delete env.OPENCLAW_HOME;
+    delete env.GRANTED_HOME;
     delete env.VITEST;
 
     try {
@@ -816,15 +816,15 @@ describe("gateway startup-migration refusal", () => {
       ...process.env,
       HOME: root,
       USERPROFILE: root,
-      OPENCLAW_CONFIG_PATH: configPath,
-      OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-      OPENCLAW_STATE_DIR: stateDir,
-      OPENCLAW_TEST_FAST: "1",
-      OPENCLAW_UPDATE_IN_PROGRESS: "1",
+      GRANTED_CONFIG_PATH: configPath,
+      GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+      GRANTED_STATE_DIR: stateDir,
+      GRANTED_TEST_FAST: "1",
+      GRANTED_UPDATE_IN_PROGRESS: "1",
       NO_COLOR: "1",
     };
     delete env.NODE_ENV;
-    delete env.OPENCLAW_HOME;
+    delete env.GRANTED_HOME;
     delete env.VITEST;
     delete env.VITEST_POOL_ID;
     delete env.VITEST_WORKER_ID;

@@ -133,7 +133,7 @@ type FailureResult = {
 
 const DISCORD_API_BASE = "https://discord.com/api/v10";
 const DEFAULT_REQUEST_TIMEOUT_MS = 30_000;
-const DEFAULT_OPENCLAW_CLI_TIMEOUT_MS = 60_000;
+const DEFAULT_GRANTED_CLI_TIMEOUT_MS = 60_000;
 const DISCORD_RESPONSE_BODY_MAX_BYTES = 1024 * 1024;
 const WEBHOOK_CLEANUP_TIMEOUT_MS = 10_000;
 const BOOLEAN_OPTIONS = new Set(["--help", "-h", "--json"]);
@@ -237,7 +237,7 @@ async function readDiscordResponseJson(params: {
 }
 
 function resolveStateDir(): string {
-  const override = process.env.OPENCLAW_STATE_DIR?.trim();
+  const override = process.env.GRANTED_STATE_DIR?.trim();
   if (override) {
     if (override === "~") {
       return path.resolve(process.env.HOME || "");
@@ -247,7 +247,7 @@ function resolveStateDir(): string {
     }
     return path.resolve(override);
   }
-  const home = process.env.OPENCLAW_HOME?.trim() || process.env.HOME || "";
+  const home = process.env.GRANTED_HOME?.trim() || process.env.HOME || "";
   return path.join(home, ".openclaw");
 }
 
@@ -340,67 +340,63 @@ function usage(): string {
     "  --json                       Emit JSON output\n" +
     "\n" +
     "Environment fallbacks:\n" +
-    "  OPENCLAW_DISCORD_SMOKE_CHANNEL_ID\n" +
-    "  OPENCLAW_DISCORD_SMOKE_DRIVER\n" +
-    "  OPENCLAW_DISCORD_SMOKE_DRIVER_TOKEN\n" +
-    "  OPENCLAW_DISCORD_SMOKE_DRIVER_TOKEN_PREFIX\n" +
-    "  OPENCLAW_DISCORD_SMOKE_BOT_TOKEN\n" +
-    "  OPENCLAW_DISCORD_SMOKE_BOT_TOKEN_PREFIX\n" +
-    "  OPENCLAW_DISCORD_SMOKE_AGENT\n" +
-    "  OPENCLAW_DISCORD_SMOKE_MENTION_USER_ID\n" +
-    "  OPENCLAW_DISCORD_SMOKE_TIMEOUT_MS\n" +
-    "  OPENCLAW_DISCORD_SMOKE_POLL_MS\n" +
-    "  OPENCLAW_STATE_DIR\n" +
-    "  OPENCLAW_DISCORD_SMOKE_OPENCLAW_BIN"
+    "  GRANTED_DISCORD_SMOKE_CHANNEL_ID\n" +
+    "  GRANTED_DISCORD_SMOKE_DRIVER\n" +
+    "  GRANTED_DISCORD_SMOKE_DRIVER_TOKEN\n" +
+    "  GRANTED_DISCORD_SMOKE_DRIVER_TOKEN_PREFIX\n" +
+    "  GRANTED_DISCORD_SMOKE_BOT_TOKEN\n" +
+    "  GRANTED_DISCORD_SMOKE_BOT_TOKEN_PREFIX\n" +
+    "  GRANTED_DISCORD_SMOKE_AGENT\n" +
+    "  GRANTED_DISCORD_SMOKE_MENTION_USER_ID\n" +
+    "  GRANTED_DISCORD_SMOKE_TIMEOUT_MS\n" +
+    "  GRANTED_DISCORD_SMOKE_POLL_MS\n" +
+    "  GRANTED_STATE_DIR\n" +
+    "  GRANTED_DISCORD_SMOKE_GRANTED_BIN"
   );
 }
 
 function parseArgs(argv = process.argv.slice(2)): Args {
   validateCliArgs(argv);
   const channelId =
-    resolveArg("--channel", argv) || process.env.OPENCLAW_DISCORD_SMOKE_CHANNEL_ID || "";
+    resolveArg("--channel", argv) || process.env.GRANTED_DISCORD_SMOKE_CHANNEL_ID || "";
   const driverModeRaw =
-    resolveArg("--driver", argv) || process.env.OPENCLAW_DISCORD_SMOKE_DRIVER || "token";
+    resolveArg("--driver", argv) || process.env.GRANTED_DISCORD_SMOKE_DRIVER || "token";
   const driverMode = parseDriverMode(driverModeRaw);
   const driverToken =
-    resolveArg("--token", argv) || process.env.OPENCLAW_DISCORD_SMOKE_DRIVER_TOKEN || "";
+    resolveArg("--token", argv) || process.env.GRANTED_DISCORD_SMOKE_DRIVER_TOKEN || "";
   const driverTokenPrefix =
     resolveArg("--token-prefix", argv) ||
-    process.env.OPENCLAW_DISCORD_SMOKE_DRIVER_TOKEN_PREFIX ||
+    process.env.GRANTED_DISCORD_SMOKE_DRIVER_TOKEN_PREFIX ||
     "Bot";
   const botToken =
     resolveArg("--bot-token", argv) ||
-    process.env.OPENCLAW_DISCORD_SMOKE_BOT_TOKEN ||
+    process.env.GRANTED_DISCORD_SMOKE_BOT_TOKEN ||
     process.env.DISCORD_BOT_TOKEN ||
     "";
   const botTokenPrefix =
     resolveArg("--bot-token-prefix", argv) ||
-    process.env.OPENCLAW_DISCORD_SMOKE_BOT_TOKEN_PREFIX ||
+    process.env.GRANTED_DISCORD_SMOKE_BOT_TOKEN_PREFIX ||
     "Bot";
   const targetAgent =
-    resolveArg("--agent", argv) || process.env.OPENCLAW_DISCORD_SMOKE_AGENT || "codex";
+    resolveArg("--agent", argv) || process.env.GRANTED_DISCORD_SMOKE_AGENT || "codex";
   const mentionUserId =
-    resolveArg("--mention", argv) ||
-    process.env.OPENCLAW_DISCORD_SMOKE_MENTION_USER_ID ||
-    undefined;
+    resolveArg("--mention", argv) || process.env.GRANTED_DISCORD_SMOKE_MENTION_USER_ID || undefined;
   const instruction =
-    resolveArg("--instruction", argv) ||
-    process.env.OPENCLAW_DISCORD_SMOKE_INSTRUCTION ||
-    undefined;
+    resolveArg("--instruction", argv) || process.env.GRANTED_DISCORD_SMOKE_INSTRUCTION || undefined;
   const timeoutMs = parseNumber(
-    resolveArg("--timeout-ms", argv) || process.env.OPENCLAW_DISCORD_SMOKE_TIMEOUT_MS,
+    resolveArg("--timeout-ms", argv) || process.env.GRANTED_DISCORD_SMOKE_TIMEOUT_MS,
     240_000,
     "--timeout-ms",
   );
   const pollMs = parseNumber(
-    resolveArg("--poll-ms", argv) || process.env.OPENCLAW_DISCORD_SMOKE_POLL_MS,
+    resolveArg("--poll-ms", argv) || process.env.GRANTED_DISCORD_SMOKE_POLL_MS,
     1_500,
     "--poll-ms",
   );
   const stateDir = path.resolve(resolveArg("--state-dir", argv) || resolveStateDir());
   const openclawBin =
     resolveArg("--openclaw-bin", argv) ||
-    process.env.OPENCLAW_DISCORD_SMOKE_OPENCLAW_BIN ||
+    process.env.GRANTED_DISCORD_SMOKE_GRANTED_BIN ||
     "openclaw";
   const json = hasFlag("--json", argv);
 
@@ -440,7 +436,7 @@ async function openclawCliJson<T>(params: {
   const result = await execFileAsync(params.openclawBin, params.args, {
     maxBuffer: 8 * 1024 * 1024,
     env: process.env,
-    timeout: params.timeoutMs ?? DEFAULT_OPENCLAW_CLI_TIMEOUT_MS,
+    timeout: params.timeoutMs ?? DEFAULT_GRANTED_CLI_TIMEOUT_MS,
     killSignal: "SIGKILL",
   });
   const stdout = (result.stdout || "").trim();
@@ -795,7 +791,7 @@ async function run(argv = process.argv.slice(2)): Promise<SuccessResult | Failur
   const bindingsStore = createPluginStateKeyedStore<ThreadBindingRecord>("discord", {
     namespace: THREAD_BINDINGS_NAMESPACE,
     maxEntries: THREAD_BINDINGS_MAX_ENTRIES,
-    env: { ...process.env, OPENCLAW_STATE_DIR: args.stateDir },
+    env: { ...process.env, GRANTED_STATE_DIR: args.stateDir },
   });
   const smokeId = `acp-smoke-${Date.now()}-${randomUUID().slice(0, 8)}`;
   const startedAt = Date.now();

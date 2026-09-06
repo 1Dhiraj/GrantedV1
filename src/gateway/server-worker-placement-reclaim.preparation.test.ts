@@ -272,7 +272,7 @@ async function cancellationLoadFixture(
 ) {
   const root = await fs.mkdtemp(path.join(os.tmpdir(), "worker-stop-advance-"));
   roots.push(root);
-  const database = openOpenClawStateDatabase({ env: { OPENCLAW_STATE_DIR: root } });
+  const database = openOpenClawStateDatabase({ env: { GRANTED_STATE_DIR: root } });
   const placements = createWorkerSessionPlacementStore({ database });
   const storePath = path.join(root, "sessions.sqlite");
   const entry = {

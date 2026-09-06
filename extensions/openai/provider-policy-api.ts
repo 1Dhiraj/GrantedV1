@@ -34,7 +34,7 @@ const OPENAI_CHATGPT_RESPONSES_API = "openai-chatgpt-responses";
 const OPENAI_PROVIDER_ID = "openai";
 const OPENAI_AGENT_RUNTIME_ID = "openclaw";
 const CODEX_AGENT_RUNTIME_ID = "codex";
-const OPENCLAW_RUNTIME_COMPATIBLE_IDS = [OPENAI_AGENT_RUNTIME_ID] as const;
+const GRANTED_RUNTIME_COMPATIBLE_IDS = [OPENAI_AGENT_RUNTIME_ID] as const;
 const CODEX_RUNTIME_COMPATIBLE_IDS = [OPENAI_AGENT_RUNTIME_ID, CODEX_AGENT_RUNTIME_ID] as const;
 
 type OpenAIResolveSingleModelRouteContext = Omit<
@@ -180,7 +180,7 @@ function withRuntimePolicy(
     runtimePolicy: {
       compatibleIds: codexCanReproduceRoute(candidate, sourceBaseUrl)
         ? CODEX_RUNTIME_COMPATIBLE_IDS
-        : OPENCLAW_RUNTIME_COMPATIBLE_IDS,
+        : GRANTED_RUNTIME_COMPATIBLE_IDS,
     },
   };
 }

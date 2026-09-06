@@ -139,8 +139,8 @@ function createSessionFixture(params?: {
   sessionKey?: string;
 }) {
   const dir = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-cli-hooks-")));
-  sessionFileEnvSnapshot ??= captureEnv(["OPENCLAW_STATE_DIR"]);
-  setTestEnvValue("OPENCLAW_STATE_DIR", dir);
+  sessionFileEnvSnapshot ??= captureEnv(["GRANTED_STATE_DIR"]);
+  setTestEnvValue("GRANTED_STATE_DIR", dir);
   const storePath = path.join(dir, "agents", "main", "sessions", "sessions.json");
   const sessionTarget: SessionTranscriptRuntimeTarget = {
     agentId: "main",
@@ -912,7 +912,7 @@ describe("runCliAgent reliability", () => {
     fs.mkdirSync(workspaceDir, { recursive: true });
     fs.mkdirSync(inboundDir, { recursive: true });
     fs.writeFileSync(path.join(inboundDir, mediaId), offloadedImage);
-    vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
+    vi.stubEnv("GRANTED_STATE_DIR", stateDir);
     const currentTurn = `compare these\n[media attached: media://inbound/${mediaId}]`;
     context.workspaceDir = workspaceDir;
     context.params = {
@@ -963,7 +963,7 @@ describe("runCliAgent reliability", () => {
   it("does not retry or fail over after a confirmed message send", async () => {
     supervisorSpawnMock.mockImplementationOnce(async (...args: unknown[]) => {
       const input = args[0] as Parameters<ReturnType<typeof getProcessSupervisor>["spawn"]>[0];
-      const captureKey = input.env?.OPENCLAW_MCP_CLI_CAPTURE_KEY ?? "";
+      const captureKey = input.env?.GRANTED_MCP_CLI_CAPTURE_KEY ?? "";
       const captureHandle = markMcpLoopbackToolCallStarted({
         captureKey,
         toolName: "message",
@@ -1035,7 +1035,7 @@ describe("runCliAgent reliability", () => {
     ];
     supervisorSpawnMock.mockImplementationOnce(async (...args: unknown[]) => {
       const input = args[0] as Parameters<ReturnType<typeof getProcessSupervisor>["spawn"]>[0];
-      const captureKey = input.env?.OPENCLAW_MCP_CLI_CAPTURE_KEY ?? "";
+      const captureKey = input.env?.GRANTED_MCP_CLI_CAPTURE_KEY ?? "";
       for (const [index, mediaUrl] of mediaUrls.entries()) {
         const captureHandle = markMcpLoopbackToolCallStarted({
           captureKey,
@@ -1114,7 +1114,7 @@ describe("runCliAgent reliability", () => {
     supervisorSpawnMock.mockImplementationOnce(async (...args: unknown[]) => {
       const input = args[0] as Parameters<ReturnType<typeof getProcessSupervisor>["spawn"]>[0];
       const captureHandle = markMcpLoopbackToolCallStarted({
-        captureKey: input.env?.OPENCLAW_MCP_CLI_CAPTURE_KEY ?? "",
+        captureKey: input.env?.GRANTED_MCP_CLI_CAPTURE_KEY ?? "",
         toolName: "image_generate",
         args: { prompt: "our agent" },
       });
@@ -1158,7 +1158,7 @@ describe("runCliAgent reliability", () => {
     supervisorSpawnMock.mockImplementationOnce(async (...args: unknown[]) => {
       const input = args[0] as Parameters<ReturnType<typeof getProcessSupervisor>["spawn"]>[0];
       const captureHandle = markMcpLoopbackToolCallStarted({
-        captureKey: input.env?.OPENCLAW_MCP_CLI_CAPTURE_KEY ?? "",
+        captureKey: input.env?.GRANTED_MCP_CLI_CAPTURE_KEY ?? "",
         toolName: "message",
         args: { action: "send", message: "still working", final: false },
       });
@@ -1199,7 +1199,7 @@ describe("runCliAgent reliability", () => {
     supervisorSpawnMock.mockImplementationOnce(async (...args: unknown[]) => {
       const input = args[0] as Parameters<ReturnType<typeof getProcessSupervisor>["spawn"]>[0];
       const captureHandle = markMcpLoopbackToolCallStarted({
-        captureKey: input.env?.OPENCLAW_MCP_CLI_CAPTURE_KEY ?? "",
+        captureKey: input.env?.GRANTED_MCP_CLI_CAPTURE_KEY ?? "",
         toolName: "message",
         args: {
           action: "send",
@@ -1256,7 +1256,7 @@ describe("runCliAgent reliability", () => {
     supervisorSpawnMock.mockImplementationOnce(async (...args: unknown[]) => {
       const input = args[0] as Parameters<ReturnType<typeof getProcessSupervisor>["spawn"]>[0];
       const captureHandle = markMcpLoopbackToolCallStarted({
-        captureKey: input.env?.OPENCLAW_MCP_CLI_CAPTURE_KEY ?? "",
+        captureKey: input.env?.GRANTED_MCP_CLI_CAPTURE_KEY ?? "",
         toolName: "message",
         args: {
           action: "send",
@@ -1309,7 +1309,7 @@ describe("runCliAgent reliability", () => {
     supervisorSpawnMock.mockImplementationOnce(async (...args: unknown[]) => {
       const input = args[0] as Parameters<ReturnType<typeof getProcessSupervisor>["spawn"]>[0];
       const captureHandle = markMcpLoopbackToolCallStarted({
-        captureKey: input.env?.OPENCLAW_MCP_CLI_CAPTURE_KEY ?? "",
+        captureKey: input.env?.GRANTED_MCP_CLI_CAPTURE_KEY ?? "",
         toolName: "message",
         args: {
           action: "send",
@@ -1412,7 +1412,7 @@ describe("runCliAgent reliability", () => {
     supervisorSpawnMock.mockImplementationOnce(async (...args: unknown[]) => {
       const input = args[0] as Parameters<ReturnType<typeof getProcessSupervisor>["spawn"]>[0];
       const captureHandle = markMcpLoopbackToolCallStarted({
-        captureKey: input.env?.OPENCLAW_MCP_CLI_CAPTURE_KEY ?? "",
+        captureKey: input.env?.GRANTED_MCP_CLI_CAPTURE_KEY ?? "",
         toolName: "message",
         args: {
           action: "send",
@@ -1479,7 +1479,7 @@ describe("runCliAgent reliability", () => {
     supervisorSpawnMock.mockImplementationOnce(async (...args: unknown[]) => {
       const input = args[0] as Parameters<ReturnType<typeof getProcessSupervisor>["spawn"]>[0];
       const captureHandle = markMcpLoopbackToolCallStarted({
-        captureKey: input.env?.OPENCLAW_MCP_CLI_CAPTURE_KEY ?? "",
+        captureKey: input.env?.GRANTED_MCP_CLI_CAPTURE_KEY ?? "",
         toolName: "message",
         args: {
           action: "send",
@@ -1551,7 +1551,7 @@ describe("runCliAgent reliability", () => {
     supervisorSpawnMock.mockImplementationOnce(async (...args: unknown[]) => {
       const input = args[0] as Parameters<ReturnType<typeof getProcessSupervisor>["spawn"]>[0];
       const captureHandle = markMcpLoopbackToolCallStarted({
-        captureKey: input.env?.OPENCLAW_MCP_CLI_CAPTURE_KEY ?? "",
+        captureKey: input.env?.GRANTED_MCP_CLI_CAPTURE_KEY ?? "",
         toolName: "message",
         args: {
           action: "send",
@@ -1632,7 +1632,7 @@ describe("runCliAgent reliability", () => {
     supervisorSpawnMock.mockImplementationOnce(async (...args: unknown[]) => {
       const input = args[0] as Parameters<ReturnType<typeof getProcessSupervisor>["spawn"]>[0];
       const captureHandle = markMcpLoopbackToolCallStarted({
-        captureKey: input.env?.OPENCLAW_MCP_CLI_CAPTURE_KEY ?? "",
+        captureKey: input.env?.GRANTED_MCP_CLI_CAPTURE_KEY ?? "",
         toolName: "message",
         args: {
           action: "send",
@@ -1686,7 +1686,7 @@ describe("runCliAgent reliability", () => {
     supervisorSpawnMock.mockImplementationOnce(async (...args: unknown[]) => {
       const input = args[0] as Parameters<ReturnType<typeof getProcessSupervisor>["spawn"]>[0];
       const captureHandle = markMcpLoopbackToolCallStarted({
-        captureKey: input.env?.OPENCLAW_MCP_CLI_CAPTURE_KEY ?? "",
+        captureKey: input.env?.GRANTED_MCP_CLI_CAPTURE_KEY ?? "",
         toolName: "message",
         args: {
           action: "send",
@@ -1753,7 +1753,7 @@ describe("runCliAgent reliability", () => {
     supervisorSpawnMock.mockImplementationOnce(async (...args: unknown[]) => {
       const input = args[0] as Parameters<ReturnType<typeof getProcessSupervisor>["spawn"]>[0];
       const captureHandle = markMcpLoopbackToolCallStarted({
-        captureKey: input.env?.OPENCLAW_MCP_CLI_CAPTURE_KEY ?? "",
+        captureKey: input.env?.GRANTED_MCP_CLI_CAPTURE_KEY ?? "",
         toolName: "message",
         args: {
           action: "react",
@@ -1810,7 +1810,7 @@ describe("runCliAgent reliability", () => {
     supervisorSpawnMock.mockImplementationOnce(async (...args: unknown[]) => {
       const input = args[0] as Parameters<ReturnType<typeof getProcessSupervisor>["spawn"]>[0];
       const captureHandle = markMcpLoopbackRequestStarted(
-        input.env?.OPENCLAW_MCP_CLI_CAPTURE_KEY ?? "",
+        input.env?.GRANTED_MCP_CLI_CAPTURE_KEY ?? "",
       );
       if (!captureHandle) {
         throw new Error("Expected request delivery capture");
@@ -1852,7 +1852,7 @@ describe("runCliAgent reliability", () => {
     supervisorSpawnMock.mockImplementationOnce(async (...args: unknown[]) => {
       const input = args[0] as Parameters<ReturnType<typeof getProcessSupervisor>["spawn"]>[0];
       const requestCaptureHandle = markMcpLoopbackRequestStarted(
-        input.env?.OPENCLAW_MCP_CLI_CAPTURE_KEY ?? "",
+        input.env?.GRANTED_MCP_CLI_CAPTURE_KEY ?? "",
       );
       if (!requestCaptureHandle) {
         throw new Error("Expected request delivery capture");
@@ -1899,7 +1899,7 @@ describe("runCliAgent reliability", () => {
     supervisorSpawnMock.mockImplementationOnce(async (...args: unknown[]) => {
       const input = args[0] as Parameters<ReturnType<typeof getProcessSupervisor>["spawn"]>[0];
       const captureHandle = markMcpLoopbackToolCallStarted({
-        captureKey: input.env?.OPENCLAW_MCP_CLI_CAPTURE_KEY ?? "",
+        captureKey: input.env?.GRANTED_MCP_CLI_CAPTURE_KEY ?? "",
         toolName: "message",
         args: {
           action: "send",
@@ -2504,7 +2504,7 @@ describe("runCliAgent reliability", () => {
     supervisorSpawnMock.mockImplementationOnce(async (...args: unknown[]) => {
       const input = args[0] as Parameters<ReturnType<typeof getProcessSupervisor>["spawn"]>[0];
       const spawnCapture = markMcpLoopbackToolCallStarted({
-        captureKey: input.env?.OPENCLAW_MCP_CLI_CAPTURE_KEY,
+        captureKey: input.env?.GRANTED_MCP_CLI_CAPTURE_KEY,
         toolName: "sessions_spawn",
         args: { task: "review" },
       });
@@ -2526,7 +2526,7 @@ describe("runCliAgent reliability", () => {
         },
       });
       markMcpLoopbackToolCallFinished(spawnCapture);
-      const captureHandle = markMcpLoopbackRequestStarted(input.env?.OPENCLAW_MCP_CLI_CAPTURE_KEY);
+      const captureHandle = markMcpLoopbackRequestStarted(input.env?.GRANTED_MCP_CLI_CAPTURE_KEY);
       await resolveMcpLoopbackYieldContext(captureHandle)?.onYield("waiting on subagents");
       markMcpLoopbackRequestFinished(captureHandle);
       input.onStdout?.("yield acknowledged");
@@ -2564,7 +2564,7 @@ describe("runCliAgent reliability", () => {
     supervisorSpawnMock.mockImplementationOnce(async (...args: unknown[]) => {
       const input = args[0] as Parameters<ReturnType<typeof getProcessSupervisor>["spawn"]>[0];
       const spawnCapture = markMcpLoopbackToolCallStarted({
-        captureKey: input.env?.OPENCLAW_MCP_CLI_CAPTURE_KEY,
+        captureKey: input.env?.GRANTED_MCP_CLI_CAPTURE_KEY,
         toolName: "sessions_spawn",
         args: { task: "review" },
       });
@@ -2579,7 +2579,7 @@ describe("runCliAgent reliability", () => {
         result: spawnResult,
       });
       markMcpLoopbackToolCallFinished(spawnCapture);
-      const yieldCapture = markMcpLoopbackRequestStarted(input.env?.OPENCLAW_MCP_CLI_CAPTURE_KEY);
+      const yieldCapture = markMcpLoopbackRequestStarted(input.env?.GRANTED_MCP_CLI_CAPTURE_KEY);
       await resolveMcpLoopbackYieldContext(yieldCapture)?.onYield("waiting on subagents");
       markMcpLoopbackRequestFinished(yieldCapture);
       input.onStdout?.("yield acknowledged");

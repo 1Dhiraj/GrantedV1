@@ -1722,7 +1722,7 @@ describe("resolveApiKeyForProviderCore", () => {
 
   it("preserves token mode for an env-backed provider SecretRef", async () => {
     await withEnv(
-      "OPENCLAW_TEST_PROVIDER_SUBSCRIPTION_TOKEN",
+      "GRANTED_TEST_PROVIDER_SUBSCRIPTION_TOKEN",
       "env-subscription-credential",
       async () => {
         const resolved = await getApiKeyForModelCore({
@@ -1739,7 +1739,7 @@ describe("resolveApiKeyForProviderCore", () => {
                   apiKey: {
                     source: "env",
                     provider: "default",
-                    id: "OPENCLAW_TEST_PROVIDER_SUBSCRIPTION_TOKEN",
+                    id: "GRANTED_TEST_PROVIDER_SUBSCRIPTION_TOKEN",
                   },
                   baseUrl: "https://subscription.example/v1",
                   models: [],
@@ -1754,7 +1754,7 @@ describe("resolveApiKeyForProviderCore", () => {
           apiKey: "env-subscription-credential",
           mode: "token",
         });
-        expect(resolved.source).toContain("OPENCLAW_TEST_PROVIDER_SUBSCRIPTION_TOKEN");
+        expect(resolved.source).toContain("GRANTED_TEST_PROVIDER_SUBSCRIPTION_TOKEN");
       },
     );
   });

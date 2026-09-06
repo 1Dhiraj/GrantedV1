@@ -48,10 +48,10 @@ describe("session transcript reader marker projection", () => {
   let envSnapshot: ReturnType<typeof captureEnv>;
 
   beforeEach(() => {
-    envSnapshot = captureEnv(["OPENCLAW_STATE_DIR"]);
+    envSnapshot = captureEnv(["GRANTED_STATE_DIR"]);
     tempDir = tempDirs.make("openclaw-transcript-markers-");
     storePath = path.join(tempDir, "sessions.json");
-    setTestEnvValue("OPENCLAW_STATE_DIR", tempDir);
+    setTestEnvValue("GRANTED_STATE_DIR", tempDir);
   });
 
   afterEach(() => {

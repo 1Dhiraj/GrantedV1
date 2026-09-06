@@ -282,7 +282,7 @@ describe("workspace state store", () => {
     const alias = testState!.path("workspace-link");
     const env = {
       ...process.env,
-      OPENCLAW_STATE_DIR: testState!.path("custom-state"),
+      GRANTED_STATE_DIR: testState!.path("custom-state"),
     };
     fs.symlinkSync(dir, alias, process.platform === "win32" ? "junction" : "dir");
     const identity = resolveWorkspaceStateIdentity(dir);
@@ -304,7 +304,7 @@ describe("workspace state store", () => {
     const alias = testState!.path("workspace-link");
     const env = {
       ...process.env,
-      OPENCLAW_STATE_DIR: testState!.path("custom-state"),
+      GRANTED_STATE_DIR: testState!.path("custom-state"),
     };
     mergeWorkspaceSetupState(dir, { bootstrapSeededAt: "2026-07-16T01:00:00.000Z" }, 1_000, {
       env,

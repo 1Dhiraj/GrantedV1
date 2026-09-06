@@ -1102,7 +1102,7 @@ describe("config schema", () => {
             env: {
               POLICY_MODE: "strict",
             },
-            passEnv: ["OPENCLAW_STATE_DIR"],
+            passEnv: ["GRANTED_STATE_DIR"],
             trustedDirs: ["/usr/local/bin"],
           },
         },

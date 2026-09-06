@@ -103,8 +103,8 @@ function startIngress(params: {
 async function withQueue<T>(fn: (queue: FeishuIngressQueue, stateDir: string) => Promise<T>) {
   const created = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-feishu-ingress-"));
   const stateDir = await fs.realpath(created);
-  const previousStateDir = process.env.OPENCLAW_STATE_DIR;
-  process.env.OPENCLAW_STATE_DIR = stateDir;
+  const previousStateDir = process.env.GRANTED_STATE_DIR;
+  process.env.GRANTED_STATE_DIR = stateDir;
   const queue = createChannelIngressQueueForTests<FeishuIngressPayload>({
     channelId: "feishu",
     accountId: "default",
@@ -116,9 +116,9 @@ async function withQueue<T>(fn: (queue: FeishuIngressQueue, stateDir: string) =>
     feishuDedupeState.reset();
     closeOpenClawStateDatabaseForTest();
     if (previousStateDir === undefined) {
-      delete process.env.OPENCLAW_STATE_DIR;
+      delete process.env.GRANTED_STATE_DIR;
     } else {
-      process.env.OPENCLAW_STATE_DIR = previousStateDir;
+      process.env.GRANTED_STATE_DIR = previousStateDir;
     }
     await fs.rm(stateDir, { recursive: true, force: true });
   }

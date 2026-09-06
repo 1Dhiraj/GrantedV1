@@ -21,7 +21,7 @@ import { getFreePort } from "./test-port.js";
 
 const tempDirs = useAutoCleanupTempDirTracker(afterEach);
 
-describe.runIf(process.env.OPENCLAW_BROWSER_SNAPSHOT_E2E === "1")(
+describe.runIf(process.env.GRANTED_BROWSER_SNAPSHOT_E2E === "1")(
   "Chromium snapshot-to-action name fidelity",
   () => {
     it("returns selector no-match snapshots without waiting for the snapshot timeout", async () => {

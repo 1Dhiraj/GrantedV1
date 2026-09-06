@@ -37,7 +37,7 @@ export async function assertNoSystemGatewayOwnership(
   env: GatewayServiceEnv,
   timeoutMs?: number,
 ): Promise<void> {
-  if (env.OPENCLAW_SERVICE_KIND?.trim() === "node") {
+  if (env.GRANTED_SERVICE_KIND?.trim() === "node") {
     return;
   }
   await assertNoSystemSystemdOwnership(`${resolveSystemdServiceName(env)}.service`, timeoutMs);

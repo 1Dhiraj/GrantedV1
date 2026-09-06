@@ -58,15 +58,15 @@ function fixture() {
   const env = {
     HOME: home,
     USERPROFILE: home,
-    OPENCLAW_HOME: home,
-    OPENCLAW_STATE_DIR: state,
-    OPENCLAW_CONFIG_PATH: join(state, "openclaw.json"),
-    OPENCLAW_TEST_WORKSPACE_DIR: join(home, "workspace"),
-    OPENCLAW_UPGRADE_SURVIVOR_SCENARIO: "base",
+    GRANTED_HOME: home,
+    GRANTED_STATE_DIR: state,
+    GRANTED_CONFIG_PATH: join(state, "openclaw.json"),
+    GRANTED_TEST_WORKSPACE_DIR: join(home, "workspace"),
+    GRANTED_UPGRADE_SURVIVOR_SCENARIO: "base",
   };
   const run = (command: string, stage = "survival") =>
     spawnSync(process.execPath, [assertions, command], {
-      env: { ...env, OPENCLAW_UPGRADE_SURVIVOR_ASSERT_STAGE: stage },
+      env: { ...env, GRANTED_UPGRADE_SURVIVOR_ASSERT_STAGE: stage },
       encoding: "utf8",
       timeout: 10_000,
     });

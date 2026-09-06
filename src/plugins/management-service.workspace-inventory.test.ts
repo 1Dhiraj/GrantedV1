@@ -63,9 +63,9 @@ it("refreshes an externally changed install ledger before publishing management 
   mkdirSafeDir(pluginRoot);
   mkdirSafeDir(loadPath);
   const fixture = createColdPluginFixture({ rootDir: pluginRoot, pluginId: "external-candidate" });
-  vi.stubEnv("OPENCLAW_HOME", path.join(root, "home"));
-  vi.stubEnv("OPENCLAW_STATE_DIR", path.join(root, "state"));
-  vi.stubEnv("OPENCLAW_DISABLE_BUNDLED_PLUGINS", "1");
+  vi.stubEnv("GRANTED_HOME", path.join(root, "home"));
+  vi.stubEnv("GRANTED_STATE_DIR", path.join(root, "state"));
+  vi.stubEnv("GRANTED_DISABLE_BUNDLED_PLUGINS", "1");
   const config: OpenClawConfig = { plugins: { load: { paths: [loadPath] } } };
   await writePersistedInstalledPluginIndex(
     loadInstalledPluginIndex({ config, env: process.env, candidates: [], installRecords: {} }),
@@ -111,8 +111,8 @@ it("removes an npm-pack plugin from management inventory without replacing Gatew
     pluginId: "tgz-visible",
     packageName,
   });
-  vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
-  vi.stubEnv("OPENCLAW_DISABLE_BUNDLED_PLUGINS", "1");
+  vi.stubEnv("GRANTED_STATE_DIR", stateDir);
+  vi.stubEnv("GRANTED_DISABLE_BUNDLED_PLUGINS", "1");
   let config: OpenClawConfig = {
     plugins: { entries: { [fixture.pluginId]: { enabled: true } } },
   };
@@ -188,9 +188,9 @@ it.each([undefined, "main"])(
         providerAuthChoices: [],
       },
     });
-    vi.stubEnv("OPENCLAW_HOME", path.join(root, "home"));
-    vi.stubEnv("OPENCLAW_STATE_DIR", path.join(root, "state"));
-    vi.stubEnv("OPENCLAW_DISABLE_BUNDLED_PLUGINS", "1");
+    vi.stubEnv("GRANTED_HOME", path.join(root, "home"));
+    vi.stubEnv("GRANTED_STATE_DIR", path.join(root, "state"));
+    vi.stubEnv("GRANTED_DISABLE_BUNDLED_PLUGINS", "1");
     let config: OpenClawConfig = {
       agents: {
         ownership: "explicit",

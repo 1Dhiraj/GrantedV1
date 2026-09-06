@@ -53,12 +53,9 @@ describe("writeConfigFile canonical reread", () => {
       // this test targets only the canonical reread's recorded degradation.
       setRuntimeConfigSnapshotRefreshHandler({ refresh: async () => true });
 
-      await withEnvAsync(
-        { OPENCLAW_CONFIG_PATH: configPath, OPENCLAW_TEST_FAST: "1" },
-        async () => {
-          await writeConfigFile({ gateway: { mode: "local", port: 19001 } });
-        },
-      );
+      await withEnvAsync({ GRANTED_CONFIG_PATH: configPath, GRANTED_TEST_FAST: "1" }, async () => {
+        await writeConfigFile({ gateway: { mode: "local", port: 19001 } });
+      });
 
       expect(
         warn.mock.calls.some(([line]) =>

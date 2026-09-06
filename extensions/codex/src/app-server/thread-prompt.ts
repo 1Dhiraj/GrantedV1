@@ -14,7 +14,7 @@ import {
   shouldDisableCodexToolSearchForModel,
 } from "./dynamic-tool-profile.js";
 import {
-  CODEX_OPENCLAW_DIRECT_DYNAMIC_TOOL_NAMESPACE,
+  CODEX_GRANTED_DIRECT_DYNAMIC_TOOL_NAMESPACE,
   type CodexDynamicToolSpec,
 } from "./protocol.js";
 
@@ -50,7 +50,7 @@ export function buildDeveloperInstructions(
     const isDirectNamespace =
       spec.type === "namespace" &&
       !hasSeenDirectNamespace &&
-      spec.name.trim() === CODEX_OPENCLAW_DIRECT_DYNAMIC_TOOL_NAMESPACE;
+      spec.name.trim() === CODEX_GRANTED_DIRECT_DYNAMIC_TOOL_NAMESPACE;
     if (isDirectNamespace) {
       hasSeenDirectNamespace = true;
     }

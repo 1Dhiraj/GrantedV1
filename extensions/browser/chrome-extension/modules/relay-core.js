@@ -3,7 +3,7 @@
 // repo's vitest suite can exercise the logic directly.
 
 /** Tab group shown to the user; an ACL in selected mode and an ownership marker in all mode. */
-export const OPENCLAW_TAB_GROUP_TITLE = "OpenClaw";
+export const GRANTED_TAB_GROUP_TITLE = "OpenClaw";
 export const ACCESS_MODE_ALL = "all";
 export const ACCESS_MODE_SELECTED = "selected";
 const EXTENSION_RELAY_PROTOCOL = "openclaw-extension-relay.v2";

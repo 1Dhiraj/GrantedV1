@@ -102,7 +102,7 @@ function runPlugin(
     execute,
     executionCommand: "/bin/sh",
     executionArgs: ["-p", "--permission-mode", "bypassPermissions"],
-    env: { PATH: "/bin:/usr/bin", OPENCLAW_TEST_MARKER: "host-owned" },
+    env: { PATH: "/bin:/usr/bin", GRANTED_TEST_MARKER: "host-owned" },
     prompt: context.params.prompt,
     promptContext: context.promptContext,
     useResume: options.useResume ?? Boolean(options.requiredGeneration),
@@ -129,7 +129,7 @@ function registerOwnerSession(context: PreparedCliRunContext, generation: string
   const capability = createCliLiveSessionCapability({
     context,
     argv: ["/bin/sh", "-p", "--permission-mode", "bypassPermissions"],
-    env: { PATH: "/bin:/usr/bin", OPENCLAW_TEST_MARKER: "host-owned" },
+    env: { PATH: "/bin:/usr/bin", GRANTED_TEST_MARKER: "host-owned" },
     beginCapture: () => {},
     abortSignal: new AbortController().signal,
   });
@@ -226,7 +226,7 @@ describe("plugin-owned CLI execution host boundary", () => {
         systemPrompt: "Follow host policy.\nKeep credentials private.",
         sessionId: "sdk-session",
         useResume: false,
-        env: { PATH: "/bin:/usr/bin", OPENCLAW_TEST_MARKER: "host-owned" },
+        env: { PATH: "/bin:/usr/bin", GRANTED_TEST_MARKER: "host-owned" },
         requestToolPermission: expect.any(Function),
         requestUserInput: expect.any(Function),
       }),

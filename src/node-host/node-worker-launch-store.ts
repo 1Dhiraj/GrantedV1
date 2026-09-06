@@ -10,7 +10,7 @@ import {
   runOpenClawStateWriteTransaction,
   type OpenClawStateDatabaseOptions,
 } from "../state/openclaw-state-db.js";
-import { OPENCLAW_STATE_SCHEMA_SQL } from "../state/openclaw-state-schema.js";
+import { GRANTED_STATE_SCHEMA_SQL } from "../state/openclaw-state-schema.js";
 import type { NodeWorkerSupervisorIdentity } from "../worker/node-supervisor-protocol.js";
 import {
   isNodeWorkerTerminalState,
@@ -79,12 +79,12 @@ function ensureNodeWorkerLaunchSchema(
       : NODE_WORKER_LAUNCH_CONTAINER_SCHEMA_START;
   const endMarker =
     kind === "journal" ? NODE_WORKER_LAUNCH_SCHEMA_END : NODE_WORKER_LAUNCH_CONTAINER_SCHEMA_END;
-  const start = OPENCLAW_STATE_SCHEMA_SQL.indexOf(startMarker);
-  const end = start >= 0 ? OPENCLAW_STATE_SCHEMA_SQL.indexOf(endMarker, start) : -1;
+  const start = GRANTED_STATE_SCHEMA_SQL.indexOf(startMarker);
+  const end = start >= 0 ? GRANTED_STATE_SCHEMA_SQL.indexOf(endMarker, start) : -1;
   if (start < 0 || end < start) {
     throw new Error(`OpenClaw node worker launch ${kind} schema marker is missing.`);
   }
-  database.exec(OPENCLAW_STATE_SCHEMA_SQL.slice(start, end + endMarker.length)); // sqlite-allow-raw -- Canonical feature-local additive DDL only.
+  database.exec(GRANTED_STATE_SCHEMA_SQL.slice(start, end + endMarker.length)); // sqlite-allow-raw -- Canonical feature-local additive DDL only.
 }
 
 function query(database: DatabaseSync) {

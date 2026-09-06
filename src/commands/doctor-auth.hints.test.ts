@@ -73,7 +73,7 @@ describe("doctor auth hints", () => {
   it("does not report a legacy shared auth owner without stored credentials", () => {
     const env = {
       ...process.env,
-      OPENCLAW_STATE_DIR: tempDirs.make("openclaw-doctor-shared-auth-"),
+      GRANTED_STATE_DIR: tempDirs.make("openclaw-doctor-shared-auth-"),
     };
     noteSharedAuthStoreStatus(env);
 
@@ -83,7 +83,7 @@ describe("doctor auth hints", () => {
   it("reports the legacy shared auth owner with stored credentials", () => {
     const env = {
       ...process.env,
-      OPENCLAW_STATE_DIR: tempDirs.make("openclaw-doctor-shared-auth-"),
+      GRANTED_STATE_DIR: tempDirs.make("openclaw-doctor-shared-auth-"),
     };
     writePersistedAuthProfileStoreRaw(
       {
@@ -104,7 +104,7 @@ describe("doctor auth hints", () => {
     mocks.note.mockClear();
     const relocatedEnv = {
       ...process.env,
-      OPENCLAW_STATE_DIR: tempDirs.make("openclaw-doctor-relocated-auth-"),
+      GRANTED_STATE_DIR: tempDirs.make("openclaw-doctor-relocated-auth-"),
     };
     writeConfigMachineState("auth.sharedStore", { location: "state-db" }, { env: relocatedEnv });
     noteSharedAuthStoreStatus(relocatedEnv);

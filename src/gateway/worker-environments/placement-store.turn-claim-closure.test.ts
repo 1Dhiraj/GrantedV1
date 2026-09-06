@@ -48,7 +48,7 @@ let store: WorkerSessionPlacementStore;
 
 beforeEach(async () => {
   root = await fs.mkdtemp(path.join(await fs.realpath(os.tmpdir()), "openclaw-placement-claim-"));
-  database = openOpenClawStateDatabase({ env: { OPENCLAW_STATE_DIR: root } });
+  database = openOpenClawStateDatabase({ env: { GRANTED_STATE_DIR: root } });
   store = createWorkerSessionPlacementStore({ database });
 });
 

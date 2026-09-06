@@ -147,7 +147,7 @@ const SIGNAL_EXIT_CODES = {
 } as const;
 type ForwardedSignal = keyof typeof SIGNAL_EXIT_CODES;
 const TRUSTED_PACKAGE_SOURCE_POLICY = ".github/package-trusted-sources.json";
-const TRUSTED_PACKAGE_SOURCE_TOKEN_ENV = "OPENCLAW_TRUSTED_PACKAGE_TOKEN";
+const TRUSTED_PACKAGE_SOURCE_TOKEN_ENV = "GRANTED_TRUSTED_PACKAGE_TOKEN";
 const BLOCKED_PACKAGE_HOSTNAMES = new Set([
   "localhost",
   "localhost.localdomain",
@@ -174,7 +174,7 @@ for (const signal of Object.keys(SIGNAL_EXIT_CODES) as ForwardedSignal[]) {
     }, FORWARDED_SIGNAL_KILL_AFTER_MS);
   });
 }
-export const OPENCLAW_PACKAGE_SPEC_RE =
+export const GRANTED_PACKAGE_SPEC_RE =
   /^openclaw@(alpha|beta|extended-stable|latest|[0-9]{4}\.[1-9][0-9]*\.[1-9][0-9]*(-[1-9][0-9]*|-(alpha|beta)\.[1-9][0-9]*)?)$/u;
 
 function usage() {
@@ -290,7 +290,7 @@ function resolvePackedOpenClawTarballFilename(value: unknown) {
 }
 
 export function validateOpenClawPackageSpec(spec: string) {
-  if (!OPENCLAW_PACKAGE_SPEC_RE.test(spec)) {
+  if (!GRANTED_PACKAGE_SPEC_RE.test(spec)) {
     throw new Error(
       `package_spec must be openclaw@alpha, openclaw@beta, openclaw@extended-stable, openclaw@latest, or an exact OpenClaw release version; got: ${spec}`,
     );

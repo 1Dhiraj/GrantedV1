@@ -144,8 +144,8 @@ export function createTempHomeHarness(options: { prefix: string; beforeEachCase?
     const env: Record<string, string | undefined> = {
       HOME: home,
       USERPROFILE: home,
-      OPENCLAW_STATE_DIR: path.join(home, ".openclaw"),
-      OPENCLAW_AGENT_DIR: path.join(home, ".openclaw", "agent"),
+      GRANTED_STATE_DIR: path.join(home, ".openclaw"),
+      GRANTED_AGENT_DIR: path.join(home, ".openclaw", "agent"),
     };
     if (process.platform === "win32") {
       const match = home.match(/^([A-Za-z]:)(.*)$/);

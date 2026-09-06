@@ -96,9 +96,9 @@ describe("project runner native empty-file policy", () => {
         SystemRoot: process.env.SystemRoot,
         HOME: path.join(root, "home"),
         USERPROFILE: path.join(root, "home"),
-        OPENCLAW_HOME: path.join(root, "home"),
-        OPENCLAW_STATE_DIR: path.join(root, "state"),
-        OPENCLAW_CONFIG_PATH: path.join(root, "state/openclaw.json"),
+        GRANTED_HOME: path.join(root, "home"),
+        GRANTED_STATE_DIR: path.join(root, "state"),
+        GRANTED_CONFIG_PATH: path.join(root, "state/openclaw.json"),
         TMPDIR: path.join(root, "tmp"),
         TMP: path.join(root, "tmp"),
         TEMP: path.join(root, "tmp"),
@@ -112,16 +112,16 @@ describe("project runner native empty-file policy", () => {
         CI: "1",
         NO_COLOR: "1",
         FORCE_COLOR: "0",
-        OPENCLAW_TEST_PROJECTS_TIMINGS: "0",
-        OPENCLAW_VITEST_MAX_WORKERS: "1",
-        OPENCLAW_VITEST_FS_MODULE_CACHE_PATH: path.join(root, "module-cache"),
-        OPENCLAW_VITEST_NO_OUTPUT_RETRY: "0",
-        ...(scenario.parallel ? { OPENCLAW_TEST_PROJECTS_PARALLEL: "2" } : {}),
+        GRANTED_TEST_PROJECTS_TIMINGS: "0",
+        GRANTED_VITEST_MAX_WORKERS: "1",
+        GRANTED_VITEST_FS_MODULE_CACHE_PATH: path.join(root, "module-cache"),
+        GRANTED_VITEST_NO_OUTPUT_RETRY: "0",
+        ...(scenario.parallel ? { GRANTED_TEST_PROJECTS_PARALLEL: "2" } : {}),
       };
       for (const name of ["home", "state", "tmp", "cache", "config"]) {
         fs.mkdirSync(path.join(root, name));
       }
-      fs.writeFileSync(env.OPENCLAW_CONFIG_PATH!, "{}");
+      fs.writeFileSync(env.GRANTED_CONFIG_PATH!, "{}");
       const runFixtureCommand = (bin: string, commandArgs: string[]) =>
         lifetime.track(
           runManagedCommand({

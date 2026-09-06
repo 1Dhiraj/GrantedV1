@@ -18,7 +18,7 @@ const loggerWarn = vi.hoisted(() => vi.fn());
 
 const undiciFetch = vi.hoisted(() => vi.fn());
 const setGlobalDispatcher = vi.hoisted(() => vi.fn());
-const TEST_UNDICI_RUNTIME_DEPS_KEY = "__OPENCLAW_TEST_UNDICI_RUNTIME_DEPS__";
+const TEST_UNDICI_RUNTIME_DEPS_KEY = "__GRANTED_TEST_UNDICI_RUNTIME_DEPS__";
 type MockDispatcherInstance = {
   options?: Record<string, unknown> | string;
   destroy: ReturnType<typeof vi.fn>;
@@ -135,8 +135,8 @@ beforeAll(async () => {
 beforeEach(() => {
   vi.unstubAllEnvs();
   for (const key of [
-    "OPENCLAW_DEBUG_PROXY_ENABLED",
-    "OPENCLAW_DEBUG_PROXY_URL",
+    "GRANTED_DEBUG_PROXY_ENABLED",
+    "GRANTED_DEBUG_PROXY_URL",
     "ALL_PROXY",
     "all_proxy",
     "HTTP_PROXY",
@@ -145,9 +145,9 @@ beforeEach(() => {
     "https_proxy",
     "NO_PROXY",
     "no_proxy",
-    "OPENCLAW_PROXY_URL",
-    "OPENCLAW_PROXY_ACTIVE",
-    "OPENCLAW_PROXY_CA_FILE",
+    "GRANTED_PROXY_URL",
+    "GRANTED_PROXY_ACTIVE",
+    "GRANTED_PROXY_CA_FILE",
   ]) {
     vi.stubEnv(key, "");
   }
@@ -483,8 +483,8 @@ describe("resolveTelegramFetch", () => {
   it("adds managed proxy CA trust to Telegram env proxy dispatchers", async () => {
     const caFile = writeTempCa("telegram-managed-proxy-ca");
     vi.stubEnv("https_proxy", "https://proxy.example:8443");
-    vi.stubEnv("OPENCLAW_PROXY_ACTIVE", "1");
-    vi.stubEnv("OPENCLAW_PROXY_CA_FILE", caFile);
+    vi.stubEnv("GRANTED_PROXY_ACTIVE", "1");
+    vi.stubEnv("GRANTED_PROXY_CA_FILE", caFile);
     undiciFetch.mockResolvedValue({ ok: true } as Response);
 
     const resolved = resolveTelegramFetchOrThrow(undefined, {
@@ -507,8 +507,8 @@ describe("resolveTelegramFetch", () => {
   });
 
   it("uses the OpenClaw debug proxy URL when no explicit proxy fetch is provided", async () => {
-    vi.stubEnv("OPENCLAW_DEBUG_PROXY_ENABLED", "1");
-    vi.stubEnv("OPENCLAW_DEBUG_PROXY_URL", "http://127.0.0.1:7777");
+    vi.stubEnv("GRANTED_DEBUG_PROXY_ENABLED", "1");
+    vi.stubEnv("GRANTED_DEBUG_PROXY_URL", "http://127.0.0.1:7777");
     undiciFetch.mockResolvedValue({ ok: true } as Response);
 
     const resolved = resolveTelegramFetch(undefined);
@@ -523,8 +523,8 @@ describe("resolveTelegramFetch", () => {
     expect(proxyOptions.uri).toBe("http://127.0.0.1:7777");
   });
 
-  it("uses OPENCLAW_PROXY_URL as a Telegram explicit proxy when proxy env is absent", async () => {
-    vi.stubEnv("OPENCLAW_PROXY_URL", "http://127.0.0.1:7788");
+  it("uses GRANTED_PROXY_URL as a Telegram explicit proxy when proxy env is absent", async () => {
+    vi.stubEnv("GRANTED_PROXY_URL", "http://127.0.0.1:7788");
     undiciFetch.mockResolvedValue({ ok: true } as Response);
 
     const transport = resolveTelegramTransport(undefined, {
@@ -554,8 +554,8 @@ describe("resolveTelegramFetch", () => {
     expect(dispatcherPolicy?.proxyUrl).toBe("http://127.0.0.1:7788");
   });
 
-  it("preserves caller-provided custom fetch when OPENCLAW_PROXY_URL is present", async () => {
-    vi.stubEnv("OPENCLAW_PROXY_URL", "http://127.0.0.1:7788");
+  it("preserves caller-provided custom fetch when GRANTED_PROXY_URL is present", async () => {
+    vi.stubEnv("GRANTED_PROXY_URL", "http://127.0.0.1:7788");
     const proxyFetch = vi.fn(async () => ({ ok: true }) as Response) as unknown as typeof fetch;
 
     const transport = resolveTelegramTransport(proxyFetch, {
@@ -576,8 +576,8 @@ describe("resolveTelegramFetch", () => {
     expect(transport.dispatcherAttempts).toBeUndefined();
   });
 
-  it("prefers standard proxy env over OPENCLAW_PROXY_URL for Telegram", async () => {
-    vi.stubEnv("OPENCLAW_PROXY_URL", "http://127.0.0.1:7788");
+  it("prefers standard proxy env over GRANTED_PROXY_URL for Telegram", async () => {
+    vi.stubEnv("GRANTED_PROXY_URL", "http://127.0.0.1:7788");
     vi.stubEnv("https_proxy", "http://127.0.0.1:7890");
     undiciFetch.mockResolvedValue({ ok: true } as Response);
 
@@ -712,7 +712,7 @@ describe("resolveTelegramFetch", () => {
   });
 
   it("skips sticky IPv4 fallback when the DNS result order env override is verbatim", async () => {
-    vi.stubEnv("OPENCLAW_TELEGRAM_DNS_RESULT_ORDER", "verbatim");
+    vi.stubEnv("GRANTED_TELEGRAM_DNS_RESULT_ORDER", "verbatim");
     undiciFetch.mockResolvedValueOnce({ ok: true } as Response);
     const transport = resolveTelegramTransport();
 

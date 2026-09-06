@@ -93,16 +93,16 @@ const writers = new Map<string, CacheTraceWriter>();
 function resolveCacheTraceConfig(params: CacheTraceInit): CacheTraceConfig {
   const env = params.env ?? process.env;
   const config = params.cfg?.diagnostics?.cacheTrace;
-  const envEnabled = parseBooleanValue(env.OPENCLAW_CACHE_TRACE);
+  const envEnabled = parseBooleanValue(env.GRANTED_CACHE_TRACE);
   const enabled = envEnabled ?? config?.enabled ?? false;
-  const fileOverride = env.OPENCLAW_CACHE_TRACE_FILE?.trim();
+  const fileOverride = env.GRANTED_CACHE_TRACE_FILE?.trim();
   const filePath = fileOverride
     ? resolveUserPath(fileOverride)
     : path.join(resolveStateDir(env), "logs", "cache-trace.jsonl");
 
-  const includeMessages = parseBooleanValue(env.OPENCLAW_CACHE_TRACE_MESSAGES);
-  const includePrompt = parseBooleanValue(env.OPENCLAW_CACHE_TRACE_PROMPT);
-  const includeSystem = parseBooleanValue(env.OPENCLAW_CACHE_TRACE_SYSTEM);
+  const includeMessages = parseBooleanValue(env.GRANTED_CACHE_TRACE_MESSAGES);
+  const includePrompt = parseBooleanValue(env.GRANTED_CACHE_TRACE_PROMPT);
+  const includeSystem = parseBooleanValue(env.GRANTED_CACHE_TRACE_SYSTEM);
 
   return {
     enabled,

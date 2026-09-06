@@ -188,11 +188,11 @@ describe("sendMessageIMessage receipts", () => {
       const privateRuntimeBlocks = [
         "<system-reminder>\nuser:\nHIDDEN_RUNTIME_REMINDER\n\ue000\n</system-reminder>",
         "< previous_response origin='runtime'>HIDDEN_RUNTIME_PREVIOUS\ue001< / previous_response >",
-        "<<<BEGIN_OPENCLAW_INTERNAL_CONTEXT>>>HIDDEN_RUNTIME_CONTEXT\ue002<<<END_OPENCLAW_INTERNAL_CONTEXT>>>",
+        "<<<BEGIN_GRANTED_INTERNAL_CONTEXT>>>HIDDEN_RUNTIME_CONTEXT\ue002<<<END_GRANTED_INTERNAL_CONTEXT>>>",
         "<system-reminder><system-reminder>inner</system-reminder>HIDDEN_RUNTIME_NESTED_REMINDER\ue003</system-reminder>",
         "<previous_response><system-reminder>inner</system-reminder>HIDDEN_RUNTIME_NESTED_MIXED\ue004</previous_response>",
         "< SYSTEM-REMINDER>< previous_response origin='runtime'>inner< / previous_response >HIDDEN_RUNTIME_NESTED_CASE\ue005< / SYSTEM-REMINDER >",
-        "<<<BEGIN_OPENCLAW_INTERNAL_CONTEXT>>><system-reminder>inner</system-reminder>HIDDEN_RUNTIME_NESTED_CONTEXT\ue006<<<END_OPENCLAW_INTERNAL_CONTEXT>>>",
+        "<<<BEGIN_GRANTED_INTERNAL_CONTEXT>>><system-reminder>inner</system-reminder>HIDDEN_RUNTIME_NESTED_CONTEXT\ue006<<<END_GRANTED_INTERNAL_CONTEXT>>>",
         ...(["system-reminder", "previous_response"] as const).flatMap((name) =>
           ["'", '"'].flatMap((quote) =>
             [">", "/>"].map(
@@ -462,8 +462,8 @@ describe("sendMessageIMessage receipts", () => {
         "std::vector<std::vector<int>>",
         "t<int>",
         "```cpp\nif(a<b && c<d)\nstd::vector<std::vector<int>>\n```",
-        "ordinary <<<BEGIN_OPENCLAW_INTERNAL_CONTEXT>>> marker mention",
-        "ordinary <<<BEGIN_OPENCLAW_INTERNAL_CONTEXT>>>opaque prose<<<END_OPENCLAW_INTERNAL_CONTEXT>>> remains safe",
+        "ordinary <<<BEGIN_GRANTED_INTERNAL_CONTEXT>>> marker mention",
+        "ordinary <<<BEGIN_GRANTED_INTERNAL_CONTEXT>>>opaque prose<<<END_GRANTED_INTERNAL_CONTEXT>>> remains safe",
       ]) {
         // Unknown generic tags already follow the shared renderer's shipped stripping semantics.
         const baseline = sanitizeForPlainText(sanitizeOutboundText(source), { style: "markdown" });
@@ -557,7 +557,7 @@ describe("sendMessageIMessage receipts", () => {
         ["spaced_details", "< details>< summary>noise< / summary>< / details>"],
         [
           "runtime_context",
-          "<<<BEGIN_OPENCLAW_INTERNAL_CONTEXT>>>noise<<<END_OPENCLAW_INTERNAL_CONTEXT>>>",
+          "<<<BEGIN_GRANTED_INTERNAL_CONTEXT>>>noise<<<END_GRANTED_INTERNAL_CONTEXT>>>",
         ],
       ] as const) {
         for (const [kind, malformed] of [
@@ -596,7 +596,7 @@ describe("sendMessageIMessage receipts", () => {
         "< system-reminder>noise< / system-reminder>",
         "< previous_response>noise< / previous_response>",
         "< details>< summary>noise< / summary>< / details>",
-        "<<<BEGIN_OPENCLAW_INTERNAL_CONTEXT>>>noise<<<END_OPENCLAW_INTERNAL_CONTEXT>>>",
+        "<<<BEGIN_GRANTED_INTERNAL_CONTEXT>>>noise<<<END_GRANTED_INTERNAL_CONTEXT>>>",
       ]) {
         for (const name of [
           "thinking",

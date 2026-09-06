@@ -14,6 +14,7 @@ import {
 } from "./realtime-talk-input.ts";
 import { RealtimeTalkLevelSignal } from "./realtime-talk-level.ts";
 import { RealtimeTalkSession, type RealtimeTalkStatus } from "./realtime-talk.ts";
+import { createWakeWordController, type WakeWordController } from "./wake-word.ts";
 
 export type ChatRealtimeState = {
   client: GatewayBrowserClient | null;
@@ -34,6 +35,7 @@ export type ChatRealtimeState = {
   realtimeTalkCameraError: boolean;
   realtimeTalkSession: RealtimeTalkSession | null;
   realtimeTalkConversationState: RealtimeTalkConversationState;
+  wakeWord: WakeWordController | null;
   requestUpdate: () => void;
   resetRealtimeTalkConversation: () => void;
   toggleRealtimeTalk: () => Promise<void>;
@@ -55,6 +57,7 @@ export function createInitialChatRealtimeState() {
     realtimeTalkCameraError: false,
     realtimeTalkSession: null,
     realtimeTalkConversationState: createRealtimeTalkConversationState(),
+    wakeWord: null,
   };
 }
 
@@ -90,6 +93,14 @@ export function dismissRealtimeTalkError(state: ChatRealtimeState) {
 
 export function attachChatRealtimeActions(state: ChatRealtimeState) {
   const talkStatusIsError = () => state.realtimeTalkStatus === "error";
+  state.wakeWord = createWakeWordController({
+    phrase: () => state.settings.wakeWordPhrase ?? "",
+    enabled: () => state.settings.wakeWordEnabled === true,
+    talkActive: () => state.realtimeTalkActive,
+    startTalk: () => state.toggleRealtimeTalk(),
+    requestUpdate: () => state.requestUpdate(),
+  });
+  state.wakeWord.sync();
   const persistCameraPreference = (enabled: boolean) => {
     state.settings = patchSettings({ talkCameraAutoEnable: enabled });
   };

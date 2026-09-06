@@ -51,7 +51,7 @@ describe("doctor transcript owner repair", () => {
     { sourceAgentId: "main", requiredAlias: false, requiredCanonical: false },
   ])("preserves required creation provenance during canonical repair: %o", async (fixture) => {
     await withStateDirEnv("openclaw-doctor-canonical-creation-stamp-", async ({ stateDir }) => {
-      const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+      const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
       const storeTemplate = path.join(stateDir, "agents", "{agentId}", "sessions.json");
       const destinationStore = resolveSessionStorePathCore(storeTemplate, { agentId: "main", env });
       const sourceStore = resolveSessionStorePathCore(storeTemplate, {
@@ -134,7 +134,7 @@ describe("doctor transcript owner repair", () => {
   ])("$label from the selected canonical-repair winner", async (fixture) => {
     const { sourceAgentId, winnerOwned } = fixture;
     await withStateDirEnv("openclaw-doctor-assigned-owner-", async ({ stateDir }) => {
-      const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+      const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
       const storeTemplate = path.join(stateDir, "agents", "{agentId}", "sessions.json");
       const destinationStore = resolveSessionStorePathCore(storeTemplate, { agentId: "main", env });
       const sourceStore = resolveSessionStorePathCore(storeTemplate, {
@@ -233,7 +233,7 @@ describe("doctor transcript owner repair", () => {
 
   it("restores a valid node after an empty alias steals its transcript window", async () => {
     await withStateDirEnv("openclaw-doctor-transcript-owner-", async ({ stateDir }) => {
-      const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+      const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
       const storeTemplate = path.join(stateDir, "agents", "{agentId}", "sessions.json");
       const storePath = resolveSessionStorePathCore(storeTemplate, { agentId: "main", env });
       const cfg = {
@@ -309,7 +309,7 @@ describe("doctor transcript owner repair", () => {
 
   it("follows alias ownership transitively to the configured canonical key", async () => {
     await withStateDirEnv("openclaw-doctor-transcript-owner-chain-", async ({ stateDir }) => {
-      const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+      const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
       const storeTemplate = path.join(stateDir, "agents", "{agentId}", "sessions.json");
       const storePath = resolveSessionStorePathCore(storeTemplate, { agentId: "main", env });
       const cfg = {

@@ -115,7 +115,7 @@ export async function runNodePtyCommand(
     process.env,
     params.env,
     params.pathEnv ? { PATH: params.pathEnv } : undefined,
-    { OPENCLAW_TERMINAL: "1" },
+    { GRANTED_TERMINAL: "1" },
   ]);
   const pty = await spawn({
     file: params.file,

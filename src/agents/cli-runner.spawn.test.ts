@@ -143,7 +143,7 @@ describe("runCliAgent spawn path", () => {
     const image = createSolidPngBuffer(1, 1, { r: 255, g: 0, b: 0 });
     await fs.mkdir(path.dirname(imagePath), { recursive: true });
     await fs.writeFile(imagePath, image);
-    vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
+    vi.stubEnv("GRANTED_STATE_DIR", stateDir);
     mockSuccessfulCliRun(CLAUDE_OK_JSONL);
     const context = buildPreparedCliRunContext({
       sessionKey: "agent:arthur:main",
@@ -2034,7 +2034,7 @@ describe("runCliAgent spawn path", () => {
     supervisorSpawnMock.mockImplementationOnce(async (...args: unknown[]) => {
       const input = args[0] as Parameters<ReturnType<typeof getProcessSupervisor>["spawn"]>[0];
       const captureHandle = markMcpLoopbackToolCallStarted({
-        captureKey: input.env?.OPENCLAW_MCP_CLI_CAPTURE_KEY ?? "",
+        captureKey: input.env?.GRANTED_MCP_CLI_CAPTURE_KEY ?? "",
         toolName: "message",
         args: { action: "send", target: "chat123", message: "done" },
       });
@@ -2173,7 +2173,7 @@ describe("runCliAgent spawn path", () => {
   ])("$name", async (testCase) => {
     Object.assign(process.env, testCase.baseEnv);
     if (testCase.preserve) {
-      process.env.OPENCLAW_LIVE_CLI_BACKEND_PRESERVE_ENV = JSON.stringify(testCase.preserve);
+      process.env.GRANTED_LIVE_CLI_BACKEND_PRESERVE_ENV = JSON.stringify(testCase.preserve);
     }
     try {
       mockSuccessfulCliRun();
@@ -2193,7 +2193,7 @@ describe("runCliAgent spawn path", () => {
         expect(input.env?.[key]).toBe(value);
       }
     } finally {
-      delete process.env.OPENCLAW_LIVE_CLI_BACKEND_PRESERVE_ENV;
+      delete process.env.GRANTED_LIVE_CLI_BACKEND_PRESERVE_ENV;
       for (const key of Object.keys(testCase.baseEnv)) {
         delete process.env[key];
       }
@@ -2201,7 +2201,7 @@ describe("runCliAgent spawn path", () => {
   });
 
   it("keeps selected Claude auth authoritative over ambient and configured credentials", async () => {
-    vi.stubEnv("OPENCLAW_LIVE_CLI_BACKEND_PRESERVE_ENV", '["ANTHROPIC_API_KEY"]');
+    vi.stubEnv("GRANTED_LIVE_CLI_BACKEND_PRESERVE_ENV", '["ANTHROPIC_API_KEY"]');
     vi.stubEnv("ANTHROPIC_API_KEY", "ambient-api-key");
     mockSuccessfulCliRun(CLAUDE_OK_JSONL);
 

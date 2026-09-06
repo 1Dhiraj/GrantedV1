@@ -1,5 +1,5 @@
 import { createHmac } from "node:crypto";
-import { OPENCLAW_AGENT_RUNTIME_ID } from "../../agents/agent-runtime-id.js";
+import { GRANTED_AGENT_RUNTIME_ID } from "../../agents/agent-runtime-id.js";
 import { listActiveEmbeddedRunSessionIds } from "../../agents/embedded-agent-runner/active-run-projections.js";
 import { shouldComputeCommandAuthorized } from "../../auto-reply/command-detection.js";
 import { replyRunRegistry } from "../../auto-reply/reply/reply-run-registry.js";
@@ -241,7 +241,7 @@ function isRestartSafeChatSession(params: {
     entry.archivedAt === undefined &&
     entry.initializationPending !== true &&
     entry.pendingFinalDelivery === undefined &&
-    (entry.agentHarnessId === undefined || entry.agentHarnessId === OPENCLAW_AGENT_RUNTIME_ID) &&
+    (entry.agentHarnessId === undefined || entry.agentHarnessId === GRANTED_AGENT_RUNTIME_ID) &&
     entry.pluginOwnerId === undefined &&
     entry.spawnedBy === undefined &&
     entry.subagentRole === undefined &&

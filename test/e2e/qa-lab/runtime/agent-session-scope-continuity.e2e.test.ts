@@ -319,8 +319,8 @@ describe("agent session scope continuity", () => {
         controlUiEnabled: false,
         fastMode: true,
         runtimeEnvPatch: {
-          OPENCLAW_SKIP_CHANNELS: "1",
-          OPENCLAW_TEST_MINIMAL_GATEWAY: "1",
+          GRANTED_SKIP_CHANNELS: "1",
+          GRANTED_TEST_MINIMAL_GATEWAY: "1",
         },
         mutateConfig: (config) => ({ ...config, plugins: { enabled: false } }),
       });

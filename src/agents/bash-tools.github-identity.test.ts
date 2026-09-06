@@ -207,7 +207,7 @@ describe("exec GitHub identity", () => {
       try {
         const preparedRunEnvironment = prepareGitHubToolEnvironment({
           config,
-          env: { OPENCLAW_STATE_DIR: profileRoot },
+          env: { GRANTED_STATE_DIR: profileRoot },
           sourceConfig: {
             gateway: {
               controlUi: {

@@ -37,7 +37,7 @@ function extractReseedHistory(prompt: string | undefined): string {
 }
 
 async function withCliSessionState<T>(stateDir: string, run: () => Promise<T>): Promise<T> {
-  return await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, run);
+  return await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, run);
 }
 
 async function createSession(messages: string[] = [], agentId = "main") {

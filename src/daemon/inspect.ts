@@ -5,6 +5,8 @@ import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/st
 import {
   GATEWAY_SERVICE_KIND,
   GATEWAY_SERVICE_MARKER,
+  GATEWAY_SERVICE_MARKERS,
+  LEGACY_GATEWAY_SERVICE_MARKERS,
   resolveGatewayLaunchAgentLabel,
   resolveGatewaySystemdServiceName,
   resolveGatewayWindowsTaskName,
@@ -21,7 +23,7 @@ export type ExtraGatewayService = {
   label: string;
   detail: string;
   scope: "user" | "system";
-  marker?: "openclaw" | "clawdbot";
+  marker?: Marker;
   legacy?: boolean;
 };
 
@@ -29,7 +31,9 @@ export type FindExtraGatewayServicesOptions = {
   deep?: boolean;
 };
 
-const EXTRA_MARKERS = ["openclaw", "clawdbot"] as const;
+// Current name first: scans report the first marker a file mentions, and a file
+// that names both the current and a previous product should read as current.
+const EXTRA_MARKERS = GATEWAY_SERVICE_MARKERS;
 const SYSTEMD_REFERENCE_ONLY_KEYS = new Set([
   "after",
   "before",
@@ -150,9 +154,12 @@ export function detectMarkerLineWithGateway(contents: string): Marker | null {
 
 function hasGatewayServiceMarker(content: string): boolean {
   const lower = normalizeLowercaseStringOrEmpty(content);
-  const markerKeys = ["openclaw_service_marker"];
-  const kindKeys = ["openclaw_service_kind"];
-  const markerValues = [normalizeLowercaseStringOrEmpty(GATEWAY_SERVICE_MARKER)];
+  // A service file on disk was written by whichever version installed it, so
+  // match the current names and the ones used before the rename.
+  const prefixes = EXTRA_MARKERS.map((marker) => normalizeLowercaseStringOrEmpty(marker));
+  const markerKeys = prefixes.map((prefix) => `${prefix}_service_marker`);
+  const kindKeys = prefixes.map((prefix) => `${prefix}_service_kind`);
+  const markerValues = prefixes;
   const hasMarkerKey = markerKeys.some((key) => lower.includes(key));
   const hasKindKey = kindKeys.some((key) => lower.includes(key));
   const hasMarkerValue = markerValues.some((value) => lower.includes(value));
@@ -218,17 +225,17 @@ function isOpenClawGatewayLaunchdService(label: string, contents: string): boole
   if (hasGatewayServiceMarker(contents)) {
     return true;
   }
-  if (detectLaunchdGatewayExecutionMarker(contents) !== "openclaw") {
+  if (detectLaunchdGatewayExecutionMarker(contents) !== GATEWAY_SERVICE_MARKER) {
     return false;
   }
-  return label.startsWith("ai.openclaw.");
+  return EXTRA_MARKERS.some((marker) => label.startsWith(`ai.${marker}.`));
 }
 
 function isOpenClawGatewaySystemdService(name: string, contents: string): boolean {
   if (hasGatewayServiceMarker(contents)) {
     return true;
   }
-  if (!name.startsWith("openclaw-gateway")) {
+  if (!EXTRA_MARKERS.some((marker) => name.startsWith(`${marker}-gateway`))) {
     return false;
   }
   return normalizeLowercaseStringOrEmpty(contents).includes("gateway");
@@ -240,12 +247,15 @@ function isOpenClawGatewayTaskName(name: string): boolean {
     return false;
   }
   // Windows schtasks /Query returns task names prefixed with \ (e.g.
-  // \OpenClaw Gateway for root-folder tasks). Strip the leading
+  // \Granted Gateway for root-folder tasks). Strip the leading
   // backslash so the configured name matches correctly and the live
   // gateway task is not misidentified as an extra gateway service.
   const stripped = normalized.replace(/^\\+/, "");
   const defaultName = normalizeLowercaseStringOrEmpty(resolveGatewayWindowsTaskName());
-  return stripped === defaultName || /^openclaw gateway \(.+\)$/.test(stripped);
+  return (
+    stripped === defaultName ||
+    EXTRA_MARKERS.some((marker) => new RegExp(`^${marker} gateway \\(.+\\)$`).test(stripped))
+  );
 }
 
 function isIgnoredLaunchdLabel(label: string): boolean {
@@ -258,7 +268,7 @@ function isIgnoredSystemdName(name: string): boolean {
 
 function isLegacyLabel(label: string): boolean {
   const lower = normalizeLowercaseStringOrEmpty(label);
-  return lower.includes("clawdbot");
+  return LEGACY_GATEWAY_SERVICE_MARKERS.some((marker) => lower.includes(marker));
 }
 
 async function readDirEntries(dir: string): Promise<string[]> {
@@ -335,11 +345,9 @@ async function scanLaunchdDir(params: {
     const marker =
       label === params.managedLabel ||
       hasGatewayServiceMarker(contents) ||
-      executionMarker === "openclaw"
-        ? "openclaw"
-        : executionMarker === "clawdbot" || legacyLabel
-          ? "clawdbot"
-          : null;
+      executionMarker === GATEWAY_SERVICE_MARKER
+        ? GATEWAY_SERVICE_MARKER
+        : (executionMarker ?? (legacyLabel ? LEGACY_GATEWAY_SERVICE_MARKERS[0] : null));
     if (!marker) {
       continue;
     }
@@ -350,7 +358,7 @@ async function scanLaunchdDir(params: {
     }
     if (
       !params.includeManagedOpenClaw &&
-      marker === "openclaw" &&
+      marker === GATEWAY_SERVICE_MARKER &&
       isOpenClawGatewayLaunchdService(label, contents)
     ) {
       continue;
@@ -361,7 +369,7 @@ async function scanLaunchdDir(params: {
       detail: `plist: ${fullPath}`,
       scope: params.scope,
       marker,
-      legacy: marker !== "openclaw" || isLegacyLabel(label),
+      legacy: marker !== GATEWAY_SERVICE_MARKER || isLegacyLabel(label),
     });
   }
 
@@ -382,14 +390,14 @@ async function scanSystemdDir(params: {
 
   for (const { entry, name, fullPath, contents } of candidates) {
     const marker = hasGatewayServiceMarker(contents)
-      ? "openclaw"
+      ? GATEWAY_SERVICE_MARKER
       : detectMarkerLineWithGateway(contents);
     if (!marker) {
       continue;
     }
     if (
       !params.includeManagedOpenClaw &&
-      marker === "openclaw" &&
+      marker === GATEWAY_SERVICE_MARKER &&
       isOpenClawGatewaySystemdService(name, contents)
     ) {
       continue;
@@ -400,7 +408,7 @@ async function scanSystemdDir(params: {
       detail: `unit: ${fullPath}`,
       scope: params.scope,
       marker,
-      legacy: marker !== "openclaw",
+      legacy: marker !== GATEWAY_SERVICE_MARKER,
     });
   }
 
@@ -590,7 +598,7 @@ export async function findExtraGatewayServices(
         detail: task.taskToRun ? `task: ${name}, run: ${task.taskToRun}` : name,
         scope: "system",
         marker,
-        legacy: marker !== "openclaw",
+        legacy: marker !== GATEWAY_SERVICE_MARKER,
       });
     }
     return results;

@@ -21,7 +21,7 @@ describe("loadVitestExperimentalConfig", () => {
     expect(
       loadVitestExperimentalConfig(
         {
-          OPENCLAW_VITEST_FS_MODULE_CACHE: "1",
+          GRANTED_VITEST_FS_MODULE_CACHE: "1",
         },
         "linux",
       ),
@@ -37,7 +37,7 @@ describe("loadVitestExperimentalConfig", () => {
     expect(
       loadVitestExperimentalConfig(
         {
-          OPENCLAW_VITEST_FS_MODULE_CACHE_PATH: "/tmp/openclaw-vitest-cache",
+          GRANTED_VITEST_FS_MODULE_CACHE_PATH: "/tmp/openclaw-vitest-cache",
         },
         "linux",
       ),
@@ -57,7 +57,7 @@ describe("loadVitestExperimentalConfig", () => {
     expect(
       loadVitestExperimentalConfig(
         {
-          OPENCLAW_VITEST_FS_MODULE_CACHE: "1",
+          GRANTED_VITEST_FS_MODULE_CACHE: "1",
         },
         "win32",
       ),
@@ -73,7 +73,7 @@ describe("loadVitestExperimentalConfig", () => {
     expect(
       loadVitestExperimentalConfig(
         {
-          OPENCLAW_VITEST_FS_MODULE_CACHE: "0",
+          GRANTED_VITEST_FS_MODULE_CACHE: "0",
         },
         "linux",
       ),
@@ -84,8 +84,8 @@ describe("loadVitestExperimentalConfig", () => {
     expect(
       loadVitestExperimentalConfig(
         {
-          OPENCLAW_VITEST_IMPORT_DURATIONS: "true",
-          OPENCLAW_VITEST_PRINT_IMPORT_BREAKDOWN: "1",
+          GRANTED_VITEST_IMPORT_DURATIONS: "true",
+          GRANTED_VITEST_PRINT_IMPORT_BREAKDOWN: "1",
         },
         "linux",
       ),
@@ -265,8 +265,8 @@ export default {
     );
     const cacheConfig = loadVitestExperimentalConfig({}, "linux", root);
     const env = {
-      OPENCLAW_VITEST_FS_MODULE_CACHE: "1",
-      OPENCLAW_VITEST_FS_MODULE_CACHE_PATH: cacheConfig.experimental?.fsModuleCachePath,
+      GRANTED_VITEST_FS_MODULE_CACHE: "1",
+      GRANTED_VITEST_FS_MODULE_CACHE_PATH: cacheConfig.experimental?.fsModuleCachePath,
     };
     const check = (projects: string[], expected: [number, number]) => {
       run(

@@ -163,9 +163,9 @@ function installPackedPackage(root: string, tarball: string) {
       env: {
         ...process.env,
         HOME: home,
-        OPENCLAW_HOME: home,
-        OPENCLAW_STATE_DIR: state,
-        OPENCLAW_CONFIG_PATH: join(state, "openclaw.json"),
+        GRANTED_HOME: home,
+        GRANTED_STATE_DIR: state,
+        GRANTED_CONFIG_PATH: join(state, "openclaw.json"),
         TMPDIR: temporary,
         TMP: temporary,
         TEMP: temporary,

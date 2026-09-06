@@ -2,7 +2,7 @@ import { afterEach, describe, expect, it } from "vitest";
 import { cleanupTempDirs, makeTempDir } from "../../test/helpers/temp-dir.js";
 import {
   closeOpenClawAgentDatabasesForTest,
-  OPENCLAW_AGENT_SCHEMA_VERSION,
+  GRANTED_AGENT_SCHEMA_VERSION,
   openOpenClawAgentDatabase,
 } from "../state/openclaw-agent-db.js";
 import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
@@ -15,7 +15,7 @@ function createV17AdditiveFixture(
   options: { schemaDrift?: "missing-cache-table" | "participant-dependency" } = {},
 ) {
   const stateDir = makeTempDir(tempDirs, "media-persistence-v17-additive-");
-  const env = { OPENCLAW_STATE_DIR: stateDir };
+  const env = { GRANTED_STATE_DIR: stateDir };
   const opened = openOpenClawAgentDatabase({ agentId: "main", env });
   const databasePath = opened.path;
   closeOpenClawAgentDatabasesForTest();
@@ -63,7 +63,7 @@ describe("legacy media persistence additive schema repair", () => {
 
   it("repairs same-version additive session schema before media validation", async () => {
     const stateDir = makeTempDir(tempDirs, "media-persistence-current-additive-");
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const opened = openOpenClawAgentDatabase({ agentId: "main", env });
     const databasePath = opened.path;
     opened.db
@@ -97,7 +97,7 @@ describe("legacy media persistence additive schema repair", () => {
     const repaired = new DatabaseSync(databasePath, { readOnly: true });
     try {
       expect(repaired.prepare("PRAGMA user_version").get()).toEqual({
-        user_version: OPENCLAW_AGENT_SCHEMA_VERSION,
+        user_version: GRANTED_AGENT_SCHEMA_VERSION,
       });
       expect(
         repaired
@@ -120,7 +120,7 @@ describe("legacy media persistence additive schema repair", () => {
     const repaired = new DatabaseSync(databasePath, { readOnly: true });
     try {
       expect(repaired.prepare("PRAGMA user_version").get()).toEqual({
-        user_version: OPENCLAW_AGENT_SCHEMA_VERSION,
+        user_version: GRANTED_AGENT_SCHEMA_VERSION,
       });
       expect(
         repaired

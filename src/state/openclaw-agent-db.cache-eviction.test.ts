@@ -11,13 +11,13 @@ import {
   isOpenClawAgentDatabaseOpen,
   listOpenClawAgentDatabasesForTest,
   listOpenClawRegisteredAgentDatabases,
-  OPENCLAW_AGENT_DB_OPEN_HANDLE_CAP,
+  GRANTED_AGENT_DB_OPEN_HANDLE_CAP,
   openOpenClawAgentDatabase,
 } from "./openclaw-agent-db.js";
 import { closeOpenClawStateDatabaseForTest } from "./openclaw-state-db.js";
 
 const BASE_AGENT_IDS = Array.from(
-  { length: OPENCLAW_AGENT_DB_OPEN_HANDLE_CAP },
+  { length: GRANTED_AGENT_DB_OPEN_HANDLE_CAP },
   (_, index) => `fixture-${index}`,
 );
 const BASE_AGENT_ID_SET = new Set(BASE_AGENT_IDS);
@@ -62,7 +62,7 @@ beforeAll(() => {
   fixtureStateDir = fs.realpathSync(
     fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-agent-db-cache-")),
   );
-  fixtureEnv = { OPENCLAW_STATE_DIR: fixtureStateDir };
+  fixtureEnv = { GRANTED_STATE_DIR: fixtureStateDir };
   restoreBaseCache();
 });
 
@@ -89,7 +89,7 @@ describe("openclaw agent database handle cache", () => {
     const leastRecentlyUsed = databases[0]!;
 
     expect(databases.filter((database) => database.db.isOpen)).toHaveLength(
-      OPENCLAW_AGENT_DB_OPEN_HANDLE_CAP,
+      GRANTED_AGENT_DB_OPEN_HANDLE_CAP,
     );
     expect(isOpenClawAgentDatabaseOpen(leastRecentlyUsed.path)).toBe(false);
     expect(leastRecentlyUsed.db.isOpen).toBe(false);

@@ -24,9 +24,9 @@ describe("managed Tailscale upgrade", () => {
     );
     const marker = path.join(tempDirs.make("openclaw-tailscale-upgrade-"), "state");
     await writeFile(marker, JSON.stringify(config));
-    process.env.OPENCLAW_TEST_TAILSCALE_BINARY = fixture;
-    process.env.OPENCLAW_TEST_TAILSCALE_FIXTURE_MARKER = marker;
-    process.env.OPENCLAW_TEST_TAILSCALE_FIXTURE_MODE = mode;
+    process.env.GRANTED_TEST_TAILSCALE_BINARY = fixture;
+    process.env.GRANTED_TEST_TAILSCALE_FIXTURE_MARKER = marker;
+    process.env.GRANTED_TEST_TAILSCALE_FIXTURE_MODE = mode;
     process.env.VITEST ??= "true";
     return marker;
   };
@@ -35,9 +35,9 @@ describe("managed Tailscale upgrade", () => {
     "does not infer ownership from a matching persistent %s route",
     async (mode) => {
       const env = captureEnv([
-        "OPENCLAW_TEST_TAILSCALE_BINARY",
-        "OPENCLAW_TEST_TAILSCALE_FIXTURE_MARKER",
-        "OPENCLAW_TEST_TAILSCALE_FIXTURE_MODE",
+        "GRANTED_TEST_TAILSCALE_BINARY",
+        "GRANTED_TEST_TAILSCALE_FIXTURE_MARKER",
+        "GRANTED_TEST_TAILSCALE_FIXTURE_MODE",
         "VITEST",
       ]);
       const marker = await installFixture(legacyRoute(mode === "funnel"), mode);
@@ -61,9 +61,9 @@ describe("managed Tailscale upgrade", () => {
 
   it("does not mutate an independent Tailscale Service", async () => {
     const env = captureEnv([
-      "OPENCLAW_TEST_TAILSCALE_BINARY",
-      "OPENCLAW_TEST_TAILSCALE_FIXTURE_MARKER",
-      "OPENCLAW_TEST_TAILSCALE_FIXTURE_MODE",
+      "GRANTED_TEST_TAILSCALE_BINARY",
+      "GRANTED_TEST_TAILSCALE_FIXTURE_MARKER",
+      "GRANTED_TEST_TAILSCALE_FIXTURE_MODE",
       "VITEST",
     ]);
     const marker = await installFixture({ Services: { "svc:other": legacyRoute() } }, "serve");

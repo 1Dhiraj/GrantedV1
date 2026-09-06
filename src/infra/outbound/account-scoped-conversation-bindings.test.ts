@@ -59,9 +59,9 @@ describe("account-scoped conversation binding expiry", () => {
   let testStateDir = "";
 
   beforeEach(async () => {
-    previousStateDir = process.env.OPENCLAW_STATE_DIR;
+    previousStateDir = process.env.GRANTED_STATE_DIR;
     testStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-account-bindings-"));
-    process.env.OPENCLAW_STATE_DIR = testStateDir;
+    process.env.GRANTED_STATE_DIR = testStateDir;
     resetAccountScopedConversationBindingsForTests({ stateKey });
     currentConversationBindingTesting.clearPersistedCurrentConversationBindingsForTests();
   });
@@ -71,9 +71,9 @@ describe("account-scoped conversation binding expiry", () => {
     currentConversationBindingTesting.clearPersistedCurrentConversationBindingsForTests();
     closeOpenClawStateDatabaseForTest();
     if (previousStateDir === undefined) {
-      delete process.env.OPENCLAW_STATE_DIR;
+      delete process.env.GRANTED_STATE_DIR;
     } else {
-      process.env.OPENCLAW_STATE_DIR = previousStateDir;
+      process.env.GRANTED_STATE_DIR = previousStateDir;
     }
     await fs.rm(testStateDir, { recursive: true, force: true });
     vi.restoreAllMocks();

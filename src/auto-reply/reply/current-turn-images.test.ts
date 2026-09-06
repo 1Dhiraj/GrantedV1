@@ -17,7 +17,7 @@ vi.mock("./agent-turn-attachments.js", async (importOriginal) => {
   };
 });
 
-const originalStateDirEnv = process.env.OPENCLAW_STATE_DIR;
+const originalStateDirEnv = process.env.GRANTED_STATE_DIR;
 const PNG_IMAGE_BYTES = Buffer.from(
   "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGNgYAAAAAMAASsJTYQAAAAASUVORK5CYII=",
   "base64",
@@ -45,9 +45,9 @@ function createDescribedImageContext(describedIndexes: number[]): MsgContext {
 
 function restoreProcessState() {
   if (originalStateDirEnv === undefined) {
-    deleteTestEnvValue("OPENCLAW_STATE_DIR");
+    deleteTestEnvValue("GRANTED_STATE_DIR");
   } else {
-    setTestEnvValue("OPENCLAW_STATE_DIR", originalStateDirEnv);
+    setTestEnvValue("GRANTED_STATE_DIR", originalStateDirEnv);
   }
 }
 
@@ -67,7 +67,7 @@ describe("resolveCurrentTurnImages", () => {
       await fs.mkdir(path.dirname(attachmentPath), { recursive: true });
       await fs.mkdir(cwd, { recursive: true });
       await fs.writeFile(attachmentPath, imageBytes);
-      setTestEnvValue("OPENCLAW_STATE_DIR", stateDir);
+      setTestEnvValue("GRANTED_STATE_DIR", stateDir);
       vi.spyOn(process, "cwd").mockReturnValue(cwd);
 
       const result = await resolveCurrentTurnImages({

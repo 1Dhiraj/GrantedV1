@@ -77,7 +77,7 @@ export { createCapturedThinkingConfigStream } from "./test-helpers/stream-hooks.
 export {
   expectOpenClawLiveTranscriptMarker,
   normalizeTranscriptForMatch,
-  OPENCLAW_LIVE_TRANSCRIPT_MARKER_RE,
+  GRANTED_LIVE_TRANSCRIPT_MARKER_RE,
   runRealtimeSttLiveTest,
   streamAudioForLiveTest,
   synthesizeElevenLabsLiveSpeech,

@@ -104,7 +104,7 @@ describe("Code Mode model matrix provider setup", () => {
     expect(buildCodeModeMatrixAgentEnv("ollama/qwen3.5:9b", "/runtime", {})).toMatchObject({
       NODE_DISABLE_COMPILE_CACHE: "1",
       OLLAMA_API_KEY: "ollama-local",
-      OPENCLAW_BUNDLED_PLUGINS_DIR: path.join("/runtime", "dist", "extensions"),
+      GRANTED_BUNDLED_PLUGINS_DIR: path.join("/runtime", "dist", "extensions"),
     });
     expect(
       buildCodeModeMatrixAgentEnv("ollama/qwen3.5:9b", "/runtime", {

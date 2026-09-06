@@ -1259,7 +1259,7 @@ describe("qa suite runtime launcher", () => {
 
     expect(runQaTestFileScenarios).toHaveBeenCalledWith(
       expect.objectContaining({
-        env: { OPENCLAW_E2E_USE_PREBUILT_DIST: "1" },
+        env: { GRANTED_E2E_USE_PREBUILT_DIST: "1" },
         outputDir: path.join(repoRoot, ".artifacts", "qa-e2e", "prepared-vitest", "vitest"),
       }),
     );
@@ -2004,7 +2004,7 @@ describe("qa suite runtime launcher", () => {
 
   it("runs script scenarios after flow Gateways stop without serializing Playwright", async () => {
     const repoRoot = await makeTempRepo("qa-suite-script-isolation-");
-    vi.stubEnv("OPENCLAW_QA_SUITE_PROGRESS", "1");
+    vi.stubEnv("GRANTED_QA_SUITE_PROGRESS", "1");
     const flow = blockNextQaFlowSuite();
 
     const runPromise = runQaSuite({
@@ -2069,7 +2069,7 @@ describe("qa suite runtime launcher", () => {
 
   it("streams native owner progress without exposing child output to CI", async () => {
     const repoRoot = await makeTempRepo("qa-suite-safe-native-progress-");
-    vi.stubEnv("OPENCLAW_QA_SUITE_PROGRESS", "1");
+    vi.stubEnv("GRANTED_QA_SUITE_PROGRESS", "1");
     const stdoutWrite = vi.spyOn(process.stdout, "write").mockReturnValue(true);
     const stderrWrite = vi.spyOn(process.stderr, "write").mockReturnValue(true);
     const defaultTestFileImplementation = requireDefaultQaTestFileImplementation();
@@ -2127,7 +2127,7 @@ describe("qa suite runtime launcher", () => {
     const serial = createDeferred();
     const parallel = createDeferred();
     const started: string[] = [];
-    const preparedEnv = Object.freeze({ OPENCLAW_CURRENT_PACKAGE_TGZ: "/tmp/candidate.tgz" });
+    const preparedEnv = Object.freeze({ GRANTED_CURRENT_PACKAGE_TGZ: "/tmp/candidate.tgz" });
     const scriptEnvs: unknown[] = [];
     const parallelScriptIds: string[] = [];
     let activeParallelScripts = 0;
@@ -2228,7 +2228,7 @@ describe("qa suite runtime launcher", () => {
 
   it("reuses the prepared Docker env object when a script partition retries", async () => {
     const repoRoot = await makeTempRepo("qa-suite-docker-prep-retry-");
-    const preparedEnv = Object.freeze({ OPENCLAW_CURRENT_PACKAGE_TGZ: "/tmp/candidate.tgz" });
+    const preparedEnv = Object.freeze({ GRANTED_CURRENT_PACKAGE_TGZ: "/tmp/candidate.tgz" });
     const defaultImplementation = requireDefaultQaTestFileImplementation();
     prepareDockerE2eEnvironment.mockResolvedValueOnce(preparedEnv);
     runQaTestFileScenarios
@@ -2267,7 +2267,7 @@ describe("qa suite runtime launcher", () => {
 
   it("prepares the Docker candidate before a script-owned Docker lane", async () => {
     const repoRoot = await makeTempRepo("qa-suite-script-docker-prep-");
-    const preparedEnv = Object.freeze({ OPENCLAW_CURRENT_PACKAGE_TGZ: "/tmp/candidate.tgz" });
+    const preparedEnv = Object.freeze({ GRANTED_CURRENT_PACKAGE_TGZ: "/tmp/candidate.tgz" });
     prepareDockerE2eEnvironment.mockResolvedValueOnce(preparedEnv);
 
     await runQaSuite({ repoRoot, scenarioIds: ["cli-onboarding"] });
@@ -2350,7 +2350,7 @@ describe("qa suite runtime launcher", () => {
     const repoRoot = await makeTempRepo("qa-suite-fail-fast-scripts-");
     const defaultTestFileImplementation = requireDefaultQaTestFileImplementation();
     const first = createDeferred();
-    const preparedEnv = Object.freeze({ OPENCLAW_CURRENT_PACKAGE_TGZ: "/tmp/candidate.tgz" });
+    const preparedEnv = Object.freeze({ GRANTED_CURRENT_PACKAGE_TGZ: "/tmp/candidate.tgz" });
     const started: string[] = [];
     let active = 0;
     let maxActive = 0;
@@ -2824,7 +2824,7 @@ describe("qa suite runtime launcher", () => {
   });
 
   it("preserves configured isolated worker start stagger overrides", async () => {
-    vi.stubEnv("OPENCLAW_QA_SUITE_WORKER_START_STAGGER_MS", "2500");
+    vi.stubEnv("GRANTED_QA_SUITE_WORKER_START_STAGGER_MS", "2500");
     const repoRoot = await makeTempRepo("qa-suite-stagger-env-");
     await runQaSuite({
       repoRoot,

@@ -80,7 +80,7 @@ function resolveExecApprovalsStateDir(env: NodeJS.ProcessEnv = process.env): {
   path: string;
   displayPath: string;
 } {
-  const override = env.OPENCLAW_STATE_DIR?.trim();
+  const override = env.GRANTED_STATE_DIR?.trim();
   if (override) {
     const resolved = resolveHomeRelativePath(override, { env });
     return {
@@ -111,8 +111,8 @@ export function resolveExecApprovalsDisplayPath(): string {
 }
 
 export function resolveExecApprovalsTranscriptPath(): string {
-  return process.env.OPENCLAW_STATE_DIR?.trim()
-    ? "$OPENCLAW_STATE_DIR/state/openclaw.sqlite#exec_approvals_config"
+  return process.env.GRANTED_STATE_DIR?.trim()
+    ? "$GRANTED_STATE_DIR/state/openclaw.sqlite#exec_approvals_config"
     : `${DEFAULT_EXEC_APPROVALS_STATE_DIR}/state/openclaw.sqlite#exec_approvals_config`;
 }
 

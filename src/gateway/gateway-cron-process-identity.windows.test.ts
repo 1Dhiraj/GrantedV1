@@ -12,9 +12,9 @@ describe.skipIf(process.platform !== "win32")("Windows cron process identity", (
       const instance = await createOpenClawTestInstance({
         name: `windows-cron-process-identity-${process.pid}`,
         env: {
-          OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-          OPENCLAW_SKIP_CRON: undefined,
-          OPENCLAW_TEST_MINIMAL_GATEWAY: undefined,
+          GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+          GRANTED_SKIP_CRON: undefined,
+          GRANTED_TEST_MINIMAL_GATEWAY: undefined,
         },
       });
       let jobId: string | undefined;

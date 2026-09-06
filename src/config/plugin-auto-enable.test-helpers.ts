@@ -23,9 +23,9 @@ export function makeTempDir(): string {
 export function makeIsolatedEnv(overrides: NodeJS.ProcessEnv = {}): NodeJS.ProcessEnv {
   const rootDir = makeTempDir();
   return {
-    OPENCLAW_STATE_DIR: path.join(rootDir, "state"),
-    OPENCLAW_BUNDLED_PLUGINS_DIR: path.join(process.cwd(), "extensions"),
-    OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR: "1",
+    GRANTED_STATE_DIR: path.join(rootDir, "state"),
+    GRANTED_BUNDLED_PLUGINS_DIR: path.join(process.cwd(), "extensions"),
+    GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR: "1",
     VITEST: "true",
     ...overrides,
   };

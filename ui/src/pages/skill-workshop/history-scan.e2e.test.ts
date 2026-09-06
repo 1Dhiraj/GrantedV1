@@ -12,7 +12,7 @@ import {
 
 const chromiumExecutablePath = resolvePlaywrightChromiumExecutablePath(chromium.executablePath());
 const describeBrowser = canRunPlaywrightChromium(chromiumExecutablePath) ? describe : describe.skip;
-const captureProof = process.env.OPENCLAW_CAPTURE_UI_PROOF === "1";
+const captureProof = process.env.GRANTED_CAPTURE_UI_PROOF === "1";
 const artifactDir = path.join(
   process.cwd(),
   ".artifacts",

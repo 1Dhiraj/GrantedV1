@@ -571,7 +571,7 @@ describe("runCapability auto audio entries", () => {
           GEMINI_API_KEY: undefined,
           GOOGLE_API_KEY: undefined,
           MISTRAL_API_KEY: "mistral-test-key", // pragma: allowlist secret
-          OPENCLAW_AGENT_DIR: isolatedAgentDir,
+          GRANTED_AGENT_DIR: isolatedAgentDir,
         },
         async () => {
           await withAudioFixture("openclaw-auto-audio-mistral", async ({ ctx, media, cache }) => {

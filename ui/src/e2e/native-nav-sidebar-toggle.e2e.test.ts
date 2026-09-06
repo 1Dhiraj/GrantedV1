@@ -29,7 +29,7 @@ let TOAST_PROOF_DIR: string;
 beforeEach(() => {
   TOAST_PROOF_DIR = createControlUiE2eArtifactDir("toast-layering");
 });
-const railProofDirParent = process.env.OPENCLAW_UI_RAIL_PROOF_DIR?.trim();
+const railProofDirParent = process.env.GRANTED_UI_RAIL_PROOF_DIR?.trim();
 let railProofDir: string | undefined;
 beforeEach(() => {
   railProofDir = railProofDirParent

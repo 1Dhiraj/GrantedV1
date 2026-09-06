@@ -75,7 +75,7 @@ describe("clawhub client", () => {
   }
 
   afterEach(() => {
-    delete process.env.OPENCLAW_CLAWHUB_URL;
+    delete process.env.GRANTED_CLAWHUB_URL;
     delete process.env.CLAWHUB_TOKEN;
     delete process.env.CLAWHUB_AUTH_TOKEN;
     delete process.env.CLAWHUB_CONFIG_PATH;
@@ -255,7 +255,7 @@ describe("clawhub client", () => {
   });
 
   it("preserves the configured ClawHub base URL path prefix", async () => {
-    process.env.OPENCLAW_CLAWHUB_URL = "https://internal.example.com/clawhub";
+    process.env.GRANTED_CLAWHUB_URL = "https://internal.example.com/clawhub";
     let requestedUrl = "";
 
     await expect(

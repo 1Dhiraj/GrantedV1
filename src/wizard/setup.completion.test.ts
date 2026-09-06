@@ -14,15 +14,15 @@ import { setupWizardShellCompletion } from "./setup.completion.js";
 const tempDirs = useAutoCleanupTempDirTracker(afterEach);
 
 async function withLocale(locale: string, run: () => Promise<void>): Promise<void> {
-  const previousLocale = process.env.OPENCLAW_LOCALE;
-  process.env.OPENCLAW_LOCALE = locale;
+  const previousLocale = process.env.GRANTED_LOCALE;
+  process.env.GRANTED_LOCALE = locale;
   try {
     await run();
   } finally {
     if (previousLocale === undefined) {
-      delete process.env.OPENCLAW_LOCALE;
+      delete process.env.GRANTED_LOCALE;
     } else {
-      process.env.OPENCLAW_LOCALE = previousLocale;
+      process.env.GRANTED_LOCALE = previousLocale;
     }
   }
 }
@@ -212,7 +212,7 @@ describe("setupWizardShellCompletion", () => {
       {
         HOME: homeDir,
         USERPROFILE: homeDir,
-        OPENCLAW_STATE_DIR: stateDir,
+        GRANTED_STATE_DIR: stateDir,
         SHELL: `/bin/${testCase.shell}`,
         ZDOTDIR: undefined,
         XDG_CONFIG_HOME: undefined,
@@ -221,7 +221,7 @@ describe("setupWizardShellCompletion", () => {
       async () => {
         const cachePath = resolveCompletionCachePath(testCase.shell, "openclaw");
         await fs.mkdir(path.dirname(cachePath), { recursive: true });
-        await fs.writeFile(cachePath, "OPENCLAW_COMPLETION_LOADED=ready\n", "utf8");
+        await fs.writeFile(cachePath, "GRANTED_COMPLETION_LOADED=ready\n", "utf8");
         const prompter = createPrompter();
 
         await setupWizardShellCompletion({

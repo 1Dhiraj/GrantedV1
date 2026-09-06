@@ -93,7 +93,7 @@ vi.mock("openclaw/plugin-sdk/media-runtime", async (importOriginal) => ({
 
 const testStateEnv: NodeJS.ProcessEnv = {
   ...process.env,
-  OPENCLAW_STATE_DIR: fs.mkdtempSync(
+  GRANTED_STATE_DIR: fs.mkdtempSync(
     path.join(resolvePreferredOpenClawTmpDir(), "openclaw-sms-media-"),
   ),
 };

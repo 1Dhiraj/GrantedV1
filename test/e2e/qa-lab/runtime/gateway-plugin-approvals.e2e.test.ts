@@ -64,9 +64,9 @@ describe("gateway plugin approvals QA", () => {
       // handshake phase if this real connection fails before hello-ok.
       setLoggerOverride({ level: "silent", consoleLevel: "warn", consoleStyle: "compact" });
 
-      const stateDir = process.env.OPENCLAW_STATE_DIR;
+      const stateDir = process.env.GRANTED_STATE_DIR;
       if (!stateDir) {
-        throw new Error("OPENCLAW_STATE_DIR is required for gateway QA fixtures");
+        throw new Error("GRANTED_STATE_DIR is required for gateway QA fixtures");
       }
       const reviewerIdentity = loadOrCreateDeviceIdentity({
         path: path.join(stateDir, "test-device-identities", "plugin-approval-reviewer.sqlite"),

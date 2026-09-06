@@ -251,11 +251,11 @@ export function assertCodexAppServerCommandHasNoInlineArgs(params: {
   }
   const sourceLabel =
     params.source === "env"
-      ? "OPENCLAW_CODEX_APP_SERVER_BIN"
+      ? "GRANTED_CODEX_APP_SERVER_BIN"
       : "plugins.entries.codex.config.appServer.command";
   const argsLabel =
     params.source === "env"
-      ? "OPENCLAW_CODEX_APP_SERVER_ARGS"
+      ? "GRANTED_CODEX_APP_SERVER_ARGS"
       : "plugins.entries.codex.config.appServer.args";
   throw new Error(
     `${sourceLabel} must be only the Codex app-server executable path; "${inlineArgs.executable}" was configured with inline arguments "${inlineArgs.arguments}". Move those arguments to ${argsLabel}, or remove the override to use the managed Codex startup path.`,

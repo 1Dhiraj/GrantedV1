@@ -29,9 +29,9 @@ let previousConfigPath: string | undefined;
 
 beforeEach(() => {
   tmpDir = fsSync.mkdtempSync(path.join(os.tmpdir(), "session-reset-revision-test-"));
-  previousStateDir = process.env.OPENCLAW_STATE_DIR;
-  previousConfigPath = process.env.OPENCLAW_CONFIG_PATH;
-  Reflect.set(process.env, "OPENCLAW_STATE_DIR", tmpDir);
+  previousStateDir = process.env.GRANTED_STATE_DIR;
+  previousConfigPath = process.env.GRANTED_CONFIG_PATH;
+  Reflect.set(process.env, "GRANTED_STATE_DIR", tmpDir);
   clearRuntimeConfigSnapshot();
   clearConfigCache();
 });
@@ -40,14 +40,14 @@ afterEach(() => {
   closeOpenClawAgentDatabasesForTest();
   closeOpenClawStateDatabaseForTest();
   if (previousStateDir === undefined) {
-    Reflect.deleteProperty(process.env, "OPENCLAW_STATE_DIR");
+    Reflect.deleteProperty(process.env, "GRANTED_STATE_DIR");
   } else {
-    Reflect.set(process.env, "OPENCLAW_STATE_DIR", previousStateDir);
+    Reflect.set(process.env, "GRANTED_STATE_DIR", previousStateDir);
   }
   if (previousConfigPath === undefined) {
-    Reflect.deleteProperty(process.env, "OPENCLAW_CONFIG_PATH");
+    Reflect.deleteProperty(process.env, "GRANTED_CONFIG_PATH");
   } else {
-    Reflect.set(process.env, "OPENCLAW_CONFIG_PATH", previousConfigPath);
+    Reflect.set(process.env, "GRANTED_CONFIG_PATH", previousConfigPath);
   }
   clearRuntimeConfigSnapshot();
   clearConfigCache();

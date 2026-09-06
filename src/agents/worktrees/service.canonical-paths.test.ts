@@ -49,7 +49,7 @@ describe("ManagedWorktreeService canonical paths", () => {
     repo = await initializeRepository(root);
     stateDir = path.join(root, "state");
     await fs.mkdir(stateDir, { recursive: true });
-    env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+    env = { ...process.env, GRANTED_STATE_DIR: stateDir };
     service = new ManagedWorktreeService({ env });
   });
 
@@ -209,7 +209,7 @@ describe("ManagedWorktreeService canonical paths", () => {
       const linkedStateDir = path.join(root, "linked-state");
       await fs.symlink(realStateDir, linkedStateDir, "dir");
       const linkedStateService = new ManagedWorktreeService({
-        env: { ...process.env, OPENCLAW_STATE_DIR: linkedStateDir },
+        env: { ...process.env, GRANTED_STATE_DIR: linkedStateDir },
       });
 
       const created = await linkedStateService.create({

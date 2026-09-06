@@ -54,17 +54,17 @@ export function resolveDockerPluginSelection(params) {
 
   for (const selectedId of selectedIds) {
     if (!PLUGIN_ID_RE.test(selectedId)) {
-      throw new Error(`invalid OPENCLAW_EXTENSIONS plugin id: ${selectedId}`);
+      throw new Error(`invalid GRANTED_EXTENSIONS plugin id: ${selectedId}`);
     }
     const matches = plugins.filter(
       (plugin) => plugin.dirName === selectedId || plugin.manifestId === selectedId,
     );
     if (matches.length === 0) {
-      throw new Error(`unknown OPENCLAW_EXTENSIONS plugin id: ${selectedId}`);
+      throw new Error(`unknown GRANTED_EXTENSIONS plugin id: ${selectedId}`);
     }
     if (matches.length > 1) {
       throw new Error(
-        `ambiguous OPENCLAW_EXTENSIONS plugin id: ${selectedId} (${matches
+        `ambiguous GRANTED_EXTENSIONS plugin id: ${selectedId} (${matches
           .map((plugin) => plugin.dirName)
           .join(", ")})`,
       );

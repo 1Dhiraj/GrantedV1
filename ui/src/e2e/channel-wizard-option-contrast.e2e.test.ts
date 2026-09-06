@@ -12,7 +12,7 @@ const suite = createControlUiE2eSuite({
     `Playwright Chromium is required for channel wizard contrast proof at ${executablePath}`,
 });
 
-const proofVariant = process.env.OPENCLAW_PICKER_PROOF_VARIANT;
+const proofVariant = process.env.GRANTED_PICKER_PROOF_VARIANT;
 let proofDirectory: string;
 beforeEach(() => {
   if (proofVariant) {

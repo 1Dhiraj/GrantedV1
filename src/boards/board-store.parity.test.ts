@@ -38,7 +38,7 @@ afterEach(() => {
 
 it("does not select the HTML BLOB when preparing board view metadata", () => {
   const stateDir = tempDirs.make("openclaw-board-projection-");
-  const env = { OPENCLAW_STATE_DIR: stateDir };
+  const env = { GRANTED_STATE_DIR: stateDir };
   const sessionKey = "agent:main:projection";
   seedSession(env, "main", sessionKey);
   const database = openOpenClawAgentDatabase({ agentId: "main", env });
@@ -458,7 +458,7 @@ describe("SqliteBoardStore behavior", () => {
 describe("SqliteBoardStore persistence", () => {
   it("round-trips widget frame preferences through the manifest", () => {
     const stateDir = tempDirs.make("openclaw-board-widget-frame-");
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const sessionKey = "agent:main:widget-frame";
     seedSession(env, "main", sessionKey);
     const store = new SqliteBoardStore({
@@ -508,7 +508,7 @@ describe("SqliteBoardStore persistence", () => {
 
   it("drops MCP App rows without canonical authority provenance", () => {
     const stateDir = tempDirs.make("openclaw-board-noncanonical-app-");
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const sessionKey = "agent:main:board";
     seedSession(env, "main", sessionKey);
     const store = new SqliteBoardStore({
@@ -542,7 +542,7 @@ describe("SqliteBoardStore persistence", () => {
 
   it("migrates board tables into an existing v14 database", async () => {
     const stateDir = tempDirs.make("openclaw-board-lazy-schema-");
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const sessionKey = "agent:main:board";
     seedSession(env, "main", sessionKey);
     const opened = openOpenClawAgentDatabase({ agentId: "main", env });
@@ -612,7 +612,7 @@ describe("SqliteBoardStore persistence", () => {
 
   it("upgrades the v14 board constraint before storing plugin widgets", async () => {
     const stateDir = tempDirs.make("openclaw-board-plugin-kind-schema-");
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const sessionKey = "agent:main:board";
     seedSession(env, "main", sessionKey);
     const store = new SqliteBoardStore({
@@ -695,7 +695,7 @@ describe("SqliteBoardStore persistence", () => {
         agentId: "attacker-selected",
         sessionKey: "agent:attacker-selected:main",
       }),
-      env: { OPENCLAW_STATE_DIR: stateDir },
+      env: { GRANTED_STATE_DIR: stateDir },
     });
 
     expect(store.getSnapshot({ sessionKey: "agent:attacker-selected:main" })).toEqual({
@@ -724,7 +724,7 @@ describe("SqliteBoardStore persistence", () => {
 
   it("rejects board writes for transcript-only placeholder nodes", () => {
     const stateDir = tempDirs.make("openclaw-board-transcript-only-");
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const sessionKey = "agent:main:transcript-only";
     const database = openOpenClawAgentDatabase({ agentId: "main", env });
     database.db
@@ -757,7 +757,7 @@ describe("SqliteBoardStore persistence", () => {
 
   it("canonicalizes aliases before reading and writing board rows", () => {
     const stateDir = tempDirs.make("openclaw-board-alias-");
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const canonicalSessionKey = "agent:main:main";
     seedSession(env, "main", canonicalSessionKey);
     const store = new SqliteBoardStore({
@@ -791,7 +791,7 @@ describe("SqliteBoardStore persistence", () => {
 
   it("fails closed when reading a persisted unsafe capability manifest", () => {
     const stateDir = tempDirs.make("openclaw-board-unsafe-manifest-");
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const sessionKey = "agent:main:unsafe-manifest";
     seedSession(env, "main", sessionKey);
     const store = new SqliteBoardStore({
@@ -842,7 +842,7 @@ describe("SqliteBoardStore persistence", () => {
 
   it("reads widget bytes only from the canonical per-agent database", () => {
     const stateDir = tempDirs.make("openclaw-board-canonical-bytes-");
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const agentId = "worker-1";
     const sessionKey = "agent:worker-1:board";
     seedSession(env, agentId, sessionKey);
@@ -881,7 +881,7 @@ describe("SqliteBoardStore persistence", () => {
 
   it("purges board rows through the shared session deletion lifecycle", async () => {
     const stateDir = tempDirs.make("openclaw-board-shared-delete-");
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const sessionKey = "agent:main:cleanup";
     const databasePath = seedSession(env, "main", sessionKey);
     const store = new SqliteBoardStore({
@@ -913,7 +913,7 @@ describe("SqliteBoardStore persistence", () => {
 
   it("clears a frozen grant when the widget digest changes", () => {
     const stateDir = tempDirs.make("openclaw-board-granted-digest-");
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const sessionKey = "agent:main:grant-digest";
     seedSession(env, "main", sessionKey);
     const store = new SqliteBoardStore({
@@ -950,7 +950,7 @@ describe("SqliteBoardStore persistence", () => {
 
   it("requires reapproval for grants stored before byte-frozen semantics", () => {
     const stateDir = tempDirs.make("openclaw-board-legacy-grant-");
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const sessionKey = "agent:main:legacy-grant";
     seedSession(env, "main", sessionKey);
     const store = new SqliteBoardStore({
@@ -1000,7 +1000,7 @@ describe("SqliteBoardStore persistence", () => {
         agentId: sessionKey.split(":")[1] ?? "main",
         sessionKey,
       }),
-      env: { OPENCLAW_STATE_DIR: stateDir },
+      env: { GRANTED_STATE_DIR: stateDir },
     };
     seedSession(options.env, "alpha", "agent:alpha:board");
     seedSession(options.env, "beta", "agent:beta:board");

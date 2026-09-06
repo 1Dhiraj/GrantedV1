@@ -12,7 +12,7 @@ import {
   runOpenClawStateWriteTransaction,
   type OpenClawStateDatabaseOptions,
 } from "../state/openclaw-state-db.js";
-import { OPENCLAW_STATE_SCHEMA_SQL } from "../state/openclaw-state-schema.js";
+import { GRANTED_STATE_SCHEMA_SQL } from "../state/openclaw-state-schema.js";
 import {
   parseExecutionIdentityAdmissionToken,
   type ExecutionIdentityAdmissionToken,
@@ -52,18 +52,18 @@ export function hasMessageExecutionBindingColumns(
 }
 
 function terminalBindingSchemaSql(): string {
-  const start = OPENCLAW_STATE_SCHEMA_SQL.indexOf(
+  const start = GRANTED_STATE_SCHEMA_SQL.indexOf(
     "CREATE TABLE IF NOT EXISTS outbound_message_execution_bindings (",
   );
-  const indexStart = OPENCLAW_STATE_SCHEMA_SQL.indexOf(
+  const indexStart = GRANTED_STATE_SCHEMA_SQL.indexOf(
     "CREATE INDEX IF NOT EXISTS outbound_message_execution_bindings_execution_event_idx",
     start,
   );
-  const end = indexStart >= 0 ? OPENCLAW_STATE_SCHEMA_SQL.indexOf(";", indexStart) : -1;
+  const end = indexStart >= 0 ? GRANTED_STATE_SCHEMA_SQL.indexOf(";", indexStart) : -1;
   if (start < 0 || end < 0) {
     throw new Error("canonical outbound message execution binding schema is missing");
   }
-  return OPENCLAW_STATE_SCHEMA_SQL.slice(start, end + 1);
+  return GRANTED_STATE_SCHEMA_SQL.slice(start, end + 1);
 }
 
 /** Install the terminal binding companion only when an exact producer first uses it. */

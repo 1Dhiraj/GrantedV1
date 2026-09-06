@@ -320,7 +320,7 @@ async function withReadOnlyPluginStateSnapshot<T>(
     const privateStateDir = path.join(privateRoot, "openclaw-state");
     const privateDatabasePath = resolveOpenClawStateSqlitePath({
       ...sourceEnv,
-      OPENCLAW_STATE_DIR: privateStateDir,
+      GRANTED_STATE_DIR: privateStateDir,
     });
     fs.mkdirSync(path.dirname(privateDatabasePath), { recursive: true, mode: 0o700 });
     if (prepared) {
@@ -334,19 +334,19 @@ async function withReadOnlyPluginStateSnapshot<T>(
     const sourceConfigPath = resolveConfigPath(sourceEnv, resolveStateDir(sourceEnv));
     const privateEnv = {
       ...sourceEnv,
-      OPENCLAW_CONFIG_PATH: sourceConfigPath,
-      OPENCLAW_STATE_DIR: privateStateDir,
+      GRANTED_CONFIG_PATH: sourceConfigPath,
+      GRANTED_STATE_DIR: privateStateDir,
     };
     const installRoots = resolvePluginInstallRoots(sourceEnv);
-    const previousConfigPath = process.env.OPENCLAW_CONFIG_PATH;
-    const previousStateDir = process.env.OPENCLAW_STATE_DIR;
+    const previousConfigPath = process.env.GRANTED_CONFIG_PATH;
+    const previousStateDir = process.env.GRANTED_STATE_DIR;
     outcome = {
       ok: true,
       value: await (async () => {
         // OAuth and auth-profile owners still read process.env. Redirect the serialized
         // lint phase so refresh and challenge writes stay inside this private snapshot.
-        process.env.OPENCLAW_CONFIG_PATH = sourceConfigPath;
-        process.env.OPENCLAW_STATE_DIR = privateStateDir;
+        process.env.GRANTED_CONFIG_PATH = sourceConfigPath;
+        process.env.GRANTED_STATE_DIR = privateStateDir;
         try {
           return await withPluginInstallRoots(
             { ...installRoots, stateDir: privateStateDir },
@@ -357,14 +357,14 @@ async function withReadOnlyPluginStateSnapshot<T>(
           );
         } finally {
           if (previousConfigPath === undefined) {
-            delete process.env.OPENCLAW_CONFIG_PATH;
+            delete process.env.GRANTED_CONFIG_PATH;
           } else {
-            process.env.OPENCLAW_CONFIG_PATH = previousConfigPath;
+            process.env.GRANTED_CONFIG_PATH = previousConfigPath;
           }
           if (previousStateDir === undefined) {
-            delete process.env.OPENCLAW_STATE_DIR;
+            delete process.env.GRANTED_STATE_DIR;
           } else {
-            process.env.OPENCLAW_STATE_DIR = previousStateDir;
+            process.env.GRANTED_STATE_DIR = previousStateDir;
           }
         }
       })(),

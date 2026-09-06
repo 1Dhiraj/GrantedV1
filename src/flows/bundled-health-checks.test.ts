@@ -256,10 +256,10 @@ describe("registerBundledHealthChecks", () => {
   });
 
   it("scopes plugin state only while the selected provider setup is inspected", async () => {
-    const sourceEnv = { ...process.env, OPENCLAW_STATE_DIR: "/operator/state" };
+    const sourceEnv = { ...process.env, GRANTED_STATE_DIR: "/operator/state" };
     const pluginMetadataEnv = {
       ...sourceEnv,
-      OPENCLAW_STATE_DIR: "/private/read-only-state",
+      GRANTED_STATE_DIR: "/private/read-only-state",
     };
     let snapshotRuns = 0;
     const runWithPluginStateSnapshot = async <T>(
@@ -535,7 +535,7 @@ describe("registerBundledHealthChecks", () => {
         plugins: [codexRecord(origin, origin === "global")],
         diagnostics: [],
       });
-      const env = { ...process.env, OPENCLAW_STATE_DIR: join(workspaceDir, "state") };
+      const env = { ...process.env, GRANTED_STATE_DIR: join(workspaceDir, "state") };
       for (let attempt = 0; attempt < 2; attempt += 1) {
         registerBundledHealthChecks({ cfg: codexConfig, cwd: workspaceDir, env });
       }

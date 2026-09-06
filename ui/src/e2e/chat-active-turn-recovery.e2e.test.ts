@@ -23,7 +23,7 @@ beforeEach(() => {
     proofDir = createControlUiE2eArtifactDir("active-turn-recovery");
   }
 });
-const captureProof = process.env.OPENCLAW_CAPTURE_UI_PROOF === "1";
+const captureProof = process.env.GRANTED_CAPTURE_UI_PROOF === "1";
 type ActiveRunSnapshotOptions = {
   events?: unknown[];
   messages?: unknown[];

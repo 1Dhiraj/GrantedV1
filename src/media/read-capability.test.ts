@@ -230,7 +230,7 @@ describe("resolveAgentScopedOutboundMediaAccess", () => {
     const workspaceDir = path.join(baseDir, "workspace");
     const workspaceFile = path.join(workspaceDir, "private.bin");
     const managedFile = path.join(stateDir, "media", "tool-image-generation", "result.bin");
-    vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
+    vi.stubEnv("GRANTED_STATE_DIR", stateDir);
     await fs.mkdir(path.dirname(managedFile), { recursive: true });
     await fs.mkdir(workspaceDir, { recursive: true });
     await fs.writeFile(workspaceFile, "private");

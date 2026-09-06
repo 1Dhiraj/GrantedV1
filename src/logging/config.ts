@@ -26,17 +26,17 @@ export function invalidateLoggingConfigCache(): void {
 function resolveLoggingConfigSelector(): string {
   const env = process.env;
   return [
-    env.OPENCLAW_CONFIG_PATH,
-    env.OPENCLAW_STATE_DIR,
-    env.OPENCLAW_HOME,
-    env.OPENCLAW_PROFILE,
+    env.GRANTED_CONFIG_PATH,
+    env.GRANTED_STATE_DIR,
+    env.GRANTED_HOME,
+    env.GRANTED_PROFILE,
     env.HOME,
     env.USERPROFILE,
     env.HOMEDRIVE,
     env.HOMEPATH,
     env.PREFIX,
     env.ANDROID_DATA,
-    env.OPENCLAW_TEST_FAST,
+    env.GRANTED_TEST_FAST,
     tryProcessCwd() ?? "",
   ]
     .map((value) => value ?? "")

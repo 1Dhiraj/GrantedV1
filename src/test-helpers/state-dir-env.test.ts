@@ -15,12 +15,12 @@ type EnvSnapshot = {
 
 function snapshotCurrentStateDirVars(): EnvSnapshot {
   return {
-    openclaw: process.env.OPENCLAW_STATE_DIR,
+    openclaw: process.env.GRANTED_STATE_DIR,
   };
 }
 
 function expectStateDirVars(snapshot: EnvSnapshot) {
-  expect(process.env.OPENCLAW_STATE_DIR).toBe(snapshot.openclaw);
+  expect(process.env.GRANTED_STATE_DIR).toBe(snapshot.openclaw);
 }
 
 async function expectPathMissing(filePath: string) {
@@ -43,12 +43,12 @@ async function expectStateDirEnvRestored(params: {
 }
 
 describe("state-dir-env helpers", () => {
-  it("set/snapshot/restore round-trips OPENCLAW_STATE_DIR", () => {
+  it("set/snapshot/restore round-trips GRANTED_STATE_DIR", () => {
     const prev = snapshotCurrentStateDirVars();
     const snapshot = snapshotStateDirEnv();
 
     setStateDirEnv("/tmp/openclaw-state-dir-test");
-    expect(process.env.OPENCLAW_STATE_DIR).toBe("/tmp/openclaw-state-dir-test");
+    expect(process.env.GRANTED_STATE_DIR).toBe("/tmp/openclaw-state-dir-test");
 
     restoreStateDirEnv(snapshot);
     expectStateDirVars(prev);
@@ -62,7 +62,7 @@ describe("state-dir-env helpers", () => {
     await withStateDirEnv("openclaw-state-dir-env-", async ({ tempRoot, stateDir }) => {
       capturedTempRoot = tempRoot;
       capturedStateDir = stateDir;
-      expect(process.env.OPENCLAW_STATE_DIR).toBe(stateDir);
+      expect(process.env.GRANTED_STATE_DIR).toBe(stateDir);
       await fs.writeFile(path.join(stateDir, "probe.txt"), "ok", "utf8");
     });
 

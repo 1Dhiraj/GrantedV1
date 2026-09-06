@@ -42,7 +42,7 @@ describe("legacy MCP OAuth Doctor migration", () => {
 
   function useStateDir(): { env: NodeJS.ProcessEnv; stateDir: string } {
     const stateDir = tempDirs.make("openclaw-mcp-oauth-migration-");
-    return { env: { ...process.env, OPENCLAW_STATE_DIR: stateDir }, stateDir };
+    return { env: { ...process.env, GRANTED_STATE_DIR: stateDir }, stateDir };
   }
 
   function database(env: NodeJS.ProcessEnv) {
@@ -299,7 +299,7 @@ describe("legacy MCP OAuth Doctor migration", () => {
     const serverUrl = "https://mcp.example.com/mcp";
     const identity = operatorMcpOAuthIdentity(serverName, serverUrl);
     const storeKey = identity.storeKey;
-    vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
+    vi.stubEnv("GRANTED_STATE_DIR", stateDir);
     await expect(
       resolveMcpOAuthAccessToken({
         identity,
@@ -348,7 +348,7 @@ describe("legacy MCP OAuth Doctor migration", () => {
       stateDir,
       fileName: `${storeKey}.json`,
     });
-    vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
+    vi.stubEnv("GRANTED_STATE_DIR", stateDir);
 
     await clearMcpOAuthCredentials(identity);
     expect(JSON.parse(storeRow(env, storeKey)?.store_json ?? "null")).toEqual({

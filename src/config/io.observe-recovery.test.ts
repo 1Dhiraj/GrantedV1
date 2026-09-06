@@ -120,7 +120,7 @@ describe("config observe recovery", () => {
   async function readObserveEvents(auditPath: string): Promise<Record<string, unknown>[]> {
     const stateDir = path.dirname(path.dirname(auditPath));
     return listConfigAuditRecordsForTests({
-      env: { OPENCLAW_STATE_DIR: stateDir },
+      env: { GRANTED_STATE_DIR: stateDir },
       homedir: () => stateDir,
     }).filter((event) => event.event === "config.observe");
   }
@@ -193,9 +193,9 @@ describe("config observe recovery", () => {
     const env = options.env ?? ({} as NodeJS.ProcessEnv);
     env.HOME ??= home;
     env.USERPROFILE ??= home;
-    env.OPENCLAW_CONFIG_PATH ??= configPath;
-    env.OPENCLAW_STATE_DIR ??= path.join(home, ".openclaw");
-    env.OPENCLAW_DISABLE_BUNDLED_PLUGINS ??= "1";
+    env.GRANTED_CONFIG_PATH ??= configPath;
+    env.GRANTED_STATE_DIR ??= path.join(home, ".openclaw");
+    env.GRANTED_DISABLE_BUNDLED_PLUGINS ??= "1";
     env.VITEST ??= "true";
     return {
       configPath,
@@ -529,13 +529,13 @@ describe("config observe recovery", () => {
       await seedConfigBackup(configPath, recoverableCoreConfig);
       await writeConfigRaw(configPath, {
         meta: { lastTouchedVersion: "2026.5.28" },
-        env: { vars: { OPENCLAW_CLOBBER_ONLY: "bad" } },
+        env: { vars: { GRANTED_CLOBBER_ONLY: "bad" } },
       });
 
       const config = io.loadConfig();
 
       expect(config.gateway?.mode).toBe("local");
-      expect(env.OPENCLAW_CLOBBER_ONLY).toBeUndefined();
+      expect(env.GRANTED_CLOBBER_ONLY).toBeUndefined();
     });
   });
 
@@ -546,13 +546,13 @@ describe("config observe recovery", () => {
       await seedConfigBackup(configPath, recoverableCoreConfig);
       await writeConfigRaw(configPath, {
         meta: { lastTouchedVersion: "2026.5.28" },
-        env: { vars: { OPENCLAW_CLOBBER_ONLY: "bad" } },
+        env: { vars: { GRANTED_CLOBBER_ONLY: "bad" } },
       });
 
       const snapshot = await io.readConfigFileSnapshot({ recoverSuspicious: true });
 
       expect(snapshot.config.gateway?.mode).toBe("local");
-      expect(env.OPENCLAW_CLOBBER_ONLY).toBeUndefined();
+      expect(env.GRANTED_CLOBBER_ONLY).toBeUndefined();
     });
   });
 
@@ -829,7 +829,7 @@ describe("config observe recovery", () => {
       const { io, configPath } = createTestConfigIO(home, vi.fn(), { env });
       await seedConfigBackup(configPath, {
         gateway: { mode: "local" },
-        env: { vars: { OPENCLAW_BACKUP_ONLY: "stale" } },
+        env: { vars: { GRANTED_BACKUP_ONLY: "stale" } },
         agents: { defaults: { model: 123 } },
       });
       await writeConfigRaw(configPath, {
@@ -838,7 +838,7 @@ describe("config observe recovery", () => {
 
       await io.readConfigFileSnapshot({ recoverSuspicious: true });
 
-      expect(env.OPENCLAW_BACKUP_ONLY).toBeUndefined();
+      expect(env.GRANTED_BACKUP_ONLY).toBeUndefined();
     });
   });
 

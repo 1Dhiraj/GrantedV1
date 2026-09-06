@@ -260,7 +260,7 @@ describe("promptGatewayConfig", () => {
     ["::ffff:127.0.0.2/128", "127.0.0.2"],
     [" 127.0.0.1 , \t::1/128 ", "::1"],
   ])("accepts runtime auth after consent for loopback proxy %s", async (proxies, remoteAddress) => {
-    vi.stubEnv("OPENCLAW_LOCALE", "en");
+    vi.stubEnv("GRANTED_LOCALE", "en");
     const result = await runTrustedProxyPrompt({
       textQueue: ["18789", "x-forwarded-user", "x-forwarded-proto", "", proxies],
       confirmResult: true,
@@ -304,7 +304,7 @@ describe("promptGatewayConfig", () => {
   ])(
     "warns before and after refusing loopback consent in %s",
     async (locale, warning, prompt, refusal) => {
-      vi.stubEnv("OPENCLAW_LOCALE", locale);
+      vi.stubEnv("GRANTED_LOCALE", locale);
       const result = await runTrustedProxyPrompt({
         textQueue: ["18789", "x-forwarded-user", "", "", "127.0.0.1"],
         confirmResult: false,
@@ -495,10 +495,10 @@ describe("promptGatewayConfig", () => {
   });
 
   it("stores gateway token as SecretRef when token source is ref", async () => {
-    vi.stubEnv("OPENCLAW_GATEWAY_TOKEN", "env-gateway-token");
+    vi.stubEnv("GRANTED_GATEWAY_TOKEN", "env-gateway-token");
     const result = await runGatewayPrompt({
       selectQueue: ["loopback", "token", "off", "ref"],
-      textQueue: ["18789", "OPENCLAW_GATEWAY_TOKEN"],
+      textQueue: ["18789", "GRANTED_GATEWAY_TOKEN"],
     });
 
     expect(result.config.gateway?.auth).toEqual({
@@ -506,7 +506,7 @@ describe("promptGatewayConfig", () => {
       token: {
         source: "env",
         provider: "default",
-        id: "OPENCLAW_GATEWAY_TOKEN",
+        id: "GRANTED_GATEWAY_TOKEN",
       },
     });
     expect(result.token).toBeUndefined();

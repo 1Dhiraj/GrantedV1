@@ -1427,7 +1427,7 @@ describe("setup-registry module loader", () => {
       writeSetupApiStub(secondRoot);
       mocks.loadPluginManifestRegistry.mockImplementation(
         (params?: { env?: NodeJS.ProcessEnv }) => {
-          const id = params?.env?.OPENCLAW_BUNDLED_PLUGINS_DIR === secondRoot ? "second" : "first";
+          const id = params?.env?.GRANTED_BUNDLED_PLUGINS_DIR === secondRoot ? "second" : "first";
           return {
             plugins: [
               {
@@ -1453,22 +1453,22 @@ describe("setup-registry module loader", () => {
           },
         });
       });
-      const previousBundledDir = process.env.OPENCLAW_BUNDLED_PLUGINS_DIR;
+      const previousBundledDir = process.env.GRANTED_BUNDLED_PLUGINS_DIR;
 
       try {
-        process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = firstRoot;
+        process.env.GRANTED_BUNDLED_PLUGINS_DIR = firstRoot;
         expect(resolvePluginSetupRegistry().providers.map((entry) => entry.provider.id)).toEqual([
           "first",
         ]);
-        process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = secondRoot;
+        process.env.GRANTED_BUNDLED_PLUGINS_DIR = secondRoot;
         expect(resolvePluginSetupRegistry().providers.map((entry) => entry.provider.id)).toEqual([
           "second",
         ]);
       } finally {
         if (previousBundledDir === undefined) {
-          delete process.env.OPENCLAW_BUNDLED_PLUGINS_DIR;
+          delete process.env.GRANTED_BUNDLED_PLUGINS_DIR;
         } else {
-          process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = previousBundledDir;
+          process.env.GRANTED_BUNDLED_PLUGINS_DIR = previousBundledDir;
         }
       }
       expect(mocks.loadPluginManifestRegistry).toHaveBeenCalledTimes(2);

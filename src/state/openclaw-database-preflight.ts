@@ -19,13 +19,13 @@ import {
   SqliteSchemaVersionError,
 } from "../infra/sqlite-user-version.js";
 import { discoverAgentDatabaseMigrationTargets } from "../infra/state-migrations.media-persistence-targets.js";
-import { OPENCLAW_AGENT_SCHEMA_VERSION } from "./openclaw-agent-db-contract.js";
+import { GRANTED_AGENT_SCHEMA_VERSION } from "./openclaw-agent-db-contract.js";
 import { assertOpenClawAgentDatabaseForMaintenance } from "./openclaw-agent-db-maintenance.js";
 import type { OpenClawSchemaVersions } from "./openclaw-schema-versions.js";
 import {
-  OPENCLAW_DATABASE_SCHEMA_DOCS_URL,
-  OPENCLAW_SQLITE_BUSY_TIMEOUT_MS,
-  OPENCLAW_STATE_SCHEMA_VERSION,
+  GRANTED_DATABASE_SCHEMA_DOCS_URL,
+  GRANTED_SQLITE_BUSY_TIMEOUT_MS,
+  GRANTED_STATE_SCHEMA_VERSION,
 } from "./openclaw-state-db-contract.js";
 import {
   assertOpenClawStateDatabaseOwner,
@@ -44,12 +44,12 @@ import {
   getOpenClawStateRuntimeSchema,
   isOpenClawStateFirstUseSchemaIssue,
   isOpenClawStateStartupRepairableSchemaIssue,
-  OPENCLAW_STATE_MAINTENANCE_SCHEMA_COMPATIBILITY,
+  GRANTED_STATE_MAINTENANCE_SCHEMA_COMPATIBILITY,
   STATE_PERSISTENT_SCHEMA_COMPATIBILITY,
 } from "./openclaw-state-schema-compatibility.js";
-import { OPENCLAW_STATE_SCHEMA_SQL } from "./openclaw-state-schema.js";
+import { GRANTED_STATE_SCHEMA_SQL } from "./openclaw-state-schema.js";
 
-export { OPENCLAW_DATABASE_SCHEMA_DOCS_URL } from "./openclaw-state-db.js";
+export { GRANTED_DATABASE_SCHEMA_DOCS_URL } from "./openclaw-state-db.js";
 
 export type IncompatibleOpenClawDatabase = {
   kind: "agent" | "state";
@@ -112,7 +112,7 @@ export class OpenClawDatabaseSchemaPreflightError extends SqliteSchemaVersionErr
         : "";
     super(
       `${prefix} because ${incompatibleDatabases.length} OpenClaw database schema(s) are newer than this build. ` +
-        `Refused by ${describeRunningOpenClawBuild()}.${doctorGuidance} See ${OPENCLAW_DATABASE_SCHEMA_DOCS_URL}.`,
+        `Refused by ${describeRunningOpenClawBuild()}.${doctorGuidance} See ${GRANTED_DATABASE_SCHEMA_DOCS_URL}.`,
     );
     this.name = "OpenClawDatabaseSchemaPreflightError";
   }
@@ -133,8 +133,8 @@ export function assertOpenClawDatabasesReady(
   const schemas = preflightOpenClawDatabaseSchemas({
     env: options.env,
     supportedVersions: {
-      state: OPENCLAW_STATE_SCHEMA_VERSION,
-      agent: OPENCLAW_AGENT_SCHEMA_VERSION,
+      state: GRANTED_STATE_SCHEMA_VERSION,
+      agent: GRANTED_AGENT_SCHEMA_VERSION,
     },
     verifyCurrentSchemaShape: true,
     ...(options.operation === "doctor"
@@ -218,7 +218,7 @@ export async function preflightOpenClawStateDatabasePath(
   const base = {
     schema: "openclaw.state-schema-preflight.v1",
     databasePath: resolvedPath,
-    targetVersion: OPENCLAW_STATE_SCHEMA_VERSION,
+    targetVersion: GRANTED_STATE_SCHEMA_VERSION,
   } as const;
   let database: DatabaseSync | undefined;
   let foundVersion: number | null = null;
@@ -249,7 +249,7 @@ export async function preflightOpenClawStateDatabasePath(
       readOnly: true,
     });
     database.exec(
-      `PRAGMA busy_timeout = ${OPENCLAW_SQLITE_BUSY_TIMEOUT_MS}; PRAGMA query_only = ON; PRAGMA trusted_schema = OFF;`,
+      `PRAGMA busy_timeout = ${GRANTED_SQLITE_BUSY_TIMEOUT_MS}; PRAGMA query_only = ON; PRAGMA trusted_schema = OFF;`,
     );
     assertSqliteIntegrity(database, resolvedPath);
     foundVersion = readSqliteUserVersion(database);
@@ -258,7 +258,7 @@ export async function preflightOpenClawStateDatabasePath(
         `OpenClaw state database ${resolvedPath} has invalid schema version metadata.`,
       );
     }
-    if (foundVersion > OPENCLAW_STATE_SCHEMA_VERSION) {
+    if (foundVersion > GRANTED_STATE_SCHEMA_VERSION) {
       try {
         ownership = inspectOpenClawStateOwnershipFromDatabase(database, resolvedPath);
       } catch {
@@ -267,7 +267,7 @@ export async function preflightOpenClawStateDatabasePath(
       return result("incompatible");
     }
     ownership = inspectOpenClawStateOwnershipFromDatabase(database, resolvedPath);
-    if (foundVersion < OPENCLAW_STATE_SCHEMA_VERSION) {
+    if (foundVersion < GRANTED_STATE_SCHEMA_VERSION) {
       return result("migration-required", { requiresWrite: true });
     }
     assertOpenClawStateDatabaseOwner(database, { pathname: resolvedPath });
@@ -281,8 +281,8 @@ export async function preflightOpenClawStateDatabasePath(
     }
     const maintenanceIssues = collectSqliteSchemaIssues(
       database,
-      OPENCLAW_STATE_SCHEMA_SQL,
-      OPENCLAW_STATE_MAINTENANCE_SCHEMA_COMPATIBILITY,
+      GRANTED_STATE_SCHEMA_SQL,
+      GRANTED_STATE_MAINTENANCE_SCHEMA_COMPATIBILITY,
     );
     const blockingIssues = maintenanceIssues.filter(
       (issue) =>
@@ -343,7 +343,7 @@ export function preflightOpenClawDatabaseSchemas(options: {
       stateDatabase = openNodeSqliteDatabase(statePath, {
         readOnly: true,
       });
-      stateDatabase.exec(`PRAGMA busy_timeout = ${OPENCLAW_SQLITE_BUSY_TIMEOUT_MS};`);
+      stateDatabase.exec(`PRAGMA busy_timeout = ${GRANTED_SQLITE_BUSY_TIMEOUT_MS};`);
       const stateVersion = readSqliteUserVersion(stateDatabase);
       if (stateVersion > options.supportedVersions.state) {
         const writerAppVersion = readWriterAppVersion(stateDatabase);
@@ -357,7 +357,7 @@ export function preflightOpenClawDatabaseSchemas(options: {
       }
       if (
         options.verifyCurrentSchemaShape === true &&
-        stateVersion === OPENCLAW_STATE_SCHEMA_VERSION
+        stateVersion === GRANTED_STATE_SCHEMA_VERSION
       ) {
         try {
           assertOpenClawStateDatabaseForMaintenance(stateDatabase, { pathname: statePath });
@@ -436,7 +436,7 @@ export function preflightOpenClawDatabaseSchemas(options: {
       agentDatabase = openNodeSqliteDatabase(agentPath, {
         readOnly: true,
       });
-      agentDatabase.exec(`PRAGMA busy_timeout = ${OPENCLAW_SQLITE_BUSY_TIMEOUT_MS};`);
+      agentDatabase.exec(`PRAGMA busy_timeout = ${GRANTED_SQLITE_BUSY_TIMEOUT_MS};`);
       const agentVersion = readSqliteUserVersion(agentDatabase);
       if (agentVersion <= options.supportedVersions.agent) {
         if (options.verifyCurrentSchemaShape === true && row.agentId !== undefined) {

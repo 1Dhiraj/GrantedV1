@@ -37,7 +37,7 @@ vi.mock("openclaw/plugin-sdk/agent-harness-runtime", () => ({
   AgentHarnessPreflightError: class extends Error {},
   embeddedAgentLog: { debug: vi.fn(), warn: vi.fn() },
   formatErrorMessage: String,
-  OPENCLAW_VERSION: "test",
+  GRANTED_VERSION: "test",
 }));
 
 describe("models.list native account catalog", () => {

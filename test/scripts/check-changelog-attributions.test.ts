@@ -62,11 +62,11 @@ function validateChangelogEntry(repo: string, contrib: string): string {
     "bash",
     [
       "-c",
-      'source "$OPENCLAW_PR_CHANGELOG_SH"; PR_MAIN_SHA=$(git rev-parse --verify refs/remotes/origin/main); validate_changelog_entry_for_pr 123 "$OPENCLAW_TEST_CONTRIB"',
+      'source "$GRANTED_PR_CHANGELOG_SH"; PR_MAIN_SHA=$(git rev-parse --verify refs/remotes/origin/main); validate_changelog_entry_for_pr 123 "$GRANTED_TEST_CONTRIB"',
     ],
     {
-      OPENCLAW_PR_CHANGELOG_SH: changelogScriptPath,
-      OPENCLAW_TEST_CONTRIB: contrib,
+      GRANTED_PR_CHANGELOG_SH: changelogScriptPath,
+      GRANTED_TEST_CONTRIB: contrib,
     },
   );
 }
@@ -75,9 +75,9 @@ function validateChangelogAttributionPolicy(repo: string): string {
   return run(
     repo,
     "bash",
-    ["-c", 'source "$OPENCLAW_PR_CHANGELOG_SH"; validate_changelog_attribution_policy'],
+    ["-c", 'source "$GRANTED_PR_CHANGELOG_SH"; validate_changelog_attribution_policy'],
     {
-      OPENCLAW_PR_CHANGELOG_SH: changelogScriptPath,
+      GRANTED_PR_CHANGELOG_SH: changelogScriptPath,
     },
   );
 }
@@ -231,30 +231,30 @@ describe("check-changelog-attributions", () => {
             "-c",
             `
 set -euo pipefail
-source "$OPENCLAW_PR_COMMON_SH"
-source "$OPENCLAW_PR_CHANGELOG_SH"
-source "$OPENCLAW_PR_GATES_SH"
+source "$GRANTED_PR_COMMON_SH"
+source "$GRANTED_PR_CHANGELOG_SH"
+source "$GRANTED_PR_GATES_SH"
 
 enter_worktree() { PR_MAIN_SHA=$(git rev-parse --verify refs/remotes/origin/main); }
 checkout_prep_branch() { :; }
 refresh_prep_branch_for_reviewed_head() { :; }
 bootstrap_deps_if_needed() { :; }
 require_artifact() { [ -s "$1" ]; }
-normalize_pr_changelog_entries() { printf 'normalize\\n' >>"$OPENCLAW_TEST_CALLS"; }
-validate_changelog_attribution_policy() { printf 'policy\\n' >>"$OPENCLAW_TEST_CALLS"; }
-validate_changelog_merge_hygiene() { printf 'merge-hygiene\\n' >>"$OPENCLAW_TEST_CALLS"; }
-validate_changelog_entry_for_pr() { printf 'entry:%s:%s\\n' "$1" "$2" >>"$OPENCLAW_TEST_CALLS"; }
-run_quiet_logged() { printf 'gate:%s\\n' "$1" >>"$OPENCLAW_TEST_CALLS"; }
+normalize_pr_changelog_entries() { printf 'normalize\\n' >>"$GRANTED_TEST_CALLS"; }
+validate_changelog_attribution_policy() { printf 'policy\\n' >>"$GRANTED_TEST_CALLS"; }
+validate_changelog_merge_hygiene() { printf 'merge-hygiene\\n' >>"$GRANTED_TEST_CALLS"; }
+validate_changelog_entry_for_pr() { printf 'entry:%s:%s\\n' "$1" "$2" >>"$GRANTED_TEST_CALLS"; }
+run_quiet_logged() { printf 'gate:%s\\n' "$1" >>"$GRANTED_TEST_CALLS"; }
 
 prepare_gates 123
 `,
           ],
           {
-            OPENCLAW_PR_COMMON_SH: commonScriptPath,
-            OPENCLAW_PR_CHANGELOG_SH: changelogScriptPath,
-            OPENCLAW_PR_GATES_SH: gatesScriptPath,
-            OPENCLAW_TEST_CALLS: callsPath,
-            OPENCLAW_TESTBOX: "0",
+            GRANTED_PR_COMMON_SH: commonScriptPath,
+            GRANTED_PR_CHANGELOG_SH: changelogScriptPath,
+            GRANTED_PR_GATES_SH: gatesScriptPath,
+            GRANTED_TEST_CALLS: callsPath,
+            GRANTED_TESTBOX: "0",
           },
         );
       } catch (error) {
@@ -283,31 +283,31 @@ prepare_gates 123
           "-c",
           `
 set -euo pipefail
-source "$OPENCLAW_PR_COMMON_SH"
-source "$OPENCLAW_PR_CHANGELOG_SH"
-source "$OPENCLAW_PR_GATES_SH"
+source "$GRANTED_PR_COMMON_SH"
+source "$GRANTED_PR_CHANGELOG_SH"
+source "$GRANTED_PR_GATES_SH"
 
 enter_worktree() { PR_MAIN_SHA=$(git rev-parse --verify refs/remotes/origin/main); }
 checkout_prep_branch() { :; }
 refresh_prep_branch_for_reviewed_head() { :; }
 bootstrap_deps_if_needed() { :; }
 require_artifact() { [ -s "$1" ]; }
-normalize_pr_changelog_entries() { printf 'normalize\\n' >>"$OPENCLAW_TEST_CALLS"; }
-validate_changelog_attribution_policy() { printf 'policy\\n' >>"$OPENCLAW_TEST_CALLS"; }
-validate_changelog_merge_hygiene() { printf 'merge-hygiene\\n' >>"$OPENCLAW_TEST_CALLS"; }
-validate_changelog_entry_for_pr() { printf 'entry:%s:%s\\n' "$1" "$2" >>"$OPENCLAW_TEST_CALLS"; }
-run_quiet_logged() { printf 'gate:%s\\n' "$1" >>"$OPENCLAW_TEST_CALLS"; }
+normalize_pr_changelog_entries() { printf 'normalize\\n' >>"$GRANTED_TEST_CALLS"; }
+validate_changelog_attribution_policy() { printf 'policy\\n' >>"$GRANTED_TEST_CALLS"; }
+validate_changelog_merge_hygiene() { printf 'merge-hygiene\\n' >>"$GRANTED_TEST_CALLS"; }
+validate_changelog_entry_for_pr() { printf 'entry:%s:%s\\n' "$1" "$2" >>"$GRANTED_TEST_CALLS"; }
+run_quiet_logged() { printf 'gate:%s\\n' "$1" >>"$GRANTED_TEST_CALLS"; }
 
 prepare_gates 123
 `,
         ],
         {
-          OPENCLAW_ALLOW_ROOT_CHANGELOG_PR: "1",
-          OPENCLAW_PR_COMMON_SH: commonScriptPath,
-          OPENCLAW_PR_CHANGELOG_SH: changelogScriptPath,
-          OPENCLAW_PR_GATES_SH: gatesScriptPath,
-          OPENCLAW_TEST_CALLS: callsPath,
-          OPENCLAW_TESTBOX: "0",
+          GRANTED_ALLOW_ROOT_CHANGELOG_PR: "1",
+          GRANTED_PR_COMMON_SH: commonScriptPath,
+          GRANTED_PR_CHANGELOG_SH: changelogScriptPath,
+          GRANTED_PR_GATES_SH: gatesScriptPath,
+          GRANTED_TEST_CALLS: callsPath,
+          GRANTED_TESTBOX: "0",
         },
       );
       const calls = readFileSync(callsPath, "utf8");

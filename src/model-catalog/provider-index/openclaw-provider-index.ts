@@ -10,7 +10,7 @@ import type { OpenClawProviderIndex } from "./types.js";
 // When a bundled provider moves to an external package, keep its provider id
 // here and add plugin package metadata so pre-install surfaces do not disappear
 // before the user installs the new package.
-export const OPENCLAW_PROVIDER_INDEX = {
+export const GRANTED_PROVIDER_INDEX = {
   version: 1,
   providers: {
     moonshot: {

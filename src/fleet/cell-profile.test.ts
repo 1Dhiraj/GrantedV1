@@ -166,11 +166,11 @@ describe("fleet cell environment", () => {
 
   it.each([
     "HOME",
-    "OPENCLAW_HOME",
-    "OPENCLAW_STATE_DIR",
-    "OPENCLAW_CONFIG_PATH",
-    "OPENCLAW_WORKSPACE_DIR",
-    "OPENCLAW_GATEWAY_TOKEN",
+    "GRANTED_HOME",
+    "GRANTED_STATE_DIR",
+    "GRANTED_CONFIG_PATH",
+    "GRANTED_WORKSPACE_DIR",
+    "GRANTED_GATEWAY_TOKEN",
   ])("rejects reserved variable %s", (key) => {
     expect(() => parseEnvAssignments([`${key}=override`])).toThrow(/fleet-managed/i);
   });
@@ -178,11 +178,11 @@ describe("fleet cell environment", () => {
   it("pins the documented container paths and token", () => {
     expect(buildCellEnvironment("secret", { REGION: "west" })).toEqual({
       HOME: "/home/node",
-      OPENCLAW_HOME: "/home/node",
-      OPENCLAW_STATE_DIR: FLEET_CONTAINER_STATE_DIR,
-      OPENCLAW_CONFIG_PATH: `${FLEET_CONTAINER_STATE_DIR}/openclaw.json`,
-      OPENCLAW_WORKSPACE_DIR: `${FLEET_CONTAINER_STATE_DIR}/workspace`,
-      OPENCLAW_GATEWAY_TOKEN: "secret",
+      GRANTED_HOME: "/home/node",
+      GRANTED_STATE_DIR: FLEET_CONTAINER_STATE_DIR,
+      GRANTED_CONFIG_PATH: `${FLEET_CONTAINER_STATE_DIR}/openclaw.json`,
+      GRANTED_WORKSPACE_DIR: `${FLEET_CONTAINER_STATE_DIR}/workspace`,
+      GRANTED_GATEWAY_TOKEN: "secret",
       REGION: "west",
     });
   });

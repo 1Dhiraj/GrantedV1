@@ -10,7 +10,7 @@ vi.mock("./openclaw-state-schema.js", async (importOriginal) => {
   const actual = await importOriginal<typeof import("./openclaw-state-schema.js")>();
   return {
     ...actual,
-    OPENCLAW_STATE_SCHEMA_SQL: `${actual.OPENCLAW_STATE_SCHEMA_SQL}\n${trailingSchema.sql}\n`,
+    GRANTED_STATE_SCHEMA_SQL: `${actual.GRANTED_STATE_SCHEMA_SQL}\n${trailingSchema.sql}\n`,
   };
 });
 

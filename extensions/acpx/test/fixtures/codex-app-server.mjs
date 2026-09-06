@@ -4,7 +4,7 @@ import readline from "node:readline";
 
 let nextRequestId = 1;
 const pending = new Map();
-const tracePath = process.env.OPENCLAW_ACPX_PROCESS_FIXTURE_TRACE;
+const tracePath = process.env.GRANTED_ACPX_PROCESS_FIXTURE_TRACE;
 
 function trace(method) {
   if (tracePath) {

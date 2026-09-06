@@ -123,7 +123,7 @@ describe("dashboardCommand", () => {
     });
     waitForControlUiDocumentMock.mockReset();
     waitForControlUiDocumentMock.mockResolvedValue({ ready: true });
-    delete process.env.OPENCLAW_GATEWAY_TOKEN;
+    delete process.env.GRANTED_GATEWAY_TOKEN;
     delete process.env.CUSTOM_GATEWAY_TOKEN;
   });
 
@@ -322,7 +322,7 @@ describe("dashboardCommand", () => {
     expect(allLogs).not.toContain("#token=");
 
     // UX: user must be pointed to where their token lives so they can self-recover.
-    expect(allLogs).toMatch(/OPENCLAW_GATEWAY_TOKEN/);
+    expect(allLogs).toMatch(/GRANTED_GATEWAY_TOKEN/);
     // UX: hint must name the URL fragment key so the user knows the syntax.
     expect(allLogs).toContain("key `token`");
   });
@@ -350,7 +350,7 @@ describe("dashboardCommand", () => {
     expect(runtime.log).not.toHaveBeenCalledWith(
       "Browser launch disabled (--no-open). Use the URL above.",
     );
-    expectLogWith("OPENCLAW_GATEWAY_TOKEN");
+    expectLogWith("GRANTED_GATEWAY_TOKEN");
   });
 
   it("guides no-token users to the explicit JSON handoff when clipboard delivery fails", async () => {
@@ -393,7 +393,7 @@ describe("dashboardCommand", () => {
       provider: "default",
       id: "MISSING_GATEWAY_TOKEN",
     });
-    process.env.OPENCLAW_GATEWAY_TOKEN = "fallback-token";
+    process.env.GRANTED_GATEWAY_TOKEN = "fallback-token";
     copyToClipboardMock.mockResolvedValue(true);
     detectBrowserOpenSupportMock.mockResolvedValue({ ok: true });
     openUrlMock.mockResolvedValue(true);

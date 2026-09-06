@@ -48,7 +48,7 @@ describe("terminal main session transcript freshness", () => {
         params.sessionFile ??
         `sqlite:main:${sessionId}:${resolveOpenClawAgentSqlitePath({
           agentId: "main",
-          env: { OPENCLAW_STATE_DIR: stateDir },
+          env: { GRANTED_STATE_DIR: stateDir },
         })}`,
       sessionId,
       updatedAt: params.updatedAt,

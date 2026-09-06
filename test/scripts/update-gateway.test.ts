@@ -185,7 +185,7 @@ NODE
           npm_config_workspace_dir: root,
           PNPM_CONFIG_LOCKFILE_DIR: root,
           pnpm_config_lockfile_dir: root,
-          OPENCLAW_UPDATE_RESTART_CMD:
+          GRANTED_UPDATE_RESTART_CMD:
             '[[ "$COREPACK_ENABLE_DOWNLOAD_PROMPT" == 1 && "$PATH" == "$FIXTURE/bin" && "$NPM_CONFIG_WORKSPACE_DIR" == "$FIXTURE" && "$npm_config_workspace_dir" == "$FIXTURE" && "$PNPM_CONFIG_LOCKFILE_DIR" == "$FIXTURE" && "$pnpm_config_lockfile_dir" == "$FIXTURE" ]] && echo restart >> "$FIXTURE/steps"',
         },
       });

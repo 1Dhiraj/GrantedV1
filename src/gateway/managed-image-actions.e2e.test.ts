@@ -23,9 +23,9 @@ const SESSION_KEY = "agent:main:main";
 
 describe("managed image actions Gateway E2E", () => {
   test("issues one transcript ticket for full and thumbnail image bytes", async () => {
-    const stateDir = process.env.OPENCLAW_STATE_DIR;
+    const stateDir = process.env.GRANTED_STATE_DIR;
     if (!stateDir) {
-      throw new Error("OPENCLAW_STATE_DIR is required for managed image E2E fixtures");
+      throw new Error("GRANTED_STATE_DIR is required for managed image E2E fixtures");
     }
     testState.gatewayAuth = { mode: "token", token: GATEWAY_TOKEN };
     testState.gatewayControlUi = { basePath: "/rosita" };

@@ -199,8 +199,8 @@ describe("Hermes migration config mapping", () => {
     expect(config.plugins?.slots?.memory).toBe("memory-core");
     const configPath = path.join(stateDir, "openclaw.json");
     await writeFile(configPath, JSON.stringify(config));
-    vi.stubEnv("OPENCLAW_CONFIG_PATH", configPath);
-    vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
+    vi.stubEnv("GRANTED_CONFIG_PATH", configPath);
+    vi.stubEnv("GRANTED_STATE_DIR", stateDir);
     const snapshot = await readConfigFileSnapshot({
       observe: false,
       isolateEnv: true,

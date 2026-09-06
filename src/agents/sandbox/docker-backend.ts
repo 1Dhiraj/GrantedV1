@@ -31,7 +31,7 @@ type ContainerExecFinalizeToken = () => Promise<void>;
 function resolveContainerExecEnv(env: Record<string, string>): Record<string, string> {
   const { PATH: requestedPath, ...containerEnv } = env;
   if (requestedPath) {
-    containerEnv.OPENCLAW_PREPEND_PATH = requestedPath;
+    containerEnv.GRANTED_PREPEND_PATH = requestedPath;
   }
   return containerEnv;
 }
@@ -55,7 +55,7 @@ function buildContainerExecArgs(params: {
   // Apply the staged prepend only after login profile sourcing; direct PATH
   // injection can break the container engine's initial executable lookup.
   const pathExport = params.env.PATH
-    ? 'export PATH="${OPENCLAW_PREPEND_PATH}:$PATH"; unset OPENCLAW_PREPEND_PATH; '
+    ? 'export PATH="${GRANTED_PREPEND_PATH}:$PATH"; unset GRANTED_PREPEND_PATH; '
     : "";
   // Use absolute path for sh to avoid dependency on PATH resolution during exec.
   args.push(params.containerName, "/bin/sh", "-lc", `${pathExport}${params.command}`);

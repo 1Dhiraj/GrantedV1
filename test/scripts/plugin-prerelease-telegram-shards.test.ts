@@ -75,7 +75,7 @@ function runPluginPrereleaseManifest(cwd = process.cwd()) {
       FULL_RELEASE_VALIDATION: "false",
       GITHUB_OUTPUT: outputPath,
     };
-    delete env.OPENCLAW_VITEST_INCLUDE_FILE;
+    delete env.GRANTED_VITEST_INCLUDE_FILE;
     const result = spawnSync(process.execPath, ["--import", "tsx", "--input-type=module"], {
       cwd,
       encoding: "utf8",
@@ -216,17 +216,17 @@ describe("plugin prerelease Telegram extension shards", () => {
         writeFileSync(includeFile, JSON.stringify(partition));
         const specs = createVitestRunSpecs(["test/vitest/vitest.extension-telegram.config.ts"], {
           baseEnv: {
-            OPENCLAW_TEST_PROJECTS_PARALLEL: "2",
-            OPENCLAW_VITEST_INCLUDE_FILE: includeFile,
+            GRANTED_TEST_PROJECTS_PARALLEL: "2",
+            GRANTED_VITEST_INCLUDE_FILE: includeFile,
           },
         });
 
         expect(specs).toHaveLength(partition.length);
         expect(specs.map((spec) => spec.includePatterns)).toEqual(partition.map((file) => [file]));
-        expect(new Set(specs.map((spec) => spec.env.OPENCLAW_VITEST_INCLUDE_FILE)).size).toBe(
+        expect(new Set(specs.map((spec) => spec.env.GRANTED_VITEST_INCLUDE_FILE)).size).toBe(
           partition.length,
         );
-        expect(specs.every((spec) => spec.env.OPENCLAW_VITEST_INCLUDE_FILE !== includeFile)).toBe(
+        expect(specs.every((spec) => spec.env.GRANTED_VITEST_INCLUDE_FILE !== includeFile)).toBe(
           true,
         );
       }
@@ -241,14 +241,14 @@ describe("plugin prerelease Telegram extension shards", () => {
       "${{ fromJson(needs.preflight.outputs.plugin_prerelease_extension_matrix) }}",
     );
     expect(runStep?.env).toMatchObject({
-      OPENCLAW_EXTENSION_INCLUDE_PATTERNS_JSON: "${{ toJson(matrix.includePatterns) }}",
-      OPENCLAW_EXTENSION_TASK: "${{ matrix.task }}",
-      OPENCLAW_EXTENSION_VITEST_CONFIG: "${{ matrix.vitest_config }}",
+      GRANTED_EXTENSION_INCLUDE_PATTERNS_JSON: "${{ toJson(matrix.includePatterns) }}",
+      GRANTED_EXTENSION_TASK: "${{ matrix.task }}",
+      GRANTED_EXTENSION_VITEST_CONFIG: "${{ matrix.vitest_config }}",
     });
     expect(runStep?.run).toContain("extension-file-shard)");
-    expect(runStep?.run).toContain("OPENCLAW_TEST_PROJECTS_PARALLEL=2");
-    expect(runStep?.run).toContain('OPENCLAW_VITEST_INCLUDE_FILE="$include_file"');
-    expect(runStep?.run).toContain('pnpm test -- "$OPENCLAW_EXTENSION_VITEST_CONFIG"');
+    expect(runStep?.run).toContain("GRANTED_TEST_PROJECTS_PARALLEL=2");
+    expect(runStep?.run).toContain('GRANTED_VITEST_INCLUDE_FILE="$include_file"');
+    expect(runStep?.run).toContain('pnpm test -- "$GRANTED_EXTENSION_VITEST_CONFIG"');
     const shellCheck = spawnSync("bash", ["-n"], {
       encoding: "utf8",
       input: runStep?.run,

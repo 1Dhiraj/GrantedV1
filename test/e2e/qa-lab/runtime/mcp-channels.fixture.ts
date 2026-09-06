@@ -442,8 +442,8 @@ export async function connectMcpClient(params: {
     cwd: "/app",
     env: {
       ...process.env,
-      OPENCLAW_ALLOW_INSECURE_PRIVATE_WS: "1",
-      OPENCLAW_STATE_DIR: tempState.stateDir,
+      GRANTED_ALLOW_INSECURE_PRIVATE_WS: "1",
+      GRANTED_STATE_DIR: tempState.stateDir,
     },
     stderr: "pipe",
   });

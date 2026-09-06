@@ -380,18 +380,18 @@ export function createManagerIndexFixture(deps: {
   let root = "";
   let workspace = "";
   let memory = "";
-  const originalStateDir = process.env.OPENCLAW_STATE_DIR;
+  const originalStateDir = process.env.GRANTED_STATE_DIR;
   const managers = new Set<MemoryIndexManager>();
 
   const setStateDir = (stateDir: string): void => {
-    Reflect.set(process.env, "OPENCLAW_STATE_DIR", stateDir);
+    Reflect.set(process.env, "GRANTED_STATE_DIR", stateDir);
   };
 
   const restoreStateDir = (): void => {
     if (originalStateDir === undefined) {
-      Reflect.deleteProperty(process.env, "OPENCLAW_STATE_DIR");
+      Reflect.deleteProperty(process.env, "GRANTED_STATE_DIR");
     } else {
-      Reflect.set(process.env, "OPENCLAW_STATE_DIR", originalStateDir);
+      Reflect.set(process.env, "GRANTED_STATE_DIR", originalStateDir);
     }
   };
 

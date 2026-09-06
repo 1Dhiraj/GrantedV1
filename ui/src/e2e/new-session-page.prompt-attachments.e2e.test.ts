@@ -36,7 +36,7 @@ async function withNewSessionPage(run: (page: Page) => Promise<void>): Promise<v
 
 suite.define(() => {
   it("restores a prompt and image in a fresh page, then clears them after creation", async () => {
-    const artifactDir = process.env.OPENCLAW_UI_E2E_ARTIFACT_DIR?.trim()
+    const artifactDir = process.env.GRANTED_UI_E2E_ARTIFACT_DIR?.trim()
       ? suite.artifactDir
       : undefined;
     const context = await suite.browser.newContext({

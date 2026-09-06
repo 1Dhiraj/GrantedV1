@@ -23,17 +23,17 @@ async function withTempHome<T>(
   options: Parameters<typeof withBaseTempHome>[1],
 ): Promise<T> {
   return withBaseTempHome(async (home) => {
-    const previousStateDir = process.env.OPENCLAW_STATE_DIR;
-    process.env.OPENCLAW_STATE_DIR = path.join(home, ".openclaw");
+    const previousStateDir = process.env.GRANTED_STATE_DIR;
+    process.env.GRANTED_STATE_DIR = path.join(home, ".openclaw");
     closeOpenClawStateDatabaseForTest();
     try {
       return await run();
     } finally {
       closeOpenClawStateDatabaseForTest();
       if (previousStateDir === undefined) {
-        delete process.env.OPENCLAW_STATE_DIR;
+        delete process.env.GRANTED_STATE_DIR;
       } else {
-        process.env.OPENCLAW_STATE_DIR = previousStateDir;
+        process.env.GRANTED_STATE_DIR = previousStateDir;
       }
     }
   }, options);
@@ -136,7 +136,7 @@ function readStore() {
 
 const TEMP_HOME_OPTIONS = {
   skipSessionCleanup: true,
-  env: { OPENCLAW_CONFIG_PATH: undefined, OPENCLAW_STATE_DIR: undefined },
+  env: { GRANTED_CONFIG_PATH: undefined, GRANTED_STATE_DIR: undefined },
 };
 
 describe("MCP OAuth refresh issuer binding", () => {

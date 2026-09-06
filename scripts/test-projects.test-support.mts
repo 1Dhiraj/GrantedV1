@@ -461,8 +461,8 @@ const UI_E2E_VITEST_CONFIG = "test/vitest/vitest.ui-e2e.config.ts";
 const UI_ISOLATED_VITEST_CONFIG = "test/vitest/vitest.ui-isolated.config.ts";
 const UTILS_VITEST_CONFIG = "test/vitest/vitest.utils.config.ts";
 const WIZARD_VITEST_CONFIG = "test/vitest/vitest.wizard.config.ts";
-const INCLUDE_FILE_ENV_KEY = "OPENCLAW_VITEST_INCLUDE_FILE";
-const FS_MODULE_CACHE_PATH_ENV_KEY = "OPENCLAW_VITEST_FS_MODULE_CACHE_PATH";
+const INCLUDE_FILE_ENV_KEY = "GRANTED_VITEST_INCLUDE_FILE";
+const FS_MODULE_CACHE_PATH_ENV_KEY = "GRANTED_VITEST_FS_MODULE_CACHE_PATH";
 const FAILED_SHARD_DIGEST_LIMIT = 12;
 const CHANGED_ARGS_PATTERN = /^--changed(?:=(.+))?$/u;
 const VITEST_CONFIG_BY_KIND: Record<string, string> = {
@@ -892,10 +892,10 @@ const TOOLING_IMPORTABLE_FILE_EXTENSIONS = [
 const TOOLING_IMPORT_GRAPH_GREP_PATHS = TOOLING_IMPORT_GRAPH_ROOTS.flatMap((root) =>
   TOOLING_IMPORTABLE_FILE_EXTENSIONS.map((ext) => `:(glob)${root}/**/*${ext}`),
 );
-const BROAD_CHANGED_ENV_KEY = "OPENCLAW_TEST_CHANGED_BROAD";
-const VITEST_NO_OUTPUT_TIMEOUT_ENV_KEY = "OPENCLAW_VITEST_NO_OUTPUT_TIMEOUT_MS";
-const VITEST_NO_OUTPUT_HEARTBEAT_ENV_KEY = "OPENCLAW_VITEST_NO_OUTPUT_HEARTBEAT_MS";
-const VITEST_NO_OUTPUT_RETRY_ENV_KEY = "OPENCLAW_VITEST_NO_OUTPUT_RETRY";
+const BROAD_CHANGED_ENV_KEY = "GRANTED_TEST_CHANGED_BROAD";
+const VITEST_NO_OUTPUT_TIMEOUT_ENV_KEY = "GRANTED_VITEST_NO_OUTPUT_TIMEOUT_MS";
+const VITEST_NO_OUTPUT_HEARTBEAT_ENV_KEY = "GRANTED_VITEST_NO_OUTPUT_HEARTBEAT_MS";
+const VITEST_NO_OUTPUT_RETRY_ENV_KEY = "GRANTED_VITEST_NO_OUTPUT_RETRY";
 /** Default no-output timeout applied to test-projects Vitest children. */
 export const DEFAULT_TEST_PROJECTS_VITEST_NO_OUTPUT_TIMEOUT_MS = String(900_000);
 /** Default heartbeat interval applied to test-projects Vitest children. */
@@ -914,7 +914,7 @@ export function formatNoChangedTestTargetLines(skippedBroadFallbackPaths: string
       skippedBroadFallbackPaths.length === 1 ? "" : "s"
     } require broad Vitest fallback:`,
     ...skippedBroadFallbackPaths.map((changedPath) => `[test]   ${changedPath}`),
-    "[test] run `OPENCLAW_TEST_CHANGED_BROAD=1 pnpm test:changed` for broad coverage.",
+    "[test] run `GRANTED_TEST_CHANGED_BROAD=1 pnpm test:changed` for broad coverage.",
   ];
 }
 
@@ -4092,16 +4092,16 @@ export function buildFullSuiteVitestRunPlans(args: string[], cwd = process.cwd()
     ];
   }
   const parallelShardCount = parsePositiveInt(
-    process.env.OPENCLAW_TEST_PROJECTS_PARALLEL,
-    "OPENCLAW_TEST_PROJECTS_PARALLEL",
+    process.env.GRANTED_TEST_PROJECTS_PARALLEL,
+    "GRANTED_TEST_PROJECTS_PARALLEL",
   );
   const expandToProjectConfigs =
-    process.env.OPENCLAW_TEST_PROJECTS_LEAF_SHARDS === "1" ||
+    process.env.GRANTED_TEST_PROJECTS_LEAF_SHARDS === "1" ||
     (parallelShardCount !== null && parallelShardCount > 1) ||
     shouldExpandLocalFullSuiteShardsByDefault(process.env);
   return fullSuiteVitestShards.flatMap((shard) => {
     if (
-      process.env.OPENCLAW_TEST_SKIP_FULL_EXTENSIONS_SHARD === "1" &&
+      process.env.GRANTED_TEST_SKIP_FULL_EXTENSIONS_SHARD === "1" &&
       shard.config === FULL_EXTENSIONS_VITEST_CONFIG
     ) {
       return [];
@@ -4110,7 +4110,7 @@ export function buildFullSuiteVitestRunPlans(args: string[], cwd = process.cwd()
     // Bound project and worker lifetimes before either aggregate reaches V8's heap limit.
     const expandShard =
       expandToProjectConfigs ||
-      (process.env.OPENCLAW_TESTBOX_REMOTE_RUN === "1" &&
+      (process.env.GRANTED_TESTBOX_REMOTE_RUN === "1" &&
         (shard.config === FULL_AGENTIC_VITEST_CONFIG ||
           shard.config === FULL_EXTENSIONS_VITEST_CONFIG));
     const configs = expandShard ? shard.projects : [shard.config];
@@ -4172,7 +4172,7 @@ function shouldUseLocalFullSuiteParallelByDefault(env = process.env) {
   if (hasConservativeVitestWorkerBudget(env)) {
     return false;
   }
-  return env.OPENCLAW_TEST_PROJECTS_SERIAL !== "1" && !isCiLikeEnv(env);
+  return env.GRANTED_TEST_PROJECTS_SERIAL !== "1" && !isCiLikeEnv(env);
 }
 
 function shouldExpandLocalFullSuiteShardsByDefault(env = process.env) {
@@ -4196,10 +4196,10 @@ function parsePositiveInt(value: string | undefined, label: string) {
 
 function hasConservativeVitestWorkerBudget(env: NodeJS.ProcessEnv) {
   const workerBudget = parsePositiveInt(
-    env.OPENCLAW_VITEST_MAX_WORKERS ?? env.OPENCLAW_TEST_WORKERS,
-    env.OPENCLAW_VITEST_MAX_WORKERS === undefined
-      ? "OPENCLAW_TEST_WORKERS"
-      : "OPENCLAW_VITEST_MAX_WORKERS",
+    env.GRANTED_VITEST_MAX_WORKERS ?? env.GRANTED_TEST_WORKERS,
+    env.GRANTED_VITEST_MAX_WORKERS === undefined
+      ? "GRANTED_TEST_WORKERS"
+      : "GRANTED_VITEST_MAX_WORKERS",
   );
   return workerBudget !== null && workerBudget <= 1;
 }
@@ -4254,13 +4254,13 @@ export function resolveParallelFullSuiteConcurrency(
   let env = envInput;
   env ??= process.env;
   const override = parsePositiveInt(
-    env.OPENCLAW_TEST_PROJECTS_PARALLEL,
-    "OPENCLAW_TEST_PROJECTS_PARALLEL",
+    env.GRANTED_TEST_PROJECTS_PARALLEL,
+    "GRANTED_TEST_PROJECTS_PARALLEL",
   );
   if (override !== null) {
     return Math.min(override, specCount);
   }
-  if (env.OPENCLAW_TEST_PROJECTS_SERIAL === "1") {
+  if (env.GRANTED_TEST_PROJECTS_SERIAL === "1") {
     return 1;
   }
   if (isCiLikeEnv(env)) {
@@ -4270,7 +4270,7 @@ export function resolveParallelFullSuiteConcurrency(
     return 1;
   }
   if (
-    env.OPENCLAW_TEST_PROJECTS_LEAF_SHARDS !== "1" &&
+    env.GRANTED_TEST_PROJECTS_LEAF_SHARDS !== "1" &&
     !shouldUseLocalFullSuiteParallelByDefault(env)
   ) {
     return 1;

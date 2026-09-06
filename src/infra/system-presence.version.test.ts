@@ -22,7 +22,7 @@ async function withPresenceModule<T>(
 ): Promise<T> {
   return withEnvAsync(
     {
-      OPENCLAW_VERSION: undefined,
+      GRANTED_VERSION: undefined,
       npm_package_version: undefined,
       ...env,
     },
@@ -68,27 +68,27 @@ describe("system-presence version fallback", () => {
   it("ignores legacy service metadata and uses runtime VERSION", async () => {
     await expectSelfVersion(
       {
-        OPENCLAW_SERVICE_VERSION: "2.4.6-service",
+        GRANTED_SERVICE_VERSION: "2.4.6-service",
         npm_package_version: "1.0.0-package",
       },
       runtimeVersion,
     );
   });
 
-  it("prefers OPENCLAW_VERSION over runtime VERSION", async () => {
+  it("prefers GRANTED_VERSION over runtime VERSION", async () => {
     await expectSelfVersion(
       {
-        OPENCLAW_VERSION: "9.9.9-cli",
+        GRANTED_VERSION: "9.9.9-cli",
         npm_package_version: "1.0.0-package",
       },
       "9.9.9-cli",
     );
   });
 
-  it("uses runtime VERSION when OPENCLAW_VERSION is blank despite npm_package_version", async () => {
+  it("uses runtime VERSION when GRANTED_VERSION is blank despite npm_package_version", async () => {
     await expectSelfVersion(
       {
-        OPENCLAW_VERSION: " ",
+        GRANTED_VERSION: " ",
         npm_package_version: "1.0.0-package",
       },
       runtimeVersion,

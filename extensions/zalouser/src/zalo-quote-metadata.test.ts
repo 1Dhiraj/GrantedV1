@@ -67,11 +67,11 @@ async function withStoredSession<T>(params: {
       userAgent: "test-agent",
       createdAt: new Date().toISOString(),
     },
-    { OPENCLAW_STATE_DIR: stateDir },
+    { GRANTED_STATE_DIR: stateDir },
   );
   createZaloMock.mockResolvedValueOnce({ login: vi.fn(async () => params.api) });
   try {
-    return await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, params.run);
+    return await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, params.run);
   } finally {
     // Listener and send paths leave the shared state database open under the temporary
     // state dir, so it must be released before removal or Windows keeps the files locked

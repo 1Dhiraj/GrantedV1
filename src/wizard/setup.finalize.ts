@@ -711,7 +711,7 @@ export async function finalizeSetupWizard(
                 : {}),
             },
           },
-          env: { ...process.env, OPENCLAW_GATEWAY_PORT: String(settings.port) },
+          env: { ...process.env, GRANTED_GATEWAY_PORT: String(settings.port) },
         });
         const document = await waitForControlUiDocument({
           url: target.documentUrl,

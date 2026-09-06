@@ -62,7 +62,7 @@ import { forkCodexUpstreamSession } from "./upstream-session-fork.js";
 let stateDir: string;
 beforeEach(() => {
   stateDir = fs.mkdtempSync(path.join(os.tmpdir(), "codex-fork-owner-"));
-  vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
+  vi.stubEnv("GRANTED_STATE_DIR", stateDir);
   boundaryMocks.listTurns.mockReset();
   linkMocks.delete.mockReset();
   linkMocks.upsert.mockReset().mockReturnValue(true);

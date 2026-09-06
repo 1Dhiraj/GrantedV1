@@ -15,8 +15,8 @@ declare module "../plugins/hook-types.js" {
   }
 }
 
-const CHANNEL_CONTEXT_ENV_KEY = "OPENCLAW_CHANNEL_CONTEXT";
-const OPENCLAW_CLI_ENV_VALUE = "1";
+const CHANNEL_CONTEXT_ENV_KEY = "GRANTED_CHANNEL_CONTEXT";
+const GRANTED_CLI_ENV_VALUE = "1";
 type CapturedNodeHostParams = Pick<
   ExecuteNodeHostCommandParams,
   "env" | "requestedEnv" | "workdir"
@@ -173,7 +173,7 @@ describe("exec resolve_exec_env hook wiring", () => {
       PLUGIN_SAFE: "yes",
       PATH: "/tmp/plugin-bin",
       NODE_OPTIONS: "--require /tmp/hook.js",
-      OPENCLAW_CLI: "0",
+      GRANTED_CLI: "0",
       "bad-key": "bad",
     });
 
@@ -227,7 +227,7 @@ describe("exec resolve_exec_env hook wiring", () => {
       PLUGIN_SAFE: "yes",
     });
     expect(mocks.gatewayParams[0]?.env).not.toHaveProperty("NODE_OPTIONS");
-    expect(mocks.gatewayParams[0]?.env.OPENCLAW_CLI).toBe(OPENCLAW_CLI_ENV_VALUE);
+    expect(mocks.gatewayParams[0]?.env.GRANTED_CLI).toBe(GRANTED_CLI_ENV_VALUE);
     expect(mocks.gatewayParams[0]?.env.PATH).not.toBe("/tmp/plugin-bin");
     expect(mocks.spawnInputs[0]?.env).toMatchObject({
       EXISTING: "plugin",

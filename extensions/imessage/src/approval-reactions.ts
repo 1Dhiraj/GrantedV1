@@ -578,7 +578,7 @@ export async function handleIMessageApprovalReaction(params: {
       return { handled: true, stopPolling: true, stopPollingReason: "not-found" };
     }
     // Surface non-NotFound errors at warn level so a gateway 5xx / network
-    // outage / auth failure is visible without OPENCLAW_LOG_LEVEL=debug.
+    // outage / auth failure is visible without GRANTED_LOG_LEVEL=debug.
     try {
       getOptionalIMessageRuntime()
         ?.logging.getChildLogger({ plugin: "imessage", feature: "approval-reactions" })

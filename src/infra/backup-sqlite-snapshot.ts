@@ -246,7 +246,7 @@ export async function createBackupSqliteSnapshotPlan(params: {
   const globalStateSqlitePath = path.resolve(
     resolveOpenClawStateSqlitePath({
       ...process.env,
-      OPENCLAW_STATE_DIR: params.inventory.stateDir,
+      GRANTED_STATE_DIR: params.inventory.stateDir,
     }),
   );
   // Discovery finishes before snapshot creation so staged files cannot become

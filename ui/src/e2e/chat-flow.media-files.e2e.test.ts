@@ -205,13 +205,13 @@ suite.define(() => {
             .toBe(180);
         }
 
-        if (process.env.OPENCLAW_UI_E2E_ARTIFACT_DIR?.trim()) {
+        if (process.env.GRANTED_UI_E2E_ARTIFACT_DIR?.trim()) {
           await page.screenshot({
             fullPage: true,
             path: path.join(suite.artifactDir, `bootstrap-local-${kind}-${ticket}.png`),
           });
         }
-        if (process.env.OPENCLAW_BEHAVIOR_PROOF === "1") {
+        if (process.env.GRANTED_BEHAVIOR_PROOF === "1") {
           process.stdout.write(
             `${JSON.stringify({
               proof: "control-ui-local-media-bootstrap",
@@ -289,13 +289,13 @@ suite.define(() => {
         expect(await page.locator(".chat-assistant-attachment-card audio").count()).toBe(0);
         expect(await page.locator(".chat-assistant-attachment-card__download").count()).toBe(0);
 
-        if (process.env.OPENCLAW_UI_E2E_ARTIFACT_DIR?.trim()) {
+        if (process.env.GRANTED_UI_E2E_ARTIFACT_DIR?.trim()) {
           await page.screenshot({
             fullPage: true,
             path: path.join(suite.artifactDir, `bootstrap-blocked-${code}.png`),
           });
         }
-        if (process.env.OPENCLAW_BEHAVIOR_PROOF === "1") {
+        if (process.env.GRANTED_BEHAVIOR_PROOF === "1") {
           process.stdout.write(
             `${JSON.stringify({
               proof: "control-ui-local-media-bootstrap",
@@ -433,7 +433,7 @@ suite.define(() => {
       viewport: { height: 900, width: 1280 },
     });
     const page = await context.newPage();
-    const proofDir = process.env.OPENCLAW_UI_E2E_ARTIFACT_DIR?.trim()
+    const proofDir = process.env.GRANTED_UI_E2E_ARTIFACT_DIR?.trim()
       ? suite.artifactDir
       : undefined;
     const managedAttachmentSource = (artifactId: string) =>
@@ -604,7 +604,7 @@ suite.define(() => {
   ] as const)(
     "renders a $name image through the ticketed media route",
     async ({ source, workspaceDir, screenshotName }) => {
-      const artifactDir = process.env.OPENCLAW_UI_E2E_ARTIFACT_DIR?.trim()
+      const artifactDir = process.env.GRANTED_UI_E2E_ARTIFACT_DIR?.trim()
         ? suite.artifactDir
         : undefined;
       const context = await suite.newBrowserContext({
@@ -911,7 +911,7 @@ suite.define(() => {
           "utf8",
         );
       }
-      if (process.env.OPENCLAW_BEHAVIOR_PROOF === "1") {
+      if (process.env.GRANTED_BEHAVIOR_PROOF === "1") {
         process.stdout.write(
           `${JSON.stringify({ proof: "managed-image-cache", ...proofSummary })}\n`,
         );

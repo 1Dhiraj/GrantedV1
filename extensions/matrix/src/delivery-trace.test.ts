@@ -10,7 +10,7 @@
 // mints a new event id while the logical target id stays stable, and previews
 // are mentions-inert until a final either edits in place or gets redacted and
 // re-sent as a fresh mention-bearing event.
-// Refresh goldens with OPENCLAW_TRACE_UPDATE=1 (see delivery-trace harness docs).
+// Refresh goldens with GRANTED_TRACE_UPDATE=1 (see delivery-trace harness docs).
 import {
   deliveryTraceScenarios,
   expectDeliveryTraceMatchesGolden,

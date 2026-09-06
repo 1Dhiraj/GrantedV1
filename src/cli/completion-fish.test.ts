@@ -133,7 +133,7 @@ describe("completion-fish helpers", () => {
   it.skipIf(process.platform === "win32")(
     "keeps command-shaped Commander choices inert during completion expression parsing",
     () => {
-      const marker = "OPENCLAW_FISH_CHOICE_MUST_NOT_EXECUTE";
+      const marker = "GRANTED_FISH_CHOICE_MUST_NOT_EXECUTE";
       const line = buildFishOptionCompletionLine({
         rootCmd: "openclaw",
         condition: "true",

@@ -111,12 +111,12 @@ describe("resolveUpdateDoctorExecutionPolicy", () => {
         targetVersion,
         allowGatewayServiceRepair,
       });
-      const result = await withEnvAsync({ OPENCLAW_SERVICE_REPAIR_POLICY: "external" }, () =>
+      const result = await withEnvAsync({ GRANTED_SERVICE_REPAIR_POLICY: "external" }, () =>
         runCommandWithTimeout(
           [
             process.execPath,
             "-e",
-            "process.stdout.write(JSON.stringify(process.env.OPENCLAW_SERVICE_REPAIR_POLICY ?? null))",
+            "process.stdout.write(JSON.stringify(process.env.GRANTED_SERVICE_REPAIR_POLICY ?? null))",
           ],
           {
             timeoutMs: 5000,
@@ -225,7 +225,7 @@ describe("runGatewayUpdate", () => {
     vi.resetModules();
     vi.doMock("../process/exec.js", () => ({ runCommandWithTimeout: runCommandWithTimeoutMock }));
     vi.doMock("./update-global.js", () => ({
-      createGlobalInstallEnv: async () => ({ OPENCLAW_UPDATE_TEST_ENV: "1" }),
+      createGlobalInstallEnv: async () => ({ GRANTED_UPDATE_TEST_ENV: "1" }),
     }));
 
     try {
@@ -236,7 +236,7 @@ describe("runGatewayUpdate", () => {
 
       expect(runCommandWithTimeoutMock).toHaveBeenCalledWith(["pnpm", "install"], {
         cwd: tempDir,
-        env: { OPENCLAW_UPDATE_TEST_ENV: "1" },
+        env: { GRANTED_UPDATE_TEST_ENV: "1" },
         killProcessTree: true,
         timeoutMs: 500,
       });
@@ -1512,12 +1512,12 @@ describe("runGatewayUpdate", () => {
     });
 
     expect(result.status).toBe("ok");
-    expect(doctorEnv?.OPENCLAW_UPDATE_IN_PROGRESS).toBe("1");
-    expect(doctorEnv?.OPENCLAW_UPDATE_DEFER_CONFIGURED_PLUGIN_INSTALL_REPAIR).toBe("1");
-    expect(doctorEnv?.OPENCLAW_UPDATE_PARENT_SUPPORTS_DOCTOR_CONFIG_WRITE).toBe("1");
-    expect(doctorEnv?.OPENCLAW_UPDATE_PARENT_SUPPORTS_GATEWAY_RESTART).toBe("1");
-    expect(doctorEnv?.OPENCLAW_UPDATE_PARENT_ALLOWS_GATEWAY_SERVICE_REPAIR).toBe("1");
-    expect(doctorEnv?.OPENCLAW_UPDATE_PARENT_ALLOWS_GATEWAY_ACTIVATION).toBe("1");
+    expect(doctorEnv?.GRANTED_UPDATE_IN_PROGRESS).toBe("1");
+    expect(doctorEnv?.GRANTED_UPDATE_DEFER_CONFIGURED_PLUGIN_INSTALL_REPAIR).toBe("1");
+    expect(doctorEnv?.GRANTED_UPDATE_PARENT_SUPPORTS_DOCTOR_CONFIG_WRITE).toBe("1");
+    expect(doctorEnv?.GRANTED_UPDATE_PARENT_SUPPORTS_GATEWAY_RESTART).toBe("1");
+    expect(doctorEnv?.GRANTED_UPDATE_PARENT_ALLOWS_GATEWAY_SERVICE_REPAIR).toBe("1");
+    expect(doctorEnv?.GRANTED_UPDATE_PARENT_ALLOWS_GATEWAY_ACTIVATION).toBe("1");
   });
 
   it("uses the pre-mutation activation decision for the git update doctor pass", async () => {
@@ -1552,9 +1552,9 @@ describe("runGatewayUpdate", () => {
     });
 
     expect(result.status).toBe("ok");
-    expect(doctorEnv?.OPENCLAW_UPDATE_PARENT_ALLOWS_GATEWAY_SERVICE_REPAIR).toBe("0");
-    expect(doctorEnv?.OPENCLAW_UPDATE_PARENT_ALLOWS_GATEWAY_ACTIVATION).toBe("0");
-    expect(doctorEnv?.OPENCLAW_SERVICE_REPAIR_POLICY).toBeUndefined();
+    expect(doctorEnv?.GRANTED_UPDATE_PARENT_ALLOWS_GATEWAY_SERVICE_REPAIR).toBe("0");
+    expect(doctorEnv?.GRANTED_UPDATE_PARENT_ALLOWS_GATEWAY_ACTIVATION).toBe("0");
+    expect(doctorEnv?.GRANTED_SERVICE_REPAIR_POLICY).toBeUndefined();
   });
 
   it("uses pnpm highest resolution mode for dev preflight installs", async () => {
@@ -2451,15 +2451,15 @@ describe("runGatewayUpdate", () => {
       },
     });
 
-    const result = await withEnvAsync({ OPENCLAW_UPDATE_PREFLIGHT_LINT: "1" }, async () =>
+    const result = await withEnvAsync({ GRANTED_UPDATE_PREFLIGHT_LINT: "1" }, async () =>
       runWithCommand(runCommand, { channel: "dev" }),
     );
 
     expect(result.status).toBe("ok");
     expect(calls).toContain("pnpm lint");
     expect(lintEnv).toHaveLength(1);
-    expect(lintEnv[0]?.OPENCLAW_LOCAL_CHECK).toBe("1");
-    expect(lintEnv[0]?.OPENCLAW_LOCAL_CHECK_MODE).toBe("throttled");
+    expect(lintEnv[0]?.GRANTED_LOCAL_CHECK).toBe("1");
+    expect(lintEnv[0]?.GRANTED_LOCAL_CHECK_MODE).toBe("throttled");
   });
 
   it("retries windows pnpm git installs with --ignore-scripts for dev updates", async () => {
@@ -2646,8 +2646,8 @@ describe("runGatewayUpdate", () => {
         {
           NODE_OPTIONS: nodeOptions,
           COREPACK_ENABLE_DOWNLOAD_PROMPT: undefined,
-          OPENCLAW_UPDATE_IN_PROGRESS: undefined,
-          OPENCLAW_RUN_NODE_SKIP_DTS_BUILD: skipDts,
+          GRANTED_UPDATE_IN_PROGRESS: undefined,
+          GRANTED_RUN_NODE_SKIP_DTS_BUILD: skipDts,
         },
         async () => {
           const result = await runWithCommand(runCommand, { channel: "dev" });
@@ -2655,17 +2655,17 @@ describe("runGatewayUpdate", () => {
           expect(buildEnvs).toHaveLength(2);
           for (const env of buildEnvs) {
             expect(env).toMatchObject({
-              OPENCLAW_UPDATE_IN_PROGRESS: "1",
+              GRANTED_UPDATE_IN_PROGRESS: "1",
               COREPACK_ENABLE_DOWNLOAD_PROMPT: "0",
               NODE_OPTIONS: expectedNodeOptions,
               BUILD_ALL_CACHE_ROOT: path.join(tempDir, ".artifacts", "build-all-cache"),
               PATH: process.env.PATH,
             });
-            expect(env.OPENCLAW_RUN_NODE_SKIP_DTS_BUILD).toBe(skipDts);
+            expect(env.GRANTED_RUN_NODE_SKIP_DTS_BUILD).toBe(skipDts);
           }
-          expect(process.env.OPENCLAW_UPDATE_IN_PROGRESS).toBeUndefined();
+          expect(process.env.GRANTED_UPDATE_IN_PROGRESS).toBeUndefined();
           expect(process.env.NODE_OPTIONS).toBe(nodeOptions);
-          expect(process.env.OPENCLAW_RUN_NODE_SKIP_DTS_BUILD).toBe(skipDts);
+          expect(process.env.GRANTED_RUN_NODE_SKIP_DTS_BUILD).toBe(skipDts);
         },
       );
       expect(calls.filter((call) => call === "pnpm build")).toHaveLength(2);
@@ -3123,12 +3123,12 @@ describe("runGatewayUpdate", () => {
     expect(result.status).toBe("ok");
     expect(calls).toContain(doctorCommand);
     expect(result.steps.map((step) => step.name)).toContain("openclaw doctor");
-    expect(doctorEnv?.OPENCLAW_UPDATE_IN_PROGRESS).toBe("1");
-    expect(doctorEnv?.OPENCLAW_UPDATE_PARENT_SUPPORTS_DOCTOR_CONFIG_WRITE).toBe("1");
-    expect(doctorEnv?.OPENCLAW_UPDATE_PARENT_SUPPORTS_GATEWAY_RESTART).toBe("1");
-    expect(doctorEnv?.OPENCLAW_UPDATE_PARENT_ALLOWS_GATEWAY_SERVICE_REPAIR).toBe("1");
-    expect(doctorEnv?.OPENCLAW_UPDATE_PARENT_ALLOWS_GATEWAY_ACTIVATION).toBe("0");
-    expect(doctorEnv?.OPENCLAW_COMPATIBILITY_HOST_VERSION).toBe("2.0.0");
+    expect(doctorEnv?.GRANTED_UPDATE_IN_PROGRESS).toBe("1");
+    expect(doctorEnv?.GRANTED_UPDATE_PARENT_SUPPORTS_DOCTOR_CONFIG_WRITE).toBe("1");
+    expect(doctorEnv?.GRANTED_UPDATE_PARENT_SUPPORTS_GATEWAY_RESTART).toBe("1");
+    expect(doctorEnv?.GRANTED_UPDATE_PARENT_ALLOWS_GATEWAY_SERVICE_REPAIR).toBe("1");
+    expect(doctorEnv?.GRANTED_UPDATE_PARENT_ALLOWS_GATEWAY_ACTIVATION).toBe("0");
+    expect(doctorEnv?.GRANTED_COMPATIBILITY_HOST_VERSION).toBe("2.0.0");
   });
 
   it("fails global npm updates when post-update doctor fails", async () => {
@@ -3438,7 +3438,7 @@ describe("runGatewayUpdate", () => {
     await expect(fs.access(staleInstallChunk)).rejects.toHaveProperty("code", "ENOENT");
   });
 
-  it("uses OPENCLAW_UPDATE_PACKAGE_SPEC for global package updates", async () => {
+  it("uses GRANTED_UPDATE_PACKAGE_SPEC for global package updates", async () => {
     const { nodeModules, pkgRoot } = await createGlobalPackageFixture(tempDir);
     const expectedInstallCommand = npmGlobalInstallCommand(
       "http://10.211.55.2:8138/openclaw-next.tgz",
@@ -3451,7 +3451,7 @@ describe("runGatewayUpdate", () => {
     });
 
     await withEnvAsync(
-      { OPENCLAW_UPDATE_PACKAGE_SPEC: "http://10.211.55.2:8138/openclaw-next.tgz" },
+      { GRANTED_UPDATE_PACKAGE_SPEC: "http://10.211.55.2:8138/openclaw-next.tgz" },
       async () => {
         const result = await runWithCommand(runCommand, { cwd: pkgRoot });
         expect(result.status).toBe("ok");
@@ -3746,12 +3746,12 @@ describe("runGatewayUpdate", () => {
 
       const result = await withEnvAsync(
         {
-          OPENCLAW_UPDATE_IN_PROGRESS: undefined,
+          GRANTED_UPDATE_IN_PROGRESS: undefined,
           NODE_OPTIONS: "--max-old-space-size=8192",
         },
         async () => {
           const updateResult = await runWithCommand(runCommand, { channel: "stable" });
-          expect(process.env.OPENCLAW_UPDATE_IN_PROGRESS).toBeUndefined();
+          expect(process.env.GRANTED_UPDATE_IN_PROGRESS).toBeUndefined();
           return updateResult;
         },
       );
@@ -3809,7 +3809,7 @@ describe("runGatewayUpdate", () => {
       expect(buildCount).toBe(expectedBuilds);
       expect(buildEnvs).toEqual(
         Array.from({ length: expectedBuilds }, () =>
-          expect.objectContaining({ OPENCLAW_UPDATE_IN_PROGRESS: "1" }),
+          expect.objectContaining({ GRANTED_UPDATE_IN_PROGRESS: "1" }),
         ),
       );
       expect(currentHead).toBe(beforeSha);

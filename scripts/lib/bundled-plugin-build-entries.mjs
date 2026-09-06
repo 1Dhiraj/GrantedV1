@@ -18,9 +18,9 @@ export { collectRootPackageExcludedExtensionDirs };
 const TOP_LEVEL_PUBLIC_SURFACE_EXTENSIONS = new Set([".ts", ".js", ".mts", ".cts", ".mjs", ".cjs"]);
 /** Bundled plugin directories built with core but not packaged as standalone npm plugins. */
 export const NON_PACKAGED_BUNDLED_PLUGIN_DIRS = new Set(["qa-channel", "qa-lab"]);
-const BUNDLED_PLUGIN_BUILD_IDS_ENV = "OPENCLAW_BUNDLED_PLUGIN_BUILD_IDS";
+const BUNDLED_PLUGIN_BUILD_IDS_ENV = "GRANTED_BUNDLED_PLUGIN_BUILD_IDS";
 /** @internal Shared repository-script contract. */
-export const DOCKER_SELECTED_PLUGIN_BUILD_IDS_ENV = "OPENCLAW_INTERNAL_DOCKER_BUILD_PLUGIN_IDS";
+export const DOCKER_SELECTED_PLUGIN_BUILD_IDS_ENV = "GRANTED_INTERNAL_DOCKER_BUILD_PLUGIN_IDS";
 // Declaration caches must distinguish every selector that changes this entry graph.
 export const BUNDLED_PLUGIN_BUILD_ENV_NAMES = [
   BUNDLED_PLUGIN_BUILD_IDS_ENV,

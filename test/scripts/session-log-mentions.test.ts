@@ -227,13 +227,13 @@ describe("session log mention scanner", () => {
   it("rejects loose numeric env limits instead of parsing prefixes", () => {
     expect(() =>
       readSessionLogMentionLimits({
-        OPENCLAW_SESSION_LOG_MENTION_FILE_MAX_BYTES: "1e3",
+        GRANTED_SESSION_LOG_MENTION_FILE_MAX_BYTES: "1e3",
       }),
-    ).toThrow("invalid OPENCLAW_SESSION_LOG_MENTION_FILE_MAX_BYTES: 1e3");
+    ).toThrow("invalid GRANTED_SESSION_LOG_MENTION_FILE_MAX_BYTES: 1e3");
     expect(() =>
       readSessionLogMentionLimits({
-        OPENCLAW_SESSION_LOG_MENTION_TOTAL_MAX_BYTES: "1000ms",
+        GRANTED_SESSION_LOG_MENTION_TOTAL_MAX_BYTES: "1000ms",
       }),
-    ).toThrow("invalid OPENCLAW_SESSION_LOG_MENTION_TOTAL_MAX_BYTES: 1000ms");
+    ).toThrow("invalid GRANTED_SESSION_LOG_MENTION_TOTAL_MAX_BYTES: 1000ms");
   });
 });

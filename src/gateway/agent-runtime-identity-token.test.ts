@@ -19,7 +19,7 @@ import {
   withAgentRuntimeExecutionLineage,
 } from "./agent-runtime-execution-lineage.js";
 
-const envSnapshot = captureEnv(["HOME", "OPENCLAW_HOME", "OPENCLAW_STATE_DIR"]);
+const envSnapshot = captureEnv(["HOME", "GRANTED_HOME", "GRANTED_STATE_DIR"]);
 
 const tempHomes: string[] = [];
 
@@ -33,8 +33,8 @@ function useTempHome(): string {
   const home = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-agent-runtime-"));
   tempHomes.push(home);
   setTestEnvValue("HOME", home);
-  setTestEnvValue("OPENCLAW_HOME", home);
-  setTestEnvValue("OPENCLAW_STATE_DIR", path.join(home, ".openclaw"));
+  setTestEnvValue("GRANTED_HOME", home);
+  setTestEnvValue("GRANTED_STATE_DIR", path.join(home, ".openclaw"));
   closeOpenClawStateDatabaseForTest();
   execApprovalsStoreTesting.reset();
   return home;

@@ -5,7 +5,7 @@ import { resolvePreferredOpenClawTmpDir } from "./tmp-openclaw-dir.js";
 
 // IPC contract between package update parents and the post-install doctor child.
 export const UPDATE_POST_INSTALL_DOCTOR_RESULT_PATH_ENV =
-  "OPENCLAW_UPDATE_POST_INSTALL_DOCTOR_RESULT_PATH";
+  "GRANTED_UPDATE_POST_INSTALL_DOCTOR_RESULT_PATH";
 export const UPDATE_POST_INSTALL_DOCTOR_ADVISORY_EXIT_CODE = 86;
 const UPDATE_POST_INSTALL_DOCTOR_RESULT_FILENAME_RE =
   /^openclaw-update-doctor-\d+-[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}\.json$/iu;

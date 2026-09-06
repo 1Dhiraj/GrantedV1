@@ -46,7 +46,7 @@ describe("device-pair notify persistence", () => {
     vi.clearAllMocks();
     listDevicePairingMock.mockResolvedValue({ pending: [], paired: [] });
     stateDir = await fs.mkdtemp(path.join(os.tmpdir(), "device-pair-notify-"));
-    env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+    env = { ...process.env, GRANTED_STATE_DIR: stateDir };
   });
 
   afterEach(async () => {

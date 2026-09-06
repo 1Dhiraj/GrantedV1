@@ -5,8 +5,8 @@ import { describe, expect, it, vi } from "vitest";
 import { buildCliRespawnPlan, runCliRespawnPlan } from "./entry.respawn.js";
 
 const EXPERIMENTAL_WARNING_FLAG = "--disable-warning=ExperimentalWarning";
-const OPENCLAW_NODE_EXTRA_CA_CERTS_READY = "OPENCLAW_NODE_EXTRA_CA_CERTS_READY";
-const OPENCLAW_NODE_OPTIONS_READY = "OPENCLAW_NODE_OPTIONS_READY";
+const GRANTED_NODE_EXTRA_CA_CERTS_READY = "GRANTED_NODE_EXTRA_CA_CERTS_READY";
+const GRANTED_NODE_OPTIONS_READY = "GRANTED_NODE_OPTIONS_READY";
 
 type CliRespawnPlan = NonNullable<ReturnType<typeof buildCliRespawnPlan>>;
 
@@ -90,8 +90,8 @@ describe("buildCliRespawnPlan", () => {
     expect(respawnPlan.command).toBe(process.execPath);
     expect(respawnPlan.argv[0]).toBe(EXPERIMENTAL_WARNING_FLAG);
     expect(respawnPlan.env.NODE_EXTRA_CA_CERTS).toBe("/etc/ssl/certs/ca-certificates.crt");
-    expect(respawnPlan.env[OPENCLAW_NODE_EXTRA_CA_CERTS_READY]).toBe("1");
-    expect(respawnPlan.env[OPENCLAW_NODE_OPTIONS_READY]).toBe("1");
+    expect(respawnPlan.env[GRANTED_NODE_EXTRA_CA_CERTS_READY]).toBe("1");
+    expect(respawnPlan.env[GRANTED_NODE_OPTIONS_READY]).toBe("1");
     expect(respawnPlan.detachForProcessTree).toBe(true);
   });
 
@@ -119,8 +119,8 @@ describe("buildCliRespawnPlan", () => {
     const respawnPlan = expectCliRespawnPlan(plan);
     expect(respawnPlan.argv).toEqual(["openclaw", "gateway", "status", "--json"]);
     expect(respawnPlan.env.NODE_EXTRA_CA_CERTS).toBe("/etc/ssl/certs/ca-certificates.crt");
-    expect(respawnPlan.env[OPENCLAW_NODE_EXTRA_CA_CERTS_READY]).toBe("1");
-    expect(respawnPlan.env[OPENCLAW_NODE_OPTIONS_READY]).toBeUndefined();
+    expect(respawnPlan.env[GRANTED_NODE_EXTRA_CA_CERTS_READY]).toBe("1");
+    expect(respawnPlan.env[GRANTED_NODE_OPTIONS_READY]).toBeUndefined();
     expect(respawnPlan.detachForProcessTree).toBe(true);
   });
 
@@ -138,8 +138,8 @@ describe("buildCliRespawnPlan", () => {
       const respawnPlan = expectCliRespawnPlan(plan);
       expect(respawnPlan.argv).toEqual(["openclaw", command]);
       expect(respawnPlan.env.NODE_EXTRA_CA_CERTS).toBe("/etc/ssl/certs/ca-certificates.crt");
-      expect(respawnPlan.env[OPENCLAW_NODE_EXTRA_CA_CERTS_READY]).toBe("1");
-      expect(respawnPlan.env[OPENCLAW_NODE_OPTIONS_READY]).toBeUndefined();
+      expect(respawnPlan.env[GRANTED_NODE_EXTRA_CA_CERTS_READY]).toBe("1");
+      expect(respawnPlan.env[GRANTED_NODE_OPTIONS_READY]).toBeUndefined();
       expect(respawnPlan.detachForProcessTree).toBe(false);
     },
   );
@@ -199,7 +199,7 @@ describe("buildCliRespawnPlan", () => {
         argv: ["node", "openclaw", "cron", "list", "--json"],
         env: {
           NODE_USE_SYSTEM_CA: "1",
-          [OPENCLAW_NODE_OPTIONS_READY]: "1",
+          [GRANTED_NODE_OPTIONS_READY]: "1",
         },
         execArgv: [EXPERIMENTAL_WARNING_FLAG],
         autoNodeExtraCaCerts: undefined,
@@ -212,7 +212,7 @@ describe("buildCliRespawnPlan", () => {
     expect(
       buildCliRespawnPlan({
         argv: ["node", "openclaw", "tui"],
-        env: { [OPENCLAW_NODE_EXTRA_CA_CERTS_READY]: "1" },
+        env: { [GRANTED_NODE_EXTRA_CA_CERTS_READY]: "1" },
         execArgv: [],
         autoNodeExtraCaCerts: undefined,
         platform: "linux",
@@ -249,7 +249,7 @@ describe("buildCliRespawnPlan", () => {
 
     const respawnPlan = expectCliRespawnPlan(plan);
     expect(respawnPlan.env.NODE_EXTRA_CA_CERTS).toBe(expected);
-    expect(respawnPlan.env[OPENCLAW_NODE_EXTRA_CA_CERTS_READY]).toBe(expectedReady);
+    expect(respawnPlan.env[GRANTED_NODE_EXTRA_CA_CERTS_READY]).toBe(expectedReady);
   });
 
   it("returns null when both respawn guards are already satisfied", () => {
@@ -257,8 +257,8 @@ describe("buildCliRespawnPlan", () => {
       buildCliRespawnPlan({
         argv: ["node", "openclaw", "status"],
         env: {
-          [OPENCLAW_NODE_EXTRA_CA_CERTS_READY]: "1",
-          [OPENCLAW_NODE_OPTIONS_READY]: "1",
+          [GRANTED_NODE_EXTRA_CA_CERTS_READY]: "1",
+          [GRANTED_NODE_OPTIONS_READY]: "1",
         },
         execArgv: [EXPERIMENTAL_WARNING_FLAG],
         autoNodeExtraCaCerts: "/etc/ssl/certs/ca-certificates.crt",
@@ -287,8 +287,8 @@ describe("buildCliRespawnPlan", () => {
       "dashboard",
     ]);
     expect(respawnPlan.env.NODE_EXTRA_CA_CERTS).toBeUndefined();
-    expect(respawnPlan.env[OPENCLAW_NODE_EXTRA_CA_CERTS_READY]).toBeUndefined();
-    expect(respawnPlan.env[OPENCLAW_NODE_OPTIONS_READY]).toBeUndefined();
+    expect(respawnPlan.env[GRANTED_NODE_EXTRA_CA_CERTS_READY]).toBeUndefined();
+    expect(respawnPlan.env[GRANTED_NODE_OPTIONS_READY]).toBeUndefined();
     expect(respawnPlan.detachForProcessTree).toBe(false);
   });
 
@@ -399,7 +399,7 @@ describe("runCliRespawnPlan", () => {
       {
         command: "/usr/bin/node",
         argv: ["/repo/openclaw/dist/entry.js", "status"],
-        env: { OPENCLAW_NODE_OPTIONS_READY: "1" },
+        env: { GRANTED_NODE_OPTIONS_READY: "1" },
         detachForProcessTree: true,
       },
       {
@@ -415,7 +415,7 @@ describe("runCliRespawnPlan", () => {
       ["/repo/openclaw/dist/entry.js", "status"],
       {
         stdio: "inherit",
-        env: { OPENCLAW_NODE_OPTIONS_READY: "1" },
+        env: { GRANTED_NODE_OPTIONS_READY: "1" },
         detached: process.platform !== "win32" && !(process.stdin.isTTY || process.stdout.isTTY),
       },
     );

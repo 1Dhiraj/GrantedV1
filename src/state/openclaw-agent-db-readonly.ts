@@ -18,7 +18,7 @@ import {
   isIncognitoOpenClawAgentSqlitePath,
   resolveOpenClawAgentSqlitePath,
 } from "./openclaw-agent-db.paths.js";
-import { OPENCLAW_SQLITE_BUSY_TIMEOUT_MS } from "./openclaw-state-db-contract.js";
+import { GRANTED_SQLITE_BUSY_TIMEOUT_MS } from "./openclaw-state-db-contract.js";
 
 type OpenClawAgentReadOnlyDatabase = {
   agentId: string;
@@ -86,7 +86,7 @@ export function withOpenClawAgentDatabaseReadOnly<T>(
   const { db } = database;
   try {
     if (!reusable) {
-      db.exec(`PRAGMA busy_timeout = ${OPENCLAW_SQLITE_BUSY_TIMEOUT_MS};`);
+      db.exec(`PRAGMA busy_timeout = ${GRANTED_SQLITE_BUSY_TIMEOUT_MS};`);
     }
     // Share only this admission's fresh value; a later read must check again.
     const userVersion = assertSupportedAgentSchemaVersion(db, pathname);

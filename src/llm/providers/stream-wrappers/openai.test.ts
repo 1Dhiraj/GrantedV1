@@ -130,7 +130,7 @@ describe("createOpenAICompletionsToolsCompatWrapper", () => {
 
 describe("createCodexNativeWebSearchWrapper", () => {
   it("keeps native_active web_search alongside the code mode tool surface", () => {
-    vi.stubEnv("OPENCLAW_DEBUG_CODE_MODE", "1");
+    vi.stubEnv("GRANTED_DEBUG_CODE_MODE", "1");
     const secretFixture = `sk-${"fixture".repeat(6)}`;
     let observedOptions: Parameters<StreamFn>[2];
     const payloads: Array<Record<string, unknown>> = [];
@@ -212,7 +212,7 @@ describe("createCodexNativeWebSearchWrapper", () => {
   });
 
   it("emits one complete diagnostic through composed wrappers after async replacement", async () => {
-    vi.stubEnv("OPENCLAW_DEBUG_CODE_MODE", "1");
+    vi.stubEnv("GRANTED_DEBUG_CODE_MODE", "1");
     let payloadResult: unknown;
     const baseStreamFn: StreamFn = (model, _context, options) => {
       payloadResult = options?.onPayload?.(
@@ -274,7 +274,7 @@ describe("createCodexNativeWebSearchWrapper", () => {
   it.each(["", "0", "false", "off", "no"])(
     "does not emit dedicated diagnostics for false-like flag %j",
     (flag) => {
-      vi.stubEnv("OPENCLAW_DEBUG_CODE_MODE", flag);
+      vi.stubEnv("GRANTED_DEBUG_CODE_MODE", flag);
       const baseStreamFn: StreamFn = (model, _context, options) => {
         options?.onPayload?.(
           {

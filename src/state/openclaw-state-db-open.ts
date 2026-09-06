@@ -18,7 +18,7 @@ import {
 } from "../infra/sqlite-wal.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";
 import {
-  OPENCLAW_STATE_SCHEMA_VERSION,
+  GRANTED_STATE_SCHEMA_VERSION,
   type OpenClawStateDatabase,
 } from "./openclaw-state-db-contract.js";
 import { assertSupportedSchemaVersion } from "./openclaw-state-db-maintenance.js";
@@ -36,15 +36,15 @@ function assertStateDatabaseIntegrityBeforeMutation(
     .get();
   const migrationPending =
     (userVersion === 0 && hasApplicationSchema) ||
-    (userVersion > 0 && userVersion < OPENCLAW_STATE_SCHEMA_VERSION);
+    (userVersion > 0 && userVersion < GRANTED_STATE_SCHEMA_VERSION);
   if (migrationPending) {
     stateDbLog.info("state database schema migration pending; verifying integrity first", {
       fromVersion: userVersion,
       path: pathname,
-      toVersion: OPENCLAW_STATE_SCHEMA_VERSION,
+      toVersion: GRANTED_STATE_SCHEMA_VERSION,
     });
   }
-  if (userVersion !== OPENCLAW_STATE_SCHEMA_VERSION) {
+  if (userVersion !== GRANTED_STATE_SCHEMA_VERSION) {
     // Every physical open proves the full file before schema mutation or exposure.
     assertSqliteIntegrity(database, pathname);
   }

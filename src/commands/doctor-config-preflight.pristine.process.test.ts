@@ -23,15 +23,15 @@ describe("gateway startup-migration refusal", () => {
       ...process.env,
       HOME: root,
       USERPROFILE: root,
-      OPENCLAW_BUNDLED_PLUGINS_DIR: path.join(root, "bundled"),
-      OPENCLAW_CONFIG_PATH: configPath,
-      OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-      OPENCLAW_STATE_DIR: stateDir,
-      OPENCLAW_TEST_FAST: "1",
+      GRANTED_BUNDLED_PLUGINS_DIR: path.join(root, "bundled"),
+      GRANTED_CONFIG_PATH: configPath,
+      GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+      GRANTED_STATE_DIR: stateDir,
+      GRANTED_TEST_FAST: "1",
       NO_COLOR: "1",
     };
     delete env.NODE_ENV;
-    delete env.OPENCLAW_HOME;
+    delete env.GRANTED_HOME;
     delete env.VITEST;
     delete env.VITEST_POOL_ID;
     delete env.VITEST_WORKER_ID;
@@ -115,11 +115,11 @@ describe("CLI pristine startup after early config observation", () => {
       fs.writeFileSync(configPath, configRaw);
       const env: NodeJS.ProcessEnv = {
         ...process.env,
-        OPENCLAW_STATE_DIR: stateDir,
-        OPENCLAW_CONFIG_PATH: configPath,
-        OPENCLAW_DIAGNOSTICS: "1",
-        OPENCLAW_DIAGNOSTICS_TIMELINE_PATH: timelinePath,
-        OPENCLAW_HIDE_BANNER: "1",
+        GRANTED_STATE_DIR: stateDir,
+        GRANTED_CONFIG_PATH: configPath,
+        GRANTED_DIAGNOSTICS: "1",
+        GRANTED_DIAGNOSTICS_TIMELINE_PATH: timelinePath,
+        GRANTED_HIDE_BANNER: "1",
         XDG_CONFIG_HOME: path.join(root, "xdg-config"),
         XDG_DATA_HOME: path.join(root, "xdg-data"),
         XDG_STATE_HOME: path.join(root, "xdg-state"),
@@ -131,11 +131,11 @@ describe("CLI pristine startup after early config observation", () => {
       delete env.VITEST;
       delete env.VITEST_POOL_ID;
       delete env.VITEST_WORKER_ID;
-      delete env.OPENCLAW_PROFILE;
-      delete env.OPENCLAW_CONTAINER;
-      delete env.OPENCLAW_GATEWAY_URL;
-      delete env.OPENCLAW_GATEWAY_TOKEN;
-      delete env.OPENCLAW_GATEWAY_PASSWORD;
+      delete env.GRANTED_PROFILE;
+      delete env.GRANTED_CONTAINER;
+      delete env.GRANTED_GATEWAY_URL;
+      delete env.GRANTED_GATEWAY_TOKEN;
+      delete env.GRANTED_GATEWAY_PASSWORD;
       // Check the authored input without warming the CLI child's startup graph.
       const { planPristineStartupConfigMigrations } =
         await import("./doctor/shared/pristine-startup-state.js");
@@ -189,7 +189,7 @@ describe("CLI pristine startup after early config observation", () => {
         openOpenClawStateDatabase({ env: process.env });
         closeOpenClawStateDatabase();
       }
-      const databasePath = path.join(process.env.OPENCLAW_STATE_DIR, "state", "openclaw.sqlite");
+      const databasePath = path.join(process.env.GRANTED_STATE_DIR, "state", "openclaw.sqlite");
       const databaseExistedBefore = fs.existsSync(databasePath);
       const { runCli } = await import(${JSON.stringify(sourceUrl("cli/run-main.ts"))});
       process.argv = [process.execPath, "openclaw", ...${JSON.stringify(args)}];
@@ -199,14 +199,14 @@ describe("CLI pristine startup after early config observation", () => {
       const { flushDiagnosticsTimeline } =
         await import(${JSON.stringify(sourceUrl("infra/diagnostics-timeline.ts"))});
       flushDiagnosticsTimeline();
-      const events = fs.readFileSync(process.env.OPENCLAW_DIAGNOSTICS_TIMELINE_PATH, "utf8")
+      const events = fs.readFileSync(process.env.GRANTED_DIAGNOSTICS_TIMELINE_PATH, "utf8")
         .trim().split("\\n").map(line => JSON.parse(line));
       const stages = events.filter(event => event.type === "span.end" &&
         event.name === "cli.command-startup").map(event => event.attributes?.stage);
       const database = new DatabaseSync(databasePath, { readOnly: true });
       let health;
       try { health = database.prepare("SELECT last_known_good_json FROM config_health_entries WHERE config_path = ?")
-        .get(process.env.OPENCLAW_CONFIG_PATH); }
+        .get(process.env.GRANTED_CONFIG_PATH); }
       finally { database.close(); }
       process.stdout.write("__RESULT__" + JSON.stringify({
         message, calls, stages, databaseExistedBefore,

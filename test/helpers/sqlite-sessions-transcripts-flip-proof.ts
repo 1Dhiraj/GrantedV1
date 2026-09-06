@@ -68,7 +68,7 @@ const CONCURRENT_RESET_SESSION_KEY = "agent:main:dashboard:sqlite-concurrent-res
 const CONCURRENT_DELETE_SESSION_KEY = "agent:main:dashboard:sqlite-concurrent-delete";
 const CONCURRENT_SEND_TEXT = "sqlite concurrent send history reset";
 const CONCURRENT_DELETE_TEXT = "sqlite concurrent delete while send is active";
-const FULL_TURN_ASSISTANT_TEXT = "OPENCLAW_E2E_OK_12";
+const FULL_TURN_ASSISTANT_TEXT = "GRANTED_E2E_OK_12";
 const FULL_TURN_SESSION_KEY = "agent:main:sqlite-full-turn";
 const DOWNGRADE_REUPGRADE_SESSION_ID = "sqlite-downgrade-reupgrade";
 const DOWNGRADE_REUPGRADE_SESSION_KEY = "agent:main:dashboard:sqlite-downgrade-reupgrade";
@@ -108,12 +108,12 @@ export async function runSqliteSessionsTranscriptsFlipProof(options: RunOptions 
       NO_PROXY: "127.0.0.1,localhost",
       ...(options.requireBuiltCli !== true
         ? {
-            OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
+            GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
           }
         : {}),
       OPENAI_API_KEY: "sk-openclaw-e2e-mock",
-      OPENCLAW_TEST_MINIMAL_GATEWAY: undefined,
-      OPENCLAW_SKIP_PROVIDERS: undefined,
+      GRANTED_TEST_MINIMAL_GATEWAY: undefined,
+      GRANTED_SKIP_PROVIDERS: undefined,
       no_proxy: "127.0.0.1,localhost",
     },
     startTimeoutMs: 90_000,
@@ -1184,22 +1184,22 @@ async function runSqliteBusyContentionProof(context: ProofContext) {
       `
         import fs from "node:fs";
         import { DatabaseSync } from "node:sqlite";
-        const db = new DatabaseSync(process.env.OPENCLAW_E2E_BUSY_DB_PATH);
+        const db = new DatabaseSync(process.env.GRANTED_E2E_BUSY_DB_PATH);
         db.exec("PRAGMA busy_timeout = 30000; BEGIN IMMEDIATE;");
-        fs.writeFileSync(process.env.OPENCLAW_E2E_BUSY_READY_PATH, "ready");
+        fs.writeFileSync(process.env.GRANTED_E2E_BUSY_READY_PATH, "ready");
         setTimeout(() => {
           db.exec("COMMIT");
           db.close();
-        }, Number(process.env.OPENCLAW_E2E_BUSY_HOLD_MS));
+        }, Number(process.env.GRANTED_E2E_BUSY_HOLD_MS));
       `,
     ],
     {
       cwd: process.cwd(),
       env: {
         ...process.env,
-        OPENCLAW_E2E_BUSY_DB_PATH: context.agentDbPath,
-        OPENCLAW_E2E_BUSY_HOLD_MS: String(holdMs),
-        OPENCLAW_E2E_BUSY_READY_PATH: readyPath,
+        GRANTED_E2E_BUSY_DB_PATH: context.agentDbPath,
+        GRANTED_E2E_BUSY_HOLD_MS: String(holdMs),
+        GRANTED_E2E_BUSY_READY_PATH: readyPath,
       },
       stdio: ["ignore", "pipe", "pipe"],
     },

@@ -28,7 +28,7 @@ function resolveGatewayUrlOverrideSource(urlSource: string): "cli" | "env" | und
   if (urlSource === "cli --url") {
     return "cli";
   }
-  if (urlSource === "env OPENCLAW_GATEWAY_URL") {
+  if (urlSource === "env GRANTED_GATEWAY_URL") {
     return "env";
   }
   return undefined;
@@ -68,7 +68,7 @@ export function ensureExplicitGatewayAuth(params: {
   }
   const sourceHint =
     params.urlOverrideSource === "env"
-      ? "Set OPENCLAW_GATEWAY_TOKEN or OPENCLAW_GATEWAY_PASSWORD alongside OPENCLAW_GATEWAY_URL; config credentials are intentionally not reused."
+      ? "Set GRANTED_GATEWAY_TOKEN or GRANTED_GATEWAY_PASSWORD alongside GRANTED_GATEWAY_URL; config credentials are intentionally not reused."
       : "For the default local or SSH-tunneled Gateway, remove --url to use the configured target.";
   throw new GatewayExplicitAuthRequiredError(
     [
@@ -162,7 +162,7 @@ export function resolveGatewayUrlOverride(params: {
   if (params.ignoreEnvUrlOverride || params.localPortOverride !== undefined) {
     return {};
   }
-  const envUrl = trimToUndefined((params.env ?? process.env).OPENCLAW_GATEWAY_URL);
+  const envUrl = trimToUndefined((params.env ?? process.env).GRANTED_GATEWAY_URL);
   return envUrl ? { url: envUrl, source: "env" } : {};
 }
 

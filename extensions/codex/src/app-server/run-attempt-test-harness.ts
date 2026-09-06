@@ -704,7 +704,7 @@ export function setupRunAttemptTestHooks(): void {
     clearMemoryPluginState();
     resetAgentEventsForTest();
     resetDiagnosticEventsForTest();
-    vi.stubEnv("OPENCLAW_TRAJECTORY", "0");
+    vi.stubEnv("GRANTED_TRAJECTORY", "0");
     vi.stubEnv("CODEX_API_KEY", "");
     vi.stubEnv("OPENAI_API_KEY", "");
     tempDir = await fs.mkdtemp(path.join(resolvePreferredOpenClawTmpDir(), "openclaw-codex-run-"));

@@ -64,7 +64,7 @@ const LEGACY_CONTEXT_ENGINE_UNRESOLVED_RUNTIME_MARKER =
 // when the invoking build inherited a plugin-selection filter.
 const PACKAGED_BUNDLED_PLUGIN_ARTIFACTS = new Set(
   listBundledPluginPackArtifacts({
-    env: { ...process.env, OPENCLAW_BUNDLED_PLUGIN_BUILD_IDS: undefined },
+    env: { ...process.env, GRANTED_BUNDLED_PLUGIN_BUILD_IDS: undefined },
   }),
 );
 const PUBLISHED_BUNDLED_RUNTIME_SIDECAR_PATHS = BUNDLED_RUNTIME_SIDECAR_PATHS.filter(
@@ -1151,8 +1151,8 @@ async function verifyPublishedRegistryProvenanceOnce(version: string): Promise<v
     version,
     integrity,
     attestations,
-    expectedWorkflowRef: process.env.OPENCLAW_NPM_EXPECTED_WORKFLOW_REF,
-    expectedWorkflowSha: process.env.OPENCLAW_NPM_EXPECTED_WORKFLOW_SHA,
+    expectedWorkflowRef: process.env.GRANTED_NPM_EXPECTED_WORKFLOW_REF,
+    expectedWorkflowSha: process.env.GRANTED_NPM_EXPECTED_WORKFLOW_SHA,
   });
   console.log(
     `openclaw-npm-postpublish-verify: registry signature and provenance attestation verified (${version})`,

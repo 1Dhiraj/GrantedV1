@@ -388,7 +388,7 @@ describe("active-memory plugin", () => {
         openKeyedStore: (options: OpenKeyedStoreOptions) =>
           createPluginStateKeyedStoreForTests("active-memory", {
             ...options,
-            env: { ...process.env, OPENCLAW_STATE_DIR: pluginStateDir },
+            env: { ...process.env, GRANTED_STATE_DIR: pluginStateDir },
           }),
       },
       config: {
@@ -629,7 +629,7 @@ describe("active-memory plugin", () => {
     await createPluginStateKeyedStoreForTests("active-memory", {
       namespace: "session-toggles",
       maxEntries: 10_000,
-      env: { ...process.env, OPENCLAW_STATE_DIR: pluginStateDir },
+      env: { ...process.env, GRANTED_STATE_DIR: pluginStateDir },
     }).clear();
     runEmbeddedAgent.mockReset();
     configFile = {

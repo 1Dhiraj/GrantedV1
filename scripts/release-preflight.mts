@@ -355,7 +355,7 @@ function printSkipped(skipped: SkippedTask[]): void {
 
 function parseArgs(argv: string[]) {
   let check = false;
-  let jobs = parseJobs(process.env.OPENCLAW_RELEASE_PREFLIGHT_JOBS ?? "4");
+  let jobs = parseJobs(process.env.GRANTED_RELEASE_PREFLIGHT_JOBS ?? "4");
   let wantsFix = false;
   let macosVersionsOnly = false;
   const scopes = new Set<Scope>();

@@ -173,7 +173,7 @@ vi.mock("./health.js", () => ({
 describe("maybeRepairGatewayDaemon", () => {
   let maybeRepairGatewayDaemon: typeof import("./doctor-gateway-daemon-flow.js").maybeRepairGatewayDaemon;
   const originalPlatformDescriptor = Object.getOwnPropertyDescriptor(process, "platform");
-  const originalUpdateInProgress = process.env.OPENCLAW_UPDATE_IN_PROGRESS;
+  const originalUpdateInProgress = process.env.GRANTED_UPDATE_IN_PROGRESS;
 
   beforeAll(async () => {
     ({ maybeRepairGatewayDaemon } = await import("./doctor-gateway-daemon-flow.js"));
@@ -221,9 +221,9 @@ describe("maybeRepairGatewayDaemon", () => {
       Object.defineProperty(process, "platform", originalPlatformDescriptor);
     }
     if (originalUpdateInProgress === undefined) {
-      delete process.env.OPENCLAW_UPDATE_IN_PROGRESS;
+      delete process.env.GRANTED_UPDATE_IN_PROGRESS;
     } else {
-      process.env.OPENCLAW_UPDATE_IN_PROGRESS = originalUpdateInProgress;
+      process.env.GRANTED_UPDATE_IN_PROGRESS = originalUpdateInProgress;
     }
   });
 
@@ -257,7 +257,7 @@ describe("maybeRepairGatewayDaemon", () => {
   }
 
   async function runNonInteractiveUpdateRepair() {
-    process.env.OPENCLAW_UPDATE_IN_PROGRESS = "1";
+    process.env.GRANTED_UPDATE_IN_PROGRESS = "1";
     await runNonInteractiveRepair();
   }
 
@@ -321,8 +321,8 @@ describe("maybeRepairGatewayDaemon", () => {
   it("skips every service-manager seam for a non-default install identity", async () => {
     await withEnvAsync(
       {
-        OPENCLAW_STATE_DIR: "/tmp/openclaw-copied-state",
-        OPENCLAW_CONFIG_PATH: "/tmp/openclaw-copied-state/openclaw.json",
+        GRANTED_STATE_DIR: "/tmp/openclaw-copied-state",
+        GRANTED_CONFIG_PATH: "/tmp/openclaw-copied-state/openclaw.json",
       },
       async () => {
         isDefaultInstallIdentity.mockReturnValue(false);
@@ -345,7 +345,7 @@ describe("maybeRepairGatewayDaemon", () => {
 
   it("still inspects the managed service for the default install identity", async () => {
     await withEnvAsync(
-      { OPENCLAW_STATE_DIR: undefined, OPENCLAW_CONFIG_PATH: undefined },
+      { GRANTED_STATE_DIR: undefined, GRANTED_CONFIG_PATH: undefined },
       runNonInteractiveRepair,
     );
 
@@ -373,7 +373,7 @@ describe("maybeRepairGatewayDaemon", () => {
         {
           KUBERNETES_SERVICE_HOST: scenario.kubernetes ? "10.96.0.1" : undefined,
           KUBERNETES_SERVICE_PORT: scenario.kubernetes ? "443" : undefined,
-          OPENCLAW_SUPERVISOR_MODE: scenario.external ? "external" : undefined,
+          GRANTED_SUPERVISOR_MODE: scenario.external ? "external" : undefined,
         },
         runNonInteractiveRepair,
       );
@@ -414,8 +414,8 @@ describe("maybeRepairGatewayDaemon", () => {
     service.readCommand.mockResolvedValueOnce({
       programArguments: ["/bin/node", "cli", "gateway"],
       environment: {
-        OPENCLAW_STATE_DIR: "/tmp/openclaw-service",
-        OPENCLAW_CONFIG_PATH: "/tmp/openclaw-service/openclaw.json",
+        GRANTED_STATE_DIR: "/tmp/openclaw-service",
+        GRANTED_CONFIG_PATH: "/tmp/openclaw-service/openclaw.json",
       },
     });
     readGatewayRestartHandoffSync.mockReturnValueOnce({
@@ -445,10 +445,10 @@ describe("maybeRepairGatewayDaemon", () => {
 
     expect(readGatewayRestartHandoffSync).toHaveBeenCalledTimes(2);
     const [handoffEnv] = readGatewayRestartHandoffSync.mock.calls[0] as unknown as [
-      { OPENCLAW_STATE_DIR?: string; OPENCLAW_CONFIG_PATH?: string },
+      { GRANTED_STATE_DIR?: string; GRANTED_CONFIG_PATH?: string },
     ];
-    expect(handoffEnv?.OPENCLAW_STATE_DIR).toBe("/tmp/openclaw-service");
-    expect(handoffEnv?.OPENCLAW_CONFIG_PATH).toBe("/tmp/openclaw-service/openclaw.json");
+    expect(handoffEnv?.GRANTED_STATE_DIR).toBe("/tmp/openclaw-service");
+    expect(handoffEnv?.GRANTED_CONFIG_PATH).toBe("/tmp/openclaw-service/openclaw.json");
     expect(note).toHaveBeenCalledWith(
       "Recent restart handoff: full-process via systemd; source=plugin-change; reason=plugin source changed; pid=12345; age=30s; expiresIn=30s",
       "Gateway",
@@ -801,7 +801,7 @@ describe("maybeRepairGatewayDaemon", () => {
     setPlatform("linux");
     service.isLoaded.mockResolvedValue(false);
 
-    await withEnvAsync({ OPENCLAW_SERVICE_REPAIR_POLICY: "external" }, async () => {
+    await withEnvAsync({ GRANTED_SERVICE_REPAIR_POLICY: "external" }, async () => {
       await runAutoRepair();
     });
 
@@ -845,7 +845,7 @@ describe("maybeRepairGatewayDaemon", () => {
     setPlatform("linux");
     service.readRuntime.mockResolvedValue({ status: "stopped" });
 
-    await withEnvAsync({ OPENCLAW_SERVICE_REPAIR_POLICY: "external" }, async () => {
+    await withEnvAsync({ GRANTED_SERVICE_REPAIR_POLICY: "external" }, async () => {
       await runAutoRepair();
     });
 
@@ -856,7 +856,7 @@ describe("maybeRepairGatewayDaemon", () => {
   it("skips gateway service restart when service repair policy is external", async () => {
     setPlatform("linux");
 
-    await withEnvAsync({ OPENCLAW_SERVICE_REPAIR_POLICY: "external" }, async () => {
+    await withEnvAsync({ GRANTED_SERVICE_REPAIR_POLICY: "external" }, async () => {
       await runAutoRepair();
     });
 
@@ -871,7 +871,7 @@ describe("maybeRepairGatewayDaemon", () => {
     vi.mocked(launchd.isLaunchAgentLoaded).mockResolvedValue(false);
     vi.mocked(launchd.launchAgentPlistExists).mockResolvedValueOnce(true).mockResolvedValue(false);
 
-    await withEnvAsync({ OPENCLAW_SERVICE_REPAIR_POLICY: "external" }, async () => {
+    await withEnvAsync({ GRANTED_SERVICE_REPAIR_POLICY: "external" }, async () => {
       await runAutoRepair();
     });
 

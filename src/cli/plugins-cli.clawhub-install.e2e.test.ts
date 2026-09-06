@@ -211,34 +211,34 @@ async function startClawHubServer(options: TestServerOptions = {}) {
 function buildEnv(stateDir: string, registry: string): NodeJS.ProcessEnv {
   return {
     ...process.env,
-    OPENCLAW_STATE_DIR: stateDir,
-    OPENCLAW_CONFIG_PATH: path.join(stateDir, "openclaw.json"),
-    OPENCLAW_CLAWHUB_URL: registry,
+    GRANTED_STATE_DIR: stateDir,
+    GRANTED_CONFIG_PATH: path.join(stateDir, "openclaw.json"),
+    GRANTED_CLAWHUB_URL: registry,
     CLAWHUB_TOKEN: "test-token",
     CLAWHUB_DISABLE_TELEMETRY: "",
     CLAWDHUB_DISABLE_TELEMETRY: "",
-    OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
+    GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
   };
 }
 
 async function readPersistedInstallRecord(stateDir: string) {
-  const previousStateDir = process.env.OPENCLAW_STATE_DIR;
-  const previousConfigPath = process.env.OPENCLAW_CONFIG_PATH;
-  process.env.OPENCLAW_STATE_DIR = stateDir;
-  process.env.OPENCLAW_CONFIG_PATH = path.join(stateDir, "openclaw.json");
+  const previousStateDir = process.env.GRANTED_STATE_DIR;
+  const previousConfigPath = process.env.GRANTED_CONFIG_PATH;
+  process.env.GRANTED_STATE_DIR = stateDir;
+  process.env.GRANTED_CONFIG_PATH = path.join(stateDir, "openclaw.json");
   try {
     const records = await loadInstalledPluginIndexInstallRecords();
     return records[PLUGIN_ID];
   } finally {
     if (previousStateDir === undefined) {
-      delete process.env.OPENCLAW_STATE_DIR;
+      delete process.env.GRANTED_STATE_DIR;
     } else {
-      process.env.OPENCLAW_STATE_DIR = previousStateDir;
+      process.env.GRANTED_STATE_DIR = previousStateDir;
     }
     if (previousConfigPath === undefined) {
-      delete process.env.OPENCLAW_CONFIG_PATH;
+      delete process.env.GRANTED_CONFIG_PATH;
     } else {
-      process.env.OPENCLAW_CONFIG_PATH = previousConfigPath;
+      process.env.GRANTED_CONFIG_PATH = previousConfigPath;
     }
   }
 }

@@ -11,29 +11,28 @@ import type { SystemAgentToolOptions } from "../agents/tools/system-agent-tool.j
 import { resolveOpenClawPackageRootSync } from "../infra/openclaw-root.js";
 import type { BundleMcpConfig } from "../plugins/bundle-mcp.js";
 
-export const OPENCLAW_TOOLS_MCP_TOOLS_ENV = "OPENCLAW_TOOLS_MCP_TOOLS";
-export const OPENCLAW_TOOLS_MCP_SYSTEM_AGENT_SURFACE_ENV =
-  "OPENCLAW_TOOLS_MCP_SYSTEM_AGENT_SURFACE";
-export const OPENCLAW_TOOLS_MCP_SYSTEM_AGENT_APPROVAL_ARMED_ENV =
-  "OPENCLAW_TOOLS_MCP_SYSTEM_AGENT_APPROVAL_ARMED";
-export const OPENCLAW_TOOLS_MCP_SYSTEM_AGENT_PROPOSAL_ENV =
-  "OPENCLAW_TOOLS_MCP_SYSTEM_AGENT_PROPOSAL";
+export const GRANTED_TOOLS_MCP_TOOLS_ENV = "GRANTED_TOOLS_MCP_TOOLS";
+export const GRANTED_TOOLS_MCP_SYSTEM_AGENT_SURFACE_ENV = "GRANTED_TOOLS_MCP_SYSTEM_AGENT_SURFACE";
+export const GRANTED_TOOLS_MCP_SYSTEM_AGENT_APPROVAL_ARMED_ENV =
+  "GRANTED_TOOLS_MCP_SYSTEM_AGENT_APPROVAL_ARMED";
+export const GRANTED_TOOLS_MCP_SYSTEM_AGENT_PROPOSAL_ENV =
+  "GRANTED_TOOLS_MCP_SYSTEM_AGENT_PROPOSAL";
 // Delegation and chat consent are mutually exclusive. Keep both in the existing
 // per-turn transport value so native transcript resume identity stays stable.
 const APPROVAL_ARMED_OPERATOR_ONLY_VALUE = "operator-only";
 
-const OPENCLAW_TOOLS_MCP_TOOL_IDS = ["cron", "openclaw"] as const;
-export type OpenClawToolsMcpToolId = (typeof OPENCLAW_TOOLS_MCP_TOOL_IDS)[number];
+const GRANTED_TOOLS_MCP_TOOL_IDS = ["cron", "openclaw"] as const;
+export type OpenClawToolsMcpToolId = (typeof GRANTED_TOOLS_MCP_TOOL_IDS)[number];
 
 function isOpenClawToolsMcpToolId(value: string): value is OpenClawToolsMcpToolId {
-  return (OPENCLAW_TOOLS_MCP_TOOL_IDS as readonly string[]).includes(value);
+  return (GRANTED_TOOLS_MCP_TOOL_IDS as readonly string[]).includes(value);
 }
 
 /** Parse the served tool selection; the default stays cron for acpx bridges. */
 export function resolveOpenClawToolsMcpToolSelection(
   env: NodeJS.ProcessEnv = process.env,
 ): OpenClawToolsMcpToolId[] {
-  const raw = env[OPENCLAW_TOOLS_MCP_TOOLS_ENV]?.trim();
+  const raw = env[GRANTED_TOOLS_MCP_TOOLS_ENV]?.trim();
   if (!raw) {
     return ["cron"];
   }
@@ -44,7 +43,7 @@ export function resolveOpenClawToolsMcpToolSelection(
   const selection = entries.filter(isOpenClawToolsMcpToolId);
   if (selection.length === 0 || selection.length !== entries.length) {
     throw new Error(
-      `${OPENCLAW_TOOLS_MCP_TOOLS_ENV} must be a comma list of: ${OPENCLAW_TOOLS_MCP_TOOL_IDS.join(", ")}`,
+      `${GRANTED_TOOLS_MCP_TOOLS_ENV} must be a comma list of: ${GRANTED_TOOLS_MCP_TOOL_IDS.join(", ")}`,
     );
   }
   return selection;
@@ -54,14 +53,14 @@ export function resolveOpenClawToolsMcpToolSelection(
 export function resolveOpenClawToolsMcpSystemAgentSurface(
   env: NodeJS.ProcessEnv = process.env,
 ): SystemAgentToolOptions["surface"] {
-  const raw = env[OPENCLAW_TOOLS_MCP_SYSTEM_AGENT_SURFACE_ENV]?.trim();
+  const raw = env[GRANTED_TOOLS_MCP_SYSTEM_AGENT_SURFACE_ENV]?.trim();
   if (!raw || raw === "cli") {
     return "cli";
   }
   if (raw === "gateway") {
     return "gateway";
   }
-  throw new Error(`${OPENCLAW_TOOLS_MCP_SYSTEM_AGENT_SURFACE_ENV} must be "cli" or "gateway"`);
+  throw new Error(`${GRANTED_TOOLS_MCP_SYSTEM_AGENT_SURFACE_ENV} must be "cli" or "gateway"`);
 }
 
 /**
@@ -75,8 +74,8 @@ export function resolveOpenClawToolsMcpSystemAgentApproval(env: NodeJS.ProcessEn
   proposalRef: { current?: string };
   operatorApprovalOnly?: boolean;
 } {
-  const pendingProposal = env[OPENCLAW_TOOLS_MCP_SYSTEM_AGENT_PROPOSAL_ENV]?.trim();
-  const armedValue = env[OPENCLAW_TOOLS_MCP_SYSTEM_AGENT_APPROVAL_ARMED_ENV]?.trim();
+  const pendingProposal = env[GRANTED_TOOLS_MCP_SYSTEM_AGENT_PROPOSAL_ENV]?.trim();
+  const armedValue = env[GRANTED_TOOLS_MCP_SYSTEM_AGENT_APPROVAL_ARMED_ENV]?.trim();
   return {
     approvalArmed: armedValue === "1",
     proposalRef: pendingProposal ? { current: pendingProposal } : {},
@@ -138,20 +137,20 @@ export function buildSystemAgentToolsMcpServerConfig(
           ? [...entry.args, "--openclaw-agent-id", options.agentId]
           : entry.args,
         env: {
-          [OPENCLAW_TOOLS_MCP_TOOLS_ENV]: "openclaw" satisfies OpenClawToolsMcpToolId,
-          [OPENCLAW_TOOLS_MCP_SYSTEM_AGENT_SURFACE_ENV]: options.surface,
+          [GRANTED_TOOLS_MCP_TOOLS_ENV]: "openclaw" satisfies OpenClawToolsMcpToolId,
+          [GRANTED_TOOLS_MCP_SYSTEM_AGENT_SURFACE_ENV]: options.surface,
           // Per-turn approval state travels with the per-run MCP config; the
           // host mirrors proposal transitions back from tool events.
           ...(options.operatorApprovalOnly === true
             ? {
-                [OPENCLAW_TOOLS_MCP_SYSTEM_AGENT_APPROVAL_ARMED_ENV]:
+                [GRANTED_TOOLS_MCP_SYSTEM_AGENT_APPROVAL_ARMED_ENV]:
                   APPROVAL_ARMED_OPERATOR_ONLY_VALUE,
               }
             : options.approvalArmed === true
-              ? { [OPENCLAW_TOOLS_MCP_SYSTEM_AGENT_APPROVAL_ARMED_ENV]: "1" }
+              ? { [GRANTED_TOOLS_MCP_SYSTEM_AGENT_APPROVAL_ARMED_ENV]: "1" }
               : {}),
           ...(pendingProposal
-            ? { [OPENCLAW_TOOLS_MCP_SYSTEM_AGENT_PROPOSAL_ENV]: pendingProposal }
+            ? { [GRANTED_TOOLS_MCP_SYSTEM_AGENT_PROPOSAL_ENV]: pendingProposal }
             : {}),
         },
       },

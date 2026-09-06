@@ -16,7 +16,7 @@ import {
   type RespawnChildRuntime,
 } from "./process/respawn-child-runner.js";
 
-const COMPILE_CACHE_DISABLED_RESPAWNED_ENV = "OPENCLAW_COMPILE_CACHE_DISABLED_RESPAWNED";
+const COMPILE_CACHE_DISABLED_RESPAWNED_ENV = "GRANTED_COMPILE_CACHE_DISABLED_RESPAWNED";
 
 export function resolveEntryInstallRoot(entryFile: string): string {
   const entryDir = path.dirname(entryFile);

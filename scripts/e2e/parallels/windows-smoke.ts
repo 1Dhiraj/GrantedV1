@@ -144,7 +144,7 @@ Options:
   -h, --help                 Show help.
 
 Environment:
-  OPENCLAW_PARALLELS_DEV_TARGET_REF
+  GRANTED_PARALLELS_DEV_TARGET_REF
                              Pin the guest dev update to a full commit SHA.
 `;
 }
@@ -163,16 +163,16 @@ export function parseArgs(argv: string[]): WindowsOptions {
 class WindowsSmoke extends SmokeRunController<WindowsOptions> {
   private auth: ProviderAuth;
   private agentTimeoutSeconds = readPositiveIntEnv(
-    "OPENCLAW_PARALLELS_WINDOWS_AGENT_TIMEOUT_S",
+    "GRANTED_PARALLELS_WINDOWS_AGENT_TIMEOUT_S",
     2700,
   );
   private updateTimeoutSeconds = readPositiveIntEnv(
-    "OPENCLAW_PARALLELS_WINDOWS_UPDATE_TIMEOUT_S",
+    "GRANTED_PARALLELS_WINDOWS_UPDATE_TIMEOUT_S",
     1200,
   );
   private gatewayRecoveryAfterMs =
-    readPositiveIntEnv("OPENCLAW_PARALLELS_WINDOWS_GATEWAY_RECOVERY_AFTER_S", 180) * 1000;
-  private devTargetCommit = readGitCommitEnv("OPENCLAW_PARALLELS_DEV_TARGET_REF");
+    readPositiveIntEnv("GRANTED_PARALLELS_WINDOWS_GATEWAY_RECOVERY_AFTER_S", 180) * 1000;
+  private devTargetCommit = readGitCommitEnv("GRANTED_PARALLELS_DEV_TARGET_REF");
   private artifact: PackageArtifact | null = null;
   private minGitZipPath = "";
   private latestVersion = "";
@@ -602,7 +602,7 @@ ${this.windowsPluginIsolationScript()}`,
 
   private async runDevChannelUpdate(): Promise<void> {
     const devTargetEntry = this.devTargetCommit
-      ? `; OPENCLAW_UPDATE_DEV_TARGET_REF = ${psSingleQuote(this.devTargetCommit)}`
+      ? `; GRANTED_UPDATE_DEV_TARGET_REF = ${psSingleQuote(this.devTargetCommit)}`
       : "";
     await this.guestPowerShellBackground(
       "update-dev",
@@ -622,7 +622,7 @@ $config.update | Add-Member -Force -MemberType NoteProperty -Name channel -Value
 $config | ConvertTo-Json -Depth 100 | Set-Content -Path $configPath -Encoding utf8
 ${windowsScopedEnvFunction}
 $script:OpenClawUpdateExit = 0
-Invoke-WithScopedEnv @{ OPENCLAW_ALLOW_OLDER_BINARY_DESTRUCTIVE_ACTIONS = '1'${devTargetEntry} } {
+Invoke-WithScopedEnv @{ GRANTED_ALLOW_OLDER_BINARY_DESTRUCTIVE_ACTIONS = '1'${devTargetEntry} } {
   Invoke-OpenClaw update --channel dev --yes --json --no-restart --timeout ${this.updateTimeoutSeconds}
   $script:OpenClawUpdateExit = $LASTEXITCODE
 }

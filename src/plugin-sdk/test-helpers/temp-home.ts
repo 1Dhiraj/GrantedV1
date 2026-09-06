@@ -18,9 +18,9 @@ const SHARED_HOME_ROOTS = new Map<string, SharedHomeRootState>();
 function setTempHome(base: string) {
   setTestEnvValue("HOME", base);
   setTestEnvValue("USERPROFILE", base);
-  // Ensure tests using HOME isolation aren't affected by leaked OPENCLAW_HOME.
-  deleteTestEnvValue("OPENCLAW_HOME");
-  setTestEnvValue("OPENCLAW_STATE_DIR", path.join(base, ".openclaw"));
+  // Ensure tests using HOME isolation aren't affected by leaked GRANTED_HOME.
+  deleteTestEnvValue("GRANTED_HOME");
+  setTestEnvValue("GRANTED_STATE_DIR", path.join(base, ".openclaw"));
 
   if (process.platform !== "win32") {
     return;
@@ -72,8 +72,8 @@ export async function withTempHomeCore<T>(
     "USERPROFILE",
     "HOMEDRIVE",
     "HOMEPATH",
-    "OPENCLAW_HOME",
-    "OPENCLAW_STATE_DIR",
+    "GRANTED_HOME",
+    "GRANTED_STATE_DIR",
     ...envKeys,
   ]);
   let initialized = false;

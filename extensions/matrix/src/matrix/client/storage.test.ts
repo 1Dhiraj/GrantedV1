@@ -74,9 +74,9 @@ describe("matrix client storage paths", () => {
   function createMigrationEnv(stateDir: string): NodeJS.ProcessEnv {
     return {
       HOME: path.dirname(stateDir),
-      OPENCLAW_HOME: path.dirname(stateDir),
-      OPENCLAW_STATE_DIR: stateDir,
-      OPENCLAW_TEST_FAST: "1",
+      GRANTED_HOME: path.dirname(stateDir),
+      GRANTED_STATE_DIR: stateDir,
+      GRANTED_TEST_FAST: "1",
     } as NodeJS.ProcessEnv;
   }
 
@@ -239,7 +239,7 @@ describe("matrix client storage paths", () => {
     const stateDir = setupStateDir();
     const storagePaths = resolveMatrixStoragePaths({
       ...defaultStorageAuth,
-      env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+      env: { ...process.env, GRANTED_STATE_DIR: stateDir },
     });
     expect(
       writeStorageMeta({

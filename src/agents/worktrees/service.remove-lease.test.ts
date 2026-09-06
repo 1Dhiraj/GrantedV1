@@ -40,7 +40,7 @@ describe("ManagedWorktreeService removal against a live run lease", () => {
     const tempRoot = await fs.realpath(os.tmpdir());
     root = await fs.mkdtemp(path.join(tempRoot, "openclaw-remove-lease-"));
     repo = await initializeRepository(root);
-    env = { ...process.env, OPENCLAW_STATE_DIR: path.join(root, "openclaw-state") };
+    env = { ...process.env, GRANTED_STATE_DIR: path.join(root, "openclaw-state") };
     now = 1_700_000_000_000;
     service = new ManagedWorktreeService({ env, now: () => now });
   });

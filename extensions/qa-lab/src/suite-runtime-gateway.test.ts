@@ -87,7 +87,7 @@ describe("qa suite gateway helpers", () => {
       return { ok: true };
     });
     const { env, waitReady } = createConfigMutationEnv(gatewayCall);
-    const runtimeEnv = { OPENCLAW_STATE_DIR: "/isolated/qa-gateway" };
+    const runtimeEnv = { GRANTED_STATE_DIR: "/isolated/qa-gateway" };
     env.gateway.runtimeEnv = runtimeEnv;
     const restartAfterStateMutation = vi.fn();
     env.gateway.restartAfterStateMutation = restartAfterStateMutation;

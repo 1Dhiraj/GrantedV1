@@ -73,8 +73,8 @@ export function createTestMcpLoopbackServerConfig(port: number) {
         url: `http://127.0.0.1:${port}/mcp`,
         alwaysLoad: true,
         headers: {
-          Authorization: "Bearer ${OPENCLAW_MCP_TOKEN}",
-          "x-openclaw-cli-capture-key": "${OPENCLAW_MCP_CLI_CAPTURE_KEY}",
+          Authorization: "Bearer ${GRANTED_MCP_TOKEN}",
+          "x-openclaw-cli-capture-key": "${GRANTED_MCP_CLI_CAPTURE_KEY}",
         },
       },
     },
@@ -328,8 +328,8 @@ type PrepareCliRun = (params: RunCliAgentParams) => Promise<PreparedCliRunContex
 
 export function createCliRunnerPrepareFixture(prepareCliRun: PrepareCliRun) {
   const tempDirs = new Set<string>();
-  const hadStateDir = Object.hasOwn(process.env, "OPENCLAW_STATE_DIR");
-  const originalStateDir = process.env.OPENCLAW_STATE_DIR;
+  const hadStateDir = Object.hasOwn(process.env, "GRANTED_STATE_DIR");
+  const originalStateDir = process.env.GRANTED_STATE_DIR;
   let defaultSession:
     | { dir: string; sessionFile: string; sessionTarget: SessionTranscriptRuntimeTarget }
     | undefined;
@@ -338,7 +338,7 @@ export function createCliRunnerPrepareFixture(prepareCliRun: PrepareCliRun) {
   const createSession = () => {
     const dir = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-cli-prepare-")));
     tempDirs.add(dir);
-    process.env.OPENCLAW_STATE_DIR = dir;
+    process.env.GRANTED_STATE_DIR = dir;
     const sessionTarget = {
       agentId: "main",
       sessionId: "session-test",
@@ -417,9 +417,9 @@ export function createCliRunnerPrepareFixture(prepareCliRun: PrepareCliRun) {
       tempDirs.clear();
       defaultSession = undefined;
       if (hadStateDir) {
-        process.env.OPENCLAW_STATE_DIR = originalStateDir;
+        process.env.GRANTED_STATE_DIR = originalStateDir;
       } else {
-        delete process.env.OPENCLAW_STATE_DIR;
+        delete process.env.GRANTED_STATE_DIR;
       }
     },
   };

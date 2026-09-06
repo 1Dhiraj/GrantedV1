@@ -24,9 +24,9 @@ export type GatewayServerHarness = {
 /** Start a loopback Gateway server with a helper for opening authenticated test clients. */
 export async function startGatewayServerHarness(): Promise<GatewayServerHarness> {
   const port = await getGatewayTestPort();
-  const envSnapshot = captureEnv(["OPENCLAW_GATEWAY_TOKEN"]);
+  const envSnapshot = captureEnv(["GRANTED_GATEWAY_TOKEN"]);
   const clients = new Set<WebSocket>();
-  delete process.env.OPENCLAW_GATEWAY_TOKEN;
+  delete process.env.GRANTED_GATEWAY_TOKEN;
   const server = await startTestGatewayServer(port, {
     auth: { mode: "none" },
     bind: "loopback",

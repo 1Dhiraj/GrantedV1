@@ -247,7 +247,7 @@ export function readPostCoreSnapshot(artifactRoot) {
 
 function armUpgradeProcessCapture() {
   const command = process.argv[2];
-  const artifactRoot = process.env.OPENCLAW_UPGRADE_SURVIVOR_ARTIFACT_ROOT;
+  const artifactRoot = process.env.GRANTED_UPGRADE_SURVIVOR_ARTIFACT_ROOT;
   if (!isMainThread || !artifactRoot || !["update", "doctor"].includes(command)) {
     return;
   }
@@ -275,7 +275,7 @@ function armUpgradeProcessCapture() {
     }
     const identity = {
       role:
-        command === "update" && process.env.OPENCLAW_UPDATE_POST_CORE === "1"
+        command === "update" && process.env.GRANTED_UPDATE_POST_CORE === "1"
           ? "post-core"
           : command,
       packageVersion: version,
@@ -312,14 +312,14 @@ function armPostCoreCapture() {
   if (
     !isMainThread ||
     process.argv[2] !== "update" ||
-    process.env.OPENCLAW_UPDATE_POST_CORE !== "1"
+    process.env.GRANTED_UPDATE_POST_CORE !== "1"
   ) {
     return;
   }
   try {
     const tmp = process.env.TMPDIR;
-    const resultPath = process.env.OPENCLAW_UPDATE_POST_CORE_RESULT_PATH;
-    const artifactRoot = process.env.OPENCLAW_UPGRADE_SURVIVOR_ARTIFACT_ROOT;
+    const resultPath = process.env.GRANTED_UPDATE_POST_CORE_RESULT_PATH;
+    const artifactRoot = process.env.GRANTED_UPGRADE_SURVIVOR_ARTIFACT_ROOT;
     if (
       !tmp ||
       !resultPath ||
@@ -615,7 +615,7 @@ async function capture(artifactRoot, phase, exitStatus, signal = "", observation
   for (const name of logNames) {
     report.logs[name] =
       name === "gateway-restart.log"
-        ? readOwned(process.env.OPENCLAW_STATE_DIR, "logs/gateway-restart.log", name)
+        ? readOwned(process.env.GRANTED_STATE_DIR, "logs/gateway-restart.log", name)
         : readOwned(artifactRoot, name, name);
   }
   const rpcName = readOwned(artifactRoot, "diagnostics/last-rpc", "last RPC")?.trim();
@@ -632,7 +632,7 @@ async function capture(artifactRoot, phase, exitStatus, signal = "", observation
   } else if (rpcName) {
     omissions["last RPC"] = reasons[3];
   }
-  const stateRoot = process.env.OPENCLAW_STATE_DIR;
+  const stateRoot = process.env.GRANTED_STATE_DIR;
   report.pluginIdentity = await pluginIdentities(stateRoot, artifactRoot);
   report.postCore = {
     availability: "unavailable",
@@ -646,7 +646,7 @@ async function capture(artifactRoot, phase, exitStatus, signal = "", observation
   } catch {
     omissions["post-core"] = reasons[3];
   }
-  const configPath = process.env.OPENCLAW_CONFIG_PATH;
+  const configPath = process.env.GRANTED_CONFIG_PATH;
   if (stateRoot && configPath) {
     const config = readOwned(stateRoot, path.relative(stateRoot, configPath), "config");
     if (config !== null) {

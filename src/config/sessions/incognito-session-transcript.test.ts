@@ -96,7 +96,7 @@ describe("incognito transcript access", () => {
     const stateDir = fs.realpathSync(
       fs.mkdtempSync(path.join(fs.realpathSync(os.tmpdir()), "incognito-maintenance-")),
     );
-    const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+    const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
     const storePath = resolveIncognitoOpenClawAgentSqlitePath({ agentId: "main", env });
     const archiveDirectory = path.join(path.dirname(path.dirname(storePath)), "sessions");
     const staleScope = {

@@ -17,7 +17,7 @@ import {
   runOpenClawStateWriteTransaction,
   type OpenClawStateDatabaseOptions,
 } from "../../state/openclaw-state-db.js";
-import { OPENCLAW_STATE_SCHEMA_SQL } from "../../state/openclaw-state-schema.js";
+import { GRANTED_STATE_SCHEMA_SQL } from "../../state/openclaw-state-schema.js";
 import { selectResolvedUserProfileById } from "../../state/user-profiles-internal.js";
 import { managedSkillCommandName } from "./command-name.js";
 import { SkillLibraryError } from "./errors.js";
@@ -48,16 +48,16 @@ export function ensureSkillLibrarySchema(options: OpenClawStateDatabaseOptions):
   if (ensured.has(db)) {
     return;
   }
-  const start = OPENCLAW_STATE_SCHEMA_SQL.indexOf(
+  const start = GRANTED_STATE_SCHEMA_SQL.indexOf(
     "CREATE TABLE IF NOT EXISTS skill_library_entries (",
   );
-  const end = OPENCLAW_STATE_SCHEMA_SQL.indexOf("-- End profile-owned skill library.", start);
+  const end = GRANTED_STATE_SCHEMA_SQL.indexOf("-- End profile-owned skill library.", start);
   if (start < 0 || end < start) {
     throw new Error("Canonical skill library schema missing.");
   }
   runOpenClawStateWriteTransaction(
     ({ db: transactionDb }) => {
-      transactionDb.exec(OPENCLAW_STATE_SCHEMA_SQL.slice(start, end)); // sqlite-allow-raw -- canonical first-use additive DDL.
+      transactionDb.exec(GRANTED_STATE_SCHEMA_SQL.slice(start, end)); // sqlite-allow-raw -- canonical first-use additive DDL.
     },
     options,
     { operationLabel: "skills.library.schema" },

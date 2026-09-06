@@ -13,7 +13,7 @@ const geometry = {
   scale_factor: 1,
 };
 
-const CUA_DRIVER_ENDPOINT_ENV = "OPENCLAW_CUA_DRIVER_ENDPOINT";
+const CUA_DRIVER_ENDPOINT_ENV = "GRANTED_CUA_DRIVER_ENDPOINT";
 
 export function macOsEndpoint(overrides: Record<string, unknown> = {}): NodeJS.ProcessEnv {
   return {

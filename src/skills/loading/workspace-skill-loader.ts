@@ -411,7 +411,7 @@ function loadSkillEntries(
     opts?.pluginSkillsDir,
     opts?.config ? fingerprintSkillSnapshotConfig(opts.config) : undefined,
     osHomeDir,
-    process.env.OPENCLAW_STATE_DIR,
+    process.env.GRANTED_STATE_DIR,
     getSkillsSnapshotVersion(workspaceDir),
   ]);
   const cachedEntries = skillEntryCache.get(cacheKey);

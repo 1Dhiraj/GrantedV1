@@ -32,8 +32,8 @@ describe.skipIf(process.platform === "win32")("native host registration", () => 
       ...launchFixture,
       env: {
         ...value.deps.env,
-        OPENCLAW_STATE_DIR: stateDir,
-        OPENCLAW_CONFIG_PATH: configPath,
+        GRANTED_STATE_DIR: stateDir,
+        GRANTED_CONFIG_PATH: configPath,
       },
     };
     await fs.mkdir(path.join(stateDir, "credentials"), { recursive: true, mode: 0o700 });

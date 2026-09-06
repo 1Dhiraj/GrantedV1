@@ -35,7 +35,7 @@ describe("ClickClack discussion state persistence", () => {
   it("persists legacy create responses through the production plugin-state store", async () => {
     resetPluginStateStoreForTests();
     const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-clickclack-state-"));
-    const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+    const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
     const stores = new Map<string, PluginStateSyncKeyedStore<unknown>>();
     const openSyncKeyedStore = (<T>(options: OpenKeyedStoreOptions) => {
       const created = createPluginStateSyncKeyedStoreForTests<T>("clickclack", {

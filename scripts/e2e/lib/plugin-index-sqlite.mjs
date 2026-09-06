@@ -9,16 +9,16 @@ const STATE_KEY = "plugins.installedIndex";
 const PRE_V13_INDEX_KEY = "installed-plugin-index";
 const ERROR_DETAIL_TAIL_BYTES = 16 * 1024;
 const JSON_ARTIFACT_MAX_BYTES = readPositiveIntEnv(
-  "OPENCLAW_PLUGIN_INDEX_JSON_MAX_BYTES",
+  "GRANTED_PLUGIN_INDEX_JSON_MAX_BYTES",
   1024 * 1024,
 );
 
 function stateDir() {
-  return process.env.OPENCLAW_STATE_DIR || path.join(process.env.HOME, ".openclaw");
+  return process.env.GRANTED_STATE_DIR || path.join(process.env.HOME, ".openclaw");
 }
 
 function configPath() {
-  return process.env.OPENCLAW_CONFIG_PATH || path.join(stateDir(), "openclaw.json");
+  return process.env.GRANTED_CONFIG_PATH || path.join(stateDir(), "openclaw.json");
 }
 
 function readJsonMaybe(file) {

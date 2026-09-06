@@ -10,7 +10,7 @@ import { cleanupTrackedTempDirs, makeTrackedTempDir } from "./test-helpers/fs-fi
 
 const checkout = fs.realpathSync(fileURLToPath(new URL("../../", import.meta.url)));
 const tempDirs: string[] = [];
-beforeEach(() => vi.stubEnv("OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR", "0"));
+beforeEach(() => vi.stubEnv("GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR", "0"));
 afterEach(() => {
   vi.unstubAllEnvs();
   cleanupTrackedTempDirs(tempDirs);
@@ -38,11 +38,11 @@ describe("running checkout discovery", () => {
         }),
       );
       const env = {
-        OPENCLAW_STATE_DIR: stateDir,
-        OPENCLAW_DEV_SOURCE_ROOT: checkout,
-        OPENCLAW_BUNDLED_PLUGINS_DIR:
+        GRANTED_STATE_DIR: stateDir,
+        GRANTED_DEV_SOURCE_ROOT: checkout,
+        GRANTED_BUNDLED_PLUGINS_DIR:
           tree === "source" ? path.join(checkout, "extensions") : undefined,
-        OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR: "0",
+        GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR: "0",
       };
       withPluginCache(createPluginCache(), () => {
         const discovery = discoverOpenClawPlugins({ env, installRecords });
@@ -105,10 +105,10 @@ describe("running checkout discovery", () => {
         fs.symlinkSync(pluginRoot, selectedRoot, process.platform === "win32" ? "junction" : "dir");
       }
       const env = {
-        OPENCLAW_STATE_DIR: stateDir,
-        OPENCLAW_BUNDLED_PLUGINS_DIR: sourceRoot,
-        OPENCLAW_DEV_SOURCE_ROOT: checkout,
-        OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR: "0",
+        GRANTED_STATE_DIR: stateDir,
+        GRANTED_BUNDLED_PLUGINS_DIR: sourceRoot,
+        GRANTED_DEV_SOURCE_ROOT: checkout,
+        GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR: "0",
       };
       withPluginCache(createPluginCache(), () => {
         const discovery = discoverOpenClawPlugins({
@@ -173,9 +173,9 @@ describe("host provenance across bundled build states", () => {
       fs.symlinkSync(pluginRoot, aliasRoot, process.platform === "win32" ? "junction" : "dir");
     }
     const env = {
-      OPENCLAW_STATE_DIR: stateDir,
-      OPENCLAW_BUNDLED_PLUGINS_DIR: bundledDir,
-      OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR: "1",
+      GRANTED_STATE_DIR: stateDir,
+      GRANTED_BUNDLED_PLUGINS_DIR: bundledDir,
+      GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR: "1",
     };
     withPluginCache(createPluginCache(), () => {
       const discovery = discoverOpenClawPlugins({

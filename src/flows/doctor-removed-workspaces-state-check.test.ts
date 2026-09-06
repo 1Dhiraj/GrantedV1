@@ -38,7 +38,7 @@ describe("removed Workspaces state doctor check", () => {
   it("previews and removes the stale plugin state directory", async () => {
     const staleDir = await createStateDir();
 
-    await withEnvAsync({ OPENCLAW_STATE_DIR: root }, async () => {
+    await withEnvAsync({ GRANTED_STATE_DIR: root }, async () => {
       const findings = await removedWorkspacesStateCheck.detect({
         mode: "lint",
         runtime,
@@ -100,7 +100,7 @@ describe("removed Workspaces state doctor check", () => {
   it("detects the widgets/data plugin layout fingerprint", async () => {
     const staleDir = await createStateDir("widgets-data");
 
-    await withEnvAsync({ OPENCLAW_STATE_DIR: root }, async () => {
+    await withEnvAsync({ GRANTED_STATE_DIR: root }, async () => {
       await expect(
         removedWorkspacesStateCheck.detect({ mode: "lint", runtime, cfg: {} }),
       ).resolves.toEqual([
@@ -118,7 +118,7 @@ describe("removed Workspaces state doctor check", () => {
     await fs.mkdir(userDir, { recursive: true });
     await fs.writeFile(join(userDir, "notes.md"), "personal", "utf8");
 
-    await withEnvAsync({ OPENCLAW_STATE_DIR: root }, async () => {
+    await withEnvAsync({ GRANTED_STATE_DIR: root }, async () => {
       await expect(
         removedWorkspacesStateCheck.detect({ mode: "lint", runtime, cfg: {} }),
       ).resolves.toEqual([]);
@@ -139,7 +139,7 @@ describe("removed Workspaces state doctor check", () => {
           ? { agents: { defaults: { workspace: resolvedAlias } } }
           : { agents: { list: [{ id: "ops", workspace: resolvedAlias }] } };
 
-      await withEnvAsync({ OPENCLAW_STATE_DIR: root }, async () => {
+      await withEnvAsync({ GRANTED_STATE_DIR: root }, async () => {
         const findings = await removedWorkspacesStateCheck.detect({
           mode: "lint",
           runtime,
@@ -173,7 +173,7 @@ describe("removed Workspaces state doctor check", () => {
     await fs.mkdir(nestedWorkspace);
     const cfg = { agents: { list: [{ id: "active", workspace: nestedWorkspace }] } };
 
-    await withEnvAsync({ OPENCLAW_STATE_DIR: root }, async () => {
+    await withEnvAsync({ GRANTED_STATE_DIR: root }, async () => {
       const findings = await removedWorkspacesStateCheck.detect({ mode: "lint", runtime, cfg });
       const repaired = await removedWorkspacesStateCheck.repair?.(
         { mode: "fix", runtime, cfg },
@@ -193,7 +193,7 @@ describe("removed Workspaces state doctor check", () => {
     await fs.symlink(nestedWorkspace, workspaceAlias, "dir");
     const cfg = { agents: { defaults: { workspace: workspaceAlias } } };
 
-    await withEnvAsync({ OPENCLAW_STATE_DIR: root }, async () => {
+    await withEnvAsync({ GRANTED_STATE_DIR: root }, async () => {
       const findings = await removedWorkspacesStateCheck.detect({ mode: "lint", runtime, cfg });
       const repaired = await removedWorkspacesStateCheck.repair?.(
         { mode: "fix", runtime, cfg },
@@ -209,7 +209,7 @@ describe("removed Workspaces state doctor check", () => {
     const staleDir = await createStateDir();
     const cfg = { agents: { defaults: { workspace: root } } };
 
-    await withEnvAsync({ OPENCLAW_STATE_DIR: root }, async () => {
+    await withEnvAsync({ GRANTED_STATE_DIR: root }, async () => {
       const findings = await removedWorkspacesStateCheck.detect({ mode: "lint", runtime, cfg });
       const repaired = await removedWorkspacesStateCheck.repair?.(
         { mode: "fix", runtime, cfg },

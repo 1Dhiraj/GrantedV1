@@ -174,9 +174,9 @@ describe("gateway auth compatibility baseline", () => {
     let previousCredential: string | undefined;
 
     beforeAll(async () => {
-      previousCredential = process.env.OPENCLAW_GATEWAY_TOKEN;
+      previousCredential = process.env.GRANTED_GATEWAY_TOKEN;
       testState.gatewayAuth = { mode: "token", token: "secret" };
-      process.env.OPENCLAW_GATEWAY_TOKEN = "secret";
+      process.env.GRANTED_GATEWAY_TOKEN = "secret";
       port = await getGatewayTestPort();
       server = await startTestGatewayServer(port);
     });
@@ -337,13 +337,13 @@ describe("gateway auth compatibility baseline", () => {
     let prevToken: string | undefined;
 
     beforeAll(async () => {
-      prevToken = process.env.OPENCLAW_GATEWAY_TOKEN;
+      prevToken = process.env.GRANTED_GATEWAY_TOKEN;
       testState.gatewayAuth = {
         mode: "token",
         token: "secret",
         rateLimit: { maxAttempts: 1, windowMs: 60_000, lockoutMs: 60_000 },
       };
-      process.env.OPENCLAW_GATEWAY_TOKEN = "secret";
+      process.env.GRANTED_GATEWAY_TOKEN = "secret";
       port = await getGatewayTestPort();
       server = await startTestGatewayServer(port);
     });
@@ -384,9 +384,9 @@ describe("gateway auth compatibility baseline", () => {
     let prevToken: string | undefined;
 
     beforeAll(async () => {
-      prevToken = process.env.OPENCLAW_GATEWAY_TOKEN;
+      prevToken = process.env.GRANTED_GATEWAY_TOKEN;
       testState.gatewayAuth = { mode: "password", password: "secret" };
-      delete process.env.OPENCLAW_GATEWAY_TOKEN;
+      delete process.env.GRANTED_GATEWAY_TOKEN;
       port = await getGatewayTestPort();
       server = await startTestGatewayServer(port);
     });
@@ -441,9 +441,9 @@ describe("gateway auth compatibility baseline", () => {
     let prevToken: string | undefined;
 
     beforeAll(async () => {
-      prevToken = process.env.OPENCLAW_GATEWAY_TOKEN;
+      prevToken = process.env.GRANTED_GATEWAY_TOKEN;
       testState.gatewayAuth = { mode: "none" };
-      delete process.env.OPENCLAW_GATEWAY_TOKEN;
+      delete process.env.GRANTED_GATEWAY_TOKEN;
       port = await getGatewayTestPort();
       server = await startTestGatewayServer(port, { controlUiEnabled: true });
     });

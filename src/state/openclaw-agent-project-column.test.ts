@@ -1,6 +1,6 @@
 import { afterEach, expect, test } from "vitest";
 import { createOpenClawTestState } from "../test-utils/openclaw-test-state.js";
-import { OPENCLAW_AGENT_SCHEMA_VERSION } from "./openclaw-agent-db-contract.js";
+import { GRANTED_AGENT_SCHEMA_VERSION } from "./openclaw-agent-db-contract.js";
 import {
   closeOpenClawAgentDatabasesForTest,
   openOpenClawAgentDatabase,
@@ -44,7 +44,7 @@ test("current-version agent databases lazily add the nullable project column", a
       notnull: 0,
     });
     expect(reopened.db.prepare("PRAGMA user_version").get()?.user_version).toBe(
-      OPENCLAW_AGENT_SCHEMA_VERSION,
+      GRANTED_AGENT_SCHEMA_VERSION,
     );
     expect(
       reopened.db

@@ -11,7 +11,7 @@ describe("known session store owners", () => {
   it("includes a retired owner registered under the active shared store", async () => {
     await withTempHome(async (home) => {
       const stateDir = path.join(home, ".openclaw");
-      const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+      const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
       const storePath = path.join(stateDir, "shared", "sessions.json");
       const cfg: OpenClawConfig = {
         session: { store: storePath },
@@ -35,7 +35,7 @@ describe("known session store owners", () => {
   it("keeps a retired fixed-store owner after its registry row is removed", async () => {
     await withTempHome(async (home) => {
       const stateDir = path.join(home, ".openclaw");
-      const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+      const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
       const storePath = path.join(stateDir, "shared", "sessions.json");
       const cfg: OpenClawConfig = {
         session: { store: storePath },
@@ -66,7 +66,7 @@ describe("known session store owners", () => {
   it("finds a retired owner in a durable suffixed sibling without a registry row", async () => {
     await withTempHome(async (home) => {
       const stateDir = path.join(home, ".openclaw");
-      const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+      const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
       const storePath = path.join(stateDir, "shared", "sessions.json");
       const cfg: OpenClawConfig = {
         session: { store: storePath },

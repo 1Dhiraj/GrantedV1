@@ -30,7 +30,7 @@ describe("worker environment node enrollment store", () => {
 
   beforeEach(async () => {
     root = await fs.mkdtemp(path.join(await fs.realpath(os.tmpdir()), "openclaw-worker-node-"));
-    database = openOpenClawStateDatabase({ env: { OPENCLAW_STATE_DIR: root } });
+    database = openOpenClawStateDatabase({ env: { GRANTED_STATE_DIR: root } });
     store = createWorkerEnvironmentStore({ database, now: () => 1_000 });
     store.createIntent({
       environmentId: "worker-enrollment",

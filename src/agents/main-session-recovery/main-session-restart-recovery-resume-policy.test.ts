@@ -12,7 +12,7 @@ vi.mock("../tool-replay-safety.js", () => ({
 
 vi.mock("../run-termination.js", () => ({
   AGENT_RUN_RESTART_ABORT_ERROR: "agent run aborted for restart",
-  AGENT_RUN_RESTART_ABORT_ERROR_CODE: "OPENCLAW_RESTART_ABORT",
+  AGENT_RUN_RESTART_ABORT_ERROR_CODE: "GRANTED_RESTART_ABORT",
 }));
 
 function progressMessage(text: string, itemId: string): Record<string, unknown> {

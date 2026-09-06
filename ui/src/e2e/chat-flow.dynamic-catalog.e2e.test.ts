@@ -11,7 +11,7 @@ const suite = createChatFlowE2eSuite();
 let dynamicCatalogProofDir: string | null;
 beforeEach(() => {
   dynamicCatalogProofDir =
-    process.env.OPENCLAW_CAPTURE_UI_PROOF === "1"
+    process.env.GRANTED_CAPTURE_UI_PROOF === "1"
       ? createControlUiE2eArtifactDir("dynamic-catalog-convergence")
       : null;
 });

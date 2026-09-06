@@ -487,8 +487,8 @@ describe("one-shot CLI exit", () => {
   ])("keeps the real proxy command exit truthful for $name", ({ args, exitCode, failure }) => {
     const env: NodeJS.ProcessEnv = {
       ...process.env,
-      OPENCLAW_STATE_DIR: "/dev/null",
-      OPENCLAW_CONFIG_PATH: "/dev/null",
+      GRANTED_STATE_DIR: "/dev/null",
+      GRANTED_CONFIG_PATH: "/dev/null",
       TSX_DISABLE_CACHE: "1",
       NODE_DISABLE_COMPILE_CACHE: "1",
     };

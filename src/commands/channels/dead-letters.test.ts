@@ -11,11 +11,11 @@ import {
   channelsDeadLettersResubmitCommand,
 } from "./dead-letters.js";
 
-const originalStateDir = process.env.OPENCLAW_STATE_DIR;
+const originalStateDir = process.env.GRANTED_STATE_DIR;
 
 async function withTempState(run: (stateDir: string) => Promise<void>): Promise<void> {
   const stateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-channel-dead-letters-"));
-  process.env.OPENCLAW_STATE_DIR = stateDir;
+  process.env.GRANTED_STATE_DIR = stateDir;
   try {
     await run(stateDir);
   } finally {
@@ -36,9 +36,9 @@ describe("channel dead-letter commands", () => {
   afterEach(() => {
     closeOpenClawStateDatabaseForTest();
     if (originalStateDir === undefined) {
-      delete process.env.OPENCLAW_STATE_DIR;
+      delete process.env.GRANTED_STATE_DIR;
     } else {
-      process.env.OPENCLAW_STATE_DIR = originalStateDir;
+      process.env.GRANTED_STATE_DIR = originalStateDir;
     }
   });
 

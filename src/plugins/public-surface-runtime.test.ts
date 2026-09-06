@@ -13,8 +13,8 @@ import {
 const tempDirs = useAutoCleanupTempDirTracker(afterEach);
 const noBundledPluginOverrideEnv = {
   ...process.env,
-  OPENCLAW_BUNDLED_PLUGINS_DIR: undefined,
-  OPENCLAW_DISABLE_BUNDLED_PLUGINS: undefined,
+  GRANTED_BUNDLED_PLUGINS_DIR: undefined,
+  GRANTED_DISABLE_BUNDLED_PLUGINS: undefined,
 } satisfies NodeJS.ProcessEnv;
 
 describe("bundled plugin public surface runtime", () => {
@@ -54,7 +54,7 @@ describe("bundled plugin public surface runtime", () => {
         resolveBundledPluginPublicSurfacePath({
           ...params,
           artifactBasename: "config-doctor-api.js",
-          env: { ...noBundledPluginOverrideEnv, OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1" },
+          env: { ...noBundledPluginOverrideEnv, GRANTED_DISABLE_BUNDLED_PLUGINS: "1" },
         }),
       ).toBeNull();
     },

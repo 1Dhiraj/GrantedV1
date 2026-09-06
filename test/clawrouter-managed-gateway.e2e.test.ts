@@ -44,9 +44,9 @@ describe("ClawRouter managed gateway contract", () => {
       name: "clawrouter-managed-gateway",
       env: {
         CLAWROUTER_API_KEY: API_KEY,
-        OPENCLAW_SKIP_PROVIDERS: undefined,
-        OPENCLAW_TEST_FAST: "1",
-        OPENCLAW_TEST_MINIMAL_GATEWAY: undefined,
+        GRANTED_SKIP_PROVIDERS: undefined,
+        GRANTED_TEST_FAST: "1",
+        GRANTED_TEST_MINIMAL_GATEWAY: undefined,
       },
     });
     instances.push(instance);

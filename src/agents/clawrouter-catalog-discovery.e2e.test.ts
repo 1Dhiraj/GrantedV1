@@ -30,7 +30,7 @@ describe("ClawRouter cold prepared catalog", () => {
         OPENAI_API_KEY: undefined,
         CODEX_API_KEY: undefined,
         CODEX_HOME: undefined,
-        OPENCLAW_DISABLE_BUNDLED_PLUGINS: undefined,
+        GRANTED_DISABLE_BUNDLED_PLUGINS: undefined,
       },
     });
   });

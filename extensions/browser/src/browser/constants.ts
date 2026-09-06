@@ -5,13 +5,13 @@
  * tab cleanup, screenshots, and AI snapshot sizing.
  */
 /** Default enabled state for the browser plugin. */
-export const DEFAULT_OPENCLAW_BROWSER_ENABLED = true;
+export const DEFAULT_GRANTED_BROWSER_ENABLED = true;
 /** Default JavaScript evaluation permission for managed browser actions. */
 export const DEFAULT_BROWSER_EVALUATE_ENABLED = true;
 /** Default color for the managed OpenClaw browser profile. */
-export const DEFAULT_OPENCLAW_BROWSER_COLOR = "#FF4500";
+export const DEFAULT_GRANTED_BROWSER_COLOR = "#FF4500";
 /** Default managed profile name shown to users. */
-export const DEFAULT_OPENCLAW_BROWSER_PROFILE_NAME = "openclaw";
+export const DEFAULT_GRANTED_BROWSER_PROFILE_NAME = "openclaw";
 /** Default browser profile selected when no profile is requested. */
 export const DEFAULT_BROWSER_DEFAULT_PROFILE_NAME = "openclaw";
 /** Default timeout for browser action execution. */

@@ -24,7 +24,7 @@ let stateDir: string;
 beforeEach(() => {
   // openclaw-temp-dir: allow extension tests cannot import root test helpers.
   stateDir = mkdtempSync(path.join(tmpdir(), "openclaw-buzz-socket-"));
-  vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
+  vi.stubEnv("GRANTED_STATE_DIR", stateDir);
 });
 
 it("delivers live messages on the room-scoped roster subscription", async () => {

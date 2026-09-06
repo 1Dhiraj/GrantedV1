@@ -98,7 +98,7 @@ describe.skipIf(process.platform === "win32")("Codex stdio crash recovery", () =
             HOME: root,
             ...native?.env,
             PATH: searchPath,
-            OPENCLAW_STATE_DIR: stateDir,
+            GRANTED_STATE_DIR: stateDir,
             NODE_ENV: "test",
           },
           stdio: ["ignore", "pipe", "pipe"],

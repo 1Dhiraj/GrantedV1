@@ -28,7 +28,7 @@ describe.skipIf(process.platform === "win32")("shell snapshot subprocesses", () 
   let envSnapshot: ReturnType<typeof captureEnv>;
 
   beforeEach(() => {
-    envSnapshot = captureEnv(["HOME", "OPENCLAW_EXEC_SHELL_SNAPSHOT", "OPENCLAW_STATE_DIR"]);
+    envSnapshot = captureEnv(["HOME", "GRANTED_EXEC_SHELL_SNAPSHOT", "GRANTED_STATE_DIR"]);
     spawnMock.mockReset();
     killProcessTreeMock.mockReset();
   });
@@ -47,7 +47,7 @@ describe.skipIf(process.platform === "win32")("shell snapshot subprocesses", () 
     const home = tempDirs.make("openclaw-snapshot-spawn-home-");
     const stateDir = tempDirs.make("openclaw-snapshot-spawn-state-");
     setTestEnvValue("HOME", home);
-    setTestEnvValue("OPENCLAW_STATE_DIR", stateDir);
+    setTestEnvValue("GRANTED_STATE_DIR", stateDir);
 
     const command = "echo unchanged";
     await expect(

@@ -32,7 +32,7 @@ describe("release media memory scenario", () => {
     expect(script).toContain('--output "$media_root/generated.png"');
     expect(script).not.toContain("/tmp/openclaw-release-media-memory-plugins.json");
     expect(script).not.toContain(
-      'mkdir -p "$OPENCLAW_STATE_DIR/workspace/memory" /tmp/openclaw-release-media-memory',
+      'mkdir -p "$GRANTED_STATE_DIR/workspace/memory" /tmp/openclaw-release-media-memory',
     );
   });
 });

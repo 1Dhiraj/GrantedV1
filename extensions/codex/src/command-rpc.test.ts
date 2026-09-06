@@ -74,7 +74,7 @@ describe("Codex command RPC helpers", () => {
     setActivePluginRegistry(registry);
     tempDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-codex-control-auth-"));
     agentDir = path.join(tempDir, "agents", "main", "agent");
-    vi.stubEnv("OPENCLAW_STATE_DIR", tempDir);
+    vi.stubEnv("GRANTED_STATE_DIR", tempDir);
     vi.stubEnv("OPENAI_API_KEY", undefined);
     vi.stubEnv("CODEX_API_KEY", undefined);
     config = { agents: { defaults: { model: { primary: "openai/gpt-5.5" } } } };

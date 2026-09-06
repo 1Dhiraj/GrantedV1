@@ -6,6 +6,7 @@ import {
   isCanonicalTerminalUploadBase64,
 } from "../../packages/gateway-protocol/src/schema/terminal-constants.js";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
+import { STATE_DIRNAME } from "../compat/legacy-names.js";
 import { ensureTerminalUploadCleanup, stageTerminalUpload } from "./terminal-file-upload.js";
 
 vi.mock("node:fs/promises", async () => {
@@ -48,7 +49,7 @@ describe("terminal file upload", () => {
       { platform: "win32", homeDir, tempDir: sharedTemp },
     );
 
-    expect(result.path.startsWith(path.join(homeDir, ".openclaw", "tmp"))).toBe(true);
+    expect(result.path.startsWith(path.join(homeDir, STATE_DIRNAME, "tmp"))).toBe(true);
     expect(result.path.startsWith(sharedTemp)).toBe(false);
   });
 

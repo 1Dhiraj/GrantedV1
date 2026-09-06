@@ -285,7 +285,7 @@ const COVERAGE_BUNDLED_CHANNEL_IDS = [
   ),
 ];
 
-const DEBUG_COVERAGE_BATCHES = process.env.OPENCLAW_DEBUG_RUNTIME_COVERAGE === "1";
+const DEBUG_COVERAGE_BATCHES = process.env.GRANTED_DEBUG_RUNTIME_COVERAGE === "1";
 const RUNTIME_COVERAGE_TEST_TIMEOUT_MS = 240_000;
 const COVERAGE_CONFIG_PLUGIN_SOURCE_DIRS = new Map([
   ["google-meet", path.join(process.cwd(), "extensions", "google-meet")],
@@ -293,7 +293,7 @@ const COVERAGE_CONFIG_PLUGIN_SOURCE_DIRS = new Map([
 ]);
 const COVERAGE_LOADABLE_PLUGIN_ORIGINS =
   buildCoverageLoadablePluginOrigins(COVERAGE_REGISTRY_ENTRIES);
-const PLUGIN_OWNED_OPENCLAW_COVERAGE_EXCLUSIONS = new Set([
+const PLUGIN_OWNED_GRANTED_COVERAGE_EXCLUSIONS = new Set([
   "channels.googlechat.accounts.*.serviceAccount",
 ]);
 
@@ -303,22 +303,22 @@ let collectConfigAssignments: typeof import("./runtime-config-collectors.js").co
 let createResolverContext: typeof import("./runtime-shared.js").createResolverContext;
 let resolveSecretRefValues: typeof import("./resolve.js").resolveSecretRefValues;
 let resolveRuntimeWebTools: typeof import("./runtime-web-tools.js").resolveRuntimeWebTools;
-const previousBundledPluginsDir = process.env.OPENCLAW_BUNDLED_PLUGINS_DIR;
-const previousTrustBundledPluginsDir = process.env.OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR;
+const previousBundledPluginsDir = process.env.GRANTED_BUNDLED_PLUGINS_DIR;
+const previousTrustBundledPluginsDir = process.env.GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR;
 
-process.env.OPENCLAW_BUNDLED_PLUGINS_DIR ??= "extensions";
-process.env.OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR ??= "1";
+process.env.GRANTED_BUNDLED_PLUGINS_DIR ??= "extensions";
+process.env.GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR ??= "1";
 
 afterAll(() => {
   if (previousBundledPluginsDir === undefined) {
-    delete process.env.OPENCLAW_BUNDLED_PLUGINS_DIR;
+    delete process.env.GRANTED_BUNDLED_PLUGINS_DIR;
   } else {
-    process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = previousBundledPluginsDir;
+    process.env.GRANTED_BUNDLED_PLUGINS_DIR = previousBundledPluginsDir;
   }
   if (previousTrustBundledPluginsDir === undefined) {
-    delete process.env.OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR;
+    delete process.env.GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR;
   } else {
-    process.env.OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR = previousTrustBundledPluginsDir;
+    process.env.GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR = previousTrustBundledPluginsDir;
   }
 });
 
@@ -542,7 +542,7 @@ function collectOpenClawCoverageEntries(options: {
     (entry) =>
       entry.configFile === "openclaw.json" &&
       entry.id.startsWith("plugins.entries.") === options.includePluginEntries &&
-      !PLUGIN_OWNED_OPENCLAW_COVERAGE_EXCLUSIONS.has(entry.id),
+      !PLUGIN_OWNED_GRANTED_COVERAGE_EXCLUSIONS.has(entry.id),
   );
 }
 
@@ -848,9 +848,9 @@ async function expectOpenClawCoverageBatchResolved(
 ): Promise<void> {
   logCoverageBatch(label, batch);
   const config = {} as OpenClawConfig;
-  const env: NodeJS.ProcessEnv = { OPENCLAW_STATE_DIR: process.env.OPENCLAW_TEST_HOME };
+  const env: NodeJS.ProcessEnv = { GRANTED_STATE_DIR: process.env.GRANTED_TEST_HOME };
   for (const [index, entry] of batch.entries()) {
-    const envId = toCoverageEnvRefId("OPENCLAW_SECRET_TARGET", entry.id);
+    const envId = toCoverageEnvRefId("GRANTED_SECRET_TARGET", entry.id);
     const runtimeEnvId = resolveCoverageEnvId(entry, envId);
     const expectedValue = `resolved-${entry.id}`;
     const wildcardToken = resolveCoverageWildcardToken(index);
@@ -873,10 +873,10 @@ async function expectOpenClawCoverageBatchResolved(
   }
 }
 
-const OPENCLAW_CORE_COVERAGE_BATCHES = buildCoverageBatches(
+const GRANTED_CORE_COVERAGE_BATCHES = buildCoverageBatches(
   collectOpenClawCoverageEntries({ includePluginEntries: false }),
 );
-const OPENCLAW_PLUGIN_COVERAGE_BATCHES = buildCoverageBatches(
+const GRANTED_PLUGIN_COVERAGE_BATCHES = buildCoverageBatches(
   collectOpenClawCoverageEntries({ includePluginEntries: true }),
 );
 const AUTH_PROFILE_COVERAGE_BATCHES = buildCoverageBatches(
@@ -943,7 +943,7 @@ describe("secrets runtime target coverage", () => {
   });
 
   describe("openclaw.json core and channel registry targets", () => {
-    test.each(OPENCLAW_CORE_COVERAGE_BATCHES.map(toCoverageBatchCase))(
+    test.each(GRANTED_CORE_COVERAGE_BATCHES.map(toCoverageBatchCase))(
       "handles $name",
       async ({ batch }) => {
         await expectOpenClawCoverageBatchResolved("openclaw.json core", batch);
@@ -953,7 +953,7 @@ describe("secrets runtime target coverage", () => {
   });
 
   describe("openclaw.json plugin registry targets", () => {
-    test.each(OPENCLAW_PLUGIN_COVERAGE_BATCHES.map(toCoverageBatchCase))(
+    test.each(GRANTED_PLUGIN_COVERAGE_BATCHES.map(toCoverageBatchCase))(
       "handles $name",
       async ({ batch }) => {
         await expectOpenClawCoverageBatchResolved("openclaw.json plugins", batch);
@@ -973,7 +973,7 @@ describe("secrets runtime target coverage", () => {
           profiles: {},
         };
         for (const [index, entry] of batch.entries()) {
-          const envId = toCoverageEnvRefId("OPENCLAW_AUTH_SECRET_TARGET", entry.id);
+          const envId = toCoverageEnvRefId("GRANTED_AUTH_SECRET_TARGET", entry.id);
           env[envId] = `resolved-${entry.id}`;
           applyAuthStoreTarget(authStore, entry, envId, resolveCoverageWildcardToken(index));
         }

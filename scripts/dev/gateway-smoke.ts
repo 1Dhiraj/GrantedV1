@@ -40,7 +40,7 @@ const VALUE_FLAGS = new Set(["--url", "--token"]);
 function usage(): string {
   return [
     "Usage: bun scripts/dev/gateway-smoke.ts --url <wss://host[:port]> --token <gateway.auth.token>",
-    "Or set env: OPENCLAW_GATEWAY_URL / OPENCLAW_GATEWAY_TOKEN",
+    "Or set env: GRANTED_GATEWAY_URL / GRANTED_GATEWAY_TOKEN",
     "",
     "Options:",
     "  --url <url>       Gateway websocket URL",
@@ -84,8 +84,8 @@ function parseGatewaySmokeCli(
   const { get: getArg, has } = createArgReader([...argv]);
   return {
     help: has("--help") || has("-h"),
-    token: getArg("--token") ?? env.OPENCLAW_GATEWAY_TOKEN,
-    urlRaw: getArg("--url") ?? env.OPENCLAW_GATEWAY_URL,
+    token: getArg("--token") ?? env.GRANTED_GATEWAY_TOKEN,
+    urlRaw: getArg("--url") ?? env.GRANTED_GATEWAY_URL,
   };
 }
 

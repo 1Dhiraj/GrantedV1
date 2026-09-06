@@ -66,13 +66,13 @@ describe("models auth login --force", () => {
     const state = await createOpenClawTestState({
       label: "auth-force-login",
       env: {
-        OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-        OPENCLAW_BUNDLED_PLUGINS_DIR: undefined,
-        OPENCLAW_OAUTH_DIR: undefined,
-        OPENCLAW_GATEWAY_URL: undefined,
-        OPENCLAW_GATEWAY_PORT: undefined,
-        OPENCLAW_GATEWAY_TOKEN: undefined,
-        OPENCLAW_GATEWAY_PASSWORD: undefined,
+        GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+        GRANTED_BUNDLED_PLUGINS_DIR: undefined,
+        GRANTED_OAUTH_DIR: undefined,
+        GRANTED_GATEWAY_URL: undefined,
+        GRANTED_GATEWAY_PORT: undefined,
+        GRANTED_GATEWAY_TOKEN: undefined,
+        GRANTED_GATEWAY_PASSWORD: undefined,
       },
     });
     try {

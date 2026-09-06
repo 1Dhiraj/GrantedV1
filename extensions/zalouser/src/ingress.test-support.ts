@@ -66,8 +66,8 @@ export async function withZalouserIngressTestQueue<T>(
     path.join(resolvePreferredOpenClawTmpDir(), "openclaw-zalouser-ingress-"),
   );
   const stateDir = await fs.realpath(createdDir);
-  const previousStateDir = process.env.OPENCLAW_STATE_DIR;
-  process.env.OPENCLAW_STATE_DIR = stateDir;
+  const previousStateDir = process.env.GRANTED_STATE_DIR;
+  process.env.GRANTED_STATE_DIR = stateDir;
   const queue = createChannelIngressQueueForTests<ZalouserTestIngressPayload>({
     channelId: "zalouser",
     accountId: "default",
@@ -78,16 +78,16 @@ export async function withZalouserIngressTestQueue<T>(
   } finally {
     // Agent close releases leases through shared state; closing shared state first
     // can reopen it during teardown and leave Windows handles under the state dir.
-    // Both closes must run before OPENCLAW_STATE_DIR is restored: cached agent
+    // Both closes must run before GRANTED_STATE_DIR is restored: cached agent
     // databases captured the child env, and lease release after restoration would
     // write through the parent fixture's shared state instead.
     closeOpenClawAgentDatabasesForTest();
     closeOpenClawStateDatabaseForTest();
     await fs.rm(stateDir, { recursive: true, force: true, maxRetries: 20, retryDelay: 25 });
     if (previousStateDir === undefined) {
-      delete process.env.OPENCLAW_STATE_DIR;
+      delete process.env.GRANTED_STATE_DIR;
     } else {
-      process.env.OPENCLAW_STATE_DIR = previousStateDir;
+      process.env.GRANTED_STATE_DIR = previousStateDir;
     }
   }
 }

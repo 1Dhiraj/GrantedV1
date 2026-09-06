@@ -4,7 +4,7 @@ import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { requireNodeSqlite } from "../../infra/node-sqlite.js";
 import { isSecretValueRegisteredForRedaction } from "../../logging/secret-redaction-registry.js";
-import { OPENCLAW_STATE_SCHEMA_VERSION } from "../../state/openclaw-state-db-contract.js";
+import { GRANTED_STATE_SCHEMA_VERSION } from "../../state/openclaw-state-db-contract.js";
 import {
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
@@ -141,7 +141,7 @@ describe("secret store", () => {
   it.each(["off", "0", "false"])(
     "seals protected exec values when provider sentinels are %s",
     (mode) => {
-      vi.stubEnv("OPENCLAW_SECRET_SENTINELS", mode);
+      vi.stubEnv("GRANTED_SECRET_SENTINELS", mode);
       const database = createDatabaseOptions();
       const secret = "protected-store-fixture-value";
       writeSecretStoreEntry({
@@ -508,7 +508,7 @@ describe("secret store", () => {
     const { DatabaseSync } = requireNodeSqlite();
     const before = new DatabaseSync(database.path);
     expect(before.prepare("PRAGMA user_version").get()).toEqual({
-      user_version: OPENCLAW_STATE_SCHEMA_VERSION,
+      user_version: GRANTED_STATE_SCHEMA_VERSION,
     });
     before.exec("DROP TABLE secret_store_entries;");
     before.close();
@@ -537,7 +537,7 @@ describe("secret store", () => {
     closeOpenClawStateDatabaseForTest();
     const after = new DatabaseSync(database.path, { readOnly: true });
     expect(after.prepare("PRAGMA user_version").get()).toEqual({
-      user_version: OPENCLAW_STATE_SCHEMA_VERSION,
+      user_version: GRANTED_STATE_SCHEMA_VERSION,
     });
     expect(
       after

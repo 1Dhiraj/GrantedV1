@@ -298,8 +298,8 @@ export function resolveQaEvidenceProfile(params: {
   }
 
   const envProfiles = [
-    ["OPENCLAW_E2E_PROFILE", params.env?.OPENCLAW_E2E_PROFILE],
-    ["OPENCLAW_QA_PROFILE", params.env?.OPENCLAW_QA_PROFILE],
+    ["GRANTED_E2E_PROFILE", params.env?.GRANTED_E2E_PROFILE],
+    ["GRANTED_QA_PROFILE", params.env?.GRANTED_QA_PROFILE],
   ] as const;
   for (const [, value] of envProfiles) {
     const normalized = value?.trim();
@@ -313,9 +313,9 @@ export function resolveQaEvidenceProfile(params: {
 }
 
 function resolveQaEvidencePackageSource(env: NodeJS.ProcessEnv | undefined) {
-  const spec = env?.OPENCLAW_QA_PACKAGE_SOURCE?.trim() || undefined;
-  const sha = env?.OPENCLAW_QA_PACKAGE_SOURCE_SHA?.trim() || undefined;
-  const explicitKind = env?.OPENCLAW_QA_PACKAGE_SOURCE_KIND?.trim();
+  const spec = env?.GRANTED_QA_PACKAGE_SOURCE?.trim() || undefined;
+  const sha = env?.GRANTED_QA_PACKAGE_SOURCE_SHA?.trim() || undefined;
+  const explicitKind = env?.GRANTED_QA_PACKAGE_SOURCE_KIND?.trim();
   const kind =
     explicitKind ||
     (spec && spec.endsWith(".tgz") ? "packed-tarball" : spec ? "npm-package" : "source-checkout");
@@ -361,7 +361,7 @@ function resolveQaEvidenceBuildContext(params: QaEvidenceBuildBase, defaultRunne
   return {
     profile: resolveQaEvidenceProfile({ env: params.env, explicit: params.profile }),
     executionBase: {
-      runner: params.env?.OPENCLAW_QA_RUNNER?.trim() || (params.runner ?? defaultRunner) || "host",
+      runner: params.env?.GRANTED_QA_RUNNER?.trim() || (params.runner ?? defaultRunner) || "host",
       environment: resolveQaEvidenceEnvironment({ env: params.env, repoRoot: params.repoRoot }),
       provider: buildQaEvidenceProvider(params),
     },

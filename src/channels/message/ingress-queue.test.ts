@@ -45,7 +45,7 @@ async function withTempState<T>(fn: (stateDir: string) => Promise<T>): Promise<T
 }
 
 function openIngressStateDatabase(stateDir: string) {
-  return openOpenClawStateDatabase({ env: { OPENCLAW_STATE_DIR: stateDir } });
+  return openOpenClawStateDatabase({ env: { GRANTED_STATE_DIR: stateDir } });
 }
 
 describe("channel ingress queue", () => {

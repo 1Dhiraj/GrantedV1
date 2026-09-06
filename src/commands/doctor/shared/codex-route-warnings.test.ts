@@ -277,12 +277,12 @@ describe("collectCodexRouteWarnings", () => {
     ]);
   });
 
-  it("ignores OPENCLAW_AGENT_RUNTIME when reporting legacy model refs", () => {
+  it("ignores GRANTED_AGENT_RUNTIME when reporting legacy model refs", () => {
     const warnings = collectCodexRouteWarnings(
       {
         agents: { defaults: { model: "openai-codex/gpt-5.5" } },
       },
-      { env: { OPENCLAW_AGENT_RUNTIME: "codex" } },
+      { env: { GRANTED_AGENT_RUNTIME: "codex" } },
     );
 
     expect(warnings).toStrictEqual([

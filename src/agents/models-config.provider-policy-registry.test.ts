@@ -46,13 +46,13 @@ let loadPluginManifestRegistrySpy: MockInstance | undefined;
 let loadBundledPluginPublicArtifactModuleSyncSpy: MockInstance | undefined;
 let bundledPluginsDir: string;
 const tempDirs = useAutoCleanupTempDirTracker(afterEach);
-const originalBundledPluginsDir = process.env.OPENCLAW_BUNDLED_PLUGINS_DIR;
-const originalTrustBundledPluginsDir = process.env.OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR;
+const originalBundledPluginsDir = process.env.GRANTED_BUNDLED_PLUGINS_DIR;
+const originalTrustBundledPluginsDir = process.env.GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR;
 
 beforeAll(async () => {
   bundledPluginsDir = tempDirs.make("openclaw-provider-policy-registry-");
-  process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = bundledPluginsDir;
-  process.env.OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR = "1";
+  process.env.GRANTED_BUNDLED_PLUGINS_DIR = bundledPluginsDir;
+  process.env.GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR = "1";
 
   const manifestRegistryModule = await import("../plugins/manifest-registry.js");
   loadPluginManifestRegistrySpy = vi
@@ -83,14 +83,14 @@ afterAll(() => {
   loadPluginManifestRegistrySpy?.mockRestore();
   loadBundledPluginPublicArtifactModuleSyncSpy?.mockRestore();
   if (originalBundledPluginsDir === undefined) {
-    delete process.env.OPENCLAW_BUNDLED_PLUGINS_DIR;
+    delete process.env.GRANTED_BUNDLED_PLUGINS_DIR;
   } else {
-    process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = originalBundledPluginsDir;
+    process.env.GRANTED_BUNDLED_PLUGINS_DIR = originalBundledPluginsDir;
   }
   if (originalTrustBundledPluginsDir === undefined) {
-    delete process.env.OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR;
+    delete process.env.GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR;
   } else {
-    process.env.OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR = originalTrustBundledPluginsDir;
+    process.env.GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR = originalTrustBundledPluginsDir;
   }
 });
 

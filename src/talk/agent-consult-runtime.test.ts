@@ -54,7 +54,7 @@ vi.mock("../auto-reply/reply/session-fork.js", async (importOriginal) => {
 });
 
 let testTempDir: string | undefined;
-const envSnapshot = captureEnv(["OPENCLAW_STATE_DIR"]);
+const envSnapshot = captureEnv(["GRANTED_STATE_DIR"]);
 
 function testTempPath(name: string): string {
   if (!testTempDir) {
@@ -187,7 +187,7 @@ describe("realtime voice agent consult runtime", () => {
     testTempDir = await fs.realpath(
       await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-talk-consult-")),
     );
-    setTestEnvValue("OPENCLAW_STATE_DIR", testTempDir);
+    setTestEnvValue("GRANTED_STATE_DIR", testTempDir);
   });
 
   afterEach(async () => {

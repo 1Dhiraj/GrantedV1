@@ -415,7 +415,7 @@ export async function runQaFlowSuiteStandard(
     throw error;
   } finally {
     const activeEnv = env;
-    const keepTemp = process.env.OPENCLAW_QA_KEEP_TEMP === "1" || false;
+    const keepTemp = process.env.GRANTED_QA_KEEP_TEMP === "1" || false;
     const activeGateway = gateway;
     const activeMock = mock;
     const cleanupFailures = await runQaFlowSuiteCleanupPlan({

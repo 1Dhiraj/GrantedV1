@@ -10,13 +10,13 @@ import {
 const suite = createNewSessionPageE2eSuite();
 let proofDir: string;
 beforeEach(() => {
-  if (process.env.OPENCLAW_CAPTURE_UI_PROOF === "1") {
+  if (process.env.GRANTED_CAPTURE_UI_PROOF === "1") {
     proofDir = createControlUiE2eArtifactDir("inference-setup-gate");
   }
 });
 
 async function captureProof(page: import("playwright").Page, fileName: string) {
-  if (process.env.OPENCLAW_CAPTURE_UI_PROOF !== "1") {
+  if (process.env.GRANTED_CAPTURE_UI_PROOF !== "1") {
     return;
   }
   await page.screenshot({
@@ -137,7 +137,7 @@ suite.define(() => {
         locale: "en-US",
         serviceWorkers: "block",
         viewport,
-        ...(process.env.OPENCLAW_CAPTURE_UI_PROOF === "1"
+        ...(process.env.GRANTED_CAPTURE_UI_PROOF === "1"
           ? { recordVideo: { dir: proofDir, size: viewport } }
           : {}),
       });

@@ -145,8 +145,8 @@ if (isMain) {
       planTargetedDockerLaneGroups({
         groupSize: process.env.GROUP_SIZE,
         lanes: process.env.LANES,
-        upgradeSurvivorBaselines: process.env.OPENCLAW_UPGRADE_SURVIVOR_BASELINE_SPECS,
-        upgradeSurvivorScenarios: process.env.OPENCLAW_UPGRADE_SURVIVOR_SCENARIOS,
+        upgradeSurvivorBaselines: process.env.GRANTED_UPGRADE_SURVIVOR_BASELINE_SPECS,
+        upgradeSurvivorScenarios: process.env.GRANTED_UPGRADE_SURVIVOR_SCENARIOS,
       }),
     ),
   );

@@ -136,7 +136,7 @@ export function insertMeetingTranscriptSnapshots(params: {
         });
       }
     },
-    { env: { ...params.env, OPENCLAW_STATE_DIR: params.stateDir } },
+    { env: { ...params.env, GRANTED_STATE_DIR: params.stateDir } },
     { operationLabel: "meeting-transcripts.legacy-import" },
   );
 }

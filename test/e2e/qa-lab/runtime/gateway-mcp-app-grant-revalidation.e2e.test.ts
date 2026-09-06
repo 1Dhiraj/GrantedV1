@@ -178,7 +178,7 @@ describe("Gateway MCP App board grant revalidation", () => {
           primaryModel: "mock-openai/gpt-5.6-luna",
           transportBaseUrl: "http://127.0.0.1",
           controlUiEnabled: false,
-          runtimeEnvPatch: { OPENCLAW_SKIP_CHANNELS: "1" },
+          runtimeEnvPatch: { GRANTED_SKIP_CHANNELS: "1" },
           mutateConfig: (cfg) => appConfig(cfg, activeFixture),
         });
 

@@ -137,7 +137,7 @@ describe("dependency guard workflow", () => {
     );
     const autoscrubRunStep = workflowStep(autoscrubSteps, 3, "dependency guard autoscrub run step");
     const finalRunStep = workflowStep(finalSteps, 1, "dependency guard final run step");
-    expect(detectRunStep.env?.OPENCLAW_DEPENDENCY_GUARD_MODE).toBe("detect");
+    expect(detectRunStep.env?.GRANTED_DEPENDENCY_GUARD_MODE).toBe("detect");
     expect(primaryTokenStep.uses).toBe(
       "actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1",
     );
@@ -159,11 +159,11 @@ describe("dependency guard workflow", () => {
     });
     expect(fallbackTokenStep["continue-on-error"]).toBe(true);
     expect(autoscrubRunStep.env?.GITHUB_TOKEN).toBe("${{ github.token }}");
-    expect(autoscrubRunStep.env?.OPENCLAW_DEPENDENCY_GUARD_AUTOSCRUB_TOKEN).toBe(
+    expect(autoscrubRunStep.env?.GRANTED_DEPENDENCY_GUARD_AUTOSCRUB_TOKEN).toBe(
       "${{ steps.app-token.outputs.token || steps.app-token-fallback.outputs.token }}",
     );
-    expect(autoscrubRunStep.env?.OPENCLAW_DEPENDENCY_GUARD_MODE).toBe("autoscrub");
-    expect(finalRunStep.env?.OPENCLAW_DEPENDENCY_GUARD_MODE).toBe("enforce");
+    expect(autoscrubRunStep.env?.GRANTED_DEPENDENCY_GUARD_MODE).toBe("autoscrub");
+    expect(finalRunStep.env?.GRANTED_DEPENDENCY_GUARD_MODE).toBe("enforce");
   });
 
   it("preserves dependency-guard as the final required check", () => {
@@ -183,8 +183,8 @@ describe("dependency guard workflow", () => {
     const runStep = workflowStep(detectSteps, 1, "dependency guard bounded comment run step");
     const script = readFileSync("scripts/github/dependency-guard.mjs", "utf8");
 
-    expect(runStep.env?.OPENCLAW_SECURITY_TEAM_SLUG).toBe("openclaw-secops");
-    expect(runStep.env?.OPENCLAW_SECURITY_APPROVERS).toBe("vincentkoc,steipete,joshavant");
+    expect(runStep.env?.GRANTED_SECURITY_TEAM_SLUG).toBe("openclaw-secops");
+    expect(runStep.env?.GRANTED_SECURITY_APPROVERS).toBe("vincentkoc,steipete,joshavant");
     expect(workflow).toContain("scripts/github/dependency-guard.mjs");
     expect(script).toContain('"dependencies-changed"');
     expect(script).not.toContain('"blocked: dependencies"');

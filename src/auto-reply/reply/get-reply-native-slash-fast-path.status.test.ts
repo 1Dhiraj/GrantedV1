@@ -52,7 +52,7 @@ const createTypingController = (): TypingController => ({
 describe("native /status channel model routing", () => {
   beforeEach(() => {
     vi.restoreAllMocks();
-    vi.stubEnv("OPENCLAW_TEST_FAST", "1");
+    vi.stubEnv("GRANTED_TEST_FAST", "1");
     resetPluginRuntimeStateForTest();
     setActivePluginRegistry(createSessionConversationTestRegistry());
     vi.spyOn(preparedModelCatalog, "loadPreparedModelCatalog").mockResolvedValue([

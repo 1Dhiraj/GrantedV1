@@ -4,21 +4,21 @@ import { ensureMemoryIndexSchema } from "../../packages/memory-host-sdk/src/host
 import { assertSqliteSchemaContains } from "../infra/sqlite-schema-contract.js";
 import {
   assertOpenClawAgentDatabaseForMaintenance,
-  OPENCLAW_AGENT_SCHEMA_VERSION,
+  GRANTED_AGENT_SCHEMA_VERSION,
 } from "./openclaw-agent-db.js";
-import { OPENCLAW_AGENT_SCHEMA_SQL } from "./openclaw-agent-schema.js";
+import { GRANTED_AGENT_SCHEMA_SQL } from "./openclaw-agent-schema.js";
 import {
   CLAW_LAZY_ADDITIVE_STATE_COLUMN_DEFINITIONS,
   CLAW_STARTUP_ADDITIVE_STATE_COLUMN_DEFINITIONS,
 } from "./openclaw-state-db-additive-columns.js";
-import { OPENCLAW_STATE_SCHEMA_VERSION } from "./openclaw-state-db-contract.js";
+import { GRANTED_STATE_SCHEMA_VERSION } from "./openclaw-state-db-contract.js";
 import {
   ensureAdditiveStateColumns,
   ensureDevicePairSetupBootstrapSchema,
 } from "./openclaw-state-db-schema-additive.js";
 import { assertOpenClawStateDatabaseForMaintenance } from "./openclaw-state-db.js";
-import { OPENCLAW_STATE_MAINTENANCE_SCHEMA_COMPATIBILITY } from "./openclaw-state-schema-compatibility.js";
-import { OPENCLAW_STATE_SCHEMA_SQL } from "./openclaw-state-schema.js";
+import { GRANTED_STATE_MAINTENANCE_SCHEMA_COMPATIBILITY } from "./openclaw-state-schema-compatibility.js";
+import { GRANTED_STATE_SCHEMA_SQL } from "./openclaw-state-schema.js";
 
 describe("OpenClaw database maintenance schema validation", () => {
   it("accepts the current global and agent schemas", () => {
@@ -43,7 +43,7 @@ describe("OpenClaw database maintenance schema validation", () => {
   });
 
   it("accepts a global schema produced by an additive column migration", () => {
-    const schemaWithoutMigratedColumn = OPENCLAW_STATE_SCHEMA_SQL.replace(
+    const schemaWithoutMigratedColumn = GRANTED_STATE_SCHEMA_SQL.replace(
       "  schedule_identity TEXT,\n",
       "",
     );
@@ -62,13 +62,13 @@ describe("OpenClaw database maintenance schema validation", () => {
   });
 
   it("keeps a newer nullable shared-state column compatible with the previous schema", () => {
-    const previousSchema = OPENCLAW_STATE_SCHEMA_SQL.replace(
+    const previousSchema = GRANTED_STATE_SCHEMA_SQL.replace(
       "  removed_at INTEGER,\n  run_end_cleanup_json TEXT\n",
       "  removed_at INTEGER\n",
     );
     const database = createGlobalDatabase();
     try {
-      expect(previousSchema).not.toBe(OPENCLAW_STATE_SCHEMA_SQL);
+      expect(previousSchema).not.toBe(GRANTED_STATE_SCHEMA_SQL);
       expect(() =>
         assertSqliteSchemaContains(database, "previous global schema", previousSchema, {
           allowCompatibleAdditiveColumns: true,
@@ -80,13 +80,13 @@ describe("OpenClaw database maintenance schema validation", () => {
   });
 
   it("keeps Web Push binding columns compatible with the previous schema", () => {
-    const previousSchema = OPENCLAW_STATE_SCHEMA_SQL.replace(
+    const previousSchema = GRANTED_STATE_SCHEMA_SQL.replace(
       "  auth TEXT NOT NULL,\n  device_id TEXT,\n  user_profile_id TEXT,\n  preferences_json TEXT,\n",
       "  auth TEXT NOT NULL,\n",
     );
     const database = createGlobalDatabase();
     try {
-      expect(previousSchema).not.toBe(OPENCLAW_STATE_SCHEMA_SQL);
+      expect(previousSchema).not.toBe(GRANTED_STATE_SCHEMA_SQL);
       expect(() =>
         assertSqliteSchemaContains(database, "previous global schema", previousSchema, {
           allowCompatibleAdditiveColumns: true,
@@ -113,10 +113,10 @@ CREATE INDEX IF NOT EXISTS idx_web_push_approval_deliveries_subscription
   ON web_push_approval_deliveries(subscription_id, approval_id);
 
 `;
-    const previousSchema = OPENCLAW_STATE_SCHEMA_SQL.replace(additiveSchema, "");
+    const previousSchema = GRANTED_STATE_SCHEMA_SQL.replace(additiveSchema, "");
     const database = createGlobalDatabase();
     try {
-      expect(previousSchema).not.toBe(OPENCLAW_STATE_SCHEMA_SQL);
+      expect(previousSchema).not.toBe(GRANTED_STATE_SCHEMA_SQL);
       expect(() =>
         assertSqliteSchemaContains(database, "previous global schema", previousSchema),
       ).not.toThrow();
@@ -126,17 +126,17 @@ CREATE INDEX IF NOT EXISTS idx_web_push_approval_deliveries_subscription
   });
 
   it("keeps the cron authority companion table compatible with the previous schema", () => {
-    const start = OPENCLAW_STATE_SCHEMA_SQL.indexOf(
+    const start = GRANTED_STATE_SCHEMA_SQL.indexOf(
       "CREATE TABLE IF NOT EXISTS cron_job_runtime_authorities (",
     );
     const endMarker = "\n) STRICT;";
-    const end = start >= 0 ? OPENCLAW_STATE_SCHEMA_SQL.indexOf(endMarker, start) : -1;
+    const end = start >= 0 ? GRANTED_STATE_SCHEMA_SQL.indexOf(endMarker, start) : -1;
     expect(start).toBeGreaterThanOrEqual(0);
     expect(end).toBeGreaterThan(start);
-    const previousSchema = `${OPENCLAW_STATE_SCHEMA_SQL.slice(
+    const previousSchema = `${GRANTED_STATE_SCHEMA_SQL.slice(
       0,
       start,
-    )}${OPENCLAW_STATE_SCHEMA_SQL.slice(end + endMarker.length)}`;
+    )}${GRANTED_STATE_SCHEMA_SQL.slice(end + endMarker.length)}`;
     const database = createGlobalDatabase();
     try {
       expect(() =>
@@ -148,14 +148,14 @@ CREATE INDEX IF NOT EXISTS idx_web_push_approval_deliveries_subscription
   });
 
   it("keeps lifecycle bindings additive and keyed only by canonical owner identity", () => {
-    const start = OPENCLAW_STATE_SCHEMA_SQL.indexOf(
+    const start = GRANTED_STATE_SCHEMA_SQL.indexOf(
       "CREATE TABLE IF NOT EXISTS execution_owner_lifecycle_bindings (",
     );
     const endMarker = ") STRICT;";
-    const end = start >= 0 ? OPENCLAW_STATE_SCHEMA_SQL.indexOf(endMarker, start) : -1;
+    const end = start >= 0 ? GRANTED_STATE_SCHEMA_SQL.indexOf(endMarker, start) : -1;
     expect(start).toBeGreaterThanOrEqual(0);
     expect(end).toBeGreaterThan(start);
-    const previousSchema = `${OPENCLAW_STATE_SCHEMA_SQL.slice(0, start)}${OPENCLAW_STATE_SCHEMA_SQL.slice(end + endMarker.length)}`;
+    const previousSchema = `${GRANTED_STATE_SCHEMA_SQL.slice(0, start)}${GRANTED_STATE_SCHEMA_SQL.slice(end + endMarker.length)}`;
     const database = createGlobalDatabase();
     try {
       expect(() =>
@@ -209,13 +209,13 @@ CREATE INDEX IF NOT EXISTS idx_web_push_approval_deliveries_subscription
   });
 
   it("accepts the historical checked shared-host column but rejects other constraints", () => {
-    const historicalSchema = OPENCLAW_STATE_SCHEMA_SQL.replace(
+    const historicalSchema = GRANTED_STATE_SCHEMA_SQL.replace(
       "  shared_host INTEGER\n) STRICT;",
       "  shared_host INTEGER CHECK (shared_host IN (0, 1))\n) STRICT;",
     );
     const database = createGlobalDatabase(historicalSchema);
     try {
-      expect(historicalSchema).not.toBe(OPENCLAW_STATE_SCHEMA_SQL);
+      expect(historicalSchema).not.toBe(GRANTED_STATE_SCHEMA_SQL);
       expect(() =>
         assertOpenClawStateDatabaseForMaintenance(database, {
           pathname: "global.sqlite",
@@ -237,7 +237,7 @@ CREATE INDEX IF NOT EXISTS idx_web_push_approval_deliveries_subscription
     const additiveColumns = CLAW_LAZY_ADDITIVE_STATE_COLUMN_DEFINITIONS.map(
       ({ columnName, tableName }) => `${tableName}.${columnName}`,
     );
-    expect(OPENCLAW_STATE_MAINTENANCE_SCHEMA_COMPATIBILITY.allowedMissingColumns).toEqual(
+    expect(GRANTED_STATE_MAINTENANCE_SCHEMA_COMPATIBILITY.allowedMissingColumns).toEqual(
       additiveColumns,
     );
     expect(
@@ -328,7 +328,7 @@ CREATE INDEX IF NOT EXISTS idx_web_push_approval_deliveries_subscription
   });
 
   it("accepts a migrated required column with its temporary default", () => {
-    const schemaWithoutMigratedColumn = OPENCLAW_STATE_SCHEMA_SQL.replace(
+    const schemaWithoutMigratedColumn = GRANTED_STATE_SCHEMA_SQL.replace(
       "  name TEXT NOT NULL,\n  description TEXT,\n  enabled INTEGER NOT NULL,\n",
       "  description TEXT,\n  enabled INTEGER NOT NULL,\n",
     );
@@ -347,7 +347,7 @@ CREATE INDEX IF NOT EXISTS idx_web_push_approval_deliveries_subscription
   });
 
   it("accepts the migrated conversation kind with its temporary default", () => {
-    const schemaWithoutMigratedColumn = OPENCLAW_STATE_SCHEMA_SQL.replace(
+    const schemaWithoutMigratedColumn = GRANTED_STATE_SCHEMA_SQL.replace(
       "  conversation_kind TEXT NOT NULL,\n",
       "",
     ).replace(
@@ -598,10 +598,10 @@ CREATE INDEX IF NOT EXISTS idx_web_push_approval_deliveries_subscription
   });
 });
 
-function createGlobalDatabase(schemaSql = OPENCLAW_STATE_SCHEMA_SQL): DatabaseSync {
+function createGlobalDatabase(schemaSql = GRANTED_STATE_SCHEMA_SQL): DatabaseSync {
   const database = new DatabaseSync(":memory:");
   database.exec(schemaSql);
-  database.exec(`PRAGMA user_version = ${OPENCLAW_STATE_SCHEMA_VERSION};`);
+  database.exec(`PRAGMA user_version = ${GRANTED_STATE_SCHEMA_VERSION};`);
   database
     .prepare(
       `
@@ -616,14 +616,14 @@ function createGlobalDatabase(schemaSql = OPENCLAW_STATE_SCHEMA_SQL): DatabaseSy
         ) VALUES ('primary', 'global', ?, NULL, NULL, 1, 1)
       `,
     )
-    .run(OPENCLAW_STATE_SCHEMA_VERSION);
+    .run(GRANTED_STATE_SCHEMA_VERSION);
   return database;
 }
 
 function createAgentDatabase(): DatabaseSync {
   const database = new DatabaseSync(":memory:");
-  database.exec(OPENCLAW_AGENT_SCHEMA_SQL);
-  database.exec(`PRAGMA user_version = ${OPENCLAW_AGENT_SCHEMA_VERSION};`);
+  database.exec(GRANTED_AGENT_SCHEMA_SQL);
+  database.exec(`PRAGMA user_version = ${GRANTED_AGENT_SCHEMA_VERSION};`);
   database
     .prepare(
       `
@@ -638,7 +638,7 @@ function createAgentDatabase(): DatabaseSync {
         ) VALUES ('primary', 'agent', ?, 'worker-1', NULL, 1, 1)
       `,
     )
-    .run(OPENCLAW_AGENT_SCHEMA_VERSION);
+    .run(GRANTED_AGENT_SCHEMA_VERSION);
   return database;
 }
 

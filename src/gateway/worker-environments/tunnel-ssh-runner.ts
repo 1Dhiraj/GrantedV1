@@ -7,7 +7,7 @@ import {
   type SpawnResult,
 } from "../../process/exec.js";
 
-export const WORKER_TUNNEL_READY_MARKER = "OPENCLAW_WORKER_TUNNEL_READY";
+export const WORKER_TUNNEL_READY_MARKER = "GRANTED_WORKER_TUNNEL_READY";
 
 const STOP_GRACE_MS = 1_500;
 const STOP_KILL_WAIT_MS = 2_000;

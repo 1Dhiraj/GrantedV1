@@ -17,8 +17,8 @@ describe("legacy state migration ownership", () => {
     const stateDir = tempDirs.make("openclaw-state-migration-lock-");
     const env = {
       ...process.env,
-      OPENCLAW_CONFIG_PATH: path.join(stateDir, "openclaw.json"),
-      OPENCLAW_STATE_DIR: stateDir,
+      GRANTED_CONFIG_PATH: path.join(stateDir, "openclaw.json"),
+      GRANTED_STATE_DIR: stateDir,
     };
     return {
       env,
@@ -50,7 +50,7 @@ describe("legacy state migration ownership", () => {
       },
       run: async (env) => {
         events.push("migrate");
-        expect(env.OPENCLAW_STATE_DIR).toBe(options.stateDir);
+        expect(env.GRANTED_STATE_DIR).toBe(options.stateDir);
         return { changes: ["imported"], warnings: [], notices: ["verified"] };
       },
     });

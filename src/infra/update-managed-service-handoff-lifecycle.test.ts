@@ -156,10 +156,10 @@ async function runManagedServiceManagerBoundary(
   const updaterPath = path.join(root, "updater-ran");
   const commandTimingsPath = path.join(root, "manager-command-timings.jsonl");
   const recoveryModulePath = path.join(root, "recovery-health.mjs");
-  const stateDatabasePath = resolveOpenClawStateSqlitePath({ OPENCLAW_STATE_DIR: root });
+  const stateDatabasePath = resolveOpenClawStateSqlitePath({ GRANTED_STATE_DIR: root });
   const consumeNotification = `const db = new (require("node:sqlite").DatabaseSync)(${JSON.stringify(stateDatabasePath)}); const cleared = db.prepare("DELETE FROM gateway_restart_sentinel WHERE sentinel_key = 'current'").run(); db.close(); if (cleared.changes !== 1) throw new Error("expected one published notification before recovery consumed it"); { const state = JSON.parse(fs.readFileSync(${JSON.stringify(statePath)}, "utf8")); state.consumedNotifications = Number(cleared.changes); fs.writeFileSync(${JSON.stringify(statePath)}, JSON.stringify(state)); }`;
   if (options?.updaterNotification) {
-    openOpenClawStateDatabase({ env: { OPENCLAW_STATE_DIR: root } });
+    openOpenClawStateDatabase({ env: { GRANTED_STATE_DIR: root } });
   }
   await fs.writeFile(
     recoveryModulePath,
@@ -208,7 +208,7 @@ async function runManagedServiceManagerBoundary(
   );
   const env = {
     ...process.env,
-    OPENCLAW_STATE_DIR: root,
+    GRANTED_STATE_DIR: root,
     PATH: `${root}${path.delimiter}${process.env.PATH ?? ""}`,
   };
   let helper: import("node:child_process").ChildProcess | undefined;
@@ -328,7 +328,7 @@ async function runManagedServiceManagerBoundary(
       runningHelper.once("error", reject);
       runningHelper.once("close", resolve);
     });
-    await waitForHandoffResponse(runningHelper.stdout, "OPENCLAW_UPDATE_HANDOFF_READY");
+    await waitForHandoffResponse(runningHelper.stdout, "GRANTED_UPDATE_HANDOFF_READY");
 
     const databasePath = String(generated.updateLeaseDatabasePath);
     const owner = String(generated.updateLeaseOwner);
@@ -439,7 +439,7 @@ async function runManagedServiceManagerBoundary(
       commands: (await fs.readFile(commandsPath, "utf8")).trim().split("\n"),
       parentSignal: parent.signalCode,
       state: JSON.parse(await fs.readFile(statePath, "utf8")) as Record<string, unknown>,
-      sentinel: readRestartSentinelPayload({ OPENCLAW_STATE_DIR: root }),
+      sentinel: readRestartSentinelPayload({ GRANTED_STATE_DIR: root }),
       log: await fs.readFile(String(generated.logPath), "utf8"),
       savedFailure,
       sensitiveFilesRemoved: (
@@ -514,7 +514,7 @@ describe("managed service update handoff", () => {
       execPath: "/usr/local/bin/node",
       argv1: "/opt/openclaw/openclaw.mjs",
       supervisor: "systemd",
-      env: { PATH: binDir, OPENCLAW_SYSTEMD_UNIT: "openclaw-gateway.service" },
+      env: { PATH: binDir, GRANTED_SYSTEMD_UNIT: "openclaw-gateway.service" },
       meta: {},
     });
     await expect(resultPromise).rejects.toThrow(
@@ -571,9 +571,9 @@ describe("managed service update handoff", () => {
     const { startManagedServiceUpdateHandoff } =
       await import("./update-managed-service-handoff.js");
     const serviceIdentityEnv = {
-      OPENCLAW_LAUNCHD_LABEL: "com.example.openclaw.test",
-      OPENCLAW_SYSTEMD_UNIT: "openclaw-test.service",
-      OPENCLAW_WINDOWS_TASK_NAME: "OpenClaw Test Gateway",
+      GRANTED_LAUNCHD_LABEL: "com.example.openclaw.test",
+      GRANTED_SYSTEMD_UNIT: "openclaw-test.service",
+      GRANTED_WINDOWS_TASK_NAME: "OpenClaw Test Gateway",
     } satisfies NodeJS.ProcessEnv;
     const supervisorEnv = Object.fromEntries(
       SUPERVISOR_HINT_ENV_VARS.map((key) => [key, "supervised"]),
@@ -619,7 +619,7 @@ describe("managed service update handoff", () => {
     )) {
       expect(options.env[key]).toBeUndefined();
     }
-    expect(options.env.OPENCLAW_UPDATE_RUN_HANDOFF).toBe("1");
+    expect(options.env.GRANTED_UPDATE_RUN_HANDOFF).toBe("1");
     expect(options.env[CONTROL_PLANE_UPDATE_SENTINEL_META_ENV]).toBe(helperParams.metaPath);
     expect(JSON.parse(await fs.readFile(helperParams.metaPath, "utf8"))).toMatchObject({
       meta: { triageContextPath: helperParams.triageContextPath },
@@ -647,7 +647,7 @@ describe("managed service update handoff", () => {
       supervisor: "systemd",
       env: {
         PATH: binDir,
-        OPENCLAW_SYSTEMD_UNIT: "openclaw-gateway.service",
+        GRANTED_SYSTEMD_UNIT: "openclaw-gateway.service",
         INVOCATION_ID: "gateway-invocation",
         KEEP_ME: "1",
       },
@@ -700,10 +700,10 @@ describe("managed service update handoff", () => {
     ]);
     expect(helperParams.handoffId).toBe("handoff-123");
     expect(options.detached).toBe(true);
-    expect(options.env.OPENCLAW_SYSTEMD_UNIT).toBe("openclaw-gateway.service");
+    expect(options.env.GRANTED_SYSTEMD_UNIT).toBe("openclaw-gateway.service");
     expect(options.env.INVOCATION_ID).toBeUndefined();
     expect(options.env.KEEP_ME).toBe("1");
-    expect(options.env.OPENCLAW_UPDATE_RUN_HANDOFF).toBe("1");
+    expect(options.env.GRANTED_UPDATE_RUN_HANDOFF).toBe("1");
   });
 
   itUnix("parks and restores the exact user-systemd service from its detached helper", async () => {
@@ -841,7 +841,7 @@ describe("managed service update handoff", () => {
     const cases = [
       {
         supervisor: "launchd" as const,
-        env: { OPENCLAW_LAUNCHD_LABEL: "test.gateway", HOME: "/Users/test" },
+        env: { GRANTED_LAUNCHD_LABEL: "test.gateway", HOME: "/Users/test" },
         expected: {
           kind: "launchd",
           uid: typeof process.getuid === "function" ? process.getuid() : 501,
@@ -856,7 +856,7 @@ describe("managed service update handoff", () => {
       },
       {
         supervisor: "schtasks" as const,
-        env: { OPENCLAW_WINDOWS_TASK_NAME: "OpenClaw Test Gateway" },
+        env: { GRANTED_WINDOWS_TASK_NAME: "OpenClaw Test Gateway" },
         expected: { kind: "schtasks", taskName: "OpenClaw Test Gateway" },
       },
     ];

@@ -41,8 +41,8 @@ async function withProviderFixtures(
     {
       label: "config-model-runtime",
       env: {
-        OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-        OPENCLAW_BUNDLED_PLUGINS_DIR: undefined,
+        GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+        GRANTED_BUNDLED_PLUGINS_DIR: undefined,
       },
     },
     async (state) => {

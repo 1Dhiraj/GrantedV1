@@ -323,7 +323,7 @@ describe("skill_workshop tool", () => {
   it("keeps proposal state inside an injected state directory", async () => {
     const workspaceDir = await tempDirs.make("openclaw-skill-workshop-isolated-workspace-");
     const isolatedStateDir = await tempDirs.make("openclaw-skill-workshop-isolated-state-");
-    const env = { ...process.env, OPENCLAW_STATE_DIR: isolatedStateDir };
+    const env = { ...process.env, GRANTED_STATE_DIR: isolatedStateDir };
     const isolatedTool = createSkillWorkshopTool({ workspaceDir, env, proposalOnly: true });
 
     const created = await isolatedTool.execute("call-isolated-create", {

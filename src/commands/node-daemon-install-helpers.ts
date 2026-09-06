@@ -1,5 +1,5 @@
 /** Managed node-host install plan builder. */
-import { OPENCLAW_WRAPPER_ENV_KEY, resolveNodeProgramArguments } from "../daemon/program-args.js";
+import { GRANTED_WRAPPER_ENV_KEY, resolveNodeProgramArguments } from "../daemon/program-args.js";
 import { buildNodeServiceEnvironment } from "../daemon/service-env.js";
 import type { GatewayServiceEnvironmentValueSource } from "../daemon/service-types.js";
 import {
@@ -23,8 +23,8 @@ function buildNodeInstallEnvironmentValueSources(): Record<
   GatewayServiceEnvironmentValueSource | undefined
 > {
   return {
-    OPENCLAW_GATEWAY_TOKEN: "file",
-    OPENCLAW_GATEWAY_PASSWORD: "file", // pragma: allowlist secret
+    GRANTED_GATEWAY_TOKEN: "file",
+    GRANTED_GATEWAY_PASSWORD: "file", // pragma: allowlist secret
     CF_ACCESS_CLIENT_ID: "file",
     CF_ACCESS_CLIENT_SECRET: "file", // pragma: allowlist secret
   };
@@ -47,7 +47,7 @@ export async function buildNodeInstallPlan(params: {
   wrapperPath?: string;
   warn?: DaemonInstallWarnFn;
 }): Promise<NodeInstallPlan> {
-  const wrapperPath = params.wrapperPath ?? params.env[OPENCLAW_WRAPPER_ENV_KEY];
+  const wrapperPath = params.wrapperPath ?? params.env[GRANTED_WRAPPER_ENV_KEY];
   const { devMode, runtimePath } = await resolveDaemonInstallRuntimeInputs({
     env: params.env,
     runtime: params.runtime,

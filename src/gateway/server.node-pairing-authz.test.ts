@@ -788,8 +788,8 @@ describe("gateway node pairing authorization", () => {
     test("withholds plugin surface URLs until the node capability is approved", async () => {
       // The shared Gateway harness disables Canvas startup; expose its descriptor
       // so this handshake test exercises production capability issuance.
-      const previousSkipCanvasHost = process.env.OPENCLAW_SKIP_CANVAS_HOST;
-      delete process.env.OPENCLAW_SKIP_CANVAS_HOST;
+      const previousSkipCanvasHost = process.env.GRANTED_SKIP_CANVAS_HOST;
+      delete process.env.GRANTED_SKIP_CANVAS_HOST;
       try {
         const pairedNode = await pairDeviceIdentity({
           name: "node-plugin-surface-approval",
@@ -840,9 +840,9 @@ describe("gateway node pairing authorization", () => {
         }
       } finally {
         if (previousSkipCanvasHost === undefined) {
-          delete process.env.OPENCLAW_SKIP_CANVAS_HOST;
+          delete process.env.GRANTED_SKIP_CANVAS_HOST;
         } else {
-          process.env.OPENCLAW_SKIP_CANVAS_HOST = previousSkipCanvasHost;
+          process.env.GRANTED_SKIP_CANVAS_HOST = previousSkipCanvasHost;
         }
       }
     });

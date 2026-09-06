@@ -108,7 +108,7 @@ export async function applyPostPluginUpdateReadiness(params: {
         logOutput: false,
         baseEnv,
         env: {
-          OPENCLAW_UPDATE_IN_PROGRESS: "1",
+          GRANTED_UPDATE_IN_PROGRESS: "1",
           [UPDATE_POST_CORE_CONVERGENCE_ENV]: "1",
         },
       })

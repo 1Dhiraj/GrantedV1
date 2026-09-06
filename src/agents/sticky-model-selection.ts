@@ -91,7 +91,7 @@ export function persistStickyModelSelectionBestEffort(params: {
     if (!warnedImmutableConfig) {
       warnedImmutableConfig = true;
       log.warn(
-        `skipped sticky model persistence agentId=${params.agentId} model=${params.model} reason=config is immutable in OPENCLAW_NIX_MODE`,
+        `skipped sticky model persistence agentId=${params.agentId} model=${params.model} reason=config is immutable in GRANTED_NIX_MODE`,
       );
     }
     return "skipped-immutable";

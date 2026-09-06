@@ -254,8 +254,8 @@ describe("Gateway queued session rotation", () => {
         gatewayToken: "secret-token",
         config,
         env: {
-          OPENCLAW_SKIP_PROVIDERS: undefined,
-          OPENCLAW_TEST_MINIMAL_GATEWAY: undefined,
+          GRANTED_SKIP_PROVIDERS: undefined,
+          GRANTED_TEST_MINIMAL_GATEWAY: undefined,
         },
       });
       instances.push(instance);
@@ -271,7 +271,7 @@ describe("Gateway queued session rotation", () => {
       try {
         const first = await client.sendChat({
           sessionKey,
-          message: "OPENCLAW_E2E_HELD_TURN",
+          message: "GRANTED_E2E_HELD_TURN",
           runId: "queued-rotation-held",
         });
         expect(first.status).toBe("started");
@@ -282,7 +282,7 @@ describe("Gateway queued session rotation", () => {
 
         const replacement = await client.sendChat({
           sessionKey,
-          message: "/new OPENCLAW_E2E_AFTER_RESET",
+          message: "/new GRANTED_E2E_AFTER_RESET",
           runId: "queued-rotation-reset",
         });
         expect(replacement.status).toBe("started");
@@ -293,8 +293,8 @@ describe("Gateway queued session rotation", () => {
           expect(modelServer.requests).toHaveLength(2);
           expect(await readTraceCount(tracePath)).toBe(2);
         }, WAIT_OPTS);
-        expect(JSON.stringify(modelServer.requests[0]?.body)).toContain("OPENCLAW_E2E_HELD_TURN");
-        expect(JSON.stringify(modelServer.requests[1]?.body)).toContain("OPENCLAW_E2E_AFTER_RESET");
+        expect(JSON.stringify(modelServer.requests[0]?.body)).toContain("GRANTED_E2E_HELD_TURN");
+        expect(JSON.stringify(modelServer.requests[1]?.body)).toContain("GRANTED_E2E_AFTER_RESET");
       } finally {
         await client.abortChat({ sessionKey }).catch(() => undefined);
         void client.stop();

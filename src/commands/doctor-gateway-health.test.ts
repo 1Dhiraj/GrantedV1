@@ -70,8 +70,8 @@ describe("checkGatewayHealth", () => {
   });
 
   it("reports a live state-directory mismatch and continues Doctor", async () => {
-    vi.stubEnv("OPENCLAW_STATE_DIR", "/tmp/doctor-cli-state");
-    vi.stubEnv("OPENCLAW_CONFIG_PATH", "/tmp/doctor-cli-state/openclaw.json");
+    vi.stubEnv("GRANTED_STATE_DIR", "/tmp/doctor-cli-state");
+    vi.stubEnv("GRANTED_CONFIG_PATH", "/tmp/doctor-cli-state/openclaw.json");
     callGateway.mockImplementation(
       async (options: {
         method?: string;

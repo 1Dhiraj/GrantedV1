@@ -15,14 +15,16 @@ import {
 } from "../../components/lobster-pet-look.ts";
 import { LOBSTER_PALETTE_LORE, lobsterPaletteName } from "../../components/lobster-pet-lore.ts";
 import { LOBSTER_PET_PALETTES } from "../../components/lobster-pet-palettes.ts";
-import "../../components/tooltip.ts";
 import {
   renderSettingsDefaultDescription,
   renderSettingsRow,
   renderSettingsToggleRow,
 } from "../../components/settings-ui.ts";
 import { t } from "../../i18n/index.ts";
+import "../../components/tooltip.ts";
 import { shouldHandleNavigationClick } from "../../lib/navigation-click.ts";
+import { isWakeSttSupported } from "../chat/wake-word-stt.ts";
+import { DEFAULT_WAKE_PHRASE } from "../chat/wake-word.ts";
 import { languageLabel, renderLanguageSelect } from "./language-select.ts";
 import { APPEARANCE_SETTINGS_TARGET_IDS } from "./route-data.ts";
 import { renderSessionObserverSettings } from "./session-observer-settings.ts";
@@ -196,6 +198,13 @@ export function renderChatPreferencesSection(
     t("chat.catalogOpenTargetViewer"),
     props.catalogOpenTarget !== UI_APPEARANCE_DEFAULTS.catalogOpenTarget,
   );
+  const wakeWordDefaultDescription = renderSettingsDefaultDescription(
+    t("common.disabled"),
+    props.wakeWordEnabled === true,
+  );
+  // A browser without speech recognition can store the preference but never
+  // hear anything, so the row says so rather than looking broken.
+  const wakeWordSupported = isWakeSttSupported();
   const holdToRecordDefaultDescription = renderSettingsDefaultDescription(
     t("common.enabled"),
     (props.composerHoldToRecord ?? UI_APPEARANCE_DEFAULTS.composerHoldToRecord) !==
@@ -224,6 +233,36 @@ export function renderChatPreferencesSection(
           checked: props.chatCollapseTaskProgress,
           onChange: props.setChatCollapseTaskProgress,
         })}
+        ${props.setWakeWordEnabled
+          ? renderSettingsToggleRow({
+              title: t("configView.chatPrefs.wakeWord"),
+              description: html`${t("configView.chatPrefs.wakeWordHint")}<br />
+                ${wakeWordDefaultDescription} ${t("quickSettings.personal.browserOnly")}
+                ${wakeWordSupported
+                  ? nothing
+                  : html`<br /><strong>${t("configView.chatPrefs.wakeWordUnsupported")}</strong>`}`,
+              checked: props.wakeWordEnabled === true,
+              onChange: props.setWakeWordEnabled,
+            })
+          : nothing}
+        ${props.wakeWordEnabled === true && props.setWakeWordPhrase
+          ? renderSettingsRow({
+              title: t("configView.chatPrefs.wakeWordPhrase"),
+              description: html`${t("configView.chatPrefs.wakeWordPhraseHint")}<br />
+                ${t("quickSettings.personal.browserOnly")}`,
+              control: html`<input
+                type="text"
+                class="settings-input"
+                spellcheck="false"
+                autocomplete="off"
+                aria-label=${t("configView.chatPrefs.wakeWordPhrase")}
+                placeholder=${DEFAULT_WAKE_PHRASE}
+                .value=${props.wakeWordPhrase ?? ""}
+                @change=${(event: Event & { currentTarget: HTMLInputElement }) =>
+                  props.setWakeWordPhrase?.(event.currentTarget.value.trim() || undefined)}
+              />`,
+            })
+          : nothing}
         ${renderSettingsSelectRow({
           title: t("chat.sendShortcut"),
           value: props.chatSendShortcut,

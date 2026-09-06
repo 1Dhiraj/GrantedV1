@@ -124,7 +124,7 @@ describe("file log redaction", () => {
         },
       }),
     );
-    withEnv({ OPENCLAW_CONFIG_PATH: configPath }, () => {
+    withEnv({ GRANTED_CONFIG_PATH: configPath }, () => {
       setLoggerOverride({ level: "info", file: logPath });
 
       getLogger().info({
@@ -154,7 +154,7 @@ describe("file log redaction", () => {
         },
       }),
     );
-    withEnv({ OPENCLAW_CONFIG_PATH: configPath, OPENCLAW_TEST_FILE_LOG: "1" }, () => {
+    withEnv({ GRANTED_CONFIG_PATH: configPath, GRANTED_TEST_FILE_LOG: "1" }, () => {
       getLogger().info({ message: "configured log path works" });
     });
 
@@ -166,7 +166,7 @@ describe("file log redaction", () => {
     const home = path.join(path.dirname(logPathTracker.nextPath()), "home");
     const logPath = path.join(home, "custom-openclaw.log");
 
-    await withEnvAsync({ HOME: home, OPENCLAW_HOME: undefined }, async () => {
+    await withEnvAsync({ HOME: home, GRANTED_HOME: undefined }, async () => {
       setLoggerOverride({ level: "info", file: "~/custom-openclaw.log" });
       getLogger().info("tilde log path works");
 

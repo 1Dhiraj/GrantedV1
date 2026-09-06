@@ -15,7 +15,7 @@ import type { OpenClawConfig } from "../config/types.openclaw.js";
 import { resolveDoctorContributionHealthChecks } from "../flows/doctor-health-contributions.js";
 import { runDoctorHealthRepairs } from "../flows/doctor-repair-flow.js";
 import { executeSqliteQuerySync } from "../infra/kysely-sync.js";
-import { OPENCLAW_AGENT_SCHEMA_VERSION } from "../state/openclaw-agent-db-contract.js";
+import { GRANTED_AGENT_SCHEMA_VERSION } from "../state/openclaw-agent-db-contract.js";
 import {
   closeOpenClawAgentDatabasesForTest,
   openOpenClawAgentDatabase,
@@ -36,8 +36,8 @@ describe("doctor Telegram General-topic conversation repair", () => {
     cfg = { session: { store: storePath } };
     env = {
       ...process.env,
-      OPENCLAW_CONFIG_PATH: path.join(root, "missing-openclaw.json"),
-      OPENCLAW_STATE_DIR: path.join(root, "state"),
+      GRANTED_CONFIG_PATH: path.join(root, "missing-openclaw.json"),
+      GRANTED_STATE_DIR: path.join(root, "state"),
     };
   });
 
@@ -104,7 +104,7 @@ describe("doctor Telegram General-topic conversation repair", () => {
       }),
     );
     expect(database.db.prepare("PRAGMA user_version").get()).toEqual({
-      user_version: OPENCLAW_AGENT_SCHEMA_VERSION,
+      user_version: GRANTED_AGENT_SCHEMA_VERSION,
     });
 
     const check = (await resolveDoctorContributionHealthChecks()).find(
@@ -140,7 +140,7 @@ describe("doctor Telegram General-topic conversation repair", () => {
       ).rows,
     ).toEqual([{ conversation_id: canonical!.conversationRef }]);
     expect(database.db.prepare("PRAGMA user_version").get()).toEqual({
-      user_version: OPENCLAW_AGENT_SCHEMA_VERSION,
+      user_version: GRANTED_AGENT_SCHEMA_VERSION,
     });
 
     const repeated = await runDoctorHealthRepairs(

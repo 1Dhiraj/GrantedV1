@@ -32,8 +32,8 @@ describe("bundle plugin hooks", () => {
     setInternalHooksEnabled(true);
     workspaceDir = path.join(fixtureRoot, `case-${caseId++}`);
     await fsp.mkdir(workspaceDir, { recursive: true });
-    previousBundledHooksDir = process.env.OPENCLAW_BUNDLED_HOOKS_DIR;
-    process.env.OPENCLAW_BUNDLED_HOOKS_DIR = "/nonexistent/bundled/hooks";
+    previousBundledHooksDir = process.env.GRANTED_BUNDLED_HOOKS_DIR;
+    process.env.GRANTED_BUNDLED_HOOKS_DIR = "/nonexistent/bundled/hooks";
   });
 
   afterEach(() => {
@@ -42,9 +42,9 @@ describe("bundle plugin hooks", () => {
     clearInternalHooks();
     setInternalHooksEnabled(true);
     if (previousBundledHooksDir === undefined) {
-      delete process.env.OPENCLAW_BUNDLED_HOOKS_DIR;
+      delete process.env.GRANTED_BUNDLED_HOOKS_DIR;
     } else {
-      process.env.OPENCLAW_BUNDLED_HOOKS_DIR = previousBundledHooksDir;
+      process.env.GRANTED_BUNDLED_HOOKS_DIR = previousBundledHooksDir;
     }
   });
 

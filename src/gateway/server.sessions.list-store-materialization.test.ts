@@ -11,7 +11,7 @@ import { resolveSqliteTargetFromSessionStorePath } from "../config/sessions/sess
 import type { SessionEntry } from "../config/sessions/types.js";
 import * as agentDatabaseRegistry from "../state/openclaw-agent-db-registry.js";
 import {
-  OPENCLAW_AGENT_DB_OPEN_HANDLE_CAP,
+  GRANTED_AGENT_DB_OPEN_HANDLE_CAP,
   openOpenClawAgentDatabase,
 } from "../state/openclaw-agent-db.js";
 import { scheduleGatewayHandlerPrewarm } from "./server-startup-handler-prewarm.js";
@@ -102,12 +102,12 @@ test("sessions.list reuses prepared store targets for sharing", async () => {
 });
 
 test("sessions.list keeps cold and warm transcript title batches valid beyond the database handle cap", async () => {
-  const stateDir = process.env.OPENCLAW_STATE_DIR;
+  const stateDir = process.env.GRANTED_STATE_DIR;
   if (!stateDir) {
-    throw new Error("OPENCLAW_STATE_DIR is required for gateway session tests");
+    throw new Error("GRANTED_STATE_DIR is required for gateway session tests");
   }
   const agentIds = Array.from(
-    { length: OPENCLAW_AGENT_DB_OPEN_HANDLE_CAP + 1 },
+    { length: GRANTED_AGENT_DB_OPEN_HANDLE_CAP + 1 },
     (_, index) => `batch-agent-${index}`,
   );
   const storeTemplate = path.join(stateDir, "agents", "{agentId}", "sessions", "sessions.json");
@@ -173,9 +173,9 @@ test("sessions.list keeps cold and warm transcript title batches valid beyond th
 });
 
 test("startup prewarm reuses requested durable targets when no incognito store is open", async () => {
-  const stateDir = process.env.OPENCLAW_STATE_DIR;
+  const stateDir = process.env.GRANTED_STATE_DIR;
   if (!stateDir) {
-    throw new Error("OPENCLAW_STATE_DIR is required for gateway session tests");
+    throw new Error("GRANTED_STATE_DIR is required for gateway session tests");
   }
   const storeTemplate = path.join(stateDir, "agents", "{agentId}", "sessions", "sessions.json");
   const storePath = storeTemplate.replace("{agentId}", "main");

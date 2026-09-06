@@ -220,7 +220,7 @@ describe("failed Git update recovery restart", () => {
     const original = new ScheduledTaskAutoStartRecoveryError(
       [new Error("service stop failed"), restoreError],
       "Native preparation and compensation failed",
-      { OPENCLAW_STATE_DIR: "/fixture/state" },
+      { GRANTED_STATE_DIR: "/fixture/state" },
     );
     const detail = formatErrorMessage(original);
     const failure = await finishFailedUpdate(
@@ -297,7 +297,7 @@ describe("failed Git update recovery restart", () => {
   });
 
   it("does not restart when the mutation owner returned no recovery verdict", async () => {
-    vi.stubEnv("OPENCLAW_UPDATE_RUN_HANDOFF", "1");
+    vi.stubEnv("GRANTED_UPDATE_RUN_HANDOFF", "1");
     const failure = await finishFailedUpdate(failedResult(undefined), {
       json: true,
       stopped: false,
@@ -325,7 +325,7 @@ describe("failed Git update recovery restart", () => {
   ])(
     "preserves the final restart verdict ($handoff, $restoreFails, $safe, $stopped)",
     async ({ handoff, restoreFails, safe, stopped, expected, mutationFailed }) => {
-      vi.stubEnv("OPENCLAW_UPDATE_RUN_HANDOFF", handoff ? "1" : undefined);
+      vi.stubEnv("GRANTED_UPDATE_RUN_HANDOFF", handoff ? "1" : undefined);
       const restoreError = new Error("restore failed");
       if (restoreFails) {
         mocks.restoreWindowsAutoStart.mockRejectedValueOnce(restoreError);
@@ -380,7 +380,7 @@ describe("failed Git update recovery restart", () => {
   ])(
     "derives recovery safety from the owner after child exit $childExitCode (autostart failure: $restoreFails)",
     async ({ childExitCode, restoreFails }) => {
-      vi.stubEnv("OPENCLAW_UPDATE_RUN_HANDOFF", "1");
+      vi.stubEnv("GRANTED_UPDATE_RUN_HANDOFF", "1");
       const detail = "Fresh Doctor could not persist the migrated config.";
       mocks.freshProcess.mockResolvedValueOnce({
         resumed: false,
@@ -421,7 +421,7 @@ describe("failed Git update recovery restart", () => {
   });
 
   it("preserves the active profile in unsafe recovery guidance", async () => {
-    vi.stubEnv("OPENCLAW_PROFILE", "work");
+    vi.stubEnv("GRANTED_PROFILE", "work");
     const log = vi.spyOn(defaultRuntime, "log").mockImplementation(() => undefined);
 
     await finishFailedUpdate(

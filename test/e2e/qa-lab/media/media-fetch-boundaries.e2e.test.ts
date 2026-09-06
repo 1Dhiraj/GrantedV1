@@ -139,7 +139,7 @@ describe("media guarded fetch product boundaries", () => {
   it("rejects private targets before the network or media store is reached", async () => {
     const stateDir = tempDirs.make("openclaw-media-private-fetch-");
 
-    await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () => {
+    await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {
       const error = await saveRemoteMedia({
         url: `${sourceOrigin}/private`,
         maxBytes: 64,
@@ -159,7 +159,7 @@ describe("media guarded fetch product boundaries", () => {
   it("revalidates redirect targets and strips sensitive cross-origin headers", async () => {
     const stateDir = tempDirs.make("openclaw-media-safe-redirect-");
 
-    await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () => {
+    await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {
       const blocked = await saveRemoteMedia({
         url: `${sourceOrigin}/redirect`,
         requestInit: {
@@ -214,7 +214,7 @@ describe("media guarded fetch product boundaries", () => {
     const stateDir = tempDirs.make("openclaw-media-bounded-fetch-");
     const allowedOrigins = [sourceOrigin];
 
-    await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () => {
+    await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {
       await expect(
         saveRemoteMedia({
           url: `${sourceOrigin}/oversized-file`,

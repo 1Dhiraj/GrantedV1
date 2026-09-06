@@ -24,17 +24,17 @@ import { readTextFileTail } from "../text-file-utils.mjs";
 
 function clickClackHttpTimeoutMs() {
   return readPositiveInt(
-    process.env.OPENCLAW_RELEASE_USER_JOURNEY_HTTP_TIMEOUT_MS,
+    process.env.GRANTED_RELEASE_USER_JOURNEY_HTTP_TIMEOUT_MS,
     5000,
-    "OPENCLAW_RELEASE_USER_JOURNEY_HTTP_TIMEOUT_MS",
+    "GRANTED_RELEASE_USER_JOURNEY_HTTP_TIMEOUT_MS",
   );
 }
 
 function clickClackHttpBodyMaxBytes() {
   return readPositiveInt(
-    process.env.OPENCLAW_RELEASE_USER_JOURNEY_HTTP_BODY_MAX_BYTES,
+    process.env.GRANTED_RELEASE_USER_JOURNEY_HTTP_BODY_MAX_BYTES,
     1024 * 1024,
-    "OPENCLAW_RELEASE_USER_JOURNEY_HTTP_BODY_MAX_BYTES",
+    "GRANTED_RELEASE_USER_JOURNEY_HTTP_BODY_MAX_BYTES",
   );
 }
 
@@ -121,7 +121,7 @@ function pathsEqual(left, right) {
 
 function configPath() {
   return (
-    process.env.OPENCLAW_CONFIG_PATH ??
+    process.env.GRANTED_CONFIG_PATH ??
     path.join(process.env.HOME ?? "", ".openclaw", "openclaw.json")
   );
 }

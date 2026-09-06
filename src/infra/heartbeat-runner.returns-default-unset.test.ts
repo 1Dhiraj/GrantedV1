@@ -333,8 +333,8 @@ beforeAll(async () => {
   setActivePluginRegistry(testRegistry);
 
   fixtureRoot = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-heartbeat-suite-"));
-  previousStateDir = process.env.OPENCLAW_STATE_DIR;
-  process.env.OPENCLAW_STATE_DIR = path.join(fixtureRoot, "state");
+  previousStateDir = process.env.GRANTED_STATE_DIR;
+  process.env.GRANTED_STATE_DIR = path.join(fixtureRoot, "state");
 });
 
 beforeEach(() => {
@@ -348,9 +348,9 @@ beforeEach(() => {
 afterAll(async () => {
   closeOpenClawStateDatabaseForTest();
   if (previousStateDir === undefined) {
-    delete process.env.OPENCLAW_STATE_DIR;
+    delete process.env.GRANTED_STATE_DIR;
   } else {
-    process.env.OPENCLAW_STATE_DIR = previousStateDir;
+    process.env.GRANTED_STATE_DIR = previousStateDir;
   }
   if (fixtureRoot) {
     await fs.rm(fixtureRoot, { recursive: true, force: true });

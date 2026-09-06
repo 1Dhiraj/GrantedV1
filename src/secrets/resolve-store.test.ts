@@ -13,7 +13,7 @@ const roots: string[] = [];
 async function createStateEnv(): Promise<NodeJS.ProcessEnv> {
   const root = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-resolve-store-"));
   roots.push(root);
-  return { OPENCLAW_STATE_DIR: path.join(root, "state") };
+  return { GRANTED_STATE_DIR: path.join(root, "state") };
 }
 
 afterEach(async () => {
@@ -127,8 +127,8 @@ describe("store SecretRef resolution", () => {
 
   it("maps database access failures to provider unavailable", async () => {
     const env = await createStateEnv();
-    await fs.mkdir(path.dirname(env.OPENCLAW_STATE_DIR as string), { recursive: true });
-    await fs.writeFile(env.OPENCLAW_STATE_DIR as string, "not a directory", "utf8");
+    await fs.mkdir(path.dirname(env.GRANTED_STATE_DIR as string), { recursive: true });
+    await fs.writeFile(env.GRANTED_STATE_DIR as string, "not a directory", "utf8");
     const error = await resolveSecretRefString(
       { source: "store", provider: "default", id: "STORED_API_KEY" },
       { config: {}, env },

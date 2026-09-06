@@ -34,7 +34,7 @@ it("backfills a nested requested workspace once instead of using the agent defau
     fs.mkdir(requestedWorkspace, { recursive: true }),
     fs.mkdir(spawnedCwd, { recursive: true }),
   ]);
-  const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+  const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
   const storePath = path.join(stateDir, "agents", "main", "sessions", "sessions.json");
   const sessionKey = "agent:main:dashboard:legacy-worktree";
   const ordinarySessionKey = "agent:main:dashboard:ordinary";
@@ -98,7 +98,7 @@ it("backfills a nested requested workspace once instead of using the agent defau
 it("repairs a foreign logical row in its source partition without changing a same-key sibling", async () => {
   const root = tempDirs.make("openclaw-worktree-source-partition-");
   const stateDir = path.join(root, "state");
-  const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+  const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
   const storePath = path.join(stateDir, "shared.json");
   const workspace = path.join(root, "ops-workspace");
   const cfg: OpenClawConfig = {
@@ -159,7 +159,7 @@ it.each(["main", "ops"])(
   async (agentId) => {
     const root = tempDirs.make("openclaw-shared-worktree-workspace-migration-");
     const stateDir = path.join(root, "state");
-    const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+    const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
     const storePath = path.join(stateDir, "shared.sqlite");
     const agents = ["main", "ops"].map((id) => ({ id, workspace: path.join(root, id) }));
     const cfg: OpenClawConfig = {

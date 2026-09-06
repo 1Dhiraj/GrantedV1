@@ -16,7 +16,7 @@ const tempDirs = useAutoCleanupTempDirTracker((cleanup) =>
 function createStore() {
   const stateDir = tempDirs.make("openclaw-msteams-store-");
   return createMSTeamsConversationStoreState({
-    env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+    env: { ...process.env, GRANTED_STATE_DIR: stateDir },
     ttlMs: 60_000,
   });
 }

@@ -16,7 +16,7 @@ import { invokeRegisteredNodeHostCommand } from "./plugin-node-host.js";
 let root: string;
 beforeEach(() => {
   root = fs.mkdtempSync(path.join(os.tmpdir(), "node-plugin-exec-policy-"));
-  vi.stubEnv("OPENCLAW_STATE_DIR", root);
+  vi.stubEnv("GRANTED_STATE_DIR", root);
   setRuntimeConfigSnapshot({});
   saveExecApprovals({ version: 1, defaults: { security: "full", ask: "off" } });
 });

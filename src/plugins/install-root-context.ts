@@ -49,7 +49,7 @@ export function hasActivePluginInstallRoots(): boolean {
 
 /**
  * Keep plugin discovery on one operator-owned install generation while a run
- * redirects OPENCLAW_STATE_DIR for ephemeral sessions and runtime state.
+ * redirects GRANTED_STATE_DIR for ephemeral sessions and runtime state.
  */
 export function withPluginInstallRoots<T>(roots: PluginInstallRoots, run: () => T): T {
   return pluginInstallRootContext.run(roots, run);

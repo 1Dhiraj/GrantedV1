@@ -6,7 +6,7 @@ import { withOpenClawAgentDatabaseReadOnly } from "./openclaw-agent-db-readonly.
 import {
   closeOpenClawAgentDatabasesForTest,
   migrateOpenClawAgentDatabaseForMaintenance,
-  OPENCLAW_AGENT_SCHEMA_VERSION,
+  GRANTED_AGENT_SCHEMA_VERSION,
   openOpenClawAgentDatabase,
 } from "./openclaw-agent-db.js";
 import { closeOpenClawStateDatabaseForTest } from "./openclaw-state-db.js";
@@ -15,7 +15,7 @@ const tempDirs: string[] = [];
 
 function createCurrentAgentDatabase(): { databasePath: string; env: NodeJS.ProcessEnv } {
   const stateDir = makeTempDir(tempDirs, "agent-db-retired-lease-");
-  const env = { OPENCLAW_STATE_DIR: stateDir };
+  const env = { GRANTED_STATE_DIR: stateDir };
   const databasePath = openOpenClawAgentDatabase({ agentId: "worker-1", env }).path;
   closeOpenClawAgentDatabasesForTest();
   closeOpenClawStateDatabaseForTest();
@@ -94,7 +94,7 @@ describe("retired agent state lease repair", () => {
     const repaired = openNodeSqliteDatabase(databasePath, { readOnly: true });
     try {
       expect(repaired.prepare("PRAGMA user_version").get()).toEqual({
-        user_version: OPENCLAW_AGENT_SCHEMA_VERSION,
+        user_version: GRANTED_AGENT_SCHEMA_VERSION,
       });
       expect(
         repaired.prepare("SELECT * FROM schema_meta WHERE meta_key = 'primary'").get(),
@@ -146,7 +146,7 @@ describe("retired agent state lease repair", () => {
     const after = openNodeSqliteDatabase(databasePath, { readOnly: true });
     try {
       expect(after.prepare("PRAGMA user_version").get()).toEqual({
-        user_version: OPENCLAW_AGENT_SCHEMA_VERSION,
+        user_version: GRANTED_AGENT_SCHEMA_VERSION,
       });
       expect(after.prepare("SELECT * FROM schema_meta WHERE meta_key = 'primary'").get()).toEqual(
         beforeMetadata,
@@ -192,7 +192,7 @@ describe("retired agent state lease repair", () => {
         beforeMetadata,
       );
       expect(after.prepare("PRAGMA user_version").get()).toEqual({
-        user_version: OPENCLAW_AGENT_SCHEMA_VERSION,
+        user_version: GRANTED_AGENT_SCHEMA_VERSION,
       });
     } finally {
       after.close();
@@ -241,7 +241,7 @@ describe("retired agent state lease repair", () => {
         beforeMetadata,
       );
       expect(after.prepare("PRAGMA user_version").get()).toEqual({
-        user_version: OPENCLAW_AGENT_SCHEMA_VERSION,
+        user_version: GRANTED_AGENT_SCHEMA_VERSION,
       });
     } finally {
       after.close();

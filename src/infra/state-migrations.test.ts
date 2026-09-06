@@ -32,10 +32,10 @@ import { listOpenClawRegisteredAgentDatabases } from "../state/openclaw-agent-db
 import {
   closeOpenClawAgentDatabasesForTest,
   ensureOpenClawAgentDatabaseSchema,
-  OPENCLAW_AGENT_SCHEMA_VERSION,
+  GRANTED_AGENT_SCHEMA_VERSION,
   runOpenClawAgentWriteTransaction,
 } from "../state/openclaw-agent-db.js";
-import { OPENCLAW_STATE_SCHEMA_VERSION } from "../state/openclaw-state-db-contract.js";
+import { GRANTED_STATE_SCHEMA_VERSION } from "../state/openclaw-state-db-contract.js";
 import type { DB as OpenClawStateKyselyDatabase } from "../state/openclaw-state-db.generated.js";
 import {
   closeOpenClawStateDatabaseForTest,
@@ -487,7 +487,7 @@ function createEnv(stateDir: string): NodeJS.ProcessEnv {
   return {
     ...process.env,
     HOME: path.dirname(stateDir),
-    OPENCLAW_STATE_DIR: stateDir,
+    GRANTED_STATE_DIR: stateDir,
   };
 }
 
@@ -1189,7 +1189,7 @@ describe("state migrations", () => {
     const database = new DatabaseSync(databasePath, { readOnly: true });
     try {
       expect(database.prepare("PRAGMA user_version").get()).toEqual({
-        user_version: OPENCLAW_AGENT_SCHEMA_VERSION,
+        user_version: GRANTED_AGENT_SCHEMA_VERSION,
       });
       expect(database.prepare("SELECT COUNT(*) AS count FROM session_nodes").get()).toEqual({
         count: 0,
@@ -1400,11 +1400,11 @@ describe("state migrations", () => {
       const databasePath = resolveOpenClawStateSqlitePath(env);
       const database = new DatabaseSync(databasePath, { readOnly: true });
       expect(database.prepare("PRAGMA user_version").get()).toEqual({
-        user_version: OPENCLAW_STATE_SCHEMA_VERSION,
+        user_version: GRANTED_STATE_SCHEMA_VERSION,
       });
       expect(
         database.prepare("SELECT schema_version FROM schema_meta WHERE meta_key = 'primary'").get(),
-      ).toEqual({ schema_version: OPENCLAW_STATE_SCHEMA_VERSION });
+      ).toEqual({ schema_version: GRANTED_STATE_SCHEMA_VERSION });
       database.close();
 
       const detected = await detectLegacyStateMigrations({
@@ -1424,7 +1424,7 @@ describe("state migrations", () => {
     const root = await createTempDir();
     const stateDir = path.join(root, "custom-state");
     const customHome = path.join(root, "custom-home");
-    const env = { ...process.env, HOME: customHome, OPENCLAW_STATE_DIR: stateDir };
+    const env = { ...process.env, HOME: customHome, GRANTED_STATE_DIR: stateDir };
     const observed: string[] = [];
     pluginDoctorStateMigrationEntries.entries = [
       {
@@ -3767,7 +3767,7 @@ describe("state migrations", () => {
         schema_version: 1,
       });
       expect(db.prepare("PRAGMA user_version").get()).toEqual({
-        user_version: OPENCLAW_STATE_SCHEMA_VERSION,
+        user_version: GRANTED_STATE_SCHEMA_VERSION,
       });
       expect(
         db
@@ -3777,7 +3777,7 @@ describe("state migrations", () => {
           .get(),
       ).toEqual({
         role: "global",
-        schema_version: OPENCLAW_STATE_SCHEMA_VERSION,
+        schema_version: GRANTED_STATE_SCHEMA_VERSION,
       });
     } finally {
       db.close();
@@ -3891,7 +3891,7 @@ describe("state migrations", () => {
     await fs.mkdir(path.dirname(stateDbPath), { recursive: true });
     const db = new DatabaseSync(stateDbPath);
     try {
-      db.exec(`PRAGMA user_version = ${OPENCLAW_STATE_SCHEMA_VERSION + 1};`);
+      db.exec(`PRAGMA user_version = ${GRANTED_STATE_SCHEMA_VERSION + 1};`);
     } finally {
       db.close();
     }
@@ -3937,7 +3937,7 @@ describe("state migrations", () => {
     await fs.writeFile(voiceWakePath, JSON.stringify({ triggers: ["leave-me"] }), "utf8");
     const db = new DatabaseSync(stateDbPath);
     try {
-      db.exec(`PRAGMA user_version = ${OPENCLAW_STATE_SCHEMA_VERSION + 1};`);
+      db.exec(`PRAGMA user_version = ${GRANTED_STATE_SCHEMA_VERSION + 1};`);
     } finally {
       db.close();
     }
@@ -4127,7 +4127,7 @@ describe("state migrations", () => {
     await fs.mkdir(legacyStateDir, { recursive: true });
     await fs.writeFile(path.join(legacyStateDir, "legacy.txt"), "legacy", "utf8");
     const env: NodeJS.ProcessEnv = { ...process.env, HOME: root };
-    delete env.OPENCLAW_STATE_DIR;
+    delete env.GRANTED_STATE_DIR;
     const cfg = createConfig();
     const detectedStateDirs: string[] = [];
     const migratedStateDirs: string[] = [];
@@ -5044,7 +5044,7 @@ describe("state migrations", () => {
   it("never imports default-profile approvals into a named profile", async () => {
     const root = await createTempDir();
     const stateDir = path.join(root, ".openclaw-work");
-    const env = { ...createEnv(stateDir), OPENCLAW_PROFILE: "work" };
+    const env = { ...createEnv(stateDir), GRANTED_PROFILE: "work" };
     const cfg = createConfig();
     const defaultStateDir = path.join(root, ".openclaw");
     const execApprovalsPath = path.join(defaultStateDir, "exec-approvals.json");

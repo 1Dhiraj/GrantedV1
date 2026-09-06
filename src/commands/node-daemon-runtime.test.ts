@@ -77,9 +77,9 @@ describe.skipIf(process.platform === "win32")("node-host runtime install boundar
     await expect(install()).rejects.toThrow(/Node runtime probe failed.*\/usr\/bin\/node.*EACCES/s);
   });
 
-  it("uses OPENCLAW_WRAPPER even when native runtime probes cannot execute", async () => {
+  it("uses GRANTED_WRAPPER even when native runtime probes cannot execute", async () => {
     runExec.mockRejectedValue(new Error("spawn EACCES"));
-    const plan = await install({ OPENCLAW_WRAPPER: "/opt/openclaw-wrapper" });
+    const plan = await install({ GRANTED_WRAPPER: "/opt/openclaw-wrapper" });
     expect(plan.programArguments).toEqual([
       "/opt/openclaw-wrapper",
       "node",
@@ -93,8 +93,8 @@ describe.skipIf(process.platform === "win32")("node-host runtime install boundar
 
   it("rejects a node-host wrapper without execute permission", async () => {
     access.mockRejectedValue(new Error("EACCES"));
-    await expect(install({ OPENCLAW_WRAPPER: "/opt/openclaw-wrapper" })).rejects.toThrow(
-      "OPENCLAW_WRAPPER must point to an executable file",
+    await expect(install({ GRANTED_WRAPPER: "/opt/openclaw-wrapper" })).rejects.toThrow(
+      "GRANTED_WRAPPER must point to an executable file",
     );
   });
 });

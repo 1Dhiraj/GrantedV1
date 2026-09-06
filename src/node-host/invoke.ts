@@ -100,9 +100,9 @@ type NodeHostPrivateInvokeRuntime = NodeHostInvokeRuntime & {
 };
 
 const execHostEnforced =
-  normalizeLowercaseStringOrEmpty(process.env.OPENCLAW_NODE_EXEC_HOST ?? "") === "app";
+  normalizeLowercaseStringOrEmpty(process.env.GRANTED_NODE_EXEC_HOST ?? "") === "app";
 const execHostFallbackAllowed =
-  normalizeLowercaseStringOrEmpty(process.env.OPENCLAW_NODE_EXEC_FALLBACK ?? "") !== "0";
+  normalizeLowercaseStringOrEmpty(process.env.GRANTED_NODE_EXEC_FALLBACK ?? "") !== "0";
 const preferMacAppExecHost = process.platform === "darwin" && execHostEnforced;
 
 type SystemWhichParams = {

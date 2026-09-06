@@ -11,7 +11,7 @@ const suite = createChatFlowE2eSuite();
 
 suite.define(() => {
   it("keeps multiple live replies after their delayed prompt before history catches up", async () => {
-    const artifactRoot = process.env.OPENCLAW_CONTROL_UI_E2E_ARTIFACT_DIR?.trim();
+    const artifactRoot = process.env.GRANTED_CONTROL_UI_E2E_ARTIFACT_DIR?.trim();
     const artifactDir = artifactRoot
       ? createControlUiE2eArtifactDir("chat-live-final-order", artifactRoot)
       : undefined;
@@ -233,7 +233,7 @@ suite.define(() => {
         )
         .toBe(true);
 
-      const artifactRoot = process.env.OPENCLAW_CONTROL_UI_E2E_ARTIFACT_DIR?.trim();
+      const artifactRoot = process.env.GRANTED_CONTROL_UI_E2E_ARTIFACT_DIR?.trim();
       const artifactDir = artifactRoot
         ? createControlUiE2eArtifactDir("chat-live-final-order", artifactRoot)
         : undefined;

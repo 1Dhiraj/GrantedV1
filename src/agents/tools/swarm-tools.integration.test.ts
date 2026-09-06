@@ -56,7 +56,7 @@ describe("swarm tools integration", () => {
 
   it("spawns three mock-model collectors and drains them in first-completion order", async () => {
     await withTestDir({ prefix: "openclaw-swarm-tools-" }, async (stateDir) => {
-      vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
+      vi.stubEnv("GRANTED_STATE_DIR", stateDir);
       const publicToGateway = new Map<string, string>();
       const resultTextBySession = new Map<string, string>();
       const modelStructuredCalls: number[] = [];

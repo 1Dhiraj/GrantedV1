@@ -49,7 +49,7 @@ describe("queued lazy outbound adapter availability", () => {
   });
 
   it("retries adapter lookup failures without preserving false send evidence", async () => {
-    process.env.OPENCLAW_STATE_DIR = tmpDir;
+    process.env.GRANTED_STATE_DIR = tmpDir;
     const emptyRegistry = createEmptyPluginRegistry();
     const outerRegistry = createTestRegistry([
       {
@@ -135,7 +135,7 @@ describe("queued lazy outbound adapter availability", () => {
   });
 
   it("retains recovery custody when no outbound adapter can be resolved", async () => {
-    process.env.OPENCLAW_STATE_DIR = tmpDir;
+    process.env.GRANTED_STATE_DIR = tmpDir;
     setActivePluginRegistry(createEmptyPluginRegistry());
     const id = await enqueueDelivery(
       {
@@ -177,7 +177,7 @@ describe("queued lazy outbound adapter availability", () => {
   });
 
   it("does not replay a provider call that already crossed the ambiguous send boundary", async () => {
-    process.env.OPENCLAW_STATE_DIR = tmpDir;
+    process.env.GRANTED_STATE_DIR = tmpDir;
     setActivePluginRegistry(
       createTestRegistry([
         {

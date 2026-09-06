@@ -125,19 +125,19 @@ describe("plugin metadata snapshot", () => {
 
     const registry = loadPluginManifestRegistryCore({
       config: { plugins: { enabled: false } },
-      env: { OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1", OPENCLAW_STATE_DIR: "/unselected-state" },
+      env: { GRANTED_DISABLE_BUNDLED_PLUGINS: "1", GRANTED_STATE_DIR: "/unselected-state" },
     });
     expect(registry).toBe(snapshot.manifestRegistry);
   });
 
   it("refreshes snapshots for the selected environment's discovery policy", async () => {
     const roots: string[] = [];
-    const envSnapshot = captureEnv(["OPENCLAW_STATE_DIR"]);
+    const envSnapshot = captureEnv(["GRANTED_STATE_DIR"]);
     try {
-      setTestEnvValue("OPENCLAW_STATE_DIR", makeTempDir(roots, "openclaw-metadata-process-"));
+      setTestEnvValue("GRANTED_STATE_DIR", makeTempDir(roots, "openclaw-metadata-process-"));
       const env = {
         ...process.env,
-        OPENCLAW_STATE_DIR: makeTempDir(roots, "openclaw-metadata-selected-"),
+        GRANTED_STATE_DIR: makeTempDir(roots, "openclaw-metadata-selected-"),
       };
       const config = {};
       writeConfigMachineState("plugins.bundledDiscovery", "compat", { env });

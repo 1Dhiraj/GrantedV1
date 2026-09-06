@@ -41,9 +41,9 @@ export async function runUpdateSnapshotIsolationProof(
     Object.assign(process.env, {
       HOME: home,
       USERPROFILE: home,
-      OPENCLAW_HOME: home,
-      OPENCLAW_STATE_DIR: path.join(home, ".openclaw"),
-      OPENCLAW_CONFIG_PATH: path.join(home, ".openclaw", "openclaw.json"),
+      GRANTED_HOME: home,
+      GRANTED_STATE_DIR: path.join(home, ".openclaw"),
+      GRANTED_CONFIG_PATH: path.join(home, ".openclaw", "openclaw.json"),
     });
   };
   selectHome(homeA);
@@ -133,17 +133,17 @@ export async function runUpdateSnapshotIsolationProof(
   const { createUpdateConfigSnapshot } = await import("./update-command-config.js");
   selectHome(homeB);
   if (selection === "home") {
-    delete process.env.OPENCLAW_STATE_DIR;
-    delete process.env.OPENCLAW_CONFIG_PATH;
+    delete process.env.GRANTED_STATE_DIR;
+    delete process.env.GRANTED_CONFIG_PATH;
   } else if (selection === "state") {
-    process.env.OPENCLAW_STATE_DIR = path.dirname(configB);
-    delete process.env.OPENCLAW_CONFIG_PATH;
+    process.env.GRANTED_STATE_DIR = path.dirname(configB);
+    delete process.env.GRANTED_CONFIG_PATH;
   } else if (selection === "explicit") {
-    process.env.OPENCLAW_CONFIG_PATH = configB;
+    process.env.GRANTED_CONFIG_PATH = configB;
   } else {
     const { applyCliProfileEnv } = await import("../profile.js");
     applyCliProfileEnv({ profile: "snapshot-proof" });
-    assert.equal(process.env.OPENCLAW_CONFIG_PATH, configB);
+    assert.equal(process.env.GRANTED_CONFIG_PATH, configB);
   }
   await createUpdateConfigSnapshot();
   console.log(JSON.stringify({ selection, importedConfig: CONFIG_PATH, configB, writes, blocked }));

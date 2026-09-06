@@ -123,7 +123,7 @@ file=$(prepare_squash_merge_body 123)
             GIT_CONFIG_VALUE_0: "Unrequested-Metadata",
             GIT_CONFIG_KEY_1: "trailer.audit.command",
             GIT_CONFIG_VALUE_1:
-              'printf invoked > "$OPENCLAW_TEST_TRAILER_MARKER"; printf "unrequested value"',
+              'printf invoked > "$GRANTED_TEST_TRAILER_MARKER"; printf "unrequested value"',
           }
         : {}),
       ...(scenario.trailerSeparators
@@ -133,7 +133,7 @@ file=$(prepare_squash_merge_body 123)
             GIT_CONFIG_VALUE_0: scenario.trailerSeparators,
           }
         : {}),
-      OPENCLAW_TEST_TRAILER_MARKER: trailerMarker,
+      GRANTED_TEST_TRAILER_MARKER: trailerMarker,
       BODY_MERGE_SCRIPT: mergeScript,
       BODY_HEAD: headSha,
       BODY_LOCAL_HEAD: localHead,

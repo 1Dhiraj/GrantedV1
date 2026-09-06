@@ -23,8 +23,8 @@ export function compareNativeStateSchemaVersions({ swiftSource, typescriptSource
   );
   const typescriptVersion = extractSingleVersion(
     typescriptSource,
-    /^export const OPENCLAW_STATE_SCHEMA_VERSION = (\d+);\s*$/gmu,
-    "TypeScript OPENCLAW_STATE_SCHEMA_VERSION",
+    /^export const GRANTED_STATE_SCHEMA_VERSION = (\d+);\s*$/gmu,
+    "TypeScript GRANTED_STATE_SCHEMA_VERSION",
   );
   if (swiftVersion !== typescriptVersion) {
     throw new Error(

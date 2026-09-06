@@ -31,7 +31,7 @@ let env: NodeJS.ProcessEnv;
 beforeEach(() => {
   resetPluginStateStoreForTests();
   stateDir = tempDirs.make("openclaw-crabbox-migration-");
-  env = { OPENCLAW_STATE_DIR: stateDir };
+  env = { GRANTED_STATE_DIR: stateDir };
 });
 
 afterEach(() => {

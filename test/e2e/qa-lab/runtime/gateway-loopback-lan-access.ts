@@ -29,19 +29,19 @@ const PROBE_TIMEOUT_MS = 10_000;
 const ENV_KEYS = [
   "HOME",
   ...GATEWAY_STARTUP_MUTATED_ENV_KEYS,
-  "OPENCLAW_STATE_DIR",
-  "OPENCLAW_CONFIG_PATH",
-  "OPENCLAW_GATEWAY_TOKEN",
-  "OPENCLAW_GATEWAY_PASSWORD",
-  "OPENCLAW_SKIP_CHANNELS",
-  "OPENCLAW_SKIP_GMAIL_WATCHER",
-  "OPENCLAW_SKIP_CRON",
-  "OPENCLAW_SKIP_CANVAS_HOST",
-  "OPENCLAW_SKIP_BROWSER_CONTROL_SERVER",
-  "OPENCLAW_SKIP_PROVIDERS",
-  "OPENCLAW_BUNDLED_PLUGINS_DIR",
-  "OPENCLAW_DISABLE_BUNDLED_PLUGINS",
-  "OPENCLAW_TEST_MINIMAL_GATEWAY",
+  "GRANTED_STATE_DIR",
+  "GRANTED_CONFIG_PATH",
+  "GRANTED_GATEWAY_TOKEN",
+  "GRANTED_GATEWAY_PASSWORD",
+  "GRANTED_SKIP_CHANNELS",
+  "GRANTED_SKIP_GMAIL_WATCHER",
+  "GRANTED_SKIP_CRON",
+  "GRANTED_SKIP_CANVAS_HOST",
+  "GRANTED_SKIP_BROWSER_CONTROL_SERVER",
+  "GRANTED_SKIP_PROVIDERS",
+  "GRANTED_BUNDLED_PLUGINS_DIR",
+  "GRANTED_DISABLE_BUNDLED_PLUGINS",
+  "GRANTED_TEST_MINIMAL_GATEWAY",
 ] as const;
 
 type ProducerOptions = {
@@ -354,18 +354,18 @@ export async function runGatewayLoopbackLanProof(): Promise<GatewayLoopbackLanPr
       deleteTestEnvValue(key);
     }
     setTestEnvValue("HOME", tempHome);
-    setTestEnvValue("OPENCLAW_STATE_DIR", stateDir);
-    setTestEnvValue("OPENCLAW_CONFIG_PATH", configPath);
-    setTestEnvValue("OPENCLAW_GATEWAY_TOKEN", token);
-    setTestEnvValue("OPENCLAW_SKIP_CHANNELS", "1");
-    setTestEnvValue("OPENCLAW_SKIP_GMAIL_WATCHER", "1");
-    setTestEnvValue("OPENCLAW_SKIP_CRON", "1");
-    setTestEnvValue("OPENCLAW_SKIP_CANVAS_HOST", "1");
-    setTestEnvValue("OPENCLAW_SKIP_BROWSER_CONTROL_SERVER", "1");
-    setTestEnvValue("OPENCLAW_SKIP_PROVIDERS", "1");
-    setTestEnvValue("OPENCLAW_BUNDLED_PLUGINS_DIR", emptyPluginsDir);
-    setTestEnvValue("OPENCLAW_DISABLE_BUNDLED_PLUGINS", "1");
-    setTestEnvValue("OPENCLAW_TEST_MINIMAL_GATEWAY", "1");
+    setTestEnvValue("GRANTED_STATE_DIR", stateDir);
+    setTestEnvValue("GRANTED_CONFIG_PATH", configPath);
+    setTestEnvValue("GRANTED_GATEWAY_TOKEN", token);
+    setTestEnvValue("GRANTED_SKIP_CHANNELS", "1");
+    setTestEnvValue("GRANTED_SKIP_GMAIL_WATCHER", "1");
+    setTestEnvValue("GRANTED_SKIP_CRON", "1");
+    setTestEnvValue("GRANTED_SKIP_CANVAS_HOST", "1");
+    setTestEnvValue("GRANTED_SKIP_BROWSER_CONTROL_SERVER", "1");
+    setTestEnvValue("GRANTED_SKIP_PROVIDERS", "1");
+    setTestEnvValue("GRANTED_BUNDLED_PLUGINS_DIR", emptyPluginsDir);
+    setTestEnvValue("GRANTED_DISABLE_BUNDLED_PLUGINS", "1");
+    setTestEnvValue("GRANTED_TEST_MINIMAL_GATEWAY", "1");
     await fs.mkdir(emptyPluginsDir, { recursive: true });
     await fs.mkdir(stateDir, { recursive: true });
     await fs.writeFile(

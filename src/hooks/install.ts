@@ -2,7 +2,7 @@
 
 import path from "node:path";
 import { normalizeTrimmedStringList } from "@openclaw/normalization-core/string-normalization";
-import { MANIFEST_KEY } from "../compat/legacy-names.js";
+import { MANIFEST_KEYS, readManifestSection } from "../compat/legacy-names.js";
 import { resolveSafeInstallDir, unscopedPackageName } from "../infra/install-safe-path.js";
 import type { NpmIntegrityDrift, NpmSpecResolution } from "../infra/install-source-utils.js";
 import { readRegularFile } from "../infra/regular-file.js";
@@ -34,7 +34,14 @@ type HookPackageManifest = {
   name?: string;
   version?: string;
   dependencies?: Record<string, string>;
-} & Partial<Record<typeof MANIFEST_KEY, { extensions?: string[]; hooks?: string[] }>>;
+} & Partial<Record<(typeof MANIFEST_KEYS)[number], { extensions?: string[]; hooks?: string[] }>>;
+
+/** Hook packages published before the rename still declare the old manifest key. */
+function readHookManifestSection(
+  manifest: HookPackageManifest,
+): { extensions?: string[]; hooks?: string[] } | undefined {
+  return readManifestSection(manifest) as { extensions?: string[]; hooks?: string[] } | undefined;
+}
 
 export type InstallHooksResult =
   | {
@@ -54,8 +61,8 @@ export type InstallHooksResult =
     };
 
 export const HOOK_INSTALL_ERROR_CODE = {
-  MISSING_OPENCLAW_HOOKS: "missing_openclaw_hooks",
-  EMPTY_OPENCLAW_HOOKS: "empty_openclaw_hooks",
+  MISSING_GRANTED_HOOKS: "missing_openclaw_hooks",
+  EMPTY_GRANTED_HOOKS: "empty_openclaw_hooks",
 } as const;
 
 type HookInstallErrorCode = (typeof HOOK_INSTALL_ERROR_CODE)[keyof typeof HOOK_INSTALL_ERROR_CODE];
@@ -236,12 +243,12 @@ export function resolveHookInstallDir(hookId: string, hooksDir?: string): string
 function resolveOpenClawHooks(
   manifest: HookPackageManifest,
 ): { ok: true; entries: string[] } | { ok: false; error: string; code: HookInstallErrorCode } {
-  const hooks = manifest[MANIFEST_KEY]?.hooks;
+  const hooks = readHookManifestSection(manifest)?.hooks;
   if (!Array.isArray(hooks)) {
     return {
       ok: false,
       error: "package.json missing openclaw.hooks",
-      code: HOOK_INSTALL_ERROR_CODE.MISSING_OPENCLAW_HOOKS,
+      code: HOOK_INSTALL_ERROR_CODE.MISSING_GRANTED_HOOKS,
     };
   }
   const list = normalizeTrimmedStringList(hooks);
@@ -249,7 +256,7 @@ function resolveOpenClawHooks(
     return {
       ok: false,
       error: "package.json openclaw.hooks is empty",
-      code: HOOK_INSTALL_ERROR_CODE.EMPTY_OPENCLAW_HOOKS,
+      code: HOOK_INSTALL_ERROR_CODE.EMPTY_GRANTED_HOOKS,
     };
   }
   return { ok: true, entries: list };
@@ -262,7 +269,7 @@ function resolveHookPackageKind(
   if (packageKind) {
     return packageKind;
   }
-  const extensions = manifest[MANIFEST_KEY]?.extensions;
+  const extensions = readHookManifestSection(manifest)?.extensions;
   if (extensions === undefined) {
     return "hook-only";
   }

@@ -146,7 +146,7 @@ describe("unit-fast vitest lane", () => {
       try {
         const includeFile = path.join(directory, "include.json");
         fs.writeFileSync(includeFile, JSON.stringify(selectedTests));
-        process.env.OPENCLAW_VITEST_INCLUDE_FILE = includeFile;
+        process.env.GRANTED_VITEST_INCLUDE_FILE = includeFile;
         const selections = [];
         for (const name of ["unit-fast", "unit-fast-isolated", "unit-fast-fake-timers"]) {
           const { default: config } = await import("./test/vitest/vitest." + name + ".config.ts?io-probe=" + Date.now());
@@ -180,7 +180,7 @@ describe("unit-fast vitest lane", () => {
         ...process.env,
         FORCE_COLOR: "0",
         NO_COLOR: "1",
-        OPENCLAW_VITEST_INCLUDE_FILE: undefined,
+        GRANTED_VITEST_INCLUDE_FILE: undefined,
       },
       evalFlag: "-e",
       imports: ["tsx"],

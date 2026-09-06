@@ -7,7 +7,7 @@ import { listSessionEntriesCore } from "../config/sessions/session-accessor.js";
 import { registerOpenClawAgentDatabase } from "../state/openclaw-agent-db-registry.js";
 import {
   closeOpenClawAgentDatabasesForTest,
-  OPENCLAW_AGENT_SCHEMA_VERSION,
+  GRANTED_AGENT_SCHEMA_VERSION,
 } from "../state/openclaw-agent-db.js";
 import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
 import { requireNodeSqlite } from "./node-sqlite.js";
@@ -31,7 +31,7 @@ describe("legacy media persistence Doctor migration from historical v14", () => 
     expect(historicalSchema).not.toContain("  project_id TEXT,\n");
 
     const stateDir = makeTempDir(tempDirs, "media-persistence-historical-v14-");
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const pristinePath = path.join(stateDir, "historical", "v14-pristine.sqlite");
     const databasePath = path.join(stateDir, "agents", "main", "agent", "openclaw-agent.sqlite");
     fs.mkdirSync(path.dirname(pristinePath), { recursive: true });
@@ -110,11 +110,11 @@ describe("legacy media persistence Doctor migration from historical v14", () => 
     const migrated = new DatabaseSync(databasePath, { readOnly: true });
     try {
       expect(migrated.prepare("PRAGMA user_version").get()).toEqual({
-        user_version: OPENCLAW_AGENT_SCHEMA_VERSION,
+        user_version: GRANTED_AGENT_SCHEMA_VERSION,
       });
       expect(
         migrated.prepare("SELECT schema_version FROM schema_meta WHERE meta_key = 'primary'").get(),
-      ).toEqual({ schema_version: OPENCLAW_AGENT_SCHEMA_VERSION });
+      ).toEqual({ schema_version: GRANTED_AGENT_SCHEMA_VERSION });
       expect(
         migrated
           .prepare("SELECT entry_valid FROM session_nodes WHERE session_key = ?")

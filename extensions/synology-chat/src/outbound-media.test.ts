@@ -60,7 +60,7 @@ const testStateDir = testStateDirs.make(
 );
 const testStateEnv: NodeJS.ProcessEnv = {
   ...process.env,
-  OPENCLAW_STATE_DIR: testStateDir,
+  GRANTED_STATE_DIR: testStateDir,
 };
 
 function createAccount(overrides: Partial<ResolvedSynologyChatAccount> = {}) {

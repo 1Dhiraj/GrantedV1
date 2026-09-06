@@ -15,7 +15,7 @@ export const msteamsRuntimeStub = {
     openSyncKeyedStore: (options: OpenKeyedStoreOptions) =>
       createPluginStateSyncKeyedStoreForTests("msteams", options),
     resolveStateDir: (env: NodeJS.ProcessEnv = process.env, homedir?: () => string) => {
-      const override = env.OPENCLAW_STATE_DIR?.trim() || env.OPENCLAW_STATE_DIR?.trim();
+      const override = env.GRANTED_STATE_DIR?.trim() || env.GRANTED_STATE_DIR?.trim();
       if (override) {
         return override;
       }

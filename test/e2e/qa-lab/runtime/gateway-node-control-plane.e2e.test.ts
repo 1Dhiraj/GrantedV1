@@ -112,9 +112,9 @@ describe("Gateway node control plane", () => {
         transportBaseUrl: "http://127.0.0.1",
         controlUiEnabled: false,
         runtimeEnvPatch: {
-          OPENCLAW_SKIP_CHANNELS: "1",
-          OPENCLAW_SKIP_PROVIDERS: "1",
-          OPENCLAW_TEST_MINIMAL_GATEWAY: "1",
+          GRANTED_SKIP_CHANNELS: "1",
+          GRANTED_SKIP_PROVIDERS: "1",
+          GRANTED_TEST_MINIMAL_GATEWAY: "1",
         },
         mutateConfig: (cfg) => {
           return {
@@ -528,9 +528,9 @@ describe("Gateway node control plane", () => {
           transportBaseUrl: "http://127.0.0.1",
           controlUiEnabled: false,
           runtimeEnvPatch: {
-            OPENCLAW_SKIP_CHANNELS: "1",
-            OPENCLAW_SKIP_PROVIDERS: "1",
-            OPENCLAW_TEST_MINIMAL_GATEWAY: "1",
+            GRANTED_SKIP_CHANNELS: "1",
+            GRANTED_SKIP_PROVIDERS: "1",
+            GRANTED_TEST_MINIMAL_GATEWAY: "1",
           },
           mutateConfig: (cfg) => {
             // This control-plane fixture must not request unrelated QA runtime plugin installs.

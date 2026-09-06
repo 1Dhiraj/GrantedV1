@@ -42,7 +42,7 @@ describe("media store filesystem faults", () => {
     },
   ])("surfaces or retries $name according to its exact cause", async ({ error, shouldRetry }) => {
     const stateDir = tempDirs.make("openclaw-media-retry-");
-    vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
+    vi.stubEnv("GRANTED_STATE_DIR", stateDir);
     const segment = `retry-${Date.now()}-${Math.random().toString(36).slice(2)}`;
     const injectedError = error();
     let writeAttempts = 0;
@@ -82,7 +82,7 @@ describe("media store filesystem faults", () => {
 
   it("recovers a missing staging directory before consuming a stream", async () => {
     const stateDir = tempDirs.make("openclaw-media-stream-retry-");
-    vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
+    vi.stubEnv("GRANTED_STATE_DIR", stateDir);
     const subdir = "stream-before-open";
     const input = Buffer.from("media stream survives directory recovery");
     let consumptionStarted = false;
@@ -122,7 +122,7 @@ describe("media store filesystem faults", () => {
 
   it("rejects publication failure without replaying a consumed stream", async () => {
     const stateDir = tempDirs.make("openclaw-media-stream-publication-");
-    vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
+    vi.stubEnv("GRANTED_STATE_DIR", stateDir);
     const subdir = "stream-final-rename";
     const input = Buffer.from("media stream must not become an empty success");
     const stream = (async function* () {
@@ -158,7 +158,7 @@ describe("media store filesystem faults", () => {
 
   it("fully persists a stream chunk after a positive short write", async () => {
     const stateDir = tempDirs.make("openclaw-media-short-write-");
-    vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
+    vi.stubEnv("GRANTED_STATE_DIR", stateDir);
     const input = Buffer.from("positive short write");
     const originalOpen = fs.open.bind(fs);
     let shortWriteObserved = false;

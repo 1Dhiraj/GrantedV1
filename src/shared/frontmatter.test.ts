@@ -98,14 +98,14 @@ describe("shared/frontmatter", () => {
         requires: {
           bins: "bun, node",
           anyBins: [" ffmpeg ", ""],
-          env: ["OPENCLAW_TOKEN", " OPENCLAW_URL "],
+          env: ["GRANTED_TOKEN", " GRANTED_URL "],
           config: null,
         },
       }),
     ).toEqual({
       bins: ["bun", "node"],
       anyBins: ["ffmpeg"],
-      env: ["OPENCLAW_TOKEN", "OPENCLAW_URL"],
+      env: ["GRANTED_TOKEN", "GRANTED_URL"],
       config: [],
     });
     expect(resolveOpenClawManifestRequires({})).toBeUndefined();

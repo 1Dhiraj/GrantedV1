@@ -100,8 +100,8 @@ function recordBaselineSharedState(stateDir, snapshot) {
 
 async function seedBaselinePluginState(packageRoot) {
   assert(packageRoot, "seed-baseline-plugin-state requires the installed baseline package root");
-  const stateDir = process.env.OPENCLAW_STATE_DIR;
-  assert(stateDir, "baseline plugin state requires OPENCLAW_STATE_DIR");
+  const stateDir = process.env.GRANTED_STATE_DIR;
+  assert(stateDir, "baseline plugin state requires GRANTED_STATE_DIR");
   const packageJsonPath = path.join(path.resolve(packageRoot), "package.json");
   const manifest = readJson(packageJsonPath);
   assert.equal(
@@ -111,7 +111,7 @@ async function seedBaselinePluginState(packageRoot) {
   );
   assert.equal(
     manifest.version,
-    process.env.OPENCLAW_UPGRADE_SURVIVOR_BASELINE_VERSION,
+    process.env.GRANTED_UPGRADE_SURVIVOR_BASELINE_VERSION,
     "baseline SDK package version differs from the installed CLI",
   );
   const storeExport = manifest.exports?.["./plugin-sdk/plugin-state-store-runtime"];
@@ -232,8 +232,8 @@ function getVolumePairingRequests(createdAt) {
 }
 
 function seedUpgradeVolumePairing(stateDir) {
-  const configPath = process.env.OPENCLAW_CONFIG_PATH;
-  assert(configPath, "volume pairing fixture requires OPENCLAW_CONFIG_PATH");
+  const configPath = process.env.GRANTED_CONFIG_PATH;
+  assert(configPath, "volume pairing fixture requires GRANTED_CONFIG_PATH");
   const config = readJson(configPath);
   const discord = config.channels?.discord;
   assert(discord, "volume pairing fixture requires configured Discord");
@@ -318,8 +318,8 @@ function assertUpgradeVolumePairing(stateDir, stage) {
 
 export function seedUpgradeVolumeSharedState(stateDir) {
   seedUpgradeVolumePairing(stateDir);
-  const workspace = process.env.OPENCLAW_TEST_WORKSPACE_DIR;
-  assert(workspace, "volume fixture requires OPENCLAW_TEST_WORKSPACE_DIR");
+  const workspace = process.env.GRANTED_TEST_WORKSPACE_DIR;
+  assert(workspace, "volume fixture requires GRANTED_TEST_WORKSPACE_DIR");
   for (const [filename, contents] of VOLUME_WORKSPACE_FILES) {
     write(path.join(workspace, filename), contents);
   }
@@ -328,8 +328,8 @@ export function seedUpgradeVolumeSharedState(stateDir) {
 export function assertUpgradeVolumeSharedState(stateDir, stage) {
   assertVolumePluginState(stateDir, stage);
   assertUpgradeVolumePairing(stateDir, stage);
-  const workspace = process.env.OPENCLAW_TEST_WORKSPACE_DIR;
-  assert(workspace, "volume fixture requires OPENCLAW_TEST_WORKSPACE_DIR");
+  const workspace = process.env.GRANTED_TEST_WORKSPACE_DIR;
+  assert(workspace, "volume fixture requires GRANTED_TEST_WORKSPACE_DIR");
   for (const [filename, contents] of VOLUME_WORKSPACE_FILES) {
     assert(
       fs.readFileSync(path.join(workspace, filename), "utf8") === contents,

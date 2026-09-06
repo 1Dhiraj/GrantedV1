@@ -22,7 +22,7 @@ import {
   sendSingleTextMessageMatrix,
   sendTypingMatrix,
 } from "./send.js";
-import { MATRIX_OPENCLAW_FINALIZED_PREVIEW_KEY } from "./send/types.js";
+import { MATRIX_GRANTED_FINALIZED_PREVIEW_KEY } from "./send/types.js";
 
 const loadOutboundMediaFromUrlMock = vi.hoisted(() => vi.fn());
 const loadWebMediaMock = vi.fn().mockResolvedValue({
@@ -1491,11 +1491,11 @@ describe("sendSingleTextMessageMatrix", () => {
     const result = await sendSingleTextMessageMatrix("room:!room:example", "done", {
       client,
       cfg: {} as never,
-      extraContent: { [MATRIX_OPENCLAW_FINALIZED_PREVIEW_KEY]: true },
+      extraContent: { [MATRIX_GRANTED_FINALIZED_PREVIEW_KEY]: true },
     });
 
     expect(sentContent(sendMessage).body).toBe("done");
-    expect(sentContent(sendMessage)[MATRIX_OPENCLAW_FINALIZED_PREVIEW_KEY]).toBe(true);
+    expect(sentContent(sendMessage)[MATRIX_GRANTED_FINALIZED_PREVIEW_KEY]).toBe(true);
     expect(result.receipt.primaryPlatformMessageId).toBe("evt1");
     expect(result.receipt.platformMessageIds).toEqual(["evt1"]);
     expectTextReceiptPart(result.receipt.parts[0], "evt1");
@@ -1613,12 +1613,12 @@ describe("editMessageMatrix mentions", () => {
     await editMessageMatrix("room:!room:example", "$original", "done", {
       client,
       cfg: {} as never,
-      extraContent: { [MATRIX_OPENCLAW_FINALIZED_PREVIEW_KEY]: true },
+      extraContent: { [MATRIX_GRANTED_FINALIZED_PREVIEW_KEY]: true },
     });
 
     const content = sentContent(sendMessage);
-    expect(content[MATRIX_OPENCLAW_FINALIZED_PREVIEW_KEY]).toBe(true);
-    expect(newContent(content)[MATRIX_OPENCLAW_FINALIZED_PREVIEW_KEY]).toBe(true);
+    expect(content[MATRIX_GRANTED_FINALIZED_PREVIEW_KEY]).toBe(true);
+    expect(newContent(content)[MATRIX_GRANTED_FINALIZED_PREVIEW_KEY]).toBe(true);
   });
 
   it("preserves Markdown-significant indentation in edits", async () => {

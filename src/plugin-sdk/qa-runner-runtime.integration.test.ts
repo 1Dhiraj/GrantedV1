@@ -14,11 +14,11 @@ import {
 import { listQaRunnerCliContributions } from "./qa-runner-runtime.js";
 
 const ORIGINAL_ENV = {
-  OPENCLAW_ENABLE_PRIVATE_QA_CLI: process.env.OPENCLAW_ENABLE_PRIVATE_QA_CLI,
-  OPENCLAW_DISABLE_BUNDLED_PLUGINS: process.env.OPENCLAW_DISABLE_BUNDLED_PLUGINS,
-  OPENCLAW_CONFIG_PATH: process.env.OPENCLAW_CONFIG_PATH,
-  OPENCLAW_STATE_DIR: process.env.OPENCLAW_STATE_DIR,
-  OPENCLAW_TEST_FAST: process.env.OPENCLAW_TEST_FAST,
+  GRANTED_ENABLE_PRIVATE_QA_CLI: process.env.GRANTED_ENABLE_PRIVATE_QA_CLI,
+  GRANTED_DISABLE_BUNDLED_PLUGINS: process.env.GRANTED_DISABLE_BUNDLED_PLUGINS,
+  GRANTED_CONFIG_PATH: process.env.GRANTED_CONFIG_PATH,
+  GRANTED_STATE_DIR: process.env.GRANTED_STATE_DIR,
+  GRANTED_TEST_FAST: process.env.GRANTED_TEST_FAST,
 } as const;
 
 const tempDirs = createTempDirTracker();
@@ -31,8 +31,8 @@ function resetQaRunnerRuntimeState() {
 describe("plugin-sdk qa-runner-runtime linked plugin smoke", () => {
   beforeEach(() => {
     resetQaRunnerRuntimeState();
-    process.env.OPENCLAW_DISABLE_BUNDLED_PLUGINS = "1";
-    process.env.OPENCLAW_TEST_FAST = "1";
+    process.env.GRANTED_DISABLE_BUNDLED_PLUGINS = "1";
+    process.env.GRANTED_TEST_FAST = "1";
   });
 
   afterEach(() => {
@@ -59,8 +59,8 @@ describe("plugin-sdk qa-runner-runtime linked plugin smoke", () => {
       }),
       "utf8",
     );
-    process.env.OPENCLAW_CONFIG_PATH = configPath;
-    process.env.OPENCLAW_STATE_DIR = stateDir;
+    process.env.GRANTED_CONFIG_PATH = configPath;
+    process.env.GRANTED_STATE_DIR = stateDir;
 
     fs.mkdirSync(pluginDir, { recursive: true });
     fs.writeFileSync(
@@ -146,8 +146,8 @@ describe("plugin-sdk qa-runner-runtime linked plugin smoke", () => {
     const configPath = path.join(stateDir, "openclaw.json");
 
     fs.writeFileSync(configPath, JSON.stringify({ plugins: {} }), "utf8");
-    process.env.OPENCLAW_CONFIG_PATH = configPath;
-    process.env.OPENCLAW_STATE_DIR = stateDir;
+    process.env.GRANTED_CONFIG_PATH = configPath;
+    process.env.GRANTED_STATE_DIR = stateDir;
 
     fs.mkdirSync(pluginDir, { recursive: true });
     fs.writeFileSync(
@@ -244,10 +244,10 @@ describe("plugin-sdk qa-runner-runtime linked plugin smoke", () => {
     );
     fs.writeFileSync(path.join(pluginDir, "index.js"), "export default {};\n", "utf8");
 
-    process.env.OPENCLAW_ENABLE_PRIVATE_QA_CLI = "1";
-    process.env.OPENCLAW_DISABLE_BUNDLED_PLUGINS = "0";
-    process.env.OPENCLAW_STATE_DIR = stateDir;
-    process.env.OPENCLAW_CONFIG_PATH = path.join(stateDir, "openclaw.json");
+    process.env.GRANTED_ENABLE_PRIVATE_QA_CLI = "1";
+    process.env.GRANTED_DISABLE_BUNDLED_PLUGINS = "0";
+    process.env.GRANTED_STATE_DIR = stateDir;
+    process.env.GRANTED_CONFIG_PATH = path.join(stateDir, "openclaw.json");
 
     const contributions = listQaRunnerCliContributions();
 

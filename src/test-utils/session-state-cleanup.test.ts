@@ -102,7 +102,7 @@ describe("cleanupSessionStateForTest", () => {
       path.join(os.tmpdir(), "openclaw-session-cleanup-sqlite-"),
     );
     const databasePath = path.join(fixtureRoot, "openclaw-agent.sqlite");
-    const env = { ...process.env, OPENCLAW_STATE_DIR: fixtureRoot };
+    const env = { ...process.env, GRANTED_STATE_DIR: fixtureRoot };
     const started = createDeferred();
     const release = createDeferred();
     let database: ReturnType<typeof openOpenClawAgentDatabase> | undefined;

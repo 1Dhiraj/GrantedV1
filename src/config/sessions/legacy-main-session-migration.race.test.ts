@@ -87,7 +87,7 @@ async function runCleanupRace(mutateSource: (mainPath: string) => void) {
   fs.mkdirSync(stateDir, { recursive: true });
   const mainPath = databasePath(stateDir, "main");
   const opsPath = databasePath(stateDir, "ops");
-  const env = { ...process.env, OPENCLAW_AGENT_DIR: undefined, OPENCLAW_STATE_DIR: stateDir };
+  const env = { ...process.env, GRANTED_AGENT_DIR: undefined, GRANTED_STATE_DIR: stateDir };
   seedClaim("main", mainPath, "agent:main:chat");
   race.beforeDelete = () => mutateSource(mainPath);
 

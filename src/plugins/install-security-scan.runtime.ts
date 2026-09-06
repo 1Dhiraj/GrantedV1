@@ -290,11 +290,11 @@ function readPositiveIntegerEnv(name: string, fallback: number): number {
 function resolvePackageTraversalLimits(): PackageTraversalLimits {
   return {
     maxDepth: readPositiveIntegerEnv(
-      "OPENCLAW_INSTALL_SCAN_MAX_DEPTH",
+      "GRANTED_INSTALL_SCAN_MAX_DEPTH",
       DEFAULT_PACKAGE_TRAVERSAL_LIMITS.maxDepth,
     ),
     maxDirectories: readPositiveIntegerEnv(
-      "OPENCLAW_INSTALL_SCAN_MAX_DIRECTORIES",
+      "GRANTED_INSTALL_SCAN_MAX_DIRECTORIES",
       DEFAULT_PACKAGE_TRAVERSAL_LIMITS.maxDirectories,
     ),
   };

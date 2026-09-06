@@ -19,7 +19,7 @@ afterEach(() => {
 describe("SQLite transcript append", () => {
   it("canonicalizes assistant media at the generic transcript append owner", async () => {
     const stateDir = makeTempDir(tempDirs, "media-persistence-append-");
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     runOpenClawAgentWriteTransaction(
       (database) => {
         expect(

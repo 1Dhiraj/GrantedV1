@@ -297,7 +297,7 @@ const MAX_TEST_OTEL_CONTENT_ATTRIBUTE_CHARS = 128 * 1024;
 type TelemetryExporterEvent = Extract<DiagnosticEventPayload, { type: "telemetry.exporter" }>;
 const OTEL_TRUNCATED_SUFFIX_MAX_CHARS = 20;
 const OTEL_TEST_USERINFO = ["operator", "example-fixture"].join(":");
-const ORIGINAL_OPENCLAW_OTEL_PRELOADED = process.env.OPENCLAW_OTEL_PRELOADED;
+const ORIGINAL_GRANTED_OTEL_PRELOADED = process.env.GRANTED_OTEL_PRELOADED;
 const ORIGINAL_OTEL_EXPORTER_OTLP_ENDPOINT = process.env.OTEL_EXPORTER_OTLP_ENDPOINT;
 const ORIGINAL_OTEL_EXPORTER_OTLP_TRACES_ENDPOINT = process.env.OTEL_EXPORTER_OTLP_TRACES_ENDPOINT;
 const ORIGINAL_OTEL_EXPORTER_OTLP_METRICS_ENDPOINT =
@@ -860,7 +860,7 @@ afterAll(() => {
 describe("diagnostics-otel service", () => {
   beforeEach(() => {
     resetDiagnosticEventsForTest();
-    delete process.env.OPENCLAW_OTEL_PRELOADED;
+    delete process.env.GRANTED_OTEL_PRELOADED;
     for (const key of OTEL_PROTOCOL_ENV_KEYS) {
       delete process.env[key];
     }
@@ -920,10 +920,10 @@ describe("diagnostics-otel service", () => {
   afterEach(async () => {
     await stopStartedOtelServices();
     resetDiagnosticEventsForTest();
-    if (ORIGINAL_OPENCLAW_OTEL_PRELOADED === undefined) {
-      delete process.env.OPENCLAW_OTEL_PRELOADED;
+    if (ORIGINAL_GRANTED_OTEL_PRELOADED === undefined) {
+      delete process.env.GRANTED_OTEL_PRELOADED;
     } else {
-      process.env.OPENCLAW_OTEL_PRELOADED = ORIGINAL_OPENCLAW_OTEL_PRELOADED;
+      process.env.GRANTED_OTEL_PRELOADED = ORIGINAL_GRANTED_OTEL_PRELOADED;
     }
     if (ORIGINAL_OTEL_EXPORTER_OTLP_ENDPOINT === undefined) {
       delete process.env.OTEL_EXPORTER_OTLP_ENDPOINT;
@@ -1716,7 +1716,7 @@ describe("diagnostics-otel service", () => {
   });
 
   test("uses a preloaded OpenTelemetry SDK without dropping diagnostic listeners", async () => {
-    process.env.OPENCLAW_OTEL_PRELOADED = "1";
+    process.env.GRANTED_OTEL_PRELOADED = "1";
     const { service, ctx } = await startServiceFixture(["traces", "metrics", "logs"]);
 
     expect(traceProviderCtor).not.toHaveBeenCalled();
@@ -1909,7 +1909,7 @@ describe("diagnostics-otel service", () => {
 
   test("preserves preloaded trace and metric ownership while disabling plugin logs", async () => {
     const { events, unsubscribe } = captureExporterEvents();
-    process.env.OPENCLAW_OTEL_PRELOADED = "1";
+    process.env.GRANTED_OTEL_PRELOADED = "1";
     process.env.OTEL_SDK_DISABLED = "true";
 
     const { service, ctx } = await startServiceFixture(["traces", "metrics", "logs"], {
@@ -1980,7 +1980,7 @@ describe("diagnostics-otel service", () => {
     });
     await defaultEndpoint.service.stop?.(defaultEndpoint.ctx);
 
-    process.env.OPENCLAW_OTEL_PRELOADED = "1";
+    process.env.GRANTED_OTEL_PRELOADED = "1";
     const externalSdk = await startServiceFixture(["traces", "metrics", "logs"], {
       logsExporter: "stdout",
     });
@@ -2069,9 +2069,9 @@ describe("diagnostics-otel service", () => {
 
     try {
       await service.start(ctx);
-      process.env.OPENCLAW_OTEL_PRELOADED = "1";
+      process.env.GRANTED_OTEL_PRELOADED = "1";
       await service.start(ctx);
-      process.env.OPENCLAW_OTEL_PRELOADED = "0";
+      process.env.GRANTED_OTEL_PRELOADED = "0";
       delete ctx.config.diagnostics!.otel!.protocol;
       process.env.OTEL_EXPORTER_OTLP_PROTOCOL = "grpc";
       await service.start(ctx);
@@ -2509,7 +2509,7 @@ describe("diagnostics-otel service", () => {
 
   test("does not validate externally owned trace and metric protocols", async () => {
     const { events, unsubscribe } = captureExporterEvents();
-    process.env.OPENCLAW_OTEL_PRELOADED = "1";
+    process.env.GRANTED_OTEL_PRELOADED = "1";
     process.env.OTEL_EXPORTER_OTLP_PROTOCOL = "grpc";
     process.env.OTEL_EXPORTER_OTLP_TRACES_PROTOCOL = "http/json";
     process.env.OTEL_EXPORTER_OTLP_METRICS_PROTOCOL = "grpc";
@@ -3102,7 +3102,7 @@ describe("diagnostics-otel service", () => {
   });
 
   test("honors disabled traces when an OpenTelemetry SDK is preloaded", async () => {
-    process.env.OPENCLAW_OTEL_PRELOADED = "1";
+    process.env.GRANTED_OTEL_PRELOADED = "1";
     const { service, ctx } = await startServiceFixture(["metrics"]);
 
     await emitEventAndFlush("run.completed", {}, ["trace"]);
@@ -3515,7 +3515,7 @@ describe("diagnostics-otel service", () => {
   );
 
   test("ignores malformed collector endpoints for preloaded traces and metrics", async () => {
-    process.env.OPENCLAW_OTEL_PRELOADED = "1";
+    process.env.GRANTED_OTEL_PRELOADED = "1";
     process.env.OTEL_EXPORTER_OTLP_ENDPOINT = "https://operator:qa-preloaded-shared-password@[";
     process.env.OTEL_EXPORTER_OTLP_TRACES_ENDPOINT =
       "https://operator:qa-preloaded-trace-password@[";
@@ -3731,7 +3731,7 @@ describe("diagnostics-otel service", () => {
   });
 
   test("does not validate TLS material owned by a preloaded SDK", async () => {
-    process.env.OPENCLAW_OTEL_PRELOADED = "1";
+    process.env.GRANTED_OTEL_PRELOADED = "1";
     process.env.OTEL_EXPORTER_OTLP_TRACES_CERTIFICATE =
       "/definitely-missing/qa-otel-preloaded-traces-root.pem";
     process.env.OTEL_EXPORTER_OTLP_METRICS_CERTIFICATE =
@@ -3744,7 +3744,7 @@ describe("diagnostics-otel service", () => {
   });
 
   test("still validates plugin-owned OTLP logs when a trace SDK is preloaded", async () => {
-    process.env.OPENCLAW_OTEL_PRELOADED = "1";
+    process.env.GRANTED_OTEL_PRELOADED = "1";
     process.env.OTEL_EXPORTER_OTLP_LOGS_CERTIFICATE =
       "/definitely-missing/qa-otel-preloaded-log-root.pem";
 

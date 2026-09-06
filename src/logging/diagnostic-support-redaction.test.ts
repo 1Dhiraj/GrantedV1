@@ -47,7 +47,7 @@ describe("diagnostic support redaction", () => {
     const redaction = {
       env: {
         HOME: tempDir,
-        OPENCLAW_STATE_DIR: tempDir,
+        GRANTED_STATE_DIR: tempDir,
       },
       stateDir: tempDir,
     };
@@ -63,7 +63,7 @@ describe("diagnostic support redaction", () => {
     const redaction = {
       env: {
         HOME: tempDir,
-        OPENCLAW_STATE_DIR: tempDir,
+        GRANTED_STATE_DIR: tempDir,
       },
       stateDir: tempDir,
     };
@@ -157,9 +157,9 @@ describe("diagnostic support redaction", () => {
       ["room !support-room:matrix.example.com", "room <redacted-matrix-room>"],
       ["event $F0Zlxky8bavuqH6MK75Av_c7UWFLp550WTQ1EA-F0KM", "event <redacted-matrix-event>"],
       ["event $UPPERCASEMATRIXEVENTID", "event <redacted-matrix-event>"],
-      ["event $OPENCLAW_STATE_DIR_PRIVATE", "event <redacted-matrix-event>"],
-      ["event $OPENCLAW_STATE_DIR1", "event <redacted-matrix-event>"],
-      ["event $PREFIX_OPENCLAW_STATE_DIR", "event <redacted-matrix-event>"],
+      ["event $GRANTED_STATE_DIR_PRIVATE", "event <redacted-matrix-event>"],
+      ["event $GRANTED_STATE_DIR1", "event <redacted-matrix-event>"],
+      ["event $PREFIX_GRANTED_STATE_DIR", "event <redacted-matrix-event>"],
       ["notify @support_bot now", "notify <redacted-handle> now"],
       ["phone 15555551212", "phone <redacted-id>"],
       [
@@ -193,19 +193,19 @@ describe("diagnostic support redaction", () => {
 
   it("preserves canonical state path markers across repeated support handoffs", () => {
     const redaction = { env: {}, stateDir: tempDir };
-    const expected = "Config: $OPENCLAW_STATE_DIR/openclaw.json";
+    const expected = "Config: $GRANTED_STATE_DIR/openclaw.json";
     const sanitized = redactSupportString(`Config: ${tempDir}/openclaw.json`, redaction);
 
     expect(sanitized).toBe(expected);
     expect(redactSupportString(sanitized, redaction)).toBe(expected);
-    expect(redactSupportString("$OPENCLAW_STATE_DIR", redaction)).toBe("$OPENCLAW_STATE_DIR");
+    expect(redactSupportString("$GRANTED_STATE_DIR", redaction)).toBe("$GRANTED_STATE_DIR");
   });
 
   it("truncates support strings without splitting UTF-16 surrogate pairs", () => {
     const redaction = {
       env: {
         HOME: tempDir,
-        OPENCLAW_STATE_DIR: tempDir,
+        GRANTED_STATE_DIR: tempDir,
       },
       stateDir: tempDir,
     };
@@ -215,7 +215,7 @@ describe("diagnostic support redaction", () => {
       `abcd${truncationSuffix}`,
     );
 
-    const redactedPathPrefix = `$OPENCLAW_STATE_DIR${path.sep}`;
+    const redactedPathPrefix = `$GRANTED_STATE_DIR${path.sep}`;
     expect(
       redactSupportString(path.join(tempDir, "abcd😀tail"), redaction, {
         maxLength: redactedPathPrefix.length + 5,
@@ -229,13 +229,13 @@ describe("diagnostic support redaction", () => {
     const redaction = {
       env: {
         USERPROFILE: userProfile,
-        OPENCLAW_STATE_DIR: stateDir,
+        GRANTED_STATE_DIR: stateDir,
       },
       stateDir,
     };
 
     expect(redactSupportString(`${stateDir}\\logs\\gateway.log`, redaction)).toBe(
-      "$OPENCLAW_STATE_DIR\\logs\\gateway.log",
+      "$GRANTED_STATE_DIR\\logs\\gateway.log",
     );
     expect(
       redactSupportString(`failed at ${userProfile}\\Documents\\snapshot-error.txt`, redaction),
@@ -270,7 +270,7 @@ describe("diagnostic support redaction", () => {
     expect(serialized).not.toContain("support-user");
     expect(serialized).not.toContain(fakeAwsSecretAccessKey());
     expect(serialized).toContain("~\\\\openclaw\\\\dist\\\\index.js");
-    expect(serialized).toContain("$OPENCLAW_STATE_DIR\\\\openclaw.json");
+    expect(serialized).toContain("$GRANTED_STATE_DIR\\\\openclaw.json");
     expect(serialized).toContain("--aws-secret-access-key=<redacted>");
     expect(serialized).toContain("--awsSecretAccessKey");
     expect(serialized).toContain("~\\\\AppData\\\\Local\\\\openclaw\\\\gateway-service.json");

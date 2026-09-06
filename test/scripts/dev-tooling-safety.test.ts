@@ -541,7 +541,7 @@ describe("script-specific dev tooling hardening", () => {
   it("rejects invalid OpenAI realtime smoke timeout values", () => {
     expect(realtimeSmokeTesting.resolveOpenAIHttpTimeoutMs("42")).toBe(42);
     expect(() => realtimeSmokeTesting.resolveOpenAIHttpTimeoutMs("2s")).toThrow(
-      /OPENCLAW_REALTIME_OPENAI_HTTP_TIMEOUT_MS must be an integer/u,
+      /GRANTED_REALTIME_OPENAI_HTTP_TIMEOUT_MS must be an integer/u,
     );
   });
 
@@ -784,9 +784,9 @@ describe("script-specific dev tooling hardening", () => {
           env: {
             ...process.env,
             CLAUDE_BIN: fakeClaudeBin,
-            OPENCLAW_PROMPT_TEXT: "parent signal cleanup proof",
-            OPENCLAW_PROMPT_TIMEOUT_MS: "10000",
-            OPENCLAW_PROMPT_TRANSPORT: "direct",
+            GRANTED_PROMPT_TEXT: "parent signal cleanup proof",
+            GRANTED_PROMPT_TIMEOUT_MS: "10000",
+            GRANTED_PROMPT_TRANSPORT: "direct",
           },
           stdio: "ignore",
         },
@@ -1131,7 +1131,7 @@ describe("script-specific dev tooling hardening", () => {
   it("rejects invalid Claude usage timeout values", () => {
     expect(claudeUsageTesting.resolveFetchTimeoutMs("123")).toBe(123);
     expect(() => claudeUsageTesting.resolveFetchTimeoutMs("1.5")).toThrow(
-      /OPENCLAW_DEBUG_CLAUDE_USAGE_FETCH_TIMEOUT_MS must be an integer/u,
+      /GRANTED_DEBUG_CLAUDE_USAGE_FETCH_TIMEOUT_MS must be an integer/u,
     );
   });
 

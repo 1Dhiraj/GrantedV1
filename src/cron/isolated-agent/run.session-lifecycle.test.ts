@@ -423,7 +423,7 @@ describe("runCronIsolatedAgentTurn session lifecycle", () => {
     expect(result).toEqual(
       expect.objectContaining({
         status: "error",
-        error: "agent run aborted for restart | OPENCLAW_RESTART_ABORT",
+        error: "agent run aborted for restart | GRANTED_RESTART_ABORT",
       }),
     );
     expect(mutationCommitted).toBe(true);

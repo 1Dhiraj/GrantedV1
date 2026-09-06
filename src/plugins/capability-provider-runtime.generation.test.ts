@@ -39,10 +39,10 @@ function withSpeechFixture(run: (fixture: ReturnType<typeof createSpeechFixture>
   const fixture = createSpeechFixture();
   return withEnv(
     {
-      OPENCLAW_STATE_DIR: path.join(fixture.root, "state"),
-      OPENCLAW_BUNDLED_PLUGINS_DIR: path.join(fixture.root, "extensions"),
-      OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR: "1",
-      OPENCLAW_DISABLE_BUNDLED_PLUGINS: undefined,
+      GRANTED_STATE_DIR: path.join(fixture.root, "state"),
+      GRANTED_BUNDLED_PLUGINS_DIR: path.join(fixture.root, "extensions"),
+      GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR: "1",
+      GRANTED_DISABLE_BUNDLED_PLUGINS: undefined,
     },
     () => run(fixture),
   );

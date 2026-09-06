@@ -4,7 +4,7 @@ import { describe, expect, it } from "vitest";
 import { createXSearchTool } from "./x-search.js";
 
 const liveEnabled =
-  process.env.OPENCLAW_LIVE_TEST === "1" && (process.env.XAI_API_KEY ?? "").trim().length > 0;
+  process.env.GRANTED_LIVE_TEST === "1" && (process.env.XAI_API_KEY ?? "").trim().length > 0;
 
 const describeLive = liveEnabled ? describe : describe.skip;
 

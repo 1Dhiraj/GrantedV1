@@ -113,7 +113,7 @@ export function serializeConfigForm(form: Record<string, unknown>): string {
   return `${JSON.stringify(form, null, 2).trimEnd()}\n`;
 }
 
-export const REDACTED_SENTINEL = "__OPENCLAW_REDACTED__";
+export const REDACTED_SENTINEL = "__GRANTED_REDACTED__";
 
 /** True when a form subtree still carries server-redacted secret placeholders. */
 export function containsRedactedSentinel(value: unknown): boolean {

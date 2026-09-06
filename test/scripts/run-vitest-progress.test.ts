@@ -82,7 +82,7 @@ export default {
       );
       const env = { ...process.env };
       for (const key of Object.keys(env)) {
-        if (key.startsWith("VITEST") || key.startsWith("OPENCLAW_")) {
+        if (key.startsWith("VITEST") || key.startsWith("GRANTED_")) {
           delete env[key];
         }
       }
@@ -91,9 +91,9 @@ export default {
         GITHUB_ACTIONS: "false",
         NO_COLOR: "1",
         FORCE_COLOR: "0",
-        OPENCLAW_VITEST_FS_MODULE_CACHE_PATH: path.join(root, "module-cache"),
-        OPENCLAW_VITEST_NO_OUTPUT_TIMEOUT_MS: String(silenceMs),
-        OPENCLAW_VITEST_NO_OUTPUT_HEARTBEAT_MS: "400",
+        GRANTED_VITEST_FS_MODULE_CACHE_PATH: path.join(root, "module-cache"),
+        GRANTED_VITEST_NO_OUTPUT_TIMEOUT_MS: String(silenceMs),
+        GRANTED_VITEST_NO_OUTPUT_HEARTBEAT_MS: "400",
       });
 
       // Register and uninstall without awaiting so each watchdog captures its

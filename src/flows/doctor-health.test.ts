@@ -46,7 +46,7 @@ import { unregisterOpenClawAgentDatabase } from "../state/openclaw-agent-db-regi
 import {
   closeOpenClawAgentDatabasesForTest,
   openOpenClawAgentDatabase,
-  OPENCLAW_AGENT_SCHEMA_VERSION,
+  GRANTED_AGENT_SCHEMA_VERSION,
 } from "../state/openclaw-agent-db.js";
 import { withLegacySessionParticipantsSchema } from "../state/openclaw-agent-participants-migration.js";
 import { sessionParticipantsSchemaSql } from "../state/openclaw-agent-session-participants-schema.js";
@@ -173,8 +173,8 @@ describe("runDoctorHealthFlow", () => {
               : {
                   programArguments: [process.execPath, entrypoint, "gateway"],
                   environment: {
-                    OPENCLAW_STATE_DIR: foreign ? state.path("foreign-state") : state.stateDir,
-                    OPENCLAW_CONFIG_PATH: foreign ? state.path("foreign.json") : state.configPath,
+                    GRANTED_STATE_DIR: foreign ? state.path("foreign-state") : state.stateDir,
+                    GRANTED_CONFIG_PATH: foreign ? state.path("foreign.json") : state.configPath,
                   },
                 };
           },
@@ -382,8 +382,8 @@ describe("runDoctorHealthFlow", () => {
         const command = {
           programArguments: [process.execPath, path.join(packageRoot, "openclaw.mjs"), "gateway"],
           environment: {
-            OPENCLAW_STATE_DIR: state.stateDir,
-            OPENCLAW_CONFIG_PATH: state.configPath,
+            GRANTED_STATE_DIR: state.stateDir,
+            GRANTED_CONFIG_PATH: state.configPath,
           },
         };
         const stop = vi.fn(async () => {
@@ -403,11 +403,11 @@ describe("runDoctorHealthFlow", () => {
           }
           const reopened = openOpenClawAgentDatabase({ agentId: "main", env: state.env });
           expect(reopened.db.prepare("PRAGMA user_version").get()?.user_version).toBe(
-            OPENCLAW_AGENT_SCHEMA_VERSION,
+            GRANTED_AGENT_SCHEMA_VERSION,
           );
           const research = openOpenClawAgentDatabase({ agentId: "research", env: state.env });
           expect(research.db.prepare("PRAGMA user_version").get()?.user_version).toBe(
-            OPENCLAW_AGENT_SCHEMA_VERSION,
+            GRANTED_AGENT_SCHEMA_VERSION,
           );
           running = true;
           return { outcome: "completed" as const };
@@ -526,7 +526,7 @@ describe("runDoctorHealthFlow", () => {
               vi.stubEnv(key, value);
             }
           } else if (outcome === "update-legacy") {
-            vi.stubEnv("OPENCLAW_UPDATE_IN_PROGRESS", "1");
+            vi.stubEnv("GRANTED_UPDATE_IN_PROGRESS", "1");
           }
           mocks.restartedHealthy = outcome !== "restart-unhealthy";
           const run = runDoctorHealthFlow(runtime, {
@@ -634,7 +634,7 @@ describe("runDoctorHealthFlow", () => {
       exit: vi.fn(),
     };
     vi.stubEnv(
-      "OPENCLAW_UPDATE_POST_INSTALL_DOCTOR_RESULT_PATH",
+      "GRANTED_UPDATE_POST_INSTALL_DOCTOR_RESULT_PATH",
       "/tmp/openclaw-update-doctor-result.json",
     );
 
@@ -679,10 +679,7 @@ describe("runDoctorHealthFlow", () => {
           await runDoctorHealthFlow(runtime, { nonInteractive: true });
           expect(mocks.outro).toHaveBeenCalledWith("Doctor complete.");
           mocks.outro.mockClear();
-          vi.stubEnv(
-            "OPENCLAW_UPDATE_POST_INSTALL_DOCTOR_RESULT_PATH",
-            state.path("advisory.json"),
-          );
+          vi.stubEnv("GRANTED_UPDATE_POST_INSTALL_DOCTOR_RESULT_PATH", state.path("advisory.json"));
           await runCommandWithRuntime(runtime, () =>
             runDoctorHealthFlow(runtime, { ...options, nonInteractive: true }),
           );
@@ -710,11 +707,11 @@ describe("runDoctorHealthFlow", () => {
         expect(mocks.outro).toHaveBeenCalledWith("Doctor complete.");
         const reopened = openOpenClawAgentDatabase({ agentId: "main", env: state.env });
         expect(reopened.db.prepare("PRAGMA user_version").get()?.user_version).toBe(
-          OPENCLAW_AGENT_SCHEMA_VERSION,
+          GRANTED_AGENT_SCHEMA_VERSION,
         );
         expect(
           reopened.db.prepare("SELECT schema_version FROM schema_meta").get()?.schema_version,
-        ).toBe(OPENCLAW_AGENT_SCHEMA_VERSION);
+        ).toBe(GRANTED_AGENT_SCHEMA_VERSION);
         expect(runtime.exit).not.toHaveBeenCalled();
       });
     },

@@ -18,7 +18,7 @@ import {
   resetGlobalUndiciStreamTimeoutsForTests,
 } from "./undici-global-dispatcher.js";
 
-const TEST_UNDICI_RUNTIME_DEPS_KEY = "__OPENCLAW_TEST_UNDICI_RUNTIME_DEPS__";
+const TEST_UNDICI_RUNTIME_DEPS_KEY = "__GRANTED_TEST_UNDICI_RUNTIME_DEPS__";
 
 const { agentCtor, envHttpProxyAgentCtor, proxyAgentCtor } = vi.hoisted(() => ({
   agentCtor: vi.fn(function MockAgent(this: { options: unknown }, options: unknown) {
@@ -298,9 +298,9 @@ describe("fetchWithSsrFGuard hardening", () => {
 
   function installManagedProxyRuntime(loopbackMode?: ManagedProxyLoopbackMode): void {
     clearProxyEnv();
-    vi.stubEnv("OPENCLAW_PROXY_ACTIVE", "1");
+    vi.stubEnv("GRANTED_PROXY_ACTIVE", "1");
     if (loopbackMode) {
-      vi.stubEnv("OPENCLAW_PROXY_LOOPBACK_MODE", loopbackMode);
+      vi.stubEnv("GRANTED_PROXY_LOOPBACK_MODE", loopbackMode);
     }
     vi.stubEnv("http_proxy", "http://127.0.0.1:7890");
     (globalThis as Record<string, unknown>)[TEST_UNDICI_RUNTIME_DEPS_KEY] = {
@@ -1562,7 +1562,7 @@ describe("fetchWithSsrFGuard hardening", () => {
   });
 
   it("uses the env proxy in strict mode when the SSRF proxy lifecycle is active", async () => {
-    vi.stubEnv("OPENCLAW_PROXY_ACTIVE", "1");
+    vi.stubEnv("GRANTED_PROXY_ACTIVE", "1");
 
     await runProxyModeDispatcherExpectation({
       mode: GUARDED_FETCH_MODE.STRICT,
@@ -1711,7 +1711,7 @@ describe("fetchWithSsrFGuard hardening", () => {
   }>)(
     "applies $name to the real dashboard document-readiness consumer",
     async ({ mode, routing }) => {
-      vi.stubEnv("OPENCLAW_PROXY_LOOPBACK_MODE", "");
+      vi.stubEnv("GRANTED_PROXY_LOOPBACK_MODE", "");
       installManagedProxyRuntime(mode);
       vi.stubEnv("NO_PROXY", "127.0.0.1");
       vi.stubEnv("no_proxy", "127.0.0.1");

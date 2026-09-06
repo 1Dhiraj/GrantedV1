@@ -96,7 +96,7 @@ describe.runIf(process.platform === "win32")("Windows local media file URLs", ()
       sourceUrl.searchParams.set("sig", "secret");
       sourceUrl.hash = "preview";
 
-      await withEnvAsync({ OPENCLAW_STATE_DIR: root }, async () => {
+      await withEnvAsync({ GRANTED_STATE_DIR: root }, async () => {
         const blocks = await createManagedOutgoingMediaBlocks({
           stateDir: root,
           sessionKey: "agent:main:main",

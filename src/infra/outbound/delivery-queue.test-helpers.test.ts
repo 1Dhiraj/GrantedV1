@@ -13,7 +13,7 @@ let previousTmpDir = "";
 describe("installDeliveryQueueTmpDirHooks", () => {
   it("tracks an open per-case state database", () => {
     previousTmpDir = fixture.tmpDir();
-    openOpenClawStateDatabase({ env: { ...process.env, OPENCLAW_STATE_DIR: previousTmpDir } });
+    openOpenClawStateDatabase({ env: { ...process.env, GRANTED_STATE_DIR: previousTmpDir } });
 
     expect(isOpenClawStateDatabaseOpen()).toBe(true);
     expect(fs.existsSync(previousTmpDir)).toBe(true);

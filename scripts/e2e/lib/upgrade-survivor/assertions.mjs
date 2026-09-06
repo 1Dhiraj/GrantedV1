@@ -320,17 +320,17 @@ function seedLegacyCronScheduledAuthority(stateDir) {
 }
 
 function getScenario() {
-  const scenario = process.env.OPENCLAW_UPGRADE_SURVIVOR_SCENARIO || "base";
+  const scenario = process.env.GRANTED_UPGRADE_SURVIVOR_SCENARIO || "base";
   assert(SCENARIOS.has(scenario), `unknown upgrade survivor scenario: ${scenario}`);
   return scenario;
 }
 
 function getConfig() {
-  return readJson(requireEnv("OPENCLAW_CONFIG_PATH"));
+  return readJson(requireEnv("GRANTED_CONFIG_PATH"));
 }
 
 function getCoverage() {
-  const file = process.env.OPENCLAW_UPGRADE_SURVIVOR_CONFIG_COVERAGE_JSON;
+  const file = process.env.GRANTED_UPGRADE_SURVIVOR_CONFIG_COVERAGE_JSON;
   if (!file || !fs.existsSync(file)) {
     return null;
   }
@@ -353,8 +353,8 @@ function hasCoverage(coverage) {
 }
 
 function seedState() {
-  const stateDir = requireEnv("OPENCLAW_STATE_DIR");
-  const workspace = requireEnv("OPENCLAW_TEST_WORKSPACE_DIR");
+  const stateDir = requireEnv("GRANTED_STATE_DIR");
+  const workspace = requireEnv("GRANTED_TEST_WORKSPACE_DIR");
   const scenario = getScenario();
 
   write(
@@ -421,7 +421,7 @@ function seedState() {
     );
   }
   if (scenario === "versioned-runtime-deps") {
-    const version = process.env.OPENCLAW_UPGRADE_SURVIVOR_BASELINE_VERSION || "2026.4.24";
+    const version = process.env.GRANTED_UPGRADE_SURVIVOR_BASELINE_VERSION || "2026.4.24";
     for (const plugin of ["discord", "feishu", "telegram", "whatsapp"]) {
       writeJson(
         path.join(
@@ -471,7 +471,7 @@ function assertConfigSurvived() {
 
   if (acceptsIntent(coverage, "update")) {
     const expectedChannel =
-      process.env.OPENCLAW_UPGRADE_SURVIVOR_UPDATE_CHANNEL ||
+      process.env.GRANTED_UPGRADE_SURVIVOR_UPDATE_CHANNEL ||
       (scenario === "prerelease-plugin-registry" ? "beta" : "stable");
     assert(
       expectedChannel === "stable" || expectedChannel === "beta",
@@ -545,7 +545,7 @@ function assertConfigSurvived() {
   if (acceptsIntent(coverage, "discord-channel")) {
     const discord = config.channels?.discord;
     assert(discord?.enabled === true, "discord enabled flag changed");
-    const stage = process.env.OPENCLAW_UPGRADE_SURVIVOR_ASSERT_STAGE || "survival";
+    const stage = process.env.GRANTED_UPGRADE_SURVIVOR_ASSERT_STAGE || "survival";
     const discordAllowFrom =
       stage === "baseline" ? (discord.allowFrom ?? discord.dm?.allowFrom) : discord.allowFrom;
     const discordDmPolicy =
@@ -633,10 +633,10 @@ function assertConfigSurvived() {
 }
 
 function assertStateSurvived() {
-  const stateDir = requireEnv("OPENCLAW_STATE_DIR");
-  const workspace = requireEnv("OPENCLAW_TEST_WORKSPACE_DIR");
+  const stateDir = requireEnv("GRANTED_STATE_DIR");
+  const workspace = requireEnv("GRANTED_TEST_WORKSPACE_DIR");
   const scenario = getScenario();
-  const stage = process.env.OPENCLAW_UPGRADE_SURVIVOR_ASSERT_STAGE || "survival";
+  const stage = process.env.GRANTED_UPGRADE_SURVIVOR_ASSERT_STAGE || "survival";
   assert(fs.existsSync(path.join(workspace, "IDENTITY.md")), "workspace identity file missing");
   assert(
     fs.existsSync(path.join(stateDir, "agents", "main", "sessions", "legacy-session.json")),
@@ -688,7 +688,7 @@ function assertStateSurvived() {
     if (stage === "baseline") {
       return;
     }
-    const version = process.env.OPENCLAW_UPGRADE_SURVIVOR_BASELINE_VERSION || "2026.4.24";
+    const version = process.env.GRANTED_UPGRADE_SURVIVOR_BASELINE_VERSION || "2026.4.24";
     const runtimeRoot = path.join(stateDir, "plugin-runtime-deps");
     const staleVersionedRoots = fs.existsSync(runtimeRoot)
       ? fs.readdirSync(runtimeRoot).filter((entry) => entry.startsWith(`openclaw-${version}-`))
@@ -1059,7 +1059,7 @@ function readMigratedSessionStore(stateDir, targetStorePath) {
 }
 
 function readInstalledPluginIndex() {
-  const stateDir = requireEnv("OPENCLAW_STATE_DIR");
+  const stateDir = requireEnv("GRANTED_STATE_DIR");
   const index = readPluginInstallIndex({ stateDir });
   assert(index.installRecords, "installed plugin index missing");
   return index;
@@ -1096,7 +1096,7 @@ function assertExternalPluginInstall(records, pluginId, packageName) {
     `configured external ${pluginId} package name changed: ${packageJson.name}`,
   );
   if (installedFromNpm) {
-    const stateDir = requireEnv("OPENCLAW_STATE_DIR");
+    const stateDir = requireEnv("GRANTED_STATE_DIR");
     assert(
       isPathInsideManagedNpmProjectPackageRoot({ stateDir, installPath, packageName }),
       `configured external ${pluginId} npm install path outside managed npm project root: ${installPath}`,
@@ -1111,7 +1111,7 @@ function assertExternalPluginInstall(records, pluginId, packageName) {
     record.clawhubPackage === packageName,
     `configured external ${pluginId} ClawHub package changed: ${record.clawhubPackage}`,
   );
-  const extensionsRoot = path.join(requireEnv("OPENCLAW_STATE_DIR"), "extensions");
+  const extensionsRoot = path.join(requireEnv("GRANTED_STATE_DIR"), "extensions");
   assert(
     isPathInside(extensionsRoot, installPath),
     `configured external ${pluginId} ClawHub install path outside managed extensions root: ${installPath}`,
@@ -1226,7 +1226,7 @@ function assertRecoveredPluginInstalls(args) {
 
 function assertConfiguredPluginInstalls() {
   const coverage = getCoverage();
-  const stage = process.env.OPENCLAW_UPGRADE_SURVIVOR_ASSERT_STAGE || "survival";
+  const stage = process.env.GRANTED_UPGRADE_SURVIVOR_ASSERT_STAGE || "survival";
   if (!hasCoverage(coverage) || !acceptsIntent(coverage, "configured-plugin-installs")) {
     return;
   }
@@ -1545,12 +1545,12 @@ if (command === "list-scenarios") {
   seedState();
 } else if (command === "assert-exec-approvals") {
   assertExecApprovalPolicySurvived(
-    requireEnv("OPENCLAW_STATE_DIR"),
-    process.env.OPENCLAW_UPGRADE_SURVIVOR_ASSERT_STAGE || "survival",
+    requireEnv("GRANTED_STATE_DIR"),
+    process.env.GRANTED_UPGRADE_SURVIVOR_ASSERT_STAGE || "survival",
   );
 } else if (command === "seed-volume") {
   assert(getScenario() === "sqlite-volume", "seed-volume requires the sqlite-volume scenario");
-  const stateDir = requireEnv("OPENCLAW_STATE_DIR");
+  const stateDir = requireEnv("GRANTED_STATE_DIR");
   seedUpgradeVolume(stateDir);
 } else if (command === "assert-config") {
   assertConfigSurvived();
@@ -1562,7 +1562,7 @@ if (command === "list-scenarios") {
     getScenario() === "meeting-transcripts-sqlite",
     "transcript export requires the meeting scenario",
   );
-  assertMeetingTranscriptExport(requireEnv("OPENCLAW_STATE_DIR"));
+  assertMeetingTranscriptExport(requireEnv("GRANTED_STATE_DIR"));
 } else if (command === "assert-companion-installs") {
   assertCompanionPluginInstalls(process.argv.slice(3));
 } else if (command === "assert-recovered-plugin-installs") {

@@ -142,7 +142,7 @@ const smsRegistry = loadOpenClawPlugins(
       },
       env: {
         ...process.env,
-        OPENCLAW_BUNDLED_PLUGINS_DIR: path.join(repoRoot, "extensions"),
+        GRANTED_BUNDLED_PLUGINS_DIR: path.join(repoRoot, "extensions"),
       },
       preferBuiltPluginArtifacts: true,
       workspaceDir: tempRoot,
@@ -184,7 +184,7 @@ const registry = loadOpenClawPlugins({
   workspaceDir: tempRoot,
   env: {
     ...process.env,
-    OPENCLAW_BUNDLED_PLUGINS_DIR: path.join(repoRoot, "dist-runtime", "extensions"),
+    GRANTED_BUNDLED_PLUGINS_DIR: path.join(repoRoot, "dist-runtime", "extensions"),
   },
   config: {
     plugins: {

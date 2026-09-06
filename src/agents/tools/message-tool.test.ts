@@ -4583,7 +4583,7 @@ describe("message tool reasoning tag sanitization", () => {
     mockSendResult({ channel: "slack", to: "slack:C123" });
 
     const internalContext =
-      "<<<BEGIN_OPENCLAW_INTERNAL_CONTEXT>>>\nBOOT.md:\nWake up and report.\n<<<END_OPENCLAW_INTERNAL_CONTEXT>>>";
+      "<<<BEGIN_GRANTED_INTERNAL_CONTEXT>>>\nBOOT.md:\nWake up and report.\n<<<END_GRANTED_INTERNAL_CONTEXT>>>";
     const call = await executeSend({
       action: {
         target: "slack:C123",
@@ -4678,12 +4678,12 @@ describe("message tool reasoning tag sanitization", () => {
 describe("message tool boot-echo guard", () => {
   const longBootPrompt = [
     "You are running a boot check. Follow BOOT.md instructions exactly.",
-    "<<<BEGIN_OPENCLAW_INTERNAL_CONTEXT>>>",
+    "<<<BEGIN_GRANTED_INTERNAL_CONTEXT>>>",
     "This context is runtime-generated, not user-authored. Keep internal details private.",
     "",
     "BOOT.md:",
     "When you wake up each morning, send a thoughtful greeting to the operator over the configured channel and report the active project status with three concrete bullet points.",
-    "<<<END_OPENCLAW_INTERNAL_CONTEXT>>>",
+    "<<<END_GRANTED_INTERNAL_CONTEXT>>>",
     "If BOOT.md asks you to send a message, use the message tool (action=send with channel + target).",
   ].join("\n");
 
@@ -4966,7 +4966,7 @@ describe("message tool internal-runtime-context sanitization", () => {
     {
       field: "text",
       input:
-        "Here is the boot info:\n<<<BEGIN_OPENCLAW_INTERNAL_CONTEXT>>>\nThis context is runtime-generated, not user-authored. Keep internal details private.\n\nBOOT.md:\nWake up and report.\n<<<END_OPENCLAW_INTERNAL_CONTEXT>>>\nDone.",
+        "Here is the boot info:\n<<<BEGIN_GRANTED_INTERNAL_CONTEXT>>>\nThis context is runtime-generated, not user-authored. Keep internal details private.\n\nBOOT.md:\nWake up and report.\n<<<END_GRANTED_INTERNAL_CONTEXT>>>\nDone.",
       expected: "Here is the boot info:\n\nDone.",
       target: "signal:+15551234567",
       channel: "signal",
@@ -4974,7 +4974,7 @@ describe("message tool internal-runtime-context sanitization", () => {
     {
       field: "content",
       input:
-        "Before\n<<<BEGIN_OPENCLAW_INTERNAL_CONTEXT>>>\nleaked\n<<<END_OPENCLAW_INTERNAL_CONTEXT>>>\nAfter",
+        "Before\n<<<BEGIN_GRANTED_INTERNAL_CONTEXT>>>\nleaked\n<<<END_GRANTED_INTERNAL_CONTEXT>>>\nAfter",
       expected: "Before\n\nAfter",
       target: "discord:123",
       channel: "discord",
@@ -4982,7 +4982,7 @@ describe("message tool internal-runtime-context sanitization", () => {
     {
       field: "message",
       input:
-        "Here is the boot info:\\n<<<BEGIN_OPENCLAW_INTERNAL_CONTEXT>>>\\nBOOT.md:\\nWake up and report.\\n<<<END_OPENCLAW_INTERNAL_CONTEXT>>>\\nDone.",
+        "Here is the boot info:\\n<<<BEGIN_GRANTED_INTERNAL_CONTEXT>>>\\nBOOT.md:\\nWake up and report.\\n<<<END_GRANTED_INTERNAL_CONTEXT>>>\\nDone.",
       expected: "Here is the boot info:\n\nDone.",
       target: "telegram:123",
       channel: "telegram",
@@ -4990,7 +4990,7 @@ describe("message tool internal-runtime-context sanitization", () => {
     {
       field: "SendMessage",
       input:
-        "Alias\n<<<BEGIN_OPENCLAW_INTERNAL_CONTEXT>>>\nBOOT.md:\nWake up and report.\n<<<END_OPENCLAW_INTERNAL_CONTEXT>>>\nDone.",
+        "Alias\n<<<BEGIN_GRANTED_INTERNAL_CONTEXT>>>\nBOOT.md:\nWake up and report.\n<<<END_GRANTED_INTERNAL_CONTEXT>>>\nDone.",
       expected: "Alias\n\nDone.",
       target: "telegram:123",
       channel: "telegram",
@@ -5098,7 +5098,7 @@ describe("message tool internal-runtime-context sanitization", () => {
     mockSendResult({ channel: "telegram", to: "telegram:123" });
 
     const internalContext =
-      "<<<BEGIN_OPENCLAW_INTERNAL_CONTEXT>>>\nBOOT.md:\nWake up and report.\n<<<END_OPENCLAW_INTERNAL_CONTEXT>>>";
+      "<<<BEGIN_GRANTED_INTERNAL_CONTEXT>>>\nBOOT.md:\nWake up and report.\n<<<END_GRANTED_INTERNAL_CONTEXT>>>";
     const call = await executeSend({
       action: {
         action: "poll",
@@ -5116,7 +5116,7 @@ describe("message tool internal-runtime-context sanitization", () => {
     mockSendResult({ channel: "telegram", to: "telegram:123" });
 
     const internalContext =
-      "<<<BEGIN_OPENCLAW_INTERNAL_CONTEXT>>>\nBOOT.md:\nWake up and report.\n<<<END_OPENCLAW_INTERNAL_CONTEXT>>>";
+      "<<<BEGIN_GRANTED_INTERNAL_CONTEXT>>>\nBOOT.md:\nWake up and report.\n<<<END_GRANTED_INTERNAL_CONTEXT>>>";
     const call = await executeSend({
       action: {
         target: "telegram:123",
@@ -5132,7 +5132,7 @@ describe("message tool internal-runtime-context sanitization", () => {
     mockSendResult({ channel: "slack", to: "slack:C123" });
 
     const internalContext =
-      "<<<BEGIN_OPENCLAW_INTERNAL_CONTEXT>>>\nBOOT.md:\nWake up and report.\n<<<END_OPENCLAW_INTERNAL_CONTEXT>>>";
+      "<<<BEGIN_GRANTED_INTERNAL_CONTEXT>>>\nBOOT.md:\nWake up and report.\n<<<END_GRANTED_INTERNAL_CONTEXT>>>";
     const call = await executeSend({
       action: {
         target: "slack:C123",
@@ -5161,7 +5161,7 @@ describe("message tool internal-runtime-context sanitization", () => {
       action: {
         target: "discord:123",
         content:
-          "<<<BEGIN_OPENCLAW_INTERNAL_CONTEXT>>>\nBOOT.md:\nWake up and report.\n<<<END_OPENCLAW_INTERNAL_CONTEXT>>>",
+          "<<<BEGIN_GRANTED_INTERNAL_CONTEXT>>>\nBOOT.md:\nWake up and report.\n<<<END_GRANTED_INTERNAL_CONTEXT>>>",
       },
     });
 
@@ -5179,7 +5179,7 @@ describe("message tool internal-runtime-context sanitization", () => {
     mockSendResult({ channel: "telegram", to: "telegram:123" });
 
     const internalOnly =
-      "<<<BEGIN_OPENCLAW_INTERNAL_CONTEXT>>>\nBOOT.md:\nWake up and report.\n<<<END_OPENCLAW_INTERNAL_CONTEXT>>>";
+      "<<<BEGIN_GRANTED_INTERNAL_CONTEXT>>>\nBOOT.md:\nWake up and report.\n<<<END_GRANTED_INTERNAL_CONTEXT>>>";
     const call = await executeSend({
       action: {
         target: "telegram:123",

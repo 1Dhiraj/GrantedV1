@@ -17,7 +17,7 @@ describe("authenticated request dispatcher load failures", () => {
   });
 
   it("returns typed restart guidance when the running install changed", async () => {
-    vi.stubEnv("OPENCLAW_PROFILE", "r13");
+    vi.stubEnv("GRANTED_PROFILE", "r13");
     const missingChunk = path.join(
       path.dirname(fileURLToPath(import.meta.url)),
       "missing-request-dispatch-chunk.js",

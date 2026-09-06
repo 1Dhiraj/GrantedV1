@@ -20,7 +20,7 @@ import { resolveConfiguredAgentDatabaseTargets } from "../config/sessions/target
 import type { OpenClawConfig } from "../config/types.openclaw.js";
 import { openNodeSqliteDatabase } from "../infra/node-sqlite.js";
 import { migrateLegacyMediaPersistence } from "../infra/state-migrations.media-persistence.js";
-import { OPENCLAW_AGENT_SCHEMA_VERSION } from "../state/openclaw-agent-db-contract.js";
+import { GRANTED_AGENT_SCHEMA_VERSION } from "../state/openclaw-agent-db-contract.js";
 import {
   claimOpenClawAgentDatabaseLease,
   releaseOpenClawAgentDatabaseLease,
@@ -46,7 +46,7 @@ afterEach(() => {
 async function createStore(layout: "shared" | "custom") {
   const root = fs.realpathSync.native(tempDirs.make("openclaw-doctor-canonical-store-"));
   const stateDir = path.join(root, "state");
-  const env = { OPENCLAW_STATE_DIR: stateDir };
+  const env = { GRANTED_STATE_DIR: stateDir };
   const storePath = path.join(
     root,
     "custom",
@@ -199,11 +199,11 @@ function expectUpgradedSharedStore(store: Awaited<ReturnType<typeof createHistor
   const reopened = openOpenClawAgentDatabase(store.options);
   expect(reopened.agentId).toBe("main");
   expect(reopened.db.prepare("PRAGMA user_version").get()?.user_version).toBe(
-    OPENCLAW_AGENT_SCHEMA_VERSION,
+    GRANTED_AGENT_SCHEMA_VERSION,
   );
   expect(reopened.db.prepare("SELECT agent_id, schema_version FROM schema_meta").get()).toEqual({
     agent_id: "main",
-    schema_version: OPENCLAW_AGENT_SCHEMA_VERSION,
+    schema_version: GRANTED_AGENT_SCHEMA_VERSION,
   });
   expect(loadExactSessionEntry(store.scope)?.entry.sessionId).toBe("doctor-session");
   expect(loadExactSessionEntry(store.scope)?.entry.goal).toEqual(store.goalReceipt?.goal);
@@ -247,7 +247,7 @@ describe("Doctor canonical session SQLite targets", () => {
       });
       expect(migrated).toEqual({
         changes: [
-          `Upgraded agent database schema in ${store.sqlitePath}: v${schemaVersion} -> v${OPENCLAW_AGENT_SCHEMA_VERSION}.`,
+          `Upgraded agent database schema in ${store.sqlitePath}: v${schemaVersion} -> v${GRANTED_AGENT_SCHEMA_VERSION}.`,
         ],
         warnings: [],
       });
@@ -265,8 +265,8 @@ describe("Doctor canonical session SQLite targets", () => {
       reason: "metadata schema version 17 does not match 18",
     },
     {
-      userVersion: OPENCLAW_AGENT_SCHEMA_VERSION + 1,
-      metadataVersion: OPENCLAW_AGENT_SCHEMA_VERSION + 1,
+      userVersion: GRANTED_AGENT_SCHEMA_VERSION + 1,
+      metadataVersion: GRANTED_AGENT_SCHEMA_VERSION + 1,
       reason: "uses newer schema version",
     },
   ])(
@@ -453,7 +453,7 @@ describe("Doctor canonical session SQLite targets", () => {
 
   it("includes the default SQLite target after its legacy file has been retired", async () => {
     const stateDir = fs.realpathSync.native(tempDirs.make("openclaw-doctor-default-store-"));
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const cfg: OpenClawConfig = { agents: { entries: { main: {} } } };
     await upsertSessionEntryCore(
       { agentId: "main", env, sessionKey: "agent:main:doctor" },

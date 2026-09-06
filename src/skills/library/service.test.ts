@@ -39,7 +39,7 @@ function fixture() {
   const stateDir = tempDirs.make("skill-library-");
   const options = {
     path: path.join(stateDir, "state", "openclaw.sqlite"),
-    env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+    env: { ...process.env, GRANTED_STATE_DIR: stateDir },
   };
   const alice = ensureProfileForEmail("alice@example.test", options);
   const actor = (profileId?: string, admin = false): SkillLibraryAuthority => ({
@@ -298,7 +298,7 @@ describe("profile-owned skill publication and selection", () => {
       librarySelections: selections,
       version: 1,
     };
-    const delivery = await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, () =>
+    const delivery = await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, () =>
       prepareSkillResourceDelivery(snapshot, () => {}),
     );
     expect(delivery).toBeDefined();
@@ -346,7 +346,7 @@ describe("profile-owned skill publication and selection", () => {
   });
   it("delivers the pinned hidden revision on explicit selection after the library default changes", async () => {
     const { alice, options, stateDir } = fixture();
-    await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () => {
+    await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {
       const hiddenContent = content.replace(
         "---\n# Guide",
         "disable-model-invocation: true\n---\n# Guide",
@@ -397,14 +397,14 @@ describe("library admission and imports", () => {
         slug: "prerequisite",
         expectedRevision: null,
         content:
-          '---\nname: prerequisite\ndescription: Requires explicitly configured inputs\nmetadata: {"openclaw":{"skillKey":"someone-elses-key","requires":{"env":["OPENCLAW_SKILL_LIBRARY_FIXTURE_REQUIRED"],"config":["channels.fixture.enabled"]}}}\n---\n# Prerequisite\n',
+          '---\nname: prerequisite\ndescription: Requires explicitly configured inputs\nmetadata: {"openclaw":{"skillKey":"someone-elses-key","requires":{"env":["GRANTED_SKILL_LIBRARY_FIXTURE_REQUIRED"],"config":["channels.fixture.enabled"]}}}\n---\n# Prerequisite\n',
       },
       options,
     );
     const selected = loadSkillLibrarySelection(seedSkillLibrarySelection(alice, options), options);
     expect(selected[0]?.metadata?.skillKey).toBe(saved.entry.name);
     expect(selected[0]?.metadata?.requires).toMatchObject({
-      env: ["OPENCLAW_SKILL_LIBRARY_FIXTURE_REQUIRED"],
+      env: ["GRANTED_SKILL_LIBRARY_FIXTURE_REQUIRED"],
       config: ["channels.fixture.enabled"],
     });
     const { buildSkillSnapshot } = await import("../loading/workspace-skill-prompt.js");
@@ -414,7 +414,7 @@ describe("library admission and imports", () => {
         skills: {
           entries: {
             "someone-elses-key": {
-              env: { OPENCLAW_SKILL_LIBRARY_FIXTURE_REQUIRED: "fixture-value" },
+              env: { GRANTED_SKILL_LIBRARY_FIXTURE_REQUIRED: "fixture-value" },
             },
           },
         },

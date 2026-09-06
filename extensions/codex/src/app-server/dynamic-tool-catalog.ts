@@ -4,7 +4,7 @@ import { normalizeOpenAIStrictCompatSchema } from "openclaw/plugin-sdk/provider-
 import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
 import type { CodexDynamicToolsLoading } from "./config.js";
 import {
-  CODEX_OPENCLAW_DIRECT_DYNAMIC_TOOL_NAMESPACE,
+  CODEX_GRANTED_DIRECT_DYNAMIC_TOOL_NAMESPACE,
   type CodexDynamicToolFunctionSpec,
   type CodexDynamicToolSpec,
   type JsonValue,
@@ -25,7 +25,7 @@ export type ProjectedCodexDynamicTool<T extends CodexToolDescriptor> = {
 export type CodexDynamicToolSchemaQuarantine = { tool: string; violations: readonly string[] };
 
 /** Namespace attached to OpenClaw-owned dynamic tools exposed to Codex. */
-const CODEX_OPENCLAW_DYNAMIC_TOOL_NAMESPACE = "openclaw";
+const CODEX_GRANTED_DYNAMIC_TOOL_NAMESPACE = "openclaw";
 const CODEX_DYNAMIC_TOOL_NAME_MAX_CHARS = 128;
 const CODEX_DYNAMIC_TOOL_NAME_PATTERN = /^[a-zA-Z0-9_-]+$/u;
 
@@ -82,7 +82,7 @@ export function createCodexDynamicToolSpecs(params: {
   if (namespaceTools.length > 0) {
     specs.push({
       type: "namespace",
-      name: CODEX_OPENCLAW_DYNAMIC_TOOL_NAMESPACE,
+      name: CODEX_GRANTED_DYNAMIC_TOOL_NAMESPACE,
       description: "",
       tools: namespaceTools,
     });
@@ -90,7 +90,7 @@ export function createCodexDynamicToolSpecs(params: {
   if (directOnlyNamespaceTools.length > 0) {
     specs.push({
       type: "namespace",
-      name: CODEX_OPENCLAW_DIRECT_DYNAMIC_TOOL_NAMESPACE,
+      name: CODEX_GRANTED_DIRECT_DYNAMIC_TOOL_NAMESPACE,
       description: "",
       tools: directOnlyNamespaceTools,
     });

@@ -907,7 +907,7 @@ describe("release Telegram QA workflow", () => {
     const preloadPath = join(workdir, "preload.mjs");
     writeFileSync(preloadPath, preload);
     const env = { ...process.env };
-    delete env.OPENCLAW_QA_SUT_PREENTRY_STOP;
+    delete env.GRANTED_QA_SUT_PREENTRY_STOP;
     expect(
       spawnSync(process.execPath, ["--import", preloadPath, "-e", ""], { encoding: "utf8", env })
         .status,
@@ -925,7 +925,7 @@ describe("release Telegram QA workflow", () => {
     expect(createSut).toContain('chmod -R u=rwX,g=rwX,o= "$workspace"');
     expect(createSut).toContain('find "$workspace" -type d -exec chmod g+s {} +');
     expect(createSut).not.toContain(
-      'for path in \\\n            "$temp_root/workspace" \\\n            "${OPENCLAW_HOME:?}"',
+      'for path in \\\n            "$temp_root/workspace" \\\n            "${GRANTED_HOME:?}"',
     );
   });
 

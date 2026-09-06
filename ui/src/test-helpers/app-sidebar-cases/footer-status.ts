@@ -15,8 +15,8 @@ type SidebarNativeGatewayTestSnapshot = {
 };
 
 type SidebarNativeGatewayTestWindow = Window & {
-  __OPENCLAW_NATIVE_WEB_CHROME__?: boolean;
-  __OPENCLAW_NATIVE_GATEWAYS__?: SidebarNativeGatewayTestSnapshot;
+  __GRANTED_NATIVE_WEB_CHROME__?: boolean;
+  __GRANTED_NATIVE_GATEWAYS__?: SidebarNativeGatewayTestSnapshot;
 };
 
 type MutableControlUiBuildInfo = {
@@ -36,14 +36,14 @@ function setControlUiBuildInfo(overrides: Partial<ControlUiBuildInfo>): void {
 
 function setNativeGatewayTestState(snapshot: SidebarNativeGatewayTestSnapshot): void {
   const nativeWindow = window as SidebarNativeGatewayTestWindow;
-  nativeWindow["__OPENCLAW_NATIVE_WEB_CHROME__"] = true;
-  nativeWindow["__OPENCLAW_NATIVE_GATEWAYS__"] = snapshot;
+  nativeWindow["__GRANTED_NATIVE_WEB_CHROME__"] = true;
+  nativeWindow["__GRANTED_NATIVE_GATEWAYS__"] = snapshot;
 }
 
 afterEach(() => {
   const nativeWindow = window as SidebarNativeGatewayTestWindow;
-  Reflect.deleteProperty(nativeWindow, "__OPENCLAW_NATIVE_WEB_CHROME__");
-  Reflect.deleteProperty(nativeWindow, "__OPENCLAW_NATIVE_GATEWAYS__");
+  Reflect.deleteProperty(nativeWindow, "__GRANTED_NATIVE_WEB_CHROME__");
+  Reflect.deleteProperty(nativeWindow, "__GRANTED_NATIVE_GATEWAYS__");
   Object.assign(CONTROL_UI_BUILD_INFO as MutableControlUiBuildInfo, ORIGINAL_CONTROL_UI_BUILD_INFO);
   vi.useRealTimers();
 });
@@ -91,7 +91,7 @@ describe("AppSidebar gateway footer subtitle", () => {
 
   it("stays hidden outside native chrome", async () => {
     const nativeWindow = window as SidebarNativeGatewayTestWindow;
-    nativeWindow["__OPENCLAW_NATIVE_GATEWAYS__"] = twoGateways;
+    nativeWindow["__GRANTED_NATIVE_GATEWAYS__"] = twoGateways;
     const gateway = createGateway({} as GatewayBrowserClient);
     const { sidebar } = await mountSidebar(gateway, createSessions("main", ["agent:main:main"]));
 

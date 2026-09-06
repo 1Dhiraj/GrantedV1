@@ -11,7 +11,7 @@ import {
 } from "../config/plugin-install-record-map.js";
 import type { PluginInstallRecord } from "../config/types.plugins.js";
 import { requireNodeSqlite } from "../infra/node-sqlite.js";
-import { OPENCLAW_STATE_SCHEMA_VERSION } from "../state/openclaw-state-db-contract.js";
+import { GRANTED_STATE_SCHEMA_VERSION } from "../state/openclaw-state-db-contract.js";
 import * as stateDbReadOnly from "../state/openclaw-state-db-readonly.js";
 import {
   closeOpenClawStateDatabaseForTest,
@@ -98,7 +98,7 @@ function updatePersistedInstallRecordsWithoutClearingCache(
         `,
       ).run(JSON.stringify(records), now, now);
     },
-    { env: { ...process.env, OPENCLAW_STATE_DIR: stateDir } },
+    { env: { ...process.env, GRANTED_STATE_DIR: stateDir } },
   );
 }
 
@@ -275,14 +275,14 @@ describe("plugin index install records store", () => {
     const databasePath = resolveInstalledPluginIndexRecordsStorePath({ stateDir });
     const { DatabaseSync } = requireNodeSqlite();
     const database = new DatabaseSync(databasePath);
-    database.exec(`PRAGMA user_version = ${OPENCLAW_STATE_SCHEMA_VERSION + 1};`);
+    database.exec(`PRAGMA user_version = ${GRANTED_STATE_SCHEMA_VERSION + 1};`);
     database.close();
 
     expect(() => loadInstalledPluginIndexInstallRecordsSync({ stateDir })).toThrow(
       expect.objectContaining({
         name: "SqliteSchemaVersionError",
         message: expect.stringContaining(
-          `uses newer schema version ${OPENCLAW_STATE_SCHEMA_VERSION + 1}`,
+          `uses newer schema version ${GRANTED_STATE_SCHEMA_VERSION + 1}`,
         ),
       }),
     );

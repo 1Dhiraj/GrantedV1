@@ -8,7 +8,7 @@ const sessionKey = "agent:main:main";
 let proofDir: string | null;
 beforeEach(() => {
   proofDir =
-    process.env.OPENCLAW_CAPTURE_UI_PROOF === "1"
+    process.env.GRANTED_CAPTURE_UI_PROOF === "1"
       ? createControlUiE2eArtifactDir("chat-only-model")
       : null;
 });

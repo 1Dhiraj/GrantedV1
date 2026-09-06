@@ -30,7 +30,7 @@ function encodeLogProfileSegment(profile: string): string {
 }
 
 function resolveLogProfileSegment(env: NodeJS.ProcessEnv): string | null {
-  const profile = env.OPENCLAW_PROFILE?.trim();
+  const profile = env.GRANTED_PROFILE?.trim();
   if (!profile || profile.toLowerCase() === "default") {
     return null;
   }

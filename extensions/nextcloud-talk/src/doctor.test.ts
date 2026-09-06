@@ -111,7 +111,7 @@ describe("nextcloud-talk doctor", () => {
       }),
     );
 
-    const env = { ...process.env, OPENCLAW_STATE_DIR: canonicalStateDir };
+    const env = { ...process.env, GRANTED_STATE_DIR: canonicalStateDir };
     const mutation = await nextcloudTalkDoctor.repairConfig?.({
       cfg: {
         channels: {

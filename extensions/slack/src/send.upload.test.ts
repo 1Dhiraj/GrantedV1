@@ -842,7 +842,7 @@ describe("sendMessageSlack file upload with user IDs", () => {
         expect(error).toBeInstanceOf(PlatformMessageNotDispatchedError);
         expect(error).toMatchObject({
           name: "PlatformMessageNotDispatchedError",
-          code: "OPENCLAW_PLATFORM_MESSAGE_NOT_DISPATCHED",
+          code: "GRANTED_PLATFORM_MESSAGE_NOT_DISPATCHED",
           cause: expect.objectContaining({ name: "TimeoutError" }),
         });
 

@@ -55,9 +55,7 @@ type ManagedImageRecordEntry = {
 };
 
 function stateDatabaseOptions(stateDir?: string): OpenClawStateDatabaseOptions {
-  return stateDir
-    ? { env: { ...process.env, OPENCLAW_STATE_DIR: stateDir } }
-    : { env: process.env };
+  return stateDir ? { env: { ...process.env, GRANTED_STATE_DIR: stateDir } } : { env: process.env };
 }
 
 export function managedImageRecordToRow(record: ManagedImageRecord): ManagedImageRecordInsert {

@@ -21,10 +21,10 @@ function writeExecutable(filePath: string, contents: string) {
 function runDockerRunArgs(pathPrefix: string) {
   const script = [
     "source scripts/lib/live-docker-auth.sh",
-    "unset OPENCLAW_LIVE_DOCKER_DISABLE_RESOURCE_LIMITS OPENCLAW_DOCKER_E2E_DISABLE_RESOURCE_LIMITS",
-    "unset OPENCLAW_LIVE_DOCKER_MEMORY OPENCLAW_DOCKER_E2E_MEMORY",
-    "unset OPENCLAW_LIVE_DOCKER_CPUS OPENCLAW_DOCKER_E2E_CPUS",
-    "unset OPENCLAW_LIVE_DOCKER_PIDS_LIMIT OPENCLAW_DOCKER_E2E_PIDS_LIMIT",
+    "unset GRANTED_LIVE_DOCKER_DISABLE_RESOURCE_LIMITS GRANTED_DOCKER_E2E_DISABLE_RESOURCE_LIMITS",
+    "unset GRANTED_LIVE_DOCKER_MEMORY GRANTED_DOCKER_E2E_MEMORY",
+    "unset GRANTED_LIVE_DOCKER_CPUS GRANTED_DOCKER_E2E_CPUS",
+    "unset GRANTED_LIVE_DOCKER_PIDS_LIMIT GRANTED_DOCKER_E2E_PIDS_LIMIT",
     "ARGS=()",
     "openclaw_live_init_docker_run_args ARGS 42s || exit $?",
     "printf '%s\\n' \"${ARGS[@]}\"",
@@ -62,8 +62,8 @@ describe("scripts/lib/live-docker-auth.sh", () => {
         "-c",
         [
           "source scripts/lib/live-docker-auth.sh",
-          'fallback="$(openclaw_live_read_positive_int_env OPENCLAW_LIVE_SAMPLE_SECONDS 180)"',
-          'leading_zero="$(OPENCLAW_LIVE_SAMPLE_SECONDS=008 openclaw_live_read_positive_int_env OPENCLAW_LIVE_SAMPLE_SECONDS 180)"',
+          'fallback="$(openclaw_live_read_positive_int_env GRANTED_LIVE_SAMPLE_SECONDS 180)"',
+          'leading_zero="$(GRANTED_LIVE_SAMPLE_SECONDS=008 openclaw_live_read_positive_int_env GRANTED_LIVE_SAMPLE_SECONDS 180)"',
           'printf "%s\\n%s\\n" "$fallback" "$leading_zero"',
         ].join("\n"),
       ],
@@ -75,7 +75,7 @@ describe("scripts/lib/live-docker-auth.sh", () => {
         "-c",
         [
           "source scripts/lib/live-docker-auth.sh",
-          "OPENCLAW_LIVE_SAMPLE_SECONDS=30s openclaw_live_read_positive_int_env OPENCLAW_LIVE_SAMPLE_SECONDS 180",
+          "GRANTED_LIVE_SAMPLE_SECONDS=30s openclaw_live_read_positive_int_env GRANTED_LIVE_SAMPLE_SECONDS 180",
         ].join("\n"),
       ],
       { cwd: process.cwd(), encoding: "utf8" },
@@ -84,7 +84,7 @@ describe("scripts/lib/live-docker-auth.sh", () => {
     expect(result.status).toBe(0);
     expect(result.stdout.trimEnd().split("\n")).toEqual(["180", "008"]);
     expect(invalid.status).toBe(2);
-    expect(invalid.stderr).toContain("invalid OPENCLAW_LIVE_SAMPLE_SECONDS: 30s");
+    expect(invalid.stderr).toContain("invalid GRANTED_LIVE_SAMPLE_SECONDS: 30s");
   });
 
   it("collects default and provider-filtered auth under Bash 3 nounset", () => {
@@ -96,14 +96,14 @@ describe("scripts/lib/live-docker-auth.sh", () => {
         [
           "set -euo pipefail",
           "source scripts/lib/live-docker-auth.sh",
-          "unset OPENCLAW_DOCKER_AUTH_DIRS DOCKER_HOME_DIR",
+          "unset GRANTED_DOCKER_AUTH_DIRS DOCKER_HOME_DIR",
           'openclaw_live_collect_auth_for_providers ","',
           "openclaw_live_finalize_auth_mounts",
           'printf "default-dirs=%s\\ndefault-files=%s\\ndefault-mounts=%s\\n" "$AUTH_DIRS_CSV" "$AUTH_FILES_CSV" "${#EXTERNAL_AUTH_MOUNTS[@]}"',
           'openclaw_live_collect_auth_for_providers "openai, gemini"',
           "openclaw_live_finalize_auth_mounts",
           'printf "filtered-dirs=%s\\nfiltered-files=%s\\nfiltered-mounts=%s\\n" "$AUTH_DIRS_CSV" "$AUTH_FILES_CSV" "${#EXTERNAL_AUTH_MOUNTS[@]}"',
-          "OPENCLAW_DOCKER_AUTH_DIRS=none",
+          "GRANTED_DOCKER_AUTH_DIRS=none",
           "openclaw_live_collect_auth_for_providers openai",
           "openclaw_live_finalize_auth_mounts",
           'printf "none-dirs=%s\\nnone-files=%s\\nnone-mounts=%s\\n" "$AUTH_DIRS_CSV" "$AUTH_FILES_CSV" "${#EXTERNAL_AUTH_MOUNTS[@]}"',
@@ -142,7 +142,7 @@ describe("scripts/lib/live-docker-auth.sh", () => {
         [
           "set -euo pipefail",
           "source scripts/lib/live-docker-auth.sh",
-          "unset OPENCLAW_DOCKER_AUTH_DIRS",
+          "unset GRANTED_DOCKER_AUTH_DIRS",
           "DOCKER_AUTH_PRESTAGED=0",
           'openclaw_live_collect_auth_for_providers "openai,gemini"',
           "openclaw_live_finalize_auth_mounts",
@@ -184,9 +184,9 @@ describe("scripts/lib/live-docker-auth.sh", () => {
         [
           "set -euo pipefail",
           "source scripts/lib/live-docker-stage.sh",
-          "OPENCLAW_DOCKER_AUTH_PRESTAGED=0",
-          "OPENCLAW_DOCKER_AUTH_DIRS_RESOLVED=",
-          "OPENCLAW_DOCKER_AUTH_FILES_RESOLVED=",
+          "GRANTED_DOCKER_AUTH_PRESTAGED=0",
+          "GRANTED_DOCKER_AUTH_DIRS_RESOLVED=",
+          "GRANTED_DOCKER_AUTH_FILES_RESOLVED=",
           "openclaw_live_stage_mounted_auth",
           "printf mounted-auth-ok",
         ].join("\n"),
@@ -250,7 +250,7 @@ describe("scripts/lib/live-docker-auth.sh", () => {
         [
           "source scripts/lib/live-docker-auth.sh",
           "ARGS=()",
-          "OPENCLAW_LIVE_DOCKER_AVAILABLE_CPUS=8 openclaw_live_init_docker_run_args ARGS 42s",
+          "GRANTED_LIVE_DOCKER_AVAILABLE_CPUS=8 openclaw_live_init_docker_run_args ARGS 42s",
           "printf '%s\\n' \"${ARGS[@]}\"",
         ].join("\n"),
       ],
@@ -356,7 +356,7 @@ describe("scripts/lib/live-docker-auth.sh", () => {
         [
           "source scripts/lib/live-docker-auth.sh",
           "ARGS=()",
-          "OPENCLAW_LIVE_DOCKER_DISABLE_RESOURCE_LIMITS=1 openclaw_live_init_docker_run_args ARGS 42s",
+          "GRANTED_LIVE_DOCKER_DISABLE_RESOURCE_LIMITS=1 openclaw_live_init_docker_run_args ARGS 42s",
           "printf '%s\\n' \"${ARGS[@]}\"",
         ].join("\n"),
       ],
@@ -402,7 +402,7 @@ describe("scripts/lib/live-docker-auth.sh", () => {
         [
           "source scripts/lib/live-docker-auth.sh",
           "ARGS=()",
-          "OPENCLAW_LIVE_DOCKER_PIDS_LIMIT=0008 openclaw_live_init_docker_run_args ARGS 42s",
+          "GRANTED_LIVE_DOCKER_PIDS_LIMIT=0008 openclaw_live_init_docker_run_args ARGS 42s",
           "printf '%s\\n' \"${ARGS[@]}\"",
         ].join("\n"),
       ],
@@ -421,8 +421,8 @@ describe("scripts/lib/live-docker-auth.sh", () => {
   });
 
   it.each([
-    ["live", "OPENCLAW_LIVE_DOCKER_PIDS_LIMIT"],
-    ["shared", "OPENCLAW_DOCKER_E2E_PIDS_LIMIT"],
+    ["live", "GRANTED_LIVE_DOCKER_PIDS_LIMIT"],
+    ["shared", "GRANTED_DOCKER_E2E_PIDS_LIMIT"],
   ])("rejects invalid %s Docker pids limits before live Docker setup", (_label, envName) => {
     const binDir = makeTempBin("openclaw-live-docker-auth-invalid-pids-");
     writeExecutable(
@@ -452,10 +452,9 @@ describe("scripts/lib/live-docker-auth.sh", () => {
         encoding: "utf8",
         env: {
           ...process.env,
-          OPENCLAW_DOCKER_E2E_PIDS_LIMIT:
-            envName === "OPENCLAW_DOCKER_E2E_PIDS_LIMIT" ? "many" : "",
-          OPENCLAW_LIVE_DOCKER_PIDS_LIMIT:
-            envName === "OPENCLAW_LIVE_DOCKER_PIDS_LIMIT" ? "many" : "",
+          GRANTED_DOCKER_E2E_PIDS_LIMIT: envName === "GRANTED_DOCKER_E2E_PIDS_LIMIT" ? "many" : "",
+          GRANTED_LIVE_DOCKER_PIDS_LIMIT:
+            envName === "GRANTED_LIVE_DOCKER_PIDS_LIMIT" ? "many" : "",
           PATH: binDir,
         },
       },

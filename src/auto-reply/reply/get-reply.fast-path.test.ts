@@ -149,7 +149,7 @@ describe("getReplyFromConfig fast test bootstrap", () => {
   beforeEach(async () => {
     state = await createOpenClawTestState({
       label: "fast-reply",
-      env: { OPENCLAW_TEST_FAST: "1" },
+      env: { GRANTED_TEST_FAST: "1" },
     });
     isolatedStorePath = path.join(state.sessionsDir("main"), "sessions.json");
     const sqliteTarget = resolveUnsuffixedSqliteTargetFromSessionStorePath(isolatedStorePath);
@@ -263,7 +263,7 @@ describe("getReplyFromConfig fast test bootstrap", () => {
   });
 
   it("still merges partial config overrides against getRuntimeConfig()", async () => {
-    vi.stubEnv("OPENCLAW_ALLOW_SLOW_REPLY_TESTS", "1");
+    vi.stubEnv("GRANTED_ALLOW_SLOW_REPLY_TESTS", "1");
     vi.mocked(loadConfigMock).mockReturnValue({
       channels: {
         telegram: {
@@ -286,7 +286,7 @@ describe("getReplyFromConfig fast test bootstrap", () => {
   });
 
   it("reports the prepared session binding after session bootstrap", async () => {
-    vi.stubEnv("OPENCLAW_ALLOW_SLOW_REPLY_TESTS", "1");
+    vi.stubEnv("GRANTED_ALLOW_SLOW_REPLY_TESTS", "1");
     mocks.initSessionState.mockResolvedValue(
       createGetReplySessionState({
         sessionKey: "agent:main:slack:channel:C123",
@@ -314,7 +314,7 @@ describe("getReplyFromConfig fast test bootstrap", () => {
   });
 
   it("returns a clean rejection when session bootstrap rejects a locked reset", async () => {
-    vi.stubEnv("OPENCLAW_ALLOW_SLOW_REPLY_TESTS", "1");
+    vi.stubEnv("GRANTED_ALLOW_SLOW_REPLY_TESTS", "1");
     const sessionKey = "agent:main:telegram:123";
     mocks.initSessionState.mockRejectedValueOnce(
       new ModelSelectionLockedError(MODEL_SELECTION_LOCKED_RESET_MESSAGE),

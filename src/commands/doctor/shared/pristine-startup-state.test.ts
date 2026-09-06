@@ -24,8 +24,8 @@ function createFixture(config: Record<string, unknown>, stateEntries: string[] =
   }
   return {
     HOME: root,
-    OPENCLAW_CONFIG_PATH: configPath,
-    OPENCLAW_STATE_DIR: stateDir,
+    GRANTED_CONFIG_PATH: configPath,
+    GRANTED_STATE_DIR: stateDir,
   };
 }
 
@@ -47,8 +47,8 @@ function addBundledPlugin(
   return {
     ...env,
     VITEST: "true",
-    OPENCLAW_BUNDLED_PLUGINS_DIR: bundledPluginsDir,
-    OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR: "1",
+    GRANTED_BUNDLED_PLUGINS_DIR: bundledPluginsDir,
+    GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR: "1",
   };
 }
 
@@ -89,7 +89,7 @@ function addConfiguredPlugin(
     fs.writeFileSync(path.join(pluginDir, "doctor-contract-api.js"), "export {};\n");
   }
 
-  const config = JSON.parse(fs.readFileSync(env.OPENCLAW_CONFIG_PATH, "utf8")) as {
+  const config = JSON.parse(fs.readFileSync(env.GRANTED_CONFIG_PATH, "utf8")) as {
     plugins?: Record<string, unknown>;
   };
   config.plugins = {
@@ -97,7 +97,7 @@ function addConfiguredPlugin(
     allow: [pluginId],
     load: { paths: [pluginsDir, ...(options.additionalLoadPaths ?? [])] },
   };
-  fs.writeFileSync(env.OPENCLAW_CONFIG_PATH, `${JSON.stringify(config)}\n`);
+  fs.writeFileSync(env.GRANTED_CONFIG_PATH, `${JSON.stringify(config)}\n`);
   return env;
 }
 
@@ -116,8 +116,8 @@ describe("pristine startup state", () => {
     expect(
       planPristineStartupStateMigrations({
         HOME: root,
-        OPENCLAW_CONFIG_PATH: path.join(stateDir, "openclaw.json"),
-        OPENCLAW_STATE_DIR: stateDir,
+        GRANTED_CONFIG_PATH: path.join(stateDir, "openclaw.json"),
+        GRANTED_STATE_DIR: stateDir,
       }),
     ).toEqual({
       skipAllStateMigrations: true,
@@ -176,7 +176,7 @@ describe("pristine startup state", () => {
           entries: {
             "session-memory": {
               enabled: true,
-              env: { OPENCLAW_HOOK_TEST: "enabled" },
+              env: { GRANTED_HOOK_TEST: "enabled" },
               customOption: "value",
             },
           },

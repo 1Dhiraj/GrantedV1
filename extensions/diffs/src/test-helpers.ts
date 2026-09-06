@@ -72,7 +72,7 @@ export async function createDiffStoreHarness(prefix: string): Promise<{
   const rootDir = path.join(harnessRoot, "files");
   const env = {
     ...process.env,
-    OPENCLAW_STATE_DIR: path.join(harnessRoot, "state"),
+    GRANTED_STATE_DIR: path.join(harnessRoot, "state"),
   };
   const openBlobStore = () =>
     createPluginBlobStoreForTests<DiffArtifactBlobMetadata>(

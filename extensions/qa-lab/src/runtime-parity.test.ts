@@ -48,7 +48,7 @@ async function seedRuntimeParityTranscript(params: {
   updatedAt?: number;
 }) {
   const tempRoot = params.tempRoot ?? (await tempDirs.makeTempDir("openclaw-qa-runtime-parity-"));
-  const env = { ...process.env, OPENCLAW_STATE_DIR: path.join(tempRoot, "state") };
+  const env = { ...process.env, GRANTED_STATE_DIR: path.join(tempRoot, "state") };
   const storePath = resolveStorePath(undefined, { agentId: "qa", env });
   await upsertSessionEntry({
     agentId: "qa",

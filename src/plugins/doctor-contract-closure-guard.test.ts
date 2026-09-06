@@ -298,7 +298,7 @@ function collectClosureEntries(): ClosureEntry[] {
   const entries: ClosureEntry[] = [];
   const env = {
     ...process.env,
-    OPENCLAW_BUNDLED_PLUGINS_DIR: path.join(REPO_ROOT, "extensions"),
+    GRANTED_BUNDLED_PLUGINS_DIR: path.join(REPO_ROOT, "extensions"),
   };
   for (const record of loadBundledPluginManifestRegistry({ env }).plugins) {
     const pluginRoot = path.resolve(record.rootDir);

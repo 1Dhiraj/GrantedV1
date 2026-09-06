@@ -16,16 +16,16 @@ it("binds a first native chat.send before streaming and persists its stopped par
   const state = await createOpenClawTestState({
     label: "first-turn-binding",
     env: {
-      OPENCLAW_TEST_MINIMAL_GATEWAY: undefined,
-      OPENCLAW_SKIP_CHANNELS: "1",
-      OPENCLAW_SKIP_GMAIL_WATCHER: "1",
-      OPENCLAW_SKIP_CRON: "1",
-      OPENCLAW_SKIP_CANVAS_HOST: "1",
-      OPENCLAW_SKIP_BROWSER_CONTROL_SERVER: "1",
-      OPENCLAW_SKIP_PROVIDERS: "1",
-      OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
-      OPENCLAW_GATEWAY_TOKEN: undefined,
-      OPENCLAW_GATEWAY_PASSWORD: undefined,
+      GRANTED_TEST_MINIMAL_GATEWAY: undefined,
+      GRANTED_SKIP_CHANNELS: "1",
+      GRANTED_SKIP_GMAIL_WATCHER: "1",
+      GRANTED_SKIP_CRON: "1",
+      GRANTED_SKIP_CANVAS_HOST: "1",
+      GRANTED_SKIP_BROWSER_CONTROL_SERVER: "1",
+      GRANTED_SKIP_PROVIDERS: "1",
+      GRANTED_DISABLE_BUNDLED_PLUGINS: "1",
+      GRANTED_GATEWAY_TOKEN: undefined,
+      GRANTED_GATEWAY_PASSWORD: undefined,
     },
   });
   const runId = "first-native-turn";

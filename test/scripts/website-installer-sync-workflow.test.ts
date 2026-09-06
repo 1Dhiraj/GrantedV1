@@ -44,8 +44,8 @@ describe("website installer sync workflow", () => {
     expect(workflow).toContain("macos-installer:");
     expect(workflow).toContain("runs-on: macos-15");
     expect(workflow).toContain("node-version: 24");
-    expect(workflow).toContain('OPENCLAW_NO_ONBOARD: "1"');
-    expect(workflow).toContain('OPENCLAW_NO_PROMPT: "1"');
+    expect(workflow).toContain('GRANTED_NO_ONBOARD: "1"');
+    expect(workflow).toContain('GRANTED_NO_PROMPT: "1"');
     expect(workflow).toContain("bash scripts/install.sh --no-onboard --no-prompt --version latest");
     expect(workflow).toContain("openclaw --version");
     expect(workflow).toContain("windows-installer:");
@@ -72,9 +72,9 @@ describe("website installer sync workflow", () => {
         .join(""),
     );
     expect(workflow).toContain("repository: openclaw/openclaw.ai");
-    expect(workflow).toContain("OPENCLAW_GH_TOKEN: ${{ secrets.OPENCLAW_GH_TOKEN }}");
-    expect(workflow).toContain("OPENCLAW_GH_TOKEN is not configured");
-    expect(workflow).toContain("token: ${{ env.OPENCLAW_GH_TOKEN }}");
+    expect(workflow).toContain("GRANTED_GH_TOKEN: ${{ secrets.GRANTED_GH_TOKEN }}");
+    expect(workflow).toContain("GRANTED_GH_TOKEN is not configured");
+    expect(workflow).toContain("token: ${{ env.GRANTED_GH_TOKEN }}");
     expect(workflow).toContain("cp openclaw/scripts/install.sh openclaw.ai/public/install.sh");
     expect(workflow).toContain(
       "cp openclaw/scripts/install-cli.sh openclaw.ai/public/install-cli.sh",

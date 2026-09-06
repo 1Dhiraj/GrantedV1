@@ -50,7 +50,7 @@ const tempDirs = useAutoCleanupTempDirTracker(afterEach);
 
 function createDatabaseOptions(): OpenClawStateDatabaseOptions {
   const stateDir = tempDirs.make("openclaw-placement-grant-");
-  return { env: { ...process.env, OPENCLAW_STATE_DIR: stateDir } };
+  return { env: { ...process.env, GRANTED_STATE_DIR: stateDir } };
 }
 
 beforeEach(resetPluginRuntimeStateForTest);

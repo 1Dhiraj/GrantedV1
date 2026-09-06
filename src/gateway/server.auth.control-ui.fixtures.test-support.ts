@@ -44,9 +44,9 @@ export const REMOTE_BOOTSTRAP_HEADERS = {
 
 export const createOperatorIdentityFixture = async (identityPrefix: string) => {
   const { loadOrCreateDeviceIdentity } = await import("../infra/device-identity.js");
-  const stateDir = process.env.OPENCLAW_STATE_DIR;
+  const stateDir = process.env.GRANTED_STATE_DIR;
   if (!stateDir) {
-    throw new Error("OPENCLAW_STATE_DIR must be set by the gateway test hooks");
+    throw new Error("GRANTED_STATE_DIR must be set by the gateway test hooks");
   }
   const identityPath = path.join(stateDir, `${identityPrefix}${randomUUID()}.sqlite`);
   const identity = loadOrCreateDeviceIdentity({ path: identityPath });

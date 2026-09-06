@@ -72,7 +72,7 @@ describe("ui package vitest config", () => {
   it("keeps native Chromium files out of root jsdom without dropping Node-driven Playwright files", async () => {
     const includeFile = path.join(tempDirs.make("ui-node-selection-"), "include.json");
     writeFileSync(includeFile, JSON.stringify(["ui/src/**/*.test.ts"]));
-    vi.stubEnv("OPENCLAW_VITEST_INCLUDE_FILE", includeFile);
+    vi.stubEnv("GRANTED_VITEST_INCLUDE_FILE", includeFile);
     vi.resetModules();
     const config = (await import("../ui/vitest.config.ts")).default;
     const uiRoot = path.join(process.cwd(), "ui");
@@ -100,7 +100,7 @@ describe("ui package vitest config", () => {
     );
     writeFileSync(includeFile, JSON.stringify([...nativeFiles, ...nodeFiles]));
     const scopedRoot = requireTestConfig(
-      createUiVitestConfig({ OPENCLAW_VITEST_INCLUDE_FILE: includeFile }),
+      createUiVitestConfig({ GRANTED_VITEST_INCLUDE_FILE: includeFile }),
     );
     expect(globSync(scopedRoot.include ?? [], { exclude: scopedRoot.exclude }).toSorted()).toEqual(
       nodeFiles.toSorted(),
@@ -127,7 +127,7 @@ describe("ui package vitest config", () => {
   ])("intersects a repository include list with every project: %j", async (requested, expected) => {
     const includeFile = path.join(tempDirs.make("ui-package-selection-"), "include.json");
     writeFileSync(includeFile, JSON.stringify(requested));
-    vi.stubEnv("OPENCLAW_VITEST_INCLUDE_FILE", includeFile);
+    vi.stubEnv("GRANTED_VITEST_INCLUDE_FILE", includeFile);
     vi.resetModules();
     const config = (await import("../ui/vitest.config.ts")).default;
     const uiRoot = path.join(process.cwd(), "ui");

@@ -42,7 +42,7 @@ export async function makeProvenancePlan(
 }
 
 export function stateEnv(root: string) {
-  return { OPENCLAW_STATE_DIR: join(root, "state") };
+  return { GRANTED_STATE_DIR: join(root, "state") };
 }
 
 export function readInstallRow(agentId: string, root: string) {

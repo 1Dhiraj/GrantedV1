@@ -31,7 +31,7 @@ describe("Gateway GitHub publication attribution", () => {
     });
     const coordinator = createGitHubPublicationCoordinator({
       placements: createWorkerSessionPlacementStore({
-        database: openOpenClawStateDatabase({ env: { OPENCLAW_STATE_DIR: root } }),
+        database: openOpenClawStateDatabase({ env: { GRANTED_STATE_DIR: root } }),
       }),
     });
 
@@ -62,7 +62,7 @@ describe("Gateway GitHub publication attribution", () => {
     mocks.getConfigSnapshot.mockReturnValue({ config, sourceConfig: config });
     const coordinator = createGitHubPublicationCoordinator({
       placements: createWorkerSessionPlacementStore({
-        database: openOpenClawStateDatabase({ env: { OPENCLAW_STATE_DIR: root } }),
+        database: openOpenClawStateDatabase({ env: { GRANTED_STATE_DIR: root } }),
       }),
     });
 

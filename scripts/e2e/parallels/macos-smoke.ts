@@ -155,7 +155,7 @@ Options:
   -h, --help                 Show help.
 
 Environment:
-  OPENCLAW_PARALLELS_DEV_TARGET_REF
+  GRANTED_PARALLELS_DEV_TARGET_REF
                              Pin the guest dev update to a full commit SHA.
 `;
 }
@@ -228,13 +228,13 @@ class MacosSmoke {
       modelId: options.modelId,
       provider: options.provider,
     });
-    this.agentTimeoutSeconds = readPositiveIntEnv("OPENCLAW_PARALLELS_MACOS_AGENT_TIMEOUT_S", 2700);
+    this.agentTimeoutSeconds = readPositiveIntEnv("GRANTED_PARALLELS_MACOS_AGENT_TIMEOUT_S", 2700);
     this.modelTimeoutSeconds = resolveParallelsModelTimeoutSeconds("macos");
     this.updateDevTimeoutSeconds = readPositiveIntEnv(
-      "OPENCLAW_PARALLELS_MACOS_UPDATE_DEV_TIMEOUT_S",
+      "GRANTED_PARALLELS_MACOS_UPDATE_DEV_TIMEOUT_S",
       1800,
     );
-    this.devTargetCommit = readGitCommitEnv("OPENCLAW_PARALLELS_DEV_TARGET_REF");
+    this.devTargetCommit = readGitCommitEnv("GRANTED_PARALLELS_DEV_TARGET_REF");
     this.validateDiscord();
   }
 
@@ -739,7 +739,7 @@ rm -f /tmp/openclaw-parallels-macos-gateway.log`);
 
   private installLatestRelease(): void {
     this.guestSh(
-      `export OPENCLAW_NO_ONBOARD=1
+      `export GRANTED_NO_ONBOARD=1
 curl -fsSL --connect-timeout 10 --max-time 120 --retry 2 --retry-delay 2 ${shellQuote(
         this.options.installUrl,
       )} -o /tmp/openclaw-install.sh
@@ -878,7 +878,7 @@ test "$("$bootstrap_bin/pnpm" --version)" = ${shellQuote(version)}`);
     this.ensureGuestPnpm();
     const home = this.guestHome();
     const devTargetEnv = this.devTargetCommit
-      ? ` OPENCLAW_UPDATE_DEV_TARGET_REF=${shellQuote(this.devTargetCommit)}`
+      ? ` GRANTED_UPDATE_DEV_TARGET_REF=${shellQuote(this.devTargetCommit)}`
       : "";
     await this.guest.shBackground(
       "macos-update-dev",
@@ -894,7 +894,7 @@ config.update = { ...(config.update || {}), channel: "dev" };
 fs.mkdirSync(path.dirname(configPath), { recursive: true });
 fs.writeFileSync(configPath, JSON.stringify(config, null, 2) + "\\n");
 JS
-/usr/bin/env NODE_OPTIONS=--max-old-space-size=8192 OPENCLAW_ALLOW_OLDER_BINARY_DESTRUCTIVE_ACTIONS=1${devTargetEnv} ${guestOpenClawEntryRunner} update --channel dev --yes --json --no-restart --timeout ${this.updateDevTimeoutSeconds}
+/usr/bin/env NODE_OPTIONS=--max-old-space-size=8192 GRANTED_ALLOW_OLDER_BINARY_DESTRUCTIVE_ACTIONS=1${devTargetEnv} ${guestOpenClawEntryRunner} update --channel dev --yes --json --no-restart --timeout ${this.updateDevTimeoutSeconds}
 ${guestOpenClawEntryRunner} --version
 ${guestOpenClawEntryRunner} update status --json`,
       {},
@@ -942,7 +942,7 @@ trap '' HUP
 /usr/bin/pkill -f 'openclaw.mjs gateway' >/dev/null 2>&1 || true
 /usr/bin/env HOME=${shellQuote(home)} USER=${shellQuote(this.guestUser)} LOGNAME=${shellQuote(this.guestUser)} PATH=${shellQuote(guestPath)} ${shellQuote(
         `${this.auth.apiKeyEnv}=${this.auth.apiKeyValue}`,
-      )} OPENCLAW_HOME=${shellQuote(home)} OPENCLAW_STATE_DIR=${shellQuote(`${home}/.openclaw`)} OPENCLAW_CONFIG_PATH=${shellQuote(
+      )} GRANTED_HOME=${shellQuote(home)} GRANTED_STATE_DIR=${shellQuote(`${home}/.openclaw`)} GRANTED_CONFIG_PATH=${shellQuote(
         `${home}/.openclaw/openclaw.json`,
       )} ${guestOpenClawEntryRunner} gateway run --bind loopback --port 18789 --force </dev/null >/tmp/openclaw-parallels-macos-gateway.log 2>&1 &
 sleep 1`,

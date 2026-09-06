@@ -35,7 +35,7 @@ describe("SQLite session row persistence", () => {
     async (mode) => {
       const env = {
         ...process.env,
-        OPENCLAW_STATE_DIR: fs.realpathSync(tempDirs.make("session-commit-fact-")),
+        GRANTED_STATE_DIR: fs.realpathSync(tempDirs.make("session-commit-fact-")),
       };
       const scope = { agentId: "main", env, sessionKey: "agent:main:commit-fact" };
       const skillsSnapshot = {
@@ -123,7 +123,7 @@ describe("SQLite session row persistence", () => {
     async ({ mode, sandbox, source }) => {
       const env = {
         ...process.env,
-        OPENCLAW_STATE_DIR: fs.realpathSync(tempDirs.make("session-stamp-")),
+        GRANTED_STATE_DIR: fs.realpathSync(tempDirs.make("session-stamp-")),
       };
       const scope = { agentId: "main", env, sessionKey: "agent:main:stamp" };
       const stamp = {
@@ -186,7 +186,7 @@ describe("SQLite session row persistence", () => {
     async (preserveActivity) => {
       const env = {
         ...process.env,
-        OPENCLAW_STATE_DIR: fs.realpathSync(tempDirs.make("session-stamp-fallback-")),
+        GRANTED_STATE_DIR: fs.realpathSync(tempDirs.make("session-stamp-fallback-")),
       };
       const scope = { agentId: "main", env, sessionKey: "agent:main:fallback" };
       const stamp = {
@@ -207,7 +207,7 @@ describe("SQLite session row persistence", () => {
   it("does not mint creator authority when replacing an unstamped node", async () => {
     const env = {
       ...process.env,
-      OPENCLAW_STATE_DIR: fs.realpathSync(tempDirs.make("session-unstamped-")),
+      GRANTED_STATE_DIR: fs.realpathSync(tempDirs.make("session-unstamped-")),
     };
     const scope = { agentId: "main", env, sessionKey: "agent:main:unstamped" };
     await upsertSessionEntryCore(scope, {
@@ -235,7 +235,7 @@ describe("SQLite session row persistence", () => {
 
   it("persists private workspace intent but excludes runtime-only resolved skills from SQLite JSON", async () => {
     const stateDir = fs.realpathSync(tempDirs.make("openclaw-sqlite-session-skills-"));
-    const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+    const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
     const sessionKey = "agent:main:runtime-skills";
     const resolvedSkills = [
       createCanonicalFixtureSkill({

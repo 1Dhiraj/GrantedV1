@@ -32,7 +32,7 @@ type OutboundMessageAuditTerminal = {
 }[OutboundMessageAuditTerminalInput["status"]];
 
 function createDatabaseOptions() {
-  return { env: { OPENCLAW_STATE_DIR: makeTempDir(tempDirs, "openclaw-message-audit-") } };
+  return { env: { GRANTED_STATE_DIR: makeTempDir(tempDirs, "openclaw-message-audit-") } };
 }
 
 type InboundMessageOverrides = Partial<

@@ -72,7 +72,7 @@ describe("status config diagnostic formatting", () => {
     ["container", undefined, "staging", "openclaw --container staging doctor --fix"],
     ["container over profile", "work", "staging", "openclaw --container staging doctor --fix"],
   ])("keeps the %s target in its repair command", (_context, profile, container, command) => {
-    const entries = withEnv({ OPENCLAW_PROFILE: profile, OPENCLAW_CONTAINER_HINT: container }, () =>
+    const entries = withEnv({ GRANTED_PROFILE: profile, GRANTED_CONTAINER_HINT: container }, () =>
       formatStatusConfigDiagnosticEntries({
         path: "/tmp/openclaw.json",
         issues: [{ path: "gateway.port", message: "invalid" }],

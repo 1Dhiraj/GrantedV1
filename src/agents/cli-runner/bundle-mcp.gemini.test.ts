@@ -49,21 +49,21 @@ describe("prepareCliBundleMcpConfig gemini", () => {
             url: "http://127.0.0.1:23119/mcp",
             excludeTools: ["global_delete"],
             headers: {
-              Authorization: "Bearer ${OPENCLAW_MCP_TOKEN}",
-              "x-openclaw-client-caps": "${OPENCLAW_MCP_CLIENT_CAPS}",
+              Authorization: "Bearer ${GRANTED_MCP_TOKEN}",
+              "x-openclaw-client-caps": "${GRANTED_MCP_CLIENT_CAPS}",
             },
           },
         },
       },
       env: {
-        OPENCLAW_MCP_TOKEN: "lb-tk-123",
-        OPENCLAW_MCP_CLIENT_CAPS: "tool-events,inline-widgets",
+        GRANTED_MCP_TOKEN: "lb-tk-123",
+        GRANTED_MCP_CLIENT_CAPS: "tool-events,inline-widgets",
       },
       toolOverrides: { mcpToolsDeny: { openclaw: ["delete_docs"] }, webSearch: false },
     });
 
     expect(prepared.backend.args).toEqual(["--prompt", "{prompt}"]);
-    expect(prepared.env?.OPENCLAW_MCP_TOKEN).toBe("lb-tk-123");
+    expect(prepared.env?.GRANTED_MCP_TOKEN).toBe("lb-tk-123");
     expect(typeof prepared.env?.GEMINI_CLI_SYSTEM_SETTINGS_PATH).toBe("string");
     // Gemini reads MCP servers from a generated system settings JSON file.
     const raw = JSON.parse(
@@ -228,13 +228,13 @@ describe("prepareCliBundleMcpConfig gemini", () => {
             type: "http",
             url: "http://127.0.0.1:23119/mcp",
             headers: {
-              "x-openclaw-cli-capture-key": "${OPENCLAW_MCP_CLI_CAPTURE_KEY}",
+              "x-openclaw-cli-capture-key": "${GRANTED_MCP_CLI_CAPTURE_KEY}",
             },
           },
         },
       },
       env: {
-        OPENCLAW_MCP_CLI_CAPTURE_KEY: "",
+        GRANTED_MCP_CLI_CAPTURE_KEY: "",
       },
     });
     const attempt = await prepareCliBundleMcpCaptureAttempt({

@@ -21,14 +21,10 @@ beforeAll(async () => {
 });
 
 beforeEach(() => {
-  envSnapshot = captureEnv([
-    "OPENCLAW_TEST_FILE_LOG",
-    "OPENCLAW_TEST_CONSOLE",
-    "OPENCLAW_LOG_LEVEL",
-  ]);
-  delete process.env.OPENCLAW_TEST_FILE_LOG;
-  delete process.env.OPENCLAW_TEST_CONSOLE;
-  delete process.env.OPENCLAW_LOG_LEVEL;
+  envSnapshot = captureEnv(["GRANTED_TEST_FILE_LOG", "GRANTED_TEST_CONSOLE", "GRANTED_LOG_LEVEL"]);
+  delete process.env.GRANTED_TEST_FILE_LOG;
+  delete process.env.GRANTED_TEST_CONSOLE;
+  delete process.env.GRANTED_LOG_LEVEL;
   readLoggingConfigMock.mockClear();
   logging.resetLogger();
   logging.setLoggerOverride(null);
@@ -44,7 +40,7 @@ afterEach(() => {
 
 describe("resolved logging settings cache", () => {
   it("loads file settings once per logger generation", () => {
-    process.env.OPENCLAW_TEST_FILE_LOG = "1";
+    process.env.GRANTED_TEST_FILE_LOG = "1";
     readLoggingConfigMock.mockReturnValue({ level: "silent" });
     logging.setLoggerConfigLoaderForTests(readLoggingConfigMock);
 
@@ -63,7 +59,7 @@ describe("resolved logging settings cache", () => {
   });
 
   it("reuses settings resolved by the file-level admission check when building the logger", () => {
-    process.env.OPENCLAW_TEST_FILE_LOG = "1";
+    process.env.GRANTED_TEST_FILE_LOG = "1";
     readLoggingConfigMock.mockReturnValue({ level: "silent" });
     logging.setLoggerConfigLoaderForTests(readLoggingConfigMock);
 
@@ -74,7 +70,7 @@ describe("resolved logging settings cache", () => {
   });
 
   it("loads console settings once per logger generation", () => {
-    process.env.OPENCLAW_TEST_CONSOLE = "1";
+    process.env.GRANTED_TEST_CONSOLE = "1";
     readLoggingConfigMock.mockReturnValue({ consoleLevel: "silent" });
     logging.setLoggerConfigLoaderForTests(readLoggingConfigMock);
     logging.setLoggerOverride(null);

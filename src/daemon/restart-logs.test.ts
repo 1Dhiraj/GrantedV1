@@ -24,7 +24,7 @@ describe("restart log conventions", () => {
   it("resolves profile-aware gateway logs and restart attempts together", () => {
     const env = {
       HOME: "/Users/test",
-      OPENCLAW_PROFILE: "work",
+      GRANTED_PROFILE: "work",
     };
 
     expect(resolveGatewayLogPaths(env)).toEqual({
@@ -37,10 +37,10 @@ describe("restart log conventions", () => {
     );
   });
 
-  it("honors OPENCLAW_STATE_DIR for restart attempts", () => {
+  it("honors GRANTED_STATE_DIR for restart attempts", () => {
     const env = {
       HOME: "/Users/test",
-      OPENCLAW_STATE_DIR: "/tmp/openclaw-state",
+      GRANTED_STATE_DIR: "/tmp/openclaw-state",
     };
 
     expect(resolveGatewayRestartLogPath(env)).toBe("/tmp/openclaw-state/logs/gateway-restart.log");
@@ -49,7 +49,7 @@ describe("restart log conventions", () => {
   it("keeps macOS LaunchAgent stdout outside the state directory", () => {
     const env = {
       HOME: "/Users/test",
-      OPENCLAW_STATE_DIR: "/Volumes/External/openclaw",
+      GRANTED_STATE_DIR: "/Volumes/External/openclaw",
     };
 
     expect(resolveGatewaySupervisorLogPaths(env, { platform: "darwin" })).toEqual({
@@ -65,7 +65,7 @@ describe("restart log conventions", () => {
   it("keeps macOS LaunchAgent logs profile-aware in the shared user log directory", () => {
     const env = {
       HOME: "/Users/test",
-      OPENCLAW_PROFILE: "work",
+      GRANTED_PROFILE: "work",
     };
 
     expect(resolveGatewaySupervisorLogPaths(env, { platform: "darwin" })).toEqual({
@@ -102,7 +102,7 @@ describe("restart log conventions", () => {
     tempDirs.push(stateDir);
 
     appendGatewayLifecycleAuditLog(
-      { OPENCLAW_STATE_DIR: stateDir },
+      { GRANTED_STATE_DIR: stateDir },
       {
         action: "restart",
         source: "safe-rpc",
@@ -129,7 +129,7 @@ describe("restart log conventions", () => {
 
     expect(() =>
       appendGatewayLifecycleAuditLog(
-        { OPENCLAW_STATE_DIR: path.join(blocker, "state") },
+        { GRANTED_STATE_DIR: path.join(blocker, "state") },
         {
           action: "stop",
           source: "cli",

@@ -8,13 +8,13 @@ import {
   readOpenClawDatabaseQuarantine,
   recordOpenClawDatabaseQuarantine,
 } from "../state/openclaw-quarantine-store.js";
-import { OPENCLAW_STATE_SCHEMA_VERSION } from "../state/openclaw-state-db-contract.js";
+import { GRANTED_STATE_SCHEMA_VERSION } from "../state/openclaw-state-db-contract.js";
 import {
   closeOpenClawStateDatabase,
   openOpenClawStateDatabase,
 } from "../state/openclaw-state-db.js";
 import { resolveOpenClawStateSqlitePath } from "../state/openclaw-state-db.paths.js";
-import { OPENCLAW_STATE_SCHEMA_SQL } from "../state/openclaw-state-schema.js";
+import { GRANTED_STATE_SCHEMA_SQL } from "../state/openclaw-state-schema.js";
 import { runDoctorStateSqliteCompact } from "./doctor-state-sqlite-compact.js";
 
 const tempDirs = useAutoCleanupTempDirTracker((cleanup) => {
@@ -31,7 +31,7 @@ type CompletedStateSqliteCompactReport = Extract<
 
 function createStateEnv(): NodeJS.ProcessEnv {
   const stateDir = tempDirs.make("openclaw-state-compact-");
-  return { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+  return { ...process.env, GRANTED_STATE_DIR: stateDir };
 }
 
 function seedStateDatabase(params: {
@@ -44,12 +44,12 @@ function seedStateDatabase(params: {
   fs.mkdirSync(path.dirname(sqlitePath), { recursive: true });
   const sqlite = requireNodeSqlite();
   const database = new sqlite.DatabaseSync(sqlitePath);
-  const schemaVersion = params.schemaVersion ?? OPENCLAW_STATE_SCHEMA_VERSION;
+  const schemaVersion = params.schemaVersion ?? GRANTED_STATE_SCHEMA_VERSION;
   try {
     database.exec(`
       PRAGMA auto_vacuum = NONE;
       PRAGMA journal_mode = WAL;
-      ${OPENCLAW_STATE_SCHEMA_SQL}
+      ${GRANTED_STATE_SCHEMA_SQL}
       CREATE TABLE compact_payload (
         id INTEGER PRIMARY KEY,
         payload TEXT NOT NULL
@@ -280,8 +280,8 @@ describe("runDoctorStateSqliteCompact", () => {
   });
 
   it.each([
-    ["legacy", OPENCLAW_STATE_SCHEMA_VERSION - 1, /doctor --fix before compacting/],
-    ["future", OPENCLAW_STATE_SCHEMA_VERSION + 1, /uses newer schema version/],
+    ["legacy", GRANTED_STATE_SCHEMA_VERSION - 1, /doctor --fix before compacting/],
+    ["future", GRANTED_STATE_SCHEMA_VERSION + 1, /uses newer schema version/],
   ] as const)(
     "rejects a %s shared-state schema before mutation",
     async (_label, schemaVersion, message) => {

@@ -54,7 +54,7 @@ const client = {
   connect: { device: { id: "device-test" } },
 } as GatewayClient;
 
-const originalStateDir = process.env.OPENCLAW_STATE_DIR;
+const originalStateDir = process.env.GRANTED_STATE_DIR;
 
 beforeEach(async () => {
   const fixture = await createSystemAgentVerifiedInferenceTestFixture(verifiedConfig);
@@ -71,9 +71,9 @@ afterEach(() => {
   inferenceFallbackMocks.verifySystemAgentInferenceWithFallback.mockReset();
   closeOpenClawStateDatabase();
   if (originalStateDir === undefined) {
-    delete process.env.OPENCLAW_STATE_DIR;
+    delete process.env.GRANTED_STATE_DIR;
   } else {
-    process.env.OPENCLAW_STATE_DIR = originalStateDir;
+    process.env.GRANTED_STATE_DIR = originalStateDir;
   }
   resetCommandQueueStateForTest();
 });
@@ -123,7 +123,7 @@ function nextSessionSeed() {
  */
 async function withTranscriptState(prefix: string, run: () => Promise<void>): Promise<void> {
   await withTestDir({ prefix }, async (stateDir) => {
-    process.env.OPENCLAW_STATE_DIR = stateDir;
+    process.env.GRANTED_STATE_DIR = stateDir;
     try {
       await run();
     } finally {

@@ -199,8 +199,8 @@ describe("system-agent setup transaction", () => {
     localOnboarding.read.mockClear();
     localOnboarding.readForConfig.mockClear();
     localOnboarding.complete.mockClear();
-    stateDirSnapshot = captureEnv(["OPENCLAW_STATE_DIR"]);
-    vi.stubEnv("OPENCLAW_TEST_FAST", "1");
+    stateDirSnapshot = captureEnv(["GRANTED_STATE_DIR"]);
+    vi.stubEnv("GRANTED_TEST_FAST", "1");
   });
 
   afterEach(() => {
@@ -252,7 +252,7 @@ describe("system-agent setup transaction", () => {
     expect(mocks.ensureOnboardingAgent).not.toHaveBeenCalled();
   });
   it("resumes and completes the approved pending local onboarding owner", async () => {
-    setTestEnvValue("OPENCLAW_STATE_DIR", opTempDirs.make("openclaw-recovery-complete-"));
+    setTestEnvValue("GRANTED_STATE_DIR", opTempDirs.make("openclaw-recovery-complete-"));
     const pending = createPendingLocalOnboarding();
     const applySetup = vi.fn(async () => createRecoverySetupResult());
     const beforePersistentApply = vi.fn(() => {});
@@ -281,7 +281,7 @@ describe("system-agent setup transaction", () => {
   });
 
   it("does not adopt a pending receipt from the replaced config at the same path", async () => {
-    setTestEnvValue("OPENCLAW_STATE_DIR", opTempDirs.make("openclaw-recovery-stale-"));
+    setTestEnvValue("GRANTED_STATE_DIR", opTempDirs.make("openclaw-recovery-stale-"));
     const pending = createPendingLocalOnboarding();
     setRecoveryConfig(pending, "2026-08-03T00:00:00.000Z");
     const applySetup = vi.fn(async () => createRecoverySetupResult());
@@ -315,7 +315,7 @@ describe("system-agent setup transaction", () => {
       error: "service install failed",
     },
   ])("keeps onboarding pending when $label fails", async ({ overrides, error }) => {
-    setTestEnvValue("OPENCLAW_STATE_DIR", opTempDirs.make("openclaw-recovery-failure-"));
+    setTestEnvValue("GRANTED_STATE_DIR", opTempDirs.make("openclaw-recovery-failure-"));
     const pending = createPendingLocalOnboarding();
     const applySetup = vi.fn(async () => createRecoverySetupResult(overrides));
     const { runtime, lines } = createSystemAgentTestRuntime();
@@ -333,7 +333,7 @@ describe("system-agent setup transaction", () => {
   });
 
   it("never completes a competing onboarding owner after setup succeeds", async () => {
-    setTestEnvValue("OPENCLAW_STATE_DIR", opTempDirs.make("openclaw-recovery-replaced-"));
+    setTestEnvValue("GRANTED_STATE_DIR", opTempDirs.make("openclaw-recovery-replaced-"));
     const pending = createPendingLocalOnboarding();
     const replacement: LocalOnboardingState = { ...pending, runId: "replacement-run" };
     const applySetup = vi.fn(async () => {
@@ -508,7 +508,7 @@ describe("system-agent setup transaction", () => {
   });
 
   it("rechecks setup authority immediately before completing onboarding", async () => {
-    setTestEnvValue("OPENCLAW_STATE_DIR", opTempDirs.make("openclaw-recovery-authority-"));
+    setTestEnvValue("GRANTED_STATE_DIR", opTempDirs.make("openclaw-recovery-authority-"));
     const pending = createPendingLocalOnboarding();
     const applySetup = vi.fn(async () => createRecoverySetupResult());
     let authorizations = 0;
@@ -577,7 +577,7 @@ describe("system-agent setup transaction", () => {
   });
 
   it("does not adopt or complete local onboarding from a gateway-hosted setup", async () => {
-    setTestEnvValue("OPENCLAW_STATE_DIR", opTempDirs.make("openclaw-recovery-gateway-"));
+    setTestEnvValue("GRANTED_STATE_DIR", opTempDirs.make("openclaw-recovery-gateway-"));
     const pending = createPendingLocalOnboarding();
     const applySetup = vi.fn(async () => createRecoverySetupResult());
     const { runtime } = createSystemAgentTestRuntime();

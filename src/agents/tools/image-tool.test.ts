@@ -149,7 +149,7 @@ vi.mock("../auth-profiles.js", () => ({
   externalCliDiscoveryForProviderAuth: (params: { provider: string }) => params,
   ensureAuthProfileStore: (agentDir?: string) => {
     const store = readMockAuthProfileStore(agentDir);
-    if (process.env.OPENCLAW_TEST_CODEX_CLI_OAUTH === "1") {
+    if (process.env.GRANTED_TEST_CODEX_CLI_OAUTH === "1") {
       store.profiles["openai:default"] = {
         provider: "openai",
         type: "oauth",
@@ -195,7 +195,7 @@ vi.mock("../auth-profiles/external-cli-sync.js", () => ({
       Array.from(options?.providerIds ?? []).map((providerId) => providerId.toLowerCase()),
     );
     if (
-      process.env.OPENCLAW_TEST_CODEX_CLI_OAUTH !== "1" ||
+      process.env.GRANTED_TEST_CODEX_CLI_OAUTH !== "1" ||
       (!providerIds.has("openai") && !providerIds.has("codex"))
     ) {
       return [];
@@ -926,7 +926,7 @@ describe("image tool implicit imageModel config", () => {
     "DASHSCOPE_API_KEY",
     "ZAI_API_KEY",
     "Z_AI_API_KEY",
-    "OPENCLAW_TEST_CODEX_CLI_OAUTH",
+    "GRANTED_TEST_CODEX_CLI_OAUTH",
     // Avoid implicit Copilot provider discovery hitting the network in tests.
     "COPILOT_GITHUB_TOKEN",
     "GH_TOKEN",
@@ -1141,7 +1141,7 @@ describe("image tool implicit imageModel config", () => {
 
   it("lets external CLI Codex OAuth survive the candidate auth filter", async () => {
     await withTempAgentDir(async (agentDir) => {
-      vi.stubEnv("OPENCLAW_TEST_CODEX_CLI_OAUTH", "1");
+      vi.stubEnv("GRANTED_TEST_CODEX_CLI_OAUTH", "1");
       installImageUnderstandingProviderStubs(minimaxProvider, moonshotProvider, codexMediaProvider);
 
       expect(resolveImageModelConfigForTool({ cfg: openAiPrimaryCfg, agentDir })).toEqual(
@@ -1152,7 +1152,7 @@ describe("image tool implicit imageModel config", () => {
 
   it("lets external CLI Codex OAuth survive a supplied scoped auth store", async () => {
     await withTempAgentDir(async (agentDir) => {
-      vi.stubEnv("OPENCLAW_TEST_CODEX_CLI_OAUTH", "1");
+      vi.stubEnv("GRANTED_TEST_CODEX_CLI_OAUTH", "1");
       installImageUnderstandingProviderStubs(minimaxProvider, moonshotProvider, codexMediaProvider);
 
       expect(
@@ -2945,7 +2945,7 @@ describe("image tool managed inbound media", () => {
     await fs.mkdir(inboundDir, { recursive: true });
     await fs.writeFile(mediaPath, Buffer.from(ONE_PIXEL_PNG_B64, "base64"));
     try {
-      await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () => {
+      await withEnvAsync({ GRANTED_STATE_DIR: stateDir }, async () => {
         await run({ stateDir, mediaId, mediaPath });
       });
     } finally {

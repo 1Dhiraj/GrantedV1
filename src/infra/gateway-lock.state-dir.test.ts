@@ -32,8 +32,8 @@ describe("gateway lock state directory", () => {
           allowInTests: true,
           env: {
             ...process.env,
-            OPENCLAW_CONFIG_PATH: configPath,
-            OPENCLAW_STATE_DIR: stateDir,
+            GRANTED_CONFIG_PATH: configPath,
+            GRANTED_STATE_DIR: stateDir,
           },
           timeoutMs: 30,
         }),
@@ -61,9 +61,9 @@ describe("gateway lock state directory", () => {
       const env = {
         ...process.env,
         HOME: fakeHome,
-        OPENCLAW_HOME: fakeHome,
-        OPENCLAW_CONFIG_PATH: configPath,
-        OPENCLAW_STATE_DIR: stateDir,
+        GRANTED_HOME: fakeHome,
+        GRANTED_CONFIG_PATH: configPath,
+        GRANTED_STATE_DIR: stateDir,
       };
 
       const lock = expectGatewayLock(
@@ -121,8 +121,8 @@ describe("gateway lock state directory", () => {
           allowInTests: true,
           env: {
             ...process.env,
-            OPENCLAW_CONFIG_PATH: path.join(linkedStateDir, "openclaw.json"),
-            OPENCLAW_STATE_DIR: linkedStateDir,
+            GRANTED_CONFIG_PATH: path.join(linkedStateDir, "openclaw.json"),
+            GRANTED_STATE_DIR: linkedStateDir,
           },
           timeoutMs: 30,
         }),

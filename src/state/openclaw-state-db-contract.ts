@@ -12,8 +12,8 @@ import type { SqliteWalMaintenance } from "../infra/sqlite-wal.js";
 // v7 retires the inert shared commitments table.
 // v6 makes every committed shared-state table part of the canonical runtime schema.
 // v5 records durable cloud-worker result refs on pending workspace fences.
-export const OPENCLAW_STATE_SCHEMA_VERSION = 15;
-export const OPENCLAW_STATE_STRICT_SCHEMA_VERSION = 3;
+export const GRANTED_STATE_SCHEMA_VERSION = 15;
+export const GRANTED_STATE_STRICT_SCHEMA_VERSION = 3;
 // Privacy-sensitive feature tables remain absent even in fresh databases until
 // their feature-local first write. The canonical SQL still owns their shape.
 export const FIRST_USE_STATE_TABLES = [
@@ -80,9 +80,9 @@ export const LAZY_ADDITIVE_STATE_INDEXES = [
   "secret_store_entries_live_idx",
 ] as const;
 /** Maximum time one synchronous SQLite call may wait for a lock. */
-export const OPENCLAW_SQLITE_BUSY_TIMEOUT_MS = 5_000;
+export const GRANTED_SQLITE_BUSY_TIMEOUT_MS = 5_000;
 /** User-facing guide for schema refusals; lives here so error sites avoid import cycles. */
-export const OPENCLAW_DATABASE_SCHEMA_DOCS_URL =
+export const GRANTED_DATABASE_SCHEMA_DOCS_URL =
   "https://docs.openclaw.ai/reference/database-schemas";
 
 /** Open shared SQLite database handle plus WAL maintenance lifecycle. */

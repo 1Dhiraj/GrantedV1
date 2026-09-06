@@ -28,7 +28,7 @@ export async function measureStartup<T>(
 }
 
 export function createGatewayStartupTrace(log: GatewayLogger, startedAt = performance.now()) {
-  const logEnabled = isTruthyEnvValue(process.env.OPENCLAW_GATEWAY_STARTUP_TRACE);
+  const logEnabled = isTruthyEnvValue(process.env.GRANTED_GATEWAY_STARTUP_TRACE);
   let timelineConfig: OpenClawConfig | undefined;
   let eventLoopDelay: ReturnType<typeof monitorEventLoopDelay> | undefined;
   const timelineOptions = () => ({
@@ -37,7 +37,7 @@ export function createGatewayStartupTrace(log: GatewayLogger, startedAt = perfor
   });
   const eventLoopTimelineEnabled = () =>
     isDiagnosticsTimelineEnabled(timelineOptions()) &&
-    isTruthyEnvValue(process.env.OPENCLAW_DIAGNOSTICS_EVENT_LOOP);
+    isTruthyEnvValue(process.env.GRANTED_DIAGNOSTICS_EVENT_LOOP);
   const ensureEventLoopDelay = () => {
     if (eventLoopDelay || (!logEnabled && !eventLoopTimelineEnabled())) {
       return;

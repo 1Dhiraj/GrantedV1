@@ -204,7 +204,7 @@ describe("sdk-loader", () => {
     expect(primaryImport).toHaveBeenCalledTimes(2);
   });
 
-  it("resolves the fallback install from OPENCLAW_STATE_DIR", async () => {
+  it("resolves the fallback install from GRANTED_STATE_DIR", async () => {
     const stateDir = mkdtempSync(path.join(tmpdir(), "copilot-sdk-loader-state-"));
     try {
       const fallbackPath = path.join(
@@ -216,7 +216,7 @@ describe("sdk-loader", () => {
         "copilot-sdk",
       );
       mkdirSync(fallbackPath, { recursive: true });
-      vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
+      vi.stubEnv("GRANTED_STATE_DIR", stateDir);
       const fallbackImport = vi.fn(async (absolutePath: string) => {
         expect(absolutePath).toBe(fallbackPath);
         return FAKE_SDK;

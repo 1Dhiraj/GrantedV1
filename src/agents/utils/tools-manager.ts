@@ -54,7 +54,7 @@ const TOOL_INSTALL_LOCK_OPTIONS: FileLockOptions = {
 };
 
 function isOfflineModeEnabled(): boolean {
-  return isTruthyEnvValue(process.env.OPENCLAW_OFFLINE);
+  return isTruthyEnvValue(process.env.GRANTED_OFFLINE);
 }
 
 interface ToolConfig {

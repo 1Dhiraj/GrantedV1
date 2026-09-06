@@ -97,13 +97,13 @@ function openStore(): PluginStateSyncKeyedStore<unknown> {
 }
 
 describe("durable extension session tab cleanup", () => {
-  const originalStateDir = process.env.OPENCLAW_STATE_DIR;
+  const originalStateDir = process.env.GRANTED_STATE_DIR;
   let resolved: ResolvedBrowserConfig;
 
   beforeEach(() => {
     clearRuntimeConfigSnapshot();
     clearProcessLocalTabState();
-    process.env.OPENCLAW_STATE_DIR = tempDirs.make("openclaw-browser-extension-tabs-");
+    process.env.GRANTED_STATE_DIR = tempDirs.make("openclaw-browser-extension-tabs-");
     resetPluginStateStoreForTests();
     installRuntime();
     openStore().clear();
@@ -117,9 +117,9 @@ describe("durable extension session tab cleanup", () => {
     clearProcessLocalTabState();
     resetPluginStateStoreForTests();
     if (originalStateDir === undefined) {
-      delete process.env.OPENCLAW_STATE_DIR;
+      delete process.env.GRANTED_STATE_DIR;
     } else {
-      process.env.OPENCLAW_STATE_DIR = originalStateDir;
+      process.env.GRANTED_STATE_DIR = originalStateDir;
     }
   });
 

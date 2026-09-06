@@ -33,7 +33,7 @@ const content =
 describe("read-only session skill library projection", () => {
   it("exposes exact private pins to a shared-session reader without granting library access or changing selections", async () => {
     const root = temps.make("library-session-projection-");
-    vi.stubEnv("OPENCLAW_STATE_DIR", root);
+    vi.stubEnv("GRANTED_STATE_DIR", root);
     const alice = ensureProfileForEmail("alice@example.test");
     const bob = ensureProfileForEmail("bob@example.test");
     const cfg = { agents: { list: [{ id: "main", workspace: path.join(root, "workspace") }] } };

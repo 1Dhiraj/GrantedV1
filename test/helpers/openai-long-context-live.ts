@@ -4,16 +4,16 @@ import { SessionManager } from "../../src/agents/sessions/session-manager.js";
 import type { OpenClawConfig } from "../../src/config/config.js";
 import { resolveAgentModelPrimaryValue } from "../../src/config/model-input.js";
 
-export const OPENAI_LONG_CONTEXT_LIVE_ENV = "OPENCLAW_LIVE_OPENAI_LONG_CONTEXT";
-export const OPENAI_LONG_CONTEXT_PROFILE_ENV = "OPENCLAW_LIVE_OPENAI_LONG_CONTEXT_PROFILE";
-export const OPENAI_LONG_CONTEXT_METRICS_ENV = "OPENCLAW_LIVE_OPENAI_LONG_CONTEXT_METRICS";
-export const OPENAI_LONG_OUTPUT_ENV = "OPENCLAW_LIVE_OPENAI_LONG_CONTEXT_OUTPUT";
-const OPENAI_LONG_TOOL_OUTPUT_ENV = "OPENCLAW_LIVE_OPENAI_LONG_CONTEXT_TOOL_OUTPUT";
-export const OPENAI_LONG_TOOL_BYTES_ENV = "OPENCLAW_LIVE_OPENAI_LONG_CONTEXT_TOOL_BYTES";
+export const OPENAI_LONG_CONTEXT_LIVE_ENV = "GRANTED_LIVE_OPENAI_LONG_CONTEXT";
+export const OPENAI_LONG_CONTEXT_PROFILE_ENV = "GRANTED_LIVE_OPENAI_LONG_CONTEXT_PROFILE";
+export const OPENAI_LONG_CONTEXT_METRICS_ENV = "GRANTED_LIVE_OPENAI_LONG_CONTEXT_METRICS";
+export const OPENAI_LONG_OUTPUT_ENV = "GRANTED_LIVE_OPENAI_LONG_CONTEXT_OUTPUT";
+const OPENAI_LONG_TOOL_OUTPUT_ENV = "GRANTED_LIVE_OPENAI_LONG_CONTEXT_TOOL_OUTPUT";
+export const OPENAI_LONG_TOOL_BYTES_ENV = "GRANTED_LIVE_OPENAI_LONG_CONTEXT_TOOL_BYTES";
 
 const OFFICIAL_OPENAI_BASE_URL = "https://api.openai.com/v1";
 const OPENAI_RESPONSES_API = "openai-responses";
-const OPENCLAW_RUNTIME = "openclaw";
+const GRANTED_RUNTIME = "openclaw";
 const TOOL_BYTES_MIN = 300_000;
 const TOOL_BYTES_MAX = 800_000;
 
@@ -24,7 +24,7 @@ export type OpenAILongContextProfile = {
   modelRef: string;
   api: typeof OPENAI_RESPONSES_API;
   baseUrl: typeof OFFICIAL_OPENAI_BASE_URL;
-  runtime: typeof OPENCLAW_RUNTIME;
+  runtime: typeof GRANTED_RUNTIME;
   contextWindow: number;
   contextTokens: number;
   maxTokens: number;
@@ -44,7 +44,7 @@ const PROFILES = {
     modelRef: "openai/gpt-5.6-luna",
     api: OPENAI_RESPONSES_API,
     baseUrl: OFFICIAL_OPENAI_BASE_URL,
-    runtime: OPENCLAW_RUNTIME,
+    runtime: GRANTED_RUNTIME,
     contextWindow: 48_000,
     contextTokens: 48_000,
     maxTokens: 8_192,
@@ -65,7 +65,7 @@ const PROFILES = {
     modelRef: "openai/gpt-5.6-sol",
     api: OPENAI_RESPONSES_API,
     baseUrl: OFFICIAL_OPENAI_BASE_URL,
-    runtime: OPENCLAW_RUNTIME,
+    runtime: GRANTED_RUNTIME,
     contextWindow: 1_050_000,
     contextTokens: 922_000,
     maxTokens: 128_000,
@@ -135,7 +135,7 @@ export function resolveOpenAILongContextLiveSettings(
     return { enabled: false };
   }
   if (!liveEnabled) {
-    throw new Error(`${OPENAI_LONG_CONTEXT_LIVE_ENV}=1 also requires OPENCLAW_LIVE_TEST=1`);
+    throw new Error(`${OPENAI_LONG_CONTEXT_LIVE_ENV}=1 also requires GRANTED_LIVE_TEST=1`);
   }
   const rawProfile = env[OPENAI_LONG_CONTEXT_PROFILE_ENV]?.trim();
   if (rawProfile !== "reduced" && rawProfile !== "full") {

@@ -262,7 +262,7 @@ export async function createSetupMigrationStage(params: {
   targetConfig: OpenClawConfig;
 }): Promise<SetupMigrationStage> {
   const agentId = resolveDefaultAgentId(params.targetConfig);
-  const finalEnv = { ...process.env, OPENCLAW_STATE_DIR: params.stateDir };
+  const finalEnv = { ...process.env, GRANTED_STATE_DIR: params.stateDir };
   const finalAgentDir = resolveAgentDir(params.targetConfig, agentId, finalEnv);
   const stagedStateDir = await makePrivateStageNear(params.stateDir, "migration-state");
   const stagedWorkspaceDir = await makePrivateStageNear(params.workspaceDir, "migration-workspace");
@@ -273,7 +273,7 @@ export async function createSetupMigrationStage(params: {
     params.providerId,
     path.basename(params.reportDir),
   );
-  const stageEnv = { ...process.env, OPENCLAW_STATE_DIR: stagedStateDir };
+  const stageEnv = { ...process.env, GRANTED_STATE_DIR: stagedStateDir };
   const stagedConfig: OpenClawConfig = {
     ...structuredClone(params.targetConfig),
     agents: {

@@ -163,9 +163,7 @@ const isGatewayWatchCommand = (args: string[]) => args[0] === "gateway";
 const shouldRunAutoDoctor = (deps: WatchDeps, autoDoctorAttempted: boolean) =>
   !autoDoctorAttempted &&
   isGatewayWatchCommand(deps.args) &&
-  !AUTO_DOCTOR_DISABLE_VALUES.has(
-    (deps.env.OPENCLAW_GATEWAY_WATCH_AUTO_DOCTOR ?? "").toLowerCase(),
-  );
+  !AUTO_DOCTOR_DISABLE_VALUES.has((deps.env.GRANTED_GATEWAY_WATCH_AUTO_DOCTOR ?? "").toLowerCase());
 
 const isProcessAlive = (pid: unknown, signalProcess: SignalProcess) => {
   if (typeof pid !== "number" || !Number.isInteger(pid) || pid <= 0) {
@@ -352,13 +350,13 @@ export async function runWatchMain(params: WatchMainParams = {}): Promise<number
   const childEnv = { ...deps.env };
   const watchSession = `${deps.now()}-${deps.process.pid}`;
   const useChildProcessGroup = process.platform !== "win32" && !deps.process.stdin?.isTTY;
-  childEnv.OPENCLAW_WATCH_MODE = "1";
-  childEnv.OPENCLAW_WATCH_SESSION = watchSession;
+  childEnv.GRANTED_WATCH_MODE = "1";
+  childEnv.GRANTED_WATCH_SESSION = watchSession;
   // The watcher owns process restarts; keep SIGUSR1/config reloads in-process
   // so inherited launchd/systemd markers do not make the child exit and stall.
-  childEnv.OPENCLAW_NO_RESPAWN = "1";
+  childEnv.GRANTED_NO_RESPAWN = "1";
   if (deps.args.length > 0) {
-    childEnv.OPENCLAW_WATCH_COMMAND = deps.args.join(" ");
+    childEnv.GRANTED_WATCH_COMMAND = deps.args.join(" ");
   }
 
   return await new Promise<number>((resolve, reject) => {

@@ -494,7 +494,7 @@ async function withStateDirForStorePath<T>(
   const stateRoot = path.dirname(path.dirname(storePath));
   resetTaskRegistryForTests();
   try {
-    return await withEnvAsync({ OPENCLAW_STATE_DIR: stateRoot }, runWithStateDir);
+    return await withEnvAsync({ GRANTED_STATE_DIR: stateRoot }, runWithStateDir);
   } finally {
     resetTaskRegistryForTests();
   }

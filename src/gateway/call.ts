@@ -152,10 +152,10 @@ type CallGatewayBaseOptions = {
   configPath?: string;
   /**
    * Explicit local gateway port for command-line overrides such as `gateway health --port`.
-   * Bypasses OPENCLAW_GATEWAY_URL and OPENCLAW_GATEWAY_PORT for this call only.
+   * Bypasses GRANTED_GATEWAY_URL and GRANTED_GATEWAY_PORT for this call only.
    */
   localPortOverride?: number;
-  /** Keep a caller-supplied config target authoritative over OPENCLAW_GATEWAY_URL. */
+  /** Keep a caller-supplied config target authoritative over GRANTED_GATEWAY_URL. */
   ignoreEnvUrlOverride?: boolean;
 };
 
@@ -600,8 +600,8 @@ function resolveGatewayCallTimeout(timeoutValue: unknown): {
   safeTimerTimeoutMs: number;
 } {
   const hasEnvHandshakeTimeout =
-    Boolean(process.env.OPENCLAW_HANDSHAKE_TIMEOUT_MS) ||
-    Boolean(isVitestRuntimeEnv() && process.env.OPENCLAW_TEST_HANDSHAKE_TIMEOUT_MS);
+    Boolean(process.env.GRANTED_HANDSHAKE_TIMEOUT_MS) ||
+    Boolean(isVitestRuntimeEnv() && process.env.GRANTED_TEST_HANDSHAKE_TIMEOUT_MS);
   const resolvedHandshakeTimeoutMs = hasEnvHandshakeTimeout
     ? resolvePreauthHandshakeTimeoutMs()
     : undefined;

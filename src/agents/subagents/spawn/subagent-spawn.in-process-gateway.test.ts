@@ -59,7 +59,7 @@ import { callSubagentGateway } from "./subagent-spawn-gateway.js";
 import { spawnSubagentDirect } from "./subagent-spawn.js";
 import { testing as subagentSpawnTesting } from "./subagent-spawn.test-support.js";
 
-const envSnapshot = captureEnv(["OPENCLAW_CONFIG_PATH", "OPENCLAW_STATE_DIR"]);
+const envSnapshot = captureEnv(["GRANTED_CONFIG_PATH", "GRANTED_STATE_DIR"]);
 let stateDir = "";
 
 function makeGatewayContext(): GatewayRequestContext {
@@ -171,8 +171,8 @@ describe("spawnSubagentDirect in-process Gateway collector launch", () => {
     });
 
     stateDir = await mkdtemp(path.join(os.tmpdir(), "openclaw-swarm-gateway-"));
-    setTestEnvValue("OPENCLAW_STATE_DIR", stateDir);
-    setTestEnvValue("OPENCLAW_CONFIG_PATH", path.join(stateDir, "openclaw.json"));
+    setTestEnvValue("GRANTED_STATE_DIR", stateDir);
+    setTestEnvValue("GRANTED_CONFIG_PATH", path.join(stateDir, "openclaw.json"));
     await writeFile(
       path.join(stateDir, "openclaw.json"),
       `${JSON.stringify({

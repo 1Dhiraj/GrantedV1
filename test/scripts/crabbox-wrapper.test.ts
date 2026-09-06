@@ -89,14 +89,14 @@ function writeFakeCrabbox(binDir: string, helpText: string): string {
   mkdirSync(binDir, { recursive: true });
   const crabboxPath = path.join(binDir, "crabbox");
   const stampClaimScript = [
-    "const claimPaths = [process.env.OPENCLAW_FAKE_CRABBOX_CLAIM_PATH, process.env.OPENCLAW_FAKE_CRABBOX_EXTRA_CLAIM_PATH].filter(Boolean);",
-    "for (const claimPath of claimPaths) { const claim = fs.existsSync(claimPath) ? JSON.parse(fs.readFileSync(claimPath, 'utf8')) : { leaseID: process.env.OPENCLAW_FAKE_CRABBOX_TIMING_LEASE_ID }; claim.repoRoot = process.env.OPENCLAW_FAKE_CRABBOX_CLAIM_REPO_ROOT || process.cwd(); fs.mkdirSync(path.dirname(claimPath), { recursive: true }); fs.writeFileSync(claimPath, JSON.stringify(claim) + '\\n', 'utf8'); }",
-    "if (process.env.OPENCLAW_FAKE_CRABBOX_TIMING_LEASE_ID) process.stderr.write(JSON.stringify({ provider: 'blacksmith-testbox', leaseId: process.env.OPENCLAW_FAKE_CRABBOX_TIMING_LEASE_ID, exitCode: 0 }) + '\\n');",
+    "const claimPaths = [process.env.GRANTED_FAKE_CRABBOX_CLAIM_PATH, process.env.GRANTED_FAKE_CRABBOX_EXTRA_CLAIM_PATH].filter(Boolean);",
+    "for (const claimPath of claimPaths) { const claim = fs.existsSync(claimPath) ? JSON.parse(fs.readFileSync(claimPath, 'utf8')) : { leaseID: process.env.GRANTED_FAKE_CRABBOX_TIMING_LEASE_ID }; claim.repoRoot = process.env.GRANTED_FAKE_CRABBOX_CLAIM_REPO_ROOT || process.cwd(); fs.mkdirSync(path.dirname(claimPath), { recursive: true }); fs.writeFileSync(claimPath, JSON.stringify(claim) + '\\n', 'utf8'); }",
+    "if (process.env.GRANTED_FAKE_CRABBOX_TIMING_LEASE_ID) process.stderr.write(JSON.stringify({ provider: 'blacksmith-testbox', leaseId: process.env.GRANTED_FAKE_CRABBOX_TIMING_LEASE_ID, exitCode: 0 }) + '\\n');",
   ].join("");
   // Keep the descendant in the fake's process group, and publish readiness only
   // after its signal handlers exist so the wrapper's group cleanup is deterministic.
   const signalIgnoringDescendantScript =
-    "import fs from 'node:fs'; process.on('SIGHUP', () => {}); process.on('SIGINT', () => {}); process.on('SIGTERM', () => {}); const pidPath = process.env.OPENCLAW_FAKE_CRABBOX_DESCENDANT_PID_PATH; const tmpPath = pidPath + '.tmp.' + process.pid; fs.writeFileSync(tmpPath, String(process.pid)); fs.renameSync(tmpPath, pidPath); setInterval(() => {}, 1000);";
+    "import fs from 'node:fs'; process.on('SIGHUP', () => {}); process.on('SIGINT', () => {}); process.on('SIGTERM', () => {}); const pidPath = process.env.GRANTED_FAKE_CRABBOX_DESCENDANT_PID_PATH; const tmpPath = pidPath + '.tmp.' + process.pid; fs.writeFileSync(tmpPath, String(process.pid)); fs.renameSync(tmpPath, pidPath); setInterval(() => {}, 1000);";
   // The two cwd-loss modes distinguish active-child monitoring from the post-exit
   // guard; both must chdir away before deleting the temporary checkout.
   const script = String.raw`
@@ -108,34 +108,34 @@ const optionValue = (name) => {
   return index >= 0 ? args[index + 1] || "" : assigned?.slice(assigned.indexOf("=") + 1) || "";
 };
 async function main() {
-  if (process.env.OPENCLAW_FAKE_CRABBOX_INVOCATION_LOG) fs.appendFileSync(process.env.OPENCLAW_FAKE_CRABBOX_INVOCATION_LOG, JSON.stringify(args) + "\n");
-  if (args[0] === "--version") { console.log(process.env.OPENCLAW_FAKE_CRABBOX_VERSION || "crabbox 0.22.1"); return; }
+  if (process.env.GRANTED_FAKE_CRABBOX_INVOCATION_LOG) fs.appendFileSync(process.env.GRANTED_FAKE_CRABBOX_INVOCATION_LOG, JSON.stringify(args) + "\n");
+  if (args[0] === "--version") { console.log(process.env.GRANTED_FAKE_CRABBOX_VERSION || "crabbox 0.22.1"); return; }
   if (args[0] === "run" && args[1] === "--help") { process.stdout.write(helpText); return; }
   if (args[0] === "warmup" && args[1] === "--help") { process.stdout.write(${JSON.stringify(`${helpText}${fakeWarmupValueOptionHelp}`)}); return; }
   if (args[0] === "actions" && args[1] === "hydrate" && args[2] === "--help") { process.stdout.write(${JSON.stringify(`${helpText}${fakeHydrateValueOptionHelp}`)}); return; }
   if (args[0] === "doctor") {
     const provider = optionValue("provider"); const target = optionValue("target"); const windowsMode = optionValue("windows-mode");
-    if (process.env.OPENCLAW_FAKE_CRABBOX_DOCTOR_PROGRESS) process.stderr.write(process.env.OPENCLAW_FAKE_CRABBOX_DOCTOR_PROGRESS + "\n");
-    await wait(Number.parseInt(process.env.OPENCLAW_FAKE_CRABBOX_DOCTOR_DELAY_MS || "0", 10));
-    if (process.env.OPENCLAW_FAKE_CRABBOX_EXPECT_DOCTOR_TARGET && target !== process.env.OPENCLAW_FAKE_CRABBOX_EXPECT_DOCTOR_TARGET) { process.stderr.write("doctor target mismatch: got=" + target + "\n"); process.exit(64); }
-    if (process.env.OPENCLAW_FAKE_CRABBOX_EXPECT_DOCTOR_WINDOWS_MODE && windowsMode !== process.env.OPENCLAW_FAKE_CRABBOX_EXPECT_DOCTOR_WINDOWS_MODE) { process.stderr.write("doctor windows mode mismatch: got=" + windowsMode + "\n"); process.exit(64); }
-    const malformed = new Set((process.env.OPENCLAW_FAKE_CRABBOX_MALFORMED_DOCTOR_PROVIDERS || "").split(",").filter(Boolean));
+    if (process.env.GRANTED_FAKE_CRABBOX_DOCTOR_PROGRESS) process.stderr.write(process.env.GRANTED_FAKE_CRABBOX_DOCTOR_PROGRESS + "\n");
+    await wait(Number.parseInt(process.env.GRANTED_FAKE_CRABBOX_DOCTOR_DELAY_MS || "0", 10));
+    if (process.env.GRANTED_FAKE_CRABBOX_EXPECT_DOCTOR_TARGET && target !== process.env.GRANTED_FAKE_CRABBOX_EXPECT_DOCTOR_TARGET) { process.stderr.write("doctor target mismatch: got=" + target + "\n"); process.exit(64); }
+    if (process.env.GRANTED_FAKE_CRABBOX_EXPECT_DOCTOR_WINDOWS_MODE && windowsMode !== process.env.GRANTED_FAKE_CRABBOX_EXPECT_DOCTOR_WINDOWS_MODE) { process.stderr.write("doctor windows mode mismatch: got=" + windowsMode + "\n"); process.exit(64); }
+    const malformed = new Set((process.env.GRANTED_FAKE_CRABBOX_MALFORMED_DOCTOR_PROVIDERS || "").split(",").filter(Boolean));
     if (malformed.has(provider)) { process.stdout.write("{not-json\n"); process.exit(1); }
-    const invalid = new Set((process.env.OPENCLAW_FAKE_CRABBOX_INVALID_DOCTOR_PROVIDERS || "").split(",").filter(Boolean));
+    const invalid = new Set((process.env.GRANTED_FAKE_CRABBOX_INVALID_DOCTOR_PROVIDERS || "").split(",").filter(Boolean));
     if (invalid.has(provider)) { process.stdout.write(JSON.stringify({ ok: true, provider, checks: [{ status: "ok" }] }) + "\n"); return; }
-    const mismatched = new Set((process.env.OPENCLAW_FAKE_CRABBOX_MISMATCHED_DOCTOR_PROVIDERS || "").split(",").filter(Boolean));
+    const mismatched = new Set((process.env.GRANTED_FAKE_CRABBOX_MISMATCHED_DOCTOR_PROVIDERS || "").split(",").filter(Boolean));
     if (mismatched.has(provider)) { process.stdout.write(JSON.stringify({ ok: true, provider: "wrong-provider", checks: [{ status: "ok", check: "broker" }] }) + "\n"); return; }
-    const inconsistent = new Set((process.env.OPENCLAW_FAKE_CRABBOX_INCONSISTENT_DOCTOR_PROVIDERS || "").split(",").filter(Boolean));
+    const inconsistent = new Set((process.env.GRANTED_FAKE_CRABBOX_INCONSISTENT_DOCTOR_PROVIDERS || "").split(",").filter(Boolean));
     if (inconsistent.has(provider)) { process.stdout.write(JSON.stringify({ ok: true, provider, checks: [{ status: "ok", check: "broker" }] }) + "\n"); process.exit(1); }
     const managed = new Set(["aws", "azure", "daytona"]).has(provider);
-    const missingBroker = new Set((process.env.OPENCLAW_FAKE_CRABBOX_MISSING_BROKER_PROVIDERS || "").split(",").filter(Boolean));
-    const providerUnauthorized = new Set((process.env.OPENCLAW_FAKE_CRABBOX_PROVIDER_UNAUTHORIZED_PROVIDERS || "").split(",").filter(Boolean));
+    const missingBroker = new Set((process.env.GRANTED_FAKE_CRABBOX_MISSING_BROKER_PROVIDERS || "").split(",").filter(Boolean));
+    const providerUnauthorized = new Set((process.env.GRANTED_FAKE_CRABBOX_PROVIDER_UNAUTHORIZED_PROVIDERS || "").split(",").filter(Boolean));
     if (providerUnauthorized.has(provider)) { process.stdout.write(JSON.stringify({ ok: false, provider, checks: [{ status: "ok", check: "broker" }, { status: "failed", check: "provider", message: "class=broker_auth hint=crabbox_login unauthorized", details: { class: "broker_auth", hint: "crabbox_login" } }] }) + "\n"); process.exit(1); }
-    const legacyUnauthorized = new Set((process.env.OPENCLAW_FAKE_CRABBOX_LEGACY_UNAUTHORIZED_PROVIDERS || "").split(",").filter(Boolean));
+    const legacyUnauthorized = new Set((process.env.GRANTED_FAKE_CRABBOX_LEGACY_UNAUTHORIZED_PROVIDERS || "").split(",").filter(Boolean));
     if (legacyUnauthorized.has(provider)) { process.stdout.write(JSON.stringify({ ok: false, provider, checks: [{ status: "failed", check: "broker", message: "coordinator GET /v1/whoami: http 401: unauthorized" }] }) + "\n"); process.exit(1); }
-    const unauthorized = new Set((process.env.OPENCLAW_FAKE_CRABBOX_UNAUTHORIZED_PROVIDERS || "").split(",").filter(Boolean));
+    const unauthorized = new Set((process.env.GRANTED_FAKE_CRABBOX_UNAUTHORIZED_PROVIDERS || "").split(",").filter(Boolean));
     if (unauthorized.has(provider)) { process.stdout.write(JSON.stringify({ ok: false, provider, checks: [{ status: "failed", check: "broker", message: "class=broker_auth hint=crabbox_login unauthorized", details: { class: "broker_auth", hint: "crabbox_login" } }] }) + "\n"); process.exit(1); }
-    const unready = new Set((process.env.OPENCLAW_FAKE_CRABBOX_UNREADY_PROVIDERS || "").split(",").filter(Boolean));
+    const unready = new Set((process.env.GRANTED_FAKE_CRABBOX_UNREADY_PROVIDERS || "").split(",").filter(Boolean));
     const ready = !unready.has(provider) && (!managed || !missingBroker.has(provider)); const checks = [];
     if (managed && !missingBroker.has(provider)) checks.push({ status: "ok", check: "broker", details: { auth: "token" } });
     checks.push({ status: ready ? "ok" : "failed", check: "provider", details: { provider } });
@@ -143,48 +143,48 @@ async function main() {
     process.exit(ready ? 0 : 1);
   }
   if (args[0] === "run" || args[0] === "warmup") { ${stampClaimScript} }
-  const runStatus = Number.parseInt(process.env.OPENCLAW_FAKE_CRABBOX_RUN_STATUS || "0", 10); if (args[0] === "run" && runStatus !== 0) { process.stderr.write("fake run failure\n"); process.exit(runStatus); }
+  const runStatus = Number.parseInt(process.env.GRANTED_FAKE_CRABBOX_RUN_STATUS || "0", 10); if (args[0] === "run" && runStatus !== 0) { process.stderr.write("fake run failure\n"); process.exit(runStatus); }
   if (args[0] === "config" && args[1] === "show" && args.includes("--json")) {
-    const status = Number.parseInt(process.env.OPENCLAW_FAKE_CRABBOX_CONFIG_STATUS || "0", 10);
+    const status = Number.parseInt(process.env.GRANTED_FAKE_CRABBOX_CONFIG_STATUS || "0", 10);
     if (status !== 0) { process.stderr.write("config unavailable\n"); process.exit(status); }
-    process.stdout.write(Object.hasOwn(process.env, "OPENCLAW_FAKE_CRABBOX_CONFIG_JSON") ? process.env.OPENCLAW_FAKE_CRABBOX_CONFIG_JSON : '{"coordinator":"configured-broker","brokerMode":"managed","brokerAuth":"configured"}');
+    process.stdout.write(Object.hasOwn(process.env, "GRANTED_FAKE_CRABBOX_CONFIG_JSON") ? process.env.GRANTED_FAKE_CRABBOX_CONFIG_JSON : '{"coordinator":"configured-broker","brokerMode":"managed","brokerAuth":"configured"}');
     return;
   }
   if (args[0] === "whoami") {
-    await wait(Number.parseInt(process.env.OPENCLAW_FAKE_CRABBOX_WHOAMI_DELAY_MS || "0", 10));
-    const status = Number.parseInt(process.env.OPENCLAW_FAKE_CRABBOX_WHOAMI_STATUS || "0", 10);
+    await wait(Number.parseInt(process.env.GRANTED_FAKE_CRABBOX_WHOAMI_DELAY_MS || "0", 10));
+    const status = Number.parseInt(process.env.GRANTED_FAKE_CRABBOX_WHOAMI_STATUS || "0", 10);
     if (status !== 0) { process.stderr.write('coordinator GET /v1/whoami: http 401: {"error":"unauthorized"}\n'); process.exit(status); }
     process.stdout.write("fake-crabbox-user\n"); return;
   }
   if (args.includes("--artifact-glob") || args.includes("-artifact-glob")) { fs.mkdirSync(".crabbox/runs/run_fake", { recursive: true }); fs.writeFileSync(".crabbox/runs/run_fake/fake-artifacts.tgz", "fake artifact\n"); }
   const scriptIndex = args.findIndex((arg) => arg === "--script" || arg === "-script"); const scriptPath = scriptIndex >= 0 ? args[scriptIndex + 1] : "";
   const scriptContent = scriptPath ? fs.readFileSync(scriptPath, "utf8") : "";
-  if (process.env.OPENCLAW_FAKE_CRABBOX_DELETE_CWD_AND_EXIT === "1") {
+  if (process.env.GRANTED_FAKE_CRABBOX_DELETE_CWD_AND_EXIT === "1") {
     await wait(100); const deletedCwd = process.cwd(); process.chdir(path.parse(deletedCwd).root || "/");
     fs.rmSync(deletedCwd, { recursive: true, force: true }); process.exit(0);
   }
-  if (process.env.OPENCLAW_FAKE_CRABBOX_DELETE_CWD_ONCE === "1") {
+  if (process.env.GRANTED_FAKE_CRABBOX_DELETE_CWD_ONCE === "1") {
     const deletedCwd = process.cwd(); process.chdir(path.parse(deletedCwd).root || "/");
     fs.rmSync(deletedCwd, { recursive: true, force: true }); let attempts = 1000;
     while (attempts-- > 0 && !fs.existsSync(deletedCwd)) await wait(10);
     if (!fs.existsSync(deletedCwd)) { process.stderr.write("cwd was not restored: " + deletedCwd + "\n"); process.exit(66); }
     process.chdir(deletedCwd);
   }
-  if (process.env.OPENCLAW_FAKE_CRABBOX_DESCENDANT_PID_PATH) {
+  if (process.env.GRANTED_FAKE_CRABBOX_DESCENDANT_PID_PATH) {
     spawn(process.execPath, ["--input-type=module", "--eval", ${JSON.stringify(signalIgnoringDescendantScript)}], { stdio: "ignore" });
     setInterval(() => {}, 1000); return;
   }
   const bundlePath = ".openclaw-crabbox-changed-gate.bundle";
-  if (process.env.OPENCLAW_FAKE_CRABBOX_COPY_CHANGED_GATE_BUNDLE_TO) fs.copyFileSync(bundlePath, process.env.OPENCLAW_FAKE_CRABBOX_COPY_CHANGED_GATE_BUNDLE_TO);
-  if (Object.hasOwn(process.env, "OPENCLAW_FAKE_CRABBOX_EXPECT_CHANGED_GATE_BUNDLE")) {
+  if (process.env.GRANTED_FAKE_CRABBOX_COPY_CHANGED_GATE_BUNDLE_TO) fs.copyFileSync(bundlePath, process.env.GRANTED_FAKE_CRABBOX_COPY_CHANGED_GATE_BUNDLE_TO);
+  if (Object.hasOwn(process.env, "GRANTED_FAKE_CRABBOX_EXPECT_CHANGED_GATE_BUNDLE")) {
     const bundle = fs.existsSync(bundlePath) ? fs.readFileSync(bundlePath, "utf8") : null;
-    if (bundle !== process.env.OPENCLAW_FAKE_CRABBOX_EXPECT_CHANGED_GATE_BUNDLE) { process.stderr.write("changed-gate bundle mismatch\n"); process.exit(67); }
+    if (bundle !== process.env.GRANTED_FAKE_CRABBOX_EXPECT_CHANGED_GATE_BUNDLE) { process.stderr.write("changed-gate bundle mismatch\n"); process.exit(67); }
   }
-  if (process.env.OPENCLAW_FAKE_CRABBOX_EXPECT_CHANGED_GATE_BUNDLE_BYTES) {
+  if (process.env.GRANTED_FAKE_CRABBOX_EXPECT_CHANGED_GATE_BUNDLE_BYTES) {
     const bytes = fs.existsSync(bundlePath) ? fs.statSync(bundlePath).size : -1;
-    if (bytes !== Number(process.env.OPENCLAW_FAKE_CRABBOX_EXPECT_CHANGED_GATE_BUNDLE_BYTES)) { process.stderr.write("changed-gate bundle size mismatch\n"); process.exit(67); }
+    if (bytes !== Number(process.env.GRANTED_FAKE_CRABBOX_EXPECT_CHANGED_GATE_BUNDLE_BYTES)) { process.stderr.write("changed-gate bundle size mismatch\n"); process.exit(67); }
   }
-  if (process.env.OPENCLAW_FAKE_CRABBOX_EXPECT_CHANGED_GATE_FORCE_ADD === "1" && !fs.existsSync(process.env.OPENCLAW_FAKE_GIT_FORCE_ADD_MARKER || "")) { process.stderr.write("changed-gate bundle was not force-added\n"); process.exit(67); }
+  if (process.env.GRANTED_FAKE_CRABBOX_EXPECT_CHANGED_GATE_FORCE_ADD === "1" && !fs.existsSync(process.env.GRANTED_FAKE_GIT_FORCE_ADD_MARKER || "")) { process.stderr.write("changed-gate bundle was not force-added\n"); process.exit(67); }
   process.stdout.write(JSON.stringify({ args, cwd: process.cwd(), scriptContent }) + "\n");
 }
 main().catch((error) => { process.stderr.write(String(error?.stack || error) + "\n"); process.exit(1); });`;
@@ -198,7 +198,7 @@ main().catch((error) => { process.stderr.write(String(error?.stack || error) + "
       crabboxPath,
       [
         'if [ "$#" -eq 1 ] && [ "$1" = "--version" ]; then',
-        `  printf '%s\\n' "\${OPENCLAW_FAKE_CRABBOX_VERSION:-crabbox 0.22.1}"`,
+        `  printf '%s\\n' "\${GRANTED_FAKE_CRABBOX_VERSION:-crabbox 0.22.1}"`,
         "  exit 0",
         "fi",
         'if [ "$#" -eq 2 ] && [ "$1" = "run" ] && [ "$2" = "--help" ]; then',
@@ -218,7 +218,7 @@ main().catch((error) => { process.stderr.write(String(error?.stack || error) + "
         '  case "$arg" in --artifact-glob|-artifact-glob|--script|-script) fast_run=0 ;; esac',
         "done",
         'if { [ "$1" = "run" ] || [ "$1" = "warmup" ]; } && [ "$fast_run" -eq 1 ] &&',
-        '  [ -z "${OPENCLAW_FAKE_CRABBOX_CLAIM_PATH:-}${OPENCLAW_FAKE_CRABBOX_EXTRA_CLAIM_PATH:-}${OPENCLAW_FAKE_CRABBOX_TIMING_LEASE_ID:-}${OPENCLAW_FAKE_CRABBOX_RUN_STATUS:-}${OPENCLAW_FAKE_CRABBOX_DELETE_CWD_AND_EXIT:-}${OPENCLAW_FAKE_CRABBOX_DELETE_CWD_ONCE:-}${OPENCLAW_FAKE_CRABBOX_DESCENDANT_PID_PATH:-}${OPENCLAW_FAKE_CRABBOX_EXPECT_CHANGED_GATE_BUNDLE+x}${OPENCLAW_FAKE_CRABBOX_EXPECT_CHANGED_GATE_BUNDLE_BYTES:-}${OPENCLAW_FAKE_CRABBOX_EXPECT_CHANGED_GATE_FORCE_ADD:-}${OPENCLAW_FAKE_CRABBOX_COPY_CHANGED_GATE_BUNDLE_TO:-}" ]; then',
+        '  [ -z "${GRANTED_FAKE_CRABBOX_CLAIM_PATH:-}${GRANTED_FAKE_CRABBOX_EXTRA_CLAIM_PATH:-}${GRANTED_FAKE_CRABBOX_TIMING_LEASE_ID:-}${GRANTED_FAKE_CRABBOX_RUN_STATUS:-}${GRANTED_FAKE_CRABBOX_DELETE_CWD_AND_EXIT:-}${GRANTED_FAKE_CRABBOX_DELETE_CWD_ONCE:-}${GRANTED_FAKE_CRABBOX_DESCENDANT_PID_PATH:-}${GRANTED_FAKE_CRABBOX_EXPECT_CHANGED_GATE_BUNDLE+x}${GRANTED_FAKE_CRABBOX_EXPECT_CHANGED_GATE_BUNDLE_BYTES:-}${GRANTED_FAKE_CRABBOX_EXPECT_CHANGED_GATE_FORCE_ADD:-}${GRANTED_FAKE_CRABBOX_COPY_CHANGED_GATE_BUNDLE_TO:-}" ]; then',
         `  printf '${fakeCrabboxProtocol}\\000%s\\000' "$#"`,
         "  printf '%s\\000' \"$@\"",
         "  printf '%s\\000\\000' \"$PWD\"",
@@ -251,7 +251,7 @@ function makeSlowCrabbox(helpText: string, mode: "help" | "version", delayMs: nu
 const args = process.argv.slice(2); const mode = ${JSON.stringify(mode)};
 if (args[0] === "--version") {
   if (mode === "version") setTimeout(() => process.exit(0), ${delayMs});
-  else console.log(process.env.OPENCLAW_FAKE_CRABBOX_VERSION || "crabbox 0.22.1");
+  else console.log(process.env.GRANTED_FAKE_CRABBOX_VERSION || "crabbox 0.22.1");
 } else if (args[0] === "run" && args[1] === "--help") {
   if (mode === "help") setTimeout(() => { process.stderr.write(${JSON.stringify(runHelpText)}); process.exit(0); }, ${delayMs});
   else process.stdout.write(${JSON.stringify(runHelpText)});
@@ -349,30 +349,30 @@ const fs = require("node:fs"); const path = require("node:path"); const args = p
 const touch = (name) => { if (process.env[name]) fs.writeFileSync(process.env[name], ""); };
 if (args[0] === "worktree" && args[1] === "add") {
   fs.mkdirSync(args[3], { recursive: true });
-  if (process.env.OPENCLAW_FAKE_GIT_CHANGED_GATE_BUNDLE_SYMLINK_TARGET) fs.symlinkSync(process.env.OPENCLAW_FAKE_GIT_CHANGED_GATE_BUNDLE_SYMLINK_TARGET, path.join(args[3], ".openclaw-crabbox-changed-gate.bundle")); process.exit(0);
+  if (process.env.GRANTED_FAKE_GIT_CHANGED_GATE_BUNDLE_SYMLINK_TARGET) fs.symlinkSync(process.env.GRANTED_FAKE_GIT_CHANGED_GATE_BUNDLE_SYMLINK_TARGET, path.join(args[3], ".openclaw-crabbox-changed-gate.bundle")); process.exit(0);
 }
 if (args[0] === "read-tree") { fs.writeFileSync(process.env.GIT_INDEX_FILE, ""); process.exit(0); }
 if (args[0] === "add" && process.env.GIT_INDEX_FILE) process.exit(0);
-if (args[0] === "write-tree") { process.stdout.write((process.env.OPENCLAW_FAKE_GIT_WORKTREE_TREE_SHA || "tree456") + "\n"); process.exit(0); }
+if (args[0] === "write-tree") { process.stdout.write((process.env.GRANTED_FAKE_GIT_WORKTREE_TREE_SHA || "tree456") + "\n"); process.exit(0); }
 if (args[0] === "-C" && args[2] === "sparse-checkout" && args[3] === "disable") process.exit(0);
 if (args[0] === "-C" && args[2] === "rev-parse") {
-  const value = args[3] === "HEAD" ? process.env.OPENCLAW_FAKE_GIT_HEAD_SHA || "def456" : args[3] === "HEAD^{tree}" ? process.env.OPENCLAW_FAKE_GIT_HEAD_TREE_SHA || "tree456" : args[3].endsWith("^{tree}") ? process.env.OPENCLAW_FAKE_GIT_BASE_TREE_SHA || "base-tree123" : process.env.OPENCLAW_FAKE_GIT_BASE_SHA || "abc123";
+  const value = args[3] === "HEAD" ? process.env.GRANTED_FAKE_GIT_HEAD_SHA || "def456" : args[3] === "HEAD^{tree}" ? process.env.GRANTED_FAKE_GIT_HEAD_TREE_SHA || "tree456" : args[3].endsWith("^{tree}") ? process.env.GRANTED_FAKE_GIT_BASE_TREE_SHA || "base-tree123" : process.env.GRANTED_FAKE_GIT_BASE_SHA || "abc123";
   process.stdout.write(value + "\n"); process.exit(0);
 }
 if (args[0] === "-C" && args[2] === "-c" && args[6] === "commit-tree") {
-  if (process.env.OPENCLAW_FAKE_GIT_EXPECT_COMMIT_TREE && args[7] !== process.env.OPENCLAW_FAKE_GIT_EXPECT_COMMIT_TREE) process.exit(69);
-  touch("OPENCLAW_FAKE_GIT_SYNTHETIC_COMMIT_MARKER");
-  process.stdout.write((process.env.OPENCLAW_FAKE_GIT_SYNTHETIC_COMMIT_SHA || "synthetic789") + "\n"); process.exit(0);
+  if (process.env.GRANTED_FAKE_GIT_EXPECT_COMMIT_TREE && args[7] !== process.env.GRANTED_FAKE_GIT_EXPECT_COMMIT_TREE) process.exit(69);
+  touch("GRANTED_FAKE_GIT_SYNTHETIC_COMMIT_MARKER");
+  process.stdout.write((process.env.GRANTED_FAKE_GIT_SYNTHETIC_COMMIT_SHA || "synthetic789") + "\n"); process.exit(0);
 }
-if (args[0] === "-C" && args[2] === "update-ref" && args[3] === "HEAD") { touch("OPENCLAW_FAKE_GIT_SYNTHETIC_HEAD_MARKER"); process.exit(0); }
+if (args[0] === "-C" && args[2] === "update-ref" && args[3] === "HEAD") { touch("GRANTED_FAKE_GIT_SYNTHETIC_HEAD_MARKER"); process.exit(0); }
 if (args[0] === "-C" && args[2] === "bundle" && args[3] === "create") {
-  const bytes = Number(process.env.OPENCLAW_FAKE_GIT_BUNDLE_BYTES || 0);
-  fs.writeFileSync(args[4], bytes ? "x".repeat(bytes) : process.env.OPENCLAW_FAKE_GIT_BUNDLE || "fake-bundle"); process.exit(0);
+  const bytes = Number(process.env.GRANTED_FAKE_GIT_BUNDLE_BYTES || 0);
+  fs.writeFileSync(args[4], bytes ? "x".repeat(bytes) : process.env.GRANTED_FAKE_GIT_BUNDLE || "fake-bundle"); process.exit(0);
 }
-if (args[0] === "-C" && args[2] === "add" && args[3] === "-f") { touch("OPENCLAW_FAKE_GIT_FORCE_ADD_MARKER"); process.exit(0); }
+if (args[0] === "-C" && args[2] === "add" && args[3] === "-f") { touch("GRANTED_FAKE_GIT_FORCE_ADD_MARKER"); process.exit(0); }
 if (args[0] === "-C" && args[2] === "reset" && args[3] === "--mixed") process.exit(0);
 if (args[0] === "worktree" && args[1] === "remove") { fs.rmSync(args[3], { recursive: true, force: true }); process.exit(0); }
-const response = new Map(Object.entries(JSON.parse(process.env.OPENCLAW_FAKE_GIT_RESPONSES || "{}"))).get(args.join("\u0000"));
+const response = new Map(Object.entries(JSON.parse(process.env.GRANTED_FAKE_GIT_RESPONSES || "{}"))).get(args.join("\u0000"));
 if (!response) process.exit(1);
 if (response.stdout) process.stdout.write(response.stdout); if (response.stderr) process.stderr.write(response.stderr);
 process.exit(response.status ?? 0);`;
@@ -470,22 +470,22 @@ function wrapperEnv(helpText: string, options: WrapperOptions): NodeJS.ProcessEn
     CRABBOX_TARGET: "",
     CRABBOX_TARGET_OS: "",
     CRABBOX_WINDOWS_MODE: "",
-    OPENCLAW_CRABBOX_ALLOW_DIRECT_AWS: "",
-    OPENCLAW_CRABBOX_SYNC_MIN_FREE_BYTES: "0",
-    OPENCLAW_CRABBOX_WRAPPER_IGNORE_REPO_BINARY: "1",
+    GRANTED_CRABBOX_ALLOW_DIRECT_AWS: "",
+    GRANTED_CRABBOX_SYNC_MIN_FREE_BYTES: "0",
+    GRANTED_CRABBOX_WRAPPER_IGNORE_REPO_BINARY: "1",
     ...(options.configJson
       ? {
-          OPENCLAW_FAKE_CRABBOX_CONFIG_JSON: JSON.stringify({
+          GRANTED_FAKE_CRABBOX_CONFIG_JSON: JSON.stringify({
             brokerMode: "managed",
             ...options.configJson,
           }),
         }
       : {}),
     ...(options.configStatus
-      ? { OPENCLAW_FAKE_CRABBOX_CONFIG_STATUS: String(options.configStatus) }
+      ? { GRANTED_FAKE_CRABBOX_CONFIG_STATUS: String(options.configStatus) }
       : {}),
     ...options.env,
-    OPENCLAW_FAKE_GIT_RESPONSES: JSON.stringify(gitResponses),
+    GRANTED_FAKE_GIT_RESPONSES: JSON.stringify(gitResponses),
   };
 }
 
@@ -495,7 +495,7 @@ type FakeCrabboxOutput = {
   scriptContent?: string;
 };
 
-const fakeCrabboxProtocol = "OPENCLAW_FAKE_CRABBOX_V1";
+const fakeCrabboxProtocol = "GRANTED_FAKE_CRABBOX_V1";
 
 function parseFakeCrabboxOutput(result: ReturnType<typeof runWrapper>): FakeCrabboxOutput {
   if (result.stdout.startsWith(`${fakeCrabboxProtocol}\0`)) {
@@ -547,7 +547,7 @@ function runSuccessfulWrapper(helpText: string, args: string[], options: Wrapper
 function runBrokerWrapper(args: string[], options: WrapperOptions = {}) {
   return runWrapper(brokerProviderHelp, args, {
     ...options,
-    env: { OPENCLAW_FAKE_CRABBOX_VERSION: "crabbox 0.40.0", ...options.env },
+    env: { GRANTED_FAKE_CRABBOX_VERSION: "crabbox 0.40.0", ...options.env },
   });
 }
 
@@ -666,8 +666,8 @@ async function runSignalCleanupProof(sendSignals: (pid: number) => Promise<void>
     ["run", "--provider", "aws", "--", "echo ok"],
     {
       env: {
-        OPENCLAW_FAKE_CRABBOX_DESCENDANT_PID_PATH: descendantPidPath,
-        OPENCLAW_TEST_CRABBOX_CHILD_KILL_GRACE_MS: "100",
+        GRANTED_FAKE_CRABBOX_DESCENDANT_PID_PATH: descendantPidPath,
+        GRANTED_TEST_CRABBOX_CHILD_KILL_GRACE_MS: "100",
       },
       nodePreload: testTimingPreload({ clockScale: 20 }),
     },
@@ -770,7 +770,7 @@ function runDelegatedBlacksmith(args: string[], env: Record<string, string>) {
   tempDirs.push(syncRootAlias, physicalSyncRoot);
   const result = runDefaultWrapper(args, {
     ...cleanSparseSyncOptions,
-    env: { ...env, OPENCLAW_CRABBOX_SYNC_TMPDIR: syncRootAlias },
+    env: { ...env, GRANTED_CRABBOX_SYNC_TMPDIR: syncRootAlias },
   });
   if (result.stdout.trim()) {
     expect(
@@ -781,7 +781,7 @@ function runDelegatedBlacksmith(args: string[], env: Record<string, string>) {
 }
 
 const remoteChangedGateEnvPrefix =
-  "OPENCLAW_CHECK_CHANGED_REMOTE_CHILD=1 OPENCLAW_CHANGED_LANES_RAW_SYNC=1 CI=1";
+  "GRANTED_CHECK_CHANGED_REMOTE_CHILD=1 GRANTED_CHANGED_LANES_RAW_SYNC=1 CI=1";
 const remoteChangedGateExport = `export ${remoteChangedGateEnvPrefix};`;
 const remoteChangedGateFetch =
   'git fetch -q --depth=2 origin "$openclaw_changed_gate_base:refs/remotes/origin/main"';
@@ -810,7 +810,7 @@ function withSparseSyncRoot(
   try {
     const result = runDefaultWrapper(["run", "--provider", "aws", "--", "echo ok"], {
       ...cleanSparseSyncOptions,
-      env: { ...env, OPENCLAW_CRABBOX_SYNC_TMPDIR: syncRoot },
+      env: { ...env, GRANTED_CRABBOX_SYNC_TMPDIR: syncRoot },
     });
     check({ result, syncRoot });
   } finally {
@@ -886,7 +886,7 @@ describe("scripts/crabbox-wrapper", () => {
       ["run", "--workload", "ci-fast", "--", "echo ok"],
       {
         env: {
-          OPENCLAW_FAKE_CRABBOX_UNREADY_PROVIDERS: "blacksmith-testbox",
+          GRANTED_FAKE_CRABBOX_UNREADY_PROVIDERS: "blacksmith-testbox",
         },
       },
     );
@@ -901,7 +901,7 @@ describe("scripts/crabbox-wrapper", () => {
       ["run", "--workload=ci-fast", "--", "echo ok"],
       {
         env: {
-          OPENCLAW_FAKE_CRABBOX_UNREADY_PROVIDERS: "blacksmith-testbox,daytona,azure",
+          GRANTED_FAKE_CRABBOX_UNREADY_PROVIDERS: "blacksmith-testbox,daytona,azure",
         },
       },
     );
@@ -979,15 +979,15 @@ describe("scripts/crabbox-wrapper", () => {
         "--timing-json",
         "--",
         "env",
-        "OPENCLAW_CHECK_CHANGED_REMOTE_CHILD=1",
-        "OPENCLAW_CHANGED_LANES_RAW_SYNC=1",
+        "GRANTED_CHECK_CHANGED_REMOTE_CHILD=1",
+        "GRANTED_CHANGED_LANES_RAW_SYNC=1",
         "CI=1",
         "PNPM_CONFIG_VERIFY_DEPS_BEFORE_RUN=false",
         "corepack",
         "pnpm",
         "check:changed",
       ],
-      { env: { OPENCLAW_FAKE_CRABBOX_UNREADY_PROVIDERS: "blacksmith-testbox" } },
+      { env: { GRANTED_FAKE_CRABBOX_UNREADY_PROVIDERS: "blacksmith-testbox" } },
     );
 
     expect(output.args).toContain("daytona");
@@ -1074,7 +1074,7 @@ describe("scripts/crabbox-wrapper", () => {
           windowsMode: "normal",
         }),
         env: {
-          OPENCLAW_FAKE_CRABBOX_EXPECT_DOCTOR_TARGET: "macos",
+          GRANTED_FAKE_CRABBOX_EXPECT_DOCTOR_TARGET: "macos",
         },
       },
     );
@@ -1088,9 +1088,9 @@ describe("scripts/crabbox-wrapper", () => {
       ["run", "--workload", "desktop", "--", "echo ok"],
       {
         env: {
-          OPENCLAW_FAKE_CRABBOX_INVOCATION_LOG: invocationLog,
-          OPENCLAW_FAKE_CRABBOX_UNREADY_PROVIDERS: "azure",
-          OPENCLAW_FAKE_CRABBOX_WHOAMI_STATUS: "1",
+          GRANTED_FAKE_CRABBOX_INVOCATION_LOG: invocationLog,
+          GRANTED_FAKE_CRABBOX_UNREADY_PROVIDERS: "azure",
+          GRANTED_FAKE_CRABBOX_WHOAMI_STATUS: "1",
         },
       },
     );
@@ -1108,7 +1108,7 @@ describe("scripts/crabbox-wrapper", () => {
   it("falls through a doctor-reported auth failure to the next provider", () => {
     const { output, result } = runSuccessfulBrokerWrapper(
       ["run", "--workload", "desktop", "--", "echo ok"],
-      { env: { OPENCLAW_FAKE_CRABBOX_UNAUTHORIZED_PROVIDERS: "azure" } },
+      { env: { GRANTED_FAKE_CRABBOX_UNAUTHORIZED_PROVIDERS: "azure" } },
     );
 
     expect(output.args).toContain("aws");
@@ -1118,7 +1118,7 @@ describe("scripts/crabbox-wrapper", () => {
 
   it("fails closed when provider readiness reports broker auth failure", () => {
     const result = runBrokerWrapper(["run", "--provider", "aws", "--", "echo ok"], {
-      env: { OPENCLAW_FAKE_CRABBOX_PROVIDER_UNAUTHORIZED_PROVIDERS: "aws" },
+      env: { GRANTED_FAKE_CRABBOX_PROVIDER_UNAUTHORIZED_PROVIDERS: "aws" },
     });
 
     expect(result.status).toBe(2);
@@ -1132,8 +1132,8 @@ describe("scripts/crabbox-wrapper", () => {
   it("fails closed without auth guidance on a legacy non-auth doctor failure", () => {
     const result = runDefaultWrapper(["run", "--provider", "aws", "--", "echo ok"], {
       env: {
-        OPENCLAW_FAKE_CRABBOX_VERSION: "crabbox 0.22.1",
-        OPENCLAW_FAKE_CRABBOX_LEGACY_UNAUTHORIZED_PROVIDERS: "aws",
+        GRANTED_FAKE_CRABBOX_VERSION: "crabbox 0.22.1",
+        GRANTED_FAKE_CRABBOX_LEGACY_UNAUTHORIZED_PROVIDERS: "aws",
       },
     });
 
@@ -1151,9 +1151,9 @@ describe("scripts/crabbox-wrapper", () => {
     const result = runWrapper(help, ["run", "--provider", provider, "--", "echo ok"], {
       configStatus: 1,
       env: {
-        OPENCLAW_FAKE_CRABBOX_INVOCATION_LOG: invocationLog,
-        OPENCLAW_FAKE_CRABBOX_VERSION: "crabbox 0.22.1",
-        OPENCLAW_FAKE_CRABBOX_WHOAMI_STATUS: "1",
+        GRANTED_FAKE_CRABBOX_INVOCATION_LOG: invocationLog,
+        GRANTED_FAKE_CRABBOX_VERSION: "crabbox 0.22.1",
+        GRANTED_FAKE_CRABBOX_WHOAMI_STATUS: "1",
       },
     });
 
@@ -1165,8 +1165,8 @@ describe("scripts/crabbox-wrapper", () => {
     const invocationLog = makeInvocationLog();
     const result = runDefaultWrapper(["run", "--provider", "blacksmith-testbox", "--", "echo ok"], {
       env: {
-        OPENCLAW_FAKE_CRABBOX_INVOCATION_LOG: invocationLog,
-        OPENCLAW_FAKE_CRABBOX_WHOAMI_STATUS: "1",
+        GRANTED_FAKE_CRABBOX_INVOCATION_LOG: invocationLog,
+        GRANTED_FAKE_CRABBOX_WHOAMI_STATUS: "1",
       },
     });
 
@@ -1178,18 +1178,18 @@ describe("scripts/crabbox-wrapper", () => {
 
   it("allows explicit provider runs when broker is ready but another doctor check fails", () => {
     const { output } = runSuccessfulBrokerWrapper(["run", "--provider", "aws", "--", "echo ok"], {
-      env: { OPENCLAW_FAKE_CRABBOX_UNREADY_PROVIDERS: "aws" },
+      env: { GRANTED_FAKE_CRABBOX_UNREADY_PROVIDERS: "aws" },
     });
 
     expect(output.args).toContain("aws");
   });
 
   it.each([
-    ["malformed JSON", "OPENCLAW_FAKE_CRABBOX_MALFORMED_DOCTOR_PROVIDERS"],
-    ["malformed schema", "OPENCLAW_FAKE_CRABBOX_INVALID_DOCTOR_PROVIDERS"],
-    ["provider mismatch", "OPENCLAW_FAKE_CRABBOX_MISMATCHED_DOCTOR_PROVIDERS"],
-    ["missing broker check", "OPENCLAW_FAKE_CRABBOX_MISSING_BROKER_PROVIDERS"],
-    ["inconsistent exit status", "OPENCLAW_FAKE_CRABBOX_INCONSISTENT_DOCTOR_PROVIDERS"],
+    ["malformed JSON", "GRANTED_FAKE_CRABBOX_MALFORMED_DOCTOR_PROVIDERS"],
+    ["malformed schema", "GRANTED_FAKE_CRABBOX_INVALID_DOCTOR_PROVIDERS"],
+    ["provider mismatch", "GRANTED_FAKE_CRABBOX_MISMATCHED_DOCTOR_PROVIDERS"],
+    ["missing broker check", "GRANTED_FAKE_CRABBOX_MISSING_BROKER_PROVIDERS"],
+    ["inconsistent exit status", "GRANTED_FAKE_CRABBOX_INCONSISTENT_DOCTOR_PROVIDERS"],
   ])("fails closed on %s", (_name, envName) => {
     const result = runBrokerWrapper(["run", "--provider", "aws", "--", "echo ok"], {
       env: { [envName]: "aws" },
@@ -1211,8 +1211,8 @@ describe("scripts/crabbox-wrapper", () => {
   it("lets doctor own its timeout and parses machine output from stdout", () => {
     const { output } = runSuccessfulBrokerWrapper(["run", "--provider", "aws", "--", "echo ok"], {
       env: {
-        OPENCLAW_FAKE_CRABBOX_DOCTOR_DELAY_MS: "250",
-        OPENCLAW_FAKE_CRABBOX_DOCTOR_PROGRESS: "checking provider readiness",
+        GRANTED_FAKE_CRABBOX_DOCTOR_DELAY_MS: "250",
+        GRANTED_FAKE_CRABBOX_DOCTOR_PROGRESS: "checking provider readiness",
       },
       nodePreload: testTimingPreload({ spawnTimeoutMs: 100 }),
     });
@@ -1235,8 +1235,8 @@ describe("scripts/crabbox-wrapper", () => {
       ],
       {
         env: {
-          OPENCLAW_FAKE_CRABBOX_EXPECT_DOCTOR_TARGET: "windows",
-          OPENCLAW_FAKE_CRABBOX_EXPECT_DOCTOR_WINDOWS_MODE: "normal",
+          GRANTED_FAKE_CRABBOX_EXPECT_DOCTOR_TARGET: "windows",
+          GRANTED_FAKE_CRABBOX_EXPECT_DOCTOR_WINDOWS_MODE: "normal",
         },
       },
     );
@@ -1283,7 +1283,7 @@ describe("scripts/crabbox-wrapper", () => {
     const { output, result } = runSuccessfulBrokerWrapper(
       ["run", "--workload", "ci-fast", "--", "echo ok"],
       {
-        env: { OPENCLAW_FAKE_CRABBOX_VERSION: "crabbox 0.21.9" },
+        env: { GRANTED_FAKE_CRABBOX_VERSION: "crabbox 0.21.9" },
       },
     );
     expect(output.args).toContain("azure");
@@ -1296,8 +1296,8 @@ describe("scripts/crabbox-wrapper", () => {
     const result = runBrokerWrapper(["run", "--workload", "desktop", "--", "echo ok"], {
       configJson: { coordinator: "", brokerAuth: "missing" },
       env: {
-        OPENCLAW_CRABBOX_ALLOW_DIRECT_CLOUD: "1",
-        OPENCLAW_FAKE_CRABBOX_MISSING_BROKER_PROVIDERS: "azure,aws",
+        GRANTED_CRABBOX_ALLOW_DIRECT_CLOUD: "1",
+        GRANTED_FAKE_CRABBOX_MISSING_BROKER_PROVIDERS: "azure,aws",
       },
     });
 
@@ -1311,8 +1311,8 @@ describe("scripts/crabbox-wrapper", () => {
     const result = runBrokerWrapper(["run", "--target", "windows", "--", "echo ok"], {
       configJson: directBrokerConfig("blacksmith-testbox"),
       env: {
-        OPENCLAW_CRABBOX_ALLOW_DIRECT_CLOUD: "1",
-        OPENCLAW_FAKE_CRABBOX_MISSING_BROKER_PROVIDERS: "azure",
+        GRANTED_CRABBOX_ALLOW_DIRECT_CLOUD: "1",
+        GRANTED_FAKE_CRABBOX_MISSING_BROKER_PROVIDERS: "azure",
       },
     });
 
@@ -1323,7 +1323,7 @@ describe("scripts/crabbox-wrapper", () => {
 
   it("keeps workload configuration away from administrative commands", () => {
     const result = runDefaultWrapper(["--version"], {
-      env: { OPENCLAW_CRABBOX_WORKLOAD: "ci-fast" },
+      env: { GRANTED_CRABBOX_WORKLOAD: "ci-fast" },
     });
 
     expect(result.status).toBe(0);
@@ -1344,7 +1344,7 @@ describe("scripts/crabbox-wrapper", () => {
       ["run", "--provider", "azure", "--workload", "interactive", "--", "echo ok"],
       {
         env: {
-          OPENCLAW_FAKE_CRABBOX_UNREADY_PROVIDERS: "azure",
+          GRANTED_FAKE_CRABBOX_UNREADY_PROVIDERS: "azure",
         },
       },
     );
@@ -1382,7 +1382,7 @@ describe("scripts/crabbox-wrapper", () => {
       ["run", "--provider", "azure", "--workload", "desktop", "--", "echo ok"],
       {
         configJson: directBrokerConfig("azure"),
-        env: { OPENCLAW_FAKE_CRABBOX_MISSING_BROKER_PROVIDERS: "azure" },
+        env: { GRANTED_FAKE_CRABBOX_MISSING_BROKER_PROVIDERS: "azure" },
       },
     );
 
@@ -1397,8 +1397,8 @@ describe("scripts/crabbox-wrapper", () => {
       const result = runBrokerWrapper(["run", "--", "echo ok"], {
         configJson: managedBrokerConfig(provider, { brokerAuth: "missing" }),
         env: {
-          OPENCLAW_CRABBOX_ALLOW_DIRECT_CLOUD: "1",
-          OPENCLAW_FAKE_CRABBOX_UNAUTHORIZED_PROVIDERS: provider,
+          GRANTED_CRABBOX_ALLOW_DIRECT_CLOUD: "1",
+          GRANTED_FAKE_CRABBOX_UNAUTHORIZED_PROVIDERS: provider,
         },
       });
 
@@ -1429,7 +1429,7 @@ describe("scripts/crabbox-wrapper", () => {
   it("requires a compatible Crabbox for configured brokered Daytona runs", () => {
     const result = runBrokerWrapper(["run", "--", "echo ok"], {
       configJson: managedBrokerConfig("daytona"),
-      env: { OPENCLAW_FAKE_CRABBOX_VERSION: "crabbox 0.39.9" },
+      env: { GRANTED_FAKE_CRABBOX_VERSION: "crabbox 0.39.9" },
     });
 
     expect(result.status).toBe(2);
@@ -1450,7 +1450,7 @@ describe("scripts/crabbox-wrapper", () => {
         {
           configJson: managedBrokerConfig(provider, { brokerAuth: "missing" }),
           env: {
-            OPENCLAW_CRABBOX_ALLOW_DIRECT_CLOUD: "1",
+            GRANTED_CRABBOX_ALLOW_DIRECT_CLOUD: "1",
           },
         },
       );
@@ -1464,7 +1464,7 @@ describe("scripts/crabbox-wrapper", () => {
     (provider) => {
       const result = runBrokerWrapper(["run", "--provider", provider, "--", "echo ok"], {
         configJson: directBrokerConfig(provider),
-        env: { OPENCLAW_FAKE_CRABBOX_UNAUTHORIZED_PROVIDERS: provider },
+        env: { GRANTED_FAKE_CRABBOX_UNAUTHORIZED_PROVIDERS: provider },
       });
 
       expect(result.status).toBe(2);
@@ -1485,8 +1485,8 @@ describe("scripts/crabbox-wrapper", () => {
         configJson: directBrokerConfig(provider),
         env: {
           CRABBOX_PROVIDER: provider,
-          OPENCLAW_CRABBOX_ALLOW_DIRECT_CLOUD: "1",
-          OPENCLAW_FAKE_CRABBOX_MISSING_BROKER_PROVIDERS: provider,
+          GRANTED_CRABBOX_ALLOW_DIRECT_CLOUD: "1",
+          GRANTED_FAKE_CRABBOX_MISSING_BROKER_PROVIDERS: provider,
         },
       });
 
@@ -1512,8 +1512,8 @@ describe("scripts/crabbox-wrapper", () => {
       {
         configJson: { coordinator: "", brokerAuth: "missing" },
         env: {
-          OPENCLAW_FAKE_CRABBOX_VERSION: "crabbox 0.39.9",
-          OPENCLAW_CRABBOX_ALLOW_DIRECT_CLOUD: "1",
+          GRANTED_FAKE_CRABBOX_VERSION: "crabbox 0.39.9",
+          GRANTED_CRABBOX_ALLOW_DIRECT_CLOUD: "1",
         },
       },
     );
@@ -1524,8 +1524,8 @@ describe("scripts/crabbox-wrapper", () => {
     const result = runBrokerWrapper(["run", "--workload", "interactive", "--", "echo ok"], {
       configJson: { coordinator: "", brokerAuth: "missing" },
       env: {
-        OPENCLAW_CRABBOX_ALLOW_DIRECT_CLOUD: "1",
-        OPENCLAW_FAKE_CRABBOX_MISSING_BROKER_PROVIDERS: "daytona,azure,aws",
+        GRANTED_CRABBOX_ALLOW_DIRECT_CLOUD: "1",
+        GRANTED_FAKE_CRABBOX_MISSING_BROKER_PROVIDERS: "daytona,azure,aws",
       },
     });
 
@@ -1538,7 +1538,7 @@ describe("scripts/crabbox-wrapper", () => {
   it("fails closed when no policy provider is ready", () => {
     const result = runBrokerWrapper(["run", "--workload", "ci-fast", "--", "echo ok"], {
       env: {
-        OPENCLAW_FAKE_CRABBOX_UNREADY_PROVIDERS: "blacksmith-testbox,daytona,azure,aws",
+        GRANTED_FAKE_CRABBOX_UNREADY_PROVIDERS: "blacksmith-testbox,daytona,azure,aws",
       },
     });
 
@@ -1574,7 +1574,7 @@ describe("scripts/crabbox-wrapper", () => {
   it("hints at lease expiry when a reused-lease run fails fast", () => {
     const result = runDefaultWrapper(
       ["run", "--provider", "local-container", "--id", "tbx_expired_fixture", "--", "echo ok"],
-      { env: { OPENCLAW_FAKE_CRABBOX_RUN_STATUS: "1" } },
+      { env: { GRANTED_FAKE_CRABBOX_RUN_STATUS: "1" } },
     );
 
     expect(result.status).toBe(1);
@@ -1585,7 +1585,7 @@ describe("scripts/crabbox-wrapper", () => {
 
   it("keeps failed runs without a reused lease free of the expiry hint", () => {
     const result = runDefaultWrapper(["run", "--provider", "local-container", "--", "echo ok"], {
-      env: { OPENCLAW_FAKE_CRABBOX_RUN_STATUS: "1" },
+      env: { GRANTED_FAKE_CRABBOX_RUN_STATUS: "1" },
     });
 
     expect(result.status).toBe(1);
@@ -1602,8 +1602,8 @@ describe("scripts/crabbox-wrapper", () => {
     const result = runDefaultWrapper(["run", ...flags, "--", "echo ok"], {
       configJson: { provider: "blacksmith-testbox" },
       env: {
-        OPENCLAW_FAKE_CRABBOX_INVOCATION_LOG: invocationLog,
-        OPENCLAW_FAKE_CRABBOX_RUN_STATUS: "99",
+        GRANTED_FAKE_CRABBOX_INVOCATION_LOG: invocationLog,
+        GRANTED_FAKE_CRABBOX_RUN_STATUS: "99",
       },
     });
 
@@ -1639,7 +1639,7 @@ describe("scripts/crabbox-wrapper", () => {
 
   it("requires a current Crabbox binary for Blacksmith Testbox runs", () => {
     const result = runDefaultWrapper(["run", "--provider", "blacksmith-testbox", "--", "echo ok"], {
-      env: { OPENCLAW_FAKE_CRABBOX_VERSION: "crabbox 0.21.9" },
+      env: { GRANTED_FAKE_CRABBOX_VERSION: "crabbox 0.21.9" },
     });
 
     expect(result.status).toBe(2);
@@ -1650,7 +1650,7 @@ describe("scripts/crabbox-wrapper", () => {
 
   it("applies the Blacksmith version gate to provider aliases", () => {
     const result = runDefaultWrapper(["run", "--provider", "blacksmith", "--", "echo ok"], {
-      env: { OPENCLAW_FAKE_CRABBOX_VERSION: "crabbox 0.21.9" },
+      env: { GRANTED_FAKE_CRABBOX_VERSION: "crabbox 0.21.9" },
     });
 
     expect(result.status).toBe(2);
@@ -1659,7 +1659,7 @@ describe("scripts/crabbox-wrapper", () => {
 
   it("rejects prerelease Crabbox builds at the Blacksmith minimum boundary", () => {
     const result = runDefaultWrapper(["run", "--provider", "blacksmith-testbox", "--", "echo ok"], {
-      env: { OPENCLAW_FAKE_CRABBOX_VERSION: "crabbox 0.22.0-rc.1" },
+      env: { GRANTED_FAKE_CRABBOX_VERSION: "crabbox 0.22.0-rc.1" },
     });
 
     expect(result.status).toBe(2);
@@ -1668,7 +1668,7 @@ describe("scripts/crabbox-wrapper", () => {
 
   it("rejects unsafe Crabbox version numbers at the Blacksmith minimum gate", () => {
     const result = runDefaultWrapper(["run", "--provider", "blacksmith-testbox", "--", "echo ok"], {
-      env: { OPENCLAW_FAKE_CRABBOX_VERSION: "crabbox 0.9007199254740993.0" },
+      env: { GRANTED_FAKE_CRABBOX_VERSION: "crabbox 0.9007199254740993.0" },
     });
 
     expect(result.status).toBe(2);
@@ -1679,7 +1679,7 @@ describe("scripts/crabbox-wrapper", () => {
 
   it("accepts post-release Crabbox describe builds at the Blacksmith minimum boundary", () => {
     const result = runDefaultWrapper(["run", "--provider", "blacksmith-testbox", "--", "echo ok"], {
-      env: { OPENCLAW_FAKE_CRABBOX_VERSION: "crabbox 0.22.0-3-gabc1234" },
+      env: { GRANTED_FAKE_CRABBOX_VERSION: "crabbox 0.22.0-3-gabc1234" },
     });
 
     expect(result.status).toBe(0);
@@ -1795,8 +1795,8 @@ describe("scripts/crabbox-wrapper", () => {
       {
         ...testHomeEnv(home),
         XDG_STATE_HOME: stateRoot,
-        OPENCLAW_FAKE_CRABBOX_CLAIM_PATH: claimPath,
-        ...(status > 0 ? { OPENCLAW_FAKE_CRABBOX_RUN_STATUS: String(status) } : {}),
+        GRANTED_FAKE_CRABBOX_CLAIM_PATH: claimPath,
+        ...(status > 0 ? { GRANTED_FAKE_CRABBOX_RUN_STATUS: String(status) } : {}),
       },
     );
 
@@ -1823,9 +1823,9 @@ describe("scripts/crabbox-wrapper", () => {
       {
         ...testHomeEnv(home),
         XDG_STATE_HOME: stateRoot,
-        OPENCLAW_FAKE_CRABBOX_CLAIM_PATH: claimPath,
-        OPENCLAW_FAKE_CRABBOX_EXTRA_CLAIM_PATH: decoyPath,
-        OPENCLAW_FAKE_CRABBOX_TIMING_LEASE_ID: id,
+        GRANTED_FAKE_CRABBOX_CLAIM_PATH: claimPath,
+        GRANTED_FAKE_CRABBOX_EXTRA_CLAIM_PATH: decoyPath,
+        GRANTED_FAKE_CRABBOX_TIMING_LEASE_ID: id,
       },
     );
 
@@ -1861,8 +1861,8 @@ describe("scripts/crabbox-wrapper", () => {
       {
         ...testHomeEnv(home),
         XDG_STATE_HOME: stateRoot,
-        OPENCLAW_FAKE_CRABBOX_CLAIM_PATH: claimPath,
-        OPENCLAW_FAKE_CRABBOX_EXTRA_CLAIM_PATH: siblingPath,
+        GRANTED_FAKE_CRABBOX_CLAIM_PATH: claimPath,
+        GRANTED_FAKE_CRABBOX_EXTRA_CLAIM_PATH: siblingPath,
       },
     );
 
@@ -1890,8 +1890,8 @@ describe("scripts/crabbox-wrapper", () => {
       {
         ...testHomeEnv(home),
         XDG_STATE_HOME: stateRoot,
-        OPENCLAW_FAKE_CRABBOX_CLAIM_PATH: claimPath,
-        OPENCLAW_FAKE_CRABBOX_RUN_STATUS: "7",
+        GRANTED_FAKE_CRABBOX_CLAIM_PATH: claimPath,
+        GRANTED_FAKE_CRABBOX_RUN_STATUS: "7",
       },
     );
 
@@ -1921,8 +1921,8 @@ describe("scripts/crabbox-wrapper", () => {
       {
         ...testHomeEnv(home),
         XDG_STATE_HOME: stateRoot,
-        OPENCLAW_FAKE_CRABBOX_CLAIM_PATH: claimPath,
-        OPENCLAW_FAKE_CRABBOX_CLAIM_REPO_ROOT: foreignClaim.repoRoot,
+        GRANTED_FAKE_CRABBOX_CLAIM_PATH: claimPath,
+        GRANTED_FAKE_CRABBOX_CLAIM_REPO_ROOT: foreignClaim.repoRoot,
       },
     );
 
@@ -2023,8 +2023,8 @@ describe("scripts/crabbox-wrapper", () => {
       ],
       {
         env: {
-          OPENCLAW_FAKE_GIT_EXPECT_COMMIT_TREE: dirtyTree,
-          OPENCLAW_FAKE_GIT_WORKTREE_TREE_SHA: dirtyTree,
+          GRANTED_FAKE_GIT_EXPECT_COMMIT_TREE: dirtyTree,
+          GRANTED_FAKE_GIT_WORKTREE_TREE_SHA: dirtyTree,
         },
         gitResponses: {
           [GIT_STATUS_PORCELAIN_KEY]: { stdout: " M scripts/crabbox-wrapper.mts\n" },
@@ -2246,7 +2246,7 @@ describe("scripts/crabbox-wrapper", () => {
   it("fails closed for AWS proof when broker auth is missing", () => {
     const result = runDefaultWrapper(["run", "--provider", "aws", "--", "echo ok"], {
       configJson: { coordinator: "", brokerAuth: "missing" },
-      env: { OPENCLAW_FAKE_CRABBOX_MISSING_BROKER_PROVIDERS: "aws" },
+      env: { GRANTED_FAKE_CRABBOX_MISSING_BROKER_PROVIDERS: "aws" },
     });
 
     expect(result.status).toBe(2);
@@ -2259,8 +2259,8 @@ describe("scripts/crabbox-wrapper", () => {
     const result = runDefaultWrapper(["run", "--provider", "aws", "--", "echo ok"], {
       configJson: { coordinator: "https://crabbox.openclaw.ai", brokerAuth: "configured" },
       env: {
-        OPENCLAW_FAKE_CRABBOX_VERSION: "crabbox 0.40.0",
-        OPENCLAW_FAKE_CRABBOX_UNAUTHORIZED_PROVIDERS: "aws",
+        GRANTED_FAKE_CRABBOX_VERSION: "crabbox 0.40.0",
+        GRANTED_FAKE_CRABBOX_UNAUTHORIZED_PROVIDERS: "aws",
       },
     });
 
@@ -2276,8 +2276,8 @@ describe("scripts/crabbox-wrapper", () => {
     const result = runDefaultWrapper(["run", "--provider", "aws", "--", "echo ok"], {
       configJson: { coordinator: "", brokerAuth: "missing" },
       env: {
-        OPENCLAW_CRABBOX_ALLOW_DIRECT_AWS: "1",
-        OPENCLAW_FAKE_CRABBOX_MISSING_BROKER_PROVIDERS: "aws",
+        GRANTED_CRABBOX_ALLOW_DIRECT_AWS: "1",
+        GRANTED_FAKE_CRABBOX_MISSING_BROKER_PROVIDERS: "aws",
       },
     });
 
@@ -2569,7 +2569,7 @@ describe("scripts/crabbox-wrapper", () => {
         runSuccessfulMacosShell(shellCommand),
         expectedCommand,
         (remoteCommand) =>
-          expect(remoteCommand).toContain('export OPENCLAW_CRABBOX_BOOTSTRAP_PATH="$PATH";'),
+          expect(remoteCommand).toContain('export GRANTED_CRABBOX_BOOTSTRAP_PATH="$PATH";'),
       );
     }
   });
@@ -2625,7 +2625,7 @@ describe("scripts/crabbox-wrapper", () => {
         LC_CTYPE: "C.UTF-8",
       },
     });
-    expect(remoteCommand).toContain('macos_locale="${OPENCLAW_CRABBOX_MACOS_LOCALE:-en_US.UTF-8}"');
+    expect(remoteCommand).toContain('macos_locale="${GRANTED_CRABBOX_MACOS_LOCALE:-en_US.UTF-8}"');
     expect(remoteCommand).toContain(
       'case "${LANG:-}" in C.UTF-8|C.utf8|c.UTF-8|c.utf8) export LANG="$macos_locale" ;; esac;',
     );
@@ -2673,7 +2673,7 @@ describe("scripts/crabbox-wrapper", () => {
       expectedCommand: "openclaw_crabbox_env -i PATH=/usr/bin:/bin pnpm --version",
       includes: [
         "openclaw_crabbox_env",
-        "PATH=${OPENCLAW_CRABBOX_BOOTSTRAP_PATH:-$PATH}:${1#PATH=}",
+        "PATH=${GRANTED_CRABBOX_BOOTSTRAP_PATH:-$PATH}:${1#PATH=}",
       ],
       name: "bootstraps Corepack for raw AWS macOS env option pnpm commands",
     },
@@ -2693,7 +2693,7 @@ describe("scripts/crabbox-wrapper", () => {
       command: ["/usr/bin/env", "-i", "pnpm", "--version"],
       expectedCommand: "openclaw_crabbox_env -i pnpm --version",
       includes: [
-        'if [ "$openclaw_env_ignore" = "1" ] && [ "$openclaw_env_path_seen" = "0" ]; then openclaw_env_args+=("PATH=${OPENCLAW_CRABBOX_BOOTSTRAP_PATH:-$PATH}"); fi;',
+        'if [ "$openclaw_env_ignore" = "1" ] && [ "$openclaw_env_path_seen" = "0" ]; then openclaw_env_args+=("PATH=${GRANTED_CRABBOX_BOOTSTRAP_PATH:-$PATH}"); fi;',
       ],
       name: "injects the bootstrapped PATH for raw AWS macOS absolute env -i commands",
     },
@@ -2825,7 +2825,7 @@ describe("scripts/crabbox-wrapper", () => {
       "scripts/check-changed.mjs",
     ]);
     expect(remoteCommand).toContain("openclaw_crabbox_bootstrap_macos_js");
-    expect(remoteCommand).not.toContain("OPENCLAW_CHECK_CHANGED_REMOTE_CHILD=1");
+    expect(remoteCommand).not.toContain("GRANTED_CHECK_CHANGED_REMOTE_CHILD=1");
     expectGroupedShellCommand(
       remoteCommand,
       "node --trace-warnings scripts/other.mjs scripts/check-changed.mjs",
@@ -2881,8 +2881,8 @@ describe("scripts/crabbox-wrapper", () => {
     expect(output.scriptContent).toContain("openclaw_crabbox_bootstrap_macos_js || exit $?");
     expect(output.scriptContent).not.toContain("corepack enable");
     expect(output.scriptContent).not.toContain("pnpm --version >&2");
-    expect(output.scriptContent).toContain("cat >\"$tmp_script\" <<'OPENCLAW_CRABBOX_SCRIPT_0'");
-    expect(output.scriptContent).toContain(`\n${script}\nOPENCLAW_CRABBOX_SCRIPT_0\n`);
+    expect(output.scriptContent).toContain("cat >\"$tmp_script\" <<'GRANTED_CRABBOX_SCRIPT_0'");
+    expect(output.scriptContent).toContain(`\n${script}\nGRANTED_CRABBOX_SCRIPT_0\n`);
     expect(output.scriptContent).toContain('chmod 700 "$tmp_script" || exit $?');
     expect(output.scriptContent).toContain('"$tmp_script" "$@"');
     expect(output.args.at(-1)).toBe("arg1");
@@ -2928,7 +2928,7 @@ describe("scripts/crabbox-wrapper", () => {
   });
 
   it("bootstraps Corepack for AWS macOS script-stdin env shebangs with option values", () => {
-    const script = ["#!/usr/bin/env -C /tmp -u OPENCLAW_FAKE_VAR pnpm", "--version"].join("\n");
+    const script = ["#!/usr/bin/env -C /tmp -u GRANTED_FAKE_VAR pnpm", "--version"].join("\n");
     const { output } = runSuccessfulMacosScript(script);
     expect(output.scriptContent).toContain("openclaw_crabbox_bootstrap_macos_js || exit $?");
     expect(output.scriptContent).toContain('corepack enable --install-directory "$PNPM_HOME"');
@@ -3203,8 +3203,8 @@ describe("scripts/crabbox-wrapper", () => {
           encoding: "utf8",
           env: {
             ...process.env,
-            OPENCLAW_CRABBOX_WRAPPER_IGNORE_REPO_BINARY: "1",
-            OPENCLAW_FAKE_GIT_RESPONSES: JSON.stringify(gitResponses),
+            GRANTED_CRABBOX_WRAPPER_IGNORE_REPO_BINARY: "1",
+            GRANTED_FAKE_GIT_RESPONSES: JSON.stringify(gitResponses),
             PATH: [gitBinDir, path.dirname(process.execPath)].join(path.delimiter),
           },
         },
@@ -3316,8 +3316,8 @@ describe("scripts/crabbox-wrapper", () => {
       ...cleanSparseSyncOptions,
       configJson: managedBrokerConfig("aws"),
       env: {
-        OPENCLAW_CRABBOX_SYNC_TMPDIR: syncRoot,
-        OPENCLAW_FAKE_CRABBOX_INVOCATION_LOG: logPath,
+        GRANTED_CRABBOX_SYNC_TMPDIR: syncRoot,
+        GRANTED_FAKE_CRABBOX_INVOCATION_LOG: logPath,
       },
     });
 
@@ -3355,7 +3355,7 @@ describe("scripts/crabbox-wrapper", () => {
   ])("keeps provider gates when help belongs to a payload: %j", (...args) => {
     const result = runDefaultWrapper(args, {
       configJson: directBrokerConfig("aws"),
-      env: { OPENCLAW_FAKE_CRABBOX_MISSING_BROKER_PROVIDERS: "aws" },
+      env: { GRANTED_FAKE_CRABBOX_MISSING_BROKER_PROVIDERS: "aws" },
     });
 
     expect(result.status).toBe(2);
@@ -3386,7 +3386,7 @@ describe("scripts/crabbox-wrapper", () => {
   it("times out hung sanity probes before rejecting the selected binary", () => {
     const helpText = "provider: hetzner, aws, local-container, blacksmith-testbox, or cloudflare\n";
     const result = runWrapper(helpText, ["--version"], {
-      env: { OPENCLAW_TEST_CRABBOX_METADATA_PROBE_TIMEOUT_MS: "100" },
+      env: { GRANTED_TEST_CRABBOX_METADATA_PROBE_TIMEOUT_MS: "100" },
       extraPathEntries: [makeSlowVersionCrabbox(helpText)],
       nodePreload: testTimingPreload({ spawnTimeoutMs: 25 }),
     });
@@ -3401,7 +3401,7 @@ describe("scripts/crabbox-wrapper", () => {
     const helpText =
       "provider: hetzner, aws, local-container, blacksmith-testbox, daytona, azure, or cloudflare\n";
     const result = runWrapper(helpText, ["run", "--workload", "ci-fast", "--", "echo ok"], {
-      env: { OPENCLAW_TEST_CRABBOX_METADATA_PROBE_TIMEOUT_MS: "100" },
+      env: { GRANTED_TEST_CRABBOX_METADATA_PROBE_TIMEOUT_MS: "100" },
       extraPathEntries: [makeSlowVersionCrabbox(helpText)],
       nodePreload: testTimingPreload({ spawnTimeoutMs: 25 }),
     });
@@ -3418,7 +3418,7 @@ describe("scripts/crabbox-wrapper", () => {
     // First probe is SIGKILLed at 25ms; the retry gets the full generous timeout
     // and reads the (80ms) stderr help, so the wrapper must not hard-fail.
     const result = runWrapper(helpText, ["--version"], {
-      env: { OPENCLAW_TEST_CRABBOX_METADATA_PROBE_TIMEOUT_MS: "25" },
+      env: { GRANTED_TEST_CRABBOX_METADATA_PROBE_TIMEOUT_MS: "25" },
       extraPathEntries: [makeSlowHelpCrabbox(helpText, 80)],
     });
 
@@ -3515,7 +3515,7 @@ describe("scripts/crabbox-wrapper", () => {
     expectHydratedPosixShell({ output, remoteCommand }, "corepack pnpm check:changed");
     expect(remoteCommand).toContain("refs/heads/openclaw-changed-gate-head");
     expect(remoteCommand).toMatch(
-      /&& env OPENCLAW_CHECK_CHANGED_REMOTE_CHILD=1 OPENCLAW_CHANGED_LANES_RAW_SYNC=1 CI=1 corepack pnpm check:changed$/u,
+      /&& env GRANTED_CHECK_CHANGED_REMOTE_CHILD=1 GRANTED_CHANGED_LANES_RAW_SYNC=1 CI=1 corepack pnpm check:changed$/u,
     );
   });
 
@@ -3535,7 +3535,7 @@ describe("scripts/crabbox-wrapper", () => {
         "HEAD",
       ],
       {
-        env: { OPENCLAW_FAKE_GIT_BASE_SHA: "release123" },
+        env: { GRANTED_FAKE_GIT_BASE_SHA: "release123" },
         gitResponses: {
           [GIT_CONFIG_SPARSE_KEY]: { stdout: "true\n" },
           [GIT_STATUS_PORCELAIN_KEY]: { stdout: "" },
@@ -3618,12 +3618,12 @@ describe("scripts/crabbox-wrapper", () => {
       ["run", "--provider", "aws", "--", "corepack", "pnpm", "check:changed"],
       {
         env: {
-          OPENCLAW_FAKE_CRABBOX_EXPECT_CHANGED_GATE_BUNDLE: bundle,
-          OPENCLAW_FAKE_CRABBOX_EXPECT_CHANGED_GATE_FORCE_ADD: "1",
-          OPENCLAW_FAKE_GIT_BUNDLE: bundle,
-          OPENCLAW_FAKE_GIT_FORCE_ADD_MARKER: forceAddMarker,
-          OPENCLAW_FAKE_GIT_SYNTHETIC_COMMIT_MARKER: syntheticCommitMarker,
-          OPENCLAW_FAKE_GIT_SYNTHETIC_HEAD_MARKER: syntheticHeadMarker,
+          GRANTED_FAKE_CRABBOX_EXPECT_CHANGED_GATE_BUNDLE: bundle,
+          GRANTED_FAKE_CRABBOX_EXPECT_CHANGED_GATE_FORCE_ADD: "1",
+          GRANTED_FAKE_GIT_BUNDLE: bundle,
+          GRANTED_FAKE_GIT_FORCE_ADD_MARKER: forceAddMarker,
+          GRANTED_FAKE_GIT_SYNTHETIC_COMMIT_MARKER: syntheticCommitMarker,
+          GRANTED_FAKE_GIT_SYNTHETIC_HEAD_MARKER: syntheticHeadMarker,
         },
         gitResponses: {
           [GIT_CONFIG_SPARSE_KEY]: { stdout: "true\n" },
@@ -3660,10 +3660,10 @@ describe("scripts/crabbox-wrapper", () => {
         GIT_AUTHOR_EMAIL: "transport@example.invalid",
         GIT_COMMITTER_NAME: "Transport fixture",
         GIT_COMMITTER_EMAIL: "transport@example.invalid",
-        OPENCLAW_CRABBOX_WRAPPER_IGNORE_REPO_BINARY: "1",
-        OPENCLAW_CRABBOX_SYNC_TMPDIR: path.join(root, "sync"),
-        OPENCLAW_CRABBOX_SYNC_MIN_FREE_BYTES: "0",
-        OPENCLAW_FAKE_CRABBOX_COPY_CHANGED_GATE_BUNDLE_TO: capturedBundle,
+        GRANTED_CRABBOX_WRAPPER_IGNORE_REPO_BINARY: "1",
+        GRANTED_CRABBOX_SYNC_TMPDIR: path.join(root, "sync"),
+        GRANTED_CRABBOX_SYNC_MIN_FREE_BYTES: "0",
+        GRANTED_FAKE_CRABBOX_COPY_CHANGED_GATE_BUNDLE_TO: capturedBundle,
       };
       const git = (cwd: string, args: string[]) => {
         const result = spawnSync("git", args, { cwd, env, encoding: "utf8", timeout: 10_000 });
@@ -3859,8 +3859,8 @@ describe("scripts/crabbox-wrapper", () => {
       ["run", "--provider", "aws", "--", "corepack", "pnpm", "check:changed"],
       {
         env: {
-          OPENCLAW_FAKE_CRABBOX_EXPECT_CHANGED_GATE_BUNDLE_BYTES: String(bundleBytes),
-          OPENCLAW_FAKE_GIT_BUNDLE_BYTES: String(bundleBytes),
+          GRANTED_FAKE_CRABBOX_EXPECT_CHANGED_GATE_BUNDLE_BYTES: String(bundleBytes),
+          GRANTED_FAKE_GIT_BUNDLE_BYTES: String(bundleBytes),
         },
         gitResponses: {
           [GIT_CONFIG_SPARSE_KEY]: { stdout: "true\n" },
@@ -3887,9 +3887,9 @@ describe("scripts/crabbox-wrapper", () => {
         ["run", "--provider", "aws", "--", "corepack", "pnpm", "check:changed"],
         {
           env: {
-            OPENCLAW_FAKE_CRABBOX_EXPECT_CHANGED_GATE_BUNDLE: bundle,
-            OPENCLAW_FAKE_GIT_BUNDLE: bundle,
-            OPENCLAW_FAKE_GIT_CHANGED_GATE_BUNDLE_SYMLINK_TARGET: victimPath,
+            GRANTED_FAKE_CRABBOX_EXPECT_CHANGED_GATE_BUNDLE: bundle,
+            GRANTED_FAKE_GIT_BUNDLE: bundle,
+            GRANTED_FAKE_GIT_CHANGED_GATE_BUNDLE_SYMLINK_TARGET: victimPath,
           },
           gitResponses: {
             [GIT_CONFIG_SPARSE_KEY]: { stdout: "true\n" },
@@ -3921,7 +3921,7 @@ describe("scripts/crabbox-wrapper", () => {
     expect(remoteCommand).toContain("git init -q");
     expect(remoteCommand).toContain(remoteChangedGateFetch);
     expect(remoteCommand).toMatch(
-      /&& env OPENCLAW_CHECK_CHANGED_REMOTE_CHILD=1 OPENCLAW_CHANGED_LANES_RAW_SYNC=1 CI=1 corepack pnpm check:changed$/u,
+      /&& env GRANTED_CHECK_CHANGED_REMOTE_CHILD=1 GRANTED_CHANGED_LANES_RAW_SYNC=1 CI=1 corepack pnpm check:changed$/u,
     );
   });
 
@@ -3941,8 +3941,8 @@ describe("scripts/crabbox-wrapper", () => {
       ],
       {
         env: {
-          OPENCLAW_FAKE_GIT_EXPECT_COMMIT_TREE: dirtyTree,
-          OPENCLAW_FAKE_GIT_WORKTREE_TREE_SHA: dirtyTree,
+          GRANTED_FAKE_GIT_EXPECT_COMMIT_TREE: dirtyTree,
+          GRANTED_FAKE_GIT_WORKTREE_TREE_SHA: dirtyTree,
         },
         gitResponses: {
           [GIT_STATUS_PORCELAIN_KEY]: { stdout: " M scripts/crabbox-wrapper.mts\n" },
@@ -3965,8 +3965,8 @@ describe("scripts/crabbox-wrapper", () => {
         "aws",
         "--",
         "env",
-        "OPENCLAW_CHECK_CHANGED_REMOTE_CHILD=1",
-        "OPENCLAW_CHANGED_LANES_RAW_SYNC=1",
+        "GRANTED_CHECK_CHANGED_REMOTE_CHILD=1",
+        "GRANTED_CHANGED_LANES_RAW_SYNC=1",
         "CI=1",
         "corepack",
         "pnpm",
@@ -3978,7 +3978,7 @@ describe("scripts/crabbox-wrapper", () => {
     expect(output.args).toContain("--shell");
     expect(remoteCommand).toContain(remoteChangedGateFetch);
     expect(remoteCommand).toMatch(
-      /&& env OPENCLAW_CHECK_CHANGED_REMOTE_CHILD=1 OPENCLAW_CHANGED_LANES_RAW_SYNC=1 CI=1 corepack pnpm check:changed$/u,
+      /&& env GRANTED_CHECK_CHANGED_REMOTE_CHILD=1 GRANTED_CHANGED_LANES_RAW_SYNC=1 CI=1 corepack pnpm check:changed$/u,
     );
   });
 
@@ -4014,7 +4014,7 @@ describe("scripts/crabbox-wrapper", () => {
   });
 
   it("does not mistake quoted remote-child markers for shell changed-gate environment", () => {
-    const shellScript = 'echo "OPENCLAW_CHECK_CHANGED_REMOTE_CHILD=1"; pnpm check:changed';
+    const shellScript = 'echo "GRANTED_CHECK_CHANGED_REMOTE_CHILD=1"; pnpm check:changed';
     const { remoteCommand } = runSuccessfulMacosShell(shellScript, sparseChangedGateOptions);
 
     expect(remoteCommand).toContain(remoteChangedGateFetch);
@@ -4079,7 +4079,7 @@ describe("scripts/crabbox-wrapper", () => {
     expect(output.args).toContain("--shell");
     expect(remoteCommand).toContain("git init -q");
     expect(remoteCommand).toMatch(
-      /&& env OPENCLAW_CHECK_CHANGED_REMOTE_CHILD=1 OPENCLAW_CHANGED_LANES_RAW_SYNC=1 CI=1 timeout 1200s node scripts\/check-changed\.mjs --base origin\/main --head HEAD$/u,
+      /&& env GRANTED_CHECK_CHANGED_REMOTE_CHILD=1 GRANTED_CHANGED_LANES_RAW_SYNC=1 CI=1 timeout 1200s node scripts\/check-changed\.mjs --base origin\/main --head HEAD$/u,
     );
   });
 
@@ -4091,7 +4091,7 @@ describe("scripts/crabbox-wrapper", () => {
     expect(output.args).toContain("--shell");
     expect(remoteCommand).toContain("git init -q");
     expect(remoteCommand).toMatch(
-      /&& env OPENCLAW_CHECK_CHANGED_REMOTE_CHILD=1 OPENCLAW_CHANGED_LANES_RAW_SYNC=1 CI=1 timeout 1200s bash -lc 'pnpm check:changed'$/u,
+      /&& env GRANTED_CHECK_CHANGED_REMOTE_CHILD=1 GRANTED_CHANGED_LANES_RAW_SYNC=1 CI=1 timeout 1200s bash -lc 'pnpm check:changed'$/u,
     );
   });
 
@@ -4107,7 +4107,7 @@ describe("scripts/crabbox-wrapper", () => {
     expect(output.args).toContain("--shell");
     expect(remoteCommand).toContain("git init -q");
     expect(remoteCommand).toMatch(
-      /&& env -i OPENCLAW_CHECK_CHANGED_REMOTE_CHILD=1 OPENCLAW_CHANGED_LANES_RAW_SYNC=1 CI=1 pnpm check:changed$/u,
+      /&& env -i GRANTED_CHECK_CHANGED_REMOTE_CHILD=1 GRANTED_CHANGED_LANES_RAW_SYNC=1 CI=1 pnpm check:changed$/u,
     );
   });
 
@@ -4123,7 +4123,7 @@ describe("scripts/crabbox-wrapper", () => {
     expect(output.args).toContain("--shell");
     expect(remoteCommand).toContain("git init -q");
     expect(remoteCommand).toMatch(
-      /&& \/usr\/bin\/env -i OPENCLAW_CHECK_CHANGED_REMOTE_CHILD=1 OPENCLAW_CHANGED_LANES_RAW_SYNC=1 CI=1 pnpm check:changed$/u,
+      /&& \/usr\/bin\/env -i GRANTED_CHECK_CHANGED_REMOTE_CHILD=1 GRANTED_CHANGED_LANES_RAW_SYNC=1 CI=1 pnpm check:changed$/u,
     );
   });
 
@@ -4160,7 +4160,7 @@ describe("scripts/crabbox-wrapper", () => {
       : output.args.join("\0");
 
     expect(result.status).toBe(0);
-    expect(renderedCommand).not.toContain("OPENCLAW_CHECK_CHANGED_REMOTE_CHILD=1");
+    expect(renderedCommand).not.toContain("GRANTED_CHECK_CHANGED_REMOTE_CHILD=1");
     expect(renderedCommand).not.toContain("git init -q");
   });
 
@@ -4210,7 +4210,7 @@ describe("scripts/crabbox-wrapper", () => {
     expect(output.args.filter((arg) => arg === "--shell")).toHaveLength(1);
     expect(remoteCommand).toContain(remoteChangedGateFetch);
     expect(remoteCommand).toMatch(
-      /&& export OPENCLAW_CHECK_CHANGED_REMOTE_CHILD=1 OPENCLAW_CHANGED_LANES_RAW_SYNC=1 CI=1; env CI=1 pnpm check:changed$/u,
+      /&& export GRANTED_CHECK_CHANGED_REMOTE_CHILD=1 GRANTED_CHANGED_LANES_RAW_SYNC=1 CI=1; env CI=1 pnpm check:changed$/u,
     );
   });
 
@@ -4263,14 +4263,14 @@ describe("scripts/crabbox-wrapper", () => {
   it("fails sparse-sync full checkout early when the sync root is too low on disk", () => {
     withSparseSyncRoot(
       ".crabbox-test-low-disk-sync-root",
-      { OPENCLAW_CRABBOX_SYNC_MIN_FREE_BYTES: "999999999999999" },
+      { GRANTED_CRABBOX_SYNC_MIN_FREE_BYTES: "999999999999999" },
       ({ result, syncRoot }) => {
         expect(result.status).toBe(1);
         expect(result.stderr).toContain(
           "insufficient free disk for Crabbox sparse-sync full checkout",
         );
-        expect(result.stderr).toContain("OPENCLAW_CRABBOX_SYNC_TMPDIR");
-        expect(result.stderr).toContain("OPENCLAW_CRABBOX_SYNC_MIN_FREE_BYTES");
+        expect(result.stderr).toContain("GRANTED_CRABBOX_SYNC_TMPDIR");
+        expect(result.stderr).toContain("GRANTED_CRABBOX_SYNC_MIN_FREE_BYTES");
         expect(readdirSync(syncRoot)).toEqual([]);
       },
     );
@@ -4279,11 +4279,11 @@ describe("scripts/crabbox-wrapper", () => {
   it("rejects malformed sparse-sync minimum free byte limits", () => {
     withSparseSyncRoot(
       ".crabbox-test-invalid-disk-sync-root",
-      { OPENCLAW_CRABBOX_SYNC_MIN_FREE_BYTES: "1024mb" },
+      { GRANTED_CRABBOX_SYNC_MIN_FREE_BYTES: "1024mb" },
       ({ result, syncRoot }) => {
         expect(result.status).toBe(1);
         expect(result.stderr).toContain(
-          'OPENCLAW_CRABBOX_SYNC_MIN_FREE_BYTES must be a non-negative integer byte count, got "1024mb"',
+          'GRANTED_CRABBOX_SYNC_MIN_FREE_BYTES must be a non-negative integer byte count, got "1024mb"',
         );
         expect(readdirSync(syncRoot)).toEqual([]);
       },
@@ -4293,11 +4293,11 @@ describe("scripts/crabbox-wrapper", () => {
   it("rejects unsafe sparse-sync minimum free byte limits", () => {
     withSparseSyncRoot(
       ".crabbox-test-unsafe-disk-sync-root",
-      { OPENCLAW_CRABBOX_SYNC_MIN_FREE_BYTES: String(Number.MAX_SAFE_INTEGER + 1) },
+      { GRANTED_CRABBOX_SYNC_MIN_FREE_BYTES: String(Number.MAX_SAFE_INTEGER + 1) },
       ({ result, syncRoot }) => {
         expect(result.status).toBe(1);
         expect(result.stderr).toContain(
-          "OPENCLAW_CRABBOX_SYNC_MIN_FREE_BYTES must be a safe non-negative integer byte count",
+          "GRANTED_CRABBOX_SYNC_MIN_FREE_BYTES must be a safe non-negative integer byte count",
         );
         expect(readdirSync(syncRoot)).toEqual([]);
       },
@@ -4307,11 +4307,11 @@ describe("scripts/crabbox-wrapper", () => {
   it("rejects malformed sparse-sync keepalive intervals", () => {
     withSparseSyncRoot(
       ".crabbox-test-invalid-keepalive-sync-root",
-      { OPENCLAW_CRABBOX_SYNC_KEEPALIVE_MS: "10ms" },
+      { GRANTED_CRABBOX_SYNC_KEEPALIVE_MS: "10ms" },
       ({ result, syncRoot }) => {
         expect(result.status).toBe(1);
         expect(result.stderr).toContain(
-          'OPENCLAW_CRABBOX_SYNC_KEEPALIVE_MS must be a non-negative integer millisecond interval, got "10ms"',
+          'GRANTED_CRABBOX_SYNC_KEEPALIVE_MS must be a non-negative integer millisecond interval, got "10ms"',
         );
         expect(readdirSync(syncRoot)).toEqual([]);
       },
@@ -4343,8 +4343,8 @@ describe("scripts/crabbox-wrapper", () => {
     () => {
       const result = runDefaultWrapper(["run", "--provider", "aws", "--", "echo ok"], {
         env: {
-          OPENCLAW_CRABBOX_SYNC_KEEPALIVE_MS: "10",
-          OPENCLAW_FAKE_CRABBOX_DELETE_CWD_ONCE: "1",
+          GRANTED_CRABBOX_SYNC_KEEPALIVE_MS: "10",
+          GRANTED_FAKE_CRABBOX_DELETE_CWD_ONCE: "1",
         },
         gitResponses: {
           [GIT_CONFIG_SPARSE_KEY]: { stdout: "true\n" },
@@ -4365,8 +4365,8 @@ describe("scripts/crabbox-wrapper", () => {
     () => {
       const result = runDefaultWrapper(["run", "--provider", "aws", "--", "echo ok"], {
         env: {
-          OPENCLAW_CRABBOX_SYNC_KEEPALIVE_MS: "60000",
-          OPENCLAW_FAKE_CRABBOX_DELETE_CWD_AND_EXIT: "1",
+          GRANTED_CRABBOX_SYNC_KEEPALIVE_MS: "60000",
+          GRANTED_FAKE_CRABBOX_DELETE_CWD_AND_EXIT: "1",
         },
         gitResponses: {
           [GIT_CONFIG_SPARSE_KEY]: { stdout: "true\n" },

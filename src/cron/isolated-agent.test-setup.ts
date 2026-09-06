@@ -165,7 +165,7 @@ telegramOutboundForTest.sendMedia = async ({
 
 export function setupIsolatedAgentTurnMocks(params?: { fast?: boolean }): void {
   if (params?.fast) {
-    vi.stubEnv("OPENCLAW_TEST_FAST", "1");
+    vi.stubEnv("GRANTED_TEST_FAST", "1");
   }
   vi.mocked(runEmbeddedAgent).mockReset();
   vi.mocked(loadPreparedModelCatalog).mockResolvedValue([]);

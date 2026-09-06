@@ -853,8 +853,8 @@ describe("handleCommands /plugins install", () => {
   });
 
   it("refuses plugin installs in Nix mode before package installer side effects", async () => {
-    const previousNixMode = process.env.OPENCLAW_NIX_MODE;
-    process.env.OPENCLAW_NIX_MODE = "1";
+    const previousNixMode = process.env.GRANTED_NIX_MODE;
+    process.env.GRANTED_NIX_MODE = "1";
     try {
       await withTempHome("openclaw-command-plugins-home-", async () => {
         const workspaceDir = await workspaceHarness.createWorkspace();
@@ -864,7 +864,7 @@ describe("handleCommands /plugins install", () => {
           throw new Error("expected plugin install result");
         }
 
-        expect(result.reply?.text).toContain("OPENCLAW_NIX_MODE=1");
+        expect(result.reply?.text).toContain("GRANTED_NIX_MODE=1");
         expect(result.reply?.text).toContain("nix-openclaw#quick-start");
         expect(installPluginFromNpmSpecMock).not.toHaveBeenCalled();
         expect(installPluginFromPathMock).not.toHaveBeenCalled();
@@ -874,9 +874,9 @@ describe("handleCommands /plugins install", () => {
       });
     } finally {
       if (previousNixMode === undefined) {
-        delete process.env.OPENCLAW_NIX_MODE;
+        delete process.env.GRANTED_NIX_MODE;
       } else {
-        process.env.OPENCLAW_NIX_MODE = previousNixMode;
+        process.env.GRANTED_NIX_MODE = previousNixMode;
       }
     }
   });

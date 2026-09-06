@@ -130,7 +130,7 @@ async function createFixture() {
     stateDir,
     workspace,
     cfg,
-    env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+    env: { ...process.env, GRANTED_STATE_DIR: stateDir },
     agentsPath: path.join(workspace, "AGENTS.md"),
     toolsPath: path.join(workspace, "TOOLS.md"),
   };

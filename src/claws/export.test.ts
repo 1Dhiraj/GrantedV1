@@ -168,7 +168,7 @@ async function installedFixture(
   let config: OpenClawConfig = {};
   await applyClawAddPlan(plan, {
     consentPlanIntegrity: plan.planIntegrity,
-    env: { OPENCLAW_STATE_DIR: join(root, "state") },
+    env: { GRANTED_STATE_DIR: join(root, "state") },
     commitConfig: async (transform) => {
       config = transform(config);
     },
@@ -193,14 +193,14 @@ async function installedFixture(
         version: "2.0.0",
         integrity: "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
       },
-      { env: { OPENCLAW_STATE_DIR: join(root, "state") } },
+      { env: { GRANTED_STATE_DIR: join(root, "state") } },
     );
   }
   return {
     root,
     plan,
     config,
-    env: { OPENCLAW_STATE_DIR: join(root, "state") },
+    env: { GRANTED_STATE_DIR: join(root, "state") },
     packageDeps: {
       planSkill: async () => ({
         ok: true as const,

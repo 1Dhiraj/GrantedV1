@@ -121,9 +121,9 @@ suite.define(() => {
               ({ gatewayUrl, token }) => {
                 (
                   window as Window & {
-                    __OPENCLAW_NATIVE_CONTROL_AUTH__?: { gatewayUrl: string; token: string };
+                    __GRANTED_NATIVE_CONTROL_AUTH__?: { gatewayUrl: string; token: string };
                   }
-                )["__OPENCLAW_NATIVE_CONTROL_AUTH__"] = { gatewayUrl, token };
+                )["__GRANTED_NATIVE_CONTROL_AUTH__"] = { gatewayUrl, token };
               },
               { gatewayUrl: gateway.gateway.wsUrl, token: gateway.gateway.token },
             );
@@ -192,7 +192,7 @@ suite.define(() => {
               sessionKey: "agent:qa:main",
               limit: 30,
             });
-            const stateDir = gateway.gateway.runtimeEnv.OPENCLAW_STATE_DIR;
+            const stateDir = gateway.gateway.runtimeEnv.GRANTED_STATE_DIR;
             if (!stateDir) {
               throw new Error("QA Gateway state directory is unavailable");
             }

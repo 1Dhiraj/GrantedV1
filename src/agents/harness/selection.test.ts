@@ -10,7 +10,7 @@ import {
 } from "../../config/runtime-snapshot.js";
 import { replaceSessionEntry } from "../../config/sessions/session-accessor.js";
 import type { TranscriptEntryAnchor } from "../../config/sessions/transcript-entry-anchor.js";
-import { OPENCLAW_EMBEDDED_CONTEXT_ENGINE_HOST } from "../../context-engine/host-compat.js";
+import { GRANTED_EMBEDDED_CONTEXT_ENGINE_HOST } from "../../context-engine/host-compat.js";
 import type { ContextEngine } from "../../context-engine/types.js";
 import type { GatewayRequestContext } from "../../gateway/server-methods/types.js";
 import { resetAgentRunRegistryForTest } from "../../infra/agent-run-registry.js";
@@ -149,7 +149,7 @@ vi.mock("./builtin-openclaw.js", () => ({
     const harness: AgentHarness = {
       id: "openclaw",
       label: "OpenClaw embedded agent",
-      contextEngineHostCapabilities: OPENCLAW_EMBEDDED_CONTEXT_ENGINE_HOST.capabilities,
+      contextEngineHostCapabilities: GRANTED_EMBEDDED_CONTEXT_ENGINE_HOST.capabilities,
       supports: () => ({ supported: true, priority: 0 }),
       runAttempt: agentRunAttempt,
     };
@@ -188,7 +188,7 @@ vi.mock("../tools/gateway.js", () => ({ callGatewayTool: vi.fn() }));
 
 const mockCallGatewayTool = vi.mocked(callGatewayTool);
 
-const originalRuntime = process.env.OPENCLAW_AGENT_RUNTIME;
+const originalRuntime = process.env.GRANTED_AGENT_RUNTIME;
 const trajectoryTempDirs = createTempDirTracker();
 let generationState: OpenClawTestState;
 let selectionAdmission: PreparedAgentRunAdmission;
@@ -275,9 +275,9 @@ afterEach(async () => {
   providerOwnerMocks.resolveProviderRefOwnership.mockReset();
   contextEngineTurnAttemptMocks.drainPendingContextEngineTurnsBeforeRun.mockReset();
   if (originalRuntime == null) {
-    delete process.env.OPENCLAW_AGENT_RUNTIME;
+    delete process.env.GRANTED_AGENT_RUNTIME;
   } else {
-    process.env.OPENCLAW_AGENT_RUNTIME = originalRuntime;
+    process.env.GRANTED_AGENT_RUNTIME = originalRuntime;
   }
   await generationState.cleanup();
 });
@@ -1197,7 +1197,7 @@ describe("runAgentHarnessAttempt", () => {
   });
 
   it("fails when a forced plugin harness is unavailable and fallback is omitted", async () => {
-    process.env.OPENCLAW_AGENT_RUNTIME = "codex";
+    process.env.GRANTED_AGENT_RUNTIME = "codex";
 
     await expect(
       runAgentHarnessAttempt(createAttemptParams(providerRuntimeConfig("codex", "codex"))),
@@ -2475,8 +2475,8 @@ describe("selectAgentHarness", () => {
   );
 
   it("keeps a private-QA forced runtime despite a plugin-declared fallback", () => {
-    vi.stubEnv("OPENCLAW_BUILD_PRIVATE_QA", "1");
-    vi.stubEnv("OPENCLAW_QA_FORCE_RUNTIME", "codex");
+    vi.stubEnv("GRANTED_BUILD_PRIVATE_QA", "1");
+    vi.stubEnv("GRANTED_QA_FORCE_RUNTIME", "codex");
     registerAgentHarness({
       id: "codex",
       label: "Codex",
@@ -2835,8 +2835,8 @@ describe("selectAgentHarness", () => {
   });
 
   it("keeps private-QA forced Codex across prepared routes that declare fallback", () => {
-    vi.stubEnv("OPENCLAW_BUILD_PRIVATE_QA", "1");
-    vi.stubEnv("OPENCLAW_QA_FORCE_RUNTIME", "codex");
+    vi.stubEnv("GRANTED_BUILD_PRIVATE_QA", "1");
+    vi.stubEnv("GRANTED_QA_FORCE_RUNTIME", "codex");
     registerAgentHarness({
       id: "codex",
       label: "Codex",
@@ -3092,7 +3092,7 @@ describe("selectAgentHarness", () => {
   });
 
   it("ignores env-forced OpenClaw for OpenAI default runtime selection", () => {
-    process.env.OPENCLAW_AGENT_RUNTIME = "openclaw";
+    process.env.GRANTED_AGENT_RUNTIME = "openclaw";
     registerFailingCodexHarness();
 
     expect(

@@ -284,27 +284,27 @@ describe("applyCliProfileEnv", () => {
       homedir: () => "/home/peter",
     });
     const expectedStateDir = path.join(path.resolve("/home/peter"), ".openclaw-dev");
-    expect(env.OPENCLAW_PROFILE).toBe("dev");
-    expect(env.OPENCLAW_STATE_DIR).toBe(expectedStateDir);
-    expect(env.OPENCLAW_CONFIG_PATH).toBe(path.join(expectedStateDir, "openclaw.json"));
-    expect(env.OPENCLAW_GATEWAY_PORT).toBe("19001");
+    expect(env.GRANTED_PROFILE).toBe("dev");
+    expect(env.GRANTED_STATE_DIR).toBe(expectedStateDir);
+    expect(env.GRANTED_CONFIG_PATH).toBe(path.join(expectedStateDir, "openclaw.json"));
+    expect(env.GRANTED_GATEWAY_PORT).toBe("19001");
   });
 
   it("does not override explicit env values", () => {
     const env: Record<string, string | undefined> = {
-      OPENCLAW_PROFILE: "prod",
-      OPENCLAW_STATE_DIR: "/custom",
-      OPENCLAW_GATEWAY_PORT: "19099",
+      GRANTED_PROFILE: "prod",
+      GRANTED_STATE_DIR: "/custom",
+      GRANTED_GATEWAY_PORT: "19099",
     };
     applyCliProfileEnv({
       profile: "dev",
       env,
       homedir: () => "/home/peter",
     });
-    expect(env.OPENCLAW_PROFILE).toBe("dev");
-    expect(env.OPENCLAW_STATE_DIR).toBe("/custom");
-    expect(env.OPENCLAW_GATEWAY_PORT).toBe("19099");
-    expect(env.OPENCLAW_CONFIG_PATH).toBe(path.join("/custom", "openclaw.json"));
+    expect(env.GRANTED_PROFILE).toBe("dev");
+    expect(env.GRANTED_STATE_DIR).toBe("/custom");
+    expect(env.GRANTED_GATEWAY_PORT).toBe("19099");
+    expect(env.GRANTED_CONFIG_PATH).toBe(path.join("/custom", "openclaw.json"));
   });
 
   it.each([
@@ -316,45 +316,45 @@ describe("applyCliProfileEnv", () => {
       ? `/home/peter/.openclaw-${inheritedProfile}`
       : "/home/peter/.openclaw";
     const env: Record<string, string | undefined> = {
-      OPENCLAW_PROFILE: inheritedProfile,
-      OPENCLAW_STATE_DIR: inheritedStateDir,
-      OPENCLAW_CONFIG_PATH: path.join(inheritedStateDir, "openclaw.json"),
-      OPENCLAW_GATEWAY_PORT: "18789",
-      OPENCLAW_LAUNCHD_LABEL: inheritedProfile
+      GRANTED_PROFILE: inheritedProfile,
+      GRANTED_STATE_DIR: inheritedStateDir,
+      GRANTED_CONFIG_PATH: path.join(inheritedStateDir, "openclaw.json"),
+      GRANTED_GATEWAY_PORT: "18789",
+      GRANTED_LAUNCHD_LABEL: inheritedProfile
         ? `ai.openclaw.${inheritedProfile}`
         : "ai.openclaw.gateway",
-      OPENCLAW_SYSTEMD_UNIT: inheritedProfile
+      GRANTED_SYSTEMD_UNIT: inheritedProfile
         ? `openclaw-gateway-${inheritedProfile}.service`
         : "openclaw-gateway.service",
-      OPENCLAW_WINDOWS_TASK_NAME: inheritedProfile
+      GRANTED_WINDOWS_TASK_NAME: inheritedProfile
         ? `OpenClaw Gateway (${inheritedProfile})`
         : "OpenClaw Gateway",
-      OPENCLAW_SERVICE_MARKER: "openclaw",
-      OPENCLAW_SERVICE_KIND: "gateway",
+      GRANTED_SERVICE_MARKER: "openclaw",
+      GRANTED_SERVICE_KIND: "gateway",
     };
 
     applyCliProfileEnv({ profile: selected, env, homedir: () => "/home/peter" });
 
-    expect(env.OPENCLAW_PROFILE).toBe(selected);
-    expect(env.OPENCLAW_STATE_DIR).toBe(`/home/peter/.openclaw-${selected}`);
-    expect(env.OPENCLAW_CONFIG_PATH).toBeUndefined();
-    expect(env.OPENCLAW_GATEWAY_PORT).toBe(selected === "dev" ? "19001" : undefined);
-    expect(env.OPENCLAW_LAUNCHD_LABEL).toBeUndefined();
-    expect(env.OPENCLAW_SYSTEMD_UNIT).toBeUndefined();
-    expect(env.OPENCLAW_WINDOWS_TASK_NAME).toBeUndefined();
+    expect(env.GRANTED_PROFILE).toBe(selected);
+    expect(env.GRANTED_STATE_DIR).toBe(`/home/peter/.openclaw-${selected}`);
+    expect(env.GRANTED_CONFIG_PATH).toBeUndefined();
+    expect(env.GRANTED_GATEWAY_PORT).toBe(selected === "dev" ? "19001" : undefined);
+    expect(env.GRANTED_LAUNCHD_LABEL).toBeUndefined();
+    expect(env.GRANTED_SYSTEMD_UNIT).toBeUndefined();
+    expect(env.GRANTED_WINDOWS_TASK_NAME).toBeUndefined();
   });
 
   it("lets selected config or profile derivation resolve the port after stale service removal", () => {
     const env: Record<string, string | undefined> = {
-      OPENCLAW_PROFILE: "main",
-      OPENCLAW_STATE_DIR: "/home/peter/.openclaw-main",
-      OPENCLAW_CONFIG_PATH: "/home/peter/.openclaw-main/openclaw.json",
-      OPENCLAW_GATEWAY_PORT: "18789",
-      OPENCLAW_LAUNCHD_LABEL: "ai.openclaw.main",
-      OPENCLAW_SYSTEMD_UNIT: "openclaw-gateway-main.service",
-      OPENCLAW_WINDOWS_TASK_NAME: "OpenClaw Gateway (main)",
-      OPENCLAW_SERVICE_MARKER: "openclaw",
-      OPENCLAW_SERVICE_KIND: "gateway",
+      GRANTED_PROFILE: "main",
+      GRANTED_STATE_DIR: "/home/peter/.openclaw-main",
+      GRANTED_CONFIG_PATH: "/home/peter/.openclaw-main/openclaw.json",
+      GRANTED_GATEWAY_PORT: "18789",
+      GRANTED_LAUNCHD_LABEL: "ai.openclaw.main",
+      GRANTED_SYSTEMD_UNIT: "openclaw-gateway-main.service",
+      GRANTED_WINDOWS_TASK_NAME: "OpenClaw Gateway (main)",
+      GRANTED_SERVICE_MARKER: "openclaw",
+      GRANTED_SERVICE_KIND: "gateway",
     };
 
     applyCliProfileEnv({ profile: "work", env, homedir: () => "/home/peter" });
@@ -365,38 +365,38 @@ describe("applyCliProfileEnv", () => {
 
   it("supports legacy gateway services without a service kind", () => {
     const env: Record<string, string | undefined> = {
-      OPENCLAW_PROFILE: "main",
-      OPENCLAW_STATE_DIR: "/home/peter/.openclaw-main",
-      OPENCLAW_CONFIG_PATH: "/home/peter/.openclaw-main/openclaw.json",
-      OPENCLAW_GATEWAY_PORT: "18789",
-      OPENCLAW_SERVICE_MARKER: "openclaw",
+      GRANTED_PROFILE: "main",
+      GRANTED_STATE_DIR: "/home/peter/.openclaw-main",
+      GRANTED_CONFIG_PATH: "/home/peter/.openclaw-main/openclaw.json",
+      GRANTED_GATEWAY_PORT: "18789",
+      GRANTED_SERVICE_MARKER: "openclaw",
     };
 
     applyCliProfileEnv({ profile: "work", env, homedir: () => "/home/peter" });
 
-    expect(env.OPENCLAW_CONFIG_PATH).toBeUndefined();
-    expect(env.OPENCLAW_GATEWAY_PORT).toBeUndefined();
+    expect(env.GRANTED_CONFIG_PATH).toBeUndefined();
+    expect(env.GRANTED_GATEWAY_PORT).toBeUndefined();
   });
 
   it("preserves node service selectors when selecting a CLI profile", () => {
     const env: Record<string, string | undefined> = {
-      OPENCLAW_PROFILE: "main",
-      OPENCLAW_STATE_DIR: "/home/peter/.openclaw-main",
-      OPENCLAW_CONFIG_PATH: "/home/peter/.openclaw-main/openclaw.json",
-      OPENCLAW_GATEWAY_PORT: "19999",
-      OPENCLAW_LAUNCHD_LABEL: "ai.openclaw.node",
-      OPENCLAW_SYSTEMD_UNIT: "openclaw-node.service",
-      OPENCLAW_WINDOWS_TASK_NAME: "OpenClaw Node",
-      OPENCLAW_SERVICE_MARKER: "openclaw",
-      OPENCLAW_SERVICE_KIND: "node",
+      GRANTED_PROFILE: "main",
+      GRANTED_STATE_DIR: "/home/peter/.openclaw-main",
+      GRANTED_CONFIG_PATH: "/home/peter/.openclaw-main/openclaw.json",
+      GRANTED_GATEWAY_PORT: "19999",
+      GRANTED_LAUNCHD_LABEL: "ai.openclaw.node",
+      GRANTED_SYSTEMD_UNIT: "openclaw-node.service",
+      GRANTED_WINDOWS_TASK_NAME: "OpenClaw Node",
+      GRANTED_SERVICE_MARKER: "openclaw",
+      GRANTED_SERVICE_KIND: "node",
     };
 
     applyCliProfileEnv({ profile: "work", env, homedir: () => "/home/peter" });
 
-    expect(env.OPENCLAW_GATEWAY_PORT).toBe("19999");
-    expect(env.OPENCLAW_LAUNCHD_LABEL).toBe("ai.openclaw.node");
-    expect(env.OPENCLAW_SYSTEMD_UNIT).toBe("openclaw-node.service");
-    expect(env.OPENCLAW_WINDOWS_TASK_NAME).toBe("OpenClaw Node");
+    expect(env.GRANTED_GATEWAY_PORT).toBe("19999");
+    expect(env.GRANTED_LAUNCHD_LABEL).toBe("ai.openclaw.node");
+    expect(env.GRANTED_SYSTEMD_UNIT).toBe("openclaw-node.service");
+    expect(env.GRANTED_WINDOWS_TASK_NAME).toBe("OpenClaw Node");
   });
 
   it.each([
@@ -424,66 +424,66 @@ describe("applyCliProfileEnv", () => {
     "switches inherited canonical state from $name to the requested profile",
     ({ inheritedProfile, inheritedStateDir }) => {
       const env: Record<string, string | undefined> = {
-        OPENCLAW_PROFILE: inheritedProfile,
-        OPENCLAW_STATE_DIR: inheritedStateDir,
-        OPENCLAW_CONFIG_PATH: path.join(inheritedStateDir, "openclaw.json"),
+        GRANTED_PROFILE: inheritedProfile,
+        GRANTED_STATE_DIR: inheritedStateDir,
+        GRANTED_CONFIG_PATH: path.join(inheritedStateDir, "openclaw.json"),
       };
 
       applyCliProfileEnv({ profile: "work", env, homedir: () => "/home/peter" });
 
       const expectedStateDir = path.join(path.resolve("/home/peter"), ".openclaw-work");
-      expect(env.OPENCLAW_PROFILE).toBe("work");
-      expect(env.OPENCLAW_STATE_DIR).toBe(expectedStateDir);
-      expect(env.OPENCLAW_CONFIG_PATH).toBe(path.join(expectedStateDir, "openclaw.json"));
+      expect(env.GRANTED_PROFILE).toBe("work");
+      expect(env.GRANTED_STATE_DIR).toBe(expectedStateDir);
+      expect(env.GRANTED_CONFIG_PATH).toBe(path.join(expectedStateDir, "openclaw.json"));
     },
   );
 
   it("preserves an explicit config outside inherited canonical profile state", () => {
     const env: Record<string, string | undefined> = {
-      OPENCLAW_PROFILE: "main",
-      OPENCLAW_STATE_DIR: "/home/peter/.openclaw-main",
-      OPENCLAW_CONFIG_PATH: "/srv/openclaw/custom.json",
+      GRANTED_PROFILE: "main",
+      GRANTED_STATE_DIR: "/home/peter/.openclaw-main",
+      GRANTED_CONFIG_PATH: "/srv/openclaw/custom.json",
     };
 
     applyCliProfileEnv({ profile: "work", env, homedir: () => "/home/peter" });
 
-    expect(env.OPENCLAW_STATE_DIR).toBe("/home/peter/.openclaw-work");
-    expect(env.OPENCLAW_CONFIG_PATH).toBe("/srv/openclaw/custom.json");
+    expect(env.GRANTED_STATE_DIR).toBe("/home/peter/.openclaw-work");
+    expect(env.GRANTED_CONFIG_PATH).toBe("/srv/openclaw/custom.json");
   });
 
   it.each(["openclaw-gateway-main", "openclaw-gateway-main.service"])(
     "drops inherited canonical service identities when switching profiles (%s)",
     (systemdUnit) => {
       const env: Record<string, string | undefined> = {
-        OPENCLAW_PROFILE: "main",
-        OPENCLAW_STATE_DIR: "/home/peter/.openclaw-main",
-        OPENCLAW_CONFIG_PATH: "/home/peter/.openclaw-main/openclaw.json",
-        OPENCLAW_LAUNCHD_LABEL: "ai.openclaw.main",
-        OPENCLAW_SYSTEMD_UNIT: systemdUnit,
-        OPENCLAW_WINDOWS_TASK_NAME: "OpenClaw Gateway (main)",
+        GRANTED_PROFILE: "main",
+        GRANTED_STATE_DIR: "/home/peter/.openclaw-main",
+        GRANTED_CONFIG_PATH: "/home/peter/.openclaw-main/openclaw.json",
+        GRANTED_LAUNCHD_LABEL: "ai.openclaw.main",
+        GRANTED_SYSTEMD_UNIT: systemdUnit,
+        GRANTED_WINDOWS_TASK_NAME: "OpenClaw Gateway (main)",
       };
 
       applyCliProfileEnv({ profile: "work", env, homedir: () => "/home/peter" });
 
-      expect(env.OPENCLAW_LAUNCHD_LABEL).toBeUndefined();
-      expect(env.OPENCLAW_SYSTEMD_UNIT).toBeUndefined();
-      expect(env.OPENCLAW_WINDOWS_TASK_NAME).toBeUndefined();
+      expect(env.GRANTED_LAUNCHD_LABEL).toBeUndefined();
+      expect(env.GRANTED_SYSTEMD_UNIT).toBeUndefined();
+      expect(env.GRANTED_WINDOWS_TASK_NAME).toBeUndefined();
     },
   );
 
   it("preserves explicit custom service identities when switching profiles", () => {
     const env: Record<string, string | undefined> = {
-      OPENCLAW_PROFILE: "main",
-      OPENCLAW_LAUNCHD_LABEL: "com.example.gateway",
-      OPENCLAW_SYSTEMD_UNIT: "custom-gateway.service",
-      OPENCLAW_WINDOWS_TASK_NAME: "Custom Gateway",
+      GRANTED_PROFILE: "main",
+      GRANTED_LAUNCHD_LABEL: "com.example.gateway",
+      GRANTED_SYSTEMD_UNIT: "custom-gateway.service",
+      GRANTED_WINDOWS_TASK_NAME: "Custom Gateway",
     };
 
     applyCliProfileEnv({ profile: "work", env, homedir: () => "/home/peter" });
 
-    expect(env.OPENCLAW_LAUNCHD_LABEL).toBe("com.example.gateway");
-    expect(env.OPENCLAW_SYSTEMD_UNIT).toBe("custom-gateway.service");
-    expect(env.OPENCLAW_WINDOWS_TASK_NAME).toBe("Custom Gateway");
+    expect(env.GRANTED_LAUNCHD_LABEL).toBe("com.example.gateway");
+    expect(env.GRANTED_SYSTEMD_UNIT).toBe("custom-gateway.service");
+    expect(env.GRANTED_WINDOWS_TASK_NAME).toBe("Custom Gateway");
   });
 
   it.each([
@@ -494,33 +494,33 @@ describe("applyCliProfileEnv", () => {
     ({ inheritedProfile, selectedProfile }) => {
       const inheritedStateDir = `/home/peter/.openclaw-${inheritedProfile}`;
       const env: Record<string, string | undefined> = {
-        OPENCLAW_PROFILE: inheritedProfile,
-        OPENCLAW_STATE_DIR: inheritedStateDir,
-        OPENCLAW_CONFIG_PATH: path.join(inheritedStateDir, "openclaw.json"),
+        GRANTED_PROFILE: inheritedProfile,
+        GRANTED_STATE_DIR: inheritedStateDir,
+        GRANTED_CONFIG_PATH: path.join(inheritedStateDir, "openclaw.json"),
       };
 
       applyCliProfileEnv({ profile: selectedProfile, env, homedir: () => "/home/peter" });
 
       const expectedStateDir = `/home/peter/.openclaw-${selectedProfile}`;
-      expect(env.OPENCLAW_PROFILE).toBe(selectedProfile);
-      expect(env.OPENCLAW_STATE_DIR).toBe(expectedStateDir);
-      expect(env.OPENCLAW_CONFIG_PATH).toBe(path.join(expectedStateDir, "openclaw.json"));
+      expect(env.GRANTED_PROFILE).toBe(selectedProfile);
+      expect(env.GRANTED_STATE_DIR).toBe(expectedStateDir);
+      expect(env.GRANTED_CONFIG_PATH).toBe(path.join(expectedStateDir, "openclaw.json"));
     },
   );
 
   it("treats case variants of the default profile as the same canonical profile", () => {
     const stateDir = "/home/peter/.openclaw";
     const env: Record<string, string | undefined> = {
-      OPENCLAW_PROFILE: "Default",
-      OPENCLAW_STATE_DIR: stateDir,
-      OPENCLAW_CONFIG_PATH: path.join(stateDir, "openclaw.json"),
+      GRANTED_PROFILE: "Default",
+      GRANTED_STATE_DIR: stateDir,
+      GRANTED_CONFIG_PATH: path.join(stateDir, "openclaw.json"),
     };
 
     applyCliProfileEnv({ profile: "default", env, homedir: () => "/home/peter" });
 
-    expect(env.OPENCLAW_PROFILE).toBe("default");
-    expect(env.OPENCLAW_STATE_DIR).toBe(stateDir);
-    expect(env.OPENCLAW_CONFIG_PATH).toBe(path.join(stateDir, "openclaw.json"));
+    expect(env.GRANTED_PROFILE).toBe("default");
+    expect(env.GRANTED_STATE_DIR).toBe(stateDir);
+    expect(env.GRANTED_CONFIG_PATH).toBe(path.join(stateDir, "openclaw.json"));
   });
 
   it.each([
@@ -543,22 +543,22 @@ describe("applyCliProfileEnv", () => {
     "switches an inherited $name config when the state directory is absent",
     ({ inheritedProfile, inheritedConfigPath }) => {
       const env: Record<string, string | undefined> = {
-        OPENCLAW_PROFILE: inheritedProfile,
-        OPENCLAW_CONFIG_PATH: inheritedConfigPath,
+        GRANTED_PROFILE: inheritedProfile,
+        GRANTED_CONFIG_PATH: inheritedConfigPath,
       };
 
       applyCliProfileEnv({ profile: "work", env, homedir: () => "/home/peter" });
 
       const expectedStateDir = "/home/peter/.openclaw-work";
-      expect(env.OPENCLAW_PROFILE).toBe("work");
-      expect(env.OPENCLAW_STATE_DIR).toBe(expectedStateDir);
-      expect(env.OPENCLAW_CONFIG_PATH).toBe(path.join(expectedStateDir, "openclaw.json"));
+      expect(env.GRANTED_PROFILE).toBe("work");
+      expect(env.GRANTED_STATE_DIR).toBe(expectedStateDir);
+      expect(env.GRANTED_CONFIG_PATH).toBe(path.join(expectedStateDir, "openclaw.json"));
     },
   );
 
-  it("uses OPENCLAW_HOME when deriving profile state dir", () => {
+  it("uses GRANTED_HOME when deriving profile state dir", () => {
     const env: Record<string, string | undefined> = {
-      OPENCLAW_HOME: "/srv/openclaw-home",
+      GRANTED_HOME: "/srv/openclaw-home",
       HOME: "/home/other",
     };
     applyCliProfileEnv({
@@ -568,8 +568,8 @@ describe("applyCliProfileEnv", () => {
     });
 
     const resolvedHome = path.resolve("/srv/openclaw-home");
-    expect(env.OPENCLAW_STATE_DIR).toBe(path.join(resolvedHome, ".openclaw-work"));
-    expect(env.OPENCLAW_CONFIG_PATH).toBe(
+    expect(env.GRANTED_STATE_DIR).toBe(path.join(resolvedHome, ".openclaw-work"));
+    expect(env.GRANTED_CONFIG_PATH).toBe(
       path.join(resolvedHome, ".openclaw-work", "openclaw.json"),
     );
   });
@@ -586,31 +586,31 @@ describe("formatCliCommand", () => {
     {
       name: "profile is default",
       cmd: "openclaw doctor --fix",
-      env: { OPENCLAW_PROFILE: "default" },
+      env: { GRANTED_PROFILE: "default" },
       expected: "openclaw doctor --fix",
     },
     {
       name: "profile is Default (case-insensitive)",
       cmd: "openclaw doctor --fix",
-      env: { OPENCLAW_PROFILE: "Default" },
+      env: { GRANTED_PROFILE: "Default" },
       expected: "openclaw doctor --fix",
     },
     {
       name: "profile is invalid",
       cmd: "openclaw doctor --fix",
-      env: { OPENCLAW_PROFILE: "bad profile" },
+      env: { GRANTED_PROFILE: "bad profile" },
       expected: "openclaw doctor --fix",
     },
     {
       name: "--profile is already present",
       cmd: "openclaw --profile work doctor --fix",
-      env: { OPENCLAW_PROFILE: "work" },
+      env: { GRANTED_PROFILE: "work" },
       expected: "openclaw --profile work doctor --fix",
     },
     {
       name: "--dev is already present",
       cmd: "openclaw --dev doctor",
-      env: { OPENCLAW_PROFILE: "dev" },
+      env: { GRANTED_PROFILE: "dev" },
       expected: "openclaw --dev doctor",
     },
   ])("returns command unchanged when $name", ({ cmd, env, expected }) => {
@@ -618,39 +618,39 @@ describe("formatCliCommand", () => {
   });
 
   it("inserts --profile flag when profile is set", () => {
-    expect(formatCliCommand("openclaw doctor --fix", { OPENCLAW_PROFILE: "work" })).toBe(
+    expect(formatCliCommand("openclaw doctor --fix", { GRANTED_PROFILE: "work" })).toBe(
       "openclaw --profile work doctor --fix",
     );
   });
 
   it("trims whitespace from profile", () => {
-    expect(formatCliCommand("openclaw doctor --fix", { OPENCLAW_PROFILE: "  jbopenclaw  " })).toBe(
+    expect(formatCliCommand("openclaw doctor --fix", { GRANTED_PROFILE: "  jbopenclaw  " })).toBe(
       "openclaw --profile jbopenclaw doctor --fix",
     );
   });
 
   it("handles command with no args after openclaw", () => {
-    expect(formatCliCommand("openclaw", { OPENCLAW_PROFILE: "test" })).toBe(
+    expect(formatCliCommand("openclaw", { GRANTED_PROFILE: "test" })).toBe(
       "openclaw --profile test",
     );
   });
 
   it("handles pnpm wrapper", () => {
-    expect(formatCliCommand("pnpm openclaw doctor", { OPENCLAW_PROFILE: "work" })).toBe(
+    expect(formatCliCommand("pnpm openclaw doctor", { GRANTED_PROFILE: "work" })).toBe(
       "pnpm openclaw --profile work doctor",
     );
   });
 
   it("inserts --container when a container hint is set", () => {
     expect(
-      formatCliCommand("openclaw gateway status --deep", { OPENCLAW_CONTAINER_HINT: "demo" }),
+      formatCliCommand("openclaw gateway status --deep", { GRANTED_CONTAINER_HINT: "demo" }),
     ).toBe("openclaw --container demo gateway status --deep");
   });
 
   it("ignores unsafe container hints", () => {
     expect(
       formatCliCommand("openclaw gateway status --deep", {
-        OPENCLAW_CONTAINER_HINT: "demo; rm -rf /",
+        GRANTED_CONTAINER_HINT: "demo; rm -rf /",
       }),
     ).toBe("openclaw gateway status --deep");
   });
@@ -658,8 +658,8 @@ describe("formatCliCommand", () => {
   it("preserves both --container and --profile hints", () => {
     expect(
       formatCliCommand("openclaw doctor", {
-        OPENCLAW_CONTAINER_HINT: "demo",
-        OPENCLAW_PROFILE: "work",
+        GRANTED_CONTAINER_HINT: "demo",
+        GRANTED_PROFILE: "work",
       }),
     ).toBe("openclaw --container demo doctor");
   });
@@ -681,7 +681,7 @@ describe("formatCliCommand", () => {
     "pnpm openclaw --profile work update --channel beta",
   ])("does not prepend --container to root update: %s", (command) => {
     expect(
-      formatCliCommand(command, { OPENCLAW_CONTAINER_HINT: "demo", OPENCLAW_PROFILE: "work" }),
+      formatCliCommand(command, { GRANTED_CONTAINER_HINT: "demo", GRANTED_PROFILE: "work" }),
     ).toBe(command);
   });
 
@@ -699,8 +699,8 @@ describe("formatCliCommand", () => {
   ])("preserves the active container for non-root update: %s %s", (prefix, command) => {
     expect(
       formatCliCommand(`${prefix} ${command}`, {
-        OPENCLAW_CONTAINER_HINT: "demo",
-        OPENCLAW_PROFILE: "work",
+        GRANTED_CONTAINER_HINT: "demo",
+        GRANTED_PROFILE: "work",
       }),
     ).toBe(`${prefix} --container demo ${command}`);
   });

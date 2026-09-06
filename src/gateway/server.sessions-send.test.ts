@@ -130,7 +130,7 @@ async function emitLifecycleAssistantReply(params: {
 }
 
 beforeAll(async () => {
-  envSnapshot = captureEnv(["OPENCLAW_GATEWAY_PORT", "OPENCLAW_GATEWAY_TOKEN"]);
+  envSnapshot = captureEnv(["GRANTED_GATEWAY_PORT", "GRANTED_GATEWAY_TOKEN"]);
   gatewayPort = await getGatewayTestPort();
   const { approveDevicePairing } = await import("../infra/device-pairing-approval.js");
   const { requestDevicePairing } = await import("../infra/device-pairing.js");
@@ -150,15 +150,15 @@ beforeAll(async () => {
     callerScopes: pending.request.scopes ?? ["operator.admin"],
   });
   testState.gatewayAuth = { mode: "token", token: gatewayToken };
-  process.env.OPENCLAW_GATEWAY_PORT = String(gatewayPort);
-  process.env.OPENCLAW_GATEWAY_TOKEN = gatewayToken;
+  process.env.GRANTED_GATEWAY_PORT = String(gatewayPort);
+  process.env.GRANTED_GATEWAY_TOKEN = gatewayToken;
   server = await startTestGatewayServer(gatewayPort);
 });
 
 beforeEach(async () => {
   testState.gatewayAuth = { mode: "token", token: gatewayToken };
-  process.env.OPENCLAW_GATEWAY_PORT = String(gatewayPort);
-  process.env.OPENCLAW_GATEWAY_TOKEN = gatewayToken;
+  process.env.GRANTED_GATEWAY_PORT = String(gatewayPort);
+  process.env.GRANTED_GATEWAY_TOKEN = gatewayToken;
   await prepareGatewayReplyRuntimeForTest();
 });
 
@@ -574,9 +574,9 @@ describe("sessions_send label lookup", () => {
     { timeout: SESSION_SEND_E2E_TIMEOUT_MS },
     async () => {
       // This is an operator feature; enable broader session tool targeting for this test.
-      const configPath = process.env.OPENCLAW_CONFIG_PATH;
+      const configPath = process.env.GRANTED_CONFIG_PATH;
       if (!configPath) {
-        throw new Error("OPENCLAW_CONFIG_PATH missing in gateway test environment");
+        throw new Error("GRANTED_CONFIG_PATH missing in gateway test environment");
       }
       await fs.mkdir(path.dirname(configPath), { recursive: true });
       await fs.writeFile(
@@ -634,9 +634,9 @@ describe("sessions_send agent targeting", () => {
     "starts configured agent main session by agentId before sending",
     { timeout: SESSION_SEND_E2E_TIMEOUT_MS },
     async () => {
-      const configPath = process.env.OPENCLAW_CONFIG_PATH;
+      const configPath = process.env.GRANTED_CONFIG_PATH;
       if (!configPath) {
-        throw new Error("OPENCLAW_CONFIG_PATH missing in gateway test environment");
+        throw new Error("GRANTED_CONFIG_PATH missing in gateway test environment");
       }
       const dir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-sessions-send-agent-"));
       const config: OpenClawConfig = {
@@ -754,9 +754,9 @@ describe("sessions_send direct-message requester routing", () => {
       bindingAgentId,
       expectedReplySessionKey,
     }) => {
-      const configPath = process.env.OPENCLAW_CONFIG_PATH;
+      const configPath = process.env.GRANTED_CONFIG_PATH;
       if (!configPath) {
-        throw new Error("OPENCLAW_CONFIG_PATH missing in gateway test environment");
+        throw new Error("GRANTED_CONFIG_PATH missing in gateway test environment");
       }
       const dir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-sessions-send-dm-scope-"));
       // A2A follow-ups outlive tool.execute. Give every real Gateway case its

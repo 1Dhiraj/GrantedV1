@@ -1,5 +1,5 @@
 import type { Model } from "../../../llm/types.js";
-import { OPENCLAW_AGENT_RUNTIME_ID } from "../../agent-runtime-id.js";
+import { GRANTED_AGENT_RUNTIME_ID } from "../../agent-runtime-id.js";
 import { resolveAuthoredModelContextTokens } from "../../context-resolution.js";
 import {
   selectAgentHarness,
@@ -48,7 +48,7 @@ export function resolveEmbeddedRunEffectiveModel(
     ...(params.runParams.contextWindow ? { contextWindow: params.runParams.contextWindow } : {}),
   });
   const authoredContextTokenCap =
-    params.agentHarnessId === OPENCLAW_AGENT_RUNTIME_ID
+    params.agentHarnessId === GRANTED_AGENT_RUNTIME_ID
       ? undefined
       : resolveAuthoredModelContextTokens({
           cfg: params.runParams.config,

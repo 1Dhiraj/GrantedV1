@@ -35,8 +35,8 @@ describe("direct provider context handoff", () => {
   it("keeps canonical omissions while materializing persisted and current facts in order", async () => {
     const stateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-provider-video-"));
     tempDirs.push(stateDir);
-    const env = captureEnv(["OPENCLAW_STATE_DIR"]);
-    setTestEnvValue("OPENCLAW_STATE_DIR", stateDir);
+    const env = captureEnv(["GRANTED_STATE_DIR"]);
+    setTestEnvValue("GRANTED_STATE_DIR", stateDir);
     const inbound = path.join(stateDir, "media", "inbound");
     await fs.mkdir(inbound, { recursive: true });
     await fs.writeFile(path.join(inbound, "old.mp4"), MP4);

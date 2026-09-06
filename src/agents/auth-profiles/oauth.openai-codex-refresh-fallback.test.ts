@@ -190,8 +190,8 @@ describe("resolveApiKeyForProfile openai refresh fallback", () => {
     const caseRoot = path.join(tempRoot, `case-${++caseIndex}`);
     agentDir = path.join(caseRoot, "agents", "main", "agent");
     await fs.mkdir(agentDir, { recursive: true });
-    setTestEnvValue("OPENCLAW_STATE_DIR", caseRoot);
-    setTestEnvValue("OPENCLAW_AGENT_DIR", agentDir);
+    setTestEnvValue("GRANTED_STATE_DIR", caseRoot);
+    setTestEnvValue("GRANTED_AGENT_DIR", agentDir);
     deleteTestEnvValue("OPENAI_API_KEY");
   });
 

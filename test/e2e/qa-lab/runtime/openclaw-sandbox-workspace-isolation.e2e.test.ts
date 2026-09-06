@@ -64,14 +64,14 @@ test("Docker enforces none, read-only, and read-write workspace isolation", asyn
   const stateDir = path.join(root, "state");
   const workspaceRoot = path.join(root, "sandboxes");
   const unrelatedSentinel = path.join(root, "host-only-sentinel.txt");
-  const image = process.env.OPENCLAW_SANDBOX_TEST_IMAGE ?? "openclaw-sandbox:bookworm-slim";
+  const image = process.env.GRANTED_SANDBOX_TEST_IMAGE ?? "openclaw-sandbox:bookworm-slim";
   const prefix = `oc-qa-${process.pid}-`;
-  const env = captureEnv(["OPENCLAW_STATE_DIR"]);
+  const env = captureEnv(["GRANTED_STATE_DIR"]);
   const runtimes: string[] = [];
 
   await fs.mkdir(stateDir, { recursive: true });
   await fs.writeFile(unrelatedSentinel, "host-only");
-  setTestEnvValue("OPENCLAW_STATE_DIR", stateDir);
+  setTestEnvValue("GRANTED_STATE_DIR", stateDir);
 
   try {
     const [{ resolveSandboxContext }, { removeSandboxContainer }] = await Promise.all([

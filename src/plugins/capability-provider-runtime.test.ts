@@ -22,16 +22,16 @@ function setBundledDiscoveryCompat(): void {
     discoveryCompatRoot = fs.realpathSync(
       fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-capability-compat-")),
     );
-    const seedSnapshot = captureEnv(["OPENCLAW_STATE_DIR"]);
-    setTestEnvValue("OPENCLAW_STATE_DIR", discoveryCompatRoot);
+    const seedSnapshot = captureEnv(["GRANTED_STATE_DIR"]);
+    setTestEnvValue("GRANTED_STATE_DIR", discoveryCompatRoot);
     try {
       writeConfigMachineState("plugins.bundledDiscovery", "compat");
     } finally {
       seedSnapshot.restore();
     }
   }
-  discoveryEnvSnapshot ??= captureEnv(["OPENCLAW_STATE_DIR"]);
-  setTestEnvValue("OPENCLAW_STATE_DIR", discoveryCompatRoot);
+  discoveryEnvSnapshot ??= captureEnv(["GRANTED_STATE_DIR"]);
+  setTestEnvValue("GRANTED_STATE_DIR", discoveryCompatRoot);
   clearBundledDiscoveryModeMemo();
 }
 function restoreBundledDiscoveryState(): void {

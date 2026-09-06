@@ -88,7 +88,7 @@ function runLauncherVersion(
         ...process.env,
         GIT_COMMIT: undefined,
         GIT_SHA: undefined,
-        OPENCLAW_CONTAINER: undefined,
+        GRANTED_CONTAINER: undefined,
         ...options.env,
       },
       encoding: "utf8",
@@ -233,7 +233,7 @@ describe("openclaw launcher version provenance", () => {
       [path.join(fixtureRoot, "openclaw.mjs"), "--container", "demo", "--version"],
       {
         cwd: fixtureRoot,
-        env: { ...process.env, OPENCLAW_CONTAINER: undefined },
+        env: { ...process.env, GRANTED_CONTAINER: undefined },
         encoding: "utf8",
       },
     );
@@ -242,7 +242,7 @@ describe("openclaw launcher version provenance", () => {
     expect(argumentResult.stdout).toBe("RUNTIME ENTRY\n");
 
     const environmentResult = runLauncherVersion(fixtureRoot, {
-      env: { OPENCLAW_CONTAINER: "demo" },
+      env: { GRANTED_CONTAINER: "demo" },
     });
 
     expect(environmentResult.status).toBe(0);

@@ -100,7 +100,7 @@ describe("status-overview-rows", () => {
       expected: "muted(disabled · update checks off)",
     },
     {
-      label: "update checks disabled by OPENCLAW_NO_AUTO_UPDATE=yes",
+      label: "update checks disabled by GRANTED_NO_AUTO_UPDATE=yes",
       telemetry: { enabled: true },
       doNotTrack: undefined,
       noAutoUpdate: "yes",
@@ -108,7 +108,7 @@ describe("status-overview-rows", () => {
       expected: "muted(disabled · update checks off)",
     },
     {
-      label: "update checks disabled by a trimmed OPENCLAW_NO_AUTO_UPDATE=on",
+      label: "update checks disabled by a trimmed GRANTED_NO_AUTO_UPDATE=on",
       telemetry: { enabled: true },
       doNotTrack: undefined,
       noAutoUpdate: " on ",
@@ -124,7 +124,7 @@ describe("status-overview-rows", () => {
         env: {
           ...params.env,
           DO_NOT_TRACK: doNotTrack,
-          OPENCLAW_NO_AUTO_UPDATE: noAutoUpdate,
+          GRANTED_NO_AUTO_UPDATE: noAutoUpdate,
         },
         surface: {
           ...params.surface,
@@ -140,7 +140,7 @@ describe("status-overview-rows", () => {
     const params = createStatusCommandOverviewRowsParams();
     const rows = buildStatusCommandOverviewRows({
       ...params,
-      env: { ...params.env, OPENCLAW_NIX_MODE: "1" },
+      env: { ...params.env, GRANTED_NIX_MODE: "1" },
       surface: {
         ...params.surface,
         cfg: { ...params.surface.cfg, telemetry: { enabled: true } },

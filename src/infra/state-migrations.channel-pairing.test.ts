@@ -22,7 +22,7 @@ afterEach(async () => {
 
 async function createFixture() {
   const stateDir = await tempDirs.make("openclaw-pairing-migration-");
-  const env = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+  const env = { ...process.env, GRANTED_STATE_DIR: stateDir };
   const sourceDir = resolveOAuthDir(env, stateDir);
   fs.mkdirSync(sourceDir, { recursive: true });
   return { env, sourceDir };

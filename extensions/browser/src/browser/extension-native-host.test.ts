@@ -405,7 +405,7 @@ describe("native host ensure_relay", () => {
         { mode: 0o600 },
       );
       await withEnvAsync(
-        { OPENCLAW_STATE_DIR: fixture.stateDir, OPENCLAW_GATEWAY_PORT: undefined },
+        { GRANTED_STATE_DIR: fixture.stateDir, GRANTED_GATEWAY_PORT: undefined },
         async () => {
           let daemon: ReturnType<typeof runExtensionRelayDaemon> | undefined;
           try {

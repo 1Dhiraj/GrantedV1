@@ -162,7 +162,7 @@ describe("generated BoardStore identity", () => {
 });
 
 it("preserves a beta.5-format unmarked explicit row and reuses the generated fallback", () => {
-  const env = { OPENCLAW_STATE_DIR: tempDirs.make("openclaw-board-beta5-identity-") };
+  const env = { GRANTED_STATE_DIR: tempDirs.make("openclaw-board-beta5-identity-") };
   const sessionKey = "agent:main:beta5-identity";
   seedSession(env, sessionKey);
   const options = {
@@ -262,7 +262,7 @@ it("preserves a beta.5-format unmarked explicit row and reuses the generated fal
 });
 
 it("does not infer generated ownership from a canonical unmarked title match", () => {
-  const env = { OPENCLAW_STATE_DIR: tempDirs.make("openclaw-board-canonical-legacy-") };
+  const env = { GRANTED_STATE_DIR: tempDirs.make("openclaw-board-canonical-legacy-") };
   const sessionKey = "agent:main:canonical-legacy";
   seedSession(env, sessionKey);
   const options = {
@@ -298,7 +298,7 @@ it("does not infer generated ownership from a canonical unmarked title match", (
 });
 
 it("preserves unmarked rows whose absent or capped titles are ambiguous", () => {
-  const env = { OPENCLAW_STATE_DIR: tempDirs.make("openclaw-board-ambiguous-legacy-") };
+  const env = { GRANTED_STATE_DIR: tempDirs.make("openclaw-board-ambiguous-legacy-") };
   const sessionKey = "agent:main:ambiguous-legacy";
   seedSession(env, sessionKey);
   const options = {
@@ -348,7 +348,7 @@ it("preserves unmarked rows whose absent or capped titles are ambiguous", () => 
 });
 
 it("persists explicit ownership across restart", () => {
-  const env = { OPENCLAW_STATE_DIR: tempDirs.make("openclaw-board-explicit-owner-") };
+  const env = { GRANTED_STATE_DIR: tempDirs.make("openclaw-board-explicit-owner-") };
   const sessionKey = "agent:main:explicit-owner";
   seedSession(env, sessionKey);
   const options = {

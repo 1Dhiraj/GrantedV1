@@ -120,7 +120,7 @@ suite.define(() => {
       await captureUiProof(
         suite,
         page,
-        `roster-completeness-${process.env.OPENCLAW_ROSTER_PROOF ?? "after"}.png`,
+        `roster-completeness-${process.env.GRANTED_ROSTER_PROOF ?? "after"}.png`,
       );
       // The section header renders from the group catalog either way; the proof
       // is that its rows arrived, which a truncated roster cannot deliver.

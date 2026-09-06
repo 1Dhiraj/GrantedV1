@@ -117,7 +117,7 @@ describe("resolveGatewayAuthTokenForService", () => {
     try {
       const resolved = await resolveGatewayAuthTokenForService(
         createExecGatewayTokenConfig(markerPath),
-        { OPENCLAW_GATEWAY_TOKEN: "ambient-token" } as NodeJS.ProcessEnv,
+        { GRANTED_GATEWAY_TOKEN: "ambient-token" } as NodeJS.ProcessEnv,
       );
 
       expect(resolved).toEqual({
@@ -151,7 +151,7 @@ describe("resolveGatewayAuthTokenForService", () => {
     }
   });
 
-  it("does not fall back to OPENCLAW_GATEWAY_TOKEN when a SecretRef is unresolved", async () => {
+  it("does not fall back to GRANTED_GATEWAY_TOKEN when a SecretRef is unresolved", async () => {
     const resolved = await resolveGatewayAuthTokenForService(
       {
         gateway: {
@@ -170,7 +170,7 @@ describe("resolveGatewayAuthTokenForService", () => {
         },
       } as OpenClawConfig,
       {
-        OPENCLAW_GATEWAY_TOKEN: "env-fallback-token",
+        GRANTED_GATEWAY_TOKEN: "env-fallback-token",
       } as NodeJS.ProcessEnv,
     );
 
@@ -180,7 +180,7 @@ describe("resolveGatewayAuthTokenForService", () => {
     });
   });
 
-  it("does not fall back to OPENCLAW_GATEWAY_TOKEN when a SecretRef resolves to empty", async () => {
+  it("does not fall back to GRANTED_GATEWAY_TOKEN when a SecretRef resolves to empty", async () => {
     const resolved = await resolveGatewayAuthTokenForService(
       {
         gateway: {
@@ -200,7 +200,7 @@ describe("resolveGatewayAuthTokenForService", () => {
       } as OpenClawConfig,
       {
         CUSTOM_GATEWAY_TOKEN: "   ",
-        OPENCLAW_GATEWAY_TOKEN: "env-fallback-token",
+        GRANTED_GATEWAY_TOKEN: "env-fallback-token",
       } as NodeJS.ProcessEnv,
     );
 
@@ -315,7 +315,7 @@ describe("shouldRequireGatewayTokenForInstall", () => {
         },
         env: {
           vars: {
-            OPENCLAW_GATEWAY_PASSWORD: "configured-password", // pragma: allowlist secret
+            GRANTED_GATEWAY_PASSWORD: "configured-password", // pragma: allowlist secret
           },
         },
       } as OpenClawConfig,
@@ -326,7 +326,7 @@ describe("shouldRequireGatewayTokenForInstall", () => {
 
   it("does not require token in inferred mode when password env exists in state-dir .env", async () => {
     await withTempHome(async (_home) => {
-      await writeStateDirDotEnv("OPENCLAW_GATEWAY_PASSWORD=dotenv-password\n", {
+      await writeStateDirDotEnv("GRANTED_GATEWAY_PASSWORD=dotenv-password\n", {
         env: process.env,
       });
 

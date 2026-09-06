@@ -65,7 +65,7 @@ function createContext(env?: NodeJS.ProcessEnv): PluginDoctorStateMigrationConte
 }
 
 function createMigrationParams(stateDir: string) {
-  const env = { OPENCLAW_STATE_DIR: stateDir };
+  const env = { GRANTED_STATE_DIR: stateDir };
   return {
     config: {} as OpenClawConfig,
     env,
@@ -620,7 +620,7 @@ describe("matrix doctor contract state migrations", () => {
     });
 
     // Pre-upgrade markers must keep deduping through the new runtime guard.
-    const dedupeEnv = { ...process.env, OPENCLAW_STATE_DIR: stateDir };
+    const dedupeEnv = { ...process.env, GRANTED_STATE_DIR: stateDir };
     const opsDeduper = createMatrixInboundEventDeduper({
       auth: { accountId: "ops" },
       env: dedupeEnv,
@@ -765,7 +765,7 @@ describe("matrix doctor contract state migrations", () => {
     });
     const deduper = createMatrixInboundEventDeduper({
       auth: { accountId: "home" },
-      env: { ...process.env, OPENCLAW_STATE_DIR: stateDir },
+      env: { ...process.env, GRANTED_STATE_DIR: stateDir },
     });
     await expect(deduper.claim({ roomId, eventId })).resolves.toEqual({ kind: "duplicate" });
     await expect(migration.detectLegacyState(params)).resolves.toBeNull();
@@ -864,7 +864,7 @@ describe("matrix doctor contract state migrations", () => {
 
   it("keeps newer runtime dedupe rows when legacy imports hit capacity", async () => {
     const stateDir = tempDirs.make("openclaw-matrix-doctor-");
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const io = { context: createContext(env), env };
     const roomId = "!room:example.org";
     const now = Date.now();
@@ -912,7 +912,7 @@ describe("matrix doctor contract state migrations", () => {
 
   it("preserves a legacy inbound dedupe marker's remaining TTL", async () => {
     const stateDir = tempDirs.make("openclaw-matrix-doctor-");
-    const env = { OPENCLAW_STATE_DIR: stateDir };
+    const env = { GRANTED_STATE_DIR: stateDir };
     const io = { context: createContext(env), env };
     const now = 2_000_000_000_000;
     const remainingTtlMs = 1_000;

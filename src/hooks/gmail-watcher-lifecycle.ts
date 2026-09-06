@@ -17,7 +17,7 @@ export async function startGmailWatcherWithLogs(params: {
   onSkipped?: () => void;
   signal?: AbortSignal;
 }) {
-  if (isTruthyEnvValue(process.env.OPENCLAW_SKIP_GMAIL_WATCHER)) {
+  if (isTruthyEnvValue(process.env.GRANTED_SKIP_GMAIL_WATCHER)) {
     // Test and local recovery paths use the env skip to avoid starting a long
     // lived watcher while still exercising gateway startup.
     params.onSkipped?.();

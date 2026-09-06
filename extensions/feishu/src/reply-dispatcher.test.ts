@@ -1665,7 +1665,7 @@ describe("createFeishuReplyDispatcher streaming behavior", () => {
     const marker = Object.assign(
       new Error("media load failed", { cause: new Error("blocked local load") }),
       {
-        code: "OPENCLAW_PLATFORM_MESSAGE_NOT_DISPATCHED",
+        code: "GRANTED_PLATFORM_MESSAGE_NOT_DISPATCHED",
         retryable: true,
       },
     );
@@ -1800,7 +1800,7 @@ describe("createFeishuReplyDispatcher streaming behavior", () => {
     const marker = Object.assign(
       new Error("media load failed", { cause: new Error("blocked local load") }),
       {
-        code: "OPENCLAW_PLATFORM_MESSAGE_NOT_DISPATCHED",
+        code: "GRANTED_PLATFORM_MESSAGE_NOT_DISPATCHED",
         retryable: true,
       },
     );

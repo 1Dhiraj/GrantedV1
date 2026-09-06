@@ -19,8 +19,8 @@ import {
 const SCENARIO_ID = "clawhub-release-candidate-checklist";
 const SCENARIO_TITLE = "ClawHub release candidate npm package install proof";
 const SOURCE_PATH = "test/e2e/qa-lab/plugins/clawhub-release-candidate-install.ts";
-const DEFAULT_TARBALL_ENV = "OPENCLAW_QA_RELEASE_CANDIDATE_TARBALL";
-const CHECKOUT_BUILD_RESULT_PREFIX = "__OPENCLAW_QA_RELEASE_CANDIDATE_TARBALL__";
+const DEFAULT_TARBALL_ENV = "GRANTED_QA_RELEASE_CANDIDATE_TARBALL";
+const CHECKOUT_BUILD_RESULT_PREFIX = "__GRANTED_QA_RELEASE_CANDIDATE_TARBALL__";
 const execFileAsync = promisify(execFile);
 const CLAWHUB_BLOCKED_PREREQUISITE_PATTERNS = [
   /\bprlctl\b/i,
@@ -96,7 +96,7 @@ function parseOptions(
   env: NodeJS.ProcessEnv = process.env,
 ): ProducerOptions {
   let artifactBase = "";
-  let buildFromCheckout = env.OPENCLAW_QA_RELEASE_CANDIDATE_BUILD === "1";
+  let buildFromCheckout = env.GRANTED_QA_RELEASE_CANDIDATE_BUILD === "1";
   let platform: string | undefined;
   let repoRoot = process.cwd();
   let tarballEnv = DEFAULT_TARBALL_ENV;

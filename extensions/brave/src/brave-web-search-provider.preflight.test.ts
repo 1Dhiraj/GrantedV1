@@ -65,7 +65,7 @@ beforeEach(() => {
   vi.stubGlobal("fetch", (input: RequestInfo | URL, init?: RequestInit) =>
     fetchNetwork(input, init),
   );
-  vi.stubGlobal("__OPENCLAW_TEST_UNDICI_RUNTIME_DEPS__", { ...undici, fetch: fetchNetwork });
+  vi.stubGlobal("__GRANTED_TEST_UNDICI_RUNTIME_DEPS__", { ...undici, fetch: fetchNetwork });
   for (const key of [
     "HTTP_PROXY",
     "HTTPS_PROXY",
@@ -73,8 +73,8 @@ beforeEach(() => {
     "http_proxy",
     "https_proxy",
     "all_proxy",
-    "OPENCLAW_PROXY_ACTIVE",
-    "OPENCLAW_DEBUG_PROXY_ENABLED",
+    "GRANTED_PROXY_ACTIVE",
+    "GRANTED_DEBUG_PROXY_ENABLED",
   ]) {
     vi.stubEnv(key, "");
   }

@@ -112,7 +112,7 @@ function stubServiceGatewayTokenEnv() {
   service.readCommand.mockResolvedValue({
     programArguments: [],
     environment: {
-      OPENCLAW_GATEWAY_TOKEN: "service-token",
+      GRANTED_GATEWAY_TOKEN: "service-token",
       SERVICE_GATEWAY_TOKEN: "service-token",
     },
   });
@@ -161,7 +161,7 @@ describe("runServiceRestart token drift", () => {
     clearGatewayRestartIntentSync.mockClear();
     service.readCommand.mockResolvedValue({
       programArguments: [],
-      environment: { OPENCLAW_GATEWAY_TOKEN: "service-token" },
+      environment: { GRANTED_GATEWAY_TOKEN: "service-token" },
     });
     stubEmptyGatewayEnv();
   });
@@ -291,7 +291,7 @@ describe("runServiceRestart token drift", () => {
     service.isLoaded.mockResolvedValue(false);
     service.readCommand.mockResolvedValue(null);
     const hasInstalledDefinition = vi.fn(async () => false);
-    vi.stubEnv("OPENCLAW_CONTAINER_HINT", "openclaw-demo-container");
+    vi.stubEnv("GRANTED_CONTAINER_HINT", "openclaw-demo-container");
 
     await expect(
       runServiceRestart({
@@ -441,7 +441,7 @@ describe("runServiceRestart token drift", () => {
     service.readRuntime.mockResolvedValue({ status: "running", pid: 1234 });
     service.readCommand.mockResolvedValue({
       programArguments: ["openclaw", "gateway", "--port", "18789"],
-      environment: { OPENCLAW_GATEWAY_PORT: "18789" },
+      environment: { GRANTED_GATEWAY_PORT: "18789" },
     });
     type RepairLoadedService = NonNullable<
       Parameters<typeof runServiceRestart>[0]["repairLoadedService"]
@@ -503,9 +503,9 @@ describe("runServiceRestart token drift", () => {
     });
     service.readCommand.mockResolvedValue({
       programArguments: [],
-      environment: { OPENCLAW_GATEWAY_TOKEN: "env-token" },
+      environment: { GRANTED_GATEWAY_TOKEN: "env-token" },
     });
-    vi.stubEnv("OPENCLAW_GATEWAY_TOKEN", "env-token");
+    vi.stubEnv("GRANTED_GATEWAY_TOKEN", "env-token");
 
     await runServiceRestart(createServiceRunArgs(true));
 
@@ -787,8 +787,8 @@ describe("runServiceRestart token drift", () => {
   it.each(SERVICE_REPAIR_COMMAND_CASES)(
     "warns in json with the %s service repair command and active context",
     async (serviceNoun, profile, container, command, repairAction) => {
-      vi.stubEnv("OPENCLAW_PROFILE", profile);
-      vi.stubEnv("OPENCLAW_CONTAINER_HINT", container);
+      vi.stubEnv("GRANTED_PROFILE", profile);
+      vi.stubEnv("GRANTED_CONTAINER_HINT", container);
       service.readRuntime.mockResolvedValue({ status: "running", pid: 4242 });
       service.readCommand.mockResolvedValue({
         programArguments: [MISSING_SERVICE_PROGRAM, "openclaw", serviceNoun.toLowerCase()],
@@ -961,8 +961,8 @@ describe("runServiceRestart token drift", () => {
   it.each(SERVICE_REPAIR_COMMAND_CASES)(
     "fails %s service start with its own install hint when repair is required",
     async (serviceNoun, profile, container, command) => {
-      vi.stubEnv("OPENCLAW_PROFILE", profile);
-      vi.stubEnv("OPENCLAW_CONTAINER_HINT", container);
+      vi.stubEnv("GRANTED_PROFILE", profile);
+      vi.stubEnv("GRANTED_CONTAINER_HINT", container);
       service.readCommand.mockResolvedValue({
         programArguments: [MISSING_SERVICE_PROGRAM, "openclaw", serviceNoun.toLowerCase()],
       });

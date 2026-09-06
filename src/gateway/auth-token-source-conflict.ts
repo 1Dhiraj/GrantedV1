@@ -4,10 +4,10 @@ import { normalizeOptionalString } from "@openclaw/normalization-core/string-coe
 import type { OpenClawConfig } from "../config/types.openclaw.js";
 import { normalizeSecretInputString, resolveSecretInputRef } from "../config/types.secrets.js";
 
-const GATEWAY_ENV_TOKEN = "OPENCLAW_GATEWAY_TOKEN";
+const GATEWAY_ENV_TOKEN = "GRANTED_GATEWAY_TOKEN";
 const GATEWAY_SERVICE_KIND = "gateway";
 
-// Doctor/startup warning shape for shells where OPENCLAW_GATEWAY_TOKEN would
+// Doctor/startup warning shape for shells where GRANTED_GATEWAY_TOKEN would
 // make direct clients use a different token than the managed gateway service.
 type GatewayAuthTokenSourceConflict = {
   checkId: "gateway.env_token_overrides_config";
@@ -23,12 +23,12 @@ export function resolveGatewayAuthTokenSourceConflict(params: {
   cfg: OpenClawConfig;
   env: NodeJS.ProcessEnv;
 }): GatewayAuthTokenSourceConflict | null {
-  const envToken = normalizeOptionalString(params.env.OPENCLAW_GATEWAY_TOKEN);
+  const envToken = normalizeOptionalString(params.env.GRANTED_GATEWAY_TOKEN);
   if (!envToken) {
     return null;
   }
 
-  if (params.env.OPENCLAW_SERVICE_KIND?.trim() === GATEWAY_SERVICE_KIND) {
+  if (params.env.GRANTED_SERVICE_KIND?.trim() === GATEWAY_SERVICE_KIND) {
     // The managed gateway process intentionally uses its service env. The
     // warning is for client shells where env precedence can surprise users.
     return null;

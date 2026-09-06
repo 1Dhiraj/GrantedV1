@@ -239,7 +239,7 @@ suite.define(() => {
       await expect.poll(() => composer.locator("textarea").isDisabled()).toBe(true);
       expect(await gateway.getRequests("chat.send")).toHaveLength(0);
 
-      const artifactRoot = process.env.OPENCLAW_UI_E2E_ARTIFACT_DIR?.trim();
+      const artifactRoot = process.env.GRANTED_UI_E2E_ARTIFACT_DIR?.trim();
       const artifactDir = artifactRoot
         ? createControlUiE2eArtifactDir("chat-composer-catalog", artifactRoot)
         : undefined;
@@ -471,7 +471,7 @@ suite.define(() => {
       await expect
         .poll(() => composer.locator("[data-chat-model-catalog-state]").textContent())
         .toContain("No models available");
-      const artifactRoot = process.env.OPENCLAW_UI_E2E_ARTIFACT_DIR?.trim();
+      const artifactRoot = process.env.GRANTED_UI_E2E_ARTIFACT_DIR?.trim();
       const artifactDir = artifactRoot
         ? createControlUiE2eArtifactDir("chat-composer-catalog", artifactRoot)
         : undefined;
@@ -553,7 +553,7 @@ suite.define(() => {
       await expect
         .poll(() => composer.locator('[data-chat-model-option="openai/gpt-5.6-luna"]').isVisible())
         .toBe(true);
-      const artifactRoot = process.env.OPENCLAW_UI_E2E_ARTIFACT_DIR?.trim();
+      const artifactRoot = process.env.GRANTED_UI_E2E_ARTIFACT_DIR?.trim();
       const artifactDir = artifactRoot
         ? createControlUiE2eArtifactDir("chat-composer-catalog", artifactRoot)
         : undefined;
@@ -616,7 +616,7 @@ suite.define(() => {
           .poll(() => textarea.evaluate((node) => node.matches(":placeholder-shown")))
           .toBe(true);
         await expect.poll(() => textarea.getAttribute("placeholder")).toContain("Message");
-        const artifactRoot = process.env.OPENCLAW_UI_E2E_ARTIFACT_DIR?.trim();
+        const artifactRoot = process.env.GRANTED_UI_E2E_ARTIFACT_DIR?.trim();
         const artifactDir = artifactRoot
           ? createControlUiE2eArtifactDir("chat-composer-catalog", artifactRoot)
           : undefined;

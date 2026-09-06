@@ -8,8 +8,8 @@ import { resolveRuntimeWorkerArgv } from "./runtime-worker-url.js";
 import { tryProcessCwd } from "./safe-cwd.js";
 
 const requireFromHere = createRequire(import.meta.url);
-const OPENCLAW_CLI_ENTRY_BASENAMES = new Set(["openclaw", "openclaw.mjs"]);
-const OPENCLAW_PACKAGE_ENTRY_PATHS = new Set([
+const GRANTED_CLI_ENTRY_BASENAMES = new Set(["openclaw", "openclaw.mjs"]);
+const GRANTED_PACKAGE_ENTRY_PATHS = new Set([
   path.join("dist", "entry.js"),
   path.join("dist", "entry.mjs"),
   path.join("dist", "index.js"),
@@ -99,8 +99,8 @@ export function resolveCurrentOpenClawCliInvocation(
     entry &&
     entry !== execPath &&
     entryPackageRoot &&
-    (OPENCLAW_CLI_ENTRY_BASENAMES.has(path.basename(entry)) ||
-      OPENCLAW_PACKAGE_ENTRY_PATHS.has(
+    (GRANTED_CLI_ENTRY_BASENAMES.has(path.basename(entry)) ||
+      GRANTED_PACKAGE_ENTRY_PATHS.has(
         path.relative(path.resolve(entryPackageRoot), path.resolve(entry)),
       ))
       ? entry

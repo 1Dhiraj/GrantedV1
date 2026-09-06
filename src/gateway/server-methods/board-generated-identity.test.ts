@@ -21,7 +21,7 @@ afterEach(() => {
 
 it("serializes in-flight generated-name collisions and reuses both names after reload", async () => {
   resetPluginRuntimeStateForTest();
-  const env = { OPENCLAW_STATE_DIR: tempDirs.make("openclaw-board-generated-race-") };
+  const env = { GRANTED_STATE_DIR: tempDirs.make("openclaw-board-generated-race-") };
   const sessionKey = "agent:main:generated-race";
   const database = openOpenClawAgentDatabase({ agentId: "main", env });
   replaceSessionEntrySync(

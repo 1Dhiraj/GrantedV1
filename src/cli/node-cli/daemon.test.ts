@@ -548,15 +548,15 @@ describe("runNodeDaemonStatus", () => {
     mocks.service.readCommand.mockResolvedValue({
       programArguments: ["node", "node-host"],
       environment: {
-        OPENCLAW_PROFILE: "work",
-        OPENCLAW_GATEWAY_TOKEN: "gateway-token",
-        OPENCLAW_GATEWAY_PASSWORD: "gateway-password",
+        GRANTED_PROFILE: "work",
+        GRANTED_GATEWAY_TOKEN: "gateway-token",
+        GRANTED_GATEWAY_PASSWORD: "gateway-password",
       },
       managedDefinition: {
         programArguments: ["node", "node-host"],
-        environment: { OPENCLAW_GATEWAY_TOKEN: "managed-base-token" },
+        environment: { GRANTED_GATEWAY_TOKEN: "managed-base-token" },
       },
-      managedOverrides: { launcher: "command", environment: { keys: ["OPENCLAW_GATEWAY_TOKEN"] } },
+      managedOverrides: { launcher: "command", environment: { keys: ["GRANTED_GATEWAY_TOKEN"] } },
     });
 
     await runNodeDaemonStatus({ json: true });
@@ -564,7 +564,7 @@ describe("runNodeDaemonStatus", () => {
     expect(mocks.runtime.writeJson).toHaveBeenCalledWith({
       service: expect.objectContaining({
         command: expect.objectContaining({
-          environment: { OPENCLAW_PROFILE: "work" },
+          environment: { GRANTED_PROFILE: "work" },
         }),
       }),
     });

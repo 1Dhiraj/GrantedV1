@@ -86,17 +86,17 @@ describe("runCommandWithRuntime", () => {
         },
       );
 
-    const originalDebug = process.env.OPENCLAW_DEBUG;
-    delete process.env.OPENCLAW_DEBUG;
+    const originalDebug = process.env.GRANTED_DEBUG;
+    delete process.env.GRANTED_DEBUG;
     try {
       await run();
-      process.env.OPENCLAW_DEBUG = "1";
+      process.env.GRANTED_DEBUG = "1";
       await run();
     } finally {
       if (originalDebug === undefined) {
-        delete process.env.OPENCLAW_DEBUG;
+        delete process.env.GRANTED_DEBUG;
       } else {
-        process.env.OPENCLAW_DEBUG = originalDebug;
+        process.env.GRANTED_DEBUG = originalDebug;
       }
     }
 

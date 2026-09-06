@@ -62,7 +62,7 @@ async function addCompileCacheProbe(fixtureRoot: string): Promise<void> {
     [
       'import module from "node:module";',
       "process.stdout.write(",
-      '  `${module.getCompileCacheDir?.() ? "cache:enabled" : "cache:disabled"};respawn:${process.env.OPENCLAW_COMPILE_CACHE_DISABLED_RESPAWNED ?? "0"}`',
+      '  `${module.getCompileCacheDir?.() ? "cache:enabled" : "cache:disabled"};respawn:${process.env.GRANTED_COMPILE_CACHE_DISABLED_RESPAWNED ?? "0"}`',
       ");",
     ].join("\n"),
     "utf8",
@@ -120,12 +120,12 @@ function isProcessAlive(pid: number | undefined): boolean {
 
 function launcherEnv(extra: NodeJS.ProcessEnv = {}): NodeJS.ProcessEnv {
   const env = { ...process.env, ...extra };
-  delete env.OPENCLAW_BUNDLED_PLUGINS_DIR;
-  delete env.OPENCLAW_CONFIG_PATH;
-  delete env.OPENCLAW_DISABLE_BUNDLED_PLUGINS;
-  delete env.OPENCLAW_HOME;
-  delete env.OPENCLAW_STATE_DIR;
-  delete env.OPENCLAW_TEST_TRUST_BUNDLED_PLUGINS_DIR;
+  delete env.GRANTED_BUNDLED_PLUGINS_DIR;
+  delete env.GRANTED_CONFIG_PATH;
+  delete env.GRANTED_DISABLE_BUNDLED_PLUGINS;
+  delete env.GRANTED_HOME;
+  delete env.GRANTED_STATE_DIR;
+  delete env.GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR;
   delete env.NODE_COMPILE_CACHE;
   delete env.NODE_DISABLE_COMPILE_CACHE;
   for (const [key, value] of Object.entries(extra)) {
@@ -311,7 +311,7 @@ describe("openclaw launcher", () => {
       ["--import", import.meta.resolve("tsx"), path.join(fixtureRoot, "openclaw.mjs"), "--profile"],
       {
         cwd: process.cwd(),
-        env: launcherEnv({ OPENCLAW_NO_RESPAWN: "1" }),
+        env: launcherEnv({ GRANTED_NO_RESPAWN: "1" }),
         encoding: "utf8",
       },
     );
@@ -321,7 +321,7 @@ describe("openclaw launcher", () => {
     expect(result.stderr).toContain("--profile requires a value");
   });
 
-  it.runIf(process.env.OPENCLAW_TEST_BUN_LAUNCHER === "1" && hasBunRuntime())(
+  it.runIf(process.env.GRANTED_TEST_BUN_LAUNCHER === "1" && hasBunRuntime())(
     "gates the real Bun runtime on node:sqlite availability",
     async () => {
       const fixtureRoot = await makeLauncherFixture(fixtureRoots);
@@ -521,7 +521,7 @@ describe("openclaw launcher", () => {
       [path.join(fixtureRoot, "openclaw.mjs"), "models", "--help"],
       {
         cwd: fixtureRoot,
-        env: launcherEnv({ OPENCLAW_CONTAINER: "demo" }),
+        env: launcherEnv({ GRANTED_CONTAINER: "demo" }),
         encoding: "utf8",
       },
     );
@@ -535,17 +535,17 @@ describe("openclaw launcher", () => {
     {
       name: "container env with root --help",
       args: ["--help"],
-      env: { OPENCLAW_CONTAINER: "demo" },
+      env: { GRANTED_CONTAINER: "demo" },
     },
     {
       name: "container env with root -h",
       args: ["-h"],
-      env: { OPENCLAW_CONTAINER: "demo" },
+      env: { GRANTED_CONTAINER: "demo" },
     },
     {
       name: "container env",
       args: ["browser", "--help"],
-      env: { OPENCLAW_CONTAINER: "demo" },
+      env: { GRANTED_CONTAINER: "demo" },
     },
     {
       name: "root --container flag",
@@ -609,7 +609,7 @@ describe("openclaw launcher", () => {
 
     const result = spawnSync(process.execPath, [path.join(fixtureRoot, "openclaw.mjs"), "--help"], {
       cwd: fixtureRoot,
-      env: launcherEnv({ OPENCLAW_CONFIG_PATH: configPath }),
+      env: launcherEnv({ GRANTED_CONFIG_PATH: configPath }),
       encoding: "utf8",
     });
 
@@ -642,7 +642,7 @@ describe("openclaw launcher", () => {
       [path.join(fixtureRoot, "openclaw.mjs"), "nodes", "--help"],
       {
         cwd: fixtureRoot,
-        env: launcherEnv({ OPENCLAW_CONFIG_PATH: configPath }),
+        env: launcherEnv({ GRANTED_CONFIG_PATH: configPath }),
         encoding: "utf8",
       },
     );
@@ -652,7 +652,7 @@ describe("openclaw launcher", () => {
     expect(result.stdout).not.toContain("PRECOMPUTED");
   });
 
-  it("checks the OPENCLAW_HOME default config path before using precomputed root help", async () => {
+  it("checks the GRANTED_HOME default config path before using precomputed root help", async () => {
     const fixtureRoot = await makeLauncherFixture(fixtureRoots);
     const openclawHome = path.join(fixtureRoot, "home");
     const configDir = path.join(openclawHome, ".openclaw");
@@ -675,7 +675,7 @@ describe("openclaw launcher", () => {
 
     const result = spawnSync(process.execPath, [path.join(fixtureRoot, "openclaw.mjs"), "--help"], {
       cwd: fixtureRoot,
-      env: launcherEnv({ OPENCLAW_HOME: openclawHome }),
+      env: launcherEnv({ GRANTED_HOME: openclawHome }),
       encoding: "utf8",
     });
 
@@ -684,7 +684,7 @@ describe("openclaw launcher", () => {
     expect(result.stdout).not.toContain("PRECOMPUTED");
   });
 
-  it("keeps literal $ patterns in HOME when expanding a tilde OPENCLAW_HOME", async () => {
+  it("keeps literal $ patterns in HOME when expanding a tilde GRANTED_HOME", async () => {
     const fixtureRoot = await makeLauncherFixture(fixtureRoots);
     const home = path.join(fixtureRoot, "home$&d");
     const configDir = path.join(home, "oc", ".openclaw");
@@ -707,7 +707,7 @@ describe("openclaw launcher", () => {
 
     const result = spawnSync(process.execPath, [path.join(fixtureRoot, "openclaw.mjs"), "--help"], {
       cwd: fixtureRoot,
-      env: launcherEnv({ HOME: home, OPENCLAW_HOME: "~/oc" }),
+      env: launcherEnv({ HOME: home, GRANTED_HOME: "~/oc" }),
       encoding: "utf8",
     });
 
@@ -739,7 +739,7 @@ describe("openclaw launcher", () => {
 
     const result = spawnSync(process.execPath, [path.join(fixtureRoot, "openclaw.mjs"), "--help"], {
       cwd: fixtureRoot,
-      env: launcherEnv({ HOME: home, OPENCLAW_HOME: undefined }),
+      env: launcherEnv({ HOME: home, GRANTED_HOME: undefined }),
       encoding: "utf8",
     });
 
@@ -765,7 +765,7 @@ describe("openclaw launcher", () => {
 
     const result = spawnSync(process.execPath, [path.join(fixtureRoot, "openclaw.mjs"), "--help"], {
       cwd: fixtureRoot,
-      env: launcherEnv({ OPENCLAW_CONFIG_PATH: configPath }),
+      env: launcherEnv({ GRANTED_CONFIG_PATH: configPath }),
       encoding: "utf8",
     });
 
@@ -1087,7 +1087,7 @@ describe("openclaw launcher", () => {
       await fs.writeFile(path.join(fixtureRoot, "package.json"), '{"version":"2026.4.29"}\n');
       await fs.writeFile(
         path.join(fixtureRoot, "dist", "entry.js"),
-        'process.stdout.write(process.env.OPENCLAW_PACKAGED_COMPILE_CACHE_RESPAWNED ?? "0");\n',
+        'process.stdout.write(process.env.GRANTED_PACKAGED_COMPILE_CACHE_RESPAWNED ?? "0");\n',
         "utf8",
       );
 

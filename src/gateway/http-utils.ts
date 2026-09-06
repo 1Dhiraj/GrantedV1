@@ -54,9 +54,9 @@ export {
   type AuthorizedGatewayHttpRequest,
 } from "./http-auth-utils.js";
 
-export const OPENCLAW_MODEL_ID = "openclaw";
+export const GRANTED_MODEL_ID = "openclaw";
 /** Default OpenAI-compatible model alias that targets the default OpenClaw agent. */
-export const OPENCLAW_DEFAULT_MODEL_ID = "openclaw/default";
+export const GRANTED_DEFAULT_MODEL_ID = "openclaw/default";
 
 class UnknownGatewayAgentError extends Error {
   constructor(readonly agentId: string) {
@@ -127,7 +127,7 @@ export function resolveAgentIdFromModel(
     return undefined;
   }
   const lowered = normalizeLowercaseStringOrEmpty(raw);
-  if (lowered === OPENCLAW_MODEL_ID || lowered === OPENCLAW_DEFAULT_MODEL_ID) {
+  if (lowered === GRANTED_MODEL_ID || lowered === GRANTED_DEFAULT_MODEL_ID) {
     return resolveDefaultAgentId(cfg);
   }
 
@@ -148,7 +148,7 @@ export function isOpenClawAgentModelId(model: string | undefined): boolean {
     return false;
   }
   const lowered = normalizeLowercaseStringOrEmpty(raw);
-  if (lowered === OPENCLAW_MODEL_ID || lowered === OPENCLAW_DEFAULT_MODEL_ID) {
+  if (lowered === GRANTED_MODEL_ID || lowered === GRANTED_DEFAULT_MODEL_ID) {
     return true;
   }
   return (
