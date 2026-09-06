@@ -6,11 +6,11 @@ import { expectDefined } from "@openclaw/normalization-core";
 import {
   createPluginStateKeyedStoreForTests,
   resetPluginStateStoreForTests,
-} from "openclaw/plugin-sdk/plugin-state-test-runtime";
+} from "granted/plugin-sdk/plugin-state-test-runtime";
 import type {
   OpenKeyedStoreOptions,
   PluginDoctorStateMigrationContext,
-} from "openclaw/plugin-sdk/runtime-doctor-migrations";
+} from "granted/plugin-sdk/runtime-doctor-migrations";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { stateMigrations } from "./doctor-contract-api.js";
 

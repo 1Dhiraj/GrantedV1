@@ -1,11 +1,11 @@
-import { AgentHarnessPreflightError } from "openclaw/plugin-sdk/agent-harness-runtime";
-import type { EmbeddedRunAttemptParamsV2 } from "openclaw/plugin-sdk/agent-harness-runtime";
-import { resolveAgentConfig } from "openclaw/plugin-sdk/agent-scope-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import { AgentHarnessPreflightError } from "granted/plugin-sdk/agent-harness-runtime";
+import type { EmbeddedRunAttemptParamsV2 } from "granted/plugin-sdk/agent-harness-runtime";
+import { resolveAgentConfig } from "granted/plugin-sdk/agent-scope-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   resolveExecApprovalsFromFile,
   type ExecApprovalsFile,
-} from "openclaw/plugin-sdk/exec-approvals-runtime";
+} from "granted/plugin-sdk/exec-approvals-runtime";
 import type {
   CodexAppServerApprovalPolicy,
   CodexAppServerApprovalsReviewer,

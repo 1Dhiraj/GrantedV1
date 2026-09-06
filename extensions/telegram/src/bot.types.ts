@@ -1,7 +1,7 @@
 // Telegram type declarations define plugin contracts.
-import type { ChannelInboundTurnPlan } from "openclaw/plugin-sdk/channel-inbound";
-import type { GrantedConfig, ReplyToMode } from "openclaw/plugin-sdk/config-contracts";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
+import type { ChannelInboundTurnPlan } from "granted/plugin-sdk/channel-inbound";
+import type { GrantedConfig, ReplyToMode } from "granted/plugin-sdk/config-contracts";
+import type { RuntimeEnv } from "granted/plugin-sdk/runtime-env";
 import type { TelegramBotDeps } from "./bot-deps.js";
 import type { TelegramBotInfo } from "./bot-info.js";
 import type { TelegramTransport } from "./fetch.js";
@@ -14,7 +14,7 @@ export type TelegramBotOptions = {
   /** Agent that owns account-scoped Telegram runtime state. */
   ownerAgentId?: string;
   runtime?: RuntimeEnv;
-  buildContext?: typeof import("openclaw/plugin-sdk/channel-inbound").buildChannelInboundEventContext;
+  buildContext?: typeof import("granted/plugin-sdk/channel-inbound").buildChannelInboundEventContext;
   /** Instance-bound reply dispatcher prepared by the owning plugin runtime. */
   dispatchReplyFromConfig?: DispatchReplyFromConfig;
   requireMention?: boolean;

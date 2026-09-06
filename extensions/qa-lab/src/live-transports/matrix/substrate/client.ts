@@ -1,10 +1,10 @@
 // Qa Lab Matrix module implements client behavior.
 import { randomUUID } from "node:crypto";
 import { setTimeout as sleep } from "node:timers/promises";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import { expectDefined } from "openclaw/plugin-sdk/expect-runtime";
-import { readResponseWithLimit } from "openclaw/plugin-sdk/response-limit-runtime";
-import { uniqueValues } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
+import { expectDefined } from "granted/plugin-sdk/expect-runtime";
+import { readResponseWithLimit } from "granted/plugin-sdk/response-limit-runtime";
+import { uniqueValues } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   buildMatrixQaMediaMessageContent,
   buildMatrixQaMessageContent,

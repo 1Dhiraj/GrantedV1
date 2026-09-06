@@ -1,10 +1,10 @@
 // Qa Lab plugin module implements character eval behavior.
 import fs from "node:fs/promises";
 import path from "node:path";
-import { runTasksWithConcurrency } from "openclaw/plugin-sdk/concurrency-runtime";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import { normalizeStringEntries, uniqueStrings } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { formatDurationCompact } from "openclaw/plugin-sdk/time-runtime";
+import { runTasksWithConcurrency } from "granted/plugin-sdk/concurrency-runtime";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
+import { normalizeStringEntries, uniqueStrings } from "granted/plugin-sdk/string-coerce-runtime";
+import { formatDurationCompact } from "granted/plugin-sdk/time-runtime";
 import { createQaArtifactRunId } from "./artifact-run-id.js";
 import { isQaFastModeModelRef, type QaProviderMode } from "./model-selection.js";
 import {

@@ -1,4 +1,4 @@
-import { buildControlUiSessionPath } from "openclaw/plugin-sdk/session-discussion";
+import { buildControlUiSessionPath } from "granted/plugin-sdk/session-discussion";
 
 export function controlSessionUrl(
   baseUrl: string | undefined,

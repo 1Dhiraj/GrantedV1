@@ -5,7 +5,7 @@ import os from "node:os";
 import path from "node:path";
 import type { Duplex } from "node:stream";
 import { fileURLToPath } from "node:url";
-import { withEnvAsync } from "openclaw/plugin-sdk/test-env";
+import { withEnvAsync } from "granted/plugin-sdk/test-env";
 import { chromium, type BrowserContext } from "playwright-core";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { chromeMcpSessions } from "../src/browser/chrome-mcp-state.js";

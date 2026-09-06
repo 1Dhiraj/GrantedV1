@@ -1,17 +1,17 @@
 // Slack plugin module implements messages behavior.
 import type { AllMiddlewareArgs, SlackEventMiddlewareArgs } from "@slack/bolt";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
 import {
   createSubsystemLogger,
   danger,
   logVerbose,
   shouldLogVerbose,
-} from "openclaw/plugin-sdk/runtime-env";
+} from "granted/plugin-sdk/runtime-env";
 import {
   asOptionalRecord as asRecord,
   normalizeOptionalString as asString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
-import { enqueueRoutedSystemEvent } from "openclaw/plugin-sdk/system-event-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
+import { enqueueRoutedSystemEvent } from "granted/plugin-sdk/system-event-runtime";
 import { noteSlackDraftConversationMessage } from "../../draft-message-boundaries.js";
 import type { SlackAppMentionEvent, SlackMessageEvent } from "../../types.js";
 import { normalizeSlackChannelType } from "../channel-type.js";

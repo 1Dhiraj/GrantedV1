@@ -1,7 +1,7 @@
 // Volcengine tests cover index plugin behavior.
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { registerSingleProviderPlugin } from "openclaw/plugin-sdk/plugin-test-runtime";
+import { registerSingleProviderPlugin } from "granted/plugin-sdk/plugin-test-runtime";
 import { describe, expect, it } from "vitest";
 import { VOLCENGINE_UNSUPPORTED_TOOL_SCHEMA_KEYWORDS } from "./api.js";
 import plugin from "./index.js";

@@ -1,9 +1,9 @@
 // Deepinfra plugin module implements cache wrapper behavior.
-import type { StreamFn } from "openclaw/plugin-sdk/agent-core";
+import type { StreamFn } from "granted/plugin-sdk/agent-core";
 import {
   applyAnthropicEphemeralCacheControlMarkers,
   createPayloadPatchStreamWrapper,
-} from "openclaw/plugin-sdk/provider-stream-shared";
+} from "granted/plugin-sdk/provider-stream-shared";
 
 // Inject Anthropic ephemeral cache_control markers for anthropic/* models on
 // DeepInfra. The OpenRouter equivalent short-circuits on a provider/endpoint

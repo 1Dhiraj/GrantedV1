@@ -3,7 +3,7 @@ import { isPromiseLike } from "@openclaw/normalization-core/promise-like";
  * Handles assistant message lifecycle boundaries, final reconciliation, and usage.
  */
 import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
-import { resolveSendableOutboundReplyParts } from "openclaw/plugin-sdk/reply-payload";
+import { resolveSendableOutboundReplyParts } from "granted/plugin-sdk/reply-payload";
 import { createInlineCodeState } from "../../packages/markdown-core/src/code-spans.js";
 import { parseReplyDirectives } from "../auto-reply/reply/reply-directives.js";
 import { isSilentReplyText, SILENT_REPLY_TOKEN } from "../auto-reply/tokens.js";

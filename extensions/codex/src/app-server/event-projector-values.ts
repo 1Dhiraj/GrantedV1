@@ -2,7 +2,7 @@ import {
   asFiniteNumber,
   normalizeOptionalString,
   readStringField,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import { isJsonObject, type CodexThreadItem, type JsonObject, type JsonValue } from "./protocol.js";
 
 export { normalizeOptionalString as normalizeNonEmptyString };

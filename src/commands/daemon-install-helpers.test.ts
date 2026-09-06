@@ -210,7 +210,7 @@ async function readGeneratedLaunchAgentFixture(params: {
         wrapperPath,
         envFilePath,
         "/opt/node",
-        "openclaw.mjs",
+        "granted.mjs",
         "gateway",
         "run",
       ],

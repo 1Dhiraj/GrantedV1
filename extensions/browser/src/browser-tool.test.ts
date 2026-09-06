@@ -1,6 +1,6 @@
 // Browser tests cover browser tool plugin behavior.
 import { fileURLToPath } from "node:url";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { Value } from "typebox/value";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { BrowserActionPathResult } from "./browser/client-actions-types.js";
@@ -200,7 +200,7 @@ const configMocks = vi.hoisted(() => ({
 }));
 vi.mock("openclaw/plugin-sdk/runtime-config-snapshot", async () => {
   const actual = await vi.importActual<
-    typeof import("openclaw/plugin-sdk/runtime-config-snapshot")
+    typeof import("granted/plugin-sdk/runtime-config-snapshot")
   >("openclaw/plugin-sdk/runtime-config-snapshot");
   return {
     ...actual,
@@ -3797,10 +3797,10 @@ describe("browser tool snapshot labels", () => {
   it("keeps private labeled snapshots visible to the model but out of channel delivery", async () => {
     const [{ imageResultFromFile }, { extractToolResultMediaArtifact, filterToolResultMediaUrls }] =
       await Promise.all([
-        vi.importActual<typeof import("openclaw/plugin-sdk/channel-actions")>(
+        vi.importActual<typeof import("granted/plugin-sdk/channel-actions")>(
           "openclaw/plugin-sdk/channel-actions",
         ),
-        vi.importActual<typeof import("openclaw/plugin-sdk/agent-harness-runtime")>(
+        vi.importActual<typeof import("granted/plugin-sdk/agent-harness-runtime")>(
           "openclaw/plugin-sdk/agent-harness-runtime",
         ),
       ]);

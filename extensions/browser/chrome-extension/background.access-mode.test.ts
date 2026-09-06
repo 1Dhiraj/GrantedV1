@@ -1,4 +1,4 @@
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   cleanupBackgroundHarnesses,

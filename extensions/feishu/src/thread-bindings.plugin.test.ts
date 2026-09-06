@@ -3,16 +3,16 @@ import {
   createEmptyPluginRegistry,
   resetPluginRuntimeStateForTest,
   setActivePluginRegistry,
-} from "openclaw/plugin-sdk/channel-test-helpers";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+} from "granted/plugin-sdk/channel-test-helpers";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   getSessionBindingService,
   resolveRuntimeConversationBindingRoute,
-} from "openclaw/plugin-sdk/conversation-binding-runtime";
-import { resolvePluginConversationBindingApproval } from "openclaw/plugin-sdk/conversation-runtime";
-import { createInteractiveConversationBindingHelpers } from "openclaw/plugin-sdk/plugin-runtime";
-import { resolveAgentRoute } from "openclaw/plugin-sdk/routing";
-import { withStateDirEnv } from "openclaw/plugin-sdk/test-env";
+} from "granted/plugin-sdk/conversation-binding-runtime";
+import { resolvePluginConversationBindingApproval } from "granted/plugin-sdk/conversation-runtime";
+import { createInteractiveConversationBindingHelpers } from "granted/plugin-sdk/plugin-runtime";
+import { resolveAgentRoute } from "granted/plugin-sdk/routing";
+import { withStateDirEnv } from "granted/plugin-sdk/test-env";
 import { afterEach, beforeEach, expect, it } from "vitest";
 import { createFeishuThreadBindingManager } from "./thread-bindings.js";
 

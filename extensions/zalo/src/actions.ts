@@ -1,12 +1,12 @@
 // Zalo plugin module implements actions behavior.
-import { jsonResult, readStringParam } from "openclaw/plugin-sdk/channel-actions";
+import { jsonResult, readStringParam } from "granted/plugin-sdk/channel-actions";
 import type {
   ChannelMessageActionAdapter,
   ChannelMessageActionName,
-} from "openclaw/plugin-sdk/channel-contract";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { createLazyRuntimeNamedExport } from "openclaw/plugin-sdk/lazy-runtime";
-import { extractToolSend } from "openclaw/plugin-sdk/tool-send";
+} from "granted/plugin-sdk/channel-contract";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { createLazyRuntimeNamedExport } from "granted/plugin-sdk/lazy-runtime";
+import { extractToolSend } from "granted/plugin-sdk/tool-send";
 import { inspectZaloAccount, listZaloAccountIds } from "./accounts.js";
 
 const loadZaloActionsRuntime = createLazyRuntimeNamedExport(

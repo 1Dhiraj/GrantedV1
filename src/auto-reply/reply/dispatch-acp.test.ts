@@ -4,7 +4,7 @@ import path from "node:path";
 import type { AcpElicitationHandler } from "@openclaw/acp-core/runtime/types";
 import { detectMime } from "@openclaw/media-core/mime";
 // Tests ACP dispatch wiring, command bypass, and runtime event handling.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { DecisionReceiptV1 } from "../../../packages/gateway-protocol/src/index.js";
 import type { MediaUnderstandingSkipError } from "../../../packages/media-understanding-common/src/errors.js";

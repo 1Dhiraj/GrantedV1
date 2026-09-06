@@ -4,20 +4,20 @@ import path from "node:path";
 import {
   resolveAgentWorkspaceDir,
   type GrantedConfig,
-} from "openclaw/plugin-sdk/memory-core-host-engine-foundation";
+} from "granted/plugin-sdk/memory-core-host-engine-foundation";
 import {
   buildSessionEntry,
   listSessionTranscriptCorpusEntriesForAgent,
   parseUsageCountedSessionIdFromFileName,
   resolveMemorySessionTargets,
-} from "openclaw/plugin-sdk/memory-core-host-engine-sessions";
+} from "granted/plugin-sdk/memory-core-host-engine-sessions";
 import {
   isFileMissingError,
   listMemoryFiles,
   loadSqliteVecExtension,
-} from "openclaw/plugin-sdk/memory-core-host-engine-storage";
-import { listMemoryArtifactProvenance } from "openclaw/plugin-sdk/memory-core-host-runtime-core";
-import { resolveStorePath } from "openclaw/plugin-sdk/session-store-paths";
+} from "granted/plugin-sdk/memory-core-host-engine-storage";
+import { listMemoryArtifactProvenance } from "granted/plugin-sdk/memory-core-host-runtime-core";
+import { resolveStorePath } from "granted/plugin-sdk/session-store-paths";
 import {
   executeSqliteQuerySync,
   getNodeSqliteKysely,
@@ -26,7 +26,7 @@ import {
   runSqliteImmediateTransactionSync,
   tableExists,
   withOpenClawAgentDatabaseReadOnly,
-} from "openclaw/plugin-sdk/sqlite-runtime";
+} from "granted/plugin-sdk/sqlite-runtime";
 import { readMemoryPreimages } from "./dreaming-consolidation-artifacts.js";
 import { DREAMS_FILENAMES } from "./dreaming-dreams-file.js";
 import {

@@ -6,9 +6,9 @@ import {
   OPENCLAW_CRABLINE_DEFAULT_CHANNEL,
   resolveOpenClawCrablineChannelDriverSelection,
 } from "@openclaw/crabline";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import { parseStrictPositiveInteger } from "openclaw/plugin-sdk/number-runtime";
-import { parseBooleanValue, uniqueStrings } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
+import { parseStrictPositiveInteger } from "granted/plugin-sdk/number-runtime";
+import { parseBooleanValue, uniqueStrings } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   buildQaAgenticParityComparison,
   buildQaRuntimeParityReport,

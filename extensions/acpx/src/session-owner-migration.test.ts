@@ -10,9 +10,9 @@ import {
 import {
   createPluginStateKeyedStoreForTests,
   resetPluginStateStoreForTests,
-} from "openclaw/plugin-sdk/plugin-state-test-runtime";
-import type { PluginDoctorStateMigrationContext } from "openclaw/plugin-sdk/runtime-doctor-migrations";
-import { useAutoCleanupTempDirTracker } from "openclaw/plugin-sdk/test-env";
+} from "granted/plugin-sdk/plugin-state-test-runtime";
+import type { PluginDoctorStateMigrationContext } from "granted/plugin-sdk/runtime-doctor-migrations";
+import { useAutoCleanupTempDirTracker } from "granted/plugin-sdk/test-env";
 import { afterEach, expect, it } from "vitest";
 import { AcpxRuntime } from "./runtime.js";
 import { acpxSessionOwnerMigration } from "./session-owner-migration.js";

@@ -1,8 +1,8 @@
 // Teardown must close fixture-owned databases before restoring the parent state env.
 import fs from "node:fs/promises";
 import path from "node:path";
-import { openOpenClawAgentDatabase } from "openclaw/plugin-sdk/sqlite-runtime-testing";
-import { resolvePreferredOpenClawTmpDir } from "openclaw/plugin-sdk/temp-path";
+import { openOpenClawAgentDatabase } from "granted/plugin-sdk/sqlite-runtime-testing";
+import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
 import { describe, expect, it } from "vitest";
 import { withZalouserIngressTestQueue } from "./ingress.test-support.js";
 

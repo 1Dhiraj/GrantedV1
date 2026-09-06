@@ -1,7 +1,7 @@
 import crypto from "node:crypto";
 import { once } from "node:events";
 import { createServer } from "node:http";
-import type { StreamFn } from "openclaw/plugin-sdk/agent-core";
+import type { StreamFn } from "granted/plugin-sdk/agent-core";
 import { describe, expect, it, vi } from "vitest";
 import { SessionTranscriptWriterClaimReboundError } from "../../config/sessions/transcript-write-context.js";
 import { attachModelProviderRequestTransport } from "../provider-request-config.js";

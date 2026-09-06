@@ -1,4 +1,4 @@
-import type { GrantedPluginNodeInvokePolicyContext } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginNodeInvokePolicyContext } from "granted/plugin-sdk/plugin-entry";
 import { appendFileTransferAudit, type FileTransferAuditOp } from "./audit.js";
 import type { FileTransferNodeInvokeCommand } from "./node-invoke-policy-commands.js";
 import { evaluateFilePolicy, type FilePolicyKind } from "./policy.js";

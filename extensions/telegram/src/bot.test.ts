@@ -1,32 +1,32 @@
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   clearPluginInteractiveHandlers,
   registerPluginInteractiveHandler,
-} from "openclaw/plugin-sdk/plugin-runtime";
-import type { PluginStateKeyedStore } from "openclaw/plugin-sdk/plugin-state-runtime";
+} from "granted/plugin-sdk/plugin-runtime";
+import type { PluginStateKeyedStore } from "granted/plugin-sdk/plugin-state-runtime";
 import {
   closeOpenClawStateDatabaseForTest,
   createPluginStateKeyedStoreForTests,
   createPluginStateSyncKeyedStoreForTests,
   resetPluginStateStoreForTests,
-} from "openclaw/plugin-sdk/plugin-state-test-runtime";
-import { createNonExitingRuntimeEnv } from "openclaw/plugin-sdk/plugin-test-runtime";
-import type { MsgContext } from "openclaw/plugin-sdk/reply-runtime";
+} from "granted/plugin-sdk/plugin-state-test-runtime";
+import { createNonExitingRuntimeEnv } from "granted/plugin-sdk/plugin-test-runtime";
+import type { MsgContext } from "granted/plugin-sdk/reply-runtime";
 import {
   listSessionEntries,
   normalizeSessionDeliveryState,
   upsertSessionEntry,
-} from "openclaw/plugin-sdk/session-store-runtime";
-import { appendSessionTranscriptMessageByIdentity } from "openclaw/plugin-sdk/session-transcript-runtime";
-import { mockPinnedHostnameResolution } from "openclaw/plugin-sdk/test-env";
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
-import { createOpenClawTestState, type GrantedTestState } from "openclaw/plugin-sdk/test-state";
+} from "granted/plugin-sdk/session-store-runtime";
+import { appendSessionTranscriptMessageByIdentity } from "granted/plugin-sdk/session-transcript-runtime";
+import { mockPinnedHostnameResolution } from "granted/plugin-sdk/test-env";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
+import { createOpenClawTestState, type GrantedTestState } from "granted/plugin-sdk/test-state";
 import {
   registerSessionBindingAdapter,
   type SessionBindingAdapter,
   type SessionBindingRecord,
   unregisterSessionBindingAdapter,
-} from "openclaw/plugin-sdk/thread-bindings-runtime";
+} from "granted/plugin-sdk/thread-bindings-runtime";
 import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { buildTelegramApprovalCallbackData } from "./approval-callback-data.js";
 import type { TelegramBotDeps } from "./bot-deps.js";
@@ -75,7 +75,7 @@ vi.mock("openclaw/plugin-sdk/question-gateway-runtime", () => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/channel-inbound", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/channel-inbound")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/channel-inbound")>(
     "openclaw/plugin-sdk/channel-inbound",
   );
   return {
@@ -463,11 +463,11 @@ function getTelegramPollHandlerForTests() {
 }
 
 async function loadEnvelopeTimestampHelpers() {
-  return await import("openclaw/plugin-sdk/channel-test-helpers");
+  return await import("granted/plugin-sdk/channel-test-helpers");
 }
 
 async function loadInboundContextContract() {
-  return await import("openclaw/plugin-sdk/channel-contract-testing");
+  return await import("granted/plugin-sdk/channel-contract-testing");
 }
 
 type MockCallSource = {

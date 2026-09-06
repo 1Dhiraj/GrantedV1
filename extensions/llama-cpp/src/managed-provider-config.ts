@@ -1,5 +1,5 @@
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { ModelProviderConfig } from "openclaw/plugin-sdk/provider-model-shared";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { ModelProviderConfig } from "granted/plugin-sdk/provider-model-shared";
 import { LLAMA_CPP_PROVIDER_ID } from "./defaults.js";
 
 export const MANAGED_LLAMA_CPP_CONFIG_REQUIRED_MESSAGE =

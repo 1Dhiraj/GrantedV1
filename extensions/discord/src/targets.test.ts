@@ -1,5 +1,5 @@
 // Discord tests cover targets plugin behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { resolveDiscordDirectoryUserId } from "./directory-cache.js";
 import { clearDiscordDirectoryCacheForTest } from "./directory-cache.test-support.js";

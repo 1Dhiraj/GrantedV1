@@ -10,8 +10,8 @@
 import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
-import { createSecretFileAtomic, tryReadSecretFileSync } from "openclaw/plugin-sdk/secret-file";
-import { resolveOAuthDir } from "openclaw/plugin-sdk/state-paths";
+import { createSecretFileAtomic, tryReadSecretFileSync } from "granted/plugin-sdk/secret-file";
+import { resolveOAuthDir } from "granted/plugin-sdk/state-paths";
 import { extractErrorCode } from "../../infra/errors.js";
 import { createSubsystemLogger } from "../../logging/subsystem.js";
 

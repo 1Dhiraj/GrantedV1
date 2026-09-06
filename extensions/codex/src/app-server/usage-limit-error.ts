@@ -6,9 +6,9 @@ import {
   embeddedAgentLog,
   formatErrorMessage,
   type EmbeddedRunAttemptParamsV2 as EmbeddedRunAttemptParams,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
-import { markAuthProfileBlockedUntil } from "openclaw/plugin-sdk/agent-runtime";
-import { readStringField as readString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/agent-harness-runtime";
+import { markAuthProfileBlockedUntil } from "granted/plugin-sdk/agent-runtime";
+import { readStringField as readString } from "granted/plugin-sdk/string-coerce-runtime";
 import { CODEX_CONTROL_METHODS } from "./capabilities.js";
 import type { CodexAppServerClient } from "./client.js";
 import { isJsonObject, type CodexServerNotification, type JsonValue } from "./protocol.js";

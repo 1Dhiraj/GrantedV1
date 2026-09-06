@@ -1,5 +1,5 @@
 /** Prepares queued follow-up payloads for source-channel delivery. */
-import { hasOutboundReplyContent } from "openclaw/plugin-sdk/reply-payload";
+import { hasOutboundReplyContent } from "granted/plugin-sdk/reply-payload";
 import {
   hasCommittedSourceReplyDeliveryEvidence,
   hasCompletedSourceReplyDeliveryEvidence,

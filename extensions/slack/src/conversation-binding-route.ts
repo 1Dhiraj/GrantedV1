@@ -1,10 +1,10 @@
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   resolveConfiguredBindingRoute,
   resolveRuntimeConversationBindingRoute,
   type RuntimeConversationBindingRouteResult,
-} from "openclaw/plugin-sdk/conversation-runtime";
-import type { resolveAgentRoute } from "openclaw/plugin-sdk/routing";
+} from "granted/plugin-sdk/conversation-runtime";
+import type { resolveAgentRoute } from "granted/plugin-sdk/routing";
 import { parseSlackTarget, type SlackTargetKind } from "./targets.js";
 
 type SlackRouteBinding = NonNullable<GrantedConfig["bindings"]>[number];

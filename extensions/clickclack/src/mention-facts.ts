@@ -8,8 +8,8 @@
 import {
   buildMentionRegexes,
   normalizeMentionText,
-} from "openclaw/plugin-sdk/channel-mention-gating";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+} from "granted/plugin-sdk/channel-mention-gating";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 
 type ClickClackMentionFacts = {
   canDetectMention: boolean;

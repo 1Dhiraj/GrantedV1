@@ -2,17 +2,17 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { filterMemorySearchHitsBySessionVisibility } from "@openclaw/memory-core/api.js";
-import { resolveSessionAgentIdStrict } from "openclaw/plugin-sdk/agent-scope-runtime";
-import { runTasksWithConcurrency } from "openclaw/plugin-sdk/concurrency-runtime";
-import type { MemorySearchResult } from "openclaw/plugin-sdk/memory-core-host-runtime-files";
-import { resolveDefaultAgentId } from "openclaw/plugin-sdk/memory-host-core";
-import { getActiveMemorySearchManager } from "openclaw/plugin-sdk/memory-host-search";
-import type { GrantedPluginToolContext } from "openclaw/plugin-sdk/plugin-entry";
+import { resolveSessionAgentIdStrict } from "granted/plugin-sdk/agent-scope-runtime";
+import { runTasksWithConcurrency } from "granted/plugin-sdk/concurrency-runtime";
+import type { MemorySearchResult } from "granted/plugin-sdk/memory-core-host-runtime-files";
+import { resolveDefaultAgentId } from "granted/plugin-sdk/memory-host-core";
+import { getActiveMemorySearchManager } from "granted/plugin-sdk/memory-host-search";
+import type { GrantedPluginToolContext } from "granted/plugin-sdk/plugin-entry";
 import {
   normalizeLowercaseStringOrEmpty,
   uniqueStrings,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
+import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import type { GrantedConfig } from "../api.js";
 import { walkMemoryWikiDirectory } from "./bounded-walk.js";
 import { assessClaimFreshness, isClaimContestedStatus } from "./claim-health.js";

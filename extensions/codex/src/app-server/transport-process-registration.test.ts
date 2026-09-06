@@ -4,7 +4,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { PassThrough } from "node:stream";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { terminateCodexAppServerOrphan } from "./transport-process-containment.js";
 import {
@@ -44,7 +44,7 @@ const commandFingerprint = createHash("sha256").update(command).digest("hex");
 
 async function openStore() {
   const { createPluginStateSyncKeyedStore } =
-    await import("openclaw/plugin-sdk/plugin-state-store-runtime");
+    await import("granted/plugin-sdk/plugin-state-store-runtime");
   return createPluginStateSyncKeyedStore<{
     parent: typeof parent;
     child: typeof child & { commandFingerprint?: string };

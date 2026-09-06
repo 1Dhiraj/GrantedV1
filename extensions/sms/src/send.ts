@@ -1,20 +1,20 @@
 // Sms plugin module implements send behavior.
-import { createChannelPartialDeliveryError } from "openclaw/plugin-sdk/channel-inbound";
+import { createChannelPartialDeliveryError } from "granted/plugin-sdk/channel-inbound";
 import {
   createMessageReceiptFromOutboundResults,
   type ChannelMessageSendResult,
-} from "openclaw/plugin-sdk/channel-outbound";
+} from "granted/plugin-sdk/channel-outbound";
 import {
   formatErrorMessage,
   PlatformMessageNotDispatchedError,
-} from "openclaw/plugin-sdk/error-runtime";
-import type { OutboundMediaLoadOptions } from "openclaw/plugin-sdk/outbound-media";
+} from "granted/plugin-sdk/error-runtime";
+import type { OutboundMediaLoadOptions } from "granted/plugin-sdk/outbound-media";
 import {
   type MarkdownIR,
   renderMarkdownIRChunksWithinLimit,
   sanitizeAssistantVisibleText,
   stripMarkdown,
-} from "openclaw/plugin-sdk/text-chunking";
+} from "granted/plugin-sdk/text-chunking";
 import { assertSmsCredentialOwnerAvailable } from "./credential-availability.js";
 import { recordInitialSmsDeliveryResult } from "./delivery-observations.js";
 import { getSmsRuntime } from "./runtime.js";

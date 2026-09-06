@@ -1,11 +1,11 @@
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 // Qwen tests cover index plugin behavior.
 import {
   registerProviderPlugin,
   requireRegisteredProvider,
-} from "openclaw/plugin-sdk/plugin-test-runtime";
-import type { ProviderCatalogResult } from "openclaw/plugin-sdk/provider-catalog-shared";
-import type { ModelProviderConfig } from "openclaw/plugin-sdk/provider-model-shared";
+} from "granted/plugin-sdk/plugin-test-runtime";
+import type { ProviderCatalogResult } from "granted/plugin-sdk/provider-catalog-shared";
+import type { ModelProviderConfig } from "granted/plugin-sdk/provider-model-shared";
 import { describe, expect, it, vi } from "vitest";
 import {
   QWEN_36_FLASH_MODEL_ID,

@@ -1,18 +1,18 @@
-import { resolveSessionAgentIdsStrict } from "openclaw/plugin-sdk/agent-scope-runtime";
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
+import { resolveSessionAgentIdsStrict } from "granted/plugin-sdk/agent-scope-runtime";
+import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
 // Memory Core plugin entrypoint registers its OpenClaw integration.
 import {
   jsonResult,
   type MemoryPluginRuntime,
   type GrantedConfig,
-} from "openclaw/plugin-sdk/memory-core-host-runtime-core";
-import { resolveMemoryBackendConfig } from "openclaw/plugin-sdk/memory-core-host-runtime-files";
+} from "granted/plugin-sdk/memory-core-host-runtime-core";
+import { resolveMemoryBackendConfig } from "granted/plugin-sdk/memory-core-host-runtime-files";
 import {
   definePluginEntry,
   type AnyAgentTool,
   type GrantedPluginToolContext,
-} from "openclaw/plugin-sdk/plugin-entry";
-import type { OpenKeyedStoreOptions } from "openclaw/plugin-sdk/plugin-state-runtime";
+} from "granted/plugin-sdk/plugin-entry";
+import type { OpenKeyedStoreOptions } from "granted/plugin-sdk/plugin-state-runtime";
 import { configureMemoryCoreDreamingState } from "./src/dreaming-state.js";
 import { registerShortTermPromotionDreaming } from "./src/dreaming.js";
 import { buildMemoryFlushPlan } from "./src/flush-plan.js";

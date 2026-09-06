@@ -1,10 +1,10 @@
 import {
   buildChannelInboundEventContext,
   resolveChannelInboundRouteEnvelope,
-} from "openclaw/plugin-sdk/channel-inbound";
-import { resolveStableChannelMessageIngress } from "openclaw/plugin-sdk/channel-ingress-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { PluginRuntime } from "openclaw/plugin-sdk/runtime-store";
+} from "granted/plugin-sdk/channel-inbound";
+import { resolveStableChannelMessageIngress } from "granted/plugin-sdk/channel-ingress-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { PluginRuntime } from "granted/plugin-sdk/runtime-store";
 import type { A2aTaskStore } from "./task-store.js";
 import type { ResolvedA2aChannelAccount } from "./types.js";
 

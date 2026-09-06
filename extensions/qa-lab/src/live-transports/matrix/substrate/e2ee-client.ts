@@ -21,7 +21,7 @@ import type {
   PluginStateEntry,
   PluginStateKeyedStore,
   PluginStateSyncKeyedStore,
-} from "openclaw/plugin-sdk/plugin-state-runtime";
+} from "granted/plugin-sdk/plugin-state-runtime";
 import { buildMatrixQaMessageContent } from "./client-message-content.js";
 import {
   MATRIX_QA_E2EE_SYNC_FILTER,
@@ -267,7 +267,7 @@ export type MatrixQaE2eeScenarioClient = {
 
 export async function loadMatrixQaE2eeRuntime(): Promise<MatrixQaE2eeRuntime> {
   const { loadQaRunnerBundledPluginTestApi } =
-    await import("openclaw/plugin-sdk/qa-runner-runtime");
+    await import("granted/plugin-sdk/qa-runner-runtime");
   return loadQaRunnerBundledPluginTestApi<MatrixQaE2eeRuntime>("matrix");
 }
 

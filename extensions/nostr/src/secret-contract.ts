@@ -1,11 +1,11 @@
-import { normalizeAccountId } from "openclaw/plugin-sdk/account-id";
+import { normalizeAccountId } from "granted/plugin-sdk/account-id";
 import {
   collectSecretInputAssignment,
   createChannelSecretTargetRegistryEntries,
   getChannelRecord,
   type ResolverContext,
   type SecretDefaults,
-} from "openclaw/plugin-sdk/channel-secret-basic-runtime";
+} from "granted/plugin-sdk/channel-secret-basic-runtime";
 
 export const secretTargetRegistryEntries = createChannelSecretTargetRegistryEntries({
   channelKey: "nostr",

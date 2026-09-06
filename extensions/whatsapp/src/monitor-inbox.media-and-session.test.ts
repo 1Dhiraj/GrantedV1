@@ -10,7 +10,7 @@ import {
 const inboundLoggerInfoMock = vi.hoisted(() => vi.fn());
 
 vi.mock("openclaw/plugin-sdk/logging-core", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/logging-core")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/logging-core")>(
     "openclaw/plugin-sdk/logging-core",
   );
   return {

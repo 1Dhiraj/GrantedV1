@@ -1,6 +1,6 @@
 // Telegram tests cover setup surface plugin behavior.
-import { installChannelDmPolicyContractSuite } from "openclaw/plugin-sdk/channel-test-helpers";
-import { DEFAULT_ACCOUNT_ID } from "openclaw/plugin-sdk/setup";
+import { installChannelDmPolicyContractSuite } from "granted/plugin-sdk/channel-test-helpers";
+import { DEFAULT_ACCOUNT_ID } from "granted/plugin-sdk/setup";
 import { describe, expect, it, vi } from "vitest";
 import {
   promptTelegramAllowFromForAccount,

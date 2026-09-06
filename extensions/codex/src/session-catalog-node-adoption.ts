@@ -1,15 +1,15 @@
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
-import type { PluginRuntime } from "openclaw/plugin-sdk/plugin-runtime";
-import { parseAgentSessionKey } from "openclaw/plugin-sdk/routing";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { GrantedPluginApi } from "granted/plugin-sdk/plugin-entry";
+import type { PluginRuntime } from "granted/plugin-sdk/plugin-runtime";
+import { parseAgentSessionKey } from "granted/plugin-sdk/routing";
 import {
   listSessionCatalogEntries,
   sessionCatalogAdoptedSessionKey,
   sessionCatalogAdoptedSourceKey,
   type SessionCatalogEntrySnapshot,
-} from "openclaw/plugin-sdk/session-catalog";
-import { resolveStorePath } from "openclaw/plugin-sdk/session-store-runtime";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/session-catalog";
+import { resolveStorePath } from "granted/plugin-sdk/session-store-runtime";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import type { CodexThread } from "./app-server/protocol.js";
 import { importCodexThreadHistoryToTranscript } from "./app-server/transcript-mirror.js";
 import { CatalogParamsError } from "./session-catalog-parsing.js";

@@ -3,16 +3,16 @@ import {
   loadCodexBundleMcpThreadConfig,
   type AgentHarnessSessionForkParams,
   type AgentHarnessSessionDeletionParams,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
-import { resolveAgentWorkspaceDir } from "openclaw/plugin-sdk/agent-runtime";
+} from "granted/plugin-sdk/agent-harness-runtime";
+import { resolveAgentWorkspaceDir } from "granted/plugin-sdk/agent-runtime";
 import {
   buildCodexUserMcpServersThreadConfigPatchForRuntime,
   resolveCodexMcpToolOverridesForAgent,
-} from "openclaw/plugin-sdk/codex-mcp-projection";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { loadExecApprovals } from "openclaw/plugin-sdk/exec-approvals-runtime";
-import { buildNativeHookRelayCommandPlan } from "openclaw/plugin-sdk/native-hook-relay-runtime";
-import type { PluginRuntime } from "openclaw/plugin-sdk/plugin-runtime";
+} from "granted/plugin-sdk/codex-mcp-projection";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { loadExecApprovals } from "granted/plugin-sdk/exec-approvals-runtime";
+import { buildNativeHookRelayCommandPlan } from "granted/plugin-sdk/native-hook-relay-runtime";
+import type { PluginRuntime } from "granted/plugin-sdk/plugin-runtime";
 import type { CodexSessionCatalogControl } from "../session-catalog-types.js";
 import { prepareCodexWorkspaceDeveloperInstructions } from "./attempt-context.js";
 import { resolveOpenClawExecPolicyForCodexAppServer } from "./config-exec-policy.js";

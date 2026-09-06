@@ -1,7 +1,7 @@
 import {
   createMeetingLeaveSource,
   createMeetingTranscriptSource,
-} from "openclaw/plugin-sdk/meeting-page-script-runtime";
+} from "granted/plugin-sdk/meeting-page-script-runtime";
 import { TEAMS_MEETING_SELECTORS } from "./teams-meetings-selectors.js";
 import { teamsMeetingStatusCallSource } from "./teams-meetings-status-call-source.js";
 import { teamsMeetingStatusPreludeSource } from "./teams-meetings-status-prejoin-source.js";

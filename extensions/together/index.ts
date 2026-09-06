@@ -1,5 +1,5 @@
 // Together plugin entrypoint registers its OpenClaw integration.
-import { defineSingleProviderPluginEntry } from "openclaw/plugin-sdk/provider-entry";
+import { defineSingleProviderPluginEntry } from "granted/plugin-sdk/provider-entry";
 import { applyTogetherConfig } from "./onboard.js";
 import manifest from "./openclaw.plugin.json" with { type: "json" };
 import { buildTogetherVideoGenerationProvider } from "./video-generation-provider.js";

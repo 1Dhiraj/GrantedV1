@@ -2,14 +2,14 @@
 import type {
   ChannelAccountSnapshot,
   ChannelStatusIssue,
-} from "openclaw/plugin-sdk/channel-contract";
-import { formatCliCommand } from "openclaw/plugin-sdk/cli-runtime";
+} from "granted/plugin-sdk/channel-contract";
+import { formatCliCommand } from "granted/plugin-sdk/cli-runtime";
 import {
   collectIssuesForEnabledAccounts,
   isRecord,
   readAccountStatusSnapshot,
-} from "openclaw/plugin-sdk/status-helpers";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/status-helpers";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 
 const WHATSAPP_ACCOUNT_STATUS_FIELDS = [
   "statusState",

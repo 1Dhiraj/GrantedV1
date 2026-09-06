@@ -1,9 +1,9 @@
-import { createChannelDmPolicy } from "openclaw/plugin-sdk/channel-dm-policy";
+import { createChannelDmPolicy } from "granted/plugin-sdk/channel-dm-policy";
 import {
   defineChannelSetupContract,
   type ChannelSetupInput,
-} from "openclaw/plugin-sdk/channel-setup";
-import { normalizeSecretInputString } from "openclaw/plugin-sdk/secret-input";
+} from "granted/plugin-sdk/channel-setup";
+import { normalizeSecretInputString } from "granted/plugin-sdk/secret-input";
 // Slack plugin module implements setup core behavior.
 import {
   createAccountScopedAllowFromSection,
@@ -21,9 +21,9 @@ import {
   type ChannelSetupDmPolicy,
   type ChannelSetupWizard,
   type GrantedConfig,
-} from "openclaw/plugin-sdk/setup-runtime";
-import { formatDocsLink } from "openclaw/plugin-sdk/setup-tools";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/setup-runtime";
+import { formatDocsLink } from "granted/plugin-sdk/setup-tools";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import { inspectSlackAccount } from "./account-inspect.js";
 import {
   buildSlackManifest,

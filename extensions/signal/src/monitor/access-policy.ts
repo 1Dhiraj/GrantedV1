@@ -3,10 +3,10 @@ import {
   createChannelIngressResolver,
   type ChannelIngressContextBinding,
   defineStableChannelIngressIdentity,
-} from "openclaw/plugin-sdk/channel-ingress-runtime";
-import { createChannelPairingChallengeIssuer } from "openclaw/plugin-sdk/channel-pairing";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { upsertChannelPairingRequest } from "openclaw/plugin-sdk/conversation-runtime";
+} from "granted/plugin-sdk/channel-ingress-runtime";
+import { createChannelPairingChallengeIssuer } from "granted/plugin-sdk/channel-pairing";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { upsertChannelPairingRequest } from "granted/plugin-sdk/conversation-runtime";
 import {
   formatSignalSenderId,
   looksLikeUuid,

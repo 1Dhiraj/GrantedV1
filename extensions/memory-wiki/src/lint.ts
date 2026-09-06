@@ -4,9 +4,9 @@ import path from "node:path";
 import {
   replaceManagedMarkdownBlock,
   withTrailingNewline,
-} from "openclaw/plugin-sdk/memory-host-markdown";
-import { replaceFileAtomic } from "openclaw/plugin-sdk/security-runtime";
-import { normalizeLowercaseStringOrEmpty } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/memory-host-markdown";
+import { replaceFileAtomic } from "granted/plugin-sdk/security-runtime";
+import { normalizeLowercaseStringOrEmpty } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   assessPageFreshness,
   buildClaimContradictionClusters,

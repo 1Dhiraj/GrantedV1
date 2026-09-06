@@ -237,7 +237,7 @@ describe("cross-OS manual gateway lane evidence", () => {
       npmLogPath = join(npmLogsDir, "2026-08-29T00_00_00_000Z-debug-0.log");
       writeFileSync(npmLogPath, "0 error code ETIMEDOUT\n1 error token=updater-secret\n");
       throw new Error(
-        "Command timed out: C:\\prefix\\node_modules\\openclaw\\openclaw.mjs update --tag http://127.0.0.1:49951/openclaw-candidate.tgz --yes --json --no-restart --timeout 600",
+        "Command timed out: C:\\prefix\\node_modules\\openclaw\\granted.mjs update --tag http://127.0.0.1:49951/openclaw-candidate.tgz --yes --json --no-restart --timeout 600",
       );
     });
     mocks.installPackageSpec

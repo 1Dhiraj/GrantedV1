@@ -2,12 +2,12 @@
 import { createHash } from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
-import { readJsonFileWithFallback } from "openclaw/plugin-sdk/json-store";
+import { readJsonFileWithFallback } from "granted/plugin-sdk/json-store";
 import type {
   OpenKeyedStoreOptions,
   PluginStateKeyedStore,
-} from "openclaw/plugin-sdk/plugin-state-runtime";
-import { FsSafeError, root as fsRoot } from "openclaw/plugin-sdk/security-runtime";
+} from "granted/plugin-sdk/plugin-state-runtime";
+import { FsSafeError, root as fsRoot } from "granted/plugin-sdk/security-runtime";
 import { createWikiPageFilename, extractHumanNotesBlock } from "./markdown.js";
 
 export type MemoryWikiImportedSourceGroup = "bridge" | "unsafe-local";

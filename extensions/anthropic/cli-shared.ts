@@ -1,4 +1,4 @@
-import { resolveAgentConfig } from "openclaw/plugin-sdk/agent-scope-runtime";
+import { resolveAgentConfig } from "granted/plugin-sdk/agent-scope-runtime";
 /**
  * Shared Claude CLI backend normalization for args, thinking, and isolated runs.
  */
@@ -6,10 +6,10 @@ import type {
   CliBackendConfig,
   CliBackendNormalizeConfigContext,
   CliBackendResolveExecutionArgsContext,
-} from "openclaw/plugin-sdk/cli-backend";
-import { resolveExecModePolicy } from "openclaw/plugin-sdk/exec-approvals-runtime";
-import { requiresClaudeMandatoryAdaptiveThinking } from "openclaw/plugin-sdk/provider-model-shared";
-import { normalizeOptionalLowercaseString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/cli-backend";
+import { resolveExecModePolicy } from "granted/plugin-sdk/exec-approvals-runtime";
+import { requiresClaudeMandatoryAdaptiveThinking } from "granted/plugin-sdk/provider-model-shared";
+import { normalizeOptionalLowercaseString } from "granted/plugin-sdk/string-coerce-runtime";
 import { CLAUDE_CLI_BACKEND_ID } from "./cli-constants.js";
 export {
   CLAUDE_CLI_BACKEND_ID,

@@ -7,9 +7,9 @@ import path from "node:path";
 import {
   AgentHarnessPreflightError,
   type AgentHarnessRuntimeArtifactBinding,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
-import { resolveDefaultAgentDir, type AuthProfileStore } from "openclaw/plugin-sdk/agent-runtime";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
+} from "granted/plugin-sdk/agent-harness-runtime";
+import { resolveDefaultAgentDir, type AuthProfileStore } from "granted/plugin-sdk/agent-runtime";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
 import { CodexAppServerStartupError } from "./attempt-timeouts.js";
 import {
   applyCodexAppServerAuthProfile,

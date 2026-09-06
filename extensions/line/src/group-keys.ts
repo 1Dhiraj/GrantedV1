@@ -1,7 +1,7 @@
 // Line plugin module implements group keys behavior.
-import { normalizeAccountId } from "openclaw/plugin-sdk/account-id";
-import type { GrantedConfig } from "openclaw/plugin-sdk/account-resolution";
-import { resolveAccountEntry } from "openclaw/plugin-sdk/account-resolution";
+import { normalizeAccountId } from "granted/plugin-sdk/account-id";
+import type { GrantedConfig } from "granted/plugin-sdk/account-resolution";
+import { resolveAccountEntry } from "granted/plugin-sdk/account-resolution";
 import type { LineConfig, LineGroupConfig } from "./types.js";
 
 export function resolveLineGroupLookupIds(groupId?: string | null): string[] {

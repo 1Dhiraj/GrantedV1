@@ -1,8 +1,8 @@
 // Qa Lab plugin module implements suite planning behavior.
 import path from "node:path";
-import { runTasksWithConcurrency } from "openclaw/plugin-sdk/concurrency-runtime";
-import { parseStrictNonNegativeInteger } from "openclaw/plugin-sdk/number-runtime";
-import { normalizeLowercaseStringOrEmpty } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { runTasksWithConcurrency } from "granted/plugin-sdk/concurrency-runtime";
+import { parseStrictNonNegativeInteger } from "granted/plugin-sdk/number-runtime";
+import { normalizeLowercaseStringOrEmpty } from "granted/plugin-sdk/string-coerce-runtime";
 import { createQaArtifactRunId } from "./artifact-run-id.js";
 import { ensureRepoBoundDirectory, resolveRepoRelativeOutputDir } from "./cli-paths.js";
 import type { QaCliBackendAuthMode } from "./gateway-child.js";

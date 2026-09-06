@@ -1,7 +1,7 @@
 // Discord plugin module implements access behavior.
-import { resolveCommandAuthorizedFromAuthorizers } from "openclaw/plugin-sdk/command-auth-native";
-import type { GrantedConfig, DiscordAccountConfig } from "openclaw/plugin-sdk/config-contracts";
-import { resolveOpenProviderRuntimeGroupPolicy } from "openclaw/plugin-sdk/runtime-group-policy";
+import { resolveCommandAuthorizedFromAuthorizers } from "granted/plugin-sdk/command-auth-native";
+import type { GrantedConfig, DiscordAccountConfig } from "granted/plugin-sdk/config-contracts";
+import { resolveOpenProviderRuntimeGroupPolicy } from "granted/plugin-sdk/runtime-group-policy";
 import type { Guild } from "../internal/discord.js";
 import {
   allowListMatches,

@@ -2,11 +2,11 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { resolveDefaultAgentId } from "openclaw/plugin-sdk/agent-scope-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { normalizeAgentId } from "openclaw/plugin-sdk/routing";
-import type { PluginDoctorStateMigration } from "openclaw/plugin-sdk/runtime-doctor-migrations";
-import { asOptionalRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { resolveDefaultAgentId } from "granted/plugin-sdk/agent-scope-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { normalizeAgentId } from "granted/plugin-sdk/routing";
+import type { PluginDoctorStateMigration } from "granted/plugin-sdk/runtime-doctor-migrations";
+import { asOptionalRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   hasAgentScopeColumn,
   memoryAgentPredicate,

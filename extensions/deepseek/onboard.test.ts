@@ -1,4 +1,4 @@
-import { resolveAgentModelPrimaryValue } from "openclaw/plugin-sdk/provider-onboard";
+import { resolveAgentModelPrimaryValue } from "granted/plugin-sdk/provider-onboard";
 import { describe, expect, it } from "vitest";
 import { applyDeepSeekConfig } from "./onboard.js";
 import manifest from "./openclaw.plugin.json" with { type: "json" };

@@ -38,7 +38,7 @@ function createTransportOwnerFixture(rootDir: string, owner: "A" | "B") {
   fs.writeFileSync(
     fixture.runtimeSource,
     `const fs = require("node:fs");
-const { getApiProvider } = require("openclaw/plugin-sdk/llm");
+const { getApiProvider } = require("granted/plugin-sdk/llm");
 const owner = ${JSON.stringify(owner)};
 fs.writeFileSync(${JSON.stringify(fixture.runtimeMarker)}, "loaded", "utf8");
 module.exports = {

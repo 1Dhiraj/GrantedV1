@@ -3,11 +3,11 @@ import type {
   DiscordAccountConfig,
   DiscordConfig,
   GrantedConfig,
-} from "openclaw/plugin-sdk/config-contracts";
+} from "granted/plugin-sdk/config-contracts";
 import {
   clearRuntimeConfigSnapshot,
   setRuntimeConfigSnapshot,
-} from "openclaw/plugin-sdk/runtime-config-snapshot";
+} from "granted/plugin-sdk/runtime-config-snapshot";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { inspectDiscordAccount } from "./account-inspect.js";
 import {

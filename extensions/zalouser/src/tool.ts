@@ -1,9 +1,9 @@
-import { resolveChannelMediaMaxBytes } from "openclaw/plugin-sdk/account-helpers";
+import { resolveChannelMediaMaxBytes } from "granted/plugin-sdk/account-helpers";
 // Zalouser plugin module implements tool behavior.
-import { stringEnum } from "openclaw/plugin-sdk/channel-actions";
-import type { AnyAgentTool, GrantedPluginToolContext } from "openclaw/plugin-sdk/core";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import { jsonResult as json, type AgentToolResult } from "openclaw/plugin-sdk/tool-results";
+import { stringEnum } from "granted/plugin-sdk/channel-actions";
+import type { AnyAgentTool, GrantedPluginToolContext } from "granted/plugin-sdk/core";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
+import { jsonResult as json, type AgentToolResult } from "granted/plugin-sdk/tool-results";
 import { Type } from "typebox";
 import { resolveZalouserAccountSync } from "./accounts.js";
 import { sendImageZalouser, sendLinkZalouser, sendMessageZalouser } from "./send.js";

@@ -1,13 +1,13 @@
 import type { Message } from "grammy/types";
-import { recordChannelActivity } from "openclaw/plugin-sdk/channel-activity-runtime";
+import { recordChannelActivity } from "granted/plugin-sdk/channel-activity-runtime";
 import {
   createChannelPartialDeliveryError,
   isChannelPartialDeliveryError,
-} from "openclaw/plugin-sdk/channel-inbound";
-import { createMessageReceiptFromOutboundResults } from "openclaw/plugin-sdk/channel-outbound";
-import { isSingleUseReplyToMode } from "openclaw/plugin-sdk/reply-reference";
-import { logVerbose } from "openclaw/plugin-sdk/runtime-env";
-import { formatErrorMessage } from "openclaw/plugin-sdk/ssrf-runtime";
+} from "granted/plugin-sdk/channel-inbound";
+import { createMessageReceiptFromOutboundResults } from "granted/plugin-sdk/channel-outbound";
+import { isSingleUseReplyToMode } from "granted/plugin-sdk/reply-reference";
+import { logVerbose } from "granted/plugin-sdk/runtime-env";
+import { formatErrorMessage } from "granted/plugin-sdk/ssrf-runtime";
 import { telegramCaptionDeliveryMetadata } from "./caption.js";
 import { renderTelegramHtmlText } from "./format.js";
 import { buildInlineKeyboard } from "./inline-keyboard.js";

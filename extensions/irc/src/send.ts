@@ -2,10 +2,10 @@
 import {
   createMessageReceiptFromOutboundResults,
   type MessageReceipt,
-} from "openclaw/plugin-sdk/channel-outbound";
-import { resolveMarkdownTableMode } from "openclaw/plugin-sdk/markdown-table-runtime";
-import { requireRuntimeConfig } from "openclaw/plugin-sdk/plugin-config-runtime";
-import { convertMarkdownTables, stripMarkdown } from "openclaw/plugin-sdk/text-chunking";
+} from "granted/plugin-sdk/channel-outbound";
+import { resolveMarkdownTableMode } from "granted/plugin-sdk/markdown-table-runtime";
+import { requireRuntimeConfig } from "granted/plugin-sdk/plugin-config-runtime";
+import { convertMarkdownTables, stripMarkdown } from "granted/plugin-sdk/text-chunking";
 import { resolveIrcAccount } from "./accounts.js";
 import type { IrcClient } from "./client.js";
 import { connectIrcClient } from "./client.js";

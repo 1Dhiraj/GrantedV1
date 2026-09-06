@@ -1,25 +1,25 @@
 // Slack plugin module implements replies behavior.
 import type { MessageMetadata } from "@slack/types";
 import type { Block, KnownBlock } from "@slack/web-api";
-import { createChannelPartialDeliveryError } from "openclaw/plugin-sdk/channel-inbound";
-import { createMessageReceiptFromOutboundResults } from "openclaw/plugin-sdk/channel-outbound";
-import type { MarkdownTableMode, GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
+import { createChannelPartialDeliveryError } from "granted/plugin-sdk/channel-inbound";
+import { createMessageReceiptFromOutboundResults } from "granted/plugin-sdk/channel-outbound";
+import type { MarkdownTableMode, GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
 import {
   chunkMarkdownTextWithMode,
   isSilentReplyText,
   SILENT_REPLY_TOKEN,
   type ChunkMode,
-} from "openclaw/plugin-sdk/reply-chunking";
+} from "granted/plugin-sdk/reply-chunking";
 import {
   deliverTextOrMediaReply,
   getReplyPayloadTtsSupplement,
   resolveSendableOutboundReplyParts,
   type ReplyPayload,
-} from "openclaw/plugin-sdk/reply-payload";
-import { createReplyReferencePlanner } from "openclaw/plugin-sdk/reply-reference";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
-import { sanitizeAssistantVisibleText } from "openclaw/plugin-sdk/text-chunking";
+} from "granted/plugin-sdk/reply-payload";
+import { createReplyReferencePlanner } from "granted/plugin-sdk/reply-reference";
+import type { RuntimeEnv } from "granted/plugin-sdk/runtime-env";
+import { sanitizeAssistantVisibleText } from "granted/plugin-sdk/text-chunking";
 import { buildSlackBlocksFallbackText } from "../blocks-fallback.js";
 import { SLACK_MAX_BLOCKS } from "../blocks-input.js";
 import { markdownToSlackMrkdwnChunks } from "../format.js";

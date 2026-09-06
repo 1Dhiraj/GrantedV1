@@ -7,15 +7,15 @@ import {
   resolveApiKeyForProvider,
   resolveDefaultModelForAgent,
   type ModelCatalogEntry,
-} from "openclaw/plugin-sdk/agent-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+} from "granted/plugin-sdk/agent-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   resolveAutoImageModel,
   resolveAutoMediaKeyProviders,
   resolveDefaultMediaModel,
-} from "openclaw/plugin-sdk/media-runtime";
-import { logVerbose } from "openclaw/plugin-sdk/runtime-env";
-import { normalizeLowercaseStringOrEmpty } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/media-runtime";
+import { logVerbose } from "granted/plugin-sdk/runtime-env";
+import { normalizeLowercaseStringOrEmpty } from "granted/plugin-sdk/string-coerce-runtime";
 import { getTelegramRuntime } from "./runtime.js";
 export {
   cacheSticker,

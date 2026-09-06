@@ -29,7 +29,7 @@ import type {
   SimpleStreamOptions,
   TextContent,
   ToolResultMessage,
-} from "openclaw/plugin-sdk/llm";
+} from "granted/plugin-sdk/llm";
 import type { Static, TSchema } from "typebox";
 import type { Theme } from "../../modes/interactive/theme/theme.js";
 import type {
@@ -282,7 +282,7 @@ export interface ExtensionUIContext {
    *
    * @example
    * ```ts
-   * import { CustomEditor } from "openclaw/plugin-sdk/agent-sessions";
+   * import { CustomEditor } from "granted/plugin-sdk/agent-sessions";
    *
    * class VimEditor extends CustomEditor {
    *   private mode: "normal" | "insert" = "insert";

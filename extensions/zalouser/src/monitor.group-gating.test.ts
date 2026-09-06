@@ -1,6 +1,6 @@
 // Zalouser tests cover monitor.group gating plugin behavior.
-import type { ChannelAccountSnapshot } from "openclaw/plugin-sdk/channel-contract";
-import { createChannelMessageReplyPipeline } from "openclaw/plugin-sdk/channel-outbound";
+import type { ChannelAccountSnapshot } from "granted/plugin-sdk/channel-contract";
+import { createChannelMessageReplyPipeline } from "granted/plugin-sdk/channel-outbound";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { GrantedConfig, PluginRuntime } from "../runtime-api.js";
 // Preserve module setup before modules that consume it.

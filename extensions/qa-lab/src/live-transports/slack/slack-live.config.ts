@@ -1,6 +1,6 @@
 // QA Lab Slack credentials, instrumentation, and channel config.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { asNonArrayRecord, uniqueStrings } from "openclaw/plugin-sdk/string-coerce-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { asNonArrayRecord, uniqueStrings } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   type SlackQaRuntimeEnv,
   type SlackQaConfigOverrides,

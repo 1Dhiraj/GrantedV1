@@ -2,7 +2,7 @@
 import { mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import type { GrantedPluginApi } from "../api.js";
 import type { VoiceCallConfig } from "./config.js";

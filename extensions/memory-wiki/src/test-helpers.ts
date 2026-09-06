@@ -4,13 +4,13 @@ import type {
   PluginBlobEntryInfo,
   PluginBlobStore,
   PluginStateEntry,
-} from "openclaw/plugin-sdk/plugin-state-runtime";
-import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
+} from "granted/plugin-sdk/plugin-state-runtime";
+import { createTestPluginApi } from "granted/plugin-sdk/plugin-test-api";
 import {
   resolvePreferredOpenClawTmpDir,
   tempWorkspace,
   type TempWorkspace,
-} from "openclaw/plugin-sdk/temp-path";
+} from "granted/plugin-sdk/temp-path";
 import { afterEach, vi } from "vitest";
 import type { GrantedPluginApi } from "../api.js";
 import {

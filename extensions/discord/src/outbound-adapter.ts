@@ -2,21 +2,21 @@
 import {
   type OutboundIdentity,
   resolveOutboundSendDep,
-} from "openclaw/plugin-sdk/channel-outbound";
+} from "granted/plugin-sdk/channel-outbound";
 import {
   attachChannelToResult,
   type ChannelOutboundAdapter,
   createAttachedChannelResultAdapter,
-} from "openclaw/plugin-sdk/channel-send-result";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
-import { questionGatewayRuntime } from "openclaw/plugin-sdk/question-gateway-runtime";
-import { createSubsystemLogger } from "openclaw/plugin-sdk/runtime-env";
+} from "granted/plugin-sdk/channel-send-result";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
+import { questionGatewayRuntime } from "granted/plugin-sdk/question-gateway-runtime";
+import { createSubsystemLogger } from "granted/plugin-sdk/runtime-env";
 import {
   normalizeOptionalString,
   normalizeOptionalStringifiedId,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
+import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import { createDiscordActionGate } from "./accounts.js";
 import { formatDiscordApprovalDisplayValue } from "./approval-message-safety.js";
 import { chunkDiscordTextWithMode } from "./chunk.js";

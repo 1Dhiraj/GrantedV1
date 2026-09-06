@@ -5,9 +5,9 @@ import path from "node:path";
 import {
   canonicalPathFromExistingAncestor,
   isPathInside,
-} from "openclaw/plugin-sdk/file-access-runtime";
-import { createMigrationItem, MIGRATION_REASON_TARGET_EXISTS } from "openclaw/plugin-sdk/migration";
-import type { MigrationItem } from "openclaw/plugin-sdk/plugin-entry";
+} from "granted/plugin-sdk/file-access-runtime";
+import { createMigrationItem, MIGRATION_REASON_TARGET_EXISTS } from "granted/plugin-sdk/migration";
+import type { MigrationItem } from "granted/plugin-sdk/plugin-entry";
 import {
   CLAUDE_AUTO_MEMORY_MAX_FILES,
   CLAUDE_AUTO_MEMORY_MAX_SCAN_ENTRIES,

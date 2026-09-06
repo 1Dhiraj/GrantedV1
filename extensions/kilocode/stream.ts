@@ -1,11 +1,11 @@
 // Kilocode plugin module implements stream behavior.
-import type { ProviderWrapStreamFnContext } from "openclaw/plugin-sdk/plugin-entry";
-import { resolveProviderRequestHeaders } from "openclaw/plugin-sdk/provider-http";
-import { normalizeOpenAICompatibleReasoningPayload } from "openclaw/plugin-sdk/provider-stream-shared";
+import type { ProviderWrapStreamFnContext } from "granted/plugin-sdk/plugin-entry";
+import { resolveProviderRequestHeaders } from "granted/plugin-sdk/provider-http";
+import { normalizeOpenAICompatibleReasoningPayload } from "granted/plugin-sdk/provider-stream-shared";
 import {
   asOptionalRecord,
   normalizeOptionalLowercaseString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 
 const KILOCODE_FEATURE_HEADER = "X-KILOCODE-FEATURE";
 const KILOCODE_FEATURE_DEFAULT = "openclaw";

@@ -1,4 +1,4 @@
-import { validateTestChannelConfig } from "openclaw/plugin-sdk/channel-test-helpers";
+import { validateTestChannelConfig } from "granted/plugin-sdk/channel-test-helpers";
 import { describe, expect, it } from "vitest";
 import { resolveIMessageAccount } from "./accounts.js";
 import { IMessageConfigSchema } from "./config-schema.js";

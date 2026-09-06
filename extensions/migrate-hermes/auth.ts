@@ -3,14 +3,14 @@ import { createHash } from "node:crypto";
 import {
   loadAuthProfileStoreWithoutExternalProfiles,
   resolveAuthStorePathForDisplay,
-} from "openclaw/plugin-sdk/agent-runtime";
+} from "granted/plugin-sdk/agent-runtime";
 import {
   createMigrationItem,
   markMigrationItemConflict,
   markMigrationItemError,
   markMigrationItemSkipped,
-} from "openclaw/plugin-sdk/migration";
-import type { MigrationItem, MigrationProviderContext } from "openclaw/plugin-sdk/plugin-entry";
+} from "granted/plugin-sdk/migration";
+import type { MigrationItem, MigrationProviderContext } from "granted/plugin-sdk/plugin-entry";
 import {
   buildOpenAICodexCredentialExtra,
   buildOauthProviderAuthResult,
@@ -22,12 +22,12 @@ import {
   type OAuthCredential,
   type GrantedConfig,
   type ProviderAuthResult,
-} from "openclaw/plugin-sdk/provider-auth";
+} from "granted/plugin-sdk/provider-auth";
 import {
   applyAgentDefaultModelPrimary,
   resolveAgentModelPrimaryValue,
-} from "openclaw/plugin-sdk/provider-onboard";
-import { isRecord, normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/provider-onboard";
+import { isRecord, normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   applyAuthProfileConfigWithConflictCheck,
   hasAuthProfileConfigConflict,

@@ -2,7 +2,7 @@ import { mkdir } from "node:fs/promises";
 import path from "node:path";
 // Control UI tests cover workboard status persistence behavior.
 import { expectDefined } from "@openclaw/normalization-core";
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { chromium, type Browser, type Locator, type Page } from "playwright";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import type { WorkboardCard } from "../../lib/workboard/index.ts";

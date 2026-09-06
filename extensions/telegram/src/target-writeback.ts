@@ -1,17 +1,17 @@
 // Telegram plugin module implements target writeback behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   readConfigFileSnapshotForWrite,
   replaceConfigFile,
-} from "openclaw/plugin-sdk/config-mutation";
+} from "granted/plugin-sdk/config-mutation";
 import {
   loadCronStore,
   resolveCronStorePath,
   saveCronStore,
-} from "openclaw/plugin-sdk/cron-store-runtime";
-import { asObjectRecord } from "openclaw/plugin-sdk/runtime-doctor-migrations";
-import { createSubsystemLogger } from "openclaw/plugin-sdk/runtime-env";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/cron-store-runtime";
+import { asObjectRecord } from "granted/plugin-sdk/runtime-doctor-migrations";
+import { createSubsystemLogger } from "granted/plugin-sdk/runtime-env";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import { telegramMessagingTargetsMatch } from "./normalize.js";
 import {
   normalizeTelegramChatId,

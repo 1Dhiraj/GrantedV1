@@ -6,10 +6,10 @@ import {
   hasConfiguredAccountValue,
   normalizeAccountId,
   normalizeOptionalAccountId,
-} from "openclaw/plugin-sdk/account-resolution";
-import { coerceSecretRef } from "openclaw/plugin-sdk/provider-auth";
-import { canResolveEnvSecretRefInReadOnlyPath } from "openclaw/plugin-sdk/secret-ref-readonly";
-import { normalizeOptionalString as normalizeString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/account-resolution";
+import { coerceSecretRef } from "granted/plugin-sdk/provider-auth";
+import { canResolveEnvSecretRefInReadOnlyPath } from "granted/plugin-sdk/secret-ref-readonly";
+import { normalizeOptionalString as normalizeString } from "granted/plugin-sdk/string-coerce-runtime";
 import type {
   FeishuConfig,
   FeishuAccountConfig,

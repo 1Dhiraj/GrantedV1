@@ -1,9 +1,9 @@
 // Whatsapp plugin module implements group gating behavior.
-import type { BuildMentionRegexesOptions } from "openclaw/plugin-sdk/channel-mention-gating";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { createDedupeCache } from "openclaw/plugin-sdk/dedupe-runtime";
-import { formatAudioTranscriptForAgent } from "openclaw/plugin-sdk/media-understanding-runtime";
-import type { HistoryMediaEntry } from "openclaw/plugin-sdk/reply-history";
+import type { BuildMentionRegexesOptions } from "granted/plugin-sdk/channel-mention-gating";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { createDedupeCache } from "granted/plugin-sdk/dedupe-runtime";
+import { formatAudioTranscriptForAgent } from "granted/plugin-sdk/media-understanding-runtime";
+import type { HistoryMediaEntry } from "granted/plugin-sdk/reply-history";
 import { resolveWhatsAppGroupsConfigPath } from "../../group-config-path.js";
 import {
   getPrimaryIdentityId,

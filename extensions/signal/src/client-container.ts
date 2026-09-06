@@ -6,22 +6,22 @@
  * to keep the two modes cleanly isolated.
  */
 
-import { coerceErrorMessage, toErrorObject } from "openclaw/plugin-sdk/error-runtime";
-import { resolveFetch } from "openclaw/plugin-sdk/fetch-runtime";
+import { coerceErrorMessage, toErrorObject } from "granted/plugin-sdk/error-runtime";
+import { resolveFetch } from "granted/plugin-sdk/fetch-runtime";
 import {
   detectMime,
   extractOriginalFilename,
   parseMediaContentLength,
-} from "openclaw/plugin-sdk/media-runtime";
+} from "granted/plugin-sdk/media-runtime";
 import {
   parseStrictNonNegativeInteger,
   resolveTimerTimeoutMs,
-} from "openclaw/plugin-sdk/number-runtime";
+} from "granted/plugin-sdk/number-runtime";
 import {
   readResponseTextPrefix,
   readResponseWithLimit,
-} from "openclaw/plugin-sdk/response-limit-runtime";
-import { readRegularFile } from "openclaw/plugin-sdk/security-runtime";
+} from "granted/plugin-sdk/response-limit-runtime";
+import { readRegularFile } from "granted/plugin-sdk/security-runtime";
 import WebSocket from "ws";
 
 type ContainerRpcOptions = {

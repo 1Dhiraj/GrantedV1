@@ -4,10 +4,10 @@ import type {
   ProviderResolveDynamicModelContext,
   ProviderRuntimeModel,
   ProviderThinkingProfile,
-} from "openclaw/plugin-sdk/plugin-entry";
-import { defineSingleProviderPluginEntry } from "openclaw/plugin-sdk/provider-entry";
-import { buildProviderReplayFamilyHooks } from "openclaw/plugin-sdk/provider-model-shared";
-import { buildProviderToolCompatFamilyHooks } from "openclaw/plugin-sdk/provider-tools";
+} from "granted/plugin-sdk/plugin-entry";
+import { defineSingleProviderPluginEntry } from "granted/plugin-sdk/provider-entry";
+import { buildProviderReplayFamilyHooks } from "granted/plugin-sdk/provider-model-shared";
+import { buildProviderToolCompatFamilyHooks } from "granted/plugin-sdk/provider-tools";
 import manifest from "./openclaw.plugin.json" with { type: "json" };
 import {
   buildClawRouterProviderConfig,
@@ -142,7 +142,7 @@ export default defineSingleProviderPluginEntry({
           if (!discoveryApiKey) {
             try {
               const { resolveApiKeyForProvider } =
-                await import("openclaw/plugin-sdk/provider-auth-runtime");
+                await import("granted/plugin-sdk/provider-auth-runtime");
               discoveryApiKey = (
                 await resolveApiKeyForProvider({
                   provider: PROVIDER_ID,
@@ -192,7 +192,7 @@ export default defineSingleProviderPluginEntry({
       prepareDynamicModel: async (ctx) => {
         const scope = dynamicModelScope(ctx);
         const { resolveApiKeyForProvider } =
-          await import("openclaw/plugin-sdk/provider-auth-runtime");
+          await import("granted/plugin-sdk/provider-auth-runtime");
         const apiKey = (
           await resolveApiKeyForProvider({
             provider: PROVIDER_ID,

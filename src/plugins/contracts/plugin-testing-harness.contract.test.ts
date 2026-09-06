@@ -5,9 +5,9 @@ import {
   describePluginRegistrationContract,
   pluginRegistrationContractCases,
   registerVirtualTestPlugin,
-} from "openclaw/plugin-sdk/plugin-test-contracts";
-import { withTempHome } from "openclaw/plugin-sdk/test-env";
-import { typedCases } from "openclaw/plugin-sdk/test-fixtures";
+} from "granted/plugin-sdk/plugin-test-contracts";
+import { withTempHome } from "granted/plugin-sdk/test-env";
+import { typedCases } from "granted/plugin-sdk/test-fixtures";
 import { describe, expect, it } from "vitest";
 
 const echoCases = typedCases([

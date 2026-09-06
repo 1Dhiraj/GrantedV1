@@ -1,8 +1,8 @@
-import type { GrantedConfig, TelegramGroupConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig, TelegramGroupConfig } from "granted/plugin-sdk/config-contracts";
 // Telegram plugin module implements group migration behavior.
-import { expectDefined } from "openclaw/plugin-sdk/expect-runtime";
-import { normalizeAccountId } from "openclaw/plugin-sdk/routing";
-import { normalizeLowercaseStringOrEmpty } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { expectDefined } from "granted/plugin-sdk/expect-runtime";
+import { normalizeAccountId } from "granted/plugin-sdk/routing";
+import { normalizeLowercaseStringOrEmpty } from "granted/plugin-sdk/string-coerce-runtime";
 
 type TelegramGroups = Record<string, TelegramGroupConfig>;
 

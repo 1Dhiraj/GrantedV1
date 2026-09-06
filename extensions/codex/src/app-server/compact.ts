@@ -4,15 +4,15 @@ import {
   resolveCompactionTimeoutMs,
   type CompactEmbeddedAgentSessionParams,
   type EmbeddedAgentCompactResult,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
-import { resolveAgentDir } from "openclaw/plugin-sdk/agent-runtime";
-import { resolveDefaultAgentId } from "openclaw/plugin-sdk/agent-scope-runtime";
-import { createDedupeCache } from "openclaw/plugin-sdk/dedupe-runtime";
-import { coerceErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
-import { KeyedAsyncQueue } from "openclaw/plugin-sdk/keyed-async-queue";
-import type { SandboxContext } from "openclaw/plugin-sdk/sandbox";
-import { asOptionalRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/agent-harness-runtime";
+import { resolveAgentDir } from "granted/plugin-sdk/agent-runtime";
+import { resolveDefaultAgentId } from "granted/plugin-sdk/agent-scope-runtime";
+import { createDedupeCache } from "granted/plugin-sdk/dedupe-runtime";
+import { coerceErrorMessage } from "granted/plugin-sdk/error-runtime";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
+import { KeyedAsyncQueue } from "granted/plugin-sdk/keyed-async-queue";
+import type { SandboxContext } from "granted/plugin-sdk/sandbox";
+import { asOptionalRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import { isIncognitoSessionKey } from "../incognito-session.js";
 import {
   CODEX_APP_SERVER_UNSUBSCRIBE_TIMEOUT_MS,

@@ -4,11 +4,11 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { promisify } from "node:util";
-import type { PluginBlobStore } from "openclaw/plugin-sdk/plugin-state-runtime";
+import type { PluginBlobStore } from "granted/plugin-sdk/plugin-state-runtime";
 import {
   createPluginBlobStoreForTests,
   resetPluginBlobStoreForTests,
-} from "openclaw/plugin-sdk/plugin-state-test-runtime";
+} from "granted/plugin-sdk/plugin-state-test-runtime";
 import { resolvePreferredOpenClawTmpDir } from "../api.js";
 import { DiffArtifactStore } from "./store.js";
 import type { DiffArtifactBlobMetadata } from "./types.js";

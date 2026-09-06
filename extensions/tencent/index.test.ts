@@ -1,12 +1,12 @@
 // Tencent tests cover index plugin behavior.
-import type { StreamFn } from "openclaw/plugin-sdk/agent-core";
-import type { Context, Model } from "openclaw/plugin-sdk/llm";
+import type { StreamFn } from "granted/plugin-sdk/agent-core";
+import type { Context, Model } from "granted/plugin-sdk/llm";
 import {
   registerProviderPlugin,
   requireRegisteredProvider,
   resolveProviderPluginChoice,
-} from "openclaw/plugin-sdk/plugin-test-runtime";
-import { buildOpenAICompletionsParams } from "openclaw/plugin-sdk/provider-transport-runtime";
+} from "granted/plugin-sdk/plugin-test-runtime";
+import { buildOpenAICompletionsParams } from "granted/plugin-sdk/provider-transport-runtime";
 import { describe, expect, it } from "vitest";
 import { runSingleProviderCatalog } from "../test-support/provider-model-test-helpers.js";
 import tencentPlugin from "./index.js";

@@ -1,6 +1,6 @@
 // Irc tests cover doctor contract api plugin behavior.
 import { expectDefined } from "@openclaw/normalization-core";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { describe, expect, it } from "vitest";
 import { legacyConfigRules, normalizeCompatibilityConfig } from "./doctor-contract-api.js";
 

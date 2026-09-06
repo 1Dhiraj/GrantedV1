@@ -3,17 +3,17 @@ import { createHash } from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { expectDefined } from "@openclaw/normalization-core";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { RequestScopedSubagentRuntimeError } from "openclaw/plugin-sdk/error-runtime";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { RequestScopedSubagentRuntimeError } from "granted/plugin-sdk/error-runtime";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
 import {
   listMemoryArtifactProvenance,
   resolveMemoryDreamingPluginConfig,
   resolveSessionTranscriptsDirForAgent,
-} from "openclaw/plugin-sdk/memory-core-host-runtime-core";
-import { clearRuntimeConfigSnapshot } from "openclaw/plugin-sdk/runtime-config-snapshot";
-import { upsertSessionEntry } from "openclaw/plugin-sdk/session-store-runtime";
-import { appendSessionTranscriptMessageByIdentity } from "openclaw/plugin-sdk/session-transcript-runtime";
+} from "granted/plugin-sdk/memory-core-host-runtime-core";
+import { clearRuntimeConfigSnapshot } from "granted/plugin-sdk/runtime-config-snapshot";
+import { upsertSessionEntry } from "granted/plugin-sdk/session-store-runtime";
+import { appendSessionTranscriptMessageByIdentity } from "granted/plugin-sdk/session-transcript-runtime";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   filterRecallEntriesWithinLookback,

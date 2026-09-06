@@ -1,5 +1,5 @@
 // Fal setup module handles plugin onboarding behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/provider-onboard";
+import type { GrantedConfig } from "granted/plugin-sdk/provider-onboard";
 
 const FAL_DEFAULT_IMAGE_MODEL_REF = "fal/fal-ai/flux/dev";
 

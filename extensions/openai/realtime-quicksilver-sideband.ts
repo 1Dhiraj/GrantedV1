@@ -1,4 +1,4 @@
-import { sleepWithAbort } from "openclaw/plugin-sdk/runtime-env";
+import { sleepWithAbort } from "granted/plugin-sdk/runtime-env";
 import type { ClientOptions, RawData } from "ws";
 import {
   openAIQuicksilverAuthHeaders,

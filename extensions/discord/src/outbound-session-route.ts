@@ -1,7 +1,7 @@
 // Discord plugin module implements outbound session route behavior.
-import { buildThreadAwareOutboundSessionRoute } from "openclaw/plugin-sdk/channel-core";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { buildOutboundBaseSessionKey, type RoutePeer } from "openclaw/plugin-sdk/routing";
+import { buildThreadAwareOutboundSessionRoute } from "granted/plugin-sdk/channel-core";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { buildOutboundBaseSessionKey, type RoutePeer } from "granted/plugin-sdk/routing";
 import { parseDiscordTarget } from "./target-parsing.js";
 
 export type ResolveDiscordOutboundSessionRouteParams = {

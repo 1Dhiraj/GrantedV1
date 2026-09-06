@@ -1,7 +1,7 @@
 // Setup command tests cover local setup initialization and next-step messaging.
 import fs from "node:fs/promises";
 import path from "node:path";
-import { withTempHome } from "openclaw/plugin-sdk/test-env";
+import { withTempHome } from "granted/plugin-sdk/test-env";
 import { describe, expect, it, vi } from "vitest";
 import { resolveAgentWorkspaceDir } from "../agents/agent-scope.js";
 import { createConfigIO } from "../config/io.js";

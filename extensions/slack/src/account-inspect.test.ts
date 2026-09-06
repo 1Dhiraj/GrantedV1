@@ -1,5 +1,5 @@
 // Slack tests cover account inspection and credential status reporting.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { describe, expect, it } from "vitest";
 import { isSlackPluginAccountConfigured } from "./account-configured.js";
 import { inspectSlackAccount } from "./account-inspect.js";

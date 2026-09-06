@@ -1,7 +1,7 @@
 // Google tests cover manifest plugin behavior.
 import { readFileSync } from "node:fs";
-import { buildJsonPluginConfigSchema } from "openclaw/plugin-sdk/core";
-import type { JsonSchemaObject } from "openclaw/plugin-sdk/json-schema-runtime";
+import { buildJsonPluginConfigSchema } from "granted/plugin-sdk/core";
+import type { JsonSchemaObject } from "granted/plugin-sdk/json-schema-runtime";
 import { describe, expect, it } from "vitest";
 
 type GoogleManifest = {

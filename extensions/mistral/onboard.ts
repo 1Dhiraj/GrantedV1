@@ -1,4 +1,4 @@
-import { createDefaultModelPresetAppliers } from "openclaw/plugin-sdk/provider-onboard";
+import { createDefaultModelPresetAppliers } from "granted/plugin-sdk/provider-onboard";
 import {
   buildMistralModelDefinition,
   MISTRAL_BASE_URL,

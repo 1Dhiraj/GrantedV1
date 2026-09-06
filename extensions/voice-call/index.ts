@@ -1,15 +1,15 @@
 // Voice Call plugin entrypoint registers its OpenClaw integration.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import { ErrorCodes, errorShape } from "openclaw/plugin-sdk/gateway-runtime";
-import { resolveGlobalSingleton } from "openclaw/plugin-sdk/global-singleton";
-import { normalizeAgentId, parseAgentSessionKey } from "openclaw/plugin-sdk/routing";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
+import { ErrorCodes, errorShape } from "granted/plugin-sdk/gateway-runtime";
+import { resolveGlobalSingleton } from "granted/plugin-sdk/global-singleton";
+import { normalizeAgentId, parseAgentSessionKey } from "granted/plugin-sdk/routing";
 import {
   asNonArrayRecord as asParamRecord,
   asOptionalRecord,
   normalizeOptionalString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
-import { jsonResult as json } from "openclaw/plugin-sdk/tool-results";
+} from "granted/plugin-sdk/string-coerce-runtime";
+import { jsonResult as json } from "granted/plugin-sdk/tool-results";
 import { Type } from "typebox";
 import {
   definePluginEntry,

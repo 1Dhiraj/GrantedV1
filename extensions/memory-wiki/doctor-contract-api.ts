@@ -1,14 +1,14 @@
 // Memory Wiki doctor contract owns legacy state cleanup and migrations.
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { GrantedConfig } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedConfig } from "granted/plugin-sdk/plugin-entry";
 import {
   archiveLegacyStateSource,
   legacyStateFileExists,
   type PluginDoctorStateMigration,
-} from "openclaw/plugin-sdk/runtime-doctor-migrations";
-import { FsSafeError, root as fsRoot } from "openclaw/plugin-sdk/security-runtime";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/runtime-doctor-migrations";
+import { FsSafeError, root as fsRoot } from "granted/plugin-sdk/security-runtime";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   resolveMemoryWikiAgentConfig,
   resolveMemoryWikiConfig,

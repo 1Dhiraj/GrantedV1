@@ -6,13 +6,13 @@ import {
   closeOpenClawStateDatabaseForTest,
   createPluginStateKeyedStoreForTests,
   resetPluginStateStoreForTests,
-} from "openclaw/plugin-sdk/plugin-state-test-runtime";
-import { buildLegacyMigrationPreview } from "openclaw/plugin-sdk/runtime-doctor-migrations";
+} from "granted/plugin-sdk/plugin-state-test-runtime";
+import { buildLegacyMigrationPreview } from "granted/plugin-sdk/runtime-doctor-migrations";
 import {
   resolvePreferredOpenClawTmpDir,
   tempWorkspaceSync,
   type TempWorkspaceSync,
-} from "openclaw/plugin-sdk/temp-path";
+} from "granted/plugin-sdk/temp-path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { stateMigrations } from "../doctor-contract-api.js";
 import { resolveIMessageCatchupCursorKey } from "./state-contract.js";

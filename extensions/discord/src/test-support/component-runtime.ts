@@ -1,16 +1,16 @@
 // Discord plugin module implements component runtime behavior.
-import { createPluginRuntimeMock } from "openclaw/plugin-sdk/channel-test-helpers";
+import { createPluginRuntimeMock } from "granted/plugin-sdk/channel-test-helpers";
 import {
   parsePluginBindingApprovalCustomId,
   resolvePinnedMainDmOwnerFromAllowlist,
-} from "openclaw/plugin-sdk/conversation-runtime";
-import { isSingleUseReplyToMode } from "openclaw/plugin-sdk/reply-reference";
+} from "granted/plugin-sdk/conversation-runtime";
+import { isSingleUseReplyToMode } from "granted/plugin-sdk/reply-reference";
 import { vi, type Mock } from "vitest";
 
 type UnknownMock = Mock<(...args: unknown[]) => unknown>;
 type AsyncUnknownMock = Mock<(...args: unknown[]) => Promise<unknown>>;
 type DispatchReplyWithBufferedBlockDispatcherFn =
-  typeof import("openclaw/plugin-sdk/reply-dispatch-runtime").dispatchReplyWithBufferedBlockDispatcher;
+  typeof import("granted/plugin-sdk/reply-dispatch-runtime").dispatchReplyWithBufferedBlockDispatcher;
 type DispatchReplyMock = Mock<DispatchReplyWithBufferedBlockDispatcherFn>;
 
 type DiscordComponentRuntimeMocks = {
@@ -56,7 +56,7 @@ const buildPluginBindingResolvedTextMock: UnknownMock =
   runtimeMocks.buildPluginBindingResolvedTextMock;
 
 vi.mock("openclaw/plugin-sdk/channel-inbound", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/channel-inbound")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/channel-inbound")>(
     "openclaw/plugin-sdk/channel-inbound",
   );
   type RunParams = Parameters<typeof actual.runChannelInboundEvent>[0];

@@ -2,19 +2,19 @@
  * Anthropic provider runtime registration. It owns API-key/setup-token/Claude
  * CLI auth, dynamic model normalization, usage auth, media, and stream wrappers.
  */
-import { createLazyRuntimeMethod, createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
+import { createLazyRuntimeMethod, createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
 import type {
   GrantedPluginApi,
   ProviderAuthContext,
   ProviderResolveDynamicModelContext,
   ProviderNormalizeResolvedModelContext,
   ProviderRuntimeModel,
-} from "openclaw/plugin-sdk/plugin-entry";
+} from "granted/plugin-sdk/plugin-entry";
 import {
   buildManifestModelProviderConfig,
   type ProviderCatalogResult,
-} from "openclaw/plugin-sdk/provider-catalog-shared";
-import { createProviderApiKeyAuthMethod } from "openclaw/plugin-sdk/provider-entry";
+} from "granted/plugin-sdk/provider-catalog-shared";
+import { createProviderApiKeyAuthMethod } from "granted/plugin-sdk/provider-entry";
 import {
   buildProviderReplayFamilyHooks,
   cloneFirstTemplateModel,
@@ -31,8 +31,8 @@ import {
   supportsClaudeAdaptiveThinking,
   supportsClaudeNativeMaxEffort,
   supportsClaudeNativeXhighEffort,
-} from "openclaw/plugin-sdk/provider-model-shared";
-import { normalizeLowercaseStringOrEmpty } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/provider-model-shared";
+import { normalizeLowercaseStringOrEmpty } from "granted/plugin-sdk/string-coerce-runtime";
 import { buildAnthropicCliBackend } from "./cli-backend.js";
 import {
   CLAUDE_CLI_CANONICAL_DEFAULT_MODEL_REF,
@@ -64,7 +64,7 @@ import { fetchAnthropicUsage, resolveAnthropicUsageAuth } from "./usage.js";
 const loadAuthRuntime = createLazyRuntimeModule(() => import("./auth.runtime.js"));
 // Static registration must not initialize live catalog transport and policy.
 const buildOpenAICompatibleProviderCatalog = createLazyRuntimeMethod(
-  createLazyRuntimeModule(() => import("openclaw/plugin-sdk/provider-catalog-live-runtime")),
+  createLazyRuntimeModule(() => import("granted/plugin-sdk/provider-catalog-live-runtime")),
   (runtime) => runtime.buildOpenAICompatibleProviderCatalog,
 );
 

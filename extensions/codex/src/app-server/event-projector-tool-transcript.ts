@@ -4,9 +4,9 @@ import {
   runAgentHarnessAfterToolCallHook,
   type AgentMessage,
   type EmbeddedRunAttemptParamsV2 as EmbeddedRunAttemptParams,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
-import type { Usage } from "openclaw/plugin-sdk/llm";
-import { asDateTimestampMs } from "openclaw/plugin-sdk/number-runtime";
+} from "granted/plugin-sdk/agent-harness-runtime";
+import type { Usage } from "granted/plugin-sdk/llm";
+import { asDateTimestampMs } from "granted/plugin-sdk/number-runtime";
 import {
   isMutatingNativeToolItem,
   isNonSuccessItemStatus,

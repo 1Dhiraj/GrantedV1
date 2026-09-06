@@ -1,10 +1,10 @@
-import type { StreamFn } from "openclaw/plugin-sdk/agent-core";
+import type { StreamFn } from "granted/plugin-sdk/agent-core";
 import {
   createAssistantMessageEventStream,
   streamSimple,
   type AssistantMessageEvent,
-} from "openclaw/plugin-sdk/llm";
-import { defineSingleProviderPluginEntry } from "openclaw/plugin-sdk/provider-entry";
+} from "granted/plugin-sdk/llm";
+import { defineSingleProviderPluginEntry } from "granted/plugin-sdk/provider-entry";
 import { groqMediaUnderstandingProvider } from "./media-understanding-provider.js";
 import manifest from "./openclaw.plugin.json" with { type: "json" };
 

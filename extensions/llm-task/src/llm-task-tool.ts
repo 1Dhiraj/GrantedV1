@@ -1,18 +1,18 @@
 // Llm Task plugin module implements llm task tool behavior.
-import { buildModelAliasIndex, resolveModelRefFromString } from "openclaw/plugin-sdk/agent-runtime";
+import { buildModelAliasIndex, resolveModelRefFromString } from "granted/plugin-sdk/agent-runtime";
 import {
   optionalFiniteNumberSchema,
   optionalPositiveIntegerSchema,
-} from "openclaw/plugin-sdk/channel-actions";
+} from "granted/plugin-sdk/channel-actions";
 import {
   type JsonSchemaObject,
   validateJsonSchemaValue,
-} from "openclaw/plugin-sdk/json-schema-runtime";
-import { readFiniteNumberParam, readPositiveIntegerParam } from "openclaw/plugin-sdk/param-readers";
+} from "granted/plugin-sdk/json-schema-runtime";
+import { readFiniteNumberParam, readPositiveIntegerParam } from "granted/plugin-sdk/param-readers";
 import {
   asPositiveSafeInteger,
   normalizeOptionalString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import { Type } from "typebox";
 import type { GrantedPluginApi } from "../api.js";
 

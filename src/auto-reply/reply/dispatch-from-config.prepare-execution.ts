@@ -1,7 +1,7 @@
 import {
   isFastModeAutoProgressPayload,
   resolveSendableOutboundReplyParts,
-} from "openclaw/plugin-sdk/reply-payload";
+} from "granted/plugin-sdk/reply-payload";
 import { shouldSuppressLocalExecApprovalPrompt } from "../../channels/plugins/exec-approval-local.js";
 import { type AgentPlanStep, formatPlanChecklistLines } from "../../channels/streaming.js";
 import { applyMergePatch } from "../../config/merge-patch.js";

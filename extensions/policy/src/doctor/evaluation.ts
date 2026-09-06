@@ -1,5 +1,5 @@
-import type { HealthCheckContext, HealthFinding } from "openclaw/plugin-sdk/health";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import type { HealthCheckContext, HealthFinding } from "granted/plugin-sdk/health";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import { policyRoutingRules } from "../policy-routing.js";
 import {
   collectPolicyEvidence,

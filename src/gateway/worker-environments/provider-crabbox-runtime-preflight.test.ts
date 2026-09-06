@@ -1,9 +1,9 @@
 import { fileURLToPath } from "node:url";
 import { expectDefined } from "@openclaw/normalization-core";
-import type { GrantedPluginService, WorkerProvider } from "openclaw/plugin-sdk/plugin-entry";
-import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
-import * as processRuntime from "openclaw/plugin-sdk/process-runtime";
-import type { SpawnResult } from "openclaw/plugin-sdk/process-runtime";
+import type { GrantedPluginService, WorkerProvider } from "granted/plugin-sdk/plugin-entry";
+import { createTestPluginApi } from "granted/plugin-sdk/plugin-test-api";
+import * as processRuntime from "granted/plugin-sdk/process-runtime";
+import type { SpawnResult } from "granted/plugin-sdk/process-runtime";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { importFreshModule } from "../../plugin-sdk/test-helpers/import-fresh.js";
 import { resolvePluginModuleExport } from "../../plugins/loader-module-runtime.js";

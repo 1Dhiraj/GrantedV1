@@ -1,17 +1,17 @@
 // Memory Core plugin module implements dreaming narrative behavior.
 import { createHash } from "node:crypto";
-import { createAsyncLock } from "openclaw/plugin-sdk/async-lock-runtime";
+import { createAsyncLock } from "granted/plugin-sdk/async-lock-runtime";
 import {
   extractErrorCode,
   formatErrorMessage,
   RequestScopedSubagentRuntimeError,
   readErrorName,
   SUBAGENT_RUNTIME_REQUEST_SCOPE_ERROR_CODE,
-} from "openclaw/plugin-sdk/error-runtime";
-import { resolveGlobalMap } from "openclaw/plugin-sdk/global-singleton";
-import { getRuntimeConfig } from "openclaw/plugin-sdk/runtime-config-snapshot";
-import type { PluginRuntime } from "openclaw/plugin-sdk/runtime-store";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+} from "granted/plugin-sdk/error-runtime";
+import { resolveGlobalMap } from "granted/plugin-sdk/global-singleton";
+import { getRuntimeConfig } from "granted/plugin-sdk/runtime-config-snapshot";
+import type { PluginRuntime } from "granted/plugin-sdk/runtime-store";
+import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import pLimit from "p-limit";
 import { readDreamsFile, resolveDreamsPath, updateDreamsFile } from "./dreaming-dreams-file.js";
 import {

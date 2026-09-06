@@ -1,5 +1,5 @@
-import { createChannelConfigUiHints } from "openclaw/plugin-sdk/channel-core";
-import type { ChannelConfigUiHint } from "openclaw/plugin-sdk/channel-core";
+import { createChannelConfigUiHints } from "granted/plugin-sdk/channel-core";
+import type { ChannelConfigUiHint } from "granted/plugin-sdk/channel-core";
 
 export const slackChannelConfigUiHints = {
   "": {

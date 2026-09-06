@@ -3,23 +3,23 @@ import {
   DEFAULT_ACCOUNT_ID,
   normalizeAccountId,
   normalizeOptionalAccountId,
-} from "openclaw/plugin-sdk/account-id";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
-import { resolveOptionalIntegerOption } from "openclaw/plugin-sdk/number-runtime";
-import { requireRuntimeConfig } from "openclaw/plugin-sdk/plugin-config-runtime";
-import { retryAsync } from "openclaw/plugin-sdk/retry-runtime";
-import { sleepWithAbort } from "openclaw/plugin-sdk/runtime-env";
+} from "granted/plugin-sdk/account-id";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
+import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
+import { resolveOptionalIntegerOption } from "granted/plugin-sdk/number-runtime";
+import { requireRuntimeConfig } from "granted/plugin-sdk/plugin-config-runtime";
+import { retryAsync } from "granted/plugin-sdk/retry-runtime";
+import { sleepWithAbort } from "granted/plugin-sdk/runtime-env";
 import {
   coerceSecretRef,
   isBuiltInDefaultSecretProviderRef,
   normalizeResolvedSecretInputString,
-} from "openclaw/plugin-sdk/secret-input";
-import type { PinnedDispatcherPolicy } from "openclaw/plugin-sdk/ssrf-dispatcher";
+} from "granted/plugin-sdk/secret-input";
+import type { PinnedDispatcherPolicy } from "granted/plugin-sdk/ssrf-dispatcher";
 import {
   isPrivateNetworkOptInEnabled,
   ssrfPolicyFromDangerouslyAllowPrivateNetwork,
-} from "openclaw/plugin-sdk/ssrf-runtime";
+} from "granted/plugin-sdk/ssrf-runtime";
 import {
   requiresExplicitMatrixDefaultAccount,
   resolveMatrixDefaultOrOnlyAccountId,

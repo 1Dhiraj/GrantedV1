@@ -8,7 +8,7 @@ import {
   type AgentHarnessUserInputOption,
   type AgentHarnessUserInputQuestion,
   type EmbeddedRunAttemptParamsV2 as EmbeddedRunAttemptParams,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
+} from "granted/plugin-sdk/agent-harness-runtime";
 import { formatCodexDisplayText } from "../command-formatters.js";
 import { createCodexElicitationResponse } from "./elicitation-response.js";
 import {

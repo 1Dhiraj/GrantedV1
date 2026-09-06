@@ -1,16 +1,16 @@
-import { describeAccountSnapshot } from "openclaw/plugin-sdk/account-helpers";
+import { describeAccountSnapshot } from "granted/plugin-sdk/account-helpers";
 import {
   buildChannelOutboundSessionRoute,
   buildThreadAwareOutboundSessionRoute,
   createChatChannelPlugin,
-} from "openclaw/plugin-sdk/channel-core";
-import { createChannelMessageAdapterFromOutbound } from "openclaw/plugin-sdk/channel-outbound";
-import { createChannelDirectoryAdapter } from "openclaw/plugin-sdk/directory-runtime";
-import { parseThreadSessionSuffix } from "openclaw/plugin-sdk/routing";
+} from "granted/plugin-sdk/channel-core";
+import { createChannelMessageAdapterFromOutbound } from "granted/plugin-sdk/channel-outbound";
+import { createChannelDirectoryAdapter } from "granted/plugin-sdk/directory-runtime";
+import { parseThreadSessionSuffix } from "granted/plugin-sdk/routing";
 import {
   createComputedAccountStatusAdapter,
   createDefaultChannelRuntimeState,
-} from "openclaw/plugin-sdk/status-helpers";
+} from "granted/plugin-sdk/status-helpers";
 import { BuzzConfigSchema } from "./config-schema.js";
 import {
   listBuzzDirectoryGroupsFromConfig,

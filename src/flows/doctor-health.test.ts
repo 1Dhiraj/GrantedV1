@@ -158,7 +158,7 @@ describe("runDoctorHealthFlow", () => {
         }
         const entrypoint = kind.startsWith("unresolved")
           ? "operator-wrapper"
-          : path.join(foreign ? foreignRoot : process.cwd(), "openclaw.mjs");
+          : path.join(foreign ? foreignRoot : process.cwd(), "granted.mjs");
         const stop = vi.fn();
         const restart = vi.fn();
         mocks.packageRoot.mockReturnValue(process.cwd());
@@ -380,7 +380,7 @@ describe("runDoctorHealthFlow", () => {
         const packageRoot = process.cwd();
         mocks.packageRoot.mockReturnValue(packageRoot);
         const command = {
-          programArguments: [process.execPath, path.join(packageRoot, "openclaw.mjs"), "gateway"],
+          programArguments: [process.execPath, path.join(packageRoot, "granted.mjs"), "gateway"],
           environment: {
             GRANTED_STATE_DIR: state.stateDir,
             GRANTED_CONFIG_PATH: state.configPath,

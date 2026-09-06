@@ -12,7 +12,7 @@ const { killProcessTreeMock, spawnMock } = vi.hoisted(() => ({
 }));
 
 vi.mock("node:child_process", async () => {
-  const { mockNodeBuiltinModule } = await import("openclaw/plugin-sdk/test-node-mocks");
+  const { mockNodeBuiltinModule } = await import("granted/plugin-sdk/test-node-mocks");
   return mockNodeBuiltinModule(
     () => vi.importActual<typeof import("node:child_process")>("node:child_process"),
     { spawn: spawnMock },

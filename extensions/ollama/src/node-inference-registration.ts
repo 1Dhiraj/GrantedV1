@@ -1,10 +1,10 @@
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
+import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
 import type {
   AnyAgentTool,
   GrantedPluginApi,
   GrantedPluginNodeHostCommand,
   GrantedPluginNodeInvokePolicy,
-} from "openclaw/plugin-sdk/plugin-entry";
+} from "granted/plugin-sdk/plugin-entry";
 import {
   OLLAMA_CHAT_COMMAND,
   OLLAMA_MODELS_COMMAND,

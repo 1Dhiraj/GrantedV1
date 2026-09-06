@@ -1,4 +1,4 @@
-import { createContractToolTerminalObserver } from "openclaw/plugin-sdk/agent-runtime-test-contracts";
+import { createContractToolTerminalObserver } from "granted/plugin-sdk/agent-runtime-test-contracts";
 import {
   describe,
   registerCodexEventProjectorTestLifecycle,

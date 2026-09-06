@@ -1,6 +1,6 @@
 // Telegram plugin module builds transport-shared durable ingress monitors.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import type { TelegramBotInfo } from "./bot-info.js";
 import {
   runWithTelegramUpdateProcessingFrame,

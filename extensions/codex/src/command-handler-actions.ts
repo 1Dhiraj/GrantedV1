@@ -2,10 +2,10 @@ import { isDeepStrictEqual } from "node:util";
 import {
   MODEL_SELECTION_LOCKED_MESSAGE,
   resolvePersistedSessionRuntimeId,
-} from "openclaw/plugin-sdk/model-session-runtime";
-import type { PluginCommandContext } from "openclaw/plugin-sdk/plugin-entry";
-import { getSessionEntry, resolveStorePath } from "openclaw/plugin-sdk/session-store-runtime";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/model-session-runtime";
+import type { PluginCommandContext } from "granted/plugin-sdk/plugin-entry";
+import { getSessionEntry, resolveStorePath } from "granted/plugin-sdk/session-store-runtime";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import { resolveCodexBindingAppServerConnection } from "./app-server/binding-connection.js";
 import type { CodexComputerUseSetupParams } from "./app-server/computer-use.js";
 import { isJsonObject, type JsonValue } from "./app-server/protocol.js";

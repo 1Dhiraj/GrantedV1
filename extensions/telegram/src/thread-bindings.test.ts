@@ -1,13 +1,13 @@
 // Telegram tests cover thread bindings plugin behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { getSessionBindingService } from "openclaw/plugin-sdk/conversation-runtime";
-import type { PluginStateSyncKeyedStore } from "openclaw/plugin-sdk/plugin-state-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { getSessionBindingService } from "granted/plugin-sdk/conversation-runtime";
+import type { PluginStateSyncKeyedStore } from "granted/plugin-sdk/plugin-state-runtime";
 import {
   createPluginStateSyncKeyedStoreForTests,
   resetPluginStateStoreForTests,
-} from "openclaw/plugin-sdk/plugin-state-test-runtime";
-import { importFreshModule } from "openclaw/plugin-sdk/test-fixtures";
-import { createOpenClawTestState, type GrantedTestState } from "openclaw/plugin-sdk/test-state";
+} from "granted/plugin-sdk/plugin-state-test-runtime";
+import { importFreshModule } from "granted/plugin-sdk/test-fixtures";
+import { createOpenClawTestState, type GrantedTestState } from "granted/plugin-sdk/test-state";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { setTelegramRuntime } from "./runtime.js";
 import { clearTelegramRuntimeForTest } from "./runtime.test-support.js";
@@ -16,7 +16,7 @@ import type { TelegramRuntime } from "./runtime.types.js";
 const readAcpSessionEntryMock = vi.hoisted(() => vi.fn());
 
 vi.mock("openclaw/plugin-sdk/acp-runtime", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/acp-runtime")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/acp-runtime")>(
     "openclaw/plugin-sdk/acp-runtime",
   );
   readAcpSessionEntryMock.mockImplementation(actual.readAcpSessionEntry);
@@ -122,7 +122,7 @@ describe("telegram thread bindings", () => {
     installThreadBindingStore(createThreadBindingStore());
     threadBindingStore.clear();
     readAcpSessionEntryMock.mockReset();
-    const acpRuntime = await vi.importActual<typeof import("openclaw/plugin-sdk/acp-runtime")>(
+    const acpRuntime = await vi.importActual<typeof import("granted/plugin-sdk/acp-runtime")>(
       "openclaw/plugin-sdk/acp-runtime",
     );
     readAcpSessionEntryMock.mockImplementation(acpRuntime.readAcpSessionEntry);

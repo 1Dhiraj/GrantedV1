@@ -1,8 +1,8 @@
 // Covers plugin install path warning detection and copy.
 import fs from "node:fs/promises";
 import path from "node:path";
-import { withTempHome } from "openclaw/plugin-sdk/test-env";
-import { repoInstallSpec } from "openclaw/plugin-sdk/test-fixtures";
+import { withTempHome } from "granted/plugin-sdk/test-env";
+import { repoInstallSpec } from "granted/plugin-sdk/test-fixtures";
 import { describe, expect, it } from "vitest";
 import {
   detectPluginInstallPathIssue,

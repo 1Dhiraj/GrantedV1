@@ -5,21 +5,21 @@ import {
   listAgentIds,
   resolveAgentDir,
   resolveSessionAgentIdsStrict,
-} from "openclaw/plugin-sdk/agent-scope-runtime";
+} from "granted/plugin-sdk/agent-scope-runtime";
 import {
   canonicalPathFromExistingAncestor,
   isPathInside,
-} from "openclaw/plugin-sdk/file-access-runtime";
-import { withFileLock, type FileLockOptions } from "openclaw/plugin-sdk/file-lock";
-import type { PluginStateKeyedStore } from "openclaw/plugin-sdk/plugin-state-runtime";
-import { normalizeAgentId } from "openclaw/plugin-sdk/routing";
+} from "granted/plugin-sdk/file-access-runtime";
+import { withFileLock, type FileLockOptions } from "granted/plugin-sdk/file-lock";
+import type { PluginStateKeyedStore } from "granted/plugin-sdk/plugin-state-runtime";
+import { normalizeAgentId } from "granted/plugin-sdk/routing";
 import {
   archiveLegacyStateSource,
   legacyStateFileExists,
   type PluginDoctorStateMigration,
-} from "openclaw/plugin-sdk/runtime-doctor-migrations";
-import { pathExists } from "openclaw/plugin-sdk/security-runtime";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/runtime-doctor-migrations";
+import { pathExists } from "granted/plugin-sdk/security-runtime";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   CODEX_APP_SERVER_BINDING_MAX_ENTRIES,
   CODEX_APP_SERVER_BINDING_NAMESPACE,
@@ -99,7 +99,7 @@ type MigratedBindingRow =
 async function collectSessionSurfaces(params: MigrationEnvironment): Promise<SessionSurface[]> {
   // Doctor enumeration cold-loads this closure; session-store-runtime pulls the
   // session-accessor/kysely graph, so it stays behind lazy imports in async bodies.
-  const { resolveStorePath } = await import("openclaw/plugin-sdk/session-store-runtime");
+  const { resolveStorePath } = await import("granted/plugin-sdk/session-store-runtime");
   const surfaces = new Map<string, SessionSurface>();
   const stateRoot = await canonicalPathFromExistingAncestor(params.stateDir);
   const add = async (
@@ -318,7 +318,7 @@ async function collectBindingOwners(
   surfaces: SessionSurface[],
   params: MigrationEnvironment,
 ): Promise<BindingOwnerCollection> {
-  const { resolveStorePath } = await import("openclaw/plugin-sdk/session-store-runtime");
+  const { resolveStorePath } = await import("granted/plugin-sdk/session-store-runtime");
   const sourcePaths = new Set(
     await Promise.all(
       sources.map((source) => canonicalPathFromExistingAncestor(source.transcriptPath)),
@@ -713,7 +713,7 @@ async function recordSessionOwner(
   owner: LegacyBindingOwner,
   env: NodeJS.ProcessEnv,
 ): Promise<string | undefined> {
-  const { patchSessionEntry } = await import("openclaw/plugin-sdk/session-store-runtime");
+  const { patchSessionEntry } = await import("granted/plugin-sdk/session-store-runtime");
   const currentIndex = await readLegacySessionIndex(owner.storePath);
   if ("failure" in currentIndex) {
     return "its legacy session owner could not be revalidated";

@@ -3,20 +3,20 @@ import crypto from "node:crypto";
 import { mkdirSync, realpathSync, rmSync, writeFileSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import type { GrantedConfig, TtsConfig } from "openclaw/plugin-sdk/config-contracts";
-import { MAX_TIMER_TIMEOUT_MS as MAX_TIMER_TIMEOUT_MS_CORE } from "openclaw/plugin-sdk/number-runtime";
-import type { ReplyPayload } from "openclaw/plugin-sdk/reply-payload";
+import type { GrantedConfig, TtsConfig } from "granted/plugin-sdk/config-contracts";
+import { MAX_TIMER_TIMEOUT_MS as MAX_TIMER_TIMEOUT_MS_CORE } from "granted/plugin-sdk/number-runtime";
+import type { ReplyPayload } from "granted/plugin-sdk/reply-payload";
 import {
   clearRuntimeConfigSnapshot as clearRuntimeConfigSnapshotCore,
   setRuntimeConfigSnapshot as setRuntimeConfigSnapshotCore,
-} from "openclaw/plugin-sdk/runtime-config-snapshot";
+} from "granted/plugin-sdk/runtime-config-snapshot";
 import type {
   SpeechListVoicesRequest,
   SpeechProviderPlugin,
   SpeechProviderPrepareSynthesisContext,
   SpeechSynthesisRequest,
   SpeechTelephonySynthesisRequest,
-} from "openclaw/plugin-sdk/speech-core";
+} from "granted/plugin-sdk/speech-core";
 import { expect, vi } from "vitest";
 import { CODE_HEAVY_SPOKEN_FALLBACK as CODE_HEAVY_SPOKEN_FALLBACK_CORE } from "./speech-text.js";
 import type { TtsAudioPersistence } from "./tts-synthesis.js";

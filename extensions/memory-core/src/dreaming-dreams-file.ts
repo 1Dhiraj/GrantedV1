@@ -1,9 +1,9 @@
 // Memory Core helpers for safe managed DREAMS.md updates.
 import fs from "node:fs/promises";
 import path from "node:path";
-import { extractErrorCode } from "openclaw/plugin-sdk/error-runtime";
-import { replaceManagedMarkdownBlock } from "openclaw/plugin-sdk/memory-host-markdown";
-import { readRegularFile, replaceFileAtomic } from "openclaw/plugin-sdk/security-runtime";
+import { extractErrorCode } from "granted/plugin-sdk/error-runtime";
+import { replaceManagedMarkdownBlock } from "granted/plugin-sdk/memory-host-markdown";
+import { readRegularFile, replaceFileAtomic } from "granted/plugin-sdk/security-runtime";
 import { withMemoryWorkspaceLock } from "./memory-workspace-lock.js";
 
 export const DREAMS_FILENAMES = ["DREAMS.md", "dreams.md"] as const;

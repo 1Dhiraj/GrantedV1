@@ -1,5 +1,5 @@
-import type { GrantedConfig } from "openclaw/plugin-sdk/plugin-entry";
-import { capturePluginRegistration } from "openclaw/plugin-sdk/plugin-test-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/plugin-entry";
+import { capturePluginRegistration } from "granted/plugin-sdk/plugin-test-runtime";
 import { describe, expect, it } from "vitest";
 import plugin from "./index.js";
 

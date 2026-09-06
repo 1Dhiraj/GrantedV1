@@ -1,5 +1,5 @@
-import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
-import { registerSandboxBackend } from "openclaw/plugin-sdk/sandbox";
+import type { GrantedPluginApi } from "granted/plugin-sdk/plugin-entry";
+import { registerSandboxBackend } from "granted/plugin-sdk/sandbox";
 import { resolveMxcBinaryPath } from "./binary-resolver.js";
 import { resolveConfig } from "./config.js";
 import { createMxcSandboxBackendFactory } from "./mxc-backend-factory.js";

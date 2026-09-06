@@ -1,20 +1,20 @@
 // Signal plugin module implements approval native behavior.
-import { createApproverRestrictedNativeApprovalCapabilityFromForwardingRoutes } from "openclaw/plugin-sdk/approval-delivery-runtime";
-import { createLazyChannelApprovalNativeRuntimeAdapter } from "openclaw/plugin-sdk/approval-handler-adapter-runtime";
-import type { ChannelApprovalNativeRuntimeAdapter } from "openclaw/plugin-sdk/approval-handler-runtime";
-import { shouldSuppressLocalNativeExecApprovalPrompt } from "openclaw/plugin-sdk/approval-native-runtime";
-import { buildApprovalReactionPendingContentForRequest } from "openclaw/plugin-sdk/approval-reaction-runtime";
+import { createApproverRestrictedNativeApprovalCapabilityFromForwardingRoutes } from "granted/plugin-sdk/approval-delivery-runtime";
+import { createLazyChannelApprovalNativeRuntimeAdapter } from "granted/plugin-sdk/approval-handler-adapter-runtime";
+import type { ChannelApprovalNativeRuntimeAdapter } from "granted/plugin-sdk/approval-handler-runtime";
+import { shouldSuppressLocalNativeExecApprovalPrompt } from "granted/plugin-sdk/approval-native-runtime";
+import { buildApprovalReactionPendingContentForRequest } from "granted/plugin-sdk/approval-reaction-runtime";
 import type {
   ChannelApprovalCapability,
   ChannelOutboundPayloadHint,
-} from "openclaw/plugin-sdk/channel-contract";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { ReplyPayload } from "openclaw/plugin-sdk/reply-runtime";
-import { parseAgentSessionKey } from "openclaw/plugin-sdk/routing";
+} from "granted/plugin-sdk/channel-contract";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { ReplyPayload } from "granted/plugin-sdk/reply-runtime";
+import { parseAgentSessionKey } from "granted/plugin-sdk/routing";
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import {
   listSignalAccountIds,
   resolveDefaultSignalAccountId,

@@ -1,7 +1,7 @@
 import { SpanKind } from "@opentelemetry/api";
 import { GEN_AI_OPERATION_NAME_VALUE_INVOKE_AGENT } from "@opentelemetry/semantic-conventions/incubating";
-import { normalizeDiagnosticValue } from "openclaw/plugin-sdk/diagnostic-runtime";
-import { asFiniteNumber, asFiniteNumberInRange } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { normalizeDiagnosticValue } from "granted/plugin-sdk/diagnostic-runtime";
+import { asFiniteNumber, asFiniteNumberInRange } from "granted/plugin-sdk/string-coerce-runtime";
 import type { DiagnosticEventPayload } from "../api.js";
 import { redactSensitiveText } from "../api.js";
 import {

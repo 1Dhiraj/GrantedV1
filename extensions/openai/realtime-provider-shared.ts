@@ -1,16 +1,16 @@
 // Openai provider module implements model/runtime integration.
-import { resolveExpiresAtMsFromEpochSeconds } from "openclaw/plugin-sdk/number-runtime";
+import { resolveExpiresAtMsFromEpochSeconds } from "granted/plugin-sdk/number-runtime";
 import {
   createProviderHttpError,
   readProviderJsonResponse,
   resolveProviderRequestHeaders,
-} from "openclaw/plugin-sdk/provider-http";
-import { captureWsEvent } from "openclaw/plugin-sdk/proxy-capture";
-import { fetchWithSsrFGuard, type SsrFPolicy } from "openclaw/plugin-sdk/ssrf-runtime";
+} from "granted/plugin-sdk/provider-http";
+import { captureWsEvent } from "granted/plugin-sdk/proxy-capture";
+import { fetchWithSsrFGuard, type SsrFPolicy } from "granted/plugin-sdk/ssrf-runtime";
 import {
   asOptionalRecord,
   normalizeOptionalString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 
 const OPENAI_REALTIME_API_BASE_URL = "https://api.openai.com/v1";
 const OPENAI_REALTIME_SSRF_POLICY = {

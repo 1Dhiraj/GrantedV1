@@ -1,5 +1,5 @@
 // Telegram tests cover dm access plugin behavior.
-import type { createChannelPairingChallengeIssuer } from "openclaw/plugin-sdk/channel-pairing";
+import type { createChannelPairingChallengeIssuer } from "granted/plugin-sdk/channel-pairing";
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 
 const createChannelPairingChallengeIssuerMock = vi.hoisted(() => vi.fn());

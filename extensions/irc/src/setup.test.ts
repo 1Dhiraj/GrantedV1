@@ -3,15 +3,15 @@ import {
   expectStopPendingUntilAbort,
   startAccountAndTrackLifecycle,
   waitForStartedMocks,
-} from "openclaw/plugin-sdk/channel-test-helpers";
+} from "granted/plugin-sdk/channel-test-helpers";
 import {
   createPluginSetupWizardAdapter,
   createPluginSetupWizardStatus,
   createTestWizardPrompter,
   promptSetupWizardAllowFrom,
   runSetupWizardConfigure,
-} from "openclaw/plugin-sdk/plugin-test-runtime";
-import type { WizardPrompter } from "openclaw/plugin-sdk/plugin-test-runtime";
+} from "granted/plugin-sdk/plugin-test-runtime";
+import type { WizardPrompter } from "granted/plugin-sdk/plugin-test-runtime";
 import { afterAll, afterEach, describe, expect, it, vi } from "vitest";
 import {
   listIrcAccountIds,

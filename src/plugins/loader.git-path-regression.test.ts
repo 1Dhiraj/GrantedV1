@@ -32,7 +32,7 @@ describe("plugin loader git path regression", () => {
     fs.writeFileSync(sourceLoaderBaseFile, "export {};\n", "utf-8");
     fs.writeFileSync(
       path.join(copiedSourceDir, "channel.runtime.ts"),
-      `import { resolveOutboundSendDep } from "openclaw/plugin-sdk/channel-outbound";
+      `import { resolveOutboundSendDep } from "granted/plugin-sdk/channel-outbound";
 import { PAIRING_APPROVED_MESSAGE } from "../runtime-api.js";
 
 export const copiedRuntimeMarker = {

@@ -1,4 +1,4 @@
-import * as agentHarnessToolRuntime from "openclaw/plugin-sdk/agent-harness-tool-runtime";
+import * as agentHarnessToolRuntime from "granted/plugin-sdk/agent-harness-tool-runtime";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { settleReplyDispatcher } from "../../auto-reply/dispatch-dispatcher.js";
 import * as replyPayloadRuntime from "../../auto-reply/reply-payload.js";

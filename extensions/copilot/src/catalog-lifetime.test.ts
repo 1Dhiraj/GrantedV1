@@ -2,13 +2,13 @@ import path from "node:path";
 import type {
   AgentHarnessAttemptParamsV2,
   AnyAgentTool,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
-import { createContractToolTerminalObserver } from "openclaw/plugin-sdk/agent-runtime-test-contracts";
-import { AuthStorage, ModelRegistry } from "openclaw/plugin-sdk/agent-sessions";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
-import { createAdmittedHostCapabilityTestFixture } from "openclaw/plugin-sdk/plugin-test-runtime";
-import { upsertSessionEntry } from "openclaw/plugin-sdk/session-store-runtime";
-import { createOpenClawTestState } from "openclaw/plugin-sdk/test-state";
+} from "granted/plugin-sdk/agent-harness-runtime";
+import { createContractToolTerminalObserver } from "granted/plugin-sdk/agent-runtime-test-contracts";
+import { AuthStorage, ModelRegistry } from "granted/plugin-sdk/agent-sessions";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
+import { createAdmittedHostCapabilityTestFixture } from "granted/plugin-sdk/plugin-test-runtime";
+import { upsertSessionEntry } from "granted/plugin-sdk/session-store-runtime";
+import { createOpenClawTestState } from "granted/plugin-sdk/test-state";
 import { expect, it, vi } from "vitest";
 import { createCopilotAgentHarness } from "../harness.js";
 import { createCopilotFaultPeer } from "./catalog-lifetime.test-support.js";

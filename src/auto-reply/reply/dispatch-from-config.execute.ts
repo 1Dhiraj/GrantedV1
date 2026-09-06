@@ -1,7 +1,7 @@
 import {
   hasOutboundReplyContent,
   isFastModeAutoProgressPayload,
-} from "openclaw/plugin-sdk/reply-payload";
+} from "granted/plugin-sdk/reply-payload";
 import { GENERIC_EXTERNAL_RUN_FAILURE_TEXT } from "../../agents/failover/user-copy.js";
 import { isAskUserPromptPending } from "../../agents/tools/ask-user-tool.js";
 import { normalizeAgentPlanSteps } from "../../channels/streaming.js";

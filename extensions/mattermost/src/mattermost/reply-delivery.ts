@@ -2,20 +2,20 @@
 import {
   createChannelPartialDeliveryError,
   isChannelPartialDeliveryError,
-} from "openclaw/plugin-sdk/channel-inbound";
+} from "granted/plugin-sdk/channel-inbound";
 import {
   createMessageReceiptFromOutboundResults,
   listMessageReceiptPlatformIds,
   type MessageReceipt,
-} from "openclaw/plugin-sdk/channel-outbound";
-import type { GrantedConfig, PluginRuntime } from "openclaw/plugin-sdk/core";
-import { getAgentScopedMediaLocalRoots } from "openclaw/plugin-sdk/media-runtime";
+} from "granted/plugin-sdk/channel-outbound";
+import type { GrantedConfig, PluginRuntime } from "granted/plugin-sdk/core";
+import { getAgentScopedMediaLocalRoots } from "granted/plugin-sdk/media-runtime";
 import {
   deliverTextOrMediaReply,
   isReasoningReplyPayload,
   resolveSendableOutboundReplyParts,
-} from "openclaw/plugin-sdk/reply-payload";
-import type { ReplyPayload } from "openclaw/plugin-sdk/reply-runtime";
+} from "granted/plugin-sdk/reply-payload";
+import type { ReplyPayload } from "granted/plugin-sdk/reply-runtime";
 import { requiresMattermostMediaUpload, resolveMattermostPresentation } from "../normalize.js";
 import type { MattermostSendResult } from "./send.js";
 

@@ -114,7 +114,7 @@ describe("worker node enrollment", () => {
         path.join(packageRoot, "package.json"),
         JSON.stringify({ name: "openclaw", version: "2026.8.1", type: "module" }),
       ),
-      fs.writeFile(path.join(packageRoot, "openclaw.mjs"), 'import "./dist/entry.js";'),
+      fs.writeFile(path.join(packageRoot, "granted.mjs"), 'import "./dist/entry.js";'),
       fs.writeFile(path.join(packageRoot, "node-version.mjs"), "export const supported = true;"),
       fs.writeFile(path.join(packageRoot, "dist/entry.js"), "export const ready = true;"),
       fs.writeFile(

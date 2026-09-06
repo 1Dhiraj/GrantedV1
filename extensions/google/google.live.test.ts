@@ -1,21 +1,21 @@
 // Google tests cover google plugin behavior.
-import { toErrorObject as toLintErrorObject } from "openclaw/plugin-sdk/error-runtime";
+import { toErrorObject as toLintErrorObject } from "granted/plugin-sdk/error-runtime";
 import {
   completeSimple,
   type Model,
   type ProviderContext,
   type ProviderModel,
   type ProviderStreamFunction,
-} from "openclaw/plugin-sdk/llm";
-import { resolveFfmpegBin } from "openclaw/plugin-sdk/media-runtime";
+} from "granted/plugin-sdk/llm";
+import { resolveFfmpegBin } from "granted/plugin-sdk/media-runtime";
 import {
   createCapturedPluginRegistration,
   registerProviderPlugin,
   requireRegisteredProvider,
-} from "openclaw/plugin-sdk/plugin-test-runtime";
-import { normalizeTranscriptForMatch } from "openclaw/plugin-sdk/provider-test-contracts";
-import type { RealtimeVoiceBridge } from "openclaw/plugin-sdk/realtime-voice";
-import { isLiveTestEnabled } from "openclaw/plugin-sdk/test-live";
+} from "granted/plugin-sdk/plugin-test-runtime";
+import { normalizeTranscriptForMatch } from "granted/plugin-sdk/provider-test-contracts";
+import type { RealtimeVoiceBridge } from "granted/plugin-sdk/realtime-voice";
+import { isLiveTestEnabled } from "granted/plugin-sdk/test-live";
 import { describe, expect, it } from "vitest";
 import plugin from "./index.js";
 import { buildGoogleLiveCatalogProvider } from "./provider-catalog.js";

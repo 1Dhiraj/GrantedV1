@@ -1,22 +1,22 @@
 // Tlon plugin module implements channel behavior.
-import { describeAccountSnapshot } from "openclaw/plugin-sdk/account-helpers";
-import { DEFAULT_ACCOUNT_ID } from "openclaw/plugin-sdk/account-id";
-import { createHybridChannelConfigAdapter } from "openclaw/plugin-sdk/channel-config-helpers";
-import { createChatChannelPlugin, type ChannelPlugin } from "openclaw/plugin-sdk/channel-core";
+import { describeAccountSnapshot } from "granted/plugin-sdk/account-helpers";
+import { DEFAULT_ACCOUNT_ID } from "granted/plugin-sdk/account-id";
+import { createHybridChannelConfigAdapter } from "granted/plugin-sdk/channel-config-helpers";
+import { createChatChannelPlugin, type ChannelPlugin } from "granted/plugin-sdk/channel-core";
 import {
   createChannelMessageAdapterFromOutbound,
   createRuntimeOutboundDelegates,
-} from "openclaw/plugin-sdk/channel-outbound";
-import type { ChannelOutboundAdapter } from "openclaw/plugin-sdk/channel-send-result";
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
+} from "granted/plugin-sdk/channel-outbound";
+import type { ChannelOutboundAdapter } from "granted/plugin-sdk/channel-send-result";
+import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
 import {
   createComputedAccountStatusAdapter,
   createDefaultChannelRuntimeState,
-} from "openclaw/plugin-sdk/status-helpers";
+} from "granted/plugin-sdk/status-helpers";
 import {
   chunkTextForOutbound,
   sanitizeAssistantVisibleText,
-} from "openclaw/plugin-sdk/text-chunking";
+} from "granted/plugin-sdk/text-chunking";
 import { tlonChannelConfigSchema } from "./config-schema.js";
 import { tlonDoctor } from "./doctor.js";
 import { resolveTlonOutboundSessionRoute } from "./session-route.js";

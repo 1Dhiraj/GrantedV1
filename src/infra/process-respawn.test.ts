@@ -19,7 +19,7 @@ const scheduleLaunchdHandoffMock = vi.hoisted(() =>
 const isContainerEnvironmentMock = vi.hoisted(() => vi.fn(() => false));
 
 vi.mock("node:child_process", async () => {
-  const { mockNodeBuiltinModule } = await import("openclaw/plugin-sdk/test-node-mocks");
+  const { mockNodeBuiltinModule } = await import("granted/plugin-sdk/test-node-mocks");
   return mockNodeBuiltinModule(
     () => vi.importActual<typeof import("node:child_process")>("node:child_process"),
     {
@@ -372,7 +372,7 @@ describe("respawnGatewayProcessForUpdate", () => {
     expect(result.pid).toBe(5151);
     expect(spawnMock).toHaveBeenCalledWith(
       process.execPath,
-      ["C:\\openclaw\\node_modules\\openclaw\\openclaw.mjs", "gateway", "run"],
+      ["C:\\openclaw\\node_modules\\openclaw\\granted.mjs", "gateway", "run"],
       {
         detached: true,
         env: process.env,
@@ -398,7 +398,7 @@ describe("respawnGatewayProcessForUpdate", () => {
     expect(result.mode).toBe("spawned");
     expect(spawnMock).toHaveBeenCalledWith(
       process.execPath,
-      ["/app/node_modules/openclaw/openclaw.mjs", "gateway", "run"],
+      ["/app/node_modules/openclaw/granted.mjs", "gateway", "run"],
       {
         detached: true,
         env: process.env,

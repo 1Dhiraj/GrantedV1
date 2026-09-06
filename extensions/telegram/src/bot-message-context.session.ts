@@ -10,22 +10,22 @@ import {
   toLocationContext,
   type NormalizedLocation,
   type InboundEventKind,
-} from "openclaw/plugin-sdk/channel-inbound";
-import { normalizeCommandBody } from "openclaw/plugin-sdk/command-surface";
+} from "granted/plugin-sdk/channel-inbound";
+import { normalizeCommandBody } from "granted/plugin-sdk/command-surface";
 import type {
   GrantedConfig,
   TelegramDirectConfig,
   TelegramGroupConfig,
   TelegramTopicConfig,
-} from "openclaw/plugin-sdk/config-contracts";
-import { resolveChannelContextVisibilityMode } from "openclaw/plugin-sdk/context-visibility-runtime";
-import { timestampMsToIsoString } from "openclaw/plugin-sdk/number-runtime";
-import { createChannelHistoryWindow, type HistoryEntry } from "openclaw/plugin-sdk/reply-history";
-import type { ResolvedAgentRoute } from "openclaw/plugin-sdk/routing";
-import { logVerbose, shouldLogVerbose } from "openclaw/plugin-sdk/runtime-env";
-import { evaluateSupplementalContextVisibility } from "openclaw/plugin-sdk/security-runtime";
-import { normalizeOptionalLowercaseString } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+} from "granted/plugin-sdk/config-contracts";
+import { resolveChannelContextVisibilityMode } from "granted/plugin-sdk/context-visibility-runtime";
+import { timestampMsToIsoString } from "granted/plugin-sdk/number-runtime";
+import { createChannelHistoryWindow, type HistoryEntry } from "granted/plugin-sdk/reply-history";
+import type { ResolvedAgentRoute } from "granted/plugin-sdk/routing";
+import { logVerbose, shouldLogVerbose } from "granted/plugin-sdk/runtime-env";
+import { evaluateSupplementalContextVisibility } from "granted/plugin-sdk/security-runtime";
+import { normalizeOptionalLowercaseString } from "granted/plugin-sdk/string-coerce-runtime";
+import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import type { NormalizedAllowFrom } from "./bot-access.js";
 import { isSenderAllowed, normalizeAllowFrom } from "./bot-access.js";
 import type {

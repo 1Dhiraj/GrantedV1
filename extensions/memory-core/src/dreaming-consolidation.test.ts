@@ -1,8 +1,8 @@
 // Memory Core tests cover bounded deep-phase consolidation behavior.
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { OpenKeyedStoreOptions } from "openclaw/plugin-sdk/plugin-state-runtime";
-import { createPluginStateKeyedStoreForTests } from "openclaw/plugin-sdk/plugin-state-test-runtime";
+import type { OpenKeyedStoreOptions } from "granted/plugin-sdk/plugin-state-runtime";
+import { createPluginStateKeyedStoreForTests } from "granted/plugin-sdk/plugin-state-test-runtime";
 import { describe, expect, it, vi } from "vitest";
 import { filterConsolidationCandidates } from "./dreaming-consolidation-candidates.js";
 import { applyMemoryConsolidationPlan, consolidateMemory } from "./dreaming-consolidation.js";

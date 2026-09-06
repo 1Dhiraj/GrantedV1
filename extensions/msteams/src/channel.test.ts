@@ -1,9 +1,9 @@
 // Msteams tests cover channel plugin behavior.
 import fs from "node:fs";
 import path from "node:path";
-import { CHANNEL_APPROVAL_NATIVE_RUNTIME_CONTEXT_CAPABILITY } from "openclaw/plugin-sdk/approval-handler-adapter-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { withTempDir } from "openclaw/plugin-sdk/test-env";
+import { CHANNEL_APPROVAL_NATIVE_RUNTIME_CONTEXT_CAPABILITY } from "granted/plugin-sdk/approval-handler-adapter-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { withTempDir } from "granted/plugin-sdk/test-env";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { MSTeamsConfigSchema } from "../config-api.js";
 import { msteamsDirectoryContractPlugin } from "../directory-contract-api.js";

@@ -5,9 +5,9 @@
  * redaction/headers, and request/response correlation over WebSocket.
  */
 import { createHash } from "node:crypto";
-import { redactCdpUrl } from "openclaw/plugin-sdk/browser-cdp";
-import { readProviderJsonResponse } from "openclaw/plugin-sdk/provider-http";
-import { fetchWithSsrFGuard } from "openclaw/plugin-sdk/ssrf-runtime";
+import { redactCdpUrl } from "granted/plugin-sdk/browser-cdp";
+import { readProviderJsonResponse } from "granted/plugin-sdk/provider-http";
+import { fetchWithSsrFGuard } from "granted/plugin-sdk/ssrf-runtime";
 import { isLoopbackHost } from "../gateway/net.js";
 import {
   SsrFBlockedError,

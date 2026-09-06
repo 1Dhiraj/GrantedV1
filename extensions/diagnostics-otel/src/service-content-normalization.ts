@@ -1,4 +1,4 @@
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import { redactSensitiveText } from "../api.js";
 
 export const MAX_OTEL_CONTENT_ATTRIBUTE_CHARS = 128 * 1024;

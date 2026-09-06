@@ -1,9 +1,9 @@
 import crypto from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { GrantedPluginNodeInvokePolicyContext } from "openclaw/plugin-sdk/plugin-entry";
-import { useAutoCleanupTempDirTracker } from "openclaw/plugin-sdk/test-env";
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import type { GrantedPluginNodeInvokePolicyContext } from "granted/plugin-sdk/plugin-entry";
+import { useAutoCleanupTempDirTracker } from "granted/plugin-sdk/test-env";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { handleDirFetch } from "../node-host/dir-fetch.js";
 import { createFileTransferNodeInvokePolicy } from "./node-invoke-policy.js";

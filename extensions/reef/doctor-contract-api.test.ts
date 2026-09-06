@@ -1,17 +1,17 @@
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   createPluginStateKeyedStoreForTests,
   createPluginStateSyncKeyedStoreForTests,
   resetPluginStateStoreForTests,
-} from "openclaw/plugin-sdk/plugin-state-test-runtime";
-import { createPluginRuntimeMock } from "openclaw/plugin-sdk/plugin-test-runtime";
+} from "granted/plugin-sdk/plugin-state-test-runtime";
+import { createPluginRuntimeMock } from "granted/plugin-sdk/plugin-test-runtime";
 import type {
   OpenKeyedStoreOptions,
   PluginDoctorStateMigrationContext,
-} from "openclaw/plugin-sdk/runtime-doctor-migrations";
+} from "granted/plugin-sdk/runtime-doctor-migrations";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   legacyConfigRules,

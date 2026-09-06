@@ -8,11 +8,11 @@ import {
   normalizeSessionDeliveryState,
   type SessionEntry,
   upsertSessionEntry,
-} from "openclaw/plugin-sdk/session-store-runtime";
+} from "granted/plugin-sdk/session-store-runtime";
 import {
   appendSessionTranscriptMessageByIdentity,
   readSessionTranscriptEvents,
-} from "openclaw/plugin-sdk/session-transcript-runtime";
+} from "granted/plugin-sdk/session-transcript-runtime";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { GrantedConfig } from "../runtime-api.js";
 import { feishuDoctor } from "./doctor.js";

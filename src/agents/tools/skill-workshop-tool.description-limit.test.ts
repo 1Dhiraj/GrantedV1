@@ -1,6 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import { validateToolArguments } from "openclaw/plugin-sdk/llm";
+import { validateToolArguments } from "granted/plugin-sdk/llm";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import {
   createOpenClawTestState,

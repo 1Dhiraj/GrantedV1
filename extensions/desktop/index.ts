@@ -1,4 +1,4 @@
-import { definePluginEntry, type AnyAgentTool } from "openclaw/plugin-sdk/plugin-entry";
+import { definePluginEntry, type AnyAgentTool } from "granted/plugin-sdk/plugin-entry";
 import { createDesktopTool } from "./src/desktop-tool.js";
 
 export default definePluginEntry({

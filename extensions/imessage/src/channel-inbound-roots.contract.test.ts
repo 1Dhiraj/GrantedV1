@@ -1,5 +1,5 @@
 // Imessage tests cover channel inbound roots.contract plugin behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { describe, expect, it } from "vitest";
 import {
   DEFAULT_IMESSAGE_ATTACHMENT_ROOTS,

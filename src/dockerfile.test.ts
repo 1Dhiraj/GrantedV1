@@ -4,7 +4,7 @@ import { access, cp, mkdir, mkdtemp, readFile, rm, symlink, writeFile } from "no
 import { tmpdir } from "node:os";
 import { basename, dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { BUNDLED_PLUGIN_ROOT_DIR } from "openclaw/plugin-sdk/test-fixtures";
+import { BUNDLED_PLUGIN_ROOT_DIR } from "granted/plugin-sdk/test-fixtures";
 import { describe, expect, it } from "vitest";
 
 const repoRoot = resolve(fileURLToPath(new URL(".", import.meta.url)), "..");
@@ -638,7 +638,7 @@ describe("Dockerfile", () => {
       'test "$(node -p "require(\\"/app/dist/build-info.json\\").version")" = "$GRANTED_DOCKER_BUILD_VERSION"',
     );
     expect(dockerfile).toContain(
-      'test "$(node /app/openclaw.mjs --version | cut -d \' \' -f 2)" = "$GRANTED_DOCKER_BUILD_VERSION"',
+      'test "$(node /app/granted.mjs --version | cut -d \' \' -f 2)" = "$GRANTED_DOCKER_BUILD_VERSION"',
     );
   });
 

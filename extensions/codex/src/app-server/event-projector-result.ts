@@ -4,8 +4,8 @@ import {
   type HeartbeatToolResponse,
   type MessagingToolSend,
   type MessagingToolSourceReplyPayload,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
-import { resolveCodexTtsProvenanceTransfer } from "openclaw/plugin-sdk/codex-mcp-projection";
+} from "granted/plugin-sdk/agent-harness-runtime";
+import { resolveCodexTtsProvenanceTransfer } from "granted/plugin-sdk/codex-mcp-projection";
 import {
   attemptTerminal,
   type AttemptFailureSource,

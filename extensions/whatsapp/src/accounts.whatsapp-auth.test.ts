@@ -2,7 +2,7 @@
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { captureEnv } from "openclaw/plugin-sdk/test-env";
+import { captureEnv } from "granted/plugin-sdk/test-env";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { hasAnyWhatsAppAuth, listWhatsAppAuthDirs, resolveWhatsAppAuthDir } from "./accounts.js";
 

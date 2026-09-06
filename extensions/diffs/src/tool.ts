@@ -1,13 +1,13 @@
 // Diffs plugin module implements tool behavior.
 import fs from "node:fs/promises";
-import { optionalFiniteNumberSchema, stringEnum } from "openclaw/plugin-sdk/channel-actions";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
-import { readFiniteNumberParam } from "openclaw/plugin-sdk/param-readers";
+import { optionalFiniteNumberSchema, stringEnum } from "granted/plugin-sdk/channel-actions";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
+import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
+import { readFiniteNumberParam } from "granted/plugin-sdk/param-readers";
 import {
   asNonArrayRecord,
   normalizeOptionalString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import { Type } from "typebox";
 import type { Static } from "typebox";
 import type { AnyAgentTool, GrantedPluginApi, GrantedPluginToolContext } from "../api.js";

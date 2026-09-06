@@ -1,7 +1,7 @@
 // Qa Lab helper module supports run config behavior.
 import { randomUUID } from "node:crypto";
 import path from "node:path";
-import { uniqueStrings } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { uniqueStrings } from "granted/plugin-sdk/string-coerce-runtime";
 import type {
   QaLabExecutionKind,
   QaLabResolvedRunPlan,

@@ -11,10 +11,10 @@ export {
   withManager,
   withProgress,
   withProgressTotals,
-} from "openclaw/plugin-sdk/memory-core-host-runtime-cli";
+} from "granted/plugin-sdk/memory-core-host-runtime-cli";
 export {
   getRuntimeConfig,
   resolveDefaultAgentId,
   type GrantedConfig,
-} from "openclaw/plugin-sdk/memory-core-host-runtime-core";
+} from "granted/plugin-sdk/memory-core-host-runtime-core";
 export { getMemorySearchManager } from "./memory/index.js";

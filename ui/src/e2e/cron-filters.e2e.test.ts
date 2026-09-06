@@ -1,5 +1,5 @@
 // Control UI tests cover cron filters behavior.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import type { Locator, Page } from "playwright";
 import { expect, it } from "vitest";
 import {

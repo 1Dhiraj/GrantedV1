@@ -8,13 +8,13 @@ import {
   type StartedOpenClawCrablineAdapter,
   type StartedOpenClawCrablineCorrelatedAdapter,
 } from "@openclaw/crabline";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { fetchWithSsrFGuard } from "openclaw/plugin-sdk/ssrf-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { fetchWithSsrFGuard } from "granted/plugin-sdk/ssrf-runtime";
 import {
   isRecord,
   normalizeStringifiedOptionalString,
   readStringValue,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import { createQaBusState, type QaBusState } from "./bus-state.js";
 import {
   createCrablineProviderDelivery,

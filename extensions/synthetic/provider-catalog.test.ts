@@ -1,6 +1,6 @@
-import { registerSingleProviderPlugin } from "openclaw/plugin-sdk/plugin-test-runtime";
-import { clearLiveCatalogCacheForTests } from "openclaw/plugin-sdk/provider-catalog-live-runtime";
-import type { ProviderCatalogContext } from "openclaw/plugin-sdk/provider-catalog-shared";
+import { registerSingleProviderPlugin } from "granted/plugin-sdk/plugin-test-runtime";
+import { clearLiveCatalogCacheForTests } from "granted/plugin-sdk/provider-catalog-live-runtime";
+import type { ProviderCatalogContext } from "granted/plugin-sdk/provider-catalog-shared";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import plugin from "./index.js";
 import { SYNTHETIC_BASE_URL } from "./models.js";

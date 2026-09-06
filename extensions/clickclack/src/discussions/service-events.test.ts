@@ -1,7 +1,7 @@
 import type {
   GrantedPluginGatewayEvents,
   GrantedPluginSessionsChangedEvent,
-} from "openclaw/plugin-sdk/core";
+} from "granted/plugin-sdk/core";
 import { describe, expect, it, vi } from "vitest";
 import type { ClickClackDiscussionBinding } from "./binding-store.js";
 import { resolveClickClackDiscussionRoute } from "./routing.js";

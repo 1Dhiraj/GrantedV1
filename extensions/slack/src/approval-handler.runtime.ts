@@ -9,14 +9,14 @@ import type {
   PluginApprovalPendingView,
   PluginApprovalResolvedView,
   ResolvedApprovalView,
-} from "openclaw/plugin-sdk/approval-handler-runtime";
-import { createChannelApprovalNativeRuntimeAdapter } from "openclaw/plugin-sdk/approval-handler-runtime";
-import { buildChannelApprovalNativeTargetKey } from "openclaw/plugin-sdk/approval-native-runtime";
-import { buildApprovalPresentationFromActionDescriptors } from "openclaw/plugin-sdk/approval-reply-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { logError } from "openclaw/plugin-sdk/logging-core";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+} from "granted/plugin-sdk/approval-handler-runtime";
+import { createChannelApprovalNativeRuntimeAdapter } from "granted/plugin-sdk/approval-handler-runtime";
+import { buildChannelApprovalNativeTargetKey } from "granted/plugin-sdk/approval-native-runtime";
+import { buildApprovalPresentationFromActionDescriptors } from "granted/plugin-sdk/approval-reply-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { logError } from "granted/plugin-sdk/logging-core";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
+import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import { SLACK_APPROVAL_HEADER_BLOCK_ID } from "./approval-actions.js";
 import {
   isSlackAnyNativeApprovalClientEnabled,

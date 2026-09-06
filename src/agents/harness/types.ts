@@ -215,7 +215,7 @@ export type AgentHarnessSideQuestionParams = {
   agentDir: string;
   provider: string;
   model: string;
-  runtimeModel?: import("openclaw/plugin-sdk/llm").Model<import("openclaw/plugin-sdk/llm").Api>;
+  runtimeModel?: import("granted/plugin-sdk/llm").Model<import("granted/plugin-sdk/llm").Api>;
   /** One atomic route/profile/store snapshot prepared before native dispatch. */
   preparedRuntimeAuth: {
     plan: import("../runtime-plan/types.js").AgentRuntimeAuthPlan;

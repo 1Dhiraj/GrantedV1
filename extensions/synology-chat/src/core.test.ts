@@ -1,12 +1,12 @@
 // Synology Chat tests cover core plugin behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { MAX_TIMER_TIMEOUT_MS } from "openclaw/plugin-sdk/number-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { MAX_TIMER_TIMEOUT_MS } from "granted/plugin-sdk/number-runtime";
 import {
   createPluginSetupWizardConfigure,
   createTestWizardPrompter,
   runSetupWizardConfigure,
-} from "openclaw/plugin-sdk/plugin-test-runtime";
-import type { WizardPrompter } from "openclaw/plugin-sdk/plugin-test-runtime";
+} from "granted/plugin-sdk/plugin-test-runtime";
+import type { WizardPrompter } from "granted/plugin-sdk/plugin-test-runtime";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { listAccountIds, resolveAccount } from "./accounts.js";
 import { SynologyChatChannelConfigSchema } from "./config-schema.js";

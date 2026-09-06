@@ -1,13 +1,13 @@
 // Codex catalog terminal ownership: validated resume commands and terminal plans.
-import { resolveAgentDir, resolveDefaultAgentDir } from "openclaw/plugin-sdk/agent-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { decodeNodePtyResumeParams } from "openclaw/plugin-sdk/node-host";
+import { resolveAgentDir, resolveDefaultAgentDir } from "granted/plugin-sdk/agent-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { decodeNodePtyResumeParams } from "granted/plugin-sdk/node-host";
 import type {
   GrantedPluginApi,
   GrantedPluginNodeHostCommand,
-} from "openclaw/plugin-sdk/plugin-entry";
-import type { PluginRuntime } from "openclaw/plugin-sdk/plugin-runtime";
-import type { SessionCatalogTerminalPlan } from "openclaw/plugin-sdk/session-catalog";
+} from "granted/plugin-sdk/plugin-entry";
+import type { PluginRuntime } from "granted/plugin-sdk/plugin-runtime";
+import type { SessionCatalogTerminalPlan } from "granted/plugin-sdk/session-catalog";
 import { resolveCodexAppServerLocalHomeDir } from "./app-server/auth-start-options.js";
 import { resolveCodexSupervisionAppServerRuntimeOptions } from "./app-server/config.js";
 import type { CodexCatalogHome } from "./session-catalog-homes.js";

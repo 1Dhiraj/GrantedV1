@@ -1,8 +1,8 @@
 // Telegram plugin module implements outbound message context behavior.
 import type { Message } from "grammy/types";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { logVerbose } from "openclaw/plugin-sdk/runtime-env";
-import { resolveStorePath } from "openclaw/plugin-sdk/session-store-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { logVerbose } from "granted/plugin-sdk/runtime-env";
+import { resolveStorePath } from "granted/plugin-sdk/session-store-runtime";
 import { resolveTelegramAccountOwnerAgentId } from "./account-owner.js";
 import type { TelegramThreadSpec } from "./bot/helpers.js";
 import { buildTelegramSelfSenderName } from "./group-history-window.js";

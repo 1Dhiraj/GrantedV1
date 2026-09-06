@@ -4,8 +4,8 @@ import type {
   HealthRepairContext,
   HealthRepairEffect,
   HealthRepairResult,
-} from "openclaw/plugin-sdk/health";
-import { uniqueStrings } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/health";
+import { uniqueStrings } from "granted/plugin-sdk/string-coerce-runtime";
 import { CHECK_IDS, type POLICY_CHECK_IDS } from "./check-ids.js";
 import { POLICY_FIX_METADATA_BY_CHECK_ID } from "./fix-metadata.js";
 

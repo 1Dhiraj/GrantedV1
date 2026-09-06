@@ -24,7 +24,7 @@ vi.mock("./media.js", async () => {
 
 vi.mock("openclaw/plugin-sdk/media-understanding-runtime", async (importOriginal) => {
   const actual =
-    await importOriginal<typeof import("openclaw/plugin-sdk/media-understanding-runtime")>();
+    await importOriginal<typeof import("granted/plugin-sdk/media-understanding-runtime")>();
   return {
     ...actual,
     createChannelPreflightAudio: (

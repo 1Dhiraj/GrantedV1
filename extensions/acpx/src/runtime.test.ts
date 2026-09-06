@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { RequestedModelUnsupportedError } from "acpx/runtime";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
   AcpRuntimeError,
@@ -4152,7 +4152,7 @@ describe("AcpxRuntime fresh reset wrapper", () => {
       mcpServers: [{ name: "tools", command: "mcp-tools" }] as never,
       agentRegistry: {
         resolve: (agentName: string) =>
-          agentName === "openclaw" ? "env GRANTED_HIDE_BANNER=1 node openclaw.mjs acp" : agentName,
+          agentName === "openclaw" ? "env GRANTED_HIDE_BANNER=1 node granted.mjs acp" : agentName,
         list: () => ["codex", "openclaw"],
       },
     });

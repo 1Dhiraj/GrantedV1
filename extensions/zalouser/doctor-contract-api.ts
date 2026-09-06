@@ -2,16 +2,16 @@
 import type { Dirent } from "node:fs";
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { buildAgentSessionKey, parseAgentSessionKey } from "openclaw/plugin-sdk/routing";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { buildAgentSessionKey, parseAgentSessionKey } from "granted/plugin-sdk/routing";
 import {
   archiveLegacyStateSource,
   type PluginDoctorStateMigration,
-} from "openclaw/plugin-sdk/runtime-doctor-migrations";
+} from "granted/plugin-sdk/runtime-doctor-migrations";
 // Doctor enumeration cold-loads this closure; session-store-runtime pulls the
 // session-accessor/kysely graph, so values load lazily inside async bodies.
-import type { listSessionEntries } from "openclaw/plugin-sdk/session-store-runtime";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import type { listSessionEntries } from "granted/plugin-sdk/session-store-runtime";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import { resolveZalouserDmSessionScope } from "./src/session-scope.js";
 import {
   isZaloCredentialRevocation,
@@ -84,7 +84,7 @@ async function collectLegacyZalouserDmEntries(
   options: { readOnly?: boolean } = {},
 ): Promise<LegacyZalouserDmEntry[]> {
   const { deliveryContextFromSession, listSessionEntries, resolveStorePath } =
-    await import("openclaw/plugin-sdk/session-store-runtime");
+    await import("granted/plugin-sdk/session-store-runtime");
   const entries = new Map<string, LegacyZalouserDmEntry>();
   const fallbackAccountId = config.channels?.zalouser?.defaultAccount?.trim() || "default";
   const agentIds = new Set([
@@ -249,7 +249,7 @@ export const stateMigrations: PluginDoctorStateMigration[] = [
     },
     async migrateLegacyState({ config, env }) {
       const { deleteSessionEntry, upsertSessionEntry } =
-        await import("openclaw/plugin-sdk/session-store-runtime");
+        await import("granted/plugin-sdk/session-store-runtime");
       const pending = await collectLegacyZalouserDmEntries(config, env);
       const warnings: string[] = [];
       let migrated = 0;

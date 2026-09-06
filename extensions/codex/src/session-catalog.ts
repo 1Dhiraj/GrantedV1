@@ -1,13 +1,13 @@
-import { resolveSessionAgentIdsStrict } from "openclaw/plugin-sdk/agent-scope-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import { resolveSessionAgentIdsStrict } from "granted/plugin-sdk/agent-scope-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import type {
   GrantedPluginApi,
   GrantedPluginNodeInvokePolicy,
-} from "openclaw/plugin-sdk/plugin-entry";
+} from "granted/plugin-sdk/plugin-entry";
 import type {
   SessionCatalogHost,
   SessionCatalogProvider,
-} from "openclaw/plugin-sdk/session-catalog";
+} from "granted/plugin-sdk/session-catalog";
 import type { CodexAppServerBindingStore } from "./app-server/session-binding.js";
 import { continueLocalCodexSession } from "./session-catalog-adoption.js";
 import { archiveLocalCodexSession } from "./session-catalog-archive.js";

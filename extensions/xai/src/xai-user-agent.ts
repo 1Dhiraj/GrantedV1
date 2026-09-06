@@ -1,7 +1,7 @@
 // Shared User-Agent for xAI sidecar HTTP/WS requests; mirrors `formatOpenClawUserAgent`.
 
-import { GRANTED_VERSION as PACKAGE_VERSION } from "openclaw/plugin-sdk/agent-harness-runtime";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { GRANTED_VERSION as PACKAGE_VERSION } from "granted/plugin-sdk/agent-harness-runtime";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 
 const ORIGINATOR = "openclaw";
 const UNUSABLE_PACKAGE_VERSION = "0.0.0";

@@ -1,17 +1,17 @@
 // Line plugin module implements monitor behavior.
-import { resolveHumanDelayConfig } from "openclaw/plugin-sdk/agent-runtime";
-import type { ChannelAccountSnapshot } from "openclaw/plugin-sdk/channel-contract";
-import { hasFinalInboundReplyDispatch } from "openclaw/plugin-sdk/channel-inbound";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import { channelReadyPatch, channelStoppedPatch } from "openclaw/plugin-sdk/gateway-runtime";
-import { chunkMarkdownText } from "openclaw/plugin-sdk/reply-runtime";
+import { resolveHumanDelayConfig } from "granted/plugin-sdk/agent-runtime";
+import type { ChannelAccountSnapshot } from "granted/plugin-sdk/channel-contract";
+import { hasFinalInboundReplyDispatch } from "granted/plugin-sdk/channel-inbound";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
+import { channelReadyPatch, channelStoppedPatch } from "granted/plugin-sdk/gateway-runtime";
+import { chunkMarkdownText } from "granted/plugin-sdk/reply-runtime";
 import {
   danger,
   logVerbose,
   waitForAbortSignal,
   type RuntimeEnv,
-} from "openclaw/plugin-sdk/runtime-env";
+} from "granted/plugin-sdk/runtime-env";
 import {
   canonicalizeWebhookRouteKey,
   isRequestBodyLimitError,
@@ -20,11 +20,11 @@ import {
   registerWebhookTargetWithPluginRoute,
   requestBodyErrorToText,
   resolveSingleWebhookTarget,
-} from "openclaw/plugin-sdk/webhook-ingress";
+} from "granted/plugin-sdk/webhook-ingress";
 import {
   beginWebhookRequestPipelineOrReject,
   createWebhookInFlightLimiter,
-} from "openclaw/plugin-sdk/webhook-request-guards";
+} from "granted/plugin-sdk/webhook-request-guards";
 import { resolveDefaultLineAccountId } from "./accounts.js";
 import { deliverLineAutoReply } from "./auto-reply-delivery.js";
 import { createLineBot } from "./bot.js";
@@ -52,7 +52,7 @@ interface MonitorLineProviderOptions {
   accountId?: string;
   config: GrantedConfig;
   runtime: RuntimeEnv;
-  buildContext?: typeof import("openclaw/plugin-sdk/channel-inbound").buildChannelInboundEventContext;
+  buildContext?: typeof import("granted/plugin-sdk/channel-inbound").buildChannelInboundEventContext;
   abortSignal?: AbortSignal;
   webhookUrl?: string;
   webhookPath?: string;

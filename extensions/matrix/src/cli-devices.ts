@@ -1,5 +1,5 @@
 import type { Command } from "commander";
-import { timestampMsToIsoString } from "openclaw/plugin-sdk/number-runtime";
+import { timestampMsToIsoString } from "granted/plugin-sdk/number-runtime";
 import * as cli from "./cli-shared.js";
 import { listMatrixOwnDevices, pruneMatrixStaleGatewayDevices } from "./matrix/actions/devices.js";
 

@@ -7,9 +7,9 @@ import type { AddressInfo } from "node:net";
 import path from "node:path";
 import { performance } from "node:perf_hooks";
 import { setTimeout as delay } from "node:timers/promises";
-import { GatewayClient } from "openclaw/plugin-sdk/gateway-runtime";
-import type { GrantedPluginNodeHostCommand } from "openclaw/plugin-sdk/plugin-entry";
-import { createOpenClawTestState } from "openclaw/plugin-sdk/test-state";
+import { GatewayClient } from "granted/plugin-sdk/gateway-runtime";
+import type { GrantedPluginNodeHostCommand } from "granted/plugin-sdk/plugin-entry";
+import { createOpenClawTestState } from "granted/plugin-sdk/test-state";
 import { describe, expect, it, vi } from "vitest";
 import { createOllamaNodeHostCommands } from "./node-inference.js";
 

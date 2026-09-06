@@ -2,7 +2,7 @@
 import {
   normalizeOptionalString,
   readStringValue,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import { formatMatrixMessageText, resolveBundledMatrixReplacementContent } from "../media-text.js";
 import {
   formatPollAsText,

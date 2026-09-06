@@ -1,5 +1,5 @@
-import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "openclaw/plugin-sdk/account-id";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "granted/plugin-sdk/account-id";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import type { A2aChannelConfig, ResolvedA2aChannelAccount } from "./types.js";
 
 export function listA2aChannelAccountIds(cfg: GrantedConfig): string[] {

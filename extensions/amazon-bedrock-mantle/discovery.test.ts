@@ -4,7 +4,7 @@ import { afterEach, beforeEach, describe, expect, it, onTestFinished, vi } from 
 const discoveryDebugSpy = vi.hoisted(() => vi.fn());
 const discoveryLoggerState = vi.hoisted(() => ({ debugEnabled: true }));
 vi.mock("openclaw/plugin-sdk/core", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/core")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/core")>();
   return {
     ...actual,
     createSubsystemLogger: (subsystem: string) => {

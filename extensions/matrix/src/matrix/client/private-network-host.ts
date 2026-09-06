@@ -1,2 +1,2 @@
 // Matrix plugin module implements private network host behavior.
-export { isPrivateOrLoopbackHost } from "openclaw/plugin-sdk/ssrf-runtime";
+export { isPrivateOrLoopbackHost } from "granted/plugin-sdk/ssrf-runtime";

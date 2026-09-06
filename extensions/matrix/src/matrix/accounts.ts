@@ -1,7 +1,7 @@
 // Matrix plugin module implements accounts behavior.
-import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "openclaw/plugin-sdk/account-id";
-import { hasConfiguredSecretInput } from "openclaw/plugin-sdk/secret-input";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "granted/plugin-sdk/account-id";
+import { hasConfiguredSecretInput } from "granted/plugin-sdk/secret-input";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   resolveConfiguredMatrixAccountIds,
   resolveMatrixDefaultOrOnlyAccountId,

@@ -1,10 +1,10 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import type { GrantedConfig } from "openclaw/plugin-sdk/plugin-entry";
-import { createPluginSecretRefSetupCli } from "openclaw/plugin-sdk/secret-ref-runtime";
-import { pathExists } from "openclaw/plugin-sdk/security-runtime";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { resolvePreferredOpenClawTmpDir } from "openclaw/plugin-sdk/temp-path";
+import type { GrantedConfig } from "granted/plugin-sdk/plugin-entry";
+import { createPluginSecretRefSetupCli } from "granted/plugin-sdk/secret-ref-runtime";
+import { pathExists } from "granted/plugin-sdk/security-runtime";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
+import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
 import { parseVaultSecretId } from "../vault-secret-id.js";
 
 const VAULT_PROVIDER_ALIAS = "vault";

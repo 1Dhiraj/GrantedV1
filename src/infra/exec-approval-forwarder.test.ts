@@ -1,6 +1,6 @@
 import { expectDefined } from "@openclaw/normalization-core";
 // Covers exec approval forwarding to channel plugins.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { createDeferred } from "../../test/helpers/promise.js";
 import type { ReplyPayload } from "../auto-reply/types.js";

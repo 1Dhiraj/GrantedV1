@@ -5,10 +5,10 @@ import path from "node:path";
 import {
   closeOpenClawStateDatabaseForTest,
   createChannelIngressQueueForTests,
-} from "openclaw/plugin-sdk/channel-ingress-test-runtime";
-import type { PluginRuntime } from "openclaw/plugin-sdk/core";
-import type { MockFn } from "openclaw/plugin-sdk/plugin-test-runtime";
-import { closeOpenClawAgentDatabasesForTest } from "openclaw/plugin-sdk/sqlite-runtime-testing";
+} from "granted/plugin-sdk/channel-ingress-test-runtime";
+import type { PluginRuntime } from "granted/plugin-sdk/core";
+import type { MockFn } from "granted/plugin-sdk/plugin-test-runtime";
+import { closeOpenClawAgentDatabasesForTest } from "granted/plugin-sdk/sqlite-runtime-testing";
 import { afterEach, beforeEach, vi } from "vitest";
 import type { SignalDaemonHandle } from "./daemon.js";
 import { setSignalRuntime } from "./runtime.js";
@@ -163,7 +163,7 @@ export function createMockSignalDaemonHandle(
 // into this harness's partial overrides.
 vi.mock("openclaw/plugin-sdk/runtime-config-snapshot", async () => {
   const actual = await vi.importActual<
-    typeof import("openclaw/plugin-sdk/runtime-config-snapshot")
+    typeof import("granted/plugin-sdk/runtime-config-snapshot")
   >("openclaw/plugin-sdk/runtime-config-snapshot");
   return {
     ...actual,
@@ -172,7 +172,7 @@ vi.mock("openclaw/plugin-sdk/runtime-config-snapshot", async () => {
 });
 
 vi.mock("openclaw/plugin-sdk/session-store-runtime", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/session-store-runtime")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/session-store-runtime")>(
     "openclaw/plugin-sdk/session-store-runtime",
   );
   return {
@@ -185,7 +185,7 @@ vi.mock("openclaw/plugin-sdk/session-store-runtime", async () => {
 });
 
 vi.mock("openclaw/plugin-sdk/channel-inbound", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/channel-inbound")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/channel-inbound")>(
     "openclaw/plugin-sdk/channel-inbound",
   );
   return {
@@ -226,7 +226,7 @@ vi.mock("./send.js", async () => {
 });
 
 vi.mock("openclaw/plugin-sdk/conversation-runtime", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/conversation-runtime")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/conversation-runtime")>(
     "openclaw/plugin-sdk/conversation-runtime",
   );
   return {
@@ -237,7 +237,7 @@ vi.mock("openclaw/plugin-sdk/conversation-runtime", async () => {
 });
 
 vi.mock("openclaw/plugin-sdk/security-runtime", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/security-runtime")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/security-runtime")>(
     "openclaw/plugin-sdk/security-runtime",
   );
   return {
@@ -269,7 +269,7 @@ vi.mock("./daemon.js", async (importOriginal) => {
 });
 
 vi.mock("openclaw/plugin-sdk/system-event-runtime", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/system-event-runtime")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/system-event-runtime")>(
     "openclaw/plugin-sdk/system-event-runtime",
   );
   return {
@@ -288,8 +288,8 @@ vi.mock("openclaw/plugin-sdk/transport-ready-runtime", () => ({
 export function installSignalToolResultTestHooks() {
   beforeEach(async () => {
     const [{ resetInboundDedupe }, { resetSystemEventsForTest }] = await Promise.all([
-      import("openclaw/plugin-sdk/reply-runtime"),
-      import("openclaw/plugin-sdk/system-event-runtime"),
+      import("granted/plugin-sdk/reply-runtime"),
+      import("granted/plugin-sdk/system-event-runtime"),
     ]);
     resetInboundDedupe();
     const createdStateDir = await fs.mkdtemp(

@@ -1,4 +1,4 @@
-import { asNullableRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { asNullableRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import type { ResolvedBrowserProfile } from "./browser/config.js";
 /**
  * Browser node-proxy response envelope shared by the node host and Gateway.

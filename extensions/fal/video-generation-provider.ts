@@ -1,30 +1,30 @@
 // Fal provider module implements model/runtime integration.
-import { resolveGeneratedMediaMaxBytes } from "openclaw/plugin-sdk/media-generation-runtime";
-import { extensionForMime } from "openclaw/plugin-sdk/media-mime";
-import { resolvePositiveTimerTimeoutMs } from "openclaw/plugin-sdk/number-runtime";
-import { isProviderApiKeyConfigured } from "openclaw/plugin-sdk/provider-auth";
+import { resolveGeneratedMediaMaxBytes } from "granted/plugin-sdk/media-generation-runtime";
+import { extensionForMime } from "granted/plugin-sdk/media-mime";
+import { resolvePositiveTimerTimeoutMs } from "granted/plugin-sdk/number-runtime";
+import { isProviderApiKeyConfigured } from "granted/plugin-sdk/provider-auth";
 import {
   assertOkOrThrowHttpError,
   createProviderOperationDeadline,
   readProviderJsonResponse,
   type ProviderOperationDeadline,
-} from "openclaw/plugin-sdk/provider-http";
-import { readResponseWithLimit } from "openclaw/plugin-sdk/response-limit-runtime";
+} from "granted/plugin-sdk/provider-http";
+import { readResponseWithLimit } from "granted/plugin-sdk/response-limit-runtime";
 import {
   fetchWithSsrFGuard,
   type SsrFPolicy,
   ssrfPolicyFromDangerouslyAllowPrivateNetwork,
-} from "openclaw/plugin-sdk/ssrf-runtime";
+} from "granted/plugin-sdk/ssrf-runtime";
 import {
   isRecord,
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import type {
   GeneratedVideoAsset,
   VideoGenerationProvider,
   VideoGenerationRequest,
-} from "openclaw/plugin-sdk/video-generation";
+} from "granted/plugin-sdk/video-generation";
 import { resolveFalHttpRequestConfig } from "./http-config.js";
 
 const DEFAULT_FAL_QUEUE_BASE_URL = "https://queue.fal.run";

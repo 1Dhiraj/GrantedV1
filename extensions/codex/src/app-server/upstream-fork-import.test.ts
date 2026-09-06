@@ -1,8 +1,8 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { getSessionEntry, upsertSessionEntry } from "openclaw/plugin-sdk/session-store-runtime";
-import { readVisibleSessionTranscriptMessageEntries } from "openclaw/plugin-sdk/session-transcript-runtime";
+import { getSessionEntry, upsertSessionEntry } from "granted/plugin-sdk/session-store-runtime";
+import { readVisibleSessionTranscriptMessageEntries } from "granted/plugin-sdk/session-transcript-runtime";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { toGenericTranscriptItem } from "../session-catalog-transcript-item.js";
 import type { CodexSessionCatalogControl } from "../session-catalog-types.js";

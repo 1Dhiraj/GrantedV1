@@ -7,7 +7,7 @@ import { randomUUID } from "node:crypto";
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { completeSimple, type Model } from "openclaw/plugin-sdk/llm";
+import { completeSimple, type Model } from "granted/plugin-sdk/llm";
 import { describe, expect, it } from "vitest";
 import { validateAnthropicSetupToken } from "../commands/auth-token.js";
 import { discoverAuthStorage, discoverModels } from "./agent-model-discovery.js";

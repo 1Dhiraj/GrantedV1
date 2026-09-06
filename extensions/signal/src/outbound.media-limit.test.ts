@@ -1,5 +1,5 @@
 import { readFile, writeFile } from "node:fs/promises";
-import { createOpenClawTestState } from "openclaw/plugin-sdk/test-state";
+import { createOpenClawTestState } from "granted/plugin-sdk/test-state";
 import { describe, expect, it, vi } from "vitest";
 import { signalPlugin } from "./channel.js";
 import * as client from "./client-adapter.js";

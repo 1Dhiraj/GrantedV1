@@ -1,5 +1,5 @@
 // Browser tests cover client fetch.loopback auth plugin behavior.
-import { MAX_TIMER_TIMEOUT_MS } from "openclaw/plugin-sdk/number-runtime";
+import { MAX_TIMER_TIMEOUT_MS } from "granted/plugin-sdk/number-runtime";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import "../test-support/browser-security.mock.js";
 import type { GrantedConfig } from "../config/config.js";
@@ -11,7 +11,7 @@ type BridgeAuth = NonNullable<
 >;
 
 vi.mock("openclaw/plugin-sdk/ssrf-runtime", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/ssrf-runtime")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/ssrf-runtime")>(
     "openclaw/plugin-sdk/ssrf-runtime",
   );
   return {

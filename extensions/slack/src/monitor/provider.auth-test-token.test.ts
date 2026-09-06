@@ -2,9 +2,9 @@
 import { createServer } from "node:http";
 import type { AddressInfo } from "node:net";
 import { WebClient } from "@slack/web-api";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
-import type { OpenKeyedStoreOptions } from "openclaw/plugin-sdk/plugin-state-runtime";
-import { createPluginStateSyncKeyedStoreForTests } from "openclaw/plugin-sdk/plugin-state-test-runtime";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
+import type { OpenKeyedStoreOptions } from "granted/plugin-sdk/plugin-state-runtime";
+import { createPluginStateSyncKeyedStoreForTests } from "granted/plugin-sdk/plugin-state-test-runtime";
 import { afterAll, afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { assertSlackDetachedTargetAllowed } from "../detached-target-admission.js";
 import { getSlackInstallationKind } from "../installation-identity-state.js";

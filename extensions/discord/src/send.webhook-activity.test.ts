@@ -1,6 +1,6 @@
 // Discord tests cover send.webhook activity plugin behavior.
 import { MessageFlags } from "discord-api-types/v10";
-import { isRecentOutboundMessageIdentity } from "openclaw/plugin-sdk/channel-outbound";
+import { isRecentOutboundMessageIdentity } from "granted/plugin-sdk/channel-outbound";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { makeDiscordRest } from "./send.test-harness.js";
 
@@ -9,7 +9,7 @@ const loadConfigMock = vi.hoisted(() => vi.fn(() => ({ channels: { discord: {} }
 let dateNowSpy: ReturnType<typeof vi.spyOn>;
 
 vi.mock("openclaw/plugin-sdk/plugin-config-runtime", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/plugin-config-runtime")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/plugin-config-runtime")>(
     "openclaw/plugin-sdk/plugin-config-runtime",
   );
   return {
@@ -20,7 +20,7 @@ vi.mock("openclaw/plugin-sdk/plugin-config-runtime", async () => {
 
 vi.mock("openclaw/plugin-sdk/channel-activity-runtime", async () => {
   const actual = await vi.importActual<
-    typeof import("openclaw/plugin-sdk/channel-activity-runtime")
+    typeof import("granted/plugin-sdk/channel-activity-runtime")
   >("openclaw/plugin-sdk/channel-activity-runtime");
   return {
     ...actual,

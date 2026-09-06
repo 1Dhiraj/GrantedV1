@@ -9,16 +9,16 @@ import type {
   NativeHookRelayEvent,
   NativeHookRelayRegistrationHandle,
   registerNativeHookRelay,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
-import { emitTrustedDiagnosticEvent } from "openclaw/plugin-sdk/diagnostic-runtime";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
-import { registerRetainedNativeHookRelayForBundledRuntime } from "openclaw/plugin-sdk/native-hook-relay-runtime";
-import type { NativeHookRelayCommandPlan } from "openclaw/plugin-sdk/native-hook-relay-runtime";
+} from "granted/plugin-sdk/agent-harness-runtime";
+import { emitTrustedDiagnosticEvent } from "granted/plugin-sdk/diagnostic-runtime";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
+import { registerRetainedNativeHookRelayForBundledRuntime } from "granted/plugin-sdk/native-hook-relay-runtime";
+import type { NativeHookRelayCommandPlan } from "granted/plugin-sdk/native-hook-relay-runtime";
 import {
   addTimerTimeoutGraceMs,
   finiteSecondsToTimerSafeMilliseconds,
-} from "openclaw/plugin-sdk/number-runtime";
-import type { PluginHookToolContext } from "openclaw/plugin-sdk/types";
+} from "granted/plugin-sdk/number-runtime";
+import type { PluginHookToolContext } from "granted/plugin-sdk/types";
 import type { CodexAppServerClient } from "./client.js";
 import type { CodexAppServerRuntimeOptions } from "./config.js";
 import { resolveCodexToolAbortTerminalReason } from "./dynamic-tool-execution.js";

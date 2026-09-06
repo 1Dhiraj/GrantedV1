@@ -6,8 +6,8 @@ import {
   buildChannelConfigSchema,
   buildMultiAccountChannelSchema,
   ChannelBotLoopProtectionSchema,
-} from "openclaw/plugin-sdk/channel-config-schema";
-import { buildSecretInputSchema } from "openclaw/plugin-sdk/secret-input";
+} from "granted/plugin-sdk/channel-config-schema";
+import { buildSecretInputSchema } from "granted/plugin-sdk/secret-input";
 import { z } from "zod";
 
 const ClickClackAccountConfigSchema = z

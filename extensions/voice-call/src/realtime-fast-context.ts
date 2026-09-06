@@ -1,10 +1,10 @@
 // Voice Call plugin module implements realtime fast context behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   resolveRealtimeVoiceFastContextConsult,
   type RealtimeVoiceFastContextConsultResult,
   type RealtimeVoiceFastContextConfig,
-} from "openclaw/plugin-sdk/realtime-voice";
+} from "granted/plugin-sdk/realtime-voice";
 
 type Logger = {
   debug?: (message: string) => void;

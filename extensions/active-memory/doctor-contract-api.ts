@@ -4,12 +4,12 @@
  */
 import crypto from "node:crypto";
 import path from "node:path";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   asObjectRecord,
   defineLegacyJsonStateMigration,
   type PluginDoctorStateMigration,
-} from "openclaw/plugin-sdk/runtime-doctor-migrations";
+} from "granted/plugin-sdk/runtime-doctor-migrations";
 
 type ActiveMemoryToggleEntry = {
   sessionKey: string;

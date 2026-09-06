@@ -3,14 +3,14 @@ import path from "node:path";
 import {
   loadCodexBundleMcpThreadConfig,
   type EmbeddedRunAttemptParamsV2,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { expectDefined } from "openclaw/plugin-sdk/expect-runtime";
-import type { PluginRuntime } from "openclaw/plugin-sdk/plugin-runtime";
-import { createCapturedPluginRegistration } from "openclaw/plugin-sdk/plugin-test-runtime";
-import { upsertSessionUpstreamLink } from "openclaw/plugin-sdk/session-catalog";
-import { getSessionEntry, resolveStorePath } from "openclaw/plugin-sdk/session-store-runtime";
-import { readVisibleSessionTranscriptMessageEntries } from "openclaw/plugin-sdk/session-transcript-runtime";
+} from "granted/plugin-sdk/agent-harness-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { expectDefined } from "granted/plugin-sdk/expect-runtime";
+import type { PluginRuntime } from "granted/plugin-sdk/plugin-runtime";
+import { createCapturedPluginRegistration } from "granted/plugin-sdk/plugin-test-runtime";
+import { upsertSessionUpstreamLink } from "granted/plugin-sdk/session-catalog";
+import { getSessionEntry, resolveStorePath } from "granted/plugin-sdk/session-store-runtime";
+import { readVisibleSessionTranscriptMessageEntries } from "granted/plugin-sdk/session-transcript-runtime";
 import { continueLocalCodexSession } from "../session-catalog-adoption.js";
 import { createCodexSessionCatalogControl } from "../session-catalog-control.js";
 import { codexSessionCatalogRuntime } from "../session-catalog.js";

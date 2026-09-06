@@ -2,8 +2,8 @@
 import type {
   ChannelDoctorConfigMutation,
   ChannelDoctorLegacyConfigRule,
-} from "openclaw/plugin-sdk/channel-contract";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+} from "granted/plugin-sdk/channel-contract";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   defineChannelAliasMigration,
   defineKeyMoveMigration,
@@ -12,8 +12,8 @@ import {
   hasLegacyFlatAllowPrivateNetworkAlias,
   migrateLegacyFlatAllowPrivateNetworkAlias,
   stripRetiredChannelKeys,
-} from "openclaw/plugin-sdk/runtime-doctor-migrations";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/runtime-doctor-migrations";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import type { MatrixStreamingMode } from "./types.js";
 
 function parseMatrixStreamingMode(value: unknown): MatrixStreamingMode | null {

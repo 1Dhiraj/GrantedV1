@@ -1,13 +1,13 @@
-import { createAccountListHelpers } from "openclaw/plugin-sdk/account-helpers";
+import { createAccountListHelpers } from "granted/plugin-sdk/account-helpers";
 // Nostr type declarations define plugin contracts.
 import {
   DEFAULT_ACCOUNT_ID,
   normalizeAccountId,
   normalizeOptionalAccountId,
-} from "openclaw/plugin-sdk/account-id";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { SecretInput } from "openclaw/plugin-sdk/secret-input";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/account-id";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { SecretInput } from "granted/plugin-sdk/secret-input";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import type { NostrProfile } from "./config-schema.js";
 import { DEFAULT_RELAYS } from "./default-relays.js";
 import { getPublicKeyFromPrivate } from "./nostr-key-utils.js";

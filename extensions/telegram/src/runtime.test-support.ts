@@ -1,5 +1,5 @@
 // Telegram test support owns cleanup for process-global plugin state.
-import { createPluginRuntimeStore } from "openclaw/plugin-sdk/runtime-store";
+import { createPluginRuntimeStore } from "granted/plugin-sdk/runtime-store";
 import type { TelegramRuntime } from "./runtime.types.js";
 
 const TELEGRAM_ACCOUNT_THROTTLERS_KEY = Symbol.for("openclaw.telegram.accountThrottlers");

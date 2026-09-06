@@ -3,18 +3,18 @@
  */
 import fs from "node:fs";
 import path from "node:path";
-import { loadSecretFileSync as loadSecretFileSyncFromCore } from "openclaw/plugin-sdk/core";
+import { loadSecretFileSync as loadSecretFileSyncFromCore } from "granted/plugin-sdk/core";
 import {
   fileExists,
   readFileWithinRoot,
   removePathWithinRoot,
   writeFileWithinRoot,
-} from "openclaw/plugin-sdk/file-access-runtime";
+} from "granted/plugin-sdk/file-access-runtime";
 import {
   loadSecretFileSync,
   type SecretFileReadResult,
-} from "openclaw/plugin-sdk/secret-file-runtime";
-import { fileExists as fileExistsFromSecurity } from "openclaw/plugin-sdk/security-runtime";
+} from "granted/plugin-sdk/secret-file-runtime";
+import { fileExists as fileExistsFromSecurity } from "granted/plugin-sdk/security-runtime";
 import { describe, expect, it } from "vitest";
 import { withTestDir } from "../test-helpers/temp-dir.js";
 

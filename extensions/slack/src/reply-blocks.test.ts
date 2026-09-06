@@ -1,7 +1,7 @@
 import {
   presentationToInteractiveControlsReply,
   type MessagePresentation,
-} from "openclaw/plugin-sdk/interactive-runtime";
+} from "granted/plugin-sdk/interactive-runtime";
 import { describe, expect, it } from "vitest";
 import { renderSlackMessagePresentationFallbackText } from "./presentation-fallback.js";
 import { resolveSlackReplyBlockResolution } from "./reply-blocks.js";

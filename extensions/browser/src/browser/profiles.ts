@@ -1,4 +1,4 @@
-import { parseBrowserHttpUrl } from "openclaw/plugin-sdk/browser-cdp";
+import { parseBrowserHttpUrl } from "granted/plugin-sdk/browser-cdp";
 /**
  * Browser profile allocation helpers.
  *

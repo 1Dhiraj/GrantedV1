@@ -1,7 +1,7 @@
 // Line tests cover push retry and retry-key deduplication behavior.
 import { HTTPFetchError } from "@line/bot-sdk";
-import { isChannelPartialDeliveryError } from "openclaw/plugin-sdk/channel-inbound";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import { isChannelPartialDeliveryError } from "granted/plugin-sdk/channel-inbound";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { resolveLineNonDispatchRetryable, runLinePushWithRetries } from "./send-retry.js";
 
@@ -36,7 +36,7 @@ vi.mock("openclaw/plugin-sdk/channel-activity-runtime", () => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/runtime-env", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/runtime-env")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/runtime-env")>(
     "openclaw/plugin-sdk/runtime-env",
   );
   return { ...actual, logVerbose: logVerboseMock };

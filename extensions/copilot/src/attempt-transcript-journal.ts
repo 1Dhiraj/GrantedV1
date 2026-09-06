@@ -1,10 +1,10 @@
 import { isDeepStrictEqual } from "node:util";
-import type { AgentMessage } from "openclaw/plugin-sdk/agent-harness-runtime";
+import type { AgentMessage } from "granted/plugin-sdk/agent-harness-runtime";
 import {
   projectAgentHarnessTranscriptMessageForDisplay,
   runAgentHarnessBeforeMessageWriteHook,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
+} from "granted/plugin-sdk/agent-harness-runtime";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
 import {
   appendSessionTranscriptMessageByIdentityStrict,
   appendSessionTranscriptMessagesByIdentity,
@@ -12,8 +12,8 @@ import {
   readVisibleSessionTranscriptMessageEntries,
   type SessionTranscriptTargetParams,
   type TranscriptEntryAnchor,
-} from "openclaw/plugin-sdk/session-transcript-runtime";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/session-transcript-runtime";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   isCompatibleSingletonRewrite,
   isCompleteToolGroup,

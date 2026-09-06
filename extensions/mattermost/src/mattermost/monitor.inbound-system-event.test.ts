@@ -4,17 +4,17 @@ import fs from "node:fs/promises";
 import { createServer } from "node:http";
 import os from "node:os";
 import path from "node:path";
-import { createChannelPartialDeliveryError } from "openclaw/plugin-sdk/channel-inbound";
-import { createInboundDebouncer } from "openclaw/plugin-sdk/channel-inbound-debounce";
+import { createChannelPartialDeliveryError } from "granted/plugin-sdk/channel-inbound";
+import { createInboundDebouncer } from "granted/plugin-sdk/channel-inbound-debounce";
 import {
   closeOpenClawStateDatabaseForTest,
   createChannelIngressQueueForTests,
-} from "openclaw/plugin-sdk/channel-ingress-test-runtime";
+} from "granted/plugin-sdk/channel-ingress-test-runtime";
 import {
   createMessageReceiptFromOutboundResults,
   DEFAULT_INGRESS_RETRY_MAX_ATTEMPTS,
-} from "openclaw/plugin-sdk/channel-outbound";
-import { createTestInboundDebounceFlush } from "openclaw/plugin-sdk/channel-test-helpers";
+} from "granted/plugin-sdk/channel-outbound";
+import { createTestInboundDebounceFlush } from "granted/plugin-sdk/channel-test-helpers";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { WebSocketServer } from "ws";
 import type { MattermostPost } from "./client.js";
@@ -120,12 +120,12 @@ const mockState = vi.hoisted(() => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/plugin-runtime", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("openclaw/plugin-sdk/plugin-runtime")>()),
+  ...(await importOriginal<typeof import("granted/plugin-sdk/plugin-runtime")>()),
   getGlobalHookRunner: mockState.getGlobalHookRunner,
 }));
 
 vi.mock("openclaw/plugin-sdk/channel-outbound", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/channel-outbound")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/channel-outbound")>();
   return {
     ...actual,
     createChannelProgressDraftCompositor: (
@@ -139,7 +139,7 @@ vi.mock("openclaw/plugin-sdk/channel-outbound", async (importOriginal) => {
 });
 
 vi.mock("openclaw/plugin-sdk/reply-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/reply-runtime")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/reply-runtime")>();
   return {
     ...actual,
     createReplyDispatcherWithTyping: (...args: unknown[]) =>

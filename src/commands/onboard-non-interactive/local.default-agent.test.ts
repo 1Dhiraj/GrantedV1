@@ -1,7 +1,7 @@
 // Non-interactive setup tests keep provisioning and output on the configured default agent.
 import fs from "node:fs/promises";
 import path from "node:path";
-import { withTempHome } from "openclaw/plugin-sdk/test-env";
+import { withTempHome } from "granted/plugin-sdk/test-env";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { readConfigFileSnapshot, resetConfigRuntimeState } from "../../config/io.js";
 import type { GrantedConfig } from "../../config/types.openclaw.js";

@@ -8,7 +8,7 @@ import {
   bundledDistPluginFile,
   bundledPluginFile,
   bundledPluginRoot,
-} from "openclaw/plugin-sdk/test-fixtures";
+} from "granted/plugin-sdk/test-fixtures";
 import { describe, expect, it as baseIt, vi } from "vitest";
 import { copyBundledPluginMetadata } from "../../scripts/copy-bundled-plugin-metadata.mts";
 import {
@@ -203,13 +203,13 @@ function expectedBundledPluginAssetBuildSpawn() {
 }
 
 function statusCommandSpawn() {
-  return [process.execPath, "openclaw.mjs", "status"];
+  return [process.execPath, "granted.mjs", "status"];
 }
 
 function gatewayStatusCommandSpawn() {
   return [
     process.execPath,
-    "openclaw.mjs",
+    "granted.mjs",
     "gateway",
     "status",
     "--deep",
@@ -495,7 +495,7 @@ describe("run-node script", () => {
       "scripts/tsdown-build.mts",
       "--no-clean",
     ]);
-    expect(spawnCalls[2]?.args).toEqual(["openclaw.mjs", "status"]);
+    expect(spawnCalls[2]?.args).toEqual(["granted.mjs", "status"]);
     expect(spawnCalls[0]?.env.GRANTED_RUN_NODE_SKIP_DTS_BUILD).toBeUndefined();
     expect(spawnCalls[1]?.env.GRANTED_RUN_NODE_SKIP_DTS_BUILD).toBe("1");
     expect(spawnCalls[2]?.env.GRANTED_RUN_NODE_SKIP_DTS_BUILD).toBeUndefined();
@@ -517,8 +517,8 @@ describe("run-node script", () => {
         stdio: opts?.stdio,
       });
       return createPipedExitedProcess({
-        stdout: args[0] === "openclaw.mjs" ? "child stdout\n" : "",
-        stderr: args[0] === "openclaw.mjs" ? "child stderr\n" : "",
+        stdout: args[0] === "granted.mjs" ? "child stdout\n" : "",
+        stderr: args[0] === "granted.mjs" ? "child stderr\n" : "",
       });
     };
     const mutedStream = {
@@ -541,7 +541,7 @@ describe("run-node script", () => {
     await expect(fs.readFile(outputPath, "utf-8")).resolves.toContain("child stdout\n");
     await expect(fs.readFile(outputPath, "utf-8")).resolves.toContain("child stderr\n");
     await expect(fs.readFile(outputPath, "utf-8")).resolves.toContain("[openclaw]");
-    expect(spawnCalls.at(-1)?.args).toEqual(["openclaw.mjs", "status"]);
+    expect(spawnCalls.at(-1)?.args).toEqual(["granted.mjs", "status"]);
     expect(spawnCalls.at(-1)?.env.GRANTED_RUN_NODE_OUTPUT_LOG).toBe(outputPath);
     expect(spawnCalls.at(-1)?.stdio).toEqual(["inherit", "pipe", "pipe"]);
   });
@@ -611,7 +611,7 @@ describe("run-node script", () => {
     ].join("");
     const spawn = (_cmd: string, args: string[]) =>
       createPipedExitedProcess({
-        stderr: args[0] === "openclaw.mjs" ? childStderr : "",
+        stderr: args[0] === "granted.mjs" ? childStderr : "",
       });
     const stderrChunks: string[] = [];
     const stderr = {
@@ -679,7 +679,7 @@ describe("run-node script", () => {
     expect(childArgs[2]).toMatch(
       /^--cpu-prof-name=openclaw-status-4242-\d{4}-\d{2}-\d{2}T.*\.cpuprofile$/,
     );
-    expect(childArgs.slice(3)).toEqual(["openclaw.mjs", "status"]);
+    expect(childArgs.slice(3)).toEqual(["granted.mjs", "status"]);
     expect(spawnCalls.at(-1)?.env.GRANTED_RUN_NODE_CPU_PROF_DIR).toBe(profileDir);
     expect(fsSync.existsSync(profileDir)).toBe(true);
   });
@@ -754,7 +754,7 @@ describe("run-node script", () => {
     });
 
     expect(exitCode).toBe(0);
-    expect(spawnCalls.at(-1)).toEqual(["--trace-sync-io", "openclaw.mjs", "gateway", "--force"]);
+    expect(spawnCalls.at(-1)).toEqual(["--trace-sync-io", "granted.mjs", "gateway", "--force"]);
   });
 
   it("surfaces generic output log stream errors", async ({ tmp }) => {
@@ -804,7 +804,7 @@ describe("run-node script", () => {
 
     expect(exitCode).toBe(0);
     const childArgs = spawnCalls.at(-1)?.args ?? [];
-    expect(childArgs).toEqual(["openclaw.mjs", "qa", "matrix"]);
+    expect(childArgs).toEqual(["granted.mjs", "qa", "matrix"]);
     expect(spawnCalls.at(-1)?.env.GRANTED_RUN_NODE_OUTPUT_LOG).toBeUndefined();
   });
 
@@ -872,7 +872,7 @@ describe("run-node script", () => {
     expect(spawnCalls).toEqual([
       [
         process.execPath,
-        "openclaw.mjs",
+        "granted.mjs",
         "qa",
         "suite",
         "--transport",
@@ -905,7 +905,7 @@ describe("run-node script", () => {
       expectedBuildSpawn(),
       [
         process.execPath,
-        "openclaw.mjs",
+        "granted.mjs",
         "qa",
         "suite",
         "--transport",
@@ -1188,7 +1188,7 @@ describe("run-node script", () => {
       expect(spawnCalls).toEqual([]);
       expect(runRuntimePostBuild).not.toHaveBeenCalled();
       expect(stderrChunks.join("")).toContain(expectedReason);
-      expect(stderrChunks.join("")).toContain("node openclaw.mjs");
+      expect(stderrChunks.join("")).toContain("node granted.mjs");
     });
   }
 
@@ -1358,7 +1358,7 @@ describe("run-node script", () => {
     expect(spawn).toHaveBeenCalledTimes(1);
     const spawnCall = firstMockCall(spawn) as [string, string[], { stdio?: unknown }] | undefined;
     expect(spawnCall?.[0]).toBe(process.execPath);
-    expect(spawnCall?.[1]).toEqual(["openclaw.mjs", "status"]);
+    expect(spawnCall?.[1]).toEqual(["granted.mjs", "status"]);
     expect(spawnCall?.[2].stdio).toBe("inherit");
     expect(spawnCall?.[2]).toMatchObject({ detached: false });
     expect(child.kill).toHaveBeenCalledWith("SIGTERM");
@@ -1426,7 +1426,7 @@ describe("run-node script", () => {
       const spawnCall = firstMockCall(spawn) as
         | [string, string[], { detached?: boolean; stdio?: unknown }]
         | undefined;
-      expect(spawnCall?.[1]).toEqual(["openclaw.mjs", "status"]);
+      expect(spawnCall?.[1]).toEqual(["granted.mjs", "status"]);
       expect(spawnCall?.[2]).toMatchObject({ detached: true, stdio: "inherit" });
       expect(groupSignals).toEqual([
         [-42_420, "SIGTERM"],
@@ -1630,7 +1630,7 @@ describe("run-node script", () => {
       });
 
       expect(exitCode).toBe(0);
-      expect(spawnCalls).toEqual([[process.execPath, "openclaw.mjs", ...args]]);
+      expect(spawnCalls).toEqual([[process.execPath, "granted.mjs", ...args]]);
       expect(runRuntimePostBuild).not.toHaveBeenCalled();
     });
   });
@@ -1687,7 +1687,7 @@ describe("run-node script", () => {
 
     await expect(clientRun).resolves.toBe(0);
     expect(spawnCalls).toEqual([
-      [process.execPath, "openclaw.mjs", "dashboard", "--no-open", "--yes"],
+      [process.execPath, "granted.mjs", "dashboard", "--no-open", "--yes"],
     ]);
     expect(runRuntimePostBuild).not.toHaveBeenCalled();
   });

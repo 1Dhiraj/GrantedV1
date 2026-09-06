@@ -2,8 +2,8 @@ import { lstat } from "node:fs/promises";
 import type { FileHandle } from "node:fs/promises";
 import path from "node:path";
 import { constants, createZstdDecompress } from "node:zlib";
-import { root } from "openclaw/plugin-sdk/file-access-runtime";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { root } from "granted/plugin-sdk/file-access-runtime";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 
 const CHUNK_BYTES = 64 * 1024;
 const RECORD_BYTES = 1024 * 1024;

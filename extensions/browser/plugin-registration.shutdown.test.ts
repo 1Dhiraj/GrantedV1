@@ -1,7 +1,7 @@
 import type { IncomingMessage } from "node:http";
 import type { Duplex } from "node:stream";
-import type { GrantedPluginApi, GrantedPluginService } from "openclaw/plugin-sdk/plugin-entry";
-import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
+import type { GrantedPluginApi, GrantedPluginService } from "granted/plugin-sdk/plugin-entry";
+import { createTestPluginApi } from "granted/plugin-sdk/plugin-test-api";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { registerBrowserPlugin } from "./plugin-registration.js";
 

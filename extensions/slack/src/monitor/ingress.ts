@@ -5,15 +5,15 @@ import {
   createChannelIngressMonitor,
   type ChannelIngressQueue,
   type ChannelIngressMonitorLifecycle,
-} from "openclaw/plugin-sdk/channel-outbound";
+} from "granted/plugin-sdk/channel-outbound";
 import {
   collectErrorGraphCandidates,
   extractErrorCode,
   formatErrorMessage,
-} from "openclaw/plugin-sdk/error-runtime";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
-import type { PluginJsonValue } from "openclaw/plugin-sdk/plugin-entry";
-import { asOptionalRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/error-runtime";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
+import type { PluginJsonValue } from "granted/plugin-sdk/plugin-entry";
+import { asOptionalRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import { getSlackRuntime } from "../runtime.js";
 import { isNonRecoverableSlackAuthError } from "./reconnect-policy.js";
 

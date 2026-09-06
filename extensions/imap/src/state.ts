@@ -1,4 +1,4 @@
-import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginApi } from "granted/plugin-sdk/plugin-entry";
 
 export type ImapCursor = { uidValidity: string; lastSeenUid: number; updatedAt: number };
 export type ImapClaim = { accountId: string; uid: number; recordedAt: number };

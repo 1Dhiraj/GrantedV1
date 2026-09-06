@@ -1,5 +1,5 @@
 // Feishu tests cover bot.broadcast plugin behavior.
-import { buildChannelInboundEventContext } from "openclaw/plugin-sdk/channel-inbound";
+import { buildChannelInboundEventContext } from "granted/plugin-sdk/channel-inbound";
 import { afterAll, afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { ClawdbotConfig, PluginRuntime } from "../runtime-api.js";
 import { feishuGroupNameCache } from "./bot-group-name-state.js";
@@ -63,7 +63,7 @@ const {
 }));
 
 vi.mock("openclaw/plugin-sdk/channel-inbound", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/channel-inbound")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/channel-inbound")>(
     "openclaw/plugin-sdk/channel-inbound",
   );
   return {
@@ -82,7 +82,7 @@ vi.mock("openclaw/plugin-sdk/channel-inbound", async () => {
 });
 
 vi.mock("openclaw/plugin-sdk/session-store-runtime", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/session-store-runtime")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/session-store-runtime")>(
     "openclaw/plugin-sdk/session-store-runtime",
   );
   return { ...actual, resolveStorePath: mockResolveStorePath };

@@ -1,18 +1,18 @@
 import { createHash } from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
-import { resolveSessionTranscriptsDirForAgent } from "openclaw/plugin-sdk/memory-core-host-runtime-core";
+import { resolveSessionTranscriptsDirForAgent } from "granted/plugin-sdk/memory-core-host-runtime-core";
 import {
   clearConfigCache,
   clearRuntimeConfigSnapshot,
-} from "openclaw/plugin-sdk/runtime-config-snapshot";
+} from "granted/plugin-sdk/runtime-config-snapshot";
 import {
   normalizeSessionDeliveryState,
   upsertSessionEntry,
-} from "openclaw/plugin-sdk/session-store-runtime";
-import { appendSessionTranscriptMessageByIdentity } from "openclaw/plugin-sdk/session-transcript-runtime";
-import { openOpenClawAgentDatabase } from "openclaw/plugin-sdk/sqlite-runtime";
-import { closeOpenClawAgentDatabasesForTest } from "openclaw/plugin-sdk/sqlite-runtime-testing";
+} from "granted/plugin-sdk/session-store-runtime";
+import { appendSessionTranscriptMessageByIdentity } from "granted/plugin-sdk/session-transcript-runtime";
+import { openOpenClawAgentDatabase } from "granted/plugin-sdk/sqlite-runtime";
+import { closeOpenClawAgentDatabasesForTest } from "granted/plugin-sdk/sqlite-runtime-testing";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { writeBackfillDiaryEntries } from "./dreaming-narrative.js";
 import {

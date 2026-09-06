@@ -1,4 +1,4 @@
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { describe, expect, it } from "vitest";
 import { inspectEmbeddingProviderSetup } from "./provider-policy-api.js";
 import { buildLlamaCppProviderConfig } from "./src/defaults.js";

@@ -1,7 +1,7 @@
-import { DEFAULT_ACCOUNT_ID } from "openclaw/plugin-sdk/account-id";
-import { createChannelApprovalNativeRuntimeAdapter } from "openclaw/plugin-sdk/approval-handler-runtime";
-import { buildChannelApprovalNativeTargetKey } from "openclaw/plugin-sdk/approval-native-runtime";
-import { createSubsystemLogger } from "openclaw/plugin-sdk/runtime-env";
+import { DEFAULT_ACCOUNT_ID } from "granted/plugin-sdk/account-id";
+import { createChannelApprovalNativeRuntimeAdapter } from "granted/plugin-sdk/approval-handler-runtime";
+import { buildChannelApprovalNativeTargetKey } from "granted/plugin-sdk/approval-native-runtime";
+import { createSubsystemLogger } from "granted/plugin-sdk/runtime-env";
 import {
   registerMSTeamsApprovalCardBinding,
   unregisterMSTeamsApprovalCardBindings,

@@ -3,7 +3,7 @@ import {
   callGatewayTool,
   listNodes,
   resolveNodeIdFromList,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
+} from "granted/plugin-sdk/agent-harness-runtime";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { createDirListTool } from "./dir-list-tool.js";
 

@@ -7,13 +7,13 @@ import path from "node:path";
 import {
   clearRuntimeAuthProfileStoreSnapshots,
   saveAuthProfileStore,
-} from "openclaw/plugin-sdk/agent-runtime";
+} from "granted/plugin-sdk/agent-runtime";
 import {
   getProviderHttpMocks,
   installProviderHttpMockCleanup,
-} from "openclaw/plugin-sdk/provider-http-test-mocks";
-import { expectExplicitVideoGenerationCapabilities } from "openclaw/plugin-sdk/provider-test-contracts";
-import { closeOpenClawAgentDatabasesForTest } from "openclaw/plugin-sdk/sqlite-runtime-testing";
+} from "granted/plugin-sdk/provider-http-test-mocks";
+import { expectExplicitVideoGenerationCapabilities } from "granted/plugin-sdk/provider-test-contracts";
+import { closeOpenClawAgentDatabasesForTest } from "granted/plugin-sdk/sqlite-runtime-testing";
 import { beforeAll, describe, expect, it, vi } from "vitest";
 
 const {

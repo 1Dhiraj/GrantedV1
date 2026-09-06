@@ -2,8 +2,8 @@
 // tool-result externalization, labels, and compaction markers.
 import path from "node:path";
 import { expectDefined } from "@openclaw/normalization-core";
-import type { AgentMessage } from "openclaw/plugin-sdk/agent-core";
-import { SessionManager } from "openclaw/plugin-sdk/agent-sessions";
+import type { AgentMessage } from "granted/plugin-sdk/agent-core";
+import { SessionManager } from "granted/plugin-sdk/agent-sessions";
 import { afterEach, beforeAll, describe, expect, it } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../../test/helpers/temp-dir.js";
 import { formatSqliteSessionFileMarker } from "../../config/sessions/legacy-sqlite-marker.js";

@@ -1,9 +1,9 @@
 import type {
   ExecApprovalPendingView,
   ResolvedApprovalView,
-} from "openclaw/plugin-sdk/approval-handler-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
+} from "granted/plugin-sdk/approval-handler-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { ResolvedGoogleChatAccount } from "./accounts.js";
 import {

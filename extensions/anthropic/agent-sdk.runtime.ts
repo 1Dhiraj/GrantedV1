@@ -10,8 +10,8 @@ import type {
   CliBackendLiveSessionCapability,
   CliBackendLiveSessionCloseReason,
   CliBackendLiveSessionHandle,
-} from "openclaw/plugin-sdk/cli-backend";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/cli-backend";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   createClaudeAgentSdkProcessOwner,
   type ClaudeAgentSdkSecretInput,

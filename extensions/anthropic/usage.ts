@@ -2,7 +2,7 @@ import type {
   ProviderFetchUsageSnapshotContext,
   ProviderResolveUsageAuthContext,
   ProviderResolvedUsageAuth,
-} from "openclaw/plugin-sdk/plugin-entry";
+} from "granted/plugin-sdk/plugin-entry";
 import {
   addProviderUsageModel,
   asProviderUsageObject,
@@ -19,7 +19,7 @@ import {
   resolveProviderUsageDailyPeriod,
   resolveProviderUsageDisplayName,
   type ProviderUsageSnapshot,
-} from "openclaw/plugin-sdk/provider-usage";
+} from "granted/plugin-sdk/provider-usage";
 import { CLAUDE_CLI_PROFILE_ID } from "./cli-constants.js";
 
 const ANTHROPIC_COST_URL = "https://api.anthropic.com/v1/organizations/cost_report";
@@ -262,7 +262,7 @@ export async function resolveAnthropicUsageAuth(
     return { token: encodeAdminToken(adminKey) };
   }
   if (apiKey) {
-    const { validateAnthropicSetupToken } = await import("openclaw/plugin-sdk/provider-auth");
+    const { validateAnthropicSetupToken } = await import("granted/plugin-sdk/provider-auth");
     if (validateAnthropicSetupToken(apiKey) === undefined) {
       return { token: apiKey };
     }

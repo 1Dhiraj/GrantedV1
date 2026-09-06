@@ -1,8 +1,8 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { useAutoCleanupTempDirTracker, withEnvAsync } from "openclaw/plugin-sdk/test-env";
-import { withTimeout } from "openclaw/plugin-sdk/text-utility-runtime";
+import { useAutoCleanupTempDirTracker, withEnvAsync } from "granted/plugin-sdk/test-env";
+import { withTimeout } from "granted/plugin-sdk/text-utility-runtime";
 import { afterAll, describe, expect, it, vi } from "vitest";
 import { relayTestKey } from "../../chrome-extension/relay-key.test-support.js";
 import { parseBrowserNativeHostOrigins, runBrowserNativeHost } from "./extension-native-host.js";

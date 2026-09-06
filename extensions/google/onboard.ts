@@ -2,7 +2,7 @@
 import {
   applyAgentDefaultModelPrimary,
   type GrantedConfig,
-} from "openclaw/plugin-sdk/provider-onboard";
+} from "granted/plugin-sdk/provider-onboard";
 
 export const GOOGLE_GEMINI_DEFAULT_MODEL = "google/gemini-3.1-pro-preview";
 const RETIRED_GOOGLE_GEMINI_MODEL_REFS = new Set([

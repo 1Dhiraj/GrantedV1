@@ -1,5 +1,5 @@
 // Comfy tests cover video generation provider plugin behavior.
-import { expectExplicitVideoGenerationCapabilities } from "openclaw/plugin-sdk/provider-test-contracts";
+import { expectExplicitVideoGenerationCapabilities } from "granted/plugin-sdk/provider-test-contracts";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   buildComfyConfig,
@@ -14,7 +14,7 @@ const { fetchWithSsrFGuardMock } = vi.hoisted(() => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/ssrf-runtime", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("openclaw/plugin-sdk/ssrf-runtime")>()),
+  ...(await importOriginal<typeof import("granted/plugin-sdk/ssrf-runtime")>()),
   fetchWithSsrFGuard: fetchWithSsrFGuardMock,
 }));
 

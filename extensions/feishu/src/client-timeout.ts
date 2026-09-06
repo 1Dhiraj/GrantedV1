@@ -1,5 +1,5 @@
 // Feishu plugin module implements client timeout behavior.
-import { parseStrictPositiveInteger } from "openclaw/plugin-sdk/number-runtime";
+import { parseStrictPositiveInteger } from "granted/plugin-sdk/number-runtime";
 import type { FeishuConfig } from "./types.js";
 
 /** Default HTTP timeout for Feishu API requests (30 seconds). */

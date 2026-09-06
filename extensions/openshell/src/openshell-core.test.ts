@@ -7,13 +7,13 @@ import {
   buildExecRemoteCommand,
   disposeSshSandboxSession,
   shellEscape,
-} from "openclaw/plugin-sdk/sandbox";
+} from "granted/plugin-sdk/sandbox";
 import {
   resolvePreferredOpenClawTmpDir,
   tempWorkspace,
   type TempWorkspace,
-} from "openclaw/plugin-sdk/temp-path";
-import { createSandboxTestContext } from "openclaw/plugin-sdk/test-fixtures";
+} from "granted/plugin-sdk/temp-path";
+import { createSandboxTestContext } from "granted/plugin-sdk/test-fixtures";
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import type { OpenShellMirrorBackend, OpenShellSandboxBackend } from "./backend.types.js";
 import {
@@ -55,7 +55,7 @@ let createOpenShellSandboxBackendFactory: typeof import("./backend.js").createOp
 
 async function installOpenShellBackendMocks() {
   vi.doMock("openclaw/plugin-sdk/sandbox", async () => {
-    const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/sandbox")>(
+    const actual = await vi.importActual<typeof import("granted/plugin-sdk/sandbox")>(
       "openclaw/plugin-sdk/sandbox",
     );
     return {

@@ -1,5 +1,5 @@
 // Covers gateway watch tmux script helpers.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { describe, expect, it, vi } from "vitest";
 import {
   buildGatewayWatchTmuxCommand,

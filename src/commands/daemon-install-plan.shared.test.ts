@@ -75,7 +75,7 @@ describe("resolveDaemonServicePathDirs openclaw discovery", () => {
       try {
         const binDir = path.join(root, "bin");
         const packageDir = path.join(root, "lib", "node_modules", "openclaw");
-        const entrypoint = path.join(packageDir, "openclaw.mjs");
+        const entrypoint = path.join(packageDir, "granted.mjs");
         fs.mkdirSync(binDir, { recursive: true });
         fs.mkdirSync(packageDir, { recursive: true });
         fs.writeFileSync(entrypoint, "");
@@ -100,8 +100,8 @@ describe("resolveDaemonServicePathDirs openclaw discovery", () => {
       const root = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-daemon-path-"));
       try {
         const binDir = path.join(root, "bin");
-        const activeEntrypoint = path.join(root, "active", "openclaw.mjs");
-        const otherEntrypoint = path.join(root, "other", "openclaw.mjs");
+        const activeEntrypoint = path.join(root, "active", "granted.mjs");
+        const otherEntrypoint = path.join(root, "other", "granted.mjs");
         fs.mkdirSync(binDir, { recursive: true });
         fs.mkdirSync(path.dirname(activeEntrypoint), { recursive: true });
         fs.mkdirSync(path.dirname(otherEntrypoint), { recursive: true });

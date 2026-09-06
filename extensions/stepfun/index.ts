@@ -2,10 +2,10 @@ import {
   definePluginEntry,
   type GrantedConfig,
   type ProviderCatalogContext,
-} from "openclaw/plugin-sdk/plugin-entry";
-import { createProviderApiKeyAuthMethod } from "openclaw/plugin-sdk/provider-auth-api-key";
-import { buildOpenAICompatibleLiveModelProviderConfig } from "openclaw/plugin-sdk/provider-catalog-live-runtime";
-import { normalizeLowercaseStringOrEmpty } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/plugin-entry";
+import { createProviderApiKeyAuthMethod } from "granted/plugin-sdk/provider-auth-api-key";
+import { buildOpenAICompatibleLiveModelProviderConfig } from "granted/plugin-sdk/provider-catalog-live-runtime";
+import { normalizeLowercaseStringOrEmpty } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   applyStepFunPlanConfig,
   applyStepFunPlanConfigCn,

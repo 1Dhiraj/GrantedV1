@@ -1,7 +1,7 @@
 // Covers the compaction planning worker boundary and timeout behavior.
 import { createAssistantMessageEventStream } from "@openclaw/llm-core";
 import { MAX_TIMER_TIMEOUT_MS } from "@openclaw/normalization-core/number-coercion";
-import { serializeConversation } from "openclaw/plugin-sdk/agent-core";
+import { serializeConversation } from "granted/plugin-sdk/agent-core";
 import { beforeAll, describe, expect, it, vi } from "vitest";
 import { estimateTokens } from "../../packages/agent-core/src/harness/compaction/compaction.js";
 import * as compactionPlanningWorkerRuntime from "./compaction-planning-worker-runtime.js";

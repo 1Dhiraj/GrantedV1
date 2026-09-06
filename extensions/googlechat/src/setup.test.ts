@@ -7,21 +7,21 @@ import {
   expectPendingUntilAbort,
   installChannelDmPolicyContractSuite,
   startAccountAndTrackLifecycle,
-} from "openclaw/plugin-sdk/channel-test-helpers";
+} from "granted/plugin-sdk/channel-test-helpers";
 import {
   createPluginSetupWizardConfigure,
   createPluginSetupWizardStatus,
   createTestWizardPrompter,
   runSetupWizardConfigure,
-} from "openclaw/plugin-sdk/plugin-test-runtime";
-import type { WizardPrompter } from "openclaw/plugin-sdk/plugin-test-runtime";
-import { DEFAULT_ACCOUNT_ID } from "openclaw/plugin-sdk/setup";
-import type { ChannelAccountSnapshot } from "openclaw/plugin-sdk/status-helpers";
+} from "granted/plugin-sdk/plugin-test-runtime";
+import type { WizardPrompter } from "granted/plugin-sdk/plugin-test-runtime";
+import { DEFAULT_ACCOUNT_ID } from "granted/plugin-sdk/setup";
+import type { ChannelAccountSnapshot } from "granted/plugin-sdk/status-helpers";
 import {
   resolvePreferredOpenClawTmpDir,
   tempWorkspaceSync,
   type TempWorkspaceSync,
-} from "openclaw/plugin-sdk/temp-path";
+} from "granted/plugin-sdk/temp-path";
 import { afterAll, afterEach, describe, expect, it, vi } from "vitest";
 import type { GrantedConfig } from "../runtime-api.js";
 import {

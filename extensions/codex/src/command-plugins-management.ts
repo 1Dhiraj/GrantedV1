@@ -1,5 +1,5 @@
 // Codex plugin module implements command plugins management behavior.
-import type { PluginCommandContext, PluginCommandResult } from "openclaw/plugin-sdk/plugin-entry";
+import type { PluginCommandContext, PluginCommandResult } from "granted/plugin-sdk/plugin-entry";
 import { CODEX_PLUGINS_MARKETPLACE_NAME } from "./app-server/config.js";
 import { isOpenAiCuratedMarketplaceName } from "./app-server/plugin-inventory.js";
 import type { v2 } from "./app-server/protocol.js";

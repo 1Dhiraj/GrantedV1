@@ -2,16 +2,16 @@
 import {
   defineChannelSetupContract,
   type ChannelSetupAdapter,
-} from "openclaw/plugin-sdk/channel-setup";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { DEFAULT_ACCOUNT_ID } from "openclaw/plugin-sdk/routing";
+} from "granted/plugin-sdk/channel-setup";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { DEFAULT_ACCOUNT_ID } from "granted/plugin-sdk/routing";
 import {
   createSetupTranslator,
   createStandardChannelSetupStatus,
   patchTopLevelChannelConfigSection,
   splitSetupEntries,
-} from "openclaw/plugin-sdk/setup";
-import { uniqueStrings } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/setup";
+import { uniqueStrings } from "granted/plugin-sdk/string-coerce-runtime";
 import { DEFAULT_RELAYS } from "./default-relays.js";
 import { NOSTR_PRIVATE_KEY_ENV_VAR, validatePrivateKey } from "./private-key.js";
 

@@ -6,8 +6,8 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { DatabaseSync } from "node:sqlite";
-import { SessionManager } from "openclaw/plugin-sdk/agent-sessions";
-import { readSessionTranscriptEvents } from "openclaw/plugin-sdk/session-transcript-runtime";
+import { SessionManager } from "granted/plugin-sdk/agent-sessions";
+import { readSessionTranscriptEvents } from "granted/plugin-sdk/session-transcript-runtime";
 import {
   buildRuntimeContextCustomMessage,
   resolveRuntimeContextPromptParts,

@@ -3,7 +3,7 @@ import { execFileSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
 import { expectDefined } from "@openclaw/normalization-core";
-import { withTempHome as withTempHomeBase } from "openclaw/plugin-sdk/test-env";
+import { withTempHome as withTempHomeBase } from "granted/plugin-sdk/test-env";
 import { beforeEach, describe, expect, it, type MockInstance, vi } from "vitest";
 // Register shared mocks before imports bind their production exports.
 import "./agent-command.test-mocks.js";

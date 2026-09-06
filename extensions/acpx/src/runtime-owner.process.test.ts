@@ -7,9 +7,9 @@ import {
   unregisterAcpRuntimeBackend,
   testing,
   readAcpSessionEntry,
-} from "openclaw/plugin-sdk/acp-runtime";
-import { createAdmittedHostCapabilityTestFixture } from "openclaw/plugin-sdk/plugin-test-runtime";
-import { withOpenClawTestState } from "openclaw/plugin-sdk/test-state";
+} from "granted/plugin-sdk/acp-runtime";
+import { createAdmittedHostCapabilityTestFixture } from "granted/plugin-sdk/plugin-test-runtime";
+import { withOpenClawTestState } from "granted/plugin-sdk/test-state";
 import { expect, it } from "vitest";
 import {
   AcpxRuntime,

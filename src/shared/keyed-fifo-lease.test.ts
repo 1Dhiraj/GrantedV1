@@ -1,4 +1,4 @@
-import { importFreshModule } from "openclaw/plugin-sdk/test-fixtures";
+import { importFreshModule } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, describe, expect, it } from "vitest";
 import { drainGlobalSingletonLifecycleState } from "./global-singleton.js";
 import { createKeyedFifoLeaseRegistry } from "./keyed-fifo-lease.js";

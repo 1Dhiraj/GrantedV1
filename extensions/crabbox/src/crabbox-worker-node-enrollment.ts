@@ -1,4 +1,4 @@
-import type { WorkerProvider } from "openclaw/plugin-sdk/plugin-entry";
+import type { WorkerProvider } from "granted/plugin-sdk/plugin-entry";
 import { createCrabboxXfceSessionEnvironment } from "./crabbox-worker-desktop-setup.js";
 
 const CLOUD_SETUP_CODE_ENV = "CRABBOX_WORKER_SETUP_CODE";
@@ -83,7 +83,7 @@ let phase = "preparation";
   const stateDir = path.join(os.homedir(), ".openclaw", "cloud-workers", leaseId);
   const runtimeRoot = path.join(os.homedir(), ".openclaw-worker", "node-runtimes");
   const runtimeDir = path.join(runtimeRoot, bootstrap.sha256);
-  const cli = path.join(runtimeDir, "node_modules", "openclaw", "openclaw.mjs");
+  const cli = path.join(runtimeDir, "node_modules", "openclaw", "granted.mjs");
   const pidFile = path.join(stateDir, "node.pid");
   const setupFile = path.join(stateDir, "setup-code");
   const runtimeLink = path.join(stateDir, "runtime");
@@ -124,7 +124,7 @@ let phase = "preparation";
     const packageRoot = path.join(root, "node_modules", "openclaw");
     const manifest = JSON.parse(fs.readFileSync(path.join(packageRoot, "package.json"), "utf8"));
     if (manifest.name !== "openclaw" || manifest.version !== bootstrap.openclawVersion) throw new Error("Cloud worker bootstrap package identity does not match the Gateway");
-    const probe = spawnSync(process.execPath, [path.join(packageRoot, "openclaw.mjs"), "--version"], { env: nodeEnv, encoding: "utf8", timeout: 60000 });
+    const probe = spawnSync(process.execPath, [path.join(packageRoot, "granted.mjs"), "--version"], { env: nodeEnv, encoding: "utf8", timeout: 60000 });
     const version = probe.stdout?.trim();
     const expected = "OpenClaw " + bootstrap.openclawVersion;
     if (probe.status !== 0 || (version !== expected && !version?.startsWith(expected + " "))) throw new Error("Cloud worker bootstrap CLI could not verify its Gateway version");

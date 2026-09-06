@@ -1,5 +1,5 @@
 import fs from "node:fs/promises";
-import { GatewayClient } from "openclaw/plugin-sdk/gateway-runtime";
+import { GatewayClient } from "granted/plugin-sdk/gateway-runtime";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { createQaGatewayChild } from "../../../../extensions/qa-lab/api.js";
 import {

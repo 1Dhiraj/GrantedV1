@@ -1,5 +1,5 @@
-import { describeAccountSnapshot } from "openclaw/plugin-sdk/account-helpers";
-import type { ChannelPlugin } from "openclaw/plugin-sdk/channel-core";
+import { describeAccountSnapshot } from "granted/plugin-sdk/account-helpers";
+import type { ChannelPlugin } from "granted/plugin-sdk/channel-core";
 import { BuzzConfigSchema } from "./config-schema.js";
 import { buzzSetupContract } from "./setup-core.js";
 import { buzzSetupWizard } from "./setup-surface.js";

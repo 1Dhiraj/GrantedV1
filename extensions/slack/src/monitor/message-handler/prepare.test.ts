@@ -3,16 +3,16 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { expectDefined } from "@openclaw/normalization-core";
 import type { App } from "@slack/bolt";
-import { expectChannelInboundContextContract as expectInboundContextContract } from "openclaw/plugin-sdk/channel-contract-testing";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import { expectChannelInboundContextContract as expectInboundContextContract } from "granted/plugin-sdk/channel-contract-testing";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   registerSessionBindingAdapter,
   unregisterSessionBindingAdapter,
   type SessionBindingAdapter,
   type SessionBindingRecord,
-} from "openclaw/plugin-sdk/conversation-runtime";
-import { resolveAgentRoute, resolveThreadSessionKeys } from "openclaw/plugin-sdk/routing";
-import { upsertSessionEntry, type SessionEntry } from "openclaw/plugin-sdk/session-store-runtime";
+} from "granted/plugin-sdk/conversation-runtime";
+import { resolveAgentRoute, resolveThreadSessionKeys } from "granted/plugin-sdk/routing";
+import { upsertSessionEntry, type SessionEntry } from "granted/plugin-sdk/session-store-runtime";
 import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import type { ResolvedSlackAccount } from "../../accounts.js";
 import { registerSlackInstallationState } from "../../installation-identity-state.js";
@@ -57,7 +57,7 @@ vi.mock("../conversation.runtime.js", async (importOriginal) => {
 
 vi.mock("openclaw/plugin-sdk/media-understanding-runtime", async (importOriginal) => {
   const actual =
-    await importOriginal<typeof import("openclaw/plugin-sdk/media-understanding-runtime")>();
+    await importOriginal<typeof import("granted/plugin-sdk/media-understanding-runtime")>();
   return {
     ...actual,
     createChannelPreflightAudio: (
@@ -72,7 +72,7 @@ vi.mock("openclaw/plugin-sdk/media-understanding-runtime", async (importOriginal
 });
 
 vi.mock("openclaw/plugin-sdk/runtime-env", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/runtime-env")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/runtime-env")>();
   return {
     ...actual,
     logVerbose: (...args: unknown[]) => logVerboseMock(...args),
@@ -81,7 +81,7 @@ vi.mock("openclaw/plugin-sdk/runtime-env", async (importOriginal) => {
 });
 
 vi.mock("openclaw/plugin-sdk/system-event-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/system-event-runtime")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/system-event-runtime")>();
   return {
     ...actual,
     enqueueRoutedSystemEvent: (
@@ -5311,7 +5311,7 @@ describe("slack implicit mention policy", () => {
   }) {
     const { storePath } = storeFixture.makeTmpStorePath();
     vi.spyOn(
-      await import("openclaw/plugin-sdk/session-store-runtime"),
+      await import("granted/plugin-sdk/session-store-runtime"),
       "resolveStorePath",
     ).mockReturnValue(storePath);
     return await prepareSlackMessage({

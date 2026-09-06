@@ -4,7 +4,7 @@ import {
   resolvePreferredOpenClawTmpDir,
   tempWorkspace,
   type TempWorkspace,
-} from "openclaw/plugin-sdk/temp-path";
+} from "granted/plugin-sdk/temp-path";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { buildHermesMigrationProvider } from "./provider.js";
 import { makeConfigRuntime, makeContext, writeFile } from "./test/provider-helpers.js";

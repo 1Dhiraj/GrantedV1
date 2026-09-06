@@ -97,12 +97,12 @@ describe("node worker bundle installer", () => {
     const archiveEntries = ["worker.mjs"];
     if (options.packageShell) {
       await fs.mkdir(path.join(source, "dist"));
-      await fs.writeFile(path.join(source, "openclaw.mjs"), "#!/usr/bin/env node\n", {
+      await fs.writeFile(path.join(source, "granted.mjs"), "#!/usr/bin/env node\n", {
         mode: 0o700,
       });
       await fs.writeFile(path.join(source, "package.json"), '{"name":"openclaw"}\n');
       await fs.writeFile(path.join(source, "dist", "worker.js"), "export {};\n");
-      archiveEntries.push("dist/worker.js", "openclaw.mjs", "package.json");
+      archiveEntries.push("dist/worker.js", "granted.mjs", "package.json");
     }
     const manifest = await readWorkerBundleDirectoryManifest({
       root: source,

@@ -1,8 +1,8 @@
 // Webhooks tests cover http plugin behavior.
 import { EventEmitter } from "node:events";
 import type { IncomingMessage } from "node:http";
-import { createRuntimeTaskFlow } from "openclaw/plugin-sdk/plugin-test-runtime";
-import { createMockServerResponse } from "openclaw/plugin-sdk/test-env";
+import { createRuntimeTaskFlow } from "granted/plugin-sdk/plugin-test-runtime";
+import { createMockServerResponse } from "granted/plugin-sdk/test-env";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import type { GrantedConfig } from "../runtime-api.js";
 import { createTaskFlowWebhookRequestHandler, type TaskFlowWebhookTarget } from "./http.js";

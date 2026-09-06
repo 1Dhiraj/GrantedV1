@@ -1,29 +1,29 @@
-import type { ImageGenerationProvider } from "openclaw/plugin-sdk/image-generation";
-import type { MediaUnderstandingProvider } from "openclaw/plugin-sdk/media-understanding";
+import type { ImageGenerationProvider } from "granted/plugin-sdk/image-generation";
+import type { MediaUnderstandingProvider } from "granted/plugin-sdk/media-understanding";
 import {
   isProviderApiKeyConfigured,
   isProviderAuthProfileConfigured,
-} from "openclaw/plugin-sdk/provider-auth";
+} from "granted/plugin-sdk/provider-auth";
 import type {
   RealtimeTranscriptionProviderConfig,
   RealtimeTranscriptionProviderPlugin,
-} from "openclaw/plugin-sdk/realtime-transcription";
+} from "granted/plugin-sdk/realtime-transcription";
 import type {
   RealtimeVoiceAudioFormat,
   RealtimeVoiceBridgeCreateRequest,
   RealtimeVoiceProviderPlugin,
-} from "openclaw/plugin-sdk/realtime-voice";
-import { normalizeResolvedSecretInputString } from "openclaw/plugin-sdk/secret-input";
+} from "granted/plugin-sdk/realtime-voice";
+import { normalizeResolvedSecretInputString } from "granted/plugin-sdk/secret-input";
 import {
   isRecord,
   normalizeOptionalString,
   parseBooleanValue,
   parseFiniteNumber,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import type {
   VideoGenerationProvider,
   VideoGenerationProviderCapabilities,
-} from "openclaw/plugin-sdk/video-generation";
+} from "granted/plugin-sdk/video-generation";
 import { XAI_DEFAULT_IMAGE_MODEL, XAI_IMAGE_MODELS } from "./model-definitions.js";
 import {
   XAI_REALTIME_DEFAULT_MODEL,

@@ -1,4 +1,4 @@
-import { MeetingPlatformAdapter } from "openclaw/plugin-sdk/meeting-runtime";
+import { MeetingPlatformAdapter } from "granted/plugin-sdk/meeting-runtime";
 import { zoomMeetingStatusAccessSource } from "./zoom-meetings-status-access-source.js";
 import { zoomMeetingStatusPageSource } from "./zoom-meetings-status-page-source.js";
 

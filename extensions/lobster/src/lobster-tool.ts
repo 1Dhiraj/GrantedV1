@@ -2,12 +2,12 @@
 import {
   optionalNonNegativeIntegerSchema,
   optionalPositiveIntegerSchema,
-} from "openclaw/plugin-sdk/channel-actions";
+} from "granted/plugin-sdk/channel-actions";
 import {
   readNonNegativeIntegerParam,
   readPositiveIntegerParam,
-} from "openclaw/plugin-sdk/param-readers";
-import { jsonResult } from "openclaw/plugin-sdk/tool-results";
+} from "granted/plugin-sdk/param-readers";
+import { jsonResult } from "granted/plugin-sdk/tool-results";
 import { Type } from "typebox";
 import type { GrantedPluginApi } from "../runtime-api.js";
 import {

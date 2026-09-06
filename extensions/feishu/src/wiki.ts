@@ -1,6 +1,6 @@
 // Feishu plugin module implements wiki behavior.
 import type * as Lark from "@larksuiteoapi/node-sdk";
-import { readPositiveIntegerParam } from "openclaw/plugin-sdk/param-readers";
+import { readPositiveIntegerParam } from "granted/plugin-sdk/param-readers";
 import type { GrantedPluginApi } from "../runtime-api.js";
 import { createFeishuToolClient, resolveAnyEnabledFeishuToolsConfig } from "./tool-account.js";
 import {

@@ -1,5 +1,5 @@
 // Voice Call tests cover response generator plugin behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { describe, expect, it, vi } from "vitest";
 import type { GrantedPluginApi } from "../api.js";
 import { VoiceCallConfigSchema } from "./config.js";

@@ -1,5 +1,5 @@
 // Qa Lab Matrix module implements events behavior.
-import type { ChannelApprovalKind } from "openclaw/plugin-sdk/approval-handler-runtime";
+import type { ChannelApprovalKind } from "granted/plugin-sdk/approval-handler-runtime";
 export type MatrixQaRoomEvent = {
   content?: Record<string, unknown>;
   event_id?: string;

@@ -1,16 +1,16 @@
 import { setTimeout as delay } from "node:timers/promises";
-import { coerceErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import { redactSensitiveText } from "openclaw/plugin-sdk/logging-core";
+import { coerceErrorMessage } from "granted/plugin-sdk/error-runtime";
+import { redactSensitiveText } from "granted/plugin-sdk/logging-core";
 import {
   WorkerProviderError,
   type WorkerLease,
   type WorkerLeaseStatus,
   type WorkerProfile,
   type WorkerProvider,
-} from "openclaw/plugin-sdk/plugin-entry";
-import { runCommandWithTimeout } from "openclaw/plugin-sdk/process-runtime";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+} from "granted/plugin-sdk/plugin-entry";
+import { runCommandWithTimeout } from "granted/plugin-sdk/process-runtime";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
+import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import { crabboxCommandError } from "./crabbox-worker-command-error.js";
 import {
   type CrabboxCommandRunner,

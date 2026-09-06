@@ -1,14 +1,14 @@
 import { spawn, type ChildProcessWithoutNullStreams } from "node:child_process";
 import type { SpawnOptions, SpawnedProcess } from "@anthropic-ai/claude-agent-sdk";
-import type { CliBackendExecuteContext } from "openclaw/plugin-sdk/cli-backend";
-import { attachErrorDiagnostic } from "openclaw/plugin-sdk/error-runtime";
-import { redactSensitiveFieldValue, redactSensitiveText } from "openclaw/plugin-sdk/logging-core";
+import type { CliBackendExecuteContext } from "granted/plugin-sdk/cli-backend";
+import { attachErrorDiagnostic } from "granted/plugin-sdk/error-runtime";
+import { redactSensitiveFieldValue, redactSensitiveText } from "granted/plugin-sdk/logging-core";
 import {
   killProcessTree,
   prepareSecretInputStdio,
   type SpawnStdioEntry,
-} from "openclaw/plugin-sdk/process-runtime";
-import { sliceUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+} from "granted/plugin-sdk/process-runtime";
+import { sliceUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 
 export type ClaudeAgentSdkSecretInput = { fd: 3; createData: () => Buffer };
 

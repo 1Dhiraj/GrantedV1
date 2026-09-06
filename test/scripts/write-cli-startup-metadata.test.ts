@@ -402,7 +402,7 @@ describe("write-cli-startup-metadata", () => {
             if (!taskContext) {
               throw new Error("missing render task context");
             }
-            return testing.spawnText(["openclaw.mjs", "browser", "--help"], {
+            return testing.spawnText(["granted.mjs", "browser", "--help"], {
               cwd: tempRoot,
               env: process.env,
               failureMessage: "browser render failed",

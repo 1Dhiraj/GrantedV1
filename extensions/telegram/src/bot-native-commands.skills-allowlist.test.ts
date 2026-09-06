@@ -5,10 +5,10 @@ import path from "node:path";
 import {
   createEmptyPluginRegistry,
   withPluginRuntimeRegistryScope,
-} from "openclaw/plugin-sdk/channel-test-helpers";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { listSkillCommandsForAgents as listActualSkillCommandsForAgents } from "openclaw/plugin-sdk/skill-commands-runtime";
-import { writeSkill } from "openclaw/plugin-sdk/test-fixtures";
+} from "granted/plugin-sdk/channel-test-helpers";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { listSkillCommandsForAgents as listActualSkillCommandsForAgents } from "granted/plugin-sdk/skill-commands-runtime";
+import { writeSkill } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { registerTelegramNativeCommands } from "./bot-native-commands.js";
 import {

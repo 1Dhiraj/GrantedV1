@@ -2,7 +2,7 @@
 import type { FileContents, FileDiffMetadata, SupportedLanguages } from "@pierre/diffs";
 import { parsePatchFiles } from "@pierre/diffs";
 import { preloadDiffHTML, type PreloadDiffOptions } from "@pierre/diffs/ssr";
-import { escapeHtml } from "openclaw/plugin-sdk/text-utility-runtime";
+import { escapeHtml } from "granted/plugin-sdk/text-utility-runtime";
 import { normalizeDiffFontSize, normalizeDiffLineSpacing } from "./config.js";
 import {
   collectDiffPayloadLanguageHints,

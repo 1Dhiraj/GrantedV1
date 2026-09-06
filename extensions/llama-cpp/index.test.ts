@@ -1,20 +1,20 @@
 import os from "node:os";
 import path from "node:path";
 import { expectDefined } from "@openclaw/normalization-core";
-import { createLocalEmbeddingProvider } from "openclaw/plugin-sdk/memory-core-host-engine-embeddings";
-import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
+import { createLocalEmbeddingProvider } from "granted/plugin-sdk/memory-core-host-engine-embeddings";
+import { createTestPluginApi } from "granted/plugin-sdk/plugin-test-api";
 import {
   createPluginRegistryFixture,
   registerVirtualTestPlugin,
-} from "openclaw/plugin-sdk/plugin-test-contracts";
+} from "granted/plugin-sdk/plugin-test-contracts";
 import {
   clearEmbeddingProviders,
   createEmptyPluginRegistry,
   getActivePluginRegistry,
   getRegisteredEmbeddingProvider,
   setActivePluginRegistry,
-} from "openclaw/plugin-sdk/plugin-test-runtime";
-import type { ProviderPlugin } from "openclaw/plugin-sdk/provider-model-shared";
+} from "granted/plugin-sdk/plugin-test-runtime";
+import type { ProviderPlugin } from "granted/plugin-sdk/provider-model-shared";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const mocks = vi.hoisted(() => ({
@@ -27,7 +27,7 @@ const mocks = vi.hoisted(() => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/embedding-providers", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("openclaw/plugin-sdk/embedding-providers")>()),
+  ...(await importOriginal<typeof import("granted/plugin-sdk/embedding-providers")>()),
   getEmbeddingProvider: () => ({ create: mocks.genericCreate }),
 }));
 

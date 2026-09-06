@@ -4,7 +4,7 @@ import {
   createEmptyPluginRegistry,
   createStartAccountContext,
   setActivePluginRegistry,
-} from "openclaw/plugin-sdk/channel-test-helpers";
+} from "granted/plugin-sdk/channel-test-helpers";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { setZaloRuntime, type GrantedConfig, type PluginRuntime } from "../runtime-api.js";
 import { resolveZaloAccount } from "./accounts.js";

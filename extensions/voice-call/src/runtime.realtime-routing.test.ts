@@ -1,15 +1,15 @@
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { OpenKeyedStoreOptions } from "openclaw/plugin-sdk/plugin-state-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { OpenKeyedStoreOptions } from "granted/plugin-sdk/plugin-state-runtime";
 import {
   createPluginStateSyncKeyedStoreForTests,
   resetPluginStateStoreForTests,
-} from "openclaw/plugin-sdk/plugin-state-test-runtime";
+} from "granted/plugin-sdk/plugin-state-test-runtime";
 import type {
   RealtimeVoiceBridge,
   RealtimeVoiceBridgeCreateRequest,
   RealtimeVoiceProviderPlugin,
-} from "openclaw/plugin-sdk/realtime-voice";
-import { useAutoCleanupTempDirTracker } from "openclaw/plugin-sdk/test-env";
+} from "granted/plugin-sdk/realtime-voice";
+import { useAutoCleanupTempDirTracker } from "granted/plugin-sdk/test-env";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { WebSocket } from "ws";
 import { finalizeTestManagerCalls } from "./manager.test-harness.js";

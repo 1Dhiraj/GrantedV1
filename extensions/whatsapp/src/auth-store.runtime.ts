@@ -1,2 +1,2 @@
 // Whatsapp plugin module implements auth store behavior.
-export { resolveOAuthDir } from "openclaw/plugin-sdk/state-paths";
+export { resolveOAuthDir } from "granted/plugin-sdk/state-paths";

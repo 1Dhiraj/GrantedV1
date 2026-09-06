@@ -2,9 +2,9 @@
  * Manages subprocess lifecycle, streaming output buffers, stdin writes, and
  * termination for Codex sandbox exec-server process RPCs.
  */
-import { embeddedAgentLog } from "openclaw/plugin-sdk/agent-harness-runtime";
-import { coerceErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import { buildRemoteCommand, sanitizeEnvVars } from "openclaw/plugin-sdk/sandbox";
+import { embeddedAgentLog } from "granted/plugin-sdk/agent-harness-runtime";
+import { coerceErrorMessage } from "granted/plugin-sdk/error-runtime";
+import { buildRemoteCommand, sanitizeEnvVars } from "granted/plugin-sdk/sandbox";
 import type { JsonObject, JsonValue } from "../protocol.js";
 import { resolveFsSandboxPolicy } from "./fs-policy.js";
 import { requireObject, requireString, requireStringArray } from "./json-rpc.js";

@@ -3,18 +3,18 @@
  * merges per-account overrides, falls back to environment variables.
  */
 
-import { createAccountListHelpers } from "openclaw/plugin-sdk/account-helpers";
+import { createAccountListHelpers } from "granted/plugin-sdk/account-helpers";
 import {
   DEFAULT_ACCOUNT_ID,
   hasConfiguredAccountValue,
   type GrantedConfig,
-} from "openclaw/plugin-sdk/account-resolution";
-import { resolveDangerousNameMatchingEnabled } from "openclaw/plugin-sdk/dangerous-name-runtime";
-import { parseStrictInteger } from "openclaw/plugin-sdk/number-runtime";
+} from "granted/plugin-sdk/account-resolution";
+import { resolveDangerousNameMatchingEnabled } from "granted/plugin-sdk/dangerous-name-runtime";
+import { parseStrictInteger } from "granted/plugin-sdk/number-runtime";
 import {
   normalizeOptionalString,
   normalizeStringEntries,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import type {
   SynologyChatChannelConfig,
   ResolvedSynologyChatAccount,

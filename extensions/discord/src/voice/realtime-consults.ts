@@ -1,4 +1,4 @@
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
 import {
   buildRealtimeVoiceAgentErrorProviderResult,
   classifyRealtimeVoiceConsultToolCall,
@@ -16,9 +16,9 @@ import {
   type RealtimeVoiceSessionHarness,
   type RealtimeVoiceToolCallEvent,
   type RealtimeVoiceWakeNamePolicy,
-} from "openclaw/plugin-sdk/realtime-voice";
-import { createSubsystemLogger } from "openclaw/plugin-sdk/runtime-env";
-import { formatErrorMessage } from "openclaw/plugin-sdk/ssrf-runtime";
+} from "granted/plugin-sdk/realtime-voice";
+import { createSubsystemLogger } from "granted/plugin-sdk/runtime-env";
+import { formatErrorMessage } from "granted/plugin-sdk/ssrf-runtime";
 import { maybeControlDiscordVoiceAgentRun } from "./agent-control.js";
 import { formatVoiceLogPreview } from "./log-preview.js";
 import { formatVoiceIngressPrompt } from "./prompt.js";

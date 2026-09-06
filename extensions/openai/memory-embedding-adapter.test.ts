@@ -2,8 +2,8 @@
 import {
   resolveRemoteEmbeddingBearerClient,
   type MemoryEmbeddingProvider,
-} from "openclaw/plugin-sdk/memory-core-host-engine-embeddings";
-import { hashText } from "openclaw/plugin-sdk/memory-core-host-engine-storage";
+} from "granted/plugin-sdk/memory-core-host-engine-embeddings";
+import { hashText } from "granted/plugin-sdk/memory-core-host-engine-storage";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const mocks = vi.hoisted(() => ({

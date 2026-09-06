@@ -5,7 +5,7 @@ import { basenameFromAnyPath } from "@openclaw/media-core/file-name";
 import { isPassThroughRemoteMediaSource } from "@openclaw/media-core/media-source-url";
 import { mimeTypeFromFilePath } from "@openclaw/media-core/mime";
 import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
-import { resolveSendableOutboundReplyParts } from "openclaw/plugin-sdk/reply-payload";
+import { resolveSendableOutboundReplyParts } from "granted/plugin-sdk/reply-payload";
 import { resolveSessionAgentId } from "../../agents/agent-scope.js";
 import { resolvePathFromInput, toRelativeWorkspacePath } from "../../agents/path-policy.js";
 import {

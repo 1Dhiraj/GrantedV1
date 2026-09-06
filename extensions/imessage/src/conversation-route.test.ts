@@ -1,15 +1,15 @@
 // Imessage tests cover conversation route plugin behavior.
-import type { ChannelPlugin } from "openclaw/plugin-sdk/channel-core";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { ChannelPlugin } from "granted/plugin-sdk/channel-core";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   testing as sessionBindingTesting,
   registerSessionBindingAdapter,
-} from "openclaw/plugin-sdk/conversation-runtime";
+} from "granted/plugin-sdk/conversation-runtime";
 import {
   createTestRegistry,
   resetPluginRuntimeStateForTest,
   setActivePluginRegistry,
-} from "openclaw/plugin-sdk/plugin-test-runtime";
+} from "granted/plugin-sdk/plugin-test-runtime";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   matchIMessageAcpConversation,

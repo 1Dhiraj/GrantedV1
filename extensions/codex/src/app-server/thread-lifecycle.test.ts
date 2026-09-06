@@ -2,11 +2,11 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import type { EmbeddedRunAttemptParamsV2 as EmbeddedRunAttemptParams } from "openclaw/plugin-sdk/agent-harness-runtime";
+import type { EmbeddedRunAttemptParamsV2 as EmbeddedRunAttemptParams } from "granted/plugin-sdk/agent-harness-runtime";
 import {
   GPT5_BEHAVIOR_CONTRACT as CODEX_GPT5_BEHAVIOR_CONTRACT,
   type ModelCompatConfig,
-} from "openclaw/plugin-sdk/provider-model-shared";
+} from "granted/plugin-sdk/provider-model-shared";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { codexCatalogHomeId } from "../session-catalog-home-id.js";
 import { resolveCodexAppServerHomeDir } from "./auth-start-options.js";

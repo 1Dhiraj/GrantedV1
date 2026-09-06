@@ -2,8 +2,8 @@
 import {
   resolveInboundMentionDecision,
   type InboundImplicitMentionKind,
-} from "openclaw/plugin-sdk/channel-inbound";
-import { resolveChannelImplicitMentions } from "openclaw/plugin-sdk/channel-ingress-runtime";
+} from "granted/plugin-sdk/channel-inbound";
+import { resolveChannelImplicitMentions } from "granted/plugin-sdk/channel-ingress-runtime";
 import type { ChatType, GrantedConfig } from "./runtime-api.js";
 
 export function resolveMattermostInboundMentionDecision(params: {

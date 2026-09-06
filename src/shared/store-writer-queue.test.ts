@@ -1,6 +1,6 @@
 // Verifies queue ownership and reentrancy across separately loaded runtime chunks.
 import { AsyncLocalStorage } from "node:async_hooks";
-import { importFreshModule } from "openclaw/plugin-sdk/test-fixtures";
+import { importFreshModule } from "granted/plugin-sdk/test-fixtures";
 import { expect, it } from "vitest";
 import { createDeferred } from "../../test/helpers/promise.js";
 import { runQueuedStoreWrite, type StoreWriterQueue } from "./store-writer-queue.js";

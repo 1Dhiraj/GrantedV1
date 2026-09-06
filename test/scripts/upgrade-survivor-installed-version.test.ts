@@ -32,7 +32,7 @@ describe.skipIf(process.platform === "win32")(
         join(packageRoot, "package.json"),
         JSON.stringify({ name: "openclaw", version: baselineVersion }),
       );
-      const entrypoint = join(packageRoot, "openclaw.mjs");
+      const entrypoint = join(packageRoot, "granted.mjs");
       // Inject the package-swap/finalization fault at the executable boundary.
       // The real update owner, package reader, assertions and exit summary still run.
       writeFileSync(

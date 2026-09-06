@@ -1,4 +1,4 @@
-import type { AssistantMessage } from "openclaw/plugin-sdk/llm";
+import type { AssistantMessage } from "granted/plugin-sdk/llm";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { getReplyPayloadMetadata } from "../../../auto-reply/reply-payload.js";
 import { createTestAdmittedRunContext } from "../../admitted-run-context.test-support.js";

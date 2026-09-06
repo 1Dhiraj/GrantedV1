@@ -1,4 +1,4 @@
-import { agentHarnessStructuredInput as structuredInput } from "openclaw/plugin-sdk/agent-harness-runtime";
+import { agentHarnessStructuredInput as structuredInput } from "granted/plugin-sdk/agent-harness-runtime";
 import type { JsonValue } from "./protocol.js";
 
 type StructuredInputCompileResult = ReturnType<typeof structuredInput.compileForm>;

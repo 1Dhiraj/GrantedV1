@@ -1,24 +1,24 @@
-import { jsonResult } from "openclaw/plugin-sdk/channel-actions";
-import { formatErrorMessage as errorMessage } from "openclaw/plugin-sdk/error-runtime";
+import { jsonResult } from "granted/plugin-sdk/channel-actions";
+import { formatErrorMessage as errorMessage } from "granted/plugin-sdk/error-runtime";
 // Ollama node inference exposes local models to agents through paired node hosts.
-import { expectDefined } from "openclaw/plugin-sdk/expect-runtime";
+import { expectDefined } from "granted/plugin-sdk/expect-runtime";
 import {
   readFiniteNumberParam,
   readPositiveIntegerParam,
   readStringParam,
-} from "openclaw/plugin-sdk/param-readers";
+} from "granted/plugin-sdk/param-readers";
 import type {
   AnyAgentTool,
   GrantedPluginApi,
   GrantedPluginNodeHostCommand,
   GrantedPluginNodeInvokePolicy,
-} from "openclaw/plugin-sdk/plugin-entry";
+} from "granted/plugin-sdk/plugin-entry";
 import {
   readProviderJsonResponse,
   readResponseTextLimited,
-} from "openclaw/plugin-sdk/provider-http";
-import { fetchWithSsrFGuard } from "openclaw/plugin-sdk/ssrf-runtime";
-import { asFiniteNumber, asNullableRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/provider-http";
+import { fetchWithSsrFGuard } from "granted/plugin-sdk/ssrf-runtime";
+import { asFiniteNumber, asNullableRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import { OLLAMA_DEFAULT_BASE_URL } from "./defaults.js";
 import {
   DEFAULT_INFERENCE_TIMEOUT_MS,

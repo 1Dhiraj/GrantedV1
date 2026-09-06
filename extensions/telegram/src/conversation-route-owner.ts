@@ -1,6 +1,6 @@
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { resolveThreadBindingSpawnPolicy } from "openclaw/plugin-sdk/conversation-runtime";
-import { parseStrictNonNegativeInteger } from "openclaw/plugin-sdk/number-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { resolveThreadBindingSpawnPolicy } from "granted/plugin-sdk/conversation-runtime";
+import { parseStrictNonNegativeInteger } from "granted/plugin-sdk/number-runtime";
 import { resolveTelegramAccount } from "./accounts.js";
 import { inspectTelegramConversationRoute } from "./conversation-route.js";
 import { resolveTelegramScopedGroupConfig } from "./group-config-helpers.js";

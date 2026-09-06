@@ -5,7 +5,7 @@
 import {
   embeddedAgentLog,
   type queueAgentHarnessMessage,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
+} from "granted/plugin-sdk/agent-harness-runtime";
 import {
   isCodexAppServerIndeterminateRequestCancellationError,
   isCodexAppServerIndeterminateTransportError,

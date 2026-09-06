@@ -1,6 +1,6 @@
 // Openshell plugin entrypoint registers its OpenClaw integration.
-import { definePluginEntry } from "openclaw/plugin-sdk/plugin-entry";
-import { registerSandboxBackend } from "openclaw/plugin-sdk/sandbox";
+import { definePluginEntry } from "granted/plugin-sdk/plugin-entry";
+import { registerSandboxBackend } from "granted/plugin-sdk/sandbox";
 import {
   createOpenShellSandboxBackendFactory,
   createOpenShellSandboxBackendManager,

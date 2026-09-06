@@ -4,7 +4,7 @@ import path from "node:path";
 import {
   createSubsystemLogger,
   onInternalSessionTranscriptUpdate,
-} from "openclaw/plugin-sdk/memory-core-host-engine-foundation";
+} from "granted/plugin-sdk/memory-core-host-engine-foundation";
 import {
   listSessionTranscriptCorpusEntriesForAgent,
   loadArchivedSessions,
@@ -12,15 +12,15 @@ import {
   sessionPathForSessionIdentity,
   statSessionEntrySync,
   type SessionTranscriptCorpusEntry,
-} from "openclaw/plugin-sdk/memory-core-host-engine-sessions";
+} from "granted/plugin-sdk/memory-core-host-engine-sessions";
 import {
   isFileMissingError,
   runWithConcurrency,
   type MemorySessionSyncTarget,
   type MemorySyncParams,
-} from "openclaw/plugin-sdk/memory-core-host-engine-storage";
-import { normalizeAgentId } from "openclaw/plugin-sdk/routing";
-import { resolveStorePath } from "openclaw/plugin-sdk/session-store-paths";
+} from "granted/plugin-sdk/memory-core-host-engine-storage";
+import { normalizeAgentId } from "granted/plugin-sdk/routing";
+import { resolveStorePath } from "granted/plugin-sdk/session-store-paths";
 import { listMemorySessionTombstones } from "../memory-entry-origins.js";
 import { runInMemoryBackgroundContext } from "./background-context.js";
 import { shouldSyncSessionsForReindex } from "./manager-session-reindex.js";

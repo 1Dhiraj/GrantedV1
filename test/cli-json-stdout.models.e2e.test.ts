@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { DatabaseSync } from "node:sqlite";
-import { withTempHome } from "openclaw/plugin-sdk/test-env";
+import { withTempHome } from "granted/plugin-sdk/test-env";
 import { describe, expect, it } from "vitest";
 import { readConfigMachineState } from "../src/state/config-machine-state.js";
 import { GRANTED_STATE_SCHEMA_SQL } from "../src/state/openclaw-state-schema.js";

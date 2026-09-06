@@ -6,13 +6,13 @@ import type {
   WorkboardLaunchState,
   WorkboardWorkspace,
 } from "@openclaw/workboard-contract";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
 import {
   isFutureDateTimestampMs,
   resolveNonNegativeIntegerOption,
-} from "openclaw/plugin-sdk/number-runtime";
-import type { PluginRuntime } from "openclaw/plugin-sdk/plugin-runtime";
-import { canonicalPathFromExistingAncestor } from "openclaw/plugin-sdk/security-runtime";
+} from "granted/plugin-sdk/number-runtime";
+import type { PluginRuntime } from "granted/plugin-sdk/plugin-runtime";
+import { canonicalPathFromExistingAncestor } from "granted/plugin-sdk/security-runtime";
 import {
   assertRestrictedWorkboardTarget,
   cleanupWorkboardCardWorktree,

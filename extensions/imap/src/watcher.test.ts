@@ -1,8 +1,8 @@
 import { once } from "node:events";
 import { createServer, type Server, type Socket } from "node:net";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
-import type { GrantedPluginServiceContext } from "openclaw/plugin-sdk/plugin-entry";
-import { withTimeout } from "openclaw/plugin-sdk/text-utility-runtime";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
+import type { GrantedPluginServiceContext } from "granted/plugin-sdk/plugin-entry";
+import { withTimeout } from "granted/plugin-sdk/text-utility-runtime";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { resolveImapConfig, type ImapAccountConfig } from "./config.js";
 import { createImapAuthResult, createImapTestRuntime } from "./imap-test-support.js";

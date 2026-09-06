@@ -4,8 +4,8 @@ import {
   normalizeAccountId,
   resolveNormalizedAccountEntry,
   type GrantedConfig,
-} from "openclaw/plugin-sdk/account-core";
-import type { TelegramAccountConfig } from "openclaw/plugin-sdk/config-contracts";
+} from "granted/plugin-sdk/account-core";
+import type { TelegramAccountConfig } from "granted/plugin-sdk/config-contracts";
 
 export function resolveTelegramAccountConfig(
   cfg: GrantedConfig,

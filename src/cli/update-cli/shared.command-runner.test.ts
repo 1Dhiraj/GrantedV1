@@ -154,7 +154,7 @@ describe("update CLI shared helpers", () => {
         await fs.symlink(storeRoot, packageRoot, "dir");
 
         const previousArgv = [...process.argv];
-        process.argv[1] = path.join(packageRoot, "openclaw.mjs");
+        process.argv[1] = path.join(packageRoot, "granted.mjs");
         try {
           await expect(resolveUpdateRoot()).resolves.toBe(packageRoot);
         } finally {

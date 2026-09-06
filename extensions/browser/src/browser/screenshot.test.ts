@@ -1,7 +1,7 @@
 // Browser tests cover screenshot plugin behavior.
 import fs from "node:fs/promises";
-import { getImageMetadata } from "openclaw/plugin-sdk/media-runtime";
-import { createSolidPngBuffer } from "openclaw/plugin-sdk/test-fixtures";
+import { getImageMetadata } from "granted/plugin-sdk/media-runtime";
+import { createSolidPngBuffer } from "granted/plugin-sdk/test-fixtures";
 import { describe, expect, it } from "vitest";
 import { normalizeBrowserScreenshot } from "./screenshot.js";
 

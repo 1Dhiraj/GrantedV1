@@ -1,9 +1,9 @@
 // Mattermost helper module supports monitor helpers behavior.
-import { formatInboundFromLabel as formatInboundFromLabelShared } from "openclaw/plugin-sdk/channel-inbound";
-import { resolveThreadSessionKeys as resolveThreadSessionKeysShared } from "openclaw/plugin-sdk/routing";
-import { normalizeLowercaseStringOrEmpty } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { escapeRegExp } from "openclaw/plugin-sdk/text-utility-runtime";
-import { rawDataToString } from "openclaw/plugin-sdk/webhook-ingress";
+import { formatInboundFromLabel as formatInboundFromLabelShared } from "granted/plugin-sdk/channel-inbound";
+import { resolveThreadSessionKeys as resolveThreadSessionKeysShared } from "granted/plugin-sdk/routing";
+import { normalizeLowercaseStringOrEmpty } from "granted/plugin-sdk/string-coerce-runtime";
+import { escapeRegExp } from "granted/plugin-sdk/text-utility-runtime";
+import { rawDataToString } from "granted/plugin-sdk/webhook-ingress";
 
 export { rawDataToString };
 

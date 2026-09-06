@@ -1,7 +1,7 @@
 // Qa Lab plugin module implements gateway log redaction behavior.
-import { coerceErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import { redactSensitiveText } from "openclaw/plugin-sdk/logging-core";
-import { escapeRegExp, sliceUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+import { coerceErrorMessage } from "granted/plugin-sdk/error-runtime";
+import { redactSensitiveText } from "granted/plugin-sdk/logging-core";
+import { escapeRegExp, sliceUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import {
   QA_PROVIDER_SECRET_ENV_KEY_PATTERNS,
   QA_PROVIDER_SECRET_ENV_VARS,

@@ -1,16 +1,16 @@
 // Openai plugin module implements shared behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   createLazyRuntimeModule,
   createLazyRuntimeSurface,
-} from "openclaw/plugin-sdk/lazy-runtime";
-import { findCatalogTemplate } from "openclaw/plugin-sdk/provider-catalog-shared";
+} from "granted/plugin-sdk/lazy-runtime";
+import { findCatalogTemplate } from "granted/plugin-sdk/provider-catalog-shared";
 import {
   cloneFirstTemplateModel,
   matchesExactOrPrefix,
   type ProviderPlugin,
-} from "openclaw/plugin-sdk/provider-model-shared";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/provider-model-shared";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import { buildOpenAIReplayPolicy } from "./replay-policy.js";
 import { resolveOpenAITransportTurnState } from "./transport-policy.js";
 

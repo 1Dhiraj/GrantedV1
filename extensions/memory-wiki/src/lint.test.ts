@@ -1,7 +1,7 @@
 // Memory Wiki tests cover lint plugin behavior.
 import fs from "node:fs/promises";
 import path from "node:path";
-import { replaceFileAtomic } from "openclaw/plugin-sdk/security-runtime";
+import { replaceFileAtomic } from "granted/plugin-sdk/security-runtime";
 import { describe, expect, it, vi } from "vitest";
 import { lintMemoryWikiVault } from "./lint.js";
 import {
@@ -14,7 +14,7 @@ import { writeMemoryWikiSourceSyncState } from "./source-sync-state.js";
 import { createMemoryWikiTestHarness } from "./test-helpers.js";
 
 vi.mock("openclaw/plugin-sdk/security-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/security-runtime")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/security-runtime")>();
   return {
     ...actual,
     replaceFileAtomic: vi.fn(actual.replaceFileAtomic),
@@ -734,7 +734,7 @@ describe("lintMemoryWikiVault", () => {
     await fs.writeFile(reportPath, previousReport, "utf8");
     await fs.chmod(reportPath, 0o640);
     const previousBytes = await fs.readFile(reportPath);
-    const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/security-runtime")>(
+    const actual = await vi.importActual<typeof import("granted/plugin-sdk/security-runtime")>(
       "openclaw/plugin-sdk/security-runtime",
     );
     const publicationError = Object.assign(new Error("injected lint report publication failure"), {

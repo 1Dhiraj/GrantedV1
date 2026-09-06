@@ -1,20 +1,20 @@
 // Microsoft tests cover speech provider plugin behavior.
 import { writeFileSync } from "node:fs";
 import path from "node:path";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   finalizeDebugProxyCapture,
   getDebugProxyCaptureStore,
   initializeDebugProxyCapture,
-} from "openclaw/plugin-sdk/proxy-capture";
-import { createOpenClawTestState, type GrantedTestState } from "openclaw/plugin-sdk/test-state";
+} from "granted/plugin-sdk/proxy-capture";
+import { createOpenClawTestState, type GrantedTestState } from "granted/plugin-sdk/test-state";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { installDebugProxyTestResetHooks } from "../test-support/debug-proxy-env-test-helpers.js";
 
 const fetchWithSsrFGuardMock = vi.hoisted(() => vi.fn());
 
 vi.mock("openclaw/plugin-sdk/ssrf-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/ssrf-runtime")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/ssrf-runtime")>();
   return {
     ...actual,
     fetchWithSsrFGuard: (...args: Parameters<typeof actual.fetchWithSsrFGuard>) => {

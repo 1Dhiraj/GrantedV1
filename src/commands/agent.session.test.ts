@@ -1,6 +1,6 @@
 // Agent session command tests cover session resolution, agent scoping, and temp-home session stores.
 import path from "node:path";
-import { withTempHome as withTempHomeBase } from "openclaw/plugin-sdk/test-env";
+import { withTempHome as withTempHomeBase } from "granted/plugin-sdk/test-env";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { resolveAgentDir, resolveSessionAgentId } from "../agents/agent-scope.js";
 import { resolveSession } from "../agents/command/session.js";

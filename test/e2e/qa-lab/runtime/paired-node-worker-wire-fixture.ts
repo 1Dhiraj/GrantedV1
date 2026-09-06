@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import { createServer, type Server } from "node:http";
 import path from "node:path";
 import { promisify } from "node:util";
-import { GatewayClient } from "openclaw/plugin-sdk/gateway-runtime";
+import { GatewayClient } from "granted/plugin-sdk/gateway-runtime";
 import type { createQaGatewayChild, QaGatewayChild } from "../../../../extensions/qa-lab/api.js";
 import {
   GATEWAY_CLIENT_CAPS,

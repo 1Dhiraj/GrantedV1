@@ -1,8 +1,8 @@
 // QA Lab plugin module implements suite launch behavior.
 import fs from "node:fs/promises";
 import path from "node:path";
-import { formatErrorMessage, toErrorObject } from "openclaw/plugin-sdk/error-runtime";
-import { runPluginCommandWithTimeout } from "openclaw/plugin-sdk/run-command";
+import { formatErrorMessage, toErrorObject } from "granted/plugin-sdk/error-runtime";
+import { runPluginCommandWithTimeout } from "granted/plugin-sdk/run-command";
 import { isRepoRootRelativeRef, toRepoRelativePath } from "./cli-paths.js";
 import { QaSuiteArtifactError, QaSuiteInfraError } from "./errors.js";
 import {

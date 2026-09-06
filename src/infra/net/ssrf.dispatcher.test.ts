@@ -1,6 +1,6 @@
 // Pinned dispatcher tests cover undici family policy, pinned lookup injection,
 // timeout propagation, and proxy dispatcher construction.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 
 const TEST_UNDICI_RUNTIME_DEPS_KEY = "__GRANTED_TEST_UNDICI_RUNTIME_DEPS__";

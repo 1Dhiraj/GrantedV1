@@ -13,7 +13,7 @@ const mocks = vi.hoisted(() => ({
 
 vi.mock("node:child_process", () => ({ execFile: mocks.execFile }));
 vi.mock("openclaw/plugin-sdk/ssrf-runtime", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("openclaw/plugin-sdk/ssrf-runtime")>()),
+  ...(await importOriginal<typeof import("granted/plugin-sdk/ssrf-runtime")>()),
   fetchWithSsrFGuard: mocks.fetchWithSsrFGuard,
 }));
 vi.mock("./defaults.js", async (importOriginal) => ({

@@ -1,15 +1,15 @@
 // Synthetic provider module implements model/runtime integration.
-import type { OpenAICompatibleModelDiscoveryOptions } from "openclaw/plugin-sdk/provider-catalog-live-runtime";
+import type { OpenAICompatibleModelDiscoveryOptions } from "granted/plugin-sdk/provider-catalog-live-runtime";
 import type {
   ModelDefinitionConfig,
   ModelProviderConfig,
-} from "openclaw/plugin-sdk/provider-model-shared";
+} from "granted/plugin-sdk/provider-model-shared";
 import {
   asOptionalRecord,
   asPositiveSafeInteger,
   filterStringEntries,
   normalizeOptionalString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import {
   buildSyntheticModelDefinition,
   SYNTHETIC_BASE_URL,

@@ -1,27 +1,27 @@
-import { DEFAULT_ACCOUNT_ID } from "openclaw/plugin-sdk/account-id";
+import { DEFAULT_ACCOUNT_ID } from "granted/plugin-sdk/account-id";
 // Imessage plugin module implements channel behavior.
-import { buildDmGroupAccountAllowlistAdapter } from "openclaw/plugin-sdk/allowlist-config-edit";
-import type { ChannelApprovalKind } from "openclaw/plugin-sdk/approval-handler-runtime";
-import { formatTrimmedAllowFromEntries } from "openclaw/plugin-sdk/channel-config-helpers";
-import { createChatChannelPlugin, type ChannelPlugin } from "openclaw/plugin-sdk/channel-core";
+import { buildDmGroupAccountAllowlistAdapter } from "granted/plugin-sdk/allowlist-config-edit";
+import type { ChannelApprovalKind } from "granted/plugin-sdk/approval-handler-runtime";
+import { formatTrimmedAllowFromEntries } from "granted/plugin-sdk/channel-config-helpers";
+import { createChatChannelPlugin, type ChannelPlugin } from "granted/plugin-sdk/channel-core";
 import {
   createMessageReceiptFromOutboundResults,
   defineChannelMessageAdapter,
   type ChannelMessageSendResult,
   type MessageReceiptPartKind,
   sanitizeForPlainText,
-} from "openclaw/plugin-sdk/channel-outbound";
-import type { ChannelOutboundAdapter } from "openclaw/plugin-sdk/channel-send-result";
-import { buildPassiveProbedChannelStatusSummary } from "openclaw/plugin-sdk/extension-shared";
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
-import { questionGatewayRuntime } from "openclaw/plugin-sdk/question-gateway-runtime";
-import { chunkMarkdownText } from "openclaw/plugin-sdk/reply-runtime";
-import { buildOutboundBaseSessionKey, type RoutePeer } from "openclaw/plugin-sdk/routing";
+} from "granted/plugin-sdk/channel-outbound";
+import type { ChannelOutboundAdapter } from "granted/plugin-sdk/channel-send-result";
+import { buildPassiveProbedChannelStatusSummary } from "granted/plugin-sdk/extension-shared";
+import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
+import { questionGatewayRuntime } from "granted/plugin-sdk/question-gateway-runtime";
+import { chunkMarkdownText } from "granted/plugin-sdk/reply-runtime";
+import { buildOutboundBaseSessionKey, type RoutePeer } from "granted/plugin-sdk/routing";
 import {
   collectStatusIssuesFromLastError,
   createComputedAccountStatusAdapter,
   createDefaultChannelRuntimeState,
-} from "openclaw/plugin-sdk/status-helpers";
+} from "granted/plugin-sdk/status-helpers";
 import { resolveIMessageAccount, type ResolvedIMessageAccount } from "./accounts.js";
 import { imessageMessageActions } from "./actions.js";
 import {

@@ -1,7 +1,7 @@
 // Qa Lab tests cover bus server plugin behavior.
 import { Agent, createServer, request } from "node:http";
 import { setTimeout as sleep } from "node:timers/promises";
-import { createMockIncomingRequest } from "openclaw/plugin-sdk/test-env";
+import { createMockIncomingRequest } from "granted/plugin-sdk/test-env";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { closeQaHttpServer, handleQaBusRequest, startQaBusServer } from "./bus-server.js";
 import { createQaBusState } from "./bus-state.js";

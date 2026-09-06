@@ -1,6 +1,6 @@
 // Mattermost tests cover slash state plugin behavior.
 import type { IncomingMessage, ServerResponse } from "node:http";
-import { createMockIncomingRequest, withServer } from "openclaw/plugin-sdk/test-env";
+import { createMockIncomingRequest, withServer } from "granted/plugin-sdk/test-env";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import type { ResolvedMattermostAccount } from "./accounts.js";
 import type { GrantedConfig, RuntimeEnv } from "./runtime-api.js";

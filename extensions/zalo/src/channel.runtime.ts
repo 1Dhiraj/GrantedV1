@@ -1,5 +1,5 @@
 // Zalo plugin module implements channel behavior.
-import { createAccountStatusSink } from "openclaw/plugin-sdk/channel-outbound";
+import { createAccountStatusSink } from "granted/plugin-sdk/channel-outbound";
 import {
   PAIRING_APPROVED_MESSAGE,
   type ChannelPlugin,

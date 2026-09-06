@@ -1,8 +1,8 @@
 // Openai plugin entrypoint registers its OpenClaw integration.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { resolvePluginConfigObject } from "openclaw/plugin-sdk/plugin-config-runtime";
-import { definePluginEntry } from "openclaw/plugin-sdk/plugin-entry";
-import { buildProviderToolCompatFamilyHooks } from "openclaw/plugin-sdk/provider-tools";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { resolvePluginConfigObject } from "granted/plugin-sdk/plugin-config-runtime";
+import { definePluginEntry } from "granted/plugin-sdk/plugin-entry";
+import { buildProviderToolCompatFamilyHooks } from "granted/plugin-sdk/provider-tools";
 import { buildOpenAIImageGenerationProvider } from "./image-generation-provider.js";
 import { openaiMediaUnderstandingProvider } from "./media-understanding-provider.js";
 import { openAiMemoryEmbeddingProviderAdapter } from "./memory-embedding-adapter.js";

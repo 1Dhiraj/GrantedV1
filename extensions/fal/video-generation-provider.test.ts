@@ -1,8 +1,8 @@
 // Fal tests cover video generation provider plugin behavior.
-import { MAX_TIMER_TIMEOUT_MS } from "openclaw/plugin-sdk/number-runtime";
-import * as providerAuth from "openclaw/plugin-sdk/provider-auth-runtime";
-import * as providerHttp from "openclaw/plugin-sdk/provider-http";
-import { expectExplicitVideoGenerationCapabilities } from "openclaw/plugin-sdk/provider-test-contracts";
+import { MAX_TIMER_TIMEOUT_MS } from "granted/plugin-sdk/number-runtime";
+import * as providerAuth from "granted/plugin-sdk/provider-auth-runtime";
+import * as providerHttp from "granted/plugin-sdk/provider-http";
+import { expectExplicitVideoGenerationCapabilities } from "granted/plugin-sdk/provider-test-contracts";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { buildFalVideoGenerationProvider } from "./video-generation-provider.js";
 
@@ -11,7 +11,7 @@ const { fetchGuardMock } = vi.hoisted(() => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/ssrf-runtime", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("openclaw/plugin-sdk/ssrf-runtime")>()),
+  ...(await importOriginal<typeof import("granted/plugin-sdk/ssrf-runtime")>()),
   fetchWithSsrFGuard: fetchGuardMock,
 }));
 

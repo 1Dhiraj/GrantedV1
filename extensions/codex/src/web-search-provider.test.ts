@@ -1,5 +1,5 @@
 import path from "node:path";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { beforeAll, describe, expect, it, vi } from "vitest";
 import { createCodexWebSearchProvider as createContractCodexWebSearchProvider } from "../web-search-contract-api.js";
 import type { CodexAppServerClient } from "./app-server/client.js";

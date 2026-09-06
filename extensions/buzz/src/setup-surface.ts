@@ -1,13 +1,13 @@
 import { isIP } from "node:net";
 import { generateSecretKey, nip19 } from "nostr-tools";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   patchTopLevelChannelConfigSection,
   promptAccountId,
   runSingleChannelSecretStep,
   type ChannelSetupWizardAdapter,
   type SecretInput,
-} from "openclaw/plugin-sdk/setup";
+} from "granted/plugin-sdk/setup";
 import { waitForBuzzRoomAccess } from "./room-access-wait.js";
 import { discoverBuzzRooms, type BuzzDiscoveredRoom } from "./room-discovery.js";
 import { patchBuzzAccountConfig } from "./setup-core.js";
@@ -112,7 +112,7 @@ async function resolveSetupCredential(params: {
   // Setup receives authored config, not the Gateway's materialized secret snapshot.
   // Resolve through the canonical provider without replacing the saved reference.
   const { resolveConfiguredSecretInputWithFallback } =
-    await import("openclaw/plugin-sdk/secret-input-runtime");
+    await import("granted/plugin-sdk/secret-input-runtime");
   const resolved = await resolveConfiguredSecretInputWithFallback({
     config: params.cfg,
     env: process.env,

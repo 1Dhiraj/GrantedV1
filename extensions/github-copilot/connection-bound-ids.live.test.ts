@@ -5,7 +5,7 @@ import {
   type Context,
   type Model,
   type Tool,
-} from "openclaw/plugin-sdk/llm";
+} from "granted/plugin-sdk/llm";
 import { Type } from "typebox";
 import { describe, expect, it } from "vitest";
 import { resolveFirstGithubToken } from "./auth.js";

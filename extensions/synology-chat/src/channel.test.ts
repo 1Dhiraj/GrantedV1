@@ -1,6 +1,6 @@
 // Synology Chat tests cover channel plugin behavior.
-import { verifyChannelMessageAdapterCapabilityProofs } from "openclaw/plugin-sdk/channel-outbound";
-import { createPluginSetupWizardStatus } from "openclaw/plugin-sdk/plugin-test-runtime";
+import { verifyChannelMessageAdapterCapabilityProofs } from "granted/plugin-sdk/channel-outbound";
+import { createPluginSetupWizardStatus } from "granted/plugin-sdk/plugin-test-runtime";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { ResolvedSynologyChatAccount } from "./types.js";
 

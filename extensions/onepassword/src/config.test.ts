@@ -1,5 +1,5 @@
 import fs from "node:fs";
-import { validateJsonSchemaValue } from "openclaw/plugin-sdk/json-schema-runtime";
+import { validateJsonSchemaValue } from "granted/plugin-sdk/json-schema-runtime";
 import { describe, expect, it } from "vitest";
 import { MAX_REGISTERED_ITEMS, parseOnePasswordConfig } from "./config.js";
 

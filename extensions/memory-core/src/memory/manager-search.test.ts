@@ -5,7 +5,7 @@ import {
   ensureMemoryIndexSchema,
   loadSqliteVecExtension,
   requireNodeSqlite,
-} from "openclaw/plugin-sdk/memory-core-host-engine-storage";
+} from "granted/plugin-sdk/memory-core-host-engine-storage";
 import { describe, expect, it, vi } from "vitest";
 import { bm25RankToScore, buildFtsQuery } from "./hybrid.js";
 import { runVectorKnnQuery } from "./manager-search-knn.js";

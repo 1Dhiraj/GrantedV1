@@ -6,7 +6,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { isDeepStrictEqual } from "node:util";
-import { AgentHarnessPreflightError } from "openclaw/plugin-sdk/agent-harness-runtime";
+import { AgentHarnessPreflightError } from "granted/plugin-sdk/agent-harness-runtime";
 import {
   ensureAuthProfileStore,
   findPersistedAuthProfileCredential,
@@ -19,13 +19,13 @@ import {
   type AuthProfileCredential,
   type AuthProfileStore,
   type OAuthCredential,
-} from "openclaw/plugin-sdk/agent-runtime";
+} from "granted/plugin-sdk/agent-runtime";
 import {
   hasUsableOAuthCredential,
   resolveAuthProfileOrder,
   resolveOpenAICodexAuthIdentity,
-} from "openclaw/plugin-sdk/provider-auth";
-import { readSecretFile } from "openclaw/plugin-sdk/secret-file";
+} from "granted/plugin-sdk/provider-auth";
+import { readSecretFile } from "granted/plugin-sdk/secret-file";
 import {
   resolveCodexAppServerHomeDir,
   resolveCodexAppServerLocalHomeDir,

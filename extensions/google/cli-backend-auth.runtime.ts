@@ -5,9 +5,9 @@ import {
   CliBackendAuthProfilePreparationError,
   type CliBackendPreparedExecution,
   type CliBackendToolAvailability,
-} from "openclaw/plugin-sdk/cli-backend";
-import { isRecord, normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { resolvePreferredOpenClawTmpDir } from "openclaw/plugin-sdk/temp-path";
+} from "granted/plugin-sdk/cli-backend";
+import { isRecord, normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
+import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
 import {
   assertGeminiCliLiteralIsolatedPrompt,
   GEMINI_CLI_EXACT_TOOL_ENV_BARRIERS,

@@ -1,11 +1,11 @@
 import type { Message } from "grammy/types";
-import { isAbortRequestText } from "openclaw/plugin-sdk/command-primitives-runtime";
+import { isAbortRequestText } from "granted/plugin-sdk/command-primitives-runtime";
 import type {
   DmPolicy,
   GrantedConfig,
   TelegramGroupConfig,
   TelegramTopicConfig,
-} from "openclaw/plugin-sdk/config-contracts";
+} from "granted/plugin-sdk/config-contracts";
 import { withTelegramApiErrorLogging } from "./api-logging.js";
 import type { NormalizedAllowFrom } from "./bot-access.js";
 import {

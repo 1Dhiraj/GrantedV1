@@ -1,4 +1,4 @@
-import type { WorkerDesktopEndpoint } from "openclaw/plugin-sdk/plugin-entry";
+import type { WorkerDesktopEndpoint } from "granted/plugin-sdk/plugin-entry";
 
 const CRABBOX_WORKER_BROWSER_PATH = "/usr/local/bin/openclaw-worker-browser";
 const CRABBOX_WORKER_TERMINAL_PATH = "/usr/local/bin/openclaw-worker-terminal";

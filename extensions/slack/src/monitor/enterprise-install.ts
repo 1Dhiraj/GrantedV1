@@ -1,7 +1,7 @@
 // Slack plugin module implements detected Enterprise Grid installation policy.
-import { normalizeAccountId } from "openclaw/plugin-sdk/account-resolution";
-import type { GrantedConfig, SlackAccountConfig } from "openclaw/plugin-sdk/config-contracts";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { normalizeAccountId } from "granted/plugin-sdk/account-resolution";
+import type { GrantedConfig, SlackAccountConfig } from "granted/plugin-sdk/config-contracts";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import { resolveDefaultSlackAccountId } from "../accounts.js";
 import { parseSlackTarget } from "../target-parsing.js";
 

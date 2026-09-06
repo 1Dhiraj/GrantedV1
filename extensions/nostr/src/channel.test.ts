@@ -3,9 +3,9 @@ import {
   createPluginSetupWizardConfigure,
   createTestWizardPrompter,
   runSetupWizardConfigure,
-} from "openclaw/plugin-sdk/plugin-test-runtime";
-import type { WizardPrompter } from "openclaw/plugin-sdk/plugin-test-runtime";
-import { withEnv } from "openclaw/plugin-sdk/test-env";
+} from "granted/plugin-sdk/plugin-test-runtime";
+import type { WizardPrompter } from "granted/plugin-sdk/plugin-test-runtime";
+import { withEnv } from "granted/plugin-sdk/test-env";
 import { describe, expect, it, vi } from "vitest";
 import type { GrantedConfig } from "../runtime-api.js";
 import { nostrPlugin } from "./channel.js";

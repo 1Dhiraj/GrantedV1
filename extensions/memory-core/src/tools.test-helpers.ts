@@ -1,4 +1,4 @@
-import type { GrantedPluginToolContext } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginToolContext } from "granted/plugin-sdk/plugin-entry";
 // Memory Core helper module supports tools helpers behavior.
 import { expect } from "vitest";
 import type { GrantedConfig } from "../api.js";

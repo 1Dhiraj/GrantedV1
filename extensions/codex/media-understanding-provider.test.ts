@@ -1,5 +1,5 @@
 // Codex tests cover media understanding provider plugin behavior.
-import { MAX_TIMER_TIMEOUT_MS } from "openclaw/plugin-sdk/number-runtime";
+import { MAX_TIMER_TIMEOUT_MS } from "granted/plugin-sdk/number-runtime";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { buildCodexMediaUnderstandingProvider } from "./media-understanding-provider.js";
 import type { CodexAppServerClient } from "./src/app-server/client.js";

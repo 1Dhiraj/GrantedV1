@@ -1,5 +1,5 @@
 // Runtime LLM tests cover plugin provider hooks inside the model runtime adapter.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { resolveContextEngineCapabilities } from "../../agents/embedded-agent-runner/context-engine-capabilities.js";
 import { runContextEngineMaintenance } from "../../agents/embedded-agent-runner/context-engine-maintenance.js";

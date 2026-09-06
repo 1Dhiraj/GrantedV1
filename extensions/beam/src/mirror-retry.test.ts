@@ -2,8 +2,8 @@ import { createServer } from "node:http";
 import {
   createPluginStateKeyedStoreForTests,
   resetPluginStateStoreForTests,
-} from "openclaw/plugin-sdk/plugin-state-test-runtime";
-import { useAutoCleanupTempDirTracker } from "openclaw/plugin-sdk/test-env";
+} from "granted/plugin-sdk/plugin-state-test-runtime";
+import { useAutoCleanupTempDirTracker } from "granted/plugin-sdk/test-env";
 import { afterEach, describe, expect, it } from "vitest";
 import {
   beamTestNow,

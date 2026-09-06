@@ -1,8 +1,8 @@
-import type { AgentMessage } from "openclaw/plugin-sdk/agent-harness-runtime";
+import type { AgentMessage } from "granted/plugin-sdk/agent-harness-runtime";
 import {
   resolveAgentHarnessBeforePromptBuildResult,
   runAgentHarnessLlmInputHook,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
+} from "granted/plugin-sdk/agent-harness-runtime";
 import { createSessionConfig, type resolvePoolAcquire } from "./attempt-config.js";
 import { isRawCopilotModelRun } from "./attempt-mode.js";
 import { assertCopilotAttemptHostCapabilities } from "./attempt-types.js";

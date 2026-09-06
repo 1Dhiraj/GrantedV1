@@ -4,7 +4,7 @@ import { isRecord } from "@openclaw/normalization-core/record-coerce";
 import { readStringValue } from "@openclaw/normalization-core/string-coerce";
 import { sliceUtf16Safe, truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
 import chalk from "chalk";
-import { resolveSendableOutboundReplyParts } from "openclaw/plugin-sdk/reply-payload";
+import { resolveSendableOutboundReplyParts } from "granted/plugin-sdk/reply-payload";
 import { isVerbose } from "../globals.js";
 import { stringifyNonErrorCause } from "../infra/errors.js";
 import { getDefaultRedactPatterns, redactSensitiveText } from "../logging/redact.js";

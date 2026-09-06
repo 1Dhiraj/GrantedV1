@@ -6,27 +6,27 @@ import {
   TRUSTED_CLIENT_TOKEN,
   generateSecMsGecToken,
 } from "node-edge-tts/dist/drm.js";
-import { isVoiceMessageCompatibleAudio } from "openclaw/plugin-sdk/media-runtime";
+import { isVoiceMessageCompatibleAudio } from "granted/plugin-sdk/media-runtime";
 import {
   assertOkOrThrowProviderError,
   readProviderJsonResponse,
-} from "openclaw/plugin-sdk/provider-http";
+} from "granted/plugin-sdk/provider-http";
 import {
   captureHttpExchange,
   isDebugProxyGlobalFetchPatchInstalled,
-} from "openclaw/plugin-sdk/proxy-capture";
+} from "granted/plugin-sdk/proxy-capture";
 import type {
   SpeechProviderConfig,
   SpeechProviderPlugin,
   SpeechVoiceOption,
-} from "openclaw/plugin-sdk/speech";
-import { asBoolean, asFiniteNumber, trimToUndefined } from "openclaw/plugin-sdk/speech";
+} from "granted/plugin-sdk/speech";
+import { asBoolean, asFiniteNumber, trimToUndefined } from "granted/plugin-sdk/speech";
 import {
   fetchWithSsrFGuard,
   ssrfPolicyFromHttpBaseUrlAllowedHostname,
-} from "openclaw/plugin-sdk/ssrf-runtime";
-import { asOptionalRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { tempWorkspace, resolvePreferredOpenClawTmpDir } from "openclaw/plugin-sdk/temp-path";
+} from "granted/plugin-sdk/ssrf-runtime";
+import { asOptionalRecord } from "granted/plugin-sdk/string-coerce-runtime";
+import { tempWorkspace, resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
 import {
   buildExpressiveSsml,
   edgeTTS,

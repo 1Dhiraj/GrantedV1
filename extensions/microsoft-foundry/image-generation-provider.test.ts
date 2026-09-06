@@ -1,5 +1,5 @@
 // Microsoft Foundry image provider tests cover MAI request construction.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { buildMicrosoftFoundryImageGenerationProvider } from "./image-generation-provider.js";
 import { PROVIDER_ID } from "./shared.js";
@@ -50,7 +50,7 @@ vi.mock("openclaw/plugin-sdk/provider-auth-runtime", () => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/provider-http", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/provider-http")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/provider-http")>(
     "openclaw/plugin-sdk/provider-http",
   );
   return {

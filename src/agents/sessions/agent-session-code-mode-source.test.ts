@@ -1,5 +1,5 @@
 import path from "node:path";
-import type { AssistantMessage, Model } from "openclaw/plugin-sdk/llm";
+import type { AssistantMessage, Model } from "granted/plugin-sdk/llm";
 import { Type } from "typebox";
 import { afterEach, describe, expect, it } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../../test/helpers/temp-dir.js";

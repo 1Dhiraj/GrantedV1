@@ -1,5 +1,5 @@
 // Imessage plugin module implements actions behavior.
-import { readBooleanParam } from "openclaw/plugin-sdk/boolean-param";
+import { readBooleanParam } from "granted/plugin-sdk/boolean-param";
 import {
   createActionGate,
   jsonResult,
@@ -8,18 +8,18 @@ import {
   readReactionParams,
   readStringArrayParam,
   readStringParam,
-} from "openclaw/plugin-sdk/channel-actions";
+} from "granted/plugin-sdk/channel-actions";
 import type {
   ChannelMessageActionAdapter,
   ChannelMessageActionContext,
   ChannelMessageActionName,
-} from "openclaw/plugin-sdk/channel-contract";
-import { createLazyRuntimeNamedExport } from "openclaw/plugin-sdk/lazy-runtime";
-import { canonicalizeBase64 } from "openclaw/plugin-sdk/media-runtime";
-import { normalizePollInput } from "openclaw/plugin-sdk/poll-runtime";
-import { createSubsystemLogger } from "openclaw/plugin-sdk/runtime-env";
-import { normalizeOptionalLowercaseString } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { extractToolSend } from "openclaw/plugin-sdk/tool-send";
+} from "granted/plugin-sdk/channel-contract";
+import { createLazyRuntimeNamedExport } from "granted/plugin-sdk/lazy-runtime";
+import { canonicalizeBase64 } from "granted/plugin-sdk/media-runtime";
+import { normalizePollInput } from "granted/plugin-sdk/poll-runtime";
+import { createSubsystemLogger } from "granted/plugin-sdk/runtime-env";
+import { normalizeOptionalLowercaseString } from "granted/plugin-sdk/string-coerce-runtime";
+import { extractToolSend } from "granted/plugin-sdk/tool-send";
 import { hasExclusiveIMessageLocalDatabase, resolveIMessageAccount } from "./accounts.js";
 import { IMESSAGE_ACTION_NAMES, IMESSAGE_ACTIONS } from "./actions-contract.js";
 import { chatContextFromIMessageTarget } from "./chat-context.js";

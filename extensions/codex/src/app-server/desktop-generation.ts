@@ -4,7 +4,7 @@ import path from "node:path";
 import type {
   GrantedPluginService,
   GrantedPluginServiceContext,
-} from "openclaw/plugin-sdk/plugin-entry";
+} from "granted/plugin-sdk/plugin-entry";
 import { resolveMacOSDesktopCodexAppPathCandidates } from "./desktop-app-paths.js";
 import {
   readMacOSDesktopGenerationFingerprint,

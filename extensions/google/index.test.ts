@@ -2,23 +2,23 @@
 import { mkdir, mkdtemp, writeFile } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
-import type { Context, Model } from "openclaw/plugin-sdk/llm";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
+import type { Context, Model } from "granted/plugin-sdk/llm";
 import type {
   ProviderReplaySessionEntry,
   ProviderSanitizeReplayHistoryContext,
-} from "openclaw/plugin-sdk/plugin-entry";
-import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
+} from "granted/plugin-sdk/plugin-entry";
+import { createTestPluginApi } from "granted/plugin-sdk/plugin-test-api";
 import {
   registerProviderPlugin,
   requireRegisteredProvider,
-} from "openclaw/plugin-sdk/plugin-test-runtime";
-import { createCapturedThinkingConfigStream } from "openclaw/plugin-sdk/provider-test-contracts";
+} from "granted/plugin-sdk/plugin-test-runtime";
+import { createCapturedThinkingConfigStream } from "granted/plugin-sdk/provider-test-contracts";
 import type {
   RealtimeVoiceBridge,
   RealtimeVoiceBridgeCreateRequest,
   RealtimeVoiceProviderPlugin,
-} from "openclaw/plugin-sdk/realtime-voice";
+} from "granted/plugin-sdk/realtime-voice";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { registerGoogleGeminiCliProvider } from "./gemini-cli-provider.js";
 import googlePlugin from "./index.js";

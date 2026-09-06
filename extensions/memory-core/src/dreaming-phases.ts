@@ -3,20 +3,20 @@ import { createHash } from "node:crypto";
 import type { Dirent } from "node:fs";
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { extractErrorCode } from "openclaw/plugin-sdk/error-runtime";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/memory-core-host-engine-foundation";
-import { listSessionTranscriptCorpusEntriesForAgent } from "openclaw/plugin-sdk/memory-core-host-engine-sessions";
-import { listMemoryArtifactProvenance } from "openclaw/plugin-sdk/memory-core-host-runtime-core";
-import type { MemorySearchResult } from "openclaw/plugin-sdk/memory-core-host-runtime-files";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { extractErrorCode } from "granted/plugin-sdk/error-runtime";
+import { truncateUtf16Safe } from "granted/plugin-sdk/memory-core-host-engine-foundation";
+import { listSessionTranscriptCorpusEntriesForAgent } from "granted/plugin-sdk/memory-core-host-engine-sessions";
+import { listMemoryArtifactProvenance } from "granted/plugin-sdk/memory-core-host-runtime-core";
+import type { MemorySearchResult } from "granted/plugin-sdk/memory-core-host-runtime-files";
 import {
   formatMemoryDreamingDay,
   resolveMemoryDreamingWorkspaces,
   resolveMemoryLightDreamingConfig,
   resolveMemoryRemDreamingConfig,
-} from "openclaw/plugin-sdk/memory-core-host-status";
-import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
-import { normalizeStringEntries, uniqueStrings } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/memory-core-host-status";
+import type { GrantedPluginApi } from "granted/plugin-sdk/plugin-entry";
+import { normalizeStringEntries, uniqueStrings } from "granted/plugin-sdk/string-coerce-runtime";
 import { normalizeConceptToken } from "./concept-vocabulary.js";
 import { isPromotionOriginBlocked } from "./dreaming-consolidation-candidates.js";
 import { appendFailedDreamingEvent } from "./dreaming-events.js";

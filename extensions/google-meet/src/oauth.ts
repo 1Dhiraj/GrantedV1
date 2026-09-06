@@ -3,13 +3,13 @@ import {
   MAX_DATE_TIMESTAMP_MS,
   resolveDateTimestampMs,
   resolveExpiresAtMsFromDurationSeconds,
-} from "openclaw/plugin-sdk/number-runtime";
+} from "granted/plugin-sdk/number-runtime";
 import {
   parseOAuthCallbackInput,
   waitForLocalOAuthCallback,
-} from "openclaw/plugin-sdk/provider-auth-runtime";
-import { readProviderJsonResponse } from "openclaw/plugin-sdk/provider-http";
-import { fetchWithSsrFGuard } from "openclaw/plugin-sdk/ssrf-runtime";
+} from "granted/plugin-sdk/provider-auth-runtime";
+import { readProviderJsonResponse } from "granted/plugin-sdk/provider-http";
+import { fetchWithSsrFGuard } from "granted/plugin-sdk/ssrf-runtime";
 import { readGoogleApiErrorDetail } from "./google-api-errors.js";
 
 const GOOGLE_MEET_REDIRECT_URI = "http://localhost:8085/oauth2callback";

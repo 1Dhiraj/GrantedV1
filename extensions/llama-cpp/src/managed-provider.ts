@@ -1,9 +1,9 @@
 import type {
   GrantedPluginApi,
   ProviderAuthMethodNonInteractiveContext,
-} from "openclaw/plugin-sdk/plugin-entry";
-import { CUSTOM_LOCAL_AUTH_MARKER } from "openclaw/plugin-sdk/provider-auth";
-import { buildProviderToolCompatFamilyHooks } from "openclaw/plugin-sdk/provider-tools";
+} from "granted/plugin-sdk/plugin-entry";
+import { CUSTOM_LOCAL_AUTH_MARKER } from "granted/plugin-sdk/provider-auth";
+import { buildProviderToolCompatFamilyHooks } from "granted/plugin-sdk/provider-tools";
 import {
   LLAMA_CPP_PROVIDER_ID,
   LLAMA_CPP_PROVIDER_LABEL,

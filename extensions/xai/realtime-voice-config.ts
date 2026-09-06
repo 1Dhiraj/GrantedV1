@@ -1,21 +1,21 @@
-import { resolveAgentDir } from "openclaw/plugin-sdk/agent-scope-runtime";
+import { resolveAgentDir } from "granted/plugin-sdk/agent-scope-runtime";
 import {
   isProviderAuthProfileConfigured,
   type GrantedConfig,
-} from "openclaw/plugin-sdk/provider-auth";
+} from "granted/plugin-sdk/provider-auth";
 import type {
   OpenAICompatibleRealtimeAudioFormat,
   RealtimeVoiceBridgeCreateRequest,
   RealtimeVoiceProviderConfig,
-} from "openclaw/plugin-sdk/realtime-voice";
-import { normalizeResolvedSecretInputString } from "openclaw/plugin-sdk/secret-input";
+} from "granted/plugin-sdk/realtime-voice";
+import { normalizeResolvedSecretInputString } from "granted/plugin-sdk/secret-input";
 import {
   asFiniteNumberInRange,
   asOptionalObjectRecord as readXaiObjectRecord,
   asSafeIntegerInRange,
   normalizeOptionalString,
   parseBooleanValue,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import { XAI_BASE_URL } from "./model-definitions.js";
 
 type XaiRealtimeVoice = "eve" | "ara" | "rex" | "sal" | "leo";

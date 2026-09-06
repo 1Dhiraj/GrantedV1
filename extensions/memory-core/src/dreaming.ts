@@ -1,7 +1,7 @@
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 // Memory Core plugin module implements dreaming behavior.
-import { expectDefined } from "openclaw/plugin-sdk/expect-runtime";
-import { resolveMemoryDreamingPluginConfig } from "openclaw/plugin-sdk/memory-core-host-runtime-core";
+import { expectDefined } from "granted/plugin-sdk/expect-runtime";
+import { resolveMemoryDreamingPluginConfig } from "granted/plugin-sdk/memory-core-host-runtime-core";
 import {
   DEFAULT_MEMORY_DEEP_DREAMING_MAX_PROMOTED_SNIPPET_TOKENS as DEFAULT_MEMORY_DREAMING_MAX_PROMOTED_SNIPPET_TOKENS,
   DEFAULT_MEMORY_DEEP_DREAMING_RECENCY_HALF_LIFE_DAYS as DEFAULT_MEMORY_DREAMING_RECENCY_HALF_LIFE_DAYS,
@@ -16,15 +16,15 @@ import {
   MEMORY_DREAMING_SYSTEM_EVENT_TEXT as DREAMING_SYSTEM_EVENT_TEXT,
   resolveMemoryDeepDreamingConfig,
   resolveMemoryDreamingWorkspaces,
-} from "openclaw/plugin-sdk/memory-core-host-status";
-import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
+} from "granted/plugin-sdk/memory-core-host-status";
+import type { GrantedPluginApi } from "granted/plugin-sdk/plugin-entry";
 import {
   isRecord,
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
   uniqueStrings,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
-import { peekSystemEventEntries } from "openclaw/plugin-sdk/system-event-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
+import { peekSystemEventEntries } from "granted/plugin-sdk/system-event-runtime";
 import { appendFailedDreamingEvent } from "./dreaming-events.js";
 import type { NarrativePhaseData } from "./dreaming-narrative.js";
 import { formatErrorMessage, includesSystemEventToken } from "./dreaming-shared.js";

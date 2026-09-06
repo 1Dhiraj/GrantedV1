@@ -1,14 +1,14 @@
 // Migrate Hermes tests cover provider.secret failure plugin behavior.
 import fs from "node:fs/promises";
 import path from "node:path";
-import { resolveAuthStorePathForDisplay } from "openclaw/plugin-sdk/agent-runtime";
-import type { MigrationProviderContext } from "openclaw/plugin-sdk/plugin-entry";
-import type { GrantedConfig } from "openclaw/plugin-sdk/provider-auth";
+import { resolveAuthStorePathForDisplay } from "granted/plugin-sdk/agent-runtime";
+import type { MigrationProviderContext } from "granted/plugin-sdk/plugin-entry";
+import type { GrantedConfig } from "granted/plugin-sdk/provider-auth";
 import {
   resolvePreferredOpenClawTmpDir,
   tempWorkspace,
   type TempWorkspace,
-} from "openclaw/plugin-sdk/temp-path";
+} from "granted/plugin-sdk/temp-path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { HERMES_REASON_AUTH_PROFILE_WRITE_FAILED } from "./items.js";
 
@@ -17,7 +17,7 @@ const mocks = vi.hoisted(() => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/provider-auth", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("openclaw/plugin-sdk/provider-auth")>()),
+  ...(await importOriginal<typeof import("granted/plugin-sdk/provider-auth")>()),
   updateAuthProfileStoreWithLock: mocks.updateAuthProfileStoreWithLock,
 }));
 

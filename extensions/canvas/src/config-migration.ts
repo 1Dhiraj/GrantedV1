@@ -1,16 +1,16 @@
 /** Canvas config migration to the single surviving route-enable switch. */
 import fs from "node:fs";
 import path from "node:path";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { extractErrorCode } from "openclaw/plugin-sdk/error-runtime";
-import { resolvePluginConfigObject } from "openclaw/plugin-sdk/plugin-config-runtime";
-import { resolveStateDir } from "openclaw/plugin-sdk/state-paths";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { extractErrorCode } from "granted/plugin-sdk/error-runtime";
+import { resolvePluginConfigObject } from "granted/plugin-sdk/plugin-config-runtime";
+import { resolveStateDir } from "granted/plugin-sdk/state-paths";
 import {
   asBoolean,
   asOptionalRecord as readRecord,
   readStringValue as readString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
-import { resolveUserPath } from "openclaw/plugin-sdk/text-utility-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
+import { resolveUserPath } from "granted/plugin-sdk/text-utility-runtime";
 
 const RETIRED_HOST_KEYS = ["root", "port", "liveReload"] as const;
 

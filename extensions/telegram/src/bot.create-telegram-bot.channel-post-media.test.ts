@@ -1,10 +1,10 @@
-import { KeyedAsyncQueue } from "openclaw/plugin-sdk/keyed-async-queue";
+import { KeyedAsyncQueue } from "granted/plugin-sdk/keyed-async-queue";
 import {
   createPluginStateKeyedStoreForTests,
   createPluginStateSyncKeyedStoreForTests,
-} from "openclaw/plugin-sdk/plugin-state-test-runtime";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
-import { withTimeout } from "openclaw/plugin-sdk/text-utility-runtime";
+} from "granted/plugin-sdk/plugin-state-test-runtime";
+import type { RuntimeEnv } from "granted/plugin-sdk/runtime-env";
+import { withTimeout } from "granted/plugin-sdk/text-utility-runtime";
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   telegramBotInfoForTest,
@@ -24,7 +24,7 @@ const { triggerInternalHookMock } = vi.hoisted(() => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/hook-runtime", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/hook-runtime")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/hook-runtime")>(
     "openclaw/plugin-sdk/hook-runtime",
   );
   return {

@@ -1,4 +1,4 @@
-import type { NodeListNode } from "openclaw/plugin-sdk/agent-harness-runtime";
+import type { NodeListNode } from "granted/plugin-sdk/agent-harness-runtime";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { createCanvasTool } from "./tool.js";
 
@@ -8,7 +8,7 @@ const mocks = vi.hoisted(() => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/agent-harness-runtime", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("openclaw/plugin-sdk/agent-harness-runtime")>()),
+  ...(await importOriginal<typeof import("granted/plugin-sdk/agent-harness-runtime")>()),
   callGatewayTool: mocks.callGatewayTool,
   listNodes: mocks.listNodes,
 }));

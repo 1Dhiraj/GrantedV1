@@ -1,7 +1,7 @@
 // Verifies WhatsApp runtime imports respect plugin boundary rules.
 import fs from "node:fs";
 import path from "node:path";
-import { bundledDistPluginFile } from "openclaw/plugin-sdk/test-fixtures";
+import { bundledDistPluginFile } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, describe, expect, it } from "vitest";
 import { stageBundledPluginRuntime } from "../../scripts/stage-bundled-plugin-runtime.mts";
 import { clearPluginMetadataLifecycleCaches } from "./plugin-metadata-lifecycle.js";
@@ -34,7 +34,7 @@ function createBundledWhatsAppRuntimeFixture() {
         name: "openclaw",
         type: "module",
         bin: {
-          openclaw: "openclaw.mjs",
+          openclaw: "granted.mjs",
         },
         exports: {
           "./plugin-sdk/core": {
@@ -45,7 +45,7 @@ function createBundledWhatsAppRuntimeFixture() {
       null,
       2,
     ),
-    "openclaw.mjs": "export {};\n",
+    "granted.mjs": "export {};\n",
     "dist/plugin-sdk/core.js": "export {};\n",
     [bundledDistPluginFile("whatsapp", "index.js")]: "export default {};\n",
     [bundledDistPluginFile("whatsapp", "light-runtime-api.js")]:

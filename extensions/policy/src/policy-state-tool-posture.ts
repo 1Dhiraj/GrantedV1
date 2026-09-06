@@ -1,10 +1,10 @@
-import { resolveExecModePolicy } from "openclaw/plugin-sdk/exec-approvals-runtime";
+import { resolveExecModePolicy } from "granted/plugin-sdk/exec-approvals-runtime";
 import {
   asNonArrayRecord,
   isRecord,
   asBoolean as readBoolean,
   normalizeOptionalString as readString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import { collectPolicyConfiguredAgents, ocPathSegment } from "./policy-state-helpers.js";
 import type { PolicyToolPostureEvidence } from "./policy-state-types.js";
 

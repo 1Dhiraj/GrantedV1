@@ -4,20 +4,20 @@
  * Sends requests to either an absolute HTTP browser-control URL or the local
  * in-process dispatcher, adding loopback auth and operator-facing diagnostics.
  */
-import { parseBrowserHttpUrl } from "openclaw/plugin-sdk/browser-cdp";
+import { parseBrowserHttpUrl } from "granted/plugin-sdk/browser-cdp";
 import {
   extractErrorCode,
   formatErrorMessage,
   toErrorObject,
-} from "openclaw/plugin-sdk/error-runtime";
-import { resolveTimerTimeoutMs } from "openclaw/plugin-sdk/number-runtime";
-import { readResponseWithLimit } from "openclaw/plugin-sdk/response-limit-runtime";
-import { formatCliCommand } from "openclaw/plugin-sdk/setup-tools";
-import { fetchWithSsrFGuard } from "openclaw/plugin-sdk/ssrf-runtime";
+} from "granted/plugin-sdk/error-runtime";
+import { resolveTimerTimeoutMs } from "granted/plugin-sdk/number-runtime";
+import { readResponseWithLimit } from "granted/plugin-sdk/response-limit-runtime";
+import { formatCliCommand } from "granted/plugin-sdk/setup-tools";
+import { fetchWithSsrFGuard } from "granted/plugin-sdk/ssrf-runtime";
 import {
   normalizeOptionalString,
   normalizeLowercaseStringOrEmpty,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import { getRuntimeConfig } from "../config/config.js";
 import { isLoopbackHost } from "../gateway/net.js";
 import { getBridgeAuthForPort } from "./bridge-auth-registry.js";

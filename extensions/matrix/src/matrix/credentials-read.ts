@@ -1,8 +1,8 @@
 // Matrix plugin module implements credentials read behavior. Pure record
 // shapes/normalizers live in credentials-state.ts; this module owns the
 // heavy sync plugin-state store access.
-import { normalizeAccountId } from "openclaw/plugin-sdk/account-id";
-import { createPluginStateSyncKeyedStore } from "openclaw/plugin-sdk/plugin-state-store-runtime";
+import { normalizeAccountId } from "granted/plugin-sdk/account-id";
+import { createPluginStateSyncKeyedStore } from "granted/plugin-sdk/plugin-state-store-runtime";
 import { getOptionalMatrixRuntime } from "../runtime.js";
 import {
   MATRIX_CREDENTIALS_MAX_ENTRIES,

@@ -1,17 +1,17 @@
 import {
   attachChannelToResult,
   type ChannelOutboundAdapter,
-} from "openclaw/plugin-sdk/channel-send-result";
+} from "granted/plugin-sdk/channel-send-result";
 // Discord plugin module implements outbound payload behavior.
-import { expectDefined } from "openclaw/plugin-sdk/expect-runtime";
+import { expectDefined } from "granted/plugin-sdk/expect-runtime";
 import {
   getReplyPayloadTtsSupplement,
   resolvePayloadMediaUrls,
   sendPayloadMediaSequenceOrFallback,
   sendTextMediaPayload,
-} from "openclaw/plugin-sdk/reply-payload";
-import { createSubsystemLogger } from "openclaw/plugin-sdk/runtime-env";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/reply-payload";
+import { createSubsystemLogger } from "granted/plugin-sdk/runtime-env";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import { normalizeDiscordApprovalPayload } from "./outbound-approval.js";
 import {
   resolveDiscordComponentSpec,

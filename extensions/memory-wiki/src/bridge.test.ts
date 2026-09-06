@@ -6,7 +6,7 @@ import {
   clearMemoryPluginState,
   type MemoryPluginPublicArtifact,
   registerMemoryCapability,
-} from "openclaw/plugin-sdk/memory-host-core";
+} from "granted/plugin-sdk/memory-host-core";
 import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from "vitest";
 import type { GrantedConfig } from "../api.js";
 import { syncMemoryWikiBridgeSources } from "./bridge.js";

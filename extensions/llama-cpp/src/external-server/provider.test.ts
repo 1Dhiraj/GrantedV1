@@ -1,7 +1,7 @@
 import type {
   ProviderCatalogContext,
   ProviderPrepareDynamicModelContext,
-} from "openclaw/plugin-sdk/plugin-entry";
+} from "granted/plugin-sdk/plugin-entry";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { discoverLlamaServerProvider, prepareLlamaServerDynamicModel } from "./provider.js";
 

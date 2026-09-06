@@ -2,10 +2,10 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import { readResponseWithLimit } from "openclaw/plugin-sdk/response-limit-runtime";
-import { readSecretFileSync } from "openclaw/plugin-sdk/secret-file-runtime";
-import { fetchWithSsrFGuard } from "openclaw/plugin-sdk/ssrf-runtime";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
+import { readResponseWithLimit } from "granted/plugin-sdk/response-limit-runtime";
+import { readSecretFileSync } from "granted/plugin-sdk/secret-file-runtime";
+import { fetchWithSsrFGuard } from "granted/plugin-sdk/ssrf-runtime";
 import { ensureRepoBoundDirectory, resolveRepoRelativeOutputDir } from "../cli-paths.js";
 import { isTruthyOptIn, trimToValue } from "../mantis-options.runtime.js";
 

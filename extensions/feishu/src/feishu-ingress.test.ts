@@ -7,8 +7,8 @@ import type * as Lark from "@larksuiteoapi/node-sdk";
 import {
   closeOpenClawStateDatabaseForTest,
   createChannelIngressQueueForTests,
-} from "openclaw/plugin-sdk/channel-ingress-test-runtime";
-import { createNonExitingRuntimeEnv } from "openclaw/plugin-sdk/plugin-test-runtime";
+} from "granted/plugin-sdk/channel-ingress-test-runtime";
+import { createNonExitingRuntimeEnv } from "granted/plugin-sdk/plugin-test-runtime";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { feishuDedupeState } from "./dedup-state.js";
 import { claimUnprocessedFeishuMessage } from "./dedup.js";

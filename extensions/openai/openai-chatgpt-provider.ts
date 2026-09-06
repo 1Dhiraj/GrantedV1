@@ -1,29 +1,29 @@
 // Openai provider module implements model/runtime integration.
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
 import type {
   ProviderAuthContext,
   ProviderAuthMethod,
   ProviderAuthResult,
   ProviderResolveDynamicModelContext,
   ProviderRuntimeModel,
-} from "openclaw/plugin-sdk/plugin-entry";
+} from "granted/plugin-sdk/plugin-entry";
 import {
   CODEX_CLI_PROFILE_ID,
   type OAuthCredential,
   buildOauthProviderAuthResult,
   resolveOpenAICodexAuthIdentity,
-} from "openclaw/plugin-sdk/provider-auth";
+} from "granted/plugin-sdk/provider-auth";
 import {
   DEFAULT_CONTEXT_TOKENS,
   normalizeModelCompat,
   normalizeProviderId,
   type ProviderPlugin,
-} from "openclaw/plugin-sdk/provider-model-shared";
+} from "granted/plugin-sdk/provider-model-shared";
 import {
   normalizeLowercaseStringOrEmpty,
   readStringValue,
   uniqueValues,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import {
   isOpenAIApiBaseUrl,
   isOpenAICodexBaseUrl,

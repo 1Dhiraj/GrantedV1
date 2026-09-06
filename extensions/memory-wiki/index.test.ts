@@ -1,7 +1,7 @@
 // Memory Wiki tests cover index plugin behavior.
 import fs from "node:fs/promises";
 import path from "node:path";
-import { withEnv } from "openclaw/plugin-sdk/test-env";
+import { withEnv } from "granted/plugin-sdk/test-env";
 import { describe, expect, it, vi } from "vitest";
 import type { GrantedConfig } from "./api.js";
 import plugin from "./index.js";

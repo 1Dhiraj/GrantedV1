@@ -3,7 +3,7 @@ import os from "node:os";
 import path from "node:path";
 // Voice Call tests cover cli plugin behavior.
 import { Command } from "commander";
-import { MAX_TIMER_TIMEOUT_MS } from "openclaw/plugin-sdk/number-runtime";
+import { MAX_TIMER_TIMEOUT_MS } from "granted/plugin-sdk/number-runtime";
 import { afterEach, describe, expect, it, vi } from "vitest";
 const callGatewayFromCliMock = vi.hoisted(() => vi.fn());
 const findCallInStoreMock = vi.hoisted(() => vi.fn());
@@ -23,7 +23,7 @@ const sleepMock = vi.hoisted(() =>
 );
 
 vi.mock("openclaw/plugin-sdk/gateway-runtime", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("openclaw/plugin-sdk/gateway-runtime")>()),
+  ...(await importOriginal<typeof import("granted/plugin-sdk/gateway-runtime")>()),
   callGatewayFromCli: callGatewayFromCliMock,
 }));
 vi.mock("../api.js", async (importOriginal) => ({

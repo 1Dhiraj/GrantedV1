@@ -1,4 +1,4 @@
-import { MeetingPlatformAdapter } from "openclaw/plugin-sdk/meeting-runtime";
+import { MeetingPlatformAdapter } from "granted/plugin-sdk/meeting-runtime";
 import type { TeamsMeetingsConfig, TeamsMeetingsMode, TeamsMeetingsTransport } from "./config.js";
 import { testTeamsMeetingListening, testTeamsMeetingSpeech } from "./runtime-probes.js";
 import { getTeamsMeetingsSetupStatus } from "./runtime-setup.js";

@@ -2,8 +2,8 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { Command } from "commander";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
-import { tempWorkspace } from "openclaw/plugin-sdk/temp-path";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
+import { tempWorkspace } from "granted/plugin-sdk/temp-path";
 import { afterEach, beforeEach, describe, expect, it, type MockInstance, vi } from "vitest";
 
 const { sleepMock, historyMock } = vi.hoisted(() => ({

@@ -1,7 +1,7 @@
 import crypto from "node:crypto";
-import type { PluginCommandContext } from "openclaw/plugin-sdk/plugin-entry";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+import type { PluginCommandContext } from "granted/plugin-sdk/plugin-entry";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
+import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import { bindingStoreKey } from "./app-server/session-binding.js";
 import {
   codexDiagnosticsFeedbackState,

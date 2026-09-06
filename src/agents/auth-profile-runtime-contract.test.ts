@@ -9,7 +9,7 @@ import {
   AUTH_PROFILE_RUNTIME_CONTRACT,
   createAuthAliasManifestRegistry,
   expectedForwardedAuthProfile,
-} from "openclaw/plugin-sdk/agent-runtime-test-contracts";
+} from "granted/plugin-sdk/agent-runtime-test-contracts";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import { clearPluginMetadataLifecycleCaches } from "../plugins/plugin-metadata-lifecycle.js";

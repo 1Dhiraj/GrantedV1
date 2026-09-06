@@ -2,14 +2,14 @@ import {
   normalizeMessagePresentation,
   renderMessagePresentationFallbackText,
   type MessagePresentation,
-} from "openclaw/plugin-sdk/interactive-runtime";
+} from "granted/plugin-sdk/interactive-runtime";
 // Slack plugin module implements reply blocks behavior.
 import {
   resolveAskUserQuestionOptionIndices,
   type AskUserQuestionOptionIndices,
   type ReplyPayload,
-} from "openclaw/plugin-sdk/reply-payload";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/reply-payload";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   resolveSlackAuthoredTextPlacement,
   type SlackAuthoredTextPlacement,

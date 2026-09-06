@@ -1,4 +1,4 @@
-import { QUEUED_USER_MESSAGE_MARKER } from "openclaw/plugin-sdk/agent-runtime-test-contracts";
+import { QUEUED_USER_MESSAGE_MARKER } from "granted/plugin-sdk/agent-runtime-test-contracts";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { SessionSystemPromptReport } from "../../../config/sessions/types.js";
 import type { AgentMessage } from "../../runtime/index.js";

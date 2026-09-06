@@ -8,9 +8,9 @@ import {
   MeetingPlatformAdapter,
   type MeetingSetupCheck,
   type MeetingSetupStatus,
-} from "openclaw/plugin-sdk/meeting-runtime";
-import { isBlockedHostnameOrIp } from "openclaw/plugin-sdk/ssrf-runtime";
-import { asRecord, normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/meeting-runtime";
+import { isBlockedHostnameOrIp } from "granted/plugin-sdk/ssrf-runtime";
+import { asRecord, normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import type { GoogleMeetConfig, GoogleMeetMode, GoogleMeetTransport } from "./config.js";
 
 type SetupCheck = MeetingSetupCheck;

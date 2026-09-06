@@ -1,9 +1,9 @@
 import { randomUUID } from "node:crypto";
-import type { GrantedPluginGatewayEvents, PluginRuntime } from "openclaw/plugin-sdk/core";
+import type { GrantedPluginGatewayEvents, PluginRuntime } from "granted/plugin-sdk/core";
 import type {
   SessionDiscussionInfo,
   SessionDiscussionProvider,
-} from "openclaw/plugin-sdk/session-discussion";
+} from "granted/plugin-sdk/session-discussion";
 import { listClickClackAccountIds, resolveClickClackAccount } from "../accounts.js";
 import {
   createClickClackClient,

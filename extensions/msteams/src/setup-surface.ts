@@ -12,7 +12,7 @@ import {
   type ChannelSetupWizard,
   type GrantedConfig,
   type WizardPrompter,
-} from "openclaw/plugin-sdk/setup";
+} from "granted/plugin-sdk/setup";
 import { formatUnknownError } from "./errors.js";
 import {
   parseMSTeamsTeamEntry,

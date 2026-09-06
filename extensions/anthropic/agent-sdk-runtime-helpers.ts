@@ -1,6 +1,6 @@
 import { randomUUID } from "node:crypto";
 import type { SDKUserMessage as ClaudeAgentSdkUserMessage } from "@anthropic-ai/claude-agent-sdk";
-import type { CliBackendExecuteContext } from "openclaw/plugin-sdk/cli-backend";
+import type { CliBackendExecuteContext } from "granted/plugin-sdk/cli-backend";
 
 export function splitClaudeToolNames(value: string): string[] {
   return value

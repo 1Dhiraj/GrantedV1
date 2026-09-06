@@ -8,7 +8,7 @@ import {
   isHostScopedAgentToolActive,
   resolveContextEngineOwnerPluginId,
   runHarnessContextEngineMaintenance,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
+} from "granted/plugin-sdk/agent-harness-runtime";
 import {
   buildCodexOpenClawPromptContext,
   buildCodexWatchedSessionsContext,

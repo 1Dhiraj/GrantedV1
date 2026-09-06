@@ -7,8 +7,8 @@ import { Agent, createServer } from "node:http";
 import type { AddressInfo } from "node:net";
 import os from "node:os";
 import path from "node:path";
-import { createOpenClawTestState } from "openclaw/plugin-sdk/test-state";
-import { rawDataToString } from "openclaw/plugin-sdk/webhook-ingress";
+import { createOpenClawTestState } from "granted/plugin-sdk/test-state";
+import { rawDataToString } from "granted/plugin-sdk/webhook-ingress";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { WebSocketServer } from "ws";
 

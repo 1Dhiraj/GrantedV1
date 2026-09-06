@@ -5,7 +5,7 @@ import { inspect } from "node:util";
 import {
   openOpenClawAgentDatabase,
   openOpenClawStateDatabase,
-} from "openclaw/plugin-sdk/sqlite-runtime-testing";
+} from "granted/plugin-sdk/sqlite-runtime-testing";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { cleanupQaGatewayTempRoots } from "./gateway-child-artifacts.js";
 import { readQaAuthProfiles, writeQaAuthProfiles } from "./providers/shared/auth-store.js";
@@ -35,7 +35,7 @@ describe("cleanupQaGatewayTempRoots", () => {
       import assert from "node:assert/strict";
       import fs from "node:fs";
       import path from "node:path";
-      import { openOpenClawAgentDatabase, openOpenClawStateDatabase } from "openclaw/plugin-sdk/sqlite-runtime-testing";
+      import { openOpenClawAgentDatabase, openOpenClawStateDatabase } from "granted/plugin-sdk/sqlite-runtime-testing";
       import { stageQaLiveApiKeyProfiles } from ${JSON.stringify(new URL("./providers/live-frontier/auth.ts", import.meta.url).href)};
       import { readQaAuthProfiles } from ${JSON.stringify(new URL("./providers/shared/auth-store.ts", import.meta.url).href)};
       import { cleanupQaGatewayTempRoots } from ${JSON.stringify(new URL("./gateway-child-artifacts.ts", import.meta.url).href)};

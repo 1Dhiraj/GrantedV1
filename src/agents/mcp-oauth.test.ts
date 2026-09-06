@@ -2,7 +2,7 @@ import { createHash } from "node:crypto";
 import fs from "node:fs/promises";
 import { createServer, type IncomingMessage, type ServerResponse } from "node:http";
 import path from "node:path";
-import { withTempHome as withBaseTempHome } from "openclaw/plugin-sdk/test-env";
+import { withTempHome as withBaseTempHome } from "granted/plugin-sdk/test-env";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { McpServerConfig } from "../config/types.mcp.js";
 import { handleMcpOAuthCallback } from "../gateway/mcp-oauth-callback.js";

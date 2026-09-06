@@ -76,7 +76,7 @@ describe("doctor gateway startup recovery producer", () => {
       ),
     ).toEqual({
       args: [
-        path.join("/workspace/openclaw", "openclaw.mjs"),
+        path.join("/workspace/openclaw", "granted.mjs"),
         "--profile",
         "qa-doctor-stable",
         "gateway",

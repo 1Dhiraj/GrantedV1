@@ -184,7 +184,7 @@ vi.mock("./send.js", () => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/conversation-runtime", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/conversation-runtime")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/conversation-runtime")>(
     "openclaw/plugin-sdk/conversation-runtime",
   );
   return {

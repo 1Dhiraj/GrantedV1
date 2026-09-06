@@ -2,19 +2,19 @@
 import {
   buildDmGroupAccountAllowlistAdapter,
   createFlatAllowlistOverrideResolver,
-} from "openclaw/plugin-sdk/allowlist-config-edit";
+} from "granted/plugin-sdk/allowlist-config-edit";
 import {
   buildChannelOutboundSessionRoute,
   createChatChannelPlugin,
   type ChannelPlugin,
-} from "openclaw/plugin-sdk/channel-core";
-import { createPairingPrefixStripper } from "openclaw/plugin-sdk/channel-pairing";
-import { createRestrictSendersChannelSecurity } from "openclaw/plugin-sdk/channel-policy";
+} from "granted/plugin-sdk/channel-core";
+import { createPairingPrefixStripper } from "granted/plugin-sdk/channel-pairing";
+import { createRestrictSendersChannelSecurity } from "granted/plugin-sdk/channel-policy";
 import {
   createChannelDirectoryAdapter,
   createResolvedDirectoryEntriesLister,
-} from "openclaw/plugin-sdk/directory-runtime";
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
+} from "granted/plugin-sdk/directory-runtime";
+import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
 import { resolveLineAccount } from "./accounts.js";
 import { lineBindingsAdapter } from "./bindings.js";
 import { lineChannelPluginCommon } from "./channel-shared.js";

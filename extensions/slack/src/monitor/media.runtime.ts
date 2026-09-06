@@ -1,7 +1,7 @@
 // Slack plugin module implements media behavior.
-import { createSubsystemLogger } from "openclaw/plugin-sdk/runtime-env";
+import { createSubsystemLogger } from "granted/plugin-sdk/runtime-env";
 
 export const slackMediaLog = createSubsystemLogger("gateway/channels/slack").child("media");
-export { fetchWithRuntimeDispatcher } from "openclaw/plugin-sdk/runtime-fetch";
-export type { FetchLike } from "openclaw/plugin-sdk/media-runtime";
-export { saveRemoteMedia } from "openclaw/plugin-sdk/media-runtime";
+export { fetchWithRuntimeDispatcher } from "granted/plugin-sdk/runtime-fetch";
+export type { FetchLike } from "granted/plugin-sdk/media-runtime";
+export { saveRemoteMedia } from "granted/plugin-sdk/media-runtime";

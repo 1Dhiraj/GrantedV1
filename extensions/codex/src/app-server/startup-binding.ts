@@ -8,12 +8,12 @@ import path from "node:path";
 import {
   embeddedAgentLog,
   type EmbeddedRunAttemptParamsV2 as EmbeddedRunAttemptParams,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
+} from "granted/plugin-sdk/agent-harness-runtime";
 import {
   isPathStrictlyInside,
   root as openSafeFilesystemRoot,
-} from "openclaw/plugin-sdk/file-access-runtime";
-import { parseSqliteSessionFileMarker } from "openclaw/plugin-sdk/session-store-runtime";
+} from "granted/plugin-sdk/file-access-runtime";
+import { parseSqliteSessionFileMarker } from "granted/plugin-sdk/session-store-runtime";
 import { resolveCodexAppServerHomeDir } from "./auth-bridge.js";
 import { isJsonObject, type JsonValue } from "./protocol.js";
 import type {

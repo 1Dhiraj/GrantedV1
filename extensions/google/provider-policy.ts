@@ -2,9 +2,9 @@
 import type {
   ProviderDefaultThinkingPolicyContext,
   ProviderThinkingProfile,
-} from "openclaw/plugin-sdk/core";
-import type { ModelProviderConfig } from "openclaw/plugin-sdk/provider-model-types";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/core";
+import type { ModelProviderConfig } from "granted/plugin-sdk/provider-model-types";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import { normalizeAntigravityModelId, normalizeGoogleModelId } from "./model-id.js";
 import {
   isGoogleGenerativeAiApi,

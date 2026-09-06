@@ -8,7 +8,7 @@ import type {
   WorkboardMetadata,
   WorkboardStatus,
 } from "@openclaw/workboard-contract";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import { isWorkboardCardStore } from "./persistence-types.js";
 import type {
   PersistedWorkboardAttachment,

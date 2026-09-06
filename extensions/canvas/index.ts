@@ -3,8 +3,8 @@
  * node CLI registration.
  */
 import type { IncomingMessage, ServerResponse } from "node:http";
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
-import { definePluginEntry, type AnyAgentTool } from "openclaw/plugin-sdk/plugin-entry";
+import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
+import { definePluginEntry, type AnyAgentTool } from "granted/plugin-sdk/plugin-entry";
 import { canvasA2UIBoardWidgetKind } from "./src/board-widget.js";
 import { canvasConfigSchema, isCanvasHostEnabled } from "./src/config.js";
 import { A2UI_PATH } from "./src/host/a2ui-shared.js";

@@ -1,5 +1,5 @@
-import type { HealthFinding } from "openclaw/plugin-sdk/health";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import type { HealthFinding } from "granted/plugin-sdk/health";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import type { PolicyAgentWorkspaceEvidence, PolicyEvidence } from "../policy-state.js";
 import { agentsPolicyShapeFinding } from "./access-shapes.js";
 import { CHECK_IDS } from "./check-ids.js";

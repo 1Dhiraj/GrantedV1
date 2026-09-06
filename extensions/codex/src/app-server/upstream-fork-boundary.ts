@@ -2,8 +2,8 @@ import { isDeepStrictEqual } from "node:util";
 import {
   readVisibleSessionTranscriptMessageEntries,
   type SessionTranscriptMessageEntry,
-} from "openclaw/plugin-sdk/session-transcript-runtime";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/session-transcript-runtime";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import type { CodexSessionCatalogControl } from "../session-catalog-types.js";
 import { assertCodexThreadAcceptsDirectInput } from "./protocol-validators.js";
 import type { CodexThread, CodexTurn } from "./protocol.js";

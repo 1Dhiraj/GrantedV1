@@ -1,10 +1,10 @@
 // Feishu plugin module implements probe behavior.
 import { createHash } from "node:crypto";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
 import {
   asDateTimestampMs,
   resolveExpiresAtMsFromDurationMs,
-} from "openclaw/plugin-sdk/number-runtime";
+} from "granted/plugin-sdk/number-runtime";
 import { raceWithTimeoutAndAbort } from "./async.js";
 import { createFeishuClient, type FeishuClientCredentials } from "./client.js";
 import type { FeishuProbeResult } from "./types.js";

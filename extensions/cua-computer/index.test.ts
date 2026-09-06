@@ -2,17 +2,17 @@ import fs from "node:fs";
 import {
   validateJsonSchemaValue,
   type JsonSchemaObject,
-} from "openclaw/plugin-sdk/json-schema-runtime";
+} from "granted/plugin-sdk/json-schema-runtime";
 import {
   normalizePluginsConfig,
   resolveEffectiveEnableState,
-} from "openclaw/plugin-sdk/plugin-config-runtime";
+} from "granted/plugin-sdk/plugin-config-runtime";
 import type {
   GrantedPluginNodeHostCommand,
   GrantedPluginNodeInvokePolicy,
   GrantedPluginNodeInvokePolicyContext,
-} from "openclaw/plugin-sdk/plugin-entry";
-import { createTestPluginApi, type TestPluginApiInput } from "openclaw/plugin-sdk/plugin-test-api";
+} from "granted/plugin-sdk/plugin-entry";
+import { createTestPluginApi, type TestPluginApiInput } from "granted/plugin-sdk/plugin-test-api";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const artifactMocks = vi.hoisted(() => ({

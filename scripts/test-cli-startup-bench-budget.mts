@@ -95,7 +95,7 @@ function parseOptions() {
       {
         baseline: CLI_STARTUP_BENCH_FIXTURE_PATH,
         report: "",
-        entry: "openclaw.mjs",
+        entry: "granted.mjs",
         preset: "all",
         runs: 1,
         warmup: 0,

@@ -1,4 +1,4 @@
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 // Discord plugin module implements runtime.messaging behavior.
 import { readDiscordComponentSpec } from "../components.js";
 import { sendDiscordComponentMessage } from "../send.components.js";

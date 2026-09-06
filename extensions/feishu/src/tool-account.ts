@@ -1,7 +1,7 @@
 // Feishu plugin module implements tool account behavior.
 import type * as Lark from "@larksuiteoapi/node-sdk";
-import { normalizeOptionalAccountId } from "openclaw/plugin-sdk/account-resolution";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { normalizeOptionalAccountId } from "granted/plugin-sdk/account-resolution";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import type { GrantedPluginApi } from "../runtime-api.js";
 import {
   listEnabledFeishuAccounts,

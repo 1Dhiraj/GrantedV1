@@ -59,7 +59,7 @@ function createStalledLookup() {
   return {
     lookupFn: lookupFn as unknown as NonNullable<
       Parameters<
-        typeof import("openclaw/plugin-sdk/ssrf-runtime").fetchWithSsrFGuard
+        typeof import("granted/plugin-sdk/ssrf-runtime").fetchWithSsrFGuard
       >[0]["lookupFn"]
     >,
     release: () => release?.(),
@@ -143,7 +143,7 @@ describe("fetchDiscordGatewayMetadataGuarded bounded reads", () => {
   });
 
   it("aborts stalled DNS preflight through the gateway metadata deadline", async () => {
-    const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/ssrf-runtime")>(
+    const actual = await vi.importActual<typeof import("granted/plugin-sdk/ssrf-runtime")>(
       "openclaw/plugin-sdk/ssrf-runtime",
     );
     const stalledLookup = createStalledLookup();

@@ -1,5 +1,5 @@
 // Telegram tests cover invalid allowFrom warning dedupe bounds.
-import { withEnv } from "openclaw/plugin-sdk/test-env";
+import { withEnv } from "granted/plugin-sdk/test-env";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const { warnMock } = vi.hoisted(() => ({
@@ -7,7 +7,7 @@ const { warnMock } = vi.hoisted(() => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/runtime-env", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/runtime-env")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/runtime-env")>();
   const createSubsystemLogger = () => {
     const logger = { warn: warnMock, child: () => logger };
     return logger as unknown as ReturnType<typeof actual.createSubsystemLogger>;

@@ -1,18 +1,18 @@
 // Whatsapp plugin module implements deliver reply behavior.
-import { isChannelPartialDeliveryError } from "openclaw/plugin-sdk/channel-inbound";
+import { isChannelPartialDeliveryError } from "granted/plugin-sdk/channel-inbound";
 import {
   createMessageReceiptFromOutboundResults,
   type MessageReceipt,
   type MessageReceiptSourceResult,
-} from "openclaw/plugin-sdk/channel-outbound";
-import type { MarkdownTableMode } from "openclaw/plugin-sdk/config-contracts";
-import type { ChunkMode, ReplyPayload } from "openclaw/plugin-sdk/reply-chunking";
+} from "granted/plugin-sdk/channel-outbound";
+import type { MarkdownTableMode } from "granted/plugin-sdk/config-contracts";
+import type { ChunkMode, ReplyPayload } from "granted/plugin-sdk/reply-chunking";
 import {
   isReasoningReplyPayload,
   resolveTextChunksWithFallback,
   sendMediaWithLeadingCaption,
-} from "openclaw/plugin-sdk/reply-payload";
-import { logVerbose, shouldLogVerbose } from "openclaw/plugin-sdk/runtime-env";
+} from "granted/plugin-sdk/reply-payload";
+import { logVerbose, shouldLogVerbose } from "granted/plugin-sdk/runtime-env";
 import { requireWhatsAppInboundAdmission } from "../inbound/admission.js";
 import {
   listWhatsAppSendResultMessageIds,

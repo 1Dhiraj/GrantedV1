@@ -1,4 +1,4 @@
-import { createDefaultModelsPresetAppliers } from "openclaw/plugin-sdk/provider-onboard";
+import { createDefaultModelsPresetAppliers } from "granted/plugin-sdk/provider-onboard";
 import {
   buildFireworksCatalogModels,
   buildFireworksProvider,

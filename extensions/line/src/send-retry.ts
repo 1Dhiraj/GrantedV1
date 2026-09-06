@@ -1,10 +1,10 @@
 // Line plugin module implements push retry policy behavior.
 import { HTTPFetchError } from "@line/bot-sdk";
-import { collectErrorGraphCandidates, extractErrorCode } from "openclaw/plugin-sdk/error-runtime";
+import { collectErrorGraphCandidates, extractErrorCode } from "granted/plugin-sdk/error-runtime";
 import {
   classifyTransientNetworkErrorCode,
   createChannelApiRetryRunner,
-} from "openclaw/plugin-sdk/retry-runtime";
+} from "granted/plugin-sdk/retry-runtime";
 
 /** The LINE HTTP response carried by an error graph, when the request reached LINE. */
 export function findLineHttpError(error: unknown): HTTPFetchError | undefined {

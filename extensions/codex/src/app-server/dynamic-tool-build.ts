@@ -17,13 +17,13 @@ import {
   supportsModelTools,
   type EmbeddedRunAttemptParamsV2 as EmbeddedRunAttemptParams,
   type RuntimeToolSchemaDiagnostic,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
-import { resolveAgentDir } from "openclaw/plugin-sdk/agent-runtime";
+} from "granted/plugin-sdk/agent-harness-runtime";
+import { resolveAgentDir } from "granted/plugin-sdk/agent-runtime";
 import {
   resolveCodexScheduledToolProjectionFactory,
   runWithCronCreatorAuthorityCapabilityResolver,
-} from "openclaw/plugin-sdk/codex-mcp-projection";
-import { isToolAllowed } from "openclaw/plugin-sdk/sandbox";
+} from "granted/plugin-sdk/codex-mcp-projection";
+import { isToolAllowed } from "granted/plugin-sdk/sandbox";
 import {
   isCodexRemoteExecPlacementSandbox,
   readCodexPluginConfig,
@@ -59,12 +59,12 @@ import { filterCodexVisionTools } from "./vision-tools.js";
 import { resolveCodexWebSearchPlan, type CodexNativeWebSearchSupport } from "./web-search.js";
 
 type GrantedCodingToolsOptions = NonNullable<
-  Parameters<(typeof import("openclaw/plugin-sdk/agent-harness"))["createOpenClawCodingTools"]>[0]
+  Parameters<(typeof import("granted/plugin-sdk/agent-harness"))["createOpenClawCodingTools"]>[0]
 >;
 
 /** Factory seam for constructing OpenClaw runtime tools without eagerly loading agent-harness. */
 type GrantedCodingToolsFactory =
-  (typeof import("openclaw/plugin-sdk/agent-harness"))["createOpenClawCodingTools"];
+  (typeof import("granted/plugin-sdk/agent-harness"))["createOpenClawCodingTools"];
 type GrantedDynamicTool = ReturnType<GrantedCodingToolsFactory>[number];
 type GrantedSandboxContext = Awaited<ReturnType<typeof resolveSandboxContext>>;
 type CodexDynamicToolBuildEvent = Parameters<
@@ -493,7 +493,7 @@ export async function buildDynamicTools(
     persistentCodexWebSearchSurface
   ) {
     const webSearchPolicy = (
-      await import("openclaw/plugin-sdk/agent-harness")
+      await import("granted/plugin-sdk/agent-harness")
     ).resolveWebSearchToolPolicy({
       config: params.config,
       modelProvider: params.model.provider,

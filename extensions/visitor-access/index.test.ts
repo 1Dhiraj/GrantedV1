@@ -1,19 +1,19 @@
 import { mkdtempSync, realpathSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
 import type {
   AnyAgentTool,
   GrantedPluginApi,
   GrantedPluginService,
   GrantedPluginServiceContext,
-} from "openclaw/plugin-sdk/plugin-entry";
-import type { OpenKeyedStoreOptions } from "openclaw/plugin-sdk/plugin-state-runtime";
+} from "granted/plugin-sdk/plugin-entry";
+import type { OpenKeyedStoreOptions } from "granted/plugin-sdk/plugin-state-runtime";
 import {
   createPluginStateKeyedStoreForTests,
   resetPluginStateStoreForTests,
-} from "openclaw/plugin-sdk/plugin-state-test-runtime";
-import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
+} from "granted/plugin-sdk/plugin-state-test-runtime";
+import { createTestPluginApi } from "granted/plugin-sdk/plugin-test-api";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import plugin from "./index.js";
 import type { VisitorGrant } from "./src/visitors.js";

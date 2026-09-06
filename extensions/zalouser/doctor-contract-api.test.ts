@@ -6,18 +6,18 @@ import {
   createPluginStateSyncKeyedStoreForTests,
   createPluginStateKeyedStoreForTests,
   resetPluginStateStoreForTests,
-} from "openclaw/plugin-sdk/plugin-state-test-runtime";
-import { createPluginRuntimeMock } from "openclaw/plugin-sdk/plugin-test-runtime";
+} from "granted/plugin-sdk/plugin-state-test-runtime";
+import { createPluginRuntimeMock } from "granted/plugin-sdk/plugin-test-runtime";
 import type {
   OpenKeyedStoreOptions,
   PluginDoctorStateMigrationContext,
-} from "openclaw/plugin-sdk/runtime-doctor-migrations";
+} from "granted/plugin-sdk/runtime-doctor-migrations";
 import {
   listSessionEntries,
   normalizeSessionDeliveryState,
   upsertSessionEntry,
-} from "openclaw/plugin-sdk/session-store-runtime";
-import { closeOpenClawAgentDatabasesForTest } from "openclaw/plugin-sdk/sqlite-runtime-testing";
+} from "granted/plugin-sdk/session-store-runtime";
+import { closeOpenClawAgentDatabasesForTest } from "granted/plugin-sdk/sqlite-runtime-testing";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { stateMigrations } from "./doctor-contract-api.js";
 import { setZalouserRuntime } from "./src/runtime.js";

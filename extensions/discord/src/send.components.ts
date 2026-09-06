@@ -1,13 +1,13 @@
 // Discord plugin module implements send.components behavior.
 import { ChannelType } from "discord-api-types/v10";
-import { recordChannelActivity } from "openclaw/plugin-sdk/channel-activity-runtime";
-import type { MarkdownTableMode, GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { extensionForMime } from "openclaw/plugin-sdk/media-mime";
-import type { OutboundMediaAccess } from "openclaw/plugin-sdk/media-runtime";
-import { loadOutboundMediaFromUrl } from "openclaw/plugin-sdk/outbound-media";
-import { requireRuntimeConfig } from "openclaw/plugin-sdk/plugin-config-runtime";
-import type { ChunkMode } from "openclaw/plugin-sdk/reply-chunking";
-import { uniqueStrings } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { recordChannelActivity } from "granted/plugin-sdk/channel-activity-runtime";
+import type { MarkdownTableMode, GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { extensionForMime } from "granted/plugin-sdk/media-mime";
+import type { OutboundMediaAccess } from "granted/plugin-sdk/media-runtime";
+import { loadOutboundMediaFromUrl } from "granted/plugin-sdk/outbound-media";
+import { requireRuntimeConfig } from "granted/plugin-sdk/plugin-config-runtime";
+import type { ChunkMode } from "granted/plugin-sdk/reply-chunking";
+import { uniqueStrings } from "granted/plugin-sdk/string-coerce-runtime";
 import { registerDiscordComponentEntries } from "./components-registry.js";
 import {
   buildDiscordComponentMessage,

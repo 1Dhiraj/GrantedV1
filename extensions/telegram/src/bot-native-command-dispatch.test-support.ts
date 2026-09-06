@@ -1,4 +1,4 @@
-import type { ResolvedAgentRoute } from "openclaw/plugin-sdk/routing";
+import type { ResolvedAgentRoute } from "granted/plugin-sdk/routing";
 
 export function createConfiguredAcpTopicBinding(boundSessionKey: string) {
   return {

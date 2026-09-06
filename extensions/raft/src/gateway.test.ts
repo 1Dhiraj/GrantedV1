@@ -1,14 +1,14 @@
 import { EventEmitter } from "node:events";
-import type { ChannelGatewayContext } from "openclaw/plugin-sdk/channel-contract";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
-import { createChannelReplayGuard } from "openclaw/plugin-sdk/persistent-dedupe";
-import { resetPluginStateStoreForTests } from "openclaw/plugin-sdk/plugin-state-test-runtime";
+import type { ChannelGatewayContext } from "granted/plugin-sdk/channel-contract";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
+import { createChannelReplayGuard } from "granted/plugin-sdk/persistent-dedupe";
+import { resetPluginStateStoreForTests } from "granted/plugin-sdk/plugin-state-test-runtime";
 import {
   resolvePreferredOpenClawTmpDir,
   tempWorkspaceSync,
   type TempWorkspaceSync,
-} from "openclaw/plugin-sdk/temp-path";
-import { withTimeout } from "openclaw/plugin-sdk/text-utility-runtime";
+} from "granted/plugin-sdk/temp-path";
+import { withTimeout } from "granted/plugin-sdk/text-utility-runtime";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import type { ResolvedRaftAccount } from "./accounts.js";
 import { startRaftGatewayAccount } from "./gateway.js";
@@ -19,7 +19,7 @@ const processRuntimeMocks = vi.hoisted(() => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/process-runtime", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("openclaw/plugin-sdk/process-runtime")>()),
+  ...(await importOriginal<typeof import("granted/plugin-sdk/process-runtime")>()),
   killProcessTree: processRuntimeMocks.killProcessTree,
 }));
 

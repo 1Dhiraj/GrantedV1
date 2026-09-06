@@ -1,9 +1,9 @@
 import { createHash } from "node:crypto";
 import path from "node:path";
-import type { MemoryEntryProvenance } from "openclaw/plugin-sdk/memory-core-host-runtime-files";
-import { parseDateStringTimestampMs } from "openclaw/plugin-sdk/number-runtime";
-import { normalizeLowercaseStringOrEmpty } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+import type { MemoryEntryProvenance } from "granted/plugin-sdk/memory-core-host-runtime-files";
+import { parseDateStringTimestampMs } from "granted/plugin-sdk/number-runtime";
+import { normalizeLowercaseStringOrEmpty } from "granted/plugin-sdk/string-coerce-runtime";
+import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import { deriveConceptTags, MAX_CONCEPT_TAGS } from "./concept-vocabulary.js";
 import type {
   PromotionWeights,

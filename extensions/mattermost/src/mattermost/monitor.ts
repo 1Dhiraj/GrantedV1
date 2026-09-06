@@ -1,11 +1,11 @@
 // Mattermost plugin module orchestrates monitor setup, ingress, and teardown.
-import { fanInChannelIngressLifecycles } from "openclaw/plugin-sdk/channel-ingress-runtime";
-import { isLoopbackHost } from "openclaw/plugin-sdk/gateway-runtime";
-import { isPrivateNetworkOptInEnabled } from "openclaw/plugin-sdk/ssrf-runtime";
+import { fanInChannelIngressLifecycles } from "granted/plugin-sdk/channel-ingress-runtime";
+import { isLoopbackHost } from "granted/plugin-sdk/gateway-runtime";
+import { isPrivateNetworkOptInEnabled } from "granted/plugin-sdk/ssrf-runtime";
 import {
   normalizeOptionalString,
   normalizeTrimmedStringList,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import { getMattermostRuntime } from "../runtime.js";
 import { resolveMattermostAccount } from "./accounts.js";
 import {

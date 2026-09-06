@@ -1,5 +1,5 @@
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
-import type { RealtimeVoiceAgentControlResult } from "openclaw/plugin-sdk/realtime-voice";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
+import type { RealtimeVoiceAgentControlResult } from "granted/plugin-sdk/realtime-voice";
 import type { MockCallSource } from "./manager.e2e.test-support.js";
 import { defineDiscordVoiceTests } from "./voice-test-harness.test-support.js";
 

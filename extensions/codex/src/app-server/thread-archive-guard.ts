@@ -1,4 +1,4 @@
-import { normalizeBoundedOptionalString as readBoundedId } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { normalizeBoundedOptionalString as readBoundedId } from "granted/plugin-sdk/string-coerce-runtime";
 import { isJsonObject, type CodexThreadListParams } from "./protocol.js";
 import type { CodexAppServerBindingStore } from "./session-binding.js";
 

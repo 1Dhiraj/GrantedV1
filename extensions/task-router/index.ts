@@ -1,17 +1,17 @@
 import fs from "node:fs";
 import path from "node:path";
-import { DEFAULT_PROVIDER, resolveDefaultModelForAgent } from "openclaw/plugin-sdk/agent-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { resolveDefaultAgentId } from "openclaw/plugin-sdk/config-runtime";
-import { parseModelRef } from "openclaw/plugin-sdk/model-ref-parse";
-import { resolveLivePluginConfigObject } from "openclaw/plugin-sdk/plugin-config-runtime";
-import { definePluginEntry } from "openclaw/plugin-sdk/plugin-entry";
+import { DEFAULT_PROVIDER, resolveDefaultModelForAgent } from "granted/plugin-sdk/agent-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { resolveDefaultAgentId } from "granted/plugin-sdk/config-runtime";
+import { parseModelRef } from "granted/plugin-sdk/model-ref-parse";
+import { resolveLivePluginConfigObject } from "granted/plugin-sdk/plugin-config-runtime";
+import { definePluginEntry } from "granted/plugin-sdk/plugin-entry";
 import {
   completeWithPreparedSimpleCompletionModel,
   extractAssistantText,
   prepareSimpleCompletionModelForAgent,
-} from "openclaw/plugin-sdk/simple-completion-runtime";
-import { resolveStateDir } from "openclaw/plugin-sdk/state-paths";
+} from "granted/plugin-sdk/simple-completion-runtime";
+import { resolveStateDir } from "granted/plugin-sdk/state-paths";
 import { isTrivialMessage, type TaskKind } from "./src/classify.js";
 import {
   createTaskRouter,

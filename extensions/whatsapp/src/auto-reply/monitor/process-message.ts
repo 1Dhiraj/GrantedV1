@@ -3,14 +3,14 @@ import {
   logAckFailure,
   removeAckReactionHandleAfterReply,
   type AckReactionHandle,
-} from "openclaw/plugin-sdk/channel-feedback";
+} from "granted/plugin-sdk/channel-feedback";
 import {
   type buildChannelInboundEventContext,
   type ChannelInboundTurnPlan,
   formatMediaPlaceholderText,
   runChannelInboundEvent,
-} from "openclaw/plugin-sdk/channel-inbound";
-import { bindIngressLifecycleToReplyOptions } from "openclaw/plugin-sdk/channel-outbound";
+} from "granted/plugin-sdk/channel-inbound";
+import { bindIngressLifecycleToReplyOptions } from "granted/plugin-sdk/channel-outbound";
 import {
   createInternalHookEvent,
   deriveInboundMessageHookContext,
@@ -19,10 +19,10 @@ import {
   toPluginMessageContext,
   toPluginMessageReceivedEvent,
   triggerInternalHook,
-} from "openclaw/plugin-sdk/hook-runtime";
-import { formatAudioTranscriptForAgent } from "openclaw/plugin-sdk/media-understanding-runtime";
-import { getGlobalHookRunner } from "openclaw/plugin-sdk/plugin-runtime";
-import { resolveBatchedReplyThreadingPolicy } from "openclaw/plugin-sdk/reply-reference";
+} from "granted/plugin-sdk/hook-runtime";
+import { formatAudioTranscriptForAgent } from "granted/plugin-sdk/media-understanding-runtime";
+import { getGlobalHookRunner } from "granted/plugin-sdk/plugin-runtime";
+import { resolveBatchedReplyThreadingPolicy } from "granted/plugin-sdk/reply-reference";
 import { getPrimaryIdentityId, getSelfIdentity, getSenderIdentity } from "../../identity.js";
 import {
   resolveWhatsAppCommandAuthorized,

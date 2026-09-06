@@ -1,6 +1,6 @@
 // Msteams tests cover conversation store.shared plugin behavior.
-import { resetPluginStateStoreForTests } from "openclaw/plugin-sdk/plugin-state-test-runtime";
-import { useAutoCleanupTempDirTracker } from "openclaw/plugin-sdk/test-env";
+import { resetPluginStateStoreForTests } from "granted/plugin-sdk/plugin-state-test-runtime";
+import { useAutoCleanupTempDirTracker } from "granted/plugin-sdk/test-env";
 import { afterAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { createMSTeamsConversationStoreState } from "./conversation-store-state.js";
 import { setMSTeamsRuntime } from "./runtime.js";

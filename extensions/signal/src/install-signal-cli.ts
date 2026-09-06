@@ -4,19 +4,19 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { Readable, Transform } from "node:stream";
 import { pipeline } from "node:stream/promises";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import { readProviderJsonObjectResponse } from "openclaw/plugin-sdk/provider-http";
-import { runPluginCommandWithTimeout } from "openclaw/plugin-sdk/run-command";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
-import { CONFIG_DIR, extractArchive, resolveBrewExecutable } from "openclaw/plugin-sdk/setup-tools";
-import { fetchWithSsrFGuard } from "openclaw/plugin-sdk/ssrf-runtime";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
+import { readProviderJsonObjectResponse } from "granted/plugin-sdk/provider-http";
+import { runPluginCommandWithTimeout } from "granted/plugin-sdk/run-command";
+import type { RuntimeEnv } from "granted/plugin-sdk/runtime-env";
+import { CONFIG_DIR, extractArchive, resolveBrewExecutable } from "granted/plugin-sdk/setup-tools";
+import { fetchWithSsrFGuard } from "granted/plugin-sdk/ssrf-runtime";
 import {
   isRecord,
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
-import { withTempDownloadPath } from "openclaw/plugin-sdk/temp-path";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
+import { withTempDownloadPath } from "granted/plugin-sdk/temp-path";
+import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 
 export type ReleaseAsset = {
   name?: string;

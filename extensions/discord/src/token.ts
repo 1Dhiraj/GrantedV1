@@ -1,15 +1,15 @@
 // Discord plugin module implements token behavior.
-import type { BaseTokenResolution } from "openclaw/plugin-sdk/channel-contract";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { BaseTokenResolution } from "granted/plugin-sdk/channel-contract";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   DEFAULT_ACCOUNT_ID,
   normalizeAccountId,
   resolveAccountEntry,
-} from "openclaw/plugin-sdk/routing";
+} from "granted/plugin-sdk/routing";
 import {
   normalizeResolvedSecretInputString,
   resolveSecretInputString,
-} from "openclaw/plugin-sdk/secret-input";
+} from "granted/plugin-sdk/secret-input";
 import { selectDiscordRuntimeConfig } from "./runtime-config.js";
 
 type DiscordTokenSource = "env" | "config" | "none";

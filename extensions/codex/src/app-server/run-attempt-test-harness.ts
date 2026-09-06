@@ -1,7 +1,7 @@
 // Codex plugin module implements run attempt test harness behavior.
 import fs from "node:fs/promises";
 import path from "node:path";
-import { createOpenClawCodingTools } from "openclaw/plugin-sdk/agent-harness";
+import { createOpenClawCodingTools } from "granted/plugin-sdk/agent-harness";
 import {
   abortAndDrainAgentHarnessRun,
   nativeHookRelayTesting,
@@ -9,21 +9,21 @@ import {
   resetAgentEventsForTest,
   runBeforeToolCallHook,
   type EmbeddedRunAttemptParamsV2 as EmbeddedRunAttemptParams,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
-import { clearRuntimeAuthProfileStoreSnapshots } from "openclaw/plugin-sdk/agent-runtime";
-import { resetDiagnosticEventsForTest } from "openclaw/plugin-sdk/diagnostic-runtime";
-import type { ExecApprovalsFile } from "openclaw/plugin-sdk/exec-approvals-runtime";
-import { clearInternalHooks, resetGlobalHookRunner } from "openclaw/plugin-sdk/hook-runtime";
-import { clearMemoryPluginState } from "openclaw/plugin-sdk/memory-core-host-runtime-core";
-import { clearPluginCommands } from "openclaw/plugin-sdk/plugin-runtime";
-import { createAgentHarnessHostCapabilitiesForTest } from "openclaw/plugin-sdk/plugin-test-runtime";
+} from "granted/plugin-sdk/agent-harness-runtime";
+import { clearRuntimeAuthProfileStoreSnapshots } from "granted/plugin-sdk/agent-runtime";
+import { resetDiagnosticEventsForTest } from "granted/plugin-sdk/diagnostic-runtime";
+import type { ExecApprovalsFile } from "granted/plugin-sdk/exec-approvals-runtime";
+import { clearInternalHooks, resetGlobalHookRunner } from "granted/plugin-sdk/hook-runtime";
+import { clearMemoryPluginState } from "granted/plugin-sdk/memory-core-host-runtime-core";
+import { clearPluginCommands } from "granted/plugin-sdk/plugin-runtime";
+import { createAgentHarnessHostCapabilitiesForTest } from "granted/plugin-sdk/plugin-test-runtime";
 import {
   deleteSessionEntry,
   resolveStorePath,
   upsertSessionEntry,
-} from "openclaw/plugin-sdk/session-store-runtime";
-import { closeOpenClawAgentDatabasesForTest } from "openclaw/plugin-sdk/sqlite-runtime-testing";
-import { resolvePreferredOpenClawTmpDir } from "openclaw/plugin-sdk/temp-path";
+} from "granted/plugin-sdk/session-store-runtime";
+import { closeOpenClawAgentDatabasesForTest } from "granted/plugin-sdk/sqlite-runtime-testing";
+import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
 import { afterEach, beforeEach, expect, vi } from "vitest";
 import { defaultCodexAppInventoryCache } from "./app-inventory-cache.js";
 import { CodexAppServerClient } from "./client.js";
@@ -102,7 +102,7 @@ function createHarnessHostCapabilities(
 
 vi.mock("openclaw/plugin-sdk/exec-approvals-runtime", async (importOriginal) => {
   const actual =
-    await importOriginal<typeof import("openclaw/plugin-sdk/exec-approvals-runtime")>();
+    await importOriginal<typeof import("granted/plugin-sdk/exec-approvals-runtime")>();
   return {
     ...actual,
     loadExecApprovals: execApprovalsRuntimeMocks.loadExecApprovals,

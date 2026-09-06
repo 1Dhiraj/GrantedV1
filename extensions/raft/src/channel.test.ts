@@ -1,11 +1,11 @@
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { raftPlugin } from "./channel.js";
 
 const detectBinaryMock = vi.hoisted(() => vi.fn());
 
 vi.mock("openclaw/plugin-sdk/setup-tools", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("openclaw/plugin-sdk/setup-tools")>()),
+  ...(await importOriginal<typeof import("granted/plugin-sdk/setup-tools")>()),
   detectBinary: detectBinaryMock,
 }));
 

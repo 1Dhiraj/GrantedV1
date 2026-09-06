@@ -2,12 +2,12 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { redactMigrationPlan } from "openclaw/plugin-sdk/migration";
+import { redactMigrationPlan } from "granted/plugin-sdk/migration";
 import {
   resolvePreferredOpenClawTmpDir,
   tempWorkspace,
   type TempWorkspace,
-} from "openclaw/plugin-sdk/temp-path";
+} from "granted/plugin-sdk/temp-path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { resolveHomePath } from "./helpers.js";
 import { buildMemoryItems } from "./memory.js";

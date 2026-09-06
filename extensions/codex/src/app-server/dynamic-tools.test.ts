@@ -2,40 +2,40 @@ import { createHash } from "node:crypto";
 import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import type { AgentToolResult } from "openclaw/plugin-sdk/agent-core";
-import type { AnyAgentTool } from "openclaw/plugin-sdk/agent-harness";
+import type { AgentToolResult } from "granted/plugin-sdk/agent-core";
+import type { AnyAgentTool } from "granted/plugin-sdk/agent-harness";
 import {
   HEARTBEAT_RESPONSE_TOOL_NAME,
   embeddedAgentLog,
   getPluginToolMeta,
   wrapToolWithBeforeToolCallHook,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
+} from "granted/plugin-sdk/agent-harness-runtime";
 import {
   buildContractReplyPayloads,
   createContractToolTerminalObserver,
   createOwnerBackedContractTool,
   createTerminalPresentationContractTool,
-} from "openclaw/plugin-sdk/agent-runtime-test-contracts";
+} from "granted/plugin-sdk/agent-runtime-test-contracts";
 import {
   onInternalDiagnosticEvent,
   waitForDiagnosticEventsDrained,
   type DiagnosticEventPayload,
-} from "openclaw/plugin-sdk/diagnostic-runtime";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
+} from "granted/plugin-sdk/diagnostic-runtime";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
 import {
   initializeGlobalHookRunner,
   resetGlobalHookRunner,
-} from "openclaw/plugin-sdk/hook-runtime";
+} from "granted/plugin-sdk/hook-runtime";
 import {
   createEmptyPluginRegistry,
   createMockPluginRegistry,
   createTestRegistry,
   setActivePluginRegistry,
-} from "openclaw/plugin-sdk/plugin-test-runtime";
+} from "granted/plugin-sdk/plugin-test-runtime";
 // Codex tests cover dynamic tools plugin behavior.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
-import { createOpenClawTestState } from "openclaw/plugin-sdk/test-state";
-import { estimateToolResultTextChars } from "openclaw/plugin-sdk/text-utility-runtime";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
+import { createOpenClawTestState } from "granted/plugin-sdk/test-state";
+import { estimateToolResultTextChars } from "granted/plugin-sdk/text-utility-runtime";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   handleDynamicToolCallWithTimeout,

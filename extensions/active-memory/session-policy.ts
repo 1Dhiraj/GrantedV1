@@ -1,13 +1,13 @@
 import crypto from "node:crypto";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { resolveRememberAcrossConversations } from "openclaw/plugin-sdk/memory-core-host-runtime-core";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { resolveRememberAcrossConversations } from "granted/plugin-sdk/memory-core-host-runtime-core";
 import {
   normalizePluginsConfig,
   resolvePluginConfigObject,
-} from "openclaw/plugin-sdk/plugin-config-runtime";
-import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
-import { parseAgentSessionKey, parseThreadSessionSuffix } from "openclaw/plugin-sdk/routing";
-import { asOptionalRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/plugin-config-runtime";
+import type { GrantedPluginApi } from "granted/plugin-sdk/plugin-entry";
+import { parseAgentSessionKey, parseThreadSessionSuffix } from "granted/plugin-sdk/routing";
+import { asOptionalRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import { resolveCanonicalSessionKeyFromSessionId } from "./session.js";
 import {
   DEFAULT_AGENT_ID,

@@ -1,6 +1,6 @@
-import type { GrantedPluginApi } from "openclaw/plugin-sdk/core";
-import { registerSessionDiscussionProvider } from "openclaw/plugin-sdk/session-discussion";
-import { createSessionVisibilityChecker } from "openclaw/plugin-sdk/session-visibility";
+import type { GrantedPluginApi } from "granted/plugin-sdk/core";
+import { registerSessionDiscussionProvider } from "granted/plugin-sdk/session-discussion";
+import { createSessionVisibilityChecker } from "granted/plugin-sdk/session-visibility";
 import { ClickClackDiscussionService } from "./service.js";
 import {
   enforceClickClackDiscussionToolTarget,

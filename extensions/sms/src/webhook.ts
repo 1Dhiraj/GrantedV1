@@ -1,11 +1,11 @@
 // Sms plugin module implements webhook behavior.
 import type { IncomingMessage, ServerResponse } from "node:http";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   createFixedWindowRateLimiter,
   isRequestBodyLimitError,
   resolveRequestClientIp,
-} from "openclaw/plugin-sdk/webhook-ingress";
+} from "granted/plugin-sdk/webhook-ingress";
 import { assertSmsCredentialOwnerAvailable } from "./credential-availability.js";
 import {
   createSmsDeliveryRecorder,

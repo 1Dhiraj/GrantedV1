@@ -2,12 +2,12 @@
 import { createHash } from "node:crypto";
 import type { Bot } from "grammy";
 import type { LanguageCode } from "grammy/types";
-import { logVerbose } from "openclaw/plugin-sdk/runtime-env";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
+import { logVerbose } from "granted/plugin-sdk/runtime-env";
+import type { RuntimeEnv } from "granted/plugin-sdk/runtime-env";
 import {
   normalizeOptionalString,
   readStringValue,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import { withTelegramApiErrorLogging } from "./api-logging.js";
 import {
   enqueueTelegramMenuSync,

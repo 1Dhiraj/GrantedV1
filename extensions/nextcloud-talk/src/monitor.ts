@@ -1,6 +1,6 @@
 // Nextcloud Talk plugin module implements monitor behavior.
 import { createServer, type IncomingMessage, type Server, type ServerResponse } from "node:http";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
 import {
   WEBHOOK_RATE_LIMIT_DEFAULTS,
   createAuthRateLimiter,
@@ -8,7 +8,7 @@ import {
   readRequestBodyWithLimit,
   resolveRequestClientIp,
   requestBodyErrorToText,
-} from "openclaw/plugin-sdk/webhook-ingress";
+} from "granted/plugin-sdk/webhook-ingress";
 import { extractNextcloudTalkHeaders, verifyNextcloudTalkSignature } from "./signature.js";
 import type { NextcloudTalkWebhookHeaders, NextcloudTalkWebhookServerOptions } from "./types.js";
 import { NextcloudTalkWebhookPayloadError } from "./webhook-spool-state.js";

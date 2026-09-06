@@ -31,7 +31,7 @@ describe("isGatewayArgv", () => {
   it("matches known entrypoints across slash and case variants", () => {
     expect(isGatewayArgv(["NODE", "C:\\OpenClaw\\DIST\\ENTRY.JS", "gateway"])).toBe(true);
     expect(isGatewayArgv(["bun", "/srv/openclaw/scripts/run-node.mjs", "gateway"])).toBe(true);
-    expect(isGatewayArgv(["node", "/srv/openclaw/openclaw.mjs", "gateway"])).toBe(true);
+    expect(isGatewayArgv(["node", "/srv/openclaw/granted.mjs", "gateway"])).toBe(true);
     expect(isGatewayArgv(["tsx", "/srv/openclaw/src/entry.ts", "gateway"])).toBe(true);
     expect(isGatewayArgv(["tsx", "/srv/openclaw/src/index.ts", "gateway"])).toBe(true);
   });
@@ -61,7 +61,7 @@ describe("isGatewayArgv", () => {
 
 describe("isOpenClawCommandArgv", () => {
   it("matches doctor across source, built, and installed entrypoints", () => {
-    expect(isOpenClawCommandArgv(["node", "/srv/openclaw/openclaw.mjs", "doctor"], "doctor")).toBe(
+    expect(isOpenClawCommandArgv(["node", "/srv/openclaw/granted.mjs", "doctor"], "doctor")).toBe(
       true,
     );
     expect(
@@ -81,7 +81,7 @@ describe("isOpenClawCommandArgv", () => {
 describe("isOpenClawArgv", () => {
   it.each([
     ["agent exec", ["openclaw", "agent", "exec", "task"]],
-    ["local TUI", ["node", "/srv/openclaw/openclaw.mjs", "tui", "--local"]],
+    ["local TUI", ["node", "/srv/openclaw/granted.mjs", "tui", "--local"]],
     ["models probe", ["openclaw", "models", "status", "--probe"]],
     ["bare local TUI", ["openclaw"]],
   ])("recognizes the %s embedded owner", (_label, argv) => {

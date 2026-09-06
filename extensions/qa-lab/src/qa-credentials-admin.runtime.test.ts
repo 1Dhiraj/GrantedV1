@@ -1,7 +1,7 @@
 // Qa Lab tests cover qa credentials admin plugin behavior.
 import http from "node:http";
 import type { AddressInfo } from "node:net";
-import { MAX_TIMER_TIMEOUT_MS } from "openclaw/plugin-sdk/number-runtime";
+import { MAX_TIMER_TIMEOUT_MS } from "granted/plugin-sdk/number-runtime";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   addQaCredentialSet,

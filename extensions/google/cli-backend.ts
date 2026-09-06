@@ -1,5 +1,5 @@
 import crypto from "node:crypto";
-import type { CliBackendPlugin } from "openclaw/plugin-sdk/cli-backend";
+import type { CliBackendPlugin } from "granted/plugin-sdk/cli-backend";
 const GEMINI_MODEL_ALIASES: Record<string, string> = {
   pro: "gemini-3.1-pro-preview",
   flash: "gemini-3.1-flash-preview",

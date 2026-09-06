@@ -30,7 +30,7 @@ async function writeSourceCheckout(checkoutRoot: string): Promise<void> {
   })) {
     await fs.writeFile(path.join(checkoutRoot, file), contents);
   }
-  await fs.writeFile(path.join(checkoutRoot, "openclaw.mjs"), "#!/usr/bin/env node\n", {
+  await fs.writeFile(path.join(checkoutRoot, "granted.mjs"), "#!/usr/bin/env node\n", {
     mode: 0o755,
   });
 }
@@ -114,7 +114,7 @@ describe("runGlobalPackageUpdateSteps", () => {
         remove: "dist/control-ui/assets/startup.js",
         error: "ui=incomplete",
       },
-      { name: "missing launcher", remove: "openclaw.mjs", error: "missing" },
+      { name: "missing launcher", remove: "granted.mjs", error: "missing" },
     ])("verifies $name before finalization", async ({ name: caseName, error, remove, stale }) => {
       await withTestDir({ prefix: "openclaw-package-update-source-" }, async (base) => {
         const prefix = path.join(base, "prefix");
@@ -176,7 +176,7 @@ describe("runGlobalPackageUpdateSteps", () => {
               targetRoot = path.join(stageLayout.globalRoot, "openclaw");
               await fs.mkdir(stageLayout.binDir, { recursive: true });
               await fs.symlink(
-                "../lib/node_modules/openclaw/openclaw.mjs",
+                "../lib/node_modules/openclaw/granted.mjs",
                 path.join(stageLayout.binDir, "openclaw"),
               );
             } else {
@@ -227,7 +227,7 @@ describe("runGlobalPackageUpdateSteps", () => {
               "candidate doctor",
             ]);
             await expect(fs.readlink(path.join(prefix, "bin", "openclaw"))).resolves.toBe(
-              "../lib/node_modules/openclaw/openclaw.mjs",
+              "../lib/node_modules/openclaw/granted.mjs",
             );
             expect(
               (await fs.readdir(globalRoot)).filter((entry) =>

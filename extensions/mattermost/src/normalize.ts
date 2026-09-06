@@ -3,8 +3,8 @@ import {
   normalizeMessagePresentation,
   renderMessagePresentationFallbackText,
   resolveMessagePresentationControlValue,
-} from "openclaw/plugin-sdk/interactive-runtime";
-import { normalizeLowercaseStringOrEmpty } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/interactive-runtime";
+import { normalizeLowercaseStringOrEmpty } from "granted/plugin-sdk/string-coerce-runtime";
 
 export function resolveMattermostPresentation(params: {
   text?: string;

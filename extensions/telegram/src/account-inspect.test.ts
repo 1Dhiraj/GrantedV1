@@ -2,8 +2,8 @@
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { withEnv } from "openclaw/plugin-sdk/test-env";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { withEnv } from "granted/plugin-sdk/test-env";
 import { describe, expect, it } from "vitest";
 import { inspectTelegramAccount } from "./account-inspect.js";
 import { createTelegramPluginConfig } from "./config-adapter.js";

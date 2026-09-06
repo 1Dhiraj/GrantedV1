@@ -1,5 +1,5 @@
 // Discord tests cover shared plugin behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { createDiscordPluginBase, discordConfigAdapter } from "./shared.js";
 

@@ -1,5 +1,5 @@
 // Xai tests cover realtime voice provider plugin behavior.
-import { REALTIME_VOICE_AUDIO_FORMAT_PCM16_24KHZ } from "openclaw/plugin-sdk/realtime-voice";
+import { REALTIME_VOICE_AUDIO_FORMAT_PCM16_24KHZ } from "granted/plugin-sdk/realtime-voice";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { XAI_REALTIME_MAX_PENDING_PLAYBACK_MARKS } from "./realtime-voice-config.js";
 import { buildXaiRealtimeVoiceProvider } from "./realtime-voice-provider.js";

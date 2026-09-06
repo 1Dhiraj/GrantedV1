@@ -1,11 +1,11 @@
 import { createHmac, randomBytes } from "node:crypto";
-import { resolvePositiveTimerTimeoutMs } from "openclaw/plugin-sdk/number-runtime";
-import { normalizeResolvedSecretInputString } from "openclaw/plugin-sdk/secret-input";
+import { resolvePositiveTimerTimeoutMs } from "granted/plugin-sdk/number-runtime";
+import { normalizeResolvedSecretInputString } from "granted/plugin-sdk/secret-input";
 import {
   asOptionalRecord as readRecord,
   normalizeOptionalString as readNonEmptyString,
   parseBooleanValue,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import type { GrantedExecAsk, GrantedExecSecurity } from "./config-contracts.js";
 import type { CodexServiceTier } from "./protocol.js";
 

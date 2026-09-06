@@ -1,8 +1,8 @@
-import { resolveHumanDelayConfig } from "openclaw/plugin-sdk/agent-runtime";
+import { resolveHumanDelayConfig } from "granted/plugin-sdk/agent-runtime";
 import {
   createChannelPartialDeliveryError,
   type ChannelInboundTurnPlan,
-} from "openclaw/plugin-sdk/channel-inbound";
+} from "granted/plugin-sdk/channel-inbound";
 // Msteams plugin module implements reply dispatcher behavior.
 import {
   buildChannelProgressDraftLine,
@@ -12,11 +12,11 @@ import {
   resolveChannelStreamingBlockEnabled,
   resolveChannelStreamingPreviewToolProgress,
   resolveChannelStreamingSuppressDefaultToolProgressMessages,
-} from "openclaw/plugin-sdk/channel-outbound";
-import { PlatformMessageNotDispatchedError } from "openclaw/plugin-sdk/error-runtime";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
-import { getGlobalHookRunner } from "openclaw/plugin-sdk/plugin-runtime";
-import { normalizeOptionalLowercaseString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/channel-outbound";
+import { PlatformMessageNotDispatchedError } from "granted/plugin-sdk/error-runtime";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
+import { getGlobalHookRunner } from "granted/plugin-sdk/plugin-runtime";
+import { normalizeOptionalLowercaseString } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   createChannelMessageReplyPipeline,
   logTypingFailure,

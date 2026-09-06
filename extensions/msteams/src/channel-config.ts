@@ -1,8 +1,8 @@
-import { DEFAULT_ACCOUNT_ID } from "openclaw/plugin-sdk/account-id";
-import { formatAllowFromLowercase } from "openclaw/plugin-sdk/allow-from";
-import { createTopLevelChannelConfigAdapter } from "openclaw/plugin-sdk/channel-config-helpers";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { tryReadSecretFileSync } from "openclaw/plugin-sdk/secret-file-runtime";
+import { DEFAULT_ACCOUNT_ID } from "granted/plugin-sdk/account-id";
+import { formatAllowFromLowercase } from "granted/plugin-sdk/allow-from";
+import { createTopLevelChannelConfigAdapter } from "granted/plugin-sdk/channel-config-helpers";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { tryReadSecretFileSync } from "granted/plugin-sdk/secret-file-runtime";
 import { resolveMSTeamsCredentials } from "./token.js";
 
 export type ResolvedMSTeamsAccount = {

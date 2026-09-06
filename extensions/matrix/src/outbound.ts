@@ -1,23 +1,23 @@
-import type { ChannelOutboundAdapter } from "openclaw/plugin-sdk/channel-contract";
+import type { ChannelOutboundAdapter } from "granted/plugin-sdk/channel-contract";
 // Matrix plugin module implements outbound behavior.
 import {
   createMessageReceiptFromOutboundResults,
   createReplyToFanout,
   resolveOutboundSendDep,
-} from "openclaw/plugin-sdk/channel-outbound";
-import { attachChannelToResult } from "openclaw/plugin-sdk/channel-send-result";
+} from "granted/plugin-sdk/channel-outbound";
+import { attachChannelToResult } from "granted/plugin-sdk/channel-send-result";
 import {
   renderPresentationForDelivery,
   renderMessagePresentationFallbackText,
   type MessagePresentation,
-} from "openclaw/plugin-sdk/interactive-runtime";
+} from "granted/plugin-sdk/interactive-runtime";
 import {
   resolveSendableOutboundReplyParts,
   sendPayloadMediaSequence,
-} from "openclaw/plugin-sdk/reply-payload";
-import type { ReplyPayload } from "openclaw/plugin-sdk/reply-runtime";
-import { asOptionalRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { chunkTextForOutbound } from "openclaw/plugin-sdk/text-chunking";
+} from "granted/plugin-sdk/reply-payload";
+import type { ReplyPayload } from "granted/plugin-sdk/reply-runtime";
+import { asOptionalRecord } from "granted/plugin-sdk/string-coerce-runtime";
+import { chunkTextForOutbound } from "granted/plugin-sdk/text-chunking";
 import { sendMessageMatrix, sendPollMatrix } from "./matrix/send.js";
 import type { MatrixExtraContentFields } from "./matrix/send/types.js";
 

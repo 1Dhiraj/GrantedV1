@@ -5,13 +5,13 @@ import path from "node:path";
 import {
   createPluginStateKeyedStoreForTests,
   resetPluginStateStoreForTests,
-} from "openclaw/plugin-sdk/plugin-state-test-runtime";
+} from "granted/plugin-sdk/plugin-state-test-runtime";
 import type {
   OpenKeyedStoreOptions,
   PluginDoctorStateMigrationContext,
-} from "openclaw/plugin-sdk/runtime-doctor-migrations";
-import { getSessionEntry, upsertSessionEntry } from "openclaw/plugin-sdk/session-store-runtime";
-import { closeOpenClawAgentDatabasesForTest } from "openclaw/plugin-sdk/sqlite-runtime-testing";
+} from "granted/plugin-sdk/runtime-doctor-migrations";
+import { getSessionEntry, upsertSessionEntry } from "granted/plugin-sdk/session-store-runtime";
+import { closeOpenClawAgentDatabasesForTest } from "granted/plugin-sdk/sqlite-runtime-testing";
 import { afterEach, describe, expect, it } from "vitest";
 import {
   legacyConfigRules,

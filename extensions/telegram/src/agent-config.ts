@@ -1,6 +1,6 @@
 // Telegram helper module supports agent config behavior.
-import { resolveAgentConfig } from "openclaw/plugin-sdk/agent-scope-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import { resolveAgentConfig } from "granted/plugin-sdk/agent-scope-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 
 type ReasoningDefault = "on" | "stream" | "off";
 

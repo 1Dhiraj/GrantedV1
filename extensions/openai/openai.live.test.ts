@@ -3,21 +3,21 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import OpenAI from "openai";
-import type { ResolvedTtsConfig } from "openclaw/plugin-sdk/agent-runtime";
-import { AuthStorage, ModelRegistry } from "openclaw/plugin-sdk/agent-sessions";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { coerceErrorMessage as formatLiveOpenAIError } from "openclaw/plugin-sdk/error-runtime";
-import { encodePngRgba, fillPixel } from "openclaw/plugin-sdk/media-runtime";
+import type { ResolvedTtsConfig } from "granted/plugin-sdk/agent-runtime";
+import { AuthStorage, ModelRegistry } from "granted/plugin-sdk/agent-sessions";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { coerceErrorMessage as formatLiveOpenAIError } from "granted/plugin-sdk/error-runtime";
+import { encodePngRgba, fillPixel } from "granted/plugin-sdk/media-runtime";
 import {
   registerProviderPlugin,
   requireRegisteredProvider,
-} from "openclaw/plugin-sdk/plugin-test-runtime";
-import { runRealtimeSttLiveTest } from "openclaw/plugin-sdk/provider-test-contracts";
+} from "granted/plugin-sdk/plugin-test-runtime";
+import { runRealtimeSttLiveTest } from "granted/plugin-sdk/provider-test-contracts";
 import {
   isOverloadedErrorMessage,
   isServerErrorMessage,
   isTimeoutErrorMessage,
-} from "openclaw/plugin-sdk/test-live";
+} from "granted/plugin-sdk/test-live";
 import { describe, expect, it } from "vitest";
 import plugin from "./index.js";
 

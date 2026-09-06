@@ -1,7 +1,7 @@
 // Tavily tests cover tavily tools plugin behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-runtime";
-import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { GrantedPluginApi } from "granted/plugin-sdk/plugin-runtime";
+import { createTestPluginApi } from "granted/plugin-sdk/plugin-test-api";
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   DEFAULT_TAVILY_BASE_URL,

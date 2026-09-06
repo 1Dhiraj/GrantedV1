@@ -3,13 +3,13 @@ import { spawn } from "node:child_process";
 import os from "node:os";
 import path from "node:path";
 import { createInterface } from "node:readline";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
+import type { RuntimeEnv } from "granted/plugin-sdk/runtime-env";
 import {
   ensurePortAvailable,
   extractErrorCode,
   formatErrorMessage,
-} from "openclaw/plugin-sdk/security-runtime";
-import { waitForTransportReady } from "openclaw/plugin-sdk/transport-ready-runtime";
+} from "granted/plugin-sdk/security-runtime";
+import { waitForTransportReady } from "granted/plugin-sdk/transport-ready-runtime";
 import { signalCheck } from "./client-adapter.js";
 
 type SignalDaemonOpts = {

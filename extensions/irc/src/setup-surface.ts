@@ -1,11 +1,11 @@
 // Irc plugin module implements setup surface behavior.
-import { parseStrictPositiveInteger } from "openclaw/plugin-sdk/number-runtime";
-import { DEFAULT_ACCOUNT_ID } from "openclaw/plugin-sdk/routing";
+import { parseStrictPositiveInteger } from "granted/plugin-sdk/number-runtime";
+import { DEFAULT_ACCOUNT_ID } from "granted/plugin-sdk/routing";
 import type {
   ChannelSetupDmPolicy,
   ChannelSetupWizard,
   WizardPrompter,
-} from "openclaw/plugin-sdk/setup";
+} from "granted/plugin-sdk/setup";
 import {
   createAllowFromSection,
   createPromptParsedAllowFromForAccount,
@@ -13,13 +13,13 @@ import {
   createStandardChannelSetupStatus,
   formatDocsLink,
   setSetupChannelEnabled,
-} from "openclaw/plugin-sdk/setup";
+} from "granted/plugin-sdk/setup";
 import {
   normalizeOptionalString,
   normalizeStringEntries,
   normalizeStringifiedOptionalString,
   uniqueStrings,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import { resolveDefaultIrcAccountId, resolveIrcAccount } from "./accounts.js";
 import {
   isChannelTarget,

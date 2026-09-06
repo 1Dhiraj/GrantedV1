@@ -1,17 +1,17 @@
 // Discord plugin module implements security audit behavior.
-import { coerceNativeSetting, normalizeAllowFromList } from "openclaw/plugin-sdk/channel-policy";
+import { coerceNativeSetting, normalizeAllowFromList } from "granted/plugin-sdk/channel-policy";
 import type {
   DiscordGuildChannelConfig,
   DiscordGuildEntry,
   GrantedConfig,
-} from "openclaw/plugin-sdk/config-contracts";
-import { readChannelAllowFromStore } from "openclaw/plugin-sdk/conversation-runtime";
-import { isDangerousNameMatchingEnabled } from "openclaw/plugin-sdk/dangerous-name-runtime";
+} from "granted/plugin-sdk/config-contracts";
+import { readChannelAllowFromStore } from "granted/plugin-sdk/conversation-runtime";
+import { isDangerousNameMatchingEnabled } from "granted/plugin-sdk/dangerous-name-runtime";
 import {
   resolveNativeCommandsEnabled,
   resolveNativeSkillsEnabled,
-} from "openclaw/plugin-sdk/native-command-config-runtime";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/native-command-config-runtime";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import type { ResolvedDiscordAccount } from "./accounts.js";
 import { isDiscordMutableAllowEntry } from "./security-doctor.js";
 

@@ -1,6 +1,6 @@
 import path from "node:path";
 import { createZstdDecompress } from "node:zlib";
-import { root as openSafeFilesystemRoot } from "openclaw/plugin-sdk/file-access-runtime";
+import { root as openSafeFilesystemRoot } from "granted/plugin-sdk/file-access-runtime";
 import {
   isJsonObject,
   type CodexThread,

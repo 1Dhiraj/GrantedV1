@@ -1,14 +1,14 @@
 import {
   createLazyRuntimeModule,
   createLazyRuntimeSurface,
-} from "openclaw/plugin-sdk/lazy-runtime";
-import { resolveNodeHostExecutable } from "openclaw/plugin-sdk/node-host";
-import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
+} from "granted/plugin-sdk/lazy-runtime";
+import { resolveNodeHostExecutable } from "granted/plugin-sdk/node-host";
+import type { GrantedPluginApi } from "granted/plugin-sdk/plugin-entry";
 import {
   createSessionCatalogNodeHostBindings,
   type SessionCatalogProvider,
-} from "openclaw/plugin-sdk/session-catalog";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/session-catalog";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   PI_SESSIONS_CAPABILITY,
   PI_SESSIONS_LIST_COMMAND,

@@ -1,6 +1,6 @@
 // Memory Core plugin module implements manager search behavior.
 import type { DatabaseSync } from "node:sqlite";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/memory-core-host-engine-foundation";
+import { truncateUtf16Safe } from "granted/plugin-sdk/memory-core-host-engine-foundation";
 import {
   cosineSimilarity,
   parseEmbedding,
@@ -8,12 +8,12 @@ import {
   type MemoryOriginClass,
   type MemorySessionKind,
   type MemorySource,
-} from "openclaw/plugin-sdk/memory-core-host-engine-storage";
+} from "granted/plugin-sdk/memory-core-host-engine-storage";
 import {
   normalizeStringEntries,
   normalizeStringEntriesLower,
   uniqueStrings,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import type { VectorKnnRequest, VectorKnnResponse } from "./manager-search-knn.js";
 
 const FTS_QUERY_TOKEN_RE = /[\p{L}\p{N}_]+/gu;

@@ -2,7 +2,7 @@ import {
   clearRuntimeAuthProfileStoreSnapshots,
   replaceRuntimeAuthProfileStoreSnapshots,
   type AuthProfileStore,
-} from "openclaw/plugin-sdk/agent-runtime";
+} from "granted/plugin-sdk/agent-runtime";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   fingerprintCodexAppServerAuthBinding,

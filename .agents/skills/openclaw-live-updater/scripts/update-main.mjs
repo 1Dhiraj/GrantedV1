@@ -3093,7 +3093,7 @@ function defaultAuditGatewayLogs(checkout, sinceMs, deployment = null) {
     output = execFileSync(
       process.execPath,
       [
-        "openclaw.mjs",
+        "granted.mjs",
         "logs",
         "--json",
         "--limit",

@@ -2,13 +2,13 @@
 import {
   createStartAccountContext,
   installChannelDmPolicyContractSuite,
-} from "openclaw/plugin-sdk/channel-test-helpers";
+} from "granted/plugin-sdk/channel-test-helpers";
 import {
   createPluginSetupWizardConfigure,
   createTestWizardPrompter,
   runSetupWizardConfigure,
-} from "openclaw/plugin-sdk/plugin-test-runtime";
-import type { WizardPrompter } from "openclaw/plugin-sdk/plugin-test-runtime";
+} from "granted/plugin-sdk/plugin-test-runtime";
+import type { WizardPrompter } from "granted/plugin-sdk/plugin-test-runtime";
 import { afterAll, afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { GrantedConfig, PluginRuntime, ResolvedLineAccount } from "../api.js";
 import { linePlugin } from "./channel.js";

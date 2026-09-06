@@ -1,5 +1,5 @@
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { createChannelPreflightAudio } from "openclaw/plugin-sdk/media-understanding-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { createChannelPreflightAudio } from "granted/plugin-sdk/media-understanding-runtime";
 
 export function isMatrixAudioContent(params: { msgtype?: string; mimetype?: string }): boolean {
   if (params.msgtype === "m.audio") {

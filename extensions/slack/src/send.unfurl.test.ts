@@ -1,6 +1,6 @@
 // Slack tests cover send.unfurl plugin behavior.
 import type { WebClient } from "@slack/web-api";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { describe, expect, it, vi } from "vitest";
 import { sendMessageSlack } from "./send.js";
 

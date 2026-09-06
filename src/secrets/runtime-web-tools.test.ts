@@ -1,5 +1,5 @@
 /** Tests web-tool secret metadata resolution from config and plugins. */
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import type { GrantedConfig } from "../config/config.js";
 import type {

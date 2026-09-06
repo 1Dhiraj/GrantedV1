@@ -3,9 +3,9 @@ import {
   clearRuntimeAuthProfileStoreSnapshots,
   ensureAuthProfileStore,
   replaceRuntimeAuthProfileStoreSnapshots,
-} from "openclaw/plugin-sdk/agent-runtime";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
-import type { MemoryEmbeddingProvider } from "openclaw/plugin-sdk/memory-core-host-engine-embeddings";
+} from "granted/plugin-sdk/agent-runtime";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
+import type { MemoryEmbeddingProvider } from "granted/plugin-sdk/memory-core-host-engine-embeddings";
 import { describe, expect, it, vi } from "vitest";
 import type { GrantedPluginApi } from "./api.js";
 import type { MemoryConfig } from "./config.js";
@@ -23,7 +23,7 @@ const providerMocks = vi.hoisted(() => ({
 
 vi.mock("openclaw/plugin-sdk/memory-core-host-engine-embeddings", async (importOriginal) => {
   const actual =
-    await importOriginal<typeof import("openclaw/plugin-sdk/memory-core-host-engine-embeddings")>();
+    await importOriginal<typeof import("granted/plugin-sdk/memory-core-host-engine-embeddings")>();
   return {
     ...actual,
     getMemoryEmbeddingProvider: providerMocks.getMemoryEmbeddingProvider,

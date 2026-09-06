@@ -3,13 +3,13 @@ import {
   DEFAULT_ACCOUNT_ID,
   normalizeAccountId,
   type GrantedConfig,
-} from "openclaw/plugin-sdk/account-resolution";
-import type { SlackAccountConfig } from "openclaw/plugin-sdk/config-contracts";
+} from "granted/plugin-sdk/account-resolution";
+import type { SlackAccountConfig } from "granted/plugin-sdk/config-contracts";
 import {
   hasConfiguredSecretInput,
   normalizeSecretInputString,
-} from "openclaw/plugin-sdk/secret-input";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/secret-input";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import { hasSlackAccountCredentials } from "./account-configured.js";
 import type { SlackAccountSurfaceFields } from "./account-surface-fields.js";
 import {

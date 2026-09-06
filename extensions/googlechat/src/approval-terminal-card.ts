@@ -1,5 +1,5 @@
-import type { ApprovalResolveResult } from "openclaw/plugin-sdk/approval-gateway-runtime";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+import type { ApprovalResolveResult } from "granted/plugin-sdk/approval-gateway-runtime";
+import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import { escapeGoogleChatApprovalCardText as escapeGoogleChatText } from "./approval-card-text.js";
 import type { GoogleChatCardV2 } from "./types.js";
 

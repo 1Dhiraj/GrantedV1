@@ -100,9 +100,9 @@ function writePreSplitSdkBridgeConsumerFixture() {
   fs.writeFileSync(
     path.join(pluginRoot, "dist", "index.js"),
     [
-      'import { archiveLegacyStateSource, detectOpenClawStateDatabaseSchemaMigrations, repairOpenClawStateDatabaseSchema, detectPluginInstallPathIssue, formatPluginInstallPathIssue, removePluginFromConfig, createPluginStateSyncKeyedStore } from "openclaw/plugin-sdk/runtime-doctor";',
-      'import { shouldAckReactionForWhatsApp } from "openclaw/plugin-sdk/channel-feedback";',
-      'import { resolveChannelProgressDraftRender } from "openclaw/plugin-sdk/channel-outbound";',
+      'import { archiveLegacyStateSource, detectOpenClawStateDatabaseSchemaMigrations, repairOpenClawStateDatabaseSchema, detectPluginInstallPathIssue, formatPluginInstallPathIssue, removePluginFromConfig, createPluginStateSyncKeyedStore } from "granted/plugin-sdk/runtime-doctor";',
+      'import { shouldAckReactionForWhatsApp } from "granted/plugin-sdk/channel-feedback";',
+      'import { resolveChannelProgressDraftRender } from "granted/plugin-sdk/channel-outbound";',
       'export default { id: "sdk-bridge-consumer", register() {',
       "  const bridged = [",
       "    archiveLegacyStateSource,",

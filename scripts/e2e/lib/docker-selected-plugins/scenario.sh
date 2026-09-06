@@ -21,7 +21,7 @@ fs.writeFileSync(
 NODE
 
 for plugin_id in clickclack slack msteams whatsapp clawrouter; do
-  node /app/openclaw.mjs plugins inspect "$plugin_id" --runtime --json \
+  node /app/granted.mjs plugins inspect "$plugin_id" --runtime --json \
     >"/tmp/openclaw-${plugin_id}-inspect.json"
 done
 

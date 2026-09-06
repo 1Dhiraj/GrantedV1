@@ -1,5 +1,5 @@
 // Codex tests cover client plugin behavior.
-import { embeddedAgentLog, GRANTED_VERSION } from "openclaw/plugin-sdk/agent-harness-runtime";
+import { embeddedAgentLog, GRANTED_VERSION } from "granted/plugin-sdk/agent-harness-runtime";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   CodexAppServerClient,

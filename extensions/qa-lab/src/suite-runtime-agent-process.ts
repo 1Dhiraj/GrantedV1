@@ -1,9 +1,9 @@
 // Qa Lab plugin module implements suite runtime agent process behavior.
 import { randomUUID } from "node:crypto";
 import { setTimeout as sleep } from "node:timers/promises";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import { resolveTimerTimeoutMs } from "openclaw/plugin-sdk/number-runtime";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
+import { resolveTimerTimeoutMs } from "granted/plugin-sdk/number-runtime";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import { QaSuiteInfraError } from "./errors.js";
 import { extractGatewayMessageText } from "./gateway-log-sentinel.js";
 import { runQaCli } from "./qa-cli-process.js";

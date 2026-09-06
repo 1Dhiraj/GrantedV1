@@ -2,7 +2,7 @@
 import { once } from "node:events";
 import { Agent, createServer, get, type IncomingHttpHeaders, type Server } from "node:http";
 import { connect, type Socket } from "node:net";
-import type { ProviderAuthContext } from "openclaw/plugin-sdk/plugin-entry";
+import type { ProviderAuthContext } from "granted/plugin-sdk/plugin-entry";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 const ssrfMocks = vi.hoisted(() => ({
@@ -10,7 +10,7 @@ const ssrfMocks = vi.hoisted(() => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/ssrf-runtime", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/ssrf-runtime")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/ssrf-runtime")>(
     "openclaw/plugin-sdk/ssrf-runtime",
   );
   return {
@@ -23,7 +23,7 @@ import {
   resolvePinnedHostnameWithPolicy,
   type LookupFn,
   type SsrFPolicy,
-} from "openclaw/plugin-sdk/ssrf-runtime";
+} from "granted/plugin-sdk/ssrf-runtime";
 import {
   createOpenAIAuthorizationFlow,
   resolveOpenAICallbackHost,

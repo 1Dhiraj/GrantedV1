@@ -1,12 +1,12 @@
 import fs from "node:fs";
 import path from "node:path";
-import type { OpenKeyedStoreOptions } from "openclaw/plugin-sdk/plugin-state-runtime";
+import type { OpenKeyedStoreOptions } from "granted/plugin-sdk/plugin-state-runtime";
 import {
   createPluginStateSyncKeyedStoreForTests,
   resetPluginStateStoreForTests,
-} from "openclaw/plugin-sdk/plugin-state-test-runtime";
-import { createPluginRuntimeMock } from "openclaw/plugin-sdk/plugin-test-runtime";
-import { resolvePreferredOpenClawTmpDir } from "openclaw/plugin-sdk/temp-path";
+} from "granted/plugin-sdk/plugin-state-test-runtime";
+import { createPluginRuntimeMock } from "granted/plugin-sdk/plugin-test-runtime";
+import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
 import { vi } from "vitest";
 import {
   base64url,

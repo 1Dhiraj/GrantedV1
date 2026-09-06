@@ -3,8 +3,8 @@ import {
   createTestRegistry,
   resetPluginRuntimeStateForTest,
   setActivePluginRegistry,
-} from "openclaw/plugin-sdk/channel-test-helpers";
-import type { MarkdownTableMode } from "openclaw/plugin-sdk/config-contracts";
+} from "granted/plugin-sdk/channel-test-helpers";
+import type { MarkdownTableMode } from "granted/plugin-sdk/config-contracts";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { createSlackEditTestClient, createSlackSendTestClient } from "./blocks.test-helpers.js";
 import { slackSetupPlugin } from "./channel.setup.js";

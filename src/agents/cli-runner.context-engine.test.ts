@@ -1,5 +1,5 @@
 /** Tests CLI runner integration with context-engine lifecycle hooks. */
-import type { AgentMessage } from "openclaw/plugin-sdk/agent-core";
+import type { AgentMessage } from "granted/plugin-sdk/agent-core";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import type { ContextEngine } from "../context-engine/types.js";
 import { createUserTurnTranscriptRecorder } from "../sessions/user-turn-transcript.js";

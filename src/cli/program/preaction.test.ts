@@ -1,6 +1,6 @@
 // Preaction tests cover CLI preaction hooks and command context setup.
 import { Command } from "commander";
-import { repoInstallSpec } from "openclaw/plugin-sdk/test-fixtures";
+import { repoInstallSpec } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { loggingState } from "../../logging/state.js";
 import { isConfigSetJsonParseOnly } from "../config-output-mode.js";

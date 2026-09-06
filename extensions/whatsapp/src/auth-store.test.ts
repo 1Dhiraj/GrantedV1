@@ -2,7 +2,7 @@
 import fsSync from "node:fs";
 import fs from "node:fs/promises";
 import path from "node:path";
-import { useAutoCleanupTempDirTracker } from "openclaw/plugin-sdk/test-env";
+import { useAutoCleanupTempDirTracker } from "granted/plugin-sdk/test-env";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   getWebAuthAgeMs,

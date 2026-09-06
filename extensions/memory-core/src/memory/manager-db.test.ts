@@ -6,7 +6,7 @@ import { DatabaseSync } from "node:sqlite";
 import {
   ensureMemoryIndexSchema,
   loadSqliteVecExtension,
-} from "openclaw/plugin-sdk/memory-core-host-engine-storage";
+} from "granted/plugin-sdk/memory-core-host-engine-storage";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import {
   cleanupAgedMemoryReindexTempFiles,

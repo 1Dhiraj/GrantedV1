@@ -1,8 +1,8 @@
 // Feishu plugin module implements bitable behavior.
 import type * as Lark from "@larksuiteoapi/node-sdk";
-import { optionalPositiveIntegerSchema } from "openclaw/plugin-sdk/channel-actions";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import { readPositiveIntegerParam } from "openclaw/plugin-sdk/param-readers";
+import { optionalPositiveIntegerSchema } from "granted/plugin-sdk/channel-actions";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
+import { readPositiveIntegerParam } from "granted/plugin-sdk/param-readers";
 import { Type, type TSchema } from "typebox";
 import type { GrantedPluginApi } from "../runtime-api.js";
 import { createFeishuToolClient, resolveAnyEnabledFeishuToolsConfig } from "./tool-account.js";

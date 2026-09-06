@@ -2,7 +2,7 @@
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { buildLegacyMigrationPreview } from "openclaw/plugin-sdk/runtime-doctor-migrations";
+import { buildLegacyMigrationPreview } from "granted/plugin-sdk/runtime-doctor-migrations";
 import { describe, expect, it, vi } from "vitest";
 import { stateMigrations } from "../doctor-contract-api.js";
 import { detectWhatsAppLegacyStateMigrations } from "./state-migrations.js";

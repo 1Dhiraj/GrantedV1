@@ -1,6 +1,6 @@
-import type { GrantedConfig } from "openclaw/plugin-sdk/provider-auth";
-import type { WizardPrompter } from "openclaw/plugin-sdk/setup";
-import { requestBodyText, requestUrl } from "openclaw/plugin-sdk/test-env";
+import type { GrantedConfig } from "granted/plugin-sdk/provider-auth";
+import type { WizardPrompter } from "granted/plugin-sdk/setup";
+import { requestBodyText, requestUrl } from "granted/plugin-sdk/test-env";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   buildOllamaModelsConfig,

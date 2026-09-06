@@ -1,5 +1,5 @@
 // Policy plugin gateway exposure evidence.
-import { asNonArrayRecord, isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { asNonArrayRecord, isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import { ocPathSegment } from "./policy-state-helpers.js";
 import type { PolicyGatewayExposureEvidence } from "./policy-state-types.js";
 

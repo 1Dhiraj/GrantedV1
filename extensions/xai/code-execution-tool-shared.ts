@@ -1,5 +1,5 @@
 // Xai plugin module implements code execution tool shared behavior.
-import type { AgentToolResult } from "openclaw/plugin-sdk/agent-core";
+import type { AgentToolResult } from "granted/plugin-sdk/agent-core";
 import { Type } from "typebox";
 
 export function buildMissingCodeExecutionApiKeyPayload() {

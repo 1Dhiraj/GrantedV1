@@ -2,7 +2,7 @@
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { withTempHome } from "openclaw/plugin-sdk/test-env";
+import { withTempHome } from "granted/plugin-sdk/test-env";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { normalizeTestText } from "../../../test/helpers/normalize-text.js";
 import { saveAuthProfileStore } from "../../agents/auth-profiles/store.js";

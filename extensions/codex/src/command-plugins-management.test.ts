@@ -1,5 +1,5 @@
 // Codex tests cover command plugins management plugin behavior.
-import type { PluginCommandContext, PluginCommandResult } from "openclaw/plugin-sdk/plugin-entry";
+import type { PluginCommandContext, PluginCommandResult } from "granted/plugin-sdk/plugin-entry";
 import { describe, expect, it, vi } from "vitest";
 import type { v2 } from "./app-server/protocol.js";
 import {

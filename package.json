@@ -1,5 +1,5 @@
 {
-  "name": "openclaw",
+  "name": "granted",
   "version": "2026.8.1",
   "openclaw": {
     "schemaVersions": {
@@ -9,18 +9,19 @@
   },
   "description": "Multi-channel AI gateway with extensible messaging integrations",
   "keywords": [],
-  "homepage": "https://github.com/openclaw/openclaw#readme",
+  "homepage": "https://github.com/1Dhiraj/GrantedV1#readme",
   "bugs": {
-    "url": "https://github.com/openclaw/openclaw/issues"
+    "url": "https://github.com/1Dhiraj/GrantedV1/issues"
   },
   "license": "MIT",
-  "author": "OpenClaw Foundation (https://openclaw.org)",
+  "author": "Dhiraj (https://github.com/1Dhiraj)",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/openclaw/openclaw.git"
+    "url": "git+https://github.com/1Dhiraj/GrantedV1.git"
   },
   "bin": {
-    "openclaw": "openclaw.mjs"
+    "granted": "granted.mjs",
+    "openclaw": "granted.mjs"
   },
   "directories": {
     "doc": "docs",
@@ -30,7 +31,7 @@
     "CHANGELOG.md",
     "LICENSE",
     "node-version.mjs",
-    "openclaw.mjs",
+    "granted.mjs",
     "pnpm-workspace.yaml",
     "README.md",
     "THIRD_PARTY_NOTICES.md",
@@ -1520,7 +1521,7 @@
     "./plugin-sdk/llm": {
       "default": "./dist/plugin-sdk/llm.js"
     },
-    "./cli-entry": "./openclaw.mjs"
+    "./cli-entry": "./granted.mjs"
   },
   "scripts": {
     "android:assemble": "node --import ./scripts/tsx.mjs scripts/run-android-gradle.mts :app:assemblePlayDebug :wear:assembleDebug :wear-shared:assembleDebug",
@@ -1824,7 +1825,7 @@
     "runtime-sidecars:gen": "node --import ./scripts/tsx.mjs scripts/generate-runtime-sidecar-paths-baseline.ts --write",
     "sqlite:sessions-schema:check": "node --import ./scripts/tsx.mjs scripts/generate-sqlite-session-schema-baseline.ts --check",
     "sqlite:sessions-schema:gen": "node --import ./scripts/tsx.mjs scripts/generate-sqlite-session-schema-baseline.ts --write",
-    "start": "node openclaw.mjs",
+    "start": "node granted.mjs",
     "test": "node --import ./scripts/tsx.mjs scripts/test-projects.mts",
     "test:all": "pnpm lint && pnpm build && pnpm test && pnpm test:e2e && pnpm test:live && pnpm test:docker:all",
     "test:auth:compat": "node scripts/run-vitest.mjs run --config test/vitest/vitest.gateway.config.ts src/gateway/server.auth.compat-baseline.test.ts src/gateway/client.test.ts src/gateway/reconnect-gating.test.ts && node scripts/run-vitest.mjs run packages/gateway-protocol/src/connect-error-details.test.ts",

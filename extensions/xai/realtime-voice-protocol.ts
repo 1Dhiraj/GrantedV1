@@ -4,13 +4,13 @@ import type {
   RealtimeVoiceBargeInOptions,
   RealtimeVoiceSessionConnection,
   RealtimeVoiceToolResultOptions,
-} from "openclaw/plugin-sdk/realtime-voice";
+} from "granted/plugin-sdk/realtime-voice";
 import {
   REALTIME_VOICE_AUDIO_FORMAT_G711_ULAW_8KHZ,
   realtimeVoiceAudioDurationMs,
   toOpenAICompatibleRealtimeAudioFormat,
-} from "openclaw/plugin-sdk/realtime-voice";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/realtime-voice";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   XAI_REALTIME_DEFAULT_PREFIX_PADDING_MS,
   XAI_REALTIME_DEFAULT_SILENCE_DURATION_MS,

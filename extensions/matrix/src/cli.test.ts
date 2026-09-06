@@ -1,6 +1,6 @@
 // Matrix tests cover cli plugin behavior.
 import { Command } from "commander";
-import { formatZonedTimestamp } from "openclaw/plugin-sdk/time-runtime";
+import { formatZonedTimestamp } from "granted/plugin-sdk/time-runtime";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { registerMatrixCli } from "./cli.js";
 import type { CoreConfig } from "./types.js";

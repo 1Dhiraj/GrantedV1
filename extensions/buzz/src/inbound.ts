@@ -2,11 +2,11 @@ import { normalizeURL } from "nostr-tools/utils";
 import {
   buildChannelInboundEventContext,
   resolveChannelInboundRouteEnvelope,
-} from "openclaw/plugin-sdk/channel-inbound";
-import { resolveStableChannelMessageIngress } from "openclaw/plugin-sdk/channel-ingress-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { createSubsystemLogger } from "openclaw/plugin-sdk/logging-core";
-import type { HistoryEntry } from "openclaw/plugin-sdk/reply-history";
+} from "granted/plugin-sdk/channel-inbound";
+import { resolveStableChannelMessageIngress } from "granted/plugin-sdk/channel-ingress-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { createSubsystemLogger } from "granted/plugin-sdk/logging-core";
+import type { HistoryEntry } from "granted/plugin-sdk/reply-history";
 import type { BuzzBus } from "./buzz-bus.js";
 import {
   BUZZ_DIFF_MESSAGE_KIND,

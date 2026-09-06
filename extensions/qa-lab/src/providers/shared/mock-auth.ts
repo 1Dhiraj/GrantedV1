@@ -1,7 +1,7 @@
 // Qa Lab plugin module implements mock auth behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { applyAuthProfileConfig } from "openclaw/plugin-sdk/provider-auth-api-key";
-import { uniqueStrings } from "openclaw/plugin-sdk/string-coerce-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { applyAuthProfileConfig } from "granted/plugin-sdk/provider-auth-api-key";
+import { uniqueStrings } from "granted/plugin-sdk/string-coerce-runtime";
 import { writeQaAuthProfiles } from "./auth-store.js";
 
 /** Providers the mock harness stages placeholder credentials for by default. */

@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import { initializeGlobalHookRunner } from "openclaw/plugin-sdk/hook-runtime";
-import { createMockPluginRegistry } from "openclaw/plugin-sdk/plugin-test-runtime";
+import { initializeGlobalHookRunner } from "granted/plugin-sdk/hook-runtime";
+import { createMockPluginRegistry } from "granted/plugin-sdk/plugin-test-runtime";
 import { describe, expect, it, vi } from "vitest";
 import * as appServerPolicy from "./app-server-policy.js";
 import { applyCodexAppServerAuthProfile } from "./auth-bridge.js";

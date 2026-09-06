@@ -4,7 +4,7 @@ import {
   type Context,
   type Model,
   type SimpleStreamOptions,
-} from "openclaw/plugin-sdk/llm";
+} from "granted/plugin-sdk/llm";
 import { Type } from "typebox";
 import { describe, expect, it, vi } from "vitest";
 import { createUserTurnTranscriptRecorder } from "../../sessions/user-turn-transcript.js";

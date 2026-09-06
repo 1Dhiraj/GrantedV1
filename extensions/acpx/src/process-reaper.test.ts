@@ -6,7 +6,7 @@ import { GRANTED_ACPX_LEASE_ID_ARG, GRANTED_GATEWAY_INSTANCE_ID_ARG } from "./pr
 const runExecMock = vi.hoisted(() => vi.fn());
 
 vi.mock("openclaw/plugin-sdk/process-runtime", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("openclaw/plugin-sdk/process-runtime")>()),
+  ...(await importOriginal<typeof import("granted/plugin-sdk/process-runtime")>()),
   runExec: runExecMock,
 }));
 

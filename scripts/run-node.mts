@@ -802,7 +802,7 @@ const refuseImmutableDeploymentMutation = async (
 ) => {
   const message =
     `[openclaw] Cannot regenerate ${artifactKind} artifacts in an immutable deployment (${reason}). ` +
-    "Replace this deployment with a complete release, then use its installed `openclaw` command or run `node openclaw.mjs ...` from that release.\n";
+    "Replace this deployment with a complete release, then use its installed `openclaw` command or run `node granted.mjs ...` from that release.\n";
   deps.stderr.write(message);
   deps.outputTee?.write(message);
   return await closeRunNodeOutputTee(deps, 1);
@@ -1233,7 +1233,7 @@ const runNodeChild = async (deps: RunNodeDeps, args: string[]) => {
 };
 
 const runOpenClaw = (deps: RunNodeDeps) =>
-  runNodeChild(deps, [...resolveRunNodeDiagnosticArgs(deps), "openclaw.mjs", ...deps.args]);
+  runNodeChild(deps, [...resolveRunNodeDiagnosticArgs(deps), "granted.mjs", ...deps.args]);
 
 const pipeSpawnedOutput = (
   childProcess: RunNodeChild,

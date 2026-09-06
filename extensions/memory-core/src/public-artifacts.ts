@@ -2,7 +2,7 @@
 import {
   listMemoryHostPublicArtifacts,
   type MemoryPluginPublicArtifact,
-} from "openclaw/plugin-sdk/memory-host-core";
+} from "granted/plugin-sdk/memory-host-core";
 import type { GrantedConfig } from "../api.js";
 
 export async function listMemoryCorePublicArtifacts(params: {

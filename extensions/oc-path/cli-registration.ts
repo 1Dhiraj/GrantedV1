@@ -1,5 +1,5 @@
 // OC Path module implements cli registration behavior.
-import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginApi } from "granted/plugin-sdk/plugin-entry";
 
 function hasCliFlag(argv: readonly string[], flag: "--human" | "--json"): boolean {
   for (const arg of argv.slice(2)) {

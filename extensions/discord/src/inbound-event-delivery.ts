@@ -1,10 +1,10 @@
 // Discord plugin module implements inbound event delivery behavior.
-import { createInboundEventDeliveryCorrelation } from "openclaw/plugin-sdk/inbound-event-delivery";
-import type { ReplyPayload } from "openclaw/plugin-sdk/reply-payload";
+import { createInboundEventDeliveryCorrelation } from "granted/plugin-sdk/inbound-event-delivery";
+import type { ReplyPayload } from "granted/plugin-sdk/reply-payload";
 import {
   asOptionalRecord,
   normalizeOptionalString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 
 const DISCORD_INBOUND_EVENT_DELIVERY_KEY = "__openclawInboundEventDelivery";
 

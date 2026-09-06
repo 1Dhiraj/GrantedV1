@@ -1,9 +1,9 @@
 // Mattermost plugin module implements guarded channel-history reads.
-import { normalizeAccountId } from "openclaw/plugin-sdk/account-id";
-import type { ChannelMessageActionContext } from "openclaw/plugin-sdk/channel-contract";
-import { resolveAllowlistProviderRuntimeGroupPolicy } from "openclaw/plugin-sdk/runtime-group-policy";
-import { isPrivateNetworkOptInEnabled } from "openclaw/plugin-sdk/ssrf-runtime";
-import { normalizeLowercaseStringOrEmpty } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { normalizeAccountId } from "granted/plugin-sdk/account-id";
+import type { ChannelMessageActionContext } from "granted/plugin-sdk/channel-contract";
+import { resolveAllowlistProviderRuntimeGroupPolicy } from "granted/plugin-sdk/runtime-group-policy";
+import { isPrivateNetworkOptInEnabled } from "granted/plugin-sdk/ssrf-runtime";
+import { normalizeLowercaseStringOrEmpty } from "granted/plugin-sdk/string-coerce-runtime";
 import { normalizeMattermostMessagingTarget } from "../normalize.js";
 import { resolveMattermostAccount } from "./accounts.js";
 import {

@@ -1,5 +1,5 @@
-import { parseStrictPositiveInteger } from "openclaw/plugin-sdk/number-runtime";
-import { defaultRuntime } from "openclaw/plugin-sdk/runtime";
+import { parseStrictPositiveInteger } from "granted/plugin-sdk/number-runtime";
+import { defaultRuntime } from "granted/plugin-sdk/runtime";
 import type { GrantedPluginApi } from "./api.js";
 import { isMemoryMachineOutput } from "./cli-output-mode.js";
 import type { MemoryConfig } from "./config.js";

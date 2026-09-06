@@ -17,9 +17,9 @@ import path from "node:path";
 import type { DatabaseSync } from "node:sqlite";
 // Doctor enumeration cold-loads this closure; persistent-dedupe pulls the
 // plugin-state-store/kysely graph, so the value import stays lazy below.
-import type { PersistentDedupeEntry } from "openclaw/plugin-sdk/persistent-dedupe";
-import type { PluginDoctorStateMigrationContext } from "openclaw/plugin-sdk/runtime-doctor-migrations";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import type { PersistentDedupeEntry } from "granted/plugin-sdk/persistent-dedupe";
+import type { PluginDoctorStateMigrationContext } from "granted/plugin-sdk/runtime-doctor-migrations";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import { normalizeMatrixStorageMetadata } from "../client/storage.js";
 
 const LEGACY_SQLITE_NAMESPACE = "inbound-dedupe";
@@ -240,7 +240,7 @@ export async function readLegacyInboundDedupeSqliteSource(
 ): Promise<{ markers: LegacyInboundDedupeMarker[]; legacyRowCount: number }> {
   // sqlite-runtime re-exports the agent-db/kysely graph; keep it lazy so doctor
   // enumeration does not cold-load it with this closure.
-  const { openNodeSqliteDatabase } = await import("openclaw/plugin-sdk/sqlite-runtime");
+  const { openNodeSqliteDatabase } = await import("granted/plugin-sdk/sqlite-runtime");
   const databasePath = path.join(storageRootDir, STATE_DATABASE_RELATIVE_PATH);
   const db = openNodeSqliteDatabase(databasePath, { readOnly: true });
   try {
@@ -275,7 +275,7 @@ export async function readLegacyInboundDedupeSqliteSource(
 /** Deletes only the two retired Matrix namespaces after a successful import. */
 export async function retireLegacyInboundDedupeSqliteRows(storageRootDir: string): Promise<void> {
   const { openNodeSqliteDatabase, runSqliteImmediateTransactionSync } =
-    await import("openclaw/plugin-sdk/sqlite-runtime");
+    await import("granted/plugin-sdk/sqlite-runtime");
   const databasePath = path.join(storageRootDir, STATE_DATABASE_RELATIVE_PATH);
   const db = openNodeSqliteDatabase(databasePath);
   try {
@@ -401,7 +401,7 @@ export async function importNewestInboundDedupeMarkers(params: {
   stateMaxEntries?: number;
 }): Promise<{ imported: number; total: number }> {
   const { createPersistentDedupeImportEntry } =
-    await import("openclaw/plugin-sdk/persistent-dedupe");
+    await import("granted/plugin-sdk/persistent-dedupe");
   // inbound-dedupe.js value-imports persistent-dedupe's replay guard, so the
   // runtime module also stays out of this closure's static import graph.
   const {

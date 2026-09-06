@@ -3,9 +3,9 @@ import { createHash, randomUUID } from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { setTimeout as sleep } from "node:timers/promises";
-import { DEFAULT_ACCOUNT_ID } from "openclaw/plugin-sdk/account-id";
-import { openNodeSqliteDatabase } from "openclaw/plugin-sdk/sqlite-runtime";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { DEFAULT_ACCOUNT_ID } from "granted/plugin-sdk/account-id";
+import { openNodeSqliteDatabase } from "granted/plugin-sdk/sqlite-runtime";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import type { MatrixQaScenarioContext } from "./scenario-runtime-shared.js";
 
 const MATRIX_SYNC_STORE_FILENAME = "bot-storage.json";

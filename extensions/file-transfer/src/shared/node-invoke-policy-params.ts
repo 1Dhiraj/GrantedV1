@@ -1,4 +1,4 @@
-import { readPositiveIntegerParam } from "openclaw/plugin-sdk/param-readers";
+import { readPositiveIntegerParam } from "granted/plugin-sdk/param-readers";
 import type { FileTransferNodeInvokeCommand } from "./node-invoke-policy-commands.js";
 
 const FILE_FETCH_DEFAULT_MAX_BYTES = 8 * 1024 * 1024;

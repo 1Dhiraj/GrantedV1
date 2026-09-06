@@ -2,8 +2,8 @@ import { Buffer } from "node:buffer";
 import crypto from "node:crypto";
 import { responsesPromptObserver } from "@openclaw/ai/internal/openai";
 import { stableStringify } from "@openclaw/normalization-core";
-import type { StreamFn } from "openclaw/plugin-sdk/agent-core";
-import type { Model } from "openclaw/plugin-sdk/llm";
+import type { StreamFn } from "granted/plugin-sdk/agent-core";
+import type { Model } from "granted/plugin-sdk/llm";
 import { resolveGlobalSingleton } from "../../shared/global-singleton.js";
 
 type ProviderPromptSnapshot = {

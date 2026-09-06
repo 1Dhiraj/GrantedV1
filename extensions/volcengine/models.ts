@@ -1,5 +1,5 @@
 // Volcengine plugin module implements models behavior.
-import { buildManifestProviderCatalogFamily } from "openclaw/plugin-sdk/provider-catalog-shared";
+import { buildManifestProviderCatalogFamily } from "granted/plugin-sdk/provider-catalog-shared";
 import manifest from "./openclaw.plugin.json" with { type: "json" };
 
 export const VOLCENGINE_PROVIDER_CATALOG = buildManifestProviderCatalogFamily({

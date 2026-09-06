@@ -1,7 +1,7 @@
 // Firecrawl plugin module implements firecrawl client behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { parseFiniteNumber } from "openclaw/plugin-sdk/number-runtime";
-import { readProviderJsonObjectResponse } from "openclaw/plugin-sdk/provider-http";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { parseFiniteNumber } from "granted/plugin-sdk/number-runtime";
+import { readProviderJsonObjectResponse } from "granted/plugin-sdk/provider-http";
 import {
   DEFAULT_CACHE_TTL_MINUTES,
   markdownToText,
@@ -12,22 +12,22 @@ import {
   withSelfHostedWebToolsEndpoint,
   withStrictWebToolsEndpoint,
   writeCache,
-} from "openclaw/plugin-sdk/provider-web-fetch";
-import { resolveSiteName } from "openclaw/plugin-sdk/provider-web-search";
-import { normalizeSecretInput } from "openclaw/plugin-sdk/secret-input";
+} from "granted/plugin-sdk/provider-web-fetch";
+import { resolveSiteName } from "granted/plugin-sdk/provider-web-search";
+import { normalizeSecretInput } from "granted/plugin-sdk/secret-input";
 import {
   truncateSanitizedExternalContent,
   wrapExternalContent,
   wrapWebContent,
-} from "openclaw/plugin-sdk/security-runtime";
+} from "granted/plugin-sdk/security-runtime";
 import {
   SsrFBlockedError,
   isBlockedHostnameOrIp,
   isPrivateIpAddress,
   resolvePinnedHostnameWithPolicy,
   type LookupFn,
-} from "openclaw/plugin-sdk/ssrf-runtime";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/ssrf-runtime";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import { z } from "zod";
 import {
   DEFAULT_FIRECRAWL_BASE_URL,

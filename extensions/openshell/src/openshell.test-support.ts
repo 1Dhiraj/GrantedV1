@@ -1,9 +1,9 @@
-import type { CreateSandboxBackendParams } from "openclaw/plugin-sdk/sandbox";
+import type { CreateSandboxBackendParams } from "granted/plugin-sdk/sandbox";
 import {
   createSandboxBrowserConfig,
   createSandboxPruneConfig,
   createSandboxSshConfig,
-} from "openclaw/plugin-sdk/test-fixtures";
+} from "granted/plugin-sdk/test-fixtures";
 
 export function createOpenShellBackendSandboxConfig(): CreateSandboxBackendParams["cfg"] {
   return {

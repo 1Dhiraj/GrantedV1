@@ -2,7 +2,7 @@
 import { mkdtemp, readFile, rm } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { withTempDir } from "openclaw/plugin-sdk/test-env";
+import { withTempDir } from "granted/plugin-sdk/test-env";
 import { describe, expect, it, vi } from "vitest";
 import {
   MATRIX_QA_CLEANUP_TIMEOUT_MS,

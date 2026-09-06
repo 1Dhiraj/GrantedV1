@@ -1,5 +1,5 @@
 // Openai tests cover embedding provider plugin behavior.
-import type { MemoryEmbeddingProviderCreateOptions } from "openclaw/plugin-sdk/memory-core-host-engine-embeddings";
+import type { MemoryEmbeddingProviderCreateOptions } from "granted/plugin-sdk/memory-core-host-engine-embeddings";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const DEFAULT_MOCK_CLIENT = {

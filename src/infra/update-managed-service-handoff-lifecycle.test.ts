@@ -479,7 +479,7 @@ describe("managed service update handoff", () => {
       restartDrainTimeoutMs: 300_000,
       parentPid: process.pid,
       execPath: "/definitely/missing/openclaw-node",
-      argv1: "/opt/openclaw/openclaw.mjs",
+      argv1: "/opt/openclaw/granted.mjs",
       meta: { sessionKey: "agent:test:webchat:dm:user-123" },
     });
     await expect(resultPromise).rejects.toMatchObject({ code: "ENOENT" });
@@ -512,7 +512,7 @@ describe("managed service update handoff", () => {
       restartDrainTimeoutMs: 300_000,
       parentPid: process.pid,
       execPath: "/usr/local/bin/node",
-      argv1: "/opt/openclaw/openclaw.mjs",
+      argv1: "/opt/openclaw/granted.mjs",
       supervisor: "systemd",
       env: { PATH: binDir, GRANTED_SYSTEMD_UNIT: "openclaw-gateway.service" },
       meta: {},
@@ -548,7 +548,7 @@ describe("managed service update handoff", () => {
       restartDrainTimeoutMs: 300_000,
       parentPid: process.pid,
       execPath: "/usr/local/bin/node",
-      argv1: "/opt/openclaw/openclaw.mjs",
+      argv1: "/opt/openclaw/granted.mjs",
       meta: {},
     });
     await expect(resultPromise).rejects.toMatchObject({
@@ -586,7 +586,7 @@ describe("managed service update handoff", () => {
       restartDelayMs: 500,
       parentPid: process.pid,
       execPath: "/usr/local/bin/node",
-      argv1: "/opt/openclaw/openclaw.mjs",
+      argv1: "/opt/openclaw/granted.mjs",
       env: {
         ...supervisorEnv,
         ...serviceIdentityEnv,
@@ -641,7 +641,7 @@ describe("managed service update handoff", () => {
       restartDelayMs: 500,
       parentPid: process.pid,
       execPath: "/usr/local/bin/node",
-      argv1: "/opt/openclaw/openclaw.mjs",
+      argv1: "/opt/openclaw/granted.mjs",
       handoffId: "handoff-123",
       channel: "beta",
       supervisor: "systemd",
@@ -689,7 +689,7 @@ describe("managed service update handoff", () => {
     });
     expect(helperParams.commandArgv).toEqual([
       "/usr/local/bin/node",
-      "/opt/openclaw/openclaw.mjs",
+      "/opt/openclaw/granted.mjs",
       "update",
       "--yes",
       "--json",
@@ -869,7 +869,7 @@ describe("managed service update handoff", () => {
         restartDelayMs: 500,
         parentPid: process.pid,
         execPath: "/usr/local/bin/node",
-        argv1: "/opt/openclaw/openclaw.mjs",
+        argv1: "/opt/openclaw/granted.mjs",
         supervisor: testCase.supervisor,
         env: testCase.env,
         meta: { sessionKey: "agent:test:webchat:dm:user-123" },

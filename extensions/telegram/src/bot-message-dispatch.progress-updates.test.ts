@@ -1,7 +1,7 @@
 import {
   createChannelPartialDeliveryError,
   isChannelPartialDeliveryError,
-} from "openclaw/plugin-sdk/channel-inbound";
+} from "granted/plugin-sdk/channel-inbound";
 import { expect, it } from "vitest";
 import {
   appendAssistantMirrorMessageByIdentity,

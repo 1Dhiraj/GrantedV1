@@ -3,7 +3,7 @@
  * checks.
  */
 import type { Command } from "commander";
-import { redactCdpUrl } from "openclaw/plugin-sdk/browser-cdp";
+import { redactCdpUrl } from "granted/plugin-sdk/browser-cdp";
 import { formatBrowserGraphicsSummary } from "../browser/chrome.graphics.js";
 import type {
   BrowserCreateProfileResult,

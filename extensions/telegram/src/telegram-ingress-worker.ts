@@ -1,6 +1,6 @@
 // Telegram plugin module implements telegram ingress worker behavior.
 import { Worker } from "node:worker_threads";
-import type { TelegramNetworkConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { TelegramNetworkConfig } from "granted/plugin-sdk/config-contracts";
 
 export const TELEGRAM_INGRESS_WORKER_RUNTIME_MARKER = "openclaw.telegram-ingress-worker";
 const TELEGRAM_INGRESS_WORKER_STOP_GRACE_MS = 2_000;

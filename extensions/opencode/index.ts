@@ -1,11 +1,11 @@
 // Opencode plugin entrypoint registers its OpenClaw integration.
-import { defineSingleProviderPluginEntry } from "openclaw/plugin-sdk/provider-entry";
+import { defineSingleProviderPluginEntry } from "granted/plugin-sdk/provider-entry";
 import {
   buildProviderReplayFamilyHooks,
   matchesExactOrPrefix,
-} from "openclaw/plugin-sdk/provider-model-shared";
-import { createOpenAICompatibleCompletionsThinkingOffWrapper } from "openclaw/plugin-sdk/provider-stream-shared";
-import { normalizeLowercaseStringOrEmpty } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/provider-model-shared";
+import { createOpenAICompatibleCompletionsThinkingOffWrapper } from "granted/plugin-sdk/provider-stream-shared";
+import { normalizeLowercaseStringOrEmpty } from "granted/plugin-sdk/string-coerce-runtime";
 import { opencodeMediaUnderstandingProvider } from "./media-understanding-provider.js";
 import { applyOpencodeZenProviderConfig, OPENCODE_ZEN_DEFAULT_MODEL_REF } from "./onboard.js";
 import manifest from "./openclaw.plugin.json" with { type: "json" };

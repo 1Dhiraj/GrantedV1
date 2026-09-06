@@ -109,13 +109,13 @@ const cases = [
   {
     id: "help",
     label: "--help",
-    args: ["openclaw.mjs", "--help"],
+    args: ["granted.mjs", "--help"],
     limitMb: readPositiveNumberEnv("GRANTED_STARTUP_MEMORY_HELP_MB", DEFAULT_LIMITS_MB.help),
   },
   {
     id: "pluginsList",
     label: "plugins list --json",
-    args: ["openclaw.mjs", "plugins", "list", "--json"],
+    args: ["granted.mjs", "plugins", "list", "--json"],
     limitMb: readPositiveNumberEnv(
       "GRANTED_STARTUP_MEMORY_PLUGINS_LIST_MB",
       DEFAULT_LIMITS_MB.pluginsList,
@@ -124,7 +124,7 @@ const cases = [
   {
     id: "statusJson",
     label: "status --json",
-    args: ["openclaw.mjs", "status", "--json"],
+    args: ["granted.mjs", "status", "--json"],
     limitMb: readPositiveNumberEnv(
       "GRANTED_STARTUP_MEMORY_STATUS_JSON_MB",
       DEFAULT_LIMITS_MB.statusJson,
@@ -133,7 +133,7 @@ const cases = [
   {
     id: "gatewayStatus",
     label: "gateway status",
-    args: ["openclaw.mjs", "gateway", "status"],
+    args: ["granted.mjs", "gateway", "status"],
     limitMb: readPositiveNumberEnv(
       "GRANTED_STARTUP_MEMORY_GATEWAY_STATUS_MB",
       DEFAULT_LIMITS_MB.gatewayStatus,
@@ -373,8 +373,8 @@ function runStartupMemoryCheck(argv = process.argv.slice(2), params = {}) {
   // without --import/--require flags: the entry declines its dist ESM resolve
   // fast path when preload hooks may be registered, so an injected hook would
   // measure a slower non-default resolution configuration instead of what a
-  // plain `node openclaw.mjs ...` invocation pays.
-  const launcherPath = path.join(repoRoot, "openclaw.mjs");
+  // plain `node granted.mjs ...` invocation pays.
+  const launcherPath = path.join(repoRoot, "granted.mjs");
   writeFileSync(
     benchEntryPath,
     [

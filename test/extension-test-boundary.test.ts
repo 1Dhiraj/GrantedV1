@@ -1,7 +1,7 @@
 // Extension test boundary tests enforce extension test layout rules.
 import fs from "node:fs";
 import path from "node:path";
-import { BUNDLED_PLUGIN_PATH_PREFIX } from "openclaw/plugin-sdk/test-fixtures";
+import { BUNDLED_PLUGIN_PATH_PREFIX } from "granted/plugin-sdk/test-fixtures";
 import { describe, expect, it } from "vitest";
 import { GUARDED_EXTENSION_PUBLIC_SURFACE_BASENAMES } from "../src/plugin-sdk/test-helpers/public-artifacts.js";
 import { expectNoReaddirSyncDuring } from "../src/test-utils/fs-scan-assertions.js";

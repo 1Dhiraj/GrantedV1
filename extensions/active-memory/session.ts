@@ -1,9 +1,9 @@
-import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginApi } from "granted/plugin-sdk/plugin-entry";
 import {
   deliveryContextFromSession,
   sessionDeliveryOrigin,
-} from "openclaw/plugin-sdk/session-store-runtime";
-import { normalizeOptionalString, uniqueStrings } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/session-store-runtime";
+import { normalizeOptionalString, uniqueStrings } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   ACTIVE_MEMORY_DEBUG_PREFIX,
   ACTIVE_MEMORY_STATUS_PREFIX,

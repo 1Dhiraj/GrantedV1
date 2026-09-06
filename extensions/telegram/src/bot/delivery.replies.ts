@@ -1,12 +1,12 @@
 // Telegram plugin module implements delivery.replies behavior.
 import type { Bot } from "grammy";
 import type { Message } from "grammy/types";
-import { isChannelPartialDeliveryError } from "openclaw/plugin-sdk/channel-inbound";
+import { isChannelPartialDeliveryError } from "granted/plugin-sdk/channel-inbound";
 import {
   createOutboundPayloadPlan,
   projectOutboundPayloadPlanForDelivery,
-} from "openclaw/plugin-sdk/channel-outbound";
-import type { MarkdownTableMode, ReplyToMode } from "openclaw/plugin-sdk/config-contracts";
+} from "granted/plugin-sdk/channel-outbound";
+import type { MarkdownTableMode, ReplyToMode } from "granted/plugin-sdk/config-contracts";
 import {
   buildCanonicalSentMessageHookContext,
   createInternalHookEvent,
@@ -15,22 +15,22 @@ import {
   toPluginMessageContext,
   toPluginMessageSentEvent,
   triggerInternalHook,
-} from "openclaw/plugin-sdk/hook-runtime";
-import type { ReplyPayloadDelivery } from "openclaw/plugin-sdk/interactive-runtime";
-import { normalizeMessagePresentation } from "openclaw/plugin-sdk/interactive-runtime";
+} from "granted/plugin-sdk/hook-runtime";
+import type { ReplyPayloadDelivery } from "granted/plugin-sdk/interactive-runtime";
+import { normalizeMessagePresentation } from "granted/plugin-sdk/interactive-runtime";
 import {
   buildOutboundMediaLoadOptions,
   probeVideoDimensions,
-} from "openclaw/plugin-sdk/media-runtime";
-import { parseStrictPositiveInteger } from "openclaw/plugin-sdk/number-runtime";
-import { getGlobalHookRunner } from "openclaw/plugin-sdk/plugin-runtime";
-import type { ChunkMode } from "openclaw/plugin-sdk/reply-chunking";
-import type { ReplyPayload } from "openclaw/plugin-sdk/reply-payload";
-import { isSingleUseReplyToMode } from "openclaw/plugin-sdk/reply-reference";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
-import { danger, logVerbose } from "openclaw/plugin-sdk/runtime-env";
-import { formatErrorMessage } from "openclaw/plugin-sdk/ssrf-runtime";
-import { loadWebMedia } from "openclaw/plugin-sdk/web-media";
+} from "granted/plugin-sdk/media-runtime";
+import { parseStrictPositiveInteger } from "granted/plugin-sdk/number-runtime";
+import { getGlobalHookRunner } from "granted/plugin-sdk/plugin-runtime";
+import type { ChunkMode } from "granted/plugin-sdk/reply-chunking";
+import type { ReplyPayload } from "granted/plugin-sdk/reply-payload";
+import { isSingleUseReplyToMode } from "granted/plugin-sdk/reply-reference";
+import type { RuntimeEnv } from "granted/plugin-sdk/runtime-env";
+import { danger, logVerbose } from "granted/plugin-sdk/runtime-env";
+import { formatErrorMessage } from "granted/plugin-sdk/ssrf-runtime";
+import { loadWebMedia } from "granted/plugin-sdk/web-media";
 import { resolveTelegramInlineButtons, type TelegramInlineButtons } from "../button-types.js";
 import {
   canonicalizeTelegramPresentationPayload,
@@ -651,7 +651,7 @@ export function emitTelegramMessageSentHooks(params: EmitMessageSentHookParams):
 
 export async function deliverReplies(params: {
   replies: ReplyPayload[];
-  cfg?: import("openclaw/plugin-sdk/config-contracts").GrantedConfig;
+  cfg?: import("granted/plugin-sdk/config-contracts").GrantedConfig;
   ownerAgentId?: string;
   chatId: string;
   accountId?: string;

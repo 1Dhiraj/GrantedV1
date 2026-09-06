@@ -1,7 +1,7 @@
 // Codex tests cover native Computer Use service provisioning.
 import fs from "node:fs/promises";
 import path from "node:path";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { ensureCodexComputerUseServiceApp } from "./computer-use-service.js";
 import { resolveMacOSDesktopCodexComputerUseServiceAppCandidates } from "./desktop-app-paths.js";

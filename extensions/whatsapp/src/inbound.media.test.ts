@@ -85,7 +85,7 @@ let currentMockSocket:
   | undefined;
 
 vi.mock("openclaw/plugin-sdk/logging-core", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/logging-core")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/logging-core")>(
     "openclaw/plugin-sdk/logging-core",
   );
   function observeConsoleWarnings(
@@ -113,7 +113,7 @@ vi.mock("openclaw/plugin-sdk/logging-core", async () => {
 
 vi.mock("openclaw/plugin-sdk/runtime-config-snapshot", async () => {
   const actual = await vi.importActual<
-    typeof import("openclaw/plugin-sdk/runtime-config-snapshot")
+    typeof import("granted/plugin-sdk/runtime-config-snapshot")
   >("openclaw/plugin-sdk/runtime-config-snapshot");
   return {
     ...actual,
@@ -132,7 +132,7 @@ vi.mock("openclaw/plugin-sdk/runtime-config-snapshot", async () => {
 });
 
 vi.mock("openclaw/plugin-sdk/conversation-runtime", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/conversation-runtime")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/conversation-runtime")>(
     "openclaw/plugin-sdk/conversation-runtime",
   );
   return {
@@ -147,7 +147,7 @@ vi.mock("openclaw/plugin-sdk/conversation-runtime", async () => {
 });
 
 vi.mock("openclaw/plugin-sdk/channel-pairing", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/channel-pairing")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/channel-pairing")>(
     "openclaw/plugin-sdk/channel-pairing",
   );
   return {
@@ -159,7 +159,7 @@ vi.mock("openclaw/plugin-sdk/channel-pairing", async () => {
 });
 
 vi.mock("openclaw/plugin-sdk/media-store", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/media-store")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/media-store")>(
     "openclaw/plugin-sdk/media-store",
   );
   return {
@@ -173,7 +173,7 @@ vi.mock("openclaw/plugin-sdk/media-store", async () => {
 
 vi.mock("./runtime.js", async () => {
   const { createChannelIngressQueueForTests: createChannelIngressQueue } = await Promise.resolve(
-    vi.importActual<typeof import("openclaw/plugin-sdk/plugin-state-test-runtime")>(
+    vi.importActual<typeof import("granted/plugin-sdk/plugin-state-test-runtime")>(
       "openclaw/plugin-sdk/plugin-state-test-runtime",
     ),
   );
@@ -254,8 +254,8 @@ vi.mock("./session.js", async () => {
 let monitorWebInbox: typeof import("./inbound.js").monitorWebInbox;
 let resetWebInboundDedupe: typeof import("./inbound.js").resetWebInboundDedupe;
 let createWaSocket: typeof import("./session.js").createWaSocket;
-let resetLogger: typeof import("openclaw/plugin-sdk/runtime-env").resetLogger;
-let setLoggerOverride: typeof import("openclaw/plugin-sdk/runtime-env").setLoggerOverride;
+let resetLogger: typeof import("granted/plugin-sdk/runtime-env").resetLogger;
+let setLoggerOverride: typeof import("granted/plugin-sdk/runtime-env").setLoggerOverride;
 
 const LOG_PATH = path.join(os.tmpdir(), `openclaw-inbound-media-${crypto.randomUUID()}.log`);
 const DIRECT_SYNTHETIC_BEARER = "synthetic-direct-bearer-never-real";
@@ -350,7 +350,7 @@ describe("web inbound media saves with extension", () => {
       path.join(configDir, "openclaw.json"),
       JSON.stringify({ logging: { redactPatterns: ["deployment-secret-[a-z-]+"] } }),
     );
-    ({ resetLogger, setLoggerOverride } = await import("openclaw/plugin-sdk/runtime-env"));
+    ({ resetLogger, setLoggerOverride } = await import("granted/plugin-sdk/runtime-env"));
     setLoggerOverride({ level: "trace", consoleLevel: "info", file: LOG_PATH });
     ({ monitorWebInbox, resetWebInboundDedupe } = await import("./inbound.js"));
     ({ createWaSocket } = await import("./session.js"));

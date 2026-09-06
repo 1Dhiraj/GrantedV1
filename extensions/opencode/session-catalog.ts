@@ -1,20 +1,20 @@
 import process from "node:process";
-import { runCommandBuffered } from "openclaw/plugin-sdk/process-runtime";
+import { runCommandBuffered } from "granted/plugin-sdk/process-runtime";
 import type {
   SessionCatalogSession,
   SessionCatalogTranscriptItem,
   SessionsCatalogReadResult,
-} from "openclaw/plugin-sdk/session-catalog";
-import { sessionCatalogPaging } from "openclaw/plugin-sdk/session-catalog";
+} from "granted/plugin-sdk/session-catalog";
+import { sessionCatalogPaging } from "granted/plugin-sdk/session-catalog";
 import {
   isRecord,
   normalizeBoundedOptionalString as optionalOpenCodeString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
+import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import {
   materializeWindowsSpawnProgram,
   resolveWindowsSpawnProgram,
-} from "openclaw/plugin-sdk/windows-spawn";
+} from "granted/plugin-sdk/windows-spawn";
 import {
   OPENCODE_SESSION_CATALOG_MAX_PAGE_LIMIT,
   OPENCODE_SESSION_ID_PATTERN,

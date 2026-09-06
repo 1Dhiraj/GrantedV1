@@ -1,11 +1,11 @@
 // Openrouter tests cover openrouter plugin behavior.
 import OpenAI from "openai";
-import { AuthStorage, ModelRegistry } from "openclaw/plugin-sdk/agent-sessions";
-import { streamSimple } from "openclaw/plugin-sdk/llm";
+import { AuthStorage, ModelRegistry } from "granted/plugin-sdk/agent-sessions";
+import { streamSimple } from "granted/plugin-sdk/llm";
 import {
   registerProviderPlugin,
   requireRegisteredProvider,
-} from "openclaw/plugin-sdk/plugin-test-runtime";
+} from "granted/plugin-sdk/plugin-test-runtime";
 import { describe, expect, it } from "vitest";
 import plugin from "./index.js";
 import { normalizeOpenRouterApiModelId } from "./models.js";

@@ -7,8 +7,8 @@ import path from "node:path";
 import { Writable } from "node:stream";
 import { pathToFileURL } from "node:url";
 import { inspect } from "node:util";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { toErrorObject } from "openclaw/plugin-sdk/error-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { toErrorObject } from "granted/plugin-sdk/error-runtime";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   createQaBundledPluginsDir,
@@ -60,7 +60,7 @@ vi.mock("openclaw/plugin-sdk/ssrf-runtime", () => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/temp-path", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("openclaw/plugin-sdk/temp-path")>()),
+  ...(await importOriginal<typeof import("granted/plugin-sdk/temp-path")>()),
   resolvePreferredOpenClawTmpDir: () => qaTempPathState.preferredTmpDir,
 }));
 
@@ -2258,7 +2258,7 @@ describe("qa bundled plugin dir", () => {
     await writeFile(
       path.join(repoRoot, "dist", "extensions", "qa-channel", "index.js"),
       [
-        'import { normalizeAccountId } from "openclaw/plugin-sdk/account-id";',
+        'import { normalizeAccountId } from "granted/plugin-sdk/account-id";',
         'export const accountId = normalizeAccountId("QA");',
         "",
       ].join("\n"),
@@ -2473,7 +2473,7 @@ describe("qa bundled plugin dir", () => {
     await writeFile(
       path.join(repoRoot, "extensions", "qa-channel", "index.ts"),
       [
-        'import { normalizeAccountId } from "openclaw/plugin-sdk/account-id";',
+        'import { normalizeAccountId } from "granted/plugin-sdk/account-id";',
         'import { marker } from "fake-dep";',
         'export const accountId = `${normalizeAccountId("QA")}:${marker}`;',
         "",

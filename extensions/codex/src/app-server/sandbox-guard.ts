@@ -2,10 +2,10 @@
  * Blocks direct Codex app-server requests that would bypass OpenClaw sandbox or
  * node-exec routing guarantees.
  */
-import { tryResolveDefaultAgentId } from "openclaw/plugin-sdk/agent-scope-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { parseAgentSessionKey } from "openclaw/plugin-sdk/routing";
-import { resolveSandboxRuntimeStatus, type SandboxContext } from "openclaw/plugin-sdk/sandbox";
+import { tryResolveDefaultAgentId } from "granted/plugin-sdk/agent-scope-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { parseAgentSessionKey } from "granted/plugin-sdk/routing";
+import { resolveSandboxRuntimeStatus, type SandboxContext } from "granted/plugin-sdk/sandbox";
 import { isCodexRemoteExecPlacementSandbox } from "./config-parsing.js";
 import {
   formatCodexNativeNodeExecBlock,

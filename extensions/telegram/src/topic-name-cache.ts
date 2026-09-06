@@ -1,6 +1,6 @@
 // Telegram plugin module implements topic name cache behavior.
 import { createHash } from "node:crypto";
-import { readJsonFileWithFallback } from "openclaw/plugin-sdk/json-store";
+import { readJsonFileWithFallback } from "granted/plugin-sdk/json-store";
 import { getTelegramRuntime } from "./runtime.js";
 
 export const TELEGRAM_TOPIC_NAME_CACHE_MAX_ENTRIES = 2_048;

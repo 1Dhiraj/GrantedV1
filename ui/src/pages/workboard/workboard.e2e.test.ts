@@ -1,7 +1,7 @@
 // Control UI tests cover workboard behavior.
 import { copyFile, mkdir, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import type { BrowserContext, Locator, Page } from "playwright";
 import { expect, it } from "vitest";
 import { PROTOCOL_VERSION } from "../../../../packages/gateway-protocol/src/version.js";

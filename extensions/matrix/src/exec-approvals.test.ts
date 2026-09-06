@@ -1,17 +1,17 @@
 // Matrix tests cover exec approvals plugin behavior.
 import path from "node:path";
-import type { ExecApprovalRequest } from "openclaw/plugin-sdk/approval-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { ExecApprovalRequest } from "granted/plugin-sdk/approval-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   normalizeSessionDeliveryState,
   upsertSessionEntry,
-} from "openclaw/plugin-sdk/session-store-runtime";
-import { closeOpenClawAgentDatabasesForTest } from "openclaw/plugin-sdk/sqlite-runtime-testing";
+} from "granted/plugin-sdk/session-store-runtime";
+import { closeOpenClawAgentDatabasesForTest } from "granted/plugin-sdk/sqlite-runtime-testing";
 import {
   resolvePreferredOpenClawTmpDir,
   tempWorkspaceSync,
   type TempWorkspaceSync,
-} from "openclaw/plugin-sdk/temp-path";
+} from "granted/plugin-sdk/temp-path";
 import { afterEach, describe, expect, it } from "vitest";
 import { normalizeMatrixApproverId } from "./approval-ids.js";
 import {

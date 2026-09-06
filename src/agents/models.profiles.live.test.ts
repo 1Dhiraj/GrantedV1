@@ -4,7 +4,7 @@ import { defaultApiRegistry } from "@openclaw/ai/internal/runtime";
 import { prepareModelForSimpleCompletion } from "@openclaw/ai/transports";
 import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
 import { expectDefined } from "@openclaw/normalization-core";
-import { type Api, completeSimple, type Model } from "openclaw/plugin-sdk/llm";
+import { type Api, completeSimple, type Model } from "granted/plugin-sdk/llm";
 import { Type } from "typebox";
 import { describe, expect, it, vi } from "vitest";
 import type { GrantedConfig } from "../config/types.openclaw.js";

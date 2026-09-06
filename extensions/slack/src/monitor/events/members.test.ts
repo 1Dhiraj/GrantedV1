@@ -182,7 +182,7 @@ describe("registerSlackMemberEvents", () => {
       }),
     );
     const request = memberMocks.reportJoin.mock.calls[0]?.[0] as Parameters<
-      typeof import("openclaw/plugin-sdk/channel-join-intro-runtime").reportChannelRoomJoin
+      typeof import("granted/plugin-sdk/channel-join-intro-runtime").reportChannelRoomJoin
     >[0];
     await expect(request.resolveRoomContext({ messageLimit: 30 })).resolves.toEqual({
       title: "#deploys",
@@ -249,7 +249,7 @@ describe("registerSlackMemberEvents", () => {
     });
 
     const request = memberMocks.reportJoin.mock.calls[0]?.[0] as Parameters<
-      typeof import("openclaw/plugin-sdk/channel-join-intro-runtime").reportChannelRoomJoin
+      typeof import("granted/plugin-sdk/channel-join-intro-runtime").reportChannelRoomJoin
     >[0];
     await expect(request.resolveRoomContext({ messageLimit: 30 })).resolves.toEqual({
       title: "#general",

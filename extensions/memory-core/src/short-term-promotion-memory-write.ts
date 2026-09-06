@@ -1,7 +1,7 @@
 import { createHash } from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
-import { replaceFileAtomic } from "openclaw/plugin-sdk/security-runtime";
+import { replaceFileAtomic } from "granted/plugin-sdk/security-runtime";
 
 export function buildPromotionMarker(candidateKey: string): string {
   return `<!-- openclaw-memory-promotion:${candidateKey} -->`;

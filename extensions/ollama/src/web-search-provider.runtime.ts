@@ -1,14 +1,14 @@
 // Ollama web-search runtime implements provider integration.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   isNonSecretApiKeyMarker,
   normalizeOptionalSecretInput,
-} from "openclaw/plugin-sdk/provider-auth";
-import { resolveEnvApiKey } from "openclaw/plugin-sdk/provider-auth-runtime";
+} from "granted/plugin-sdk/provider-auth";
+import { resolveEnvApiKey } from "granted/plugin-sdk/provider-auth-runtime";
 import {
   readProviderJsonResponse,
   redactProviderResponseErrorText,
-} from "openclaw/plugin-sdk/provider-http";
+} from "granted/plugin-sdk/provider-http";
 import {
   enablePluginInConfig,
   readPositiveIntegerParam,
@@ -21,10 +21,10 @@ import {
   truncateText,
   wrapWebContent,
   type WebSearchProviderPlugin,
-} from "openclaw/plugin-sdk/provider-web-search";
-import { coerceSecretRef } from "openclaw/plugin-sdk/secret-input";
-import { fetchWithSsrFGuard } from "openclaw/plugin-sdk/ssrf-runtime";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/provider-web-search";
+import { coerceSecretRef } from "granted/plugin-sdk/secret-input";
+import { fetchWithSsrFGuard } from "granted/plugin-sdk/ssrf-runtime";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import { OLLAMA_CLOUD_BASE_URL, OLLAMA_DEFAULT_BASE_URL } from "./defaults.js";
 import { readProviderBaseUrl } from "./provider-base-url.js";
 import {

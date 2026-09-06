@@ -1,13 +1,13 @@
 import { randomUUID } from "node:crypto";
 import { createRequire } from "node:module";
-import { readPluginPackageVersion } from "openclaw/plugin-sdk/extension-shared";
+import { readPluginPackageVersion } from "granted/plugin-sdk/extension-shared";
 import {
   readProviderTextResponse,
   readResponseTextLimited,
-} from "openclaw/plugin-sdk/provider-http";
-import { withTrustedWebSearchEndpoint } from "openclaw/plugin-sdk/provider-web-search";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+} from "granted/plugin-sdk/provider-http";
+import { withTrustedWebSearchEndpoint } from "granted/plugin-sdk/provider-web-search";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
+import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 
 // Free hosted Search MCP. This keyless transport is used only after the user
 // explicitly selects the `parallel-free` web_search provider. Docs:

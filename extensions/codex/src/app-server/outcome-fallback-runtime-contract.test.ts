@@ -2,14 +2,14 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import type { AgentToolResult } from "openclaw/plugin-sdk/agent-core";
-import type { EmbeddedRunAttemptParamsV2 as EmbeddedRunAttemptParams } from "openclaw/plugin-sdk/agent-harness";
-import { classifyEmbeddedAgentRunResultForModelFallback } from "openclaw/plugin-sdk/agent-harness-runtime";
+import type { AgentToolResult } from "granted/plugin-sdk/agent-core";
+import type { EmbeddedRunAttemptParamsV2 as EmbeddedRunAttemptParams } from "granted/plugin-sdk/agent-harness";
+import { classifyEmbeddedAgentRunResultForModelFallback } from "granted/plugin-sdk/agent-harness-runtime";
 import {
   createContractRunResult,
   openFileBackedSessionManagerForTest,
   OUTCOME_FALLBACK_RUNTIME_CONTRACT,
-} from "openclaw/plugin-sdk/agent-runtime-test-contracts";
+} from "granted/plugin-sdk/agent-runtime-test-contracts";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { readAttemptTerminal } from "./attempt-terminal.test-helper.js";
 import { createCodexDynamicToolBridge } from "./dynamic-tools.js";

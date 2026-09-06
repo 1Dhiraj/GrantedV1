@@ -2,7 +2,7 @@
 // session lifecycle persistence, and subscriber registry behavior.
 
 import { expectDefined } from "@openclaw/normalization-core";
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { Value } from "typebox/value";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { ChatEventSchema } from "../../packages/gateway-protocol/src/schema/logs-chat.js";

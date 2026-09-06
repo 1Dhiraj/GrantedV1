@@ -1,4 +1,4 @@
-import { defineSelfHostedOpenAICompatibleProvider } from "openclaw/plugin-sdk/provider-model-shared";
+import { defineSelfHostedOpenAICompatibleProvider } from "granted/plugin-sdk/provider-model-shared";
 import {
   VLLM_DEFAULT_API_KEY_ENV_VAR,
   VLLM_DEFAULT_BASE_URL,

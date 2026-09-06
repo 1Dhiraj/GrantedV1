@@ -1,7 +1,7 @@
 import { realpathSync } from "node:fs";
 import fs from "node:fs/promises";
 import path from "node:path";
-import { withTempHome } from "openclaw/plugin-sdk/test-env";
+import { withTempHome } from "granted/plugin-sdk/test-env";
 import { describe, expect, it, vi } from "vitest";
 import { dedupeSessionStoreTargetsBySqliteTarget } from "./targets.js";
 

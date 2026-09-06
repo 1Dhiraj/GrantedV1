@@ -1,21 +1,21 @@
 // Deepinfra provider module implements model/runtime integration.
 
-import { withTrustedEnvProxyGuardedFetchMode } from "openclaw/plugin-sdk/fetch-runtime";
-import { isProviderApiKeyConfigured } from "openclaw/plugin-sdk/provider-auth";
+import { withTrustedEnvProxyGuardedFetchMode } from "granted/plugin-sdk/fetch-runtime";
+import { isProviderApiKeyConfigured } from "granted/plugin-sdk/provider-auth";
 import {
   fetchLiveProviderModelRows,
   getCachedLiveProviderModelRows,
   LiveModelCatalogHttpError,
-} from "openclaw/plugin-sdk/provider-catalog-live-runtime";
+} from "granted/plugin-sdk/provider-catalog-live-runtime";
 import {
   buildManifestModelProviderConfig,
   getCachedLiveCatalogValue,
-} from "openclaw/plugin-sdk/provider-catalog-shared";
-import type { ModelDefinitionConfig } from "openclaw/plugin-sdk/provider-model-shared";
-import { createSubsystemLogger } from "openclaw/plugin-sdk/runtime-env";
-import { hasConfiguredSecretInput } from "openclaw/plugin-sdk/secret-input";
-import { fetchWithSsrFGuard } from "openclaw/plugin-sdk/ssrf-runtime";
-import { asPositiveSafeInteger } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/provider-catalog-shared";
+import type { ModelDefinitionConfig } from "granted/plugin-sdk/provider-model-shared";
+import { createSubsystemLogger } from "granted/plugin-sdk/runtime-env";
+import { hasConfiguredSecretInput } from "granted/plugin-sdk/secret-input";
+import { fetchWithSsrFGuard } from "granted/plugin-sdk/ssrf-runtime";
+import { asPositiveSafeInteger } from "granted/plugin-sdk/string-coerce-runtime";
 import manifest from "./openclaw.plugin.json" with { type: "json" };
 import { parseDeepInfraPricingCatalog } from "./pricing-api.js";
 

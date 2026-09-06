@@ -1,13 +1,13 @@
 // Memory Core plugin module implements manager source state behavior.
 import type { SQLInputValue } from "node:sqlite";
-import type { ResolvedMemorySearchConfig } from "openclaw/plugin-sdk/memory-core-host-engine-foundation";
+import type { ResolvedMemorySearchConfig } from "granted/plugin-sdk/memory-core-host-engine-foundation";
 import {
   buildFileEntry,
   listMemoryFiles,
   runWithConcurrency,
   type MemoryFileEntry,
   type MemorySource,
-} from "openclaw/plugin-sdk/memory-core-host-engine-storage";
+} from "granted/plugin-sdk/memory-core-host-engine-storage";
 
 export type MemorySourceFileStateRow = {
   path: string;

@@ -1,5 +1,5 @@
 // Signal tests cover setup adapter integration with account-owned transport policy.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { createSignalCliPathTextInput, signalSetupAdapter } from "./setup-core.js";
 import { signalSetupWizard } from "./setup-surface.js";

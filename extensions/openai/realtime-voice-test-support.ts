@@ -4,8 +4,8 @@ import type {
   RealtimeVoiceBrowserSession,
   RealtimeVoiceProviderPlugin,
   RealtimeVoiceTool,
-} from "openclaw/plugin-sdk/realtime-voice";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/realtime-voice";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import { expect, vi } from "vitest";
 
 type Listener = (...args: unknown[]) => void;

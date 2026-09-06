@@ -11,7 +11,7 @@ import {
   loadPreparedModelCatalog,
   resolveAgentDir,
   resolveDefaultModelForAgent,
-} from "openclaw/plugin-sdk/agent-runtime";
+} from "granted/plugin-sdk/agent-runtime";
 import {
   formatCommandArgMenuTitle,
   resolveEffectiveAgentRuntime,
@@ -19,32 +19,32 @@ import {
   type ChatCommandDefinition,
   type CommandArgs,
   resolveNativeCommandSessionTargets,
-} from "openclaw/plugin-sdk/command-auth-native";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
+} from "granted/plugin-sdk/command-auth-native";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
+import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
 import {
   resolveNativeCommandsEnabled,
   resolveNativeSkillsEnabled,
-} from "openclaw/plugin-sdk/native-command-config-runtime";
+} from "granted/plugin-sdk/native-command-config-runtime";
 import {
   mergeNativeCommandSpecs,
   type NativeCommandSpec,
-} from "openclaw/plugin-sdk/native-command-registry";
+} from "granted/plugin-sdk/native-command-registry";
 import type {
   PluginCommandCatalogDecision,
   PluginCommandNativeCandidate,
   PluginCommandReplyOptions,
-} from "openclaw/plugin-sdk/plugin-command-runtime";
-import type { ResolvedAgentRoute } from "openclaw/plugin-sdk/routing";
-import { getRuntimeConfigSnapshot } from "openclaw/plugin-sdk/runtime-config-snapshot";
-import { danger, logVerbose, warn } from "openclaw/plugin-sdk/runtime-env";
-import { getSessionEntry, resolveStorePath } from "openclaw/plugin-sdk/session-store-runtime";
+} from "granted/plugin-sdk/plugin-command-runtime";
+import type { ResolvedAgentRoute } from "granted/plugin-sdk/routing";
+import { getRuntimeConfigSnapshot } from "granted/plugin-sdk/runtime-config-snapshot";
+import { danger, logVerbose, warn } from "granted/plugin-sdk/runtime-env";
+import { getSessionEntry, resolveStorePath } from "granted/plugin-sdk/session-store-runtime";
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
-import { chunkItems } from "openclaw/plugin-sdk/text-chunking";
+} from "granted/plugin-sdk/string-coerce-runtime";
+import { chunkItems } from "granted/plugin-sdk/text-chunking";
 import type { ResolvedSlackAccount } from "../accounts.js";
 import { SLACK_MAX_BLOCKS } from "../blocks-input.js";
 import { requireSlackPostMessageTimestamp } from "../client-delivery.js";
@@ -109,7 +109,7 @@ const loadSlashSkillCommandsRuntime = createLazyRuntimeModule(
   () => import("./slash-skill-commands.runtime.js"),
 );
 const loadPluginCommandRuntime = createLazyRuntimeModule(
-  () => import("openclaw/plugin-sdk/plugin-command-runtime"),
+  () => import("granted/plugin-sdk/plugin-command-runtime"),
 );
 
 function resolveSlackCommandMenuModelContext(params: {
@@ -940,10 +940,10 @@ export async function registerSlackMonitorSlashCommands(params: {
   let nativeCommands: SlackNativeCommandSpec[] = [];
   let slashCommandsRuntime: typeof import("./slash-commands.runtime.js") | null = null;
   let pluginCommandRuntimeModule:
-    | typeof import("openclaw/plugin-sdk/plugin-command-runtime")
+    | typeof import("granted/plugin-sdk/plugin-command-runtime")
     | null = null;
   let pluginCommandRuntime:
-    | import("openclaw/plugin-sdk/plugin-command-runtime").PluginCommandRuntime
+    | import("granted/plugin-sdk/plugin-command-runtime").PluginCommandRuntime
     | null = null;
   if (
     registration.mode === "disabled" &&

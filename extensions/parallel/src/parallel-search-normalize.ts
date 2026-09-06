@@ -1,4 +1,4 @@
-import { resolveIntegerOption } from "openclaw/plugin-sdk/number-runtime";
+import { resolveIntegerOption } from "granted/plugin-sdk/number-runtime";
 // Transport-agnostic Parallel search normalization shared by the paid REST
 // provider (`parallel`) and the free Search MCP provider (`parallel-free`).
 // Both transports return the same v1 result shape, so query/result handling
@@ -16,12 +16,12 @@ import {
   type SearchConfigRecord,
   wrapWebContent,
   writeCachedSearchPayload,
-} from "openclaw/plugin-sdk/provider-web-search";
+} from "granted/plugin-sdk/provider-web-search";
 import {
   normalizeBoundedOptionalString,
   normalizeOptionalString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
+import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import { PARALLEL_FREE_SESSION_ID_MAX_LENGTH } from "./parallel-free-web-search-provider.shared.js";
 
 // Internal-only bounds (the model-facing tool schema declares its own copies).

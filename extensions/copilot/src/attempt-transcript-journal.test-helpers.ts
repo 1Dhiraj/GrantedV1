@@ -1,14 +1,14 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import type { SessionEvent } from "@github/copilot-sdk";
-import type { AgentMessage } from "openclaw/plugin-sdk/agent-harness-runtime";
-import { upsertSessionEntry } from "openclaw/plugin-sdk/session-store-runtime";
+import type { AgentMessage } from "granted/plugin-sdk/agent-harness-runtime";
+import { upsertSessionEntry } from "granted/plugin-sdk/session-store-runtime";
 import type {
   TranscriptEntryAnchor,
   SessionTranscriptTargetParams,
   TranscriptTurnAdmission,
-} from "openclaw/plugin-sdk/session-transcript-runtime";
-import { resolvePreferredOpenClawTmpDir } from "openclaw/plugin-sdk/temp-path";
+} from "granted/plugin-sdk/session-transcript-runtime";
+import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
 import { vi, type Mock } from "vitest";
 import { createAttemptTranscriptJournal } from "./attempt-transcript-journal.js";
 import type { AttemptParamsLike } from "./attempt-types.js";

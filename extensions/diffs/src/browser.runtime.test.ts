@@ -8,9 +8,9 @@ import type {
   PluginBlobEntry,
   PluginBlobEntryInfo,
   PluginBlobStore,
-} from "openclaw/plugin-sdk/plugin-state-runtime";
-import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
-import { createMockServerResponse } from "openclaw/plugin-sdk/test-env";
+} from "granted/plugin-sdk/plugin-state-runtime";
+import { createTestPluginApi } from "granted/plugin-sdk/plugin-test-api";
+import { createMockServerResponse } from "granted/plugin-sdk/test-env";
 import { afterAll, afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { GrantedConfig, GrantedPluginApi, GrantedPluginToolContext } from "../api.js";
 import { registerDiffsPlugin } from "./plugin.js";

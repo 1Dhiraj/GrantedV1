@@ -2,34 +2,34 @@
 import {
   logInboundDrop,
   resolveChannelInboundRouteEnvelope,
-} from "openclaw/plugin-sdk/channel-inbound";
+} from "granted/plugin-sdk/channel-inbound";
 import {
   channelIngressRoutes,
   createChannelIngressResolver,
-} from "openclaw/plugin-sdk/channel-ingress-runtime";
+} from "granted/plugin-sdk/channel-ingress-runtime";
 import {
   bindIngressLifecycleToReplyOptions,
   resolveChannelStreamingBlockEnabled,
-} from "openclaw/plugin-sdk/channel-outbound";
-import { createChannelPairingController } from "openclaw/plugin-sdk/channel-pairing";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { isDangerousNameMatchingEnabled } from "openclaw/plugin-sdk/dangerous-name-runtime";
+} from "granted/plugin-sdk/channel-outbound";
+import { createChannelPairingController } from "granted/plugin-sdk/channel-pairing";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { isDangerousNameMatchingEnabled } from "granted/plugin-sdk/dangerous-name-runtime";
 import {
   deliverFormattedTextWithAttachments,
   type OutboundReplyPayload,
-} from "openclaw/plugin-sdk/reply-payload";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime";
+} from "granted/plugin-sdk/reply-payload";
+import type { RuntimeEnv } from "granted/plugin-sdk/runtime";
 import {
   GROUP_POLICY_BLOCKED_LABEL,
   resolveAllowlistProviderRuntimeGroupPolicy,
   resolveDefaultGroupPolicy,
   warnMissingProviderGroupPolicyFallbackOnce,
-} from "openclaw/plugin-sdk/runtime-group-policy";
+} from "granted/plugin-sdk/runtime-group-policy";
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
   normalizeStringEntries,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import type { ResolvedIrcAccount } from "./accounts.js";
 import { createIrcIngressSubject, ircIngressIdentity } from "./ingress-identity.js";
 import type { IrcIngressDispatchResult, IrcIngressLifecycle } from "./irc-ingress.js";

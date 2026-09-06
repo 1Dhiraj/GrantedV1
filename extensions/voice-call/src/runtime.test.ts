@@ -1,6 +1,6 @@
-import type { GrantedConfig } from "openclaw/plugin-sdk/core";
+import type { GrantedConfig } from "granted/plugin-sdk/core";
 // Voice Call tests cover runtime plugin behavior.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { VoiceCallConfig } from "./config.js";
 import { createVoiceCallBaseConfig } from "./test-fixtures.js";

@@ -6,7 +6,7 @@ const { transcribeFirstAudioMock } = vi.hoisted(() => ({
 
 vi.mock("openclaw/plugin-sdk/media-understanding-runtime", async (importOriginal) => {
   const actual =
-    await importOriginal<typeof import("openclaw/plugin-sdk/media-understanding-runtime")>();
+    await importOriginal<typeof import("granted/plugin-sdk/media-understanding-runtime")>();
   return {
     ...actual,
     createChannelPreflightAudio: (
@@ -21,7 +21,7 @@ vi.mock("openclaw/plugin-sdk/media-understanding-runtime", async (importOriginal
 
 import { isMatrixAudioContent, resolveMatrixPreflightAudioTranscript } from "./preflight-audio.js";
 
-const cfg = {} as import("openclaw/plugin-sdk/config-contracts").GrantedConfig;
+const cfg = {} as import("granted/plugin-sdk/config-contracts").GrantedConfig;
 
 describe("isMatrixAudioContent", () => {
   it("accepts Matrix audio messages and audio files", () => {

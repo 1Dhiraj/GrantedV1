@@ -1,5 +1,5 @@
 // Verifies transcript repair pairs tool calls/results and sanitizes tool inputs.
-import type { AgentMessage } from "openclaw/plugin-sdk/agent-core";
+import type { AgentMessage } from "granted/plugin-sdk/agent-core";
 import { describe, expect, it } from "vitest";
 import {
   sanitizeToolCallInputs,

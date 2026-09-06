@@ -4,8 +4,8 @@
  */
 
 import { readFile } from "node:fs/promises";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { describeImageFile as DescribeImageFileFn } from "openclaw/plugin-sdk/media-understanding-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { describeImageFile as DescribeImageFileFn } from "granted/plugin-sdk/media-understanding-runtime";
 import type { saveMediaBuffer as SaveMediaBufferFn } from "../sdk-setup-tools.js";
 import type { normalizeBrowserScreenshot as NormalizeBrowserScreenshotFn } from "./screenshot.js";
 
@@ -92,7 +92,7 @@ export async function describeBrowserScreenshot(
   const filePath = await resolveImageUnderstandingFilePath(ctx, deps);
   const agentId = ctx.agentDir
     ? undefined
-    : (await import("openclaw/plugin-sdk/agent-scope-runtime")).resolveSessionAgentIdStrict({
+    : (await import("granted/plugin-sdk/agent-scope-runtime")).resolveSessionAgentIdStrict({
         agentId: ctx.agentId,
         sessionKey: ctx.mediaScope?.sessionKey,
         config: ctx.cfg,

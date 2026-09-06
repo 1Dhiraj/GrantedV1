@@ -5,8 +5,8 @@ import path from "node:path";
 import {
   addTimerTimeoutGraceMs,
   resolveNonNegativeIntegerOption,
-} from "openclaw/plugin-sdk/number-runtime";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/number-runtime";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import { resolvePreferredOpenClawTmpDir } from "../infra/tmp-openclaw-dir.js";
 import { resolveBrowserNavigationTimeoutMs } from "./act-policy.js";
 import {

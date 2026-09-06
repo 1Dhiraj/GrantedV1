@@ -8,8 +8,8 @@ import {
   resolveCacheTtlMs,
   resolveTimeoutSeconds,
   writeCache,
-} from "openclaw/plugin-sdk/provider-web-search";
-import { getRuntimeConfigSnapshot } from "openclaw/plugin-sdk/runtime-config-snapshot";
+} from "granted/plugin-sdk/provider-web-search";
+import { getRuntimeConfigSnapshot } from "granted/plugin-sdk/runtime-config-snapshot";
 import {
   isXaiToolEnabled,
   resolveXaiToolApiKeyWithAuth,

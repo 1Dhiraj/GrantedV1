@@ -2,10 +2,10 @@
 import type {
   ExecApprovalRequest,
   PluginApprovalRequest,
-} from "openclaw/plugin-sdk/approval-runtime";
-import { verifyChannelMessageAdapterCapabilityProofs } from "openclaw/plugin-sdk/channel-outbound";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { MessagePresentationAction } from "openclaw/plugin-sdk/interactive-runtime";
+} from "granted/plugin-sdk/approval-runtime";
+import { verifyChannelMessageAdapterCapabilityProofs } from "granted/plugin-sdk/channel-outbound";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { MessagePresentationAction } from "granted/plugin-sdk/interactive-runtime";
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { whatsappApprovalCapability } from "./approval-native.js";
 import { cacheInboundMessageMeta } from "./quoted-message.js";

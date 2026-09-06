@@ -1,6 +1,6 @@
 // Lmstudio setup module handles plugin onboarding behavior.
-import { parseStrictPositiveInteger } from "openclaw/plugin-sdk/number-runtime";
-import type { ProviderAppGuidedSetupContext } from "openclaw/plugin-sdk/plugin-entry";
+import { parseStrictPositiveInteger } from "granted/plugin-sdk/number-runtime";
+import type { ProviderAppGuidedSetupContext } from "granted/plugin-sdk/plugin-entry";
 import {
   buildApiKeyCredential,
   ensureApiKeyFromEnvOrPrompt,
@@ -9,14 +9,14 @@ import {
   type GrantedConfig,
   type SecretInput,
   type SecretInputMode,
-} from "openclaw/plugin-sdk/provider-auth";
-import { removeProviderAuthProfilesWithLock } from "openclaw/plugin-sdk/provider-auth-runtime";
+} from "granted/plugin-sdk/provider-auth";
+import { removeProviderAuthProfilesWithLock } from "granted/plugin-sdk/provider-auth-runtime";
 import {
   selectPreferredLocalModelId,
   type ModelDefinitionConfig,
   type ModelProviderConfig,
-} from "openclaw/plugin-sdk/provider-model-shared";
-import { withAgentModelAliases } from "openclaw/plugin-sdk/provider-onboard";
+} from "granted/plugin-sdk/provider-model-shared";
+import { withAgentModelAliases } from "granted/plugin-sdk/provider-onboard";
 import {
   applyProviderDefaultModel,
   configureOpenAICompatibleSelfHostedProviderNonInteractive,
@@ -25,10 +25,10 @@ import {
   type ProviderCatalogContext,
   type ProviderPrepareDynamicModelContext,
   type ProviderRuntimeModel,
-} from "openclaw/plugin-sdk/provider-setup";
-import { isTruthyEnvValue } from "openclaw/plugin-sdk/runtime-env";
-import { WizardCancelledError, type WizardPrompter } from "openclaw/plugin-sdk/setup";
-import { normalizeStringEntries } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/provider-setup";
+import { isTruthyEnvValue } from "granted/plugin-sdk/runtime-env";
+import { WizardCancelledError, type WizardPrompter } from "granted/plugin-sdk/setup";
+import { normalizeStringEntries } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   LMSTUDIO_DEFAULT_API_KEY_ENV_VAR,
   LMSTUDIO_DEFAULT_INFERENCE_BASE_URL,

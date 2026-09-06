@@ -1,4 +1,4 @@
-import { normalizeOptionalLowercaseString } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { normalizeOptionalLowercaseString } from "granted/plugin-sdk/string-coerce-runtime";
 import type { BrowserTabOwnership } from "./client.types.js";
 import { clearVolatileTabAliases } from "./session-tab-ephemeral-aliases.js";
 import { browserSessionTabRouteKey, type BrowserSessionTabRoute } from "./session-tab-route.js";

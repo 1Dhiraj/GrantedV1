@@ -1,8 +1,8 @@
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { DEFAULT_ACCOUNT_ID } from "openclaw/plugin-sdk/routing";
-import { captureEnv } from "openclaw/plugin-sdk/test-env";
+import { DEFAULT_ACCOUNT_ID } from "granted/plugin-sdk/routing";
+import { captureEnv } from "granted/plugin-sdk/test-env";
 import { expect, it, vi } from "vitest";
 
 it("resolves active-profile directories after import and preserves the legacy string export", async () => {

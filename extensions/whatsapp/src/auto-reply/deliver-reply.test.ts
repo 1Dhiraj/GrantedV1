@@ -2,13 +2,13 @@ import type { WAMessage } from "baileys";
 import {
   createChannelPartialDeliveryError,
   isChannelPartialDeliveryError,
-} from "openclaw/plugin-sdk/channel-inbound";
-import { listMessageReceiptPlatformIds } from "openclaw/plugin-sdk/channel-outbound";
-import { PlatformMessageNotDispatchedError } from "openclaw/plugin-sdk/error-runtime";
-import { MEDIA_FFMPEG_MAX_AUDIO_DURATION_SECS } from "openclaw/plugin-sdk/media-runtime";
-import { logVerbose } from "openclaw/plugin-sdk/runtime-env";
+} from "granted/plugin-sdk/channel-inbound";
+import { listMessageReceiptPlatformIds } from "granted/plugin-sdk/channel-outbound";
+import { PlatformMessageNotDispatchedError } from "granted/plugin-sdk/error-runtime";
+import { MEDIA_FFMPEG_MAX_AUDIO_DURATION_SECS } from "granted/plugin-sdk/media-runtime";
+import { logVerbose } from "granted/plugin-sdk/runtime-env";
 // Whatsapp tests cover deliver reply plugin behavior.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { beforeAll, describe, expect, it, vi } from "vitest";
 import { createWebSendApi } from "../inbound/send-api.js";
 import { normalizeWhatsAppSendResult } from "../inbound/send-result.js";
@@ -26,7 +26,7 @@ const hoisted = vi.hoisted(() => ({
 
 vi.mock("openclaw/plugin-sdk/channel-activity-runtime", async () => {
   const actual = await vi.importActual<
-    typeof import("openclaw/plugin-sdk/channel-activity-runtime")
+    typeof import("granted/plugin-sdk/channel-activity-runtime")
   >("openclaw/plugin-sdk/channel-activity-runtime");
   return {
     ...actual,
@@ -35,7 +35,7 @@ vi.mock("openclaw/plugin-sdk/channel-activity-runtime", async () => {
 });
 
 vi.mock("openclaw/plugin-sdk/media-runtime", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/media-runtime")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/media-runtime")>(
     "openclaw/plugin-sdk/media-runtime",
   );
   return {
@@ -45,7 +45,7 @@ vi.mock("openclaw/plugin-sdk/media-runtime", async () => {
 });
 
 vi.mock("openclaw/plugin-sdk/runtime-env", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/runtime-env")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/runtime-env")>(
     "openclaw/plugin-sdk/runtime-env",
   );
   return {

@@ -4,7 +4,7 @@ import {
   isRecord,
   asBoolean as readBoolean,
   normalizeOptionalString as readString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import { collectPolicyConfiguredAgents } from "./policy-state-helpers.js";
 import { readStringArray } from "./policy-state-tool-posture.js";
 import type { PolicySandboxPostureEvidence } from "./policy-state-types.js";

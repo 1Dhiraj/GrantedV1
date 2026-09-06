@@ -1,4 +1,4 @@
-import { defineChannelSetupContract } from "openclaw/plugin-sdk/channel-setup";
+import { defineChannelSetupContract } from "granted/plugin-sdk/channel-setup";
 // Qa Channel plugin module implements channel base behavior.
 import {
   listQaChannelAccountIds,

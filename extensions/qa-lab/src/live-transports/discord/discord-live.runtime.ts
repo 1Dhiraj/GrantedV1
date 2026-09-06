@@ -8,11 +8,11 @@ import {
   handleDiscordMessageAction,
   requestDiscord,
 } from "@openclaw/discord/api.js";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import { writeExternalFileWithinRoot } from "openclaw/plugin-sdk/security-runtime";
-import { uniqueStrings } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { escapeHtml } from "openclaw/plugin-sdk/text-utility-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
+import { writeExternalFileWithinRoot } from "granted/plugin-sdk/security-runtime";
+import { uniqueStrings } from "granted/plugin-sdk/string-coerce-runtime";
+import { escapeHtml } from "granted/plugin-sdk/text-utility-runtime";
 import { chromium } from "playwright-core";
 import { z } from "zod";
 import type { QaGatewayChild } from "../../gateway-child.js";

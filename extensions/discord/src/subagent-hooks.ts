@@ -2,7 +2,7 @@
 import {
   normalizeOptionalLowercaseString,
   normalizeOptionalStringifiedId,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import {
   listThreadBindingsBySessionKey,
   type ThreadBindingTargetKind,

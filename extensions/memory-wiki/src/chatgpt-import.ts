@@ -2,18 +2,18 @@
 import { createHash, randomUUID } from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
-import { isPathInside } from "openclaw/plugin-sdk/file-access-runtime";
+import { isPathInside } from "granted/plugin-sdk/file-access-runtime";
 import {
   replaceManagedMarkdownBlock,
   withTrailingNewline,
-} from "openclaw/plugin-sdk/memory-host-markdown";
-import { timestampMsToIsoString } from "openclaw/plugin-sdk/number-runtime";
-import { FsSafeError, root as fsRoot } from "openclaw/plugin-sdk/security-runtime";
+} from "granted/plugin-sdk/memory-host-markdown";
+import { timestampMsToIsoString } from "granted/plugin-sdk/number-runtime";
+import { FsSafeError, root as fsRoot } from "granted/plugin-sdk/security-runtime";
 import {
   asNullableRecord,
   isRecord,
   uniqueStrings,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import { compileMemoryWikiVault } from "./compile.js";
 import type { ResolvedMemoryWikiConfig } from "./config.js";
 import {

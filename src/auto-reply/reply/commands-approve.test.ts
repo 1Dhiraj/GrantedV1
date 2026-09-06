@@ -1,5 +1,5 @@
 // Tests approval command behavior for pending tool and execution requests.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type {
   ChannelApprovalCapability,

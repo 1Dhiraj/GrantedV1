@@ -1,15 +1,15 @@
 // Memory Core plugin module implements cli behavior.
 import type { Command } from "commander";
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
+import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
 import {
   formatDocsLink,
   formatHelpExamples,
   theme,
-} from "openclaw/plugin-sdk/memory-core-host-runtime-cli";
+} from "granted/plugin-sdk/memory-core-host-runtime-cli";
 import {
   parseStrictNonNegativeInteger,
   parseStrictPositiveInteger,
-} from "openclaw/plugin-sdk/number-runtime";
+} from "granted/plugin-sdk/number-runtime";
 import type {
   MemoryCommandOptions,
   MemoryForgetCommandOptions,

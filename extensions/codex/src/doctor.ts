@@ -1,8 +1,8 @@
 import { execFile } from "node:child_process";
-import { resolveDefaultModelForAgent } from "openclaw/plugin-sdk/agent-runtime";
-import { listAgentIds, resolveAgentDir } from "openclaw/plugin-sdk/agent-scope-runtime";
-import { resolveEffectiveAgentRuntime } from "openclaw/plugin-sdk/command-auth-native";
-import type { HealthCheck, HealthFinding } from "openclaw/plugin-sdk/health";
+import { resolveDefaultModelForAgent } from "granted/plugin-sdk/agent-runtime";
+import { listAgentIds, resolveAgentDir } from "granted/plugin-sdk/agent-scope-runtime";
+import { resolveEffectiveAgentRuntime } from "granted/plugin-sdk/command-auth-native";
+import type { HealthCheck, HealthFinding } from "granted/plugin-sdk/health";
 import {
   resolveCodexAppServerRuntimeOptions,
   resolveCodexAppServerStartOptionsForAgent,

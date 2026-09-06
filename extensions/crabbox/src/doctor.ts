@@ -1,8 +1,8 @@
-import type { HealthCheck, HealthFinding } from "openclaw/plugin-sdk/health";
+import type { HealthCheck, HealthFinding } from "granted/plugin-sdk/health";
 import {
   asOptionalRecord as readRecord,
   normalizeOptionalString as nonEmptyString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import * as doctorRuntime from "./crabbox-worker-doctor-runtime.js";
 import { CRABBOX_WORKER_PROVIDER_ID, findCrabboxBinary } from "./crabbox-worker-profile.js";
 import {

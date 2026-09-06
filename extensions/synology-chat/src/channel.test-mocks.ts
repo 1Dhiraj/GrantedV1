@@ -1,6 +1,6 @@
 // Synology Chat plugin module implements channel mocks behavior.
 import type { IncomingMessage } from "node:http";
-import type { registerPluginHttpRoute } from "openclaw/plugin-sdk/webhook-ingress";
+import type { registerPluginHttpRoute } from "granted/plugin-sdk/webhook-ingress";
 import type { Mock } from "vitest";
 import { vi } from "vitest";
 

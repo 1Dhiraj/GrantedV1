@@ -1,6 +1,6 @@
-import { createMessageReceiptFromOutboundResults } from "openclaw/plugin-sdk/channel-outbound";
-import type { OutboundDeliveryResult } from "openclaw/plugin-sdk/channel-send-result";
-import type { GrantedConfig, SlackAccountConfig } from "openclaw/plugin-sdk/config-contracts";
+import { createMessageReceiptFromOutboundResults } from "granted/plugin-sdk/channel-outbound";
+import type { OutboundDeliveryResult } from "granted/plugin-sdk/channel-send-result";
+import type { GrantedConfig, SlackAccountConfig } from "granted/plugin-sdk/config-contracts";
 import { describe, expect, it, vi } from "vitest";
 import { slackPlugin } from "./channel.js";
 import { registerSlackInstallationState } from "./installation-identity-state.js";

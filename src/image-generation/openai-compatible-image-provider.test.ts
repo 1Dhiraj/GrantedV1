@@ -52,7 +52,7 @@ vi.mock("openclaw/plugin-sdk/provider-auth-runtime", () => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/provider-http", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/provider-http")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/provider-http")>(
     "openclaw/plugin-sdk/provider-http",
   );
   return {

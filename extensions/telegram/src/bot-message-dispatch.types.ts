@@ -4,15 +4,15 @@ import type {
   AgentPlanStep,
   ChannelProgressDraftLine,
   TextChunkMode,
-} from "openclaw/plugin-sdk/channel-outbound";
+} from "granted/plugin-sdk/channel-outbound";
 import type {
   GrantedConfig,
   ReplyToMode,
   TelegramAccountConfig,
-} from "openclaw/plugin-sdk/config-contracts";
-import type { ReplyPayload } from "openclaw/plugin-sdk/reply-payload";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
-import type { SessionEntry } from "openclaw/plugin-sdk/session-store-runtime";
+} from "granted/plugin-sdk/config-contracts";
+import type { ReplyPayload } from "granted/plugin-sdk/reply-payload";
+import type { RuntimeEnv } from "granted/plugin-sdk/runtime-env";
+import type { SessionEntry } from "granted/plugin-sdk/session-store-runtime";
 import type { TelegramBotDeps } from "./bot-deps.js";
 import type { TelegramMessageContext } from "./bot-message-context.js";
 import type { TelegramBotOptions } from "./bot.types.js";

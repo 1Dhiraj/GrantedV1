@@ -1,19 +1,19 @@
 // Copilot tests cover harness plugin behavior.
 import type { CopilotClient } from "@github/copilot-sdk";
-import { attachModelProviderRequestTransport } from "openclaw/plugin-sdk/agent-harness-runtime";
+import { attachModelProviderRequestTransport } from "granted/plugin-sdk/agent-harness-runtime";
 import type {
   AgentHarness,
   AgentHarnessAttemptParamsV2 as AgentHarnessAttemptParams,
   AgentHarnessAttemptResult,
   AgentHarnessCompactParams,
   AgentHarnessV2,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
+} from "granted/plugin-sdk/agent-harness-runtime";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
 import {
   initializeGlobalHookRunner,
   resetGlobalHookRunner,
-} from "openclaw/plugin-sdk/hook-runtime";
-import { createMockPluginRegistry } from "openclaw/plugin-sdk/plugin-test-runtime";
+} from "granted/plugin-sdk/hook-runtime";
+import { createMockPluginRegistry } from "granted/plugin-sdk/plugin-test-runtime";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { createCopilotAgentHarness, type CopilotSessionBinding } from "./harness.js";
 import type { resolvePoolAcquire } from "./src/attempt.js";

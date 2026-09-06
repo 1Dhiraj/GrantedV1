@@ -1,16 +1,16 @@
-import { logTypingFailure } from "openclaw/plugin-sdk/channel-feedback";
+import { logTypingFailure } from "granted/plugin-sdk/channel-feedback";
 import {
   readAgentRunTerminalOutcome,
   hasFinalInboundReplyDispatch,
   runChannelInboundEvent,
   type ChannelInboundTurnPlan,
-} from "openclaw/plugin-sdk/channel-inbound";
+} from "granted/plugin-sdk/channel-inbound";
 import {
   createChannelMessageReplyPipeline,
   resolveChannelStreamingPreviewToolProgress,
-} from "openclaw/plugin-sdk/channel-outbound";
-import { isFastModeAutoProgressPayload } from "openclaw/plugin-sdk/reply-payload";
-import { logVerbose } from "openclaw/plugin-sdk/runtime-env";
+} from "granted/plugin-sdk/channel-outbound";
+import { isFastModeAutoProgressPayload } from "granted/plugin-sdk/reply-payload";
+import { logVerbose } from "granted/plugin-sdk/runtime-env";
 import { sendPayload } from "./bot-message-dispatch-delivery.js";
 import {
   beginDraftQueuedFollowup,

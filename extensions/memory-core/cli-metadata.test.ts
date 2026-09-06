@@ -1,7 +1,7 @@
 // Memory Core tests cover metadata-only CLI host propagation.
 import { Command } from "commander";
-import type { GrantedPluginApi } from "openclaw/plugin-sdk/core";
-import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
+import type { GrantedPluginApi } from "granted/plugin-sdk/core";
+import { createTestPluginApi } from "granted/plugin-sdk/plugin-test-api";
 import { describe, expect, it, vi } from "vitest";
 
 const registerMemoryCliMock = vi.hoisted(() => vi.fn());

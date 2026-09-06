@@ -1,6 +1,6 @@
-import { createPluginRuntimeMock } from "openclaw/plugin-sdk/channel-test-helpers";
-import type { PluginRuntime } from "openclaw/plugin-sdk/core";
-import type { PluginStateSyncKeyedStore } from "openclaw/plugin-sdk/plugin-state-runtime";
+import { createPluginRuntimeMock } from "granted/plugin-sdk/channel-test-helpers";
+import type { PluginRuntime } from "granted/plugin-sdk/core";
+import type { PluginStateSyncKeyedStore } from "granted/plugin-sdk/plugin-state-runtime";
 import { describe, expect, it, vi } from "vitest";
 import type { CoreConfig } from "../types.js";
 import {

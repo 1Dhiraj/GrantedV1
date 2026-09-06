@@ -1,13 +1,13 @@
 // Voice Call tests cover realtime handler plugin behavior.
 import http from "node:http";
 import { expectDefined } from "@openclaw/normalization-core";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
 import type {
   RealtimeVoiceBridge,
   RealtimeVoiceProviderPlugin,
   RealtimeVoiceSessionHarness,
   RealtimeVoiceToolCallEvent,
-} from "openclaw/plugin-sdk/realtime-voice";
+} from "granted/plugin-sdk/realtime-voice";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { WebSocket, type RawData } from "ws";
 import type { VoiceCallRealtimeConfig } from "../config.js";
@@ -23,7 +23,7 @@ const realtimeVoiceHarnessTestHooks = vi.hoisted(() => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/realtime-voice", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/realtime-voice")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/realtime-voice")>();
   return {
     ...actual,
     createRealtimeVoiceSessionHarness: (

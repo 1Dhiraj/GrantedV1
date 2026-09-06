@@ -1,12 +1,12 @@
 // Line plugin module implements webhook node behavior.
 import type { IncomingMessage, ServerResponse } from "node:http";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import { danger, logVerbose, type RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
+import { danger, logVerbose, type RuntimeEnv } from "granted/plugin-sdk/runtime-env";
 import {
   isRequestBodyLimitError,
   readRequestBodyWithLimit,
   requestBodyErrorToText,
-} from "openclaw/plugin-sdk/webhook-request-guards";
+} from "granted/plugin-sdk/webhook-request-guards";
 import type { createLineBot } from "./bot.js";
 import { parseLineWebhookBody, validateLineSignature } from "./webhook-utils.js";
 

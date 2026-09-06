@@ -12,13 +12,13 @@ import {
   type EmbeddedRunAttemptParamsV2 as EmbeddedRunAttemptParams,
   type NativeHookRelayProcessResponse,
   type NativeHookRelayRegistrationHandle,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
-import { coerceErrorMessage } from "openclaw/plugin-sdk/error-runtime";
+} from "granted/plugin-sdk/agent-harness-runtime";
+import { coerceErrorMessage } from "granted/plugin-sdk/error-runtime";
 import {
   normalizeTrimmedStringList,
   readStringField as readString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
-import { sliceUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
+import { sliceUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import { formatCodexDisplayText } from "../command-formatters.js";
 import { resolveCodexToolAbortTerminalReason } from "./dynamic-tool-execution.js";
 import {

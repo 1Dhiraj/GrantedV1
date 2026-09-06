@@ -1,18 +1,18 @@
 // Xai plugin module implements tool auth shared behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   coerceSecretRef,
   resolveNonEnvSecretRefApiKeyMarker,
-} from "openclaw/plugin-sdk/provider-auth";
+} from "granted/plugin-sdk/provider-auth";
 import {
   readProviderEnvValue,
   resolveProviderWebSearchPluginConfig,
-} from "openclaw/plugin-sdk/provider-web-search";
-import { normalizeSecretInputString } from "openclaw/plugin-sdk/secret-input";
+} from "granted/plugin-sdk/provider-web-search";
+import { normalizeSecretInputString } from "granted/plugin-sdk/secret-input";
 import {
   resolveReadOnlyEnvSecretRef,
   type ReadOnlyEnvSecretRefResolution,
-} from "openclaw/plugin-sdk/secret-ref-readonly";
+} from "granted/plugin-sdk/secret-ref-readonly";
 
 type XaiFallbackAuth = {
   apiKey: string;

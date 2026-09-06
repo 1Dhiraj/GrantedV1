@@ -1,5 +1,5 @@
 // Lmstudio provider module implements model/runtime integration.
-import { createSubsystemLogger } from "openclaw/plugin-sdk/logging-core";
+import { createSubsystemLogger } from "granted/plugin-sdk/logging-core";
 import {
   buildRemoteBaseUrlPolicy,
   createRemoteEmbeddingProvider,
@@ -7,10 +7,10 @@ import {
   normalizeEmbeddingModelWithPrefixes,
   type MemoryEmbeddingProvider,
   type MemoryEmbeddingProviderCreateOptions,
-} from "openclaw/plugin-sdk/memory-core-host-engine-embeddings";
-import { resolveMemorySecretInputString } from "openclaw/plugin-sdk/memory-core-host-secret";
-import { normalizeProviderId } from "openclaw/plugin-sdk/provider-model-shared";
-import { formatErrorMessage, type SsrFPolicy } from "openclaw/plugin-sdk/ssrf-runtime";
+} from "granted/plugin-sdk/memory-core-host-engine-embeddings";
+import { resolveMemorySecretInputString } from "granted/plugin-sdk/memory-core-host-secret";
+import { normalizeProviderId } from "granted/plugin-sdk/provider-model-shared";
+import { formatErrorMessage, type SsrFPolicy } from "granted/plugin-sdk/ssrf-runtime";
 import { LMSTUDIO_DEFAULT_EMBEDDING_MODEL, LMSTUDIO_PROVIDER_ID } from "./defaults.js";
 import { ensureLmstudioModelLoaded, fetchLmstudioModels } from "./models.fetch.js";
 import {

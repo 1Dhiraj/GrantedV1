@@ -1,12 +1,12 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { DatabaseSync } from "node:sqlite";
-import { resolveSessionTranscriptsDirForAgent } from "openclaw/plugin-sdk/memory-core-host-engine-foundation";
-import { listSessionTranscriptCorpusEntriesForAgent } from "openclaw/plugin-sdk/memory-core-host-engine-sessions";
-import type { MemorySessionSyncTarget } from "openclaw/plugin-sdk/memory-core-host-engine-storage";
-import { deleteSessionEntry, upsertSessionEntry } from "openclaw/plugin-sdk/session-store-runtime";
-import { appendSessionTranscriptMessageByIdentity } from "openclaw/plugin-sdk/session-transcript-runtime";
-import { resolveOpenClawAgentSqlitePath } from "openclaw/plugin-sdk/sqlite-runtime";
+import { resolveSessionTranscriptsDirForAgent } from "granted/plugin-sdk/memory-core-host-engine-foundation";
+import { listSessionTranscriptCorpusEntriesForAgent } from "granted/plugin-sdk/memory-core-host-engine-sessions";
+import type { MemorySessionSyncTarget } from "granted/plugin-sdk/memory-core-host-engine-storage";
+import { deleteSessionEntry, upsertSessionEntry } from "granted/plugin-sdk/session-store-runtime";
+import { appendSessionTranscriptMessageByIdentity } from "granted/plugin-sdk/session-transcript-runtime";
+import { resolveOpenClawAgentSqlitePath } from "granted/plugin-sdk/sqlite-runtime";
 import { describe, expect, it, vi } from "vitest";
 import {
   recordMemoryEntryOrigins,

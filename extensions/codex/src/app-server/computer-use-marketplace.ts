@@ -1,7 +1,7 @@
 /** Managed local wrapper for Codex's reserved bundled marketplace. */
 import fs from "node:fs/promises";
 import path from "node:path";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   assertDirectoryIdentityStable,
   assertNotSymlink,

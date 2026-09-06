@@ -1,9 +1,9 @@
 // Discord plugin module implements runtime.presence behavior.
-import type { AgentToolResult } from "openclaw/plugin-sdk/agent-core";
-import type { ActionGate } from "openclaw/plugin-sdk/channel-actions";
-import { jsonResult, readStringParam } from "openclaw/plugin-sdk/channel-actions";
-import type { DiscordActionConfig, GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { normalizeLowercaseStringOrEmpty } from "openclaw/plugin-sdk/string-coerce-runtime";
+import type { AgentToolResult } from "granted/plugin-sdk/agent-core";
+import type { ActionGate } from "granted/plugin-sdk/channel-actions";
+import { jsonResult, readStringParam } from "granted/plugin-sdk/channel-actions";
+import type { DiscordActionConfig, GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { normalizeLowercaseStringOrEmpty } from "granted/plugin-sdk/string-coerce-runtime";
 import { resolveDefaultDiscordAccountId } from "../accounts.js";
 import type { Activity, UpdatePresenceData } from "../internal/gateway.js";
 import { getGateway } from "../monitor/gateway-registry.js";

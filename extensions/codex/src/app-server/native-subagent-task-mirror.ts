@@ -2,11 +2,11 @@
  * Mirrors Codex native subagent thread lifecycle events into OpenClaw task
  * runtime rows so parent sessions can observe child progress.
  */
-import type { AgentHarnessTaskRuntime } from "openclaw/plugin-sdk/agent-harness-task-runtime";
+import type { AgentHarnessTaskRuntime } from "granted/plugin-sdk/agent-harness-task-runtime";
 import {
   normalizeOptionalString,
   readStringField as readString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import { CODEX_NATIVE_SUBAGENT_RUN_ID_PREFIX } from "./native-subagent-task-ids.js";
 import type {
   CodexServerNotification,

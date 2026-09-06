@@ -5,11 +5,11 @@ import type {
   AgentHarnessV2,
   AgentHarnessNativeCompaction,
   ContextEngineHostCapability,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { resolvePluginConfigObject } from "openclaw/plugin-sdk/plugin-config-runtime";
-import type { PluginRuntime } from "openclaw/plugin-sdk/plugin-runtime";
-import { runHostPreparedIsolatedCompletion } from "openclaw/plugin-sdk/simple-completion-runtime";
+} from "granted/plugin-sdk/agent-harness-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { resolvePluginConfigObject } from "granted/plugin-sdk/plugin-config-runtime";
+import type { PluginRuntime } from "granted/plugin-sdk/plugin-runtime";
+import { runHostPreparedIsolatedCompletion } from "granted/plugin-sdk/simple-completion-runtime";
 import { readCodexRuntimeModelId } from "./src/app-server/model-runtime.js";
 import type { CodexAppServerBindingStore } from "./src/app-server/session-binding.js";
 import type { CodexSessionCatalogControlFactory } from "./src/session-catalog-types.js";

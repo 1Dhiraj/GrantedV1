@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import process from "node:process";
-import type { PluginRuntime } from "openclaw/plugin-sdk/plugin-runtime";
+import type { PluginRuntime } from "granted/plugin-sdk/plugin-runtime";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   createCodexCliSessionNodeHostCommands,
@@ -13,13 +13,13 @@ import {
 const CODEX_CLI_SESSIONS_LIST_COMMAND = "codex.cli.sessions.list";
 
 type RunCommandBuffered =
-  (typeof import("openclaw/plugin-sdk/process-runtime"))["runCommandBuffered"];
+  (typeof import("granted/plugin-sdk/process-runtime"))["runCommandBuffered"];
 const processRuntimeMocks = vi.hoisted(() => ({
   runCommandBuffered: vi.fn<RunCommandBuffered>(),
 }));
 
 vi.mock("openclaw/plugin-sdk/process-runtime", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("openclaw/plugin-sdk/process-runtime")>()),
+  ...(await importOriginal<typeof import("granted/plugin-sdk/process-runtime")>()),
   runCommandBuffered: processRuntimeMocks.runCommandBuffered,
 }));
 

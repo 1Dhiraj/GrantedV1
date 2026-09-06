@@ -4,8 +4,8 @@
  */
 import { createHash } from "node:crypto";
 import { createRequire } from "node:module";
-import { GRANTED_VERSION } from "openclaw/plugin-sdk/agent-harness-runtime";
-import { readPluginPackageVersion } from "openclaw/plugin-sdk/extension-shared";
+import { GRANTED_VERSION } from "granted/plugin-sdk/agent-harness-runtime";
+import { readPluginPackageVersion } from "granted/plugin-sdk/extension-shared";
 import {
   buildCodexAppInventoryCacheKey,
   type CodexAppInventoryCacheKeyInput,

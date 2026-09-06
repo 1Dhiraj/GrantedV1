@@ -1,5 +1,5 @@
 import { once } from "node:events";
-import type { PluginRuntime } from "openclaw/plugin-sdk/plugin-runtime";
+import type { PluginRuntime } from "granted/plugin-sdk/plugin-runtime";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { sandboxExecServerRegistry } from "./sandbox-exec-server-registry.js";
 import {
@@ -16,7 +16,7 @@ import {
 
 const customLoggingPattern = vi.hoisted(() => ({ value: "" }));
 vi.mock("openclaw/plugin-sdk/logging-core", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/logging-core")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/logging-core")>();
   return {
     ...actual,
     redactToolPayloadText: (text: string) => {

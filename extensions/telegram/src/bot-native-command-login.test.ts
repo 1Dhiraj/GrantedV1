@@ -2,12 +2,12 @@
 import {
   createEmptyPluginRegistry,
   withPluginRuntimeRegistryScope,
-} from "openclaw/plugin-sdk/channel-test-helpers";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
-import type { ModelsAuthLoginFlowOptions } from "openclaw/plugin-sdk/provider-auth-login-flow-runtime";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
-import type { SessionEntry } from "openclaw/plugin-sdk/session-store-runtime";
+} from "granted/plugin-sdk/channel-test-helpers";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
+import type { ModelsAuthLoginFlowOptions } from "granted/plugin-sdk/provider-auth-login-flow-runtime";
+import type { RuntimeEnv } from "granted/plugin-sdk/runtime-env";
+import type { SessionEntry } from "granted/plugin-sdk/session-store-runtime";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { TelegramNativeCommandDeps } from "./bot-native-command-deps.runtime.js";
 import { createTelegramGroupCommandContext } from "./bot-native-commands.fixture-test-support.js";
@@ -47,7 +47,7 @@ vi.mock("./bot-native-commands.runtime.js", () => ({
   ),
 }));
 vi.mock("openclaw/plugin-sdk/session-store-runtime", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/session-store-runtime")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/session-store-runtime")>(
     "openclaw/plugin-sdk/session-store-runtime",
   );
   return {

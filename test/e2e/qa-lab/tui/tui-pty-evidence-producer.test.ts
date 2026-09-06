@@ -88,7 +88,7 @@ async function makeTempRepo() {
 }
 
 async function writeBuiltCliArtifacts(repoRoot: string, entry: "entry.js" | "entry.mjs") {
-  await fs.writeFile(path.join(repoRoot, "openclaw.mjs"), "// launcher\n", "utf8");
+  await fs.writeFile(path.join(repoRoot, "granted.mjs"), "// launcher\n", "utf8");
   await fs.mkdir(path.join(repoRoot, "dist"), { recursive: true });
   await fs.writeFile(path.join(repoRoot, "dist", entry), "// entry\n", "utf8");
 }
@@ -365,7 +365,7 @@ describe("TUI PTY evidence producer", () => {
         await fs.mkdir(path.join(repoRoot, "dist"), { recursive: true });
         await fs.writeFile(path.join(repoRoot, "dist", "entry.js"), "// entry\n", "utf8");
       } else {
-        await fs.writeFile(path.join(repoRoot, "openclaw.mjs"), "// launcher\n", "utf8");
+        await fs.writeFile(path.join(repoRoot, "granted.mjs"), "// launcher\n", "utf8");
       }
       const scenario = makeScenario({
         cases: [makeCase({ testFile: LOCAL_FILE })],
@@ -390,7 +390,7 @@ describe("TUI PTY evidence producer", () => {
           status: "fail",
           failure: {
             reason: expect.stringContaining(
-              "cliMode=built requires readable openclaw.mjs and at least one readable dist/entry.js or dist/entry.mjs",
+              "cliMode=built requires readable granted.mjs and at least one readable dist/entry.js or dist/entry.mjs",
             ),
           },
         },

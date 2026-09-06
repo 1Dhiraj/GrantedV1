@@ -1,13 +1,13 @@
 import {
   resolveMemoryIndexIdentityReason,
   type MemoryEmbeddingProbeResult,
-} from "openclaw/plugin-sdk/memory-core-host-engine-storage";
+} from "granted/plugin-sdk/memory-core-host-engine-storage";
 import {
   resolveMemoryLightDreamingConfig,
   resolveMemoryRemDreamingConfig,
-} from "openclaw/plugin-sdk/memory-core-host-status";
-import { formatByteSize } from "openclaw/plugin-sdk/number-runtime";
-import { asNullableRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/memory-core-host-status";
+import { formatByteSize } from "granted/plugin-sdk/number-runtime";
+import { asNullableRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   formatAuditCounts,
   formatExtraPaths,

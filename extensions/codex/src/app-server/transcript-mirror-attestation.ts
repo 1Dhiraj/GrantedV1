@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
-import type { AgentMessage } from "openclaw/plugin-sdk/agent-harness-runtime";
-import { asOptionalRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import type { AgentMessage } from "granted/plugin-sdk/agent-harness-runtime";
+import { asOptionalRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import { readUpstreamUserText } from "./upstream-prompt-provenance.js";
 
 type MirroredAgentMessage = Extract<AgentMessage, { role: "user" | "assistant" | "toolResult" }>;

@@ -1,22 +1,22 @@
 // Tts Local Cli provider module implements model/runtime integration.
 import { readdirSync } from "node:fs";
 import path from "node:path";
-import { runFfmpeg } from "openclaw/plugin-sdk/media-runtime";
-import { runCommandBuffered } from "openclaw/plugin-sdk/process-runtime";
-import { createSubsystemLogger } from "openclaw/plugin-sdk/runtime-env";
+import { runFfmpeg } from "granted/plugin-sdk/media-runtime";
+import { runCommandBuffered } from "granted/plugin-sdk/process-runtime";
+import { createSubsystemLogger } from "granted/plugin-sdk/runtime-env";
 import {
   readRegularFileSync,
   writeExternalFileWithinRoot,
-} from "openclaw/plugin-sdk/security-runtime";
+} from "granted/plugin-sdk/security-runtime";
 import type {
   SpeechProviderConfig,
   SpeechProviderPlugin,
   SpeechSynthesisRequest,
   SpeechTelephonySynthesisRequest,
-} from "openclaw/plugin-sdk/speech-core";
-import { asOptionalRecord, filterStringRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { resolvePreferredOpenClawTmpDir, withTempWorkspace } from "openclaw/plugin-sdk/temp-path";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+} from "granted/plugin-sdk/speech-core";
+import { asOptionalRecord, filterStringRecord } from "granted/plugin-sdk/string-coerce-runtime";
+import { resolvePreferredOpenClawTmpDir, withTempWorkspace } from "granted/plugin-sdk/temp-path";
+import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 
 const log = createSubsystemLogger("tts-local-cli");
 

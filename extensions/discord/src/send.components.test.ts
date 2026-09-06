@@ -17,7 +17,7 @@ const DISCORD_TEST_CFG = {
 } as const;
 
 vi.mock("openclaw/plugin-sdk/plugin-config-runtime", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/plugin-config-runtime")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/plugin-config-runtime")>(
     "openclaw/plugin-sdk/plugin-config-runtime",
   );
   return {
@@ -37,7 +37,7 @@ vi.mock("./send.outbound.js", () => ({
 
 const loadOutboundMediaFromUrlMock = vi.hoisted(() => vi.fn());
 vi.mock("openclaw/plugin-sdk/outbound-media", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/outbound-media")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/outbound-media")>(
     "openclaw/plugin-sdk/outbound-media",
   );
   return { ...actual, loadOutboundMediaFromUrl: loadOutboundMediaFromUrlMock };

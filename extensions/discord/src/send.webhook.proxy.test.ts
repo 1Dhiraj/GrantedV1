@@ -1,12 +1,12 @@
 // Discord tests cover send.webhook.proxy plugin behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { DiscordError, RateLimitError } from "./internal/rest-errors.js";
 import { sendWebhookMessageDiscord } from "./send.webhook.js";
 
 const makeProxyFetchMock = vi.hoisted(() => vi.fn());
 vi.mock("openclaw/plugin-sdk/fetch-runtime", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/fetch-runtime")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/fetch-runtime")>(
     "openclaw/plugin-sdk/fetch-runtime",
   );
   return {

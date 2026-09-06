@@ -1,5 +1,5 @@
 // Tests shared channel draft chunking resolution exposed through plugin-sdk/channel-outbound.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { describe, expect, it } from "vitest";
 import { resolveChannelDraftStreamingChunking } from "./channel-outbound.js";
 

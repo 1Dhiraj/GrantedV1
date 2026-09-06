@@ -2,21 +2,21 @@
 import {
   nativeHookRelayTesting,
   type NativeHookRelayRegistrationHandle,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
+} from "granted/plugin-sdk/agent-harness-runtime";
 import {
   onInternalDiagnosticEvent,
   resetDiagnosticEventsForTest,
   type DiagnosticEventPayload,
-} from "openclaw/plugin-sdk/diagnostic-runtime";
+} from "granted/plugin-sdk/diagnostic-runtime";
 import {
   initializeGlobalHookRunner,
   resetGlobalHookRunner,
-} from "openclaw/plugin-sdk/hook-runtime";
+} from "granted/plugin-sdk/hook-runtime";
 import {
   createMockPluginRegistry,
   loadWebFetchToolFactoryForTest,
-} from "openclaw/plugin-sdk/plugin-test-runtime";
-import type { ModelCompatConfig } from "openclaw/plugin-sdk/provider-model-types";
+} from "granted/plugin-sdk/plugin-test-runtime";
+import type { ModelCompatConfig } from "granted/plugin-sdk/provider-model-types";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   codexTestTurnIds,
@@ -1526,7 +1526,7 @@ describe("runCodexAppServerSideQuestion", () => {
     createOpenClawCodingToolsMock.mockImplementation((options) => {
       const toolOptions = options as NonNullable<
         Parameters<
-          (typeof import("openclaw/plugin-sdk/agent-harness"))["createOpenClawCodingTools"]
+          (typeof import("granted/plugin-sdk/agent-harness"))["createOpenClawCodingTools"]
         >[0]
       >;
       const webFetchTool = createWebFetchTool({

@@ -4,7 +4,7 @@ import path from "node:path";
 import {
   canonicalPathFromExistingAncestor,
   isPathInside,
-} from "openclaw/plugin-sdk/file-access-runtime";
+} from "granted/plugin-sdk/file-access-runtime";
 import {
   createMigrationItem,
   createMigrationManualItem,
@@ -12,14 +12,14 @@ import {
   MIGRATION_REASON_TARGET_EXISTS,
   readMigrationConfigPath,
   summarizeMigrationItems,
-} from "openclaw/plugin-sdk/migration";
+} from "granted/plugin-sdk/migration";
 import type {
   MigrationItem,
   MigrationPlan,
   MigrationProviderContext,
-} from "openclaw/plugin-sdk/plugin-entry";
-import { extractErrorCode } from "openclaw/plugin-sdk/security-runtime";
-import { asBoolean, isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/plugin-entry";
+import { extractErrorCode } from "granted/plugin-sdk/security-runtime";
+import { asBoolean, isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import { CODEX_PLUGINS_MARKETPLACE_NAME } from "../app-server/config.js";
 import { buildCodexAuthItems } from "./auth.js";
 import { exists, sanitizeName } from "./helpers.js";

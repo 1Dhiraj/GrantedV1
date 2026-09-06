@@ -1,23 +1,23 @@
 // Whatsapp plugin module implements approval handler behavior.
-import { DEFAULT_ACCOUNT_ID } from "openclaw/plugin-sdk/account-id";
+import { DEFAULT_ACCOUNT_ID } from "granted/plugin-sdk/account-id";
 import {
   buildChannelApprovalExpiredText,
   buildChannelApprovalResolvedText,
   createChannelApprovalNativeRuntimeAdapter,
   type PendingApprovalView,
   resolvePreparedApprovalAccountId,
-} from "openclaw/plugin-sdk/approval-handler-runtime";
-import { buildChannelApprovalNativeTargetKey } from "openclaw/plugin-sdk/approval-native-runtime";
+} from "granted/plugin-sdk/approval-handler-runtime";
+import { buildChannelApprovalNativeTargetKey } from "granted/plugin-sdk/approval-native-runtime";
 import {
   buildApprovalReactionPendingContent,
   type ApprovalReactionPendingContent,
-} from "openclaw/plugin-sdk/approval-reaction-runtime";
+} from "granted/plugin-sdk/approval-reaction-runtime";
 import type {
   ExecApprovalRequest,
   PluginApprovalRequest,
   SystemAgentApprovalRequest,
-} from "openclaw/plugin-sdk/approval-runtime";
-import { createSubsystemLogger } from "openclaw/plugin-sdk/runtime-env";
+} from "granted/plugin-sdk/approval-runtime";
+import { createSubsystemLogger } from "granted/plugin-sdk/runtime-env";
 import { resolveDefaultWhatsAppAccountId } from "./accounts.js";
 import {
   registerWhatsAppApprovalReactionTarget,

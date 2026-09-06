@@ -2,18 +2,18 @@
 import { randomUUID } from "node:crypto";
 import { HTTPFetchError, messagingApi } from "@line/bot-sdk";
 import lineBotSdkPackage from "@line/bot-sdk/package.json" with { type: "json" };
-import { recordChannelActivity } from "openclaw/plugin-sdk/channel-activity-runtime";
-import { createChannelPartialDeliveryError } from "openclaw/plugin-sdk/channel-inbound";
-import { pruneMapToMaxSize } from "openclaw/plugin-sdk/collection-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { requireRuntimeConfig } from "openclaw/plugin-sdk/plugin-config-runtime";
+import { recordChannelActivity } from "granted/plugin-sdk/channel-activity-runtime";
+import { createChannelPartialDeliveryError } from "granted/plugin-sdk/channel-inbound";
+import { pruneMapToMaxSize } from "granted/plugin-sdk/collection-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { requireRuntimeConfig } from "granted/plugin-sdk/plugin-config-runtime";
 import {
   readProviderJsonResponse,
   readResponseTextLimited,
-} from "openclaw/plugin-sdk/provider-http";
-import { logVerbose } from "openclaw/plugin-sdk/runtime-env";
-import { fetchWithRuntimeDispatcherOrMockedGlobal } from "openclaw/plugin-sdk/runtime-fetch";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+} from "granted/plugin-sdk/provider-http";
+import { logVerbose } from "granted/plugin-sdk/runtime-env";
+import { fetchWithRuntimeDispatcherOrMockedGlobal } from "granted/plugin-sdk/runtime-fetch";
+import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import { resolveLineAccount } from "./accounts.js";
 import { messageAction, normalizeLineMessage } from "./actions.js";
 import { resolveLineChannelAccessToken } from "./channel-access-token.js";

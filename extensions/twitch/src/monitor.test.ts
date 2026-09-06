@@ -1,10 +1,10 @@
 import { join } from "node:path";
-import { buildChannelConfigSchema } from "openclaw/plugin-sdk/channel-config-schema";
-import type { ChannelInboundEventRunnerParams } from "openclaw/plugin-sdk/channel-inbound";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { validateJsonSchemaValue } from "openclaw/plugin-sdk/json-schema-runtime";
-import type { ReplyPayload } from "openclaw/plugin-sdk/reply-runtime";
-import { useAutoCleanupTempDirTracker } from "openclaw/plugin-sdk/test-env";
+import { buildChannelConfigSchema } from "granted/plugin-sdk/channel-config-schema";
+import type { ChannelInboundEventRunnerParams } from "granted/plugin-sdk/channel-inbound";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { validateJsonSchemaValue } from "granted/plugin-sdk/json-schema-runtime";
+import type { ReplyPayload } from "granted/plugin-sdk/reply-runtime";
+import { useAutoCleanupTempDirTracker } from "granted/plugin-sdk/test-env";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { TwitchConfigSchema } from "./config-schema.js";
 import { BASE_TWITCH_TEST_ACCOUNT } from "./test-fixtures.js";
@@ -160,7 +160,7 @@ describe("monitorTwitchProvider", () => {
         messages: { responsePrefix: "[global]" },
         channels: { twitch: channelConfig },
       };
-      const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/channel-inbound")>(
+      const actual = await vi.importActual<typeof import("granted/plugin-sdk/channel-inbound")>(
         "openclaw/plugin-sdk/channel-inbound",
       );
       mocks.getRuntime().channel.inbound.buildContext = actual.buildChannelInboundEventContext;

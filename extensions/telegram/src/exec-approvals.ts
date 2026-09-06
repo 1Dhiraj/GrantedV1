@@ -1,23 +1,23 @@
 // Telegram plugin module implements exec approvals behavior.
-import { resolveApprovalApprovers } from "openclaw/plugin-sdk/approval-auth-runtime";
+import { resolveApprovalApprovers } from "granted/plugin-sdk/approval-auth-runtime";
 import {
   createChannelExecApprovalProfile,
   isChannelExecApprovalClientEnabledFromConfig,
   isChannelExecApprovalTargetRecipient,
   matchesApprovalRequestFilters,
-} from "openclaw/plugin-sdk/approval-client-runtime";
-import { doesApprovalRequestSelectChannelAccount } from "openclaw/plugin-sdk/approval-native-runtime";
+} from "granted/plugin-sdk/approval-client-runtime";
+import { doesApprovalRequestSelectChannelAccount } from "granted/plugin-sdk/approval-native-runtime";
 import type {
   ExecApprovalRequest,
   PluginApprovalRequest,
   SystemAgentApprovalRequest,
-} from "openclaw/plugin-sdk/approval-runtime";
+} from "granted/plugin-sdk/approval-runtime";
 import type {
   GrantedConfig,
   TelegramExecApprovalConfig,
-} from "openclaw/plugin-sdk/config-contracts";
-import type { ReplyPayload } from "openclaw/plugin-sdk/reply-runtime";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/config-contracts";
+import type { ReplyPayload } from "granted/plugin-sdk/reply-runtime";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import { resolveDefaultTelegramAccountId, resolveTelegramAccount } from "./accounts.js";
 import { normalizeTelegramChatId, resolveTelegramTargetChatType } from "./targets.js";
 

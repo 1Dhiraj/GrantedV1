@@ -1,6 +1,6 @@
 // Msteams plugin module implements approval auth behavior.
-import { createChannelApprovalAuth } from "openclaw/plugin-sdk/approval-auth-runtime";
-import { normalizeOptionalLowercaseString } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { createChannelApprovalAuth } from "granted/plugin-sdk/approval-auth-runtime";
+import { normalizeOptionalLowercaseString } from "granted/plugin-sdk/string-coerce-runtime";
 import type { GrantedConfig } from "../runtime-api.js";
 import { normalizeMSTeamsMessagingTarget } from "./resolve-allowlist.js";
 

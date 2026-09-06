@@ -132,7 +132,7 @@ exit 1
     const source = `${fixture}/source-${mode}`;
     await fs.writeFile(
       source,
-      "[Service]\nExecStart=/usr/local/bin/node /app/openclaw.mjs gateway\n",
+      "[Service]\nExecStart=/usr/local/bin/node /app/granted.mjs gateway\n",
       { mode },
     );
     await fs.chown(source, uid, gid);
@@ -159,7 +159,7 @@ exit 1
         const before = await snapshot();
         const result = spawnSync(
           process.execPath,
-          ["/app/openclaw.mjs", "gateway", "install", "--force", "--json"],
+          ["/app/granted.mjs", "gateway", "install", "--force", "--json"],
           childOptions,
         );
         assert.notEqual(result.status, null, "packaged CLI must finish normally");

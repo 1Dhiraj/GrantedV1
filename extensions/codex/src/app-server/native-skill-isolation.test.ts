@@ -1,6 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import { createTempHomeEnv, withEnvAsync } from "openclaw/plugin-sdk/test-env";
+import { createTempHomeEnv, withEnvAsync } from "granted/plugin-sdk/test-env";
 import { expect, it, vi } from "vitest";
 import type { CodexAppServerClient } from "./client.js";
 import {

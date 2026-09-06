@@ -3,25 +3,25 @@ import fs from "node:fs";
 import path from "node:path";
 import { Readable } from "node:stream";
 import type * as Lark from "@larksuiteoapi/node-sdk";
-import type { MessageReceipt } from "openclaw/plugin-sdk/channel-outbound";
-import { PlatformMessageNotDispatchedError } from "openclaw/plugin-sdk/error-runtime";
-import { detectMime, mediaKindFromMime } from "openclaw/plugin-sdk/media-mime";
+import type { MessageReceipt } from "granted/plugin-sdk/channel-outbound";
+import { PlatformMessageNotDispatchedError } from "granted/plugin-sdk/error-runtime";
+import { detectMime, mediaKindFromMime } from "granted/plugin-sdk/media-mime";
 import {
   buildOutboundMediaLoadOptions,
   MEDIA_FFMPEG_MAX_AUDIO_DURATION_SECS,
   runFfmpeg,
   runFfprobe,
   type OutboundMediaAccess,
-} from "openclaw/plugin-sdk/media-runtime";
-import { saveMediaBuffer, type SavedMedia } from "openclaw/plugin-sdk/media-store";
-import type { ReplyPayloadTtsSupplement } from "openclaw/plugin-sdk/reply-payload";
-import { readRegularFile, writeExternalFileWithinRoot } from "openclaw/plugin-sdk/security-runtime";
-import { normalizeLowercaseStringOrEmpty } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/media-runtime";
+import { saveMediaBuffer, type SavedMedia } from "granted/plugin-sdk/media-store";
+import type { ReplyPayloadTtsSupplement } from "granted/plugin-sdk/reply-payload";
+import { readRegularFile, writeExternalFileWithinRoot } from "granted/plugin-sdk/security-runtime";
+import { normalizeLowercaseStringOrEmpty } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   resolvePreferredOpenClawTmpDir,
   withTempWorkspace,
   withTempDownloadPath,
-} from "openclaw/plugin-sdk/temp-path";
+} from "granted/plugin-sdk/temp-path";
 import type { ClawdbotConfig } from "../runtime-api.js";
 import { resolveFeishuRuntimeAccount } from "./accounts.js";
 import { assertFeishuApiSuccess } from "./api-response.js";

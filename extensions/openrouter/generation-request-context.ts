@@ -1,9 +1,9 @@
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { resolveApiKeyForProvider } from "openclaw/plugin-sdk/provider-auth-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { resolveApiKeyForProvider } from "granted/plugin-sdk/provider-auth-runtime";
 import {
   resolveProviderHttpRequestConfig,
   sanitizeConfiguredModelProviderRequest,
-} from "openclaw/plugin-sdk/provider-http";
+} from "granted/plugin-sdk/provider-http";
 import { OPENROUTER_BASE_URL } from "./provider-catalog.js";
 
 type OpenRouterAuthStore = Parameters<typeof resolveApiKeyForProvider>[0]["store"];

@@ -1,6 +1,6 @@
 // Mattermost tests cover the action-to-REST send path over loopback.
-import { createPluginRuntimeMock } from "openclaw/plugin-sdk/plugin-test-runtime";
-import { withServer } from "openclaw/plugin-sdk/test-env";
+import { createPluginRuntimeMock } from "granted/plugin-sdk/plugin-test-runtime";
+import { withServer } from "granted/plugin-sdk/test-env";
 import { describe, expect, it, vi } from "vitest";
 import type { GrantedConfig } from "../runtime-api.js";
 import { mattermostPlugin } from "./channel.js";

@@ -1,8 +1,8 @@
 // Signal tests cover monitor.tool result.sends tool summaries responseprefix plugin behavior.
-import { expectPairingReplyText } from "openclaw/plugin-sdk/channel-test-helpers";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { resolveAgentRoute } from "openclaw/plugin-sdk/routing";
-import { normalizeE164 } from "openclaw/plugin-sdk/text-utility-runtime";
+import { expectPairingReplyText } from "granted/plugin-sdk/channel-test-helpers";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { resolveAgentRoute } from "granted/plugin-sdk/routing";
+import { normalizeE164 } from "granted/plugin-sdk/text-utility-runtime";
 import { describe, expect, it, vi } from "vitest";
 import {
   createSignalToolResultConfig,

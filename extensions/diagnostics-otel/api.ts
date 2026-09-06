@@ -13,10 +13,10 @@ export {
   type DiagnosticEventPayload,
   type DiagnosticEventPrivateData,
   type DiagnosticTraceContext,
-} from "openclaw/plugin-sdk/diagnostic-runtime";
-export { emptyPluginConfigSchema, type GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
+} from "granted/plugin-sdk/diagnostic-runtime";
+export { emptyPluginConfigSchema, type GrantedPluginApi } from "granted/plugin-sdk/plugin-entry";
 export type {
   GrantedPluginService,
   GrantedPluginServiceContext,
-} from "openclaw/plugin-sdk/plugin-entry";
-export { redactSensitiveText } from "openclaw/plugin-sdk/security-runtime";
+} from "granted/plugin-sdk/plugin-entry";
+export { redactSensitiveText } from "granted/plugin-sdk/security-runtime";

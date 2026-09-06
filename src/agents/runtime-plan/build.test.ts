@@ -1,6 +1,6 @@
 // Runtime plan build tests cover the assembled agent runtime policy object:
 // auth, transport, tools, prompt, delivery, transcript, and observability.
-import { createParameterFreeTool } from "openclaw/plugin-sdk/agent-runtime-test-contracts";
+import { createParameterFreeTool } from "granted/plugin-sdk/agent-runtime-test-contracts";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { resetConfigRuntimeState } from "../../config/config.js";
 import {

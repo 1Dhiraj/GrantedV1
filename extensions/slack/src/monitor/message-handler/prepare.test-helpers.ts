@@ -2,12 +2,12 @@
 import fs from "node:fs";
 import path from "node:path";
 import type { App } from "@slack/bolt";
-import type { ChannelRuntimeSurface } from "openclaw/plugin-sdk/channel-contract";
-import { buildChannelInboundEventContext } from "openclaw/plugin-sdk/channel-inbound";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { createPluginRuntimeMock } from "openclaw/plugin-sdk/plugin-test-runtime";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
-import { resolvePreferredOpenClawTmpDir } from "openclaw/plugin-sdk/temp-path";
+import type { ChannelRuntimeSurface } from "granted/plugin-sdk/channel-contract";
+import { buildChannelInboundEventContext } from "granted/plugin-sdk/channel-inbound";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { createPluginRuntimeMock } from "granted/plugin-sdk/plugin-test-runtime";
+import type { RuntimeEnv } from "granted/plugin-sdk/runtime-env";
+import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
 import type { ResolvedSlackAccount } from "../../accounts.js";
 import type { SlackChannelConfigEntries } from "../channel-config.js";
 import { createSlackMonitorContext } from "../context.js";

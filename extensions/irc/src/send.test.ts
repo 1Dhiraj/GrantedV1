@@ -1,6 +1,6 @@
 // Irc tests cover send plugin behavior.
-import { verifyChannelMessageAdapterCapabilityProofs } from "openclaw/plugin-sdk/channel-outbound";
-import { createSendCfgThreadingRuntime } from "openclaw/plugin-sdk/channel-test-helpers";
+import { verifyChannelMessageAdapterCapabilityProofs } from "granted/plugin-sdk/channel-outbound";
+import { createSendCfgThreadingRuntime } from "granted/plugin-sdk/channel-test-helpers";
 import { afterAll, beforeEach, describe, expect, it, vi } from "vitest";
 import type { IrcClient } from "./client.js";
 import { setIrcRuntime } from "./runtime.js";

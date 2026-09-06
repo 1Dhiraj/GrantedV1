@@ -2,8 +2,8 @@
 import {
   defineBundledChannelEntry,
   loadBundledEntryExportSync,
-} from "openclaw/plugin-sdk/channel-entry-contract";
-import type { GrantedPluginApi } from "openclaw/plugin-sdk/channel-entry-contract";
+} from "granted/plugin-sdk/channel-entry-contract";
+import type { GrantedPluginApi } from "granted/plugin-sdk/channel-entry-contract";
 import { registerFeishuSubagentHooks } from "./subagent-hooks-api.js";
 
 export default defineBundledChannelEntry({

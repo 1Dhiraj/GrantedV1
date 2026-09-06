@@ -2,13 +2,13 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { ChannelType, type GatewayThreadDeleteDispatchData } from "discord-api-types/v10";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   getSessionEntry,
   resolveStorePath,
   upsertSessionEntry,
-} from "openclaw/plugin-sdk/session-store-runtime";
-import { withEnvAsync, withStateDirEnv } from "openclaw/plugin-sdk/test-env";
+} from "granted/plugin-sdk/session-store-runtime";
+import { withEnvAsync, withStateDirEnv } from "granted/plugin-sdk/test-env";
 import { describe, expect, it } from "vitest";
 import { DiscordThreadDeleteListener } from "./listeners.js";
 

@@ -1,6 +1,6 @@
 // Irc type declarations define plugin contracts.
-import type { BaseProbeResult } from "openclaw/plugin-sdk/channel-contract";
-import type { ChannelDeliveryStreamingConfig } from "openclaw/plugin-sdk/channel-outbound";
+import type { BaseProbeResult } from "granted/plugin-sdk/channel-contract";
+import type { ChannelDeliveryStreamingConfig } from "granted/plugin-sdk/channel-outbound";
 import type {
   DmConfig,
   DmPolicy,
@@ -10,7 +10,7 @@ import type {
   MarkdownConfig,
   GrantedConfig,
   ReplyToMode,
-} from "openclaw/plugin-sdk/config-contracts";
+} from "granted/plugin-sdk/config-contracts";
 
 export type IrcChannelConfig = {
   requireMention?: boolean;

@@ -1,4 +1,4 @@
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
 import { describe, expect, it, vi } from "vitest";
 import type { WarmProfileRecord } from "./crabbox-worker-warm-image-store.js";
 import {

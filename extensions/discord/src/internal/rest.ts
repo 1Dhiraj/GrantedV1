@@ -5,8 +5,8 @@ import {
   clampTimerTimeoutMs,
   resolveIntegerOption as normalizeIntegerOption,
   resolveTimerTimeoutMs,
-} from "openclaw/plugin-sdk/number-runtime";
-import { readResponseWithLimit } from "openclaw/plugin-sdk/response-limit-runtime";
+} from "granted/plugin-sdk/number-runtime";
+import { readResponseWithLimit } from "granted/plugin-sdk/response-limit-runtime";
 import { serializeRequestBody } from "./rest-body.js";
 import {
   DiscordError,

@@ -7,17 +7,17 @@ import {
   clearRuntimeAuthProfileStoreSnapshots,
   ensureAuthProfileStore,
   saveAuthProfileStore,
-} from "openclaw/plugin-sdk/agent-runtime";
-import { MAX_DATE_TIMESTAMP_MS, MAX_TIMER_TIMEOUT_MS } from "openclaw/plugin-sdk/number-runtime";
+} from "granted/plugin-sdk/agent-runtime";
+import { MAX_DATE_TIMESTAMP_MS, MAX_TIMER_TIMEOUT_MS } from "granted/plugin-sdk/number-runtime";
 import type {
   GrantedConfig,
   GrantedPluginApi,
   ProviderAuthResult,
   ProviderCatalogResult,
   UnifiedModelCatalogEntry,
-} from "openclaw/plugin-sdk/plugin-entry";
-import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
-import type { fetchWithSsrFGuard } from "openclaw/plugin-sdk/ssrf-runtime";
+} from "granted/plugin-sdk/plugin-entry";
+import { createTestPluginApi } from "granted/plugin-sdk/plugin-test-api";
+import type { fetchWithSsrFGuard } from "granted/plugin-sdk/ssrf-runtime";
 import { afterAll, afterEach, describe, expect, it, vi } from "vitest";
 import { runGitHubCopilotDeviceFlow } from "./login.js";
 import manifest from "./openclaw.plugin.json" with { type: "json" };
@@ -37,7 +37,7 @@ function requireAuthMethod<T>(methods: readonly T[], index: number): T {
 }
 
 vi.mock("openclaw/plugin-sdk/ssrf-runtime", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/ssrf-runtime")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/ssrf-runtime")>(
     "openclaw/plugin-sdk/ssrf-runtime",
   );
   return {

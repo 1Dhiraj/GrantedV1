@@ -1,11 +1,11 @@
 // Perplexity tests cover perplexity web search provider plugin behavior.
-import { withEnv, withEnvAsync } from "openclaw/plugin-sdk/test-env";
+import { withEnv, withEnvAsync } from "granted/plugin-sdk/test-env";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const withTrustedWebSearchEndpointMock = vi.hoisted(() => vi.fn());
 
 vi.mock("openclaw/plugin-sdk/provider-web-search", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/provider-web-search")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/provider-web-search")>();
   return {
     ...actual,
     withTrustedWebSearchEndpoint: withTrustedWebSearchEndpointMock,

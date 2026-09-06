@@ -410,7 +410,7 @@ export async function tryWriteCompletionCache(
   root: string,
   jsonMode: boolean,
 ): Promise<"completed" | "failed" | "skipped"> {
-  const binPath = path.join(root, "openclaw.mjs");
+  const binPath = path.join(root, "granted.mjs");
   if (!(await pathExists(binPath))) {
     return "skipped";
   }

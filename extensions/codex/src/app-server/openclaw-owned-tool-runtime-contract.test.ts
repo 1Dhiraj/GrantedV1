@@ -1,14 +1,14 @@
-import type { AnyAgentTool } from "openclaw/plugin-sdk/agent-harness";
-import { wrapToolWithBeforeToolCallHook } from "openclaw/plugin-sdk/agent-harness-runtime";
+import type { AnyAgentTool } from "granted/plugin-sdk/agent-harness";
+import { wrapToolWithBeforeToolCallHook } from "granted/plugin-sdk/agent-harness-runtime";
 import {
   installCodexToolResultMiddleware,
   installOpenClawOwnedToolHooks,
   mediaToolResult,
   resetOpenClawOwnedToolHooks,
   textToolResult,
-} from "openclaw/plugin-sdk/agent-runtime-test-contracts";
+} from "granted/plugin-sdk/agent-runtime-test-contracts";
 // Codex tests cover openclaw owned tool runtime contract plugin behavior.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { createCodexDynamicToolBridge } from "./dynamic-tools.js";
 

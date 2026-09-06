@@ -123,7 +123,7 @@ function expectResolvedBundledDirFromRoot(params: {
   expectResolvedBundledDir({
     cwd: params.cwd ?? params.repoRoot,
     expectedDir: path.join(params.repoRoot, params.expectedRelativeDir),
-    argv1: params.argv1 ?? path.join(params.repoRoot, "openclaw.mjs"),
+    argv1: params.argv1 ?? path.join(params.repoRoot, "granted.mjs"),
     ...(params.bundledDirOverride ? { bundledDirOverride: params.bundledDirOverride } : {}),
     ...(params.vitest !== undefined ? { vitest: params.vitest } : {}),
     ...(params.execArgv ? { execArgv: params.execArgv } : {}),
@@ -363,7 +363,7 @@ describe("resolveBundledPluginsDir", () => {
     });
     seedBundledPluginTree(repoRoot, "extensions", "twitch");
     vi.spyOn(process, "cwd").mockReturnValue(repoRoot);
-    process.argv[1] = path.join(repoRoot, "openclaw.mjs");
+    process.argv[1] = path.join(repoRoot, "granted.mjs");
 
     expect(resolveSourceCheckoutDependencyDiagnostic()).toEqual({
       source: repoRoot,
@@ -467,7 +467,7 @@ describe("resolveBundledPluginsDir", () => {
     seedBundledPluginTree(installedRoot, path.join("dist", "extensions"));
 
     vi.spyOn(process, "cwd").mockReturnValue(installedRoot);
-    process.argv[1] = path.join(installedRoot, "openclaw.mjs");
+    process.argv[1] = path.join(installedRoot, "granted.mjs");
     process.execArgv.length = 0;
     delete process.env.VITEST;
     delete process.env.GRANTED_TEST_TRUST_BUNDLED_PLUGINS_DIR;
@@ -550,7 +550,7 @@ describe("resolveBundledPluginsDir", () => {
     seedBundledPluginTree(overrideRoot, "extensions", "memory-core");
 
     vi.spyOn(process, "cwd").mockReturnValue(makeRepoRoot("openclaw-bundled-dir-rejected-cwd-"));
-    process.argv[1] = path.join(installedRoot, "openclaw.mjs");
+    process.argv[1] = path.join(installedRoot, "granted.mjs");
     process.execArgv.length = 0;
     delete process.env.VITEST;
     process.env.GRANTED_BUNDLED_PLUGINS_DIR = path.join(overrideRoot, "extensions");
@@ -652,7 +652,7 @@ describe("resolveBundledPluginsDir", () => {
         return {
           installedRoot,
           cwd: cwdRepoRoot,
-          argv1: path.join(installedRoot, "openclaw.mjs"),
+          argv1: path.join(installedRoot, "granted.mjs"),
         };
       },
     },
@@ -666,7 +666,7 @@ describe("resolveBundledPluginsDir", () => {
         seedBundledPluginTree(installedRoot, path.join("dist", "extensions"));
         return {
           installedRoot,
-          argv1: path.join(installedRoot, "openclaw.mjs"),
+          argv1: path.join(installedRoot, "granted.mjs"),
           bundledDirOverride: path.join(installedRoot, "missing-extensions"),
         };
       },

@@ -114,7 +114,7 @@ const { enableConsoleCapture } = await import("../logging/console.js");
 const { withConsoleLogsRoutedToStderrForJson, applyResolvedCommandOutputMode } =
   await import("./json-output-mode.js");
 const { isCommandJsonOutputMode } = await import("./program/json-mode.js");
-process.argv = [process.execPath, path.join(root, "openclaw.mjs"), ...args];
+process.argv = [process.execPath, path.join(root, "granted.mjs"), ...args];
 enableConsoleCapture();
 await runCliWithExitFinalization({
   run: () =>

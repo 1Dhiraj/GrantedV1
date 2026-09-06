@@ -1,6 +1,6 @@
 import path from "node:path";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { QaRunnerCliRegistration } from "openclaw/plugin-sdk/qa-runner-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { QaRunnerCliRegistration } from "granted/plugin-sdk/qa-runner-runtime";
 import {
   patchLiveQaGatewayConfig,
   readLiveQaGatewayConfig,

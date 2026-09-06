@@ -1,6 +1,6 @@
 // Hermes provider config contract parsing and normalization.
-import { asPositiveFiniteNumber as readPositiveNumber } from "openclaw/plugin-sdk/number-runtime";
-import { isRecord, normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { asPositiveFiniteNumber as readPositiveNumber } from "granted/plugin-sdk/number-runtime";
+import { isRecord, normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   MCP_ENV_REFERENCE_RE,
   mcpValueHasEnvReferences,

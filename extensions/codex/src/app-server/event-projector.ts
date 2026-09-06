@@ -5,8 +5,8 @@ import {
   type AgentMessage,
   type BeforeToolCallFailureDisposition,
   type EmbeddedRunAttemptParamsV2 as EmbeddedRunAttemptParams,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
-import { readStringField as readString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/agent-harness-runtime";
+import { readStringField as readString } from "granted/plugin-sdk/string-coerce-runtime";
 import type { AttemptFailureSource, EmbeddedRunAttemptResult } from "./attempt-terminal.js";
 import { persistCodexContextCompactionActivity } from "./context-compaction-activity.js";
 import { CodexAssistantProjection } from "./event-projector-assistant.js";

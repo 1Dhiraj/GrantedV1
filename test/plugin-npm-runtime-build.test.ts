@@ -263,7 +263,7 @@ describe("plugin npm runtime build planning", () => {
     writeFileSync(
       path.join(outDir, "index.js"),
       [
-        'import "openclaw/plugin-sdk/not-exported";',
+        'import "granted/plugin-sdk/not-exported";',
         'const runtime = __require("openclaw/plugin-sdk/not-exported-from-require");',
         "void runtime;",
         "",

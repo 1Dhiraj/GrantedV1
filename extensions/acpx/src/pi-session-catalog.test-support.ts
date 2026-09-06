@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
-import { resolvePreferredOpenClawTmpDir } from "openclaw/plugin-sdk/temp-path";
+import type { GrantedPluginApi } from "granted/plugin-sdk/plugin-entry";
+import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
 import { vi } from "vitest";
 import { registerPiSessionCatalog } from "./pi-session-catalog-plugin.js";
 

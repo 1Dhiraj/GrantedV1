@@ -1,4 +1,4 @@
-import type { Model } from "openclaw/plugin-sdk/llm";
+import type { Model } from "granted/plugin-sdk/llm";
 /**
  * Routes compaction through selected native agent harnesses when supported.
  */

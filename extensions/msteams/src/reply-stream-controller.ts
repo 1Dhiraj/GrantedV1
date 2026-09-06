@@ -10,9 +10,9 @@ import {
   resolveChannelPreviewStreamMode,
   resolveChannelProgressDraftMaxLines,
   resolveChannelStreamingPreviewToolProgress,
-} from "openclaw/plugin-sdk/channel-outbound";
-import { coerceErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import { normalizeOptionalLowercaseString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/channel-outbound";
+import { coerceErrorMessage } from "granted/plugin-sdk/error-runtime";
+import { normalizeOptionalLowercaseString } from "granted/plugin-sdk/string-coerce-runtime";
 import type { MSTeamsConfig, ReplyPayload } from "../runtime-api.js";
 import { extractMessageId } from "./media-helpers.js";
 import type { MSTeamsMonitorLogger } from "./monitor-types.js";

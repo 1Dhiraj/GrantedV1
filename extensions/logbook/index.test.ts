@@ -1,7 +1,7 @@
 import type {
   GrantedPluginApi,
   GrantedPluginNodeInvokePolicy,
-} from "openclaw/plugin-sdk/plugin-entry";
+} from "granted/plugin-sdk/plugin-entry";
 import { describe, expect, it, vi } from "vitest";
 import plugin from "./index.js";
 

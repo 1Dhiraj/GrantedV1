@@ -6,7 +6,7 @@ import {
   stripMarkdown,
   tokenizeHtmlTags,
   type CodeRegion,
-} from "openclaw/plugin-sdk/text-chunking";
+} from "granted/plugin-sdk/text-chunking";
 import { extractMarkdownFormatRuns } from "../markdown-format.js";
 
 /**

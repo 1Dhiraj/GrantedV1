@@ -2,9 +2,9 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { nip19 } from "nostr-tools";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
-import type { SecretInput, WizardPrompter } from "openclaw/plugin-sdk/setup";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { RuntimeEnv } from "granted/plugin-sdk/runtime-env";
+import type { SecretInput, WizardPrompter } from "granted/plugin-sdk/setup";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { createBuzzSetupWizard } from "./setup-surface.js";
 

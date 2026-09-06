@@ -1,8 +1,8 @@
 import { randomUUID } from "node:crypto";
 import { setTimeout as sleep } from "node:timers/promises";
 import { randomBytes } from "@noble/hashes/utils.js";
-import type { PluginRuntime } from "openclaw/plugin-sdk/core";
-import type { PluginStateSyncKeyedStore } from "openclaw/plugin-sdk/plugin-state-runtime";
+import type { PluginRuntime } from "granted/plugin-sdk/core";
+import type { PluginStateSyncKeyedStore } from "granted/plugin-sdk/plugin-state-runtime";
 // Import from the defining module, not the protocol barrel: index.js re-exports
 // guard-adapters, whose provider-http graph doctor enumeration must not cold-load.
 import {

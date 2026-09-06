@@ -6,14 +6,14 @@ import {
   markMigrationItemError,
   markMigrationItemSkipped,
   MIGRATION_REASON_MISSING_SOURCE_OR_TARGET,
-} from "openclaw/plugin-sdk/migration";
-import type { MigrationItem } from "openclaw/plugin-sdk/plugin-entry";
+} from "granted/plugin-sdk/migration";
+import type { MigrationItem } from "granted/plugin-sdk/plugin-entry";
 import {
   appendRegularFile,
   pathExists,
   readRegularFile,
-} from "openclaw/plugin-sdk/security-runtime";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/security-runtime";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 
 export function resolveHomePath(input: string): string {
   const trimmed = input.trim();

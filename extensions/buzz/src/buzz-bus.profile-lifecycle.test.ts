@@ -1,5 +1,5 @@
 import { compareEvents, finalizeEvent } from "nostr-tools";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
 import { describe, expect, it, vi } from "vitest";
 
 vi.mock("nostr-tools", async (importOriginal) => {

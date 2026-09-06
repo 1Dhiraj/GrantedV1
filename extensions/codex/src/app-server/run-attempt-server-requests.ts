@@ -1,4 +1,4 @@
-import { onInternalDiagnosticEvent } from "openclaw/plugin-sdk/diagnostic-runtime";
+import { onInternalDiagnosticEvent } from "granted/plugin-sdk/diagnostic-runtime";
 import { handleCodexAppServerApprovalRequest } from "./approval-bridge.js";
 import { isCodexAppServerApprovalRequest } from "./client.js";
 import { shouldAutoApproveCodexAppServerApprovals } from "./config.js";

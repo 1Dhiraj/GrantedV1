@@ -6,14 +6,14 @@ import {
   resolveAuthStorePathForDisplay,
   saveAuthProfileStore,
   type AuthProfileStore,
-} from "openclaw/plugin-sdk/agent-runtime";
-import type { MigrationProviderContext } from "openclaw/plugin-sdk/plugin-entry";
-import type { GrantedConfig } from "openclaw/plugin-sdk/provider-auth";
+} from "granted/plugin-sdk/agent-runtime";
+import type { MigrationProviderContext } from "granted/plugin-sdk/plugin-entry";
+import type { GrantedConfig } from "granted/plugin-sdk/provider-auth";
 import {
   resolvePreferredOpenClawTmpDir,
   tempWorkspace,
   type TempWorkspace,
-} from "openclaw/plugin-sdk/temp-path";
+} from "granted/plugin-sdk/temp-path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   HERMES_REASON_AUTH_PROFILE_EXISTS,

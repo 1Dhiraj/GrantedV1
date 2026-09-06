@@ -3,9 +3,9 @@ import { EventEmitter } from "node:events";
 import fsSync from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { createChannelIngressQueueForTests } from "openclaw/plugin-sdk/channel-ingress-test-runtime";
-import { coerceErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import { resetLogger, setLoggerOverride } from "openclaw/plugin-sdk/runtime-env";
+import { createChannelIngressQueueForTests } from "granted/plugin-sdk/channel-ingress-test-runtime";
+import { coerceErrorMessage } from "granted/plugin-sdk/error-runtime";
+import { resetLogger, setLoggerOverride } from "granted/plugin-sdk/runtime-env";
 import { afterEach, beforeEach, expect, vi } from "vitest";
 import {
   loadConfigMock,
@@ -115,7 +115,7 @@ export function getRecordChannelActivityMock(): AnyMockFn {
 
 vi.mock("openclaw/plugin-sdk/channel-activity-runtime", async () => {
   const actual = await vi.importActual<
-    typeof import("openclaw/plugin-sdk/channel-activity-runtime")
+    typeof import("granted/plugin-sdk/channel-activity-runtime")
   >("openclaw/plugin-sdk/channel-activity-runtime");
   return {
     ...actual,

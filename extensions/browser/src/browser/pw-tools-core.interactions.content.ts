@@ -1,8 +1,8 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import { detectMime } from "openclaw/plugin-sdk/media-mime";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { withTimeout } from "openclaw/plugin-sdk/text-utility-runtime";
+import { detectMime } from "granted/plugin-sdk/media-mime";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
+import { withTimeout } from "granted/plugin-sdk/text-utility-runtime";
 import type { FileChooser, Locator, Page } from "playwright-core";
 import { ACT_MAX_WAIT_TIME_MS, resolveActWaitTimeoutMs } from "./act-policy.js";
 import { DEFAULT_BROWSER_SCREENSHOT_TIMEOUT_MS } from "./constants.js";

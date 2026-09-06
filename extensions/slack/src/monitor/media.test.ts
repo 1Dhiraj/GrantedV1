@@ -4,13 +4,13 @@ import path from "node:path";
 import { expectDefined } from "@openclaw/normalization-core";
 // Slack tests cover media plugin behavior.
 import type { WebClient } from "@slack/web-api";
-import type { FetchLike, SavedMedia } from "openclaw/plugin-sdk/media-runtime";
+import type { FetchLike, SavedMedia } from "granted/plugin-sdk/media-runtime";
 import {
   fetchWithSsrFGuard,
   type LookupFn,
   type SsrFPolicy,
-} from "openclaw/plugin-sdk/ssrf-runtime";
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+} from "granted/plugin-sdk/ssrf-runtime";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { SlackFile } from "../types.js";
 import {

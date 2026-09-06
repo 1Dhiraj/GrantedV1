@@ -2,7 +2,7 @@
 import { randomUUID } from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
-import { runExec } from "openclaw/plugin-sdk/process-runtime";
+import { runExec } from "granted/plugin-sdk/process-runtime";
 import { seedQaAgentWorkspace } from "./qa-agent-workspace.js";
 import {
   createQaChannelGatewayConfig,

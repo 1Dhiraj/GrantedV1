@@ -2,7 +2,7 @@
 import {
   createAliasOnlyPresetAppliers,
   type GrantedConfig,
-} from "openclaw/plugin-sdk/provider-onboard";
+} from "granted/plugin-sdk/provider-onboard";
 
 export const OPENROUTER_DEFAULT_MODEL_REF = "openrouter/auto";
 const openrouterPresetAppliers = createAliasOnlyPresetAppliers({

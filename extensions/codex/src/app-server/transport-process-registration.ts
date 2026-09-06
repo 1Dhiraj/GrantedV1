@@ -1,7 +1,7 @@
 import type { ChildProcessWithoutNullStreams } from "node:child_process";
 import { createHash, randomUUID } from "node:crypto";
 import { once } from "node:events";
-import type { GrantedPluginService } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginService } from "granted/plugin-sdk/plugin-entry";
 import { z } from "zod";
 import { terminateCodexAppServerOrphan } from "./transport-process-containment.js";
 import {
@@ -34,7 +34,7 @@ function fingerprintProcessCommand(command: string): string {
 
 async function openProcessRegistrationStore() {
   const { createPluginStateSyncKeyedStore } =
-    await import("openclaw/plugin-sdk/plugin-state-store-runtime");
+    await import("granted/plugin-sdk/plugin-state-store-runtime");
   return createPluginStateSyncKeyedStore<ProcessRegistration>("codex", {
     namespace: "app-server-processes",
     maxEntries: 512,

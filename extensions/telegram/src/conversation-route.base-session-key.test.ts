@@ -1,11 +1,11 @@
 // Telegram tests cover conversation route.base session key plugin behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   testing as conversationBindingTesting,
   registerSessionBindingAdapter,
   type SessionBindingAdapter,
-} from "openclaw/plugin-sdk/conversation-runtime";
-import { resolveThreadSessionKeys } from "openclaw/plugin-sdk/routing";
+} from "granted/plugin-sdk/conversation-runtime";
+import { resolveThreadSessionKeys } from "granted/plugin-sdk/routing";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   resolveTelegramConversationBaseSessionKey,

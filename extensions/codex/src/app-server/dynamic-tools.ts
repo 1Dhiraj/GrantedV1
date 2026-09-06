@@ -3,7 +3,7 @@
  * tool-call responses.
  */
 import { createHash } from "node:crypto";
-import type { AgentToolResult } from "openclaw/plugin-sdk/agent-core";
+import type { AgentToolResult } from "granted/plugin-sdk/agent-core";
 import {
   consumeAdjustedParamsForToolCall,
   consumePreExecutionBlockedToolCall,
@@ -40,30 +40,30 @@ import {
   type MessagingToolSend,
   type MessagingToolSourceReplyPayload,
   wrapToolWithBeforeToolCallHook,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
+} from "granted/plugin-sdk/agent-harness-runtime";
 import {
   consumeTrustedToolNoStartError,
   getCoreTtsToolResultMediaUrls,
-} from "openclaw/plugin-sdk/agent-harness-tool-runtime";
-import { emitTrustedDiagnosticEvent } from "openclaw/plugin-sdk/diagnostic-runtime";
-import { expectDefined } from "openclaw/plugin-sdk/expect-runtime";
+} from "granted/plugin-sdk/agent-harness-tool-runtime";
+import { emitTrustedDiagnosticEvent } from "granted/plugin-sdk/diagnostic-runtime";
+import { expectDefined } from "granted/plugin-sdk/expect-runtime";
 import {
   type JsonSchemaObject,
   validateJsonSchemaValue,
-} from "openclaw/plugin-sdk/json-schema-runtime";
-import type { ImageContent, TextContent } from "openclaw/plugin-sdk/llm";
+} from "granted/plugin-sdk/json-schema-runtime";
+import type { ImageContent, TextContent } from "granted/plugin-sdk/llm";
 import {
   asNonArrayRecord,
   asOptionalRecord,
   isRecord,
   normalizeOptionalString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import {
   DEFAULT_MAX_LIVE_TOOL_RESULT_CHARS,
   estimateToolResultTextChars,
   resolveLiveToolResultMaxChars,
   sliceToolResultTextToBudget,
-} from "openclaw/plugin-sdk/text-utility-runtime";
+} from "granted/plugin-sdk/text-utility-runtime";
 import type { CodexDynamicToolsLoading } from "./config.js";
 import {
   createCodexDynamicToolSpecs,

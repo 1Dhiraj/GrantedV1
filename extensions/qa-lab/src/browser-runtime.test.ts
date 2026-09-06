@@ -1,5 +1,5 @@
 // Qa Lab tests cover browser runtime plugin behavior.
-import { MAX_TIMER_TIMEOUT_MS } from "openclaw/plugin-sdk/number-runtime";
+import { MAX_TIMER_TIMEOUT_MS } from "granted/plugin-sdk/number-runtime";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
   callQaBrowserRequest,

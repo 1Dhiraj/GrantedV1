@@ -2,7 +2,7 @@
 import { existsSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { uniqueStrings } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { uniqueStrings } from "granted/plugin-sdk/string-coerce-runtime";
 import type { QaProviderMode } from "./index.js";
 import { getQaProvider } from "./index.js";
 

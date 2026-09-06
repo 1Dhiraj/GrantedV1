@@ -1,5 +1,5 @@
 // File Transfer plugin module implements lazy node invoke policy behavior.
-import type { GrantedPluginNodeInvokePolicy } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginNodeInvokePolicy } from "granted/plugin-sdk/plugin-entry";
 import { FILE_TRANSFER_NODE_INVOKE_COMMANDS } from "./node-invoke-policy-commands.js";
 
 type LoadFileTransferNodeInvokePolicy = () => Promise<GrantedPluginNodeInvokePolicy>;

@@ -29,7 +29,7 @@ import {
   parseDiagnosticTraceparent,
   resetDiagnosticEventsForTest,
   waitForDiagnosticEventsDrained,
-} from "openclaw/plugin-sdk/diagnostic-runtime";
+} from "granted/plugin-sdk/diagnostic-runtime";
 import { afterEach, beforeEach, expect, test, vi } from "vitest";
 import { runModelCallAndCaptureTraceparent } from "../../../test/e2e/qa-lab/runtime/otel-model-call.test-support.js";
 import { startLocalOtlpReceiver } from "../../../test/e2e/qa-lab/runtime/otel-test-support.js";
@@ -806,7 +806,7 @@ test("leaves exec spans parentless rather than naming a span nobody exported", a
   // operator lands in when traces are enabled mid-turn.
   const requestScope = createDiagnosticTraceContext();
   const { emitDiagnosticEventWithTrustedTraceContext } =
-    await import("openclaw/plugin-sdk/plugin-test-runtime");
+    await import("granted/plugin-sdk/plugin-test-runtime");
   emitDiagnosticEventWithTrustedTraceContext({
     type: "exec.process.completed",
     target: "host",

@@ -1,7 +1,7 @@
 // Diffs plugin module implements plugin behavior.
 import fs from "node:fs";
 import path from "node:path";
-import { resolveLivePluginConfigObject } from "openclaw/plugin-sdk/plugin-config-runtime";
+import { resolveLivePluginConfigObject } from "granted/plugin-sdk/plugin-config-runtime";
 import {
   resolvePreferredOpenClawTmpDir,
   type GrantedConfig,

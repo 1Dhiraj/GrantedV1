@@ -23,7 +23,7 @@ const endpointMockState = vi.hoisted(() => ({
   responses: [] as Response[],
 }));
 vi.mock("openclaw/plugin-sdk/provider-web-search", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/provider-web-search")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/provider-web-search")>();
   return {
     ...actual,
     withTrustedWebSearchEndpoint: vi.fn(

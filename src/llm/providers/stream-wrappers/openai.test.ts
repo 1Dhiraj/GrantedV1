@@ -1,7 +1,7 @@
 // OpenAI stream wrapper tests cover streamed text, tools, and reasoning fields.
-import type { StreamFn } from "openclaw/plugin-sdk/agent-core";
-import type { Model } from "openclaw/plugin-sdk/llm";
-import { createAssistantMessageEventStream } from "openclaw/plugin-sdk/llm";
+import type { StreamFn } from "granted/plugin-sdk/agent-core";
+import type { Model } from "granted/plugin-sdk/llm";
+import { createAssistantMessageEventStream } from "granted/plugin-sdk/llm";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 const logger = vi.hoisted(() => ({ debug: vi.fn(), info: vi.fn() }));

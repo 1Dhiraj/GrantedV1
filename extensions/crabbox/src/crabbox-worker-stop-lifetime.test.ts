@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
-import { runCommandWithTimeout, type SpawnResult } from "openclaw/plugin-sdk/process-runtime";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
+import { runCommandWithTimeout, type SpawnResult } from "granted/plugin-sdk/process-runtime";
 import { describe, expect, it, vi } from "vitest";
 import { stopCrabboxLease } from "./crabbox-worker-command.js";
 import {

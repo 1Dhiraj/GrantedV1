@@ -4,8 +4,8 @@ import {
   type GatewayPresenceUpdate,
   PresenceUpdateStatus,
 } from "discord-api-types/v10";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { PluginStateSyncKeyedStore } from "openclaw/plugin-sdk/plugin-state-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { PluginStateSyncKeyedStore } from "granted/plugin-sdk/plugin-state-runtime";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { Client } from "../internal/discord.js";
 import { clearPresences } from "./presence-cache.js";

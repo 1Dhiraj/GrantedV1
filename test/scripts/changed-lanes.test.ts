@@ -769,7 +769,7 @@ describe("scripts/changed-lanes", () => {
       );
       const broken = targets[count - 1]!;
       const violation = [
-        'import { work } from "openclaw/plugin-sdk/discovery";',
+        'import { work } from "granted/plugin-sdk/discovery";',
         "export function run(ready: boolean) {",
         "  if (ready) return;",
         "  work(); fromCore(); fromUi(); fromPackage();",
@@ -838,7 +838,7 @@ describe("scripts/changed-lanes", () => {
       writeRepoFile(
         dir,
         file,
-        'import { work } from "openclaw/plugin-sdk/discovery";\nwork(); fromCore(); fromUi(); fromPackage();\n',
+        'import { work } from "granted/plugin-sdk/discovery";\nwork(); fromCore(); fromUi(); fromPackage();\n',
       );
     }
     writeRepoFile(dir, declarations[1]!, "export declare function work(): Promise<void>;\n");

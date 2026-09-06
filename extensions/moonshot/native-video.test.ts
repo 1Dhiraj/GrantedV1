@@ -1,14 +1,14 @@
 import { createServer } from "node:http";
 import { createOpenAICompletionsTransportStreamFn } from "@openclaw/ai/transports";
-import type { StreamFn } from "openclaw/plugin-sdk/agent-core";
-import { attachModelProviderRequestTransport } from "openclaw/plugin-sdk/agent-harness-runtime";
+import type { StreamFn } from "granted/plugin-sdk/agent-core";
+import { attachModelProviderRequestTransport } from "granted/plugin-sdk/agent-harness-runtime";
 import {
   createAssistantMessageEventStream,
   type Context,
   type Model,
   type ProviderContext,
-} from "openclaw/plugin-sdk/llm";
-import { registerSingleProviderPlugin } from "openclaw/plugin-sdk/plugin-test-runtime";
+} from "granted/plugin-sdk/llm";
+import { registerSingleProviderPlugin } from "granted/plugin-sdk/plugin-test-runtime";
 import { describe, expect, it, vi } from "vitest";
 import plugin from "./index.js";
 import { wrapMoonshotStream } from "./native-video.js";

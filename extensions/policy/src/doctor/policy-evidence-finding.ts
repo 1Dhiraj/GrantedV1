@@ -1,4 +1,4 @@
-import type { HealthFinding } from "openclaw/plugin-sdk/health";
+import type { HealthFinding } from "granted/plugin-sdk/health";
 import { POLICY_CHECK_IDS } from "./check-ids.js";
 
 export function policyEvidenceFinding(

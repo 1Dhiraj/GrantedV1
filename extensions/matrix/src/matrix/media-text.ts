@@ -3,7 +3,7 @@ import path from "node:path";
 import {
   asNullableObjectRecord,
   asNullableRecord,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import type {
   MatrixMessageAttachmentKind,
   MatrixMessageAttachmentSummary,

@@ -6,10 +6,10 @@ import {
   createSlackWriteClient,
   resolveSlackWebClientOptions,
 } from "@openclaw/slack/api.js";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { toStringifiedError } from "openclaw/plugin-sdk/error-runtime";
-import { acquireDebugProxyCaptureStore } from "openclaw/plugin-sdk/proxy-capture";
-import type { QaRunnerCliRegistration } from "openclaw/plugin-sdk/qa-runner-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { toStringifiedError } from "granted/plugin-sdk/error-runtime";
+import { acquireDebugProxyCaptureStore } from "granted/plugin-sdk/proxy-capture";
+import type { QaRunnerCliRegistration } from "granted/plugin-sdk/qa-runner-runtime";
 import {
   acquireQaCredentialLease,
   startQaCredentialLeaseHeartbeat,

@@ -1,27 +1,27 @@
 // Slack plugin module implements outbound adapter behavior.
 import { createHmac, randomBytes, timingSafeEqual } from "node:crypto";
-import type { ChannelOutboundContext } from "openclaw/plugin-sdk/channel-contract";
+import type { ChannelOutboundContext } from "granted/plugin-sdk/channel-contract";
 import {
   resolveOutboundSendDep,
   type OutboundIdentity,
-} from "openclaw/plugin-sdk/channel-outbound";
+} from "granted/plugin-sdk/channel-outbound";
 import {
   attachChannelToResult,
   type ChannelOutboundAdapter,
-} from "openclaw/plugin-sdk/channel-send-result";
+} from "granted/plugin-sdk/channel-send-result";
 import {
   normalizeMessagePresentation,
   resolveLegacyInteractiveTextFallback,
-} from "openclaw/plugin-sdk/interactive-runtime";
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
-import { questionGatewayRuntime } from "openclaw/plugin-sdk/question-gateway-runtime";
+} from "granted/plugin-sdk/interactive-runtime";
+import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
+import { questionGatewayRuntime } from "granted/plugin-sdk/question-gateway-runtime";
 import {
   resolvePayloadMediaUrls,
   sendPayloadMediaSequenceAndFinalize,
   sendTextMediaPayload,
-} from "openclaw/plugin-sdk/reply-payload";
-import type { ReplyPayload } from "openclaw/plugin-sdk/reply-runtime";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/reply-payload";
+import type { ReplyPayload } from "granted/plugin-sdk/reply-runtime";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import { resolveSlackAccount, resolveSlackOperationToken } from "./accounts.js";
 import {
   resolveSlackAuthoredTextPlacement,

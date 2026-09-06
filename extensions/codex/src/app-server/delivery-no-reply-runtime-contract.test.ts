@@ -2,12 +2,12 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import type { EmbeddedRunAttemptParamsV2 as EmbeddedRunAttemptParams } from "openclaw/plugin-sdk/agent-harness";
+import type { EmbeddedRunAttemptParamsV2 as EmbeddedRunAttemptParams } from "granted/plugin-sdk/agent-harness";
 import {
   DELIVERY_NO_REPLY_RUNTIME_CONTRACT,
   openFileBackedSessionManagerForTest,
-} from "openclaw/plugin-sdk/agent-runtime-test-contracts";
-import { isSilentReplyPayloadText } from "openclaw/plugin-sdk/reply-chunking";
+} from "granted/plugin-sdk/agent-runtime-test-contracts";
+import { isSilentReplyPayloadText } from "granted/plugin-sdk/reply-chunking";
 import { afterEach, describe, expect, it } from "vitest";
 import { CodexAppServerEventProjector } from "./event-projector.js";
 import { createCodexTestModel } from "./test-support.js";

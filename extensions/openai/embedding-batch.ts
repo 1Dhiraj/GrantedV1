@@ -1,4 +1,4 @@
-import { coerceErrorMessage as formatOpenAiBatchError } from "openclaw/plugin-sdk/error-runtime";
+import { coerceErrorMessage as formatOpenAiBatchError } from "granted/plugin-sdk/error-runtime";
 // Openai plugin module implements embedding batch behavior.
 import {
   applyEmbeddingBatchOutputLine,
@@ -22,7 +22,7 @@ import {
   type ProviderBatchOutputLine,
   uploadBatchJsonlFile,
   withRemoteHttpResponse,
-} from "openclaw/plugin-sdk/memory-core-host-engine-embeddings";
+} from "granted/plugin-sdk/memory-core-host-engine-embeddings";
 import {
   assertOkOrThrowProviderError,
   createProviderOperationDeadline,
@@ -30,8 +30,8 @@ import {
   readProviderTextResponse,
   resolveProviderOperationTimeoutMs,
   waitProviderOperationPollInterval,
-} from "openclaw/plugin-sdk/provider-http";
-import { normalizeStringEntries } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/provider-http";
+import { normalizeStringEntries } from "granted/plugin-sdk/string-coerce-runtime";
 import type { OpenAiEmbeddingClient } from "./embedding-provider.js";
 
 type OpenAiBatchRequest = {

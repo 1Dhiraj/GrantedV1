@@ -1,8 +1,8 @@
 // Codex tests cover shared client plugin behavior.
 import fs from "node:fs/promises";
 import path from "node:path";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
-import { withTempDir } from "openclaw/plugin-sdk/test-env";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
+import { withTempDir } from "granted/plugin-sdk/test-env";
 import { afterEach, beforeAll, describe, expect, it, vi } from "vitest";
 import { WebSocketServer, type RawData } from "ws";
 import type { CodexAppServerPreparedAuth } from "./auth-bridge.js";
@@ -100,7 +100,7 @@ vi.mock("./desktop-generation.js", () => ({
 
 vi.mock("openclaw/plugin-sdk/agent-harness-runtime", async (importOriginal) => ({
   AgentHarnessPreflightError: (
-    await importOriginal<typeof import("openclaw/plugin-sdk/agent-harness-runtime")>()
+    await importOriginal<typeof import("granted/plugin-sdk/agent-harness-runtime")>()
   ).AgentHarnessPreflightError,
   embeddedAgentLog: mocks.embeddedAgentLog,
   formatErrorMessage: (error: unknown) => String(error),

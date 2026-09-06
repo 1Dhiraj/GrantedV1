@@ -1,12 +1,12 @@
 // Discord type declarations define plugin contracts.
-import type { InboundEventKind } from "openclaw/plugin-sdk/channel-inbound";
+import type { InboundEventKind } from "granted/plugin-sdk/channel-inbound";
 import type {
   ChannelIngressContextBinding,
   ResolvedChannelMessageIngress,
-} from "openclaw/plugin-sdk/channel-ingress-runtime";
-import type { GrantedConfig, ReplyToMode } from "openclaw/plugin-sdk/config-contracts";
-import type { SessionBindingRecord } from "openclaw/plugin-sdk/conversation-runtime";
-import type { resolveAgentRoute } from "openclaw/plugin-sdk/routing";
+} from "granted/plugin-sdk/channel-ingress-runtime";
+import type { GrantedConfig, ReplyToMode } from "granted/plugin-sdk/config-contracts";
+import type { SessionBindingRecord } from "granted/plugin-sdk/conversation-runtime";
+import type { resolveAgentRoute } from "granted/plugin-sdk/routing";
 import type { ChannelType, Client, User } from "../internal/discord.js";
 import type { DiscordChannelConfigResolved, DiscordGuildEntryResolved } from "./allow-list.js";
 import type { DiscordIngressLifecycle } from "./ingress.js";
@@ -22,15 +22,15 @@ export type { DiscordSenderIdentity } from "./sender-identity.js";
 
 type LoadedConfig = GrantedConfig;
 type BuildChannelInboundContext =
-  typeof import("openclaw/plugin-sdk/channel-inbound").buildChannelInboundEventContext;
-export type RuntimeEnv = import("openclaw/plugin-sdk/runtime-env").RuntimeEnv;
+  typeof import("granted/plugin-sdk/channel-inbound").buildChannelInboundEventContext;
+export type RuntimeEnv = import("granted/plugin-sdk/runtime-env").RuntimeEnv;
 
 export type DiscordMessageEvent = import("./listeners.js").DiscordMessageEvent;
 
 type DiscordMessagePreflightSharedFields = {
   cfg: LoadedConfig;
   discordConfig: NonNullable<
-    import("openclaw/plugin-sdk/config-contracts").GrantedConfig["channels"]
+    import("granted/plugin-sdk/config-contracts").GrantedConfig["channels"]
   >["discord"];
   accountId: string;
   token: string;

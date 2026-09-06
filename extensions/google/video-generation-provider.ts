@@ -1,21 +1,21 @@
 // Google provider module implements model/runtime integration.
-import { resolveGeneratedMediaMaxBytes } from "openclaw/plugin-sdk/media-generation-runtime";
-import { resolveApiKeyForProvider } from "openclaw/plugin-sdk/provider-auth-runtime";
+import { resolveGeneratedMediaMaxBytes } from "granted/plugin-sdk/media-generation-runtime";
+import { resolveApiKeyForProvider } from "granted/plugin-sdk/provider-auth-runtime";
 import {
   createProviderOperationDeadline,
   executeProviderOperationWithRetry,
   readProviderJsonResponse,
   resolveProviderOperationTimeoutMs,
   waitProviderOperationPollInterval,
-} from "openclaw/plugin-sdk/provider-http";
-import { readResponseWithLimit } from "openclaw/plugin-sdk/response-limit-runtime";
-import { fetchWithSsrFGuard } from "openclaw/plugin-sdk/ssrf-runtime";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/provider-http";
+import { readResponseWithLimit } from "granted/plugin-sdk/response-limit-runtime";
+import { fetchWithSsrFGuard } from "granted/plugin-sdk/ssrf-runtime";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import type {
   GeneratedVideoAsset,
   VideoGenerationProvider,
   VideoGenerationRequest,
-} from "openclaw/plugin-sdk/video-generation";
+} from "granted/plugin-sdk/video-generation";
 import { parseGeminiAuth, resolveGoogleGenerativeAiApiOrigin } from "./api.js";
 import { canonicalizeGoogleProviderBase64 } from "./base64.js";
 import {

@@ -1,12 +1,12 @@
 // Hermes MCP config mapping and manual follow-up planning.
-import { createMigrationManualItem } from "openclaw/plugin-sdk/migration";
-import type { MigrationItem } from "openclaw/plugin-sdk/plugin-entry";
+import { createMigrationManualItem } from "granted/plugin-sdk/migration";
+import type { MigrationItem } from "granted/plugin-sdk/plugin-entry";
 import {
   asBoolean,
   isRecord,
   normalizeOptionalString,
   parseBooleanValue,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import { mcpValueHasEnvReferences, resolveMcpEnvReferences } from "./config-env.js";
 import { readPositiveNumber } from "./config-provider-contract.js";
 import { sanitizeName } from "./helpers.js";

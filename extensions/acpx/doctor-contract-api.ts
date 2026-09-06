@@ -1,12 +1,12 @@
 // ACPX doctor contract repairs shipped config and migrates plugin-owned runtime state.
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   archiveLegacyStateSource,
   asObjectRecord,
   type PluginDoctorStateMigration,
-} from "openclaw/plugin-sdk/runtime-doctor-migrations";
+} from "granted/plugin-sdk/runtime-doctor-migrations";
 import {
   normalizeAcpxProcessLease,
   normalizeAcpxProcessLeaseFile,

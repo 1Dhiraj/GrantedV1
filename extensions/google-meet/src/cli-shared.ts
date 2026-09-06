@@ -6,13 +6,13 @@ import {
   callGatewayFromCli,
   isGatewayClientRequestError,
   isGatewayTransportError,
-} from "openclaw/plugin-sdk/gateway-runtime";
+} from "granted/plugin-sdk/gateway-runtime";
 import {
   clampTimerTimeoutMs,
   parseStrictPositiveInteger,
-} from "openclaw/plugin-sdk/number-runtime";
-import { replaceFileAtomic } from "openclaw/plugin-sdk/security-runtime";
-import { formatDurationCompact } from "openclaw/plugin-sdk/time-runtime";
+} from "granted/plugin-sdk/number-runtime";
+import { replaceFileAtomic } from "granted/plugin-sdk/security-runtime";
+import { formatDurationCompact } from "granted/plugin-sdk/time-runtime";
 import type { GoogleMeetCalendarLookupResult } from "./calendar.js";
 import type { GoogleMeetModeInput, GoogleMeetTransport } from "./config.js";
 import type { GoogleMeetRuntime } from "./runtime.js";

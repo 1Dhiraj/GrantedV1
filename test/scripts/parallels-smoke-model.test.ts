@@ -1780,12 +1780,12 @@ if (commandArgs[0] === "list") {
     expect(macos).toContain('const guestOpenClaw = "openclaw"');
     expect(macos).toContain('const guestNode = "node"');
     expect(macos).toContain('const guestNpm = "npm"');
-    expect(macos).toContain("$(npm root -g)/openclaw/openclaw.mjs");
+    expect(macos).toContain("$(npm root -g)/openclaw/granted.mjs");
     expect(macos).toContain("guestOpenClawEntryExec");
     expect(macos).not.toContain('const guestOpenClaw = "/opt/homebrew/bin/openclaw"');
     expect(macos).not.toContain('const guestNode = "/opt/homebrew/bin/node"');
     expect(macos).not.toContain('const guestNpm = "/opt/homebrew/bin/npm"');
-    expect(macos).not.toContain("/opt/homebrew/lib/node_modules/openclaw/openclaw.mjs");
+    expect(macos).not.toContain("/opt/homebrew/lib/node_modules/openclaw/granted.mjs");
   });
 
   it("keeps Windows gateway reachability on a real deadline with start recovery", () => {
@@ -2594,7 +2594,7 @@ if (commandArgs[0] === "list") {
     expect(powershell).toContain("delete selectedModelEntry.agentRuntime");
     expect(powershell).toContain("delete providerEntry.agentRuntime");
     expect(powershell).toContain("Resolve-GrantedCommand");
-    expect(powershell).toContain("npm\\node_modules\\openclaw\\openclaw.mjs");
+    expect(powershell).toContain("npm\\node_modules\\openclaw\\granted.mjs");
     expect(powershell).toContain("$ErrorActionPreference = 'Continue'");
     expect(powershell).toContain("$PSNativeCommandUseErrorActionPreference = $false");
     expect(windows).toContain("windowsOpenClawResolver");

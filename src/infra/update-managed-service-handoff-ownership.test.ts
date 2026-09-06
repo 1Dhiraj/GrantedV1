@@ -223,7 +223,7 @@ async function runOwnershipHelper(params: {
     restartDrainTimeoutMs: 300_000,
     parentPid: process.pid,
     execPath: "/usr/local/bin/node",
-    argv1: "/opt/openclaw/openclaw.mjs",
+    argv1: "/opt/openclaw/granted.mjs",
     ...(params.handoffId ? { handoffId: params.handoffId } : {}),
     env,
     meta: {

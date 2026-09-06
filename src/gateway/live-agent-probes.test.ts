@@ -20,7 +20,7 @@ describe("live-agent-probes", () => {
       "list",
     ]);
     expect(resolveOpenClawCliProcessArgs(["cron", "list"], true)).toEqual([
-      "openclaw.mjs",
+      "granted.mjs",
       "cron",
       "list",
     ]);

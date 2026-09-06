@@ -1,6 +1,6 @@
 import { createServer } from "node:http";
 import type { AddressInfo } from "node:net";
-import type { LookupFn } from "openclaw/plugin-sdk/ssrf-runtime";
+import type { LookupFn } from "granted/plugin-sdk/ssrf-runtime";
 import { describe, expect, it, vi } from "vitest";
 import { claimClickClackSetupCode } from "./setup-claim.js";
 

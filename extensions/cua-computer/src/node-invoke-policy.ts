@@ -1,12 +1,12 @@
 import {
   parseComputerActParamsJSON,
   type ComputerActParams,
-} from "openclaw/plugin-sdk/computer-use";
+} from "granted/plugin-sdk/computer-use";
 import type {
   GrantedPluginNodeInvokePolicy,
   GrantedPluginNodeInvokePolicyContext,
-} from "openclaw/plugin-sdk/plugin-entry";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/plugin-entry";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 
 const COMPUTER_ACT_COMMAND = "computer.act";
 

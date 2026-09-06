@@ -1,20 +1,20 @@
 // Xai plugin module implements xai oauth behavior.
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
 import {
   positiveSecondsToSafeMilliseconds,
   resolveExpiresAtMsFromDurationSeconds,
   resolveExpiresAtMsFromEpochSeconds,
-} from "openclaw/plugin-sdk/number-runtime";
-import type { ProviderAuthContext } from "openclaw/plugin-sdk/plugin-entry";
+} from "granted/plugin-sdk/number-runtime";
+import type { ProviderAuthContext } from "granted/plugin-sdk/plugin-entry";
 import {
   buildOauthProviderAuthResult,
   toFormUrlEncoded,
   type OAuthCredential,
   type ProviderAuthResult,
-} from "openclaw/plugin-sdk/provider-auth";
-import { readResponseWithLimit } from "openclaw/plugin-sdk/response-limit-runtime";
-import { sleep } from "openclaw/plugin-sdk/runtime-env";
-import { asOptionalRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/provider-auth";
+import { readResponseWithLimit } from "granted/plugin-sdk/response-limit-runtime";
+import { sleep } from "granted/plugin-sdk/runtime-env";
+import { asOptionalRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import { applyXaiOAuthConfig, XAI_OAUTH_DEFAULT_MODEL_REF } from "./onboard.js";
 import { xaiUserAgent } from "./src/xai-user-agent.js";
 

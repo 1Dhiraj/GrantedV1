@@ -1,8 +1,8 @@
 import {
   asOptionalRecord,
   normalizeOptionalString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
+import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import { extractTextContentParts } from "./query.js";
 import {
   ACTIVE_MEMORY_PLUGIN_TAG,

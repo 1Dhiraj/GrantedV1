@@ -1,7 +1,7 @@
 import {
   createWebSearchProviderContractFields,
   type WebSearchProviderPlugin,
-} from "openclaw/plugin-sdk/provider-web-search-contract";
+} from "granted/plugin-sdk/provider-web-search-contract";
 
 export function createCodexWebSearchProviderBase(): Omit<WebSearchProviderPlugin, "createTool"> {
   return {

@@ -1,7 +1,7 @@
 // Memory Wiki tests cover ingest plugin behavior.
 import fs from "node:fs/promises";
 import path from "node:path";
-import { KeyedAsyncQueue } from "openclaw/plugin-sdk/keyed-async-queue";
+import { KeyedAsyncQueue } from "granted/plugin-sdk/keyed-async-queue";
 import { describe, expect, it, vi } from "vitest";
 import { ingestMemoryWikiSource } from "./ingest.js";
 import { withMemoryWikiVaultMutation } from "./mutation-coordinator.js";

@@ -2,7 +2,7 @@
 import {
   isRecord,
   normalizeOptionalString as readNonEmptyString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 
 type GatewayLogSentinelKind =
   | "plugin-hook-failure"

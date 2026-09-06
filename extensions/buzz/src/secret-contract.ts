@@ -5,8 +5,8 @@ import {
   isRecord,
   type ResolverContext,
   type SecretDefaults,
-} from "openclaw/plugin-sdk/channel-secret-basic-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+} from "granted/plugin-sdk/channel-secret-basic-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { resolveBuzzAccountConfig } from "./types.js";
 
 const fields = ["privateKey", "authTag"] as const;

@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 // Onboard auth tests cover provider auth setup, credential persistence, and auth-profile state.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   createAuthTestLifecycle,

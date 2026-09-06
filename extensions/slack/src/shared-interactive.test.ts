@@ -1,5 +1,5 @@
 // Slack tests cover shared interactive plugin behavior.
-import type { MessagePresentation } from "openclaw/plugin-sdk/interactive-runtime";
+import type { MessagePresentation } from "granted/plugin-sdk/interactive-runtime";
 import { describe, expect, it } from "vitest";
 import {
   buildSlackInteractiveBlocks,

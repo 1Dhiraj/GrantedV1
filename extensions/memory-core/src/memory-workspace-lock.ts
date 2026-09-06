@@ -1,11 +1,11 @@
 import { AsyncLocalStorage } from "node:async_hooks";
-import { KeyedAsyncQueue } from "openclaw/plugin-sdk/keyed-async-queue";
-import type { PluginStateKeyedStore } from "openclaw/plugin-sdk/plugin-state-runtime";
+import { KeyedAsyncQueue } from "granted/plugin-sdk/keyed-async-queue";
+import type { PluginStateKeyedStore } from "granted/plugin-sdk/plugin-state-runtime";
 import {
   getFileLockProcessStartTime,
   isPidDefinitelyDead,
-} from "openclaw/plugin-sdk/process-runtime";
-import { sleep } from "openclaw/plugin-sdk/runtime-env";
+} from "granted/plugin-sdk/process-runtime";
+import { sleep } from "granted/plugin-sdk/runtime-env";
 import {
   SHORT_TERM_LOCK_MAX_ENTRIES,
   SHORT_TERM_LOCK_NAMESPACE,

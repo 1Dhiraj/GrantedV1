@@ -2,7 +2,7 @@
 import { randomUUID } from "node:crypto";
 import { createServer, type IncomingMessage } from "node:http";
 import path from "node:path";
-import { readSessionTranscriptRawDelta } from "openclaw/plugin-sdk/session-transcript-runtime";
+import { readSessionTranscriptRawDelta } from "granted/plugin-sdk/session-transcript-runtime";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   listSessionEntriesCore,

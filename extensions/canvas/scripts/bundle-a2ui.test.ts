@@ -2,7 +2,7 @@
 import { execFileSync } from "node:child_process";
 import fs from "node:fs/promises";
 import path from "node:path";
-import { resolvePreferredOpenClawTmpDir, withTempWorkspace } from "openclaw/plugin-sdk/temp-path";
+import { resolvePreferredOpenClawTmpDir, withTempWorkspace } from "granted/plugin-sdk/temp-path";
 import { describe, expect, it, vi } from "vitest";
 import {
   compareNormalizedPaths,

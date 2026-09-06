@@ -1,8 +1,8 @@
 // Discord plugin module implements setup core behavior.
-import { DEFAULT_ACCOUNT_ID } from "openclaw/plugin-sdk/account-id";
-import { createChannelDmPolicy } from "openclaw/plugin-sdk/channel-dm-policy";
-import type { DiscordGuildEntry, GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { ChannelSetupDmPolicy, ChannelSetupWizard } from "openclaw/plugin-sdk/setup-runtime";
+import { DEFAULT_ACCOUNT_ID } from "granted/plugin-sdk/account-id";
+import { createChannelDmPolicy } from "granted/plugin-sdk/channel-dm-policy";
+import type { DiscordGuildEntry, GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { ChannelSetupDmPolicy, ChannelSetupWizard } from "granted/plugin-sdk/setup-runtime";
 import {
   createAccountScopedAllowFromSection,
   createAccountScopedGroupAccessSection,
@@ -12,9 +12,9 @@ import {
   parseMentionOrPrefixedId,
   patchChannelConfigForAccount,
   setSetupChannelEnabled,
-} from "openclaw/plugin-sdk/setup-runtime";
-import { formatDocsLink } from "openclaw/plugin-sdk/setup-tools";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/setup-runtime";
+import { formatDocsLink } from "granted/plugin-sdk/setup-tools";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   inspectDiscordSetupAccount,
   resolveDiscordSetupAccountConfig,

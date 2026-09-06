@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 // Doctor device pairing tests cover device-pairing checks, repair prompts, and diagnostics.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { storeDeviceAuthToken } from "../infra/device-auth-store.js";
 import {

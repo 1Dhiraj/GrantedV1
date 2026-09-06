@@ -3,7 +3,7 @@ import os from "node:os";
 import path from "node:path";
 import { Command } from "commander";
 // Config CLI tests cover config command registration, reads, writes, and output modes.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { ConfigMutationConflictError } from "../config/mutation-conflict.js";
 import type { ConfigFileSnapshot, GrantedConfig } from "../config/types.js";

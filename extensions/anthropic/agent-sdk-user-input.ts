@@ -2,8 +2,8 @@ import type { PermissionResult as ClaudeAgentSdkPermissionResult } from "@anthro
 import type {
   CliBackendExecuteContext,
   CliBackendUserInputQuestion,
-} from "openclaw/plugin-sdk/cli-backend";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/cli-backend";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 
 export function createClaudeAgentSdkUserInputAuthorizer(context: CliBackendExecuteContext) {
   const requests = new Map<string, Promise<ClaudeAgentSdkPermissionResult>>();

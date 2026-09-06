@@ -5,7 +5,7 @@ import {
   isAcpSessionKey,
   isCronSessionKey,
   isSubagentSessionKey,
-} from "openclaw/plugin-sdk/routing";
+} from "granted/plugin-sdk/routing";
 import { getRuntimeConfig } from "../config/config.js";
 import {
   resolveBrowserConfig,

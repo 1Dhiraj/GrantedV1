@@ -1,4 +1,4 @@
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
+import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
 import type { MatrixClient } from "../sdk.js";
 import { MATRIX_GRANTED_FINALIZED_PREVIEW_KEY } from "../send/types.js";
 
@@ -33,11 +33,11 @@ export function buildMatrixFinalizedPreviewContent(): Record<string, unknown> {
 export const loadMatrixSendModule = createLazyRuntimeModule(() => import("../send.js"));
 
 export const loadAcpBindingRuntime = createLazyRuntimeModule(
-  () => import("openclaw/plugin-sdk/acp-binding-runtime"),
+  () => import("granted/plugin-sdk/acp-binding-runtime"),
 );
 
 export const loadSessionBindingRuntime = createLazyRuntimeModule(
-  () => import("openclaw/plugin-sdk/session-binding-runtime"),
+  () => import("granted/plugin-sdk/session-binding-runtime"),
 );
 
 export const loadMatrixReactionEvents = createLazyRuntimeModule(

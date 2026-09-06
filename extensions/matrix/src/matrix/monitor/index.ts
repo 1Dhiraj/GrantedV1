@@ -1,24 +1,24 @@
 // Matrix plugin entrypoint registers its OpenClaw integration.
 import { format } from "node:util";
-import { CHANNEL_APPROVAL_NATIVE_RUNTIME_CONTEXT_CAPABILITY } from "openclaw/plugin-sdk/approval-handler-adapter-runtime";
-import type { ChannelRuntimeSurface } from "openclaw/plugin-sdk/channel-contract";
+import { CHANNEL_APPROVAL_NATIVE_RUNTIME_CONTEXT_CAPABILITY } from "granted/plugin-sdk/approval-handler-adapter-runtime";
+import type { ChannelRuntimeSurface } from "granted/plugin-sdk/channel-contract";
 import {
   resolveChannelStreamingBlockEnabled,
   waitUntilAbort,
-} from "openclaw/plugin-sdk/channel-outbound";
-import { registerChannelRuntimeContext } from "openclaw/plugin-sdk/channel-runtime-context";
-import { resolveOptionalIntegerOption } from "openclaw/plugin-sdk/number-runtime";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime";
+} from "granted/plugin-sdk/channel-outbound";
+import { registerChannelRuntimeContext } from "granted/plugin-sdk/channel-runtime-context";
+import { resolveOptionalIntegerOption } from "granted/plugin-sdk/number-runtime";
+import type { RuntimeEnv } from "granted/plugin-sdk/runtime";
 import {
   GROUP_POLICY_BLOCKED_LABEL,
   resolveAllowlistProviderRuntimeGroupPolicy,
   resolveDefaultGroupPolicy,
   warnMissingProviderGroupPolicyFallbackOnce,
-} from "openclaw/plugin-sdk/runtime-group-policy";
+} from "granted/plugin-sdk/runtime-group-policy";
 import {
   resolveThreadBindingIdleTimeoutMsForChannel,
   resolveThreadBindingMaxAgeMsForChannel,
-} from "openclaw/plugin-sdk/thread-bindings-runtime";
+} from "granted/plugin-sdk/thread-bindings-runtime";
 import { getMatrixRuntime } from "../../runtime.js";
 import type {
   CoreConfig,
@@ -66,7 +66,7 @@ type MonitorMatrixOpts = {
   initialSyncLimit?: number;
   replyToMode?: ReplyToMode;
   accountId?: string | null;
-  setStatus?: (next: import("openclaw/plugin-sdk/channel-contract").ChannelAccountSnapshot) => void;
+  setStatus?: (next: import("granted/plugin-sdk/channel-contract").ChannelAccountSnapshot) => void;
 };
 
 type MatrixStreamingInput = MatrixStreamingConfig | undefined;

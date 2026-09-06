@@ -13,7 +13,7 @@ import {
   type Api,
   type Model,
   type ModelThinkingLevel,
-} from "openclaw/plugin-sdk/llm";
+} from "granted/plugin-sdk/llm";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { renderCatNoncePngBase64 } from "../../test/helpers/live-image-probe.js";
 import { installTestEnv } from "../../test/test-env.js";

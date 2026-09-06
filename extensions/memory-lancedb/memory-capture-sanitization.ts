@@ -1,7 +1,7 @@
-import { BUNDLED_CHAT_CHANNEL_ENVELOPE_PREFIXES } from "openclaw/plugin-sdk/chat-channel-ids";
-import { expectDefined } from "openclaw/plugin-sdk/expect-runtime";
-import { MESSAGE_TOOL_DELIVERY_HINTS } from "openclaw/plugin-sdk/message-tool-delivery-hints";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+import { BUNDLED_CHAT_CHANNEL_ENVELOPE_PREFIXES } from "granted/plugin-sdk/chat-channel-ids";
+import { expectDefined } from "granted/plugin-sdk/expect-runtime";
+import { MESSAGE_TOOL_DELIVERY_HINTS } from "granted/plugin-sdk/message-tool-delivery-hints";
+import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 
 const MEDIA_NOTE_HEADER = /^\[media attached(?: \d+\/\d+)?: /;
 

@@ -1,6 +1,6 @@
 // Memory Core tests cover dreaming plugin behavior.
 import { expectDefined } from "@openclaw/normalization-core";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   DEFAULT_MEMORY_DEEP_DREAMING_LIMIT,
   DEFAULT_MEMORY_DEEP_DREAMING_MAX_PROMOTED_SNIPPET_TOKENS,
@@ -13,11 +13,11 @@ import {
   MANAGED_MEMORY_DREAMING_CRON_NAME,
   MANAGED_MEMORY_DREAMING_CRON_TAG,
   MEMORY_DREAMING_SYSTEM_EVENT_TEXT,
-} from "openclaw/plugin-sdk/memory-core-host-status";
+} from "granted/plugin-sdk/memory-core-host-status";
 import {
   enqueueSystemEvent,
   resetSystemEventsForTest,
-} from "openclaw/plugin-sdk/system-event-runtime";
+} from "granted/plugin-sdk/system-event-runtime";
 import { afterEach, beforeAll, describe, expect, it, vi } from "vitest";
 import {
   registerShortTermPromotionDreaming,

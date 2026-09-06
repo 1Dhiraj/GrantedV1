@@ -13,27 +13,27 @@ import {
   type BuildMentionRegexesOptions,
   type InboundEventKind,
   type NormalizedLocation,
-} from "openclaw/plugin-sdk/channel-inbound";
-import { hasControlCommand } from "openclaw/plugin-sdk/command-detection";
-import { isAbortRequestText } from "openclaw/plugin-sdk/command-primitives-runtime";
+} from "granted/plugin-sdk/channel-inbound";
+import { hasControlCommand } from "granted/plugin-sdk/command-detection";
+import { isAbortRequestText } from "granted/plugin-sdk/command-primitives-runtime";
 import type {
   GrantedConfig,
   TelegramDirectConfig,
   TelegramGroupConfig,
   TelegramTopicConfig,
-} from "openclaw/plugin-sdk/config-contracts";
+} from "granted/plugin-sdk/config-contracts";
 import {
   createInternalHookEvent,
   fireAndForgetHook,
   toInternalMessageReceivedContext,
   triggerInternalHook,
-} from "openclaw/plugin-sdk/hook-runtime";
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
-import { formatAudioTranscriptForAgent } from "openclaw/plugin-sdk/media-understanding-runtime";
-import type { HistoryEntry } from "openclaw/plugin-sdk/reply-history";
-import type { MsgContext } from "openclaw/plugin-sdk/reply-runtime";
-import { logVerbose } from "openclaw/plugin-sdk/runtime-env";
-import { normalizeOptionalLowercaseString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/hook-runtime";
+import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
+import { formatAudioTranscriptForAgent } from "granted/plugin-sdk/media-understanding-runtime";
+import type { HistoryEntry } from "granted/plugin-sdk/reply-history";
+import type { MsgContext } from "granted/plugin-sdk/reply-runtime";
+import { logVerbose } from "granted/plugin-sdk/runtime-env";
+import { normalizeOptionalLowercaseString } from "granted/plugin-sdk/string-coerce-runtime";
 import type { NormalizedAllowFrom } from "./bot-access.js";
 import type {
   TelegramLogger,

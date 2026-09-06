@@ -2,19 +2,19 @@ import type { Bot, Context } from "grammy";
 import {
   isChannelPartialDeliveryError,
   type ChannelInboundTurnPlan,
-} from "openclaw/plugin-sdk/channel-inbound";
-import { resolveChannelStreamingBlockEnabled } from "openclaw/plugin-sdk/channel-outbound";
-import { resolveNativeCommandSessionTargets } from "openclaw/plugin-sdk/command-auth-native";
+} from "granted/plugin-sdk/channel-inbound";
+import { resolveChannelStreamingBlockEnabled } from "granted/plugin-sdk/channel-outbound";
+import { resolveNativeCommandSessionTargets } from "granted/plugin-sdk/command-auth-native";
 import type {
   ChannelGroupPolicy,
   GrantedConfig,
   TelegramAccountConfig,
-} from "openclaw/plugin-sdk/config-contracts";
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
-import { resolveMarkdownTableMode } from "openclaw/plugin-sdk/markdown-table-runtime";
-import { PLUGIN_COMMAND_DISPATCH } from "openclaw/plugin-sdk/plugin-command-runtime";
-import { danger, logVerbose, type RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
-import { resolveStorePath } from "openclaw/plugin-sdk/session-store-runtime";
+} from "granted/plugin-sdk/config-contracts";
+import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
+import { resolveMarkdownTableMode } from "granted/plugin-sdk/markdown-table-runtime";
+import { PLUGIN_COMMAND_DISPATCH } from "granted/plugin-sdk/plugin-command-runtime";
+import { danger, logVerbose, type RuntimeEnv } from "granted/plugin-sdk/runtime-env";
+import { resolveStorePath } from "granted/plugin-sdk/session-store-runtime";
 import { expandTelegramAllowFromWithAccessGroups } from "./access-groups.js";
 import { resolveTelegramAccountOwnerAgentId } from "./account-owner.js";
 import { resolveTelegramAccount } from "./accounts.js";
@@ -489,7 +489,7 @@ export async function prepareTelegramCommandDispatch(
 export async function dispatchTelegramBuiltinTurn(params: {
   dispatch: TelegramCommandDispatch;
   prompt: string;
-  commandArgs?: import("openclaw/plugin-sdk/command-auth-native").CommandArgs;
+  commandArgs?: import("granted/plugin-sdk/command-auth-native").CommandArgs;
 }): Promise<boolean> {
   const { dispatch } = params;
   const { skillFilter, groupSystemPrompt } = resolveTelegramGroupPromptSettings({

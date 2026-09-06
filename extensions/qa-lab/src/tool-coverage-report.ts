@@ -1,9 +1,9 @@
 // Qa Lab plugin module implements tool coverage report behavior.
-import { expectDefined } from "openclaw/plugin-sdk/expect-runtime";
+import { expectDefined } from "granted/plugin-sdk/expect-runtime";
 import {
   isRecord,
   normalizeOptionalString as readString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import {
   isRuntimeParityCellPassable,
   type RuntimeId,

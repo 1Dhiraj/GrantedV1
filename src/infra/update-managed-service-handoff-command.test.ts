@@ -92,7 +92,7 @@ async function startHandoffAndReadCommand(params: {
     ...(params.tag ? { tag: params.tag } : {}),
     parentPid: process.pid,
     execPath: "/usr/local/bin/node",
-    argv1: "/opt/openclaw/openclaw.mjs",
+    argv1: "/opt/openclaw/granted.mjs",
     meta: {},
     ...(params.devTarget ? { devTarget: params.devTarget } : {}),
     ...(params.env ? { env: params.env } : {}),
@@ -152,7 +152,7 @@ describe("managed service update handoff command", () => {
 
     expect(result.commandArgv).toEqual([
       "/usr/local/bin/node",
-      "/opt/openclaw/openclaw.mjs",
+      "/opt/openclaw/granted.mjs",
       "update",
       "--yes",
       "--json",
@@ -170,7 +170,7 @@ describe("managed service update handoff command", () => {
 
     expect(result.commandArgv).toEqual([
       "/usr/local/bin/node",
-      "/opt/openclaw/openclaw.mjs",
+      "/opt/openclaw/granted.mjs",
       "update",
       "--yes",
       "--json",

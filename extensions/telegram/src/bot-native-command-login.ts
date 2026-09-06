@@ -1,13 +1,13 @@
 // Telegram plugin module implements native Codex login behavior.
-import type { CommandArgs } from "openclaw/plugin-sdk/command-auth-native";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
-import { codexChannelLoginRuntime } from "openclaw/plugin-sdk/provider-auth-login-flow-runtime";
-import { danger } from "openclaw/plugin-sdk/runtime-env";
+import type { CommandArgs } from "granted/plugin-sdk/command-auth-native";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
+import { codexChannelLoginRuntime } from "granted/plugin-sdk/provider-auth-login-flow-runtime";
+import { danger } from "granted/plugin-sdk/runtime-env";
 import {
   resolveStorePath,
   updateSessionStoreEntry,
-} from "openclaw/plugin-sdk/session-store-runtime";
-import { escapeHtml } from "openclaw/plugin-sdk/text-utility-runtime";
+} from "granted/plugin-sdk/session-store-runtime";
+import { escapeHtml } from "granted/plugin-sdk/text-utility-runtime";
 import { withTelegramApiErrorLogging } from "./api-logging.js";
 import { defaultTelegramNativeCommandDeps } from "./bot-native-command-deps.runtime.js";
 import type { TelegramCommandDispatch } from "./bot-native-command-dispatch.js";

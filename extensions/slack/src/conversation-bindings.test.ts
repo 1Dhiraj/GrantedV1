@@ -2,16 +2,16 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { closeOpenClawStateDatabaseForTest } from "openclaw/plugin-sdk/channel-ingress-test-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import { closeOpenClawStateDatabaseForTest } from "granted/plugin-sdk/channel-ingress-test-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   createTestRegistry,
   setActivePluginRegistry,
-} from "openclaw/plugin-sdk/plugin-test-runtime";
+} from "granted/plugin-sdk/plugin-test-runtime";
 import {
   getSessionBindingService,
   testing as sessionBindingTesting,
-} from "openclaw/plugin-sdk/session-binding-runtime";
+} from "granted/plugin-sdk/session-binding-runtime";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { slackPlugin } from "./channel.js";
 import { registerSlackInstallationState } from "./installation-identity-state.js";

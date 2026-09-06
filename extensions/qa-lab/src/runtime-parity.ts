@@ -1,17 +1,17 @@
 import {
   loadTranscriptEventsSync,
   resolveStorePath,
-} from "openclaw/plugin-sdk/session-store-runtime";
+} from "granted/plugin-sdk/session-store-runtime";
 import {
   loadSqliteTrajectoryRuntimeEvents,
   type SqliteTrajectoryRuntimeEventForTest,
-} from "openclaw/plugin-sdk/sqlite-runtime-testing";
-import { fetchWithSsrFGuard } from "openclaw/plugin-sdk/ssrf-runtime";
+} from "granted/plugin-sdk/sqlite-runtime-testing";
+import { fetchWithSsrFGuard } from "granted/plugin-sdk/ssrf-runtime";
 import {
   asFiniteNumber as readFiniteNumber,
   isRecord as isMessageRecord,
   normalizeOptionalString as readNonEmptyString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import {
   scanDirectReplyTranscriptSentinels,
   scanGatewayLogSentinels,

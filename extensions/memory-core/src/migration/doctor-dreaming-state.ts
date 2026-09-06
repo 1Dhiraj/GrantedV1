@@ -1,10 +1,10 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { PluginDoctorStateMigration } from "openclaw/plugin-sdk/runtime-doctor-migrations";
+import type { PluginDoctorStateMigration } from "granted/plugin-sdk/runtime-doctor-migrations";
 import {
   archiveLegacyStateSource,
   legacyStateFileExists,
-} from "openclaw/plugin-sdk/runtime-doctor-migrations";
+} from "granted/plugin-sdk/runtime-doctor-migrations";
 import {
   normalizeDailyIngestionState,
   normalizeSessionIngestionState,

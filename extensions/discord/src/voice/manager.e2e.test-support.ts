@@ -2,7 +2,7 @@ import type {
   RealtimeVoiceBridgeEvent,
   RealtimeVoiceBridgeCreateRequest,
   RealtimeVoiceResponseOutcome,
-} from "openclaw/plugin-sdk/realtime-voice";
+} from "granted/plugin-sdk/realtime-voice";
 import { vi } from "vitest";
 import { ChannelType } from "../internal/discord.js";
 

@@ -1,11 +1,11 @@
 // Slack plugin module implements captionless audio mention preflight behavior.
 import fs from "node:fs/promises";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { mimeTypeFromFilePath } from "openclaw/plugin-sdk/media-mime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { mimeTypeFromFilePath } from "granted/plugin-sdk/media-mime";
 import {
   createChannelPreflightAudio,
   formatAudioTranscriptForAgent,
-} from "openclaw/plugin-sdk/media-understanding-runtime";
+} from "granted/plugin-sdk/media-understanding-runtime";
 import type { SlackFile, SlackMessageEvent } from "../../types.js";
 import { MAX_SLACK_MEDIA_FILES, type SlackMediaResult } from "../media-types.js";
 

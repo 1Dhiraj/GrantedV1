@@ -1,6 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import { withTempHome } from "openclaw/plugin-sdk/test-env";
+import { withTempHome } from "granted/plugin-sdk/test-env";
 import { describe, expect, it } from "vitest";
 import { AgentSelectionRequiredError } from "../../agents/agent-scope-config.js";
 import { retainLegacyDefaultAgentId } from "../legacy.default-agent-owner.js";

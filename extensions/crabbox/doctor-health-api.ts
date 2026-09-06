@@ -1,6 +1,6 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import type { HealthCheck } from "openclaw/plugin-sdk/health";
+import type { HealthCheck } from "granted/plugin-sdk/health";
 import { resolveOpenClawRoot } from "./src/crabbox-worker-profile.js";
 import {
   CRABBOX_CLOUD_WORKER_PROFILE_CHECK_ID,

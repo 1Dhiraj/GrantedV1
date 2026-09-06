@@ -1,5 +1,5 @@
 import type { Message } from "grammy/types";
-import type { ChannelIngressContextBinding } from "openclaw/plugin-sdk/channel-ingress-runtime";
+import type { ChannelIngressContextBinding } from "granted/plugin-sdk/channel-ingress-runtime";
 import type {
   DmPolicy,
   GrantedConfig,
@@ -7,8 +7,8 @@ import type {
   TelegramDirectConfig,
   TelegramGroupConfig,
   TelegramTopicConfig,
-} from "openclaw/plugin-sdk/config-contracts";
-import { logVerbose } from "openclaw/plugin-sdk/runtime-env";
+} from "granted/plugin-sdk/config-contracts";
+import { logVerbose } from "granted/plugin-sdk/runtime-env";
 import { expandTelegramAllowFromWithAccessGroups } from "./access-groups.js";
 import { resolveTelegramAccount } from "./accounts.js";
 import {

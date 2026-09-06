@@ -1,7 +1,7 @@
 // Ollama tests cover web search provider plugin behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { SecretInput } from "openclaw/plugin-sdk/secret-input";
-import { withEnvAsync } from "openclaw/plugin-sdk/test-env";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { SecretInput } from "granted/plugin-sdk/secret-input";
+import { withEnvAsync } from "granted/plugin-sdk/test-env";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { createStreamingResponse } from "../../test-support/streaming-error-response.js";
 import { createOllamaWebSearchProvider as createContractOllamaWebSearchProvider } from "../web-search-contract-api.js";

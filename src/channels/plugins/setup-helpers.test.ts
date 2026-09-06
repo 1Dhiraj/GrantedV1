@@ -1,6 +1,6 @@
 import { expectDefined } from "@openclaw/normalization-core";
 // Setup helper tests cover channel setup helper outputs and lifecycle cleanup.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterAll, beforeEach, describe, expect, it } from "vitest";
 import type { GrantedConfig } from "../../config/config.js";
 import { resetPluginRuntimeStateForTest, setActivePluginRegistry } from "../../plugins/runtime.js";

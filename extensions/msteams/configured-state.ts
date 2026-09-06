@@ -1,4 +1,4 @@
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { hasConfiguredSecretInput, normalizeSecretInputString } from "./src/secret-input.js";
 
 /** Mirror Teams auth-mode requirements without loading the Azure SDK or full channel. */

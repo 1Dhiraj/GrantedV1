@@ -2,10 +2,10 @@
 import {
   optionalPositiveIntegerSchema,
   readPositiveIntegerParam,
-} from "openclaw/plugin-sdk/channel-actions";
-import type { ChannelAgentTool } from "openclaw/plugin-sdk/channel-contract";
-import type { GrantedPluginApi, GrantedPluginToolContext } from "openclaw/plugin-sdk/core";
-import { hasNonEmptyString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/channel-actions";
+import type { ChannelAgentTool } from "granted/plugin-sdk/channel-contract";
+import type { GrantedPluginApi, GrantedPluginToolContext } from "granted/plugin-sdk/core";
+import { hasNonEmptyString } from "granted/plugin-sdk/string-coerce-runtime";
 import { Type } from "typebox";
 import { startWebLoginWithQr, waitForWebLogin } from "../login-qr-api.js";
 

@@ -1,12 +1,12 @@
 // Telegram plugin module implements shared config adapter behavior.
-import { normalizeAccountId } from "openclaw/plugin-sdk/account-id";
-import { formatAllowFromLowercase } from "openclaw/plugin-sdk/allow-from";
+import { normalizeAccountId } from "granted/plugin-sdk/account-id";
+import { formatAllowFromLowercase } from "granted/plugin-sdk/allow-from";
 import {
   adaptScopedAccountAccessor,
   createScopedChannelConfigAdapter,
-} from "openclaw/plugin-sdk/channel-config-helpers";
-import type { ChannelPlugin } from "openclaw/plugin-sdk/channel-core";
-import type { GrantedConfig, TelegramAccountConfig } from "openclaw/plugin-sdk/config-contracts";
+} from "granted/plugin-sdk/channel-config-helpers";
+import type { ChannelPlugin } from "granted/plugin-sdk/channel-core";
+import type { GrantedConfig, TelegramAccountConfig } from "granted/plugin-sdk/config-contracts";
 import { inspectTelegramAccount } from "./account-inspect.js";
 import {
   listTelegramAccountIds,

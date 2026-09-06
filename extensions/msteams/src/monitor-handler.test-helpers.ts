@@ -2,8 +2,8 @@
 import {
   buildChannelInboundEventContext,
   type PreparedInboundReply,
-} from "openclaw/plugin-sdk/channel-inbound";
-import { createTestInboundDebounceFlush } from "openclaw/plugin-sdk/channel-test-helpers";
+} from "granted/plugin-sdk/channel-inbound";
+import { createTestInboundDebounceFlush } from "granted/plugin-sdk/channel-test-helpers";
 import { vi } from "vitest";
 import type { GrantedConfig, PluginRuntime, RuntimeEnv } from "../runtime-api.js";
 import type { MSTeamsConversationStore } from "./conversation-store.js";

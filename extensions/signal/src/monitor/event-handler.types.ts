@@ -1,15 +1,15 @@
-import type { PluginRuntime } from "openclaw/plugin-sdk/channel-core";
-import type { StatusReactionTiming } from "openclaw/plugin-sdk/channel-feedback";
+import type { PluginRuntime } from "granted/plugin-sdk/channel-core";
+import type { StatusReactionTiming } from "granted/plugin-sdk/channel-feedback";
 // Signal type declarations define plugin contracts.
 import type {
   DmPolicy,
   GroupPolicy,
   GrantedConfig,
   SignalReactionNotificationMode,
-} from "openclaw/plugin-sdk/config-contracts";
-import type { HistoryEntry } from "openclaw/plugin-sdk/reply-history";
-import type { ReplyPayload } from "openclaw/plugin-sdk/reply-runtime";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
+} from "granted/plugin-sdk/config-contracts";
+import type { HistoryEntry } from "granted/plugin-sdk/reply-history";
+import type { ReplyPayload } from "granted/plugin-sdk/reply-runtime";
+import type { RuntimeEnv } from "granted/plugin-sdk/runtime-env";
 import type { SignalSender } from "../identity.js";
 
 export type SignalEnvelope = {

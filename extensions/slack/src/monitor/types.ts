@@ -1,7 +1,7 @@
 // Slack type declarations define plugin contracts.
-import type { ChannelRuntimeSurface } from "openclaw/plugin-sdk/channel-contract";
-import type { GrantedConfig, SlackSlashCommandConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
+import type { ChannelRuntimeSurface } from "granted/plugin-sdk/channel-contract";
+import type { GrantedConfig, SlackSlashCommandConfig } from "granted/plugin-sdk/config-contracts";
+import type { RuntimeEnv } from "granted/plugin-sdk/runtime-env";
 import type { SlackAppContext } from "../agent-context.js";
 import type { SlackMessageEvent } from "../types.js";
 

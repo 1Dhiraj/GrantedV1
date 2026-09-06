@@ -2,11 +2,11 @@ import {
   createEmptyPluginRegistry,
   resetPluginRuntimeStateForTest,
   setActivePluginRegistry,
-} from "openclaw/plugin-sdk/channel-test-helpers";
+} from "granted/plugin-sdk/channel-test-helpers";
 // Telegram tests cover bot native commands plugin behavior.
-import type { GrantedConfig, TelegramAccountConfig } from "openclaw/plugin-sdk/config-contracts";
-import { clearPluginCommands, registerPluginCommand } from "openclaw/plugin-sdk/plugin-runtime";
-import type { SessionEntry } from "openclaw/plugin-sdk/session-store-runtime";
+import type { GrantedConfig, TelegramAccountConfig } from "granted/plugin-sdk/config-contracts";
+import { clearPluginCommands, registerPluginCommand } from "granted/plugin-sdk/plugin-runtime";
+import type { SessionEntry } from "granted/plugin-sdk/session-store-runtime";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { createTelegramTopicCommandContext } from "./bot-native-commands.fixture-test-support.js";
 import {
@@ -30,7 +30,7 @@ const pluginSessionMocks = vi.hoisted(() => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/session-store-runtime", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/session-store-runtime")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/session-store-runtime")>(
     "openclaw/plugin-sdk/session-store-runtime",
   );
   return {

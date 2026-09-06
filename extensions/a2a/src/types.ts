@@ -1,4 +1,4 @@
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 
 export type A2aPeerConfig = {
   token: string;

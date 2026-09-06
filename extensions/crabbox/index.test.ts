@@ -1,20 +1,20 @@
 import { fileURLToPath } from "node:url";
 import { Command } from "commander";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
 import type {
   GrantedPluginApi,
   GrantedPluginService,
   GrantedPluginServiceContext,
   WorkerProvider,
-} from "openclaw/plugin-sdk/plugin-entry";
+} from "granted/plugin-sdk/plugin-entry";
 import {
   createPluginStateSyncKeyedStoreForTests,
   resetPluginStateStoreForTests,
-} from "openclaw/plugin-sdk/plugin-state-test-runtime";
-import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
-import * as processRuntime from "openclaw/plugin-sdk/process-runtime";
-import type { SpawnResult } from "openclaw/plugin-sdk/process-runtime";
-import { useAutoCleanupTempDirTracker } from "openclaw/plugin-sdk/test-env";
+} from "granted/plugin-sdk/plugin-state-test-runtime";
+import { createTestPluginApi } from "granted/plugin-sdk/plugin-test-api";
+import * as processRuntime from "granted/plugin-sdk/process-runtime";
+import type { SpawnResult } from "granted/plugin-sdk/process-runtime";
+import { useAutoCleanupTempDirTracker } from "granted/plugin-sdk/test-env";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import plugin from "./index.js";
 import { createNodeBootstrapFixture } from "./src/crabbox-worker-node-enrollment.test-support.js";

@@ -1,6 +1,6 @@
 // Qa Matrix plugin module implements recovery scenario runtime E2EE behavior.
 import { randomUUID } from "node:crypto";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import { createMatrixQaClient } from "../substrate/client.js";
 import { createMatrixQaE2eeScenarioClient } from "../substrate/e2ee-client.js";
 import {

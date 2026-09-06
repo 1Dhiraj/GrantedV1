@@ -1,11 +1,11 @@
 // Opencode provider module implements model/runtime integration.
-import type { ProviderStreamOptions } from "openclaw/plugin-sdk/llm";
+import type { ProviderStreamOptions } from "granted/plugin-sdk/llm";
 import {
   describeImageWithModelPayloadTransform,
   describeImagesWithModelPayloadTransform,
   type MediaUnderstandingProvider,
-} from "openclaw/plugin-sdk/media-understanding";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/media-understanding";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 
 function stripOpencodeDisabledResponsesReasoningPayload(payload: unknown): void {
   if (!isRecord(payload)) {

@@ -2,9 +2,9 @@
 import type {
   RealtimeTranscriptionProviderPlugin,
   RealtimeTranscriptionSession,
-} from "openclaw/plugin-sdk/realtime-transcription";
-import type { TalkEvent } from "openclaw/plugin-sdk/realtime-voice";
-import { rawDataToString } from "openclaw/plugin-sdk/webhook-ingress";
+} from "granted/plugin-sdk/realtime-transcription";
+import type { TalkEvent } from "granted/plugin-sdk/realtime-voice";
+import { rawDataToString } from "granted/plugin-sdk/webhook-ingress";
 import { describe, expect, it, vi } from "vitest";
 import { WebSocket } from "ws";
 import { MediaStreamHandler } from "./media-stream.js";

@@ -1,6 +1,6 @@
 // Github Copilot plugin module implements auth behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { ProviderPrepareDynamicModelContext } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { ProviderPrepareDynamicModelContext } from "granted/plugin-sdk/plugin-entry";
 import {
   coerceSecretRef,
   ensureAuthProfileStore,
@@ -8,11 +8,11 @@ import {
   listProfilesForProvider,
   normalizeOptionalSecretInput,
   resolveAuthProfileOrder,
-} from "openclaw/plugin-sdk/provider-auth";
+} from "granted/plugin-sdk/provider-auth";
 import {
   resolveConfiguredSecretInputWithFallback,
   resolveRequiredConfiguredSecretRefInputString,
-} from "openclaw/plugin-sdk/secret-input-runtime";
+} from "granted/plugin-sdk/secret-input-runtime";
 import { PUBLIC_GITHUB_COPILOT_DOMAIN } from "./domain.js";
 import { PROVIDER_ID } from "./models.js";
 import { formatGithubCopilotApiKey, parseGithubCopilotApiKey } from "./oauth.js";

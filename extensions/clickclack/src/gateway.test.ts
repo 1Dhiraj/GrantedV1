@@ -1,7 +1,7 @@
 // Clickclack tests cover gateway plugin behavior.
 import { EventEmitter } from "node:events";
-import type { ChannelGatewayContext } from "openclaw/plugin-sdk/channel-contract";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
+import type { ChannelGatewayContext } from "granted/plugin-sdk/channel-contract";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { ResolvedClickClackAccount } from "./types.js";
 

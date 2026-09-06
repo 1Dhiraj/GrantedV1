@@ -3,10 +3,10 @@ import type {
   GrantedPluginNodeHostCommand,
   GrantedPluginNodeInvokePolicy,
   GrantedPluginNodeInvokePolicyContext,
-} from "openclaw/plugin-sdk/plugin-entry";
-import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
-import { createPluginRuntimeMock } from "openclaw/plugin-sdk/plugin-test-runtime";
-import type { TranscriptSourceProvider } from "openclaw/plugin-sdk/transcripts";
+} from "granted/plugin-sdk/plugin-entry";
+import { createTestPluginApi } from "granted/plugin-sdk/plugin-test-api";
+import { createPluginRuntimeMock } from "granted/plugin-sdk/plugin-test-runtime";
+import type { TranscriptSourceProvider } from "granted/plugin-sdk/transcripts";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import type { GoogleMeetConfig } from "./src/config.js";
 import { GOOGLE_MEET_NODE_COMMAND } from "./src/transports/google-meet-platform-constants.js";

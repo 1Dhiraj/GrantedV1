@@ -2,8 +2,8 @@ import {
   emitAgentEvent,
   normalizeUsage,
   onAgentEvent,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
-import { createAdmittedHostCapabilityTestFixture } from "openclaw/plugin-sdk/plugin-test-runtime";
+} from "granted/plugin-sdk/agent-harness-runtime";
+import { createAdmittedHostCapabilityTestFixture } from "granted/plugin-sdk/plugin-test-runtime";
 import {
   describe,
   registerCodexEventProjectorTestLifecycle,

@@ -1,4 +1,4 @@
-import type { SpawnResult } from "openclaw/plugin-sdk/process-runtime";
+import type { SpawnResult } from "granted/plugin-sdk/process-runtime";
 import { crabboxCommandError } from "./crabbox-worker-command-error.js";
 
 const CRABBOX_HEARTBEAT_UPGRADE = "upgrade Crabbox to v0.44.0 or newer for `crabbox heartbeat`";

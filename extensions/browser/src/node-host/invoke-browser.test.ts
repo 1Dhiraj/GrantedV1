@@ -2,7 +2,7 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import nodePath from "node:path";
-import { MAX_TIMER_TIMEOUT_MS } from "openclaw/plugin-sdk/number-runtime";
+import { MAX_TIMER_TIMEOUT_MS } from "granted/plugin-sdk/number-runtime";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
   BROWSER_PROXY_ERROR_ENVELOPE,

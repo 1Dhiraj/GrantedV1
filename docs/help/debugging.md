@@ -303,7 +303,7 @@ Set breakpoints in `src/` TypeScript files; the debugger maps them to compiled J
 - **Rebuild and Debug Gateway** deletes `/dist` and runs a full `pnpm build` with source maps on every launch.
 - **Debug Gateway** can start/stop without affecting `/dist`, but you manage the build cycle in a separate terminal.
 - Edit `launch.json` `args` to debug other CLI subcommands.
-- To use the built CLI for other tasks (for example `dashboard --no-open` if your debug session spawns a new auth token), run it from another terminal: `node ./openclaw.mjs` or an alias like `alias openclaw-build="node $(pwd)/openclaw.mjs"`.
+- To use the built CLI for other tasks (for example `dashboard --no-open` if your debug session spawns a new auth token), run it from another terminal: `node ./granted.mjs` or an alias like `alias openclaw-build="node $(pwd)/granted.mjs"`.
 
 ## Related
 

@@ -6,7 +6,7 @@ import {
   ArchiveLimitError,
   extractArchive,
   type ArchiveExtractLimits,
-} from "openclaw/plugin-sdk/archive";
+} from "granted/plugin-sdk/archive";
 import type { LlamaServerAsset } from "./llama-server-assets.js";
 
 const MEBIBYTE = 1024 * 1024;

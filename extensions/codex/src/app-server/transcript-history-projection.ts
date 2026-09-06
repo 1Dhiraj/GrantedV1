@@ -1,9 +1,9 @@
 import { Buffer } from "node:buffer";
-import type { AgentMessage } from "openclaw/plugin-sdk/agent-harness-runtime";
-import type { AssistantMessage, Usage } from "openclaw/plugin-sdk/llm";
-import type { SessionTranscriptMessageEntry } from "openclaw/plugin-sdk/session-transcript-runtime";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { truncateUtf8Prefix } from "openclaw/plugin-sdk/text-utility-runtime";
+import type { AgentMessage } from "granted/plugin-sdk/agent-harness-runtime";
+import type { AssistantMessage, Usage } from "granted/plugin-sdk/llm";
+import type { SessionTranscriptMessageEntry } from "granted/plugin-sdk/session-transcript-runtime";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
+import { truncateUtf8Prefix } from "granted/plugin-sdk/text-utility-runtime";
 import type { CodexThread, JsonValue } from "./protocol.js";
 import { attachCodexMirrorIdentity } from "./upstream-prompt-provenance.js";
 

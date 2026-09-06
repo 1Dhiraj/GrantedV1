@@ -2,11 +2,11 @@ import crypto from "node:crypto";
 import path from "node:path";
 // Doctor enumeration cold-loads this closure; memory-host-events pulls the
 // event-store/kysely graph, so values load lazily inside the async migration.
-import type { normalizeMemoryHostEventRecordForStorage } from "openclaw/plugin-sdk/memory-host-events";
+import type { normalizeMemoryHostEventRecordForStorage } from "granted/plugin-sdk/memory-host-events";
 import type {
   PluginDoctorStateMigration,
   PluginDoctorStateMigrationContext,
-} from "openclaw/plugin-sdk/runtime-doctor-migrations";
+} from "granted/plugin-sdk/runtime-doctor-migrations";
 import {
   collectLegacyMemoryHostEventSources,
   memoryHostWorkspacePrefix,
@@ -157,7 +157,7 @@ async function migrateLegacyMemoryHostEventSource(params: {
   warnings: string[];
 }): Promise<"completed" | "blocked"> {
   const { normalizeMemoryHostEventRecordForStorage, resolveMemoryHostEventLogPath } =
-    await import("openclaw/plugin-sdk/memory-host-events");
+    await import("granted/plugin-sdk/memory-host-events");
   const activeRelativePath = path.relative(
     params.source.workspaceDir,
     resolveMemoryHostEventLogPath(params.source.workspaceDir),

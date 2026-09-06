@@ -2,7 +2,7 @@
  * Registers the `/codex` plugin command and lazy-loads the app-server command
  * handler implementation.
  */
-import type { GrantedPluginCommandDefinition } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginCommandDefinition } from "granted/plugin-sdk/plugin-entry";
 import { handleCodexCommand } from "./command-dispatch.js";
 import type { CodexCommandDepsOverride } from "./command-handlers.js";
 

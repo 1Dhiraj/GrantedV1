@@ -5,7 +5,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import type { Message } from "@openclaw/llm-core";
 import { expectDefined } from "@openclaw/normalization-core";
-import type { AgentMessage, StreamFn } from "openclaw/plugin-sdk/agent-core";
+import type { AgentMessage, StreamFn } from "granted/plugin-sdk/agent-core";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi, type Mock } from "vitest";
 import { createDeferred } from "../../../test/helpers/promise.js";
 import { useAutoCleanupTempDirTracker } from "../../../test/helpers/temp-dir.js";

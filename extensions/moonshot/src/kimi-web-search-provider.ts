@@ -1,10 +1,10 @@
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
+import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
 // Moonshot provider module implements model/runtime integration.
 import {
   createWebSearchProviderContractFields,
   type WebSearchProviderPlugin,
   type WebSearchProviderSetupContext,
-} from "openclaw/plugin-sdk/provider-web-search-config-contract";
+} from "granted/plugin-sdk/provider-web-search-config-contract";
 
 const KIMI_CREDENTIAL_PATH = "plugins.entries.moonshot.config.webSearch.apiKey";
 

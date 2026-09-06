@@ -1,5 +1,5 @@
 // Qa Lab tests cover slack live plugin behavior.
-import { sanitizeAssistantVisibleText } from "openclaw/plugin-sdk/text-chunking";
+import { sanitizeAssistantVisibleText } from "granted/plugin-sdk/text-chunking";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { readQaScenarioById } from "../../scenario-catalog.js";
 import { requireFlowScenario } from "../../scenario-catalog.test-utils.js";

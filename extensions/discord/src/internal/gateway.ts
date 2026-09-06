@@ -15,8 +15,8 @@ import {
   type GatewaySendPayload,
   type GatewayVoiceStateUpdateData,
 } from "discord-api-types/v10";
-import { asSafeIntegerInRange, MAX_TIMER_TIMEOUT_MS } from "openclaw/plugin-sdk/number-runtime";
-import { asOptionalRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { asSafeIntegerInRange, MAX_TIMER_TIMEOUT_MS } from "granted/plugin-sdk/number-runtime";
+import { asOptionalRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import * as ws from "ws";
 import { Plugin, type Client } from "./client.js";
 import { canResumeAfterGatewayClose, isFatalGatewayCloseCode } from "./gateway-close-codes.js";

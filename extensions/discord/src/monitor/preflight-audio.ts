@@ -1,8 +1,8 @@
 // Discord plugin module implements preflight audio behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { getFileExtension } from "openclaw/plugin-sdk/media-mime";
-import { createChannelPreflightAudio } from "openclaw/plugin-sdk/media-understanding-runtime";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { getFileExtension } from "granted/plugin-sdk/media-mime";
+import { createChannelPreflightAudio } from "granted/plugin-sdk/media-understanding-runtime";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 
 type DiscordAudioAttachment = {
   content_type?: string;

@@ -2,7 +2,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { expectDefined } from "@openclaw/normalization-core";
-import { bundledPluginRootAt } from "openclaw/plugin-sdk/test-fixtures";
+import { bundledPluginRootAt } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import type { GrantedConfig } from "../config/config.js";
 import type { PluginInstallRecord } from "../config/types.plugins.js";

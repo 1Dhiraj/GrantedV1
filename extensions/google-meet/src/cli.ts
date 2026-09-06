@@ -1,7 +1,7 @@
 import type { Command } from "commander";
-import { callGatewayFromCli } from "openclaw/plugin-sdk/gateway-runtime";
-import { generateHexPkceVerifierChallenge } from "openclaw/plugin-sdk/provider-auth";
-import { generateOAuthState } from "openclaw/plugin-sdk/provider-auth-runtime";
+import { callGatewayFromCli } from "granted/plugin-sdk/gateway-runtime";
+import { generateHexPkceVerifierChallenge } from "granted/plugin-sdk/provider-auth";
+import { generateOAuthState } from "granted/plugin-sdk/provider-auth-runtime";
 import { registerGoogleMeetArtifactCommands } from "./cli-artifact-commands.js";
 import type { GoogleMeetCliCommandContext } from "./cli-command-context.js";
 import { registerGoogleMeetDoctorCommand } from "./cli-doctor.js";

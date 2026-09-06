@@ -2,13 +2,13 @@
 import crypto from "node:crypto";
 import type { IncomingMessage, ServerResponse } from "node:http";
 import type { NextFunction, Request, Response } from "express";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
-import { createMockIncomingRequest } from "openclaw/plugin-sdk/test-env";
+import type { RuntimeEnv } from "granted/plugin-sdk/runtime-env";
+import { createMockIncomingRequest } from "granted/plugin-sdk/test-env";
 import { afterAll, describe, expect, it, vi } from "vitest";
 
 const runDetachedWebhookWorkSpy = vi.hoisted(() => vi.fn());
 vi.mock("openclaw/plugin-sdk/webhook-request-guards", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/webhook-request-guards")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/webhook-request-guards")>(
     "openclaw/plugin-sdk/webhook-request-guards",
   );
   runDetachedWebhookWorkSpy.mockImplementation(actual.runDetachedWebhookWork);

@@ -4,13 +4,13 @@
 // updates do not carry the originating chat/thread. Persist the authoritative route
 // returned by sendPoll so a later vote can enter the normal inbound turn pipeline.
 import type { Chat } from "grammy/types";
-import { parseStrictInteger, parseStrictPositiveInteger } from "openclaw/plugin-sdk/number-runtime";
+import { parseStrictInteger, parseStrictPositiveInteger } from "granted/plugin-sdk/number-runtime";
 import type {
   PluginStateKeyedStore,
   PluginStateSyncKeyedStore,
-} from "openclaw/plugin-sdk/plugin-state-runtime";
-import { normalizeAccountId } from "openclaw/plugin-sdk/routing";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/plugin-state-runtime";
+import { normalizeAccountId } from "granted/plugin-sdk/routing";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import { getTelegramRuntime } from "./runtime.js";
 
 const TELEGRAM_POLL_REGISTRY_NAMESPACE = "telegram.poll-registry";

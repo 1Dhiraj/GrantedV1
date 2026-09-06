@@ -1,6 +1,6 @@
-import { questionGatewayRuntime } from "openclaw/plugin-sdk/question-gateway-runtime";
-import type { ReplyPayload } from "openclaw/plugin-sdk/reply-payload";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+import { questionGatewayRuntime } from "granted/plugin-sdk/question-gateway-runtime";
+import type { ReplyPayload } from "granted/plugin-sdk/reply-payload";
+import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 
 export function registerTelegramQuestionDelivery(params: {
   accountId?: string;

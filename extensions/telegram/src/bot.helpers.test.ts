@@ -1,5 +1,5 @@
 // Telegram tests cover bot.helpers plugin behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { describe, expect, it } from "vitest";
 import { resolveTelegramGroupAllowFromContext, resolveTelegramStreamMode } from "./bot/helpers.js";
 import { resolveTelegramDraftStreamingChunking } from "./draft-chunking.js";

@@ -1,15 +1,15 @@
 // Lmstudio plugin module implements models.fetch behavior.
-import { createSubsystemLogger, redactToolPayloadText } from "openclaw/plugin-sdk/logging-core";
-import { resolveTimerTimeoutMs } from "openclaw/plugin-sdk/number-runtime";
+import { createSubsystemLogger, redactToolPayloadText } from "granted/plugin-sdk/logging-core";
+import { resolveTimerTimeoutMs } from "granted/plugin-sdk/number-runtime";
 import {
   readProviderJsonArrayFieldResponse,
   readProviderJsonResponse,
-} from "openclaw/plugin-sdk/provider-http";
-import type { ModelDefinitionConfig } from "openclaw/plugin-sdk/provider-model-shared";
-import { SELF_HOSTED_DEFAULT_COST } from "openclaw/plugin-sdk/provider-setup";
-import { readResponseTextPrefix } from "openclaw/plugin-sdk/response-limit-runtime";
-import { fetchWithSsrFGuard, type SsrFPolicy } from "openclaw/plugin-sdk/ssrf-runtime";
-import { asPositiveSafeInteger } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/provider-http";
+import type { ModelDefinitionConfig } from "granted/plugin-sdk/provider-model-shared";
+import { SELF_HOSTED_DEFAULT_COST } from "granted/plugin-sdk/provider-setup";
+import { readResponseTextPrefix } from "granted/plugin-sdk/response-limit-runtime";
+import { fetchWithSsrFGuard, type SsrFPolicy } from "granted/plugin-sdk/ssrf-runtime";
+import { asPositiveSafeInteger } from "granted/plugin-sdk/string-coerce-runtime";
 import { LMSTUDIO_DEFAULT_LOAD_CONTEXT_LENGTH } from "./defaults.js";
 import {
   buildLmstudioModelName,

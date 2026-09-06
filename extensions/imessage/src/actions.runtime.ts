@@ -1,8 +1,8 @@
 // Imessage plugin module implements actions behavior.
 import { basename, parse, win32 } from "node:path";
-import { sanitizeUntrustedFileName } from "openclaw/plugin-sdk/security-runtime";
-import { resolvePreferredOpenClawTmpDir, withTempWorkspace } from "openclaw/plugin-sdk/temp-path";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+import { sanitizeUntrustedFileName } from "granted/plugin-sdk/security-runtime";
+import { resolvePreferredOpenClawTmpDir, withTempWorkspace } from "granted/plugin-sdk/temp-path";
+import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import { resolveIMessageActionChatGuid } from "./actions-chat-guid.js";
 import {
   type IMessageActionTransportOptions,

@@ -1,8 +1,8 @@
 /** Direct Gateway extension relay with in-band Browser Relay Authentication v2. */
 import type { IncomingMessage } from "node:http";
 import type { Duplex } from "node:stream";
-import { getPluginRuntimeGatewayRequestScope } from "openclaw/plugin-sdk/plugin-runtime";
-import { safeEqualSecret } from "openclaw/plugin-sdk/security-runtime";
+import { getPluginRuntimeGatewayRequestScope } from "granted/plugin-sdk/plugin-runtime";
+import { safeEqualSecret } from "granted/plugin-sdk/security-runtime";
 import { WebSocketServer, type WebSocket } from "ws";
 import { getRuntimeConfig } from "../../config/config.js";
 import {

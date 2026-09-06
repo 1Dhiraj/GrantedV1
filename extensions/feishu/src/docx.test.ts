@@ -1,7 +1,7 @@
 import { mkdirSync, rmSync, writeFileSync } from "node:fs";
 import path from "node:path";
 // Feishu tests cover docx plugin behavior.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { FEISHU_HTTP_TIMEOUT_MS } from "./client-timeout.js";
 import { createToolFactoryHarness, type ToolLike } from "./tool-factory-test-harness.js";

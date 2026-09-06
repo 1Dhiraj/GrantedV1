@@ -92,7 +92,7 @@ describe("tryNativeRequireJavaScriptModule", () => {
   it("declines missing dependency errors when source-transform fallback is available", () => {
     const dir = tempDirs.make("openclaw-native-require-");
     const modulePath = path.join(dir, "plugin.cjs");
-    fs.writeFileSync(modulePath, 'require("openclaw/plugin-sdk/core");\n', "utf8");
+    fs.writeFileSync(modulePath, 'require("granted/plugin-sdk/core");\n', "utf8");
 
     expect(
       tryNativeRequireJavaScriptModule(modulePath, {
@@ -117,7 +117,7 @@ describe("tryNativeRequireJavaScriptModule", () => {
     );
     fs.writeFileSync(
       modulePath,
-      'import { defineChannelMessageAdapter } from "openclaw/plugin-sdk/channel-outbound";\nexport const marker = defineChannelMessageAdapter();\n',
+      'import { defineChannelMessageAdapter } from "granted/plugin-sdk/channel-outbound";\nexport const marker = defineChannelMessageAdapter();\n',
       "utf8",
     );
     fs.writeFileSync(

@@ -1,15 +1,15 @@
 // Memory Core plugin module implements manager embedding ops behavior.
 import fs from "node:fs/promises";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import { expectDefined } from "openclaw/plugin-sdk/expect-runtime";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
+import { expectDefined } from "granted/plugin-sdk/expect-runtime";
 import {
   enforceEmbeddingMaxInputTokens,
   hasNonTextEmbeddingParts,
   isEmbeddingBatchUnavailableError,
   type EmbeddingInput,
   type MemoryEmbeddingProviderRuntime,
-} from "openclaw/plugin-sdk/memory-core-host-engine-embeddings";
-import { createSubsystemLogger } from "openclaw/plugin-sdk/memory-core-host-engine-foundation";
+} from "granted/plugin-sdk/memory-core-host-engine-embeddings";
+import { createSubsystemLogger } from "granted/plugin-sdk/memory-core-host-engine-foundation";
 import {
   buildFileEntry,
   buildMultimodalChunkForIndexing,
@@ -29,11 +29,11 @@ import {
   type MemoryChunk,
   type MemoryEntryProvenance,
   type MemorySource,
-} from "openclaw/plugin-sdk/memory-core-host-engine-storage";
-import { MAX_TIMER_TIMEOUT_MS, resolveTimerTimeoutMs } from "openclaw/plugin-sdk/number-runtime";
-import { sleepWithAbort } from "openclaw/plugin-sdk/runtime-env";
-import { runSqliteImmediateTransactionSync } from "openclaw/plugin-sdk/sqlite-runtime";
-import { chunkItems } from "openclaw/plugin-sdk/text-chunking";
+} from "granted/plugin-sdk/memory-core-host-engine-storage";
+import { MAX_TIMER_TIMEOUT_MS, resolveTimerTimeoutMs } from "granted/plugin-sdk/number-runtime";
+import { sleepWithAbort } from "granted/plugin-sdk/runtime-env";
+import { runSqliteImmediateTransactionSync } from "granted/plugin-sdk/sqlite-runtime";
+import { chunkItems } from "granted/plugin-sdk/text-chunking";
 import { hasMemorySessionTombstone } from "../memory-entry-origins.js";
 import { withMemoryWorkspaceLock } from "../memory-workspace-lock.js";
 import { readSessionResetRecallCutoffMetadata } from "../session-reset-recall-metadata.js";

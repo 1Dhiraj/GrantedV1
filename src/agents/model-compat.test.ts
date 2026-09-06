@@ -3,7 +3,7 @@
  * Exercises catalog compatibility, provider modernity hooks, and live sweep selection.
  */
 import path from "node:path";
-import type { Api, Model } from "openclaw/plugin-sdk/llm";
+import type { Api, Model } from "granted/plugin-sdk/llm";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const providerRuntimeMocks = vi.hoisted(() => ({

@@ -15,17 +15,17 @@ import type {
   ChannelStatusIssue as ContractChannelStatusIssue,
   ChannelThreadingContext as ContractChannelThreadingContext,
   ChannelThreadingToolContext as ContractChannelThreadingToolContext,
-} from "openclaw/plugin-sdk/channel-contract";
+} from "granted/plugin-sdk/channel-contract";
 import type {
   ChannelMessageActionContext as CoreChannelMessageActionContext,
   GrantedPluginApi as CoreOpenClawPluginApi,
   PluginRuntime as CorePluginRuntime,
-} from "openclaw/plugin-sdk/core";
+} from "granted/plugin-sdk/core";
 import type {
   GetReplyOptions as ReplyRuntimeGetReplyOptions,
   ReplyDispatchBeforeDeliverOptions as ReplyRuntimeBeforeDeliverOptions,
   ReplyDispatcher as ReplyRuntimeDispatcher,
-} from "openclaw/plugin-sdk/reply-runtime";
+} from "granted/plugin-sdk/reply-runtime";
 import ts from "typescript";
 import { beforeAll, describe, expect, expectTypeOf, it } from "vitest";
 import {

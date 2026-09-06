@@ -4,9 +4,9 @@ import path from "node:path";
 import {
   createChannelPartialDeliveryError,
   isChannelPartialDeliveryError,
-} from "openclaw/plugin-sdk/channel-inbound";
-import { createReplyDispatcher } from "openclaw/plugin-sdk/reply-runtime";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/channel-inbound";
+import { createReplyDispatcher } from "granted/plugin-sdk/reply-runtime";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import { afterAll, beforeEach, describe, expect, it, vi } from "vitest";
 
 type StreamingSessionStub = {

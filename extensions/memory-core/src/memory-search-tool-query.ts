@@ -1,13 +1,13 @@
 // Memory Core plugin module owns ranked search-window filtering and diagnostics.
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
 import {
   resolveMemoryIndexIdentityReason,
   type MemorySearchManager,
   type MemorySearchRuntimeDebug,
   type MemorySource,
-} from "openclaw/plugin-sdk/memory-core-host-engine-storage";
-import type { GrantedConfig } from "openclaw/plugin-sdk/memory-core-host-runtime-core";
-import type { GrantedPluginToolContext } from "openclaw/plugin-sdk/plugin-entry";
+} from "granted/plugin-sdk/memory-core-host-engine-storage";
+import type { GrantedConfig } from "granted/plugin-sdk/memory-core-host-runtime-core";
+import type { GrantedPluginToolContext } from "granted/plugin-sdk/plugin-entry";
 import { filterMemorySearchHitsBySessionVisibility } from "./session-search-visibility.js";
 import { buildMemorySearchUnavailableResult } from "./tools.shared.js";
 

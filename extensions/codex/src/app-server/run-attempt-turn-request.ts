@@ -1,4 +1,4 @@
-import { embeddedAgentLog, formatErrorMessage } from "openclaw/plugin-sdk/agent-harness-runtime";
+import { embeddedAgentLog, formatErrorMessage } from "granted/plugin-sdk/agent-harness-runtime";
 import {
   interruptCodexTurnAndWaitBestEffort,
   retireUnsafeCodexTurnClientBestEffort,

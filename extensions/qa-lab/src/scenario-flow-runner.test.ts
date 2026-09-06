@@ -1,6 +1,6 @@
 // Qa Lab tests cover scenario flow runner plugin behavior.
-import { coerceErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import { normalizeLowercaseStringOrEmpty } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { coerceErrorMessage } from "granted/plugin-sdk/error-runtime";
+import { normalizeLowercaseStringOrEmpty } from "granted/plugin-sdk/string-coerce-runtime";
 import { describe, expect, it } from "vitest";
 import { createQaBusState } from "./bus-state.js";
 import { QaSuiteScenarioSkipError } from "./errors.js";

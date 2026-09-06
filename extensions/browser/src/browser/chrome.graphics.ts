@@ -4,7 +4,7 @@ import {
   filterStringEntries,
   isRecord,
   normalizeOptionalString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 /**
  * Managed Chrome graphics diagnostics.
  *

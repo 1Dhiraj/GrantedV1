@@ -1,7 +1,7 @@
 // Deepgram tests cover audio plugin behavior.
 import { spawnSync } from "node:child_process";
-import { runRealtimeSttLiveTest } from "openclaw/plugin-sdk/provider-test-contracts";
-import { isLiveTestEnabled } from "openclaw/plugin-sdk/test-live";
+import { runRealtimeSttLiveTest } from "granted/plugin-sdk/provider-test-contracts";
+import { isLiveTestEnabled } from "granted/plugin-sdk/test-live";
 import { describe, expect, it } from "vitest";
 import { transcribeDeepgramAudio } from "./audio.js";
 import { buildDeepgramRealtimeTranscriptionProvider } from "./realtime-transcription-provider.js";

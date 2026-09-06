@@ -1,7 +1,7 @@
 // Covers gateway update runner scenarios.
 import fs from "node:fs/promises";
 import path from "node:path";
-import { bundledDistPluginFile } from "openclaw/plugin-sdk/test-fixtures";
+import { bundledDistPluginFile } from "granted/plugin-sdk/test-fixtures";
 import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { writePackageDistInventory } from "../../scripts/lib/package-dist-inventory.ts";
 import { BUNDLED_RUNTIME_SIDECAR_PATHS } from "../plugins/runtime-sidecar-paths.js";
@@ -151,7 +151,7 @@ describe("runGatewayUpdate", () => {
   beforeEach(async () => {
     execFileSyncMock.mockClear();
     tempDir = await fixtureRootTracker.make("case");
-    await fs.writeFile(path.join(tempDir, "openclaw.mjs"), "export {};\n", "utf-8");
+    await fs.writeFile(path.join(tempDir, "granted.mjs"), "export {};\n", "utf-8");
   });
 
   async function createStableTagRunner(params: {
@@ -163,7 +163,7 @@ describe("runGatewayUpdate", () => {
     const calls: string[] = [];
     let uiBuildCount = 0;
     const doctorNodePath = await resolveStableNodePath(process.execPath);
-    const doctorKey = `${doctorNodePath} ${path.join(tempDir, "openclaw.mjs")} doctor --non-interactive --fix`;
+    const doctorKey = `${doctorNodePath} ${path.join(tempDir, "granted.mjs")} doctor --non-interactive --fix`;
 
     const runCommand = async (argv: string[]) => {
       const key = argv.join(" ");
@@ -534,9 +534,9 @@ describe("runGatewayUpdate", () => {
       path.join(sourceRoot, "package.json"),
       JSON.stringify({ name: "openclaw", version: "1.0.0", packageManager: PNPM_PACKAGE_MANAGER }),
     );
-    await fs.writeFile(path.join(sourceRoot, "openclaw.mjs"), "export {};\n");
+    await fs.writeFile(path.join(sourceRoot, "granted.mjs"), "export {};\n");
     await fs.writeFile(path.join(sourceRoot, "README.md"), "base\n");
-    await runRealGit(sourceRoot, "add", "package.json", "openclaw.mjs", "README.md");
+    await runRealGit(sourceRoot, "add", "package.json", "granted.mjs", "README.md");
     await runRealGit(sourceRoot, "commit", "-m", "base");
     const baseSha = await runRealGit(sourceRoot, "rev-parse", "HEAD");
     await runRealGit(path.dirname(localRoot), "clone", "--quiet", sourceRoot, localRoot);
@@ -869,7 +869,7 @@ describe("runGatewayUpdate", () => {
     await setupGitPackageManagerFixture();
     const upstreamSha = "upstream123";
     const doctorNodePath = await resolveStableNodePath(process.execPath);
-    const doctorCommand = `${doctorNodePath} ${path.join(tempDir, "openclaw.mjs")} doctor --non-interactive --fix`;
+    const doctorCommand = `${doctorNodePath} ${path.join(tempDir, "granted.mjs")} doctor --non-interactive --fix`;
     const beforeGitMutation = vi.fn(async () => {
       calls.push("beforeGitMutation");
     });
@@ -1182,7 +1182,7 @@ describe("runGatewayUpdate", () => {
     await setupGitPackageManagerFixture();
     const targetSha = "2222222222222222222222222222222222222222";
     const doctorNodePath = await resolveStableNodePath(process.execPath);
-    const doctorCommand = `${doctorNodePath} ${path.join(tempDir, "openclaw.mjs")} doctor --non-interactive --fix`;
+    const doctorCommand = `${doctorNodePath} ${path.join(tempDir, "granted.mjs")} doctor --non-interactive --fix`;
     const { runner, calls } = createRunner({
       ...buildGitWorktreeProbeResponses(),
       [`git -C ${tempDir} fetch --all --prune --no-tags`]: { stdout: "" },
@@ -1385,7 +1385,7 @@ describe("runGatewayUpdate", () => {
       installCommand: "pnpm install",
       buildCommand: "pnpm build",
       uiBuildCommand: "pnpm ui:build",
-      doctorCommand: `${doctorNodePath} ${path.join(tempDir, "openclaw.mjs")} doctor --non-interactive --fix`,
+      doctorCommand: `${doctorNodePath} ${path.join(tempDir, "granted.mjs")} doctor --non-interactive --fix`,
       onCommand: (key, options) => {
         if (key === "pnpm install") {
           installEnvs.push(options?.env ?? {});
@@ -1423,7 +1423,7 @@ describe("runGatewayUpdate", () => {
         installCommand: "pnpm install",
         buildCommand: "pnpm build",
         uiBuildCommand: "pnpm ui:build",
-        doctorCommand: `${doctorNodePath} ${path.join(tempDir, "openclaw.mjs")} doctor --non-interactive --fix`,
+        doctorCommand: `${doctorNodePath} ${path.join(tempDir, "granted.mjs")} doctor --non-interactive --fix`,
         onCommand: (key, options) => {
           if (key === "pnpm install") {
             installEnvs.push(options?.env ?? {});
@@ -1462,7 +1462,7 @@ describe("runGatewayUpdate", () => {
         installCommand: "pnpm install",
         buildCommand: "pnpm build",
         uiBuildCommand: "pnpm ui:build",
-        doctorCommand: `${doctorNodePath} ${path.join(tempDir, "openclaw.mjs")} doctor --non-interactive --fix`,
+        doctorCommand: `${doctorNodePath} ${path.join(tempDir, "granted.mjs")} doctor --non-interactive --fix`,
         onCommand: (key, options) => {
           if (key === "pnpm config get prefer-offline") {
             return configResponse;
@@ -1489,7 +1489,7 @@ describe("runGatewayUpdate", () => {
     const stableTag = "v1.0.1-1";
     let doctorEnv: NodeJS.ProcessEnv | undefined;
     const doctorNodePath = await resolveStableNodePath(process.execPath);
-    const doctorCommand = `${doctorNodePath} ${path.join(tempDir, "openclaw.mjs")} doctor --non-interactive --fix`;
+    const doctorCommand = `${doctorNodePath} ${path.join(tempDir, "granted.mjs")} doctor --non-interactive --fix`;
     const { runCommand } = createGitInstallRunner({
       stableTag,
       installCommand: "pnpm install",
@@ -1526,7 +1526,7 @@ describe("runGatewayUpdate", () => {
     const stableTag = "v1.0.1-1";
     let doctorEnv: NodeJS.ProcessEnv | undefined;
     const doctorNodePath = await resolveStableNodePath(process.execPath);
-    const doctorCommand = `${doctorNodePath} ${path.join(tempDir, "openclaw.mjs")} doctor --non-interactive`;
+    const doctorCommand = `${doctorNodePath} ${path.join(tempDir, "granted.mjs")} doctor --non-interactive`;
     const { runCommand } = createGitInstallRunner({
       stableTag,
       installCommand: "pnpm install",
@@ -1747,7 +1747,7 @@ describe("runGatewayUpdate", () => {
         ? path.join(tempDir, "external-artifacts")
         : path.join(checkout, ".artifacts");
       await writePreflightPackageManagerFixture(checkout);
-      await fs.copyFile(path.join(tempDir, "openclaw.mjs"), path.join(checkout, "openclaw.mjs"));
+      await fs.copyFile(path.join(tempDir, "granted.mjs"), path.join(checkout, "granted.mjs"));
       await runRealGit(checkout, "init", "--initial-branch=main");
       await runRealGit(checkout, "config", "user.name", "OpenClaw Test");
       await runRealGit(checkout, "config", "user.email", "openclaw@example.com");
@@ -1763,7 +1763,7 @@ describe("runGatewayUpdate", () => {
         // so this fixture starts clean without altering the repository ignore rules.
         await runRealGit(checkout, "add", ".artifacts");
       }
-      await runRealGit(checkout, "add", ".gitignore", "package.json", "openclaw.mjs");
+      await runRealGit(checkout, "add", ".gitignore", "package.json", "granted.mjs");
       await runRealGit(checkout, "commit", "-m", "artifact storage");
       const targetSha = await runRealGit(checkout, "rev-parse", "HEAD");
       await fs.writeFile(path.join(artifacts, "keep.txt"), "existing artifact\n");
@@ -2011,7 +2011,7 @@ describe("runGatewayUpdate", () => {
     const calls: string[] = [];
     let managerVersionProbeCount = 0;
     const doctorNodePath = await resolveStableNodePath(process.execPath);
-    const doctorCommand = `${doctorNodePath} ${path.join(tempDir, "openclaw.mjs")} doctor --non-interactive --fix`;
+    const doctorCommand = `${doctorNodePath} ${path.join(tempDir, "granted.mjs")} doctor --non-interactive --fix`;
 
     const writeCandidatePackageManager = async (key: string, packageManager: string) => {
       const match = /^git -C (?<root>\S+) checkout --detach /u.exec(key);
@@ -2237,7 +2237,7 @@ describe("runGatewayUpdate", () => {
       "pnpm install": { stdout: "" },
       "pnpm build": { stdout: "" },
       "pnpm ui:build": { stdout: "" },
-      [`${doctorNodePath} ${path.join(tempDir, "openclaw.mjs")} doctor --non-interactive --fix`]: {
+      [`${doctorNodePath} ${path.join(tempDir, "granted.mjs")} doctor --non-interactive --fix`]: {
         stdout: "",
       },
     });
@@ -2274,7 +2274,7 @@ describe("runGatewayUpdate", () => {
       "pnpm install": { stdout: "" },
       "pnpm build": { stdout: "" },
       "pnpm ui:build": { stdout: "" },
-      [`${doctorNodePath} ${path.join(tempDir, "openclaw.mjs")} doctor --non-interactive --fix`]: {
+      [`${doctorNodePath} ${path.join(tempDir, "granted.mjs")} doctor --non-interactive --fix`]: {
         stdout: "",
       },
     });
@@ -2298,7 +2298,7 @@ describe("runGatewayUpdate", () => {
       "pnpm install": { stdout: "" },
       "pnpm build": { stdout: "" },
       "pnpm ui:build": { stdout: "" },
-      [`${doctorNodePath} ${path.join(tempDir, "openclaw.mjs")} doctor --non-interactive --fix`]: {
+      [`${doctorNodePath} ${path.join(tempDir, "granted.mjs")} doctor --non-interactive --fix`]: {
         stdout: "",
       },
     });
@@ -2318,7 +2318,7 @@ describe("runGatewayUpdate", () => {
       installCommand: "pnpm install",
       buildCommand: "pnpm build",
       uiBuildCommand: "pnpm ui:build",
-      doctorCommand: `${process.execPath} ${path.join(tempDir, "openclaw.mjs")} doctor --non-interactive`,
+      doctorCommand: `${process.execPath} ${path.join(tempDir, "granted.mjs")} doctor --non-interactive`,
       onCommand: (key, options) => {
         if (key === "pnpm --version") {
           const envPath = options?.env?.PATH ?? options?.env?.Path ?? "";
@@ -2360,7 +2360,7 @@ describe("runGatewayUpdate", () => {
       installCommand: "pnpm install",
       buildCommand: "pnpm build",
       uiBuildCommand: "pnpm ui:build",
-      doctorCommand: `${process.execPath} ${path.join(tempDir, "openclaw.mjs")} doctor --non-interactive`,
+      doctorCommand: `${process.execPath} ${path.join(tempDir, "granted.mjs")} doctor --non-interactive`,
       onCommand: (key) => {
         if (key === "pnpm --version") {
           pnpmVersionChecks += 1;
@@ -3526,9 +3526,9 @@ describe("runGatewayUpdate", () => {
     expect(calls.filter((call) => call.includes("status --porcelain"))).toEqual([]);
   });
 
-  it("fails with a clear reason when openclaw.mjs is missing", async () => {
+  it("fails with a clear reason when granted.mjs is missing", async () => {
     await setupGitCheckout({ packageManager: PNPM_PACKAGE_MANAGER });
-    await fs.rm(path.join(tempDir, "openclaw.mjs"), { force: true });
+    await fs.rm(path.join(tempDir, "granted.mjs"), { force: true });
 
     const stableTag = "v1.0.1-1";
     const { runner } = createRunner({
@@ -3626,7 +3626,7 @@ describe("runGatewayUpdate", () => {
       const managerVersions: string[] = [];
       const statusCommand = `git -C ${tempDir} status --porcelain -- :!dist/control-ui/`;
       const doctorNodePath = await resolveStableNodePath(process.execPath);
-      const doctorCommand = `${doctorNodePath} ${path.join(tempDir, "openclaw.mjs")} doctor --non-interactive --fix`;
+      const doctorCommand = `${doctorNodePath} ${path.join(tempDir, "granted.mjs")} doctor --non-interactive --fix`;
       const dependencyPath = path.join(tempDir, "node_modules", "update-dependency.cjs");
       await fs.mkdir(path.dirname(dependencyPath), { recursive: true });
       const writeDependency = (head: string) =>

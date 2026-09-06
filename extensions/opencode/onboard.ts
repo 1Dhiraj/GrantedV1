@@ -1,5 +1,5 @@
 // Opencode setup module handles plugin onboarding behavior.
-import { withAgentModelAliases, type GrantedConfig } from "openclaw/plugin-sdk/provider-onboard";
+import { withAgentModelAliases, type GrantedConfig } from "granted/plugin-sdk/provider-onboard";
 
 export const OPENCODE_ZEN_DEFAULT_MODEL_REF = "opencode/claude-opus-5";
 

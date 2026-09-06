@@ -1,10 +1,10 @@
 // Openai plugin module implements openai chatgpt oauth behavior.
 import path from "node:path";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import type { ProviderAuthContext } from "openclaw/plugin-sdk/plugin-entry";
-import type { OAuthCredentials } from "openclaw/plugin-sdk/provider-oauth-runtime";
-import { ensureGlobalUndiciEnvProxyDispatcher } from "openclaw/plugin-sdk/runtime-env";
-import { formatCliCommand } from "openclaw/plugin-sdk/setup-tools";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
+import type { ProviderAuthContext } from "granted/plugin-sdk/plugin-entry";
+import type { OAuthCredentials } from "granted/plugin-sdk/provider-oauth-runtime";
+import { ensureGlobalUndiciEnvProxyDispatcher } from "granted/plugin-sdk/runtime-env";
+import { formatCliCommand } from "granted/plugin-sdk/setup-tools";
 import { loginOpenAICodex } from "./openai-chatgpt-oauth-flow.runtime.js";
 import { runOpenAIOAuthTlsPreflight } from "./openai-chatgpt-oauth-preflight.runtime.js";
 

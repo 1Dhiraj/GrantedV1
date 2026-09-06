@@ -1,8 +1,8 @@
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 // Whatsapp tests cover channel.setup plugin behavior.
-import { createQueuedWizardPrompter } from "openclaw/plugin-sdk/plugin-test-runtime";
-import { DEFAULT_ACCOUNT_ID } from "openclaw/plugin-sdk/routing";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
+import { createQueuedWizardPrompter } from "granted/plugin-sdk/plugin-test-runtime";
+import { DEFAULT_ACCOUNT_ID } from "granted/plugin-sdk/routing";
+import type { RuntimeEnv } from "granted/plugin-sdk/runtime-env";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { WHATSAPP_AUTH_UNSTABLE_CODE } from "./auth-store.js";
 import { whatsappSetupPlugin } from "./channel.setup.js";
@@ -51,7 +51,7 @@ vi.mock("./login.js", () => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/setup", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/setup")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/setup")>(
     "openclaw/plugin-sdk/setup",
   );
   return {

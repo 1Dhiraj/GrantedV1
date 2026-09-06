@@ -250,7 +250,7 @@ import {
   resetDiagnosticEventsForTest,
   waitForDiagnosticEventsDrained,
   type DiagnosticEventPrivateData,
-} from "openclaw/plugin-sdk/diagnostic-runtime";
+} from "granted/plugin-sdk/diagnostic-runtime";
 import {
   emitDiagnosticEventWithTrustedTraceContext,
   emitInternalDiagnosticEventForTest,
@@ -258,7 +258,7 @@ import {
   logMessageDispatchStarted,
   logMessageProcessed,
   runWithDiagnosticTraceContext,
-} from "openclaw/plugin-sdk/plugin-test-runtime";
+} from "granted/plugin-sdk/plugin-test-runtime";
 import { emitDiagnosticEvent, type DiagnosticEventPayload } from "../api.js";
 import { MAX_RETAINED_TRUSTED_SPAN_CONTEXTS } from "./service-constants.js";
 import {

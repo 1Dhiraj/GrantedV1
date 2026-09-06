@@ -1,7 +1,7 @@
 // Telegram tests cover group access.base access plugin behavior.
-import { resolveChannelGroupPolicy } from "openclaw/plugin-sdk/channel-policy";
-import { validateTestChannelConfig } from "openclaw/plugin-sdk/channel-test-helpers";
-import type { GrantedConfig, TelegramAccountConfig } from "openclaw/plugin-sdk/config-contracts";
+import { resolveChannelGroupPolicy } from "granted/plugin-sdk/channel-policy";
+import { validateTestChannelConfig } from "granted/plugin-sdk/channel-test-helpers";
+import type { GrantedConfig, TelegramAccountConfig } from "granted/plugin-sdk/config-contracts";
 import { describe, expect, it } from "vitest";
 import { mergeTelegramAccountConfig } from "./account-config.js";
 import { normalizeAllowFrom, type NormalizedAllowFrom } from "./bot-access.js";

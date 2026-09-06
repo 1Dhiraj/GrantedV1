@@ -7,8 +7,8 @@ import type {
   WhatsAppQaDriverObservedMessage,
   WhatsAppQaDriverSession,
 } from "@openclaw/whatsapp/api.js";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
-import { runExec } from "openclaw/plugin-sdk/process-runtime";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
+import { runExec } from "granted/plugin-sdk/process-runtime";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { createQaBusState } from "../../bus-state.js";
 import type { QaGatewayStopResult } from "../../gateway-child.js";
@@ -53,7 +53,7 @@ vi.mock("./whatsapp-live.driver.js", async (importOriginal) => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/process-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/process-runtime")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/process-runtime")>();
   return { ...actual, runExec: vi.fn(actual.runExec) };
 });
 

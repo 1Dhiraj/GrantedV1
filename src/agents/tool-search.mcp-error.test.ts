@@ -5,7 +5,7 @@ import {
   type AssistantMessage,
   type Message,
   type Model,
-} from "openclaw/plugin-sdk/llm";
+} from "granted/plugin-sdk/llm";
 import { Type } from "typebox";
 import { describe, expect, it } from "vitest";
 import { materializeBundleMcpToolsForRun } from "./agent-bundle-mcp-materialize.js";

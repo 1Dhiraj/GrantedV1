@@ -3,9 +3,9 @@ import { request as httpRequest } from "node:http";
 import {
   createPluginRuntimeMediaMock,
   createPluginRuntimeMock,
-} from "openclaw/plugin-sdk/channel-test-helpers";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { PluginRuntime } from "openclaw/plugin-sdk/core";
+} from "granted/plugin-sdk/channel-test-helpers";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { PluginRuntime } from "granted/plugin-sdk/core";
 import { expect, vi } from "vitest";
 import type { ResolvedZaloAccount } from "../types.js";
 

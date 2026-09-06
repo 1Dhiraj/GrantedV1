@@ -14,8 +14,8 @@ import {
   type WorkboardRunAttempt,
   type WorkboardStatus,
 } from "@openclaw/workboard-contract";
-import { safeEqualSecret } from "openclaw/plugin-sdk/security-runtime";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { safeEqualSecret } from "granted/plugin-sdk/security-runtime";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   BLOCKED_TOO_LONG_MS,
   MAX_CARD_ATTEMPTS,

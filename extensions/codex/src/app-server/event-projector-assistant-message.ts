@@ -2,8 +2,8 @@ import {
   formatErrorMessage,
   type NormalizedUsage,
   type AgentHarnessAttemptParamsV2,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
-import type { AssistantMessage, Usage } from "openclaw/plugin-sdk/llm";
+} from "granted/plugin-sdk/agent-harness-runtime";
+import type { AssistantMessage, Usage } from "granted/plugin-sdk/llm";
 import {
   resolveCodexLocalRuntimeAttribution,
   type CodexLocalRuntimeAttributionParams,

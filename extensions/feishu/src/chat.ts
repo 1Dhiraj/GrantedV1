@@ -1,7 +1,7 @@
 // Feishu plugin module implements chat behavior.
 import type * as Lark from "@larksuiteoapi/node-sdk";
-import { readPositiveIntegerParam } from "openclaw/plugin-sdk/param-readers";
-import type { GrantedPluginToolContext } from "openclaw/plugin-sdk/plugin-entry";
+import { readPositiveIntegerParam } from "granted/plugin-sdk/param-readers";
+import type { GrantedPluginToolContext } from "granted/plugin-sdk/plugin-entry";
 import type { GrantedPluginApi } from "../runtime-api.js";
 import { FeishuChatSchema, type FeishuChatParams } from "./chat-schema.js";
 import { resolveFeishuChatType } from "./chat-type.js";

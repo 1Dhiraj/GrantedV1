@@ -1,27 +1,27 @@
 // Googlechat plugin module implements channel.adapters behavior.
-import { adaptScopedAccountAccessor } from "openclaw/plugin-sdk/channel-config-helpers";
+import { adaptScopedAccountAccessor } from "granted/plugin-sdk/channel-config-helpers";
 import type {
   ChannelThreadingContext,
   ChannelThreadingToolContext,
-} from "openclaw/plugin-sdk/channel-contract";
-import { identityEntryAuthenticationClassifier } from "openclaw/plugin-sdk/channel-ingress-runtime";
+} from "granted/plugin-sdk/channel-contract";
+import { identityEntryAuthenticationClassifier } from "granted/plugin-sdk/channel-ingress-runtime";
 import {
   createMessageReceiptFromOutboundResults,
   defineChannelMessageAdapter,
   type MessageReceiptPartKind,
-} from "openclaw/plugin-sdk/channel-outbound";
+} from "granted/plugin-sdk/channel-outbound";
 import {
   createAllowlistProviderOpenWarningCollector,
   createConditionalWarningCollector,
-} from "openclaw/plugin-sdk/channel-policy";
+} from "granted/plugin-sdk/channel-policy";
 import {
   createChannelDirectoryAdapter,
   listResolvedDirectoryGroupEntriesFromMapKeys,
   listResolvedDirectoryUserEntriesFromAllowFrom,
-} from "openclaw/plugin-sdk/directory-runtime";
-import { createLazyRuntimeNamedExport } from "openclaw/plugin-sdk/lazy-runtime";
-import type { ReplyPayload } from "openclaw/plugin-sdk/reply-runtime";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/directory-runtime";
+import { createLazyRuntimeNamedExport } from "granted/plugin-sdk/lazy-runtime";
+import type { ReplyPayload } from "granted/plugin-sdk/reply-runtime";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import { shouldSuppressGoogleChatManualExecApprovalFollowupPayload } from "./approval-card-actions.js";
 import { formatGoogleChatAllowFromEntry } from "./channel-base.js";
 import {

@@ -1,12 +1,12 @@
 // Slack plugin module owns session routing for non-message events.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { resolveRuntimeConversationBindingRoute } from "openclaw/plugin-sdk/conversation-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { resolveRuntimeConversationBindingRoute } from "granted/plugin-sdk/conversation-runtime";
 import {
   resolveAgentRoute,
   resolveThreadSessionKeys,
   type ResolvedAgentRoute,
-} from "openclaw/plugin-sdk/routing";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/routing";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import type { SlackMessageEvent } from "../types.js";
 import { normalizeSlackChannelType } from "./channel-type.js";
 import type { SlackEventScope } from "./event-scope.js";

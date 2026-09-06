@@ -2,8 +2,8 @@
 import { createHash } from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
-import { KeyedAsyncQueue } from "openclaw/plugin-sdk/keyed-async-queue";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
+import { KeyedAsyncQueue } from "granted/plugin-sdk/keyed-async-queue";
 import type {
   CreateSandboxBackendParams,
   GrantedConfig,
@@ -12,7 +12,7 @@ import type {
   SandboxBackendFactory,
   SandboxBackendManager,
   SandboxFsBridge,
-} from "openclaw/plugin-sdk/sandbox";
+} from "granted/plugin-sdk/sandbox";
 import {
   createRemoteShellSandboxFsBridge,
   disposeSshSandboxSession,
@@ -22,9 +22,9 @@ import {
   sanitizeEnvVars,
   shellEscape,
   withTempWorkspace,
-} from "openclaw/plugin-sdk/sandbox";
-import { canonicalPathFromExistingAncestor } from "openclaw/plugin-sdk/security-runtime";
-import { normalizeLowercaseStringOrEmpty } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/sandbox";
+import { canonicalPathFromExistingAncestor } from "granted/plugin-sdk/security-runtime";
+import { normalizeLowercaseStringOrEmpty } from "granted/plugin-sdk/string-coerce-runtime";
 import type { OpenShellFsBridgeContext, OpenShellSandboxBackend } from "./backend.types.js";
 import {
   buildValidatedExecRemoteCommand,

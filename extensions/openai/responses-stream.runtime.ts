@@ -1,5 +1,5 @@
-import type { ProviderWrapStreamFnContext } from "openclaw/plugin-sdk/plugin-entry";
-import { buildProviderStreamFamilyHooks } from "openclaw/plugin-sdk/provider-stream-family";
+import type { ProviderWrapStreamFnContext } from "granted/plugin-sdk/plugin-entry";
+import { buildProviderStreamFamilyHooks } from "granted/plugin-sdk/provider-stream-family";
 import { createOpenAINativeWebSearchWrapper } from "./native-web-search.js";
 
 const { wrapStreamFn } = buildProviderStreamFamilyHooks("openai-responses-defaults");

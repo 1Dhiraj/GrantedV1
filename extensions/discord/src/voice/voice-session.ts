@@ -1,7 +1,7 @@
-import type { GrantedConfig, DiscordAccountConfig } from "openclaw/plugin-sdk/config-contracts";
-import { resolveAgentRoute } from "openclaw/plugin-sdk/routing";
-import { createSubsystemLogger } from "openclaw/plugin-sdk/runtime-env";
-import { formatErrorMessage } from "openclaw/plugin-sdk/ssrf-runtime";
+import type { GrantedConfig, DiscordAccountConfig } from "granted/plugin-sdk/config-contracts";
+import { resolveAgentRoute } from "granted/plugin-sdk/routing";
+import { createSubsystemLogger } from "granted/plugin-sdk/runtime-env";
+import { formatErrorMessage } from "granted/plugin-sdk/ssrf-runtime";
 import type { Client } from "../internal/discord.js";
 import type { VoicePlugin } from "../internal/voice.js";
 import { formatMention } from "../mentions.js";

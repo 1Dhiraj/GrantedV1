@@ -1,6 +1,6 @@
 // Feishu plugin module implements bot content behavior.
-import { parseStrictNonNegativeInteger } from "openclaw/plugin-sdk/number-runtime";
-import { escapeHtml } from "openclaw/plugin-sdk/text-utility-runtime";
+import { parseStrictNonNegativeInteger } from "granted/plugin-sdk/number-runtime";
+import { escapeHtml } from "granted/plugin-sdk/text-utility-runtime";
 import type { ClawdbotConfig } from "../runtime-api.js";
 import { buildFeishuConversationId } from "./conversation-id.js";
 import { normalizeFeishuExternalKey } from "./external-keys.js";

@@ -10,7 +10,7 @@ import {
   type GrantedConfig,
   type SecretInput,
   createSetupTranslator,
-} from "openclaw/plugin-sdk/setup";
+} from "granted/plugin-sdk/setup";
 import { inspectZaloAccount } from "./accounts.js";
 import { noteZaloTokenHelp, promptZaloAllowFrom } from "./setup-allow-from.js";
 import { zaloDmPolicy } from "./setup-core.js";

@@ -1,5 +1,5 @@
 // Xai plugin module implements x search tool shared behavior.
-import type { AgentToolResult } from "openclaw/plugin-sdk/agent-core";
+import type { AgentToolResult } from "granted/plugin-sdk/agent-core";
 import { Type } from "typebox";
 
 export const X_SEARCH_HANDLE_LIMIT = 20;

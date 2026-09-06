@@ -1,7 +1,7 @@
-import { listAgentIds } from "openclaw/plugin-sdk/agent-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { PluginRuntime } from "openclaw/plugin-sdk/plugin-runtime";
-import { sessionCatalogAdoptedSourceKey } from "openclaw/plugin-sdk/session-catalog";
+import { listAgentIds } from "granted/plugin-sdk/agent-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { PluginRuntime } from "granted/plugin-sdk/plugin-runtime";
+import { sessionCatalogAdoptedSourceKey } from "granted/plugin-sdk/session-catalog";
 import {
   sessionBindingIdentity,
   type CodexAppServerBindingStore,

@@ -1,4 +1,4 @@
-import { captureEnv } from "openclaw/plugin-sdk/test-env";
+import { captureEnv } from "granted/plugin-sdk/test-env";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { createMiniMaxWebSearchProvider } from "./minimax-web-search-provider.js";
 import { testing as minimaxWebSearchTesting } from "./minimax-web-search-provider.runtime.js";

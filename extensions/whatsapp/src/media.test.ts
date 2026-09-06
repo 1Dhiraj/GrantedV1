@@ -2,15 +2,15 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { resolveStateDir } from "openclaw/plugin-sdk/state-paths";
-import { resolvePreferredOpenClawTmpDir } from "openclaw/plugin-sdk/temp-path";
-import { captureEnv, mockPinnedHostnameResolution } from "openclaw/plugin-sdk/test-env";
+import { resolveStateDir } from "granted/plugin-sdk/state-paths";
+import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
+import { captureEnv, mockPinnedHostnameResolution } from "granted/plugin-sdk/test-env";
 import {
   createGrayscaleAlphaPngBuffer,
   createSolidPngBuffer,
-} from "openclaw/plugin-sdk/test-fixtures";
-import { withMockedWindowsPlatform, withRestoredMocks } from "openclaw/plugin-sdk/test-node-mocks";
-import { optimizeImageToPng } from "openclaw/plugin-sdk/web-media";
+} from "granted/plugin-sdk/test-fixtures";
+import { withMockedWindowsPlatform, withRestoredMocks } from "granted/plugin-sdk/test-node-mocks";
+import { optimizeImageToPng } from "granted/plugin-sdk/web-media";
 import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from "vitest";
 import {
   LocalMediaAccessError,

@@ -1,12 +1,12 @@
 // Codex tests cover run attempt.steering plugin behavior.
 import path from "node:path";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
-import { GPT5_BEHAVIOR_CONTRACT as CODEX_GPT5_BEHAVIOR_CONTRACT } from "openclaw/plugin-sdk/provider-model-shared";
-import { upsertSessionEntry } from "openclaw/plugin-sdk/session-store-runtime";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
+import { GPT5_BEHAVIOR_CONTRACT as CODEX_GPT5_BEHAVIOR_CONTRACT } from "granted/plugin-sdk/provider-model-shared";
+import { upsertSessionEntry } from "granted/plugin-sdk/session-store-runtime";
 import {
   appendSessionTranscriptMessageByIdentity,
   readSessionTranscriptEvents,
-} from "openclaw/plugin-sdk/session-transcript-runtime";
+} from "granted/plugin-sdk/session-transcript-runtime";
 import { describe, expect, it, vi } from "vitest";
 import type { CodexSteeringQueueOptions } from "./attempt-steering.js";
 import { readAttemptTerminal } from "./attempt-terminal.test-helper.js";
@@ -36,7 +36,7 @@ const activeRunRegistrationMocks = vi.hoisted(() => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/agent-harness-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/agent-harness-runtime")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/agent-harness-runtime")>();
   return {
     ...actual,
     cancelPendingAgentQuestionForSession: async (

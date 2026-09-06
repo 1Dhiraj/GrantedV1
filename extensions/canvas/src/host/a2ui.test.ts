@@ -1,6 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import { resolvePreferredOpenClawTmpDir } from "openclaw/plugin-sdk/temp-path";
+import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { handleA2uiHttpRequestWithRootResolver } from "./a2ui-route.js";
 import { A2UI_PATH } from "./a2ui-shared.js";

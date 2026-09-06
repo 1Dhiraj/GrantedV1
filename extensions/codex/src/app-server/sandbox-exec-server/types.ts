@@ -2,8 +2,8 @@
  * Shared protocol and runtime state types for the Codex sandbox exec-server
  * transport-neutral execution session.
  */
-import type { PluginRuntime } from "openclaw/plugin-sdk/plugin-runtime";
-import type { SandboxContext } from "openclaw/plugin-sdk/sandbox";
+import type { PluginRuntime } from "granted/plugin-sdk/plugin-runtime";
+import type { SandboxContext } from "granted/plugin-sdk/sandbox";
 import type { JsonObject, JsonValue } from "../protocol.js";
 import type { SandboxChildOwner } from "./sandbox-child.js";
 

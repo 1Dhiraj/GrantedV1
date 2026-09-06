@@ -2,9 +2,9 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 // Lobster tests cover lobster runner plugin behavior.
-import { toErrorObject as toLintErrorObject } from "openclaw/plugin-sdk/error-runtime";
-import { useAutoCleanupTempDirTracker } from "openclaw/plugin-sdk/test-env";
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { toErrorObject as toLintErrorObject } from "granted/plugin-sdk/error-runtime";
+import { useAutoCleanupTempDirTracker } from "granted/plugin-sdk/test-env";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   createEmbeddedLobsterRunner,

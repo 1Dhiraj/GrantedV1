@@ -1,5 +1,5 @@
 // Discord tests cover debounce partitioning by reply target.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { beforeEach, describe, expect, it } from "vitest";
 import {
   createDiscordMessageHandler,

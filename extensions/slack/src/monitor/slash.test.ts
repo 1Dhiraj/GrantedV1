@@ -1,28 +1,28 @@
-import type { ChatCommandDefinition } from "openclaw/plugin-sdk/command-auth-native";
+import type { ChatCommandDefinition } from "granted/plugin-sdk/command-auth-native";
 // Slack tests cover slash plugin behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
-import type { NativeCommandSpec } from "openclaw/plugin-sdk/native-command-registry";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
+import type { NativeCommandSpec } from "granted/plugin-sdk/native-command-registry";
 import {
   PLUGIN_COMMAND_DISPATCH,
   type PluginCommandCatalogDecision,
   type PluginCommandDispatch,
-} from "openclaw/plugin-sdk/plugin-command-runtime";
-import { clearPluginCommands, registerPluginCommand } from "openclaw/plugin-sdk/plugin-runtime";
+} from "granted/plugin-sdk/plugin-command-runtime";
+import { clearPluginCommands, registerPluginCommand } from "granted/plugin-sdk/plugin-runtime";
 import {
   createEmptyPluginRegistry,
   getActivePluginRegistry,
   setActivePluginRegistry,
-} from "openclaw/plugin-sdk/plugin-test-runtime";
+} from "granted/plugin-sdk/plugin-test-runtime";
 import {
   clearRuntimeConfigSnapshot,
   setRuntimeConfigSnapshot,
-} from "openclaw/plugin-sdk/runtime-config-snapshot";
+} from "granted/plugin-sdk/runtime-config-snapshot";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { getSlackSlashMocks, resetSlackSlashMocks } from "./slash.test-harness.js";
 
 vi.mock("openclaw/plugin-sdk/agent-runtime", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/agent-runtime")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/agent-runtime")>(
     "openclaw/plugin-sdk/agent-runtime",
   );
   return {
@@ -140,7 +140,7 @@ const retainNativeCatalog = vi.hoisted(() => vi.fn());
 
 vi.mock("openclaw/plugin-sdk/plugin-command-runtime", async (importOriginal) => {
   const actual =
-    await importOriginal<typeof import("openclaw/plugin-sdk/plugin-command-runtime")>();
+    await importOriginal<typeof import("granted/plugin-sdk/plugin-command-runtime")>();
   return {
     ...actual,
     createPluginCommandRuntime: () => {

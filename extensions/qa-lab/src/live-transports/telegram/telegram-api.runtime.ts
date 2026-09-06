@@ -1,8 +1,8 @@
 import { setTimeout as sleep } from "node:timers/promises";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import { parseStrictPositiveInteger } from "openclaw/plugin-sdk/number-runtime";
-import { uniqueStrings } from "openclaw/plugin-sdk/string-coerce-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
+import { parseStrictPositiveInteger } from "granted/plugin-sdk/number-runtime";
+import { uniqueStrings } from "granted/plugin-sdk/string-coerce-runtime";
 
 type TelegramChannelStatus = {
   accountId?: string;

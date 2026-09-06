@@ -1,8 +1,8 @@
 // Searxng helper module supports config behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { normalizeSecretInput } from "openclaw/plugin-sdk/secret-input";
-import { resolveReadOnlyEnvSecretRef } from "openclaw/plugin-sdk/secret-ref-readonly";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { normalizeSecretInput } from "granted/plugin-sdk/secret-input";
+import { resolveReadOnlyEnvSecretRef } from "granted/plugin-sdk/secret-ref-readonly";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 
 const SEARXNG_BASE_URL_ENV_VAR = "SEARXNG_BASE_URL";
 const SEARXNG_BASE_URL_PATH = "plugins.entries.searxng.config.webSearch.baseUrl";

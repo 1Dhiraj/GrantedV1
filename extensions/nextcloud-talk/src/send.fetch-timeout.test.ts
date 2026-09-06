@@ -1,4 +1,4 @@
-import { withServer } from "openclaw/plugin-sdk/test-env";
+import { withServer } from "granted/plugin-sdk/test-env";
 import { describe, expect, it } from "vitest";
 import { resolveNextcloudTalkAccount } from "./accounts.js";
 import { probeNextcloudTalkBotResponseFeature } from "./bot-preflight.js";

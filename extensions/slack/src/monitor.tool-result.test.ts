@@ -1,8 +1,8 @@
 // Slack tests cover monitor.tool result plugin behavior.
-import { CURRENT_MESSAGE_MARKER } from "openclaw/plugin-sdk/channel-mention-gating";
-import { expectPairingReplyText } from "openclaw/plugin-sdk/channel-test-helpers";
-import { HISTORY_CONTEXT_MARKER } from "openclaw/plugin-sdk/reply-history";
-import { resetInboundDedupe } from "openclaw/plugin-sdk/reply-runtime";
+import { CURRENT_MESSAGE_MARKER } from "granted/plugin-sdk/channel-mention-gating";
+import { expectPairingReplyText } from "granted/plugin-sdk/channel-test-helpers";
+import { HISTORY_CONTEXT_MARKER } from "granted/plugin-sdk/reply-history";
+import { resetInboundDedupe } from "granted/plugin-sdk/reply-runtime";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
   defaultSlackTestConfig,

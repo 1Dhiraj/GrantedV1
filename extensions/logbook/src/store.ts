@@ -6,11 +6,11 @@ import path from "node:path";
 import {
   configureSqliteConnectionPragmas,
   migrateSqliteSchemaToStrict,
-} from "openclaw/plugin-sdk/plugin-state-runtime";
+} from "granted/plugin-sdk/plugin-state-runtime";
 import {
   openNodeSqliteDatabase,
   runSqliteImmediateTransactionSync,
-} from "openclaw/plugin-sdk/sqlite-runtime";
+} from "granted/plugin-sdk/sqlite-runtime";
 import type {
   LogbookBatch,
   LogbookBatchStatus,

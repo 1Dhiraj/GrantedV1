@@ -2,8 +2,8 @@ import { expectDefined } from "@openclaw/normalization-core";
 import type {
   GrantedPluginCommandDefinition,
   PluginCommandContext,
-} from "openclaw/plugin-sdk/plugin-entry";
-import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
+} from "granted/plugin-sdk/plugin-entry";
+import { createTestPluginApi } from "granted/plugin-sdk/plugin-test-api";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const resolveTelegramMiniAppUrls = vi.hoisted(() => vi.fn());

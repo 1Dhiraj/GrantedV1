@@ -1,6 +1,6 @@
 // Matrix plugin module implements auth presence behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { createPluginStateSyncKeyedStore } from "openclaw/plugin-sdk/plugin-state-store-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { createPluginStateSyncKeyedStore } from "granted/plugin-sdk/plugin-state-store-runtime";
 import {
   MATRIX_CREDENTIALS_MAX_ENTRIES,
   MATRIX_CREDENTIALS_NAMESPACE,

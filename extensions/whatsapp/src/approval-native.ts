@@ -1,18 +1,18 @@
 // Whatsapp plugin module implements approval native behavior.
-import { createApproverRestrictedNativeApprovalCapabilityFromForwardingRoutes } from "openclaw/plugin-sdk/approval-delivery-runtime";
-import { createLazyChannelApprovalNativeRuntimeAdapter } from "openclaw/plugin-sdk/approval-handler-adapter-runtime";
+import { createApproverRestrictedNativeApprovalCapabilityFromForwardingRoutes } from "granted/plugin-sdk/approval-delivery-runtime";
+import { createLazyChannelApprovalNativeRuntimeAdapter } from "granted/plugin-sdk/approval-handler-adapter-runtime";
 import type {
   ChannelApprovalKind,
   ChannelApprovalNativeRuntimeAdapter,
-} from "openclaw/plugin-sdk/approval-handler-runtime";
-import { buildApprovalReactionPromptPayloadForRequest } from "openclaw/plugin-sdk/approval-reaction-runtime";
-import { buildTypedApprovalPresentation } from "openclaw/plugin-sdk/approval-reply-runtime";
+} from "granted/plugin-sdk/approval-handler-runtime";
+import { buildApprovalReactionPromptPayloadForRequest } from "granted/plugin-sdk/approval-reaction-runtime";
+import { buildTypedApprovalPresentation } from "granted/plugin-sdk/approval-reply-runtime";
 import type {
   ExecApprovalRequest,
   PluginApprovalRequest,
-} from "openclaw/plugin-sdk/approval-runtime";
-import type { ChannelApprovalCapability } from "openclaw/plugin-sdk/channel-contract";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+} from "granted/plugin-sdk/approval-runtime";
+import type { ChannelApprovalCapability } from "granted/plugin-sdk/channel-contract";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   listWhatsAppAccountIds,
   resolveDefaultWhatsAppAccountId,

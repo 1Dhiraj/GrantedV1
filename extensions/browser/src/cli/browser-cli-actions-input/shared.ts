@@ -3,7 +3,7 @@
  */
 import fs from "node:fs/promises";
 import type { Command } from "commander";
-import { FsSafeError, readRegularFile } from "openclaw/plugin-sdk/security-runtime";
+import { FsSafeError, readRegularFile } from "granted/plugin-sdk/security-runtime";
 import { resolveBrowserActRequestTimeoutMs } from "../../browser/act-policy.js";
 import type { BrowserActRequest, BrowserFormField } from "../../browser/client-actions.types.js";
 import {

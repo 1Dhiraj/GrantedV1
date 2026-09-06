@@ -1,14 +1,14 @@
 // LongCat tests cover provider registration, onboarding, and wire compatibility.
 import { readFileSync } from "node:fs";
-import type { StreamFn } from "openclaw/plugin-sdk/agent-core";
+import type { StreamFn } from "granted/plugin-sdk/agent-core";
 import {
   createAssistantMessageEventStream,
   type Context,
   type Model,
-} from "openclaw/plugin-sdk/llm";
-import { registerSingleProviderPlugin } from "openclaw/plugin-sdk/plugin-test-runtime";
-import { resolveAgentModelPrimaryValue } from "openclaw/plugin-sdk/provider-onboard";
-import { buildOpenAICompletionsParams } from "openclaw/plugin-sdk/provider-transport-runtime";
+} from "granted/plugin-sdk/llm";
+import { registerSingleProviderPlugin } from "granted/plugin-sdk/plugin-test-runtime";
+import { resolveAgentModelPrimaryValue } from "granted/plugin-sdk/provider-onboard";
+import { buildOpenAICompletionsParams } from "granted/plugin-sdk/provider-transport-runtime";
 import { describe, expect, it } from "vitest";
 import plugin from "./index.js";
 import { LONGCAT_DEFAULT_MODEL_REF } from "./models.js";

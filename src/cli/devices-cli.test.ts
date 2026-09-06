@@ -1,6 +1,6 @@
 import { Command } from "commander";
 // Devices CLI tests cover device command registration and output behavior.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { stripAnsi } from "../../packages/terminal-core/src/ansi.js";
 import { registerDevicesCli } from "./devices-cli.js";

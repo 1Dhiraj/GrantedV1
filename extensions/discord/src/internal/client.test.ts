@@ -1,7 +1,7 @@
 // Discord tests cover client plugin behavior.
 import { ApplicationCommandType, ComponentType, Routes } from "discord-api-types/v10";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
-import { MAX_TIMER_TIMEOUT_MS } from "openclaw/plugin-sdk/number-runtime";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
+import { MAX_TIMER_TIMEOUT_MS } from "granted/plugin-sdk/number-runtime";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { Client } from "./client.js";
 import { Command, type CommandOptions, type DiscordCommand } from "./commands.js";

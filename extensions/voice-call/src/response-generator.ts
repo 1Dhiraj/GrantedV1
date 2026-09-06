@@ -4,21 +4,21 @@
  */
 
 import crypto from "node:crypto";
-import { resolveDefaultModelForAgent } from "openclaw/plugin-sdk/agent-runtime";
-import { resolveAgentConfig } from "openclaw/plugin-sdk/agent-scope-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import { resolveDefaultModelForAgent } from "granted/plugin-sdk/agent-runtime";
+import { resolveAgentConfig } from "granted/plugin-sdk/agent-scope-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   applyModelOverrideWithAuthProfileCompatibility,
   ModelSelectionLockedError,
   resolvePersistedSessionRuntimeId,
-} from "openclaw/plugin-sdk/model-session-runtime";
+} from "granted/plugin-sdk/model-session-runtime";
 import {
   isRecord,
   filterStringEntries,
   normalizeLowercaseStringOrEmpty,
   normalizeStringEntries,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
+import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import type { GrantedPluginApi } from "../api.js";
 import { resolveVoiceCallSessionKey, type VoiceCallConfig } from "./config.js";
 import { resolveCallAgentId } from "./resolve-call-agent-id.js";

@@ -1,9 +1,9 @@
-import { parseAllowFromEntries } from "openclaw/plugin-sdk/allow-from";
-import { createChannelDmPolicy } from "openclaw/plugin-sdk/channel-dm-policy";
+import { parseAllowFromEntries } from "granted/plugin-sdk/allow-from";
+import { createChannelDmPolicy } from "granted/plugin-sdk/channel-dm-policy";
 import {
   defineChannelSetupContract,
   type ChannelSetupInput,
-} from "openclaw/plugin-sdk/channel-setup";
+} from "granted/plugin-sdk/channel-setup";
 // Imessage plugin module implements setup core behavior.
 import {
   createCliPathTextInput,
@@ -19,9 +19,9 @@ import {
   type ChannelSetupWizardTextInput,
   type GrantedConfig,
   type WizardPrompter,
-} from "openclaw/plugin-sdk/setup-runtime";
-import { formatDocsLink } from "openclaw/plugin-sdk/setup-tools";
-import { normalizeLowercaseStringOrEmpty } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/setup-runtime";
+import { formatDocsLink } from "granted/plugin-sdk/setup-tools";
+import { normalizeLowercaseStringOrEmpty } from "granted/plugin-sdk/string-coerce-runtime";
 import { resolveDefaultIMessageAccountId, resolveIMessageAccount } from "./accounts.js";
 import { normalizeIMessageHandle } from "./targets.js";
 

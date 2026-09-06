@@ -1,5 +1,5 @@
 // Github Copilot tests cover auth plugin behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { afterAll, afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const ensureAuthProfileStoreMock = vi.hoisted(() => vi.fn());
@@ -10,8 +10,8 @@ const resolveRequiredConfiguredSecretRefInputStringMock = vi.hoisted(() => vi.fn
 
 vi.mock("openclaw/plugin-sdk/provider-auth", async (importOriginal) => {
   const { findNormalizedProviderValue, resolveAuthProfileOrder } =
-    await importOriginal<typeof import("openclaw/plugin-sdk/provider-auth")>();
-  const { normalizeOptionalString } = await import("openclaw/plugin-sdk/string-coerce-runtime");
+    await importOriginal<typeof import("granted/plugin-sdk/provider-auth")>();
+  const { normalizeOptionalString } = await import("granted/plugin-sdk/string-coerce-runtime");
   return {
     coerceSecretRef: coerceSecretRefMock,
     ensureAuthProfileStore: ensureAuthProfileStoreMock,

@@ -1,4 +1,4 @@
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import type { Page, Request, Response, Route } from "playwright-core";
 import { toErrorObject } from "../infra/errors.js";
 import { SsrFBlockedError } from "../infra/net/ssrf.js";

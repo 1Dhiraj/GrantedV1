@@ -1,14 +1,14 @@
 // Whatsapp plugin module implements on message behavior.
-import type { AckReactionHandle } from "openclaw/plugin-sdk/channel-feedback";
-import type { ChannelInboundTurnPlan } from "openclaw/plugin-sdk/channel-inbound";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { AckReactionHandle } from "granted/plugin-sdk/channel-feedback";
+import type { ChannelInboundTurnPlan } from "granted/plugin-sdk/channel-inbound";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   ensureConfiguredBindingRouteReady,
   resolveConfiguredBindingRoute,
-} from "openclaw/plugin-sdk/conversation-binding-runtime";
-import type { getReplyFromConfig, MsgContext } from "openclaw/plugin-sdk/reply-runtime";
-import { resolveAgentRoute, buildGroupHistoryKey } from "openclaw/plugin-sdk/routing";
-import { logVerbose } from "openclaw/plugin-sdk/runtime-env";
+} from "granted/plugin-sdk/conversation-binding-runtime";
+import type { getReplyFromConfig, MsgContext } from "granted/plugin-sdk/reply-runtime";
+import { resolveAgentRoute, buildGroupHistoryKey } from "granted/plugin-sdk/routing";
+import { logVerbose } from "granted/plugin-sdk/runtime-env";
 import { resolveWhatsAppAccount } from "../../accounts.js";
 import { resolveWhatsAppGroupSessionRoute } from "../../group-session-key.js";
 import { getPrimaryIdentityId, getSenderIdentity } from "../../identity.js";
@@ -40,10 +40,10 @@ export function createWebOnMessageHandler(params: {
   groupMemberNames: Map<string, Map<string, string>>;
   backgroundTasks: Set<Promise<unknown>>;
   replyResolver: typeof getReplyFromConfig;
-  replyLogger: ReturnType<(typeof import("openclaw/plugin-sdk/runtime-env"))["getChildLogger"]>;
+  replyLogger: ReturnType<(typeof import("granted/plugin-sdk/runtime-env"))["getChildLogger"]>;
   baseMentionConfig: MentionConfig;
   account: { authDir?: string; accountId?: string; selfChatMode?: boolean };
-  buildContext?: typeof import("openclaw/plugin-sdk/channel-inbound").buildChannelInboundEventContext;
+  buildContext?: typeof import("granted/plugin-sdk/channel-inbound").buildChannelInboundEventContext;
   dispatchReplyFromConfig?: NonNullable<ChannelInboundTurnPlan["dispatchReplyFromConfig"]>;
 }) {
   const hasExplicitlyPassedInboundAccess = (msg: AdmittedWebInboundMessage): boolean =>

@@ -1,4 +1,4 @@
-import type { GrantedConfig } from "openclaw/plugin-sdk/setup";
+import type { GrantedConfig } from "granted/plugin-sdk/setup";
 // Guards the shipped `--token` alias: released CLIs configured LINE through the
 // shared token envelope switch, which must keep writing channelAccessToken.
 import { describe, expect, it } from "vitest";

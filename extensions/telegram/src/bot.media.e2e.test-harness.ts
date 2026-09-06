@@ -2,13 +2,13 @@
 import { mkdtempSync, rmSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   createPluginStateKeyedStoreForTests,
   resetPluginStateStoreForTests,
-} from "openclaw/plugin-sdk/plugin-state-test-runtime";
-import { finalizeInboundContext, resetInboundDedupe } from "openclaw/plugin-sdk/reply-runtime";
-import type { GetReplyOptions, MsgContext } from "openclaw/plugin-sdk/reply-runtime";
+} from "granted/plugin-sdk/plugin-state-test-runtime";
+import { finalizeInboundContext, resetInboundDedupe } from "granted/plugin-sdk/reply-runtime";
+import type { GetReplyOptions, MsgContext } from "granted/plugin-sdk/reply-runtime";
 import { afterEach, beforeEach, vi, type Mock } from "vitest";
 import type { TelegramBotDeps } from "./bot-deps.js";
 import { runTelegramChannelInboundEventWithHarness } from "./bot.test-helpers.js";
@@ -18,10 +18,10 @@ import type { TelegramRuntime } from "./runtime.types.js";
 
 type TelegramBotRuntimeForTest = typeof import("./bot.runtime.js");
 type DispatchReplyWithBufferedBlockDispatcherFn =
-  typeof import("openclaw/plugin-sdk/reply-runtime").dispatchReplyWithBufferedBlockDispatcher;
+  typeof import("granted/plugin-sdk/reply-runtime").dispatchReplyWithBufferedBlockDispatcher;
 type DispatchReplyHarnessParams = Parameters<DispatchReplyWithBufferedBlockDispatcherFn>[0];
 type ReadRemoteMediaBufferFn =
-  typeof import("openclaw/plugin-sdk/media-runtime").readRemoteMediaBuffer;
+  typeof import("granted/plugin-sdk/media-runtime").readRemoteMediaBuffer;
 
 const useSpy: Mock = vi.fn();
 const middlewareUseSpy: Mock = vi.fn();
@@ -226,7 +226,7 @@ const mediaHarnessDispatchReplyWithBufferedBlockDispatcher = vi.hoisted(() =>
 );
 
 vi.mock("openclaw/plugin-sdk/channel-inbound", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/channel-inbound")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/channel-inbound")>();
   return {
     ...actual,
     runChannelInboundEvent: async (params: Parameters<typeof actual.runChannelInboundEvent>[0]) =>

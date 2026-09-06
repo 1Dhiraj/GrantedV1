@@ -1,4 +1,4 @@
-import { clearLiveCatalogCacheForTests } from "openclaw/plugin-sdk/provider-catalog-live-runtime";
+import { clearLiveCatalogCacheForTests } from "granted/plugin-sdk/provider-catalog-live-runtime";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { DEEPINFRA_MODEL_CATALOG, discoverDeepInfraModels } from "./provider-models.js";
 

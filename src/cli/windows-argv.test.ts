@@ -90,13 +90,13 @@ describe("normalizeWindowsArgv", () => {
       expect(
         normalizeWindowsArgv([
           "C:\\Program Files\\nodejs\\node.exe",
-          "C:\\pkg\\openclaw.mjs",
+          "C:\\pkg\\granted.mjs",
           "node.exe",
           "--help",
         ]),
       ).toEqual([
         "C:\\Program Files\\nodejs\\node.exe",
-        "C:\\pkg\\openclaw.mjs",
+        "C:\\pkg\\granted.mjs",
         "node.exe",
         "--help",
       ]);
@@ -112,13 +112,13 @@ describe("normalizeWindowsArgv", () => {
         normalizeWindowsArgv([
           "C:\\Program Files\\nodejs\\node.exe",
           "C:\\Program Files\\nodejs\\node.exe",
-          "C:\\pkg\\openclaw.mjs",
+          "C:\\pkg\\granted.mjs",
           "node.exe",
           "--help",
         ]),
       ).toEqual([
         "C:\\Program Files\\nodejs\\node.exe",
-        "C:\\pkg\\openclaw.mjs",
+        "C:\\pkg\\granted.mjs",
         "node.exe",
         "--help",
       ]);
@@ -128,7 +128,7 @@ describe("normalizeWindowsArgv", () => {
   });
 
   it("does not normalize POSIX argv", () => {
-    const argv = ["/usr/bin/node", "/opt/openclaw/openclaw.mjs", "node.exe", "--help"];
+    const argv = ["/usr/bin/node", "/opt/openclaw/granted.mjs", "node.exe", "--help"];
     expect(normalizeWindowsArgv(argv, { platform: "linux" })).toBe(argv);
   });
 });

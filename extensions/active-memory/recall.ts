@@ -1,6 +1,6 @@
-import { resolveAgentConfig } from "openclaw/plugin-sdk/agent-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
+import { resolveAgentConfig } from "granted/plugin-sdk/agent-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { GrantedPluginApi } from "granted/plugin-sdk/plugin-entry";
 import { normalizeActiveMemoryFastMode } from "./config.js";
 import { getModelRef } from "./query.js";
 import { runRecallSubagent } from "./recall-run.js";

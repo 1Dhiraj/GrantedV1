@@ -2,8 +2,8 @@
 import {
   DEFAULT_CHANNEL_FEEDBACK_REFLECTION_COOLDOWN_MS,
   runChannelFeedbackReflection,
-} from "openclaw/plugin-sdk/channel-inbound";
-import { normalizeOptionalLowercaseString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/channel-inbound";
+import { normalizeOptionalLowercaseString } from "granted/plugin-sdk/string-coerce-runtime";
 import type { GrantedConfig } from "../runtime-api.js";
 import { resolveMSTeamsSdkCloudOptions } from "./cloud.js";
 import type { StoredConversationReference } from "./conversation-store.js";

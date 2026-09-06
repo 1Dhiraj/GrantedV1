@@ -1,6 +1,6 @@
 // Telegram tests cover forum topic recovery from the real message cache.
 import type { Message } from "grammy/types";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
   createTelegramMessageContextRuntime,

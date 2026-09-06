@@ -15,7 +15,7 @@ vi.mock("../agents/prepared-model-catalog.js", () => ({
 import {
   loadModelCatalog,
   resolveThinkingDefaultWithRuntimeCatalog,
-} from "openclaw/plugin-sdk/agent-runtime";
+} from "granted/plugin-sdk/agent-runtime";
 
 describe("agent-runtime model catalog compatibility", () => {
   beforeEach(() => {

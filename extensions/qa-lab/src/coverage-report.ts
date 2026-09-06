@@ -2,7 +2,7 @@
 import {
   normalizeOptionalString as stringifyConfigValue,
   normalizeStringEntriesLower,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import { isRepoRootRelativeRef } from "./cli-paths.js";
 import { DEFAULT_QA_LIVE_PROVIDER_MODE } from "./providers/index.js";
 import {

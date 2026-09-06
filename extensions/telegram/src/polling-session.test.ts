@@ -6,9 +6,9 @@ import { Worker } from "node:worker_threads";
 import { expectDefined } from "@openclaw/normalization-core";
 import { Bot } from "grammy";
 import type { Update } from "grammy/types";
-import type { ChannelAccountSnapshot } from "openclaw/plugin-sdk/channel-contract";
-import { DEFAULT_INGRESS_RETRY_MAX_ATTEMPTS as TELEGRAM_SPOOLED_RETRY_MAX_ATTEMPTS } from "openclaw/plugin-sdk/channel-outbound";
-import { toErrorObject as toLintErrorObject } from "openclaw/plugin-sdk/error-runtime";
+import type { ChannelAccountSnapshot } from "granted/plugin-sdk/channel-contract";
+import { DEFAULT_INGRESS_RETRY_MAX_ATTEMPTS as TELEGRAM_SPOOLED_RETRY_MAX_ATTEMPTS } from "granted/plugin-sdk/channel-outbound";
+import { toErrorObject as toLintErrorObject } from "granted/plugin-sdk/error-runtime";
 import {
   isIngressClaimOwnedByOtherLiveProcess as isTelegramSpooledUpdateClaimOwnedByOtherLiveProcess,
   resolveIngressRetryDelayMs,
@@ -19,7 +19,7 @@ import {
   getNodeSqliteKysely,
   openOpenClawStateDatabase,
   type GrantedStateKyselyDatabaseForTests,
-} from "openclaw/plugin-sdk/plugin-state-test-runtime";
+} from "granted/plugin-sdk/plugin-state-test-runtime";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { commitTelegramMessageDispatchReplay } from "./message-dispatch-dedupe.js";
 import {
@@ -148,7 +148,7 @@ async function claimSpooledUpdateById(spoolDir: string, updateId: number) {
 
 async function createTelegramMessageDispatchReplayForgetError(): Promise<unknown> {
   type ReplayGuard = Parameters<typeof commitTelegramMessageDispatchReplay>[0]["guard"];
-  type ReplayClaim = import("openclaw/plugin-sdk/persistent-dedupe").ChannelReplayClaimHandle;
+  type ReplayClaim = import("granted/plugin-sdk/persistent-dedupe").ChannelReplayClaimHandle;
   const diskError = new Error("dedupe disk write failed");
   const guard: ReplayGuard = {
     claim: async () => ({ kind: "invalid" }),

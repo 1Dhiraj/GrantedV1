@@ -1,9 +1,9 @@
 // Voice Call plugin module implements realtime agent context behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { buildRealtimeVoiceAgentConsultPolicyInstructions } from "openclaw/plugin-sdk/realtime-voice";
-import { root } from "openclaw/plugin-sdk/security-runtime";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { buildRealtimeVoiceAgentConsultPolicyInstructions } from "granted/plugin-sdk/realtime-voice";
+import { root } from "granted/plugin-sdk/security-runtime";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
+import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import type { GrantedPluginApi } from "../api.js";
 import type { VoiceCallConfig } from "./config.js";
 

@@ -1,7 +1,7 @@
-import type { GrantedPluginNodeHostCommandAvailabilityContext } from "openclaw/plugin-sdk/plugin-entry";
-import type { CommandOptions, SpawnResult } from "openclaw/plugin-sdk/process-runtime";
-import { asFiniteNumber, asNonArrayRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+import type { GrantedPluginNodeHostCommandAvailabilityContext } from "granted/plugin-sdk/plugin-entry";
+import type { CommandOptions, SpawnResult } from "granted/plugin-sdk/process-runtime";
+import { asFiniteNumber, asNonArrayRecord } from "granted/plugin-sdk/string-coerce-runtime";
+import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import {
   resolveLinuxNodePluginConfigFromHost,
   type ResolvedLinuxNodePluginConfig,

@@ -28,7 +28,7 @@ describe("native hook relay CLI", () => {
       runNativeHookRelayCliFromArgv(
         [
           "node",
-          "openclaw.mjs",
+          "granted.mjs",
           "hooks",
           "relay",
           "--provider=codex",

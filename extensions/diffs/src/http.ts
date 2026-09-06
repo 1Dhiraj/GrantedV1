@@ -1,8 +1,8 @@
 // Diffs plugin module implements http behavior.
 import type { IncomingMessage, ServerResponse } from "node:http";
-import { isLoopbackHost } from "openclaw/plugin-sdk/ssrf-runtime";
-import { normalizeLowercaseStringOrEmpty } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { createAuthRateLimiter, type AuthRateLimiter } from "openclaw/plugin-sdk/webhook-ingress";
+import { isLoopbackHost } from "granted/plugin-sdk/ssrf-runtime";
+import { normalizeLowercaseStringOrEmpty } from "granted/plugin-sdk/string-coerce-runtime";
+import { createAuthRateLimiter, type AuthRateLimiter } from "granted/plugin-sdk/webhook-ingress";
 import type { PluginLogger } from "../api.js";
 import { resolveRequestClientIp } from "../runtime-api.js";
 import type { DiffArtifactStore } from "./store.js";

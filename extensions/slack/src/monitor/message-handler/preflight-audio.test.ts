@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { SlackMessageEvent } from "../../types.js";
 import type { SlackMediaResult } from "../media-types.js";
@@ -18,7 +18,7 @@ const { transcribeFirstAudioMock } = vi.hoisted(() => ({
 
 vi.mock("openclaw/plugin-sdk/media-understanding-runtime", async (importOriginal) => {
   const actual =
-    await importOriginal<typeof import("openclaw/plugin-sdk/media-understanding-runtime")>();
+    await importOriginal<typeof import("granted/plugin-sdk/media-understanding-runtime")>();
   return {
     ...actual,
     createChannelPreflightAudio: (

@@ -2,16 +2,16 @@
  * Anthropic stream wrappers. They add beta headers, service tier/fast-mode
  * payload fields, and thinking-prefill cleanup around provider stream functions.
  */
-import type { StreamFn } from "openclaw/plugin-sdk/agent-core";
-import { streamSimple } from "openclaw/plugin-sdk/llm";
-import type { ProviderWrapStreamFnContext } from "openclaw/plugin-sdk/plugin-entry";
+import type { StreamFn } from "granted/plugin-sdk/agent-core";
+import { streamSimple } from "granted/plugin-sdk/llm";
+import type { ProviderWrapStreamFnContext } from "granted/plugin-sdk/plugin-entry";
 import {
   resolveProviderEndpoint,
   resolveClaudeOpus5ModelIdentity,
   resolveClaudeSonnet5ModelIdentity,
   supportsClaude1MContext,
   supportsClaudeFastMode,
-} from "openclaw/plugin-sdk/provider-model-shared";
+} from "granted/plugin-sdk/provider-model-shared";
 import {
   applyAnthropicPayloadPolicyToParams,
   composeProviderStreamWrappers,
@@ -20,13 +20,13 @@ import {
   isAnthropicOAuthApiKey,
   resolveAnthropicPayloadPolicy,
   resolveAnthropicServerCompactionPlan,
-} from "openclaw/plugin-sdk/provider-stream-shared";
-import { createSubsystemLogger } from "openclaw/plugin-sdk/runtime-env";
+} from "granted/plugin-sdk/provider-stream-shared";
+import { createSubsystemLogger } from "granted/plugin-sdk/runtime-env";
 import {
   normalizeFastMode,
   normalizeLowercaseStringOrEmpty,
   readStringValue,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 
 const log = createSubsystemLogger("anthropic-stream");
 
@@ -76,7 +76,7 @@ function mergeAnthropicBetaHeader(
   return merged;
 }
 
-export { isAnthropicOAuthApiKey } from "openclaw/plugin-sdk/provider-stream-shared";
+export { isAnthropicOAuthApiKey } from "granted/plugin-sdk/provider-stream-shared";
 
 function resolveAnthropicFastServiceTier(enabled: boolean): AnthropicServiceTier {
   return enabled ? "auto" : "standard_only";

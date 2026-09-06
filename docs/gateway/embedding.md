@@ -29,7 +29,7 @@ import { fileURLToPath } from "node:url";
 declare const hostNodeExecutable: string;
 
 const packageEntry = fileURLToPath(import.meta.resolve("openclaw"));
-const openclawEntry = resolve(dirname(packageEntry), "..", "openclaw.mjs");
+const openclawEntry = resolve(dirname(packageEntry), "..", "granted.mjs");
 const gateway = spawn(hostNodeExecutable, [openclawEntry, "gateway", "--allow-unconfigured"], {
   env: {
     ...process.env,

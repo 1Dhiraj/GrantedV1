@@ -1,10 +1,10 @@
 import { ImapFlow, type FetchMessageObject } from "imapflow";
 import { simpleParser } from "mailparser";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
 import type {
   GrantedPluginApi,
   GrantedPluginServiceContext,
-} from "openclaw/plugin-sdk/plugin-entry";
+} from "granted/plugin-sdk/plugin-entry";
 import type { ImapAccountConfig } from "./config.js";
 import { renderImapPrompt } from "./prompt.js";
 import { evaluateImapSender, type MailAuthenticator } from "./sender-gate.js";

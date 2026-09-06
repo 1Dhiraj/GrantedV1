@@ -1,47 +1,47 @@
 // Signal plugin module implements monitor behavior.
-import { CHANNEL_APPROVAL_NATIVE_RUNTIME_CONTEXT_CAPABILITY } from "openclaw/plugin-sdk/approval-handler-adapter-runtime";
-import type { PluginRuntime } from "openclaw/plugin-sdk/channel-core";
-import { resolveChannelStreamingBlockEnabled } from "openclaw/plugin-sdk/channel-outbound";
-import { registerChannelRuntimeContext } from "openclaw/plugin-sdk/channel-runtime-context";
+import { CHANNEL_APPROVAL_NATIVE_RUNTIME_CONTEXT_CAPABILITY } from "granted/plugin-sdk/approval-handler-adapter-runtime";
+import type { PluginRuntime } from "granted/plugin-sdk/channel-core";
+import { resolveChannelStreamingBlockEnabled } from "granted/plugin-sdk/channel-outbound";
+import { registerChannelRuntimeContext } from "granted/plugin-sdk/channel-runtime-context";
 import type {
   GrantedConfig,
   ReplyToMode,
   SignalReactionNotificationMode,
-} from "openclaw/plugin-sdk/config-contracts";
+} from "granted/plugin-sdk/config-contracts";
 import {
   canonicalizeBase64,
   detectMime,
   estimateBase64DecodedBytes,
   saveMediaBuffer,
-} from "openclaw/plugin-sdk/media-runtime";
-import { DEFAULT_GROUP_HISTORY_LIMIT, type HistoryEntry } from "openclaw/plugin-sdk/reply-history";
+} from "granted/plugin-sdk/media-runtime";
+import { DEFAULT_GROUP_HISTORY_LIMIT, type HistoryEntry } from "granted/plugin-sdk/reply-history";
 import {
   deliverTextOrMediaReply,
   resolveSendableOutboundReplyParts,
-} from "openclaw/plugin-sdk/reply-payload";
-import type { ReplyPayload } from "openclaw/plugin-sdk/reply-runtime";
+} from "granted/plugin-sdk/reply-payload";
+import type { ReplyPayload } from "granted/plugin-sdk/reply-runtime";
 import {
   chunkTextWithMode,
   resolveChunkMode,
   resolveTextChunkLimit,
-} from "openclaw/plugin-sdk/reply-runtime";
-import { getRuntimeConfig } from "openclaw/plugin-sdk/runtime-config-snapshot";
+} from "granted/plugin-sdk/reply-runtime";
+import { getRuntimeConfig } from "granted/plugin-sdk/runtime-config-snapshot";
 import {
   createNonExitingRuntime,
   type BackoffPolicy,
   type RuntimeEnv,
-} from "openclaw/plugin-sdk/runtime-env";
+} from "granted/plugin-sdk/runtime-env";
 import {
   resolveAllowlistProviderRuntimeGroupPolicy,
   resolveDefaultGroupPolicy,
   warnMissingProviderGroupPolicyFallbackOnce,
-} from "openclaw/plugin-sdk/runtime-group-policy";
+} from "granted/plugin-sdk/runtime-group-policy";
 import {
   normalizeOptionalString,
   normalizeStringEntries,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
-import { normalizeE164 } from "openclaw/plugin-sdk/text-utility-runtime";
-import { waitForTransportReady } from "openclaw/plugin-sdk/transport-ready-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
+import { normalizeE164 } from "granted/plugin-sdk/text-utility-runtime";
+import { waitForTransportReady } from "granted/plugin-sdk/transport-ready-runtime";
 import { resolveSignalAccount, resolveSignalReplyToMode } from "./accounts.js";
 import { isSignalNativeApprovalHandlerConfigured } from "./approval-native.js";
 import { addSignalApprovalReactionHintToStructuredPayload } from "./approval-reactions.js";

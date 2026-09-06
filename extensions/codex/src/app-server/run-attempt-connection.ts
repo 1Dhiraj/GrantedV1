@@ -3,15 +3,15 @@ import {
   resolveSandboxContext,
   resolveUserPath,
   type FastModeAutoProgressState,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
-import { resolveAgentDir } from "openclaw/plugin-sdk/agent-runtime";
-import { resolveSessionAgentIdsStrict } from "openclaw/plugin-sdk/agent-scope-runtime";
+} from "granted/plugin-sdk/agent-harness-runtime";
+import { resolveAgentDir } from "granted/plugin-sdk/agent-runtime";
+import { resolveSessionAgentIdsStrict } from "granted/plugin-sdk/agent-scope-runtime";
 import {
   createDiagnosticTraceContextFromActiveScope,
   freezeDiagnosticTraceContext,
   resolveDiagnosticModelContentCapturePolicy,
-} from "openclaw/plugin-sdk/diagnostic-runtime";
-import { loadExecApprovals } from "openclaw/plugin-sdk/exec-approvals-runtime";
+} from "granted/plugin-sdk/diagnostic-runtime";
+import { loadExecApprovals } from "granted/plugin-sdk/exec-approvals-runtime";
 import { resolveCodexAppServerForModelProvider } from "./app-server-policy.js";
 import {
   resolveCodexAppServerAuthProfileId,

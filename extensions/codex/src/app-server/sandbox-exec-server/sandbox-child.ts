@@ -1,8 +1,8 @@
 /** Owns one sandbox subprocess tree through close, reaping, and backend finalization. */
 import { spawn, type ChildProcessWithoutNullStreams } from "node:child_process";
 import { randomUUID } from "node:crypto";
-import { killProcessTree } from "openclaw/plugin-sdk/process-runtime";
-import type { SandboxContext } from "openclaw/plugin-sdk/sandbox";
+import { killProcessTree } from "granted/plugin-sdk/process-runtime";
+import type { SandboxContext } from "granted/plugin-sdk/sandbox";
 
 const SANDBOX_CHILD_TERM_GRACE_MS = 1_000;
 // Covers the post-TERM tree kill plus Windows taskkill completion before failure is reported.

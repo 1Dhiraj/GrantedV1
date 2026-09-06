@@ -4,10 +4,10 @@ import {
   createEmptyPluginRegistry,
   resetPluginRuntimeStateForTest,
   setActivePluginRegistry,
-} from "openclaw/plugin-sdk/channel-test-helpers";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { getRealtimeTranscriptionProvider } from "openclaw/plugin-sdk/realtime-transcription";
-import { useAutoCleanupTempDirTracker, withEnvAsync } from "openclaw/plugin-sdk/test-env";
+} from "granted/plugin-sdk/channel-test-helpers";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { getRealtimeTranscriptionProvider } from "granted/plugin-sdk/realtime-transcription";
+import { useAutoCleanupTempDirTracker, withEnvAsync } from "granted/plugin-sdk/test-env";
 import { afterEach, describe, expect, it } from "vitest";
 import { CallManager } from "./manager.js";
 import { MockProvider } from "./providers/mock.js";

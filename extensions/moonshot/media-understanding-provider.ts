@@ -3,7 +3,7 @@ import {
   describeOpenAiCompatibleVideo,
   type MediaUnderstandingProvider,
   type VideoDescriptionRequest,
-} from "openclaw/plugin-sdk/media-understanding";
+} from "granted/plugin-sdk/media-understanding";
 import manifest from "./openclaw.plugin.json" with { type: "json" };
 import { MOONSHOT_BASE_URL } from "./provider-catalog.js";
 

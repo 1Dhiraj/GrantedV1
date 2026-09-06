@@ -2,8 +2,8 @@
 import fs from "node:fs";
 import path from "node:path";
 import { indexedDB as fakeIndexedDB } from "fake-indexeddb";
-import { toErrorObject } from "openclaw/plugin-sdk/error-runtime";
-import { withFileLock } from "openclaw/plugin-sdk/file-lock";
+import { toErrorObject } from "granted/plugin-sdk/error-runtime";
+import { withFileLock } from "granted/plugin-sdk/file-lock";
 import {
   MATRIX_IDB_SNAPSHOT_FILENAME,
   readMatrixIdbSnapshotJson,

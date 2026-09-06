@@ -30,7 +30,7 @@ vi.mock("openclaw/plugin-sdk/ssrf-runtime", () => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/provider-auth", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/provider-auth")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/provider-auth")>();
   return {
     ...actual,
     isProviderAuthProfileConfigured: mocks.isProviderAuthProfileConfiguredMock,

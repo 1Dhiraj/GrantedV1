@@ -1,10 +1,10 @@
 // Whatsapp plugin module implements auth presence behavior.
 import fs from "node:fs";
 import path from "node:path";
-import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "openclaw/plugin-sdk/account-id";
-import { resolveUserPath } from "openclaw/plugin-sdk/account-resolution";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { resolveOAuthDir } from "openclaw/plugin-sdk/state-paths";
+import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "granted/plugin-sdk/account-id";
+import { resolveUserPath } from "granted/plugin-sdk/account-resolution";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { resolveOAuthDir } from "granted/plugin-sdk/state-paths";
 import { hasWebCredsSync } from "./src/creds-files.js";
 
 type WhatsAppAuthPresenceParams =

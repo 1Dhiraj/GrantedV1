@@ -7,7 +7,7 @@ const mocks = vi.hoisted(() => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/agent-harness-runtime", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("openclaw/plugin-sdk/agent-harness-runtime")>()),
+  ...(await importOriginal<typeof import("granted/plugin-sdk/agent-harness-runtime")>()),
   embeddedAgentLog: { debug: mocks.debug },
 }));
 

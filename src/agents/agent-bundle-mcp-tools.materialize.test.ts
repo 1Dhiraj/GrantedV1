@@ -2,7 +2,7 @@
 
 import type { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 import { expectDefined } from "@openclaw/normalization-core";
-import { validateToolArguments } from "openclaw/plugin-sdk/llm";
+import { validateToolArguments } from "granted/plugin-sdk/llm";
 import { afterEach, describe, expect, it } from "vitest";
 import { getPluginToolMeta } from "../plugins/tool-metadata.js";
 import {

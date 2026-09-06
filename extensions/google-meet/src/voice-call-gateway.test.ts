@@ -9,7 +9,7 @@ import {
   joinMeetViaVoiceCallGateway,
 } from "./voice-call-gateway.js";
 
-type GatewayRuntime = typeof import("openclaw/plugin-sdk/gateway-runtime");
+type GatewayRuntime = typeof import("granted/plugin-sdk/gateway-runtime");
 type GatewayClientOptions = ConstructorParameters<GatewayRuntime["GatewayClient"]>[0];
 type GatewayClientInstance = InstanceType<GatewayRuntime["GatewayClient"]>;
 

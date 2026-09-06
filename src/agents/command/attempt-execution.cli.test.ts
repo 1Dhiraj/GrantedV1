@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 // Covers CLI-backed attempt execution and session-binding persistence.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { persistAcpDispatchTranscript } from "../../auto-reply/reply/dispatch-acp-transcript.runtime.js";
 import type { SessionEntry } from "../../config/sessions.js";

@@ -3,8 +3,8 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import type { AgentMessage } from "openclaw/plugin-sdk/agent-core";
-import type { ImageContent } from "openclaw/plugin-sdk/llm";
+import type { AgentMessage } from "granted/plugin-sdk/agent-core";
+import type { ImageContent } from "granted/plugin-sdk/llm";
 import { describe, expect, it, vi } from "vitest";
 import {
   attachRuntimePromptMediaFacts,

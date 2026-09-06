@@ -1,14 +1,14 @@
-import { listAgentIds } from "openclaw/plugin-sdk/agent-runtime";
-import { resolveSessionAgentIdsStrict } from "openclaw/plugin-sdk/agent-scope-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { GrantedPluginNodeHostCommand } from "openclaw/plugin-sdk/plugin-entry";
-import type { PluginRuntime } from "openclaw/plugin-sdk/plugin-runtime";
+import { listAgentIds } from "granted/plugin-sdk/agent-runtime";
+import { resolveSessionAgentIdsStrict } from "granted/plugin-sdk/agent-scope-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { GrantedPluginNodeHostCommand } from "granted/plugin-sdk/plugin-entry";
+import type { PluginRuntime } from "granted/plugin-sdk/plugin-runtime";
 import {
   sessionCatalogAdoptedSourceKey,
   type SessionCatalogEntrySnapshot,
   type SessionCatalogProvider,
-} from "openclaw/plugin-sdk/session-catalog";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/session-catalog";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import type { CodexThreadTurnsListResponse } from "./app-server/protocol.js";
 import type { CodexAppServerBindingStore } from "./app-server/session-binding.js";
 import { listAdoptedSessionEntries } from "./session-catalog-adoption.js";

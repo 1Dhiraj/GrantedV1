@@ -1,12 +1,12 @@
 import { buffer } from "node:stream/consumers";
 import { Bot } from "grammy";
 import type { Message } from "grammy/types";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   createPluginStateKeyedStoreForTests,
   createPluginStateSyncKeyedStoreForTests,
   resetPluginStateStoreForTests,
-} from "openclaw/plugin-sdk/plugin-state-test-runtime";
+} from "granted/plugin-sdk/plugin-state-test-runtime";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { createTelegramCallbackMessageActions } from "./bot-handlers.callback-actions.js";
 import { buildTelegramMessageContextForTest } from "./bot-message-context.test-harness.js";

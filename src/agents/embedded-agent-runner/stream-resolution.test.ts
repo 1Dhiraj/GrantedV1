@@ -4,8 +4,8 @@ import { SYSTEM_PROMPT_CACHE_BOUNDARY } from "@openclaw/ai/internal/shared";
 import * as providerTransportStream from "@openclaw/ai/transports";
 // Stream resolution tests cover how embedded runs choose provider, boundary,
 // native Codex, or custom stream functions and pass auth/cache/signal options.
-import type { StreamFn } from "openclaw/plugin-sdk/agent-core";
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import type { StreamFn } from "granted/plugin-sdk/agent-core";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { bindStreamLlmRuntime } from "../../llm/model-runtime-binding.js";
 import { streamSimple } from "../../llm/stream.js";

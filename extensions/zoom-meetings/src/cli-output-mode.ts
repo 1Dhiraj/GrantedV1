@@ -1,5 +1,5 @@
-import { getRootOptionAwareCommandPath } from "openclaw/plugin-sdk/cli-argv";
-import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
+import { getRootOptionAwareCommandPath } from "granted/plugin-sdk/cli-argv";
+import type { GrantedPluginApi } from "granted/plugin-sdk/plugin-entry";
 
 // Metadata discovery for unrelated commands must not load the meeting runtime.
 const descriptor = {

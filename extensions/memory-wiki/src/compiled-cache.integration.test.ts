@@ -3,12 +3,12 @@ import { createHash } from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { gzipSync } from "node:zlib";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
-import type { OpenBlobStoreOptions } from "openclaw/plugin-sdk/plugin-state-runtime";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
+import type { OpenBlobStoreOptions } from "granted/plugin-sdk/plugin-state-runtime";
 import {
   createPluginBlobStoreForTests,
   resetPluginBlobStoreForTests,
-} from "openclaw/plugin-sdk/plugin-state-test-runtime";
+} from "granted/plugin-sdk/plugin-state-test-runtime";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { compileMemoryWikiVault } from "./compile.js";
 import {

@@ -2,7 +2,7 @@
 import type {
   ProviderAuthContext,
   ProviderAuthMethodNonInteractiveContext,
-} from "openclaw/plugin-sdk/plugin-entry";
+} from "granted/plugin-sdk/plugin-entry";
 import { afterAll, beforeEach, describe, expect, it, vi } from "vitest";
 
 const { probeClaudeCliAuthStatus } = vi.hoisted(() => ({
@@ -20,7 +20,7 @@ vi.mock("./cli-auth-seam.js", async (importActual) => {
 const { buildAnthropicCliMigrationResult } = await import("./cli-migration.js");
 const { resolveKnownAnthropicModelRef } = await import("./claude-model-refs.js");
 const { createTestWizardPrompter, registerSingleProviderPlugin } =
-  await import("openclaw/plugin-sdk/plugin-test-runtime");
+  await import("granted/plugin-sdk/plugin-test-runtime");
 const { default: anthropicPlugin } = await import("./index.js");
 
 beforeEach(() => {

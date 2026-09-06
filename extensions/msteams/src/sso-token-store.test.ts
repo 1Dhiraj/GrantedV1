@@ -1,8 +1,8 @@
 // Msteams tests cover sso token store plugin behavior.
 import fs from "node:fs/promises";
 import path from "node:path";
-import { resetPluginStateStoreForTests } from "openclaw/plugin-sdk/plugin-state-test-runtime";
-import { useAutoCleanupTempDirTracker } from "openclaw/plugin-sdk/test-env";
+import { resetPluginStateStoreForTests } from "granted/plugin-sdk/plugin-state-test-runtime";
+import { useAutoCleanupTempDirTracker } from "granted/plugin-sdk/test-env";
 import { afterAll, beforeEach, describe, expect, it } from "vitest";
 import { setMSTeamsRuntime } from "./runtime.js";
 import { createMSTeamsSsoTokenStoreFs } from "./sso-token-store.js";

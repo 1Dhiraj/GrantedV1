@@ -1,8 +1,8 @@
 // Whatsapp plugin module implements login behavior.
-import { formatCliCommand } from "openclaw/plugin-sdk/cli-runtime";
-import { logInfo } from "openclaw/plugin-sdk/logging-core";
-import { getRuntimeConfig } from "openclaw/plugin-sdk/runtime-config-snapshot";
-import { danger, success, defaultRuntime, type RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
+import { formatCliCommand } from "granted/plugin-sdk/cli-runtime";
+import { logInfo } from "granted/plugin-sdk/logging-core";
+import { getRuntimeConfig } from "granted/plugin-sdk/runtime-config-snapshot";
+import { danger, success, defaultRuntime, type RuntimeEnv } from "granted/plugin-sdk/runtime-env";
 import { resolveWhatsAppAccount } from "./accounts.js";
 import { restoreCredsFromBackupIfNeeded } from "./auth-store.js";
 import { closeWaSocketSoon, waitForWhatsAppLoginResult } from "./connection-controller.js";

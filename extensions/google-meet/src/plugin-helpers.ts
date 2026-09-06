@@ -1,7 +1,7 @@
-import { readPositiveIntegerParam } from "openclaw/plugin-sdk/channel-actions";
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
-import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { readPositiveIntegerParam } from "granted/plugin-sdk/channel-actions";
+import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
+import type { GrantedPluginApi } from "granted/plugin-sdk/plugin-entry";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   buildGoogleMeetCalendarDayWindow,
   findGoogleMeetCalendarEvent,

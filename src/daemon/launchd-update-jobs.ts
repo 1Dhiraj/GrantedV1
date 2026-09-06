@@ -26,9 +26,9 @@ const MANUAL_UPDATE_LAUNCHD_LABEL_PATTERN =
   /^ai\.(?:granted|openclaw|clawdbot)\.manual-update\.\d+$/;
 const GRANTED_PROFILE_UPDATE_LAUNCHD_LABEL_PATTERN =
   /^ai\.(?:granted|openclaw|clawdbot)\.[A-Za-z0-9._-]+\.update\.[A-Za-z0-9._-]+$/;
-const GRANTED_DIRECT_CLI_NAMES = new Set(["granted", "granted.mjs", "openclaw", "openclaw.mjs"]);
+const GRANTED_DIRECT_CLI_NAMES = new Set(["granted", "granted.mjs", "openclaw", "granted.mjs"]);
 const GRANTED_NODE_RUNTIME_NAMES = new Set(["bun", "bun.exe", "node", "node.exe"]);
-const GRANTED_SCRIPT_NAMES = new Set(["granted.mjs", "openclaw.mjs"]);
+const GRANTED_SCRIPT_NAMES = new Set(["granted.mjs", "granted.mjs"]);
 export type StaleOpenClawUpdateLaunchdJob = {
   label: string;
   pid?: number;

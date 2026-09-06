@@ -2,17 +2,17 @@ import crypto from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { setTimeout as sleep } from "node:timers/promises";
-import { resolveAgentDir, resolveAgentWorkspaceDir } from "openclaw/plugin-sdk/agent-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
-import { parseAgentSessionKey } from "openclaw/plugin-sdk/routing";
+import { resolveAgentDir, resolveAgentWorkspaceDir } from "granted/plugin-sdk/agent-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { GrantedPluginApi } from "granted/plugin-sdk/plugin-entry";
+import { parseAgentSessionKey } from "granted/plugin-sdk/routing";
 import {
   cleanupSessionLifecycleArtifacts,
   formatSqliteSessionFileMarker,
   patchSessionEntry,
-} from "openclaw/plugin-sdk/session-store-runtime";
-import { readSessionTranscriptEvents } from "openclaw/plugin-sdk/session-transcript-runtime";
-import { tempWorkspace, resolvePreferredOpenClawTmpDir } from "openclaw/plugin-sdk/temp-path";
+} from "granted/plugin-sdk/session-store-runtime";
+import { readSessionTranscriptEvents } from "granted/plugin-sdk/session-transcript-runtime";
+import { tempWorkspace, resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
 import {
   isMissingRegisteredMemoryToolsError,
   requireTransientWorkspaceDir,

@@ -1,4 +1,4 @@
-import type { GrantedPluginNodeInvokePolicyContext } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginNodeInvokePolicyContext } from "granted/plugin-sdk/plugin-entry";
 import { describe, expect, it, vi } from "vitest";
 import { zoomMeetingsConfig } from "./config.js";
 import { createZoomMeetingsNodeInvokePolicy } from "./node-invoke-policy.js";

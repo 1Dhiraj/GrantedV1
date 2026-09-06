@@ -1,10 +1,10 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import type { EmbeddedRunAttemptParamsV2 as EmbeddedRunAttemptParams } from "openclaw/plugin-sdk/agent-harness-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { upsertSessionEntry } from "openclaw/plugin-sdk/session-store-runtime";
-import { readVisibleSessionTranscriptMessageEntries } from "openclaw/plugin-sdk/session-transcript-runtime";
+import type { EmbeddedRunAttemptParamsV2 as EmbeddedRunAttemptParams } from "granted/plugin-sdk/agent-harness-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { upsertSessionEntry } from "granted/plugin-sdk/session-store-runtime";
+import { readVisibleSessionTranscriptMessageEntries } from "granted/plugin-sdk/session-transcript-runtime";
 import { describe, expect, it, vi } from "vitest";
 import { createCodexCatalogHomeResolver } from "../session-catalog-homes.js";
 import { resolveCodexAppServerHomeDir } from "./auth-start-options.js";

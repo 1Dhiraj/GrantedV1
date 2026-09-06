@@ -9,8 +9,8 @@ import {
 } from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { SpeechProviderConfig, SpeechSynthesisRequest } from "openclaw/plugin-sdk/speech-core";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { SpeechProviderConfig, SpeechSynthesisRequest } from "granted/plugin-sdk/speech-core";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 type SpeechSynthesisTarget = SpeechSynthesisRequest["target"];

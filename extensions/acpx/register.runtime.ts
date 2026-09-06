@@ -6,9 +6,9 @@ import {
   getAcpRuntimeBackend,
   registerAcpRuntimeBackend,
   unregisterAcpRuntimeBackend,
-} from "openclaw/plugin-sdk/acp-runtime-backend";
-import type { GrantedPluginService, GrantedPluginServiceContext } from "openclaw/plugin-sdk/core";
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
+} from "granted/plugin-sdk/acp-runtime-backend";
+import type { GrantedPluginService, GrantedPluginServiceContext } from "granted/plugin-sdk/core";
+import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
 import { createLazyAcpRuntimeProxy, type CompleteAcpRuntime } from "./src/runtime-proxy.js";
 
 const ACPX_BACKEND_ID = "acpx";

@@ -1,5 +1,5 @@
 // Msteams tests cover reply dispatcher plugin behavior.
-import { PlatformMessageNotDispatchedError } from "openclaw/plugin-sdk/error-runtime";
+import { PlatformMessageNotDispatchedError } from "granted/plugin-sdk/error-runtime";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { ReplyPayload } from "../runtime-api.js";
 
@@ -23,7 +23,7 @@ vi.mock("./runtime.js", () => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/plugin-runtime", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("openclaw/plugin-sdk/plugin-runtime")>()),
+  ...(await importOriginal<typeof import("granted/plugin-sdk/plugin-runtime")>()),
   getGlobalHookRunner: getGlobalHookRunnerMock,
 }));
 

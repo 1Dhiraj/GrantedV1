@@ -1,11 +1,11 @@
-import { matchesApprovalRequestFilters } from "openclaw/plugin-sdk/approval-client-runtime";
-import type { ChannelApprovalKind } from "openclaw/plugin-sdk/approval-handler-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { normalizeAccountId } from "openclaw/plugin-sdk/routing";
+import { matchesApprovalRequestFilters } from "granted/plugin-sdk/approval-client-runtime";
+import type { ChannelApprovalKind } from "granted/plugin-sdk/approval-handler-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { normalizeAccountId } from "granted/plugin-sdk/routing";
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import { resolveSignalTarget } from "./aliases.js";
 import { normalizeSignalMessagingTarget } from "./normalize.js";
 

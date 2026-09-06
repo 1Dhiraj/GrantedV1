@@ -1,8 +1,8 @@
-import type { MemoryReadResult } from "openclaw/plugin-sdk/memory-core-host-engine-storage";
+import type { MemoryReadResult } from "granted/plugin-sdk/memory-core-host-engine-storage";
 import {
   clearMemoryPluginState,
   registerMemoryCorpusSupplement,
-} from "openclaw/plugin-sdk/memory-host-core";
+} from "granted/plugin-sdk/memory-host-core";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
   resetMemoryToolMockState,

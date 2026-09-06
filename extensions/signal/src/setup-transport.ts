@@ -1,11 +1,11 @@
 // Signal setup owns transport discovery and canonical account writes.
-import { normalizeAccountId, resolveAccountEntry } from "openclaw/plugin-sdk/account-resolution";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import { normalizeAccountId, resolveAccountEntry } from "granted/plugin-sdk/account-resolution";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   DEFAULT_ACCOUNT_ID,
   patchChannelConfigForAccount,
-} from "openclaw/plugin-sdk/setup-runtime";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/setup-runtime";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import type { SignalTransportConfig } from "./account-types.js";
 import {
   listSignalAccountIds,

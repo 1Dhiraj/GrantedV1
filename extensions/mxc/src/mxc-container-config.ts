@@ -2,7 +2,7 @@ import { createHash } from "node:crypto";
 import { statSync } from "node:fs";
 import path from "node:path";
 import type { ContainerConfig } from "@microsoft/mxc-sdk";
-import { isPathInside } from "openclaw/plugin-sdk/file-access-runtime";
+import { isPathInside } from "granted/plugin-sdk/file-access-runtime";
 import type { MxcConfig } from "./config.js";
 import { resolveBaselineReadonlyPaths, type BaselineHostEnv } from "./sandbox-baseline.js";
 import type {

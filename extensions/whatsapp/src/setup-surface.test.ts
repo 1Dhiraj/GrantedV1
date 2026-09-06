@@ -3,9 +3,9 @@ import {
   createPluginSetupWizardStatus,
   createQueuedWizardPrompter,
   runSetupWizardFinalize,
-} from "openclaw/plugin-sdk/plugin-test-runtime";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
-import { DEFAULT_ACCOUNT_ID, type GrantedConfig } from "openclaw/plugin-sdk/setup";
+} from "granted/plugin-sdk/plugin-test-runtime";
+import type { RuntimeEnv } from "granted/plugin-sdk/runtime-env";
+import { DEFAULT_ACCOUNT_ID, type GrantedConfig } from "granted/plugin-sdk/setup";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { whatsappSetupWizard } from "./setup-surface.js";
 import {
@@ -63,7 +63,7 @@ vi.mock("./creds-files.js", async () => {
 });
 
 vi.mock("openclaw/plugin-sdk/setup", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/setup")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/setup")>(
     "openclaw/plugin-sdk/setup",
   );
   return {

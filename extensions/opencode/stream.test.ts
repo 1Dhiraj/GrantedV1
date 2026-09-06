@@ -1,10 +1,10 @@
-import type { StreamFn } from "openclaw/plugin-sdk/agent-core";
+import type { StreamFn } from "granted/plugin-sdk/agent-core";
 import {
   createAssistantMessageEventStream,
   type AssistantMessage,
   type AssistantMessageEvent,
-} from "openclaw/plugin-sdk/llm";
-import { registerSingleProviderPlugin } from "openclaw/plugin-sdk/plugin-test-runtime";
+} from "granted/plugin-sdk/llm";
+import { registerSingleProviderPlugin } from "granted/plugin-sdk/plugin-test-runtime";
 import { describe, expect, it } from "vitest";
 import plugin from "./index.js";
 

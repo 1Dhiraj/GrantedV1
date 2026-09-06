@@ -7,22 +7,22 @@ import {
   createChannelApprovalNativeRuntimeAdapter,
   type PendingApprovalView,
   resolvePreparedApprovalAccountId,
-} from "openclaw/plugin-sdk/approval-handler-runtime";
-import { buildChannelApprovalNativeTargetKey } from "openclaw/plugin-sdk/approval-native-runtime";
+} from "granted/plugin-sdk/approval-handler-runtime";
+import { buildChannelApprovalNativeTargetKey } from "granted/plugin-sdk/approval-native-runtime";
 import {
   buildApprovalNativeControlsPromptText,
   buildApprovalReactionPendingContent,
-} from "openclaw/plugin-sdk/approval-reaction-runtime";
-import type { ExecApprovalReplyDecision } from "openclaw/plugin-sdk/approval-reply-runtime";
+} from "granted/plugin-sdk/approval-reaction-runtime";
+import type { ExecApprovalReplyDecision } from "granted/plugin-sdk/approval-reply-runtime";
 import type {
   ExecApprovalRequest,
   PluginApprovalRequest,
   SystemAgentApprovalRequest,
-} from "openclaw/plugin-sdk/approval-runtime";
-import { createActionGate } from "openclaw/plugin-sdk/channel-actions";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { createLazyRuntimeNamedExport } from "openclaw/plugin-sdk/lazy-runtime";
-import { createSubsystemLogger } from "openclaw/plugin-sdk/runtime-env";
+} from "granted/plugin-sdk/approval-runtime";
+import { createActionGate } from "granted/plugin-sdk/channel-actions";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { createLazyRuntimeNamedExport } from "granted/plugin-sdk/lazy-runtime";
+import { createSubsystemLogger } from "granted/plugin-sdk/runtime-env";
 import { resolveIMessageAccount } from "./accounts.js";
 import { getIMessageApprovalApprovers } from "./approval-auth.js";
 import { iMessageApprovalControlBindings } from "./approval-control-binding-window.js";

@@ -5,6 +5,6 @@ export {
   type GrantedPluginApi,
   type GrantedPluginToolContext,
   type PluginLogger,
-} from "openclaw/plugin-sdk/plugin-entry";
-export type { PluginStateKeyedStore } from "openclaw/plugin-sdk/plugin-state-runtime";
-export { createPluginRuntimeStore } from "openclaw/plugin-sdk/runtime-store";
+} from "granted/plugin-sdk/plugin-entry";
+export type { PluginStateKeyedStore } from "granted/plugin-sdk/plugin-state-runtime";
+export { createPluginRuntimeStore } from "granted/plugin-sdk/runtime-store";

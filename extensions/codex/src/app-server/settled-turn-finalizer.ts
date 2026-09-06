@@ -1,8 +1,8 @@
 import type {
   AgentHarnessV2,
   AgentHarnessSettledTurnFinalizationResult,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
-import { isSilentReplyText } from "openclaw/plugin-sdk/reply-runtime";
+} from "granted/plugin-sdk/agent-harness-runtime";
+import { isSilentReplyText } from "granted/plugin-sdk/reply-runtime";
 import { runBoundedCodexAppServerTurn, type CodexBoundedTurnOptions } from "./bounded-turn.js";
 import { createAssistantMessage } from "./event-projector-assistant-message.js";
 import { isJsonObject, type CodexThreadItem } from "./protocol.js";

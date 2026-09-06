@@ -2,7 +2,7 @@
 import { isAbsolute, resolve } from "node:path";
 import { setTimeout as sleep } from "node:timers/promises";
 import type { Command } from "commander";
-import { listAgentIds, resolveDefaultAgentId } from "openclaw/plugin-sdk/agent-scope-runtime";
+import { listAgentIds, resolveDefaultAgentId } from "granted/plugin-sdk/agent-scope-runtime";
 import {
   exitCodeFromFindings,
   healthFindingMeetsSeverity,
@@ -11,10 +11,10 @@ import {
   resolveAgentWorkspaceDir,
   type HealthCheckContext,
   type HealthFinding,
-} from "openclaw/plugin-sdk/health";
-import { normalizeAgentId } from "openclaw/plugin-sdk/routing";
-import { defaultRuntime as cliRuntime } from "openclaw/plugin-sdk/runtime";
-import { formatCliCommand } from "openclaw/plugin-sdk/setup-tools";
+} from "granted/plugin-sdk/health";
+import { normalizeAgentId } from "granted/plugin-sdk/routing";
+import { defaultRuntime as cliRuntime } from "granted/plugin-sdk/runtime";
+import { formatCliCommand } from "granted/plugin-sdk/setup-tools";
 import { POLICY_FIX_METADATA_BY_CHECK_ID } from "./doctor/fix-metadata.js";
 import { POLICY_CHECK_IDS, evaluatePolicy } from "./doctor/register.js";
 import {

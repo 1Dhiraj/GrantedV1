@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 
 const MEMORY_INDEX_META_KEY = "memory_index_meta_v1";
 
@@ -37,7 +37,7 @@ async function readExistingVectorModel(databasePath: string): Promise<string | n
     return null;
   }
   const { openNodeSqliteDatabase, prepareSqliteReadOnlyLocationSync } =
-    await import("openclaw/plugin-sdk/sqlite-runtime");
+    await import("granted/plugin-sdk/sqlite-runtime");
   let prepared: ReturnType<typeof prepareSqliteReadOnlyLocationSync> | undefined;
   let db: ReturnType<typeof openNodeSqliteDatabase> | undefined;
   let failure: unknown;

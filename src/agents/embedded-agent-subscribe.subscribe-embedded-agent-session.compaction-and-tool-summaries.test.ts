@@ -1,5 +1,5 @@
 // Compaction retry state, fenced retry output, and tool summaries.
-import type { AssistantMessage } from "openclaw/plugin-sdk/llm";
+import type { AssistantMessage } from "granted/plugin-sdk/llm";
 import { describe, expect, it, vi } from "vitest";
 import { createDeferred } from "../../test/helpers/promise.js";
 import { onAgentEvent } from "../infra/agent-events.js";

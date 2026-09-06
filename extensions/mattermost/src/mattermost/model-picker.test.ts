@@ -5,7 +5,7 @@ import path from "node:path";
 import {
   normalizeSessionDeliveryState,
   upsertSessionEntry,
-} from "openclaw/plugin-sdk/session-store-runtime";
+} from "granted/plugin-sdk/session-store-runtime";
 import { describe, expect, it } from "vitest";
 import type { GrantedConfig } from "../../runtime-api.js";
 import {

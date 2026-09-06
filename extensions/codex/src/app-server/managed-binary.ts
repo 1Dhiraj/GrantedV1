@@ -7,7 +7,7 @@ import { access } from "node:fs/promises";
 import { createRequire } from "node:module";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { expectDefined } from "openclaw/plugin-sdk/expect-runtime";
+import { expectDefined } from "granted/plugin-sdk/expect-runtime";
 import type { CodexAppServerStartOptions, CodexManagedCommandOrder } from "./config.js";
 import { resolveMacOSDesktopCodexAppServerCommandCandidates } from "./desktop-app-paths.js";
 import { MANAGED_CODEX_APP_SERVER_PACKAGE } from "./version.js";

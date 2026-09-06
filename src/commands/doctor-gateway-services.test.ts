@@ -3,7 +3,7 @@ import os from "node:os";
 import path from "node:path";
 import { err, ok, type Result } from "@openclaw/normalization-core/result";
 // Doctor gateway service tests cover service audit diagnostics and duplicate gateway service reporting.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { GrantedConfig } from "../config/config.js";
 import type { LaunchctlResult } from "../daemon/launchd-exec.js";
@@ -438,7 +438,7 @@ describe("maybeRepairGatewayServiceConfig", () => {
     mocks.renderSystemNodeWarning.mockReturnValue(undefined);
     mocks.resolveSystemNodeInfo.mockResolvedValue(null);
     mocks.isSystemdUnitActive.mockResolvedValue(ok(false));
-    mocks.readWindowsProcessArgsSync.mockReturnValue(["node", "openclaw.mjs", "update"]);
+    mocks.readWindowsProcessArgsSync.mockReturnValue(["node", "granted.mjs", "update"]);
     mocks.resolveGatewayAuthTokenForService.mockImplementation(async (cfg: GrantedConfig, env) => {
       const configToken =
         typeof cfg.gateway?.auth?.token === "string" ? cfg.gateway.auth.token.trim() : undefined;
@@ -1467,9 +1467,9 @@ describe("maybeRepairGatewayServiceConfig", () => {
   });
 
   it.each([
-    ["update command", ["node", "openclaw.mjs", "update"]],
-    ["--update shorthand", ["node", "openclaw.mjs", "--update"]],
-    ["doctor update prompt", ["node", "openclaw.mjs", "doctor"]],
+    ["update command", ["node", "granted.mjs", "update"]],
+    ["--update shorthand", ["node", "granted.mjs", "--update"]],
+    ["doctor update prompt", ["node", "granted.mjs", "doctor"]],
   ])("does not rewrite a service for a legacy %s parent", async (_, args) => {
     mockProcessPlatform("win32");
     Object.defineProperty(process.stdin, "isTTY", {
@@ -1588,15 +1588,15 @@ describe("maybeRepairGatewayServiceConfig", () => {
   it.each([
     {
       parent: "direct --no-restart update",
-      args: ["node", "openclaw.mjs", "update", "--no-restart"],
+      args: ["node", "granted.mjs", "update", "--no-restart"],
     },
     {
       parent: "--update shorthand with --no-restart",
-      args: ["node", "openclaw.mjs", "--update", "--no-restart"],
+      args: ["node", "granted.mjs", "--update", "--no-restart"],
     },
     {
       parent: "interactive update wizard",
-      args: ["node", "openclaw.mjs", "update", "wizard"],
+      args: ["node", "granted.mjs", "update", "wizard"],
     },
     {
       parent: "unrecognized shell",
@@ -1604,7 +1604,7 @@ describe("maybeRepairGatewayServiceConfig", () => {
     },
     {
       parent: "gateway RPC process",
-      args: ["node", "openclaw.mjs", "gateway"],
+      args: ["node", "granted.mjs", "gateway"],
     },
   ])("stages repairs for a $parent parent without an activation marker", async ({ args }) => {
     mockProcessPlatform("win32");

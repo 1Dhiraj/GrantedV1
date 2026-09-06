@@ -1,24 +1,24 @@
 // Slack plugin module implements context behavior.
 import type { App } from "@slack/bolt";
-import { formatAllowlistMatchMeta } from "openclaw/plugin-sdk/allow-from";
-import type { ChannelRuntimeSurface } from "openclaw/plugin-sdk/channel-contract";
-import type { PluginRuntime } from "openclaw/plugin-sdk/channel-core";
-import type { ChannelInboundTurnPlan } from "openclaw/plugin-sdk/channel-inbound";
+import { formatAllowlistMatchMeta } from "granted/plugin-sdk/allow-from";
+import type { ChannelRuntimeSurface } from "granted/plugin-sdk/channel-contract";
+import type { PluginRuntime } from "granted/plugin-sdk/channel-core";
+import type { ChannelInboundTurnPlan } from "granted/plugin-sdk/channel-inbound";
 import type {
   GrantedConfig,
   SlackReactionNotificationMode,
   SessionScope,
   DmPolicy,
   GroupPolicy,
-} from "openclaw/plugin-sdk/config-contracts";
-import { createDedupeCache } from "openclaw/plugin-sdk/dedupe-runtime";
-import type { HistoryEntry } from "openclaw/plugin-sdk/reply-history";
-import { logVerbose, getChildLogger } from "openclaw/plugin-sdk/runtime-env";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
+} from "granted/plugin-sdk/config-contracts";
+import { createDedupeCache } from "granted/plugin-sdk/dedupe-runtime";
+import type { HistoryEntry } from "granted/plugin-sdk/reply-history";
+import { logVerbose, getChildLogger } from "granted/plugin-sdk/runtime-env";
+import type { RuntimeEnv } from "granted/plugin-sdk/runtime-env";
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import { formatSlackError } from "../errors.js";
 import { buildSlackChannelIdCandidates } from "../group-policy.js";
 import type { SlackMessageEvent } from "../types.js";
@@ -65,7 +65,7 @@ type SlackChannelCacheEntry = {
 
 type SlackUserInfo = { name?: string; imageUrl?: string; error?: unknown };
 type BuildChannelInboundContext =
-  typeof import("openclaw/plugin-sdk/channel-inbound").buildChannelInboundEventContext;
+  typeof import("granted/plugin-sdk/channel-inbound").buildChannelInboundEventContext;
 const SLACK_CHANNEL_CACHE_MAX_ENTRIES = 1024;
 const SLACK_USER_CACHE_MAX_ENTRIES = 2048;
 const SLACK_AVATAR_CACHE_MAX_ENTRIES = 128;
@@ -116,7 +116,7 @@ export type SlackMonitorContext = {
   replyToMode: "off" | "first" | "all" | "batched";
   threadHistoryScope: "thread" | "channel";
   threadInheritParent: boolean;
-  slashCommand: Required<import("openclaw/plugin-sdk/config-contracts").SlackSlashCommandConfig>;
+  slashCommand: Required<import("granted/plugin-sdk/config-contracts").SlackSlashCommandConfig>;
   textLimit: number;
   ackReactionScope: string;
   typingReaction: string;

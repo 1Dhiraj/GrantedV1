@@ -5,13 +5,13 @@ import path from "node:path";
 import {
   createPluginRuntimeMock,
   createStartAccountContext,
-} from "openclaw/plugin-sdk/channel-test-helpers";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
+} from "granted/plugin-sdk/channel-test-helpers";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
 import {
   createPluginStateKeyedStoreForTests,
   resetPluginStateStoreForTests,
-} from "openclaw/plugin-sdk/plugin-state-test-runtime";
+} from "granted/plugin-sdk/plugin-state-test-runtime";
 import { afterEach, beforeEach, expect, it, vi } from "vitest";
 import { startBuzzBus, type BuzzBus } from "./buzz-bus.js";
 import { createBuzzRelayFixture } from "./buzz-relay.test-harness.js";

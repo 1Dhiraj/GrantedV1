@@ -1,10 +1,10 @@
 // Slack plugin module implements prepare routing behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import type {
   ConfiguredBindingRouteResult,
   RuntimeConversationBindingRouteResult,
-} from "openclaw/plugin-sdk/conversation-runtime";
-import { resolveAgentRoute, resolveThreadSessionKeys } from "openclaw/plugin-sdk/routing";
+} from "granted/plugin-sdk/conversation-runtime";
+import { resolveAgentRoute, resolveThreadSessionKeys } from "granted/plugin-sdk/routing";
 import { resolveSlackReplyToMode } from "../../account-reply-mode.js";
 import type { ResolvedSlackAccount } from "../../accounts.js";
 import {

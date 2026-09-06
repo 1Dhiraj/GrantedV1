@@ -1,7 +1,7 @@
 // Googlechat plugin module implements monitor reply delivery behavior.
-import { createChannelPartialDeliveryError } from "openclaw/plugin-sdk/channel-inbound";
-import { PlatformMessageNotDispatchedError } from "openclaw/plugin-sdk/error-runtime";
-import { resolveSendableOutboundReplyParts } from "openclaw/plugin-sdk/reply-payload";
+import { createChannelPartialDeliveryError } from "granted/plugin-sdk/channel-inbound";
+import { PlatformMessageNotDispatchedError } from "granted/plugin-sdk/error-runtime";
+import { resolveSendableOutboundReplyParts } from "granted/plugin-sdk/reply-payload";
 import type { GrantedConfig } from "../runtime-api.js";
 import type { ResolvedGoogleChatAccount } from "./accounts.js";
 import {

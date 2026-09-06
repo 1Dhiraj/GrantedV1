@@ -1,11 +1,11 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { upsertSessionEntry } from "openclaw/plugin-sdk/session-store-runtime";
+import { upsertSessionEntry } from "granted/plugin-sdk/session-store-runtime";
 import {
   closeOpenClawAgentDatabasesForTest,
   closeOpenClawStateDatabaseForTest,
-} from "openclaw/plugin-sdk/sqlite-runtime-testing";
+} from "granted/plugin-sdk/sqlite-runtime-testing";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   foreignSessionIngestionSource,

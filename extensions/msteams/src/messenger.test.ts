@@ -2,11 +2,11 @@
 import { mkdtemp, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
-import { PlatformMessageNotDispatchedError } from "openclaw/plugin-sdk/error-runtime";
-import { SILENT_REPLY_TOKEN } from "openclaw/plugin-sdk/reply-chunking";
-import type { PluginRuntime } from "openclaw/plugin-sdk/runtime-store";
-import { resolvePreferredOpenClawTmpDir } from "openclaw/plugin-sdk/temp-path";
-import { withServer } from "openclaw/plugin-sdk/test-env";
+import { PlatformMessageNotDispatchedError } from "granted/plugin-sdk/error-runtime";
+import { SILENT_REPLY_TOKEN } from "granted/plugin-sdk/reply-chunking";
+import type { PluginRuntime } from "granted/plugin-sdk/runtime-store";
+import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
+import { withServer } from "granted/plugin-sdk/test-env";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { StoredConversationReference } from "./conversation-store.js";
 const graphUploadMockState = vi.hoisted(() => ({

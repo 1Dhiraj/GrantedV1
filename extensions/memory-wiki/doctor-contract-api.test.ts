@@ -5,13 +5,13 @@ import { expectDefined } from "@openclaw/normalization-core";
 import type {
   OpenBlobStoreOptions,
   OpenKeyedStoreOptions,
-} from "openclaw/plugin-sdk/plugin-state-runtime";
+} from "granted/plugin-sdk/plugin-state-runtime";
 import {
   createPluginBlobStoreForTests,
   createPluginStateKeyedStoreForTests,
   resetPluginBlobStoreForTests,
   resetPluginStateStoreForTests,
-} from "openclaw/plugin-sdk/plugin-state-test-runtime";
+} from "granted/plugin-sdk/plugin-state-test-runtime";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { stateMigrations } from "./doctor-contract-api.js";
 import { rollbackChatGptImportRun } from "./src/chatgpt-import.js";

@@ -43,7 +43,7 @@ function fixture() {
     JSON.stringify({
       name: "openclaw",
       type: "module",
-      bin: { openclaw: "./openclaw.mjs" },
+      bin: { openclaw: "./granted.mjs" },
       exports: {
         "./plugin-sdk/used": "./dist/plugin-sdk/used.js",
         "./plugin-sdk/unused": "./dist/plugin-sdk/unused.js",
@@ -192,7 +192,7 @@ describe("native plugin alias preparation", () => {
       vi.spyOn(process, "cwd").mockReturnValue(b.root);
       const argv = vi
         .spyOn(process, "argv", "get")
-        .mockReturnValue([process.execPath, path.join(b.root, "openclaw.mjs")]);
+        .mockReturnValue([process.execPath, path.join(b.root, "granted.mjs")]);
       expect(requirePlugin.resolve("@openclaw/plugin-sdk/used")).toBe(a.used);
       // Removal is from a new host snapshot, not an in-place artifact freshness poll.
       fs.rmSync(b.unused);
@@ -226,7 +226,7 @@ describe("native plugin alias preparation", () => {
         .spyOn(process, "argv", "get")
         .mockReturnValue([
           process.execPath,
-          hint === "argv" ? path.join(a.root, "openclaw.mjs") : "",
+          hint === "argv" ? path.join(a.root, "granted.mjs") : "",
         ]);
       const loader = getCachedPluginModuleLoader({
         modulePath: entry,
@@ -236,7 +236,7 @@ describe("native plugin alias preparation", () => {
         ).href,
       });
       cwd.mockReturnValue(b.root);
-      argv.mockReturnValue([process.execPath, path.join(b.root, "openclaw.mjs")]);
+      argv.mockReturnValue([process.execPath, path.join(b.root, "granted.mjs")]);
       expect(loader(entry)).toMatchObject({ marker: "host-a" });
     },
   );
@@ -372,7 +372,7 @@ describe("native plugin alias preparation", () => {
       `module.exports = { id: "demo", register(api) {
       api.registerCli(({ program }) => program.command("late").action(async () => {
         const results = await Promise.allSettled([
-          Promise.resolve().then(() => require("openclaw/plugin-sdk/used")),
+          Promise.resolve().then(() => require("granted/plugin-sdk/used")),
           import("@openclaw/plugin-sdk/unused.js"),
         ]);
         require("node:fs").writeFileSync(${JSON.stringify(observed)}, JSON.stringify(results.map(result =>

@@ -1,11 +1,11 @@
 // Discord tests cover native command.options plugin behavior.
 import { ApplicationCommandType, ChannelType, InteractionContextType } from "discord-api-types/v10";
-import type { ChatCommandDefinition } from "openclaw/plugin-sdk/command-auth-native";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { ChatCommandDefinition } from "granted/plugin-sdk/command-auth-native";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   clearRuntimeConfigSnapshot,
   setRuntimeConfigSnapshot,
-} from "openclaw/plugin-sdk/runtime-config-snapshot";
+} from "granted/plugin-sdk/runtime-config-snapshot";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 
 const { loadModelCatalogMock, logVerboseMock } = vi.hoisted(() => ({
@@ -18,7 +18,7 @@ const { loggerDebugMock, loggerWarnMock } = vi.hoisted(() => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/runtime-env", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/runtime-env")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/runtime-env")>(
     "openclaw/plugin-sdk/runtime-env",
   );
   return {
@@ -41,7 +41,7 @@ vi.mock("openclaw/plugin-sdk/agent-runtime", () => ({
   resolveHumanDelayConfig: () => undefined,
 }));
 
-let listNativeCommandSpecs: typeof import("openclaw/plugin-sdk/command-auth-native").listNativeCommandSpecs;
+let listNativeCommandSpecs: typeof import("granted/plugin-sdk/command-auth-native").listNativeCommandSpecs;
 let createDiscordNativeCommand: typeof import("./native-command.js").createDiscordNativeCommand;
 let buildDiscordCommandOptions: typeof import("./native-command.options.js").buildDiscordCommandOptions;
 let resolveDiscordNativeAutocompleteAuthorized: typeof import("./native-command-auth.js").resolveDiscordNativeAutocompleteAuthorized;
@@ -224,7 +224,7 @@ async function resolveAutocompleteAuthorized(params: {
 
 describe("createDiscordNativeCommand option wiring", () => {
   beforeAll(async () => {
-    ({ listNativeCommandSpecs } = await import("openclaw/plugin-sdk/command-auth-native"));
+    ({ listNativeCommandSpecs } = await import("granted/plugin-sdk/command-auth-native"));
     ({ createDiscordNativeCommand } = await import("./native-command.js"));
     ({ buildDiscordCommandOptions } = await import("./native-command.options.js"));
     ({ resolveDiscordNativeAutocompleteAuthorized } = await import("./native-command-auth.js"));

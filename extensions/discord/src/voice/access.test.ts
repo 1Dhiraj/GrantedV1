@@ -1,5 +1,5 @@
 // Discord tests cover access plugin behavior.
-import type { DiscordAccountConfig, GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { DiscordAccountConfig, GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { describe, expect, it } from "vitest";
 import { authorizeDiscordVoiceIngress } from "./access.js";
 

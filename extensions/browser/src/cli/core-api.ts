@@ -7,14 +7,14 @@ export {
   inheritOptionFromParent,
   runCommandWithRuntime,
   theme,
-} from "openclaw/plugin-sdk/cli-runtime";
+} from "granted/plugin-sdk/cli-runtime";
 export {
   addGatewayClientOptions,
   callGatewayFromCli,
   type GatewayRpcOpts,
-} from "openclaw/plugin-sdk/gateway-runtime";
-export { getRuntimeConfig } from "openclaw/plugin-sdk/runtime-config-snapshot";
-export { danger, defaultRuntime, info } from "openclaw/plugin-sdk/runtime-env";
-export { formatDocsLink } from "openclaw/plugin-sdk/setup-tools";
-export { parseBooleanValue } from "openclaw/plugin-sdk/string-coerce-runtime";
-export { shortenHomePath } from "openclaw/plugin-sdk/text-utility-runtime";
+} from "granted/plugin-sdk/gateway-runtime";
+export { getRuntimeConfig } from "granted/plugin-sdk/runtime-config-snapshot";
+export { danger, defaultRuntime, info } from "granted/plugin-sdk/runtime-env";
+export { formatDocsLink } from "granted/plugin-sdk/setup-tools";
+export { parseBooleanValue } from "granted/plugin-sdk/string-coerce-runtime";
+export { shortenHomePath } from "granted/plugin-sdk/text-utility-runtime";

@@ -1,6 +1,6 @@
 // Covers compaction sanitization for toolResult details and runtime context.
-import type { AgentMessage } from "openclaw/plugin-sdk/agent-core";
-import type { AssistantMessage, ToolResultMessage } from "openclaw/plugin-sdk/llm";
+import type { AgentMessage } from "granted/plugin-sdk/agent-core";
+import type { AssistantMessage, ToolResultMessage } from "granted/plugin-sdk/llm";
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { makeAgentAssistantMessage } from "./test-helpers/agent-message-fixtures.js";
 

@@ -1,5 +1,5 @@
 import { expectDefined } from "@openclaw/normalization-core";
-import { createPluginRuntimeMock } from "openclaw/plugin-sdk/plugin-test-runtime";
+import { createPluginRuntimeMock } from "granted/plugin-sdk/plugin-test-runtime";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { createCodexSessionInitializationFixtureForTest } from "../extensions/codex/test-api.js";
 import {

@@ -2,9 +2,9 @@
  * Routes Codex app-server plugin approval prompts through OpenClaw's gateway
  * approval tool and maps gateway decisions back to Codex outcomes.
  */
-import type { EmbeddedRunAttemptParamsV2 as EmbeddedRunAttemptParams } from "openclaw/plugin-sdk/agent-harness-runtime";
-import { isApprovalNotFoundError, toErrorObject } from "openclaw/plugin-sdk/error-runtime";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+import type { EmbeddedRunAttemptParamsV2 as EmbeddedRunAttemptParams } from "granted/plugin-sdk/agent-harness-runtime";
+import { isApprovalNotFoundError, toErrorObject } from "granted/plugin-sdk/error-runtime";
+import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import { resolveCodexGatewayTimeoutWithGraceMs } from "./attempt-timeouts.js";
 
 type AgentHarnessHostCapabilities = EmbeddedRunAttemptParams["hostCapabilities"];

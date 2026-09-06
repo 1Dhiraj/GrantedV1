@@ -1,5 +1,5 @@
 // Verifies harness lifecycle capability checks, diagnostics, and trace scoping.
-import type { Model } from "openclaw/plugin-sdk/llm";
+import type { Model } from "granted/plugin-sdk/llm";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { GRANTED_EMBEDDED_CONTEXT_ENGINE_HOST } from "../../context-engine/host-compat.js";
 import type { ContextEngine } from "../../context-engine/types.js";

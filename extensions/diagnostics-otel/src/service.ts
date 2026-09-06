@@ -13,7 +13,7 @@ import {
   TraceIdRatioBasedSampler,
 } from "@opentelemetry/sdk-trace-base";
 import { ATTR_SERVICE_NAME } from "@opentelemetry/semantic-conventions";
-import { registerUnhandledRejectionHandler } from "openclaw/plugin-sdk/runtime-env";
+import { registerUnhandledRejectionHandler } from "granted/plugin-sdk/runtime-env";
 import type { DiagnosticTraceContext, GrantedPluginService } from "../api.js";
 import {
   DEFAULT_SERVICE_NAME,

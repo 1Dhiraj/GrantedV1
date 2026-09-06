@@ -1,6 +1,6 @@
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
-import { resizeToJpeg } from "openclaw/plugin-sdk/media-runtime";
-import { createSolidPngBuffer } from "openclaw/plugin-sdk/test-fixtures";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
+import { resizeToJpeg } from "granted/plugin-sdk/media-runtime";
+import { createSolidPngBuffer } from "granted/plugin-sdk/test-fixtures";
 import { describe, expect, it, vi } from "vitest";
 import { createCuaComputerProvider } from "./commands.js";
 import {

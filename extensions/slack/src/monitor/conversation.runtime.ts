@@ -5,4 +5,4 @@ export {
   resolveConversationLabel,
   resolvePluginConversationBindingApproval,
   upsertChannelPairingRequest,
-} from "openclaw/plugin-sdk/conversation-runtime";
+} from "granted/plugin-sdk/conversation-runtime";

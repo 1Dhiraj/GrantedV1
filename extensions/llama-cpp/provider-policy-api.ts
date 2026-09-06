@@ -1,4 +1,4 @@
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   MANAGED_LLAMA_CPP_CONFIG_REQUIRED_MESSAGE,
   resolveManagedLlamaCppProviderConfig,

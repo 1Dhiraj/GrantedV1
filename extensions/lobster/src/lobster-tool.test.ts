@@ -1,6 +1,6 @@
-import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
+import { createTestPluginApi } from "granted/plugin-sdk/plugin-test-api";
 // Lobster tests cover lobster tool plugin behavior.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { describe, expect, it, vi } from "vitest";
 import type { GrantedPluginApi, GrantedPluginToolContext } from "../runtime-api.js";
 import { createLobsterTool } from "./lobster-tool.js";

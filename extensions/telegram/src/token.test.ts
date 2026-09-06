@@ -1,12 +1,12 @@
 // Telegram tests cover token plugin behavior.
 import fs from "node:fs";
 import path from "node:path";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   resolvePreferredOpenClawTmpDir,
   tempWorkspaceSync,
   type TempWorkspaceSync,
-} from "openclaw/plugin-sdk/temp-path";
+} from "granted/plugin-sdk/temp-path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { resolveTelegramBotUserIdFromToken } from "./token-fingerprint.js";
 import { resolveTelegramToken } from "./token.js";

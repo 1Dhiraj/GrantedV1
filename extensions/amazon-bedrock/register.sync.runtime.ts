@@ -3,13 +3,13 @@
  * model discovery, thinking policy, guardrails, and embedding integration.
  */
 import type { BedrockClient } from "@aws-sdk/client-bedrock";
-import type { StreamFn } from "openclaw/plugin-sdk/agent-core";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { resolvePluginConfigObject } from "openclaw/plugin-sdk/plugin-config-runtime";
+import type { StreamFn } from "granted/plugin-sdk/agent-core";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { resolvePluginConfigObject } from "granted/plugin-sdk/plugin-config-runtime";
 import type {
   GrantedPluginApi,
   ProviderNormalizeResolvedModelContext,
-} from "openclaw/plugin-sdk/plugin-entry";
+} from "granted/plugin-sdk/plugin-entry";
 import {
   buildProviderReplayFamilyHooks,
   normalizeProviderId,
@@ -18,8 +18,8 @@ import {
   resolveClaudeMythos5ModelIdentity,
   resolveClaudeOpus5ModelIdentity,
   resolveClaudeSonnet5ModelIdentity,
-} from "openclaw/plugin-sdk/provider-model-shared";
-import { createPayloadPatchStreamWrapper } from "openclaw/plugin-sdk/provider-stream-shared";
+} from "granted/plugin-sdk/provider-model-shared";
+import { createPayloadPatchStreamWrapper } from "granted/plugin-sdk/provider-stream-shared";
 import { refreshAwsSharedConfigCacheForBedrock } from "./aws-credential-refresh.js";
 import { supportsBedrockPromptCaching } from "./bedrock-options.js";
 import { loadBedrockControlPlaneSdk, runBedrockControlPlaneRequest } from "./control-plane.js";

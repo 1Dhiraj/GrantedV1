@@ -2,7 +2,7 @@ import { randomUUID } from "node:crypto";
 import { once } from "node:events";
 import { createServer, type IncomingMessage, type ServerResponse } from "node:http";
 import type { AddressInfo } from "node:net";
-import { coerceErrorMessage } from "openclaw/plugin-sdk/error-runtime";
+import { coerceErrorMessage } from "granted/plugin-sdk/error-runtime";
 
 type MSTeamsQaOutboundActivity = {
   activity: Record<string, unknown>;

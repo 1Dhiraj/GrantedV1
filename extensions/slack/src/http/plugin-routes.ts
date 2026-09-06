@@ -1,6 +1,6 @@
 // Slack plugin module implements plugin routes behavior.
-import { DEFAULT_ACCOUNT_ID } from "openclaw/plugin-sdk/account-id";
-import type { GrantedPluginApi } from "openclaw/plugin-sdk/channel-plugin-common";
+import { DEFAULT_ACCOUNT_ID } from "granted/plugin-sdk/account-id";
+import type { GrantedPluginApi } from "granted/plugin-sdk/channel-plugin-common";
 import { normalizeSlackWebhookPath } from "./paths.js";
 import { handleSlackHttpRequest } from "./registry.js";
 

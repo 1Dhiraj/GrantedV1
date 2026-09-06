@@ -1,5 +1,5 @@
 import { HTTPFetchError } from "@line/bot-sdk";
-import { createChannelPartialDeliveryError } from "openclaw/plugin-sdk/channel-inbound";
+import { createChannelPartialDeliveryError } from "granted/plugin-sdk/channel-inbound";
 import { describe, expect, it } from "vitest";
 import type { GrantedConfig } from "../api.js";
 import { createRuntime } from "./channel.sendPayload.test-support.js";

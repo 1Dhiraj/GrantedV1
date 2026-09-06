@@ -1,6 +1,6 @@
 // Msteams plugin module implements sent message cache behavior.
-import { createPersistentDedupeCache } from "openclaw/plugin-sdk/dedupe-runtime";
-import { createPluginStateErrorReporter } from "openclaw/plugin-sdk/plugin-state-runtime";
+import { createPersistentDedupeCache } from "granted/plugin-sdk/dedupe-runtime";
+import { createPluginStateErrorReporter } from "granted/plugin-sdk/plugin-state-runtime";
 import { getOptionalMSTeamsRuntime } from "./runtime.js";
 
 const TTL_MS = 24 * 60 * 60 * 1000;

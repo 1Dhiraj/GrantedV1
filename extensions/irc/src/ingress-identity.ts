@@ -1,5 +1,5 @@
-import { defineStableChannelIngressIdentity } from "openclaw/plugin-sdk/channel-ingress-runtime";
-import { normalizeLowercaseStringOrEmpty } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { defineStableChannelIngressIdentity } from "granted/plugin-sdk/channel-ingress-runtime";
+import { normalizeLowercaseStringOrEmpty } from "granted/plugin-sdk/string-coerce-runtime";
 import { buildIrcAllowlistCandidates, normalizeIrcAllowEntry } from "./normalize.js";
 import type { IrcInboundMessage } from "./types.js";
 

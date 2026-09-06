@@ -14,7 +14,7 @@ describe("upgrade survivor first-hop process evidence", () => {
     mkdirSync(artifacts);
     const manifest = join(root, "package.json");
     writeFileSync(manifest, JSON.stringify({ name: "openclaw", version: "2026.7.1-2" }));
-    const entrypoint = join(root, "openclaw.mjs");
+    const entrypoint = join(root, "granted.mjs");
     // Files change under the running parent. Reading package.json at exit would
     // falsely attribute that parent's result to the newly installed updater.
     writeFileSync(
@@ -77,7 +77,7 @@ if (process.argv[2] === 'update') {
       join(root, "package.json"),
       JSON.stringify({ name: "openclaw", version: "2026.7.1-2" }),
     );
-    const entrypoint = join(root, "openclaw.mjs");
+    const entrypoint = join(root, "granted.mjs");
     writeFileSync(entrypoint, 'process.kill(process.pid, "SIGTERM");');
     const result = spawnSync(process.execPath, ["--import", observer, entrypoint, "update"], {
       encoding: "utf8",

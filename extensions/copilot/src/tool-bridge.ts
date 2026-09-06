@@ -9,7 +9,7 @@ import type {
   AnyAgentTool,
   EmbeddedRunAttemptParamsV2,
   SandboxContext,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
+} from "granted/plugin-sdk/agent-harness-runtime";
 import {
   applyEmbeddedAttemptToolsAllow,
   buildEmbeddedAttemptToolRunContext,
@@ -22,13 +22,13 @@ import {
   resolveEmbeddedAttemptToolConstructionPlan,
   resolveModelAuthMode,
   sanitizeToolResult,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
-import { createAgentHarnessToolSurfaceRuntime } from "openclaw/plugin-sdk/agent-harness-tool-runtime";
-import { toStringifiedError as toCopilotToolError } from "openclaw/plugin-sdk/error-runtime";
+} from "granted/plugin-sdk/agent-harness-runtime";
+import { createAgentHarnessToolSurfaceRuntime } from "granted/plugin-sdk/agent-harness-tool-runtime";
+import { toStringifiedError as toCopilotToolError } from "granted/plugin-sdk/error-runtime";
 import { isRawCopilotModelRun } from "./attempt-mode.js";
 
 type CreateOpenClawCodingTools =
-  (typeof import("openclaw/plugin-sdk/agent-harness"))["createOpenClawCodingTools"];
+  (typeof import("granted/plugin-sdk/agent-harness"))["createOpenClawCodingTools"];
 type GrantedCodingToolsOptions = NonNullable<Parameters<CreateOpenClawCodingTools>[0]>;
 type CreateOpenClawCodingToolsForBridge = (
   options?: GrantedCodingToolsOptions,
@@ -193,7 +193,7 @@ export async function createCopilotToolBridge(
 
   const createOpenClawCodingTools =
     input.createOpenClawCodingTools ??
-    (await import("openclaw/plugin-sdk/agent-harness")).createOpenClawCodingTools;
+    (await import("granted/plugin-sdk/agent-harness")).createOpenClawCodingTools;
 
   const toolSurfaceRuntime = createAgentHarnessToolSurfaceRuntime({
     abortSignal: input.abortSignal,

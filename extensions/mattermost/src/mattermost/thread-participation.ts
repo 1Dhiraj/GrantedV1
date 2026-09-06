@@ -1,6 +1,6 @@
 // Mattermost plugin module implements thread participation cache behavior.
-import { createPersistentDedupeCache } from "openclaw/plugin-sdk/dedupe-runtime";
-import { createPluginStateErrorReporter } from "openclaw/plugin-sdk/plugin-state-runtime";
+import { createPersistentDedupeCache } from "granted/plugin-sdk/dedupe-runtime";
+import { createPluginStateErrorReporter } from "granted/plugin-sdk/plugin-state-runtime";
 import { getOptionalMattermostRuntime } from "../runtime.js";
 
 /**

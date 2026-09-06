@@ -1,10 +1,10 @@
 // Telegram plugin module implements conversation route behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   resolveConfiguredBindingRoute,
   resolveRuntimeConversationBindingRoute,
   type ConfiguredBindingRouteResult,
-} from "openclaw/plugin-sdk/conversation-runtime";
+} from "granted/plugin-sdk/conversation-runtime";
 import {
   buildAgentSessionKey,
   deriveLastRoutePolicy,
@@ -12,9 +12,9 @@ import {
   resolveThreadSessionKeys,
   buildAgentMainSessionKey,
   sanitizeAgentId,
-} from "openclaw/plugin-sdk/routing";
-import { logVerbose } from "openclaw/plugin-sdk/runtime-env";
-import { normalizeLowercaseStringOrEmpty } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/routing";
+import { logVerbose } from "granted/plugin-sdk/runtime-env";
+import { normalizeLowercaseStringOrEmpty } from "granted/plugin-sdk/string-coerce-runtime";
 import { resolveDefaultTelegramAccountId } from "./accounts.js";
 import { buildTelegramParentPeer, shouldUseTelegramDmThreadSession } from "./bot/helpers.js";
 import {

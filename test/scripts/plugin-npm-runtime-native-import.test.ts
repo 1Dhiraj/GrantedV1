@@ -62,7 +62,7 @@ function fixture(format = "esm", declaration = "peerDependencies") {
     packageDir,
     "index.ts",
     [
-      'import { host } from "openclaw/plugin-sdk/fixture";',
+      'import { host } from "granted/plugin-sdk/fixture";',
       'import { thirdParty } from "fixture-dep";',
       'import { writeFileSync } from "node:fs";',
       'writeFileSync("executed", "yes");',

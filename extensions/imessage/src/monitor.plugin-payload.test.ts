@@ -1,17 +1,17 @@
 // Imessage tests cover monitor.plugin payload plugin behavior.
 import path from "node:path";
-import * as channelInbound from "openclaw/plugin-sdk/channel-inbound";
+import * as channelInbound from "granted/plugin-sdk/channel-inbound";
 import {
   addTestHook,
   createEmptyPluginRegistry,
   createTestInboundDebounceFlush,
   initializeGlobalHookRunner,
   resetGlobalHookRunner,
-} from "openclaw/plugin-sdk/channel-test-helpers";
-import { recordInboundSession } from "openclaw/plugin-sdk/conversation-runtime";
-import type { dispatchReplyWithBufferedBlockDispatcher } from "openclaw/plugin-sdk/reply-runtime";
-import { resolveStorePath } from "openclaw/plugin-sdk/session-store-runtime";
-import type { waitForTransportReady } from "openclaw/plugin-sdk/transport-ready-runtime";
+} from "granted/plugin-sdk/channel-test-helpers";
+import { recordInboundSession } from "granted/plugin-sdk/conversation-runtime";
+import type { dispatchReplyWithBufferedBlockDispatcher } from "granted/plugin-sdk/reply-runtime";
+import { resolveStorePath } from "granted/plugin-sdk/session-store-runtime";
+import type { waitForTransportReady } from "granted/plugin-sdk/transport-ready-runtime";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { createIMessageRpcClient } from "./client.js";
 import { monitorIMessageProvider } from "./monitor.js";
@@ -31,7 +31,7 @@ vi.mock("openclaw/plugin-sdk/transport-ready-runtime", () => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/channel-inbound", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/channel-inbound")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/channel-inbound")>();
   return {
     ...actual,
     createChannelInboundDebouncer: vi.fn(

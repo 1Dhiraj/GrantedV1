@@ -1,5 +1,5 @@
 // Whatsapp tests cover status issues plugin behavior.
-import { buildRuntimeAccountStatusSnapshot } from "openclaw/plugin-sdk/status-helpers";
+import { buildRuntimeAccountStatusSnapshot } from "granted/plugin-sdk/status-helpers";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { collectWhatsAppStatusIssues } from "./status-issues.js";
 

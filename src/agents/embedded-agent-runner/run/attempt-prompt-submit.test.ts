@@ -1,5 +1,5 @@
 import path from "node:path";
-import type { StreamFn } from "openclaw/plugin-sdk/agent-core";
+import type { StreamFn } from "granted/plugin-sdk/agent-core";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   loadTranscriptEventsSync,

@@ -2,12 +2,12 @@
  * Thin ClickClack REST/websocket client used by gateway, resolver, and outbound
  * delivery code.
  */
-import { bufferToBlobPart } from "openclaw/plugin-sdk/blob-runtime";
-import { redactToolPayloadText } from "openclaw/plugin-sdk/logging-core";
+import { bufferToBlobPart } from "granted/plugin-sdk/blob-runtime";
+import { redactToolPayloadText } from "granted/plugin-sdk/logging-core";
 import {
   readProviderJsonResponse,
   readResponseTextLimited,
-} from "openclaw/plugin-sdk/provider-http";
+} from "granted/plugin-sdk/provider-http";
 import { WebSocket } from "ws";
 import type {
   ClickClackBotCommand,

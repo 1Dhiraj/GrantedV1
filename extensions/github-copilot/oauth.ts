@@ -1,10 +1,10 @@
-import { MAX_DATE_TIMESTAMP_MS } from "openclaw/plugin-sdk/number-runtime";
-import type { ProviderAuthDoctorHintContext } from "openclaw/plugin-sdk/plugin-entry";
-import type { OAuthCredential } from "openclaw/plugin-sdk/provider-auth";
+import { MAX_DATE_TIMESTAMP_MS } from "granted/plugin-sdk/number-runtime";
+import type { ProviderAuthDoctorHintContext } from "granted/plugin-sdk/plugin-entry";
+import type { OAuthCredential } from "granted/plugin-sdk/provider-auth";
 import type {
   OAuthCredentials,
   OAuthLoginCallbacks,
-} from "openclaw/plugin-sdk/provider-oauth-runtime";
+} from "granted/plugin-sdk/provider-oauth-runtime";
 import {
   isSupportedGithubCopilotDomain,
   normalizeGithubCopilotDomain,

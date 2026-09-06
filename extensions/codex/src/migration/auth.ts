@@ -1,5 +1,5 @@
 // Codex plugin module implements auth behavior.
-import { loadAuthProfileStoreWithoutExternalProfiles } from "openclaw/plugin-sdk/agent-runtime";
+import { loadAuthProfileStoreWithoutExternalProfiles } from "granted/plugin-sdk/agent-runtime";
 import {
   createMigrationItem,
   markMigrationItemConflict,
@@ -7,8 +7,8 @@ import {
   markMigrationItemSkipped,
   mergeMigrationConfigValue,
   resolveMigrationConfigRuntime,
-} from "openclaw/plugin-sdk/migration";
-import type { MigrationItem, MigrationProviderContext } from "openclaw/plugin-sdk/plugin-entry";
+} from "granted/plugin-sdk/migration";
+import type { MigrationItem, MigrationProviderContext } from "granted/plugin-sdk/plugin-entry";
 import {
   applyAuthProfileConfig,
   buildApiKeyCredential,
@@ -22,11 +22,11 @@ import {
   type OAuthCredential,
   type GrantedConfig,
   type ProviderAuthResult,
-} from "openclaw/plugin-sdk/provider-auth";
+} from "granted/plugin-sdk/provider-auth";
 import {
   isRecord,
   normalizeOptionalString as readString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import { readJsonObject } from "./helpers.js";
 import type { CodexSource } from "./source.js";
 import type { resolveCodexMigrationTargets } from "./targets.js";

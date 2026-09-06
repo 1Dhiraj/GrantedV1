@@ -1,8 +1,8 @@
-import type { ApprovalResolveResult } from "openclaw/plugin-sdk/approval-gateway-runtime";
+import type { ApprovalResolveResult } from "granted/plugin-sdk/approval-gateway-runtime";
 import type {
   ExecApprovalPendingView,
   PluginApprovalPendingView,
-} from "openclaw/plugin-sdk/approval-handler-runtime";
+} from "granted/plugin-sdk/approval-handler-runtime";
 import { describe, expect, it } from "vitest";
 import {
   buildMSTeamsCanonicalApprovalTerminalCard,

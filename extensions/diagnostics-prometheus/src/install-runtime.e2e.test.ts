@@ -10,7 +10,7 @@ import {
   resolvePreferredOpenClawTmpDir,
   tempWorkspace,
   type TempWorkspace,
-} from "openclaw/plugin-sdk/temp-path";
+} from "granted/plugin-sdk/temp-path";
 import { afterEach, describe, expect, it } from "vitest";
 
 const execFileAsync = promisify(execFile);
@@ -94,7 +94,7 @@ function isolatedEnv(params: {
 }
 
 async function runCli(args: string[], env: NodeJS.ProcessEnv, build = false): Promise<string> {
-  const entry = build ? "scripts/run-node.mjs" : "openclaw.mjs";
+  const entry = build ? "scripts/run-node.mjs" : "granted.mjs";
   const result = await execFileAsync(process.execPath, [entry, ...args], {
     cwd: repoRoot,
     env,
@@ -350,7 +350,7 @@ describe("diagnostics-prometheus managed install runtime", () => {
     const gatewayLogHandle = await fs.open(gatewayLog, "a");
     const gateway = spawn(
       process.execPath,
-      ["openclaw.mjs", "gateway", "run", "--bind", "loopback", "--port", String(gatewayPort)],
+      ["granted.mjs", "gateway", "run", "--bind", "loopback", "--port", String(gatewayPort)],
       {
         cwd: repoRoot,
         env,

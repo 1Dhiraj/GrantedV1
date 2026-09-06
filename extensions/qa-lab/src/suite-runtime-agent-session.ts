@@ -1,20 +1,20 @@
 // Qa Lab plugin module implements suite runtime agent session behavior.
 import path from "node:path";
 import { setTimeout as sleep } from "node:timers/promises";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import { buildSessionEntry } from "openclaw/plugin-sdk/memory-core-host-engine-sessions";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
+import { buildSessionEntry } from "granted/plugin-sdk/memory-core-host-engine-sessions";
 import {
   listSessionEntries,
   loadTranscriptEventsSync,
   resolveStorePath,
   type SessionEntry,
   upsertSessionEntry,
-} from "openclaw/plugin-sdk/session-store-runtime";
-import { appendSessionTranscriptMessageByIdentity } from "openclaw/plugin-sdk/session-transcript-runtime";
+} from "granted/plugin-sdk/session-store-runtime";
+import { appendSessionTranscriptMessageByIdentity } from "granted/plugin-sdk/session-transcript-runtime";
 import {
   isRecord,
   normalizeOptionalString as readNonEmptyString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import {
   createDirectReplyTranscriptSentinelScanner,
   extractGatewayMessageText,

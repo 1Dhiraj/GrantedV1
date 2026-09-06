@@ -8,32 +8,32 @@ export type {
   GrantedConfig,
   GrantedPluginApi,
   ReplyPayload,
-} from "openclaw/plugin-sdk/core";
-export type { RuntimeEnv } from "openclaw/plugin-sdk/runtime";
-export { resolveAllowlistMatchSimple } from "openclaw/plugin-sdk/allow-from";
-export { logInboundDrop } from "openclaw/plugin-sdk/channel-inbound";
-export { createChannelPairingController } from "openclaw/plugin-sdk/channel-pairing";
-export { createChannelMessageReplyPipeline } from "openclaw/plugin-sdk/channel-outbound";
-export { logTypingFailure } from "openclaw/plugin-sdk/channel-feedback";
-export { listSkillCommandsForAgents } from "openclaw/plugin-sdk/command-auth-native";
-export { buildPreparedModelsProviderData } from "openclaw/plugin-sdk/models-provider-runtime";
-export { isDangerousNameMatchingEnabled } from "openclaw/plugin-sdk/dangerous-name-runtime";
+} from "granted/plugin-sdk/core";
+export type { RuntimeEnv } from "granted/plugin-sdk/runtime";
+export { resolveAllowlistMatchSimple } from "granted/plugin-sdk/allow-from";
+export { logInboundDrop } from "granted/plugin-sdk/channel-inbound";
+export { createChannelPairingController } from "granted/plugin-sdk/channel-pairing";
+export { createChannelMessageReplyPipeline } from "granted/plugin-sdk/channel-outbound";
+export { logTypingFailure } from "granted/plugin-sdk/channel-feedback";
+export { listSkillCommandsForAgents } from "granted/plugin-sdk/command-auth-native";
+export { buildPreparedModelsProviderData } from "granted/plugin-sdk/models-provider-runtime";
+export { isDangerousNameMatchingEnabled } from "granted/plugin-sdk/dangerous-name-runtime";
 export {
   resolveAllowlistProviderRuntimeGroupPolicy,
   resolveDefaultGroupPolicy,
   warnMissingProviderGroupPolicyFallbackOnce,
-} from "openclaw/plugin-sdk/runtime-group-policy";
-export { resolveChannelMediaMaxBytes } from "openclaw/plugin-sdk/account-helpers";
-export { loadOutboundMediaFromUrl } from "openclaw/plugin-sdk/outbound-media";
+} from "granted/plugin-sdk/runtime-group-policy";
+export { resolveChannelMediaMaxBytes } from "granted/plugin-sdk/account-helpers";
+export { loadOutboundMediaFromUrl } from "granted/plugin-sdk/outbound-media";
 // Legacy map-helper exports stay for older plugin consumers. New message-turn
 // code should use createChannelHistoryWindow.
 export {
   DEFAULT_GROUP_HISTORY_LIMIT,
   createChannelHistoryWindow,
-} from "openclaw/plugin-sdk/reply-history";
-export { registerPluginHttpRoute } from "openclaw/plugin-sdk/webhook-targets";
+} from "granted/plugin-sdk/reply-history";
+export { registerPluginHttpRoute } from "granted/plugin-sdk/webhook-targets";
 export {
   isRequestBodyLimitError,
   readRequestBodyWithLimit,
-} from "openclaw/plugin-sdk/webhook-ingress";
-export { isTrustedProxyAddress, resolveClientIp } from "openclaw/plugin-sdk/core";
+} from "granted/plugin-sdk/webhook-ingress";
+export { isTrustedProxyAddress, resolveClientIp } from "granted/plugin-sdk/core";

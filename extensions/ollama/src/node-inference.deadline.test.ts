@@ -1,6 +1,6 @@
 import { createServer, type IncomingMessage, type ServerResponse } from "node:http";
 import type { Socket } from "node:net";
-import type { LookupFn } from "openclaw/plugin-sdk/ssrf-runtime";
+import type { LookupFn } from "granted/plugin-sdk/ssrf-runtime";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { createOllamaNodeHostCommands } from "./node-inference.js";
 import { fetchOllamaModels } from "./provider-models.js";

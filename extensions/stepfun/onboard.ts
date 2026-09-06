@@ -4,7 +4,7 @@ import {
   type ModelProviderConfig,
   type GrantedConfig,
   type ProviderOnboardPresetAppliers,
-} from "openclaw/plugin-sdk/provider-onboard";
+} from "granted/plugin-sdk/provider-onboard";
 import {
   buildStepFunPlanProvider,
   buildStepFunProvider,

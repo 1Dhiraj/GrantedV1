@@ -40,7 +40,7 @@ install_sealed_unit() {
 [Unit]
 Description=OpenClaw Gateway (sealed ownership proof)
 [Service]
-ExecStart=/usr/local/bin/node /app/openclaw.mjs gateway --port 18789
+ExecStart=/usr/local/bin/node /app/granted.mjs gateway --port 18789
 WorkingDirectory=/app
 Environment=OPENCLAW_GATEWAY_PORT=18789
 EnvironmentFile=/home/appuser/.openclaw/gateway.systemd.env
@@ -94,7 +94,7 @@ for scenario in missing-mode missing-token missing-config group-writable-root-ow
   output="$(runuser -u appuser -- env -u OPENCLAW_GATEWAY_TOKEN -u OPENCLAW_GATEWAY_PASSWORD \
     HOME="$service_home" USER=appuser LOGNAME=appuser PATH="$shim_dir:$PATH" \
     OPENCLAW_STATE_DIR="$state_dir" OPENCLAW_CONFIG_PATH="$config_path" \
-    node /app/openclaw.mjs gateway install --force --json 2>&1)" || install_result=$?
+    node /app/granted.mjs gateway install --force --json 2>&1)" || install_result=$?
 
   if [[ "$install_result" == 0 || "$output" != *SERVICE_DEFINITION_SEALED* ||
     "$output" != *"privileged deployment owner"* || "$output" == *"$token_canary"* ]]; then

@@ -5,7 +5,7 @@ import { describe, expect, it, vi } from "vitest";
 const { gatewayLogError } = vi.hoisted(() => ({ gatewayLogError: vi.fn() }));
 
 vi.mock("openclaw/plugin-sdk/runtime-env", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/runtime-env")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/runtime-env")>();
   return {
     ...actual,
     createSubsystemLogger: () => ({ error: gatewayLogError }),

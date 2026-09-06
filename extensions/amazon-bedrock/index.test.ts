@@ -1,16 +1,16 @@
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { expectDefined } from "@openclaw/normalization-core";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { PluginRuntime } from "openclaw/plugin-sdk/core";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { PluginRuntime } from "granted/plugin-sdk/core";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
 import {
   buildPluginApi,
   registerSingleProviderPlugin,
-} from "openclaw/plugin-sdk/plugin-test-runtime";
-import { withEnvAsync } from "openclaw/plugin-sdk/test-env";
+} from "granted/plugin-sdk/plugin-test-runtime";
+import { withEnvAsync } from "granted/plugin-sdk/test-env";
 // Amazon Bedrock tests cover index plugin behavior.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { supportsBedrockPromptCaching } from "./bedrock-options.js";
 import amazonBedrockPlugin from "./index.js";

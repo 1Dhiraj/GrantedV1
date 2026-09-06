@@ -1,8 +1,8 @@
 // Kimi Coding plugin entrypoint registers its OpenClaw integration.
-import { defineSingleProviderPluginEntry } from "openclaw/plugin-sdk/provider-entry";
-import { normalizeProviderId } from "openclaw/plugin-sdk/provider-model-shared";
-import type { SecretInput } from "openclaw/plugin-sdk/secret-input";
-import { isRecord, normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { defineSingleProviderPluginEntry } from "granted/plugin-sdk/provider-entry";
+import { normalizeProviderId } from "granted/plugin-sdk/provider-model-shared";
+import type { SecretInput } from "granted/plugin-sdk/secret-input";
+import { isRecord, normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import { applyKimiCodeConfig, KIMI_CODING_MODEL_REF } from "./onboard.js";
 import manifest from "./openclaw.plugin.json" with { type: "json" };
 import { buildKimiCodingProvider, normalizeKimiCodingModelId } from "./provider-catalog.js";

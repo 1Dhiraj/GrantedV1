@@ -1,8 +1,8 @@
 // Xai tests cover web search plugin behavior.
-import { createTestWizardPrompter } from "openclaw/plugin-sdk/plugin-test-runtime";
-import { NON_ENV_SECRETREF_MARKER } from "openclaw/plugin-sdk/provider-auth-runtime";
-import { createNonExitingRuntime } from "openclaw/plugin-sdk/runtime-env";
-import { withEnvAsync, withFetchPreconnect } from "openclaw/plugin-sdk/test-env";
+import { createTestWizardPrompter } from "granted/plugin-sdk/plugin-test-runtime";
+import { NON_ENV_SECRETREF_MARKER } from "granted/plugin-sdk/provider-auth-runtime";
+import { createNonExitingRuntime } from "granted/plugin-sdk/runtime-env";
+import { withEnvAsync, withFetchPreconnect } from "granted/plugin-sdk/test-env";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { buildXaiCatalogModels, resolveXaiCatalogEntry } from "./model-definitions.js";
 import { isModernXaiModel, resolveXaiForwardCompatModel } from "./provider-models.js";
@@ -26,7 +26,7 @@ vi.mock("openclaw/plugin-sdk/agent-runtime", () => {
 });
 
 vi.mock("openclaw/plugin-sdk/provider-auth", async (importOriginal) => {
-  const original = await importOriginal<typeof import("openclaw/plugin-sdk/provider-auth")>();
+  const original = await importOriginal<typeof import("granted/plugin-sdk/provider-auth")>();
   return {
     ...original,
     ensureAuthProfileStore: providerAuthMocks.ensureAuthProfileStore,
@@ -36,7 +36,7 @@ vi.mock("openclaw/plugin-sdk/provider-auth", async (importOriginal) => {
 
 vi.mock("openclaw/plugin-sdk/provider-auth-runtime", async (importOriginal) => {
   const original =
-    await importOriginal<typeof import("openclaw/plugin-sdk/provider-auth-runtime")>();
+    await importOriginal<typeof import("granted/plugin-sdk/provider-auth-runtime")>();
   return {
     ...original,
     resolveApiKeyForProvider: providerAuthRuntimeMocks.resolveApiKeyForProvider,

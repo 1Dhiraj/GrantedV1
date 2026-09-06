@@ -8,7 +8,7 @@ import {
   embeddedAgentLog,
   type CodexBundleMcpThreadConfig,
   type EmbeddedRunAttemptParamsV2 as EmbeddedRunAttemptParams,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
+} from "granted/plugin-sdk/agent-harness-runtime";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { startCodexAttemptThread } from "./attempt-startup.js";
 import { CodexAppServerClient, isCodexAppServerConnectionClosedError } from "./client.js";
@@ -353,7 +353,7 @@ describe("Codex app-server startup retry", () => {
       for (const failure of ["snapshot", "command", "commit"] as const) {
         const fixture = await createStartupFailureFixture("refusal");
         const { createPluginStateSyncKeyedStore } =
-          await import("openclaw/plugin-sdk/plugin-state-store-runtime");
+          await import("granted/plugin-sdk/plugin-state-store-runtime");
         const store = createPluginStateSyncKeyedStore("codex", {
           namespace: "app-server-processes",
           maxEntries: 512,

@@ -1,15 +1,15 @@
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   registerSessionBindingAdapter,
   type SessionBindingAdapter,
   testing,
   unregisterSessionBindingAdapter,
-} from "openclaw/plugin-sdk/conversation-runtime";
+} from "granted/plugin-sdk/conversation-runtime";
 import {
   createTestRegistry,
   resetPluginRuntimeStateForTest,
   setActivePluginRegistry,
-} from "openclaw/plugin-sdk/plugin-test-runtime";
+} from "granted/plugin-sdk/plugin-test-runtime";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { inspectTelegramConversationRouteOwner } from "./conversation-route-owner.js";
 

@@ -1,6 +1,6 @@
 // Sms tests cover gateway plugin behavior.
 import type { IncomingMessage, ServerResponse } from "node:http";
-import type { registerPluginHttpRoute as registerPluginHttpRouteType } from "openclaw/plugin-sdk/webhook-ingress";
+import type { registerPluginHttpRoute as registerPluginHttpRouteType } from "granted/plugin-sdk/webhook-ingress";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { collectSmsStartupWarnings, startSmsGatewayAccount } from "./gateway.js";
 import type { SmsChannelRuntime } from "./inbound.js";

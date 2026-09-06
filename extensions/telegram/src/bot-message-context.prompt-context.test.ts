@@ -7,7 +7,7 @@ import {
   resolveAmbientTranscriptWatermarkKey,
   updateAmbientTranscriptWatermark,
   upsertSessionEntry,
-} from "openclaw/plugin-sdk/session-store-runtime";
+} from "granted/plugin-sdk/session-store-runtime";
 import { afterEach, describe, expect, it } from "vitest";
 import { createTelegramMessageContextRuntime } from "./bot-handlers.message-context.js";
 import { buildTelegramMessageContextForTest } from "./bot-message-context.test-harness.js";

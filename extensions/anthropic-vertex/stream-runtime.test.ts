@@ -4,11 +4,11 @@ import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import { createServer } from "node:http";
 import os from "node:os";
 import path from "node:path";
-import { createAssistantMessageEventStream, type Model } from "openclaw/plugin-sdk/llm";
+import { createAssistantMessageEventStream, type Model } from "granted/plugin-sdk/llm";
 import {
   notifyProviderStreamOpened,
   withProviderAcceptanceObserver,
-} from "openclaw/plugin-sdk/provider-transport-runtime";
+} from "granted/plugin-sdk/provider-transport-runtime";
 import { beforeAll, describe, expect, it, vi } from "vitest";
 import type { AnthropicVertexStreamDeps } from "./stream-runtime.js";
 

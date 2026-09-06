@@ -2,9 +2,9 @@
 import type {
   ProviderResolveDynamicModelContext,
   ProviderRuntimeModel,
-} from "openclaw/plugin-sdk/plugin-entry";
-import { isNonSecretApiKeyMarker } from "openclaw/plugin-sdk/provider-auth";
-import { createProviderApiKeyAuthMethod } from "openclaw/plugin-sdk/provider-auth-api-key";
+} from "granted/plugin-sdk/plugin-entry";
+import { isNonSecretApiKeyMarker } from "granted/plugin-sdk/provider-auth";
+import { createProviderApiKeyAuthMethod } from "granted/plugin-sdk/provider-auth-api-key";
 import {
   getCachedLiveProviderModelRows,
   LiveModelCatalogHttpError,
@@ -12,11 +12,11 @@ import {
   readLiveModelCatalogPositiveSafeIntegerField,
   readLiveModelCatalogStringField,
   type LiveModelCatalogFetchGuard,
-} from "openclaw/plugin-sdk/provider-catalog-live-runtime";
+} from "granted/plugin-sdk/provider-catalog-live-runtime";
 import {
   buildManifestModelProviderConfig,
   type ProviderCatalogOutcome,
-} from "openclaw/plugin-sdk/provider-catalog-shared";
+} from "granted/plugin-sdk/provider-catalog-shared";
 import {
   DEFAULT_CONTEXT_TOKENS,
   normalizeProviderId,
@@ -24,11 +24,11 @@ import {
   type ModelDefinitionConfig,
   type ModelProviderConfig,
   type ProviderPlugin,
-} from "openclaw/plugin-sdk/provider-model-shared";
+} from "granted/plugin-sdk/provider-model-shared";
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import {
   OPENAI_CODEX_RESPONSES_BASE_URL,
   classifyOpenAIBaseUrl,
@@ -924,7 +924,7 @@ export function buildOpenAIProvider(): ProviderPlugin {
         const auth = ctx.resolveProviderAuth(PROVIDER_ID);
         try {
           const { resolveApiKeyForProvider, resolveProviderAuthProfileMetadata } =
-            await import("openclaw/plugin-sdk/provider-auth-runtime");
+            await import("granted/plugin-sdk/provider-auth-runtime");
           const runtimeAuth = await resolveApiKeyForProvider({
             provider: PROVIDER_ID,
             cfg: ctx.config,

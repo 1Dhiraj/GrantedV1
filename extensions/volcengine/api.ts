@@ -1,7 +1,7 @@
 // Volcengine API module exposes the plugin public contract.
-import { applyModelCompatPatch } from "openclaw/plugin-sdk/provider-model-shared";
-import type { ModelCompatConfig } from "openclaw/plugin-sdk/provider-model-shared";
-import { uniqueStrings } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { applyModelCompatPatch } from "granted/plugin-sdk/provider-model-shared";
+import type { ModelCompatConfig } from "granted/plugin-sdk/provider-model-shared";
+import { uniqueStrings } from "granted/plugin-sdk/string-coerce-runtime";
 
 export const VOLCENGINE_UNSUPPORTED_TOOL_SCHEMA_KEYWORDS = [
   "minLength",

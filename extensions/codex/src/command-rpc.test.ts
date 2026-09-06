@@ -5,18 +5,18 @@ import {
   clearRuntimeAuthProfileStoreSnapshots,
   replaceRuntimeAuthProfileStoreSnapshots,
   type AuthProfileStore,
-} from "openclaw/plugin-sdk/agent-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+} from "granted/plugin-sdk/agent-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   createEmptyPluginRegistry,
   getActivePluginRegistry,
   resetPluginRuntimeStateForTest,
   setActivePluginRegistry,
-} from "openclaw/plugin-sdk/plugin-test-runtime";
+} from "granted/plugin-sdk/plugin-test-runtime";
 import {
   clearSessionStoreCacheForTest,
   upsertSessionEntry,
-} from "openclaw/plugin-sdk/session-store-runtime";
+} from "granted/plugin-sdk/session-store-runtime";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { withCodexAppServerJsonClient } from "./app-server/request.js";
 import { createClientHarness } from "./app-server/test-support.js";

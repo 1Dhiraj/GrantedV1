@@ -1,7 +1,7 @@
 // Line tests cover bot handlers plugin behavior.
 import type { webhook } from "@line/bot-sdk";
-import { MediaFetchError } from "openclaw/plugin-sdk/media-runtime";
-import type { HistoryEntry } from "openclaw/plugin-sdk/reply-history";
+import { MediaFetchError } from "granted/plugin-sdk/media-runtime";
+import type { HistoryEntry } from "granted/plugin-sdk/reply-history";
 import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import type { LineAccountConfig } from "./types.js";
 
@@ -21,7 +21,7 @@ const pairingDeliveryMocks = vi.hoisted(() => ({
 // allowlist/groupPolicy gating and message-context wiring.
 vi.mock("openclaw/plugin-sdk/channel-inbound", async () => ({
   // Keep mention facts real without loading the inbound execution lifecycle.
-  implicitMentionKindWhen: (await import("openclaw/plugin-sdk/channel-mention-gating"))
+  implicitMentionKindWhen: (await import("granted/plugin-sdk/channel-mention-gating"))
     .implicitMentionKindWhen,
   buildMentionRegexes: () => [],
   isChannelPartialDeliveryError: (error: unknown) =>

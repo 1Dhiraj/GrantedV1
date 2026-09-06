@@ -1,5 +1,5 @@
 // Feishu plugin module implements secret contract behavior.
-import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "openclaw/plugin-sdk/account-id";
+import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "granted/plugin-sdk/account-id";
 import {
   collectConditionalChannelFieldAssignments,
   createChannelSecretTargetRegistryEntries,
@@ -9,7 +9,7 @@ import {
   normalizeSecretStringValue,
   type ResolverContext,
   type SecretDefaults,
-} from "openclaw/plugin-sdk/channel-secret-basic-runtime";
+} from "granted/plugin-sdk/channel-secret-basic-runtime";
 
 export const secretTargetRegistryEntries = createChannelSecretTargetRegistryEntries({
   channelKey: "feishu",

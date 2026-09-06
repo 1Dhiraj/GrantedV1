@@ -1,6 +1,6 @@
-import type { StreamFn } from "openclaw/plugin-sdk/agent-core";
-import { createAssistantMessageEventStream } from "openclaw/plugin-sdk/llm";
-import { registerSingleProviderPlugin } from "openclaw/plugin-sdk/plugin-test-runtime";
+import type { StreamFn } from "granted/plugin-sdk/agent-core";
+import { createAssistantMessageEventStream } from "granted/plugin-sdk/llm";
+import { registerSingleProviderPlugin } from "granted/plugin-sdk/plugin-test-runtime";
 import { describe, expect, it, vi } from "vitest";
 import openrouterPlugin from "./index.js";
 

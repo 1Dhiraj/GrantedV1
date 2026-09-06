@@ -1,20 +1,20 @@
 // Imessage plugin module implements probe behavior.
 import path from "node:path";
-import type { BaseProbeResult } from "openclaw/plugin-sdk/channel-contract";
+import type { BaseProbeResult } from "granted/plugin-sdk/channel-contract";
 import {
   asDateTimestampMs,
   resolveExpiresAtMsFromDurationMs,
-} from "openclaw/plugin-sdk/number-runtime";
-import { runCommandWithTimeout } from "openclaw/plugin-sdk/process-runtime";
-import { getRuntimeConfig } from "openclaw/plugin-sdk/runtime-config-snapshot";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
-import { detectBinary } from "openclaw/plugin-sdk/setup";
+} from "granted/plugin-sdk/number-runtime";
+import { runCommandWithTimeout } from "granted/plugin-sdk/process-runtime";
+import { getRuntimeConfig } from "granted/plugin-sdk/runtime-config-snapshot";
+import type { RuntimeEnv } from "granted/plugin-sdk/runtime-env";
+import { detectBinary } from "granted/plugin-sdk/setup";
 import {
   filterStringEntries,
   normalizeLowercaseStringOrEmpty,
   normalizeStringEntries,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
+import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import { expandIMessageUserPath } from "./cli-path.js";
 import { createIMessageRpcClient } from "./client.js";
 import { DEFAULT_IMESSAGE_PROBE_TIMEOUT_MS } from "./constants.js";

@@ -1,5 +1,5 @@
 // Signal tests cover drain claim ownership through debounce, merge, and skip.
-import type { MsgContext } from "openclaw/plugin-sdk/reply-runtime";
+import type { MsgContext } from "granted/plugin-sdk/reply-runtime";
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import type { SignalIngressLifecycle } from "../signal-ingress.js";
 
@@ -50,7 +50,7 @@ vi.mock("../send-reactions.js", () => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/channel-inbound", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/channel-inbound")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/channel-inbound")>(
     "openclaw/plugin-sdk/channel-inbound",
   );
   type RunParams = Parameters<typeof actual.runChannelInboundEvent>[0];

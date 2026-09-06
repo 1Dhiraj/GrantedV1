@@ -5,10 +5,10 @@ import {
   estimateStringChars,
   estimateTokensFromChars,
 } from "@openclaw/normalization-core/cjk-chars";
-import { SessionManager } from "openclaw/plugin-sdk/agent-sessions";
+import { SessionManager } from "granted/plugin-sdk/agent-sessions";
 // Session filesystem utility tests cover transcript reading, usage extraction,
 // preview rows, message counts, title fields, and archive candidate resolution.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterAll, beforeAll, describe, expect, test, vi } from "vitest";
 import { createNoisyPngBuffer } from "../../test/helpers/image-fixtures.js";
 import {

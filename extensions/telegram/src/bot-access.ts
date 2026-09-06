@@ -3,15 +3,15 @@ import {
   firstDefined,
   isSenderIdAllowed,
   mergeDmAllowFromSources,
-} from "openclaw/plugin-sdk/allow-from";
+} from "granted/plugin-sdk/allow-from";
 import type {
   DmPolicy,
   TelegramDirectConfig,
   TelegramGroupConfig,
-} from "openclaw/plugin-sdk/config-contracts";
-import { createDedupeCache } from "openclaw/plugin-sdk/dedupe-runtime";
-import { createSubsystemLogger } from "openclaw/plugin-sdk/runtime-env";
-import { normalizeOptionalString, uniqueStrings } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/config-contracts";
+import { createDedupeCache } from "granted/plugin-sdk/dedupe-runtime";
+import { createSubsystemLogger } from "granted/plugin-sdk/runtime-env";
+import { normalizeOptionalString, uniqueStrings } from "granted/plugin-sdk/string-coerce-runtime";
 
 export type NormalizedAllowFrom = {
   entries: string[];

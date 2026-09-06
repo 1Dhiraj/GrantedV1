@@ -4,7 +4,7 @@ import {
   getFeishuLifecycleTestMocks,
   resetFeishuLifecycleTestMocks,
 } from "./lifecycle.test-support.js";
-import { createRuntimeEnv } from "openclaw/plugin-sdk/plugin-test-runtime";
+import { createRuntimeEnv } from "granted/plugin-sdk/plugin-test-runtime";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { ClawdbotConfig } from "../runtime-api.js";
 // Feishu plugin module implements monitor.acp init failure.lifecycle support behavior.

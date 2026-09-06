@@ -2,16 +2,16 @@ import {
   buildChannelInboundEventContext,
   createChannelInboundEnvelopeBuilder,
   recordChannelBotPairLoopAndCheckSuppression,
-} from "openclaw/plugin-sdk/channel-inbound";
+} from "granted/plugin-sdk/channel-inbound";
 import {
   createChannelMessageReplyPipeline,
   deriveDurableFinalDeliveryRequirements,
-} from "openclaw/plugin-sdk/channel-outbound";
+} from "granted/plugin-sdk/channel-outbound";
 /**
  * Converts authorized ClickClack messages into OpenClaw agent/model replies and
  * routes resulting outbound text back to ClickClack.
  */
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { resolveClickClackInboundAccess, type ClickClackInboundAccess } from "./access.js";
 import { createClickClackActivityPublisher, type ClickClackActivityPublisher } from "./activity.js";
 import { createClickClackClient } from "./http-client.js";

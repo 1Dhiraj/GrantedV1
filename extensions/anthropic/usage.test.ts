@@ -1,4 +1,4 @@
-import { CLAUDE_CLI_PROFILE_ID as SDK_CLAUDE_CLI_PROFILE_ID } from "openclaw/plugin-sdk/provider-auth";
+import { CLAUDE_CLI_PROFILE_ID as SDK_CLAUDE_CLI_PROFILE_ID } from "granted/plugin-sdk/provider-auth";
 import { describe, expect, it, vi } from "vitest";
 import { CLAUDE_CLI_PROFILE_ID } from "./cli-constants.js";
 import { fetchAnthropicUsage, resolveAnthropicUsageAuth } from "./usage.js";

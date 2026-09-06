@@ -2,8 +2,8 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { createPersistentDedupe } from "openclaw/plugin-sdk/persistent-dedupe";
-import { resetPluginStateStoreForTests } from "openclaw/plugin-sdk/plugin-state-test-runtime";
+import { createPersistentDedupe } from "granted/plugin-sdk/persistent-dedupe";
+import { resetPluginStateStoreForTests } from "granted/plugin-sdk/plugin-state-test-runtime";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
   NEXTCLOUD_TALK_PLUGIN_ID,

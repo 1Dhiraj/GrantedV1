@@ -13,25 +13,25 @@
 import crypto from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import { expectDefined } from "openclaw/plugin-sdk/expect-runtime";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
+import { expectDefined } from "granted/plugin-sdk/expect-runtime";
 import {
   parseFfprobeCodecAndSampleRate,
   runFfmpeg,
   runFfprobe,
   MEDIA_FFMPEG_MAX_AUDIO_DURATION_SECS,
   unlinkIfExists,
-} from "openclaw/plugin-sdk/media-runtime";
-import { parseStrictFiniteNumber } from "openclaw/plugin-sdk/number-runtime";
+} from "granted/plugin-sdk/media-runtime";
+import { parseStrictFiniteNumber } from "granted/plugin-sdk/number-runtime";
 import {
   readProviderJsonResponse,
   readResponseTextLimited,
-} from "openclaw/plugin-sdk/provider-http";
-import { writeExternalFileWithinRoot } from "openclaw/plugin-sdk/security-runtime";
-import { fetchWithSsrFGuard, type SsrFPolicy } from "openclaw/plugin-sdk/ssrf-runtime";
-import { normalizeLowercaseStringOrEmpty } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { resolvePreferredOpenClawTmpDir } from "openclaw/plugin-sdk/temp-path";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+} from "granted/plugin-sdk/provider-http";
+import { writeExternalFileWithinRoot } from "granted/plugin-sdk/security-runtime";
+import { fetchWithSsrFGuard, type SsrFPolicy } from "granted/plugin-sdk/ssrf-runtime";
+import { normalizeLowercaseStringOrEmpty } from "granted/plugin-sdk/string-coerce-runtime";
+import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
+import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import { DiscordError, RateLimitError, type RequestClient } from "./internal/discord.js";
 import { readDiscordMessage, readRetryAfter } from "./internal/rest-errors.js";
 import { DISCORD_ATTACHMENT_TOTAL_TIMEOUT_MS } from "./monitor/timeouts.js";

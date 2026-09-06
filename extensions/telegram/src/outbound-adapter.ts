@@ -4,21 +4,21 @@ import {
   sanitizeForPlainText,
   type OutboundDeliveryFormattingOptions,
   type OutboundSendDeps,
-} from "openclaw/plugin-sdk/channel-outbound";
+} from "granted/plugin-sdk/channel-outbound";
 import {
   attachChannelToResult,
   createAttachedChannelResultAdapter,
   type ChannelOutboundAdapter,
-} from "openclaw/plugin-sdk/channel-send-result";
-import { parseStrictPositiveInteger } from "openclaw/plugin-sdk/number-runtime";
-import { chunkMarkdownTextWithMode } from "openclaw/plugin-sdk/reply-chunking";
+} from "granted/plugin-sdk/channel-send-result";
+import { parseStrictPositiveInteger } from "granted/plugin-sdk/number-runtime";
+import { chunkMarkdownTextWithMode } from "granted/plugin-sdk/reply-chunking";
 import {
   resolveSendableOutboundReplyParts,
   sendPayloadMediaSequenceOrFallback,
-} from "openclaw/plugin-sdk/reply-payload";
-import { isSingleUseReplyToMode } from "openclaw/plugin-sdk/reply-reference";
-import type { ReplyPayload } from "openclaw/plugin-sdk/reply-runtime";
-import { sanitizeAssistantVisibleText } from "openclaw/plugin-sdk/text-chunking";
+} from "granted/plugin-sdk/reply-payload";
+import { isSingleUseReplyToMode } from "granted/plugin-sdk/reply-reference";
+import type { ReplyPayload } from "granted/plugin-sdk/reply-runtime";
+import { sanitizeAssistantVisibleText } from "granted/plugin-sdk/text-chunking";
 import { mergeTelegramAccountConfig, resolveDefaultTelegramAccountId } from "./accounts.js";
 import { resolveTelegramInlineButtons, type TelegramInlineButtons } from "./button-types.js";
 import { TELEGRAM_MAX_CAPTION_LENGTH, telegramCaptionDeliveryMetadata } from "./caption.js";

@@ -1,10 +1,10 @@
-import { setReplyPayloadMetadata } from "openclaw/plugin-sdk/reply-payload-testing";
+import { setReplyPayloadMetadata } from "granted/plugin-sdk/reply-payload-testing";
 import { beforeEach, expect, it, vi } from "vitest";
 
 const registerChannelDelivery = vi.hoisted(() => vi.fn());
 vi.mock("openclaw/plugin-sdk/question-gateway-runtime", async (importOriginal) => {
   const actual =
-    await importOriginal<typeof import("openclaw/plugin-sdk/question-gateway-runtime")>();
+    await importOriginal<typeof import("granted/plugin-sdk/question-gateway-runtime")>();
   return {
     ...actual,
     questionGatewayRuntime: { ...actual.questionGatewayRuntime, registerChannelDelivery },

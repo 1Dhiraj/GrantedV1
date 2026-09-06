@@ -1,14 +1,14 @@
-import { installChannelDmPolicyContractSuite } from "openclaw/plugin-sdk/channel-test-helpers";
+import { installChannelDmPolicyContractSuite } from "granted/plugin-sdk/channel-test-helpers";
 // Slack tests cover setup surface plugin behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   createQueuedWizardPrompter,
   createSetupWizardAdapter,
   createTestWizardPrompter,
   runSetupWizardConfigure,
   runSetupWizardPrepare,
-} from "openclaw/plugin-sdk/plugin-test-runtime";
-import type { WizardPrompter } from "openclaw/plugin-sdk/plugin-test-runtime";
+} from "granted/plugin-sdk/plugin-test-runtime";
+import type { WizardPrompter } from "granted/plugin-sdk/plugin-test-runtime";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { createSlackSetupWizardBase, slackSetupContract } from "./setup-core.js";
 import { buildSlackSetupLines } from "./setup-shared.js";

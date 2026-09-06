@@ -1,11 +1,11 @@
 // Discord plugin module implements model picker preferences behavior.
-import { normalizeAccountId as normalizeSharedAccountId } from "openclaw/plugin-sdk/account-id";
+import { normalizeAccountId as normalizeSharedAccountId } from "granted/plugin-sdk/account-id";
 import {
   MAX_DATE_TIMESTAMP_MS,
   resolveDateTimestampMs,
   resolveTimestampMsToIsoString,
-} from "openclaw/plugin-sdk/number-runtime";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/number-runtime";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import { getDiscordRuntime } from "../runtime.js";
 import {
   buildPreferenceModelKey,

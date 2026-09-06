@@ -1,6 +1,6 @@
 // Slack tests cover outbound payload plugin behavior.
-import { installChannelOutboundPayloadContractSuite } from "openclaw/plugin-sdk/channel-contract-testing";
-import type { ReplyPayload } from "openclaw/plugin-sdk/reply-runtime";
+import { installChannelOutboundPayloadContractSuite } from "granted/plugin-sdk/channel-contract-testing";
+import type { ReplyPayload } from "granted/plugin-sdk/reply-runtime";
 import { describe, expect, it, vi } from "vitest";
 import { createSlackOutboundPayloadHarness as createHarness, slackOutbound } from "../test-api.js";
 import { createSlackSendTestClient } from "./blocks.test-helpers.js";

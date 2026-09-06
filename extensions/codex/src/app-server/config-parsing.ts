@@ -1,6 +1,6 @@
-import { buildSecretInputSchema } from "openclaw/plugin-sdk/secret-input";
-import { asNullableRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { detectWindowsSpawnCommandInlineArgs } from "openclaw/plugin-sdk/windows-spawn";
+import { buildSecretInputSchema } from "granted/plugin-sdk/secret-input";
+import { asNullableRecord } from "granted/plugin-sdk/string-coerce-runtime";
+import { detectWindowsSpawnCommandInlineArgs } from "granted/plugin-sdk/windows-spawn";
 import { z } from "zod";
 import {
   CODEX_PLUGIN_MARKETPLACE_NAME_PATTERN,

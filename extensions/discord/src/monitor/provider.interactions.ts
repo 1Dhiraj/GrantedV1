@@ -1,9 +1,9 @@
 // Discord provider module implements model/runtime integration.
-import { CHANNEL_APPROVAL_NATIVE_RUNTIME_CONTEXT_CAPABILITY } from "openclaw/plugin-sdk/approval-handler-adapter-runtime";
-import type { PluginRuntime } from "openclaw/plugin-sdk/channel-core";
-import { registerChannelRuntimeContext } from "openclaw/plugin-sdk/channel-runtime-context";
-import type { DiscordAccountConfig, GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
+import { CHANNEL_APPROVAL_NATIVE_RUNTIME_CONTEXT_CAPABILITY } from "granted/plugin-sdk/approval-handler-adapter-runtime";
+import type { PluginRuntime } from "granted/plugin-sdk/channel-core";
+import { registerChannelRuntimeContext } from "granted/plugin-sdk/channel-runtime-context";
+import type { DiscordAccountConfig, GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { RuntimeEnv } from "granted/plugin-sdk/runtime-env";
 import { createDiscordActivityButton } from "../activities/interaction.js";
 import {
   getDiscordExecApprovalApprovers,

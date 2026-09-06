@@ -4,7 +4,7 @@
  * Opens a CDP session through Playwright pages and marks backend DOM nodes with
  * temporary browser refs for role-snapshot interactions.
  */
-import { uniqueValues } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { uniqueValues } from "granted/plugin-sdk/string-coerce-runtime";
 import type { CDPSession, Page } from "playwright-core";
 import { readCdpMainFrameDocumentIdentity } from "./cdp-page-session.js";
 

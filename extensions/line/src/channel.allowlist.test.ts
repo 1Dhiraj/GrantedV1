@@ -1,5 +1,5 @@
 // Line tests cover allowlist config-edit adapter plugin behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { describe, expect, it } from "vitest";
 import { linePlugin } from "./channel.js";
 

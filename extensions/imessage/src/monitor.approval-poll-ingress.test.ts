@@ -1,5 +1,5 @@
 // Imessage tests cover approval poll durable-ingress ownership.
-import type { waitForTransportReady } from "openclaw/plugin-sdk/transport-ready-runtime";
+import type { waitForTransportReady } from "granted/plugin-sdk/transport-ready-runtime";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { createIMessageRpcClient } from "./client.js";
 import { monitorIMessageProvider } from "./monitor.js";
@@ -29,7 +29,7 @@ vi.mock("openclaw/plugin-sdk/transport-ready-runtime", () => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/channel-inbound", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/channel-inbound")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/channel-inbound")>();
   return {
     ...actual,
     createChannelInboundDebouncer: vi.fn(() => ({

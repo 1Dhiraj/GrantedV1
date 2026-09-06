@@ -3,24 +3,24 @@ import { mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { expectDefined } from "@openclaw/normalization-core";
-import { escapeRegExp, formatEnvelopeTimestamp } from "openclaw/plugin-sdk/channel-test-helpers";
-import type { TelegramGroupConfig } from "openclaw/plugin-sdk/config-contracts";
+import { escapeRegExp, formatEnvelopeTimestamp } from "granted/plugin-sdk/channel-test-helpers";
+import type { TelegramGroupConfig } from "granted/plugin-sdk/config-contracts";
 import {
   buildPluginBindingApprovalCustomId,
   resolvePluginConversationBindingApproval,
-} from "openclaw/plugin-sdk/conversation-runtime";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
+} from "granted/plugin-sdk/conversation-runtime";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
 import {
   clearPluginInteractiveHandlers,
   registerPluginInteractiveHandler,
-} from "openclaw/plugin-sdk/plugin-runtime";
+} from "granted/plugin-sdk/plugin-runtime";
 import type {
   PluginStateKeyedStore,
   PluginStateSyncKeyedStore,
-} from "openclaw/plugin-sdk/plugin-state-runtime";
-import type { GetReplyOptions, MsgContext } from "openclaw/plugin-sdk/reply-runtime";
-import { withEnvAsync } from "openclaw/plugin-sdk/test-env";
-import { createRequireRecord, sanitizeTerminalText } from "openclaw/plugin-sdk/test-fixtures";
+} from "granted/plugin-sdk/plugin-state-runtime";
+import type { GetReplyOptions, MsgContext } from "granted/plugin-sdk/reply-runtime";
+import { withEnvAsync } from "granted/plugin-sdk/test-env";
+import { createRequireRecord, sanitizeTerminalText } from "granted/plugin-sdk/test-fixtures";
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   createTelegramNativeCommandTestDeps,
@@ -45,9 +45,9 @@ import type { TelegramRuntime } from "./runtime.types.js";
 vi.mock("openclaw/plugin-sdk/conversation-runtime", { spy: true });
 
 const harness = await import("./bot.create-telegram-bot.test-harness.js");
-const pluginStateTestRuntime = await import("openclaw/plugin-sdk/plugin-state-test-runtime");
-const configMutation = await import("openclaw/plugin-sdk/config-mutation");
-const modelSessionRuntime = await import("openclaw/plugin-sdk/model-session-runtime");
+const pluginStateTestRuntime = await import("granted/plugin-sdk/plugin-state-test-runtime");
+const configMutation = await import("granted/plugin-sdk/config-mutation");
+const modelSessionRuntime = await import("granted/plugin-sdk/model-session-runtime");
 const EYES_EMOJI = "\u{1F440}";
 const tempStateDirs: string[] = [];
 let previousStateDir: string | undefined;

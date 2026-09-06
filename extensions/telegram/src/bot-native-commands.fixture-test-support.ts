@@ -1,5 +1,5 @@
 // Telegram plugin module implements bot native commands.fixture test support behavior.
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
+import type { RuntimeEnv } from "granted/plugin-sdk/runtime-env";
 import { vi } from "vitest";
 import type { GrantedConfig, TelegramAccountConfig } from "../runtime-api.js";
 import type { registerTelegramNativeCommands } from "./bot-native-commands.js";

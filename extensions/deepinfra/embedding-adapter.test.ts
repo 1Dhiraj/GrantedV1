@@ -1,5 +1,5 @@
 // Deepinfra tests cover its generic embedding adapter behavior.
-import type { MemoryEmbeddingProvider } from "openclaw/plugin-sdk/memory-core-host-engine-embeddings";
+import type { MemoryEmbeddingProvider } from "granted/plugin-sdk/memory-core-host-engine-embeddings";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const mocks = vi.hoisted(() => ({

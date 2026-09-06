@@ -10,11 +10,11 @@ import {
   type MessagePresentation,
   type MessagePresentationInteractiveBlock,
   type MessagePresentationTableBlock,
-} from "openclaw/plugin-sdk/interactive-runtime";
+} from "granted/plugin-sdk/interactive-runtime";
 import {
   resolveAskUserQuestionOptionIndices,
   type ReplyPayload,
-} from "openclaw/plugin-sdk/reply-payload";
+} from "granted/plugin-sdk/reply-payload";
 import {
   buildTelegramPresentationButtons,
   resolveTelegramInlineButtons,

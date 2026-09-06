@@ -1,5 +1,5 @@
 // Feishu helper module supports config schema behavior.
-import { normalizeAccountId } from "openclaw/plugin-sdk/account-id";
+import { normalizeAccountId } from "granted/plugin-sdk/account-id";
 import {
   ContextVisibilityModeSchema,
   DmPolicySchema,
@@ -8,7 +8,7 @@ import {
   buildChannelConfigSchema,
   buildGroupEntrySchema,
   buildMultiAccountChannelSchema,
-} from "openclaw/plugin-sdk/channel-config-schema";
+} from "granted/plugin-sdk/channel-config-schema";
 import { z } from "zod";
 import { FEISHU_EXTERNAL_KEY_PATTERN } from "./external-keys.js";
 import { buildSecretInputSchema, hasConfiguredSecretInput } from "./secret-input.js";

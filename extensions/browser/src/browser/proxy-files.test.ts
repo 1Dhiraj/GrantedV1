@@ -1,7 +1,7 @@
 // Browser tests cover proxy files plugin behavior.
 import fs from "node:fs/promises";
 import path from "node:path";
-import { createTempHomeEnv, type TempHomeEnv } from "openclaw/plugin-sdk/test-env";
+import { createTempHomeEnv, type TempHomeEnv } from "granted/plugin-sdk/test-env";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { BROWSER_PROXY_MAX_FILE_BYTES } from "../browser-proxy-envelope.js";
 import { persistBrowserProxyResultFiles } from "./proxy-files.js";

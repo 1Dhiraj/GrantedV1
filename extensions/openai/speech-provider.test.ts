@@ -1,6 +1,6 @@
 // Openai tests cover speech provider plugin behavior.
 import { createServer } from "node:http";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { buildOpenAISpeechProvider } from "./speech-provider.js";
 

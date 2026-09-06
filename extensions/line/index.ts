@@ -1,6 +1,6 @@
 // Line plugin entrypoint registers its OpenClaw integration.
-import { defineBundledChannelEntry } from "openclaw/plugin-sdk/channel-entry-contract";
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
+import { defineBundledChannelEntry } from "granted/plugin-sdk/channel-entry-contract";
+import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
 
 const loadLineCardCommand = createLazyRuntimeModule(() => import("./src/card-command.js"));
 

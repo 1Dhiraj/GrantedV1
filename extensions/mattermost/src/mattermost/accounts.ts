@@ -2,8 +2,8 @@
 import {
   createAccountListHelpers,
   hasConfiguredAccountValue,
-} from "openclaw/plugin-sdk/account-helpers";
-import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "openclaw/plugin-sdk/account-id";
+} from "granted/plugin-sdk/account-helpers";
+import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "granted/plugin-sdk/account-id";
 import {
   resolveChannelStreamingBlockCoalesce,
   resolveChannelStreamingBlockEnabled,
@@ -11,9 +11,9 @@ import {
   resolveChannelPreviewStreamMode,
   type StreamingMode,
   type TextChunkMode,
-} from "openclaw/plugin-sdk/channel-outbound";
-import type { BlockStreamingCoalesceConfig } from "openclaw/plugin-sdk/config-contracts";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/channel-outbound";
+import type { BlockStreamingCoalesceConfig } from "granted/plugin-sdk/config-contracts";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import { resolveSecretInputString, type SecretInputStringResolutionMode } from "../secret-input.js";
 import type {
   MattermostAccountConfig,

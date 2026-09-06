@@ -1,5 +1,5 @@
-import { DEFAULT_ACCOUNT_ID, hasConfiguredAccountValue } from "openclaw/plugin-sdk/account-core";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import { DEFAULT_ACCOUNT_ID, hasConfiguredAccountValue } from "granted/plugin-sdk/account-core";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import type { SmsChannelConfig } from "./src/types.js";
 
 function hasConfiguredSmsAccount(account: SmsChannelConfig | undefined, env: NodeJS.ProcessEnv) {

@@ -2,7 +2,7 @@ import {
   MeetingPlatformAdapter,
   type MeetingBrowserJoinSession,
   type MeetingManualActionCategory,
-} from "openclaw/plugin-sdk/meeting-runtime";
+} from "granted/plugin-sdk/meeting-runtime";
 import type { ZoomMeetingsMode } from "../config.js";
 import type { ZoomMeetingsChromeHealth, ZoomMeetingsTranscriptSnapshot } from "./types.js";
 import {

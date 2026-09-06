@@ -1,13 +1,13 @@
 // Xai provider module implements model/runtime integration.
-import { resolveGeneratedMediaMaxBytes } from "openclaw/plugin-sdk/media-generation-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/provider-auth";
-import { resolveApiKeyForProvider } from "openclaw/plugin-sdk/provider-auth-runtime";
+import { resolveGeneratedMediaMaxBytes } from "granted/plugin-sdk/media-generation-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/provider-auth";
+import { resolveApiKeyForProvider } from "granted/plugin-sdk/provider-auth-runtime";
 import type {
   SpeechProviderPlugin,
   SpeechSynthesisRequest,
   SpeechSynthesisTarget,
-} from "openclaw/plugin-sdk/speech";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/speech";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   createXaiSpeechProviderMetadata,
   readXaiSpeechOverrides,

@@ -1,17 +1,17 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { listAgentIds, resolveAgentConfig } from "openclaw/plugin-sdk/agent-scope-runtime";
+import { listAgentIds, resolveAgentConfig } from "granted/plugin-sdk/agent-scope-runtime";
 import type {
   ProviderAppGuidedSetupContext,
   ProviderAuthContext,
   ProviderAuthResult,
-} from "openclaw/plugin-sdk/plugin-entry";
-import { removeProviderAuthProfilesWithLock } from "openclaw/plugin-sdk/provider-auth-runtime";
+} from "granted/plugin-sdk/plugin-entry";
+import { removeProviderAuthProfilesWithLock } from "granted/plugin-sdk/provider-auth-runtime";
 import type {
   ModelDefinitionConfig,
   ModelProviderConfig,
-} from "openclaw/plugin-sdk/provider-model-shared";
+} from "granted/plugin-sdk/provider-model-shared";
 import {
   buildLlamaCppAuthProfileRemovalPatch,
   LLAMA_CPP_DEFAULT_PROFILE_ID,

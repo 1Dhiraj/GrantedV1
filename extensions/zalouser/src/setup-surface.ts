@@ -1,4 +1,4 @@
-import { createChannelDmPolicy } from "openclaw/plugin-sdk/channel-dm-policy";
+import { createChannelDmPolicy } from "granted/plugin-sdk/channel-dm-policy";
 // Zalouser plugin module implements setup surface behavior.
 import {
   addWildcardAllowFrom,
@@ -14,8 +14,8 @@ import {
   type ChannelSetupWizard,
   type DmPolicy,
   type GrantedConfig,
-} from "openclaw/plugin-sdk/setup";
-import { normalizeStringEntries } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/setup";
+import { normalizeStringEntries } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   checkZcaAuthenticated,
   listZalouserAccountIds,

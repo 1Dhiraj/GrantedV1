@@ -2,7 +2,7 @@ import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
 import {
   hasOutboundReplyContent,
   resolveSendableOutboundReplyParts,
-} from "openclaw/plugin-sdk/reply-payload";
+} from "granted/plugin-sdk/reply-payload";
 import { replaceGenericExternalRunFailureText } from "../agents/failover/user-copy.js";
 import type { HeartbeatToolResponse } from "../auto-reply/heartbeat-tool-response.js";
 import { copyReplyPayloadMetadata, getReplyPayloadMetadata } from "../auto-reply/reply-payload.js";

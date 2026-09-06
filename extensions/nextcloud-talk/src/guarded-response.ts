@@ -1,5 +1,5 @@
-import { redactToolPayloadText } from "openclaw/plugin-sdk/logging-core";
-import { readProviderTextResponse } from "openclaw/plugin-sdk/provider-http";
+import { redactToolPayloadText } from "granted/plugin-sdk/logging-core";
+import { readProviderTextResponse } from "granted/plugin-sdk/provider-http";
 
 // Nextcloud Talk guarded fetches own their dispatcher until the response body
 // settles. Cancel unread bodies before release so streaming responses cannot

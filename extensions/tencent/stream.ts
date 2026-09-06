@@ -1,9 +1,9 @@
-import type { StreamFn } from "openclaw/plugin-sdk/agent-core";
-import type { ProviderWrapStreamFnContext } from "openclaw/plugin-sdk/plugin-entry";
+import type { StreamFn } from "granted/plugin-sdk/agent-core";
+import type { ProviderWrapStreamFnContext } from "granted/plugin-sdk/plugin-entry";
 import {
   createPayloadPatchStreamWrapper,
   type OpenAICompatibleThinkingLevel,
-} from "openclaw/plugin-sdk/provider-stream-shared";
+} from "granted/plugin-sdk/provider-stream-shared";
 import { TOKENHUB_PROVIDER_ID, TOKENPLAN_PROVIDER_ID } from "./models.js";
 
 const TENCENT_PROVIDER_IDS: ReadonlySet<string> = new Set([

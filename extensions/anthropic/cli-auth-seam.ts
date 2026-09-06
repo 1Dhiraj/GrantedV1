@@ -1,5 +1,5 @@
 import { spawnSync } from "node:child_process";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import { CLAUDE_CLI_CLEAR_ENV } from "./cli-constants.js";
 
 type ClaudeCliAuthStatus = { status: "available" } | { status: "missing" | "unreadable" };

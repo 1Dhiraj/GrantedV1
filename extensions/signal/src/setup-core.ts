@@ -1,8 +1,8 @@
 // Signal plugin module implements setup core behavior.
-import { normalizeAccountId, resolveAccountEntry } from "openclaw/plugin-sdk/account-resolution";
-import { parseAllowFromEntries } from "openclaw/plugin-sdk/allow-from";
-import { createChannelDmPolicy } from "openclaw/plugin-sdk/channel-dm-policy";
-import { defineChannelSetupContract } from "openclaw/plugin-sdk/channel-setup";
+import { normalizeAccountId, resolveAccountEntry } from "granted/plugin-sdk/account-resolution";
+import { parseAllowFromEntries } from "granted/plugin-sdk/allow-from";
+import { createChannelDmPolicy } from "granted/plugin-sdk/channel-dm-policy";
+import { defineChannelSetupContract } from "granted/plugin-sdk/channel-setup";
 import {
   createCliPathTextInput,
   createDelegatedSetupWizardProxy,
@@ -19,13 +19,13 @@ import {
   type GrantedConfig,
   createSetupTranslator,
   type WizardPrompter,
-} from "openclaw/plugin-sdk/setup-runtime";
-import { formatCliCommand, formatDocsLink } from "openclaw/plugin-sdk/setup-tools";
+} from "granted/plugin-sdk/setup-runtime";
+import { formatCliCommand, formatDocsLink } from "granted/plugin-sdk/setup-tools";
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
-import { normalizeE164 } from "openclaw/plugin-sdk/text-utility-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
+import { normalizeE164 } from "granted/plugin-sdk/text-utility-runtime";
 import type { SignalTransportConfig } from "./account-types.js";
 import { resolveDefaultSignalAccountId, resolveSignalAccount } from "./accounts.js";
 import {

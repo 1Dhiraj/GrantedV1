@@ -1,7 +1,7 @@
 import { HTTPFetchError } from "@line/bot-sdk";
 // Line tests cover send plugin behavior.
 import { expectDefined } from "@openclaw/normalization-core";
-import { isChannelPartialDeliveryError } from "openclaw/plugin-sdk/channel-inbound";
+import { isChannelPartialDeliveryError } from "granted/plugin-sdk/channel-inbound";
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 
 const {
@@ -78,7 +78,7 @@ vi.mock("openclaw/plugin-sdk/channel-activity-runtime", () => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/runtime-env", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/runtime-env")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/runtime-env")>(
     "openclaw/plugin-sdk/runtime-env",
   );
   return {

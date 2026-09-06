@@ -1,6 +1,6 @@
 import type { Block, KnownBlock } from "@slack/web-api";
-import { chunkTextForOutbound } from "openclaw/plugin-sdk/text-chunking";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+import { chunkTextForOutbound } from "granted/plugin-sdk/text-chunking";
+import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import { renderSlackBlockFallbackText } from "./blocks-fallback.js";
 import { SLACK_MAX_BLOCKS } from "./blocks-input.js";
 import { SLACK_MESSAGE_TEXT_HARD_LIMIT, SLACK_MESSAGE_TEXT_RECOMMENDED_LIMIT } from "./limits.js";

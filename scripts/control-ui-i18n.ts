@@ -5,7 +5,7 @@ import { existsSync } from "node:fs";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
-import { completeSimple, type AssistantMessage, type Model } from "openclaw/plugin-sdk/llm";
+import { completeSimple, type AssistantMessage, type Model } from "granted/plugin-sdk/llm";
 import { expectDefined } from "../packages/normalization-core/src/expect.js";
 import { sliceUtf16Safe } from "../packages/normalization-core/src/utf16-slice.ts";
 import { formatErrorMessage } from "../src/infra/errors.ts";

@@ -6,14 +6,14 @@ import {
   normalizeOptionalAccountId,
   resolveAccountWithDefaultFallback,
   type GrantedConfig,
-} from "openclaw/plugin-sdk/account-core";
+} from "granted/plugin-sdk/account-core";
 import type {
   TelegramAccountConfig,
   TelegramActionConfig,
-} from "openclaw/plugin-sdk/config-contracts";
-import { formatSetExplicitDefaultInstruction } from "openclaw/plugin-sdk/routing";
-import { createSubsystemLogger, isTruthyEnvValue } from "openclaw/plugin-sdk/runtime-env";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/config-contracts";
+import { formatSetExplicitDefaultInstruction } from "granted/plugin-sdk/routing";
+import { createSubsystemLogger, isTruthyEnvValue } from "granted/plugin-sdk/runtime-env";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import { mergeTelegramAccountConfig, resolveTelegramAccountConfig } from "./account-config.js";
 import {
   listTelegramAccountIds as listSelectedTelegramAccountIds,

@@ -1,6 +1,6 @@
 // Slack tests cover index plugin behavior.
-import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
-import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
+import type { GrantedPluginApi } from "granted/plugin-sdk/plugin-entry";
+import { createTestPluginApi } from "granted/plugin-sdk/plugin-test-api";
 import { describe, expect, it, vi } from "vitest";
 import "./index.js";
 import setupEntry from "./setup-entry.js";
@@ -14,7 +14,7 @@ const entryContractMocks = vi.hoisted(() => ({
 
 vi.mock("openclaw/plugin-sdk/channel-entry-contract", async (importOriginal) => {
   const actual =
-    await importOriginal<typeof import("openclaw/plugin-sdk/channel-entry-contract")>();
+    await importOriginal<typeof import("granted/plugin-sdk/channel-entry-contract")>();
   return {
     ...actual,
     defineBundledChannelEntry: (

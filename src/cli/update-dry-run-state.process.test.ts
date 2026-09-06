@@ -49,7 +49,7 @@ function snapshotDatabaseArtifacts(snapshot: string[]): string[] {
 function runUpdateProcess(root: string, args: string[], env: NodeJS.ProcessEnv = {}) {
   const configPath = path.join(root, "config", "openclaw.json");
   const stateDir = path.join(root, "state");
-  const entryPath = path.resolve("openclaw.mjs");
+  const entryPath = path.resolve("granted.mjs");
   return spawnSync(process.execPath, [entryPath, ...args], {
     cwd: path.resolve("."),
     encoding: "utf8",

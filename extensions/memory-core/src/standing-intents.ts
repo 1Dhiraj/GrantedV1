@@ -7,7 +7,7 @@ import {
   getNodeSqliteKysely,
   openOpenClawAgentDatabase,
   runSqliteImmediateTransactionSync,
-} from "openclaw/plugin-sdk/sqlite-runtime";
+} from "granted/plugin-sdk/sqlite-runtime";
 
 export const DEFAULT_INTENT_COOLDOWN_SECONDS = 24 * 60 * 60;
 export const DEFAULT_INTENT_MAX_FIRES = 3;

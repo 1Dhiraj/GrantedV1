@@ -1,6 +1,6 @@
 // Tests system command version probing for presence checks.
 import os from "node:os";
-import { importFreshModule } from "openclaw/plugin-sdk/test-fixtures";
+import { importFreshModule } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { withEnvAsync } from "../test-utils/env.js";
 import { VERSION as runtimeVersion } from "../version.js";
@@ -10,7 +10,7 @@ vi.unmock("../version.js");
 const spawnSyncMock = vi.hoisted(() => vi.fn());
 
 vi.mock("node:child_process", async () => {
-  const { mockNodeChildProcessSpawnSync } = await import("openclaw/plugin-sdk/test-node-mocks");
+  const { mockNodeChildProcessSpawnSync } = await import("granted/plugin-sdk/test-node-mocks");
   return mockNodeChildProcessSpawnSync(spawnSyncMock, () =>
     vi.importActual<typeof import("node:child_process")>("node:child_process"),
   );

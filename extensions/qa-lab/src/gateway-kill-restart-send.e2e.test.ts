@@ -1,5 +1,5 @@
 import path from "node:path";
-import { buildAgentSessionKey } from "openclaw/plugin-sdk/routing";
+import { buildAgentSessionKey } from "granted/plugin-sdk/routing";
 import { afterEach, describe, expect, it } from "vitest";
 import { startQaBusServer } from "./bus-server.js";
 import { createQaBusState } from "./bus-state.js";

@@ -12,7 +12,7 @@ vi.mock("openclaw/plugin-sdk/web-media", () => ({
 
 const tempPathMocks = vi.hoisted(() => ({ rootDir: "" }));
 vi.mock("openclaw/plugin-sdk/temp-path", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("openclaw/plugin-sdk/temp-path")>()),
+  ...(await importOriginal<typeof import("granted/plugin-sdk/temp-path")>()),
   resolvePreferredOpenClawTmpDir: () => tempPathMocks.rootDir,
 }));
 
@@ -133,7 +133,7 @@ describe("sendVoiceMessageDiscord", () => {
     await fs.writeFile(path.join(fixtureRoot, "outside.ogg"), Buffer.from("OggS outside voice"));
     const mediaAccess = { localRoots: [workspaceDir], workspaceDir };
     const { loadWebMediaRaw } = await vi.importActual<
-      typeof import("openclaw/plugin-sdk/web-media")
+      typeof import("granted/plugin-sdk/web-media")
     >("openclaw/plugin-sdk/web-media");
     loadWebMediaRawMock.mockImplementation(loadWebMediaRaw);
     const { rest } = makeDiscordRest();

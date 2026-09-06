@@ -1,10 +1,10 @@
 import { isDeepStrictEqual } from "node:util";
-import type { AgentHarnessSessionForkParams } from "openclaw/plugin-sdk/agent-harness-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { PluginRuntime } from "openclaw/plugin-sdk/plugin-runtime";
-import { resolveStorePath } from "openclaw/plugin-sdk/session-store-runtime";
-import { appendSessionTranscriptMessagesByIdentity } from "openclaw/plugin-sdk/session-transcript-runtime";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+import type { AgentHarnessSessionForkParams } from "granted/plugin-sdk/agent-harness-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { PluginRuntime } from "granted/plugin-sdk/plugin-runtime";
+import { resolveStorePath } from "granted/plugin-sdk/session-store-runtime";
+import { appendSessionTranscriptMessagesByIdentity } from "granted/plugin-sdk/session-transcript-runtime";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import { readCodexSessionMeta } from "../session-catalog-provenance.js";
 import type { CodexSessionCatalogControl } from "../session-catalog-types.js";
 import { readCodexRolloutSelection } from "../session-rollout-selection.js";

@@ -1,5 +1,5 @@
 import type { LookupAddress } from "node:dns";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
 import * as undici from "undici";
 import { afterAll, afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { createBraveWebSearchProvider } from "./brave-web-search-provider.js";

@@ -1,6 +1,6 @@
 import fs from "node:fs";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { QaRunnerCliRegistration } from "openclaw/plugin-sdk/qa-runner-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { QaRunnerCliRegistration } from "granted/plugin-sdk/qa-runner-runtime";
 import {
   assertQaGatewayCredentialLeaseQuarantine,
   shouldRetainQaGatewayCredentialLease,

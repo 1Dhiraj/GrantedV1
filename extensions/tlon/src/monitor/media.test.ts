@@ -3,7 +3,7 @@ import {
   readRemoteMediaBuffer,
   MAX_IMAGE_BYTES,
   saveRemoteMedia,
-} from "openclaw/plugin-sdk/media-runtime";
+} from "granted/plugin-sdk/media-runtime";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { buildTlonInboundMediaPrompt, downloadMessageImages } from "./media.js";
 

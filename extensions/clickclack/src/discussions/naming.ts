@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import type { PluginRuntime } from "openclaw/plugin-sdk/core";
+import type { PluginRuntime } from "granted/plugin-sdk/core";
 
 function shortSessionHash(sessionKey: string): string {
   return createHash("sha256").update(sessionKey).digest("hex").slice(0, 32);

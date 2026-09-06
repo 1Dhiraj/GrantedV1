@@ -16,7 +16,7 @@ import {
 } from "node:fs";
 import { join } from "node:path";
 import { Command, CommanderError } from "commander";
-import { useAutoCleanupTempDirTracker } from "openclaw/plugin-sdk/test-env";
+import { useAutoCleanupTempDirTracker } from "granted/plugin-sdk/test-env";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { registerOcPathCli } from "../cli-registration.js";
 import { registerPathCli } from "./cli.js";

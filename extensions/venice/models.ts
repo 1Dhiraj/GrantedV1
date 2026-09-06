@@ -1,12 +1,12 @@
 import {
   buildManifestModelProviderConfig,
   readManifestProviderDefaultModelRef,
-} from "openclaw/plugin-sdk/provider-catalog-shared";
+} from "granted/plugin-sdk/provider-catalog-shared";
 import type {
   ModelDefinitionConfig,
   ModelProviderConfig,
-} from "openclaw/plugin-sdk/provider-model-shared";
-import { normalizeLowercaseStringOrEmpty } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/provider-model-shared";
+import { normalizeLowercaseStringOrEmpty } from "granted/plugin-sdk/string-coerce-runtime";
 import manifest from "./openclaw.plugin.json" with { type: "json" };
 import { parseVeniceModelPricing } from "./pricing-api.js";
 

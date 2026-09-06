@@ -4,11 +4,11 @@ import {
   isNonSecretApiKeyMarker,
   normalizeOptionalSecretInput,
   type GrantedConfig,
-} from "openclaw/plugin-sdk/provider-auth";
-import { resolveApiKeyForProvider } from "openclaw/plugin-sdk/provider-auth-runtime";
-import type { ModelProviderConfig } from "openclaw/plugin-sdk/provider-model-shared";
-import { resolveConfiguredSecretInputString } from "openclaw/plugin-sdk/secret-input-runtime";
-import { asOptionalRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/provider-auth";
+import { resolveApiKeyForProvider } from "granted/plugin-sdk/provider-auth-runtime";
+import type { ModelProviderConfig } from "granted/plugin-sdk/provider-model-shared";
+import { resolveConfiguredSecretInputString } from "granted/plugin-sdk/secret-input-runtime";
+import { asOptionalRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import { LLAMA_CPP_PROVIDER_ID, resolveLlamaCppSyntheticApiKey } from "../defaults.js";
 
 export function hasLlamaServerAuthorizationHeader(headers: unknown): boolean {

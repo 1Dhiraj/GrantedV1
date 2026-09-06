@@ -1,14 +1,14 @@
 // Xai provider module implements model/runtime integration.
-import type { GrantedConfig } from "openclaw/plugin-sdk/provider-auth";
-import { resolveApiKeyForProvider } from "openclaw/plugin-sdk/provider-auth-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/provider-auth";
+import { resolveApiKeyForProvider } from "granted/plugin-sdk/provider-auth-runtime";
 import {
   createRealtimeTranscriptionWebSocketSession,
   type RealtimeTranscriptionProviderPlugin,
   type RealtimeTranscriptionSession,
   type RealtimeTranscriptionSessionCreateRequest,
   type RealtimeTranscriptionWebSocketTransport,
-} from "openclaw/plugin-sdk/realtime-transcription";
-import { isRecord, normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/realtime-transcription";
+import { isRecord, normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   createXaiRealtimeTranscriptionProviderMetadata,
   normalizeXaiRealtimeTranscriptionProviderConfig,

@@ -3,11 +3,11 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { expectDefined } from "@openclaw/normalization-core";
-import { createPluginStateKeyedStoreForTests as createPluginStateKeyedStore } from "openclaw/plugin-sdk/plugin-state-test-runtime";
+import { createPluginStateKeyedStoreForTests as createPluginStateKeyedStore } from "granted/plugin-sdk/plugin-state-test-runtime";
 import type {
   OpenKeyedStoreOptions,
   PluginDoctorStateMigrationContext,
-} from "openclaw/plugin-sdk/runtime-doctor-migrations";
+} from "granted/plugin-sdk/runtime-doctor-migrations";
 import { describe, expect, it } from "vitest";
 import { stateMigrations } from "./doctor-contract-api.js";
 import type { PersistedWorkboardCard } from "./src/persistence-types.js";

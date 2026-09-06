@@ -165,7 +165,7 @@ function writeLegacyRuntimeDoctorPlugin(params: {
   fs.writeFileSync(path.join(params.pluginRoot, "dist", "index.js"), "export {};\n", "utf8");
   fs.writeFileSync(
     path.join(params.pluginRoot, "dist", "doctor-contract-api.js"),
-    `import { ${params.importedSymbols.join(", ")} } from "openclaw/plugin-sdk/runtime-doctor";
+    `import { ${params.importedSymbols.join(", ")} } from "granted/plugin-sdk/runtime-doctor";
 const importedHelpers = [${params.importedSymbols.join(", ")}];
 if (importedHelpers.some((helper) => typeof helper !== "function")) {
   throw new Error("legacy runtime-doctor helper missing");

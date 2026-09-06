@@ -3,9 +3,9 @@ import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { expectDefined } from "@openclaw/normalization-core";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
-import { resolveFetch } from "openclaw/plugin-sdk/fetch-runtime";
-import { MAX_DATE_TIMESTAMP_MS } from "openclaw/plugin-sdk/number-runtime";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
+import { resolveFetch } from "granted/plugin-sdk/fetch-runtime";
+import { MAX_DATE_TIMESTAMP_MS } from "granted/plugin-sdk/number-runtime";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { isSafeToRetrySendError, TelegramRequestNotStartedError } from "./network-errors.js";
 

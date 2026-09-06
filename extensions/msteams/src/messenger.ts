@@ -1,18 +1,18 @@
-import { PlatformMessageNotDispatchedError } from "openclaw/plugin-sdk/error-runtime";
+import { PlatformMessageNotDispatchedError } from "granted/plugin-sdk/error-runtime";
 // Msteams plugin module implements messenger behavior.
 import {
   isSilentReplyText,
   SILENT_REPLY_TOKEN,
   type ChunkMode,
-} from "openclaw/plugin-sdk/reply-chunking";
+} from "granted/plugin-sdk/reply-chunking";
 import {
   resolveSendableOutboundReplyParts,
   type ReplyPayload,
-} from "openclaw/plugin-sdk/reply-payload";
-import { retryAsync } from "openclaw/plugin-sdk/retry-runtime";
-import { sleepWithAbort } from "openclaw/plugin-sdk/runtime-env";
-import { normalizeOptionalLowercaseString } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { loadWebMedia } from "openclaw/plugin-sdk/web-media";
+} from "granted/plugin-sdk/reply-payload";
+import { retryAsync } from "granted/plugin-sdk/retry-runtime";
+import { sleepWithAbort } from "granted/plugin-sdk/runtime-env";
+import { normalizeOptionalLowercaseString } from "granted/plugin-sdk/string-coerce-runtime";
+import { loadWebMedia } from "granted/plugin-sdk/web-media";
 import type { MarkdownTableMode, MSTeamsReplyStyle, GrantedConfig } from "../runtime-api.js";
 import { AI_GENERATED_ENTITY } from "./ai-entity.js";
 import type { MSTeamsAccessTokenProvider } from "./attachments/types.js";

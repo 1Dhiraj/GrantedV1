@@ -3,23 +3,23 @@ import type {
   GeneratedImageAsset,
   ImageGenerationProvider,
   ImageGenerationRequest,
-} from "openclaw/plugin-sdk/image-generation";
+} from "granted/plugin-sdk/image-generation";
 import {
   generatedImageAssetFromBase64,
   generatedImageAssetFromDataUrl,
   parseOpenAiCompatibleImageResponse,
   resolveInlineImageJsonResponseMaxBytes,
   toImageDataUrl,
-} from "openclaw/plugin-sdk/image-generation";
-import { resolveGeneratedMediaMaxBytes } from "openclaw/plugin-sdk/media-generation-runtime";
-import { resolveIntegerOption } from "openclaw/plugin-sdk/number-runtime";
-import { isProviderApiKeyConfigured } from "openclaw/plugin-sdk/provider-auth";
+} from "granted/plugin-sdk/image-generation";
+import { resolveGeneratedMediaMaxBytes } from "granted/plugin-sdk/media-generation-runtime";
+import { resolveIntegerOption } from "granted/plugin-sdk/number-runtime";
+import { isProviderApiKeyConfigured } from "granted/plugin-sdk/provider-auth";
 import {
   assertOkOrThrowHttpError,
   postJsonRequest,
   readProviderJsonResponse,
-} from "openclaw/plugin-sdk/provider-http";
-import { isRecord, normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/provider-http";
+import { isRecord, normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import { resolveOpenRouterGenerationRequestContext } from "./generation-request-context.js";
 import { normalizeOpenRouterBaseUrl } from "./provider-catalog.js";
 

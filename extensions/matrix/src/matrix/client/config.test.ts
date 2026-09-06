@@ -1,4 +1,4 @@
-import type { LookupFn } from "openclaw/plugin-sdk/ssrf-runtime";
+import type { LookupFn } from "granted/plugin-sdk/ssrf-runtime";
 // Matrix tests cover config plugin behavior.
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { getMatrixScopedEnvVarNames } from "../../env-vars.js";

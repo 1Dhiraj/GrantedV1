@@ -2,7 +2,7 @@ import { reduceSessionProjection } from "@openclaw/gateway-client/browser";
 /* @vitest-environment jsdom */
 import { expectDefined } from "@openclaw/normalization-core";
 import { render } from "lit";
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { createDeferred } from "../../../../test/helpers/promise.js";
 import { GatewayRequestError } from "../../api/gateway.ts";

@@ -2,22 +2,22 @@ import type {
   GrantedPluginApi,
   GrantedPluginService,
   PluginRuntimeLifecycleRegistration,
-} from "openclaw/plugin-sdk/plugin-entry";
-import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
-import { createPluginRegistryFixture } from "openclaw/plugin-sdk/plugin-test-contracts";
+} from "granted/plugin-sdk/plugin-entry";
+import { createTestPluginApi } from "granted/plugin-sdk/plugin-test-api";
+import { createPluginRegistryFixture } from "granted/plugin-sdk/plugin-test-contracts";
 import {
   createEmptyPluginRegistry,
   createPluginRecord,
   getActivePluginRegistry,
   resetPluginRuntimeStateForTest,
   setActivePluginRegistry,
-} from "openclaw/plugin-sdk/plugin-test-runtime";
+} from "granted/plugin-sdk/plugin-test-runtime";
 import {
   getSandboxBackendFactory,
   getSandboxBackendManager,
   getSandboxBackendWorkdirResolver,
   type CreateSandboxBackendParams,
-} from "openclaw/plugin-sdk/sandbox";
+} from "granted/plugin-sdk/sandbox";
 import { afterEach, describe, expect, it } from "vitest";
 import plugin from "./index.js";
 import { createOpenShellBackendSandboxConfig } from "./src/openshell.test-support.js";

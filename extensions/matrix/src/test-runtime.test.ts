@@ -1,7 +1,7 @@
 // Matrix tests cover isolated runtime state fixtures.
 import fs from "node:fs";
 import path from "node:path";
-import { resolvePreferredOpenClawTmpDir } from "openclaw/plugin-sdk/temp-path";
+import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
 import { describe, expect, it } from "vitest";
 import { getMatrixRuntime } from "./runtime.js";
 import { installMatrixTestRuntime } from "./test-runtime.js";

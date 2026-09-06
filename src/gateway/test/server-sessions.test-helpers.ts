@@ -4,7 +4,7 @@
 import fsSync from "node:fs";
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { AssistantMessage, UserMessage } from "openclaw/plugin-sdk/llm";
+import type { AssistantMessage, UserMessage } from "granted/plugin-sdk/llm";
 import { beforeEach, expect, vi } from "vitest";
 import type { InternalSessionEntry as SessionEntry } from "../../config/sessions.js";
 import type { InternalHookEvent } from "../../hooks/internal-hooks.js";

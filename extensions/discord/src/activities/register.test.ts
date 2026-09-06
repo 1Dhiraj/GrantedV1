@@ -1,5 +1,5 @@
-import type { GrantedPluginApi } from "openclaw/plugin-sdk/channel-plugin-common";
-import type { PluginStateKeyedStore } from "openclaw/plugin-sdk/plugin-state-runtime";
+import type { GrantedPluginApi } from "granted/plugin-sdk/channel-plugin-common";
+import type { PluginStateKeyedStore } from "granted/plugin-sdk/plugin-state-runtime";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { registerDiscordActivities } from "./register.js";
 import { getDiscordActivitiesRuntime, setDiscordActivitiesRuntime } from "./runtime.js";

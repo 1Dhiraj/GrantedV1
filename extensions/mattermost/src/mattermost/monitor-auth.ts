@@ -3,8 +3,8 @@ import {
   type ChannelIngressDecision,
   type ChannelIngressEventInput,
   resolveStableChannelMessageIngress,
-} from "openclaw/plugin-sdk/channel-ingress-runtime";
-import { uniqueStrings } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/channel-ingress-runtime";
+import { uniqueStrings } from "granted/plugin-sdk/string-coerce-runtime";
 import type { ResolvedMattermostAccount } from "./accounts.js";
 import type { MattermostChannel } from "./client.js";
 import { mattermostIngressIdentity, normalizeMattermostAllowEntry } from "./ingress-identity.js";

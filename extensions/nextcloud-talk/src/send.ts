@@ -1,11 +1,11 @@
 // Nextcloud Talk plugin module implements send behavior.
-import { createMessageReceiptFromOutboundResults } from "openclaw/plugin-sdk/channel-outbound";
-import { readProviderJsonResponse } from "openclaw/plugin-sdk/provider-http";
+import { createMessageReceiptFromOutboundResults } from "granted/plugin-sdk/channel-outbound";
+import { readProviderJsonResponse } from "granted/plugin-sdk/provider-http";
 import {
   FormatCapabilityProfile,
   renderMarkdownWithMarkers,
-} from "openclaw/plugin-sdk/text-chunking";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+} from "granted/plugin-sdk/text-chunking";
+import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import {
   readNextcloudTalkErrorBody,
   releaseNextcloudTalkGuardedResponse,

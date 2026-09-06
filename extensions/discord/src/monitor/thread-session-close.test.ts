@@ -1,7 +1,7 @@
 // Discord tests cover thread session close plugin behavior.
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 
-type ResolveStorePath = typeof import("openclaw/plugin-sdk/session-store-runtime").resolveStorePath;
+type ResolveStorePath = typeof import("granted/plugin-sdk/session-store-runtime").resolveStorePath;
 
 const hoisted = vi.hoisted(() => {
   const deleteSessionEntry = vi.fn();
@@ -11,7 +11,7 @@ const hoisted = vi.hoisted(() => {
 });
 
 vi.mock("openclaw/plugin-sdk/session-store-runtime", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/session-store-runtime")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/session-store-runtime")>(
     "openclaw/plugin-sdk/session-store-runtime",
   );
   return {

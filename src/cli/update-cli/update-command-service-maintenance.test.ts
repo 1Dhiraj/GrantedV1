@@ -126,7 +126,7 @@ it.each(nativeOfflineCases)(
             readCommand: async () => ({
               programArguments: [
                 process.execPath,
-                path.join(process.cwd(), "openclaw.mjs"),
+                path.join(process.cwd(), "granted.mjs"),
                 "gateway",
               ],
               environment: { HOME: home },

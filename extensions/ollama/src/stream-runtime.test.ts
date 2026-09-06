@@ -1,7 +1,7 @@
 import { expectDefined } from "@openclaw/normalization-core";
 // Ollama tests cover stream runtime plugin behavior.
-import { withProviderAcceptanceObserver } from "openclaw/plugin-sdk/provider-transport-runtime";
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { withProviderAcceptanceObserver } from "granted/plugin-sdk/provider-transport-runtime";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 const { fetchWithSsrFGuardMock, ollamaStreamWarnMock } = vi.hoisted(() => ({
@@ -14,7 +14,7 @@ vi.mock("openclaw/plugin-sdk/ssrf-runtime", () => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/runtime-env", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/runtime-env")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/runtime-env")>();
   return {
     ...actual,
     createSubsystemLogger: () => ({ warn: ollamaStreamWarnMock }),

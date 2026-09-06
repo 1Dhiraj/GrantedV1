@@ -1,8 +1,8 @@
 // Irc plugin module implements client behavior.
 import net from "node:net";
 import tls from "node:tls";
-import { withTimeout } from "openclaw/plugin-sdk/security-runtime";
-import { normalizeLowercaseStringOrEmpty } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { withTimeout } from "granted/plugin-sdk/security-runtime";
+import { normalizeLowercaseStringOrEmpty } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   parseIrcLine,
   parseIrcPrefix,

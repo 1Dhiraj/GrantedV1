@@ -1,8 +1,8 @@
 import { once } from "node:events";
 import http from "node:http";
 import net from "node:net";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
-import { clearRuntimeConfigSnapshot } from "openclaw/plugin-sdk/runtime-config-snapshot";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
+import { clearRuntimeConfigSnapshot } from "granted/plugin-sdk/runtime-config-snapshot";
 import { afterEach, expect, it, vi } from "vitest";
 import { WebSocket } from "ws";
 import {

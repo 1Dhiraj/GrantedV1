@@ -1,18 +1,18 @@
 // Fish Audio HTTP client for buffered and streaming TTS plus voice discovery.
-import { MAX_AUDIO_BYTES } from "openclaw/plugin-sdk/media-runtime";
-import { createBoundedProviderBinaryStream } from "openclaw/plugin-sdk/provider-binary-stream";
+import { MAX_AUDIO_BYTES } from "granted/plugin-sdk/media-runtime";
+import { createBoundedProviderBinaryStream } from "granted/plugin-sdk/provider-binary-stream";
 import {
   assertOkOrThrowProviderError,
   assertProviderBinaryResponseContent,
   readProviderBinaryResponse,
   readProviderJsonResponse,
-} from "openclaw/plugin-sdk/provider-http";
-import { trimToUndefined, type SpeechVoiceOption } from "openclaw/plugin-sdk/speech";
+} from "granted/plugin-sdk/provider-http";
+import { trimToUndefined, type SpeechVoiceOption } from "granted/plugin-sdk/speech";
 import {
   fetchWithSsrFGuard,
   ssrfPolicyFromHttpBaseUrlAllowedHostname,
-} from "openclaw/plugin-sdk/ssrf-runtime";
-import { asOptionalRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/ssrf-runtime";
+import { asOptionalRecord } from "granted/plugin-sdk/string-coerce-runtime";
 
 const FISH_AUDIO_BASE_URL = "https://api.fish.audio";
 const FISH_AUDIO_VOICES_MAX_BYTES = 2 * 1024 * 1024;

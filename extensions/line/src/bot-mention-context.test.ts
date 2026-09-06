@@ -1,6 +1,6 @@
 import type { webhook } from "@line/bot-sdk";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { withTempHome } from "openclaw/plugin-sdk/test-env";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { withTempHome } from "granted/plugin-sdk/test-env";
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import type { ResolvedLineAccount } from "./types.js";
 

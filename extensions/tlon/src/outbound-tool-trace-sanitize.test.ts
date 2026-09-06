@@ -3,12 +3,12 @@
 // cannot drift apart unnoticed.
 import http from "node:http";
 import { expectDefined } from "@openclaw/normalization-core";
-import { sendDurableMessageBatch } from "openclaw/plugin-sdk/channel-outbound";
+import { sendDurableMessageBatch } from "granted/plugin-sdk/channel-outbound";
 import {
   createTestRegistry,
   resetPluginRuntimeStateForTest,
   setActivePluginRegistry,
-} from "openclaw/plugin-sdk/channel-test-helpers";
+} from "granted/plugin-sdk/channel-test-helpers";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { GrantedConfig } from "../runtime-api.js";
 import { tlonPlugin } from "./channel.js";

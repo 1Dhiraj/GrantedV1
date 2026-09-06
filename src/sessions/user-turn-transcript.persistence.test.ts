@@ -4,9 +4,9 @@ import path from "node:path";
 import {
   initializeGlobalHookRunner,
   resetGlobalHookRunner,
-} from "openclaw/plugin-sdk/hook-runtime";
-import { createMockPluginRegistry } from "openclaw/plugin-sdk/plugin-test-runtime";
-import { castAgentMessage } from "openclaw/plugin-sdk/test-fixtures";
+} from "granted/plugin-sdk/hook-runtime";
+import { createMockPluginRegistry } from "granted/plugin-sdk/plugin-test-runtime";
+import { castAgentMessage } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, describe, expect, it } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
 import { runAgentHarnessBeforeMessageWriteHook } from "../agents/harness/hook-helpers.js";

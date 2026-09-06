@@ -3,7 +3,7 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import type { AssistantMessage } from "openclaw/plugin-sdk/llm";
+import type { AssistantMessage } from "granted/plugin-sdk/llm";
 import { describe, expect, it, vi } from "vitest";
 import { HEARTBEAT_RESPONSE_TOOL_NAME } from "../auto-reply/heartbeat-tool-response.js";
 import { getReplyPayloadMetadata } from "../auto-reply/reply-payload.js";

@@ -1,11 +1,11 @@
 // Fal helper module supports http config behavior.
-import type { AuthProfileStore, GrantedConfig } from "openclaw/plugin-sdk/provider-auth";
-import { resolveApiKeyForProvider } from "openclaw/plugin-sdk/provider-auth-runtime";
+import type { AuthProfileStore, GrantedConfig } from "granted/plugin-sdk/provider-auth";
+import { resolveApiKeyForProvider } from "granted/plugin-sdk/provider-auth-runtime";
 import {
   resolveProviderHttpRequestConfig,
   type ProviderRequestCapability,
-} from "openclaw/plugin-sdk/provider-http";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/provider-http";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 
 const DEFAULT_FAL_BASE_URL = "https://fal.run";
 

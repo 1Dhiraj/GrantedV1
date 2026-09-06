@@ -1,9 +1,9 @@
 // Signal tests cover event handler.mention gating plugin behavior.
 import { expectDefined } from "@openclaw/normalization-core";
-import { buildDispatchInboundCaptureMock } from "openclaw/plugin-sdk/channel-contract-testing";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { HistoryMediaEntry } from "openclaw/plugin-sdk/reply-history";
-import type { MsgContext } from "openclaw/plugin-sdk/reply-runtime";
+import { buildDispatchInboundCaptureMock } from "granted/plugin-sdk/channel-contract-testing";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { HistoryMediaEntry } from "granted/plugin-sdk/reply-history";
+import type { MsgContext } from "granted/plugin-sdk/reply-runtime";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { formatSignalMediaText } from "../media-text.js";
 
@@ -42,7 +42,7 @@ function getGroupHistoryEntries(
 }
 
 vi.mock("openclaw/plugin-sdk/reply-runtime", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/reply-runtime")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/reply-runtime")>(
     "openclaw/plugin-sdk/reply-runtime",
   );
   return buildDispatchInboundCaptureMock(actual, (ctx) => {
@@ -51,7 +51,7 @@ vi.mock("openclaw/plugin-sdk/reply-runtime", async () => {
 });
 
 vi.mock("openclaw/plugin-sdk/channel-inbound", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/channel-inbound")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/channel-inbound")>(
     "openclaw/plugin-sdk/channel-inbound",
   );
   type RunParams = Parameters<typeof actual.runChannelInboundEvent>[0];

@@ -69,22 +69,22 @@ let missing = 0;
     mkdirSync(consumerRoot, { recursive: true });
     writeFileSync(
       join(consumerRoot, "index.ts"),
-      `import { buildChannelConfigSchema, DmPolicySchema } from "openclaw/plugin-sdk/channel-config-schema";
-import { defineChannelPluginEntry } from "openclaw/plugin-sdk/core";
-import { identityEntryAuthenticationClassifier, meetsIdentifierAuthentication } from "openclaw/plugin-sdk/channel-ingress-runtime";
+      `import { buildChannelConfigSchema, DmPolicySchema } from "granted/plugin-sdk/channel-config-schema";
+import { defineChannelPluginEntry } from "granted/plugin-sdk/core";
+import { identityEntryAuthenticationClassifier, meetsIdentifierAuthentication } from "granted/plugin-sdk/channel-ingress-runtime";
 import type {
   ChannelIngressIdentitySubjectInput,
   IdentifierAuthentication,
-} from "openclaw/plugin-sdk/channel-ingress-runtime";
+} from "granted/plugin-sdk/channel-ingress-runtime";
 // @ts-expect-error Host admission evidence is intentionally private to core.
-import type { ChannelAdmissionEvidence } from "openclaw/plugin-sdk/channel-ingress-runtime";
+import type { ChannelAdmissionEvidence } from "granted/plugin-sdk/channel-ingress-runtime";
 // @ts-expect-error Plugins cannot mint host admission evidence.
-import { prepareHostChannelContextAdmissionEvidence } from "openclaw/plugin-sdk/channel-ingress-runtime";
+import { prepareHostChannelContextAdmissionEvidence } from "granted/plugin-sdk/channel-ingress-runtime";
 // @ts-expect-error Plugins cannot register host evidence owners.
-import { registerChannelAdmissionEvidenceOwner } from "openclaw/plugin-sdk/channel-ingress-runtime";
-import { createPluginRuntimeStore, type PluginRuntime } from "openclaw/plugin-sdk/runtime-store";
-import type { buildModelsProviderData, buildPreparedModelsProviderData, ModelsProviderData } from "openclaw/plugin-sdk/models-provider-runtime";
-import type { buildModelsProviderData as buildCommandAuthModelsProviderData } from "openclaw/plugin-sdk/command-auth";
+import { registerChannelAdmissionEvidenceOwner } from "granted/plugin-sdk/channel-ingress-runtime";
+import { createPluginRuntimeStore, type PluginRuntime } from "granted/plugin-sdk/runtime-store";
+import type { buildModelsProviderData, buildPreparedModelsProviderData, ModelsProviderData } from "granted/plugin-sdk/models-provider-runtime";
+import type { buildModelsProviderData as buildCommandAuthModelsProviderData } from "granted/plugin-sdk/command-auth";
 import { z } from "zod";
 
 // Stable v2026.7.1-2 consumers construct these results and supply typed adapters.

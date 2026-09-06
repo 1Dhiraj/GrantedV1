@@ -1,33 +1,33 @@
 // Sms plugin module implements channel behavior.
-import { DEFAULT_ACCOUNT_ID } from "openclaw/plugin-sdk/account-id";
-import type { GrantedConfig } from "openclaw/plugin-sdk/account-resolution";
+import { DEFAULT_ACCOUNT_ID } from "granted/plugin-sdk/account-id";
+import type { GrantedConfig } from "granted/plugin-sdk/account-resolution";
 import {
   createHybridChannelConfigAdapter,
   createScopedDmSecurityResolver,
-} from "openclaw/plugin-sdk/channel-config-helpers";
+} from "granted/plugin-sdk/channel-config-helpers";
 import {
   buildChannelOutboundSessionRoute,
   createChatChannelPlugin,
   type ChannelOutboundSessionRouteParams,
   type ChannelPlugin,
-} from "openclaw/plugin-sdk/channel-core";
+} from "granted/plugin-sdk/channel-core";
 import {
   createAccountStatusSink,
   defineChannelMessageAdapter,
-} from "openclaw/plugin-sdk/channel-outbound";
-import { createConditionalWarningCollector } from "openclaw/plugin-sdk/channel-policy";
+} from "granted/plugin-sdk/channel-outbound";
+import { createConditionalWarningCollector } from "granted/plugin-sdk/channel-policy";
 import {
   defineChannelSetupContract,
   type ChannelSetupInput,
-} from "openclaw/plugin-sdk/channel-setup";
-import { createEmptyChannelDirectoryAdapter } from "openclaw/plugin-sdk/directory-runtime";
-import { PlatformMessageNotDispatchedError } from "openclaw/plugin-sdk/error-runtime";
+} from "granted/plugin-sdk/channel-setup";
+import { createEmptyChannelDirectoryAdapter } from "granted/plugin-sdk/directory-runtime";
+import { PlatformMessageNotDispatchedError } from "granted/plugin-sdk/error-runtime";
 import {
   createComputedAccountStatusAdapter,
   createDefaultChannelRuntimeState,
-} from "openclaw/plugin-sdk/status-helpers";
-import { isRecord, normalizeStringEntries } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { chunkTextForOutbound } from "openclaw/plugin-sdk/text-chunking";
+} from "granted/plugin-sdk/status-helpers";
+import { isRecord, normalizeStringEntries } from "granted/plugin-sdk/string-coerce-runtime";
+import { chunkTextForOutbound } from "granted/plugin-sdk/text-chunking";
 import {
   inspectSmsAccount,
   isSmsAccountConfigured,

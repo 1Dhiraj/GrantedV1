@@ -2,7 +2,7 @@
 import type { ChildProcessWithoutNullStreams } from "node:child_process";
 import { EventEmitter } from "node:events";
 import { PassThrough } from "node:stream";
-import type { SandboxContext } from "openclaw/plugin-sdk/sandbox";
+import type { SandboxContext } from "granted/plugin-sdk/sandbox";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 const spawnMock = vi.hoisted(() => vi.fn());
@@ -15,7 +15,7 @@ vi.mock("node:child_process", async (importOriginal) => {
   };
 });
 vi.mock("openclaw/plugin-sdk/process-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/process-runtime")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/process-runtime")>();
   return {
     ...actual,
     killProcessTree: (...args: unknown[]) => killProcessTreeMock(...args),

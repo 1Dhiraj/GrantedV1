@@ -13,7 +13,7 @@ vi.mock("openclaw/plugin-sdk/text-utility-runtime", () => ({
 
 vi.mock("openclaw/plugin-sdk/string-coerce-runtime", async (importOriginal) => {
   const { normalizeOptionalString } =
-    await importOriginal<typeof import("openclaw/plugin-sdk/string-coerce-runtime")>();
+    await importOriginal<typeof import("granted/plugin-sdk/string-coerce-runtime")>();
   const isMockRecord = (value: unknown): value is Record<string, unknown> =>
     typeof value === "object" && value !== null;
   return {

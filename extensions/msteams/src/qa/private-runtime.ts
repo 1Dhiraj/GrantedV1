@@ -3,7 +3,7 @@ import type { RequestConfig } from "@microsoft/teams.common";
 import {
   fetchWithSsrFGuard,
   ssrfPolicyFromHttpBaseUrlAllowedOrigin,
-} from "openclaw/plugin-sdk/ssrf-runtime";
+} from "granted/plugin-sdk/ssrf-runtime";
 
 const PRIVATE_QA_BUILD_ENV = "GRANTED_BUILD_PRIVATE_QA";
 const PRIVATE_QA_NONCE_HEADER = "x-openclaw-msteams-qa-nonce";

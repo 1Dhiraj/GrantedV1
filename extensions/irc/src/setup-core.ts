@@ -3,17 +3,17 @@ import {
   defineChannelSetupContract,
   type ChannelSetupAdapter,
   type ChannelSetupInput,
-} from "openclaw/plugin-sdk/channel-setup";
-import type { DmPolicy } from "openclaw/plugin-sdk/config-contracts";
-import { parseStrictPositiveInteger } from "openclaw/plugin-sdk/number-runtime";
-import { normalizeAccountId } from "openclaw/plugin-sdk/routing";
+} from "granted/plugin-sdk/channel-setup";
+import type { DmPolicy } from "granted/plugin-sdk/config-contracts";
+import { parseStrictPositiveInteger } from "granted/plugin-sdk/number-runtime";
+import { normalizeAccountId } from "granted/plugin-sdk/routing";
 import {
   applyAccountNameToChannelSection,
   createSetupInputPresenceValidator,
   createTopLevelChannelAllowFromSetter,
   createTopLevelChannelDmPolicySetter,
   patchScopedAccountConfig,
-} from "openclaw/plugin-sdk/setup";
+} from "granted/plugin-sdk/setup";
 import type { CoreConfig, IrcAccountConfig, IrcNickServConfig } from "./types.js";
 
 const channel = "irc" as const;

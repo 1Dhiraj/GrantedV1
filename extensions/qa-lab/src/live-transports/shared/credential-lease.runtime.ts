@@ -1,9 +1,9 @@
 // Qa Lab plugin module implements credential lease behavior.
 import { randomUUID } from "node:crypto";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import { expectDefined } from "openclaw/plugin-sdk/expect-runtime";
-import { resolveTimerTimeoutMs } from "openclaw/plugin-sdk/number-runtime";
-import { readProviderTextResponse } from "openclaw/plugin-sdk/provider-http";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
+import { expectDefined } from "granted/plugin-sdk/expect-runtime";
+import { resolveTimerTimeoutMs } from "granted/plugin-sdk/number-runtime";
+import { readProviderTextResponse } from "granted/plugin-sdk/provider-http";
 import { z } from "zod";
 import {
   isQaCredentialTruthyOptIn,

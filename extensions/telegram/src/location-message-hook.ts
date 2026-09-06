@@ -1,13 +1,13 @@
 // Telegram live-location edits bypass agent dispatch but still need the normal observation hook.
 import type { Message } from "grammy/types";
-import { formatLocationText } from "openclaw/plugin-sdk/channel-inbound";
+import { formatLocationText } from "granted/plugin-sdk/channel-inbound";
 import {
   deriveInboundMessageHookContext,
   fireAndForgetHook,
   toPluginMessageContext,
   toPluginMessageReceivedEvent,
-} from "openclaw/plugin-sdk/hook-runtime";
-import { getGlobalHookRunner } from "openclaw/plugin-sdk/plugin-runtime";
+} from "granted/plugin-sdk/hook-runtime";
+import { getGlobalHookRunner } from "granted/plugin-sdk/plugin-runtime";
 import { extractTelegramLocation } from "./bot/body-helpers.js";
 import {
   buildTelegramGroupFrom,

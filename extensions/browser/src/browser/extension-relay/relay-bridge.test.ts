@@ -1,4 +1,4 @@
-import { asOptionalRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { asOptionalRecord } from "granted/plugin-sdk/string-coerce-runtime";
 // Extension relay bridge: CDP target synthesis and extension command routing.
 import { describe, expect, it, vi } from "vitest";
 import { ExtensionRelayBridge } from "./relay-bridge.js";

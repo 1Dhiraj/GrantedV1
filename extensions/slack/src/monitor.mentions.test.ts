@@ -1,4 +1,4 @@
-import { resetInboundDedupe } from "openclaw/plugin-sdk/reply-runtime";
+import { resetInboundDedupe } from "granted/plugin-sdk/reply-runtime";
 import { beforeEach, describe, expect, it } from "vitest";
 import {
   getSlackClient,

@@ -2,7 +2,7 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { CURRENT_SESSION_VERSION } from "openclaw/plugin-sdk/agent-sessions";
+import { CURRENT_SESSION_VERSION } from "granted/plugin-sdk/agent-sessions";
 import { afterEach, describe, expect, test, vi } from "vitest";
 import { createDeferred } from "../../test/helpers/promise.js";
 import {

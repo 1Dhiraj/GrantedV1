@@ -4,30 +4,30 @@ import path from "node:path";
 import {
   clearRuntimeAuthProfileStoreSnapshots,
   saveAuthProfileStore,
-} from "openclaw/plugin-sdk/agent-runtime";
+} from "granted/plugin-sdk/agent-runtime";
 import {
   capturePluginRegistration,
   createRuntimeEnv,
   resolveProviderPluginChoice,
-} from "openclaw/plugin-sdk/plugin-test-runtime";
+} from "granted/plugin-sdk/plugin-test-runtime";
 import {
   getProviderHttpMocks,
   installProviderHttpMockCleanup,
   requireFirstPostJsonRecordRequest as requireFirstPostJsonRequest,
-} from "openclaw/plugin-sdk/provider-http-test-mocks";
+} from "granted/plugin-sdk/provider-http-test-mocks";
 import {
   expectDashscopeVideoTaskPoll,
   expectExplicitVideoGenerationCapabilities,
   expectSuccessfulDashscopeVideoResult,
   mockSuccessfulDashscopeVideoTask,
-} from "openclaw/plugin-sdk/provider-test-contracts";
+} from "granted/plugin-sdk/provider-test-contracts";
 // Alibaba tests cover video generation provider plugin behavior.
-import { closeOpenClawAgentDatabasesForTest } from "openclaw/plugin-sdk/sqlite-runtime-testing";
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { closeOpenClawAgentDatabasesForTest } from "granted/plugin-sdk/sqlite-runtime-testing";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import {
   DASHSCOPE_WAN_VIDEO_MODELS,
   DEFAULT_DASHSCOPE_WAN_VIDEO_MODEL,
-} from "openclaw/plugin-sdk/video-generation";
+} from "granted/plugin-sdk/video-generation";
 import { afterEach, beforeAll, describe, expect, it, vi } from "vitest";
 
 const {

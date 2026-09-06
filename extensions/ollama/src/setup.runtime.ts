@@ -1,23 +1,23 @@
 // Ollama setup runtime handles plugin onboarding behavior.
-import { expectDefined } from "openclaw/plugin-sdk/expect-runtime";
-import type { ProviderAuthMethod } from "openclaw/plugin-sdk/plugin-entry";
+import { expectDefined } from "granted/plugin-sdk/expect-runtime";
+import type { ProviderAuthMethod } from "granted/plugin-sdk/plugin-entry";
 import type {
   GrantedConfig,
   SecretInput,
   SecretInputMode,
-} from "openclaw/plugin-sdk/provider-auth";
+} from "granted/plugin-sdk/provider-auth";
 import {
   ensureApiKeyFromOptionEnvOrPrompt,
   isNonSecretApiKeyMarker,
   normalizeApiKeyInput,
   normalizeOptionalSecretInput,
   validateApiKeyInput,
-} from "openclaw/plugin-sdk/provider-auth";
-import { readProviderJsonResponse } from "openclaw/plugin-sdk/provider-http";
-import { applyAgentDefaultModelPrimary } from "openclaw/plugin-sdk/provider-onboard";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime";
-import { WizardCancelledError, type WizardPrompter } from "openclaw/plugin-sdk/setup";
-import { fetchWithSsrFGuard } from "openclaw/plugin-sdk/ssrf-runtime";
+} from "granted/plugin-sdk/provider-auth";
+import { readProviderJsonResponse } from "granted/plugin-sdk/provider-http";
+import { applyAgentDefaultModelPrimary } from "granted/plugin-sdk/provider-onboard";
+import type { RuntimeEnv } from "granted/plugin-sdk/runtime";
+import { WizardCancelledError, type WizardPrompter } from "granted/plugin-sdk/setup";
+import { fetchWithSsrFGuard } from "granted/plugin-sdk/ssrf-runtime";
 import {
   OLLAMA_CLOUD_BASE_URL,
   OLLAMA_CLOUD_DEFAULT_MODELS,

@@ -6,18 +6,18 @@ import {
   AgentHarnessSessionSupersededError,
   embeddedAgentLog,
   type AgentHarnessSessionDeletionMutation,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
+} from "granted/plugin-sdk/agent-harness-runtime";
 import {
   ensureAuthProfileStore,
   resolveDefaultAgentDir,
   resolveProviderIdForAuth,
   type AuthProfileStore,
-} from "openclaw/plugin-sdk/agent-runtime";
-import { resolveSessionAgentIdsStrict } from "openclaw/plugin-sdk/agent-scope-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { PluginStateSyncKeyedStore } from "openclaw/plugin-sdk/plugin-state-runtime";
-import { getSessionEntry, resolveStorePath } from "openclaw/plugin-sdk/session-store-runtime";
-import { asOptionalRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/agent-runtime";
+import { resolveSessionAgentIdsStrict } from "granted/plugin-sdk/agent-scope-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { PluginStateSyncKeyedStore } from "granted/plugin-sdk/plugin-state-runtime";
+import { getSessionEntry, resolveStorePath } from "granted/plugin-sdk/session-store-runtime";
+import { asOptionalRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import { z } from "zod";
 import { CODEX_PLUGIN_MARKETPLACE_NAME_PATTERN, normalizeCodexServiceTier } from "./config.js";
 import type { CodexManagedThreadStore } from "./managed-thread-store.js";

@@ -2,8 +2,8 @@
  * Resolves whether Codex app-server profiling instrumentation is enabled by
  * OpenClaw diagnostic flags.
  */
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { isDiagnosticFlagEnabled } from "openclaw/plugin-sdk/diagnostic-flags";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { isDiagnosticFlagEnabled } from "granted/plugin-sdk/diagnostic-flags";
 
 const PROFILER_FLAGS = ["profiler", "codex.profiler"] as const;
 

@@ -1,24 +1,24 @@
 // Memory Core plugin module owns embedding provider lifecycle.
-import { resolveAgentConfig } from "openclaw/plugin-sdk/agent-runtime";
+import { resolveAgentConfig } from "granted/plugin-sdk/agent-runtime";
 import {
   formatErrorMessage,
   readErrorName,
   toErrorObject,
-} from "openclaw/plugin-sdk/error-runtime";
-import { listRegisteredMemoryEmbeddingProviderAdapters } from "openclaw/plugin-sdk/memory-core-host-embedding-registry";
+} from "granted/plugin-sdk/error-runtime";
+import { listRegisteredMemoryEmbeddingProviderAdapters } from "granted/plugin-sdk/memory-core-host-embedding-registry";
 import {
   createSubsystemLogger,
   resolveAgentDir,
   type GrantedConfig,
   type ResolvedMemorySearchConfig,
-} from "openclaw/plugin-sdk/memory-core-host-engine-foundation";
+} from "granted/plugin-sdk/memory-core-host-engine-foundation";
 import type {
   MemoryEmbeddingProbeResult,
   MemorySearchRuntimeDebug,
   MemorySyncParams,
-} from "openclaw/plugin-sdk/memory-core-host-engine-storage";
-import { normalizeAgentId } from "openclaw/plugin-sdk/routing";
-import { redactSensitiveText } from "openclaw/plugin-sdk/security-runtime";
+} from "granted/plugin-sdk/memory-core-host-engine-storage";
+import { normalizeAgentId } from "granted/plugin-sdk/routing";
+import { redactSensitiveText } from "granted/plugin-sdk/security-runtime";
 import {
   createEmbeddingProvider,
   resolveEmbeddingProviderAdapterTransport,

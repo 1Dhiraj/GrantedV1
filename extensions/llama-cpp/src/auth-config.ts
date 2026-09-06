@@ -1,4 +1,4 @@
-import type { GrantedConfig } from "openclaw/plugin-sdk/provider-auth";
+import type { GrantedConfig } from "granted/plugin-sdk/provider-auth";
 import { LLAMA_CPP_PROVIDER_ID } from "./defaults.js";
 
 export const LLAMA_CPP_DEFAULT_PROFILE_ID = `${LLAMA_CPP_PROVIDER_ID}:default`;

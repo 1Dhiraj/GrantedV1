@@ -1,6 +1,6 @@
 // Together setup module handles plugin onboarding behavior.
-import { readManifestProviderDefaultModelRef } from "openclaw/plugin-sdk/provider-catalog-shared";
-import { createModelCatalogPresetAppliers } from "openclaw/plugin-sdk/provider-onboard";
+import { readManifestProviderDefaultModelRef } from "granted/plugin-sdk/provider-catalog-shared";
+import { createModelCatalogPresetAppliers } from "granted/plugin-sdk/provider-onboard";
 import { TOGETHER_BASE_URL, TOGETHER_MODEL_CATALOG } from "./models.js";
 import manifest from "./openclaw.plugin.json" with { type: "json" };
 

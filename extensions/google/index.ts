@@ -1,21 +1,21 @@
 // Google plugin entrypoint registers its OpenClaw integration.
-import type { ImageGenerationProvider } from "openclaw/plugin-sdk/image-generation";
-import type { MediaUnderstandingProvider } from "openclaw/plugin-sdk/media-understanding";
-import type { MusicGenerationProvider } from "openclaw/plugin-sdk/music-generation";
-import { definePluginEntry } from "openclaw/plugin-sdk/plugin-entry";
+import type { ImageGenerationProvider } from "granted/plugin-sdk/image-generation";
+import type { MediaUnderstandingProvider } from "granted/plugin-sdk/media-understanding";
+import type { MusicGenerationProvider } from "granted/plugin-sdk/music-generation";
+import { definePluginEntry } from "granted/plugin-sdk/plugin-entry";
 import type {
   RealtimeVoiceBridge,
   RealtimeVoiceBridgeCreateRequest,
   RealtimeVoiceProviderConfig,
   RealtimeVoiceProviderPlugin,
-} from "openclaw/plugin-sdk/realtime-voice";
-import { createRealtimeVoiceAudioQueue } from "openclaw/plugin-sdk/realtime-voice-audio-queue";
-import { normalizeResolvedSecretInputString } from "openclaw/plugin-sdk/secret-input";
+} from "granted/plugin-sdk/realtime-voice";
+import { createRealtimeVoiceAudioQueue } from "granted/plugin-sdk/realtime-voice-audio-queue";
+import { normalizeResolvedSecretInputString } from "granted/plugin-sdk/secret-input";
 import {
   asOptionalRecord,
   normalizeOptionalString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
-import type { VideoGenerationProvider } from "openclaw/plugin-sdk/video-generation";
+} from "granted/plugin-sdk/string-coerce-runtime";
+import type { VideoGenerationProvider } from "granted/plugin-sdk/video-generation";
 import { buildGoogleGeminiCliBackend } from "./cli-backend.js";
 import { registerGoogleGeminiCliProvider } from "./gemini-cli-provider.js";
 import {

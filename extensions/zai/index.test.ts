@@ -2,11 +2,11 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import type { StreamFn } from "openclaw/plugin-sdk/agent-core";
-import type { Context, Model } from "openclaw/plugin-sdk/llm";
-import { registerSingleProviderPlugin } from "openclaw/plugin-sdk/plugin-test-runtime";
-import { buildManifestModelProviderConfig } from "openclaw/plugin-sdk/provider-catalog-shared";
-import { buildOpenAICompletionsParams } from "openclaw/plugin-sdk/provider-transport-runtime";
+import type { StreamFn } from "granted/plugin-sdk/agent-core";
+import type { Context, Model } from "granted/plugin-sdk/llm";
+import { registerSingleProviderPlugin } from "granted/plugin-sdk/plugin-test-runtime";
+import { buildManifestModelProviderConfig } from "granted/plugin-sdk/provider-catalog-shared";
+import { buildOpenAICompletionsParams } from "granted/plugin-sdk/provider-transport-runtime";
 import { describe, expect, it } from "vitest";
 import plugin from "./index.js";
 import manifest from "./openclaw.plugin.json" with { type: "json" };

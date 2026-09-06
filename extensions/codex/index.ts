@@ -2,15 +2,15 @@
  * Bundled Codex plugin entry: app-server harness, media understanding,
  * migration provider, CLI-session commands, and binding hooks.
  */
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { mutateConfigFile } from "openclaw/plugin-sdk/config-mutation";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { mutateConfigFile } from "granted/plugin-sdk/config-mutation";
 import {
   normalizePluginsConfig,
   resolveEffectiveEnableState,
   resolveLivePluginConfigObject,
-} from "openclaw/plugin-sdk/plugin-config-runtime";
-import { definePluginEntry } from "openclaw/plugin-sdk/plugin-entry";
-import type { PluginStateSyncKeyedStore } from "openclaw/plugin-sdk/plugin-state-runtime";
+} from "granted/plugin-sdk/plugin-config-runtime";
+import { definePluginEntry } from "granted/plugin-sdk/plugin-entry";
+import type { PluginStateSyncKeyedStore } from "granted/plugin-sdk/plugin-state-runtime";
 import { registerCodexCliMetadata } from "./cli-metadata.js";
 import {
   createCodexAppServerAgentHarness,

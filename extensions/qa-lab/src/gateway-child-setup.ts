@@ -3,9 +3,9 @@ import { createWriteStream, existsSync } from "node:fs";
 import fs from "node:fs/promises";
 import net from "node:net";
 import path from "node:path";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { uniqueStrings } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { resolvePreferredOpenClawTmpDir } from "openclaw/plugin-sdk/temp-path";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { uniqueStrings } from "granted/plugin-sdk/string-coerce-runtime";
+import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
 import {
   createQaBundledPluginsDir,
   resolveQaOwnerPluginIdsForProviderIds,

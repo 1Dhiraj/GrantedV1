@@ -82,7 +82,7 @@ read_when:
       destination = "/data"
     ```
 
-    The OpenClaw Docker image entrypoint is `tini`, running `node openclaw.mjs gateway` by default. Fly `[processes]` replaces the Docker `CMD` (here it runs `node dist/index.js gateway ...` directly, the same compiled entrypoint) without touching `ENTRYPOINT`, so the process still runs under `tini`.
+    The OpenClaw Docker image entrypoint is `tini`, running `node granted.mjs gateway` by default. Fly `[processes]` replaces the Docker `CMD` (here it runs `node dist/index.js gateway ...` directly, the same compiled entrypoint) without touching `ENTRYPOINT`, so the process still runs under `tini`.
 
     **Key settings:**
 

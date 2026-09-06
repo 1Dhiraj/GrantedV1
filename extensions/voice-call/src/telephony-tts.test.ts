@@ -1,6 +1,6 @@
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 // Voice Call tests cover telephony tts plugin behavior.
-import { MAX_TIMER_TIMEOUT_MS } from "openclaw/plugin-sdk/number-runtime";
+import { MAX_TIMER_TIMEOUT_MS } from "granted/plugin-sdk/number-runtime";
 import { describe, expect, it, vi } from "vitest";
 import type { VoiceCallTtsConfig } from "./config.js";
 import { createTelephonyTtsProvider, type TelephonyTtsRuntime } from "./telephony-tts.js";

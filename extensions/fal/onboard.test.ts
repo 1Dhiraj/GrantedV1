@@ -2,7 +2,7 @@
 import {
   type GrantedConfig,
   resolveAgentModelPrimaryValue,
-} from "openclaw/plugin-sdk/provider-onboard";
+} from "granted/plugin-sdk/provider-onboard";
 import { describe, expect, it } from "vitest";
 import { applyFalConfig } from "./onboard.js";
 

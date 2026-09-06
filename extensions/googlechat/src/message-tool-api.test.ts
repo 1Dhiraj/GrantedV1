@@ -1,5 +1,5 @@
 // Google Chat tests cover account-isolated message-tool discovery.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { inspectGoogleChatAccount, resolveGoogleChatAccount } from "./accounts.js";
 import { describeGoogleChatMessageTool } from "./message-tool-api.js";

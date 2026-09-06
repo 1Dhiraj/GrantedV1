@@ -1,7 +1,7 @@
-import { createPluginRuntimeMock } from "openclaw/plugin-sdk/channel-test-helpers";
-import type { DiscordAccountConfig, GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { NativeCommandSpec } from "openclaw/plugin-sdk/native-command-registry";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
+import { createPluginRuntimeMock } from "granted/plugin-sdk/channel-test-helpers";
+import type { DiscordAccountConfig, GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { NativeCommandSpec } from "granted/plugin-sdk/native-command-registry";
+import type { RuntimeEnv } from "granted/plugin-sdk/runtime-env";
 import { describe, expect, it, vi } from "vitest";
 import { DISCORD_VOICE_COMMAND_SPEC } from "../voice/command.js";
 import { createDiscordProviderInteractionSurface } from "./provider.interactions.js";

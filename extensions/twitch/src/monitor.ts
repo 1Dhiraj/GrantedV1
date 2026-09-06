@@ -5,13 +5,13 @@
  * resolves agent routes, and handles replies.
  */
 
-import type { ChannelAccountSnapshot } from "openclaw/plugin-sdk/channel-contract";
-import { createChannelInboundEnvelopeBuilder } from "openclaw/plugin-sdk/channel-inbound";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import { resolveOutboundMediaUrls } from "openclaw/plugin-sdk/reply-payload";
-import type { ReplyPayload } from "openclaw/plugin-sdk/reply-runtime";
-import { normalizeLowercaseStringOrEmpty } from "openclaw/plugin-sdk/string-coerce-runtime";
+import type { ChannelAccountSnapshot } from "granted/plugin-sdk/channel-contract";
+import { createChannelInboundEnvelopeBuilder } from "granted/plugin-sdk/channel-inbound";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
+import { resolveOutboundMediaUrls } from "granted/plugin-sdk/reply-payload";
+import type { ReplyPayload } from "granted/plugin-sdk/reply-runtime";
+import { normalizeLowercaseStringOrEmpty } from "granted/plugin-sdk/string-coerce-runtime";
 import { checkTwitchAccessControl } from "./access-control.js";
 import { getOrCreateClientManager } from "./client-manager-registry.js";
 import { getTwitchRuntime } from "./runtime.js";

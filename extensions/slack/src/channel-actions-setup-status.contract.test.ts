@@ -3,9 +3,9 @@ import {
   installChannelActionsContractSuite,
   installChannelSetupContractSuite,
   installChannelStatusContractSuite,
-} from "openclaw/plugin-sdk/channel-test-helpers";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { moveSingleAccountChannelSectionToDefaultAccount } from "openclaw/plugin-sdk/setup";
+} from "granted/plugin-sdk/channel-test-helpers";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { moveSingleAccountChannelSectionToDefaultAccount } from "granted/plugin-sdk/setup";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { slackPlugin } from "../api.js";
 import { SlackConfigSchema } from "../config-api.js";

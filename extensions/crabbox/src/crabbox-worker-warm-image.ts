@@ -1,5 +1,5 @@
 import { createHash, randomUUID } from "node:crypto";
-import { coerceErrorMessage } from "openclaw/plugin-sdk/error-runtime";
+import { coerceErrorMessage } from "granted/plugin-sdk/error-runtime";
 import { crabboxCommandError } from "./crabbox-worker-command-error.js";
 import { runCrabboxCommand, type CrabboxCommandRunner } from "./crabbox-worker-command.js";
 import {

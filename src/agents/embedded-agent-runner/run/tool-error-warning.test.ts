@@ -1,6 +1,6 @@
 // Tool warning tests ensure failed actions remain visible without exposing
 // verbose execution details unless the operator explicitly requests them.
-import type { AssistantMessage } from "openclaw/plugin-sdk/llm";
+import type { AssistantMessage } from "granted/plugin-sdk/llm";
 import { describe, expect, it } from "vitest";
 import { makeAssistantMessageFixture } from "../../test-helpers/assistant-message-fixtures.js";
 import {

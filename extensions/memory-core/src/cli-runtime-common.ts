@@ -1,13 +1,13 @@
 import {
   normalizeExtraMemoryPathEntries,
   type MemoryExtraPath,
-} from "openclaw/plugin-sdk/memory-core-host-engine-storage";
+} from "granted/plugin-sdk/memory-core-host-engine-storage";
 import {
   listAgentIds,
   resolveConfiguredAgentId,
-} from "openclaw/plugin-sdk/memory-core-host-runtime-core";
-import { buildAgentSessionKey } from "openclaw/plugin-sdk/routing";
-import { asNullableRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/memory-core-host-runtime-core";
+import { buildAgentSessionKey } from "granted/plugin-sdk/routing";
+import { asNullableRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   defaultRuntime,
   formatErrorMessage,

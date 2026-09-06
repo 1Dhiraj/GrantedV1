@@ -1,9 +1,9 @@
 // Discord provider module implements model/runtime integration.
-import { createTransportActivityStatusPatch } from "openclaw/plugin-sdk/gateway-runtime";
-import { asDateTimestampMs, parseStrictPositiveInteger } from "openclaw/plugin-sdk/number-runtime";
-import { danger, sleepWithAbort } from "openclaw/plugin-sdk/runtime-env";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
-import { formatErrorMessage } from "openclaw/plugin-sdk/ssrf-runtime";
+import { createTransportActivityStatusPatch } from "granted/plugin-sdk/gateway-runtime";
+import { asDateTimestampMs, parseStrictPositiveInteger } from "granted/plugin-sdk/number-runtime";
+import { danger, sleepWithAbort } from "granted/plugin-sdk/runtime-env";
+import type { RuntimeEnv } from "granted/plugin-sdk/runtime-env";
+import { formatErrorMessage } from "granted/plugin-sdk/ssrf-runtime";
 import { attachDiscordGatewayLogging } from "../gateway-logging.js";
 import { isFatalGatewayCloseCode } from "../internal/gateway-close-codes.js";
 import { GatewayCloseCodes } from "../internal/gateway.js";

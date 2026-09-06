@@ -1,6 +1,6 @@
-import type { HealthFinding } from "openclaw/plugin-sdk/health";
-import { normalizeAgentId } from "openclaw/plugin-sdk/routing";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import type { HealthFinding } from "granted/plugin-sdk/health";
+import { normalizeAgentId } from "granted/plugin-sdk/routing";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import type { PolicyAgentWorkspaceEvidence, PolicyToolPostureEvidence } from "../policy-state.js";
 import { getPolicyPath, scopedPolicyValue } from "../policy-value.js";
 import {

@@ -1,7 +1,7 @@
 /**
  * Browser plugin service factory that lazily starts the control server.
  */
-import { isTruthyEnvValue } from "openclaw/plugin-sdk/runtime-env";
+import { isTruthyEnvValue } from "granted/plugin-sdk/runtime-env";
 import {
   startLazyPluginServiceModule,
   type LazyPluginServiceHandle,

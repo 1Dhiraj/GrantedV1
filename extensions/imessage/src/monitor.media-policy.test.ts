@@ -1,8 +1,8 @@
 // Imessage tests cover monitor.media policy plugin behavior.
-import * as channelInbound from "openclaw/plugin-sdk/channel-inbound";
-import { createTestInboundDebounceFlush } from "openclaw/plugin-sdk/channel-test-helpers";
-import type { dispatchReplyWithBufferedBlockDispatcher } from "openclaw/plugin-sdk/reply-runtime";
-import type { waitForTransportReady } from "openclaw/plugin-sdk/transport-ready-runtime";
+import * as channelInbound from "granted/plugin-sdk/channel-inbound";
+import { createTestInboundDebounceFlush } from "granted/plugin-sdk/channel-test-helpers";
+import type { dispatchReplyWithBufferedBlockDispatcher } from "granted/plugin-sdk/reply-runtime";
+import type { waitForTransportReady } from "granted/plugin-sdk/transport-ready-runtime";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { createIMessageRpcClient } from "./client.js";
 import { monitorIMessageProvider } from "./monitor.js";
@@ -27,7 +27,7 @@ vi.mock("openclaw/plugin-sdk/transport-ready-runtime", () => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/conversation-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/conversation-runtime")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/conversation-runtime")>();
   return {
     ...actual,
     readChannelAllowFromStore: readChannelAllowFromStoreMock,
@@ -37,7 +37,7 @@ vi.mock("openclaw/plugin-sdk/conversation-runtime", async (importOriginal) => {
 });
 
 vi.mock("openclaw/plugin-sdk/channel-inbound", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/channel-inbound")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/channel-inbound")>();
   return {
     ...actual,
     createChannelInboundDebouncer: vi.fn((opts) => ({

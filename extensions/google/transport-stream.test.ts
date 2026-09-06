@@ -5,9 +5,9 @@ import os from "node:os";
 import path from "node:path";
 import { gzipSync } from "node:zlib";
 import { expectDefined } from "@openclaw/normalization-core";
-import { toErrorObject as toLintErrorObject } from "openclaw/plugin-sdk/error-runtime";
-import type { Model, ProviderContext } from "openclaw/plugin-sdk/llm";
-import { withProviderAcceptanceObserver } from "openclaw/plugin-sdk/provider-transport-runtime";
+import { toErrorObject as toLintErrorObject } from "granted/plugin-sdk/error-runtime";
+import type { Model, ProviderContext } from "granted/plugin-sdk/llm";
+import { withProviderAcceptanceObserver } from "granted/plugin-sdk/provider-transport-runtime";
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { resetGoogleVertexAdcState } from "./google-oauth.test-support.js";
 

@@ -305,7 +305,7 @@ describe("plugin entry guardrails", () => {
         import "./setup.js";
         export { x };
         export * from "./barrel.js";
-        import { y } from "openclaw/plugin-sdk/core";
+        import { y } from "granted/plugin-sdk/core";
       `,
       }).relativeSpecifiers.toSorted(),
     ).toEqual(["./barrel.js", "./safe.js", "./setup.js"]);
@@ -335,8 +335,8 @@ describe("plugin entry guardrails", () => {
       analyzeSourceModule({
         filePath: "aliased-plugin-entry.ts",
         source: `
-          import { definePluginEntry as dpe } from "openclaw/plugin-sdk/core";
-          import { somethingElse } from "openclaw/plugin-sdk/core";
+          import { definePluginEntry as dpe } from "granted/plugin-sdk/core";
+          import { somethingElse } from "granted/plugin-sdk/core";
         `,
       }).importsDefinePluginEntryFromCore,
     ).toBe(true);

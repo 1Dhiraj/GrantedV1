@@ -1,5 +1,5 @@
-import type { ApprovalResolveResult } from "openclaw/plugin-sdk/approval-gateway-runtime";
-import type { ChannelApprovalKind } from "openclaw/plugin-sdk/approval-handler-runtime";
+import type { ApprovalResolveResult } from "granted/plugin-sdk/approval-gateway-runtime";
+import type { ChannelApprovalKind } from "granted/plugin-sdk/approval-handler-runtime";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   buildGoogleChatApprovalActionParameters,

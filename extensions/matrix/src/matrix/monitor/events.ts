@@ -1,8 +1,8 @@
-import { reportChannelRoomJoin } from "openclaw/plugin-sdk/channel-join-intro-runtime";
-import type { PluginRuntime, RuntimeLogger } from "openclaw/plugin-sdk/plugin-runtime";
-import { resolveAgentRoute } from "openclaw/plugin-sdk/routing";
+import { reportChannelRoomJoin } from "granted/plugin-sdk/channel-join-intro-runtime";
+import type { PluginRuntime, RuntimeLogger } from "granted/plugin-sdk/plugin-runtime";
+import { resolveAgentRoute } from "granted/plugin-sdk/routing";
 // Matrix plugin module implements events behavior.
-import { normalizeOptionalString, uniqueStrings } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { normalizeOptionalString, uniqueStrings } from "granted/plugin-sdk/string-coerce-runtime";
 import type { CoreConfig, MatrixRoomConfig } from "../../types.js";
 import { readMatrixMessages } from "../actions/messages.js";
 import { getMatrixRoomInfo } from "../actions/room.js";

@@ -1,20 +1,20 @@
 // Openai provider module implements model/runtime integration.
-import { resolveGeneratedMediaMaxBytes } from "openclaw/plugin-sdk/media-generation-runtime";
-import { normalizeResolvedSecretInputString } from "openclaw/plugin-sdk/secret-input";
+import { resolveGeneratedMediaMaxBytes } from "granted/plugin-sdk/media-generation-runtime";
+import { normalizeResolvedSecretInputString } from "granted/plugin-sdk/secret-input";
 import type {
   SpeechDirectiveTokenParseContext,
   SpeechProviderConfig,
   SpeechProviderOverrides,
   SpeechProviderPlugin,
-} from "openclaw/plugin-sdk/speech-core";
-import { parseSpeechDirectiveNumberOverride } from "openclaw/plugin-sdk/speech-core";
+} from "granted/plugin-sdk/speech-core";
+import { parseSpeechDirectiveNumberOverride } from "granted/plugin-sdk/speech-core";
 import {
   asFiniteNumber,
   asOptionalRecord,
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalLowercaseString,
   normalizeOptionalString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import { resolveOpenAIProviderConfigRecord } from "./realtime-provider-shared.js";
 import {
   DEFAULT_OPENAI_BASE_URL,
@@ -311,7 +311,7 @@ export function buildOpenAISpeechProvider(): SpeechProviderPlugin {
         maxBytes: resolveGeneratedMediaMaxBytes(req.cfg, "audio"),
       });
       const fileExtension = responseFormatToFileExtension(responseFormat);
-      const { isVoiceMessageCompatibleAudio } = await import("openclaw/plugin-sdk/media-runtime");
+      const { isVoiceMessageCompatibleAudio } = await import("granted/plugin-sdk/media-runtime");
       return {
         audioBuffer,
         outputFormat: responseFormat,

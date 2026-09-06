@@ -6,8 +6,8 @@ import type {
   TelegramDirectConfig,
   TelegramGroupConfig,
   TelegramTopicConfig,
-} from "openclaw/plugin-sdk/config-contracts";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
+} from "granted/plugin-sdk/config-contracts";
+import type { RuntimeEnv } from "granted/plugin-sdk/runtime-env";
 import type { TelegramBotDeps } from "./bot-deps.js";
 import type {
   TelegramMediaRef,

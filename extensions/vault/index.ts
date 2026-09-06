@@ -1,4 +1,4 @@
-import { definePluginEntry, type GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
+import { definePluginEntry, type GrantedPluginApi } from "granted/plugin-sdk/plugin-entry";
 
 export default definePluginEntry({
   id: "vault",

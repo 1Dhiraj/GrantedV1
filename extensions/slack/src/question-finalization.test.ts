@@ -1,12 +1,12 @@
 // Covers Slack question delivery capture and Block Kit final edit.
-import { sendDurableMessageBatch } from "openclaw/plugin-sdk/channel-outbound";
-import type { OutboundDeliveryResult } from "openclaw/plugin-sdk/channel-send-result";
+import { sendDurableMessageBatch } from "granted/plugin-sdk/channel-outbound";
+import type { OutboundDeliveryResult } from "granted/plugin-sdk/channel-send-result";
 import {
   createTestRegistry,
   resetGlobalHookRunner,
   resetPluginRuntimeStateForTest,
   setActivePluginRegistry,
-} from "openclaw/plugin-sdk/channel-test-helpers";
+} from "granted/plugin-sdk/channel-test-helpers";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { createSlackSendTestClient } from "./blocks.test-helpers.js";
 
@@ -18,7 +18,7 @@ const hoisted = vi.hoisted(() => ({
 }));
 vi.mock("openclaw/plugin-sdk/question-gateway-runtime", async (importOriginal) => {
   const original =
-    await importOriginal<typeof import("openclaw/plugin-sdk/question-gateway-runtime")>();
+    await importOriginal<typeof import("granted/plugin-sdk/question-gateway-runtime")>();
   return {
     ...original,
     questionGatewayRuntime: {

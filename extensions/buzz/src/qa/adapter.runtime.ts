@@ -1,7 +1,7 @@
 import { setTimeout as sleep } from "node:timers/promises";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { QaBusConversationKind } from "openclaw/plugin-sdk/qa-channel-protocol";
-import type { QaRunnerCliRegistration } from "openclaw/plugin-sdk/qa-runner-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { QaBusConversationKind } from "granted/plugin-sdk/qa-channel-protocol";
+import type { QaRunnerCliRegistration } from "granted/plugin-sdk/qa-runner-runtime";
 import type { BuzzInboundMessage } from "../message-event.js";
 import { buildBuzzTarget } from "../target.js";
 import { parseBuzzQaCredentialPayload, readBuzzQaCredentialFile } from "./credentials.js";

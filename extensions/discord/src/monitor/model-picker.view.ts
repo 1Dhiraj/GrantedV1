@@ -4,9 +4,9 @@ import { ButtonStyle } from "discord-api-types/v10";
 import type {
   ModelsProviderData,
   ModelsRuntimeChoice,
-} from "openclaw/plugin-sdk/models-provider-runtime";
-import { normalizeProviderId } from "openclaw/plugin-sdk/provider-model-shared";
-import { sliceUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+} from "granted/plugin-sdk/models-provider-runtime";
+import { normalizeProviderId } from "granted/plugin-sdk/provider-model-shared";
+import { sliceUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import {
   Button,
   Container,

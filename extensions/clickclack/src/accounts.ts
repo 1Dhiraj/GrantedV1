@@ -5,18 +5,18 @@
 import {
   createAccountListHelpers,
   hasConfiguredAccountValue,
-} from "openclaw/plugin-sdk/account-helpers";
-import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "openclaw/plugin-sdk/account-id";
-import { resolveNormalizedAccountEntry } from "openclaw/plugin-sdk/account-resolution-runtime";
-import { resolveIntegerOption } from "openclaw/plugin-sdk/number-runtime";
-import { mergePairLoopGuardConfig } from "openclaw/plugin-sdk/pair-loop-guard-runtime";
-import { tryReadSecretFileSync } from "openclaw/plugin-sdk/secret-file-runtime";
+} from "granted/plugin-sdk/account-helpers";
+import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "granted/plugin-sdk/account-id";
+import { resolveNormalizedAccountEntry } from "granted/plugin-sdk/account-resolution-runtime";
+import { resolveIntegerOption } from "granted/plugin-sdk/number-runtime";
+import { mergePairLoopGuardConfig } from "granted/plugin-sdk/pair-loop-guard-runtime";
+import { tryReadSecretFileSync } from "granted/plugin-sdk/secret-file-runtime";
 import {
   normalizeSecretInputString,
   resolveSecretInputString,
-} from "openclaw/plugin-sdk/secret-input";
-import { canResolveEnvSecretRefInReadOnlyPath } from "openclaw/plugin-sdk/secret-ref-readonly";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/secret-input";
+import { canResolveEnvSecretRefInReadOnlyPath } from "granted/plugin-sdk/secret-ref-readonly";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import type {
   ClickClackAccountConfig,
   ClickClackGroupConfig,

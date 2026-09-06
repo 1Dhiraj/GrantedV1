@@ -1,24 +1,24 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { AgentMessage } from "openclaw/plugin-sdk/agent-core";
-import type { EmbeddedRunAttemptParamsV2 as EmbeddedRunAttemptParams } from "openclaw/plugin-sdk/agent-harness";
+import type { AgentMessage } from "granted/plugin-sdk/agent-core";
+import type { EmbeddedRunAttemptParamsV2 as EmbeddedRunAttemptParams } from "granted/plugin-sdk/agent-harness";
 import {
   embeddedAgentLog,
   supportsModelTools,
   type HarnessContextEngine as ContextEngine,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
-import { openFileBackedSessionManagerForTest } from "openclaw/plugin-sdk/agent-runtime-test-contracts";
-import { SessionManager } from "openclaw/plugin-sdk/agent-sessions";
-import { initializeGlobalHookRunner } from "openclaw/plugin-sdk/hook-runtime";
-import { MESSAGE_TOOL_DELIVERY_HINTS } from "openclaw/plugin-sdk/message-tool-delivery-hints";
-import { createMockPluginRegistry } from "openclaw/plugin-sdk/plugin-test-runtime";
-import { registerSandboxBackend } from "openclaw/plugin-sdk/sandbox";
-import { upsertSessionEntry } from "openclaw/plugin-sdk/session-store-runtime";
-import { readSessionTranscriptEvents } from "openclaw/plugin-sdk/session-transcript-runtime";
-import { formatSqliteSessionFileMarker } from "openclaw/plugin-sdk/sqlite-runtime-testing";
-import { readStringValue } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/agent-harness-runtime";
+import { openFileBackedSessionManagerForTest } from "granted/plugin-sdk/agent-runtime-test-contracts";
+import { SessionManager } from "granted/plugin-sdk/agent-sessions";
+import { initializeGlobalHookRunner } from "granted/plugin-sdk/hook-runtime";
+import { MESSAGE_TOOL_DELIVERY_HINTS } from "granted/plugin-sdk/message-tool-delivery-hints";
+import { createMockPluginRegistry } from "granted/plugin-sdk/plugin-test-runtime";
+import { registerSandboxBackend } from "granted/plugin-sdk/sandbox";
+import { upsertSessionEntry } from "granted/plugin-sdk/session-store-runtime";
+import { readSessionTranscriptEvents } from "granted/plugin-sdk/session-transcript-runtime";
+import { formatSqliteSessionFileMarker } from "granted/plugin-sdk/sqlite-runtime-testing";
+import { readStringValue } from "granted/plugin-sdk/string-coerce-runtime";
 // Codex tests cover run attempt.context engine plugin behavior.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { describe, expect, it, vi } from "vitest";
 import { readAttemptTerminal } from "./attempt-terminal.test-helper.js";
 import { shouldEnableCodexAppServerNativeToolSurface } from "./dynamic-tool-build.js";

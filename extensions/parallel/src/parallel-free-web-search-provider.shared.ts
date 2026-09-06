@@ -1,4 +1,4 @@
-import { createWebSearchProviderContractFields } from "openclaw/plugin-sdk/provider-web-search-contract";
+import { createWebSearchProviderContractFields } from "granted/plugin-sdk/provider-web-search-contract";
 
 // Shared by the tool schema and runtime validation without loading search execution.
 export const PARALLEL_FREE_SESSION_ID_MAX_LENGTH = 100;

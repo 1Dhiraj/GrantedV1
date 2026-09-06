@@ -1,11 +1,11 @@
-import { resolveChannelMediaMaxBytes } from "openclaw/plugin-sdk/account-helpers";
+import { resolveChannelMediaMaxBytes } from "granted/plugin-sdk/account-helpers";
 // Imessage plugin module implements channel behavior.
 import {
   createAccountStatusSink,
   resolveOutboundSendDep,
-} from "openclaw/plugin-sdk/channel-outbound";
-import { PAIRING_APPROVED_MESSAGE } from "openclaw/plugin-sdk/channel-status";
-import type { ChannelPlugin } from "openclaw/plugin-sdk/core";
+} from "granted/plugin-sdk/channel-outbound";
+import { PAIRING_APPROVED_MESSAGE } from "granted/plugin-sdk/channel-status";
+import type { ChannelPlugin } from "granted/plugin-sdk/core";
 import {
   listEnabledIMessageAccounts,
   resolveIMessageAccount,

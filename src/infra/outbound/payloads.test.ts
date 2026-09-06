@@ -2,7 +2,7 @@
 // interactive blocks, mirror text, and suppressed relay status payloads.
 import path from "node:path";
 import { pathToFileURL } from "node:url";
-import { resolveSendableOutboundReplyParts } from "openclaw/plugin-sdk/reply-payload";
+import { resolveSendableOutboundReplyParts } from "granted/plugin-sdk/reply-payload";
 import { describe, expect, it } from "vitest";
 import { markInboundContextLabel } from "../../auto-reply/reply/inbound-context-marker.js";
 import type { ReplyPayload } from "../../auto-reply/types.js";

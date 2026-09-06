@@ -1,4 +1,4 @@
-import type { Model } from "openclaw/plugin-sdk/llm";
+import type { Model } from "granted/plugin-sdk/llm";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { SecretSurfaceUnavailableError } from "../../secrets/runtime-degraded-state.js";
 import type { AuthProfileStore } from "../auth-profiles.js";

@@ -1,4 +1,4 @@
-import { validateJsonSchemaValue } from "openclaw/plugin-sdk/json-schema-runtime";
+import { validateJsonSchemaValue } from "granted/plugin-sdk/json-schema-runtime";
 // Feishu tests cover config schema plugin behavior.
 import { describe, expect, it } from "vitest";
 import { FeishuChannelConfigSchema, FeishuConfigSchema } from "./config-schema.js";

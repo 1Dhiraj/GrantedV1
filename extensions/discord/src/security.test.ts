@@ -1,5 +1,5 @@
 // Discord tests cover the security adapter's entry-authentication classification.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { describe, expect, it } from "vitest";
 import { resolveDiscordAccount } from "./accounts.js";
 import { discordSecurityAdapter } from "./security.js";

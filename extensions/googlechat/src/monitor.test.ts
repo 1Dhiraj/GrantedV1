@@ -2,12 +2,12 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { recordChannelBotPairLoopAndCheckSuppression } from "openclaw/plugin-sdk/channel-inbound";
+import { recordChannelBotPairLoopAndCheckSuppression } from "granted/plugin-sdk/channel-inbound";
 import {
   closeOpenClawStateDatabaseForTest,
   createChannelIngressQueueForTests,
-} from "openclaw/plugin-sdk/channel-ingress-test-runtime";
-import { MediaFetchError } from "openclaw/plugin-sdk/media-runtime";
+} from "granted/plugin-sdk/channel-ingress-test-runtime";
+import { MediaFetchError } from "granted/plugin-sdk/media-runtime";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { ResolvedGoogleChatAccount } from "./accounts.js";
 import {
@@ -46,7 +46,7 @@ const inboundMocks = vi.hoisted(() => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/channel-inbound", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/channel-inbound")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/channel-inbound")>();
   inboundMocks.toInboundMediaFactsWithMetadata.mockImplementation(
     actual.toInboundMediaFactsWithMetadata,
   );

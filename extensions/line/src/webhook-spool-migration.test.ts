@@ -1,6 +1,6 @@
 // Line tests cover the pre-drain (#109655) spool upgrade migration.
 import type { webhook } from "@line/bot-sdk";
-import { closeOpenClawStateDatabaseForTest } from "openclaw/plugin-sdk/plugin-state-test-runtime";
+import { closeOpenClawStateDatabaseForTest } from "granted/plugin-sdk/plugin-state-test-runtime";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { migrateLineLegacySpoolRows } from "./webhook-spool-migration.js";
 import { createLineWebhookSpool, type LineWebhookTurnAdoptionLifecycle } from "./webhook-spool.js";

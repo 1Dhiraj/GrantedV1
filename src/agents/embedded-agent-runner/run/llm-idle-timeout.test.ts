@@ -7,7 +7,7 @@ import { MAX_TIMER_TIMEOUT_MS } from "@openclaw/normalization-core/number-coerci
 import {
   createAssistantMessageEventStream,
   type AssistantMessageEventStream,
-} from "openclaw/plugin-sdk/llm";
+} from "granted/plugin-sdk/llm";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import type { GrantedConfig } from "../../../config/config.js";
 import type { StreamFn } from "../../runtime/index.js";

@@ -1,6 +1,6 @@
 import { expectDefined } from "@openclaw/normalization-core";
 // Gateway status command tests cover probe targets, JSON/text output, SSH tunnels, and warnings.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { GatewayProbeResult } from "../gateway/probe.js";
 import type { GatewayBonjourBeacon } from "../infra/bonjour-discovery.js";

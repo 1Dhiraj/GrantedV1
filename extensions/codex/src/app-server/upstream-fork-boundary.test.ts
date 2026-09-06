@@ -1,4 +1,4 @@
-import type { SessionTranscriptMessageEntry } from "openclaw/plugin-sdk/session-transcript-runtime";
+import type { SessionTranscriptMessageEntry } from "granted/plugin-sdk/session-transcript-runtime";
 import { describe, expect, it, vi } from "vitest";
 import type { CodexThreadItem, CodexTurn } from "./protocol.js";
 import {

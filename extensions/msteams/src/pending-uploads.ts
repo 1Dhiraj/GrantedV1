@@ -7,7 +7,7 @@
  */
 
 import crypto from "node:crypto";
-import { resolveGlobalSingleton } from "openclaw/plugin-sdk/global-singleton";
+import { resolveGlobalSingleton } from "granted/plugin-sdk/global-singleton";
 
 interface PendingUpload {
   id: string;

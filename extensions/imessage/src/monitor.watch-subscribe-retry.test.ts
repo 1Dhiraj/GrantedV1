@@ -1,6 +1,6 @@
 // Imessage tests cover monitor.watch subscribe retry plugin behavior.
-import { redactIdentifier } from "openclaw/plugin-sdk/logging-core";
-import type { waitForTransportReady } from "openclaw/plugin-sdk/transport-ready-runtime";
+import { redactIdentifier } from "granted/plugin-sdk/logging-core";
+import type { waitForTransportReady } from "granted/plugin-sdk/transport-ready-runtime";
 import { afterAll, afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { createIMessageRpcClient, IMessageRpcClient } from "./client.js";
 import { monitorIMessageProvider } from "./monitor.js";

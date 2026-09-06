@@ -1,6 +1,6 @@
 import { createServer, type Server } from "node:http";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { createTestPluginApi } from "granted/plugin-sdk/plugin-test-api";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   createFirecrawlFreeWebSearchProvider,

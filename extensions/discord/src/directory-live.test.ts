@@ -1,6 +1,6 @@
 // Discord tests cover directory live plugin behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { DirectoryConfigParams } from "openclaw/plugin-sdk/directory-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { DirectoryConfigParams } from "granted/plugin-sdk/directory-runtime";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { DISCORD_DIRECTORY_LOOKUP_TIMEOUT_MS } from "./api.js";
 import { resolveDiscordDirectoryUserId } from "./directory-cache.js";

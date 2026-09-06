@@ -4,7 +4,7 @@ import { tmpdir } from "node:os";
 import path from "node:path";
 import type { CopilotClient, Tool as SdkTool } from "@github/copilot-sdk";
 import { expectDefined } from "@openclaw/normalization-core";
-import * as agentHarnessRuntime from "openclaw/plugin-sdk/agent-harness-runtime";
+import * as agentHarnessRuntime from "granted/plugin-sdk/agent-harness-runtime";
 import {
   abortAgentHarnessRun,
   applyEmbeddedAttemptToolsAllow,
@@ -16,15 +16,15 @@ import {
   type AgentMessage,
   type AnyAgentTool,
   type SandboxContext,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
-import { toErrorObject as toLintErrorObject } from "openclaw/plugin-sdk/error-runtime";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
+} from "granted/plugin-sdk/agent-harness-runtime";
+import { toErrorObject as toLintErrorObject } from "granted/plugin-sdk/error-runtime";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
 import {
   initializeGlobalHookRunner,
   resetGlobalHookRunner,
-} from "openclaw/plugin-sdk/hook-runtime";
-import { createMockPluginRegistry } from "openclaw/plugin-sdk/plugin-test-runtime";
-import { createOpenClawTestState } from "openclaw/plugin-sdk/test-state";
+} from "granted/plugin-sdk/hook-runtime";
+import { createMockPluginRegistry } from "granted/plugin-sdk/plugin-test-runtime";
+import { createOpenClawTestState } from "granted/plugin-sdk/test-state";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { runCopilotAttempt } from "./attempt.js";
 import { createCopilotTestHostCapabilities } from "./host-capability.test-support.js";
@@ -55,7 +55,7 @@ const gatewayQuestionMock = vi.hoisted(() => ({
   claimPendingAgentQuestionAnswer: undefined as
     | ((
         ...args: Parameters<
-          typeof import("openclaw/plugin-sdk/agent-harness-runtime").claimPendingAgentQuestionAnswer
+          typeof import("granted/plugin-sdk/agent-harness-runtime").claimPendingAgentQuestionAnswer
         >
       ) => Promise<boolean>)
     | undefined,
@@ -65,7 +65,7 @@ const gatewayQuestionMock = vi.hoisted(() => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/agent-harness-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/agent-harness-runtime")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/agent-harness-runtime")>();
   return {
     ...actual,
     embeddedAgentLog: { ...actual.embeddedAgentLog, warn: gatewayQuestionMock.warn },
@@ -172,7 +172,7 @@ const transcriptRuntimeMock = vi.hoisted(() => ({
 }));
 vi.mock("openclaw/plugin-sdk/session-transcript-runtime", async (importOriginal) => {
   const actual =
-    await importOriginal<typeof import("openclaw/plugin-sdk/session-transcript-runtime")>();
+    await importOriginal<typeof import("granted/plugin-sdk/session-transcript-runtime")>();
   return {
     ...actual,
     appendSessionTranscriptMessageByIdentity: transcriptRuntimeMock.append,

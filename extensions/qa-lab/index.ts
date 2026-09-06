@@ -1,8 +1,8 @@
 // Qa Lab plugin entrypoint registers its OpenClaw integration.
 import { setTimeout as sleep } from "node:timers/promises";
 // Keep plugin registration independent of private QA transports, which packaged runtimes omit.
-import { definePluginEntry } from "openclaw/plugin-sdk/plugin-entry";
-import { jsonResult } from "openclaw/plugin-sdk/tool-results";
+import { definePluginEntry } from "granted/plugin-sdk/plugin-entry";
+import { jsonResult } from "granted/plugin-sdk/tool-results";
 import { createQaLabWebSearchProvider } from "./src/qa-web-search-provider.js";
 import { createStaticSshWorkerProvider } from "./src/static-ssh-worker-provider.js";
 

@@ -2,8 +2,8 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import type { OpenClawCrablineChannelDriverSelection } from "@openclaw/crabline";
-import { fetchWithSsrFGuard } from "openclaw/plugin-sdk/ssrf-runtime";
-import { withTempDir } from "openclaw/plugin-sdk/test-env";
+import { fetchWithSsrFGuard } from "granted/plugin-sdk/ssrf-runtime";
+import { withTempDir } from "granted/plugin-sdk/test-env";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { createQaBusState } from "./bus-state.js";
 import { createQaCrablineTransportAdapter } from "./crabline-transport.js";

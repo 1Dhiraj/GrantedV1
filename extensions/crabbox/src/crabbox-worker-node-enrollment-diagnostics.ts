@@ -1,5 +1,5 @@
-import { redactToolPayloadText } from "openclaw/plugin-sdk/logging-core";
-import { truncateUtf8Prefix } from "openclaw/plugin-sdk/text-utility-runtime";
+import { redactToolPayloadText } from "granted/plugin-sdk/logging-core";
+import { truncateUtf8Prefix } from "granted/plugin-sdk/text-utility-runtime";
 import { crabboxCommandError } from "./crabbox-worker-command-error.js";
 import { runCrabboxCommand, type CrabboxCommandRunner } from "./crabbox-worker-command.js";
 import { CRABBOX_NODE_ENROLLMENT_DIAGNOSTIC_TIMEOUT_MS } from "./crabbox-worker-timeouts.js";

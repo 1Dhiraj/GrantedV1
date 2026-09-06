@@ -1,17 +1,17 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { zstdCompressSync } from "node:zlib";
-import { createOpenClawCodingTools } from "openclaw/plugin-sdk/agent-harness";
-import type { GrantedConfig } from "openclaw/plugin-sdk/memory-core-host-engine-foundation";
-import { listSessionTranscriptCorpusEntriesForAgent } from "openclaw/plugin-sdk/memory-core-host-engine-sessions";
-import { listMemoryArtifactProvenance } from "openclaw/plugin-sdk/memory-core-host-runtime-core";
-import { resetPluginStateStoreForTests } from "openclaw/plugin-sdk/plugin-state-test-runtime";
-import { upsertSessionEntry } from "openclaw/plugin-sdk/session-store-runtime";
-import { appendSessionTranscriptMessageByIdentity } from "openclaw/plugin-sdk/session-transcript-runtime";
+import { createOpenClawCodingTools } from "granted/plugin-sdk/agent-harness";
+import type { GrantedConfig } from "granted/plugin-sdk/memory-core-host-engine-foundation";
+import { listSessionTranscriptCorpusEntriesForAgent } from "granted/plugin-sdk/memory-core-host-engine-sessions";
+import { listMemoryArtifactProvenance } from "granted/plugin-sdk/memory-core-host-runtime-core";
+import { resetPluginStateStoreForTests } from "granted/plugin-sdk/plugin-state-test-runtime";
+import { upsertSessionEntry } from "granted/plugin-sdk/session-store-runtime";
+import { appendSessionTranscriptMessageByIdentity } from "granted/plugin-sdk/session-transcript-runtime";
 import {
   closeOpenClawAgentDatabasesForTest,
   closeOpenClawStateDatabaseForTest,
-} from "openclaw/plugin-sdk/sqlite-runtime-testing";
+} from "granted/plugin-sdk/sqlite-runtime-testing";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { forgetMemoryEntries } from "./memory-forget.js";
 import {

@@ -3,11 +3,11 @@ import crypto from "node:crypto";
 import { createServer, IncomingMessage, type ServerResponse } from "node:http";
 import { Socket } from "node:net";
 import type { webhook } from "@line/bot-sdk";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { ReplyPayload } from "openclaw/plugin-sdk/reply-runtime";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
-import { createMockIncomingRequest } from "openclaw/plugin-sdk/test-env";
-import { WEBHOOK_IN_FLIGHT_DEFAULTS } from "openclaw/plugin-sdk/webhook-request-guards";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { ReplyPayload } from "granted/plugin-sdk/reply-runtime";
+import type { RuntimeEnv } from "granted/plugin-sdk/runtime-env";
+import { createMockIncomingRequest } from "granted/plugin-sdk/test-env";
+import { WEBHOOK_IN_FLIGHT_DEFAULTS } from "granted/plugin-sdk/webhook-request-guards";
 import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { createLineWebhookSpool } from "./webhook-spool.js";
 import { createEvent, withQueue } from "./webhook-spool.test-support.js";
@@ -88,7 +88,7 @@ vi.mock("openclaw/plugin-sdk/reply-runtime", () => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/runtime-env", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/runtime-env")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/runtime-env")>(
     "openclaw/plugin-sdk/runtime-env",
   );
   return {
@@ -99,7 +99,7 @@ vi.mock("openclaw/plugin-sdk/runtime-env", async () => {
 });
 
 vi.mock("openclaw/plugin-sdk/webhook-ingress", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/webhook-ingress")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/webhook-ingress")>(
     "openclaw/plugin-sdk/webhook-ingress",
   );
   return {
@@ -110,7 +110,7 @@ vi.mock("openclaw/plugin-sdk/webhook-ingress", async () => {
 });
 
 vi.mock("openclaw/plugin-sdk/webhook-request-guards", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/webhook-request-guards")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/webhook-request-guards")>(
     "openclaw/plugin-sdk/webhook-request-guards",
   );
   runDetachedWebhookWorkMock.mockImplementation(actual.runDetachedWebhookWork);

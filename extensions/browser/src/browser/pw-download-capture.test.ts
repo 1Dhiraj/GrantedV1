@@ -2,7 +2,7 @@ import { EventEmitter } from "node:events";
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
 import { describe, expect, it, vi } from "vitest";
 import { createDownloadCaptureForPage } from "./pw-download-capture.js";
 

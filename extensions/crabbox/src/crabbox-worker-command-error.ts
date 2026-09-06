@@ -1,6 +1,6 @@
-import { redactSensitiveText } from "openclaw/plugin-sdk/logging-core";
-import type { SpawnResult } from "openclaw/plugin-sdk/process-runtime";
-import { sliceUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+import { redactSensitiveText } from "granted/plugin-sdk/logging-core";
+import type { SpawnResult } from "granted/plugin-sdk/process-runtime";
+import { sliceUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 
 const MAX_COMMAND_DETAIL_CHARS = 512;
 

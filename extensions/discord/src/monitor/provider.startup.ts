@@ -1,9 +1,9 @@
 // Discord provider module implements model/runtime integration.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { isDangerousNameMatchingEnabled } from "openclaw/plugin-sdk/dangerous-name-runtime";
-import { danger } from "openclaw/plugin-sdk/runtime-env";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { isDangerousNameMatchingEnabled } from "granted/plugin-sdk/dangerous-name-runtime";
+import { danger } from "granted/plugin-sdk/runtime-env";
+import type { RuntimeEnv } from "granted/plugin-sdk/runtime-env";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import type { DiscordCommandDeployHashStore } from "../command-deploy-store.js";
 import {
   Client,

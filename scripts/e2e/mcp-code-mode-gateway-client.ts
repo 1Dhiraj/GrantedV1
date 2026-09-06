@@ -2,8 +2,8 @@
 import path from "node:path";
 import { setTimeout as setNodeTimeout, clearTimeout as clearNodeTimeout } from "node:timers";
 import { pathToFileURL } from "node:url";
-import { getSessionEntry } from "openclaw/plugin-sdk/session-store-runtime";
-import { readSessionTranscriptEvents } from "openclaw/plugin-sdk/session-transcript-runtime";
+import { getSessionEntry } from "granted/plugin-sdk/session-store-runtime";
+import { readSessionTranscriptEvents } from "granted/plugin-sdk/session-transcript-runtime";
 import { readBoundedResponseText } from "../lib/bounded-response.mjs";
 import { readPositiveIntEnv } from "./lib/env-limits.mjs";
 import {

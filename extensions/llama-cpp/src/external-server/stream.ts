@@ -1,8 +1,8 @@
-import type { StreamFn } from "openclaw/plugin-sdk/agent-core";
-import { streamSimple } from "openclaw/plugin-sdk/llm";
-import type { ProviderWrapStreamFnContext } from "openclaw/plugin-sdk/plugin-entry";
-import { setQwenChatTemplateThinking } from "openclaw/plugin-sdk/provider-stream-shared";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import type { StreamFn } from "granted/plugin-sdk/agent-core";
+import { streamSimple } from "granted/plugin-sdk/llm";
+import type { ProviderWrapStreamFnContext } from "granted/plugin-sdk/plugin-entry";
+import { setQwenChatTemplateThinking } from "granted/plugin-sdk/provider-stream-shared";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import { LLAMA_CPP_PROVIDER_ID } from "../defaults.js";
 
 /** Maps shared structured-output requests to the shape accepted by older llama-server builds. */

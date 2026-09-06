@@ -1,7 +1,7 @@
 import { writeFile } from "node:fs/promises";
 import path from "node:path";
 import JSZip from "jszip";
-import { openNodeSqliteDatabase } from "openclaw/plugin-sdk/sqlite-runtime";
+import { openNodeSqliteDatabase } from "granted/plugin-sdk/sqlite-runtime";
 import { expect, it } from "vitest";
 import { transformMessages } from "../../../packages/ai/src/transcript-transform.ts";
 import type { AssistantMessage, Model } from "../../../packages/ai/src/types.ts";

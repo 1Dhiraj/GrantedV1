@@ -6,17 +6,17 @@ import {
   readStringParam,
   type AnyAgentTool,
   type PluginRuntime,
-} from "openclaw/plugin-sdk/core";
+} from "granted/plugin-sdk/core";
 import {
   isModelSelectionLocked,
   ModelSelectionLockedError,
-} from "openclaw/plugin-sdk/model-session-runtime";
-import type { GrantedPluginToolContext } from "openclaw/plugin-sdk/plugin-entry";
+} from "granted/plugin-sdk/model-session-runtime";
+import type { GrantedPluginToolContext } from "granted/plugin-sdk/plugin-entry";
 import {
   asBoolean,
   asOptionalRecord,
   asSafeIntegerInRange,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import { Type } from "typebox";
 import { resolveCodexBindingAppServerConnection } from "./app-server/binding-connection.js";
 import { CODEX_CONTROL_METHODS } from "./app-server/capabilities.js";

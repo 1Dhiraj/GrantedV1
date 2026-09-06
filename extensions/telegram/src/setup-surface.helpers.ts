@@ -1,13 +1,13 @@
 // Telegram helper module supports setup surface.helpers behavior.
-import { createChannelDmPolicy } from "openclaw/plugin-sdk/channel-dm-policy";
+import { createChannelDmPolicy } from "granted/plugin-sdk/channel-dm-policy";
 import {
   applySetupAccountConfigPatch,
   DEFAULT_ACCOUNT_ID,
   type GrantedConfig,
   patchChannelConfigForAccount,
-} from "openclaw/plugin-sdk/setup";
-import { formatCliCommand, formatDocsLink } from "openclaw/plugin-sdk/setup-tools";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/setup";
+import { formatCliCommand, formatDocsLink } from "granted/plugin-sdk/setup-tools";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   mergeTelegramAccountConfig,
   resolveDefaultTelegramAccountId,

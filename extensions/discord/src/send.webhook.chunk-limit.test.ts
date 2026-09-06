@@ -1,6 +1,6 @@
 import { createServer } from "node:http";
 import type { AddressInfo } from "node:net";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { describe, expect, it, vi } from "vitest";
 import { chunkDiscordTextWithMode } from "./chunk.js";
 import { sendWebhookMessageDiscord } from "./send.webhook.js";

@@ -9,7 +9,7 @@ function normalizeProcArg(arg: string): string {
 const ENTRY_CANDIDATES = [
   "dist/index.js",
   "dist/entry.js",
-  "openclaw.mjs",
+  "granted.mjs",
   "scripts/run-node.mjs",
   "src/entry.ts",
   "src/index.ts",

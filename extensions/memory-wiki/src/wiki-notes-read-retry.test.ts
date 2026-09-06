@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { expectDefined } from "@openclaw/normalization-core";
-import { FsSafeError } from "openclaw/plugin-sdk/security-runtime";
+import { FsSafeError } from "granted/plugin-sdk/security-runtime";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { applyMemoryWikiMutation } from "./apply.js";
 import { importChatGptConversations } from "./chatgpt-import.js";
@@ -20,7 +20,7 @@ const securityRuntimeMock = vi.hoisted(() => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/security-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/security-runtime")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/security-runtime")>();
   return {
     ...actual,
     root: async (...args: Parameters<typeof actual.root>) => {

@@ -1,7 +1,7 @@
 // Discord tests cover voice message plugin behavior.
 import fs from "node:fs/promises";
 import path from "node:path";
-import { withServer } from "openclaw/plugin-sdk/test-env";
+import { withServer } from "granted/plugin-sdk/test-env";
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { DiscordError, type RequestClient } from "./internal/discord.js";
 import { DISCORD_ATTACHMENT_TOTAL_TIMEOUT_MS } from "./monitor/timeouts.js";

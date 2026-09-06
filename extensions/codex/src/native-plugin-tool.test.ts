@@ -1,4 +1,4 @@
-import type { GrantedPluginToolContext } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginToolContext } from "granted/plugin-sdk/plugin-entry";
 import { describe, expect, it, vi } from "vitest";
 import { CODEX_CONTROL_METHODS } from "./app-server/capabilities.js";
 import type { v2 } from "./app-server/protocol.js";

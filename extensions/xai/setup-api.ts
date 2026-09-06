@@ -1,6 +1,6 @@
 // Xai API module exposes the plugin public contract.
-import { definePluginEntry } from "openclaw/plugin-sdk/plugin-entry";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { definePluginEntry } from "granted/plugin-sdk/plugin-entry";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 
 export default definePluginEntry({
   id: "xai",

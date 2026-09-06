@@ -5,18 +5,18 @@ import path from "node:path";
 import {
   RequestScopedSubagentRuntimeError,
   SUBAGENT_RUNTIME_REQUEST_SCOPE_ERROR_CODE,
-} from "openclaw/plugin-sdk/error-runtime";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
-import { resolveGlobalMap } from "openclaw/plugin-sdk/global-singleton";
-import { resolveStateDir } from "openclaw/plugin-sdk/memory-core-host-runtime-core";
-import * as runtimeConfigSnapshotModule from "openclaw/plugin-sdk/runtime-config-snapshot";
+} from "granted/plugin-sdk/error-runtime";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
+import { resolveGlobalMap } from "granted/plugin-sdk/global-singleton";
+import { resolveStateDir } from "granted/plugin-sdk/memory-core-host-runtime-core";
+import * as runtimeConfigSnapshotModule from "granted/plugin-sdk/runtime-config-snapshot";
 import {
   listSessionEntries,
   loadTranscriptEventsSync,
   upsertSessionEntry,
   type SessionEntry,
-} from "openclaw/plugin-sdk/session-store-runtime";
-import { appendSqliteSessionTranscriptEventForTest } from "openclaw/plugin-sdk/sqlite-runtime-testing";
+} from "granted/plugin-sdk/session-store-runtime";
+import { appendSqliteSessionTranscriptEventForTest } from "granted/plugin-sdk/sqlite-runtime-testing";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { updateDreamsFile } from "./dreaming-dreams-file.js";
 import {

@@ -10,9 +10,9 @@ import {
   type CodexBundleMcpThreadConfig,
   type EmbeddedRunAttemptParamsV2 as EmbeddedRunAttemptParams,
   type resolveSandboxContext,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
-import type { PluginRuntime } from "openclaw/plugin-sdk/plugin-runtime";
-import { sleepWithAbort } from "openclaw/plugin-sdk/runtime-env";
+} from "granted/plugin-sdk/agent-harness-runtime";
+import type { PluginRuntime } from "granted/plugin-sdk/plugin-runtime";
+import { sleepWithAbort } from "granted/plugin-sdk/runtime-env";
 import {
   CODEX_APP_SERVER_UNSUBSCRIBE_TIMEOUT_MS,
   CodexAppServerUnsafeSubscriptionError,

@@ -1,5 +1,5 @@
 // Line tests cover download plugin behavior.
-import { MediaFetchError } from "openclaw/plugin-sdk/media-runtime";
+import { MediaFetchError } from "granted/plugin-sdk/media-runtime";
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 
 const fetchMock = vi.hoisted(() => vi.fn());

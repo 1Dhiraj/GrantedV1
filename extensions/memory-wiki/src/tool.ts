@@ -1,9 +1,9 @@
 // Memory Wiki plugin module implements tool behavior.
 import path from "node:path";
-import { optionalFiniteNumberSchema } from "openclaw/plugin-sdk/channel-actions";
-import type { GrantedPluginToolContext } from "openclaw/plugin-sdk/plugin-entry";
-import { asNonArrayRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { textResult } from "openclaw/plugin-sdk/tool-results";
+import { optionalFiniteNumberSchema } from "granted/plugin-sdk/channel-actions";
+import type { GrantedPluginToolContext } from "granted/plugin-sdk/plugin-entry";
+import { asNonArrayRecord } from "granted/plugin-sdk/string-coerce-runtime";
+import { textResult } from "granted/plugin-sdk/tool-results";
 import { Type } from "typebox";
 import type { AnyAgentTool, GrantedConfig } from "../api.js";
 import { applyMemoryWikiMutation, normalizeMemoryWikiMutationInput } from "./apply.js";

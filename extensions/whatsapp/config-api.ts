@@ -1,3 +1,3 @@
 // Whatsapp API module exposes the plugin public contract.
-export { buildChannelConfigSchema } from "openclaw/plugin-sdk/channel-config-schema";
-export { WhatsAppConfigSchema } from "openclaw/plugin-sdk/bundled-channel-config-schema";
+export { buildChannelConfigSchema } from "granted/plugin-sdk/channel-config-schema";
+export { WhatsAppConfigSchema } from "granted/plugin-sdk/bundled-channel-config-schema";

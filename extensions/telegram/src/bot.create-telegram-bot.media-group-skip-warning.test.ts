@@ -1,5 +1,5 @@
 // Telegram tests cover bot.create telegram bot.media group skip warning plugin behavior.
-import { coerceErrorMessage } from "openclaw/plugin-sdk/error-runtime";
+import { coerceErrorMessage } from "granted/plugin-sdk/error-runtime";
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { telegramBotInfoForTest } from "./bot.create-telegram-bot.test-support.js";
 

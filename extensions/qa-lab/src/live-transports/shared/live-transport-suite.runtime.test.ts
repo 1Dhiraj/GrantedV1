@@ -1,8 +1,8 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { Command } from "commander";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
-import { useAutoCleanupTempDirTracker } from "openclaw/plugin-sdk/test-env";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
+import { useAutoCleanupTempDirTracker } from "granted/plugin-sdk/test-env";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const runQaSuiteCommand = vi.hoisted(() => vi.fn());

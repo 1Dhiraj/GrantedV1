@@ -1,5 +1,5 @@
 // Codex tests pin the full app-server auth-requirement matrix so one-sided changes fail loudly.
-import type { AuthProfileStore } from "openclaw/plugin-sdk/agent-runtime";
+import type { AuthProfileStore } from "granted/plugin-sdk/agent-runtime";
 import { describe, expect, it, vi } from "vitest";
 import {
   applyCodexAppServerAuthProfile,

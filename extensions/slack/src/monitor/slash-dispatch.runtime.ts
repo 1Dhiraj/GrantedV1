@@ -2,29 +2,29 @@
 import {
   dispatchChannelInboundTurn as dispatchChannelInboundTurnImpl,
   isChannelPartialDeliveryError as isChannelPartialDeliveryErrorImpl,
-} from "openclaw/plugin-sdk/channel-inbound";
-import { resolveConversationLabel as resolveConversationLabelImpl } from "openclaw/plugin-sdk/conversation-runtime";
-import { resolveMarkdownTableMode as resolveMarkdownTableModeImpl } from "openclaw/plugin-sdk/markdown-table-runtime";
+} from "granted/plugin-sdk/channel-inbound";
+import { resolveConversationLabel as resolveConversationLabelImpl } from "granted/plugin-sdk/conversation-runtime";
+import { resolveMarkdownTableMode as resolveMarkdownTableModeImpl } from "granted/plugin-sdk/markdown-table-runtime";
 import {
   finalizeInboundContext as finalizeInboundContextImpl,
   resolveChunkMode as resolveChunkModeImpl,
-} from "openclaw/plugin-sdk/reply-runtime";
-import { resolveAgentRoute as resolveAgentRouteImpl } from "openclaw/plugin-sdk/routing";
+} from "granted/plugin-sdk/reply-runtime";
+import { resolveAgentRoute as resolveAgentRouteImpl } from "granted/plugin-sdk/routing";
 import { deliverSlackSlashReplies as deliverSlackSlashRepliesImpl } from "./replies.js";
 export { sanitizeSlackMonitorReplyPayload } from "./replies.js";
 
-type ResolveChunkMode = typeof import("openclaw/plugin-sdk/reply-runtime").resolveChunkMode;
+type ResolveChunkMode = typeof import("granted/plugin-sdk/reply-runtime").resolveChunkMode;
 type FinalizeInboundContext =
-  typeof import("openclaw/plugin-sdk/reply-runtime").finalizeInboundContext;
+  typeof import("granted/plugin-sdk/reply-runtime").finalizeInboundContext;
 type DispatchChannelInboundTurn =
-  typeof import("openclaw/plugin-sdk/channel-inbound").dispatchChannelInboundTurn;
+  typeof import("granted/plugin-sdk/channel-inbound").dispatchChannelInboundTurn;
 type IsChannelPartialDeliveryError =
-  typeof import("openclaw/plugin-sdk/channel-inbound").isChannelPartialDeliveryError;
+  typeof import("granted/plugin-sdk/channel-inbound").isChannelPartialDeliveryError;
 type ResolveConversationLabel =
-  typeof import("openclaw/plugin-sdk/conversation-runtime").resolveConversationLabel;
+  typeof import("granted/plugin-sdk/conversation-runtime").resolveConversationLabel;
 type ResolveMarkdownTableMode =
-  typeof import("openclaw/plugin-sdk/markdown-table-runtime").resolveMarkdownTableMode;
-type ResolveAgentRoute = typeof import("openclaw/plugin-sdk/routing").resolveAgentRoute;
+  typeof import("granted/plugin-sdk/markdown-table-runtime").resolveMarkdownTableMode;
+type ResolveAgentRoute = typeof import("granted/plugin-sdk/routing").resolveAgentRoute;
 type DeliverSlackSlashReplies = typeof import("./replies.js").deliverSlackSlashReplies;
 
 export function resolveChunkMode(

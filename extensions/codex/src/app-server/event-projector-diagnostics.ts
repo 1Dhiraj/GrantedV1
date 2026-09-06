@@ -1,6 +1,6 @@
-import { embeddedAgentLog } from "openclaw/plugin-sdk/agent-harness-runtime";
-import { redactSensitiveText } from "openclaw/plugin-sdk/logging-core";
-import { sanitizeTerminalText } from "openclaw/plugin-sdk/text-chunking";
+import { embeddedAgentLog } from "granted/plugin-sdk/agent-harness-runtime";
+import { redactSensitiveText } from "granted/plugin-sdk/logging-core";
+import { sanitizeTerminalText } from "granted/plugin-sdk/text-chunking";
 import { unknownItemStatus } from "./event-projector-items.js";
 import {
   readCodexNotificationThreadId,

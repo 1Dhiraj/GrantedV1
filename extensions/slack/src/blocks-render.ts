@@ -1,11 +1,11 @@
 // Slack plugin module implements blocks render behavior.
 import type { Block, KnownBlock } from "@slack/web-api";
-import { parseExecApprovalCommandText } from "openclaw/plugin-sdk/approval-reply-runtime";
+import { parseExecApprovalCommandText } from "granted/plugin-sdk/approval-reply-runtime";
 import {
   legacyInteractiveReplyToPresentation,
   resolveMessagePresentationButtonAction,
   resolveMessagePresentationOptionAction,
-} from "openclaw/plugin-sdk/interactive-runtime";
+} from "granted/plugin-sdk/interactive-runtime";
 import type {
   LegacyInteractiveReply,
   MessagePresentation,
@@ -13,13 +13,13 @@ import type {
   MessagePresentationButtonsBlock,
   MessagePresentationChartBlock,
   MessagePresentationSelectBlock,
-} from "openclaw/plugin-sdk/interactive-runtime";
+} from "granted/plugin-sdk/interactive-runtime";
 import {
   resolveAskUserQuestionOptionIndex,
   type AskUserQuestionOptionIndices,
-} from "openclaw/plugin-sdk/reply-payload";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { chunkTextForOutbound } from "openclaw/plugin-sdk/text-chunking";
+} from "granted/plugin-sdk/reply-payload";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
+import { chunkTextForOutbound } from "granted/plugin-sdk/text-chunking";
 import { encodeSlackApprovalAction } from "./approval-actions.js";
 import {
   buildSlackDataTableBlock,

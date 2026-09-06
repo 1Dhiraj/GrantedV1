@@ -1,9 +1,9 @@
 // Github Copilot tests cover stream plugin behavior.
 import { createServer } from "node:http";
 import type { AddressInfo } from "node:net";
-import type { StreamFn } from "openclaw/plugin-sdk/agent-core";
-import { streamSimple, type Context, type Model } from "openclaw/plugin-sdk/llm";
-import { buildCopilotIdeHeaders } from "openclaw/plugin-sdk/provider-auth";
+import type { StreamFn } from "granted/plugin-sdk/agent-core";
+import { streamSimple, type Context, type Model } from "granted/plugin-sdk/llm";
+import { buildCopilotIdeHeaders } from "granted/plugin-sdk/provider-auth";
 import { describe, expect, it, vi } from "vitest";
 import { wrapCopilotProviderStream } from "./stream.js";
 

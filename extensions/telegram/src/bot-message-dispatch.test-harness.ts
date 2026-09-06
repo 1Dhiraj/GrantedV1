@@ -5,7 +5,7 @@ import {
   createPluginStateKeyedStoreForTests,
   createPluginStateSyncKeyedStoreForTests,
   resetPluginStateStoreForTests,
-} from "openclaw/plugin-sdk/plugin-state-test-runtime";
+} from "granted/plugin-sdk/plugin-state-test-runtime";
 import { afterEach, beforeAll, beforeEach, describe, expect, vi } from "vitest";
 import { resolveAutoTopicLabelConfig as resolveAutoTopicLabelConfigRuntime } from "./auto-topic-label-config.js";
 import type { TelegramBotDeps } from "./bot-deps.js";
@@ -167,7 +167,7 @@ vi.mock("./draft-stream.js", () => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/channel-outbound", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/channel-outbound")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/channel-outbound")>();
   return {
     ...actual,
     deliverInboundReplyWithMessageSendContext: deliverInboundReplyWithMessageSendContextHoisted,
@@ -175,7 +175,7 @@ vi.mock("openclaw/plugin-sdk/channel-outbound", async (importOriginal) => {
 });
 
 vi.mock("openclaw/plugin-sdk/plugin-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/plugin-runtime")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/plugin-runtime")>();
   return {
     ...actual,
     getGlobalHookRunner: getGlobalHookRunnerHoisted,
@@ -183,7 +183,7 @@ vi.mock("openclaw/plugin-sdk/plugin-runtime", async (importOriginal) => {
 });
 
 vi.mock("openclaw/plugin-sdk/channel-inbound", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/channel-inbound")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/channel-inbound")>();
   type RunParams = Parameters<typeof actual.runChannelInboundEvent>[0];
   type TestTurn = {
     storePath: string;
@@ -212,7 +212,7 @@ vi.mock("openclaw/plugin-sdk/channel-inbound", async (importOriginal) => {
         throw new Error("expected assembled Telegram channel turn plan");
       }
       const delivery =
-        resolved.delivery as unknown as import("openclaw/plugin-sdk/channel-inbound").ChannelInboundTurnPlan<"provider_message_sending">["delivery"];
+        resolved.delivery as unknown as import("granted/plugin-sdk/channel-inbound").ChannelInboundTurnPlan<"provider_message_sending">["delivery"];
       const testTurn = (params.raw as { turn: TestTurn }).turn;
       const result = await actual.runPreparedInboundReply({
         channel: resolved.channel,
@@ -258,7 +258,7 @@ vi.mock("openclaw/plugin-sdk/channel-inbound", async (importOriginal) => {
 
 vi.mock("openclaw/plugin-sdk/session-transcript-runtime", async (importOriginal) => {
   const actual =
-    await importOriginal<typeof import("openclaw/plugin-sdk/session-transcript-runtime")>();
+    await importOriginal<typeof import("granted/plugin-sdk/session-transcript-runtime")>();
   return {
     ...actual,
     appendAssistantMirrorMessageByIdentity: appendAssistantMirrorMessageByIdentityHoisted,

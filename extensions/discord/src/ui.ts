@@ -1,5 +1,5 @@
 // Discord plugin module implements ui behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { Container } from "./internal/discord.js";
 import { normalizeDiscordAccentColor, resolveDiscordAccentColor } from "./ui-colors.js";
 

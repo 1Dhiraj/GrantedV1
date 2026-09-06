@@ -1,6 +1,6 @@
 // Memory Wiki plugin module implements prompt section behavior.
-import type { MemoryPromptSectionBuilder } from "openclaw/plugin-sdk/memory-host-core";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+import type { MemoryPromptSectionBuilder } from "granted/plugin-sdk/memory-host-core";
+import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import {
   loadMemoryWikiCompiledCache,
   type MemoryWikiCompiledCacheSnapshot,

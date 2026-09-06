@@ -1,13 +1,13 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   resolveMemoryDreamingPluginConfig,
   resolveSessionTranscriptsDirForAgent,
-} from "openclaw/plugin-sdk/memory-core-host-runtime-core";
-import { clearRuntimeConfigSnapshot } from "openclaw/plugin-sdk/runtime-config-snapshot";
-import { upsertSessionEntry } from "openclaw/plugin-sdk/session-store-runtime";
-import { appendSessionTranscriptMessageByIdentity } from "openclaw/plugin-sdk/session-transcript-runtime";
+} from "granted/plugin-sdk/memory-core-host-runtime-core";
+import { clearRuntimeConfigSnapshot } from "granted/plugin-sdk/runtime-config-snapshot";
+import { upsertSessionEntry } from "granted/plugin-sdk/session-store-runtime";
+import { appendSessionTranscriptMessageByIdentity } from "granted/plugin-sdk/session-transcript-runtime";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 vi.mock("openclaw/plugin-sdk/memory-host-events", () => ({

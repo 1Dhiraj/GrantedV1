@@ -2,7 +2,7 @@
 import {
   getProviderHttpMocks,
   installProviderHttpMockCleanup,
-} from "openclaw/plugin-sdk/provider-http-test-mocks";
+} from "granted/plugin-sdk/provider-http-test-mocks";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { buildOpenRouterImageGenerationProvider } from "./image-generation-provider.js";
 

@@ -1,12 +1,12 @@
 // Mattermost plugin module implements interactions behavior.
 import { createHmac } from "node:crypto";
 import type { IncomingMessage, ServerResponse } from "node:http";
-import { resolveGatewayPort } from "openclaw/plugin-sdk/gateway-config-runtime";
-import { safeEqualSecret } from "openclaw/plugin-sdk/security-runtime";
+import { resolveGatewayPort } from "granted/plugin-sdk/gateway-config-runtime";
+import { safeEqualSecret } from "granted/plugin-sdk/security-runtime";
 import {
   normalizeOptionalString,
   normalizeStringifiedOptionalString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import { getMattermostRuntime } from "../runtime.js";
 import { isWildcardBindHost } from "./callback-host.js";
 import { updateMattermostPost, type MattermostClient, type MattermostPost } from "./client.js";

@@ -2,7 +2,7 @@
 import type {
   GrantedConfig,
   ResolvedMemorySearchConfig,
-} from "openclaw/plugin-sdk/memory-core-host-engine-foundation";
+} from "granted/plugin-sdk/memory-core-host-engine-foundation";
 import {
   resolveEmbeddingProviderFallbackModel,
   resolveEmbeddingProviderFallbackRemote,

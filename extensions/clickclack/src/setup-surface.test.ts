@@ -7,8 +7,8 @@ import {
   createTestWizardPrompter,
   runSetupWizardConfigure,
   runSetupWizardFinalize,
-} from "openclaw/plugin-sdk/plugin-test-runtime";
-import { withTempDir } from "openclaw/plugin-sdk/test-env";
+} from "granted/plugin-sdk/plugin-test-runtime";
+import { withTempDir } from "granted/plugin-sdk/test-env";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const mocks = vi.hoisted(() => ({

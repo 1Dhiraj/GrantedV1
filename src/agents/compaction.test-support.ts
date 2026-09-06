@@ -1,5 +1,5 @@
-import type { AgentMessage } from "openclaw/plugin-sdk/agent-core";
-import type { ExtensionContext } from "openclaw/plugin-sdk/agent-sessions";
+import type { AgentMessage } from "granted/plugin-sdk/agent-core";
+import type { ExtensionContext } from "granted/plugin-sdk/agent-sessions";
 import type { CompactionSummarizationInstructions } from "./compaction.js";
 import "./compaction.js";
 

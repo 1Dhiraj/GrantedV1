@@ -1,15 +1,15 @@
-import { resolveAgentDir } from "openclaw/plugin-sdk/agent-scope-runtime";
-import type { PluginLogger } from "openclaw/plugin-sdk/plugin-entry";
-import { resolveProviderRequestHeaders } from "openclaw/plugin-sdk/provider-http";
+import { resolveAgentDir } from "granted/plugin-sdk/agent-scope-runtime";
+import type { PluginLogger } from "granted/plugin-sdk/plugin-entry";
+import { resolveProviderRequestHeaders } from "granted/plugin-sdk/provider-http";
 import type {
   RealtimeVoiceBrowserSession,
   RealtimeVoiceBrowserSessionCreateRequest,
   RealtimeVoiceProviderCapabilities,
   RealtimeVoiceProviderConfig,
   RealtimeVoiceProviderPlugin,
-} from "openclaw/plugin-sdk/realtime-voice";
-import { REALTIME_VOICE_AUDIO_FORMAT_PCM16_24KHZ } from "openclaw/plugin-sdk/realtime-voice";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/realtime-voice";
+import { REALTIME_VOICE_AUDIO_FORMAT_PCM16_24KHZ } from "granted/plugin-sdk/realtime-voice";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import { createOpenAIRealtimeClientSecret } from "./realtime-provider-shared.js";
 import { OpenAIQuicksilverVoiceBridge } from "./realtime-quicksilver-bridge.js";
 import { OpenAIQuicksilverGatewayBridge } from "./realtime-quicksilver-gateway-bridge.js";

@@ -1,7 +1,7 @@
 // Lazy GPT-Live media runtime: werift peer plus WASM Opus framing and PCM conversion.
 import { randomInt } from "node:crypto";
-import { toErrorObject } from "openclaw/plugin-sdk/error-runtime";
-import { createStreamingPcmResampler, resamplePcm } from "openclaw/plugin-sdk/realtime-voice";
+import { toErrorObject } from "granted/plugin-sdk/error-runtime";
+import { createStreamingPcmResampler, resamplePcm } from "granted/plugin-sdk/realtime-voice";
 import {
   OpenAIQuicksilverPendingAudio,
   OPENAI_QUICKSILVER_RELAY_FRAME_BYTES,

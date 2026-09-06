@@ -1,5 +1,5 @@
 import type { OpenClawCrablineChannelDriverSelection } from "@openclaw/crabline";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import type { QaEvidenceTiming, QaEvidenceSummaryJson } from "./evidence-summary.js";
 import type { QaCliBackendAuthMode, QaGatewayChildCommand } from "./gateway-child.js";
 import type { QaLabServerHandle, QaLabServerStartParams } from "./lab-server.types.js";

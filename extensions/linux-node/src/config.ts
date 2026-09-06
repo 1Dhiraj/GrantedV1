@@ -1,5 +1,5 @@
-import type { GrantedPluginNodeHostCommandAvailabilityContext } from "openclaw/plugin-sdk/plugin-entry";
-import { buildPluginConfigSchema } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginNodeHostCommandAvailabilityContext } from "granted/plugin-sdk/plugin-entry";
+import { buildPluginConfigSchema } from "granted/plugin-sdk/plugin-entry";
 import { z } from "zod";
 
 const CapabilityConfigSchema = z.strictObject({

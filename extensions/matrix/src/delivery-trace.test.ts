@@ -18,20 +18,20 @@ import {
   type DeliveryTraceInStep,
   type DeliveryTraceScenario,
   type WireRecorder,
-} from "openclaw/plugin-sdk/channel-contract-testing";
+} from "granted/plugin-sdk/channel-contract-testing";
 import {
   implicitMentionKindWhen,
   resolveInboundMentionDecision,
-} from "openclaw/plugin-sdk/channel-mention-gating";
-import { resolveMarkdownTableMode } from "openclaw/plugin-sdk/markdown-table-runtime";
-import type { PluginRuntime } from "openclaw/plugin-sdk/plugin-runtime";
+} from "granted/plugin-sdk/channel-mention-gating";
+import { resolveMarkdownTableMode } from "granted/plugin-sdk/markdown-table-runtime";
+import type { PluginRuntime } from "granted/plugin-sdk/plugin-runtime";
 import {
   chunkMarkdownTextWithMode,
   resolveChunkMode,
   resolveTextChunkLimit,
-} from "openclaw/plugin-sdk/reply-chunking";
-import type { ReplyPayload } from "openclaw/plugin-sdk/reply-runtime";
-import { convertMarkdownTables } from "openclaw/plugin-sdk/text-chunking";
+} from "granted/plugin-sdk/reply-chunking";
+import type { ReplyPayload } from "granted/plugin-sdk/reply-runtime";
+import { convertMarkdownTables } from "granted/plugin-sdk/text-chunking";
 import { beforeAll, describe, it, vi } from "vitest";
 import {
   createMatrixHandlerTestHarness,

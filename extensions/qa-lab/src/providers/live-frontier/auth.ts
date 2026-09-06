@@ -1,5 +1,5 @@
 // Qa Lab plugin module implements auth behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   applyAuthProfileConfig,
   coerceSecretRef,
@@ -9,8 +9,8 @@ import {
   readCodexCliCredentialsCached,
   resolveEnvApiKey,
   validateAnthropicSetupToken,
-} from "openclaw/plugin-sdk/provider-auth";
-import { normalizeStringEntries, uniqueStrings } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/provider-auth";
+import { normalizeStringEntries, uniqueStrings } from "granted/plugin-sdk/string-coerce-runtime";
 import { writeQaAuthProfiles } from "../shared/auth-store.js";
 
 export const QA_LIVE_ANTHROPIC_SETUP_TOKEN_ENV = "GRANTED_QA_LIVE_ANTHROPIC_SETUP_TOKEN";

@@ -6,21 +6,21 @@
  */
 import os from "node:os";
 import path from "node:path";
-import { parseBrowserHttpUrl, redactCdpUrl } from "openclaw/plugin-sdk/browser-cdp";
+import { parseBrowserHttpUrl, redactCdpUrl } from "granted/plugin-sdk/browser-cdp";
 import type {
   BrowserConfig,
   BrowserProfileConfig,
   GrantedConfig,
-} from "openclaw/plugin-sdk/config-contracts";
-import { resolveGatewayPort } from "openclaw/plugin-sdk/gateway-config-runtime";
-import { mergeSsrFPolicies } from "openclaw/plugin-sdk/ssrf-policy";
-import { isLoopbackHost, type SsrFPolicy } from "openclaw/plugin-sdk/ssrf-runtime";
+} from "granted/plugin-sdk/config-contracts";
+import { resolveGatewayPort } from "granted/plugin-sdk/gateway-config-runtime";
+import { mergeSsrFPolicies } from "granted/plugin-sdk/ssrf-policy";
+import { isLoopbackHost, type SsrFPolicy } from "granted/plugin-sdk/ssrf-runtime";
 import {
   normalizeOptionalString,
   normalizeOptionalTrimmedStringList,
   parseBooleanValue,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
-import { resolveUserPath } from "openclaw/plugin-sdk/text-utility-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
+import { resolveUserPath } from "granted/plugin-sdk/text-utility-runtime";
 import {
   DEFAULT_BROWSER_CONTROL_PORT,
   deriveDefaultBrowserCdpPortRange,

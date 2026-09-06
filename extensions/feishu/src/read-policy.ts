@@ -1,16 +1,16 @@
 import {
   compileAllowlist,
   resolveAllowlistMatchByCandidates,
-} from "openclaw/plugin-sdk/allow-from";
-import { ToolAuthorizationError } from "openclaw/plugin-sdk/channel-actions";
-import type { ChannelMessageActionContext } from "openclaw/plugin-sdk/channel-contract";
-import type { GrantedConfig } from "openclaw/plugin-sdk/core";
-import type { GrantedPluginToolContext } from "openclaw/plugin-sdk/plugin-entry";
+} from "granted/plugin-sdk/allow-from";
+import { ToolAuthorizationError } from "granted/plugin-sdk/channel-actions";
+import type { ChannelMessageActionContext } from "granted/plugin-sdk/channel-contract";
+import type { GrantedConfig } from "granted/plugin-sdk/core";
+import type { GrantedPluginToolContext } from "granted/plugin-sdk/plugin-entry";
 import {
   resolveDefaultGroupPolicy,
   resolveOpenProviderRuntimeGroupPolicy,
-} from "openclaw/plugin-sdk/runtime-group-policy";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/runtime-group-policy";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import { normalizeFeishuChatType } from "./chat-type.js";
 import {
   hasExplicitFeishuGroupConfig,

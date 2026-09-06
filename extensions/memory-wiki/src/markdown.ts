@@ -8,8 +8,8 @@ import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
   normalizeSingleOrTrimmedStringList,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
-import { truncateUtf8Prefix } from "openclaw/plugin-sdk/text-utility-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
+import { truncateUtf8Prefix } from "granted/plugin-sdk/text-utility-runtime";
 import YAML from "yaml";
 
 const WIKI_PAGE_KINDS = ["entity", "concept", "source", "synthesis", "report"] as const;

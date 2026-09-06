@@ -5,14 +5,14 @@ import path from "node:path";
 import {
   createChannelPartialDeliveryError,
   isChannelPartialDeliveryError,
-} from "openclaw/plugin-sdk/channel-inbound";
-import { verifyChannelMessageAdapterCapabilityProofs } from "openclaw/plugin-sdk/channel-outbound";
+} from "granted/plugin-sdk/channel-inbound";
+import { verifyChannelMessageAdapterCapabilityProofs } from "granted/plugin-sdk/channel-outbound";
 import {
   adaptMessagePresentationForChannel,
   renderMessagePresentationFallbackText,
   type MessagePresentation,
   type MessagePresentationAction,
-} from "openclaw/plugin-sdk/interactive-runtime";
+} from "granted/plugin-sdk/interactive-runtime";
 import { afterAll, beforeEach, describe, expect, it, vi } from "vitest";
 import type { ClawdbotConfig, ReplyPayload } from "../runtime-api.js";
 import {

@@ -5,11 +5,11 @@ import {
   buildSkillWorkshopPromptSection,
   resolveMainSessionDelegationMode,
   SKILL_WORKSHOP_TOOL_NAME,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
+} from "granted/plugin-sdk/agent-harness-runtime";
 import {
   normalizeUniqueStringEntries,
   readNonEmptyStringPreservingWhitespace as readNonEmptyString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import { isRawCopilotModelRun } from "./attempt-mode.js";
 import type { AttemptParamsLike } from "./attempt-types.js";
 

@@ -7,7 +7,7 @@
 // during iMessage config migration. See
 // https://github.com/openclaw/openclaw/issues/78749.
 
-import { createDedupeCache } from "openclaw/plugin-sdk/dedupe-runtime";
+import { createDedupeCache } from "granted/plugin-sdk/dedupe-runtime";
 
 const PER_CHAT_WARNING_CACHE_MAX_SIZE = 512;
 const startupWarned = new Set<string>();

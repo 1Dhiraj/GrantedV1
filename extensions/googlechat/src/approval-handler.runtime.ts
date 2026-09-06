@@ -4,13 +4,13 @@ import type {
   ExpiredApprovalView,
   PendingApprovalView,
   ResolvedApprovalView,
-} from "openclaw/plugin-sdk/approval-handler-runtime";
-import { createChannelApprovalNativeRuntimeAdapter } from "openclaw/plugin-sdk/approval-handler-runtime";
-import { buildChannelApprovalNativeTargetKey } from "openclaw/plugin-sdk/approval-native-runtime";
-import type { ExecApprovalDecision } from "openclaw/plugin-sdk/approval-runtime";
-import { createSubsystemLogger } from "openclaw/plugin-sdk/runtime-env";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+} from "granted/plugin-sdk/approval-handler-runtime";
+import { createChannelApprovalNativeRuntimeAdapter } from "granted/plugin-sdk/approval-handler-runtime";
+import { buildChannelApprovalNativeTargetKey } from "granted/plugin-sdk/approval-native-runtime";
+import type { ExecApprovalDecision } from "granted/plugin-sdk/approval-runtime";
+import { createSubsystemLogger } from "granted/plugin-sdk/runtime-env";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
+import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import { resolveGoogleChatAccount, type ResolvedGoogleChatAccount } from "./accounts.js";
 import { sendGoogleChatMessage, updateGoogleChatMessage } from "./api.js";
 import {

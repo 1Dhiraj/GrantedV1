@@ -6,9 +6,9 @@
  */
 import fs from "node:fs/promises";
 import path from "node:path";
-import { createSubsystemLogger } from "openclaw/plugin-sdk/runtime-env";
-import { asNullableRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { truncateUtf8Prefix } from "openclaw/plugin-sdk/text-utility-runtime";
+import { createSubsystemLogger } from "granted/plugin-sdk/runtime-env";
+import { asNullableRecord } from "granted/plugin-sdk/string-coerce-runtime";
+import { truncateUtf8Prefix } from "granted/plugin-sdk/text-utility-runtime";
 import {
   assertBrowserProxyFileBytesWithinLimits,
   assertBrowserProxyFileCountWithinLimit,

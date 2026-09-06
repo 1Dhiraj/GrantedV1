@@ -6,8 +6,8 @@ import {
   resolveMainSessionDelegationMode,
   SKILL_WORKSHOP_TOOL_NAME,
   type EmbeddedRunAttemptParamsV2 as EmbeddedRunAttemptParams,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
-import { listRegisteredPluginAgentPromptGuidance } from "openclaw/plugin-sdk/plugin-runtime";
+} from "granted/plugin-sdk/agent-harness-runtime";
+import { listRegisteredPluginAgentPromptGuidance } from "granted/plugin-sdk/plugin-runtime";
 import {
   isMessageOnlyCodexSourceReply,
   isSystemAgentOnlyCodexDynamicToolAllowlist,

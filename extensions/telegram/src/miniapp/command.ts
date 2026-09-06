@@ -1,10 +1,10 @@
-import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "openclaw/plugin-sdk/account-id";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "granted/plugin-sdk/account-id";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import type {
   GrantedPluginApi,
   GrantedPluginCommandDefinition,
   PluginCommandContext,
-} from "openclaw/plugin-sdk/plugin-entry";
+} from "granted/plugin-sdk/plugin-entry";
 import type { TelegramMiniAppLaunchTickets } from "./launch-ticket.js";
 import { isTelegramMiniAppOwner } from "./owner.js";
 import { resolveTelegramMiniAppUrls, TELEGRAM_MINIAPP_URL_ERROR } from "./url.js";

@@ -1,7 +1,7 @@
 import type { AuthenticateResult } from "mailauth";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
-import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
-import { createPluginRuntimeMock } from "openclaw/plugin-sdk/plugin-test-runtime";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
+import type { GrantedPluginApi } from "granted/plugin-sdk/plugin-entry";
+import { createPluginRuntimeMock } from "granted/plugin-sdk/plugin-test-runtime";
 import { vi } from "vitest";
 import { createImapState, type ImapCursor } from "./state.js";
 

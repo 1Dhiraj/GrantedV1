@@ -1,5 +1,5 @@
 import { once } from "node:events";
-import { createRealtimeVoiceSessionHarness } from "openclaw/plugin-sdk/realtime-voice";
+import { createRealtimeVoiceSessionHarness } from "granted/plugin-sdk/realtime-voice";
 import { expect, it, vi } from "vitest";
 import { createVoiceCaptureState } from "./capture-state.js";
 import { DiscordRealtimePlayback } from "./realtime-playback.js";

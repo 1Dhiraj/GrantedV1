@@ -165,7 +165,7 @@ const rootEntries = [
   "config/knip.config.ts!",
   "config/knip.all-exports.config.ts!",
   "config/knip.scripts-exports.config.ts!",
-  "openclaw.mjs!",
+  "granted.mjs!",
   "src/index.ts!",
   "src/entry.ts!",
   // Built as the official image's Docker HEALTHCHECK entrypoint.

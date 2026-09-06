@@ -6,18 +6,18 @@ import {
   replaceRuntimeAuthProfileStoreSnapshots,
   resolveDefaultAgentDir,
   type AuthProfileStore,
-} from "openclaw/plugin-sdk/agent-runtime";
-import { getSessionBindingService } from "openclaw/plugin-sdk/conversation-binding-runtime";
-import { MODEL_SELECTION_LOCKED_MESSAGE } from "openclaw/plugin-sdk/model-session-runtime";
-import type { PluginCommandContext, PluginCommandResult } from "openclaw/plugin-sdk/plugin-entry";
+} from "granted/plugin-sdk/agent-runtime";
+import { getSessionBindingService } from "granted/plugin-sdk/conversation-binding-runtime";
+import { MODEL_SELECTION_LOCKED_MESSAGE } from "granted/plugin-sdk/model-session-runtime";
+import type { PluginCommandContext, PluginCommandResult } from "granted/plugin-sdk/plugin-entry";
 import {
   clearSessionStoreCacheForTest,
   getSessionEntry,
   resolveStorePath,
   upsertSessionEntry,
-} from "openclaw/plugin-sdk/session-store-runtime";
+} from "granted/plugin-sdk/session-store-runtime";
 // Codex tests cover commands plugin behavior.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { CODEX_CONTROL_METHODS } from "./app-server/capabilities.js";
 import {

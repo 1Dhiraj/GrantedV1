@@ -2,16 +2,16 @@
 import type {
   ChannelDoctorConfigMutation,
   ChannelDoctorLegacyConfigRule,
-} from "openclaw/plugin-sdk/channel-contract";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { DEFAULT_GROUP_HISTORY_LIMIT } from "openclaw/plugin-sdk/reply-history";
+} from "granted/plugin-sdk/channel-contract";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { DEFAULT_GROUP_HISTORY_LIMIT } from "granted/plugin-sdk/reply-history";
 import {
   asObjectRecord,
   defineChannelAliasMigration,
   hasLegacyAccountStreamingAliases,
   normalizeChannelAccounts,
   stripRetiredChannelKeys,
-} from "openclaw/plugin-sdk/runtime-doctor-migrations";
+} from "granted/plugin-sdk/runtime-doctor-migrations";
 
 const streamingAliasMigration = defineChannelAliasMigration({
   channelId: "telegram",

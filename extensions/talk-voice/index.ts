@@ -1,14 +1,14 @@
 // Talk Voice plugin entrypoint registers its OpenClaw integration.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import { parseStrictPositiveInteger } from "openclaw/plugin-sdk/number-runtime";
-import type { SpeechVoiceOption } from "openclaw/plugin-sdk/speech";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
+import { parseStrictPositiveInteger } from "granted/plugin-sdk/number-runtime";
+import type { SpeechVoiceOption } from "granted/plugin-sdk/speech";
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalLowercaseString,
   normalizeOptionalString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
-import { resolveActiveTalkProviderConfig } from "openclaw/plugin-sdk/talk-config-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
+import { resolveActiveTalkProviderConfig } from "granted/plugin-sdk/talk-config-runtime";
 import { definePluginEntry, type GrantedPluginApi } from "./api.js";
 
 function mask(s: string, keep = 6): string {

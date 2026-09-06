@@ -1,11 +1,11 @@
-import { isRecord } from "openclaw/plugin-sdk/channel-secret-basic-runtime";
-import type { AnyAgentTool, GrantedPluginToolContext } from "openclaw/plugin-sdk/plugin-entry";
-import { asNonArrayRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { jsonResult } from "openclaw/plugin-sdk/tool-results";
+import { isRecord } from "granted/plugin-sdk/channel-secret-basic-runtime";
+import type { AnyAgentTool, GrantedPluginToolContext } from "granted/plugin-sdk/plugin-entry";
+import { asNonArrayRecord } from "granted/plugin-sdk/string-coerce-runtime";
+import { jsonResult } from "granted/plugin-sdk/tool-results";
 import type {
   PluginHookToolResultPersistEvent,
   PluginHookToolResultPersistResult,
-} from "openclaw/plugin-sdk/types";
+} from "granted/plugin-sdk/types";
 import { parseToolInput, type OnePasswordBroker } from "./broker.js";
 import { OnePasswordError } from "./errors.js";
 import { AUTHORIZATION_NONCE_PARAM } from "./pending-authorization.js";

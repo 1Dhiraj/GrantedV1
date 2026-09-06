@@ -2,8 +2,8 @@
 import {
   buildChannelGroupsScopeTree,
   resolveScopeRequireMention,
-} from "openclaw/plugin-sdk/channel-policy";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+} from "granted/plugin-sdk/channel-policy";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { resolveExactLineGroupConfigKey } from "./group-keys.js";
 
 type LineGroupContext = { cfg: GrantedConfig; accountId?: string | null; groupId?: string | null };

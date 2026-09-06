@@ -5,7 +5,7 @@ import { randomUUID } from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import type { QaProviderMode } from "../../extensions/qa-lab/src/run-config.ts";
 import type { QaSuiteRoundTripProbe } from "../../extensions/qa-lab/src/suite-round-trip.ts";
 import { normalizeCsvOrLooseStringList } from "../../packages/normalization-core/src/string-normalization.ts";

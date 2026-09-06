@@ -2,18 +2,18 @@
 import {
   createChannelPartialDeliveryError,
   isChannelPartialDeliveryError,
-} from "openclaw/plugin-sdk/channel-inbound";
+} from "granted/plugin-sdk/channel-inbound";
 import {
   createMessageReceiptFromOutboundResults,
   listMessageReceiptPlatformIds,
-} from "openclaw/plugin-sdk/channel-outbound";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+} from "granted/plugin-sdk/channel-outbound";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   deliverTextOrMediaReply,
   resolveSendableOutboundReplyParts,
-} from "openclaw/plugin-sdk/reply-payload";
-import type { ReplyPayload } from "openclaw/plugin-sdk/reply-runtime";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
+} from "granted/plugin-sdk/reply-payload";
+import type { ReplyPayload } from "granted/plugin-sdk/reply-runtime";
+import type { RuntimeEnv } from "granted/plugin-sdk/runtime-env";
 import { sendMessageIMessage } from "../send.js";
 import {
   chunkTextWithMode,

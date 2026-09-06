@@ -1,4 +1,4 @@
-import type { ProviderNormalizeConfigContext } from "openclaw/plugin-sdk/plugin-entry";
+import type { ProviderNormalizeConfigContext } from "granted/plugin-sdk/plugin-entry";
 import { normalizeLmstudioTransportReasoningCompat } from "./src/model-reasoning.js";
 
 /** Normalize saved reasoning metadata without activating provider runtime or changing transport. */

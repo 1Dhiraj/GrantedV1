@@ -1,6 +1,6 @@
 // Codex plugin module implements apply behavior.
 import path from "node:path";
-import { coerceErrorMessage } from "openclaw/plugin-sdk/error-runtime";
+import { coerceErrorMessage } from "granted/plugin-sdk/error-runtime";
 import {
   applyMigrationManualItem,
   markMigrationItemConflict,
@@ -10,23 +10,23 @@ import {
   resolveMigrationConfigRuntime,
   summarizeMigrationItems,
   writeMigrationConfigPath,
-} from "openclaw/plugin-sdk/migration";
+} from "granted/plugin-sdk/migration";
 import {
   archiveMigrationItem,
   copyMemoryMigrationFileItem,
   copyMigrationFileItem,
   withCachedMigrationConfigRuntime,
   writeMigrationReport,
-} from "openclaw/plugin-sdk/migration-runtime";
-import { parseStrictNonNegativeInteger } from "openclaw/plugin-sdk/number-runtime";
+} from "granted/plugin-sdk/migration-runtime";
+import { parseStrictNonNegativeInteger } from "granted/plugin-sdk/number-runtime";
 import type {
   MigrationApplyResult,
   MigrationItem,
   MigrationPlan,
   MigrationProviderContext,
-} from "openclaw/plugin-sdk/plugin-entry";
-import { sleep } from "openclaw/plugin-sdk/runtime-env";
-import { uniqueStrings } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/plugin-entry";
+import { sleep } from "granted/plugin-sdk/runtime-env";
+import { uniqueStrings } from "granted/plugin-sdk/string-coerce-runtime";
 import { defaultCodexAppInventoryCache } from "../app-server/app-inventory-cache.js";
 import {
   resolveCodexAppServerAuthAccountCacheKey,

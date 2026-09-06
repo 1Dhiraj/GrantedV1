@@ -2,7 +2,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { Readable } from "node:stream";
-import { withTempDir } from "openclaw/plugin-sdk/test-env";
+import { withTempDir } from "granted/plugin-sdk/test-env";
 import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import type { ClawdbotConfig } from "../runtime-api.js";
 
@@ -44,7 +44,7 @@ vi.mock("./runtime.js", () => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/media-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/media-runtime")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/media-runtime")>();
   return {
     ...actual,
     runFfmpeg: runFfmpegMock,

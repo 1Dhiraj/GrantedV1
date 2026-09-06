@@ -1,6 +1,6 @@
 // Github Copilot plugin entrypoint registers its OpenClaw integration.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { resolvePluginConfigObject } from "openclaw/plugin-sdk/plugin-config-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { resolvePluginConfigObject } from "granted/plugin-sdk/plugin-config-runtime";
 import {
   definePluginEntry,
   type ProviderAuthContext,
@@ -8,7 +8,7 @@ import {
   type ProviderAuthMethodNonInteractiveContext,
   type UnifiedModelCatalogEntry,
   type UnifiedModelCatalogProviderContext,
-} from "openclaw/plugin-sdk/plugin-entry";
+} from "granted/plugin-sdk/plugin-entry";
 import {
   applyAuthProfileConfig,
   coerceSecretRef,
@@ -17,7 +17,7 @@ import {
   normalizeOptionalSecretInput,
   resolveDefaultSecretProviderAlias,
   upsertAuthProfileWithLock,
-} from "openclaw/plugin-sdk/provider-auth";
+} from "granted/plugin-sdk/provider-auth";
 import { resolveFirstGithubToken } from "./auth.js";
 import {
   normalizeGithubCopilotDomain,

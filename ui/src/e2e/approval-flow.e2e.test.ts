@@ -1,6 +1,6 @@
 // Control UI E2E tests cover approval queue behavior through the Gateway WebSocket.
 import path from "node:path";
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import type { Page } from "playwright";
 import { afterEach, beforeEach, expect, it } from "vitest";
 import { createControlUiE2eArtifactDir } from "../test-helpers/control-ui-e2e-artifacts.ts";

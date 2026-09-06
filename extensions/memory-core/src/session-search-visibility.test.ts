@@ -1,7 +1,7 @@
 // Memory Core tests cover session search visibility plugin behavior.
-import type { MemorySearchResult } from "openclaw/plugin-sdk/memory-core-host-runtime-files";
-import { normalizeSessionDeliveryState } from "openclaw/plugin-sdk/session-store-runtime";
-import * as sessionTranscriptHit from "openclaw/plugin-sdk/session-transcript-hit";
+import type { MemorySearchResult } from "granted/plugin-sdk/memory-core-host-runtime-files";
+import { normalizeSessionDeliveryState } from "granted/plugin-sdk/session-store-runtime";
+import * as sessionTranscriptHit from "granted/plugin-sdk/session-transcript-hit";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { filterMemorySearchHitsBySessionVisibility } from "./session-search-visibility.js";
 import { asOpenClawConfig } from "./tools.test-helpers.js";
@@ -26,7 +26,7 @@ let combinedSessionStore: Record<string, TestSessionEntry> = crossAgentStore;
 
 vi.mock("openclaw/plugin-sdk/session-transcript-hit", async (importOriginal) => {
   const actual =
-    await importOriginal<typeof import("openclaw/plugin-sdk/session-transcript-hit")>();
+    await importOriginal<typeof import("granted/plugin-sdk/session-transcript-hit")>();
   return {
     ...actual,
     loadCombinedSessionStoreForGateway: vi.fn(() => ({

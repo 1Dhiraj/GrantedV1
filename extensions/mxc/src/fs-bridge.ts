@@ -3,15 +3,15 @@ import {
   isPathInside,
   removePathWithinRoot,
   root as fsRoot,
-} from "openclaw/plugin-sdk/file-access-runtime";
+} from "granted/plugin-sdk/file-access-runtime";
 import {
   createWritableRenameTargetResolver,
   type SandboxBackendHandle,
   type SandboxFsBridge,
   type SandboxFsStat,
   type SandboxResolvedPath,
-} from "openclaw/plugin-sdk/sandbox";
-import { FsSafeError } from "openclaw/plugin-sdk/security-runtime";
+} from "granted/plugin-sdk/sandbox";
+import { FsSafeError } from "granted/plugin-sdk/security-runtime";
 import {
   resolveMxcReadOnlySkillMounts,
   type MxcReadOnlySkillMount,

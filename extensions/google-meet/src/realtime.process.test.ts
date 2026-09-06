@@ -9,9 +9,9 @@ import {
   startMeetingAgentRealtimeEngine,
   startMeetingRealtimeEngine,
   type MeetingRealtimeAudioTransport,
-} from "openclaw/plugin-sdk/meeting-runtime";
-import type { RealtimeTranscriptionProviderPlugin } from "openclaw/plugin-sdk/realtime-transcription";
-import type { RealtimeVoiceProviderPlugin } from "openclaw/plugin-sdk/realtime-voice";
+} from "granted/plugin-sdk/meeting-runtime";
+import type { RealtimeTranscriptionProviderPlugin } from "granted/plugin-sdk/realtime-transcription";
+import type { RealtimeVoiceProviderPlugin } from "granted/plugin-sdk/realtime-voice";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { resolveGoogleMeetConfig } from "./config.js";
 

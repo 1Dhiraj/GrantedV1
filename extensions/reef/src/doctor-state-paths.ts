@@ -1,9 +1,9 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { resolveUserPath } from "openclaw/plugin-sdk/account-resolution";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { resolveUserPath } from "granted/plugin-sdk/account-resolution";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 
 export const REEF_DURABLE_LEGACY_FILENAMES = [
   "keys.json",

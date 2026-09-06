@@ -1,5 +1,5 @@
 // Covers shared web provider runtime helpers.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import type { PluginManifestRecord } from "./manifest-registry.js";
 

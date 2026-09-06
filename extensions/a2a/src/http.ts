@@ -1,13 +1,13 @@
 import { createHash, randomUUID, timingSafeEqual } from "node:crypto";
 import type { IncomingMessage, ServerResponse } from "node:http";
-import { listAgentIds, resolveAgentConfig } from "openclaw/plugin-sdk/agent-scope-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { listAgentIds, resolveAgentConfig } from "granted/plugin-sdk/agent-scope-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   isRequestBodyLimitError,
   readRequestBodyWithLimit,
-} from "openclaw/plugin-sdk/webhook-ingress";
-import { runDetachedWebhookWork } from "openclaw/plugin-sdk/webhook-request-guards";
+} from "granted/plugin-sdk/webhook-ingress";
+import { runDetachedWebhookWork } from "granted/plugin-sdk/webhook-request-guards";
 import {
   A2aProtocolError,
   A2aRpcRequestSchema,

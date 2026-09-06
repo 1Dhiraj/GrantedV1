@@ -2,8 +2,8 @@
 import {
   getRequiredHookHandler,
   registerHookHandlersForTest,
-} from "openclaw/plugin-sdk/channel-test-helpers";
-import type { GrantedPluginApi } from "openclaw/plugin-sdk/core";
+} from "granted/plugin-sdk/channel-test-helpers";
+import type { GrantedPluginApi } from "granted/plugin-sdk/core";
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 
 type ThreadBindingRecord = {

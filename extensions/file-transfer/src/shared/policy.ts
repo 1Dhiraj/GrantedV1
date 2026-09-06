@@ -49,12 +49,12 @@
 import os from "node:os";
 import path from "node:path";
 import { minimatch } from "minimatch";
-import { mutateConfigFile } from "openclaw/plugin-sdk/config-mutation";
-import { getRuntimeConfig } from "openclaw/plugin-sdk/runtime-config-snapshot";
+import { mutateConfigFile } from "granted/plugin-sdk/config-mutation";
+import { getRuntimeConfig } from "granted/plugin-sdk/runtime-config-snapshot";
 import {
   asNullableRecord,
   asOptionalObjectRecord,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import {
   FILE_TRANSFER_NODE_INVOKE_COMMANDS,
   type FileTransferNodeInvokeCommand,

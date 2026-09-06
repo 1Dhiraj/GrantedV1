@@ -1,12 +1,12 @@
 // Memory Core plugin module implements the concrete memory index manager.
-import { formatErrorMessage, toErrorObject } from "openclaw/plugin-sdk/error-runtime";
+import { formatErrorMessage, toErrorObject } from "granted/plugin-sdk/error-runtime";
 import {
   createSubsystemLogger,
   resolveAgentWorkspaceDir,
   resolveMemorySearchConfig,
   type GrantedConfig,
   type ResolvedMemorySearchConfig,
-} from "openclaw/plugin-sdk/memory-core-host-engine-foundation";
+} from "granted/plugin-sdk/memory-core-host-engine-foundation";
 import {
   readMemoryFile,
   MEMORY_EMBEDDING_CACHE_TABLE,
@@ -16,8 +16,8 @@ import {
   type MemorySearchManager,
   type MemorySessionSyncTarget,
   type MemorySyncParams,
-} from "openclaw/plugin-sdk/memory-core-host-engine-storage";
-import { normalizeAgentId } from "openclaw/plugin-sdk/routing";
+} from "granted/plugin-sdk/memory-core-host-engine-storage";
+import { normalizeAgentId } from "granted/plugin-sdk/routing";
 import { runInMemoryBackgroundContext } from "./background-context.js";
 import type { MemoryCoreAcquireLocalService } from "./embedding-local-service.js";
 import type { EmbeddingProvider, EmbeddingProviderRequest } from "./embeddings.js";

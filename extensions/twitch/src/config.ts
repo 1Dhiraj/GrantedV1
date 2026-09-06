@@ -1,11 +1,11 @@
-import { createAccountListHelpers } from "openclaw/plugin-sdk/account-helpers";
+import { createAccountListHelpers } from "granted/plugin-sdk/account-helpers";
 // Twitch helper module supports config behavior.
 import {
   DEFAULT_ACCOUNT_ID,
   normalizeAccountId,
   resolveNormalizedAccountEntry,
-} from "openclaw/plugin-sdk/account-resolution";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+} from "granted/plugin-sdk/account-resolution";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { resolveTwitchToken, type TwitchTokenResolution } from "./token.js";
 import type { TwitchAccountConfig } from "./types.js";
 import { isAccountConfigured } from "./utils/twitch.js";

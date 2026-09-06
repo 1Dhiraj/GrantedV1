@@ -2,7 +2,7 @@
 import {
   createDefaultModelsPresetAppliers,
   type GrantedConfig,
-} from "openclaw/plugin-sdk/provider-onboard";
+} from "granted/plugin-sdk/provider-onboard";
 import {
   buildXiaomiProvider,
   buildXiaomiTokenPlanProvider,

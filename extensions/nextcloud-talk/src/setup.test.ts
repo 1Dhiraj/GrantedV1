@@ -3,7 +3,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { expectDefined } from "@openclaw/normalization-core";
-import { DEFAULT_ACCOUNT_ID } from "openclaw/plugin-sdk/routing";
+import { DEFAULT_ACCOUNT_ID } from "granted/plugin-sdk/routing";
 import { describe, expect, it } from "vitest";
 import { resolveNextcloudTalkAccount } from "./accounts.js";
 import {

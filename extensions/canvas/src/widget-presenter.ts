@@ -1,8 +1,8 @@
 import { randomUUID } from "node:crypto";
-import { selectDefaultNodeFromList } from "openclaw/plugin-sdk/agent-harness-runtime";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
-import type { PluginRuntime } from "openclaw/plugin-sdk/plugin-runtime";
+import { selectDefaultNodeFromList } from "granted/plugin-sdk/agent-harness-runtime";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
+import type { GrantedPluginApi } from "granted/plugin-sdk/plugin-entry";
+import type { PluginRuntime } from "granted/plugin-sdk/plugin-runtime";
 import { CANVAS_PRESENT_COMMAND, isEligibleCanvasNode } from "./node-eligibility.js";
 
 const DEFAULT_CANVAS_NODE_INVOKE_TIMEOUT_MS = 30_000;

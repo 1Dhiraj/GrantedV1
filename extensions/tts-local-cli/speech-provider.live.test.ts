@@ -1,10 +1,10 @@
 // Tts Local Cli live tests cover the real process and ffmpeg integration.
 import { readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { resolveFfmpegBin, runFfmpeg } from "openclaw/plugin-sdk/media-runtime";
-import type { SpeechProviderConfig, SpeechSynthesisRequest } from "openclaw/plugin-sdk/speech-core";
-import { withTempDir } from "openclaw/plugin-sdk/test-env";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { resolveFfmpegBin, runFfmpeg } from "granted/plugin-sdk/media-runtime";
+import type { SpeechProviderConfig, SpeechSynthesisRequest } from "granted/plugin-sdk/speech-core";
+import { withTempDir } from "granted/plugin-sdk/test-env";
 import { describe, expect, it } from "vitest";
 import { buildCliSpeechProvider } from "./speech-provider.js";
 

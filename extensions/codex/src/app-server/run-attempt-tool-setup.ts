@@ -4,11 +4,11 @@ import {
   materializeRequesterScopedMcpToolsForHarnessRun,
   resolveAgentDir,
   type EmbeddedRunAttemptParams,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
+} from "granted/plugin-sdk/agent-harness-runtime";
 import {
   captureFinalCodexCronCreatorToolAllowlist,
   materializeStaticMcpToolsForScheduledHarnessRun,
-} from "openclaw/plugin-sdk/codex-mcp-projection";
+} from "granted/plugin-sdk/codex-mcp-projection";
 import { resolveCodexPluginsPolicy, shouldAutoApproveCodexAppServerApprovals } from "./config.js";
 import {
   buildDynamicTools,

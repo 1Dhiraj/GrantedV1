@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 // Plugin registry migration tests cover doctor repair of persisted plugin registry state.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import type { GrantedConfig } from "../../../config/types.openclaw.js";
 import { recordPluginCandidateInstallOwner } from "../../../plugins/candidate-install-owner.js";

@@ -1,20 +1,20 @@
 // Codex tests cover SQLite-only trajectory plugin behavior.
 import fs from "node:fs";
 import path from "node:path";
-import { createAgentHarnessHostCapabilitiesForTest } from "openclaw/plugin-sdk/plugin-test-runtime";
-import { upsertSessionEntry } from "openclaw/plugin-sdk/session-store-runtime";
+import { createAgentHarnessHostCapabilitiesForTest } from "granted/plugin-sdk/plugin-test-runtime";
+import { upsertSessionEntry } from "granted/plugin-sdk/session-store-runtime";
 import {
   appendSqliteTrajectoryRuntimeEvents,
   createTrajectoryRuntimeRecorderForTest,
   exportTrajectoryBundleForTest,
   loadSqliteTrajectoryRuntimeEvents,
   type SqliteTrajectoryRuntimeEventForTest,
-} from "openclaw/plugin-sdk/sqlite-runtime-testing";
+} from "granted/plugin-sdk/sqlite-runtime-testing";
 import {
   resolvePreferredOpenClawTmpDir,
   tempWorkspaceSync,
   type TempWorkspaceSync,
-} from "openclaw/plugin-sdk/temp-path";
+} from "granted/plugin-sdk/temp-path";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import {
   createCodexTrajectoryRecorder,

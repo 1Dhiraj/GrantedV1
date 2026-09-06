@@ -4,4 +4,4 @@ export {
   type GrantedPluginApi,
   type GrantedPluginHttpRouteHandler,
   type PluginLogger,
-} from "openclaw/plugin-sdk/plugin-entry";
+} from "granted/plugin-sdk/plugin-entry";

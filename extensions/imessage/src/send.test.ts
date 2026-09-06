@@ -2,9 +2,9 @@
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { isChannelPartialDeliveryError } from "openclaw/plugin-sdk/channel-inbound";
-import { sanitizeForPlainText } from "openclaw/plugin-sdk/channel-outbound";
-import { createOpenClawTestState, type GrantedTestState } from "openclaw/plugin-sdk/test-state";
+import { isChannelPartialDeliveryError } from "granted/plugin-sdk/channel-inbound";
+import { sanitizeForPlainText } from "granted/plugin-sdk/channel-outbound";
+import { createOpenClawTestState, type GrantedTestState } from "granted/plugin-sdk/test-state";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { IMessageRpcClient } from "./client.js";
 import {
@@ -16,7 +16,7 @@ import { loadFreshIMessageReplyCacheForTest } from "./test-support/runtime.js";
 
 type ApprovalReactionsModule = typeof import("./approval-reactions.js");
 type ClientModule = typeof import("./client.js");
-type ErrorRuntimeModule = typeof import("openclaw/plugin-sdk/error-runtime");
+type ErrorRuntimeModule = typeof import("granted/plugin-sdk/error-runtime");
 type PersistedEchoCacheModule = typeof import("./monitor/persisted-echo-cache.js");
 type ReplyCacheModule = typeof import("./monitor-reply-cache.js");
 type SendModule = typeof import("./send.js");
@@ -33,7 +33,7 @@ async function loadFreshSendModule(): Promise<void> {
   ({ findLatestIMessageEntryForChat, rememberIMessageReplyCache } =
     await loadFreshIMessageReplyCacheForTest());
   ({ IMessageRpcRequestError } = await import("./client.js"));
-  ({ PlatformMessageNotDispatchedError } = await import("openclaw/plugin-sdk/error-runtime"));
+  ({ PlatformMessageNotDispatchedError } = await import("granted/plugin-sdk/error-runtime"));
   ({
     clearIMessageApprovalReactionTargetsForTest,
     resolveIMessageApprovalReactionTargetWithPersistence,

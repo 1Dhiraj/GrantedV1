@@ -1,14 +1,14 @@
 // Google provider module implements model/runtime integration.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
 import {
   createWebSearchProviderContractFields,
   mergeScopedSearchConfig,
   resolveProviderWebSearchPluginConfig,
   type WebSearchProviderPlugin,
   type WebSearchProviderToolDefinition,
-} from "openclaw/plugin-sdk/provider-web-search-config-contract";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/provider-web-search-config-contract";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 
 const GEMINI_CREDENTIAL_PATH = "plugins.entries.google.config.webSearch.apiKey";
 const GOOGLE_PROVIDER_CREDENTIAL_PATH = "models.providers.google.apiKey";

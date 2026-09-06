@@ -4,8 +4,8 @@ import os from "node:os";
 import path from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
 import { promisify } from "node:util";
-import { saveMediaBuffer } from "openclaw/plugin-sdk/media-store";
-import { createOpenClawTestState, type GrantedTestState } from "openclaw/plugin-sdk/test-state";
+import { saveMediaBuffer } from "granted/plugin-sdk/media-store";
+import { createOpenClawTestState, type GrantedTestState } from "granted/plugin-sdk/test-state";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { CodexCommandExecParams, CodexCommandExecResponse } from "./command-exec-protocol.js";
 import {

@@ -1,8 +1,8 @@
 // ClickClack tests cover non-interactive setup validation and config writes.
-import { DEFAULT_ACCOUNT_ID } from "openclaw/plugin-sdk/account-id";
-import type { ChannelSetupInput } from "openclaw/plugin-sdk/channel-setup";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { createNonExitingRuntimeEnv } from "openclaw/plugin-sdk/plugin-test-runtime";
+import { DEFAULT_ACCOUNT_ID } from "granted/plugin-sdk/account-id";
+import type { ChannelSetupInput } from "granted/plugin-sdk/channel-setup";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { createNonExitingRuntimeEnv } from "granted/plugin-sdk/plugin-test-runtime";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const claimClickClackSetupCode = vi.hoisted(() => vi.fn());

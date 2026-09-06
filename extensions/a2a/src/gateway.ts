@@ -1,8 +1,8 @@
-import type { ChannelGatewayContext } from "openclaw/plugin-sdk/channel-contract";
-import { waitUntilAbort } from "openclaw/plugin-sdk/channel-outbound";
-import { channelReadyPatch, channelStoppedPatch } from "openclaw/plugin-sdk/gateway-runtime";
-import type { PluginRuntime } from "openclaw/plugin-sdk/runtime-store";
-import { registerPluginHttpRoute } from "openclaw/plugin-sdk/webhook-ingress";
+import type { ChannelGatewayContext } from "granted/plugin-sdk/channel-contract";
+import { waitUntilAbort } from "granted/plugin-sdk/channel-outbound";
+import { channelReadyPatch, channelStoppedPatch } from "granted/plugin-sdk/gateway-runtime";
+import type { PluginRuntime } from "granted/plugin-sdk/runtime-store";
+import { registerPluginHttpRoute } from "granted/plugin-sdk/webhook-ingress";
 import { createA2aHttpHandler } from "./http.js";
 import { dispatchA2aInbound } from "./inbound.js";
 import { getA2aChannelRuntime } from "./runtime.js";

@@ -1,4 +1,4 @@
-import type { PluginRuntime } from "openclaw/plugin-sdk/core";
+import type { PluginRuntime } from "granted/plugin-sdk/core";
 import type { CoreConfig } from "../types.js";
 import { hasPendingDiscussionOpenForDestination } from "./binding-generation.js";
 import {

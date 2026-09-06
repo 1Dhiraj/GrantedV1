@@ -1,4 +1,4 @@
-import { asOptionalRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { asOptionalRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import { RelayFetch } from "./relay-fetch.js";
 import { RelayRuntime } from "./relay-runtime.js";
 import { RelayTarget } from "./relay-target.js";

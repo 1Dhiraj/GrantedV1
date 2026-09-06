@@ -2,7 +2,7 @@
 import { EventEmitter } from "node:events";
 import type { ClientRequest, IncomingMessage, RequestOptions } from "node:http";
 import { PassThrough } from "node:stream";
-import { coerceErrorMessage } from "openclaw/plugin-sdk/error-runtime";
+import { coerceErrorMessage } from "granted/plugin-sdk/error-runtime";
 import { describe, it, expect, vi, beforeAll, beforeEach, afterEach } from "vitest";
 import type { SynologyHostedMediaUrl } from "./outbound-media.js";
 

@@ -1,5 +1,5 @@
 // Telegram presentation rendering tests for the outbound adapter.
-import { adaptMessagePresentationForChannel } from "openclaw/plugin-sdk/interactive-runtime";
+import { adaptMessagePresentationForChannel } from "granted/plugin-sdk/interactive-runtime";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const sendMessageTelegramMock = vi.fn();

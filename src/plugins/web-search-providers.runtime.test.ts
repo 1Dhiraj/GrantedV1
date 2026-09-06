@@ -1,5 +1,5 @@
 /** Covers runtime loading and sorting for plugin web search providers. */
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { createWebSearchTestProvider } from "../test-utils/web-provider-runtime.test-helpers.js";
 import * as publicArtifacts from "./web-provider-public-artifacts.explicit.js";

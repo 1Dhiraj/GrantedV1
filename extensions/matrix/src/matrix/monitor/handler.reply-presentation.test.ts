@@ -1,5 +1,5 @@
 // Matrix tests cover the handler's reply presentation wiring.
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { prepareMatrixReplyPayload } from "../../outbound.js";
 import { installMatrixMonitorTestRuntime } from "../../test-runtime.js";

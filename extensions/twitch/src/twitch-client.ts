@@ -1,11 +1,11 @@
 // Twitch plugin module implements twitch client behavior.
 import { RefreshingAuthProvider, StaticAuthProvider } from "@twurple/auth";
 import { ChatClient, LogLevel } from "@twurple/chat";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import { channelReadyPatch } from "openclaw/plugin-sdk/gateway-runtime";
-import { chunkTextForOutbound } from "openclaw/plugin-sdk/text-chunking";
-import { sliceUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
+import { channelReadyPatch } from "granted/plugin-sdk/gateway-runtime";
+import { chunkTextForOutbound } from "granted/plugin-sdk/text-chunking";
+import { sliceUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import { TWITCH_CHAT_MESSAGE_LIMIT } from "./constants.js";
 import { resolveTwitchToken } from "./token.js";
 import type {

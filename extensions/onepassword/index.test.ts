@@ -1,4 +1,4 @@
-import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
+import { createTestPluginApi } from "granted/plugin-sdk/plugin-test-api";
 import { describe, expect, it, vi } from "vitest";
 import plugin from "./index.js";
 import { MemorySyncKeyedStore } from "./src/memory-store.test-support.js";

@@ -1,5 +1,5 @@
 // Openai tests cover realtime voice provider plugin behavior.
-import type { RealtimeVoiceBridgeEvent } from "openclaw/plugin-sdk/realtime-voice";
+import type { RealtimeVoiceBridgeEvent } from "granted/plugin-sdk/realtime-voice";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { buildOpenAIRealtimeVoiceProvider } from "./realtime-voice-provider.js";
 

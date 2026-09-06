@@ -18,10 +18,10 @@ import {
   type DeliveryTraceStep,
   type TraceEvent,
   type TraceNormalizer,
-} from "openclaw/plugin-sdk/channel-contract-testing";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
-import type { ReplyDispatchKind, ReplyPayload } from "openclaw/plugin-sdk/reply-runtime";
+} from "granted/plugin-sdk/channel-contract-testing";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
+import type { ReplyDispatchKind, ReplyPayload } from "granted/plugin-sdk/reply-runtime";
 import { afterAll, afterEach, describe, expect, it, vi } from "vitest";
 import { noteSlackDraftConversationMessage } from "./draft-message-boundaries.js";
 import type { PreparedSlackMessage } from "./monitor/message-handler/types.js";
@@ -101,7 +101,7 @@ const traceState = vi.hoisted(
 // draft preview, preview finalize, deliverReplies chunking, sendMessageSlack)
 // stays the real production code.
 vi.mock("openclaw/plugin-sdk/channel-inbound", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/channel-inbound")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/channel-inbound")>();
   type DispatchParams = Parameters<typeof actual.dispatchChannelInboundTurn>[0];
   return {
     ...actual,

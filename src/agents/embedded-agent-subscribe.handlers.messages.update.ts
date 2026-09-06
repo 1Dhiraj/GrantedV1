@@ -1,7 +1,7 @@
 /**
  * Handles assistant message deltas, reasoning, directives, and block replies.
  */
-import { resolveSendableOutboundReplyParts } from "openclaw/plugin-sdk/reply-payload";
+import { resolveSendableOutboundReplyParts } from "granted/plugin-sdk/reply-payload";
 import { createInlineCodeState } from "../../packages/markdown-core/src/code-spans.js";
 import { emitAgentEvent } from "../infra/agent-events.js";
 import type { AssistantMessage } from "../llm/types.js";

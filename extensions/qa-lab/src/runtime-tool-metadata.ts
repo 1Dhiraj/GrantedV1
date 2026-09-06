@@ -3,7 +3,7 @@ import {
   asBoolean as readBoolean,
   isRecord,
   normalizeOptionalString as readString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import type { QaSeedScenarioWithSource } from "./scenario-catalog.js";
 
 export type QaRuntimeToolBucket =

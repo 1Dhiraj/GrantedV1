@@ -1,5 +1,5 @@
 import path from "node:path";
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import type { Locator, Page } from "playwright";
 import { expect } from "vitest";
 import {

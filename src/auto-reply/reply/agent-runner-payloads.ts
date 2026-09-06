@@ -2,7 +2,7 @@
 import {
   hasOutboundReplyContent,
   resolveSendableOutboundReplyParts,
-} from "openclaw/plugin-sdk/reply-payload";
+} from "granted/plugin-sdk/reply-payload";
 import { sanitizeUserFacingText } from "../../agents/embedded-agent-helpers/sanitize-user-facing-text.js";
 import { renderUserFacingText } from "../../agents/embedded-agent-helpers/user-facing-text.js";
 import type { MessagingToolSend } from "../../agents/embedded-agent-messaging.types.js";

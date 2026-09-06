@@ -5,7 +5,7 @@ import {
   resolveAgentDir,
   resolveDefaultModelForAgent,
   resolveThinkingDefaultWithRuntimeCatalog,
-} from "openclaw/plugin-sdk/agent-runtime";
+} from "granted/plugin-sdk/agent-runtime";
 import {
   buildCommandTextFromArgs,
   findCommandByNativeName,
@@ -17,15 +17,15 @@ import {
   resolveFastModeState,
   resolveStoredModelOverride,
   type CommandArgs,
-} from "openclaw/plugin-sdk/command-auth-native";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
+} from "granted/plugin-sdk/command-auth-native";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
 import {
   getSessionEntry,
   resolveStorePath,
   type SessionEntry,
-} from "openclaw/plugin-sdk/session-store-runtime";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/session-store-runtime";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import { withTelegramApiErrorLogging } from "./api-logging.js";
 import {
   dispatchTelegramBuiltinTurn,

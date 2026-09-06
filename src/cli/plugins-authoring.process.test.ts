@@ -22,7 +22,7 @@ async function createAuthoringFixture(root: string) {
   );
   await fs.writeFile(
     path.join(project, "index.ts"),
-    `import { defineToolPlugin } from "openclaw/plugin-sdk/tool-plugin";
+    `import { defineToolPlugin } from "granted/plugin-sdk/tool-plugin";
 export default defineToolPlugin({
   id: "authoring-proof", name: "Authoring Proof", description: "Authoring fixture.",
   tools: (tool) => [tool({

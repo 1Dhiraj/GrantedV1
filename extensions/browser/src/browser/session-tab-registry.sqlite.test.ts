@@ -2,22 +2,22 @@
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import type {
   OpenKeyedStoreOptions,
   PluginStateSyncKeyedStore,
-} from "openclaw/plugin-sdk/plugin-state-runtime";
+} from "granted/plugin-sdk/plugin-state-runtime";
 import {
   createPluginStateKeyedStoreForTests,
   createPluginStateSyncKeyedStoreForTests,
   resetPluginStateStoreForTests,
-} from "openclaw/plugin-sdk/plugin-state-test-runtime";
-import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
+} from "granted/plugin-sdk/plugin-state-test-runtime";
+import { createTestPluginApi } from "granted/plugin-sdk/plugin-test-api";
 import {
   clearRuntimeConfigSnapshot,
   setRuntimeConfigSnapshot,
-} from "openclaw/plugin-sdk/runtime-config-snapshot";
-import { importFreshModule } from "openclaw/plugin-sdk/test-fixtures";
+} from "granted/plugin-sdk/runtime-config-snapshot";
+import { importFreshModule } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { registerBrowserPlugin } from "../../plugin-registration.js";
 import type { GrantedPluginApi } from "../../runtime-api.js";

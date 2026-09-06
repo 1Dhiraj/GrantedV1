@@ -4,8 +4,8 @@ import fsSync from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { DEFAULT_SECRET_FILE_MAX_BYTES, tryReadSecretFileSync } from "@openclaw/fs-safe/secret";
-import { coerceErrorMessage as errorMessage } from "openclaw/plugin-sdk/error-runtime";
-import { runCommandBuffered } from "openclaw/plugin-sdk/process-runtime";
+import { coerceErrorMessage as errorMessage } from "granted/plugin-sdk/error-runtime";
+import { runCommandBuffered } from "granted/plugin-sdk/process-runtime";
 import { resolveTrustedOnePasswordCli } from "./onepassword-op-path.js";
 import { resolveOnePasswordSecretReference } from "./onepassword-secret-id.js";
 

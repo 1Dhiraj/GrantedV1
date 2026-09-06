@@ -1,11 +1,11 @@
 // DeepInfra proxy tests cover both public transports and their resource ownership.
-import { clearLiveCatalogCacheForTests } from "openclaw/plugin-sdk/provider-catalog-live-runtime";
+import { clearLiveCatalogCacheForTests } from "granted/plugin-sdk/provider-catalog-live-runtime";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 const fetchWithSsrFGuardMock = vi.hoisted(() => vi.fn());
 
 vi.mock("openclaw/plugin-sdk/ssrf-runtime", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("openclaw/plugin-sdk/ssrf-runtime")>()),
+  ...(await importOriginal<typeof import("granted/plugin-sdk/ssrf-runtime")>()),
   fetchWithSsrFGuard: fetchWithSsrFGuardMock,
 }));
 

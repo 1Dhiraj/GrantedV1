@@ -4,9 +4,9 @@ import { randomUUID } from "node:crypto";
 import { chmod, mkdir, mkdtemp, rm, stat, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { setTimeout as sleep } from "node:timers/promises";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import { redactSensitiveText } from "openclaw/plugin-sdk/logging-core";
-import { resolvePreferredOpenClawTmpDir } from "openclaw/plugin-sdk/temp-path";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
+import { redactSensitiveText } from "granted/plugin-sdk/logging-core";
+import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
 import { createQaPosixCommandSettlement } from "../../../posix-command-settlement.js";
 import {
   killMatrixQaCliChild,

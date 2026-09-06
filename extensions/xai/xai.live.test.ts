@@ -2,25 +2,25 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { encodePngRgba, fillPixel } from "openclaw/plugin-sdk/media-runtime";
-import type { GrantedPluginToolFactory } from "openclaw/plugin-sdk/plugin-entry";
-import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { encodePngRgba, fillPixel } from "granted/plugin-sdk/media-runtime";
+import type { GrantedPluginToolFactory } from "granted/plugin-sdk/plugin-entry";
+import { createTestPluginApi } from "granted/plugin-sdk/plugin-test-api";
 import {
   createCapturedPluginRegistration,
   registerProviderPlugin,
   requireRegisteredProvider,
-} from "openclaw/plugin-sdk/plugin-test-runtime";
+} from "granted/plugin-sdk/plugin-test-runtime";
 import {
   expectOpenClawLiveTranscriptMarker,
   runRealtimeSttLiveTest,
-} from "openclaw/plugin-sdk/provider-test-contracts";
+} from "granted/plugin-sdk/provider-test-contracts";
 import {
   REALTIME_VOICE_AUDIO_FORMAT_PCM16_24KHZ,
   type RealtimeVoiceBridge,
   type RealtimeVoiceBridgeEvent,
-} from "openclaw/plugin-sdk/realtime-voice";
-import { isBillingErrorMessage } from "openclaw/plugin-sdk/test-live";
+} from "granted/plugin-sdk/realtime-voice";
+import { isBillingErrorMessage } from "granted/plugin-sdk/test-live";
 import { describe, expect, it } from "vitest";
 import { createCodeExecutionTool } from "./code-execution.js";
 import plugin from "./index.js";

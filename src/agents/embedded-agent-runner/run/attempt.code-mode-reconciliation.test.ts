@@ -3,7 +3,7 @@ import {
   type AssistantMessage,
   type Context,
   type Model,
-} from "openclaw/plugin-sdk/llm";
+} from "granted/plugin-sdk/llm";
 import { afterEach, beforeAll, beforeEach, describe, expect, it } from "vitest";
 import { readNestedToolActivity } from "../../../sessions/nested-tool-activity.js";
 import {

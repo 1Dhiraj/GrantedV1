@@ -5,21 +5,21 @@ import path from "node:path";
 import {
   clearRuntimeAuthProfileStoreSnapshots,
   saveAuthProfileStore,
-} from "openclaw/plugin-sdk/agent-runtime";
+} from "granted/plugin-sdk/agent-runtime";
 import {
   getProviderHttpMocks,
   installProviderHttpMockCleanup,
-} from "openclaw/plugin-sdk/provider-http-test-mocks";
+} from "granted/plugin-sdk/provider-http-test-mocks";
 import {
   expectDashscopeVideoTaskPoll,
   expectExplicitVideoGenerationCapabilities,
   expectSuccessfulDashscopeVideoResult,
   mockSuccessfulDashscopeVideoTask,
-} from "openclaw/plugin-sdk/provider-test-contracts";
+} from "granted/plugin-sdk/provider-test-contracts";
 import {
   DASHSCOPE_WAN_VIDEO_MODELS,
   DEFAULT_DASHSCOPE_WAN_VIDEO_MODEL,
-} from "openclaw/plugin-sdk/video-generation";
+} from "granted/plugin-sdk/video-generation";
 import { afterEach, beforeAll, describe, expect, it, vi } from "vitest";
 
 const {

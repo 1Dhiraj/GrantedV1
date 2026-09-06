@@ -1,7 +1,7 @@
-import { resolveSessionAgentIdStrict } from "openclaw/plugin-sdk/agent-scope-runtime";
+import { resolveSessionAgentIdStrict } from "granted/plugin-sdk/agent-scope-runtime";
 // Feishu plugin module implements thread bindings behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { isPluginOwnedSessionBindingRecord } from "openclaw/plugin-sdk/conversation-binding-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { isPluginOwnedSessionBindingRecord } from "granted/plugin-sdk/conversation-binding-runtime";
 import {
   resolveThreadBindingIdleTimeoutMsForChannel,
   resolveThreadBindingMaxAgeMsForChannel,
@@ -11,10 +11,10 @@ import {
   type BindingTargetKind,
   type SessionBindingAdapter,
   type SessionBindingRecord,
-} from "openclaw/plugin-sdk/conversation-runtime";
-import { isFutureDateTimestampMs } from "openclaw/plugin-sdk/number-runtime";
-import { normalizeAccountId } from "openclaw/plugin-sdk/routing";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/conversation-runtime";
+import { isFutureDateTimestampMs } from "granted/plugin-sdk/number-runtime";
+import { normalizeAccountId } from "granted/plugin-sdk/routing";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 
 type FeishuBindingTargetKind = "subagent" | "acp";
 

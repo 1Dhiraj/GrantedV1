@@ -2,7 +2,7 @@ import { promises as fs } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { Command } from "commander";
-import { clearConfigCache } from "openclaw/plugin-sdk/runtime-config-snapshot";
+import { clearConfigCache } from "granted/plugin-sdk/runtime-config-snapshot";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { registerPolicyCli } from "./cli.js";
 

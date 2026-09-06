@@ -10,7 +10,7 @@ import { createSlackMonitorContext } from "./context.js";
 const enqueue = vi.hoisted(() => vi.fn(async (_entry: unknown) => {}));
 
 vi.mock("openclaw/plugin-sdk/channel-inbound", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("openclaw/plugin-sdk/channel-inbound")>()),
+  ...(await importOriginal<typeof import("granted/plugin-sdk/channel-inbound")>()),
   createChannelInboundDebouncer: () => ({
     debounceMs: 0,
     debouncer: {

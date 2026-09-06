@@ -1,15 +1,15 @@
 import {
   createAccountListHelpers,
   resolveChannelMediaMaxBytes,
-} from "openclaw/plugin-sdk/account-helpers";
+} from "granted/plugin-sdk/account-helpers";
 // Tlon type declarations define plugin contracts.
-import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "openclaw/plugin-sdk/account-resolution";
-import type { ResolvedChannelImplicitMentions } from "openclaw/plugin-sdk/channel-ingress-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "granted/plugin-sdk/account-resolution";
+import type { ResolvedChannelImplicitMentions } from "granted/plugin-sdk/channel-ingress-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   hasLegacyFlatAllowPrivateNetworkAlias,
   isPrivateNetworkOptInEnabled,
-} from "openclaw/plugin-sdk/ssrf-runtime";
+} from "granted/plugin-sdk/ssrf-runtime";
 
 type TlonAccountConfig = {
   /** Megabyte cap for media this channel accepts and delivers. */

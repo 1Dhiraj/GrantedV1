@@ -1,5 +1,5 @@
-import { createChannelDmPolicy } from "openclaw/plugin-sdk/channel-dm-policy";
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
+import { createChannelDmPolicy } from "granted/plugin-sdk/channel-dm-policy";
+import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
 // Feishu plugin module implements setup surface behavior.
 import {
   DEFAULT_ACCOUNT_ID,
@@ -16,8 +16,8 @@ import {
   type DmPolicy,
   type GrantedConfig,
   type SecretInput,
-} from "openclaw/plugin-sdk/setup";
-import { normalizeOptionalString as normalizeString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/setup";
+import { normalizeOptionalString as normalizeString } from "granted/plugin-sdk/string-coerce-runtime";
 import { resolveDefaultFeishuAccountId, resolveFeishuAccount } from "./accounts.js";
 import type { AppRegistrationResult } from "./app-registration.js";
 import type { FeishuConfig, FeishuDomain } from "./types.js";

@@ -1,6 +1,6 @@
 // Slack plugin module owns authenticated installation identity state.
-import { normalizeAccountId } from "openclaw/plugin-sdk/account-resolution";
-import { resolveGlobalMap } from "openclaw/plugin-sdk/global-singleton";
+import { normalizeAccountId } from "granted/plugin-sdk/account-resolution";
+import { resolveGlobalMap } from "granted/plugin-sdk/global-singleton";
 
 type SlackInstallationKind = "workspace" | "enterprise" | "degraded";
 

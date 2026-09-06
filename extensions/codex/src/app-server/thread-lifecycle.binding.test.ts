@@ -1,8 +1,8 @@
 // Codex tests cover thread lifecycle.binding plugin behavior.
 import fs from "node:fs/promises";
 import path from "node:path";
-import { AgentHarnessPreflightError } from "openclaw/plugin-sdk/agent-harness-runtime";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
+import { AgentHarnessPreflightError } from "granted/plugin-sdk/agent-harness-runtime";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
 import { describe, expect, it, vi } from "vitest";
 import { resumeThread } from "../command-handler-bindings.js";
 import { resolveCodexCommandDeps } from "../command-handler-deps.js";

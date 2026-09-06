@@ -1,6 +1,6 @@
 import type { ReactionType, ReactionTypeEmoji } from "grammy/types";
-import { logVerbose } from "openclaw/plugin-sdk/runtime-env";
-import { formatErrorMessage } from "openclaw/plugin-sdk/ssrf-runtime";
+import { logVerbose } from "granted/plugin-sdk/runtime-env";
+import { formatErrorMessage } from "granted/plugin-sdk/ssrf-runtime";
 import { buildTypingThreadParams } from "./bot/helpers.js";
 import { isRecoverableTelegramNetworkError } from "./network-errors.js";
 import {

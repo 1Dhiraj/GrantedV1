@@ -1,11 +1,11 @@
-import { resolveEffectiveAgentRuntime } from "openclaw/plugin-sdk/command-auth-native";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
+import { resolveEffectiveAgentRuntime } from "granted/plugin-sdk/command-auth-native";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { GrantedPluginApi } from "granted/plugin-sdk/plugin-entry";
 import {
   listSessionCatalogEntries,
   type SessionCatalogEntrySnapshot,
-} from "openclaw/plugin-sdk/session-catalog";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/session-catalog";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import { CLAUDE_CLI_BACKEND_ID, CLAUDE_CLI_ROUTE_PROBE_MODEL_IDS } from "./cli-constants.js";
 import { adoptedSourceKey, CLAUDE_LOCAL_SESSION_HOST_ID } from "./session-catalog-adoption.js";
 

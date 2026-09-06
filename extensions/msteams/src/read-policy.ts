@@ -1,6 +1,6 @@
-import { ToolAuthorizationError } from "openclaw/plugin-sdk/channel-actions";
-import type { ChannelMessageActionContext } from "openclaw/plugin-sdk/channel-contract";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { ToolAuthorizationError } from "granted/plugin-sdk/channel-actions";
+import type { ChannelMessageActionContext } from "granted/plugin-sdk/channel-contract";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import type { GrantedConfig } from "../runtime-api.js";
 import { isDangerousNameMatchingEnabled, resolveDefaultGroupPolicy } from "../runtime-api.js";
 import { listChannelsForTeamWithPageInfo, resolveGraphToken } from "./graph.js";

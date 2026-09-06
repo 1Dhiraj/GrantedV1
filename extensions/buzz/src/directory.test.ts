@@ -1,5 +1,5 @@
 import { getPublicKey, type Event, type Filter } from "nostr-tools";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const relayMocks = vi.hoisted(() => ({

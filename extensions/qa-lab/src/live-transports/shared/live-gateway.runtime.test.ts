@@ -1,5 +1,5 @@
 // Qa Lab tests cover live gateway plugin behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const { startQaGatewayChild, startQaProviderServer, gatewayStop } = vi.hoisted(() => ({

@@ -4,4 +4,4 @@ export {
   type GrantedPluginApi,
   type PluginLogger,
   type PluginRuntime,
-} from "openclaw/plugin-sdk/core";
+} from "granted/plugin-sdk/core";

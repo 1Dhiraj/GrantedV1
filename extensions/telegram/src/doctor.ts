@@ -2,18 +2,18 @@
 import type {
   ChannelDoctorAdapter,
   ChannelDoctorEmptyAllowlistAccountContext,
-} from "openclaw/plugin-sdk/channel-contract";
+} from "granted/plugin-sdk/channel-contract";
 import {
   resolveChannelStreamingBlockEnabled,
   resolveChannelStreamingPreviewToolProgress,
-} from "openclaw/plugin-sdk/channel-outbound";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
+} from "granted/plugin-sdk/channel-outbound";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
 import {
   asObjectRecord,
   collectChannelAccountScopes,
-} from "openclaw/plugin-sdk/runtime-doctor-migrations";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/runtime-doctor-migrations";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import { inspectTelegramAccount } from "./account-inspect.js";
 import {
   listEnabledTelegramAccounts,
@@ -362,7 +362,7 @@ async function maybeRepairTelegramAllowFromUsernames(cfg: GrantedConfig): Promis
   }
 
   const { getChannelsCommandSecretTargetIds, resolveCommandSecretRefsViaGateway } =
-    await import("openclaw/plugin-sdk/runtime");
+    await import("granted/plugin-sdk/runtime");
 
   const { resolvedConfig } = await resolveCommandSecretRefsViaGateway({
     config: cfg,

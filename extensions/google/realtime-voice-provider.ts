@@ -21,8 +21,8 @@ import {
 import {
   resolveExpiresAtMsFromDurationMs,
   timestampMsToIsoString,
-} from "openclaw/plugin-sdk/number-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/provider-onboard";
+} from "granted/plugin-sdk/number-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/provider-onboard";
 import type {
   RealtimeVoiceAudioFormat,
   RealtimeVoiceBridge,
@@ -34,7 +34,7 @@ import type {
   RealtimeVoiceRole,
   RealtimeVoiceTool,
   RealtimeVoiceToolResultOptions,
-} from "openclaw/plugin-sdk/realtime-voice";
+} from "granted/plugin-sdk/realtime-voice";
 import {
   convertPcmToMulaw8k,
   createRealtimeVoiceAudioQueue,
@@ -44,9 +44,9 @@ import {
   REALTIME_VOICE_AGENT_CONSULT_TOOL_NAME,
   realtimeVoiceAudioDurationMs,
   resamplePcm,
-} from "openclaw/plugin-sdk/realtime-voice";
-import { warn } from "openclaw/plugin-sdk/runtime-env";
-import { normalizeResolvedSecretInputString } from "openclaw/plugin-sdk/secret-input";
+} from "granted/plugin-sdk/realtime-voice";
+import { warn } from "granted/plugin-sdk/runtime-env";
+import { normalizeResolvedSecretInputString } from "granted/plugin-sdk/secret-input";
 import {
   asBoolean,
   asFiniteNumber,
@@ -54,7 +54,7 @@ import {
   asSafeIntegerInRange,
   isRecord,
   normalizeOptionalString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import { canonicalizeGoogleProviderBase64 } from "./base64.js";
 import { createGoogleGenAI } from "./google-genai-runtime.js";
 import { resolveGoogleGemini3ThinkingLevel } from "./thinking-api.js";

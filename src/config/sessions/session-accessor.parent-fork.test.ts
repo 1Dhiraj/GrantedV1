@@ -2,7 +2,7 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import type { AssistantMessage } from "openclaw/plugin-sdk/llm";
+import type { AssistantMessage } from "granted/plugin-sdk/llm";
 import { afterEach, describe, expect, it } from "vitest";
 import { SessionManager } from "../../agents/sessions/session-manager.js";
 import { parseSqliteSessionFileMarker } from "./legacy-sqlite-marker.js";

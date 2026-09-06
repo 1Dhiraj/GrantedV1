@@ -3,11 +3,11 @@ import type {
   RealtimeVoiceAudioFormat,
   RealtimeVoiceBargeInOptions,
   RealtimeVoiceToolResultOptions,
-} from "openclaw/plugin-sdk/realtime-voice";
+} from "granted/plugin-sdk/realtime-voice";
 import {
   REALTIME_VOICE_AUDIO_FORMAT_G711_ULAW_8KHZ,
   realtimeVoiceAudioDurationMs,
-} from "openclaw/plugin-sdk/realtime-voice";
+} from "granted/plugin-sdk/realtime-voice";
 import {
   AZURE_OPENAI_REALTIME_TOOL_NAME_MAX_LENGTH,
   OPENAI_REALTIME_DEFAULT_MIN_BARGE_IN_AUDIO_END_MS,

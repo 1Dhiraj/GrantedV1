@@ -6,9 +6,9 @@ import {
   normalizeApiKeyConfig,
   normalizeOptionalSecretInput,
   type GrantedConfig,
-} from "openclaw/plugin-sdk/provider-auth";
-import { resolveApiKeyForProvider } from "openclaw/plugin-sdk/provider-auth-runtime";
-import { resolveConfiguredSecretInputString } from "openclaw/plugin-sdk/secret-input-runtime";
+} from "granted/plugin-sdk/provider-auth";
+import { resolveApiKeyForProvider } from "granted/plugin-sdk/provider-auth-runtime";
+import { resolveConfiguredSecretInputString } from "granted/plugin-sdk/secret-input-runtime";
 import {
   LMSTUDIO_DEFAULT_API_KEY_ENV_VAR,
   LMSTUDIO_LOCAL_API_KEY_PLACEHOLDER,

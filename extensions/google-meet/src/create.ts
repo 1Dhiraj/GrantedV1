@@ -1,6 +1,6 @@
 // Google Meet plugin module implements create behavior.
-import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+import type { GrantedPluginApi } from "granted/plugin-sdk/plugin-entry";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import type { GoogleMeetConfig, GoogleMeetMode, GoogleMeetTransport } from "./config.js";
 import {
   createGoogleMeetSpace,

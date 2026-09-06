@@ -1,10 +1,10 @@
 // Memory Core plugin module implements tools.shared behavior.
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
+import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
 import type {
   AnyAgentTool,
   GrantedConfig,
-} from "openclaw/plugin-sdk/memory-core-host-runtime-core";
-import { normalizeLowercaseStringOrEmpty } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/memory-core-host-runtime-core";
+import { normalizeLowercaseStringOrEmpty } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   resolveMemoryToolContext,
   type MemoryToolContract,

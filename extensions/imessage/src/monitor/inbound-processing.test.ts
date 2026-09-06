@@ -1,6 +1,6 @@
 // Imessage tests cover inbound processing plugin behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { sanitizeTerminalText } from "openclaw/plugin-sdk/test-fixtures";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { sanitizeTerminalText } from "granted/plugin-sdk/test-fixtures";
 import { beforeAll, describe, expect, it, vi } from "vitest";
 import { loadFreshIMessageReplyCacheForTest } from "../test-support/runtime.js";
 import { createSelfChatCache } from "./self-chat-cache.js";

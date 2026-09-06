@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { pluginSecretRefSetup } from "openclaw/plugin-sdk/secret-ref-runtime";
+import { pluginSecretRefSetup } from "granted/plugin-sdk/secret-ref-runtime";
 import { describe, expect, it } from "vitest";
 import { createTrustedNodeFixture } from "./trusted-node.test-support.js";
 

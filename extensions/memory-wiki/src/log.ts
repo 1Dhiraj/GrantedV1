@@ -2,7 +2,7 @@
 import { createHash, randomUUID } from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
-import { appendRegularFile } from "openclaw/plugin-sdk/security-runtime";
+import { appendRegularFile } from "granted/plugin-sdk/security-runtime";
 import { walkMemoryWikiDirectory } from "./bounded-walk.js";
 
 type MemoryWikiLogEntry = {

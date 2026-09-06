@@ -1,7 +1,7 @@
 // Whatsapp tests cover qa driver plugin behavior.
 import { EventEmitter } from "node:events";
 import type { proto, WAMessage } from "baileys";
-import { coerceErrorMessage } from "openclaw/plugin-sdk/error-runtime";
+import { coerceErrorMessage } from "granted/plugin-sdk/error-runtime";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { startWhatsAppQaDriverSession, type WhatsAppQaDriverSession } from "./qa-driver.runtime.js";
 import { DEFAULT_WHATSAPP_SOCKET_TIMING } from "./socket-timing.js";

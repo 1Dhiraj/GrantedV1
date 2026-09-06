@@ -1,10 +1,10 @@
 import { createRequire } from "node:module";
-import { readPluginPackageVersion } from "openclaw/plugin-sdk/extension-shared";
-import { redactToolPayloadText } from "openclaw/plugin-sdk/logging-core";
+import { readPluginPackageVersion } from "granted/plugin-sdk/extension-shared";
+import { redactToolPayloadText } from "granted/plugin-sdk/logging-core";
 import {
   readProviderJsonResponse,
   readResponseTextLimited,
-} from "openclaw/plugin-sdk/provider-http";
+} from "granted/plugin-sdk/provider-http";
 import {
   mergeScopedSearchConfig,
   readConfiguredSecretString,
@@ -12,9 +12,9 @@ import {
   resolveProviderWebSearchPluginConfig,
   type SearchConfigRecord,
   withTrustedWebSearchEndpoint,
-} from "openclaw/plugin-sdk/provider-web-search";
-import { redactSensitiveText } from "openclaw/plugin-sdk/security-runtime";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/provider-web-search";
+import { redactSensitiveText } from "granted/plugin-sdk/security-runtime";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   buildParallelCacheKey,
   executeParallelSearchRequest,

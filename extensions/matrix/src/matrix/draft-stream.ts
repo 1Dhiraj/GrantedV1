@@ -1,5 +1,5 @@
 // Matrix plugin module implements draft stream behavior.
-import { createFinalizableDraftStreamControlsForState } from "openclaw/plugin-sdk/channel-outbound";
+import { createFinalizableDraftStreamControlsForState } from "granted/plugin-sdk/channel-outbound";
 import type { CoreConfig } from "../types.js";
 import type { MatrixClient } from "./sdk.js";
 import { editMessageMatrix, prepareMatrixSingleText, sendSingleTextMessageMatrix } from "./send.js";

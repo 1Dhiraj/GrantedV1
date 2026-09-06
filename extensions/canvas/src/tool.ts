@@ -1,13 +1,13 @@
 /** Agent-facing Canvas tool implementation for the macOS widget panel. */
 import { randomUUID } from "node:crypto";
-import { callGatewayTool, listNodes } from "openclaw/plugin-sdk/agent-harness-runtime";
-import { jsonResult, readStringParam } from "openclaw/plugin-sdk/channel-actions";
+import { callGatewayTool, listNodes } from "granted/plugin-sdk/agent-harness-runtime";
+import { jsonResult, readStringParam } from "granted/plugin-sdk/channel-actions";
 import {
   addTimerTimeoutGraceMs,
   clampPositiveTimerTimeoutMs,
-} from "openclaw/plugin-sdk/number-runtime";
-import { readFiniteNumberParam, readPositiveIntegerParam } from "openclaw/plugin-sdk/param-readers";
-import type { AnyAgentTool } from "openclaw/plugin-sdk/plugin-entry";
+} from "granted/plugin-sdk/number-runtime";
+import { readFiniteNumberParam, readPositiveIntegerParam } from "granted/plugin-sdk/param-readers";
+import type { AnyAgentTool } from "granted/plugin-sdk/plugin-entry";
 import { CANVAS_PRESENT_COMMAND, resolveCanvasNodeFromList } from "./node-eligibility.js";
 import { CanvasToolSchema } from "./tool-schema.js";
 

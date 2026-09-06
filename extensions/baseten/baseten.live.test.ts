@@ -4,10 +4,10 @@ import {
   type Context,
   type Model,
   type Tool,
-} from "openclaw/plugin-sdk/llm";
-import { registerSingleProviderPlugin } from "openclaw/plugin-sdk/plugin-test-runtime";
-import type { ModelDefinitionConfig } from "openclaw/plugin-sdk/provider-model-shared";
-import { isLiveTestEnabled } from "openclaw/plugin-sdk/test-live";
+} from "granted/plugin-sdk/llm";
+import { registerSingleProviderPlugin } from "granted/plugin-sdk/plugin-test-runtime";
+import type { ModelDefinitionConfig } from "granted/plugin-sdk/provider-model-shared";
+import { isLiveTestEnabled } from "granted/plugin-sdk/test-live";
 import { Type } from "typebox";
 import { describe, expect, it } from "vitest";
 import { runSingleProviderCatalog } from "../test-support/provider-model-test-helpers.js";

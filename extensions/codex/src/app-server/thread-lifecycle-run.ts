@@ -1,5 +1,5 @@
 import { isDeepStrictEqual } from "node:util";
-import { embeddedAgentLog } from "openclaw/plugin-sdk/agent-harness-runtime";
+import { embeddedAgentLog } from "granted/plugin-sdk/agent-harness-runtime";
 import { isIncognitoSessionKey } from "../incognito-session.js";
 import { closeCodexStartupClientBestEffort } from "./attempt-client-cleanup.js";
 import { resolveCodexAppServerClientInstanceId } from "./client.js";

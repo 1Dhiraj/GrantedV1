@@ -1,6 +1,6 @@
 // Irc tests cover inbound.behavior plugin behavior.
-import { createPluginRuntimeMock } from "openclaw/plugin-sdk/channel-test-helpers";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime";
+import { createPluginRuntimeMock } from "granted/plugin-sdk/channel-test-helpers";
+import type { RuntimeEnv } from "granted/plugin-sdk/runtime";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { ResolvedIrcAccount } from "./accounts.js";
 import { handleIrcInbound } from "./inbound.js";

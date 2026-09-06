@@ -1,16 +1,16 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
-import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
-import type { SessionTranscriptWriteLockContext } from "openclaw/plugin-sdk/session-transcript-runtime";
-import { withEnvAsync } from "openclaw/plugin-sdk/test-env";
+import type { GrantedPluginApi } from "granted/plugin-sdk/plugin-entry";
+import { createTestPluginApi } from "granted/plugin-sdk/plugin-test-api";
+import type { SessionTranscriptWriteLockContext } from "granted/plugin-sdk/session-transcript-runtime";
+import { withEnvAsync } from "granted/plugin-sdk/test-env";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 type ResolveAcpSessionAvailability =
-  (typeof import("openclaw/plugin-sdk/acp-runtime"))["resolveAcpSessionAvailability"];
+  (typeof import("granted/plugin-sdk/acp-runtime"))["resolveAcpSessionAvailability"];
 type RunCommandBuffered =
-  (typeof import("openclaw/plugin-sdk/process-runtime"))["runCommandBuffered"];
+  (typeof import("granted/plugin-sdk/process-runtime"))["runCommandBuffered"];
 type RegisteredSessionCatalogProvider = Parameters<GrantedPluginApi["registerSessionCatalog"]>[0];
 type OptionalCatalogAgent<T extends { agentId?: string }> = Omit<T, "agentId"> & {
   agentId?: string;
@@ -84,19 +84,19 @@ const transcriptMocks = vi.hoisted(() => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/process-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/process-runtime")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/process-runtime")>();
   processRuntimeMocks.runCommandBuffered.mockImplementation(actual.runCommandBuffered);
   return { ...actual, runCommandBuffered: processRuntimeMocks.runCommandBuffered };
 });
 
 vi.mock("openclaw/plugin-sdk/acp-runtime", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("openclaw/plugin-sdk/acp-runtime")>()),
+  ...(await importOriginal<typeof import("granted/plugin-sdk/acp-runtime")>()),
   resolveAcpSessionAvailability: acpRuntimeMocks.resolveAcpSessionAvailability,
 }));
 
 vi.mock("openclaw/plugin-sdk/session-transcript-runtime", async (importOriginal) => {
   const actual =
-    await importOriginal<typeof import("openclaw/plugin-sdk/session-transcript-runtime")>();
+    await importOriginal<typeof import("granted/plugin-sdk/session-transcript-runtime")>();
   return {
     ...actual,
     withSessionTranscriptWriteLock: async (
@@ -122,7 +122,7 @@ vi.mock("openclaw/plugin-sdk/session-transcript-runtime", async (importOriginal)
 });
 
 vi.mock("openclaw/plugin-sdk/node-host", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/node-host")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/node-host")>();
   return {
     ...actual,
     runNodePtyCommand: nodeHostMocks.runNodePtyCommand,

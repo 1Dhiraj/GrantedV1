@@ -2,16 +2,16 @@ import { randomBytes } from "node:crypto";
 import { mkdtempSync, realpathSync, rmSync, statSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import type { ContainerConfig } from "@microsoft/mxc-sdk";
-import { isPathInside } from "openclaw/plugin-sdk/file-access-runtime";
-import { runCommandBuffered } from "openclaw/plugin-sdk/process-runtime";
-import { resolvePreferredOpenClawTmpDir } from "openclaw/plugin-sdk/sandbox";
+import { isPathInside } from "granted/plugin-sdk/file-access-runtime";
+import { runCommandBuffered } from "granted/plugin-sdk/process-runtime";
+import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/sandbox";
 import type {
   SandboxBackendHandle,
   SandboxBackendExecSpec,
   SandboxBackendCommandParams,
   SandboxBackendCommandResult,
   SandboxBackendManager,
-} from "openclaw/plugin-sdk/sandbox";
+} from "granted/plugin-sdk/sandbox";
 import { resolveMxcBinaryPath } from "./binary-resolver.js";
 import type { MxcConfig } from "./config.js";
 import { createMxcFsBridge } from "./fs-bridge.js";

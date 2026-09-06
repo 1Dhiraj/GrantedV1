@@ -1,9 +1,9 @@
 // Whatsapp plugin module implements reaction level behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   resolveReactionLevel,
   type ResolvedReactionLevel,
-} from "openclaw/plugin-sdk/status-helpers";
+} from "granted/plugin-sdk/status-helpers";
 import { resolveMergedWhatsAppAccountConfig } from "./account-config.js";
 
 /** Resolve the effective reaction level and its implications for WhatsApp. */

@@ -7,8 +7,8 @@ import fs from "node:fs/promises";
 import { createRequire } from "node:module";
 import os from "node:os";
 import path from "node:path";
-import { readJsonFileWithFallback } from "openclaw/plugin-sdk/json-store";
-import { isRecord as isConfigRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { readJsonFileWithFallback } from "granted/plugin-sdk/json-store";
+import { isRecord as isConfigRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   parse as parseToml,
   stringify as stringifyToml,

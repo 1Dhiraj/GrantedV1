@@ -1,5 +1,5 @@
 // Memory Core owns detached search-time index maintenance lifecycle.
-import { toErrorObject } from "openclaw/plugin-sdk/error-runtime";
+import { toErrorObject } from "granted/plugin-sdk/error-runtime";
 
 type MemorySearchMaintenanceManager = {
   sync(params: { reason: string; force: true }): Promise<void>;

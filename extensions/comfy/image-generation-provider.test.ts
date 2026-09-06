@@ -1,6 +1,6 @@
 // Comfy tests cover image generation provider plugin behavior.
 import type { LookupAddress } from "node:dns";
-import { MAX_TIMER_TIMEOUT_MS } from "openclaw/plugin-sdk/number-runtime";
+import { MAX_TIMER_TIMEOUT_MS } from "granted/plugin-sdk/number-runtime";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { buildComfyImageGenerationProvider } from "./image-generation-provider.js";
 import {
@@ -19,7 +19,7 @@ vi.mock("node:crypto", async (importOriginal) => {
   return { ...actual, randomInt: randomIntMock.mockImplementation(actual.randomInt) };
 });
 
-type FetchWithSsrFGuard = (typeof import("openclaw/plugin-sdk/ssrf-runtime"))["fetchWithSsrFGuard"];
+type FetchWithSsrFGuard = (typeof import("granted/plugin-sdk/ssrf-runtime"))["fetchWithSsrFGuard"];
 
 const { fetchWithSsrFGuardMock, ssrfGuardState } = vi.hoisted(() => ({
   fetchWithSsrFGuardMock: vi.fn(),
@@ -27,7 +27,7 @@ const { fetchWithSsrFGuardMock, ssrfGuardState } = vi.hoisted(() => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/ssrf-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/ssrf-runtime")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/ssrf-runtime")>();
   ssrfGuardState.actual = actual.fetchWithSsrFGuard;
   return {
     ...actual,

@@ -1,7 +1,7 @@
 // Slack tests cover prepare thread context plugin behavior.
 import type { App } from "@slack/bolt";
-import { resolveEnvelopeFormatOptions } from "openclaw/plugin-sdk/channel-inbound";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import { resolveEnvelopeFormatOptions } from "granted/plugin-sdk/channel-inbound";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from "vitest";
 import type { SlackMessageEvent } from "../../types.js";
 import * as mediaModule from "../media.js";

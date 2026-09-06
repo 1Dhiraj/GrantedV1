@@ -1,7 +1,7 @@
 // Migrate Hermes helper module supports auth config behavior.
-import { resolveMigrationConfigRuntime } from "openclaw/plugin-sdk/migration";
-import type { MigrationProviderContext } from "openclaw/plugin-sdk/plugin-entry";
-import { applyAuthProfileConfig, type GrantedConfig } from "openclaw/plugin-sdk/provider-auth";
+import { resolveMigrationConfigRuntime } from "granted/plugin-sdk/migration";
+import type { MigrationProviderContext } from "granted/plugin-sdk/plugin-entry";
+import { applyAuthProfileConfig, type GrantedConfig } from "granted/plugin-sdk/provider-auth";
 
 export type HermesAuthProfileConfig = {
   profileId: string;

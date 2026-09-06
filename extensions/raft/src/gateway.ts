@@ -5,17 +5,17 @@ import type { EventEmitter } from "node:events";
 import { createServer, type IncomingMessage, type Server, type ServerResponse } from "node:http";
 import type { Socket } from "node:net";
 import process from "node:process";
-import type { ChannelGatewayContext } from "openclaw/plugin-sdk/channel-contract";
-import { keepHttpServerTaskAlive, waitUntilAbort } from "openclaw/plugin-sdk/channel-outbound";
-import { channelReadyPatch } from "openclaw/plugin-sdk/gateway-runtime";
-import { KeyedAsyncQueue } from "openclaw/plugin-sdk/keyed-async-queue";
-import { createChannelReplayGuard } from "openclaw/plugin-sdk/persistent-dedupe";
-import { killProcessTree } from "openclaw/plugin-sdk/process-runtime";
-import { safeEqualSecret } from "openclaw/plugin-sdk/security-runtime";
+import type { ChannelGatewayContext } from "granted/plugin-sdk/channel-contract";
+import { keepHttpServerTaskAlive, waitUntilAbort } from "granted/plugin-sdk/channel-outbound";
+import { channelReadyPatch } from "granted/plugin-sdk/gateway-runtime";
+import { KeyedAsyncQueue } from "granted/plugin-sdk/keyed-async-queue";
+import { createChannelReplayGuard } from "granted/plugin-sdk/persistent-dedupe";
+import { killProcessTree } from "granted/plugin-sdk/process-runtime";
+import { safeEqualSecret } from "granted/plugin-sdk/security-runtime";
 import {
   readJsonBodyWithLimit,
   WEBHOOK_BODY_READ_DEFAULTS,
-} from "openclaw/plugin-sdk/webhook-request-guards";
+} from "granted/plugin-sdk/webhook-request-guards";
 import { RAFT_CHANNEL_ID, type ResolvedRaftAccount } from "./accounts.js";
 import { dispatchRaftWake } from "./inbound.js";
 

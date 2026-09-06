@@ -1,11 +1,11 @@
-import type { WizardPrompter } from "openclaw/plugin-sdk/setup";
+import type { WizardPrompter } from "granted/plugin-sdk/setup";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { pullOllamaModel, pullOllamaModelNonInteractive } from "./setup-pull.js";
 
 const fetchWithSsrFGuardMock = vi.hoisted(() => vi.fn());
 
 vi.mock("openclaw/plugin-sdk/ssrf-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/ssrf-runtime")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/ssrf-runtime")>();
   return {
     ...actual,
     fetchWithSsrFGuard: fetchWithSsrFGuardMock,

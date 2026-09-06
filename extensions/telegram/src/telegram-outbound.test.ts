@@ -1,5 +1,5 @@
-import { chunkMarkdownTextWithMode } from "openclaw/plugin-sdk/reply-chunking";
-import { sendTextMediaPayload } from "openclaw/plugin-sdk/reply-payload";
+import { chunkMarkdownTextWithMode } from "granted/plugin-sdk/reply-chunking";
+import { sendTextMediaPayload } from "granted/plugin-sdk/reply-payload";
 // Telegram tests cover telegram outbound plugin behavior.
 import { describe, expect, it, vi } from "vitest";
 import { markdownToTelegramHtml, splitTelegramHtmlChunks } from "./format.js";

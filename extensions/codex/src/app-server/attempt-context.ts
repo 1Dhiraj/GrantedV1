@@ -13,19 +13,19 @@ import {
   type ContextEngineProjection,
   type EmbeddedContextFile,
   type EmbeddedRunAttemptParamsV2 as EmbeddedRunAttemptParams,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
-import { resolveAgentWorkspaceDir } from "openclaw/plugin-sdk/agent-runtime";
-import { resolveBootstrapFilesForPreparation } from "openclaw/plugin-sdk/codex-mcp-projection";
+} from "granted/plugin-sdk/agent-harness-runtime";
+import { resolveAgentWorkspaceDir } from "granted/plugin-sdk/agent-runtime";
+import { resolveBootstrapFilesForPreparation } from "granted/plugin-sdk/codex-mcp-projection";
 import {
   buildMemorySystemPromptAddition,
   prepareMemorySystemPromptAddition,
-} from "openclaw/plugin-sdk/core";
-import { MESSAGE_TOOL_DELIVERY_HINTS } from "openclaw/plugin-sdk/message-tool-delivery-hints";
+} from "granted/plugin-sdk/core";
+import { MESSAGE_TOOL_DELIVERY_HINTS } from "granted/plugin-sdk/message-tool-delivery-hints";
 import type {
   SessionTranscriptTargetParams,
   TranscriptTurnAdmission,
-} from "openclaw/plugin-sdk/session-transcript-runtime";
-import { readNonBlankString as readNonEmptyString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/session-transcript-runtime";
+import { readNonBlankString as readNonEmptyString } from "granted/plugin-sdk/string-coerce-runtime";
 import type { EmbeddedRunAttemptResult } from "./attempt-terminal.js";
 import { isMessageOnlyCodexSourceReply } from "./dynamic-tool-profile.js";
 import type { CodexDynamicToolFunctionSpec, CodexDynamicToolSpec, JsonValue } from "./protocol.js";

@@ -5,8 +5,8 @@
 // legacy-state import, so it stays a leaf.
 import { createHash } from "node:crypto";
 import fs from "node:fs";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { resolveStorePath } from "openclaw/plugin-sdk/session-store-paths";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { resolveStorePath } from "granted/plugin-sdk/session-store-paths";
 import { resolveTelegramAccountOwnerAgentId } from "./account-owner.js";
 
 export const TTL_MS = 24 * 60 * 60 * 1000;

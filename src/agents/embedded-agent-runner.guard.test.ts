@@ -3,13 +3,13 @@
 import { readFileSync } from "node:fs";
 import { expectDefined } from "@openclaw/normalization-core";
 import { MAX_TIMER_TIMEOUT_MS } from "@openclaw/normalization-core/number-coercion";
-import type { AgentMessage } from "openclaw/plugin-sdk/agent-core";
-import { SessionManager } from "openclaw/plugin-sdk/agent-sessions";
+import type { AgentMessage } from "granted/plugin-sdk/agent-core";
+import { SessionManager } from "granted/plugin-sdk/agent-sessions";
 import {
   initializeGlobalHookRunner,
   resetGlobalHookRunner,
-} from "openclaw/plugin-sdk/hook-runtime";
-import { createMockPluginRegistry } from "openclaw/plugin-sdk/plugin-test-runtime";
+} from "granted/plugin-sdk/hook-runtime";
+import { createMockPluginRegistry } from "granted/plugin-sdk/plugin-test-runtime";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { createFileBackedSessionManagerForTest } from "../../test/helpers/session-manager-file-fixture.js";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";

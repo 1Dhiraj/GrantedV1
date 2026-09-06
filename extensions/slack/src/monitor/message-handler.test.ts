@@ -1,10 +1,10 @@
 // Slack tests cover message handler plugin behavior.
-import { createTestInboundDebounceFlush } from "openclaw/plugin-sdk/channel-test-helpers";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import { createTestInboundDebounceFlush } from "granted/plugin-sdk/channel-test-helpers";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   clearRuntimeConfigSnapshot,
   setRuntimeConfigSnapshot,
-} from "openclaw/plugin-sdk/runtime-config-snapshot";
+} from "granted/plugin-sdk/runtime-config-snapshot";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 type InboundDebounceFlush = { admission: Promise<void>; completion: Promise<void> };
@@ -33,7 +33,7 @@ const resolveThreadTsMock = vi.fn(async ({ message }: { message: Record<string, 
 const { createSlackMessageHandler } = await import("./message-handler.js");
 
 vi.mock("openclaw/plugin-sdk/channel-inbound", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/channel-inbound")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/channel-inbound")>(
     "openclaw/plugin-sdk/channel-inbound",
   );
   return {

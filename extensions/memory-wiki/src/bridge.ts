@@ -2,13 +2,13 @@
 import { createHash } from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
-import { isPathInside } from "openclaw/plugin-sdk/file-access-runtime";
+import { isPathInside } from "granted/plugin-sdk/file-access-runtime";
 import {
   getMemoryCapabilityRegistration,
   listActiveMemoryPublicArtifacts,
   type MemoryPluginPublicArtifact,
-} from "openclaw/plugin-sdk/memory-host-core";
-import { normalizeAgentId } from "openclaw/plugin-sdk/routing";
+} from "granted/plugin-sdk/memory-host-core";
+import { normalizeAgentId } from "granted/plugin-sdk/routing";
 import type { GrantedConfig } from "../api.js";
 import type { ResolvedMemoryWikiConfig } from "./config.js";
 import { appendMemoryWikiLog } from "./log.js";

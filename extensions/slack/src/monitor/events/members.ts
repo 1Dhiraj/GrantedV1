@@ -1,9 +1,9 @@
 // Slack plugin module implements members behavior.
 import type { AllMiddlewareArgs, SlackEventMiddlewareArgs } from "@slack/bolt";
-import { reportChannelRoomJoin } from "openclaw/plugin-sdk/channel-join-intro-runtime";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import { danger } from "openclaw/plugin-sdk/runtime-env";
-import { enqueueRoutedSystemEvent } from "openclaw/plugin-sdk/system-event-runtime";
+import { reportChannelRoomJoin } from "granted/plugin-sdk/channel-join-intro-runtime";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
+import { danger } from "granted/plugin-sdk/runtime-env";
+import { enqueueRoutedSystemEvent } from "granted/plugin-sdk/system-event-runtime";
 import { readSlackMessages } from "../../actions.js";
 import { SlackSystemEventAuthRetryError } from "../auth.js";
 import { normalizeSlackChannelType } from "../channel-type.js";

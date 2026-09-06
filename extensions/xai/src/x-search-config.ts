@@ -1,6 +1,6 @@
 // Xai helper module supports x search config behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 
 type JsonRecord = Record<string, unknown>;
 

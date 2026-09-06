@@ -54,7 +54,7 @@ vi.mock("openclaw/plugin-sdk/provider-auth-runtime", () => ({
   resolveProviderAuthProfileMetadata: () => ({}),
 }));
 vi.mock("openclaw/plugin-sdk/provider-catalog-live-runtime", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("openclaw/plugin-sdk/provider-catalog-live-runtime")>()),
+  ...(await importOriginal<typeof import("granted/plugin-sdk/provider-catalog-live-runtime")>()),
   getCachedLiveProviderModelRows: async () => [
     {
       slug: "gpt-5.6-luna",

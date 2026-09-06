@@ -5,14 +5,14 @@ import {
   queueAgentHarnessMessage,
   resolveActiveEmbeddedRunSessionId,
   runAgentHarnessGatewayQuestion,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
-import { upsertSessionEntry } from "openclaw/plugin-sdk/session-store-runtime";
+} from "granted/plugin-sdk/agent-harness-runtime";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
+import { upsertSessionEntry } from "granted/plugin-sdk/session-store-runtime";
 import {
   appendSessionTranscriptMessageByIdentity,
   readVisibleSessionTranscriptMessageEntries,
-} from "openclaw/plugin-sdk/session-transcript-runtime";
-import { createSolidPngBuffer } from "openclaw/plugin-sdk/test-fixtures";
+} from "granted/plugin-sdk/session-transcript-runtime";
+import { createSolidPngBuffer } from "granted/plugin-sdk/test-fixtures";
 import { describe, expect, it, vi } from "vitest";
 import type { CodexUserInput } from "./protocol.js";
 import {

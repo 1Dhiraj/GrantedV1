@@ -1,5 +1,5 @@
-import { readManifestProviderDefaultModelRef } from "openclaw/plugin-sdk/provider-catalog-shared";
-import { createModelCatalogPresetAppliers } from "openclaw/plugin-sdk/provider-onboard";
+import { readManifestProviderDefaultModelRef } from "granted/plugin-sdk/provider-catalog-shared";
+import { createModelCatalogPresetAppliers } from "granted/plugin-sdk/provider-onboard";
 import { DEEPSEEK_BASE_URL, DEEPSEEK_MODEL_CATALOG } from "./models.js";
 import manifest from "./openclaw.plugin.json" with { type: "json" };
 

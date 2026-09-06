@@ -2206,7 +2206,7 @@ if [ "\${1:-}" = "run" ] && [ "\${2:-}" = "--bun" ]; then
   echo "OpenClaw 2026.6.17"
   exit 0
 fi
-if [[ "\${1:-}" == */openclaw.mjs ]]; then
+if [[ "\${1:-}" == */granted.mjs ]]; then
   shift
   if [ "\${1:-}" = "--version" ]; then
     echo "OpenClaw 2026.6.17"
@@ -2269,7 +2269,7 @@ fi
 cat >"$package_root/dist/plugin-sdk/logging-core.js" <<'REDACTOR'
 exports.redactSensitiveText = (text) => text;
 REDACTOR
-cat >"$package_root/openclaw.mjs" <<'OPENCLAW'
+cat >"$package_root/granted.mjs" <<'OPENCLAW'
 #!/usr/bin/env node
 const args = process.argv.slice(2);
 if (args[0] === "--version") {
@@ -2282,8 +2282,8 @@ if (args[0] === "--version") {
   process.exit(1);
 }
 OPENCLAW
-chmod +x "$package_root/openclaw.mjs"
-ln -s "$package_root/openclaw.mjs" "$BUN_INSTALL/bin/openclaw"
+chmod +x "$package_root/granted.mjs"
+ln -s "$package_root/granted.mjs" "$BUN_INSTALL/bin/openclaw"
 node -e 'const fs=require("node:fs");const p=process.argv[1];const value=JSON.parse(fs.readFileSync(p,"utf8"));value.trustedDependencies=["openclaw"];fs.writeFileSync(p,JSON.stringify(value))' "$BUN_INSTALL/install/global/package.json"
 `,
     );

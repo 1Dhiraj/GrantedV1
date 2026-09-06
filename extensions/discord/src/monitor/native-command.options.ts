@@ -3,15 +3,15 @@ import { ApplicationCommandOptionType } from "discord-api-types/v10";
 import {
   getPreparedModelCatalogSnapshot,
   resolveAgentDir,
-} from "openclaw/plugin-sdk/agent-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+} from "granted/plugin-sdk/agent-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   resolveCommandArgChoices,
   type ChatCommandDefinition,
-} from "openclaw/plugin-sdk/native-command-registry";
-import { createSubsystemLogger } from "openclaw/plugin-sdk/runtime-env";
-import { normalizeLowercaseStringOrEmpty } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+} from "granted/plugin-sdk/native-command-registry";
+import { createSubsystemLogger } from "granted/plugin-sdk/runtime-env";
+import { normalizeLowercaseStringOrEmpty } from "granted/plugin-sdk/string-coerce-runtime";
+import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import type { AutocompleteInteraction, CommandOptions } from "../internal/discord.js";
 
 const log = createSubsystemLogger("discord/native-command");

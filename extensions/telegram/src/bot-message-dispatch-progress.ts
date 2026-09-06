@@ -1,7 +1,7 @@
 import {
   createChannelProgressDraftCompositor,
   type ChannelProgressDraftLine,
-} from "openclaw/plugin-sdk/channel-outbound";
+} from "granted/plugin-sdk/channel-outbound";
 import type { TelegramBotDeps } from "./bot-deps.js";
 import { resetLaneState, rotateAnswerLaneAfterToolProgress } from "./bot-message-dispatch-draft.js";
 import type {

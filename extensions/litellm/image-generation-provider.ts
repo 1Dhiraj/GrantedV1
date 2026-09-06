@@ -1,13 +1,13 @@
 import { isIP } from "node:net";
-import { bufferToBlobPart } from "openclaw/plugin-sdk/blob-runtime";
+import { bufferToBlobPart } from "granted/plugin-sdk/blob-runtime";
 // Litellm provider module implements model/runtime integration.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   createOpenAiCompatibleImageGenerationProvider,
   imageSourceUploadFileName,
   type ImageGenerationProvider,
-} from "openclaw/plugin-sdk/image-generation";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/image-generation";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import { LITELLM_BASE_URL } from "./onboard.js";
 
 const DEFAULT_SIZE = "1024x1024";

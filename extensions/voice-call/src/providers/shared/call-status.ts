@@ -1,5 +1,5 @@
 // Voice Call plugin module implements call status behavior.
-import { normalizeOptionalLowercaseString } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { normalizeOptionalLowercaseString } from "granted/plugin-sdk/string-coerce-runtime";
 import type { EndReason } from "../../types.js";
 
 // Shared provider status normalization and terminal-state mapping.

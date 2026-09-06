@@ -1,5 +1,5 @@
 // Telegram tests cover probe plugin behavior.
-import { withFetchPreconnect } from "openclaw/plugin-sdk/test-env";
+import { withFetchPreconnect } from "granted/plugin-sdk/test-env";
 import { afterEach, beforeEach, describe, expect, it, vi, type Mock } from "vitest";
 import { probeTelegram } from "./probe.js";
 
@@ -20,7 +20,7 @@ vi.mock("./proxy.js", () => ({
 // fetch mocks continue to work. The size-cap behavior is verified by the proof script.
 vi.mock("openclaw/plugin-sdk/response-limit-runtime", async (importOriginal) => {
   const actual =
-    await importOriginal<typeof import("openclaw/plugin-sdk/response-limit-runtime")>();
+    await importOriginal<typeof import("granted/plugin-sdk/response-limit-runtime")>();
   return {
     ...actual,
     readResponseWithLimit: async (response: Response) => {

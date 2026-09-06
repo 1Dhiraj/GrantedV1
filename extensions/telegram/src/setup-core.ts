@@ -1,4 +1,4 @@
-import { defineChannelSetupContract } from "openclaw/plugin-sdk/channel-setup";
+import { defineChannelSetupContract } from "granted/plugin-sdk/channel-setup";
 // Telegram plugin module implements setup core behavior.
 import {
   createEnvPatchedAccountSetupAdapter,
@@ -9,8 +9,8 @@ import {
   type ChannelSetupAdapter,
   type GrantedConfig,
   type WizardPrompter,
-} from "openclaw/plugin-sdk/setup-runtime";
-import { formatCliCommand, formatDocsLink } from "openclaw/plugin-sdk/setup-tools";
+} from "granted/plugin-sdk/setup-runtime";
+import { formatCliCommand, formatDocsLink } from "granted/plugin-sdk/setup-tools";
 import { resolveDefaultTelegramAccountId, resolveTelegramAccount } from "./accounts.js";
 import { isNumericTelegramSenderUserId } from "./allow-from.js";
 import { namedAccountPromotionKeys, singleAccountKeysToMove } from "./setup-contract.js";

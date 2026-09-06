@@ -1,5 +1,5 @@
 // Google Meet type declarations define plugin contracts.
-import type { MeetingPlatformAdapter } from "openclaw/plugin-sdk/meeting-runtime";
+import type { MeetingPlatformAdapter } from "granted/plugin-sdk/meeting-runtime";
 import type {
   GoogleMeetConfig,
   GoogleMeetMode,

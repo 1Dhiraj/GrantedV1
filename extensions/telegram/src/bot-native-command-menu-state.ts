@@ -1,8 +1,8 @@
 // Owns Telegram command-menu identity, process serialization, and durable locale state.
 import type { LanguageCode } from "grammy/types";
-import type { PluginStateKeyedStore } from "openclaw/plugin-sdk/plugin-state-runtime";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import type { PluginStateKeyedStore } from "granted/plugin-sdk/plugin-state-runtime";
+import type { RuntimeEnv } from "granted/plugin-sdk/runtime-env";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import { getOptionalTelegramRuntime } from "./runtime.js";
 import {
   fingerprintTelegramBotToken,

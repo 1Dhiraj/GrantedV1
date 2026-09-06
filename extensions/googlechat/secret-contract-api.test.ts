@@ -1,4 +1,4 @@
-import { runDirectImportSmoke } from "openclaw/plugin-sdk/test-fixtures";
+import { runDirectImportSmoke } from "granted/plugin-sdk/test-fixtures";
 import { describe, expect, it } from "vitest";
 
 describe("googlechat secret contract import boundary", () => {

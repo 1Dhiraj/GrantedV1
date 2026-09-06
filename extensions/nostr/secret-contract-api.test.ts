@@ -1,5 +1,5 @@
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { createResolverContext } from "openclaw/plugin-sdk/secret-ref-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { createResolverContext } from "granted/plugin-sdk/secret-ref-runtime";
 import { describe, expect, it } from "vitest";
 import {
   channelSecrets,

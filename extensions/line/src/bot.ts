@@ -1,17 +1,17 @@
 // Line plugin module implements bot behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { DEFAULT_GROUP_HISTORY_LIMIT, type HistoryEntry } from "openclaw/plugin-sdk/reply-history";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { DEFAULT_GROUP_HISTORY_LIMIT, type HistoryEntry } from "granted/plugin-sdk/reply-history";
 import {
   getRuntimeConfig,
   getRuntimeConfigSnapshot,
   getRuntimeConfigSourceSnapshot,
   selectApplicableRuntimeConfig,
-} from "openclaw/plugin-sdk/runtime-config-snapshot";
+} from "granted/plugin-sdk/runtime-config-snapshot";
 import {
   createNonExitingRuntime,
   logVerbose,
   type RuntimeEnv,
-} from "openclaw/plugin-sdk/runtime-env";
+} from "granted/plugin-sdk/runtime-env";
 import { resolveLineAccount } from "./accounts.js";
 import { handleLineWebhookEvents } from "./bot-handlers.js";
 import type { LineInboundContext } from "./bot-message-context.js";
@@ -20,7 +20,7 @@ import { createLineWebhookSpool, type LineWebhookTurnAdoptionLifecycle } from ".
 
 const DEFAULT_MEDIA_MAX_MB = 10;
 type BuildChannelInboundContext =
-  typeof import("openclaw/plugin-sdk/channel-inbound").buildChannelInboundEventContext;
+  typeof import("granted/plugin-sdk/channel-inbound").buildChannelInboundEventContext;
 
 interface LineBotOptions {
   channelAccessToken: string;

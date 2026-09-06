@@ -6,8 +6,8 @@ import type {
   GroupPolicy,
   MentionPatternsPolicyConfig,
   GrantedConfig,
-} from "openclaw/plugin-sdk/config-contracts";
-import type { SecretInput } from "openclaw/plugin-sdk/secret-input";
+} from "granted/plugin-sdk/config-contracts";
+import type { SecretInput } from "granted/plugin-sdk/secret-input";
 
 export type ReplyToMode = "off" | "first" | "all" | "batched";
 
@@ -95,8 +95,8 @@ export type MatrixStreamingConfig = {
   /** Chunking mode: "length" (default) splits by size; "newline" splits on every newline. */
   chunkMode?: "length" | "newline";
   /** Block streaming delivery controls (separate from the preview mode). Default: disabled. */
-  block?: import("openclaw/plugin-sdk/channel-outbound").ChannelStreamingBlockConfig;
-  progress?: import("openclaw/plugin-sdk/channel-outbound").ChannelStreamingProgressConfig;
+  block?: import("granted/plugin-sdk/channel-outbound").ChannelStreamingBlockConfig;
+  progress?: import("granted/plugin-sdk/channel-outbound").ChannelStreamingProgressConfig;
   preview?: {
     /** Show tool/progress activity in the live draft preview. Default: true. */
     toolProgress?: boolean;

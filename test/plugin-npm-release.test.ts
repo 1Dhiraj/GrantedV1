@@ -2,7 +2,7 @@
 import { execFileSync } from "node:child_process";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
-import { bundledPluginFile, bundledPluginRoot } from "openclaw/plugin-sdk/test-fixtures";
+import { bundledPluginFile, bundledPluginRoot } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { collectClawHubPublishablePluginPackages } from "../scripts/lib/plugin-clawhub-release.ts";
 import {

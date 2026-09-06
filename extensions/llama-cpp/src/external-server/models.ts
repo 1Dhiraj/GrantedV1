@@ -1,13 +1,13 @@
 import type {
   ModelDefinitionConfig,
   ModelProviderConfig,
-} from "openclaw/plugin-sdk/provider-model-shared";
+} from "granted/plugin-sdk/provider-model-shared";
 import {
   SELF_HOSTED_DEFAULT_CONTEXT_WINDOW,
   SELF_HOSTED_DEFAULT_COST,
   SELF_HOSTED_DEFAULT_MAX_TOKENS,
-} from "openclaw/plugin-sdk/provider-setup";
-import { asBoolean, asPositiveSafeInteger } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/provider-setup";
+import { asBoolean, asPositiveSafeInteger } from "granted/plugin-sdk/string-coerce-runtime";
 import { LLAMA_SERVER_DEFAULT_ORIGIN } from "./defaults.js";
 import { normalizeLlamaServerProviderConfig } from "./endpoint.js";
 

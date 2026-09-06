@@ -1,7 +1,7 @@
 // Slack tests cover context plugin behavior.
 import type { App } from "@slack/bolt";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { RuntimeEnv } from "granted/plugin-sdk/runtime-env";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { setSlackRuntime } from "../runtime.js";
 import { createSlackMonitorContext } from "./context.js";

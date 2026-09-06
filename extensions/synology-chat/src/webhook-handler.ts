@@ -5,8 +5,8 @@
 
 import type { IncomingMessage, ServerResponse } from "node:http";
 import * as querystring from "node:querystring";
-import { normalizeLowercaseStringOrEmpty } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+import { normalizeLowercaseStringOrEmpty } from "granted/plugin-sdk/string-coerce-runtime";
+import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import {
   beginWebhookRequestPipelineOrReject,
   createWebhookInFlightLimiter,
@@ -14,7 +14,7 @@ import {
   readRequestBodyWithLimit,
   resolveRequestClientIp,
   requestBodyErrorToText,
-} from "openclaw/plugin-sdk/webhook-ingress";
+} from "granted/plugin-sdk/webhook-ingress";
 import * as synologyClient from "./client.js";
 import {
   validateToken,
@@ -568,7 +568,7 @@ async function resolveSynologyReplyDeliveryUserId(params: {
 async function authorizeClaimedSynologyWebhook(params: {
   account: ResolvedSynologyChatAccount;
   payload: SynologyWebhookPayload;
-  contextBinding?: import("openclaw/plugin-sdk/channel-ingress-runtime").ChannelIngressContextBinding;
+  contextBinding?: import("granted/plugin-sdk/channel-ingress-runtime").ChannelIngressContextBinding;
 }) {
   const auth = await authorizeUserForDmWithIngress({
     accountId: params.account.accountId,
@@ -604,7 +604,7 @@ export async function processSynologyWebhookIngressEvent(params: {
     );
   }
   const resolveChannelIngress = async (
-    contextBinding?: import("openclaw/plugin-sdk/channel-ingress-runtime").ChannelIngressContextBinding,
+    contextBinding?: import("granted/plugin-sdk/channel-ingress-runtime").ChannelIngressContextBinding,
   ) =>
     await authorizeClaimedSynologyWebhook({
       account: params.account,

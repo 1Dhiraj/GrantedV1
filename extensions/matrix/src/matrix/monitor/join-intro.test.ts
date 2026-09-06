@@ -2,7 +2,7 @@ import { EventEmitter } from "node:events";
 import { ClientEvent, createClient, MatrixEvent } from "matrix-js-sdk/lib/matrix.js";
 import { Room, RoomEvent } from "matrix-js-sdk/lib/models/room.js";
 import { SyncState } from "matrix-js-sdk/lib/sync.js";
-import { reportChannelRoomJoin } from "openclaw/plugin-sdk/channel-join-intro-runtime";
+import { reportChannelRoomJoin } from "granted/plugin-sdk/channel-join-intro-runtime";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { CoreConfig } from "../../types.js";
 import type { MatrixAuth } from "../client.js";

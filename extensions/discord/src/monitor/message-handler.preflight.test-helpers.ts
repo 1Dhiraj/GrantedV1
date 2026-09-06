@@ -1,5 +1,5 @@
 // Discord helper module supports message handler.preflight helpers behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { ChannelType } from "../internal/discord.js";
 import type { preflightDiscordMessage } from "./message-handler.preflight.js";
 import { createNoopThreadBindingManager } from "./thread-bindings.js";
@@ -100,7 +100,7 @@ export function createDiscordPreflightArgs(params: {
     discordConfig: params.discordConfig,
     accountId: "default",
     token: "token",
-    runtime: {} as import("openclaw/plugin-sdk/runtime-env").RuntimeEnv,
+    runtime: {} as import("granted/plugin-sdk/runtime-env").RuntimeEnv,
     botUserId: params.botUserId ?? "openclaw-bot",
     guildHistories: new Map(),
     historyLimit: 0,

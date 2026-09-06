@@ -5,7 +5,7 @@ import {
   prepareTransportAwareSimpleModel,
   resolveTransportAwareSimpleApi,
 } from "@openclaw/ai/transports";
-import type { Api, Model } from "openclaw/plugin-sdk/llm";
+import type { Api, Model } from "granted/plugin-sdk/llm";
 import { describe, expect, it, vi } from "vitest";
 import {
   resolveAzureOpenAIApiVersion,

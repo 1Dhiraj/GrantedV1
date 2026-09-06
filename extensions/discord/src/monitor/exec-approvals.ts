@@ -3,13 +3,13 @@ import { ButtonStyle } from "discord-api-types/v10";
 import {
   resolveApprovalOverGateway,
   type ApprovalResolveResult,
-} from "openclaw/plugin-sdk/approval-gateway-runtime";
-import type { PendingApprovalView } from "openclaw/plugin-sdk/approval-handler-runtime";
-import type { ExecApprovalDecision } from "openclaw/plugin-sdk/approval-runtime";
+} from "granted/plugin-sdk/approval-gateway-runtime";
+import type { PendingApprovalView } from "granted/plugin-sdk/approval-handler-runtime";
+import type { ExecApprovalDecision } from "granted/plugin-sdk/approval-runtime";
 import type {
   DiscordExecApprovalConfig,
   GrantedConfig,
-} from "openclaw/plugin-sdk/config-contracts";
+} from "granted/plugin-sdk/config-contracts";
 import { parseExecApprovalData } from "../approval-custom-id.js";
 import {
   DISCORD_APPROVAL_ALLOWED_MENTIONS,

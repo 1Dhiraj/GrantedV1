@@ -1,4 +1,4 @@
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { SignalEventHandlerDeps } from "./monitor/event-handler.types.js";
 
@@ -8,7 +8,7 @@ const saveMediaBufferMock = vi.hoisted(() => vi.fn());
 let capturedFetchAttachment: SignalEventHandlerDeps["fetchAttachment"] | undefined;
 
 vi.mock("openclaw/plugin-sdk/media-runtime", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/media-runtime")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/media-runtime")>(
     "openclaw/plugin-sdk/media-runtime",
   );
   return {

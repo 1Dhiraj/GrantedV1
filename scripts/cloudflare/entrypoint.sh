@@ -194,4 +194,4 @@ fi
 
 log "starting Litestream replication with OpenClaw gateway child"
 exec litestream replicate -config "$CONFIG" \
-  -exec "node openclaw.mjs gateway --allow-unconfigured --bind lan --port 8080 --auth token"
+  -exec "node granted.mjs gateway --allow-unconfigured --bind lan --port 8080 --auth token"

@@ -1,14 +1,14 @@
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import type { GatewayRequestHandlerOptions } from "openclaw/plugin-sdk/gateway-runtime";
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
+import type { GatewayRequestHandlerOptions } from "granted/plugin-sdk/gateway-runtime";
+import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
 import type {
   GrantedPluginApi,
   GrantedPluginNodeInvokePolicy,
-} from "openclaw/plugin-sdk/plugin-entry";
+} from "granted/plugin-sdk/plugin-entry";
 import {
   asNonArrayRecord as asParamRecord,
   normalizeOptionalString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import { isGoogleMeetBrowserManualActionError } from "./browser-manual-action-error.js";
 import {
   resolveGoogleMeetGatewayOperationTimeoutMs,
@@ -32,7 +32,7 @@ const loadGoogleMeetNodeInvokePolicyModule = createLazyRuntimeModule(
   () => import("./node-invoke-policy.js"),
 );
 const loadGoogleMeetGatewayRuntimeModule = createLazyRuntimeModule(
-  () => import("openclaw/plugin-sdk/gateway-runtime"),
+  () => import("granted/plugin-sdk/gateway-runtime"),
 );
 
 type GoogleMeetGatewayRuntimeModule = Awaited<

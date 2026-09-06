@@ -52,7 +52,7 @@ async function fixture(mode: "source" | "package" | "external-plugin" = "source"
     },
   };
   await write(packageRoot, "package.json", sourcePackage);
-  await fs.writeFile(path.join(packageRoot, "openclaw.mjs"), 'import "./dist/entry.js";', {
+  await fs.writeFile(path.join(packageRoot, "granted.mjs"), 'import "./dist/entry.js";', {
     mode: 0o755,
   });
   await write(packageRoot, "node-version.mjs", "export const supported = true;");
@@ -186,7 +186,7 @@ describe("node bootstrap distribution", () => {
       expect(entries.some((entry) => entry.startsWith("package/dist/worker/"))).toBe(false);
       if (process.platform !== "win32") {
         for (const [relative, requestedMode] of [
-          ["openclaw.mjs", 0o755],
+          ["granted.mjs", 0o755],
           ["dist/shared.js", 0o644],
         ] as const) {
           const sourceMode = (await fs.stat(path.join(packageRoot, relative))).mode;
@@ -212,7 +212,7 @@ describe("node bootstrap distribution", () => {
       await promisify(execFile)(process.execPath, [path.join(target, "scripts/postinstall.mjs")]);
       await expect(fs.access(lifecycleMarker)).rejects.toHaveProperty("code", "ENOENT");
       const { stdout } = await promisify(execFile)(process.execPath, [
-        path.join(target, "openclaw.mjs"),
+        path.join(target, "granted.mjs"),
       ]);
       expect(stdout.trim()).toBe("local-ai:cloud-ready");
       expect(JSON.parse(await fs.readFile(path.join(packageRoot, "package.json"), "utf8"))).toEqual(

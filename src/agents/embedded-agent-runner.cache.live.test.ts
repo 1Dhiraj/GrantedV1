@@ -2,7 +2,7 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import type { AssistantMessage, Message, Tool } from "openclaw/plugin-sdk/llm";
+import type { AssistantMessage, Message, Tool } from "granted/plugin-sdk/llm";
 import { Type } from "typebox";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import type { GrantedConfig } from "../config/config.js";

@@ -1,11 +1,11 @@
 // Xai provider module implements model/runtime integration.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   coerceSecretRef,
   ensureAuthProfileStore,
   listUsableProviderAuthProfileIds,
-} from "openclaw/plugin-sdk/provider-auth";
-import { resolveApiKeyForProvider } from "openclaw/plugin-sdk/provider-auth-runtime";
+} from "granted/plugin-sdk/provider-auth";
+import { resolveApiKeyForProvider } from "granted/plugin-sdk/provider-auth-runtime";
 import {
   DEFAULT_CACHE_TTL_MINUTES,
   formatCliCommand,
@@ -21,7 +21,7 @@ import {
   resolveWebSearchProviderCredential,
   type WebSearchProviderSetupContext,
   writeCache,
-} from "openclaw/plugin-sdk/provider-web-search";
+} from "granted/plugin-sdk/provider-web-search";
 import {
   buildXaiWebSearchPayload,
   requestXaiWebSearch,

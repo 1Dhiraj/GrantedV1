@@ -4,8 +4,8 @@
 import type {
   ChannelBotLoopProtectionConfig,
   GrantedConfig,
-} from "openclaw/plugin-sdk/config-contracts";
-import type { tryReadSecretFileSync } from "openclaw/plugin-sdk/secret-file-runtime";
+} from "granted/plugin-sdk/config-contracts";
+import type { tryReadSecretFileSync } from "granted/plugin-sdk/secret-file-runtime";
 
 /** Session-linked ClickClack discussion settings for one account. */
 type ClickClackDiscussionsConfig = {

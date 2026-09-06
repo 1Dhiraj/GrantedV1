@@ -1,4 +1,4 @@
-import { definePluginDoctorMigrationFromPlans } from "openclaw/plugin-sdk/runtime-doctor-migrations";
+import { definePluginDoctorMigrationFromPlans } from "granted/plugin-sdk/runtime-doctor-migrations";
 
 export { legacyConfigRules, normalizeCompatibilityConfig } from "./config-doctor-api.js";
 

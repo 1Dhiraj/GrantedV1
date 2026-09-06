@@ -4,18 +4,18 @@ import {
   resolveAgentConfig,
   resolveAgentWorkspaceDir,
   resolveDefaultAgentId,
-} from "openclaw/plugin-sdk/agent-runtime";
+} from "granted/plugin-sdk/agent-runtime";
 // Workboard workspace access follows the caller's canonical filesystem boundary.
 import {
   canonicalPathFromExistingAncestor,
   isPathInside,
-} from "openclaw/plugin-sdk/file-access-runtime";
+} from "granted/plugin-sdk/file-access-runtime";
 import type {
   AnyAgentTool,
   GrantedPluginApi,
   GrantedPluginToolContext,
-} from "openclaw/plugin-sdk/plugin-entry";
-import { asOptionalRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/plugin-entry";
+import { asOptionalRecord } from "granted/plugin-sdk/string-coerce-runtime";
 
 export type { WorkboardWorkspaceAccess } from "@openclaw/workboard-contract";
 

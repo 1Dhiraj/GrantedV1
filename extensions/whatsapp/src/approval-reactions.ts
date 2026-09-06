@@ -1,6 +1,6 @@
 // Whatsapp plugin module implements approval reactions behavior.
 import type { WAMessage } from "baileys";
-import type { ChannelApprovalKind } from "openclaw/plugin-sdk/approval-handler-runtime";
+import type { ChannelApprovalKind } from "granted/plugin-sdk/approval-handler-runtime";
 import {
   approvalReactionDecisionSetsMatch,
   buildApprovalReactionDeliveredBindingMarker,
@@ -12,15 +12,15 @@ import {
   resolveTypedApprovalReactionTarget,
   type ApprovalReactionDeliveryBinding,
   type ApprovalReactionTargetRecord,
-} from "openclaw/plugin-sdk/approval-reaction-runtime";
-import type { ExecApprovalReplyDecision } from "openclaw/plugin-sdk/approval-reply-runtime";
-import type { OutboundDeliveryResult } from "openclaw/plugin-sdk/channel-send-result";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { isApprovalNotFoundError } from "openclaw/plugin-sdk/error-runtime";
-import type { MessagePresentation } from "openclaw/plugin-sdk/interactive-runtime";
-import { createLazyRuntimeSurface } from "openclaw/plugin-sdk/lazy-runtime";
-import { createPluginStateErrorReporter } from "openclaw/plugin-sdk/plugin-state-runtime";
-import type { ReplyPayload } from "openclaw/plugin-sdk/reply-runtime";
+} from "granted/plugin-sdk/approval-reaction-runtime";
+import type { ExecApprovalReplyDecision } from "granted/plugin-sdk/approval-reply-runtime";
+import type { OutboundDeliveryResult } from "granted/plugin-sdk/channel-send-result";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { isApprovalNotFoundError } from "granted/plugin-sdk/error-runtime";
+import type { MessagePresentation } from "granted/plugin-sdk/interactive-runtime";
+import { createLazyRuntimeSurface } from "granted/plugin-sdk/lazy-runtime";
+import { createPluginStateErrorReporter } from "granted/plugin-sdk/plugin-state-runtime";
+import type { ReplyPayload } from "granted/plugin-sdk/reply-runtime";
 import { resolveWhatsAppAccount } from "./accounts.js";
 import { getWhatsAppApprovalApprovers, whatsappApprovalAuth } from "./approval-auth.js";
 import { getOptionalWhatsAppRuntime } from "./runtime.js";
@@ -54,7 +54,7 @@ type ResolvedWhatsAppApprovalReactionTarget = WhatsAppApprovalReactionResolution
 };
 
 const loadResolveApprovalOverGateway = createLazyRuntimeSurface(
-  () => import("openclaw/plugin-sdk/approval-gateway-runtime"),
+  () => import("granted/plugin-sdk/approval-gateway-runtime"),
   (runtime) => runtime.resolveApprovalOverGateway,
 );
 

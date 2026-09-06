@@ -1,19 +1,19 @@
 // Memory Core plugin module owns public search orchestration.
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import { classifyMemoryMultimodalPath } from "openclaw/plugin-sdk/memory-core-host-engine-embeddings";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
+import { classifyMemoryMultimodalPath } from "granted/plugin-sdk/memory-core-host-engine-embeddings";
 import {
   createSubsystemLogger,
   resolveUserPath,
-} from "openclaw/plugin-sdk/memory-core-host-engine-foundation";
+} from "granted/plugin-sdk/memory-core-host-engine-foundation";
 import {
   MEMORY_INDEX_FTS_TABLE,
   MEMORY_INDEX_VECTOR_TABLE,
   type MemorySearchManager,
   type MemorySearchResult,
   type MemorySource,
-} from "openclaw/plugin-sdk/memory-core-host-engine-storage";
-import { redactSensitiveText } from "openclaw/plugin-sdk/security-runtime";
-import { uniqueValues } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/memory-core-host-engine-storage";
+import { redactSensitiveText } from "granted/plugin-sdk/security-runtime";
+import { uniqueValues } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   mergeHybridResults,
   selectHybridSearchResults,

@@ -160,10 +160,10 @@ function Resolve-GrantedCommand {
   }
   $entryCandidates = @()
   if ($env:APPDATA) {
-    $entryCandidates += Join-Path $env:APPDATA 'npm\node_modules\openclaw\openclaw.mjs'
+    $entryCandidates += Join-Path $env:APPDATA 'npm\node_modules\openclaw\granted.mjs'
   }
   if ($npmPrefix) {
-    $entryCandidates += Join-Path $npmPrefix 'node_modules\openclaw\openclaw.mjs'
+    $entryCandidates += Join-Path $npmPrefix 'node_modules\openclaw\granted.mjs'
   }
   foreach ($candidate in $entryCandidates) {
     if ($candidate -and (Test-Path $candidate)) {

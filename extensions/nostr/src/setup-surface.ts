@@ -1,10 +1,10 @@
 // Nostr plugin module implements setup surface behavior.
-import { DEFAULT_ACCOUNT_ID } from "openclaw/plugin-sdk/routing";
+import { DEFAULT_ACCOUNT_ID } from "granted/plugin-sdk/routing";
 import {
   hasConfiguredSecretInput,
   normalizeSecretInputString,
-} from "openclaw/plugin-sdk/secret-input";
-import type { ChannelSetupDmPolicy, ChannelSetupWizard, DmPolicy } from "openclaw/plugin-sdk/setup";
+} from "granted/plugin-sdk/secret-input";
+import type { ChannelSetupDmPolicy, ChannelSetupWizard, DmPolicy } from "granted/plugin-sdk/setup";
 import {
   createSetupTranslator,
   createTopLevelChannelDmPolicy,
@@ -15,7 +15,7 @@ import {
   parseSetupEntriesWithParser,
   patchTopLevelChannelConfigSection,
   setSetupChannelEnabled,
-} from "openclaw/plugin-sdk/setup";
+} from "granted/plugin-sdk/setup";
 import { DEFAULT_RELAYS } from "./default-relays.js";
 import { normalizePubkey } from "./nostr-key-utils.js";
 import {

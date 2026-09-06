@@ -2,7 +2,7 @@ import {
   parseQaTarget,
   type QaBusInboundMessageInput,
   type QaBusMessage,
-} from "openclaw/plugin-sdk/qa-channel-protocol";
+} from "granted/plugin-sdk/qa-channel-protocol";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { parseBuzzQaCredentialPayload } from "./credentials.js";
 

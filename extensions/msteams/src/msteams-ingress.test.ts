@@ -5,8 +5,8 @@ import path from "node:path";
 import {
   closeOpenClawStateDatabaseForTest,
   createChannelIngressQueueForTests,
-} from "openclaw/plugin-sdk/channel-ingress-test-runtime";
-import type { ChannelIngressQueue } from "openclaw/plugin-sdk/channel-outbound";
+} from "granted/plugin-sdk/channel-ingress-test-runtime";
+import type { ChannelIngressQueue } from "granted/plugin-sdk/channel-outbound";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { createMSTeamsIngress } from "./msteams-ingress.js";
 import { createMSTeamsReplayContext } from "./replay-context.js";

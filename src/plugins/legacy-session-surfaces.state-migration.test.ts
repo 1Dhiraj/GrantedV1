@@ -94,7 +94,7 @@ export const legacySessionSurface = {
   );
   fs.writeFileSync(
     path.join(pluginDir, "dist", "setup-entry.js"),
-    `import { defineBundledChannelSetupEntry } from "openclaw/plugin-sdk/channel-entry-contract";
+    `import { defineBundledChannelSetupEntry } from "granted/plugin-sdk/channel-entry-contract";
 export default defineBundledChannelSetupEntry({
   importMetaUrl: import.meta.url,
   features: { legacySessionSurfaces: true },

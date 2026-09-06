@@ -1,6 +1,6 @@
 // Googlechat tests cover monitor webhook plugin behavior.
 import type { IncomingMessage, ServerResponse } from "node:http";
-import type { FixedWindowRateLimiter } from "openclaw/plugin-sdk/webhook-ingress";
+import type { FixedWindowRateLimiter } from "granted/plugin-sdk/webhook-ingress";
 import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import type { WebhookTarget } from "./monitor-types.js";
 import type { GoogleChatEvent } from "./types.js";

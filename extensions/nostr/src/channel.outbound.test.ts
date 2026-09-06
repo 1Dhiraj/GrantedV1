@@ -1,8 +1,8 @@
-import { buildChannelInboundEventContext } from "openclaw/plugin-sdk/channel-inbound";
+import { buildChannelInboundEventContext } from "granted/plugin-sdk/channel-inbound";
 // Nostr tests cover channel.outbound plugin behavior.
-import { verifyChannelMessageAdapterCapabilityProofs } from "openclaw/plugin-sdk/channel-outbound";
-import { createStartAccountContext } from "openclaw/plugin-sdk/channel-test-helpers";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import { verifyChannelMessageAdapterCapabilityProofs } from "granted/plugin-sdk/channel-outbound";
+import { createStartAccountContext } from "granted/plugin-sdk/channel-test-helpers";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import type { PluginRuntime } from "../runtime-api.js";
 import { nostrPlugin } from "./channel.js";

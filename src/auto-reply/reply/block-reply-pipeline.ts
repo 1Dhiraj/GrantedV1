@@ -3,7 +3,7 @@ import { clampPositiveTimerTimeoutMs } from "@openclaw/normalization-core/number
 import {
   hasOutboundReplyContent,
   resolveSendableOutboundReplyParts,
-} from "openclaw/plugin-sdk/reply-payload";
+} from "granted/plugin-sdk/reply-payload";
 import { logVerbose } from "../../globals.js";
 import { runAbortableTimeout } from "../../node-host/with-timeout.js";
 import {

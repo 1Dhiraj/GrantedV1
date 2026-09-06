@@ -65,10 +65,10 @@ async function requireOwnedEnvironment() {
 async function loadRuntime() {
   const [qa, sessions, store, transcript, guards, evidence, writer, hostStore] = await Promise.all([
     import("../../../../extensions/qa-lab/api.js"),
-    import("openclaw/plugin-sdk/agent-sessions"),
-    import("openclaw/plugin-sdk/session-store-runtime"),
-    import("openclaw/plugin-sdk/session-transcript-runtime"),
-    import("openclaw/plugin-sdk/string-coerce-runtime"),
+    import("granted/plugin-sdk/agent-sessions"),
+    import("granted/plugin-sdk/session-store-runtime"),
+    import("granted/plugin-sdk/session-transcript-runtime"),
+    import("granted/plugin-sdk/string-coerce-runtime"),
     import("./script-evidence.js"),
     import("../../../../src/agents/embedded-agent-runner/run/session-bootstrap.js"),
     import("../../../../src/config/sessions/session-accessor.js"),

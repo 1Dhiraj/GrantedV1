@@ -1,8 +1,8 @@
 // Moonshot tests cover index plugin behavior.
 import fs from "node:fs";
-import type { Context, Model } from "openclaw/plugin-sdk/llm";
-import { registerSingleProviderPlugin } from "openclaw/plugin-sdk/plugin-test-runtime";
-import { createCapturedThinkingConfigStream } from "openclaw/plugin-sdk/provider-test-contracts";
+import type { Context, Model } from "granted/plugin-sdk/llm";
+import { registerSingleProviderPlugin } from "granted/plugin-sdk/plugin-test-runtime";
+import { createCapturedThinkingConfigStream } from "granted/plugin-sdk/provider-test-contracts";
 import { describe, expect, it } from "vitest";
 import plugin from "./index.js";
 import { MOONSHOT_BASE_URL, MOONSHOT_CN_BASE_URL } from "./provider-catalog.js";

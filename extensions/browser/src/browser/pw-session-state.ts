@@ -1,7 +1,7 @@
-import { pruneMapToMaxSize } from "openclaw/plugin-sdk/collection-runtime";
-import { resolveExpiresAtMsFromDurationMs } from "openclaw/plugin-sdk/number-runtime";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+import { pruneMapToMaxSize } from "granted/plugin-sdk/collection-runtime";
+import { resolveExpiresAtMsFromDurationMs } from "granted/plugin-sdk/number-runtime";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
+import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import type { ConsoleMessage, Dialog, Frame, Page, Request, Response } from "playwright-core";
 import { saveBrowserDownload, type BrowserDownloadCaptureOptions } from "./pw-download-capture.js";
 import {

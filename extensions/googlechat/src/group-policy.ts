@@ -2,8 +2,8 @@ import {
   buildChannelGroupsScopeTree,
   resolveScopeRequireMention,
   type ScopeTree,
-} from "openclaw/plugin-sdk/channel-policy";
-import type { GrantedConfig } from "openclaw/plugin-sdk/core";
+} from "granted/plugin-sdk/channel-policy";
+import type { GrantedConfig } from "granted/plugin-sdk/core";
 
 type GroupContext = { cfg: GrantedConfig; accountId?: string | null; groupId?: string | null };
 

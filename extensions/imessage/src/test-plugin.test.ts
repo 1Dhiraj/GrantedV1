@@ -1,21 +1,21 @@
 // Imessage tests cover test plugin plugin behavior.
 import fs from "node:fs";
 import path from "node:path";
-import { buildTypedExecApprovalPendingReplyPayload } from "openclaw/plugin-sdk/approval-reply-runtime";
+import { buildTypedExecApprovalPendingReplyPayload } from "granted/plugin-sdk/approval-reply-runtime";
 import {
   createMessageReceiptFromOutboundResults,
   sendDurableMessageBatch,
   verifyChannelMessageAdapterCapabilityProofs,
   verifyDurableFinalCapabilityProofs,
-} from "openclaw/plugin-sdk/channel-outbound";
+} from "granted/plugin-sdk/channel-outbound";
 import {
   createTestRegistry,
   resetPluginRuntimeStateForTest,
   setActivePluginRegistry,
-} from "openclaw/plugin-sdk/channel-test-helpers";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { drainPendingDeliveries } from "openclaw/plugin-sdk/delivery-queue-runtime";
-import { withStateDirEnv } from "openclaw/plugin-sdk/test-env";
+} from "granted/plugin-sdk/channel-test-helpers";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { drainPendingDeliveries } from "granted/plugin-sdk/delivery-queue-runtime";
+import { withStateDirEnv } from "granted/plugin-sdk/test-env";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
   clearIMessageApprovalReactionTargetsForTest,

@@ -6,16 +6,16 @@ import {
   type AuthProfileCredential,
   type AuthProfileFailureReason,
   type AuthProfileStore,
-} from "openclaw/plugin-sdk/agent-runtime";
-import type { PluginCommandContext } from "openclaw/plugin-sdk/plugin-entry";
+} from "granted/plugin-sdk/agent-runtime";
+import type { PluginCommandContext } from "granted/plugin-sdk/plugin-entry";
 import {
   findNormalizedProviderValue,
   resolveAuthProfileOrder,
-} from "openclaw/plugin-sdk/provider-auth";
+} from "granted/plugin-sdk/provider-auth";
 import {
   normalizeOptionalString,
   normalizeUniqueStringEntries,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import { CODEX_CONTROL_METHODS, type CodexControlMethod } from "./app-server/capabilities.js";
 import { isJsonObject, type JsonValue } from "./app-server/protocol.js";
 import {

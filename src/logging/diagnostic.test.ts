@@ -1,6 +1,6 @@
 // Diagnostic logger tests cover event emission, metrics, and support output.
 import fs from "node:fs";
-import { createRequireRecord, importFreshModule } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord, importFreshModule } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   appendTranscriptMessageSync,

@@ -1,5 +1,5 @@
 // Discord helper module supports secret config contract behavior.
-import { normalizeAccountId } from "openclaw/plugin-sdk/account-id";
+import { normalizeAccountId } from "granted/plugin-sdk/account-id";
 import {
   collectNestedChannelFieldAssignments,
   collectSimpleChannelFieldAssignments,
@@ -11,8 +11,8 @@ import {
   type ResolverContext,
   type SecretDefaults,
   type SecretTargetRegistryEntry,
-} from "openclaw/plugin-sdk/channel-secret-basic-runtime";
-import { collectNestedChannelTtsAssignments } from "openclaw/plugin-sdk/channel-secret-tts-runtime";
+} from "granted/plugin-sdk/channel-secret-basic-runtime";
+import { collectNestedChannelTtsAssignments } from "granted/plugin-sdk/channel-secret-tts-runtime";
 
 function createVoiceProviderSecretTarget(params: {
   providerPath: "realtime" | "tts" | "tts.personas.*";

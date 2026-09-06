@@ -5,7 +5,7 @@ import os from "node:os";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { coerceErrorMessage, toErrorObject } from "@openclaw/normalization-core/error-coercion";
-import { GatewayClient } from "openclaw/plugin-sdk/gateway-runtime";
+import { GatewayClient } from "granted/plugin-sdk/gateway-runtime";
 import {
   createQaBusState,
   createQaChannelTransport,

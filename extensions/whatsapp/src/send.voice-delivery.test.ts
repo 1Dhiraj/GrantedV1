@@ -3,10 +3,10 @@ import type { WAMessage } from "baileys";
 import {
   createChannelPartialDeliveryError,
   isChannelPartialDeliveryError,
-} from "openclaw/plugin-sdk/channel-inbound";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { PlatformMessageNotDispatchedError } from "openclaw/plugin-sdk/error-runtime";
-import { MEDIA_FFMPEG_MAX_AUDIO_DURATION_SECS } from "openclaw/plugin-sdk/media-runtime";
+} from "granted/plugin-sdk/channel-inbound";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { PlatformMessageNotDispatchedError } from "granted/plugin-sdk/error-runtime";
+import { MEDIA_FFMPEG_MAX_AUDIO_DURATION_SECS } from "granted/plugin-sdk/media-runtime";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { createWebSendApi } from "./inbound/send-api.js";
 import { createAcceptedWhatsAppSendResult } from "./inbound/send-result.test-helper.js";
@@ -24,7 +24,7 @@ const WHATSAPP_TEST_CFG: GrantedConfig = { channels: { whatsapp: {} } };
 
 vi.mock("openclaw/plugin-sdk/channel-activity-runtime", async () => {
   const actual = await vi.importActual<
-    typeof import("openclaw/plugin-sdk/channel-activity-runtime")
+    typeof import("granted/plugin-sdk/channel-activity-runtime")
   >("openclaw/plugin-sdk/channel-activity-runtime");
   return {
     ...actual,
@@ -46,7 +46,7 @@ vi.mock("./connection-controller-runtime-context.js", async () => {
 });
 
 vi.mock("openclaw/plugin-sdk/outbound-media", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/outbound-media")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/outbound-media")>(
     "openclaw/plugin-sdk/outbound-media",
   );
   return {
@@ -56,7 +56,7 @@ vi.mock("openclaw/plugin-sdk/outbound-media", async () => {
 });
 
 vi.mock("openclaw/plugin-sdk/media-runtime", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/media-runtime")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/media-runtime")>(
     "openclaw/plugin-sdk/media-runtime",
   );
   return {

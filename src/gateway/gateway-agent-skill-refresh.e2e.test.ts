@@ -227,7 +227,7 @@ describe("Gateway agent skill refresh", () => {
         const local = await execFileAsync(
           process.execPath,
           [
-            path.join(process.cwd(), "openclaw.mjs"),
+            path.join(process.cwd(), "granted.mjs"),
             "agent",
             "--local",
             "--agent",

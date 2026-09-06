@@ -2,7 +2,7 @@
 import {
   getProviderHttpMocks,
   installProviderHttpMockCleanup,
-} from "openclaw/plugin-sdk/provider-http-test-mocks";
+} from "granted/plugin-sdk/provider-http-test-mocks";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { buildLitellmImageGenerationProvider } from "./image-generation-provider.js";
 

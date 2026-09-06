@@ -15,7 +15,7 @@ vi.mock("../pluralkit.js", () => ({
 }));
 vi.mock("openclaw/plugin-sdk/media-understanding-runtime", async (importOriginal) => {
   const actual =
-    await importOriginal<typeof import("openclaw/plugin-sdk/media-understanding-runtime")>();
+    await importOriginal<typeof import("granted/plugin-sdk/media-understanding-runtime")>();
   return {
     ...actual,
     createChannelPreflightAudio: (
@@ -37,12 +37,12 @@ vi.mock("./dm-command-decision.js", () => ({
 import {
   isRecentOutboundMessageIdentity,
   recordOutboundMessageIdentity,
-} from "openclaw/plugin-sdk/channel-outbound";
+} from "granted/plugin-sdk/channel-outbound";
 import {
   testing as sessionBindingTesting,
   registerSessionBindingAdapter,
-} from "openclaw/plugin-sdk/conversation-runtime";
-import { saveRemoteMedia } from "openclaw/plugin-sdk/media-runtime";
+} from "granted/plugin-sdk/conversation-runtime";
+import { saveRemoteMedia } from "granted/plugin-sdk/media-runtime";
 import {
   createDiscordMessage,
   createDiscordPreflightArgs,
@@ -84,7 +84,7 @@ beforeEach(() => {
 });
 
 function createThreadBinding(
-  overrides?: Partial<import("openclaw/plugin-sdk/conversation-runtime").SessionBindingRecord>,
+  overrides?: Partial<import("granted/plugin-sdk/conversation-runtime").SessionBindingRecord>,
 ) {
   return {
     bindingId: "default:thread-1",
@@ -105,11 +105,11 @@ function createThreadBinding(
       webhookToken: "tok-1",
     },
     ...overrides,
-  } satisfies import("openclaw/plugin-sdk/conversation-runtime").SessionBindingRecord;
+  } satisfies import("granted/plugin-sdk/conversation-runtime").SessionBindingRecord;
 }
 
 function createPreflightArgs(params: {
-  cfg: import("openclaw/plugin-sdk/config-contracts").GrantedConfig;
+  cfg: import("granted/plugin-sdk/config-contracts").GrantedConfig;
   discordConfig: DiscordConfig;
   data: DiscordMessageEvent;
   client: DiscordClient;
@@ -186,7 +186,7 @@ async function runThreadBoundPreflight(params: {
   threadId: string;
   parentId: string;
   message: import("../internal/discord.js").Message;
-  threadBinding: import("openclaw/plugin-sdk/conversation-runtime").SessionBindingRecord;
+  threadBinding: import("granted/plugin-sdk/conversation-runtime").SessionBindingRecord;
   discordConfig: DiscordConfig;
   registerBindingAdapter?: boolean;
 }) {
@@ -228,7 +228,7 @@ async function runGuildPreflight(params: {
   guildId: string;
   message: import("../internal/discord.js").Message;
   discordConfig: DiscordConfig;
-  cfg?: import("openclaw/plugin-sdk/config-contracts").GrantedConfig;
+  cfg?: import("granted/plugin-sdk/config-contracts").GrantedConfig;
   guildEntries?: Parameters<typeof preflightDiscordMessage>[0]["guildEntries"];
   includeGuildObject?: boolean;
   abortSignal?: AbortSignal;
@@ -271,7 +271,7 @@ async function runDmPreflight(params: {
 }
 
 async function runUnresolvedDmPreflight(params: {
-  cfg?: import("openclaw/plugin-sdk/config-contracts").GrantedConfig;
+  cfg?: import("granted/plugin-sdk/config-contracts").GrantedConfig;
   channelId: string;
   message: import("../internal/discord.js").Message;
   discordConfig: DiscordConfig;
@@ -1274,7 +1274,7 @@ describe("preflightDiscordMessage", () => {
       createPreflightArgs({
         cfg: {
           ...DEFAULT_PREFLIGHT_CFG,
-        } as import("openclaw/plugin-sdk/config-contracts").GrantedConfig,
+        } as import("granted/plugin-sdk/config-contracts").GrantedConfig,
         discordConfig: {
           allowBots: true,
         } as DiscordConfig,
@@ -1615,7 +1615,7 @@ describe("preflightDiscordMessage", () => {
             unmentionedInbound: "room_event",
           },
         },
-      } as import("openclaw/plugin-sdk/config-contracts").GrantedConfig,
+      } as import("granted/plugin-sdk/config-contracts").GrantedConfig,
       guildEntries: {
         [guildId]: {
           channels: {
@@ -1699,7 +1699,7 @@ describe("preflightDiscordMessage", () => {
               mentionPatterns: ["openclaw"],
             },
           },
-        } as import("openclaw/plugin-sdk/config-contracts").GrantedConfig,
+        } as import("granted/plugin-sdk/config-contracts").GrantedConfig,
         discordConfig: {} as DiscordConfig,
         data: createGuildEvent({
           channelId,
@@ -2513,7 +2513,7 @@ describe("preflightDiscordMessage", () => {
               mentionPatterns: ["openclaw"],
             },
           },
-        } as import("openclaw/plugin-sdk/config-contracts").GrantedConfig,
+        } as import("granted/plugin-sdk/config-contracts").GrantedConfig,
         discordConfig: {} as DiscordConfig,
         data: createGuildEvent({
           channelId,
@@ -2583,7 +2583,7 @@ describe("preflightDiscordMessage", () => {
               mentionPatterns: ["openclaw"],
             },
           },
-        } as import("openclaw/plugin-sdk/config-contracts").GrantedConfig,
+        } as import("granted/plugin-sdk/config-contracts").GrantedConfig,
         discordConfig: {} as DiscordConfig,
         data: createGuildEvent({
           channelId,
@@ -2611,7 +2611,7 @@ describe("preflightDiscordMessage", () => {
   });
 
   it("drops guild message without mention when channel has configuredBinding and requireMention: true", async () => {
-    const conversationRuntime = await import("openclaw/plugin-sdk/conversation-runtime");
+    const conversationRuntime = await import("granted/plugin-sdk/conversation-runtime");
     const channelId = "ch-binding-1";
     const bindingRoute = {
       bindingResolution: {
@@ -2654,7 +2654,7 @@ describe("preflightDiscordMessage", () => {
   });
 
   it("allows guild message with mention when channel has configuredBinding and requireMention: true", async () => {
-    const conversationRuntime = await import("openclaw/plugin-sdk/conversation-runtime");
+    const conversationRuntime = await import("granted/plugin-sdk/conversation-runtime");
     const channelId = "ch-binding-2";
     const bindingRoute = {
       bindingResolution: {

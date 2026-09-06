@@ -1,6 +1,6 @@
 // Googlechat plugin module implements auth behavior.
-import { readProviderJsonResponse } from "openclaw/plugin-sdk/provider-http";
-import { normalizeLowercaseStringOrEmpty } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { readProviderJsonResponse } from "granted/plugin-sdk/provider-http";
+import { normalizeLowercaseStringOrEmpty } from "granted/plugin-sdk/string-coerce-runtime";
 import { fetchWithSsrFGuard } from "../runtime-api.js";
 import type { ResolvedGoogleChatAccount } from "./accounts.js";
 import {

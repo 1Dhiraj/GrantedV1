@@ -1,9 +1,9 @@
 // Discord plugin module implements native command auth behavior.
-import { resolveCommandAuthorizedFromAuthorizers } from "openclaw/plugin-sdk/command-auth-native";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { isDangerousNameMatchingEnabled } from "openclaw/plugin-sdk/dangerous-name-runtime";
-import { resolveOpenProviderRuntimeGroupPolicy } from "openclaw/plugin-sdk/runtime-group-policy";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { resolveCommandAuthorizedFromAuthorizers } from "granted/plugin-sdk/command-auth-native";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { isDangerousNameMatchingEnabled } from "granted/plugin-sdk/dangerous-name-runtime";
+import { resolveOpenProviderRuntimeGroupPolicy } from "granted/plugin-sdk/runtime-group-policy";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import { resolveDiscordAccountAllowFrom, resolveDiscordAccountDmPolicy } from "../accounts.js";
 import type { AutocompleteInteraction, Guild } from "../internal/discord.js";
 import {

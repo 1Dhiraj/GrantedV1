@@ -1,5 +1,5 @@
-import type { ModelCatalogEntry } from "openclaw/plugin-sdk/agent-runtime";
-import type { ProviderRuntimeModel } from "openclaw/plugin-sdk/plugin-entry";
+import type { ModelCatalogEntry } from "granted/plugin-sdk/agent-runtime";
+import type { ProviderRuntimeModel } from "granted/plugin-sdk/plugin-entry";
 import {
   buildLiveModelProviderConfig,
   fetchLiveProviderModelIds,
@@ -11,9 +11,9 @@ import {
   type ProviderCatalogSnapshot,
   type ProjectedUpstreamProviderCatalogModel as OpencodeZenModelDefinition,
   type UpstreamProviderCatalog,
-} from "openclaw/plugin-sdk/provider-catalog-live-runtime";
-import { normalizeModelCompat } from "openclaw/plugin-sdk/provider-model-shared";
-import type { ModelProviderConfig } from "openclaw/plugin-sdk/provider-model-shared";
+} from "granted/plugin-sdk/provider-catalog-live-runtime";
+import { normalizeModelCompat } from "granted/plugin-sdk/provider-model-shared";
+import type { ModelProviderConfig } from "granted/plugin-sdk/provider-model-shared";
 import manifest from "./openclaw.plugin.json" with { type: "json" };
 
 const PROVIDER_ID = "opencode";

@@ -1,13 +1,13 @@
 import fs from "node:fs/promises";
 import type { ConnectionOptions } from "node:tls";
-import { parseMediaContentLength } from "openclaw/plugin-sdk/media-runtime";
-import type { PinnedDispatcherPolicy } from "openclaw/plugin-sdk/ssrf-dispatcher";
+import { parseMediaContentLength } from "granted/plugin-sdk/media-runtime";
+import type { PinnedDispatcherPolicy } from "granted/plugin-sdk/ssrf-dispatcher";
 import {
   buildHostnameAllowlistPolicyFromSuffixAllowlist,
   fetchWithSsrFGuard,
-} from "openclaw/plugin-sdk/ssrf-runtime";
-import { asNullableObjectRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { resolveUserPath } from "openclaw/plugin-sdk/text-utility-runtime";
+} from "granted/plugin-sdk/ssrf-runtime";
+import { asNullableObjectRecord } from "granted/plugin-sdk/string-coerce-runtime";
+import { resolveUserPath } from "granted/plugin-sdk/text-utility-runtime";
 import type { ResolvedGoogleChatAccount } from "./accounts.js";
 import { MAX_GOOGLE_CHAT_SERVICE_ACCOUNT_FILE_BYTES } from "./google-auth-limits.js";
 

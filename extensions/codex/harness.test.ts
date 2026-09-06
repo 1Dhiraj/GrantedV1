@@ -2,7 +2,7 @@
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { upsertSessionEntry } from "openclaw/plugin-sdk/session-store-runtime";
+import { upsertSessionEntry } from "granted/plugin-sdk/session-store-runtime";
 import { describe, expect, it, vi } from "vitest";
 
 const runHostPreparedIsolatedCompletion = vi.hoisted(() => vi.fn());

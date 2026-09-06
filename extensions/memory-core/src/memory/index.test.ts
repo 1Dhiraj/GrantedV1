@@ -9,14 +9,14 @@ import {
   MEMORY_INDEX_CHUNK_PROVENANCE_TABLE,
   type MemorySessionSyncTarget,
   type MemorySyncParams,
-} from "openclaw/plugin-sdk/memory-core-host-engine-storage";
-import { resolveSessionTranscriptsDirForAgent } from "openclaw/plugin-sdk/memory-core-host-runtime-core";
-import { deleteSessionEntry } from "openclaw/plugin-sdk/session-store-runtime";
-import { resolveOpenClawAgentSqlitePath } from "openclaw/plugin-sdk/sqlite-runtime";
+} from "granted/plugin-sdk/memory-core-host-engine-storage";
+import { resolveSessionTranscriptsDirForAgent } from "granted/plugin-sdk/memory-core-host-runtime-core";
+import { deleteSessionEntry } from "granted/plugin-sdk/session-store-runtime";
+import { resolveOpenClawAgentSqlitePath } from "granted/plugin-sdk/sqlite-runtime";
 import {
   closeOpenClawAgentDatabasesForTest,
   openOpenClawAgentDatabase,
-} from "openclaw/plugin-sdk/sqlite-runtime-testing";
+} from "granted/plugin-sdk/sqlite-runtime-testing";
 import { describe, expect, it, vi } from "vitest";
 import {
   createManagerIndexFixture,

@@ -1,7 +1,7 @@
 // Covers extra-params stream wrapper composition across provider families.
-import type { StreamFn } from "openclaw/plugin-sdk/agent-core";
-import type { Context, Model, SimpleStreamOptions } from "openclaw/plugin-sdk/llm";
-import { createAssistantMessageEventStream } from "openclaw/plugin-sdk/llm";
+import type { StreamFn } from "granted/plugin-sdk/agent-core";
+import type { Context, Model, SimpleStreamOptions } from "granted/plugin-sdk/llm";
+import { createAssistantMessageEventStream } from "granted/plugin-sdk/llm";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { testing as extraParamsTesting } from "./embedded-agent-runner/extra-params.test-support.js";
 

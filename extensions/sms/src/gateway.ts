@@ -1,12 +1,12 @@
 // Sms plugin module implements gateway behavior.
-import type { ChannelAccountSnapshot } from "openclaw/plugin-sdk/channel-contract";
-import { waitUntilAbort } from "openclaw/plugin-sdk/channel-outbound";
+import type { ChannelAccountSnapshot } from "granted/plugin-sdk/channel-contract";
+import { waitUntilAbort } from "granted/plugin-sdk/channel-outbound";
 import {
   channelBlockedPatch,
   channelReadyPatch,
   channelStoppedPatch,
-} from "openclaw/plugin-sdk/gateway-runtime";
-import { registerPluginHttpRoute } from "openclaw/plugin-sdk/webhook-ingress";
+} from "granted/plugin-sdk/gateway-runtime";
+import { registerPluginHttpRoute } from "granted/plugin-sdk/webhook-ingress";
 import { createSmsIngressSpool, type SmsIngressLog } from "./ingress-spool.js";
 import { resolveTwilioStatusCallbackUrl } from "./public-webhook-url.js";
 import type { ResolvedSmsAccount } from "./types.js";

@@ -5,8 +5,8 @@ import { isCrablineServerChannel, OPENCLAW_CRABLINE_DEFAULT_CHANNEL } from "@ope
 import {
   canonicalPathFromExistingAncestor,
   isPathInside,
-} from "openclaw/plugin-sdk/file-access-runtime";
-import { extractErrorCode } from "openclaw/plugin-sdk/security-runtime";
+} from "granted/plugin-sdk/file-access-runtime";
+import { extractErrorCode } from "granted/plugin-sdk/security-runtime";
 import {
   mergeQaEvidenceSummaries,
   validateQaEvidenceSummaryJson,

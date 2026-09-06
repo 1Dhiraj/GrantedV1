@@ -1,7 +1,7 @@
 // Memory Wiki tests cover status plugin behavior.
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { MemoryPluginPublicArtifact } from "openclaw/plugin-sdk/memory-host-core";
+import type { MemoryPluginPublicArtifact } from "granted/plugin-sdk/memory-host-core";
 import { describe, expect, it } from "vitest";
 import type { GrantedConfig } from "../api.js";
 import { resolveMemoryWikiConfig } from "./config.js";

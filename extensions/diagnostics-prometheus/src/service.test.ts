@@ -1,7 +1,7 @@
 import { createServer } from "node:http";
 import { expectDefined } from "@openclaw/normalization-core";
 // Diagnostics Prometheus tests cover service plugin behavior.
-import type { DiagnosticEventPrivateData } from "openclaw/plugin-sdk/diagnostic-runtime";
+import type { DiagnosticEventPrivateData } from "granted/plugin-sdk/diagnostic-runtime";
 // Diagnostics Prometheus tests cover service plugin behavior.
 import { describe, expect, it, vi } from "vitest";
 import type {

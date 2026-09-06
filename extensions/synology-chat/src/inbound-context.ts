@@ -2,7 +2,7 @@
 import type {
   ChannelIngressContextBinding,
   ResolvedChannelMessageIngress,
-} from "openclaw/plugin-sdk/channel-ingress-runtime";
+} from "granted/plugin-sdk/channel-ingress-runtime";
 export type SynologyInboundMessage = {
   channelIngress: ResolvedChannelMessageIngress;
   resolveChannelIngress: (

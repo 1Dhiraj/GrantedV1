@@ -121,7 +121,7 @@ const DEFAULT_WARMUP = 1;
 const DEFAULT_TIMEOUT_MS = 30_000;
 const DEFAULT_TIMEOUT_KILL_GRACE_MS = 1_000;
 const TIMEOUT_KILL_GRACE_MS = resolveTimeoutKillGraceMs(process.env);
-const DEFAULT_ENTRY = "openclaw.mjs";
+const DEFAULT_ENTRY = "granted.mjs";
 const MAX_RSS_MARKER = "__GRANTED_MAX_RSS_KB__=";
 
 function resolveTimeoutKillGraceMs(env: NodeJS.ProcessEnv): number {
@@ -1189,7 +1189,7 @@ Options:
   --preset <startup|real|response|all>
                                Command preset to run (default: startup)
   --case <id>                  Specific case id to run; repeatable
-  --entry <path>               Primary entry file (default: openclaw.mjs)
+  --entry <path>               Primary entry file (default: granted.mjs)
   --entry-secondary <path>     Secondary entry file for avg delta comparison
   --runs <n>                   Measured runs per case (default: ${DEFAULT_RUNS})
   --warmup <n>                 Warmup runs per case (default: ${DEFAULT_WARMUP})

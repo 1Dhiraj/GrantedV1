@@ -5,7 +5,7 @@ import { performance } from "node:perf_hooks";
 import { setTimeout as delay } from "node:timers/promises";
 import { promisify } from "node:util";
 import { isRecord } from "@openclaw/normalization-core/record-coerce";
-import { GatewayClient } from "openclaw/plugin-sdk/gateway-runtime";
+import { GatewayClient } from "granted/plugin-sdk/gateway-runtime";
 import { afterEach, describe, expect, it } from "vitest";
 import { createQaGatewayChild } from "../../../../extensions/qa-lab/api.js";
 import type { AuditRunInspectResult } from "../../../../packages/gateway-protocol/src/index.js";

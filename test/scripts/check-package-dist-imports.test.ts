@@ -89,7 +89,7 @@ describe("check-package-dist-imports", () => {
     const root = makeTempDir(tempDirs, "openclaw-package-dist-imports-");
     mkdirSync(join(root, "dist"), { recursive: true });
     const probes = [
-      "../../openclaw.mjs",
+      "../../granted.mjs",
       "../../scripts/run-node.mjs",
       "../../dist/entry.js",
       "../../dist/entry.mjs",

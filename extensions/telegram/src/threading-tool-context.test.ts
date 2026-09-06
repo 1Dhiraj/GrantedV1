@@ -1,5 +1,5 @@
 // Telegram tests cover threading tool context plugin behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { describe, expect, it, vi } from "vitest";
 import { telegramPlugin } from "./channel.js";
 import { buildTelegramThreadingToolContext } from "./threading-tool-context.js";
@@ -11,7 +11,7 @@ const tryReadSecretFileSyncMock = vi.hoisted(() =>
 );
 
 vi.mock("openclaw/plugin-sdk/secret-file-runtime", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("openclaw/plugin-sdk/secret-file-runtime")>()),
+  ...(await importOriginal<typeof import("granted/plugin-sdk/secret-file-runtime")>()),
   tryReadSecretFileSync: tryReadSecretFileSyncMock,
 }));
 

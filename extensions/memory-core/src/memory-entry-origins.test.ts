@@ -4,11 +4,11 @@ import path from "node:path";
 import {
   openOpenClawAgentDatabase,
   resolveOpenClawAgentSqlitePath,
-} from "openclaw/plugin-sdk/sqlite-runtime";
+} from "granted/plugin-sdk/sqlite-runtime";
 import {
   closeOpenClawAgentDatabasesForTest,
   closeOpenClawStateDatabaseForTest,
-} from "openclaw/plugin-sdk/sqlite-runtime-testing";
+} from "granted/plugin-sdk/sqlite-runtime-testing";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { readMemoryPreimages, storeMemoryPreimage } from "./dreaming-consolidation-artifacts.js";
 import {

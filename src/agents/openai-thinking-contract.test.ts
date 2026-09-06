@@ -1,7 +1,7 @@
 // Verifies session thinking levels reach OpenAI and Codex Responses transports.
 import { createServer } from "node:http";
 import { createLlmRuntime } from "@openclaw/ai";
-import { Agent, type StreamFn } from "openclaw/plugin-sdk/agent-core";
+import { Agent, type StreamFn } from "granted/plugin-sdk/agent-core";
 import {
   createAssistantMessageEventStream,
   type AssistantMessage,
@@ -9,7 +9,7 @@ import {
   type Model,
   type SimpleStreamOptions,
   streamSimple,
-} from "openclaw/plugin-sdk/llm";
+} from "granted/plugin-sdk/llm";
 import { describe, expect, it } from "vitest";
 import { resolveEmbeddedAgentStreamFn } from "./embedded-agent-runner/stream-resolution.js";
 

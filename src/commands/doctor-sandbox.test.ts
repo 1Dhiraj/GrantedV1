@@ -93,7 +93,7 @@ describe("resolveSandboxScript", () => {
   it("follows a symlinked launcher to find scripts/ in the real repo", () => {
     // Repo checkout that actually contains scripts/sandbox-setup.sh ...
     const repo = mkRepo("ocsbx-repo-");
-    const entry = path.join(repo, "openclaw.mjs");
+    const entry = path.join(repo, "granted.mjs");
     fs.writeFileSync(entry, "");
 
     // ... reached only via a symlinked launcher in an unrelated bin dir (the npm/pnpm global case).
@@ -111,7 +111,7 @@ describe("resolveSandboxScript", () => {
 
   it("still resolves a script relative to a non-symlinked launcher dir", () => {
     const repo = mkRepo("ocsbx-direct-");
-    const entry = path.join(repo, "openclaw.mjs");
+    const entry = path.join(repo, "granted.mjs");
     fs.writeFileSync(entry, "");
 
     const result = resolveSandboxScript(scriptRel, { argv1: entry, cwd: os.tmpdir() });
@@ -150,7 +150,7 @@ describe("resolveSandboxScript", () => {
     // argv1 before cwd, so stopping at the first root would miss the source checkout below.
     const installed = mkTmp("ocsbx-installed-");
     fs.writeFileSync(path.join(installed, "package.json"), JSON.stringify({ name: "openclaw" }));
-    const entry = path.join(installed, "openclaw.mjs");
+    const entry = path.join(installed, "granted.mjs");
     fs.writeFileSync(entry, "");
 
     // Valid source checkout (cwd) that does contain the script.

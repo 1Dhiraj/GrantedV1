@@ -3,8 +3,8 @@ import type {
   WorkboardExecutionStatus,
   WorkboardStatus,
 } from "@openclaw/workboard-contract";
-import { resolveGlobalSingleton } from "openclaw/plugin-sdk/global-singleton";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { resolveGlobalSingleton } from "granted/plugin-sdk/global-singleton";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import type { GrantedPluginApi, GrantedPluginService } from "../api.js";
 import {
   cleanupWorkboardCardWorktree,

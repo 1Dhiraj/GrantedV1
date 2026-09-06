@@ -3,7 +3,7 @@ import {
   resolveRealtimeVoiceAgentConsultTools,
   type RealtimeVoiceAgentConsultToolPolicy,
   type RealtimeVoiceTool,
-} from "openclaw/plugin-sdk/realtime-voice";
+} from "granted/plugin-sdk/realtime-voice";
 
 /** Stable provider-facing tool name for ending the current phone call. */
 export const REALTIME_VOICE_END_CALL_TOOL_NAME = "openclaw_end_call";

@@ -2,9 +2,9 @@
 // selected real model providers.
 
 import { expectDefined } from "@openclaw/normalization-core";
-import type { AgentMessage } from "openclaw/plugin-sdk/agent-core";
-import { SessionManager } from "openclaw/plugin-sdk/agent-sessions";
-import type { Context, Model } from "openclaw/plugin-sdk/llm";
+import type { AgentMessage } from "granted/plugin-sdk/agent-core";
+import { SessionManager } from "granted/plugin-sdk/agent-sessions";
+import type { Context, Model } from "granted/plugin-sdk/llm";
 import { Type } from "typebox";
 import { describe, expect, it } from "vitest";
 import { discoverAuthStorage, discoverModels } from "./agent-model-discovery.js";

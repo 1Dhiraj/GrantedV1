@@ -1,8 +1,8 @@
 // Memory Core tests cover embeddings plugin behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { EmbeddingProviderAdapter } from "openclaw/plugin-sdk/embedding-providers";
-import { coerceErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import type { MemoryEmbeddingProviderAdapter } from "openclaw/plugin-sdk/memory-core-host-engine-embeddings";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { EmbeddingProviderAdapter } from "granted/plugin-sdk/embedding-providers";
+import { coerceErrorMessage } from "granted/plugin-sdk/error-runtime";
+import type { MemoryEmbeddingProviderAdapter } from "granted/plugin-sdk/memory-core-host-engine-embeddings";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   createEmbeddingProvider,

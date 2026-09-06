@@ -1,7 +1,7 @@
-import type { DiscordAccountConfig } from "openclaw/plugin-sdk/config-contracts";
-import { expectDefined } from "openclaw/plugin-sdk/expect-runtime";
-import { createSubsystemLogger } from "openclaw/plugin-sdk/runtime-env";
-import { formatErrorMessage } from "openclaw/plugin-sdk/ssrf-runtime";
+import type { DiscordAccountConfig } from "granted/plugin-sdk/config-contracts";
+import { expectDefined } from "granted/plugin-sdk/expect-runtime";
+import { createSubsystemLogger } from "granted/plugin-sdk/runtime-env";
+import { formatErrorMessage } from "granted/plugin-sdk/ssrf-runtime";
 import {
   getGuildVoiceState,
   isUnknownDiscordVoiceStateError,

@@ -1,4 +1,4 @@
-import { resolveAgentModelPrimaryValue } from "openclaw/plugin-sdk/provider-onboard";
+import { resolveAgentModelPrimaryValue } from "granted/plugin-sdk/provider-onboard";
 import { describe, expect, it } from "vitest";
 import { VENICE_DEFAULT_MODEL_REF, VENICE_MODEL_CATALOG } from "./models.js";
 import { applyVeniceConfig } from "./onboard.js";

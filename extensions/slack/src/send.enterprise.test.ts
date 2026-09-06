@@ -1,6 +1,6 @@
 // Slack tests cover listener-scoped Enterprise Grid delivery through the canonical sender.
 import type { WebClient } from "@slack/web-api";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { registerSlackInstallationState } from "./installation-identity-state.js";
 import {
@@ -23,7 +23,7 @@ vi.mock("openclaw/plugin-sdk/fetch-runtime", () => ({
 }));
 vi.mock("openclaw/plugin-sdk/ssrf-runtime", () => ({ fetchWithSsrFGuard }));
 vi.mock("openclaw/plugin-sdk/outbound-media", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/outbound-media")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/outbound-media")>(
     "openclaw/plugin-sdk/outbound-media",
   );
   return { ...actual, loadOutboundMediaFromUrl };

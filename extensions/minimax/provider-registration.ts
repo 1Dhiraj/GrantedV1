@@ -1,5 +1,5 @@
 // Minimax provider module implements model/runtime integration.
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
 import type {
   GrantedPluginApi,
   GrantedConfig,
@@ -8,21 +8,21 @@ import type {
   ProviderCatalogContext,
   ProviderResolveDynamicModelContext,
   ProviderRuntimeModel,
-} from "openclaw/plugin-sdk/plugin-entry";
+} from "granted/plugin-sdk/plugin-entry";
 import {
   MINIMAX_OAUTH_MARKER,
   buildOauthProviderAuthResult,
-} from "openclaw/plugin-sdk/provider-auth";
-import { createProviderApiKeyAuthMethod } from "openclaw/plugin-sdk/provider-auth-api-key";
-import { buildOpenAICompatibleLiveModelProviderConfig } from "openclaw/plugin-sdk/provider-catalog-live-runtime";
-import type { ProviderPlugin } from "openclaw/plugin-sdk/provider-model-shared";
+} from "granted/plugin-sdk/provider-auth";
+import { createProviderApiKeyAuthMethod } from "granted/plugin-sdk/provider-auth-api-key";
+import { buildOpenAICompatibleLiveModelProviderConfig } from "granted/plugin-sdk/provider-catalog-live-runtime";
+import type { ProviderPlugin } from "granted/plugin-sdk/provider-model-shared";
 import {
   buildProviderReplayFamilyHooks,
   normalizeModelCompat,
-} from "openclaw/plugin-sdk/provider-model-shared";
-import { buildProviderStreamFamilyHooks } from "openclaw/plugin-sdk/provider-stream-family";
-import { fetchMinimaxUsage } from "openclaw/plugin-sdk/provider-usage";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/provider-model-shared";
+import { buildProviderStreamFamilyHooks } from "granted/plugin-sdk/provider-stream-family";
+import { fetchMinimaxUsage } from "granted/plugin-sdk/provider-usage";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   isMiniMaxModernModelId,
   MINIMAX_DEFAULT_MODEL_ID,

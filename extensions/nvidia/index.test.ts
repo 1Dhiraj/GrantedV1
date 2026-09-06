@@ -1,11 +1,11 @@
 // Nvidia tests cover index plugin behavior.
 import fs from "node:fs";
-import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
+import { createTestPluginApi } from "granted/plugin-sdk/plugin-test-api";
 import {
   registerSingleProviderPlugin,
   resolveProviderPluginChoice,
-} from "openclaw/plugin-sdk/plugin-test-runtime";
-import { clearLiveCatalogCacheForTests } from "openclaw/plugin-sdk/provider-catalog-live-runtime";
+} from "granted/plugin-sdk/plugin-test-runtime";
+import { clearLiveCatalogCacheForTests } from "granted/plugin-sdk/provider-catalog-live-runtime";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import plugin from "./index.js";
 

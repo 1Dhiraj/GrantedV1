@@ -1,5 +1,5 @@
-import { resolveSessionAgentIdStrict } from "openclaw/plugin-sdk/agent-scope-runtime";
-import type { PluginRuntime } from "openclaw/plugin-sdk/core";
+import { resolveSessionAgentIdStrict } from "granted/plugin-sdk/agent-scope-runtime";
+import type { PluginRuntime } from "granted/plugin-sdk/core";
 import {
   ClickClackHttpError,
   isClickClackChannelNameConflict,

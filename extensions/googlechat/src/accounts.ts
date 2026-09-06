@@ -1,22 +1,22 @@
 // Googlechat plugin module implements accounts behavior.
-import { createAccountListHelpers } from "openclaw/plugin-sdk/account-helpers";
+import { createAccountListHelpers } from "granted/plugin-sdk/account-helpers";
 import {
   DEFAULT_ACCOUNT_ID,
   normalizeAccountId,
   type GrantedConfig,
   resolveAccountEntry,
-} from "openclaw/plugin-sdk/account-resolution";
-import { safeParseJsonWithSchema, safeParseWithSchema } from "openclaw/plugin-sdk/extension-shared";
-import { mergePairLoopGuardConfig } from "openclaw/plugin-sdk/pair-loop-guard-runtime";
-import { tryReadSecretFileSync } from "openclaw/plugin-sdk/secret-file-runtime";
+} from "granted/plugin-sdk/account-resolution";
+import { safeParseJsonWithSchema, safeParseWithSchema } from "granted/plugin-sdk/extension-shared";
+import { mergePairLoopGuardConfig } from "granted/plugin-sdk/pair-loop-guard-runtime";
+import { tryReadSecretFileSync } from "granted/plugin-sdk/secret-file-runtime";
 import {
   coerceSecretRef,
   isSecretRef,
   resolveSecretInputString,
   type SecretInputStringResolutionMode,
-} from "openclaw/plugin-sdk/secret-input";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { resolveUserPath } from "openclaw/plugin-sdk/text-utility-runtime";
+} from "granted/plugin-sdk/secret-input";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
+import { resolveUserPath } from "granted/plugin-sdk/text-utility-runtime";
 import { z } from "zod";
 import { MAX_GOOGLE_CHAT_SERVICE_ACCOUNT_FILE_BYTES } from "./google-auth-limits.js";
 import type { GoogleChatAccountConfig } from "./types.config.js";

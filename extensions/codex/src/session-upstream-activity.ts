@@ -1,11 +1,11 @@
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { GrantedPluginApi } from "granted/plugin-sdk/plugin-entry";
 import type {
   SessionCatalogProvider,
   SessionUpstreamActivity,
   SessionUpstreamProbe,
-} from "openclaw/plugin-sdk/session-catalog";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/session-catalog";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import { CodexAppServerRpcError } from "./app-server/client.js";
 import type { CodexTurn, CodexUserInput } from "./app-server/protocol.js";
 import {

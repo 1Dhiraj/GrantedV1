@@ -1,6 +1,6 @@
 // Full-entry usage reporting coverage spans metadata attribution, runtime plugin
 // bootstrap inputs, and forwarding fields into embedded attempts.
-import type { AssistantMessage } from "openclaw/plugin-sdk/llm";
+import type { AssistantMessage } from "granted/plugin-sdk/llm";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import type { GrantedTestState } from "../../test-utils/openclaw-test-state.js";
 import { makeAttemptResult } from "./run.overflow-compaction.fixture.js";

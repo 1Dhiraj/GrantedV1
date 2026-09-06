@@ -1,7 +1,7 @@
 // Claude catalog terminal ownership: validated local and paired-node resume plans.
 import fs from "node:fs/promises";
-import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
-import type { SessionCatalogTerminalPlan } from "openclaw/plugin-sdk/session-catalog";
+import type { GrantedPluginApi } from "granted/plugin-sdk/plugin-entry";
+import type { SessionCatalogTerminalPlan } from "granted/plugin-sdk/session-catalog";
 import { CLAUDE_LOCAL_SESSION_HOST_ID } from "./session-catalog-adoption.js";
 import { resolveClaudeTerminalExecutable } from "./session-catalog-executable.js";
 import {

@@ -1,11 +1,11 @@
 // QA Lab Matrix destructive E2EE state-loss helpers.
 import { access, mkdir, readdir, readFile, rm } from "node:fs/promises";
 import path from "node:path";
-import type { OpenKeyedStoreOptions } from "openclaw/plugin-sdk/plugin-state-runtime";
+import type { OpenKeyedStoreOptions } from "granted/plugin-sdk/plugin-state-runtime";
 import {
   createPluginStateSyncKeyedStoreForTests,
   resetPluginStateStoreForTests,
-} from "openclaw/plugin-sdk/plugin-state-test-runtime";
+} from "granted/plugin-sdk/plugin-state-test-runtime";
 import { loadMatrixQaE2eeRuntime } from "../substrate/e2ee-client.js";
 import { requestMatrixJson } from "../substrate/request.js";
 import type { MatrixQaCliRuntime } from "./scenario-runtime-e2ee-destructive-recovery.js";

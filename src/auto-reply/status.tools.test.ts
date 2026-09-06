@@ -1,5 +1,5 @@
 /** Tests /tools status output for compact and verbose tool inventory modes. */
-import type { ChatCommandDefinition } from "openclaw/plugin-sdk/native-command-registry";
+import type { ChatCommandDefinition } from "granted/plugin-sdk/native-command-registry";
 import { describe, expect, it, vi } from "vitest";
 import type { GrantedConfig } from "../config/config.js";
 import * as commandsRegistry from "./commands-registry.js";

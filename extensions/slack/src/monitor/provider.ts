@@ -7,28 +7,28 @@ import {
   mergeAllowlist,
   patchAllowlistUsersInConfigEntries,
   summarizeMapping,
-} from "openclaw/plugin-sdk/allow-from";
-import { CHANNEL_APPROVAL_NATIVE_RUNTIME_CONTEXT_CAPABILITY } from "openclaw/plugin-sdk/approval-handler-adapter-runtime";
-import { registerChannelRuntimeContext } from "openclaw/plugin-sdk/channel-runtime-context";
-import type { SessionScope } from "openclaw/plugin-sdk/config-contracts";
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
-import { resolveTextChunkLimit } from "openclaw/plugin-sdk/reply-chunking";
-import { DEFAULT_GROUP_HISTORY_LIMIT } from "openclaw/plugin-sdk/reply-history";
-import { normalizeMainKey } from "openclaw/plugin-sdk/routing";
+} from "granted/plugin-sdk/allow-from";
+import { CHANNEL_APPROVAL_NATIVE_RUNTIME_CONTEXT_CAPABILITY } from "granted/plugin-sdk/approval-handler-adapter-runtime";
+import { registerChannelRuntimeContext } from "granted/plugin-sdk/channel-runtime-context";
+import type { SessionScope } from "granted/plugin-sdk/config-contracts";
+import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
+import { resolveTextChunkLimit } from "granted/plugin-sdk/reply-chunking";
+import { DEFAULT_GROUP_HISTORY_LIMIT } from "granted/plugin-sdk/reply-history";
+import { normalizeMainKey } from "granted/plugin-sdk/routing";
 import {
   warn,
   computeBackoff,
   createNonExitingRuntime,
   sleepWithAbort,
   type RuntimeEnv,
-} from "openclaw/plugin-sdk/runtime-env";
-import { normalizeResolvedSecretInputString } from "openclaw/plugin-sdk/secret-input";
+} from "granted/plugin-sdk/runtime-env";
+import { normalizeResolvedSecretInputString } from "granted/plugin-sdk/secret-input";
 import {
   asNonArrayRecord,
   normalizeOptionalString,
   normalizeStringEntries,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
-import { installRequestBodyLimitGuard } from "openclaw/plugin-sdk/webhook-request-guards";
+} from "granted/plugin-sdk/string-coerce-runtime";
+import { installRequestBodyLimitGuard } from "granted/plugin-sdk/webhook-request-guards";
 import {
   resolveSlackAccount,
   resolveSlackAccountAllowFrom,

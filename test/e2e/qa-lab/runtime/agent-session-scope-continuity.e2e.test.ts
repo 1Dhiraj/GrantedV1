@@ -1,5 +1,5 @@
 import { createServer, type ServerResponse } from "node:http";
-import { GatewayClient } from "openclaw/plugin-sdk/gateway-runtime";
+import { GatewayClient } from "granted/plugin-sdk/gateway-runtime";
 import { afterEach, describe, expect, it } from "vitest";
 import { createQaGatewayChild, type QaGatewayChild } from "../../../../extensions/qa-lab/api.js";
 import {

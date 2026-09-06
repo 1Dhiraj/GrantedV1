@@ -4,13 +4,13 @@ import {
   type AssistantMessage,
   type Context,
   type Model,
-} from "openclaw/plugin-sdk/llm";
-import { createSolidPngBuffer } from "openclaw/plugin-sdk/test-fixtures";
+} from "granted/plugin-sdk/llm";
+import { createSolidPngBuffer } from "granted/plugin-sdk/test-fixtures";
 import {
   createSingleUserPromptMessage,
   extractNonEmptyAssistantText,
   isLiveTestEnabled,
-} from "openclaw/plugin-sdk/test-live";
+} from "granted/plugin-sdk/test-live";
 import { Type } from "typebox";
 import { describe, expect, it } from "vitest";
 import { buildDeepSeekProvider } from "./provider-catalog.js";

@@ -1,9 +1,9 @@
 // Discord tests cover reply delivery plugin behavior.
 import { expectDefined } from "@openclaw/normalization-core";
-import { isChannelPartialDeliveryError } from "openclaw/plugin-sdk/channel-inbound";
-import { createMessageReceiptFromOutboundResults } from "openclaw/plugin-sdk/channel-outbound";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
+import { isChannelPartialDeliveryError } from "granted/plugin-sdk/channel-inbound";
+import { createMessageReceiptFromOutboundResults } from "granted/plugin-sdk/channel-outbound";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { RuntimeEnv } from "granted/plugin-sdk/runtime-env";
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import type { RequestClient } from "../internal/discord.js";
 
@@ -22,7 +22,7 @@ const sendMessageDiscordMock = vi.hoisted(() => vi.fn());
 const sendVoiceMessageDiscordMock = vi.hoisted(() => vi.fn());
 
 vi.mock("openclaw/plugin-sdk/channel-outbound", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/channel-outbound")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/channel-outbound")>(
     "openclaw/plugin-sdk/channel-outbound",
   );
   return {

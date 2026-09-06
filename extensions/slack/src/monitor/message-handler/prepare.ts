@@ -3,7 +3,7 @@ import {
   resolveAckReaction,
   shouldAckReaction as shouldAckReactionGate,
   type AckReactionScope,
-} from "openclaw/plugin-sdk/channel-feedback";
+} from "granted/plugin-sdk/channel-feedback";
 import {
   buildChannelInboundEventContext,
   buildMentionRegexes,
@@ -16,27 +16,27 @@ import {
   resolveEnvelopeFormatOptions,
   resolveUnmentionedGroupInboundPolicy,
   toInboundMediaFactsWithMetadata,
-} from "openclaw/plugin-sdk/channel-inbound";
-import { resolveChannelImplicitMentions } from "openclaw/plugin-sdk/channel-ingress-runtime";
-import { resolveChannelMessageSourceReplyDeliveryMode } from "openclaw/plugin-sdk/channel-outbound";
-import { hasControlCommand } from "openclaw/plugin-sdk/command-detection";
-import { isAbortRequestText } from "openclaw/plugin-sdk/command-primitives-runtime";
-import { shouldHandleTextCommands } from "openclaw/plugin-sdk/command-surface";
-import { ensureConfiguredBindingRouteReady } from "openclaw/plugin-sdk/conversation-runtime";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import { mimeTypeFromFilePath } from "openclaw/plugin-sdk/media-mime";
-import { createChannelHistoryWindow } from "openclaw/plugin-sdk/reply-history";
-import type { FinalizedMsgContext } from "openclaw/plugin-sdk/reply-runtime";
-import { resolveInboundLastRouteSessionKey } from "openclaw/plugin-sdk/routing";
-import { logVerbose, shouldLogVerbose } from "openclaw/plugin-sdk/runtime-env";
-import { resolvePinnedMainDmOwnerFromAllowlist } from "openclaw/plugin-sdk/security-runtime";
+} from "granted/plugin-sdk/channel-inbound";
+import { resolveChannelImplicitMentions } from "granted/plugin-sdk/channel-ingress-runtime";
+import { resolveChannelMessageSourceReplyDeliveryMode } from "granted/plugin-sdk/channel-outbound";
+import { hasControlCommand } from "granted/plugin-sdk/command-detection";
+import { isAbortRequestText } from "granted/plugin-sdk/command-primitives-runtime";
+import { shouldHandleTextCommands } from "granted/plugin-sdk/command-surface";
+import { ensureConfiguredBindingRouteReady } from "granted/plugin-sdk/conversation-runtime";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
+import { mimeTypeFromFilePath } from "granted/plugin-sdk/media-mime";
+import { createChannelHistoryWindow } from "granted/plugin-sdk/reply-history";
+import type { FinalizedMsgContext } from "granted/plugin-sdk/reply-runtime";
+import { resolveInboundLastRouteSessionKey } from "granted/plugin-sdk/routing";
+import { logVerbose, shouldLogVerbose } from "granted/plugin-sdk/runtime-env";
+import { resolvePinnedMainDmOwnerFromAllowlist } from "granted/plugin-sdk/security-runtime";
 import {
   asOptionalRecord as asRecord,
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
-import { enqueueRoutedSystemEvent } from "openclaw/plugin-sdk/system-event-runtime";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
+import { enqueueRoutedSystemEvent } from "granted/plugin-sdk/system-event-runtime";
+import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import { resolveSlackReplyToMode } from "../../account-reply-mode.js";
 import type { ResolvedSlackAccount } from "../../accounts.js";
 import { reactSlackMessage } from "../../actions.js";
@@ -1159,7 +1159,7 @@ export async function prepareSlackMessage(params: {
   const channelUsersAllowlistConfigured =
     isRoom && Array.isArray(channelConfig?.users) && channelConfig.users.length > 0;
   const resolveMessageIngress = async (
-    contextBinding?: import("openclaw/plugin-sdk/channel-ingress-runtime").ChannelIngressContextBinding,
+    contextBinding?: import("granted/plugin-sdk/channel-ingress-runtime").ChannelIngressContextBinding,
     threadId?: string,
   ) =>
     await resolveSlackCommandIngress({

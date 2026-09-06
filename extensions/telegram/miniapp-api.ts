@@ -1,4 +1,4 @@
-import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginApi } from "granted/plugin-sdk/plugin-entry";
 import { registerTelegramMiniAppCommand } from "./src/miniapp/command.js";
 import { createTelegramMiniAppLaunchTickets } from "./src/miniapp/launch-ticket.js";
 import { registerTelegramMiniAppRoutes } from "./src/miniapp/routes.js";

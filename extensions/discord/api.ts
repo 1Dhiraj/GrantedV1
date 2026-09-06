@@ -40,7 +40,7 @@ export {
   normalizeDiscordMessagingTarget,
   normalizeDiscordOutboundTarget,
 } from "./src/normalize.js";
-export { resolveOpenProviderRuntimeGroupPolicy as resolveDiscordRuntimeGroupPolicy } from "openclaw/plugin-sdk/runtime-group-policy";
+export { resolveOpenProviderRuntimeGroupPolicy as resolveDiscordRuntimeGroupPolicy } from "granted/plugin-sdk/runtime-group-policy";
 export { collectDiscordStatusIssues } from "./src/status-issues.js";
 
 export {

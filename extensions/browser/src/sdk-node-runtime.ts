@@ -1,8 +1,8 @@
 /**
  * Browser-local SDK bridge for gateway, plugin runtime, and timeout helpers.
  */
-import { toErrorObject } from "openclaw/plugin-sdk/error-runtime";
-import { clampTimerTimeoutMs } from "openclaw/plugin-sdk/number-runtime";
+import { toErrorObject } from "granted/plugin-sdk/error-runtime";
+import { clampTimerTimeoutMs } from "granted/plugin-sdk/number-runtime";
 
 export {
   ensureGatewayStartupAuth,
@@ -14,13 +14,13 @@ export {
   resolveGatewayAuth,
   resolveNodeCommandAllowlist,
   safeParseJson,
-} from "openclaw/plugin-sdk/gateway-runtime";
-export type { GatewayRequestHandlers, NodeSession } from "openclaw/plugin-sdk/gateway-runtime";
-export type { GrantedPluginService } from "openclaw/plugin-sdk/plugin-entry";
+} from "granted/plugin-sdk/gateway-runtime";
+export type { GatewayRequestHandlers, NodeSession } from "granted/plugin-sdk/gateway-runtime";
+export type { GrantedPluginService } from "granted/plugin-sdk/plugin-entry";
 export {
   startLazyPluginServiceModule,
   type LazyPluginServiceHandle,
-} from "openclaw/plugin-sdk/plugin-runtime";
+} from "granted/plugin-sdk/plugin-runtime";
 
 function normalizeTimeoutMs(timeoutMs: number | undefined): number | undefined {
   return clampTimerTimeoutMs(timeoutMs);

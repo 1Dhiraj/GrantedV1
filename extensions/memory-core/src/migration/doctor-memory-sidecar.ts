@@ -2,17 +2,17 @@ import crypto from "node:crypto";
 import type { Dirent } from "node:fs";
 import fs from "node:fs/promises";
 import path from "node:path";
-import { reclaimDefinitelyStaleFileLock } from "openclaw/plugin-sdk/file-lock";
-import { resolveUserPath } from "openclaw/plugin-sdk/memory-core-host-engine-fs";
+import { reclaimDefinitelyStaleFileLock } from "granted/plugin-sdk/file-lock";
+import { resolveUserPath } from "granted/plugin-sdk/memory-core-host-engine-fs";
 // Doctor enumeration cold-loads this closure; the host engine schema pulls the
 // runtime-sqlite/kysely graph, so its helpers load lazily in the async migration.
-import { normalizeAgentId } from "openclaw/plugin-sdk/routing";
+import { normalizeAgentId } from "granted/plugin-sdk/routing";
 import {
   legacyStateFileExists,
   type PluginDoctorStateMigration,
-} from "openclaw/plugin-sdk/runtime-doctor-migrations";
+} from "granted/plugin-sdk/runtime-doctor-migrations";
 // This doctor closure must stay dependency-light while accepting legacy array-backed objects.
-import { asOptionalObjectRecord as readLegacyObjectRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { asOptionalObjectRecord as readLegacyObjectRecord } from "granted/plugin-sdk/string-coerce-runtime";
 // sqlite-runtime re-exports the agent-db/kysely graph; keep it lazy so doctor
 // enumeration does not cold-load it with this closure.
 import {
@@ -169,7 +169,7 @@ async function collectLegacyMemorySidecarSources(params: {
   env: NodeJS.ProcessEnv;
   stateDir: string;
 }): Promise<LegacyMemorySidecarSource[]> {
-  const { resolveOpenClawAgentSqlitePath } = await import("openclaw/plugin-sdk/sqlite-runtime");
+  const { resolveOpenClawAgentSqlitePath } = await import("granted/plugin-sdk/sqlite-runtime");
   const agentIds = new Set(resolveConfiguredAgentIds(params.config));
   const legacyDir = path.join(params.stateDir, "memory");
   const retrySidecars: Array<{ agentId: string; legacyPath: string }> = [];
@@ -412,9 +412,9 @@ async function migrateLegacyMemorySidecarSource(params: {
   warnings: string[];
 }): Promise<{ archiveReady: boolean }> {
   const { ensureMemoryIndexSchema, loadSqliteVecExtension } =
-    await import("openclaw/plugin-sdk/memory-core-host-engine-schema");
+    await import("granted/plugin-sdk/memory-core-host-engine-schema");
   const { ensureOpenClawAgentDatabaseSchema, openNodeSqliteDatabase } =
-    await import("openclaw/plugin-sdk/sqlite-runtime");
+    await import("granted/plugin-sdk/sqlite-runtime");
   // OpenClaw itself can leave a zero-byte placeholder at the legacy sidecar
   // path while the live index is the per-agent SQLite database. An empty file
   // holds no legacy rows, so remove it quietly instead of emitting a permanent

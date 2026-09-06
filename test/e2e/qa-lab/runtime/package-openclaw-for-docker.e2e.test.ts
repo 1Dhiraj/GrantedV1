@@ -909,14 +909,14 @@ describe("package-openclaw-for-docker", () => {
       // npm pack copies these modes verbatim into the tarball.
       fs.mkdirSync(distDir, { mode: 0o700 });
       fs.writeFileSync(path.join(distDir, "index.js"), "export {};\n", { mode: 0o600 });
-      fs.writeFileSync(path.join(sourceDir, "openclaw.mjs"), "#!/usr/bin/env node\n", {
+      fs.writeFileSync(path.join(sourceDir, "granted.mjs"), "#!/usr/bin/env node\n", {
         mode: 0o700,
       });
       fs.writeFileSync(
         path.join(sourceDir, "package.json"),
         `${JSON.stringify({
-          bin: { openclaw: "openclaw.mjs" },
-          files: ["dist", "openclaw.mjs"],
+          bin: { openclaw: "granted.mjs" },
+          files: ["dist", "granted.mjs"],
           name: "openclaw",
           version: "2026.8.26",
         })}\n`,
@@ -956,7 +956,7 @@ describe("package-openclaw-for-docker", () => {
       await parsed;
       expect(extendedAttributeHeaders).toEqual([]);
       expect(entryModes.get("package/dist/index.js")).toBe(0o644);
-      expect(entryModes.get("package/openclaw.mjs")).toBe(0o755);
+      expect(entryModes.get("package/granted.mjs")).toBe(0o755);
       expect(entryModes.get("package/package.json")).toBe(0o644);
       const receipt = JSON.parse(fs.readFileSync(path.join(outputDir, "pack.json"), "utf8"));
       expect(receipt).toEqual([

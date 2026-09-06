@@ -4,7 +4,7 @@
  * Playwright, chrome-devtools-mcp) attach through the same relay port. Spawned
  * on demand by the native messaging host, or run manually.
  */
-import { getRuntimeConfig } from "openclaw/plugin-sdk/runtime-config-snapshot";
+import { getRuntimeConfig } from "granted/plugin-sdk/runtime-config-snapshot";
 import { runExtensionRelayDaemon } from "./src/browser/relay-daemon.js";
 
 const DEFAULT_RELAY_PORT = 18_799;

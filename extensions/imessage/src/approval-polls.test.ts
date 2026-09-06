@@ -1,5 +1,5 @@
 // Imessage tests cover native approval poll bindings and vote authorization.
-import type { ExecApprovalReplyDecision } from "openclaw/plugin-sdk/approval-reply-runtime";
+import type { ExecApprovalReplyDecision } from "granted/plugin-sdk/approval-reply-runtime";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
   buildApprovalPollOptions,
@@ -18,7 +18,7 @@ vi.mock("openclaw/plugin-sdk/approval-gateway-runtime", () => ({
   resolveApprovalOverGateway: resolverMocks.resolveApprovalOverGateway,
 }));
 vi.mock("openclaw/plugin-sdk/error-runtime", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/error-runtime")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/error-runtime")>(
     "openclaw/plugin-sdk/error-runtime",
   );
   return {

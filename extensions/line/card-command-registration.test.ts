@@ -1,6 +1,6 @@
 // Line tests cover which channels the bundled /card registration is offered on.
-import type { GrantedPluginCommandDefinition } from "openclaw/plugin-sdk/plugin-entry";
-import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
+import type { GrantedPluginCommandDefinition } from "granted/plugin-sdk/plugin-entry";
+import { createTestPluginApi } from "granted/plugin-sdk/plugin-test-api";
 import { describe, expect, it } from "vitest";
 import lineEntry from "./index.js";
 

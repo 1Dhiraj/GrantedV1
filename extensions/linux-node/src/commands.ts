@@ -3,9 +3,9 @@ import path from "node:path";
 import type {
   GrantedPluginNodeHostCommand,
   GrantedPluginNodeHostCommandAvailabilityContext,
-} from "openclaw/plugin-sdk/plugin-entry";
-import { runCommandWithTimeout } from "openclaw/plugin-sdk/process-runtime";
-import { resolvePreferredOpenClawTmpDir, withTempWorkspace } from "openclaw/plugin-sdk/temp-path";
+} from "granted/plugin-sdk/plugin-entry";
+import { runCommandWithTimeout } from "granted/plugin-sdk/process-runtime";
+import { resolvePreferredOpenClawTmpDir, withTempWorkspace } from "granted/plugin-sdk/temp-path";
 import {
   assertToolResult,
   clamp,

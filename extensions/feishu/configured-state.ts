@@ -2,8 +2,8 @@ import {
   DEFAULT_ACCOUNT_ID,
   hasConfiguredAccountValue,
   mergeAccountConfig,
-} from "openclaw/plugin-sdk/account-core";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+} from "granted/plugin-sdk/account-core";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import type { FeishuConfig } from "./src/types.js";
 
 /** Feishu owns configured account credentials; ambient variables alone are not an account. */

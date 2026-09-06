@@ -1,8 +1,8 @@
 // Discord plugin module implements native command route behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import * as conversationRuntime from "openclaw/plugin-sdk/conversation-binding-runtime";
-import type { ResolvedAgentRoute } from "openclaw/plugin-sdk/routing";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import * as conversationRuntime from "granted/plugin-sdk/conversation-binding-runtime";
+import type { ResolvedAgentRoute } from "granted/plugin-sdk/routing";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   resolveDiscordBoundConversationRoute,
   resolveDiscordEffectiveRoute,

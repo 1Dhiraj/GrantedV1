@@ -1,17 +1,17 @@
 // Slack tests cover prepare.thread session key plugin behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   registerSessionBindingAdapter,
   unregisterSessionBindingAdapter,
   type SessionBindingAdapter,
   type SessionBindingRecord,
-} from "openclaw/plugin-sdk/conversation-runtime";
+} from "granted/plugin-sdk/conversation-runtime";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const resolveConfiguredBindingRouteMock = vi.hoisted(() => vi.fn());
 
 vi.mock("openclaw/plugin-sdk/conversation-runtime", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/conversation-runtime")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/conversation-runtime")>(
     "openclaw/plugin-sdk/conversation-runtime",
   );
   return {

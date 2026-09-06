@@ -1,7 +1,7 @@
 import type { ChildProcess } from "node:child_process";
 import type { WriteStream } from "node:fs";
 import path from "node:path";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
 import { QaSuiteInfraError } from "./errors.js";
 import {
   cleanupQaGatewayTempRoots,

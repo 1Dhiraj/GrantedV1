@@ -4,12 +4,12 @@ import type {
   PendingApprovalView,
   PluginApprovalPendingView,
   ResolvedApprovalView,
-} from "openclaw/plugin-sdk/approval-handler-runtime";
+} from "granted/plugin-sdk/approval-handler-runtime";
 import type {
   ExecApprovalRequest,
   PluginApprovalRequest,
-} from "openclaw/plugin-sdk/approval-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+} from "granted/plugin-sdk/approval-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
   getMSTeamsApprovalCardBinding,

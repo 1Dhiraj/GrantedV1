@@ -2,13 +2,13 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import type { webhook } from "@line/bot-sdk";
-import type { ChannelIngressQueue } from "openclaw/plugin-sdk/channel-outbound";
+import type { ChannelIngressQueue } from "granted/plugin-sdk/channel-outbound";
 import {
   closeOpenClawStateDatabaseForTest,
   createChannelIngressQueueForTests as createChannelIngressQueue,
-} from "openclaw/plugin-sdk/plugin-state-test-runtime";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
-import { resolvePreferredOpenClawTmpDir } from "openclaw/plugin-sdk/temp-path";
+} from "granted/plugin-sdk/plugin-state-test-runtime";
+import type { RuntimeEnv } from "granted/plugin-sdk/runtime-env";
+import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
 import { expect, vi } from "vitest";
 
 export type SpoolPayload = {

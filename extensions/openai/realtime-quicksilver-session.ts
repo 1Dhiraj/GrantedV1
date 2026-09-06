@@ -1,20 +1,20 @@
 // Native GPT-Live browser sessions: WebRTC offer broker plus gateway-owned sideband control.
 import { randomBytes, randomUUID } from "node:crypto";
 import type { IncomingMessage, ServerResponse } from "node:http";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { PluginLogger } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { PluginLogger } from "granted/plugin-sdk/plugin-entry";
 import {
   resolveOpenAICodexAuthIdentity,
   resolveProviderAuthProfileApiKey,
-} from "openclaw/plugin-sdk/provider-auth";
+} from "granted/plugin-sdk/provider-auth";
 import type {
   RealtimeVoiceBridge,
   RealtimeVoiceBrowserSession,
   RealtimeVoiceBrowserSessionCreateRequest,
   RealtimeVoiceCloseDisposition,
   RealtimeVoiceProviderCapabilities,
-} from "openclaw/plugin-sdk/realtime-voice";
-import { readRequestBodyWithLimit } from "openclaw/plugin-sdk/webhook-request-guards";
+} from "granted/plugin-sdk/realtime-voice";
+import { readRequestBodyWithLimit } from "granted/plugin-sdk/webhook-request-guards";
 import WebSocket, { type RawData } from "ws";
 import { OpenAIQuicksilverDelegationController } from "./realtime-quicksilver-delegation-controller.js";
 import {

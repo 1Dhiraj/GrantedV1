@@ -2,10 +2,10 @@ import {
   embeddedAgentLog,
   formatErrorMessage,
   isHostScopedAgentToolActive,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
-import { resolveAgentDir } from "openclaw/plugin-sdk/agent-runtime";
-import { resolveSessionAgentIdsStrict } from "openclaw/plugin-sdk/agent-scope-runtime";
-import { buildCodexUserMcpServersThreadConfigPatchForRun } from "openclaw/plugin-sdk/codex-mcp-projection";
+} from "granted/plugin-sdk/agent-harness-runtime";
+import { resolveAgentDir } from "granted/plugin-sdk/agent-runtime";
+import { resolveSessionAgentIdsStrict } from "granted/plugin-sdk/agent-scope-runtime";
+import { buildCodexUserMcpServersThreadConfigPatchForRun } from "granted/plugin-sdk/codex-mcp-projection";
 import { getCodexAppServerClientInstanceId } from "./client.js";
 import { assertCodexModelBackedReviewerEffectiveConfig } from "./config-reviewer.js";
 import {

@@ -1,9 +1,9 @@
 // Openai plugin module implements native web search behavior.
-import type { StreamFn } from "openclaw/plugin-sdk/agent-core";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { normalizeProviderId } from "openclaw/plugin-sdk/provider-model-shared";
-import { createPayloadPatchStreamWrapper } from "openclaw/plugin-sdk/provider-stream-shared";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import type { StreamFn } from "granted/plugin-sdk/agent-core";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { normalizeProviderId } from "granted/plugin-sdk/provider-model-shared";
+import { createPayloadPatchStreamWrapper } from "granted/plugin-sdk/provider-stream-shared";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import { isOpenAIApiBaseUrl } from "./base-url.js";
 
 const OPENAI_WEB_SEARCH_TOOL = { type: "web_search" } as const;

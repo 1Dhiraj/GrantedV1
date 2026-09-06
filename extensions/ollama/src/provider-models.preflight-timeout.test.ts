@@ -1,5 +1,5 @@
 // Exercise the real guard: its timeout owns DNS/proxy preflight as well as fetch.
-import type { LookupFn } from "openclaw/plugin-sdk/ssrf-runtime";
+import type { LookupFn } from "granted/plugin-sdk/ssrf-runtime";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { fetchOllamaModels } from "./provider-models.js";
 

@@ -1,18 +1,18 @@
 import crypto from "node:crypto";
 import type { IncomingMessage, ServerResponse } from "node:http";
-import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "openclaw/plugin-sdk/account-id";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "granted/plugin-sdk/account-id";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   BOOTSTRAP_HANDOFF_OPERATOR_SCOPES,
   issueDeviceBootstrapToken,
-} from "openclaw/plugin-sdk/device-bootstrap";
-import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/device-bootstrap";
+import type { GrantedPluginApi } from "granted/plugin-sdk/plugin-entry";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   createFixedWindowRateLimiter,
   WEBHOOK_RATE_LIMIT_DEFAULTS,
-} from "openclaw/plugin-sdk/webhook-ingress";
-import { readJsonWebhookBodyOrReject } from "openclaw/plugin-sdk/webhook-request-guards";
+} from "granted/plugin-sdk/webhook-ingress";
+import { readJsonWebhookBodyOrReject } from "granted/plugin-sdk/webhook-request-guards";
 import { resolveTelegramAccount } from "../accounts.js";
 import { validateTelegramMiniAppInitData } from "./init-data.js";
 import type { TelegramMiniAppLaunchTickets } from "./launch-ticket.js";

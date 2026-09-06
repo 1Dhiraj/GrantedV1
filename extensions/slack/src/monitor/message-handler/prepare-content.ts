@@ -1,11 +1,11 @@
 // Slack plugin module implements prepare content behavior.
 import type { WebClient as SlackWebClient } from "@slack/web-api";
-import { formatInboundMediaUnavailableText } from "openclaw/plugin-sdk/channel-inbound";
-import { runTasksWithConcurrency } from "openclaw/plugin-sdk/concurrency-runtime";
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
-import { logVerbose } from "openclaw/plugin-sdk/runtime-env";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+import { formatInboundMediaUnavailableText } from "granted/plugin-sdk/channel-inbound";
+import { runTasksWithConcurrency } from "granted/plugin-sdk/concurrency-runtime";
+import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
+import { logVerbose } from "granted/plugin-sdk/runtime-env";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
+import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import { formatSlackFileReference } from "../../file-reference.js";
 import type { SlackFile, SlackMessageEvent } from "../../types.js";
 import { resolveSlackMessageText } from "../block-text.js";

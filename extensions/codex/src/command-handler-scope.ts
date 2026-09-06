@@ -1,6 +1,6 @@
-import { resolveAgentDir } from "openclaw/plugin-sdk/agent-runtime";
-import { resolveSessionAgentIdsStrict } from "openclaw/plugin-sdk/agent-scope-runtime";
-import type { PluginCommandContext } from "openclaw/plugin-sdk/plugin-entry";
+import { resolveAgentDir } from "granted/plugin-sdk/agent-runtime";
+import { resolveSessionAgentIdsStrict } from "granted/plugin-sdk/agent-scope-runtime";
+import type { PluginCommandContext } from "granted/plugin-sdk/plugin-entry";
 import { resolveCodexAppServerAuthProfileIdForAgent } from "./app-server/auth-bridge.js";
 import { resolveCodexBindingAppServerConnection } from "./app-server/binding-connection.js";
 import {

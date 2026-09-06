@@ -1,5 +1,5 @@
 // Slack plugin module implements setup surface behavior.
-import { resolveBasicAllowFromEntries } from "openclaw/plugin-sdk/allow-from";
+import { resolveBasicAllowFromEntries } from "granted/plugin-sdk/allow-from";
 import {
   noteChannelLookupFailure,
   noteChannelLookupSummary,
@@ -14,9 +14,9 @@ import {
   type WizardPrompter,
   type ChannelSetupWizard,
   type ChannelSetupWizardAllowFromEntry,
-} from "openclaw/plugin-sdk/setup-runtime";
-import { formatDocsLink } from "openclaw/plugin-sdk/setup-tools";
-import { normalizeStringEntries } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/setup-runtime";
+import { formatDocsLink } from "granted/plugin-sdk/setup-tools";
+import { normalizeStringEntries } from "granted/plugin-sdk/string-coerce-runtime";
 import { inspectSlackAccount, type InspectedSlackAccount } from "./account-inspect.js";
 import { resolveDefaultSlackAccountId, resolveSlackAccountAllowFrom } from "./accounts.js";
 import { resolveSlackChannelAllowlist } from "./resolve-channels.js";

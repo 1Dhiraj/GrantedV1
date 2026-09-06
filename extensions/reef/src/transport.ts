@@ -1,8 +1,8 @@
-import { toStringifiedError as asError } from "openclaw/plugin-sdk/error-runtime";
-import { buildTimeoutAbortSignal } from "openclaw/plugin-sdk/extension-shared";
-import { redactSensitiveText } from "openclaw/plugin-sdk/logging-core";
-import { readProviderJsonResponse } from "openclaw/plugin-sdk/provider-http";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { toStringifiedError as asError } from "granted/plugin-sdk/error-runtime";
+import { buildTimeoutAbortSignal } from "granted/plugin-sdk/extension-shared";
+import { redactSensitiveText } from "granted/plugin-sdk/logging-core";
+import { readProviderJsonResponse } from "granted/plugin-sdk/provider-http";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import WebSocket from "ws";
 import { sha256Hex, signDeviceRequest, utf8 } from "../protocol/index.js";
 import type { Envelope, SignedReceipt } from "../protocol/index.js";

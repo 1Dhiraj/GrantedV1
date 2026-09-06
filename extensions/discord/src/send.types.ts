@@ -1,7 +1,7 @@
 // Discord type declarations define plugin contracts.
-import type { MessageReceipt } from "openclaw/plugin-sdk/channel-outbound";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { RetryConfig } from "openclaw/plugin-sdk/retry-runtime";
+import type { MessageReceipt } from "granted/plugin-sdk/channel-outbound";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { RetryConfig } from "granted/plugin-sdk/retry-runtime";
 import type { RequestClient } from "./internal/discord.js";
 
 export class DiscordSendError extends Error {

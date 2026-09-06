@@ -19,11 +19,11 @@ import {
   type DeliveryTraceInStep,
   type DeliveryTraceScenarioName,
   type WireRecorder,
-} from "openclaw/plugin-sdk/channel-contract-testing";
-import type { PluginRuntime } from "openclaw/plugin-sdk/core";
-import { resolveMarkdownTableMode } from "openclaw/plugin-sdk/markdown-table-runtime";
-import { chunkMarkdownTextWithMode, resolveChunkMode } from "openclaw/plugin-sdk/reply-chunking";
-import { convertMarkdownTables } from "openclaw/plugin-sdk/text-chunking";
+} from "granted/plugin-sdk/channel-contract-testing";
+import type { PluginRuntime } from "granted/plugin-sdk/core";
+import { resolveMarkdownTableMode } from "granted/plugin-sdk/markdown-table-runtime";
+import { chunkMarkdownTextWithMode, resolveChunkMode } from "granted/plugin-sdk/reply-chunking";
+import { convertMarkdownTables } from "granted/plugin-sdk/text-chunking";
 import { describe, it } from "vitest";
 import type { GrantedConfig, ReplyPayload } from "../runtime-api.js";
 import { createMSTeamsReplyDispatcher } from "./reply-dispatcher.js";

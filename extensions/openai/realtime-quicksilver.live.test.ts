@@ -3,8 +3,8 @@ import { createServer, type Server } from "node:http";
 import {
   readCodexCliCredentialsCached,
   resolveOpenAICodexAuthIdentity,
-} from "openclaw/plugin-sdk/provider-auth";
-import { REALTIME_VOICE_AGENT_CONSULT_TOOL } from "openclaw/plugin-sdk/realtime-voice";
+} from "granted/plugin-sdk/provider-auth";
+import { REALTIME_VOICE_AGENT_CONSULT_TOOL } from "granted/plugin-sdk/realtime-voice";
 import type { Page } from "playwright";
 import { describe, expect, it } from "vitest";
 import WebSocket, { type RawData } from "ws";

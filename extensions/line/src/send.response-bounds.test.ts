@@ -1,5 +1,5 @@
 import { HTTPFetchError } from "@line/bot-sdk";
-import { isChannelPartialDeliveryError } from "openclaw/plugin-sdk/channel-inbound";
+import { isChannelPartialDeliveryError } from "granted/plugin-sdk/channel-inbound";
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 
 const {

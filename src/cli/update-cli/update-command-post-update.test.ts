@@ -280,7 +280,7 @@ describe("successful update finalization ordering", () => {
   it("restarts when completion cache refresh reports failure", async () => {
     const root = tempDirs.make("openclaw-completion-failure-");
     await fs.writeFile(
-      path.join(root, "openclaw.mjs"),
+      path.join(root, "granted.mjs"),
       'process.stderr.write("injected completion cache failure"); process.exit(1);',
     );
 
@@ -326,7 +326,7 @@ describe("successful update finalization ordering", () => {
 
   it("keeps JSON completion cache failures silent and restarts", async () => {
     const root = tempDirs.make("openclaw-json-completion-failure-");
-    await fs.writeFile(path.join(root, "openclaw.mjs"), "process.exit(1);");
+    await fs.writeFile(path.join(root, "granted.mjs"), "process.exit(1);");
     Object.defineProperty(process.stdin, "isTTY", { configurable: true, value: true });
 
     await finishSuccessfulPackageSwitch({

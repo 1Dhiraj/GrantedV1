@@ -8,7 +8,7 @@ import {
   ATTR_GEN_AI_TOOL_DEFINITIONS,
   GEN_AI_OPERATION_NAME_VALUE_EXECUTE_TOOL,
 } from "@opentelemetry/semantic-conventions/incubating";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   MAX_OTEL_CONTENT_ARRAY_ITEMS,
   MAX_OTEL_CONTENT_ATTRIBUTE_CHARS,

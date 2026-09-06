@@ -25,7 +25,7 @@
     "useDefineForClassFields": false,
     "verbatimModuleSyntax": true,
     "paths": {
-      "openclaw/plugin-sdk/*": ["./src/plugin-sdk/*.ts"],
+      "granted/plugin-sdk/*": ["./src/plugin-sdk/*.ts"],
       "@openclaw/ai": ["./packages/ai/src/index.ts"],
       "@openclaw/ai/diagnostics": ["./packages/ai/src/utils/diagnostics.ts"],
       "@openclaw/ai/event-stream": ["./packages/ai/src/utils/event-stream.ts"],
@@ -287,7 +287,7 @@
       "@openclaw/net-policy/*": ["./packages/net-policy/src/*"],
       "@openclaw/sdk": ["./packages/sdk/src/index.ts"],
       "@openclaw/plugin-sdk/*": ["./src/plugin-sdk/*.ts"],
-      "openclaw/plugin-sdk/account-id": ["./src/plugin-sdk/account-id.ts"],
+      "granted/plugin-sdk/account-id": ["./src/plugin-sdk/account-id.ts"],
       "@openclaw/*": ["./extensions/*"]
     }
   },

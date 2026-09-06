@@ -1,23 +1,23 @@
 // Root-owned integration may combine the public Slack plugin with the durable queue runtime.
 import { createServer, type Server } from "node:http";
 import type { AddressInfo, Socket } from "node:net";
-import { sendDurableMessageBatch } from "openclaw/plugin-sdk/channel-outbound";
+import { sendDurableMessageBatch } from "granted/plugin-sdk/channel-outbound";
 import {
   createEmptyPluginRegistry,
   createTestRegistry,
   resetPluginRuntimeStateForTest,
   resetGlobalHookRunner,
   setActivePluginRegistry,
-} from "openclaw/plugin-sdk/channel-test-helpers";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { drainPendingDeliveries } from "openclaw/plugin-sdk/delivery-queue-runtime";
-import { PlatformMessageNotDispatchedError } from "openclaw/plugin-sdk/error-runtime";
+} from "granted/plugin-sdk/channel-test-helpers";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { drainPendingDeliveries } from "granted/plugin-sdk/delivery-queue-runtime";
+import { PlatformMessageNotDispatchedError } from "granted/plugin-sdk/error-runtime";
 import {
   closeOpenClawAgentDatabasesForTest,
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-} from "openclaw/plugin-sdk/sqlite-runtime-testing";
-import { withStateDirEnv } from "openclaw/plugin-sdk/test-env";
+} from "granted/plugin-sdk/sqlite-runtime-testing";
+import { withStateDirEnv } from "granted/plugin-sdk/test-env";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { getDeliveryQueueEntryStatus } from "../src/infra/delivery-queue-sqlite.js";
 import { OUTBOUND_DELIVERY_QUEUE_NAME } from "../src/infra/outbound/delivery-queue-media-staging.js";

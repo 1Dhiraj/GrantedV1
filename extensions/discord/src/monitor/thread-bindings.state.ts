@@ -1,11 +1,11 @@
 // Discord plugin module implements thread bindings.state behavior.
-import { recordOutboundMessageIdentity } from "openclaw/plugin-sdk/outbound-echo-runtime";
-import { normalizeAccountId, resolveAgentIdFromSessionKey } from "openclaw/plugin-sdk/routing";
+import { recordOutboundMessageIdentity } from "granted/plugin-sdk/outbound-echo-runtime";
+import { normalizeAccountId, resolveAgentIdFromSessionKey } from "granted/plugin-sdk/routing";
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
   normalizeOptionalStringifiedId,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import { getDiscordRuntime } from "../runtime.js";
 import type {
   PersistedThreadBindingRecord,

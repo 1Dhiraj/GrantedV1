@@ -1,4 +1,4 @@
-import { resolveGlobalSingleton } from "openclaw/plugin-sdk/global-singleton";
+import { resolveGlobalSingleton } from "granted/plugin-sdk/global-singleton";
 import type { DiscordComponentEntry, DiscordModalEntry } from "./components.js";
 
 type PersistedDiscordRegistryEntry<T extends { id: string }> = {

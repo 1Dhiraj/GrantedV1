@@ -1,23 +1,23 @@
 // Xiaomi provider module implements model/runtime integration.
-import { canonicalizeBase64, transcodeAudioBufferToOpus } from "openclaw/plugin-sdk/media-runtime";
-import { resolveTimerTimeoutMs } from "openclaw/plugin-sdk/number-runtime";
+import { canonicalizeBase64, transcodeAudioBufferToOpus } from "granted/plugin-sdk/media-runtime";
+import { resolveTimerTimeoutMs } from "granted/plugin-sdk/number-runtime";
 import {
   assertOkOrThrowProviderError,
   readProviderJsonResponse,
-} from "openclaw/plugin-sdk/provider-http";
-import { normalizeResolvedSecretInputString } from "openclaw/plugin-sdk/secret-input";
+} from "granted/plugin-sdk/provider-http";
+import { normalizeResolvedSecretInputString } from "granted/plugin-sdk/secret-input";
 import type {
   SpeechDirectiveTokenParseContext,
   SpeechProviderConfig,
   SpeechProviderOverrides,
   SpeechProviderPlugin,
-} from "openclaw/plugin-sdk/speech-core";
-import { resolveSpeechProviderApiKey, trimToUndefined } from "openclaw/plugin-sdk/speech-core";
+} from "granted/plugin-sdk/speech-core";
+import { resolveSpeechProviderApiKey, trimToUndefined } from "granted/plugin-sdk/speech-core";
 import {
   fetchWithSsrFGuard,
   ssrfPolicyFromHttpBaseUrlAllowedHostname,
-} from "openclaw/plugin-sdk/ssrf-runtime";
-import { asOptionalRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/ssrf-runtime";
+import { asOptionalRecord } from "granted/plugin-sdk/string-coerce-runtime";
 
 const DEFAULT_XIAOMI_TTS_BASE_URL = "https://api.xiaomimimo.com/v1";
 const DEFAULT_XIAOMI_TTS_MODEL = "mimo-v2.5-tts";

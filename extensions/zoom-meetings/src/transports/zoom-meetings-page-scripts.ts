@@ -1,7 +1,7 @@
 import {
   createMeetingLeaveSource,
   createMeetingTranscriptSource,
-} from "openclaw/plugin-sdk/meeting-page-script-runtime";
+} from "granted/plugin-sdk/meeting-page-script-runtime";
 import { ZOOM_MEETING_SELECTORS } from "./zoom-meetings-selectors.js";
 import { zoomMeetingStatusCallSource } from "./zoom-meetings-status-call-source.js";
 import { zoomMeetingStatusPreludeSource } from "./zoom-meetings-status-prejoin-source.js";

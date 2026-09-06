@@ -1,10 +1,10 @@
 // Telegram plugin module implements reaction level behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   resolveReactionLevel,
   type ReactionLevel,
   type ResolvedReactionLevel as BaseResolvedReactionLevel,
-} from "openclaw/plugin-sdk/status-helpers";
+} from "granted/plugin-sdk/status-helpers";
 import { inspectTelegramAccount } from "./account-inspect.js";
 
 export type TelegramReactionLevel = ReactionLevel;

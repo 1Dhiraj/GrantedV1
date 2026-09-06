@@ -1,4 +1,4 @@
-import { MeetingPlatformAdapter } from "openclaw/plugin-sdk/meeting-runtime";
+import { MeetingPlatformAdapter } from "granted/plugin-sdk/meeting-runtime";
 
 type MeetingStatusPreludeParams = Parameters<
   typeof MeetingPlatformAdapter.createStatusPreludeSource

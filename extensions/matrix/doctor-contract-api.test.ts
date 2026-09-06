@@ -5,22 +5,22 @@ import fs from "node:fs";
 import fsPromises from "node:fs/promises";
 import path from "node:path";
 import { DatabaseSync } from "node:sqlite";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   createPersistentDedupeImportEntry,
   type PersistentDedupeEntry,
-} from "openclaw/plugin-sdk/persistent-dedupe";
+} from "granted/plugin-sdk/persistent-dedupe";
 import type {
   OpenKeyedStoreOptions,
   PluginStateKeyedStore,
-} from "openclaw/plugin-sdk/plugin-state-runtime";
+} from "granted/plugin-sdk/plugin-state-runtime";
 import {
   createPluginStateKeyedStoreForTests,
   getPluginStateCapacityForTests,
   importPluginStateEntriesForDoctorForTests,
   resetPluginStateStoreForTests,
-} from "openclaw/plugin-sdk/plugin-state-test-runtime";
-import type { PluginDoctorStateMigrationContext } from "openclaw/plugin-sdk/runtime-doctor-migrations";
+} from "granted/plugin-sdk/plugin-state-test-runtime";
+import type { PluginDoctorStateMigrationContext } from "granted/plugin-sdk/runtime-doctor-migrations";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { stateMigrations } from "./doctor-contract-api.js";
 import { SqliteBackedMatrixSyncStore } from "./src/matrix/client/file-sync-store.js";

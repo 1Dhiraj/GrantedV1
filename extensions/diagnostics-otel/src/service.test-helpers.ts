@@ -7,11 +7,11 @@ import {
   type DiagnosticEventPayload,
   type DiagnosticTraceContext,
   waitForDiagnosticEventsDrained,
-} from "openclaw/plugin-sdk/diagnostic-runtime";
+} from "granted/plugin-sdk/diagnostic-runtime";
 import {
   onTrustedInternalDiagnosticEvent,
   registerDiagnosticTracePropagationBridge,
-} from "openclaw/plugin-sdk/plugin-test-runtime";
+} from "granted/plugin-sdk/plugin-test-runtime";
 import { vi } from "vitest";
 import type { GrantedPluginServiceContext } from "../api.js";
 import type { ExporterHealthUpdate } from "./service-exporter-health.js";

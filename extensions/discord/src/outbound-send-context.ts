@@ -4,10 +4,10 @@ import {
   resolveOutboundSendDep,
   type OutboundSendDeps,
   type ReplyToResolution,
-} from "openclaw/plugin-sdk/channel-outbound";
-import type { GrantedConfig, ReplyToMode } from "openclaw/plugin-sdk/config-contracts";
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
-import { normalizeOptionalStringifiedId } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/channel-outbound";
+import type { GrantedConfig, ReplyToMode } from "granted/plugin-sdk/config-contracts";
+import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
+import { normalizeOptionalStringifiedId } from "granted/plugin-sdk/string-coerce-runtime";
 import { resolveDiscordReplyReference } from "./reply-reference.js";
 
 type DiscordSendRuntime = typeof import("./send.js");

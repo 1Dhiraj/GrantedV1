@@ -1,6 +1,6 @@
 import os from "node:os";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
-import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
+import { createTestPluginApi } from "granted/plugin-sdk/plugin-test-api";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { GrantedPluginApi } from "./api.js";
 import type { VoiceCallRuntime } from "./runtime-entry.js";

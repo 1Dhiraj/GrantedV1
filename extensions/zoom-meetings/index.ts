@@ -1,5 +1,5 @@
-import { MeetingPlatformAdapter } from "openclaw/plugin-sdk/meeting-runtime";
-import { normalizeAgentId } from "openclaw/plugin-sdk/routing";
+import { MeetingPlatformAdapter } from "granted/plugin-sdk/meeting-runtime";
+import { normalizeAgentId } from "granted/plugin-sdk/routing";
 import { Type } from "typebox";
 import { ZOOM_MEETINGS_CLI_METADATA } from "./src/cli-output-mode.js";
 import { zoomMeetingsConfig } from "./src/config.js";

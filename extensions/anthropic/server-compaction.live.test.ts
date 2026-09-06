@@ -1,7 +1,7 @@
-import type { StreamFn } from "openclaw/plugin-sdk/agent-core";
-import type { Context, Model } from "openclaw/plugin-sdk/llm";
-import { streamSimple } from "openclaw/plugin-sdk/llm";
-import { isTruthyEnvValue } from "openclaw/plugin-sdk/runtime-env";
+import type { StreamFn } from "granted/plugin-sdk/agent-core";
+import type { Context, Model } from "granted/plugin-sdk/llm";
+import { streamSimple } from "granted/plugin-sdk/llm";
+import { isTruthyEnvValue } from "granted/plugin-sdk/runtime-env";
 import { describe, expect, it } from "vitest";
 import {
   buildAnthropicCompactionContextChunk,

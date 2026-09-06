@@ -5,16 +5,16 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { DEFAULT_INGRESS_RETRY_MAX_ATTEMPTS } from "openclaw/plugin-sdk/channel-outbound";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import { DEFAULT_INGRESS_RETRY_MAX_ATTEMPTS } from "granted/plugin-sdk/channel-outbound";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   closeOpenClawStateDatabaseForTest,
   createChannelIngressQueueForTests,
   createPluginStateKeyedStoreForTests,
   resetPluginStateStoreForTests,
-} from "openclaw/plugin-sdk/plugin-state-test-runtime";
-import type { MsgContext } from "openclaw/plugin-sdk/reply-runtime";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
+} from "granted/plugin-sdk/plugin-state-test-runtime";
+import type { MsgContext } from "granted/plugin-sdk/reply-runtime";
+import type { RuntimeEnv } from "granted/plugin-sdk/runtime-env";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { TelegramBotDeps } from "./bot-deps.js";
 import { telegramBotInfoForTest } from "./bot.create-telegram-bot.test-support.js";
@@ -40,7 +40,7 @@ vi.mock("./fetch.js", () => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/channel-inbound", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/channel-inbound")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/channel-inbound")>();
   return {
     ...actual,
     runChannelInboundEvent: async (params: Parameters<typeof actual.runChannelInboundEvent>[0]) =>
@@ -80,7 +80,7 @@ vi.mock("./bot-message-dispatch.agent.runtime.js", () => ({
 }));
 
 const { createTelegramBot } = await import("./bot.js");
-const { resetInboundDedupe } = await import("openclaw/plugin-sdk/reply-runtime");
+const { resetInboundDedupe } = await import("granted/plugin-sdk/reply-runtime");
 const { createTelegramTransportIngressMonitor } =
   await import("./telegram-ingress-drain-factory.js");
 const { setTelegramRuntime } = await import("./runtime.js");

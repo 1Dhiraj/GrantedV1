@@ -1,6 +1,6 @@
-import { closeOpenClawStateDatabaseForTest } from "openclaw/plugin-sdk/channel-ingress-test-runtime";
+import { closeOpenClawStateDatabaseForTest } from "granted/plugin-sdk/channel-ingress-test-runtime";
 // Zalo tests cover durable webhook admission, replay, recovery, and failure taxonomy.
-import type { ChannelIngressQueue } from "openclaw/plugin-sdk/channel-outbound";
+import type { ChannelIngressQueue } from "granted/plugin-sdk/channel-outbound";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { zaloWebhookIngressRuntime } from "./webhook-spool.js";
 import {

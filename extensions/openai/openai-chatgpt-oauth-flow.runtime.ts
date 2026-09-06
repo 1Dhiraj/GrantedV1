@@ -5,8 +5,8 @@
  * It is only intended for CLI use, not browser environments.
  */
 
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
-import { resolveOpenAICodexAuthIdentity } from "openclaw/plugin-sdk/provider-auth";
+import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
+import { resolveOpenAICodexAuthIdentity } from "granted/plugin-sdk/provider-auth";
 import {
   createOAuthLoginCancelledError,
   oauthErrorHtml,
@@ -16,7 +16,7 @@ import {
   withOAuthLoginAbort,
   type OAuthCredentials,
   type OAuthPrompt,
-} from "openclaw/plugin-sdk/provider-oauth-runtime";
+} from "granted/plugin-sdk/provider-oauth-runtime";
 import {
   createOpenAIAuthorizationFlow,
   resolveOpenAICallbackHost,

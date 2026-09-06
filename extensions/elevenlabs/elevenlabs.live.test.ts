@@ -2,13 +2,13 @@
 import {
   registerProviderPlugin,
   requireRegisteredProvider,
-} from "openclaw/plugin-sdk/plugin-test-runtime";
+} from "granted/plugin-sdk/plugin-test-runtime";
 import {
   normalizeTranscriptForMatch,
   runRealtimeSttLiveTest,
   synthesizeElevenLabsLiveSpeech,
-} from "openclaw/plugin-sdk/provider-test-contracts";
-import { isLiveTestEnabled } from "openclaw/plugin-sdk/test-live";
+} from "granted/plugin-sdk/provider-test-contracts";
+import { isLiveTestEnabled } from "granted/plugin-sdk/test-live";
 import { describe, expect, it } from "vitest";
 import plugin from "./index.js";
 import { elevenLabsMediaUnderstandingProvider } from "./media-understanding-provider.js";

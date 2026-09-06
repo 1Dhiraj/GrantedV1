@@ -158,9 +158,9 @@ describe("production plugin normalization ownership boundary", () => {
     {
       name: "approved SDK facades",
       source: [
-        'import "openclaw/plugin-sdk/string-coerce-runtime";',
-        'import "openclaw/plugin-sdk/number-runtime";',
-        'import "openclaw/plugin-sdk/error-runtime";',
+        'import "granted/plugin-sdk/string-coerce-runtime";',
+        'import "granted/plugin-sdk/number-runtime";',
+        'import "granted/plugin-sdk/error-runtime";',
       ].join("\n"),
     },
     { name: "plugin-local import", source: 'import "./local.js";' },

@@ -1,6 +1,6 @@
 // Message program helper tests cover message command helper behavior and mocks.
 import { Command } from "commander";
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { registerMessagePollCommand } from "./register.poll.js";
 import { registerMessageReactionsCommands } from "./register.reactions.js";

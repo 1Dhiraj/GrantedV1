@@ -11,7 +11,7 @@ import {
   resolveEmbeddingEndpointUrl,
   withRemoteHttpResponse,
   type EmbeddingBatchExecutionParams,
-} from "openclaw/plugin-sdk/memory-core-host-engine-embeddings";
+} from "granted/plugin-sdk/memory-core-host-engine-embeddings";
 import {
   assertOkOrThrowProviderError,
   createProviderOperationDeadline,
@@ -19,7 +19,7 @@ import {
   readProviderJsonObjectResponse,
   resolveProviderOperationTimeoutMs,
   waitProviderOperationPollInterval,
-} from "openclaw/plugin-sdk/provider-http";
+} from "granted/plugin-sdk/provider-http";
 import {
   sanitizeGeminiEmbedding,
   type GeminiEmbeddingClient,

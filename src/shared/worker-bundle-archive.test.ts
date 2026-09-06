@@ -27,8 +27,8 @@ describe("worker bundle archive", () => {
     const archive = path.join(root, "bundle.tgz");
     const destination = path.join(root, "destination");
     await fs.mkdir(path.join(source, "dist"), { recursive: true });
-    await fs.writeFile(path.join(source, "openclaw.mjs"), "#!/usr/bin/env node\n");
-    await fs.chmod(path.join(source, "openclaw.mjs"), 0o700);
+    await fs.writeFile(path.join(source, "granted.mjs"), "#!/usr/bin/env node\n");
+    await fs.chmod(path.join(source, "granted.mjs"), 0o700);
     await fs.writeFile(path.join(source, "dist", "worker.js"), "export const worker = true;\n");
     await fs.chmod(path.join(source, "dist", "worker.js"), 0o600);
     await fs.writeFile(path.join(source, "dist", "Upper.js"), "export const upper = true;\n");
@@ -39,7 +39,7 @@ describe("worker bundle archive", () => {
     });
     const bundleHash = hashWorkerBundleManifest(sourceManifest);
     await tar.create({ cwd: source, file: archive, gzip: true, noDirRecurse: true }, [
-      "openclaw.mjs",
+      "granted.mjs",
       "dist/worker.js",
       "dist/Upper.js",
     ]);
@@ -66,9 +66,9 @@ describe("worker bundle archive", () => {
     const archive = path.join(root, "bundle.tgz");
     await fs.mkdir(source);
     await fs.writeFile(path.join(source, "target"), "target");
-    await fs.symlink("target", path.join(source, "openclaw.mjs"));
+    await fs.symlink("target", path.join(source, "granted.mjs"));
     await tar.create({ cwd: source, file: archive, gzip: true, noDirRecurse: true }, [
-      "openclaw.mjs",
+      "granted.mjs",
     ]);
 
     await expect(
@@ -80,9 +80,9 @@ describe("worker bundle archive", () => {
     const source = path.join(root, "source");
     const archive = path.join(root, "bundle.tgz");
     await fs.mkdir(source);
-    await fs.writeFile(path.join(source, "openclaw.mjs"), "worker");
+    await fs.writeFile(path.join(source, "granted.mjs"), "worker");
     await tar.create({ cwd: source, file: archive, gzip: true, noDirRecurse: true }, [
-      "openclaw.mjs",
+      "granted.mjs",
     ]);
 
     await expect(

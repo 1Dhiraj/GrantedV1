@@ -3,7 +3,7 @@ import type {
   AgentHarnessTaskRecord,
   AgentHarnessTaskRuntime,
   AgentHarnessTaskRuntimeScope,
-} from "openclaw/plugin-sdk/agent-harness-task-runtime";
+} from "granted/plugin-sdk/agent-harness-task-runtime";
 import { describe, expect, it, vi } from "vitest";
 import { createCopilotNativeSubagentTaskMirror } from "./native-subagent-task-mirror.js";
 
@@ -11,7 +11,7 @@ const taskRuntimeMocks = vi.hoisted(() => ({ runtime: undefined as unknown }));
 
 vi.mock("openclaw/plugin-sdk/agent-harness-task-runtime", async (importOriginal) => {
   const actual =
-    await importOriginal<typeof import("openclaw/plugin-sdk/agent-harness-task-runtime")>();
+    await importOriginal<typeof import("granted/plugin-sdk/agent-harness-task-runtime")>();
   return {
     ...actual,
     createAgentHarnessTaskRuntime: vi.fn(() => taskRuntimeMocks.runtime),

@@ -1,4 +1,4 @@
-import { readProviderJsonResponse } from "openclaw/plugin-sdk/provider-http";
+import { readProviderJsonResponse } from "granted/plugin-sdk/provider-http";
 // Perplexity provider module implements model/runtime integration.
 import {
   buildSearchCacheKey,
@@ -22,8 +22,8 @@ import {
   withTrustedWebSearchEndpoint,
   wrapWebContent,
   writeCachedSearchPayload,
-} from "openclaw/plugin-sdk/provider-web-search";
-import { normalizeOptionalString, uniqueStrings } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/provider-web-search";
+import { normalizeOptionalString, uniqueStrings } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   isDirectPerplexityBaseUrl,
   resolvePerplexityConfig,

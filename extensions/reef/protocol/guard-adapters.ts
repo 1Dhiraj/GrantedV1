@@ -1,5 +1,5 @@
-import { isRecord } from "openclaw/plugin-sdk/channel-secret-basic-runtime";
-import { readProviderTextResponse } from "openclaw/plugin-sdk/provider-http";
+import { isRecord } from "granted/plugin-sdk/channel-secret-basic-runtime";
+import { readProviderTextResponse } from "granted/plugin-sdk/provider-http";
 import {
   admitGuardAdapter,
   assertGuardRules,

@@ -25,7 +25,7 @@ describe("loadChannelConfigSurfaceModule", () => {
         repoRoot,
         "config-schema.ts",
         `
-          import { buildJsonChannelConfigSchema } from "openclaw/plugin-sdk/channel-config-schema";
+          import { buildJsonChannelConfigSchema } from "granted/plugin-sdk/channel-config-schema";
 
           const label: string = "OK";
           export const DemoChannelConfigSchema = buildJsonChannelConfigSchema(

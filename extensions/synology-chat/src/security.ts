@@ -5,14 +5,14 @@
 import {
   resolveStableChannelMessageIngress,
   type ChannelIngressContextBinding,
-} from "openclaw/plugin-sdk/channel-ingress-runtime";
-import { finiteSecondsToTimerSafeMilliseconds } from "openclaw/plugin-sdk/number-runtime";
-import { safeEqualSecret } from "openclaw/plugin-sdk/security-runtime";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+} from "granted/plugin-sdk/channel-ingress-runtime";
+import { finiteSecondsToTimerSafeMilliseconds } from "granted/plugin-sdk/number-runtime";
+import { safeEqualSecret } from "granted/plugin-sdk/security-runtime";
+import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import {
   createFixedWindowRateLimiter,
   type FixedWindowRateLimiter,
-} from "openclaw/plugin-sdk/webhook-ingress";
+} from "granted/plugin-sdk/webhook-ingress";
 
 /**
  * Validate webhook token using constant-time comparison.

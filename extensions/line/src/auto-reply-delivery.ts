@@ -1,17 +1,17 @@
 // Line plugin module implements auto reply delivery behavior.
 import type { messagingApi } from "@line/bot-sdk";
-import { isChannelPartialDeliveryError } from "openclaw/plugin-sdk/channel-inbound";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import { isChannelPartialDeliveryError } from "granted/plugin-sdk/channel-inbound";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   collectErrorGraphCandidates,
   extractErrorCode,
   readErrorName,
-} from "openclaw/plugin-sdk/error-runtime";
-import { expectDefined } from "openclaw/plugin-sdk/expect-runtime";
-import { resolveSendableOutboundReplyParts } from "openclaw/plugin-sdk/reply-payload";
-import type { ReplyPayload } from "openclaw/plugin-sdk/reply-runtime";
-import { classifyTransientNetworkErrorCode } from "openclaw/plugin-sdk/retry-runtime";
-import { sanitizeAssistantVisibleText } from "openclaw/plugin-sdk/text-chunking";
+} from "granted/plugin-sdk/error-runtime";
+import { expectDefined } from "granted/plugin-sdk/expect-runtime";
+import { resolveSendableOutboundReplyParts } from "granted/plugin-sdk/reply-payload";
+import type { ReplyPayload } from "granted/plugin-sdk/reply-runtime";
+import { classifyTransientNetworkErrorCode } from "granted/plugin-sdk/retry-runtime";
+import { sanitizeAssistantVisibleText } from "granted/plugin-sdk/text-chunking";
 import type { FlexContainer } from "./flex-templates/types.js";
 import type { ProcessedLineMessage } from "./markdown-to-line.js";
 import { buildLineQuickReplyFallbackText } from "./quick-reply-fallback.js";

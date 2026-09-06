@@ -1,4 +1,4 @@
-import { resetPluginStateStoreForTests } from "openclaw/plugin-sdk/plugin-state-test-runtime";
+import { resetPluginStateStoreForTests } from "granted/plugin-sdk/plugin-state-test-runtime";
 import { describe, expect, it, vi } from "vitest";
 import { resolveCrabboxProvisionProfile } from "./crabbox-worker-profile.js";
 import {

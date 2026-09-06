@@ -1,5 +1,5 @@
 // Openai tests cover openai chatgpt device code plugin behavior.
-import { resolveOpenAICodexAccessTokenExpiry } from "openclaw/plugin-sdk/provider-auth";
+import { resolveOpenAICodexAccessTokenExpiry } from "granted/plugin-sdk/provider-auth";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { loginOpenAICodexDeviceCode } from "./openai-chatgpt-device-code.js";
 

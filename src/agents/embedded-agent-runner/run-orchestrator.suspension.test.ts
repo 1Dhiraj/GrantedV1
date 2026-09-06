@@ -1,6 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import { createAssistantMessageEventStream, type Context } from "openclaw/plugin-sdk/llm";
+import { createAssistantMessageEventStream, type Context } from "granted/plugin-sdk/llm";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { createTempDirTracker } from "../../../test/helpers/temp-dir.js";
 import { resolveSessionStorePathCore } from "../../config/sessions/paths.js";

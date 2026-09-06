@@ -1,5 +1,5 @@
-import { expectDefined } from "openclaw/plugin-sdk/expect-runtime";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { expectDefined } from "granted/plugin-sdk/expect-runtime";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import type { Browser, BrowserContext, Page } from "playwright-core";
 import { formatErrorMessage, toErrorObject } from "../infra/errors.js";
 import type { SsrFPolicy } from "../infra/net/ssrf.js";

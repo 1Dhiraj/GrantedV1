@@ -1,5 +1,5 @@
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { cleanupSessionLifecycleArtifacts } from "openclaw/plugin-sdk/session-store-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { cleanupSessionLifecycleArtifacts } from "granted/plugin-sdk/session-store-runtime";
 
 export const DREAMING_SESSION_KEY_PREFIX = "dreaming-narrative-";
 export const DREAMING_ORPHAN_MIN_AGE_MS = 300_000;

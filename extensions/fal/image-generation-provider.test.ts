@@ -1,7 +1,7 @@
 // Fal tests cover image generation provider plugin behavior.
-import type { ImageGenerationRequest } from "openclaw/plugin-sdk/image-generation";
-import { generateImage } from "openclaw/plugin-sdk/image-generation-runtime";
-import * as providerAuth from "openclaw/plugin-sdk/provider-auth-runtime";
+import type { ImageGenerationRequest } from "granted/plugin-sdk/image-generation";
+import { generateImage } from "granted/plugin-sdk/image-generation-runtime";
+import * as providerAuth from "granted/plugin-sdk/provider-auth-runtime";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const { fetchWithSsrFGuardMock } = vi.hoisted(() => ({
@@ -9,7 +9,7 @@ const { fetchWithSsrFGuardMock } = vi.hoisted(() => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/ssrf-runtime", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("openclaw/plugin-sdk/ssrf-runtime")>()),
+  ...(await importOriginal<typeof import("granted/plugin-sdk/ssrf-runtime")>()),
   fetchWithSsrFGuard: fetchWithSsrFGuardMock,
 }));
 

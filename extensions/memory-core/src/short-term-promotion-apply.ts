@@ -1,15 +1,15 @@
 import { createHash } from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
-import { withFileLock } from "openclaw/plugin-sdk/file-lock";
-import { listMemoryArtifactProvenance } from "openclaw/plugin-sdk/memory-core-host-runtime-core";
+import { withFileLock } from "granted/plugin-sdk/file-lock";
+import { listMemoryArtifactProvenance } from "granted/plugin-sdk/memory-core-host-runtime-core";
 import {
   DEFAULT_MEMORY_DEEP_DREAMING_MAX_PROMOTED_SNIPPET_TOKENS,
   formatMemoryDreamingDay,
-} from "openclaw/plugin-sdk/memory-core-host-status";
-import { appendMemoryHostEvent } from "openclaw/plugin-sdk/memory-host-events";
-import { resolveStateDir } from "openclaw/plugin-sdk/state-paths";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+} from "granted/plugin-sdk/memory-core-host-status";
+import { appendMemoryHostEvent } from "granted/plugin-sdk/memory-host-events";
+import { resolveStateDir } from "granted/plugin-sdk/state-paths";
+import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import {
   appendConsolidationSkippedSummary,
   appendConsolidationSummary,

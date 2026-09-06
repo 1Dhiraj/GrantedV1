@@ -1,5 +1,5 @@
-import { buildOpenAICompatibleLiveModelProviderConfig } from "openclaw/plugin-sdk/provider-catalog-live-runtime";
-import { isLiveTestEnabled } from "openclaw/plugin-sdk/test-live";
+import { buildOpenAICompatibleLiveModelProviderConfig } from "granted/plugin-sdk/provider-catalog-live-runtime";
+import { isLiveTestEnabled } from "granted/plugin-sdk/test-live";
 import { describe, expect, it } from "vitest";
 import { buildSyntheticProvider, SYNTHETIC_MODEL_DISCOVERY } from "./provider-catalog.js";
 

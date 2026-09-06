@@ -1,8 +1,8 @@
-import { isImplicitSameChatApprovalAuthorization } from "openclaw/plugin-sdk/approval-auth-runtime";
-import type { ExecApprovalRequest } from "openclaw/plugin-sdk/approval-runtime";
-import type { ChannelOutboundPayloadHint } from "openclaw/plugin-sdk/channel-contract";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { ReplyPayload } from "openclaw/plugin-sdk/reply-runtime";
+import { isImplicitSameChatApprovalAuthorization } from "granted/plugin-sdk/approval-auth-runtime";
+import type { ExecApprovalRequest } from "granted/plugin-sdk/approval-runtime";
+import type { ChannelOutboundPayloadHint } from "granted/plugin-sdk/channel-contract";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { ReplyPayload } from "granted/plugin-sdk/reply-runtime";
 import { describe, expect, it } from "vitest";
 import {
   isMSTeamsNativeApprovalClientEnabled,

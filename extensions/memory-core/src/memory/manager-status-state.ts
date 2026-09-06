@@ -1,6 +1,6 @@
 // Memory Core plugin module implements manager status state behavior.
 import type { DatabaseSync } from "node:sqlite";
-import type { MemorySource } from "openclaw/plugin-sdk/memory-core-host-engine-storage";
+import type { MemorySource } from "granted/plugin-sdk/memory-core-host-engine-storage";
 
 type StatusProvider = {
   id: string;

@@ -2,8 +2,8 @@
 import {
   createProviderHttpError,
   readProviderJsonObjectResponse,
-} from "openclaw/plugin-sdk/provider-http";
-import type { GrantedConfig } from "openclaw/plugin-sdk/provider-onboard";
+} from "granted/plugin-sdk/provider-http";
+import type { GrantedConfig } from "granted/plugin-sdk/provider-onboard";
 import {
   buildSearchCacheKey,
   buildUnsupportedSearchFilterResponse,
@@ -23,12 +23,12 @@ import {
   withTrustedWebSearchEndpoint,
   wrapWebContent,
   writeCachedSearchPayload,
-} from "openclaw/plugin-sdk/provider-web-search";
+} from "granted/plugin-sdk/provider-web-search";
 import {
   isRecord,
   normalizeOptionalString,
   uniqueStrings,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import {
   isNativeMoonshotBaseUrl,
   MOONSHOT_BASE_URL,

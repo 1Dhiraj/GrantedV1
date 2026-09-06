@@ -1,6 +1,6 @@
-import { asFiniteNumber, isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { sanitizeTerminalText } from "openclaw/plugin-sdk/text-chunking";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+import { asFiniteNumber, isRecord } from "granted/plugin-sdk/string-coerce-runtime";
+import { sanitizeTerminalText } from "granted/plugin-sdk/text-chunking";
+import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import type { CodexThread, CodexThreadTurnsListResponse } from "./app-server/protocol.js";
 import {
   CODEX_INTERACTIVE_CUSTOM_THREAD_SOURCES,

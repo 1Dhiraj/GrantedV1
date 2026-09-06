@@ -2,7 +2,7 @@
 import {
   clearRuntimeAuthProfileStoreSnapshots,
   replaceRuntimeAuthProfileStoreSnapshots,
-} from "openclaw/plugin-sdk/agent-runtime";
+} from "granted/plugin-sdk/agent-runtime";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { createCodexSupervisionTools } from "./supervision-tools.js";
 

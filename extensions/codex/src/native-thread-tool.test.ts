@@ -1,9 +1,9 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import { MODEL_SELECTION_LOCKED_MESSAGE } from "openclaw/plugin-sdk/model-session-runtime";
-import type { GrantedPluginToolContext } from "openclaw/plugin-sdk/plugin-entry";
-import { createPluginRuntimeMock } from "openclaw/plugin-sdk/plugin-test-runtime";
-import { withTempDir } from "openclaw/plugin-sdk/test-env";
+import { MODEL_SELECTION_LOCKED_MESSAGE } from "granted/plugin-sdk/model-session-runtime";
+import type { GrantedPluginToolContext } from "granted/plugin-sdk/plugin-entry";
+import { createPluginRuntimeMock } from "granted/plugin-sdk/plugin-test-runtime";
+import { withTempDir } from "granted/plugin-sdk/test-env";
 import { describe, expect, it, vi } from "vitest";
 import { CODEX_CONTROL_METHODS } from "./app-server/capabilities.js";
 import { CODEX_INTERACTIVE_THREAD_SOURCE_KINDS } from "./app-server/protocol.js";

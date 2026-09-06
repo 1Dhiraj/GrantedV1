@@ -2,7 +2,7 @@
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { createAssistantMessageEventStream, type Model } from "openclaw/plugin-sdk/llm";
+import { createAssistantMessageEventStream, type Model } from "granted/plugin-sdk/llm";
 import { Value } from "typebox/value";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";

@@ -1,6 +1,6 @@
 // Discord tests cover setup surface plugin behavior.
-import { installChannelDmPolicyContractSuite } from "openclaw/plugin-sdk/channel-test-helpers";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import { installChannelDmPolicyContractSuite } from "granted/plugin-sdk/channel-test-helpers";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { describe, expect, it } from "vitest";
 import { createDiscordSetupWizardBase } from "./setup-core.js";
 

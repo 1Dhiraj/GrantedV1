@@ -1,8 +1,8 @@
 import { ChildProcess } from "node:child_process";
 import { createHash } from "node:crypto";
 import { PassThrough } from "node:stream";
-import { createPluginStateSyncKeyedStore } from "openclaw/plugin-sdk/plugin-state-store-runtime";
-import { createOpenClawTestState } from "openclaw/plugin-sdk/test-state";
+import { createPluginStateSyncKeyedStore } from "granted/plugin-sdk/plugin-state-store-runtime";
+import { createOpenClawTestState } from "granted/plugin-sdk/test-state";
 import { afterEach, beforeEach, describe, expect, it, vi, type MockInstance } from "vitest";
 import { terminateCodexAppServerOrphan } from "./transport-process-containment.js";
 import { prepareCodexAppServerProcessRegistration } from "./transport-process-registration.js";

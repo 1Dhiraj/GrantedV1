@@ -1,5 +1,5 @@
-import { SsrFBlockedError } from "openclaw/plugin-sdk/ssrf-runtime";
-import { withServer } from "openclaw/plugin-sdk/test-env";
+import { SsrFBlockedError } from "granted/plugin-sdk/ssrf-runtime";
+import { withServer } from "granted/plugin-sdk/test-env";
 import { describe, expect, it } from "vitest";
 import { listXaiTtsVoices, xaiTTS } from "./tts.js";
 

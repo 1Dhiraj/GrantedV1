@@ -1,8 +1,8 @@
 import {
   isHostScopedAgentToolActive,
   type EmbeddedRunAttemptParamsV2 as EmbeddedRunAttemptParams,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
-import { expectDefined } from "openclaw/plugin-sdk/expect-runtime";
+} from "granted/plugin-sdk/agent-harness-runtime";
+import { expectDefined } from "granted/plugin-sdk/expect-runtime";
 import { isIncognitoSessionKey } from "../incognito-session.js";
 import type { CodexAppServerClient } from "./client.js";
 import type { CodexAppServerRuntimeOptions } from "./config.js";

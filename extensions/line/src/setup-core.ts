@@ -1,14 +1,14 @@
-import { defineChannelSetupContract } from "openclaw/plugin-sdk/channel-setup";
+import { defineChannelSetupContract } from "granted/plugin-sdk/channel-setup";
 // Line plugin module implements setup core behavior.
 import type {
   ChannelSetupAdapter,
   ChannelSetupInput,
   GrantedConfig,
-} from "openclaw/plugin-sdk/setup";
+} from "granted/plugin-sdk/setup";
 import {
   createSetupInputPresenceValidator,
   patchScopedAccountConfig,
-} from "openclaw/plugin-sdk/setup";
+} from "granted/plugin-sdk/setup";
 import { hasLineCredentials, parseLineAllowFromId } from "./account-helpers.js";
 import {
   DEFAULT_ACCOUNT_ID,

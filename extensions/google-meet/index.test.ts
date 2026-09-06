@@ -6,7 +6,7 @@ import { createContext, Script } from "node:vm";
 import {
   validateJsonSchemaValue,
   type JsonSchemaObject,
-} from "openclaw/plugin-sdk/json-schema-runtime";
+} from "granted/plugin-sdk/json-schema-runtime";
 import {
   convertMeetingTtsAudioForBridge,
   createLocalMeetingRealtimeAudioTransport,
@@ -15,15 +15,15 @@ import {
   startMeetingAgentRealtimeEngine,
   startMeetingRealtimeEngine,
   type MeetingRealtimeAudioTransport,
-} from "openclaw/plugin-sdk/meeting-runtime";
-import type { RealtimeTranscriptionProviderPlugin } from "openclaw/plugin-sdk/realtime-transcription";
+} from "granted/plugin-sdk/meeting-runtime";
+import type { RealtimeTranscriptionProviderPlugin } from "granted/plugin-sdk/realtime-transcription";
 import type {
   RealtimeVoiceBridge,
   RealtimeVoiceProviderPlugin,
-} from "openclaw/plugin-sdk/realtime-voice";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/realtime-voice";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 // Google Meet tests cover index plugin behavior.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterAll, afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import plugin from "./index.js";
 import { findGoogleMeetCalendarEvent, listGoogleMeetCalendarEvents } from "./src/calendar.js";
@@ -346,7 +346,7 @@ const fetchGuardMocks = vi.hoisted(() => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/ssrf-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/ssrf-runtime")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/ssrf-runtime")>();
   return {
     ...actual,
     fetchWithSsrFGuard: fetchGuardMocks.fetchWithSsrFGuard,

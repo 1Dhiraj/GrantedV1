@@ -8,7 +8,7 @@ import type {
   ProviderAuthMethodNonInteractiveContext,
   ProviderResolveDynamicModelContext,
   ProviderWrapStreamFnContext,
-} from "openclaw/plugin-sdk/plugin-entry";
+} from "granted/plugin-sdk/plugin-entry";
 import {
   applyAuthProfileConfig,
   buildApiKeyCredential,
@@ -18,19 +18,19 @@ import {
   type SecretInput,
   upsertAuthProfileWithLockOrThrow,
   validateApiKeyInput,
-} from "openclaw/plugin-sdk/provider-auth-api-key";
-import { defineSingleProviderPluginEntry } from "openclaw/plugin-sdk/provider-entry";
+} from "granted/plugin-sdk/provider-auth-api-key";
+import { defineSingleProviderPluginEntry } from "granted/plugin-sdk/provider-entry";
 import {
   buildProviderReplayFamilyHooks,
   resolveFamilyForwardCompatModel,
-} from "openclaw/plugin-sdk/provider-model-shared";
+} from "granted/plugin-sdk/provider-model-shared";
 import {
   createPayloadPatchStreamWrapper,
   createToolStreamWrapper,
   defaultToolStreamExtraParams,
-} from "openclaw/plugin-sdk/provider-stream-shared";
-import { fetchZaiUsage } from "openclaw/plugin-sdk/provider-usage";
-import { normalizeLowercaseStringOrEmpty } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/provider-stream-shared";
+import { fetchZaiUsage } from "granted/plugin-sdk/provider-usage";
+import { normalizeLowercaseStringOrEmpty } from "granted/plugin-sdk/string-coerce-runtime";
 import { detectZaiEndpoint, type ZaiEndpointId } from "./detect.js";
 import { zaiMediaUnderstandingProvider } from "./media-understanding-provider.js";
 import { buildZaiModelDefinition, resolveZaiBaseUrl } from "./model-definitions.js";

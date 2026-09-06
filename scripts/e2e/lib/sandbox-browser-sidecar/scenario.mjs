@@ -5,7 +5,7 @@ import fs from "node:fs/promises";
 import http from "node:http";
 import path from "node:path";
 import { promisify } from "node:util";
-import { resolveSandboxContext } from "openclaw/plugin-sdk/agent-harness-runtime";
+import { resolveSandboxContext } from "granted/plugin-sdk/agent-harness-runtime";
 
 const execFileAsync = promisify(execFile);
 

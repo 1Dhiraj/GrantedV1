@@ -1,8 +1,8 @@
 import { ChannelType, PermissionFlagsBits } from "discord-api-types/v10";
-import { reportChannelRoomJoin } from "openclaw/plugin-sdk/channel-join-intro-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { resolveAgentRoute } from "openclaw/plugin-sdk/routing";
-import type { createSubsystemLogger } from "openclaw/plugin-sdk/runtime-env";
+import { reportChannelRoomJoin } from "granted/plugin-sdk/channel-join-intro-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { resolveAgentRoute } from "granted/plugin-sdk/routing";
+import type { createSubsystemLogger } from "granted/plugin-sdk/runtime-env";
 import { Guild, GuildCreateListener, type Client } from "../internal/discord.js";
 import { readMessagesDiscord } from "../send.messages.js";
 import { canViewDiscordGuildChannel, hasAnyChannelPermissionDiscord } from "../send.permissions.js";

@@ -1,5 +1,5 @@
 // Telegram tests cover monitor plugin behavior.
-import { toErrorObject as toLintErrorObject } from "openclaw/plugin-sdk/error-runtime";
+import { toErrorObject as toLintErrorObject } from "granted/plugin-sdk/error-runtime";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 
 type MonitorTelegramOpts = import("./monitor.types.js").MonitorTelegramOpts;
@@ -360,7 +360,7 @@ vi.mock("@grammyjs/runner", () => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/runtime-env", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/runtime-env")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/runtime-env")>(
     "openclaw/plugin-sdk/runtime-env",
   );
   return {

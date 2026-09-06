@@ -1,8 +1,8 @@
 // Real-transport proof: channel create/wake/scry failure paths cancel unread bodies.
 import { createServer } from "node:http";
 import type { AddressInfo } from "node:net";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { LookupFn } from "openclaw/plugin-sdk/ssrf-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { LookupFn } from "granted/plugin-sdk/ssrf-runtime";
 import { describe, expect, it } from "vitest";
 import { tlonRuntimeOutbound } from "../channel.runtime.js";
 import { ensureUrbitChannelOpen, scryUrbitPath } from "./channel-ops.js";

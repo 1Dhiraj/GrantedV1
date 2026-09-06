@@ -30,7 +30,7 @@ vi.mock("./client.js", () => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/channel-outbound", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("openclaw/plugin-sdk/channel-outbound")>()),
+  ...(await importOriginal<typeof import("granted/plugin-sdk/channel-outbound")>()),
   createReplyPrefixContext: createReplyPrefixContextMock,
 }));
 

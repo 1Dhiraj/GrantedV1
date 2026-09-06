@@ -1,5 +1,5 @@
 // Xai tests cover x search plugin behavior.
-import { withFetchPreconnect } from "openclaw/plugin-sdk/test-env";
+import { withFetchPreconnect } from "granted/plugin-sdk/test-env";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { createXSearchTool } from "./x-search.js";
 

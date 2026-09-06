@@ -4,7 +4,7 @@ import path from "node:path";
 import { Readable } from "node:stream";
 import { expectDefined } from "@openclaw/normalization-core";
 import JSZip from "jszip";
-import { importFreshModule } from "openclaw/plugin-sdk/test-fixtures";
+import { importFreshModule } from "granted/plugin-sdk/test-fixtures";
 import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from "vitest";
 import { createSolidPngBuffer, createTinyJpegBuffer } from "../../test/helpers/image-fixtures.js";
 import { isPathWithinBase } from "../../test/helpers/paths.js";

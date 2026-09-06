@@ -6,7 +6,7 @@ const loadConfigMock = vi.hoisted(() => vi.fn());
 
 vi.mock("openclaw/plugin-sdk/runtime-config-snapshot", async () => {
   const actual = await vi.importActual<
-    typeof import("openclaw/plugin-sdk/runtime-config-snapshot")
+    typeof import("granted/plugin-sdk/runtime-config-snapshot")
   >("openclaw/plugin-sdk/runtime-config-snapshot");
   return {
     ...actual,
@@ -14,14 +14,14 @@ vi.mock("openclaw/plugin-sdk/runtime-config-snapshot", async () => {
   };
 });
 
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   getSessionBindingService,
   registerSessionBindingAdapter,
   type SessionBindingBindInput,
   type SessionBindingRecord,
   testing as sessionBindingTesting,
-} from "openclaw/plugin-sdk/conversation-runtime";
+} from "granted/plugin-sdk/conversation-runtime";
 import { preflightDiscordMessage } from "./message-handler.preflight.js";
 import {
   createDiscordMessage,

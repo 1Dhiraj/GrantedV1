@@ -5,7 +5,7 @@ import {
   createSetupTranslator,
   type ChannelSetupWizard,
   type GrantedConfig,
-} from "openclaw/plugin-sdk/setup";
+} from "granted/plugin-sdk/setup";
 import { listWhatsAppAccountIds, resolveWhatsAppAuthDir } from "./accounts.js";
 import { formatWhatsAppWebAuthStatusState, readWebAuthState } from "./auth-store.js";
 

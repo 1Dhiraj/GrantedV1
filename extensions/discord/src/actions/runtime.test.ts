@@ -7,8 +7,8 @@ import {
   PermissionFlagsBits,
   type RESTGetAPIGuildEmojisResult,
 } from "discord-api-types/v10";
-import type { ChannelMessageActionContext } from "openclaw/plugin-sdk/channel-contract";
-import type { GrantedConfig, DiscordActionConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { ChannelMessageActionContext } from "granted/plugin-sdk/channel-contract";
+import type { GrantedConfig, DiscordActionConfig } from "granted/plugin-sdk/config-contracts";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { GatewayPlugin } from "../internal/gateway.js";
 import { createInternalTestClient } from "../internal/test-builders.test-support.js";

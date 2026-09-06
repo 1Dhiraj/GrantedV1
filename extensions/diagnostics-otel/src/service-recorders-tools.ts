@@ -1,5 +1,5 @@
 import { SpanStatusCode } from "@opentelemetry/api";
-import { normalizeDiagnosticValue } from "openclaw/plugin-sdk/diagnostic-runtime";
+import { normalizeDiagnosticValue } from "granted/plugin-sdk/diagnostic-runtime";
 import { redactSensitiveText } from "../api.js";
 import type { DiagnosticEventMetadata, DiagnosticEventPayload } from "../api.js";
 import { positiveFiniteNumber } from "./service-genai-attributes.js";

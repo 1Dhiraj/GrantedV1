@@ -1,7 +1,7 @@
-import { CODEX_APP_SERVER_AUTH_MARKER } from "openclaw/plugin-sdk/agent-runtime";
+import { CODEX_APP_SERVER_AUTH_MARKER } from "granted/plugin-sdk/agent-runtime";
 /** Builds provider-usage snapshots from the Codex app-server account surface. */
-import type { ProviderFetchUsageSnapshotContext } from "openclaw/plugin-sdk/plugin-entry";
-import type { ProviderUsageSnapshot } from "openclaw/plugin-sdk/provider-usage";
+import type { ProviderFetchUsageSnapshotContext } from "granted/plugin-sdk/plugin-entry";
+import type { ProviderUsageSnapshot } from "granted/plugin-sdk/provider-usage";
 import { resolveCodexAppServerRuntimeOptions } from "./config.js";
 import { buildCodexAppServerUsageSnapshot } from "./rate-limits.js";
 import { readCodexAppServerUsage } from "./request.js";

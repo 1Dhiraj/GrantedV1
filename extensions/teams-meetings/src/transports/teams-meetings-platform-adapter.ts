@@ -2,7 +2,7 @@ import {
   MeetingPlatformAdapter,
   type MeetingBrowserJoinSession,
   type MeetingManualActionCategory,
-} from "openclaw/plugin-sdk/meeting-runtime";
+} from "granted/plugin-sdk/meeting-runtime";
 import type { TeamsMeetingsMode } from "../config.js";
 import {
   teamsMeetingLeaveScript,

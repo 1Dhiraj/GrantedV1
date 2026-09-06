@@ -1,6 +1,6 @@
 // Line tests cover how the bot resolves the inbound media cap it hands to the handlers.
 import type { webhook } from "@line/bot-sdk";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 type DeliverFn = (

@@ -1,6 +1,6 @@
 // Tavily plugin module implements tavily client behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { readProviderJsonResponse } from "openclaw/plugin-sdk/provider-http";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { readProviderJsonResponse } from "granted/plugin-sdk/provider-http";
 import {
   DEFAULT_CACHE_TTL_MINUTES,
   normalizeCacheKey,
@@ -8,14 +8,14 @@ import {
   readCache,
   resolveCacheTtlMs,
   writeCache,
-} from "openclaw/plugin-sdk/provider-web-search";
-import { assertPluginCapabilitySecretAvailable } from "openclaw/plugin-sdk/secret-input-runtime";
+} from "granted/plugin-sdk/provider-web-search";
+import { assertPluginCapabilitySecretAvailable } from "granted/plugin-sdk/secret-input-runtime";
 import {
   truncateSanitizedExternalContent,
   wrapExternalContent,
   wrapWebContent,
-} from "openclaw/plugin-sdk/security-runtime";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/security-runtime";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   DEFAULT_TAVILY_BASE_URL,
   TAVILY_API_KEY_CONFIG_PATH,

@@ -1,5 +1,5 @@
 import { runInNewContext } from "node:vm";
-import { MeetingPlatformAdapter } from "openclaw/plugin-sdk/meeting-runtime";
+import { MeetingPlatformAdapter } from "granted/plugin-sdk/meeting-runtime";
 import { describe, expect, it, vi } from "vitest";
 import { zoomMeetingLeaveScript, zoomMeetingStatusScript } from "./zoom-meetings-page-scripts.js";
 import { ZOOM_MEETINGS_PLATFORM_ADAPTER } from "./zoom-meetings-platform-adapter.js";

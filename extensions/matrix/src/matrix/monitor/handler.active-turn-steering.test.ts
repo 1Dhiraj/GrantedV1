@@ -2,10 +2,10 @@ import path from "node:path";
 import {
   runChannelInboundEvent,
   type ChannelInboundEventRunnerParams,
-} from "openclaw/plugin-sdk/channel-inbound";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { FinalizedMsgContext, GetReplyOptions } from "openclaw/plugin-sdk/reply-runtime";
-import { useAutoCleanupTempDirTracker } from "openclaw/plugin-sdk/test-env";
+} from "granted/plugin-sdk/channel-inbound";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { FinalizedMsgContext, GetReplyOptions } from "granted/plugin-sdk/reply-runtime";
+import { useAutoCleanupTempDirTracker } from "granted/plugin-sdk/test-env";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { installMatrixMonitorTestRuntime } from "../../test-runtime.js";
 import type { MatrixMonitorHandlerParams } from "./handler-types.js";

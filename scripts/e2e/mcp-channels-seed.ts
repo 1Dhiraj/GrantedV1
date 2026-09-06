@@ -5,9 +5,9 @@ import path from "node:path";
 import {
   normalizeSessionDeliveryState,
   upsertSessionEntry,
-} from "openclaw/plugin-sdk/session-store-runtime";
-import { appendSessionTranscriptMessagesByIdentity } from "openclaw/plugin-sdk/session-transcript-runtime";
-import { resolveOpenClawAgentSqlitePath } from "openclaw/plugin-sdk/sqlite-runtime";
+} from "granted/plugin-sdk/session-store-runtime";
+import { appendSessionTranscriptMessagesByIdentity } from "granted/plugin-sdk/session-transcript-runtime";
+import { resolveOpenClawAgentSqlitePath } from "granted/plugin-sdk/sqlite-runtime";
 import { applyDockerOpenAiProviderConfig, type GrantedConfig } from "./docker-openai-seed.ts";
 
 async function main() {

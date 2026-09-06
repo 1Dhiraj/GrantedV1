@@ -3,7 +3,7 @@ import {
   resolveMemorySearchStaleness,
   stripMemoryAnnotationCarriers,
   type MemorySource,
-} from "openclaw/plugin-sdk/memory-core-host-engine-storage";
+} from "granted/plugin-sdk/memory-core-host-engine-storage";
 import {
   asToolParamsRecord,
   jsonResult,
@@ -12,12 +12,12 @@ import {
   readStringParam,
   resolveMemoryDreamingPluginConfig,
   type MemoryCorpusSearchResult,
-} from "openclaw/plugin-sdk/memory-core-host-runtime-core";
-import type { MemorySearchResult } from "openclaw/plugin-sdk/memory-core-host-runtime-files";
+} from "granted/plugin-sdk/memory-core-host-runtime-core";
+import type { MemorySearchResult } from "granted/plugin-sdk/memory-core-host-runtime-files";
 import {
   resolveMemoryDreamingConfig,
   resolveMemoryDeepDreamingConfig,
-} from "openclaw/plugin-sdk/memory-core-host-status";
+} from "granted/plugin-sdk/memory-core-host-status";
 import {
   attemptMemoryCorpus,
   composeMemoryCorpusMetadata,

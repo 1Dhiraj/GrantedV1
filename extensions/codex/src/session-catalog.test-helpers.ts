@@ -11,15 +11,15 @@ import fsSync from "node:fs";
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { resolveAgentDir, resolveDefaultAgentDir } from "openclaw/plugin-sdk/agent-runtime";
-import { resolveSessionAgentIdsStrict } from "openclaw/plugin-sdk/agent-scope-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import { resolveAgentDir, resolveDefaultAgentDir } from "granted/plugin-sdk/agent-runtime";
+import { resolveSessionAgentIdsStrict } from "granted/plugin-sdk/agent-scope-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   validateJsonSchemaValue,
   type JsonSchemaObject,
-} from "openclaw/plugin-sdk/json-schema-runtime";
-import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
-import type { PluginRuntime } from "openclaw/plugin-sdk/plugin-runtime";
+} from "granted/plugin-sdk/json-schema-runtime";
+import type { GrantedPluginApi } from "granted/plugin-sdk/plugin-entry";
+import type { PluginRuntime } from "granted/plugin-sdk/plugin-runtime";
 import {
   createCapturedPluginRegistration,
   createEmptyPluginRegistry,
@@ -27,14 +27,14 @@ import {
   getActivePluginRegistry,
   setActivePluginRegistry,
   resetPluginRuntimeStateForTest,
-} from "openclaw/plugin-sdk/plugin-test-runtime";
-import type { SessionCatalogProvider as RegisteredSessionCatalogProvider } from "openclaw/plugin-sdk/session-catalog";
-import { resolveStorePath } from "openclaw/plugin-sdk/session-store-runtime";
+} from "granted/plugin-sdk/plugin-test-runtime";
+import type { SessionCatalogProvider as RegisteredSessionCatalogProvider } from "granted/plugin-sdk/session-catalog";
+import { resolveStorePath } from "granted/plugin-sdk/session-store-runtime";
 import {
   closeOpenClawAgentDatabasesForTest,
   closeOpenClawStateDatabaseForTest,
-} from "openclaw/plugin-sdk/sqlite-runtime-testing";
-import { withEnvAsync } from "openclaw/plugin-sdk/test-env";
+} from "granted/plugin-sdk/sqlite-runtime-testing";
+import { withEnvAsync } from "granted/plugin-sdk/test-env";
 import { afterEach, beforeEach, vi } from "vitest";
 import { createCodexAppServerAgentHarness } from "../harness.js";
 import {

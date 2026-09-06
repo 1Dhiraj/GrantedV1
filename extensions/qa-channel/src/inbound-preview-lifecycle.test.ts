@@ -1,5 +1,5 @@
-import { createPluginRuntimeMock } from "openclaw/plugin-sdk/channel-test-helpers";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
+import { createPluginRuntimeMock } from "granted/plugin-sdk/channel-test-helpers";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { setQaChannelRuntime } from "../api.js";
 import {
@@ -19,7 +19,7 @@ vi.mock("./bus-client.js", async (importOriginal) => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/outbound-media", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("openclaw/plugin-sdk/outbound-media")>()),
+  ...(await importOriginal<typeof import("granted/plugin-sdk/outbound-media")>()),
   loadOutboundMediaFromUrl: vi.fn(async () => ({
     buffer: Buffer.from("attachment"),
     kind: "file",

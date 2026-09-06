@@ -5,15 +5,15 @@
 
 import * as http from "node:http";
 import * as https from "node:https";
-import { collectErrorGraphCandidates, extractErrorCode } from "openclaw/plugin-sdk/error-runtime";
-import { safeParseJsonWithSchema, safeParseWithSchema } from "openclaw/plugin-sdk/extension-shared";
-import { parseStrictNonNegativeInteger } from "openclaw/plugin-sdk/number-runtime";
-import { readByteStreamWithLimit } from "openclaw/plugin-sdk/response-limit-runtime";
-import { classifyTransientNetworkErrorCode, retryAsync } from "openclaw/plugin-sdk/retry-runtime";
-import { sleep, sleepWithAbort } from "openclaw/plugin-sdk/runtime-env";
-import { formatErrorMessage } from "openclaw/plugin-sdk/ssrf-runtime";
-import { normalizeLowercaseStringOrEmpty } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { chunkTextForOutbound } from "openclaw/plugin-sdk/text-chunking";
+import { collectErrorGraphCandidates, extractErrorCode } from "granted/plugin-sdk/error-runtime";
+import { safeParseJsonWithSchema, safeParseWithSchema } from "granted/plugin-sdk/extension-shared";
+import { parseStrictNonNegativeInteger } from "granted/plugin-sdk/number-runtime";
+import { readByteStreamWithLimit } from "granted/plugin-sdk/response-limit-runtime";
+import { classifyTransientNetworkErrorCode, retryAsync } from "granted/plugin-sdk/retry-runtime";
+import { sleep, sleepWithAbort } from "granted/plugin-sdk/runtime-env";
+import { formatErrorMessage } from "granted/plugin-sdk/ssrf-runtime";
+import { normalizeLowercaseStringOrEmpty } from "granted/plugin-sdk/string-coerce-runtime";
+import { chunkTextForOutbound } from "granted/plugin-sdk/text-chunking";
 import { z } from "zod";
 import type { SynologyHostedMediaUrl } from "./outbound-media.js";
 

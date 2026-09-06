@@ -2,7 +2,7 @@
 import {
   createDefaultModelPresetAppliers,
   type GrantedConfig,
-} from "openclaw/plugin-sdk/provider-onboard";
+} from "granted/plugin-sdk/provider-onboard";
 import {
   buildMoonshotProvider,
   MOONSHOT_BASE_URL,

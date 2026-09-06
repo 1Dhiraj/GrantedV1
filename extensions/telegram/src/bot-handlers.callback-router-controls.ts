@@ -2,18 +2,18 @@ import type { CallbackQuery, Message } from "grammy/types";
 import {
   resolveApprovalOverGateway,
   type ApprovalResolveResult,
-} from "openclaw/plugin-sdk/approval-gateway-runtime";
-import type { ChannelApprovalKind } from "openclaw/plugin-sdk/approval-handler-runtime";
-import type { parseExecApprovalCommandText } from "openclaw/plugin-sdk/approval-reply-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+} from "granted/plugin-sdk/approval-gateway-runtime";
+import type { ChannelApprovalKind } from "granted/plugin-sdk/approval-handler-runtime";
+import type { parseExecApprovalCommandText } from "granted/plugin-sdk/approval-reply-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   buildPluginBindingResolvedText,
   parsePluginBindingApprovalCustomId,
   resolvePluginConversationBindingApproval,
-} from "openclaw/plugin-sdk/conversation-runtime";
-import { isApprovalNotFoundError } from "openclaw/plugin-sdk/error-runtime";
-import { logVerbose, sleepWithAbort } from "openclaw/plugin-sdk/runtime-env";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/conversation-runtime";
+import { isApprovalNotFoundError } from "granted/plugin-sdk/error-runtime";
+import { logVerbose, sleepWithAbort } from "granted/plugin-sdk/runtime-env";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import type { TelegramApprovalCallback } from "./approval-callback-data.js";
 import {
   buildTelegramCanonicalApprovalTerminalText,

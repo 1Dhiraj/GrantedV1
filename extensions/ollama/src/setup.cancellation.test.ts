@@ -1,5 +1,5 @@
-import type { WizardPrompter } from "openclaw/plugin-sdk/setup";
-import { requestUrl } from "openclaw/plugin-sdk/test-env";
+import type { WizardPrompter } from "granted/plugin-sdk/setup";
+import { requestUrl } from "granted/plugin-sdk/test-env";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { promptAndConfigureOllama } from "./setup.js";
 

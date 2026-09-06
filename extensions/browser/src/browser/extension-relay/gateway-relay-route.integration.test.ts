@@ -6,8 +6,8 @@ import path from "node:path";
 import {
   clearRuntimeConfigSnapshot,
   setRuntimeConfigSnapshot,
-} from "openclaw/plugin-sdk/runtime-config-snapshot";
-import { withEnvAsync, withTempDir } from "openclaw/plugin-sdk/test-env";
+} from "granted/plugin-sdk/runtime-config-snapshot";
+import { withEnvAsync, withTempDir } from "granted/plugin-sdk/test-env";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { WebSocket, type RawData } from "ws";
 import { parsePairingString } from "../../../chrome-extension/modules/relay-core.js";

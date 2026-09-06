@@ -4,7 +4,7 @@ import os from "node:os";
 import path from "node:path";
 import { SYSTEM_PROMPT_CACHE_BOUNDARY } from "@openclaw/ai/internal/shared";
 import { expectDefined } from "@openclaw/normalization-core";
-import type { ImageContent } from "openclaw/plugin-sdk/llm";
+import type { ImageContent } from "granted/plugin-sdk/llm";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { createSolidPngBuffer } from "../../test/helpers/image-fixtures.js";
 import { buildInboundMediaNoteProjection } from "../auto-reply/media-note.js";

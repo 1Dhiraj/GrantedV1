@@ -1,7 +1,7 @@
 // Telegram plugin module implements bot message context harness behavior.
 import { createHash } from "node:crypto";
-import { buildChannelInboundEventContext } from "openclaw/plugin-sdk/channel-inbound";
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
+import { buildChannelInboundEventContext } from "granted/plugin-sdk/channel-inbound";
+import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
 import type { BuildTelegramMessageContextParams, TelegramMediaRef } from "./bot-message-context.js";
 import { setTelegramRuntime } from "./runtime.js";
 import type { TelegramRuntime } from "./runtime.types.js";
@@ -33,7 +33,7 @@ type BuildTelegramMessageContextForTestParams = {
   dmPolicy?: BuildTelegramMessageContextParams["dmPolicy"];
   historyLimit?: number;
   dmHistoryLimit?: number;
-  groupHistories?: Map<string, import("openclaw/plugin-sdk/reply-history").HistoryEntry[]>;
+  groupHistories?: Map<string, import("granted/plugin-sdk/reply-history").HistoryEntry[]>;
   ackReactionScope?: BuildTelegramMessageContextParams["ackReactionScope"];
   botApi?: Record<string, unknown>;
   sendChatActionHandler?: BuildTelegramMessageContextParams["sendChatActionHandler"];

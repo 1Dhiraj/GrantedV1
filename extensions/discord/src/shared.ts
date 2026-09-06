@@ -1,14 +1,14 @@
 // Discord plugin module implements shared behavior.
-import { describeAccountSnapshot } from "openclaw/plugin-sdk/account-helpers";
-import { normalizeAccountId } from "openclaw/plugin-sdk/account-id";
-import { formatAllowFromLowercase } from "openclaw/plugin-sdk/allow-from";
+import { describeAccountSnapshot } from "granted/plugin-sdk/account-helpers";
+import { normalizeAccountId } from "granted/plugin-sdk/account-id";
+import { formatAllowFromLowercase } from "granted/plugin-sdk/allow-from";
 import {
   adaptScopedAccountAccessor,
   createScopedChannelConfigAdapter,
-} from "openclaw/plugin-sdk/channel-config-helpers";
-import type { ChannelDoctorAdapter } from "openclaw/plugin-sdk/channel-contract";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
+} from "granted/plugin-sdk/channel-config-helpers";
+import type { ChannelDoctorAdapter } from "granted/plugin-sdk/channel-contract";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
 import { inspectDiscordAccount } from "./account-inspect.js";
 import {
   isDiscordAccountEnabledForRuntime,

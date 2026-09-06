@@ -1,17 +1,17 @@
-import { calculateCost, type Usage } from "openclaw/plugin-sdk/llm";
+import { calculateCost, type Usage } from "granted/plugin-sdk/llm";
 import type {
   ProviderResolveDynamicModelContext,
   ProviderRuntimeModel,
-} from "openclaw/plugin-sdk/plugin-entry";
-import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
+} from "granted/plugin-sdk/plugin-entry";
+import { createTestPluginApi } from "granted/plugin-sdk/plugin-test-api";
 import {
   capturePluginRegistration,
   createRuntimeEnv,
   createTestWizardPrompter,
   registerSingleProviderPlugin,
-} from "openclaw/plugin-sdk/plugin-test-runtime";
+} from "granted/plugin-sdk/plugin-test-runtime";
 // Anthropic tests cover index plugin behavior.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterAll, beforeEach, describe, expect, it, onTestFinished, vi } from "vitest";
 
 const { probeClaudeCliAuthStatusMock } = vi.hoisted(() => ({

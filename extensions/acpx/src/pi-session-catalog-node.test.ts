@@ -1,4 +1,4 @@
-import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginApi } from "granted/plugin-sdk/plugin-entry";
 import { describe, expect, it, vi } from "vitest";
 import { registerPiSessionCatalog } from "./pi-session-catalog-plugin.js";
 import {

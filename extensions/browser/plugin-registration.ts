@@ -4,7 +4,7 @@
  */
 import type { IncomingMessage, ServerResponse } from "node:http";
 import type { Duplex } from "node:stream";
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
+import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
 import type {
   AnyAgentTool,
   GrantedPluginApi,
@@ -13,8 +13,8 @@ import type {
   GrantedPluginService,
   GrantedPluginToolContext,
   GrantedPluginToolFactory,
-} from "openclaw/plugin-sdk/plugin-entry";
-import { createSubsystemLogger, isTruthyEnvValue } from "openclaw/plugin-sdk/runtime-env";
+} from "granted/plugin-sdk/plugin-entry";
+import { createSubsystemLogger, isTruthyEnvValue } from "granted/plugin-sdk/runtime-env";
 import { isBrowserMachineOutput } from "./cli-output-mode.js";
 import {
   BROWSER_REQUEST_GATEWAY_METHOD,

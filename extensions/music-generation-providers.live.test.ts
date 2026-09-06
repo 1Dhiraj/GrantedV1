@@ -2,12 +2,12 @@
 import {
   resolveApiKeyForProvider,
   resolveDefaultAgentDir,
-} from "openclaw/plugin-sdk/agent-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+} from "granted/plugin-sdk/agent-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   registerProviderPlugin,
   requireRegisteredProvider,
-} from "openclaw/plugin-sdk/plugin-test-runtime";
+} from "granted/plugin-sdk/plugin-test-runtime";
 import {
   isAuthErrorMessage,
   isBillingErrorMessage,
@@ -19,8 +19,8 @@ import {
   isTimeoutErrorMessage,
   isTruthyEnvValue,
   readLiveTestConfig,
-} from "openclaw/plugin-sdk/test-live";
-import { collectProviderApiKeys, getShellEnvAppliedKeys } from "openclaw/plugin-sdk/test-live-auth";
+} from "granted/plugin-sdk/test-live";
+import { collectProviderApiKeys, getShellEnvAppliedKeys } from "granted/plugin-sdk/test-live-auth";
 import {
   DEFAULT_LIVE_MUSIC_MODELS,
   encodePngRgba,
@@ -30,7 +30,7 @@ import {
   redactLiveApiKey,
   resolveConfiguredLiveMusicModels,
   resolveLiveMusicAuthStore,
-} from "openclaw/plugin-sdk/test-media-generation";
+} from "granted/plugin-sdk/test-media-generation";
 import { describe, expect, it } from "vitest";
 import falPlugin from "./fal/index.js";
 import googlePlugin from "./google/index.js";

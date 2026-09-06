@@ -1,7 +1,7 @@
 import type {
   ProviderAuthContext,
   ProviderAuthMethodNonInteractiveContext,
-} from "openclaw/plugin-sdk/plugin-entry";
+} from "granted/plugin-sdk/plugin-entry";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { LLAMA_CPP_PROVIDER_ID } from "../defaults.js";
 import type { LlamaServerDiscoveryResult } from "./discovery.js";
@@ -19,12 +19,12 @@ const removeProviderAuthProfilesWithLockMock = vi.hoisted(() => vi.fn());
 const upsertAuthProfileWithLockMock = vi.hoisted(() => vi.fn());
 
 vi.mock("openclaw/plugin-sdk/provider-auth", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("openclaw/plugin-sdk/provider-auth")>()),
+  ...(await importOriginal<typeof import("granted/plugin-sdk/provider-auth")>()),
   upsertAuthProfileWithLock: upsertAuthProfileWithLockMock,
 }));
 
 vi.mock("openclaw/plugin-sdk/provider-auth-runtime", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("openclaw/plugin-sdk/provider-auth-runtime")>()),
+  ...(await importOriginal<typeof import("granted/plugin-sdk/provider-auth-runtime")>()),
   removeProviderAuthProfilesWithLock: removeProviderAuthProfilesWithLockMock,
 }));
 

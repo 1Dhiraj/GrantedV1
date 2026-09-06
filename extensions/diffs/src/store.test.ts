@@ -2,8 +2,8 @@
 import fs from "node:fs/promises";
 import type { IncomingMessage } from "node:http";
 import path from "node:path";
-import type { PluginBlobStore } from "openclaw/plugin-sdk/plugin-state-runtime";
-import { createMockServerResponse } from "openclaw/plugin-sdk/test-env";
+import type { PluginBlobStore } from "granted/plugin-sdk/plugin-state-runtime";
+import { createMockServerResponse } from "granted/plugin-sdk/test-env";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { createDiffsHttpHandler } from "./http.js";
 import { DiffArtifactStore } from "./store.js";

@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
-import { resolveProviderIdForAuth } from "openclaw/plugin-sdk/agent-runtime";
+import { resolveProviderIdForAuth } from "granted/plugin-sdk/agent-runtime";
 import { parse as parseToml } from "smol-toml";
 import {
   resolveCodexAppServerHomeDir,

@@ -95,4 +95,4 @@ export {
   type GrantedPluginApi,
   type GrantedPluginToolContext,
   type GrantedPluginToolFactory,
-} from "openclaw/plugin-sdk/plugin-entry";
+} from "granted/plugin-sdk/plugin-entry";

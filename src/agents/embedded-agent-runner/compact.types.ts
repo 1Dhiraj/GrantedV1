@@ -1,4 +1,4 @@
-import type { Model } from "openclaw/plugin-sdk/llm";
+import type { Model } from "granted/plugin-sdk/llm";
 /**
  * Shared parameter and metric types for embedded-agent compaction.
  */

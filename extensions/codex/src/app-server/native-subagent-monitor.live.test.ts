@@ -6,8 +6,8 @@ import { setTimeout as delay } from "node:timers/promises";
 import type {
   AgentHarnessTaskRecord,
   AgentHarnessTaskRuntimeScope,
-} from "openclaw/plugin-sdk/agent-harness-task-runtime";
-import { withTempDir } from "openclaw/plugin-sdk/test-env";
+} from "granted/plugin-sdk/agent-harness-task-runtime";
+import { withTempDir } from "granted/plugin-sdk/test-env";
 import { describe, expect, it } from "vitest";
 import type { CodexAppServerClient } from "./client.js";
 import { resolveCodexAppServerRuntimeOptions } from "./config.js";

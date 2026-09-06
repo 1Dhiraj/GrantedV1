@@ -1,17 +1,17 @@
 // Voice Call plugin module implements runtime behavior.
-import { listAgentIds } from "openclaw/plugin-sdk/agent-scope-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import { isLoopbackHost } from "openclaw/plugin-sdk/gateway-runtime";
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
+import { listAgentIds } from "granted/plugin-sdk/agent-scope-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
+import { isLoopbackHost } from "granted/plugin-sdk/gateway-runtime";
+import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
 import {
   assertRealtimeVoiceAgentConsultModelSelectionUnlocked,
   consultRealtimeVoiceAgent,
   REALTIME_VOICE_AGENT_CONSULT_TOOL_NAME,
   resolveRealtimeVoiceAgentConsultToolsAllow,
   type RealtimeVoiceAgentConsultTranscriptEntry,
-} from "openclaw/plugin-sdk/realtime-voice";
-import { normalizeAgentId } from "openclaw/plugin-sdk/routing";
+} from "granted/plugin-sdk/realtime-voice";
+import { normalizeAgentId } from "granted/plugin-sdk/routing";
 import type { GrantedPluginApi } from "../api.js";
 import type { VoiceCallConfig } from "./config.js";
 import {

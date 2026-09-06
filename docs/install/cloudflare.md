@@ -158,7 +158,7 @@ Measured on this template against a real R2 bucket: about 2.4 seconds from write
 
     ```bash
     cd /app
-    node openclaw.mjs onboard --non-interactive --accept-risk --skip-health \
+    node granted.mjs onboard --non-interactive --accept-risk --skip-health \
       --mode local \
       --auth-choice openai-api-key \
       --secret-input-mode ref \
@@ -166,8 +166,8 @@ Measured on this template against a real R2 bucket: about 2.4 seconds from write
       --gateway-token-ref-env OPENCLAW_GATEWAY_TOKEN \
       --skip-channels \
       --no-install-daemon
-    node openclaw.mjs channels add --channel telegram --use-env
-    node openclaw.mjs doctor --json
+    node granted.mjs channels add --channel telegram --use-env
+    node granted.mjs doctor --json
     ```
 
     Keep your exact bootstrap recipe in a private, reproducible runbook. A fresh Container disk does not retain the generated config.

@@ -5,7 +5,7 @@ import type { SlackMonitorContext } from "./context.js";
 const participantDescriptors = vi.hoisted(
   () =>
     [] as Array<
-      import("openclaw/plugin-sdk/channel-ingress-runtime").ChannelIngressIdentityDescriptor
+      import("granted/plugin-sdk/channel-ingress-runtime").ChannelIngressIdentityDescriptor
     >,
 );
 const readChannelIngressStoreAllowFromForDmPolicyMock = vi.hoisted(() => vi.fn());
@@ -36,7 +36,7 @@ afterEach(() => {
 
 vi.mock("openclaw/plugin-sdk/channel-ingress-runtime", async () => {
   const actual = await vi.importActual<
-    typeof import("openclaw/plugin-sdk/channel-ingress-runtime")
+    typeof import("granted/plugin-sdk/channel-ingress-runtime")
   >("openclaw/plugin-sdk/channel-ingress-runtime");
   return {
     ...actual,

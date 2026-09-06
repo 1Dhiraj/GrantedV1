@@ -1,16 +1,16 @@
 // Discord plugin module implements send.voice behavior.
 import fs from "node:fs/promises";
 import path from "node:path";
-import { recordChannelActivity } from "openclaw/plugin-sdk/channel-activity-runtime";
+import { recordChannelActivity } from "granted/plugin-sdk/channel-activity-runtime";
 import {
   buildOutboundMediaLoadOptions,
   extensionForMime,
   maxBytesForKind,
   unlinkIfExists,
-} from "openclaw/plugin-sdk/media-runtime";
-import { requireRuntimeConfig } from "openclaw/plugin-sdk/plugin-config-runtime";
-import { withTempWorkspace, resolvePreferredOpenClawTmpDir } from "openclaw/plugin-sdk/temp-path";
-import { loadWebMediaRaw } from "openclaw/plugin-sdk/web-media";
+} from "granted/plugin-sdk/media-runtime";
+import { requireRuntimeConfig } from "granted/plugin-sdk/plugin-config-runtime";
+import { withTempWorkspace, resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
+import { loadWebMediaRaw } from "granted/plugin-sdk/web-media";
 import type { RequestClient } from "./internal/discord.js";
 import { parseAndResolveChannelRecipient } from "./recipient-resolution.js";
 import type { DiscordReplyReference } from "./reply-reference.js";

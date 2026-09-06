@@ -8,11 +8,11 @@ import {
   createPluginStateKeyedStoreForTests,
   createPluginStateSyncKeyedStoreForTests,
   resetPluginStateStoreForTests,
-} from "openclaw/plugin-sdk/plugin-state-test-runtime";
+} from "granted/plugin-sdk/plugin-state-test-runtime";
 import type {
   OpenKeyedStoreOptions,
   PluginDoctorStateMigrationContext,
-} from "openclaw/plugin-sdk/runtime-doctor-migrations";
+} from "granted/plugin-sdk/runtime-doctor-migrations";
 import { afterEach, beforeAll, beforeEach, describe, expect, it } from "vitest";
 import { resolveSessionStoreAgentIds, stateMigrations } from "./doctor-contract-api.js";
 import {

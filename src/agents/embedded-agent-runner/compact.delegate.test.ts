@@ -283,7 +283,7 @@ describe("direct compactor through the context-engine delegate", () => {
           },
         );
       } else {
-        const { createAssistantMessageEventStream } = await import("openclaw/plugin-sdk/llm");
+        const { createAssistantMessageEventStream } = await import("granted/plugin-sdk/llm");
         fixture.stream.mockImplementationOnce((activeModel, _context, options) => {
           const stream = createAssistantMessageEventStream();
           started.resolve();

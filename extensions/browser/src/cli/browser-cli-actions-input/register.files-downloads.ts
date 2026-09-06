@@ -2,7 +2,7 @@
  * Browser CLI file upload, dialog, and download commands.
  */
 import type { Command } from "commander";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import { resolveExistingUploadPaths } from "../../browser/paths.js";
 import {
   BROWSER_TAB_REFERENCE_HELP,

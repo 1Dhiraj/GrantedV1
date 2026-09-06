@@ -1,12 +1,12 @@
 // Memory Core plugin module classifies indexed workspace paths by provenance owner.
 import fs from "node:fs/promises";
 import path from "node:path";
-import { isPathStrictlyInside } from "openclaw/plugin-sdk/file-access-runtime";
+import { isPathStrictlyInside } from "granted/plugin-sdk/file-access-runtime";
 import type {
   MemoryEntryProvenance,
   MemorySource,
-} from "openclaw/plugin-sdk/memory-core-host-engine-storage";
-import { readMemoryArtifactProvenance } from "openclaw/plugin-sdk/memory-core-host-runtime-core";
+} from "granted/plugin-sdk/memory-core-host-engine-storage";
+import { readMemoryArtifactProvenance } from "granted/plugin-sdk/memory-core-host-runtime-core";
 
 type MemoryPathClassification = {
   curatedRoot: boolean;

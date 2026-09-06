@@ -1,5 +1,5 @@
 // Vitest unit path tests validate unit test include and exclude paths.
-import { bundledPluginFile } from "openclaw/plugin-sdk/test-fixtures";
+import { bundledPluginFile } from "granted/plugin-sdk/test-fixtures";
 import { describe, expect, it } from "vitest";
 import { isUnitConfigTestFile } from "./vitest/vitest.unit-paths.mjs";
 

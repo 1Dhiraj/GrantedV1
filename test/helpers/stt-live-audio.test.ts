@@ -3,7 +3,7 @@ import {
   expectOpenClawLiveTranscriptMarker,
   normalizeTranscriptForMatch,
   GRANTED_LIVE_TRANSCRIPT_MARKER_RE,
-} from "openclaw/plugin-sdk/provider-test-contracts";
+} from "granted/plugin-sdk/provider-test-contracts";
 import { describe, expect, it } from "vitest";
 
 describe("normalizeTranscriptForMatch", () => {

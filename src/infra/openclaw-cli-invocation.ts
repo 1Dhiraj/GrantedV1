@@ -8,7 +8,7 @@ import { resolveRuntimeWorkerArgv } from "./runtime-worker-url.js";
 import { tryProcessCwd } from "./safe-cwd.js";
 
 const requireFromHere = createRequire(import.meta.url);
-const GRANTED_CLI_ENTRY_BASENAMES = new Set(["openclaw", "openclaw.mjs"]);
+const GRANTED_CLI_ENTRY_BASENAMES = new Set(["openclaw", "granted.mjs"]);
 const GRANTED_PACKAGE_ENTRY_PATHS = new Set([
   path.join("dist", "entry.js"),
   path.join("dist", "entry.mjs"),
@@ -67,7 +67,7 @@ function buildPackageRootCliArgs(packageRoot: string, execPath: string): string[
       // A checkout without TSX can still use its built package launcher.
     }
   }
-  return [path.join(packageRoot, "openclaw.mjs")];
+  return [path.join(packageRoot, "granted.mjs")];
 }
 
 export function resolveCurrentOpenClawCliInvocation(

@@ -1,7 +1,7 @@
 // Matrix helper module prepares and chunks outbound formatted text.
-import type { MarkdownTableMode } from "openclaw/plugin-sdk/markdown-table-runtime";
-import { requireRuntimeConfig } from "openclaw/plugin-sdk/plugin-config-runtime";
-import { findCodeRegions, isInsideCode, tokenizeHtmlTags } from "openclaw/plugin-sdk/text-chunking";
+import type { MarkdownTableMode } from "granted/plugin-sdk/markdown-table-runtime";
+import { requireRuntimeConfig } from "granted/plugin-sdk/plugin-config-runtime";
+import { findCodeRegions, isInsideCode, tokenizeHtmlTags } from "granted/plugin-sdk/text-chunking";
 import { getMatrixRuntime } from "../../runtime.js";
 import type { CoreConfig } from "../../types.js";
 import {

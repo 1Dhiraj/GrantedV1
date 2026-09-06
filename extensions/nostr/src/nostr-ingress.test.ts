@@ -6,7 +6,7 @@ import type { Event } from "nostr-tools";
 import {
   closeOpenClawStateDatabaseForTest,
   createChannelIngressQueueForTests,
-} from "openclaw/plugin-sdk/channel-ingress-test-runtime";
+} from "granted/plugin-sdk/channel-ingress-test-runtime";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { migrateNostrLegacyRecentEventIds } from "./nostr-ingress-state.js";
 import { createNostrIngress } from "./nostr-ingress.js";

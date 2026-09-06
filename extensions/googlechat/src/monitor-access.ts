@@ -3,13 +3,13 @@ import {
   channelIngressRoutes,
   createChannelIngressResolver,
   type ChannelIngressContextBinding,
-} from "openclaw/plugin-sdk/channel-ingress-runtime";
-import type { ChannelBotLoopProtectionConfig } from "openclaw/plugin-sdk/config-contracts";
+} from "granted/plugin-sdk/channel-ingress-runtime";
+import type { ChannelBotLoopProtectionConfig } from "granted/plugin-sdk/config-contracts";
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
   normalizeStringEntries,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import {
   GROUP_POLICY_BLOCKED_LABEL,
   createChannelPairingController,

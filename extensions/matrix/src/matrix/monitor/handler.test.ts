@@ -1,21 +1,21 @@
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { createChannelPartialDeliveryError } from "openclaw/plugin-sdk/channel-inbound";
-import { MAX_DATE_TIMESTAMP_MS } from "openclaw/plugin-sdk/number-runtime";
+import { createChannelPartialDeliveryError } from "granted/plugin-sdk/channel-inbound";
+import { MAX_DATE_TIMESTAMP_MS } from "granted/plugin-sdk/number-runtime";
 import {
   testing as sessionBindingTesting,
   registerSessionBindingAdapter,
-} from "openclaw/plugin-sdk/session-binding-runtime";
+} from "granted/plugin-sdk/session-binding-runtime";
 import {
   deliveryContextFromSession,
   getSessionEntry,
   normalizeSessionDeliveryState,
   sessionDeliveryOrigin,
   upsertSessionEntry,
-} from "openclaw/plugin-sdk/session-store-runtime";
+} from "granted/plugin-sdk/session-store-runtime";
 // Matrix tests cover handler plugin behavior.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { installMatrixMonitorTestRuntime } from "../../test-runtime.js";
 import { MATRIX_GRANTED_FINALIZED_PREVIEW_KEY } from "../send/types.js";
@@ -63,7 +63,7 @@ const resolveMatrixMentionsForBodyMock = vi.hoisted(() =>
 const getGlobalHookRunnerMock = vi.hoisted(() => vi.fn());
 
 vi.mock("openclaw/plugin-sdk/plugin-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/plugin-runtime")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/plugin-runtime")>();
   return {
     ...actual,
     getGlobalHookRunner: getGlobalHookRunnerMock,

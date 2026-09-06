@@ -5,13 +5,13 @@ import {
   formatErrorMessage,
   PlatformMessageNotDispatchedError,
   readErrorName,
-} from "openclaw/plugin-sdk/error-runtime";
-import { parseStrictNonNegativeInteger } from "openclaw/plugin-sdk/number-runtime";
-import { classifyTransientNetworkErrorCode } from "openclaw/plugin-sdk/retry-runtime";
+} from "granted/plugin-sdk/error-runtime";
+import { parseStrictNonNegativeInteger } from "granted/plugin-sdk/number-runtime";
+import { classifyTransientNetworkErrorCode } from "granted/plugin-sdk/retry-runtime";
 import {
   isRecord,
   normalizeLowercaseStringOrEmpty,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 
 const TELEGRAM_NETWORK_ORIGIN = Symbol("openclaw.telegram.network-origin");
 const TELEGRAM_SUPERGROUP_MIGRATION_DESCRIPTION =

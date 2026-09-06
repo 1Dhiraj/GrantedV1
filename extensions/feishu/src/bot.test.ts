@@ -1,14 +1,14 @@
-import { buildChannelInboundEventContext } from "openclaw/plugin-sdk/channel-inbound";
-import { createTestInboundDebounceFlush } from "openclaw/plugin-sdk/channel-test-helpers";
+import { buildChannelInboundEventContext } from "granted/plugin-sdk/channel-inbound";
+import { createTestInboundDebounceFlush } from "granted/plugin-sdk/channel-test-helpers";
 // Feishu tests cover bot plugin behavior.
 import type {
   ensureConfiguredBindingRouteReady,
   getSessionBindingService,
   resolveConfiguredBindingRoute,
-} from "openclaw/plugin-sdk/conversation-runtime";
-import { createRuntimeEnv } from "openclaw/plugin-sdk/plugin-test-runtime";
-import type { ResolvedAgentRoute } from "openclaw/plugin-sdk/routing";
-import { resolveGroupSessionKey } from "openclaw/plugin-sdk/session-store-runtime";
+} from "granted/plugin-sdk/conversation-runtime";
+import { createRuntimeEnv } from "granted/plugin-sdk/plugin-test-runtime";
+import type { ResolvedAgentRoute } from "granted/plugin-sdk/routing";
+import { resolveGroupSessionKey } from "granted/plugin-sdk/session-store-runtime";
 import { afterAll, beforeEach, describe, expect, it, vi } from "vitest";
 import type { ClawdbotConfig, PluginRuntime } from "../runtime-api.js";
 import { parseMergeForwardContent } from "./bot-content.js";
@@ -383,7 +383,7 @@ const {
 const finalizeInboundContextMock = mockBuildChannelInboundEventContext;
 
 vi.mock("openclaw/plugin-sdk/channel-inbound", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/channel-inbound")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/channel-inbound")>(
     "openclaw/plugin-sdk/channel-inbound",
   );
   return {
@@ -404,14 +404,14 @@ vi.mock("openclaw/plugin-sdk/channel-inbound", async () => {
 });
 
 vi.mock("openclaw/plugin-sdk/reply-runtime", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/reply-runtime")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/reply-runtime")>(
     "openclaw/plugin-sdk/reply-runtime",
   );
   return { ...actual, dispatchInboundMessage: mockDispatchInboundMessage };
 });
 
 vi.mock("openclaw/plugin-sdk/session-store-runtime", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/session-store-runtime")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/session-store-runtime")>(
     "openclaw/plugin-sdk/session-store-runtime",
   );
   return { ...actual, resolveStorePath: mockResolveStorePath };
@@ -452,7 +452,7 @@ vi.mock("./bot-name.js", () => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/conversation-runtime", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/conversation-runtime")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/conversation-runtime")>(
     "openclaw/plugin-sdk/conversation-runtime",
   );
   return {

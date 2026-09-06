@@ -1,5 +1,5 @@
 // Memory Wiki helper module supports config compat behavior.
-import { asNullableRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { asNullableRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import type { GrantedConfig } from "../api.js";
 
 type LegacyConfigRule = {

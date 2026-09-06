@@ -1,5 +1,5 @@
 /** Tests auto-reply status message formatting. */
-import { withTempHome } from "openclaw/plugin-sdk/test-env";
+import { withTempHome } from "granted/plugin-sdk/test-env";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { normalizeTestText } from "../../test/helpers/normalize-text.js";
 import { testing as cliBackendsTesting } from "../agents/cli-backends.test-support.js";

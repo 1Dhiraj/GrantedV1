@@ -19,13 +19,13 @@ import type {
 import {
   configureSqliteConnectionPragmas,
   migrateSqliteSchemaToStrict,
-} from "openclaw/plugin-sdk/plugin-state-runtime";
+} from "granted/plugin-sdk/plugin-state-runtime";
 import {
   openNodeSqliteDatabase,
   runSqliteImmediateTransactionSync,
-} from "openclaw/plugin-sdk/sqlite-runtime";
-import { resolveStateDir } from "openclaw/plugin-sdk/state-paths";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/sqlite-runtime";
+import { resolveStateDir } from "granted/plugin-sdk/state-paths";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import type {
   PersistedWorkboardAttachment,
   PersistedWorkboardBoard,

@@ -3,8 +3,8 @@ import {
   createOpenAIResponsesTransportStreamFn,
   requestPreparedOpenAIResponsesCompaction,
 } from "@openclaw/ai/transports";
-import type { StreamFn } from "openclaw/plugin-sdk/agent-core";
-import type { AssistantMessage, Context, Model } from "openclaw/plugin-sdk/llm";
+import type { StreamFn } from "granted/plugin-sdk/agent-core";
+import type { AssistantMessage, Context, Model } from "granted/plugin-sdk/llm";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { wrapXaiProviderStream } from "./stream.js";
 

@@ -1,5 +1,5 @@
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { resolveAgentModelPrimaryValue } from "openclaw/plugin-sdk/provider-onboard";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { resolveAgentModelPrimaryValue } from "granted/plugin-sdk/provider-onboard";
 import { describe, expect, it } from "vitest";
 import { buildCohereCatalogModels, COHERE_BASE_URL } from "./models.js";
 import { applyCohereConfig } from "./onboard.js";

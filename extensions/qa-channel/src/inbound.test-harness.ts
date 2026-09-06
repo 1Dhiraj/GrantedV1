@@ -1,4 +1,4 @@
-import type { createPluginRuntimeMock } from "openclaw/plugin-sdk/channel-test-helpers";
+import type { createPluginRuntimeMock } from "granted/plugin-sdk/channel-test-helpers";
 import { vi } from "vitest";
 import type { handleQaInbound } from "./inbound.js";
 

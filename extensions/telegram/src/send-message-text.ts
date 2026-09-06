@@ -1,8 +1,8 @@
-import { isChannelPartialDeliveryError } from "openclaw/plugin-sdk/channel-inbound";
-import { createMessageReceiptFromOutboundResults } from "openclaw/plugin-sdk/channel-outbound";
-import type { MarkdownTableMode } from "openclaw/plugin-sdk/config-contracts";
-import { logVerbose } from "openclaw/plugin-sdk/runtime-env";
-import { formatErrorMessage } from "openclaw/plugin-sdk/ssrf-runtime";
+import { isChannelPartialDeliveryError } from "granted/plugin-sdk/channel-inbound";
+import { createMessageReceiptFromOutboundResults } from "granted/plugin-sdk/channel-outbound";
+import type { MarkdownTableMode } from "granted/plugin-sdk/config-contracts";
+import { logVerbose } from "granted/plugin-sdk/runtime-env";
+import { formatErrorMessage } from "granted/plugin-sdk/ssrf-runtime";
 import type { ResolvedTelegramAccount } from "./accounts.js";
 import { buildInlineKeyboard } from "./inline-keyboard.js";
 import { recordOutboundMessageForPromptContext } from "./outbound-message-context.js";

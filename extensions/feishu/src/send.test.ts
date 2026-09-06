@@ -34,7 +34,7 @@ vi.mock("openclaw/plugin-sdk/markdown-table-runtime", () => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/runtime-env", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/runtime-env")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/runtime-env")>();
   return {
     ...actual,
     logVerbose: mockLogVerbose,
@@ -42,7 +42,7 @@ vi.mock("openclaw/plugin-sdk/runtime-env", async (importOriginal) => {
 });
 
 vi.mock("openclaw/plugin-sdk/text-chunking", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/text-chunking")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/text-chunking")>();
   return {
     ...actual,
     convertMarkdownTables: mockConvertMarkdownTables,

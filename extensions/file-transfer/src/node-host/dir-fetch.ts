@@ -2,8 +2,8 @@
 import crypto from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
-import { runCommandBuffered } from "openclaw/plugin-sdk/process-runtime";
-import { root as fsRoot } from "openclaw/plugin-sdk/security-runtime";
+import { runCommandBuffered } from "granted/plugin-sdk/process-runtime";
+import { root as fsRoot } from "granted/plugin-sdk/security-runtime";
 import {
   matchesFileIdentity,
   type FileIdentity,

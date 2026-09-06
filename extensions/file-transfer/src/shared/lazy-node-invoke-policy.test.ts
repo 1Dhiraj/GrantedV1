@@ -2,7 +2,7 @@
 import type {
   GrantedPluginNodeInvokePolicy,
   GrantedPluginNodeInvokePolicyContext,
-} from "openclaw/plugin-sdk/plugin-entry";
+} from "granted/plugin-sdk/plugin-entry";
 import { describe, expect, it, vi } from "vitest";
 import { createLazyFileTransferNodeInvokePolicy } from "./lazy-node-invoke-policy.js";
 

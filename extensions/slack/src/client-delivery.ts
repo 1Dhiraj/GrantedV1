@@ -5,15 +5,15 @@ import {
   extractErrorCode,
   PlatformMessageNotDispatchedError,
   readErrorName,
-} from "openclaw/plugin-sdk/error-runtime";
-import { buildTimeoutAbortSignal } from "openclaw/plugin-sdk/extension-shared";
-import { withTrustedEnvProxyGuardedFetchMode } from "openclaw/plugin-sdk/fetch-runtime";
-import { extensionForMime } from "openclaw/plugin-sdk/media-mime";
-import { loadOutboundMediaFromUrl } from "openclaw/plugin-sdk/outbound-media";
-import { retryAsync } from "openclaw/plugin-sdk/retry-runtime";
-import { logVerbose, sleepWithAbort } from "openclaw/plugin-sdk/runtime-env";
-import { fetchWithSsrFGuard, type SsrFPolicy } from "openclaw/plugin-sdk/ssrf-runtime";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/error-runtime";
+import { buildTimeoutAbortSignal } from "granted/plugin-sdk/extension-shared";
+import { withTrustedEnvProxyGuardedFetchMode } from "granted/plugin-sdk/fetch-runtime";
+import { extensionForMime } from "granted/plugin-sdk/media-mime";
+import { loadOutboundMediaFromUrl } from "granted/plugin-sdk/outbound-media";
+import { retryAsync } from "granted/plugin-sdk/retry-runtime";
+import { logVerbose, sleepWithAbort } from "granted/plugin-sdk/runtime-env";
+import { fetchWithSsrFGuard, type SsrFPolicy } from "granted/plugin-sdk/ssrf-runtime";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import { formatSlackError } from "./errors.js";
 import {
   postSlackMessageWithIdentityFallback,

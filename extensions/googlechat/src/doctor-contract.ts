@@ -2,15 +2,15 @@
 import type {
   ChannelDoctorConfigMutation,
   ChannelDoctorLegacyConfigRule,
-} from "openclaw/plugin-sdk/channel-contract";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+} from "granted/plugin-sdk/channel-contract";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   asObjectRecord,
   defineChannelAliasMigration,
   defineKeyMoveMigration,
   hasLegacyAccountStreamingAliases,
   normalizeChannelConfigEntries,
-} from "openclaw/plugin-sdk/runtime-doctor-migrations";
+} from "granted/plugin-sdk/runtime-doctor-migrations";
 
 // Google Chat's nested streaming schema is delivery-only ({chunkMode, block});
 // it has no preview mode (legacy streamMode is removed outright above), so

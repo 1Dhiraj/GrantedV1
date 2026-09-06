@@ -1,8 +1,8 @@
 import path from "node:path";
-import type { HealthCheck, HealthRepairContext } from "openclaw/plugin-sdk/health";
-import { resetPluginStateStoreForTests } from "openclaw/plugin-sdk/plugin-state-test-runtime";
-import * as processRuntime from "openclaw/plugin-sdk/process-runtime";
-import { useAutoCleanupTempDirTracker } from "openclaw/plugin-sdk/test-env";
+import type { HealthCheck, HealthRepairContext } from "granted/plugin-sdk/health";
+import { resetPluginStateStoreForTests } from "granted/plugin-sdk/plugin-state-test-runtime";
+import * as processRuntime from "granted/plugin-sdk/process-runtime";
+import { useAutoCleanupTempDirTracker } from "granted/plugin-sdk/test-env";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import * as doctorRuntime from "./crabbox-worker-doctor-runtime.js";
 import {

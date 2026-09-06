@@ -1,8 +1,8 @@
 // Discord plugin module implements native command status behavior.
-import { resolveDirectStatusReplyForSession } from "openclaw/plugin-sdk/command-status-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { resolveChunkMode, resolveTextChunkLimit } from "openclaw/plugin-sdk/reply-chunking";
-import type { ResolvedAgentRoute } from "openclaw/plugin-sdk/routing";
+import { resolveDirectStatusReplyForSession } from "granted/plugin-sdk/command-status-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { resolveChunkMode, resolveTextChunkLimit } from "granted/plugin-sdk/reply-chunking";
+import type { ResolvedAgentRoute } from "granted/plugin-sdk/routing";
 import { resolveDiscordMaxLinesPerMessage } from "../accounts.js";
 import type {
   ButtonInteraction,

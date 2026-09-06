@@ -1,4 +1,4 @@
-import type { QaRunnerCliRegistration } from "openclaw/plugin-sdk/qa-runner-runtime";
+import type { QaRunnerCliRegistration } from "granted/plugin-sdk/qa-runner-runtime";
 // Qa Lab plugin module implements qa transport registry behavior.
 import type { QaBusState } from "./bus-state.js";
 import {

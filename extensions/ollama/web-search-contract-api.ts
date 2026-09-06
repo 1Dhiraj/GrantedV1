@@ -2,7 +2,7 @@
 import {
   createWebSearchProviderContractFields,
   type WebSearchProviderPlugin,
-} from "openclaw/plugin-sdk/provider-web-search-contract";
+} from "granted/plugin-sdk/provider-web-search-contract";
 
 export function createOllamaWebSearchProvider(): WebSearchProviderPlugin {
   return {

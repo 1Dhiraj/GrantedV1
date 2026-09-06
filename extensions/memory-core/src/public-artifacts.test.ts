@@ -2,8 +2,8 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { appendMemoryHostEvent } from "openclaw/plugin-sdk/memory-host-events";
-import { resetPluginStateStoreForTests } from "openclaw/plugin-sdk/plugin-state-test-runtime";
+import { appendMemoryHostEvent } from "granted/plugin-sdk/memory-host-events";
+import { resetPluginStateStoreForTests } from "granted/plugin-sdk/plugin-state-test-runtime";
 import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from "vitest";
 import type { GrantedConfig } from "../api.js";
 import { listMemoryCorePublicArtifacts } from "./public-artifacts.js";

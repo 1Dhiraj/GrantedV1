@@ -1,19 +1,19 @@
 /**
  * Chutes model catalog, static model definitions, and dynamic model discovery.
  */
-import { withTrustedEnvProxyGuardedFetchMode } from "openclaw/plugin-sdk/fetch-runtime";
-import { buildLiveModelProviderConfig } from "openclaw/plugin-sdk/provider-catalog-live-runtime";
-import { buildManifestModelProviderConfig } from "openclaw/plugin-sdk/provider-catalog-shared";
-import type { ModelDefinitionConfig } from "openclaw/plugin-sdk/provider-model-shared";
+import { withTrustedEnvProxyGuardedFetchMode } from "granted/plugin-sdk/fetch-runtime";
+import { buildLiveModelProviderConfig } from "granted/plugin-sdk/provider-catalog-live-runtime";
+import { buildManifestModelProviderConfig } from "granted/plugin-sdk/provider-catalog-shared";
+import type { ModelDefinitionConfig } from "granted/plugin-sdk/provider-model-shared";
 import {
   fetchWithSsrFGuard,
   ssrfPolicyFromHttpBaseUrlAllowedHostname,
-} from "openclaw/plugin-sdk/ssrf-runtime";
+} from "granted/plugin-sdk/ssrf-runtime";
 import {
   asPositiveSafeInteger,
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import manifest from "./openclaw.plugin.json" with { type: "json" };
 import { normalizeChutesModelPricing } from "./pricing-api.js";
 

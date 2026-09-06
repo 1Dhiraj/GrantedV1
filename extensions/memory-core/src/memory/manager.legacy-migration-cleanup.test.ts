@@ -3,16 +3,16 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { DatabaseSync } from "node:sqlite";
-import type { GrantedConfig } from "openclaw/plugin-sdk/memory-core-host-engine-foundation";
+import type { GrantedConfig } from "granted/plugin-sdk/memory-core-host-engine-foundation";
 import {
   ensureMemoryIndexSchema,
   loadSqliteVecExtension,
-} from "openclaw/plugin-sdk/memory-core-host-engine-storage";
-import { resolveOpenClawAgentSqlitePath } from "openclaw/plugin-sdk/sqlite-runtime";
+} from "granted/plugin-sdk/memory-core-host-engine-storage";
+import { resolveOpenClawAgentSqlitePath } from "granted/plugin-sdk/sqlite-runtime";
 import {
   closeOpenClawAgentDatabasesForTest,
   closeOpenClawStateDatabaseForTest,
-} from "openclaw/plugin-sdk/sqlite-runtime-testing";
+} from "granted/plugin-sdk/sqlite-runtime-testing";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import "./test-runtime-mocks.js";
 import { closeAllMemoryIndexManagers, MemoryIndexManager } from "./manager.js";

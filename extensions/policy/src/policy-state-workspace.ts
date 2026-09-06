@@ -3,7 +3,7 @@ import {
   asNonArrayRecord,
   isRecord,
   normalizeOptionalString as readString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import { collectPolicyConfiguredAgents } from "./policy-state-helpers.js";
 import { AGENT_WORKSPACE_POLICY_TOOLS, readStringArray } from "./policy-state-tool-posture.js";
 import type { PolicyAgentWorkspaceEvidence } from "./policy-state-types.js";

@@ -4,8 +4,8 @@ import type {
   WhatsAppQaDriverObservedMessage,
   WhatsAppQaDriverSession,
 } from "@openclaw/whatsapp/api.js";
-import type { ChannelApprovalKind } from "openclaw/plugin-sdk/approval-handler-runtime";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
+import type { ChannelApprovalKind } from "granted/plugin-sdk/approval-handler-runtime";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
 import {
   assertApprovalDecisionResult,
   formatApprovalResultValue,

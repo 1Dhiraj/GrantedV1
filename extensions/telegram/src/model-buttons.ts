@@ -11,8 +11,8 @@
  * - mdl_back              - back to providers list
  */
 import { createHash } from "node:crypto";
-import { parseStrictPositiveInteger } from "openclaw/plugin-sdk/number-runtime";
-import { sliceUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+import { parseStrictPositiveInteger } from "granted/plugin-sdk/number-runtime";
+import { sliceUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import { fitsTelegramCallbackData } from "./approval-callback-data.js";
 
 export type ButtonRow = Array<{ text: string; callback_data: string }>;

@@ -1,4 +1,4 @@
-import type { ChannelBotLoopProtectionFacts } from "openclaw/plugin-sdk/channel-inbound";
+import type { ChannelBotLoopProtectionFacts } from "granted/plugin-sdk/channel-inbound";
 /**
  * Maps ClickClack senders and conversations onto the shared channel ingress
  * allowlist/command authorization contract.
@@ -6,14 +6,14 @@ import type { ChannelBotLoopProtectionFacts } from "openclaw/plugin-sdk/channel-
 import {
   resolveStableChannelMessageIngress,
   type StableChannelIngressIdentityParams,
-} from "openclaw/plugin-sdk/channel-ingress-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { parseDateStringTimestampMs } from "openclaw/plugin-sdk/number-runtime";
+} from "granted/plugin-sdk/channel-ingress-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { parseDateStringTimestampMs } from "granted/plugin-sdk/number-runtime";
 import {
   normalizeAgentId,
   type ResolvedAgentRoute,
   type RoutePeer,
-} from "openclaw/plugin-sdk/routing";
+} from "granted/plugin-sdk/routing";
 import { resolveClickClackDiscussionRoute } from "./discussions/routing.js";
 import { resolveClickClackBotPolicy, resolveClickClackGroupPolicy } from "./group-policy.js";
 import { resolveClickClackMentionFacts } from "./mention-facts.js";

@@ -1,10 +1,10 @@
 // Zalouser tests cover setup surface plugin behavior.
-import { installChannelDmPolicyContractSuite } from "openclaw/plugin-sdk/channel-test-helpers";
+import { installChannelDmPolicyContractSuite } from "granted/plugin-sdk/channel-test-helpers";
 import {
   createPluginSetupWizardConfigure,
   createTestWizardPrompter,
   runSetupWizardConfigure,
-} from "openclaw/plugin-sdk/plugin-test-runtime";
+} from "granted/plugin-sdk/plugin-test-runtime";
 import { describe, expect, it, vi } from "vitest";
 import type { GrantedConfig } from "../runtime-api.js";
 // Preserve module setup before modules that consume it.

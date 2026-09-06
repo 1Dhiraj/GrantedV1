@@ -1,22 +1,22 @@
-import { bufferToBlobPart } from "openclaw/plugin-sdk/blob-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { ProviderRuntimeModel } from "openclaw/plugin-sdk/core";
+import { bufferToBlobPart } from "granted/plugin-sdk/blob-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { ProviderRuntimeModel } from "granted/plugin-sdk/core";
 // Microsoft Foundry image provider routes MAI image deployments to the MAI API.
-import { expectDefined } from "openclaw/plugin-sdk/expect-runtime";
+import { expectDefined } from "granted/plugin-sdk/expect-runtime";
 import type {
   ImageGenerationProvider,
   ImageGenerationRequest,
   ImageGenerationResult,
   ImageGenerationSourceImage,
-} from "openclaw/plugin-sdk/image-generation";
+} from "granted/plugin-sdk/image-generation";
 import {
   imageSourceUploadFileName,
   parseOpenAiCompatibleImageResponse,
   resolveInlineImageJsonResponseMaxBytes,
-} from "openclaw/plugin-sdk/image-generation";
-import { resolveGeneratedMediaMaxBytes } from "openclaw/plugin-sdk/media-generation-runtime";
-import { isProviderApiKeyConfigured } from "openclaw/plugin-sdk/provider-auth";
-import { resolveApiKeyForProvider } from "openclaw/plugin-sdk/provider-auth-runtime";
+} from "granted/plugin-sdk/image-generation";
+import { resolveGeneratedMediaMaxBytes } from "granted/plugin-sdk/media-generation-runtime";
+import { isProviderApiKeyConfigured } from "granted/plugin-sdk/provider-auth";
+import { resolveApiKeyForProvider } from "granted/plugin-sdk/provider-auth-runtime";
 import {
   assertOkOrThrowHttpError,
   createProviderOperationDeadline,
@@ -26,11 +26,11 @@ import {
   resolveProviderHttpRequestConfig,
   resolveProviderOperationTimeoutMs,
   sanitizeConfiguredModelProviderRequest,
-} from "openclaw/plugin-sdk/provider-http";
+} from "granted/plugin-sdk/provider-http";
 import {
   normalizeOptionalLowercaseString,
   normalizeOptionalString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import { prepareFoundryRuntimeAuth } from "./runtime.js";
 import { extractFoundryEndpoint } from "./shared-runtime.js";
 import {

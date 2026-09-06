@@ -4,19 +4,19 @@ import path from "node:path";
 import {
   implicitMentionKindWhen,
   resolveInboundMentionDecision,
-} from "openclaw/plugin-sdk/channel-mention-gating";
-import type { PluginRuntime } from "openclaw/plugin-sdk/plugin-runtime";
+} from "granted/plugin-sdk/channel-mention-gating";
+import type { PluginRuntime } from "granted/plugin-sdk/plugin-runtime";
 import type {
   OpenBlobStoreOptions,
   OpenKeyedStoreOptions,
-} from "openclaw/plugin-sdk/plugin-state-runtime";
+} from "granted/plugin-sdk/plugin-state-runtime";
 import {
   createPluginBlobStoreForTests,
   createPluginStateKeyedStoreForTests,
   createPluginStateSyncKeyedStoreForTests,
   resetPluginStateStoreForTests,
-} from "openclaw/plugin-sdk/plugin-state-test-runtime";
-import { resolvePreferredOpenClawTmpDir } from "openclaw/plugin-sdk/temp-path";
+} from "granted/plugin-sdk/plugin-state-test-runtime";
+import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
 import { afterAll, vi } from "vitest";
 import { setMatrixRuntime } from "./runtime.js";
 

@@ -1,15 +1,15 @@
 // Discord plugin module implements send.outbound behavior.
 import type { APIChannel, APIGuildForumChannel, APIGuildMediaChannel } from "discord-api-types/v10";
 import { ChannelType } from "discord-api-types/v10";
-import { recordChannelActivity } from "openclaw/plugin-sdk/channel-activity-runtime";
-import type { MarkdownTableMode, GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { resolveMarkdownTableMode } from "openclaw/plugin-sdk/markdown-table-runtime";
-import type { OutboundMediaAccess, PollInput } from "openclaw/plugin-sdk/media-runtime";
-import { requireRuntimeConfig } from "openclaw/plugin-sdk/plugin-config-runtime";
-import { resolveChunkMode, type ChunkMode } from "openclaw/plugin-sdk/reply-chunking";
-import type { RetryConfig } from "openclaw/plugin-sdk/retry-runtime";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+import { recordChannelActivity } from "granted/plugin-sdk/channel-activity-runtime";
+import type { MarkdownTableMode, GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { resolveMarkdownTableMode } from "granted/plugin-sdk/markdown-table-runtime";
+import type { OutboundMediaAccess, PollInput } from "granted/plugin-sdk/media-runtime";
+import { requireRuntimeConfig } from "granted/plugin-sdk/plugin-config-runtime";
+import { resolveChunkMode, type ChunkMode } from "granted/plugin-sdk/reply-chunking";
+import type { RetryConfig } from "granted/plugin-sdk/retry-runtime";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
+import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import { createChannelMessage, createThread, type RequestClient } from "./internal/discord.js";
 import { renderDiscordMarkdown } from "./markdown.js";
 import { rewriteDiscordKnownMentions } from "./mentions.js";

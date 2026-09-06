@@ -2,7 +2,7 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { openLocalFileSafely } from "openclaw/plugin-sdk/security-runtime";
+import { openLocalFileSafely } from "granted/plugin-sdk/security-runtime";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { stageIMessageAttachments } from "./media-staging.js";
 

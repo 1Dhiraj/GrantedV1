@@ -3,9 +3,9 @@ import type { MessageOptions, SessionEvent, SessionEventType } from "@github/cop
 import type {
   AgentHarnessAttemptResult,
   AgentMessage,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
-import { toErrorObject } from "openclaw/plugin-sdk/error-runtime";
-import { readNonEmptyStringPreservingWhitespace as readNonEmptyString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/agent-harness-runtime";
+import { toErrorObject } from "granted/plugin-sdk/error-runtime";
+import { readNonEmptyStringPreservingWhitespace as readNonEmptyString } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   buildAssistantMessage,
   hasOwnKeys,

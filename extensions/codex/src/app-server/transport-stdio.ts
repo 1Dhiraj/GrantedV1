@@ -6,7 +6,7 @@ import { spawn, type ChildProcessWithoutNullStreams } from "node:child_process";
 import {
   materializeWindowsSpawnProgram,
   resolveWindowsSpawnProgram,
-} from "openclaw/plugin-sdk/windows-spawn";
+} from "granted/plugin-sdk/windows-spawn";
 import type { CodexAppServerStartOptions } from "./config.js";
 import { normalizeCodexAppServerArgs } from "./launch-args.js";
 import { prepareCodexAppServerProcessRegistration } from "./transport-process-registration.js";

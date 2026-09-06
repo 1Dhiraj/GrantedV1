@@ -1,11 +1,11 @@
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import type { AgentMessage } from "openclaw/plugin-sdk/agent-core";
+import type { AgentMessage } from "granted/plugin-sdk/agent-core";
 import {
   readSessionTranscriptVisibleMessageDelta,
   type SessionTranscriptTargetParams,
-} from "openclaw/plugin-sdk/session-transcript-runtime";
+} from "granted/plugin-sdk/session-transcript-runtime";
 import { describe, expect, it } from "vitest";
 import {
   appendTranscriptMessage,

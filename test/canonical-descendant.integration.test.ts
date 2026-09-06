@@ -4,7 +4,7 @@ import { expectDefined } from "@openclaw/normalization-core";
 import {
   createPluginRuntimeMock,
   createPluginRegistry,
-} from "openclaw/plugin-sdk/plugin-test-runtime";
+} from "granted/plugin-sdk/plugin-test-runtime";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import codexPlugin from "../extensions/codex/index.js";
 import { createCanonicalForkFixtureForTest } from "../extensions/codex/test-api.js";

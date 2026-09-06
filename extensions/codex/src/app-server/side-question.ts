@@ -16,12 +16,12 @@ import {
   type EmbeddedRunAttemptParamsV2,
   type NativeHookRelayEvent,
   type NativeHookRelayRegistrationHandle,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
-import { resolveAgentWorkspaceDir } from "openclaw/plugin-sdk/agent-runtime";
-import { resolveSessionAgentIdsStrict } from "openclaw/plugin-sdk/agent-scope-runtime";
-import { loadExecApprovals } from "openclaw/plugin-sdk/exec-approvals-runtime";
-import type { PluginRuntime } from "openclaw/plugin-sdk/plugin-runtime";
-import { readStringField as readString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/agent-harness-runtime";
+import { resolveAgentWorkspaceDir } from "granted/plugin-sdk/agent-runtime";
+import { resolveSessionAgentIdsStrict } from "granted/plugin-sdk/agent-scope-runtime";
+import { loadExecApprovals } from "granted/plugin-sdk/exec-approvals-runtime";
+import type { PluginRuntime } from "granted/plugin-sdk/plugin-runtime";
+import { readStringField as readString } from "granted/plugin-sdk/string-coerce-runtime";
 import { resolveCodexAppServerForModelProvider } from "./app-server-policy.js";
 import { handleCodexAppServerApprovalRequest } from "./approval-bridge.js";
 import {
@@ -1125,7 +1125,7 @@ async function createCodexSideToolBridge(input: {
   let tools: AnyAgentTool[] = [];
   const webFetchHostnameAllowlistRef: { value?: string[] } = {};
   if (supportsModelTools(runtimeModel)) {
-    const createOpenClawCodingTools = (await import("openclaw/plugin-sdk/agent-harness"))
+    const createOpenClawCodingTools = (await import("granted/plugin-sdk/agent-harness"))
       .createOpenClawCodingTools;
     const sandboxSessionKey =
       input.params.sandboxSessionKey?.trim() ||

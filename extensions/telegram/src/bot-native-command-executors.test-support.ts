@@ -1,16 +1,16 @@
-export { createChannelPartialDeliveryError } from "openclaw/plugin-sdk/channel-inbound";
+export { createChannelPartialDeliveryError } from "granted/plugin-sdk/channel-inbound";
 import {
   createEmptyPluginRegistry,
   withPluginRuntimeRegistryScope,
-} from "openclaw/plugin-sdk/channel-test-helpers";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-export { createDeferred } from "openclaw/plugin-sdk/extension-shared";
-import { getAgentScopedMediaLocalRoots } from "openclaw/plugin-sdk/media-runtime";
-import { registerPluginCommand } from "openclaw/plugin-sdk/plugin-runtime";
-import { resolveChunkMode } from "openclaw/plugin-sdk/reply-dispatch-runtime";
-import { resolveThreadSessionKeys } from "openclaw/plugin-sdk/routing";
+} from "granted/plugin-sdk/channel-test-helpers";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+export { createDeferred } from "granted/plugin-sdk/extension-shared";
+import { getAgentScopedMediaLocalRoots } from "granted/plugin-sdk/media-runtime";
+import { registerPluginCommand } from "granted/plugin-sdk/plugin-runtime";
+import { resolveChunkMode } from "granted/plugin-sdk/reply-dispatch-runtime";
+import { resolveThreadSessionKeys } from "granted/plugin-sdk/routing";
 // Telegram tests cover bot native commands.session meta plugin behavior.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { expect, vi } from "vitest";
 import type { RegisterTelegramHandlerParams } from "./bot-handlers.types.js";
 import type { TelegramNativeCommandDeps } from "./bot-native-command-deps.runtime.js";
@@ -25,24 +25,24 @@ export { runWithTelegramUpdateProcessingFrame } from "./bot-processing-outcome.j
 // Shared executor test harness; each importing suite resets the state before use.
 
 type ResolveConfiguredBindingRouteFn =
-  typeof import("openclaw/plugin-sdk/conversation-runtime").resolveConfiguredBindingRoute;
+  typeof import("granted/plugin-sdk/conversation-runtime").resolveConfiguredBindingRoute;
 type EnsureConfiguredBindingRouteReadyFn =
-  typeof import("openclaw/plugin-sdk/conversation-runtime").ensureConfiguredBindingRouteReady;
+  typeof import("granted/plugin-sdk/conversation-runtime").ensureConfiguredBindingRouteReady;
 type DispatchReplyWithBufferedBlockDispatcherFn =
-  typeof import("openclaw/plugin-sdk/reply-dispatch-runtime").dispatchReplyWithBufferedBlockDispatcher;
+  typeof import("granted/plugin-sdk/reply-dispatch-runtime").dispatchReplyWithBufferedBlockDispatcher;
 export type DispatchReplyWithBufferedBlockDispatcherParams =
   Parameters<DispatchReplyWithBufferedBlockDispatcherFn>[0];
 type DispatchReplyWithBufferedBlockDispatcherResult = Awaited<
   ReturnType<DispatchReplyWithBufferedBlockDispatcherFn>
 >;
 type DispatchChannelInboundTurnFn =
-  typeof import("openclaw/plugin-sdk/channel-inbound").dispatchChannelInboundTurn;
+  typeof import("granted/plugin-sdk/channel-inbound").dispatchChannelInboundTurn;
 type ResolveCommandArgMenuFn =
-  typeof import("openclaw/plugin-sdk/command-auth-native").resolveCommandArgMenu;
+  typeof import("granted/plugin-sdk/command-auth-native").resolveCommandArgMenu;
 type DeliverRepliesFn = typeof import("./bot/delivery.js").deliverReplies;
-type LoadModelCatalogFn = typeof import("openclaw/plugin-sdk/agent-runtime").loadModelCatalog;
+type LoadModelCatalogFn = typeof import("granted/plugin-sdk/agent-runtime").loadModelCatalog;
 type ResolveDefaultModelForAgentFn =
-  typeof import("openclaw/plugin-sdk/agent-runtime").resolveDefaultModelForAgent;
+  typeof import("granted/plugin-sdk/agent-runtime").resolveDefaultModelForAgent;
 
 export const dispatchReplyResult: DispatchReplyWithBufferedBlockDispatcherResult = {
   queuedFinal: false,
@@ -165,7 +165,7 @@ export const executorTestMocks = {
 };
 
 vi.mock("openclaw/plugin-sdk/conversation-runtime", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/conversation-runtime")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/conversation-runtime")>(
     "openclaw/plugin-sdk/conversation-runtime",
   );
   return {
@@ -215,7 +215,7 @@ vi.mock("openclaw/plugin-sdk/conversation-runtime", async () => {
   };
 });
 vi.mock("openclaw/plugin-sdk/session-store-runtime", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/session-store-runtime")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/session-store-runtime")>(
     "openclaw/plugin-sdk/session-store-runtime",
   );
   return {
@@ -227,7 +227,7 @@ vi.mock("openclaw/plugin-sdk/session-store-runtime", async () => {
   };
 });
 vi.mock("openclaw/plugin-sdk/command-auth-native", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/command-auth-native")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/command-auth-native")>(
     "openclaw/plugin-sdk/command-auth-native",
   );
   commandAuthMocks.resolveCommandArgMenu.mockImplementation(actual.resolveCommandArgMenu);
@@ -237,7 +237,7 @@ vi.mock("openclaw/plugin-sdk/command-auth-native", async () => {
   };
 });
 vi.mock("openclaw/plugin-sdk/agent-runtime", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/agent-runtime")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/agent-runtime")>(
     "openclaw/plugin-sdk/agent-runtime",
   );
   agentRuntimeMocks.resolveDefaultModelForAgent.mockImplementation(

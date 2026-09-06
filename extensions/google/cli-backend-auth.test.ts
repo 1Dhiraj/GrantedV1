@@ -1,9 +1,9 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { CliBackendAuthProfilePreparationError } from "openclaw/plugin-sdk/cli-backend";
-import { resolvePreferredOpenClawTmpDir } from "openclaw/plugin-sdk/temp-path";
-import { captureEnv, withTempDir } from "openclaw/plugin-sdk/test-env";
+import { CliBackendAuthProfilePreparationError } from "granted/plugin-sdk/cli-backend";
+import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
+import { captureEnv, withTempDir } from "granted/plugin-sdk/test-env";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { buildGoogleGeminiCliBackend } from "./cli-backend.js";
 

@@ -1,6 +1,6 @@
 // Google tests cover web search provider plugin behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { withEnvAsync, withFetchPreconnect } from "openclaw/plugin-sdk/test-env";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { withEnvAsync, withFetchPreconnect } from "granted/plugin-sdk/test-env";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { createGeminiWebSearchProvider } from "./src/gemini-web-search-provider.js";
 

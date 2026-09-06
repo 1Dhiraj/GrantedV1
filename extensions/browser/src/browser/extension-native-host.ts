@@ -1,8 +1,8 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import { isPathInside } from "openclaw/plugin-sdk/file-access-runtime";
-import { resolveStateDir } from "openclaw/plugin-sdk/state-paths";
-import { asNullableRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { isPathInside } from "granted/plugin-sdk/file-access-runtime";
+import { resolveStateDir } from "granted/plugin-sdk/state-paths";
+import { asNullableRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   type BrowserNativeBootstrapResponse,
   type BrowserNativeRelayEnsureStatus,

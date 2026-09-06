@@ -1,8 +1,8 @@
 // Slack plugin module implements interactions.modal behavior.
 import type { AllMiddlewareArgs } from "@slack/bolt";
-import { requestHeartbeat } from "openclaw/plugin-sdk/heartbeat-runtime";
-import { resolveAgentIdFromSessionKey } from "openclaw/plugin-sdk/routing";
-import { enqueueRoutedSystemEvent } from "openclaw/plugin-sdk/system-event-runtime";
+import { requestHeartbeat } from "granted/plugin-sdk/heartbeat-runtime";
+import { resolveAgentIdFromSessionKey } from "granted/plugin-sdk/routing";
+import { enqueueRoutedSystemEvent } from "granted/plugin-sdk/system-event-runtime";
 import { dispatchSlackPluginInteractiveHandler } from "../../interactive-dispatch.js";
 import { parseSlackModalPrivateMetadata } from "../../modal-metadata.js";
 import { authorizeSlackSystemEventSender } from "../auth.js";

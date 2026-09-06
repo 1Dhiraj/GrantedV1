@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { createInterface } from "node:readline";
-import { withTempDir } from "openclaw/plugin-sdk/test-env";
+import { withTempDir } from "granted/plugin-sdk/test-env";
 import { describe, expect, it, vi } from "vitest";
 import { withEphemeralCodexAuthStore } from "./auth-start-options.js";
 import type { CodexAppServerStartOptions } from "./config-contracts.js";

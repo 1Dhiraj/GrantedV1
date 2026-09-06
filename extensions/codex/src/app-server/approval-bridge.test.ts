@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { reviewExecRequestWithConfiguredModel } from "openclaw/plugin-sdk/agent-harness-exec-review-runtime";
+import { reviewExecRequestWithConfiguredModel } from "granted/plugin-sdk/agent-harness-exec-review-runtime";
 import {
   callGatewayTool,
   buildAgentHookContextChannelFields,
@@ -10,10 +10,10 @@ import {
   resolveNativeHookRelayDeferredToolApproval,
   runBeforeToolCallHook,
   type EmbeddedRunAttemptParamsV2 as EmbeddedRunAttemptParams,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
-import { prepareSystemRunMutableFileApproval } from "openclaw/plugin-sdk/plugin-test-runtime";
+} from "granted/plugin-sdk/agent-harness-runtime";
+import { prepareSystemRunMutableFileApproval } from "granted/plugin-sdk/plugin-test-runtime";
 // Codex tests cover approval bridge plugin behavior.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { handleCodexAppServerApprovalRequest } from "./approval-bridge.js";
 import { codexTestTurnIds } from "./codex-app-server.test-fixtures.js";
@@ -24,7 +24,7 @@ import {
 } from "./plugin-approval-roundtrip.js";
 
 vi.mock("openclaw/plugin-sdk/agent-harness-runtime", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("openclaw/plugin-sdk/agent-harness-runtime")>()),
+  ...(await importOriginal<typeof import("granted/plugin-sdk/agent-harness-runtime")>()),
   callGatewayTool: vi.fn(),
   hasNativeHookRelayInvocation: vi.fn(() => false),
   invokeNativeHookRelay: vi.fn(),
@@ -37,7 +37,7 @@ vi.mock("openclaw/plugin-sdk/agent-harness-runtime", async (importOriginal) => (
 
 vi.mock("openclaw/plugin-sdk/agent-harness-exec-review-runtime", async (importOriginal) => ({
   ...(await importOriginal<
-    typeof import("openclaw/plugin-sdk/agent-harness-exec-review-runtime")
+    typeof import("granted/plugin-sdk/agent-harness-exec-review-runtime")
   >()),
   reviewExecRequestWithConfiguredModel: vi.fn(),
 }));

@@ -1,6 +1,6 @@
 // Covers agent harness selection, fallback behavior, and compaction routing.
 import path from "node:path";
-import type { Model } from "openclaw/plugin-sdk/llm";
+import type { Model } from "granted/plugin-sdk/llm";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { createTempDirTracker } from "../../../test/helpers/temp-dir.js";
 import type { GrantedConfig } from "../../config/config.js";

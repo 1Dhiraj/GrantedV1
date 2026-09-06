@@ -1,13 +1,13 @@
 // Msteams plugin module implements access behavior.
-import { formatAllowlistMatchMeta } from "openclaw/plugin-sdk/allow-from";
-import { logInboundDrop } from "openclaw/plugin-sdk/channel-inbound";
+import { formatAllowlistMatchMeta } from "granted/plugin-sdk/allow-from";
+import { logInboundDrop } from "granted/plugin-sdk/channel-inbound";
 import {
   channelIngressRoutes,
   resolveStableChannelMessageIngress,
   type ChannelIngressContextBinding,
   type StableChannelIngressIdentityParams,
-} from "openclaw/plugin-sdk/channel-ingress-runtime";
-import { normalizeOptionalLowercaseString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/channel-ingress-runtime";
+import { normalizeOptionalLowercaseString } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   DEFAULT_ACCOUNT_ID,
   createChannelPairingController,

@@ -5,12 +5,12 @@ import path from "node:path";
 import {
   embeddedAgentLog,
   type EmbeddedRunAttemptParamsV2 as EmbeddedRunAttemptParams,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
+} from "granted/plugin-sdk/agent-harness-runtime";
 import {
   clearMemoryPluginState,
   registerMemoryCapability,
-} from "openclaw/plugin-sdk/memory-host-core";
-import { withTempDir } from "openclaw/plugin-sdk/test-env";
+} from "granted/plugin-sdk/memory-host-core";
+import { withTempDir } from "granted/plugin-sdk/test-env";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   buildCodexOpenClawPromptContext,

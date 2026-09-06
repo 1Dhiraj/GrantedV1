@@ -4,7 +4,7 @@ import path from "node:path";
 import {
   clearConfigCache,
   clearRuntimeConfigSnapshot,
-} from "openclaw/plugin-sdk/runtime-config-snapshot";
+} from "granted/plugin-sdk/runtime-config-snapshot";
 import { describe, expect, it, vi } from "vitest";
 import { upsertSessionEntryCore } from "../../../../src/config/sessions/session-accessor.js";
 import { closeOpenClawAgentDatabasesForTest } from "../../../../src/state/openclaw-agent-db.js";

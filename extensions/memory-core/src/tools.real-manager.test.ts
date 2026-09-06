@@ -1,12 +1,12 @@
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
 // Memory Core integration tests exercise the real SQLite search manager through tools.
-import type { GrantedConfig } from "openclaw/plugin-sdk/memory-core-host-runtime-core";
+import type { GrantedConfig } from "granted/plugin-sdk/memory-core-host-runtime-core";
 import {
   clearMemoryPluginState,
   registerMemoryCorpusSupplement,
-} from "openclaw/plugin-sdk/memory-host-core";
-import { openOpenClawAgentDatabase } from "openclaw/plugin-sdk/sqlite-runtime";
-import { closeOpenClawAgentDatabasesForTest } from "openclaw/plugin-sdk/sqlite-runtime-testing";
+} from "granted/plugin-sdk/memory-host-core";
+import { openOpenClawAgentDatabase } from "granted/plugin-sdk/sqlite-runtime";
+import { closeOpenClawAgentDatabasesForTest } from "granted/plugin-sdk/sqlite-runtime-testing";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import * as generationLease from "./memory/manager-index-generation-lease.js";
 import {

@@ -2,8 +2,8 @@ import type {
   ProviderCatalogContext,
   ProviderPrepareDynamicModelContext,
   ProviderRuntimeModel,
-} from "openclaw/plugin-sdk/plugin-entry";
-import type { ModelProviderConfig } from "openclaw/plugin-sdk/provider-model-shared";
+} from "granted/plugin-sdk/plugin-entry";
+import type { ModelProviderConfig } from "granted/plugin-sdk/provider-model-shared";
 import { LLAMA_CPP_PROVIDER_ID } from "../defaults.js";
 import {
   hasLlamaServerAuthorizationHeader,

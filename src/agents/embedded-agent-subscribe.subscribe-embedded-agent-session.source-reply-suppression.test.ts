@@ -1,6 +1,6 @@
 // Source-reply suppression after message-tool delivery.
 import { asOptionalRecord } from "@openclaw/normalization-core/record-coerce";
-import type { AssistantMessage } from "openclaw/plugin-sdk/llm";
+import type { AssistantMessage } from "granted/plugin-sdk/llm";
 import { describe, expect, it, vi } from "vitest";
 import { recordEmbeddedToolReceipt } from "./embedded-agent-runner/tool-send-receipts.js";
 import {

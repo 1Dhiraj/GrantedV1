@@ -5,9 +5,9 @@ import {
   type ChannelIngressMonitorLifecycle,
   type ChannelIngressQueue,
   type ChannelIngressQueueRecord,
-} from "openclaw/plugin-sdk/channel-outbound";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { clampPositiveTimerTimeoutMs } from "openclaw/plugin-sdk/number-runtime";
+} from "granted/plugin-sdk/channel-outbound";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { clampPositiveTimerTimeoutMs } from "granted/plugin-sdk/number-runtime";
 import {
   fitsTelegramCallbackData,
   hasTelegramApprovalCallbackPrefix,

@@ -1,5 +1,5 @@
-import type { DiscordAccountConfig, GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+import type { DiscordAccountConfig, GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import type { APIVoiceState, Client } from "../internal/discord.js";
 import type { GatewayPlugin } from "../internal/gateway.js";
 import { type DiscordVoiceIngressContext, resolveDiscordVoiceIngressContext } from "./ingress.js";

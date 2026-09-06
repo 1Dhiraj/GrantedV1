@@ -1,6 +1,6 @@
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import type { MemoryReadResult } from "openclaw/plugin-sdk/memory-core-host-engine-storage";
-import { jsonResult } from "openclaw/plugin-sdk/memory-core-host-runtime-core";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
+import type { MemoryReadResult } from "granted/plugin-sdk/memory-core-host-engine-storage";
+import { jsonResult } from "granted/plugin-sdk/memory-core-host-runtime-core";
 import {
   attemptMemoryCorpus,
   composeMemoryCorpusMetadata,

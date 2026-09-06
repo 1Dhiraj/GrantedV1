@@ -5,7 +5,7 @@ import type { IncomingMessage, ServerResponse } from "node:http";
 import net from "node:net";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
-import { withServer, withTempDir } from "openclaw/plugin-sdk/test-env";
+import { withServer, withTempDir } from "granted/plugin-sdk/test-env";
 import { expect, test } from "vitest";
 import { createQaGatewayChild, writeJson } from "../../../../extensions/qa-lab/api.js";
 import {

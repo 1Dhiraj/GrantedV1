@@ -1,4 +1,4 @@
-import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginApi } from "granted/plugin-sdk/plugin-entry";
 import { validateSupportedA2UIJsonl } from "./a2ui-jsonl.js";
 
 const A2UI_V08_BUNDLE_PATH = "/__openclaw__/a2ui/a2ui.bundle.js";

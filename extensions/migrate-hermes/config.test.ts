@@ -1,12 +1,12 @@
 // Migrate Hermes tests cover config plugin behavior.
 import path from "node:path";
-import { readConfigFileSnapshot } from "openclaw/plugin-sdk/health";
-import type { GrantedConfig } from "openclaw/plugin-sdk/provider-auth";
+import { readConfigFileSnapshot } from "granted/plugin-sdk/health";
+import type { GrantedConfig } from "granted/plugin-sdk/provider-auth";
 import {
   resolvePreferredOpenClawTmpDir,
   tempWorkspace,
   type TempWorkspace,
-} from "openclaw/plugin-sdk/temp-path";
+} from "granted/plugin-sdk/temp-path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { buildHermesMigrationProvider } from "./provider.js";
 import { makeConfigRuntime, makeContext, writeFile } from "./test/provider-helpers.js";

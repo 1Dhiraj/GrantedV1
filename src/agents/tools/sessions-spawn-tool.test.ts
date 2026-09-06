@@ -1,7 +1,7 @@
 import path from "node:path";
 // sessions_spawn tool tests cover model-visible schema gating, ACP/subagent
 // dispatch, and result details for spawned child sessions.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   configureExecutionDecisionWorkSink,

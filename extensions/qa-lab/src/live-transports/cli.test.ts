@@ -1,6 +1,6 @@
 // Qa Lab tests cover live transport CLI and adapter contribution discovery.
 import { Command } from "commander";
-import type { QaRunnerCliContribution } from "openclaw/plugin-sdk/qa-runner-runtime";
+import type { QaRunnerCliContribution } from "granted/plugin-sdk/qa-runner-runtime";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const {

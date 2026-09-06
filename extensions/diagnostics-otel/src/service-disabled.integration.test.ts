@@ -4,7 +4,7 @@ import { context, metrics, propagation, ROOT_CONTEXT, trace } from "@opentelemet
 import { logs } from "@opentelemetry/api-logs";
 import { AsyncLocalStorageContextManager } from "@opentelemetry/context-async-hooks";
 import { W3CTraceContextPropagator } from "@opentelemetry/core";
-import { resetDiagnosticEventsForTest } from "openclaw/plugin-sdk/diagnostic-runtime";
+import { resetDiagnosticEventsForTest } from "granted/plugin-sdk/diagnostic-runtime";
 import { afterEach, beforeEach, expect, test, vi } from "vitest";
 import { startLocalOtlpReceiver } from "../../../test/e2e/qa-lab/runtime/otel-test-support.js";
 import {

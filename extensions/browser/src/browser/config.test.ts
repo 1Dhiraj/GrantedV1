@@ -2,8 +2,8 @@
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import type { BrowserConfig, BrowserProfileConfig } from "openclaw/plugin-sdk/config-contracts";
-import { withEnv, withTempDir } from "openclaw/plugin-sdk/test-env";
+import type { BrowserConfig, BrowserProfileConfig } from "granted/plugin-sdk/config-contracts";
+import { withEnv, withTempDir } from "granted/plugin-sdk/test-env";
 import { describe, expect, it, vi } from "vitest";
 import { resolveUserPath } from "../utils.js";
 import {

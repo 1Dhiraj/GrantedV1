@@ -1,8 +1,8 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { isPathInside } from "openclaw/plugin-sdk/file-access-runtime";
-import { resolveRequiredHomeDir, resolveStateDir } from "openclaw/plugin-sdk/state-paths";
+import { isPathInside } from "granted/plugin-sdk/file-access-runtime";
+import { resolveRequiredHomeDir, resolveStateDir } from "granted/plugin-sdk/state-paths";
 import type { CodexAppServerClient } from "./client.js";
 import type { JsonObject, JsonValue } from "./protocol.js";
 

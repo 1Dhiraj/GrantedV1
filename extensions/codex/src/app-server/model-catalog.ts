@@ -1,5 +1,5 @@
-import type { AgentHarnessModelCatalogParams } from "openclaw/plugin-sdk/agent-harness-runtime";
-import type { ModelCatalogEntry } from "openclaw/plugin-sdk/agent-runtime";
+import type { AgentHarnessModelCatalogParams } from "granted/plugin-sdk/agent-harness-runtime";
+import type { ModelCatalogEntry } from "granted/plugin-sdk/agent-runtime";
 import { readCodexPluginConfig } from "./config-parsing.js";
 import { resolveCodexAppServerRuntimeOptions } from "./config-runtime.js";
 import { buildCodexRuntimeModelParams } from "./model-runtime.js";

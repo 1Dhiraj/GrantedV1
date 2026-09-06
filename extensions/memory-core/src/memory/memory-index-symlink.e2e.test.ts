@@ -2,7 +2,7 @@
 import { spawnSync } from "node:child_process";
 import fs from "node:fs/promises";
 import path from "node:path";
-import { useAutoCleanupTempDirTracker } from "openclaw/plugin-sdk/test-env";
+import { useAutoCleanupTempDirTracker } from "granted/plugin-sdk/test-env";
 import { afterEach, describe, expect, it } from "vitest";
 
 const tempDirs = useAutoCleanupTempDirTracker(afterEach);
@@ -31,7 +31,7 @@ describe("memory index CLI", () => {
 
       const result = spawnSync(
         process.execPath,
-        [path.resolve("openclaw.mjs"), "memory", "index", "--agent", "main", "--force"],
+        [path.resolve("granted.mjs"), "memory", "index", "--agent", "main", "--force"],
         {
           cwd: path.resolve("."),
           encoding: "utf8",

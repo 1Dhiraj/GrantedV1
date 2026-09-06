@@ -22,8 +22,8 @@ async function makeLauncherVersionFixture(
 ): Promise<string> {
   const fixtureRoot = makeTempDir(fixtureRoots, "openclaw-launcher-version-");
   await fs.copyFile(
-    path.resolve(process.cwd(), "openclaw.mjs"),
-    path.join(fixtureRoot, "openclaw.mjs"),
+    path.resolve(process.cwd(), "granted.mjs"),
+    path.join(fixtureRoot, "granted.mjs"),
   );
   await fs.copyFile(
     path.resolve(process.cwd(), "node-version.mjs"),
@@ -81,7 +81,7 @@ function runLauncherVersion(
 ) {
   return spawnSync(
     process.execPath,
-    [path.join(fixtureRoot, "openclaw.mjs"), options.flag ?? "--version"],
+    [path.join(fixtureRoot, "granted.mjs"), options.flag ?? "--version"],
     {
       cwd: fixtureRoot,
       env: {
@@ -230,7 +230,7 @@ describe("openclaw launcher version provenance", () => {
 
     const argumentResult = spawnSync(
       process.execPath,
-      [path.join(fixtureRoot, "openclaw.mjs"), "--container", "demo", "--version"],
+      [path.join(fixtureRoot, "granted.mjs"), "--container", "demo", "--version"],
       {
         cwd: fixtureRoot,
         env: { ...process.env, GRANTED_CONTAINER: undefined },

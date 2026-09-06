@@ -1,17 +1,17 @@
-import { collectErrorGraphCandidates, extractErrorCode } from "openclaw/plugin-sdk/error-runtime";
+import { collectErrorGraphCandidates, extractErrorCode } from "granted/plugin-sdk/error-runtime";
 // Openai plugin module implements openai chatgpt device code behavior.
 import {
   shouldUseEnvHttpProxyForUrl,
   withTrustedEnvProxyGuardedFetchMode,
-} from "openclaw/plugin-sdk/fetch-runtime";
+} from "granted/plugin-sdk/fetch-runtime";
 import {
   positiveSecondsToSafeMilliseconds,
   resolveExpiresAtMsFromDurationSeconds,
-} from "openclaw/plugin-sdk/number-runtime";
-import { resolveOpenAICodexAccessTokenExpiry } from "openclaw/plugin-sdk/provider-auth";
-import { readResponseTextLimited } from "openclaw/plugin-sdk/provider-http";
-import { classifyTransientNetworkErrorCode } from "openclaw/plugin-sdk/retry-runtime";
-import { fetchWithSsrFGuard } from "openclaw/plugin-sdk/ssrf-runtime";
+} from "granted/plugin-sdk/number-runtime";
+import { resolveOpenAICodexAccessTokenExpiry } from "granted/plugin-sdk/provider-auth";
+import { readResponseTextLimited } from "granted/plugin-sdk/provider-http";
+import { classifyTransientNetworkErrorCode } from "granted/plugin-sdk/retry-runtime";
+import { fetchWithSsrFGuard } from "granted/plugin-sdk/ssrf-runtime";
 import { trimNonEmptyString } from "./openai-chatgpt-shared.js";
 
 const OPENAI_AUTH_BASE_URL = "https://auth.openai.com";

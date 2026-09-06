@@ -4,9 +4,9 @@ import type { Command } from "commander";
 import {
   mutateConfigFile,
   readConfigFileSnapshotForWrite,
-} from "openclaw/plugin-sdk/config-mutation";
-import { createClackPrompter } from "openclaw/plugin-sdk/setup-runtime";
-import { asNullableRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/config-mutation";
+import { createClackPrompter } from "granted/plugin-sdk/setup-runtime";
+import { asNullableRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   applyApprovalMigration,
   listLegacyApprovalItems,

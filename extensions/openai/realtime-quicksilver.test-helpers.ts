@@ -1,6 +1,6 @@
 import { EventEmitter } from "node:events";
 import type { IncomingMessage, ServerResponse } from "node:http";
-import { createMockIncomingRequest } from "openclaw/plugin-sdk/test-env";
+import { createMockIncomingRequest } from "granted/plugin-sdk/test-env";
 import { vi } from "vitest";
 import { createOpenAIQuicksilverBrowserSessionBroker } from "./realtime-quicksilver-session.js";
 

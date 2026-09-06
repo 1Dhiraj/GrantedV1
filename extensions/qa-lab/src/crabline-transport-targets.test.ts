@@ -1,5 +1,5 @@
-import { fetchWithSsrFGuard } from "openclaw/plugin-sdk/ssrf-runtime";
-import { withTempDir } from "openclaw/plugin-sdk/test-env";
+import { fetchWithSsrFGuard } from "granted/plugin-sdk/ssrf-runtime";
+import { withTempDir } from "granted/plugin-sdk/test-env";
 import { describe, expect, it } from "vitest";
 import { createQaBusState } from "./bus-state.js";
 import { createQaCrablineTransportAdapter } from "./crabline-transport.js";

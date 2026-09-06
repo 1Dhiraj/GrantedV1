@@ -2,8 +2,8 @@ import { WebClient, type WebClientOptions } from "@slack/web-api";
 import type {
   ChannelMessageActionContext,
   ChannelMessageActionName,
-} from "openclaw/plugin-sdk/channel-contract";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+} from "granted/plugin-sdk/channel-contract";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { createSlackActions } from "./channel-actions.js";
 import * as slackClient from "./client.js";

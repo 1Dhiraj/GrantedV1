@@ -1,4 +1,4 @@
-import { withTempHome as withBaseTempHome } from "openclaw/plugin-sdk/test-env";
+import { withTempHome as withBaseTempHome } from "granted/plugin-sdk/test-env";
 import { describe, expect, it } from "vitest";
 import { GRANTED_STATE_SCHEMA_VERSION } from "../state/openclaw-state-db-contract.js";
 import {

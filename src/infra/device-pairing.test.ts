@@ -1,5 +1,5 @@
 // Covers device pairing, token, and role lifecycle behavior.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterAll, beforeAll, beforeEach, describe, expect, test } from "vitest";
 import {
   FULL_ACCESS_PAIRING_SETUP_BOOTSTRAP_PROFILE,

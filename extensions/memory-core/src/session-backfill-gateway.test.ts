@@ -1,5 +1,5 @@
-import type { GatewayRequestHandlerOptions } from "openclaw/plugin-sdk/gateway-runtime";
-import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
+import type { GatewayRequestHandlerOptions } from "granted/plugin-sdk/gateway-runtime";
+import type { GrantedPluginApi } from "granted/plugin-sdk/plugin-entry";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { registerSessionBackfillGatewayMethods } from "./session-backfill-gateway.js";
 import { executeSessionBackfill, executeSessionBackfillBatch } from "./session-backfill.js";

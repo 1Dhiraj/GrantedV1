@@ -2,23 +2,23 @@
  * Parses Codex account rate-limit payloads into user-facing usage summaries,
  * reset hints, and enriched usage-limit error messages.
  */
-import { expectDefined } from "openclaw/plugin-sdk/expect-runtime";
+import { expectDefined } from "granted/plugin-sdk/expect-runtime";
 import {
   MAX_DATE_TIMESTAMP_MS,
   resolveExpiresAtMsFromEpochSeconds,
-} from "openclaw/plugin-sdk/number-runtime";
+} from "granted/plugin-sdk/number-runtime";
 import {
   clampPercent,
   PROVIDER_LABELS,
   type ProviderUsageSnapshot,
   type UsageWindow,
-} from "openclaw/plugin-sdk/provider-usage";
+} from "granted/plugin-sdk/provider-usage";
 import {
   asBoolean,
   asFiniteNumber,
   normalizeOptionalString,
   parseStrictFiniteNumber,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import { isJsonObject, type JsonObject, type JsonValue } from "./protocol.js";
 
 const CODEX_LIMIT_ID = "codex";

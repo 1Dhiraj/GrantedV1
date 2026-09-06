@@ -1,4 +1,4 @@
-import { MAX_TIMER_TIMEOUT_SECONDS } from "openclaw/plugin-sdk/number-runtime";
+import { MAX_TIMER_TIMEOUT_SECONDS } from "granted/plugin-sdk/number-runtime";
 import { describe, expect, test } from "vitest";
 import { createMxcPluginConfigSchema, resolveConfig } from "../src/config.js";
 

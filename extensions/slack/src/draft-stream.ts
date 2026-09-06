@@ -1,8 +1,8 @@
 // Slack plugin module implements draft stream behavior.
 import type { MessageMetadata } from "@slack/types";
 import type { Block, KnownBlock } from "@slack/web-api";
-import { createFinalizableDraftStreamControlsForState } from "openclaw/plugin-sdk/channel-outbound";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import { createFinalizableDraftStreamControlsForState } from "granted/plugin-sdk/channel-outbound";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { deleteSlackMessage, editSlackMessage } from "./actions.js";
 import { trackSlackDraftMessage } from "./draft-message-boundaries.js";
 import { formatSlackError } from "./errors.js";

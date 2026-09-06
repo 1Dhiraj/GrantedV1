@@ -3,8 +3,8 @@ import {
   createChannelIngressResolver,
   defineStableChannelIngressIdentity,
   type ChannelIngressEventInput,
-} from "openclaw/plugin-sdk/channel-ingress-runtime";
-import type { DmPolicy, GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+} from "granted/plugin-sdk/channel-ingress-runtime";
+import type { DmPolicy, GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { normalizeAllowFrom, type NormalizedAllowFrom } from "./bot-access.js";
 
 const TELEGRAM_CHANNEL_ID = "telegram";

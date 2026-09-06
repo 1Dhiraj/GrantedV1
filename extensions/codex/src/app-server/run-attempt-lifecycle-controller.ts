@@ -6,7 +6,7 @@ import {
   resolveAgentRunAbortLifecycleFields,
   resolveFastModeForElapsed,
   type EmbeddedRunAttemptParamsV2 as EmbeddedRunAttemptParams,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
+} from "granted/plugin-sdk/agent-harness-runtime";
 import { reportCodexExecutionNotification } from "./attempt-notification-state.js";
 import {
   resolveTerminalDynamicToolBatchAction,

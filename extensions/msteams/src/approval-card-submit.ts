@@ -1,10 +1,10 @@
-import { DEFAULT_ACCOUNT_ID } from "openclaw/plugin-sdk/account-id";
+import { DEFAULT_ACCOUNT_ID } from "granted/plugin-sdk/account-id";
 import {
   resolveApprovalOverGateway,
   type ApprovalResolveResult,
-} from "openclaw/plugin-sdk/approval-gateway-runtime";
-import { isApprovalNotFoundError } from "openclaw/plugin-sdk/error-runtime";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/approval-gateway-runtime";
+import { isApprovalNotFoundError } from "granted/plugin-sdk/error-runtime";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import { msTeamsApprovalAuth } from "./approval-auth.js";
 import {
   claimMSTeamsApprovalCardBinding,

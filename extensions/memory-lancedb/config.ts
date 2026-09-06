@@ -1,7 +1,7 @@
 // Memory Lancedb helper module supports config behavior.
 import { homedir } from "node:os";
 import { join } from "node:path";
-import { parseFiniteNumber } from "openclaw/plugin-sdk/number-runtime";
+import { parseFiniteNumber } from "granted/plugin-sdk/number-runtime";
 
 export type MemoryConfig = {
   embedding: {

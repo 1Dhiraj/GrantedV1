@@ -1,8 +1,8 @@
-import { normalizeAccountId } from "openclaw/plugin-sdk/account-id";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import { parseStrictInteger } from "openclaw/plugin-sdk/number-runtime";
-import { readByteStreamWithLimit } from "openclaw/plugin-sdk/response-limit-runtime";
-import { formatZonedTimestamp } from "openclaw/plugin-sdk/time-runtime";
+import { normalizeAccountId } from "granted/plugin-sdk/account-id";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
+import { parseStrictInteger } from "granted/plugin-sdk/number-runtime";
+import { readByteStreamWithLimit } from "granted/plugin-sdk/response-limit-runtime";
+import { formatZonedTimestamp } from "granted/plugin-sdk/time-runtime";
 import { resolveMatrixRoomKeyBackupIssue } from "./matrix/backup-health.js";
 import { resolveMatrixAuthContext } from "./matrix/client.js";
 import { setMatrixSdkConsoleLogging, setMatrixSdkLogMode } from "./matrix/client/logging.js";

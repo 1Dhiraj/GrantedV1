@@ -1,8 +1,8 @@
-import { normalizeUsage } from "openclaw/plugin-sdk/agent-harness-runtime";
+import { normalizeUsage } from "granted/plugin-sdk/agent-harness-runtime";
 import {
   asSafeIntegerInRange,
   readStringField as readString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import { isJsonObject, type JsonObject } from "./protocol.js";
 
 function readTokenCount(record: JsonObject, key: string): number | undefined {

@@ -1,7 +1,7 @@
 // Covers bundling rules encoded in the root tsdown config.
 import { readFileSync } from "node:fs";
 import path from "node:path";
-import { bundledPluginRoot } from "openclaw/plugin-sdk/test-fixtures";
+import { bundledPluginRoot } from "granted/plugin-sdk/test-fixtures";
 import { describe, expect, it } from "vitest";
 import { GRANTED_AGENT_SCHEMA_SQL } from "../../src/state/openclaw-agent-schema.js";
 import { GRANTED_STATE_SCHEMA_SQL } from "../../src/state/openclaw-state-schema.js";

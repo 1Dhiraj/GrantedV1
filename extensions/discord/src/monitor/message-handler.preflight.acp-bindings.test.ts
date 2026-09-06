@@ -1,5 +1,5 @@
 // Discord tests cover message handler.preflight.acp bindings plugin behavior.
-import * as conversationBindingRuntime from "openclaw/plugin-sdk/conversation-binding-runtime";
+import * as conversationBindingRuntime from "granted/plugin-sdk/conversation-binding-runtime";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const ensureConfiguredBindingRouteReadyMock = vi.hoisted(() => vi.fn());
@@ -14,13 +14,13 @@ vi.mock("openclaw/plugin-sdk/conversation-binding-runtime", async () => {
       resolveConfiguredBindingRouteMock,
     },
     () =>
-      vi.importActual<typeof import("openclaw/plugin-sdk/conversation-binding-runtime")>(
+      vi.importActual<typeof import("granted/plugin-sdk/conversation-binding-runtime")>(
         "openclaw/plugin-sdk/conversation-binding-runtime",
       ),
   );
 });
 
-import { testing as sessionBindingTesting } from "openclaw/plugin-sdk/conversation-runtime";
+import { testing as sessionBindingTesting } from "granted/plugin-sdk/conversation-runtime";
 import { preflightDiscordMessage } from "./message-handler.preflight.js";
 import {
   createDiscordMessage,
@@ -152,7 +152,7 @@ function createBasePreflightParams(overrides?: Record<string, unknown>) {
       discordConfig: {
         allowBots: true,
       } as NonNullable<
-        import("openclaw/plugin-sdk/config-contracts").GrantedConfig["channels"]
+        import("granted/plugin-sdk/config-contracts").GrantedConfig["channels"]
       >["discord"],
       data: createGuildEvent({
         channelId: CHANNEL_ID,
@@ -166,7 +166,7 @@ function createBasePreflightParams(overrides?: Record<string, unknown>) {
     discordConfig: {
       allowBots: true,
     } as NonNullable<
-      import("openclaw/plugin-sdk/config-contracts").GrantedConfig["channels"]
+      import("granted/plugin-sdk/config-contracts").GrantedConfig["channels"]
     >["discord"],
     ...overrides,
   } satisfies Parameters<typeof preflightDiscordMessage>[0];

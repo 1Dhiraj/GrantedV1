@@ -1,6 +1,6 @@
 import type { Command } from "commander";
-import { normalizeAccountId } from "openclaw/plugin-sdk/account-id";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
+import { normalizeAccountId } from "granted/plugin-sdk/account-id";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
 import * as cli from "./cli-shared.js";
 import { resolveMatrixAccountConfig } from "./matrix/accounts.js";
 import { listMatrixOwnDevices } from "./matrix/actions/devices.js";

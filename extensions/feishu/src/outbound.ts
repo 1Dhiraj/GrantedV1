@@ -1,30 +1,30 @@
 // Feishu plugin module implements outbound behavior.
 import path from "node:path";
-import { isChannelPartialDeliveryError } from "openclaw/plugin-sdk/channel-inbound";
+import { isChannelPartialDeliveryError } from "granted/plugin-sdk/channel-inbound";
 import {
   createMessageReceiptFromOutboundResults,
   createReplyToFanout,
-} from "openclaw/plugin-sdk/channel-outbound";
+} from "granted/plugin-sdk/channel-outbound";
 import {
   attachChannelToResult,
   createAttachedChannelResultAdapter,
-} from "openclaw/plugin-sdk/channel-send-result";
-import { resolveLegacyInteractiveTextFallback } from "openclaw/plugin-sdk/interactive-runtime";
-import { resolveMarkdownTableMode } from "openclaw/plugin-sdk/markdown-table-runtime";
-import { resolveChunkMode, resolveTextChunkLimit } from "openclaw/plugin-sdk/reply-chunking";
+} from "granted/plugin-sdk/channel-send-result";
+import { resolveLegacyInteractiveTextFallback } from "granted/plugin-sdk/interactive-runtime";
+import { resolveMarkdownTableMode } from "granted/plugin-sdk/markdown-table-runtime";
+import { resolveChunkMode, resolveTextChunkLimit } from "granted/plugin-sdk/reply-chunking";
 import {
   getReplyPayloadTtsSupplement,
   resolvePayloadMediaUrls,
   sendPayloadMediaSequenceAndFinalize,
   sendTextMediaPayload,
-} from "openclaw/plugin-sdk/reply-payload";
-import { statRegularFileSync } from "openclaw/plugin-sdk/security-runtime";
+} from "granted/plugin-sdk/reply-payload";
+import { statRegularFileSync } from "granted/plugin-sdk/security-runtime";
 import {
   isRecord,
   normalizeLowercaseStringOrEmpty,
   normalizeStringEntries,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
-import { convertMarkdownTables } from "openclaw/plugin-sdk/text-chunking";
+} from "granted/plugin-sdk/string-coerce-runtime";
+import { convertMarkdownTables } from "granted/plugin-sdk/text-chunking";
 import type { ChannelOutboundAdapter } from "../runtime-api.js";
 import { resolveFeishuAccount } from "./accounts.js";
 import { createFeishuClient } from "./client.js";

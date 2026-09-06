@@ -13,21 +13,21 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { expectDefined } from "@openclaw/normalization-core";
 import { Command } from "commander";
-import { isToolResultError } from "openclaw/plugin-sdk/agent-harness-runtime";
+import { isToolResultError } from "granted/plugin-sdk/agent-harness-runtime";
 import {
   buildContractReplyPayloads,
   createContractToolTerminalObserver,
-} from "openclaw/plugin-sdk/agent-runtime-test-contracts";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
+} from "granted/plugin-sdk/agent-runtime-test-contracts";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
 import {
   clearMemoryPluginState,
   getMemoryCapabilityRegistration,
   listActiveMemoryPublicArtifacts,
   registerMemoryCapability,
   type MemoryPluginCapability,
-} from "openclaw/plugin-sdk/memory-host-core";
-import { MESSAGE_TOOL_DELIVERY_HINTS } from "openclaw/plugin-sdk/message-tool-delivery-hints";
-import { MAX_TIMER_TIMEOUT_MS } from "openclaw/plugin-sdk/number-runtime";
+} from "granted/plugin-sdk/memory-host-core";
+import { MESSAGE_TOOL_DELIVERY_HINTS } from "granted/plugin-sdk/message-tool-delivery-hints";
+import { MAX_TIMER_TIMEOUT_MS } from "granted/plugin-sdk/number-runtime";
 import { afterEach, describe, test, expect, vi } from "vitest";
 import memoryPlugin, {
   detectCategory,
@@ -53,7 +53,7 @@ const moduleMocks = vi.hoisted(() => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/runtime-env", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/runtime-env")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/runtime-env")>();
   return {
     ...actual,
     ensureGlobalUndiciEnvProxyDispatcher: () => {
@@ -80,7 +80,7 @@ vi.mock("openai", async (importOriginal) => {
 
 vi.mock("openclaw/plugin-sdk/memory-core-host-engine-embeddings", async (importOriginal) => {
   const actual =
-    await importOriginal<typeof import("openclaw/plugin-sdk/memory-core-host-engine-embeddings")>();
+    await importOriginal<typeof import("granted/plugin-sdk/memory-core-host-engine-embeddings")>();
   return {
     ...actual,
     getMemoryEmbeddingProvider: (...args: Parameters<typeof actual.getMemoryEmbeddingProvider>) => {

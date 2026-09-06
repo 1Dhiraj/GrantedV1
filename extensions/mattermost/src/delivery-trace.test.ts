@@ -14,20 +14,20 @@ import {
   type DeliveryTraceInStep,
   type DeliveryTraceScenario,
   type WireRecorder,
-} from "openclaw/plugin-sdk/channel-contract-testing";
+} from "granted/plugin-sdk/channel-contract-testing";
 import {
   createMessageReceiptFromOutboundResults,
   listMessageReceiptPlatformIds,
-} from "openclaw/plugin-sdk/channel-outbound";
-import type { GrantedConfig, PluginRuntime } from "openclaw/plugin-sdk/core";
-import { resolveMarkdownTableMode } from "openclaw/plugin-sdk/markdown-table-runtime";
+} from "granted/plugin-sdk/channel-outbound";
+import type { GrantedConfig, PluginRuntime } from "granted/plugin-sdk/core";
+import { resolveMarkdownTableMode } from "granted/plugin-sdk/markdown-table-runtime";
 import {
   chunkMarkdownTextWithMode,
   resolveChunkMode,
   resolveTextChunkLimit,
-} from "openclaw/plugin-sdk/reply-chunking";
-import type { ReplyPayload } from "openclaw/plugin-sdk/reply-runtime";
-import { convertMarkdownTables } from "openclaw/plugin-sdk/text-chunking";
+} from "granted/plugin-sdk/reply-chunking";
+import type { ReplyPayload } from "granted/plugin-sdk/reply-runtime";
+import { convertMarkdownTables } from "granted/plugin-sdk/text-chunking";
 import { describe, it, vi } from "vitest";
 import { createMattermostPost, type MattermostClient } from "./mattermost/client.js";
 import {

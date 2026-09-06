@@ -1,7 +1,7 @@
 // Discord provider module implements model/runtime integration.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { asDateTimestampMs } from "openclaw/plugin-sdk/number-runtime";
-import { formatErrorMessage } from "openclaw/plugin-sdk/ssrf-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { asDateTimestampMs } from "granted/plugin-sdk/number-runtime";
+import { formatErrorMessage } from "granted/plugin-sdk/ssrf-runtime";
 import { raceWithTimeout } from "./timeouts.js";
 
 type DiscordProviderSessionRuntimeModule = typeof import("./provider-session.runtime.js");

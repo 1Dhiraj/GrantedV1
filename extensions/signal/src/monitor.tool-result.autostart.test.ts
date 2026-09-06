@@ -1,6 +1,6 @@
 // Signal tests cover monitor.tool result.autostart plugin behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { toErrorObject as toLintErrorObject } from "openclaw/plugin-sdk/error-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { toErrorObject as toLintErrorObject } from "granted/plugin-sdk/error-runtime";
 import { describe, expect, it, vi } from "vitest";
 import type { SignalDaemonHandle } from "./daemon.js";
 import {

@@ -1,11 +1,11 @@
 // Copilot plugin module implements BYOK provider mapping.
 import type { ProviderConfig } from "@github/copilot-sdk";
-import { isNonSecretApiKeyMarker } from "openclaw/plugin-sdk/provider-auth";
-import { isBlockedHostnameOrIp } from "openclaw/plugin-sdk/ssrf-runtime";
+import { isNonSecretApiKeyMarker } from "granted/plugin-sdk/provider-auth";
+import { isBlockedHostnameOrIp } from "granted/plugin-sdk/ssrf-runtime";
 import {
   filterStringRecord,
   normalizeOptionalString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import { tokenFingerprint } from "./auth-bridge.js";
 
 const COPILOT_BYOK_PROVIDER_ERROR =

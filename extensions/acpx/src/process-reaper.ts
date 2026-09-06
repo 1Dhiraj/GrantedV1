@@ -4,7 +4,7 @@
  */
 import { createRequire } from "node:module";
 import path from "node:path";
-import { isPidAlive, runExec } from "openclaw/plugin-sdk/process-runtime";
+import { isPidAlive, runExec } from "granted/plugin-sdk/process-runtime";
 import { CODEX_ACP_PACKAGE, LEGACY_CODEX_ACP_PACKAGE } from "./codex-adapter.js";
 import { splitCommandParts } from "./command-line.js";
 import { resolveAcpxPluginRoot } from "./config.js";

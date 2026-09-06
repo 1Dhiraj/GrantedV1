@@ -2,15 +2,15 @@
 import type {
   ProviderPreparedRuntimeAuth,
   ProviderPrepareRuntimeAuthContext,
-} from "openclaw/plugin-sdk/core";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
+} from "granted/plugin-sdk/core";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
 import {
   asDateTimestampMs,
   resolveDateTimestampMs,
   resolveExpiresAtMsFromDurationMs,
-} from "openclaw/plugin-sdk/number-runtime";
-import { ensureAuthProfileStore } from "openclaw/plugin-sdk/provider-auth";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/number-runtime";
+import { ensureAuthProfileStore } from "granted/plugin-sdk/provider-auth";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import { getAccessTokenResultAsync } from "./cli.js";
 import {
   ANTHROPIC_MESSAGES_API,

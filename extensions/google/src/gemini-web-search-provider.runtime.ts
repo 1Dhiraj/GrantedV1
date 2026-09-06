@@ -5,7 +5,7 @@ import {
   formatProviderHttpErrorMessage,
   readProviderJsonObjectResponse,
   truncateErrorDetail,
-} from "openclaw/plugin-sdk/provider-http";
+} from "granted/plugin-sdk/provider-http";
 import {
   buildSearchCacheKey,
   buildUnsupportedSearchFilterResponse,
@@ -23,9 +23,9 @@ import {
   withTrustedWebSearchEndpoint,
   wrapWebContent,
   writeCachedSearchPayload,
-} from "openclaw/plugin-sdk/provider-web-search";
-import { normalizeResolvedSecretInputString } from "openclaw/plugin-sdk/secret-input-runtime";
-import { isRecord, normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/provider-web-search";
+import { normalizeResolvedSecretInputString } from "granted/plugin-sdk/secret-input-runtime";
+import { isRecord, normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import { resolveGoogleApiClientHeaders } from "../google-api-client-header.js";
 import {
   resolveGeminiConfig,

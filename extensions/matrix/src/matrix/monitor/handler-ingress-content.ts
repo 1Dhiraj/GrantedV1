@@ -1,7 +1,7 @@
-import { resolveInboundMentionDecision } from "openclaw/plugin-sdk/channel-inbound";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import { formatAudioTranscriptForAgent } from "openclaw/plugin-sdk/media-understanding-runtime";
-import { buildInboundHistoryFromEntries } from "openclaw/plugin-sdk/reply-history";
+import { resolveInboundMentionDecision } from "granted/plugin-sdk/channel-inbound";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
+import { formatAudioTranscriptForAgent } from "granted/plugin-sdk/media-understanding-runtime";
+import { buildInboundHistoryFromEntries } from "granted/plugin-sdk/reply-history";
 import { isMatrixMediaSizeLimitError } from "../media-errors.js";
 import { isLikelyBareFilename } from "../media-text.js";
 import { fetchMatrixPollSnapshot, type MatrixPollSnapshot } from "../poll-summary.js";

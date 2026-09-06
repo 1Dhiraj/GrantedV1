@@ -1,6 +1,6 @@
 import type { Event } from "nostr-tools";
-import type { ChannelDirectoryEntry } from "openclaw/plugin-sdk/directory-runtime";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+import type { ChannelDirectoryEntry } from "granted/plugin-sdk/directory-runtime";
+import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import { isNewerBuzzRevision } from "./event-order.js";
 import type { BuzzMentionMember } from "./mentions.js";
 import type { BuzzRoomMembership } from "./room-membership.js";

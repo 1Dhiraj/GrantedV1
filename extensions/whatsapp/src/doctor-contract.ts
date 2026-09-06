@@ -2,14 +2,14 @@
 import type {
   ChannelDoctorConfigMutation,
   ChannelDoctorLegacyConfigRule,
-} from "openclaw/plugin-sdk/channel-contract";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+} from "granted/plugin-sdk/channel-contract";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   asObjectRecord,
   defineChannelAliasMigration,
   hasLegacyAccountStreamingAliases,
   stripRetiredChannelKeys,
-} from "openclaw/plugin-sdk/runtime-doctor-migrations";
+} from "granted/plugin-sdk/runtime-doctor-migrations";
 import { normalizeCompatibilityConfig as normalizeAckReactionConfig } from "./doctor.js";
 
 // WhatsApp's nested streaming schema is delivery-only ({chunkMode, block});

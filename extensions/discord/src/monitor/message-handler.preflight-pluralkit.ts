@@ -1,5 +1,5 @@
 // Discord plugin module implements message handler.preflight pluralkit behavior.
-import { logVerbose } from "openclaw/plugin-sdk/runtime-env";
+import { logVerbose } from "granted/plugin-sdk/runtime-env";
 import { isPreflightAborted, loadPluralKitRuntime } from "./message-handler.preflight-runtime.js";
 import type { DiscordMessageEvent } from "./message-handler.preflight.types.js";
 
@@ -7,7 +7,7 @@ export async function resolveDiscordPreflightPluralKitInfo(params: {
   message: DiscordMessageEvent["message"];
   webhookId: string | null;
   config?: NonNullable<
-    NonNullable<import("openclaw/plugin-sdk/config-contracts").GrantedConfig["channels"]>["discord"]
+    NonNullable<import("granted/plugin-sdk/config-contracts").GrantedConfig["channels"]>["discord"]
   >["pluralkit"];
   abortSignal?: AbortSignal;
 }): Promise<Awaited<ReturnType<typeof import("../pluralkit.js").fetchPluralKitMessageInfo>>> {

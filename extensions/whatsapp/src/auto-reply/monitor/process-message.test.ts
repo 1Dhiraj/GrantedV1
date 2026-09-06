@@ -30,7 +30,7 @@ const {
 }));
 
 vi.mock("openclaw/plugin-sdk/channel-inbound", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/channel-inbound")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/channel-inbound")>();
   return {
     ...actual,
     runChannelInboundEvent: async (params: Parameters<typeof actual.runChannelInboundEvent>[0]) => {
@@ -174,7 +174,7 @@ vi.mock("./runtime-api.js", async (importOriginal) => {
   };
 });
 
-import { clearInternalHooks, registerInternalHook } from "openclaw/plugin-sdk/hook-runtime";
+import { clearInternalHooks, registerInternalHook } from "granted/plugin-sdk/hook-runtime";
 import { attachWhatsAppIngressLifecycle } from "../../inbound/ingress-lifecycle.js";
 import { processMessage } from "./process-message.js";
 

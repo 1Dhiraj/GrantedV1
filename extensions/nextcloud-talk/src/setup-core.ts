@@ -1,16 +1,16 @@
-import { createChannelDmPolicy } from "openclaw/plugin-sdk/channel-dm-policy";
+import { createChannelDmPolicy } from "granted/plugin-sdk/channel-dm-policy";
 // Nextcloud Talk plugin module implements setup core behavior.
 import {
   defineChannelSetupContract,
   type ChannelSetupAdapter,
   type ChannelSetupInput,
-} from "openclaw/plugin-sdk/channel-setup";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { normalizeAccountId } from "openclaw/plugin-sdk/routing";
+} from "granted/plugin-sdk/channel-setup";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { normalizeAccountId } from "granted/plugin-sdk/routing";
 import {
   applyAccountNameToChannelSection,
   patchScopedAccountConfig,
-} from "openclaw/plugin-sdk/setup";
+} from "granted/plugin-sdk/setup";
 import {
   createSetupInputPresenceValidator,
   mergeAllowFromEntries,
@@ -18,12 +18,12 @@ import {
   resolveSetupAccountId,
   createSetupTranslator,
   type WizardPrompter,
-} from "openclaw/plugin-sdk/setup-runtime";
-import { formatDocsLink } from "openclaw/plugin-sdk/setup-tools";
+} from "granted/plugin-sdk/setup-runtime";
+import { formatDocsLink } from "granted/plugin-sdk/setup-tools";
 import {
   normalizeLowercaseStringOrEmpty,
   readNonEmptyStringPreservingWhitespace as readNonEmptyUntrimmedString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import { resolveDefaultNextcloudTalkAccountId, resolveNextcloudTalkAccount } from "./accounts.js";
 import type { CoreConfig } from "./types.js";
 

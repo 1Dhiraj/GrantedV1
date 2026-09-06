@@ -1,9 +1,9 @@
 import process from "node:process";
-import { resolveAcpSessionAvailability } from "openclaw/plugin-sdk/acp-runtime";
-import { resolveSessionAgentIdsStrict } from "openclaw/plugin-sdk/agent-scope-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { resolveNodeHostExecutable } from "openclaw/plugin-sdk/node-host";
-import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
+import { resolveAcpSessionAvailability } from "granted/plugin-sdk/acp-runtime";
+import { resolveSessionAgentIdsStrict } from "granted/plugin-sdk/agent-scope-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { resolveNodeHostExecutable } from "granted/plugin-sdk/node-host";
+import type { GrantedPluginApi } from "granted/plugin-sdk/plugin-entry";
 import {
   createSessionCatalogFamily,
   importSessionCatalogHistory,
@@ -11,8 +11,8 @@ import {
   sessionCatalogAdoptedSessionKey,
   type SessionCatalogEntrySnapshot,
   type SessionCatalogSession,
-} from "openclaw/plugin-sdk/session-catalog";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/session-catalog";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   PI_LOCAL_SESSION_HOST_ID,
   PI_SESSIONS_LIST_COMMAND,

@@ -6,10 +6,10 @@ import {
   DEFAULT_INGRESS_ADOPTION_STALL_MS,
   DEFAULT_INGRESS_RETRY_MAX_ATTEMPTS,
   type ChannelIngressQueue,
-} from "openclaw/plugin-sdk/channel-outbound";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import { normalizeNullableString as nonEmptyString } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { runDetachedWebhookWork } from "openclaw/plugin-sdk/webhook-request-guards";
+} from "granted/plugin-sdk/channel-outbound";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
+import { normalizeNullableString as nonEmptyString } from "granted/plugin-sdk/string-coerce-runtime";
+import { runDetachedWebhookWork } from "granted/plugin-sdk/webhook-request-guards";
 import { z } from "zod";
 import { ZaloApiError, type ZaloUpdate } from "./api.js";
 import type { ZaloRuntimeEnv } from "./monitor.types.js";

@@ -3,13 +3,13 @@ import crypto from "node:crypto";
 import type { Dirent } from "node:fs";
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   archiveLegacyStateSource,
   type PluginDoctorStateMigration,
   type PluginStateKeyedStore,
-} from "openclaw/plugin-sdk/runtime-doctor-migrations";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/runtime-doctor-migrations";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import { normalizeStoredConversationId } from "./src/conversation-store-helpers.js";
 import {
   buildMSTeamsConversationStateKey,
@@ -149,7 +149,7 @@ async function listCandidateStorePaths(params: {
 }): Promise<string[]> {
   // Doctor enumeration cold-loads this closure; session-store-runtime pulls the
   // session-accessor/kysely graph, so it stays behind a lazy import here.
-  const { resolveStorePath } = await import("openclaw/plugin-sdk/session-store-runtime");
+  const { resolveStorePath } = await import("granted/plugin-sdk/session-store-runtime");
   const paths = new Set<string>();
   for (const agentId of listAgentIds(params.config)) {
     paths.add(resolveStorePath(params.config.session?.store, { agentId, env: params.env }));

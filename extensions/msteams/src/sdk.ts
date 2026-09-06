@@ -1,6 +1,6 @@
 // Msteams plugin module implements sdk behavior.
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
-import { readSecretFile } from "openclaw/plugin-sdk/secret-file";
+import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
+import { readSecretFile } from "granted/plugin-sdk/secret-file";
 import { normalizeBotFrameworkServiceUrl } from "./bot-framework-service-url.js";
 import type { MSTeamsCloudName } from "./cloud.js";
 import { resolveMSTeamsPrivateQaRuntime } from "./qa/private-runtime.js";

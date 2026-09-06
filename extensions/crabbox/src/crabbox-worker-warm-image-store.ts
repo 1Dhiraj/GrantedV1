@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
-import { createPluginStateSyncKeyedStore } from "openclaw/plugin-sdk/plugin-state-store-runtime";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { createPluginStateSyncKeyedStore } from "granted/plugin-sdk/plugin-state-store-runtime";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 
 export type WarmImageRecord = {
   checkpointId: string;

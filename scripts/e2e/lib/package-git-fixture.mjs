@@ -59,7 +59,7 @@ function prepare(root) {
   delete packageJson.devDependencies;
   packageJson.scripts = {
     ...packageJson.scripts,
-    openclaw: "node openclaw.mjs",
+    openclaw: "node granted.mjs",
   };
   delete packageJson.scripts.postinstall;
   const aiRuntimeSource = path.join(root, "node_modules", "@openclaw", "ai");

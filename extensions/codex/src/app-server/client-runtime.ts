@@ -1,6 +1,6 @@
 /** Client-scoped Codex auth and account observers. */
-import { embeddedAgentLog, formatErrorMessage } from "openclaw/plugin-sdk/agent-harness-runtime";
-import { pruneMapToMaxSize } from "openclaw/plugin-sdk/collection-runtime";
+import { embeddedAgentLog, formatErrorMessage } from "granted/plugin-sdk/agent-harness-runtime";
+import { pruneMapToMaxSize } from "granted/plugin-sdk/collection-runtime";
 import { readCodexSessionMeta } from "../session-catalog-provenance.js";
 import { refreshCodexAppServerAuthTokens } from "./auth-bridge.js";
 import type { CodexAppServerClient } from "./client.js";

@@ -1,26 +1,26 @@
 // Slack plugin module implements dispatch behavior.
-import { resolveHumanDelayConfig } from "openclaw/plugin-sdk/agent-runtime";
+import { resolveHumanDelayConfig } from "granted/plugin-sdk/agent-runtime";
 import {
   dispatchChannelInboundTurn,
   resolveInboundReplyDispatchCounts,
   readAgentRunTerminalOutcome,
   type InboundReplyRecordOptions,
   hasVisibleInboundReplyDispatch,
-} from "openclaw/plugin-sdk/channel-inbound";
+} from "granted/plugin-sdk/channel-inbound";
 import {
   defineFinalizableLivePreviewAdapter,
   deliverWithFinalizableLivePreviewAdapter,
-} from "openclaw/plugin-sdk/channel-outbound";
-import { toErrorObject } from "openclaw/plugin-sdk/error-runtime";
-import { resolveMarkdownTableMode } from "openclaw/plugin-sdk/markdown-table-runtime";
+} from "granted/plugin-sdk/channel-outbound";
+import { toErrorObject } from "granted/plugin-sdk/error-runtime";
+import { resolveMarkdownTableMode } from "granted/plugin-sdk/markdown-table-runtime";
 import {
   buildTtsSupplementMediaPayload,
   getReplyPayloadTtsSupplement,
   isReplyPayloadNonTerminalToolErrorWarning,
   resolveSendableOutboundReplyParts,
-} from "openclaw/plugin-sdk/reply-payload";
-import type { ReplyPayload, ReplyDispatchKind } from "openclaw/plugin-sdk/reply-runtime";
-import { danger, logVerbose, shouldLogVerbose } from "openclaw/plugin-sdk/runtime-env";
+} from "granted/plugin-sdk/reply-payload";
+import type { ReplyPayload, ReplyDispatchKind } from "granted/plugin-sdk/reply-runtime";
+import { danger, logVerbose, shouldLogVerbose } from "granted/plugin-sdk/runtime-env";
 import { formatSlackError } from "../../errors.js";
 import { normalizeSlackOutboundText } from "../../format.js";
 import { SLACK_EDIT_TEXT_MAX_BYTES } from "../../limits.js";

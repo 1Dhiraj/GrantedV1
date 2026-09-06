@@ -2,9 +2,9 @@ import {
   defineChannelSetupContract,
   type ChannelSetupAdapter,
   type ChannelSetupInput,
-} from "openclaw/plugin-sdk/channel-setup";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { patchScopedAccountConfig } from "openclaw/plugin-sdk/setup";
+} from "granted/plugin-sdk/channel-setup";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { patchScopedAccountConfig } from "granted/plugin-sdk/setup";
 import { decodeBuzzPrivateKey, resolveBuzzAccountConfig, resolveBuzzPublicKey } from "./types.js";
 
 type BuzzSetupInput = ChannelSetupInput & {

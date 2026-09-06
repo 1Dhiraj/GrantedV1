@@ -1,10 +1,10 @@
 // Google tests cover realtime voice provider plugin behavior.
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
 import {
   REALTIME_VOICE_AUDIO_FORMAT_PCM16_24KHZ,
   resamplePcm,
-} from "openclaw/plugin-sdk/realtime-voice";
-import type { RealtimeVoiceTool } from "openclaw/plugin-sdk/realtime-voice";
+} from "granted/plugin-sdk/realtime-voice";
+import type { RealtimeVoiceTool } from "granted/plugin-sdk/realtime-voice";
 import { afterAll, afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { buildGoogleRealtimeVoiceProvider } from "./realtime-voice-provider.js";
 

@@ -1,6 +1,6 @@
 // GitHub Copilot source-token validation and account endpoint resolution.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { readProviderJsonResponse } from "openclaw/plugin-sdk/provider-http";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { readProviderJsonResponse } from "granted/plugin-sdk/provider-http";
 import { PUBLIC_GITHUB_COPILOT_DOMAIN, resolveGithubCopilotDomain } from "./domain.js";
 import { CopilotRuntimeAuthError } from "./runtime-auth-error.js";
 

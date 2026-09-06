@@ -1,4 +1,4 @@
-import { optionalPositiveIntegerSchema } from "openclaw/plugin-sdk/channel-actions";
+import { optionalPositiveIntegerSchema } from "granted/plugin-sdk/channel-actions";
 import { Type } from "typebox";
 import { resolveGoogleMeetConfig } from "./config.js";
 

@@ -1,12 +1,12 @@
 // Exercises the durable batch owner through Discord's real RequestClient boundary.
 import { ChannelType, Routes } from "discord-api-types/v10";
-import { sendDurableMessageBatch } from "openclaw/plugin-sdk/channel-outbound";
+import { sendDurableMessageBatch } from "granted/plugin-sdk/channel-outbound";
 import {
   createEmptyPluginRegistry,
   createTestRegistry,
   resetPluginRuntimeStateForTest,
   setActivePluginRegistry,
-} from "openclaw/plugin-sdk/plugin-test-runtime";
+} from "granted/plugin-sdk/plugin-test-runtime";
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import { createDiscordLoopbackRest } from "./send.test-harness.js";
 

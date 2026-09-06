@@ -1,13 +1,13 @@
 import fsp from "node:fs/promises";
-import type { SandboxContext } from "openclaw/plugin-sdk/agent-harness-runtime";
+import type { SandboxContext } from "granted/plugin-sdk/agent-harness-runtime";
 import {
   buildAgentHookContextChannelFields,
   buildEmbeddedForegroundPromptContext,
   isHostScopedAgentToolActive,
   resolveAgentDir,
   resolveSandboxContext as defaultResolveSandboxContext,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
-import { resolveSessionAgentIdsStrict } from "openclaw/plugin-sdk/agent-scope-runtime";
+} from "granted/plugin-sdk/agent-harness-runtime";
+import { resolveSessionAgentIdsStrict } from "granted/plugin-sdk/agent-scope-runtime";
 import { readNonEmptyString, readResolvedAttemptPath, resolveModelRef } from "./attempt-config.js";
 import type {
   AttemptParamsLike,

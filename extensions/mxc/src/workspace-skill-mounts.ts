@@ -1,6 +1,6 @@
 import { lstatSync, realpathSync } from "node:fs";
 import path from "node:path";
-import { isPathInside } from "openclaw/plugin-sdk/file-access-runtime";
+import { isPathInside } from "granted/plugin-sdk/file-access-runtime";
 
 export type MxcWorkspaceAccess = "none" | "ro" | "rw";
 

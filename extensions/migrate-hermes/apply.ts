@@ -6,22 +6,22 @@ import {
   markMigrationItemConflict,
   markMigrationItemError,
   summarizeMigrationItems,
-} from "openclaw/plugin-sdk/migration";
+} from "granted/plugin-sdk/migration";
 import {
   archiveMigrationItem,
   copyMemoryMigrationFileItem,
   copyMigrationFileItem,
   withCachedMigrationConfigRuntime,
   writeMigrationReport,
-} from "openclaw/plugin-sdk/migration-runtime";
+} from "granted/plugin-sdk/migration-runtime";
 import type {
   MigrationApplyResult,
   MigrationItem,
   MigrationPlan,
   MigrationProviderContext,
-} from "openclaw/plugin-sdk/plugin-entry";
-import { openNodeSqliteDatabase } from "openclaw/plugin-sdk/sqlite-runtime";
-import { resolvePreferredOpenClawTmpDir, withTempWorkspace } from "openclaw/plugin-sdk/temp-path";
+} from "granted/plugin-sdk/plugin-entry";
+import { openNodeSqliteDatabase } from "granted/plugin-sdk/sqlite-runtime";
+import { resolvePreferredOpenClawTmpDir, withTempWorkspace } from "granted/plugin-sdk/temp-path";
 import { applyAuthItem } from "./auth.js";
 import { appendItem } from "./helpers.js";
 import {

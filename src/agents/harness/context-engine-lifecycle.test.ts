@@ -1,5 +1,5 @@
 // Covers context-engine message filtering, assemble validation, and turn finalization.
-import type { AgentMessage } from "openclaw/plugin-sdk/agent-core";
+import type { AgentMessage } from "granted/plugin-sdk/agent-core";
 import { describe, expect, it, vi } from "vitest";
 import { buildMemorySystemPromptAddition } from "../../context-engine/delegate.js";
 import {

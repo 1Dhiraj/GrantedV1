@@ -6,12 +6,12 @@ import {
   sleepWithAbort,
   warn,
   type RuntimeEnv,
-} from "openclaw/plugin-sdk/runtime-env";
+} from "granted/plugin-sdk/runtime-env";
 import {
   asOptionalRecord,
   normalizeOptionalString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
-import { rawDataToString } from "openclaw/plugin-sdk/webhook-ingress";
+} from "granted/plugin-sdk/string-coerce-runtime";
+import { rawDataToString } from "granted/plugin-sdk/webhook-ingress";
 import WebSocket, { type ClientOptions, type RawData } from "ws";
 import type { SlackSendIdentity } from "../send.js";
 import type { SlackMessageEvent } from "../types.js";

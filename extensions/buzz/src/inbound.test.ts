@@ -1,13 +1,13 @@
 import {
   buildChannelInboundEventContext,
   runPreparedInboundReply,
-} from "openclaw/plugin-sdk/channel-inbound";
-import { resolveStableChannelMessageIngress } from "openclaw/plugin-sdk/channel-ingress-runtime";
+} from "granted/plugin-sdk/channel-inbound";
+import { resolveStableChannelMessageIngress } from "granted/plugin-sdk/channel-ingress-runtime";
 // Buzz tests cover inbound room admission, mention gating, and reply delivery.
-import { createPluginRuntimeMock } from "openclaw/plugin-sdk/channel-test-helpers";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
-import type { HistoryEntry } from "openclaw/plugin-sdk/reply-history";
+import { createPluginRuntimeMock } from "granted/plugin-sdk/channel-test-helpers";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
+import type { HistoryEntry } from "granted/plugin-sdk/reply-history";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { BuzzBus } from "./buzz-bus.js";
 import { BuzzDirectoryState } from "./directory-state.js";
@@ -21,7 +21,7 @@ import { setBuzzRuntime } from "./runtime.js";
 import type { ResolvedBuzzAccount } from "./types.js";
 
 vi.mock("openclaw/plugin-sdk/channel-inbound", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/channel-inbound")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/channel-inbound")>();
   return {
     ...actual,
     buildChannelInboundEventContext: vi.fn(actual.buildChannelInboundEventContext),
@@ -29,7 +29,7 @@ vi.mock("openclaw/plugin-sdk/channel-inbound", async (importOriginal) => {
 });
 vi.mock("openclaw/plugin-sdk/channel-ingress-runtime", async (importOriginal) => {
   const actual =
-    await importOriginal<typeof import("openclaw/plugin-sdk/channel-ingress-runtime")>();
+    await importOriginal<typeof import("granted/plugin-sdk/channel-ingress-runtime")>();
   return {
     ...actual,
     resolveStableChannelMessageIngress: vi.fn(actual.resolveStableChannelMessageIngress),
@@ -538,7 +538,7 @@ describe("handleBuzzInbound", () => {
       const runtime = createPluginRuntimeMock();
       setBuzzRuntime(runtime);
       const actual = await vi.importActual<
-        typeof import("openclaw/plugin-sdk/channel-ingress-runtime")
+        typeof import("granted/plugin-sdk/channel-ingress-runtime")
       >("openclaw/plugin-sdk/channel-ingress-runtime");
       const abort = new AbortController();
       let currentMember = true;

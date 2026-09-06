@@ -1,6 +1,6 @@
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { buildHostnameAllowlistPolicyFromSuffixAllowlist } from "openclaw/plugin-sdk/ssrf-policy";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { buildHostnameAllowlistPolicyFromSuffixAllowlist } from "granted/plugin-sdk/ssrf-policy";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import type { JsonObject } from "./protocol.js";
 
 export type CodexWebSearchPlan = {

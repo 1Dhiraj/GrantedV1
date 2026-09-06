@@ -14,8 +14,8 @@ const runtimeScopeMock = vi.hoisted(() => vi.fn());
 const clearProfileRateLimiterMock = vi.hoisted(() => vi.fn());
 
 vi.mock("./nostr-profile-http-runtime.js", async () => {
-  const webhookIngress = await import("openclaw/plugin-sdk/webhook-ingress");
-  const requestGuards = await import("openclaw/plugin-sdk/webhook-request-guards");
+  const webhookIngress = await import("granted/plugin-sdk/webhook-ingress");
+  const requestGuards = await import("granted/plugin-sdk/webhook-request-guards");
   return {
     createFixedWindowRateLimiter: (
       ...args: Parameters<typeof webhookIngress.createFixedWindowRateLimiter>

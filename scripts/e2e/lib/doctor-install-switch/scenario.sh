@@ -49,7 +49,7 @@ if [ -f "$git_root/dist/index.mjs" ]; then
 else
   git_entry="$git_root/dist/index.js"
 fi
-git_cli="$git_root/openclaw.mjs"
+git_cli="$git_root/granted.mjs"
 
 package_version="$(node -p "require(\"$npm_root/package.json\").version")"
 update_doctor_env="OPENCLAW_UPDATE_IN_PROGRESS=1"

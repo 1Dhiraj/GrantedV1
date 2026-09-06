@@ -1,5 +1,5 @@
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { resolveThreadBindingSpawnPolicy } from "openclaw/plugin-sdk/conversation-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { resolveThreadBindingSpawnPolicy } from "granted/plugin-sdk/conversation-runtime";
 import { resolveDiscordRuntimeBindingConversationId } from "./conversation-identity.js";
 import { resolveDiscordConversationBindingRoute } from "./monitor/conversation-binding-route.js";
 import { resolveDiscordConversationRoute } from "./monitor/route-resolution.js";

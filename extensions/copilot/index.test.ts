@@ -1,6 +1,6 @@
 // Copilot tests cover index plugin behavior.
 import fs from "node:fs";
-import { createTestPluginApi, type TestPluginApiInput } from "openclaw/plugin-sdk/plugin-test-api";
+import { createTestPluginApi, type TestPluginApiInput } from "granted/plugin-sdk/plugin-test-api";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 vi.mock("./src/runtime.js", () => ({

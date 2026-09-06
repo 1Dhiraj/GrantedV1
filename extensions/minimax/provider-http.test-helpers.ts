@@ -5,7 +5,7 @@ import type {
   fetchProviderOperationResponse,
   fetchWithTimeoutGuarded,
   resolveProviderHttpRequestConfig,
-} from "openclaw/plugin-sdk/provider-http";
+} from "granted/plugin-sdk/provider-http";
 import { afterEach, vi, type Mock } from "vitest";
 
 type ResolveProviderHttpRequestConfigParams = Parameters<
@@ -157,7 +157,7 @@ vi.mock("openclaw/plugin-sdk/provider-auth-runtime", () => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/provider-http", async (importActual) => {
-  const actual = await importActual<typeof import("openclaw/plugin-sdk/provider-http")>();
+  const actual = await importActual<typeof import("granted/plugin-sdk/provider-http")>();
   return {
     assertOkOrThrowHttpError: minimaxProviderHttpMocks.assertOkOrThrowHttpErrorMock,
     assertProviderBinaryResponseContent: actual.assertProviderBinaryResponseContent,

@@ -1,10 +1,10 @@
 // Mattermost plugin module implements doctor contract behavior.
-import type { ChannelDoctorConfigMutation } from "openclaw/plugin-sdk/channel-contract";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { ChannelDoctorConfigMutation } from "granted/plugin-sdk/channel-contract";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   createLegacyPrivateNetworkDoctorContract,
   defineChannelAliasMigration,
-} from "openclaw/plugin-sdk/runtime-doctor-migrations";
+} from "granted/plugin-sdk/runtime-doctor-migrations";
 
 const networkContract = createLegacyPrivateNetworkDoctorContract({
   channelKey: "mattermost",

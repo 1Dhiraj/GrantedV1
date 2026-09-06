@@ -2,7 +2,7 @@ import crypto from "node:crypto";
 import path from "node:path";
 import { expectDefined } from "@openclaw/normalization-core";
 // Covers model fallback ordering, error classification, and auth cooldown behavior.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { TranscriptNotContinuableError } from "../../packages/agent-core/src/errors.js";
 import type { GrantedConfig } from "../config/config.js";

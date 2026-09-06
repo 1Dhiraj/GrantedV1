@@ -2,7 +2,7 @@
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { bundledPluginRootAt, repoInstallSpec } from "openclaw/plugin-sdk/test-fixtures";
+import { bundledPluginRootAt, repoInstallSpec } from "granted/plugin-sdk/test-fixtures";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { GrantedConfig } from "../config/config.js";
 import { hashConfigIncludeRaw } from "../config/includes.js";

@@ -1,4 +1,4 @@
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
 import type { GrantedPluginApi } from "./api.js";
 import type { MemoryConfig } from "./config.js";
 import {

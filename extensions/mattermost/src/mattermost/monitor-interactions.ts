@@ -1,5 +1,5 @@
 // Mattermost plugin module registers interactive callback transport handling.
-import { resolveHumanDelayConfig } from "openclaw/plugin-sdk/agent-runtime";
+import { resolveHumanDelayConfig } from "granted/plugin-sdk/agent-runtime";
 import { createMattermostInteractionHandler } from "./interactions.js";
 import { authorizeMattermostCommandInvocation } from "./monitor-auth.js";
 import {

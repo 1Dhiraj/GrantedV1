@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { withEnvAsync, withTempDir } from "openclaw/plugin-sdk/test-env";
+import { withEnvAsync, withTempDir } from "granted/plugin-sdk/test-env";
 import { describe, expect, it } from "vitest";
 import { startTunnel } from "./tunnel.js";
 

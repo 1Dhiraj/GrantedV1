@@ -5,12 +5,12 @@ import { DatabaseSync } from "node:sqlite";
 import {
   loadAuthProfileStoreWithoutExternalProfiles,
   saveAuthProfileStore,
-} from "openclaw/plugin-sdk/agent-runtime";
+} from "granted/plugin-sdk/agent-runtime";
 import {
   closeOpenClawAgentDatabasesForTest,
   closeOpenClawStateDatabaseForTest,
   openOpenClawStateDatabase,
-} from "openclaw/plugin-sdk/sqlite-runtime-testing";
+} from "granted/plugin-sdk/sqlite-runtime-testing";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { createTempDirHarness } from "../../temp-dir.test-helper.js";
 import { readQaAuthProfiles, writeQaAuthProfiles } from "./auth-store.js";

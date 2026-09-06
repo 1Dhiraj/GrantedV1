@@ -1,5 +1,5 @@
 // Diffs API module exposes the plugin public contract.
-export type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+export type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 export {
   definePluginEntry,
   type AnyAgentTool,
@@ -7,5 +7,5 @@ export {
   type GrantedPluginConfigSchema,
   type GrantedPluginToolContext,
   type PluginLogger,
-} from "openclaw/plugin-sdk/plugin-entry";
-export { resolvePreferredOpenClawTmpDir } from "openclaw/plugin-sdk/temp-path";
+} from "granted/plugin-sdk/plugin-entry";
+export { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";

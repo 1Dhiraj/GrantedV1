@@ -6,9 +6,9 @@ import {
   formatErrorMessage,
   resolveAttemptFsWorkspaceOnly,
   setActiveEmbeddedRun,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
-import { getAgentScopedMediaLocalRoots } from "openclaw/plugin-sdk/media-local-roots";
-import { hasPromptImageInput } from "openclaw/plugin-sdk/session-transcript-runtime";
+} from "granted/plugin-sdk/agent-harness-runtime";
+import { getAgentScopedMediaLocalRoots } from "granted/plugin-sdk/media-local-roots";
+import { hasPromptImageInput } from "granted/plugin-sdk/session-transcript-runtime";
 import {
   retireCodexAppServerClientAfterTimedOutTurn,
   terminateCodexBackgroundTerminals,

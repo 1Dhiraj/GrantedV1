@@ -2,7 +2,7 @@
  * Trash helpers for data under the Browser-owned config subtree.
  */
 import path from "node:path";
-import { movePathToTrash as movePathToTrashWithAllowedRoots } from "openclaw/plugin-sdk/browser-config";
+import { movePathToTrash as movePathToTrashWithAllowedRoots } from "granted/plugin-sdk/browser-config";
 import { CONFIG_DIR } from "../utils.js";
 
 /** Moves a path to trash only when it lives under allowed Browser roots. */

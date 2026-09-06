@@ -15,7 +15,7 @@ const channelInboundMockState = vi.hoisted(() => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/channel-inbound", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("openclaw/plugin-sdk/channel-inbound")>()),
+  ...(await importOriginal<typeof import("granted/plugin-sdk/channel-inbound")>()),
   recordChannelFeedbackEvent: channelInboundMockState.recordChannelFeedbackEvent,
 }));
 

@@ -626,7 +626,7 @@ describe("OpenClaw performance workflow", () => {
     const run = findStep("Run OpenClaw source performance probes", "source_performance").run ?? "";
 
     expect(run).toContain('"$PERFORMANCE_HELPER_DIR/scripts/bench-cli-startup.ts"');
-    expect(run).toContain('--entry "$GITHUB_WORKSPACE/openclaw.mjs"');
+    expect(run).toContain('--entry "$GITHUB_WORKSPACE/granted.mjs"');
     expect(run).toContain("--case gatewayHealthJsonWarmState \\");
     expect(run).toContain("--case gatewayHealthJsonFreshState \\");
   });

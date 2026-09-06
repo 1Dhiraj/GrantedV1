@@ -1,13 +1,13 @@
 /**
  * BytePlus Seedance video generation provider implementation.
  */
-import { toImageDataUrl } from "openclaw/plugin-sdk/image-generation";
+import { toImageDataUrl } from "granted/plugin-sdk/image-generation";
 import {
   downloadGeneratedVideoAsset,
   resolveGeneratedMediaMaxBytes,
-} from "openclaw/plugin-sdk/media-generation-runtime";
-import { isProviderApiKeyConfigured } from "openclaw/plugin-sdk/provider-auth";
-import { resolveApiKeyForProvider } from "openclaw/plugin-sdk/provider-auth-runtime";
+} from "granted/plugin-sdk/media-generation-runtime";
+import { isProviderApiKeyConfigured } from "granted/plugin-sdk/provider-auth";
+import { resolveApiKeyForProvider } from "granted/plugin-sdk/provider-auth-runtime";
 import {
   assertOkOrThrowHttpError,
   createProviderOperationDeadline,
@@ -19,17 +19,17 @@ import {
   resolveProviderOperationTimeoutMs,
   resolveProviderHttpRequestConfig,
   type ProviderOperationTimeoutMs,
-} from "openclaw/plugin-sdk/provider-http";
+} from "granted/plugin-sdk/provider-http";
 import {
   asSafeIntegerInRange,
   isRecord,
   normalizeOptionalString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import type {
   GeneratedVideoAsset,
   VideoGenerationProvider,
   VideoGenerationRequest,
-} from "openclaw/plugin-sdk/video-generation";
+} from "granted/plugin-sdk/video-generation";
 import { BYTEPLUS_BASE_URL } from "./models.js";
 
 const DEFAULT_BYTEPLUS_VIDEO_MODEL = "seedance-1-0-pro-250528";

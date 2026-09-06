@@ -2,15 +2,15 @@ import { spawnSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
 import {
   type WorkerProfile,
   type WorkerProvider,
   WorkerProviderError,
-} from "openclaw/plugin-sdk/plugin-entry";
-import * as processRuntime from "openclaw/plugin-sdk/process-runtime";
-import type { SpawnResult } from "openclaw/plugin-sdk/process-runtime";
-import { useAutoCleanupTempDirTracker } from "openclaw/plugin-sdk/test-env";
+} from "granted/plugin-sdk/plugin-entry";
+import * as processRuntime from "granted/plugin-sdk/process-runtime";
+import type { SpawnResult } from "granted/plugin-sdk/process-runtime";
+import { useAutoCleanupTempDirTracker } from "granted/plugin-sdk/test-env";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import * as doctorRuntime from "./crabbox-worker-doctor-runtime.js";
 import { createNodeBootstrapFixture } from "./crabbox-worker-node-enrollment.test-support.js";

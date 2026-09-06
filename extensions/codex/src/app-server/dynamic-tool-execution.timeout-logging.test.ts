@@ -1,4 +1,4 @@
-import { embeddedAgentLog } from "openclaw/plugin-sdk/agent-harness-runtime";
+import { embeddedAgentLog } from "granted/plugin-sdk/agent-harness-runtime";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { handleDynamicToolCallWithTimeout } from "./dynamic-tool-execution.js";
 

@@ -4,16 +4,16 @@ import os from "node:os";
 import path from "node:path";
 import { gunzipSync } from "node:zlib";
 import type { GoogleAuthOptions } from "google-auth-library";
-import { buildTimeoutAbortSignal } from "openclaw/plugin-sdk/extension-shared";
+import { buildTimeoutAbortSignal } from "granted/plugin-sdk/extension-shared";
 import {
   asDateTimestampMs,
   resolveExpiresAtMsFromDurationMs,
   resolveExpiresAtMsFromDurationSeconds,
-} from "openclaw/plugin-sdk/number-runtime";
-import { readResponseWithLimit } from "openclaw/plugin-sdk/response-limit-runtime";
-import { readSecretFileSync } from "openclaw/plugin-sdk/secret-file-runtime";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { withTimeout } from "openclaw/plugin-sdk/text-utility-runtime";
+} from "granted/plugin-sdk/number-runtime";
+import { readResponseWithLimit } from "granted/plugin-sdk/response-limit-runtime";
+import { readSecretFileSync } from "granted/plugin-sdk/secret-file-runtime";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
+import { withTimeout } from "granted/plugin-sdk/text-utility-runtime";
 
 type GoogleAuthorizedUserCredentials = {
   type: "authorized_user";

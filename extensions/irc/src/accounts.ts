@@ -1,13 +1,13 @@
 // Irc plugin module implements accounts behavior.
-import { resolveAccountWithDefaultFallback } from "openclaw/plugin-sdk/account-core";
-import { createAccountListHelpers } from "openclaw/plugin-sdk/account-helpers";
-import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "openclaw/plugin-sdk/account-id";
-import { parseOptionalDelimitedEntries } from "openclaw/plugin-sdk/channel-core";
-import { parseStrictPositiveInteger } from "openclaw/plugin-sdk/number-runtime";
-import { isTruthyEnvValue } from "openclaw/plugin-sdk/runtime-env";
-import { tryReadSecretFileSync } from "openclaw/plugin-sdk/secret-file-runtime";
-import { resolveSecretInputString } from "openclaw/plugin-sdk/secret-input";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { resolveAccountWithDefaultFallback } from "granted/plugin-sdk/account-core";
+import { createAccountListHelpers } from "granted/plugin-sdk/account-helpers";
+import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "granted/plugin-sdk/account-id";
+import { parseOptionalDelimitedEntries } from "granted/plugin-sdk/channel-core";
+import { parseStrictPositiveInteger } from "granted/plugin-sdk/number-runtime";
+import { isTruthyEnvValue } from "granted/plugin-sdk/runtime-env";
+import { tryReadSecretFileSync } from "granted/plugin-sdk/secret-file-runtime";
+import { resolveSecretInputString } from "granted/plugin-sdk/secret-input";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import type { CoreConfig, IrcAccountConfig, IrcNickServConfig } from "./types.js";
 
 type CredentialUnavailableDiagnostic = Extract<

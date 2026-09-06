@@ -1,17 +1,17 @@
 import { statSync } from "node:fs";
 import path from "node:path";
-import { createAccountListHelpers } from "openclaw/plugin-sdk/account-helpers";
-import { DEFAULT_ACCOUNT_ID } from "openclaw/plugin-sdk/account-id";
+import { createAccountListHelpers } from "granted/plugin-sdk/account-helpers";
+import { DEFAULT_ACCOUNT_ID } from "granted/plugin-sdk/account-id";
 import {
   normalizeAccountId,
   resolveAccountEntry,
   type GrantedConfig,
-} from "openclaw/plugin-sdk/account-resolution";
-import { expectDefined } from "openclaw/plugin-sdk/expect-runtime";
+} from "granted/plugin-sdk/account-resolution";
+import { expectDefined } from "granted/plugin-sdk/expect-runtime";
 import {
   asOptionalRecord,
   normalizeOptionalString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import type { IMessageAccountConfig } from "./account-types.js";
 import {
   expandIMessageUserPath,

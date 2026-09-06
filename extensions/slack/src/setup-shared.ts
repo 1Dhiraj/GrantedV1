@@ -1,7 +1,7 @@
 // Slack plugin module implements setup shared behavior.
-import { describeAccountSnapshot } from "openclaw/plugin-sdk/account-helpers";
-import { patchChannelConfigForAccount } from "openclaw/plugin-sdk/setup-runtime";
-import { formatDocsLink } from "openclaw/plugin-sdk/setup-tools";
+import { describeAccountSnapshot } from "granted/plugin-sdk/account-helpers";
+import { patchChannelConfigForAccount } from "granted/plugin-sdk/setup-runtime";
+import { formatDocsLink } from "granted/plugin-sdk/setup-tools";
 import { isSlackSetupAccountConfigured } from "./account-configured.js";
 import type { ResolvedSlackAccount } from "./accounts.js";
 import type { GrantedConfig } from "./channel-api.js";

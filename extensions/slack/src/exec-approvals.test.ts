@@ -1,5 +1,5 @@
 // Slack tests cover exec approvals plugin behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { describe, expect, it } from "vitest";
 import { slackApprovalCapability } from "./approval-native.js";
 import { slackChannelConfigUiHints } from "./config-ui-hints.js";

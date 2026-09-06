@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { filterMemorySearchHitsBySessionVisibility } from "@openclaw/memory-core/api.js";
-import type { MemoryReadResult } from "openclaw/plugin-sdk/memory-core-host-engine-storage";
+import type { MemoryReadResult } from "granted/plugin-sdk/memory-core-host-engine-storage";
 import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import type { GrantedConfig } from "../api.js";
 import { compileMemoryWikiVault } from "./compile.js";
@@ -44,7 +44,7 @@ vi.mock("openclaw/plugin-sdk/memory-host-core", () => ({
 
 vi.mock("openclaw/plugin-sdk/session-transcript-hit", async (importOriginal) => {
   const actual =
-    await importOriginal<typeof import("openclaw/plugin-sdk/session-transcript-hit")>();
+    await importOriginal<typeof import("granted/plugin-sdk/session-transcript-hit")>();
   return {
     ...actual,
     loadCombinedSessionStoreForGateway: loadCombinedSessionStoreForGatewayMock,

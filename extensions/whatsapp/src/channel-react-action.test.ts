@@ -1,4 +1,4 @@
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 // Whatsapp tests cover channel react action plugin behavior.
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { handleWhatsAppMessageAction } from "./channel-react-action.js";

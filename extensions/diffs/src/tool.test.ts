@@ -1,7 +1,7 @@
 // Diffs tests cover tool plugin behavior.
 import fs from "node:fs/promises";
 import path from "node:path";
-import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
+import { createTestPluginApi } from "granted/plugin-sdk/plugin-test-api";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { GrantedPluginApi, GrantedPluginToolContext } from "../api.js";
 import type { DiffScreenshotter } from "./browser.runtime.js";

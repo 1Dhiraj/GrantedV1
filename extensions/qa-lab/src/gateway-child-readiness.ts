@@ -1,8 +1,8 @@
 // Qa Lab plugin module owns gateway readiness and retry behavior.
 import { setTimeout as sleep } from "node:timers/promises";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import { resolveTimerTimeoutMs } from "openclaw/plugin-sdk/number-runtime";
-import { fetchWithSsrFGuard } from "openclaw/plugin-sdk/ssrf-runtime";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
+import { resolveTimerTimeoutMs } from "granted/plugin-sdk/number-runtime";
+import { fetchWithSsrFGuard } from "granted/plugin-sdk/ssrf-runtime";
 import { QaSuiteInfraError } from "./errors.js";
 import {
   hasQaGatewayChildExited,

@@ -1,6 +1,6 @@
 import fs from "node:fs/promises";
 import os from "node:os";
-import { resolveStateDir } from "openclaw/plugin-sdk/state-paths";
+import { resolveStateDir } from "granted/plugin-sdk/state-paths";
 import { resolveLegacyReefStateDir } from "./doctor-state-paths.js";
 
 export const REEF_LEGACY_KEYS_PENDING_CODE = "REEF_LEGACY_KEYS_PENDING";

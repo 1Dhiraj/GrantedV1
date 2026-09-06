@@ -1,18 +1,18 @@
 // Memory Core plugin module implements dreaming markdown behavior.
 import fs from "node:fs/promises";
 import path from "node:path";
-import { extractErrorCode } from "openclaw/plugin-sdk/error-runtime";
+import { extractErrorCode } from "granted/plugin-sdk/error-runtime";
 import {
   formatMemoryDreamingDay,
   type MemoryDreamingPhaseName,
   type MemoryDreamingStorageConfig,
-} from "openclaw/plugin-sdk/memory-core-host-status";
-import { appendMemoryHostEvent } from "openclaw/plugin-sdk/memory-host-events";
+} from "granted/plugin-sdk/memory-core-host-status";
+import { appendMemoryHostEvent } from "granted/plugin-sdk/memory-host-events";
 import {
   replaceManagedMarkdownBlock,
   withTrailingNewline,
-} from "openclaw/plugin-sdk/memory-host-markdown";
-import { replaceFileAtomic } from "openclaw/plugin-sdk/security-runtime";
+} from "granted/plugin-sdk/memory-host-markdown";
+import { replaceFileAtomic } from "granted/plugin-sdk/security-runtime";
 import { updateDeepDreamsFile } from "./dreaming-dreams-file.js";
 import { resolveMemoryCoreNowMs, resolveMemoryCoreTimestamp } from "./time.js";
 

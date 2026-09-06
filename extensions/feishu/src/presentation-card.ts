@@ -8,7 +8,7 @@ import {
   renderMessagePresentationTableFallbackText,
   type MessagePresentationBlock,
   type MessagePresentationButton,
-} from "openclaw/plugin-sdk/interactive-runtime";
+} from "granted/plugin-sdk/interactive-runtime";
 import { createFeishuCardInteractionEnvelope } from "./card-interaction.js";
 import {
   escapeFeishuCardMarkdownText,

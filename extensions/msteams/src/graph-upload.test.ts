@@ -1,5 +1,5 @@
 // Msteams tests cover graph upload plugin behavior.
-import { withFetchPreconnect, withServer } from "openclaw/plugin-sdk/test-env";
+import { withFetchPreconnect, withServer } from "granted/plugin-sdk/test-env";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { buildTeamsFileInfoCard } from "./graph-chat.js";
 import { requireMSTeamsSharePointSiteId, uploadAndShareSharePoint } from "./graph-upload.js";

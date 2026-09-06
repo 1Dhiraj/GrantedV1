@@ -1,8 +1,8 @@
 import { mkdtemp, realpath, rm, writeFile } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { createPluginRuntimeMock } from "openclaw/plugin-sdk/plugin-test-runtime";
-import { withServer } from "openclaw/plugin-sdk/test-env";
+import { createPluginRuntimeMock } from "granted/plugin-sdk/plugin-test-runtime";
+import { withServer } from "granted/plugin-sdk/test-env";
 import { describe, expect, it } from "vitest";
 import { setMattermostRuntime } from "../runtime.js";
 import { sendMessageMattermost } from "./send.js";

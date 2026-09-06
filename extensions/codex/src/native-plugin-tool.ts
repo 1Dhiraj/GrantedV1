@@ -1,7 +1,7 @@
 /** Owner-scoped, read-only discovery of plugins already known to Codex. */
-import { jsonResult, type AnyAgentTool } from "openclaw/plugin-sdk/core";
-import type { GrantedPluginToolContext } from "openclaw/plugin-sdk/plugin-entry";
-import { asOptionalRecord as readRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { jsonResult, type AnyAgentTool } from "granted/plugin-sdk/core";
+import type { GrantedPluginToolContext } from "granted/plugin-sdk/plugin-entry";
+import { asOptionalRecord as readRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import { Type } from "typebox";
 import { resolveCodexBindingAppServerConnection } from "./app-server/binding-connection.js";
 import { CODEX_CONTROL_METHODS } from "./app-server/capabilities.js";

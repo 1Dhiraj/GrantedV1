@@ -1,14 +1,14 @@
-import { listNativeCommandSpecsForConfig as listRealNativeCommandSpecsForConfig } from "openclaw/plugin-sdk/command-auth-native";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { NativeCommandSpec } from "openclaw/plugin-sdk/native-command-registry";
-import { registerPluginCommand } from "openclaw/plugin-sdk/plugin-runtime";
+import { listNativeCommandSpecsForConfig as listRealNativeCommandSpecsForConfig } from "granted/plugin-sdk/command-auth-native";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { NativeCommandSpec } from "granted/plugin-sdk/native-command-registry";
+import { registerPluginCommand } from "granted/plugin-sdk/plugin-runtime";
 import {
   createTestRegistry,
   resetPluginRuntimeStateForTest,
   setActivePluginRegistry,
-} from "openclaw/plugin-sdk/plugin-test-runtime";
-import { danger, warn, type RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
-import { normalizeLowercaseStringOrEmpty } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/plugin-test-runtime";
+import { danger, warn, type RuntimeEnv } from "granted/plugin-sdk/runtime-env";
+import { normalizeLowercaseStringOrEmpty } from "granted/plugin-sdk/string-coerce-runtime";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { discordSetupPlugin } from "../channel.setup.js";
 import { DISCORD_VOICE_COMMAND_SPEC } from "../voice/command.js";
@@ -18,7 +18,7 @@ const retainNativeCatalog = vi.hoisted(() => vi.fn());
 
 vi.mock("openclaw/plugin-sdk/plugin-command-runtime", async (importOriginal) => {
   const actual =
-    await importOriginal<typeof import("openclaw/plugin-sdk/plugin-command-runtime")>();
+    await importOriginal<typeof import("granted/plugin-sdk/plugin-command-runtime")>();
   return {
     ...actual,
     createPluginCommandRuntime: () => {

@@ -1,8 +1,8 @@
 // Volcengine plugin module implements tts behavior.
 import * as crypto from "node:crypto";
-import { canonicalizeBase64 } from "openclaw/plugin-sdk/media-runtime";
-import { readResponseWithLimit } from "openclaw/plugin-sdk/response-limit-runtime";
-import { fetchWithSsrFGuard } from "openclaw/plugin-sdk/ssrf-runtime";
+import { canonicalizeBase64 } from "granted/plugin-sdk/media-runtime";
+import { readResponseWithLimit } from "granted/plugin-sdk/response-limit-runtime";
+import { fetchWithSsrFGuard } from "granted/plugin-sdk/ssrf-runtime";
 
 export type VolcengineTtsEncoding = "ogg_opus" | "mp3" | "pcm" | "wav";
 

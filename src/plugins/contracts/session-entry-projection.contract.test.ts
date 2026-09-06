@@ -3,9 +3,9 @@ import path from "node:path";
 import {
   createPluginRegistryFixture,
   registerTestPlugin,
-} from "openclaw/plugin-sdk/plugin-test-contracts";
+} from "granted/plugin-sdk/plugin-test-contracts";
 // Session entry projection contract tests cover plugin session entry projection behavior.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import type { SessionEntry } from "../../config/sessions.js";
 import {

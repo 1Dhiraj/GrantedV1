@@ -1,17 +1,17 @@
 import { mkdirSync, rmSync } from "node:fs";
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { EmbeddingInput } from "openclaw/plugin-sdk/embedding-providers";
-import type { GrantedConfig } from "openclaw/plugin-sdk/memory-core-host-engine-foundation";
-import { resolveSessionTranscriptsDirForAgent } from "openclaw/plugin-sdk/memory-core-host-runtime-core";
-import { clearEmbeddingProviders as clearRegistry } from "openclaw/plugin-sdk/plugin-test-runtime";
-import { upsertSessionEntry } from "openclaw/plugin-sdk/session-store-runtime";
-import { appendSessionTranscriptMessageByIdentity } from "openclaw/plugin-sdk/session-transcript-runtime";
+import type { EmbeddingInput } from "granted/plugin-sdk/embedding-providers";
+import type { GrantedConfig } from "granted/plugin-sdk/memory-core-host-engine-foundation";
+import { resolveSessionTranscriptsDirForAgent } from "granted/plugin-sdk/memory-core-host-runtime-core";
+import { clearEmbeddingProviders as clearRegistry } from "granted/plugin-sdk/plugin-test-runtime";
+import { upsertSessionEntry } from "granted/plugin-sdk/session-store-runtime";
+import { appendSessionTranscriptMessageByIdentity } from "granted/plugin-sdk/session-transcript-runtime";
 import {
   closeOpenClawAgentDatabasesForTest,
   closeOpenClawStateDatabaseForTest,
-} from "openclaw/plugin-sdk/sqlite-runtime-testing";
-import { resolvePreferredOpenClawTmpDir } from "openclaw/plugin-sdk/temp-path";
+} from "granted/plugin-sdk/sqlite-runtime-testing";
+import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
 import { afterAll, afterEach, beforeAll, beforeEach, vi } from "vitest";
 import {
   configureMemoryCoreDreamingStateForTests,

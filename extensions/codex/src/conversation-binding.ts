@@ -3,24 +3,24 @@ import {
   formatErrorMessage,
   resolveActiveEmbeddedRunSessionId,
   resolveSandboxContext,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
-import { resolveAgentWorkspaceDir } from "openclaw/plugin-sdk/agent-runtime";
-import { resolveSessionAgentIdsStrict } from "openclaw/plugin-sdk/agent-scope-runtime";
-import { getSessionBindingService } from "openclaw/plugin-sdk/conversation-binding-runtime";
-import { loadExecApprovals } from "openclaw/plugin-sdk/exec-approvals-runtime";
-import { KeyedAsyncQueue } from "openclaw/plugin-sdk/keyed-async-queue";
+} from "granted/plugin-sdk/agent-harness-runtime";
+import { resolveAgentWorkspaceDir } from "granted/plugin-sdk/agent-runtime";
+import { resolveSessionAgentIdsStrict } from "granted/plugin-sdk/agent-scope-runtime";
+import { getSessionBindingService } from "granted/plugin-sdk/conversation-binding-runtime";
+import { loadExecApprovals } from "granted/plugin-sdk/exec-approvals-runtime";
+import { KeyedAsyncQueue } from "granted/plugin-sdk/keyed-async-queue";
 import type {
   PluginConversationBindingResolvedEvent,
   PluginHookInboundClaimContext,
   PluginHookInboundClaimEvent,
-} from "openclaw/plugin-sdk/plugin-entry";
-import type { ReplyPayload } from "openclaw/plugin-sdk/reply-payload";
+} from "granted/plugin-sdk/plugin-entry";
+import type { ReplyPayload } from "granted/plugin-sdk/reply-payload";
 import {
   getSessionEntry,
   resolveStorePath,
   resolveTranscriptSessionKeyBySessionId,
-} from "openclaw/plugin-sdk/session-store-runtime";
-import { readVisibleSessionTranscriptMessageEntries } from "openclaw/plugin-sdk/session-transcript-runtime";
+} from "granted/plugin-sdk/session-store-runtime";
+import { readVisibleSessionTranscriptMessageEntries } from "granted/plugin-sdk/session-transcript-runtime";
 import { resolveCodexAppServerForModelProvider } from "./app-server/app-server-policy.js";
 import {
   CODEX_APP_SERVER_UNSUBSCRIBE_TIMEOUT_MS,

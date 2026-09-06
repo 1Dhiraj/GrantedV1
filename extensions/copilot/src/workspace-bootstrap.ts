@@ -3,12 +3,12 @@ import path from "node:path";
 import type {
   AgentHarnessAttemptParamsV2,
   EmbeddedContextFile,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
+} from "granted/plugin-sdk/agent-harness-runtime";
 import {
   resolveBootstrapContextForRun,
   resolveUserPath,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
-import { readNonBlankString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/agent-harness-runtime";
+import { readNonBlankString } from "granted/plugin-sdk/string-coerce-runtime";
 
 // Filenames the Copilot SDK already loads natively from the working
 // directory / instructionDirectories (per

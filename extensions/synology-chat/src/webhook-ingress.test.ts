@@ -5,7 +5,7 @@ import path from "node:path";
 import {
   closeOpenClawStateDatabaseForTest,
   createChannelIngressQueueForTests,
-} from "openclaw/plugin-sdk/channel-ingress-test-runtime";
+} from "granted/plugin-sdk/channel-ingress-test-runtime";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   createSynologyIngressMonitor,

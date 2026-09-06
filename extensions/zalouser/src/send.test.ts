@@ -1,5 +1,5 @@
 // Zalouser tests cover send plugin behavior.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { createZalouserSendReceipt } from "./send-receipt.js";
 import {

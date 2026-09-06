@@ -1,6 +1,6 @@
 // Feishu tests cover bitable plugin behavior.
 import type * as Lark from "@larksuiteoapi/node-sdk";
-import type { AgentToolResult } from "openclaw/plugin-sdk/tool-results";
+import type { AgentToolResult } from "granted/plugin-sdk/tool-results";
 import { afterAll, beforeEach, describe, expect, it, vi } from "vitest";
 import type { GrantedPluginApi } from "../runtime-api.js";
 import { createToolFactoryHarness } from "./tool-factory-test-harness.js";

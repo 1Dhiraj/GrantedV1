@@ -3,7 +3,7 @@ import { isAudioFileName } from "@openclaw/media-core/mime";
 import {
   hasOutboundReplyContent,
   resolveSendableOutboundReplyParts,
-} from "openclaw/plugin-sdk/reply-payload";
+} from "granted/plugin-sdk/reply-payload";
 import { loadSessionEntryReadOnly } from "../../config/sessions/session-accessor.js";
 import { normalizeVerboseLevel, type VerboseLevel } from "../thinking.js";
 import type { ReplyPayload } from "../types.js";

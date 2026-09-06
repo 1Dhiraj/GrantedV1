@@ -2,11 +2,11 @@
 import {
   createChannelInboundDebouncer,
   shouldDebounceTextInbound,
-} from "openclaw/plugin-sdk/channel-inbound";
-import { fanInChannelIngressLifecycles } from "openclaw/plugin-sdk/channel-ingress-runtime";
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
-import { danger } from "openclaw/plugin-sdk/runtime-env";
-import { resolveOpenProviderRuntimeGroupPolicy } from "openclaw/plugin-sdk/runtime-group-policy";
+} from "granted/plugin-sdk/channel-inbound";
+import { fanInChannelIngressLifecycles } from "granted/plugin-sdk/channel-ingress-runtime";
+import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
+import { danger } from "granted/plugin-sdk/runtime-env";
+import { resolveOpenProviderRuntimeGroupPolicy } from "granted/plugin-sdk/runtime-group-policy";
 import type { Client } from "../internal/discord.js";
 import { buildDiscordInboundJob } from "./inbound-job.js";
 import type {

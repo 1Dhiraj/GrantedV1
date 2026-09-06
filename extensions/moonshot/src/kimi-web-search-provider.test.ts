@@ -1,5 +1,5 @@
-import type { GrantedConfig } from "openclaw/plugin-sdk/provider-onboard";
-import { withEnv, withEnvAsync } from "openclaw/plugin-sdk/test-env";
+import type { GrantedConfig } from "granted/plugin-sdk/provider-onboard";
+import { withEnv, withEnvAsync } from "granted/plugin-sdk/test-env";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { createKimiWebSearchProvider } from "./kimi-web-search-provider.js";
 import { testing } from "./kimi-web-search-provider.runtime.js";

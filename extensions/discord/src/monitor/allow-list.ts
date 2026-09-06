@@ -2,18 +2,18 @@
 import {
   type AllowlistMatch,
   resolveAllowlistMatchByCandidates,
-} from "openclaw/plugin-sdk/allow-from";
+} from "granted/plugin-sdk/allow-from";
 import {
   buildChannelKeyCandidates,
   resolveChannelEntryMatchWithFallback,
   resolveChannelMatchConfig,
   type ChannelMatchSource,
-} from "openclaw/plugin-sdk/channel-targets";
-import type { DiscordGuildEntry, GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+} from "granted/plugin-sdk/channel-targets";
+import type { DiscordGuildEntry, GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import type { Guild, User } from "../internal/discord.js";
 import { formatDiscordUserTag } from "./format.js";
 

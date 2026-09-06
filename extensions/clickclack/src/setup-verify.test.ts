@@ -1,5 +1,5 @@
 // ClickClack tests cover post-write connection verification and gateway guidance.
-import { createNonExitingRuntimeEnv } from "openclaw/plugin-sdk/plugin-test-runtime";
+import { createNonExitingRuntimeEnv } from "granted/plugin-sdk/plugin-test-runtime";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const mocks = vi.hoisted(() => ({

@@ -1,30 +1,30 @@
-import { createApproverRestrictedNativeApprovalCapability } from "openclaw/plugin-sdk/approval-delivery-runtime";
-import { createLazyChannelApprovalNativeRuntimeAdapter } from "openclaw/plugin-sdk/approval-handler-adapter-runtime";
+import { createApproverRestrictedNativeApprovalCapability } from "granted/plugin-sdk/approval-delivery-runtime";
+import { createLazyChannelApprovalNativeRuntimeAdapter } from "granted/plugin-sdk/approval-handler-adapter-runtime";
 import type {
   ChannelApprovalKind,
   ChannelApprovalNativeRuntimeAdapter,
-} from "openclaw/plugin-sdk/approval-handler-runtime";
+} from "granted/plugin-sdk/approval-handler-runtime";
 import {
   createChannelApproverDmTargetResolver,
   createChannelNativeOriginTargetResolver,
   createNativeApprovalChannelRouteGates,
   shouldSuppressLocalNativeExecApprovalPrompt,
-} from "openclaw/plugin-sdk/approval-native-runtime";
+} from "granted/plugin-sdk/approval-native-runtime";
 import type {
   ExecApprovalRequest,
   PluginApprovalRequest,
   SystemAgentApprovalRequest,
-} from "openclaw/plugin-sdk/approval-runtime";
+} from "granted/plugin-sdk/approval-runtime";
 import type {
   ChannelApprovalCapability,
   ChannelOutboundPayloadHint,
-} from "openclaw/plugin-sdk/channel-contract";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { ReplyPayload } from "openclaw/plugin-sdk/reply-runtime";
+} from "granted/plugin-sdk/channel-contract";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { ReplyPayload } from "granted/plugin-sdk/reply-runtime";
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import {
   listGoogleChatAccountIds,
   resolveDefaultGoogleChatAccountId,

@@ -1,9 +1,9 @@
 import crypto from "node:crypto";
 import fs from "node:fs/promises";
 import { gzipSync } from "node:zlib";
-import type { GrantedPluginNodeInvokePolicyContext } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginNodeInvokePolicyContext } from "granted/plugin-sdk/plugin-entry";
 // File Transfer tests cover node invoke policy plugin behavior.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterAll, afterEach, describe, expect, it, vi } from "vitest";
 import { appendFileTransferAudit } from "./audit.js";
 import { createFileTransferNodeInvokePolicy } from "./node-invoke-policy.js";

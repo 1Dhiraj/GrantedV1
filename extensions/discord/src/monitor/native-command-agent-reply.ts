@@ -1,20 +1,20 @@
 // Discord plugin module implements native command agent reply behavior.
-import { resolveHumanDelayConfig } from "openclaw/plugin-sdk/agent-runtime";
+import { resolveHumanDelayConfig } from "granted/plugin-sdk/agent-runtime";
 import {
   hasVisibleInboundReplyDispatch,
   isChannelPartialDeliveryError,
-} from "openclaw/plugin-sdk/channel-inbound";
-import { resolveChannelStreamingBlockEnabled } from "openclaw/plugin-sdk/channel-outbound";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { getAgentScopedMediaLocalRoots } from "openclaw/plugin-sdk/media-runtime";
+} from "granted/plugin-sdk/channel-inbound";
+import { resolveChannelStreamingBlockEnabled } from "granted/plugin-sdk/channel-outbound";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { getAgentScopedMediaLocalRoots } from "granted/plugin-sdk/media-runtime";
 import {
   PLUGIN_COMMAND_DISPATCH,
   type PluginCommandCatalogDecision,
-} from "openclaw/plugin-sdk/plugin-command-runtime";
-import { resolveChunkMode, resolveTextChunkLimit } from "openclaw/plugin-sdk/reply-chunking";
-import type { ReplyPayload } from "openclaw/plugin-sdk/reply-dispatch-runtime";
-import type { createSubsystemLogger } from "openclaw/plugin-sdk/runtime-env";
-import { logVerbose } from "openclaw/plugin-sdk/runtime-env";
+} from "granted/plugin-sdk/plugin-command-runtime";
+import { resolveChunkMode, resolveTextChunkLimit } from "granted/plugin-sdk/reply-chunking";
+import type { ReplyPayload } from "granted/plugin-sdk/reply-dispatch-runtime";
+import type { createSubsystemLogger } from "granted/plugin-sdk/runtime-env";
+import { logVerbose } from "granted/plugin-sdk/runtime-env";
 import { resolveDiscordMaxLinesPerMessage } from "../accounts.js";
 import type {
   ButtonInteraction,

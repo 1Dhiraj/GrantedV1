@@ -7,7 +7,7 @@ import type {
   CliBackendExecuteContext,
   CliBackendPlugin,
   CliBackendPreparedExecution,
-} from "openclaw/plugin-sdk/cli-backend";
+} from "granted/plugin-sdk/cli-backend";
 import { parseClaudeCliJsonlEvent } from "./cli-output.js";
 import {
   CLAUDE_CLI_BACKEND_ID,

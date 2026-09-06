@@ -6,8 +6,8 @@ import path from "node:path";
 import {
   resolveDefaultAgentId,
   resolveSessionAgentIdStrict,
-} from "openclaw/plugin-sdk/agent-scope-runtime";
-import { resolveStateDir } from "openclaw/plugin-sdk/state-paths";
+} from "granted/plugin-sdk/agent-scope-runtime";
+import { resolveStateDir } from "granted/plugin-sdk/state-paths";
 import { z } from "zod";
 import type { GrantedConfig } from "../api.js";
 

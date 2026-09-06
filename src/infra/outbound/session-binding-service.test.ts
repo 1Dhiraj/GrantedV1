@@ -4,8 +4,8 @@ import { expectDefined } from "@openclaw/normalization-core";
 import {
   inspectConversationBinding as inspectSessionBindingByConversation,
   type ConversationBindingInspection,
-} from "openclaw/plugin-sdk/conversation-binding-inspection-runtime";
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+} from "granted/plugin-sdk/conversation-binding-inspection-runtime";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { setActivePluginRegistry } from "../../plugins/runtime.js";
 import { closeOpenClawStateDatabaseForTest } from "../../state/openclaw-state-db.js";

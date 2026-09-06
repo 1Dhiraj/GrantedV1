@@ -1,13 +1,13 @@
 // Discord tests cover monitor.agent components plugin behavior.
 import { ChannelType, ComponentType } from "discord-api-types/v10";
-import { expectPairingReplyText } from "openclaw/plugin-sdk/channel-test-helpers";
-import type { DiscordAccountConfig, GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { buildAgentSessionKey } from "openclaw/plugin-sdk/routing";
+import { expectPairingReplyText } from "granted/plugin-sdk/channel-test-helpers";
+import type { DiscordAccountConfig, GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { buildAgentSessionKey } from "granted/plugin-sdk/routing";
 import {
   enqueueSystemEvent,
   peekSystemEventEntries,
-} from "openclaw/plugin-sdk/system-event-runtime";
-import { peekSystemEvents, resetSystemEventsForTest } from "openclaw/plugin-sdk/test-fixtures";
+} from "granted/plugin-sdk/system-event-runtime";
+import { peekSystemEvents, resetSystemEventsForTest } from "granted/plugin-sdk/test-fixtures";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
   ButtonInteraction,

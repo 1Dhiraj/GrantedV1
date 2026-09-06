@@ -8,7 +8,7 @@
  * untestable MV3 service worker, which is why it rotted and was removed.
  */
 import { addAbortListener, once } from "node:events";
-import { asOptionalRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { asOptionalRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import { createSubsystemLogger } from "../../logging/subsystem.js";
 import { resolveCreateTargetParams } from "./create-target-params.js";
 import {

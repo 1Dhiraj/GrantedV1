@@ -1,5 +1,5 @@
 // Verifies compaction token planning strips private/non-model fields first.
-import { serializeConversation, type AgentMessage } from "openclaw/plugin-sdk/agent-core";
+import { serializeConversation, type AgentMessage } from "granted/plugin-sdk/agent-core";
 import { describe, expect, it } from "vitest";
 import {
   buildOversizedFallbackPlan,

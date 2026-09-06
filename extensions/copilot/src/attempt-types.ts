@@ -4,12 +4,12 @@ import type {
   AgentHarnessAttemptResult as AgentHarnessAttemptResultContract,
   AgentHarnessV2,
   AgentMessage,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
+} from "granted/plugin-sdk/agent-harness-runtime";
 import {
   resolveSandboxContext as defaultResolveSandboxContext,
   runAgentEndSideEffects,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
-import type { TranscriptEntryAnchor } from "openclaw/plugin-sdk/session-transcript-runtime";
+} from "granted/plugin-sdk/agent-harness-runtime";
+import type { TranscriptEntryAnchor } from "granted/plugin-sdk/session-transcript-runtime";
 import type { OnAssistantDeltaPayload } from "./event-bridge.js";
 import type { CopilotHooksConfig } from "./hooks-bridge.js";
 import type { CopilotPermissionPolicy } from "./permission-bridge.js";

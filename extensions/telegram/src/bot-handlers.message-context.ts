@@ -1,16 +1,16 @@
 import type { Message } from "grammy/types";
-import { formatMediaPlaceholderText } from "openclaw/plugin-sdk/channel-inbound";
-import { resolveStoredModelOverride } from "openclaw/plugin-sdk/command-auth-native";
-import type { GrantedConfig, TelegramAccountConfig } from "openclaw/plugin-sdk/config-contracts";
-import { DEFAULT_GROUP_HISTORY_LIMIT } from "openclaw/plugin-sdk/reply-history";
+import { formatMediaPlaceholderText } from "granted/plugin-sdk/channel-inbound";
+import { resolveStoredModelOverride } from "granted/plugin-sdk/command-auth-native";
+import type { GrantedConfig, TelegramAccountConfig } from "granted/plugin-sdk/config-contracts";
+import { DEFAULT_GROUP_HISTORY_LIMIT } from "granted/plugin-sdk/reply-history";
 import {
   getSessionEntry,
   readAmbientTranscriptWatermark,
   resolveAmbientTranscriptWatermarkKey,
   type SessionEntry,
-} from "openclaw/plugin-sdk/session-store-runtime";
-import { asFiniteNumber } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { stripInlineDirectiveTagsForDelivery } from "openclaw/plugin-sdk/text-chunking";
+} from "granted/plugin-sdk/session-store-runtime";
+import { asFiniteNumber } from "granted/plugin-sdk/string-coerce-runtime";
+import { stripInlineDirectiveTagsForDelivery } from "granted/plugin-sdk/text-chunking";
 import { resolveDefaultModelForAgent } from "./bot-handlers.agent.runtime.js";
 import type { RegisterTelegramHandlerParams } from "./bot-handlers.types.js";
 import type { TelegramMediaRef } from "./bot-message-context.js";

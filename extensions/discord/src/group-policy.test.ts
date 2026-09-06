@@ -1,5 +1,5 @@
 // Discord tests pin guild/channel ScopeTree policy precedence.
-import type { GrantedConfig } from "openclaw/plugin-sdk/core";
+import type { GrantedConfig } from "granted/plugin-sdk/core";
 import { describe, expect, it } from "vitest";
 import {
   resolveDiscordGroupRequireMention,

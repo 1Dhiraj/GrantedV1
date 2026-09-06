@@ -1,11 +1,11 @@
 // Matrix plugin module implements session store metadata behavior.
-import { normalizeAccountId } from "openclaw/plugin-sdk/account-id";
+import { normalizeAccountId } from "granted/plugin-sdk/account-id";
 import {
   deliveryContextFromSession,
   sessionDeliveryOrigin,
   type SessionEntry,
-} from "openclaw/plugin-sdk/session-store-runtime";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/session-store-runtime";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import { resolveMatrixDirectUserId, resolveMatrixTargetIdentity } from "./target-ids.js";
 
 function resolveMatrixRoomTargetId(value: unknown): string | undefined {

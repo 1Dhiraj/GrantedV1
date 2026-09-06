@@ -2,7 +2,7 @@
 import { access, mkdtemp, rm, stat } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import type { PluginRuntime } from "openclaw/plugin-sdk/plugin-runtime";
+import type { PluginRuntime } from "granted/plugin-sdk/plugin-runtime";
 import { describe, expect, it, vi } from "vitest";
 import {
   MATRIX_QA_E2EE_SYNC_FILTER,

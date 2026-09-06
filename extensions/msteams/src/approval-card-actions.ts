@@ -1,12 +1,12 @@
 import crypto from "node:crypto";
-import type { ChannelApprovalKind } from "openclaw/plugin-sdk/approval-handler-runtime";
-import type { ExecApprovalDecision } from "openclaw/plugin-sdk/approval-runtime";
-import { pruneMapToMaxSize } from "openclaw/plugin-sdk/collection-runtime";
+import type { ChannelApprovalKind } from "granted/plugin-sdk/approval-handler-runtime";
+import type { ExecApprovalDecision } from "granted/plugin-sdk/approval-runtime";
+import { pruneMapToMaxSize } from "granted/plugin-sdk/collection-runtime";
 import {
   isRecord,
   normalizeOptionalLowercaseString,
   normalizeOptionalString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 
 export type MSTeamsApprovalCardBinding = {
   token: string;

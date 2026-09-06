@@ -6,14 +6,14 @@ import {
   assertOkOrThrowProviderError,
   readProviderBinaryResponse,
   readProviderJsonResponse,
-} from "openclaw/plugin-sdk/provider-http";
-import type { SpeechVoiceOption } from "openclaw/plugin-sdk/speech-core";
-import { trimToUndefined } from "openclaw/plugin-sdk/speech-core";
+} from "granted/plugin-sdk/provider-http";
+import type { SpeechVoiceOption } from "granted/plugin-sdk/speech-core";
+import { trimToUndefined } from "granted/plugin-sdk/speech-core";
 import {
   fetchWithSsrFGuard,
   ssrfPolicyFromHttpBaseUrlAllowedHostname,
-} from "openclaw/plugin-sdk/ssrf-runtime";
-import { asOptionalRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/ssrf-runtime";
+import { asOptionalRecord } from "granted/plugin-sdk/string-coerce-runtime";
 
 /** Default Azure Speech neural voice. */
 export const DEFAULT_AZURE_SPEECH_VOICE = "en-US-JennyNeural";

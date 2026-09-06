@@ -1,7 +1,7 @@
-import { resolveAgentDir } from "openclaw/plugin-sdk/agent-scope-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/provider-auth";
-import { resolveApiKeyForProvider } from "openclaw/plugin-sdk/provider-auth-runtime";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { resolveAgentDir } from "granted/plugin-sdk/agent-scope-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/provider-auth";
+import { resolveApiKeyForProvider } from "granted/plugin-sdk/provider-auth-runtime";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 
 export async function resolveXaiRealtimeApiKey(
   configApiKey: string | undefined,

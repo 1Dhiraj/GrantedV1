@@ -1,6 +1,6 @@
 // Whatsapp tests cover action runtime plugin behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { DEFAULT_ACCOUNT_ID } from "openclaw/plugin-sdk/routing";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { DEFAULT_ACCOUNT_ID } from "granted/plugin-sdk/routing";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { handleWhatsAppAction, whatsAppActionRuntime } from "./action-runtime.js";
 

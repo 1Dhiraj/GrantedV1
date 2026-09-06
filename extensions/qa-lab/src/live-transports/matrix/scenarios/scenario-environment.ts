@@ -1,10 +1,10 @@
 // QA Lab Matrix setup prepares transport state for the shared flow host.
 import { setTimeout as sleep } from "node:timers/promises";
 import { isDeepStrictEqual } from "node:util";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import type { QaRunnerCliRegistration } from "openclaw/plugin-sdk/qa-runner-runtime";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
+import type { QaRunnerCliRegistration } from "granted/plugin-sdk/qa-runner-runtime";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import type { MatrixQaProvisionResult, MatrixQaRoomObserver } from "../substrate/client.js";
 import { buildMatrixQaConfig, type MatrixQaConfigOverrides } from "../substrate/config.js";
 import type { MatrixQaObservedEvent } from "../substrate/events.js";

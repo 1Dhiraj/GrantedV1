@@ -332,7 +332,7 @@ const profiles = {
       openclaw: { extensions: ["./index.js"] },
     },
     indexJs: `import isNumber from "is-number";
-import { definePluginEntry } from "openclaw/plugin-sdk/plugin-entry";
+import { definePluginEntry } from "granted/plugin-sdk/plugin-entry";
 
 const dependencyUrl = import.meta.resolve("is-number");
 const expectedDependencyBaseUrl = new URL("./node_modules/is-number/", import.meta.url).href;

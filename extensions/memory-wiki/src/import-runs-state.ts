@@ -2,17 +2,17 @@
 import { createHash } from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
-import { runTasksWithConcurrency } from "openclaw/plugin-sdk/concurrency-runtime";
-import { resolveNonNegativeIntegerOption } from "openclaw/plugin-sdk/number-runtime";
+import { runTasksWithConcurrency } from "granted/plugin-sdk/concurrency-runtime";
+import { resolveNonNegativeIntegerOption } from "granted/plugin-sdk/number-runtime";
 import type {
   OpenKeyedStoreOptions,
   PluginStateKeyedStore,
-} from "openclaw/plugin-sdk/plugin-state-runtime";
+} from "granted/plugin-sdk/plugin-state-runtime";
 import {
   asNullableRecord,
   normalizeOptionalString,
   normalizeUniqueTrimmedStringList,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import { walkMemoryWikiDirectory } from "./bounded-walk.js";
 
 const LEGACY_IMPORT_RUN_READ_CONCURRENCY = 16;

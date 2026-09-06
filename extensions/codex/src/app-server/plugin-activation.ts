@@ -2,7 +2,7 @@
  * Activates legacy curated Codex plugins while requiring owner-managed
  * installation for every other marketplace.
  */
-import { coerceErrorMessage } from "openclaw/plugin-sdk/error-runtime";
+import { coerceErrorMessage } from "granted/plugin-sdk/error-runtime";
 import type { CodexAppInventoryCache, CodexAppInventoryRequest } from "./app-inventory-cache.js";
 import {
   CODEX_PLUGINS_MARKETPLACE_NAME,

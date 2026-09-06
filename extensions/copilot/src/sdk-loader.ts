@@ -4,7 +4,7 @@ import { createRequire } from "node:module";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 import type * as Sdk from "@github/copilot-sdk";
-import { resolveStateDir } from "openclaw/plugin-sdk/state-paths";
+import { resolveStateDir } from "granted/plugin-sdk/state-paths";
 import copilotPluginPackage from "../package.json" with { type: "json" };
 
 function resolveCopilotSdkFallbackDir(env: NodeJS.ProcessEnv = process.env): string {

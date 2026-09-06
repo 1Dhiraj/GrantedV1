@@ -4,17 +4,17 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import type { APIMessage } from "discord-api-types/v10";
-import { fanInChannelIngressLifecycles } from "openclaw/plugin-sdk/channel-ingress-runtime";
+import { fanInChannelIngressLifecycles } from "granted/plugin-sdk/channel-ingress-runtime";
 import {
   closeOpenClawStateDatabaseForTest,
   createChannelIngressQueueForTests,
-} from "openclaw/plugin-sdk/channel-ingress-test-runtime";
+} from "granted/plugin-sdk/channel-ingress-test-runtime";
 import {
   type ChannelIngressQueue,
   DEFAULT_INGRESS_RETRY_MAX_ATTEMPTS,
-} from "openclaw/plugin-sdk/channel-outbound";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
+} from "granted/plugin-sdk/channel-outbound";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { buildDiscordInboundJob } from "./inbound-job.js";
 import { createDiscordIngressMonitor, type DiscordIngressLifecycle } from "./ingress.js";

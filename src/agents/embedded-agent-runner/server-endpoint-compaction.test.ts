@@ -1,6 +1,6 @@
-import type { AgentMessage } from "openclaw/plugin-sdk/agent-core";
-import { SessionManager } from "openclaw/plugin-sdk/agent-sessions";
-import type { Model } from "openclaw/plugin-sdk/llm";
+import type { AgentMessage } from "granted/plugin-sdk/agent-core";
+import { SessionManager } from "granted/plugin-sdk/agent-sessions";
+import type { Model } from "granted/plugin-sdk/llm";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const { requestPreparedCompactionMock } = vi.hoisted(() => ({

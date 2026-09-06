@@ -53,7 +53,7 @@ vi.mock("./test-file-scenario-docker-batch.js", async (importOriginal) => ({
 vi.mock("openclaw/plugin-sdk/run-command", () => ({ runPluginCommandWithTimeout }));
 
 vi.mock("openclaw/plugin-sdk/security-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/security-runtime")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/security-runtime")>();
   replaceFileAtomicMock.mockImplementation(actual.replaceFileAtomic);
   return { ...actual, replaceFileAtomic: replaceFileAtomicMock };
 });
@@ -202,7 +202,7 @@ async function expectArtifactPublicationFailurePreservesPrior(params: {
     await fs.chmod(finalPath, 0o640);
   }
   const actualSecurityRuntime = await vi.importActual<
-    typeof import("openclaw/plugin-sdk/security-runtime")
+    typeof import("granted/plugin-sdk/security-runtime")
   >("openclaw/plugin-sdk/security-runtime");
   const publicationOrder: string[] = [];
   const failSelectedArtifact = async (options: Parameters<typeof replaceFileAtomicMock>[0]) => {

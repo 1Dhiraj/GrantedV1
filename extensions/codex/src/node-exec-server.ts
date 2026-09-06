@@ -2,8 +2,8 @@
 import type {
   GrantedPluginNodeHostCommand,
   GrantedPluginNodeInvokePolicy,
-} from "openclaw/plugin-sdk/plugin-entry";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/plugin-entry";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 
 const CODEX_NODE_EXEC_SERVER_COMMAND = "codex.exec-server.stdio.v1";
 

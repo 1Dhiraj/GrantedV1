@@ -3,9 +3,9 @@ import {
   createStatusReactionController,
   logAckFailure,
   type StatusReactionAdapter,
-} from "openclaw/plugin-sdk/channel-feedback";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { logVerbose } from "openclaw/plugin-sdk/runtime-env";
+} from "granted/plugin-sdk/channel-feedback";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { logVerbose } from "granted/plugin-sdk/runtime-env";
 import { createDiscordRuntimeAccountContext } from "../client.js";
 import type { RequestClient } from "../internal/discord.js";
 import { reactMessageDiscord, removeReactionDiscord } from "../send.js";

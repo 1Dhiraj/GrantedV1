@@ -7,7 +7,7 @@ import { DatabaseSync } from "node:sqlite";
 import { fileURLToPath } from "node:url";
 import { gunzipSync } from "node:zlib";
 import type { ISyncResponse } from "matrix-js-sdk/lib/matrix.js";
-import { resetPluginStateStoreForTests } from "openclaw/plugin-sdk/plugin-state-test-runtime";
+import { resetPluginStateStoreForTests } from "granted/plugin-sdk/plugin-state-test-runtime";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { SqliteBackedMatrixSyncStore } from "./src/matrix/client/file-sync-store.js";
 import { installMatrixTestRuntime } from "./src/test-runtime.js";

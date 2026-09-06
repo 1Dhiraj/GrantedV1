@@ -6,8 +6,8 @@ import {
   hasConfiguredSecretInputValue,
   type ResolverContext,
   type SecretDefaults,
-} from "openclaw/plugin-sdk/channel-secret-basic-runtime";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/channel-secret-basic-runtime";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 
 export const secretTargetRegistryEntries = createChannelSecretTargetRegistryEntries({
   channelKey: "clickclack",

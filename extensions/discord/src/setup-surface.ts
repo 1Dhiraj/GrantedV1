@@ -1,5 +1,5 @@
 // Discord plugin module implements setup surface behavior.
-import { resolveBasicAllowFromEntries } from "openclaw/plugin-sdk/allow-from";
+import { resolveBasicAllowFromEntries } from "granted/plugin-sdk/allow-from";
 import {
   createSetupTranslator,
   patchChannelConfigForAccount,
@@ -10,8 +10,8 @@ import {
   type ChannelSetupWizard,
   type GrantedConfig,
   type WizardPrompter,
-} from "openclaw/plugin-sdk/setup-runtime";
-import { formatDocsLink } from "openclaw/plugin-sdk/setup-tools";
+} from "granted/plugin-sdk/setup-runtime";
+import { formatDocsLink } from "granted/plugin-sdk/setup-tools";
 import { resolveDiscordAccountAllowFrom } from "./accounts.js";
 import { resolveDiscordChannelAllowlist } from "./resolve-channels.js";
 import { resolveDiscordUserAllowlist } from "./resolve-users.js";

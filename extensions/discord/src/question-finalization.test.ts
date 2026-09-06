@@ -9,7 +9,7 @@ const hoisted = vi.hoisted(() => ({
 }));
 vi.mock("openclaw/plugin-sdk/question-gateway-runtime", async (importOriginal) => {
   const original =
-    await importOriginal<typeof import("openclaw/plugin-sdk/question-gateway-runtime")>();
+    await importOriginal<typeof import("granted/plugin-sdk/question-gateway-runtime")>();
   return {
     ...original,
     questionGatewayRuntime: {

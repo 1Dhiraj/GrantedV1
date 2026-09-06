@@ -3,7 +3,7 @@ import {
   type GrantedPluginNodeHostCommandIo,
   runNodePtyCommand,
   validateClaudeSessionId,
-} from "openclaw/plugin-sdk/node-host";
+} from "granted/plugin-sdk/node-host";
 import { isExactClaudeSessionCursor } from "./session-catalog-cursor.js";
 import { resolveClaudeTerminalExecutable } from "./session-catalog-executable.js";
 import { isResumableClaudeSource } from "./session-catalog-shared.js";

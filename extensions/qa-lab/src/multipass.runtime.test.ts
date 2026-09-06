@@ -2,14 +2,14 @@
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { resolvePreferredOpenClawTmpDir } from "openclaw/plugin-sdk/temp-path";
+import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const runExecMock = vi.hoisted(() => vi.fn());
 const TEST_ENV_VALUE = "qa-fixture-value";
 
 vi.mock("openclaw/plugin-sdk/process-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/process-runtime")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/process-runtime")>();
   return {
     ...actual,
     runExec: runExecMock,

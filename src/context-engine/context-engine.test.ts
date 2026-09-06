@@ -1,5 +1,5 @@
 // Context engine tests cover context extraction and prompt context assembly.
-import type { AgentMessage } from "openclaw/plugin-sdk/agent-core";
+import type { AgentMessage } from "granted/plugin-sdk/agent-core";
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   createContextEngineLogicalTurnLease,

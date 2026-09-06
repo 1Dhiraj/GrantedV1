@@ -1,6 +1,6 @@
 // Matrix plugin module implements subagent hooks behavior.
-import { getSessionBindingService } from "openclaw/plugin-sdk/conversation-binding-runtime";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { getSessionBindingService } from "granted/plugin-sdk/conversation-binding-runtime";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   getMatrixThreadBindingManager,
   listAllBindings,

@@ -619,7 +619,7 @@ fi
     expect(runner).toContain('-v "$DOCKER_SOCKET:/var/run/docker.sock"');
     expect(runner).toContain('-v "$SCENARIO_ROOT:$SCENARIO_ROOT"');
     expect(runner).toContain("scripts/docker/sandbox/Dockerfile.browser");
-    expect(scenario).toContain('from "openclaw/plugin-sdk/agent-harness-runtime"');
+    expect(scenario).toContain('from "granted/plugin-sdk/agent-harness-runtime"');
     expect(scenario).toContain('"sandbox", "list", "--browser", "--json"');
     expect(scenario).not.toMatch(/from\s+["'][.]{1,2}\/.*src\//u);
   });
@@ -7183,7 +7183,7 @@ done
     mkdirSync(dirname(unitPath), { recursive: true });
     writeFileSync(
       unitPath,
-      "[Service]\nExecStart=/usr/bin/node /opt/profile/openclaw.mjs gateway\nEnvironment=OLD=stale\nEnvironment=\nEnvironment=KEEP=current REMOVE=value\nUnsetEnvironment=KEEP\nUnsetEnvironment=\nUnsetEnvironment=REMOVE\nEnvironmentFile=/missing/required.env\nEnvironmentFile=\n",
+      "[Service]\nExecStart=/usr/bin/node /opt/profile/granted.mjs gateway\nEnvironment=OLD=stale\nEnvironment=\nEnvironment=KEEP=current REMOVE=value\nUnsetEnvironment=KEEP\nUnsetEnvironment=\nUnsetEnvironment=REMOVE\nEnvironmentFile=/missing/required.env\nEnvironmentFile=\n",
     );
     const command = await readSystemdServiceExecStart(env, { requireEffective: true });
     expect(command?.sourcePath).toBe(unitPath);

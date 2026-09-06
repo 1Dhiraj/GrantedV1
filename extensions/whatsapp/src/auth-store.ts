@@ -1,16 +1,16 @@
 // Whatsapp plugin module implements auth store behavior.
 import fs from "node:fs/promises";
 import path from "node:path";
-import { formatCliCommand } from "openclaw/plugin-sdk/cli-runtime";
-import { isPathStrictlyInside } from "openclaw/plugin-sdk/file-access-runtime";
-import { DEFAULT_ACCOUNT_ID } from "openclaw/plugin-sdk/routing";
+import { formatCliCommand } from "granted/plugin-sdk/cli-runtime";
+import { isPathStrictlyInside } from "granted/plugin-sdk/file-access-runtime";
+import { DEFAULT_ACCOUNT_ID } from "granted/plugin-sdk/routing";
 import {
   info,
   success,
   getChildLogger,
   defaultRuntime,
   type RuntimeEnv,
-} from "openclaw/plugin-sdk/runtime-env";
+} from "granted/plugin-sdk/runtime-env";
 import { resolveOAuthDir } from "./auth-store.runtime.js";
 import {
   assertWebCredsPathRegularFileOrMissing,

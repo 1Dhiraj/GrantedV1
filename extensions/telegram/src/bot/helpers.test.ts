@@ -1,6 +1,6 @@
 // Telegram tests cover helpers plugin behavior.
 import type { MessageEntity } from "grammy/types";
-import { markdownToIR } from "openclaw/plugin-sdk/text-chunking";
+import { markdownToIR } from "granted/plugin-sdk/text-chunking";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   describeReplyTarget,

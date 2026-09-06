@@ -1,6 +1,6 @@
 // Slack plugin module implements shared behavior.
-import { describeAccountSnapshot } from "openclaw/plugin-sdk/account-helpers";
-import { adaptScopedAccountAccessor } from "openclaw/plugin-sdk/channel-config-helpers";
+import { describeAccountSnapshot } from "granted/plugin-sdk/account-helpers";
+import { adaptScopedAccountAccessor } from "granted/plugin-sdk/channel-config-helpers";
 import { isSlackPluginAccountConfigured } from "./account-configured.js";
 import { inspectSlackAccount } from "./account-inspect.js";
 import type { ResolvedSlackAccount } from "./accounts.js";

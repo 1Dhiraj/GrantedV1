@@ -3,29 +3,29 @@ import type {
   ChannelApprovalCapabilityHandlerContext,
   PendingApprovalView,
   ResolvedApprovalView,
-} from "openclaw/plugin-sdk/approval-handler-runtime";
-import { createChannelApprovalNativeRuntimeAdapter } from "openclaw/plugin-sdk/approval-handler-runtime";
-import { buildChannelApprovalNativeTargetKey } from "openclaw/plugin-sdk/approval-native-runtime";
+} from "granted/plugin-sdk/approval-handler-runtime";
+import { createChannelApprovalNativeRuntimeAdapter } from "granted/plugin-sdk/approval-handler-runtime";
+import { buildChannelApprovalNativeTargetKey } from "granted/plugin-sdk/approval-native-runtime";
 import {
   buildExecApprovalPendingReplyPayload,
   buildPluginApprovalPendingReplyPayload,
   type ExecApprovalReplyDecision,
-} from "openclaw/plugin-sdk/approval-reply-runtime";
+} from "granted/plugin-sdk/approval-reply-runtime";
 import {
   buildApprovalPendingReplyPayload,
   buildPluginApprovalResolvedReplyPayload,
-} from "openclaw/plugin-sdk/approval-runtime";
+} from "granted/plugin-sdk/approval-runtime";
 import type {
   ExecApprovalRequest,
   PluginApprovalRequest,
-} from "openclaw/plugin-sdk/approval-runtime";
+} from "granted/plugin-sdk/approval-runtime";
 import {
   listMessageReceiptPlatformIds,
   resolveMessageReceiptPrimaryId,
-} from "openclaw/plugin-sdk/channel-outbound";
-import { retryAsync } from "openclaw/plugin-sdk/retry-runtime";
-import { normalizeAccountId } from "openclaw/plugin-sdk/routing";
-import { normalizeUniqueStringEntries } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/channel-outbound";
+import { retryAsync } from "granted/plugin-sdk/retry-runtime";
+import { normalizeAccountId } from "granted/plugin-sdk/routing";
+import { normalizeUniqueStringEntries } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   buildMatrixApprovalReactionHint,
   listMatrixApprovalReactionBindings,

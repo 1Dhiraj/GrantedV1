@@ -2,18 +2,18 @@
 import {
   resolveStableChannelMessageIngress,
   type ChannelIngressContextBinding,
-} from "openclaw/plugin-sdk/channel-ingress-runtime";
+} from "granted/plugin-sdk/channel-ingress-runtime";
 import {
   resolveChannelGroupPolicy,
   resolveChannelGroupRequireMention,
-} from "openclaw/plugin-sdk/channel-policy";
+} from "granted/plugin-sdk/channel-policy";
 import type {
   ChannelGroupPolicy,
   DmPolicy,
   GroupPolicy,
   GrantedConfig,
-} from "openclaw/plugin-sdk/config-contracts";
-import { resolveDefaultGroupPolicy } from "openclaw/plugin-sdk/runtime-group-policy";
+} from "granted/plugin-sdk/config-contracts";
+import { resolveDefaultGroupPolicy } from "granted/plugin-sdk/runtime-group-policy";
 import { resolveWhatsAppAccount, type ResolvedWhatsAppAccount } from "./accounts.js";
 import { getSelfIdentity, getSenderIdentity } from "./identity.js";
 import { requireWhatsAppInboundAdmission } from "./inbound/admission.js";

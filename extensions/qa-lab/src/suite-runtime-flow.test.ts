@@ -1,6 +1,6 @@
 // Qa Lab tests cover suite runtime flow plugin behavior.
-import { parseModelRef, resolveModelRefFromString } from "openclaw/plugin-sdk/agent-runtime";
-import { MAX_TIMER_TIMEOUT_MS } from "openclaw/plugin-sdk/number-runtime";
+import { parseModelRef, resolveModelRefFromString } from "granted/plugin-sdk/agent-runtime";
+import { MAX_TIMER_TIMEOUT_MS } from "granted/plugin-sdk/number-runtime";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const createQaScenarioRuntimeApi = vi.hoisted(() => vi.fn());

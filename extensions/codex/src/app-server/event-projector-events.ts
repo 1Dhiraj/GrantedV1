@@ -3,11 +3,11 @@ import {
   emitAgentEvent as emitGlobalAgentEvent,
   type EmbeddedRunAttemptParamsV2 as EmbeddedRunAttemptParams,
   type ToolProgressDetailMode,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
+} from "granted/plugin-sdk/agent-harness-runtime";
 import {
   asFiniteNumber,
   readStringField as readString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import {
   isNonSuccessItemStatus,
   itemKind,

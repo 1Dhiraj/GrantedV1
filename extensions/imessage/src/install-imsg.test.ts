@@ -1,8 +1,8 @@
 // iMessage tests cover imsg CLI install behavior.
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
-import { withTempDir } from "openclaw/plugin-sdk/test-env";
+import type { RuntimeEnv } from "granted/plugin-sdk/runtime-env";
+import { withTempDir } from "granted/plugin-sdk/test-env";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 const { resolveBrewExecutableMock, runPluginCommandWithTimeoutMock } = vi.hoisted(() => ({
@@ -11,7 +11,7 @@ const { resolveBrewExecutableMock, runPluginCommandWithTimeoutMock } = vi.hoiste
 }));
 
 vi.mock("openclaw/plugin-sdk/setup-tools", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/setup-tools")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/setup-tools")>();
   return {
     ...actual,
     resolveBrewExecutable: resolveBrewExecutableMock,

@@ -1,11 +1,11 @@
 // Slack plugin module implements channel type behavior.
 import { createHash } from "node:crypto";
-import { pruneMapToMaxSize } from "openclaw/plugin-sdk/collection-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import { pruneMapToMaxSize } from "granted/plugin-sdk/collection-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import { resolveSlackAccount, resolveSlackOperationToken } from "./accounts.js";
 import { createSlackReadClient, createSlackWebClient } from "./client.js";
 import { assertSlackDetachedTargetAllowed } from "./detached-target-admission.js";

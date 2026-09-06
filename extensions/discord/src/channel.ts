@@ -3,22 +3,22 @@ import {
   buildLegacyDmAccountAllowlistAdapter,
   createAccountScopedAllowlistNameResolver,
   createNestedAllowlistOverrideResolver,
-} from "openclaw/plugin-sdk/allowlist-config-edit";
-import { createChatChannelPlugin } from "openclaw/plugin-sdk/channel-core";
-import { createChannelMessageAdapterFromOutbound } from "openclaw/plugin-sdk/channel-outbound";
-import { createPairingPrefixStripper } from "openclaw/plugin-sdk/channel-pairing";
+} from "granted/plugin-sdk/allowlist-config-edit";
+import { createChatChannelPlugin } from "granted/plugin-sdk/channel-core";
+import { createChannelMessageAdapterFromOutbound } from "granted/plugin-sdk/channel-outbound";
+import { createPairingPrefixStripper } from "granted/plugin-sdk/channel-pairing";
 import {
   createChannelDirectoryAdapter,
   createRuntimeDirectoryLiveAdapter,
-} from "openclaw/plugin-sdk/directory-runtime";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import { sleepWithAbort } from "openclaw/plugin-sdk/runtime-env";
+} from "granted/plugin-sdk/directory-runtime";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
+import { sleepWithAbort } from "granted/plugin-sdk/runtime-env";
 import {
   createComputedAccountStatusAdapter,
   createDefaultChannelRuntimeState,
-} from "openclaw/plugin-sdk/status-helpers";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { resolveTargetsWithOptionalToken } from "openclaw/plugin-sdk/target-resolver-runtime";
+} from "granted/plugin-sdk/status-helpers";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
+import { resolveTargetsWithOptionalToken } from "granted/plugin-sdk/target-resolver-runtime";
 import {
   listDiscordStartupAccountIds,
   resolveDiscordAccount,

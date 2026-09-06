@@ -1,6 +1,6 @@
 // Signal tests cover send plugin behavior.
 import http from "node:http";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const signalRpcRequestMock = vi.hoisted(() => vi.fn());
@@ -16,7 +16,7 @@ vi.mock("./client-adapter.js", () => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/media-runtime", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/media-runtime")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/media-runtime")>(
     "openclaw/plugin-sdk/media-runtime",
   );
   return {

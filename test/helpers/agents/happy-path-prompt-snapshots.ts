@@ -1,7 +1,7 @@
 // Happy path prompt snapshot helper reads expected prompt snapshot files.
 import fs from "node:fs";
 import path from "node:path";
-import type { Model } from "openclaw/plugin-sdk/llm";
+import type { Model } from "granted/plugin-sdk/llm";
 import { resolveHeartbeatPromptForResponseTool } from "../../../src/auto-reply/heartbeat.js";
 import {
   buildDirectChatContext,

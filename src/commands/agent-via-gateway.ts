@@ -211,7 +211,7 @@ const embeddedStateLockModuleLoader = createLazyPromiseLoader(
   { cacheRejections: true },
 );
 const replyPayloadModuleLoader = createLazyPromiseLoader(
-  () => import("openclaw/plugin-sdk/reply-payload"),
+  () => import("granted/plugin-sdk/reply-payload"),
   { cacheRejections: true },
 );
 let gatewayAbortRetryDelaysMsForTests: readonly number[] | undefined;

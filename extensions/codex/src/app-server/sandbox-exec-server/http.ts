@@ -2,9 +2,9 @@
  * Implements sandboxed HTTP requests for Codex native tools by routing network
  * access through the active OpenClaw sandbox backend.
  */
-import { embeddedAgentLog } from "openclaw/plugin-sdk/agent-harness-runtime";
-import { SsrFBlockedError, isBlockedHostnameOrIp } from "openclaw/plugin-sdk/ssrf-runtime";
-import { sliceUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+import { embeddedAgentLog } from "granted/plugin-sdk/agent-harness-runtime";
+import { SsrFBlockedError, isBlockedHostnameOrIp } from "granted/plugin-sdk/ssrf-runtime";
+import { sliceUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import type { JsonObject, JsonValue } from "../protocol.js";
 import { readHttpHeaders, requireNumber, requireObject, requireString } from "./json-rpc.js";
 import {

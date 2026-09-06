@@ -1,6 +1,6 @@
-import type { BrowserConfig, GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { resolveGatewayPort } from "openclaw/plugin-sdk/gateway-config-runtime";
-import { isLoopbackHost } from "openclaw/plugin-sdk/ssrf-runtime";
+import type { BrowserConfig, GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { resolveGatewayPort } from "granted/plugin-sdk/gateway-config-runtime";
+import { isLoopbackHost } from "granted/plugin-sdk/ssrf-runtime";
 import { resolveBrowserConfig } from "./config.js";
 import { ensureExtensionRelayToken } from "./extension-relay/relay-auth.js";
 

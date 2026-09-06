@@ -1,16 +1,16 @@
 // Feishu tests cover the shared outbound delivery path.
 import path from "node:path";
 import { DatabaseSync } from "node:sqlite";
-import { sendDurableMessageBatch } from "openclaw/plugin-sdk/channel-outbound";
+import { sendDurableMessageBatch } from "granted/plugin-sdk/channel-outbound";
 import {
   createOutboundTestPlugin,
   createTestRegistry,
   resetPluginRuntimeStateForTest,
   resetGlobalHookRunner,
   setActivePluginRegistry,
-} from "openclaw/plugin-sdk/channel-test-helpers";
-import { drainPendingDeliveries } from "openclaw/plugin-sdk/delivery-queue-runtime";
-import { withStateDirEnv } from "openclaw/plugin-sdk/test-env";
+} from "granted/plugin-sdk/channel-test-helpers";
+import { drainPendingDeliveries } from "granted/plugin-sdk/delivery-queue-runtime";
+import { withStateDirEnv } from "granted/plugin-sdk/test-env";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const sendMediaFeishuMock = vi.hoisted(() => vi.fn());

@@ -11,5 +11,5 @@ export {
   WEBHOOK_IN_FLIGHT_DEFAULTS,
   WEBHOOK_RATE_LIMIT_DEFAULTS,
   type WebhookInFlightLimiter,
-} from "openclaw/plugin-sdk/webhook-ingress";
-export type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+} from "granted/plugin-sdk/webhook-ingress";
+export type { GrantedConfig } from "granted/plugin-sdk/config-contracts";

@@ -1,6 +1,6 @@
-import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
-import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
-import type { TranscriptSourceProvider } from "openclaw/plugin-sdk/transcripts";
+import type { GrantedPluginApi } from "granted/plugin-sdk/plugin-entry";
+import { createTestPluginApi } from "granted/plugin-sdk/plugin-test-api";
+import type { TranscriptSourceProvider } from "granted/plugin-sdk/transcripts";
 import { describe, expect, it } from "vitest";
 import plugin from "./index.js";
 

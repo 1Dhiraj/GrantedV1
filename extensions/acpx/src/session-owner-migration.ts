@@ -6,7 +6,7 @@ import {
   archiveLegacyStateSource,
   asObjectRecord,
   type PluginDoctorStateMigration,
-} from "openclaw/plugin-sdk/runtime-doctor-migrations";
+} from "granted/plugin-sdk/runtime-doctor-migrations";
 import { resolveAcpxPluginConfig } from "./config.js";
 import {
   hashAcpxProcessCommand,

@@ -7,7 +7,7 @@
  * @module @openclaw/oc-path/find
  */
 
-import { expectDefined } from "openclaw/plugin-sdk/expect-runtime";
+import { expectDefined } from "granted/plugin-sdk/expect-runtime";
 import { isMap, isScalar, isSeq, type Node, type Pair } from "yaml";
 import type { MdAst } from "./ast.js";
 import type { JsoncValue } from "./jsonc/ast.js";

@@ -2,9 +2,9 @@ import fs from "node:fs";
 import {
   validateJsonSchemaValue,
   type JsonSchemaObject,
-} from "openclaw/plugin-sdk/json-schema-runtime";
+} from "granted/plugin-sdk/json-schema-runtime";
 // Diffs tests cover config plugin behavior.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { beforeAll, describe, expect, it } from "vitest";
 import {
   diffsPluginConfigSchema,

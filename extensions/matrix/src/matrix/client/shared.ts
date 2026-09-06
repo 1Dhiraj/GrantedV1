@@ -1,8 +1,8 @@
 // Matrix plugin module implements shared behavior.
-import { normalizeOptionalAccountId } from "openclaw/plugin-sdk/account-id";
-import { toStringifiedError as toRetirementError } from "openclaw/plugin-sdk/error-runtime";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
+import { normalizeOptionalAccountId } from "granted/plugin-sdk/account-id";
+import { toStringifiedError as toRetirementError } from "granted/plugin-sdk/error-runtime";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
+import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
 import type { CoreConfig } from "../../types.js";
 import { getMatrixMonitorTaskSignal } from "../monitor/task-runner.js";
 import type { MatrixClient } from "../sdk.js";

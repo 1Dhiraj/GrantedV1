@@ -2,7 +2,7 @@
 import {
   sanitizeEmbeddingCacheHeaders,
   type MemoryEmbeddingProvider,
-} from "openclaw/plugin-sdk/memory-core-host-engine-embeddings";
+} from "granted/plugin-sdk/memory-core-host-engine-embeddings";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const mocks = vi.hoisted(() => ({

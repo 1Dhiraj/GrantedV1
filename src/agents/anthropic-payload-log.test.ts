@@ -4,7 +4,7 @@
  * JSONL logging.
  */
 import crypto from "node:crypto";
-import type { StreamFn } from "openclaw/plugin-sdk/agent-core";
+import type { StreamFn } from "granted/plugin-sdk/agent-core";
 import { describe, expect, it } from "vitest";
 import { createAnthropicPayloadLogger } from "./anthropic-payload-log.js";
 

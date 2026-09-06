@@ -1,6 +1,6 @@
-import type { DiscordAccountConfig, GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { createSubsystemLogger } from "openclaw/plugin-sdk/runtime-env";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
+import type { DiscordAccountConfig, GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { createSubsystemLogger } from "granted/plugin-sdk/runtime-env";
+import type { RuntimeEnv } from "granted/plugin-sdk/runtime-env";
 import type { APIVoiceState, Client } from "../internal/discord.js";
 import { formatMention } from "../mentions.js";
 import { resolveFetchedDiscordThreadLikeChannelContext } from "../monitor/thread-channel-context.js";

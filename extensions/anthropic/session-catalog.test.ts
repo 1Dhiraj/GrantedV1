@@ -1,14 +1,14 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import type {
   GrantedPluginApi,
   GrantedPluginNodeHostCommand,
-} from "openclaw/plugin-sdk/plugin-entry";
-import type { PluginRuntime } from "openclaw/plugin-sdk/plugin-runtime";
-import { createPluginRuntimeMock } from "openclaw/plugin-sdk/plugin-test-runtime";
-import type { SessionCatalogProvider as RegisteredSessionCatalogProvider } from "openclaw/plugin-sdk/session-catalog";
+} from "granted/plugin-sdk/plugin-entry";
+import type { PluginRuntime } from "granted/plugin-sdk/plugin-runtime";
+import { createPluginRuntimeMock } from "granted/plugin-sdk/plugin-test-runtime";
+import type { SessionCatalogProvider as RegisteredSessionCatalogProvider } from "granted/plugin-sdk/session-catalog";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { adoptedSourceKey } from "./session-catalog-adoption.js";
 import {
@@ -127,7 +127,7 @@ const nodeHostMocks = vi.hoisted(() => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/node-host", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/node-host")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/node-host")>();
   return {
     ...actual,
     runNodePtyCommand: nodeHostMocks.runNodePtyCommand,

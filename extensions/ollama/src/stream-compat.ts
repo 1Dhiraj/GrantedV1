@@ -1,19 +1,19 @@
-import type { StreamFn } from "openclaw/plugin-sdk/agent-core";
+import type { StreamFn } from "granted/plugin-sdk/agent-core";
 import type {
   GrantedConfig,
   ProviderRuntimeModel,
   ProviderWrapStreamFnContext,
-} from "openclaw/plugin-sdk/plugin-entry";
+} from "granted/plugin-sdk/plugin-entry";
 import {
   DEFAULT_CONTEXT_TOKENS,
   normalizeProviderId,
-} from "openclaw/plugin-sdk/provider-model-shared";
+} from "granted/plugin-sdk/provider-model-shared";
 import {
   createMoonshotThinkingWrapper,
   createPayloadPatchStreamWrapper,
   resolveMoonshotThinkingType,
-} from "openclaw/plugin-sdk/provider-stream-shared";
-import { isLoopbackHost } from "openclaw/plugin-sdk/ssrf-runtime";
+} from "granted/plugin-sdk/provider-stream-shared";
+import { isLoopbackHost } from "granted/plugin-sdk/ssrf-runtime";
 import { shouldWrapOllamaCompatMoonshotThinking } from "./model-behavior.js";
 import { supportsOllamaCloudFullThinkingEffort } from "./model-reasoning.js";
 

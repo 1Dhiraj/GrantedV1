@@ -1,14 +1,14 @@
 // Signal integration coverage for durable ingress after a partially visible final reply.
-import { buildExecApprovalPendingReplyPayload } from "openclaw/plugin-sdk/approval-reply-runtime";
-import { createChannelIngressQueueForTests } from "openclaw/plugin-sdk/channel-ingress-test-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { PlatformMessageNotDispatchedError } from "openclaw/plugin-sdk/error-runtime";
+import { buildExecApprovalPendingReplyPayload } from "granted/plugin-sdk/approval-reply-runtime";
+import { createChannelIngressQueueForTests } from "granted/plugin-sdk/channel-ingress-test-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { PlatformMessageNotDispatchedError } from "granted/plugin-sdk/error-runtime";
 import {
   createTestRegistry,
   resetPluginRuntimeStateForTest,
   setActivePluginRegistry,
-} from "openclaw/plugin-sdk/plugin-test-runtime";
-import { createOpenClawTestState, type GrantedTestState } from "openclaw/plugin-sdk/test-state";
+} from "granted/plugin-sdk/plugin-test-runtime";
+import { createOpenClawTestState, type GrantedTestState } from "granted/plugin-sdk/test-state";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   clearSignalApprovalReactionTargetsForTest,
@@ -28,7 +28,7 @@ const { getReplyFromConfigMock, resolveQuestionReactionMock, sendMessageSignalMo
 
 vi.mock("openclaw/plugin-sdk/question-gateway-runtime", async (importOriginal) => {
   const actual =
-    await importOriginal<typeof import("openclaw/plugin-sdk/question-gateway-runtime")>();
+    await importOriginal<typeof import("granted/plugin-sdk/question-gateway-runtime")>();
   return {
     ...actual,
     questionGatewayRuntime: {
@@ -39,7 +39,7 @@ vi.mock("openclaw/plugin-sdk/question-gateway-runtime", async (importOriginal) =
 });
 
 vi.mock("openclaw/plugin-sdk/channel-inbound", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/channel-inbound")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/channel-inbound")>(
     "openclaw/plugin-sdk/channel-inbound",
   );
   return {
@@ -80,7 +80,7 @@ const [{ deliverReplies }, { startSignalIngressMonitor }, eventHandlerModule, ha
     import("./event-handler.js"),
     import("./event-handler.test-harness.js"),
   ]);
-const { questionGatewayRuntime } = await import("openclaw/plugin-sdk/question-gateway-runtime");
+const { questionGatewayRuntime } = await import("granted/plugin-sdk/question-gateway-runtime");
 
 type SignalIngressQueue = ReturnType<typeof createChannelIngressQueueForTests<unknown>>;
 type SignalIngressPayload = Parameters<SignalIngressQueue["enqueue"]>[1];
@@ -379,8 +379,8 @@ describe("Signal partial final delivery ingress boundary", () => {
       import("./event-handler.js"),
       import("./event-handler.test-harness.js"),
       import("../signal-ingress.js"),
-      import("openclaw/plugin-sdk/plugin-test-runtime"),
-      import("openclaw/plugin-sdk/reply-runtime"),
+      import("granted/plugin-sdk/plugin-test-runtime"),
+      import("granted/plugin-sdk/reply-runtime"),
     ]);
     freshReplyRuntime.resetInboundDedupe();
     freshPluginRuntime.setActivePluginRegistry(

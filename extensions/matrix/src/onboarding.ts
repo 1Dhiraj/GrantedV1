@@ -1,6 +1,6 @@
 // Matrix setup module handles plugin onboarding behavior.
-import { DEFAULT_ACCOUNT_ID } from "openclaw/plugin-sdk/account-id";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime";
+import { DEFAULT_ACCOUNT_ID } from "granted/plugin-sdk/account-id";
+import type { RuntimeEnv } from "granted/plugin-sdk/runtime";
 import {
   type ChannelSetupWizardAdapter,
   formatDocsLink,
@@ -11,14 +11,14 @@ import {
   promptChannelAccessConfig,
   splitSetupEntries,
   type WizardPrompter,
-} from "openclaw/plugin-sdk/setup";
-import { isPrivateNetworkOptInEnabled } from "openclaw/plugin-sdk/ssrf-policy";
+} from "granted/plugin-sdk/setup";
+import { isPrivateNetworkOptInEnabled } from "granted/plugin-sdk/ssrf-policy";
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
   normalizeStringifiedOptionalString,
   normalizeUniqueStringEntries,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import { requiresExplicitMatrixDefaultAccount } from "./account-selection.js";
 import {
   listMatrixAccountIds,

@@ -1,9 +1,9 @@
 // Memory Core plugin module owns builtin search manager acquisition and cleanup.
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/memory-core-host-engine-foundation";
-import type { MemorySearchManager } from "openclaw/plugin-sdk/memory-core-host-engine-storage";
-import { normalizeAgentId } from "openclaw/plugin-sdk/routing";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
+import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/memory-core-host-engine-foundation";
+import type { MemorySearchManager } from "granted/plugin-sdk/memory-core-host-engine-storage";
+import { normalizeAgentId } from "granted/plugin-sdk/routing";
 import type { MemoryCoreAcquireLocalService } from "./embedding-local-service.js";
 
 const managerRuntimeLoader = createLazyRuntimeModule(() => import("../../manager-runtime.js"));

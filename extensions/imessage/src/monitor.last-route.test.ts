@@ -3,23 +3,23 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { DatabaseSync } from "node:sqlite";
-import type { ChannelPlugin } from "openclaw/plugin-sdk/channel-core";
-import * as channelInbound from "openclaw/plugin-sdk/channel-inbound";
-import { createTestInboundDebounceFlush } from "openclaw/plugin-sdk/channel-test-helpers";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { ChannelPlugin } from "granted/plugin-sdk/channel-core";
+import * as channelInbound from "granted/plugin-sdk/channel-inbound";
+import { createTestInboundDebounceFlush } from "granted/plugin-sdk/channel-test-helpers";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   recordInboundSession,
   type ensureConfiguredBindingRouteReady,
-} from "openclaw/plugin-sdk/conversation-runtime";
+} from "granted/plugin-sdk/conversation-runtime";
 import {
   createTestRegistry,
   resetPluginRuntimeStateForTest,
   setActivePluginRegistry,
-} from "openclaw/plugin-sdk/plugin-test-runtime";
-import type { dispatchReplyWithBufferedBlockDispatcher } from "openclaw/plugin-sdk/reply-runtime";
-import { getSessionEntry, resolveStorePath } from "openclaw/plugin-sdk/session-store-runtime";
-import { createOpenClawTestState, type GrantedTestState } from "openclaw/plugin-sdk/test-state";
-import type { waitForTransportReady } from "openclaw/plugin-sdk/transport-ready-runtime";
+} from "granted/plugin-sdk/plugin-test-runtime";
+import type { dispatchReplyWithBufferedBlockDispatcher } from "granted/plugin-sdk/reply-runtime";
+import { getSessionEntry, resolveStorePath } from "granted/plugin-sdk/session-store-runtime";
+import { createOpenClawTestState, type GrantedTestState } from "granted/plugin-sdk/test-state";
+import type { waitForTransportReady } from "granted/plugin-sdk/transport-ready-runtime";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { createIMessageRpcClient } from "./client.js";
 import {
@@ -223,7 +223,7 @@ vi.mock("openclaw/plugin-sdk/transport-ready-runtime", () => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/conversation-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/conversation-runtime")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/conversation-runtime")>();
   return {
     ...actual,
     ensureConfiguredBindingRouteReady: ensureConfiguredBindingRouteReadyMock,
@@ -233,7 +233,7 @@ vi.mock("openclaw/plugin-sdk/conversation-runtime", async (importOriginal) => {
 });
 
 vi.mock("openclaw/plugin-sdk/channel-inbound", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/channel-inbound")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/channel-inbound")>();
   return {
     ...actual,
     createChannelInboundDebouncer: createChannelInboundDebouncerMock,

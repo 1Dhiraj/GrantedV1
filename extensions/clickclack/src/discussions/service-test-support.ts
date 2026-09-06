@@ -1,6 +1,6 @@
-import { createPluginRuntimeMock } from "openclaw/plugin-sdk/channel-test-helpers";
-import type { GrantedPluginGatewayEvents, PluginRuntime } from "openclaw/plugin-sdk/core";
-import type { PluginStateSyncKeyedStore } from "openclaw/plugin-sdk/plugin-state-runtime";
+import { createPluginRuntimeMock } from "granted/plugin-sdk/channel-test-helpers";
+import type { GrantedPluginGatewayEvents, PluginRuntime } from "granted/plugin-sdk/core";
+import type { PluginStateSyncKeyedStore } from "granted/plugin-sdk/plugin-state-runtime";
 import { vi } from "vitest";
 import type { ClickClackClient } from "../http-client.js";
 import type { ClickClackChannel, ClickClackMessage, CoreConfig } from "../types.js";

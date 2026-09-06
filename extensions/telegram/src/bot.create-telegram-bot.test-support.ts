@@ -2,9 +2,9 @@ import { setTimeout as delay } from "node:timers/promises";
 import type { TelegramBotInfo } from "./bot-info.js";
 
 type DispatchReplyWithBufferedBlockDispatcher =
-  typeof import("openclaw/plugin-sdk/reply-dispatch-runtime").dispatchReplyWithBufferedBlockDispatcher;
+  typeof import("granted/plugin-sdk/reply-dispatch-runtime").dispatchReplyWithBufferedBlockDispatcher;
 type DispatchChannelInboundTurn =
-  typeof import("openclaw/plugin-sdk/channel-inbound").dispatchChannelInboundTurn;
+  typeof import("granted/plugin-sdk/channel-inbound").dispatchChannelInboundTurn;
 
 export const telegramBotInfoForTest = {
   id: 9_876_543_210,

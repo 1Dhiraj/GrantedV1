@@ -3,7 +3,7 @@ import { expectDefined } from "@openclaw/normalization-core";
 import {
   resolveSetupWizardAllowFromEntries,
   resolveSetupWizardGroupAllowlist,
-} from "openclaw/plugin-sdk/plugin-test-runtime";
+} from "granted/plugin-sdk/plugin-test-runtime";
 import { afterAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { createWizardPrompter } from "../../../test/helpers/wizard-prompter.js";
 import type { GrantedConfig } from "../../config/config.js";

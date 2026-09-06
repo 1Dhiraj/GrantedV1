@@ -1,15 +1,15 @@
 // Telegram plugin module implements bot message behavior.
-import type { GrantedConfig, TelegramAccountConfig } from "openclaw/plugin-sdk/config-contracts";
-import { resolveTextChunkLimit } from "openclaw/plugin-sdk/reply-chunking";
-import { DEFAULT_GROUP_HISTORY_LIMIT } from "openclaw/plugin-sdk/reply-history";
+import type { GrantedConfig, TelegramAccountConfig } from "granted/plugin-sdk/config-contracts";
+import { resolveTextChunkLimit } from "granted/plugin-sdk/reply-chunking";
+import { DEFAULT_GROUP_HISTORY_LIMIT } from "granted/plugin-sdk/reply-history";
 import {
   createSubsystemLogger,
   danger,
   logVerbose,
   shouldLogVerbose,
   sleepWithAbort,
-} from "openclaw/plugin-sdk/runtime-env";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
+} from "granted/plugin-sdk/runtime-env";
+import type { RuntimeEnv } from "granted/plugin-sdk/runtime-env";
 import type { TelegramBotDeps } from "./bot-deps.js";
 import type { TelegramMessageProcessorTurnContext } from "./bot-handlers.types.js";
 import {
@@ -69,7 +69,7 @@ type TelegramMessageProcessorDeps = Omit<
 > & {
   runtime: RuntimeEnv;
   telegramDeps: TelegramBotDeps;
-  buildContext?: typeof import("openclaw/plugin-sdk/channel-inbound").buildChannelInboundEventContext;
+  buildContext?: typeof import("granted/plugin-sdk/channel-inbound").buildChannelInboundEventContext;
   opts: Pick<
     TelegramBotOptions,
     | "token"

@@ -2,12 +2,12 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { createInboundDebouncer } from "openclaw/plugin-sdk/channel-inbound-debounce";
+import { createInboundDebouncer } from "granted/plugin-sdk/channel-inbound-debounce";
 import {
   closeOpenClawStateDatabaseForTest,
   createChannelIngressQueueForTests,
-} from "openclaw/plugin-sdk/channel-ingress-test-runtime";
-import { DEFAULT_INGRESS_RETRY_MAX_ATTEMPTS } from "openclaw/plugin-sdk/channel-outbound";
+} from "granted/plugin-sdk/channel-ingress-test-runtime";
+import { DEFAULT_INGRESS_RETRY_MAX_ATTEMPTS } from "granted/plugin-sdk/channel-outbound";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { GrantedConfig } from "../../runtime-api.js";
 import { createMSTeamsIngress } from "../msteams-ingress.js";

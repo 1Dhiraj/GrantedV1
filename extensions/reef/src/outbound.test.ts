@@ -1,5 +1,5 @@
-import { PlatformMessageNotDispatchedError } from "openclaw/plugin-sdk/error-runtime";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
+import { PlatformMessageNotDispatchedError } from "granted/plugin-sdk/error-runtime";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
 import { describe, expect, it, vi } from "vitest";
 import {
   canonicalBytes,

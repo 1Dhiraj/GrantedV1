@@ -1,8 +1,8 @@
 // Openshell plugin module implements mirror behavior.
 import fs from "node:fs/promises";
 import path from "node:path";
-import { extractErrorCode, movePathWithCopyFallback } from "openclaw/plugin-sdk/security-runtime";
-import { normalizeLowercaseStringOrEmpty } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { extractErrorCode, movePathWithCopyFallback } from "granted/plugin-sdk/security-runtime";
+import { normalizeLowercaseStringOrEmpty } from "granted/plugin-sdk/string-coerce-runtime";
 import pLimit from "p-limit";
 
 export const DEFAULT_OPEN_SHELL_MIRROR_EXCLUDE_DIRS = ["hooks", "git-hooks", ".git"] as const;

@@ -2,13 +2,13 @@
 import { realpathSync } from "node:fs";
 import fs from "node:fs/promises";
 import path from "node:path";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import { loadTranscriptEventsSync } from "openclaw/plugin-sdk/session-store-runtime";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
+import { loadTranscriptEventsSync } from "granted/plugin-sdk/session-store-runtime";
 import {
   asBoolean,
   isRecord,
   normalizeOptionalString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import { QaSuiteInfraError, QaSuiteScenarioSkipError } from "./errors.js";
 import {
   qaMockRequestCursorUrl,

@@ -1,5 +1,5 @@
 import { InteractionResponseType, MessageFlags } from "discord-api-types/v10";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { buildDiscordComponentCustomId } from "../component-custom-id.js";
 import {

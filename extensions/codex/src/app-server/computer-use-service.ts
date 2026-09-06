@@ -2,8 +2,8 @@
 import { constants as fsConstants } from "node:fs";
 import fs from "node:fs/promises";
 import path from "node:path";
-import { runExec } from "openclaw/plugin-sdk/process-runtime";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { runExec } from "granted/plugin-sdk/process-runtime";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   assertDirectoryIdentityStable,
   assertNotSymlink,

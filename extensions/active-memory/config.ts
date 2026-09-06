@@ -1,17 +1,17 @@
 import path from "node:path";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { isPathInside } from "openclaw/plugin-sdk/file-access-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { isPathInside } from "granted/plugin-sdk/file-access-runtime";
 import {
   parseStrictPositiveInteger,
   resolveIntegerOption,
-} from "openclaw/plugin-sdk/number-runtime";
-import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
+} from "granted/plugin-sdk/number-runtime";
+import type { GrantedPluginApi } from "granted/plugin-sdk/plugin-entry";
 import {
   asOptionalRecord,
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
   normalizeStringEntries,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import {
   ACTIVE_MEMORY_RESERVED_TOOLS_ALLOW,
   DEFAULT_ACTIVE_MEMORY_TOOLS_ALLOW,

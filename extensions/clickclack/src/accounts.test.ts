@@ -1,7 +1,7 @@
 // Clickclack tests cover accounts plugin behavior.
 import fs from "node:fs";
 import path from "node:path";
-import { withTempDir } from "openclaw/plugin-sdk/test-env";
+import { withTempDir } from "granted/plugin-sdk/test-env";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   listClickClackAccountIds,

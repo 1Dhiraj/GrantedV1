@@ -1,12 +1,12 @@
 import os from "node:os";
 import path from "node:path";
-import type { ChannelMessageActionContext } from "openclaw/plugin-sdk/channel-contract";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { resolveStorePath } from "openclaw/plugin-sdk/session-store-runtime";
-import { captureEnv } from "openclaw/plugin-sdk/test-env";
+import type { ChannelMessageActionContext } from "granted/plugin-sdk/channel-contract";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { resolveStorePath } from "granted/plugin-sdk/session-store-runtime";
+import { captureEnv } from "granted/plugin-sdk/test-env";
 // Telegram tests cover action runtime plugin behavior.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
-import { createOpenClawTestState, type GrantedTestState } from "openclaw/plugin-sdk/test-state";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
+import { createOpenClawTestState, type GrantedTestState } from "granted/plugin-sdk/test-state";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   handleTelegramAction as handleTelegramActionRuntime,
@@ -1078,7 +1078,7 @@ describe("handleTelegramAction", () => {
       createTestRegistry,
       readQueuedDeliveryEntriesForTest,
       setActivePluginRegistry,
-    } = await import("openclaw/plugin-sdk/plugin-test-runtime");
+    } = await import("granted/plugin-sdk/plugin-test-runtime");
     const readDurableQueueEntries = () => readQueuedDeliveryEntriesForTest(stateDir);
     const sendText = vi
       .fn()

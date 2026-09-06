@@ -1,7 +1,7 @@
 import type { WorkboardCard } from "@openclaw/workboard-contract";
-import { resolveGlobalSingleton } from "openclaw/plugin-sdk/global-singleton";
-import { isCronSessionKey } from "openclaw/plugin-sdk/routing";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { resolveGlobalSingleton } from "granted/plugin-sdk/global-singleton";
+import { isCronSessionKey } from "granted/plugin-sdk/routing";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import type { GrantedPluginApi, GrantedPluginService } from "../api.js";
 import { cardBoardId } from "./store-card-helpers.js";
 import { MAX_CARDS } from "./store-constants.js";

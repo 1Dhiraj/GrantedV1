@@ -1,7 +1,7 @@
 // Discord tests cover native command.status direct plugin behavior.
 import { ChannelType } from "discord-api-types/v10";
-import type { dispatchChannelInboundTurn } from "openclaw/plugin-sdk/channel-inbound";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { dispatchChannelInboundTurn } from "granted/plugin-sdk/channel-inbound";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { nativeCommandRuntime } from "./native-command.runtime.js";
 import { createMockCommandInteraction as createInteraction } from "./native-command.test-helpers.js";
@@ -14,7 +14,7 @@ const runtimeModuleMocks = vi.hoisted(() => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/reply-dispatch-runtime", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/reply-dispatch-runtime")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/reply-dispatch-runtime")>(
     "openclaw/plugin-sdk/reply-dispatch-runtime",
   );
   return {

@@ -1,14 +1,14 @@
 // Canvas tests cover index plugin behavior.
 import { IncomingMessage, ServerResponse } from "node:http";
 import { Socket } from "node:net";
-import type { AgentMessage, StreamFn } from "openclaw/plugin-sdk/agent-core";
-import type { AssistantMessage, Model } from "openclaw/plugin-sdk/llm";
+import type { AgentMessage, StreamFn } from "granted/plugin-sdk/agent-core";
+import type { AssistantMessage, Model } from "granted/plugin-sdk/llm";
 import type {
   AnyAgentTool,
   GrantedPluginApi,
   GrantedPluginNodeInvokePolicyContext,
-} from "openclaw/plugin-sdk/plugin-entry";
-import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
+} from "granted/plugin-sdk/plugin-entry";
+import { createTestPluginApi } from "granted/plugin-sdk/plugin-test-api";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import canvasPlugin from "./index.js";
 
@@ -202,10 +202,10 @@ describe("Canvas plugin entry", () => {
 
   it("preserves registered Canvas network provenance through the real agent loop", async () => {
     const [{ runAgentLoop }, { createAssistantMessageEventStream }] = await Promise.all([
-      vi.importActual<typeof import("openclaw/plugin-sdk/agent-core")>(
+      vi.importActual<typeof import("granted/plugin-sdk/agent-core")>(
         "openclaw/plugin-sdk/agent-core",
       ),
-      vi.importActual<typeof import("openclaw/plugin-sdk/llm")>("openclaw/plugin-sdk/llm"),
+      vi.importActual<typeof import("granted/plugin-sdk/llm")>("openclaw/plugin-sdk/llm"),
     ]);
     const registeredTool = registerCanvas().tools[0]?.tool;
     if (typeof registeredTool !== "function") {

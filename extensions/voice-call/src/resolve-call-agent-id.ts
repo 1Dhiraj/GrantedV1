@@ -1,6 +1,6 @@
-import { resolveDefaultAgentId } from "openclaw/plugin-sdk/agent-scope-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { normalizeAgentId } from "openclaw/plugin-sdk/routing";
+import { resolveDefaultAgentId } from "granted/plugin-sdk/agent-scope-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { normalizeAgentId } from "granted/plugin-sdk/routing";
 import type { VoiceCallConfig } from "./config.js";
 import type { CallRecord } from "./types.js";
 

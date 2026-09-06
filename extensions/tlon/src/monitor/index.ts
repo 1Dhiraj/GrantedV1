@@ -1,27 +1,27 @@
-import { resolveHumanDelayConfig } from "openclaw/plugin-sdk/agent-runtime";
+import { resolveHumanDelayConfig } from "granted/plugin-sdk/agent-runtime";
 import {
   createChannelInboundEnvelopeBuilder,
   formatInboundMediaUnavailableText,
-} from "openclaw/plugin-sdk/channel-inbound";
+} from "granted/plugin-sdk/channel-inbound";
 import type {
   ChannelIngressContextBinding,
   ResolvedChannelMessageIngress,
-} from "openclaw/plugin-sdk/channel-ingress-runtime";
+} from "granted/plugin-sdk/channel-ingress-runtime";
 import {
   bindIngressLifecycleToReplyOptions,
   waitUntilAbort,
-} from "openclaw/plugin-sdk/channel-outbound";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import type { GetReplyOptions, ReplyPayload } from "openclaw/plugin-sdk/reply-runtime";
-import { retryAsync } from "openclaw/plugin-sdk/retry-runtime";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime";
-import { sleepWithAbort } from "openclaw/plugin-sdk/runtime-env";
+} from "granted/plugin-sdk/channel-outbound";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
+import type { GetReplyOptions, ReplyPayload } from "granted/plugin-sdk/reply-runtime";
+import { retryAsync } from "granted/plugin-sdk/retry-runtime";
+import type { RuntimeEnv } from "granted/plugin-sdk/runtime";
+import { sleepWithAbort } from "granted/plugin-sdk/runtime-env";
 import {
   asFiniteNumber,
   asNullableRecord as asRecord,
   readStringField as readString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
-import { sliceUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
+import { sliceUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import type { GrantedConfig } from "../../runtime-api.js";
 import { createLoggerBackedRuntime } from "../../runtime-api.js";
 import { getTlonRuntime } from "../runtime.js";

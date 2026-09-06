@@ -3,8 +3,8 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import type { AssistantMessage } from "openclaw/plugin-sdk/llm";
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import type { AssistantMessage } from "granted/plugin-sdk/llm";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, describe, expect, test, vi } from "vitest";
 import { HEARTBEAT_PROMPT } from "../auto-reply/heartbeat.js";
 import { replaceTranscriptEvents } from "../config/sessions/session-accessor.js";

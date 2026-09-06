@@ -1,10 +1,10 @@
-import { defineChannelSetupContract } from "openclaw/plugin-sdk/channel-setup";
+import { defineChannelSetupContract } from "granted/plugin-sdk/channel-setup";
 // Feishu plugin module implements setup core behavior.
 import {
   DEFAULT_ACCOUNT_ID,
   type ChannelSetupAdapter,
   type GrantedConfig,
-} from "openclaw/plugin-sdk/setup";
+} from "granted/plugin-sdk/setup";
 import { resolveDefaultFeishuAccountId } from "./accounts.js";
 import type { FeishuConfig } from "./types.js";
 

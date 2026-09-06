@@ -9,7 +9,7 @@ const { fetchWithSsrFGuardMock } = vi.hoisted(() => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/ssrf-runtime", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("openclaw/plugin-sdk/ssrf-runtime")>()),
+  ...(await importOriginal<typeof import("granted/plugin-sdk/ssrf-runtime")>()),
   fetchWithSsrFGuard: fetchWithSsrFGuardMock,
 }));
 
@@ -578,7 +578,7 @@ describe("createOllamaStreamFn thinking events", () => {
 
     try {
       const { fetchWithSsrFGuard } = await vi.importActual<
-        typeof import("openclaw/plugin-sdk/ssrf-runtime")
+        typeof import("granted/plugin-sdk/ssrf-runtime")
       >("openclaw/plugin-sdk/ssrf-runtime");
       fetchWithSsrFGuardMock.mockImplementation(fetchWithSsrFGuard);
 
@@ -643,7 +643,7 @@ describe("createOllamaStreamFn thinking events", () => {
 
     try {
       const { fetchWithSsrFGuard } = await vi.importActual<
-        typeof import("openclaw/plugin-sdk/ssrf-runtime")
+        typeof import("granted/plugin-sdk/ssrf-runtime")
       >("openclaw/plugin-sdk/ssrf-runtime");
       fetchWithSsrFGuardMock.mockImplementation(fetchWithSsrFGuard);
 
@@ -712,7 +712,7 @@ describe("createOllamaStreamFn thinking events", () => {
 
     try {
       const { fetchWithSsrFGuard } = await vi.importActual<
-        typeof import("openclaw/plugin-sdk/ssrf-runtime")
+        typeof import("granted/plugin-sdk/ssrf-runtime")
       >("openclaw/plugin-sdk/ssrf-runtime");
       fetchWithSsrFGuardMock.mockImplementation(fetchWithSsrFGuard);
 
@@ -758,7 +758,7 @@ describe("createOllamaStreamFn thinking events", () => {
 
     try {
       const { fetchWithSsrFGuard } = await vi.importActual<
-        typeof import("openclaw/plugin-sdk/ssrf-runtime")
+        typeof import("granted/plugin-sdk/ssrf-runtime")
       >("openclaw/plugin-sdk/ssrf-runtime");
       fetchWithSsrFGuardMock.mockImplementation(fetchWithSsrFGuard);
 

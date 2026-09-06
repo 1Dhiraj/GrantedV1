@@ -1,6 +1,6 @@
 // Bundled plugin load-path tests cover doctor validation of bundled plugin paths.
 import path from "node:path";
-import { bundledDistPluginRootAt, bundledPluginRootAt } from "openclaw/plugin-sdk/test-fixtures";
+import { bundledDistPluginRootAt, bundledPluginRootAt } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { BundledPluginSource } from "../../../plugins/bundled-sources.js";
 import * as bundledSources from "../../../plugins/bundled-sources.js";

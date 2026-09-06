@@ -1,12 +1,12 @@
 // Nextcloud Talk plugin module implements channel.adapters behavior.
-import { formatAllowFromLowercase } from "openclaw/plugin-sdk/allow-from";
+import { formatAllowFromLowercase } from "granted/plugin-sdk/allow-from";
 import {
   adaptScopedAccountAccessor,
   createScopedChannelConfigAdapter,
   createScopedDmSecurityResolver,
-} from "openclaw/plugin-sdk/channel-config-helpers";
-import { createPairingPrefixStripper } from "openclaw/plugin-sdk/channel-pairing";
-import { normalizeLowercaseStringOrEmpty } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/channel-config-helpers";
+import { createPairingPrefixStripper } from "granted/plugin-sdk/channel-pairing";
+import { normalizeLowercaseStringOrEmpty } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   inspectNextcloudTalkAccount,
   listNextcloudTalkAccountIds,

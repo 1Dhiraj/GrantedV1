@@ -2,9 +2,9 @@ import crypto from "node:crypto";
 import {
   isModelSelectionLocked,
   MODEL_SELECTION_LOCKED_MESSAGE,
-} from "openclaw/plugin-sdk/model-session-runtime";
-import type { PluginCommandContext, PluginCommandResult } from "openclaw/plugin-sdk/plugin-entry";
-import { getSessionEntry, resolveStorePath } from "openclaw/plugin-sdk/session-store-runtime";
+} from "granted/plugin-sdk/model-session-runtime";
+import type { PluginCommandContext, PluginCommandResult } from "granted/plugin-sdk/plugin-entry";
+import { getSessionEntry, resolveStorePath } from "granted/plugin-sdk/session-store-runtime";
 import { closeCodexStartupClientBestEffort } from "./app-server/attempt-client-cleanup.js";
 import {
   consumeCodexAppServerLiveThread,

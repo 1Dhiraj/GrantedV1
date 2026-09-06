@@ -2,17 +2,17 @@
 import { createHash } from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
-import { resolveSessionAgentIdStrict } from "openclaw/plugin-sdk/agent-scope-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { readJsonFileWithFallback } from "openclaw/plugin-sdk/json-store";
-import { resolveAgentIdFromSessionKey } from "openclaw/plugin-sdk/session-key-runtime";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { resolveSessionAgentIdStrict } from "granted/plugin-sdk/agent-scope-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { readJsonFileWithFallback } from "granted/plugin-sdk/json-store";
+import { resolveAgentIdFromSessionKey } from "granted/plugin-sdk/session-key-runtime";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   registerSessionBindingAdapter,
   resolveThreadBindingFarewellText,
   type SessionBindingAdapter,
   unregisterSessionBindingAdapter,
-} from "openclaw/plugin-sdk/thread-bindings-session-runtime";
+} from "granted/plugin-sdk/thread-bindings-session-runtime";
 import { getMatrixRuntime } from "../runtime.js";
 import { claimCurrentTokenStorageState, resolveMatrixStateFilePath } from "./client/storage.js";
 import type { MatrixAuth } from "./client/types.js";

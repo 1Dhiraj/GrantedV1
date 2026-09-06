@@ -3,7 +3,7 @@
 import type {
   AssistantMessageEvent,
   AssistantMessageEventStreamContract,
-} from "openclaw/plugin-sdk/llm";
+} from "granted/plugin-sdk/llm";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { createOpencodeGoStalledStreamWrapper } from "./stream-termination.js";
 

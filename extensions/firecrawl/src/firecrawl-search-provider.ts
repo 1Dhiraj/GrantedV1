@@ -1,12 +1,12 @@
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
+import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
 // Firecrawl provider module implements model/runtime integration.
-import { readPositiveIntegerParam } from "openclaw/plugin-sdk/param-readers";
+import { readPositiveIntegerParam } from "granted/plugin-sdk/param-readers";
 import {
   createWebSearchProviderContractFields,
   enablePluginInConfig,
   type WebSearchProviderPlugin,
-} from "openclaw/plugin-sdk/provider-web-search-contract";
-import { asOptionalRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/provider-web-search-contract";
+import { asOptionalRecord } from "granted/plugin-sdk/string-coerce-runtime";
 
 const FIRECRAWL_CREDENTIAL_PATH = "plugins.entries.firecrawl.config.webSearch.apiKey";
 

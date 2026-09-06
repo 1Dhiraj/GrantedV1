@@ -1,4 +1,4 @@
-import { runCommandWithTimeout } from "openclaw/plugin-sdk/process-runtime";
+import { runCommandWithTimeout } from "granted/plugin-sdk/process-runtime";
 // iMessage tests cover canonical bounded CLI execution.
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { runIMessageCliJsonCommand } from "./cli-output.js";

@@ -1,7 +1,7 @@
-import type { ApprovalResolveResult } from "openclaw/plugin-sdk/approval-gateway-runtime";
-import type { ChannelApprovalKind } from "openclaw/plugin-sdk/approval-handler-runtime";
-import type { ExecApprovalDecision } from "openclaw/plugin-sdk/approval-runtime";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
+import type { ApprovalResolveResult } from "granted/plugin-sdk/approval-gateway-runtime";
+import type { ChannelApprovalKind } from "granted/plugin-sdk/approval-handler-runtime";
+import type { ExecApprovalDecision } from "granted/plugin-sdk/approval-runtime";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   getMSTeamsApprovalCardBinding,

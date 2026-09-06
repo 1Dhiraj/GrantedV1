@@ -7,7 +7,7 @@ import {
   createSandboxBrowserConfig,
   createSandboxPruneConfig,
   createSandboxSshConfig,
-} from "openclaw/plugin-sdk/test-fixtures";
+} from "granted/plugin-sdk/test-fixtures";
 import { describe, expect, it } from "vitest";
 import {
   buildOpenShellPolicyYaml,

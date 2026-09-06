@@ -1,5 +1,5 @@
-import { shouldAckReaction } from "openclaw/plugin-sdk/channel-feedback";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import { shouldAckReaction } from "granted/plugin-sdk/channel-feedback";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { requireWhatsAppInboundAdmission } from "../../inbound/admission.js";
 import type { AdmittedWebInboundMessage } from "../../inbound/types.js";
 import { resolveWhatsAppReactionLevel } from "../../reaction-level.js";

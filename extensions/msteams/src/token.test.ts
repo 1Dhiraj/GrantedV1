@@ -3,7 +3,7 @@ import { generateKeyPairSync } from "node:crypto";
 import { existsSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { resetPluginStateStoreForTests } from "openclaw/plugin-sdk/plugin-state-test-runtime";
+import { resetPluginStateStoreForTests } from "granted/plugin-sdk/plugin-state-test-runtime";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { MSTeamsConfig } from "../runtime-api.js";
 import { setMSTeamsRuntime } from "./runtime.js";
@@ -27,7 +27,7 @@ vi.mock("./oauth.token.js", () => ({
 }));
 
 vi.mock("./secret-input.js", async () => {
-  const { normalizeOptionalString } = await import("openclaw/plugin-sdk/string-coerce-runtime");
+  const { normalizeOptionalString } = await import("granted/plugin-sdk/string-coerce-runtime");
   return {
     normalizeSecretInputString: normalizeOptionalString,
     normalizeResolvedSecretInputString: (opts: { value: unknown; path: string }) =>

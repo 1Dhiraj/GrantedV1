@@ -1,6 +1,6 @@
 // QA Lab mock provider tool planning and memory fixtures.
 import { createHash } from "node:crypto";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import { QA_LAB_WEB_SEARCH_DENIED_INPUT_QUERY } from "../../qa-web-search-provider.js";
 import type { StreamEvent } from "./mock-openai-contracts.js";
 

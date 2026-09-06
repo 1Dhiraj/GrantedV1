@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import { resolveMemoryRemDreamingConfig } from "openclaw/plugin-sdk/memory-core-host-status";
-import { resolvePreferredOpenClawTmpDir } from "openclaw/plugin-sdk/temp-path";
+import { resolveMemoryRemDreamingConfig } from "granted/plugin-sdk/memory-core-host-status";
+import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
 import { resolveMemoryPluginConfig, withMemoryCommand } from "./cli-runtime-common.js";
 import { defaultRuntime, shortenHomePath, theme } from "./cli.host.runtime.js";
 import type { MemoryRemBackfillOptions, MemoryRemHarnessOptions } from "./cli.types.js";

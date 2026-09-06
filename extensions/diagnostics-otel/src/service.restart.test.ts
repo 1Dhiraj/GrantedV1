@@ -31,7 +31,7 @@ import {
   resetDiagnosticEventsForTest,
   type DiagnosticTraceContext,
   waitForDiagnosticEventsDrained,
-} from "openclaw/plugin-sdk/diagnostic-runtime";
+} from "granted/plugin-sdk/diagnostic-runtime";
 import { afterEach, expect, test } from "vitest";
 import {
   type CapturedLogRecord,

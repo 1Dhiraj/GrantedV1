@@ -1,10 +1,10 @@
-import type { PluginRuntime } from "openclaw/plugin-sdk/channel-core";
-import { waitUntilAbort } from "openclaw/plugin-sdk/channel-outbound";
-import { attachChannelToResult } from "openclaw/plugin-sdk/channel-send-result";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { channelReadyPatch } from "openclaw/plugin-sdk/gateway-runtime";
-import type { HistoryEntry } from "openclaw/plugin-sdk/reply-history";
-import { computeBackoff, sleepWithAbort } from "openclaw/plugin-sdk/runtime-env";
+import type { PluginRuntime } from "granted/plugin-sdk/channel-core";
+import { waitUntilAbort } from "granted/plugin-sdk/channel-outbound";
+import { attachChannelToResult } from "granted/plugin-sdk/channel-send-result";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { channelReadyPatch } from "granted/plugin-sdk/gateway-runtime";
+import type { HistoryEntry } from "granted/plugin-sdk/reply-history";
+import { computeBackoff, sleepWithAbort } from "granted/plugin-sdk/runtime-env";
 import type { ChannelGatewayContext } from "../runtime-api.js";
 import { sendBuzzTextOneShot, startBuzzBus, type BuzzBus } from "./buzz-bus.js";
 import { handleBuzzInbound } from "./inbound.js";

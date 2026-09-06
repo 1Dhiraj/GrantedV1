@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import { withEnvAsync, withTempDir } from "openclaw/plugin-sdk/test-env";
+import { withEnvAsync, withTempDir } from "granted/plugin-sdk/test-env";
 import { describe, expect, it } from "vitest";
 import { relayTestKey } from "../../chrome-extension/relay-key.test-support.js";
 import { buildBrowserExtensionPairing } from "./extension-pairing.js";

@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 // Doctor cron index tests cover cron doctor checks and repair entrypoints.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { parseCodeModeScriptSyntax } from "../../../agents/code-mode-script-syntax.js";
 import type { GrantedConfig } from "../../../config/config.js";

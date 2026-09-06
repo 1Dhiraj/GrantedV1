@@ -6,15 +6,15 @@
  */
 
 import type { IncomingMessage, ServerResponse } from "node:http";
-import { resolveHumanDelayConfig } from "openclaw/plugin-sdk/agent-runtime";
+import { resolveHumanDelayConfig } from "granted/plugin-sdk/agent-runtime";
 import {
   asDateTimestampMs,
   resolveExpiresAtMsFromDurationMs,
-} from "openclaw/plugin-sdk/number-runtime";
-import { finalizeInboundContext } from "openclaw/plugin-sdk/reply-runtime";
-import { safeEqualSecret } from "openclaw/plugin-sdk/security-runtime";
-import { isPrivateNetworkOptInEnabled } from "openclaw/plugin-sdk/ssrf-runtime";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+} from "granted/plugin-sdk/number-runtime";
+import { finalizeInboundContext } from "granted/plugin-sdk/reply-runtime";
+import { safeEqualSecret } from "granted/plugin-sdk/security-runtime";
+import { isPrivateNetworkOptInEnabled } from "granted/plugin-sdk/ssrf-runtime";
+import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import type { ResolvedMattermostAccount } from "../mattermost/accounts.js";
 import { getMattermostRuntime } from "../runtime.js";
 import {

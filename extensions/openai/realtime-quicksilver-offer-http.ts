@@ -1,6 +1,6 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { resolveAcceptedBrowserOrigin } from "openclaw/plugin-sdk/webhook-request-guards";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { resolveAcceptedBrowserOrigin } from "granted/plugin-sdk/webhook-request-guards";
 
 type ResponseDeliveryWaiter = {
   result: Promise<boolean>;

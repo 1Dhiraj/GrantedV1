@@ -1,5 +1,5 @@
 import path from "node:path";
-import { openNodeSqliteDatabase } from "openclaw/plugin-sdk/sqlite-runtime";
+import { openNodeSqliteDatabase } from "granted/plugin-sdk/sqlite-runtime";
 import type { QaSuiteRuntimeEnv } from "./suite-runtime-types.js";
 
 function tableCount(

@@ -1,16 +1,16 @@
 import { Buffer } from "node:buffer";
 import { resolve as resolveFilePath } from "node:path";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { formatErrorMessage, toErrorObject } from "openclaw/plugin-sdk/error-runtime";
-import { resolveGlobalSingleton } from "openclaw/plugin-sdk/global-singleton";
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
-import { canonicalizeBase64 } from "openclaw/plugin-sdk/media-runtime";
-import type { MemoryEmbeddingProvider } from "openclaw/plugin-sdk/memory-core-host-engine-embeddings";
-import { resolveTimerTimeoutMs } from "openclaw/plugin-sdk/number-runtime";
-import { normalizeAgentId } from "openclaw/plugin-sdk/routing";
-import { ensureGlobalUndiciEnvProxyDispatcher } from "openclaw/plugin-sdk/runtime-env";
-import { asOptionalRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { textResult, type AgentToolResult } from "openclaw/plugin-sdk/tool-results";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { formatErrorMessage, toErrorObject } from "granted/plugin-sdk/error-runtime";
+import { resolveGlobalSingleton } from "granted/plugin-sdk/global-singleton";
+import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
+import { canonicalizeBase64 } from "granted/plugin-sdk/media-runtime";
+import type { MemoryEmbeddingProvider } from "granted/plugin-sdk/memory-core-host-engine-embeddings";
+import { resolveTimerTimeoutMs } from "granted/plugin-sdk/number-runtime";
+import { normalizeAgentId } from "granted/plugin-sdk/routing";
+import { ensureGlobalUndiciEnvProxyDispatcher } from "granted/plugin-sdk/runtime-env";
+import { asOptionalRecord } from "granted/plugin-sdk/string-coerce-runtime";
+import { textResult, type AgentToolResult } from "granted/plugin-sdk/tool-results";
 import type { GrantedPluginApi } from "./api.js";
 import type { MemoryConfig } from "./config.js";
 
@@ -22,7 +22,7 @@ type OpenAiEmbeddingClient = {
 };
 const loadOpenAiModule = createLazyRuntimeModule(() => import("openai"));
 const loadMemoryEmbeddingProviderModule = createLazyRuntimeModule(
-  () => import("openclaw/plugin-sdk/memory-core-host-engine-embeddings"),
+  () => import("granted/plugin-sdk/memory-core-host-engine-embeddings"),
 );
 
 type EmbeddingConfig = MemoryConfig["embedding"];

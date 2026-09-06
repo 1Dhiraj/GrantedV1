@@ -1,11 +1,11 @@
 // Slack plugin module implements doctor behavior.
-import type { ChannelDoctorAdapter } from "openclaw/plugin-sdk/channel-contract";
+import type { ChannelDoctorAdapter } from "granted/plugin-sdk/channel-contract";
 import {
   collectStandardAllowlistLists,
   createDangerousNameMatchingMutableAllowlistWarningCollector,
-} from "openclaw/plugin-sdk/channel-policy";
-import type { GroupPolicy, GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { asObjectRecord } from "openclaw/plugin-sdk/runtime-doctor-migrations";
+} from "granted/plugin-sdk/channel-policy";
+import type { GroupPolicy, GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { asObjectRecord } from "granted/plugin-sdk/runtime-doctor-migrations";
 import { inspectSlackAccount } from "./account-inspect.js";
 import { listSlackAccountIds, mergeSlackAccountConfig } from "./accounts.js";
 import {

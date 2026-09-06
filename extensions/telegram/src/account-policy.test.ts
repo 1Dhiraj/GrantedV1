@@ -1,4 +1,4 @@
-import { validateTestChannelConfig } from "openclaw/plugin-sdk/channel-test-helpers";
+import { validateTestChannelConfig } from "granted/plugin-sdk/channel-test-helpers";
 import { describe, expect, it } from "vitest";
 import { mergeTelegramAccountConfig } from "./account-config.js";
 import { TelegramConfigSchema } from "./config-schema.js";

@@ -1,5 +1,5 @@
 // Zalouser tests cover monitor.account scope plugin behavior.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { describe, expect, it, vi } from "vitest";
 import type { GrantedConfig, PluginRuntime } from "../runtime-api.js";
 // Preserve module setup before modules that consume it.

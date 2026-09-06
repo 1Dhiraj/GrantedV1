@@ -1,10 +1,10 @@
 // Memory Core tests cover generic embedding provider.bridge plugin behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { EmbeddingProvider } from "openclaw/plugin-sdk/embedding-providers";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { EmbeddingProvider } from "granted/plugin-sdk/embedding-providers";
 import {
   createPluginRegistryFixture,
   registerVirtualTestPlugin,
-} from "openclaw/plugin-sdk/plugin-test-contracts";
+} from "granted/plugin-sdk/plugin-test-contracts";
 import {
   clearEmbeddingProviders,
   createEmptyPluginRegistry,
@@ -14,7 +14,7 @@ import {
   type RegisteredEmbeddingProvider,
   restoreRegisteredEmbeddingProviders,
   setActivePluginRegistry,
-} from "openclaw/plugin-sdk/plugin-test-runtime";
+} from "granted/plugin-sdk/plugin-test-runtime";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { createEmbeddingProvider, resolveEmbeddingProviderIndexIdentity } from "./embeddings.js";
 

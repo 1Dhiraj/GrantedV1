@@ -1,5 +1,5 @@
-import type { PluginDoctorStateMigration } from "openclaw/plugin-sdk/runtime-doctor-migrations";
-import { asOptionalRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import type { PluginDoctorStateMigration } from "granted/plugin-sdk/runtime-doctor-migrations";
+import { asOptionalRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import type { WarmImageRecord, WarmProfileRecord } from "./src/crabbox-worker-warm-image-store.js";
 
 type LegacyWarmImageRecord = WarmImageRecord & {

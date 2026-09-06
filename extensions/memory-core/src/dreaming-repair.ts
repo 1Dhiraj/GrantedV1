@@ -2,7 +2,7 @@
 import { randomUUID } from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
-import { extractErrorCode } from "openclaw/plugin-sdk/error-runtime";
+import { extractErrorCode } from "granted/plugin-sdk/error-runtime";
 import {
   clearMemoryCoreWorkspaceNamespace,
   DREAMING_SESSION_INGESTION_FILES_NAMESPACE,

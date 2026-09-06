@@ -4,7 +4,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 const callGatewayFromCliMock = vi.hoisted(() => vi.fn());
 
 vi.mock("openclaw/plugin-sdk/gateway-runtime", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("openclaw/plugin-sdk/gateway-runtime")>()),
+  ...(await importOriginal<typeof import("granted/plugin-sdk/gateway-runtime")>()),
   callGatewayFromCli: callGatewayFromCliMock,
 }));
 

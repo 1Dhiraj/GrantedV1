@@ -1,12 +1,12 @@
 // Zalouser plugin module implements shared behavior.
-import { describeAccountSnapshot } from "openclaw/plugin-sdk/account-helpers";
-import { formatAllowFromLowercase } from "openclaw/plugin-sdk/allow-from";
+import { describeAccountSnapshot } from "granted/plugin-sdk/account-helpers";
+import { formatAllowFromLowercase } from "granted/plugin-sdk/allow-from";
 import {
   adaptScopedAccountAccessor,
   createScopedChannelConfigAdapter,
-} from "openclaw/plugin-sdk/channel-config-helpers";
-import { buildChannelConfigSchema } from "openclaw/plugin-sdk/channel-config-schema";
-import type { ChannelPlugin } from "openclaw/plugin-sdk/channel-core";
+} from "granted/plugin-sdk/channel-config-helpers";
+import { buildChannelConfigSchema } from "granted/plugin-sdk/channel-config-schema";
+import type { ChannelPlugin } from "granted/plugin-sdk/channel-core";
 import {
   listZalouserAccountIds,
   resolveDefaultZalouserAccountId,

@@ -4,12 +4,12 @@
 import {
   buildManifestModelProviderConfig,
   readManifestProviderDefaultModelRef,
-} from "openclaw/plugin-sdk/provider-catalog-shared";
+} from "granted/plugin-sdk/provider-catalog-shared";
 import type {
   ModelCompatConfig,
   ModelDefinitionConfig,
-} from "openclaw/plugin-sdk/provider-model-shared";
-import { asNonArrayRecord, filterStringEntries } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/provider-model-shared";
+import { asNonArrayRecord, filterStringEntries } from "granted/plugin-sdk/string-coerce-runtime";
 import manifest from "./openclaw.plugin.json" with { type: "json" };
 
 const BASETEN_MANIFEST_CATALOG = manifest.modelCatalog.providers.baseten;

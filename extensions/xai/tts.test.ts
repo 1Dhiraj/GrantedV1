@@ -1,5 +1,5 @@
 // Xai tests cover tts plugin behavior.
-import { mockPinnedHostnameResolution } from "openclaw/plugin-sdk/test-env";
+import { mockPinnedHostnameResolution } from "granted/plugin-sdk/test-env";
 import { beforeEach, afterEach, describe, expect, it, vi } from "vitest";
 import { XAI_BASE_URL } from "./model-definitions.js";
 import { isValidXaiTtsVoice, XAI_TTS_FALLBACK_VOICES } from "./speech-provider-metadata.js";

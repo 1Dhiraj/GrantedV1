@@ -3,11 +3,11 @@ import type { ChildProcessWithoutNullStreams } from "node:child_process";
 import { once } from "node:events";
 import { mkdir } from "node:fs/promises";
 import path from "node:path";
-import type { GrantedPluginNodeHostCommandIo } from "openclaw/plugin-sdk/node-host";
-import { killProcessTree } from "openclaw/plugin-sdk/process-runtime";
-import { sanitizeEnvVars } from "openclaw/plugin-sdk/sandbox";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { resolvePreferredOpenClawTmpDir, withTempWorkspace } from "openclaw/plugin-sdk/temp-path";
+import type { GrantedPluginNodeHostCommandIo } from "granted/plugin-sdk/node-host";
+import { killProcessTree } from "granted/plugin-sdk/process-runtime";
+import { sanitizeEnvVars } from "granted/plugin-sdk/sandbox";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
+import { resolvePreferredOpenClawTmpDir, withTempWorkspace } from "granted/plugin-sdk/temp-path";
 import {
   isManagedCodexDesktopCommand,
   resolveManagedCodexAppServerStartOptions,

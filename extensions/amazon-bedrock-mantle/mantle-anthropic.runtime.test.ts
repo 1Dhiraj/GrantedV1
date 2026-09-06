@@ -1,10 +1,10 @@
-import type { Model } from "openclaw/plugin-sdk/llm";
+import type { Model } from "granted/plugin-sdk/llm";
 // Amazon Bedrock Mantle tests cover mantle anthropic plugin behavior.
 import {
   notifyProviderStreamOpened,
   withProviderAcceptanceObserver,
-} from "openclaw/plugin-sdk/provider-transport-runtime";
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+} from "granted/plugin-sdk/provider-transport-runtime";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { describe, expect, it, vi } from "vitest";
 import { createMantleAnthropicStreamFn } from "./mantle-anthropic.runtime.js";
 

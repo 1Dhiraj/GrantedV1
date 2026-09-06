@@ -1,4 +1,4 @@
-import { defineChannelSetupContract } from "openclaw/plugin-sdk/channel-setup";
+import { defineChannelSetupContract } from "granted/plugin-sdk/channel-setup";
 // Tlon plugin module implements setup core behavior.
 import {
   DEFAULT_ACCOUNT_ID,
@@ -12,11 +12,11 @@ import {
   type ChannelSetupInput,
   type ChannelSetupWizard,
   type GrantedConfig,
-} from "openclaw/plugin-sdk/setup";
+} from "granted/plugin-sdk/setup";
 import {
   normalizeOptionalString,
   normalizeStringifiedOptionalString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import { buildTlonAccountFields, type TlonAccountFieldsInput } from "./account-fields.js";
 import { normalizeShip } from "./targets.js";
 import { listTlonAccountIds, resolveTlonAccount, type TlonResolvedAccount } from "./types.js";

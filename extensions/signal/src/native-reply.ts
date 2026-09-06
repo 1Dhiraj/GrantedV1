@@ -1,7 +1,7 @@
-import type { ReplyToMode } from "openclaw/plugin-sdk/config-contracts";
-import { createReplyReferencePlanner } from "openclaw/plugin-sdk/reply-runtime";
-import type { ReplyPayload } from "openclaw/plugin-sdk/reply-runtime";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+import type { ReplyToMode } from "granted/plugin-sdk/config-contracts";
+import { createReplyReferencePlanner } from "granted/plugin-sdk/reply-runtime";
+import type { ReplyPayload } from "granted/plugin-sdk/reply-runtime";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import type { SignalNativeReplyContext } from "./monitor/event-handler.types.js";
 
 type SignalNativeReplyIdPlan = {

@@ -1,11 +1,11 @@
 import { createServer } from "node:http";
-import { buildChannelInboundEventContext } from "openclaw/plugin-sdk/channel-inbound";
+import { buildChannelInboundEventContext } from "granted/plugin-sdk/channel-inbound";
 import {
   createPluginRuntimeMock,
   createStartAccountContext,
-} from "openclaw/plugin-sdk/channel-test-helpers";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
-import { createReplyDispatcher, settleReplyDispatcher } from "openclaw/plugin-sdk/reply-runtime";
+} from "granted/plugin-sdk/channel-test-helpers";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
+import { createReplyDispatcher, settleReplyDispatcher } from "granted/plugin-sdk/reply-runtime";
 import { describe, expect, it, vi } from "vitest";
 import {
   injectQaBusInboundMessage,

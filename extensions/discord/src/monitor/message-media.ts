@@ -4,15 +4,15 @@ import {
   formatMediaPlaceholderText,
   type ChannelInboundMediaInput,
   type MediaPlaceholderTextFact,
-} from "openclaw/plugin-sdk/channel-inbound";
-import { getFileExtension, normalizeMimeType } from "openclaw/plugin-sdk/media-mime";
-import { saveRemoteMedia, type FetchLike } from "openclaw/plugin-sdk/media-runtime";
-import { getChildLogger, logVerbose } from "openclaw/plugin-sdk/runtime-env";
-import type { SsrFPolicy } from "openclaw/plugin-sdk/ssrf-runtime";
+} from "granted/plugin-sdk/channel-inbound";
+import { getFileExtension, normalizeMimeType } from "granted/plugin-sdk/media-mime";
+import { saveRemoteMedia, type FetchLike } from "granted/plugin-sdk/media-runtime";
+import { getChildLogger, logVerbose } from "granted/plugin-sdk/runtime-env";
+import type { SsrFPolicy } from "granted/plugin-sdk/ssrf-runtime";
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import type { Message } from "../internal/discord.js";
 import { resolveDiscordCdnPolicy } from "./media-ssrf-policy.js";
 import {

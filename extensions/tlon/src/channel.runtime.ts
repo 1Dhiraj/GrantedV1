@@ -3,13 +3,13 @@ import crypto from "node:crypto";
 import type {
   ChannelAccountSnapshot,
   ChannelOutboundContext,
-} from "openclaw/plugin-sdk/channel-contract";
-import type { ChannelOutboundAdapter } from "openclaw/plugin-sdk/channel-send-result";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { ChannelPlugin } from "openclaw/plugin-sdk/core";
-import { expectDefined } from "openclaw/plugin-sdk/expect-runtime";
-import { readResponseTextLimited } from "openclaw/plugin-sdk/provider-http";
-import { runChannelProbe } from "openclaw/plugin-sdk/text-utility-runtime";
+} from "granted/plugin-sdk/channel-contract";
+import type { ChannelOutboundAdapter } from "granted/plugin-sdk/channel-send-result";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { ChannelPlugin } from "granted/plugin-sdk/core";
+import { expectDefined } from "granted/plugin-sdk/expect-runtime";
+import { readResponseTextLimited } from "granted/plugin-sdk/provider-http";
+import { runChannelProbe } from "granted/plugin-sdk/text-utility-runtime";
 import { monitorTlonProvider } from "./monitor/index.js";
 import { tlonSetupWizard } from "./setup-surface.js";
 import { formatTargetHint, normalizeShip, parseTlonTarget } from "./targets.js";

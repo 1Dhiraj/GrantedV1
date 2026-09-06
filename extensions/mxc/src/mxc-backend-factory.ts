@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import type { CreateSandboxBackendParams, SandboxBackendHandle } from "openclaw/plugin-sdk/sandbox";
+import type { CreateSandboxBackendParams, SandboxBackendHandle } from "granted/plugin-sdk/sandbox";
 import type { MxcConfig } from "./config.js";
 import { createMxcSandboxBackendHandle } from "./mxc-backend.js";
 

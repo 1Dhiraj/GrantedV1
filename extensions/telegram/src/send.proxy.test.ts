@@ -1,5 +1,5 @@
 // Telegram tests cover send.proxy plugin behavior.
-import { toErrorObject as toLintErrorObject } from "openclaw/plugin-sdk/error-runtime";
+import { toErrorObject as toLintErrorObject } from "granted/plugin-sdk/error-runtime";
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 
 const { botApi, botCtorSpy } = vi.hoisted(() => ({
@@ -64,7 +64,7 @@ const resolveTelegramApiBase = vi.hoisted(
 );
 
 vi.mock("openclaw/plugin-sdk/plugin-config-runtime", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/plugin-config-runtime")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/plugin-config-runtime")>(
     "openclaw/plugin-sdk/plugin-config-runtime",
   );
   return {

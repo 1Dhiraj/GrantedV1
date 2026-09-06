@@ -1,24 +1,24 @@
 /** Reads model context separately from full-fidelity Codex mirror evidence. */
 import fs from "node:fs/promises";
-import type { AgentMessage } from "openclaw/plugin-sdk/agent-harness-runtime";
-import type { SessionEntry } from "openclaw/plugin-sdk/agent-sessions";
+import type { AgentMessage } from "granted/plugin-sdk/agent-harness-runtime";
+import type { SessionEntry } from "granted/plugin-sdk/agent-sessions";
 import {
   buildSessionContext,
   migrateSessionEntries,
   parseSessionEntries,
   SessionManager,
-} from "openclaw/plugin-sdk/agent-sessions";
+} from "granted/plugin-sdk/agent-sessions";
 import {
   getSessionEntry,
   parseSqliteSessionFileMarker,
   resolveTranscriptSessionKeyBySessionId,
   type SqliteSessionFileMarker,
-} from "openclaw/plugin-sdk/session-store-runtime";
+} from "granted/plugin-sdk/session-store-runtime";
 import type {
   TranscriptTurnAdmission,
   SessionTranscriptTargetParams,
-} from "openclaw/plugin-sdk/session-transcript-runtime";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/session-transcript-runtime";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import { sanitizeCodexHistoryImagePayloads } from "./image-payload-sanitizer.js";
 
 type CodexHistoryView = "native-evidence" | "model-context";

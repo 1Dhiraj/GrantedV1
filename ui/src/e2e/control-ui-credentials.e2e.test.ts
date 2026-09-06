@@ -1,7 +1,7 @@
 // Control UI tests cover browser credential submission and visible recovery.
 import { writeFile } from "node:fs/promises";
 import path from "node:path";
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { chromium, type Browser, type BrowserContext, type Page } from "playwright";
 import { beforeEach, afterAll, afterEach, beforeAll, describe, expect, it } from "vitest";
 import { ConnectErrorDetailCodes } from "../../../packages/gateway-protocol/src/connect-error-details.js";

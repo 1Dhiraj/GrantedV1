@@ -1,12 +1,12 @@
 // Whatsapp tests cover configured ACP binding support.
-import { resolveConfiguredAcpBindingRecord } from "openclaw/plugin-sdk/acp-binding-resolve-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import { resolveConfiguredAcpBindingRecord } from "granted/plugin-sdk/acp-binding-resolve-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   createEmptyPluginRegistry,
   createTestRegistry,
   resetPluginRuntimeStateForTest,
   setActivePluginRegistry,
-} from "openclaw/plugin-sdk/plugin-test-runtime";
+} from "granted/plugin-sdk/plugin-test-runtime";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { whatsappPlugin } from "./channel.js";
 

@@ -1,6 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
 import { z } from "zod";
 import type { QaSeedScenarioWithSource } from "./scenario-catalog.js";
 import { shellQuote } from "./shell-quote.js";

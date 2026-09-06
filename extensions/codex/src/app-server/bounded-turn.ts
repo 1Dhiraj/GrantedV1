@@ -1,11 +1,11 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { AuthProfileStore } from "openclaw/plugin-sdk/agent-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
-import { resolveTimerTimeoutMs } from "openclaw/plugin-sdk/number-runtime";
-import { readStringField as readString } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { resolvePreferredOpenClawTmpDir, withTempWorkspace } from "openclaw/plugin-sdk/temp-path";
+import type { AuthProfileStore } from "granted/plugin-sdk/agent-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
+import { resolveTimerTimeoutMs } from "granted/plugin-sdk/number-runtime";
+import { readStringField as readString } from "granted/plugin-sdk/string-coerce-runtime";
+import { resolvePreferredOpenClawTmpDir, withTempWorkspace } from "granted/plugin-sdk/temp-path";
 import {
   CODEX_APP_SERVER_INTERRUPT_TIMEOUT_MS,
   closeCodexStartupClientBestEffort,

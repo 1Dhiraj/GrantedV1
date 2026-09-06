@@ -5,15 +5,15 @@ import * as querystring from "node:querystring";
 import {
   formatErrorMessage,
   PlatformMessageNotDispatchedError,
-} from "openclaw/plugin-sdk/error-runtime";
-import { redactToolPayloadText } from "openclaw/plugin-sdk/logging-core";
+} from "granted/plugin-sdk/error-runtime";
+import { redactToolPayloadText } from "granted/plugin-sdk/logging-core";
 import {
   readResponseTextPrefix,
   readResponseWithLimit,
-} from "openclaw/plugin-sdk/response-limit-runtime";
-import { safeEqualSecret } from "openclaw/plugin-sdk/security-runtime";
-import { fetchWithSsrFGuard } from "openclaw/plugin-sdk/ssrf-runtime";
-import { readRequestBodyWithLimit } from "openclaw/plugin-sdk/webhook-ingress";
+} from "granted/plugin-sdk/response-limit-runtime";
+import { safeEqualSecret } from "granted/plugin-sdk/security-runtime";
+import { fetchWithSsrFGuard } from "granted/plugin-sdk/ssrf-runtime";
+import { readRequestBodyWithLimit } from "granted/plugin-sdk/webhook-ingress";
 import { assertSmsCredentialOwnerAvailable } from "./credential-availability.js";
 import { looksLikeSmsPhoneNumber, normalizeSmsPhoneNumber } from "./phone.js";
 import { resolveTwilioStatusCallbackUrl } from "./public-webhook-url.js";

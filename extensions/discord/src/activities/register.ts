@@ -1,5 +1,5 @@
-import type { GrantedPluginApi } from "openclaw/plugin-sdk/channel-plugin-common";
-import type { OpenKeyedStoreOptions } from "openclaw/plugin-sdk/plugin-state-runtime";
+import type { GrantedPluginApi } from "granted/plugin-sdk/channel-plugin-common";
+import type { OpenKeyedStoreOptions } from "granted/plugin-sdk/plugin-state-runtime";
 import { createDiscordActivityHttpHandler } from "./http.js";
 import { createDiscordWidgetPresenter } from "./presenter.js";
 import { DiscordActivitiesRuntime, setDiscordActivitiesRuntime } from "./runtime.js";

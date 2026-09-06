@@ -1,7 +1,7 @@
-import { expectDefined } from "openclaw/plugin-sdk/expect-runtime";
-import { parseStrictPositiveInteger } from "openclaw/plugin-sdk/number-runtime";
-import type { PluginCommandResult } from "openclaw/plugin-sdk/plugin-entry";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { expectDefined } from "granted/plugin-sdk/expect-runtime";
+import { parseStrictPositiveInteger } from "granted/plugin-sdk/number-runtime";
+import type { PluginCommandResult } from "granted/plugin-sdk/plugin-entry";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import type { CodexComputerUseConfig } from "./app-server/config.js";
 import {
   buildCodexCommandPickerPresentation,

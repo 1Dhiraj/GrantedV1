@@ -2,7 +2,7 @@
 import { readFile, writeFile } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { createOpenClawTestState } from "openclaw/plugin-sdk/test-state";
+import { createOpenClawTestState } from "granted/plugin-sdk/test-state";
 import { describe, expect, it, vi } from "vitest";
 import { IMessageRpcClient } from "./client.js";
 import { sendMessageIMessage } from "./send.js";

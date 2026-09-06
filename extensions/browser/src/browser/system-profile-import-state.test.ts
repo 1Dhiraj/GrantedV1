@@ -1,4 +1,4 @@
-import type { PluginStateKeyedStore } from "openclaw/plugin-sdk/plugin-state-runtime";
+import type { PluginStateKeyedStore } from "granted/plugin-sdk/plugin-state-runtime";
 import { describe, expect, it } from "vitest";
 import {
   configureSystemProfileImportStateStore,

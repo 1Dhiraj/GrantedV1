@@ -2,12 +2,12 @@
 import fs from "node:fs";
 import { createServer } from "node:http";
 import path from "node:path";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
 import {
   acquireDebugProxyCaptureStore,
   resolveDebugProxySettings,
-} from "openclaw/plugin-sdk/proxy-capture";
+} from "granted/plugin-sdk/proxy-capture";
 import {
   closeQaHttpServer,
   dispatchQaHttpRequest,
@@ -255,7 +255,7 @@ function detectQaEvidenceArtifactContentType(filePath: string): string {
 }
 
 async function startQaGatewayLoop(params: { state: QaBusState; baseUrl: string }) {
-  const { qaChannelPlugin, setQaChannelRuntime } = await import("openclaw/plugin-sdk/qa-channel");
+  const { qaChannelPlugin, setQaChannelRuntime } = await import("granted/plugin-sdk/qa-channel");
   const runtime = createQaRunnerRuntime();
   setQaChannelRuntime(runtime);
   const cfg = createQaLabConfig(params.baseUrl);

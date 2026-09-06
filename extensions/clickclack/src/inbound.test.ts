@@ -1,8 +1,8 @@
 // Clickclack tests cover inbound plugin behavior.
-import { createPluginRuntimeMock } from "openclaw/plugin-sdk/channel-test-helpers";
-import type { PluginRuntime } from "openclaw/plugin-sdk/core";
-import type { PluginStateSyncKeyedStore } from "openclaw/plugin-sdk/plugin-state-runtime";
-import { buildAgentSessionKey, resolveAgentRoute } from "openclaw/plugin-sdk/routing";
+import { createPluginRuntimeMock } from "granted/plugin-sdk/channel-test-helpers";
+import type { PluginRuntime } from "granted/plugin-sdk/core";
+import type { PluginStateSyncKeyedStore } from "granted/plugin-sdk/plugin-state-runtime";
+import { buildAgentSessionKey, resolveAgentRoute } from "granted/plugin-sdk/routing";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
   recordPendingDiscussionOpen,

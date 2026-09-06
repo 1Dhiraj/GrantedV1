@@ -5,8 +5,8 @@ import type {
   CliBackendExecuteContext,
   CliBackendLiveSessionHandle,
   CliBackendPreparedExecution,
-} from "openclaw/plugin-sdk/cli-backend";
-import { formatErrorMessageForDisplay } from "openclaw/plugin-sdk/error-runtime";
+} from "granted/plugin-sdk/cli-backend";
+import { formatErrorMessageForDisplay } from "granted/plugin-sdk/error-runtime";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import type { ClaudeAgentSdkSecretInput } from "./agent-sdk-process.js";
 import { executeClaudeAgentSdk } from "./agent-sdk.runtime.js";

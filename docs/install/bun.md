@@ -37,13 +37,13 @@ Bun remains usable as an optional package-script runner. The default package man
     To run onboarding under Bun and install the managed Gateway under Bun:
 
     ```sh
-    bun openclaw.mjs onboard --install-daemon --daemon-runtime bun
+    bun granted.mjs onboard --install-daemon --daemon-runtime bun
     ```
 
     For a managed node host, select Bun separately:
 
     ```sh
-    bun openclaw.mjs node install --runtime bun
+    bun granted.mjs node install --runtime bun
     ```
 
   </Step>

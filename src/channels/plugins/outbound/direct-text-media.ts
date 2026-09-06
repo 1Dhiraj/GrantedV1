@@ -126,7 +126,7 @@ export function createDirectTextMediaOutbound<
     textChunkLimit: 4000,
     sanitizeText: ({ text }) => sanitizeForPlainText(text),
     sendPayload: async (ctx) => {
-      const { sendTextMediaPayload } = await import("openclaw/plugin-sdk/reply-payload");
+      const { sendTextMediaPayload } = await import("granted/plugin-sdk/reply-payload");
       return await sendTextMediaPayload({ channel: params.channel, ctx, adapter: outbound });
     },
     sendText: async ({ cfg, to, text, accountId, deps, replyToId }) => {

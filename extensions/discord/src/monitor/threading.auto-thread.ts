@@ -1,12 +1,12 @@
 // Discord plugin module implements threading.auto thread behavior.
-import type { GrantedConfig, ReplyToMode } from "openclaw/plugin-sdk/config-contracts";
-import { resolveChannelModelOverride } from "openclaw/plugin-sdk/model-session-runtime";
-import { buildAgentSessionKey } from "openclaw/plugin-sdk/routing";
-import { logVerbose } from "openclaw/plugin-sdk/runtime-env";
+import type { GrantedConfig, ReplyToMode } from "granted/plugin-sdk/config-contracts";
+import { resolveChannelModelOverride } from "granted/plugin-sdk/model-session-runtime";
+import { buildAgentSessionKey } from "granted/plugin-sdk/routing";
+import { logVerbose } from "granted/plugin-sdk/runtime-env";
 import {
   normalizeOptionalString,
   normalizeOptionalStringifiedId,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import {
   ChannelType,
   createThread,

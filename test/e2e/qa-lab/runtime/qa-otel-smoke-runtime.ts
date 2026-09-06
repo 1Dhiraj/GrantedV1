@@ -14,7 +14,7 @@ import {
   emitTrustedDiagnosticEvent,
   emitTrustedDiagnosticEventWithPrivateData,
   waitForDiagnosticEventsDrained,
-} from "openclaw/plugin-sdk/diagnostic-runtime";
+} from "granted/plugin-sdk/diagnostic-runtime";
 import {
   createDiagnosticsOtelService,
   type GrantedPluginServiceContext,

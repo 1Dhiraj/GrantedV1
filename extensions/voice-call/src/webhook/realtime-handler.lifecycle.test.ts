@@ -1,8 +1,8 @@
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
 import type {
   RealtimeVoiceBridge,
   RealtimeVoiceProviderPlugin,
-} from "openclaw/plugin-sdk/realtime-voice";
+} from "granted/plugin-sdk/realtime-voice";
 import { describe, expect, it, vi } from "vitest";
 import { WebSocket } from "ws";
 import type { VoiceCallRealtimeConfig } from "../config.js";

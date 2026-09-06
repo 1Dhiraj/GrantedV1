@@ -4,8 +4,8 @@ import {
   ChannelType as DiscordChannelType,
   type APIApplicationCommandChannelOption,
 } from "discord-api-types/v10";
-import type { GrantedConfig, DiscordAccountConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { NativeCommandSpec } from "openclaw/plugin-sdk/native-command-registry";
+import type { GrantedConfig, DiscordAccountConfig } from "granted/plugin-sdk/config-contracts";
+import type { NativeCommandSpec } from "granted/plugin-sdk/native-command-registry";
 import {
   Command,
   CommandWithSubcommands,

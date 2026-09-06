@@ -4,15 +4,15 @@ import {
   addGatewayClientOptions,
   callGatewayFromCli,
   type GatewayRpcOpts,
-} from "openclaw/plugin-sdk/gateway-runtime";
-import { normalizeAgentId } from "openclaw/plugin-sdk/routing";
+} from "granted/plugin-sdk/gateway-runtime";
+import { normalizeAgentId } from "granted/plugin-sdk/routing";
 import type {
   SessionCatalogHost as CodexSessionCatalogHost,
   SessionCatalogSession as CodexSessionCatalogSession,
-} from "openclaw/plugin-sdk/session-catalog";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { sanitizeTerminalText } from "openclaw/plugin-sdk/text-chunking";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+} from "granted/plugin-sdk/session-catalog";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
+import { sanitizeTerminalText } from "granted/plugin-sdk/text-chunking";
+import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import {
   CODEX_LOCAL_SESSION_HOST_ID,
   CODEX_SESSION_CATALOG_MAX_PAGE_LIMIT,

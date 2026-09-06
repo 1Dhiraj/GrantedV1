@@ -83,7 +83,7 @@ async function runRealPicker(options: ProducerOptions, openclawHome: string) {
       "scripts/e2e/lib/run-with-pty.mjs",
       path.join(openclawHome, "picker.raw.log"),
       process.execPath,
-      "openclaw.mjs",
+      "granted.mjs",
       "configure",
       "--section",
       "channels",

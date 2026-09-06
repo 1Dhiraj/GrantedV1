@@ -1,6 +1,6 @@
-import type { OutboundDeliveryFormattingOptions } from "openclaw/plugin-sdk/channel-outbound";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { resolveTextChunkLimit } from "openclaw/plugin-sdk/reply-chunking";
+import type { OutboundDeliveryFormattingOptions } from "granted/plugin-sdk/channel-outbound";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { resolveTextChunkLimit } from "granted/plugin-sdk/reply-chunking";
 import { mergeTelegramAccountConfig, resolveDefaultTelegramAccountId } from "./accounts.js";
 import { TELEGRAM_RICH_TEXT_LIMIT } from "./rich-message.js";
 

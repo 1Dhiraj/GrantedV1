@@ -1,6 +1,6 @@
 import fs from "node:fs/promises";
-import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
-import { createSessionCatalogAdoptionCoordinator } from "openclaw/plugin-sdk/session-catalog";
+import type { GrantedPluginApi } from "granted/plugin-sdk/plugin-entry";
+import { createSessionCatalogAdoptionCoordinator } from "granted/plugin-sdk/session-catalog";
 import { CLAUDE_CLI_BACKEND_ID, CLAUDE_CLI_DEFAULT_MODEL_REF } from "./cli-constants.js";
 import {
   adoptedSessionKey,

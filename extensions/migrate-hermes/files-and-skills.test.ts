@@ -2,13 +2,13 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { DatabaseSync } from "node:sqlite";
-import { loadAuthProfileStoreWithoutExternalProfiles } from "openclaw/plugin-sdk/agent-runtime";
-import { MIGRATION_REASON_TARGET_EXISTS } from "openclaw/plugin-sdk/migration";
+import { loadAuthProfileStoreWithoutExternalProfiles } from "granted/plugin-sdk/agent-runtime";
+import { MIGRATION_REASON_TARGET_EXISTS } from "granted/plugin-sdk/migration";
 import {
   resolvePreferredOpenClawTmpDir,
   tempWorkspace,
   type TempWorkspace,
-} from "openclaw/plugin-sdk/temp-path";
+} from "granted/plugin-sdk/temp-path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { buildAuthItems } from "./auth.js";
 import { buildHermesMigrationProvider } from "./provider.js";

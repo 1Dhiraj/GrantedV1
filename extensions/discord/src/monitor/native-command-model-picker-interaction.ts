@@ -5,10 +5,10 @@ import {
   listChatCommands,
   type ChatCommandDefinition,
   type CommandArgs,
-} from "openclaw/plugin-sdk/command-auth-native";
-import type { ModelsProviderData } from "openclaw/plugin-sdk/models-provider-runtime";
-import { getRuntimeConfigSnapshot } from "openclaw/plugin-sdk/runtime-config-snapshot";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/command-auth-native";
+import type { ModelsProviderData } from "granted/plugin-sdk/models-provider-runtime";
+import { getRuntimeConfigSnapshot } from "granted/plugin-sdk/runtime-config-snapshot";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   Button,
   StringSelectMenu,

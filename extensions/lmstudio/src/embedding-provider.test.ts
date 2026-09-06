@@ -1,5 +1,5 @@
 // LM Studio embedding provider tests cover preload context-length precedence.
-import type { GrantedConfig } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedConfig } from "granted/plugin-sdk/plugin-entry";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { lmstudioMemoryEmbeddingProviderAdapter } from "../memory-embedding-adapter.js";
 import { createLmstudioEmbeddingProvider } from "./embedding-provider.js";
@@ -49,7 +49,7 @@ const createRemoteEmbeddingProviderMock = vi.hoisted(() =>
 
 vi.mock("openclaw/plugin-sdk/memory-core-host-engine-embeddings", async (importOriginal) => {
   const actual =
-    await importOriginal<typeof import("openclaw/plugin-sdk/memory-core-host-engine-embeddings")>();
+    await importOriginal<typeof import("granted/plugin-sdk/memory-core-host-engine-embeddings")>();
   return {
     ...actual,
     createRemoteEmbeddingProvider: createRemoteEmbeddingProviderMock,

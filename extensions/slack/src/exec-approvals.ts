@@ -1,11 +1,11 @@
 // Slack plugin module implements exec approvals behavior.
-import { resolveApprovalApprovers } from "openclaw/plugin-sdk/approval-auth-runtime";
+import { resolveApprovalApprovers } from "granted/plugin-sdk/approval-auth-runtime";
 import {
   createChannelExecApprovalProfile,
   isChannelExecApprovalTargetRecipient,
-} from "openclaw/plugin-sdk/approval-client-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { normalizeStringifiedOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/approval-client-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { normalizeStringifiedOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import { resolveSlackAccount } from "./accounts.js";
 import { formatSlackTarget, parseSlackTarget } from "./target-parsing.js";
 

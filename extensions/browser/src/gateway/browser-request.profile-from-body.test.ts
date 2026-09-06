@@ -50,7 +50,7 @@ vi.mock("../browser-proxy-upload.js", () => uploadMocks);
 
 vi.mock("openclaw/plugin-sdk/runtime-config-snapshot", async () => {
   const actual = await vi.importActual<
-    typeof import("openclaw/plugin-sdk/runtime-config-snapshot")
+    typeof import("granted/plugin-sdk/runtime-config-snapshot")
   >("openclaw/plugin-sdk/runtime-config-snapshot");
   return {
     ...actual,

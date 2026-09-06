@@ -1,6 +1,6 @@
 // Reef plugin module registers headless CLI commands so agents can drive
 // registration, pairing, and status without the interactive wizard.
-import type { GrantedPluginApi } from "openclaw/plugin-sdk/channel-plugin-common";
+import type { GrantedPluginApi } from "granted/plugin-sdk/channel-plugin-common";
 
 export function registerReefCliMetadata(api: GrantedPluginApi) {
   api.registerCli(

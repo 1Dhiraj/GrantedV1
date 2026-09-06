@@ -2,25 +2,25 @@
 import type {
   UnifiedModelCatalogEntry,
   UnifiedModelCatalogProviderContext,
-} from "openclaw/plugin-sdk/plugin-entry";
-import { resolveApiKeyForProvider } from "openclaw/plugin-sdk/provider-auth-runtime";
-import { getCachedLiveCatalogValue } from "openclaw/plugin-sdk/provider-catalog-shared";
+} from "granted/plugin-sdk/plugin-entry";
+import { resolveApiKeyForProvider } from "granted/plugin-sdk/provider-auth-runtime";
+import { getCachedLiveCatalogValue } from "granted/plugin-sdk/provider-catalog-shared";
 import {
   assertOkOrThrowHttpError,
   readProviderJsonArrayFieldResponse,
   resolveProviderHttpRequestConfig,
   sanitizeConfiguredModelProviderRequest,
-} from "openclaw/plugin-sdk/provider-http";
+} from "granted/plugin-sdk/provider-http";
 import {
   isRecord,
   normalizeOptionalString,
   normalizeTrimmedStringList,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import type {
   VideoGenerationModelCapabilitiesContext,
   VideoGenerationProviderCapabilities,
   VideoGenerationResolution,
-} from "openclaw/plugin-sdk/video-generation";
+} from "granted/plugin-sdk/video-generation";
 import { OPENROUTER_BASE_URL } from "./provider-catalog.js";
 import { fetchOpenRouterVideoGet, type OpenRouterVideoDispatcherPolicy } from "./video-http.js";
 

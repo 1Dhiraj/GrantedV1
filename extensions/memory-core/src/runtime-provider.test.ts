@@ -1,6 +1,6 @@
 // Memory Core provider tests cover plugin runtime integration.
-import type { GrantedConfig } from "openclaw/plugin-sdk/memory-core-host-runtime-core";
-import type { MemorySearchResult } from "openclaw/plugin-sdk/memory-core-host-runtime-files";
+import type { GrantedConfig } from "granted/plugin-sdk/memory-core-host-runtime-core";
+import type { MemorySearchResult } from "granted/plugin-sdk/memory-core-host-runtime-files";
 import { describe, expect, it, vi } from "vitest";
 
 const managerDebug = {

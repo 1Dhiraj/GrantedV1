@@ -1,7 +1,7 @@
 import type {
   GrantedPluginService,
   GrantedPluginServiceContext,
-} from "openclaw/plugin-sdk/plugin-entry";
+} from "granted/plugin-sdk/plugin-entry";
 import { isUnsupportedCodexAppServerVersionError, type CodexAppServerClient } from "./client.js";
 import { resolveCodexAppServerRuntimeOptions } from "./config.js";
 import {

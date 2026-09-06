@@ -1,12 +1,12 @@
 // Matrix plugin module implements create client behavior.
 import fs from "node:fs";
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
-import type { PinnedDispatcherPolicy } from "openclaw/plugin-sdk/ssrf-dispatcher";
+import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
+import type { PinnedDispatcherPolicy } from "granted/plugin-sdk/ssrf-dispatcher";
 import {
   ssrfPolicyFromDangerouslyAllowPrivateNetwork,
   type SsrFPolicy,
-} from "openclaw/plugin-sdk/ssrf-runtime";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/ssrf-runtime";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import type { MatrixClient } from "../sdk.js";
 import { resolveValidatedMatrixHomeserverUrl } from "./config.js";
 import {

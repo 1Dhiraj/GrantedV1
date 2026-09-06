@@ -2,7 +2,7 @@
 import fs from "node:fs";
 import { createRequire } from "node:module";
 import path from "node:path";
-import { buildPluginConfigSchema } from "openclaw/plugin-sdk/plugin-entry";
+import { buildPluginConfigSchema } from "granted/plugin-sdk/plugin-entry";
 import { describe, expect, it } from "vitest";
 import { AcpxPluginConfigSchema } from "./config-schema.js";
 import { resolveAcpxPluginConfig, resolveAcpxPluginRoot } from "./config.js";

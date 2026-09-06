@@ -1,6 +1,6 @@
 import fs from "node:fs";
-import type { IdentifierAuthentication } from "openclaw/plugin-sdk/channel-ingress-runtime";
-import { validateJsonSchemaValue } from "openclaw/plugin-sdk/json-schema-runtime";
+import type { IdentifierAuthentication } from "granted/plugin-sdk/channel-ingress-runtime";
+import { validateJsonSchemaValue } from "granted/plugin-sdk/json-schema-runtime";
 import { expect, it } from "vitest";
 import { resolveImapConfig } from "./config.js";
 

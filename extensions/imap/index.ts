@@ -2,7 +2,7 @@ import {
   definePluginEntry,
   type GrantedPluginApi,
   type GrantedPluginServiceContext,
-} from "openclaw/plugin-sdk/plugin-entry";
+} from "granted/plugin-sdk/plugin-entry";
 import { resolveImapConfig } from "./src/config.js";
 import { createImapState } from "./src/state.js";
 import { ImapAccountWatcher } from "./src/watcher.js";

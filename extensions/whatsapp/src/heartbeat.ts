@@ -1,4 +1,4 @@
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 // Whatsapp plugin module implements heartbeat behavior.
 import { resolveWhatsAppAccount } from "./accounts.js";
 import { readWebAuthExistsForDecision, WHATSAPP_AUTH_UNSTABLE_CODE } from "./auth-store.js";

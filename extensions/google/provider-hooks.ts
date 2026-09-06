@@ -2,14 +2,14 @@
 import type {
   ProviderDefaultThinkingPolicyContext,
   ProviderThinkingProfile,
-} from "openclaw/plugin-sdk/core";
+} from "granted/plugin-sdk/core";
 import type {
   ProviderFailoverErrorContext,
   ProviderWrapStreamFnContext,
-} from "openclaw/plugin-sdk/plugin-entry";
-import { buildProviderReplayFamilyHooks } from "openclaw/plugin-sdk/provider-model-shared";
-import { createPayloadPatchStreamWrapper } from "openclaw/plugin-sdk/provider-stream-shared";
-import { buildProviderToolCompatFamilyHooks } from "openclaw/plugin-sdk/provider-tools";
+} from "granted/plugin-sdk/plugin-entry";
+import { buildProviderReplayFamilyHooks } from "granted/plugin-sdk/provider-model-shared";
+import { createPayloadPatchStreamWrapper } from "granted/plugin-sdk/provider-stream-shared";
+import { buildProviderToolCompatFamilyHooks } from "granted/plugin-sdk/provider-tools";
 import { stripGoogleProviderPrefix } from "./model-id.js";
 import { resolveGoogleThinkingProfile } from "./provider-policy.js";
 import { sanitizeGoogleThinkingPayload } from "./thinking-api.js";

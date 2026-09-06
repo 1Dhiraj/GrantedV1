@@ -1,13 +1,13 @@
 // Huggingface plugin module implements models behavior.
-import { withTrustedEnvProxyGuardedFetchMode } from "openclaw/plugin-sdk/fetch-runtime";
-import { resolveTimerTimeoutMs } from "openclaw/plugin-sdk/number-runtime";
-import { buildLiveModelProviderConfig } from "openclaw/plugin-sdk/provider-catalog-live-runtime";
-import type { ModelDefinitionConfig } from "openclaw/plugin-sdk/provider-model-types";
+import { withTrustedEnvProxyGuardedFetchMode } from "granted/plugin-sdk/fetch-runtime";
+import { resolveTimerTimeoutMs } from "granted/plugin-sdk/number-runtime";
+import { buildLiveModelProviderConfig } from "granted/plugin-sdk/provider-catalog-live-runtime";
+import type { ModelDefinitionConfig } from "granted/plugin-sdk/provider-model-types";
 import {
   fetchWithSsrFGuard,
   ssrfPolicyFromHttpBaseUrlAllowedHostname,
-} from "openclaw/plugin-sdk/ssrf-runtime";
-import { normalizeLowercaseStringOrEmpty } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/ssrf-runtime";
+import { normalizeLowercaseStringOrEmpty } from "granted/plugin-sdk/string-coerce-runtime";
 
 export const HUGGINGFACE_BASE_URL = "https://router.huggingface.co/v1";
 export const HUGGINGFACE_POLICY_SUFFIXES = ["cheapest", "fastest"] as const;

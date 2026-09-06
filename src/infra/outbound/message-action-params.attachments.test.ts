@@ -4,7 +4,7 @@ import path from "node:path";
 // Covers message-action media hydration, sandbox path normalization,
 // attachments, and channel/plugin media source aliases.
 import { canonicalizeBase64 } from "@openclaw/media-core/base64";
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { jsonResult } from "../../agents/tools/common.js";
 import type { ChannelPlugin } from "../../channels/plugins/types.public.js";

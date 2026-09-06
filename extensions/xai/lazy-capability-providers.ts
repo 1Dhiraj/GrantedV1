@@ -1,11 +1,11 @@
-import type { ImageGenerationProvider } from "openclaw/plugin-sdk/image-generation";
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
-import type { MediaUnderstandingProvider } from "openclaw/plugin-sdk/media-understanding";
+import type { ImageGenerationProvider } from "granted/plugin-sdk/image-generation";
+import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
+import type { MediaUnderstandingProvider } from "granted/plugin-sdk/media-understanding";
 import type {
   RealtimeTranscriptionProviderPlugin,
   RealtimeTranscriptionSession,
   RealtimeTranscriptionSessionCreateRequest,
-} from "openclaw/plugin-sdk/realtime-transcription";
+} from "granted/plugin-sdk/realtime-transcription";
 import {
   RealtimeVoiceSessionLifecycle,
   type RealtimeVoiceBridge,
@@ -13,14 +13,14 @@ import {
   type RealtimeVoiceProviderPlugin,
   type RealtimeVoiceSessionConnection,
   type RealtimeVoiceToolResultOptions,
-} from "openclaw/plugin-sdk/realtime-voice";
-import { createRealtimeVoiceAudioQueue } from "openclaw/plugin-sdk/realtime-voice-audio-queue";
+} from "granted/plugin-sdk/realtime-voice";
+import { createRealtimeVoiceAudioQueue } from "granted/plugin-sdk/realtime-voice-audio-queue";
 import type {
   SpeechProviderPlugin,
   SpeechSynthesisStreamRequest,
   SpeechTelephonySynthesisRequest,
-} from "openclaw/plugin-sdk/speech";
-import type { VideoGenerationProvider } from "openclaw/plugin-sdk/video-generation";
+} from "granted/plugin-sdk/speech";
+import type { VideoGenerationProvider } from "granted/plugin-sdk/video-generation";
 import {
   assertXaiRealtimeVoiceRequestSupported,
   createXaiImageGenerationProviderMetadata,

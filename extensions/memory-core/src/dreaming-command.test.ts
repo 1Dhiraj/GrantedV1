@@ -1,8 +1,8 @@
 // Memory Core tests cover dreaming command plugin behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { PluginCommandContext } from "openclaw/plugin-sdk/core";
-import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
-import { asNullableRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { PluginCommandContext } from "granted/plugin-sdk/core";
+import type { GrantedPluginApi } from "granted/plugin-sdk/plugin-entry";
+import { asNullableRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import { describe, expect, it, vi } from "vitest";
 import { handleDreamingCommand } from "./dreaming-command.js";
 

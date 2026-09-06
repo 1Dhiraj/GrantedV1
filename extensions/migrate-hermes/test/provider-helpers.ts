@@ -1,8 +1,8 @@
 // Migrate Hermes provider module implements model/runtime integration.
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { MigrationProviderContext } from "openclaw/plugin-sdk/plugin-entry";
-import type { GrantedConfig } from "openclaw/plugin-sdk/provider-auth";
+import type { MigrationProviderContext } from "granted/plugin-sdk/plugin-entry";
+import type { GrantedConfig } from "granted/plugin-sdk/provider-auth";
 
 function noop() {}
 

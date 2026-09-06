@@ -2,7 +2,7 @@
 //
 // The allowlist and env/config precedence are provider policy. Deprecated SDK
 // facades keep their dated compatibility copy until its removal window closes.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 
 /** Public GitHub Copilot host used when no data-residency domain is configured. */
 export const PUBLIC_GITHUB_COPILOT_DOMAIN = "github.com";

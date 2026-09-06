@@ -1,9 +1,9 @@
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
+import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
 // Minimax provider module implements model/runtime integration.
 import {
   createWebSearchProviderContractFields,
   type WebSearchProviderPlugin,
-} from "openclaw/plugin-sdk/provider-web-search-config-contract";
+} from "granted/plugin-sdk/provider-web-search-config-contract";
 
 const MINIMAX_CREDENTIAL_PATH = "plugins.entries.minimax.config.webSearch.apiKey";
 const MINIMAX_TOKEN_PLAN_ENV_VARS = [

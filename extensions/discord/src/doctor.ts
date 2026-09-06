@@ -1,13 +1,13 @@
-import type { ChannelDoctorAdapter } from "openclaw/plugin-sdk/channel-contract";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { ChannelDoctorAdapter } from "granted/plugin-sdk/channel-contract";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 // Discord plugin module implements doctor behavior.
-import { expectDefined } from "openclaw/plugin-sdk/expect-runtime";
+import { expectDefined } from "granted/plugin-sdk/expect-runtime";
 import {
   asObjectRecord,
   collectChannelAccountScopes,
   collectProviderDangerousNameMatchingScopes,
-} from "openclaw/plugin-sdk/runtime-doctor-migrations";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/runtime-doctor-migrations";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import { inspectDiscordAccount } from "./account-inspect.js";
 import { resolveDefaultDiscordAccountId } from "./accounts.js";
 import { normalizeCompatibilityConfig as normalizeDiscordCompatibilityConfig } from "./doctor-contract.js";

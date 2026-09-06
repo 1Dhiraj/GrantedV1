@@ -1,9 +1,9 @@
 import { once } from "node:events";
 import fs from "node:fs/promises";
 import path from "node:path";
-import { setRuntimeConfigSnapshot } from "openclaw/plugin-sdk/runtime-config-snapshot";
-import { withEnvAsync, withTempDir } from "openclaw/plugin-sdk/test-env";
-import { rawDataToString } from "openclaw/plugin-sdk/webhook-ingress";
+import { setRuntimeConfigSnapshot } from "granted/plugin-sdk/runtime-config-snapshot";
+import { withEnvAsync, withTempDir } from "granted/plugin-sdk/test-env";
+import { rawDataToString } from "granted/plugin-sdk/webhook-ingress";
 import { expect } from "vitest";
 import { WebSocket } from "ws";
 import { relayTestKey } from "../../../chrome-extension/relay-key.test-support.js";

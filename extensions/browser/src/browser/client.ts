@@ -7,8 +7,8 @@
 import {
   clampPositiveTimerTimeoutMs,
   resolveTimerTimeoutMs,
-} from "openclaw/plugin-sdk/number-runtime";
-import { asNullableRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/number-runtime";
+import { asNullableRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import { buildProfileQuery, withBaseUrl } from "./client-actions-url.js";
 import { fetchBrowserJson } from "./client-fetch.js";
 import type {

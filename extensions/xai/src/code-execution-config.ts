@@ -1,5 +1,5 @@
 // Xai helper module supports code execution config behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { isXaiToolEnabled, type XaiToolAuthContext } from "./tool-auth-shared.js";
 
 type CodeExecutionConfig = {

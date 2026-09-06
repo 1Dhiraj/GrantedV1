@@ -1,10 +1,10 @@
 // TTS contract suites provide reusable text-to-speech plugin contract assertions.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { ResolvedTtsConfig, SpeechProviderPlugin } from "openclaw/plugin-sdk/speech-core";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { ResolvedTtsConfig, SpeechProviderPlugin } from "granted/plugin-sdk/speech-core";
 import {
   fetchWithSsrFGuard,
   ssrfPolicyFromHttpBaseUrlAllowedHostname,
-} from "openclaw/plugin-sdk/ssrf-runtime";
+} from "granted/plugin-sdk/ssrf-runtime";
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import type { AssistantMessage, Model } from "../../llm/types.js";
 import {
@@ -15,8 +15,8 @@ import {
 import { withEnv, withEnvAsync, withServer } from "../../plugin-sdk/test-env.js";
 import { createLazyRuntimeModule } from "../../shared/lazy-runtime.js";
 
-type TtsRuntimeModule = typeof import("openclaw/plugin-sdk/tts-runtime");
-type TtsCoreModule = typeof import("openclaw/plugin-sdk/speech-core");
+type TtsRuntimeModule = typeof import("granted/plugin-sdk/tts-runtime");
+type TtsCoreModule = typeof import("granted/plugin-sdk/speech-core");
 type SummarizeTextDeps = NonNullable<Parameters<TtsCoreModule["summarizeText"]>[1]>;
 
 let ttsRuntime: TtsRuntimeModule;

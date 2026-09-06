@@ -1,10 +1,10 @@
 // Irc plugin module implements message adapter behavior.
-import type { ChannelOutboundAdapter } from "openclaw/plugin-sdk/channel-contract";
+import type { ChannelOutboundAdapter } from "granted/plugin-sdk/channel-contract";
 import {
   createReplyToFanout,
   defineChannelMessageAdapter,
-} from "openclaw/plugin-sdk/channel-outbound";
-import { attachChannelToResult } from "openclaw/plugin-sdk/channel-send-result";
+} from "granted/plugin-sdk/channel-outbound";
+import { attachChannelToResult } from "granted/plugin-sdk/channel-send-result";
 import { ircOutboundBaseAdapter } from "./outbound-base.js";
 import { sendIrcMessages, sendMessageIrc, type SendIrcResult } from "./send.js";
 import type { CoreConfig } from "./types.js";
@@ -24,7 +24,7 @@ export const sendFormattedIrcText: NonNullable<
   ChannelOutboundAdapter["sendFormattedText"]
 > = async (ctx) => {
   const { chunkMarkdownTextWithMode, resolveChunkMode, resolveTextChunkLimit } =
-    await import("openclaw/plugin-sdk/reply-chunking");
+    await import("granted/plugin-sdk/reply-chunking");
   const accountId = ctx.accountId ?? undefined;
   const textLimit =
     ctx.formatting?.textLimit ??

@@ -1,11 +1,11 @@
 // Whatsapp plugin module owns inbound message admission and delivery.
 import { createHash } from "node:crypto";
 import type { AnyMessageContent, MiscMessageGenerationOptions, WAMessage, WASocket } from "baileys";
-import { recordChannelActivity } from "openclaw/plugin-sdk/channel-activity-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { getChildLogger } from "openclaw/plugin-sdk/logging-core";
-import { parseStrictFiniteNumber } from "openclaw/plugin-sdk/number-runtime";
-import { defaultRuntime, createSubsystemLogger } from "openclaw/plugin-sdk/runtime-env";
+import { recordChannelActivity } from "granted/plugin-sdk/channel-activity-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { getChildLogger } from "granted/plugin-sdk/logging-core";
+import { parseStrictFiniteNumber } from "granted/plugin-sdk/number-runtime";
+import { defaultRuntime, createSubsystemLogger } from "granted/plugin-sdk/runtime-env";
 import { maybeResolveWhatsAppApprovalReaction } from "../approval-reactions.js";
 import { resolveComparableIdentity } from "../identity.js";
 import { addWhatsAppImagePreviewFields } from "../image-preview.js";

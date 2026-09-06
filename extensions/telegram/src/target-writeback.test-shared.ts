@@ -1,5 +1,5 @@
 // Telegram plugin module implements target writeback shared behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { beforeAll, beforeEach, describe, expect, it, vi, type Mock } from "vitest";
 
 type UnknownMock = Mock<(...args: unknown[]) => unknown>;
@@ -72,7 +72,7 @@ const scopedTargetWritebackCases = [
 ] as const;
 
 vi.mock("openclaw/plugin-sdk/config-mutation", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/config-mutation")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/config-mutation")>(
     "openclaw/plugin-sdk/config-mutation",
   );
   return {
@@ -84,7 +84,7 @@ vi.mock("openclaw/plugin-sdk/config-mutation", async () => {
 });
 
 vi.mock("openclaw/plugin-sdk/cron-store-runtime", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/cron-store-runtime")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/cron-store-runtime")>(
     "openclaw/plugin-sdk/cron-store-runtime",
   );
   return {

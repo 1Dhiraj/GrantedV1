@@ -1,14 +1,14 @@
 // Discord plugin module implements send.webhook behavior.
-import { recordChannelActivity } from "openclaw/plugin-sdk/channel-activity-runtime";
-import { recordOutboundMessageIdentity } from "openclaw/plugin-sdk/channel-outbound";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { buildTimeoutAbortSignal } from "openclaw/plugin-sdk/extension-shared";
+import { recordChannelActivity } from "granted/plugin-sdk/channel-activity-runtime";
+import { recordOutboundMessageIdentity } from "granted/plugin-sdk/channel-outbound";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { buildTimeoutAbortSignal } from "granted/plugin-sdk/extension-shared";
 import {
   readProviderJsonResponse,
   readResponseTextLimited,
-} from "openclaw/plugin-sdk/provider-http";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+} from "granted/plugin-sdk/provider-http";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
+import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import { resolveDiscordClientAccountContext } from "./client.js";
 import {
   DiscordError,

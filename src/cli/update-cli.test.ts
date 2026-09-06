@@ -1357,7 +1357,7 @@ describe("update-cli", () => {
         await fs.mkdir(path.join(root, dir), { recursive: true });
       }
       for (const [file, contents] of Object.entries({
-        "openclaw.mjs": "export {};\n",
+        "granted.mjs": "export {};\n",
         "dist/entry.js": "export {};\n",
         "dist/build-info.json": JSON.stringify({
           commit: options.builtSha,
@@ -2189,7 +2189,7 @@ describe("update-cli", () => {
 
     const call = spawnSyncCall();
     expect(typeof call?.[0]).toBe("string");
-    expect(call?.[1]).toEqual([path.join(root, "openclaw.mjs"), "completion", "--write-state"]);
+    expect(call?.[1]).toEqual([path.join(root, "granted.mjs"), "completion", "--write-state"]);
     expect(call?.[2]?.env?.GRANTED_COMPLETION_SKIP_PLUGIN_COMMANDS).toBe("1");
     expect(call?.[2]?.timeout).toBe(30_000);
   });
@@ -2611,7 +2611,7 @@ describe("update-cli", () => {
     pathExists.mockImplementation(
       async (candidate: string) =>
         candidate === path.join(process.cwd(), "package.json") ||
-        candidate === path.join(process.cwd(), "openclaw.mjs"),
+        candidate === path.join(process.cwd(), "granted.mjs"),
     );
     const managedState = profileStateDir("work");
     primeServiceCommand(["node", path.join(process.cwd(), "dist", "index.js"), "gateway", "run"], {
@@ -6928,7 +6928,7 @@ describe("update-cli", () => {
     expectedService.serviceUpdateVerdict.refreshDefinition = false;
     suspendScheduledTaskAutoStartForUpdate.mockResolvedValue(true);
     serviceStop.mockImplementationOnce(async () => {
-      primeServiceCommand(["node", "/another-install/openclaw.mjs", "gateway", "run"]);
+      primeServiceCommand(["node", "/another-install/granted.mjs", "gateway", "run"]);
       throw new Error("stop failed after task replacement");
     });
     try {

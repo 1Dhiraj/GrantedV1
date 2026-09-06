@@ -1,5 +1,5 @@
-import type { StreamFn } from "openclaw/plugin-sdk/agent-core";
-import type { ProviderWrapStreamFnContext } from "openclaw/plugin-sdk/plugin-entry";
+import type { StreamFn } from "granted/plugin-sdk/agent-core";
+import type { ProviderWrapStreamFnContext } from "granted/plugin-sdk/plugin-entry";
 import { describe, expect, it, vi } from "vitest";
 import { wrapLlamaServerStream } from "./stream.js";
 

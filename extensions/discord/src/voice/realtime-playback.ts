@@ -1,5 +1,5 @@
 import { PassThrough, pipeline } from "node:stream";
-import type { DiscordAccountConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { DiscordAccountConfig } from "granted/plugin-sdk/config-contracts";
 import {
   REALTIME_VOICE_AUDIO_FORMAT_PCM16_24KHZ,
   realtimeVoiceAudioDurationMs,
@@ -7,9 +7,9 @@ import {
   type RealtimeVoiceActivationNameTranscriptResult,
   type RealtimeVoiceBridgeSession,
   type RealtimeVoiceSessionHarness,
-} from "openclaw/plugin-sdk/realtime-voice";
-import { createSubsystemLogger } from "openclaw/plugin-sdk/runtime-env";
-import { formatErrorMessage } from "openclaw/plugin-sdk/ssrf-runtime";
+} from "granted/plugin-sdk/realtime-voice";
+import { createSubsystemLogger } from "granted/plugin-sdk/runtime-env";
+import { formatErrorMessage } from "granted/plugin-sdk/ssrf-runtime";
 import {
   createDiscordOpusEncodeStream,
   convertRealtimePcm24kMonoToDiscordPcm48kStereo,

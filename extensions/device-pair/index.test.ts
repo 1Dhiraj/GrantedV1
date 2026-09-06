@@ -5,8 +5,8 @@ import path from "node:path";
 import type {
   GrantedPluginCommandDefinition,
   PluginCommandContext,
-} from "openclaw/plugin-sdk/core";
-import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
+} from "granted/plugin-sdk/core";
+import { createTestPluginApi } from "granted/plugin-sdk/plugin-test-api";
 import { afterAll, afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { GrantedPluginApi } from "./api.js";
 

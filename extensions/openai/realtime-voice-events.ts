@@ -1,7 +1,7 @@
-import { canonicalizeBase64 } from "openclaw/plugin-sdk/media-runtime";
-import type { RealtimeVoiceSessionConnection } from "openclaw/plugin-sdk/realtime-voice";
-import { normalizeRealtimeVoiceResponseOutcome } from "openclaw/plugin-sdk/realtime-voice";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { canonicalizeBase64 } from "granted/plugin-sdk/media-runtime";
+import type { RealtimeVoiceSessionConnection } from "granted/plugin-sdk/realtime-voice";
+import { normalizeRealtimeVoiceResponseOutcome } from "granted/plugin-sdk/realtime-voice";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import { readRealtimeErrorDetail } from "./realtime-provider-shared.js";
 import { OpenAIRealtimeProtocol } from "./realtime-voice-protocol.js";
 import {

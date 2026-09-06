@@ -1,5 +1,5 @@
 // Prove authoritative Mattermost channel kinds over the real Bot API transport.
-import { withServer } from "openclaw/plugin-sdk/test-env";
+import { withServer } from "granted/plugin-sdk/test-env";
 import { describe, expect, it } from "vitest";
 import { resolveMattermostOutboundSessionRoute } from "../session-route.js";
 import type { GrantedConfig } from "./runtime-api.js";

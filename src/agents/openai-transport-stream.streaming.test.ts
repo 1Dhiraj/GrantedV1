@@ -4,7 +4,7 @@ import {
   createOpenAICompletionsTransportStreamFn,
   createOpenAIResponsesTransportStreamFn,
 } from "@openclaw/ai/transports";
-import type { Model } from "openclaw/plugin-sdk/llm";
+import type { Model } from "granted/plugin-sdk/llm";
 import { describe, expect, it, vi } from "vitest";
 import {
   classifyAssistantFailoverReason,

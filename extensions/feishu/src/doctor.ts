@@ -5,10 +5,10 @@ import path from "node:path";
 import type {
   ChannelDoctorAdapter,
   ChannelDoctorSequenceResult,
-} from "openclaw/plugin-sdk/channel-contract";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { isPathStrictlyInside } from "openclaw/plugin-sdk/file-access-runtime";
-import { normalizeAgentId } from "openclaw/plugin-sdk/routing";
+} from "granted/plugin-sdk/channel-contract";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { isPathStrictlyInside } from "granted/plugin-sdk/file-access-runtime";
+import { normalizeAgentId } from "granted/plugin-sdk/routing";
 import {
   isValidAgentHarnessSessionStoreEntry,
   deleteSessionEntry,
@@ -16,12 +16,12 @@ import {
   loadTranscriptEventsSync,
   resolveSessionStoreBackupPaths,
   resolveStorePath,
-} from "openclaw/plugin-sdk/session-store-runtime";
-import { resolveStateDir } from "openclaw/plugin-sdk/state-paths";
+} from "granted/plugin-sdk/session-store-runtime";
+import { resolveStateDir } from "granted/plugin-sdk/state-paths";
 import {
   isRecord,
   normalizeLowercaseStringOrEmpty,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import { legacyConfigRules, normalizeCompatibilityConfig } from "./doctor-contract.js";
 
 const FEISHU_STATE_DIR = "feishu";

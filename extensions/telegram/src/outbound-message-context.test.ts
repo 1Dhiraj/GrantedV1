@@ -1,10 +1,10 @@
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   createPluginStateKeyedStoreForTests,
   createPluginStateSyncKeyedStoreForTests,
   resetPluginStateStoreForTests,
-} from "openclaw/plugin-sdk/plugin-state-test-runtime";
-import { resolveStorePath } from "openclaw/plugin-sdk/session-store-runtime";
+} from "granted/plugin-sdk/plugin-state-test-runtime";
+import { resolveStorePath } from "granted/plugin-sdk/session-store-runtime";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { buildTelegramGroupPeerId } from "./bot/helpers.js";
 import { recordTelegramGroupHistoryEntry } from "./group-history-window.js";

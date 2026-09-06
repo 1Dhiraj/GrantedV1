@@ -3,18 +3,18 @@ import {
   formatInboundEnvelope,
   implicitMentionKindWhen,
   resolveInboundSessionEnvelopeContext,
-} from "openclaw/plugin-sdk/channel-inbound";
+} from "granted/plugin-sdk/channel-inbound";
 import {
   resolveChannelContextVisibilityMode,
   shouldIncludeSupplementalContext,
-} from "openclaw/plugin-sdk/context-visibility-runtime";
-import { resolvePinnedMainDmOwnerFromAllowlist } from "openclaw/plugin-sdk/security-runtime";
+} from "granted/plugin-sdk/context-visibility-runtime";
+import { resolvePinnedMainDmOwnerFromAllowlist } from "granted/plugin-sdk/security-runtime";
 import {
   normalizeOptionalString,
   normalizeTrimmedStringList,
   uniqueStrings,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
+import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import { normalizeMattermostAllowEntry } from "./ingress-identity.js";
 import { resolveMattermostInboundMentionDecision } from "./monitor-activation.js";
 import {

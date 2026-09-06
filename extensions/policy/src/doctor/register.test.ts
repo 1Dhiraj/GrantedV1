@@ -2,7 +2,7 @@ import { vi } from "vitest";
 
 vi.mock("openclaw/plugin-sdk/exec-approvals-runtime", async (importOriginal) => {
   const actual =
-    await importOriginal<typeof import("openclaw/plugin-sdk/exec-approvals-runtime")>();
+    await importOriginal<typeof import("granted/plugin-sdk/exec-approvals-runtime")>();
   const nodeFs = await import("node:fs");
   const nodePath = await import("node:path");
   const displayPath = () => {

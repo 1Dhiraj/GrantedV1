@@ -2,15 +2,15 @@
  * Codex-backed media understanding provider for bounded image description and
  * structured extraction turns.
  */
-import { validateJsonSchemaValue } from "openclaw/plugin-sdk/json-schema-runtime";
+import { validateJsonSchemaValue } from "granted/plugin-sdk/json-schema-runtime";
 import type {
   ImagesDescriptionRequest,
   ImagesDescriptionResult,
   MediaUnderstandingProvider,
   StructuredExtractionRequest,
   StructuredExtractionResult,
-} from "openclaw/plugin-sdk/media-understanding";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/media-understanding";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   runBoundedCodexAppServerTurn,
   type CodexBoundedTurnOptions,

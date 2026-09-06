@@ -1,5 +1,5 @@
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { createRuntimeEnv } from "openclaw/plugin-sdk/plugin-test-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { createRuntimeEnv } from "granted/plugin-sdk/plugin-test-runtime";
 import { describe, expect, it } from "vitest";
 import { linePlugin } from "../channel-plugin-api.js";
 

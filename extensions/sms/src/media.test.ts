@@ -4,16 +4,16 @@ import path from "node:path";
 import {
   MediaFetchError,
   type unlinkIfExists as unlinkIfExistsType,
-} from "openclaw/plugin-sdk/media-runtime";
-import type { PluginRuntime } from "openclaw/plugin-sdk/plugin-runtime";
+} from "granted/plugin-sdk/media-runtime";
+import type { PluginRuntime } from "granted/plugin-sdk/plugin-runtime";
 import type {
   OpenKeyedStoreOptions,
   PluginStateKeyedStore,
-} from "openclaw/plugin-sdk/plugin-state-runtime";
-import { createPluginStateKeyedStoreForTests } from "openclaw/plugin-sdk/plugin-state-test-runtime";
-import { SsrFBlockedError } from "openclaw/plugin-sdk/security-runtime";
-import { resolvePreferredOpenClawTmpDir } from "openclaw/plugin-sdk/temp-path";
-import type { loadWebMedia as loadWebMediaType } from "openclaw/plugin-sdk/web-media";
+} from "granted/plugin-sdk/plugin-state-runtime";
+import { createPluginStateKeyedStoreForTests } from "granted/plugin-sdk/plugin-state-test-runtime";
+import { SsrFBlockedError } from "granted/plugin-sdk/security-runtime";
+import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
+import type { loadWebMedia as loadWebMediaType } from "granted/plugin-sdk/web-media";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
   materializeSmsInboundMedia,
@@ -87,7 +87,7 @@ vi.mock("openclaw/plugin-sdk/web-media", () => ({
 }));
 vi.mock("./credential-availability.js", () => ({ assertSmsCredentialOwnerAvailable }));
 vi.mock("openclaw/plugin-sdk/media-runtime", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("openclaw/plugin-sdk/media-runtime")>()),
+  ...(await importOriginal<typeof import("granted/plugin-sdk/media-runtime")>()),
   unlinkIfExists: unlinkIfExistsMock,
 }));
 

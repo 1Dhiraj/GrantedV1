@@ -2,11 +2,11 @@ import {
   embeddedAgentLog,
   formatErrorMessage,
   type EmbeddedRunAttemptParamsV2 as EmbeddedRunAttemptParams,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
+} from "granted/plugin-sdk/agent-harness-runtime";
 import {
   appendSessionTranscriptMessageByIdentity,
   publishSessionTranscriptUpdateByIdentity,
-} from "openclaw/plugin-sdk/session-transcript-runtime";
+} from "granted/plugin-sdk/session-transcript-runtime";
 
 const CONTEXT_COMPACTION_CUSTOM_TYPE = "openclaw.context-compaction";
 

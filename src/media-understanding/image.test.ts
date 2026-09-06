@@ -1,7 +1,7 @@
 import path from "node:path";
 // Image runtime tests cover model-backed image routing, auth/profile handling,
 // provider payload transforms, and MiniMax/Copilot special paths.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { attachModelProviderRequestTransport } from "../agents/provider-request-config.js";
 import { mintSecretSentinel } from "../secrets/sentinel.js";

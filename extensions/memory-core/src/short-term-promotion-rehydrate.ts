@@ -1,5 +1,5 @@
 import fs from "node:fs/promises";
-import { sliceUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+import { sliceUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import { resolveShortTermSourcePathCandidates } from "./short-term-promotion-record.js";
 import type { PromotionCandidate } from "./short-term-promotion-types.js";
 import { normalizeSnippet, SHORT_TERM_BASENAME_RE } from "./short-term-promotion-utils.js";

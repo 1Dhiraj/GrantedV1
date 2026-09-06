@@ -68,7 +68,7 @@ describe.skipIf(process.platform === "win32")("Codex failed launcher startup", (
       const root = await fs.mkdtemp(path.join(os.tmpdir(), "codex-startup-launcher-"));
       vi.stubEnv("GRANTED_STATE_DIR", path.join(root, "state"));
       const { createPluginStateSyncKeyedStore } =
-        await import("openclaw/plugin-sdk/plugin-state-store-runtime");
+        await import("granted/plugin-sdk/plugin-state-store-runtime");
       const store = createPluginStateSyncKeyedStore("codex", {
         namespace: "app-server-processes",
         maxEntries: 512,

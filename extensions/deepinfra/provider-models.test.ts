@@ -1,4 +1,4 @@
-import { clearLiveCatalogCacheForTests } from "openclaw/plugin-sdk/provider-catalog-live-runtime";
+import { clearLiveCatalogCacheForTests } from "granted/plugin-sdk/provider-catalog-live-runtime";
 // Deepinfra tests cover provider models plugin behavior.
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 

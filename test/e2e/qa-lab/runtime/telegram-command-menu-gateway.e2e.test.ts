@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import type { IncomingMessage, ServerResponse } from "node:http";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
-import { withServer, withTempDir } from "openclaw/plugin-sdk/test-env";
+import { withServer, withTempDir } from "granted/plugin-sdk/test-env";
 import { expect, test } from "vitest";
 import {
   createQaGatewayChild,

@@ -2,8 +2,8 @@ import { createServer, type IncomingMessage, type Server, type ServerResponse } 
 import {
   adaptMessagePresentationForChannel,
   type MessagePresentation,
-} from "openclaw/plugin-sdk/interactive-runtime";
-import { chunkMarkdownText } from "openclaw/plugin-sdk/reply-runtime";
+} from "granted/plugin-sdk/interactive-runtime";
+import { chunkMarkdownText } from "granted/plugin-sdk/reply-runtime";
 import { afterAll, afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { PluginRuntime } from "../api.js";
 import { deliverLineAutoReply } from "./auto-reply-delivery.js";
@@ -120,7 +120,7 @@ vi.mock("openclaw/plugin-sdk/channel-activity-runtime", () => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/runtime-env", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/runtime-env")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/runtime-env")>(
     "openclaw/plugin-sdk/runtime-env",
   );
   return { ...actual, logVerbose: logVerboseMock };

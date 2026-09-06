@@ -512,7 +512,7 @@ function writeToolPluginScaffold(params: { rootDir: string; id: string; name: st
   const description = `Add ${params.name} tools to OpenClaw.`;
   const descriptionLiteral = jsStringLiteral(description);
   const indexSource = `import { Type } from "typebox";
-import { defineToolPlugin } from "openclaw/plugin-sdk/tool-plugin";
+import { defineToolPlugin } from "granted/plugin-sdk/tool-plugin";
 
 export default defineToolPlugin({
   id: ${idLiteral},
@@ -532,7 +532,7 @@ export default defineToolPlugin({
 `;
   const testSource = `import { describe, expect, it } from "vitest";
 import entry from "./index.js";
-import { getToolPluginMetadata } from "openclaw/plugin-sdk/tool-plugin";
+import { getToolPluginMetadata } from "granted/plugin-sdk/tool-plugin";
 
 describe(${idLiteral}, () => {
   it("declares tool metadata", () => {
@@ -639,8 +639,8 @@ function writeProviderPluginScaffold(params: { rootDir: string; id: string; name
   const noteMessageLiteral = jsStringLiteral(
     `Replace https://api.example.com/v1 with your ${params.name} API base URL.`,
   );
-  const indexSource = `import { definePluginEntry } from "openclaw/plugin-sdk/plugin-entry";
-import { createProviderApiKeyAuthMethod } from "openclaw/plugin-sdk/provider-auth";
+  const indexSource = `import { definePluginEntry } from "granted/plugin-sdk/plugin-entry";
+import { createProviderApiKeyAuthMethod } from "granted/plugin-sdk/provider-auth";
 
 const PLUGIN_ID = ${idLiteral};
 const PROVIDER_ID = PLUGIN_ID;
@@ -713,7 +713,7 @@ export default definePluginEntry({
 });
 `;
   const testSource = `import { describe, expect, it } from "vitest";
-import type { GrantedPluginApi, ProviderPlugin } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginApi, ProviderPlugin } from "granted/plugin-sdk/plugin-entry";
 import entry from "./index.js";
 
 describe(${idLiteral}, () => {

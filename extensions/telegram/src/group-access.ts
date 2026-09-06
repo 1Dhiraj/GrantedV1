@@ -6,8 +6,8 @@ import type {
   TelegramDirectConfig,
   TelegramGroupConfig,
   TelegramTopicConfig,
-} from "openclaw/plugin-sdk/config-contracts";
-import { resolveOpenProviderRuntimeGroupPolicy } from "openclaw/plugin-sdk/runtime-group-policy";
+} from "granted/plugin-sdk/config-contracts";
+import { resolveOpenProviderRuntimeGroupPolicy } from "granted/plugin-sdk/runtime-group-policy";
 import { isSenderAllowed, type NormalizedAllowFrom, firstDefined } from "./bot-access.js";
 
 type TelegramGroupBaseBlockReason =

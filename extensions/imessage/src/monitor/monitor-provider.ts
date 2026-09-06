@@ -1,8 +1,8 @@
 // Imessage provider module implements model/runtime integration.
-import { resolveAgentConfig, resolveHumanDelayConfig } from "openclaw/plugin-sdk/agent-runtime";
-import { CHANNEL_APPROVAL_NATIVE_RUNTIME_CONTEXT_CAPABILITY } from "openclaw/plugin-sdk/approval-handler-runtime";
-import type { PluginRuntime } from "openclaw/plugin-sdk/channel-core";
-import { logTypingFailure } from "openclaw/plugin-sdk/channel-feedback";
+import { resolveAgentConfig, resolveHumanDelayConfig } from "granted/plugin-sdk/agent-runtime";
+import { CHANNEL_APPROVAL_NATIVE_RUNTIME_CONTEXT_CAPABILITY } from "granted/plugin-sdk/approval-handler-runtime";
+import type { PluginRuntime } from "granted/plugin-sdk/channel-core";
+import { logTypingFailure } from "granted/plugin-sdk/channel-feedback";
 import {
   createChannelInboundDebouncer,
   formatInboundMediaUnavailableText,
@@ -11,45 +11,45 @@ import {
   shouldDebounceTextInbound,
   type ChannelInboundTurnPlan,
   type ChannelInboundMediaInput,
-} from "openclaw/plugin-sdk/channel-inbound";
-import { fanInChannelIngressLifecycles } from "openclaw/plugin-sdk/channel-ingress-runtime";
+} from "granted/plugin-sdk/channel-inbound";
+import { fanInChannelIngressLifecycles } from "granted/plugin-sdk/channel-ingress-runtime";
 import {
   bindIngressLifecycleToReplyOptions,
   createChannelMessageReplyPipeline,
   resolveChannelStreamingBlockEnabled,
-} from "openclaw/plugin-sdk/channel-outbound";
-import { createChannelPairingChallengeIssuer } from "openclaw/plugin-sdk/channel-pairing";
-import { registerChannelRuntimeContext } from "openclaw/plugin-sdk/channel-runtime-context";
+} from "granted/plugin-sdk/channel-outbound";
+import { createChannelPairingChallengeIssuer } from "granted/plugin-sdk/channel-pairing";
+import { registerChannelRuntimeContext } from "granted/plugin-sdk/channel-runtime-context";
 import {
   ensureConfiguredBindingRouteReady,
   readChannelAllowFromStore,
   upsertChannelPairingRequest,
-} from "openclaw/plugin-sdk/conversation-runtime";
-import { expectDefined } from "openclaw/plugin-sdk/expect-runtime";
-import { channelReadyPatch } from "openclaw/plugin-sdk/gateway-runtime";
-import { redactIdentifier } from "openclaw/plugin-sdk/logging-core";
-import { isInboundPathAllowed, kindFromMime } from "openclaw/plugin-sdk/media-runtime";
-import { DEFAULT_GROUP_HISTORY_LIMIT, type HistoryEntry } from "openclaw/plugin-sdk/reply-history";
-import { resolveTextChunkLimit, type GetReplyOptions } from "openclaw/plugin-sdk/reply-runtime";
-import { resolveInboundLastRouteSessionKey } from "openclaw/plugin-sdk/routing";
-import { getRuntimeConfig, type GrantedConfig } from "openclaw/plugin-sdk/runtime-config-snapshot";
-import { danger, logVerbose, shouldLogVerbose, warn } from "openclaw/plugin-sdk/runtime-env";
+} from "granted/plugin-sdk/conversation-runtime";
+import { expectDefined } from "granted/plugin-sdk/expect-runtime";
+import { channelReadyPatch } from "granted/plugin-sdk/gateway-runtime";
+import { redactIdentifier } from "granted/plugin-sdk/logging-core";
+import { isInboundPathAllowed, kindFromMime } from "granted/plugin-sdk/media-runtime";
+import { DEFAULT_GROUP_HISTORY_LIMIT, type HistoryEntry } from "granted/plugin-sdk/reply-history";
+import { resolveTextChunkLimit, type GetReplyOptions } from "granted/plugin-sdk/reply-runtime";
+import { resolveInboundLastRouteSessionKey } from "granted/plugin-sdk/routing";
+import { getRuntimeConfig, type GrantedConfig } from "granted/plugin-sdk/runtime-config-snapshot";
+import { danger, logVerbose, shouldLogVerbose, warn } from "granted/plugin-sdk/runtime-env";
 import {
   resolveOpenProviderRuntimeGroupPolicy,
   resolveDefaultGroupPolicy,
   warnMissingProviderGroupPolicyFallbackOnce,
-} from "openclaw/plugin-sdk/runtime-group-policy";
-import { resolvePinnedMainDmOwnerFromAllowlist } from "openclaw/plugin-sdk/security-runtime";
+} from "granted/plugin-sdk/runtime-group-policy";
+import { resolvePinnedMainDmOwnerFromAllowlist } from "granted/plugin-sdk/security-runtime";
 import {
   getSessionEntry,
   readSessionUpdatedAt,
   resolveSendPolicy,
   resolveStorePath,
-} from "openclaw/plugin-sdk/session-store-runtime";
-import { openNodeSqliteDatabase } from "openclaw/plugin-sdk/sqlite-runtime";
-import { normalizeStringEntries } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { sliceUtf16Safe, truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
-import { waitForTransportReady } from "openclaw/plugin-sdk/transport-ready-runtime";
+} from "granted/plugin-sdk/session-store-runtime";
+import { openNodeSqliteDatabase } from "granted/plugin-sdk/sqlite-runtime";
+import { normalizeStringEntries } from "granted/plugin-sdk/string-coerce-runtime";
+import { sliceUtf16Safe, truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
+import { waitForTransportReady } from "granted/plugin-sdk/transport-ready-runtime";
 import { resolveIMessageAccount } from "../accounts.js";
 import { iMessageApprovalControlBindings } from "../approval-control-binding-window.js";
 import type { IMessageApprovalGatewayRuntime } from "../approval-gateway-types.js";

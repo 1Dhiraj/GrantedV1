@@ -23,7 +23,7 @@ vi.mock("../../draft-message-boundaries.js", () => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/runtime-env", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/runtime-env")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/runtime-env")>();
   const makeLogger = () => {
     const logger = {
       subsystem: "test",
@@ -50,7 +50,7 @@ vi.mock("openclaw/plugin-sdk/system-event-runtime", () => ({
   ) => messageQueueMock(text, { ...options, sessionKey: route.sessionKey }),
 }));
 vi.mock("openclaw/plugin-sdk/conversation-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/conversation-runtime")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/conversation-runtime")>();
   return {
     ...actual,
     readChannelAllowFromStore: (...args: unknown[]) => messageAllowMock(...args),
@@ -782,7 +782,7 @@ describe("registerSlackMessageEvents", () => {
     "routes $channelType $subtype events to their actual conversation",
     async ({ channelType, subtype, threadSession, ...scenario }) => {
       const actualSystemEvents = await vi.importActual<
-        typeof import("openclaw/plugin-sdk/system-event-runtime")
+        typeof import("granted/plugin-sdk/system-event-runtime")
       >("openclaw/plugin-sdk/system-event-runtime");
       actualSystemEvents.resetSystemEventsForTest();
       messageQueueMock.mockImplementation(

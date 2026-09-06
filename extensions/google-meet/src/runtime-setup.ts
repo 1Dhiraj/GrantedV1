@@ -1,7 +1,7 @@
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import type { PluginRuntime } from "openclaw/plugin-sdk/plugin-runtime";
-import { uniqueStrings } from "openclaw/plugin-sdk/string-coerce-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
+import type { PluginRuntime } from "granted/plugin-sdk/plugin-runtime";
+import { uniqueStrings } from "granted/plugin-sdk/string-coerce-runtime";
 import type { GoogleMeetConfig, GoogleMeetModeInput, GoogleMeetTransport } from "./config.js";
 import { addGoogleMeetSetupCheck, getGoogleMeetSetupStatus } from "./setup.js";
 import { resolveChromeNodeInfo } from "./transports/chrome-browser-proxy.js";

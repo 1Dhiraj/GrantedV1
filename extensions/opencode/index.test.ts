@@ -3,11 +3,11 @@ import {
   registerProviderPlugin,
   registerSingleProviderPlugin,
   requireRegisteredProvider,
-} from "openclaw/plugin-sdk/plugin-test-runtime";
-import { NON_ENV_SECRETREF_MARKER } from "openclaw/plugin-sdk/provider-auth-runtime";
-import { clearLiveCatalogCacheForTests } from "openclaw/plugin-sdk/provider-catalog-live-runtime";
-import { expectPassthroughReplayPolicy } from "openclaw/plugin-sdk/provider-test-contracts";
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+} from "granted/plugin-sdk/plugin-test-runtime";
+import { NON_ENV_SECRETREF_MARKER } from "granted/plugin-sdk/provider-auth-runtime";
+import { clearLiveCatalogCacheForTests } from "granted/plugin-sdk/provider-catalog-live-runtime";
+import { expectPassthroughReplayPolicy } from "granted/plugin-sdk/provider-test-contracts";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import plugin from "./index.js";
 import manifest from "./openclaw.plugin.json" with { type: "json" };

@@ -1,9 +1,9 @@
 // Matrix tests cover current subagent delivery and cleanup hooks.
-import type { GrantedPluginApi as MatrixEntryPluginApi } from "openclaw/plugin-sdk/channel-entry-contract";
+import type { GrantedPluginApi as MatrixEntryPluginApi } from "granted/plugin-sdk/channel-entry-contract";
 import {
   getRequiredHookHandler,
   registerHookHandlersForTest,
-} from "openclaw/plugin-sdk/channel-test-helpers";
+} from "granted/plugin-sdk/channel-test-helpers";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { registerMatrixSubagentHooks } from "../../subagent-hooks-api.js";
 

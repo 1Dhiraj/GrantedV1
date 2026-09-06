@@ -1,18 +1,18 @@
 // Qa Channel tests cover channel plugin behavior.
 import { readFile } from "node:fs/promises";
 import path from "node:path";
-import { verifyChannelMessageAdapterCapabilityProofs } from "openclaw/plugin-sdk/channel-outbound";
+import { verifyChannelMessageAdapterCapabilityProofs } from "granted/plugin-sdk/channel-outbound";
 import {
   createPluginRuntimeMock,
   createStartAccountContext,
-} from "openclaw/plugin-sdk/channel-test-helpers";
-import type { PluginRuntime } from "openclaw/plugin-sdk/core";
+} from "granted/plugin-sdk/channel-test-helpers";
+import type { PluginRuntime } from "granted/plugin-sdk/core";
 import {
   createTestRegistry,
   resetPluginRuntimeStateForTest,
   setActivePluginRegistry,
-} from "openclaw/plugin-sdk/plugin-test-runtime";
-import { extractToolPayload } from "openclaw/plugin-sdk/tool-payload";
+} from "granted/plugin-sdk/plugin-test-runtime";
+import { extractToolPayload } from "granted/plugin-sdk/tool-payload";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { createQaBusState, startQaBusServer } from "../../qa-lab/bus-api.js";
 import { qaChannelPlugin, setQaChannelRuntime } from "../api.js";

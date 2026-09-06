@@ -1,5 +1,5 @@
 // Memory Core tests cover builtin search manager acquisition and cleanup.
-import type { GrantedConfig } from "openclaw/plugin-sdk/memory-core-host-engine-foundation";
+import type { GrantedConfig } from "granted/plugin-sdk/memory-core-host-engine-foundation";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const builtinManager = vi.hoisted(() => ({

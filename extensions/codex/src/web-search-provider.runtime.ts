@@ -4,9 +4,9 @@ import {
   type SearchConfigRecord,
   type WebSearchProviderToolExecutionContext,
   wrapWebContent,
-} from "openclaw/plugin-sdk/provider-web-search";
-import type { WebSearchProviderPlugin } from "openclaw/plugin-sdk/provider-web-search-contract";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/provider-web-search";
+import type { WebSearchProviderPlugin } from "granted/plugin-sdk/provider-web-search-contract";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   runBoundedCodexAppServerTurn,
   type CodexBoundedTurnOptions,

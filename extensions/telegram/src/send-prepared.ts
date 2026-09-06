@@ -1,6 +1,6 @@
 import type { InlineKeyboardMarkup, Message } from "grammy/types";
-import { createChannelApiRetryRunner } from "openclaw/plugin-sdk/retry-runtime";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
+import { createChannelApiRetryRunner } from "granted/plugin-sdk/retry-runtime";
+import type { RuntimeEnv } from "granted/plugin-sdk/runtime-env";
 import { withTelegramApiErrorLogging } from "./api-logging.js";
 import {
   createTelegramChunkDeliveryTracker,

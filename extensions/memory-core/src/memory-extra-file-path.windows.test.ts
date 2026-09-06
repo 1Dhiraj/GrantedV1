@@ -4,7 +4,7 @@ import path from "node:path";
 import {
   listMemoryFiles,
   readMemoryFile,
-} from "openclaw/plugin-sdk/memory-core-host-engine-storage";
+} from "granted/plugin-sdk/memory-core-host-engine-storage";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { resolveMemoryPathClassification } from "./memory/memory-path-provenance.js";
 

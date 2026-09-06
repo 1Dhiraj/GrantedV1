@@ -15,27 +15,27 @@ import {
   toInboundMediaFactsWithMetadata,
   type ChannelInboundMediaInput,
   type MediaPlaceholderTextFact,
-} from "openclaw/plugin-sdk/channel-inbound";
+} from "granted/plugin-sdk/channel-inbound";
 import {
   createChannelIngressResolver,
   defineStableChannelIngressIdentity,
   type ChannelIngressIdentityDescriptor,
-} from "openclaw/plugin-sdk/channel-ingress-runtime";
+} from "granted/plugin-sdk/channel-ingress-runtime";
 import {
   buildChannelGroupsScopeTree,
   resolveChannelGroupPolicy,
   resolveScopeRequireMention,
-} from "openclaw/plugin-sdk/channel-policy";
-import { hasControlCommand } from "openclaw/plugin-sdk/command-auth-native";
-import type { DmPolicy, GroupPolicy, GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { resolveChannelContextVisibilityMode } from "openclaw/plugin-sdk/context-visibility-runtime";
-import type { ConfiguredBindingRouteResult } from "openclaw/plugin-sdk/conversation-runtime";
-import { createChannelHistoryWindow, type HistoryEntry } from "openclaw/plugin-sdk/reply-history";
-import type { FinalizedMsgContext } from "openclaw/plugin-sdk/reply-runtime";
-import { resolveAgentRoute } from "openclaw/plugin-sdk/routing";
-import { uniqueStrings } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { sanitizeTerminalText } from "openclaw/plugin-sdk/text-chunking";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+} from "granted/plugin-sdk/channel-policy";
+import { hasControlCommand } from "granted/plugin-sdk/command-auth-native";
+import type { DmPolicy, GroupPolicy, GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { resolveChannelContextVisibilityMode } from "granted/plugin-sdk/context-visibility-runtime";
+import type { ConfiguredBindingRouteResult } from "granted/plugin-sdk/conversation-runtime";
+import { createChannelHistoryWindow, type HistoryEntry } from "granted/plugin-sdk/reply-history";
+import type { FinalizedMsgContext } from "granted/plugin-sdk/reply-runtime";
+import { resolveAgentRoute } from "granted/plugin-sdk/routing";
+import { uniqueStrings } from "granted/plugin-sdk/string-coerce-runtime";
+import { sanitizeTerminalText } from "granted/plugin-sdk/text-chunking";
+import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import { resolveIMessageDirectChatService } from "../chat-context.js";
 import { resolveIMessageConversationRoute } from "../conversation-route.js";
 import {

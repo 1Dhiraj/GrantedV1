@@ -1,7 +1,7 @@
-import type { GrantedConfig, DiscordAccountConfig } from "openclaw/plugin-sdk/config-contracts";
-import { createSubsystemLogger } from "openclaw/plugin-sdk/runtime-env";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
-import { formatErrorMessage } from "openclaw/plugin-sdk/ssrf-runtime";
+import type { GrantedConfig, DiscordAccountConfig } from "granted/plugin-sdk/config-contracts";
+import { createSubsystemLogger } from "granted/plugin-sdk/runtime-env";
+import type { RuntimeEnv } from "granted/plugin-sdk/runtime-env";
+import { formatErrorMessage } from "granted/plugin-sdk/ssrf-runtime";
 import type { Client } from "../internal/discord.js";
 import { decodeOpusStream, decodeOpusStreamChunks, writeVoiceWavFile } from "./audio.js";
 import {

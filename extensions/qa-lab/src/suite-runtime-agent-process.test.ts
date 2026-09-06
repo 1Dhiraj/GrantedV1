@@ -1,7 +1,7 @@
 // Qa Lab tests cover suite runtime agent process plugin behavior.
 import { EventEmitter } from "node:events";
 import path from "node:path";
-import { MAX_TIMER_TIMEOUT_MS } from "openclaw/plugin-sdk/number-runtime";
+import { MAX_TIMER_TIMEOUT_MS } from "granted/plugin-sdk/number-runtime";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const spawnMock = vi.hoisted(() => vi.fn());

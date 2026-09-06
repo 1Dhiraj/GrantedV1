@@ -1,4 +1,4 @@
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { DISCORD_REST_TIMEOUT_MS } from "./proxy-request-client.js";
 import { sendWebhookMessageDiscord } from "./send.webhook.js";

@@ -4,9 +4,9 @@ import {
   isFutureDateTimestampMs,
   resolveDateTimestampMs,
   resolveExpiresAtMsFromDurationMs,
-} from "openclaw/plugin-sdk/number-runtime";
-import { createPluginStateErrorReporter } from "openclaw/plugin-sdk/plugin-state-runtime";
-import { uniqueStrings } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/number-runtime";
+import { createPluginStateErrorReporter } from "granted/plugin-sdk/plugin-state-runtime";
+import { uniqueStrings } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   discordComponentRegistryState,
   type DiscordRegistryStore,

@@ -86,7 +86,7 @@ describe("resolveCurrentOpenClawCliInvocation", () => {
   });
 
   it("preserves launcher argv and execArgv from the current checkout", () => {
-    const launcher = path.join(repoRoot, "openclaw.mjs");
+    const launcher = path.join(repoRoot, "granted.mjs");
     expect(
       resolveCurrentOpenClawCliInvocation(commandArgs, {
         argv1: launcher,
@@ -130,7 +130,7 @@ describe("resolveCurrentOpenClawCliInvocation", () => {
         }),
       ).toEqual({
         command: "/usr/bin/node",
-        args: [path.join(packageRoot, "openclaw.mjs"), ...commandArgs],
+        args: [path.join(packageRoot, "granted.mjs"), ...commandArgs],
         cwd: packageRoot,
       });
     });
@@ -154,7 +154,7 @@ describe("resolveCurrentOpenClawCliInvocation", () => {
   it("does not preserve a foreign launcher basename", () => {
     expect(
       resolveCurrentOpenClawCliInvocation(commandArgs, {
-        argv1: "/other/openclaw.mjs",
+        argv1: "/other/granted.mjs",
         cwd: repoRoot,
         execPath: "/usr/bin/node",
       }),

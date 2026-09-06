@@ -2,15 +2,15 @@
 import {
   formatInboundEnvelope,
   resolveInboundSupplementalSenderAllowed,
-} from "openclaw/plugin-sdk/channel-inbound";
-import { runTasksWithConcurrency } from "openclaw/plugin-sdk/concurrency-runtime";
-import type { ContextVisibilityMode, GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
-import { logVerbose } from "openclaw/plugin-sdk/runtime-env";
+} from "granted/plugin-sdk/channel-inbound";
+import { runTasksWithConcurrency } from "granted/plugin-sdk/concurrency-runtime";
+import type { ContextVisibilityMode, GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
+import { logVerbose } from "granted/plugin-sdk/runtime-env";
 import {
   filterSupplementalContextItems,
   shouldIncludeSupplementalContext,
-} from "openclaw/plugin-sdk/security-runtime";
+} from "granted/plugin-sdk/security-runtime";
 import type { ResolvedSlackAccount } from "../../accounts.js";
 import type { SlackMessageEvent } from "../../types.js";
 import { resolveSlackAllowListMatch } from "../allow-list.js";
@@ -169,7 +169,7 @@ export async function resolveSlackThreadContextData(params: {
   allowNameMatching: boolean;
   contextVisibilityMode: ContextVisibilityMode;
   envelopeOptions: ReturnType<
-    typeof import("openclaw/plugin-sdk/channel-inbound").resolveEnvelopeFormatOptions
+    typeof import("granted/plugin-sdk/channel-inbound").resolveEnvelopeFormatOptions
   >;
   effectiveDirectMedia: SlackMediaResult[] | null;
   eventScope?: SlackEventScope;

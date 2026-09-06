@@ -1,5 +1,5 @@
 // Resolves a safe setup default from the authenticated Copilot model catalog.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { DEFAULT_COPILOT_MODEL } from "./model-metadata.js";
 import { fetchCopilotModelCatalog, PROVIDER_ID, selectCopilotStarterModel } from "./models.js";
 import { resolveCopilotRuntimeAuth } from "./runtime-auth.js";

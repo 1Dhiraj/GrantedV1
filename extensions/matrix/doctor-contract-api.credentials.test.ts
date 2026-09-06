@@ -1,18 +1,18 @@
 // Matrix tests cover credential-state migrations owned by the doctor contract.
 import fs from "node:fs";
 import path from "node:path";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import type {
   OpenKeyedStoreOptions,
   PluginStateKeyedStore,
-} from "openclaw/plugin-sdk/plugin-state-runtime";
+} from "granted/plugin-sdk/plugin-state-runtime";
 import {
   createPluginStateKeyedStoreForTests,
   getPluginStateCapacityForTests,
   importPluginStateEntriesForDoctorForTests,
   resetPluginStateStoreForTests,
-} from "openclaw/plugin-sdk/plugin-state-test-runtime";
-import type { PluginDoctorStateMigrationContext } from "openclaw/plugin-sdk/runtime-doctor-migrations";
+} from "granted/plugin-sdk/plugin-state-test-runtime";
+import type { PluginDoctorStateMigrationContext } from "granted/plugin-sdk/runtime-doctor-migrations";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { stateMigrations } from "./doctor-contract-api.js";
 import {

@@ -1,5 +1,5 @@
 // Discord tests cover config schema plugin behavior.
-import { validateJsonSchemaValue } from "openclaw/plugin-sdk/json-schema-runtime";
+import { validateJsonSchemaValue } from "granted/plugin-sdk/json-schema-runtime";
 import { describe, expect, it } from "vitest";
 import { resolveUpgradeSurvivorConfigStepsForBaseline } from "../../../scripts/e2e/lib/upgrade-survivor/config-recipe.mts";
 import { DiscordChannelConfigSchema } from "../channel-config-api.js";

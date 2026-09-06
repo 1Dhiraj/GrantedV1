@@ -3,7 +3,7 @@ import fs from "node:fs";
 import {
   registerSingleProviderPlugin,
   resolveProviderPluginChoice,
-} from "openclaw/plugin-sdk/plugin-test-runtime";
+} from "granted/plugin-sdk/plugin-test-runtime";
 import { describe, expect, it } from "vitest";
 import plugin from "./index.js";
 

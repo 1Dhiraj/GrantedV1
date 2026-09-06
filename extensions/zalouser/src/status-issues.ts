@@ -2,15 +2,15 @@
 import type {
   ChannelAccountSnapshot,
   ChannelStatusIssue,
-} from "openclaw/plugin-sdk/channel-contract";
+} from "granted/plugin-sdk/channel-contract";
 import {
   coerceStatusIssueAccountId,
   readStatusIssueFields,
-} from "openclaw/plugin-sdk/extension-shared";
+} from "granted/plugin-sdk/extension-shared";
 import {
   standardDmPolicyOpenIssue,
   standardNotConfiguredIssue,
-} from "openclaw/plugin-sdk/status-helpers";
+} from "granted/plugin-sdk/status-helpers";
 
 const ZALOUSER_STATUS_FIELDS = [
   "accountId",

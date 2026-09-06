@@ -8,9 +8,9 @@ import type {
   WorkboardNotification,
   WorkboardRunAttempt,
 } from "@openclaw/workboard-contract";
-import { isFutureDateTimestampMs } from "openclaw/plugin-sdk/number-runtime";
-import { safeEqualSecret } from "openclaw/plugin-sdk/security-runtime";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { isFutureDateTimestampMs } from "granted/plugin-sdk/number-runtime";
+import { safeEqualSecret } from "granted/plugin-sdk/security-runtime";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   assertCanMutateClaimedCard,
   cardBoardId,

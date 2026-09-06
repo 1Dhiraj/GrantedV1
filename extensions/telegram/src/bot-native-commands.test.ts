@@ -2,12 +2,12 @@ import {
   createEmptyPluginRegistry,
   resetPluginRuntimeStateForTest,
   setActivePluginRegistry,
-} from "openclaw/plugin-sdk/channel-test-helpers";
+} from "granted/plugin-sdk/channel-test-helpers";
 // Telegram tests cover bot native commands plugin behavior.
-import type { GrantedConfig, TelegramAccountConfig } from "openclaw/plugin-sdk/config-contracts";
-import { listNativeCommandSpecsForConfig } from "openclaw/plugin-sdk/native-command-registry";
-import { clearPluginCommands, registerPluginCommand } from "openclaw/plugin-sdk/plugin-runtime";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
+import type { GrantedConfig, TelegramAccountConfig } from "granted/plugin-sdk/config-contracts";
+import { listNativeCommandSpecsForConfig } from "granted/plugin-sdk/native-command-registry";
+import { clearPluginCommands, registerPluginCommand } from "granted/plugin-sdk/plugin-runtime";
+import type { RuntimeEnv } from "granted/plugin-sdk/runtime-env";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
   createCommandBot,

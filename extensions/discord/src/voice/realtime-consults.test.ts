@@ -1,6 +1,6 @@
 import type { PassThrough } from "node:stream";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
-import type { RealtimeVoiceSessionHarness } from "openclaw/plugin-sdk/realtime-voice";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
+import type { RealtimeVoiceSessionHarness } from "granted/plugin-sdk/realtime-voice";
 import { defineDiscordVoiceTests } from "./voice-test-harness.test-support.js";
 
 defineDiscordVoiceTests(

@@ -1,11 +1,11 @@
-import { defineChannelSetupContract } from "openclaw/plugin-sdk/channel-setup";
+import { defineChannelSetupContract } from "granted/plugin-sdk/channel-setup";
 // Zalouser plugin module implements setup core behavior.
 import {
   createDelegatedSetupWizardProxy,
   createPatchedAccountSetupAdapter,
   createSetupTranslator,
   type ChannelSetupWizard,
-} from "openclaw/plugin-sdk/setup-runtime";
+} from "granted/plugin-sdk/setup-runtime";
 
 const t = createSetupTranslator();
 

@@ -1,11 +1,11 @@
 // Policy plugin data, secret, and auth evidence.
-import { normalizeAgentId } from "openclaw/plugin-sdk/routing";
-import { coerceSecretRef } from "openclaw/plugin-sdk/secret-input";
+import { normalizeAgentId } from "granted/plugin-sdk/routing";
+import { coerceSecretRef } from "granted/plugin-sdk/secret-input";
 import {
   asBoolean as readBoolean,
   asNonArrayRecord,
   isRecord,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import { collectPolicyConfiguredAgents, ocPathSegment } from "./policy-state-helpers.js";
 import type {
   PolicyAuthProfileEvidence,

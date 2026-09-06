@@ -1,22 +1,22 @@
 // Whatsapp plugin module implements shared behavior.
-import { describeAccountSnapshot } from "openclaw/plugin-sdk/account-helpers";
-import { normalizeE164 } from "openclaw/plugin-sdk/account-resolution";
+import { describeAccountSnapshot } from "granted/plugin-sdk/account-helpers";
+import { normalizeE164 } from "granted/plugin-sdk/account-resolution";
 import {
   adaptScopedAccountAccessor,
   createScopedChannelConfigAdapter,
   createScopedDmSecurityResolver,
-} from "openclaw/plugin-sdk/channel-config-helpers";
+} from "granted/plugin-sdk/channel-config-helpers";
 import {
   collectOpenGroupPolicyRouteAllowlistWarnings,
   createAllowlistProviderGroupPolicyWarningCollector,
   createConditionalWarningCollector,
-} from "openclaw/plugin-sdk/channel-policy";
-import type { ChannelPlugin } from "openclaw/plugin-sdk/core";
-import { createChannelPluginBase } from "openclaw/plugin-sdk/core";
+} from "granted/plugin-sdk/channel-policy";
+import type { ChannelPlugin } from "granted/plugin-sdk/core";
+import { createChannelPluginBase } from "granted/plugin-sdk/core";
 import {
   createDelegatedSetupWizardProxy,
   type ChannelSetupWizard,
-} from "openclaw/plugin-sdk/setup-runtime";
+} from "granted/plugin-sdk/setup-runtime";
 import {
   hasAnyWhatsAppAuth,
   listWhatsAppAccountIds,

@@ -1,9 +1,9 @@
 // Discord plugin module implements native command dispatch behavior.
-import type { ChatCommandDefinition, CommandArgs } from "openclaw/plugin-sdk/command-auth-native";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { PluginCommandCatalogDecision } from "openclaw/plugin-sdk/plugin-command-runtime";
-import type { ReplyPayload } from "openclaw/plugin-sdk/reply-dispatch-runtime";
-import type { ResolvedAgentRoute } from "openclaw/plugin-sdk/routing";
+import type { ChatCommandDefinition, CommandArgs } from "granted/plugin-sdk/command-auth-native";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { PluginCommandCatalogDecision } from "granted/plugin-sdk/plugin-command-runtime";
+import type { ReplyPayload } from "granted/plugin-sdk/reply-dispatch-runtime";
+import type { ResolvedAgentRoute } from "granted/plugin-sdk/routing";
 import type {
   ButtonInteraction,
   CommandInteraction,

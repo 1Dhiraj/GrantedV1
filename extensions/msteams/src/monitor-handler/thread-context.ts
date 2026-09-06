@@ -1,6 +1,6 @@
 // Msteams plugin module owns thread routing and Graph parent context.
-import { resolveInboundSupplementalSenderAllowed } from "openclaw/plugin-sdk/channel-inbound";
-import { filterSupplementalContextItems } from "openclaw/plugin-sdk/context-visibility-runtime";
+import { resolveInboundSupplementalSenderAllowed } from "granted/plugin-sdk/channel-inbound";
+import { filterSupplementalContextItems } from "granted/plugin-sdk/context-visibility-runtime";
 import type { GrantedConfig } from "../../runtime-api.js";
 import { formatUnknownError } from "../errors.js";
 import {

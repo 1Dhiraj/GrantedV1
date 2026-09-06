@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { Command } from "commander";
-import type { GrantedConfig } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedConfig } from "granted/plugin-sdk/plugin-entry";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { encodeOnePasswordSecretId } from "../onepassword-secret-id.js";
 import { registerOnePasswordSecretRefCommands, testing } from "./secret-ref-cli.js";

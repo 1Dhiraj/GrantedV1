@@ -9,7 +9,7 @@ import path from "node:path";
 import { setTimeout as sleep } from "node:timers/promises";
 import { startOpenClawCrablineAdapter } from "@openclaw/crabline";
 import { asRecord } from "@openclaw/normalization-core/record-coerce";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { afterEach, describe, expect, it } from "vitest";
 import {
   createQaGatewayChild,

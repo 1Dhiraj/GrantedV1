@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import type { OpenClawCrablineChannelDriverSelection } from "@openclaw/crabline";
-import { replaceFileAtomic } from "openclaw/plugin-sdk/security-runtime";
+import { replaceFileAtomic } from "granted/plugin-sdk/security-runtime";
 import { assertQaSuiteArtifactWritten } from "./artifact-assertion.js";
 import {
   resolveQaCrablineChannelDriverArtifactPaths,

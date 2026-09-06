@@ -8,18 +8,18 @@ import type { WebClientOptions } from "@slack/web-api";
 import {
   closeOpenClawStateDatabaseForTest,
   createChannelIngressQueueForTests,
-} from "openclaw/plugin-sdk/channel-ingress-test-runtime";
+} from "granted/plugin-sdk/channel-ingress-test-runtime";
 import type {
   ChannelIngressMonitorLifecycle,
   ChannelIngressQueue,
-} from "openclaw/plugin-sdk/channel-outbound";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { PluginJsonValue } from "openclaw/plugin-sdk/plugin-entry";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
+} from "granted/plugin-sdk/channel-outbound";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { PluginJsonValue } from "granted/plugin-sdk/plugin-entry";
+import type { RuntimeEnv } from "granted/plugin-sdk/runtime-env";
 import {
   peekSystemEventEntries,
   resetSystemEventsForTest,
-} from "openclaw/plugin-sdk/system-event-runtime";
+} from "granted/plugin-sdk/system-event-runtime";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { createSlackMonitorContext } from "./context.js";
 import { registerSlackMemberEvents } from "./events/members.js";

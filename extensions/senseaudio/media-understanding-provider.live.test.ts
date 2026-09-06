@@ -2,8 +2,8 @@
 import { spawnSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import path from "node:path";
-import { runFfmpeg } from "openclaw/plugin-sdk/media-runtime";
-import { withTempDir } from "openclaw/plugin-sdk/test-env";
+import { runFfmpeg } from "granted/plugin-sdk/media-runtime";
+import { withTempDir } from "granted/plugin-sdk/test-env";
 import { describe, expect, it } from "vitest";
 import { senseaudioMediaUnderstandingProvider } from "./media-understanding-provider.js";
 

@@ -1,6 +1,6 @@
 /** Covers bundled plugin source overlays and packaged load-path decisions. */
 import { expectDefined } from "@openclaw/normalization-core";
-import { bundledPluginRootAt } from "openclaw/plugin-sdk/test-fixtures";
+import { bundledPluginRootAt } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   findBundledPluginSource,

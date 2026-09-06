@@ -1,4 +1,4 @@
-import type { GrantedPluginNodeHostCommand } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginNodeHostCommand } from "granted/plugin-sdk/plugin-entry";
 import {
   clamp,
   formatToolError,

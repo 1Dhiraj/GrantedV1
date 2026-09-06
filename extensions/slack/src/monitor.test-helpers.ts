@@ -1,14 +1,14 @@
 import fs from "node:fs";
 import path from "node:path";
-import type { ChannelRuntimeSurface } from "openclaw/plugin-sdk/channel-contract";
+import type { ChannelRuntimeSurface } from "granted/plugin-sdk/channel-contract";
 import {
   closeOpenClawStateDatabaseForTest,
   createChannelIngressQueueForTests,
-} from "openclaw/plugin-sdk/channel-ingress-test-runtime";
+} from "granted/plugin-sdk/channel-ingress-test-runtime";
 // Slack helper module supports monitor helpers behavior.
-import type { PluginRuntime } from "openclaw/plugin-sdk/core";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
-import { resolvePreferredOpenClawTmpDir } from "openclaw/plugin-sdk/temp-path";
+import type { PluginRuntime } from "granted/plugin-sdk/core";
+import type { RuntimeEnv } from "granted/plugin-sdk/runtime-env";
+import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
 import { vi } from "vitest";
 import type { Mock } from "vitest";
 import { setSlackRuntime } from "./runtime.js";
@@ -407,7 +407,7 @@ vi.mock("./monitor/config.runtime.js", async () => {
 });
 
 vi.mock("openclaw/plugin-sdk/channel-inbound", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/channel-inbound")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/channel-inbound")>();
   type DispatchParams = Parameters<typeof actual.dispatchChannelInboundTurn>[0];
   type ReplyResolver = NonNullable<DispatchParams["replyResolver"]>;
   const replyResolver: ReplyResolver = (...args) =>

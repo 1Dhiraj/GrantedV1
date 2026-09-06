@@ -6,5 +6,5 @@ export {
   type GrantedConfig,
   type GrantedPluginApi,
   type GrantedPluginConfigSchema,
-} from "openclaw/plugin-sdk/plugin-entry";
+} from "granted/plugin-sdk/plugin-entry";
 export { z } from "zod";

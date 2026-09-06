@@ -5,7 +5,7 @@ const authMocks = vi.hoisted(() => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/agent-runtime", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("openclaw/plugin-sdk/agent-runtime")>()),
+  ...(await importOriginal<typeof import("granted/plugin-sdk/agent-runtime")>()),
   ensureAuthProfileStore: authMocks.ensureAuthProfileStore,
 }));
 

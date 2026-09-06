@@ -5,18 +5,18 @@ import {
   hasConfiguredAccountValue,
   normalizeAccountId,
   type GrantedConfig,
-} from "openclaw/plugin-sdk/account-resolution";
+} from "granted/plugin-sdk/account-resolution";
 import {
   mapAllowFromEntries,
   normalizeChannelDmPolicy,
   type ChannelDmPolicy,
-} from "openclaw/plugin-sdk/channel-config-helpers";
-import type { SlackAccountConfig } from "openclaw/plugin-sdk/config-contracts";
-import { resolveAccountEntry } from "openclaw/plugin-sdk/routing";
+} from "granted/plugin-sdk/channel-config-helpers";
+import type { SlackAccountConfig } from "granted/plugin-sdk/config-contracts";
+import { resolveAccountEntry } from "granted/plugin-sdk/routing";
 import {
   asOptionalRecord,
   normalizeOptionalString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import { hasSlackAccountCredentials } from "./account-configured.js";
 import type { SlackAccountSurfaceFields } from "./account-surface-fields.js";
 import { resolveSlackAppToken, resolveSlackBotToken, resolveSlackUserToken } from "./token.js";

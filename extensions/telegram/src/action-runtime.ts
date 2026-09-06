@@ -1,6 +1,6 @@
 // Telegram plugin module implements action runtime behavior.
-import type { AgentToolResult } from "openclaw/plugin-sdk/agent-core";
-import { readBooleanParam } from "openclaw/plugin-sdk/boolean-param";
+import type { AgentToolResult } from "granted/plugin-sdk/agent-core";
+import { readBooleanParam } from "granted/plugin-sdk/boolean-param";
 import {
   jsonResult,
   readPositiveIntegerParam,
@@ -10,22 +10,22 @@ import {
   readStringParam,
   resolvePollMaxSelections,
   resolveReactionMessageId,
-} from "openclaw/plugin-sdk/channel-actions";
-import type { ChannelMessageActionContext } from "openclaw/plugin-sdk/channel-contract";
-import { normalizeOutboundLocation } from "openclaw/plugin-sdk/channel-inbound";
+} from "granted/plugin-sdk/channel-actions";
+import type { ChannelMessageActionContext } from "granted/plugin-sdk/channel-contract";
+import { normalizeOutboundLocation } from "granted/plugin-sdk/channel-inbound";
 import {
   buildOutboundSessionContext,
   sendDurableMessageBatch,
   type DurableMessageBatchSendResult,
-} from "openclaw/plugin-sdk/channel-outbound";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+} from "granted/plugin-sdk/channel-outbound";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   normalizeMessagePresentation,
   renderMessagePresentationFallbackText,
-} from "openclaw/plugin-sdk/interactive-runtime";
-import type { MessagePresentation } from "openclaw/plugin-sdk/interactive-runtime";
-import type { ReplyPayload } from "openclaw/plugin-sdk/reply-runtime";
-import { resolveStorePath } from "openclaw/plugin-sdk/session-store-runtime";
+} from "granted/plugin-sdk/interactive-runtime";
+import type { MessagePresentation } from "granted/plugin-sdk/interactive-runtime";
+import type { ReplyPayload } from "granted/plugin-sdk/reply-runtime";
+import { resolveStorePath } from "granted/plugin-sdk/session-store-runtime";
 import { resolveTelegramAccountOwnerAgentId } from "./account-owner.js";
 import {
   createTelegramActionGate,

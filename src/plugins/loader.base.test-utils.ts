@@ -606,7 +606,7 @@ describe("loadOpenClawPlugins", () => {
     fs.writeFileSync(
       path.join(pluginRoot, "index.js"),
       [
-        `import { normalizeLowercaseStringOrEmpty } from "openclaw/plugin-sdk/string-coerce-runtime";`,
+        `import { normalizeLowercaseStringOrEmpty } from "granted/plugin-sdk/string-coerce-runtime";`,
         `export default {`,
         `  id: "discord",`,
         `  register(api) {`,

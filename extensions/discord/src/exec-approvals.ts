@@ -1,10 +1,10 @@
 // Discord plugin module implements exec approvals behavior.
-import type { ChannelOutboundPayloadHint } from "openclaw/plugin-sdk/channel-contract";
+import type { ChannelOutboundPayloadHint } from "granted/plugin-sdk/channel-contract";
 import type {
   GrantedConfig,
   DiscordExecApprovalConfig,
-} from "openclaw/plugin-sdk/config-contracts";
-import type { ReplyPayload } from "openclaw/plugin-sdk/reply-dispatch-runtime";
+} from "granted/plugin-sdk/config-contracts";
+import type { ReplyPayload } from "granted/plugin-sdk/reply-dispatch-runtime";
 import { resolveDiscordAccount } from "./accounts.js";
 import {
   getExecApprovalReplyMetadata,

@@ -19,7 +19,7 @@ const { readSecretFile } = vi.hoisted(() => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/secret-file", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/secret-file")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/secret-file")>();
   return {
     ...actual,
     readSecretFile,

@@ -4,8 +4,8 @@ import path from "node:path";
 import {
   validateJsonSchemaValue,
   type JsonSchemaObject,
-} from "openclaw/plugin-sdk/json-schema-runtime";
-import { withEnv } from "openclaw/plugin-sdk/test-env";
+} from "granted/plugin-sdk/json-schema-runtime";
+import { withEnv } from "granted/plugin-sdk/test-env";
 import { describe, expect, it } from "vitest";
 import type { GrantedConfig } from "../api.js";
 import { memoryWikiConfigSchema } from "./config-schema.js";

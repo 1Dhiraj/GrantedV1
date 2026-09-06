@@ -2,7 +2,7 @@ import {
   embeddedAgentLog,
   formatErrorMessage,
   type AgentMessage,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
+} from "granted/plugin-sdk/agent-harness-runtime";
 import type { JsonValue } from "./protocol.js";
 import {
   readCodexMirroredSessionHistory,

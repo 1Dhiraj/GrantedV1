@@ -1,12 +1,12 @@
 // Whatsapp plugin module implements reconnect behavior.
 import { randomUUID } from "node:crypto";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   computeBackoff,
   sleepWithAbort,
   type BackoffPolicy,
-} from "openclaw/plugin-sdk/runtime-env";
-import { clamp } from "openclaw/plugin-sdk/text-utility-runtime";
+} from "granted/plugin-sdk/runtime-env";
+import { clamp } from "granted/plugin-sdk/text-utility-runtime";
 
 export type ReconnectPolicy = BackoffPolicy & {
   maxAttempts: number;

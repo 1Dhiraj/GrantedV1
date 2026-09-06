@@ -1,18 +1,18 @@
 // Telegram plugin module implements token behavior.
-import { resolveNormalizedAccountEntry } from "openclaw/plugin-sdk/account-core";
-import type { BaseTokenResolution } from "openclaw/plugin-sdk/channel-contract";
-import type { GrantedConfig, TelegramAccountConfig } from "openclaw/plugin-sdk/config-contracts";
+import { resolveNormalizedAccountEntry } from "granted/plugin-sdk/account-core";
+import type { BaseTokenResolution } from "granted/plugin-sdk/channel-contract";
+import type { GrantedConfig, TelegramAccountConfig } from "granted/plugin-sdk/config-contracts";
 import {
   DEFAULT_ACCOUNT_ID,
   normalizeAccountId,
   normalizeOptionalAccountId,
-} from "openclaw/plugin-sdk/routing";
-import { tryReadSecretFileSync } from "openclaw/plugin-sdk/secret-file-runtime";
+} from "granted/plugin-sdk/routing";
+import { tryReadSecretFileSync } from "granted/plugin-sdk/secret-file-runtime";
 import {
   normalizeSecretInputString,
   resolveSecretInputString,
-} from "openclaw/plugin-sdk/secret-input";
-import { canResolveEnvSecretRefInReadOnlyPath } from "openclaw/plugin-sdk/secret-ref-readonly";
+} from "granted/plugin-sdk/secret-input";
+import { canResolveEnvSecretRefInReadOnlyPath } from "granted/plugin-sdk/secret-ref-readonly";
 import { resolveDefaultTelegramAccountId } from "./account-selection.js";
 
 type CredentialUnavailableDiagnostic = Extract<

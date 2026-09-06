@@ -1,11 +1,11 @@
-import { resolveSessionAgentIdsStrict } from "openclaw/plugin-sdk/agent-scope-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
-import type { PluginRuntime } from "openclaw/plugin-sdk/plugin-runtime";
+import { resolveSessionAgentIdsStrict } from "granted/plugin-sdk/agent-scope-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { GrantedPluginApi } from "granted/plugin-sdk/plugin-entry";
+import type { PluginRuntime } from "granted/plugin-sdk/plugin-runtime";
 import {
   createSessionCatalogAdoptionCoordinator,
   sessionCatalogAdoptedSourceKey,
-} from "openclaw/plugin-sdk/session-catalog";
+} from "granted/plugin-sdk/session-catalog";
 import type { CodexThread } from "./app-server/protocol.js";
 import { withTimeout } from "./app-server/timeout.js";
 import { createCodexCliNodeConversationBindingData } from "./conversation-binding-data.js";

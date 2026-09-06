@@ -1,7 +1,7 @@
-import type { ChannelDoctorLegacyConfigRule } from "openclaw/plugin-sdk/channel-contract";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { defineStrayPluginEntryConfigMigration } from "openclaw/plugin-sdk/runtime-doctor-migrations";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import type { ChannelDoctorLegacyConfigRule } from "granted/plugin-sdk/channel-contract";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { defineStrayPluginEntryConfigMigration } from "granted/plugin-sdk/runtime-doctor-migrations";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import { ReefChannelConfigSchema } from "./src/config-schema.js";
 
 function hasRetiredReefPolicyConfig(value: unknown): boolean {

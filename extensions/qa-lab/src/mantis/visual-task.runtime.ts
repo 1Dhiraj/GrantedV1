@@ -1,8 +1,8 @@
 // Qa Lab plugin module implements visual task behavior.
 import fs from "node:fs/promises";
 import path from "node:path";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import { pathExists, writeExternalFileWithinRoot } from "openclaw/plugin-sdk/security-runtime";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
+import { pathExists, writeExternalFileWithinRoot } from "granted/plugin-sdk/security-runtime";
 import { ensureRepoBoundDirectory, resolveRepoRelativeOutputDir } from "../cli-paths.js";
 import { toQaError } from "../errors.js";
 import { isTruthyOptIn, trimToValue } from "../mantis-options.runtime.js";

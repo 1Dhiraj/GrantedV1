@@ -3,7 +3,7 @@ import { spawnSync, type SpawnSyncReturns } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
-import { importFreshModule } from "openclaw/plugin-sdk/test-fixtures";
+import { importFreshModule } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, beforeAll, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
 import type { PluginModuleLoaderFactory } from "../plugins/plugin-module-loader-cache.js";
@@ -343,12 +343,12 @@ function runCompiledEsmSidecarFastPathProbe(): SpawnSyncReturns<string> {
   writeJson(path.join(tempRoot, "package.json"), {
     name: "openclaw",
     type: "module",
-    bin: { openclaw: "./openclaw.mjs" },
+    bin: { openclaw: "./granted.mjs" },
     exports: {
       "./plugin-sdk/channel-outbound": "./dist/plugin-sdk/channel-outbound.js",
     },
   });
-  fs.writeFileSync(path.join(tempRoot, "openclaw.mjs"), "#!/usr/bin/env node\n", "utf8");
+  fs.writeFileSync(path.join(tempRoot, "granted.mjs"), "#!/usr/bin/env node\n", "utf8");
   fs.mkdirSync(path.join(tempRoot, "dist", "plugin-sdk"), { recursive: true });
   fs.writeFileSync(
     path.join(tempRoot, "dist", "plugin-sdk", "channel-outbound.js"),
@@ -362,7 +362,7 @@ function runCompiledEsmSidecarFastPathProbe(): SpawnSyncReturns<string> {
   fs.writeFileSync(importerPath, "export default {};\n", "utf8");
   fs.writeFileSync(
     path.join(pluginRoot, "sidecar.js"),
-    'import { defineChannelMessageAdapter } from "openclaw/plugin-sdk/channel-outbound";\nexport const sentinel = defineChannelMessageAdapter();\n',
+    'import { defineChannelMessageAdapter } from "granted/plugin-sdk/channel-outbound";\nexport const sentinel = defineChannelMessageAdapter();\n',
     "utf8",
   );
 

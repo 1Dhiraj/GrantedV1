@@ -1,4 +1,4 @@
-import { asNullableRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { asNullableRecord } from "granted/plugin-sdk/string-coerce-runtime";
 
 function hasLegacyPositivePolicy(value: unknown): boolean {
   const config = asNullableRecord(value);

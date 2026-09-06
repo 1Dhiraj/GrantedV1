@@ -1,8 +1,8 @@
-import { addApprovalReactionHintToText } from "openclaw/plugin-sdk/approval-reaction-runtime";
+import { addApprovalReactionHintToText } from "granted/plugin-sdk/approval-reaction-runtime";
 import {
   buildExecApprovalPendingReplyPayload,
   buildPluginApprovalPendingReplyPayload,
-} from "openclaw/plugin-sdk/approval-reply-runtime";
+} from "granted/plugin-sdk/approval-reply-runtime";
 // Signal tests cover approval reactions plugin behavior.
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
@@ -24,7 +24,7 @@ vi.mock("openclaw/plugin-sdk/approval-gateway-runtime", () => ({
   resolveApprovalOverGateway: resolverMocks.resolveSignalApproval,
 }));
 vi.mock("openclaw/plugin-sdk/error-runtime", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/error-runtime")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/error-runtime")>(
     "openclaw/plugin-sdk/error-runtime",
   );
   return {

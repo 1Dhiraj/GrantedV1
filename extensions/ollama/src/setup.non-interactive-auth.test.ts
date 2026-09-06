@@ -1,12 +1,12 @@
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
-import { jsonResponse, requestBodyText, requestUrl } from "openclaw/plugin-sdk/test-env";
+import type { RuntimeEnv } from "granted/plugin-sdk/runtime-env";
+import { jsonResponse, requestBodyText, requestUrl } from "granted/plugin-sdk/test-env";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { configureOllamaNonInteractive } from "./setup.js";
 
 const upsertAuthProfileWithLock = vi.hoisted(() => vi.fn(async () => {}));
 
 vi.mock("openclaw/plugin-sdk/provider-auth", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/provider-auth")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/provider-auth")>();
   return {
     ...actual,
     upsertAuthProfileWithLock,
@@ -14,7 +14,7 @@ vi.mock("openclaw/plugin-sdk/provider-auth", async (importOriginal) => {
 });
 
 vi.mock("openclaw/plugin-sdk/ssrf-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/ssrf-runtime")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/ssrf-runtime")>();
   return {
     ...actual,
     fetchWithSsrFGuard: async (params: {

@@ -1,9 +1,9 @@
 // Slack tests cover channel plugin behavior.
-import { createMessageReceiptFromOutboundResults } from "openclaw/plugin-sdk/channel-outbound";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { createRuntimeEnv } from "openclaw/plugin-sdk/plugin-test-runtime";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createMessageReceiptFromOutboundResults } from "granted/plugin-sdk/channel-outbound";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { createRuntimeEnv } from "granted/plugin-sdk/plugin-test-runtime";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { slackPlugin } from "./channel.js";
 import { registerSlackInstallationState } from "./installation-identity-state.js";

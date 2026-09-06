@@ -4,14 +4,14 @@ import path from "node:path";
 import {
   clearRuntimeAuthProfileStoreSnapshots,
   loadAuthProfileStoreForSecretsRuntime,
-} from "openclaw/plugin-sdk/agent-runtime";
-import type { MigrationProviderContext } from "openclaw/plugin-sdk/plugin-entry";
-import { upsertAuthProfile } from "openclaw/plugin-sdk/provider-auth";
+} from "granted/plugin-sdk/agent-runtime";
+import type { MigrationProviderContext } from "granted/plugin-sdk/plugin-entry";
+import { upsertAuthProfile } from "granted/plugin-sdk/provider-auth";
 import {
   resolvePreferredOpenClawTmpDir,
   tempWorkspace,
   type TempWorkspace,
-} from "openclaw/plugin-sdk/temp-path";
+} from "granted/plugin-sdk/temp-path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { defaultCodexAppInventoryCache } from "../app-server/app-inventory-cache.js";
 import { codexAppInventoryResponse } from "../app-server/app-inventory.test-helpers.js";

@@ -1,12 +1,12 @@
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import type {
   ProviderCatalogContext,
   ProviderCatalogResult,
   ProviderPrepareDynamicModelContext,
   ProviderResolveDynamicModelContext,
   ProviderRuntimeModel,
-} from "openclaw/plugin-sdk/plugin-entry";
-import { getCachedLiveCatalogValue } from "openclaw/plugin-sdk/provider-catalog-shared";
+} from "granted/plugin-sdk/plugin-entry";
+import { getCachedLiveCatalogValue } from "granted/plugin-sdk/provider-catalog-shared";
 import { resolveFirstGithubToken } from "./auth.js";
 import { resolveGithubCopilotDomain } from "./domain.js";
 import {

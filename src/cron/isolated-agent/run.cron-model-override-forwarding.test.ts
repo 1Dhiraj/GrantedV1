@@ -1,5 +1,5 @@
 // Cron model override forwarding tests cover passing overrides into agent runs.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { createDeferred } from "../../../test/helpers/promise.js";
 import {

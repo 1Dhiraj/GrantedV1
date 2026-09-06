@@ -4,7 +4,7 @@ import { EventEmitter } from "node:events";
 import fs from "node:fs";
 import path from "node:path";
 import { expectDefined } from "@openclaw/normalization-core";
-import { createRequireRecord, bundledPluginFile } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord, bundledPluginFile } from "granted/plugin-sdk/test-fixtures";
 import { describe, expect, it, vi } from "vitest";
 import { runNodeWatchedPaths } from "../../scripts/run-node.mts";
 import { runWatchMain } from "../../scripts/watch-node.mts";

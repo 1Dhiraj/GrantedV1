@@ -1,13 +1,13 @@
 // Qa Lab plugin module implements confidence report behavior.
 import fs from "node:fs/promises";
 import path from "node:path";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
 import {
   asBoolean as readBoolean,
   asFiniteNumber as readNumber,
   isRecord,
   normalizeOptionalString as readString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import {
   formatGatewayLogSentinelSummary,
   type GatewayLogSentinelFinding,

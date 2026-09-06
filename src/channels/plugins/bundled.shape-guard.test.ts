@@ -3,7 +3,7 @@ import { spawnSync } from "node:child_process";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { importFreshModule } from "openclaw/plugin-sdk/test-fixtures";
+import { importFreshModule } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, beforeAll, describe, expect, it, vi } from "vitest";
 import { clearPluginMetadataLifecycleCaches } from "../../plugins/plugin-metadata-lifecycle.js";
 import { expectNoReaddirSyncDuring } from "../../test-utils/fs-scan-assertions.js";
@@ -84,7 +84,7 @@ function writeAlphaSdkAliasDistFixture(pluginDir: string, label: string) {
   fs.writeFileSync(
     path.join(pluginDir, "index.js"),
     [
-      'import { defineBundledChannelEntry } from "openclaw/plugin-sdk/channel-entry-contract";',
+      'import { defineBundledChannelEntry } from "granted/plugin-sdk/channel-entry-contract";',
       "export default defineBundledChannelEntry({",
       "  id: 'alpha',",
       "  name: 'Alpha',",
@@ -1042,9 +1042,9 @@ describe("bundled channel entry shape guards", () => {
     const offenders = collectBundledChannelEntrypointOffenders(
       bundledPluginRoots,
       (source) =>
-        !source.includes('from "openclaw/plugin-sdk/channel-entry-contract"') ||
-        source.includes('from "openclaw/plugin-sdk/core"') ||
-        source.includes('from "openclaw/plugin-sdk/channel-core"'),
+        !source.includes('from "granted/plugin-sdk/channel-entry-contract"') ||
+        source.includes('from "granted/plugin-sdk/core"') ||
+        source.includes('from "granted/plugin-sdk/channel-core"'),
     );
 
     expect(offenders).toStrictEqual([]);
@@ -1098,7 +1098,7 @@ describe("bundled channel entry shape guards", () => {
         if (!source.includes("createChatChannelPlugin")) {
           continue;
         }
-        if (source.includes('from "openclaw/plugin-sdk/core"')) {
+        if (source.includes('from "granted/plugin-sdk/core"')) {
           offenders.push(path.relative(process.cwd(), filePath));
         }
       }
@@ -1151,7 +1151,7 @@ describe("bundled channel entry shape guards", () => {
     ].filter((filePath) =>
       fs
         .readFileSync(path.resolve(filePath), "utf8")
-        .includes('from "openclaw/plugin-sdk/runtime"'),
+        .includes('from "granted/plugin-sdk/runtime"'),
     );
 
     expect(offenders).toStrictEqual([]);

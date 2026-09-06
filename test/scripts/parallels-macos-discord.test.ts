@@ -31,7 +31,7 @@ describe("Parallels macOS Discord smoke", () => {
         guest: {} as never,
         guestNode: "node",
         guestOpenClaw: "openclaw",
-        guestOpenClawEntry: "openclaw.mjs",
+        guestOpenClawEntry: "granted.mjs",
         runDir,
         vmName: "macos-vm",
       });

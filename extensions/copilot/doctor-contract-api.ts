@@ -10,7 +10,7 @@
  *     is static manifest metadata in openclaw.plugin.json.
  */
 
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 
 type LegacyConfigRule = {
   path: string[];

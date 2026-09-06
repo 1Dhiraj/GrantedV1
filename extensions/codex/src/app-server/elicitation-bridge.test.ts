@@ -3,14 +3,14 @@ import {
   callGatewayTool,
   embeddedAgentLog,
   type EmbeddedRunAttemptParamsV2 as EmbeddedRunAttemptParams,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
+} from "granted/plugin-sdk/agent-harness-runtime";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { codexTestTurnIds } from "./codex-app-server.test-fixtures.js";
 import { routeCodexAppServerElicitationRequest } from "./elicitation-bridge.js";
 import type { JsonObject } from "./protocol.js";
 
 vi.mock("openclaw/plugin-sdk/agent-harness-runtime", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("openclaw/plugin-sdk/agent-harness-runtime")>()),
+  ...(await importOriginal<typeof import("granted/plugin-sdk/agent-harness-runtime")>()),
   callGatewayTool: vi.fn(),
 }));
 

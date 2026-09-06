@@ -649,7 +649,7 @@ describe("startGatewayService", () => {
   });
 
   describe("service program paths", () => {
-    const entrypoint = path.resolve("openclaw.mjs");
+    const entrypoint = path.resolve("granted.mjs");
     const missing = path.resolve("missing-gateway-entrypoint.cjs");
     const temporary = path.join(os.tmpdir(), "granted-service-layout", "index.js");
     const heapFlag = "--max-old-space-size=16384";

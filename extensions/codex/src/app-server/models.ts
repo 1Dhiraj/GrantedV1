@@ -2,7 +2,7 @@
  * Lists and normalizes models exposed by the Codex app-server `model/list`
  * endpoint, including pagination and shared-client lease handling.
  */
-import { normalizeOptionalString, uniqueStrings } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { normalizeOptionalString, uniqueStrings } from "granted/plugin-sdk/string-coerce-runtime";
 import type {
   CodexAppServerAuthRequirement,
   resolveCodexAppServerAuthProfileIdForAgent,

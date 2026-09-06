@@ -3,10 +3,10 @@ import { createHash } from "node:crypto";
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import type { AgentMessage } from "openclaw/plugin-sdk/agent-harness-runtime";
-import { CURRENT_SESSION_VERSION } from "openclaw/plugin-sdk/agent-sessions";
-import { upsertSessionEntry } from "openclaw/plugin-sdk/session-store-runtime";
-import { appendSessionTranscriptMessageByIdentity } from "openclaw/plugin-sdk/session-transcript-runtime";
+import type { AgentMessage } from "granted/plugin-sdk/agent-harness-runtime";
+import { CURRENT_SESSION_VERSION } from "granted/plugin-sdk/agent-sessions";
+import { upsertSessionEntry } from "granted/plugin-sdk/session-store-runtime";
+import { appendSessionTranscriptMessageByIdentity } from "granted/plugin-sdk/session-transcript-runtime";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { readCodexMirroredSessionHistoryMessages } from "./session-history.js";
 import {

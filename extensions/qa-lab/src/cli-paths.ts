@@ -1,7 +1,7 @@
 // Qa Lab plugin module implements cli paths behavior.
 import path from "node:path";
-import { isPathInside } from "openclaw/plugin-sdk/file-access-runtime";
-import { assertNoSymlinkParents, pathScope } from "openclaw/plugin-sdk/security-runtime";
+import { isPathInside } from "granted/plugin-sdk/file-access-runtime";
+import { assertNoSymlinkParents, pathScope } from "granted/plugin-sdk/security-runtime";
 
 export function toRepoPath(filePath: string): string {
   return filePath.split(path.sep).join("/");

@@ -5,11 +5,11 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { isPathInside } from "openclaw/plugin-sdk/file-access-runtime";
+import { isPathInside } from "granted/plugin-sdk/file-access-runtime";
 import {
   asNullableRecord,
   normalizeOptionalString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import {
   parseBrowserMajorVersion,
   readBrowserVersion,

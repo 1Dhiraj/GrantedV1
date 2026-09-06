@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
-import { listAgentIds, resolveAgentDir } from "openclaw/plugin-sdk/agent-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import { listAgentIds, resolveAgentDir } from "granted/plugin-sdk/agent-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   resolveCodexAppServerHomeDir,
   resolveCodexAppServerLocalHomeDir,

@@ -1,5 +1,5 @@
 // Openai tests cover image generation provider plugin behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { buildOpenAIImageGenerationProvider } from "./image-generation-provider.js";
 
@@ -52,7 +52,7 @@ const {
 }));
 
 vi.mock("openclaw/plugin-sdk/provider-auth", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("openclaw/plugin-sdk/provider-auth")>()),
+  ...(await importOriginal<typeof import("granted/plugin-sdk/provider-auth")>()),
   ensureAuthProfileStore: ensureAuthProfileStoreMock,
   isProviderApiKeyConfigured: isProviderApiKeyConfiguredMock,
   listProfilesForProvider: listProfilesForProviderMock,

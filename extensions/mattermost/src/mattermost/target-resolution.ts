@@ -1,10 +1,10 @@
 // Mattermost plugin module implements target resolution behavior.
-import { pruneMapToMaxSize } from "openclaw/plugin-sdk/collection-runtime";
-import { isPrivateNetworkOptInEnabled } from "openclaw/plugin-sdk/ssrf-runtime";
+import { pruneMapToMaxSize } from "granted/plugin-sdk/collection-runtime";
+import { isPrivateNetworkOptInEnabled } from "granted/plugin-sdk/ssrf-runtime";
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import { resolveMattermostAccount } from "./accounts.js";
 import {
   createMattermostClient,

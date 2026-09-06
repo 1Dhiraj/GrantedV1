@@ -1,26 +1,26 @@
 // Discord tests cover native command.plugin dispatch plugin behavior.
 import { ChannelType } from "discord-api-types/v10";
-import { dispatchChannelInboundTurn } from "openclaw/plugin-sdk/channel-inbound";
-import type { NativeCommandSpec } from "openclaw/plugin-sdk/command-auth-native";
-import { resolveDirectStatusReplyForSession } from "openclaw/plugin-sdk/command-status-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { PlatformMessageNotDispatchedError } from "openclaw/plugin-sdk/error-runtime";
+import { dispatchChannelInboundTurn } from "granted/plugin-sdk/channel-inbound";
+import type { NativeCommandSpec } from "granted/plugin-sdk/command-auth-native";
+import { resolveDirectStatusReplyForSession } from "granted/plugin-sdk/command-status-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { PlatformMessageNotDispatchedError } from "granted/plugin-sdk/error-runtime";
 import {
   createPluginCommandRuntime,
   PLUGIN_COMMAND_DISPATCH,
-} from "openclaw/plugin-sdk/plugin-command-runtime";
-import { clearPluginCommands, registerPluginCommand } from "openclaw/plugin-sdk/plugin-runtime";
+} from "granted/plugin-sdk/plugin-command-runtime";
+import { clearPluginCommands, registerPluginCommand } from "granted/plugin-sdk/plugin-runtime";
 import {
   createTestRegistry,
   getActivePluginRegistry,
   setActivePluginRegistry,
-} from "openclaw/plugin-sdk/plugin-test-runtime";
-import { setReplyPayloadMetadata } from "openclaw/plugin-sdk/reply-payload-testing";
+} from "granted/plugin-sdk/plugin-test-runtime";
+import { setReplyPayloadMetadata } from "granted/plugin-sdk/reply-payload-testing";
 import {
   clearRuntimeConfigSnapshot,
   setRuntimeConfigSnapshot,
-} from "openclaw/plugin-sdk/runtime-config-snapshot";
-import { getSessionEntry } from "openclaw/plugin-sdk/session-store-runtime";
+} from "granted/plugin-sdk/runtime-config-snapshot";
+import { getSessionEntry } from "granted/plugin-sdk/session-store-runtime";
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { defineThrowingDiscordChannelGetter } from "../test-support/partial-channel.js";
 import { dispatchDiscordNativeAgentReply } from "./native-command-agent-reply.js";
@@ -542,7 +542,7 @@ describe("Discord native plugin command dispatch", () => {
         accountId: params.accountId,
       });
     nativeCommandRuntime.getSessionEntry =
-      runtimeModuleMocks.getSessionEntry as typeof import("openclaw/plugin-sdk/session-store-runtime").getSessionEntry;
+      runtimeModuleMocks.getSessionEntry as typeof import("granted/plugin-sdk/session-store-runtime").getSessionEntry;
   });
 
   afterEach(() => {

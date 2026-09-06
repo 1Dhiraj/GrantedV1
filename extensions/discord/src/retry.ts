@@ -4,16 +4,16 @@ import {
   extractErrorCode,
   formatErrorMessage,
   readErrorName,
-} from "openclaw/plugin-sdk/error-runtime";
-import { parseStrictNonNegativeInteger } from "openclaw/plugin-sdk/number-runtime";
+} from "granted/plugin-sdk/error-runtime";
+import { parseStrictNonNegativeInteger } from "granted/plugin-sdk/number-runtime";
 import {
   classifyTransientNetworkErrorCode,
   createChannelApiRetryRunner,
   resolveRetryConfig,
   retryAsync,
   type RetryConfig,
-} from "openclaw/plugin-sdk/retry-runtime";
-import { sleepWithAbort } from "openclaw/plugin-sdk/runtime-env";
+} from "granted/plugin-sdk/retry-runtime";
+import { sleepWithAbort } from "granted/plugin-sdk/runtime-env";
 import { RateLimitError } from "./internal/discord.js";
 
 const DISCORD_RETRY_DEFAULTS = {

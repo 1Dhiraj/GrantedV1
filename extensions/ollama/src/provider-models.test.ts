@@ -4,7 +4,7 @@ import { readFileSync } from "node:fs";
 import { createServer } from "node:http";
 import type { Socket } from "node:net";
 import { expectDefined } from "@openclaw/normalization-core";
-import { jsonResponse, requestBodyText, requestUrl } from "openclaw/plugin-sdk/test-env";
+import { jsonResponse, requestBodyText, requestUrl } from "granted/plugin-sdk/test-env";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { OLLAMA_DEFAULT_CONTEXT_WINDOW } from "./defaults.js";
 import {

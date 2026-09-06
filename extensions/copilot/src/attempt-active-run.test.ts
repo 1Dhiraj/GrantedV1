@@ -1,10 +1,10 @@
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
 import {
   initializeGlobalHookRunner,
   resetGlobalHookRunner,
-} from "openclaw/plugin-sdk/hook-runtime";
-import { createMockPluginRegistry } from "openclaw/plugin-sdk/plugin-test-runtime";
-import { readSessionTranscriptEvents } from "openclaw/plugin-sdk/session-transcript-runtime";
+} from "granted/plugin-sdk/hook-runtime";
+import { createMockPluginRegistry } from "granted/plugin-sdk/plugin-test-runtime";
+import { readSessionTranscriptEvents } from "granted/plugin-sdk/session-transcript-runtime";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { registerCopilotActiveRun } from "./attempt-active-run.js";
 import type { AttemptTranscriptJournal } from "./attempt-transcript-journal.js";
@@ -25,7 +25,7 @@ const harnessMocks = vi.hoisted(() => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/agent-harness-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/agent-harness-runtime")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/agent-harness-runtime")>();
   return {
     ...actual,
     cancelPendingAgentQuestionForSession: harnessMocks.cancelPendingAgentQuestionForSession,

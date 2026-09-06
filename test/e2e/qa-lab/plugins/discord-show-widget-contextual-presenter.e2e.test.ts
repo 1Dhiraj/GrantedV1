@@ -4,11 +4,11 @@ import { createServer, type IncomingMessage, type ServerResponse } from "node:ht
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { MessageFlags } from "discord-api-types/v10";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   GatewayClient,
   startGatewayClientWhenEventLoopReady,
-} from "openclaw/plugin-sdk/gateway-runtime";
+} from "granted/plugin-sdk/gateway-runtime";
 import { afterEach, describe, expect, it } from "vitest";
 import {
   type MockOpenAiRequestSnapshot,

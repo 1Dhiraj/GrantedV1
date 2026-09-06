@@ -2,12 +2,12 @@
 import {
   resolveAgentModelFallbackValues,
   resolveAgentModelPrimaryValue,
-} from "openclaw/plugin-sdk/provider-onboard";
+} from "granted/plugin-sdk/provider-onboard";
 import {
   createConfigWithFallbacks,
   createLegacyProviderConfig,
   EXPECTED_FALLBACKS,
-} from "openclaw/plugin-sdk/provider-test-contracts";
+} from "granted/plugin-sdk/provider-test-contracts";
 import { describe, expect, it } from "vitest";
 import {
   applyXaiConfig,

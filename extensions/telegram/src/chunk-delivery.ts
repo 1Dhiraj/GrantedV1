@@ -1,8 +1,8 @@
 import {
   createChannelPartialDeliveryError,
   isChannelPartialDeliveryError,
-} from "openclaw/plugin-sdk/channel-inbound";
-import { formatErrorMessage } from "openclaw/plugin-sdk/ssrf-runtime";
+} from "granted/plugin-sdk/channel-inbound";
+import { formatErrorMessage } from "granted/plugin-sdk/ssrf-runtime";
 import { isSafeToRetrySendError, isTelegramBadRequestError } from "./network-errors.js";
 
 // A missing chat/thread invalidates the route for every remaining chunk.

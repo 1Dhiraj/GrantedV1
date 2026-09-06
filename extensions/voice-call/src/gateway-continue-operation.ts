@@ -1,8 +1,8 @@
 // Voice Call plugin module implements gateway continue operation behavior.
 import { randomUUID } from "node:crypto";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import { resolveTimerTimeoutMs } from "openclaw/plugin-sdk/number-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
+import { resolveTimerTimeoutMs } from "granted/plugin-sdk/number-runtime";
 import type { VoiceCallConfig } from "./config.js";
 import type { VoiceCallRuntime } from "./runtime.js";
 import { TELEPHONY_DEFAULT_TTS_TIMEOUT_MS } from "./telephony-tts.js";

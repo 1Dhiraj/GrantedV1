@@ -16,12 +16,12 @@ import {
   type DeliveryTraceInStep,
   type DeliveryTraceScenarioName,
   type WireRecorder,
-} from "openclaw/plugin-sdk/channel-contract-testing";
-import * as channelInbound from "openclaw/plugin-sdk/channel-inbound";
-import type { PluginRuntime } from "openclaw/plugin-sdk/core";
-import { createPluginRuntimeMock } from "openclaw/plugin-sdk/plugin-test-runtime";
-import type { ReplyPayload } from "openclaw/plugin-sdk/reply-payload";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
+} from "granted/plugin-sdk/channel-contract-testing";
+import * as channelInbound from "granted/plugin-sdk/channel-inbound";
+import type { PluginRuntime } from "granted/plugin-sdk/core";
+import { createPluginRuntimeMock } from "granted/plugin-sdk/plugin-test-runtime";
+import type { ReplyPayload } from "granted/plugin-sdk/reply-payload";
+import type { RuntimeEnv } from "granted/plugin-sdk/runtime-env";
 import { afterEach, describe, it, vi } from "vitest";
 import type { TelegramBotDeps } from "./bot-deps.js";
 import {

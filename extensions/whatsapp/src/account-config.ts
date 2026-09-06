@@ -4,7 +4,7 @@ import {
   resolveAccountEntry,
   resolveMergedAccountConfig,
   type GrantedConfig,
-} from "openclaw/plugin-sdk/account-core";
+} from "granted/plugin-sdk/account-core";
 import type { WhatsAppAccountConfig } from "./account-types.js";
 
 function resolveWhatsAppDefaultAccountSharedConfig(

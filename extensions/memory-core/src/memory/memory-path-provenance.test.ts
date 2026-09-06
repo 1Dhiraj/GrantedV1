@@ -1,8 +1,8 @@
 // Memory Core tests cover workspace path provenance classification.
 import fs from "node:fs/promises";
 import path from "node:path";
-import { readMemoryArtifactProvenance } from "openclaw/plugin-sdk/memory-core-host-runtime-core";
-import { useAutoCleanupTempDirTracker } from "openclaw/plugin-sdk/test-env";
+import { readMemoryArtifactProvenance } from "granted/plugin-sdk/memory-core-host-runtime-core";
+import { useAutoCleanupTempDirTracker } from "granted/plugin-sdk/test-env";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { createMemoryCoreTestHarness } from "../test-helpers.js";
 import { resolveMemoryPathClassification } from "./memory-path-provenance.js";

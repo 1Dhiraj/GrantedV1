@@ -2,14 +2,14 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { DatabaseSync } from "node:sqlite";
 import type { SessionEvent } from "@github/copilot-sdk";
-import type { AgentMessage } from "openclaw/plugin-sdk/agent-harness-runtime";
+import type { AgentMessage } from "granted/plugin-sdk/agent-harness-runtime";
 import {
   initializeGlobalHookRunner,
   resetGlobalHookRunner,
-} from "openclaw/plugin-sdk/hook-runtime";
-import type { AssistantMessage } from "openclaw/plugin-sdk/llm";
-import { createMockPluginRegistry } from "openclaw/plugin-sdk/plugin-test-runtime";
-import { readSessionTranscriptEvents } from "openclaw/plugin-sdk/session-transcript-runtime";
+} from "granted/plugin-sdk/hook-runtime";
+import type { AssistantMessage } from "granted/plugin-sdk/llm";
+import { createMockPluginRegistry } from "granted/plugin-sdk/plugin-test-runtime";
+import { readSessionTranscriptEvents } from "granted/plugin-sdk/session-transcript-runtime";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { createAttemptTranscriptJournal } from "./attempt-transcript-journal.js";
 import {

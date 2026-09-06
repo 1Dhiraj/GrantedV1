@@ -1,18 +1,18 @@
 import {
   createChannelInboundEnvelopeBuilder,
   toInboundMediaFactsWithMetadata,
-} from "openclaw/plugin-sdk/channel-inbound";
+} from "granted/plugin-sdk/channel-inbound";
 import type {
   ChannelIngressContextBinding,
   ResolvedChannelMessageIngress,
-} from "openclaw/plugin-sdk/channel-ingress-runtime";
+} from "granted/plugin-sdk/channel-ingress-runtime";
 import {
   evaluateSupplementalContextVisibility,
   resolveChannelContextVisibilityMode,
-} from "openclaw/plugin-sdk/context-visibility-runtime";
-import { resolveStorePath } from "openclaw/plugin-sdk/session-store-runtime";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+} from "granted/plugin-sdk/context-visibility-runtime";
+import { resolveStorePath } from "granted/plugin-sdk/session-store-runtime";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
+import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import type { CoreConfig, MatrixRoomConfig } from "../../types.js";
 import type { MatrixClient } from "../sdk.js";
 import { resolveMatrixAckReactionConfig } from "./ack-config.js";

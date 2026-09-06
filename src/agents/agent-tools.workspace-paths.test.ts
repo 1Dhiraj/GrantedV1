@@ -5,7 +5,7 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { createReadTool } from "openclaw/plugin-sdk/agent-sessions";
+import { createReadTool } from "granted/plugin-sdk/agent-sessions";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import "./test-helpers/fast-coding-tools.js";
 import "./test-helpers/fast-openclaw-tools.js";
@@ -814,7 +814,7 @@ describe("tools.fs.workspaceOnly", () => {
 
 vi.mock("openclaw/plugin-sdk/llm", async () => {
   const original =
-    await vi.importActual<typeof import("openclaw/plugin-sdk/llm")>("openclaw/plugin-sdk/llm");
+    await vi.importActual<typeof import("granted/plugin-sdk/llm")>("openclaw/plugin-sdk/llm");
   return {
     ...original,
   };

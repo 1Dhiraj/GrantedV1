@@ -3,13 +3,13 @@
 // memory, and must never re-seed roots that already hold content.
 import fs from "node:fs/promises";
 import path from "node:path";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
-import type { SandboxBackendHandle } from "openclaw/plugin-sdk/sandbox";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
+import type { SandboxBackendHandle } from "granted/plugin-sdk/sandbox";
 import {
   resolvePreferredOpenClawTmpDir,
   tempWorkspace,
   type TempWorkspace,
-} from "openclaw/plugin-sdk/temp-path";
+} from "granted/plugin-sdk/temp-path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { createOpenShellSandboxBackendFactory } from "./backend.js";
 import { resolveOpenShellPluginConfig } from "./config.js";
@@ -27,7 +27,7 @@ const cliMocks = vi.hoisted(() => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/sandbox", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/sandbox")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/sandbox")>();
   return {
     ...actual,
     runSshSandboxCommand: sdkMocks.runSshSandboxCommand,

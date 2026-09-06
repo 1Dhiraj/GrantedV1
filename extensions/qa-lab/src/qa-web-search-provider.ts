@@ -6,7 +6,7 @@ import {
   resolveSiteName,
   wrapWebContent,
   type WebSearchProviderPlugin,
-} from "openclaw/plugin-sdk/provider-web-search";
+} from "granted/plugin-sdk/provider-web-search";
 import {
   createQaLabWebSearchProviderBase,
   QA_LAB_WEB_SEARCH_DENIED_INPUT_QUERY,

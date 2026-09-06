@@ -1,10 +1,10 @@
 import { randomUUID } from "node:crypto";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { readProviderJsonResponse } from "openclaw/plugin-sdk/provider-http";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { readProviderJsonResponse } from "granted/plugin-sdk/provider-http";
 import {
   fetchWithSsrFGuard,
   ssrfPolicyFromHttpBaseUrlAllowedOrigin,
-} from "openclaw/plugin-sdk/ssrf-runtime";
+} from "granted/plugin-sdk/ssrf-runtime";
 import { z } from "zod";
 import { resolveA2aChannelAccount } from "./accounts.js";
 

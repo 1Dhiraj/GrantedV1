@@ -5,8 +5,8 @@ import {
   modelSupportsVision,
   resolveAgentDir,
   resolveDefaultModelForAgent,
-} from "openclaw/plugin-sdk/agent-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+} from "granted/plugin-sdk/agent-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 
 export async function resolveStickerVisionSupportRuntime(params: {
   cfg: GrantedConfig;

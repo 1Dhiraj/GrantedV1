@@ -1,6 +1,6 @@
 // Policy doctor checks and findings for gateway exposure policy.
-import { isRecord } from "openclaw/plugin-sdk/channel-secret-basic-runtime";
-import type { HealthCheck, HealthFinding } from "openclaw/plugin-sdk/health";
+import { isRecord } from "granted/plugin-sdk/channel-secret-basic-runtime";
+import type { HealthCheck, HealthFinding } from "granted/plugin-sdk/health";
 import type { PolicyEvidence } from "../../policy-state.js";
 import { repairPolicyAutomaticNarrower } from "../automatic-repairs.js";
 import { createPolicyScopedChecks } from "../check-factory.js";

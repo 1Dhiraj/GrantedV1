@@ -1,5 +1,5 @@
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { resolveAgentRoute } from "openclaw/plugin-sdk/routing";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { resolveAgentRoute } from "granted/plugin-sdk/routing";
 import { resolveMatrixAccount } from "./accounts.js";
 import { resolveMatrixInboundRoute } from "./monitor/route.js";
 

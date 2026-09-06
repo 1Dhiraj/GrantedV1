@@ -2,7 +2,7 @@
 import {
   createDirectoryTestRuntime,
   expectDirectorySurface,
-} from "openclaw/plugin-sdk/channel-test-helpers";
+} from "granted/plugin-sdk/channel-test-helpers";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import type { GrantedConfig, RuntimeEnv } from "../runtime-api.js";
 import { msteamsPlugin } from "./channel.js";

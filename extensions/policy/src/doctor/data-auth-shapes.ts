@@ -1,5 +1,5 @@
-import type { HealthFinding } from "openclaw/plugin-sdk/health";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import type { HealthFinding } from "granted/plugin-sdk/health";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import type { PolicyDataHandlingEvidence, PolicyEvidence } from "../policy-state.js";
 import { getPolicyPath } from "../policy-value.js";
 import { SUPPORTED_AUTH_PROFILE_MODES } from "./policy-constants.js";

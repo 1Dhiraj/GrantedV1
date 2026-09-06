@@ -1,6 +1,6 @@
 import { expectDefined } from "@openclaw/normalization-core";
-import { upsertSessionEntry } from "openclaw/plugin-sdk/session-store-runtime";
-import { readSessionTranscriptEvents } from "openclaw/plugin-sdk/session-transcript-runtime";
+import { upsertSessionEntry } from "granted/plugin-sdk/session-store-runtime";
+import { readSessionTranscriptEvents } from "granted/plugin-sdk/session-transcript-runtime";
 import { describe, expect, it, vi } from "vitest";
 import {
   buildEmptyToolTelemetry,

@@ -1,7 +1,7 @@
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import { resolveSendableOutboundReplyParts } from "openclaw/plugin-sdk/reply-payload";
-import type { ReplyDispatchKind, ReplyPayload } from "openclaw/plugin-sdk/reply-runtime";
-import { danger, logVerbose } from "openclaw/plugin-sdk/runtime-env";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
+import { resolveSendableOutboundReplyParts } from "granted/plugin-sdk/reply-payload";
+import type { ReplyDispatchKind, ReplyPayload } from "granted/plugin-sdk/reply-runtime";
+import { danger, logVerbose } from "granted/plugin-sdk/runtime-env";
 import { formatSlackError } from "../../errors.js";
 import { emitSlackMessageSentHooks } from "../../message-sent-hook.js";
 import { resolveSlackReplyRenderPlan } from "../../reply-blocks.js";

@@ -1,9 +1,9 @@
 // Feishu plugin module implements security audit shared behavior.
-import { hasConfiguredSecretInput } from "openclaw/plugin-sdk/secret-input";
+import { hasConfiguredSecretInput } from "granted/plugin-sdk/secret-input";
 import {
   asOptionalRecord as asRecord,
   hasNonEmptyString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import type { GrantedConfig } from "../runtime-api.js";
 
 function isFeishuDocToolEnabled(cfg: GrantedConfig): boolean {

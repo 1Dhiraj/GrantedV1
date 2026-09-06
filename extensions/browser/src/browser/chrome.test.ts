@@ -4,7 +4,7 @@ import fs from "node:fs";
 import { createServer } from "node:http";
 import { createServer as createTcpServer } from "node:net";
 import type { AddressInfo } from "node:net";
-import { rawDataToString } from "openclaw/plugin-sdk/webhook-ingress";
+import { rawDataToString } from "granted/plugin-sdk/webhook-ingress";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { WebSocketServer } from "ws";
 import { CHROME_STOP_PROBE_TIMEOUT_MS } from "./cdp-timeouts.js";

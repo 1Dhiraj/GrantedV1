@@ -1,4 +1,4 @@
-import { formatDurationCompact } from "openclaw/plugin-sdk/time-runtime";
+import { formatDurationCompact } from "granted/plugin-sdk/time-runtime";
 
 export function formatTime(timestamp: number) {
   return new Date(timestamp).toLocaleTimeString([], {

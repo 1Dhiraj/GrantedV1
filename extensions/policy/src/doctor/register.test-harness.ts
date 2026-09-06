@@ -9,8 +9,8 @@ import {
   type HealthFinding,
   type HealthRepairContext,
   type GrantedConfig,
-} from "openclaw/plugin-sdk/health";
-import { clearHealthChecksForTest } from "openclaw/plugin-sdk/plugin-test-runtime";
+} from "granted/plugin-sdk/health";
+import { clearHealthChecksForTest } from "granted/plugin-sdk/plugin-test-runtime";
 import { registerPolicyDoctorChecks } from "./register.js";
 
 export let workspaceDir: string;

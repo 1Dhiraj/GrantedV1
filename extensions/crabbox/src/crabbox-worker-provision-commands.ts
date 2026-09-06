@@ -1,4 +1,4 @@
-import { WorkerProviderError } from "openclaw/plugin-sdk/plugin-entry";
+import { WorkerProviderError } from "granted/plugin-sdk/plugin-entry";
 import { crabboxCommandError } from "./crabbox-worker-command-error.js";
 import {
   isUnrecognizedLease,

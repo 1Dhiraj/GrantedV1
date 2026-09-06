@@ -1,9 +1,9 @@
 /**
  * Doctor contract hooks for Codex plugin config and state migrations.
  */
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { PluginDoctorStateMigration } from "openclaw/plugin-sdk/runtime-doctor-migrations";
-import { asNullableRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { PluginDoctorStateMigration } from "granted/plugin-sdk/runtime-doctor-migrations";
+import { asNullableRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import { codexOrphanedSessionBindingMigration } from "./src/migration/session-binding-orphans.js";
 import { stateMigrations as legacyStateMigrations } from "./src/migration/session-binding-sidecars.js";
 

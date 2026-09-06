@@ -13,13 +13,13 @@ import {
   requireAllowlistAllowFrom,
   requireOpenAllowFrom,
   ToolPolicySchema,
-} from "openclaw/plugin-sdk/channel-config-schema";
+} from "granted/plugin-sdk/channel-config-schema";
 import {
   buildSecretInputSchema,
   hasConfiguredSecretInput,
   registerSensitiveConfigSchema,
-} from "openclaw/plugin-sdk/secret-input";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/secret-input";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import { z } from "zod";
 import {
   normalizeTelegramCommandDescription,

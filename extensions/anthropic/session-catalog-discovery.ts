@@ -1,13 +1,13 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import { runTasksWithConcurrency } from "openclaw/plugin-sdk/concurrency-runtime";
-import { parseDateFirstTimestampMs } from "openclaw/plugin-sdk/number-runtime";
-import type { SessionCatalogPullRequestSummary } from "openclaw/plugin-sdk/session-catalog";
+import { runTasksWithConcurrency } from "granted/plugin-sdk/concurrency-runtime";
+import { parseDateFirstTimestampMs } from "granted/plugin-sdk/number-runtime";
+import type { SessionCatalogPullRequestSummary } from "granted/plugin-sdk/session-catalog";
 import {
   asPositiveSafeInteger as pullRequestNumber,
   isRecord,
   normalizeBoundedOptionalString as readBoundedString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import { readClaudeDesktopCustomGroups } from "./claude-desktop-groups.js";
 import {
   CLAUDE_CATALOG_IO_CONCURRENCY,

@@ -15,9 +15,9 @@ import {
   type AgentHarnessCompactParams,
   type AgentHarnessCompactResult,
   type AgentHarnessResetParams,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
-import type { PluginStateSyncKeyedStore } from "openclaw/plugin-sdk/plugin-state-runtime";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/agent-harness-runtime";
+import type { PluginStateSyncKeyedStore } from "granted/plugin-sdk/plugin-state-runtime";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import type { AttemptParamsLike, ModelRefInputObject } from "./src/attempt-types.js";
 import type { CopilotSessionConfig } from "./src/attempt.js";
 import { createCopilotByokAuth, resolveCopilotAuth, tokenFingerprint } from "./src/auth-bridge.js";

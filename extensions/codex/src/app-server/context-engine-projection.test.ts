@@ -1,5 +1,5 @@
 // Codex tests cover context engine projection plugin behavior.
-import { buildSessionContext, type AgentMessage } from "openclaw/plugin-sdk/agent-core";
+import { buildSessionContext, type AgentMessage } from "granted/plugin-sdk/agent-core";
 import { describe, expect, it } from "vitest";
 import {
   buildCodexContinuityCalibration,

@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import JSZip from "jszip";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
+import type { RuntimeEnv } from "granted/plugin-sdk/runtime-env";
 import * as tar from "tar";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { ReleaseAsset } from "./install-signal-cli.js";
@@ -34,7 +34,7 @@ vi.mock("openclaw/plugin-sdk/ssrf-runtime", () => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/setup-tools", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/setup-tools")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/setup-tools")>();
   return {
     ...actual,
     extractArchive: async (params: Parameters<typeof actual.extractArchive>[0]) => {
@@ -50,7 +50,7 @@ vi.mock("openclaw/plugin-sdk/run-command", () => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/temp-path", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/temp-path")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/temp-path")>();
   return {
     ...actual,
     withTempDownloadPath: async (

@@ -1,6 +1,6 @@
-import { createChannelPartialDeliveryError } from "openclaw/plugin-sdk/channel-inbound";
+import { createChannelPartialDeliveryError } from "granted/plugin-sdk/channel-inbound";
 // Whatsapp tests cover inbound dispatch plugin behavior.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { describe, expect, it, vi, beforeEach } from "vitest";
 import { createAcceptedWhatsAppSendResult } from "../../inbound/send-result.test-helper.js";
 import { createTestWebInboundMessage } from "../../inbound/test-message.test-helper.js";
@@ -54,7 +54,7 @@ const {
 }));
 
 vi.mock("openclaw/plugin-sdk/channel-inbound", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/channel-inbound")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/channel-inbound")>();
   return {
     ...actual,
     readAgentRunTerminalOutcome: readAgentRunTerminalOutcomeMock,
@@ -62,7 +62,7 @@ vi.mock("openclaw/plugin-sdk/channel-inbound", async (importOriginal) => {
 });
 
 vi.mock("openclaw/plugin-sdk/channel-outbound", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/channel-outbound")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/channel-outbound")>();
   return {
     ...actual,
     deliverInboundReplyWithMessageSendContext: deliverInboundReplyWithMessageSendContextMock,

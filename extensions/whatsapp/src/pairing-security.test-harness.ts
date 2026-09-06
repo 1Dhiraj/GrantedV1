@@ -21,7 +21,7 @@ export function resetPairingSecurityMocks(config: Record<string, unknown>) {
 
 vi.mock("openclaw/plugin-sdk/runtime-config-snapshot", async () => {
   const actual = await vi.importActual<
-    typeof import("openclaw/plugin-sdk/runtime-config-snapshot")
+    typeof import("granted/plugin-sdk/runtime-config-snapshot")
   >("openclaw/plugin-sdk/runtime-config-snapshot");
   return {
     ...actual,
@@ -36,7 +36,7 @@ vi.mock("openclaw/plugin-sdk/conversation-runtime", () => {
 });
 
 vi.mock("openclaw/plugin-sdk/security-runtime", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/security-runtime")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/security-runtime")>(
     "openclaw/plugin-sdk/security-runtime",
   );
   return {

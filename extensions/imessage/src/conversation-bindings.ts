@@ -1,11 +1,11 @@
 // Imessage plugin module implements conversation bindings behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   createAccountScopedConversationBindingManager,
   resetAccountScopedConversationBindingsForTests,
   type AccountScopedConversationBindingManager,
   type BindingTargetKind,
-} from "openclaw/plugin-sdk/thread-bindings-runtime";
+} from "granted/plugin-sdk/thread-bindings-runtime";
 
 type IMessageBindingTargetKind = "subagent" | "acp";
 

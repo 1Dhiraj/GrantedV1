@@ -1,5 +1,5 @@
 // Google Meet plugin module implements chrome behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   createMeetingRealtimeEngineBindings,
   createLocalMeetingRealtimeAudioTransport,
@@ -14,10 +14,10 @@ import {
   startMeetingRealtimeEngine,
   type MeetingBrowserRequestCaller,
   type MeetingRealtimeAudioEngineHandle,
-} from "openclaw/plugin-sdk/meeting-runtime";
-import { addTimerTimeoutGraceMs } from "openclaw/plugin-sdk/number-runtime";
-import type { PluginRuntime, RuntimeLogger } from "openclaw/plugin-sdk/plugin-runtime";
-import { resolveTranscriptsConfig } from "openclaw/plugin-sdk/transcripts";
+} from "granted/plugin-sdk/meeting-runtime";
+import { addTimerTimeoutGraceMs } from "granted/plugin-sdk/number-runtime";
+import type { PluginRuntime, RuntimeLogger } from "granted/plugin-sdk/plugin-runtime";
+import { resolveTranscriptsConfig } from "granted/plugin-sdk/transcripts";
 import type { GoogleMeetConfig, GoogleMeetMode } from "../config.js";
 import {
   callBrowserProxyOnNode,

@@ -1,12 +1,12 @@
 // Discord tests cover provider plugin behavior.
 import { EventEmitter } from "node:events";
-import type { ChannelRuntimeSurface } from "openclaw/plugin-sdk/channel-contract";
-import { createPluginRuntimeMock } from "openclaw/plugin-sdk/channel-test-helpers";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { ChannelRuntimeSurface } from "granted/plugin-sdk/channel-contract";
+import { createPluginRuntimeMock } from "granted/plugin-sdk/channel-test-helpers";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   createEmptyPluginRegistry,
   setActivePluginRegistry,
-} from "openclaw/plugin-sdk/plugin-test-runtime";
+} from "granted/plugin-sdk/plugin-test-runtime";
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { RateLimitError } from "../internal/discord.js";
 import {

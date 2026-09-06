@@ -3,18 +3,18 @@ import {
   installChannelOutboundPayloadContractSuite,
   primeChannelOutboundSendMock,
   type OutboundPayloadHarnessParams,
-} from "openclaw/plugin-sdk/channel-contract-testing";
+} from "granted/plugin-sdk/channel-contract-testing";
 import {
   createMessageReceiptFromOutboundResults,
   sendDurableMessageBatch,
   verifyChannelMessageAdapterCapabilityProofs,
-} from "openclaw/plugin-sdk/channel-outbound";
+} from "granted/plugin-sdk/channel-outbound";
 import {
   createEmptyPluginRegistry,
   createTestRegistry,
   resetPluginRuntimeStateForTest,
   setActivePluginRegistry,
-} from "openclaw/plugin-sdk/plugin-test-runtime";
+} from "granted/plugin-sdk/plugin-test-runtime";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { zaloPlugin } from "./channel.js";
 

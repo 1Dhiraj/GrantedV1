@@ -1,9 +1,9 @@
 import { execFileSync } from "node:child_process";
-import { resolveAgentDir } from "openclaw/plugin-sdk/agent-scope-runtime";
+import { resolveAgentDir } from "granted/plugin-sdk/agent-scope-runtime";
 import {
   isProviderAuthProfileConfigured,
   resolveProviderAuthProfileApiKey,
-} from "openclaw/plugin-sdk/provider-auth";
+} from "granted/plugin-sdk/provider-auth";
 import type {
   OpenAICompatibleRealtimeAudioFormat,
   RealtimeVoiceAudioFormat,
@@ -12,23 +12,23 @@ import type {
   RealtimeVoiceProviderCapabilities,
   RealtimeVoiceProviderConfig,
   RealtimeVoiceTool,
-} from "openclaw/plugin-sdk/realtime-voice";
+} from "granted/plugin-sdk/realtime-voice";
 import {
   REALTIME_VOICE_AUDIO_FORMAT_G711_ULAW_8KHZ,
   REALTIME_VOICE_AUDIO_FORMAT_PCM16_24KHZ,
   toOpenAICompatibleRealtimeAudioFormat,
-} from "openclaw/plugin-sdk/realtime-voice";
-import { warn } from "openclaw/plugin-sdk/runtime-env";
+} from "granted/plugin-sdk/realtime-voice";
+import { warn } from "granted/plugin-sdk/runtime-env";
 import {
   normalizeResolvedSecretInputString,
   normalizeSecretInputString,
-} from "openclaw/plugin-sdk/secret-input";
+} from "granted/plugin-sdk/secret-input";
 import {
   asFiniteNumber,
   asFiniteNumberInRange,
   asSafeIntegerInRange,
   normalizeOptionalString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import {
   readRealtimeErrorDetail,
   resolveOpenAIProviderConfigRecord,
@@ -74,7 +74,7 @@ export type OpenAIRealtimeVoiceBridgeConfig = RealtimeVoiceBridgeCreateRequest &
   azureEndpoint?: string;
   azureDeployment?: string;
   azureApiVersion?: string;
-  logger: Pick<import("openclaw/plugin-sdk/plugin-entry").PluginLogger, "warn">;
+  logger: Pick<import("granted/plugin-sdk/plugin-entry").PluginLogger, "warn">;
 };
 
 export const OPENAI_REALTIME_DEFAULT_MODEL = "gpt-realtime-2.1";

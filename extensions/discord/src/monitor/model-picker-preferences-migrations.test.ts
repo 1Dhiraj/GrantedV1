@@ -1,12 +1,12 @@
 // Discord tests cover model picker preferences migrations plugin behavior.
 import fs from "node:fs/promises";
 import path from "node:path";
-import { buildLegacyMigrationPreview } from "openclaw/plugin-sdk/runtime-doctor-migrations";
+import { buildLegacyMigrationPreview } from "granted/plugin-sdk/runtime-doctor-migrations";
 import {
   resolvePreferredOpenClawTmpDir,
   tempWorkspace,
   type TempWorkspace,
-} from "openclaw/plugin-sdk/temp-path";
+} from "granted/plugin-sdk/temp-path";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { stateMigrations } from "../../doctor-contract-api.js";
 import { detectDiscordLegacyStateMigrations } from "./model-picker-preferences-migrations.js";

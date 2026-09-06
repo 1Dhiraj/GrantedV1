@@ -128,7 +128,7 @@ describe("scripts/check-deprecated-api-usage", () => {
   it("flags internal facade imports across static, relative, scoped, and dynamic forms", () => {
     const result = runRules({
       "src/channels/probe.ts": [
-        'import { createChannelReplyPipeline } from "openclaw/plugin-sdk/channel-reply-pipeline";',
+        'import { createChannelReplyPipeline } from "granted/plugin-sdk/channel-reply-pipeline";',
         'export { runChannelInboundEvent } from "../plugin-sdk/inbound-reply-dispatch.js";',
         'const facade = await import ("../plugin-sdk/channel-message.js", { with: {} });',
       ].join("\n"),
@@ -149,7 +149,7 @@ describe("scripts/check-deprecated-api-usage", () => {
       "src/plugin-sdk/inbound-reply-dispatch.ts":
         'export { runChannelInboundEvent } from "./channel-inbound.js";',
       "src/plugin-sdk/channel-message.test.ts":
-        'const mod = await import("openclaw/plugin-sdk/channel-message");',
+        'const mod = await import("granted/plugin-sdk/channel-message");',
     });
 
     expect(result.stderr).toBe("");
@@ -160,11 +160,11 @@ describe("scripts/check-deprecated-api-usage", () => {
     const result = runRules(
       {
         "src/a.ts":
-          'import { x } from "openclaw/plugin-sdk/channel-message";\ndeliverOutboundPayloads();',
+          'import { x } from "granted/plugin-sdk/channel-message";\ndeliverOutboundPayloads();',
         "extensions/probe/src/a.ts":
-          'export { x } from "openclaw/plugin-sdk/channel-reply-pipeline";\ndeliverOutboundPayloads();',
+          'export { x } from "granted/plugin-sdk/channel-reply-pipeline";\ndeliverOutboundPayloads();',
         "packages/a.ts":
-          'import { x } from "openclaw/plugin-sdk/command-auth";\ndeliverOutboundPayloads();',
+          'import { x } from "granted/plugin-sdk/command-auth";\ndeliverOutboundPayloads();',
         "src/infra/outbound/deliver.ts": "deliverOutboundPayloads();",
         "src/a.test.ts": "deliverOutboundPayloads();",
       },

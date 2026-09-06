@@ -8,11 +8,11 @@ import {
   requireAllowlistAllowFrom,
   requireOpenAllowFrom,
   ToolPolicySchema,
-} from "openclaw/plugin-sdk/channel-config-schema";
+} from "granted/plugin-sdk/channel-config-schema";
 import {
   buildSecretInputSchema,
   registerSensitiveConfigSchema,
-} from "openclaw/plugin-sdk/secret-input";
+} from "granted/plugin-sdk/secret-input";
 import { z } from "zod";
 import { msTeamsChannelConfigUiHints } from "./config-ui-hints.js";
 

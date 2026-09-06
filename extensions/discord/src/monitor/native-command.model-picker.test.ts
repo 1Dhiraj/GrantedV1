@@ -3,16 +3,16 @@ import { mkdtemp, rm } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { ChannelType } from "discord-api-types/v10";
-import * as commandRegistryModule from "openclaw/plugin-sdk/command-auth-native";
+import * as commandRegistryModule from "granted/plugin-sdk/command-auth-native";
 import type {
   ChatCommandDefinition,
   CommandArgsParsing,
   ModelsProviderData,
-} from "openclaw/plugin-sdk/command-auth-native";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { ResolvedAgentRoute } from "openclaw/plugin-sdk/routing";
-import * as runtimeConfigSnapshotModule from "openclaw/plugin-sdk/runtime-config-snapshot";
-import * as commandTextModule from "openclaw/plugin-sdk/text-utility-runtime";
+} from "granted/plugin-sdk/command-auth-native";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { ResolvedAgentRoute } from "granted/plugin-sdk/routing";
+import * as runtimeConfigSnapshotModule from "granted/plugin-sdk/runtime-config-snapshot";
+import * as commandTextModule from "granted/plugin-sdk/text-utility-runtime";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { defineThrowingDiscordChannelGetter } from "../test-support/partial-channel.js";
 import { resolveDiscordChannelContext } from "./agent-components-context.js";

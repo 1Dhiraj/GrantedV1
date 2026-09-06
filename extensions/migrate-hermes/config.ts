@@ -3,13 +3,13 @@ import {
   createMigrationManualItem,
   hasMigrationConfigPatchConflict,
   mergeMigrationConfigValue,
-} from "openclaw/plugin-sdk/migration";
-import type { MigrationItem, MigrationProviderContext } from "openclaw/plugin-sdk/plugin-entry";
+} from "granted/plugin-sdk/migration";
+import type { MigrationItem, MigrationProviderContext } from "granted/plugin-sdk/plugin-entry";
 import {
   asNonArrayRecord,
   isRecord,
   normalizeOptionalString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import { parse as parseYaml } from "yaml";
 import { importsMcpSensitiveValues, mapMcpServer, mcpManualItems } from "./config-mcp.js";
 import { providerConfig } from "./config-provider-contract.js";

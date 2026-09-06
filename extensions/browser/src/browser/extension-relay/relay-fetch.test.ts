@@ -1,5 +1,5 @@
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
-import { asOptionalRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
+import { asOptionalRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import { describe, expect, it, onTestFinished, vi } from "vitest";
 import { RelayFetch } from "./relay-fetch.js";
 

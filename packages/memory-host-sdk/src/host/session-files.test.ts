@@ -5,7 +5,7 @@ import path from "node:path";
 import {
   clearConfigCache,
   clearRuntimeConfigSnapshot,
-} from "openclaw/plugin-sdk/runtime-config-snapshot";
+} from "granted/plugin-sdk/runtime-config-snapshot";
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { markInboundContextLabel } from "../../../../src/auto-reply/reply/inbound-context-marker.js";
 import { encodeSessionArchiveContent } from "../../../../src/config/sessions/archive-compression.js";

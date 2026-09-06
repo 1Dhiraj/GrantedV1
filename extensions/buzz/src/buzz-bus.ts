@@ -1,5 +1,5 @@
 import { type Relay, finalizeEvent, type Event } from "nostr-tools";
-import { createChannelReplayGuard } from "openclaw/plugin-sdk/persistent-dedupe";
+import { createChannelReplayGuard } from "granted/plugin-sdk/persistent-dedupe";
 import {
   queryBuzzDirectoryProfiles,
   queryBuzzDirectoryRooms,

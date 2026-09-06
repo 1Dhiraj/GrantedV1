@@ -1,9 +1,9 @@
 // Xai plugin module implements model definitions behavior.
-import type { ModelDefinitionConfig } from "openclaw/plugin-sdk/provider-model-shared";
+import type { ModelDefinitionConfig } from "granted/plugin-sdk/provider-model-shared";
 import {
   asOptionalRecord,
   normalizeOptionalLowercaseString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import { isXaiFrontierModelId, isXaiGrok46ModelId, normalizeXaiModelId } from "./model-id.js";
 
 export const XAI_BASE_URL = "https://api.x.ai/v1";

@@ -1,17 +1,17 @@
-import { buildExecApprovalPendingReplyPayload } from "openclaw/plugin-sdk/approval-reply-runtime";
+import { buildExecApprovalPendingReplyPayload } from "granted/plugin-sdk/approval-reply-runtime";
 // Signal tests cover core plugin behavior.
 import {
   createMessageReceiptFromOutboundResults,
   verifyChannelMessageAdapterCapabilityProofs,
-} from "openclaw/plugin-sdk/channel-outbound";
-import { installChannelDmPolicyContractSuite } from "openclaw/plugin-sdk/channel-test-helpers";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+} from "granted/plugin-sdk/channel-outbound";
+import { installChannelDmPolicyContractSuite } from "granted/plugin-sdk/channel-test-helpers";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   createPluginSetupWizardStatus,
   createTestWizardPrompter,
   type WizardPrompter,
-} from "openclaw/plugin-sdk/plugin-test-runtime";
-import type { ReplyPayload } from "openclaw/plugin-sdk/reply-runtime";
+} from "granted/plugin-sdk/plugin-test-runtime";
+import type { ReplyPayload } from "granted/plugin-sdk/reply-runtime";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { listSignalAccountIds } from "./accounts.js";
 import {

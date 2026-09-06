@@ -1,4 +1,4 @@
-import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginApi } from "granted/plugin-sdk/plugin-entry";
 import { resolveDiscordAccount } from "../accounts.js";
 import { sendDiscordComponentMessage } from "../send.components.js";
 import { buildDiscordPresentationComponents } from "../shared-interactive.js";

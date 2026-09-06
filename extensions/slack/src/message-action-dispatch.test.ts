@@ -3,7 +3,7 @@ import {
   createTestRegistry,
   resetPluginRuntimeStateForTest,
   setActivePluginRegistry,
-} from "openclaw/plugin-sdk/channel-test-helpers";
+} from "granted/plugin-sdk/channel-test-helpers";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { slackSetupPlugin } from "./channel.setup.js";
 import { handleSlackMessageAction } from "./message-action-dispatch.js";

@@ -5,9 +5,9 @@ import path from "node:path";
 import {
   closeOpenClawStateDatabaseForTest,
   createChannelIngressQueueForTests,
-} from "openclaw/plugin-sdk/channel-ingress-test-runtime";
-import { DEFAULT_INGRESS_RETRY_MAX_ATTEMPTS } from "openclaw/plugin-sdk/channel-outbound";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+} from "granted/plugin-sdk/channel-ingress-test-runtime";
+import { DEFAULT_INGRESS_RETRY_MAX_ATTEMPTS } from "granted/plugin-sdk/channel-outbound";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { startSignalIngressMonitor } from "../signal-ingress.js";
 import type { SignalEventHandlerDeps } from "./event-handler.types.js";
@@ -67,7 +67,7 @@ vi.mock("../send-reactions.js", () => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/reply-runtime", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/reply-runtime")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/reply-runtime")>(
     "openclaw/plugin-sdk/reply-runtime",
   );
   return {
@@ -79,7 +79,7 @@ vi.mock("openclaw/plugin-sdk/reply-runtime", async () => {
 });
 
 vi.mock("openclaw/plugin-sdk/channel-inbound", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/channel-inbound")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/channel-inbound")>(
     "openclaw/plugin-sdk/channel-inbound",
   );
   type RunParams = Parameters<typeof actual.runChannelInboundEvent>[0];
@@ -124,7 +124,7 @@ vi.mock("openclaw/plugin-sdk/channel-inbound", async () => {
 });
 
 vi.mock("openclaw/plugin-sdk/conversation-runtime", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/conversation-runtime")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/conversation-runtime")>(
     "openclaw/plugin-sdk/conversation-runtime",
   );
   return {

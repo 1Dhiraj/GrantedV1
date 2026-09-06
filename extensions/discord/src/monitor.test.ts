@@ -1,8 +1,8 @@
 // Discord tests cover monitor plugin behavior.
 import { GatewayDispatchEvents } from "discord-api-types/v10";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
-import { danger } from "openclaw/plugin-sdk/runtime-env";
-import { createRequireRecord, typedCases } from "openclaw/plugin-sdk/test-fixtures";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
+import { danger } from "granted/plugin-sdk/runtime-env";
+import { createRequireRecord, typedCases } from "granted/plugin-sdk/test-fixtures";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { ChannelType, type Guild } from "./internal/discord.js";
 import { mapGatewayDispatchData } from "./internal/gateway-dispatch.js";
@@ -31,7 +31,7 @@ type DiscordReactionClient = Parameters<
 const readAllowFromStoreMock = vi.hoisted(() => vi.fn());
 
 vi.mock("openclaw/plugin-sdk/conversation-runtime", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/conversation-runtime")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/conversation-runtime")>(
     "openclaw/plugin-sdk/conversation-runtime",
   );
   return {
@@ -176,7 +176,7 @@ describe("DiscordMessageListener", () => {
       warn: vi.fn(),
       error: vi.fn(),
     } as unknown as ReturnType<
-      typeof import("openclaw/plugin-sdk/logging-core").createSubsystemLogger
+      typeof import("granted/plugin-sdk/logging-core").createSubsystemLogger
     >;
     const handler = vi.fn(async () => {
       throw new Error("boom");
@@ -200,7 +200,7 @@ describe("DiscordMessageListener", () => {
       warn: vi.fn(),
       error: vi.fn(),
     } as unknown as ReturnType<
-      typeof import("openclaw/plugin-sdk/logging-core").createSubsystemLogger
+      typeof import("granted/plugin-sdk/logging-core").createSubsystemLogger
     >;
     const listener = new DiscordMessageListener(handler, logger);
 
@@ -910,13 +910,13 @@ const { enqueueSystemEventSpy, resolveAgentRouteMock } = vi.hoisted(() => ({
   })),
 }));
 
-const channelRuntimeModule = await import("openclaw/plugin-sdk/system-event-runtime");
+const channelRuntimeModule = await import("granted/plugin-sdk/system-event-runtime");
 vi.spyOn(channelRuntimeModule, "enqueueRoutedSystemEvent").mockImplementation(
   (text, route, options) =>
     enqueueSystemEventSpy(text, { ...options, sessionKey: route.sessionKey }) as boolean,
 );
 
-const routingModule = await import("openclaw/plugin-sdk/routing");
+const routingModule = await import("granted/plugin-sdk/routing");
 vi.spyOn(routingModule, "resolveAgentRoute").mockImplementation(resolveAgentRouteMock);
 
 const {
@@ -1024,9 +1024,9 @@ function makeReactionListenerParams(overrides?: {
   guildEntries?: Record<string, DiscordGuildEntryResolved>;
 }) {
   return {
-    cfg: {} as import("openclaw/plugin-sdk/config-contracts").GrantedConfig,
+    cfg: {} as import("granted/plugin-sdk/config-contracts").GrantedConfig,
     accountId: "acc-1",
-    runtime: {} as import("openclaw/plugin-sdk/runtime-env").RuntimeEnv,
+    runtime: {} as import("granted/plugin-sdk/runtime-env").RuntimeEnv,
     botUserId: overrides?.botUserId ?? "bot-1",
     dmEnabled: overrides?.dmEnabled ?? true,
     groupDmEnabled: overrides?.groupDmEnabled ?? true,
@@ -1042,7 +1042,7 @@ function makeReactionListenerParams(overrides?: {
       error: vi.fn(),
       debug: vi.fn(),
     } as unknown as ReturnType<
-      typeof import("openclaw/plugin-sdk/logging-core").createSubsystemLogger
+      typeof import("granted/plugin-sdk/logging-core").createSubsystemLogger
     >,
   };
 }

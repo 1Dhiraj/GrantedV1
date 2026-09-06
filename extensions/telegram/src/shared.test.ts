@@ -1,5 +1,5 @@
 // Telegram tests cover shared plugin behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { describe, expect, it } from "vitest";
 import type { ResolvedTelegramAccount } from "./accounts.js";
 import { telegramConfigAdapter } from "./config-adapter.js";

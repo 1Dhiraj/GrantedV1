@@ -1,5 +1,5 @@
 import { randomUUID } from "node:crypto";
-import { asOptionalRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { asOptionalRecord } from "granted/plugin-sdk/string-coerce-runtime";
 
 type PhysicalSender = (method: string, params?: Record<string, unknown>) => Promise<unknown>;
 type EventSender = (method: string, params: unknown) => void;

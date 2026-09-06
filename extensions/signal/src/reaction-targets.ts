@@ -1,6 +1,6 @@
-import type { OutboundDeliveryResult } from "openclaw/plugin-sdk/channel-send-result";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { ReplyPayload } from "openclaw/plugin-sdk/reply-runtime";
+import type { OutboundDeliveryResult } from "granted/plugin-sdk/channel-send-result";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { ReplyPayload } from "granted/plugin-sdk/reply-runtime";
 import { registerSignalApprovalReactionTargetForDeliveredPayload } from "./approval-reactions.js";
 import { registerSignalQuestionReactionTargetForDeliveredPayload } from "./question-reactions.js";
 

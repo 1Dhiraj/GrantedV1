@@ -1,11 +1,11 @@
 // iMessage transport binding for numbered ask_user reactions.
-import type { OutboundDeliveryResult } from "openclaw/plugin-sdk/channel-send-result";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { OutboundDeliveryResult } from "granted/plugin-sdk/channel-send-result";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   createQuestionReactionTargetStore,
   questionGatewayRuntime,
-} from "openclaw/plugin-sdk/question-gateway-runtime";
-import type { ReplyPayload } from "openclaw/plugin-sdk/reply-runtime";
+} from "granted/plugin-sdk/question-gateway-runtime";
+import type { ReplyPayload } from "granted/plugin-sdk/reply-runtime";
 import { resolveIMessageReactionContext } from "./monitor/reaction-context.js";
 import type { IMessagePayload } from "./monitor/types.js";
 

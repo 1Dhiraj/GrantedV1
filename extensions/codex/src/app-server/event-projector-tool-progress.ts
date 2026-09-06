@@ -3,9 +3,9 @@ import {
   TOOL_PROGRESS_OUTPUT_MAX_CHARS,
   type EmbeddedRunAttemptParamsV2 as EmbeddedRunAttemptParams,
   type ToolProgressDetailMode,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
-import { readStringField as readString } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+} from "granted/plugin-sdk/agent-harness-runtime";
+import { readStringField as readString } from "granted/plugin-sdk/string-coerce-runtime";
+import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import type { EmbeddedRunAttemptResult } from "./attempt-terminal.js";
 import {
   auditNativeToolTerminalStatus,

@@ -1,6 +1,6 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
 import { runQaSuite } from "./suite-launch.runtime.js";
 
 const repoRoot = fileURLToPath(new URL("../../../", import.meta.url));

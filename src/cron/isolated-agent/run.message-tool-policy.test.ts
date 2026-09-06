@@ -1,5 +1,5 @@
 // Message tool policy tests cover message tool availability during cron runs.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { createSourceDeliveryPlan } from "../../infra/outbound/source-delivery-plan.js";
 import type { SkillSnapshot } from "../../skills/types.js";

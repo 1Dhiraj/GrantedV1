@@ -1,12 +1,12 @@
 // Zalo tests cover setup surface plugin behavior.
-import { adaptScopedAccountAccessor } from "openclaw/plugin-sdk/channel-config-helpers";
-import { installChannelDmPolicyContractSuite } from "openclaw/plugin-sdk/channel-test-helpers";
+import { adaptScopedAccountAccessor } from "granted/plugin-sdk/channel-config-helpers";
+import { installChannelDmPolicyContractSuite } from "granted/plugin-sdk/channel-test-helpers";
 import {
   createPluginSetupWizardConfigure,
   createTestWizardPrompter,
   runSetupWizardConfigure,
-} from "openclaw/plugin-sdk/plugin-test-runtime";
-import type { WizardPrompter } from "openclaw/plugin-sdk/plugin-test-runtime";
+} from "granted/plugin-sdk/plugin-test-runtime";
+import type { WizardPrompter } from "granted/plugin-sdk/plugin-test-runtime";
 import { describe, expect, it, vi } from "vitest";
 import type { GrantedConfig } from "../runtime-api.js";
 import { listZaloAccountIds, resolveDefaultZaloAccountId, resolveZaloAccount } from "./accounts.js";

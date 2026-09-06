@@ -1,7 +1,7 @@
 // Voice Call API module exposes the plugin public contract.
-import type { GrantedConfig } from "openclaw/plugin-sdk/plugin-entry";
-import { definePluginEntry } from "openclaw/plugin-sdk/plugin-entry";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/plugin-entry";
+import { definePluginEntry } from "granted/plugin-sdk/plugin-entry";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import { migrateVoiceCallLegacyConfigInput } from "./src/config-migration.js";
 
 // Setup-time entrypoint for voice-call config migrations.

@@ -1,5 +1,5 @@
-import { formatErrorMessage as formatSharedErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import type { QaBusStateSnapshot } from "openclaw/plugin-sdk/qa-channel-protocol";
+import { formatErrorMessage as formatSharedErrorMessage } from "granted/plugin-sdk/error-runtime";
+import type { QaBusStateSnapshot } from "granted/plugin-sdk/qa-channel-protocol";
 // Qa Lab plugin module implements app behavior.
 import { defaultQaModelForMode, isQaFastModeEnabled } from "../../model-selection.js";
 import { normalizeCaptureSavedView, normalizeCaptureSavedViews } from "./capture-saved-view.js";

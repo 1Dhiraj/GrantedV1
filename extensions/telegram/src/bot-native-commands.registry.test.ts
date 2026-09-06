@@ -2,17 +2,17 @@ import {
   createEmptyPluginRegistry,
   resetPluginRuntimeStateForTest,
   setActivePluginRegistry,
-} from "openclaw/plugin-sdk/channel-test-helpers";
+} from "granted/plugin-sdk/channel-test-helpers";
 // Telegram tests cover bot native commands.registry plugin behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { clearPluginCommands, registerPluginCommand } from "openclaw/plugin-sdk/plugin-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { clearPluginCommands, registerPluginCommand } from "granted/plugin-sdk/plugin-runtime";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 
 const retainNativeCatalog = vi.hoisted(() => vi.fn());
 
 vi.mock("openclaw/plugin-sdk/plugin-command-runtime", async (importOriginal) => {
   const actual =
-    await importOriginal<typeof import("openclaw/plugin-sdk/plugin-command-runtime")>();
+    await importOriginal<typeof import("granted/plugin-sdk/plugin-command-runtime")>();
   return {
     ...actual,
     createPluginCommandRuntime: () => {

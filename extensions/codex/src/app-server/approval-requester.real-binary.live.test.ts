@@ -1,16 +1,16 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { EmbeddedRunAttemptParamsV2 as EmbeddedRunAttemptParams } from "openclaw/plugin-sdk/agent-harness-runtime";
+import type { EmbeddedRunAttemptParamsV2 as EmbeddedRunAttemptParams } from "granted/plugin-sdk/agent-harness-runtime";
 import {
   initializeGlobalHookRunner,
   resetGlobalHookRunner,
-} from "openclaw/plugin-sdk/hook-runtime";
+} from "granted/plugin-sdk/hook-runtime";
 import {
   createAgentHarnessHostCapabilitiesForTest,
   createMockPluginRegistry,
-} from "openclaw/plugin-sdk/plugin-test-runtime";
-import { withTempDir } from "openclaw/plugin-sdk/test-env";
-import type { PluginHookToolContext } from "openclaw/plugin-sdk/types";
+} from "granted/plugin-sdk/plugin-test-runtime";
+import { withTempDir } from "granted/plugin-sdk/test-env";
+import type { PluginHookToolContext } from "granted/plugin-sdk/types";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { resolveCodexAppServerRuntimeOptions } from "./config.js";
 import type { CodexModelListResponse } from "./protocol.js";

@@ -1,10 +1,10 @@
 // Telegram supersede policy for durable ingress (authorization-gated).
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   addChannelAllowFromStoreEntry,
   closeOpenClawStateDatabaseForTest,
-} from "openclaw/plugin-sdk/plugin-state-test-runtime";
-import { createOpenClawTestState, type GrantedTestState } from "openclaw/plugin-sdk/test-state";
+} from "granted/plugin-sdk/plugin-state-test-runtime";
+import { createOpenClawTestState, type GrantedTestState } from "granted/plugin-sdk/test-state";
 import { afterEach, describe, expect, it } from "vitest";
 
 let openClawState: GrantedTestState | undefined;

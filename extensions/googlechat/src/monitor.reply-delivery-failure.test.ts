@@ -7,8 +7,8 @@
 // The service account key is a throwaway RSA key generated in-process; no real
 // credentials or network access are involved.
 import { generateKeyPairSync } from "node:crypto";
-import { isChannelPartialDeliveryError } from "openclaw/plugin-sdk/channel-inbound";
-import { withServer } from "openclaw/plugin-sdk/test-env";
+import { isChannelPartialDeliveryError } from "granted/plugin-sdk/channel-inbound";
+import { withServer } from "granted/plugin-sdk/test-env";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { GrantedConfig } from "../runtime-api.js";
 import type { ResolvedGoogleChatAccount } from "./accounts.js";

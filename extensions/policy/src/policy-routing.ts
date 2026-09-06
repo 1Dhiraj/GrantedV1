@@ -1,10 +1,10 @@
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   resolveAgentRoute,
   type ResolvedAgentRoute,
   type RoutePeer,
-} from "openclaw/plugin-sdk/routing";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/routing";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 
 export const ROUTING_MATCH_KINDS = [
   "binding.peer",

@@ -7,7 +7,7 @@ import {
   resolvePreferredOpenClawTmpDir,
   tempWorkspace,
   type TempWorkspace,
-} from "openclaw/plugin-sdk/temp-path";
+} from "granted/plugin-sdk/temp-path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { GRANTED_CODEX_CONFIG_ARG } from "./codex-adapter.js";
 import { prepareAcpxCodexAuthConfig } from "./codex-auth-bridge.js";

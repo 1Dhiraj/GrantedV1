@@ -2,7 +2,7 @@
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { openNodeSqliteDatabase } from "openclaw/plugin-sdk/sqlite-runtime";
+import { openNodeSqliteDatabase } from "granted/plugin-sdk/sqlite-runtime";
 import type { GrantedConfig } from "../config/config.js";
 import { getRuntimeConfig } from "../config/config.js";
 import { resolvePreferredOpenClawTmpDir } from "../infra/tmp-openclaw-dir.js";

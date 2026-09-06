@@ -7,21 +7,21 @@ import {
   isGatewayClientRequestError,
   resolveNodeFromNodeList,
   type NodeMatchCandidate,
-} from "openclaw/plugin-sdk/gateway-runtime";
+} from "granted/plugin-sdk/gateway-runtime";
 import {
   buildNodeInvokeParams,
   getNodesTheme,
   nodesCallOpts,
   runNodesCommand,
-} from "openclaw/plugin-sdk/node-cli-runtime";
+} from "granted/plugin-sdk/node-cli-runtime";
 import {
   addTimerTimeoutGraceMs,
   clampPositiveTimerTimeoutMs,
   parseStrictFiniteNumber,
   parseStrictPositiveInteger,
-} from "openclaw/plugin-sdk/number-runtime";
-import { defaultRuntime } from "openclaw/plugin-sdk/runtime";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/number-runtime";
+import { defaultRuntime } from "granted/plugin-sdk/runtime";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 
 /** Runtime output surface used by Canvas CLI commands. */
 type CanvasCliRuntime = {

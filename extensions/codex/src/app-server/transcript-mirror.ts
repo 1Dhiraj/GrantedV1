@@ -7,15 +7,15 @@ import {
   runAgentHarnessBeforeMessageWriteHook,
   type AgentMessage,
   type EmbeddedRunAttemptParamsV2 as EmbeddedRunAttemptParams,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
-import { withCodexSessionTranscriptMirrorWriteLock } from "openclaw/plugin-sdk/codex-session-transcript-runtime";
+} from "granted/plugin-sdk/agent-harness-runtime";
+import { withCodexSessionTranscriptMirrorWriteLock } from "granted/plugin-sdk/codex-session-transcript-runtime";
 import {
   publishSessionTranscriptUpdateByIdentity,
   type TranscriptEntryAnchor,
   type SessionTranscriptTargetParams,
   type SessionTranscriptWriteLockParams,
-} from "openclaw/plugin-sdk/session-transcript-runtime";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/session-transcript-runtime";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import type { EmbeddedRunAttemptResult } from "./attempt-terminal.js";
 import type { CodexAsyncAssistantMessage } from "./event-projector-assistant-message.js";
 import type { CodexAsyncDeliverySettlement } from "./event-projector-options.js";

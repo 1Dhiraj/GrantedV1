@@ -1,13 +1,13 @@
 // OpenCode Zen stream adapter handles provider-specific Responses wire compatibility.
-import type { StreamFn } from "openclaw/plugin-sdk/agent-core";
+import type { StreamFn } from "granted/plugin-sdk/agent-core";
 import {
   streamSimple,
   type AssistantMessage,
   type AssistantMessageEvent,
   type ToolCall,
-} from "openclaw/plugin-sdk/llm";
-import type { ProviderWrapStreamFnContext } from "openclaw/plugin-sdk/plugin-entry";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/llm";
+import type { ProviderWrapStreamFnContext } from "granted/plugin-sdk/plugin-entry";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 
 const WEB_SEARCH = "web_search";
 const WEB_SEARCH_ALIAS = "openclaw_web_search";

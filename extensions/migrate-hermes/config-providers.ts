@@ -1,7 +1,7 @@
 // Hermes provider config collection and migration planning.
-import { createMigrationManualItem } from "openclaw/plugin-sdk/migration";
-import type { MigrationItem } from "openclaw/plugin-sdk/plugin-entry";
-import { isRecord, normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { createMigrationManualItem } from "granted/plugin-sdk/migration";
+import type { MigrationItem } from "granted/plugin-sdk/plugin-entry";
+import { isRecord, normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   HERMES_TRANSPORTS,
   collectProviderModels,

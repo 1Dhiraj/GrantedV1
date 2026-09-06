@@ -1,5 +1,5 @@
 // Slack tests cover outbound delivery plugin behavior.
-import { sendDurableMessageBatch } from "openclaw/plugin-sdk/channel-outbound";
+import { sendDurableMessageBatch } from "granted/plugin-sdk/channel-outbound";
 import {
   addTestHook,
   createEmptyPluginRegistry,
@@ -10,9 +10,9 @@ import {
   resetGlobalHookRunner,
   setActivePluginRegistry,
   type PluginHookRegistration,
-} from "openclaw/plugin-sdk/channel-test-helpers";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { ReplyPayload } from "openclaw/plugin-sdk/reply-runtime";
+} from "granted/plugin-sdk/channel-test-helpers";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { ReplyPayload } from "granted/plugin-sdk/reply-runtime";
 import { afterEach, assert, beforeEach, describe, expect, it, vi } from "vitest";
 import { createSlackSendTestClient } from "./blocks.test-helpers.js";
 import * as clientDelivery from "./client-delivery.js";

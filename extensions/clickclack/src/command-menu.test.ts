@@ -1,4 +1,4 @@
-import type { NativeCommandSpec } from "openclaw/plugin-sdk/native-command-registry";
+import type { NativeCommandSpec } from "granted/plugin-sdk/native-command-registry";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const mocks = vi.hoisted(() => ({

@@ -17,9 +17,9 @@ type LoginOpenAICodexOAuth = (params: unknown) => Promise<{
   email?: string;
 } | null>;
 type EnsureAuthProfileStore =
-  typeof import("openclaw/plugin-sdk/provider-auth").ensureAuthProfileStore;
+  typeof import("granted/plugin-sdk/provider-auth").ensureAuthProfileStore;
 type ListProfilesForProvider =
-  typeof import("openclaw/plugin-sdk/provider-auth").listProfilesForProvider;
+  typeof import("granted/plugin-sdk/provider-auth").listProfilesForProvider;
 
 const ensureAuthProfileStoreMock = vi.hoisted(() => vi.fn<EnsureAuthProfileStore>());
 const listProfilesForProviderMock = vi.hoisted(() => vi.fn<ListProfilesForProvider>());
@@ -114,7 +114,7 @@ function buildOpenAICodexOAuthResult(params: {
 function installSharedAuthProfileStoreHooks(state: { authStore: AuthProfileStore }) {
   beforeEach(() => {
     vi.doMock("openclaw/plugin-sdk/provider-auth", async () => {
-      const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/provider-auth")>(
+      const actual = await vi.importActual<typeof import("granted/plugin-sdk/provider-auth")>(
         "openclaw/plugin-sdk/provider-auth",
       );
       return {

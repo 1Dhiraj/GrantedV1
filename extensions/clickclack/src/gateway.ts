@@ -2,14 +2,14 @@
  * Gateway loop for polling ClickClack backlog events, opening the realtime
  * websocket, and dispatching user messages into OpenClaw.
  */
-import type { ChannelGatewayContext } from "openclaw/plugin-sdk/channel-contract";
-import type { PluginRuntime } from "openclaw/plugin-sdk/channel-core";
-import type { buildChannelInboundEventContext } from "openclaw/plugin-sdk/channel-inbound";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import { channelReadyPatch, channelStoppedPatch } from "openclaw/plugin-sdk/gateway-runtime";
-import { sleepWithAbort } from "openclaw/plugin-sdk/runtime-env";
-import { readStringField } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { rawDataToString } from "openclaw/plugin-sdk/webhook-ingress";
+import type { ChannelGatewayContext } from "granted/plugin-sdk/channel-contract";
+import type { PluginRuntime } from "granted/plugin-sdk/channel-core";
+import type { buildChannelInboundEventContext } from "granted/plugin-sdk/channel-inbound";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
+import { channelReadyPatch, channelStoppedPatch } from "granted/plugin-sdk/gateway-runtime";
+import { sleepWithAbort } from "granted/plugin-sdk/runtime-env";
+import { readStringField } from "granted/plugin-sdk/string-coerce-runtime";
+import { rawDataToString } from "granted/plugin-sdk/webhook-ingress";
 import type { RawData } from "ws";
 import { resolveClickClackInboundAccess } from "./access.js";
 import { resolveClickClackAccount } from "./accounts.js";

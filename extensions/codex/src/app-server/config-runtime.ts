@@ -1,4 +1,4 @@
-import { normalizeTrimmedStringList } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { normalizeTrimmedStringList } from "granted/plugin-sdk/string-coerce-runtime";
 import { parse as parseToml } from "smol-toml";
 import type {
   CodexAppServerApprovalPolicySource,

@@ -1,13 +1,13 @@
 // Voice Call plugin module implements cli behavior.
 import path from "node:path";
 import type { Command } from "commander";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import { MAX_TCP_PORT } from "openclaw/plugin-sdk/number-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
+import { MAX_TCP_PORT } from "granted/plugin-sdk/number-runtime";
 import {
   isRecord,
   normalizeOptionalLowercaseString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import { registerVoiceCallLogs } from "./cli-call-log.js";
 import { parseCliInteger, writeCliJson, writeCliLine } from "./cli-command-io.js";
 import {

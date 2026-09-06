@@ -1,19 +1,19 @@
-import { EmbeddedBlockChunker } from "openclaw/plugin-sdk/agent-runtime";
+import { EmbeddedBlockChunker } from "granted/plugin-sdk/agent-runtime";
 import {
   type ChannelProgressDraftLine,
   createChannelProgressDraftCompositor,
   resolveChannelStreamingBlockEnabled,
   resolveChannelStreamingPreviewCommandText,
   resolveChannelStreamingProgressNarration,
-} from "openclaw/plugin-sdk/channel-outbound";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { expectDefined } from "openclaw/plugin-sdk/expect-runtime";
-import { getGlobalHookRunner } from "openclaw/plugin-sdk/plugin-runtime";
+} from "granted/plugin-sdk/channel-outbound";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { expectDefined } from "granted/plugin-sdk/expect-runtime";
+import { getGlobalHookRunner } from "granted/plugin-sdk/plugin-runtime";
 import {
   convertMarkdownTables,
   stripInlineDirectiveTagsForDelivery,
   stripReasoningTagsFromText,
-} from "openclaw/plugin-sdk/text-chunking";
+} from "granted/plugin-sdk/text-chunking";
 import { chunkDiscordTextWithMode } from "../chunk.js";
 import { resolveDiscordDraftStreamingChunking } from "../draft-chunking.js";
 import { createDiscordDraftStream } from "../draft-stream.js";

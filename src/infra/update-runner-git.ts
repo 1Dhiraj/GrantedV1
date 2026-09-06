@@ -478,7 +478,7 @@ export async function updateGitCheckout(params: {
       }
     }
 
-    const doctorEntry = path.join(gitRoot, "openclaw.mjs");
+    const doctorEntry = path.join(gitRoot, "granted.mjs");
     const doctorEntryExists = await fs.stat(doctorEntry).then(
       () => true,
       () => false,

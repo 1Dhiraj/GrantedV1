@@ -2,7 +2,7 @@ import type {
   ChannelProgressDraftCompositorLine,
   ChannelProgressDraftCompositorSnapshot,
   ChannelProgressDraftLine,
-} from "openclaw/plugin-sdk/channel-outbound";
+} from "granted/plugin-sdk/channel-outbound";
 
 export function resolveStructuredProgressLines(
   lines: readonly ChannelProgressDraftCompositorLine[],

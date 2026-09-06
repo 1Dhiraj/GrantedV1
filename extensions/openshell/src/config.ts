@@ -1,11 +1,11 @@
 // Openshell helper module supports config behavior.
 import path from "node:path";
-import { buildPluginConfigSchema, type GrantedPluginConfigSchema } from "openclaw/plugin-sdk/core";
+import { buildPluginConfigSchema, type GrantedPluginConfigSchema } from "granted/plugin-sdk/core";
 import {
   formatPluginConfigIssue,
   mapPluginConfigIssues,
-} from "openclaw/plugin-sdk/extension-shared";
-import { MAX_TIMER_TIMEOUT_SECONDS } from "openclaw/plugin-sdk/number-runtime";
+} from "granted/plugin-sdk/extension-shared";
+import { MAX_TIMER_TIMEOUT_SECONDS } from "granted/plugin-sdk/number-runtime";
 import { z } from "zod";
 
 export type ResolvedOpenShellPluginConfig = {

@@ -1,5 +1,5 @@
-import type { ProviderAuthAliasLookupParams } from "openclaw/plugin-sdk/agent-runtime";
-import type { SecretInput } from "openclaw/plugin-sdk/secret-input";
+import type { ProviderAuthAliasLookupParams } from "granted/plugin-sdk/agent-runtime";
+import type { SecretInput } from "granted/plugin-sdk/secret-input";
 import type { z } from "zod";
 import type { CodexApprovalPolicy, CodexServiceTier, JsonObject } from "./protocol.js";
 import type {

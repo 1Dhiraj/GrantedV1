@@ -2,10 +2,10 @@ import crypto from "node:crypto";
 import { EventEmitter } from "node:events";
 import { createServer, IncomingMessage, type Server, type ServerResponse } from "node:http";
 import { connect, Socket } from "node:net";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
-import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
-import { createMockIncomingRequest } from "openclaw/plugin-sdk/test-env";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { GrantedPluginApi } from "granted/plugin-sdk/plugin-entry";
+import { createTestPluginApi } from "granted/plugin-sdk/plugin-test-api";
+import { createMockIncomingRequest } from "granted/plugin-sdk/test-env";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
   createTelegramMiniAppLaunchTickets,
@@ -26,7 +26,7 @@ const resolveTelegramMiniAppUrls = vi.hoisted(() =>
 );
 
 vi.mock("openclaw/plugin-sdk/device-bootstrap", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("openclaw/plugin-sdk/device-bootstrap")>()),
+  ...(await importOriginal<typeof import("granted/plugin-sdk/device-bootstrap")>()),
   issueDeviceBootstrapToken,
 }));
 

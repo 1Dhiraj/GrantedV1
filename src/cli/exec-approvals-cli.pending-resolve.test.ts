@@ -1,6 +1,6 @@
 import { Command } from "commander";
 // Pending and resolve CLI tests stay separate from policy-management coverage.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { registerExecApprovalsCli } from "./exec-approvals-cli.js";
 

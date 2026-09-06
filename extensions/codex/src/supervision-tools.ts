@@ -1,6 +1,6 @@
-import { resolveDefaultAgentDir } from "openclaw/plugin-sdk/agent-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { jsonResult, readStringParam, type AnyAgentTool } from "openclaw/plugin-sdk/core";
+import { resolveDefaultAgentDir } from "granted/plugin-sdk/agent-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { jsonResult, readStringParam, type AnyAgentTool } from "granted/plugin-sdk/core";
 /**
  * Compatibility tools for the retired Codex Supervisor plugin.
  *
@@ -9,8 +9,8 @@ import { jsonResult, readStringParam, type AnyAgentTool } from "openclaw/plugin-
  * continuation belongs to the Codex harness, which installs approval and tool
  * handlers before it starts or resumes the harness-owned Codex thread.
  */
-import { expectDefined } from "openclaw/plugin-sdk/expect-runtime";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { expectDefined } from "granted/plugin-sdk/expect-runtime";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import { Type } from "typebox";
 import {
   resolveCodexAppServerAuthProfileIdForAgent,

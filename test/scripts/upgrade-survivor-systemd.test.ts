@@ -61,7 +61,7 @@ describe.skipIf(process.platform === "win32")("survivor manager fixture", () => 
     writeFileSync(environmentFile, 'FIXTURE_VALUE="from file"\n');
     const programArguments = [
       process.execPath,
-      join(home, "package root/openclaw.mjs"),
+      join(home, "package root/granted.mjs"),
       "gateway",
       "--port",
       "18817",

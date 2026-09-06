@@ -1190,8 +1190,8 @@ case "\${1:-}" in
   config) printf 'null\n'; exit 0 ;;
 esac
 mkdir -p "$NPM_FAKE_ROOT/openclaw/dist"
-printf '%s\n' '#!/usr/bin/env node' 'process.stdout.write("npm-version\\n")' > "$NPM_FAKE_ROOT/openclaw/openclaw.mjs"
-chmod +x "$NPM_FAKE_ROOT/openclaw/openclaw.mjs"
+printf '%s\n' '#!/usr/bin/env node' 'process.stdout.write("npm-version\\n")' > "$NPM_FAKE_ROOT/openclaw/granted.mjs"
+chmod +x "$NPM_FAKE_ROOT/openclaw/granted.mjs"
 if [[ "$NPM_FAKE_MODE" == guard-failure ]]; then
   : > "$NPM_FAKE_ROOT/openclaw/.openclaw-lifecycle-pending"
 else
@@ -1234,7 +1234,7 @@ EOF
       repo="$root/repo"
       npm_root="$root/lib/node_modules"
       bin="$HOME/.local/bin"
-      launcher="$npm_root/openclaw/openclaw.mjs"
+      launcher="$npm_root/openclaw/granted.mjs"
       calls="$root/candidate-calls"
       mkdir -p "$repo/dist" "$npm_root/openclaw" "$bin"
       printf '%s\n' 'process.stdout.write("git-version\\n")' > "$repo/dist/entry.js"
@@ -1317,7 +1317,7 @@ EOF
           'begin_openclaw_bin_backup "$BACKUP_TARGET" "$BACKUP_CANDIDATE" 1',
           'kill -TERM "$$"',
         ].join("\n"),
-        { BACKUP_CANDIDATE: join(tmp, "openclaw.mjs"), BACKUP_TARGET: target },
+        { BACKUP_CANDIDATE: join(tmp, "granted.mjs"), BACKUP_TARGET: target },
       );
       expect(result.status).toBe(143);
       expect(readFileSync(target, "utf8")).toBe("original-wrapper\n");
@@ -2404,10 +2404,10 @@ EOF
     mkdirSync(bin, { recursive: true });
     writeFileSync(join(packageDir, "dist", "entry.js"), "export {};\n");
     writeFileSync(
-      join(packageDir, "openclaw.mjs"),
+      join(packageDir, "granted.mjs"),
       '#!/usr/bin/env node\nprocess.stdout.write("OpenClaw fixture\\n");\n',
     );
-    chmodSync(join(packageDir, "openclaw.mjs"), 0o755);
+    chmodSync(join(packageDir, "granted.mjs"), 0o755);
 
     try {
       const result = runInstallShell(
@@ -2461,8 +2461,8 @@ EOF
     const packageDir = join(tmp, "lib", "node_modules", "openclaw");
     mkdirSync(packageDir, { recursive: true });
     mkdirSync(bin, { recursive: true });
-    writeFileSync(join(packageDir, "openclaw.mjs"), "#!/bin/sh\nexit 7\n");
-    chmodSync(join(packageDir, "openclaw.mjs"), 0o755);
+    writeFileSync(join(packageDir, "granted.mjs"), "#!/bin/sh\nexit 7\n");
+    chmodSync(join(packageDir, "granted.mjs"), 0o755);
 
     try {
       const result = runInstallShell(

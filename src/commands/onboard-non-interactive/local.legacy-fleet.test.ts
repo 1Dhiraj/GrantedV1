@@ -1,7 +1,7 @@
 // Real-reader setup reruns retain the selected fleet owner across mutation and reopen.
 import fs from "node:fs/promises";
 import path from "node:path";
-import { withTempHome } from "openclaw/plugin-sdk/test-env";
+import { withTempHome } from "granted/plugin-sdk/test-env";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { upsertAuthProfile } from "../../agents/auth-profiles/profiles.js";
 import { loadAuthProfileStoreWithoutExternalProfiles } from "../../agents/auth-profiles/store.js";

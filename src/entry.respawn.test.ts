@@ -271,7 +271,7 @@ describe("buildCliRespawnPlan", () => {
     const plan = buildCliRespawnPlan({
       argv: [
         "node",
-        "C:\\Users\\alice\\AppData\\Roaming\\npm\\node_modules\\openclaw\\openclaw.mjs",
+        "C:\\Users\\alice\\AppData\\Roaming\\npm\\node_modules\\openclaw\\granted.mjs",
         "dashboard",
       ],
       env: {},
@@ -283,7 +283,7 @@ describe("buildCliRespawnPlan", () => {
     const respawnPlan = expectCliRespawnPlan(plan);
     expect(respawnPlan.argv).toEqual([
       "--stack-size=8192",
-      "C:\\Users\\alice\\AppData\\Roaming\\npm\\node_modules\\openclaw\\openclaw.mjs",
+      "C:\\Users\\alice\\AppData\\Roaming\\npm\\node_modules\\openclaw\\granted.mjs",
       "dashboard",
     ]);
     expect(respawnPlan.env.NODE_EXTRA_CA_CERTS).toBeUndefined();
@@ -294,7 +294,7 @@ describe("buildCliRespawnPlan", () => {
 
   it("normalizes a duplicated Windows node.exe launcher prefix before respawning", () => {
     const scriptPath =
-      "C:\\Users\\alice\\AppData\\Roaming\\npm\\node_modules\\openclaw\\openclaw.mjs";
+      "C:\\Users\\alice\\AppData\\Roaming\\npm\\node_modules\\openclaw\\granted.mjs";
     const plan = buildCliRespawnPlan({
       argv: [
         "C:\\Program Files\\nodejs\\node.exe",
@@ -315,7 +315,7 @@ describe("buildCliRespawnPlan", () => {
 
   it("preserves post-script node.exe arguments after normalizing the launcher prefix", () => {
     const scriptPath =
-      "C:\\Users\\alice\\AppData\\Roaming\\npm\\node_modules\\openclaw\\openclaw.mjs";
+      "C:\\Users\\alice\\AppData\\Roaming\\npm\\node_modules\\openclaw\\granted.mjs";
     const plan = buildCliRespawnPlan({
       argv: [
         "C:\\Program Files\\nodejs\\node.exe",
@@ -339,7 +339,7 @@ describe("buildCliRespawnPlan", () => {
       buildCliRespawnPlan({
         argv: [
           "node",
-          "C:\\Users\\alice\\AppData\\Roaming\\npm\\node_modules\\openclaw\\openclaw.mjs",
+          "C:\\Users\\alice\\AppData\\Roaming\\npm\\node_modules\\openclaw\\granted.mjs",
           "dashboard",
         ],
         env: {},
@@ -355,7 +355,7 @@ describe("buildCliRespawnPlan", () => {
       buildCliRespawnPlan({
         argv: [
           "node",
-          "C:\\Users\\alice\\AppData\\Roaming\\npm\\node_modules\\openclaw\\openclaw.mjs",
+          "C:\\Users\\alice\\AppData\\Roaming\\npm\\node_modules\\openclaw\\granted.mjs",
           "dashboard",
         ],
         env: {},

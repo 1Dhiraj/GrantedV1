@@ -2,9 +2,9 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { AuthStorage, ModelRegistry } from "openclaw/plugin-sdk/agent-sessions";
-import { resolveAgentModelPrimaryValue } from "openclaw/plugin-sdk/provider-onboard";
-import { expectProviderOnboardPreservesPrimary } from "openclaw/plugin-sdk/provider-test-contracts";
+import { AuthStorage, ModelRegistry } from "granted/plugin-sdk/agent-sessions";
+import { resolveAgentModelPrimaryValue } from "granted/plugin-sdk/provider-onboard";
+import { expectProviderOnboardPreservesPrimary } from "granted/plugin-sdk/provider-test-contracts";
 import { beforeAll, describe, expect, it } from "vitest";
 import {
   ZAI_CODING_CN_BASE_URL,

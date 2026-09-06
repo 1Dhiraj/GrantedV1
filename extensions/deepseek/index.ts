@@ -1,9 +1,9 @@
 // Deepseek plugin entrypoint registers its OpenClaw integration.
-import { readConfiguredProviderCatalogEntries } from "openclaw/plugin-sdk/provider-catalog-shared";
-import { defineSingleProviderPluginEntry } from "openclaw/plugin-sdk/provider-entry";
-import { buildProviderReplayFamilyHooks } from "openclaw/plugin-sdk/provider-model-shared";
-import { buildProviderToolCompatFamilyHooks } from "openclaw/plugin-sdk/provider-tools";
-import { fetchDeepSeekUsage } from "openclaw/plugin-sdk/provider-usage";
+import { readConfiguredProviderCatalogEntries } from "granted/plugin-sdk/provider-catalog-shared";
+import { defineSingleProviderPluginEntry } from "granted/plugin-sdk/provider-entry";
+import { buildProviderReplayFamilyHooks } from "granted/plugin-sdk/provider-model-shared";
+import { buildProviderToolCompatFamilyHooks } from "granted/plugin-sdk/provider-tools";
+import { fetchDeepSeekUsage } from "granted/plugin-sdk/provider-usage";
 import { applyDeepSeekConfig } from "./onboard.js";
 import manifest from "./openclaw.plugin.json" with { type: "json" };
 import { buildDeepSeekProvider } from "./provider-catalog.js";

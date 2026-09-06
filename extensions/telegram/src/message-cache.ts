@@ -1,10 +1,10 @@
 // Telegram plugin module implements message cache behavior.
 import type { Message } from "grammy/types";
-import { formatLocationText } from "openclaw/plugin-sdk/channel-inbound";
-import { parseStrictPositiveInteger } from "openclaw/plugin-sdk/number-runtime";
-import type { MsgContext } from "openclaw/plugin-sdk/reply-runtime";
-import { logVerbose } from "openclaw/plugin-sdk/runtime-env";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { formatLocationText } from "granted/plugin-sdk/channel-inbound";
+import { parseStrictPositiveInteger } from "granted/plugin-sdk/number-runtime";
+import type { MsgContext } from "granted/plugin-sdk/reply-runtime";
+import { logVerbose } from "granted/plugin-sdk/runtime-env";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   resolveTelegramPrimaryMedia,
   resolveTelegramRichMessageBody,

@@ -47,7 +47,7 @@ vi.mock("openclaw/plugin-sdk/approval-gateway-runtime", () => ({
   resolveApprovalOverGateway: (...args: unknown[]) => resolveMatrixApproval(...args),
 }));
 vi.mock("openclaw/plugin-sdk/error-runtime", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/error-runtime")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/error-runtime")>(
     "openclaw/plugin-sdk/error-runtime",
   );
   return {

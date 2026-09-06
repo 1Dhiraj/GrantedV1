@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import http, { createServer } from "node:http";
 import os from "node:os";
 import path from "node:path";
-import { captureEnv } from "openclaw/plugin-sdk/test-env";
+import { captureEnv } from "granted/plugin-sdk/test-env";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { saveMediaStreamWithIdleTimeout } from "./media-chunk-idle.js";
 

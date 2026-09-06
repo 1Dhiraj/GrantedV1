@@ -1,7 +1,7 @@
-import type { MessageReceipt } from "openclaw/plugin-sdk/channel-outbound";
-import type { MarkdownTableMode, ReplyToMode } from "openclaw/plugin-sdk/config-contracts";
-import type { OutboundMediaAccess } from "openclaw/plugin-sdk/media-runtime";
-import type { RetryConfig } from "openclaw/plugin-sdk/retry-runtime";
+import type { MessageReceipt } from "granted/plugin-sdk/channel-outbound";
+import type { MarkdownTableMode, ReplyToMode } from "granted/plugin-sdk/config-contracts";
+import type { OutboundMediaAccess } from "granted/plugin-sdk/media-runtime";
+import type { RetryConfig } from "granted/plugin-sdk/retry-runtime";
 import type { TelegramInlineButtons } from "./button-types.js";
 import type { createTelegramPromptContextProjectionCursor } from "./prompt-context-projection.js";
 import type { TelegramApiOverride } from "./send-context.js";

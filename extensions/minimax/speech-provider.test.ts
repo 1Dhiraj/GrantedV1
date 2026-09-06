@@ -6,7 +6,7 @@ import {
   clearRuntimeAuthProfileStoreSnapshots,
   saveAuthProfileStore,
   type AuthProfileStore,
-} from "openclaw/plugin-sdk/agent-runtime";
+} from "granted/plugin-sdk/agent-runtime";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 
 const transcodeAudioBufferToOpusMock = vi.hoisted(() => vi.fn());

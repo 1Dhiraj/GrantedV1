@@ -1,19 +1,19 @@
 // WhatsApp plugin tool places requester-bound calls through the MeowCaller companion CLI.
 import fs from "node:fs/promises";
 import path from "node:path";
-import { normalizeAccountId } from "openclaw/plugin-sdk/account-id";
-import { normalizeE164 } from "openclaw/plugin-sdk/account-resolution";
-import { createActionGate, stringEnum } from "openclaw/plugin-sdk/channel-actions";
+import { normalizeAccountId } from "granted/plugin-sdk/account-id";
+import { normalizeE164 } from "granted/plugin-sdk/account-resolution";
+import { createActionGate, stringEnum } from "granted/plugin-sdk/channel-actions";
 import type {
   AnyAgentTool,
   GrantedPluginApi,
   GrantedPluginToolContext,
-} from "openclaw/plugin-sdk/core";
-import { mulawToPcm } from "openclaw/plugin-sdk/realtime-voice";
-import { detectBinary } from "openclaw/plugin-sdk/setup-tools";
-import { resolveOAuthDir } from "openclaw/plugin-sdk/state-paths";
-import { resolvePreferredOpenClawTmpDir } from "openclaw/plugin-sdk/temp-path";
-import { jsonResult } from "openclaw/plugin-sdk/tool-results";
+} from "granted/plugin-sdk/core";
+import { mulawToPcm } from "granted/plugin-sdk/realtime-voice";
+import { detectBinary } from "granted/plugin-sdk/setup-tools";
+import { resolveOAuthDir } from "granted/plugin-sdk/state-paths";
+import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
+import { jsonResult } from "granted/plugin-sdk/tool-results";
 import { Type } from "typebox";
 import { resolveWhatsAppAccount } from "./accounts.js";
 import { getWhatsAppConnectionController } from "./connection-controller-runtime-context.js";

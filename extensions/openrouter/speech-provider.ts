@@ -2,8 +2,8 @@
 import {
   createOpenAiCompatibleSpeechProvider,
   type SpeechProviderPlugin,
-} from "openclaw/plugin-sdk/speech";
-import { asOptionalRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/speech";
+import { asOptionalRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import { OPENROUTER_BASE_URL } from "./provider-catalog.js";
 
 const DEFAULT_OPENROUTER_TTS_MODEL = "hexgrad/kokoro-82m";

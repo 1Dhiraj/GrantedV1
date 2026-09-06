@@ -1,5 +1,5 @@
-import { normalizeUsage, type AgentHarnessV2 } from "openclaw/plugin-sdk/agent-harness-runtime";
-import type { Model } from "openclaw/plugin-sdk/llm";
+import { normalizeUsage, type AgentHarnessV2 } from "granted/plugin-sdk/agent-harness-runtime";
+import type { Model } from "granted/plugin-sdk/llm";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { EmbeddedRunAttemptResult } from "./attempt-terminal.js";
 import { CodexSettledTurnContext } from "./settled-turn-context.js";

@@ -1,4 +1,4 @@
-import { defineChannelSetupContract } from "openclaw/plugin-sdk/channel-setup";
+import { defineChannelSetupContract } from "granted/plugin-sdk/channel-setup";
 // Synology Chat plugin module implements setup surface behavior.
 import {
   createAllowFromSection,
@@ -15,11 +15,11 @@ import {
   type ChannelSetupInput,
   type ChannelSetupWizard,
   type GrantedConfig,
-} from "openclaw/plugin-sdk/setup";
+} from "granted/plugin-sdk/setup";
 import {
   normalizeOptionalString,
   normalizeStringEntries,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import { listAccountIds, resolveAccount } from "./accounts.js";
 import { resolveSynologyHostedMediaRoute } from "./hosted-media-route.js";
 import type { SynologyChatAccountRaw, SynologyChatChannelConfig } from "./types.js";

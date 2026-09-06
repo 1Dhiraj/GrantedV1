@@ -1,6 +1,6 @@
 import { ChannelType, Routes } from "discord-api-types/v10";
 // Discord tests cover send.creates thread plugin behavior.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { registerSendAssetsAndRetriesTests } from "./send.assets-and-retries.test-support.js";
 import { makeDiscordRest, requestBody, requestPath } from "./send.test-harness.js";

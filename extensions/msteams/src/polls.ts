@@ -3,13 +3,13 @@ import crypto from "node:crypto";
 import {
   parseStrictNonNegativeInteger,
   parseDateStringTimestampMs,
-} from "openclaw/plugin-sdk/number-runtime";
+} from "granted/plugin-sdk/number-runtime";
 import {
   isRecord,
   normalizeOptionalString,
   normalizeStringEntries,
   uniqueStrings,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import { getMSTeamsRuntime } from "./runtime.js";
 import {
   resolveMSTeamsSqliteStateEnv,

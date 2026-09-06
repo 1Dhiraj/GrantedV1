@@ -1,10 +1,10 @@
 import type { messagingApi, webhook } from "@line/bot-sdk";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import type { LineAccountConfig } from "./types.js";
 
 type ReportChannelRoomJoin =
-  typeof import("openclaw/plugin-sdk/channel-join-intro-runtime").reportChannelRoomJoin;
+  typeof import("granted/plugin-sdk/channel-join-intro-runtime").reportChannelRoomJoin;
 
 const { reportJoin, getGroupSummary, createClient } = vi.hoisted(() => {
   const summary = vi.fn<messagingApi.MessagingApiClient["getGroupSummary"]>();

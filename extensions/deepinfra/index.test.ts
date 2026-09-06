@@ -2,9 +2,9 @@
 import {
   createCapturedPluginRegistration,
   registerSingleProviderPlugin,
-} from "openclaw/plugin-sdk/plugin-test-runtime";
-import { clearLiveCatalogCacheForTests } from "openclaw/plugin-sdk/provider-catalog-live-runtime";
-import type { ProviderCatalogContext } from "openclaw/plugin-sdk/provider-catalog-shared";
+} from "granted/plugin-sdk/plugin-test-runtime";
+import { clearLiveCatalogCacheForTests } from "granted/plugin-sdk/provider-catalog-live-runtime";
+import type { ProviderCatalogContext } from "granted/plugin-sdk/provider-catalog-shared";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import deepinfraPlugin from "./index.js";
 import { DEEPINFRA_MODEL_CATALOG } from "./provider-models.js";

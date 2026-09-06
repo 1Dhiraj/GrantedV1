@@ -1,4 +1,4 @@
-import type { RealtimeVoiceAgentControlResult } from "openclaw/plugin-sdk/realtime-voice";
+import type { RealtimeVoiceAgentControlResult } from "granted/plugin-sdk/realtime-voice";
 import { vi } from "vitest";
 const {
   createConnectionMock,
@@ -244,7 +244,7 @@ export const voiceTestMocks = {
 
 vi.mock("openclaw/plugin-sdk/channel-secret-owner-runtime", async () => {
   const actual = await vi.importActual<
-    typeof import("openclaw/plugin-sdk/channel-secret-owner-runtime")
+    typeof import("granted/plugin-sdk/channel-secret-owner-runtime")
   >("openclaw/plugin-sdk/channel-secret-owner-runtime");
   return {
     ...actual,
@@ -275,7 +275,7 @@ vi.mock("./sdk-runtime.js", () => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/routing", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/routing")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/routing")>(
     "openclaw/plugin-sdk/routing",
   );
   return {
@@ -285,7 +285,7 @@ vi.mock("openclaw/plugin-sdk/routing", async () => {
 });
 
 vi.mock("openclaw/plugin-sdk/agent-runtime", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/agent-runtime")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/agent-runtime")>(
     "openclaw/plugin-sdk/agent-runtime",
   );
   return {
@@ -297,7 +297,7 @@ vi.mock("openclaw/plugin-sdk/agent-runtime", async () => {
 
 vi.mock("openclaw/plugin-sdk/realtime-bootstrap-context", async () => {
   const actual = await vi.importActual<
-    typeof import("openclaw/plugin-sdk/realtime-bootstrap-context")
+    typeof import("granted/plugin-sdk/realtime-bootstrap-context")
   >("openclaw/plugin-sdk/realtime-bootstrap-context");
   return {
     ...actual,
@@ -306,7 +306,7 @@ vi.mock("openclaw/plugin-sdk/realtime-bootstrap-context", async () => {
 });
 
 vi.mock("openclaw/plugin-sdk/runtime-env", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/runtime-env")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/runtime-env")>(
     "openclaw/plugin-sdk/runtime-env",
   );
   return {
@@ -329,7 +329,7 @@ vi.mock("openclaw/plugin-sdk/system-event-runtime", () => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/realtime-voice", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/realtime-voice")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/realtime-voice")>(
     "openclaw/plugin-sdk/realtime-voice",
   );
   return {

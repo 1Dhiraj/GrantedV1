@@ -7,8 +7,8 @@
 import {
   closeOpenClawStateDatabaseForTest,
   createChannelIngressQueueForTests,
-} from "openclaw/plugin-sdk/plugin-state-test-runtime";
-import { useAutoCleanupTempDirTracker } from "openclaw/plugin-sdk/test-env";
+} from "granted/plugin-sdk/plugin-state-test-runtime";
+import { useAutoCleanupTempDirTracker } from "granted/plugin-sdk/test-env";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   clearIMessageApprovalReactionTargetsForTest,
@@ -28,7 +28,7 @@ vi.mock("openclaw/plugin-sdk/approval-gateway-runtime", () => ({
   resolveApprovalOverGateway: resolverMocks.resolveApprovalOverGateway,
 }));
 vi.mock("openclaw/plugin-sdk/error-runtime", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/error-runtime")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/error-runtime")>(
     "openclaw/plugin-sdk/error-runtime",
   );
   return {

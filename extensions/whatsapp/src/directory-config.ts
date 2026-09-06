@@ -4,7 +4,7 @@ import {
   listResolvedDirectoryUserEntriesFromAllowFrom,
   type ChannelDirectoryEntry,
   type DirectoryConfigParams,
-} from "openclaw/plugin-sdk/directory-config-runtime";
+} from "granted/plugin-sdk/directory-config-runtime";
 import { resolveMergedWhatsAppAccountConfig } from "./account-config.js";
 import type { WhatsAppAccountConfig } from "./account-types.js";
 import { resolveWhatsAppAuthDir } from "./accounts.js";

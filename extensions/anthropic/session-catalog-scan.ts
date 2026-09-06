@@ -2,8 +2,8 @@ import type { Dirent, Stats } from "node:fs";
 import fs, { type FileHandle } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { runTasksWithConcurrency } from "openclaw/plugin-sdk/concurrency-runtime";
-import { isPathInside } from "openclaw/plugin-sdk/file-access-runtime";
+import { runTasksWithConcurrency } from "granted/plugin-sdk/concurrency-runtime";
+import { isPathInside } from "granted/plugin-sdk/file-access-runtime";
 
 const MAX_CATALOG_JSON_CACHE_ENTRIES = 4_000;
 const CLAUDE_METADATA_WINDOW_BYTES = 1024 * 1024;

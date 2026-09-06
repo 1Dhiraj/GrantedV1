@@ -3,16 +3,16 @@ import {
   createAccountListHelpers,
   hasConfiguredAccountValue,
   resolveListedDefaultAccountId,
-} from "openclaw/plugin-sdk/account-core";
+} from "granted/plugin-sdk/account-core";
 import {
   DEFAULT_ACCOUNT_ID,
   normalizeAccountId,
   normalizeOptionalAccountId,
-} from "openclaw/plugin-sdk/account-id";
-import { listAgentIds, resolveDefaultAgentId } from "openclaw/plugin-sdk/agent-scope-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { normalizeAgentId } from "openclaw/plugin-sdk/routing";
-import { normalizeLowercaseStringOrEmpty } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/account-id";
+import { listAgentIds, resolveDefaultAgentId } from "granted/plugin-sdk/agent-scope-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { normalizeAgentId } from "granted/plugin-sdk/routing";
+import { normalizeLowercaseStringOrEmpty } from "granted/plugin-sdk/string-coerce-runtime";
 
 function resolveBindingAccount(params: {
   binding: unknown;

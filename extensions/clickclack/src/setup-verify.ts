@@ -1,8 +1,8 @@
 // ClickClack plugin module implements shared setup connection verification.
-import { DEFAULT_ACCOUNT_ID } from "openclaw/plugin-sdk/account-id";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
-import { hasConfiguredSecretInput } from "openclaw/plugin-sdk/setup";
+import { DEFAULT_ACCOUNT_ID } from "granted/plugin-sdk/account-id";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
+import type { RuntimeEnv } from "granted/plugin-sdk/runtime-env";
+import { hasConfiguredSecretInput } from "granted/plugin-sdk/setup";
 import { resolveClickClackAccount } from "./accounts.js";
 import { createClickClackClient } from "./http-client.js";
 import { resolveWorkspaceId } from "./resolve.js";
@@ -122,7 +122,7 @@ function isGatewayNotRunningError(error: unknown): boolean {
 
 async function probeClickClackGatewayStatus(): Promise<ClickClackGatewayStatus> {
   try {
-    const { callGatewayFromCli } = await import("openclaw/plugin-sdk/gateway-runtime");
+    const { callGatewayFromCli } = await import("granted/plugin-sdk/gateway-runtime");
     await callGatewayFromCli("health", { timeout: "1000", json: true }, undefined, {
       expectFinal: false,
       progress: false,

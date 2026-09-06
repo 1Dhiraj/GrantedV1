@@ -1,5 +1,5 @@
-import { emitTrustedDiagnosticEvent } from "openclaw/plugin-sdk/diagnostic-runtime";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
+import { emitTrustedDiagnosticEvent } from "granted/plugin-sdk/diagnostic-runtime";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
 import {
   CODEX_APP_SERVER_INTERRUPT_TIMEOUT_MS,
   closeCodexStartupClientBestEffort,

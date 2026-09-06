@@ -6,12 +6,12 @@ import {
   markMigrationItemConflict,
   MIGRATION_REASON_TARGET_EXISTS,
   summarizeMigrationItems,
-} from "openclaw/plugin-sdk/migration";
+} from "granted/plugin-sdk/migration";
 import type {
   MigrationItem,
   MigrationPlan,
   MigrationProviderContext,
-} from "openclaw/plugin-sdk/plugin-entry";
+} from "granted/plugin-sdk/plugin-entry";
 import { buildAuthItems } from "./auth.js";
 import { buildConfigItems } from "./config.js";
 import { exists, parseEnv, parseHermesConfig, readText } from "./helpers.js";

@@ -2,14 +2,14 @@
  * Synchronous Amazon Bedrock Mantle provider registration. It wires discovery,
  * runtime bearer-token preparation, stream wrappers, and failover classifiers.
  */
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { resolvePluginConfigObject } from "openclaw/plugin-sdk/plugin-config-runtime";
-import type { GrantedPluginApi, ProviderRuntimeModel } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { resolvePluginConfigObject } from "granted/plugin-sdk/plugin-config-runtime";
+import type { GrantedPluginApi, ProviderRuntimeModel } from "granted/plugin-sdk/plugin-entry";
 import {
   modelCostsEqual,
   resolveClaudeOpus5ModelIdentity,
   resolveClaudeSonnet5ModelIdentity,
-} from "openclaw/plugin-sdk/provider-model-shared";
+} from "granted/plugin-sdk/provider-model-shared";
 import {
   resolveImplicitMantleProvider,
   resolveMantleBearerToken,

@@ -3,17 +3,17 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { expectDefined } from "@openclaw/normalization-core";
-import { toErrorObject as toLintErrorObject } from "openclaw/plugin-sdk/error-runtime";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
-import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
-import type { OpenKeyedStoreOptions } from "openclaw/plugin-sdk/plugin-state-runtime";
+import { toErrorObject as toLintErrorObject } from "granted/plugin-sdk/error-runtime";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
+import type { GrantedPluginApi } from "granted/plugin-sdk/plugin-entry";
+import type { OpenKeyedStoreOptions } from "granted/plugin-sdk/plugin-state-runtime";
 import {
   createPluginStateKeyedStoreForTests,
   resetPluginStateStoreForTests,
-} from "openclaw/plugin-sdk/plugin-state-test-runtime";
-import { parseAgentSessionKey } from "openclaw/plugin-sdk/routing";
-import { parseSqliteSessionFileMarker } from "openclaw/plugin-sdk/session-store-runtime";
-import { appendSessionTranscriptMessageByIdentity } from "openclaw/plugin-sdk/session-transcript-runtime";
+} from "granted/plugin-sdk/plugin-state-test-runtime";
+import { parseAgentSessionKey } from "granted/plugin-sdk/routing";
+import { parseSqliteSessionFileMarker } from "granted/plugin-sdk/session-store-runtime";
+import { appendSessionTranscriptMessageByIdentity } from "granted/plugin-sdk/session-transcript-runtime";
 import {
   afterAll,
   afterEach,
@@ -86,7 +86,7 @@ vi.mock("openclaw/plugin-sdk/memory-host-search", () => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/memory-host-core", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/memory-host-core")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/memory-host-core")>(
     "openclaw/plugin-sdk/memory-host-core",
   );
   return {
@@ -102,7 +102,7 @@ vi.mock("openclaw/plugin-sdk/memory-host-core", async () => {
 });
 
 vi.mock("openclaw/plugin-sdk/session-store-runtime", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/session-store-runtime")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/session-store-runtime")>(
     "openclaw/plugin-sdk/session-store-runtime",
   );
   return {
@@ -115,7 +115,7 @@ vi.mock("openclaw/plugin-sdk/session-store-runtime", async () => {
 
 vi.mock("openclaw/plugin-sdk/session-transcript-runtime", async () => {
   const actual = await vi.importActual<
-    typeof import("openclaw/plugin-sdk/session-transcript-runtime")
+    typeof import("granted/plugin-sdk/session-transcript-runtime")
   >("openclaw/plugin-sdk/session-transcript-runtime");
   return {
     ...actual,
@@ -4890,7 +4890,7 @@ describe("active-memory plugin", () => {
       const staleReadStarted = createDeferred<void>();
       const releaseStaleRead = createDeferred<void>();
       if (stalePoll) {
-        const transcriptRuntime = await import("openclaw/plugin-sdk/session-transcript-runtime");
+        const transcriptRuntime = await import("granted/plugin-sdk/session-transcript-runtime");
         const readDelta = transcriptRuntime.readSessionTranscriptRawDelta;
         let heldRead = false;
         vi.spyOn(transcriptRuntime, "readSessionTranscriptRawDelta").mockImplementation(

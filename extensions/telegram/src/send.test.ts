@@ -1,15 +1,15 @@
 // Telegram tests cover send plugin behavior.
 import fs from "node:fs";
 import type { Bot } from "grammy";
-import { isChannelPartialDeliveryError } from "openclaw/plugin-sdk/channel-inbound";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { PluginStateSyncKeyedStore } from "openclaw/plugin-sdk/plugin-state-runtime";
+import { isChannelPartialDeliveryError } from "granted/plugin-sdk/channel-inbound";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { PluginStateSyncKeyedStore } from "granted/plugin-sdk/plugin-state-runtime";
 import {
   createPluginStateKeyedStoreForTests,
   createPluginStateSyncKeyedStoreForTests,
   resetPluginStateStoreForTests,
-} from "openclaw/plugin-sdk/plugin-state-test-runtime";
-import { createRequireRecord, importFreshModule } from "openclaw/plugin-sdk/test-fixtures";
+} from "granted/plugin-sdk/plugin-state-test-runtime";
+import { createRequireRecord, importFreshModule } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { markdownToTelegramHtml, telegramHtmlToPlainTextFallback } from "./format.js";
 import {
@@ -137,10 +137,10 @@ const {
   probeVideoDimensions,
 } = getTelegramSendTestMocks();
 const telegramSendModule = await importTelegramSendModule();
-const { PlatformMessageNotDispatchedError } = await import("openclaw/plugin-sdk/error-runtime");
+const { PlatformMessageNotDispatchedError } = await import("granted/plugin-sdk/error-runtime");
 const { TelegramRequestNotStartedError } = await import("./network-errors.js");
 const { getChildLogger, resetLogger, setLoggerOverride } =
-  await import("openclaw/plugin-sdk/runtime-env");
+  await import("granted/plugin-sdk/runtime-env");
 const {
   buildInlineKeyboard,
   createForumTopicTelegram,

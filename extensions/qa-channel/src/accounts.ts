@@ -2,9 +2,9 @@
 import {
   createAccountListHelpers,
   resolveChannelMediaMaxBytes,
-} from "openclaw/plugin-sdk/account-helpers";
-import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "openclaw/plugin-sdk/account-id";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/account-helpers";
+import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "granted/plugin-sdk/account-id";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import type { CoreConfig, QaChannelAccountConfig, ResolvedQaChannelAccount } from "./types.js";
 
 const DEFAULT_POLL_TIMEOUT_MS = 1_000;

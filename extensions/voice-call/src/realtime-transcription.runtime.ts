@@ -3,4 +3,4 @@
 export {
   getRealtimeTranscriptionProvider,
   listRealtimeTranscriptionProviders,
-} from "openclaw/plugin-sdk/realtime-transcription";
+} from "granted/plugin-sdk/realtime-transcription";

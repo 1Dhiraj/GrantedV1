@@ -1,13 +1,13 @@
-import type { EmbeddingProviderAdapter } from "openclaw/plugin-sdk/embedding-providers";
-import type { MediaUnderstandingProvider } from "openclaw/plugin-sdk/media-understanding";
+import type { EmbeddingProviderAdapter } from "granted/plugin-sdk/embedding-providers";
+import type { MediaUnderstandingProvider } from "granted/plugin-sdk/media-understanding";
 import type {
   AnyAgentTool,
   GrantedPluginNodeHostCommand,
   ProviderPlugin,
-} from "openclaw/plugin-sdk/plugin-entry";
-import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
-import { createPluginRuntimeMock } from "openclaw/plugin-sdk/plugin-test-runtime";
-import type { WebSearchProviderPlugin } from "openclaw/plugin-sdk/provider-web-search-contract";
+} from "granted/plugin-sdk/plugin-entry";
+import { createTestPluginApi } from "granted/plugin-sdk/plugin-test-api";
+import { createPluginRuntimeMock } from "granted/plugin-sdk/plugin-test-runtime";
+import type { WebSearchProviderPlugin } from "granted/plugin-sdk/provider-web-search-contract";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 describe("ollama lazy imports", () => {
@@ -37,7 +37,7 @@ describe("ollama lazy imports", () => {
     let wslChecks = 0;
 
     vi.doMock("openclaw/plugin-sdk/runtime-env", async (importOriginal) => ({
-      ...(await importOriginal<typeof import("openclaw/plugin-sdk/runtime-env")>()),
+      ...(await importOriginal<typeof import("granted/plugin-sdk/runtime-env")>()),
       isWSL2Sync: () => {
         wslChecks += 1;
         return false;

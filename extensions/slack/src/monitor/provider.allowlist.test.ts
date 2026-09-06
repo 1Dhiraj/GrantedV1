@@ -1,7 +1,7 @@
 // Slack tests cover provider.allowlist plugin behavior.
-import { CHANNEL_APPROVAL_NATIVE_RUNTIME_CONTEXT_CAPABILITY } from "openclaw/plugin-sdk/approval-handler-adapter-runtime";
-import type { ChannelRuntimeSurface } from "openclaw/plugin-sdk/channel-contract";
-import { buildChannelInboundEventContext } from "openclaw/plugin-sdk/channel-inbound";
+import { CHANNEL_APPROVAL_NATIVE_RUNTIME_CONTEXT_CAPABILITY } from "granted/plugin-sdk/approval-handler-adapter-runtime";
+import type { ChannelRuntimeSurface } from "granted/plugin-sdk/channel-contract";
+import { buildChannelInboundEventContext } from "granted/plugin-sdk/channel-inbound";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
   flush,

@@ -2,10 +2,10 @@
 import {
   resolveStableChannelMessageIngress,
   type ChannelIngressContextBinding,
-} from "openclaw/plugin-sdk/channel-ingress-runtime";
-import { createChannelPairingChallengeIssuer } from "openclaw/plugin-sdk/channel-pairing";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { PluginRuntime } from "openclaw/plugin-sdk/plugin-runtime";
+} from "granted/plugin-sdk/channel-ingress-runtime";
+import { createChannelPairingChallengeIssuer } from "granted/plugin-sdk/channel-pairing";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { PluginRuntime } from "granted/plugin-sdk/plugin-runtime";
 import { normalizeSmsPhoneNumber } from "./phone.js";
 import { sendSmsTextChunks } from "./send.js";
 import type { ResolvedSmsAccount, SmsInboundMessage } from "./types.js";

@@ -1,19 +1,19 @@
-import { resolveChannelInboundRouteEnvelope } from "openclaw/plugin-sdk/channel-inbound";
+import { resolveChannelInboundRouteEnvelope } from "granted/plugin-sdk/channel-inbound";
 // Nextcloud Talk plugin module implements inbound behavior.
 import {
   channelIngressRoutes,
   resolveStableChannelMessageIngress,
   type ChannelIngressContextBinding,
-} from "openclaw/plugin-sdk/channel-ingress-runtime";
+} from "granted/plugin-sdk/channel-ingress-runtime";
 import {
   bindIngressLifecycleToReplyOptions,
   resolveChannelStreamingBlockEnabled,
-} from "openclaw/plugin-sdk/channel-outbound";
+} from "granted/plugin-sdk/channel-outbound";
 import {
   normalizeOptionalString,
   normalizeStringEntries,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
-import { sanitizeAssistantVisibleText } from "openclaw/plugin-sdk/text-chunking";
+} from "granted/plugin-sdk/string-coerce-runtime";
+import { sanitizeAssistantVisibleText } from "granted/plugin-sdk/text-chunking";
 import {
   GROUP_POLICY_BLOCKED_LABEL,
   resolveAllowlistProviderRuntimeGroupPolicy,

@@ -5,8 +5,8 @@ import {
   readStringArrayParam,
   readStringParam,
   withNormalizedTimestamp,
-} from "openclaw/plugin-sdk/channel-actions";
-import { adaptScopedAccountAccessor } from "openclaw/plugin-sdk/channel-config-helpers";
+} from "granted/plugin-sdk/channel-actions";
+import { adaptScopedAccountAccessor } from "granted/plugin-sdk/channel-config-helpers";
 import type {
   ChannelMessageActionAdapter,
   ChannelMessageActionName,
@@ -14,33 +14,33 @@ import type {
   ChannelThreadingContext,
   ChannelThreadingToolContext,
   ChannelToolSend,
-} from "openclaw/plugin-sdk/channel-contract";
-import { createChatChannelPlugin } from "openclaw/plugin-sdk/channel-core";
-import { identityEntryAuthenticationClassifier } from "openclaw/plugin-sdk/channel-ingress-runtime";
-import { createChannelMessageAdapterFromOutbound } from "openclaw/plugin-sdk/channel-outbound";
-import { createLoggedPairingApprovalNotifier } from "openclaw/plugin-sdk/channel-pairing";
-import { createRestrictSendersChannelSecurity } from "openclaw/plugin-sdk/channel-policy";
+} from "granted/plugin-sdk/channel-contract";
+import { createChatChannelPlugin } from "granted/plugin-sdk/channel-core";
+import { identityEntryAuthenticationClassifier } from "granted/plugin-sdk/channel-ingress-runtime";
+import { createChannelMessageAdapterFromOutbound } from "granted/plugin-sdk/channel-outbound";
+import { createLoggedPairingApprovalNotifier } from "granted/plugin-sdk/channel-pairing";
+import { createRestrictSendersChannelSecurity } from "granted/plugin-sdk/channel-policy";
 import {
   attachChannelToResult,
   createAttachedChannelResultAdapter,
   type ChannelOutboundAdapter,
-} from "openclaw/plugin-sdk/channel-send-result";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { createChannelDirectoryAdapter } from "openclaw/plugin-sdk/directory-runtime";
-import { buildPassiveProbedChannelStatusSummary } from "openclaw/plugin-sdk/extension-shared";
+} from "granted/plugin-sdk/channel-send-result";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { createChannelDirectoryAdapter } from "granted/plugin-sdk/directory-runtime";
+import { buildPassiveProbedChannelStatusSummary } from "granted/plugin-sdk/extension-shared";
 import {
   type MessagePresentation,
   resolveMessagePresentationButtonAction,
-} from "openclaw/plugin-sdk/interactive-runtime";
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
-import { resolvePayloadMediaUrls, sendTextMediaPayload } from "openclaw/plugin-sdk/reply-payload";
-import { isPrivateNetworkOptInEnabled } from "openclaw/plugin-sdk/ssrf-runtime";
+} from "granted/plugin-sdk/interactive-runtime";
+import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
+import { resolvePayloadMediaUrls, sendTextMediaPayload } from "granted/plugin-sdk/reply-payload";
+import { isPrivateNetworkOptInEnabled } from "granted/plugin-sdk/ssrf-runtime";
 import {
   createComputedAccountStatusAdapter,
   createDefaultChannelRuntimeState,
-} from "openclaw/plugin-sdk/status-helpers";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { sanitizeAssistantVisibleText } from "openclaw/plugin-sdk/text-chunking";
+} from "granted/plugin-sdk/status-helpers";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
+import { sanitizeAssistantVisibleText } from "granted/plugin-sdk/text-chunking";
 import { mattermostApprovalAuth } from "./approval-auth.js";
 import {
   chunkTextForOutbound,

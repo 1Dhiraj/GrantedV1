@@ -1,5 +1,5 @@
 // Slack tests cover message tools plugin behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { describe, expect, it, vi } from "vitest";
 import { createSlackActions } from "./channel-actions.js";
 import { listSlackMessageActions } from "./message-actions.js";

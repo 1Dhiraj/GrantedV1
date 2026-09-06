@@ -3,9 +3,9 @@ import crypto from "node:crypto";
 import fsSync from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { PlatformMessageNotDispatchedError } from "openclaw/plugin-sdk/error-runtime";
-import { redactIdentifier } from "openclaw/plugin-sdk/logging-core";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { PlatformMessageNotDispatchedError } from "granted/plugin-sdk/error-runtime";
+import { redactIdentifier } from "granted/plugin-sdk/logging-core";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { createAcceptedWhatsAppSendResult } from "./inbound/send-result.test-helper.js";
 import type { ActiveWebListener } from "./inbound/types.js";
@@ -21,8 +21,8 @@ let sendWhatsAppUploadFile: typeof import("./send.js").sendWhatsAppUploadFile;
 let sendPollWhatsApp: typeof import("./send.js").sendPollWhatsApp;
 let sendReactionWhatsApp: typeof import("./send.js").sendReactionWhatsApp;
 let sendTypingWhatsApp: typeof import("./send.js").sendTypingWhatsApp;
-let resetLogger: typeof import("openclaw/plugin-sdk/runtime-env").resetLogger;
-let setLoggerOverride: typeof import("openclaw/plugin-sdk/runtime-env").setLoggerOverride;
+let resetLogger: typeof import("granted/plugin-sdk/runtime-env").resetLogger;
+let setLoggerOverride: typeof import("granted/plugin-sdk/runtime-env").setLoggerOverride;
 
 const WHATSAPP_TEST_CFG: GrantedConfig = {
   channels: { whatsapp: {} },
@@ -46,7 +46,7 @@ vi.mock("./connection-controller-runtime-context.js", async () => {
 });
 
 vi.mock("openclaw/plugin-sdk/outbound-media", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/outbound-media")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/outbound-media")>(
     "openclaw/plugin-sdk/outbound-media",
   );
   return {
@@ -56,7 +56,7 @@ vi.mock("openclaw/plugin-sdk/outbound-media", async () => {
 });
 
 vi.mock("openclaw/plugin-sdk/media-runtime", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/media-runtime")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/media-runtime")>(
     "openclaw/plugin-sdk/media-runtime",
   );
   return {
@@ -90,7 +90,7 @@ describe("web outbound", () => {
       sendTypingWhatsApp,
     } = await import("./send.js"));
     const { resetLogger: loadedResetLogger, setLoggerOverride: loadedSetLoggerOverride } =
-      await import("openclaw/plugin-sdk/runtime-env");
+      await import("granted/plugin-sdk/runtime-env");
     resetLogger = loadedResetLogger;
     setLoggerOverride = loadedSetLoggerOverride;
   });

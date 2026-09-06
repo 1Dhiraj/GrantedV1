@@ -1,5 +1,5 @@
 // Configure wizard Gateway tests cover run-mode probes, auth routing, and cancellation.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { GrantedConfig } from "../config/config.js";
 import { ExitError, type RuntimeEnv } from "../runtime.js";

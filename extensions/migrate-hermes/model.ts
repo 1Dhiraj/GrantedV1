@@ -3,13 +3,13 @@ import {
   resolveAgentEffectiveModelPrimary,
   resolveDefaultAgentId,
   setAgentEffectiveModelPrimary,
-} from "openclaw/plugin-sdk/agent-runtime";
-import { resolveMigrationConfigRuntime } from "openclaw/plugin-sdk/migration";
-import type { MigrationItem, MigrationProviderContext } from "openclaw/plugin-sdk/plugin-entry";
+} from "granted/plugin-sdk/agent-runtime";
+import { resolveMigrationConfigRuntime } from "granted/plugin-sdk/migration";
+import type { MigrationItem, MigrationProviderContext } from "granted/plugin-sdk/plugin-entry";
 import {
   asOptionalRecord,
   normalizeOptionalString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import {
   HERMES_REASON_ALREADY_CONFIGURED,
   HERMES_REASON_CONFIG_RUNTIME_UNAVAILABLE,

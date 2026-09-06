@@ -2,7 +2,7 @@
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { createRequireRecord, importFreshModule } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord, importFreshModule } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, beforeAll, describe, expect, it, vi } from "vitest";
 import {
   createPluginCache,
@@ -174,7 +174,7 @@ describe("getCachedPluginModuleLoader", () => {
       cache,
       modulePath: "/repo/dist/extensions/demo/api.ts",
       importerUrl: "file:///repo/src/plugins/public-surface-loader.ts",
-      argvEntry: "/repo/openclaw.mjs",
+      argvEntry: "/repo/granted.mjs",
       preferBuiltDist: true,
       loaderFilename: "file:///repo/src/plugins/public-surface-loader.ts",
     });
@@ -182,7 +182,7 @@ describe("getCachedPluginModuleLoader", () => {
       cache,
       modulePath: "/repo/dist/extensions/demo/api.ts",
       importerUrl: "file:///repo/src/plugins/public-surface-loader.ts",
-      argvEntry: "/repo/openclaw.mjs",
+      argvEntry: "/repo/granted.mjs",
       preferBuiltDist: true,
       loaderFilename: "file:///repo/src/plugins/bundled-channel-config-metadata.ts",
     });
@@ -213,7 +213,7 @@ describe("getCachedPluginModuleLoader", () => {
       cache,
       modulePath: "/repo/extensions/demo/index.ts",
       importerUrl: "file:///repo/src/plugins/setup-registry.ts",
-      argvEntry: "/repo/openclaw.mjs",
+      argvEntry: "/repo/granted.mjs",
       loaderFilename: "file:///repo/src/plugins/source-loader.ts",
     } as const;
 

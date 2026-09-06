@@ -1,11 +1,11 @@
 // Tavily plugin module implements tavily extract tool behavior.
-import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-runtime";
+import type { GrantedPluginApi } from "granted/plugin-sdk/plugin-runtime";
 import {
   jsonResult,
   readPositiveIntegerParam,
   readStringArrayParam,
   readStringParam,
-} from "openclaw/plugin-sdk/provider-web-search";
+} from "granted/plugin-sdk/provider-web-search";
 import { Type } from "typebox";
 import { runTavilyExtract } from "./tavily-client.js";
 import { resolveTavilyToolConfig, type TavilyToolConfigContext } from "./tavily-tool-config.js";

@@ -5,8 +5,8 @@ import path from "node:path";
 import type {
   PluginStateKeyedStore,
   PluginStateSyncKeyedStore,
-} from "openclaw/plugin-sdk/plugin-state-runtime";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/plugin-state-runtime";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import { getMatrixRuntime } from "../runtime.js";
 import type { MatrixStoredRecoveryKey } from "./sdk/types.js";
 import { resolveMatrixSqliteStateEnv } from "./sqlite-state.js";

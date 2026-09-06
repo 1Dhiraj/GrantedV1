@@ -2,8 +2,8 @@
 import {
   resolveGatewayPublicOrigin,
   type GrantedConfig,
-} from "openclaw/plugin-sdk/config-contracts";
-import { resolveGatewayPort } from "openclaw/plugin-sdk/gateway-config-runtime";
+} from "granted/plugin-sdk/config-contracts";
+import { resolveGatewayPort } from "granted/plugin-sdk/gateway-config-runtime";
 
 type ViewerBaseUrlFieldName = "baseUrl" | "viewerBaseUrl";
 

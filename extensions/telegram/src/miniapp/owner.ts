@@ -1,5 +1,5 @@
 // Telegram Mini App owner checks.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { expandTelegramAllowFromWithAccessGroups } from "../access-groups.js";
 import { mergeTelegramAccountConfig } from "../accounts.js";
 import { isNumericTelegramSenderUserId, normalizeTelegramAllowFromEntry } from "../allow-from.js";

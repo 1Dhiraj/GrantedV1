@@ -1,5 +1,5 @@
 // Feishu tests cover policy plugin behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/core";
+import type { GrantedConfig } from "granted/plugin-sdk/core";
 import { describe, expect, it } from "vitest";
 import { FeishuConfigSchema } from "./config-schema.js";
 import {

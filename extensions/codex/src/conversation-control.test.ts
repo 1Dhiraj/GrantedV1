@@ -2,14 +2,14 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { clearRuntimeAuthProfileStoreSnapshots } from "openclaw/plugin-sdk/agent-runtime";
-import { MODEL_SELECTION_LOCKED_MESSAGE } from "openclaw/plugin-sdk/model-session-runtime";
-import { upsertAuthProfile } from "openclaw/plugin-sdk/provider-auth";
+import { clearRuntimeAuthProfileStoreSnapshots } from "granted/plugin-sdk/agent-runtime";
+import { MODEL_SELECTION_LOCKED_MESSAGE } from "granted/plugin-sdk/model-session-runtime";
+import { upsertAuthProfile } from "granted/plugin-sdk/provider-auth";
 import {
   getSessionEntry,
   resolveStorePath,
   upsertSessionEntry,
-} from "openclaw/plugin-sdk/session-store-runtime";
+} from "granted/plugin-sdk/session-store-runtime";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   buildCodexSupervisionTestConnectionFingerprint,

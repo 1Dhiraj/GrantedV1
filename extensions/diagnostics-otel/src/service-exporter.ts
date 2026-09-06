@@ -1,8 +1,8 @@
 import { readFileSync } from "node:fs";
 import nodePath from "node:path";
-import { normalizeDiagnosticValue } from "openclaw/plugin-sdk/diagnostic-runtime";
-import { collectErrorGraphCandidates } from "openclaw/plugin-sdk/error-runtime";
-import { createNodeProxyAgent } from "openclaw/plugin-sdk/fetch-runtime";
+import { normalizeDiagnosticValue } from "granted/plugin-sdk/diagnostic-runtime";
+import { collectErrorGraphCandidates } from "granted/plugin-sdk/error-runtime";
+import { createNodeProxyAgent } from "granted/plugin-sdk/fetch-runtime";
 import {
   OTEL_EXPORTER_OTLP_CERTIFICATE_ENV,
   OTEL_EXPORTER_OTLP_CLIENT_CERTIFICATE_ENV,

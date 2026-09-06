@@ -1,4 +1,4 @@
-import { normalizeLowercaseStringOrEmpty } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { normalizeLowercaseStringOrEmpty } from "granted/plugin-sdk/string-coerce-runtime";
 import { describe, expect, it } from "vitest";
 import { createQaBusState } from "./bus-state.js";
 import { buildAssistantText } from "./providers/mock-openai/mock-openai-assistant-text.js";

@@ -1,6 +1,6 @@
 // Slack plugin module implements commands behavior.
-import type { SlackSlashCommandConfig } from "openclaw/plugin-sdk/config-contracts";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+import type { SlackSlashCommandConfig } from "granted/plugin-sdk/config-contracts";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 
 /**
  * Strip Slack mentions (<@U123>, <@U123|name>) so command detection works on

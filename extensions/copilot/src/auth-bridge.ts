@@ -2,7 +2,7 @@
 import { createHash } from "node:crypto";
 import { homedir as osHomedir } from "node:os";
 import { join, resolve } from "node:path";
-import { readNonEmptyStringPreservingWhitespace as readNonEmptyString } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { readNonEmptyStringPreservingWhitespace as readNonEmptyString } from "granted/plugin-sdk/string-coerce-runtime";
 
 /**
  * Pure functional auth resolver for the copilot agent runtime.

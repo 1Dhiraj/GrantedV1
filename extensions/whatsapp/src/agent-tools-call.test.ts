@@ -6,7 +6,7 @@ import type {
   AnyAgentTool,
   GrantedPluginApi,
   GrantedPluginToolContext,
-} from "openclaw/plugin-sdk/core";
+} from "granted/plugin-sdk/core";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { registerWhatsAppCallTool } from "./agent-tools-call.js";
 

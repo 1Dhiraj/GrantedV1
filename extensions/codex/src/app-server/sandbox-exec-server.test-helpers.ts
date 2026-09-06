@@ -2,7 +2,7 @@
  * Test helpers for standing up fake sandbox contexts and driving the Codex
  * sandbox exec-server JSON-RPC/WebSocket protocol.
  */
-import type { SandboxContext } from "openclaw/plugin-sdk/sandbox";
+import type { SandboxContext } from "granted/plugin-sdk/sandbox";
 import { vi } from "vitest";
 import WebSocket from "ws";
 import { CODEX_APP_SERVER_VERSION } from "./version.js";

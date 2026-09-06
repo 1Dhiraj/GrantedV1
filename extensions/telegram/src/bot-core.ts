@@ -3,20 +3,20 @@ import {
   buildChannelGroupsScopeTree,
   resolveChannelGroupPolicy,
   resolveScopeRequireMention,
-} from "openclaw/plugin-sdk/channel-policy";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+} from "granted/plugin-sdk/channel-policy";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   resolveThreadBindingIdleTimeoutMsForChannel,
   resolveThreadBindingMaxAgeMsForChannel,
   resolveThreadBindingSpawnPolicy,
-} from "openclaw/plugin-sdk/conversation-runtime";
-import { formatErrorMessage, formatUncaughtError } from "openclaw/plugin-sdk/error-runtime";
-import { normalizeGroupActivation } from "openclaw/plugin-sdk/group-activation";
+} from "granted/plugin-sdk/conversation-runtime";
+import { formatErrorMessage, formatUncaughtError } from "granted/plugin-sdk/error-runtime";
+import { normalizeGroupActivation } from "granted/plugin-sdk/group-activation";
 import {
   resolveNativeCommandsEnabled,
   resolveNativeSkillsEnabled,
-} from "openclaw/plugin-sdk/native-command-config-runtime";
-import type { HistoryEntry } from "openclaw/plugin-sdk/reply-history";
+} from "granted/plugin-sdk/native-command-config-runtime";
+import type { HistoryEntry } from "granted/plugin-sdk/reply-history";
 import {
   danger,
   logVerbose,
@@ -25,8 +25,8 @@ import {
   createSubsystemLogger,
   createNonExitingRuntime,
   type RuntimeEnv,
-} from "openclaw/plugin-sdk/runtime-env";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/runtime-env";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import { resolveTelegramAccountOwnerAgentId } from "./account-owner.js";
 import { getOrCreateAccountThrottler } from "./account-throttler.js";
 import { resolveTelegramAccount } from "./accounts.js";

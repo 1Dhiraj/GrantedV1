@@ -3,9 +3,9 @@ import path from "node:path";
 import type {
   ModelDefinitionConfig,
   ModelProviderConfig,
-} from "openclaw/plugin-sdk/provider-model-shared";
-import { resolveStateDir } from "openclaw/plugin-sdk/state-paths";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/provider-model-shared";
+import { resolveStateDir } from "granted/plugin-sdk/state-paths";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 
 export const LLAMA_CPP_PROVIDER_ID = "llama-cpp";
 export const LLAMA_CPP_PROVIDER_LABEL = "llama.cpp";

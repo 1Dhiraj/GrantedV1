@@ -1,4 +1,4 @@
-import type { CliBackendExecuteContext } from "openclaw/plugin-sdk/cli-backend";
+import type { CliBackendExecuteContext } from "granted/plugin-sdk/cli-backend";
 import { describe, expect, it, vi } from "vitest";
 import { createClaudeAgentSdkUserInputAuthorizer } from "./agent-sdk-user-input.js";
 

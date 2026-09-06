@@ -2,8 +2,8 @@
 import { randomUUID } from "node:crypto";
 import type { IncomingMessage, ServerResponse } from "node:http";
 import { setTimeout as sleep } from "node:timers/promises";
-import { asNullableRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { readRequestBodyWithLimit } from "openclaw/plugin-sdk/webhook-ingress";
+import { asNullableRecord } from "granted/plugin-sdk/string-coerce-runtime";
+import { readRequestBodyWithLimit } from "granted/plugin-sdk/webhook-ingress";
 import { writeJson } from "../shared/http-json.js";
 
 export type ResponsesInputItem = Record<string, unknown>;

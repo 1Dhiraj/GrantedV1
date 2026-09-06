@@ -9,7 +9,7 @@ import type {
   CliBackendExecuteContext,
   CliBackendLiveSessionCapability,
   CliBackendLiveSessionHandle,
-} from "openclaw/plugin-sdk/cli-backend";
+} from "granted/plugin-sdk/cli-backend";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { executeClaudeAgentSdk } from "./agent-sdk.runtime.js";
 import { buildAnthropicCliBackend } from "./cli-backend.js";

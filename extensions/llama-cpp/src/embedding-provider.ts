@@ -4,8 +4,8 @@ import {
   type EmbeddingProvider,
   type EmbeddingProviderAdapter,
   type EmbeddingProviderCreateOptions,
-} from "openclaw/plugin-sdk/embedding-providers";
-import type { ModelProviderConfig } from "openclaw/plugin-sdk/provider-model-shared";
+} from "granted/plugin-sdk/embedding-providers";
+import type { ModelProviderConfig } from "granted/plugin-sdk/provider-model-shared";
 import {
   DEFAULT_LLAMA_CPP_EMBEDDING_CACHE_FILE,
   DEFAULT_LLAMA_CPP_EMBEDDING_MODEL,

@@ -1,6 +1,6 @@
 // QA Lab WhatsApp conversation and reply-context scenarios.
 import { randomUUID } from "node:crypto";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
 import {
   toWhatsAppQaError,
   type WhatsAppQaMessageScenarioRun,

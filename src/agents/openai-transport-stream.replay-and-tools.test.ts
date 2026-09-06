@@ -1,6 +1,6 @@
 import { SYSTEM_PROMPT_CACHE_BOUNDARY } from "@openclaw/ai/internal/shared";
 import OpenAI from "openai";
-import type { Model } from "openclaw/plugin-sdk/llm";
+import type { Model } from "granted/plugin-sdk/llm";
 import { describe, expect, it, vi } from "vitest";
 import { buildOpenAICompletionsParams } from "./openai-transport-stream.js";
 import {

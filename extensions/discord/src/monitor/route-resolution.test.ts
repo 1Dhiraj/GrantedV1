@@ -1,6 +1,6 @@
 // Discord tests cover route resolution plugin behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { ResolvedAgentRoute } from "openclaw/plugin-sdk/routing";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { ResolvedAgentRoute } from "granted/plugin-sdk/routing";
 import { describe, expect, it } from "vitest";
 import {
   buildDiscordConversationRouteContext,

@@ -1,9 +1,9 @@
 // Telegram plugin module implements bot message context.route test support behavior.
-import { buildChannelInboundEventContext } from "openclaw/plugin-sdk/channel-inbound";
+import { buildChannelInboundEventContext } from "granted/plugin-sdk/channel-inbound";
 import {
   clearRuntimeConfigSnapshot,
   setRuntimeConfigSnapshot,
-} from "openclaw/plugin-sdk/runtime-config-snapshot";
+} from "granted/plugin-sdk/runtime-config-snapshot";
 import { vi, type Mock } from "vitest";
 
 type AsyncUnknownMock = Mock<(...args: unknown[]) => Promise<unknown>>;

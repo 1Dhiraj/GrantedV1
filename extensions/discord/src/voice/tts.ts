@@ -1,8 +1,8 @@
 // Discord plugin module implements tts behavior.
-import { resolveAgentDir } from "openclaw/plugin-sdk/agent-runtime";
-import type { GrantedConfig, TtsConfig } from "openclaw/plugin-sdk/config-contracts";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
-import type { TtsStreamResult } from "openclaw/plugin-sdk/tts-runtime";
+import { resolveAgentDir } from "granted/plugin-sdk/agent-runtime";
+import type { GrantedConfig, TtsConfig } from "granted/plugin-sdk/config-contracts";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
+import type { TtsStreamResult } from "granted/plugin-sdk/tts-runtime";
 import { getDiscordRuntime } from "../runtime.js";
 import { sanitizeVoiceReplyTextForSpeech } from "./sanitize.js";
 

@@ -84,7 +84,7 @@ openclaw acp client
 openclaw acp client --server-args --url wss://gateway-host:18789 --token-file ~/.openclaw/gateway.token
 
 # Override the server command (default: openclaw)
-openclaw acp client --server "node" --server-args openclaw.mjs acp --url ws://127.0.0.1:19001
+openclaw acp client --server "node" --server-args granted.mjs acp --url ws://127.0.0.1:19001
 ```
 
 Permission model (client debug mode):
@@ -209,7 +209,7 @@ If you want `acpx openclaw` to target a specific Gateway and session key every t
 For a repo-local OpenClaw checkout, use the direct CLI entrypoint instead of the dev runner so the ACP stream stays clean:
 
 ```bash
-env OPENCLAW_HIDE_BANNER=1 OPENCLAW_SUPPRESS_NOTES=1 node openclaw.mjs acp ...
+env OPENCLAW_HIDE_BANNER=1 OPENCLAW_SUPPRESS_NOTES=1 node granted.mjs acp ...
 ```
 
 This is the easiest way to let Codex, Claude Code, or another ACP-aware client pull contextual information from an OpenClaw agent without scraping a terminal.

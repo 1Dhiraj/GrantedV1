@@ -1,5 +1,5 @@
 // Channel setup tests cover setup wizard finalize behavior and config write contracts.
-import { runSetupWizardFinalize } from "openclaw/plugin-sdk/plugin-test-runtime";
+import { runSetupWizardFinalize } from "granted/plugin-sdk/plugin-test-runtime";
 import { describe, expect, expectTypeOf, it } from "vitest";
 import type { ChannelSetupInput } from "./channel-setup.js";
 import { createOptionalChannelSetupSurface } from "./channel-setup.js";

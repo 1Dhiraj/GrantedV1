@@ -8,15 +8,15 @@ import type {
   WAMessageKey,
   proto,
 } from "baileys";
-import { formatCliCommand, VERSION } from "openclaw/plugin-sdk/cli-runtime";
-import { toErrorObject } from "openclaw/plugin-sdk/error-runtime";
+import { formatCliCommand, VERSION } from "granted/plugin-sdk/cli-runtime";
+import { toErrorObject } from "granted/plugin-sdk/error-runtime";
 import {
   createHttp1EnvHttpProxyAgent,
   createHttp1ProxyAgent,
   createNodeProxyAgent,
-} from "openclaw/plugin-sdk/fetch-runtime";
-import { danger, success, getChildLogger, toPinoLikeLogger } from "openclaw/plugin-sdk/runtime-env";
-import { ensureDir, resolveUserPath } from "openclaw/plugin-sdk/text-utility-runtime";
+} from "granted/plugin-sdk/fetch-runtime";
+import { danger, success, getChildLogger, toPinoLikeLogger } from "granted/plugin-sdk/runtime-env";
+import { ensureDir, resolveUserPath } from "granted/plugin-sdk/text-utility-runtime";
 import {
   readCredsJsonRaw,
   restoreCredsFromBackupIfNeeded,

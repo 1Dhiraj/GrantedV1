@@ -1,6 +1,6 @@
 // Bench Model script supports OpenClaw repository automation.
 import { pathToFileURL } from "node:url";
-import type { Model } from "openclaw/plugin-sdk/llm";
+import type { Model } from "granted/plugin-sdk/llm";
 import { expectDefined } from "../packages/normalization-core/src/expect.js";
 import { parseStrictIntegerOption } from "./lib/strict-integer-option.ts";
 
@@ -129,7 +129,7 @@ async function runModel(opts: {
   prompt: string;
 }): Promise<RunResult[]> {
   // Keep SDK initialization outside the measured model-call samples.
-  const { completeSimple } = await import("openclaw/plugin-sdk/llm");
+  const { completeSimple } = await import("granted/plugin-sdk/llm");
   const results: RunResult[] = [];
   for (let i = 0; i < opts.runs; i += 1) {
     const started = Date.now();

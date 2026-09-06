@@ -1,32 +1,32 @@
 // Codex tests cover run attempt plugin behavior.
 import fs from "node:fs/promises";
 import path from "node:path";
-import { createOpenClawCodingTools } from "openclaw/plugin-sdk/agent-harness";
+import { createOpenClawCodingTools } from "granted/plugin-sdk/agent-harness";
 import {
   embeddedAgentLog,
   resolveActiveEmbeddedRunSessionId,
   type EmbeddedRunAttemptParamsV2 as EmbeddedRunAttemptParams,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
-import { replaceRuntimeAuthProfileStoreSnapshots } from "openclaw/plugin-sdk/agent-runtime";
-import { openFileBackedSessionManagerForTest } from "openclaw/plugin-sdk/agent-runtime-test-contracts";
-import { SessionManager } from "openclaw/plugin-sdk/agent-sessions";
+} from "granted/plugin-sdk/agent-harness-runtime";
+import { replaceRuntimeAuthProfileStoreSnapshots } from "granted/plugin-sdk/agent-runtime";
+import { openFileBackedSessionManagerForTest } from "granted/plugin-sdk/agent-runtime-test-contracts";
+import { SessionManager } from "granted/plugin-sdk/agent-sessions";
 import {
   onInternalDiagnosticEvent,
   waitForDiagnosticEventsDrained,
   type DiagnosticEventPayload,
-} from "openclaw/plugin-sdk/diagnostic-runtime";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
-import { initializeGlobalHookRunner, registerInternalHook } from "openclaw/plugin-sdk/hook-runtime";
-import { registerMemoryCapability } from "openclaw/plugin-sdk/memory-core-host-runtime-core";
-import { MESSAGE_TOOL_DELIVERY_HINTS } from "openclaw/plugin-sdk/message-tool-delivery-hints";
-import { registerPluginCommand } from "openclaw/plugin-sdk/plugin-runtime";
-import { createMockPluginRegistry } from "openclaw/plugin-sdk/plugin-test-runtime";
-import { GPT5_BEHAVIOR_CONTRACT as CODEX_GPT5_BEHAVIOR_CONTRACT } from "openclaw/plugin-sdk/provider-model-shared";
-import { resolveStorePath, upsertSessionEntry } from "openclaw/plugin-sdk/session-store-runtime";
+} from "granted/plugin-sdk/diagnostic-runtime";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
+import { initializeGlobalHookRunner, registerInternalHook } from "granted/plugin-sdk/hook-runtime";
+import { registerMemoryCapability } from "granted/plugin-sdk/memory-core-host-runtime-core";
+import { MESSAGE_TOOL_DELIVERY_HINTS } from "granted/plugin-sdk/message-tool-delivery-hints";
+import { registerPluginCommand } from "granted/plugin-sdk/plugin-runtime";
+import { createMockPluginRegistry } from "granted/plugin-sdk/plugin-test-runtime";
+import { GPT5_BEHAVIOR_CONTRACT as CODEX_GPT5_BEHAVIOR_CONTRACT } from "granted/plugin-sdk/provider-model-shared";
+import { resolveStorePath, upsertSessionEntry } from "granted/plugin-sdk/session-store-runtime";
 import {
   appendSessionTranscriptMessageByIdentity,
   readSessionTranscriptEvents,
-} from "openclaw/plugin-sdk/session-transcript-runtime";
+} from "granted/plugin-sdk/session-transcript-runtime";
 import { beforeEach, describe, expect, it, onTestFinished, vi } from "vitest";
 import WebSocket from "ws";
 import { defaultCodexAppInventoryCache } from "./app-inventory-cache.js";
@@ -141,7 +141,7 @@ const agentHarnessRuntimeMocks = vi.hoisted(() => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/agent-harness-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/agent-harness-runtime")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/agent-harness-runtime")>();
   return {
     ...actual,
     supportsModelTools: (...args: Parameters<typeof actual.supportsModelTools>) =>

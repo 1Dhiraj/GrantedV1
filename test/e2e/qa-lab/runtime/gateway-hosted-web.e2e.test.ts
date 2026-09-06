@@ -1,7 +1,7 @@
 // Gateway hosted web tests cover Control UI and public plugin routes on one real listener.
 import fs from "node:fs/promises";
 import path from "node:path";
-import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
+import { createTestPluginApi } from "granted/plugin-sdk/plugin-test-api";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import adminHttpRpcPlugin from "../../../../extensions/admin-http-rpc/index.js";
 import canvasPlugin from "../../../../extensions/canvas/index.js";

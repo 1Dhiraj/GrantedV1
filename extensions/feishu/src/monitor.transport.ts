@@ -2,9 +2,9 @@
 import crypto from "node:crypto";
 import * as http from "node:http";
 import * as Lark from "@larksuiteoapi/node-sdk";
-import { channelBlockedPatch, channelReadyPatch } from "openclaw/plugin-sdk/gateway-runtime";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+import { channelBlockedPatch, channelReadyPatch } from "granted/plugin-sdk/gateway-runtime";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
+import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import { waitForAbortableDelay } from "./async.js";
 import { createFeishuWSClient } from "./client.js";
 import type { FeishuWebhookInvoker } from "./feishu-ingress.js";

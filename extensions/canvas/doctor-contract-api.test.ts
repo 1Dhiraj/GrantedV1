@@ -1,9 +1,9 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { PluginDoctorStateMigration } from "openclaw/plugin-sdk/runtime-doctor-migrations";
-import { resolvePreferredOpenClawTmpDir, tempWorkspace } from "openclaw/plugin-sdk/temp-path";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { PluginDoctorStateMigration } from "granted/plugin-sdk/runtime-doctor-migrations";
+import { resolvePreferredOpenClawTmpDir, tempWorkspace } from "granted/plugin-sdk/temp-path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   legacyConfigRules,

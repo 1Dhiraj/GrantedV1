@@ -2,7 +2,7 @@ import { SpanStatusCode } from "@opentelemetry/api";
 import {
   normalizeDiagnosticValue,
   normalizeDiagnosticLane,
-} from "openclaw/plugin-sdk/diagnostic-runtime";
+} from "granted/plugin-sdk/diagnostic-runtime";
 import { redactSensitiveText } from "../api.js";
 import type {
   DiagnosticEventMetadata,

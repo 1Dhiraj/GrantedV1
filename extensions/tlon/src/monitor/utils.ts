@@ -1,20 +1,20 @@
-import { resolveAllowlistMatchByCandidates } from "openclaw/plugin-sdk/allow-from";
+import { resolveAllowlistMatchByCandidates } from "granted/plugin-sdk/allow-from";
 import {
   formatAgentEnvelope,
   implicitMentionKindWhen,
   resolveEnvelopeFormatOptions,
   resolveInboundMentionDecision,
-} from "openclaw/plugin-sdk/channel-inbound";
+} from "granted/plugin-sdk/channel-inbound";
 import {
   resolveChannelImplicitMentions,
   resolveStableChannelMessageIngress,
   type ChannelIngressContextBinding,
   type StableChannelIngressIdentityParams,
-} from "openclaw/plugin-sdk/channel-ingress-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+} from "granted/plugin-sdk/channel-ingress-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 // Tlon helper module supports utils behavior.
-import { expectDefined } from "openclaw/plugin-sdk/expect-runtime";
-import { asNullableRecord, readStringField } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { expectDefined } from "granted/plugin-sdk/expect-runtime";
+import { asNullableRecord, readStringField } from "granted/plugin-sdk/string-coerce-runtime";
 import { normalizeShip } from "../targets.js";
 
 export interface ParsedCite {

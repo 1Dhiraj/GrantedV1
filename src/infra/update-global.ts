@@ -287,8 +287,8 @@ export async function collectInstalledGlobalPackageErrors(params: {
       );
     } else {
       errors.push(...(await collectGitRuntimeErrors(params.expectedGitCheckout)));
-      if (!(await pathExists(path.join(installedRoot, "openclaw.mjs")))) {
-        errors.push(`missing ${path.join(installedRoot, "openclaw.mjs")}`);
+      if (!(await pathExists(path.join(installedRoot, "granted.mjs")))) {
+        errors.push(`missing ${path.join(installedRoot, "granted.mjs")}`);
       }
     }
   } else {

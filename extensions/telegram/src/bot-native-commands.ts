@@ -4,16 +4,16 @@ import {
   findCommandByNativeName,
   listNativeCommandSpecs,
   listNativeCommandSpecsForConfig,
-} from "openclaw/plugin-sdk/command-auth-native";
+} from "granted/plugin-sdk/command-auth-native";
 import type {
   ChannelGroupPolicy,
   GrantedConfig,
   TelegramAccountConfig,
-} from "openclaw/plugin-sdk/config-contracts";
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
-import { createPluginCommandRuntime } from "openclaw/plugin-sdk/plugin-command-runtime";
-import { resolveAgentRoute } from "openclaw/plugin-sdk/routing";
-import { danger, type RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
+} from "granted/plugin-sdk/config-contracts";
+import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
+import { createPluginCommandRuntime } from "granted/plugin-sdk/plugin-command-runtime";
+import { resolveAgentRoute } from "granted/plugin-sdk/routing";
+import { danger, type RuntimeEnv } from "granted/plugin-sdk/runtime-env";
 import type {
   TelegramNativeCommandCallbackDispatcher,
   TelegramResolvedGroupConfig,

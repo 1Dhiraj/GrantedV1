@@ -1,4 +1,4 @@
-import { definePluginEntry } from "openclaw/plugin-sdk/plugin-entry";
+import { definePluginEntry } from "granted/plugin-sdk/plugin-entry";
 import { buildPiperSpeechProvider } from "./piper-provider.js";
 
 export default definePluginEntry({

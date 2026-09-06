@@ -1,17 +1,17 @@
 import { statSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   createLazyRuntimeModule,
   createLazyRuntimeSurface,
-} from "openclaw/plugin-sdk/lazy-runtime";
+} from "granted/plugin-sdk/lazy-runtime";
 import type {
   GrantedPluginApi,
   GrantedPluginNodeHostCommand,
   GrantedPluginNodeInvokePolicy,
-} from "openclaw/plugin-sdk/plugin-entry";
-import type { SessionCatalogProvider } from "openclaw/plugin-sdk/session-catalog";
+} from "granted/plugin-sdk/plugin-entry";
+import type { SessionCatalogProvider } from "granted/plugin-sdk/session-catalog";
 import { CLAUDE_CLI_BACKEND_ID, CLAUDE_CLI_ROUTE_PROBE_MODEL_IDS } from "./cli-constants.js";
 import { resolveClaudeTerminalExecutable } from "./session-catalog-executable.js";
 import {

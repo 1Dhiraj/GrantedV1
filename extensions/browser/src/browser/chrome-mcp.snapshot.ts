@@ -4,7 +4,7 @@
  * Converts chrome-devtools-mcp structured snapshots into OpenClaw ARIA nodes
  * and compact AI snapshots with stable refs and duplicate tracking.
  */
-import { normalizeLowercaseStringOrEmpty } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { normalizeLowercaseStringOrEmpty } from "granted/plugin-sdk/string-coerce-runtime";
 import type { SnapshotAriaNode } from "./client.types.js";
 import type { RoleRefMap, RoleSnapshotOptions } from "./pw-role-snapshot.js";
 import { ROLE_SNAPSHOT_MAX_DEPTH } from "./snapshot-depth-limit.js";

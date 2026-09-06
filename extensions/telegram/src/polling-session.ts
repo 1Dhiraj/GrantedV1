@@ -1,11 +1,11 @@
 // Telegram plugin module implements polling session behavior.
 import { type RunOptions, run } from "@grammyjs/runner";
-import type { ChannelAccountSnapshot } from "openclaw/plugin-sdk/channel-contract";
-import type { TelegramNetworkConfig } from "openclaw/plugin-sdk/config-contracts";
-import { drainPendingDeliveries } from "openclaw/plugin-sdk/delivery-queue-runtime";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import { formatDurationPrecise, sleepWithAbort } from "openclaw/plugin-sdk/runtime-env";
-import { normalizeLowercaseStringOrEmpty } from "openclaw/plugin-sdk/string-coerce-runtime";
+import type { ChannelAccountSnapshot } from "granted/plugin-sdk/channel-contract";
+import type { TelegramNetworkConfig } from "granted/plugin-sdk/config-contracts";
+import { drainPendingDeliveries } from "granted/plugin-sdk/delivery-queue-runtime";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
+import { formatDurationPrecise, sleepWithAbort } from "granted/plugin-sdk/runtime-env";
+import { normalizeLowercaseStringOrEmpty } from "granted/plugin-sdk/string-coerce-runtime";
 import { withTelegramApiErrorLogging } from "./api-logging.js";
 import { createTelegramBot } from "./bot.js";
 import type { TelegramTransport } from "./fetch.js";

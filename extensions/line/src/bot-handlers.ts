@@ -7,40 +7,40 @@ import {
   matchesMentionPatterns,
   implicitMentionKindWhen,
   type ChannelInboundMediaInput,
-} from "openclaw/plugin-sdk/channel-inbound";
+} from "granted/plugin-sdk/channel-inbound";
 import {
   resolveChannelImplicitMentions,
   resolveStableChannelMessageIngress,
   type ChannelIngressContextBinding,
   type ResolvedChannelMessageIngress,
-} from "openclaw/plugin-sdk/channel-ingress-runtime";
-import { reportChannelRoomJoin } from "openclaw/plugin-sdk/channel-join-intro-runtime";
-import { createChannelPairingChallengeIssuer } from "openclaw/plugin-sdk/channel-pairing";
-import { hasControlCommand } from "openclaw/plugin-sdk/command-auth-native";
-import type { GroupPolicy, GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+} from "granted/plugin-sdk/channel-ingress-runtime";
+import { reportChannelRoomJoin } from "granted/plugin-sdk/channel-join-intro-runtime";
+import { createChannelPairingChallengeIssuer } from "granted/plugin-sdk/channel-pairing";
+import { hasControlCommand } from "granted/plugin-sdk/command-auth-native";
+import type { GroupPolicy, GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   readChannelAllowFromStore,
   resolvePairingIdLabel,
   upsertChannelPairingRequest,
-} from "openclaw/plugin-sdk/conversation-runtime";
-import { toErrorObject } from "openclaw/plugin-sdk/error-runtime";
+} from "granted/plugin-sdk/conversation-runtime";
+import { toErrorObject } from "granted/plugin-sdk/error-runtime";
 import {
   DEFAULT_GROUP_HISTORY_LIMIT,
   createChannelHistoryWindow,
   type HistoryEntry,
-} from "openclaw/plugin-sdk/reply-history";
-import { resolveAgentRoute } from "openclaw/plugin-sdk/routing";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime";
-import { danger, logVerbose } from "openclaw/plugin-sdk/runtime-env";
+} from "granted/plugin-sdk/reply-history";
+import { resolveAgentRoute } from "granted/plugin-sdk/routing";
+import type { RuntimeEnv } from "granted/plugin-sdk/runtime";
+import { danger, logVerbose } from "granted/plugin-sdk/runtime-env";
 import {
   resolveAllowlistProviderRuntimeGroupPolicy,
   resolveDefaultGroupPolicy,
   warnMissingProviderGroupPolicyFallbackOnce,
-} from "openclaw/plugin-sdk/runtime-group-policy";
+} from "granted/plugin-sdk/runtime-group-policy";
 import {
   normalizeOptionalString,
   normalizeStringEntries,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import { firstDefined, normalizeLineAllowEntry } from "./bot-access.js";
 import {
   buildLineMessageContext,

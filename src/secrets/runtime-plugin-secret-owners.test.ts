@@ -1,7 +1,7 @@
 /** Tests runtime isolation for manifest-owned plugin secrets. */
 import fs from "node:fs/promises";
 import path from "node:path";
-import { assertPluginCapabilitySecretAvailable } from "openclaw/plugin-sdk/secret-input-runtime";
+import { assertPluginCapabilitySecretAvailable } from "granted/plugin-sdk/secret-input-runtime";
 import { afterEach, describe, expect, it } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
 import {

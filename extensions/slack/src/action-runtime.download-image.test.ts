@@ -1,9 +1,9 @@
 import { mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { getImageMetadata } from "openclaw/plugin-sdk/media-runtime";
-import { createSolidPngBuffer } from "openclaw/plugin-sdk/test-fixtures";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { getImageMetadata } from "granted/plugin-sdk/media-runtime";
+import { createSolidPngBuffer } from "granted/plugin-sdk/test-fixtures";
 import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from "vitest";
 import { slackActionRuntime } from "./action-runtime.js";
 import { createSlackActions } from "./channel-actions.js";

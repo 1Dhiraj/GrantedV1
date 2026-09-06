@@ -43,11 +43,11 @@ import * as whatsappUserPathScenarios from "./whatsapp-live.scenario-implementat
 import { unpackWhatsAppAuthArchive } from "./whatsapp-live.setup.js";
 
 const runExecSpy = vi.hoisted(() =>
-  vi.fn<typeof import("openclaw/plugin-sdk/process-runtime").runExec>(),
+  vi.fn<typeof import("granted/plugin-sdk/process-runtime").runExec>(),
 );
 
 vi.mock("openclaw/plugin-sdk/process-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/process-runtime")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/process-runtime")>();
   runExecSpy.mockImplementation(actual.runExec);
   return { ...actual, runExec: runExecSpy };
 });

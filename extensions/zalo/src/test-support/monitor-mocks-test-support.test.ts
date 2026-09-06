@@ -1,5 +1,5 @@
 // Zalo tests cover lifecycle teardown release of per-agent state databases.
-import { openOpenClawAgentDatabase } from "openclaw/plugin-sdk/sqlite-runtime-testing";
+import { openOpenClawAgentDatabase } from "granted/plugin-sdk/sqlite-runtime-testing";
 import { afterEach, describe, expect, it } from "vitest";
 import { resetLifecycleTestState } from "./monitor-mocks-test-support.js";
 

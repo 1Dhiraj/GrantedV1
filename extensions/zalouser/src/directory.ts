@@ -1,6 +1,6 @@
 // Zalouser plugin module implements directory behavior.
-import type { ChannelDirectoryEntry } from "openclaw/plugin-sdk/channel-contract";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { ChannelDirectoryEntry } from "granted/plugin-sdk/channel-contract";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { resolveZalouserAccountSync } from "./accounts.js";
 import { parseZalouserDirectoryGroupId } from "./session-route.js";
 

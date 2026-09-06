@@ -5,7 +5,7 @@ import os from "node:os";
 import path from "node:path";
 import { DatabaseSync } from "node:sqlite";
 import { pathToFileURL } from "node:url";
-import type { GatewayClient } from "openclaw/plugin-sdk/gateway-runtime";
+import type { GatewayClient } from "granted/plugin-sdk/gateway-runtime";
 import { createQaGatewayChild, type QaGatewayChild } from "../../../../extensions/qa-lab/api.js";
 import {
   QA_EVIDENCE_FILENAME,

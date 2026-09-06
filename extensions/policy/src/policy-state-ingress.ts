@@ -4,7 +4,7 @@ import {
   isRecord,
   asBoolean as readBoolean,
   normalizeOptionalString as readString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import { configuredChannels } from "./policy-state-core.js";
 import { ocPathSegment } from "./policy-state-helpers.js";
 import { IMPLICIT_DEFAULT_ACCOUNT_FIELDS } from "./policy-state-tool-posture.js";

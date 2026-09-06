@@ -85,7 +85,7 @@ describe("check-extension-package-tsc-boundary", () => {
     );
     write(
       "extensions/demo/index.ts",
-      'import type { DemoContract } from "openclaw/plugin-sdk/core";\nexport const demo: DemoContract = { ok: true };\n',
+      'import type { DemoContract } from "granted/plugin-sdk/core";\nexport const demo: DemoContract = { ok: true };\n',
     );
     // Hold preparation fixed; scheduling, config parsing, and compilation remain real.
     write("scripts/prepare-extension-package-boundary-artifacts.mts", "export {};\n");

@@ -1,11 +1,11 @@
 // Discord plugin module implements source-preserving Markdown normalization.
 import { fromMarkdown } from "mdast-util-from-markdown";
-import type { MarkdownTableMode } from "openclaw/plugin-sdk/config-contracts";
+import type { MarkdownTableMode } from "granted/plugin-sdk/config-contracts";
 import {
   convertMarkdownTables,
   FormatCapabilityProfile,
   renderMarkdownWithMarkers,
-} from "openclaw/plugin-sdk/text-chunking";
+} from "granted/plugin-sdk/text-chunking";
 
 const DISCORD_FORMAT_PROFILE = FormatCapabilityProfile.define({
   mechanism: "markdown",

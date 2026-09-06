@@ -61,7 +61,7 @@ vi.mock("./bot-message-context.body.js", () => ({
 const { buildTelegramMessageContextForTest } =
   await import("./bot-message-context.test-harness.js");
 const { clearRuntimeConfigSnapshot, setRuntimeConfigSnapshot } =
-  await import("openclaw/plugin-sdk/runtime-config-snapshot");
+  await import("granted/plugin-sdk/runtime-config-snapshot");
 
 let defaultSessionStoreRoot = "";
 

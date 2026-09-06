@@ -1,8 +1,8 @@
 import { WebClient } from "@slack/web-api";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 // Slack tests cover action runtime plugin behavior.
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { SlackActionContext } from "./action-runtime.js";
 import { handleSlackAction, slackActionRuntime } from "./action-runtime.js";

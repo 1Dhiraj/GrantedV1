@@ -1,21 +1,21 @@
-import { createAsyncLock } from "openclaw/plugin-sdk/async-lock-runtime";
+import { createAsyncLock } from "granted/plugin-sdk/async-lock-runtime";
 import {
   buildChannelInboundEventContext,
   formatInboundMediaUnavailableText,
   resolveChannelInboundRouteEnvelope,
   toInboundMediaFactsWithMetadata,
-} from "openclaw/plugin-sdk/channel-inbound";
+} from "granted/plugin-sdk/channel-inbound";
 // Qa Channel plugin module implements inbound behavior.
-import { resolveStableChannelMessageIngress } from "openclaw/plugin-sdk/channel-ingress-runtime";
-import { resolveNativeCommandSessionTargets } from "openclaw/plugin-sdk/command-auth-native";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import { getAgentScopedMediaLocalRoots } from "openclaw/plugin-sdk/media-local-roots";
-import { saveMediaBuffer, saveMediaSource } from "openclaw/plugin-sdk/media-store";
+import { resolveStableChannelMessageIngress } from "granted/plugin-sdk/channel-ingress-runtime";
+import { resolveNativeCommandSessionTargets } from "granted/plugin-sdk/command-auth-native";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
+import { getAgentScopedMediaLocalRoots } from "granted/plugin-sdk/media-local-roots";
+import { saveMediaBuffer, saveMediaSource } from "granted/plugin-sdk/media-store";
 import {
   sanitizeQaBusToolCallArguments,
   type QaBusToolCall,
-} from "openclaw/plugin-sdk/qa-channel-protocol";
+} from "granted/plugin-sdk/qa-channel-protocol";
 import {
   buildQaTarget,
   deleteQaBusMessage,

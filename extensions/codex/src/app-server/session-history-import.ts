@@ -1,6 +1,6 @@
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { PluginRuntime } from "openclaw/plugin-sdk/plugin-runtime";
-import { resolveStorePath } from "openclaw/plugin-sdk/session-store-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { PluginRuntime } from "granted/plugin-sdk/plugin-runtime";
+import { resolveStorePath } from "granted/plugin-sdk/session-store-runtime";
 import type { CodexThread } from "./protocol.js";
 import { sessionBindingIdentity, type CodexAppServerBindingStore } from "./session-binding.js";
 import { prepareCodexSessionInitialization } from "./session-initialization.js";

@@ -6,13 +6,13 @@ import {
   invokeNativeHookRelay,
   nativeHookRelayTesting,
   resolveActiveEmbeddedRunSessionId,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
+} from "granted/plugin-sdk/agent-harness-runtime";
 import {
   onInternalDiagnosticEvent,
   type DiagnosticEventPayload,
-} from "openclaw/plugin-sdk/diagnostic-runtime";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
-import * as mediaStore from "openclaw/plugin-sdk/media-store";
+} from "granted/plugin-sdk/diagnostic-runtime";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
+import * as mediaStore from "granted/plugin-sdk/media-store";
 import { describe, expect, it, vi } from "vitest";
 import * as approvalBridge from "./approval-bridge.js";
 import { buildCodexAppServerPromptTimeoutOutcome } from "./attempt-results.js";

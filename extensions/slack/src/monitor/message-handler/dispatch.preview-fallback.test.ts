@@ -3,9 +3,9 @@ import {
   createTestRegistry,
   resetPluginRuntimeStateForTest,
   setActivePluginRegistry,
-} from "openclaw/plugin-sdk/channel-test-helpers";
-import type { GetReplyOptions, ReplyPayload } from "openclaw/plugin-sdk/reply-runtime";
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+} from "granted/plugin-sdk/channel-test-helpers";
+import type { GetReplyOptions, ReplyPayload } from "granted/plugin-sdk/reply-runtime";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { slackSetupPlugin } from "../../channel.setup.js";
 
@@ -489,7 +489,7 @@ vi.mock("openclaw/plugin-sdk/channel-feedback", () => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/channel-outbound", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/channel-outbound")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/channel-outbound")>();
   return {
     ...actual,
     createChannelProgressDraftCompositor: (
@@ -899,7 +899,7 @@ vi.mock("openclaw/plugin-sdk/runtime-env", () => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/plugin-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/plugin-runtime")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/plugin-runtime")>();
   return { ...actual, getGlobalHookRunner: getGlobalHookRunnerMock };
 });
 
@@ -908,7 +908,7 @@ vi.mock("openclaw/plugin-sdk/security-runtime", () => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/string-coerce-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/string-coerce-runtime")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/string-coerce-runtime")>();
   const normalizeMockLowercaseString = (value?: string) => value?.toLowerCase();
   const readMockOptionalString = (value?: string) => value;
   return {
@@ -1008,7 +1008,7 @@ vi.mock("../replies.js", async (importOriginal) => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/channel-inbound", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/channel-inbound")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/channel-inbound")>();
   type DispatchParams = Parameters<typeof actual.dispatchChannelInboundTurn>[0];
   return {
     ...actual,

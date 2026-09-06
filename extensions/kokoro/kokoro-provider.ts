@@ -1,14 +1,14 @@
 import { spawn } from "node:child_process";
 import { existsSync } from "node:fs";
 import path from "node:path";
-import { isVoiceCompatibleAudio } from "openclaw/plugin-sdk/media-runtime";
+import { isVoiceCompatibleAudio } from "granted/plugin-sdk/media-runtime";
 import type {
   SpeechProviderConfig,
   SpeechProviderPlugin,
   SpeechVoiceOption,
-} from "openclaw/plugin-sdk/speech";
-import { asFiniteNumber, asObject, trimToUndefined } from "openclaw/plugin-sdk/speech";
-import { resolveStateDir } from "openclaw/plugin-sdk/state-paths";
+} from "granted/plugin-sdk/speech";
+import { asFiniteNumber, asObject, trimToUndefined } from "granted/plugin-sdk/speech";
+import { resolveStateDir } from "granted/plugin-sdk/state-paths";
 
 // Kokoro: high-quality neural voice (82M). It is heavier than Piper, so it runs
 // in a SEPARATE persistent worker process (loads the model once, stays resident)

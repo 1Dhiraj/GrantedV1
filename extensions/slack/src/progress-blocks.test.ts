@@ -1,4 +1,4 @@
-import type { ChannelProgressDraftLine } from "openclaw/plugin-sdk/channel-outbound";
+import type { ChannelProgressDraftLine } from "granted/plugin-sdk/channel-outbound";
 import { describe, expect, it } from "vitest";
 import {
   buildSlackProgressCardBlocks,

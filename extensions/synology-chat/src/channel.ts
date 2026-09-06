@@ -4,47 +4,47 @@
  * Implements the ChannelPlugin interface following the LINE pattern.
  */
 
-import { DEFAULT_ACCOUNT_ID } from "openclaw/plugin-sdk/account-id";
-import type { GrantedConfig } from "openclaw/plugin-sdk/account-resolution";
+import { DEFAULT_ACCOUNT_ID } from "granted/plugin-sdk/account-id";
+import type { GrantedConfig } from "granted/plugin-sdk/account-resolution";
 import {
   createHybridChannelConfigAdapter,
   createScopedDmSecurityResolver,
-} from "openclaw/plugin-sdk/channel-config-helpers";
+} from "granted/plugin-sdk/channel-config-helpers";
 import type {
   ChannelAccountSnapshot,
   ChannelOutboundAdapter,
-} from "openclaw/plugin-sdk/channel-contract";
-import { createChatChannelPlugin, type ChannelPlugin } from "openclaw/plugin-sdk/channel-core";
+} from "granted/plugin-sdk/channel-contract";
+import { createChatChannelPlugin, type ChannelPlugin } from "granted/plugin-sdk/channel-core";
 import {
   waitUntilAbort,
   createMessageReceiptFromOutboundResults,
   defineChannelMessageAdapter,
   type MessageReceipt,
   type MessageReceiptPartKind,
-} from "openclaw/plugin-sdk/channel-outbound";
-import { createConditionalWarningCollector } from "openclaw/plugin-sdk/channel-policy";
-import { createEmptyChannelDirectoryAdapter } from "openclaw/plugin-sdk/directory-runtime";
+} from "granted/plugin-sdk/channel-outbound";
+import { createConditionalWarningCollector } from "granted/plugin-sdk/channel-policy";
+import { createEmptyChannelDirectoryAdapter } from "granted/plugin-sdk/directory-runtime";
 import {
   channelBlockedPatch,
   channelReadyPatch,
   channelStoppedPatch,
-} from "openclaw/plugin-sdk/gateway-runtime";
-import { parseStrictNonNegativeInteger } from "openclaw/plugin-sdk/number-runtime";
-import type { OutboundMediaLoadOptions } from "openclaw/plugin-sdk/outbound-media";
+} from "granted/plugin-sdk/gateway-runtime";
+import { parseStrictNonNegativeInteger } from "granted/plugin-sdk/number-runtime";
+import type { OutboundMediaLoadOptions } from "granted/plugin-sdk/outbound-media";
 import {
   createComputedAccountStatusAdapter,
   createDefaultChannelRuntimeState,
-} from "openclaw/plugin-sdk/status-helpers";
+} from "granted/plugin-sdk/status-helpers";
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeStringEntriesLower,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import {
   chunkTextForOutbound,
   findCodeRegions,
   isInsideCode,
   sanitizeAssistantVisibleText,
-} from "openclaw/plugin-sdk/text-chunking";
+} from "granted/plugin-sdk/text-chunking";
 import { listAccountIds, resolveAccount } from "./accounts.js";
 import { synologyChatApprovalAuth } from "./approval-auth.js";
 import { SYNOLOGY_CHAT_TEXT_CHUNK_LIMIT, sendHostedFileUrl, sendMessage } from "./client.js";

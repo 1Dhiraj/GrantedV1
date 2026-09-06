@@ -2,8 +2,8 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { createPluginRuntimeMock } from "openclaw/plugin-sdk/channel-test-helpers";
-import { createRuntimeEnv } from "openclaw/plugin-sdk/plugin-test-runtime";
+import { createPluginRuntimeMock } from "granted/plugin-sdk/channel-test-helpers";
+import { createRuntimeEnv } from "granted/plugin-sdk/plugin-test-runtime";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { GrantedConfig } from "../api.js";
 import { resolveLineAccount } from "./accounts.js";

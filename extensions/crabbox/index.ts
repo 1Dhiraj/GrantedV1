@@ -1,5 +1,5 @@
 import { fileURLToPath } from "node:url";
-import { definePluginEntry, type GrantedPluginService } from "openclaw/plugin-sdk/plugin-entry";
+import { definePluginEntry, type GrantedPluginService } from "granted/plugin-sdk/plugin-entry";
 import { createCrabboxWorkerProvider, resolveOpenClawRoot } from "./src/crabbox-worker-provider.js";
 
 const workerWallpaperPath = fileURLToPath(

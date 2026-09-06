@@ -1,6 +1,6 @@
 // Telegram plugin module owns supersede sender authorization policy.
 import type { Message } from "grammy/types";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { resolveTelegramDmAllow } from "./access-groups.js";
 import { mergeTelegramAccountConfig } from "./account-config.js";
 import {

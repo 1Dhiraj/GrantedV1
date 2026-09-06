@@ -1,19 +1,19 @@
 // Discord plugin module implements native command model picker ui behavior.
-import { resolveDefaultModelForAgent } from "openclaw/plugin-sdk/agent-runtime";
+import { resolveDefaultModelForAgent } from "granted/plugin-sdk/agent-runtime";
 import {
   resolveEffectiveAgentRuntime,
   resolveStoredModelOverride,
   serializeCommandArgs,
   type ChatCommandDefinition,
   type CommandArgs,
-} from "openclaw/plugin-sdk/command-auth-native";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { ResolvedAgentRoute } from "openclaw/plugin-sdk/routing";
-import { getSessionEntry, resolveStorePath } from "openclaw/plugin-sdk/session-store-runtime";
+} from "granted/plugin-sdk/command-auth-native";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { ResolvedAgentRoute } from "granted/plugin-sdk/routing";
+import { getSessionEntry, resolveStorePath } from "granted/plugin-sdk/session-store-runtime";
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import {
   Container,
   TextDisplay,

@@ -1,14 +1,14 @@
-import { listAgentIds, resolveAgentConfig } from "openclaw/plugin-sdk/agent-scope-runtime";
+import { listAgentIds, resolveAgentConfig } from "granted/plugin-sdk/agent-scope-runtime";
 /**
  * Browser setup entry. It auto-enables the Browser plugin when config or tool
  * policies reference browser control.
  */
-import type { GrantedConfig } from "openclaw/plugin-sdk/plugin-entry";
-import { definePluginEntry } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedConfig } from "granted/plugin-sdk/plugin-entry";
+import { definePluginEntry } from "granted/plugin-sdk/plugin-entry";
 import {
   isRecord,
   normalizeOptionalLowercaseString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 
 function listContainsBrowser(value: unknown): boolean {
   return (

@@ -545,13 +545,13 @@ export type PluginRuntimeCore = {
   modelAuth: {
     /** Resolve auth for a model. Only provider/model, optional cfg, and workspaceDir are used. */
     getApiKeyForModel: (params: {
-      model: import("openclaw/plugin-sdk/llm").Model<import("openclaw/plugin-sdk/llm").Api>;
+      model: import("granted/plugin-sdk/llm").Model<import("granted/plugin-sdk/llm").Api>;
       cfg?: import("../../config/types.openclaw.js").GrantedConfig;
       workspaceDir?: string;
     }) => Promise<import("../../agents/model-auth-runtime-shared.js").ResolvedProviderAuth>;
     /** Resolve request-ready auth for a model, including provider runtime exchanges. */
     getRuntimeAuthForModel: (params: {
-      model: import("openclaw/plugin-sdk/llm").Model<import("openclaw/plugin-sdk/llm").Api>;
+      model: import("granted/plugin-sdk/llm").Model<import("granted/plugin-sdk/llm").Api>;
       cfg?: import("../../config/types.openclaw.js").GrantedConfig;
       workspaceDir?: string;
     }) => Promise<import("./model-auth-types.js").ResolvedProviderRuntimeAuth>;

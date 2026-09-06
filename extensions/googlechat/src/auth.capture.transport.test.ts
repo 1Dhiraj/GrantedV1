@@ -1,8 +1,8 @@
 import { createServer } from "node:http";
 import type { Socket } from "node:net";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
-import { captureHttpExchange, type CaptureEventRecord } from "openclaw/plugin-sdk/proxy-capture";
-import { fetchWithRuntimeDispatcher } from "openclaw/plugin-sdk/runtime-fetch";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
+import { captureHttpExchange, type CaptureEventRecord } from "granted/plugin-sdk/proxy-capture";
+import { fetchWithRuntimeDispatcher } from "granted/plugin-sdk/runtime-fetch";
 import { afterAll, describe, expect, it, vi } from "vitest";
 
 const fixture = vi.hoisted(() => ({
@@ -15,7 +15,7 @@ const fixture = vi.hoisted(() => ({
 // Change only the destination to our owned server; keep the real guard,
 // dispatcher, response reader, capture tee, and request cleanup.
 vi.mock("openclaw/plugin-sdk/ssrf-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/ssrf-runtime")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/ssrf-runtime")>();
   return {
     ...actual,
     fetchWithSsrFGuard: async (...[params]: Parameters<typeof actual.fetchWithSsrFGuard>) => {

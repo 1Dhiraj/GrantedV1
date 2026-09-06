@@ -2,16 +2,16 @@
 import type {
   ChannelAccountSnapshot,
   ChannelStatusIssue,
-} from "openclaw/plugin-sdk/channel-contract";
-import { formatCliCommand } from "openclaw/plugin-sdk/cli-runtime";
+} from "granted/plugin-sdk/channel-contract";
+import { formatCliCommand } from "granted/plugin-sdk/cli-runtime";
 import {
   appendMatchMetadata,
   isRecord,
   readAccountStatusSnapshot,
   resolveEnabledConfiguredAccountId,
   type AccountStatusSnapshot,
-} from "openclaw/plugin-sdk/status-helpers";
-import { asFiniteNumber, normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/status-helpers";
+import { asFiniteNumber, normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 
 const TELEGRAM_POLLING_CONNECT_GRACE_MS = 120_000;
 const TELEGRAM_POLLING_STALE_TRANSPORT_MS = 30 * 60_000;

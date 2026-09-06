@@ -2,20 +2,20 @@
 import {
   resolveStableChannelMessageIngress,
   type StableChannelIngressIdentityParams,
-} from "openclaw/plugin-sdk/channel-ingress-runtime";
+} from "granted/plugin-sdk/channel-ingress-runtime";
 import {
   bindIngressLifecycleToReplyOptions,
   runPassiveAccountLifecycle,
-} from "openclaw/plugin-sdk/channel-outbound";
-import { createChannelPairingController } from "openclaw/plugin-sdk/channel-pairing";
-import { attachChannelToResult } from "openclaw/plugin-sdk/channel-send-result";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { channelReadyPatch } from "openclaw/plugin-sdk/gateway-runtime";
+} from "granted/plugin-sdk/channel-outbound";
+import { createChannelPairingController } from "granted/plugin-sdk/channel-pairing";
+import { attachChannelToResult } from "granted/plugin-sdk/channel-send-result";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { channelReadyPatch } from "granted/plugin-sdk/gateway-runtime";
 import {
   chunkTextForOutbound,
   sanitizeAssistantVisibleText,
   stripMarkdown,
-} from "openclaw/plugin-sdk/text-chunking";
+} from "granted/plugin-sdk/text-chunking";
 import type { PluginRuntime } from "../runtime-api.js";
 import type { ChannelOutboundAdapter, ChannelPlugin } from "./channel-api.js";
 import type { MetricEvent } from "./metrics.js";
@@ -111,7 +111,7 @@ export const startNostrGatewayAccount: NostrGatewayStart = async (ctx) => {
   const resolveInboundAccess = async (
     senderPubkey: string,
     rawBody: string,
-    contextBinding?: import("openclaw/plugin-sdk/channel-ingress-runtime").ChannelIngressContextBinding,
+    contextBinding?: import("granted/plugin-sdk/channel-ingress-runtime").ChannelIngressContextBinding,
   ) =>
     await resolveStableChannelMessageIngress({
       channelId: "nostr",

@@ -1,6 +1,6 @@
 // Qa Channel setup module handles plugin onboarding behavior.
-import type { ChannelSetupInput } from "openclaw/plugin-sdk/channel-setup";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { ChannelSetupInput } from "granted/plugin-sdk/channel-setup";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { DEFAULT_ACCOUNT_ID } from "./accounts.js";
 import type { CoreConfig } from "./types.js";
 

@@ -6,8 +6,8 @@ import {
   type ChannelSetupWizard,
   type DmPolicy,
   type GrantedConfig,
-} from "openclaw/plugin-sdk/setup";
-import { formatCliCommand, formatDocsLink } from "openclaw/plugin-sdk/setup-tools";
+} from "granted/plugin-sdk/setup";
+import { formatCliCommand, formatDocsLink } from "granted/plugin-sdk/setup-tools";
 import {
   resolveDefaultWhatsAppAccountId,
   resolveWhatsAppAccount,

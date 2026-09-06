@@ -2,8 +2,8 @@
 import type {
   ChannelDeliveryStreamingConfig,
   MessageReceipt,
-} from "openclaw/plugin-sdk/channel-outbound";
-import type { ReplyToMode } from "openclaw/plugin-sdk/config-contracts";
+} from "granted/plugin-sdk/channel-outbound";
+import type { ReplyToMode } from "granted/plugin-sdk/config-contracts";
 import type {
   DmConfig,
   DmPolicy,

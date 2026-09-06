@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
 import { expectDefined } from "@openclaw/normalization-core";
-import type { SandboxBackendHandle, SandboxFsBridge } from "openclaw/plugin-sdk/sandbox";
+import type { SandboxBackendHandle, SandboxFsBridge } from "granted/plugin-sdk/sandbox";
 import { expect } from "vitest";
 import { z } from "zod";
 

@@ -2,7 +2,7 @@
 // timeout validation, and reply-directive defusing.
 
 import { expectDefined } from "@openclaw/normalization-core";
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import * as ttsRuntime from "../../tts/tts.js";
 import { getCoreTtsToolResultMediaUrls } from "./tts-tool-result-provenance.js";

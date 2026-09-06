@@ -1,7 +1,7 @@
 import {
   readCodexCliCredentialsCached,
   resolveOpenAICodexAuthIdentity,
-} from "openclaw/plugin-sdk/provider-auth";
+} from "granted/plugin-sdk/provider-auth";
 import { describe, expect, it } from "vitest";
 import type { OpenAIQuicksilverPendingAudio } from "./realtime-quicksilver-audio-buffer.js";
 import { OpenAIQuicksilverGatewayBridge } from "./realtime-quicksilver-gateway-bridge.js";

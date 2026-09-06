@@ -1,6 +1,6 @@
 // Mattermost plugin module implements slash commands behavior.
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { truncateUtf8Prefix } from "openclaw/plugin-sdk/text-utility-runtime";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
+import { truncateUtf8Prefix } from "granted/plugin-sdk/text-utility-runtime";
 import { isWildcardBindHost } from "./callback-host.js";
 import type { MattermostClient } from "./client.js";
 

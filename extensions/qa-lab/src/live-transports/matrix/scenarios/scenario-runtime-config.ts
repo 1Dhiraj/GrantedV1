@@ -1,8 +1,8 @@
 // QA Lab Matrix helper module supports scenario runtime config behavior.
 import { readFile } from "node:fs/promises";
 import { isDeepStrictEqual } from "node:util";
-import { replaceFileAtomic } from "openclaw/plugin-sdk/security-runtime";
-import { isRecord as isMatrixQaPlainRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { replaceFileAtomic } from "granted/plugin-sdk/security-runtime";
+import { isRecord as isMatrixQaPlainRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   buildMatrixQaToken,
   buildMentionPrompt,

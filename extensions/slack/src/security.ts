@@ -1,11 +1,11 @@
 // Slack plugin module implements security behavior.
-import { createScopedDmSecurityResolver } from "openclaw/plugin-sdk/channel-config-helpers";
-import { identityEntryAuthenticationClassifier } from "openclaw/plugin-sdk/channel-ingress-runtime";
+import { createScopedDmSecurityResolver } from "granted/plugin-sdk/channel-config-helpers";
+import { identityEntryAuthenticationClassifier } from "granted/plugin-sdk/channel-ingress-runtime";
 import {
   createConditionalWarningCollector,
   createOpenProviderConfiguredRouteWarningCollector,
-} from "openclaw/plugin-sdk/channel-policy";
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
+} from "granted/plugin-sdk/channel-policy";
+import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
 import {
   resolveSlackAccountAllowFrom,
   resolveSlackAccountDmPolicy,

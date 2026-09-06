@@ -78,9 +78,9 @@ describe("config boundary guard", () => {
       repoRoot,
       "extensions/telegram/src/index.ts",
       [
-        'import type { GrantedConfig } from "openclaw/plugin-sdk/config-runtime";',
-        'import { requireRuntimeConfig } from "openclaw/plugin-sdk/config-runtime";',
-        'type Loader = typeof import("openclaw/plugin-sdk/config-runtime").getRuntimeConfig;',
+        'import type { GrantedConfig } from "granted/plugin-sdk/config-runtime";',
+        'import { requireRuntimeConfig } from "granted/plugin-sdk/config-runtime";',
+        'type Loader = typeof import("granted/plugin-sdk/config-runtime").getRuntimeConfig;',
         "export type Config = GrantedConfig;",
         "export const load: Loader = requireRuntimeConfig;",
       ].join("\n"),
@@ -112,9 +112,9 @@ describe("config boundary guard", () => {
       repoRoot,
       "extensions/telegram/src/index.ts",
       [
-        'import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";',
-        'import { requireRuntimeConfig } from "openclaw/plugin-sdk/plugin-config-runtime";',
-        'type Loader = typeof import("openclaw/plugin-sdk/runtime-config-snapshot").getRuntimeConfig;',
+        'import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";',
+        'import { requireRuntimeConfig } from "granted/plugin-sdk/plugin-config-runtime";',
+        'type Loader = typeof import("granted/plugin-sdk/runtime-config-snapshot").getRuntimeConfig;',
         'export const load = (cfg: GrantedConfig) => requireRuntimeConfig(cfg, "telegram");',
       ].join("\n"),
     );

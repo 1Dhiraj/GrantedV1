@@ -6,7 +6,7 @@ import { randomUUID, createHash } from "node:crypto";
 import type {
   OpenKeyedStoreOptions,
   PluginStateKeyedStore,
-} from "openclaw/plugin-sdk/plugin-state-runtime";
+} from "granted/plugin-sdk/plugin-state-runtime";
 import { splitCommandParts } from "./command-line.js";
 import { ACPX_PROCESS_LEASE_MAX_ENTRIES, ACPX_PROCESS_LEASE_NAMESPACE } from "./state.js";
 

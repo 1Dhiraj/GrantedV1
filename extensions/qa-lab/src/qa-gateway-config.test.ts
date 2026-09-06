@@ -1,5 +1,5 @@
 // Qa Lab tests cover qa gateway config plugin behavior.
-import { GRANTED_VERSION } from "openclaw/plugin-sdk/agent-harness-runtime";
+import { GRANTED_VERSION } from "granted/plugin-sdk/agent-harness-runtime";
 import { describe, expect, it } from "vitest";
 import {
   buildQaGatewayConfig,

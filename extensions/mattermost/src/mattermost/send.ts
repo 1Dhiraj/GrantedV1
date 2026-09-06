@@ -1,22 +1,22 @@
-import { resolveChannelMediaMaxBytes } from "openclaw/plugin-sdk/account-helpers";
-import { createChannelPartialDeliveryError } from "openclaw/plugin-sdk/channel-inbound";
+import { resolveChannelMediaMaxBytes } from "granted/plugin-sdk/account-helpers";
+import { createChannelPartialDeliveryError } from "granted/plugin-sdk/channel-inbound";
 // Mattermost plugin module implements send behavior.
 import {
   createMessageReceiptFromOutboundResults,
   listMessageReceiptPlatformIds,
   type MessageReceipt,
   type MessageReceiptPartKind,
-} from "openclaw/plugin-sdk/channel-outbound";
-import { pruneMapToMaxSize } from "openclaw/plugin-sdk/collection-runtime";
-import { resolveMarkdownTableMode } from "openclaw/plugin-sdk/markdown-table-runtime";
-import { extensionForMime } from "openclaw/plugin-sdk/media-mime";
-import { requireRuntimeConfig } from "openclaw/plugin-sdk/plugin-config-runtime";
-import { isPrivateNetworkOptInEnabled } from "openclaw/plugin-sdk/ssrf-runtime";
+} from "granted/plugin-sdk/channel-outbound";
+import { pruneMapToMaxSize } from "granted/plugin-sdk/collection-runtime";
+import { resolveMarkdownTableMode } from "granted/plugin-sdk/markdown-table-runtime";
+import { extensionForMime } from "granted/plugin-sdk/media-mime";
+import { requireRuntimeConfig } from "granted/plugin-sdk/plugin-config-runtime";
+import { isPrivateNetworkOptInEnabled } from "granted/plugin-sdk/ssrf-runtime";
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
-import { convertMarkdownTables, FormatCapabilityProfile } from "openclaw/plugin-sdk/text-chunking";
+} from "granted/plugin-sdk/string-coerce-runtime";
+import { convertMarkdownTables, FormatCapabilityProfile } from "granted/plugin-sdk/text-chunking";
 import { getMattermostRuntime } from "../runtime.js";
 import { resolveMattermostAccount } from "./accounts.js";
 import {

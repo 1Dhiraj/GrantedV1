@@ -1,8 +1,8 @@
 // Memory Wiki plugin module implements status behavior.
 import fs from "node:fs/promises";
 import path from "node:path";
-import { listActiveMemoryPublicArtifacts } from "openclaw/plugin-sdk/memory-host-core";
-import { pathExists } from "openclaw/plugin-sdk/security-runtime";
+import { listActiveMemoryPublicArtifacts } from "granted/plugin-sdk/memory-host-core";
+import { pathExists } from "granted/plugin-sdk/security-runtime";
 import type { GrantedConfig } from "../api.js";
 import { walkMemoryWikiDirectory } from "./bounded-walk.js";
 import { filterMemoryWikiBridgeArtifacts, resolveMemoryWikiVaultAgentId } from "./bridge.js";

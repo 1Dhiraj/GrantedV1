@@ -2,13 +2,13 @@
 import crypto from "node:crypto";
 import http, { type IncomingMessage, type Server, type ServerResponse } from "node:http";
 import type { Duplex } from "node:stream";
-import { safeEqualSecret } from "openclaw/plugin-sdk/security-runtime";
+import { safeEqualSecret } from "granted/plugin-sdk/security-runtime";
 import {
   rawDataToString,
   readRequestBodyWithLimit,
   resolveRequestClientIp,
   WEBHOOK_BODY_READ_DEFAULTS,
-} from "openclaw/plugin-sdk/webhook-ingress";
+} from "granted/plugin-sdk/webhook-ingress";
 import { WebSocketServer, type WebSocket } from "ws";
 import { isLoopbackHost } from "../../gateway/net.js";
 import { createSubsystemLogger } from "../../logging/subsystem.js";

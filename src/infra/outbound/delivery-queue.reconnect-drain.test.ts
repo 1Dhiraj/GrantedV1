@@ -1,7 +1,7 @@
 // Covers reconnect-triggered queue drain selection, active claims, backoff
 // bypass, and concurrent drain suppression.
 import path from "node:path";
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { controlNextRecoverySleep } from "../../../test/helpers/infra/delivery-recovery.js";
 import type { GrantedConfig } from "../../config/config.js";

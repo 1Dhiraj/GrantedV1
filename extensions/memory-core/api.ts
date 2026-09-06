@@ -1,10 +1,10 @@
 // Memory Core API module exposes the plugin public contract.
-export type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+export type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 export type {
   MemoryEmbeddingProbeResult,
   MemoryProviderStatus,
   MemorySyncProgressUpdate,
-} from "openclaw/plugin-sdk/memory-core-host-engine-storage";
+} from "granted/plugin-sdk/memory-core-host-engine-storage";
 export {
   dedupeDreamDiaryEntries,
   removeBackfillDiaryEntries,

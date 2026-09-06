@@ -4,7 +4,7 @@ import fs from "node:fs/promises";
 import { createServer, type ServerResponse } from "node:http";
 import path from "node:path";
 import { promisify } from "node:util";
-import { GatewayClient } from "openclaw/plugin-sdk/gateway-runtime";
+import { GatewayClient } from "granted/plugin-sdk/gateway-runtime";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   createQaGatewayChild,

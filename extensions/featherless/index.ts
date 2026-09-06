@@ -2,15 +2,15 @@
 import type {
   ProviderResolveDynamicModelContext,
   ProviderRuntimeModel,
-} from "openclaw/plugin-sdk/plugin-entry";
-import { readConfiguredProviderCatalogEntries } from "openclaw/plugin-sdk/provider-catalog-shared";
-import { defineSingleProviderPluginEntry } from "openclaw/plugin-sdk/provider-entry";
+} from "granted/plugin-sdk/plugin-entry";
+import { readConfiguredProviderCatalogEntries } from "granted/plugin-sdk/provider-catalog-shared";
+import { defineSingleProviderPluginEntry } from "granted/plugin-sdk/provider-entry";
 import {
   buildProviderReplayFamilyHooks,
   cloneFirstTemplateModel,
   normalizeModelCompat,
-} from "openclaw/plugin-sdk/provider-model-shared";
-import { buildProviderToolCompatFamilyHooks } from "openclaw/plugin-sdk/provider-tools";
+} from "granted/plugin-sdk/provider-model-shared";
+import { buildProviderToolCompatFamilyHooks } from "granted/plugin-sdk/provider-tools";
 import { applyFeatherlessConfig, FEATHERLESS_DEFAULT_MODEL_REF } from "./onboard.js";
 import manifest from "./openclaw.plugin.json" with { type: "json" };
 import {

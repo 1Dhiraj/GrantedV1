@@ -1,8 +1,8 @@
 // Discord API module exposes the plugin public contract.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { parseStrictNonNegativeInteger } from "openclaw/plugin-sdk/number-runtime";
-import { logVerbose } from "openclaw/plugin-sdk/runtime-env";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { parseStrictNonNegativeInteger } from "granted/plugin-sdk/number-runtime";
+import { logVerbose } from "granted/plugin-sdk/runtime-env";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import { isDiscordThreadChannelType } from "../channel-type.js";
 import { createDiscordRestClient } from "../client.js";
 import { createChannelWebhook, getChannel } from "../internal/discord.js";

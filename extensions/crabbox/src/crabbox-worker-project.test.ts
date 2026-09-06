@@ -1,6 +1,6 @@
 import { setImmediate } from "node:timers/promises";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
-import type { WorkerProvider } from "openclaw/plugin-sdk/plugin-entry";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
+import type { WorkerProvider } from "granted/plugin-sdk/plugin-entry";
 import { describe, expect, it, vi } from "vitest";
 import {
   createNodeBootstrapFixture,

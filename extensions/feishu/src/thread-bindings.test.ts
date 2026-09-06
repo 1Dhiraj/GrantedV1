@@ -1,6 +1,6 @@
 // Feishu tests cover thread bindings plugin behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { getSessionBindingService } from "openclaw/plugin-sdk/conversation-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { getSessionBindingService } from "granted/plugin-sdk/conversation-runtime";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { createFeishuThreadBindingManager as createFeishuThreadBindingManagerImpl } from "./thread-bindings.js";
 

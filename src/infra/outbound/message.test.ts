@@ -1,6 +1,6 @@
 // Covers outbound message send/poll orchestration, target resolution, durable
 // capability checks, gateway fallback, dry runs, and payload planning.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import type { ChannelPlugin } from "../../channels/plugins/types.public.js";
 

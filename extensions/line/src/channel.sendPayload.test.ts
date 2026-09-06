@@ -1,11 +1,11 @@
 // Line tests cover channel.sendPayload plugin behavior.
 import { expectDefined } from "@openclaw/normalization-core";
-import { isChannelPartialDeliveryError } from "openclaw/plugin-sdk/channel-inbound";
+import { isChannelPartialDeliveryError } from "granted/plugin-sdk/channel-inbound";
 import {
   verifyChannelMessageAdapterCapabilityProofs,
   verifyChannelMessageReceiveAckPolicyAdapterProofs,
-} from "openclaw/plugin-sdk/channel-outbound";
-import { chunkMarkdownText as chunkMarkdownTextForLine } from "openclaw/plugin-sdk/reply-runtime";
+} from "granted/plugin-sdk/channel-outbound";
+import { chunkMarkdownText as chunkMarkdownTextForLine } from "granted/plugin-sdk/reply-runtime";
 import { afterAll, afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { GrantedConfig } from "../api.js";
 import { linePlugin } from "./channel.js";

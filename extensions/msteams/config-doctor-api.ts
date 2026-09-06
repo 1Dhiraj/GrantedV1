@@ -1,9 +1,9 @@
 import type {
   ChannelDoctorConfigMutation,
   ChannelDoctorLegacyConfigRule,
-} from "openclaw/plugin-sdk/channel-contract";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { defineChannelAliasMigration } from "openclaw/plugin-sdk/runtime-doctor-migrations";
+} from "granted/plugin-sdk/channel-contract";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { defineChannelAliasMigration } from "granted/plugin-sdk/runtime-doctor-migrations";
 
 const streamingAliasMigration = defineChannelAliasMigration({
   channelId: "msteams",

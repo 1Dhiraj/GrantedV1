@@ -2,8 +2,8 @@
 import fs from "node:fs";
 import os from "node:os";
 import type { CiaoService } from "@homebridge/ciao";
-import type { PluginLogger } from "openclaw/plugin-sdk/plugin-entry";
-import { isTruthyEnvValue } from "openclaw/plugin-sdk/runtime-env";
+import type { PluginLogger } from "granted/plugin-sdk/plugin-entry";
+import { isTruthyEnvValue } from "granted/plugin-sdk/runtime-env";
 import { classifyCiaoProcessError } from "./ciao.js";
 import { formatBonjourError } from "./errors.js";
 

@@ -27,7 +27,7 @@ import {
 } from "@aws-sdk/client-bedrock-runtime";
 import { NodeHttpHandler } from "@smithy/node-http-handler";
 import type { DocumentType } from "@smithy/types";
-import { expectDefined } from "openclaw/plugin-sdk/expect-runtime";
+import { expectDefined } from "granted/plugin-sdk/expect-runtime";
 import {
   adjustMaxTokensForThinking,
   AssistantMessageEventStream,
@@ -53,8 +53,8 @@ import {
   type Tool,
   type ToolCall,
   type ToolResultMessage,
-} from "openclaw/plugin-sdk/llm";
-import { canonicalizeBase64 } from "openclaw/plugin-sdk/media-runtime";
+} from "granted/plugin-sdk/llm";
+import { canonicalizeBase64 } from "granted/plugin-sdk/media-runtime";
 import {
   resolveClaudeFable5ModelIdentity,
   resolveClaudeModelIdentity,
@@ -64,18 +64,18 @@ import {
   requiresClaudeMandatoryAdaptiveThinking,
   supportsClaudeAdaptiveThinking,
   supportsClaudeNativeXhighEffort,
-} from "openclaw/plugin-sdk/provider-model-shared";
+} from "granted/plugin-sdk/provider-model-shared";
 import {
   applyAnthropicRefusal,
   createDeferredEventBuffer,
   notifyLlmRequestActivity,
-} from "openclaw/plugin-sdk/provider-stream-shared";
+} from "granted/plugin-sdk/provider-stream-shared";
 import {
   describeToolResultMediaPlaceholder,
   finalizeTerminalToolCallArguments,
   notifyProviderHttpMetadata,
-} from "openclaw/plugin-sdk/provider-transport-runtime";
-import { isRecord, normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/provider-transport-runtime";
+import { isRecord, normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import { supportsBedrockPromptCaching, type BedrockOptions } from "./bedrock-options.js";
 import { supportsBedrockNativeMaxEffort } from "./thinking-policy.js";
 

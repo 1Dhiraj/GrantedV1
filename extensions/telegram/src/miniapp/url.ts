@@ -1,11 +1,11 @@
 // Telegram Mini App published URL resolution.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   resolveTailnetHostWithRunner,
   resolveTailscalePublishedHost,
   type TailscaleStatusCommandRunner,
-} from "openclaw/plugin-sdk/core";
-import { runCommandWithTimeout } from "openclaw/plugin-sdk/process-runtime";
+} from "granted/plugin-sdk/core";
+import { runCommandWithTimeout } from "granted/plugin-sdk/process-runtime";
 
 export const TELEGRAM_MINIAPP_PATH_PREFIX = "/__openclaw_tg_miniapp/";
 export const TELEGRAM_MINIAPP_URL_ERROR =

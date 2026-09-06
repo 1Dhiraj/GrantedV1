@@ -3,20 +3,20 @@ import os from "node:os";
 import path from "node:path";
 import { expectDefined } from "@openclaw/normalization-core";
 import { ChannelType } from "discord-api-types/v10";
-import { getSessionBindingService } from "openclaw/plugin-sdk/conversation-runtime";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
-import type { OpenKeyedStoreOptions } from "openclaw/plugin-sdk/plugin-state-runtime";
+import { getSessionBindingService } from "granted/plugin-sdk/conversation-runtime";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
+import type { OpenKeyedStoreOptions } from "granted/plugin-sdk/plugin-state-runtime";
 import {
   createPluginStateSyncKeyedStoreForTests,
   resetPluginStateStoreForTests,
-} from "openclaw/plugin-sdk/plugin-state-test-runtime";
+} from "granted/plugin-sdk/plugin-state-test-runtime";
 import {
   clearRuntimeConfigSnapshot,
   setRuntimeConfigSnapshot,
   type GrantedConfig,
-} from "openclaw/plugin-sdk/runtime-config-snapshot";
+} from "granted/plugin-sdk/runtime-config-snapshot";
 // Discord tests cover thread bindings.lifecycle plugin behavior.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { setDiscordRuntime } from "../runtime.js";
 import { EMPTY_DISCORD_TEST_CONFIG } from "../test-support/config.js";
@@ -81,7 +81,7 @@ const { resolveThreadBindingInactivityExpiresAt, resolveThreadBindingMaxAgeExpir
   await import("./thread-bindings.state.js");
 const discordClientModule = await import("../client.js");
 const discordThreadBindingApi = await import("./thread-bindings.discord-api.js");
-const acpRuntime = await import("openclaw/plugin-sdk/acp-runtime");
+const acpRuntime = await import("granted/plugin-sdk/acp-runtime");
 
 function createTestThreadBindingManager(
   params: Omit<Parameters<typeof createThreadBindingManager>[0], "cfg"> & {

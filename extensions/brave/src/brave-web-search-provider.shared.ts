@@ -2,11 +2,11 @@
  * Brave Search request normalization and result mapping. It validates Brave
  * country/language params and converts LLM-context responses into web results.
  */
-import { resolveSiteName } from "openclaw/plugin-sdk/provider-web-search";
+import { resolveSiteName } from "granted/plugin-sdk/provider-web-search";
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 
 type BraveConfig = {
   baseUrl?: unknown;

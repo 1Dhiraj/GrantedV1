@@ -1,9 +1,9 @@
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   buildAgentSessionKey,
   normalizeAccountId,
   type ResolvedAgentRoute,
-} from "openclaw/plugin-sdk/routing";
+} from "granted/plugin-sdk/routing";
 
 export function resolveTelegramDirectPeerId(params: {
   chatId: number | string;

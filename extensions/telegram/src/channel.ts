@@ -1,41 +1,41 @@
 // Telegram plugin module implements channel behavior.
-import { DEFAULT_ACCOUNT_ID } from "openclaw/plugin-sdk/account-id";
+import { DEFAULT_ACCOUNT_ID } from "granted/plugin-sdk/account-id";
 import {
   buildDmGroupAccountAllowlistAdapter,
   createNestedAllowlistOverrideResolver,
-} from "openclaw/plugin-sdk/allowlist-config-edit";
-import { clearAccountFieldsFromConfigSection } from "openclaw/plugin-sdk/channel-config-helpers";
+} from "granted/plugin-sdk/allowlist-config-edit";
+import { clearAccountFieldsFromConfigSection } from "granted/plugin-sdk/channel-config-helpers";
 import {
   buildChannelOutboundSessionRoute,
   buildThreadAwareOutboundSessionRoute,
   createChatChannelPlugin,
-} from "openclaw/plugin-sdk/channel-core";
+} from "granted/plugin-sdk/channel-core";
 import {
   createAccountStatusSink,
   createChannelMessageAdapterFromOutbound,
   resolveOutboundSendDep,
   type OutboundSendDeps,
-} from "openclaw/plugin-sdk/channel-outbound";
-import { createPairingPrefixStripper } from "openclaw/plugin-sdk/channel-pairing";
+} from "granted/plugin-sdk/channel-outbound";
+import { createPairingPrefixStripper } from "granted/plugin-sdk/channel-pairing";
 import {
   PAIRING_APPROVED_MESSAGE,
   buildTokenChannelStatusSummary,
   projectCredentialSnapshotFields,
-} from "openclaw/plugin-sdk/channel-status";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { createChannelDirectoryAdapter } from "openclaw/plugin-sdk/directory-runtime";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import { channelBlockedPatch } from "openclaw/plugin-sdk/gateway-runtime";
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
-import { resolveAgentRoute, type RoutePeer } from "openclaw/plugin-sdk/routing";
+} from "granted/plugin-sdk/channel-status";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { createChannelDirectoryAdapter } from "granted/plugin-sdk/directory-runtime";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
+import { channelBlockedPatch } from "granted/plugin-sdk/gateway-runtime";
+import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
+import { resolveAgentRoute, type RoutePeer } from "granted/plugin-sdk/routing";
 import {
   createComputedAccountStatusAdapter,
   createDefaultChannelRuntimeState,
-} from "openclaw/plugin-sdk/status-helpers";
+} from "granted/plugin-sdk/status-helpers";
 import {
   normalizeOptionalLowercaseString,
   normalizeOptionalString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import {
   findTelegramTokenOwnerAccountId,
   formatDuplicateTelegramTokenReason,

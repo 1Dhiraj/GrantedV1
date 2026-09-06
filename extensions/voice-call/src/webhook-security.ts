@@ -1,13 +1,13 @@
 // Voice Call plugin module implements webhook security behavior.
 import crypto from "node:crypto";
 import { isIP } from "node:net";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import { isLoopbackHost } from "openclaw/plugin-sdk/gateway-runtime";
-import { safeEqualSecret } from "openclaw/plugin-sdk/security-runtime";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
+import { isLoopbackHost } from "granted/plugin-sdk/gateway-runtime";
+import { safeEqualSecret } from "granted/plugin-sdk/security-runtime";
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeStringEntries,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import { getHeader } from "./http-headers.js";
 import { normalizeProxyIp } from "./proxy-ip.js";
 import type { WebhookContext, WebhookVerificationResult } from "./types.js";

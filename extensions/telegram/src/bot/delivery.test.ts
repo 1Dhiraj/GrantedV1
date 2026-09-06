@@ -1,7 +1,7 @@
 // Telegram tests cover delivery plugin behavior.
 import type { Bot } from "grammy";
-import { isChannelPartialDeliveryError } from "openclaw/plugin-sdk/channel-inbound";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
+import { isChannelPartialDeliveryError } from "granted/plugin-sdk/channel-inbound";
+import type { RuntimeEnv } from "granted/plugin-sdk/runtime-env";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { createTelegramPromptContextProjectionSequence } from "../prompt-context-projection.js";
 const { loadWebMedia } = vi.hoisted(() => ({
@@ -36,7 +36,7 @@ vi.mock("openclaw/plugin-sdk/web-media", () => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/media-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/media-runtime")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/media-runtime")>();
   return {
     ...actual,
     probeVideoDimensions,
@@ -44,7 +44,7 @@ vi.mock("openclaw/plugin-sdk/media-runtime", async (importOriginal) => {
 });
 
 vi.mock("openclaw/plugin-sdk/hook-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/hook-runtime")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/hook-runtime")>();
   return {
     ...actual,
     triggerInternalHook,
@@ -52,7 +52,7 @@ vi.mock("openclaw/plugin-sdk/hook-runtime", async (importOriginal) => {
 });
 
 vi.mock("openclaw/plugin-sdk/plugin-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/plugin-runtime")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/plugin-runtime")>();
   return {
     ...actual,
     getGlobalHookRunner: () => messageHookRunner,
@@ -66,7 +66,7 @@ vi.mock("../sent-message-cache.js", async (importOriginal) => {
 
 vi.resetModules();
 const { deliverReplies } = await import("./delivery.js");
-const { PlatformMessageNotDispatchedError } = await import("openclaw/plugin-sdk/error-runtime");
+const { PlatformMessageNotDispatchedError } = await import("granted/plugin-sdk/error-runtime");
 
 vi.mock("grammy", () => ({
   API_CONSTANTS: {

@@ -1,15 +1,15 @@
 import { spawn } from "node:child_process";
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync } from "node:fs";
 import path from "node:path";
-import { isVoiceCompatibleAudio } from "openclaw/plugin-sdk/media-runtime";
+import { isVoiceCompatibleAudio } from "granted/plugin-sdk/media-runtime";
 import type {
   SpeechProviderConfig,
   SpeechProviderPlugin,
   SpeechVoiceOption,
-} from "openclaw/plugin-sdk/speech";
-import { asFiniteNumber, asObject, trimToUndefined } from "openclaw/plugin-sdk/speech";
-import { resolveStateDir } from "openclaw/plugin-sdk/state-paths";
-import { resolvePreferredOpenClawTmpDir } from "openclaw/plugin-sdk/temp-path";
+} from "granted/plugin-sdk/speech";
+import { asFiniteNumber, asObject, trimToUndefined } from "granted/plugin-sdk/speech";
+import { resolveStateDir } from "granted/plugin-sdk/state-paths";
+import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
 
 // Piper: fully-local, open-source neural TTS. Runs a small ONNX voice model on
 // the CPU (~real-time, no GPU, no network, no key) — so it is permanently free

@@ -1,5 +1,5 @@
-import { defineChannelSetupContract } from "openclaw/plugin-sdk/channel-setup";
-import type { GrantedConfig } from "openclaw/plugin-sdk/core";
+import { defineChannelSetupContract } from "granted/plugin-sdk/channel-setup";
+import type { GrantedConfig } from "granted/plugin-sdk/core";
 import { fingerprint } from "../protocol/index.js";
 import {
   parseReefRelayUrl,

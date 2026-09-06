@@ -184,7 +184,7 @@ describe("evidence gallery", () => {
         status: "blocked",
         failure: {
           class: "blocked",
-          reason: `Command failed at ${repoRoot}/openclaw.mjs and file://${repoRoot}/trace.log`,
+          reason: `Command failed at ${repoRoot}/granted.mjs and file://${repoRoot}/trace.log`,
         },
       },
     };
@@ -197,7 +197,7 @@ describe("evidence gallery", () => {
 
     const failureModelEntry = expectDefined(model.entries[0], "failure gallery entry");
     expect(failureModelEntry.failureReason).toBe(
-      "Command failed at <repo-root>/openclaw.mjs and file://<repo-root>/trace.log",
+      "Command failed at <repo-root>/granted.mjs and file://<repo-root>/trace.log",
     );
     expect(JSON.stringify(model)).not.toContain(repoRoot);
   });

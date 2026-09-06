@@ -939,8 +939,8 @@ describe("kitchen-sink RPC caller loading", () => {
   it("uses built callGateway chunks for dist and packaged entries", () => {
     expect(usesBuiltOpenClawEntry({ command: "node", baseArgs: ["dist/index.js"] })).toBe(true);
     expect(
-      usesBuiltOpenClawEntry({ command: "node", baseArgs: ["/app/openclaw.mjs"] }, "/repo", {
-        GRANTED_ENTRY: "/app/openclaw.mjs",
+      usesBuiltOpenClawEntry({ command: "node", baseArgs: ["/app/granted.mjs"] }, "/repo", {
+        GRANTED_ENTRY: "/app/granted.mjs",
       }),
     ).toBe(true);
   });

@@ -1,5 +1,5 @@
 // Feishu tests cover doctor contract plugin behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { describe, expect, it } from "vitest";
 import { FeishuConfigSchema } from "./config-schema.js";
 import { legacyConfigRules, normalizeCompatibilityConfig } from "./doctor-contract.js";

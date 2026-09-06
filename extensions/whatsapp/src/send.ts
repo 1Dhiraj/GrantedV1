@@ -1,21 +1,21 @@
 // Whatsapp plugin module implements send behavior.
-import type { ChannelOutboundContext } from "openclaw/plugin-sdk/channel-contract";
+import type { ChannelOutboundContext } from "granted/plugin-sdk/channel-contract";
 import {
   createMessageReceiptFromOutboundResults,
   createReplyToFanout,
   type MessageReceipt,
-} from "openclaw/plugin-sdk/channel-outbound";
-import { formatCliCommand } from "openclaw/plugin-sdk/cli-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { generateSecureUuid } from "openclaw/plugin-sdk/core";
-import { PlatformMessageNotDispatchedError } from "openclaw/plugin-sdk/error-runtime";
-import { redactIdentifier } from "openclaw/plugin-sdk/logging-core";
-import { resolveMarkdownTableMode } from "openclaw/plugin-sdk/markdown-table-runtime";
-import { loadOutboundMediaFromUrl } from "openclaw/plugin-sdk/outbound-media";
-import { requireRuntimeConfig } from "openclaw/plugin-sdk/plugin-config-runtime";
-import { normalizePollInput, type PollInput } from "openclaw/plugin-sdk/poll-runtime";
-import { resolveChunkMode, resolveTextChunkLimit } from "openclaw/plugin-sdk/reply-chunking";
-import { createSubsystemLogger, getChildLogger } from "openclaw/plugin-sdk/runtime-env";
+} from "granted/plugin-sdk/channel-outbound";
+import { formatCliCommand } from "granted/plugin-sdk/cli-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { generateSecureUuid } from "granted/plugin-sdk/core";
+import { PlatformMessageNotDispatchedError } from "granted/plugin-sdk/error-runtime";
+import { redactIdentifier } from "granted/plugin-sdk/logging-core";
+import { resolveMarkdownTableMode } from "granted/plugin-sdk/markdown-table-runtime";
+import { loadOutboundMediaFromUrl } from "granted/plugin-sdk/outbound-media";
+import { requireRuntimeConfig } from "granted/plugin-sdk/plugin-config-runtime";
+import { normalizePollInput, type PollInput } from "granted/plugin-sdk/poll-runtime";
+import { resolveChunkMode, resolveTextChunkLimit } from "granted/plugin-sdk/reply-chunking";
+import { createSubsystemLogger, getChildLogger } from "granted/plugin-sdk/runtime-env";
 import {
   resolveDefaultWhatsAppAccountId,
   resolveWhatsAppAccount,

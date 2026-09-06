@@ -1,11 +1,11 @@
 import path from "node:path";
-import type { AgentToolResult } from "openclaw/plugin-sdk/agent-core";
-import { createHostTtsRuntimeContract } from "openclaw/plugin-sdk/agent-runtime-test-contracts";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
+import type { AgentToolResult } from "granted/plugin-sdk/agent-core";
+import { createHostTtsRuntimeContract } from "granted/plugin-sdk/agent-runtime-test-contracts";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
 import {
   createEmptyPluginRegistry,
   setActivePluginRegistry,
-} from "openclaw/plugin-sdk/plugin-test-runtime";
+} from "granted/plugin-sdk/plugin-test-runtime";
 import { describe, expect, it, vi, type MockInstance } from "vitest";
 import * as dynamicTools from "./dynamic-tools.js";
 import {

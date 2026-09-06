@@ -2,7 +2,7 @@
 import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import type { Model } from "openclaw/plugin-sdk/llm";
+import type { Model } from "granted/plugin-sdk/llm";
 import { Type } from "typebox";
 import { afterEach, describe, expect, it } from "vitest";
 import { isLiveTestEnabled } from "../live-test-helpers.js";

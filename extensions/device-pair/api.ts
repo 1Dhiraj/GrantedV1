@@ -7,17 +7,17 @@ export {
   listDevicePairing,
   revokeDeviceBootstrapToken,
   type DeviceBootstrapProfile,
-} from "openclaw/plugin-sdk/device-bootstrap";
-export { definePluginEntry, type GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
+} from "granted/plugin-sdk/device-bootstrap";
+export { definePluginEntry, type GrantedPluginApi } from "granted/plugin-sdk/plugin-entry";
 export {
   resolveGatewayBindUrl,
   resolveTailnetHostWithRunner,
   resolveTailscaleServeGatewayUrlsWithRunner,
-} from "openclaw/plugin-sdk/core";
-export { resolveAdvertisedLanHost } from "openclaw/plugin-sdk/gateway-runtime";
+} from "granted/plugin-sdk/core";
+export { resolveAdvertisedLanHost } from "granted/plugin-sdk/gateway-runtime";
 export {
   resolvePreferredOpenClawTmpDir,
   runPluginCommandWithTimeout,
-} from "openclaw/plugin-sdk/sandbox";
-export { resolveGatewayPort } from "openclaw/plugin-sdk/gateway-config-runtime";
+} from "granted/plugin-sdk/sandbox";
+export { resolveGatewayPort } from "granted/plugin-sdk/gateway-config-runtime";
 export { renderQrPngBase64, renderQrPngDataUrl, writeQrPngTempFile } from "./qr-image.js";

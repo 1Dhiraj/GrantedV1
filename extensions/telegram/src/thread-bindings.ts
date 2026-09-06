@@ -1,6 +1,6 @@
 // Telegram plugin module implements thread bindings behavior.
-import { readAcpSessionEntry } from "openclaw/plugin-sdk/acp-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import { readAcpSessionEntry } from "granted/plugin-sdk/acp-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   formatThreadBindingDurationLabel,
   registerSessionBindingAdapter,
@@ -11,12 +11,12 @@ import {
   type BindingTargetKind,
   type SessionBindingAdapter,
   type SessionBindingRecord,
-} from "openclaw/plugin-sdk/conversation-runtime";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import type { PluginStateSyncKeyedStore } from "openclaw/plugin-sdk/plugin-state-runtime";
-import { normalizeAccountId, isAcpSessionKey } from "openclaw/plugin-sdk/routing";
-import { logVerbose } from "openclaw/plugin-sdk/runtime-env";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/conversation-runtime";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
+import type { PluginStateSyncKeyedStore } from "granted/plugin-sdk/plugin-state-runtime";
+import { normalizeAccountId, isAcpSessionKey } from "granted/plugin-sdk/routing";
+import { logVerbose } from "granted/plugin-sdk/runtime-env";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import { getTelegramRuntime } from "./runtime.js";
 import { loadTelegramSendModule } from "./send-runtime.js";
 import {

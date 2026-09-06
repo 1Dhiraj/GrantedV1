@@ -4,7 +4,7 @@ import {
   isDreamingNarrativeSessionStoreKey,
   type SessionFileEntry,
   type SessionTranscriptCorpusEntry,
-} from "openclaw/plugin-sdk/memory-core-host-engine-sessions";
+} from "granted/plugin-sdk/memory-core-host-engine-sessions";
 import type { MemorySourceFileStateRow } from "./manager-source-state.js";
 
 export type MemorySessionStartupFileState = {

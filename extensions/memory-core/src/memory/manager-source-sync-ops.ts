@@ -1,14 +1,14 @@
 // Memory Core plugin module owns memory and session source indexing.
-import { createSubsystemLogger } from "openclaw/plugin-sdk/memory-core-host-engine-foundation";
+import { createSubsystemLogger } from "granted/plugin-sdk/memory-core-host-engine-foundation";
 import {
   buildSessionEntry,
   sessionPathForSessionIdentity,
   type SessionTranscriptCorpusEntry,
-} from "openclaw/plugin-sdk/memory-core-host-engine-sessions";
+} from "granted/plugin-sdk/memory-core-host-engine-sessions";
 import {
   MEMORY_INDEX_FTS_TABLE,
   runWithConcurrency,
-} from "openclaw/plugin-sdk/memory-core-host-engine-storage";
+} from "granted/plugin-sdk/memory-core-host-engine-storage";
 import { MemoryManagerSessionSyncOps } from "./manager-session-sync-ops.js";
 import {
   isMemorySessionIndexable,

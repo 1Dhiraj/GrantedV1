@@ -1,8 +1,8 @@
-import { wrapToolWithBeforeToolCallHook } from "openclaw/plugin-sdk/agent-harness-runtime";
+import { wrapToolWithBeforeToolCallHook } from "granted/plugin-sdk/agent-harness-runtime";
 import {
   createTerminalPresentationContractTool,
   textToolResult,
-} from "openclaw/plugin-sdk/agent-runtime-test-contracts";
+} from "granted/plugin-sdk/agent-runtime-test-contracts";
 // Covers embedded runner extension factories and tool-result middleware bridge.
 import {
   AuthStorage,
@@ -12,7 +12,7 @@ import {
   loadExtensionFromFactory,
   ModelRegistry,
   SessionManager,
-} from "openclaw/plugin-sdk/agent-sessions";
+} from "granted/plugin-sdk/agent-sessions";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import type {
   AgentToolResultMiddlewareContext,

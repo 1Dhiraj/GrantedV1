@@ -2,8 +2,8 @@
 import { rmSync } from "node:fs";
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
-import { sanitizeTerminalText } from "openclaw/plugin-sdk/test-fixtures";
+import type { RuntimeEnv } from "granted/plugin-sdk/runtime-env";
+import { sanitizeTerminalText } from "granted/plugin-sdk/test-fixtures";
 import { afterAll, afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { loginWeb } from "./login.js";
 import { renderQrTerminal } from "./qr-terminal.js";
@@ -20,7 +20,7 @@ function resolveTestAuthDir() {
 
 vi.mock("openclaw/plugin-sdk/runtime-config-snapshot", async () => {
   const actual = await vi.importActual<
-    typeof import("openclaw/plugin-sdk/runtime-config-snapshot")
+    typeof import("granted/plugin-sdk/runtime-config-snapshot")
   >("openclaw/plugin-sdk/runtime-config-snapshot");
   return {
     ...actual,

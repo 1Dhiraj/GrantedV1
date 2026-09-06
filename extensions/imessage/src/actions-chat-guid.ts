@@ -1,10 +1,10 @@
-import type { ChannelMessageActionContext } from "openclaw/plugin-sdk/channel-contract";
+import type { ChannelMessageActionContext } from "granted/plugin-sdk/channel-contract";
 import {
   asDateTimestampMs,
   parseStrictInteger,
   resolveExpiresAtMsFromDurationMs,
-} from "openclaw/plugin-sdk/number-runtime";
-import { normalizeOptionalString as stringFromUnknown } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/number-runtime";
+import { normalizeOptionalString as stringFromUnknown } from "granted/plugin-sdk/string-coerce-runtime";
 import type { IMessageActionTransportOptions } from "./actions-rpc.js";
 import { normalizeDirectChatIdentifier } from "./chat-context.js";
 import { createIMessageRpcClient } from "./client.js";

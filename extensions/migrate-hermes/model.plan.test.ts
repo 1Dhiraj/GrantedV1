@@ -1,11 +1,11 @@
 // Migrate Hermes tests cover model.plan plugin behavior.
 import path from "node:path";
-import type { GrantedConfig } from "openclaw/plugin-sdk/provider-auth";
+import type { GrantedConfig } from "granted/plugin-sdk/provider-auth";
 import {
   resolvePreferredOpenClawTmpDir,
   tempWorkspace,
   type TempWorkspace,
-} from "openclaw/plugin-sdk/temp-path";
+} from "granted/plugin-sdk/temp-path";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { HERMES_REASON_DEFAULT_MODEL_CONFIGURED } from "./items.js";
 import { buildHermesMigrationProvider } from "./provider.js";

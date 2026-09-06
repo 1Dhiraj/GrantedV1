@@ -3,7 +3,7 @@ import {
   resolveToolsBySender,
   type GroupToolPolicyConfig,
   type ScopeTree,
-} from "openclaw/plugin-sdk/channel-policy";
+} from "granted/plugin-sdk/channel-policy";
 // Telegram helper module supports group config helpers behavior.
 import type {
   GrantedConfig,
@@ -11,7 +11,7 @@ import type {
   TelegramDirectConfig,
   TelegramGroupConfig,
   TelegramTopicConfig,
-} from "openclaw/plugin-sdk/config-contracts";
+} from "granted/plugin-sdk/config-contracts";
 import { firstDefined } from "./bot-access.js";
 
 export function resolveTelegramScopedGroupConfig(

@@ -1,7 +1,7 @@
 import { spawn, type ChildProcessWithoutNullStreams } from "node:child_process";
 import { randomUUID } from "node:crypto";
 import type { ActionResult } from "@trycua/cua-driver";
-import { asOptionalRecord as record } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { asOptionalRecord as record } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   ClickButton,
   EscalationReason,

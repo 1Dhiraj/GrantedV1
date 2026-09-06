@@ -1,5 +1,5 @@
 // Xiaomi plugin entrypoint registers its OpenClaw integration.
-import { definePluginEntry } from "openclaw/plugin-sdk/plugin-entry";
+import { definePluginEntry } from "granted/plugin-sdk/plugin-entry";
 import type {
   GrantedConfig,
   ProviderAuthContext,
@@ -8,7 +8,7 @@ import type {
   ProviderCatalogContext,
   ProviderAuthResult,
   ProviderRuntimeModel,
-} from "openclaw/plugin-sdk/plugin-entry";
+} from "granted/plugin-sdk/plugin-entry";
 import {
   applyAuthProfileConfig,
   buildApiKeyCredential,
@@ -18,13 +18,13 @@ import {
   type SecretInput,
   upsertAuthProfileWithLockOrThrow,
   validateApiKeyInput,
-} from "openclaw/plugin-sdk/provider-auth-api-key";
-import { buildOpenAICompatibleLiveModelProviderConfig } from "openclaw/plugin-sdk/provider-catalog-live-runtime";
+} from "granted/plugin-sdk/provider-auth-api-key";
+import { buildOpenAICompatibleLiveModelProviderConfig } from "granted/plugin-sdk/provider-catalog-live-runtime";
 import {
   applyModelCompatPatch,
   buildProviderReplayFamilyHooks,
-} from "openclaw/plugin-sdk/provider-model-shared";
-import { PROVIDER_LABELS } from "openclaw/plugin-sdk/provider-usage";
+} from "granted/plugin-sdk/provider-model-shared";
+import { PROVIDER_LABELS } from "granted/plugin-sdk/provider-usage";
 import {
   applyXiaomiConfig,
   applyXiaomiTokenPlanConfig,

@@ -1,5 +1,5 @@
-import { recordChannelActivity } from "openclaw/plugin-sdk/channel-activity-runtime";
-import { logVerbose } from "openclaw/plugin-sdk/runtime-env";
+import { recordChannelActivity } from "granted/plugin-sdk/channel-activity-runtime";
+import { logVerbose } from "granted/plugin-sdk/runtime-env";
 import {
   createTelegramNonIdempotentRequestWithDiag,
   createTelegramRequestWithDiag,

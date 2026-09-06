@@ -4,11 +4,11 @@ import path from "node:path";
 import {
   createPluginRuntimeMock,
   resetPluginRuntimeStateForTest,
-} from "openclaw/plugin-sdk/plugin-test-runtime";
+} from "granted/plugin-sdk/plugin-test-runtime";
 import {
   closeOpenClawAgentDatabasesForTest,
   closeOpenClawStateDatabaseForTest,
-} from "openclaw/plugin-sdk/sqlite-runtime-testing";
+} from "granted/plugin-sdk/sqlite-runtime-testing";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { CodexAppServerBindingStore } from "./session-binding.js";
 import { createCodexTestBindingStore } from "./session-binding.test-helpers.js";

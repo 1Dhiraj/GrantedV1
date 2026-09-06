@@ -1,17 +1,17 @@
 // Memory Wiki plugin module implements compile behavior.
 import fs from "node:fs/promises";
 import path from "node:path";
-import { runTasksWithConcurrency } from "openclaw/plugin-sdk/concurrency-runtime";
-import { retryTransientMemoryRead } from "openclaw/plugin-sdk/memory-core-host-engine-storage";
+import { runTasksWithConcurrency } from "granted/plugin-sdk/concurrency-runtime";
+import { retryTransientMemoryRead } from "granted/plugin-sdk/memory-core-host-engine-storage";
 import {
   replaceManagedMarkdownBlock,
   withTrailingNewline,
-} from "openclaw/plugin-sdk/memory-host-markdown";
-import { root as fsRoot } from "openclaw/plugin-sdk/security-runtime";
+} from "granted/plugin-sdk/memory-host-markdown";
+import { root as fsRoot } from "granted/plugin-sdk/security-runtime";
 import {
   normalizeLowercaseStringOrEmpty,
   uniqueStrings,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import { walkMemoryWikiDirectory } from "./bounded-walk.js";
 import {
   assessClaimFreshness,

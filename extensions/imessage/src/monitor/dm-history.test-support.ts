@@ -1,6 +1,6 @@
 // Imessage test support covers dm history plugin behavior.
-import { resolveEnvelopeFormatOptions } from "openclaw/plugin-sdk/channel-inbound";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import { resolveEnvelopeFormatOptions } from "granted/plugin-sdk/channel-inbound";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { describe, expect, it, vi } from "vitest";
 import type { IMessageRpcClient } from "../client.js";
 import { resolveIMessageDmHistoryContext, resolveIMessageDmHistoryLimit } from "./dm-history.js";

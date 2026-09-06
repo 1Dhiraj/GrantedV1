@@ -1,7 +1,7 @@
 // Tokenjuice tests cover index plugin behavior.
 import fs from "node:fs";
-import { createAgentToolResultMiddlewareRunner } from "openclaw/plugin-sdk/agent-harness";
-import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
+import { createAgentToolResultMiddlewareRunner } from "granted/plugin-sdk/agent-harness";
+import { createTestPluginApi } from "granted/plugin-sdk/plugin-test-api";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const { tokenjuiceFactory, createTokenjuiceOpenClawEmbeddedExtension } = vi.hoisted(() => {

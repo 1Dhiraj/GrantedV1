@@ -11,7 +11,7 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { appendRegularFile } from "openclaw/plugin-sdk/security-runtime";
+import { appendRegularFile } from "granted/plugin-sdk/security-runtime";
 
 export type FileTransferAuditOp = "file.fetch" | "dir.list" | "dir.fetch" | "file.write";
 

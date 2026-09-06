@@ -429,7 +429,7 @@ export async function connectMcpClient(params: {
   const transport = new StdioClientTransport({
     command: "node",
     args: [
-      "/app/openclaw.mjs",
+      "/app/granted.mjs",
       "mcp",
       "serve",
       "--url",

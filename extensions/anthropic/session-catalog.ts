@@ -1,12 +1,12 @@
-import { resolveSessionAgentIdsStrict } from "openclaw/plugin-sdk/agent-scope-runtime";
-import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
+import { resolveSessionAgentIdsStrict } from "granted/plugin-sdk/agent-scope-runtime";
+import type { GrantedPluginApi } from "granted/plugin-sdk/plugin-entry";
 import type {
   SessionCatalogHost,
   SessionCatalogProvider,
   SessionCatalogTranscriptItem,
-} from "openclaw/plugin-sdk/session-catalog";
-import { sessionCatalogPaging } from "openclaw/plugin-sdk/session-catalog";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/session-catalog";
+import { sessionCatalogPaging } from "granted/plugin-sdk/session-catalog";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import { adoptedSourceKey, CLAUDE_LOCAL_SESSION_HOST_ID } from "./session-catalog-adoption.js";
 import { continueClaudeSession } from "./session-catalog-continue.js";
 import { isExactClaudeSessionCursor } from "./session-catalog-cursor.js";

@@ -2,13 +2,13 @@
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { normalizeAccountId } from "openclaw/plugin-sdk/account-id";
-import { loadJsonFile } from "openclaw/plugin-sdk/json-store";
+import { normalizeAccountId } from "granted/plugin-sdk/account-id";
+import { loadJsonFile } from "granted/plugin-sdk/json-store";
 import type {
   PluginStateKeyedStore,
   PluginStateSyncKeyedStore,
-} from "openclaw/plugin-sdk/plugin-state-runtime";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/plugin-state-runtime";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import { getMatrixRuntime } from "../../runtime.js";
 import { resolveMatrixAccountStorageRoot } from "../../storage-paths.js";
 import {

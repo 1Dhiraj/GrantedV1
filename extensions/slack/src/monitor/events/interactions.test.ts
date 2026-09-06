@@ -1,6 +1,6 @@
 import type { SlackShortcutMiddlewareArgs } from "@slack/bolt";
 // Slack tests cover interactions plugin behavior.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 
 const enqueueSystemEventMock = vi.hoisted(() => vi.fn());
@@ -73,7 +73,7 @@ const resolveQuestionOverGatewayMock = vi.hoisted(() =>
 let registerSlackInteractionEvents: typeof import("./interactions.js").registerSlackInteractionEvents;
 
 vi.mock("openclaw/plugin-sdk/system-event-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/system-event-runtime")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/system-event-runtime")>();
   return {
     ...actual,
     enqueueRoutedSystemEvent: (
@@ -85,7 +85,7 @@ vi.mock("openclaw/plugin-sdk/system-event-runtime", async (importOriginal) => {
 });
 
 vi.mock("openclaw/plugin-sdk/heartbeat-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/heartbeat-runtime")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/heartbeat-runtime")>();
   return {
     ...actual,
     requestHeartbeat: (...args: unknown[]) => requestHeartbeatMock(...args),
@@ -103,7 +103,7 @@ vi.mock("openclaw/plugin-sdk/question-gateway-runtime", () => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/plugin-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/plugin-runtime")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/plugin-runtime")>();
   return {
     ...actual,
     createChannelInteractiveDispatcher: (config: {

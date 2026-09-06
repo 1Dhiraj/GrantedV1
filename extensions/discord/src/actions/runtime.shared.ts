@@ -4,9 +4,9 @@ import {
   readNonNegativeIntegerParam,
   readPositiveIntegerParam,
   readStringParam,
-} from "openclaw/plugin-sdk/channel-actions";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { asBoolean } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/channel-actions";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { asBoolean } from "granted/plugin-sdk/string-coerce-runtime";
 import type {
   DiscordChannelCreate,
   DiscordChannelEdit,

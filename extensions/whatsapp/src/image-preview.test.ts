@@ -1,13 +1,13 @@
 import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import { prepareWAMessageMedia, type AnyMediaMessageContent } from "baileys";
-import { getImageMetadata, resizeToJpeg } from "openclaw/plugin-sdk/media-runtime";
-import { createSolidPngBuffer } from "openclaw/plugin-sdk/test-fixtures";
+import { getImageMetadata, resizeToJpeg } from "granted/plugin-sdk/media-runtime";
+import { createSolidPngBuffer } from "granted/plugin-sdk/test-fixtures";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { addWhatsAppImagePreviewFields } from "./image-preview.js";
 
 vi.mock("openclaw/plugin-sdk/media-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/media-runtime")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/media-runtime")>();
   return {
     ...actual,
     getImageMetadata: vi.fn(actual.getImageMetadata),

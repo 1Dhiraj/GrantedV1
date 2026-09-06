@@ -1,9 +1,9 @@
 // Irc plugin module implements monitor behavior.
-import { resolveLoggerBackedRuntime } from "openclaw/plugin-sdk/extension-shared";
-import { channelReadyPatch } from "openclaw/plugin-sdk/gateway-runtime";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime";
-import type { ChannelAccountSnapshot } from "openclaw/plugin-sdk/status-helpers";
-import { normalizeLowercaseStringOrEmpty } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { resolveLoggerBackedRuntime } from "granted/plugin-sdk/extension-shared";
+import { channelReadyPatch } from "granted/plugin-sdk/gateway-runtime";
+import type { RuntimeEnv } from "granted/plugin-sdk/runtime";
+import type { ChannelAccountSnapshot } from "granted/plugin-sdk/status-helpers";
+import { normalizeLowercaseStringOrEmpty } from "granted/plugin-sdk/string-coerce-runtime";
 import { resolveIrcAccount } from "./accounts.js";
 import { connectIrcClient, type IrcClient } from "./client.js";
 import { buildIrcConnectOptions } from "./connect-options.js";

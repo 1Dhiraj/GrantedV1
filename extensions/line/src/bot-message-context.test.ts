@@ -3,15 +3,15 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import type { webhook } from "@line/bot-sdk";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   getSessionBindingService,
   testing as sessionBindingTesting,
-} from "openclaw/plugin-sdk/conversation-runtime";
+} from "granted/plugin-sdk/conversation-runtime";
 import {
   createTestRegistry,
   setActivePluginRegistry,
-} from "openclaw/plugin-sdk/plugin-test-runtime";
+} from "granted/plugin-sdk/plugin-test-runtime";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { lineBindingsAdapter } from "./bindings.js";
 import { buildLineMessageContext, buildLinePostbackContext } from "./bot-message-context.js";
@@ -25,7 +25,7 @@ const getLineGroupNameMock = vi.hoisted(() => vi.fn(async () => undefined as str
 const toInboundMediaFactsWithMetadataMock = vi.hoisted(() => vi.fn());
 
 vi.mock("openclaw/plugin-sdk/channel-inbound", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/channel-inbound")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/channel-inbound")>();
   toInboundMediaFactsWithMetadataMock.mockImplementation(actual.toInboundMediaFactsWithMetadata);
   return {
     ...actual,
@@ -42,7 +42,7 @@ vi.mock("./send.js", () => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/runtime-env", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/runtime-env")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/runtime-env")>(
     "openclaw/plugin-sdk/runtime-env",
   );
   return {

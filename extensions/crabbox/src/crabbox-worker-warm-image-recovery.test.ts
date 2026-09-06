@@ -1,5 +1,5 @@
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
-import { resetPluginStateStoreForTests } from "openclaw/plugin-sdk/plugin-state-test-runtime";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
+import { resetPluginStateStoreForTests } from "granted/plugin-sdk/plugin-state-test-runtime";
 import { describe, expect, it, vi } from "vitest";
 import {
   listCrabboxWarmImages,

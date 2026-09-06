@@ -1,15 +1,15 @@
 // Discord tests cover monitor plugin behavior.
 import { ChannelType } from "discord-api-types/v10";
-import type { DiscordAccountConfig, GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { DiscordAccountConfig, GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   buildPluginBindingApprovalCustomId,
   registerSessionBindingAdapter,
   type SessionBindingAdapter,
   type SessionBindingRecord,
   unregisterSessionBindingAdapter,
-} from "openclaw/plugin-sdk/conversation-runtime";
-import { registerPluginInteractiveHandler } from "openclaw/plugin-sdk/plugin-runtime";
-import { getActivePluginRegistry } from "openclaw/plugin-sdk/plugin-test-runtime";
+} from "granted/plugin-sdk/conversation-runtime";
+import { registerPluginInteractiveHandler } from "granted/plugin-sdk/plugin-runtime";
+import { getActivePluginRegistry } from "granted/plugin-sdk/plugin-test-runtime";
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { clearDiscordComponentEntriesForTest } from "../components-registry.test-support.js";
 import type { DiscordComponentEntry, DiscordModalEntry } from "../components.js";
@@ -38,7 +38,7 @@ type CreateDiscordComponentModal =
   typeof import("./agent-components.js").createDiscordComponentModal;
 type CreateDiscordComponentStringSelect = CreateDiscordComponentButton;
 type DispatchReplyWithBufferedBlockDispatcherFn =
-  typeof import("openclaw/plugin-sdk/reply-dispatch-runtime").dispatchReplyWithBufferedBlockDispatcher;
+  typeof import("granted/plugin-sdk/reply-dispatch-runtime").dispatchReplyWithBufferedBlockDispatcher;
 type DispatchReplyWithBufferedBlockDispatcherResult = Awaited<
   ReturnType<DispatchReplyWithBufferedBlockDispatcherFn>
 >;

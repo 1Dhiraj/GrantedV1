@@ -6,14 +6,14 @@ import type { AddressInfo } from "node:net";
 import os from "node:os";
 import path from "node:path";
 import type { Message } from "grammy/types";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   closeOpenClawStateDatabaseForTest,
   createChannelIngressQueueForTests,
   createPluginStateKeyedStoreForTests,
   resetPluginStateStoreForTests,
-} from "openclaw/plugin-sdk/plugin-state-test-runtime";
-import type { MsgContext } from "openclaw/plugin-sdk/reply-runtime";
+} from "granted/plugin-sdk/plugin-state-test-runtime";
+import type { MsgContext } from "granted/plugin-sdk/reply-runtime";
 import { expect, it, vi } from "vitest";
 import { defaultTelegramBotDeps } from "./bot-deps.js";
 import { telegramBotInfoForTest } from "./bot.create-telegram-bot.test-support.js";
@@ -37,7 +37,7 @@ const downstream = vi.hoisted(() =>
 );
 
 vi.mock("openclaw/plugin-sdk/channel-inbound", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/channel-inbound")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/channel-inbound")>();
   return {
     ...actual,
     runChannelInboundEvent: async (params: Parameters<typeof actual.runChannelInboundEvent>[0]) =>

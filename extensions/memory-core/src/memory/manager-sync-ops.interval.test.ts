@@ -3,9 +3,9 @@ import type { DatabaseSync } from "node:sqlite";
 import type {
   GrantedConfig,
   ResolvedMemorySearchConfig,
-} from "openclaw/plugin-sdk/memory-core-host-engine-foundation";
-import type { MemorySource } from "openclaw/plugin-sdk/memory-core-host-engine-storage";
-import { MAX_TIMER_TIMEOUT_MS } from "openclaw/plugin-sdk/number-runtime";
+} from "granted/plugin-sdk/memory-core-host-engine-foundation";
+import type { MemorySource } from "granted/plugin-sdk/memory-core-host-engine-storage";
+import { MAX_TIMER_TIMEOUT_MS } from "granted/plugin-sdk/number-runtime";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { MemoryIndexDatabase } from "./manager-database-context.js";
 import { MemoryManagerSyncOps } from "./manager-sync-ops.js";

@@ -1,5 +1,5 @@
 // Feishu tests cover monitor.startup plugin behavior.
-import { createNonExitingRuntimeEnv } from "openclaw/plugin-sdk/plugin-test-runtime";
+import { createNonExitingRuntimeEnv } from "granted/plugin-sdk/plugin-test-runtime";
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import type { ClawdbotConfig } from "../runtime-api.js";
 import { resolveStartupProbeTimeoutMs } from "./monitor-startup-timeout.js";

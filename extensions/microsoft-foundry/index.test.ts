@@ -1,9 +1,9 @@
 // Microsoft Foundry tests cover index plugin behavior.
-import type { StreamFn } from "openclaw/plugin-sdk/agent-core";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { ProviderAuthMethod } from "openclaw/plugin-sdk/core";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
-import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
+import type { StreamFn } from "granted/plugin-sdk/agent-core";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { ProviderAuthMethod } from "granted/plugin-sdk/core";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
+import { createTestPluginApi } from "granted/plugin-sdk/plugin-test-api";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { azLoginDeviceCodeWithOptions, execAz, getAccessTokenResultAsync } from "./cli.js";
 import plugin from "./index.js";
@@ -42,7 +42,7 @@ vi.mock("node:child_process", async () => {
 });
 
 vi.mock("openclaw/plugin-sdk/process-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/process-runtime")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/process-runtime")>();
   return {
     ...actual,
     runCommandWithTimeout: runCommandWithTimeoutMock,
@@ -51,7 +51,7 @@ vi.mock("openclaw/plugin-sdk/process-runtime", async (importOriginal) => {
 });
 
 vi.mock("openclaw/plugin-sdk/provider-auth", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/provider-auth")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/provider-auth")>(
     "openclaw/plugin-sdk/provider-auth",
   );
   return {

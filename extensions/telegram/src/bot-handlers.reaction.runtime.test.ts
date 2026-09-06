@@ -1,6 +1,6 @@
 // Telegram tests cover forum reaction topic recovery before authorization and routing.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { getChildLogger } from "openclaw/plugin-sdk/runtime-env";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { getChildLogger } from "granted/plugin-sdk/runtime-env";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { defaultTelegramBotDeps } from "./bot-deps.js";
 import { createTelegramEventBindings } from "./bot-handlers.event-bindings.js";

@@ -1,4 +1,4 @@
-import { createWebSearchProviderContractFields } from "openclaw/plugin-sdk/provider-web-search-contract";
+import { createWebSearchProviderContractFields } from "granted/plugin-sdk/provider-web-search-contract";
 
 const PARALLEL_CREDENTIAL_PATH = "plugins.entries.parallel.config.webSearch.apiKey";
 const PARALLEL_ONBOARDING_SCOPES: Array<"text-inference"> = ["text-inference"];

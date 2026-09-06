@@ -1,8 +1,8 @@
 import type { Message } from "grammy/types";
-import { coerceErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import { sleepWithAbort } from "openclaw/plugin-sdk/runtime-env";
+import { coerceErrorMessage } from "granted/plugin-sdk/error-runtime";
+import { sleepWithAbort } from "granted/plugin-sdk/runtime-env";
 // Telegram tests cover delivery.resolve media retry plugin behavior.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { resolveMedia } from "./delivery.resolve-media.js";
 import type { TelegramContext } from "./types.js";

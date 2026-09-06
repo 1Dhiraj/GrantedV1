@@ -40,7 +40,7 @@ describe("retireStandaloneGitWrapper", () => {
 
       await fs.writeFile(
         wrapper,
-        "#!/usr/bin/env node\nimport '../lib/node_modules/openclaw/openclaw.mjs';\n",
+        "#!/usr/bin/env node\nimport '../lib/node_modules/openclaw/granted.mjs';\n",
         { mode: 0o755 },
       );
       await expect(

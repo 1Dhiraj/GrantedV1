@@ -3,9 +3,9 @@ import {
   parseModelRef,
   resolveAgentEffectiveModelPrimary,
   resolveDefaultModelForAgent,
-} from "openclaw/plugin-sdk/agent-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+} from "granted/plugin-sdk/agent-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import {
   ACTIVE_MEMORY_CLOSE_TAG,
   ACTIVE_MEMORY_OPEN_TAG,

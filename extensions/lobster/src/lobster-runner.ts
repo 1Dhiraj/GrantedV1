@@ -2,8 +2,8 @@
 import { stat } from "node:fs/promises";
 import path from "node:path";
 import { Readable, Writable } from "node:stream";
-import { toErrorObject as toLintErrorObject } from "openclaw/plugin-sdk/error-runtime";
-import { isPathInside } from "openclaw/plugin-sdk/file-access-runtime";
+import { toErrorObject as toLintErrorObject } from "granted/plugin-sdk/error-runtime";
+import { isPathInside } from "granted/plugin-sdk/file-access-runtime";
 
 export type LobsterEnvelope =
   | {

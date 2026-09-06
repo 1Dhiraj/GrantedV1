@@ -3,7 +3,7 @@ import fs from "node:fs";
 import {
   type JsonSchemaObject,
   validateJsonSchemaValue,
-} from "openclaw/plugin-sdk/json-schema-runtime";
+} from "granted/plugin-sdk/json-schema-runtime";
 import { describe, expect, it } from "vitest";
 import { memoryConfigSchema } from "./config.js";
 

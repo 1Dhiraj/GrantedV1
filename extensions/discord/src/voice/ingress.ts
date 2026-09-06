@@ -1,8 +1,8 @@
 // Discord plugin module implements ingress behavior.
-import type { DiscordAccountConfig, GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { resolveRealtimeBootstrapContextInstructions } from "openclaw/plugin-sdk/realtime-bootstrap-context";
-import { createSubsystemLogger, type RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+import type { DiscordAccountConfig, GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { resolveRealtimeBootstrapContextInstructions } from "granted/plugin-sdk/realtime-bootstrap-context";
+import { createSubsystemLogger, type RuntimeEnv } from "granted/plugin-sdk/runtime-env";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import { formatMention } from "../mentions.js";
 import { normalizeDiscordSlug } from "../monitor/allow-list.js";
 import { buildDiscordGroupSystemPrompt } from "../monitor/inbound-context.js";

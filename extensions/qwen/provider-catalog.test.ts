@@ -1,4 +1,4 @@
-import { buildOpenAICompatibleLiveModelProviderConfig } from "openclaw/plugin-sdk/provider-catalog-live-runtime";
+import { buildOpenAICompatibleLiveModelProviderConfig } from "granted/plugin-sdk/provider-catalog-live-runtime";
 // Qwen tests cover provider catalog plugin behavior.
 import { describe, expect, it } from "vitest";
 import {

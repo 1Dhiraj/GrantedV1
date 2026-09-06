@@ -1,8 +1,8 @@
 // Whatsapp tests cover web auto reply utils plugin behavior.
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { normalizeMainKey } from "openclaw/plugin-sdk/routing";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { normalizeMainKey } from "granted/plugin-sdk/routing";
 import {
   evaluateSessionFreshness,
   getSessionEntry,
@@ -15,8 +15,8 @@ import {
   resolveThreadFlag,
   sessionDeliveryChannel,
   upsertSessionEntry,
-} from "openclaw/plugin-sdk/session-store-runtime";
-import { withTempDir } from "openclaw/plugin-sdk/test-env";
+} from "granted/plugin-sdk/session-store-runtime";
+import { withTempDir } from "granted/plugin-sdk/test-env";
 import { describe, expect, it, vi } from "vitest";
 import { createTestWebInboundMessage } from "../inbound/test-message.test-helper.js";
 import type { AdmittedWebInboundMessage } from "../inbound/types.js";

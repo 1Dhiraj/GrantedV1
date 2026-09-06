@@ -1,7 +1,7 @@
 // Line plugin module owns typed rich-message schemas and native rendering.
 import type { messagingApi } from "@line/bot-sdk";
-import type { ChannelMessageActionAdapter } from "openclaw/plugin-sdk/channel-contract";
-import type { ChannelOutboundAdapter } from "openclaw/plugin-sdk/channel-send-result";
+import type { ChannelMessageActionAdapter } from "granted/plugin-sdk/channel-contract";
+import type { ChannelOutboundAdapter } from "granted/plugin-sdk/channel-send-result";
 import {
   adaptMessagePresentationForChannel,
   normalizeMessagePresentation,
@@ -11,12 +11,12 @@ import {
   type MessagePresentation,
   type MessagePresentationBlock,
   type MessagePresentationButton,
-} from "openclaw/plugin-sdk/interactive-runtime";
-import type { ReplyPayload } from "openclaw/plugin-sdk/reply-runtime";
+} from "granted/plugin-sdk/interactive-runtime";
+import type { ReplyPayload } from "granted/plugin-sdk/reply-runtime";
 import {
   isRecord,
   normalizeLowercaseStringOrEmpty,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import { Type } from "typebox";
 import { hasLineCredentials } from "./account-helpers.js";
 import { resolveLineAccount } from "./accounts.js";

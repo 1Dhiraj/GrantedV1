@@ -1,10 +1,10 @@
-import { clearLiveCatalogCacheForTests } from "openclaw/plugin-sdk/provider-catalog-shared";
+import { clearLiveCatalogCacheForTests } from "granted/plugin-sdk/provider-catalog-shared";
 import {
   expectExplicitVideoGenerationCapabilities,
   expectUnifiedModelCatalogEntries,
-} from "openclaw/plugin-sdk/provider-test-contracts";
+} from "granted/plugin-sdk/provider-test-contracts";
 // Openrouter tests cover video generation provider plugin behavior.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   buildOpenRouterVideoGenerationProvider,
@@ -67,7 +67,7 @@ vi.mock("openclaw/plugin-sdk/provider-auth-runtime", () => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/provider-http", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/provider-http")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/provider-http")>(
     "openclaw/plugin-sdk/provider-http",
   );
   return {

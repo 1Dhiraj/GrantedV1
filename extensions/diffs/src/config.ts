@@ -1,6 +1,6 @@
 // Diffs helper module supports config behavior.
-import { mapPluginConfigIssues } from "openclaw/plugin-sdk/extension-shared";
-import { buildPluginConfigSchema } from "openclaw/plugin-sdk/plugin-entry";
+import { mapPluginConfigIssues } from "granted/plugin-sdk/extension-shared";
+import { buildPluginConfigSchema } from "granted/plugin-sdk/plugin-entry";
 import { z } from "zod";
 import type { GrantedPluginConfigSchema } from "../api.js";
 import {

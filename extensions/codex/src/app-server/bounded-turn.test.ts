@@ -1,4 +1,4 @@
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import { describe, expect, it, vi } from "vitest";
 import { runBoundedCodexAppServerTurn } from "./bounded-turn.js";
 import { createFakeCodexAppServerClient } from "./codex-app-server.test-fixtures.js";

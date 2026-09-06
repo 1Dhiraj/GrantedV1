@@ -1,4 +1,4 @@
-import { MAX_TCP_PORT } from "openclaw/plugin-sdk/number-runtime";
+import { MAX_TCP_PORT } from "granted/plugin-sdk/number-runtime";
 import { z } from "zod";
 
 export const VoiceCallTailscaleConfigSchema = z

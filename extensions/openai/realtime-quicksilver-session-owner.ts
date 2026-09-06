@@ -1,6 +1,6 @@
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { resolveGlobalSingleton } from "openclaw/plugin-sdk/global-singleton";
-import type { PluginLogger } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { resolveGlobalSingleton } from "granted/plugin-sdk/global-singleton";
+import type { PluginLogger } from "granted/plugin-sdk/plugin-entry";
 import { createOpenAIQuicksilverBrowserSessionBroker } from "./realtime-quicksilver-session.js";
 
 const OPENAI_QUICKSILVER_SESSION_OWNER_KEY = Symbol.for(

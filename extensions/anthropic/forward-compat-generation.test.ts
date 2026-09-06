@@ -1,5 +1,5 @@
 // Anthropic tests cover forward-compat resolution for unreleased Claude ids.
-import { supportsClaudeAdaptiveThinking } from "openclaw/plugin-sdk/provider-model-shared";
+import { supportsClaudeAdaptiveThinking } from "granted/plugin-sdk/provider-model-shared";
 import { describe, expect, it } from "vitest";
 import { buildAnthropicProvider } from "./register.runtime.js";
 

@@ -1,8 +1,8 @@
 // Discord plugin module implements native command model picker apply behavior.
-import type { ChatCommandDefinition, CommandArgs } from "openclaw/plugin-sdk/command-auth-native";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { ResolvedAgentRoute } from "openclaw/plugin-sdk/routing";
-import { withTimeout } from "openclaw/plugin-sdk/text-utility-runtime";
+import type { ChatCommandDefinition, CommandArgs } from "granted/plugin-sdk/command-auth-native";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { ResolvedAgentRoute } from "granted/plugin-sdk/routing";
+import { withTimeout } from "granted/plugin-sdk/text-utility-runtime";
 import type { ButtonInteraction, StringSelectMenuInteraction } from "../internal/discord.js";
 import {
   recordDiscordModelPickerRecentModel,

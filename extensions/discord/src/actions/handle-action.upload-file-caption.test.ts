@@ -1,5 +1,5 @@
 // Discord tests cover upload-file caption text resolution.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const runtimeModule = await import("./runtime.js");

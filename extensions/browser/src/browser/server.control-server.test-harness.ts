@@ -1,4 +1,4 @@
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
+import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
 /**
  * Shared Browser control-server test harness with mocked Chrome, CDP,
  * Playwright, Chrome MCP, config, and media dependencies.

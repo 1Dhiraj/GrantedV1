@@ -2,12 +2,12 @@
  * Brave Search HTTP runtime. It resolves credentials, enforces endpoint safety,
  * applies caching, and maps Brave web/LLM-context API responses.
  */
-import { buildTimeoutAbortSignal } from "openclaw/plugin-sdk/extension-shared";
+import { buildTimeoutAbortSignal } from "granted/plugin-sdk/extension-shared";
 import {
   assertOkOrThrowProviderError,
   readProviderJsonResponse,
-} from "openclaw/plugin-sdk/provider-http";
-import type { SearchConfigRecord } from "openclaw/plugin-sdk/provider-web-search";
+} from "granted/plugin-sdk/provider-http";
+import type { SearchConfigRecord } from "granted/plugin-sdk/provider-web-search";
 import {
   buildSearchCacheKey,
   DEFAULT_SEARCH_COUNT,
@@ -27,14 +27,14 @@ import {
   withTrustedWebToolsEndpoint,
   wrapWebContent,
   writeCachedSearchPayload,
-} from "openclaw/plugin-sdk/provider-web-search";
-import { createSubsystemLogger } from "openclaw/plugin-sdk/runtime-env";
+} from "granted/plugin-sdk/provider-web-search";
+import { createSubsystemLogger } from "granted/plugin-sdk/runtime-env";
 import {
   assertHttpUrlTargetsPrivateNetwork,
   isBlockedHostnameOrIp,
   isPrivateIpAddress,
   resolvePinnedHostnameWithPolicy,
-} from "openclaw/plugin-sdk/ssrf-runtime";
+} from "granted/plugin-sdk/ssrf-runtime";
 import {
   type BraveLlmContextResponse,
   mapBraveLlmContextResults,

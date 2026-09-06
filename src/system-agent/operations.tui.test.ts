@@ -1,7 +1,7 @@
 // System-agent TUI operation tests cover handoff and return-to-shell behavior.
 import fs from "node:fs/promises";
 import path from "node:path";
-import { withTempHome } from "openclaw/plugin-sdk/test-env";
+import { withTempHome } from "granted/plugin-sdk/test-env";
 import { describe, expect, it, vi } from "vitest";
 import { executeSystemAgentOperation, isPersistentSystemAgentOperation } from "./operations.js";
 import type { SystemAgentOverview } from "./overview.js";

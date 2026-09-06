@@ -1,5 +1,5 @@
 // QA Lab mock provider assistant text fixtures.
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import {
   type ResponsesInputItem,
   QA_STRANDED_FINAL_RECOVERY_PROMPT_RE,

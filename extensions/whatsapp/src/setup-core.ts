@@ -1,10 +1,10 @@
-import { defineChannelSetupContract } from "openclaw/plugin-sdk/channel-setup";
+import { defineChannelSetupContract } from "granted/plugin-sdk/channel-setup";
 // Whatsapp plugin module implements setup core behavior.
 import {
   createPatchedAccountSetupAdapter,
   type ChannelSetupAdapter,
   type ChannelSetupInput,
-} from "openclaw/plugin-sdk/setup";
+} from "granted/plugin-sdk/setup";
 
 const channel = "whatsapp" as const;
 

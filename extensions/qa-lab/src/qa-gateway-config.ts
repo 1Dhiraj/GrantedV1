@@ -1,8 +1,8 @@
 // Qa Lab helper module supports qa gateway config behavior.
-import { GRANTED_VERSION } from "openclaw/plugin-sdk/agent-harness-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { ModelProviderConfig } from "openclaw/plugin-sdk/provider-model-shared";
-import { uniqueStrings } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { GRANTED_VERSION } from "granted/plugin-sdk/agent-harness-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { ModelProviderConfig } from "granted/plugin-sdk/provider-model-shared";
+import { uniqueStrings } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   normalizeQaProviderMode,
   splitQaModelRef,

@@ -1,10 +1,10 @@
 import { responsesPromptObserver } from "@openclaw/ai/internal/openai";
-import type { StreamFn } from "openclaw/plugin-sdk/agent-core";
+import type { StreamFn } from "granted/plugin-sdk/agent-core";
 import {
   createAssistantMessageEventStream,
   type Context,
   type Model,
-} from "openclaw/plugin-sdk/llm";
+} from "granted/plugin-sdk/llm";
 import { describe, expect, it, vi } from "vitest";
 import {
   clearProviderPromptState,

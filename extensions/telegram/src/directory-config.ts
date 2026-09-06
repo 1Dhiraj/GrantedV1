@@ -1,8 +1,8 @@
 // Telegram helper module supports directory config behavior.
-import { normalizeAccountId } from "openclaw/plugin-sdk/account-core";
-import { mapAllowFromEntries } from "openclaw/plugin-sdk/channel-config-helpers";
-import type { GrantedConfig, TelegramAccountConfig } from "openclaw/plugin-sdk/config-contracts";
-import { createResolvedDirectoryEntriesLister } from "openclaw/plugin-sdk/directory-config-runtime";
+import { normalizeAccountId } from "granted/plugin-sdk/account-core";
+import { mapAllowFromEntries } from "granted/plugin-sdk/channel-config-helpers";
+import type { GrantedConfig, TelegramAccountConfig } from "granted/plugin-sdk/config-contracts";
+import { createResolvedDirectoryEntriesLister } from "granted/plugin-sdk/directory-config-runtime";
 import { mergeTelegramAccountConfig } from "./account-config.js";
 import { resolveDefaultTelegramAccountSelection } from "./account-selection.js";
 

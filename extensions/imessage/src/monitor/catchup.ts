@@ -1,6 +1,6 @@
-import { KeyedAsyncQueue } from "openclaw/plugin-sdk/keyed-async-queue";
-import { resolveIntegerOption } from "openclaw/plugin-sdk/number-runtime";
-import type { PluginStateSyncKeyedStore } from "openclaw/plugin-sdk/plugin-state-runtime";
+import { KeyedAsyncQueue } from "granted/plugin-sdk/keyed-async-queue";
+import { resolveIntegerOption } from "granted/plugin-sdk/number-runtime";
+import type { PluginStateSyncKeyedStore } from "granted/plugin-sdk/plugin-state-runtime";
 import { getIMessageRuntime } from "../runtime.js";
 import {
   IMESSAGE_CATCHUP_CURSOR_NAMESPACE,

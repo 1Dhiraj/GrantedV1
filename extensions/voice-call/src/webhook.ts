@@ -1,23 +1,23 @@
 // Voice Call plugin module implements webhook behavior.
 import http from "node:http";
 import { URL } from "node:url";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
 import {
   asDateTimestampMs,
   resolveExpiresAtMsFromDurationMs,
-} from "openclaw/plugin-sdk/number-runtime";
-import { resolveConfiguredCapabilityProvider } from "openclaw/plugin-sdk/provider-selection-runtime";
-import type { TalkEvent } from "openclaw/plugin-sdk/realtime-voice";
+} from "granted/plugin-sdk/number-runtime";
+import { resolveConfiguredCapabilityProvider } from "granted/plugin-sdk/provider-selection-runtime";
+import type { TalkEvent } from "granted/plugin-sdk/realtime-voice";
 import {
   normalizeOptionalString,
   normalizeStringEntries,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import {
   createWebhookInFlightLimiter,
   normalizeWebhookPath,
   WEBHOOK_BODY_READ_DEFAULTS,
-} from "openclaw/plugin-sdk/webhook-ingress";
+} from "granted/plugin-sdk/webhook-ingress";
 import {
   isRequestBodyLimitError,
   readRequestBodyWithLimit,

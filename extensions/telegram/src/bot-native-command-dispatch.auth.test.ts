@@ -5,7 +5,7 @@ import type {
   TelegramAccountConfig,
   TelegramGroupConfig,
   TelegramTopicConfig,
-} from "openclaw/plugin-sdk/config-contracts";
+} from "granted/plugin-sdk/config-contracts";
 import { describe, expect, it, vi } from "vitest";
 import {
   createNativeCommandsHarness,

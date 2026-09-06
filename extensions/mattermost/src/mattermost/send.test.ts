@@ -1,7 +1,7 @@
-import { isChannelPartialDeliveryError } from "openclaw/plugin-sdk/channel-inbound";
+import { isChannelPartialDeliveryError } from "granted/plugin-sdk/channel-inbound";
 // Mattermost tests cover send plugin behavior.
-import { expectProvidedCfgSkipsRuntimeLoad } from "openclaw/plugin-sdk/channel-test-helpers";
-import { convertMarkdownTables } from "openclaw/plugin-sdk/text-chunking";
+import { expectProvidedCfgSkipsRuntimeLoad } from "granted/plugin-sdk/channel-test-helpers";
+import { convertMarkdownTables } from "granted/plugin-sdk/text-chunking";
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 
 let sendMessageMattermost: typeof import("./send.js").sendMessageMattermost;

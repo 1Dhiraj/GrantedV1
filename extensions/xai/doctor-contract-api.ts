@@ -1,6 +1,6 @@
 // Xai doctor contract repairs plugin-owned model configuration.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { asObjectRecord } from "openclaw/plugin-sdk/runtime-doctor-migrations";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { asObjectRecord } from "granted/plugin-sdk/runtime-doctor-migrations";
 import { isLegacyXaiBuiltinModel } from "./model-definitions.js";
 import { isXaiProviderId } from "./provider-id.js";
 

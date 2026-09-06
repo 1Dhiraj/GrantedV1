@@ -1,12 +1,12 @@
 // Minimax provider module implements model/runtime integration.
-import { toImageDataUrl } from "openclaw/plugin-sdk/image-generation";
+import { toImageDataUrl } from "granted/plugin-sdk/image-generation";
 import {
   downloadGeneratedVideoAsset,
   resolveGeneratedMediaMaxBytes,
-} from "openclaw/plugin-sdk/media-generation-runtime";
-import { extensionForMime } from "openclaw/plugin-sdk/media-mime";
-import { isProviderApiKeyConfigured } from "openclaw/plugin-sdk/provider-auth";
-import { resolveApiKeyForProvider } from "openclaw/plugin-sdk/provider-auth-runtime";
+} from "granted/plugin-sdk/media-generation-runtime";
+import { extensionForMime } from "granted/plugin-sdk/media-mime";
+import { isProviderApiKeyConfigured } from "granted/plugin-sdk/provider-auth";
+import { resolveApiKeyForProvider } from "granted/plugin-sdk/provider-auth-runtime";
 import {
   assertOkOrThrowHttpError,
   createProviderOperationDeadline,
@@ -22,14 +22,14 @@ import {
   type ProviderOperationRetryStage,
   type ProviderOperationTimeoutMs,
   type TransientProviderRetryConfig,
-} from "openclaw/plugin-sdk/provider-http";
-import { readResponseWithLimit } from "openclaw/plugin-sdk/response-limit-runtime";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/provider-http";
+import { readResponseWithLimit } from "granted/plugin-sdk/response-limit-runtime";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import type {
   GeneratedVideoAsset,
   VideoGenerationProvider,
   VideoGenerationRequest,
-} from "openclaw/plugin-sdk/video-generation";
+} from "granted/plugin-sdk/video-generation";
 import {
   assertMinimaxBaseResp,
   DEFAULT_MINIMAX_MEDIA_BASE_URL,

@@ -1,5 +1,5 @@
 // Imessage test support covers sanitize outbound plugin behavior.
-import { sanitizeForPlainText } from "openclaw/plugin-sdk/channel-outbound";
+import { sanitizeForPlainText } from "granted/plugin-sdk/channel-outbound";
 import { describe, expect, it } from "vitest";
 import {
   protectIMessageFencedRoleMarkers,

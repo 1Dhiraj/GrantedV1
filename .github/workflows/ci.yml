@@ -1940,15 +1940,15 @@ jobs:
           retention-days: 1
 
       - name: Smoke test CLI launcher help
-        run: node openclaw.mjs --help
+        run: node granted.mjs --help
 
       - name: Smoke test CLI launcher status json
-        run: node openclaw.mjs status --json --timeout 1
+        run: node granted.mjs status --json --timeout 1
 
       - name: Smoke test built CLI with Bun
         run: |
-          bun openclaw.mjs --help
-          bun openclaw.mjs status --json --timeout 1
+          bun granted.mjs --help
+          bun granted.mjs status --json --timeout 1
 
       - name: Verify built browser native host
         # Frozen candidates may predate this source proof; a skipped step is
@@ -2698,7 +2698,7 @@ jobs:
           install-bun: "false"
           dependency-cache: ${{ vars.OPENCLAW_CI_RUNNER_BACKEND != 'github' && runner.environment == 'self-hosted' && github.event_name != 'workflow_dispatch' && github.repository == 'openclaw/openclaw' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == 'openclaw/openclaw') && 'true' || 'false' }}
           # Reader of build-artifacts' protected daily archive: warms tsdown
-          # tooling plus the repeated openclaw.mjs boots in the scenario loop.
+          # tooling plus the repeated granted.mjs boots in the scenario loop.
           node-compile-cache: "true"
           node-compile-cache-scope: build
 
@@ -2837,7 +2837,7 @@ jobs:
             for scenario_id in "${scenario_ids[@]}"; do
               scenario_args+=(--scenario "$scenario_id")
             done
-            timeout --signal=TERM --kill-after=15s 10m node openclaw.mjs qa run \
+            timeout --signal=TERM --kill-after=15s 10m node granted.mjs qa run \
               --repo-root . \
               --qa-profile smoke-ci \
               --concurrency 10 \
@@ -2969,8 +2969,8 @@ jobs:
         run: |
           pnpm build
           pnpm ui:build
-          node openclaw.mjs --help
-          node openclaw.mjs status --json --timeout 1
+          node granted.mjs --help
+          node granted.mjs status --json --timeout 1
           pnpm test:build:singleton
 
   checks-node-core-test-nondist-shard:

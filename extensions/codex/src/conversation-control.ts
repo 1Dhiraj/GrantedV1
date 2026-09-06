@@ -1,14 +1,14 @@
 // Codex plugin module implements conversation control behavior.
-import { resolveAgentDir } from "openclaw/plugin-sdk/agent-runtime";
+import { resolveAgentDir } from "granted/plugin-sdk/agent-runtime";
 import {
   applyModelOverrideWithAuthProfileCompatibility,
   ModelSelectionLockedError,
-} from "openclaw/plugin-sdk/model-session-runtime";
+} from "granted/plugin-sdk/model-session-runtime";
 import {
   getSessionEntry,
   patchSessionEntry,
   resolveStorePath,
-} from "openclaw/plugin-sdk/session-store-runtime";
+} from "granted/plugin-sdk/session-store-runtime";
 import { resolveCodexBindingAppServerConnection } from "./app-server/binding-connection.js";
 import type { CodexAppServerClient } from "./app-server/client.js";
 import { isCodexFastServiceTier } from "./app-server/config.js";

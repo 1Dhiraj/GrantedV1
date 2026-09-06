@@ -3,16 +3,16 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import type { webhook } from "@line/bot-sdk";
-import type { GrantedConfig } from "openclaw/plugin-sdk/account-resolution";
+import type { GrantedConfig } from "granted/plugin-sdk/account-resolution";
 import {
   closeOpenClawStateDatabaseForTest,
   createChannelIngressQueueForTests as createChannelIngressQueue,
   listChannelIngressQueueAccountIdsForTests,
-} from "openclaw/plugin-sdk/plugin-state-test-runtime";
+} from "granted/plugin-sdk/plugin-state-test-runtime";
 import type {
   PluginDoctorChannelIngressQueueAccess,
   PluginDoctorStateMigrationContext,
-} from "openclaw/plugin-sdk/runtime-doctor-migrations";
+} from "granted/plugin-sdk/runtime-doctor-migrations";
 import { afterEach, describe, expect, it } from "vitest";
 import { stateMigrations } from "./doctor-contract-api.js";
 

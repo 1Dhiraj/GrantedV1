@@ -1,8 +1,8 @@
 // Discord plugin module implements threading.starter behavior.
-import type { ReplyToMode } from "openclaw/plugin-sdk/config-contracts";
-import { createReplyReferencePlanner } from "openclaw/plugin-sdk/reply-reference";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+import type { ReplyToMode } from "granted/plugin-sdk/config-contracts";
+import { createReplyReferencePlanner } from "granted/plugin-sdk/reply-reference";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
+import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import { isDiscordThreadChannelType } from "../channel-type.js";
 import { ChannelType, DiscordError, getChannelMessage, type Client } from "../internal/discord.js";
 import {

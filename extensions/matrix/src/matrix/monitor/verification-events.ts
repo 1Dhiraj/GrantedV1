@@ -1,5 +1,5 @@
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
-import { normalizeNullableString } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
+import { normalizeNullableString } from "granted/plugin-sdk/string-coerce-runtime";
 // Matrix plugin module implements verification events behavior.
 import type { MatrixClient } from "../sdk.js";
 import { resolveMatrixMonitorAccessState } from "./access-state.js";

@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import type { DatabaseSync } from "node:sqlite";
 import { clearTimeout as clearNodeTimeout, setTimeout as setNodeTimeout } from "node:timers";
-import { openNodeSqliteDatabase } from "openclaw/plugin-sdk/sqlite-runtime";
+import { openNodeSqliteDatabase } from "granted/plugin-sdk/sqlite-runtime";
 
 export type QaFixtureFetchJsonOptions = {
   fetchImpl?: (url: string, init: RequestInit) => Promise<Response>;

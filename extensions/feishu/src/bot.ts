@@ -4,33 +4,33 @@ import {
   recordChannelBotPairLoopAndCheckSuppression,
   resolveEnvelopeFormatOptions,
   toInboundMediaFactsWithMetadata,
-} from "openclaw/plugin-sdk/channel-inbound";
+} from "granted/plugin-sdk/channel-inbound";
 import {
   bindIngressLifecycleToReplyOptions,
   resolveAgentOutboundIdentity,
-} from "openclaw/plugin-sdk/channel-outbound";
-import { createChannelPairingController } from "openclaw/plugin-sdk/channel-pairing";
+} from "granted/plugin-sdk/channel-outbound";
+import { createChannelPairingController } from "granted/plugin-sdk/channel-pairing";
 import {
   ensureConfiguredBindingRouteReady,
   resolveConfiguredBindingRoute,
   resolveRuntimeConversationBindingRoute,
-} from "openclaw/plugin-sdk/conversation-runtime";
-import { parseStrictNonNegativeInteger } from "openclaw/plugin-sdk/number-runtime";
+} from "granted/plugin-sdk/conversation-runtime";
+import { parseStrictNonNegativeInteger } from "granted/plugin-sdk/number-runtime";
 import {
   DEFAULT_GROUP_HISTORY_LIMIT,
   createChannelHistoryWindow,
   type HistoryEntry,
-} from "openclaw/plugin-sdk/reply-history";
-import { resolveInboundLastRouteSessionKey } from "openclaw/plugin-sdk/routing";
+} from "granted/plugin-sdk/reply-history";
+import { resolveInboundLastRouteSessionKey } from "granted/plugin-sdk/routing";
 import {
   resolveDefaultGroupPolicy,
   resolveOpenProviderRuntimeGroupPolicy,
   warnMissingProviderGroupPolicyFallbackOnce,
-} from "openclaw/plugin-sdk/runtime-group-policy";
-import { resolvePinnedMainDmOwnerFromAllowlist } from "openclaw/plugin-sdk/security-runtime";
-import { resolveStorePath } from "openclaw/plugin-sdk/session-store-runtime";
-import { normalizeOptionalString, uniqueStrings } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+} from "granted/plugin-sdk/runtime-group-policy";
+import { resolvePinnedMainDmOwnerFromAllowlist } from "granted/plugin-sdk/security-runtime";
+import { resolveStorePath } from "granted/plugin-sdk/session-store-runtime";
+import { normalizeOptionalString, uniqueStrings } from "granted/plugin-sdk/string-coerce-runtime";
+import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import {
   evaluateSupplementalContextVisibility,
   normalizeAgentId,

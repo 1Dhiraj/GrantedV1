@@ -1,4 +1,4 @@
-import type { HealthCheck } from "openclaw/plugin-sdk/health";
+import type { HealthCheck } from "granted/plugin-sdk/health";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const mocks = vi.hoisted(() => ({

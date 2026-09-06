@@ -1,8 +1,8 @@
 import { once } from "node:events";
 import { runInNewContext } from "node:vm";
 // Qa Lab tests cover server plugin behavior.
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, describe, expect, it } from "vitest";
 import { WebSocket } from "ws";
 import { readQaMockRequestCursor } from "../shared/debug-request-cursor.js";

@@ -2,9 +2,9 @@
 import { createHash } from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
-import { runTasksWithConcurrency } from "openclaw/plugin-sdk/concurrency-runtime";
-import { isPathInside } from "openclaw/plugin-sdk/file-access-runtime";
-import { normalizeLowercaseStringOrEmpty } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { runTasksWithConcurrency } from "granted/plugin-sdk/concurrency-runtime";
+import { isPathInside } from "granted/plugin-sdk/file-access-runtime";
+import { normalizeLowercaseStringOrEmpty } from "granted/plugin-sdk/string-coerce-runtime";
 import { walkMemoryWikiDirectory } from "./bounded-walk.js";
 import type { BridgeMemoryWikiResult } from "./bridge.js";
 import type { ResolvedMemoryWikiConfig } from "./config.js";

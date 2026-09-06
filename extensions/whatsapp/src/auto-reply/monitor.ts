@@ -1,15 +1,15 @@
 // Whatsapp plugin module implements monitor behavior.
 import type { WAMessageKey } from "baileys";
-import { CHANNEL_APPROVAL_NATIVE_RUNTIME_CONTEXT_CAPABILITY } from "openclaw/plugin-sdk/approval-handler-runtime";
-import type { PluginRuntime } from "openclaw/plugin-sdk/channel-core";
-import { shouldDebounceTextInbound } from "openclaw/plugin-sdk/channel-inbound";
-import { resolveInboundDebounceMs } from "openclaw/plugin-sdk/channel-inbound-debounce";
-import { registerChannelRuntimeContext } from "openclaw/plugin-sdk/channel-runtime-context";
-import { formatCliCommand } from "openclaw/plugin-sdk/cli-runtime";
-import { drainPendingDeliveries } from "openclaw/plugin-sdk/delivery-queue-runtime";
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
-import { DEFAULT_GROUP_HISTORY_LIMIT } from "openclaw/plugin-sdk/reply-history";
-import { resolveAgentRoute } from "openclaw/plugin-sdk/routing";
+import { CHANNEL_APPROVAL_NATIVE_RUNTIME_CONTEXT_CAPABILITY } from "granted/plugin-sdk/approval-handler-runtime";
+import type { PluginRuntime } from "granted/plugin-sdk/channel-core";
+import { shouldDebounceTextInbound } from "granted/plugin-sdk/channel-inbound";
+import { resolveInboundDebounceMs } from "granted/plugin-sdk/channel-inbound-debounce";
+import { registerChannelRuntimeContext } from "granted/plugin-sdk/channel-runtime-context";
+import { formatCliCommand } from "granted/plugin-sdk/cli-runtime";
+import { drainPendingDeliveries } from "granted/plugin-sdk/delivery-queue-runtime";
+import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
+import { DEFAULT_GROUP_HISTORY_LIMIT } from "granted/plugin-sdk/reply-history";
+import { resolveAgentRoute } from "granted/plugin-sdk/routing";
 import {
   registerUnhandledRejectionHandler,
   getChildLogger,
@@ -17,8 +17,8 @@ import {
   formatDurationPrecise,
   warn,
   type RuntimeEnv,
-} from "openclaw/plugin-sdk/runtime-env";
-import { enqueueSystemEvent } from "openclaw/plugin-sdk/system-event-runtime";
+} from "granted/plugin-sdk/runtime-env";
+import { enqueueSystemEvent } from "granted/plugin-sdk/system-event-runtime";
 import { resolveWhatsAppAccount, resolveWhatsAppMediaMaxBytes } from "../accounts.js";
 import { WHATSAPP_AUTH_UNSTABLE_CODE, WhatsAppAuthUnstableError } from "../auth-store.js";
 import {

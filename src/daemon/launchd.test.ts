@@ -510,7 +510,7 @@ function executeLaunchctlMock(file: string, args: string[]) {
 }
 
 vi.mock("node:child_process", async () => {
-  const { mockNodeBuiltinModule } = await import("openclaw/plugin-sdk/test-node-mocks");
+  const { mockNodeBuiltinModule } = await import("granted/plugin-sdk/test-node-mocks");
   return mockNodeBuiltinModule(
     () => vi.importActual<typeof import("node:child_process")>("node:child_process"),
     { spawnSync: (...args: unknown[]) => launchctlSpawnSync(...args) },
@@ -1265,7 +1265,7 @@ describe("launchctl list detection", () => {
       const label = "ai.granted.tayoun.update.20260625T201026-0400";
       setLaunchAgentPlist(env, label, [
         "/usr/local/bin/node",
-        "/opt/openclaw/openclaw.mjs",
+        "/opt/openclaw/granted.mjs",
         "update",
         "--yes",
       ]);
@@ -1780,7 +1780,7 @@ describe("launchd install", () => {
     const targetPlistPath = resolveLaunchAgentPlistPath(env);
     const previousLegacy = createTestLaunchAgentPlist({
       label: legacyLabel,
-      programArguments: ["/legacy/node", "/legacy/openclaw.mjs", "gateway"],
+      programArguments: ["/legacy/node", "/legacy/granted.mjs", "gateway"],
     });
     launchdConstantsState.legacyGatewayLabels.push(legacyLabel);
     state.files.set(legacyPlistPath, previousLegacy);
@@ -1820,7 +1820,7 @@ describe("launchd install", () => {
     const legacyPlistPath = `${env.HOME}/Library/LaunchAgents/${legacyLabel}.plist`;
     const previousLegacy = createTestLaunchAgentPlist({
       label: legacyLabel,
-      programArguments: ["/legacy/node", "/legacy/openclaw.mjs", "gateway"],
+      programArguments: ["/legacy/node", "/legacy/granted.mjs", "gateway"],
     });
     launchdConstantsState.legacyGatewayLabels.push(legacyLabel);
     state.files.set(legacyPlistPath, previousLegacy);
@@ -1837,7 +1837,7 @@ describe("launchd install", () => {
     const plistPath = resolveLaunchAgentPlistPath(env);
     const previous = createTestLaunchAgentPlist({
       label: "ai.granted.gateway",
-      programArguments: ["/previous/node", "/previous/openclaw.mjs", "gateway"],
+      programArguments: ["/previous/node", "/previous/granted.mjs", "gateway"],
     });
     state.files.set(plistPath, previous);
     state.printError = "launchctl print permission denied";
@@ -1880,7 +1880,7 @@ describe("launchd install", () => {
     const plistPath = resolveLaunchAgentPlistPath(env);
     const previous = createTestLaunchAgentPlist({
       label: "ai.granted.gateway",
-      programArguments: ["/previous/node", "/previous/openclaw.mjs", "gateway"],
+      programArguments: ["/previous/node", "/previous/granted.mjs", "gateway"],
     });
     state.files.set(plistPath, previous);
     state.serviceLoaded = false;
@@ -1967,7 +1967,7 @@ describe("launchd install", () => {
         wrapperPath,
         envFilePath,
         "/previous/node",
-        "/previous/openclaw.mjs",
+        "/previous/granted.mjs",
         "gateway",
       ],
     });

@@ -2,10 +2,10 @@
 import {
   loadAuthProfileStoreWithoutExternalProfiles,
   resolveAuthStorePathForDisplay,
-} from "openclaw/plugin-sdk/agent-runtime";
-import type { MigrationItem, MigrationProviderContext } from "openclaw/plugin-sdk/plugin-entry";
-import { updateAuthProfileStoreWithLock } from "openclaw/plugin-sdk/provider-auth";
-import { isRecord, normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/agent-runtime";
+import type { MigrationItem, MigrationProviderContext } from "granted/plugin-sdk/plugin-entry";
+import { updateAuthProfileStoreWithLock } from "granted/plugin-sdk/provider-auth";
+import { isRecord, normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   applyAuthProfileConfigWithConflictCheck,
   hasAuthProfileConfigConflict,

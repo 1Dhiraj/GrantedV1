@@ -914,7 +914,7 @@ function runPackedBundledPluginActivationSmoke(packageRoot: string, tmpRoot: str
   runReleaseCheckCommand(
     {
       command: process.execPath,
-      args: [join(packageRoot, "openclaw.mjs"), ...PACKED_BUNDLED_RUNTIME_DEPS_REPAIR_ARGS],
+      args: [join(packageRoot, "granted.mjs"), ...PACKED_BUNDLED_RUNTIME_DEPS_REPAIR_ARGS],
     },
     {
       cwd: packageRoot,
@@ -923,7 +923,7 @@ function runPackedBundledPluginActivationSmoke(packageRoot: string, tmpRoot: str
     },
   );
   runReleaseCheckCommand(
-    { command: process.execPath, args: [join(packageRoot, "openclaw.mjs"), "plugins", "doctor"] },
+    { command: process.execPath, args: [join(packageRoot, "granted.mjs"), "plugins", "doctor"] },
     {
       cwd: packageRoot,
       stdio: "inherit",
@@ -1069,7 +1069,7 @@ function runPackedBundledChannelEntrySmoke(): void {
     runReleaseCheckCommand(
       {
         command: process.execPath,
-        args: [join(packageRoot, "openclaw.mjs"), ...PACKED_COMPLETION_SMOKE_ARGS],
+        args: [join(packageRoot, "granted.mjs"), ...PACKED_COMPLETION_SMOKE_ARGS],
       },
       {
         cwd: packageRoot,

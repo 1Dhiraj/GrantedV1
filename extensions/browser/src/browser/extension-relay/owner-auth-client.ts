@@ -1,5 +1,5 @@
 import { once } from "node:events";
-import { rawDataToString } from "openclaw/plugin-sdk/webhook-ingress";
+import { rawDataToString } from "granted/plugin-sdk/webhook-ingress";
 import { WebSocket } from "ws";
 import {
   createRelayProof,

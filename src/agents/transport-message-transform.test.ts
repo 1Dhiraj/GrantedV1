@@ -1,6 +1,6 @@
 // Transport message transform tests cover replay cleanup for provider-specific
 // tool-call/result sequencing before messages are sent back to transports.
-import type { Api, Context, Model } from "openclaw/plugin-sdk/llm";
+import type { Api, Context, Model } from "granted/plugin-sdk/llm";
 import { describe, expect, it } from "vitest";
 import { transformTransportMessages } from "./transport-message-transform.js";
 

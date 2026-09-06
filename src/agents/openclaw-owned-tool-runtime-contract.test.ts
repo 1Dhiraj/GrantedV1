@@ -1,11 +1,11 @@
 // Verifies OpenClaw-owned tool hooks preserve adjusted params and telemetry.
-import type { AgentTool } from "openclaw/plugin-sdk/agent-core";
+import type { AgentTool } from "granted/plugin-sdk/agent-core";
 import {
   installOpenClawOwnedToolHooks,
   resetOpenClawOwnedToolHooks,
   textToolResult,
-} from "openclaw/plugin-sdk/agent-runtime-test-contracts";
-import type { ExtensionContext } from "openclaw/plugin-sdk/agent-sessions";
+} from "granted/plugin-sdk/agent-runtime-test-contracts";
+import type { ExtensionContext } from "granted/plugin-sdk/agent-sessions";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { toToolDefinitions } from "./agent-tool-definition-adapter.js";
 import { createBaseToolHandlerState } from "./agent-tool-handler-state.test-helpers.js";

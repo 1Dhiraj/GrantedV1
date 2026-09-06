@@ -10793,10 +10793,10 @@ printf '%s\n' "\${CURL_SUCCESS_IP:-203.0.113.7}"
     expect(buildArtifactSteps.some((step: WorkflowStep) => step.run === "pnpm ui:build")).toBe(
       false,
     );
-    expect(nodeHelpSmoke.run).toBe("node openclaw.mjs --help");
-    expect(nodeStatusSmoke.run).toBe("node openclaw.mjs status --json --timeout 1");
-    expect(bunSmoke.run).toContain("bun openclaw.mjs --help");
-    expect(bunSmoke.run).toContain("bun openclaw.mjs status --json --timeout 1");
+    expect(nodeHelpSmoke.run).toBe("node granted.mjs --help");
+    expect(nodeStatusSmoke.run).toBe("node granted.mjs status --json --timeout 1");
+    expect(bunSmoke.run).toContain("bun granted.mjs --help");
+    expect(bunSmoke.run).toContain("bun granted.mjs status --json --timeout 1");
   });
 
   it("keeps automatic source-only Control UI locale drift advisory and manual CI strict", () => {
@@ -13531,10 +13531,10 @@ printf '%s\n' "\${CURL_SUCCESS_IP:-203.0.113.7}"
       "console.log(`[skip] ${partId} is not declared by this checkout's smoke plan`)",
     );
     expect(smokeRunStep.run).toContain("No QA smoke runs assigned");
-    expect(smokeRunStep.run).toContain("node openclaw.mjs qa run");
+    expect(smokeRunStep.run).toContain("node granted.mjs qa run");
     expect(smokeRunStep.run).not.toContain("pnpm openclaw qa run");
     expect(smokeRunStep.run).toContain(
-      "timeout --signal=TERM --kill-after=15s 10m node openclaw.mjs qa run",
+      "timeout --signal=TERM --kill-after=15s 10m node granted.mjs qa run",
     );
     expect(smokeRunStep.run).toContain("--qa-profile smoke-ci");
     expect(smokeRunStep.run).toContain("--concurrency 10");

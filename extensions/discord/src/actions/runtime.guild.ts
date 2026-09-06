@@ -1,15 +1,15 @@
 // Discord plugin module implements runtime.guild behavior.
 import { PermissionFlagsBits } from "discord-api-types/v10";
-import type { AgentToolResult } from "openclaw/plugin-sdk/agent-core";
-import type { ActionGate } from "openclaw/plugin-sdk/channel-actions";
+import type { AgentToolResult } from "granted/plugin-sdk/agent-core";
+import type { ActionGate } from "granted/plugin-sdk/channel-actions";
 import {
   jsonResult,
   readNonNegativeIntegerParam,
   readPositiveIntegerParam,
   readStringArrayParam,
   readStringParam,
-} from "openclaw/plugin-sdk/channel-actions";
-import type { DiscordActionConfig, GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+} from "granted/plugin-sdk/channel-actions";
+import type { DiscordActionConfig, GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { resolveDefaultDiscordAccountId } from "../accounts.js";
 import { isDiscordThreadChannelType } from "../channel-type.js";
 import { getGateway } from "../monitor/gateway-registry.js";

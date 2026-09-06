@@ -1,12 +1,12 @@
 import os from "node:os";
 import path from "node:path";
-import { jsonResult, readStringParam } from "openclaw/plugin-sdk/agent-runtime";
+import { jsonResult, readStringParam } from "granted/plugin-sdk/agent-runtime";
 import {
   imageResultFromFile,
   optionalStringEnum,
   stringEnum,
-} from "openclaw/plugin-sdk/channel-actions";
-import type { AnyAgentTool } from "openclaw/plugin-sdk/plugin-entry";
+} from "granted/plugin-sdk/channel-actions";
+import type { AnyAgentTool } from "granted/plugin-sdk/plugin-entry";
 import { Type } from "typebox";
 import { runPowerShellJson } from "./powershell.js";
 import {

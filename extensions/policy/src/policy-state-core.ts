@@ -1,6 +1,6 @@
 // Policy plugin channel, model, MCP, and network evidence.
-import { normalizeProviderId } from "openclaw/plugin-sdk/provider-model-shared";
-import { asNonArrayRecord, isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { normalizeProviderId } from "granted/plugin-sdk/provider-model-shared";
+import { asNonArrayRecord, isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   collectPolicyConfiguredAgents,
   ocPathSegment,

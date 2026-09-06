@@ -1,5 +1,5 @@
-import { readManifestProviderDefaultModelRef } from "openclaw/plugin-sdk/provider-catalog-shared";
-import { createModelCatalogPresetAppliers } from "openclaw/plugin-sdk/provider-onboard";
+import { readManifestProviderDefaultModelRef } from "granted/plugin-sdk/provider-catalog-shared";
+import { createModelCatalogPresetAppliers } from "granted/plugin-sdk/provider-onboard";
 import {
   TOKENHUB_BASE_URL,
   TOKENHUB_MODEL_CATALOG,

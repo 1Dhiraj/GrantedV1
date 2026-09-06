@@ -1,8 +1,8 @@
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import type {
   PluginStateEntry,
   PluginStateKeyedStore,
-} from "openclaw/plugin-sdk/plugin-state-runtime";
+} from "granted/plugin-sdk/plugin-state-runtime";
 import { DiscordActivitiesRuntime } from "./runtime.js";
 import { DiscordActivityStore } from "./store.js";
 

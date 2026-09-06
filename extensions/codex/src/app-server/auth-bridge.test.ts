@@ -6,10 +6,10 @@ import {
   clearRuntimeAuthProfileStoreSnapshots,
   loadAuthProfileStoreForSecretsRuntime,
   replaceRuntimeAuthProfileStoreSnapshots,
-} from "openclaw/plugin-sdk/agent-runtime";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
-import { upsertAuthProfile } from "openclaw/plugin-sdk/provider-auth";
-import { withTempDir } from "openclaw/plugin-sdk/test-env";
+} from "granted/plugin-sdk/agent-runtime";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
+import { upsertAuthProfile } from "granted/plugin-sdk/provider-auth";
+import { withTempDir } from "granted/plugin-sdk/test-env";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   applyCodexAppServerAuthProfile,
@@ -89,7 +89,7 @@ const providerRuntimeMocks = vi.hoisted(() => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/agent-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/agent-runtime")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/agent-runtime")>();
   return {
     ...actual,
     resolveApiKeyForProfile: async (

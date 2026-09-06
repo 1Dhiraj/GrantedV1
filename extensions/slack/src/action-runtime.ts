@@ -1,7 +1,7 @@
 // Slack plugin module implements action runtime behavior.
-import { normalizeAccountId } from "openclaw/plugin-sdk/account-resolution";
-import type { AgentToolResult } from "openclaw/plugin-sdk/agent-core";
-import { readBooleanParam } from "openclaw/plugin-sdk/boolean-param";
+import { normalizeAccountId } from "granted/plugin-sdk/account-resolution";
+import type { AgentToolResult } from "granted/plugin-sdk/agent-core";
+import { readBooleanParam } from "granted/plugin-sdk/boolean-param";
 import {
   createActionGate,
   imageResultFromFile,
@@ -10,13 +10,13 @@ import {
   readReactionParams,
   readStringParam,
   withNormalizedTimestamp,
-} from "openclaw/plugin-sdk/channel-actions";
-import type { ChannelMessageActionContext } from "openclaw/plugin-sdk/channel-contract";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
-import { isSingleUseReplyToMode } from "openclaw/plugin-sdk/reply-reference";
-import { resolveOpenProviderRuntimeGroupPolicy } from "openclaw/plugin-sdk/runtime-group-policy";
-import { normalizeOptionalLowercaseString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/channel-actions";
+import type { ChannelMessageActionContext } from "granted/plugin-sdk/channel-contract";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
+import { isSingleUseReplyToMode } from "granted/plugin-sdk/reply-reference";
+import { resolveOpenProviderRuntimeGroupPolicy } from "granted/plugin-sdk/runtime-group-policy";
+import { normalizeOptionalLowercaseString } from "granted/plugin-sdk/string-coerce-runtime";
 import type { ResolvedSlackAccount } from "./accounts.js";
 import {
   resolveSlackAutoThreadId,

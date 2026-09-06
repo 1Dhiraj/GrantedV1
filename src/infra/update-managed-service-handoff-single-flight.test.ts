@@ -114,7 +114,7 @@ const baseParams = {
   restartDrainTimeoutMs: 300_000,
   parentPid: process.pid,
   execPath: "/usr/local/bin/node",
-  argv1: "/opt/openclaw/openclaw.mjs",
+  argv1: "/opt/openclaw/granted.mjs",
 };
 
 describe("managed service update handoff single-flight", () => {

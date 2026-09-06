@@ -1,7 +1,7 @@
 import path from "node:path";
-import { openFileBackedSessionManagerForTest } from "openclaw/plugin-sdk/agent-runtime-test-contracts";
-import { initializeGlobalHookRunner } from "openclaw/plugin-sdk/hook-runtime";
-import { createMockPluginRegistry } from "openclaw/plugin-sdk/plugin-test-runtime";
+import { openFileBackedSessionManagerForTest } from "granted/plugin-sdk/agent-runtime-test-contracts";
+import { initializeGlobalHookRunner } from "granted/plugin-sdk/hook-runtime";
+import { createMockPluginRegistry } from "granted/plugin-sdk/plugin-test-runtime";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const mcpMocks = vi.hoisted(() => ({
@@ -34,7 +34,7 @@ const mcpMocks = vi.hoisted(() => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/agent-harness-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/agent-harness-runtime")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/agent-harness-runtime")>();
   return {
     ...actual,
     materializeRequesterScopedMcpToolsForHarnessRun: async (
@@ -68,7 +68,7 @@ vi.mock("openclaw/plugin-sdk/agent-harness-runtime", async (importOriginal) => {
 });
 
 vi.mock("openclaw/plugin-sdk/codex-mcp-projection", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/codex-mcp-projection")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/codex-mcp-projection")>();
   return {
     ...actual,
     runWithCronCreatorAuthorityCapabilityResolver: (

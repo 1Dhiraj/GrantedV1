@@ -1,4 +1,4 @@
-import { installedPluginRoot } from "openclaw/plugin-sdk/test-fixtures";
+import { installedPluginRoot } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 // Plugins CLI uninstall tests cover plugin removal selection and uninstall output.
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";

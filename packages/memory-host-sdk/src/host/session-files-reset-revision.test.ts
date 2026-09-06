@@ -4,7 +4,7 @@ import path from "node:path";
 import {
   clearConfigCache,
   clearRuntimeConfigSnapshot,
-} from "openclaw/plugin-sdk/runtime-config-snapshot";
+} from "granted/plugin-sdk/runtime-config-snapshot";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   persistSessionTranscriptTurn,

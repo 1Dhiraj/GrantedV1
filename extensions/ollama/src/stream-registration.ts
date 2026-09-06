@@ -1,6 +1,6 @@
-import type { StreamFn } from "openclaw/plugin-sdk/agent-core";
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
-import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
+import type { StreamFn } from "granted/plugin-sdk/agent-core";
+import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
+import type { GrantedPluginApi } from "granted/plugin-sdk/plugin-entry";
 
 const loadOllamaStreamRuntime = createLazyRuntimeModule(() => import("./stream.runtime.js"));
 

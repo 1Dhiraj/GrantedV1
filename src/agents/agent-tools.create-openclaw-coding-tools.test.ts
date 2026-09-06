@@ -6,7 +6,7 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import type { AgentTool, AgentToolResult } from "openclaw/plugin-sdk/agent-core";
+import type { AgentTool, AgentToolResult } from "granted/plugin-sdk/agent-core";
 import { Type } from "typebox";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";

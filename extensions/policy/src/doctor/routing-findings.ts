@@ -1,5 +1,5 @@
-import type { HealthFinding } from "openclaw/plugin-sdk/health";
-import { normalizeAgentId } from "openclaw/plugin-sdk/routing";
+import type { HealthFinding } from "granted/plugin-sdk/health";
+import { normalizeAgentId } from "granted/plugin-sdk/routing";
 import { policyRoutingRules } from "../policy-routing.js";
 import type { PolicyEvidence } from "../policy-state.js";
 import { CHECK_IDS } from "./check-ids.js";

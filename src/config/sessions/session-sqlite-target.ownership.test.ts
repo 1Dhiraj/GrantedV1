@@ -1,5 +1,5 @@
 import path from "node:path";
-import { withTempHome } from "openclaw/plugin-sdk/test-env";
+import { withTempHome } from "granted/plugin-sdk/test-env";
 import { describe, expect, it } from "vitest";
 import { unregisterOpenClawAgentDatabase } from "../../state/openclaw-agent-db-registry.js";
 import { openOpenClawAgentDatabase } from "../../state/openclaw-agent-db.js";

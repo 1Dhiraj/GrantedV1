@@ -173,7 +173,7 @@ describe("runDoctorHealthFlow update outcomes", () => {
             readCommand: async () => ({
               programArguments: [
                 process.execPath,
-                path.join(packageRoot, "openclaw.mjs"),
+                path.join(packageRoot, "granted.mjs"),
                 "gateway",
               ],
               environment: {

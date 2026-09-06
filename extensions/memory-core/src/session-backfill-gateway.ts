@@ -1,16 +1,16 @@
-import { readPositiveIntegerParam, readStringParam } from "openclaw/plugin-sdk/channel-actions";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import { readPositiveIntegerParam, readStringParam } from "granted/plugin-sdk/channel-actions";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   ErrorCodes,
   errorShape,
   type GatewayRequestHandlerOptions,
-} from "openclaw/plugin-sdk/gateway-runtime";
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
-import { listAgentIds } from "openclaw/plugin-sdk/memory-core-host-runtime-core";
-import { resolveMemoryRemDreamingConfig } from "openclaw/plugin-sdk/memory-core-host-status";
-import { resolvePluginConfigObject } from "openclaw/plugin-sdk/plugin-config-runtime";
-import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
-import { normalizeAgentId } from "openclaw/plugin-sdk/routing";
+} from "granted/plugin-sdk/gateway-runtime";
+import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
+import { listAgentIds } from "granted/plugin-sdk/memory-core-host-runtime-core";
+import { resolveMemoryRemDreamingConfig } from "granted/plugin-sdk/memory-core-host-status";
+import { resolvePluginConfigObject } from "granted/plugin-sdk/plugin-config-runtime";
+import type { GrantedPluginApi } from "granted/plugin-sdk/plugin-entry";
+import { normalizeAgentId } from "granted/plugin-sdk/routing";
 import type { SessionBackfillResult } from "./session-backfill-contract.js";
 import { normalizeSessionBackfillSelection } from "./session-backfill-selection.js";
 

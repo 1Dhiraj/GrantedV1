@@ -3,8 +3,8 @@ import { createServer, request as createHttpRequest, type Server } from "node:ht
 import type { AddressInfo } from "node:net";
 import os from "node:os";
 import path from "node:path";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { fetchWithSsrFGuard } from "openclaw/plugin-sdk/ssrf-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { fetchWithSsrFGuard } from "granted/plugin-sdk/ssrf-runtime";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { buildDiscordActivityCustomId } from "../component-custom-id.js";
 import { createDiscordActivityHttpHandler } from "./http.js";

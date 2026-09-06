@@ -1,7 +1,7 @@
 // User turn transcript tests cover transcript extraction for user turns.
 import fs from "node:fs";
 import path from "node:path";
-import { castAgentMessage } from "openclaw/plugin-sdk/test-fixtures";
+import { castAgentMessage } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, describe, expect, it } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
 import { formatSqliteSessionFileMarker } from "../config/sessions/legacy-sqlite-marker.js";

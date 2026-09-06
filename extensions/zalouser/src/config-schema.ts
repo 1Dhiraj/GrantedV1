@@ -6,7 +6,7 @@ import {
   GroupPolicySchema,
   MarkdownConfigSchema,
   buildGroupEntrySchema,
-} from "openclaw/plugin-sdk/channel-config-schema";
+} from "granted/plugin-sdk/channel-config-schema";
 import { z } from "zod";
 
 const groupConfigSchema = buildGroupEntrySchema()

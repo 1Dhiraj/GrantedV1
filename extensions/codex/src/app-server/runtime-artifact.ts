@@ -3,12 +3,12 @@ import { createHash } from "node:crypto";
 import { constants as fsConstants } from "node:fs";
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { AgentHarnessRuntimeArtifactBinding } from "openclaw/plugin-sdk/agent-harness-runtime";
-import { isPathInside } from "openclaw/plugin-sdk/file-access-runtime";
+import type { AgentHarnessRuntimeArtifactBinding } from "granted/plugin-sdk/agent-harness-runtime";
+import { isPathInside } from "granted/plugin-sdk/file-access-runtime";
 import {
   resolveWindowsExecutablePath,
   resolveWindowsSpawnProgram,
-} from "openclaw/plugin-sdk/windows-spawn";
+} from "granted/plugin-sdk/windows-spawn";
 import type { CodexAppServerClient, CodexAppServerRuntimeIdentity } from "./client.js";
 import type { CodexAppServerStartOptions } from "./config.js";
 import { resolvePackagedCodexNativeCommand } from "./managed-binary.js";

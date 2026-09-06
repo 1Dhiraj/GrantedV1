@@ -1,10 +1,10 @@
 import { InputFile } from "grammy";
-import type { MarkdownTableMode } from "openclaw/plugin-sdk/config-contracts";
-import { extensionForMime, type MediaKind } from "openclaw/plugin-sdk/media-mime";
-import { isGifMedia, kindFromMime } from "openclaw/plugin-sdk/media-runtime";
-import { logVerbose } from "openclaw/plugin-sdk/runtime-env";
-import { formatErrorMessage } from "openclaw/plugin-sdk/ssrf-runtime";
-import type { loadWebMedia } from "openclaw/plugin-sdk/web-media";
+import type { MarkdownTableMode } from "granted/plugin-sdk/config-contracts";
+import { extensionForMime, type MediaKind } from "granted/plugin-sdk/media-mime";
+import { isGifMedia, kindFromMime } from "granted/plugin-sdk/media-runtime";
+import { logVerbose } from "granted/plugin-sdk/runtime-env";
+import { formatErrorMessage } from "granted/plugin-sdk/ssrf-runtime";
+import type { loadWebMedia } from "granted/plugin-sdk/web-media";
 import { resolveTelegramPlainCaption, splitTelegramCaption } from "./caption.js";
 import { renderTelegramHtmlText, telegramHtmlToPlainTextFallback } from "./format.js";
 import type { TelegramOutboundPromptContextMessage } from "./outbound-message-context.js";

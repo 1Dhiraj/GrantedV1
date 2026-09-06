@@ -5,8 +5,8 @@ import {
   WorkerProviderError,
   type WorkerMachineOption,
   type WorkerProfile,
-} from "openclaw/plugin-sdk/plugin-entry";
-import { normalizeOptionalString as nonEmptyString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/plugin-entry";
+import { normalizeOptionalString as nonEmptyString } from "granted/plugin-sdk/string-coerce-runtime";
 import { CRABBOX_HEARTBEAT_TIMEOUT_MS } from "./crabbox-worker-timeouts.js";
 
 export { nonEmptyString };

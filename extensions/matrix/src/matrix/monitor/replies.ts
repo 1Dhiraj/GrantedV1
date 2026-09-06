@@ -2,15 +2,15 @@
 import {
   createChannelPartialDeliveryError,
   isChannelPartialDeliveryError,
-} from "openclaw/plugin-sdk/channel-inbound";
+} from "granted/plugin-sdk/channel-inbound";
 import {
   createMessageReceiptFromOutboundResults,
   listMessageReceiptPlatformIds,
   type MessageReceipt,
-} from "openclaw/plugin-sdk/channel-outbound";
-import { resolveSendableOutboundReplyParts } from "openclaw/plugin-sdk/reply-payload";
-import { normalizeLowercaseStringOrEmpty } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { stripReasoningTagsFromText } from "openclaw/plugin-sdk/text-chunking";
+} from "granted/plugin-sdk/channel-outbound";
+import { resolveSendableOutboundReplyParts } from "granted/plugin-sdk/reply-payload";
+import { normalizeLowercaseStringOrEmpty } from "granted/plugin-sdk/string-coerce-runtime";
+import { stripReasoningTagsFromText } from "granted/plugin-sdk/text-chunking";
 import { resolveMatrixExtraContent } from "../../outbound.js";
 import { getMatrixRuntime } from "../../runtime.js";
 import type { MatrixClient } from "../sdk.js";

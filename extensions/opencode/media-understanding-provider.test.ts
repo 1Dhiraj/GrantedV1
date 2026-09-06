@@ -9,7 +9,7 @@ const mocks = vi.hoisted(() => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/media-understanding", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("openclaw/plugin-sdk/media-understanding")>()),
+  ...(await importOriginal<typeof import("granted/plugin-sdk/media-understanding")>()),
   describeImageWithModelPayloadTransform: mocks.describeImageWithModelPayloadTransform,
 }));
 

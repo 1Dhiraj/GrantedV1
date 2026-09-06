@@ -1,9 +1,9 @@
 // Qa Lab plugin module implements qa transport behavior.
 import { setTimeout as sleep } from "node:timers/promises";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import { resolveTimerTimeoutMs } from "openclaw/plugin-sdk/number-runtime";
-import type { QaRunnerCliRegistration } from "openclaw/plugin-sdk/qa-runner-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
+import { resolveTimerTimeoutMs } from "granted/plugin-sdk/number-runtime";
+import type { QaRunnerCliRegistration } from "granted/plugin-sdk/qa-runner-runtime";
 import { QaSuiteInfraError } from "./errors.js";
 import type { QaProviderMode } from "./model-selection.js";
 import { extractQaFailureReplyText } from "./reply-failure.js";

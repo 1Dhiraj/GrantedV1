@@ -1,14 +1,14 @@
 import { getPublicKey, nip19 } from "nostr-tools";
-import { createAccountListHelpers, mergeAccountConfig } from "openclaw/plugin-sdk/account-helpers";
+import { createAccountListHelpers, mergeAccountConfig } from "granted/plugin-sdk/account-helpers";
 import {
   DEFAULT_ACCOUNT_ID,
   normalizeAccountId,
   normalizeOptionalAccountId,
-} from "openclaw/plugin-sdk/account-id";
-import { assertSecretOwnerAvailable } from "openclaw/plugin-sdk/channel-secret-owner-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { resolveSecretInputString } from "openclaw/plugin-sdk/secret-input";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/account-id";
+import { assertSecretOwnerAvailable } from "granted/plugin-sdk/channel-secret-owner-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { resolveSecretInputString } from "granted/plugin-sdk/secret-input";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import { BuzzAccountIdSchema, type BuzzConfig, type BuzzConfigInput } from "./config-schema.js";
 import { parseBuzzTarget } from "./target.js";
 

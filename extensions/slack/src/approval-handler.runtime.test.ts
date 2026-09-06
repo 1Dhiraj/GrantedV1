@@ -3,7 +3,7 @@ import type {
   ApprovalActionView,
   ChannelApprovalKind,
   ApprovalMetadataView,
-} from "openclaw/plugin-sdk/approval-handler-runtime";
+} from "granted/plugin-sdk/approval-handler-runtime";
 import { describe, expect, it, vi } from "vitest";
 import { decodeSlackApprovalAction } from "./approval-actions.js";
 import { slackApprovalNativeRuntime } from "./approval-handler.runtime.js";

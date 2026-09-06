@@ -1,5 +1,5 @@
 // Tlon tests cover upload plugin behavior.
-import { MAX_IMAGE_BYTES, readRemoteMediaBuffer } from "openclaw/plugin-sdk/media-runtime";
+import { MAX_IMAGE_BYTES, readRemoteMediaBuffer } from "granted/plugin-sdk/media-runtime";
 import { describe, expect, it, vi, beforeEach } from "vitest";
 import { uploadFile } from "../tlon-api.js";
 import { uploadImageFromUrl } from "./upload.js";

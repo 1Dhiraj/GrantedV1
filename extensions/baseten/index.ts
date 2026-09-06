@@ -1,8 +1,8 @@
 /** Baseten provider plugin entrypoint. */
-import { buildOpenAICompatibleLiveModelProviderConfig } from "openclaw/plugin-sdk/provider-catalog-live-runtime";
-import type { ProviderCatalogContext } from "openclaw/plugin-sdk/provider-catalog-shared";
-import { defineSingleProviderPluginEntry } from "openclaw/plugin-sdk/provider-entry";
-import { buildProviderReplayFamilyHooks } from "openclaw/plugin-sdk/provider-model-shared";
+import { buildOpenAICompatibleLiveModelProviderConfig } from "granted/plugin-sdk/provider-catalog-live-runtime";
+import type { ProviderCatalogContext } from "granted/plugin-sdk/provider-catalog-shared";
+import { defineSingleProviderPluginEntry } from "granted/plugin-sdk/provider-entry";
+import { buildProviderReplayFamilyHooks } from "granted/plugin-sdk/provider-model-shared";
 import { projectBasetenLiveModels, resolveBasetenDynamicModel } from "./models.js";
 import { applyBasetenConfig } from "./onboard.js";
 import manifest from "./openclaw.plugin.json" with { type: "json" };

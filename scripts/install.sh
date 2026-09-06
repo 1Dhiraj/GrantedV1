@@ -731,10 +731,10 @@ is_npm_openclaw_shim() {
     if [[ -L "$target" ]]; then
         local link_target=""
         link_target="$(readlink "$target" 2>/dev/null || true)"
-        [[ "$link_target" == "$launcher" || "$link_target" == *"/node_modules/openclaw/openclaw.mjs" ]]
+        [[ "$link_target" == "$launcher" || "$link_target" == *"/node_modules/openclaw/granted.mjs" ]]
         return
     fi
-    [[ -f "$target" ]] && grep -Fq "/node_modules/openclaw/openclaw.mjs" "$target"
+    [[ -f "$target" ]] && grep -Fq "/node_modules/openclaw/granted.mjs" "$target"
 }
 
 restore_openclaw_bin_backup() {
@@ -798,7 +798,7 @@ cleanup_openclaw_bin_conflict() {
     local npm_root=""
     npm_root="$(npm root -g 2>/dev/null || true)"
     [[ -n "$npm_root" ]] || return 1
-    begin_openclaw_bin_backup "$bin_path" "${npm_root%/}/openclaw/openclaw.mjs" 0 || return 1
+    begin_openclaw_bin_backup "$bin_path" "${npm_root%/}/openclaw/granted.mjs" 0 || return 1
     ui_info "Moved existing openclaw command aside for npm retry"
 }
 
@@ -2469,7 +2469,7 @@ fix_npm_permissions() {
 ensure_openclaw_bin_link() {
     local npm_root=""
     npm_root="$(npm root -g 2>/dev/null || true)"
-    local launcher="${npm_root}/openclaw/openclaw.mjs"
+    local launcher="${npm_root}/openclaw/granted.mjs"
     if [[ -z "$npm_root" || ! -x "$launcher" ]] || ! "$launcher" --version >/dev/null 2>&1; then
         return 1
     fi
@@ -3743,7 +3743,7 @@ prepare_git_wrapper_backup_for_npm() {
     [[ -n "$npm_root" && -n "$npm_bin" ]] || return 0
     target="${npm_bin%/}/openclaw"
     is_installer_git_wrapper "$target" || return 0
-    launcher="${npm_root%/}/openclaw/openclaw.mjs"
+    launcher="${npm_root%/}/openclaw/granted.mjs"
     begin_openclaw_bin_backup "$target" "$launcher" 1
 }
 

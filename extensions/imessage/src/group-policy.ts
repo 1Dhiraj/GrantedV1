@@ -4,8 +4,8 @@ import {
   resolveScopeRequireMention,
   resolveScopeToolsPolicy,
   type GroupToolPolicyConfig,
-} from "openclaw/plugin-sdk/channel-policy";
-import type { GrantedConfig } from "openclaw/plugin-sdk/core";
+} from "granted/plugin-sdk/channel-policy";
+import type { GrantedConfig } from "granted/plugin-sdk/core";
 
 type IMessageGroupContext = {
   cfg: GrantedConfig;

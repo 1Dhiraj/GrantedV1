@@ -1,6 +1,6 @@
 // Discord tests cover channel actions.contract plugin behavior.
-import { installChannelActionsContractSuite } from "openclaw/plugin-sdk/channel-test-helpers";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import { installChannelActionsContractSuite } from "granted/plugin-sdk/channel-test-helpers";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { describe, expect, it } from "vitest";
 import { discordPlugin } from "../api.js";
 

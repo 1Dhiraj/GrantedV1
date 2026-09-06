@@ -115,7 +115,7 @@ export function runInstalledWorkspaceBootstrapSmoke(params: { packageRoot: strin
       execFileSync(
         process.execPath,
         [
-          join(params.packageRoot, "openclaw.mjs"),
+          join(params.packageRoot, "granted.mjs"),
           "agent",
           "--message",
           "workspace bootstrap smoke",

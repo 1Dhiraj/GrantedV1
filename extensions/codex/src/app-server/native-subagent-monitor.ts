@@ -6,7 +6,7 @@ import {
   embeddedAgentLog,
   emitAgentEvent,
   formatErrorMessage,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
+} from "granted/plugin-sdk/agent-harness-runtime";
 import {
   createAgentHarnessTaskRuntime,
   deliverAgentHarnessTaskCompletion,
@@ -14,13 +14,13 @@ import {
   type AgentHarnessTaskRecord,
   type AgentHarnessTaskRuntime,
   type AgentHarnessTaskRuntimeScope,
-} from "openclaw/plugin-sdk/agent-harness-task-runtime";
-import { KeyedAsyncQueue } from "openclaw/plugin-sdk/keyed-async-queue";
+} from "granted/plugin-sdk/agent-harness-task-runtime";
+import { KeyedAsyncQueue } from "granted/plugin-sdk/keyed-async-queue";
 import {
   asFiniteNumber,
   normalizeOptionalString,
   readStringField as readString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import {
   claimCodexAppServerLiveThread,
   releaseCodexAppServerLiveThread,

@@ -1,6 +1,6 @@
-import type { MemorySearchRuntimeDebug } from "openclaw/plugin-sdk/memory-core-host-runtime-files";
+import type { MemorySearchRuntimeDebug } from "granted/plugin-sdk/memory-core-host-runtime-files";
 // Memory Core tests cover tools plugin behavior.
-import { clearMemoryPluginState } from "openclaw/plugin-sdk/memory-host-core";
+import { clearMemoryPluginState } from "granted/plugin-sdk/memory-host-core";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { MEMORY_GET_TOOL_CONTRACT, MEMORY_SEARCH_TOOL_CONTRACT } from "./memory-tool-contract.js";
 import {
@@ -44,7 +44,7 @@ const sessionStore = vi.hoisted(() => ({
 
 vi.mock("openclaw/plugin-sdk/session-transcript-hit", async (importOriginal) => {
   const actual =
-    await importOriginal<typeof import("openclaw/plugin-sdk/session-transcript-hit")>();
+    await importOriginal<typeof import("granted/plugin-sdk/session-transcript-hit")>();
   return {
     ...actual,
     loadCombinedSessionStoreForGateway: vi.fn(() => ({

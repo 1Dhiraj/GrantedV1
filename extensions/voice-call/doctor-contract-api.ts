@@ -4,15 +4,15 @@ import os from "node:os";
 import path from "node:path";
 // Doctor enumeration cold-loads this closure; the state-DB helpers stay behind a
 // lazy doctor-repair-runtime import so enumeration never pulls the kysely/state-db graph.
-import type { GrantedStateDatabaseSchemaMigration } from "openclaw/plugin-sdk/doctor-repair-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/plugin-entry";
-import { normalizeAgentId } from "openclaw/plugin-sdk/routing";
+import type { GrantedStateDatabaseSchemaMigration } from "granted/plugin-sdk/doctor-repair-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/plugin-entry";
+import { normalizeAgentId } from "granted/plugin-sdk/routing";
 import {
   archiveLegacyStateSource,
   type PluginDoctorStateMigration,
   type PluginStateKeyedStore,
-} from "openclaw/plugin-sdk/runtime-doctor-migrations";
-import { asOptionalRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/runtime-doctor-migrations";
+import { asOptionalRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   buildVoiceCallLegacyJsonlEventKey,
   CALL_RECORD_CHUNK_MAX_ENTRIES,
@@ -313,7 +313,7 @@ export const stateMigrations: PluginDoctorStateMigration[] = [
     label: "Voice Call call log",
     async detectLegacyState(params) {
       const { detectOpenClawStateDatabaseSchemaMigrations } =
-        await import("openclaw/plugin-sdk/doctor-repair-runtime");
+        await import("granted/plugin-sdk/doctor-repair-runtime");
       const storePath = resolveVoiceCallStorePath(params);
       const filePath = resolveVoiceCallLegacyCallLogPath(storePath);
       const { entries } = await readLegacyCallRecords(filePath);
@@ -339,7 +339,7 @@ export const stateMigrations: PluginDoctorStateMigration[] = [
     },
     async migrateLegacyState(params) {
       const { detectOpenClawStateDatabaseSchemaMigrations, repairOpenClawStateDatabaseSchema } =
-        await import("openclaw/plugin-sdk/doctor-repair-runtime");
+        await import("granted/plugin-sdk/doctor-repair-runtime");
       const changes: string[] = [];
       const warnings: string[] = [];
       const storePath = resolveVoiceCallStorePath(params);

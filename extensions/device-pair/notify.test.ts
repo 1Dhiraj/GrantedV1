@@ -2,17 +2,17 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import type { listDevicePairing as listDevicePairingFn } from "openclaw/plugin-sdk/device-bootstrap";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
+import type { listDevicePairing as listDevicePairingFn } from "granted/plugin-sdk/device-bootstrap";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
 import type {
   OpenKeyedStoreOptions,
   PluginStateKeyedStore,
-} from "openclaw/plugin-sdk/plugin-state-runtime";
+} from "granted/plugin-sdk/plugin-state-runtime";
 import {
   createPluginStateKeyedStoreForTests,
   resetPluginStateStoreForTests,
-} from "openclaw/plugin-sdk/plugin-state-test-runtime";
-import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
+} from "granted/plugin-sdk/plugin-state-test-runtime";
+import { createTestPluginApi } from "granted/plugin-sdk/plugin-test-api";
 import { afterAll, afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   DEVICE_PAIR_NOTIFY_SUBSCRIBER_MAX_ENTRIES,
@@ -26,7 +26,7 @@ const listDevicePairingMock = vi.hoisted(() =>
 );
 
 vi.mock("openclaw/plugin-sdk/device-bootstrap", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("openclaw/plugin-sdk/device-bootstrap")>()),
+  ...(await importOriginal<typeof import("granted/plugin-sdk/device-bootstrap")>()),
   listDevicePairing: listDevicePairingMock,
 }));
 

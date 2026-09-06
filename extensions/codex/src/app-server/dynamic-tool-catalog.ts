@@ -1,7 +1,7 @@
-import { projectRuntimeToolInputSchema } from "openclaw/plugin-sdk/agent-harness-runtime";
-import type { JsonSchemaObject } from "openclaw/plugin-sdk/json-schema-runtime";
-import { normalizeOpenAIStrictCompatSchema } from "openclaw/plugin-sdk/provider-tools";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { projectRuntimeToolInputSchema } from "granted/plugin-sdk/agent-harness-runtime";
+import type { JsonSchemaObject } from "granted/plugin-sdk/json-schema-runtime";
+import { normalizeOpenAIStrictCompatSchema } from "granted/plugin-sdk/provider-tools";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import type { CodexDynamicToolsLoading } from "./config.js";
 import {
   CODEX_GRANTED_DIRECT_DYNAMIC_TOOL_NAMESPACE,

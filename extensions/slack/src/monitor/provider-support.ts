@@ -1,7 +1,7 @@
 // Slack provider module implements model/runtime integration.
-import { toErrorObject } from "openclaw/plugin-sdk/error-runtime";
-import { channelBlockedPatch, channelReadyPatch } from "openclaw/plugin-sdk/gateway-runtime";
-import { asOptionalRecord as asRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { toErrorObject } from "granted/plugin-sdk/error-runtime";
+import { channelBlockedPatch, channelReadyPatch } from "granted/plugin-sdk/gateway-runtime";
+import { asOptionalRecord as asRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import type { SlackChannelResolution } from "../resolve-channels.js";
 import type { SlackUserResolution } from "../resolve-users.js";
 import type { SlackIdentityHealth } from "./enterprise-install.js";

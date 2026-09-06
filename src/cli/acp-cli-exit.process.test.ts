@@ -111,7 +111,7 @@ describe("ACP CLI process exit", () => {
     const state = await createPreparedAcpProcessState();
     try {
       const result = await runCliProcessChild({
-        nodeArgs: [path.resolve("openclaw.mjs"), "acp", "--require-existing"],
+        nodeArgs: [path.resolve("granted.mjs"), "acp", "--require-existing"],
         env: createAcpProcessEnv(state.env),
         input: `${JSON.stringify(INITIALIZE_FRAME)}\n`,
       });
@@ -181,7 +181,7 @@ describe("ACP CLI process exit", () => {
       let response: Record<string, unknown> | undefined;
       const result = await runCliProcessChild({
         nodeArgs: [
-          path.resolve("openclaw.mjs"),
+          path.resolve("granted.mjs"),
           "acp",
           "--require-existing",
           "--url",

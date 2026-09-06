@@ -5,7 +5,7 @@ import fs from "node:fs";
 import http from "node:http";
 import https from "node:https";
 import path from "node:path";
-import { useAutoCleanupTempDirTracker } from "openclaw/plugin-sdk/test-env";
+import { useAutoCleanupTempDirTracker } from "granted/plugin-sdk/test-env";
 import * as tar from "tar";
 import { afterEach, describe, expect, it } from "vitest";
 import {
@@ -48,7 +48,7 @@ async function packageFixture(build: string): Promise<Buffer> {
     `require("node:fs").writeFileSync("installed.json", JSON.stringify({ token: process.env.CRABBOX_WORKER_BOOTSTRAP_TOKEN, setupCode: process.env.CRABBOX_WORKER_SETUP_CODE, scriptsRan: true }));`,
   );
   fs.writeFileSync(
-    path.join(packageRoot, "openclaw.mjs"),
+    path.join(packageRoot, "granted.mjs"),
     `import fs from "node:fs";
 import path from "node:path";
 const args = process.argv.slice(2);

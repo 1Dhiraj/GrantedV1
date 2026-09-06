@@ -1,26 +1,26 @@
 // Google provider module implements model/runtime integration.
-import { transcodeAudioBufferToOpus } from "openclaw/plugin-sdk/media-runtime";
+import { transcodeAudioBufferToOpus } from "granted/plugin-sdk/media-runtime";
 import {
   assertOkOrThrowProviderError,
   postJsonRequest,
   readProviderJsonResponse,
   sanitizeConfiguredModelProviderRequest,
-} from "openclaw/plugin-sdk/provider-http";
-import type { GrantedConfig } from "openclaw/plugin-sdk/provider-onboard";
-import { retryAsync } from "openclaw/plugin-sdk/retry-runtime";
-import { normalizeResolvedSecretInputString } from "openclaw/plugin-sdk/secret-input";
+} from "granted/plugin-sdk/provider-http";
+import type { GrantedConfig } from "granted/plugin-sdk/provider-onboard";
+import { retryAsync } from "granted/plugin-sdk/retry-runtime";
+import { normalizeResolvedSecretInputString } from "granted/plugin-sdk/secret-input";
 import type {
   SpeechDirectiveTokenParseContext,
   SpeechProviderConfig,
   SpeechProviderOverrides,
   SpeechProviderPlugin,
   SpeechSynthesisRequest,
-} from "openclaw/plugin-sdk/speech-core";
-import { trimToUndefined } from "openclaw/plugin-sdk/speech-core";
+} from "granted/plugin-sdk/speech-core";
+import { trimToUndefined } from "granted/plugin-sdk/speech-core";
 import {
   asOptionalRecord,
   normalizeOptionalString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import { resolveGoogleGenerativeAiHttpRequestConfig } from "./api.js";
 import { canonicalizeGoogleProviderBase64 } from "./base64.js";
 

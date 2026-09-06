@@ -1,14 +1,14 @@
 // File Transfer plugin module implements node invoke policy behavior.
 import crypto from "node:crypto";
 import { StringDecoder } from "node:string_decoder";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
 import type {
   GrantedPluginNodeInvokePolicy,
   GrantedPluginNodeInvokePolicyContext,
   GrantedPluginNodeInvokePolicyResult,
-} from "openclaw/plugin-sdk/plugin-entry";
-import { runCommandWithTimeout } from "openclaw/plugin-sdk/process-runtime";
-import { asOptionalRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/plugin-entry";
+import { runCommandWithTimeout } from "granted/plugin-sdk/process-runtime";
+import { asOptionalRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import { projectBoundedTextTail } from "./append-bounded-text-tail.js";
 import { appendFileTransferAudit, type FileTransferAuditOp } from "./audit.js";
 import { commandKind, requestApproval } from "./node-invoke-policy-approval.js";

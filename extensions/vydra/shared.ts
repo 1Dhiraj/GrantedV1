@@ -1,8 +1,8 @@
 // Vydra plugin module implements shared behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { resolveGeneratedMediaMaxBytes } from "openclaw/plugin-sdk/media-generation-runtime";
-import { extensionForMime, type MediaKind } from "openclaw/plugin-sdk/media-mime";
-import { resolveApiKeyForProvider } from "openclaw/plugin-sdk/provider-auth-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { resolveGeneratedMediaMaxBytes } from "granted/plugin-sdk/media-generation-runtime";
+import { extensionForMime, type MediaKind } from "granted/plugin-sdk/media-mime";
+import { resolveApiKeyForProvider } from "granted/plugin-sdk/provider-auth-runtime";
 import {
   assertOkOrThrowHttpError,
   createProviderOperationDeadline,
@@ -16,14 +16,14 @@ import {
   sanitizeConfiguredModelProviderRequest,
   type ProviderOperationDeadline,
   type ProviderOperationTimeoutMs,
-} from "openclaw/plugin-sdk/provider-http";
-import { readResponseWithLimit } from "openclaw/plugin-sdk/response-limit-runtime";
-import type { SsrFPolicy } from "openclaw/plugin-sdk/ssrf-runtime";
+} from "granted/plugin-sdk/provider-http";
+import { readResponseWithLimit } from "granted/plugin-sdk/response-limit-runtime";
+import type { SsrFPolicy } from "granted/plugin-sdk/ssrf-runtime";
 import {
   asOptionalRecord,
   normalizeOptionalLowercaseString,
   normalizeOptionalString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 
 export const DEFAULT_VYDRA_BASE_URL = "https://www.vydra.ai/api/v1";
 export const DEFAULT_VYDRA_IMAGE_MODEL = "grok-imagine";

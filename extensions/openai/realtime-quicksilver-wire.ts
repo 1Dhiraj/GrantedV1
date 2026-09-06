@@ -3,10 +3,10 @@ import { randomBytes } from "node:crypto";
 import {
   readProviderTextResponse,
   resolveProviderRequestHeaders,
-} from "openclaw/plugin-sdk/provider-http";
-import { readResponseTextPrefix } from "openclaw/plugin-sdk/response-limit-runtime";
-import { redactSensitiveText } from "openclaw/plugin-sdk/security-runtime";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+} from "granted/plugin-sdk/provider-http";
+import { readResponseTextPrefix } from "granted/plugin-sdk/response-limit-runtime";
+import { redactSensitiveText } from "granted/plugin-sdk/security-runtime";
+import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import { z } from "zod";
 import {
   isOpenAIGptLiveModel,

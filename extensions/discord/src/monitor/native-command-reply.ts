@@ -1,14 +1,14 @@
 import type { APIEmbed } from "discord-api-types/v10";
-import { createChannelPartialDeliveryError } from "openclaw/plugin-sdk/channel-inbound";
+import { createChannelPartialDeliveryError } from "granted/plugin-sdk/channel-inbound";
 // Discord plugin module implements native command reply behavior.
-import { PlatformMessageNotDispatchedError } from "openclaw/plugin-sdk/error-runtime";
-import type { ReplyPayload } from "openclaw/plugin-sdk/reply-dispatch-runtime";
+import { PlatformMessageNotDispatchedError } from "granted/plugin-sdk/error-runtime";
+import type { ReplyPayload } from "granted/plugin-sdk/reply-dispatch-runtime";
 import {
   resolveSendableOutboundReplyParts,
   resolveTextChunksWithFallback,
-} from "openclaw/plugin-sdk/reply-payload";
-import { logVerbose } from "openclaw/plugin-sdk/runtime-env";
-import { loadWebMedia } from "openclaw/plugin-sdk/web-media";
+} from "granted/plugin-sdk/reply-payload";
+import { logVerbose } from "granted/plugin-sdk/runtime-env";
+import { loadWebMedia } from "granted/plugin-sdk/web-media";
 import { chunkDiscordTextWithMode } from "../chunk.js";
 import {
   hasDiscordV2Components,

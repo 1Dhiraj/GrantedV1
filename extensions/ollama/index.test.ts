@@ -1,13 +1,13 @@
 import { expectDefined } from "@openclaw/normalization-core";
-import type { ProviderAuthMethod } from "openclaw/plugin-sdk/plugin-entry";
-import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
+import type { ProviderAuthMethod } from "granted/plugin-sdk/plugin-entry";
+import { createTestPluginApi } from "granted/plugin-sdk/plugin-test-api";
 import {
   capturePluginRegistration,
   createPluginRuntimeMock,
-} from "openclaw/plugin-sdk/plugin-test-runtime";
-import { clearLiveCatalogCacheForTests } from "openclaw/plugin-sdk/provider-catalog-shared";
+} from "granted/plugin-sdk/plugin-test-runtime";
+import { clearLiveCatalogCacheForTests } from "granted/plugin-sdk/provider-catalog-shared";
 // Ollama tests cover index plugin behavior.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import plugin from "./index.js";
 import { OLLAMA_DEFAULT_API_KEY } from "./src/discovery-shared.js";
@@ -70,7 +70,7 @@ vi.mock("./src/provider-models.js", async (importOriginal) => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/secret-input-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/secret-input-runtime")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/secret-input-runtime")>();
   return {
     ...actual,
     resolveConfiguredSecretInputString: resolveConfiguredSecretInputStringMock.mockImplementation(
@@ -80,7 +80,7 @@ vi.mock("openclaw/plugin-sdk/secret-input-runtime", async (importOriginal) => {
 });
 
 vi.mock("openclaw/plugin-sdk/ssrf-runtime", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("openclaw/plugin-sdk/ssrf-runtime")>()),
+  ...(await importOriginal<typeof import("granted/plugin-sdk/ssrf-runtime")>()),
   fetchWithSsrFGuard: fetchWithSsrFGuardMock,
 }));
 

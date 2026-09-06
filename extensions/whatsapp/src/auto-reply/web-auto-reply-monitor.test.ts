@@ -2,7 +2,7 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { resolveAgentRoute } from "openclaw/plugin-sdk/routing";
+import { resolveAgentRoute } from "granted/plugin-sdk/routing";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { createTestWebInboundMessage } from "../inbound/test-message.test-helper.js";
 import type { AdmittedWebInboundMessage } from "../inbound/types.js";
@@ -37,10 +37,10 @@ const makeConfig = (overrides: Record<string, unknown>) =>
     },
     session: { store: sessionStorePath },
     ...overrides,
-  }) as unknown as import("openclaw/plugin-sdk/config-contracts").GrantedConfig;
+  }) as unknown as import("granted/plugin-sdk/config-contracts").GrantedConfig;
 
 async function runGroupGating(params: {
-  cfg: import("openclaw/plugin-sdk/config-contracts").GrantedConfig;
+  cfg: import("granted/plugin-sdk/config-contracts").GrantedConfig;
   msg: AdmittedWebInboundMessage;
   agentId?: string;
   selfChatMode?: boolean;

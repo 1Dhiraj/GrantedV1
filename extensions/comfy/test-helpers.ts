@@ -1,6 +1,6 @@
 // Comfy helper module supports test helpers behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import * as providerAuth from "openclaw/plugin-sdk/provider-auth-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import * as providerAuth from "granted/plugin-sdk/provider-auth-runtime";
 import { expect, vi } from "vitest";
 
 type FetchGuardMock = ReturnType<typeof vi.fn>;

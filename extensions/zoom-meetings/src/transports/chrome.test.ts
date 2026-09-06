@@ -1,4 +1,4 @@
-import type { PluginRuntime } from "openclaw/plugin-sdk/plugin-runtime";
+import type { PluginRuntime } from "granted/plugin-sdk/plugin-runtime";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { zoomMeetingsConfig } from "../config.js";
 
@@ -11,7 +11,7 @@ const engineMocks = vi.hoisted(() => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/meeting-runtime", async (importOriginal) => {
-  const original = await importOriginal<typeof import("openclaw/plugin-sdk/meeting-runtime")>();
+  const original = await importOriginal<typeof import("granted/plugin-sdk/meeting-runtime")>();
   const transport = (dispose: () => Promise<void>) => ({
     clearOutput: vi.fn(async () => {}),
     dispose,

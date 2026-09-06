@@ -5,28 +5,28 @@
  * This is the primary entry point for the Twitch channel integration.
  */
 
-import { describeAccountSnapshot } from "openclaw/plugin-sdk/account-helpers";
-import { buildChannelConfigSchema } from "openclaw/plugin-sdk/channel-config-schema";
+import { describeAccountSnapshot } from "granted/plugin-sdk/account-helpers";
+import { buildChannelConfigSchema } from "granted/plugin-sdk/channel-config-schema";
 import {
   buildChannelOutboundSessionRoute,
   createChatChannelPlugin,
   stripChannelTargetPrefix,
   type PluginRuntime,
-} from "openclaw/plugin-sdk/channel-core";
+} from "granted/plugin-sdk/channel-core";
 import {
   createAccountStatusSink,
   runPassiveAccountLifecycle,
-} from "openclaw/plugin-sdk/channel-outbound";
+} from "granted/plugin-sdk/channel-outbound";
 import {
   createLoggedPairingApprovalNotifier,
   createPairingPrefixStripper,
-} from "openclaw/plugin-sdk/channel-pairing";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { buildPassiveProbedChannelStatusSummary } from "openclaw/plugin-sdk/extension-shared";
+} from "granted/plugin-sdk/channel-pairing";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { buildPassiveProbedChannelStatusSummary } from "granted/plugin-sdk/extension-shared";
 import {
   createComputedAccountStatusAdapter,
   createDefaultChannelRuntimeState,
-} from "openclaw/plugin-sdk/status-helpers";
+} from "granted/plugin-sdk/status-helpers";
 import { twitchMessageActions } from "./actions.js";
 import { removeClientManager } from "./client-manager-registry.js";
 import { TwitchConfigSchema } from "./config-schema.js";
@@ -162,7 +162,7 @@ export const twitchPlugin: ChannelPlugin<ResolvedTwitchAccount> =
           accountId?: string | null;
           inputs: string[];
           kind: ChannelResolveKind;
-          runtime: import("openclaw/plugin-sdk/runtime-env").RuntimeEnv;
+          runtime: import("granted/plugin-sdk/runtime-env").RuntimeEnv;
         }): Promise<ChannelResolveResult[]> => {
           const account = getAccountConfig(cfg, accountId ?? resolveDefaultTwitchAccountId(cfg));
           if (!account) {

@@ -1,10 +1,10 @@
-import { resolveSessionAgentIdsStrict } from "openclaw/plugin-sdk/agent-scope-runtime";
+import { resolveSessionAgentIdsStrict } from "granted/plugin-sdk/agent-scope-runtime";
 import {
   resolveMemorySearchConfig,
   type MemoryPromptSectionBuilder,
   type GrantedConfig,
-} from "openclaw/plugin-sdk/memory-core-host-runtime-core";
-import type { GrantedPluginToolContext } from "openclaw/plugin-sdk/plugin-entry";
+} from "granted/plugin-sdk/memory-core-host-runtime-core";
+import type { GrantedPluginToolContext } from "granted/plugin-sdk/plugin-entry";
 import type { TSchema } from "typebox";
 import type { MemoryCoreAcquireLocalService } from "./memory/embedding-local-service.js";
 

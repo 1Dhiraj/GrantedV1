@@ -4,7 +4,7 @@ import {
   ensureModelAllowlistEntry,
   resolveAgentModelPrimaryValue,
   type GrantedConfig,
-} from "openclaw/plugin-sdk/provider-onboard";
+} from "granted/plugin-sdk/provider-onboard";
 
 export const OPENAI_DEFAULT_MODEL = "openai/gpt-5.6-sol";
 export const OPENAI_CODEX_DEFAULT_MODEL = "openai/gpt-5.6-sol";

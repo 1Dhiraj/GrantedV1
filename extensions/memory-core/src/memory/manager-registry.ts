@@ -1,11 +1,11 @@
 // Memory Core plugin module owns manager cache and close serialization.
-import { toErrorObject } from "openclaw/plugin-sdk/error-runtime";
+import { toErrorObject } from "granted/plugin-sdk/error-runtime";
 import {
   createSubsystemLogger,
   resolveGlobalSingleton,
   type ResolvedMemorySearchConfig,
-} from "openclaw/plugin-sdk/memory-core-host-engine-foundation";
-import { normalizeAgentId } from "openclaw/plugin-sdk/routing";
+} from "granted/plugin-sdk/memory-core-host-engine-foundation";
+import { normalizeAgentId } from "granted/plugin-sdk/routing";
 import {
   resolveMemoryCoreLocalServiceHostIdentity,
   type MemoryCoreAcquireLocalService,

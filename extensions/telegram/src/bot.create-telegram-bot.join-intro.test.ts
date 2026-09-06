@@ -1,9 +1,9 @@
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { telegramBotInfoForTest } from "./bot.create-telegram-bot.test-support.js";
 
 type ReportChannelRoomJoin =
-  typeof import("openclaw/plugin-sdk/channel-join-intro-runtime").reportChannelRoomJoin;
+  typeof import("granted/plugin-sdk/channel-join-intro-runtime").reportChannelRoomJoin;
 
 const { reportChannelRoomJoinMock } = vi.hoisted(() => ({
   reportChannelRoomJoinMock: vi.fn<ReportChannelRoomJoin>(async () => ({ kind: "posted" })),

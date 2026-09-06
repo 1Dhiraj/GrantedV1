@@ -1,4 +1,4 @@
-import type { AssistantMessageEventStream } from "openclaw/plugin-sdk/llm";
+import type { AssistantMessageEventStream } from "granted/plugin-sdk/llm";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { streamWithIdleTimeout } from "./llm-idle-timeout.js";
 

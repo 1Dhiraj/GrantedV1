@@ -1,12 +1,12 @@
 // Minimax setup module handles plugin onboarding behavior.
 
-import { normalizeProviderId } from "openclaw/plugin-sdk/provider-model-shared";
+import { normalizeProviderId } from "granted/plugin-sdk/provider-model-shared";
 import {
   applyAgentDefaultModelPrimary,
   applyOnboardAuthAgentModelsAndProviders,
   type ModelProviderConfig,
   type GrantedConfig,
-} from "openclaw/plugin-sdk/provider-onboard";
+} from "granted/plugin-sdk/provider-onboard";
 import {
   buildMinimaxApiModelDefinition,
   MINIMAX_API_BASE_URL,

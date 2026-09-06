@@ -1,23 +1,23 @@
 // Openrouter plugin entrypoint registers its OpenClaw integration.
-import { resolveAgentConfig } from "openclaw/plugin-sdk/agent-scope-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import { resolveAgentConfig } from "granted/plugin-sdk/agent-scope-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import type {
   ProviderReplayPolicy,
   ProviderReplayPolicyContext,
   ProviderResolveDynamicModelContext,
   ProviderRuntimeModel,
-} from "openclaw/plugin-sdk/plugin-entry";
-import { defineSingleProviderPluginEntry } from "openclaw/plugin-sdk/provider-entry";
+} from "granted/plugin-sdk/plugin-entry";
+import { defineSingleProviderPluginEntry } from "granted/plugin-sdk/provider-entry";
 import {
   buildProviderReplayFamilyHooks,
   DEFAULT_CONTEXT_TOKENS,
-} from "openclaw/plugin-sdk/provider-model-shared";
+} from "granted/plugin-sdk/provider-model-shared";
 import {
   getOpenRouterModelCapabilities,
   loadOpenRouterModelCapabilities,
-} from "openclaw/plugin-sdk/provider-stream-family";
-import { asOptionalRecord as readRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+} from "granted/plugin-sdk/provider-stream-family";
+import { asOptionalRecord as readRecord } from "granted/plugin-sdk/string-coerce-runtime";
+import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import { buildOpenRouterImageGenerationProvider } from "./image-generation-provider.js";
 import { openrouterMediaUnderstandingProvider } from "./media-understanding-provider.js";
 import {

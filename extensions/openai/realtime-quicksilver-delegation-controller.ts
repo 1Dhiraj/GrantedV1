@@ -1,7 +1,7 @@
-import { formatErrorMessage, toErrorObject } from "openclaw/plugin-sdk/error-runtime";
-import type { PluginLogger } from "openclaw/plugin-sdk/plugin-entry";
-import type { RealtimeVoiceAgentConsultRunner } from "openclaw/plugin-sdk/realtime-voice";
-import { rawDataToString } from "openclaw/plugin-sdk/webhook-ingress";
+import { formatErrorMessage, toErrorObject } from "granted/plugin-sdk/error-runtime";
+import type { PluginLogger } from "granted/plugin-sdk/plugin-entry";
+import type { RealtimeVoiceAgentConsultRunner } from "granted/plugin-sdk/realtime-voice";
+import { rawDataToString } from "granted/plugin-sdk/webhook-ingress";
 import type { RawData } from "ws";
 import {
   buildOpenAIQuicksilverDelegationPrompt,

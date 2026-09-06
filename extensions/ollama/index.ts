@@ -1,11 +1,11 @@
 // Ollama plugin entrypoint registers its OpenClaw integration.
 import { collectConfiguredModelRefValues } from "@openclaw/model-catalog-core/configured-model-refs";
 import { findNormalizedProviderKey } from "@openclaw/model-catalog-core/provider-id";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
-import type { MediaUnderstandingProvider } from "openclaw/plugin-sdk/media-understanding";
-import type { MemoryEmbeddingProviderAdapter } from "openclaw/plugin-sdk/memory-core-host-engine-embeddings";
-import { resolvePluginConfigObject } from "openclaw/plugin-sdk/plugin-config-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
+import type { MediaUnderstandingProvider } from "granted/plugin-sdk/media-understanding";
+import type { MemoryEmbeddingProviderAdapter } from "granted/plugin-sdk/memory-core-host-engine-embeddings";
+import { resolvePluginConfigObject } from "granted/plugin-sdk/plugin-config-runtime";
 import {
   definePluginEntry,
   type GrantedPluginApi,
@@ -18,20 +18,20 @@ import {
   type ProviderPlugin,
   type ProviderReplayPolicy,
   type ProviderRuntimeModel,
-} from "openclaw/plugin-sdk/plugin-entry";
+} from "granted/plugin-sdk/plugin-entry";
 import {
   buildApiKeyCredential,
   coerceSecretRef,
   isNonSecretApiKeyMarker,
-} from "openclaw/plugin-sdk/provider-auth";
-import { createProviderApiKeyAuthMethod } from "openclaw/plugin-sdk/provider-auth-api-key";
+} from "granted/plugin-sdk/provider-auth";
+import { createProviderApiKeyAuthMethod } from "granted/plugin-sdk/provider-auth-api-key";
 import type {
   ModelDefinitionConfig,
   ModelProviderConfig,
-} from "openclaw/plugin-sdk/provider-model-shared";
-import { buildOpenAICompatibleReplayPolicy } from "openclaw/plugin-sdk/provider-model-shared";
-import { buildProviderToolCompatFamilyHooks } from "openclaw/plugin-sdk/provider-tools";
-import { resolveConfiguredSecretInputString } from "openclaw/plugin-sdk/secret-input-runtime";
+} from "granted/plugin-sdk/provider-model-shared";
+import { buildOpenAICompatibleReplayPolicy } from "granted/plugin-sdk/provider-model-shared";
+import { buildProviderToolCompatFamilyHooks } from "granted/plugin-sdk/provider-tools";
+import { resolveConfiguredSecretInputString } from "granted/plugin-sdk/secret-input-runtime";
 import { resolveThinkingProfile as resolveOllamaThinkingProfile } from "./provider-policy-api.js";
 import {
   DEFAULT_OLLAMA_EMBEDDING_MODEL,
@@ -106,7 +106,7 @@ const ollamaMediaUnderstandingProvider: MediaUnderstandingProvider = {
 
 async function checkWsl2CrashLoopRiskLazily(api: GrantedPluginApi): Promise<void> {
   try {
-    const { isWSL2Sync } = await import("openclaw/plugin-sdk/runtime-env");
+    const { isWSL2Sync } = await import("granted/plugin-sdk/runtime-env");
     if (!isWSL2Sync()) {
       return;
     }

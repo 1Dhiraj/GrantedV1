@@ -1,6 +1,6 @@
-import { isNonSecretApiKeyMarker } from "openclaw/plugin-sdk/provider-auth";
-import { getCachedLiveCatalogValue } from "openclaw/plugin-sdk/provider-catalog-shared";
-import { discoverOpenAICompatibleLocalModels } from "openclaw/plugin-sdk/provider-setup";
+import { isNonSecretApiKeyMarker } from "granted/plugin-sdk/provider-auth";
+import { getCachedLiveCatalogValue } from "granted/plugin-sdk/provider-catalog-shared";
+import { discoverOpenAICompatibleLocalModels } from "granted/plugin-sdk/provider-setup";
 import {
   LLAMA_SERVER_DISCOVERY_CACHE_TTL_MS,
   LLAMA_SERVER_DISCOVERY_TIMEOUT_MS,

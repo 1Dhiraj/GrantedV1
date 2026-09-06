@@ -7,7 +7,7 @@ import {
   shouldEagerRegisterSubcommands,
   type CommandGroupEntry,
   type CommandGroupPlaceholder,
-} from "openclaw/plugin-sdk/cli-runtime";
+} from "granted/plugin-sdk/cli-runtime";
 import { resolveBrowserLazySubcommand } from "../../cli-output-mode.js";
 import { browserActionExamples, browserCoreExamples } from "./browser-cli-examples.js";
 import type { BrowserParentOpts } from "./browser-cli-shared.js";

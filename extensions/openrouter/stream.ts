@@ -1,14 +1,14 @@
 // Openrouter plugin module implements stream behavior.
-import type { StreamFn } from "openclaw/plugin-sdk/agent-core";
-import type { ProviderWrapStreamFnContext } from "openclaw/plugin-sdk/plugin-entry";
-import { buildProviderStreamFamilyHooks } from "openclaw/plugin-sdk/provider-stream-family";
+import type { StreamFn } from "granted/plugin-sdk/agent-core";
+import type { ProviderWrapStreamFnContext } from "granted/plugin-sdk/plugin-entry";
+import { buildProviderStreamFamilyHooks } from "granted/plugin-sdk/provider-stream-family";
 import {
   composeProviderStreamWrappers,
   createPayloadPatchStreamWrapper,
   normalizeOpenAICompatibleReasoningReplay,
-} from "openclaw/plugin-sdk/provider-stream-shared";
-import { createSubsystemLogger } from "openclaw/plugin-sdk/runtime-env";
-import { asNonArrayRecord, readStringValue } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/provider-stream-shared";
+import { createSubsystemLogger } from "granted/plugin-sdk/runtime-env";
+import { asNonArrayRecord, readStringValue } from "granted/plugin-sdk/string-coerce-runtime";
 import { isOpenRouterDeepSeekV4ModelId, normalizeOpenRouterModelFamilyId } from "./models.js";
 import {
   isOpenRouterProxyReasoningUnsupportedModel,

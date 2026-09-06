@@ -5,14 +5,14 @@ import path from "node:path";
 import {
   closeOpenClawStateDatabaseForTest,
   createChannelIngressQueueForTests,
-} from "openclaw/plugin-sdk/channel-ingress-test-runtime";
-import { createPluginRuntimeMock } from "openclaw/plugin-sdk/channel-test-helpers";
+} from "granted/plugin-sdk/channel-ingress-test-runtime";
+import { createPluginRuntimeMock } from "granted/plugin-sdk/channel-test-helpers";
 import {
   createEmptyPluginRegistry,
   createRuntimeEnv,
   setActivePluginRegistry,
-} from "openclaw/plugin-sdk/plugin-test-runtime";
-import { closeOpenClawAgentDatabasesForTest } from "openclaw/plugin-sdk/sqlite-runtime-testing";
+} from "granted/plugin-sdk/plugin-test-runtime";
+import { closeOpenClawAgentDatabasesForTest } from "granted/plugin-sdk/sqlite-runtime-testing";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { GrantedConfig, PluginRuntime } from "../runtime-api.js";
 import type { ResolvedZaloAccount } from "./accounts.js";

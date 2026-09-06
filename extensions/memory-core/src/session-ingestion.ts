@@ -1,7 +1,7 @@
 import { createHash } from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/memory-core-host-engine-foundation";
+import { truncateUtf16Safe } from "granted/plugin-sdk/memory-core-host-engine-foundation";
 import {
   buildSessionEntry,
   loadMemorySessionMetadata,
@@ -9,14 +9,14 @@ import {
   sessionPathForFile,
   statSessionEntrySync,
   type SessionTranscriptCorpusEntry,
-} from "openclaw/plugin-sdk/memory-core-host-engine-sessions";
-import type { MemorySearchResult } from "openclaw/plugin-sdk/memory-core-host-runtime-files";
-import { formatMemoryDreamingDay } from "openclaw/plugin-sdk/memory-core-host-status";
-import { appendRegularFile } from "openclaw/plugin-sdk/security-runtime";
+} from "granted/plugin-sdk/memory-core-host-engine-sessions";
+import type { MemorySearchResult } from "granted/plugin-sdk/memory-core-host-runtime-files";
+import { formatMemoryDreamingDay } from "granted/plugin-sdk/memory-core-host-status";
+import { appendRegularFile } from "granted/plugin-sdk/security-runtime";
 import {
   asNullableRecord,
   normalizeStringEntries,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import {
   normalizeSessionIngestionState,
   SESSION_INGESTION_MAX_TRACKED_MESSAGES_PER_SESSION,

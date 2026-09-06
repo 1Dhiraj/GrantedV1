@@ -2,7 +2,7 @@
 import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import type { Model } from "openclaw/plugin-sdk/llm";
+import type { Model } from "granted/plugin-sdk/llm";
 import { afterEach, describe, expect, it } from "vitest";
 import { isTruthyEnvValue } from "../../infra/env.js";
 import { AgentSession } from "./agent-session.js";

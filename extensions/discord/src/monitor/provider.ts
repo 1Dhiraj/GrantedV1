@@ -1,23 +1,23 @@
 // Discord provider module implements model/runtime integration.
-import type { ChannelRuntimeSurface } from "openclaw/plugin-sdk/channel-contract";
-import type { PluginRuntime } from "openclaw/plugin-sdk/channel-core";
-import type { GrantedConfig, ReplyToMode } from "openclaw/plugin-sdk/config-contracts";
-import { resolveTextChunkLimit } from "openclaw/plugin-sdk/reply-chunking";
-import { getRuntimeConfig } from "openclaw/plugin-sdk/runtime-config-snapshot";
+import type { ChannelRuntimeSurface } from "granted/plugin-sdk/channel-contract";
+import type { PluginRuntime } from "granted/plugin-sdk/channel-core";
+import type { GrantedConfig, ReplyToMode } from "granted/plugin-sdk/config-contracts";
+import { resolveTextChunkLimit } from "granted/plugin-sdk/reply-chunking";
+import { getRuntimeConfig } from "granted/plugin-sdk/runtime-config-snapshot";
 import {
   logVerbose,
   warn,
   createSubsystemLogger,
   createNonExitingRuntime,
   type RuntimeEnv,
-} from "openclaw/plugin-sdk/runtime-env";
+} from "granted/plugin-sdk/runtime-env";
 import {
   GROUP_POLICY_BLOCKED_LABEL,
   resolveOpenProviderRuntimeGroupPolicy,
   resolveDefaultGroupPolicy,
   warnMissingProviderGroupPolicyFallbackOnce,
-} from "openclaw/plugin-sdk/runtime-group-policy";
-import { formatErrorMessage } from "openclaw/plugin-sdk/ssrf-runtime";
+} from "granted/plugin-sdk/runtime-group-policy";
+import { formatErrorMessage } from "granted/plugin-sdk/ssrf-runtime";
 import { resolveDiscordAccountAllowFrom, resolveDiscordAccountDmPolicy } from "../accounts.js";
 import type { DiscordCommandDeployHashStore } from "../command-deploy-store.js";
 import { GatewayCloseCodes } from "../internal/gateway.js";

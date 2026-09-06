@@ -1,5 +1,5 @@
 // QA Lab plugin module implements QA evidence summary behavior.
-import { normalizeSortedUniqueTrimmedStringList } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { normalizeSortedUniqueTrimmedStringList } from "granted/plugin-sdk/string-coerce-runtime";
 import { z } from "zod";
 import { qaCoverageIdSchema } from "./coverage-id.js";
 import { resolveQaEvidenceEnvironment } from "./evidence-environment.js";

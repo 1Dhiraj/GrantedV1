@@ -10,7 +10,7 @@
  */
 
 import { expectDefined } from "@openclaw/normalization-core";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { resolveTwitchToken } from "./token.js";
 import { TwitchClientManager } from "./twitch-client.js";

@@ -1,12 +1,12 @@
 // Stepfun tests cover index plugin behavior.
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
-import type { Context, Model } from "openclaw/plugin-sdk/llm";
+import type { Context, Model } from "granted/plugin-sdk/llm";
 import {
   registerProviderPlugin,
   requireRegisteredProvider,
-} from "openclaw/plugin-sdk/plugin-test-runtime";
-import { buildOpenAICompletionsParams } from "openclaw/plugin-sdk/provider-transport-runtime";
+} from "granted/plugin-sdk/plugin-test-runtime";
+import { buildOpenAICompletionsParams } from "granted/plugin-sdk/provider-transport-runtime";
 import { describe, expect, it, vi } from "vitest";
 import stepfunPlugin from "./index.js";
 import {

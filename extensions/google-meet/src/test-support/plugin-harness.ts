@@ -1,7 +1,7 @@
 // Google Meet plugin module implements plugin harness behavior.
-import type { AnyAgentTool, GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
-import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
-import type { AgentToolResult } from "openclaw/plugin-sdk/tool-results";
+import type { AnyAgentTool, GrantedPluginApi } from "granted/plugin-sdk/plugin-entry";
+import { createTestPluginApi } from "granted/plugin-sdk/plugin-test-api";
+import type { AgentToolResult } from "granted/plugin-sdk/tool-results";
 import { vi } from "vitest";
 import type { GoogleMeetCalendarLookupResult } from "../calendar.js";
 import { listGoogleMeetCalendarEvents } from "../calendar.js";

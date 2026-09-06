@@ -1,7 +1,7 @@
 // Slack plugin module implements channel migration behavior.
-import type { GrantedConfig, SlackChannelConfig } from "openclaw/plugin-sdk/config-contracts";
-import { normalizeAccountId } from "openclaw/plugin-sdk/routing";
-import { normalizeLowercaseStringOrEmpty } from "openclaw/plugin-sdk/string-coerce-runtime";
+import type { GrantedConfig, SlackChannelConfig } from "granted/plugin-sdk/config-contracts";
+import { normalizeAccountId } from "granted/plugin-sdk/routing";
+import { normalizeLowercaseStringOrEmpty } from "granted/plugin-sdk/string-coerce-runtime";
 
 type SlackChannels = Record<string, SlackChannelConfig>;
 

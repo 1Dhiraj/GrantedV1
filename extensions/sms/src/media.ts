@@ -5,21 +5,21 @@ import {
   formatInboundMediaUnavailableText,
   toInboundMediaFactsWithMetadata,
   type InboundMediaFacts,
-} from "openclaw/plugin-sdk/channel-inbound";
-import { collectErrorGraphCandidates } from "openclaw/plugin-sdk/error-runtime";
-import { extensionForMime } from "openclaw/plugin-sdk/media-mime";
-import { MediaFetchError, unlinkIfExists } from "openclaw/plugin-sdk/media-runtime";
-import { resolveExpiresAtMsFromDurationMs } from "openclaw/plugin-sdk/number-runtime";
+} from "granted/plugin-sdk/channel-inbound";
+import { collectErrorGraphCandidates } from "granted/plugin-sdk/error-runtime";
+import { extensionForMime } from "granted/plugin-sdk/media-mime";
+import { MediaFetchError, unlinkIfExists } from "granted/plugin-sdk/media-runtime";
+import { resolveExpiresAtMsFromDurationMs } from "granted/plugin-sdk/number-runtime";
 import {
   createHostedOutboundMediaStore,
   type HostedOutboundMediaChunkRecord,
   type HostedOutboundMediaMetaRecord,
   type HostedOutboundMediaStore,
   type OutboundMediaLoadOptions,
-} from "openclaw/plugin-sdk/outbound-media";
-import type { PluginRuntime } from "openclaw/plugin-sdk/plugin-runtime";
-import { isTransientNetworkError } from "openclaw/plugin-sdk/retry-runtime";
-import { safeEqualSecret, SsrFBlockedError } from "openclaw/plugin-sdk/security-runtime";
+} from "granted/plugin-sdk/outbound-media";
+import type { PluginRuntime } from "granted/plugin-sdk/plugin-runtime";
+import { isTransientNetworkError } from "granted/plugin-sdk/retry-runtime";
+import { safeEqualSecret, SsrFBlockedError } from "granted/plugin-sdk/security-runtime";
 import { assertSmsCredentialOwnerAvailable } from "./credential-availability.js";
 import { getSmsRuntime } from "./runtime.js";
 import { TWILIO_MMS_MAX_BYTES } from "./twilio.js";

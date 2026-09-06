@@ -1,7 +1,7 @@
 // QA Lab WhatsApp credential, config, and channel setup.
-import { normalizeE164 } from "openclaw/plugin-sdk/account-resolution";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { normalizeStringEntries, uniqueStrings } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { normalizeE164 } from "granted/plugin-sdk/account-resolution";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { normalizeStringEntries, uniqueStrings } from "granted/plugin-sdk/string-coerce-runtime";
 import { z } from "zod";
 import type { WhatsAppQaConfigOverrides, WhatsAppQaRuntimeEnv } from "./whatsapp-live.contracts.js";
 

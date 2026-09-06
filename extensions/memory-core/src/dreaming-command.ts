@@ -1,11 +1,11 @@
 // Memory Core plugin module implements dreaming command behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { resolveMemoryDreamingConfig } from "openclaw/plugin-sdk/memory-core-host-status";
-import type { GrantedPluginApi, PluginCommandContext } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { resolveMemoryDreamingConfig } from "granted/plugin-sdk/memory-core-host-status";
+import type { GrantedPluginApi, PluginCommandContext } from "granted/plugin-sdk/plugin-entry";
 import {
   asNullableRecord,
   normalizeLowercaseStringOrEmpty,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import { resolveShortTermPromotionDreamingConfig } from "./dreaming.js";
 
 function resolveDreamingPluginConfig(cfg: GrantedConfig): Record<string, unknown> {

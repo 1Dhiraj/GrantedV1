@@ -1,12 +1,12 @@
 // Telegram provider-owned authorization for message mutations in forum topics.
-import { normalizeAccountId, normalizeOptionalAccountId } from "openclaw/plugin-sdk/account-core";
+import { normalizeAccountId, normalizeOptionalAccountId } from "granted/plugin-sdk/account-core";
 import type {
   ChannelMessageActionContext,
   ChannelThreadingToolContext,
-} from "openclaw/plugin-sdk/channel-contract";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { parseStrictPositiveInteger } from "openclaw/plugin-sdk/number-runtime";
-import { resolveStorePath } from "openclaw/plugin-sdk/session-store-runtime";
+} from "granted/plugin-sdk/channel-contract";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { parseStrictPositiveInteger } from "granted/plugin-sdk/number-runtime";
+import { resolveStorePath } from "granted/plugin-sdk/session-store-runtime";
 import { resolveTelegramAccountOwnerAgentId } from "./account-owner.js";
 import { resolveDefaultTelegramAccountId } from "./accounts.js";
 import { resolveTelegramMessageCacheScope } from "./message-cache-persistence.js";

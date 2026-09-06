@@ -1,11 +1,11 @@
 // Slack tests cover sent thread cache plugin behavior.
-import type { OpenKeyedStoreOptions } from "openclaw/plugin-sdk/plugin-state-runtime";
+import type { OpenKeyedStoreOptions } from "granted/plugin-sdk/plugin-state-runtime";
 import {
   createPluginStateKeyedStoreForTests,
   resetPluginStateStoreForTests,
-} from "openclaw/plugin-sdk/plugin-state-test-runtime";
-import { importFreshModule } from "openclaw/plugin-sdk/test-fixtures";
-import { withOpenClawTestState } from "openclaw/plugin-sdk/test-state";
+} from "granted/plugin-sdk/plugin-state-test-runtime";
+import { importFreshModule } from "granted/plugin-sdk/test-fixtures";
+import { withOpenClawTestState } from "granted/plugin-sdk/test-state";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { setSlackRuntime } from "./runtime.js";
 import {

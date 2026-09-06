@@ -1,6 +1,6 @@
-import { resolveAgentDir } from "openclaw/plugin-sdk/agent-runtime";
-import { pruneMapToMaxSize } from "openclaw/plugin-sdk/collection-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import { resolveAgentDir } from "granted/plugin-sdk/agent-runtime";
+import { pruneMapToMaxSize } from "granted/plugin-sdk/collection-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { CODEX_CONTROL_METHODS } from "./app-server/capabilities.js";
 import { resolveCodexAppServerClientInstanceId } from "./app-server/client.js";
 import {

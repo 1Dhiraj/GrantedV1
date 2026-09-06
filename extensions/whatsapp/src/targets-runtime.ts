@@ -1,10 +1,10 @@
 // Whatsapp plugin module implements targets runtime behavior.
 import fs from "node:fs";
 import path from "node:path";
-import { normalizeE164 } from "openclaw/plugin-sdk/account-resolution";
-import type { MarkdownTableMode } from "openclaw/plugin-sdk/config-contracts";
-import { chunkMarkdownTextWithMode, type ChunkMode } from "openclaw/plugin-sdk/reply-chunking";
-import { logVerbose, shouldLogVerbose } from "openclaw/plugin-sdk/runtime-env";
+import { normalizeE164 } from "granted/plugin-sdk/account-resolution";
+import type { MarkdownTableMode } from "granted/plugin-sdk/config-contracts";
+import { chunkMarkdownTextWithMode, type ChunkMode } from "granted/plugin-sdk/reply-chunking";
+import { logVerbose, shouldLogVerbose } from "granted/plugin-sdk/runtime-env";
 import {
   FormatCapabilityProfile,
   type MarkdownIR,
@@ -12,8 +12,8 @@ import {
   renderMarkdownIRChunksWithinLimit,
   renderMarkdownWithMarkers,
   sliceMarkdownIR,
-} from "openclaw/plugin-sdk/text-chunking";
-import { CONFIG_DIR, resolveUserPath } from "openclaw/plugin-sdk/text-utility-runtime";
+} from "granted/plugin-sdk/text-chunking";
+import { CONFIG_DIR, resolveUserPath } from "granted/plugin-sdk/text-utility-runtime";
 
 const WHATSAPP_FORMAT_CAPABILITIES = FormatCapabilityProfile.define({
   mechanism: "markdown",

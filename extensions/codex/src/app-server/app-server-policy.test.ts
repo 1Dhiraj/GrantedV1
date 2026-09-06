@@ -1,7 +1,7 @@
 // Codex tests cover app server policy plugin behavior.
 import fs from "node:fs/promises";
 import path from "node:path";
-import { withTempDir } from "openclaw/plugin-sdk/test-env";
+import { withTempDir } from "granted/plugin-sdk/test-env";
 import { describe, expect, it, vi } from "vitest";
 import { resolveCodexAppServerForModelProvider } from "./app-server-policy.js";
 import { assertCodexModelBackedReviewerEffectiveConfig } from "./config-reviewer.js";

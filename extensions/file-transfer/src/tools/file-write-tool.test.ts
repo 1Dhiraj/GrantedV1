@@ -4,8 +4,8 @@ import {
   callGatewayTool,
   listNodes,
   resolveNodeIdFromList,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
-import { readMediaBuffer } from "openclaw/plugin-sdk/media-store";
+} from "granted/plugin-sdk/agent-harness-runtime";
+import { readMediaBuffer } from "granted/plugin-sdk/media-store";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { humanSize } from "../shared/params.js";
 import { FILE_TRANSFER_SUBDIR, FILE_WRITE_HARD_MAX_BYTES } from "./descriptors.js";

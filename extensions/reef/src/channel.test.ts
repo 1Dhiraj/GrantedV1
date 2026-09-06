@@ -3,16 +3,16 @@ import http from "node:http";
 import type { AddressInfo } from "node:net";
 import os from "node:os";
 import path from "node:path";
-import { createStartAccountContext } from "openclaw/plugin-sdk/channel-test-helpers";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
-import type { OpenKeyedStoreOptions } from "openclaw/plugin-sdk/plugin-state-runtime";
+import { createStartAccountContext } from "granted/plugin-sdk/channel-test-helpers";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
+import type { OpenKeyedStoreOptions } from "granted/plugin-sdk/plugin-state-runtime";
 import {
   createPluginStateSyncKeyedStoreForTests,
   resetPluginStateStoreForTests,
-} from "openclaw/plugin-sdk/plugin-state-test-runtime";
-import { createPluginRuntimeMock } from "openclaw/plugin-sdk/plugin-test-runtime";
-import { defaultRuntime } from "openclaw/plugin-sdk/runtime";
-import { createPluginRuntimeStore } from "openclaw/plugin-sdk/runtime-store";
+} from "granted/plugin-sdk/plugin-state-test-runtime";
+import { createPluginRuntimeMock } from "granted/plugin-sdk/plugin-test-runtime";
+import { defaultRuntime } from "granted/plugin-sdk/runtime";
+import { createPluginRuntimeStore } from "granted/plugin-sdk/runtime-store";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { generateIdentity } from "../protocol/index.js";
 import { runReefChannelLifecycle } from "./channel-lifecycle.js";

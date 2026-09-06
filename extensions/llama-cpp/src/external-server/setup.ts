@@ -3,7 +3,7 @@ import type {
   ProviderAuthContext,
   ProviderAuthMethodNonInteractiveContext,
   ProviderAuthResult,
-} from "openclaw/plugin-sdk/plugin-entry";
+} from "granted/plugin-sdk/plugin-entry";
 import {
   applyAuthProfileConfig,
   buildApiKeyCredential,
@@ -12,16 +12,16 @@ import {
   upsertAuthProfileWithLock,
   type GrantedConfig,
   type SecretInput,
-} from "openclaw/plugin-sdk/provider-auth";
+} from "granted/plugin-sdk/provider-auth";
 import {
   removeAuthProfileConfig,
   removeProviderAuthProfilesWithLock,
-} from "openclaw/plugin-sdk/provider-auth-runtime";
+} from "granted/plugin-sdk/provider-auth-runtime";
 import {
   type ModelProviderConfig,
   selectPreferredLocalModelId,
-} from "openclaw/plugin-sdk/provider-model-shared";
-import { applyProviderDefaultModel } from "openclaw/plugin-sdk/provider-setup";
+} from "granted/plugin-sdk/provider-model-shared";
+import { applyProviderDefaultModel } from "granted/plugin-sdk/provider-setup";
 import {
   buildLlamaCppAuthProfileRemovalPatch,
   LLAMA_CPP_DEFAULT_PROFILE_ID as PROFILE_ID,

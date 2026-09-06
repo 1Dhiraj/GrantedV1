@@ -2,9 +2,9 @@
 import {
   createStatusReactionController,
   type StatusReactionController,
-} from "openclaw/plugin-sdk/channel-feedback";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { logVerbose } from "openclaw/plugin-sdk/runtime-env";
+} from "granted/plugin-sdk/channel-feedback";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { logVerbose } from "granted/plugin-sdk/runtime-env";
 import type { AdmittedWebInboundMessage } from "../../inbound/types.js";
 import { sendReactionWhatsApp } from "../../send.js";
 import { resolveWhatsAppReactionEligibility } from "./reaction-eligibility.js";

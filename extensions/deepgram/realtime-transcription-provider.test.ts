@@ -1,8 +1,8 @@
 // Deepgram tests cover realtime transcription provider plugin behavior.
 import { createServer } from "node:http";
 import type { AddressInfo } from "node:net";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import type WebSocket from "ws";
 import type { RawData } from "ws";

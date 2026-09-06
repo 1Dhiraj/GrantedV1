@@ -5,8 +5,8 @@ import {
   createPluginSetupWizardStatus,
   createTestWizardPrompter,
   runSetupWizardConfigure,
-} from "openclaw/plugin-sdk/plugin-test-runtime";
-import { withEnvAsync } from "openclaw/plugin-sdk/test-env";
+} from "granted/plugin-sdk/plugin-test-runtime";
+import { withEnvAsync } from "granted/plugin-sdk/test-env";
 import { afterAll, beforeEach, describe, expect, it, vi } from "vitest";
 import type { FeishuProbeResult } from "./types.js";
 

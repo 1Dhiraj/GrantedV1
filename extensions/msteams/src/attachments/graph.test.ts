@@ -4,7 +4,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 // Mock shared.js to avoid transitive runtime-api imports that pull in uninstalled packages.
 vi.mock("./shared.js", async (importOriginal) => {
   const actual = await importOriginal<typeof import("./shared.js")>();
-  const { isRecord } = await import("openclaw/plugin-sdk/string-coerce-runtime");
+  const { isRecord } = await import("granted/plugin-sdk/string-coerce-runtime");
   return {
     ...actual,
     applyAuthorizationHeaderForUrl: vi.fn(),
@@ -69,7 +69,7 @@ vi.mock("./remote-media.js", () => ({
   downloadAndStoreMSTeamsRemoteMedia: vi.fn(),
 }));
 
-import { fetchWithSsrFGuard } from "openclaw/plugin-sdk/ssrf-runtime";
+import { fetchWithSsrFGuard } from "granted/plugin-sdk/ssrf-runtime";
 import { downloadMSTeamsGraphMedia } from "./graph.js";
 import { downloadAndStoreMSTeamsRemoteMedia } from "./remote-media.js";
 import { safeFetchWithPolicy } from "./shared.js";

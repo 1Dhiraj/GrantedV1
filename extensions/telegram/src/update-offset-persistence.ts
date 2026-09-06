@@ -3,8 +3,8 @@ import {
   computeBackoff,
   sleepWithAbort,
   type BackoffPolicy,
-} from "openclaw/plugin-sdk/runtime-env";
-import { asSafeIntegerInRange } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/runtime-env";
+import { asSafeIntegerInRange } from "granted/plugin-sdk/string-coerce-runtime";
 
 const OFFSET_PERSIST_RETRY_POLICY: BackoffPolicy = {
   initialMs: 250,

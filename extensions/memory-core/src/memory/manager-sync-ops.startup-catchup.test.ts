@@ -4,23 +4,23 @@ import fsSync from "node:fs";
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { resolveSessionTranscriptsDirForAgent } from "openclaw/plugin-sdk/memory-core-host-engine-foundation";
+import { resolveSessionTranscriptsDirForAgent } from "granted/plugin-sdk/memory-core-host-engine-foundation";
 import {
   buildSessionEntry,
   statSessionEntrySync,
-} from "openclaw/plugin-sdk/memory-core-host-engine-sessions";
-import type { MemorySyncParams } from "openclaw/plugin-sdk/memory-core-host-engine-storage";
-import { resetPluginStateStoreForTests } from "openclaw/plugin-sdk/plugin-state-test-runtime";
+} from "granted/plugin-sdk/memory-core-host-engine-sessions";
+import type { MemorySyncParams } from "granted/plugin-sdk/memory-core-host-engine-storage";
+import { resetPluginStateStoreForTests } from "granted/plugin-sdk/plugin-state-test-runtime";
 import {
   clearConfigCache,
   clearRuntimeConfigSnapshot,
-} from "openclaw/plugin-sdk/runtime-config-snapshot";
-import { deleteSessionEntry, upsertSessionEntry } from "openclaw/plugin-sdk/session-store-runtime";
+} from "granted/plugin-sdk/runtime-config-snapshot";
+import { deleteSessionEntry, upsertSessionEntry } from "granted/plugin-sdk/session-store-runtime";
 import {
   appendSessionTranscriptMessageByIdentity,
   publishSessionTranscriptUpdateByIdentity,
-} from "openclaw/plugin-sdk/session-transcript-runtime";
-import { closeOpenClawAgentDatabasesForTest } from "openclaw/plugin-sdk/sqlite-runtime-testing";
+} from "granted/plugin-sdk/session-transcript-runtime";
+import { closeOpenClawAgentDatabasesForTest } from "granted/plugin-sdk/sqlite-runtime-testing";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   SessionStartupCatchupHarness,

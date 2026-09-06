@@ -1,7 +1,7 @@
 import type {
   ChannelDirectoryEntry,
   DirectoryConfigParams,
-} from "openclaw/plugin-sdk/directory-runtime";
+} from "granted/plugin-sdk/directory-runtime";
 import { listBuzzDirectoryGroupsFromConfig } from "./directory-config.js";
 import { queryBuzzDirectoryProfiles, queryBuzzDirectoryRooms } from "./directory-relay.js";
 import { BuzzDirectoryState } from "./directory-state.js";

@@ -1,5 +1,5 @@
-import type { MarkdownTableMode } from "openclaw/plugin-sdk/config-contracts";
-import { chunkMarkdownTextWithMode, type ChunkMode } from "openclaw/plugin-sdk/reply-chunking";
+import type { MarkdownTableMode } from "granted/plugin-sdk/config-contracts";
+import { chunkMarkdownTextWithMode, type ChunkMode } from "granted/plugin-sdk/reply-chunking";
 import {
   escapeTelegramHtml,
   markdownToTelegramChunks,

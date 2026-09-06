@@ -6,9 +6,9 @@ import {
   createTestRegistry,
   resetPluginRuntimeStateForTest,
   setActivePluginRegistry,
-} from "openclaw/plugin-sdk/channel-test-helpers";
-import { createPluginRuntimeMock } from "openclaw/plugin-sdk/plugin-test-runtime";
-import { withServer } from "openclaw/plugin-sdk/test-env";
+} from "granted/plugin-sdk/channel-test-helpers";
+import { createPluginRuntimeMock } from "granted/plugin-sdk/plugin-test-runtime";
+import { withServer } from "granted/plugin-sdk/test-env";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import mattermostEntry from "../../extensions/mattermost/index.js";
 import * as bootstrapRegistry from "../../src/channels/plugins/bootstrap-registry.js";

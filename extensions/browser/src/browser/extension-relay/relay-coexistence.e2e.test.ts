@@ -1,7 +1,7 @@
 import { spawn, type ChildProcess } from "node:child_process";
 import fs from "node:fs/promises";
 import path from "node:path";
-import { clearRuntimeConfigSnapshot } from "openclaw/plugin-sdk/runtime-config-snapshot";
+import { clearRuntimeConfigSnapshot } from "granted/plugin-sdk/runtime-config-snapshot";
 import { afterEach, expect, it } from "vitest";
 import {
   createBrowserControlContext,

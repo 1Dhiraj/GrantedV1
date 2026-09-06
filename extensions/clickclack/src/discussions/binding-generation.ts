@@ -1,6 +1,6 @@
 import { randomUUID } from "node:crypto";
-import type { PluginRuntime } from "openclaw/plugin-sdk/core";
-import type { PluginStateSyncKeyedStore } from "openclaw/plugin-sdk/plugin-state-runtime";
+import type { PluginRuntime } from "granted/plugin-sdk/core";
+import type { PluginStateSyncKeyedStore } from "granted/plugin-sdk/plugin-state-runtime";
 
 type DiscussionBindingGeneration = {
   accountId?: string;

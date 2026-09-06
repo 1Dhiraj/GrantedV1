@@ -1,6 +1,6 @@
 // Matrix plugin module implements approval reaction auth behavior.
-import { resolveApprovalApprovers } from "openclaw/plugin-sdk/approval-auth-runtime";
-import type { ChannelApprovalKind } from "openclaw/plugin-sdk/approval-handler-runtime";
+import { resolveApprovalApprovers } from "granted/plugin-sdk/approval-auth-runtime";
+import type { ChannelApprovalKind } from "granted/plugin-sdk/approval-handler-runtime";
 import { normalizeMatrixApproverId } from "./approval-ids.js";
 import { resolveMatrixAccount } from "./matrix/accounts.js";
 import type { CoreConfig } from "./types.js";

@@ -48,7 +48,7 @@ let getReplyPayloadMetadata: typeof import("../auto-reply/reply-payload.js").get
 
 vi.mock("openclaw/plugin-sdk/llm", async () => {
   const actual =
-    await vi.importActual<typeof import("openclaw/plugin-sdk/llm")>("openclaw/plugin-sdk/llm");
+    await vi.importActual<typeof import("granted/plugin-sdk/llm")>("openclaw/plugin-sdk/llm");
 
   const buildAssistantMessage = (model: { api: string; provider: string; id: string }) => ({
     role: "assistant" as const,
@@ -176,7 +176,7 @@ type TestRunEmbeddedAgent = (
   params: Omit<Parameters<ProductionRunEmbeddedAgent>[0], "admittedRunContext">,
 ) => ReturnType<ProductionRunEmbeddedAgent>;
 let runEmbeddedAgent: TestRunEmbeddedAgent;
-let SessionManager: typeof import("openclaw/plugin-sdk/agent-sessions").SessionManager;
+let SessionManager: typeof import("granted/plugin-sdk/agent-sessions").SessionManager;
 let loadTranscriptEvents: typeof import("../config/sessions/session-accessor.js").loadTranscriptEvents;
 let upsertSessionEntryCore: typeof import("../config/sessions/session-accessor.js").upsertSessionEntryCore;
 let resolveAgentRunSessionTarget: typeof import("./run-session-target.js").resolveAgentRunSessionTarget;
@@ -205,7 +205,7 @@ beforeAll(async () => {
   runEmbeddedAgent = wrapRunWithTestPreparedAdmission(
     (await import("./embedded-agent-runner/run.js")).runEmbeddedAgent,
   );
-  ({ SessionManager } = await import("openclaw/plugin-sdk/agent-sessions"));
+  ({ SessionManager } = await import("granted/plugin-sdk/agent-sessions"));
   ({ loadTranscriptEvents, upsertSessionEntryCore } =
     await import("../config/sessions/session-accessor.js"));
   ({ resolveAgentRunSessionTarget } = await import("./run-session-target.js"));

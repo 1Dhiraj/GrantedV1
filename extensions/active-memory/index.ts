@@ -1,14 +1,14 @@
 /**
  * Active Memory plugin entry. Runtime behavior lives in focused sibling modules.
  */
-import { resolveAgentDir, resolveAgentWorkspaceDir } from "openclaw/plugin-sdk/agent-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { getMemoryCapabilityRegistration } from "openclaw/plugin-sdk/memory-host-core";
+import { resolveAgentDir, resolveAgentWorkspaceDir } from "granted/plugin-sdk/agent-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { getMemoryCapabilityRegistration } from "granted/plugin-sdk/memory-host-core";
 import {
   normalizePluginsConfig,
   resolveLivePluginConfigObject,
-} from "openclaw/plugin-sdk/plugin-config-runtime";
-import { definePluginEntry, type GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
+} from "granted/plugin-sdk/plugin-config-runtime";
+import { definePluginEntry, type GrantedPluginApi } from "granted/plugin-sdk/plugin-entry";
 import {
   applyCliRuntimeRecallTimeoutDefault,
   hasDeprecatedModelFallbackPolicy,

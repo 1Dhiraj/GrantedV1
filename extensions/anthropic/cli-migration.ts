@@ -2,11 +2,11 @@
  * Claude CLI setup migration helpers. They rewrite legacy Claude CLI model refs
  * to Anthropic refs while preserving runtime allowlist entries for CLI execution.
  */
-import type { GrantedConfig, ProviderAuthResult } from "openclaw/plugin-sdk/provider-auth";
+import type { GrantedConfig, ProviderAuthResult } from "granted/plugin-sdk/provider-auth";
 import {
   isRecord,
   normalizeLowercaseStringOrEmpty,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import { resolveClaudeCliAnthropicModelRefs } from "./claude-model-refs.js";
 import { CLAUDE_CLI_BACKEND_ID, CLAUDE_CLI_DEFAULT_ALLOWLIST_REFS } from "./cli-shared.js";
 

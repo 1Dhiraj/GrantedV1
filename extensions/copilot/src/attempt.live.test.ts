@@ -8,9 +8,9 @@ import type {
   AgentMessage,
   AgentHarnessAttemptParamsV2 as AgentHarnessAttemptParams,
   AgentHarnessV2,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
-import { upsertSessionEntry } from "openclaw/plugin-sdk/session-store-runtime";
-import { isLiveTestEnabled } from "openclaw/plugin-sdk/test-live";
+} from "granted/plugin-sdk/agent-harness-runtime";
+import { upsertSessionEntry } from "granted/plugin-sdk/session-store-runtime";
+import { isLiveTestEnabled } from "granted/plugin-sdk/test-live";
 import { beforeAll, describe, expect, it, vi } from "vitest";
 import { createCopilotAgentHarness } from "../harness.js";
 import { createCopilotTestHostCapabilities } from "./host-capability.test-support.js";
@@ -62,7 +62,7 @@ type LiveAttemptFacts =
     };
 
 vi.mock("openclaw/plugin-sdk/agent-harness", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/agent-harness")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/agent-harness")>();
 
   return {
     ...actual,

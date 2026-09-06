@@ -2,12 +2,12 @@
 // runtime plan owns tool policy, with legacy provider fallback still available.
 
 import { expectDefined } from "@openclaw/normalization-core";
-import type { AgentTool } from "openclaw/plugin-sdk/agent-core";
+import type { AgentTool } from "granted/plugin-sdk/agent-core";
 import {
   createNativeOpenAIResponsesModel,
   createParameterFreeTool,
   normalizedParameterFreeSchema,
-} from "openclaw/plugin-sdk/agent-runtime-test-contracts";
+} from "granted/plugin-sdk/agent-runtime-test-contracts";
 import { Type } from "typebox";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { getPluginToolMeta, setPluginToolMeta } from "../../plugins/tool-metadata.js";

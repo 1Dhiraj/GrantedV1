@@ -1,4 +1,4 @@
-import type { MemorySearchResult } from "openclaw/plugin-sdk/memory-core-host-engine-storage";
+import type { MemorySearchResult } from "granted/plugin-sdk/memory-core-host-engine-storage";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
   buildTriggerRecallContext,

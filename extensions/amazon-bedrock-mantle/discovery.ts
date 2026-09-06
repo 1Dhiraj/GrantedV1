@@ -2,21 +2,21 @@
  * Amazon Bedrock Mantle discovery and bearer-token handling. It resolves
  * explicit tokens, IAM-generated tokens, model catalogs, and implicit provider config.
  */
-import { createSubsystemLogger } from "openclaw/plugin-sdk/core";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
+import { createSubsystemLogger } from "granted/plugin-sdk/core";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
 import {
   isFutureDateTimestampMs,
   resolveExpiresAtMsFromDurationMs,
-} from "openclaw/plugin-sdk/number-runtime";
-import { readProviderJsonResponse } from "openclaw/plugin-sdk/provider-http";
+} from "granted/plugin-sdk/number-runtime";
+import { readProviderJsonResponse } from "granted/plugin-sdk/provider-http";
 import type {
   ModelDefinitionConfig,
   ModelProviderConfig,
-} from "openclaw/plugin-sdk/provider-model-shared";
+} from "granted/plugin-sdk/provider-model-shared";
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 
 const log = createSubsystemLogger("bedrock-mantle-discovery");
 

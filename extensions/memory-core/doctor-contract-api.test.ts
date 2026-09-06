@@ -3,23 +3,23 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { DatabaseSync } from "node:sqlite";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { buildSessionEntry } from "openclaw/plugin-sdk/memory-core-host-engine-sessions";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { buildSessionEntry } from "granted/plugin-sdk/memory-core-host-engine-sessions";
 import {
   ensureMemoryIndexSchema,
   loadSqliteVecExtension,
-} from "openclaw/plugin-sdk/memory-core-host-engine-storage";
-import { readMemoryHostEventRecords } from "openclaw/plugin-sdk/memory-host-events";
+} from "granted/plugin-sdk/memory-core-host-engine-storage";
+import { readMemoryHostEventRecords } from "granted/plugin-sdk/memory-host-events";
 import {
   createPluginStateKeyedStoreForTests,
   getPluginStateCapacityForTests,
   importPluginStateEntriesForDoctorForTests,
   resetPluginStateStoreForTests,
-} from "openclaw/plugin-sdk/plugin-state-test-runtime";
+} from "granted/plugin-sdk/plugin-state-test-runtime";
 import type {
   OpenKeyedStoreOptions,
   PluginDoctorStateMigrationContext,
-} from "openclaw/plugin-sdk/runtime-doctor-migrations";
+} from "granted/plugin-sdk/runtime-doctor-migrations";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { stateMigrations } from "./doctor-contract-api.js";
 import {

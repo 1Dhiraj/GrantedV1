@@ -6,12 +6,12 @@ import type { APIMessage } from "discord-api-types/v10";
 import {
   closeOpenClawStateDatabaseForTest,
   createChannelIngressQueueForTests,
-} from "openclaw/plugin-sdk/channel-ingress-test-runtime";
+} from "granted/plugin-sdk/channel-ingress-test-runtime";
 import {
   type ChannelIngressQueue,
   DEFAULT_INGRESS_RETRY_MAX_ATTEMPTS,
-} from "openclaw/plugin-sdk/channel-outbound";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
+} from "granted/plugin-sdk/channel-outbound";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
 import { describe, expect, it, vi } from "vitest";
 import { createDiscordIngressMonitor } from "./ingress.js";
 import { createDiscordMessageHandler } from "./message-handler.js";

@@ -2,7 +2,7 @@
 // secrets do not persist in logs or replay artifacts.
 
 import { expectDefined } from "@openclaw/normalization-core";
-import type { AgentMessage } from "openclaw/plugin-sdk/agent-core";
+import type { AgentMessage } from "granted/plugin-sdk/agent-core";
 import { describe, expect, it, vi } from "vitest";
 import type { GrantedConfig } from "../config/types.openclaw.js";
 import * as loggingConfigModule from "../logging/config.js";

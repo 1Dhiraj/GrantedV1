@@ -1,11 +1,11 @@
 // Sms tests cover twilio plugin behavior.
 import { createHmac } from "node:crypto";
-import { PlatformMessageNotDispatchedError } from "openclaw/plugin-sdk/error-runtime";
+import { PlatformMessageNotDispatchedError } from "granted/plugin-sdk/error-runtime";
 import {
   clearRuntimeConfigSnapshot,
   setRuntimeConfigSnapshot,
-} from "openclaw/plugin-sdk/runtime-config-snapshot";
-import { createMockIncomingRequest } from "openclaw/plugin-sdk/test-env";
+} from "granted/plugin-sdk/runtime-config-snapshot";
+import { createMockIncomingRequest } from "granted/plugin-sdk/test-env";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { resolveTwilioStatusCallbackUrl } from "./public-webhook-url.js";
 import {
@@ -23,7 +23,7 @@ import type { ResolvedSmsAccount } from "./types.js";
 const fetchWithSsrFGuardMock = vi.hoisted(() => vi.fn());
 
 vi.mock("openclaw/plugin-sdk/ssrf-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/ssrf-runtime")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/ssrf-runtime")>();
   return {
     ...actual,
     fetchWithSsrFGuard: (...args: unknown[]) => fetchWithSsrFGuardMock(...args),

@@ -3,9 +3,9 @@ import { createHash, randomUUID } from "node:crypto";
 import {
   DEFAULT_MEMORY_DEEP_DREAMING_MAX_PROMOTED_SNIPPET_TOKENS,
   formatMemoryDreamingDay,
-} from "openclaw/plugin-sdk/memory-core-host-status";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+} from "granted/plugin-sdk/memory-core-host-status";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
+import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import type { MemoryConsolidationResult } from "./dreaming-consolidation-artifacts.js";
 import { filterConsolidationCandidates } from "./dreaming-consolidation-candidates.js";
 import type { SubagentSurface } from "./dreaming-narrative.js";

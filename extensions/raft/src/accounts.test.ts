@@ -1,5 +1,5 @@
-import type { ChannelSetupInput } from "openclaw/plugin-sdk/channel-setup";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { ChannelSetupInput } from "granted/plugin-sdk/channel-setup";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { afterEach, describe, expect, it } from "vitest";
 import { listRaftAccountIds, resolveRaftAccount } from "./accounts.js";
 import { raftChannelConfigSchema } from "./config-schema.js";

@@ -3,7 +3,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { Command } from "commander";
-import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
+import { createTestPluginApi } from "granted/plugin-sdk/plugin-test-api";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { GrantedPluginApi } from "./api.js";
 import type { VoiceCallRuntime } from "./runtime-entry.js";
@@ -17,7 +17,7 @@ vi.mock("./runtime-entry.js", () => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/gateway-runtime", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("openclaw/plugin-sdk/gateway-runtime")>()),
+  ...(await importOriginal<typeof import("granted/plugin-sdk/gateway-runtime")>()),
   callGatewayFromCli: callGatewayFromCliMock,
 }));
 

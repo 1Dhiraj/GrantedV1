@@ -1,48 +1,48 @@
-import { mergeAllowlist, summarizeMapping } from "openclaw/plugin-sdk/allow-from";
-import type { ChannelAccountSnapshot } from "openclaw/plugin-sdk/channel-contract";
+import { mergeAllowlist, summarizeMapping } from "granted/plugin-sdk/allow-from";
+import type { ChannelAccountSnapshot } from "granted/plugin-sdk/channel-contract";
 import {
   createChannelInboundEnvelopeBuilder,
   createChannelPartialDeliveryError,
   implicitMentionKindWhen,
   isChannelPartialDeliveryError,
   resolveInboundMentionDecision,
-} from "openclaw/plugin-sdk/channel-inbound";
+} from "granted/plugin-sdk/channel-inbound";
 import {
   resolveStableChannelMessageIngress,
   type ChannelIngressContextBinding,
-} from "openclaw/plugin-sdk/channel-ingress-runtime";
+} from "granted/plugin-sdk/channel-ingress-runtime";
 import {
   createMessageReceiptFromOutboundResults,
   listMessageReceiptPlatformIds,
-} from "openclaw/plugin-sdk/channel-outbound";
-import { createChannelPairingController } from "openclaw/plugin-sdk/channel-pairing";
-import type { MarkdownTableMode, GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { isDangerousNameMatchingEnabled } from "openclaw/plugin-sdk/dangerous-name-runtime";
+} from "granted/plugin-sdk/channel-outbound";
+import { createChannelPairingController } from "granted/plugin-sdk/channel-pairing";
+import type { MarkdownTableMode, GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { isDangerousNameMatchingEnabled } from "granted/plugin-sdk/dangerous-name-runtime";
 // Zalouser plugin module implements monitor behavior.
-import { expectDefined } from "openclaw/plugin-sdk/expect-runtime";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
-import { channelReadyPatch } from "openclaw/plugin-sdk/gateway-runtime";
+import { expectDefined } from "granted/plugin-sdk/expect-runtime";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
+import { channelReadyPatch } from "granted/plugin-sdk/gateway-runtime";
 import {
   DEFAULT_GROUP_HISTORY_LIMIT,
   type HistoryEntry,
   createChannelHistoryWindow,
-} from "openclaw/plugin-sdk/reply-history";
+} from "granted/plugin-sdk/reply-history";
 import {
   deliverTextOrMediaReply,
   resolveSendableOutboundReplyParts,
   type OutboundReplyPayload,
-} from "openclaw/plugin-sdk/reply-payload";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime";
+} from "granted/plugin-sdk/reply-payload";
+import type { RuntimeEnv } from "granted/plugin-sdk/runtime";
 import {
   resolveDefaultGroupPolicy,
   resolveOpenProviderRuntimeGroupPolicy,
   warnMissingProviderGroupPolicyFallbackOnce,
-} from "openclaw/plugin-sdk/runtime-group-policy";
+} from "granted/plugin-sdk/runtime-group-policy";
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalLowercaseString,
   normalizeStringEntries,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import {
   buildZalouserGroupCandidates,
   findZalouserGroupEntry,

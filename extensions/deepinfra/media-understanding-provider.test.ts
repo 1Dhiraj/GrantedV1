@@ -2,7 +2,7 @@
 import {
   describeImagesWithModel,
   describeImageWithModel,
-} from "openclaw/plugin-sdk/media-understanding";
+} from "granted/plugin-sdk/media-understanding";
 import { afterAll, describe, expect, it, vi } from "vitest";
 import { deepinfraMediaUnderstandingProvider } from "./media-understanding-provider.js";
 
@@ -11,7 +11,7 @@ const { transcribeOpenAiCompatibleAudioMock } = vi.hoisted(() => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/media-understanding", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/media-understanding")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/media-understanding")>(
     "openclaw/plugin-sdk/media-understanding",
   );
   return {

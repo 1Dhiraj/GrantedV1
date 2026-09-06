@@ -1,7 +1,7 @@
 // Telegram tests cover accounts plugin behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { createSubsystemLogger } from "openclaw/plugin-sdk/runtime-env";
-import { withEnv } from "openclaw/plugin-sdk/test-env";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { createSubsystemLogger } from "granted/plugin-sdk/runtime-env";
+import { withEnv } from "granted/plugin-sdk/test-env";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   createTelegramActionGate,

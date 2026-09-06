@@ -1,5 +1,5 @@
 // Slack tests cover threading tool context plugin behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { describe, expect, it } from "vitest";
 import { buildSlackThreadingToolContext } from "./threading-tool-context.js";
 

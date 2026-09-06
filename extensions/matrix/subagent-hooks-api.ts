@@ -1,6 +1,6 @@
 // Matrix API module exposes the plugin public contract.
-import type { GrantedPluginApi } from "openclaw/plugin-sdk/channel-entry-contract";
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
+import type { GrantedPluginApi } from "granted/plugin-sdk/channel-entry-contract";
+import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
 
 const loadMatrixSubagentHooksModule = createLazyRuntimeModule(
   () => import("./src/matrix/subagent-hooks.js"),

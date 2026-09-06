@@ -1,5 +1,5 @@
 // Coverage for Kilocode proxy wrapper headers and reasoning payloads.
-import type { StreamFn } from "openclaw/plugin-sdk/agent-core";
+import type { StreamFn } from "granted/plugin-sdk/agent-core";
 import { afterEach, describe, expect, it } from "vitest";
 import {
   createKilocodeWrapper,

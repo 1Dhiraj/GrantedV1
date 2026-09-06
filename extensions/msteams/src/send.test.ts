@@ -44,7 +44,7 @@ vi.mock("openclaw/plugin-sdk/markdown-table-runtime", () => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/text-chunking", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/text-chunking")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/text-chunking")>();
   return {
     ...actual,
     convertMarkdownTables: mockState.convertMarkdownTables,
@@ -223,7 +223,7 @@ function firstObjectArg(mock: MockWithCalls): Record<string, unknown> {
 }
 
 async function useActualOutboundMediaLoader() {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/outbound-media")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/outbound-media")>(
     "openclaw/plugin-sdk/outbound-media",
   );
   mockState.loadOutboundMediaFromUrl.mockImplementation(actual.loadOutboundMediaFromUrl);

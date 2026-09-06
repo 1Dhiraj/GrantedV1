@@ -1,50 +1,50 @@
 // Zalo plugin module implements channel behavior.
-import { describeWebhookAccountSnapshot } from "openclaw/plugin-sdk/account-helpers";
-import { DEFAULT_ACCOUNT_ID } from "openclaw/plugin-sdk/account-id";
-import { formatAllowFromLowercase } from "openclaw/plugin-sdk/allow-from";
+import { describeWebhookAccountSnapshot } from "granted/plugin-sdk/account-helpers";
+import { DEFAULT_ACCOUNT_ID } from "granted/plugin-sdk/account-id";
+import { formatAllowFromLowercase } from "granted/plugin-sdk/allow-from";
 import {
   adaptScopedAccountAccessor,
   createScopedChannelConfigAdapter,
   createScopedDmSecurityResolver,
   mapAllowFromEntries,
-} from "openclaw/plugin-sdk/channel-config-helpers";
-import type { ChannelAccountSnapshot } from "openclaw/plugin-sdk/channel-contract";
+} from "granted/plugin-sdk/channel-config-helpers";
+import type { ChannelAccountSnapshot } from "granted/plugin-sdk/channel-contract";
 import {
   buildChannelConfigSchema,
   createChatChannelPlugin,
   type ChannelPlugin,
-} from "openclaw/plugin-sdk/channel-core";
+} from "granted/plugin-sdk/channel-core";
 import {
   defineChannelMessageAdapter,
   type MessageReceipt,
-} from "openclaw/plugin-sdk/channel-outbound";
+} from "granted/plugin-sdk/channel-outbound";
 import {
   buildOpenGroupPolicyRestrictSendersWarning,
   buildOpenGroupPolicyWarning,
   createConditionalWarningCollector,
   createOpenProviderGroupPolicyWarningCollector,
-} from "openclaw/plugin-sdk/channel-policy";
+} from "granted/plugin-sdk/channel-policy";
 import {
   createAttachedChannelResultAdapter,
   createEmptyChannelResult,
-} from "openclaw/plugin-sdk/channel-send-result";
-import { buildTokenChannelStatusSummary } from "openclaw/plugin-sdk/channel-status";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { createStaticReplyToModeResolver } from "openclaw/plugin-sdk/conversation-runtime";
+} from "granted/plugin-sdk/channel-send-result";
+import { buildTokenChannelStatusSummary } from "granted/plugin-sdk/channel-status";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { createStaticReplyToModeResolver } from "granted/plugin-sdk/conversation-runtime";
 import {
   createChannelDirectoryAdapter,
   listResolvedDirectoryUserEntriesFromAllowFrom,
-} from "openclaw/plugin-sdk/directory-runtime";
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
-import { sendPayloadWithChunkedTextAndMedia } from "openclaw/plugin-sdk/reply-payload";
+} from "granted/plugin-sdk/directory-runtime";
+import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
+import { sendPayloadWithChunkedTextAndMedia } from "granted/plugin-sdk/reply-payload";
 import {
   createComputedAccountStatusAdapter,
   createDefaultChannelRuntimeState,
-} from "openclaw/plugin-sdk/status-helpers";
+} from "granted/plugin-sdk/status-helpers";
 import {
   chunkTextForOutbound,
   sanitizeAssistantVisibleText,
-} from "openclaw/plugin-sdk/text-chunking";
+} from "granted/plugin-sdk/text-chunking";
 import {
   inspectZaloAccount,
   isZaloAccountConfigured,

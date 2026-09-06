@@ -1,6 +1,6 @@
-import type { CliBackendParseJsonlEvent } from "openclaw/plugin-sdk/cli-backend";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { findCodeRegions, type CodeRegion } from "openclaw/plugin-sdk/text-chunking";
+import type { CliBackendParseJsonlEvent } from "granted/plugin-sdk/cli-backend";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
+import { findCodeRegions, type CodeRegion } from "granted/plugin-sdk/text-chunking";
 
 const CLAUDE_RAW_TOOL_OUTPUT_ERROR =
   "Claude CLI returned malformed tool output (invalid request format): raw tool protocol appeared as assistant text. OpenClaw refused to persist or deliver it.";

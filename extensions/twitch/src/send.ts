@@ -1,8 +1,8 @@
 import {
   createMessageReceiptFromOutboundResults,
   type MessageReceipt,
-} from "openclaw/plugin-sdk/channel-outbound";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+} from "granted/plugin-sdk/channel-outbound";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import type { TwitchClientManager } from "./twitch-client.js";
 import type { TwitchAccountConfig } from "./types.js";
 import { stripMarkdownForTwitch } from "./utils/markdown.js";

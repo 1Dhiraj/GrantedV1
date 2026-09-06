@@ -1,7 +1,7 @@
 // Qa Lab plugin module implements self check behavior.
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { createQaArtifactRunId } from "./artifact-run-id.js";
 import type { QaBusState } from "./bus-state.js";
 import { createQaTransportAdapter, type QaTransportId } from "./qa-transport-registry.js";

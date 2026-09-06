@@ -1,9 +1,9 @@
 import fs from "node:fs/promises";
 import http from "node:http";
 import path from "node:path";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { OutboundMediaAccess } from "openclaw/plugin-sdk/media-runtime";
-import { createOpenClawTestState, type GrantedTestState } from "openclaw/plugin-sdk/test-state";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { OutboundMediaAccess } from "granted/plugin-sdk/media-runtime";
+import { createOpenClawTestState, type GrantedTestState } from "granted/plugin-sdk/test-state";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { clearSignalApprovalReactionTargetsForTest } from "./approval-reactions.js";
 import { signalPlugin } from "./channel.js";

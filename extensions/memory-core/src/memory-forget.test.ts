@@ -3,13 +3,13 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import type { DatabaseSync } from "node:sqlite";
 import { zstdCompressSync } from "node:zlib";
-import type { GrantedConfig } from "openclaw/plugin-sdk/memory-core-host-engine-foundation";
-import { loadSqliteVecExtension } from "openclaw/plugin-sdk/memory-core-host-engine-storage";
-import { deleteSessionEntry } from "openclaw/plugin-sdk/session-store-runtime";
-import { appendSessionTranscriptMessageByIdentity } from "openclaw/plugin-sdk/session-transcript-runtime";
-import { openOpenClawAgentDatabase } from "openclaw/plugin-sdk/sqlite-runtime";
-import { openOpenClawStateDatabase } from "openclaw/plugin-sdk/sqlite-runtime-testing";
-import { useAutoCleanupTempDirTracker } from "openclaw/plugin-sdk/test-env";
+import type { GrantedConfig } from "granted/plugin-sdk/memory-core-host-engine-foundation";
+import { loadSqliteVecExtension } from "granted/plugin-sdk/memory-core-host-engine-storage";
+import { deleteSessionEntry } from "granted/plugin-sdk/session-store-runtime";
+import { appendSessionTranscriptMessageByIdentity } from "granted/plugin-sdk/session-transcript-runtime";
+import { openOpenClawAgentDatabase } from "granted/plugin-sdk/sqlite-runtime";
+import { openOpenClawStateDatabase } from "granted/plugin-sdk/sqlite-runtime-testing";
+import { useAutoCleanupTempDirTracker } from "granted/plugin-sdk/test-env";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   DREAMING_MEMORY_BACKUP_NAMESPACE,

@@ -1,6 +1,6 @@
-import type { StreamFn } from "openclaw/plugin-sdk/agent-core";
-import { registerSingleProviderPlugin } from "openclaw/plugin-sdk/plugin-test-runtime";
-import { clearLiveCatalogCacheForTests } from "openclaw/plugin-sdk/provider-catalog-live-runtime";
+import type { StreamFn } from "granted/plugin-sdk/agent-core";
+import { registerSingleProviderPlugin } from "granted/plugin-sdk/plugin-test-runtime";
+import { clearLiveCatalogCacheForTests } from "granted/plugin-sdk/provider-catalog-live-runtime";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const providerAuthRuntimeMocks = vi.hoisted(() => ({

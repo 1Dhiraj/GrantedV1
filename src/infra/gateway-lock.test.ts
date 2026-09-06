@@ -620,7 +620,7 @@ describe("gateway lock", () => {
         readProcessStartTime: () => null,
         readProcessCmdline: () => [
           "node",
-          "/srv/openclaw/openclaw.mjs",
+          "/srv/openclaw/granted.mjs",
           "doctor",
           "--state-sqlite",
           "compact",

@@ -89,7 +89,7 @@ function writeSourceToolPluginProject(params: {
   const entryPath = path.join(sourceDir, "index.ts");
   fs.writeFileSync(
     entryPath,
-    `import { defineToolPlugin } from "openclaw/plugin-sdk/tool-plugin";
+    `import { defineToolPlugin } from "granted/plugin-sdk/tool-plugin";
 
 export default defineToolPlugin({
   id: ${JSON.stringify(params.pluginId)},

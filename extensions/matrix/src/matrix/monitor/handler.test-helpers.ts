@@ -2,10 +2,10 @@
 import {
   buildChannelInboundEventContext,
   type PreparedInboundReply,
-} from "openclaw/plugin-sdk/channel-inbound";
-import type { RuntimeLogger } from "openclaw/plugin-sdk/plugin-runtime";
-import { finalizeInboundContext as finalizeCoreInboundContext } from "openclaw/plugin-sdk/reply-runtime";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime";
+} from "granted/plugin-sdk/channel-inbound";
+import type { RuntimeLogger } from "granted/plugin-sdk/plugin-runtime";
+import { finalizeInboundContext as finalizeCoreInboundContext } from "granted/plugin-sdk/reply-runtime";
+import type { RuntimeEnv } from "granted/plugin-sdk/runtime";
 import { vi, type Mock } from "vitest";
 import type {
   MatrixConfig,
@@ -191,7 +191,7 @@ export function createMatrixHandlerTestHarness(
       prepared.markRunComplete();
       prepared.markDispatchIdle();
     }
-  }) as typeof import("openclaw/plugin-sdk/reply-runtime").dispatchInboundMessageWithBufferedDispatcher;
+  }) as typeof import("granted/plugin-sdk/reply-runtime").dispatchInboundMessageWithBufferedDispatcher;
   const createChannelInboundEnvelopeBuilder = (() => (input: { body: string }) =>
     (options.formatAgentEnvelope ?? (({ body }: { body: string }) => body))({
       body: input.body,

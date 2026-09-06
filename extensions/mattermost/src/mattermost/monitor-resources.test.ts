@@ -298,7 +298,7 @@ describe("mattermost monitor resources", () => {
 
   it("times out inbound media downloads when response headers never arrive", async () => {
     const { createServer } = await import("node:http");
-    const { saveRemoteMedia } = await import("openclaw/plugin-sdk/media-runtime");
+    const { saveRemoteMedia } = await import("granted/plugin-sdk/media-runtime");
     const server = createServer((_req, _res) => {
       // Accept the connection but never write status/headers.
     });

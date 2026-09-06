@@ -1,17 +1,17 @@
 // Voice Call plugin module implements cli gateway calls.
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
 import {
   callGatewayFromCli,
   isGatewayClientRequestError,
   isGatewayTransportError,
   redactSensitiveUrlLikeString,
-} from "openclaw/plugin-sdk/gateway-runtime";
+} from "granted/plugin-sdk/gateway-runtime";
 import {
   addTimerTimeoutGraceMs,
   clampTimerTimeoutMs,
   MAX_TIMER_TIMEOUT_MS,
-} from "openclaw/plugin-sdk/number-runtime";
-import { isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/number-runtime";
+import { isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import { sleep } from "../api.js";
 import { writeCliJson } from "./cli-command-io.js";
 import type { VoiceCallConfig } from "./config.js";

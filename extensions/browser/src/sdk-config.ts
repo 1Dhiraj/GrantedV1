@@ -4,15 +4,15 @@
 export {
   getRuntimeConfig,
   getRuntimeConfigSourceSnapshot,
-} from "openclaw/plugin-sdk/runtime-config-snapshot";
-export { mutateConfigFile } from "openclaw/plugin-sdk/config-mutation";
-export type { BrowserProfileConfig, GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+} from "granted/plugin-sdk/runtime-config-snapshot";
+export { mutateConfigFile } from "granted/plugin-sdk/config-mutation";
+export type { BrowserProfileConfig, GrantedConfig } from "granted/plugin-sdk/config-contracts";
 export {
   normalizePluginsConfig,
   resolveEffectiveEnableState,
-} from "openclaw/plugin-sdk/plugin-config-runtime";
+} from "granted/plugin-sdk/plugin-config-runtime";
 export {
   CONFIG_DIR,
   escapeRegExp,
   resolveUserPath,
-} from "openclaw/plugin-sdk/text-utility-runtime";
+} from "granted/plugin-sdk/text-utility-runtime";

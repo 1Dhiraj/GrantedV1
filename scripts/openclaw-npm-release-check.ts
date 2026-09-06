@@ -355,9 +355,9 @@ export function collectReleasePackageMetadataErrors(pkg: PackageJson): string[] 
       }.`,
     );
   }
-  if (pkg.bin?.openclaw !== "openclaw.mjs") {
+  if (pkg.bin?.openclaw !== "granted.mjs") {
     errors.push(
-      `package.json bin.openclaw must be "openclaw.mjs"; found "${pkg.bin?.openclaw ?? ""}".`,
+      `package.json bin.openclaw must be "granted.mjs"; found "${pkg.bin?.openclaw ?? ""}".`,
     );
   }
   if (isLocalDependencySpec(pkg.dependencies?.[FS_SAFE_PACKAGE])) {

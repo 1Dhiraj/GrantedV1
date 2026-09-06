@@ -1,15 +1,15 @@
 // Litellm plugin entrypoint registers its OpenClaw integration.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   definePluginEntry,
   type GrantedPluginApi,
   type ProviderAuthMethodNonInteractiveContext,
-} from "openclaw/plugin-sdk/plugin-entry";
+} from "granted/plugin-sdk/plugin-entry";
 import {
   createProviderApiKeyAuthMethod,
   normalizeOptionalSecretInput,
-} from "openclaw/plugin-sdk/provider-auth";
-import { buildOpenAICompatibleProviderCatalog } from "openclaw/plugin-sdk/provider-catalog-live-runtime";
+} from "granted/plugin-sdk/provider-auth";
+import { buildOpenAICompatibleProviderCatalog } from "granted/plugin-sdk/provider-catalog-live-runtime";
 import { buildLitellmImageGenerationProvider } from "./image-generation-provider.js";
 import { applyLitellmConfig, LITELLM_DEFAULT_MODEL_REF } from "./onboard.js";
 import { buildLitellmProvider } from "./provider-catalog.js";

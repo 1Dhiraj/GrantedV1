@@ -1,12 +1,12 @@
 // Openai provider module implements model/runtime integration.
-import { bufferToBlobPart } from "openclaw/plugin-sdk/blob-runtime";
+import { bufferToBlobPart } from "granted/plugin-sdk/blob-runtime";
 import {
   downloadGeneratedVideoAsset,
   resolveGeneratedMediaMaxBytes,
-} from "openclaw/plugin-sdk/media-generation-runtime";
-import { extensionForMime, type MediaKind } from "openclaw/plugin-sdk/media-mime";
-import { isProviderApiKeyConfigured } from "openclaw/plugin-sdk/provider-auth";
-import { resolveApiKeyForProvider } from "openclaw/plugin-sdk/provider-auth-runtime";
+} from "granted/plugin-sdk/media-generation-runtime";
+import { extensionForMime, type MediaKind } from "granted/plugin-sdk/media-mime";
+import { isProviderApiKeyConfigured } from "granted/plugin-sdk/provider-auth";
+import { resolveApiKeyForProvider } from "granted/plugin-sdk/provider-auth-runtime";
 import {
   assertOkOrThrowHttpError,
   createProviderOperationDeadline,
@@ -21,13 +21,13 @@ import {
   resolveProviderHttpRequestConfig,
   sanitizeConfiguredModelProviderRequest,
   type ProviderOperationTimeoutMs,
-} from "openclaw/plugin-sdk/provider-http";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/provider-http";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import type {
   GeneratedVideoAsset,
   VideoGenerationProvider,
   VideoGenerationRequest,
-} from "openclaw/plugin-sdk/video-generation";
+} from "granted/plugin-sdk/video-generation";
 import { resolveConfiguredOpenAIBaseUrl } from "./shared.js";
 
 const DEFAULT_OPENAI_VIDEO_BASE_URL = "https://api.openai.com/v1";

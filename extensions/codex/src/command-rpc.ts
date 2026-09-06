@@ -1,9 +1,9 @@
-import { prepareAgentRuntimeAuth } from "openclaw/plugin-sdk/agent-harness-runtime";
-import { resolveAgentDir, resolveAgentWorkspaceDir } from "openclaw/plugin-sdk/agent-runtime";
-import { resolveSessionAgentIdsStrict } from "openclaw/plugin-sdk/agent-scope-runtime";
-import { resolveSessionModelRef } from "openclaw/plugin-sdk/model-session-runtime";
-import { resolveApiKeyForProvider } from "openclaw/plugin-sdk/provider-auth-runtime";
-import { getSessionEntry, resolveStorePath } from "openclaw/plugin-sdk/session-store-runtime";
+import { prepareAgentRuntimeAuth } from "granted/plugin-sdk/agent-harness-runtime";
+import { resolveAgentDir, resolveAgentWorkspaceDir } from "granted/plugin-sdk/agent-runtime";
+import { resolveSessionAgentIdsStrict } from "granted/plugin-sdk/agent-scope-runtime";
+import { resolveSessionModelRef } from "granted/plugin-sdk/model-session-runtime";
+import { resolveApiKeyForProvider } from "granted/plugin-sdk/provider-auth-runtime";
+import { getSessionEntry, resolveStorePath } from "granted/plugin-sdk/session-store-runtime";
 import { closeCodexStartupClientBestEffort } from "./app-server/attempt-client-cleanup.js";
 import { prepareCodexAppServerAuthBinding } from "./app-server/auth-binding.js";
 import {

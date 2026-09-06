@@ -6,7 +6,7 @@ import { createHash } from "node:crypto";
 import {
   emitTrustedDiagnosticEventWithPrivateData,
   type DiagnosticModelCallContent,
-} from "openclaw/plugin-sdk/diagnostic-runtime";
+} from "granted/plugin-sdk/diagnostic-runtime";
 import type { CodexAppServerRuntimeOptions, resolveCodexPluginsPolicy } from "./config.js";
 
 type TrustedDiagnosticEventInput = Parameters<typeof emitTrustedDiagnosticEventWithPrivateData>[0];

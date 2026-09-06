@@ -1,6 +1,6 @@
 import path from "node:path";
-import { disposeRegisteredAgentHarnesses } from "openclaw/plugin-sdk/agent-harness";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
+import { disposeRegisteredAgentHarnesses } from "granted/plugin-sdk/agent-harness";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
 import type { QaLabLatestReport } from "./lab-server.types.js";
 import {
   formatQaScenarioFailureSuffix,

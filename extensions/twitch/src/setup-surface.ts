@@ -1,10 +1,10 @@
-import { normalizeOptionalAccountId } from "openclaw/plugin-sdk/account-id";
-import { createChannelDmPolicy } from "openclaw/plugin-sdk/channel-dm-policy";
+import { normalizeOptionalAccountId } from "granted/plugin-sdk/account-id";
+import { createChannelDmPolicy } from "granted/plugin-sdk/channel-dm-policy";
 /**
  * Twitch setup wizard surface for CLI setup.
  */
-import { defineChannelSetupContract } from "openclaw/plugin-sdk/channel-setup";
-import { getChatChannelMeta, type ChannelPlugin } from "openclaw/plugin-sdk/core";
+import { defineChannelSetupContract } from "granted/plugin-sdk/channel-setup";
+import { getChatChannelMeta, type ChannelPlugin } from "granted/plugin-sdk/core";
 import {
   formatDocsLink,
   type ChannelSetupAdapter,
@@ -15,8 +15,8 @@ import {
   normalizeAccountId,
   createSetupTranslator,
   setSetupChannelEnabled,
-} from "openclaw/plugin-sdk/setup";
-import { normalizeStringEntries } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/setup";
+import { normalizeStringEntries } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   DEFAULT_ACCOUNT_ID,
   getAccountConfig,

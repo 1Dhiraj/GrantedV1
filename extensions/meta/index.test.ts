@@ -11,9 +11,9 @@ import {
   type StreamFunction,
 } from "@openclaw/ai";
 import { prepareModelForSimpleCompletion } from "@openclaw/ai/transports";
-import type { StreamFn } from "openclaw/plugin-sdk/agent-core";
-import { streamSimple, type Context, type Model } from "openclaw/plugin-sdk/llm";
-import { capturePluginRegistration } from "openclaw/plugin-sdk/plugin-test-runtime";
+import type { StreamFn } from "granted/plugin-sdk/agent-core";
+import { streamSimple, type Context, type Model } from "granted/plugin-sdk/llm";
+import { capturePluginRegistration } from "granted/plugin-sdk/plugin-test-runtime";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { buildMetaProvider } from "./api.js";
 import plugin from "./index.js";

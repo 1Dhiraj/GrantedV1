@@ -2,8 +2,8 @@ import type {
   AnyAgentTool,
   GrantedPluginApi,
   GrantedPluginToolContext,
-} from "openclaw/plugin-sdk/core";
-import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
+} from "granted/plugin-sdk/core";
+import { createTestPluginApi } from "granted/plugin-sdk/plugin-test-api";
 // Whatsapp tests cover agent tools login plugin behavior.
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { startWebLoginWithQr, waitForWebLogin } from "../login-qr-api.js";

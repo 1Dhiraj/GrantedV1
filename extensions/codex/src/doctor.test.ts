@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import type { HealthCheck, GrantedConfig } from "openclaw/plugin-sdk/health";
+import type { HealthCheck, GrantedConfig } from "granted/plugin-sdk/health";
 import { describe, expect, it, vi } from "vitest";
 import { CODEX_APP_SERVER_VERSION } from "./app-server/version.js";
 import {

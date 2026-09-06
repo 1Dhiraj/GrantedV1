@@ -1,10 +1,10 @@
 // Deepinfra tests cover onboard plugin behavior.
-import * as providerAuth from "openclaw/plugin-sdk/provider-auth-runtime";
+import * as providerAuth from "granted/plugin-sdk/provider-auth-runtime";
 import {
   type GrantedConfig,
   resolveAgentModelPrimaryValue,
-} from "openclaw/plugin-sdk/provider-onboard";
-import { captureEnv } from "openclaw/plugin-sdk/test-env";
+} from "granted/plugin-sdk/provider-onboard";
+import { captureEnv } from "granted/plugin-sdk/test-env";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { applyDeepInfraConfig } from "./onboard.js";
 import {

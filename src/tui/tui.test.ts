@@ -72,7 +72,7 @@ describe("resolveTuiLocalAuthCliInvocation", () => {
   it("filters inspector flags while preserving the current CLI runtime context", () => {
     const originalArgv = [...process.argv];
     try {
-      const cliEntry = path.resolve("openclaw.mjs");
+      const cliEntry = path.resolve("granted.mjs");
       process.argv[1] = cliEntry;
 
       expect(

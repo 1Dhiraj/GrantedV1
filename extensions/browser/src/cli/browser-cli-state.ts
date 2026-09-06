@@ -3,11 +3,11 @@
  * HTTP context settings.
  */
 import type { Command } from "commander";
-import { parseStrictFiniteNumber } from "openclaw/plugin-sdk/number-runtime";
+import { parseStrictFiniteNumber } from "granted/plugin-sdk/number-runtime";
 import {
   normalizeOptionalLowercaseString,
   normalizeOptionalString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import { parseBrowserViewportDimension, runBrowserResizeWithOutput } from "./browser-cli-resize.js";
 import {
   BROWSER_TAB_REFERENCE_HELP,

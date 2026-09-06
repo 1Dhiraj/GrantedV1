@@ -1,5 +1,5 @@
 // Tests user-facing pairing messages and setup command copy.
-import { expectPairingReplyText } from "openclaw/plugin-sdk/channel-test-helpers";
+import { expectPairingReplyText } from "granted/plugin-sdk/channel-test-helpers";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { captureEnv } from "../test-utils/env.js";
 import { buildPairingReply } from "./pairing-messages.js";

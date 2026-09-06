@@ -1,7 +1,7 @@
 // Qa Lab plugin module implements docker up behavior.
 import path from "node:path";
 import { setTimeout as sleep } from "node:timers/promises";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
 import { writeQaDockerHarnessFiles } from "./docker-harness.js";
 import {
   execCommand,

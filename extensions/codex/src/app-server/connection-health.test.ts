@@ -1,4 +1,4 @@
-import type { GrantedPluginServiceContext } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginServiceContext } from "granted/plugin-sdk/plugin-entry";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import type { CodexAppServerClient } from "./client.js";
 import { createCodexAppServerConnectionHealthService } from "./connection-health.js";

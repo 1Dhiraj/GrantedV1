@@ -1,7 +1,7 @@
 import crypto from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
-import { resolveStateDir } from "openclaw/plugin-sdk/state-paths";
+import { resolveStateDir } from "granted/plugin-sdk/state-paths";
 import {
   assertOwnedPath,
   chromeProductRoots,

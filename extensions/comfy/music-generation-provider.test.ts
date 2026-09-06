@@ -1,5 +1,5 @@
 // Comfy tests cover music generation provider plugin behavior.
-import { expectExplicitMusicGenerationCapabilities } from "openclaw/plugin-sdk/provider-test-contracts";
+import { expectExplicitMusicGenerationCapabilities } from "granted/plugin-sdk/provider-test-contracts";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { buildComfyMusicGenerationProvider } from "./music-generation-provider.js";
 
@@ -8,7 +8,7 @@ const { fetchWithSsrFGuardMock } = vi.hoisted(() => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/ssrf-runtime", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("openclaw/plugin-sdk/ssrf-runtime")>()),
+  ...(await importOriginal<typeof import("granted/plugin-sdk/ssrf-runtime")>()),
   fetchWithSsrFGuard: fetchWithSsrFGuardMock,
 }));
 

@@ -2,12 +2,12 @@
 import {
   addTimerTimeoutGraceMs,
   resolvePositiveTimerTimeoutMs,
-} from "openclaw/plugin-sdk/number-runtime";
+} from "granted/plugin-sdk/number-runtime";
 import {
   REALTIME_VOICE_AGENT_CONSULT_TOOL_NAME,
   resolveRealtimeVoiceAgentConsultToolPolicy,
   type RealtimeVoiceAgentConsultToolPolicy,
-} from "openclaw/plugin-sdk/realtime-voice";
+} from "granted/plugin-sdk/realtime-voice";
 import {
   asBoolean,
   asRecord,
@@ -15,7 +15,7 @@ import {
   normalizeOptionalString,
   normalizeOptionalTrimmedStringList,
   parseBooleanValue,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 
 export type GoogleMeetTransport = "chrome" | "chrome-node" | "twilio";
 export type GoogleMeetMode = "agent" | "bidi" | "transcribe";

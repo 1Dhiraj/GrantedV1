@@ -1,5 +1,5 @@
 // Slack tests cover shared plugin behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { describe, expect, it } from "vitest";
 import { slackSetupPlugin } from "./channel.setup.js";
 import { setSlackChannelAllowlist } from "./setup-shared.js";

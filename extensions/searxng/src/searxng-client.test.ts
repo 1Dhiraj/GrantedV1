@@ -1,6 +1,6 @@
 // Searxng tests cover searxng client plugin behavior.
 import { expectDefined } from "@openclaw/normalization-core";
-import type { LookupFn } from "openclaw/plugin-sdk/ssrf-runtime";
+import type { LookupFn } from "granted/plugin-sdk/ssrf-runtime";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const endpointMockState = vi.hoisted(() => ({
@@ -14,7 +14,7 @@ const endpointMockState = vi.hoisted(() => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/provider-web-search", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/provider-web-search")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/provider-web-search")>();
   const runEndpoint = async (
     params: { url: string; timeoutSeconds: number; init: RequestInit; signal?: AbortSignal },
     run: (response: Response) => Promise<unknown>,

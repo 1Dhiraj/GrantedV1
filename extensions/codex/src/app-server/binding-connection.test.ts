@@ -2,7 +2,7 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { describe, expect, it } from "vitest";
 import { createCodexCatalogHomeResolver } from "../session-catalog-homes.js";
 import { resolveCodexAppServerHomeDir } from "./auth-start-options.js";

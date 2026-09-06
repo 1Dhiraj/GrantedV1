@@ -1,4 +1,4 @@
-import { sleep, type RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
+import { sleep, type RuntimeEnv } from "granted/plugin-sdk/runtime-env";
 
 const GATEWAY_RELOAD_WAIT_MS = 15_000;
 const GATEWAY_RELOAD_POLL_MS = 500;
@@ -56,7 +56,7 @@ export async function verifyBuzzAfterSetup(params: {
   runtime: RuntimeEnv;
 }): Promise<void> {
   try {
-    const { callGatewayFromCli } = await import("openclaw/plugin-sdk/gateway-runtime");
+    const { callGatewayFromCli } = await import("granted/plugin-sdk/gateway-runtime");
     const reloadDeadline = Date.now() + GATEWAY_RELOAD_WAIT_MS;
     let reloadPending = false;
     while (true) {

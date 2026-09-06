@@ -5,11 +5,11 @@ import type { AnyMessageContent, MiscMessageGenerationOptions, WAMessage } from 
 import {
   createChannelPartialDeliveryError,
   isChannelPartialDeliveryError,
-} from "openclaw/plugin-sdk/channel-inbound";
-import { listMessageReceiptPlatformIds } from "openclaw/plugin-sdk/channel-outbound";
-import { PlatformMessageNotDispatchedError } from "openclaw/plugin-sdk/error-runtime";
+} from "granted/plugin-sdk/channel-inbound";
+import { listMessageReceiptPlatformIds } from "granted/plugin-sdk/channel-outbound";
+import { PlatformMessageNotDispatchedError } from "granted/plugin-sdk/error-runtime";
 // Whatsapp tests cover send api plugin behavior.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { prepareWhatsAppOutboundMedia } from "../outbound-media-contract.js";
 import { markdownToWhatsApp } from "../text-runtime.js";
@@ -25,7 +25,7 @@ const imageOps = vi.hoisted(() => ({
 
 vi.mock("openclaw/plugin-sdk/channel-activity-runtime", async () => {
   const actual = await vi.importActual<
-    typeof import("openclaw/plugin-sdk/channel-activity-runtime")
+    typeof import("granted/plugin-sdk/channel-activity-runtime")
   >("openclaw/plugin-sdk/channel-activity-runtime");
   return {
     ...actual,
@@ -34,7 +34,7 @@ vi.mock("openclaw/plugin-sdk/channel-activity-runtime", async () => {
 });
 
 vi.mock("openclaw/plugin-sdk/media-runtime", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/media-runtime")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/media-runtime")>(
     "openclaw/plugin-sdk/media-runtime",
   );
   return {

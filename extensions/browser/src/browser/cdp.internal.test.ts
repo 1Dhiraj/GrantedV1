@@ -1,4 +1,4 @@
-import { rawDataToString } from "openclaw/plugin-sdk/webhook-ingress";
+import { rawDataToString } from "granted/plugin-sdk/webhook-ingress";
 // Browser tests cover cdp.internal plugin behavior.
 import { afterEach, describe, expect, it } from "vitest";
 import { WebSocketServer } from "ws";

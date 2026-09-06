@@ -1,5 +1,5 @@
 // Slack tests cover config schema plugin behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { describe, expect, it } from "vitest";
 import { SlackConfigSchema } from "../config-api.js";
 import { listSlackAccountIds, resolveSlackAccount } from "./accounts.js";

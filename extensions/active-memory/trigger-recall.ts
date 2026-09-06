@@ -1,11 +1,11 @@
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import {
   isAutomaticMemoryEntryEligible,
   stripMemoryAnnotationCarriers,
   type MemorySearchResult,
-} from "openclaw/plugin-sdk/memory-core-host-engine-storage";
-import { getActiveMemorySearchManager } from "openclaw/plugin-sdk/memory-host-search";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+} from "granted/plugin-sdk/memory-core-host-engine-storage";
+import { getActiveMemorySearchManager } from "granted/plugin-sdk/memory-host-search";
+import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import { buildPromptPrefix } from "./prompt.js";
 
 const TRIGGER_CANDIDATE_LIMIT = 24;

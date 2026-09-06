@@ -1,4 +1,4 @@
-import type { AssistantMessage } from "openclaw/plugin-sdk/llm";
+import type { AssistantMessage } from "granted/plugin-sdk/llm";
 import { describe, expect, it, vi } from "vitest";
 import { makeAttemptResult } from "./run.overflow-compaction.fixture.js";
 import { handleEmbeddedAssistantFailure } from "./run/assistant-failure.js";

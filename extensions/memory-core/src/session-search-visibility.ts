@@ -1,24 +1,24 @@
-import { resolveSessionAgentIdStrict } from "openclaw/plugin-sdk/agent-scope-runtime";
+import { resolveSessionAgentIdStrict } from "granted/plugin-sdk/agent-scope-runtime";
 // Memory Core plugin module implements session search visibility behavior.
-import { buildSessionEntry } from "openclaw/plugin-sdk/memory-core-host-engine-sessions";
+import { buildSessionEntry } from "granted/plugin-sdk/memory-core-host-engine-sessions";
 import {
   resolveCanonicalMainSessionKey,
   type GrantedConfig,
-} from "openclaw/plugin-sdk/memory-core-host-runtime-core";
-import type { MemorySearchResult } from "openclaw/plugin-sdk/memory-core-host-runtime-files";
-import type { GrantedPluginToolContext } from "openclaw/plugin-sdk/plugin-entry";
-import { sessionDeliveryOrigin } from "openclaw/plugin-sdk/session-store-runtime";
+} from "granted/plugin-sdk/memory-core-host-runtime-core";
+import type { MemorySearchResult } from "granted/plugin-sdk/memory-core-host-runtime-files";
+import type { GrantedPluginToolContext } from "granted/plugin-sdk/plugin-entry";
+import { sessionDeliveryOrigin } from "granted/plugin-sdk/session-store-runtime";
 import {
   extractTranscriptIdentityFromSessionsMemoryHit,
   loadCombinedSessionStoreForGateway,
   resolveTranscriptStemToSessionKeys,
-} from "openclaw/plugin-sdk/session-transcript-hit";
+} from "granted/plugin-sdk/session-transcript-hit";
 import {
   createAgentToAgentPolicy,
   createSessionVisibilityGuard,
   resolveEffectiveSessionToolsVisibility,
   resolveSandboxSessionToolsVisibility,
-} from "openclaw/plugin-sdk/session-visibility";
+} from "granted/plugin-sdk/session-visibility";
 import {
   readSessionArchiveReasonFromHitPath,
   readSessionResetRecallCutoffMetadata,

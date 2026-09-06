@@ -1,8 +1,8 @@
 import fs from "node:fs/promises";
 import type { FileHandle } from "node:fs/promises";
 import path from "node:path";
-import type { SessionUpstreamProbe } from "openclaw/plugin-sdk/session-catalog";
-import { resolvePreferredOpenClawTmpDir, tempWorkspace } from "openclaw/plugin-sdk/temp-path";
+import type { SessionUpstreamProbe } from "granted/plugin-sdk/session-catalog";
+import { resolvePreferredOpenClawTmpDir, tempWorkspace } from "granted/plugin-sdk/temp-path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { checkClaudeUpstreamActivity, linkContinued } from "./session-upstream-activity.js";
 

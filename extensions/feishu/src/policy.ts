@@ -2,16 +2,16 @@
 import {
   normalizeAccountId,
   resolveMergedAccountConfig,
-} from "openclaw/plugin-sdk/account-resolution";
+} from "granted/plugin-sdk/account-resolution";
 import {
   createChannelIngressResolver,
   defineStableChannelIngressIdentity,
   type ChannelIngressContextBinding,
   type ChannelIngressIdentitySubjectInput,
   type ResolveChannelMessageIngressParams,
-} from "openclaw/plugin-sdk/channel-ingress-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/core";
-import { normalizeOptionalLowercaseString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/channel-ingress-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/core";
+import { normalizeOptionalLowercaseString } from "granted/plugin-sdk/string-coerce-runtime";
 import type { ChannelGroupContext } from "../runtime-api.js";
 import { detectIdType } from "./targets.js";
 import type { FeishuConfig } from "./types.js";

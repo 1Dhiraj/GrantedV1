@@ -68,7 +68,7 @@ pnpm openclaw setup --baseline
 After `pnpm build`, you can run the packaged CLI directly:
 
 ```bash
-node openclaw.mjs gateway --port 18789 --verbose
+node granted.mjs gateway --port 18789 --verbose
 ```
 
 ## Stable workflow (macOS app first)

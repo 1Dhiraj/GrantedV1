@@ -8,20 +8,20 @@ import {
   embeddedAgentLog,
   type AgentMessage,
   type EmbeddedRunAttemptParamsV2 as EmbeddedRunAttemptParams,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
+} from "granted/plugin-sdk/agent-harness-runtime";
 import {
   initializeGlobalHookRunner,
   resetGlobalHookRunner,
-} from "openclaw/plugin-sdk/hook-runtime";
-import type { AssistantMessage } from "openclaw/plugin-sdk/llm";
-import { createMockPluginRegistry } from "openclaw/plugin-sdk/plugin-test-runtime";
-import { upsertSessionEntry } from "openclaw/plugin-sdk/session-store-runtime";
-import { readSessionTranscriptEvents } from "openclaw/plugin-sdk/session-transcript-runtime";
+} from "granted/plugin-sdk/hook-runtime";
+import type { AssistantMessage } from "granted/plugin-sdk/llm";
+import { createMockPluginRegistry } from "granted/plugin-sdk/plugin-test-runtime";
+import { upsertSessionEntry } from "granted/plugin-sdk/session-store-runtime";
+import { readSessionTranscriptEvents } from "granted/plugin-sdk/session-transcript-runtime";
 import {
   castAgentMessage,
   makeAgentAssistantMessage,
   makeAgentUserMessage,
-} from "openclaw/plugin-sdk/test-fixtures";
+} from "granted/plugin-sdk/test-fixtures";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import type { CodexThread } from "./protocol.js";
 import { readCodexMirroredSessionHistoryMessages } from "./session-history.js";
@@ -44,7 +44,7 @@ const publishSessionTranscriptUpdateByIdentityMock = vi.hoisted(() => vi.fn());
 
 vi.mock("openclaw/plugin-sdk/session-transcript-runtime", async (importOriginal) => {
   const actual =
-    await importOriginal<typeof import("openclaw/plugin-sdk/session-transcript-runtime")>();
+    await importOriginal<typeof import("granted/plugin-sdk/session-transcript-runtime")>();
   return {
     ...actual,
     publishSessionTranscriptUpdateByIdentity: publishSessionTranscriptUpdateByIdentityMock,

@@ -2,10 +2,10 @@
 import { randomUUID } from "node:crypto";
 import path from "node:path";
 import { setTimeout as sleep } from "node:timers/promises";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { toStringifiedError } from "openclaw/plugin-sdk/error-runtime";
-import { buildQaTarget } from "openclaw/plugin-sdk/qa-channel-protocol";
-import type { QaRunnerCliRegistration } from "openclaw/plugin-sdk/qa-runner-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { toStringifiedError } from "granted/plugin-sdk/error-runtime";
+import { buildQaTarget } from "granted/plugin-sdk/qa-channel-protocol";
+import type { QaRunnerCliRegistration } from "granted/plugin-sdk/qa-runner-runtime";
 import { readQaScenarioExecutionConfig } from "../../scenario-catalog.js";
 import { createMatrixQaScenarioEnvironment } from "./scenarios/scenario-environment.js";
 import { createMatrixQaClient, provisionMatrixQaRoom } from "./substrate/client.js";

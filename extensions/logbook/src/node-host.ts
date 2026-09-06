@@ -4,9 +4,9 @@
 import { randomUUID } from "node:crypto";
 import { chmod, mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
-import { runExec } from "openclaw/plugin-sdk/process-runtime";
-import { asFiniteNumber } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { resolvePreferredOpenClawTmpDir } from "openclaw/plugin-sdk/temp-path";
+import { runExec } from "granted/plugin-sdk/process-runtime";
+import { asFiniteNumber } from "granted/plugin-sdk/string-coerce-runtime";
+import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
 
 type LogbookSnapshotParams = {
   screenIndex?: number;

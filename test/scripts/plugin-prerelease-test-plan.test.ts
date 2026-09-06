@@ -319,7 +319,7 @@ describe("scripts/lib/plugin-prerelease-test-plan.mts", () => {
     );
     expect(assertionsScript).toContain("!INVALID_PROBE_DIAGNOSTIC_SURFACE_MODES.has(surfaceMode)");
     expect(readFileSync("scripts/e2e/lib/clawhub-fixture-server.cjs", "utf8")).toContain(
-      'from "openclaw/plugin-sdk/plugin-entry"',
+      'from "granted/plugin-sdk/plugin-entry"',
     );
     expect(readFileSync("scripts/e2e/lib/clawhub-fixture-server.cjs", "utf8")).toContain(
       "X-ClawHub-Artifact-Sha256",
@@ -346,7 +346,7 @@ describe("scripts/lib/plugin-prerelease-test-plan.mts", () => {
       timeoutMs: 1_500_000,
       weight: 3,
     });
-    expect(script).toContain("GRANTED_ENTRY=/app/openclaw.mjs");
+    expect(script).toContain("GRANTED_ENTRY=/app/granted.mjs");
     expect(script).toContain("GRANTED_KITCHEN_SINK_COMMAND_MAX_RSS_MIB");
     expect(script).toContain("docker_e2e_sample_stats_until_exit");
     expect(script).toContain("scripts/e2e/lib/docker-stats/assert-resource-ceiling.mjs");

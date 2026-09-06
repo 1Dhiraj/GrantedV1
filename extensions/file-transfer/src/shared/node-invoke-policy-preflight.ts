@@ -1,8 +1,8 @@
 import type {
   GrantedPluginNodeInvokePolicyContext,
   GrantedPluginNodeInvokePolicyResult,
-} from "openclaw/plugin-sdk/plugin-entry";
-import { asNullableRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/plugin-entry";
+import { asNullableRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import { appendFileTransferAudit, type FileTransferAuditOp } from "./audit.js";
 import { type GrantedAuthorization, promptVerb } from "./node-invoke-policy-approval.js";
 import { readPathBinding, type PathBinding } from "./path-binding.js";

@@ -1,10 +1,10 @@
 // Discord tests cover native command.commands allowfrom plugin behavior.
 import { ChannelType } from "discord-api-types/v10";
-import type { dispatchChannelInboundTurn } from "openclaw/plugin-sdk/channel-inbound";
-import type { NativeCommandSpec } from "openclaw/plugin-sdk/command-auth-native";
-import type { GrantedConfig, DiscordAccountConfig } from "openclaw/plugin-sdk/config-contracts";
-import { matchPluginCommand } from "openclaw/plugin-sdk/plugin-runtime";
-import * as dispatcherModule from "openclaw/plugin-sdk/reply-dispatch-runtime";
+import type { dispatchChannelInboundTurn } from "granted/plugin-sdk/channel-inbound";
+import type { NativeCommandSpec } from "granted/plugin-sdk/command-auth-native";
+import type { GrantedConfig, DiscordAccountConfig } from "granted/plugin-sdk/config-contracts";
+import { matchPluginCommand } from "granted/plugin-sdk/plugin-runtime";
+import * as dispatcherModule from "granted/plugin-sdk/reply-dispatch-runtime";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { defineThrowingDiscordChannelGetter } from "../test-support/partial-channel.js";
 import { createDiscordNativeCommand } from "./native-command.js";

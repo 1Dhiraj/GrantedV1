@@ -1,7 +1,7 @@
 // Proxy stream wrapper tests cover wrapper selection and provider passthrough.
-import type { StreamFn } from "openclaw/plugin-sdk/agent-core";
-import type { Context, Model } from "openclaw/plugin-sdk/llm";
-import { createAssistantMessageEventStream } from "openclaw/plugin-sdk/llm";
+import type { StreamFn } from "granted/plugin-sdk/agent-core";
+import type { Context, Model } from "granted/plugin-sdk/llm";
+import { createAssistantMessageEventStream } from "granted/plugin-sdk/llm";
 import { describe, expect, it } from "vitest";
 import { createOpenRouterSystemCacheWrapper, createOpenRouterWrapper } from "./proxy.js";
 

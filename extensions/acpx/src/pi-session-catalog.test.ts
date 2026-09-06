@@ -1,11 +1,11 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedPluginApi } from "granted/plugin-sdk/plugin-entry";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 type ResolveAcpSessionAvailability =
-  (typeof import("openclaw/plugin-sdk/acp-runtime"))["resolveAcpSessionAvailability"];
+  (typeof import("granted/plugin-sdk/acp-runtime"))["resolveAcpSessionAvailability"];
 
 const nodeHostMocks = vi.hoisted(() => ({
   runNodePtyCommand: vi.fn(async () => ({ exitCode: 0 })),
@@ -15,12 +15,12 @@ const acpRuntimeMocks = vi.hoisted(() => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/acp-runtime", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("openclaw/plugin-sdk/acp-runtime")>()),
+  ...(await importOriginal<typeof import("granted/plugin-sdk/acp-runtime")>()),
   resolveAcpSessionAvailability: acpRuntimeMocks.resolveAcpSessionAvailability,
 }));
 
 vi.mock("openclaw/plugin-sdk/node-host", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/node-host")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/node-host")>();
   return {
     ...actual,
     runNodePtyCommand: nodeHostMocks.runNodePtyCommand,

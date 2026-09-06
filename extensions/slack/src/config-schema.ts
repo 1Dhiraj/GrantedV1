@@ -15,8 +15,8 @@ import {
   ReplyToModeSchema,
   requireAllowlistAllowFrom,
   requireOpenAllowFrom,
-} from "openclaw/plugin-sdk/channel-config-schema";
-import { buildSecretInputSchema, hasConfiguredSecretInput } from "openclaw/plugin-sdk/secret-input";
+} from "granted/plugin-sdk/channel-config-schema";
+import { buildSecretInputSchema, hasConfiguredSecretInput } from "granted/plugin-sdk/secret-input";
 import { z } from "zod";
 import { slackChannelConfigUiHints } from "./config-ui-hints.js";
 

@@ -1,7 +1,7 @@
 // Canvas tests cover copy a2ui plugin behavior.
 import fs from "node:fs/promises";
 import path from "node:path";
-import { resolvePreferredOpenClawTmpDir, withTempWorkspace } from "openclaw/plugin-sdk/temp-path";
+import { resolvePreferredOpenClawTmpDir, withTempWorkspace } from "granted/plugin-sdk/temp-path";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { copyA2uiAssets } from "./copy-a2ui.mjs";
 

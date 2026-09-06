@@ -1,8 +1,8 @@
 /**
  * Response-body retrieval for Playwright-backed browser tools.
  */
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
+import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import type { Response } from "playwright-core";
 import { toErrorObject } from "../infra/errors.js";
 import { ensurePageState, getPageForTargetId } from "./pw-session.js";

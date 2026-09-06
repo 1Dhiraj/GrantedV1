@@ -3,9 +3,9 @@ import {
   parseAgentSessionKey,
   type MemoryCitationsMode,
   type GrantedConfig,
-} from "openclaw/plugin-sdk/memory-core-host-runtime-core";
-import type { MemorySearchResult } from "openclaw/plugin-sdk/memory-core-host-runtime-files";
-import { normalizeLowercaseStringOrEmpty } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/memory-core-host-runtime-core";
+import type { MemorySearchResult } from "granted/plugin-sdk/memory-core-host-runtime-files";
+import { normalizeLowercaseStringOrEmpty } from "granted/plugin-sdk/string-coerce-runtime";
 
 export function resolveMemoryCitationsMode(cfg: GrantedConfig): MemoryCitationsMode {
   const mode = cfg.memory?.citations;

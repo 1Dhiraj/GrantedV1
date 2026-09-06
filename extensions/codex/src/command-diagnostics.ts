@@ -1,7 +1,7 @@
-import { resolveAgentDir } from "openclaw/plugin-sdk/agent-runtime";
-import type { PluginCommandContext, PluginCommandResult } from "openclaw/plugin-sdk/plugin-entry";
-import { parseAgentSessionKey } from "openclaw/plugin-sdk/routing";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { resolveAgentDir } from "granted/plugin-sdk/agent-runtime";
+import type { PluginCommandContext, PluginCommandResult } from "granted/plugin-sdk/plugin-entry";
+import { parseAgentSessionKey } from "granted/plugin-sdk/routing";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import { resolveCodexAppServerAuthProfileIdForAgent } from "./app-server/auth-bridge.js";
 import { resolveCodexBindingAppServerConnection } from "./app-server/binding-connection.js";
 import { isJsonObject } from "./app-server/protocol.js";

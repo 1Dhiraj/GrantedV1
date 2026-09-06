@@ -1,7 +1,7 @@
 // Slack tests cover replies plugin behavior.
-import { createMessageReceiptFromOutboundResults } from "openclaw/plugin-sdk/channel-outbound";
-import { PlatformMessageNotDispatchedError } from "openclaw/plugin-sdk/error-runtime";
-import { createReplyDispatcher } from "openclaw/plugin-sdk/reply-runtime";
+import { createMessageReceiptFromOutboundResults } from "granted/plugin-sdk/channel-outbound";
+import { PlatformMessageNotDispatchedError } from "granted/plugin-sdk/error-runtime";
+import { createReplyDispatcher } from "granted/plugin-sdk/reply-runtime";
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 
 const sendMock = vi.fn();
@@ -16,7 +16,7 @@ const messageHookRunner = vi.hoisted(() => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/hook-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/hook-runtime")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/hook-runtime")>();
   return {
     ...actual,
     triggerInternalHook,
@@ -24,7 +24,7 @@ vi.mock("openclaw/plugin-sdk/hook-runtime", async (importOriginal) => {
 });
 
 vi.mock("openclaw/plugin-sdk/plugin-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/plugin-runtime")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/plugin-runtime")>();
   return {
     ...actual,
     getGlobalHookRunner: () => messageHookRunner,

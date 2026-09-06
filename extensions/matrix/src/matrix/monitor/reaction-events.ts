@@ -1,10 +1,10 @@
 // Matrix plugin module implements reaction events behavior.
-import type { ApprovalResolveResult } from "openclaw/plugin-sdk/approval-gateway-runtime";
-import type { ChannelApprovalKind } from "openclaw/plugin-sdk/approval-handler-runtime";
-import { isApprovalNotFoundError } from "openclaw/plugin-sdk/error-runtime";
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
-import { normalizeAccountId } from "openclaw/plugin-sdk/routing";
-import { getSessionBindingService } from "openclaw/plugin-sdk/session-binding-runtime";
+import type { ApprovalResolveResult } from "granted/plugin-sdk/approval-gateway-runtime";
+import type { ChannelApprovalKind } from "granted/plugin-sdk/approval-handler-runtime";
+import { isApprovalNotFoundError } from "granted/plugin-sdk/error-runtime";
+import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
+import { normalizeAccountId } from "granted/plugin-sdk/routing";
+import { getSessionBindingService } from "granted/plugin-sdk/session-binding-runtime";
 import {
   resolveMatrixApprovalReactionTargetWithPersistence,
   unregisterMatrixApprovalReactionTargetsForApproval,
@@ -23,7 +23,7 @@ const loadApprovalReactionAuth = createLazyRuntimeModule(
 );
 
 const loadExecApprovalResolver = createLazyRuntimeModule(
-  () => import("openclaw/plugin-sdk/approval-gateway-runtime"),
+  () => import("granted/plugin-sdk/approval-gateway-runtime"),
 );
 
 const loadMatrixSend = createLazyRuntimeModule(() => import("../send.js"));

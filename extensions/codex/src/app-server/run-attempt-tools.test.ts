@@ -1,4 +1,4 @@
-import type { EmbeddedRunAttemptParamsV2 as EmbeddedRunAttemptParams } from "openclaw/plugin-sdk/agent-harness-runtime";
+import type { EmbeddedRunAttemptParamsV2 as EmbeddedRunAttemptParams } from "granted/plugin-sdk/agent-harness-runtime";
 import { describe, expect, it } from "vitest";
 import { resolveCodexDynamicToolDirectNames } from "./run-attempt-tools.js";
 

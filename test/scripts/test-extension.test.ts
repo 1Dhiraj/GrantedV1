@@ -13,7 +13,7 @@ import {
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
-import { bundledPluginFile, bundledPluginRoot } from "openclaw/plugin-sdk/test-fixtures";
+import { bundledPluginFile, bundledPluginRoot } from "granted/plugin-sdk/test-fixtures";
 import { beforeAll, describe, expect, it, vi } from "vitest";
 import {
   detectChangedExtensionIds,

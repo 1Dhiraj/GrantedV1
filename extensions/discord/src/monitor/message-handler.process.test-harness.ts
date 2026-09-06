@@ -1,6 +1,6 @@
 // Discord tests cover message handler.process plugin behavior.
-import type { ReplyPayload } from "openclaw/plugin-sdk/reply-dispatch-runtime";
-import { setReplyPayloadMetadata } from "openclaw/plugin-sdk/reply-payload-testing";
+import type { ReplyPayload } from "granted/plugin-sdk/reply-dispatch-runtime";
+import { setReplyPayloadMetadata } from "granted/plugin-sdk/reply-payload-testing";
 import { afterEach, beforeAll, beforeEach, vi } from "vitest";
 import type { DiscordMessagePreflightContext } from "./message-handler.preflight.js";
 import { resetThreadBindingsForTests } from "./thread-bindings.test-support.js";
@@ -11,7 +11,7 @@ const runtimeEnvMocks = vi.hoisted(() => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/runtime-env", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("openclaw/plugin-sdk/runtime-env")>()),
+  ...(await importOriginal<typeof import("granted/plugin-sdk/runtime-env")>()),
   logVerbose: runtimeEnvMocks.logVerbose,
   sleepWithAbort: runtimeEnvMocks.sleepWithAbort,
 }));
@@ -19,7 +19,7 @@ vi.mock("openclaw/plugin-sdk/runtime-env", async (importOriginal) => ({
 const getGlobalHookRunner = vi.hoisted(() => vi.fn());
 
 vi.mock("openclaw/plugin-sdk/plugin-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/plugin-runtime")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/plugin-runtime")>();
   return {
     ...actual,
     getGlobalHookRunner,
@@ -425,13 +425,13 @@ vi.mock("openclaw/plugin-sdk/reply-runtime", () => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/channel-inbound", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/channel-inbound")>();
-  const replyRuntime = await import("openclaw/plugin-sdk/reply-runtime");
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/channel-inbound")>();
+  const replyRuntime = await import("granted/plugin-sdk/reply-runtime");
   return {
     ...actual,
     readAgentRunTerminalOutcome,
     dispatchChannelInboundTurn: async (
-      plan: import("openclaw/plugin-sdk/channel-inbound").ChannelInboundTurnPlan<"provider_message_sending">,
+      plan: import("granted/plugin-sdk/channel-inbound").ChannelInboundTurnPlan<"provider_message_sending">,
     ) => {
       const { cfg, route, delivery, sessionInitRetry, ...prepared } = plan;
       const runDispatch = async () => {

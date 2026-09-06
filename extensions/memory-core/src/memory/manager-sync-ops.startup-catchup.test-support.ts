@@ -5,13 +5,13 @@ import {
   resolveStateDir,
   type GrantedConfig,
   type ResolvedMemorySearchConfig,
-} from "openclaw/plugin-sdk/memory-core-host-engine-foundation";
+} from "granted/plugin-sdk/memory-core-host-engine-foundation";
 import {
   MEMORY_CHUNKING_VERSION,
   type MemorySource,
   type MemorySyncParams,
   type MemorySyncProgressUpdate,
-} from "openclaw/plugin-sdk/memory-core-host-engine-storage";
+} from "granted/plugin-sdk/memory-core-host-engine-storage";
 import { MemoryIndexDatabase } from "./manager-database-context.js";
 import {
   MEMORY_INDEX_PROVENANCE_VERSION,

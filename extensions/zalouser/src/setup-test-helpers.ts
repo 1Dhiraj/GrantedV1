@@ -1,5 +1,5 @@
 // Zalouser helper module supports setup test helpers behavior.
-import { createScopedDmSecurityResolver } from "openclaw/plugin-sdk/channel-config-helpers";
+import { createScopedDmSecurityResolver } from "granted/plugin-sdk/channel-config-helpers";
 import type { GrantedConfig } from "../runtime-api.js";
 import {
   listZalouserAccountIds,

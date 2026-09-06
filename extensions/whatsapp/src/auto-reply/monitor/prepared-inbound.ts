@@ -5,9 +5,9 @@ import {
   type CommandFacts,
   type NormalizedLocation,
   type SupplementalContextFacts,
-} from "openclaw/plugin-sdk/channel-inbound";
-import { resolveChannelMessageSourceReplyDeliveryMode } from "openclaw/plugin-sdk/channel-outbound";
-import type { ReplyThreadingPolicy } from "openclaw/plugin-sdk/reply-reference";
+} from "granted/plugin-sdk/channel-inbound";
+import { resolveChannelMessageSourceReplyDeliveryMode } from "granted/plugin-sdk/channel-outbound";
+import type { ReplyThreadingPolicy } from "granted/plugin-sdk/reply-reference";
 
 type PreparedChannelInboundCommandAuthorization =
   | { kind: "not_checked" }

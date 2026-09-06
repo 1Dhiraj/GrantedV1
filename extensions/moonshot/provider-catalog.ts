@@ -3,8 +3,8 @@ import {
   applyProviderNativeStreamingUsageCompat,
   buildManifestModelProviderConfig,
   readManifestProviderDefaultModelRef,
-} from "openclaw/plugin-sdk/provider-catalog-shared";
-import type { ModelProviderConfig } from "openclaw/plugin-sdk/provider-model-shared";
+} from "granted/plugin-sdk/provider-catalog-shared";
+import type { ModelProviderConfig } from "granted/plugin-sdk/provider-model-shared";
 import manifest from "./openclaw.plugin.json" with { type: "json" };
 
 export const MOONSHOT_BASE_URL = "https://api.moonshot.ai/v1";

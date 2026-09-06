@@ -4,10 +4,10 @@
  */
 import { randomUUID } from "node:crypto";
 import { createInterface, type Interface as ReadlineInterface } from "node:readline";
-import { embeddedAgentLog, GRANTED_VERSION } from "openclaw/plugin-sdk/agent-harness-runtime";
-import { coerceErrorMessage, toStringifiedError } from "openclaw/plugin-sdk/error-runtime";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { sliceUtf16Safe, truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+import { embeddedAgentLog, GRANTED_VERSION } from "granted/plugin-sdk/agent-harness-runtime";
+import { coerceErrorMessage, toStringifiedError } from "granted/plugin-sdk/error-runtime";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
+import { sliceUtf16Safe, truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import { parse as parseSemver } from "semver";
 import { resolveCodexAppServerRuntimeOptions, type CodexAppServerStartOptions } from "./config.js";
 import { resolveDynamicToolServerRequestTimeoutMs } from "./dynamic-tool-execution.js";

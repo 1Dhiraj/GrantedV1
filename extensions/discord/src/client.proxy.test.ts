@@ -2,14 +2,14 @@
 import http from "node:http";
 import net from "node:net";
 import type { Duplex } from "node:stream";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { createDiscordRestClient } from "./client.js";
 import { createDiscordRequestClient } from "./proxy-request-client.js";
 
 const makeProxyFetchMock = vi.hoisted(() => vi.fn());
 vi.mock("openclaw/plugin-sdk/fetch-runtime", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/fetch-runtime")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/fetch-runtime")>(
     "openclaw/plugin-sdk/fetch-runtime",
   );
   makeProxyFetchMock.mockImplementation((proxyUrl: string) => {

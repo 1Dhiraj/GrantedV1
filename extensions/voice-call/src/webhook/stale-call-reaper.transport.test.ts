@@ -1,6 +1,6 @@
 // Voice Call tests cover stale-call reaping through a real provider HTTP boundary.
 import type { ServerResponse } from "node:http";
-import { withFetchPreconnect, withServer } from "openclaw/plugin-sdk/test-env";
+import { withFetchPreconnect, withServer } from "granted/plugin-sdk/test-env";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { endCall } from "../manager/outbound.js";
 import { TelnyxProvider } from "../providers/telnyx.js";

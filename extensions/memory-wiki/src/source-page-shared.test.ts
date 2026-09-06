@@ -9,7 +9,7 @@ import { writeImportedSourcePage } from "./source-page-shared.js";
 const { fsRootMock } = vi.hoisted(() => ({ fsRootMock: vi.fn() }));
 
 vi.mock("openclaw/plugin-sdk/security-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/security-runtime")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/security-runtime")>();
   return {
     ...actual,
     root: (...args: Parameters<typeof actual.root>) => {

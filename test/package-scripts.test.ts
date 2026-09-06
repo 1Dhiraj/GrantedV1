@@ -207,7 +207,7 @@ describe("package scripts", () => {
   });
 
   it("uses the shipped package launcher for npm start", () => {
-    expect(readPackageJson().scripts.start).toBe("node openclaw.mjs");
+    expect(readPackageJson().scripts.start).toBe("node granted.mjs");
   });
 
   it("builds iOS against a generic simulator by default", () => {

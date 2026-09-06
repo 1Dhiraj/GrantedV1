@@ -4,7 +4,7 @@ import path from "node:path";
 import type {
   ProviderAppGuidedSetupContext,
   ProviderAuthContext,
-} from "openclaw/plugin-sdk/plugin-entry";
+} from "granted/plugin-sdk/plugin-entry";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const mocks = vi.hoisted(() => ({
@@ -15,7 +15,7 @@ const mocks = vi.hoisted(() => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/provider-auth-runtime", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("openclaw/plugin-sdk/provider-auth-runtime")>()),
+  ...(await importOriginal<typeof import("granted/plugin-sdk/provider-auth-runtime")>()),
   removeProviderAuthProfilesWithLock: mocks.removeProfiles,
 }));
 

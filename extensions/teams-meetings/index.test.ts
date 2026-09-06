@@ -1,7 +1,7 @@
-import { ErrorCodes } from "openclaw/plugin-sdk/gateway-runtime";
-import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
-import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
-import type { TranscriptSourceProvider } from "openclaw/plugin-sdk/transcripts";
+import { ErrorCodes } from "granted/plugin-sdk/gateway-runtime";
+import type { GrantedPluginApi } from "granted/plugin-sdk/plugin-entry";
+import { createTestPluginApi } from "granted/plugin-sdk/plugin-test-api";
+import type { TranscriptSourceProvider } from "granted/plugin-sdk/transcripts";
 import { describe, expect, it, vi } from "vitest";
 import plugin from "./index.js";
 import { TEAMS_MEETINGS_CLI_METADATA } from "./src/cli-output-mode.js";

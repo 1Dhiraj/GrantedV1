@@ -1,9 +1,9 @@
-import { readManifestProviderDefaultModelRef } from "openclaw/plugin-sdk/provider-catalog-shared";
+import { readManifestProviderDefaultModelRef } from "granted/plugin-sdk/provider-catalog-shared";
 import {
   applyAgentDefaultModelPrimary,
   createModelCatalogPresetAppliers,
   type GrantedConfig,
-} from "openclaw/plugin-sdk/provider-onboard";
+} from "granted/plugin-sdk/provider-onboard";
 import { CHUTES_BASE_URL, CHUTES_MODEL_CATALOG } from "./models.js";
 import manifest from "./openclaw.plugin.json" with { type: "json" };
 

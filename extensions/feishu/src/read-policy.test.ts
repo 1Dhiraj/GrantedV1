@@ -1,4 +1,4 @@
-import type { GrantedConfig } from "openclaw/plugin-sdk/core";
+import type { GrantedConfig } from "granted/plugin-sdk/core";
 import { describe, expect, it } from "vitest";
 import { resolveFeishuAccount } from "./accounts.js";
 import { resolveFeishuChatType } from "./chat-type.js";

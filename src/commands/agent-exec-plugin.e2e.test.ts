@@ -251,7 +251,7 @@ describe("agent exec installed plugin isolation", () => {
     await writeConfig(stateDir, config);
     const source = `
       import fs from "node:fs";
-      import { agentCommandFromIngress } from "openclaw/plugin-sdk/agent-runtime";
+      import { agentCommandFromIngress } from "granted/plugin-sdk/agent-runtime";
       const result = await agentCommandFromIngress({
         agentId: "main",
         sessionId: "ingress-one-shot-session",

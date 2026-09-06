@@ -3,12 +3,12 @@ import path from "node:path";
 import {
   invokeNativeHookRelay,
   nativeHookRelayTesting,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
-import { initializeGlobalHookRunner } from "openclaw/plugin-sdk/hook-runtime";
+} from "granted/plugin-sdk/agent-harness-runtime";
+import { initializeGlobalHookRunner } from "granted/plugin-sdk/hook-runtime";
 import {
   createAdmittedHostCapabilityTestFixture,
   createMockPluginRegistry,
-} from "openclaw/plugin-sdk/plugin-test-runtime";
+} from "granted/plugin-sdk/plugin-test-runtime";
 import { describe, expect, it, vi } from "vitest";
 import { readAttemptTerminal } from "./attempt-terminal.test-helper.js";
 import { nativeHookRelayUnregisterQueue } from "./native-hook-relay-state.js";

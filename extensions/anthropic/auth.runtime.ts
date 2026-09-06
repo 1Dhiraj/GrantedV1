@@ -1,11 +1,11 @@
 /** Auth execution stays deferred until a setup or doctor hook is invoked. */
-import { formatCliCommand, parseDurationMs } from "openclaw/plugin-sdk/cli-runtime";
-import { resolveExpiresAtMsFromDurationMs } from "openclaw/plugin-sdk/number-runtime";
+import { formatCliCommand, parseDurationMs } from "granted/plugin-sdk/cli-runtime";
+import { resolveExpiresAtMsFromDurationMs } from "granted/plugin-sdk/number-runtime";
 import type {
   ProviderAuthContext,
   ProviderAuthMethod,
   ProviderAuthMethodNonInteractiveContext,
-} from "openclaw/plugin-sdk/plugin-entry";
+} from "granted/plugin-sdk/plugin-entry";
 import {
   applyAuthProfileConfig,
   type AuthProfileStore,
@@ -15,8 +15,8 @@ import {
   type ProviderAuthResult,
   suggestOAuthProfileIdForLegacyDefault,
   validateAnthropicSetupToken,
-} from "openclaw/plugin-sdk/provider-auth";
-import { upsertAuthProfileWithLockOrThrow } from "openclaw/plugin-sdk/provider-auth-api-key";
+} from "granted/plugin-sdk/provider-auth";
+import { upsertAuthProfileWithLockOrThrow } from "granted/plugin-sdk/provider-auth-api-key";
 import * as claudeCliAuth from "./cli-auth-seam.js";
 import { buildAnthropicCliBackend } from "./cli-backend.js";
 import { buildAnthropicCliMigrationResult } from "./cli-migration.js";

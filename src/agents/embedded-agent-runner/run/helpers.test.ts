@@ -1,6 +1,6 @@
 // Embedded run helper tests cover final assistant text extraction and error
 // metadata assembly shared by normal exits and failure paths.
-import type { AssistantMessage } from "openclaw/plugin-sdk/llm";
+import type { AssistantMessage } from "granted/plugin-sdk/llm";
 import { describe, expect, it, vi } from "vitest";
 import { resolveRetryAfterMs } from "../../failover/retry-evidence.js";
 import type { NormalizedUsage } from "../../usage.js";

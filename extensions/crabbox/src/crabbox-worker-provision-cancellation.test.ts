@@ -1,5 +1,5 @@
 import { setImmediate } from "node:timers/promises";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
 import { describe, expect, it } from "vitest";
 import { createNodeBootstrapFixture } from "./crabbox-worker-node-enrollment.test-support.js";
 import {

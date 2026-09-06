@@ -1,12 +1,12 @@
 // Ollama plugin module implements discovery shared behavior.
-import { getCachedLiveCatalogValue } from "openclaw/plugin-sdk/provider-catalog-shared";
+import { getCachedLiveCatalogValue } from "granted/plugin-sdk/provider-catalog-shared";
 import type {
   ModelProviderConfig,
   ModelDefinitionConfig,
-} from "openclaw/plugin-sdk/provider-model-shared";
-import { coerceSecretRef } from "openclaw/plugin-sdk/secret-input-runtime";
-import { isLoopbackHost } from "openclaw/plugin-sdk/ssrf-runtime";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/provider-model-shared";
+import { coerceSecretRef } from "granted/plugin-sdk/secret-input-runtime";
+import { isLoopbackHost } from "granted/plugin-sdk/ssrf-runtime";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import { OLLAMA_DEFAULT_API_KEY, OLLAMA_DEFAULT_BASE_URL } from "./defaults.js";
 import { readProviderBaseUrl } from "./provider-base-url.js";
 import { resolveOllamaApiBase } from "./provider-models.js";

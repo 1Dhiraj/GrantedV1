@@ -2,7 +2,7 @@
 import nodeFs from "node:fs";
 import { syncBuiltinESMExports } from "node:module";
 import path from "node:path";
-import { withTempHome } from "openclaw/plugin-sdk/test-env";
+import { withTempHome } from "granted/plugin-sdk/test-env";
 import { describe, expect, it, vi } from "vitest";
 import type { GrantedConfig } from "../config.js";
 import { resolveExistingAgentSessionStoreTargetsSync } from "./targets.js";

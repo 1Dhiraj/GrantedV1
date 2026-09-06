@@ -1,4 +1,4 @@
-import { resolveGlobalSingleton } from "openclaw/plugin-sdk/memory-core-host-engine-foundation";
+import { resolveGlobalSingleton } from "granted/plugin-sdk/memory-core-host-engine-foundation";
 
 // Memory Core receives local-service acquisition from the host before provider creation.
 export type MemoryCoreAcquireLocalService = (

@@ -1,6 +1,6 @@
 /** Browser tab action dispatch. Execution routing is prepared once by the tool owner. */
-import type { AgentToolResult } from "openclaw/plugin-sdk/agent-core";
-import { asNullableRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import type { AgentToolResult } from "granted/plugin-sdk/agent-core";
+import { asNullableRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import type { BrowserProxyRequest } from "./browser-node-proxy.js";
 import {
   type createBrowserToolSessionTabs,

@@ -1,12 +1,12 @@
 // Telegram plugin module implements state migrations behavior.
 import fs from "node:fs";
 import path from "node:path";
-import { listAgentIds } from "openclaw/plugin-sdk/agent-scope-runtime";
-import type { ChannelLegacyStateMigrationPlan } from "openclaw/plugin-sdk/channel-contract";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { fileExists } from "openclaw/plugin-sdk/file-access-runtime";
-import { resolveStorePath } from "openclaw/plugin-sdk/session-store-paths";
-import { isRecord, uniqueStrings } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { listAgentIds } from "granted/plugin-sdk/agent-scope-runtime";
+import type { ChannelLegacyStateMigrationPlan } from "granted/plugin-sdk/channel-contract";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { fileExists } from "granted/plugin-sdk/file-access-runtime";
+import { resolveStorePath } from "granted/plugin-sdk/session-store-paths";
+import { isRecord, uniqueStrings } from "granted/plugin-sdk/string-coerce-runtime";
 import { resolveTelegramAccountOwnerAgentId } from "./account-owner.js";
 import { listTelegramAccountIds, resolveDefaultTelegramAccountId } from "./account-selection.js";
 import {

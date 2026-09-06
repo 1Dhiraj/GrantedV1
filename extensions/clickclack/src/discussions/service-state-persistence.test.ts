@@ -1,15 +1,15 @@
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import type { PluginRuntime } from "openclaw/plugin-sdk/core";
+import type { PluginRuntime } from "granted/plugin-sdk/core";
 import type {
   OpenKeyedStoreOptions,
   PluginStateSyncKeyedStore,
-} from "openclaw/plugin-sdk/plugin-state-runtime";
+} from "granted/plugin-sdk/plugin-state-runtime";
 import {
   createPluginStateSyncKeyedStoreForTests,
   resetPluginStateStoreForTests,
-} from "openclaw/plugin-sdk/plugin-state-test-runtime";
+} from "granted/plugin-sdk/plugin-state-test-runtime";
 import { describe, expect, it, vi } from "vitest";
 import type { ClickClackClient } from "../http-client.js";
 import type { ClickClackChannel } from "../types.js";

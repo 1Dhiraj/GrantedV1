@@ -1,13 +1,13 @@
-import { listAgentIds, resolveAgentConfig } from "openclaw/plugin-sdk/agent-scope-runtime";
+import { listAgentIds, resolveAgentConfig } from "granted/plugin-sdk/agent-scope-runtime";
 /**
  * Anthropic config defaulting helpers. They seed default Anthropic/Claude CLI
  * model refs and cache-retention params based on configured auth mode.
  */
-import type { GrantedConfig } from "openclaw/plugin-sdk/plugin-entry";
+import type { GrantedConfig } from "granted/plugin-sdk/plugin-entry";
 import {
   isRecord,
   normalizeLowercaseStringOrEmpty,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import {
   resolveClaudeCliAnthropicModelRefs,
   resolveKnownAnthropicModelRef,

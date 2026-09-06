@@ -3,9 +3,9 @@ import type { IncomingMessage, ServerResponse } from "node:http";
 import {
   normalizeDiagnosticValue,
   normalizeDiagnosticLane,
-} from "openclaw/plugin-sdk/diagnostic-runtime";
-import { asNonNegativeFiniteNumber as numericValue } from "openclaw/plugin-sdk/number-runtime";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+} from "granted/plugin-sdk/diagnostic-runtime";
+import { asNonNegativeFiniteNumber as numericValue } from "granted/plugin-sdk/number-runtime";
+import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import type {
   DiagnosticEventMetadata,
   DiagnosticEventPayload,

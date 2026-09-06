@@ -1,6 +1,6 @@
-import type { IdentifierAuthentication } from "openclaw/plugin-sdk/channel-ingress-runtime";
-import type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
-import { asNonArrayRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import type { IdentifierAuthentication } from "granted/plugin-sdk/channel-ingress-runtime";
+import type { GrantedPluginApi } from "granted/plugin-sdk/plugin-entry";
+import { asNonArrayRecord } from "granted/plugin-sdk/string-coerce-runtime";
 
 const SENDER_STRENGTHS = [
   "mutable",

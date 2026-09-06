@@ -2,12 +2,12 @@
 import { randomUUID } from "node:crypto";
 import http from "node:http";
 import type { Duplex } from "node:stream";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
 import {
   isFutureDateTimestampMs,
   resolveExpiresAtMsFromDurationMs,
-} from "openclaw/plugin-sdk/number-runtime";
+} from "granted/plugin-sdk/number-runtime";
 import {
   buildRealtimeVoiceAgentConsultWorkingResponse,
   buildRealtimeVoiceAgentErrorProviderResult,
@@ -25,10 +25,10 @@ import {
   type RealtimeVoiceProviderPlugin,
   type RealtimeVoiceSessionHarness,
   type TalkEvent,
-} from "openclaw/plugin-sdk/realtime-voice";
-import { createSubsystemLogger } from "openclaw/plugin-sdk/runtime-env";
-import { sliceUtf16Safe, truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
-import { normalizeWebhookPath } from "openclaw/plugin-sdk/webhook-ingress";
+} from "granted/plugin-sdk/realtime-voice";
+import { createSubsystemLogger } from "granted/plugin-sdk/runtime-env";
+import { sliceUtf16Safe, truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
+import { normalizeWebhookPath } from "granted/plugin-sdk/webhook-ingress";
 import WebSocket, { WebSocketServer } from "ws";
 import { resolveVoiceCallPublicPathPrefix, type VoiceCallRealtimeConfig } from "../config.js";
 import type { CallManager } from "../manager.js";

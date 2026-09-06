@@ -2,14 +2,14 @@
 import type {
   ProviderResolveDynamicModelContext,
   ProviderRuntimeModel,
-} from "openclaw/plugin-sdk/core";
-import { readProviderJsonArrayFieldResponse } from "openclaw/plugin-sdk/provider-http";
-import type { ModelDefinitionConfig } from "openclaw/plugin-sdk/provider-model-shared";
-import { normalizeModelCompat } from "openclaw/plugin-sdk/provider-model-shared";
+} from "granted/plugin-sdk/core";
+import { readProviderJsonArrayFieldResponse } from "granted/plugin-sdk/provider-http";
+import type { ModelDefinitionConfig } from "granted/plugin-sdk/provider-model-shared";
+import { normalizeModelCompat } from "granted/plugin-sdk/provider-model-shared";
 import {
   asPositiveSafeInteger,
   normalizeOptionalLowercaseString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import {
   resolveCopilotModelCompat,
   resolveCopilotThinkingLevelMap,

@@ -3,25 +3,25 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { Command } from "commander";
-import type { GrantedConfig } from "openclaw/plugin-sdk/memory-core-host-engine-foundation";
-import { resolveSessionTranscriptsDirForAgent as resolveTestSessionTranscriptsDirForAgent } from "openclaw/plugin-sdk/memory-core-host-runtime-core";
-import { resetPluginStateStoreForTests } from "openclaw/plugin-sdk/plugin-state-test-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/memory-core-host-engine-foundation";
+import { resolveSessionTranscriptsDirForAgent as resolveTestSessionTranscriptsDirForAgent } from "granted/plugin-sdk/memory-core-host-runtime-core";
+import { resetPluginStateStoreForTests } from "granted/plugin-sdk/plugin-state-test-runtime";
 import {
   normalizeSessionDeliveryState,
   upsertSessionEntry,
-} from "openclaw/plugin-sdk/session-store-runtime";
-import { appendSessionTranscriptMessageByIdentity } from "openclaw/plugin-sdk/session-transcript-runtime";
-import { resolveOpenClawAgentSqlitePath } from "openclaw/plugin-sdk/sqlite-runtime";
+} from "granted/plugin-sdk/session-store-runtime";
+import { appendSessionTranscriptMessageByIdentity } from "granted/plugin-sdk/session-transcript-runtime";
+import { resolveOpenClawAgentSqlitePath } from "granted/plugin-sdk/sqlite-runtime";
 import {
   closeOpenClawAgentDatabasesForTest,
   openOpenClawAgentDatabase,
-} from "openclaw/plugin-sdk/sqlite-runtime-testing";
+} from "granted/plugin-sdk/sqlite-runtime-testing";
 import {
   firstWrittenJsonArg,
   spyRuntimeErrors,
   spyRuntimeJson,
   spyRuntimeLogs,
-} from "openclaw/plugin-sdk/test-fixtures";
+} from "granted/plugin-sdk/test-fixtures";
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { formatMemoryIndexOutcome } from "./cli-runtime-common.js";
 import { openMemoryCoreStateStore } from "./dreaming-state.js";
@@ -103,9 +103,9 @@ vi.mock("./cli.host.runtime.js", async () => {
     { resolveSessionTranscriptsDirForAgent, resolveStateDir },
     { listMemoryFiles, normalizeExtraMemoryPaths },
   ] = await Promise.all([
-    import("openclaw/plugin-sdk/memory-core-host-runtime-cli"),
-    import("openclaw/plugin-sdk/memory-core-host-runtime-core"),
-    import("openclaw/plugin-sdk/memory-core-host-runtime-files"),
+    import("granted/plugin-sdk/memory-core-host-runtime-cli"),
+    import("granted/plugin-sdk/memory-core-host-runtime-core"),
+    import("granted/plugin-sdk/memory-core-host-runtime-files"),
   ]);
   return {
     defaultRuntime,
@@ -130,10 +130,10 @@ vi.mock("./cli.host.runtime.js", async () => {
 });
 
 let registerMemoryCli: typeof import("./cli.js").registerMemoryCli;
-let defaultRuntime: typeof import("openclaw/plugin-sdk/memory-core-host-runtime-cli").defaultRuntime;
-let getMemoryEmbeddingCommandSecretTargetIds: typeof import("openclaw/plugin-sdk/memory-core-host-runtime-cli").getMemoryEmbeddingCommandSecretTargetIds;
-let isVerbose: typeof import("openclaw/plugin-sdk/memory-core-host-runtime-cli").isVerbose;
-let setVerbose: typeof import("openclaw/plugin-sdk/memory-core-host-runtime-cli").setVerbose;
+let defaultRuntime: typeof import("granted/plugin-sdk/memory-core-host-runtime-cli").defaultRuntime;
+let getMemoryEmbeddingCommandSecretTargetIds: typeof import("granted/plugin-sdk/memory-core-host-runtime-cli").getMemoryEmbeddingCommandSecretTargetIds;
+let isVerbose: typeof import("granted/plugin-sdk/memory-core-host-runtime-cli").isVerbose;
+let setVerbose: typeof import("granted/plugin-sdk/memory-core-host-runtime-cli").setVerbose;
 let fixtureRoot = "";
 let workspaceFixtureRoot = "";
 let workspaceCaseId = 0;
@@ -146,7 +146,7 @@ beforeAll(async () => {
     getMemoryEmbeddingCommandSecretTargetIds: loadedGetMemoryEmbeddingCommandSecretTargetIds,
     isVerbose: loadedIsVerbose,
     setVerbose: loadedSetVerbose,
-  } = await import("openclaw/plugin-sdk/memory-core-host-runtime-cli");
+  } = await import("granted/plugin-sdk/memory-core-host-runtime-cli");
   defaultRuntime = loadedDefaultRuntime;
   getMemoryEmbeddingCommandSecretTargetIds = loadedGetMemoryEmbeddingCommandSecretTargetIds;
   isVerbose = loadedIsVerbose;

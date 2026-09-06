@@ -1,14 +1,14 @@
 // Stages gateway-local outbound files into a private directory on the Messages Mac.
 import { randomUUID } from "node:crypto";
 import path from "node:path";
-import { normalizeScpRemoteHost } from "openclaw/plugin-sdk/host-runtime";
+import { normalizeScpRemoteHost } from "granted/plugin-sdk/host-runtime";
 import {
   type CommandOptions,
   runCommandWithTimeout,
   type SpawnResult,
-} from "openclaw/plugin-sdk/process-runtime";
-import { createSubsystemLogger } from "openclaw/plugin-sdk/runtime-env";
-import { sanitizeTempFileName } from "openclaw/plugin-sdk/temp-path";
+} from "granted/plugin-sdk/process-runtime";
+import { createSubsystemLogger } from "granted/plugin-sdk/runtime-env";
+import { sanitizeTempFileName } from "granted/plugin-sdk/temp-path";
 
 const TOKEN_PATTERN = /^[a-f0-9]{32}$/u;
 const SSH_OPTIONS = [

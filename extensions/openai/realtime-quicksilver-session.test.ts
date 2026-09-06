@@ -1,4 +1,4 @@
-import type { RealtimeVoiceBridge } from "openclaw/plugin-sdk/realtime-voice";
+import type { RealtimeVoiceBridge } from "granted/plugin-sdk/realtime-voice";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { OPENAI_QUICKSILVER_OFFER_PATH } from "./realtime-quicksilver-session.js";
 import { buildOpenAIQuicksilverSession } from "./realtime-quicksilver-wire.js";

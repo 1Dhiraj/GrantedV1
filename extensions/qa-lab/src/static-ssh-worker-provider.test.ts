@@ -1,5 +1,5 @@
 // QA Lab tests cover deterministic static-SSH worker provider behavior.
-import type { WorkerProfile } from "openclaw/plugin-sdk/plugin-entry";
+import type { WorkerProfile } from "granted/plugin-sdk/plugin-entry";
 import { describe, expect, it } from "vitest";
 import { createStaticSshWorkerProvider } from "./static-ssh-worker-provider.js";
 

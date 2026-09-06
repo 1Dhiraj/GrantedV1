@@ -26,7 +26,7 @@ describe("loadExtensionsCached", () => {
     await writeFile(
       extensionPath,
       `
-import { normalizeLowercaseStringOrEmpty } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { normalizeLowercaseStringOrEmpty } from "granted/plugin-sdk/string-coerce-runtime";
 
 export default async function(api) {
   if (normalizeLowercaseStringOrEmpty("  MIXED  ") !== "mixed") {

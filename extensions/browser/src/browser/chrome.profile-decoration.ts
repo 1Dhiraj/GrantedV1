@@ -6,8 +6,8 @@
  */
 import fs from "node:fs";
 import path from "node:path";
-import { loadJsonFile, saveJsonFile } from "openclaw/plugin-sdk/json-store";
-import { asNullableRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { loadJsonFile, saveJsonFile } from "granted/plugin-sdk/json-store";
+import { asNullableRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   DEFAULT_GRANTED_BROWSER_COLOR,
   DEFAULT_GRANTED_BROWSER_PROFILE_NAME,

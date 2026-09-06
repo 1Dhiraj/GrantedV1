@@ -15,7 +15,7 @@ const { assertOkOrThrowHttpErrorMock, postJsonRequestMock, resolveProviderHttpRe
   }));
 
 vi.mock("openclaw/plugin-sdk/provider-http", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("openclaw/plugin-sdk/provider-http")>()),
+  ...(await importOriginal<typeof import("granted/plugin-sdk/provider-http")>()),
   assertOkOrThrowHttpError: assertOkOrThrowHttpErrorMock,
   postJsonRequest: postJsonRequestMock,
   resolveProviderHttpRequestConfig: resolveProviderHttpRequestConfigMock,

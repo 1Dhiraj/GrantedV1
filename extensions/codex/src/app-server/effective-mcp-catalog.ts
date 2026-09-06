@@ -1,12 +1,12 @@
-import type { AgentHarness } from "openclaw/plugin-sdk/agent-harness";
+import type { AgentHarness } from "granted/plugin-sdk/agent-harness";
 import {
   assignMcpCatalogSafeServerNames,
   type McpToolCatalog,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
+} from "granted/plugin-sdk/agent-harness-runtime";
 import {
   asOptionalRecord,
   normalizeOptionalString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import type { CodexAppServerClient } from "./client.js";
 import type { CodexMcpServerStatus } from "./protocol.js";
 import { sessionBindingIdentity, type CodexAppServerBindingStore } from "./session-binding.js";

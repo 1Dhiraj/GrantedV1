@@ -1,18 +1,18 @@
 // Synology Chat tests cover guarded outbound attachment staging and same-route capability serving.
 import fs from "node:fs";
-import type { HostedOutboundMediaChunkRecord } from "openclaw/plugin-sdk/outbound-media";
-import type { PluginRuntime } from "openclaw/plugin-sdk/plugin-runtime";
+import type { HostedOutboundMediaChunkRecord } from "granted/plugin-sdk/outbound-media";
+import type { PluginRuntime } from "granted/plugin-sdk/plugin-runtime";
 import type {
   OpenKeyedStoreOptions,
   PluginStateKeyedStore,
-} from "openclaw/plugin-sdk/plugin-state-runtime";
+} from "granted/plugin-sdk/plugin-state-runtime";
 import {
   createPluginStateKeyedStoreForTests,
   resetPluginStateStoreForTests,
-} from "openclaw/plugin-sdk/plugin-state-test-runtime";
-import { resolvePreferredOpenClawTmpDir } from "openclaw/plugin-sdk/temp-path";
-import { useAutoCleanupTempDirTracker } from "openclaw/plugin-sdk/test-env";
-import type { loadWebMedia as loadWebMediaType } from "openclaw/plugin-sdk/web-media";
+} from "granted/plugin-sdk/plugin-state-test-runtime";
+import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
+import { useAutoCleanupTempDirTracker } from "granted/plugin-sdk/test-env";
+import type { loadWebMedia as loadWebMediaType } from "granted/plugin-sdk/web-media";
 import { afterAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { resolveSynologyHostedMediaRoute } from "./hosted-media-route.js";
 import {

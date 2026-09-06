@@ -1,7 +1,7 @@
 // Browser tests cover cdp proxy bypass plugin behavior.
 import http from "node:http";
 import https from "node:https";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const { registerManagedProxyBrowserCdpBypassMock } = vi.hoisted(() => ({

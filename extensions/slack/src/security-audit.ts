@@ -1,11 +1,11 @@
 // Slack plugin module implements security audit behavior.
-import { coerceNativeSetting, normalizeAllowFromList } from "openclaw/plugin-sdk/channel-policy";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { readChannelAllowFromStore } from "openclaw/plugin-sdk/conversation-runtime";
+import { coerceNativeSetting, normalizeAllowFromList } from "granted/plugin-sdk/channel-policy";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { readChannelAllowFromStore } from "granted/plugin-sdk/conversation-runtime";
 import {
   resolveNativeCommandsEnabled,
   resolveNativeSkillsEnabled,
-} from "openclaw/plugin-sdk/native-command-config-runtime";
+} from "granted/plugin-sdk/native-command-config-runtime";
 import type { ResolvedSlackAccount } from "./accounts.js";
 
 export async function collectSlackSecurityAuditFindings(params: {

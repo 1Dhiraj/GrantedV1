@@ -1,7 +1,7 @@
 import type {
   AgentHarnessSessionDeletionMutation,
   AgentHarnessSessionDeletionParams,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
+} from "granted/plugin-sdk/agent-harness-runtime";
 import { isIncognitoSessionKey } from "../incognito-session.js";
 import {
   CODEX_APP_SERVER_UNSUBSCRIBE_TIMEOUT_MS,

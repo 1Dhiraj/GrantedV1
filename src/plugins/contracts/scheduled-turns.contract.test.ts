@@ -3,7 +3,7 @@ import { MAX_DATE_TIMESTAMP_MS } from "@openclaw/normalization-core/number-coerc
 import {
   createPluginRegistryFixture,
   registerTestPlugin,
-} from "openclaw/plugin-sdk/plugin-test-contracts";
+} from "granted/plugin-sdk/plugin-test-contracts";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { CronServiceContract } from "../../cron/service-contract.js";
 import type { CronJob, CronJobCreate } from "../../cron/types.js";

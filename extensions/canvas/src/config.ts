@@ -1,10 +1,10 @@
 /**
  * Canvas plugin config parsing, enablement, and schema metadata.
  */
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { resolvePluginConfigObject } from "openclaw/plugin-sdk/plugin-config-runtime";
-import { isTruthyEnvValue } from "openclaw/plugin-sdk/runtime-env";
-import { asBoolean as readBoolean, isRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { resolvePluginConfigObject } from "granted/plugin-sdk/plugin-config-runtime";
+import { isTruthyEnvValue } from "granted/plugin-sdk/runtime-env";
+import { asBoolean as readBoolean, isRecord } from "granted/plugin-sdk/string-coerce-runtime";
 
 /** Enablement for Canvas-owned document and renderer routes. */
 export type CanvasHostConfig = {

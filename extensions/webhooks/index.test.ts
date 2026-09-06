@@ -1,5 +1,5 @@
 // Webhooks tests cover index plugin behavior.
-import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
+import { createTestPluginApi } from "granted/plugin-sdk/plugin-test-api";
 import { describe, expect, it, vi } from "vitest";
 import type { GrantedPluginApi } from "./api.js";
 import plugin from "./index.js";

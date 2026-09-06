@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { DatabaseSync } from "node:sqlite";
-import type { HealthCheck, HealthCheckContext } from "openclaw/plugin-sdk/health";
+import type { HealthCheck, HealthCheckContext } from "granted/plugin-sdk/health";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   MEMORY_MANAGED_LOCAL_EMBEDDING_SETUP_CHECK_ID,

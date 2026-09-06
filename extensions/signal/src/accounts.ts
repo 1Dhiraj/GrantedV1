@@ -6,9 +6,9 @@ import {
   resolveAccountEntry,
   resolveMergedAccountConfig,
   type GrantedConfig,
-} from "openclaw/plugin-sdk/account-resolution";
-import type { ReplyToMode } from "openclaw/plugin-sdk/config-contracts";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/account-resolution";
+import type { ReplyToMode } from "granted/plugin-sdk/config-contracts";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import type { SignalAccountConfig, SignalTransportConfig } from "./account-types.js";
 import {
   allocateSignalManagedNativePort,

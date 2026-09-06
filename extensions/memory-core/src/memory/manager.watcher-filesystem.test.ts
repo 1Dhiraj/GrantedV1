@@ -4,9 +4,9 @@ import fs from "node:fs/promises";
 import { syncBuiltinESMExports } from "node:module";
 import path from "node:path";
 import { DatabaseSync } from "node:sqlite";
-import type { GrantedConfig } from "openclaw/plugin-sdk/memory-core-host-engine-foundation";
-import { MEMORY_INDEX_CHUNKS_TABLE } from "openclaw/plugin-sdk/memory-core-host-engine-storage";
-import { createOpenClawTestState } from "openclaw/plugin-sdk/test-state";
+import type { GrantedConfig } from "granted/plugin-sdk/memory-core-host-engine-foundation";
+import { MEMORY_INDEX_CHUNKS_TABLE } from "granted/plugin-sdk/memory-core-host-engine-storage";
+import { createOpenClawTestState } from "granted/plugin-sdk/test-state";
 import { describe, expect, it, vi } from "vitest";
 import {
   configureMemoryCoreDreamingStateForTests,

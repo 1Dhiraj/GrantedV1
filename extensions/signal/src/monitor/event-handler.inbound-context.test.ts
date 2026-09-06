@@ -1,7 +1,7 @@
 // Signal tests cover event handler.inbound context plugin behavior.
-import { expectChannelInboundContextContract as expectInboundContextContract } from "openclaw/plugin-sdk/channel-contract-testing";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { MsgContext } from "openclaw/plugin-sdk/reply-runtime";
+import { expectChannelInboundContextContract as expectInboundContextContract } from "granted/plugin-sdk/channel-contract-testing";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { MsgContext } from "granted/plugin-sdk/reply-runtime";
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { resolveSignalReplyContextWithPersistence } from "../reply-authors.js";
 import { resetSignalReplyAuthorsForTests } from "../reply-authors.test-helpers.js";
@@ -102,7 +102,7 @@ vi.mock("../send-reactions.js", () => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/reply-runtime", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/reply-runtime")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/reply-runtime")>(
     "openclaw/plugin-sdk/reply-runtime",
   );
   return {
@@ -114,7 +114,7 @@ vi.mock("openclaw/plugin-sdk/reply-runtime", async () => {
 });
 
 vi.mock("openclaw/plugin-sdk/channel-inbound", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/channel-inbound")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/channel-inbound")>(
     "openclaw/plugin-sdk/channel-inbound",
   );
   type RunParams = Parameters<typeof actual.runChannelInboundEvent>[0];
@@ -226,7 +226,7 @@ vi.mock("openclaw/plugin-sdk/channel-inbound", async () => {
 });
 
 vi.mock("openclaw/plugin-sdk/conversation-runtime", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/conversation-runtime")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/conversation-runtime")>(
     "openclaw/plugin-sdk/conversation-runtime",
   );
   return {
@@ -238,7 +238,7 @@ vi.mock("openclaw/plugin-sdk/conversation-runtime", async () => {
 });
 
 vi.mock("openclaw/plugin-sdk/system-event-runtime", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/system-event-runtime")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/system-event-runtime")>(
     "openclaw/plugin-sdk/system-event-runtime",
   );
   return {
@@ -258,7 +258,7 @@ vi.mock("../approval-reactions.js", async () => {
 });
 
 vi.mock("openclaw/plugin-sdk/runtime-env", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/runtime-env")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/runtime-env")>(
     "openclaw/plugin-sdk/runtime-env",
   );
   return {

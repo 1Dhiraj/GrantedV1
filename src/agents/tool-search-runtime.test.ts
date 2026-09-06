@@ -3,12 +3,12 @@ import {
   type AgentEvent,
   type AgentTool,
   type StreamFn,
-} from "openclaw/plugin-sdk/agent-core";
+} from "granted/plugin-sdk/agent-core";
 import {
   type AssistantMessage,
   createAssistantMessageEventStream,
   type Model,
-} from "openclaw/plugin-sdk/llm";
+} from "granted/plugin-sdk/llm";
 import { Type } from "typebox";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {

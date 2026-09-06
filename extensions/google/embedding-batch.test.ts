@@ -1,6 +1,6 @@
 // Google tests cover embedding batch bounded JSON response reads.
 import { createServer } from "node:http";
-import * as embeddingSdk from "openclaw/plugin-sdk/memory-core-host-engine-embeddings";
+import * as embeddingSdk from "granted/plugin-sdk/memory-core-host-engine-embeddings";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { runGeminiEmbeddingBatches } from "./embedding-batch.js";
 import type { GeminiEmbeddingClient } from "./embedding-provider.js";
@@ -10,7 +10,7 @@ import { geminiMemoryEmbeddingProviderAdapter } from "./memory-embedding-adapter
 // readProviderJsonResponse which needs a real .body ReadableStream).
 vi.mock("openclaw/plugin-sdk/memory-core-host-engine-embeddings", async (importOriginal) => {
   const actual =
-    await importOriginal<typeof import("openclaw/plugin-sdk/memory-core-host-engine-embeddings")>();
+    await importOriginal<typeof import("granted/plugin-sdk/memory-core-host-engine-embeddings")>();
   return {
     ...actual,
     withRemoteHttpResponse: async <T>(params: {

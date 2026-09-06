@@ -18,11 +18,11 @@ vi.mock("node:child_process", async (importOriginal) => ({
   spawn: spawnMock,
 }));
 vi.mock("openclaw/plugin-sdk/media-runtime", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("openclaw/plugin-sdk/media-runtime")>()),
+  ...(await importOriginal<typeof import("granted/plugin-sdk/media-runtime")>()),
   resolveFfmpegBin: () => "ffmpeg",
 }));
 vi.mock("openclaw/plugin-sdk/temp-path", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/temp-path")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/temp-path")>();
   return {
     ...actual,
     resolvePreferredOpenClawTmpDir: () => voiceWorkspaceFixture.rootDir,

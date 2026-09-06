@@ -1,6 +1,6 @@
 // Browser tests cover managed Playwright CDP transport behavior.
 import { createServer } from "node:http";
-import { rawDataToString } from "openclaw/plugin-sdk/webhook-ingress";
+import { rawDataToString } from "granted/plugin-sdk/webhook-ingress";
 import { chromium } from "playwright-core";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { WebSocketServer } from "ws";

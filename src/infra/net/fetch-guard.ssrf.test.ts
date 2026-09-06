@@ -1,7 +1,7 @@
 import { toErrorObject as toLintErrorObject } from "@openclaw/normalization-core/error-coercion";
 // Guarded fetch SSRF tests cover redirect hardening, pinned dispatcher setup,
 // trusted proxy modes, and safe header retention.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 // Load before cases own mocks; a timed-out import would resume inside the next case.
 import { waitForControlUiDocument } from "../../commands/control-ui-handoff.js";

@@ -1,13 +1,13 @@
-import { readBooleanParam } from "openclaw/plugin-sdk/boolean-param";
+import { readBooleanParam } from "granted/plugin-sdk/boolean-param";
 import {
   assertMediaNotDataUrl,
   jsonResult,
   readPositiveIntegerParam,
   readStringArrayParam,
   readStringParam,
-} from "openclaw/plugin-sdk/channel-actions";
+} from "granted/plugin-sdk/channel-actions";
 // Discord plugin module implements runtime.messaging.send behavior.
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
 import { isDiscordThreadChannelType } from "../channel-type.js";
 import { coerceDiscordComponentParam } from "../components.js";
 import {

@@ -868,7 +868,7 @@ describe("collectReleasePackageMetadataErrors", () => {
         description: "Multi-channel AI gateway with extensible messaging integrations",
         license: "MIT",
         repository: { url: "git+https://github.com/openclaw/openclaw.git" },
-        bin: { openclaw: "openclaw.mjs" },
+        bin: { openclaw: "granted.mjs" },
       }),
     ).toStrictEqual([]);
   });
@@ -880,7 +880,7 @@ describe("collectReleasePackageMetadataErrors", () => {
         description: "Multi-channel AI gateway with extensible messaging integrations",
         license: "MIT",
         repository: { url: "git+https://github.com/openclaw/openclaw.git" },
-        bin: { openclaw: "openclaw.mjs" },
+        bin: { openclaw: "granted.mjs" },
         dependencies: { "@openclaw/fs-safe": "link:../fs-safe" },
       }),
     ).toContain(

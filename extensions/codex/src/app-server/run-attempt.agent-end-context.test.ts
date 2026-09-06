@@ -1,6 +1,6 @@
 // Codex tests cover the agent-end context handed to OpenClaw side effects.
 import path from "node:path";
-import * as agentHarnessRuntime from "openclaw/plugin-sdk/agent-harness-runtime";
+import * as agentHarnessRuntime from "granted/plugin-sdk/agent-harness-runtime";
 import { describe, expect, it, vi } from "vitest";
 import {
   createParams,

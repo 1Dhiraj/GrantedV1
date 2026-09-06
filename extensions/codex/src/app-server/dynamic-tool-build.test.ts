@@ -3,20 +3,20 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { expectDefined } from "@openclaw/normalization-core";
-import { createOpenClawCodingTools } from "openclaw/plugin-sdk/agent-harness";
+import { createOpenClawCodingTools } from "granted/plugin-sdk/agent-harness";
 import {
   embeddedAgentLog,
   isToolWrappedWithBeforeToolCallHook,
   type EmbeddedRunAttemptParamsV2 as EmbeddedRunAttemptParams,
   wrapToolWithBeforeToolCallHook,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
-import { readMemoryArtifactProvenance } from "openclaw/plugin-sdk/memory-core-host-runtime-core";
+} from "granted/plugin-sdk/agent-harness-runtime";
+import { readMemoryArtifactProvenance } from "granted/plugin-sdk/memory-core-host-runtime-core";
 import {
   createAgentHarnessHostCapabilitiesForTest,
   createMockPluginRegistry,
   initializeGlobalHookRunner,
   resetGlobalHookRunner,
-} from "openclaw/plugin-sdk/plugin-test-runtime";
+} from "granted/plugin-sdk/plugin-test-runtime";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { dynamicToolBuildState } from "./dynamic-tool-build-state.js";
 import {
@@ -46,7 +46,7 @@ const hoisted = vi.hoisted(() => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/agent-harness", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/agent-harness")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/agent-harness")>();
 
   return {
     ...actual,
@@ -60,7 +60,7 @@ vi.mock("openclaw/plugin-sdk/agent-harness", async (importOriginal) => {
 });
 
 vi.mock("openclaw/plugin-sdk/agent-harness-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/agent-harness-runtime")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/agent-harness-runtime")>();
   return {
     ...actual,
     normalizeAgentRuntimeTools: (...args: Parameters<typeof actual.normalizeAgentRuntimeTools>) => {

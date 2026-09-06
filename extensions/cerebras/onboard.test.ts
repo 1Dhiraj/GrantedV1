@@ -1,10 +1,10 @@
-import { registerSingleProviderPlugin } from "openclaw/plugin-sdk/plugin-test-runtime";
+import { registerSingleProviderPlugin } from "granted/plugin-sdk/plugin-test-runtime";
 import {
   clearLiveCatalogCacheForTests,
   type LiveModelCatalogFetchGuard,
-} from "openclaw/plugin-sdk/provider-catalog-live-runtime";
-import type { ProviderPlugin } from "openclaw/plugin-sdk/provider-model-shared";
-import { resolveAgentModelPrimaryValue } from "openclaw/plugin-sdk/provider-onboard";
+} from "granted/plugin-sdk/provider-catalog-live-runtime";
+import type { ProviderPlugin } from "granted/plugin-sdk/provider-model-shared";
+import { resolveAgentModelPrimaryValue } from "granted/plugin-sdk/provider-onboard";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { buildCerebrasCatalogModels } from "./api.js";
 import plugin from "./index.js";
@@ -16,7 +16,7 @@ const ssrfRuntimeMocks = vi.hoisted(() => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/ssrf-runtime", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("openclaw/plugin-sdk/ssrf-runtime")>()),
+  ...(await importOriginal<typeof import("granted/plugin-sdk/ssrf-runtime")>()),
   ...ssrfRuntimeMocks,
 }));
 

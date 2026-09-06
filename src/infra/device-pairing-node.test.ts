@@ -1,5 +1,5 @@
 // Tests node-role capability approvals stored on canonical paired-device records.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterAll, beforeAll, describe, expect, test } from "vitest";
 import { createDeferred } from "../../test/helpers/promise.js";
 import {

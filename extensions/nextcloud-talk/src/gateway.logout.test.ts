@@ -1,9 +1,9 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { createPluginRuntimeMock } from "openclaw/plugin-sdk/channel-test-helpers";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { createRuntimeEnv } from "openclaw/plugin-sdk/plugin-test-runtime";
+import { createPluginRuntimeMock } from "granted/plugin-sdk/channel-test-helpers";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { createRuntimeEnv } from "granted/plugin-sdk/plugin-test-runtime";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { resolveNextcloudTalkAccount } from "./accounts.js";
 import { nextcloudTalkGatewayAdapter } from "./gateway.js";

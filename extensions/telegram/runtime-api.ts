@@ -1,14 +1,14 @@
 // Telegram API module exposes the plugin public contract.
-import type { GrantedConfig as RuntimeOpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
-export type { GrantedPluginApi } from "openclaw/plugin-sdk/plugin-entry";
-export type { ChannelMessageActionAdapter } from "openclaw/plugin-sdk/channel-contract";
+import type { GrantedConfig as RuntimeOpenClawConfig } from "granted/plugin-sdk/config-contracts";
+export type { GrantedPluginApi } from "granted/plugin-sdk/plugin-entry";
+export type { ChannelMessageActionAdapter } from "granted/plugin-sdk/channel-contract";
 export type { TelegramApiOverride } from "./src/send.js";
 export type {
   GrantedPluginService,
   GrantedPluginServiceContext,
   PluginLogger,
-} from "openclaw/plugin-sdk/plugin-entry";
-export type { PluginRuntime } from "openclaw/plugin-sdk/runtime-store";
+} from "granted/plugin-sdk/plugin-entry";
+export type { PluginRuntime } from "granted/plugin-sdk/runtime-store";
 export type {
   AcpRuntime,
   AcpRuntimeCapabilities,
@@ -20,23 +20,23 @@ export type {
   AcpRuntimeTurnInput,
   AcpRuntimeErrorCode,
   AcpSessionUpdateTag,
-} from "openclaw/plugin-sdk/acp-runtime";
-export { AcpRuntimeError } from "openclaw/plugin-sdk/acp-runtime";
+} from "granted/plugin-sdk/acp-runtime";
+export { AcpRuntimeError } from "granted/plugin-sdk/acp-runtime";
 
 export {
   emptyPluginConfigSchema,
   formatPairingApproveHint,
   getChatChannelMeta,
-} from "openclaw/plugin-sdk/channel-plugin-common";
-export { clearAccountEntryFields } from "openclaw/plugin-sdk/channel-core";
+} from "granted/plugin-sdk/channel-plugin-common";
+export { clearAccountEntryFields } from "granted/plugin-sdk/channel-core";
 export { buildChannelConfigSchema, TelegramConfigSchema } from "./config-api.js";
-export { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "openclaw/plugin-sdk/account-id";
+export { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "granted/plugin-sdk/account-id";
 export {
   PAIRING_APPROVED_MESSAGE,
   buildTokenChannelStatusSummary,
   projectCredentialSnapshotFields,
   resolveConfiguredFromCredentialStatuses,
-} from "openclaw/plugin-sdk/channel-status";
+} from "granted/plugin-sdk/channel-status";
 export {
   jsonResult,
   readNumberParam,
@@ -45,7 +45,7 @@ export {
   readStringOrNumberParam,
   readStringParam,
   resolvePollMaxSelections,
-} from "openclaw/plugin-sdk/channel-actions";
+} from "granted/plugin-sdk/channel-actions";
 export type { TelegramProbe } from "./src/probe.js";
 export { auditTelegramGroupMembership, collectTelegramUnmentionedGroupIds } from "./src/audit.js";
 export { resolveTelegramRuntimeGroupPolicy } from "./src/group-access.js";
@@ -85,8 +85,8 @@ export {
 } from "./src/thread-bindings.js";
 export { resolveTelegramToken } from "./src/token.js";
 export { setTelegramRuntime } from "./src/runtime.js";
-export type { ChannelPlugin } from "openclaw/plugin-sdk/channel-core";
-export type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+export type { ChannelPlugin } from "granted/plugin-sdk/channel-core";
+export type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 export type TelegramAccountConfig = NonNullable<
   NonNullable<RuntimeOpenClawConfig["channels"]>["telegram"]
 >;

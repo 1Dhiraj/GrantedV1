@@ -1,8 +1,8 @@
-import type { DiscordAccountConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { DiscordAccountConfig } from "granted/plugin-sdk/config-contracts";
 import {
   asDateTimestampMs,
   resolveExpiresAtMsFromDurationMs,
-} from "openclaw/plugin-sdk/number-runtime";
+} from "granted/plugin-sdk/number-runtime";
 import {
   createRealtimeVoiceTurnContextTracker,
   isRealtimeVoiceWakeNameRequired,
@@ -12,9 +12,9 @@ import {
   type RealtimeVoiceTurnContextHandle,
   type RealtimeVoiceTurnContextTracker,
   type RealtimeVoiceWakeNamePolicy,
-} from "openclaw/plugin-sdk/realtime-voice";
-import { createSubsystemLogger } from "openclaw/plugin-sdk/runtime-env";
-import { formatErrorMessage } from "openclaw/plugin-sdk/ssrf-runtime";
+} from "granted/plugin-sdk/realtime-voice";
+import { createSubsystemLogger } from "granted/plugin-sdk/runtime-env";
+import { formatErrorMessage } from "granted/plugin-sdk/ssrf-runtime";
 import { convertDiscordPcm48kStereoToRealtimePcm24kMono } from "./audio.js";
 import type { DiscordRealtimePlaybackPort } from "./realtime-playback.js";
 import { mergeRealtimePartialTranscript } from "./realtime-transcript.js";

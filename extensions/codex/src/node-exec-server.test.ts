@@ -4,12 +4,12 @@ import { access, readFile, realpath } from "node:fs/promises";
 import { createServer } from "node:http";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
-import type { GrantedPluginNodeHostCommandIo } from "openclaw/plugin-sdk/node-host";
+import type { GrantedPluginNodeHostCommandIo } from "granted/plugin-sdk/node-host";
 import type {
   GrantedPluginNodeHostCommand,
   GrantedPluginNodeInvokePolicyContext,
-} from "openclaw/plugin-sdk/plugin-entry";
-import { resolvePreferredOpenClawTmpDir, withTempWorkspace } from "openclaw/plugin-sdk/temp-path";
+} from "granted/plugin-sdk/plugin-entry";
+import { resolvePreferredOpenClawTmpDir, withTempWorkspace } from "granted/plugin-sdk/temp-path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   createCodexNodeExecServerCommand,

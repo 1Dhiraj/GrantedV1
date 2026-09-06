@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import { normalizeAgentId, parseAgentSessionKey } from "openclaw/plugin-sdk/routing";
+import { normalizeAgentId, parseAgentSessionKey } from "granted/plugin-sdk/routing";
 import { AcpRuntimeError } from "../runtime-api.js";
 
 /** Logical OpenClaw keys stay intact; only bare backend resource names need a namespace. */

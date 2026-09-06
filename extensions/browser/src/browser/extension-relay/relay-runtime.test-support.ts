@@ -1,4 +1,4 @@
-import { asOptionalRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { asOptionalRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import { expect, onTestFinished } from "vitest";
 import { ExtensionRelayBridge } from "./relay-bridge.js";
 import { FakeSocket, flush, sendHello, wireExtension } from "./relay-bridge.test-support.js";

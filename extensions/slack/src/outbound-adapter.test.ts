@@ -1,5 +1,5 @@
 // Slack tests cover outbound adapter plugin behavior.
-import { presentationToInteractiveControlsReply } from "openclaw/plugin-sdk/interactive-runtime";
+import { presentationToInteractiveControlsReply } from "granted/plugin-sdk/interactive-runtime";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const sendMessageSlackMock = vi.hoisted(() => vi.fn());

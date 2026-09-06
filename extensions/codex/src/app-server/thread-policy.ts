@@ -1,4 +1,4 @@
-import { AgentHarnessPreflightError } from "openclaw/plugin-sdk/agent-harness-runtime";
+import { AgentHarnessPreflightError } from "granted/plugin-sdk/agent-harness-runtime";
 import {
   isCodexAppServerOverloadError,
   isCodexAppServerPrewriteRequestCancellationError,

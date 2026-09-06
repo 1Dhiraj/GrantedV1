@@ -1,6 +1,6 @@
 // Browser tests cover cdp.helpers plugin behavior.
 import type { LookupAddress, LookupAllOptions, LookupOneOptions, LookupOptions } from "node:dns";
-import { MAX_TIMER_TIMEOUT_MS } from "openclaw/plugin-sdk/number-runtime";
+import { MAX_TIMER_TIMEOUT_MS } from "granted/plugin-sdk/number-runtime";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import type { LookupFn } from "../infra/net/ssrf.js";
 import {
@@ -37,7 +37,7 @@ function createLookupFn(address: string): LookupFn {
 const fetchWithSsrFGuardMock = vi.hoisted(() => vi.fn());
 
 vi.mock("openclaw/plugin-sdk/ssrf-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/ssrf-runtime")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/ssrf-runtime")>();
   return {
     ...actual,
     fetchWithSsrFGuard: (...args: unknown[]) => fetchWithSsrFGuardMock(...args),

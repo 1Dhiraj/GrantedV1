@@ -1,5 +1,5 @@
 // Codex plugin module implements periodic Computer Use health probes.
-import { embeddedAgentLog } from "openclaw/plugin-sdk/agent-harness-runtime";
+import { embeddedAgentLog } from "granted/plugin-sdk/agent-harness-runtime";
 import type { CodexAppServerClient } from "./client.js";
 import { runCodexComputerUseLiveTest } from "./computer-use.js";
 import type { ResolvedCodexComputerUseConfig } from "./config.js";

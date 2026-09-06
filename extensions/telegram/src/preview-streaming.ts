@@ -2,7 +2,7 @@
 import {
   resolveChannelPreviewStreamMode,
   type StreamingMode,
-} from "openclaw/plugin-sdk/channel-outbound";
+} from "granted/plugin-sdk/channel-outbound";
 
 export function resolveTelegramPreviewStreamMode(
   params: {

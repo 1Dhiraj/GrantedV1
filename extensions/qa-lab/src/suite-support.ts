@@ -1,5 +1,5 @@
 import type { OpenClawCrablineChannelDriverSelection } from "@openclaw/crabline";
-import { parseBooleanValue } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { parseBooleanValue } from "granted/plugin-sdk/string-coerce-runtime";
 import type { QaSuiteChannelDriverSelection } from "./crabline-artifacts.js";
 import type { QaProviderMode } from "./model-selection.js";
 import type { QaTransportId } from "./qa-transport-registry.js";

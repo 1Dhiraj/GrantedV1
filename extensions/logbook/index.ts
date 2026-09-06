@@ -1,17 +1,17 @@
 // Logbook plugin entrypoint: automatic work journal built from screen snapshots.
 import { readFileSync } from "node:fs";
 import path from "node:path";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
 import {
   ErrorCodes,
   errorShape,
   type GatewayRequestHandlerOptions,
-} from "openclaw/plugin-sdk/gateway-runtime";
+} from "granted/plugin-sdk/gateway-runtime";
 import {
   definePluginEntry,
   type GrantedPluginApi,
   type GrantedPluginNodeHostCommand,
-} from "openclaw/plugin-sdk/plugin-entry";
+} from "granted/plugin-sdk/plugin-entry";
 import { resolveLogbookConfig } from "./src/config.js";
 import { LogbookService } from "./src/service.js";
 import { dayKeyFor } from "./src/store.js";

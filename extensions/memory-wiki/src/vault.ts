@@ -4,8 +4,8 @@ import path from "node:path";
 import {
   replaceManagedMarkdownBlock,
   withTrailingNewline,
-} from "openclaw/plugin-sdk/memory-host-markdown";
-import { FsSafeError, pathExists, root as fsRoot } from "openclaw/plugin-sdk/security-runtime";
+} from "granted/plugin-sdk/memory-host-markdown";
+import { FsSafeError, pathExists, root as fsRoot } from "granted/plugin-sdk/security-runtime";
 import {
   activateMemoryWikiCompiledCacheOwner,
   invalidateMemoryWikiCompiledCache,

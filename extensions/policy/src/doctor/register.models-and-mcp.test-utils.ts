@@ -1,7 +1,7 @@
 // Imported by register.test.ts to keep its mocked suite in one Vitest module graph.
 import { promises as fs } from "node:fs";
 import { join } from "node:path";
-import { runDoctorLintChecks, type GrantedConfig } from "openclaw/plugin-sdk/health";
+import { runDoctorLintChecks, type GrantedConfig } from "granted/plugin-sdk/health";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { collectPolicyEvidence } from "../policy-state.js";
 import {

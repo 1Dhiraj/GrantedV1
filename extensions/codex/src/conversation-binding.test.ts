@@ -5,11 +5,11 @@ import path from "node:path";
 import {
   clearActiveEmbeddedRun,
   setActiveEmbeddedRun,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
-import type { ExecApprovalsFile } from "openclaw/plugin-sdk/exec-approvals-runtime";
-import type { PluginConversationBinding } from "openclaw/plugin-sdk/plugin-entry";
-import { upsertSessionEntry } from "openclaw/plugin-sdk/session-store-runtime";
-import { appendSessionTranscriptMessageByIdentity } from "openclaw/plugin-sdk/session-transcript-runtime";
+} from "granted/plugin-sdk/agent-harness-runtime";
+import type { ExecApprovalsFile } from "granted/plugin-sdk/exec-approvals-runtime";
+import type { PluginConversationBinding } from "granted/plugin-sdk/plugin-entry";
+import { upsertSessionEntry } from "granted/plugin-sdk/session-store-runtime";
+import { appendSessionTranscriptMessageByIdentity } from "granted/plugin-sdk/session-transcript-runtime";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const sharedClientMocks = vi.hoisted(() => ({
@@ -75,7 +75,7 @@ vi.mock("node:fs", async (importOriginal) => {
 });
 
 vi.mock("openclaw/plugin-sdk/agent-harness-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/agent-harness-runtime")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/agent-harness-runtime")>();
   return {
     ...actual,
     resolveSandboxContext: resolveSandboxContextMock,
@@ -84,7 +84,7 @@ vi.mock("openclaw/plugin-sdk/agent-harness-runtime", async (importOriginal) => {
 
 vi.mock("openclaw/plugin-sdk/conversation-binding-runtime", async (importOriginal) => {
   const actual =
-    await importOriginal<typeof import("openclaw/plugin-sdk/conversation-binding-runtime")>();
+    await importOriginal<typeof import("granted/plugin-sdk/conversation-binding-runtime")>();
   return {
     ...actual,
     getSessionBindingService: () => ({
@@ -127,7 +127,7 @@ vi.mock("./app-server/shared-client.js", () => ({
 }));
 vi.mock("openclaw/plugin-sdk/exec-approvals-runtime", async (importOriginal) => {
   const actual =
-    await importOriginal<typeof import("openclaw/plugin-sdk/exec-approvals-runtime")>();
+    await importOriginal<typeof import("granted/plugin-sdk/exec-approvals-runtime")>();
   return {
     ...actual,
     loadExecApprovals: execApprovalsRuntimeMocks.loadExecApprovals,
@@ -135,11 +135,11 @@ vi.mock("openclaw/plugin-sdk/exec-approvals-runtime", async (importOriginal) => 
 });
 vi.mock("openclaw/plugin-sdk/agent-runtime", () => agentRuntimeMocks);
 vi.mock("openclaw/plugin-sdk/provider-auth", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("openclaw/plugin-sdk/provider-auth")>()),
+  ...(await importOriginal<typeof import("granted/plugin-sdk/provider-auth")>()),
   resolveAuthProfileOrder: providerAuthMocks.resolveAuthProfileOrder,
 }));
 vi.mock("openclaw/plugin-sdk/agent-scope-runtime", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("openclaw/plugin-sdk/agent-scope-runtime")>()),
+  ...(await importOriginal<typeof import("granted/plugin-sdk/agent-scope-runtime")>()),
   resolveSessionAgentIdsStrict: agentRuntimeMocks.resolveSessionAgentIdsStrict,
 }));
 

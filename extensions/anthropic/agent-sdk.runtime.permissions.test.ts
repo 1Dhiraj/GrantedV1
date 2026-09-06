@@ -1,5 +1,5 @@
 import type { PermissionResult as ClaudeAgentSdkPermissionResult } from "@anthropic-ai/claude-agent-sdk";
-import type { CliBackendExecuteContext } from "openclaw/plugin-sdk/cli-backend";
+import type { CliBackendExecuteContext } from "granted/plugin-sdk/cli-backend";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { executeClaudeAgentSdk } from "./agent-sdk.runtime.js";
 

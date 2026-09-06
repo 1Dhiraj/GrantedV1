@@ -2,8 +2,8 @@
 import type { Dirent } from "node:fs";
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { GrantedStateDatabaseSchemaMigration } from "openclaw/plugin-sdk/doctor-repair-runtime";
-import type { PluginDoctorStateMigration } from "openclaw/plugin-sdk/runtime-doctor-migrations";
+import type { GrantedStateDatabaseSchemaMigration } from "granted/plugin-sdk/doctor-repair-runtime";
+import type { PluginDoctorStateMigration } from "granted/plugin-sdk/runtime-doctor-migrations";
 import { resolveMatrixSqliteStateEnv } from "./sqlite-state.js";
 
 const STATE_DATABASE_FILENAME = "openclaw.sqlite";
@@ -58,7 +58,7 @@ export const matrixAccountStateSchemaMigration: PluginDoctorStateMigration = {
   label: "Matrix account SQLite schemas",
   async detectLegacyState(params) {
     const { detectOpenClawStateDatabaseSchemaMigrations } =
-      await import("openclaw/plugin-sdk/doctor-repair-runtime");
+      await import("granted/plugin-sdk/doctor-repair-runtime");
     const preview: string[] = [];
     for (const storageRootDir of await collectMatrixAccountStateRoots(params.stateDir)) {
       const env = resolveMatrixSqliteStateEnv({ env: params.env, stateDir: storageRootDir });
@@ -72,7 +72,7 @@ export const matrixAccountStateSchemaMigration: PluginDoctorStateMigration = {
   },
   async migrateLegacyState(params) {
     const { detectOpenClawStateDatabaseSchemaMigrations, repairOpenClawStateDatabaseSchema } =
-      await import("openclaw/plugin-sdk/doctor-repair-runtime");
+      await import("granted/plugin-sdk/doctor-repair-runtime");
     const changes: string[] = [];
     const warnings: string[] = [];
     for (const storageRootDir of await collectMatrixAccountStateRoots(params.stateDir)) {

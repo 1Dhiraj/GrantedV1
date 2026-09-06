@@ -1,6 +1,6 @@
 import path from "node:path";
-import { disposeRegisteredAgentHarnesses } from "openclaw/plugin-sdk/agent-harness";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import { disposeRegisteredAgentHarnesses } from "granted/plugin-sdk/agent-harness";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { createQaGatewayChild } from "./gateway-child.js";
 import type { QaLabLatestReport } from "./lab-server.types.js";
 import {

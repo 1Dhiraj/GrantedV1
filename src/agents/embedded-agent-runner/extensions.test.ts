@@ -1,6 +1,6 @@
 // Coverage for embedded extension factory selection and runtime wiring.
-import type { SessionManager } from "openclaw/plugin-sdk/agent-sessions";
-import type { Model } from "openclaw/plugin-sdk/llm";
+import type { SessionManager } from "granted/plugin-sdk/agent-sessions";
+import type { Model } from "granted/plugin-sdk/llm";
 import { describe, expect, it, vi } from "vitest";
 import type { GrantedConfig } from "../../config/config.js";
 import { getCompactionSafeguardRuntime } from "../agent-hooks/compaction-safeguard-runtime.js";

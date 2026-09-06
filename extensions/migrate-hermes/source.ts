@@ -1,6 +1,6 @@
 // Migrate Hermes plugin module implements source behavior.
 import path from "node:path";
-import { isPathInside } from "openclaw/plugin-sdk/file-access-runtime";
+import { isPathInside } from "granted/plugin-sdk/file-access-runtime";
 import { exists, isDirectory, readText, resolveHomePath } from "./helpers.js";
 
 export type HermesSource = {

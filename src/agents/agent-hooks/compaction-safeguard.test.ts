@@ -1,11 +1,11 @@
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import type { AgentMessage, StreamFn } from "openclaw/plugin-sdk/agent-core";
-import type { ExtensionAPI, ExtensionContext } from "openclaw/plugin-sdk/agent-sessions";
-import { createAssistantMessageEventStream, type Model } from "openclaw/plugin-sdk/llm";
+import type { AgentMessage, StreamFn } from "granted/plugin-sdk/agent-core";
+import type { ExtensionAPI, ExtensionContext } from "granted/plugin-sdk/agent-sessions";
+import { createAssistantMessageEventStream, type Model } from "granted/plugin-sdk/llm";
 /** Tests compaction safeguard summaries, quality audit, providers, and runtime settings. */
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { GrantedConfig } from "../../config/config.js";
 import type { CompactionProvider } from "../../plugins/compaction-provider.js";

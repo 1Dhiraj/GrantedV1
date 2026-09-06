@@ -1,6 +1,6 @@
 // Irc plugin module implements outbound base behavior.
-import { sanitizeForPlainText } from "openclaw/plugin-sdk/channel-outbound";
-import { sanitizeAssistantVisibleText } from "openclaw/plugin-sdk/text-chunking";
+import { sanitizeForPlainText } from "granted/plugin-sdk/channel-outbound";
+import { sanitizeAssistantVisibleText } from "granted/plugin-sdk/text-chunking";
 import { chunkTextForOutbound } from "./channel-api.js";
 
 export function sanitizeIrcAssistantText(text: string): string {

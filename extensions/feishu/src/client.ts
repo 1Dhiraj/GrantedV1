@@ -2,12 +2,12 @@
 import type { Agent } from "node:https";
 import { createRequire } from "node:module";
 import * as Lark from "@larksuiteoapi/node-sdk";
-import { bufferToBlobPart } from "openclaw/plugin-sdk/blob-runtime";
-import { isRecord } from "openclaw/plugin-sdk/channel-secret-basic-runtime";
+import { bufferToBlobPart } from "granted/plugin-sdk/blob-runtime";
+import { isRecord } from "granted/plugin-sdk/channel-secret-basic-runtime";
 import {
   readPluginPackageVersion,
   resolveAmbientNodeProxyAgent,
-} from "openclaw/plugin-sdk/extension-shared";
+} from "granted/plugin-sdk/extension-shared";
 import { resolveConfiguredHttpTimeoutMs } from "./client-timeout.js";
 import type { FeishuConfig, FeishuDomain, ResolvedFeishuAccount } from "./types.js";
 

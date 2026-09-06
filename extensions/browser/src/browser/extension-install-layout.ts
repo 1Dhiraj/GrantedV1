@@ -3,7 +3,7 @@ import { constants as fsConstants, type Dirent } from "node:fs";
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { resolveStateDir } from "openclaw/plugin-sdk/state-paths";
+import { resolveStateDir } from "granted/plugin-sdk/state-paths";
 
 const EXTENSION_ID_PATTERN = /^[a-p]{32}$/;
 const UNPACKED_MANIFEST_LOCATION = 4;

@@ -3,11 +3,11 @@ import { createHash } from "node:crypto";
 import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { createClaimableDedupe } from "openclaw/plugin-sdk/persistent-dedupe";
+import { createClaimableDedupe } from "granted/plugin-sdk/persistent-dedupe";
 import {
   createPluginStateSyncKeyedStoreForTests,
   resetPluginStateStoreForTests,
-} from "openclaw/plugin-sdk/plugin-state-test-runtime";
+} from "granted/plugin-sdk/plugin-state-test-runtime";
 import { afterEach, describe, expect, it } from "vitest";
 import { createMatrixQaE2eeTestContext } from "./scenario-runtime-e2ee.test-helpers.js";
 import {

@@ -2,7 +2,7 @@
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { BUNDLED_PLUGIN_TEST_GLOB, bundledPluginFile } from "openclaw/plugin-sdk/test-fixtures";
+import { BUNDLED_PLUGIN_TEST_GLOB, bundledPluginFile } from "granted/plugin-sdk/test-fixtures";
 import { describe, expect, it } from "vitest";
 import { cleanupTempDirs, makeTempDir } from "./helpers/temp-dir.js";
 import { normalizeConfigPath, normalizeConfigPaths } from "./helpers/vitest-config-paths.js";

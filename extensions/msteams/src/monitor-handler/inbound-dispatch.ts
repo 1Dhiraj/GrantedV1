@@ -5,10 +5,10 @@ import {
   resolveInboundReplyDispatchCounts,
   resolveInboundSupplementalSenderAllowed,
   toInboundMediaFactsWithMetadata,
-} from "openclaw/plugin-sdk/channel-inbound";
-import { bindIngressLifecycleToReplyOptions } from "openclaw/plugin-sdk/channel-outbound";
-import { createChannelHistoryWindow, type HistoryEntry } from "openclaw/plugin-sdk/reply-history";
-import { sliceUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+} from "granted/plugin-sdk/channel-inbound";
+import { bindIngressLifecycleToReplyOptions } from "granted/plugin-sdk/channel-outbound";
+import { createChannelHistoryWindow, type HistoryEntry } from "granted/plugin-sdk/reply-history";
+import { sliceUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import type { RuntimeEnv } from "../../runtime-api.js";
 import { formatUnknownError } from "../errors.js";
 import type { MSTeamsMessageHandlerDeps } from "../monitor-handler.types.js";

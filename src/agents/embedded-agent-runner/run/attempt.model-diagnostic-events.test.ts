@@ -1,7 +1,7 @@
 // Coverage for model-call diagnostic events around attempt stream functions.
 import { MAX_TIMER_TIMEOUT_MS } from "@openclaw/normalization-core/number-coercion";
-import type { StreamFn } from "openclaw/plugin-sdk/agent-core";
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import type { StreamFn } from "granted/plugin-sdk/agent-core";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   onInternalDiagnosticEvent,

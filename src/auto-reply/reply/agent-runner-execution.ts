@@ -4,7 +4,7 @@ import {
   hasNonEmptyString,
   normalizeOptionalString,
 } from "@openclaw/normalization-core/string-coerce";
-import { hasOutboundReplyContent } from "openclaw/plugin-sdk/reply-payload";
+import { hasOutboundReplyContent } from "granted/plugin-sdk/reply-payload";
 import type { ChatRunStartupPhase } from "../../../packages/gateway-protocol/src/index.js";
 import type {
   AdmittedRunContext,

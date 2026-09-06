@@ -4,15 +4,15 @@ import type {
   AudioTranscriptionRequest,
   AudioTranscriptionResult,
   MediaUnderstandingProvider,
-} from "openclaw/plugin-sdk/media-understanding";
+} from "granted/plugin-sdk/media-understanding";
 import {
   assertOkOrThrowHttpError,
   postJsonRequest,
   readProviderJsonResponse,
   requireTranscriptionText,
   resolveProviderHttpRequestConfig,
-} from "openclaw/plugin-sdk/provider-http";
-import { asFiniteNumber } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/provider-http";
+import { asFiniteNumber } from "granted/plugin-sdk/string-coerce-runtime";
 import { OPENROUTER_BASE_URL } from "./provider-catalog.js";
 
 const DEFAULT_OPENROUTER_AUDIO_TRANSCRIPTION_MODEL = "openai/whisper-large-v3-turbo";

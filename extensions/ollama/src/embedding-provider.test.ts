@@ -1,6 +1,6 @@
-import { coerceErrorMessage } from "openclaw/plugin-sdk/error-runtime";
+import { coerceErrorMessage } from "granted/plugin-sdk/error-runtime";
 // Ollama tests cover embedding provider plugin behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/provider-auth";
+import type { GrantedConfig } from "granted/plugin-sdk/provider-auth";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { createStreamingResponse } from "../../test-support/streaming-error-response.js";
 

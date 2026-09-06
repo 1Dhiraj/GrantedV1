@@ -1,4 +1,4 @@
-import { createOpenClawTestState, type GrantedTestState } from "openclaw/plugin-sdk/test-state";
+import { createOpenClawTestState, type GrantedTestState } from "granted/plugin-sdk/test-state";
 import { afterEach, beforeEach } from "vitest";
 import {
   describe,

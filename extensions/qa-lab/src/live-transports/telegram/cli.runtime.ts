@@ -1,9 +1,9 @@
 import { constants as fsConstants } from "node:fs";
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { parseStrictPositiveInteger } from "openclaw/plugin-sdk/number-runtime";
-import type { LiveTransportQaCommandOptions } from "openclaw/plugin-sdk/qa-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { parseStrictPositiveInteger } from "granted/plugin-sdk/number-runtime";
+import type { LiveTransportQaCommandOptions } from "granted/plugin-sdk/qa-runtime";
 import type { QaGatewayChildCommand } from "../../gateway-child.js";
 import { runQaFlowSuiteFromRuntime } from "../../suite-launch.runtime.js";
 import type { QaSuiteRoundTripProbe } from "../../suite-round-trip.js";

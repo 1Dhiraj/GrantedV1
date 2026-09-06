@@ -1,6 +1,6 @@
 /** Keyed routing for all turn traffic on one shared Codex app-server client. */
-import { embeddedAgentLog } from "openclaw/plugin-sdk/agent-harness-runtime";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
+import { embeddedAgentLog } from "granted/plugin-sdk/agent-harness-runtime";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
 import type { CodexAppServerClient } from "./client.js";
 import { redactCodexEventKind } from "./event-projector-diagnostics.js";
 import {

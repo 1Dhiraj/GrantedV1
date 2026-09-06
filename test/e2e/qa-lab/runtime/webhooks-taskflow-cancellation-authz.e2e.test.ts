@@ -1,13 +1,13 @@
 // Webhooks TaskFlow E2E covers route-bound child cancellation on a real Gateway listener.
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { GrantedPluginService } from "openclaw/plugin-sdk/core";
+import type { GrantedPluginService } from "granted/plugin-sdk/core";
 import {
   createPluginStateKeyedStoreForTests,
   resetPluginStateStoreForTests,
-} from "openclaw/plugin-sdk/plugin-state-test-runtime";
-import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
-import { createPluginRuntimeMock } from "openclaw/plugin-sdk/plugin-test-runtime";
+} from "granted/plugin-sdk/plugin-state-test-runtime";
+import { createTestPluginApi } from "granted/plugin-sdk/plugin-test-api";
+import { createPluginRuntimeMock } from "granted/plugin-sdk/plugin-test-runtime";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import acpxPlugin from "../../../../extensions/acpx/index.js";
 import webhooksPlugin from "../../../../extensions/webhooks/index.js";

@@ -1,11 +1,11 @@
 import { createServer, type Server } from "node:http";
 import type { AddressInfo, Socket } from "node:net";
-import { buildHistoryContext } from "openclaw/plugin-sdk/reply-history";
+import { buildHistoryContext } from "granted/plugin-sdk/reply-history";
 import {
   createReplyDispatcher,
   dispatchInboundMessage,
   type ReplyPayload,
-} from "openclaw/plugin-sdk/reply-runtime";
+} from "granted/plugin-sdk/reply-runtime";
 import { afterAll, afterEach, beforeAll, describe, expect, it } from "vitest";
 import { sendMessageTelegram } from "./send.js";
 

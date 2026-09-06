@@ -6,13 +6,13 @@ import {
   type ChannelIngressStateInput,
   createChannelIngressResolver,
   readChannelIngressStoreAllowFromForDmPolicy,
-} from "openclaw/plugin-sdk/channel-ingress-runtime";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
+} from "granted/plugin-sdk/channel-ingress-runtime";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
 import {
   asDateTimestampMs,
   resolveExpiresAtMsFromDurationMs,
-} from "openclaw/plugin-sdk/number-runtime";
-import { logVerbose } from "openclaw/plugin-sdk/runtime-env";
+} from "granted/plugin-sdk/number-runtime";
+import { logVerbose } from "granted/plugin-sdk/runtime-env";
 import { collectSlackCursorPages } from "../cursor-pages.js";
 import {
   allowListMatches,

@@ -1,7 +1,7 @@
 import { streamSimpleOpenAIResponses } from "@openclaw/ai/internal/openai";
 // Github Copilot tests cover models plugin behavior.
 import { expectDefined } from "@openclaw/normalization-core";
-import { createProviderUsageFetch, makeResponse } from "openclaw/plugin-sdk/test-env";
+import { createProviderUsageFetch, makeResponse } from "granted/plugin-sdk/test-env";
 import { describe, expect, it, vi } from "vitest";
 import { resolveThinkingProfile } from "./provider-policy-api.js";
 import { CopilotRuntimeAuthError } from "./runtime-auth-error.js";
@@ -10,7 +10,7 @@ import { resolveCopilotStarterModel } from "./starter-model.js";
 import { fetchCopilotUsage } from "./usage.js";
 
 vi.mock("openclaw/plugin-sdk/provider-model-shared", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("openclaw/plugin-sdk/provider-model-shared")>()),
+  ...(await importOriginal<typeof import("granted/plugin-sdk/provider-model-shared")>()),
   normalizeModelCompat: (model: Record<string, unknown>) => model,
   resolveProviderEndpoint: (baseUrl: string) => ({
     baseUrl,
@@ -23,7 +23,7 @@ vi.mock("openclaw/plugin-sdk/state-paths", () => ({
   resolveStateDir: () => "/tmp/openclaw-state",
 }));
 
-import type { ProviderResolveDynamicModelContext } from "openclaw/plugin-sdk/core";
+import type { ProviderResolveDynamicModelContext } from "granted/plugin-sdk/core";
 import {
   fetchCopilotModelCatalog,
   resolveCopilotForwardCompatModel,

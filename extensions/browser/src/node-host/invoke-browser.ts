@@ -3,11 +3,11 @@
  * requests.
  */
 import fsPromises from "node:fs/promises";
-import { resolveTimerTimeoutMs } from "openclaw/plugin-sdk/number-runtime";
+import { resolveTimerTimeoutMs } from "granted/plugin-sdk/number-runtime";
 import {
   asNullableRecord,
   normalizeStringEntries,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import { BROWSER_PROXY_COMMAND, BROWSER_PROXY_UPLOAD_COMMAND } from "../browser-node-commands.js";
 import {
   assertBrowserProxyFileCountWithinLimit,

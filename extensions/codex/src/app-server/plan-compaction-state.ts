@@ -1,8 +1,8 @@
 import { Buffer } from "node:buffer";
-import type { EmbeddedRunAttemptParams } from "openclaw/plugin-sdk/agent-harness-runtime";
-import type { AgentPlanStep } from "openclaw/plugin-sdk/channel-outbound";
-import { truncateUtf8Prefix } from "openclaw/plugin-sdk/text-utility-runtime";
-import { stripInvisibleUnicode } from "openclaw/plugin-sdk/web-content-extractor";
+import type { EmbeddedRunAttemptParams } from "granted/plugin-sdk/agent-harness-runtime";
+import type { AgentPlanStep } from "granted/plugin-sdk/channel-outbound";
+import { truncateUtf8Prefix } from "granted/plugin-sdk/text-utility-runtime";
+import { stripInvisibleUnicode } from "granted/plugin-sdk/web-content-extractor";
 import type { CodexAppServerClient } from "./client.js";
 import { isJsonObject } from "./protocol.js";
 

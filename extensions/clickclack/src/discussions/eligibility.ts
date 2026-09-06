@@ -1,4 +1,4 @@
-import type { SessionDiscussionInfo } from "openclaw/plugin-sdk/session-discussion";
+import type { SessionDiscussionInfo } from "granted/plugin-sdk/session-discussion";
 import { listEnabledClickClackAccounts } from "../accounts.js";
 import type { CoreConfig, ResolvedClickClackAccount } from "../types.js";
 import type { ClickClackDiscussionBinding } from "./binding-store.js";

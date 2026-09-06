@@ -2,7 +2,7 @@
 import type {
   PluginDoctorStateMigration,
   PluginDoctorStateMigrationContext,
-} from "openclaw/plugin-sdk/runtime-doctor-migrations";
+} from "granted/plugin-sdk/runtime-doctor-migrations";
 import type {
   PersistedWorkboardAttachment,
   PersistedWorkboardBoard,

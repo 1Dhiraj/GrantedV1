@@ -4,11 +4,11 @@ import type { AddressInfo } from "node:net";
 import {
   closeOpenClawStateDatabaseForTest,
   createChannelIngressQueueForTests,
-} from "openclaw/plugin-sdk/channel-ingress-test-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { PluginRuntime } from "openclaw/plugin-sdk/core";
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
-import { withStateDirEnv } from "openclaw/plugin-sdk/test-env";
+} from "granted/plugin-sdk/channel-ingress-test-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { PluginRuntime } from "granted/plugin-sdk/core";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
+import { withStateDirEnv } from "granted/plugin-sdk/test-env";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { WebSocketServer } from "ws";
 import { handleSlackHttpRequest } from "../http/index.js";

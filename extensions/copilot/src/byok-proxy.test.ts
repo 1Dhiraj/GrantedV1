@@ -1,7 +1,7 @@
 import { request as httpRequest } from "node:http";
 // Copilot BYOK proxy tests verify SDK-local transport is guarded outbound fetch.
 import { expectDefined } from "@openclaw/normalization-core";
-import type { fetchWithSsrFGuard } from "openclaw/plugin-sdk/ssrf-runtime";
+import type { fetchWithSsrFGuard } from "granted/plugin-sdk/ssrf-runtime";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { createCopilotByokProxy } from "./byok-proxy.js";
 import { resolveCopilotProvider } from "./provider-bridge.js";
@@ -11,7 +11,7 @@ const ssrfRuntimeMock = vi.hoisted(() => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/ssrf-runtime", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("openclaw/plugin-sdk/ssrf-runtime")>()),
+  ...(await importOriginal<typeof import("granted/plugin-sdk/ssrf-runtime")>()),
   fetchWithSsrFGuard: ssrfRuntimeMock.fetchWithSsrFGuard,
 }));
 
@@ -98,7 +98,7 @@ describe("createCopilotByokProxy", () => {
 
   it.each([307, 308])("preserves binary request bytes across a %i redirect", async (status) => {
     const { fetchWithSsrFGuard } = await vi.importActual<
-      typeof import("openclaw/plugin-sdk/ssrf-runtime")
+      typeof import("granted/plugin-sdk/ssrf-runtime")
     >("openclaw/plugin-sdk/ssrf-runtime");
     ssrfRuntimeMock.fetchWithSsrFGuard.mockImplementation(fetchWithSsrFGuard);
     const clientFetch = globalThis.fetch;

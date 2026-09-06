@@ -1,4 +1,4 @@
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 // Discord tests cover transcripts source plugin behavior.
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {

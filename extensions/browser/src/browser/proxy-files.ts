@@ -4,8 +4,8 @@
  * Persists files returned by node-hosted browser proxy calls and rewrites
  * proxied result paths to local saved media paths.
  */
-import { canonicalizeBase64, estimateBase64DecodedBytes } from "openclaw/plugin-sdk/media-runtime";
-import { asNullableRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { canonicalizeBase64, estimateBase64DecodedBytes } from "granted/plugin-sdk/media-runtime";
+import { asNullableRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   assertBrowserProxyFileCountWithinLimit,
   assertBrowserProxyFileBytesWithinLimits,

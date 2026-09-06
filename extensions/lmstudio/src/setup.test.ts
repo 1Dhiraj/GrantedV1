@@ -1,23 +1,23 @@
-import { createDeferred } from "openclaw/plugin-sdk/extension-shared";
+import { createDeferred } from "granted/plugin-sdk/extension-shared";
 import {
   createNonExitingRuntimeEnv,
   createQueuedWizardPrompter,
-} from "openclaw/plugin-sdk/plugin-test-runtime";
-import { CUSTOM_LOCAL_AUTH_MARKER } from "openclaw/plugin-sdk/provider-auth";
-import type { GrantedConfig } from "openclaw/plugin-sdk/provider-auth";
+} from "granted/plugin-sdk/plugin-test-runtime";
+import { CUSTOM_LOCAL_AUTH_MARKER } from "granted/plugin-sdk/provider-auth";
+import type { GrantedConfig } from "granted/plugin-sdk/provider-auth";
 import type {
   ModelDefinitionConfig,
   ModelProviderConfig,
-} from "openclaw/plugin-sdk/provider-model-shared";
-import { resolveAgentModelPrimaryValue } from "openclaw/plugin-sdk/provider-onboard";
+} from "granted/plugin-sdk/provider-model-shared";
+import { resolveAgentModelPrimaryValue } from "granted/plugin-sdk/provider-onboard";
 import {
   SELF_HOSTED_DEFAULT_CONTEXT_WINDOW,
   type ProviderAuthMethodNonInteractiveContext,
   type ProviderCatalogContext,
-} from "openclaw/plugin-sdk/provider-setup";
-import type { WizardPrompter } from "openclaw/plugin-sdk/setup";
+} from "granted/plugin-sdk/provider-setup";
+import type { WizardPrompter } from "granted/plugin-sdk/setup";
 // Lmstudio tests cover setup plugin behavior.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterAll, afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   LMSTUDIO_DEFAULT_API_KEY_ENV_VAR,
@@ -45,7 +45,7 @@ vi.mock("./models.fetch.js", () => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/provider-auth-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/provider-auth-runtime")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/provider-auth-runtime")>();
   return {
     ...actual,
     removeProviderAuthProfilesWithLock: (...args: unknown[]) =>
@@ -54,7 +54,7 @@ vi.mock("openclaw/plugin-sdk/provider-auth-runtime", async (importOriginal) => {
 });
 
 vi.mock("openclaw/plugin-sdk/provider-setup", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/provider-setup")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/provider-setup")>();
   return {
     ...actual,
     configureOpenAICompatibleSelfHostedProviderNonInteractive: (...args: unknown[]) =>

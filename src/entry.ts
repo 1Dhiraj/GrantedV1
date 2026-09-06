@@ -36,8 +36,8 @@ import { installProcessWarningFilter } from "./infra/warning-filter.js";
 import { defaultRuntime } from "./runtime.js";
 
 const ENTRY_WRAPPER_PAIRS = [
-  { wrapperBasename: "openclaw.mjs", entryBasename: "entry.js" },
-  { wrapperBasename: "openclaw.mjs", entryBasename: "entry.mjs" },
+  { wrapperBasename: "granted.mjs", entryBasename: "entry.js" },
+  { wrapperBasename: "granted.mjs", entryBasename: "entry.mjs" },
   { wrapperBasename: "openclaw.js", entryBasename: "entry.js" },
 ] as const;
 

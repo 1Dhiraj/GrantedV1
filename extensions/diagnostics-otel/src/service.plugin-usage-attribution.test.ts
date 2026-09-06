@@ -9,7 +9,7 @@ import {
   emitTrustedDiagnosticEventWithPrivateData,
   resetDiagnosticEventsForTest,
   waitForDiagnosticEventsDrained,
-} from "openclaw/plugin-sdk/diagnostic-runtime";
+} from "granted/plugin-sdk/diagnostic-runtime";
 import { afterEach, beforeEach, expect, test } from "vitest";
 import { startOtelServiceWithHostUsage, stopStartedOtelServices } from "./service.test-helpers.js";
 

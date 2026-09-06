@@ -1,7 +1,7 @@
 import { runInNewContext } from "node:vm";
 import { Command } from "commander";
 // Google Meet tests cover index.create plugin behavior.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterAll, afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import plugin from "./index.js";
 import { registerGoogleMeetCli } from "./src/cli.js";
@@ -43,7 +43,7 @@ const fetchGuardMocks = vi.hoisted(() => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/ssrf-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/ssrf-runtime")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/ssrf-runtime")>();
   return {
     ...actual,
     fetchWithSsrFGuard: fetchGuardMocks.fetchWithSsrFGuard,

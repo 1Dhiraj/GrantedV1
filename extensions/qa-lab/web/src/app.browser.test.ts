@@ -1,7 +1,7 @@
 /* @vitest-environment jsdom */
 import { readFileSync } from "node:fs";
 import path from "node:path";
-import type { QaBusStateSnapshot } from "openclaw/plugin-sdk/qa-channel-protocol";
+import type { QaBusStateSnapshot } from "granted/plugin-sdk/qa-channel-protocol";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { Bootstrap, RunnerSelection } from "./ui-types.js";
 

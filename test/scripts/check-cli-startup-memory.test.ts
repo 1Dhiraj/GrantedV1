@@ -76,7 +76,7 @@ describe("check-cli-startup-memory", () => {
     expect(testing.cases).toContainEqual(
       expect.objectContaining({
         id: "pluginsList",
-        args: ["openclaw.mjs", "plugins", "list", "--json"],
+        args: ["granted.mjs", "plugins", "list", "--json"],
       }),
     );
   });
@@ -340,7 +340,7 @@ describe("check-cli-startup-memory", () => {
       // measure a non-default resolution configuration.
       expect(args[0]).toMatch(/bench-entry\.mjs$/u);
       expect(args[0]).not.toBe("--import");
-      expect(args[1]).not.toBe("openclaw.mjs");
+      expect(args[1]).not.toBe("granted.mjs");
     }
   });
 });

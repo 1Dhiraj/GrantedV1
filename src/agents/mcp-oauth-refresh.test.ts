@@ -1,6 +1,6 @@
 // Covers MCP OAuth token refresh, lease cancellation, and concurrency.
 import path from "node:path";
-import { withTempHome as withBaseTempHome } from "openclaw/plugin-sdk/test-env";
+import { withTempHome as withBaseTempHome } from "granted/plugin-sdk/test-env";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   closeOpenClawStateDatabaseForTest,

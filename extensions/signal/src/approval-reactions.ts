@@ -1,6 +1,6 @@
 // Signal plugin module implements approval reactions behavior.
-import type { ApprovalResolveResult } from "openclaw/plugin-sdk/approval-gateway-runtime";
-import type { ChannelApprovalKind } from "openclaw/plugin-sdk/approval-handler-runtime";
+import type { ApprovalResolveResult } from "granted/plugin-sdk/approval-gateway-runtime";
+import type { ChannelApprovalKind } from "granted/plugin-sdk/approval-handler-runtime";
 import {
   addApprovalReactionHintToText,
   createApprovalReactionTargetStore,
@@ -9,22 +9,22 @@ import {
   readApprovalReactionDecisionList,
   resolveTypedApprovalReactionTarget,
   type ApprovalReactionTargetRecord,
-} from "openclaw/plugin-sdk/approval-reaction-runtime";
+} from "granted/plugin-sdk/approval-reaction-runtime";
 import {
   getExecApprovalReplyMetadata,
   type ExecApprovalReplyDecision,
-} from "openclaw/plugin-sdk/approval-reply-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { isApprovalNotFoundError } from "openclaw/plugin-sdk/error-runtime";
-import { createLazyRuntimeSurface } from "openclaw/plugin-sdk/lazy-runtime";
-import { createPluginStateErrorReporter } from "openclaw/plugin-sdk/plugin-state-runtime";
-import type { ReplyPayload } from "openclaw/plugin-sdk/reply-runtime";
-import { normalizeAccountId } from "openclaw/plugin-sdk/routing";
+} from "granted/plugin-sdk/approval-reply-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { isApprovalNotFoundError } from "granted/plugin-sdk/error-runtime";
+import { createLazyRuntimeSurface } from "granted/plugin-sdk/lazy-runtime";
+import { createPluginStateErrorReporter } from "granted/plugin-sdk/plugin-state-runtime";
+import type { ReplyPayload } from "granted/plugin-sdk/reply-runtime";
+import { normalizeAccountId } from "granted/plugin-sdk/routing";
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
-import { normalizeE164 } from "openclaw/plugin-sdk/text-utility-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
+import { normalizeE164 } from "granted/plugin-sdk/text-utility-runtime";
 import { resolveSignalTarget } from "./aliases.js";
 import { getSignalApprovalApprovers, signalApprovalAuth } from "./approval-auth.js";
 import {
@@ -67,7 +67,7 @@ type SignalApprovalDeliveryResult = {
 };
 
 const loadResolveApprovalOverGateway = createLazyRuntimeSurface(
-  () => import("openclaw/plugin-sdk/approval-gateway-runtime"),
+  () => import("granted/plugin-sdk/approval-gateway-runtime"),
   (runtime) => runtime.resolveApprovalOverGateway,
 );
 

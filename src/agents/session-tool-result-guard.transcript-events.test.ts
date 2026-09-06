@@ -1,10 +1,10 @@
 // Verifies guarded session managers emit transcript update events with stable sequence ids.
 import path from "node:path";
 import { asNullableRecord } from "@openclaw/normalization-core/record-coerce";
-import type { AgentMessage } from "openclaw/plugin-sdk/agent-core";
-import { SessionManager } from "openclaw/plugin-sdk/agent-sessions";
-import { upsertSessionEntry } from "openclaw/plugin-sdk/session-store-runtime";
-import { closeOpenClawAgentDatabasesForTest } from "openclaw/plugin-sdk/sqlite-runtime-testing";
+import type { AgentMessage } from "granted/plugin-sdk/agent-core";
+import { SessionManager } from "granted/plugin-sdk/agent-sessions";
+import { upsertSessionEntry } from "granted/plugin-sdk/session-store-runtime";
+import { closeOpenClawAgentDatabasesForTest } from "granted/plugin-sdk/sqlite-runtime-testing";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
 import {

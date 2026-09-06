@@ -1,13 +1,13 @@
 import { randomUUID } from "node:crypto";
 import type { Context } from "grammy";
-import { parseExecApprovalCommandText } from "openclaw/plugin-sdk/approval-reply-runtime";
-import { buildCommandsMessagePaginated } from "openclaw/plugin-sdk/command-status";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { applySessionModelSelection } from "openclaw/plugin-sdk/model-session-runtime";
-import { formatModelsAvailableHeader } from "openclaw/plugin-sdk/models-provider-runtime";
-import { parseStrictPositiveInteger } from "openclaw/plugin-sdk/number-runtime";
-import { danger, logVerbose } from "openclaw/plugin-sdk/runtime-env";
-import { getSessionEntry } from "openclaw/plugin-sdk/session-store-runtime";
+import { parseExecApprovalCommandText } from "granted/plugin-sdk/approval-reply-runtime";
+import { buildCommandsMessagePaginated } from "granted/plugin-sdk/command-status";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { applySessionModelSelection } from "granted/plugin-sdk/model-session-runtime";
+import { formatModelsAvailableHeader } from "granted/plugin-sdk/models-provider-runtime";
+import { parseStrictPositiveInteger } from "granted/plugin-sdk/number-runtime";
+import { danger, logVerbose } from "granted/plugin-sdk/runtime-env";
+import { getSessionEntry } from "granted/plugin-sdk/session-store-runtime";
 import { withTelegramApiErrorLogging } from "./api-logging.js";
 import {
   hasTelegramApprovalCallbackPrefix,

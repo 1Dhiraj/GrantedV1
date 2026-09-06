@@ -8,7 +8,7 @@
  * - Getting chat members for per-user sharing
  */
 
-import { readProviderJsonResponse } from "openclaw/plugin-sdk/provider-http";
+import { readProviderJsonResponse } from "granted/plugin-sdk/provider-http";
 import type { MSTeamsAccessTokenProvider } from "./attachments/types.js";
 import { createMSTeamsHttpError } from "./http-error.js";
 import {

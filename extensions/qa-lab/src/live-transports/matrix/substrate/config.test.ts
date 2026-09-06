@@ -1,5 +1,5 @@
 // Qa Lab Matrix tests cover config behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { describe, expect, it } from "vitest";
 import { buildMatrixQaConfig } from "./config.js";
 import type { MatrixQaProvisionedTopology } from "./topology.js";

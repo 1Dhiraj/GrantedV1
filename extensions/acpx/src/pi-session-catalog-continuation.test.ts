@@ -3,7 +3,7 @@ import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 type ResolveAcpSessionAvailability =
-  (typeof import("openclaw/plugin-sdk/acp-runtime"))["resolveAcpSessionAvailability"];
+  (typeof import("granted/plugin-sdk/acp-runtime"))["resolveAcpSessionAvailability"];
 
 const acpRuntimeMocks = vi.hoisted(() => ({
   resolveAcpSessionAvailability: vi.fn<ResolveAcpSessionAvailability>(() => ({ available: true })),
@@ -14,13 +14,13 @@ const transcriptMocks = vi.hoisted(() => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/acp-runtime", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("openclaw/plugin-sdk/acp-runtime")>()),
+  ...(await importOriginal<typeof import("granted/plugin-sdk/acp-runtime")>()),
   resolveAcpSessionAvailability: acpRuntimeMocks.resolveAcpSessionAvailability,
 }));
 
 vi.mock("openclaw/plugin-sdk/session-transcript-runtime", async (importOriginal) => {
   const actual =
-    await importOriginal<typeof import("openclaw/plugin-sdk/session-transcript-runtime")>();
+    await importOriginal<typeof import("granted/plugin-sdk/session-transcript-runtime")>();
   return {
     ...actual,
     withSessionTranscriptWriteLock: async (

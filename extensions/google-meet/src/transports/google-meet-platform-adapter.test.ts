@@ -1,5 +1,5 @@
 import { runInNewContext } from "node:vm";
-import { MeetingPlatformAdapter } from "openclaw/plugin-sdk/meeting-runtime";
+import { MeetingPlatformAdapter } from "granted/plugin-sdk/meeting-runtime";
 import { describe, expect, it, vi } from "vitest";
 import { meetStatusScript } from "./google-meet-page-scripts.js";
 import { GOOGLE_MEET_PLATFORM_ADAPTER } from "./google-meet-platform-adapter.js";

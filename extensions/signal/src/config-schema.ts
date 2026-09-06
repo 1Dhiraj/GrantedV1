@@ -3,7 +3,7 @@ import {
   DEFAULT_ACCOUNT_ID,
   normalizeAccountId,
   resolveAccountEntry,
-} from "openclaw/plugin-sdk/account-resolution";
+} from "granted/plugin-sdk/account-resolution";
 import {
   buildChannelConfigSchema,
   buildChannelReactionShape,
@@ -15,8 +15,8 @@ import {
   ReplyToModeSchema,
   requireAllowlistAllowFrom,
   requireOpenAllowFrom,
-} from "openclaw/plugin-sdk/channel-config-schema";
-import { isRecord, normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/channel-config-schema";
+import { isRecord, normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import { z } from "zod";
 import { signalChannelConfigUiHints } from "./config-ui-hints.js";
 

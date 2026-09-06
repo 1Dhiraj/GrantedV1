@@ -42,9 +42,9 @@ import {
   type WorkboardWorkerProtocol,
   type WorkboardWorkspace,
 } from "@openclaw/workboard-contract";
-import { resolveNonNegativeIntegerOption } from "openclaw/plugin-sdk/number-runtime";
-import { isRecord, normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
+import { resolveNonNegativeIntegerOption } from "granted/plugin-sdk/number-runtime";
+import { isRecord, normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
+import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
 import {
   MAX_ATTACHMENT_BYTES,
   MAX_CARD_ARTIFACTS,

@@ -2,9 +2,9 @@
 // non-interactive so agents can register a claw and manage friendships when
 // asked to by their owner; --json emits machine-readable results.
 import type { Command } from "commander";
-import { createChannelPairingController } from "openclaw/plugin-sdk/channel-pairing";
-import { mutateConfigFile } from "openclaw/plugin-sdk/config-mutation";
-import type { GrantedConfig } from "openclaw/plugin-sdk/core";
+import { createChannelPairingController } from "granted/plugin-sdk/channel-pairing";
+import { mutateConfigFile } from "granted/plugin-sdk/config-mutation";
+import type { GrantedConfig } from "granted/plugin-sdk/core";
 import { fingerprint } from "../protocol/index.js";
 import {
   parseReefRelayUrl,

@@ -1,7 +1,7 @@
 // Line plugin module implements card command behavior.
-import { expectDefined } from "openclaw/plugin-sdk/expect-runtime";
-import type { ReplyPayload } from "openclaw/plugin-sdk/reply-runtime";
-import { normalizeLowercaseStringOrEmpty } from "openclaw/plugin-sdk/string-coerce-runtime";
+import { expectDefined } from "granted/plugin-sdk/expect-runtime";
+import type { ReplyPayload } from "granted/plugin-sdk/reply-runtime";
+import { normalizeLowercaseStringOrEmpty } from "granted/plugin-sdk/string-coerce-runtime";
 import {
   createActionCard,
   createImageCard,

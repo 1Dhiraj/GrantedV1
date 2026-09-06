@@ -1,6 +1,6 @@
 // Zalo tests cover actions plugin behavior.
 import http from "node:http";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { zaloMessageActions } from "./actions.js";
 

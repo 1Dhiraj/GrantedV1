@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import os from "node:os";
 import { join } from "node:path";
-import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
+import { createTestPluginApi } from "granted/plugin-sdk/plugin-test-api";
 import { afterAll, describe, expect, it, vi } from "vitest";
 import type { GrantedConfig, GrantedPluginApi, GrantedPluginToolContext } from "../api.js";
 import { registerDiffsPlugin } from "./plugin.js";

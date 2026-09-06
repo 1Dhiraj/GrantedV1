@@ -1,12 +1,12 @@
-import { readAcpSessionEntry, type AcpSessionStoreEntry } from "openclaw/plugin-sdk/acp-runtime";
-import { runTasksWithConcurrency } from "openclaw/plugin-sdk/concurrency-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import { readAcpSessionEntry, type AcpSessionStoreEntry } from "granted/plugin-sdk/acp-runtime";
+import { runTasksWithConcurrency } from "granted/plugin-sdk/concurrency-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 // Discord plugin module implements thread bindings.lifecycle behavior.
 import {
   normalizeOptionalLowercaseString,
   normalizeOptionalString,
   uniqueStrings,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import { parseDiscordTarget } from "../targets.js";
 import { resolveChannelIdForBinding } from "./thread-bindings.discord-api.js";
 import { getThreadBindingManager } from "./thread-bindings.manager.js";

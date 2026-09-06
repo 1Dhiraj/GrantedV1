@@ -1,9 +1,9 @@
 import path from "node:path";
-import { resolveMemorySearchStaleness } from "openclaw/plugin-sdk/memory-core-host-engine-storage";
+import { resolveMemorySearchStaleness } from "granted/plugin-sdk/memory-core-host-engine-storage";
 import {
   resolveMemoryDreamingConfig,
   resolveMemoryDreamingWorkspaces,
-} from "openclaw/plugin-sdk/memory-core-host-status";
+} from "granted/plugin-sdk/memory-core-host-status";
 import {
   buildCliMemorySearchSessionKey,
   formatAuditCounts,

@@ -2,7 +2,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { isRecord } from "@openclaw/normalization-core/record-coerce";
-import { createRequireRecord, bundledPluginRoot } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord, bundledPluginRoot } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { useAutoCleanupTempDirTracker } from "../../../test/helpers/temp-dir.js";
 import { createColdPluginFixture } from "../../plugins/test-helpers/cold-plugin-fixtures.js";

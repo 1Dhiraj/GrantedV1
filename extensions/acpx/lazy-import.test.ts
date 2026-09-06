@@ -1,10 +1,10 @@
 import type {
   GrantedPluginNodeHostCommand,
   GrantedPluginNodeInvokePolicy,
-} from "openclaw/plugin-sdk/plugin-entry";
-import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
-import { createPluginRuntimeMock } from "openclaw/plugin-sdk/plugin-test-runtime";
-import type { SessionCatalogProvider } from "openclaw/plugin-sdk/session-catalog";
+} from "granted/plugin-sdk/plugin-entry";
+import { createTestPluginApi } from "granted/plugin-sdk/plugin-test-api";
+import { createPluginRuntimeMock } from "granted/plugin-sdk/plugin-test-runtime";
+import type { SessionCatalogProvider } from "granted/plugin-sdk/session-catalog";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 describe("acpx Pi session catalog lazy imports", () => {

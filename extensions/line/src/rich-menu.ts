@@ -1,11 +1,11 @@
 // Line plugin module implements rich menu behavior.
 import { messagingApi } from "@line/bot-sdk";
-import { bufferToBlobPart } from "openclaw/plugin-sdk/blob-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { getAgentScopedMediaLocalRoots } from "openclaw/plugin-sdk/media-local-roots";
-import { mimeTypeFromFilePath } from "openclaw/plugin-sdk/media-mime";
-import { logVerbose } from "openclaw/plugin-sdk/runtime-env";
-import { loadWebMediaRaw } from "openclaw/plugin-sdk/web-media";
+import { bufferToBlobPart } from "granted/plugin-sdk/blob-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { getAgentScopedMediaLocalRoots } from "granted/plugin-sdk/media-local-roots";
+import { mimeTypeFromFilePath } from "granted/plugin-sdk/media-mime";
+import { logVerbose } from "granted/plugin-sdk/runtime-env";
+import { loadWebMediaRaw } from "granted/plugin-sdk/web-media";
 import { resolveLineAccount } from "./accounts.js";
 import { messageAction } from "./actions.js";
 import { resolveLineChannelAccessToken } from "./channel-access-token.js";

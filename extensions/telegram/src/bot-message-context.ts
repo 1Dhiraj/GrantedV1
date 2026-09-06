@@ -3,19 +3,19 @@ import type { ReactionTypeEmoji } from "grammy/types";
 import {
   resolveAckReaction,
   shouldAckReaction as shouldAckReactionGate,
-} from "openclaw/plugin-sdk/channel-feedback";
-import { logInboundDrop } from "openclaw/plugin-sdk/channel-inbound";
+} from "granted/plugin-sdk/channel-feedback";
+import { logInboundDrop } from "granted/plugin-sdk/channel-inbound";
 import type {
   TelegramDirectConfig,
   TelegramGroupConfig,
-} from "openclaw/plugin-sdk/config-contracts";
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
+} from "granted/plugin-sdk/config-contracts";
+import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
 import {
   deriveLastRoutePolicy,
   normalizeAccountId,
   resolveThreadSessionKeys,
-} from "openclaw/plugin-sdk/routing";
-import { logVerbose } from "openclaw/plugin-sdk/runtime-env";
+} from "granted/plugin-sdk/routing";
+import { logVerbose } from "granted/plugin-sdk/runtime-env";
 import {
   expandTelegramAllowFromWithAccessGroups,
   resolveTelegramDmAllow,

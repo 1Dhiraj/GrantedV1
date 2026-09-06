@@ -9,11 +9,11 @@ import type { Update } from "grammy/types";
 import {
   closeOpenClawStateDatabaseForTest,
   createChannelIngressQueueForTests as createChannelIngressQueue,
-} from "openclaw/plugin-sdk/channel-ingress-test-runtime";
-import { DEFAULT_INGRESS_ADOPTION_STALL_MS } from "openclaw/plugin-sdk/channel-outbound";
+} from "granted/plugin-sdk/channel-ingress-test-runtime";
+import { DEFAULT_INGRESS_ADOPTION_STALL_MS } from "granted/plugin-sdk/channel-outbound";
 // Telegram tests cover webhook plugin behavior.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
-import { WEBHOOK_RATE_LIMIT_DEFAULTS } from "openclaw/plugin-sdk/webhook-ingress";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
+import { WEBHOOK_RATE_LIMIT_DEFAULTS } from "granted/plugin-sdk/webhook-ingress";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { buildTelegramApprovalCallbackData } from "./approval-callback-data.js";
 import {

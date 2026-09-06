@@ -1,17 +1,17 @@
 import {
   resolveAgentConfig,
   resolveDefaultAgentId as resolveConfiguredDefaultAgentId,
-} from "openclaw/plugin-sdk/agent-scope-runtime";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import { enqueueKeyedTask } from "openclaw/plugin-sdk/keyed-async-queue";
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
-import { readFiniteNumberParam, readPositiveIntegerParam } from "openclaw/plugin-sdk/param-readers";
-import { resolveLivePluginConfigObject } from "openclaw/plugin-sdk/plugin-config-runtime";
-import { isIncognitoSessionKey, normalizeAgentId } from "openclaw/plugin-sdk/routing";
-import { asOptionalRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-utility-runtime";
-import { textResult } from "openclaw/plugin-sdk/tool-results";
+} from "granted/plugin-sdk/agent-scope-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
+import { enqueueKeyedTask } from "granted/plugin-sdk/keyed-async-queue";
+import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
+import { readFiniteNumberParam, readPositiveIntegerParam } from "granted/plugin-sdk/param-readers";
+import { resolveLivePluginConfigObject } from "granted/plugin-sdk/plugin-config-runtime";
+import { isIncognitoSessionKey, normalizeAgentId } from "granted/plugin-sdk/routing";
+import { asOptionalRecord } from "granted/plugin-sdk/string-coerce-runtime";
+import { truncateUtf16Safe } from "granted/plugin-sdk/text-utility-runtime";
+import { textResult } from "granted/plugin-sdk/tool-results";
 import { Type } from "typebox";
 import { definePluginEntry, type GrantedPluginApi } from "./api.js";
 import { createAutoRecallHook } from "./auto-recall.js";
@@ -46,7 +46,7 @@ import {
 } from "./memory-policy.js";
 
 const loadMemoryHostCoreModule = createLazyRuntimeModule(
-  () => import("openclaw/plugin-sdk/memory-host-core"),
+  () => import("granted/plugin-sdk/memory-host-core"),
 );
 
 const DEFAULT_TOOL_RECALL_TIMEOUT_MS = 15_000;

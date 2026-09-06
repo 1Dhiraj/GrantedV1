@@ -5,12 +5,12 @@ import {
   createMigrationItem,
   MIGRATION_REASON_TARGET_EXISTS,
   summarizeMigrationItems,
-} from "openclaw/plugin-sdk/migration";
+} from "granted/plugin-sdk/migration";
 import type {
   MigrationItem,
   MigrationPlan,
   MigrationProviderContext,
-} from "openclaw/plugin-sdk/plugin-entry";
+} from "granted/plugin-sdk/plugin-entry";
 import type { HermesSource } from "./source.js";
 import { resolveTargets } from "./targets.js";
 

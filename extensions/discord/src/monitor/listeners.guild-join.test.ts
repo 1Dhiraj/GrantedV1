@@ -4,7 +4,7 @@ import {
   type APIMessage,
   type GatewayGuildCreateDispatchData,
 } from "discord-api-types/v10";
-import { reportChannelRoomJoin } from "openclaw/plugin-sdk/channel-join-intro-runtime";
+import { reportChannelRoomJoin } from "granted/plugin-sdk/channel-join-intro-runtime";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { Client } from "../internal/discord.js";
 import { DiscordGuildJoinIntroductionListener } from "./listeners.guild-join.js";
@@ -21,12 +21,12 @@ const mocks = vi.hoisted(() => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/channel-join-intro-runtime", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("openclaw/plugin-sdk/channel-join-intro-runtime")>()),
+  ...(await importOriginal<typeof import("granted/plugin-sdk/channel-join-intro-runtime")>()),
   reportChannelRoomJoin: mocks.reportChannelRoomJoin,
 }));
 
 vi.mock("openclaw/plugin-sdk/routing", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("openclaw/plugin-sdk/routing")>()),
+  ...(await importOriginal<typeof import("granted/plugin-sdk/routing")>()),
   resolveAgentRoute: mocks.resolveAgentRoute,
 }));
 

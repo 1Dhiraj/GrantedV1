@@ -1,8 +1,8 @@
 // Discord plugin module implements rest errors behavior.
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import { redactIdentifier, redactSensitiveFieldValue } from "openclaw/plugin-sdk/logging-core";
-import { parseStrictNonNegativeInteger } from "openclaw/plugin-sdk/number-runtime";
-import { parseRetryAfterHeaderSeconds } from "openclaw/plugin-sdk/retry-runtime";
+import { formatErrorMessage } from "granted/plugin-sdk/error-runtime";
+import { redactIdentifier, redactSensitiveFieldValue } from "granted/plugin-sdk/logging-core";
+import { parseStrictNonNegativeInteger } from "granted/plugin-sdk/number-runtime";
+import { parseRetryAfterHeaderSeconds } from "granted/plugin-sdk/retry-runtime";
 import { parseDiscordRetryAfterBodySeconds } from "../retry-after.js";
 
 const DISCORD_UNKNOWN_VOICE_STATE = 10065;

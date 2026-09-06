@@ -3,4 +3,4 @@ export {
   definePluginEntry,
   type GrantedPluginApi,
   type GrantedPluginService,
-} from "openclaw/plugin-sdk/plugin-entry";
+} from "granted/plugin-sdk/plugin-entry";

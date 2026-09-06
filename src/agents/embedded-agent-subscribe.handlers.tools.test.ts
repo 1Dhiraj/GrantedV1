@@ -1,7 +1,7 @@
-import type { AgentEvent } from "openclaw/plugin-sdk/agent-core";
+import type { AgentEvent } from "granted/plugin-sdk/agent-core";
 // Tool handler tests cover tool lifecycle events, read-path diagnostics,
 // messaging tool capture, approvals, and emitted summaries.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { createDeferred } from "../../test/helpers/promise.js";
 import {

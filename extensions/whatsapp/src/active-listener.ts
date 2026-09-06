@@ -1,5 +1,5 @@
 // Whatsapp plugin module implements active listener behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
 import { resolveDefaultWhatsAppAccountId } from "./account-ids.js";
 import { getWhatsAppConnectionController } from "./connection-controller-runtime-context.js";
 import type { ActiveWebListener } from "./inbound/types.js";

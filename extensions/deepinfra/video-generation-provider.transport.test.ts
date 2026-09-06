@@ -1,6 +1,6 @@
 import { createServer, type IncomingMessage, type ServerResponse } from "node:http";
 import { connect, type AddressInfo } from "node:net";
-import { withEnvAsync, withServer } from "openclaw/plugin-sdk/test-env";
+import { withEnvAsync, withServer } from "granted/plugin-sdk/test-env";
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 
 const resolveApiKeyForProviderMock = vi.hoisted(() =>

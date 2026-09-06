@@ -1,12 +1,12 @@
 import {
   pinExecToolTarget,
   type CodexScheduledToolProjectionFactory,
-} from "openclaw/plugin-sdk/codex-mcp-projection";
+} from "granted/plugin-sdk/codex-mcp-projection";
 import type { CodexPluginConfig } from "./config.js";
 import { normalizeCodexDynamicToolName } from "./dynamic-tool-profile.js";
 
 type GrantedCodingToolsFactory =
-  (typeof import("openclaw/plugin-sdk/agent-harness"))["createOpenClawCodingTools"];
+  (typeof import("granted/plugin-sdk/agent-harness"))["createOpenClawCodingTools"];
 type GrantedDynamicTool = ReturnType<GrantedCodingToolsFactory>[number];
 
 export const CODEX_NODE_EXEC_DYNAMIC_TOOL_NAME = "node_exec";

@@ -3,8 +3,8 @@ import path from "node:path";
 import {
   createPluginRegistryFixture,
   registerVirtualTestPlugin,
-} from "openclaw/plugin-sdk/plugin-test-contracts";
-import { createOpenClawTestState } from "openclaw/plugin-sdk/test-state";
+} from "granted/plugin-sdk/plugin-test-contracts";
+import { createOpenClawTestState } from "granted/plugin-sdk/test-state";
 import { describe, expect, it, vi } from "vitest";
 import canvasPlugin from "../../../../extensions/canvas/index.js";
 import type { GrantedConfig } from "../../../../src/config/types.openclaw.js";

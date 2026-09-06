@@ -1,6 +1,6 @@
 // Xai tests cover tool auth shared plugin behavior.
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { NON_ENV_SECRETREF_MARKER } from "openclaw/plugin-sdk/provider-auth-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { NON_ENV_SECRETREF_MARKER } from "granted/plugin-sdk/provider-auth-runtime";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   isXaiToolEnabled,

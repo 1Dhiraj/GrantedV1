@@ -285,7 +285,7 @@ vi.mock("openclaw/plugin-sdk/provider-http", async (importActual) => ({
   assertOkOrThrowHttpError: providerHttpMocks.assertOkOrThrowHttpErrorMock,
   assertOkOrThrowProviderError: providerHttpMocks.assertOkOrThrowProviderErrorMock,
   assertProviderBinaryResponseContent: (
-    await importActual<typeof import("openclaw/plugin-sdk/provider-http")>()
+    await importActual<typeof import("granted/plugin-sdk/provider-http")>()
   ).assertProviderBinaryResponseContent,
   createProviderOperationDeadline: ({
     label,

@@ -1,8 +1,8 @@
 // Qa Lab plugin module implements model catalog behavior.
 import fs from "node:fs/promises";
 import path from "node:path";
-import { runCommandWithTimeout } from "openclaw/plugin-sdk/process-runtime";
-import { resolvePreferredOpenClawTmpDir } from "openclaw/plugin-sdk/temp-path";
+import { runCommandWithTimeout } from "granted/plugin-sdk/process-runtime";
+import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
 import { QA_CHILD_STDERR_TAIL_BYTES, QA_CHILD_STDOUT_MAX_BYTES } from "./child-output.js";
 import { splitQaModelRef } from "./model-selection.js";
 import { resolveQaNodeExecPath } from "./node-exec.js";

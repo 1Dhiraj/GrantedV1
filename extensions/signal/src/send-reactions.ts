@@ -2,8 +2,8 @@
  * Signal reactions via signal-cli JSON-RPC API
  */
 
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { requireRuntimeConfig } from "openclaw/plugin-sdk/plugin-config-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { requireRuntimeConfig } from "granted/plugin-sdk/plugin-config-runtime";
 import { resolveSignalAccount } from "./accounts.js";
 import { signalRpcRequest, type SignalTransportKind } from "./client-adapter.js";
 import { normalizeSignalReactionRecipient } from "./normalize.js";

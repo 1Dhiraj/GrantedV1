@@ -1,6 +1,6 @@
 // Tlon plugin module implements cites behavior.
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime";
-import { asNullableRecord as asRecord } from "openclaw/plugin-sdk/string-coerce-runtime";
+import type { RuntimeEnv } from "granted/plugin-sdk/runtime";
+import { asNullableRecord as asRecord } from "granted/plugin-sdk/string-coerce-runtime";
 import { extractCites, extractMessageText, type ParsedCite } from "./utils.js";
 
 type TlonScryApi = {

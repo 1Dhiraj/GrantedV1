@@ -1,6 +1,6 @@
-import type { StreamFn } from "openclaw/plugin-sdk/agent-core";
+import type { StreamFn } from "granted/plugin-sdk/agent-core";
 // Moonshot tests cover moonshot plugin behavior.
-import { toErrorObject as toLintErrorObject } from "openclaw/plugin-sdk/error-runtime";
+import { toErrorObject as toLintErrorObject } from "granted/plugin-sdk/error-runtime";
 import {
   streamSimple,
   type AssistantMessage,
@@ -8,9 +8,9 @@ import {
   type Model,
   type ProviderContext,
   type Tool,
-} from "openclaw/plugin-sdk/llm";
-import { registerSingleProviderPlugin } from "openclaw/plugin-sdk/plugin-test-runtime";
-import { isLiveTestEnabled } from "openclaw/plugin-sdk/test-live";
+} from "granted/plugin-sdk/llm";
+import { registerSingleProviderPlugin } from "granted/plugin-sdk/plugin-test-runtime";
+import { isLiveTestEnabled } from "granted/plugin-sdk/test-live";
 import { Type } from "typebox";
 import { describe, expect, it } from "vitest";
 import plugin from "./index.js";

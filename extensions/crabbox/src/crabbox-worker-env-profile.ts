@@ -1,7 +1,7 @@
 import { mkdtemp, rm, writeFile } from "node:fs/promises";
 import { join } from "node:path";
-import { WorkerProviderError } from "openclaw/plugin-sdk/plugin-entry";
-import { resolvePreferredOpenClawTmpDir } from "openclaw/plugin-sdk/temp-path";
+import { WorkerProviderError } from "granted/plugin-sdk/plugin-entry";
+import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
 
 export async function withCrabboxWorkerEnvProfile<Result>(
   values: Record<string, string> | undefined,

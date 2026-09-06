@@ -9,7 +9,7 @@ import { createWorkboardSqliteStores } from "./sqlite-store.js";
 const sqliteStatements = vi.hoisted(() => ({ count: 0 }));
 
 vi.mock("openclaw/plugin-sdk/sqlite-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/sqlite-runtime")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/sqlite-runtime")>();
   return {
     ...actual,
     openNodeSqliteDatabase: (...args: Parameters<typeof actual.openNodeSqliteDatabase>) => {

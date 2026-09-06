@@ -2,11 +2,11 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import type { WhatsAppQaDriverSession } from "@openclaw/whatsapp/api.js";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { toStringifiedError } from "openclaw/plugin-sdk/error-runtime";
-import { buildQaTarget } from "openclaw/plugin-sdk/qa-channel-protocol";
-import type { QaRunnerCliRegistration } from "openclaw/plugin-sdk/qa-runner-runtime";
-import { resolvePreferredOpenClawTmpDir } from "openclaw/plugin-sdk/temp-path";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { toStringifiedError } from "granted/plugin-sdk/error-runtime";
+import { buildQaTarget } from "granted/plugin-sdk/qa-channel-protocol";
+import type { QaRunnerCliRegistration } from "granted/plugin-sdk/qa-runner-runtime";
+import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
 import {
   acquireQaCredentialLease,
   startQaCredentialLeaseHeartbeat,

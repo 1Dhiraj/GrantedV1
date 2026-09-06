@@ -1,26 +1,26 @@
 // Irc plugin module implements channel behavior.
-import { describeAccountSnapshot } from "openclaw/plugin-sdk/account-helpers";
-import { formatNormalizedAllowFromEntries } from "openclaw/plugin-sdk/allow-from";
+import { describeAccountSnapshot } from "granted/plugin-sdk/account-helpers";
+import { formatNormalizedAllowFromEntries } from "granted/plugin-sdk/allow-from";
 import {
   adaptScopedAccountAccessor,
   createScopedChannelConfigAdapter,
   createScopedDmSecurityResolver,
-} from "openclaw/plugin-sdk/channel-config-helpers";
-import { createChatChannelPlugin } from "openclaw/plugin-sdk/channel-core";
-import { identityEntryAuthenticationClassifier } from "openclaw/plugin-sdk/channel-ingress-runtime";
+} from "granted/plugin-sdk/channel-config-helpers";
+import { createChatChannelPlugin } from "granted/plugin-sdk/channel-core";
+import { identityEntryAuthenticationClassifier } from "granted/plugin-sdk/channel-ingress-runtime";
 import {
   createAllowlistProviderOpenWarningCollector,
   createConditionalWarningCollector,
-} from "openclaw/plugin-sdk/channel-policy";
+} from "granted/plugin-sdk/channel-policy";
 import {
   createChannelDirectoryAdapter,
   createResolvedDirectoryEntriesLister,
-} from "openclaw/plugin-sdk/directory-runtime";
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
+} from "granted/plugin-sdk/directory-runtime";
+import { createLazyRuntimeModule } from "granted/plugin-sdk/lazy-runtime";
 import {
   createComputedAccountStatusAdapter,
   createDefaultChannelRuntimeState,
-} from "openclaw/plugin-sdk/status-helpers";
+} from "granted/plugin-sdk/status-helpers";
 import {
   listIrcAccountIds,
   resolveDefaultIrcAccountId,

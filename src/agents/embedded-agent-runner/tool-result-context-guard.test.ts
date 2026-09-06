@@ -2,8 +2,8 @@
 // prechecks, and context-engine loop hooks for oversized tool outputs.
 
 import { expectDefined } from "@openclaw/normalization-core";
-import { Agent, type AgentMessage } from "openclaw/plugin-sdk/agent-core";
-import { createAssistantMessageEventStream, type Message } from "openclaw/plugin-sdk/llm";
+import { Agent, type AgentMessage } from "granted/plugin-sdk/agent-core";
+import { createAssistantMessageEventStream, type Message } from "granted/plugin-sdk/llm";
 import { Type } from "typebox";
 import { describe, expect, it, vi } from "vitest";
 import type { ContextEngine, ContextEngineRuntimeSettings } from "../../context-engine/types.js";

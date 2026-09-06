@@ -1,5 +1,5 @@
 /** Lazy store facade that keeps binding schema/auth code off plugin startup. */
-import type { PluginStateSyncKeyedStore } from "openclaw/plugin-sdk/plugin-state-runtime";
+import type { PluginStateSyncKeyedStore } from "granted/plugin-sdk/plugin-state-runtime";
 import {
   createCodexManagedThreadStore,
   type CodexManagedThreadStore,

@@ -2,7 +2,7 @@
 import { randomUUID } from "node:crypto";
 import { chmod, mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
-import { resolvePreferredOpenClawTmpDir } from "openclaw/plugin-sdk/temp-path";
+import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
 import { runMatrixQaOpenClawCli, startMatrixQaOpenClawCli } from "./scenario-runtime-cli.js";
 import {
   assertMatrixQaPrivatePathMode,

@@ -1,10 +1,10 @@
 // Telegram plugin module implements bot.create telegram bot harness behavior.
 import { existsSync, readdirSync, rmSync } from "node:fs";
 import path from "node:path";
-import { buildChannelInboundEventContext } from "openclaw/plugin-sdk/channel-inbound";
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import type { MockFn } from "openclaw/plugin-sdk/plugin-test-runtime";
-import type { GetReplyOptions, MsgContext } from "openclaw/plugin-sdk/reply-runtime";
+import { buildChannelInboundEventContext } from "granted/plugin-sdk/channel-inbound";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import type { MockFn } from "granted/plugin-sdk/plugin-test-runtime";
+import type { GetReplyOptions, MsgContext } from "granted/plugin-sdk/reply-runtime";
 import { beforeEach, vi } from "vitest";
 import type { TelegramBotDeps } from "./bot-deps.js";
 import { runTelegramChannelInboundEventWithHarness } from "./bot.test-helpers.js";
@@ -13,18 +13,18 @@ type AnyMock = ReturnType<typeof vi.fn>;
 type AnyAsyncMock = ReturnType<typeof vi.fn<(...args: unknown[]) => Promise<unknown>>>;
 type TelegramBotRuntimeForTest = typeof import("./bot.runtime.js");
 type GetRuntimeConfigFn =
-  typeof import("openclaw/plugin-sdk/runtime-config-snapshot").getRuntimeConfig;
-type GetSessionEntryFn = typeof import("openclaw/plugin-sdk/session-store-runtime").getSessionEntry;
+  typeof import("granted/plugin-sdk/runtime-config-snapshot").getRuntimeConfig;
+type GetSessionEntryFn = typeof import("granted/plugin-sdk/session-store-runtime").getSessionEntry;
 type ResolveStorePathFn =
-  typeof import("openclaw/plugin-sdk/session-store-runtime").resolveStorePath;
+  typeof import("granted/plugin-sdk/session-store-runtime").resolveStorePath;
 type ReadSessionUpdatedAtFn =
-  typeof import("openclaw/plugin-sdk/session-store-runtime").readSessionUpdatedAt;
-type SessionEntry = import("openclaw/plugin-sdk/session-store-runtime").SessionEntry;
+  typeof import("granted/plugin-sdk/session-store-runtime").readSessionUpdatedAt;
+type SessionEntry = import("granted/plugin-sdk/session-store-runtime").SessionEntry;
 type SessionStore = Record<string, SessionEntry>;
 type LoadSessionStoreFn = (storePath?: string, opts?: unknown) => SessionStore;
 type ResolveTelegramApprovalForTest = NonNullable<TelegramBotDeps["resolveApproval"]>;
 type DispatchReplyWithBufferedBlockDispatcherFn =
-  typeof import("openclaw/plugin-sdk/reply-dispatch-runtime").dispatchReplyWithBufferedBlockDispatcher;
+  typeof import("granted/plugin-sdk/reply-dispatch-runtime").dispatchReplyWithBufferedBlockDispatcher;
 type DispatchReplyWithBufferedBlockDispatcherResult = Awaited<
   ReturnType<DispatchReplyWithBufferedBlockDispatcherFn>
 >;
@@ -199,7 +199,7 @@ vi.mock("../../../src/auto-reply/reply/provider-dispatcher.js", () => ({
     dispatchReplyHoisted.dispatchReplyWithBufferedBlockDispatcher,
 }));
 vi.mock("openclaw/plugin-sdk/channel-inbound", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/channel-inbound")>();
+  const actual = await importOriginal<typeof import("granted/plugin-sdk/channel-inbound")>();
   return {
     ...actual,
     runChannelInboundEvent: async (params: Parameters<typeof actual.runChannelInboundEvent>[0]) =>

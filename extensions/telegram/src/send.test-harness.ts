@@ -1,11 +1,11 @@
 // Telegram plugin module implements send harness behavior.
 import type { Bot } from "grammy";
-import { resolveMarkdownTableMode } from "openclaw/plugin-sdk/markdown-table-runtime";
+import { resolveMarkdownTableMode } from "granted/plugin-sdk/markdown-table-runtime";
 import {
   buildOutboundMediaLoadOptions,
   normalizePollInput,
-} from "openclaw/plugin-sdk/media-runtime";
-import type { MockFn } from "openclaw/plugin-sdk/plugin-test-runtime";
+} from "granted/plugin-sdk/media-runtime";
+import type { MockFn } from "granted/plugin-sdk/plugin-test-runtime";
 import { beforeEach, vi } from "vitest";
 import { markdownToTelegramHtml } from "./format.js";
 import { inputRichBlocksToPlainText, type InputRichBlock } from "./rich-block-model.js";
@@ -202,7 +202,7 @@ vi.mock("undici", async () => {
 });
 
 vi.mock("openclaw/plugin-sdk/plugin-config-runtime", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/plugin-config-runtime")>(
+  const actual = await vi.importActual<typeof import("granted/plugin-sdk/plugin-config-runtime")>(
     "openclaw/plugin-sdk/plugin-config-runtime",
   );
   return {

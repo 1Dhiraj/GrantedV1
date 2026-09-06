@@ -1,4 +1,4 @@
-import { defineSingleProviderPluginEntry } from "openclaw/plugin-sdk/provider-entry";
+import { defineSingleProviderPluginEntry } from "granted/plugin-sdk/provider-entry";
 import {
   applyMistralModelCompat,
   MISTRAL_MEDIUM_3_5_ID,

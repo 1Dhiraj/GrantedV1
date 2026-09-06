@@ -4,8 +4,8 @@ import path from "node:path";
 import type {
   CodexBundleMcpThreadConfig,
   EmbeddedRunAttemptParamsV2 as EmbeddedRunAttemptParams,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
-import { createPluginRuntimeMock } from "openclaw/plugin-sdk/plugin-test-runtime";
+} from "granted/plugin-sdk/agent-harness-runtime";
+import { createPluginRuntimeMock } from "granted/plugin-sdk/plugin-test-runtime";
 import { expect, vi } from "vitest";
 import type { startCodexAttemptThread } from "./attempt-startup.js";
 import { withEphemeralCodexAuthStore } from "./auth-start-options.js";

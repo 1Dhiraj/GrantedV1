@@ -107,7 +107,7 @@ describe("package git fixture", () => {
     expect(packageJson.bundleDependencies).toEqual(["chalk"]);
     expect(packageJson.scripts).toEqual({
       build: "node build.mjs",
-      openclaw: "node openclaw.mjs",
+      openclaw: "node granted.mjs",
     });
     const relocatedAiPackage = JSON.parse(
       readFileSync(path.join(root, ".openclaw-fixture", "packages", "ai", "package.json"), "utf8"),
@@ -169,7 +169,7 @@ describe("package git fixture", () => {
     const packageJson = JSON.parse(readFileSync(path.join(root, "package.json"), "utf8"));
     expect(packageJson.scripts).toEqual({
       lint: "node lint.mjs",
-      openclaw: "node openclaw.mjs",
+      openclaw: "node granted.mjs",
     });
     expect(packageJson.dependencies).not.toHaveProperty("@openclaw/ai");
   });

@@ -3,22 +3,22 @@
  * and direct messages.
  */
 import { createHash } from "node:crypto";
-import { resolveChannelMediaMaxBytes } from "openclaw/plugin-sdk/account-helpers";
+import { resolveChannelMediaMaxBytes } from "granted/plugin-sdk/account-helpers";
 import {
   createMessageReceiptFromOutboundResults,
   type ChannelMessageUnknownSendContext,
   type ChannelMessageUnknownSendReconciliationResult,
-} from "openclaw/plugin-sdk/channel-outbound";
-import { extensionForMime } from "openclaw/plugin-sdk/media-mime";
+} from "granted/plugin-sdk/channel-outbound";
+import { extensionForMime } from "granted/plugin-sdk/media-mime";
 import {
   loadOutboundMediaFromUrl,
   type OutboundMediaLoadOptions,
-} from "openclaw/plugin-sdk/outbound-media";
+} from "granted/plugin-sdk/outbound-media";
 import {
   FormatCapabilityProfile,
   renderMarkdownWithMarkers,
   sanitizeAssistantVisibleText,
-} from "openclaw/plugin-sdk/text-chunking";
+} from "granted/plugin-sdk/text-chunking";
 import { resolveClickClackAccount } from "./accounts.js";
 import { createClickClackClient, type ClickClackClient } from "./http-client.js";
 import { resolveChannelId, resolveWorkspaceId } from "./resolve.js";

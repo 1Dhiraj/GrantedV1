@@ -1,6 +1,6 @@
 // Tool-result char estimator tests cover malformed transcript blocks and cached
 // character estimates used by context pressure guards.
-import type { AgentMessage } from "openclaw/plugin-sdk/agent-core";
+import type { AgentMessage } from "granted/plugin-sdk/agent-core";
 import { describe, expect, it } from "vitest";
 import {
   createMessageCharEstimateCache,

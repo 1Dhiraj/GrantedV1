@@ -1,5 +1,5 @@
 // Fal tests cover music generation provider plugin behavior.
-import { expectExplicitMusicGenerationCapabilities } from "openclaw/plugin-sdk/provider-test-contracts";
+import { expectExplicitMusicGenerationCapabilities } from "granted/plugin-sdk/provider-test-contracts";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { buildFalMusicGenerationProvider } from "./music-generation-provider.js";
 
@@ -29,7 +29,7 @@ vi.mock("openclaw/plugin-sdk/provider-auth-runtime", () => ({
 }));
 
 vi.mock("openclaw/plugin-sdk/provider-http", async (importOriginal) => {
-  const original = await importOriginal<typeof import("openclaw/plugin-sdk/provider-http")>();
+  const original = await importOriginal<typeof import("granted/plugin-sdk/provider-http")>();
   return {
     ...original,
     assertOkOrThrowHttpError: assertOkOrThrowHttpErrorMock,

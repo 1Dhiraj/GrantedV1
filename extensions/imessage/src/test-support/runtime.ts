@@ -4,16 +4,16 @@ import path from "node:path";
 import type {
   OpenKeyedStoreOptions,
   PluginStateSyncKeyedStore,
-} from "openclaw/plugin-sdk/plugin-state-runtime";
+} from "granted/plugin-sdk/plugin-state-runtime";
 import {
   closeOpenClawStateDatabaseForTest,
   createChannelIngressQueueForTests,
   createPluginStateKeyedStoreForTests,
   createPluginStateSyncKeyedStoreForTests,
   resetPluginStateStoreForTests,
-} from "openclaw/plugin-sdk/plugin-state-test-runtime";
-import type { PluginRuntime } from "openclaw/plugin-sdk/runtime-store";
-import { resolvePreferredOpenClawTmpDir } from "openclaw/plugin-sdk/temp-path";
+} from "granted/plugin-sdk/plugin-state-test-runtime";
+import type { PluginRuntime } from "granted/plugin-sdk/runtime-store";
+import { resolvePreferredOpenClawTmpDir } from "granted/plugin-sdk/temp-path";
 import { vi } from "vitest";
 import { setIMessageRuntime } from "../runtime.js";
 

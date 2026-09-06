@@ -1,6 +1,6 @@
 // Xai helper module supports test helpers behavior.
-import type { StreamFn } from "openclaw/plugin-sdk/agent-core";
-import type { Context, Model } from "openclaw/plugin-sdk/llm";
+import type { StreamFn } from "granted/plugin-sdk/agent-core";
+import type { Context, Model } from "granted/plugin-sdk/llm";
 import { expect } from "vitest";
 
 type XaiToolPayloadFunction = {

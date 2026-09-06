@@ -1,8 +1,8 @@
-import type { GrantedConfig } from "openclaw/plugin-sdk/config-contracts";
-import { makeProxyFetch } from "openclaw/plugin-sdk/fetch-runtime";
-import { danger } from "openclaw/plugin-sdk/runtime-env";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/string-coerce-runtime";
+import type { GrantedConfig } from "granted/plugin-sdk/config-contracts";
+import { makeProxyFetch } from "granted/plugin-sdk/fetch-runtime";
+import { danger } from "granted/plugin-sdk/runtime-env";
+import type { RuntimeEnv } from "granted/plugin-sdk/runtime-env";
+import { normalizeOptionalString } from "granted/plugin-sdk/string-coerce-runtime";
 import type { ResolvedDiscordAccount } from "./accounts.js";
 
 function resolveDiscordProxyUrl(

@@ -4,7 +4,7 @@ import {
   embeddedAgentLog,
   formatErrorMessage,
   resolveAgentHarnessBeforePromptBuildResult,
-} from "openclaw/plugin-sdk/agent-harness-runtime";
+} from "granted/plugin-sdk/agent-harness-runtime";
 import {
   buildCodexSystemPromptReport,
   prependCodexOpenClawPromptContext,

@@ -1,5 +1,5 @@
 // Google plugin module implements transport stream behavior.
-import type { StreamFn } from "openclaw/plugin-sdk/agent-core";
+import type { StreamFn } from "granted/plugin-sdk/agent-core";
 import {
   calculateCost,
   getEnvApiKey,
@@ -13,17 +13,17 @@ import {
   type SimpleStreamOptions,
   type ThinkingLevel,
   type VideoContent,
-} from "openclaw/plugin-sdk/llm";
-import { parseStrictNonNegativeInteger } from "openclaw/plugin-sdk/number-runtime";
+} from "granted/plugin-sdk/llm";
+import { parseStrictNonNegativeInteger } from "granted/plugin-sdk/number-runtime";
 import {
   collectProviderApiKeysForExecution,
   executeWithApiKeyRotation,
-} from "openclaw/plugin-sdk/provider-auth-runtime";
+} from "granted/plugin-sdk/provider-auth-runtime";
 import {
   createProviderHttpError,
   providerOperationRetryConfig,
   resolveProviderRequestHeaders,
-} from "openclaw/plugin-sdk/provider-http";
+} from "granted/plugin-sdk/provider-http";
 import {
   buildGuardedModelFetch,
   coerceTransportToolCallArguments,
@@ -40,12 +40,12 @@ import {
   stripSystemPromptCacheBoundary,
   transformTransportMessages,
   type WritableTransportStream,
-} from "openclaw/plugin-sdk/provider-transport-runtime";
+} from "granted/plugin-sdk/provider-transport-runtime";
 import {
   isRecord,
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
-} from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/string-coerce-runtime";
 import { parseGeminiAuth } from "./gemini-auth.js";
 import { stripGoogleProviderPrefix } from "./model-id.js";
 import { isGoogleNativeVideoModelId } from "./provider-models.js";

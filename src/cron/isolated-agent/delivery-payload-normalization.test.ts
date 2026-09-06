@@ -1,5 +1,5 @@
 import { randomUUID } from "node:crypto";
-import type { AssistantMessage } from "openclaw/plugin-sdk/llm";
+import type { AssistantMessage } from "granted/plugin-sdk/llm";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { buildPayloads } from "../../agents/embedded-agent-runner/run/payloads.test-helpers.js";
 import {

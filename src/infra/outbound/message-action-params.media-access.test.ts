@@ -3,7 +3,7 @@ import os from "node:os";
 import path from "node:path";
 // Covers message-action media hydration, sandbox path normalization,
 // attachments, and channel/plugin media source aliases.
-import { createRequireRecord } from "openclaw/plugin-sdk/test-fixtures";
+import { createRequireRecord } from "granted/plugin-sdk/test-fixtures";
 import { Type } from "typebox";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { jsonResult } from "../../agents/tools/common.js";

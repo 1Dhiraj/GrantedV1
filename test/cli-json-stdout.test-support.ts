@@ -19,7 +19,7 @@ export function runBuiltCli(
   delete env.VITEST;
   Object.assign(env, envOverrides);
 
-  const entry = path.resolve(process.cwd(), "openclaw.mjs");
+  const entry = path.resolve(process.cwd(), "granted.mjs");
   return spawnSync(process.execPath, [entry, ...args], {
     cwd: process.cwd(),
     env,

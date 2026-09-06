@@ -2,19 +2,19 @@
 import fsSync from "node:fs";
 import path from "node:path";
 import chokidar from "chokidar";
-import { isPathInside } from "openclaw/plugin-sdk/file-access-runtime";
-import { classifyMemoryMultimodalPath } from "openclaw/plugin-sdk/memory-core-host-engine-embeddings";
+import { isPathInside } from "granted/plugin-sdk/file-access-runtime";
+import { classifyMemoryMultimodalPath } from "granted/plugin-sdk/memory-core-host-engine-embeddings";
 import {
   createSubsystemLogger,
   type ResolvedMemorySearchConfig,
-} from "openclaw/plugin-sdk/memory-core-host-engine-foundation";
+} from "granted/plugin-sdk/memory-core-host-engine-foundation";
 import {
   isFileMissingError,
   matchesExtraMemoryPathEntry,
   normalizeExtraMemoryPathEntries,
-} from "openclaw/plugin-sdk/memory-core-host-engine-storage";
-import { resolveTimerTimeoutMs } from "openclaw/plugin-sdk/number-runtime";
-import { normalizeLowercaseStringOrEmpty } from "openclaw/plugin-sdk/string-coerce-runtime";
+} from "granted/plugin-sdk/memory-core-host-engine-storage";
+import { resolveTimerTimeoutMs } from "granted/plugin-sdk/number-runtime";
+import { normalizeLowercaseStringOrEmpty } from "granted/plugin-sdk/string-coerce-runtime";
 import { MemoryManagerSyncBase } from "./manager-sync-base.js";
 import {
   countChokidarWatchedEntries,

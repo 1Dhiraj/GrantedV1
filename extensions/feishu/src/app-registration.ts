@@ -1,6 +1,6 @@
 // Feishu plugin module implements app registration behavior.
-import { finiteSecondsToTimerSafeMilliseconds } from "openclaw/plugin-sdk/number-runtime";
-import { sleepWithAbort } from "openclaw/plugin-sdk/runtime-env";
+import { finiteSecondsToTimerSafeMilliseconds } from "granted/plugin-sdk/number-runtime";
+import { sleepWithAbort } from "granted/plugin-sdk/runtime-env";
 /**
  * Feishu app registration via OAuth device-code flow.
  *
@@ -8,7 +8,7 @@ import { sleepWithAbort } from "openclaw/plugin-sdk/runtime-env";
  * Replaces axios with native fetch, removes inquirer/ora/chalk in favor of
  * the openclaw WizardPrompter surface.
  */
-import { fetchWithSsrFGuard, type LookupFn } from "openclaw/plugin-sdk/ssrf-runtime";
+import { fetchWithSsrFGuard, type LookupFn } from "granted/plugin-sdk/ssrf-runtime";
 import { readFeishuJsonResponse } from "./json-response.js";
 import { renderQrTerminal } from "./qr-terminal.js";
 import type { FeishuDomain } from "./types.js";
